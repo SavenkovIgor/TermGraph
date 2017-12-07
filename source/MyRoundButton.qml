@@ -1,0 +1,86 @@
+import QtQuick 2.0
+import QtQuick.Controls 2.2
+import QtQuick.Window 2.3
+
+RoundButton {
+    id: roundBtn
+    function loadIcon( nameUrl ) {
+        var sz = width - ( 2*padding ); //need icon width
+        var pref = ""
+        //8 16 24 32 48 64 sizes
+        //8  ""
+        //16 "-2x"
+        //24 "-3x"
+        //32 "-4x"
+        //48 "-6x"
+        //64 "-8x"
+
+        //Middles:
+        //8  - 16: 12
+        //16 - 24: 20
+        //24 - 32: 28
+        //32 - 48: 40
+        //48 - 64: 56
+
+        if( sz <= 12 )
+            pref = ""
+        else if ( 12 < sz && sz <= 20 )
+            pref = "-2x"
+        else if ( 20 < sz && sz <= 28 )
+            pref = "-3x"
+        else if ( 28 < sz && sz <= 40 )
+            pref = "-4x"
+        else if ( 40 < sz && sz <= 56 )
+            pref = "-6x"
+        else if ( 56 < sz )
+            pref = "-8x"
+
+        iconImg.width  = Math.floor(sz)
+        iconImg.height = Math.floor(sz)
+
+        console.log(iconImg.width)
+        console.log(iconImg.height)
+
+        iconImg.source = nameUrl + pref + ".png"
+    }
+
+    function hideBack() {
+        back.color = "#00000000"
+    }
+
+    anchors.margins: 30
+    z: 1
+
+    background: Rectangle{
+        id: back
+        radius: width/2
+        color: {
+            if( roundBtn.checkable == true ) {
+                if( roundBtn.checked ) {
+                    border.width = 1
+                    return "#bababa"
+                } else {
+                    border.width = 0
+                    return "#00000000"
+                }
+
+            }
+
+            return "#d4d4d4"
+        }
+    }
+
+    width:  mainObj.getUiElementSize("roundButton")*Screen.pixelDensity
+    height: mainObj.getUiElementSize("roundButton")*Screen.pixelDensity
+
+    implicitWidth: width
+    implicitHeight: height
+
+    padding: 0.27*width
+
+    contentItem: Image {
+        id: iconImg
+        anchors.centerIn: parent
+    }
+
+}
