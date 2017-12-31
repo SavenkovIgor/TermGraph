@@ -7,18 +7,18 @@ WordFreqAnalyze::WordFreqAnalyze(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    view  = new QtCharts::QChartView();
-    chart = new QtCharts::QChart();
+//    view  = new QtCharts::QChartView();
+//    chart = new QtCharts::QChart();
 
-    chart->setTitle("Частота встречаемости слов");
-    chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
-    chart->legend()->hide();
+//    chart->setTitle("Частота встречаемости слов");
+//    chart->setAnimationOptions(QtCharts::QChart::SeriesAnimations);
+//    chart->legend()->hide();
 
-    view->setChart(chart);
+//    view->setChart(chart);
 
-    ui->statLayout->addWidget( view );
+//    ui->statLayout->addWidget( view );
 
-    connect(ui->analyzeBtn,SIGNAL(clicked(bool)),SLOT(makeAnalyze()));
+//    connect(ui->analyzeBtn,SIGNAL(clicked(bool)),SLOT(makeAnalyze()));
 
 }
 
@@ -27,22 +27,22 @@ WordFreqAnalyze::~WordFreqAnalyze()
     delete ui;
 }
 
-WrdStat WordFreqAnalyze::makeWordStat( QString txt )
-{
-    txt = dropSideSyms( txt );
-    QStringList txtList = txt.split(' ',QString::SkipEmptyParts);
-    WrdStat words;
-    for( QString &s : txtList ) {
-        if( words.contains(s) )
-            words[s] = words[s] + 1;
-        else
-            words[s] = 1;
-    }
-    return words;
-}
+//WrdStat WordFreqAnalyze::makeWordStat( QString txt )
+//{
+//    txt = dropSideSyms( txt );
+//    QStringList txtList = txt.split(' ',QString::SkipEmptyParts);
+//    WrdStat words;
+//    for( QString &s : txtList ) {
+//        if( words.contains(s) )
+//            words[s] = words[s] + 1;
+//        else
+//            words[s] = 1;
+//    }
+//    return words;
+//}
 
-void WordFreqAnalyze::makeAnalyze()
-{
+//void WordFreqAnalyze::makeAnalyze()
+//{
 //    WrdStat words = makeWordStat( ui->text->toPlainText() );
 //    chart->removeAllSeries();
 
@@ -63,17 +63,17 @@ void WordFreqAnalyze::makeAnalyze()
 //    chart->createDefaultAxes();
 //    chart->setAxisX(axis, series);
 
-}
+//}
 
-QString WordFreqAnalyze::dropSideSyms(QString str)
-{
-    for(int i=0;i<str.size();i++) {
-        if( !( str[i].isLetter() || str[i] == ' ' ) ) {
-            str[i] = ' ';
-        }
-    }
-    return str;
-}
+//QString WordFreqAnalyze::dropSideSyms(QString str)
+//{
+//    for(int i=0;i<str.size();i++) {
+//        if( !( str[i].isLetter() || str[i] == ' ' ) ) {
+//            str[i] = ' ';
+//        }
+//    }
+//    return str;
+//}
 
 
 /*

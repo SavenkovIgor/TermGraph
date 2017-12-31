@@ -2,11 +2,11 @@
 #define WORDFREQANALYZE_H
 
 #include <QWidget>
-#include <QtCharts/QChartView>
-#include <QtCharts/QChart>
-#include <QtCharts/QBarSeries>
-#include <QtCharts/QBarSet>
-#include <QtCharts/QBarCategoryAxis>
+//#include <QtCharts/QChartView>
+//#include <QtCharts/QChart>
+//#include <QtCharts/QBarSeries>
+//#include <QtCharts/QBarSet>
+//#include <QtCharts/QBarCategoryAxis>
 
 
 namespace Ui {
@@ -23,18 +23,18 @@ public:
     explicit WordFreqAnalyze(QWidget *parent = 0);
     ~WordFreqAnalyze();
 
-    WrdStat makeWordStat( QString txt );
+//    WrdStat makeWordStat( QString txt );
 
 private slots:
 
-    void makeAnalyze();
+//    void makeAnalyze();
 
 private:
 
-    QtCharts::QChart*     chart;
-    QtCharts::QChartView* view;
+//    QtCharts::QChart*     chart;
+//    QtCharts::QChartView* view;
 
-    QString dropSideSyms(QString str);
+//    QString dropSideSyms(QString str);
 
     Ui::WordFreqAnalyze *ui;
 };

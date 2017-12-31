@@ -1,4 +1,4 @@
-QT       += core gui sql charts quickwidgets quickcontrols2
+QT       += core gui sql quickwidgets quickcontrols2 #charts
 
 TARGET = TermGraph
 TEMPLATE = app
