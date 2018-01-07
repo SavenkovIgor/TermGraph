@@ -78,18 +78,11 @@
         <file>icons/code-4x.png</file>
         <file>icons/code-6x.png</file>
         <file>icons/code-8x.png</file>
-    </qresource>
-    <qresource prefix="/qml">
-        <file>GoupsSideBar.qml</file>
-        <file>MainScheme.qml</file>
-        <file>MainWindow.qml</file>
-        <file>NewNodeEdit.qml</file>
-        <file>MComboBox.qml</file>
-        <file>TermGroupsList.qml</file>
-        <file>MyTextArea.qml</file>
-        <file>MyTextField.qml</file>
-        <file>MyRoundButton.qml</file>
-        <file>MyLabelPair.qml</file>
-        <file>MSquareButton.qml</file>
+        <file>icons/share-boxed.png</file>
+        <file>icons/share-boxed-2x.png</file>
+        <file>icons/share-boxed-3x.png</file>
+        <file>icons/share-boxed-4x.png</file>
+        <file>icons/share-boxed-6x.png</file>
+        <file>icons/share-boxed-8x.png</file>
     </qresource>
 </RCC>
