@@ -95,6 +95,7 @@ void DBAbstract::makeStartBaseCheck()
 {
     createAllTables();
     checkCols();
+    groupTbl->normalizeUuid();
     nodeTbl->normalizeUuid();
     edgeTbl->clearFromDuplicates();
 }

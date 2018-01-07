@@ -49,7 +49,7 @@ public:
     int addNode( QString name );
     QSqlRecord  getNode(int id);
 
-    QList<int>  getAllNodesList();
+    QList<int>  getAllNodesUid();
     QList<int>  getGroupNodeID(int groupID);
 
     void setName        ( int uid, QString name);

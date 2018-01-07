@@ -19,9 +19,44 @@ bool TermGroupTbl::addGroup(QString name, QString comment, int type)
     return insertInto(cols,vals);
 }
 
+QList<int> TermGroupTbl::getAllGroupsUid()
+{
+    QList<int> ret;
+
+    QSqlQuery q = select(QStringList()<<this->uid,"","ORDER BY uid");
+
+    for(int i=0;i<1000000;i++) {
+        if(!q.next())
+            break;
+
+        ret << q.record().value(this->uid).toInt();
+    }
+
+    return ret;
+}
+
 void TermGroupTbl::deleteGroup(QString name)
 {
     deleteWhere( this->name + " = " + vv(name) );
+}
+
+void TermGroupTbl::normalizeUuid()
+{
+    QList<int> grpLst = getAllGroupsUid();
+    int found = 0;
+    for( int &i : grpLst ) {
+
+        QSqlRecord rec = getGroup(i);
+        if( rec.value( this->longUID ).toString() == "" ) {
+            setField(this->longUID,i,QUuid::createUuid().toString());
+            found++;
+        }
+    }
+    if( found > 0 ){
+        qDebug()<<"Found " + QString::number( found ) + " nodes for Uuid normalization";
+    } else {
+        qDebug()<<"Nothing to normalize";
+    }
 }
 
 int TermGroupTbl::getUid(QString groupName)
@@ -38,7 +73,12 @@ int TermGroupTbl::getUid(QString groupName)
 
 QString TermGroupTbl::getName(int groupUid)
 {
-    return getStringField(this->name,groupUid);
+    return getStringField(this->name, groupUid);
+}
+
+QString TermGroupTbl::getLongUid(int groupUid)
+{
+    return getStringField(this->longUID, groupUid);
 }
 
 int TermGroupTbl::getType(int groupUid)
@@ -46,7 +86,7 @@ int TermGroupTbl::getType(int groupUid)
     return getIntField( this->type, groupUid );
 }
 
-QStringList TermGroupTbl::getAllGroupsList(QString area, bool withUid)
+QStringList TermGroupTbl::getAllGroupsNames(QString area, bool withUid)
 {
     QStringList ret;
 
@@ -63,4 +103,14 @@ QStringList TermGroupTbl::getAllGroupsList(QString area, bool withUid)
     }
 
     return ret;
+}
+
+QSqlRecord TermGroupTbl::getGroup(int id)
+{
+    QSqlQuery sel = select("*",this->uid + " = " + vv(QString::number(id)));
+
+    if(!sel.next())
+        return QSqlRecord();
+
+    return sel.record();
 }

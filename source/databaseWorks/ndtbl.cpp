@@ -136,7 +136,7 @@ void NdTbl::deleteNode(int id)
 
 void NdTbl::normalizeUuid()
 {
-    QList<int> ndLst = getAllNodesList();
+    QList<int> ndLst = getAllNodesUid();
     int found = 0;
     for( int &i : ndLst ) {
 
@@ -167,7 +167,7 @@ bool NdTbl::isUuidExist(QString longUuid)
     return !recs.isEmpty();
 }
 
-QList<int> NdTbl::getAllNodesList()
+QList<int> NdTbl::getAllNodesUid()
 {
     QList<int> ret;
 
