@@ -1,10 +1,10 @@
 import qbs
 
-
 CppApplication {
 
-    name : "TermGraph"
-    destinationDirectory: "./app" /*[ Project.sourceDirectory + "/app" ]*/
+    name: "TermGraph"
+    destinationDirectory: "../../app" // Project.buildDirectory"./app"
+
 
     files: [
         "source/databaseWorks/dbabstract.cpp",
@@ -17,53 +17,62 @@ CppApplication {
         "source/databaseWorks/termgrouptbl.h",
         "source/databaseWorks/ndtbl.cpp",
         "source/databaseWorks/ndtbl.h",
+        "source/qml.qrc",
+        "source/qml/GoupsSideBar.qml",
+        "source/qml/MComboBox.qml",
+        "source/qml/MSquareButton.qml",
+        "source/qml/MainScheme.qml",
+        "source/qml/MainWindow.qml",
+        "source/qml/MyLabelPair.qml",
+        "source/qml/MyRoundButton.qml",
+        "source/qml/MyTextArea.qml",
+        "source/qml/MyTextField.qml",
+        "source/qml/NewNodeEdit.qml",
+        "source/qml/TermGroupsList.qml",
+        "source/edge.cpp",
         "source/edge.h",
+        "source/glb.cpp",
         "source/glb.h",
+        "source/mainscene.cpp",
         "source/mainscene.h",
+        "source/mainwindow.cpp",
         "source/mainwindow.h",
+        "source/ui/mainwindow.ui",
+        "source/mysceneview.cpp",
         "source/mysceneview.h",
         "source/reminder.cpp",
         "source/reminder.h",
-        "source/reminder.ui",
+        "source/ui/reminder.ui",
+        "source/termgroup.cpp",
         "source/termgroup.h",
         "source/terminfo.cpp",
         "source/terminfo.h",
-        "source/termnode.h",
-        "source/edge.cpp",
-        "source/glb.cpp",
-        "source/main.cpp",
-        "source/mainscene.cpp",
-        "source/mainwindow.cpp",
-        "source/mysceneview.cpp",
-        "source/termgroup.cpp",
         "source/termnode.cpp",
-        "source/mainwindow.ui",
+        "source/termnode.h",
+        "source/main.cpp",
         "source/icons.qrc",
-        "source/model.qmodel",
+        "source/tgroupname.cpp",
+        "source/tgroupname.h",
         "source/wordfreqanalyze.cpp",
         "source/wordfreqanalyze.h",
-        "source/wordfreqanalyze.ui",
+        "source/ui/wordfreqanalyze.ui",
     ]
 
-    Group {     // Properties for the produced executable
-        fileTagsFilter: product.type
-        qbs.install: true
-    }
+//    Group {     // Properties for the produced executable
+//        fileTagsFilter: product.type
+//        qbs.install: true
+//    }
 
     Depends {
         name: "Qt";
         submodules: [
             "core",
-            "widgets",
-//            "gui",
+            "gui",
             "sql",
-            "charts",
+            "quickwidgets",
+            "quickcontrols2",
+//            "widgets",
+//            "charts",
         ]
     }
 }
-
-/*
-
-DESTDIR = ./app
-
-*/
