@@ -48,10 +48,9 @@ class TermGroup : public QObject
 
 public:
 
-
     static DBAbstract *db;
 
-    explicit TermGroup(QString grpName, int type, QObject *parent = 0);
+    explicit TermGroup(QSqlRecord rec, QObject *parent = 0);
     ~TermGroup();
 
     GroupType getType();
@@ -59,8 +58,8 @@ public:
     static QStringList       getTypesNames();
     static QMap<GroupType,QString> getTypesMap();
 
-
     int     getGroupUid();
+
     QString getName();
 
     NodesList getNodeList();
@@ -97,6 +96,7 @@ public:
 
     void swapNodes( TermNode *n1, TermNode *n2 );
 
+    QJsonDocument getJsonDoc();
 
 public slots:
     void checkSwap();
@@ -111,6 +111,7 @@ private:
 
     int grUid = -1;
     GroupType type = freeEdges;
+    QString longUid = "";
 
 };
 

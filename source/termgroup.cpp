@@ -4,13 +4,15 @@ DBAbstract *TermGroup::db = nullptr;
 
 int TermGroup::animSpeed = 300;
 
-TermGroup::TermGroup(QString grpName, int type, QObject *parent) :
+TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
     QObject(parent)
 {
-    grNmItem = new TGroupName( grpName );
-    grUid = db->groupTbl->getUid(grpName);
+    QString groupName = rec.value( db->groupTbl->name ).toString();
 
-    this->type = static_cast<GroupType>(type);
+    this->grNmItem = new TGroupName( groupName );
+    this->grUid    = rec.value( db->groupTbl->uid ).toInt();
+    this->longUid  = rec.value( db->groupTbl->longUID ).toString();
+    this->type     = static_cast<GroupType>( rec.value( db->groupTbl->type ).toInt() );
 
     groupRect   = new QGraphicsRectItem( nullptr );
     treeRect    = new QGraphicsRectItem( nullptr );
@@ -145,6 +147,16 @@ void TermGroup::swapNodes(TermNode *n1, TermNode *n2)
     swAnim2.setEndValue  ( pos1 );
 
     animGrp.start();
+}
+
+QJsonDocument TermGroup::getJsonDoc()
+{
+    QJsonObject obj;
+//    obj.insert("uid",     QJsonValue(grUid));
+//    obj.insert("longUid", QJsonValue())
+//    for( TermNode *n : nodeList ) {
+//        obj.
+//    }
 }
 
 void TermGroup::startAnimation()
@@ -646,4 +658,3 @@ bool TermGroup::hasTree()
     }
     return false;
 }
-

@@ -158,7 +158,7 @@ void MainWindow::loadDbPath()
 
 QStringList MainWindow::getGroupsList()
 {
-    return db->groupTbl->getAllGroupsList();
+    return db->groupTbl->getAllGroupsNames();
 }
 
 void MainWindow::onQmlCreated(QObject*, QUrl)
@@ -168,7 +168,7 @@ void MainWindow::onQmlCreated(QObject*, QUrl)
 
 void MainWindow::updateGroupLists()
 {
-    QStringList lst = db->groupTbl->getAllGroupsList();
+    QStringList lst = db->groupTbl->getAllGroupsNames();
     setGroupsList( lst );
 }
 
@@ -190,7 +190,7 @@ void MainWindow::addNewPoint()
 
 void MainWindow::viewGrp(int num)
 {
-    QStringList lst = db->groupTbl->getAllGroupsList();
+    QStringList lst = db->groupTbl->getAllGroupsNames();
 
     if( num < 0 || num >= lst.size() )
         return;

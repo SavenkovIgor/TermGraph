@@ -43,6 +43,8 @@ public:
 
     QList < TermGroup* > groupList;
 
+    TermGroup* getGroup(QString name);
+
     static DBAbstract *db;
 
     MainScene();
@@ -112,6 +114,7 @@ public slots:
 
     void addNewGroup(QString name, QString comment, int type);
     void deleteGroup(QString name);
+    void exportGrpToJson(QString grpName);
 
     QString getGroupString(QString grp);
 

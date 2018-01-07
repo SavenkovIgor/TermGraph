@@ -215,7 +215,7 @@ void TermInfo::testFunc()
 QJsonObject TermInfo::toJson()
 {
     QJsonObject ret;
-    ret.insert("uid",         QJsonValue(uid));
+//    ret.insert("uid",         QJsonValue(uid));
     ret.insert("longUid",     QJsonValue(longUid));
     ret.insert("name",        QJsonValue(name));
     ret.insert("nameForms",   QJsonValue(nameForms));
@@ -224,7 +224,41 @@ QJsonObject TermInfo::toJson()
     ret.insert("examples",    QJsonValue(examples));
     ret.insert("wikiRef",     QJsonValue());
     ret.insert("wikiImg",     QJsonValue());
+    QJsonDocument doc(ret);
+    qDebug()<<doc.toJson();
     return ret;
+}
+
+bool TermInfo::fromJson(QJsonObject obj) {
+    QStringList checkKeys;
+    checkKeys<<"uid";
+    checkKeys<<"longUid";
+    checkKeys<<"name";
+    checkKeys<<"nameForms";
+    checkKeys<<"definition";
+    checkKeys<<"description";
+    checkKeys<<"examples";
+    checkKeys<<"wikiRef";
+    checkKeys<<"wikiImg";
+
+    for( QString str : checkKeys ) {
+        if (!obj.contains(str)) {
+            qDebug()<<"noSuchKey"<<str;
+            return false;
+        }
+    }
+
+    this->uid         = obj["uid"].toInt();
+    this->longUid     = obj["longUid"].toString();
+    this->name        = obj["name"].toString();
+    this->nameForms   = obj["nameForms"].toString();
+    this->definition  = obj["definition"].toString();
+    this->description = obj["description"].toString();
+    this->examples    = obj["examples"].toString();
+    this->wikiRef     = obj["wikiRef"].toString();
+    this->wikiImg     = obj["wikiImg"].toString();
+
+    return true;
 }
 
 QString TermInfo::getNameFormStr() const

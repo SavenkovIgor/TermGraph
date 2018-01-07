@@ -29,31 +29,31 @@ MainScene::~MainScene()
 
 void MainScene::initGroups()
 {
-    QStringList grps = db->groupTbl->getAllGroupsList();
-    for( QString g : grps ) {
+    QList<int> uids = db->groupTbl->getAllGroupsUid();
+    for( int uid : uids ) {
 
-        int uid = db->groupTbl->getUid(g);
-        int type = db->groupTbl->getType(uid);
-        TermGroup *newGroup = new TermGroup(g,type);
-//        if(!( newGroup->getGroupUid() == 6 ) )
-//            continue;
+        QSqlRecord rec = db->groupTbl->getGroup( uid );
+
+        if(rec.count() == 0)
+            continue;
+
+        TermGroup *newGroup = new TermGroup( rec );
+
         addItem(newGroup->baseRect);
         addItem(newGroup->groupRect);
-//        addItem(newGroup->treeRect);
+        //        addItem(newGroup->treeRect);
         addItem(newGroup->grNmItem);
-//        addItem(newGroup->centerRect);
+        //        addItem(newGroup->centerRect);
 
         if(newGroup->getType() == GroupType::terms) {
-//            EdgesList eLst = newGroup->searchConnections();
-//            for( Edge *e : eLst ) {
-//                addEdge(e->getRoot(),e->getBrnch(),false);
-//            }
+            //            EdgesList eLst = newGroup->searchConnections();
+            //            for( Edge *e : eLst ) {
+            //                addEdge(e->getRoot(),e->getBrnch(),false);
+            //            }
             allEdgesList << newGroup->searchConnections();
         }
         groupList << newGroup;
     }
-
-    qDebug()<<"allEdgesList"<<allEdgesList.size();
 }
 
 void MainScene::destructGroups()
@@ -108,6 +108,15 @@ void MainScene::appendEdgesToScene()
 NodesList MainScene::getAllNodes()
 {
     return allNodesList;
+}
+
+TermGroup *MainScene::getGroup(QString name)
+{
+    for( TermGroup *g : groupList )
+        if( g->getName() == name )
+            return g;
+
+    return nullptr;
 }
 
 void MainScene::mouseMoveEvent(QGraphicsSceneMouseEvent *evt)
@@ -293,13 +302,22 @@ void MainScene::deleteGroup(QString name)
     updateGroupLists();
 }
 
+void MainScene::exportGrpToJson(QString grpName)
+{
+    TermGroup* g = getGroup( grpName);
+    if ( g == nullptr )
+        return;
+
+    QJsonDocument doc = g->getJsonDoc();
+    qDebug()<<doc.toJson();
+}
+
 QString MainScene::getGroupString(QString grp)
 {
-    for( TermGroup *g : groupList ) {
-        if( g->getName() == grp ) {
-            return g->getTypeString();
-        }
-    }
+    TermGroup* g = getGroup( grp );
+    if ( g != nullptr )
+        return g->getTypeString();
+
     return "";
 }
 

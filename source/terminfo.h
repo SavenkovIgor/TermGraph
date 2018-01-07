@@ -71,6 +71,7 @@ private:
     void testFunc();
 
     QJsonObject toJson();
+    bool fromJson(QJsonObject obj);
 };
 
 #endif // TERMINFO_H
