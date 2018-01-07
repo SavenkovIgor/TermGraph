@@ -46,9 +46,21 @@ Item {
 
         onClicked: {
             groupDelDialog.visible = true
-            //            sceneObj.deleteGroup(goupsList.currentItem.text)
         }
         Component.onCompleted: loadIcon("qrc:/icons/x")
+    }
+
+    MyRoundButton {
+        id: loadOutBtn
+
+        anchors.right: addGroupBtn.left
+        anchors.bottom: parent.bottom
+
+        onClicked: {
+            sceneObj.exportGrpToJson(goupsList.currentItem.text)
+        }
+
+        Component.onCompleted: loadIcon("qrc:/icons/share-boxed")
     }
 
     ListView {
@@ -109,7 +121,6 @@ Item {
 
                     verticalAlignment:  Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
-
                 }
             }
 
