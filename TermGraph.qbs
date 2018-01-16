@@ -5,7 +5,6 @@ CppApplication {
     name: "TermGraph"
     destinationDirectory: "../../app" // Project.buildDirectory"./app"
 
-
     files: [
         "source/databaseWorks/dbabstract.cpp",
         "source/databaseWorks/dbabstract.h",
@@ -75,4 +74,9 @@ CppApplication {
 //            "charts",
         ]
     }
+
+    cpp.includePaths: ["source/QtDropbox"]
+    cpp.libraryPaths: ["source/QtDropbox/build"]
+    cpp.dynamicLibraries: "QtDropbox"
+
 }
