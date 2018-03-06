@@ -2,6 +2,8 @@
 
 Qt::Orientation Glb::ori = Qt::Horizontal;
 
+CloudServicesWrapper*Glb::cloud = nullptr;
+
 Glb::Glb()
 {
 

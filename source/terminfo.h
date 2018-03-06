@@ -8,6 +8,7 @@
 #include <QSqlRecord>
 
 #include "databaseWorks/dbabstract.h"
+#include "Helpers/tagprocessor.h"
 
 class TermInfo : public QObject
 {
@@ -32,6 +33,8 @@ public:
     QString     getWikiRef()        const;
     QString     getWikiImg()        const;
 
+    QJsonObject toJson();
+
     static DBAbstract *db;
 
 protected:
@@ -46,7 +49,6 @@ private:
     static qreal baseBlockWidth;
 
     void nameCompressing();
-    QStringList extractTags(QString from, QString& errStr);
 
     int uid = -1;
     int groupID = -1;
@@ -70,7 +72,6 @@ private:
 
     void testFunc();
 
-    QJsonObject toJson();
     bool fromJson(QJsonObject obj);
 };
 

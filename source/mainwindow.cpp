@@ -6,6 +6,8 @@ MainWindow::MainWindow(QObject *parent) :
     initElemSizes();
     engn = new QQmlApplicationEngine();
 
+    Glb::cloud = new CloudServicesWrapper();
+
     QQuickStyle::setStyle("Material");
 
     loadDbPath();

@@ -358,64 +358,66 @@ Item {
                 }
 
                 onWheel: {
-                    if( wheel.pixelDelta.y > 0 )
-                        mainObj.scaleUp()
-                    else
-                        mainObj.scaleDown()
+                    if( wheel.modifiers & Qt.ControlModifier ) {
+                        if( wheel.pixelDelta.y > 0 )
+                            mainObj.scaleUp()
+                        else
+                            mainObj.scaleDown()
+                    }
                 }
 
                 Keys.onPressed: {
 
                     if( event.modifiers & Qt.ControlModifier ) {
-                        if( event.key == Qt.Key_BracketLeft ) {
+                        if( event.key === Qt.Key_BracketLeft ) {
                             mainObj.ctrlMove("left")
                             event.accepted = true
                         }
 
-                        if( event.key == Qt.Key_BracketRight ) {
+                        if( event.key === Qt.Key_BracketRight ) {
                             mainObj.ctrlMove("right")
                             event.accepted = true
                         }
 
-                        if( event.key == Qt.Key_E ) {
+                        if( event.key === Qt.Key_E ) {
                             mainObj.sceneChangePoint()
                             listView.openNewNode()
                             event.accepted = true
                         }
 
-                        if( event.key == Qt.Key_N ) {
+                        if( event.key === Qt.Key_N ) {
                             mainObj.setChangeNum("")
                             listView.openNewNode()
                             event.accepted = true
                         }
 
-                        if( event.key == Qt.Key_Plus ) {
+                        if( event.key === Qt.Key_Plus ) {
                             mainObj.scaleUp();
                             event.accepted = true
                         }
 
-                        if( event.key == Qt.Key_Minus ) {
+                        if( event.key === Qt.Key_Minus ) {
                             mainObj.scaleDown();
                             event.accepted = true
                         }
                     }
                     if( event.modifiers & Qt.AltModifier ) {
-                        if( event.key == Qt.Key_Left ) {
+                        if( event.key === Qt.Key_Left ) {
                             mainViewObj.moveLeft()
                             event.accepted = true
                         }
 
-                        if( event.key == Qt.Key_Right ) {
+                        if( event.key === Qt.Key_Right ) {
                             mainViewObj.moveRight()
                             event.accepted = true
                         }
 
-                        if( event.key == Qt.Key_Up ) {
+                        if( event.key === Qt.Key_Up ) {
                             mainViewObj.moveUp()
                             event.accepted = true
                         }
 
-                        if( event.key == Qt.Key_Down ) {
+                        if( event.key === Qt.Key_Down ) {
                             mainViewObj.moveDown()
                             event.accepted = true
                         }
@@ -438,6 +440,8 @@ Item {
 
                         edge: Qt.TopEdge
 
+                        onOpened: groupListView.forceActiveFocus()
+
                         ListView {
 
                             id: groupListView
@@ -450,6 +454,7 @@ Item {
                                 color: "#FFFF88"
                                 y: listView.currentItem.y;
                             }
+
 
                             delegate: Rectangle {
                                 id: groupLstDlgt

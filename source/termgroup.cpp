@@ -151,12 +151,22 @@ void TermGroup::swapNodes(TermNode *n1, TermNode *n2)
 
 QJsonDocument TermGroup::getJsonDoc()
 {
-    QJsonObject obj;
+    QJsonDocument doc;
 //    obj.insert("uid",     QJsonValue(grUid));
-//    obj.insert("longUid", QJsonValue())
-//    for( TermNode *n : nodeList ) {
-//        obj.
-//    }
+    QJsonObject obj;
+    obj.insert( db->groupTbl->longUID, QJsonValue(this->longUid));
+    obj.insert( db->groupTbl->name,    QJsonValue(getName()));
+    obj.insert( db->groupTbl->type,    QJsonValue(this->type));
+
+    QJsonArray ndArr;
+
+    for( TermNode *n : nodeList ) {
+        ndArr.append(n->toJson());
+    }
+    obj.insert( "nodesList", ndArr);
+
+    doc.setObject( obj );
+    return doc;
 }
 
 void TermGroup::startAnimation()

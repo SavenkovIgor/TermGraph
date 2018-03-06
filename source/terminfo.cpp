@@ -20,7 +20,7 @@ TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
     definition  = rec.value( db->nodeTbl->definition ).toString();
 
     QString error;
-    tags = extractTags(definition,error);
+    tags = TagProcessor::extractTags(definition,error);
     if( !error.isEmpty() ) {
         qDebug() << uid << error;
     }
@@ -127,57 +127,6 @@ void TermInfo::nameCompressing( )
     }
 }
 
-QStringList TermInfo::extractTags(QString from, QString &errStr)
-{
-    errStr = "";
-    QString nm = from;
-    QString tmpStr;
-    QStringList ret;
-    bool skipNext = false;
-    bool insideTag = false;
-
-//    if(definition == "b{bc\\\\")
-    /*
-    int inTag = false; for(int i=0;i<nm.size();i++) { if( nm[i] == '#' ) { inTag = true; continue; }
-    if( inTag ) { if( nm[i].isLetter() || nm[i].isDigit() || nm[i] == '_') { tmpStr += nm[i]; continue; }
-    if( !nm[i].isLetter() && !nm[i].isDigit() ) { inTag = false; tmpStr.replace("_"," ");
-    ret << tmpStr; tmpStr.clear(); continue; } } } if( inTag ) { tmpStr.replace("_"," "); ret << tmpStr; }
-    */
-
-    for(int i=0;i<nm.size();i++) {
-        QChar c = nm[i];
-        if( insideTag ) {
-
-            if( c == '\\' ) {
-                skipNext = true;
-                continue;
-            }
-            if( skipNext ) {
-                tmpStr += c;
-                continue;
-            }
-            if( c == '{' ) {
-                errStr = "Неэкранированный символ { внутри тега";
-                return QStringList();
-            }
-            if( c == '}' ) {
-                insideTag = false;
-                ret << tmpStr;
-                tmpStr.clear();
-                continue;
-            }
-            if( i == nm.size() - 1 ) {
-                errStr = "Незакрытый тег в конце строки";
-                return QStringList();
-            }
-            tmpStr += c;
-        }
-        if( c == '{')
-            insideTag = true;
-    }
-    return ret;
-}
-
 void TermInfo::testFunc()
 {
     return;
@@ -224,8 +173,6 @@ QJsonObject TermInfo::toJson()
     ret.insert("examples",    QJsonValue(examples));
     ret.insert("wikiRef",     QJsonValue());
     ret.insert("wikiImg",     QJsonValue());
-    QJsonDocument doc(ret);
-    qDebug()<<doc.toJson();
     return ret;
 }
 

@@ -20,10 +20,12 @@
 #include <vector>
 #include <algorithm>
 
+
 class TermNode;
 //class MainScene;
 class Edge;
 class DBAbstract;
+class CloudServicesWrapper;
 
 typedef QList< TermNode* >  NodesList;
 typedef QList< Edge* >      EdgesList;
@@ -47,11 +49,14 @@ public:
     static QString ptToStr( int x, int y, QString divider = "x" );
     static QString ptToStr( QPoint  pt,   QString divider = "x" );
     static QString ptToStr( QPointF pt,   QString divider = "x" );
+
+    static CloudServicesWrapper *cloud;
 };
 
 #include "termnode.h"
 #include "edge.h"
 #include "databaseWorks/dbabstract.h"
+#include "databaseWorks/cloudservices.h"
 //#include "mainscene.h"
 //#include "reminder.h"
 

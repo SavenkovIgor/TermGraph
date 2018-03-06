@@ -309,7 +309,8 @@ void MainScene::exportGrpToJson(QString grpName)
         return;
 
     QJsonDocument doc = g->getJsonDoc();
-    qDebug()<<doc.toJson();
+    QClipboard *clp = qApp->clipboard();
+    clp->setText(doc.toJson());
 }
 
 QString MainScene::getGroupString(QString grp)

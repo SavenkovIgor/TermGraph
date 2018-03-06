@@ -40,14 +40,15 @@ SOURCES += \
         source/wordfreqanalyze.cpp \
     source/tgroupname.cpp
 
-FORMS += \
-        source/mainwindow.ui\
-        source/reminder.ui\
-        source/wordfreqanalyze.ui
+#FORMS += \
+#        source/mainwindow.ui\
+#        source/reminder.ui\
+#        source/wordfreqanalyze.ui
 
 
 RESOURCES += \
-    source/icons.qrc
+    source/icons.qrc\
+    source/qml.qrc
 
 #INSTALLS += target
 

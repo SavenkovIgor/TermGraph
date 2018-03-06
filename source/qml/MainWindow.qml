@@ -2,6 +2,7 @@ import QtQuick 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 import QtQuick.Window 2.3
+import QtQuick.Dialogs 1.2
 //import QtQuick.Controls.Material 2.2
 
 ApplicationWindow {
@@ -87,24 +88,43 @@ ApplicationWindow {
         height: window.height
         interactive: stackView.depth === 1
 
-        onOpened: {
-            listView.forceActiveFocus()
-        }
+        onOpened: { listView.forceActiveFocus() }
 
-        function isOpen(){
-            return position == 1.0
-        }
-        function isClose(){
-            return position == 0.0
-        }
+        function isOpen() { return position == 1.0 }
+        function isClose(){ return position == 0.0 }
 
         dragMargin: Qt.styleHints.startDragDistance*2
+
+        FileDialog {
+            id: fileDialog
+            title: "Пожалуйста выберите файл базы данных"
+
+            onAccepted: {
+                console.log("You chose: " + fileDialog.fileUrls)
+            }
+        }
+
+        MyRoundButton {
+            id: openFolder
+
+            onClicked: fileDialog.open()
+
+            anchors.top: parent.top
+            anchors.right: parent.right
+
+            Component.onCompleted: loadIcon( "qrc:/icons/folder" )
+        }
 
         ListView {
             id: listView
 
             currentIndex: 0
-            anchors.fill: parent
+            anchors {
+                top: openFolder.bottom
+                left: parent.left
+                right: parent.right
+                bottom: parent.bottom
+            }
 
             function openNewNode() {
                 stackView.pushItem(winModel.get(1).source)
@@ -123,7 +143,7 @@ ApplicationWindow {
             }
 
             Keys.onPressed: {
-                if( event.modifiers | Qt.ControlModifier && event.key == Qt.Key_Left)
+                if( event.modifiers | Qt.ControlModifier && event.key === Qt.Key_Left)
                     drawer.close()
             }
 
@@ -150,6 +170,7 @@ ApplicationWindow {
                 ListElement { title: "Схема";               source: "qrc:/qml/MainScheme.qml" }
                 ListElement { title: "Добавить вершину";    source: "qrc:/qml/NewNodeEdit.qml" }
                 ListElement { title: "Группы";              source: "qrc:/qml/TermGroupsList.qml" }
+                ListElement { title: "Настройки";           source: "qrc:/qml/Settings.qml" }
                 //                ListElement { title: "Изучение";            source: "" }
                 //                ListElement { title: "Базы данных";         source: "" }
                 //                ListElement { title: "Настройки";           source: "" }
@@ -174,7 +195,7 @@ ApplicationWindow {
 
         function pushItem( itmStr ){
             console.log( lastItem + " " + itmStr )
-            if( lastItem != itmStr ){
+            if( lastItem !== itmStr ){
                 lastItem = itmStr
                 push(itmStr)
             }
@@ -210,13 +231,19 @@ ApplicationWindow {
         }
 
         Keys.onPressed: {
-            if( event.modifiers == Qt.ControlModifier) {
-                if( event.key == Qt.Key_Right )
+            if( event.modifiers === Qt.ControlModifier) {
+                if( event.key === Qt.Key_Right )
                     if( drawer.isClose() )
                         drawer.open()
+
+                if( event.key === Qt.Key_Down )
+                    if( currentItem.objectName == "mainScheme" ) {
+                        stackView.currentItem.openGroupList()
+                        stackView.forceActiveFocus()
+                    }
             }
 
-            if( event.key == Qt.Key_Back ) {
+            if( event.key === Qt.Key_Back ) {
                 if( stackView.depth > 1) {
                     stackView.popItem()
                     event.accepted = true

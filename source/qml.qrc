@@ -11,5 +11,6 @@
         <file>qml/MyTextField.qml</file>
         <file>qml/NewNodeEdit.qml</file>
         <file>qml/TermGroupsList.qml</file>
+        <file>qml/Settings.qml</file>
     </qresource>
 </RCC>
