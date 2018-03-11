@@ -4,6 +4,8 @@ import QtQuick.Layouts 1.3
 import QtQuick.Window 2.3
 import QtQuick.Dialogs 1.2
 
+import "UIExtensions"
+
 Item {
     id: grpLst
     objectName: "grpLst"
@@ -180,7 +182,7 @@ Item {
                 placeholderText: "[Комментарий]"
             }
 
-            MComboBox {
+            MyComboBox {
                 id: newGroupType
                 Component.onCompleted: {
                     model = mainObj.getGroupTypes()
@@ -190,7 +192,7 @@ Item {
             RowLayout {
                 spacing: 30
 
-                MSquareButton {
+                MySquareButton {
                     id: addGroup
                     text: "Добавить"
 
@@ -200,7 +202,7 @@ Item {
                     }
                 }
 
-                MSquareButton {
+                MySquareButton {
                     id: cancelNewGrp
                     text: "Отмена"
                     onClicked: newGroupDrawer.close()

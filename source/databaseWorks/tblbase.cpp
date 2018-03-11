@@ -52,6 +52,9 @@ QStringList TblBase::getAllCols()
 QSqlQuery TblBase::start(QString str)
 {
     //    qDebug()<<str;
+    if (str.simplified().isEmpty())
+        return QSqlQuery();
+
     QSqlQuery ret = base->exec(str);
 
     if(hasErrors(ret.lastError().text())) {
@@ -92,7 +95,7 @@ QStringList TblBase::parseWhere(SqCond where)
 }
 
 TblBase::TblBase(QString tblName, QSqlDatabase *base):
-    tblName(tblName),
+    tableName(tblName),
     base(base)
 {
 
@@ -103,7 +106,7 @@ QSqlQuery TblBase::createTable() {
     for( QString s:allColumnNames )
         lst << s + " " + allColumnTypes[s];
 
-    return start("CREATE TABLE " + tblName + " (" + lst.join(", ") + ")" );
+    return start("CREATE TABLE " + tableName + " (" + lst.join(", ") + ")" );
 }
 
 void TblBase::addCol(QString colName, QString colType) {
@@ -140,53 +143,25 @@ QSqlQuery TblBase::select(QStringList cols, SqCond where)
 
 QSqlQuery TblBase::z_sl(QString cols, QString where, QString add)
 {
-    QStringList qry;
-    qry << "SELECT";
-    qry << cols;
-    qry << "FROM";
-    qry << tblName;
-    if( where.simplified() != "" ){
-        qry << "WHERE";
-        qry << where;
-    }
-    qry<<add;
-
-    return start(qry.join(" "));
+    QString query = SqlQueryConstructor::selectQuery(tableName,cols,where,add);
+    return start(query);
 }
 
 QSqlQuery TblBase::z_in(QString cols, QString vals)
 {
-    QStringList qry;
-    qry << "INSERT INTO";
-    qry << tblName;
-    qry << "(";
-    qry << cols;
-    qry << ") VALUES (";
-    qry << vals;
-    qry << ")";
-
-    return start(qry.join(" "));
+    QString query = SqlQueryConstructor::insertQuery(tableName,cols,vals);
+    return start(query);
 }
 
 QSqlQuery TblBase::z_up(QString set, QString where)
 {
-    QStringList qry;
-    qry << "UPDATE";
-    qry << tblName;
-    qry << "SET";
-    qry << set;
-    qry << "WHERE";
-    qry << where;
-
-    return start(qry.join(" "));
+    QString query = SqlQueryConstructor::updateQuery(tableName,set,where);
+    return start(query);
 }
 
 QString TblBase::vv(QString str)
 {
-    str.replace("'","''");
-    str.replace("\"","\"\"");
-    QString ret = "'" + str + "'";
-    return ret;
+    return SqlQueryConstructor::vv(str);
 }
 
 QSqlQuery TblBase::updateWhere(SqCond set, SqCond where)
@@ -217,33 +192,20 @@ QSqlQuery TblBase::updateWhere(SqCond set, QString where)
 
 void TblBase::deleteRecord(int id)
 {
-    QStringList qry;
-    qry << "DELETE";
-    qry << "FROM";
-    qry << tblName;
-    qry << "WHERE";
-    qry << "uid =";
-    qry << vv(QString::number(id));
-
-    start(qry.join(" "));
+    QString query = SqlQueryConstructor::deleteByUidQuery(tableName,"uid",id);
+    start(query);
 }
 
 void TblBase::deleteWhere(QString where)
 {
-    QStringList qry;
-    qry << "DELETE";
-    qry << "FROM";
-    qry << tblName;
-    qry << "WHERE";
-    qry << where;
-
-    start(qry.join(" "));
+    QString query = SqlQueryConstructor::deleteWhereQuery(tableName,where);
+    start(query);
 }
 
 void TblBase::checkCols()
 {
     for( QString s : allColumnNames ) {
-        start( "ALTER TABLE " + tblName + " ADD COLUMN " + s + " " + allColumnTypes[s]);
+        start( "ALTER TABLE " + tableName + " ADD COLUMN " + s + " " + allColumnTypes[s]);
     }
 }
 

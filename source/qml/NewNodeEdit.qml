@@ -3,6 +3,8 @@ import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Window 2.3
 
+import "UIExtensions"
+
 Item {
     id: newNodeEdit
     objectName: "newNodeEdit"
@@ -167,7 +169,7 @@ Item {
                     font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
                 }
 
-                MComboBox {
+                MyComboBox {
                     id: nodeGroup
                     model: mainObj.groupsList;
                     currentIndex: mainObj.currGroupNum
@@ -177,7 +179,7 @@ Item {
                 }
             }
 
-            MSquareButton {
+            MySquareButton {
                 id: addNode
                 text : "Добавить/Изменить"
 

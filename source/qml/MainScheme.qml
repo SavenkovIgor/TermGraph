@@ -5,6 +5,8 @@ import QtQuick.Window 2.3
 import QtQuick.Layouts 1.3
 import QtQuick.Dialogs 1.2
 
+import "UIExtensions"
+
 Item {
 
     anchors.fill: parent
@@ -24,7 +26,7 @@ Item {
     }
 
     Keys.onPressed: {
-        console.log("someGoHere");
+//        console.log("someGoHere");
     }
 
     function toTop() {

@@ -2,49 +2,11 @@ import QtQuick 2.0
 import QtQuick.Controls 2.1
 import QtQuick.Window 2.3
 
-//ComboBox {
-//    id: box
-
-//    width: contentItem.width
-//    height: contentItem.height
-//    font.pixelSize: mainObj.getUiElementSize("combo")*Screen.pixelDensity;
-//    width: 500
-//}
-
 ComboBox {
     id: control
     font.pixelSize: mainObj.getUiElementSize("combo")*Screen.pixelDensity;
 
-
-//    indicator: Canvas {
-//        id: canvas
-//        x: control.width - width - control.rightPadding
-//        y: control.topPadding + (control.availableHeight - height) / 2
-//        width: 12
-//        height: 8
-//        contextType: "2d"
-
-//        Connections {
-//            target: control
-//            onPressedChanged: canvas.requestPaint()
-//        }
-
-//        onPaint: {
-//            context.reset();
-//            context.moveTo(0, 0);
-//            context.lineTo(width, 0);
-//            context.lineTo(width / 2, height);
-//            context.closePath();
-//            context.fillStyle = control.pressed ? "#17a81a" : "#21be2b";
-//            context.fill();
-//        }
-//    }
-
     contentItem: Text {
-        //              leftPadding: 0
-        //              rightPadding: control.indicator.width + control.spacing
-        //              anchors.left: parent.left + 20
-        //              anchors.right: parent.right - 20
 
         id: contItem
 
@@ -52,7 +14,6 @@ ComboBox {
 
         text: control.displayText
         font: control.font
-//        color: control.pressed ? "#17a81a" : "#21be2b"
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
@@ -91,7 +52,6 @@ ComboBox {
         width: control.width
         contentItem: Text {
             text: modelData
-//            color: "#21be2b"
             font: control.font
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter
@@ -101,4 +61,3 @@ ComboBox {
     }
 
 }
-

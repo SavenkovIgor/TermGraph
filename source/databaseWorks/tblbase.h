@@ -4,12 +4,14 @@
 #include <QObject>
 #include <QtSql>
 
+#include "sqlqueryconstructor.h"
+
 typedef QMap <QString, QString> SqCond;
 typedef QList<QSqlRecord>       RecList;
 
 class TblBase{    
 public:
-    TblBase(QString tblName,QSqlDatabase *base);
+    TblBase(QString tableName,QSqlDatabase *base);
 
     QSqlQuery createTable();
     void checkCols();
@@ -41,10 +43,9 @@ protected:
 private:
     QSqlDatabase *base;
 
-    QString tblName;
+    QString tableName;
     QStringList allColumnNames;
     QMap<QString, QString> allColumnTypes;
-
 
     QSqlQuery start(QString str);
     bool hasErrors(QString errString);

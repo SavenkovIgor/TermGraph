@@ -5,70 +5,87 @@ Project {
     CppApplication {
 
         name: "TermGraph"
-        destinationDirectory: "../../app" // Project.buildDirectory"./app"
+        destinationDirectory: "app" // Project.buildDirectory"./app"
 
-        files: [
-            "source/Helpers/tagprocessor.cpp",
-            "source/Helpers/tagprocessor.h",
-            "source/databaseWorks/cloudservices.cpp",
-            "source/databaseWorks/cloudservices.h",
-            "source/databaseWorks/dbabstract.cpp",
-            "source/databaseWorks/dbabstract.h",
-            "source/databaseWorks/dropboxconnection.cpp",
-            "source/databaseWorks/dropboxconnection.h",
-            "source/databaseWorks/edgtbl.cpp",
-            "source/databaseWorks/edgtbl.h",
-            "source/databaseWorks/tblbase.cpp",
-            "source/databaseWorks/tblbase.h",
-            "source/databaseWorks/termgrouptbl.cpp",
-            "source/databaseWorks/termgrouptbl.h",
-            "source/databaseWorks/ndtbl.cpp",
-            "source/databaseWorks/ndtbl.h",
-            "source/qml.qrc",
-            "source/qml/GoupsSideBar.qml",
-            "source/qml/MComboBox.qml",
-            "source/qml/MSquareButton.qml",
-            "source/qml/MainScheme.qml",
-            "source/qml/MainWindow.qml",
-            "source/qml/MyLabelPair.qml",
-            "source/qml/MyRoundButton.qml",
-            "source/qml/MyTextArea.qml",
-            "source/qml/MyTextField.qml",
-            "source/qml/NewNodeEdit.qml",
-            "source/qml/TermGroupsList.qml",
-            "source/qml/Settings.qml",
-            "source/edge.cpp",
-            "source/edge.h",
-            "source/glb.cpp",
-            "source/glb.h",
-            "source/mainscene.cpp",
-            "source/mainscene.h",
-            "source/mainwindow.cpp",
-            "source/mainwindow.h",
-            "source/mysceneview.cpp",
-            "source/mysceneview.h",
-            "source/reminder.cpp",
-            "source/reminder.h",
-            "source/ui/reminder.ui",
-            "source/termgroup.cpp",
-            "source/termgroup.h",
-            "source/terminfo.cpp",
-            "source/terminfo.h",
-            "source/termnode.cpp",
-            "source/termnode.h",
-            "source/main.cpp",
-            "source/icons.qrc",
-            "source/tgroupname.cpp",
-            "source/tgroupname.h",
-            "source/wordfreqanalyze.cpp",
-            "source/wordfreqanalyze.h",
-            "source/ui/wordfreqanalyze.ui",
-        ]
+        Group {
+            name: "Helpers"
+            prefix: "source/Helpers/"
+            files: [
+                "tagprocessor.cpp",
+                "tagprocessor.h",
+            ]
+        }
 
-        //    Group {     // Properties for the produced executable
-        //        fileTagsFilter: product.type
-        //        qbs.install: true
-        //    }
+        Group {
+            name: "Database"
+            prefix: "source/databaseWorks/"
+            files: [
+                "sqlqueryconstructor.cpp",
+                "sqlqueryconstructor.h",
+                "cloudservices.cpp",
+                "cloudservices.h",
+                "dbabstract.cpp",
+                "dbabstract.h",
+                "dropboxconnection.cpp",
+                "dropboxconnection.h",
+                "edgtbl.cpp",
+                "edgtbl.h",
+                "tblbase.cpp",
+                "tblbase.h",
+                "termgrouptbl.cpp",
+                "termgrouptbl.h",
+                "ndtbl.cpp",
+                "ndtbl.h",
+            ]
+        }
+
+        Group {
+            name: "qrc"
+            prefix: "source/"
+            files: [
+                "icons.qrc",
+                "qml.qrc",
+            ]
+        }
+
+        Group {
+            name: "Ui"
+            prefix: "source/ui/"
+            files: [
+                "reminder.ui",
+                "wordfreqanalyze.ui",
+            ]
+        }
+
+        Group {
+            name: "Common"
+            prefix: "source/"
+            files: [
+                "edge.cpp",
+                "edge.h",
+                "glb.cpp",
+                "glb.h",
+                "mainscene.cpp",
+                "mainscene.h",
+                "mainwindow.cpp",
+                "mainwindow.h",
+                "mysceneview.cpp",
+                "mysceneview.h",
+                "reminder.cpp",
+                "reminder.h",
+                "termgroup.cpp",
+                "termgroup.h",
+                "terminfo.cpp",
+                "terminfo.h",
+                "termnode.cpp",
+                "termnode.h",
+                "main.cpp",
+                "tgroupname.cpp",
+                "tgroupname.h",
+                "wordfreqanalyze.cpp",
+                "wordfreqanalyze.h",
+            ]
+        }
 
         Depends {
             name: "Qt";
@@ -84,7 +101,6 @@ Project {
             ]
         }
 //        Depends{ name: "QtDropbox" }
-
 
 //            cpp.includePaths: ["source/QtDropbox/src"]
 //            cpp.libraryPaths: ["source/QtDropbox/build"]
