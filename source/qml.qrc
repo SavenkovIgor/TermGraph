@@ -3,7 +3,6 @@
         <file>qml/GoupsSideBar.qml</file>
         <file>qml/MainScheme.qml</file>
         <file>qml/MainWindow.qml</file>
-        <file>qml/MyLabelPair.qml</file>
         <file>qml/NewNodeEdit.qml</file>
         <file>qml/TermGroupsList.qml</file>
         <file>qml/Settings.qml</file>
@@ -12,5 +11,6 @@
         <file>qml/UIExtensions/MyTextField.qml</file>
         <file>qml/UIExtensions/MyComboBox.qml</file>
         <file>qml/UIExtensions/MySquareButton.qml</file>
+        <file>qml/UIExtensions/MyLabelPair.qml</file>
     </qresource>
 </RCC>

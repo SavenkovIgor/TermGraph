@@ -276,7 +276,7 @@ Item {
                         }
                     }
 
-                    MyLabelPair {
+                    MyLabelPair{
                         id: ptDescription
                         name: "Описание:"
                     }
