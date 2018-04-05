@@ -79,6 +79,8 @@ Item {
         anchors.fill: parent
 
         Column {
+            id: viewColumn
+
             anchors.margins: 12
             width: newNodeEdit.width
 
@@ -174,6 +176,8 @@ Item {
                     model: mainObj.groupsList;
                     currentIndex: mainObj.currGroupNum
 
+//                    anchors.left: grpLabel.right
+//                    anchors.right: viewColumn.right
                     Layout.fillWidth: true
 
                 }

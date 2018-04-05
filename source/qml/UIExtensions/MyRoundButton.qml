@@ -3,7 +3,7 @@ import QtQuick.Controls 2.2
 import QtQuick.Window 2.3
 
 RoundButton {
-    id: roundBtn
+    id: root
     function loadIcon( nameUrl ) {
         var sz = width - ( 2*padding ); //need icon width
         var pref = ""
@@ -55,8 +55,8 @@ RoundButton {
         id: back
         radius: width/2
         color: {
-            if( roundBtn.checkable == true ) {
-                if( roundBtn.checked ) {
+            if( root.checkable == true ) {
+                if( root.checked ) {
                     border.width = 1
                     return "#bababa"
                 } else {

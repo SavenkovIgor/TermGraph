@@ -1,55 +1,58 @@
 #include "tblbase.h"
 
-
-void TblBase::setField(QString field, int uid, QString val)
+void TblBase::setField(QString columnName, int uid, QString val)
 {
-    SqCond set;
-    set[field] = val;
+    SetExpression set;
+    set.set(columnName, val);
 
-    SqCond where;
-    where["uid"] = QString::number(uid);
+    WhereConditions where;
+    where.equal("uid",uid);
 
     updateWhere(set,where);
 }
 
-int TblBase::getIntField(QString field, int uid)
+int TblBase::getIntField(QString columnName, int uid)
 {
-    if( !allColumnNames.contains(field) )
+    if( !isColumnNameExist(columnName) )
         return -1;
 
-    SqCond where;
-    where["uid"] = QString::number(uid);
+    WhereConditions where;
+    where.equal("uid", uid);
 
-    QSqlQuery sel = select(QStringList()<<field,where);
+    QSqlQuery sel = select(QStringList() << columnName,where);
 
     if(!sel.next())
         return -1;
 
-    return sel.record().value(field).toInt();
+    return sel.record().value(columnName).toInt();
 }
 
-QString TblBase::getStringField(QString field, int uid)
+QString TblBase::getStringField(QString columnName, int uid)
 {
-    if( !allColumnNames.contains(field) )
+    if( !isColumnNameExist(columnName) )
         return "";
 
-    SqCond where;
-    where["uid"] = QString::number(uid);
+    WhereConditions where;
+    where.equal("uid", uid);
 
-    QSqlQuery sel = select(QStringList()<<field,where);
+    QSqlQuery sel = select(QStringList() << columnName,where);
 
     if(!sel.next())
         return "";
 
-    return sel.record().value(field).toString();
+    return sel.record().value(columnName).toString();
 }
 
 QStringList TblBase::getAllCols()
 {
-    return allColumnNames;
+    QStringList lst;
+    for(TableColumnDescription column : columns) {
+        lst << column.name;
+    }
+    return lst;
 }
 
-QSqlQuery TblBase::start(QString str)
+QSqlQuery TblBase::startQuery(QString str)
 {
     //    qDebug()<<str;
     if (str.simplified().isEmpty())
@@ -58,7 +61,7 @@ QSqlQuery TblBase::start(QString str)
     QSqlQuery ret = base->exec(str);
 
     if(hasErrors(ret.lastError().text())) {
-        qDebug()<<"Запрос "<<str<<" выпал с ошибкой "<<ret.lastError().text();
+        qDebug()<<"Query "<<str<<"\nfails with error"<<ret.lastError().text();
     }
 
     return ret;
@@ -71,141 +74,90 @@ bool TblBase::hasErrors(QString errString)
     return ret;
 }
 
-QStringList TblBase::parseWhere(SqCond where)
-{
-    QStringList ret;
-
-    for(QString s:where.keys()) {
-
-        if(where[s].startsWith("!"))
-            ret << s + " != " + vv(where[s].mid(1));
-
-        else if(where[s] == "IS NULL")
-            ret << s + " " + where[s];
-
-        else if(where[s] == "IS NOT NULL")
-            ret << s + " " + where[s];
-
-        else
-            ret << s + " = " + vv(where[s]);
-
-    }
-
-    return ret;
-}
-
 TblBase::TblBase(QString tblName, QSqlDatabase *base):
     tableName(tblName),
     base(base)
 {
-
+    queryConstructor = new SqlQueryConstructor(tblName);
 }
 
 QSqlQuery TblBase::createTable() {
-    QStringList lst;
-    for( QString s:allColumnNames )
-        lst << s + " " + allColumnTypes[s];
-
-    return start("CREATE TABLE " + tableName + " (" + lst.join(", ") + ")" );
+    QString query = queryConstructor->createTable(columns);
+    return startQuery(query);
 }
 
-void TblBase::addCol(QString colName, QString colType) {
-    allColumnTypes.insert(colName,colType);
-    allColumnNames << colName;
+void TblBase::initColumn(QString columnName, QString columnType) {
+    TableColumnDescription column;
+    column.name = columnName;
+    column.type = columnType;
+    columns.append(column);
 }
 
-bool TblBase::insertInto(QStringList cols, QStringList vals)
+bool TblBase::insertInto(QList<InsertContainer> values)
 {
-    for(int i=0;i<vals.size();i++)
-        vals[i] = vv(vals[i]);
-
-    QSqlQuery q = z_in(cols.join(", "),vals.join(", "));
+    QSqlQuery q = executeInsert(values);
 
     if( hasErrors( q.lastError().text() ) )
         return false;
     return true;
 }
 
-QSqlQuery TblBase::select(QStringList cols, QString where, QString add)
+QSqlQuery TblBase::select(QStringList cols, WhereConditions where, QString orderBy)
 {
-    return z_sl(cols.join(", "),where,add);
+    return executeSelect(cols, where, orderBy);
 }
 
-QSqlQuery TblBase::select(QString cols, QString where)
+QSqlQuery TblBase::executeSelect(QStringList cols, WhereConditions where, QString orderBy)
 {
-    return z_sl(cols,where);
+    QString query = queryConstructor->selectQuery(cols,where,orderBy);
+    return startQuery(query);
 }
 
-QSqlQuery TblBase::select(QStringList cols, SqCond where)
+QSqlQuery TblBase::executeInsert(QList<InsertContainer> values)
 {
-    return z_sl(cols.join(", "),parseWhere(where).join(" AND "));
+    QString query = queryConstructor->insertQuery(values);
+    return startQuery(query);
 }
 
-QSqlQuery TblBase::z_sl(QString cols, QString where, QString add)
+void TblBase::executeUpdate(SetExpression set, WhereConditions where)
 {
-    QString query = SqlQueryConstructor::selectQuery(tableName,cols,where,add);
-    return start(query);
+    QString query = queryConstructor->updateQuery(set,where);
+    startQuery(query);
 }
 
-QSqlQuery TblBase::z_in(QString cols, QString vals)
+
+
+void TblBase::updateWhere(SetExpression set, WhereConditions where)
 {
-    QString query = SqlQueryConstructor::insertQuery(tableName,cols,vals);
-    return start(query);
-}
-
-QSqlQuery TblBase::z_up(QString set, QString where)
-{
-    QString query = SqlQueryConstructor::updateQuery(tableName,set,where);
-    return start(query);
-}
-
-QString TblBase::vv(QString str)
-{
-    return SqlQueryConstructor::vv(str);
-}
-
-QSqlQuery TblBase::updateWhere(SqCond set, SqCond where)
-{
-    QStringList setLst;
-
-    for( QString s:set.keys() )
-        setLst << s + " = " + vv(set[s]);
-
-    QStringList whereLst;
-
-    for( QString s:where.keys() )
-        whereLst << s + " = " + vv(where[s]);
-
-    return z_up(setLst.join(", "),whereLst.join(" AND "));
-}
-
-QSqlQuery TblBase::updateWhere(SqCond set, QString where)
-{
-    QStringList setLst;
-
-    for( QString s:set.keys() ) {
-        setLst << s + " = " + vv(set[s]);
-    }
-
-    return z_up(setLst.join(", "), where);
+    executeUpdate(set, where);
 }
 
 void TblBase::deleteRecord(int id)
 {
-    QString query = SqlQueryConstructor::deleteByUidQuery(tableName,"uid",id);
-    start(query);
+    QString query = queryConstructor->deleteByUidQuery("uid",id);
+    startQuery(query);
 }
 
-void TblBase::deleteWhere(QString where)
+void TblBase::deleteWhere(WhereConditions where)
 {
-    QString query = SqlQueryConstructor::deleteWhereQuery(tableName,where);
-    start(query);
+    QString query = queryConstructor->deleteWhereQuery(where);
+    startQuery(query);
+}
+
+bool TblBase::isColumnNameExist(QString columnName)
+{
+    for(TableColumnDescription col : columns) {
+        if (col.name == columnName)
+            return true;
+    }
+    return false;
 }
 
 void TblBase::checkCols()
 {
-    for( QString s : allColumnNames ) {
-        start( "ALTER TABLE " + tableName + " ADD COLUMN " + s + " " + allColumnTypes[s]);
+    for( TableColumnDescription column : columns ) {
+        QString query = queryConstructor->addColumn(column);
+        startQuery(query);
     }
 }
 

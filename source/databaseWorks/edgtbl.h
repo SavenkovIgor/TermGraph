@@ -14,10 +14,10 @@ public:
     EdgTbl(QSqlDatabase *base):
     TblBase("termEdge",base)
     {
-        addCol( uid,        "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
-        addCol( toID,       "INTEGER");
-        addCol( fromID,     "INTEGER");
-        addCol( comment,    "TEXT");
+        initColumn( uid,        "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
+        initColumn( toID,       "INTEGER");
+        initColumn( fromID,     "INTEGER");
+        initColumn( comment,    "TEXT");
     }
 
     QList<QPair<int, int> > getAllEdges();

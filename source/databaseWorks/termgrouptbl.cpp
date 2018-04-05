@@ -1,29 +1,23 @@
 #include "termgrouptbl.h"
 
-
 bool TermGroupTbl::addGroup(QString name, QString comment, int type)
 {
     if(name.simplified() == "")
         return false;
 
-    QStringList cols;
-    cols << this->name;
-    cols << this->comment;
-    cols << this->type;
+    QList<InsertContainer> values;
+    values << InsertContainer(this->name,name);
+    values << InsertContainer(this->comment,comment);
+    values << InsertContainer(this->type,type);
 
-    QStringList vals;
-    vals << name;
-    vals << comment;
-    vals << QString::number(type);
-
-    return insertInto(cols,vals);
+    return insertInto(values);
 }
 
 QList<int> TermGroupTbl::getAllGroupsUid()
 {
     QList<int> ret;
 
-    QSqlQuery q = select(QStringList()<<this->uid,"","ORDER BY uid");
+    QSqlQuery q = select(QStringList() << this->uid, WhereConditions(), "uid");
 
     for(int i=0;i<1000000;i++) {
         if(!q.next())
@@ -37,7 +31,9 @@ QList<int> TermGroupTbl::getAllGroupsUid()
 
 void TermGroupTbl::deleteGroup(QString name)
 {
-    deleteWhere( this->name + " = " + vv(name) );
+    WhereConditions where;
+    where.equal(this->name,name);
+    deleteWhere(where);
 }
 
 void TermGroupTbl::normalizeUuid()
@@ -61,10 +57,10 @@ void TermGroupTbl::normalizeUuid()
 
 int TermGroupTbl::getUid(QString groupName)
 {
-    SqCond where;
-    where[this->name] = groupName;
+    WhereConditions where;
+    where.equal(this->name, groupName);
 
-    QSqlQuery q = select(QStringList()<<this->uid,where);
+    QSqlQuery q = select(QStringList() << this->uid, where);
     if(!q.next())
         return -1;
 
@@ -90,7 +86,7 @@ QStringList TermGroupTbl::getAllGroupsNames(QString area, bool withUid)
 {
     QStringList ret;
 
-    QSqlQuery q = select(QStringList()<<this->name<<this->uid,"","ORDER BY uid");
+    QSqlQuery q = select(QStringList() << this->name << this->uid, WhereConditions(), "uid");
 
     for(int i=0;i<1000000;i++) {
         if(!q.next())
@@ -107,7 +103,10 @@ QStringList TermGroupTbl::getAllGroupsNames(QString area, bool withUid)
 
 QSqlRecord TermGroupTbl::getGroup(int id)
 {
-    QSqlQuery sel = select("*",this->uid + " = " + vv(QString::number(id)));
+    WhereConditions where;
+    where.equal(this->uid,id);
+
+    QSqlQuery sel = select(getAllCols(), where);
 
     if(!sel.next())
         return QSqlRecord();

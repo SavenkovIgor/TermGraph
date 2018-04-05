@@ -20,6 +20,7 @@ Project {
             name: "Database"
             prefix: "source/databaseWorks/"
             files: [
+                "commonqueryfunctions.h",
                 "sqlqueryconstructor.cpp",
                 "sqlqueryconstructor.h",
                 "cloudservices.cpp",

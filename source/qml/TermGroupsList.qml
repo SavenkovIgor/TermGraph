@@ -22,7 +22,7 @@ Item {
             }
         }
         else if( event.key === Qt.Key_Escape )
-            if( newGroupDrawer.isOpen() ) {
+            if( newGroupDrawer.isOpen ) {
                 newGroupDrawer.close()
                 event.accepted = true
             }
@@ -59,7 +59,14 @@ Item {
         anchors.bottom: parent.bottom
 
         onClicked: {
+            rotation += 90
             sceneObj.exportGrpToJson(goupsList.currentItem.text)
+        }
+
+        Behavior on rotation {
+            NumberAnimation {
+                duration: 250
+            }
         }
 
         Component.onCompleted: loadIcon("qrc:/icons/share-boxed")

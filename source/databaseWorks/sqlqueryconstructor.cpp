@@ -1,86 +1,111 @@
 #include "sqlqueryconstructor.h"
 
-QString SqlQueryConstructor::joinParam = ", ";
-
-SqlQueryConstructor::SqlQueryConstructor()
+SqlQueryConstructor::SqlQueryConstructor(QString tableName)
 {
-
+    this->tableName = tableName;
 }
 
-QString SqlQueryConstructor::selectQuery(QString tableName, QString column, QString where, QString addition)
+QString SqlQueryConstructor::createTable(QList<TableColumnDescription> columns)
 {
-    return selectQuery(tableName,QStringList()<<column,where,addition);
-}
-
-QString SqlQueryConstructor::selectQuery(QString tableName, QStringList columns, QString where, QString addition)
-{
-    QStringList qry;
-    qry << "SELECT";
-    qry << columns.join(joinParam);
-    qry << "FROM";
-    qry << tableName;
-    if( where.simplified() != "" ){
-        qry << "WHERE";
-        qry << where;
+    QStringList colsDescription;
+    for(TableColumnDescription col : columns) {
+        colsDescription << col.name + " " + col.type;
     }
-    qry<<addition;
-
-    return qry.join(" ");
-}
-
-QString SqlQueryConstructor::insertQuery(QString tableName, QString column, QString value)
-{
-    return insertQuery(tableName,QStringList()<<column,QStringList()<<value);
-}
-
-QString SqlQueryConstructor::insertQuery(QString tableName, QStringList columns, QStringList values)
-{
-    if (columns.size() != values.size())
-        return "";
 
     QStringList qry;
-    qry << "INSERT INTO";
+    qry << "CREATE";
+    qry << "TABLE";
     qry << tableName;
     qry << "(";
-    qry << columns.join(joinParam);
-    qry << ") VALUES (";
-    qry << values.join(joinParam);
+    qry << colsDescription.join(CommonQueryFunctions::joinParam());
     qry << ")";
 
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::updateQuery(QString tableName, QString set, QString where)
+QString SqlQueryConstructor::addColumn(TableColumnDescription column)
+{
+    QStringList qry;
+    qry << "ALTER";
+    qry << "TABLE";
+    qry << tableName;
+    qry << "ADD COLUMN";
+    qry << column.name;
+    qry << column.type;
+
+    return qry.join(" ");
+}
+
+QString SqlQueryConstructor::selectQuery(QStringList columns, WhereConditions where, QString orderBy)
+{
+    QStringList qry;
+    qry << "SELECT";
+    qry << columns.join(CommonQueryFunctions::joinParam());
+    qry << "FROM";
+    qry << tableName;
+    if(where.getJoinedConditions() != ""){
+        qry << "WHERE";
+        qry << where.getJoinedConditions();
+    }
+    if(orderBy.simplified() != "") {
+       qry << "ORDER BY";
+       qry << orderBy;
+    }
+
+    return qry.join(" ");
+}
+
+QString SqlQueryConstructor::insertQuery(QList<InsertContainer> values)
+{
+    QStringList columns;
+    QStringList insertValues;
+
+    for(InsertContainer value : values) {
+        columns << value.getColumnName();
+        insertValues << CommonQueryFunctions::vv(value.getValue());
+    }
+
+    QStringList qry;
+    qry << "INSERT";
+    qry << "INTO";
+    qry << tableName;
+    qry << "(";
+    qry << columns.join(CommonQueryFunctions::joinParam());
+    qry << ")";
+    qry << "VALUES";
+    qry << "(";
+    qry << insertValues.join(CommonQueryFunctions::joinParam());
+    qry << ")";
+
+    return qry.join(" ");
+}
+
+QString SqlQueryConstructor::updateQuery(SetExpression set, WhereConditions where)
 {
     QStringList qry;
     qry << "UPDATE";
     qry << tableName;
     qry << "SET";
-    qry << set;
+    qry << set.getExpression();
     qry << "WHERE";
-    qry << where;
+    qry << where.getJoinedConditions();
 
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::deleteWhereQuery(QString tableName, QString where)
+QString SqlQueryConstructor::deleteWhereQuery(WhereConditions where)
 {
     QStringList qry;
     qry << "DELETE";
     qry << "FROM";
     qry << tableName;
     qry << "WHERE";
-    qry << where;
+    qry << where.getJoinedConditions();
 
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::deleteByUidQuery(QString tableName, QString primaryKeyName, int id)
-{
-    return deleteByUidQuery(tableName,primaryKeyName,QString::number(id));
-}
-
-QString SqlQueryConstructor::deleteByUidQuery(QString tableName, QString primaryKeyName, QString primaryKeyValue)
+QString SqlQueryConstructor::deleteByUidQuery(QString primaryKeyName, int id)
 {
     QStringList qry;
     qry << "DELETE";
@@ -89,23 +114,17 @@ QString SqlQueryConstructor::deleteByUidQuery(QString tableName, QString primary
     qry << "WHERE";
     qry << primaryKeyName;
     qry << "=";
-    qry << vv(primaryKeyValue);
+    qry << CommonQueryFunctions::vv(QString::number(id));
 
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::vv(QString str)
-{
-    str.replace("'","''");
-    str.replace("\"","\"\"");
-    QString ret = "'" + str + "'";
-    return ret;
-}
+
 
 QStringList SqlQueryConstructor::vv(QStringList lst)
 {
     for(QString &str: lst) {
-        str = vv(str);
+        str = CommonQueryFunctions::vv(str);
     }
     return lst;
 }

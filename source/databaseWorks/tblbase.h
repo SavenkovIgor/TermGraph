@@ -9,7 +9,7 @@
 typedef QMap <QString, QString> SqCond;
 typedef QList<QSqlRecord>       RecList;
 
-class TblBase{    
+class TblBase{
 public:
     TblBase(QString tableName,QSqlDatabase *base);
 
@@ -17,44 +17,40 @@ public:
     void checkCols();
 
 protected:
-    void    setField(QString field,int uid,QString val);
+    void    setField(QString columnName,int uid,QString val);
 
-    int     getIntField   (QString field,int uid);
-    QString getStringField(QString field,int uid);
+    int     getIntField   (QString columnName, int uid);
+    QString getStringField(QString columnName, int uid);
 
-    void addCol( QString colName, QString colType );
+    void initColumn(QString columnName, QString columnType);
     QStringList getAllCols();
 
-    bool insertInto(QStringList cols, QStringList vals);
-    QSqlQuery select(QStringList cols, QString where = "", QString add = "");
-    QSqlQuery select(QString     cols, QString where = "");
-    QSqlQuery select(QStringList cols, SqCond where);
+    QSqlQuery select(QStringList cols, WhereConditions where = WhereConditions(), QString orderBy = "");
 
-    QString vv(QString str);
+    bool insertInto(QList<InsertContainer> values);
 
-    QSqlQuery updateWhere(SqCond set, SqCond where);
-    QSqlQuery updateWhere(SqCond set, QString where);
+    void updateWhere(SetExpression set, WhereConditions where);
+
+    void deleteRecord(int id);
+    void deleteWhere(WhereConditions where);
 
     RecList toRecList(QSqlQuery q);
 
-    void deleteRecord(int id);
-    void deleteWhere(QString where);
-
 private:
     QSqlDatabase *base;
+    SqlQueryConstructor *queryConstructor;
 
     QString tableName;
-    QStringList allColumnNames;
-    QMap<QString, QString> allColumnTypes;
 
-    QSqlQuery start(QString str);
+    QList<TableColumnDescription> columns;
+    bool isColumnNameExist(QString columnName);
+
+    QSqlQuery startQuery(QString str);
     bool hasErrors(QString errString);
 
-    QStringList parseWhere(SqCond where);
-
-    QSqlQuery z_sl(QString cols, QString where, QString add = "");
-    QSqlQuery z_in(QString cols, QString vals);
-    QSqlQuery z_up(QString set, QString where);
+    QSqlQuery executeSelect(QStringList cols, WhereConditions where, QString orderBy = "");
+    QSqlQuery executeInsert(QList<InsertContainer> values);
+    void      executeUpdate(SetExpression set, WhereConditions where);
 
 };
 

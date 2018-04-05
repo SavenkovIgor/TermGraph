@@ -15,11 +15,11 @@ public:
     TermGroupTbl(QSqlDatabase *base):
         TblBase("termGroup",base)
     {
-        addCol(uid,     "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
-        addCol(longUID, "TEXT");
-        addCol(name,    "TEXT UNIQUE");
-        addCol(comment, "TEXT");
-        addCol(type,    "INTEGER DEFAULT '-1'");
+        initColumn(uid,     "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
+        initColumn(longUID, "TEXT");
+        initColumn(name,    "TEXT UNIQUE");
+        initColumn(comment, "TEXT");
+        initColumn(type,    "INTEGER DEFAULT '-1'");
     }
 
     QList<int>  getAllGroupsUid();

@@ -28,22 +28,22 @@ public:
     NdTbl(QSqlDatabase *base):
     TblBase("termNode",base)
     {
-        addCol( uid,         "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
-        addCol( longUID,     "TEXT");
-        addCol( term,        "TEXT");
-        addCol( termForms,   "TEXT");
-        addCol( definition,  "TEXT");
-        addCol( description, "TEXT");
-        addCol( examples,    "TEXT");
-        addCol( wikiRef,     "TEXT");
-        addCol( wikiImg,     "TEXT");
-        addCol( techComment, "TEXT");
-        addCol( isRoot,      "INTEGER DEFAULT '0'");  //0 - because false
-        addCol( termGroup,   "INTEGER DEFAULT '-1'"); //-1 - because uid [0;+8)
-        addCol( lastRemind,  "TEXT");
-        addCol( remindNum,   "INTEGER DEFAULT '0'");
-        addCol( atLearn,     "INTEGER DEFAULT '0'");
-        addCol( lastEdit,    "TEXT");
+        initColumn( uid,         "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
+        initColumn( longUID,     "TEXT");
+        initColumn( term,        "TEXT");
+        initColumn( termForms,   "TEXT");
+        initColumn( definition,  "TEXT");
+        initColumn( description, "TEXT");
+        initColumn( examples,    "TEXT");
+        initColumn( wikiRef,     "TEXT");
+        initColumn( wikiImg,     "TEXT");
+        initColumn( techComment, "TEXT");
+        initColumn( isRoot,      "INTEGER DEFAULT '0'");  //0 - because false
+        initColumn( termGroup,   "INTEGER DEFAULT '-1'"); //-1 - because uid [0;+8)
+        initColumn( lastRemind,  "TEXT");
+        initColumn( remindNum,   "INTEGER DEFAULT '0'");
+        initColumn( atLearn,     "INTEGER DEFAULT '0'");
+        initColumn( lastEdit,    "TEXT");
     }
 
     int addNode( QString name );
