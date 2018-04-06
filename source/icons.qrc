@@ -89,5 +89,6 @@
         <file>icons/folder-4x.png</file>
         <file>icons/folder-6x.png</file>
         <file>icons/folder-8x.png</file>
+        <file>icons/folder.png</file>
     </qresource>
 </RCC>
