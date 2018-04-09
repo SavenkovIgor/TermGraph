@@ -312,6 +312,7 @@ int MainWindow::getUiElementSize(QString elementTypeName)
     if( elementSizes.contains(elementTypeName) )
         //чтобы эти значения не вставлялись. на всякий случай
         return elementSizes[elementTypeName];
+    qDebug()<<"Отсутствует размер для элемента:"<<elementTypeName;
     return 0;
 }
 
@@ -331,6 +332,18 @@ void MainWindow::initElemSizes()
 #endif
 
 #if defined( Q_OS_ANDROID )
+    elementSizes["roundButton"] = 8;
+    elementSizes["text"] = 3;
+    elementSizes["capitalText"] = 4;
+    elementSizes["inputLabel"] = 4;
+    elementSizes["inputText"] = 4;
+    elementSizes["combo"] = 4;
+    elementSizes["button"] = 4;
+    elementSizes["colSpace"] = 2;
+    elementSizes["appHeader"] = 6;
+#endif
+
+#if defined( Q_OS_MACOS )
     elementSizes["roundButton"] = 8;
     elementSizes["text"] = 3;
     elementSizes["capitalText"] = 4;

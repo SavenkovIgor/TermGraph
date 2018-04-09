@@ -5,8 +5,20 @@ import QtQuick.Window 2.3
 RoundButton {
     id: root
     function loadIcon( nameUrl ) {
-        var sz = width - ( 2*padding ); //need icon width
-        var pref = ""
+        var sz = width - ( 2*padding ) //need icon width
+
+        var prefix = getPrefixForSize(sz)
+
+        iconImg.width  = Math.floor(sz)
+        iconImg.height = Math.floor(sz)
+
+        console.log(iconImg.width)
+        console.log(iconImg.height)
+
+        iconImg.source = nameUrl + prefix + ".png"
+    }
+
+    function getPrefixForSize( size ) {
         //8 16 24 32 48 64 sizes
         //8  ""
         //16 "-2x"
@@ -22,26 +34,20 @@ RoundButton {
         //32 - 48: 40
         //48 - 64: 56
 
-        if( sz <= 12 )
-            pref = ""
-        else if ( 12 < sz && sz <= 20 )
-            pref = "-2x"
-        else if ( 20 < sz && sz <= 28 )
-            pref = "-3x"
-        else if ( 28 < sz && sz <= 40 )
-            pref = "-4x"
-        else if ( 40 < sz && sz <= 56 )
-            pref = "-6x"
-        else if ( 56 < sz )
-            pref = "-8x"
+        if( size <= 12 )
+            return ""
+        else if ( 12 < size && size <= 20 )
+            return "-2x"
+        else if ( 20 < size && size <= 28 )
+            return "-3x"
+        else if ( 28 < size && size <= 40 )
+            return "-4x"
+        else if ( 40 < size && size <= 56 )
+            return "-6x"
+        else if ( 56 < size )
+            return "-8x"
 
-        iconImg.width  = Math.floor(sz)
-        iconImg.height = Math.floor(sz)
-
-        console.log(iconImg.width)
-        console.log(iconImg.height)
-
-        iconImg.source = nameUrl + pref + ".png"
+        return ""
     }
 
     function hideBack() {
@@ -82,5 +88,5 @@ RoundButton {
         id: iconImg
         anchors.centerIn: parent
     }
-
 }
+
