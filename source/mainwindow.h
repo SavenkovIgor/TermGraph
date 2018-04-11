@@ -85,7 +85,6 @@ public slots:
             QString def,
             QString descr,
             QString exam,
-            bool    isRoot,
             QString groupName
             );
 

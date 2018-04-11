@@ -16,7 +16,7 @@ TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
 
     name        = rec.value( db->nodeTbl->term ).toString();
     nameForms   = rec.value( db->nodeTbl->termForms ).toString();
-    root        = rec.value( db->nodeTbl->isRoot ).toString() == "1";
+    root        = false;
     definition  = rec.value( db->nodeTbl->definition ).toString();
 
     QString error;

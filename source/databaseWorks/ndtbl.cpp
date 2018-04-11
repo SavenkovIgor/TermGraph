@@ -87,15 +87,6 @@ void NdTbl::setWikiImg(int uid, QString wImg)
     updateLastEdit(uid);
 }
 
-void NdTbl::setIsRoot(int uid, bool isRoot)
-{
-    if( isRoot )
-        setField(this->isRoot,uid,"1");
-    else
-        setField(this->isRoot,uid,"0");
-    updateLastEdit(uid);
-}
-
 void NdTbl::setGroup(int uid, int group)
 {
     setField(this->termGroup,uid,QString::number(group));

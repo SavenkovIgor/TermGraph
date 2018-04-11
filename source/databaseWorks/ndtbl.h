@@ -18,7 +18,6 @@ public:
     const QString wikiRef     = "wikiRef";
     const QString wikiImg     = "wikiImg";
     const QString techComment = "techComment";
-    const QString isRoot      = "isRoot";
     const QString termGroup   = "termGroup";
     const QString lastRemind  = "lastRemind";
     const QString remindNum   = "remindNum";
@@ -38,7 +37,6 @@ public:
         initColumn( wikiRef,     "TEXT");
         initColumn( wikiImg,     "TEXT");
         initColumn( techComment, "TEXT");
-        initColumn( isRoot,      "INTEGER DEFAULT '0'");  //0 - because false
         initColumn( termGroup,   "INTEGER DEFAULT '-1'"); //-1 - because uid [0;+8)
         initColumn( lastRemind,  "TEXT");
         initColumn( remindNum,   "INTEGER DEFAULT '0'");
@@ -59,7 +57,6 @@ public:
     void setExamples    ( int uid, QString examp);
     void setWikiRef     ( int uid, QString wRef);
     void setWikiImg     ( int uid, QString wImg);
-    void setIsRoot      ( int uid, bool isRoot);
     void setGroup       ( int uid, int group);
     void setAtLearn     ( int uid, bool learn);
 

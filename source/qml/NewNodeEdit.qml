@@ -154,15 +154,6 @@ Item {
                 placeholderText: "http://"
             }
 
-            CheckBox {
-                id: rootNode
-                objectName: "rootNode"
-
-                text: "Корневая вершина"
-                font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
-                checked: false
-            }
-
             RowLayout {
                 width: parent.width
                 Label {
@@ -195,7 +186,6 @@ Item {
                                 termDefin.text,
                                 termDescr.text,
                                 termExampl.text,
-                                rootNode.checked,
                                 nodeGroup.currentText
                                 )
                     moveBack()

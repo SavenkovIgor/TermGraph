@@ -240,7 +240,6 @@ void MainWindow::addNewNode(
         QString def,
         QString descr,
         QString exam,
-        bool    isRoot,
         QString groupName)
 {
     bool ok = false;
@@ -256,7 +255,6 @@ void MainWindow::addNewNode(
     db->nodeTbl->setDefinition (change,def);
     db->nodeTbl->setDescription(change,descr);
     db->nodeTbl->setExamples(change,exam);
-    db->nodeTbl->setIsRoot     (change,isRoot);
     db->nodeTbl->setGroup      (change,groupID);
 
     scene->updateModel();
