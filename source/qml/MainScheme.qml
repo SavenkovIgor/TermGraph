@@ -153,8 +153,11 @@ Item {
 
             MyRoundButton {
                 id: addNode
-                anchors.right: mainSceneImg.right
-                anchors.top: mainSceneImg.top
+
+                anchors {
+                    right: mainSceneImg.right
+                    top: mainSceneImg.top
+                }
 
                 onClicked: listView.openNewNode()
                 Component.onCompleted: loadIcon( "qrc:/icons/plus" )
@@ -163,8 +166,10 @@ Item {
             MyRoundButton {
                 id : deleteConnectionsBtn
 
-                anchors.right: changePointBtn.left
-                anchors.bottom: mainSceneImg.bottom
+                anchors {
+                    right: changePointBtn.left
+                    bottom: mainSceneImg.bottom
+                }
 
                 onClicked: sceneObj.dropEdgesOnSelected()
                 Component.onCompleted: loadIcon( "qrc:/icons/link-broken")
@@ -173,8 +178,10 @@ Item {
             MyRoundButton {
                 id: changePointBtn
 
-                anchors.right: mainSceneImg.right
-                anchors.bottom: mainSceneImg.bottom
+                anchors {
+                    right: mainSceneImg.right
+                    bottom: mainSceneImg.bottom
+                }
 
                 onClicked: {
                     mainObj.sceneChangePoint()
@@ -187,8 +194,10 @@ Item {
             MyRoundButton {
                 id : deleteSelNodeBtn
 
-                anchors.right: mainSceneImg.right
-                anchors.bottom: changePointBtn.top
+                anchors {
+                    right: mainSceneImg.right
+                    bottom: changePointBtn.top
+                }
 
                 onClicked: mainSceneImg.nodeDeleteCheck()
                 Component.onCompleted: loadIcon( "qrc:/icons/ban" )

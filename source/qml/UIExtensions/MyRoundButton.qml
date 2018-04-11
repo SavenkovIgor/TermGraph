@@ -36,18 +36,16 @@ RoundButton {
 
         if( size <= 12 )
             return ""
-        else if ( 12 < size && size <= 20 )
+        else if ( size <= 20 )
             return "-2x"
-        else if ( 20 < size && size <= 28 )
+        else if ( size <= 28 )
             return "-3x"
-        else if ( 28 < size && size <= 40 )
+        else if ( size <= 40 )
             return "-4x"
-        else if ( 40 < size && size <= 56 )
+        else if ( size <= 56 )
             return "-6x"
-        else if ( 56 < size )
+        else
             return "-8x"
-
-        return ""
     }
 
     function hideBack() {
