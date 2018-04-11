@@ -344,14 +344,14 @@ void MainWindow::initElemSizes()
 #endif
 
 #if defined( Q_OS_MACOS )
-    elementSizes["roundButton"] = 8;
-    elementSizes["text"] = 3;
+    elementSizes["roundButton"] = 16;
+    elementSizes["text"] = 5;
     elementSizes["capitalText"] = 4;
-    elementSizes["inputLabel"] = 4;
-    elementSizes["inputText"] = 4;
-    elementSizes["combo"] = 4;
-    elementSizes["button"] = 4;
-    elementSizes["colSpace"] = 2;
-    elementSizes["appHeader"] = 6;
+    elementSizes["inputLabel"] = 7;
+    elementSizes["inputText"] = 6;
+    elementSizes["combo"] = 5;
+    elementSizes["button"] = 5;
+    elementSizes["colSpace"] = 4;
+    elementSizes["appHeader"] = 9;
 #endif
 }
