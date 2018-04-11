@@ -201,6 +201,16 @@ NodeType TermNode::getNodeType()
     return NodeType::root;
 }
 
+QColor TermNode::getBaseColor()
+{
+    switch ( getNodeType() ) {
+    case NodeType::orphan: return orphanColor;
+    case NodeType::root: return rootColor;
+    case NodeType::leaf: return leafColor;
+    default: return leafColor;
+    }
+}
+
 void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     //defaults
