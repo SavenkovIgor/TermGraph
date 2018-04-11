@@ -9,7 +9,9 @@ const qreal TermNode::hInterv  = 15.0;
 
 DBAbstract *TermNode::db = nullptr;
 
+const QColor TermNode::leafColor = QColor(94,196,99);
 const QColor TermNode::rootColor = QColor(255, 153, 0);
+const QColor TermNode::orphanColor = QColor(134, 194, 228);
 const QColor TermNode::selectedColor = QColor(128,129,176);
 
 QList< Qt::Edge > TermNode::sides;
@@ -43,9 +45,6 @@ TermNode::TermNode( QSqlRecord rec ):
 
     setAcceptHoverEvents(true);
     setZValue(1);
-
-    if( isRoot() )
-        baseColor = rootColor;
 }
 
 TermNode::~TermNode()
@@ -197,11 +196,16 @@ QLineF TermNode::getRectLine(Qt::Edge sd)
     return QLineF();
 }
 
+NodeType TermNode::getNodeType()
+{
+    return NodeType::root;
+}
+
 void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     //defaults
     QRectF rcBase = mainRect;
-    QColor col = baseColor;
+    QColor col = getBaseColor();
     int transpVal = 100;
     setZValue(1);
 

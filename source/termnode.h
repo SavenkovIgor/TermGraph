@@ -8,6 +8,12 @@
 #include "glb.h"
 #include "terminfo.h"
 
+enum NodeType{
+    orphan,
+    root,
+    leaf
+};
+
 class TermNode :  public TermInfo, public QGraphicsItem
 {
     Q_OBJECT
@@ -51,6 +57,9 @@ public:
     QRectF getRcWithBorders();
     QSizeF getSize( bool withBorder = true );
     QLineF getRectLine( Qt::Edge sd );
+
+    NodeType getNodeType();
+    QColor getBaseColor();
 
     QString getGroupString();
 
@@ -129,9 +138,10 @@ private:
     QAction *toLearnAct;
 
     // Colors
+    const static QColor leafColor;
     const static QColor rootColor;
+    const static QColor orphanColor;
     const static QColor selectedColor;
-    QColor baseColor = QColor(94,196,99);
 
     // Hovers
     bool thisHovered = false;
