@@ -11,13 +11,12 @@ DBAbstract *TermNode::db = nullptr;
 
 const QColor TermNode::leafColor = QColor(94,196,99);
 const QColor TermNode::rootColor = QColor(255, 153, 0);
-const QColor TermNode::orphanColor = QColor(134, 194, 228);
+const QColor TermNode::orphanColor = QColor(179, 141, 217);
 const QColor TermNode::selectedColor = QColor(128,129,176);
 
 QList< Qt::Edge > TermNode::sides;
 
 TermNode::TermNode( QSqlRecord rec ):
-    //    QObject(),
     TermInfo( rec ),
     QGraphicsItem()
 {
@@ -443,7 +442,6 @@ void TermNode::countForces()
         else
             tmp = e->getYProjection();
 
-
         if( Glb::isVertical() ) {
             if( e->getRoot() == this )
                 notMyPos = e->getBrnch()->getCenter().x();
@@ -580,30 +578,18 @@ int TermNode::getRepNum() const
 }
 
 bool TermNode::isRoot() {
-    if (!edgesUpList.isEmpty() && edgesDownList.isEmpty())
-        return true;
-    else
-        return false;
+    return getNodeType() == NodeType::root;
+}
 
-            /*
-    if( getGroupType() == -1 ) {
-        return TermInfo::isRoot();
-    } else if( getGroupType() == 0 ) {
-//        qWarning()<<"GRiD"<<getGroupID()<<getGroupString();
-//        qWarning()<<"edgSize"<<edgesDownList.size();
-        for( Edge *e : edgesDownList ) {
-//            if( getUid() == 433 )
-//                qDebug()<<getName()<<e->isDiffGroupEdge();
-            //Если это ребро в той же группе, и связь вниз
-            //то это точно не корень.
-//            return getTags().isEmpty();
-            if( !e->isDiffGroupEdge() )
-                return false;
-        }
-        return true;
-    }
-    return false;
-            */
+bool TermNode::isOrphan()
+{
+    return getNodeType() == NodeType::orphan;
+}
+
+bool TermNode::isLeaf()
+{
+    NodeType type = getNodeType();
+    return type == NodeType::endLeaf || type == NodeType::middleLeaf;
 }
 
 bool TermNode::needRemindToday()
