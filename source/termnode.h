@@ -11,7 +11,8 @@
 enum NodeType{
     orphan,
     root,
-    leaf
+    endLeaf,
+    middleLeaf
 };
 
 class TermNode :  public TermInfo, public QGraphicsItem
@@ -100,6 +101,8 @@ public:
     int getRepNum() const;
 
     bool isRoot();
+    bool isOrphan();
+    bool isLeaf();
 
 //    QString getSmallName() {
 //        if( isRoot() )

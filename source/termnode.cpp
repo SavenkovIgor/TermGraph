@@ -198,6 +198,19 @@ QLineF TermNode::getRectLine(Qt::Edge sd)
 
 NodeType TermNode::getNodeType()
 {
+    if (edgesDownList.isEmpty()) {
+        if (edgesUpList.isEmpty()) {
+            return NodeType::orphan; //Оба пустые
+        } else {
+            return NodeType::root; //Вниз связей нет, вверх - есть
+        }
+    } else {
+        if (edgesUpList.isEmpty()) {
+            return NodeType::endLeaf; //Вниз есть, а вверх - нету
+        } else {
+            return NodeType::middleLeaf; //Есть и вверх и вниз
+        }
+    }
     return NodeType::root;
 }
 
@@ -206,7 +219,8 @@ QColor TermNode::getBaseColor()
     switch ( getNodeType() ) {
     case NodeType::orphan: return orphanColor;
     case NodeType::root: return rootColor;
-    case NodeType::leaf: return leafColor;
+    case NodeType::endLeaf: return leafColor;
+    case NodeType::middleLeaf: return leafColor;
     default: return leafColor;
     }
 }
@@ -323,8 +337,6 @@ void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
     QGraphicsItem::mousePressEvent(evt);
 
 }
-
-
 
 bool TermNode::hasConnections()
 {
@@ -568,6 +580,12 @@ int TermNode::getRepNum() const
 }
 
 bool TermNode::isRoot() {
+    if (!edgesUpList.isEmpty() && edgesDownList.isEmpty())
+        return true;
+    else
+        return false;
+
+            /*
     if( getGroupType() == -1 ) {
         return TermInfo::isRoot();
     } else if( getGroupType() == 0 ) {
@@ -585,6 +603,7 @@ bool TermNode::isRoot() {
         return true;
     }
     return false;
+            */
 }
 
 bool TermNode::needRemindToday()
@@ -739,3 +758,4 @@ int TermNode::getLevelDaysFromBase(int lvl)
     }
     return ret;
 }
+
