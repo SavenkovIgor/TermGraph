@@ -19,9 +19,9 @@ ApplicationWindow {
 //        visible: false
 //    }
 
-    Component.onCompleted: {
-        showMaximized();
-    }
+//    Component.onCompleted: {
+//        showMaximized();
+//    }
 
     header: ToolBar {
         id: header
@@ -38,23 +38,13 @@ ApplicationWindow {
                 }
 
                 onClicked: {
+                    console.log("clicked")
                     if ( stackView.depth > 1 ) {
                         stackView.popItem()
                         listView.currentIndex = 0
                     } else {
                         drawer.open()
                     }
-                }
-            }
-
-            MyRoundButton {
-                id: showGlpLst
-                Component.onCompleted:  {
-                    loadIcon( "qrc:/icons/chevron-bottom")
-                    hideBack()
-                }
-                onClicked: {
-                    stackView.currentItem.openGroupList()
                 }
             }
 
@@ -217,11 +207,10 @@ ApplicationWindow {
             //            if( currentItem == newNodeEdit)
             //                console.log("newNodeEdit!!!")
             //            console.log( "itemChange!" + currentItem.objectName )
-            showGlpLst.visible = false
             if( currentItem.objectName == "mainScheme") {
                 titleLabel.text = "TermGraph"
                 currentItem.toTop()
-                currentItem.setOffs( header.height )
+                currentItem.setOffs( header.height + 11 )
                 showGlpLst.visible = true
             } else if( currentItem.objectName == "newNodeEdit" ) {
                 titleLabel.text = "Правка вершин"
@@ -238,7 +227,7 @@ ApplicationWindow {
                     if( drawer.isClose() )
                         drawer.open()
 
-                if( event.key === Qt.Key_Down )
+                if( event.key === Qt.Key_Left )
                     if( currentItem.objectName == "mainScheme" ) {
                         stackView.currentItem.openGroupList()
                         stackView.forceActiveFocus()
@@ -256,5 +245,4 @@ ApplicationWindow {
         }
 
     }
-
 }

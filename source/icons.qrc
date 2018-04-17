@@ -90,5 +90,11 @@
         <file>icons/folder-6x.png</file>
         <file>icons/folder-8x.png</file>
         <file>icons/folder.png</file>
+        <file>icons/spreadsheet-2x.png</file>
+        <file>icons/spreadsheet-3x.png</file>
+        <file>icons/spreadsheet-4x.png</file>
+        <file>icons/spreadsheet-6x.png</file>
+        <file>icons/spreadsheet-8x.png</file>
+        <file>icons/spreadsheet.png</file>
     </qresource>
 </RCC>

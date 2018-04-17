@@ -155,12 +155,24 @@ Item {
                 id: addNode
 
                 anchors {
-                    right: mainSceneImg.right
+                    right: showGlpLst.left
                     top: mainSceneImg.top
                 }
 
                 onClicked: listView.openNewNode()
                 Component.onCompleted: loadIcon( "qrc:/icons/plus" )
+            }
+
+            MyRoundButton {
+                id: showGlpLst
+
+                anchors {
+                    right: mainSceneImg.right
+                    top: mainSceneImg.top
+                }
+
+                onClicked: openGroupList()
+                Component.onCompleted: loadIcon( "qrc:/icons/spreadsheet")
             }
 
             MyRoundButton {
@@ -445,11 +457,12 @@ Item {
                     Drawer {
 
                         id : groupSelectDrw
-                        width: mainSceneImg.width
-                        height: mainSceneImg.height*0.9
-                        interactive: false //True - уже проверял. по дурацки работает из за списка
+                        y: scOffset
+                        width: mainSceneImg.width*0.6
+                        height: mainSceneImg.height
+                        interactive: true //True - уже проверял. по дурацки работает из за списка
 
-                        edge: Qt.TopEdge
+                        edge: Qt.RightEdge
 
                         onOpened: groupListView.forceActiveFocus()
 
