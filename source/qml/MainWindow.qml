@@ -211,7 +211,6 @@ ApplicationWindow {
                 titleLabel.text = "TermGraph"
                 currentItem.toTop()
                 currentItem.setOffs( header.height + 11 )
-                showGlpLst.visible = true
             } else if( currentItem.objectName == "newNodeEdit" ) {
                 titleLabel.text = "Правка вершин"
                 currentItem.prepare();
