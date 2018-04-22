@@ -9,6 +9,10 @@ HEADERS += \
         source/databaseWorks/tblbase.h\
         source/databaseWorks/ndtbl.h\
         source/databaseWorks/termgrouptbl.h\
+        source/databaseWorks/sqlqueryconstructor.h\
+        source/databaseWorks/cloudservices.h\
+        source/databaseWorks/dropboxconnection.h\
+        source/Helpers/tagprocessor.h\
         source/edge.h\
         source/glb.h\
         source/mainscene.h\
@@ -19,15 +23,19 @@ HEADERS += \
         source/terminfo.h\
         source/termnode.h\
         source/wordfreqanalyze.h \
-    source/tgroupname.h
+        source/tgroupname.h
 
 SOURCES += \
         source/main.cpp\
         source/databaseWorks/dbabstract.cpp\
-        source/databaseWorks/edgtbl.cpp\        
+        source/databaseWorks/edgtbl.cpp\
         source/databaseWorks/tblbase.cpp\
-        source/databaseWorks/termgrouptbl.cpp\
         source/databaseWorks/ndtbl.cpp\
+        source/databaseWorks/termgrouptbl.cpp\
+        source/databaseWorks/sqlqueryconstructor.cpp\
+        source/databaseWorks/cloudservices.cpp\
+        source/databaseWorks/dropboxconnection.cpp\
+        source/Helpers/tagprocessor.cpp\
         source/reminder.cpp\
         source/edge.cpp\
         source/glb.cpp\
@@ -38,12 +46,12 @@ SOURCES += \
         source/termgroup.cpp\
         source/termnode.cpp\
         source/wordfreqanalyze.cpp \
-    source/tgroupname.cpp
+        source/tgroupname.cpp
 
-#FORMS += \
+FORMS += \
+        source/ui/reminder.ui\
+        source/ui/wordfreqanalyze.ui
 #        source/mainwindow.ui\
-#        source/reminder.ui\
-#        source/wordfreqanalyze.ui
 
 
 RESOURCES += \
