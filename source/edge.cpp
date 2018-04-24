@@ -13,7 +13,7 @@ QColor Edge::getEdgeColor()
 Edge::Edge(TermNode *from, TermNode *to)
 {
     this->toRoot = from;
-    this->toBrnch   = to;
+    this->toLeaf   = to;
 
     from->addEdgeRef( this );
     to->addEdgeRef(   this );
@@ -24,7 +24,7 @@ Edge::Edge(TermNode *from, TermNode *to)
 
 bool Edge::hasNode(TermNode *nd)
 {
-    if(nd == toRoot || nd == toBrnch)
+    if(nd == toRoot || nd == toLeaf)
         return true;
 
     return false;
@@ -33,22 +33,22 @@ bool Edge::hasNode(TermNode *nd)
 bool Edge::isSameEdge(TermNode *rt, TermNode *br)
 {
     bool rOk = (toRoot  == rt || toRoot  == br);
-    bool bOk = (toBrnch == rt || toBrnch == br);
+    bool bOk = (toLeaf == rt || toLeaf == br);
 
     return rOk && bOk;
 }
 
 bool Edge::isInGroupEdge()
 {
-    return toRoot->getGroupID() == toBrnch->getGroupID();
+    return toRoot->getGroupID() == toLeaf->getGroupID();
 }
 
 TermNode *Edge::getOtherSide(TermNode *n)
 {
     if( n == toRoot )
-        return toBrnch;
+        return toLeaf;
 
-    else if( n == toBrnch )
+    else if( n == toLeaf )
         return toRoot;
 
     return nullptr;
@@ -57,7 +57,7 @@ TermNode *Edge::getOtherSide(TermNode *n)
 QRectF Edge::boundingRect() const
 {
     QPointF pt1 = toRoot->getCenter(),
-            pt2 = toBrnch->getCenter();
+            pt2 = toLeaf->getCenter();
 
     QRectF rc = QRectF(pt1,pt2);
     rc = rc.normalized();
@@ -67,14 +67,11 @@ QRectF Edge::boundingRect() const
 void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     QPen p;
+
+    p.setStyle( isInGroupEdge()? Qt::SolidLine : Qt::DashDotLine);
+    p.setColor( getEdgeColor() );
+
     int baseWidth = 2;
-
-    if(toRoot->getGroupID() != toBrnch->getGroupID()) {
-        p.setStyle(Qt::DashDotLine);
-    } else {
-        p.setStyle(Qt::SolidLine);
-    }
-
     if( wide ) {
         baseWidth *= 2;
         p.setColor(QColor(0,166,147));
@@ -82,9 +79,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
         baseWidth /= 2;
     }
 
-    p.setColor(getEdgeColor());
-
-    QLineF edLine( toRoot->getCenter(), toBrnch->getCenter() );
+    QLineF edLine( toRoot->getCenter(), toLeaf->getCenter() );
 
     p.setWidth(baseWidth);
     painter->setPen(p);
@@ -94,7 +89,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     QPointF *ptFrom = new QPointF();
 
     for( Qt::Edge s : TermNode::sides ) {
-        tmpLine = toBrnch->getRectLine( s );
+        tmpLine = toLeaf->getRectLine( s );
         if( tmpLine.intersect( edLine, ptTo ) == QLineF::BoundedIntersection )
             break;
     }
@@ -132,7 +127,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 
 int Edge::getLayerDistance()
 {
-    return qAbs(toRoot->getPaintLevel() - toBrnch->getPaintLevel());
+    return qAbs(toRoot->getPaintLevel() - toLeaf->getPaintLevel());
 }
 
 qreal Edge::getXProjection()
@@ -152,7 +147,7 @@ qreal Edge::getYProjection()
 QLineF Edge::getLine( bool swap )
 {
     QPointF pt1 = toRoot->getCenter(),
-            pt2 = toBrnch->getCenter();
+            pt2 = toLeaf->getCenter();
 
     if( swap ) {
 

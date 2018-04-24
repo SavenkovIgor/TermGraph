@@ -17,7 +17,7 @@ class Edge : public QGraphicsItem
 
 private:
     TermNode* toRoot;
-    TermNode* toBrnch;
+    TermNode* toLeaf;
 
     EdgeType type = termin;
 
@@ -27,10 +27,10 @@ public:
     bool wide = false;
 
 public:
-    Edge( TermNode *toRoot, TermNode *toBrnch );
+    Edge( TermNode *toRoot, TermNode *toLeaf );
 
     TermNode* getRoot() { return toRoot; }
-    TermNode* getLeaf() { return toBrnch; }
+    TermNode* getLeaf() { return toLeaf; }
 
     bool hasNode(TermNode *nd);
 
