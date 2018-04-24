@@ -26,7 +26,7 @@ Item {
     }
 
     function prepare() {
-        if( changeN.text == "" ) {
+        if( changeN.text === "" ) {
             clear()
             changeLbl.visible = false
             changeN.visible = false
@@ -152,6 +152,7 @@ Item {
                 placeholderText: "http://"
             }
 
+            // Здесь есть проблема с anchors
             RowLayout {
                 width: parent.width
                 Label {

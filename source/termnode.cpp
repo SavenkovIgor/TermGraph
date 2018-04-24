@@ -345,13 +345,13 @@ bool TermNode::hasConnections()
 bool TermNode::hasConnectionsInGroup()
 {
     for( Edge *e : edgesUpList ) {
-        if( e->getBrnch()->getGroupID() == getGroupID() ) {
+        if( e->getLeaf()->getGroupID() == getGroupID() ) {
             return true;
         }
     }
 
     for( Edge *e : edgesDownList ) {
-        if( e->getBrnch()->getGroupID() == getGroupID() ) {
+        if( e->getLeaf()->getGroupID() == getGroupID() ) {
             return true;
         }
     }
@@ -402,12 +402,12 @@ void TermNode::addToNeighboursList(TermNode *t)
 
 void TermNode::addEdgeRef(Edge *edge)
 {
-    if( edge->getRoot() == this && edge->getBrnch() != this) { //We are source - connection up
+    if( edge->getRoot() == this && edge->getLeaf() != this) { //We are source - connection up
         edgesUpList    << edge;
-        connBranchList << edge->getBrnch();
+        connBranchList << edge->getLeaf();
     }
 
-    if( edge->getBrnch() == this && edge->getRoot() != this) { //We are acceptor - connection down
+    if( edge->getLeaf() == this && edge->getRoot() != this) { //We are acceptor - connection down
         edgesDownList << edge;
         connRootList  << edge->getRoot();
     }
@@ -434,7 +434,7 @@ void TermNode::countForces()
     edges << edgesUpList;
 
     for( Edge *e : edges ) {
-        if( e->isDiffGroupEdge() )
+        if( !e->isInGroupEdge() )
             continue;
 
         if( Glb::isVertical() )
@@ -444,15 +444,15 @@ void TermNode::countForces()
 
         if( Glb::isVertical() ) {
             if( e->getRoot() == this )
-                notMyPos = e->getBrnch()->getCenter().x();
-            else if( e->getBrnch() == this )
+                notMyPos = e->getLeaf()->getCenter().x();
+            else if( e->getLeaf() == this )
                 notMyPos = e->getRoot()->getCenter().x();
             else
                 continue;
         } else {
             if( e->getRoot() == this )
-                notMyPos = e->getBrnch()->getCenter().y();
-            else if( e->getBrnch() == this )
+                notMyPos = e->getLeaf()->getCenter().y();
+            else if( e->getLeaf() == this )
                 notMyPos = e->getRoot()->getCenter().y();
             else
                 continue;
@@ -529,7 +529,7 @@ qreal TermNode::getSumEdgesLength( bool swap = false)
     edges << edgesDownList;
     qreal ret = 0.0;
     for( Edge *e : edges ) {
-        if (e->isDiffGroupEdge())
+        if (!e->isInGroupEdge())
             continue;
         ret += qAbs(e->getLine(swap).dx());
     }

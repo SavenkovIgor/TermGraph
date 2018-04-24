@@ -5,13 +5,23 @@
 
 class TermNode;
 
+enum EdgeType{
+    standart,
+    termin,
+    description
+};
+
 class Edge : public QGraphicsItem
 {
 //    Q_OBJECT
 
 private:
-    TermNode *toRoot;
-    TermNode *toBrnch;
+    TermNode* toRoot;
+    TermNode* toBrnch;
+
+    EdgeType type = termin;
+
+    QColor getEdgeColor();
 
 public:
     bool wide = false;
@@ -19,14 +29,14 @@ public:
 public:
     Edge( TermNode *toRoot, TermNode *toBrnch );
 
-    TermNode *getRoot() { return toRoot;  }
-    TermNode *getBrnch(){ return toBrnch; }
+    TermNode* getRoot() { return toRoot; }
+    TermNode* getLeaf() { return toBrnch; }
 
     bool hasNode(TermNode *nd);
 
-    bool isSameEdge(TermNode *rt,TermNode *br);
-    bool isDiffGroupEdge();
-    TermNode *getOtherSide(TermNode *n);
+    bool isSameEdge(TermNode* rt,TermNode* br);
+    bool isInGroupEdge();
+    TermNode* getOtherSide(TermNode* n);
 
     QRectF boundingRect() const;
 

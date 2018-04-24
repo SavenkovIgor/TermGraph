@@ -1,5 +1,15 @@
 #include "edge.h"
 
+QColor Edge::getEdgeColor()
+{
+    switch (type) {
+    case standart: return QColor(Qt::black);
+    case termin: return QColor(Qt::blue);
+    case description: return QColor(Qt::green);
+    }
+    return QColor(Qt::black);
+}
+
 Edge::Edge(TermNode *from, TermNode *to)
 {
     this->toRoot = from;
@@ -28,9 +38,9 @@ bool Edge::isSameEdge(TermNode *rt, TermNode *br)
     return rOk && bOk;
 }
 
-bool Edge::isDiffGroupEdge()
+bool Edge::isInGroupEdge()
 {
-    return toRoot->getGroupID() != toBrnch->getGroupID();
+    return toRoot->getGroupID() == toBrnch->getGroupID();
 }
 
 TermNode *Edge::getOtherSide(TermNode *n)
@@ -71,6 +81,8 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     } else {
         baseWidth /= 2;
     }
+
+    p.setColor(getEdgeColor());
 
     QLineF edLine( toRoot->getCenter(), toBrnch->getCenter() );
 

@@ -8,7 +8,10 @@ Column {
     property alias placeholderText: txtField.placeholderText
     property alias text: txtField.text
 
-    width: parent.width
+    anchors {
+        left: parent.left
+        right: parent.right
+    }
 
     function takeFocus() {
         txtField.forceActiveFocus()
@@ -16,12 +19,21 @@ Column {
 
     Label {
         id: label
+        anchors {
+            left: parent.left
+            right: parent.right
+        }
         font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
     }
 
     TextField {
         id : txtField
         font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
-        width: parent.width
+        anchors {
+            left: parent.left
+            right: parent.right
+        }
+
+        selectByMouse: true
     }
 }
