@@ -46,7 +46,6 @@ Item {
         termDefin.text   = sceneObj.getCurrNodeDefinition()
         termDescr.text   = sceneObj.getCurrNodeDescription()
         termExampl.text  = sceneObj.getCurrNodeExamples()
-        rootNode.checked = sceneObj.getCurrNodeIsRoot()
     }
 
     function clear() {
@@ -56,7 +55,6 @@ Item {
         termDefin.text   = ""
         termDescr.text   = ""
         termExampl.text  = ""
-        rootNode.checked = ""
     }
 
 
