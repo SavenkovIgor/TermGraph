@@ -10,10 +10,11 @@ QColor Edge::getEdgeColor()
     return QColor(Qt::black);
 }
 
-Edge::Edge(TermNode *from, TermNode *to)
+Edge::Edge(TermNode *from, TermNode *to, EdgeType type)
 {
     this->toRoot = from;
-    this->toLeaf   = to;
+    this->toLeaf = to;
+    this->type = type;
 
     from->addEdgeRef( this );
     to->addEdgeRef(   this );

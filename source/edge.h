@@ -27,7 +27,7 @@ public:
     bool wide = false;
 
 public:
-    Edge( TermNode *toRoot, TermNode *toLeaf );
+    Edge( TermNode *toRoot, TermNode *toLeaf, EdgeType type = EdgeType::termin );
 
     TermNode* getRoot() { return toRoot; }
     TermNode* getLeaf() { return toLeaf; }
@@ -40,7 +40,7 @@ public:
 
     QRectF boundingRect() const;
 
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
 
     int getLayerDistance();
 
