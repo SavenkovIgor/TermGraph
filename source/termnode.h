@@ -162,12 +162,12 @@ private:
     int paintLevel = -1;
     qreal newPosOffs = 0.0;
 
-    NodesList connRootList;
-    NodesList connBranchList;
-    NodesList neighboursList;
+    NodesList rootNodes;
+    NodesList leafNodes;
+    NodesList neighbourNodes;
 
-    EdgesList edgesUpList;
-    EdgesList edgesDownList;
+    EdgesList edgesToLeafs;
+    EdgesList edgesToRoots;
 };
 
 #endif // TERMNODE_H

@@ -71,7 +71,7 @@ TermNode *TermNode::getNearestLeftNeigh()
 
     QRectF myRect = getMainRect();
     QRectF neighRect;
-    for( TermNode *t : neighboursList ) {
+    for( TermNode *t : neighbourNodes ) {
 
         neighRect = t->getMainRect();
 
@@ -93,7 +93,7 @@ TermNode *TermNode::getNearestRightNeigh()
 
     QRectF myRect = getMainRect();
     QRectF neighRect;
-    for(TermNode *t:neighboursList) {
+    for(TermNode *t:neighbourNodes) {
 
         neighRect = t->getMainRect();
 
@@ -111,9 +111,9 @@ TermNode *TermNode::getNearestRightNeigh()
 EdgesList TermNode::getEdgesInLayer()
 {
     EdgesList ret;
-    for( TermNode *t : neighboursList ) {
-        ret << t->edgesDownList;
-        ret << t->edgesUpList;
+    for( TermNode *t : neighbourNodes ) {
+        ret << t->edgesToRoots;
+        ret << t->edgesToLeafs;
     }
 
     EdgesList ret2;
@@ -197,14 +197,14 @@ QLineF TermNode::getRectLine(Qt::Edge sd)
 
 NodeType TermNode::getNodeType()
 {
-    if (edgesDownList.isEmpty()) {
-        if (edgesUpList.isEmpty()) {
+    if (edgesToRoots.isEmpty()) {
+        if (edgesToLeafs.isEmpty()) {
             return NodeType::orphan; //Оба пустые
         } else {
             return NodeType::root; //Вниз связей нет, вверх - есть
         }
     } else {
-        if (edgesUpList.isEmpty()) {
+        if (edgesToLeafs.isEmpty()) {
             return NodeType::endLeaf; //Вниз есть, а вверх - нету
         } else {
             return NodeType::middleLeaf; //Есть и вверх и вниз
@@ -283,16 +283,16 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
 
 void TermNode::setRelatPaint(bool val)
 {
-    for(TermNode *n:connRootList)
+    for(TermNode *n:rootNodes)
         n->relative = val;
 
-    for(TermNode *n:connBranchList)
+    for(TermNode *n:leafNodes)
         n->relative = val;
 
-    for(Edge *e:edgesDownList)
+    for(Edge *e:edgesToRoots)
         e->wide = val;
 
-    for(Edge *e:edgesUpList)
+    for(Edge *e:edgesToLeafs)
         e->wide = val;
 }
 
@@ -339,18 +339,18 @@ void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
 
 bool TermNode::hasConnections()
 {
-    return !( connRootList.isEmpty() && connBranchList.isEmpty() );
+    return !( rootNodes.isEmpty() && leafNodes.isEmpty() );
 }
 
 bool TermNode::hasConnectionsInGroup()
 {
-    for( Edge *e : edgesUpList ) {
+    for( Edge *e : edgesToLeafs ) {
         if( e->getLeaf()->getGroupID() == getGroupID() ) {
             return true;
         }
     }
 
-    for( Edge *e : edgesDownList ) {
+    for( Edge *e : edgesToRoots ) {
         if( e->getLeaf()->getGroupID() == getGroupID() ) {
             return true;
         }
@@ -363,7 +363,7 @@ void TermNode::setLevel(int lev)
     if(lev > paintLevel)
         paintLevel = lev;
 
-    for(TermNode *t:connBranchList) {
+    for(TermNode *t:leafNodes) {
         if( getGroupID() != t->getGroupID() )
             continue;
         t->setLevel( lev + 1 );
@@ -374,7 +374,7 @@ int TermNode::getUpLevels(int pLevel)
 {
     Q_UNUSED(pLevel) //TODO: check!
     int ret = -1;
-    for( TermNode *n : connBranchList ){
+    for( TermNode *n : leafNodes ){
         ret = qMax( ret, n->getUpLevels() );
     }
 
@@ -386,30 +386,30 @@ int TermNode::getUpLevels(int pLevel)
 
 void TermNode::clearNeighbours()
 {
-    neighboursList.clear();
+    neighbourNodes.clear();
 }
 
 void TermNode::clearConnBrRootLists()
 {
-    connRootList.clear();
-    connBranchList.clear();
+    rootNodes.clear();
+    leafNodes.clear();
 }
 
 void TermNode::addToNeighboursList(TermNode *t)
 {
-    neighboursList << t;
+    neighbourNodes << t;
 }
 
 void TermNode::addEdgeRef(Edge *edge)
 {
     if( edge->getRoot() == this && edge->getLeaf() != this) { //We are source - connection up
-        edgesUpList    << edge;
-        connBranchList << edge->getLeaf();
+        edgesToLeafs    << edge;
+        leafNodes << edge->getLeaf();
     }
 
     if( edge->getLeaf() == this && edge->getRoot() != this) { //We are acceptor - connection down
-        edgesDownList << edge;
-        connRootList  << edge->getRoot();
+        edgesToRoots << edge;
+        rootNodes  << edge->getRoot();
     }
 }
 
@@ -430,8 +430,8 @@ void TermNode::countForces()
     qreal notMyPos = 0.0;
 
     EdgesList edges;
-    edges << edgesDownList;
-    edges << edgesUpList;
+    edges << edgesToRoots;
+    edges << edgesToLeafs;
 
     for( Edge *e : edges ) {
         if( !e->isInGroupEdge() )
@@ -476,7 +476,7 @@ int TermNode::getIntersections(bool swapped)
 {
     EdgesList edges;
     //    edges << edgesUpList;
-    edges << edgesDownList;
+    edges << edgesToRoots;
 
     edges << getEdgesInLayer();
 
@@ -525,8 +525,8 @@ int TermNode::getIntersections(bool swapped)
 qreal TermNode::getSumEdgesLength( bool swap = false)
 {
     EdgesList edges;
-    edges << edgesUpList;
-    edges << edgesDownList;
+    edges << edgesToLeafs;
+    edges << edgesToRoots;
     qreal ret = 0.0;
     for( Edge *e : edges ) {
         if (!e->isInGroupEdge())
@@ -541,11 +541,11 @@ void TermNode::setSwap(QPointF toPt)
     EdgesList lst;
     lst = getConnectedEdges();
 
-    for( Edge *e : edgesDownList ) {
+    for( Edge *e : edgesToRoots ) {
         e->swPtBran = toPt;
     }
 
-    for( Edge *e : edgesUpList ) {
+    for( Edge *e : edgesToLeafs ) {
         e->swPtRoot = toPt;
     }
 }
@@ -674,11 +674,11 @@ QRectF TermNode::getTreeSize(QRectF rect)
     QPointF p = scenePos();
     QRectF rc = mainRect.translated(p);
     rc = rc.united(rect);
-    for( int i = 0; i < connBranchList.size(); i++ ) {
-        if( connBranchList[i]->getGroupID() != getGroupID() )
+    for( int i = 0; i < leafNodes.size(); i++ ) {
+        if( leafNodes[i]->getGroupID() != getGroupID() )
             continue;
 
-        rc = connBranchList[i]->getTreeSize(rc);
+        rc = leafNodes[i]->getTreeSize(rc);
     }
 
     return rc;
@@ -687,8 +687,8 @@ QRectF TermNode::getTreeSize(QRectF rect)
 EdgesList TermNode::getConnectedEdges()
 {
     EdgesList ret;
-    ret << edgesUpList;
-    ret << edgesDownList;
+    ret << edgesToLeafs;
+    ret << edgesToRoots;
     return ret;
 }
 
