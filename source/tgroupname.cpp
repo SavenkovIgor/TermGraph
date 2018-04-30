@@ -20,11 +20,8 @@ void TGroupName::timerStarted()
 }
 
 QRect TGroupName::getGroupNameGeometry() {
-    QFontMetrics mtr( qApp->font() );
-    return mtr.boundingRect( text() );
+    return textMetric( text() ).toRect();
 }
-
-
 
 void TGroupName::updateName()
 {

@@ -166,6 +166,7 @@ private:
     NodesList leafNodes;
     NodesList neighbourNodes;
 
+    EdgesList edgesToOtherGroups; //Пока никак не используются но будут.
     EdgesList edgesToLeafs;
     EdgesList edgesToRoots;
 };

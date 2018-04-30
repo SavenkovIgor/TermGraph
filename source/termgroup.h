@@ -24,7 +24,7 @@ class TermGroup : public QObject
 
     NodesList getRootList();
     NodesList getLevList(int lev);
-    NodesList getOrphList();
+    NodesList getOrphansList();
     NodesList getInTreeList();
 
     bool      hasOrphans();
@@ -45,6 +45,11 @@ class TermGroup : public QObject
     QParallelAnimationGroup animGrp;
 
     int currAnimLevel = -1;
+
+    qreal getGroupMinWidth();
+    qreal getTitleMinWidth();
+    qreal getOrphansMinWidth();
+    qreal getTreeMinWidth();
 
 public:
 

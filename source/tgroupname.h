@@ -8,6 +8,11 @@
 
 class TGroupName : public QGraphicsSimpleTextItem
 {
+    QRectF textMetric(QString str) {
+        QFontMetricsF mtr = QFontMetricsF( qApp->font() );
+        return  mtr.boundingRect(str);
+    }
+
 public:
     TGroupName( QString name );
 
@@ -18,6 +23,10 @@ public:
 
     QString getName(){
         return name;
+    }
+
+    qreal getNameWidth() {
+        return textMetric(name).width();
     }
 
     void setPos(const QPointF &pos)

@@ -308,15 +308,13 @@ NodesList TermGroup::getLevList(int lev)
     return ret;
 }
 
-NodesList TermGroup::getOrphList()
+NodesList TermGroup::getOrphansList()
 {
     NodesList ndLst;
-    for( TermNode *n : nodeList ) {
-        if( n->isRoot() )
-            continue;
-        if( !n->hasConnectionsInGroup() )
+    for( TermNode *n : nodeList )
+        if( n->isOrphan() )
             ndLst << n;
-    }
+
     return ndLst;
 }
 
@@ -330,7 +328,7 @@ NodesList TermGroup::getInTreeList()
 }
 
 bool TermGroup::hasOrphans() {
-    return !getOrphList().isEmpty();
+    return !getOrphansList().isEmpty();
 }
 
 qreal TermGroup::getSumSize(NodesList lst, bool withMargins, Qt::Orientation ori)
@@ -369,6 +367,20 @@ qreal TermGroup::getMaxSideSize( NodesList lst, Qt::Orientation ori )
     }
 
     return ret;
+}
+
+qreal TermGroup::getTitleMinWidth()
+{
+    return grNmItem->getNameWidth();
+}
+
+qreal TermGroup::getOrphansMinWidth()
+{
+    qreal orphanMaxWidth = 0.0;
+    for(auto orphan: getOrphansList()) {
+        orphanMaxWidth = qMax(orphanMaxWidth, orphan->getMainRect().width());
+    }
+    return orphanMaxWidth;
 }
 
 NodesList TermGroup::getNodeList()
@@ -481,7 +493,7 @@ void TermGroup::setOrphCoords()
         startPoint.setY( treeRc.bottom() + 20 );
     }
 
-    NodesList ndLst = getOrphList();
+    NodesList ndLst = getOrphansList();
 
     if( ndLst.isEmpty() )
         return;
@@ -662,8 +674,6 @@ bool TermGroup::hasTree()
 {
     for( TermNode *n : nodeList ) {
         if( n->hasConnectionsInGroup() )
-            return true;
-        if( n->isRoot() )
             return true;
     }
     return false;
