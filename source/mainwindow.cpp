@@ -21,6 +21,8 @@ MainWindow::MainWindow(QObject *parent) :
 
     db->makeStartBaseCheck();
 
+    tagProcessor = new TagProcessor();
+
     scene = new MainScene();
 
     connect(scene,SIGNAL(updateGroupLists()),SLOT(updateGroupLists()));
@@ -47,6 +49,7 @@ MainWindow::MainWindow(QObject *parent) :
     engn->rootContext()->setContextProperty("mainObj",this);
     engn->rootContext()->setContextProperty("sceneObj",scene);
     engn->rootContext()->setContextProperty("mainViewObj",scView);
+    engn->rootContext()->setContextProperty("tagProcessor",tagProcessor);
     engn->load(QUrl("qrc:/qml/MainWindow.qml"));
 
 }

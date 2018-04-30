@@ -20,7 +20,7 @@ TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
     definition  = rec.value( db->nodeTbl->definition ).toString();
 
     QString error;
-    tags = TagProcessor::extractTags(definition,error);
+    tags = TagProcessor().extractTags(definition,error);
     if( !error.isEmpty() ) {
         qDebug() << uid << error;
     }

@@ -607,11 +607,6 @@ bool MainScene::getCurrNodeIsRoot()
     //TODO: Возможно переделать в функциональном стиле!
 }
 
-QString MainScene::addTagInPosition(int cursorPosition, QString str)
-{
-    return TagProcessor::addTagInPosition(cursorPosition,str);
-}
-
 void MainScene::changeOrientation()
 {
     if( Glb::ori == Qt::Horizontal )

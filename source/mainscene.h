@@ -106,8 +106,6 @@ public slots:
     QString getCurrNodeExamples();
     bool    getCurrNodeIsRoot();
 
-    QString addTagInPosition(int cursorPosition, QString str);
-
     bool hasSelection(){
         return getSelected() != nullptr;
     }

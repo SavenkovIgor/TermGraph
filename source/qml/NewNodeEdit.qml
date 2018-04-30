@@ -68,7 +68,7 @@ Item {
 
         onClicked: {
             termDefin.makeFocusInField()
-            termDefin.text = sceneObj.addTagInPosition( termDefin.getCursPosition(), termDefin.text )
+            termDefin.text = tagProcessor.addTagInPosition( termDefin.getCursPosition(), termDefin.text )
         }
         Component.onCompleted: loadIcon("qrc:/icons/code")
     }

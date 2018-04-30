@@ -28,7 +28,7 @@
 #include "mysceneview.h"
 #include "wordfreqanalyze.h"
 #include "glb.h"
-
+#include "Helpers/tagprocessor.h"
 
 class MainScene;
 //namespace Ui {
@@ -50,6 +50,7 @@ private:
     MyView *scView;
     Reminder *remind;
     WordFreqAnalyze* analyze;
+    TagProcessor *tagProcessor;
 
     QString cubizeString(QString str);
 
