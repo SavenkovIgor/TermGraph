@@ -56,7 +56,6 @@ public:
 
     TermNode* getSelected();
     TermNode* getNodeByUid(int uid);
-    TermNode* getFirstTermAtPoint ( int x, int y );
     NodesList getAllTermsAtPoint  ( int x, int y );
 
     void addEdge( QPointF rtPt, QPointF brPt );
@@ -116,7 +115,6 @@ public slots:
 
     QString getGroupString(QString grp);
 
-    QString getNameAtPos(int x,int y);
 //    void testSlot() {
 //        groupList[0]->setBasePoint(QPoint(200,200));
 //        sceneRhytm.stop();
@@ -125,13 +123,10 @@ public slots:
 private:
     QPointF lastPressPt;
     bool groupInFocus = false;
+
 public slots:
     void stayGroupInFocus( bool val ) { groupInFocus = val; }
     void changeOrientation();
-
-private:
-
-    QGraphicsView* getView();
 };
 
 #endif // MAINSCENE_H

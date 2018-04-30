@@ -322,14 +322,6 @@ QString MainScene::getGroupString(QString grp)
     return "";
 }
 
-QString MainScene::getNameAtPos(int x, int y) {
-    TermNode* nd = getFirstTermAtPoint(x,y);
-    if( nd != nullptr )
-        return nd->getName() + " " + Glb::ptToStr(x,y);
-
-    return "";
-}
-
 TermNode *MainScene::getSelected()
 {
     TermNode* ret = nullptr;
@@ -348,14 +340,6 @@ TermNode *MainScene::getNodeByUid( int uid )
         if( n->getUid() == uid )
             return n;
 
-    return nullptr;
-}
-
-TermNode *MainScene::getFirstTermAtPoint(int x, int y)
-{
-    NodesList ret = getAllTermsAtPoint(x,y);
-    if( !ret.isEmpty() )
-        return ret.first();
     return nullptr;
 }
 
@@ -615,13 +599,4 @@ void MainScene::changeOrientation()
         Glb::ori = Qt::Horizontal;
 
     updateModel();
-}
-
-QGraphicsView *MainScene::getView()
-{
-    QList< QGraphicsView * > v = views();
-
-    if( v.size() > 0 )
-        return v.first();
-    return nullptr;
 }
