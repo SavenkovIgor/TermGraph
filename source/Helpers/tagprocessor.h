@@ -10,6 +10,8 @@ public:
     explicit TagProcessor(QObject *parent = nullptr);
 
     static QStringList extractTags(QString str, QString &errorString);
+    static QString addTagInPosition(int cursorPosition, QString str);
+
 signals:
 
 public slots:

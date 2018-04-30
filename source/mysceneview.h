@@ -79,7 +79,7 @@ public slots:
         moveView(QPointF(0.0,10.0));
     }
 
-    void setScSize(int width,int height) {
+    void setScSize(int,int) {
 //        qDebug()<<"NEW SIZE"<<width<<height<<"prev"<<size()<<"screct"<<sceneRect();
 //        resize(width,height);
 //        adjustSize();
