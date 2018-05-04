@@ -35,6 +35,8 @@ class MainScene : public QGraphicsScene
 //    int    timerCount;
     QTimer sceneRhytm;
 
+    int currGroupIndex = 0;
+
 public:
     qreal xWindow;
     qreal yWindow;//dirtyHack
@@ -66,7 +68,6 @@ public:
     void setAnimSpeed(int val);
 
 signals:
-
     //    void mousePos(QString);
 
     void stopMove();
@@ -78,9 +79,20 @@ signals:
     void selectDrop();
 
     void mouseInfo(QString str);
-public slots:
 
+public slots:
+    void viewGrp(int num); //TODO: Постараться избавиться от этой функции
     void showGroup( QString grp = "");
+
+    void toPreviousGroup() {
+        currGroupIndex = qBound( 0, (currGroupIndex - 1), groupList.size() - 1 );
+        viewGrp(currGroupIndex);
+    }
+
+    void toNextGroup() {
+        currGroupIndex = qBound( 0, (currGroupIndex + 1), groupList.size() - 1 );
+        viewGrp(currGroupIndex);
+    }
 
     void setEditEdgeMode(bool set);
     void dropEdgesOnSelected();
@@ -139,6 +151,7 @@ public slots:
 //        groupList[0]->setBasePoint(QPoint(200,200));
 //        sceneRhytm.stop();
 //    }
+
 
 private:
     QPointF lastPressPt;

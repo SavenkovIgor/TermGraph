@@ -72,10 +72,7 @@ private slots:
     void openBase();
 
 public slots:
-    void viewGrp(int num);
     QStringList getGroupsList();
-
-    void ctrlMove(QString str);  //в секцию public slots и не ебись больше с ней
     void takeSceneMouse(qreal x, qreal y, qreal winPosX, qreal winPosY, qreal hght, QString info = "", QString buttonInfo = "");
 
     void updateGroupLists();

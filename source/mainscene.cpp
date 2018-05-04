@@ -359,6 +359,16 @@ QString MainScene::getGroupString(QString grp)
     return "";
 }
 
+void MainScene::viewGrp(int num)
+{
+    QStringList lst = db->groupTbl->getAllGroupsNames();
+
+    if( num < 0 || num >= lst.size() )
+        return;
+
+    showGroup( lst[num] );
+}
+
 TermNode *MainScene::getSelected()
 {
     TermNode* ret = nullptr;

@@ -392,12 +392,12 @@ Item {
 
                     if( event.modifiers & Qt.ControlModifier ) {
                         if( event.key === Qt.Key_BracketLeft ) {
-                            mainObj.ctrlMove("left")
+                            sceneObj.toPreviousGroup()
                             event.accepted = true
                         }
 
                         if( event.key === Qt.Key_BracketRight ) {
-                            mainObj.ctrlMove("right")
+                            sceneObj.toNextGroup()
                             event.accepted = true
                         }
 

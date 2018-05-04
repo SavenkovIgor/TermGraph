@@ -40,7 +40,7 @@ MainWindow::MainWindow(QObject *parent) :
 
     analyze = new WordFreqAnalyze();
 
-    connect(this,SIGNAL(currGroupNumChanged(int)),SLOT(viewGrp(int)));
+    connect(this,SIGNAL(currGroupNumChanged(int)),scene,SLOT(viewGrp(int)));
     connect(engn,SIGNAL(objectCreated(QObject*,QUrl)),SLOT(onQmlCreated(QObject*,QUrl)));
 
     engn->addImageProvider("sceneimage",scView);
@@ -70,18 +70,7 @@ QString MainWindow::cubizeString(QString str)
     return str;
 }
 
-void MainWindow::ctrlMove(QString str)
-{
-    int index = currGroupNum();
 
-    if( str == "left" )
-        index--;
-    else if( str == "right" )
-        index++;
-
-    index = qBound( 0, index, groupsList().size() - 1 );
-    setCurrGroupNum( index );
-}
 
 void MainWindow::takeSceneMouse(qreal x, qreal y, qreal winPosX,qreal winPosY,qreal hght, QString actionInfo, QString buttonInfo)
 {
@@ -184,16 +173,6 @@ void MainWindow::scaleUp()
 void MainWindow::scaleDown()
 {
     scView->scaleDown();
-}
-
-void MainWindow::viewGrp(int num)
-{
-    QStringList lst = db->groupTbl->getAllGroupsNames();
-
-    if( num < 0 || num >= lst.size() )
-        return;
-
-    scene->showGroup( lst[num] );
 }
 
 void MainWindow::openBase()

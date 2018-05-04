@@ -164,7 +164,7 @@ Item {
                 MyComboBox {
                     id: nodeGroup
                     model: mainObj.groupsList;
-                    currentIndex: mainObj.currGroupNum
+//                    currentIndex: mainObj.currGroupNum
 
 //                    anchors.left: grpLabel.right
 //                    anchors.right: viewColumn.right
