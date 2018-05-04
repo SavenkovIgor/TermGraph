@@ -382,9 +382,9 @@ Item {
                 onWheel: {
                     if( wheel.modifiers & Qt.ControlModifier ) {
                         if( wheel.pixelDelta.y > 0 )
-                            mainObj.scaleUp()
+                            mainViewObj.scaleUp()
                         else
-                            mainObj.scaleDown()
+                            mainViewObj.scaleDown()
                     }
                 }
 
@@ -412,12 +412,12 @@ Item {
                         }
 
                         if( event.key === Qt.Key_Plus ) {
-                            mainObj.scaleUp();
+                            mainViewObj.scaleUp();
                             event.accepted = true
                         }
 
                         if( event.key === Qt.Key_Minus ) {
-                            mainObj.scaleDown();
+                            mainViewObj.scaleDown();
                             event.accepted = true
                         }
                     }

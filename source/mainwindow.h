@@ -74,9 +74,6 @@ public slots:
 
     void updateGroupLists();
 
-    void scaleUp();
-    void scaleDown();
-
     void testSlot();
 
     void setSceneSize(int width,int height);

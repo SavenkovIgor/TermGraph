@@ -162,16 +162,6 @@ void MainWindow::updateGroupLists()
     setGroupsList( lst );
 }
 
-void MainWindow::scaleUp()
-{
-    scView->scaleUp();
-}
-
-void MainWindow::scaleDown()
-{
-    scView->scaleDown();
-}
-
 void MainWindow::openBase()
 {
 //    QFileDialog *dial = new QFileDialog(this,"Select database",qApp->applicationDirPath(),"Database( *.termGraph *.sqlite )");
@@ -185,8 +175,6 @@ void MainWindow::openBase()
 //    scene->updateModel();
 //    updateGroupLists();
 }
-
-
 
 void MainWindow::testSlot()
 {
@@ -223,7 +211,7 @@ int MainWindow::getUiElementSize(QString elementTypeName)
 
 void MainWindow::initElemSizes()
 {
-#if defined( Q_OS_WIN ) || defined( Q_OS_LINUX )
+#if defined( Q_OS_WIN ) || defined( Q_OS_LINUX ) || defined( Q_OS_MACOS )
     //Screen.pixelDencity - pixel in millimeters
     elementSizes["roundButton"] = 16;
     elementSizes["text"] = 5;
@@ -246,17 +234,5 @@ void MainWindow::initElemSizes()
     elementSizes["button"] = 4;
     elementSizes["colSpace"] = 2;
     elementSizes["appHeader"] = 6;
-#endif
-
-#if defined( Q_OS_MACOS )
-    elementSizes["roundButton"] = 16;
-    elementSizes["text"] = 5;
-    elementSizes["capitalText"] = 4;
-    elementSizes["inputLabel"] = 7;
-    elementSizes["inputText"] = 6;
-    elementSizes["combo"] = 5;
-    elementSizes["button"] = 5;
-    elementSizes["colSpace"] = 4;
-    elementSizes["appHeader"] = 9;
 #endif
 }
