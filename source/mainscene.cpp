@@ -312,8 +312,6 @@ void MainScene::exportGrpToJson(QString grpName)
     clp->setText(doc.toJson());
 }
 
-//TODO: Сделать отдельную!!! функцию для модификации и отдельную для добавления
-// Дичь какая-то...
 void MainScene::addNewNode(QString name, QString forms, QString def, QString descr, QString exam, QString groupName)
 {
     //TODO: Тоже фигня. Нельзя искать в базе по имени группы!

@@ -86,12 +86,6 @@ void NdTbl::setWikiImg(QString uuid, QString wImg)
     updateLastEdit(uuid);
 }
 
-void NdTbl::setGroup(int uid, int group)
-{
-    setField(this->termGroup,uid,QString::number(group));
-    updateLastEdit(uid);
-}
-
 void NdTbl::setGroup(QString uuid, int group)
 {
     setField(this->termGroup, uuid, QString::number(group));

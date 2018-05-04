@@ -57,7 +57,6 @@ public:
     void setExamples    ( QString uuid, QString examp);
     void setWikiRef     ( QString uuid, QString wRef);
     void setWikiImg     ( QString uuid, QString wImg);
-    void setGroup       ( int uid, int group); //TODO: Удалить
     void setGroup       ( QString uuid, int group);
     void setAtLearn     ( QString uuid, bool learn);
 
