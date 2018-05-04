@@ -40,7 +40,6 @@ MainWindow::MainWindow(QObject *parent) :
 
     analyze = new WordFreqAnalyze();
 
-    connect(this,SIGNAL(currGroupNumChanged(int)),scene,SLOT(viewGrp(int)));
     connect(engn,SIGNAL(objectCreated(QObject*,QUrl)),SLOT(onQmlCreated(QObject*,QUrl)));
 
     engn->addImageProvider("sceneimage",scView);
@@ -125,8 +124,7 @@ MainWindow::~MainWindow()
 void MainWindow::saveSett()
 {
     QSettings sett("appSettings.ini",QSettings::IniFormat);
-    if( currGroupNum() >= 0 && currGroupNum() < getGroupsList().size())
-        sett.setValue("currGroup",groupsList()[currGroupNum()]);
+    //TODO: заменить индекс группы на uuid
     sett.setValue("animationSpeed",TermGroup::getAnimSpeed());
     sett.setValue("dataPath",dbPath);
 }
@@ -138,8 +136,7 @@ void MainWindow::loadSett()
     if( str == "" )
         return;
 
-    //TODO: Вынести это в сцену!
-    setCurrGroupNum( getGroupsList().indexOf(str) );
+    //TODO: Переделать заргузку на сцену и на uuid
     //    scene->setAnimSpeed( sett.value("animationSpeed",300).toInt() );
 }
 
@@ -200,15 +197,6 @@ void MainWindow::setSceneSize(int width, int height)
 {
     scView->retImgSz.setWidth(  width  );
     scView->retImgSz.setHeight( height );
-}
-
-void MainWindow::setCurrGroupNum(int currGroupNum)
-{
-    if (m_currGroupNum == currGroupNum)
-        return;
-
-    m_currGroupNum = currGroupNum;
-    emit currGroupNumChanged(m_currGroupNum);
 }
 
 void MainWindow::setGroupsList(QStringList groupsList)

@@ -40,9 +40,7 @@ class MainWindow : public QObject//, public QQuickPaintedItem
     Q_OBJECT
 
     Q_PROPERTY(QStringList groupsList READ groupsList WRITE setGroupsList NOTIFY groupsListChanged)
-    Q_PROPERTY(int currGroupNum READ currGroupNum WRITE setCurrGroupNum NOTIFY currGroupNumChanged)
 
-public:
 private:
     DBAbstract *db;
     MainScene *scene;
@@ -63,9 +61,8 @@ public:
 
 private slots:
     void onQmlCreated(QObject *, QUrl );
-public:
 
-    int currGroupNum() const { return m_currGroupNum; }
+public:
     QStringList groupsList() const { return m_groupsList; }
 
 private slots:
@@ -83,16 +80,14 @@ public slots:
     void testSlot();
 
     void setSceneSize(int width,int height);
-    void setCurrGroupNum(int currGroupNum);
 
     void setGroupsList(QStringList groupsList);
 
     QStringList getGroupTypes();
 
     int getUiElementSize( QString elementTypeName );
-signals:
-    void currGroupNumChanged(int currGroupNum);
 
+signals:
     void groupsListChanged(QStringList groupsList);
 
 private:
@@ -102,7 +97,6 @@ private:
     QQmlApplicationEngine *engn;
 
     QString dbPath;
-    int m_currGroupNum;
     QStringList m_groupsList;
 };
 
