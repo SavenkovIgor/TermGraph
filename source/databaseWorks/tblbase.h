@@ -17,7 +17,8 @@ public:
     void checkCols();
 
 protected:
-    void    setField(QString columnName,int uid,QString val);
+    void setField(QString columnName,int uid,QString val);
+    void setField(QString columnName,QString uuid,QString val);
 
     int     getIntField   (QString columnName, int uid);
     QString getStringField(QString columnName, int uid);

@@ -67,6 +67,11 @@ int TermGroupTbl::getUid(QString groupName)
     return q.record().value(this->uid).toInt();
 }
 
+bool TermGroupTbl::isGroupExistWithUid(QString uid)
+{
+    return getUid(uid) != -1;
+}
+
 QString TermGroupTbl::getName(int groupUid)
 {
     return getStringField(this->name, groupUid);

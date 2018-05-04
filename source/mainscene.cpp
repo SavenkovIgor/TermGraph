@@ -288,7 +288,6 @@ void MainScene::dropSelectedNode()
 
 void MainScene::addNewGroup(QString name, QString comment, int type )
 {
-    qDebug()<<type;
     if ( !db->groupTbl->addGroup( name, comment, type ) ) {
         showMessage( "Название группы не уникально", 2500 );
         return;
@@ -311,6 +310,46 @@ void MainScene::exportGrpToJson(QString grpName)
     QJsonDocument doc = g->getJsonDoc();
     QClipboard *clp = qApp->clipboard();
     clp->setText(doc.toJson());
+}
+
+//TODO: Сделать отдельную!!! функцию для модификации и отдельную для добавления
+// Дичь какая-то...
+void MainScene::addNewNode(QString name, QString forms, QString def, QString descr, QString exam, QString groupName)
+{
+    //TODO: Тоже фигня. Нельзя искать в базе по имени группы!
+    if( !db->groupTbl->isGroupExistWithUid(groupName) ) {
+        qDebug()<<"Группа не найдена";
+        return;
+    }
+
+    QString nodeId = db->nodeTbl->addNode(name);
+    changeNode(nodeId, name, forms, def, descr, exam, groupName);
+}
+
+void MainScene::changeNode(QString nodeUuid,
+        QString name,
+        QString forms,
+        QString def,
+        QString descr,
+        QString exam,
+        QString groupName)
+{
+    //TODO: Тоже фигня. Нельзя искать в базе по имени группы!
+    if( !db->groupTbl->isGroupExistWithUid(groupName) ) {
+        qDebug()<<"Группа не найдена";
+        return;
+    }
+
+    int groupID = db->groupTbl->getUid( groupName );
+
+    db->nodeTbl->setName(nodeUuid, name);
+    db->nodeTbl->setWordForms(nodeUuid, forms);
+    db->nodeTbl->setDefinition (nodeUuid, def);
+    db->nodeTbl->setDescription(nodeUuid, descr);
+    db->nodeTbl->setExamples(nodeUuid, exam);
+    db->nodeTbl->setGroup(nodeUuid, groupID);
+
+    updateModel();
 }
 
 QString MainScene::getGroupString(QString grp)
@@ -527,6 +566,15 @@ QString MainScene::getCurrNodeDebugInfo()
     return ret.join(" ");
 }
 
+QString MainScene::getCurrNodeLongUid()
+{
+    TermNode* nd = getSelected();
+    if( nd == nullptr )
+        return "";
+
+    return nd->getLongUid();
+}
+
 QString MainScene::getCurrNodeUid()
 {
     TermNode* nd = getSelected();
@@ -599,4 +647,11 @@ void MainScene::changeOrientation()
         Glb::ori = Qt::Horizontal;
 
     updateModel();
+}
+
+void MainScene::createTestGroups()
+{
+    addNewGroup("TestGroup1","",GroupType::terms);
+    addNewGroup("TestGroup2","",GroupType::terms);
+    addNewGroup("TestGroup3","",GroupType::terms);
 }

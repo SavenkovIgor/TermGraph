@@ -41,7 +41,6 @@ class MainWindow : public QObject//, public QQuickPaintedItem
 
     Q_PROPERTY(QStringList groupsList READ groupsList WRITE setGroupsList NOTIFY groupsListChanged)
     Q_PROPERTY(int currGroupNum READ currGroupNum WRITE setCurrGroupNum NOTIFY currGroupNumChanged)
-    Q_PROPERTY(QString changeNum READ changeNum WRITE setChangeNum NOTIFY changeNumChanged)
 
 public:
 private:
@@ -67,32 +66,17 @@ private slots:
 public:
 
     int currGroupNum() const { return m_currGroupNum; }
-    QString changeNum() const { return m_changeNum; }
     QStringList groupsList() const { return m_groupsList; }
 
 private slots:
     void openBase();
 
-    void addNewPoint();
-
-    void updGroupAddNode(int num);
-
 public slots:
     void viewGrp(int num);
     QStringList getGroupsList();
 
-    void addNewNode(QString name,
-            QString forms,
-            QString def,
-            QString descr,
-            QString exam,
-            QString groupName
-            );
-
     void ctrlMove(QString str);  //в секцию public slots и не ебись больше с ней
     void takeSceneMouse(qreal x, qreal y, qreal winPosX, qreal winPosY, qreal hght, QString info = "", QString buttonInfo = "");
-
-    void sceneChangePoint();
 
     void updateGroupLists();
 
@@ -104,8 +88,6 @@ public slots:
     void setSceneSize(int width,int height);
     void setCurrGroupNum(int currGroupNum);
 
-    void setChangeNum(QString changeNum);
-
     void setGroupsList(QStringList groupsList);
 
     QStringList getGroupTypes();
@@ -113,8 +95,6 @@ public slots:
     int getUiElementSize( QString elementTypeName );
 signals:
     void currGroupNumChanged(int currGroupNum);
-
-    void changeNumChanged(QString changeNum);
 
     void groupsListChanged(QStringList groupsList);
 
@@ -126,7 +106,6 @@ private:
 
     QString dbPath;
     int m_currGroupNum;
-    QString m_changeNum;
     QStringList m_groupsList;
 };
 

@@ -44,21 +44,22 @@ public:
         initColumn( lastEdit,    "TEXT");
     }
 
-    int addNode( QString name );
+    QString addNode( QString name );
     QSqlRecord  getNode(int id);
 
     QList<int>  getAllNodesUid();
     QList<int>  getGroupNodeID(int groupID);
 
-    void setName        ( int uid, QString name);
-    void setTForms      ( int uid, QString forms);
-    void setDefinition  ( int uid, QString def);
-    void setDescription ( int uid, QString desc);
-    void setExamples    ( int uid, QString examp);
-    void setWikiRef     ( int uid, QString wRef);
-    void setWikiImg     ( int uid, QString wImg);
-    void setGroup       ( int uid, int group);
-    void setAtLearn     ( int uid, bool learn);
+    void setName        ( QString uuid, QString name);
+    void setWordForms   ( QString uuid, QString forms);
+    void setDefinition  ( QString uuid, QString def);
+    void setDescription ( QString uuid, QString desc);
+    void setExamples    ( QString uuid, QString examp);
+    void setWikiRef     ( QString uuid, QString wRef);
+    void setWikiImg     ( QString uuid, QString wImg);
+    void setGroup       ( int uid, int group); //TODO: Удалить
+    void setGroup       ( QString uuid, int group);
+    void setAtLearn     ( QString uuid, bool learn);
 
     int  getRemindNum( int uid );
     void setRemindNum(int uid, int num, QDate date );
@@ -71,6 +72,7 @@ public:
     void normalizeUuid();
 private:
     void updateLastEdit(int uid);
+    void updateLastEdit(QString uuid);
     bool isUuidExist(QString longUuid);
 };
 

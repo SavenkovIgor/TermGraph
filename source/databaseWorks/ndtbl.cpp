@@ -1,6 +1,6 @@
 #include "ndtbl.h"
 
-int NdTbl::addNode(QString name)
+QString NdTbl::addNode(QString name)
 {
     //По UUID!!
     QUuid uuid;
@@ -15,7 +15,7 @@ int NdTbl::addNode(QString name)
     }
 
     if( name.simplified() == "" )
-        return -1; //Создать вершину не удалось
+        return ""; //Создать вершину не удалось
 
     QList<InsertContainer> values;
     values << InsertContainer(this->term,name);
@@ -29,11 +29,10 @@ int NdTbl::addNode(QString name)
     QSqlQuery sel = select(QStringList() << this->uid, where);
 
     if(!sel.next())
-        return -1;
+        return "";
 
-    int id = sel.record().value(this->uid).toInt();
-    updateLastEdit(id);
-    return id;
+    updateLastEdit(uuid.toString());
+    return uuid.toString();
 }
 
 int NdTbl::getRemindNum(int uid)
@@ -45,46 +44,46 @@ int NdTbl::getRemindNum(int uid)
     return rec.value(this->remindNum).toInt();
 }
 
-void NdTbl::setName(int uid, QString name)
+void NdTbl::setName(QString uuid, QString name)
 {
-    setField(this->term,uid,name);
-    updateLastEdit(uid);
+    setField(this->term,uuid,name);
+    updateLastEdit(uuid);
 }
 
-void NdTbl::setTForms(int uid, QString forms)
+void NdTbl::setWordForms(QString uuid, QString forms)
 {
-    setField(this->termForms,uid,forms);
-    updateLastEdit(uid);
+    setField(this->termForms,uuid,forms);
+    updateLastEdit(uuid);
 }
 
-void NdTbl::setDefinition(int uid, QString def)
+void NdTbl::setDefinition(QString uuid, QString def)
 {
-    setField(this->definition,uid,def);
-    updateLastEdit(uid);
+    setField(this->definition,uuid,def);
+    updateLastEdit(uuid);
 }
 
-void NdTbl::setDescription(int uid, QString desc)
+void NdTbl::setDescription(QString uuid, QString desc)
 {
-    setField(this->description,uid,desc);
-    updateLastEdit(uid);
+    setField(this->description,uuid,desc);
+    updateLastEdit(uuid);
 }
 
-void NdTbl::setExamples(int uid, QString examp)
+void NdTbl::setExamples(QString uuid, QString examp)
 {
-    setField(this->examples,uid,examp);
-    updateLastEdit(uid);
+    setField(this->examples,uuid,examp);
+    updateLastEdit(uuid);
 }
 
-void NdTbl::setWikiRef(int uid, QString wRef)
+void NdTbl::setWikiRef(QString uuid, QString wRef)
 {
-    setField(this->wikiRef,uid,wRef);
-    updateLastEdit(uid);
+    setField(this->wikiRef,uuid,wRef);
+    updateLastEdit(uuid);
 }
 
-void NdTbl::setWikiImg(int uid, QString wImg)
+void NdTbl::setWikiImg(QString uuid, QString wImg)
 {
-    setField(this->wikiImg,uid,wImg);
-    updateLastEdit(uid);
+    setField(this->wikiImg,uuid,wImg);
+    updateLastEdit(uuid);
 }
 
 void NdTbl::setGroup(int uid, int group)
@@ -93,12 +92,18 @@ void NdTbl::setGroup(int uid, int group)
     updateLastEdit(uid);
 }
 
-void NdTbl::setAtLearn(int uid, bool learn)
+void NdTbl::setGroup(QString uuid, int group)
+{
+    setField(this->termGroup, uuid, QString::number(group));
+    updateLastEdit(uuid);
+}
+
+void NdTbl::setAtLearn(QString uuid, bool learn)
 {
     if( learn )
-        setField(this->atLearn,uid,"1");
+        setField(this->atLearn,uuid,"1");
     else
-        setField(this->atLearn,uid,"0");
+        setField(this->atLearn,uuid,"0");
 }
 
 //void NdTbl::setRemindToday(int uid)
@@ -145,6 +150,11 @@ void NdTbl::normalizeUuid()
 void NdTbl::updateLastEdit(int uid)
 {
     setField(this->lastEdit,uid,QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+}
+
+void NdTbl::updateLastEdit(QString uuid)
+{
+    setField(this->lastEdit,uuid,QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
 }
 
 bool NdTbl::isUuidExist(QString longUuid)

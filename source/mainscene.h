@@ -97,6 +97,7 @@ public slots:
 
     QString getCurrNodeDebugInfo();
 
+    QString getCurrNodeLongUid();
     QString getCurrNodeUid();
     QString getCurrNodeName();
     QString getCurrNodeForms();
@@ -113,6 +114,25 @@ public slots:
     void deleteGroup(QString name);
     void exportGrpToJson(QString grpName);
 
+    void addNewNode(
+            QString name,
+            QString forms,
+            QString def,
+            QString descr,
+            QString exam,
+            QString groupName
+                    );
+
+    void changeNode(
+            QString nodeUuid,
+            QString name,
+            QString forms,
+            QString def,
+            QString descr,
+            QString exam,
+            QString groupName
+                    );
+
     QString getGroupString(QString grp);
 
 //    void testSlot() {
@@ -127,6 +147,8 @@ private:
 public slots:
     void stayGroupInFocus( bool val ) { groupInFocus = val; }
     void changeOrientation();
+
+    void createTestGroups();
 };
 
 #endif // MAINSCENE_H

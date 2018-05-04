@@ -592,6 +592,11 @@ bool TermNode::isLeaf()
     return type == NodeType::endLeaf || type == NodeType::middleLeaf;
 }
 
+bool TermNode::isInTree()
+{
+    return !isOrphan();
+}
+
 bool TermNode::needRemindToday()
 {
     if( lastRepeatDate.addDays(getNextRepeatOffset(repNum)) <= QDate::currentDate() )
@@ -721,7 +726,7 @@ QString TermNode::getDebugString() {
 void TermNode::swithcAtLearnVar()
 {
     atLearn = !atLearn;
-    db->nodeTbl->setAtLearn(getUid(),atLearn);
+    db->nodeTbl->setAtLearn(getLongUid(),atLearn);
 }
 
 int TermNode::getNextRepeatOffset(int lvl)

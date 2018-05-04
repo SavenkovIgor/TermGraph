@@ -318,18 +318,19 @@ NodesList TermGroup::getOrphansList()
     return ndLst;
 }
 
+bool TermGroup::hasOrphans() {
+    return !getOrphansList().isEmpty();
+}
+
 NodesList TermGroup::getInTreeList()
 {
     NodesList ret;
     for( TermNode *n : nodeList )
-        if( n->hasConnectionsInGroup() )
+        if( n->isInTree() )
             ret << n;
     return ret;
 }
 
-bool TermGroup::hasOrphans() {
-    return !getOrphansList().isEmpty();
-}
 
 qreal TermGroup::getSumSize(NodesList lst, bool withMargins, Qt::Orientation ori)
 //Возвращает ширину списка вершин.
@@ -381,6 +382,11 @@ qreal TermGroup::getOrphansMinWidth()
         orphanMaxWidth = qMax(orphanMaxWidth, orphan->getMainRect().width());
     }
     return orphanMaxWidth;
+}
+
+qreal TermGroup::getTreeMinWidth()
+{
+    return getTreeGeometry().width();
 }
 
 NodesList TermGroup::getNodeList()
@@ -522,7 +528,6 @@ void TermGroup::setOrphCoords()
             from = i+1;
         }
     }
-
 }
 
 void TermGroup::setLevels()
@@ -673,8 +678,28 @@ QRectF TermGroup::getAllGroupRect( bool withOrph )
 bool TermGroup::hasTree()
 {
     for( TermNode *n : nodeList ) {
-        if( n->hasConnectionsInGroup() )
+        if( n->isInTree() )
             return true;
     }
     return false;
+}
+
+QSizeF TermGroup::getTreeGeometry()
+{
+    int levels = getAllLevelsCount();
+    qreal sumWidth = 0.0;
+    qreal maxHeight = 0.0;
+
+    for(int level = 0; level <= levels; level++) {
+        qreal maxLevelWidth = 0.0;
+        qreal sumHeight = 0.0;
+        for(auto node: getLevList(level)) {
+            QRectF nodeRect = node->getMainRect();
+            maxLevelWidth = qMax(maxLevelWidth, nodeRect.width());
+            sumHeight += nodeRect.height();
+        }
+        sumWidth += maxLevelWidth;
+        maxHeight = qMax(maxHeight, sumHeight);
+    }
+    return QSizeF(sumWidth,maxHeight);
 }

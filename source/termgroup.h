@@ -24,10 +24,11 @@ class TermGroup : public QObject
 
     NodesList getRootList();
     NodesList getLevList(int lev);
-    NodesList getOrphansList();
-    NodesList getInTreeList();
 
+    NodesList getOrphansList();
     bool      hasOrphans();
+
+    NodesList getInTreeList();
 
     NodesList   nodeList;
 
@@ -52,7 +53,6 @@ class TermGroup : public QObject
     qreal getTreeMinWidth();
 
 public:
-
     static DBAbstract *db;
 
     explicit TermGroup(QSqlRecord rec, QObject *parent = 0);
@@ -84,7 +84,7 @@ public:
     QRectF getOrphansRect();
 
     bool   hasTree();
-    QRectF getTreeGeometry();
+    QSizeF getTreeGeometry();
 
     void setOrphCoords();
     void setLevels();
@@ -113,7 +113,6 @@ private slots:
     void animateGroup();
 
 private:
-
     int grUid = -1;
     GroupType type = freeEdges;
     QString longUid = "";

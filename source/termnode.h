@@ -68,7 +68,6 @@ public:
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget *);
 
-
     void mousePressEvent(QGraphicsSceneMouseEvent *evt);
 
     bool hasConnections();
@@ -104,6 +103,7 @@ public:
     bool isOrphan();
     bool isLeaf();
 
+    bool isInTree();
 //    QString getSmallName() {
 //        if( isRoot() )
 //            return TermInfo::getName() + "true";

@@ -11,6 +11,17 @@ void TblBase::setField(QString columnName, int uid, QString val)
     updateWhere(set,where);
 }
 
+void TblBase::setField(QString columnName, QString uuid, QString val)
+{
+    SetExpression set;
+    set.set(columnName, val);
+
+    WhereConditions where;
+    where.equal("longUid",uuid);
+
+    updateWhere(set,where);
+}
+
 int TblBase::getIntField(QString columnName, int uid)
 {
     if( !isColumnNameExist(columnName) )

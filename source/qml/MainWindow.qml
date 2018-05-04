@@ -120,6 +120,13 @@ ApplicationWindow {
 
             function openNewNode() {
                 stackView.pushItem(winModel.get(1).source)
+                stackView.get(1).prepare("")
+                drawer.close()
+            }
+
+            function openEditNode(nodeUid) {
+                stackView.pushItem(winModel.get(1).source)
+                stackView.get(1).prepare(nodeUid)
                 drawer.close()
             }
 
@@ -149,10 +156,8 @@ ApplicationWindow {
                 font.pixelSize: mainObj.getUiElementSize("capitalText")*Screen.pixelDensity
                 highlighted: ListView.isCurrentItem
                 onClicked: {
-
                     stackView.pushItem(model.source)
                     drawer.close()
-
                 }
 
             }

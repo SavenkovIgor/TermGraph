@@ -17,15 +17,15 @@ Item {
     Keys.onPressed: {
         if( event.modifiers === Qt.ControlModifier )
             if( event.key === Qt.Key_Return || event.key === Qt.Key_Enter )
-                addNode.act()
-
+                addNode.addOrChangeNode()
     }
 
     function moveBack() {
         stackView.popItem()
     }
 
-    function prepare() {
+    function prepare(nodeUid) {
+        changeN.text = nodeUid
         if( changeN.text === "" ) {
             clear()
             changeLbl.visible = false
@@ -93,7 +93,7 @@ Item {
 
                 Label {
                     id : changeN
-                    text: mainObj.changeNum
+//                    text: mainObj.changeNum
                     font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
                     onTextChanged: {
                         fillInfo()
@@ -177,19 +177,31 @@ Item {
                 id: addNode
                 text : "Добавить/Изменить"
 
-                function act() {
-                    mainObj.setChangeNum(changeN.text)
-                    mainObj.addNewNode(
-                                termName.text,
-                                termForms.text,
-                                termDefin.text,
-                                termDescr.text,
-                                termExampl.text,
-                                nodeGroup.currentText
-                                )
+                function addOrChangeNode() {
+                    if( changeN.text == "" ) {
+                        sceneObj.addNewNode(
+                                    termName.text,
+                                    termForms.text,
+                                    termDefin.text,
+                                    termDescr.text,
+                                    termExampl.text,
+                                    nodeGroup.currentText
+                                    )
+                    } else {
+                        sceneObj.changeNode(
+                                    changeN.text,
+                                    termName.text,
+                                    termForms.text,
+                                    termDefin.text,
+                                    termDescr.text,
+                                    termExampl.text,
+                                    nodeGroup.currentText
+                                    )
+                    }
+
                     moveBack()
                 }
-                onClicked: act()
+                onClicked: addOrChangeNode()
             }
 
             //            Item{

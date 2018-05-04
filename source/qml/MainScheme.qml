@@ -196,8 +196,7 @@ Item {
                 }
 
                 onClicked: {
-                    mainObj.sceneChangePoint()
-                    listView.openNewNode()
+                    listView.openEditNode(sceneObj.getCurrNodeLongUid())
                 }
 
                 Component.onCompleted: loadIcon( "qrc:/icons/aperture" )
@@ -403,13 +402,11 @@ Item {
                         }
 
                         if( event.key === Qt.Key_E ) {
-                            mainObj.sceneChangePoint()
-                            listView.openNewNode()
+                            listView.openEditNode(sceneObj.getCurrNodeLongUid())
                             event.accepted = true
                         }
 
                         if( event.key === Qt.Key_N ) {
-                            mainObj.setChangeNum("")
                             listView.openNewNode()
                             event.accepted = true
                         }

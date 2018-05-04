@@ -40,8 +40,6 @@ MainWindow::MainWindow(QObject *parent) :
 
     analyze = new WordFreqAnalyze();
 
-    connect(this,SIGNAL(currGroupNumChanged(int)),SLOT(updGroupAddNode(int)));
-
     connect(this,SIGNAL(currGroupNumChanged(int)),SLOT(viewGrp(int)));
     connect(engn,SIGNAL(objectCreated(QObject*,QUrl)),SLOT(onQmlCreated(QObject*,QUrl)));
 
@@ -151,6 +149,7 @@ void MainWindow::loadSett()
     if( str == "" )
         return;
 
+    //TODO: Вынести это в сцену!
     setCurrGroupNum( getGroupsList().indexOf(str) );
     //    scene->setAnimSpeed( sett.value("animationSpeed",300).toInt() );
 }
@@ -187,12 +186,6 @@ void MainWindow::scaleDown()
     scView->scaleDown();
 }
 
-void MainWindow::addNewPoint()
-{
-    if( changeNum() != "" )
-        setChangeNum("");
-}
-
 void MainWindow::viewGrp(int num)
 {
     QStringList lst = db->groupTbl->getAllGroupsNames();
@@ -202,26 +195,6 @@ void MainWindow::viewGrp(int num)
 
     scene->showGroup( lst[num] );
 }
-
-void MainWindow::sceneChangePoint()
-{
-    TermNode *nd = scene->getSelected();
-    if(nd == nullptr)
-        return;
-
-    setChangeNum( QString::number(nd->getUid() ) );
-    setCurrGroupNum( groupsList().indexOf(nd->getGroupString()));
-}
-
-void MainWindow::updGroupAddNode(int num)
-{
-    //    if( num < 0 || num >= ui->setGroup->count() )
-    //        return;
-    setCurrGroupNum( num );
-    //    ui->setGroup->setCurrentIndex( num );
-}
-
-
 
 void MainWindow::openBase()
 {
@@ -237,34 +210,7 @@ void MainWindow::openBase()
 //    updateGroupLists();
 }
 
-void MainWindow::addNewNode(
-        QString name,
-        QString forms,
-        QString def,
-        QString descr,
-        QString exam,
-        QString groupName)
-{
-    bool ok = false;
-    int change  = changeNum().toInt(&ok);
-    if( !ok ) {
-        change = db->nodeTbl->addNode(name);
-    }
 
-    int groupID = db->groupTbl->getUid( groupName );
-
-    db->nodeTbl->setName(change,name);
-    db->nodeTbl->setTForms(change,forms);
-    db->nodeTbl->setDefinition (change,def);
-    db->nodeTbl->setDescription(change,descr);
-    db->nodeTbl->setExamples(change,exam);
-    db->nodeTbl->setGroup      (change,groupID);
-
-    scene->updateModel();
-    //    ui->statusBar->showMessage("Добавлена вершина с названием " + someName,2500);
-
-    setChangeNum("");
-}
 
 void MainWindow::testSlot()
 {
@@ -284,15 +230,6 @@ void MainWindow::setCurrGroupNum(int currGroupNum)
 
     m_currGroupNum = currGroupNum;
     emit currGroupNumChanged(m_currGroupNum);
-}
-
-void MainWindow::setChangeNum(QString changeNum)
-{
-    if (m_changeNum == changeNum)
-        return;
-
-    m_changeNum = changeNum;
-    emit changeNumChanged(m_changeNum);
 }
 
 void MainWindow::setGroupsList(QStringList groupsList)
