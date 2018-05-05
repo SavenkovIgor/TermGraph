@@ -327,15 +327,6 @@ Item {
 
                 //                onClicked: { }
 
-                //                onWidthChanged: sendResize()
-                //                onHeightChanged: sendResize()
-                //                Component.onCompleted: sendResize()
-
-                //Функция отправляет ресайз во вьюер sceneView
-                //                function sendResize() {
-                //                    mainViewObj.setScSize(mainSceneImg.width,mainSceneImg.height)
-                //                }
-
                 //Функция коррекции по вертикали
                 function getHgh() {
                     return mainScheme.scOffset //+ topTools.height

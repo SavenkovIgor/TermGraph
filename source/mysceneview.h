@@ -32,29 +32,19 @@ public:
 
     void mousePressEvent(QMouseEvent *evt)
     {
-//        qDebug()<<"press"<<evt->buttons();
         newInfo( "press " + Glb::ptToStr( evt->pos() ) );
         newPos( evt->pos().x(),evt->pos().y() );
-//        NodesList lst = Glb::scRef->getAllNodes();
-//        for( TermNode *n : lst ) {
-//            if(n->getMainRect().contains(evt->pos())) {
-//                newInfo(n->getName());
-//                break;
-//            }
-//        }
         QGraphicsView::mousePressEvent(evt);
     }
 
     void mouseReleaseEvent(QMouseEvent *evt)
     {
-//        qDebug()<<"release"<<evt->buttons();
         newInfo( "release " + Glb::ptToStr( evt->pos() ) );
         QGraphicsView::mouseReleaseEvent(evt);
     }
 
     void mouseMoveEvent(QMouseEvent *evt)
     {
-//        qDebug()<<"move"<<evt->buttons();
         newInfo( "move " + Glb::ptToStr( evt->pos() ) );
         QGraphicsView::mouseMoveEvent(evt);
     }
@@ -62,7 +52,6 @@ public:
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);
 
     bool event(QEvent *event){
-//        qDebug()<<"eventMove"<<event->type();
         return QWidget::event(event); //Не знаю почему, но без этого не работает...
     }
 
@@ -75,13 +64,6 @@ public slots:
     void moveRight() { moveView(QPointF(10.0, 0.0));  }
     void moveUp()    { moveView(QPointF(0.0, -10.0)); }
     void moveDown()  { moveView(QPointF(0.0, 10.0));  }
-
-    void setScSize(int,int) {
-//        qDebug()<<"NEW SIZE"<<width<<height<<"prev"<<size()<<"screct"<<sceneRect();
-//        resize(width,height);
-//        adjustSize();
-//        updateGeometry();
-    }
 
     void setDragMove(bool drg) {
         if( drg )
