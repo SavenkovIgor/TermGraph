@@ -181,11 +181,7 @@ void MainWindow::testSlot()
     scene->updateModel();
 }
 
-void MainWindow::setSceneSize(int width, int height)
-{
-    scView->retImgSz.setWidth(  width  );
-    scView->retImgSz.setHeight( height );
-}
+
 
 void MainWindow::setGroupsList(QStringList groupsList)
 {

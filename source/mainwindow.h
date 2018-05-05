@@ -76,8 +76,6 @@ public slots:
 
     void testSlot();
 
-    void setSceneSize(int width,int height);
-
     void setGroupsList(QStringList groupsList);
 
     QStringList getGroupTypes();

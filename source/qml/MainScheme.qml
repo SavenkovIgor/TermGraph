@@ -122,7 +122,7 @@ Item {
             anchors.fill: parent
 
             function sendSizeChange() {
-                mainObj.setSceneSize(width,height)
+                mainViewObj.setSceneSize(width,height)
             }
 
             function nodeDeleteCheck() {

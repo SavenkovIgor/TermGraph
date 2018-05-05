@@ -14,14 +14,19 @@
 
 class MainScene;
 
+enum SceneScale {
+    up = 1,
+    down = -1
+};
+
 class MyView : public QGraphicsView, public QQuickImageProvider
 {
     Q_OBJECT
 
+    QSize retImgSz = QSize(400,300);
+
 public:
     MyView();
-
-    QSize retImgSz = QSize(400,300);//Да, она публично доступна. Такие дела.
 
     void wheelEvent(QWheelEvent *evt);
 
@@ -66,18 +71,10 @@ public slots:
     void scaleUp();
     void scaleDown();
 
-    void moveLeft() {
-        moveView(QPointF(-10.0,0.0));
-    }
-    void moveRight() {
-        moveView(QPointF(10.0,0.0));
-    }
-    void moveUp() {
-        moveView(QPointF(0.0,-10.0));
-    }
-    void moveDown() {
-        moveView(QPointF(0.0,10.0));
-    }
+    void moveLeft()  { moveView(QPointF(-10.0, 0.0)); }
+    void moveRight() { moveView(QPointF(10.0, 0.0));  }
+    void moveUp()    { moveView(QPointF(0.0, -10.0)); }
+    void moveDown()  { moveView(QPointF(0.0, 10.0));  }
 
     void setScSize(int,int) {
 //        qDebug()<<"NEW SIZE"<<width<<height<<"prev"<<size()<<"screct"<<sceneRect();
@@ -93,11 +90,19 @@ public slots:
             setDragMode(QGraphicsView::NoDrag);
     }
 
+    void setSceneSize(int width, int height)
+    {
+        retImgSz.setWidth(  width  );
+        retImgSz.setHeight( height );
+    }
+
 signals:
     void newInfo(QString info);
     void newPos(int x,int y);
 
 private:
+    void scaleChange(SceneScale scaleChange);
+
     void moveView(QPointF move){
         QPointF pt = mapToScene(viewport()->rect().center());
         centerOn( pt + move );

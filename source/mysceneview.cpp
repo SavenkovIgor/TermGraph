@@ -43,24 +43,31 @@ QImage MyView::requestImage(const QString &id, QSize *size, const QSize &request
 
 void MyView::scaleUp()
 {
-    const int maxScaleCount   = 10;
-    const int minScaleCount = -10;
-    scaleCount ++;
-
-    if( minScaleCount < scaleCount && scaleCount < maxScaleCount)
-        scale(1.1,1.1);
-
-    scaleCount = qBound(minScaleCount,scaleCount,maxScaleCount);
+    scaleChange(SceneScale::up);
 }
 
 void MyView::scaleDown()
 {
-    const int maxScaleCount   = 10;
-    const int minScaleCount = -10;
-    scaleCount --;
+    scaleChange(SceneScale::down);
+}
 
-    if( minScaleCount < scaleCount && scaleCount < maxScaleCount)
-        scale(0.9,0.9);
+void MyView::scaleChange(SceneScale scaleChange)
+{
+    const int maxScaleCount = 10;
+    const int minScaleCount = -10;
+
+    scaleCount += scaleChange;
+
+    if( minScaleCount < scaleCount && scaleCount < maxScaleCount) {
+        switch (scaleChange) {
+        case SceneScale::up:
+            scale(1.1,1.1);
+            break;
+        case SceneScale::down:
+            scale(0.9,0.9);
+            break;
+        }
+    }
 
     scaleCount = qBound(minScaleCount,scaleCount,maxScaleCount);
 }
