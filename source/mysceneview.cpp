@@ -41,16 +41,6 @@ QImage MyView::requestImage(const QString &id, QSize *size, const QSize &request
     return QImage();
 }
 
-void MyView::scaleUp()
-{
-    scaleChange(SceneScale::up);
-}
-
-void MyView::scaleDown()
-{
-    scaleChange(SceneScale::down);
-}
-
 void MyView::scaleChange(SceneScale scaleChange)
 {
     const int maxScaleCount = 10;

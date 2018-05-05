@@ -110,7 +110,6 @@ public slots:
     QString getCurrNodeDebugInfo();
 
     QString getCurrNodeLongUid();
-    QString getCurrNodeUid();
     QString getCurrNodeName();
     QString getCurrNodeForms();
     QString getCurrNodeDefinition();
@@ -151,7 +150,6 @@ public slots:
 //        groupList[0]->setBasePoint(QPoint(200,200));
 //        sceneRhytm.stop();
 //    }
-
 
 private:
     QPointF lastPressPt;

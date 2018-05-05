@@ -57,8 +57,8 @@ public:
 
 public slots:
 
-    void scaleUp();
-    void scaleDown();
+    void scaleUp()   { scaleChange(SceneScale::up);   }
+    void scaleDown() { scaleChange(SceneScale::down); }
 
     void moveLeft()  { moveView(QPointF(-10.0, 0.0)); }
     void moveRight() { moveView(QPointF(10.0, 0.0));  }

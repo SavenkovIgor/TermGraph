@@ -583,15 +583,6 @@ QString MainScene::getCurrNodeLongUid()
     return nd->getLongUid();
 }
 
-QString MainScene::getCurrNodeUid()
-{
-    TermNode* nd = getSelected();
-    if( nd == nullptr )
-        return "";
-
-    return QString::number( nd->getUid() );
-}
-
 QString MainScene::getCurrNodeName()
 {
     TermNode* nd = getSelected();
