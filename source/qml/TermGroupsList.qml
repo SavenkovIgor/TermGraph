@@ -11,7 +11,7 @@ Item {
     objectName: "grpLst"
 
     function groupListOpen() {
-        goupsList.forceActiveFocus()
+        groupsList.forceActiveFocus()
     }
 
     Keys.onPressed: {
@@ -60,7 +60,7 @@ Item {
 
         onClicked: {
             rotation += 90
-            sceneObj.exportGrpToJson(goupsList.currentItem.text)
+            sceneObj.exportGrpToJson(groupsList.currentItem.text)
         }
 
         Behavior on rotation {
@@ -72,11 +72,22 @@ Item {
         Component.onCompleted: loadIcon("qrc:/icons/share-boxed")
     }
 
+    Connections {
+        target: sceneObj
+        onUpdateGroupLists: {
+            groupsList.refreshModel()
+        }
+    }
+
     ListView {
-        id: goupsList
+        id: groupsList
         anchors.fill: parent
-        model: mainObj.groupsList
+        model: sceneObj.getGroupsNames()
         keyNavigationEnabled: true
+
+        function refreshModel() {
+            model = sceneObj.getGroupsNames()
+        }
 
         highlight: Rectangle {
             width: 200; height: 20
@@ -153,7 +164,7 @@ Item {
         icon: StandardIcon.Question
 
         onYes: {
-            sceneObj.deleteGroup(goupsList.currentItem.text)
+            sceneObj.deleteGroup(groupsList.currentItem.text)
         }
 
     }
@@ -192,7 +203,7 @@ Item {
             MyComboBox {
                 id: newGroupType
                 Component.onCompleted: {
-                    model = mainObj.getGroupTypes()
+                    model = sceneObj.getGroupTypes()
                 }
             }
 

@@ -512,6 +512,11 @@ void MainScene::setAnimSpeed(int val)
     }
 }
 
+QStringList MainScene::getGroupsNames()
+{
+    return db->groupTbl->getAllGroupsNames();
+}
+
 void MainScene::dropEdgesOnSelected()
 {
     TermNode *nd = getSelected();
@@ -538,7 +543,7 @@ void MainScene::checkSelection()
     }
 
     if(!someSel) {
-        selectDrop();
+        selectionDrop();
         TermNode::someoneSelect = false;
         if(!TermNode::someoneHover)
             for( TermNode *n : allNodesList )

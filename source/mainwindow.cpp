@@ -25,10 +25,6 @@ MainWindow::MainWindow(QObject *parent) :
 
     scene = new MainScene();
 
-    connect(scene,SIGNAL(updateGroupLists()),SLOT(updateGroupLists()));
-
-    updateGroupLists();
-
     scView = new MyView();
 
     scView->setScene(scene);
@@ -68,8 +64,6 @@ QString MainWindow::cubizeString(QString str)
     }
     return str;
 }
-
-
 
 void MainWindow::takeSceneMouse(qreal x, qreal y, qreal winPosX,qreal winPosY,qreal hght, QString actionInfo, QString buttonInfo)
 {
@@ -115,7 +109,6 @@ void MainWindow::takeSceneMouse(qreal x, qreal y, qreal winPosX,qreal winPosY,qr
         delete evt;
 }
 
-
 MainWindow::~MainWindow()
 {
     saveSett();
@@ -146,20 +139,9 @@ void MainWindow::loadDbPath()
     dbPath = sett.value("dataPath","tg.termGraph").toString();
 }
 
-QStringList MainWindow::getGroupsList()
-{
-    return db->groupTbl->getAllGroupsNames();
-}
-
 void MainWindow::onQmlCreated(QObject*, QUrl)
 {
     loadSett();
-}
-
-void MainWindow::updateGroupLists()
-{
-    QStringList lst = db->groupTbl->getAllGroupsNames();
-    setGroupsList( lst );
 }
 
 void MainWindow::openBase()
@@ -173,7 +155,7 @@ void MainWindow::openBase()
 //    db->openDB(lst.first());
 //    dbPath = lst.first();
 //    scene->updateModel();
-//    updateGroupLists();
+//    scene->updateGroupLists();
 }
 
 void MainWindow::testSlot()
@@ -182,19 +164,6 @@ void MainWindow::testSlot()
 }
 
 
-
-void MainWindow::setGroupsList(QStringList groupsList)
-{
-    if (m_groupsList == groupsList)
-        return;
-
-    m_groupsList = groupsList;
-    emit groupsListChanged(m_groupsList);
-}
-
-QStringList MainWindow::getGroupTypes() {
-    return TermGroup::getTypesNames();
-}
 
 int MainWindow::getUiElementSize(QString elementTypeName)
 {

@@ -65,11 +65,14 @@ Item {
 
     Connections {
         target: sceneObj
-        onSomeSelected : {
+        onSomeSelected: {
             showButtons()
         }
-        onSelectDrop : {
+        onSelectionDrop: {
             hideButtons()
+        }
+        onUpdateGroupLists: {
+            groupListView.refreshModel()
         }
     }
 
@@ -458,7 +461,12 @@ Item {
 
                             id: groupListView
                             anchors.fill: parent
-                            model: mainObj.groupsList
+                            model: sceneObj.getGroupsNames()
+
+                            function refreshModel() {
+                                model = sceneObj.getGroupsNames()
+                            }
+
                             keyNavigationEnabled: true
 
                             highlight: Rectangle {

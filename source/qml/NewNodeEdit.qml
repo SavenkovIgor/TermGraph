@@ -161,9 +161,20 @@ Item {
                     font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
                 }
 
+                Connections {
+                    target: sceneObj
+                    onUpdateGroupLists: {
+                        nodeGroup.refreshModel()
+                    }
+                }
+
                 MyComboBox {
                     id: nodeGroup
-                    model: mainObj.groupsList;
+                    model: sceneObj.getGroupsNames()
+
+                    function refreshModel() {
+                        model = sceneObj.getGroupsNames()
+                    }
 //                    currentIndex: mainObj.currGroupNum
 
 //                    anchors.left: grpLabel.right

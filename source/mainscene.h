@@ -76,11 +76,13 @@ signals:
     void updateGroupLists();
 
     void someSelected();
-    void selectDrop();
+    void selectionDrop();
 
     void mouseInfo(QString str);
 
 public slots:
+    QStringList getGroupsNames();
+
     void viewGrp(int num); //TODO: Постараться избавиться от этой функции
     void showGroup( QString grp = "");
 
@@ -150,6 +152,10 @@ public slots:
 //        groupList[0]->setBasePoint(QPoint(200,200));
 //        sceneRhytm.stop();
 //    }
+
+    QStringList getGroupTypes() {
+        return TermGroup::getTypesNames();
+    }
 
 private:
     QPointF lastPressPt;

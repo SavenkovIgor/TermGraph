@@ -60,7 +60,7 @@ public:
 
     GroupType getType();
     QString getTypeString();
-    static QStringList       getTypesNames();
+    static QStringList getTypesNames();
     static QMap<GroupType,QString> getTypesMap();
 
     int     getGroupUid();
