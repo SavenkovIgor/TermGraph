@@ -15,7 +15,7 @@ class MainScene : public QGraphicsScene
 {
     Q_OBJECT
 
-    bool editEdge = false;
+    bool editEdge = false; //TODO: Выпиливаем этот функционал
 
     QGraphicsLineItem *lineItm;
     QPointF startEdgePt;
@@ -96,7 +96,6 @@ public slots:
         viewGrp(currGroupIndex);
     }
 
-    void setEditEdgeMode(bool set);
     void dropEdgesOnSelected();
 
     void checkGroupGeometry();

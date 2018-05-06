@@ -58,19 +58,6 @@ ApplicationWindow {
                 verticalAlignment: Qt.AlignVCenter
                 Layout.fillWidth: true
             }
-
-
-            MyRoundButton {
-                rightPadding: 20
-                Component.onCompleted: {
-                    loadIcon( "qrc:/icons/pencil")
-                }
-                checkable: true
-                onClicked: {
-                    mainViewObj.setDragMove( !checked )
-                    sceneObj.setEditEdgeMode( checked )
-                }
-            }
         }
     }
 

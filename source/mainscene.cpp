@@ -199,12 +199,6 @@ void MainScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *evt)
     QGraphicsScene::mouseReleaseEvent(evt);
 }
 
-
-void MainScene::setEditEdgeMode(bool set)
-{
-    editEdge = set;
-}
-
 void MainScene::updateModel()
 {
     selectTimer.stop();
