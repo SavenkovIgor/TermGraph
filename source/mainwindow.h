@@ -47,8 +47,6 @@ private:
     WordFreqAnalyze* analyze;
     TagProcessor *tagProcessor;
 
-    QString cubizeString(QString str);
-
 public:
     explicit MainWindow(QObject *parent = 0);
     ~MainWindow();

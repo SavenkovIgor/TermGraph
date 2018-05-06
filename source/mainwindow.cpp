@@ -47,24 +47,6 @@ MainWindow::MainWindow(QObject *parent) :
 
 }
 
-QString MainWindow::cubizeString(QString str)
-{
-    for(int i=0,j=0;i<str.size();i++,j++){
-        if(j > 20){
-            if(str[i] == ' ') {
-                str[i] = '\n';
-                j=0;
-            }
-        }
-        if(j > 45) {
-            str.insert(i,'\n');
-            str.insert(i,'-');
-            j=0;
-        }
-    }
-    return str;
-}
-
 void MainWindow::takeSceneMouse(qreal x, qreal y, qreal winPosX,qreal winPosY,qreal hght, QString actionInfo, QString buttonInfo)
 {
     scene->xWindow = winPosX;       //dirty,dirty hack
@@ -162,8 +144,6 @@ void MainWindow::testSlot()
 {
     scene->updateModel();
 }
-
-
 
 int MainWindow::getUiElementSize(QString elementTypeName)
 {
