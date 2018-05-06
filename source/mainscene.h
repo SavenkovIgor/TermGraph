@@ -21,7 +21,7 @@ class MainScene : public QGraphicsScene
     QPointF startEdgePt;
     QPointF endEdgePt;
 
-    NodesList   allNodesList;
+    NodesList allNodesList;
     EdgesList allEdgesList;
 
     void initGroups();

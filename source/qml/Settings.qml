@@ -38,15 +38,28 @@ Item {
     }
 
     Button{
+        id: srchBtn
         anchors {
             left:   parent.left
             right:  parent.right
             top:    currLocD.bottom
-            bottom: parent.bottom
         }
 
         text: "Обзор..."
 
         onClicked:  { fileDialog.open() }
+    }
+
+    Button{
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: srchBtn.bottom
+            bottom: parent.bottom
+        }
+
+        text: "Тест"
+        onClicked: sceneObj.createTestGroups()
+
     }
 }

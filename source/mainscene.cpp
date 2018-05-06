@@ -102,7 +102,6 @@ void MainScene::appendEdgesToScene()
 {
     for( Edge *i : allEdgesList )
         addItem( i );
-
 }
 
 NodesList MainScene::getAllNodes()
@@ -203,7 +202,6 @@ void MainScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *evt)
 
 void MainScene::setEditEdgeMode(bool set)
 {
-
     editEdge = set;
 }
 
@@ -275,7 +273,6 @@ void MainScene::checkGroupGeometry()
 
 void MainScene::dropSelectedNode()
 {
-
     TermNode *nd = getSelected();
     if( nd == nullptr )
         return;
@@ -656,6 +653,13 @@ void MainScene::changeOrientation()
 void MainScene::createTestGroups()
 {
     addNewGroup("TestGroup1","",GroupType::terms);
-    addNewGroup("TestGroup2","",GroupType::terms);
-    addNewGroup("TestGroup3","",GroupType::terms);
+
+    addNewNode("1","","","","","TestGroup1");
+    addNewNode("2","","","","","TestGroup1");
+    addNewNode("3","","{1}{2}","","","TestGroup1");
+    addNewNode("4","","{1}{2}","","","TestGroup1");
+    addNewNode("5","","{1}","","","TestGroup1");
+    addNewNode("6","","{5}","","","TestGroup1");
+    addNewNode("7","","{5}","","","TestGroup1");
+    addNewNode("8","","{6}{7}","","","TestGroup1");
 }
