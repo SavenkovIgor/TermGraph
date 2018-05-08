@@ -15,12 +15,6 @@ class MainScene : public QGraphicsScene
 {
     Q_OBJECT
 
-    bool editEdge = false; //TODO: Выпиливаем этот функционал
-
-    QGraphicsLineItem *lineItm;
-    QPointF startEdgePt;
-    QPointF endEdgePt;
-
     NodesList allNodesList;
     EdgesList allEdgesList;
 

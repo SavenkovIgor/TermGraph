@@ -12,9 +12,6 @@ MainScene::MainScene() : QGraphicsScene()
     selectTimer.setInterval(200);
     connect(&selectTimer,SIGNAL(timeout()),SLOT(checkSelection()));
 
-    lineItm = new QGraphicsLineItem( nullptr );
-    lineItm->setVisible( false );
-
 //    viewGrpTimer.setSingleShot(false);
 //    connect(&viewGrpTimer,SIGNAL(timeout()),SLOT(showGroup()));
 
@@ -24,7 +21,6 @@ MainScene::MainScene() : QGraphicsScene()
 
 MainScene::~MainScene()
 {
-    delete lineItm;
 }
 
 void MainScene::initGroups()
@@ -123,11 +119,6 @@ void MainScene::mouseMoveEvent(QGraphicsSceneMouseEvent *evt)
     mouseInfo("move");
     evt->setScreenPos(evt->screenPos() - QPoint(xWindow,yWindow));
 
-    if(editEdge){
-        lineItm->setLine(QLineF(startEdgePt,evt->scenePos()));
-        lineItm->update();
-    }
-
     QGraphicsScene::mouseMoveEvent(evt);
 }
 
@@ -143,17 +134,6 @@ void MainScene::mousePressEvent(QGraphicsSceneMouseEvent *evt)
 
     //        mouseInfo( "press at " + Glb::ptToStr(evt->scenePos()) );
     lastPressPt = evt->scenePos();
-    if(editEdge) {
-        sceneRhytm.stop();
-        stopAllGroupTimers();
-        addItem(lineItm);
-        startEdgePt = evt->scenePos();
-        lineItm->setVisible(true);
-        lineItm->setLine(QLineF(evt->scenePos(),evt->scenePos()));
-        evt->accept();
-    } else {
-        startEdgePt = QPointF();
-    }
 
     QGraphicsScene::mousePressEvent(evt);
 }
@@ -163,38 +143,25 @@ void MainScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *evt)
     //    qDebug()<<"release";
     mouseInfo("release");
     evt->setScreenPos(evt->screenPos() - QPoint(xWindow,yWindow));
-    if(editEdge) {
-        removeItem(lineItm);
-        endEdgePt = evt->scenePos();
-        lineItm->setVisible(false);
-        setSceneRect(sceneRect());
-        evt->accept();
-    } else {
-        endEdgePt = QPointF();
-        //            startEdgePt = QPointF();
-        NodesList ndLst = getAllTermsAtPoint(evt->scenePos().x(),evt->scenePos().y());
-        if( ndLst.size() == 1 ) {
-            int dist = 0;
-            dist += qAbs( lastPressPt.x() - evt->scenePos().x() );
-            dist += qAbs( lastPressPt.y() - evt->scenePos().y() );
+    NodesList ndLst = getAllTermsAtPoint(evt->scenePos().x(),evt->scenePos().y());
+    if( ndLst.size() == 1 ) {
+        int dist = 0;
+        dist += qAbs( lastPressPt.x() - evt->scenePos().x() );
+        dist += qAbs( lastPressPt.y() - evt->scenePos().y() );
 
-            if( dist <= 30 ) {
-                qDebug()<<dist<<lastPressPt<<evt->scenePos();
-                ndLst.first()->setFlag( QGraphicsItem::ItemIsSelectable,true );
-                ndLst.first()->setSelected(true);
-                evt->accept();
-            }
-        } else {
-            for( TermNode* n: allNodesList ) {
-                n->setFlag( QGraphicsItem::ItemIsSelectable, false );
-                n->setSelected( false );
-                //                    evt->accept();
-            }
+        if( dist <= 30 ) {
+            qDebug()<<dist<<lastPressPt<<evt->scenePos();
+            ndLst.first()->setFlag( QGraphicsItem::ItemIsSelectable,true );
+            ndLst.first()->setSelected(true);
+            evt->accept();
+        }
+    } else {
+        for( TermNode* n: allNodesList ) {
+            n->setFlag( QGraphicsItem::ItemIsSelectable, false );
+            n->setSelected( false );
+            //                    evt->accept();
         }
     }
-
-    if(!startEdgePt.isNull() && !endEdgePt.isNull() && startEdgePt != endEdgePt)
-        addEdge(startEdgePt,endEdgePt);
 
     QGraphicsScene::mouseReleaseEvent(evt);
 }
