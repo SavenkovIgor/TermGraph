@@ -84,7 +84,7 @@ public:
     QRectF getOrphansRect();
 
     bool   hasTree();
-    QSizeF getTreeGeometry();
+    QSizeF getTreeSize();
 
     void setOrphCoords();
     void setLevels();

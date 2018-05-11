@@ -623,4 +623,6 @@ void MainScene::createTestGroups()
     addNewNode("6","","{5}","","","TestGroup1");
     addNewNode("7","","{5}","","","TestGroup1");
     addNewNode("8","","{6}{7}","","","TestGroup1");
+    addNewNode("9","","","","","TestGroup1");
+
 }

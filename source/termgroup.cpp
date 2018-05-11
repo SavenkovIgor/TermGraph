@@ -331,7 +331,6 @@ NodesList TermGroup::getInTreeList()
     return ret;
 }
 
-
 qreal TermGroup::getSumSize(NodesList lst, bool withMargins, Qt::Orientation ori)
 //Возвращает ширину списка вершин.
 //По надобности суммирует интервалы между ними
@@ -370,6 +369,17 @@ qreal TermGroup::getMaxSideSize( NodesList lst, Qt::Orientation ori )
     return ret;
 }
 
+qreal TermGroup::getGroupMinWidth()
+{
+    qreal width = 0.0;
+
+    width = qMax(width,getTitleMinWidth());
+    width = qMax(width,getTreeMinWidth());
+    width = qMax(width,getOrphansMinWidth());
+
+    return width
+}
+
 qreal TermGroup::getTitleMinWidth()
 {
     return grNmItem->getNameWidth();
@@ -386,7 +396,7 @@ qreal TermGroup::getOrphansMinWidth()
 
 qreal TermGroup::getTreeMinWidth()
 {
-    return getTreeGeometry().width();
+    return getTreeSize().width();
 }
 
 NodesList TermGroup::getNodeList()
@@ -684,7 +694,7 @@ bool TermGroup::hasTree()
     return false;
 }
 
-QSizeF TermGroup::getTreeGeometry()
+QSizeF TermGroup::getTreeSize()
 {
     int levels = getAllLevelsCount();
     qreal sumWidth = 0.0;
