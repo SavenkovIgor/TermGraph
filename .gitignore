@@ -1,5 +1,6 @@
 app/*
 build/*
+source/build/*
 .qmake.stash
 Makefile
 TermGraph.pro.user*
