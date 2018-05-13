@@ -54,9 +54,6 @@ public:
     TermNode* getNodeByUid(int uid);
     NodesList getAllTermsAtPoint  ( int x, int y );
 
-    void addEdge( QPointF rtPt, QPointF brPt );
-    void addEdge( TermNode* fr, TermNode* to, bool refresh = true );
-
     void addNewEdgeToModel(TermNode *from, TermNode *to);
 
     void setAnimSpeed(int val);

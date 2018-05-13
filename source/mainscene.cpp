@@ -358,67 +358,6 @@ NodesList MainScene::getAllTermsAtPoint(int x, int y) {
     return ret;
 }
 
-void MainScene::addEdge(QPointF rtPt, QPointF brPt)
-{
-    TermNode *root = nullptr;
-    TermNode *bran = nullptr;
-
-    //    (TermNode *)itemAt( rtPt,QTransform() );
-    //    (TermNode *)itemAt( brPt,QTransform() );
-    for( TermNode *n : allNodesList ) {
-        if( n->getMainRect().contains( rtPt ) )
-            root = n;
-        if( n->getMainRect().contains( brPt ) )
-            bran = n;
-    }
-
-    addEdge( root, bran );
-}
-
-void MainScene::addEdge(TermNode *fr, TermNode *to, bool refresh)
-{
-    if( fr == nullptr || to == nullptr )
-        return;
-
-    if( fr->getUid() == to->getUid() )
-        return; //одна и та же вершина
-
-    for( Edge *e : allEdgesList ) {
-        if( e->isSameEdge( fr, to ) ) {
-            showMessage("Такое ребро уже существует",2000);
-            return;
-        }
-    }
-
-    bool rootIsScheme = ( fr->isRoot() || fr->hasConnections() );
-    bool brncIsScheme = ( to->isRoot() || to->hasConnections() );
-
-    //    4 types:
-
-    if( rootIsScheme && !brncIsScheme){ //    1)sch ->node
-        addNewEdgeToModel(fr,to);
-
-    } else if(!rootIsScheme && brncIsScheme) { //    2)node->sch
-        showMessage("Инвертируем связь", 2000);
-        addNewEdgeToModel(to,fr);
-
-    } else if(!rootIsScheme && !brncIsScheme) {//    3)node->node
-        showMessage("Нельзя создавать связи вне схемы",2000);
-        return;
-
-    } else if(rootIsScheme && brncIsScheme) {//    4)sch ->sch
-        if(fr->getPaintLevel() > to->getPaintLevel()) {// Нужна инверсия тянут не оттуда
-            showMessage("Нужно тянуть от родителя к потомку",2000);
-            addNewEdgeToModel(to,fr);
-        } else {
-            addNewEdgeToModel(fr,to);
-        }
-    }
-
-    if( refresh )
-        updateModel();
-}
-
 void MainScene::addNewEdgeToModel(TermNode *from, TermNode *to)
 {
     if(from == to)

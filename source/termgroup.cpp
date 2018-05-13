@@ -377,7 +377,7 @@ qreal TermGroup::getGroupMinWidth()
     width = qMax(width,getTreeMinWidth());
     width = qMax(width,getOrphansMinWidth());
 
-    return width
+    return width;
 }
 
 qreal TermGroup::getTitleMinWidth()
