@@ -50,14 +50,12 @@ Item {
     }*/
 
     function showButtons() {
-        deleteConnectionsBtn.visible = true
         changePointBtn.visible = true
         deleteSelNodeBtn.visible = true
         opInfoBtn.visible = true
     }
 
     function hideButtons() {
-        deleteConnectionsBtn.visible = false
         changePointBtn.visible = false
         deleteSelNodeBtn.visible = false
         opInfoBtn.visible = false
@@ -179,18 +177,6 @@ Item {
             }
 
             MyRoundButton {
-                id : deleteConnectionsBtn
-
-                anchors {
-                    right: changePointBtn.left
-                    bottom: mainSceneImg.bottom
-                }
-
-                onClicked: sceneObj.dropEdgesOnSelected()
-                Component.onCompleted: loadIcon( "qrc:/icons/link-broken")
-            }
-
-            MyRoundButton {
                 id: changePointBtn
 
                 anchors {
@@ -220,7 +206,7 @@ Item {
             MyRoundButton {
                 id : opInfoBtn
 
-                anchors.right: deleteConnectionsBtn.left
+                anchors.right: changePointBtn.left
                 anchors.bottom: mainSceneImg.bottom
 
                 Shortcut {
