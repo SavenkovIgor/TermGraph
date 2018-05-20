@@ -358,21 +358,6 @@ NodesList MainScene::getAllTermsAtPoint(int x, int y) {
     return ret;
 }
 
-void MainScene::addNewEdgeToModel(TermNode *from, TermNode *to)
-{
-    if(from == to)
-        return;
-
-    if( from->isRoot() && to->isRoot() ) {
-        showMessage("Нельзя создавать связи между корневыми элементами",2000);
-        return;
-    }
-
-//    allEdgesList << new Edge( from, to );
-
-    db->edgeTbl->addEdge( from->getUid(), to->getUid() );
-}
-
 void MainScene::showGroup(QString grp)
 {
 //    if( viewGrpTimer.isActive() ) {

@@ -54,8 +54,6 @@ public:
     TermNode* getNodeByUid(int uid);
     NodesList getAllTermsAtPoint  ( int x, int y );
 
-    void addNewEdgeToModel(TermNode *from, TermNode *to);
-
     void setAnimSpeed(int val);
 
 signals:
