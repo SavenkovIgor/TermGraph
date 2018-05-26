@@ -1,6 +1,7 @@
 #include "glb.h"
 
 Qt::Orientation Glb::ori = Qt::Horizontal;
+qreal Sizes::verticalSpacer = 7.0;
 
 CloudServicesWrapper*Glb::cloud = nullptr;
 
@@ -15,30 +16,6 @@ bool Glb::isVertical(){
 
 bool Glb::isHorizontal(){
     return ori == Qt::Horizontal;
-}
-
-QObject *Glb::getObj(QQuickWidget *wg, QString objName)
-{
-    QObject* obj = wg->rootObject()->findChild<QObject*>(objName);
-    if( obj == nullptr )
-        qDebug()<<"Object"<<objName<<"not found in"<<wg->objectName()<<"!";
-    return obj;
-}
-
-QVariant Glb::getProp(QQuickWidget *wg, QString objName, QString prop)
-{
-    QObject* obj = getObj(wg,objName);
-    if( obj == nullptr )
-        return QVariant();
-    return obj->property(prop.toStdString().c_str());
-}
-
-void Glb::setProp(QQuickWidget *wg, QString objName, QString prop, QVariant val)
-{
-    QObject* obj = getObj(wg,objName);
-    if( obj == nullptr )
-        return;
-    obj->setProperty(prop.toStdString().c_str(),val);
 }
 
 int Glb::getLevDistance(const QString &src, const QString &dst)

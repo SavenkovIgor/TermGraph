@@ -5,6 +5,7 @@
 #include <QObject>
 #include <QFontMetricsF>
 #include <QGraphicsSimpleTextItem>
+#include "glb.h"
 
 class TGroupName : public QGraphicsSimpleTextItem
 {
@@ -12,7 +13,10 @@ public:
     TGroupName( QString name ):
         QGraphicsSimpleTextItem()
     {
-        QGraphicsSimpleTextItem::setPos( QPointF(10.0,7.0) );
+        QPoint offset;
+        offset.setX(10.0);
+        offset.setY(Sizes::verticalSpacer);
+        QGraphicsSimpleTextItem::setPos( offset );
 
         this->name = name;
         updateName();

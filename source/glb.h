@@ -37,12 +37,7 @@ public:
     static Qt::Orientation ori;
 
     static bool isVertical();
-
     static bool isHorizontal();
-
-    static QObject* getObj(  QQuickWidget *wg, QString objName);
-    static QVariant getProp( QQuickWidget *wg, QString objName, QString prop);
-    static void     setProp( QQuickWidget *wg, QString objName, QString prop, QVariant val);
 
     static int getLevDistance(const QString &src, const QString &dst);
 
@@ -51,6 +46,11 @@ public:
     static QString ptToStr( QPointF pt,   QString divider = "x" );
 
     static CloudServicesWrapper *cloud;
+};
+
+class Sizes {
+public:
+    static qreal verticalSpacer;
 };
 
 #include "termnode.h"
