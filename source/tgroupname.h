@@ -42,13 +42,6 @@ public:
         return textMetric(getFullText());
     }
 
-    void setPos(const QPointF &pos)
-    {
-        QPointF newPt = pos /*+ QPointF(10.0,7.0)*/;//Небольшое смещение для красоты
-        //TODO: Избавиться от смещения и считать по другому!
-        QGraphicsSimpleTextItem::setPos( newPt );
-    }
-
 private:
 
     QString getFullText() const {
