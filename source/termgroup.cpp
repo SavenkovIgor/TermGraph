@@ -9,7 +9,6 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
 {
     QString groupName = rec.value( db->groupTbl->name ).toString();
 
-    this->grNmItem = new TGroupName( groupName );
     this->grUid    = rec.value( db->groupTbl->uid ).toInt();
     this->longUid  = rec.value( db->groupTbl->longUID ).toString();
     this->type     = static_cast<GroupType>( rec.value( db->groupTbl->type ).toInt() );
@@ -24,6 +23,9 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
 
     baseRect = new QGraphicsRectItem(QRectF(QPoint(0,0),QSizeF(0.0,0.0)),nullptr);
     baseRect->setZValue(1);
+
+    this->grNmItem = new TGroupName( groupName );
+    this->grNmItem->setParentItem(baseRect);
 
     loadTermNodes();
 
@@ -382,7 +384,7 @@ qreal TermGroup::getGroupMinWidth()
 
 qreal TermGroup::getTitleMinWidth()
 {
-    return grNmItem->getNameWidth();
+    return grNmItem->getNameRect().width();
 }
 
 qreal TermGroup::getOrphansMinWidth()
@@ -431,7 +433,7 @@ void TermGroup::updGroupFrame()
     if( rc.isNull() )
         rc = baseRect->rect().translated( baseRect->pos() );
 
-    QRectF strRect = grNmItem->getGroupNameGeometry();
+    QRectF strRect = grNmItem->getNameRect();
 
     rc.setWidth(  qMax( rc.width(),  strRect.width()  ) );
     rc.setHeight( qMax( rc.height(), strRect.height() ) );
@@ -439,7 +441,6 @@ void TermGroup::updGroupFrame()
     rc = rc.marginsAdded( marg );
 
     groupRect->setRect( rc );
-    grNmItem->setPos( groupRect->rect().topLeft() );
 
     treeRect->setRect( getAllGroupRect(false) );
     centerRect->setRect( QRectF(groupRect->rect().center(), QSize(10.0,10.0) ) );
@@ -649,7 +650,7 @@ void TermGroup::setNeighbours()
 
 QString TermGroup::getName()
 {
-    return grNmItem->getName();
+    return grNmItem->getNameOnly();
 }
 
 int TermGroup::getGroupUid()
@@ -677,7 +678,7 @@ QRectF TermGroup::getAllGroupRect( bool withOrph )
         rc = rc.united( t->getTreeSize(rc) );
     }
 
-    QRectF strRect = grNmItem->getGroupNameGeometry();
+    QRectF strRect = grNmItem->getNameRect();
 
     rc.setWidth(  qMax( rc.width(), strRect.width()  ) );
     rc.setHeight( qMax( rc.height(),strRect.height() ) );

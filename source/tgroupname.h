@@ -8,25 +8,34 @@
 
 class TGroupName : public QGraphicsSimpleTextItem
 {
-    QRectF textMetric(QString str) {
-        QFontMetricsF mtr = QFontMetricsF( qApp->font() );
-        return  mtr.boundingRect(str);
+public:
+    TGroupName( QString name ):
+        QGraphicsSimpleTextItem()
+    {
+        QGraphicsSimpleTextItem::setPos( QPointF(10.0,7.0) );
+
+        this->name = name;
+        updateName();
     }
 
-public:
-    TGroupName( QString name );
+    void timerStopped()
+    {
+        timerActive = false;
+        updateName();
+    }
 
-    void timerStopped();
-    void timerStarted();
+    void timerStarted()
+    {
+        timerActive = true;
+        updateName();
+    }
 
-    QRect   getGroupNameGeometry();
-
-    QString getName(){
+    QString getNameOnly(){
         return name;
     }
 
-    qreal getNameWidth() {
-        return textMetric(name).width();
+    QRectF getNameRect() {
+        return textMetric(getFullText());
     }
 
     void setPos(const QPointF &pos)
@@ -38,11 +47,23 @@ public:
 
 private:
 
-    QString text() const {
+    QString getFullText() const {
         return QGraphicsSimpleTextItem::text();
     }
 
-    void updateName();
+    void updateName()
+    {
+        QString set = name;
+        if( !timerActive )
+            set += " (s)";
+        setText( set );
+    }
+
+    QRectF textMetric(QString str) {
+        QFontMetricsF mtr = QFontMetricsF( qApp->font() );
+        return  mtr.boundingRect(str);
+    }
+
     bool timerActive = true;
     QString name = "";
 };

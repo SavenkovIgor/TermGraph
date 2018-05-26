@@ -45,8 +45,7 @@ SOURCES += \
         source/mysceneview.cpp\
         source/termgroup.cpp\
         source/termnode.cpp\
-        source/wordfreqanalyze.cpp \
-        source/tgroupname.cpp
+        source/wordfreqanalyze.cpp
 
 FORMS += \
         source/ui/reminder.ui\

@@ -38,7 +38,6 @@ void MainScene::initGroups()
         addItem(newGroup->baseRect);
         addItem(newGroup->groupRect);
         //        addItem(newGroup->treeRect);
-        addItem(newGroup->grNmItem);
         //        addItem(newGroup->centerRect);
 
         if(newGroup->getType() == GroupType::terms) {
@@ -59,7 +58,6 @@ void MainScene::destructGroups()
         removeItem(g->baseRect);
         removeItem(g->treeRect);
         removeItem(g->groupRect);
-        removeItem(g->grNmItem);
 //        delete g;
     }
 
