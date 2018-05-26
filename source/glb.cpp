@@ -1,7 +1,7 @@
 #include "glb.h"
 
 Qt::Orientation Glb::ori = Qt::Horizontal;
-qreal Sizes::verticalSpacer = 7.0;
+qreal Sizes::groupVerticalSpacer = 7.0;
 
 CloudServicesWrapper*Glb::cloud = nullptr;
 

@@ -15,7 +15,7 @@ public:
     {
         QPoint offset;
         offset.setX(10.0);
-        offset.setY(Sizes::verticalSpacer);
+        offset.setY(Sizes::groupVerticalSpacer);
         QGraphicsSimpleTextItem::setPos( offset );
 
         this->name = name;
