@@ -442,9 +442,9 @@ void TermGroup::setBasePoint(QPointF pt)
 
 void TermGroup::updateRectsPositions()
 {
-    qreal leftOffset = 10.0;
     qreal vSpacer = Sizes::groupVerticalSpacer;
-    QPointF basePoint(QPointF(leftOffset, vSpacer));
+    qreal hSpacer = Sizes::groupHorizontalSpacer;
+    QPointF basePoint(QPointF(hSpacer, vSpacer));
 
     QSizeF nameSize = grNmItem->getNameRect().size();
     QSizeF treeSize = getTreeSize();
