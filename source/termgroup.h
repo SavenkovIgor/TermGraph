@@ -78,7 +78,7 @@ public:
     TGroupName *grNmItem;
     QGraphicsRectItem *groupRect;
     QGraphicsRectItem *treeRect;
-    QGraphicsRectItem *centerRect;
+//    QGraphicsRectItem *centerRect;
 
     QRectF getAllGroupRect( bool withOrph = true );
     QRectF getOrphansRect();

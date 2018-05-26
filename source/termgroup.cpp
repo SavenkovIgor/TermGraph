@@ -15,7 +15,7 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
 
     groupRect   = new QGraphicsRectItem( nullptr );
     treeRect    = new QGraphicsRectItem( nullptr );
-    centerRect  = new QGraphicsRectItem( nullptr );
+//    centerRect  = new QGraphicsRectItem( nullptr );
 
     if( type == 0 ) {
         groupRect->setBrush(QBrush(QColor(211,222,237)));
@@ -443,7 +443,7 @@ void TermGroup::updGroupFrame()
     groupRect->setRect( rc );
 
     treeRect->setRect( getAllGroupRect(false) );
-    centerRect->setRect( QRectF(groupRect->rect().center(), QSize(10.0,10.0) ) );
+//    centerRect->setRect( QRectF(groupRect->rect().center(), QSize(10.0,10.0) ) );
     //    treeRect->setPos(groupRect->rect().topLeft() + QPointF(10.0,7.0));
 }
 
