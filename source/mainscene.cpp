@@ -36,8 +36,6 @@ void MainScene::initGroups()
         TermGroup *newGroup = new TermGroup( rec );
 
         addItem(newGroup->baseRect);
-        addItem(newGroup->groupRect);
-        //        addItem(newGroup->treeRect);
         //        addItem(newGroup->centerRect);
 
         if(newGroup->getType() == GroupType::terms) {
@@ -47,6 +45,7 @@ void MainScene::initGroups()
             //            }
             allEdgesList << newGroup->searchConnections();
         }
+        newGroup->addNodesToParents();
         groupList << newGroup;
     }
 }
@@ -56,8 +55,6 @@ void MainScene::destructGroups()
     for( TermGroup *g : groupList ) {
 
         removeItem(g->baseRect);
-        removeItem(g->treeRect);
-        removeItem(g->groupRect);
 //        delete g;
     }
 
@@ -208,26 +205,24 @@ void MainScene::checkGroupGeometry()
 {
     QRectF allRect;
     int y = 0;
-    for( int i = 0; i < groupList.size(); i++) {
-        groupList[i]->updGroupFrame();
 
-        QRectF baseR = groupList[i]->baseRect->rect().translated(groupList[i]->baseRect->scenePos());
-        QRectF grpR = groupList[i]->groupRect->rect().translated(groupList[i]->groupRect->scenePos());
+    // Пересчитываем рамки
+    for(auto group: groupList)
+        group->updGroupFrame();
 
-        y += qAbs(baseR.topLeft().y() - grpR.topLeft().y());
+    // Выставляем позиции групп и находим общий прямоугольник сцены
+    for(auto group: groupList) {
 
-        groupList[i]->setBasePoint(QPointF(0,y));
+        QRectF baseRc = group->baseRect->rect().translated(group->baseRect->scenePos());
+        group->setBasePoint(QPointF(0,y));
 
-        y += qAbs(baseR.topLeft().y() - grpR.bottomRight().y()) + 40;
-        if( allRect.isNull() )
-            allRect = groupList[i]->groupRect->rect();
-        allRect = allRect.united(groupList[i]->groupRect->rect());
+        y += baseRc.height() + 40;
+        allRect = allRect.united(baseRc);
     }
 
-    int mV = 25;
+    int mV = 50;
     QMarginsF mrg(mV,mV,mV,mV);
     setSceneRect(allRect.marginsAdded(mrg));
-
 }
 
 void MainScene::dropSelectedNode()
@@ -372,7 +367,7 @@ void MainScene::showGroup(QString grp)
 
     for( TermGroup *g : groupList ) {
         if( g->getName().contains(grp) ) {
-            QPointF pt = g->groupRect->rect().center();
+            QPointF pt = g->baseRect->rect().translated(g->baseRect->scenePos()).center();
 
             QList< QGraphicsView * > v = views();
 

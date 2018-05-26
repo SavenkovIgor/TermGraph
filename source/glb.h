@@ -51,6 +51,7 @@ public:
 class Sizes {
 public:
     static qreal groupVerticalSpacer;
+    static qreal groupHorizontalSpacer;
 };
 
 #include "termnode.h"

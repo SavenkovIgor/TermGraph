@@ -13,16 +13,23 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
     this->longUid  = rec.value( db->groupTbl->longUID ).toString();
     this->type     = static_cast<GroupType>( rec.value( db->groupTbl->type ).toInt() );
 
-    groupRect   = new QGraphicsRectItem( nullptr );
+    baseRect = new QGraphicsRectItem(QRectF(QPoint(0,0),QSizeF(10.0,10.0)),nullptr);
+    baseRect->setZValue(1);
+    baseRect->setBrush(QColor(0,0,0,60));
+
     treeRect    = new QGraphicsRectItem( nullptr );
+    treeRect->setParentItem(baseRect);
+    treeRect->setBrush(QColor(0,255,0,60));
+
+    orphansRect = new QGraphicsRectItem( nullptr );
+    orphansRect->setParentItem(baseRect);
+    orphansRect->setBrush(QColor(0,0,255,60));
+
 //    centerRect  = new QGraphicsRectItem( nullptr );
 
     if( type == 0 ) {
-        groupRect->setBrush(QBrush(QColor(211,222,237)));
+        baseRect->setBrush(QColor(211,222,237,60));
     }
-
-    baseRect = new QGraphicsRectItem(QRectF(QPoint(0,0),QSizeF(0.0,0.0)),nullptr);
-    baseRect->setZValue(1);
 
     this->grNmItem = new TGroupName( groupName );
     this->grNmItem->setParentItem(baseRect);
@@ -53,7 +60,7 @@ TermGroup::~TermGroup()
 
     delete grNmItem;
     delete treeRect;
-    delete groupRect;
+    delete orphansRect;
     delete baseRect;
 }
 
@@ -102,10 +109,19 @@ void TermGroup::loadTermNodes()
         connect( nd, SIGNAL(startGroupAnimation()), SLOT(startAnimation()) );
         connect( nd, SIGNAL(stopGroupAnimation()),  SLOT(stopAnimation())  );
 
-        nd->setParentItem( baseRect );
         nodeList << nd;
     }
+}
 
+void TermGroup::addNodesToParents()
+{
+    for(auto nd: getInTreeList()) {
+        nd->setParentItem( treeRect );
+    }
+
+    for(auto nd: getOrphansList()) {
+        nd->setParentItem( orphansRect );
+    }
 }
 
 void TermGroup::swapNodes(TermNode *n1, TermNode *n2)
@@ -424,27 +440,62 @@ void TermGroup::setBasePoint(QPointF pt)
     baseRect->setPos(pt);
 }
 
+void TermGroup::updateRectsPositions()
+{
+    qreal leftOffset = 10.0;
+    qreal vSpacer = Sizes::groupVerticalSpacer;
+    QPointF basePoint(QPointF(leftOffset, vSpacer));
+
+    QSizeF nameSize = grNmItem->getNameRect().size();
+    QSizeF treeSize = getTreeSize();
+    QSizeF orphansSize = getOrphansSize();
+
+    //Устанавливаем базовую точку имени
+    grNmItem->setPos(basePoint);
+    basePoint.ry() += nameSize.height() + vSpacer;
+
+    //Вычисляем под дерево
+    treeRect->setPos(basePoint);
+    treeRect->setRect(QRectF(QPoint(), treeSize)); //Применяем его
+    if (getTreeSize().height() > 0)
+        basePoint.ry() += getTreeSize().height() + vSpacer;
+
+    //Вычисляем под несвязанные вершины
+    orphansRect->setPos(basePoint);
+    orphansRect->setRect(QRectF(QPoint(), orphansSize)); //Применяем
+}
+
+void TermGroup::updateBaseRectSize()
+{
+    QSizeF nameSize = grNmItem->getNameRect().size();
+    QSizeF treeSize = getTreeSize();
+    QSizeF orphansSize = getOrphansSize();
+    qreal vSpacer = Sizes::groupVerticalSpacer;
+    qreal hSpacer = Sizes::groupHorizontalSpacer;
+
+    qreal width = 0.0;
+    qreal height = 0.0;
+
+    width = qMax(width,nameSize.width());
+    width = qMax(width,treeSize.width());
+    width = qMax(width,orphansSize.width());
+    width += hSpacer*2;
+
+    height += vSpacer;
+    height += nameSize.height();
+    if (treeSize.height() > 0)
+        height += treeSize.height() + vSpacer;
+    if (orphansSize.height() > 0)
+        height += orphansSize.height() + vSpacer;
+    height += vSpacer;
+
+    baseRect->setRect(QRectF(QPointF(),QSize(width,height)));
+}
+
 void TermGroup::updGroupFrame()
 {
-    int m = 15;
-    QMarginsF marg = QMarginsF( m, m+10, m, m );
-    QRectF rc = getAllGroupRect();
-
-    if( rc.isNull() )
-        rc = baseRect->rect().translated( baseRect->pos() );
-
-    QRectF strRect = grNmItem->getNameRect();
-
-    rc.setWidth(  qMax( rc.width(),  strRect.width()  ) );
-    rc.setHeight( qMax( rc.height(), strRect.height() ) );
-
-    rc = rc.marginsAdded( marg );
-
-    groupRect->setRect( rc );
-
-    treeRect->setRect( getAllGroupRect(false) );
-//    centerRect->setRect( QRectF(groupRect->rect().center(), QSize(10.0,10.0) ) );
-    //    treeRect->setPos(groupRect->rect().topLeft() + QPointF(10.0,7.0));
+    updateRectsPositions();
+    updateBaseRectSize();
 }
 
 void TermGroup::centralizeTree()
@@ -503,17 +554,23 @@ int TermGroup::getAllLevelsCount() const
 
 void TermGroup::setOrphCoords()
 {
-    QPointF startPoint = baseRect->rect().topLeft();
+    QPointF startPoint; // = orphansRect->rect().topLeft();
 
-    if( hasTree() ) {
-        QRectF treeRc = getAllGroupRect( false );
-        startPoint.setY( treeRc.bottom() + 20 );
-    }
+//    if( hasTree() ) {
+//        QRectF treeRc = getAllGroupRect( false );
+//        startPoint.setY( treeRc.bottom() + 20 );
+//    }
 
     NodesList ndLst = getOrphansList();
 
     if( ndLst.isEmpty() )
         return;
+
+    qDebug()<<ndLst.count();
+    for(auto nd: ndLst) {
+        if (nd->parentItem() == orphansRect)
+            qDebug()<<"good parent";
+    }
 
     qreal maxSide = getMaxSideSize( ndLst );
 
@@ -532,9 +589,9 @@ void TermGroup::setOrphCoords()
         if( x > maxWidth || i == ( ndLst.size() - 1 ) ) {
             x = 0;
             y+= maxSide + 15;
-            for(int j=from;j<=i;j++){
-                ndLst[j]->moveBy((maxWidth-tmpWidth)/2,0); //TODO: Подумать над этим моментом
-            }
+//            for(int j=from;j<=i;j++){
+//                ndLst[j]->moveBy((maxWidth-tmpWidth)/2,0); //TODO: Подумать над этим моментом
+//            }
             tmpWidth = 0.0;
             from = i+1;
         }
@@ -684,6 +741,15 @@ QRectF TermGroup::getAllGroupRect( bool withOrph )
     rc.setHeight( qMax( rc.height(),strRect.height() ) );
 
     return rc;
+}
+
+QSizeF TermGroup::getOrphansSize()
+{
+    QRectF orphansRc;
+    for(auto nd: getOrphansList()) {
+        orphansRc = orphansRc.united(nd->getMainRect());
+    }
+    return orphansRc.size();
 }
 
 bool TermGroup::hasTree()

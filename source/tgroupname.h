@@ -13,9 +13,7 @@ public:
     TGroupName( QString name ):
         QGraphicsSimpleTextItem()
     {
-        QPoint offset;
-        offset.setX(10.0);
-        offset.setY(Sizes::groupVerticalSpacer);
+        QPoint offset(10.0,Sizes::groupVerticalSpacer);
         QGraphicsSimpleTextItem::setPos( offset );
 
         this->name = name;

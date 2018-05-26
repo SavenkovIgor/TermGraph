@@ -74,14 +74,19 @@ public:
 
     QGraphicsRectItem *baseRect;
     void setBasePoint(QPointF pt);
+private:
+    void updateRectsPositions();
+    void updateBaseRectSize();
+public:
 
     TGroupName *grNmItem;
-    QGraphicsRectItem *groupRect;
     QGraphicsRectItem *treeRect;
+    QGraphicsRectItem *orphansRect;
+
 //    QGraphicsRectItem *centerRect;
 
     QRectF getAllGroupRect( bool withOrph = true );
-    QRectF getOrphansRect();
+    QSizeF getOrphansSize();
 
     bool   hasTree();
     QSizeF getTreeSize();
@@ -94,6 +99,7 @@ public:
     void centralizeTree();
     //TODO: Переделать эту функцию так же
     EdgesList searchConnections();
+    void addNodesToParents();
     //TODO: доделать эту функцию и добавить еще сверху
     void suggestConnections();
 
