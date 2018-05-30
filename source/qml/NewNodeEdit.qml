@@ -2,6 +2,7 @@ import QtQuick 2.5
 import QtQuick.Controls 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.Window 2.3
+import QtQuick.Dialogs 1.2
 
 import "UIExtensions"
 
@@ -184,11 +185,27 @@ Item {
                 }
             }
 
+            MessageDialog {
+                id: emptyNodeNameDelDialog
+
+                title: "Невозможно создать вершину"
+                text:  "Невозможно создать пустой термин.\nЗаполните поле \"Название\""
+
+                standardButtons: StandardButton.Ok
+                icon: StandardIcon.Warning
+            }
+
             MySquareButton {
                 id: addNode
                 text : "Добавить/Изменить"
 
+                onClicked: addOrChangeNode()
                 function addOrChangeNode() {
+                    if(termName.text == "") {
+                        emptyNodeNameDelDialog.visible = true
+                        return
+                    }
+
                     if( changeN.text == "" ) {
                         sceneObj.addNewNode(
                                     termName.text,
@@ -212,7 +229,6 @@ Item {
 
                     moveBack()
                 }
-                onClicked: addOrChangeNode()
             }
 
             //            Item{
