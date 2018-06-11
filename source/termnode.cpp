@@ -629,21 +629,6 @@ bool TermNode::applyMove()
     return false;
 }
 
-QRectF TermNode::getTreeSize(QRectF rect)
-{
-    QPointF p = scenePos();
-    QRectF rc = mainRect.translated(p);
-    rc = rc.united(rect);
-    for( int i = 0; i < leafNodes.size(); i++ ) {
-        if( leafNodes[i]->getGroupID() != getGroupID() )
-            continue;
-
-        rc = leafNodes[i]->getTreeSize(rc);
-    }
-
-    return rc;
-}
-
 EdgesList TermNode::getConnectedEdges()
 {
     EdgesList ret;

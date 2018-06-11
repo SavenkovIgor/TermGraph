@@ -88,8 +88,6 @@ public:
 
     bool applyMove();
 
-    QRectF getTreeSize(QRectF rect);
-
     EdgesList getConnectedEdges();
 
     QString getDebugString();

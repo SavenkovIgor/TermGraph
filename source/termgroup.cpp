@@ -37,7 +37,7 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
     this->grNmItem = new TGroupName( groupName );
     this->grNmItem->setParentItem(baseRect);
 
-    loadTermNodes();
+    loadNodes();
 
     checkSwapTimer.setSingleShot( false );
     setAnimSpeed( 300 );
@@ -95,7 +95,7 @@ QMap<GroupType, QString> TermGroup::getTypesMap()
     return ret;
 }
 
-void TermGroup::loadTermNodes()
+void TermGroup::loadNodes()
 {
     nodeList.clear();
 
@@ -118,11 +118,11 @@ void TermGroup::loadTermNodes()
 
 void TermGroup::addNodesToParents()
 {
-    for(TermNode* nd: getInTreeList()) {
+    for(TermNode* nd: getInTreeNodes()) {
         nd->setParentItem( treeRect );
     }
 
-    for(TermNode* nd: getOrphansList()) {
+    for(TermNode* nd: getOrphanNodes()) {
         nd->setParentItem( orphansRect );
     }
 }
@@ -289,7 +289,7 @@ void TermGroup::hideRect(QGraphicsRectItem *item)
     item->setPen(transparentPen);
 }
 
-NodesList TermGroup::getRootList()
+NodesList TermGroup::getRootNodes()
 {
     NodesList ret;
     for( TermNode *n : nodeList ) {
@@ -321,7 +321,7 @@ NodesList TermGroup::getNodesInLevel(int lev) const
     return ret;
 }
 
-NodesList TermGroup::getOrphansList()
+NodesList TermGroup::getOrphanNodes()
 {
     NodesList ndLst;
     for( TermNode *n : nodeList )
@@ -331,11 +331,7 @@ NodesList TermGroup::getOrphansList()
     return ndLst;
 }
 
-bool TermGroup::hasOrphans() {
-    return !getOrphansList().isEmpty();
-}
-
-NodesList TermGroup::getInTreeList()
+NodesList TermGroup::getInTreeNodes()
 {
     NodesList ret;
     for( TermNode *n : nodeList )
@@ -348,31 +344,18 @@ qreal TermGroup::getGroupMinWidth()
 {
     qreal width = 0.0;
 
-    width = qMax(width,getTitleMinWidth());
-    width = qMax(width,getTreeMinWidth());
-    width = qMax(width,getOrphansMinWidth());
+    qreal groupNameWidth = grNmItem->getNameRect().width();
+    qreal treeWidth = getTheoreticalTreeSize().width();
+    qreal orphansWidth = getVerticalStackedSize(getOrphanNodes()).width();
+
+    width = qMax( width, groupNameWidth );
+    width = qMax( width, treeWidth );
+    width = qMax( width, orphansWidth );
 
     return width;
 }
 
-qreal TermGroup::getTitleMinWidth()
-{
-    return grNmItem->getNameRect().width();
-}
-
-qreal TermGroup::getOrphansMinWidth()
-{
-    NodesList orphans = getOrphansList();
-    QSizeF orphansStackSize = getVerticalStackedSize(orphans);
-    return orphansStackSize.width();
-}
-
-qreal TermGroup::getTreeMinWidth()
-{
-    return getTheoreticalTreeSize().width();
-}
-
-NodesList TermGroup::getNodeList()
+NodesList TermGroup::getAllNodes()
 {
     return nodeList;
 }
@@ -447,7 +430,15 @@ void TermGroup::updateBaseRectSize()
     baseRect->setRect(QRectF(QPointF(),QSize(width,height)));
 }
 
-void TermGroup::updGroupFrame()
+void TermGroup::prepareGroup()
+{
+    setLayers();
+    setTreeCoords();
+    setNeighbours();
+    setOrphCoords();
+}
+
+void TermGroup::updateGroupFrame()
 {
     updateRectsPositions();
     updateBaseRectSize();
@@ -504,7 +495,7 @@ qreal TermGroup::getMaxHeightInAllLevels() const
 
 void TermGroup::setOrphCoords(qreal maxWidth)
 {
-    NodesList nodesList = getOrphansList();
+    NodesList nodesList = getOrphanNodes();
     if( nodesList.isEmpty() )
         return;
 
@@ -540,9 +531,9 @@ void TermGroup::setOrphCoords(qreal maxWidth)
     }
 }
 
-void TermGroup::setLevels()
+void TermGroup::setLayers()
 {
-    for( TermNode *t : getRootList() )
+    for( TermNode *t : getRootNodes() )
         t->setLevel(0);
 }
 
@@ -638,55 +629,13 @@ QString TermGroup::getName()
     return grNmItem->getNameOnly();
 }
 
-int TermGroup::getGroupUid()
-{
-    return grUid;
-}
-
-QRectF TermGroup::getAllGroupRect( bool withOrph )
-{
-    NodesList nodes;
-
-    if( nodeList.isEmpty() )
-        return QRectF(baseRect->pos(),baseRect->rect().size());
-
-    if( withOrph )
-        nodes = nodeList;
-    else
-        nodes = getRootList();
-
-    QRectF rc;
-    for( TermNode *t : nodes ) {
-        if( rc.isNull() )
-            rc = t->getMainRect();
-
-        rc = rc.united( t->getTreeSize(rc) );
-    }
-
-    QRectF strRect = grNmItem->getNameRect();
-
-    rc.setWidth(  qMax( rc.width(), strRect.width()  ) );
-    rc.setHeight( qMax( rc.height(),strRect.height() ) );
-
-    return rc;
-}
-
 QSizeF TermGroup::getOrphansSize()
 {
     QRectF orphansRc;
-    for(auto nd: getOrphansList()) {
+    for(TermNode* nd: getOrphanNodes()) {
         orphansRc = orphansRc.united(nd->getMainRect());
     }
     return orphansRc.size();
-}
-
-bool TermGroup::hasTree()
-{
-    for( TermNode *n : nodeList ) {
-        if( n->isInTree() )
-            return true;
-    }
-    return false;
 }
 
 QSizeF TermGroup::getTheoreticalTreeSize()

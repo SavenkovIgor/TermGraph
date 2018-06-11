@@ -64,7 +64,7 @@ void MainScene::destructGroups()
 void MainScene::formAllNodeList()
 {
     for( TermGroup *g : groupList )
-        allNodesList << g->getNodeList();
+        allNodesList << g->getAllNodes();
 }
 
 void MainScene::loadTermEdges()
@@ -187,12 +187,8 @@ void MainScene::updateModel()
 
     appendEdgesToScene();
 
-    for( TermGroup *g : groupList ) {
-        g->setLevels();
-        g->setTreeCoords();
-        g->setNeighbours();
-        g->setOrphCoords();
-    }
+    for( TermGroup *g : groupList )
+        g->prepareGroup();
 
     selectTimer.start();
 //    viewGrpTimer.start(200);
@@ -207,7 +203,7 @@ void MainScene::checkGroupGeometry()
 
     // Пересчитываем рамки
     for(TermGroup* group: groupList)
-        group->updGroupFrame();
+        group->updateGroupFrame();
 
     // Выставляем позиции групп и находим общий прямоугольник сцены
     for(TermGroup* group: groupList) {

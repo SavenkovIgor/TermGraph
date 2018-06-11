@@ -20,18 +20,6 @@ class TermGroup : public QObject
 
     static int animSpeed;
 
-    void loadTermNodes();
-
-    NodesList getRootList();
-    NodesList getNodesInLevel(int lev) const;
-
-    NodesList getOrphansList();
-    bool      hasOrphans();
-
-    NodesList getInTreeList();
-
-    NodesList   nodeList;
-
     QTimer animTimer;
     QTimer checkSwapTimer;
 
@@ -39,15 +27,9 @@ class TermGroup : public QObject
 
     QPropertyAnimation swAnim1;
     QPropertyAnimation swAnim2;
-
     QParallelAnimationGroup animGrp;
 
     int currAnimLevel = -1;
-
-    qreal getGroupMinWidth();
-    qreal getTitleMinWidth();
-    qreal getTreeMinWidth();
-    qreal getOrphansMinWidth();
 
 public:
     static DBAbstract *db;
@@ -55,57 +37,33 @@ public:
     explicit TermGroup(QSqlRecord rec, QObject *parent = 0);
     ~TermGroup();
 
+    QGraphicsRectItem *baseRect;
+
     GroupType getType();
     QString getTypeString();
     static QStringList getTypesNames();
     static QMap<GroupType,QString> getTypesMap();
 
-    int     getGroupUid();
-
     QString getName();
 
-    NodesList getNodeList();
+    NodesList getAllNodes();
 
     void setAnimSpeed(int val);
     static int getAnimSpeed();
 
-    QGraphicsRectItem *baseRect;
-    void setBasePoint(QPointF pt);
-private:
-    void updateRectsPositions();
-    void updateBaseRectSize();
-public:
-
-    TGroupName *grNmItem;
-    QGraphicsRectItem *treeRect;
-    QGraphicsRectItem *orphansRect;
+    // Initialization
+    void prepareGroup();
+    void addNodesToParents();
 
 //    QGraphicsRectItem *centerRect;
 
-    QRectF getAllGroupRect( bool withOrph = true );
-    QSizeF getOrphansSize();
+    // Position and frame
+    void setBasePoint(QPointF pt);
+    void updateGroupFrame();
 
-    bool   hasTree();
-    QSizeF getTheoreticalTreeSize();
-
-    void setOrphCoords(qreal maxWidth = 200.0);
-    void setLevels();
-    void setTreeCoords();
-    NodesList sortNodesInLayer(NodesList lst);
-    void setNeighbours();
-    void updGroupFrame();
-
-    //TODO: Переделать эту функцию так же
-    EdgesList searchConnections();
-    void addNodesToParents();
-    //TODO: доделать эту функцию и добавить еще сверху
-    void suggestConnections();
-
-    QSizeF getVerticalStackedSize(NodesList lst) const;
-    int getLayersCount() const;
-    qreal getMaxHeightInAllLevels() const;
-
-    void swapNodes( TermNode *n1, TermNode *n2 );
+    // Connections search
+    EdgesList searchConnections(); //TODO: Переделать эту функцию так же
+    void suggestConnections(); //TODO: доделать эту функцию
 
     QJsonDocument getJsonDoc();
 
@@ -119,7 +77,43 @@ private slots:
     void animateGroup();
 
 private:
+
+    // Group
+    qreal getGroupMinWidth();
+    void updateRectsPositions();
+    void updateBaseRectSize();
+    void loadNodes();
+
+    // Tree
+    NodesList getInTreeNodes();
+    NodesList getRootNodes();
+    void setLayers();
+    void setTreeCoords();
+    void setNeighbours();
+    // Tree tools
+    QSizeF getTheoreticalTreeSize();
+    int getLayersCount() const;
+    NodesList getNodesInLevel(int lev) const;
+    NodesList sortNodesInLayer(NodesList lst);
+
+    // Orphans
+    NodesList getOrphanNodes();
+    QSizeF getOrphansSize();
+    void setOrphCoords(qreal maxWidth = 200.0);
+
+    // Tools
+    qreal getMaxHeightInAllLevels() const;
+    QSizeF getVerticalStackedSize(NodesList lst) const;
+    void swapNodes( TermNode *n1, TermNode *n2 );
+
     void hideRect(QGraphicsRectItem* item);
+
+    // Main objects
+    TGroupName *grNmItem;
+    QGraphicsRectItem *treeRect;
+    QGraphicsRectItem *orphansRect;
+
+    NodesList   nodeList;
 
     int grUid = -1;
     GroupType type = freeEdges;
