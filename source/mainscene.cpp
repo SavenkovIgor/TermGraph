@@ -206,11 +206,11 @@ void MainScene::checkGroupGeometry()
     int y = 0;
 
     // Пересчитываем рамки
-    for(auto group: groupList)
+    for(TermGroup* group: groupList)
         group->updGroupFrame();
 
     // Выставляем позиции групп и находим общий прямоугольник сцены
-    for(auto group: groupList) {
+    for(TermGroup* group: groupList) {
 
         QRectF baseRc = group->baseRect->rect().translated(group->baseRect->scenePos());
         group->setBasePoint(QPointF(0,y));
@@ -515,16 +515,6 @@ bool MainScene::getCurrNodeIsRoot()
 
     return nd->isRoot();
     //TODO: Возможно переделать в функциональном стиле!
-}
-
-void MainScene::changeOrientation()
-{
-    if( Glb::ori == Qt::Horizontal )
-        Glb::ori = Qt::Vertical;
-    else
-        Glb::ori = Qt::Horizontal;
-
-    updateModel();
 }
 
 void MainScene::createTestGroups()

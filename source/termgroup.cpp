@@ -118,11 +118,11 @@ void TermGroup::loadTermNodes()
 
 void TermGroup::addNodesToParents()
 {
-    for(auto nd: getInTreeList()) {
+    for(TermNode* nd: getInTreeList()) {
         nd->setParentItem( treeRect );
     }
 
-    for(auto nd: getOrphansList()) {
+    for(TermNode* nd: getOrphansList()) {
         nd->setParentItem( orphansRect );
     }
 }
@@ -132,7 +132,7 @@ QSizeF TermGroup::getVerticalStackedSize(NodesList lst) const
     qreal width = 0.0;
     qreal height = 0.0;
 
-    for(auto *n: lst) {
+    for(TermNode* n: lst) {
         QSizeF sz = n->getSize();
         height += sz.height();
         width = qMax(width,sz.width());
@@ -140,7 +140,7 @@ QSizeF TermGroup::getVerticalStackedSize(NodesList lst) const
     return QSizeF(width,height);
 }
 
-void TermGroup::swapNodes(TermNode *n1, TermNode *n2)
+void TermGroup::swapNodes(TermNode* n1, TermNode* n2)
 {
     if( animGrp.state() != QAbstractAnimation::Stopped )
         return; //Very important instruction.
@@ -154,22 +154,12 @@ void TermGroup::swapNodes(TermNode *n1, TermNode *n2)
 
     QPointF pos1, pos2;
 
-    if( Glb::isVertical() ) {
-        if(rc1.left() < rc2.left()) {
-            pos1 = QPointF(n1->pos().x(),n2->pos().y());
-            pos2 = QPointF(n2->pos().x()+rc2.width()-rc1.width(),n1->pos().y());
-        } else {
-            pos1 = QPointF(n1->pos().x()+rc1.width()-rc2.width(),n2->pos().y());
-            pos2 = QPointF(n2->pos().x(),n1->pos().y());
-        }
+    if(rc1.top() < rc2.top()) {
+        pos1 = QPointF(n1->pos().x()+rc1.width()/2-rc2.width()/2,n1->pos().y());
+        pos2 = QPointF(n2->pos().x()+rc2.width()/2-rc1.width()/2,n2->pos().y()-rc1.height()+rc2.height());
     } else {
-        if(rc1.top() < rc2.top()) {
-            pos1 = QPointF(n1->pos().x()+rc1.width()/2-rc2.width()/2,n1->pos().y());
-            pos2 = QPointF(n2->pos().x()+rc2.width()/2-rc1.width()/2,n2->pos().y()-rc1.height()+rc2.height());
-        } else {
-            pos1 = QPointF(n1->pos().x()+rc1.width()/2-rc2.width()/2,n1->pos().y()-rc2.height()+rc1.height());
-            pos2 = QPointF(n2->pos().x()+rc2.width()/2-rc1.width()/2,n2->pos().y());
-        }
+        pos1 = QPointF(n1->pos().x()+rc1.width()/2-rc2.width()/2,n1->pos().y()-rc2.height()+rc1.height());
+        pos2 = QPointF(n2->pos().x()+rc2.width()/2-rc1.width()/2,n2->pos().y());
     }
 
     swAnim1.setTargetObject( n1 );
@@ -289,9 +279,6 @@ void TermGroup::animateGroup()
 
     if( !someMoved )
         animTimer.stop();
-
-    if( Glb::isVertical() )
-        centralizeTree();
 }
 
 void TermGroup::hideRect(QGraphicsRectItem *item)
@@ -322,26 +309,14 @@ NodesList TermGroup::getNodesInLevel(int lev) const
     //sort
     int nMin;
 
-    if( Glb::isVertical() ) {
-        for ( int i = 0; i < ret.size(); i++ ) {
-            nMin = i;
-            for ( int j = i+1; j < ret.size(); j++) {
-                if( ret[j]->pos().x() < ret[nMin]->pos().x() ) {
-                    nMin = j;
-                }
+    for ( int i = 0; i < ret.size(); i++ ) {
+        nMin = i;
+        for ( int j = i+1; j < ret.size(); j++) {
+            if( ret[j]->pos().y() < ret[nMin]->pos().y() ) {
+                nMin = j;
             }
-            ret.swap(i,nMin);
         }
-    } else {
-        for ( int i = 0; i < ret.size(); i++ ) {
-            nMin = i;
-            for ( int j = i+1; j < ret.size(); j++) {
-                if( ret[j]->pos().y() < ret[nMin]->pos().y() ) {
-                    nMin = j;
-                }
-            }
-            ret.swap(i,nMin);
-        }
+        ret.swap(i,nMin);
     }
     return ret;
 }
@@ -476,21 +451,6 @@ void TermGroup::updGroupFrame()
 {
     updateRectsPositions();
     updateBaseRectSize();
-}
-
-void TermGroup::centralizeTree()
-{
-    NodesList lst = getInTreeList();
-
-    QRectF rc = getAllGroupRect( false );
-    QPointF correction;
-    correction += baseRect->scenePos();
-    correction -= rc.center();
-    correction.setY(0);
-
-    for( TermNode* n : lst )
-        n->setPos( n->pos() + correction );
-
 }
 
 EdgesList TermGroup::searchConnections()

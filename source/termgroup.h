@@ -94,7 +94,7 @@ public:
     NodesList sortNodesInLayer(NodesList lst);
     void setNeighbours();
     void updGroupFrame();
-    void centralizeTree();
+
     //TODO: Переделать эту функцию так же
     EdgesList searchConnections();
     void addNodesToParents();

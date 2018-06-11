@@ -61,8 +61,6 @@ public:
     NodeType getNodeType();
     QColor getBaseColor();
 
-    QString getGroupString();
-
     bool isLearning();
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget *);

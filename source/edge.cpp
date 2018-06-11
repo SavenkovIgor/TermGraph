@@ -72,7 +72,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     p.setStyle( isInGroupEdge()? Qt::SolidLine : Qt::DashDotLine);
     p.setColor( getEdgeColor() );
 
-    int baseWidth = 2;
+    int baseWidth = 3;
     if( wide ) {
         baseWidth *= 2;
         p.setColor(QColor(0,166,147));
@@ -137,7 +137,6 @@ qreal Edge::getXProjection()
 //        return 0.0;
 
     return boundingRect().width();
-
 }
 
 qreal Edge::getYProjection()

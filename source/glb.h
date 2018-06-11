@@ -34,10 +34,6 @@ class Glb
 {
 public:
     Glb();
-    static Qt::Orientation ori;
-
-    static bool isVertical();
-    static bool isHorizontal();
 
     static int getLevDistance(const QString &src, const QString &dst);
 

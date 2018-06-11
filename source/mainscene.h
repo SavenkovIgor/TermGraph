@@ -151,7 +151,6 @@ private:
 
 public slots:
     void stayGroupInFocus( bool val ) { groupInFocus = val; }
-    void changeOrientation();
 
     void createTestGroups();
 };

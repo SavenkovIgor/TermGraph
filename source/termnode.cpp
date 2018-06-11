@@ -120,10 +120,7 @@ QPointF TermNode::getCenter()
     return this->scenePos() + mainRect.center();
 }
 
-QString TermNode::getGroupString()
-{
-    return db->groupTbl->getName( getGroupID() );
-}
+
 
 QRectF TermNode::boundingRect() const
 {
@@ -153,11 +150,7 @@ QRectF TermNode::getRcWithBorders()
 
 QSizeF TermNode::getSize(bool withBorder)
 {
-    qreal val;
-    if( Glb::isVertical() )
-        val = qBound(0.0,mainRect.width()*0.1,8.0);
-    else
-        val = qBound(0.0,mainRect.height()*0.2,8.0);
+    qreal val = qBound(0.0,mainRect.height()*0.2,8.0);
     QMarginsF mrg(val,val,val,val);
     QRectF ret = mainRect;
     if(withBorder)
@@ -401,11 +394,8 @@ void TermNode::countForces()
         return;
 
     qreal edForce = 0.0;
-    qreal myX;
-    if( Glb::isVertical() )
-        myX = getCenter().x();
-    else
-        myX = getCenter().y();
+    qreal myX = getCenter().y();
+
     qreal tmp = 0.0;
     qreal notMyPos = 0.0;
 
@@ -417,26 +407,14 @@ void TermNode::countForces()
         if( !e->isInGroupEdge() )
             continue;
 
-        if( Glb::isVertical() )
-            tmp = e->getXProjection();
-        else
-            tmp = e->getYProjection();
+        tmp = e->getYProjection();
 
-        if( Glb::isVertical() ) {
-            if( e->getRoot() == this )
-                notMyPos = e->getLeaf()->getCenter().x();
-            else if( e->getLeaf() == this )
-                notMyPos = e->getRoot()->getCenter().x();
-            else
-                continue;
-        } else {
-            if( e->getRoot() == this )
-                notMyPos = e->getLeaf()->getCenter().y();
-            else if( e->getLeaf() == this )
-                notMyPos = e->getRoot()->getCenter().y();
-            else
-                continue;
-        }
+        if( e->getRoot() == this )
+            notMyPos = e->getLeaf()->getCenter().y();
+        else if( e->getLeaf() == this )
+            notMyPos = e->getRoot()->getCenter().y();
+        else
+            continue;
 
         tmp *= verScale;
 
@@ -644,10 +622,7 @@ bool TermNode::applyMove()
 
 
     if( qAbs(newPosOffs) > 0.05 ) {
-        if( Glb::ori == Qt::Vertical )
-            moveBy(newPosOffs,0.0);
-        else
-            moveBy(0.0,newPosOffs);
+        moveBy(0.0,newPosOffs);
         return true;
     }
 
