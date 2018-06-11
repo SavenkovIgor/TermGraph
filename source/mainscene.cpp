@@ -63,7 +63,6 @@ void MainScene::destructGroups()
 
 void MainScene::formAllNodeList()
 {
-
     for( TermGroup *g : groupList )
         allNodesList << g->getNodeList();
 }

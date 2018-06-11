@@ -17,13 +17,14 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
     baseRect->setZValue(1);
     baseRect->setBrush(QColor(0,0,0,60));
 
-    treeRect    = new QGraphicsRectItem( nullptr );
+    treeRect = new QGraphicsRectItem( nullptr );
     treeRect->setParentItem(baseRect);
     treeRect->setBrush(QColor(0,255,0,60));
 
     orphansRect = new QGraphicsRectItem( nullptr );
     orphansRect->setParentItem(baseRect);
-    orphansRect->setBrush(QColor(0,0,255,60));
+    // Скрываем рамку
+    hideRect(orphansRect);
 
 //    centerRect  = new QGraphicsRectItem( nullptr );
 
@@ -124,6 +125,19 @@ void TermGroup::addNodesToParents()
     }
 }
 
+QSizeF TermGroup::getVerticalStackedSize(NodesList lst) const
+{
+    qreal width = 0.0;
+    qreal height = 0.0;
+
+    for(auto *n: lst) {
+        QSizeF sz = n->getSize();
+        height += sz.height();
+        width = qMax(width,sz.width());
+    }
+    return QSizeF(width,height);
+}
+
 void TermGroup::swapNodes(TermNode *n1, TermNode *n2)
 {
     if( animGrp.state() != QAbstractAnimation::Stopped )
@@ -205,7 +219,7 @@ void TermGroup::checkSwap()
 {
     QTime t;
     t.start();
-    int maxLevel = getAllLevelsCount();
+    int maxLevel = getLayersCount();
 
     for( int i = 1; i <= maxLevel; i++ ) { //i=1 because we need to ignore roots
         NodesList levLst = getLevList(i);
@@ -263,23 +277,27 @@ void TermGroup::animateGroup()
         n->countForces();
     }
 
-
     bool someMoved = false;
     for( TermNode *n : nodeList ) {
-
         if( animGrp.state() != QAbstractAnimation::Stopped && n->getPaintLevel() == currAnimLevel )
             continue;
-
         if( n->applyMove() && !someMoved )
             someMoved = true;
     }
-
 
     if( !someMoved )
         animTimer.stop();
 
     if( Glb::isVertical() )
         centralizeTree();
+}
+
+void TermGroup::hideRect(QGraphicsRectItem *item)
+{
+    QColor transparentCol(0,0,0,0); //Для скрытия некоторых рамок
+    QPen transparentPen(transparentCol);
+    item->setBrush(transparentCol);
+    item->setPen(transparentPen);
 }
 
 NodesList TermGroup::getRootList()
@@ -292,7 +310,7 @@ NodesList TermGroup::getRootList()
     return ret;
 }
 
-NodesList TermGroup::getLevList(int lev)
+NodesList TermGroup::getLevList(int lev) const
 {
     NodesList ret;
     for( TermNode *t : nodeList )
@@ -414,7 +432,7 @@ qreal TermGroup::getOrphansMinWidth()
 
 qreal TermGroup::getTreeMinWidth()
 {
-    return getTreeSize().width();
+    return getTheoreticalTreeSize().width();
 }
 
 NodesList TermGroup::getNodeList()
@@ -447,7 +465,7 @@ void TermGroup::updateRectsPositions()
     QPointF basePoint(QPointF(hSpacer, vSpacer));
 
     QSizeF nameSize = grNmItem->getNameRect().size();
-    QSizeF treeSize = getTreeSize();
+    QSizeF treeSize = getTheoreticalTreeSize();
     QSizeF orphansSize = getOrphansSize();
 
     //Устанавливаем базовую точку имени
@@ -457,8 +475,8 @@ void TermGroup::updateRectsPositions()
     //Вычисляем под дерево
     treeRect->setPos(basePoint);
     treeRect->setRect(QRectF(QPoint(), treeSize)); //Применяем его
-    if (getTreeSize().height() > 0)
-        basePoint.ry() += getTreeSize().height() + vSpacer;
+    if (getTheoreticalTreeSize().height() > 0)
+        basePoint.ry() += getTheoreticalTreeSize().height() + vSpacer;
 
     //Вычисляем под несвязанные вершины
     orphansRect->setPos(basePoint);
@@ -468,7 +486,7 @@ void TermGroup::updateRectsPositions()
 void TermGroup::updateBaseRectSize()
 {
     QSizeF nameSize = grNmItem->getNameRect().size();
-    QSizeF treeSize = getTreeSize();
+    QSizeF treeSize = getTheoreticalTreeSize();
     QSizeF orphansSize = getOrphansSize();
     qreal vSpacer = Sizes::groupVerticalSpacer;
     qreal hSpacer = Sizes::groupHorizontalSpacer;
@@ -543,7 +561,7 @@ EdgesList TermGroup::searchConnections()
     return ret;
 }
 
-int TermGroup::getAllLevelsCount() const
+int TermGroup::getLayersCount() const
 {
     int ret = 0;
     for( TermNode *t : nodeList )
@@ -552,48 +570,39 @@ int TermGroup::getAllLevelsCount() const
     return ret;
 }
 
-void TermGroup::setOrphCoords()
+qreal TermGroup::getMaxHeightInAllLevels() const
 {
-    QPointF startPoint; // = orphansRect->rect().topLeft();
+    qreal maxHeight = 0.0;
+    for(int i = 0; i <= getLayersCount(); i++) {
+        QSizeF stackSize = getVerticalStackedSize(getLevList(i));
+        maxHeight = qMax(maxHeight,stackSize.height());
+    }
+    return maxHeight;
+}
 
-//    if( hasTree() ) {
-//        QRectF treeRc = getAllGroupRect( false );
-//        startPoint.setY( treeRc.bottom() + 20 );
-//    }
-
-    NodesList ndLst = getOrphansList();
-
-    if( ndLst.isEmpty() )
+void TermGroup::setOrphCoords(qreal maxWidth)
+{
+    NodesList nodesList = getOrphansList();
+    if( nodesList.isEmpty() )
         return;
 
-    qDebug()<<ndLst.count();
-    for(auto nd: ndLst) {
-        if (nd->parentItem() == orphansRect)
-            qDebug()<<"good parent";
-    }
+    int x = 0, y = 0;
+    qreal maxHeightInRow = 0.0;
+    maxWidth = qBound(200.0,200.0,700.0);
 
-    qreal maxSide = getMaxSideSize( ndLst );
+    for(TermNode* currNode: nodesList) {
+        QSizeF nodeSize = currNode->getSize(false);
 
-    qreal maxWidth = 700.0;
+        currNode->setPos( x, y );
+        x += nodeSize.width() + Sizes::orphansHorizontalSpacer;
 
-    int x = startPoint.x();
-    int y = startPoint.y();
-    qreal tmpWidth = 0.0;
-    int from = 0;
+        maxHeightInRow = qMax(maxHeightInRow, nodeSize.height());
 
-    for( int i = 0; i < ndLst.size(); i++ ) {
-        ndLst[i]->setPos( x, y );
-        tmpWidth += ndLst[i]->getSize().width();
-        x += ndLst[i]->getSize().width();
-
-        if( x > maxWidth || i == ( ndLst.size() - 1 ) ) {
+        if( x > maxWidth ) {
+            //Переходим на следующий ряд
+            y+= maxHeightInRow + Sizes::orphansVerticalSpacer;
+            maxHeightInRow = 0;
             x = 0;
-            y+= maxSide + 15;
-//            for(int j=from;j<=i;j++){
-//                ndLst[j]->moveBy((maxWidth-tmpWidth)/2,0); //TODO: Подумать над этим моментом
-//            }
-            tmpWidth = 0.0;
-            from = i+1;
         }
     }
 }
@@ -603,78 +612,64 @@ void TermGroup::setLevels()
     NodesList rList = getRootList();
     for( TermNode *t : rList )
         t->setLevel(0);
-
 }
 
 void TermGroup::setTreeCoords()
 {
-    int maxLevel = getAllLevelsCount();
+    int maxLevel = getLayersCount();
 
     if( nodeList.isEmpty() )
         return;
 
     int x = 0, y = 0;
-    int sumSize = 0;
-    qreal maxLevelSide = 0;
+    int layerHeight = 0;
+    qreal layerWidth = 0;
 
     for(int i = 0; i <= maxLevel; i++) {
         QList< TermNode *> tList = getLevList(i);
 
-        int nMax = 0;
+        // Сортируем вершины в более "удачном" порядке
+        tList = sortNodesInLayer(tList);
 
-        for(int j=0; j< tList.size(); j++ ){
-            nMax = j;
-            for(int k = j+1; k < tList.size(); k++ ){
-                if( tList[k]->getUpLevels() > tList[nMax]->getUpLevels() )
-                    nMax = k;
-            }
-            tList.swap(j,nMax);
-        }
+        layerHeight = getSumSize( tList, false, Qt::Vertical );
+        layerWidth = getMaxSideSize( tList, Qt::Horizontal );
 
-        QList< TermNode* > tmpList;
-
-        for( int j = 0; j < tList.size(); j++ ) {
-            if( j % 2 == 0 )
-                tmpList.push_front(tList[j]);
-            else
-                tmpList.push_back(tList[j]);
-        }
-
-        tList = tmpList;
-
-        sumSize       =   getSumSize( tList, false, Glb::ori );
-        maxLevelSide = getMaxSideSize( tList, Glb::ori );
-        if( Glb::isVertical() )
-            x = -sumSize/2;
-        else
-            y = sumSize/2;
-
-        if( Glb::isVertical() ) //Сначала добавляем первую половину максимума
-            y += ( maxLevelSide/2 );
-        else
-            x += ( maxLevelSide/2 );
-
+        y = layerHeight/2;
+        x += layerWidth/2; //Сначала добавляем первую половину максимума
 
         for( TermNode *n : tList ) {
-            if( Glb::isVertical() ) {
-                n->setPos( x , -y - n->getMainRect().height()/2 );
-                x += n->getSize().width();
-            } else {
-                n->setPos( x - n->getMainRect().width()/2, -y );
-                y -= n->getSize().height();
-                if( getGroupUid() == 4 && i == 0){
-//                    qDebug()<<"size"<<n->getName()<<n->getSize();
-                }
-            }
+            n->setPos( x - n->getMainRect().width()/2, -y );
+            y -= n->getSize().height();
         }
 
-        if( Glb::isVertical() ) //А после выставления всех координат - вторую
-            y += ( maxLevelSide/2 + TermNode::vInterv );
-        else
-            x += ( maxLevelSide/2 + TermNode::hInterv );
-
+        //А после выставления всех координат - вторую
+        x += ( layerWidth/2 + TermNode::hInterv );
     }
 
+}
+
+NodesList TermGroup::sortNodesInLayer(NodesList lst)
+{
+    // Сначала сортируем по убыванию количества связей
+    NodesList ret;
+    int nMax = 0;
+    //
+    for(int i = 0; i < lst.size(); i++ ){
+        nMax = i;
+        for(int j = i + 1; j < lst.size(); j++ ){
+            if( lst[j]->getUpLevels() > lst[nMax]->getUpLevels() )
+                nMax = j;
+        }
+        lst.swap(i,nMax);
+    }
+    // Формируем новый список так чтобы максимально нагруженные вершины были ближе к центру
+    for(int i = 0; i < lst.size(); i++ ) {
+        if( i % 2 == 0 )
+            ret.push_front(lst[i]);
+        else
+            ret.push_back(lst[i]);
+    }
+    return ret;
 }
 
 void TermGroup::setNeighbours()
@@ -761,9 +756,9 @@ bool TermGroup::hasTree()
     return false;
 }
 
-QSizeF TermGroup::getTreeSize()
+QSizeF TermGroup::getTheoreticalTreeSize()
 {
-    int levels = getAllLevelsCount();
+    int levels = getLayersCount();
     qreal sumWidth = 0.0;
     qreal maxHeight = 0.0;
 

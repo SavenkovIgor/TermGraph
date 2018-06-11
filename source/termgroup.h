@@ -23,7 +23,7 @@ class TermGroup : public QObject
     void loadTermNodes();
 
     NodesList getRootList();
-    NodesList getLevList(int lev);
+    NodesList getLevList(int lev) const;
 
     NodesList getOrphansList();
     bool      hasOrphans();
@@ -89,11 +89,12 @@ public:
     QSizeF getOrphansSize();
 
     bool   hasTree();
-    QSizeF getTreeSize();
+    QSizeF getTheoreticalTreeSize();
 
-    void setOrphCoords();
+    void setOrphCoords(qreal maxWidth = 200.0);
     void setLevels();
     void setTreeCoords();
+    NodesList sortNodesInLayer(NodesList lst);
     void setNeighbours();
     void updGroupFrame();
     void centralizeTree();
@@ -103,7 +104,9 @@ public:
     //TODO: доделать эту функцию и добавить еще сверху
     void suggestConnections();
 
-    int getAllLevelsCount() const;
+    QSizeF getVerticalStackedSize(NodesList lst) const;
+    int getLayersCount() const;
+    qreal getMaxHeightInAllLevels() const;
 
     void swapNodes( TermNode *n1, TermNode *n2 );
 
@@ -119,6 +122,8 @@ private slots:
     void animateGroup();
 
 private:
+    void hideRect(QGraphicsRectItem* item);
+
     int grUid = -1;
     GroupType type = freeEdges;
     QString longUid = "";
