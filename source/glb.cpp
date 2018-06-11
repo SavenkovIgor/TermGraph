@@ -4,6 +4,9 @@ Qt::Orientation Glb::ori = Qt::Horizontal;
 qreal Sizes::groupVerticalSpacer = 7.0;
 qreal Sizes::groupHorizontalSpacer = 10.0;
 
+qreal Sizes::orphansVerticalSpacer = 10.0;
+qreal Sizes::orphansHorizontalSpacer = 10.0;
+
 CloudServicesWrapper*Glb::cloud = nullptr;
 
 Glb::Glb()
