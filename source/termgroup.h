@@ -23,7 +23,7 @@ class TermGroup : public QObject
     void loadTermNodes();
 
     NodesList getRootList();
-    NodesList getLevList(int lev) const;
+    NodesList getNodesInLevel(int lev) const;
 
     NodesList getOrphansList();
     bool      hasOrphans();
@@ -31,9 +31,6 @@ class TermGroup : public QObject
     NodesList getInTreeList();
 
     NodesList   nodeList;
-
-    qreal getSumSize (NodesList lst , bool withMargins = false, Qt::Orientation ori = Qt::Vertical );
-    qreal getMaxSideSize( NodesList lst, Qt::Orientation ori = Qt::Vertical );
 
     QTimer animTimer;
     QTimer checkSwapTimer;

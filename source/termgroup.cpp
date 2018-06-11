@@ -222,7 +222,7 @@ void TermGroup::checkSwap()
     int maxLevel = getLayersCount();
 
     for( int i = 1; i <= maxLevel; i++ ) { //i=1 because we need to ignore roots
-        NodesList levLst = getLevList(i);
+        NodesList levLst = getNodesInLevel(i);
 
         for( int j = 0; j < levLst.size() - 1; j++ ){
 
@@ -310,7 +310,7 @@ NodesList TermGroup::getRootList()
     return ret;
 }
 
-NodesList TermGroup::getLevList(int lev) const
+NodesList TermGroup::getNodesInLevel(int lev) const
 {
     NodesList ret;
     for( TermNode *t : nodeList )
@@ -364,44 +364,6 @@ NodesList TermGroup::getInTreeList()
     for( TermNode *n : nodeList )
         if( n->isInTree() )
             ret << n;
-    return ret;
-}
-
-qreal TermGroup::getSumSize(NodesList lst, bool withMargins, Qt::Orientation ori)
-//Возвращает ширину списка вершин.
-//По надобности суммирует интервалы между ними
-{
-    qreal ret = 0.0;
-
-    if( ori == Qt::Vertical ) {
-        for( TermNode *n : lst )
-            if( withMargins )
-                ret += n->getSize().width();
-            else
-                ret += n->getMainRect().width();
-    } else {
-        for( TermNode *n : lst )
-            if( withMargins )
-                ret += n->getSize().height();
-            else
-                ret += n->getMainRect().height();
-    }
-
-    return ret;
-}
-
-qreal TermGroup::getMaxSideSize( NodesList lst, Qt::Orientation ori )
-{
-    qreal ret = 0.0;
-
-    if( ori == Qt::Vertical ) {
-        for( TermNode *n : lst )
-            ret = qMax( ret, n->getMainRect().height() );
-    } else {
-        for( TermNode *n : lst )
-            ret = qMax( ret, n->getMainRect().width() );
-    }
-
     return ret;
 }
 
@@ -574,7 +536,7 @@ qreal TermGroup::getMaxHeightInAllLevels() const
 {
     qreal maxHeight = 0.0;
     for(int i = 0; i <= getLayersCount(); i++) {
-        QSizeF stackSize = getVerticalStackedSize(getLevList(i));
+        QSizeF stackSize = getVerticalStackedSize(getNodesInLevel(i));
         maxHeight = qMax(maxHeight,stackSize.height());
     }
     return maxHeight;
@@ -624,17 +586,18 @@ void TermGroup::setTreeCoords()
     int x = 0, y = 0;
     int layerHeight = 0;
     qreal layerWidth = 0;
+    qreal allTreeHeight = getMaxHeightInAllLevels();
 
     for(int i = 0; i <= maxLevel; i++) {
-        QList< TermNode *> tList = getLevList(i);
+        QList< TermNode *> tList = getNodesInLevel(i);
 
         // Сортируем вершины в более "удачном" порядке
         tList = sortNodesInLayer(tList);
 
-        layerHeight = getSumSize( tList, false, Qt::Vertical );
-        layerWidth = getMaxSideSize( tList, Qt::Horizontal );
+        layerHeight = getVerticalStackedSize( tList ).height();
+        layerWidth = getVerticalStackedSize( tList ).width();
 
-        y = layerHeight/2;
+        y = -(allTreeHeight - layerHeight)/2;
         x += layerWidth/2; //Сначала добавляем первую половину максимума
 
         for( TermNode *n : tList ) {
@@ -758,20 +721,15 @@ bool TermGroup::hasTree()
 
 QSizeF TermGroup::getTheoreticalTreeSize()
 {
-    int levels = getLayersCount();
-    qreal sumWidth = 0.0;
-    qreal maxHeight = 0.0;
+    int layers = getLayersCount();
+    qreal treeWidth = 0.0;
+    qreal treeHeight = 0.0;
 
-    for(int level = 0; level <= levels; level++) {
-        qreal maxLevelWidth = 0.0;
-        qreal sumHeight = 0.0;
-        for(auto node: getLevList(level)) {
-            QRectF nodeRect = node->getMainRect();
-            maxLevelWidth = qMax(maxLevelWidth, nodeRect.width());
-            sumHeight += nodeRect.height();
-        }
-        sumWidth += maxLevelWidth;
-        maxHeight = qMax(maxHeight, sumHeight);
+    for(int layer = 0; layer <= layers; layer++) {
+        NodesList nodes = getNodesInLevel(layer);
+        QSizeF levelSize = getVerticalStackedSize(nodes);
+        treeWidth += levelSize.width() + TermNode::hInterv;
+        treeHeight = qMax(treeHeight, levelSize.height());
     }
-    return QSizeF(sumWidth,maxHeight);
+    return QSizeF(treeWidth,treeHeight);
 }
