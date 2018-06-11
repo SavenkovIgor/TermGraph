@@ -136,10 +136,6 @@ private:
     EdgesList getEdgesInLayer();
     bool isNearPoints(QPointF pt1, QPointF pt2, qreal dist);
 
-    // Interaction
-    QMenu *ndMenu;
-    QAction *toLearnAct;
-
     // Colors
     const static QColor leafColor;
     const static QColor rootColor;

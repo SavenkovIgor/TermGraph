@@ -36,20 +36,12 @@ TermNode::TermNode( QSqlRecord rec ):
 //    setFlag( QGraphicsItem::ItemIsSelectable,true );
 //    setFlag(QGraphicsItem::ItemIsMovable,false);
 
-    ndMenu = new QMenu();
-
-    toLearnAct = new QAction();
-    connect(toLearnAct,SIGNAL(triggered(bool)),SLOT(swithcAtLearnVar()));
-    ndMenu->addAction(toLearnAct);
-
     setAcceptHoverEvents(true);
     setZValue(1);
 }
 
 TermNode::~TermNode()
 {
-    delete toLearnAct;
-    delete ndMenu;
 }
 
 void TermNode::adjustSizeForName()
@@ -323,18 +315,7 @@ void TermNode::hoverLeaveEvent(QGraphicsSceneHoverEvent *evt)
 
 void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
 {
-    if (evt->button() == Qt::RightButton){
-        if( atLearn )
-            toLearnAct->setText("Снять с изучения");
-        else
-            toLearnAct->setText("Изучить");
-
-        stopGroupAnimation();
-        ndMenu->exec(evt->screenPos());
-        return;
-    }
     QGraphicsItem::mousePressEvent(evt);
-
 }
 
 bool TermNode::hasConnections()
