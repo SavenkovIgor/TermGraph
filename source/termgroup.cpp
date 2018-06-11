@@ -387,11 +387,9 @@ qreal TermGroup::getTitleMinWidth()
 
 qreal TermGroup::getOrphansMinWidth()
 {
-    qreal orphanMaxWidth = 0.0;
-    for(auto orphan: getOrphansList()) {
-        orphanMaxWidth = qMax(orphanMaxWidth, orphan->getMainRect().width());
-    }
-    return orphanMaxWidth;
+    NodesList orphans = getOrphansList();
+    QSizeF orphansStackSize = getVerticalStackedSize(orphans);
+    return orphansStackSize.width();
 }
 
 qreal TermGroup::getTreeMinWidth()
@@ -550,31 +548,41 @@ void TermGroup::setOrphCoords(qreal maxWidth)
     if( nodesList.isEmpty() )
         return;
 
+    for( int i = 0; i < nodesList.size(); i++ ) {
+        int nMax = i;
+        for( int j = i+1; j < nodesList.size(); j++ ) {
+            if(nodesList[j]->getSize().width() < nodesList[nMax]->getSize().width() ) {
+                nMax = j;
+            }
+        }
+        nodesList.swap(i,nMax);
+    }
+
     int x = 0, y = 0;
     qreal maxHeightInRow = 0.0;
-    maxWidth = qBound(200.0,200.0,700.0);
+    qreal groupMinWidth = getGroupMinWidth();
+    maxWidth = qBound(10.0,groupMinWidth,700.0);
 
     for(TermNode* currNode: nodesList) {
         QSizeF nodeSize = currNode->getSize(false);
+
+        if( x + nodeSize.width() > maxWidth ) {
+            y+= maxHeightInRow + Sizes::orphansVerticalSpacer;
+            //Переходим на следующий ряд
+            maxHeightInRow = 0;
+            x = 0;
+        }
 
         currNode->setPos( x, y );
         x += nodeSize.width() + Sizes::orphansHorizontalSpacer;
 
         maxHeightInRow = qMax(maxHeightInRow, nodeSize.height());
-
-        if( x > maxWidth ) {
-            //Переходим на следующий ряд
-            y+= maxHeightInRow + Sizes::orphansVerticalSpacer;
-            maxHeightInRow = 0;
-            x = 0;
-        }
     }
 }
 
 void TermGroup::setLevels()
 {
-    NodesList rList = getRootList();
-    for( TermNode *t : rList )
+    for( TermNode *t : getRootList() )
         t->setLevel(0);
 }
 
