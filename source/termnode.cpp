@@ -5,7 +5,6 @@ bool TermNode::someoneSelect = false;
 
 const qreal TermNode::verScale = 0.0200;
 const qreal TermNode::vInterv  = 25.0;
-const qreal TermNode::hInterv  = 15.0;
 
 DBAbstract *TermNode::db = nullptr;
 

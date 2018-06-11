@@ -606,7 +606,7 @@ void TermGroup::setTreeCoords()
         }
 
         //А после выставления всех координат - вторую
-        x += ( layerWidth/2 + TermNode::hInterv );
+        x += ( layerWidth/2 + Sizes::treeLayerHorizontalSpacer );
     }
 
 }
@@ -728,7 +728,9 @@ QSizeF TermGroup::getTheoreticalTreeSize()
     for(int layer = 0; layer <= layers; layer++) {
         NodesList nodes = getNodesInLevel(layer);
         QSizeF levelSize = getVerticalStackedSize(nodes);
-        treeWidth += levelSize.width() + TermNode::hInterv;
+        treeWidth += levelSize.width();
+        if(layer < layers)
+            treeWidth += Sizes::treeLayerHorizontalSpacer;
         treeHeight = qMax(treeHeight, levelSize.height());
     }
     return QSizeF(treeWidth,treeHeight);

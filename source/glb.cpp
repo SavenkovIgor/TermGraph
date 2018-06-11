@@ -7,6 +7,8 @@ qreal Sizes::groupHorizontalSpacer = 10.0;
 qreal Sizes::orphansVerticalSpacer = 10.0;
 qreal Sizes::orphansHorizontalSpacer = 10.0;
 
+qreal Sizes::treeLayerHorizontalSpacer = 15.0;
+
 CloudServicesWrapper*Glb::cloud = nullptr;
 
 Glb::Glb()

@@ -55,6 +55,8 @@ public:
 
     static qreal orphansVerticalSpacer;
     static qreal orphansHorizontalSpacer;
+
+    static qreal treeLayerHorizontalSpacer;
 };
 
 #include "termnode.h"
