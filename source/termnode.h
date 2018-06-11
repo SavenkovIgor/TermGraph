@@ -42,7 +42,7 @@ public:
 
     static const qreal verScale;
     static const qreal vInterv;
-    static const qreal hInterv;
+    static const qreal hInterv; //TODO: Вынести в sizes
 
     static bool someoneHover;
     static bool someoneSelect;
