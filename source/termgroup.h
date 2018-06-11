@@ -46,8 +46,8 @@ class TermGroup : public QObject
 
     qreal getGroupMinWidth();
     qreal getTitleMinWidth();
-    qreal getOrphansMinWidth();
     qreal getTreeMinWidth();
+    qreal getOrphansMinWidth();
 
 public:
     static DBAbstract *db;

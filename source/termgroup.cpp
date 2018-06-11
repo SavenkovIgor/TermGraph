@@ -23,7 +23,9 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
 
     orphansRect = new QGraphicsRectItem( nullptr );
     orphansRect->setParentItem(baseRect);
+
     // Скрываем рамку
+    hideRect(treeRect);
     hideRect(orphansRect);
 
 //    centerRect  = new QGraphicsRectItem( nullptr );

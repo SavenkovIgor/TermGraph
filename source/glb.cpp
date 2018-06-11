@@ -1,7 +1,7 @@
 #include "glb.h"
 
 Qt::Orientation Glb::ori = Qt::Horizontal;
-qreal Sizes::groupVerticalSpacer = 7.0;
+qreal Sizes::groupVerticalSpacer = 10.0;
 qreal Sizes::groupHorizontalSpacer = 10.0;
 
 qreal Sizes::orphansVerticalSpacer = 10.0;
