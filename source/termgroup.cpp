@@ -30,8 +30,8 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
 
 //    centerRect  = new QGraphicsRectItem( nullptr );
 
-    if( type == 0 ) {
-        baseRect->setBrush(QColor(211,222,237,60));
+    if( type == terms ) {
+        baseRect->setBrush(Colors::groupBackTerms);
     }
 
     this->grNmItem = new TGroupName( groupName );
@@ -283,10 +283,8 @@ void TermGroup::animateGroup()
 
 void TermGroup::hideRect(QGraphicsRectItem *item)
 {
-    QColor transparentCol(0,0,0,0); //Для скрытия некоторых рамок
-    QPen transparentPen(transparentCol);
-    item->setBrush(transparentCol);
-    item->setPen(transparentPen);
+    item->setBrush(Colors::transparent);
+    item->setPen(QPen(Colors::transparent));
 }
 
 NodesList TermGroup::getRootNodes()

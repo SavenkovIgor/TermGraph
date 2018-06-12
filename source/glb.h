@@ -55,6 +55,19 @@ public:
     static qreal treeLayerHorizontalSpacer;
 };
 
+class Colors {
+public:
+    // Nodes
+    static QColor nodeLeaf;
+    static QColor nodeRoot;
+    static QColor nodeOrphan;
+    static QColor nodeSelected;
+
+    static QColor groupBackTerms;
+
+    static QColor transparent;
+};
+
 #include "termnode.h"
 #include "edge.h"
 #include "databaseWorks/dbabstract.h"

@@ -131,12 +131,6 @@ private:
     EdgesList getEdgesInLayer();
     bool isNearPoints(QPointF pt1, QPointF pt2, qreal dist);
 
-    // Colors
-    const static QColor leafColor;
-    const static QColor rootColor;
-    const static QColor orphanColor;
-    const static QColor selectedColor;
-
     // Hovers
     bool thisHovered = false;
     bool thisSelected = false;

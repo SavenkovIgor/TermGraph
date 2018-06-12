@@ -8,6 +8,16 @@ qreal Sizes::orphansHorizontalSpacer = 10.0;
 
 qreal Sizes::treeLayerHorizontalSpacer = 15.0;
 
+// Nodes
+QColor Colors::nodeLeaf = QColor(94,196,99);
+QColor Colors::nodeRoot = QColor(255, 153, 0);
+QColor Colors::nodeOrphan = QColor(179, 141, 217);
+QColor Colors::nodeSelected = QColor(128,129,176);
+
+QColor Colors::groupBackTerms = QColor(211,222,237,60);
+
+QColor Colors::transparent = QColor(0,0,0,0);
+
 CloudServicesWrapper*Glb::cloud = nullptr;
 
 Glb::Glb()

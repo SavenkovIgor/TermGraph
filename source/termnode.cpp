@@ -8,11 +8,6 @@ const qreal TermNode::vInterv  = 25.0;
 
 DBAbstract *TermNode::db = nullptr;
 
-const QColor TermNode::leafColor = QColor(94,196,99);
-const QColor TermNode::rootColor = QColor(255, 153, 0);
-const QColor TermNode::orphanColor = QColor(179, 141, 217);
-const QColor TermNode::selectedColor = QColor(128,129,176);
-
 QList< Qt::Edge > TermNode::sides;
 
 TermNode::TermNode( QSqlRecord rec ):
@@ -151,10 +146,11 @@ QRectF TermNode::getRcWithBorders()
 QSizeF TermNode::getSize(bool withBorder)
 {
     qreal val = qBound(0.0,mainRect.height()*0.2,8.0);
-    QMarginsF mrg(val,val,val,val);
     QRectF ret = mainRect;
-    if(withBorder)
+    if(withBorder) {
+        QMarginsF mrg(val,val,val,val);
         ret = ret.marginsAdded(mrg);
+    }
     return ret.size();
 }
 
@@ -200,11 +196,11 @@ NodeType TermNode::getNodeType()
 QColor TermNode::getBaseColor()
 {
     switch ( getNodeType() ) {
-    case NodeType::orphan: return orphanColor;
-    case NodeType::root: return rootColor;
-    case NodeType::endLeaf: return leafColor;
-    case NodeType::middleLeaf: return leafColor;
-    default: return leafColor;
+    case NodeType::orphan: return Colors::nodeOrphan;
+    case NodeType::root: return Colors::nodeRoot;
+    case NodeType::endLeaf: return Colors::nodeLeaf;
+    case NodeType::middleLeaf: return Colors::nodeLeaf;
+    default: return Colors::nodeLeaf;
     }
 }
 
@@ -219,7 +215,7 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     if( someoneHover || someoneSelect ) {
         if( thisHovered || isSelected() || relative ) {
             if( isSelected() || thisHovered )
-                col = selectedColor;
+                col = Colors::nodeSelected;
             col.setAlpha( 255 );
             setZValue(2);
         } else {
