@@ -5,4 +5,3 @@ In many good structured areas of knowledge we often can see, that terms are buil
 
 ![screenshot1](https://github.com/SavenkovIgor/TermGraph/blob/master/screens/2.png)
 ![screenshot2](https://github.com/SavenkovIgor/TermGraph/blob/master/screens/3.png)
-![screenshot3](https://github.com/SavenkovIgor/TermGraph/blob/master/screens/1.jpg)
