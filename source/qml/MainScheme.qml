@@ -447,10 +447,10 @@ Item {
 
                             id: groupListView
                             anchors.fill: parent
-                            model: sceneObj.getGroupsNames()
+                            model: sceneObj.getGroupsNames(true)
 
                             function refreshModel() {
-                                model = sceneObj.getGroupsNames()
+                                model = sceneObj.getGroupsNames(true)
                             }
 
                             keyNavigationEnabled: true

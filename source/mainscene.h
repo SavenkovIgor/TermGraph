@@ -15,8 +15,8 @@ class MainScene : public QGraphicsScene
 {
     Q_OBJECT
 
-    void initAllGroups();
     TermGroup* createGroupFromSqlRecord(QSqlRecord rec);
+    void initAllGroups();
     void deleteAllGroups();
 
     QTimer selectTimer;
@@ -64,7 +64,7 @@ signals:
     void mouseInfo(QString str);
 
 public slots:
-    QStringList getGroupsNames();
+    QStringList getGroupsNames(bool withAllVeiw = false);
 
     void showGroup(int num); //TODO: Постараться избавиться от этой функции
     void showGroup( QString grp = "");
@@ -82,6 +82,8 @@ public slots:
     void dropEdgesOnSelected();
 
     void locateGroupsVertically();
+    void updateSceneRect();
+    void centerViewOn(QPointF pt);
 
     void updateModel();
     void dropSelectedNode();
