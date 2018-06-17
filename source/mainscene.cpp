@@ -23,59 +23,49 @@ MainScene::~MainScene()
 {
 }
 
-void MainScene::initGroups()
+void MainScene::initAllGroups()
 {
-    QList<int> uids = db->groupTbl->getAllGroupsUid();
-    for( int uid : uids ) {
-
+    for( int uid : db->groupTbl->getAllGroupsUid() ) {
         QSqlRecord rec = db->groupTbl->getGroup( uid );
-
         if(rec.count() == 0)
             continue;
-
-        TermGroup *newGroup = new TermGroup( rec );
-
-        addItem(newGroup->baseRect);
-        //        addItem(newGroup->centerRect);
-
-        if(newGroup->getType() == GroupType::terms) {
-            //            EdgesList eLst = newGroup->searchConnections();
-            //            for( Edge *e : eLst ) {
-            //                addEdge(e->getRoot(),e->getBrnch(),false);
-            //            }
-            allEdgesList << newGroup->searchConnections();
-        }
-        newGroup->addNodesToParents();
-        groupList << newGroup;
+        groupList << createGroupFromSqlRecord(rec);
     }
 }
 
-void MainScene::destructGroups()
+TermGroup *MainScene::createGroupFromSqlRecord(QSqlRecord rec)
 {
-    for( TermGroup *g : groupList ) {
+    TermGroup *newGroup = new TermGroup( rec );
+    // Добавляем baseRect в сцену
+    addItem(newGroup->baseRect);
+    connect(&sceneRhytm,SIGNAL(timeout()),newGroup,SLOT(sceneUpdateSignal()));
+    // Добавляем ребра этой группы в сцену
+    for( Edge* e: newGroup->getAllEdges() ) {
+        addItem( e );
+    }
+    return newGroup;
+}
+
+void MainScene::deleteAllGroups()
+{    
+    for( TermGroup* g: groupList ) {
+        //TODO: Ребра мы удаляем потому что они пока не наследники baseRect
+        for( Edge* e: g->getAllEdges() ) {
+            removeItem(e);
+        }
 
         removeItem(g->baseRect);
-//        delete g;
     }
 
     groupList.clear();
 }
 
-void MainScene::formAllNodeList()
-{
-    for( TermGroup *g : groupList )
-        allNodesList << g->getAllNodes();
-}
-
-void MainScene::appendEdgesToScene()
-{
-    for( Edge *i : allEdgesList )
-        addItem( i );
-}
-
 NodesList MainScene::getAllNodes()
 {
-    return allNodesList;
+    NodesList ret;
+    for( TermGroup* g: groupList )
+        ret << g->getAllNodes();
+    return ret;
 }
 
 TermGroup *MainScene::getGroup(QString name)
@@ -129,7 +119,7 @@ void MainScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *evt)
             evt->accept();
         }
     } else {
-        for( TermNode* n: allNodesList ) {
+        for( TermNode* n: getAllNodes() ) {
             n->setFlag( QGraphicsItem::ItemIsSelectable, false );
             n->setSelected( false );
             //                    evt->accept();
@@ -146,27 +136,8 @@ void MainScene::updateModel()
     sceneRhytm.stop();
     stopAllGroupTimers();
 
-    for( Edge *e : allEdgesList ) {
-        removeItem(e);
-    }
-
-    allEdgesList.clear();
-
-    for( TermNode *n : allNodesList ) {
-        removeItem(n);
-    }
-
-    allNodesList.clear();
-
-    destructGroups();
-
-    initGroups();
-    formAllNodeList();
-
-    appendEdgesToScene();
-
-    for( TermGroup *g : groupList )
-        g->prepareGroup();
+    deleteAllGroups();
+    initAllGroups();
 
     selectTimer.start();
 //    viewGrpTimer.start(200);
@@ -176,10 +147,6 @@ void MainScene::updateModel()
 
 void MainScene::updateGroupsGeometry()
 {
-    // Пересчитываем рамки
-    for(TermGroup* group: groupList)
-        group->updateGroupFrame();
-
     locateGroupsVertically();
 }
 
@@ -312,7 +279,7 @@ TermNode *MainScene::getSelected()
 
 TermNode *MainScene::getNodeByUid( int uid )
 {
-    for( TermNode *n : allNodesList )
+    for( TermNode *n : getAllNodes() )
         if( n->getUid() == uid )
             return n;
 
@@ -321,7 +288,7 @@ TermNode *MainScene::getNodeByUid( int uid )
 
 NodesList MainScene::getAllTermsAtPoint(int x, int y) {
     NodesList ret;
-    for( TermNode *n : allNodesList ) {
+    for( TermNode *n: getAllNodes() ) {
         if( n->getMainRect().contains( x,y ) ) {
             ret << n;
         }
@@ -405,7 +372,7 @@ void MainScene::dropEdgesOnSelected()
 void MainScene::checkSelection()
 {
     bool someSel = false;
-    for( TermNode *n : allNodesList ) {
+    for( TermNode *n : getAllNodes() ) {
         if(n->isSelected()) {
             someSelected();
             someSel = true;
@@ -419,7 +386,7 @@ void MainScene::checkSelection()
         selectionDrop();
         TermNode::someoneSelect = false;
         if(!TermNode::someoneHover)
-            for( TermNode *n : allNodesList )
+            for( TermNode *n : getAllNodes() )
                 n->setRelatPaint(false);
     }
 

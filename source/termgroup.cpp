@@ -38,6 +38,14 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
     this->grNmItem->setParentItem(baseRect);
 
     loadNodes();
+    loadEdges();
+
+    addNodesToParents();
+
+    setLayers();
+    setTreeCoords();
+    setNeighbours();
+    setOrphCoords();
 
     checkSwapTimer.setSingleShot( false );
     setAnimSpeed( 300 );
@@ -97,7 +105,7 @@ QMap<GroupType, QString> TermGroup::getTypesMap()
 
 void TermGroup::loadNodes()
 {
-    nodeList.clear();
+    nodesList.clear();
 
     QList< int > idLst = db->nodeTbl->getGroupNodeID( grUid );
 
@@ -112,7 +120,14 @@ void TermGroup::loadNodes()
         connect( nd, SIGNAL(startGroupAnimation()), SLOT(startAnimation()) );
         connect( nd, SIGNAL(stopGroupAnimation()),  SLOT(stopAnimation())  );
 
-        nodeList << nd;
+        nodesList << nd;
+    }
+}
+
+void TermGroup::loadEdges()
+{
+    if(getType() == GroupType::terms) {
+        edgesList << searchConnections();
     }
 }
 
@@ -184,7 +199,7 @@ QJsonDocument TermGroup::getJsonDoc()
 
     QJsonArray ndArr;
 
-    for( TermNode *n : nodeList ) {
+    for( TermNode *n : nodesList ) {
         ndArr.append(n->toJson());
     }
     obj.insert( "nodesList", ndArr);
@@ -205,6 +220,11 @@ void TermGroup::stopAnimation()
     animTimer.stop();
     checkSwapTimer.stop();
     grNmItem->timerStopped();
+}
+
+void TermGroup::sceneUpdateSignal()
+{
+    updateGroupFrame();
 }
 
 void TermGroup::checkSwap()
@@ -263,14 +283,14 @@ void TermGroup::animateGroup()
     if( lockForce )
         return;
 
-    for( TermNode * n : nodeList ) {
+    for( TermNode * n : nodesList ) {
         if( animGrp.state() != QAbstractAnimation::Stopped && n->getPaintLevel() == currAnimLevel )
             continue;
         n->countForces();
     }
 
     bool someMoved = false;
-    for( TermNode *n : nodeList ) {
+    for( TermNode *n : nodesList ) {
         if( animGrp.state() != QAbstractAnimation::Stopped && n->getPaintLevel() == currAnimLevel )
             continue;
         if( n->applyMove() && !someMoved )
@@ -290,7 +310,7 @@ void TermGroup::hideRect(QGraphicsRectItem *item)
 NodesList TermGroup::getRootNodes()
 {
     NodesList ret;
-    for( TermNode *n : nodeList ) {
+    for( TermNode *n : nodesList ) {
         if( n->isRoot() )
             ret << n;
     }
@@ -300,7 +320,7 @@ NodesList TermGroup::getRootNodes()
 NodesList TermGroup::getNodesInLevel(int lev) const
 {
     NodesList ret;
-    for( TermNode *t : nodeList )
+    for( TermNode *t : nodesList )
         if( t->getPaintLevel() == lev )
             ret << t;
 
@@ -322,7 +342,7 @@ NodesList TermGroup::getNodesInLevel(int lev) const
 NodesList TermGroup::getOrphanNodes()
 {
     NodesList ndLst;
-    for( TermNode *n : nodeList )
+    for( TermNode *n : nodesList )
         if( n->isOrphan() )
             ndLst << n;
 
@@ -332,7 +352,7 @@ NodesList TermGroup::getOrphanNodes()
 NodesList TermGroup::getInTreeNodes()
 {
     NodesList ret;
-    for( TermNode *n : nodeList )
+    for( TermNode *n : nodesList )
         if( n->isInTree() )
             ret << n;
     return ret;
@@ -355,7 +375,12 @@ qreal TermGroup::getGroupMinWidth()
 
 NodesList TermGroup::getAllNodes()
 {
-    return nodeList;
+    return nodesList;
+}
+
+EdgesList TermGroup::getAllEdges()
+{
+    return edgesList;
 }
 
 void TermGroup::setAnimSpeed(int val)
@@ -428,14 +453,6 @@ void TermGroup::updateBaseRectSize()
     baseRect->setRect(QRectF(QPointF(),QSize(width,height)));
 }
 
-void TermGroup::prepareGroup()
-{
-    setLayers();
-    setTreeCoords();
-    setNeighbours();
-    setOrphCoords();
-}
-
 void TermGroup::updateGroupFrame()
 {
     updateRectsPositions();
@@ -445,8 +462,8 @@ void TermGroup::updateGroupFrame()
 EdgesList TermGroup::searchConnections()
 {
     EdgesList ret;
-    for( TermNode *n : nodeList ) {
-        for( TermNode *m : nodeList) {
+    for( TermNode *n : nodesList ) {
+        for( TermNode *m : nodesList) {
             if( n == m )
                 continue;
             QStringList lst = n->getTags();
@@ -475,7 +492,7 @@ EdgesList TermGroup::searchConnections()
 int TermGroup::getLayersCount() const
 {
     int ret = 0;
-    for( TermNode *t : nodeList )
+    for( TermNode *t : nodesList )
         ret = qMax( ret, t->getPaintLevel() );
 
     return ret;
@@ -539,7 +556,7 @@ void TermGroup::setTreeCoords()
 {
     int maxLevel = getLayersCount();
 
-    if( nodeList.isEmpty() )
+    if( nodesList.isEmpty() )
         return;
 
     int x = 0, y = 0;
@@ -598,7 +615,7 @@ void TermGroup::setNeighbours()
 {
     QList<int> levLst;
 
-    for( TermNode *n : nodeList ) {
+    for( TermNode *n : nodesList ) {
         if( !levLst.contains( n->getPaintLevel() ) )
             levLst << n->getPaintLevel();
     }
@@ -606,7 +623,7 @@ void TermGroup::setNeighbours()
     QList<TermNode *> levNd;
     for( int i : levLst ) {
         levNd.clear();
-        for( TermNode *n : nodeList ) {
+        for( TermNode *n : nodesList ) {
             if( n->getPaintLevel() == i ) {
                 levNd << n;
             }

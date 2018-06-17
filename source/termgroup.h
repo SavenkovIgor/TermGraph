@@ -47,13 +47,10 @@ public:
     QString getName();
 
     NodesList getAllNodes();
+    EdgesList getAllEdges();
 
     void setAnimSpeed(int val);
     static int getAnimSpeed();
-
-    // Initialization
-    void prepareGroup();
-    void addNodesToParents();
 
 //    QGraphicsRectItem *centerRect;
 
@@ -62,7 +59,6 @@ public:
     void updateGroupFrame();
 
     // Connections search
-    EdgesList searchConnections(); //TODO: Переделать эту функцию так же
     void suggestConnections(); //TODO: доделать эту функцию
 
     QJsonDocument getJsonDoc();
@@ -73,16 +69,21 @@ public slots:
     void startAnimation();
     void stopAnimation();
 
+    void sceneUpdateSignal();
+
 private slots:
     void animateGroup();
 
 private:
+    // Base init
+    void addNodesToParents();
 
     // Group
     qreal getGroupMinWidth();
     void updateRectsPositions();
     void updateBaseRectSize();
     void loadNodes();
+    void loadEdges();
 
     // Tree
     NodesList getInTreeNodes();
@@ -95,6 +96,9 @@ private:
     int getLayersCount() const;
     NodesList getNodesInLevel(int lev) const;
     NodesList sortNodesInLayer(NodesList lst);
+
+    // Edges
+    EdgesList searchConnections(); //TODO: Переделать эту функцию так же
 
     // Orphans
     NodesList getOrphanNodes();
@@ -113,7 +117,8 @@ private:
     QGraphicsRectItem *treeRect;
     QGraphicsRectItem *orphansRect;
 
-    NodesList   nodeList;
+    NodesList nodesList;
+    EdgesList edgesList;
 
     int grUid = -1;
     GroupType type = freeEdges;

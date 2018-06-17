@@ -15,13 +15,9 @@ class MainScene : public QGraphicsScene
 {
     Q_OBJECT
 
-    NodesList allNodesList;
-    EdgesList allEdgesList;
-
-    void initGroups();
-    void destructGroups();
-    void formAllNodeList();
-    void appendEdgesToScene();
+    void initAllGroups();
+    TermGroup* createGroupFromSqlRecord(QSqlRecord rec);
+    void deleteAllGroups();
 
     QTimer selectTimer;
 //    QTimer viewGrpTimer;
@@ -31,19 +27,18 @@ class MainScene : public QGraphicsScene
     int currGroupIndex = 0;
 
 public:
+    MainScene();
+    ~MainScene();
+
     qreal xWindow;
     qreal yWindow;//dirtyHack
 
-    NodesList getAllNodes();
-
     QList < TermGroup* > groupList;
-
     TermGroup* getGroup(QString name);
 
-    static DBAbstract *db;
+    NodesList getAllNodes();
 
-    MainScene();
-    ~MainScene();
+    static DBAbstract *db;
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *evt);
     void mousePressEvent(QGraphicsSceneMouseEvent *evt);
