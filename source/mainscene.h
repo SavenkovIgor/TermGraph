@@ -21,7 +21,6 @@ class MainScene : public QGraphicsScene
     void initGroups();
     void destructGroups();
     void formAllNodeList();
-    void loadTermEdges();
     void appendEdgesToScene();
 
     QTimer selectTimer;
@@ -72,22 +71,23 @@ signals:
 public slots:
     QStringList getGroupsNames();
 
-    void viewGrp(int num); //TODO: Постараться избавиться от этой функции
+    void showGroup(int num); //TODO: Постараться избавиться от этой функции
     void showGroup( QString grp = "");
 
     void toPreviousGroup() {
-        currGroupIndex = qBound( 0, (currGroupIndex - 1), groupList.size() - 1 );
-        viewGrp(currGroupIndex);
+        currGroupIndex = qBound( 0, currGroupIndex - 1, groupList.size() - 1 );
+        showGroup(currGroupIndex);
     }
 
     void toNextGroup() {
-        currGroupIndex = qBound( 0, (currGroupIndex + 1), groupList.size() - 1 );
-        viewGrp(currGroupIndex);
+        currGroupIndex = qBound( 0, currGroupIndex + 1, groupList.size() - 1 );
+        showGroup(currGroupIndex);
     }
 
     void dropEdgesOnSelected();
 
-    void checkGroupGeometry();
+    void updateGroupsGeometry();
+    void locateGroupsVertically();
 
     void updateModel();
     void dropSelectedNode();

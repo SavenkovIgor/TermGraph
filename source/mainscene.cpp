@@ -6,7 +6,7 @@ MainScene::MainScene() : QGraphicsScene()
 {
     sceneRhytm.setSingleShot(false);
     sceneRhytm.setInterval(30);
-    connect(&sceneRhytm,SIGNAL(timeout()),SLOT(checkGroupGeometry()));
+    connect(&sceneRhytm,SIGNAL(timeout()),SLOT(updateGroupsGeometry()));
 
     selectTimer.setSingleShot(false);
     selectTimer.setInterval(200);
@@ -65,27 +65,6 @@ void MainScene::formAllNodeList()
 {
     for( TermGroup *g : groupList )
         allNodesList << g->getAllNodes();
-}
-
-void MainScene::loadTermEdges()
-{
-    QList< QPair<int,int> > edgesLoad = db->edgeTbl->getAllEdges();
-
-    for( int i = 0; i < edgesLoad.size(); i++ ) {
-        int from = edgesLoad[i].first;
-        int to   = edgesLoad[i].second;
-
-        TermNode *fromNd = getNodeByUid( from );
-        TermNode *toNd   = getNodeByUid( to   );
-
-        if(fromNd == nullptr || toNd == nullptr) {
-            qDebug()<<"Has invalid edges"<<from<<to;
-            continue;
-        }
-
-        allEdgesList << new Edge( fromNd, toNd );
-    }
-
 }
 
 void MainScene::appendEdgesToScene()
@@ -183,7 +162,6 @@ void MainScene::updateModel()
 
     initGroups();
     formAllNodeList();
-    loadTermEdges();
 
     appendEdgesToScene();
 
@@ -196,14 +174,19 @@ void MainScene::updateModel()
     startAllGroupTimers();
 }
 
-void MainScene::checkGroupGeometry()
+void MainScene::updateGroupsGeometry()
 {
-    QRectF allRect;
-    int y = 0;
-
     // Пересчитываем рамки
     for(TermGroup* group: groupList)
         group->updateGroupFrame();
+
+    locateGroupsVertically();
+}
+
+void MainScene::locateGroupsVertically()
+{
+    QRectF allRect;
+    int y = 0;
 
     // Выставляем позиции групп и находим общий прямоугольник сцены
     for(TermGroup* group: groupList) {
@@ -305,7 +288,7 @@ QString MainScene::getGroupString(QString grp)
     return "";
 }
 
-void MainScene::viewGrp(int num)
+void MainScene::showGroup(int num)
 {
     QStringList lst = db->groupTbl->getAllGroupsNames();
 
@@ -360,19 +343,39 @@ void MainScene::showGroup(QString grp)
     if( grp == "" )
         grp = lastGrp;
 
-    for( TermGroup *g : groupList ) {
-        if( g->getName().contains(grp) ) {
-            QPointF pt = g->baseRect->rect().translated(g->baseRect->scenePos()).center();
+    for( TermGroup *group : groupList ) {
+
+        group->updateGroupFrame();
+
+        if( group->getName().contains(grp) ) {
+            group->baseRect->show();
+
+            QRectF baseRc = group->baseRect->rect();
+
+            group->setBasePoint(QPointF(0,0));
+
+            int mV = 50;
+            QMarginsF mrg(mV,mV,mV,mV);
+            setSceneRect(baseRc.marginsAdded(mrg));
 
             QList< QGraphicsView * > v = views();
 
             for( QGraphicsView *view : v ) {
-                view->ensureVisible(QRectF(pt,QSize(1,1)));
-                view->centerOn(pt);
+                view->ensureVisible(QRectF(baseRc.center(),QSize(1,1)));
+                view->centerOn(baseRc.center());
             }
+
+        } else {
+            group->baseRect->hide();
         }
     }
     lastGrp = grp;
+
+    // Пересчитываем рамки
+
+    // Выставляем позиции групп и находим общий прямоугольник сцены
+//    QRectF baseRc = group->baseRect->rect().translated(group->baseRect->scenePos());
+
 }
 
 void MainScene::setAnimSpeed(int val)
