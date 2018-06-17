@@ -115,8 +115,6 @@ QPointF TermNode::getCenter()
     return this->scenePos() + mainRect.center();
 }
 
-
-
 QRectF TermNode::boundingRect() const
 {
     return mainRect;

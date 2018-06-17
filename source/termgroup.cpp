@@ -30,7 +30,7 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
 
 //    centerRect  = new QGraphicsRectItem( nullptr );
 
-    if( type == terms ) {
+    if( getType() == terms ) {
         baseRect->setBrush(Colors::groupBackTerms);
     }
 
@@ -195,7 +195,7 @@ QJsonDocument TermGroup::getJsonDoc()
     QJsonObject obj;
     obj.insert( db->groupTbl->longUID, QJsonValue(this->longUid));
     obj.insert( db->groupTbl->name,    QJsonValue(getName()));
-    obj.insert( db->groupTbl->type,    QJsonValue(this->type));
+    obj.insert( db->groupTbl->type,    QJsonValue(this->getType()));
 
     QJsonArray ndArr;
 

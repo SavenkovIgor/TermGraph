@@ -81,7 +81,6 @@ public slots:
 
     void dropEdgesOnSelected();
 
-    void updateGroupsGeometry();
     void locateGroupsVertically();
 
     void updateModel();

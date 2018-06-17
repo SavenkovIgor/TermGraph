@@ -6,7 +6,7 @@ MainScene::MainScene() : QGraphicsScene()
 {
     sceneRhytm.setSingleShot(false);
     sceneRhytm.setInterval(30);
-    connect(&sceneRhytm,SIGNAL(timeout()),SLOT(updateGroupsGeometry()));
+    connect(&sceneRhytm,SIGNAL(timeout()),SLOT(locateGroupsVertically()));
 
     selectTimer.setSingleShot(false);
     selectTimer.setInterval(200);
@@ -143,11 +143,6 @@ void MainScene::updateModel()
 //    viewGrpTimer.start(200);
     sceneRhytm.start();
     startAllGroupTimers();
-}
-
-void MainScene::updateGroupsGeometry()
-{
-    locateGroupsVertically();
 }
 
 void MainScene::locateGroupsVertically()
