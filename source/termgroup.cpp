@@ -41,6 +41,7 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
     loadEdges();
 
     addNodesToParents();
+    addEdgesToParents();
 
     setLayers();
     setTreeCoords();
@@ -133,13 +134,17 @@ void TermGroup::loadEdges()
 
 void TermGroup::addNodesToParents()
 {
-    for(TermNode* nd: getInTreeNodes()) {
+    for(TermNode* nd: getInTreeNodes())
         nd->setParentItem( treeRect );
-    }
 
-    for(TermNode* nd: getOrphanNodes()) {
+    for(TermNode* nd: getOrphanNodes())
         nd->setParentItem( orphansRect );
-    }
+}
+
+void TermGroup::addEdgesToParents()
+{
+    for( Edge* e: getAllEdges() )
+        e->setParentItem( treeRect );
 }
 
 QSizeF TermGroup::getVerticalStackedSize(NodesList lst) const

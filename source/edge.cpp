@@ -80,7 +80,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
         baseWidth /= 2;
     }
 
-    QLineF edLine( toRoot->getCenter(), toLeaf->getCenter() );
+    QLineF edLine( toRoot->getLocalCenter(), toLeaf->getLocalCenter() );
 
     p.setWidth(baseWidth);
     painter->setPen(p);

@@ -39,23 +39,13 @@ TermGroup *MainScene::createGroupFromSqlRecord(QSqlRecord rec)
     // Добавляем baseRect в сцену
     addItem(newGroup->baseRect);
     connect(&sceneRhytm,SIGNAL(timeout()),newGroup,SLOT(sceneUpdateSignal()));
-    // Добавляем ребра этой группы в сцену
-    for( Edge* e: newGroup->getAllEdges() ) {
-        addItem( e );
-    }
     return newGroup;
 }
 
 void MainScene::deleteAllGroups()
 {    
-    for( TermGroup* g: groupList ) {
-        //TODO: Ребра мы удаляем потому что они пока не наследники baseRect
-        for( Edge* e: g->getAllEdges() ) {
-            removeItem(e);
-        }
-
+    for( TermGroup* g: groupList )
         removeItem(g->baseRect);
-    }
 
     groupList.clear();
 }

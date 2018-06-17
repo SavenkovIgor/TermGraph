@@ -115,6 +115,11 @@ QPointF TermNode::getCenter()
     return this->scenePos() + mainRect.center();
 }
 
+QPointF TermNode::getLocalCenter()
+{
+    return this->pos() + mainRect.center();
+}
+
 QRectF TermNode::boundingRect() const
 {
     return mainRect;
@@ -154,7 +159,7 @@ QSizeF TermNode::getSize(bool withBorder)
 
 QLineF TermNode::getRectLine(Qt::Edge sd)
 {
-    QRectF rc = getMainRect();
+    QRectF rc = getMainRect(true);
 
     switch ( sd ) {
     case Qt::TopEdge:

@@ -52,6 +52,7 @@ public:
 
 
     QPointF getCenter();
+    QPointF getLocalCenter();
     QRectF boundingRect() const;
     QRectF getMainRect( bool localPos = false ) const;
     QRectF getRcWithBorders();

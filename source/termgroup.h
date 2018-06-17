@@ -77,6 +77,7 @@ private slots:
 private:
     // Base init
     void addNodesToParents();
+    void addEdgesToParents();
 
     // Group
     qreal getGroupMinWidth();
