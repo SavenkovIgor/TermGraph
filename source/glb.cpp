@@ -72,3 +72,19 @@ QString Glb::ptToStr(QPoint pt, QString divider){
 QString Glb::ptToStr(QPointF pt, QString divider){
     return ptToStr( pt.toPoint(), divider );
 }
+
+void Glb::saveFile(QString subDir, QString fileName, QString data) {
+    QByteArray arr;
+    arr.append(data);
+    saveFile(subDir,fileName,arr);
+}
+
+void Glb::saveFile(QString subDir, QString fileName, QByteArray data)
+{
+    QDir groupsDir(qApp->applicationDirPath());
+    groupsDir.mkdir(subDir);
+    QFile jsonFile(subDir + "/" + fileName);
+    jsonFile.open(QIODevice::WriteOnly);
+    jsonFile.write(data);
+    jsonFile.close();
+}
