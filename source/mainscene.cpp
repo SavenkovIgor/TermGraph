@@ -214,9 +214,20 @@ void MainScene::exportGrpToJson(QString grpName)
     if ( g == nullptr )
         return;
 
+    saveGroupInFolder(g);
+
     QJsonDocument doc = g->getJsonDoc();
     QClipboard *clp = qApp->clipboard();
     clp->setText(doc.toJson());
+}
+
+void MainScene::saveGroupInFolder(TermGroup* g)
+{
+    if (g == nullptr)
+        return;
+
+    QString fileName = "Group: " + g->getName() + " " + g->getUid() + ".grp";
+    Glb::saveFile("GroupsJson", fileName, g->getJsonDoc().toJson());
 }
 
 void MainScene::addNewNode(QString name, QString forms, QString def, QString descr, QString exam, QString groupName)

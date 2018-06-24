@@ -45,6 +45,7 @@ public:
     static QMap<GroupType,QString> getTypesMap();
 
     QString getName();
+    QString getUid();
 
     NodesList getAllNodes();
     EdgesList getAllEdges();

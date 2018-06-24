@@ -649,6 +649,11 @@ QString TermGroup::getName()
     return grNmItem->getNameOnly();
 }
 
+QString TermGroup::getUid()
+{
+    return longUid;
+}
+
 QSizeF TermGroup::getOrphansSize()
 {
     QRectF orphansRc;

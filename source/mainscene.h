@@ -110,6 +110,7 @@ public slots:
     void addNewGroup(QString name, QString comment, int type);
     void deleteGroup(QString name);
     void exportGrpToJson(QString grpName);
+    void saveGroupInFolder(TermGroup *g);
 
     void addNewNode(
             QString name,

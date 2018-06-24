@@ -47,20 +47,20 @@ Item {
         anchors.bottom: addGroupBtn.top
 
         onClicked: {
-            groupDelDialog.visible = true
+            groupDeleteDialog.visible = true
         }
         Component.onCompleted: loadIcon("qrc:/icons/x")
     }
 
     MyRoundButton {
-        id: loadOutBtn
+        id: exportButton
 
         anchors.right: addGroupBtn.left
         anchors.bottom: parent.bottom
 
         onClicked: {
-            rotation += 90
             sceneObj.exportGrpToJson(groupsList.currentItem.text)
+            groupExportedDialog.visible = true
         }
 
         Behavior on rotation {
@@ -155,7 +155,17 @@ Item {
     }
 
     MessageDialog {
-        id: groupDelDialog
+        id: groupExportedDialog
+
+        title: "Группа экспортирована"
+        text:  "Группа экспортирована в папку GroupsJson"
+
+        standardButtons: StandardButton.Ok
+        icon: StandardIcon.Information
+    }
+
+    MessageDialog {
+        id: groupDeleteDialog
 
         title: "Удаление группы"
         text:  "Вы уверены, что хотите удалить эту группу?"
@@ -166,7 +176,6 @@ Item {
         onYes: {
             sceneObj.deleteGroup(groupsList.currentItem.text)
         }
-
     }
 
     Drawer {
