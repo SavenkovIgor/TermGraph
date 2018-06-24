@@ -15,8 +15,9 @@ class MainScene : public QGraphicsScene
 {
     Q_OBJECT
 
-    TermGroup* createGroupFromSqlRecord(QSqlRecord rec);
+//    TermGroup* createGroupFromJson(QJsonDocument json);
     void initAllGroups();
+    void addGroupToScene(TermGroup* group);
     void deleteAllGroups();
 
     QTimer selectTimer;

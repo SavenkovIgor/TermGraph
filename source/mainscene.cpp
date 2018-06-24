@@ -28,18 +28,22 @@ void MainScene::initAllGroups()
         QSqlRecord rec = db->groupTbl->getGroup( uid );
         if(rec.count() == 0)
             continue;
-        groupList << createGroupFromSqlRecord(rec);
+        addGroupToScene(new TermGroup(rec));
     }
 }
 
-TermGroup *MainScene::createGroupFromSqlRecord(QSqlRecord rec)
+void MainScene::addGroupToScene(TermGroup *group)
 {
-    TermGroup *newGroup = new TermGroup( rec );
-    // Добавляем baseRect в сцену
-    addItem(newGroup->baseRect);
-    connect(&sceneRhytm,SIGNAL(timeout()),newGroup,SLOT(sceneUpdateSignal()));
-    return newGroup;
+    addItem(group->baseRect);
+    connect(&sceneRhytm,SIGNAL(timeout()),group,SLOT(sceneUpdateSignal()));
+    groupList << group;
 }
+
+//TermGroup* MainScene::createGroupFromJson(QJsonDocument json)
+//{
+//    TermGroup* newGroup = new TermGroup(json);
+//    addGroupToScene(newGroup);
+//}
 
 void MainScene::deleteAllGroups()
 {    
