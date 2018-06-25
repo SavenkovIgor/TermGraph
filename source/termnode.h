@@ -31,7 +31,6 @@ public:
     static DBAbstract *db;
 
     static const qreal verScale;
-    static const qreal vInterv;
 
     static bool someoneHover;
     static bool someoneSelect;
@@ -93,9 +92,6 @@ public:
 //    }
 
 signals:
-
-    void showInfo(QString name,QString group,QString descr,bool root);
-
     void startGroupAnimation();
     void stopGroupAnimation();
 
