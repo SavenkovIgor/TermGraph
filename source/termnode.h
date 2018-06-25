@@ -15,7 +15,7 @@ enum NodeType{
     middleLeaf
 };
 
-class TermNode :  public TermInfo, public QGraphicsItem
+class TermNode:  public TermInfo, public QGraphicsItem
 {
     Q_OBJECT
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
@@ -23,16 +23,6 @@ class TermNode :  public TermInfo, public QGraphicsItem
 public:
     TermNode( QSqlRecord rec );          //Можно
     ~TermNode();
-
-    enum KnowLevel{
-        dontKnowLvl = 0,
-        remindLvl,
-        wellRemindLvl
-    };    
-
-    bool needRemindToday();
-    bool isRemindDateMissed();
-    void setRemind(KnowLevel lvl);
 
     void addEdgeRef(Edge *edge);
 
@@ -50,7 +40,6 @@ public:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *evt);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *evt);
 
-
     QPointF getCenter();
     QPointF getLocalCenter();
     QRectF boundingRect() const;
@@ -61,8 +50,6 @@ public:
 
     NodeType getNodeType();
     QColor getBaseColor();
-
-    bool isLearning();
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget *);
 
@@ -93,8 +80,6 @@ public:
 
     QString getDebugString();
 
-    int getRepNum() const;
-
     bool isRoot();
     bool isOrphan();
     bool isLeaf();
@@ -114,17 +99,9 @@ signals:
     void startGroupAnimation();
     void stopGroupAnimation();
 
-private slots:
-
-    void swithcAtLearnVar();
-
 private:
     // Initialize
     void adjustSizeForName();
-
-    // Learning
-    int getNextRepeatOffset(int lvl);
-    int getLevelDaysFromBase(int lvl);
 
     // Positioning
     TermNode* getNearestLeftNeigh();
@@ -136,11 +113,7 @@ private:
     bool thisHovered = false;
     bool thisSelected = false;
 
-    QRectF mainRect = QRectF(QPointF(0,0),QSize(40,10));
-
-    bool atLearn;
-    int repNum = -1;
-    QDate lastRepeatDate;
+    QRectF mainRect = QRectF(QPointF(0,0), QSize(40,10));
 
     QString testStr;
 

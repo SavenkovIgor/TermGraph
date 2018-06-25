@@ -24,7 +24,7 @@ void Reminder::formLearnList()
     remItems.clear();
 
     for( TermNode *n : allNodes ) {
-        if( n->isLearning() ) {
+        if( n->atLearning() ) {
             if( n->needRemindToday() ) {
                 qDebug()<<n->getName()<<n->getRepNum();
                 RemItem *tmp = new RemItem();
