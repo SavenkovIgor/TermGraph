@@ -128,7 +128,7 @@ private:
     NodesList nodesList;
     EdgesList edgesList;
 
-    int grUid = -1;
+    int grUid = -1; //TODO: Удалить
     GroupType type = freeEdges;
     QString longUid = "";
 
