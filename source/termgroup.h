@@ -34,8 +34,13 @@ class TermGroup : public QObject
 public:
     static DBAbstract *db;
 
-    explicit TermGroup(QSqlRecord rec, QObject *parent = 0);
+    explicit TermGroup(QSqlRecord rec, QObject* parent = 0);
+    TermGroup(QJsonDocument doc, QObject* parent = 0);
     ~TermGroup();
+
+    static bool checkJson(QJsonDocument doc);
+
+    void commonInit();
 
     QGraphicsRectItem *baseRect;
 
@@ -85,6 +90,7 @@ private:
     void updateRectsPositions();
     void updateBaseRectSize();
     void loadNodes();
+    void addNodeToGroup(TermNode* node);
     void loadEdges();
 
     // Tree

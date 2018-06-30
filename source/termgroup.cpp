@@ -4,41 +4,60 @@ DBAbstract *TermGroup::db = nullptr;
 
 int TermGroup::animSpeed = 300;
 
-TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
+TermGroup::TermGroup( QSqlRecord rec, QObject *parent):
     QObject(parent)
 {
     QString groupName = rec.value( db->groupTbl->name ).toString();
+    this->grNmItem = new TGroupName( groupName );
 
-    this->grUid    = rec.value( db->groupTbl->uid ).toInt();
-    this->longUid  = rec.value( db->groupTbl->longUID ).toString();
-    this->type     = static_cast<GroupType>( rec.value( db->groupTbl->type ).toInt() );
+    this->grUid   = rec.value( db->groupTbl->uid ).toInt();
+    this->longUid = rec.value( db->groupTbl->longUID ).toString();
+    this->type    = static_cast<GroupType>(rec.value( db->groupTbl->type ).toInt());
 
-    baseRect = new QGraphicsRectItem(QRectF(QPoint(0,0),QSizeF(10.0,10.0)),nullptr);
+    loadNodes();
+    commonInit();
+}
+
+TermGroup::TermGroup(QJsonDocument doc, QObject *parent):
+    QObject(parent)
+{
+    QJsonObject jsonObject = doc.object();
+
+    this->longUid = jsonObject.value("longUID").toString();
+    this->type = static_cast<GroupType>(jsonObject.value("type").toInt());
+
+    QString groupName = jsonObject.value("name").toString();
+    this->grNmItem = new TGroupName( groupName );
+
+    commonInit();
+}
+
+void TermGroup::commonInit()
+{
+    loadEdges();
+
+    baseRect = new QGraphicsRectItem(QRectF(QPoint(0,0), QSizeF(10.0,10.0)), nullptr);
     baseRect->setZValue(1);
     baseRect->setBrush(QColor(0,0,0,60));
 
-    treeRect = new QGraphicsRectItem( nullptr );
+    treeRect = new QGraphicsRectItem(nullptr);
     treeRect->setParentItem(baseRect);
     treeRect->setBrush(QColor(0,255,0,60));
 
-    orphansRect = new QGraphicsRectItem( nullptr );
+    orphansRect = new QGraphicsRectItem(nullptr);
     orphansRect->setParentItem(baseRect);
 
     // Скрываем рамку
     hideRect(treeRect);
     hideRect(orphansRect);
 
-//    centerRect  = new QGraphicsRectItem( nullptr );
+    //    centerRect  = new QGraphicsRectItem( nullptr );
 
     if( getType() == terms ) {
         baseRect->setBrush(Colors::groupBackTerms);
     }
 
-    this->grNmItem = new TGroupName( groupName );
     this->grNmItem->setParentItem(baseRect);
-
-    loadNodes();
-    loadEdges();
 
     addNodesToParents();
     addEdgesToParents();
@@ -50,7 +69,7 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent) :
 
     checkSwapTimer.setSingleShot( false );
     setAnimSpeed( 300 );
-    connect( &checkSwapTimer, SIGNAL( timeout() ),SLOT( checkSwap() ) );
+    connect(&checkSwapTimer, SIGNAL(timeout()), SLOT(checkSwap()));
 
     animTimer.setSingleShot(false);
     animTimer.setInterval(50);
@@ -74,6 +93,25 @@ TermGroup::~TermGroup()
     delete treeRect;
     delete orphansRect;
     delete baseRect;
+}
+
+bool TermGroup::checkJson(QJsonDocument doc)
+{
+    QJsonObject json = doc.object();
+
+    QStringList checkKeys;
+    checkKeys << "longUID";
+    checkKeys << "name";
+    checkKeys << "type";
+    checkKeys << "nodesList";
+
+    for(auto key: checkKeys) {
+        if(!json.contains(key)) {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 GroupType TermGroup::getType()
@@ -116,13 +154,15 @@ void TermGroup::loadNodes()
         if(rec.count() == 0)
             continue;
 
-        TermNode *nd = new TermNode( rec );
-
-        connect( nd, SIGNAL(startGroupAnimation()), SLOT(startAnimation()) );
-        connect( nd, SIGNAL(stopGroupAnimation()),  SLOT(stopAnimation())  );
-
-        nodesList << nd;
+        addNodeToGroup(new TermNode( rec ));
     }
+}
+
+void TermGroup::addNodeToGroup(TermNode *node)
+{
+    connect( node, SIGNAL(startGroupAnimation()), SLOT(startAnimation()) );
+    connect( node, SIGNAL(stopGroupAnimation()),  SLOT(stopAnimation())  );
+    nodesList << node;
 }
 
 void TermGroup::loadEdges()
