@@ -13,9 +13,9 @@ class DBAbstract : public QObject
     Q_OBJECT
 public:
 
-    NdTbl           *nodeTbl  = nullptr;
-    EdgTbl          *edgeTbl  = nullptr;
-    TermGroupTbl    *groupTbl = nullptr;
+    NdTbl* nodeTbl  = nullptr;
+    EdgTbl* edgeTbl  = nullptr;
+    TermGroupTbl* groupTbl = nullptr;
 
     explicit DBAbstract( QString file, QObject *parent = 0);
     ~DBAbstract();
