@@ -6,7 +6,7 @@
 class TermGroupTbl : public TblBase
 {
 public:
-    const QString uid     = "uid";
+    const QString uid     = "uid"; //TODO: Грохнуть
     const QString longUID = "longUID";
     const QString name    = "name";
     const QString comment = "comment";
@@ -27,7 +27,7 @@ public:
 
     QSqlRecord getGroup(int id);
 
-    int     getUid  ( QString   groupName );
+    int getUid( QString   groupName );
     bool isGroupExistWithUid(QString uid);
     bool isGroupExistWithLongUid(QString longUid);
     bool addGroup(QString name, QString comment, int type);
