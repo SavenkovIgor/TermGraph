@@ -12,26 +12,22 @@ TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
 
     groupType = db->groupTbl->getType( groupID );
 
-    testFunc();
-
     name        = rec.value( db->nodeTbl->term ).toString();
     nameForms   = rec.value( db->nodeTbl->termForms ).toString();
     root        = false;
     definition  = rec.value( db->nodeTbl->definition ).toString();
-
-    QString error;
-    tags = TagProcessor().extractTags(definition,error);
-    if( !error.isEmpty() ) {
-        qDebug() << uid << error;
-    }
-
     description = rec.value( db->nodeTbl->description ).toString();
 
-    examples    = rec.value( db->nodeTbl->examples ).toString();
-    wikiRef     = rec.value( db->nodeTbl->wikiRef ).toString();
-    wikiImg     = rec.value( db->nodeTbl->wikiImg ).toString();
+    examples = rec.value( db->nodeTbl->examples ).toString();
+    wikiRef  = rec.value( db->nodeTbl->wikiRef ).toString();
+    wikiImg  = rec.value( db->nodeTbl->wikiImg ).toString();
 
     nameCompressing( );
+}
+
+TermInfo::TermInfo(QJsonObject jsonObject, QObject *parent)
+{
+
 }
 
 int TermInfo::getUid()
@@ -234,6 +230,11 @@ QString TermInfo::getDefinition() const
 
 QStringList TermInfo::getTags() const
 {
+    QString error;
+    auto tags = TagProcessor::extractTags(definition, error);
+    if( !error.isEmpty() ) {
+        qDebug() << uid << error;
+    }
     return tags;
 }
 

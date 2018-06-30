@@ -15,6 +15,7 @@ class TermInfo : public QObject
     Q_OBJECT
 public:
     explicit TermInfo(QSqlRecord rec, QObject *parent = 0);
+    TermInfo(QJsonObject jsonObject, QObject *parent = 0);
 
     int     getUid();
     QString getLongUid(bool withPrefix = false);
@@ -63,12 +64,11 @@ private:
     QSizeF  nameSize;
     QString nameForms;
 
-    QString     definition;
-    QStringList tags;
-    QString     description;
-    QString     examples;
-    QString     wikiRef;
-    QString     wikiImg;
+    QString definition;
+    QString description;
+    QString examples;
+    QString wikiRef;
+    QString wikiImg;
 
     void testFunc();
 
