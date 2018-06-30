@@ -5,10 +5,33 @@ bool TermGroupTbl::addGroup(QString name, QString comment, int type)
     if(name.simplified() == "")
         return false;
 
+    QUuid uuid;
+
+    for( int i = 0; i < 1000; i++ ) {
+        uuid = QUuid::createUuid();
+        if(!isUuidExist(uuid.toString())) {
+            if( i == 0)
+                qDebug()<<"break at 0";
+            break;
+        }
+    }
+
+    return addGroup(uuid, name, comment, type);
+}
+
+bool TermGroupTbl::addGroup(QString uuid, QString name, QString comment, int type)
+{
+    if(uuid.simplified() == "")
+        return false;
+
+    if(name.simplified() == "")
+        return false;
+
     QList<InsertContainer> values;
-    values << InsertContainer(this->name,name);
-    values << InsertContainer(this->comment,comment);
-    values << InsertContainer(this->type,type);
+    values << InsertContainer(this->longUID, uuid);
+    values << InsertContainer(this->name, name);
+    values << InsertContainer(this->comment, comment);
+    values << InsertContainer(this->type, type);
 
     return insertInto(values);
 }
@@ -34,6 +57,15 @@ void TermGroupTbl::deleteGroup(QString name)
     WhereConditions where;
     where.equal(this->name,name);
     deleteWhere(where);
+}
+
+bool TermGroupTbl::isUuidExist(QString longUuid)
+{
+    WhereConditions where;
+    where.equal(this->longUID,longUuid);
+
+    RecList recs = toRecList(select(QStringList() << this->longUID, where));
+    return !recs.isEmpty();
 }
 
 void TermGroupTbl::normalizeUuid()

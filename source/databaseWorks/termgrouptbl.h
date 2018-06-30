@@ -30,6 +30,7 @@ public:
     int getUid( QString   groupName );
     bool isGroupExistWithUid(QString uid);
     bool isGroupExistWithLongUid(QString longUid);
+    bool addGroup(QString uuid, QString name, QString comment, int type);
     bool addGroup(QString name, QString comment, int type);
 
     QString getName    ( int groupUid );
@@ -42,6 +43,7 @@ public:
 
     void deleteGroup( QString name );
 
+    bool isUuidExist(QString longUuid);
     void normalizeUuid();
 };
 
