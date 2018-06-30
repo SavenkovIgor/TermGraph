@@ -100,6 +100,21 @@ int TermGroupTbl::getType(int groupUid)
     return getIntField( this->type, groupUid );
 }
 
+void TermGroupTbl::setName(QString uuid, QString name)
+{
+    setField(this->name, uuid, name);
+}
+
+void TermGroupTbl::setComment(QString uuid, QString comment)
+{
+    setField(this->comment, uuid, comment);
+}
+
+void TermGroupTbl::setType(QString uuid, int type)
+{
+    setField(this->type, uuid, QString::number(type));
+}
+
 QStringList TermGroupTbl::getAllGroupsNames(QString area, bool withUid)
 {
     QStringList ret;

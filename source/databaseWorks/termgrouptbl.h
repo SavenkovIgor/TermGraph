@@ -36,6 +36,10 @@ public:
     QString getLongUid ( int groupUid );
     int     getType    ( int groupUid );
 
+    void setName(QString uuid, QString name);
+    void setComment(QString uuid, QString comment);
+    void setType(QString uuid, int type);
+
     void deleteGroup( QString name );
 
     void normalizeUuid();
