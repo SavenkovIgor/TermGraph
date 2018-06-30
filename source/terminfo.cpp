@@ -19,8 +19,12 @@ TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
     description = rec.value( db->nodeTbl->description ).toString();
 
     examples = rec.value( db->nodeTbl->examples ).toString();
-    wikiRef  = rec.value( db->nodeTbl->wikiRef ).toString();
-    wikiImg  = rec.value( db->nodeTbl->wikiImg ).toString();
+    wikiRef = rec.value( db->nodeTbl->wikiRef ).toString();
+    wikiImg = rec.value( db->nodeTbl->wikiImg ).toString();
+
+    lastRepeatDate = QDate::fromString(rec.value( db->nodeTbl->lastRemind).toString() );
+    repNum = rec.value( db->nodeTbl->remindNum).toInt();
+    atLearn = rec.value( db->nodeTbl->atLearn).toString() == "1";
 
     nameCompressing( );
 }
@@ -172,6 +176,57 @@ QJsonObject TermInfo::toJson()
     return ret;
 }
 
+bool TermInfo::atLearning()
+{
+    return atLearn;
+}
+
+bool TermInfo::needRemindToday()
+{
+    if( lastRepeatDate.addDays(getNextRepeatOffset(repNum)) <= QDate::currentDate() )
+        return true;
+    return false;
+}
+
+bool TermInfo::isRemindDateMissed()
+{
+    if( lastRepeatDate.addDays(getNextRepeatOffset(repNum)) < QDate::currentDate() )
+        return true;
+    return false;
+}
+
+void TermInfo::setRemind(KnowLevel lvl)
+{
+    switch (lvl) {
+
+    case TermInfo::dontKnowLvl:
+        repNum = qBound(0,repNum-1,10);
+        break;
+
+    case TermInfo::remindLvl:
+        repNum = qBound(0,repNum+1,10);
+        break;
+
+    case TermInfo::wellRemindLvl:
+        repNum = qBound(0,repNum+2,10);
+        break;
+    }
+
+    lastRepeatDate = QDate::currentDate();
+    db->nodeTbl->setRemindNum(getUid(),repNum,QDate::currentDate());
+}
+
+int TermInfo::getRepNum() const
+{
+    return repNum;
+}
+
+void TermInfo::swithcAtLearnVar()
+{
+    atLearn = !atLearn;
+    db->nodeTbl->setAtLearn(getLongUid(),atLearn);
+}
+
 bool TermInfo::fromJson(QJsonObject obj) {
     QStringList checkKeys;
     checkKeys<<"uid";
@@ -202,6 +257,27 @@ bool TermInfo::fromJson(QJsonObject obj) {
     this->wikiImg     = obj["wikiImg"].toString();
 
     return true;
+}
+
+int TermInfo::getNextRepeatOffset(int lvl)
+{
+    return getLevelDaysFromBase( lvl + 1 ) - getLevelDaysFromBase( lvl );
+}
+
+int TermInfo::getLevelDaysFromBase(int lvl)
+{
+    if( lvl <= 0 )
+        return 0; //Варианты 0 и 1
+
+    if( lvl >= 10 )
+        return 512; //2^9
+
+    lvl--;
+    int ret = 1;
+    for(int i = 0; i < lvl; i++) {
+        ret *= 2;
+    }
+    return ret;
 }
 
 QString TermInfo::getNameFormStr() const

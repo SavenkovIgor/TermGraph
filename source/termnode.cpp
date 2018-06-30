@@ -4,7 +4,6 @@ bool TermNode::someoneHover  = false;
 bool TermNode::someoneSelect = false;
 
 const qreal TermNode::verScale = 0.0200;
-const qreal TermNode::vInterv  = 25.0;
 
 DBAbstract *TermNode::db = nullptr;
 
@@ -22,10 +21,6 @@ TermNode::TermNode( QSqlRecord rec ):
     }
 
     adjustSizeForName();
-
-    repNum          = rec.value( db->nodeTbl->remindNum).toInt();
-    atLearn         = rec.value( db->nodeTbl->atLearn).toString() == "1";
-    lastRepeatDate  = QDate::fromString(rec.value( db->nodeTbl->lastRemind).toString() );
 
 //    setFlag( QGraphicsItem::ItemIsSelectable,true );
 //    setFlag(QGraphicsItem::ItemIsMovable,false);
@@ -50,11 +45,6 @@ void TermNode::adjustSizeForName()
     prepareGeometryChange();
     mainRect.setWidth( getNameWidth() + 16 );
     mainRect.setHeight( 4 + getNameHeight() );
-}
-
-bool TermNode::isLearning()
-{
-    return atLearn;
 }
 
 TermNode *TermNode::getNearestLeftNeigh()
@@ -263,11 +253,11 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
 
     painter->drawText(rcBase.adjusted(1,0,1,0),Qt::AlignCenter,str);
     
-    if( atLearn ) {
+    if( atLearning() ) {
         QRectF miniRc = QRectF(rcBase.topLeft(),QSizeF(11,14));
         painter->setBrush(QColor(245,222,179));
         painter->drawRoundedRect(miniRc,1,1);
-        painter->drawText(rcBase.topLeft() + QPointF(2,12),QString::number(repNum));
+        painter->drawText(rcBase.topLeft() + QPointF(2,12), QString::number(getRepNum()));
     }
 }
 
@@ -536,11 +526,6 @@ bool TermNode::isNearPoints(QPointF pt1,QPointF pt2,qreal dist) {
     return false;
 }
 
-int TermNode::getRepNum() const
-{
-    return repNum;
-}
-
 bool TermNode::isRoot() {
     return getNodeType() == NodeType::root;
 }
@@ -559,42 +544,6 @@ bool TermNode::isLeaf()
 bool TermNode::isInTree()
 {
     return !isOrphan();
-}
-
-bool TermNode::needRemindToday()
-{
-    if( lastRepeatDate.addDays(getNextRepeatOffset(repNum)) <= QDate::currentDate() )
-        return true;
-    return false;
-}
-
-bool TermNode::isRemindDateMissed()
-{
-    if( lastRepeatDate.addDays(getNextRepeatOffset(repNum)) < QDate::currentDate() )
-        return true;
-    return false;
-}
-
-void TermNode::setRemind(TermNode::KnowLevel lvl)
-{
-    switch (lvl) {
-    case TermNode::dontKnowLvl:
-        repNum = qBound(0,repNum-1,10);
-        break;
-
-    case TermNode::remindLvl:
-        repNum = qBound(0,repNum+1,10);
-        break;
-
-    case TermNode::wellRemindLvl:
-        repNum = qBound(0,repNum+2,10);
-        break;
-
-    }
-
-    lastRepeatDate = QDate::currentDate();
-    db->nodeTbl->setRemindNum(getUid(),repNum,QDate::currentDate());
-
 }
 
 bool TermNode::applyMove()
@@ -668,31 +617,3 @@ QString TermNode::getDebugString() {
     p << getLongUid(true);
     return p.join("\n");
 }
-
-void TermNode::swithcAtLearnVar()
-{
-    atLearn = !atLearn;
-    db->nodeTbl->setAtLearn(getLongUid(),atLearn);
-}
-
-int TermNode::getNextRepeatOffset(int lvl)
-{
-    return getLevelDaysFromBase( lvl + 1 ) - getLevelDaysFromBase( lvl );
-}
-
-int TermNode::getLevelDaysFromBase(int lvl)
-{
-    if( lvl <= 0 )
-        return 0; //Варианты 0 и 1
-
-    if( lvl >= 10 )
-        return 512; //2^9
-
-    lvl--;
-    int ret = 1;
-    for(int i=0;i<lvl;i++) {
-        ret *= 2;
-    }
-    return ret;
-}
-

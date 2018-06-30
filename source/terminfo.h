@@ -14,6 +14,13 @@ class TermInfo : public QObject
 {
     Q_OBJECT
 public:
+
+    enum KnowLevel{
+        dontKnowLvl = 0,
+        remindLvl,
+        wellRemindLvl
+    };
+
     explicit TermInfo(QSqlRecord rec, QObject *parent = 0);
     TermInfo(QJsonObject jsonObject, QObject *parent = 0);
 
@@ -23,20 +30,30 @@ public:
 
     bool isRoot();
 
-    QString     getName()           const;
-    QString     getNameFormStr()    const;
-    QStringList getNameFormList()   const;
+    QString getName() const;
+    QString getNameFormStr() const;
+    QStringList getNameFormList() const;
 
-    QString     getDefinition()     const;
-    QStringList getTags()           const;
-    QString     getDescription()    const;
-    QString     getExamples()       const;
-    QString     getWikiRef()        const;
-    QString     getWikiImg()        const;
+    QString getDefinition() const;
+    QStringList getTags() const;
+    QString getDescription() const;
+    QString getExamples() const;
+    QString getWikiRef() const;
+    QString getWikiImg() const;
 
     QJsonObject toJson();
 
     static DBAbstract *db;
+
+    // Learning
+    bool atLearning();
+    void swithcAtLearnVar();
+
+    bool needRemindToday();
+    bool isRemindDateMissed();
+    void setRemind(KnowLevel lvl);
+
+    int getRepNum() const;
 
 protected:
     QString getSmallName()  const;
@@ -70,9 +87,17 @@ private:
     QString wikiRef;
     QString wikiImg;
 
+    QDate lastRepeatDate;
+    int repNum = -1;
+    bool atLearn;
+
     void testFunc();
 
     bool fromJson(QJsonObject obj);
+
+    // Learning
+    int getNextRepeatOffset(int lvl);
+    int getLevelDaysFromBase(int lvl);
 };
 
 #endif // TERMINFO_H

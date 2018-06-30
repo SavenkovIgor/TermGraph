@@ -15,7 +15,7 @@ enum NodeType{
     middleLeaf
 };
 
-class TermNode :  public TermInfo, public QGraphicsItem
+class TermNode:  public TermInfo, public QGraphicsItem
 {
     Q_OBJECT
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
@@ -25,16 +25,6 @@ public:
     TermNode(QJsonObject jsonObject);
     ~TermNode();
 
-    enum KnowLevel{
-        dontKnowLvl = 0,
-        remindLvl,
-        wellRemindLvl
-    };    
-
-    bool needRemindToday();
-    bool isRemindDateMissed();
-    void setRemind(KnowLevel lvl);
-
     void addEdgeRef(Edge *edge);
 
     static QList< Qt::Edge > sides;
@@ -42,7 +32,6 @@ public:
     static DBAbstract *db;
 
     static const qreal verScale;
-    static const qreal vInterv;
 
     static bool someoneHover;
     static bool someoneSelect;
@@ -50,7 +39,6 @@ public:
     void setRelatPaint(bool val);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *evt);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *evt);
-
 
     QPointF getCenter();
     QPointF getLocalCenter();
@@ -62,8 +50,6 @@ public:
 
     NodeType getNodeType();
     QColor getBaseColor();
-
-    bool isLearning();
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget *);
 
@@ -94,8 +80,6 @@ public:
 
     QString getDebugString();
 
-    int getRepNum() const;
-
     bool isRoot();
     bool isOrphan();
     bool isLeaf();
@@ -109,23 +93,12 @@ public:
 //    }
 
 signals:
-
-    void showInfo(QString name,QString group,QString descr,bool root);
-
     void startGroupAnimation();
     void stopGroupAnimation();
-
-private slots:
-
-    void swithcAtLearnVar();
 
 private:
     // Initialize
     void adjustSizeForName();
-
-    // Learning
-    int getNextRepeatOffset(int lvl);
-    int getLevelDaysFromBase(int lvl);
 
     // Positioning
     TermNode* getNearestLeftNeigh();
@@ -137,11 +110,7 @@ private:
     bool thisHovered = false;
     bool thisSelected = false;
 
-    QRectF mainRect = QRectF(QPointF(0,0),QSize(40,10));
-
-    bool atLearn;
-    int repNum = -1;
-    QDate lastRepeatDate;
+    QRectF mainRect = QRectF(QPointF(0,0), QSize(40,10));
 
     QString testStr;
 
