@@ -29,6 +29,7 @@ public:
 
     int     getUid  ( QString   groupName );
     bool isGroupExistWithUid(QString uid);
+    bool isGroupExistWithLongUid(QString longUid);
     bool addGroup(QString name, QString comment, int type);
 
     QString getName    ( int groupUid );

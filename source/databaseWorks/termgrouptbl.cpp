@@ -72,6 +72,19 @@ bool TermGroupTbl::isGroupExistWithUid(QString uid)
     return getUid(uid) != -1;
 }
 
+bool TermGroupTbl::isGroupExistWithLongUid(QString longUid)
+{
+    WhereConditions where;
+    where.equal(this->longUID, longUid);
+
+    QSqlQuery q = select(QStringList()<<this->longUID, where);
+
+    if(!q.next())
+        return false;
+
+    return true;
+}
+
 QString TermGroupTbl::getName(int groupUid)
 {
     return getStringField(this->name, groupUid);
