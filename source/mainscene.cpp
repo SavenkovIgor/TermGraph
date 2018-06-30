@@ -39,11 +39,11 @@ void MainScene::addGroupToScene(TermGroup *group)
     groupList << group;
 }
 
-//TermGroup* MainScene::createGroupFromJson(QJsonDocument json)
-//{
-//    TermGroup* newGroup = new TermGroup(json);
-//    addGroupToScene(newGroup);
-//}
+void MainScene::importGroupFromJson(QJsonDocument json)
+{
+    TermGroup* newGroup = new TermGroup(json);
+    addGroupToScene(newGroup);
+}
 
 void MainScene::deleteAllGroups()
 {    
@@ -61,10 +61,19 @@ NodesList MainScene::getAllNodes()
     return ret;
 }
 
-TermGroup *MainScene::getGroup(QString name)
+TermGroup *MainScene::getGroupByName(QString name)
 {
-    for( TermGroup *g : groupList )
+    for( TermGroup* g: groupList )
         if( g->getName() == name )
+            return g;
+
+    return nullptr;
+}
+
+TermGroup *MainScene::getGroupByUuid(QString longUid)
+{
+    for( TermGroup* g: groupList )
+        if( g->getUid() == longUid )
             return g;
 
     return nullptr;
@@ -214,7 +223,7 @@ void MainScene::deleteGroup(QString name)
 
 void MainScene::exportGrpToJson(QString grpName)
 {
-    TermGroup* g = getGroup( grpName);
+    TermGroup* g = getGroupByName( grpName);
     if ( g == nullptr )
         return;
 
@@ -274,7 +283,7 @@ void MainScene::changeNode(QString nodeUuid,
 
 QString MainScene::getGroupString(QString grp)
 {
-    TermGroup* g = getGroup( grp );
+    TermGroup* g = getGroupByName( grp );
     if ( g != nullptr )
         return g->getTypeString();
 

@@ -15,7 +15,9 @@ class MainScene : public QGraphicsScene
 {
     Q_OBJECT
 
-//    TermGroup* createGroupFromJson(QJsonDocument json);
+    void importGroupFromJson(QJsonDocument json);
+    TermGroup* createGroupFromJson(QJsonDocument json);
+
     void initAllGroups();
     void addGroupToScene(TermGroup* group);
     void deleteAllGroups();
@@ -35,7 +37,8 @@ public:
     qreal yWindow;//dirtyHack
 
     QList < TermGroup* > groupList;
-    TermGroup* getGroup(QString name);
+    TermGroup* getGroupByName(QString name);
+    TermGroup* getGroupByUuid(QString longUid);
 
     NodesList getAllNodes();
 
