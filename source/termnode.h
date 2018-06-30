@@ -21,7 +21,8 @@ class TermNode :  public TermInfo, public QGraphicsItem
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
 
 public:
-    TermNode( QSqlRecord rec );          //Можно
+    TermNode(QSqlRecord rec);
+    TermNode(QJsonObject jsonObject);
     ~TermNode();
 
     enum KnowLevel{

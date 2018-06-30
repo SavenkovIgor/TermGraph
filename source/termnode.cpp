@@ -34,6 +34,13 @@ TermNode::TermNode( QSqlRecord rec ):
     setZValue(1);
 }
 
+TermNode::TermNode(QJsonObject jsonObject):
+    TermInfo(jsonObject),
+    QGraphicsItem()
+{
+
+}
+
 TermNode::~TermNode()
 {
 }
