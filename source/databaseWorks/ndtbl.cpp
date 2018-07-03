@@ -31,7 +31,7 @@ QString NdTbl::addNode(QString name)
     if(!sel.next())
         return "";
 
-    updateLastEdit(uuid.toString());
+    updateLastEdit(uuid);
     return uuid.toString();
 }
 
@@ -44,66 +44,60 @@ int NdTbl::getRemindNum(int uid)
     return rec.value(this->remindNum).toInt();
 }
 
-void NdTbl::setName(QString uuid, QString name)
+void NdTbl::setName(QUuid uuid, QString name)
 {
-    setField(this->term,uuid,name);
+    setField(this->term, uuid.toString(), name);
     updateLastEdit(uuid);
 }
 
-void NdTbl::setWordForms(QString uuid, QString forms)
+void NdTbl::setWordForms(QUuid uuid, QString forms)
 {
-    setField(this->termForms,uuid,forms);
+    setField(this->termForms, uuid.toString(), forms);
     updateLastEdit(uuid);
 }
 
-void NdTbl::setDefinition(QString uuid, QString def)
+void NdTbl::setDefinition(QUuid uuid, QString definition)
 {
-    setField(this->definition,uuid,def);
+    setField(this->definition, uuid.toString(), definition);
     updateLastEdit(uuid);
 }
 
-void NdTbl::setDescription(QString uuid, QString desc)
+void NdTbl::setDescription(QUuid uuid, QString description)
 {
-    setField(this->description,uuid,desc);
+    setField(this->description, uuid.toString(), description);
     updateLastEdit(uuid);
 }
 
-void NdTbl::setExamples(QString uuid, QString examp)
+void NdTbl::setExamples(QUuid uuid, QString example)
 {
-    setField(this->examples,uuid,examp);
+    setField(this->examples, uuid.toString(), example);
     updateLastEdit(uuid);
 }
 
-void NdTbl::setWikiRef(QString uuid, QString wRef)
+void NdTbl::setWikiRef(QUuid uuid, QString wikiRef)
 {
-    setField(this->wikiRef,uuid,wRef);
+    setField(this->wikiRef, uuid.toString(), wikiRef);
     updateLastEdit(uuid);
 }
 
-void NdTbl::setWikiImg(QString uuid, QString wImg)
+void NdTbl::setWikiImg(QUuid uuid, QString wikiImage)
 {
-    setField(this->wikiImg,uuid,wImg);
-    updateLastEdit(uuid);
-}
-
-void NdTbl::setGroup(QString uuid, int group)
-{
-    setField(this->termGroup, uuid, QString::number(group));
+    setField(this->wikiImg, uuid.toString(), wikiImage);
     updateLastEdit(uuid);
 }
 
 void NdTbl::setGroup(QUuid nodeUuid, QUuid groupUuid)
 {
     setField(this->termGroup, nodeUuid.toString(), groupUuid.toString());
-    updateLastEdit(nodeUuid.toString());
+    updateLastEdit(nodeUuid);
 }
 
-void NdTbl::setAtLearn(QString uuid, bool learn)
+void NdTbl::setAtLearn(QUuid uuid, bool learn)
 {
     if( learn )
-        setField(this->atLearn,uuid,"1");
+        setField(this->atLearn, uuid.toString(), "1");
     else
-        setField(this->atLearn,uuid,"0");
+        setField(this->atLearn, uuid.toString(), "0");
 }
 
 //void NdTbl::setRemindToday(int uid)
@@ -147,20 +141,15 @@ void NdTbl::normalizeUuid()
     }
 }
 
-void NdTbl::updateLastEdit(int uid)
+void NdTbl::updateLastEdit(QUuid uuid)
 {
-    setField(this->lastEdit,uid,QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
-}
-
-void NdTbl::updateLastEdit(QString uuid)
-{
-    setField(this->lastEdit,uuid,QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+    setField(this->lastEdit, uuid.toString(), QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
 }
 
 bool NdTbl::isUuidExist(QString longUuid)
 {
     WhereConditions where;
-    where.equal(this->longUID,longUuid);
+    where.equal(this->longUID, longUuid);
 
     RecList recs = toRecList(select(QStringList() << this->longUID, where));
     return !recs.isEmpty();

@@ -55,18 +55,17 @@ public:
     QList<int>   getGroupNodeID(int groupID);
     QList<QUuid> getAllNodesUuidsInGroup(QUuid groupUuid);
 
-    void setName        (QString uuid, QString name);
-    void setWordForms   (QString uuid, QString forms);
-    void setDefinition  (QString uuid, QString def);
-    void setDescription (QString uuid, QString desc);
-    void setExamples    (QString uuid, QString examp);
-    void setWikiRef     (QString uuid, QString wRef);
-    void setWikiImg     (QString uuid, QString wImg);
-    void setGroup       (QString uuid, int group);
+    void setName        (QUuid uuid, QString name);
+    void setWordForms   (QUuid uuid, QString forms);
+    void setDefinition  (QUuid uuid, QString definition);
+    void setDescription (QUuid uuid, QString description);
+    void setExamples    (QUuid uuid, QString example);
+    void setWikiRef     (QUuid uuid, QString wikiRef);
+    void setWikiImg     (QUuid uuid, QString wikiImage);
+    void setAtLearn     (QUuid uuid, bool learn);
     void setGroup       (QUuid nodeUuid, QUuid groupUuid);
-    void setAtLearn     (QString uuid, bool learn);
 
-    int  getRemindNum( int uid );
+    int  getRemindNum(int uid);
     void setRemindNum(int uid, int num, QDate date );
 //    void setRemindToday(int uid);
 
@@ -76,8 +75,7 @@ public:
 
     void normalizeUuid();
 private:
-    void updateLastEdit(int uid);
-    void updateLastEdit(QString uuid);
+    void updateLastEdit(QUuid uuid);
     bool isUuidExist(QString longUuid);
 };
 
