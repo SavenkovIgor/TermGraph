@@ -171,11 +171,23 @@ QList<int> NdTbl::getAllNodesUid()
     QList<int> ret;
 
     RecList idS = toRecList(select(QStringList() << this->uid));
-    for( QSqlRecord &r : idS ) {
+    for( QSqlRecord &r : idS )
         ret << r.value( this->uid ).toInt();
+
+    return ret;
+}
+
+QList<QUuid> NdTbl::getAllNodesUuids()
+{
+    QList<QUuid> ret;
+
+    RecList idS = toRecList(select(QStringList() << this->longUID));
+    for( QSqlRecord &r : idS ) {
+        QUuid tmpUuid(r.value( this->longUID ).toString());
+        if(!tmpUuid.isNull())
+            ret << tmpUuid;
     }
 
-    qDebug()<<ret;
     return ret;
 }
 
@@ -198,10 +210,44 @@ QList<int> NdTbl::getGroupNodeID(int groupID)
     return ret;
 }
 
+QList<QUuid> NdTbl::getAllNodesUuidsInGroup(QUuid groupUuid)
+{
+    QList<QUuid> ret;
+
+    WhereConditions where;
+    where.equal(this->termGroup, groupUuid.toString());
+
+    RecList nodesRecords = toRecList(select(QStringList() << this->longUID, where));
+
+    for( QSqlRecord &record : nodesRecords ) {
+        if(!record.contains( this->longUID ))
+            continue;
+
+        QUuid tmpUuid( record.value( this->longUID ).toString() );
+        if(!tmpUuid.isNull())
+            ret << tmpUuid;
+    }
+
+    return ret;
+}
+
 QSqlRecord NdTbl::getNode(int id)
 {
     WhereConditions where;
     where.equal(uid,id);
+
+    QSqlQuery sel = select(getAllCols(), where);
+
+    if(!sel.next())
+        return QSqlRecord();
+
+    return sel.record();
+}
+
+QSqlRecord NdTbl::getNode(QUuid uuid)
+{
+    WhereConditions where;
+    where.equal(longUID, uuid.toString());
 
     QSqlQuery sel = select(getAllCols(), where);
 

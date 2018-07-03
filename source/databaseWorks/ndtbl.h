@@ -45,12 +45,15 @@ public:
     }
 
     QString addNode( QString name );
-    QSqlRecord  getNode(int id);
+    QSqlRecord getNode(int id); //TODO: Delete
+    QSqlRecord getNode(QUuid uuid); //TODO: Rename to getNodeSqlRecord
 
     bool isNodeWithUuidExist(QString uuid);
 
-    QList<int>  getAllNodesUid();
-    QList<int>  getGroupNodeID(int groupID);
+    QList<int>   getAllNodesUid(); //TODO: Delete
+    QList<QUuid> getAllNodesUuids();
+    QList<int>   getGroupNodeID(int groupID);
+    QList<QUuid> getAllNodesUuidsInGroup(QUuid groupUuid);
 
     void setName        (QString uuid, QString name);
     void setWordForms   (QString uuid, QString forms);
