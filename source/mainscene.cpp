@@ -24,8 +24,8 @@ MainScene::~MainScene()
 
 void MainScene::initAllGroups()
 {
-    for( int uid : db->groupTbl->getAllGroupsUid() ) {
-        QSqlRecord rec = db->groupTbl->getGroup( uid );
+    for( QUuid uuid: db->groupTbl->getAllGroupsUuid() ) {
+        QSqlRecord rec = db->groupTbl->getGroup( uuid );
         if(rec.count() == 0)
             continue;
         addGroupToScene(new TermGroup(rec));

@@ -10,7 +10,7 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent):
     QString groupName = rec.value( db->groupTbl->name ).toString();
     this->grNmItem = new TGroupName( groupName );
 
-    this->grUid   = rec.value( db->groupTbl->uid ).toInt();
+    this->grUuid   = QUuid(rec.value( db->groupTbl->longUID ).toString());
     this->longUid = rec.value( db->groupTbl->longUID ).toString();
     this->type    = static_cast<GroupType>(rec.value( db->groupTbl->type ).toInt());
 
@@ -146,9 +146,9 @@ void TermGroup::loadNodes()
 {
     nodesList.clear();
 
-    QList< int > idLst = db->nodeTbl->getGroupNodeID( grUid );
+    QList<QUuid> uuidLst = db->nodeTbl->getAllNodesUuidsInGroup( grUuid );
 
-    for(int id : idLst) {
+    for( QUuid id: uuidLst ) {
         QSqlRecord rec = db->nodeTbl->getNode( id );
 
         if(rec.count() == 0)
