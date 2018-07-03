@@ -27,6 +27,7 @@ public:
     QStringList getAllGroupsNames(QString area = "", bool withUid = false);
 
     QSqlRecord getGroup(int id);
+    QSqlRecord getGroup(QUuid uuid);
 
     int getUid( QString   groupName );
     bool isGroupExistWithUid(QString uid);

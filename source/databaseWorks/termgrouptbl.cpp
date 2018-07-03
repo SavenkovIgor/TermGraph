@@ -196,3 +196,16 @@ QSqlRecord TermGroupTbl::getGroup(int id)
 
     return sel.record();
 }
+
+QSqlRecord TermGroupTbl::getGroup(QUuid uuid)
+{
+    WhereConditions where;
+    where.equal(this->longUID,uuid.toString());
+
+    QSqlQuery sel = select(getAllCols(), where);
+
+    if(!sel.next())
+        return QSqlRecord();
+
+    return sel.record();
+}
