@@ -47,18 +47,21 @@ public:
     QString addNode( QString name );
     QSqlRecord  getNode(int id);
 
+    bool isNodeWithUuidExist(QString uuid);
+
     QList<int>  getAllNodesUid();
     QList<int>  getGroupNodeID(int groupID);
 
-    void setName        ( QString uuid, QString name);
-    void setWordForms   ( QString uuid, QString forms);
-    void setDefinition  ( QString uuid, QString def);
-    void setDescription ( QString uuid, QString desc);
-    void setExamples    ( QString uuid, QString examp);
-    void setWikiRef     ( QString uuid, QString wRef);
-    void setWikiImg     ( QString uuid, QString wImg);
-    void setGroup       ( QString uuid, int group);
-    void setAtLearn     ( QString uuid, bool learn);
+    void setName        (QString uuid, QString name);
+    void setWordForms   (QString uuid, QString forms);
+    void setDefinition  (QString uuid, QString def);
+    void setDescription (QString uuid, QString desc);
+    void setExamples    (QString uuid, QString examp);
+    void setWikiRef     (QString uuid, QString wRef);
+    void setWikiImg     (QString uuid, QString wImg);
+    void setGroup       (QString uuid, int group);
+    void setGroup       (QUuid nodeUuid, QUuid groupUuid);
+    void setAtLearn     (QString uuid, bool learn);
 
     int  getRemindNum( int uid );
     void setRemindNum(int uid, int num, QDate date );

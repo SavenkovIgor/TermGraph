@@ -92,6 +92,12 @@ void NdTbl::setGroup(QString uuid, int group)
     updateLastEdit(uuid);
 }
 
+void NdTbl::setGroup(QUuid nodeUuid, QUuid groupUuid)
+{
+    setField(this->termGroup, nodeUuid.toString(), groupUuid.toString());
+    updateLastEdit(nodeUuid.toString());
+}
+
 void NdTbl::setAtLearn(QString uuid, bool learn)
 {
     if( learn )
@@ -203,5 +209,10 @@ QSqlRecord NdTbl::getNode(int id)
         return QSqlRecord();
 
     return sel.record();
+}
+
+bool NdTbl::isNodeWithUuidExist(QString uuid)
+{
+    return isUuidExist(uuid);
 }
 

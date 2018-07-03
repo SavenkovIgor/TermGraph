@@ -22,7 +22,8 @@ public:
         initColumn(type,    "INTEGER DEFAULT '-1'");
     }
 
-    QList<int>  getAllGroupsUid();
+    QList<int>   getAllGroupsUid();
+    QList<QUuid> getAllGroupsUuid();
     QStringList getAllGroupsNames(QString area = "", bool withUid = false);
 
     QSqlRecord getGroup(int id);

@@ -41,8 +41,80 @@ void MainScene::addGroupToScene(TermGroup *group)
 
 void MainScene::importGroupFromJson(QJsonDocument json)
 {
-    TermGroup* newGroup = new TermGroup(json);
-    addGroupToScene(newGroup);
+    if(!isValidGroupJson(json))
+        return;
+
+    QJsonObject jsonGroup = json.object();
+    QString importGroupUuid = jsonGroup.value("longUID").toString();
+
+    QString groupName = jsonGroup.value("name").toString();
+    QString comment;
+    int type = jsonGroup.value("type").toInt();
+
+    QJsonArray nodes = jsonGroup.value("nodesList").toArray();
+
+    // Searching for existed group
+    TermGroup* foundGroup = getGroupByUuid(importGroupUuid);
+    if( foundGroup != nullptr ) { //Group found
+        db->groupTbl->setName(importGroupUuid, groupName);
+        db->groupTbl->setComment(importGroupUuid, comment);
+        db->groupTbl->setType(importGroupUuid, type);
+    } else {
+        db->groupTbl->addGroup(importGroupUuid, groupName, comment, type);
+    }
+
+    // Importing nodes
+    for(QJsonValue nodeValue: nodes) {
+        QJsonObject nodeObj = nodeValue.toObject();
+
+        QString nodeUuid = nodeObj.value("longUid").toString();
+
+        QString name = nodeObj.value("name").toString();
+        QString forms = nodeObj.value("nameForms").toString();
+        QString definition = nodeObj.value("definition").toString();
+        QString description = nodeObj.value("description").toString();
+        QString examples = nodeObj.value("examples").toString();
+
+        // Create
+        if( !db->nodeTbl->isNodeWithUuidExist( nodeUuid ) ) {
+            addNewNode(name,forms,definition,description,examples,groupName);
+        } else {
+            // Update
+            if(name.simplified() != "")
+                db->nodeTbl->setName(nodeUuid, name);
+            if(forms.simplified() != "")
+                db->nodeTbl->setWordForms(nodeUuid, forms);
+            if(definition.simplified() != "")
+                db->nodeTbl->setDefinition (nodeUuid, definition);
+            if(description.simplified() != "")
+                db->nodeTbl->setDescription(nodeUuid, description);
+            if(examples.simplified() != "")
+                db->nodeTbl->setExamples(nodeUuid, examples);
+
+            if(importGroupUuid.simplified() != "")
+                db->nodeTbl->setGroup(nodeUuid, importGroupUuid);
+        }
+    }
+
+    updateModel();
+}
+
+bool MainScene::isValidGroupJson(QJsonDocument json)
+{
+    QJsonObject jsonGroup = json.object();
+
+    //Checking keys
+    if(
+            jsonGroup.contains("name") &&
+            jsonGroup.value("name").isString() &&
+            jsonGroup.contains("type") &&
+            jsonGroup.value("type").isDouble() &&
+            jsonGroup.contains("nodesList") &&
+            jsonGroup.value("nodesList").isArray()
+            ) {
+        return true;
+    }
+    return false;
 }
 
 void MainScene::deleteAllGroups()

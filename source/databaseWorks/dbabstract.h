@@ -33,6 +33,8 @@ private:
 
     void createAllTables();
     void checkCols();
+
+    void normalizeNodesGroupUuid();
 };
 
 #endif // DBABSTRACT_H

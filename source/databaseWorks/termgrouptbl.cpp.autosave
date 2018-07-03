@@ -56,15 +56,13 @@ QList<QUuid> TermGroupTbl::getAllGroupsUuid()
 {
     QList<QUuid> ret;
 
-    QSqlQuery q = select(QStringList() << this->longUID, WhereConditions(), this->longUID);
+    QSqlQuery q = select(QStringList() << this->uid, WhereConditions(), "uid");
 
-    for(int i = 0; i < 1000000; i++) {
+    for(int i=0;i<1000000;i++) {
         if(!q.next())
             break;
 
-        QUuid grpUuid = QUuid(q.record().value(this->longUID).toString());
-        if( !grpUuid.isNull() )
-            ret << grpUuid;
+        ret << q.record().value(this->uid).toInt();
     }
 
     return ret;

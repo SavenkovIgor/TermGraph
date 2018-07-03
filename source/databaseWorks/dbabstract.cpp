@@ -60,6 +60,18 @@ void DBAbstract::checkCols()
     groupTbl->checkCols();
 }
 
+void DBAbstract::normalizeNodesGroupUuid()
+{
+    QList<QUuid> groupsUids = groupTbl->getAllGroupsUuid();
+
+    for( int uid : db->groupTbl->getAllGroupsUid() ) {
+        QSqlRecord rec = db->groupTbl->getGroup( uid );
+        if(rec.count() == 0)
+            continue;
+        addGroupToScene(new TermGroup(rec));
+    }
+}
+
 void DBAbstract::createAllTables()
 {
     nodeTbl->createTable();
@@ -98,4 +110,5 @@ void DBAbstract::makeStartBaseCheck()
     groupTbl->normalizeUuid();
     nodeTbl->normalizeUuid();
     edgeTbl->clearFromDuplicates();
+    normalizeNodesGroupUuid();
 }

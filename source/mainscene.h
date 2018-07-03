@@ -17,6 +17,7 @@ class MainScene : public QGraphicsScene
 
     void importGroupFromJson(QJsonDocument json);
     TermGroup* createGroupFromJson(QJsonDocument json);
+    bool isValidGroupJson(QJsonDocument json);
 
     void initAllGroups();
     void addGroupToScene(TermGroup* group);
