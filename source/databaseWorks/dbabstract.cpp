@@ -115,7 +115,7 @@ QStringList DBAbstract::queryToStrList(QSqlQuery q)
 {
     QStringList ret;
     
-    for(int i=0;i<100000000;i++) {
+    for(int i = 0; i < 100000000; i++) {
         if(!q.next())
             break;
         
