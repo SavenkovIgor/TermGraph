@@ -71,7 +71,7 @@ void MainScene::importGroupFromJson(QJsonDocument json)
 
         QUuid nodeUuid = QUuid(nodeObj.value("longUid").toString());
 
-        if(!nodeUuid.isNull())
+        if(nodeUuid.isNull())
             continue;
 
         QString name = nodeObj.value("name").toString();
