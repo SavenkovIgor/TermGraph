@@ -26,23 +26,23 @@ public:
     QList<QUuid> getAllGroupsUuid();
     QStringList getAllGroupsNames(QString area = "", bool withUid = false);
 
-    QSqlRecord getGroup(int id);
+    QSqlRecord getGroup(int id); //TODO: Удалить, когда все данные будут сохранены
     QSqlRecord getGroup(QUuid uuid);
 
-    int getUid(QString   groupName);
+    int getUid(QString   groupName); //TODO: Удалить, когда все данные будут сохранены
     QUuid getUuid(QString groupName);
-    bool isGroupExistWithUid(QString uid);
-    bool isGroupExistWithLongUid(QString longUid);
-    bool addGroup(QString uuid, QString name, QString comment, int type);
+    bool hasGroupWithName(QString groupName);
+    bool hasGroupWithUuid(QUuid longUid);
+    bool addGroup(QUuid uuid, QString name, QString comment, int type);
     bool addGroup(QString name, QString comment, int type);
 
-    QString getName    ( int groupUid );
+    QString getName    ( int groupUid ); //TODO: Переделать на uuid
     QString getLongUid ( int groupUid );
     int     getType    ( int groupUid );
 
-    void setName(QString uuid, QString name);
-    void setComment(QString uuid, QString comment);
-    void setType(QString uuid, int type);
+    void setName(QUuid uuid, QString name);
+    void setComment(QUuid uuid, QString comment);
+    void setType(QUuid uuid, int type);
 
     void deleteGroup( QString name );
 

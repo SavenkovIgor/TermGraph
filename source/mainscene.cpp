@@ -45,7 +45,10 @@ void MainScene::importGroupFromJson(QJsonDocument json)
         return;
 
     QJsonObject jsonGroup = json.object();
-    QString importGroupUuid = jsonGroup.value("longUID").toString();
+    QUuid groupUuid = QUuid(jsonGroup.value("longUID").toString());
+
+    if(groupUuid.isNull())
+        return;
 
     QString groupName = jsonGroup.value("name").toString();
     QString comment;
@@ -54,13 +57,12 @@ void MainScene::importGroupFromJson(QJsonDocument json)
     QJsonArray nodes = jsonGroup.value("nodesList").toArray();
 
     // Searching for existed group
-    TermGroup* foundGroup = getGroupByUuid(importGroupUuid);
-    if( foundGroup != nullptr ) { //Group found
-        db->groupTbl->setName(importGroupUuid, groupName);
-        db->groupTbl->setComment(importGroupUuid, comment);
-        db->groupTbl->setType(importGroupUuid, type);
+    if( db->groupTbl->hasGroupWithUuid(groupUuid) ) { //Group found
+        db->groupTbl->setName(groupUuid, groupName);
+        db->groupTbl->setComment(groupUuid, comment);
+        db->groupTbl->setType(groupUuid, type);
     } else {
-        db->groupTbl->addGroup(importGroupUuid, groupName, comment, type);
+        db->groupTbl->addGroup(groupUuid, groupName, comment, type);
     }
 
     // Importing nodes
@@ -91,8 +93,7 @@ void MainScene::importGroupFromJson(QJsonDocument json)
             if(examples.simplified() != "")
                 db->nodeTbl->setExamples(nodeUuid, examples);
 
-            if(importGroupUuid.simplified() != "")
-                db->nodeTbl->setGroup(nodeUuid, importGroupUuid);
+            db->nodeTbl->setGroup(nodeUuid, groupUuid);
         }
     }
 
@@ -142,10 +143,10 @@ TermGroup *MainScene::getGroupByName(QString name)
     return nullptr;
 }
 
-TermGroup *MainScene::getGroupByUuid(QString longUid)
+TermGroup *MainScene::getGroupByUuid(QUuid uuid)
 {
     for( TermGroup* g: groupList )
-        if( g->getUid() == longUid )
+        if( g->getUid() == uuid.toString() )
             return g;
 
     return nullptr;
@@ -318,7 +319,7 @@ void MainScene::saveGroupInFolder(TermGroup* g)
 void MainScene::addNewNode(QString name, QString forms, QString def, QString descr, QString exam, QString groupName)
 {
     //TODO: Тоже фигня. Нельзя искать в базе по имени группы!
-    if( !db->groupTbl->isGroupExistWithUid(groupName) ) {
+    if( !db->groupTbl->hasGroupWithName(groupName) ) {
         qDebug()<<"Группа не найдена";
         return;
     }
@@ -336,19 +337,19 @@ void MainScene::changeNode(QString nodeUuid,
         QString groupName)
 {
     //TODO: Тоже фигня. Нельзя искать в базе по имени группы!
-    if( !db->groupTbl->isGroupExistWithUid(groupName) ) {
+    if( !db->groupTbl->hasGroupWithName(groupName) ) {
         qDebug()<<"Группа не найдена";
         return;
     }
 
     QUuid groupUuid = db->groupTbl->getUuid( groupName );
 
-    db->nodeTbl->setName(nodeUuid, name);
-    db->nodeTbl->setWordForms(nodeUuid, forms);
-    db->nodeTbl->setDefinition (nodeUuid, def);
-    db->nodeTbl->setDescription(nodeUuid, descr);
-    db->nodeTbl->setExamples(nodeUuid, exam);
-    db->nodeTbl->setGroup(nodeUuid, groupUuid);
+    db->nodeTbl->setName        (nodeUuid, name);
+    db->nodeTbl->setWordForms   (nodeUuid, forms);
+    db->nodeTbl->setDefinition  (nodeUuid, def);
+    db->nodeTbl->setDescription (nodeUuid, descr);
+    db->nodeTbl->setExamples    (nodeUuid, exam);
+    db->nodeTbl->setGroup       (nodeUuid, groupUuid);
 
     updateModel();
 }

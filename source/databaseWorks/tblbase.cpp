@@ -11,15 +11,15 @@ void TblBase::setField(QString columnName, int uid, QString val)
     updateWhere(set,where);
 }
 
-void TblBase::setField(QString columnName, QString uuid, QString val) //TODO: Use Uuid class!
+void TblBase::setField(QString columnName, QUuid uuid, QString val)
 {
     SetExpression set;
     set.set(columnName, val);
 
     WhereConditions where;
-    where.equal("longUid",uuid);
+    where.equal("longUid", uuid.toString());
 
-    updateWhere(set,where);
+    updateWhere(set, where);
 }
 
 int TblBase::getIntField(QString columnName, int uid)

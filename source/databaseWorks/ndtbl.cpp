@@ -46,58 +46,58 @@ int NdTbl::getRemindNum(int uid)
 
 void NdTbl::setName(QUuid uuid, QString name)
 {
-    setField(this->term, uuid.toString(), name);
+    setField(this->term, uuid, name);
     updateLastEdit(uuid);
 }
 
 void NdTbl::setWordForms(QUuid uuid, QString forms)
 {
-    setField(this->termForms, uuid.toString(), forms);
+    setField(this->termForms, uuid, forms);
     updateLastEdit(uuid);
 }
 
 void NdTbl::setDefinition(QUuid uuid, QString definition)
 {
-    setField(this->definition, uuid.toString(), definition);
+    setField(this->definition, uuid, definition);
     updateLastEdit(uuid);
 }
 
 void NdTbl::setDescription(QUuid uuid, QString description)
 {
-    setField(this->description, uuid.toString(), description);
+    setField(this->description, uuid, description);
     updateLastEdit(uuid);
 }
 
 void NdTbl::setExamples(QUuid uuid, QString example)
 {
-    setField(this->examples, uuid.toString(), example);
+    setField(this->examples, uuid, example);
     updateLastEdit(uuid);
 }
 
 void NdTbl::setWikiRef(QUuid uuid, QString wikiRef)
 {
-    setField(this->wikiRef, uuid.toString(), wikiRef);
+    setField(this->wikiRef, uuid, wikiRef);
     updateLastEdit(uuid);
 }
 
 void NdTbl::setWikiImg(QUuid uuid, QString wikiImage)
 {
-    setField(this->wikiImg, uuid.toString(), wikiImage);
+    setField(this->wikiImg, uuid, wikiImage);
     updateLastEdit(uuid);
 }
 
 void NdTbl::setGroup(QUuid nodeUuid, QUuid groupUuid)
 {
-    setField(this->termGroup, nodeUuid.toString(), groupUuid.toString());
+    setField(this->termGroup, nodeUuid, groupUuid.toString());
     updateLastEdit(nodeUuid);
 }
 
 void NdTbl::setAtLearn(QUuid uuid, bool learn)
 {
     if( learn )
-        setField(this->atLearn, uuid.toString(), "1");
+        setField(this->atLearn, uuid, "1");
     else
-        setField(this->atLearn, uuid.toString(), "0");
+        setField(this->atLearn, uuid, "0");
 }
 
 //void NdTbl::setRemindToday(int uid)
@@ -130,7 +130,7 @@ void NdTbl::normalizeUuid()
 
         QSqlRecord rec = getNode(i);
         if( rec.value( this->longUID ).toString() == "" ) {
-            setField(this->longUID,i,QUuid::createUuid().toString());
+            setField(this->longUID, i, QUuid::createUuid().toString());
             found++;
         }
     }
@@ -143,7 +143,7 @@ void NdTbl::normalizeUuid()
 
 void NdTbl::updateLastEdit(QUuid uuid)
 {
-    setField(this->lastEdit, uuid.toString(), QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+    setField(this->lastEdit, uuid, QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
 }
 
 bool NdTbl::isUuidExist(QString longUuid)

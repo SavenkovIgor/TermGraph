@@ -39,7 +39,7 @@ public:
 
     QList < TermGroup* > groupList;
     TermGroup* getGroupByName(QString name);
-    TermGroup* getGroupByUuid(QString longUid);
+    TermGroup* getGroupByUuid(QUuid uuid);
 
     NodesList getAllNodes();
 

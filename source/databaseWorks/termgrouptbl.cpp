@@ -16,19 +16,19 @@ bool TermGroupTbl::addGroup(QString name, QString comment, int type)
         }
     }
 
-    return addGroup(uuid.toString(), name, comment, type);
+    return addGroup(uuid, name, comment, type);
 }
 
-bool TermGroupTbl::addGroup(QString uuid, QString name, QString comment, int type)
+bool TermGroupTbl::addGroup(QUuid uuid, QString name, QString comment, int type)
 {
-    if(uuid.simplified() == "")
+    if(uuid.isNull())
         return false;
 
     if(name.simplified() == "")
         return false;
 
     QList<InsertContainer> values;
-    values << InsertContainer(this->longUID, uuid);
+    values << InsertContainer(this->longUID, uuid.toString());
     values << InsertContainer(this->name, name);
     values << InsertContainer(this->comment, comment);
     values << InsertContainer(this->type, type);
@@ -94,7 +94,7 @@ void TermGroupTbl::normalizeUuid()
 
         QSqlRecord rec = getGroup(i);
         if( rec.value( this->longUID ).toString() == "" ) {
-            setField(this->longUID,i,QUuid::createUuid().toString());
+            setField(this->longUID, i, QUuid::createUuid().toString());
             found++;
         }
     }
@@ -129,15 +129,15 @@ QUuid TermGroupTbl::getUuid(QString groupName)
     return QUuid(q.record().value(this->longUID).toString());
 }
 
-bool TermGroupTbl::isGroupExistWithUid(QString uid)
+bool TermGroupTbl::hasGroupWithName(QString groupName)
 {
-    return getUid(uid) != -1;
+    return !(getUuid(groupName).isNull());
 }
 
-bool TermGroupTbl::isGroupExistWithLongUid(QString longUid)
+bool TermGroupTbl::hasGroupWithUuid(QUuid longUid)
 {
     WhereConditions where;
-    where.equal(this->longUID, longUid);
+    where.equal(this->longUID, longUid.toString());
 
     QSqlQuery q = select(QStringList()<<this->longUID, where);
 
@@ -162,17 +162,17 @@ int TermGroupTbl::getType(int groupUid)
     return getIntField( this->type, groupUid );
 }
 
-void TermGroupTbl::setName(QString uuid, QString name)
+void TermGroupTbl::setName(QUuid uuid, QString name)
 {
     setField(this->name, uuid, name);
 }
 
-void TermGroupTbl::setComment(QString uuid, QString comment)
+void TermGroupTbl::setComment(QUuid uuid, QString comment)
 {
     setField(this->comment, uuid, comment);
 }
 
-void TermGroupTbl::setType(QString uuid, int type)
+void TermGroupTbl::setType(QUuid uuid, int type)
 {
     setField(this->type, uuid, QString::number(type));
 }
@@ -183,7 +183,7 @@ QStringList TermGroupTbl::getAllGroupsNames(QString area, bool withUid)
 
     QSqlQuery q = select(QStringList() << this->name << this->uid, WhereConditions(), "uid");
 
-    for(int i=0;i<1000000;i++) {
+    for(int i = 0; i < 1000000; i++) {
         if(!q.next())
             break;
 
