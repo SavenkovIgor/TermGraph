@@ -62,13 +62,35 @@ void DBAbstract::checkCols()
 
 void DBAbstract::normalizeNodesGroupUuid()
 {
-    QList<QUuid> groupsUids = groupTbl->getAllGroupsUuid();
-
-    for( int uid : db->groupTbl->getAllGroupsUid() ) {
-        QSqlRecord rec = db->groupTbl->getGroup( uid );
+    QMap<int, QUuid> uidMatching;
+    for( QUuid uuid: groupTbl->getAllGroupsUuid() ) {
+        QSqlRecord rec = groupTbl->getGroup( uuid );
         if(rec.count() == 0)
             continue;
-        addGroupToScene(new TermGroup(rec));
+
+        if(!rec.contains(groupTbl->uid))
+            continue;
+
+        if(!rec.contains(groupTbl->longUID))
+            continue;
+
+        int groupUid = rec.value(groupTbl->uid).toInt();
+        QString groupUuid = rec.value(groupTbl->longUID).toString();
+
+        uidMatching[groupUid] = groupUuid;
+    }
+
+    for( QUuid nodeUuid: nodeTbl->getAllNodesUuids() ) {
+        QSqlRecord rec = nodeTbl->getNode(nodeUuid);
+
+        if(!rec.contains(nodeTbl->uid))
+            continue;
+        bool ok = false;
+        int currentGroup = rec.value(nodeTbl->termGroup).toInt(&ok);
+        if(!ok)
+            continue;
+        if(uidMatching.contains(currentGroup))
+            nodeTbl->setGroup(nodeUuid,uidMatching[currentGroup]);
     }
 }
 
