@@ -11,7 +11,7 @@ void TblBase::setField(QString columnName, int uid, QString val)
     updateWhere(set,where);
 }
 
-void TblBase::setField(QString columnName, QString uuid, QString val)
+void TblBase::setField(QString columnName, QString uuid, QString val) //TODO: Use Uuid class!
 {
     SetExpression set;
     set.set(columnName, val);
