@@ -32,9 +32,9 @@ public:
     int getUid(QString   groupName); //TODO: Удалить, когда все данные будут сохранены
     QUuid getUuid(QString groupName);
     bool hasGroupWithName(QString groupName);
-    bool hasGroupWithUuid(QUuid longUid);
-    bool addGroup(QUuid uuid, QString name, QString comment, int type);
+    bool hasGroupWithUuid(QUuid uuid);
     bool addGroup(QString name, QString comment, int type);
+    bool addGroup(QUuid uuid, QString name, QString comment, int type);
 
     QString getName    ( int groupUid ); //TODO: Переделать на uuid
     QString getLongUid ( int groupUid );
@@ -46,8 +46,10 @@ public:
 
     void deleteGroup( QString name );
 
-    bool isUuidExist(QString longUuid);
+    bool isUuidExist(QUuid uuid);
     void normalizeUuid();
+
+    QUuid generateNewUuid();
 };
 
 #endif // TERMGROUPTBL_H

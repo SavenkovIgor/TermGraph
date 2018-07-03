@@ -127,7 +127,7 @@ public slots:
                     );
 
     void changeNode(
-            QString nodeUuid,
+            QUuid nodeUuid,
             QString name,
             QString forms,
             QString def,

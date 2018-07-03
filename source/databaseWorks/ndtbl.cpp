@@ -1,38 +1,24 @@
 #include "ndtbl.h"
 
-QString NdTbl::addNode(QString name)
+QUuid NdTbl::addNode(QString name)
 {
-    //По UUID!!
-    QUuid uuid;
+    QUuid uuid = generateNewUuid();
+    return addNode(uuid, name);
+}
 
-    for( int i = 0; i < 1000; i++ ) {
-        uuid = QUuid::createUuid();
-        if(!isUuidExist(uuid.toString())){
-            if( i == 0)
-                qDebug()<<"break at 0";
-            break;
-        }
-    }
-
+QUuid NdTbl::addNode(QUuid uuid, QString name)
+{
     if( name.simplified() == "" )
         return ""; //Создать вершину не удалось
 
     QList<InsertContainer> values;
-    values << InsertContainer(this->term,name);
-    values << InsertContainer(this->longUID,uuid.toString());
+    values << InsertContainer(this->term, name);
+    values << InsertContainer(this->longUID, uuid.toString());
 
     insertInto(values);
 
-    WhereConditions where;
-    where.equal(this->term,name);
-    where.equal(this->longUID,uuid.toString());
-    QSqlQuery sel = select(QStringList() << this->uid, where);
-
-    if(!sel.next())
-        return "";
-
     updateLastEdit(uuid);
-    return uuid.toString();
+    return uuid;
 }
 
 int NdTbl::getRemindNum(int uid)
@@ -146,13 +132,25 @@ void NdTbl::updateLastEdit(QUuid uuid)
     setField(this->lastEdit, uuid, QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
 }
 
-bool NdTbl::isUuidExist(QString longUuid)
+bool NdTbl::isUuidExist(QUuid uuid)
 {
     WhereConditions where;
-    where.equal(this->longUID, longUuid);
+    where.equal(this->longUID, uuid.toString());
 
     RecList recs = toRecList(select(QStringList() << this->longUID, where));
     return !recs.isEmpty();
+}
+
+QUuid NdTbl::generateNewUuid()
+{
+    QUuid uuid;
+    for( int i = 0; i < 1000; i++ ) {
+        uuid = QUuid::createUuid();
+        if(!isUuidExist(uuid)){
+            break;
+        }
+    }
+    return uuid;
 }
 
 QList<int> NdTbl::getAllNodesUid()
@@ -246,7 +244,7 @@ QSqlRecord NdTbl::getNode(QUuid uuid)
     return sel.record();
 }
 
-bool NdTbl::isNodeWithUuidExist(QString uuid)
+bool NdTbl::isNodeWithUuidExist(QUuid uuid)
 {
     return isUuidExist(uuid);
 }

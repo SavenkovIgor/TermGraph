@@ -44,11 +44,12 @@ public:
         initColumn( lastEdit,    "TEXT");
     }
 
-    QString addNode( QString name );
+    QUuid addNode( QString name );
+    QUuid addNode(QUuid uuid, QString name);
     QSqlRecord getNode(int id); //TODO: Delete
     QSqlRecord getNode(QUuid uuid); //TODO: Rename to getNodeSqlRecord
 
-    bool isNodeWithUuidExist(QString uuid);
+    bool isNodeWithUuidExist(QUuid uuid);
 
     QList<int>   getAllNodesUid(); //TODO: Delete
     QList<QUuid> getAllNodesUuids();
@@ -76,7 +77,9 @@ public:
     void normalizeUuid();
 private:
     void updateLastEdit(QUuid uuid);
-    bool isUuidExist(QString longUuid);
+    bool isUuidExist(QUuid uuid);
+
+    QUuid generateNewUuid();
 };
 
 #endif // NDTBL_H

@@ -69,7 +69,10 @@ void MainScene::importGroupFromJson(QJsonDocument json)
     for(QJsonValue nodeValue: nodes) {
         QJsonObject nodeObj = nodeValue.toObject();
 
-        QString nodeUuid = nodeObj.value("longUid").toString();
+        QUuid nodeUuid = QUuid(nodeObj.value("longUid").toString());
+
+        if(!nodeUuid.isNull())
+            continue;
 
         QString name = nodeObj.value("name").toString();
         QString forms = nodeObj.value("nameForms").toString();
@@ -79,7 +82,8 @@ void MainScene::importGroupFromJson(QJsonDocument json)
 
         // Create
         if( !db->nodeTbl->isNodeWithUuidExist( nodeUuid ) ) {
-            addNewNode(name,forms,definition,description,examples,groupName);
+            db->nodeTbl->addNode(nodeUuid, name);
+            changeNode(nodeUuid, name, forms, definition, description, examples, groupName);
         } else {
             // Update
             if(name.simplified() != "")
@@ -324,11 +328,12 @@ void MainScene::addNewNode(QString name, QString forms, QString def, QString des
         return;
     }
 
-    QString nodeId = db->nodeTbl->addNode(name);
-    changeNode(nodeId, name, forms, def, descr, exam, groupName);
+    QUuid nodeUuid = db->nodeTbl->addNode(name);
+    changeNode(nodeUuid, name, forms, def, descr, exam, groupName);
 }
 
-void MainScene::changeNode(QString nodeUuid,
+void MainScene::changeNode(
+        QUuid nodeUuid,
         QString name,
         QString forms,
         QString def,
