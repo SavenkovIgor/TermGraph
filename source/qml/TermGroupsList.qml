@@ -63,13 +63,28 @@ Item {
             groupExportedDialog.visible = true
         }
 
-        Behavior on rotation {
-            NumberAnimation {
-                duration: 250
-            }
-        }
-
         Component.onCompleted: loadIcon("qrc:/icons/share-boxed")
+    }
+
+    FileDialog {
+        id: importDialog
+        title: "Пожалуйста выберите файл для импорта"
+
+        onAccepted: {
+            console.log("You chose: " + importDialog.fileUrls)
+            sceneObj.importFile(importDialog.fileUrl)
+        }
+    }
+
+    MyRoundButton {
+        id: importButton
+
+        anchors.right: exportButton.left
+        anchors.bottom: parent.bottom
+
+        onClicked: {
+            importDialog.visible = true
+        }
     }
 
     Connections {

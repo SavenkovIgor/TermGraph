@@ -136,6 +136,8 @@ public slots:
             QString groupName
                     );
 
+    void importFile(QString filename);
+
     QString getGroupString(QString grp);
 
 //    void testSlot() {
