@@ -341,14 +341,14 @@ void MainScene::changeNode(QString nodeUuid,
         return;
     }
 
-    int groupID = db->groupTbl->getUid( groupName );
+    QUuid groupUuid = db->groupTbl->getUuid( groupName );
 
     db->nodeTbl->setName(nodeUuid, name);
     db->nodeTbl->setWordForms(nodeUuid, forms);
     db->nodeTbl->setDefinition (nodeUuid, def);
     db->nodeTbl->setDescription(nodeUuid, descr);
     db->nodeTbl->setExamples(nodeUuid, exam);
-    db->nodeTbl->setGroup(nodeUuid, groupID);
+    db->nodeTbl->setGroup(nodeUuid, groupUuid);
 
     updateModel();
 }

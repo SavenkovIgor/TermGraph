@@ -29,7 +29,8 @@ public:
     QSqlRecord getGroup(int id);
     QSqlRecord getGroup(QUuid uuid);
 
-    int getUid( QString   groupName );
+    int getUid(QString   groupName);
+    QUuid getUuid(QString groupName);
     bool isGroupExistWithUid(QString uid);
     bool isGroupExistWithLongUid(QString longUid);
     bool addGroup(QString uuid, QString name, QString comment, int type);

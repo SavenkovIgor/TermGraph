@@ -117,6 +117,18 @@ int TermGroupTbl::getUid(QString groupName)
     return q.record().value(this->uid).toInt();
 }
 
+QUuid TermGroupTbl::getUuid(QString groupName)
+{
+    WhereConditions where;
+    where.equal(this->name, groupName);
+
+    QSqlQuery q = select(QStringList() << this->longUID, where);
+    if(!q.next())
+        return QUuid();
+
+    return QUuid(q.record().value(this->longUID).toString());
+}
+
 bool TermGroupTbl::isGroupExistWithUid(QString uid)
 {
     return getUid(uid) != -1;
