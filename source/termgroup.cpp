@@ -285,8 +285,8 @@ void TermGroup::checkSwap()
 
             int inter = levLst[j]->getIntersections();
 
-            QPointF pt1 = levLst[j]->getCenter( );
-            QPointF pt2 = levLst[j+1]->getCenter( );
+            QPointF pt1 = levLst[j]->getCenter(CoordType::sceneCoordinates);
+            QPointF pt2 = levLst[j+1]->getCenter(CoordType::sceneCoordinates);
 
             levLst[j]->setSwap(pt2);
             levLst[j+1]->setSwap(pt1);

@@ -57,8 +57,8 @@ TermNode *Edge::getOtherSide(TermNode *n)
 
 QRectF Edge::boundingRect() const
 {
-    QPointF pt1 = toRoot->getCenter(),
-            pt2 = toLeaf->getCenter();
+    QPointF pt1 = toRoot->getCenter(CoordType::sceneCoordinates),
+            pt2 = toLeaf->getCenter(CoordType::sceneCoordinates);
 
     QRectF rc = QRectF(pt1,pt2);
     rc = rc.normalized();
@@ -80,7 +80,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
         baseWidth /= 2;
     }
 
-    QLineF edLine( toRoot->getLocalCenter(), toLeaf->getLocalCenter() );
+    QLineF edLine( toRoot->getCenter(CoordType::localCoordinates), toLeaf->getCenter(CoordType::localCoordinates) );
 
     p.setWidth(baseWidth);
     painter->setPen(p);
@@ -146,8 +146,8 @@ qreal Edge::getYProjection()
 
 QLineF Edge::getLine( bool swap )
 {
-    QPointF pt1 = toRoot->getCenter(),
-            pt2 = toLeaf->getCenter();
+    QPointF pt1 = toRoot->getCenter(CoordType::sceneCoordinates),
+            pt2 = toLeaf->getCenter(CoordType::sceneCoordinates);
 
     if( swap ) {
 

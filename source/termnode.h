@@ -16,9 +16,9 @@ enum NodeType {
 };
 
 enum CoordType {
-    none,
-    local,
-    scene,
+    noneCoordinates,
+    localCoordinates,
+    sceneCoordinates,
 };
 
 class TermNode:  public TermInfo, public QGraphicsItem
@@ -46,11 +46,11 @@ public:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *evt);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *evt);
 
-    QRectF getNodeRect(CoordType inCoordinates);
-    QRectF getFrameRect(CoordType inCoordinates);
+    QRectF getNodeRect(CoordType inCoordinates) const;
+    QRectF getFrameRect(CoordType inCoordinates) const;
 
-    QPointF getCenter();
-    QPointF getLocalCenter();
+    QPointF getCenter(CoordType inCoordinates) const;
+
     QRectF boundingRect() const;
     QRectF getMainRect( bool localPos = false ) const;
     QRectF getRcWithBorders();

@@ -108,14 +108,26 @@ EdgesList TermNode::getEdgesInLayer()
     return ret2;
 }
 
-QPointF TermNode::getCenter()
+QRectF TermNode::getNodeRect(CoordType inCoordinates) const
 {
-    return this->scenePos() + getNodeRect().center();
+    QRectF ret = getNodeRect();
+
+    switch (inCoordinates) {
+    case noneCoordinates: break;
+    case localCoordinates:
+        ret = ret.translated(this->pos());
+        break;
+    case sceneCoordinates:
+        ret = ret.translated(this->scenePos());
+        break;
+    }
+
+    return ret;
 }
 
-QPointF TermNode::getLocalCenter()
+QPointF TermNode::getCenter(CoordType inCoordinates) const
 {
-    return this->pos() + getNodeRect().center();
+    return getNodeRect(inCoordinates).center();
 }
 
 QRectF TermNode::boundingRect() const
@@ -125,12 +137,10 @@ QRectF TermNode::boundingRect() const
 
 QRectF TermNode::getMainRect( bool localPos ) const
 {
-    QRectF ret = getNodeRect();
     if( localPos )
-        ret = ret.translated(this->pos());
+        return getNodeRect(CoordType::localCoordinates);
     else
-        ret = ret.translated(scenePos());
-    return ret;
+        return getNodeRect(CoordType::sceneCoordinates);
 }
 
 QRectF TermNode::getRcWithBorders()
@@ -302,27 +312,6 @@ void TermNode::hoverLeaveEvent(QGraphicsSceneHoverEvent *evt)
     QGraphicsItem::hoverLeaveEvent(evt);
 }
 
-QRectF TermNode::getNodeRect(CoordType inCoordinates)
-{
-    /*
-    QRectF ret = mainRect;
-
-    switch (inCoordinates) {
-    case none:
-        break;
-    case local:
-        break;
-    case scene:
-        break;
-    }
-    if( localPos )
-        ret = ret.translated(this->pos());
-    else
-        ret = ret.translated(scenePos());
-    return ret;
-    */
-}
-
 void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
 {
     QGraphicsItem::mousePressEvent(evt);
@@ -412,7 +401,7 @@ void TermNode::countForces()
         return;
 
     qreal edForce = 0.0;
-    qreal myX = getCenter().y();
+    qreal myX = getCenter(CoordType::sceneCoordinates).y();
 
     qreal tmp = 0.0;
     qreal notMyPos = 0.0;
@@ -428,9 +417,9 @@ void TermNode::countForces()
         tmp = e->getYProjection();
 
         if( e->getRoot() == this )
-            notMyPos = e->getLeaf()->getCenter().y();
+            notMyPos = e->getLeaf()->getCenter(CoordType::sceneCoordinates).y();
         else if( e->getLeaf() == this )
-            notMyPos = e->getRoot()->getCenter().y();
+            notMyPos = e->getRoot()->getCenter(CoordType::sceneCoordinates).y();
         else
             continue;
 
