@@ -317,7 +317,7 @@ void MainScene::saveGroupInFolder(TermGroup* g)
         return;
 
     QString fileName = "Group: " + g->getName() + " " + g->getUid() + ".grp";
-    Glb::saveFile("GroupsJson", fileName, g->getJsonDoc().toJson());
+    Glb::saveFile(StdFolderPaths::groupsJsonPath(), fileName, g->getJsonDoc().toJson());
 }
 
 void MainScene::addNewNode(QString name, QString forms, QString def, QString descr, QString exam, QString groupName)
