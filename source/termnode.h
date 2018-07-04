@@ -8,11 +8,17 @@
 #include "glb.h"
 #include "terminfo.h"
 
-enum NodeType{
+enum NodeType {
     orphan,
     root,
     endLeaf,
     middleLeaf
+};
+
+enum CoordType {
+    none,
+    local,
+    scene,
 };
 
 class TermNode:  public TermInfo, public QGraphicsItem
@@ -40,6 +46,9 @@ public:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *evt);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *evt);
 
+    QRectF getNodeRect(CoordType inCoordinates);
+    QRectF getFrameRect(CoordType inCoordinates);
+
     QPointF getCenter();
     QPointF getLocalCenter();
     QRectF boundingRect() const;
@@ -55,8 +64,6 @@ public:
 
     void mousePressEvent(QGraphicsSceneMouseEvent *evt);
 
-    bool hasConnections();
-    bool hasConnectionsInGroup();
 
     void setLevel(int lev);
     int getUpLevels( int pLevel = -1 );
@@ -76,7 +83,6 @@ public:
 
     bool applyMove();
 
-    EdgesList getConnectedEdges();
 
     QString getDebugString();
 
@@ -97,6 +103,11 @@ signals:
     void stopGroupAnimation();
 
 private:
+    // Info
+    bool hasConnections();
+    bool hasConnectionsInGroup();
+    EdgesList getConnectedEdges();
+
     // Initialize
     void adjustSizeForName();
 
@@ -110,7 +121,8 @@ private:
     bool thisHovered = false;
     bool thisSelected = false;
 
-    QRectF mainRect = QRectF(QPointF(0,0), QSize(40,10));
+    QSizeF nodeSize = QSizeF(40.0,10.0);
+    QRectF getNodeRect() const;
 
     QString testStr;
 

@@ -43,8 +43,8 @@ TermNode::~TermNode()
 void TermNode::adjustSizeForName()
 {
     prepareGeometryChange();
-    mainRect.setWidth( getNameWidth() + 16 );
-    mainRect.setHeight( 4 + getNameHeight() );
+    nodeSize.setWidth( getNameWidth() + 16 );
+    nodeSize.setHeight( getNameHeight() + 4 );
 }
 
 TermNode *TermNode::getNearestLeftNeigh()
@@ -109,22 +109,22 @@ EdgesList TermNode::getEdgesInLayer()
 
 QPointF TermNode::getCenter()
 {
-    return this->scenePos() + mainRect.center();
+    return this->scenePos() + getNodeRect().center();
 }
 
 QPointF TermNode::getLocalCenter()
 {
-    return this->pos() + mainRect.center();
+    return this->pos() + getNodeRect().center();
 }
 
 QRectF TermNode::boundingRect() const
 {
-    return mainRect;
+    return getNodeRect();
 }
 
 QRectF TermNode::getMainRect( bool localPos ) const
 {
-    QRectF ret = mainRect;
+    QRectF ret = getNodeRect();
     if( localPos )
         ret = ret.translated(this->pos());
     else
@@ -135,9 +135,9 @@ QRectF TermNode::getMainRect( bool localPos ) const
 QRectF TermNode::getRcWithBorders()
 {
     //    qreal val = mainRect.width()*0.08;
-    qreal val = qBound(0.0,mainRect.width()*0.1,8.0);
+    qreal val = qBound(0.0, nodeSize.width()*0.1, 8.0);
     QMarginsF mrg(val,val,val,val);
-    QRectF ret = mainRect;
+    QRectF ret = getNodeRect();
     ret = ret.marginsAdded(mrg);
     ret = ret.translated( this->scenePos() );
     return ret;
@@ -145,8 +145,8 @@ QRectF TermNode::getRcWithBorders()
 
 QSizeF TermNode::getSize(bool withBorder)
 {
-    qreal val = qBound(0.0,mainRect.height()*0.2,8.0);
-    QRectF ret = mainRect;
+    qreal val = qBound(0.0, nodeSize.height()*0.2,8.0);
+    QRectF ret = getNodeRect();
     if(withBorder) {
         QMarginsF mrg(val,val,val,val);
         ret = ret.marginsAdded(mrg);
@@ -207,7 +207,7 @@ QColor TermNode::getBaseColor()
 void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     //defaults
-    QRectF rcBase = mainRect;
+    QRectF rcBase = getNodeRect();
     QColor col = getBaseColor();
     int transpVal = 100;
     setZValue(1);
@@ -299,6 +299,27 @@ void TermNode::hoverLeaveEvent(QGraphicsSceneHoverEvent *evt)
         setRelatPaint(false);
 
     QGraphicsItem::hoverLeaveEvent(evt);
+}
+
+QRectF TermNode::getNodeRect(CoordType inCoordinates)
+{
+    /*
+    QRectF ret = mainRect;
+
+    switch (inCoordinates) {
+    case none:
+        break;
+    case local:
+        break;
+    case scene:
+        break;
+    }
+    if( localPos )
+        ret = ret.translated(this->pos());
+    else
+        ret = ret.translated(scenePos());
+    return ret;
+    */
 }
 
 void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
@@ -524,6 +545,11 @@ bool TermNode::isNearPoints(QPointF pt1,QPointF pt2,qreal dist) {
     if( pt1.manhattanLength() <= dist )
         return true;
     return false;
+}
+
+QRectF TermNode::getNodeRect() const
+{
+    return QRectF(QPointF(0.0, 0.0), nodeSize);
 }
 
 bool TermNode::isRoot() {
