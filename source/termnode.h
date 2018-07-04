@@ -8,17 +8,17 @@
 #include "glb.h"
 #include "terminfo.h"
 
-enum NodeType {
+enum class NodeType {
     orphan,
     root,
     endLeaf,
     middleLeaf
 };
 
-enum CoordType {
-    noneCoordinates,
-    localCoordinates,
-    sceneCoordinates,
+enum class CoordType {
+    none,
+    local,
+    scene,
 };
 
 class TermNode:  public TermInfo, public QGraphicsItem
@@ -55,6 +55,7 @@ public:
     QRectF getMainRect( bool localPos = false ) const;
     QRectF getRcWithBorders();
     QSizeF getSize( bool withBorder = true );
+
     QLineF getRectLine( Qt::Edge sd );
 
     NodeType getNodeType();
@@ -122,7 +123,7 @@ private:
     bool thisSelected = false;
 
     QSizeF nodeSize = QSizeF(40.0,10.0);
-    QRectF getNodeRect() const;
+    QRectF getInnerNodeRect() const;
 
     QString testStr;
 

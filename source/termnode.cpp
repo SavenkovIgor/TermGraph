@@ -110,14 +110,14 @@ EdgesList TermNode::getEdgesInLayer()
 
 QRectF TermNode::getNodeRect(CoordType inCoordinates) const
 {
-    QRectF ret = getNodeRect();
+    QRectF ret = getInnerNodeRect();
 
     switch (inCoordinates) {
-    case noneCoordinates: break;
-    case localCoordinates:
+    case CoordType::none: break;
+    case CoordType::local:
         ret = ret.translated(this->pos());
         break;
-    case sceneCoordinates:
+    case CoordType::scene:
         ret = ret.translated(this->scenePos());
         break;
     }
@@ -132,15 +132,15 @@ QPointF TermNode::getCenter(CoordType inCoordinates) const
 
 QRectF TermNode::boundingRect() const
 {
-    return getNodeRect();
+    return getInnerNodeRect();
 }
 
 QRectF TermNode::getMainRect( bool localPos ) const
 {
     if( localPos )
-        return getNodeRect(CoordType::localCoordinates);
+        return getNodeRect(CoordType::local);
     else
-        return getNodeRect(CoordType::sceneCoordinates);
+        return getNodeRect(CoordType::scene);
 }
 
 QRectF TermNode::getRcWithBorders()
@@ -148,7 +148,7 @@ QRectF TermNode::getRcWithBorders()
     //    qreal val = mainRect.width()*0.08;
     qreal val = qBound(0.0, nodeSize.width()*0.1, 8.0);
     QMarginsF mrg(val,val,val,val);
-    QRectF ret = getNodeRect();
+    QRectF ret = getInnerNodeRect();
     ret = ret.marginsAdded(mrg);
     ret = ret.translated( this->scenePos() );
     return ret;
@@ -157,7 +157,7 @@ QRectF TermNode::getRcWithBorders()
 QSizeF TermNode::getSize(bool withBorder)
 {
     qreal val = qBound(0.0, nodeSize.height()*0.2,8.0);
-    QRectF ret = getNodeRect();
+    QRectF ret = getInnerNodeRect();
     if(withBorder) {
         QMarginsF mrg(val,val,val,val);
         ret = ret.marginsAdded(mrg);
@@ -218,7 +218,7 @@ QColor TermNode::getBaseColor()
 void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     //defaults
-    QRectF rcBase = getNodeRect();
+    QRectF rcBase = getInnerNodeRect();
     QColor col = getBaseColor();
     int transpVal = 100;
     setZValue(1);
@@ -401,7 +401,7 @@ void TermNode::countForces()
         return;
 
     qreal edForce = 0.0;
-    qreal myX = getCenter(CoordType::sceneCoordinates).y();
+    qreal myX = getCenter(CoordType::scene).y();
 
     qreal tmp = 0.0;
     qreal notMyPos = 0.0;
@@ -417,9 +417,9 @@ void TermNode::countForces()
         tmp = e->getYProjection();
 
         if( e->getRoot() == this )
-            notMyPos = e->getLeaf()->getCenter(CoordType::sceneCoordinates).y();
+            notMyPos = e->getLeaf()->getCenter(CoordType::scene).y();
         else if( e->getLeaf() == this )
-            notMyPos = e->getRoot()->getCenter(CoordType::sceneCoordinates).y();
+            notMyPos = e->getRoot()->getCenter(CoordType::scene).y();
         else
             continue;
 
@@ -537,7 +537,7 @@ bool TermNode::isNearPoints(QPointF pt1,QPointF pt2,qreal dist) {
     return false;
 }
 
-QRectF TermNode::getNodeRect() const
+QRectF TermNode::getInnerNodeRect() const
 {
     return QRectF(QPointF(0.0, 0.0), nodeSize);
 }
