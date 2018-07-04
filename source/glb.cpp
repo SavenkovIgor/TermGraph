@@ -20,11 +20,6 @@ QColor Colors::transparent = QColor(0,0,0,0);
 
 CloudServicesWrapper*Glb::cloud = nullptr;
 
-Glb::Glb()
-{
-
-}
-
 int Glb::getLevDistance(const QString &src, const QString &dst)
 {
     const int m = src.size();
@@ -82,9 +77,15 @@ void Glb::saveFile(QString subDir, QString fileName, QString data) {
 void Glb::saveFile(QString subDir, QString fileName, QByteArray data)
 {
     QDir groupsDir(qApp->applicationDirPath());
-    groupsDir.mkdir(subDir);
+    groupsDir.mkpath(subDir);
     QFile jsonFile(subDir + "/" + fileName);
-    jsonFile.open(QIODevice::WriteOnly);
-    jsonFile.write(data);
-    jsonFile.close();
+    if(jsonFile.open(QIODevice::WriteOnly)) {
+        jsonFile.write(data);
+        jsonFile.close();
+    }
+}
+
+QString StdFolderPaths::groupsJsonPath()
+{
+    return QDir::home().absolutePath() + "/.TermGraph/GroupsJson";
 }

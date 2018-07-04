@@ -33,8 +33,6 @@ typedef QList< Edge* >      EdgesList;
 class Glb
 {
 public:
-    Glb();
-
     static int getLevDistance(const QString &src, const QString &dst);
 
     static QString ptToStr( int x, int y, QString divider = "x" );
@@ -45,6 +43,11 @@ public:
 
     static void saveFile(QString subDir,QString fileName, QString data);
     static void saveFile(QString subDir,QString fileName, QByteArray data);
+};
+
+class StdFolderPaths {
+public:
+    static QString groupsJsonPath();
 };
 
 class Sizes {
