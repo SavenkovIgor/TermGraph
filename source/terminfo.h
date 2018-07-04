@@ -57,8 +57,7 @@ public:
 
 protected:
     QString getSmallName()  const;
-    qreal getNameWidth()    const;
-    qreal getNameHeight()   const;
+    QSizeF getNameSize()    const;
 
     int   getGroupType()    const;
 

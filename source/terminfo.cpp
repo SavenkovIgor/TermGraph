@@ -75,14 +75,9 @@ QString TermInfo::getSmallName() const
     return smallName;
 }
 
-qreal TermInfo::getNameWidth() const
+QSizeF TermInfo::getNameSize() const
 {
-    return nameSize.width();
-}
-
-qreal TermInfo::getNameHeight() const
-{
-    return nameSize.height();
+    return nameSize;
 }
 
 int TermInfo::getGroupType() const

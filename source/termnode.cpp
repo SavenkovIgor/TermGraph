@@ -43,8 +43,9 @@ TermNode::~TermNode()
 void TermNode::adjustSizeForName()
 {
     prepareGeometryChange();
-    nodeSize.setWidth( getNameWidth() + 16 );
-    nodeSize.setHeight( getNameHeight() + 4 );
+    QSizeF nameSize = getNameSize();
+    nodeSize.setWidth( nameSize.width() + 16 );
+    nodeSize.setHeight( nameSize.height() + 4 );
 }
 
 TermNode *TermNode::getNearestLeftNeigh()
