@@ -23,7 +23,8 @@ HEADERS += \
         source/terminfo.h\
         source/termnode.h\
         source/wordfreqanalyze.h \
-        source/tgroupname.h
+        source/tgroupname.h \
+    source/termgraph.h
 
 SOURCES += \
         source/main.cpp\
@@ -45,7 +46,8 @@ SOURCES += \
         source/mysceneview.cpp\
         source/termgroup.cpp\
         source/termnode.cpp\
-        source/wordfreqanalyze.cpp
+        source/wordfreqanalyze.cpp \
+    source/termgraph.cpp
 
 FORMS += \
         source/ui/reminder.ui\
