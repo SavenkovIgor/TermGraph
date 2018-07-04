@@ -320,6 +320,11 @@ void MainScene::saveGroupInFolder(TermGroup* g)
     Glb::saveFile(StdFolderPaths::groupsJsonPath(), fileName, g->getJsonDoc().toJson());
 }
 
+QString MainScene::getExportPath()
+{
+    return StdFolderPaths::groupsJsonPath();
+}
+
 void MainScene::addNewNode(QString name, QString forms, QString def, QString descr, QString exam, QString groupName)
 {
     //TODO: Тоже фигня. Нельзя искать в базе по имени группы!

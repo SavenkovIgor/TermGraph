@@ -116,6 +116,7 @@ public slots:
     void deleteGroup(QString name);
     void exportGrpToJson(QString grpName);
     void saveGroupInFolder(TermGroup *g);
+    QString getExportPath();
 
     void addNewNode(
             QString name,

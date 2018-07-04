@@ -60,6 +60,7 @@ Item {
 
         onClicked: {
             sceneObj.exportGrpToJson(groupsList.currentItem.text)
+            groupExportedDialog.text = groupExportedDialog.text + "\n" + sceneObj.getExportPath()
             groupExportedDialog.visible = true
         }
 
