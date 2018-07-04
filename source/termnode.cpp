@@ -53,11 +53,11 @@ TermNode *TermNode::getNearestLeftNeigh()
     TermNode* ret = nullptr;
     qreal diff = 100000.0;
 
-    QRectF myRect = getMainRect();
+    QRectF myRect = getNodeRect(CoordType::scene);
     QRectF neighRect;
     for( TermNode *t : neighbourNodes ) {
 
-        neighRect = t->getMainRect();
+        neighRect = t->getNodeRect(CoordType::scene);
 
         if( neighRect.center().x() > myRect.center().x() )
             continue;
@@ -75,11 +75,11 @@ TermNode *TermNode::getNearestRightNeigh()
     TermNode* ret = nullptr;
     qreal diff = 100000.0;
 
-    QRectF myRect = getMainRect();
+    QRectF myRect = getNodeRect(CoordType::scene);
     QRectF neighRect;
     for(TermNode *t:neighbourNodes) {
 
-        neighRect = t->getMainRect();
+        neighRect = t->getNodeRect(CoordType::scene);
 
         if( neighRect.center().x() < myRect.center().x() )
             continue;
@@ -135,14 +135,6 @@ QRectF TermNode::boundingRect() const
     return getInnerNodeRect();
 }
 
-QRectF TermNode::getMainRect( bool localPos ) const
-{
-    if( localPos )
-        return getNodeRect(CoordType::local);
-    else
-        return getNodeRect(CoordType::scene);
-}
-
 QRectF TermNode::getRcWithBorders()
 {
     //    qreal val = mainRect.width()*0.08;
@@ -167,7 +159,7 @@ QSizeF TermNode::getSize(bool withBorder)
 
 QLineF TermNode::getRectLine(Qt::Edge sd)
 {
-    QRectF rc = getMainRect(true);
+    QRectF rc = getNodeRect(CoordType::local);
 
     switch ( sd ) {
     case Qt::TopEdge:

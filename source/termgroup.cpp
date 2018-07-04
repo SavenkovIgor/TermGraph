@@ -209,8 +209,8 @@ void TermGroup::swapNodes(TermNode* n1, TermNode* n2)
 
     currAnimLevel = n1->getPaintLevel();
 
-    QRectF rc1 = n1->getMainRect(true);
-    QRectF rc2 = n2->getMainRect(true);
+    QRectF rc1 = n1->getNodeRect(CoordType::local);
+    QRectF rc2 = n2->getNodeRect(CoordType::local);
 
     QPointF pos1, pos2;
 
@@ -299,7 +299,7 @@ void TermGroup::checkSwap()
             levLst[j]->dropSwap();
             levLst[j+1]->dropSwap();
 
-            if( levLst[j]->getMainRect().intersects( levLst[j+1]->getMainRect() ) )
+            if( levLst[j]->getNodeRect(CoordType::scene).intersects( levLst[j+1]->getNodeRect(CoordType::scene) ) )
                 continue;
 
             if( newIntersect < inter ) {
@@ -622,7 +622,7 @@ void TermGroup::setTreeCoords()
         x += layerWidth/2; //Сначала добавляем первую половину максимума
 
         for( TermNode *n : tList ) {
-            n->setPos( x - n->getMainRect().width()/2, -y );
+            n->setPos( x - n->getNodeRect(CoordType::scene).width()/2, -y );
             y -= n->getSize().height();
         }
 
@@ -698,7 +698,7 @@ QSizeF TermGroup::getOrphansSize()
 {
     QRectF orphansRc;
     for(TermNode* nd: getOrphanNodes()) {
-        orphansRc = orphansRc.united(nd->getMainRect());
+        orphansRc = orphansRc.united(nd->getNodeRect(CoordType::scene));
     }
     return orphansRc.size();
 }

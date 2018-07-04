@@ -18,7 +18,7 @@ enum class NodeType {
 enum class CoordType {
     none,
     local,
-    scene,
+    scene
 };
 
 class TermNode:  public TermInfo, public QGraphicsItem
@@ -52,7 +52,6 @@ public:
     QPointF getCenter(CoordType inCoordinates) const;
 
     QRectF boundingRect() const;
-    QRectF getMainRect( bool localPos = false ) const;
     QRectF getRcWithBorders();
     QSizeF getSize( bool withBorder = true );
 

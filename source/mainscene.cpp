@@ -418,7 +418,7 @@ TermNode *MainScene::getNodeByUid( int uid )
 NodesList MainScene::getAllTermsAtPoint(int x, int y) {
     NodesList ret;
     for( TermNode *n: getAllNodes() ) {
-        if( n->getMainRect().contains( x,y ) ) {
+        if( n->getNodeRect(CoordType::scene).contains( x,y ) ) {
             ret << n;
         }
     }
