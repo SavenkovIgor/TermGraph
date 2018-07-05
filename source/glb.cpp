@@ -18,6 +18,8 @@ QColor Colors::groupBackTerms = QColor(211,222,237,60);
 
 QColor Colors::transparent = QColor(0,0,0,0);
 
+quint16 NetworkSettings::listenPort = 46377;
+
 CloudServicesWrapper*Glb::cloud = nullptr;
 
 int Glb::getLevDistance(const QString &src, const QString &dst)

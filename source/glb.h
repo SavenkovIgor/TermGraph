@@ -74,6 +74,11 @@ public:
     static QColor transparent;
 };
 
+class NetworkSettings {
+public:
+    static quint16 listenPort;
+};
+
 #include "termnode.h"
 #include "edge.h"
 #include "databaseWorks/dbabstract.h"
