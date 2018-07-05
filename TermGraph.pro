@@ -1,4 +1,4 @@
-QT       += core gui sql quickwidgets quickcontrols2 #charts
+QT       += core gui sql quickwidgets quickcontrols2 network #charts
 
 TARGET = TermGraph
 TEMPLATE = app
@@ -24,7 +24,8 @@ HEADERS += \
         source/termnode.h\
         source/wordfreqanalyze.h \
         source/tgroupname.h \
-    source/termgraph.h
+    source/termgraph.h \
+    source/Helpers/networkmanager.h
 
 SOURCES += \
         source/main.cpp\
@@ -47,7 +48,8 @@ SOURCES += \
         source/termgroup.cpp\
         source/termnode.cpp\
         source/wordfreqanalyze.cpp \
-    source/termgraph.cpp
+    source/termgraph.cpp \
+    source/Helpers/networkmanager.cpp
 
 FORMS += \
         source/ui/reminder.ui\
