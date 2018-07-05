@@ -50,6 +50,34 @@ Item {
         onClicked:  { fileDialog.open() }
     }
 
+    MyTextField {
+        id: receiverIp
+
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: srchBtn.bottom
+        }
+
+        labelText: "Ip получателя"
+        text: "192.168.1.1"
+    }
+
+    Button{
+        id: sendExportBtn
+        anchors {
+            left:   parent.left
+            right:  parent.right
+            top:    receiverIp.bottom
+            bottom: parent.bottom
+        }
+
+        text: "Отправить"
+
+        onClicked:  { sceneObj.sendAllGroupsByNetwork(receiverIp.text) }
+    }
+
+    /*
     Button{
         anchors {
             left: parent.left
@@ -62,4 +90,5 @@ Item {
         onClicked: sceneObj.createTestGroups()
 
     }
+    */
 }
