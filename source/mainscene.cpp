@@ -384,6 +384,11 @@ QString MainScene::getGroupString(QString grp)
     return "";
 }
 
+void MainScene::sendAllGroupsByNetwork(QString ip)
+{
+    qDebug()<<"ip"<<ip;
+}
+
 void MainScene::showGroup(int num)
 {
     QStringList lst = db->groupTbl->getAllGroupsNames();

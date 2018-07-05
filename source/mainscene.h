@@ -150,6 +150,8 @@ public slots:
         return TermGroup::getTypesNames();
     }
 
+    void sendAllGroupsByNetwork(QString ip);
+
 private:
     QPointF lastPressPt;
     bool groupInFocus = false;
