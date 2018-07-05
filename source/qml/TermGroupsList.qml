@@ -60,7 +60,8 @@ Item {
 
         onClicked: {
             sceneObj.exportGrpToJson(groupsList.currentItem.text)
-            groupExportedDialog.text = groupExportedDialog.text + "\n" + sceneObj.getExportPath()
+            var path = "Группа экспортирована в папку GroupsJson\n. Путь к папке:" + sceneObj.getExportPath()
+            groupExportedDialog.text = path
             groupExportedDialog.visible = true
         }
 

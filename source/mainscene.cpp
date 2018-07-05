@@ -316,7 +316,7 @@ void MainScene::saveGroupInFolder(TermGroup* g)
     if (g == nullptr)
         return;
 
-    QString fileName = "Group: " + g->getName() + " " + g->getUid() + ".grp";
+    QString fileName = g->getName() + " " + g->getUid() + ".grp";
     Glb::saveFile(StdFolderPaths::groupsJsonPath(), fileName, g->getJsonDoc().toJson());
 }
 
