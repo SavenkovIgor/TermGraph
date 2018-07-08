@@ -3,12 +3,33 @@
 NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 {
     server = new QTcpServer();
-    connect(server,SIGNAL(newConnection()),SLOT(newConnection()));
+    inputSocket = nullptr;
+    outputSocket = nullptr;
+
+    startListen();
+    connect(server, SIGNAL(newConnection()), SLOT(newConnection()));
+}
+
+bool NetworkManager::connectAndSendGroup(QString hostIp, QJsonDocument doc)
+{
+    QHostAddress hAddress(hostIp);
+    if(hAddress.isNull())
+        return false;
+
+    jsonSendBuffer = doc;
+
+    if(outputSocket != nullptr) {
+        delete outputSocket;
+    }
+
+    outputSocket = new QTcpSocket();
+    connect(outputSocket, SIGNAL(connected()), SLOT(sendGroup()));
+    outputSocket->connectToHost(hAddress, NetworkSettings::listenPort, QIODevice::WriteOnly);
 }
 
 bool NetworkManager::startListen()
 {
-    return server->listen(QHostAddress::AnyIPv4, NetworkSettings::listenPort);
+    return server->listen(QHostAddress::Any, NetworkSettings::listenPort);
 }
 
 void NetworkManager::newConnection()
@@ -24,5 +45,17 @@ void NetworkManager::newConnection()
 
 void NetworkManager::newInputData()
 {
+    QString jsonString(inputSocket->readAll());
+    newSyncGroup(jsonString);
+}
 
+void NetworkManager::sendGroup()
+{
+    if(outputSocket == nullptr) {
+        return;
+    }
+
+    outputSocket->write(jsonSendBuffer.toJson());
+    outputSocket->flush();
+    groupSended();
 }
