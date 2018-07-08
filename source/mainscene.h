@@ -8,6 +8,7 @@
 #include <QGraphicsView>
 
 #include "glb.h"
+#include "Helpers/networkmanager.h"
 #include "termgroup.h"
 #include "mainwindow.h"
 
@@ -15,7 +16,6 @@ class MainScene : public QGraphicsScene
 {
     Q_OBJECT
 
-    void importGroupFromJson(QJsonDocument json);
     TermGroup* createGroupFromJson(QJsonDocument json);
     bool isValidGroupJson(QJsonDocument json);
 
@@ -150,16 +150,23 @@ public slots:
         return TermGroup::getTypesNames();
     }
 
-    void sendAllGroupsByNetwork(QString ip);
+    void sendGroupByNetwork(QString groupName);
+    void setReceiverHost(QString ip);
 
 private:
     QPointF lastPressPt;
     bool groupInFocus = false;
 
+    QString receiverIp = "127.0.0.1";
 public slots:
     void stayGroupInFocus( bool val ) { groupInFocus = val; }
-
     void createTestGroups();
+
+private slots:
+    void importGroupFromJson(QString rawJson);
+    void importGroupFromJson(QJsonDocument json);
+private:
+    NetworkManager* network;
 };
 
 #endif // MAINSCENE_H

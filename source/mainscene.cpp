@@ -14,6 +14,9 @@ MainScene::MainScene() : QGraphicsScene()
 //    viewGrpTimer.setSingleShot(false);
 //    connect(&viewGrpTimer,SIGNAL(timeout()),SLOT(showGroup()));
 
+    network = new NetworkManager();
+    connect(network,SIGNAL(newSyncGroup(QString)),SLOT(importGroupFromJson(QString)));
+
     setItemIndexMethod(NoIndex);
     updateModel();
 }
@@ -37,6 +40,14 @@ void MainScene::addGroupToScene(TermGroup *group)
     addItem(group->baseRect);
     connect(&sceneRhytm,SIGNAL(timeout()),group,SLOT(sceneUpdateSignal()));
     groupList << group;
+}
+
+void MainScene::importGroupFromJson(QString rawJson)
+{
+    QByteArray byteArr;
+    byteArr.append(rawJson);
+    QJsonDocument doc = QJsonDocument::fromJson(byteArr);
+    importGroupFromJson(doc);
 }
 
 void MainScene::importGroupFromJson(QJsonDocument json)
@@ -384,9 +395,18 @@ QString MainScene::getGroupString(QString grp)
     return "";
 }
 
-void MainScene::sendAllGroupsByNetwork(QString ip)
+void MainScene::sendGroupByNetwork(QString groupName)
 {
-    qDebug()<<"ip"<<ip;
+    TermGroup* g = getGroupByName(groupName);
+    if ( g == nullptr )
+        return;
+
+    network->connectAndSendGroup(receiverIp, g->getJsonDoc());
+}
+
+void MainScene::setReceiverHost(QString ip)
+{
+    receiverIp = ip;
 }
 
 void MainScene::showGroup(int num)
