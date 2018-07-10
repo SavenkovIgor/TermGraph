@@ -105,7 +105,7 @@ QString SqlQueryConstructor::deleteWhereQuery(WhereConditions where)
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::deleteByUidQuery(QString primaryKeyName, int id)
+QString SqlQueryConstructor::deleteByUuidQuery(QUuid uuid, QString primaryKeyName)
 {
     QStringList qry;
     qry << "DELETE";
@@ -114,7 +114,7 @@ QString SqlQueryConstructor::deleteByUidQuery(QString primaryKeyName, int id)
     qry << "WHERE";
     qry << primaryKeyName;
     qry << "=";
-    qry << CommonQueryFunctions::vv(QString::number(id));
+    qry << CommonQueryFunctions::vv(uuid.toString());
 
     return qry.join(" ");
 }

@@ -119,7 +119,7 @@ public:
     QString updateQuery(SetExpression set, WhereConditions where);
 
     QString deleteWhereQuery(WhereConditions where);
-    QString deleteByUidQuery(QString primaryKeyName, int id);
+    QString deleteByUuidQuery(QUuid uuid, QString primaryKeyName = "longUID");
 
     static QStringList vv(QStringList lst);
 };

@@ -103,9 +103,9 @@ void NdTbl::setRemindNum(int uid, int num, QDate date)
     updateWhere(set,where);
 }
 
-void NdTbl::deleteNode(int id)
+void NdTbl::deleteNode(QUuid uuid)
 {
-    deleteRecord(id);
+    deleteRecord(uuid);
 }
 
 void NdTbl::normalizeUuid()

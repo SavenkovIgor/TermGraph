@@ -32,7 +32,7 @@ protected:
 
     void updateWhere(SetExpression set, WhereConditions where);
 
-    void deleteRecord(int id);
+    void deleteRecord(QUuid uuid);
     void deleteWhere(WhereConditions where);
 
     RecList toRecList(QSqlQuery q);

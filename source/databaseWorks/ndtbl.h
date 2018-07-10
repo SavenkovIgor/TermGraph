@@ -70,7 +70,7 @@ public:
     void setRemindNum(int uid, int num, QDate date );
 //    void setRemindToday(int uid);
 
-    void deleteNode(int id);
+    void deleteNode(QUuid uuid);
 
     // normalization
 

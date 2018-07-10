@@ -143,9 +143,9 @@ void TblBase::updateWhere(SetExpression set, WhereConditions where)
     executeUpdate(set, where);
 }
 
-void TblBase::deleteRecord(int id)
+void TblBase::deleteRecord(QUuid uuid)
 {
-    QString query = queryConstructor->deleteByUidQuery("uid",id);
+    QString query = queryConstructor->deleteByUuidQuery(uuid);
     startQuery(query);
 }
 
