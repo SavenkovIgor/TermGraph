@@ -91,12 +91,6 @@ public:
     bool isLeaf();
 
     bool isInTree();
-//    QString getSmallName() {
-//        if( isRoot() )
-//            return TermInfo::getName() + "true";
-//        else
-//            return TermInfo::getName() + "false";
-//    }
 
 signals:
     void startGroupAnimation();

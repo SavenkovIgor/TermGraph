@@ -29,8 +29,6 @@ public:
     int     getUid(); //TODO: Delete
     int getGroupID(); //TODO: Delete
 
-    bool isRoot(); //TODO: Delete
-
     QUuid getUuid() const;
     QString getName() const;
     QString getNameFormStr() const;
@@ -74,9 +72,6 @@ private:
     int groupType = -1;
 
     QUuid uuid;
-
-    bool root = false;
-
     QString name;
     QString smallName; //То же самое название но ужатое до 2х строчек"
     QSizeF  nameSize;

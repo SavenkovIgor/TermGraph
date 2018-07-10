@@ -14,7 +14,6 @@ TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
 
     name        = rec.value( db->nodeTbl->term ).toString();
     nameForms   = rec.value( db->nodeTbl->termForms ).toString();
-    root        = false;
     definition  = rec.value( db->nodeTbl->definition ).toString();
     description = rec.value( db->nodeTbl->description ).toString();
 
@@ -47,17 +46,6 @@ QUuid TermInfo::getUuid() const
 int TermInfo::getGroupID()
 {
     return groupID;
-}
-
-bool TermInfo::isRoot()
-{
-//    if( groupType == 0 ) {
-//        return getTags().isEmpty(); //If has tags - it is not a root
-
-//    }
-//    qDebug()<<"rootCheck";
-    return root;
-//    return false;
 }
 
 QString TermInfo::getName() const
