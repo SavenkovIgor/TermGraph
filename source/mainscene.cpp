@@ -288,8 +288,8 @@ void MainScene::dropSelectedNode()
     if( nd == nullptr )
         return;
 
-    db->edgeTbl->deleteAllEdgesFor(nd->getUid(),-1);
-    db->edgeTbl->deleteAllEdgesFor(-1,nd->getUid());
+//    db->edgeTbl->deleteAllEdgesFor(nd->getUid(),-1);
+//    db->edgeTbl->deleteAllEdgesFor(-1,nd->getUid());
     db->nodeTbl->deleteNode( nd->getUid() );
     updateModel();
 }
@@ -507,10 +507,9 @@ void MainScene::dropEdgesOnSelected()
     if( nd == nullptr )
         return;
 
-    db->edgeTbl->deleteAllEdgesFor(nd->getUid(),-1);
-    db->edgeTbl->deleteAllEdgesFor(-1,nd->getUid());
+//    db->edgeTbl->deleteAllEdgesFor(nd->getUid(),-1);
+//    db->edgeTbl->deleteAllEdgesFor(-1,nd->getUid());
     updateModel();
-
 }
 
 void MainScene::checkSelection()

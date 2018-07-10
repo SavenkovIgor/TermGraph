@@ -1,5 +1,5 @@
 #include "edgtbl.h"
-
+/*
 
 QList<QPair<int, int> > EdgTbl::getAllEdges()
 {
@@ -101,3 +101,4 @@ void EdgTbl::deleteEdge (int uid)
     where.equal(this->uid,uid);
     deleteWhere(where);
 }
+*/

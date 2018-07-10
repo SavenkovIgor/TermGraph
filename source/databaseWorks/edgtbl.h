@@ -2,7 +2,7 @@
 #define EDGTBL_H
 
 #include "tblbase.h"
-
+/*
 class EdgTbl: public TblBase
 {
 public:
@@ -29,5 +29,5 @@ public:
     void deleteAllEdgesFor (int fromID = -1,int toID = -1);
     void deleteEdge ( int uid );
 };
-
+*/
 #endif // EDGTBL_H
