@@ -431,14 +431,7 @@ TermNode *MainScene::getSelected()
     return ret;
 }
 
-TermNode *MainScene::getNodeByUid( int uid )
-{
-    for( TermNode *n : getAllNodes() )
-        if( n->getUid() == uid )
-            return n;
 
-    return nullptr;
-}
 
 NodesList MainScene::getAllTermsAtPoint(int x, int y) {
     NodesList ret;

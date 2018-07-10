@@ -50,7 +50,6 @@ public:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *evt);
 
     TermNode* getSelected();
-    TermNode* getNodeByUid(int uid);
     NodesList getAllTermsAtPoint  ( int x, int y );
 
     void setAnimSpeed(int val);
