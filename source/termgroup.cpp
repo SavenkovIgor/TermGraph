@@ -149,7 +149,7 @@ void TermGroup::loadNodes()
     QList<QUuid> uuidLst = db->nodeTbl->getAllNodesUuidsInGroup( grUuid );
 
     for( QUuid uuid: uuidLst ) {
-        QSqlRecord rec = db->nodeTbl->getNode( uuid );
+        QSqlRecord rec = db->nodeTbl->getNodeSqlRecord( uuid );
 
         if(rec.count() == 0)
             continue;

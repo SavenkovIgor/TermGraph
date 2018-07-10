@@ -46,7 +46,7 @@ public:
 
     QUuid addNode( QString name );
     QUuid addNode(QUuid uuid, QString name);
-    QSqlRecord getNode(QUuid uuid); //TODO: Rename to getNodeSqlRecord
+    QSqlRecord getNodeSqlRecord(QUuid uuid);
 
     bool isNodeWithUuidExist(QUuid uuid);
 

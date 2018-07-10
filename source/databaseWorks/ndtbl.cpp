@@ -23,7 +23,7 @@ QUuid NdTbl::addNode(QUuid uuid, QString name)
 
 int NdTbl::getRemindNum(QUuid uuid)
 {
-    QSqlRecord rec = getNode(uuid);
+    QSqlRecord rec = getNodeSqlRecord(uuid);
 
     if( rec.isEmpty() )
         return -1;
@@ -188,7 +188,7 @@ QList<QUuid> NdTbl::getAllNodesUuidsInGroup(QUuid groupUuid)
     return ret;
 }
 
-QSqlRecord NdTbl::getNode(QUuid uuid)
+QSqlRecord NdTbl::getNodeSqlRecord(QUuid uuid)
 {
     WhereConditions where;
     where.equal(longUID, uuid.toString());

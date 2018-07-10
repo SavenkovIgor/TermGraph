@@ -81,7 +81,7 @@ void DBAbstract::normalizeNodesGroupUuid()
     }
 
     for( QUuid nodeUuid: nodeTbl->getAllNodesUuids() ) {
-        QSqlRecord rec = nodeTbl->getNode(nodeUuid);
+        QSqlRecord rec = nodeTbl->getNodeSqlRecord(nodeUuid);
 
         if(!rec.contains(nodeTbl->uid))
             continue;
