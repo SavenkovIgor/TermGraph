@@ -143,7 +143,7 @@ QJsonObject TermInfo::toJson()
 {
     QJsonObject ret;
 //    ret.insert("uid",         QJsonValue(uid));
-    ret.insert("longUid",     QJsonValue(getUuid().toString()));
+    ret.insert("longUID",     QJsonValue(getUuid().toString()));
     ret.insert("name",        QJsonValue(name));
     ret.insert("nameForms",   QJsonValue(nameForms));
     ret.insert("definition",  QJsonValue(definition));
@@ -208,7 +208,7 @@ void TermInfo::swithcAtLearnVar()
 bool TermInfo::fromJson(QJsonObject obj) {
     QStringList checkKeys;
     checkKeys<<"uid";
-    checkKeys<<"longUid";
+    checkKeys<<"longUID";
     checkKeys<<"name";
     checkKeys<<"nameForms";
     checkKeys<<"definition";
@@ -225,7 +225,7 @@ bool TermInfo::fromJson(QJsonObject obj) {
     }
 
     this->uid         = obj["uid"].toInt();
-    this->uuid     = QUuid(obj["longUid"].toString());
+    this->uuid     = QUuid(obj["longUID"].toString());
     this->name        = obj["name"].toString();
     this->nameForms   = obj["nameForms"].toString();
     this->definition  = obj["definition"].toString();

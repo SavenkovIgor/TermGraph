@@ -17,7 +17,7 @@ void TblBase::setField(QString columnName, QUuid uuid, QString val)
     set.set(columnName, val);
 
     WhereConditions where;
-    where.equal("longUid", uuid.toString());
+    where.equal("longUID", uuid.toString());
 
     updateWhere(set, where);
 }
