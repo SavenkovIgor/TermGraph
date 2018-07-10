@@ -134,17 +134,6 @@ QUuid NdTbl::generateNewUuid()
     return uuid;
 }
 
-QList<int> NdTbl::getAllNodesUid()
-{
-    QList<int> ret;
-
-    RecList idS = toRecList(select(QStringList() << this->uid));
-    for( QSqlRecord &r : idS )
-        ret << r.value( this->uid ).toInt();
-
-    return ret;
-}
-
 QList<QUuid> NdTbl::getAllNodesUuids()
 {
     QList<QUuid> ret;
@@ -197,19 +186,6 @@ QList<QUuid> NdTbl::getAllNodesUuidsInGroup(QUuid groupUuid)
     }
 
     return ret;
-}
-
-QSqlRecord NdTbl::getNode(int id)
-{
-    WhereConditions where;
-    where.equal(uid,id);
-
-    QSqlQuery sel = select(getAllCols(), where);
-
-    if(!sel.next())
-        return QSqlRecord();
-
-    return sel.record();
 }
 
 QSqlRecord NdTbl::getNode(QUuid uuid)

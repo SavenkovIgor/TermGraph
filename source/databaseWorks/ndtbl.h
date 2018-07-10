@@ -46,12 +46,10 @@ public:
 
     QUuid addNode( QString name );
     QUuid addNode(QUuid uuid, QString name);
-    QSqlRecord getNode(int id); //TODO: Delete
     QSqlRecord getNode(QUuid uuid); //TODO: Rename to getNodeSqlRecord
 
     bool isNodeWithUuidExist(QUuid uuid);
 
-    QList<int>   getAllNodesUid(); //TODO: Delete
     QList<QUuid> getAllNodesUuids();
     QList<int>   getGroupNodeID(int groupID);
     QList<QUuid> getAllNodesUuidsInGroup(QUuid groupUuid);
