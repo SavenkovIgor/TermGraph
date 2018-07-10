@@ -71,7 +71,7 @@ private:
     int groupID = -1;
     int groupType = -1;
 
-    QString longUid;
+    QString longUid; //TODO: QUuid!
 
     bool root = false;
 

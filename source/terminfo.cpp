@@ -304,7 +304,7 @@ QStringList TermInfo::getTags() const
     QString error;
     auto tags = TagProcessor::extractTags(definition, error);
     if( !error.isEmpty() ) {
-        qDebug() << uid << error;
+        qDebug() << getLongUid(true) << error;
     }
     return tags;
 }
