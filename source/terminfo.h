@@ -26,7 +26,6 @@ public:
 
 //    bool isNull(); //TODO: Realize!
 
-    int     getUid(); //TODO: Delete
     int getGroupID(); //TODO: Delete
 
     QUuid getUuid() const;
@@ -67,7 +66,6 @@ private:
 
     void nameCompressing();
 
-    int uid = -1;
     int groupID = -1;
     int groupType = -1;
 

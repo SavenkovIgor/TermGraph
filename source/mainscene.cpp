@@ -548,8 +548,8 @@ QString MainScene::getCurrNodeDebugInfo()
         return "";
 
     QStringList ret;
-    ret<<"Uid:"<<QString::number( nd->getUid() );
-    ret<<nd->getDebugString();
+    ret << "Uuid:" << nd->getUuid().toString();
+    ret << nd->getDebugString();
 //    for( EdgesList *e : nd->ed)
 
     return ret.join(" ");

@@ -6,7 +6,6 @@ qreal TermInfo::baseBlockWidth = 40.0;
 TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
     QObject(parent)
 {
-    uid     = rec.value(db->nodeTbl->uid).toInt();
     uuid = QUuid(rec.value(db->nodeTbl->longUID).toString());
     groupID = rec.value(db->nodeTbl->termGroup).toInt();
 
@@ -31,11 +30,6 @@ TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
 TermInfo::TermInfo(QJsonObject jsonObject, QObject *parent)
 {
 
-}
-
-int TermInfo::getUid()
-{
-    return uid;
 }
 
 QUuid TermInfo::getUuid() const
@@ -191,7 +185,7 @@ void TermInfo::setRemind(KnowLevel lvl)
     }
 
     lastRepeatDate = QDate::currentDate();
-    db->nodeTbl->setRemindNum(getUid(),repNum,QDate::currentDate());
+    db->nodeTbl->setRemindNum(getUuid(), repNum, QDate::currentDate());
 }
 
 int TermInfo::getRepNum() const
@@ -224,7 +218,6 @@ bool TermInfo::fromJson(QJsonObject obj) {
         }
     }
 
-    this->uid         = obj["uid"].toInt();
     this->uuid     = QUuid(obj["longUID"].toString());
     this->name        = obj["name"].toString();
     this->nameForms   = obj["nameForms"].toString();

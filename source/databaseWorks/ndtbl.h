@@ -66,8 +66,8 @@ public:
     void setAtLearn     (QUuid uuid, bool learn);
     void setGroup       (QUuid nodeUuid, QUuid groupUuid);
 
-    int  getRemindNum(int uid);
-    void setRemindNum(int uid, int num, QDate date );
+    int  getRemindNum(QUuid uuid);
+    void setRemindNum(QUuid uuid, int num, QDate date);
 //    void setRemindToday(int uid);
 
     void deleteNode(QUuid uuid);

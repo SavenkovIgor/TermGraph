@@ -21,9 +21,9 @@ QUuid NdTbl::addNode(QUuid uuid, QString name)
     return uuid;
 }
 
-int NdTbl::getRemindNum(int uid)
+int NdTbl::getRemindNum(QUuid uuid)
 {
-    QSqlRecord rec = getNode(uid);
+    QSqlRecord rec = getNode(uuid);
 
     if( rec.isEmpty() )
         return -1;
@@ -91,14 +91,14 @@ void NdTbl::setAtLearn(QUuid uuid, bool learn)
 //    setRemindNum(uid, getRemindNum(uid) + 1, QDateTime::currentDateTime() );
 //}
 
-void NdTbl::setRemindNum(int uid, int num, QDate date)
+void NdTbl::setRemindNum(QUuid uuid, int num, QDate date)
 {
     SetExpression set;
     set.set(this->remindNum, num);
     set.set(this->lastRemind, date.toString());
 
     WhereConditions where;
-    where.equal(this->uid,uid);
+    where.equal(this->longUID, uuid.toString());
 
     updateWhere(set,where);
 }

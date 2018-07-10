@@ -611,7 +611,7 @@ QString TermNode::getDebugString() {
     QList<QGraphicsItem*> childs = childItems();
     for( int i = 0; i < childs.size(); i++ ) {
         TermNode *n = (TermNode*)childs[i];
-        tmp += " " + QString::number( n->getUid() );
+        tmp += " " + n->getUuid().toString();
     }
     p << Glb::ptToStr( scenePos() );
 
