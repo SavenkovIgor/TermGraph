@@ -108,25 +108,6 @@ void NdTbl::deleteNode(QUuid uuid)
     deleteRecord(uuid);
 }
 
-void NdTbl::normalizeUuid()
-{
-    QList<int> ndLst = getAllNodesUid();
-    int found = 0;
-    for( int &i : ndLst ) {
-
-        QSqlRecord rec = getNode(i);
-        if( rec.value( this->longUID ).toString() == "" ) {
-            setField(this->longUID, i, QUuid::createUuid().toString());
-            found++;
-        }
-    }
-    if( found > 0 ){
-        qDebug()<<"Found " + QString::number( found ) + " nodes for Uuid normalization";
-    } else {
-        qDebug()<<"Nothing to normalize";
-    }
-}
-
 void NdTbl::updateLastEdit(QUuid uuid)
 {
     setField(this->lastEdit, uuid, QDateTime::currentDateTimeUtc().toString(Qt::ISODate));

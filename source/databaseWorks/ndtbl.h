@@ -72,9 +72,6 @@ public:
 
     void deleteNode(QUuid uuid);
 
-    // normalization
-
-    void normalizeUuid();
 private:
     void updateLastEdit(QUuid uuid);
     bool isUuidExist(QUuid uuid);
