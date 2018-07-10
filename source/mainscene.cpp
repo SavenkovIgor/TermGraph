@@ -568,7 +568,7 @@ QString MainScene::getCurrNodeLongUid()
     if( nd == nullptr )
         return "";
 
-    return nd->getLongUid();
+    return nd->getUuid().toString();
 }
 
 QString MainScene::getCurrNodeName()

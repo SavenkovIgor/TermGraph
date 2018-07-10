@@ -7,7 +7,7 @@ TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
     QObject(parent)
 {
     uid     = rec.value(db->nodeTbl->uid).toInt();
-    longUid = rec.value(db->nodeTbl->longUID).toString();
+    uuid = QUuid(rec.value(db->nodeTbl->longUID).toString());
     groupID = rec.value(db->nodeTbl->termGroup).toInt();
 
     groupType = db->groupTbl->getType( groupID );
@@ -39,14 +39,9 @@ int TermInfo::getUid()
     return uid;
 }
 
-QString TermInfo::getLongUid(bool withPrefix)
+QUuid TermInfo::getUuid() const
 {
-    if( longUid.isEmpty() )
-        return "";
-
-    if( withPrefix )
-        return "Uuid " + longUid;
-    return longUid;
+    return uuid;
 }
 
 int TermInfo::getGroupID()
@@ -160,7 +155,7 @@ QJsonObject TermInfo::toJson()
 {
     QJsonObject ret;
 //    ret.insert("uid",         QJsonValue(uid));
-    ret.insert("longUid",     QJsonValue(longUid));
+    ret.insert("longUid",     QJsonValue(getUuid().toString()));
     ret.insert("name",        QJsonValue(name));
     ret.insert("nameForms",   QJsonValue(nameForms));
     ret.insert("definition",  QJsonValue(definition));
@@ -219,7 +214,7 @@ int TermInfo::getRepNum() const
 void TermInfo::swithcAtLearnVar()
 {
     atLearn = !atLearn;
-    db->nodeTbl->setAtLearn(getLongUid(),atLearn);
+    db->nodeTbl->setAtLearn(getUuid().toString(),atLearn);
 }
 
 bool TermInfo::fromJson(QJsonObject obj) {
@@ -242,7 +237,7 @@ bool TermInfo::fromJson(QJsonObject obj) {
     }
 
     this->uid         = obj["uid"].toInt();
-    this->longUid     = obj["longUid"].toString();
+    this->uuid     = QUuid(obj["longUid"].toString());
     this->name        = obj["name"].toString();
     this->nameForms   = obj["nameForms"].toString();
     this->definition  = obj["definition"].toString();
@@ -304,7 +299,7 @@ QStringList TermInfo::getTags() const
     QString error;
     auto tags = TagProcessor::extractTags(definition, error);
     if( !error.isEmpty() ) {
-        qDebug() << getLongUid(true) << error;
+        qDebug() << getUuid().toString() << error;
     }
     return tags;
 }

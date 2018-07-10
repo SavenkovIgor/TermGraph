@@ -24,12 +24,14 @@ public:
     explicit TermInfo(QSqlRecord rec, QObject *parent = 0);
     TermInfo(QJsonObject jsonObject, QObject *parent = 0);
 
-    int     getUid();
-    QString getLongUid(bool withPrefix = false);
-    int     getGroupID();
+//    bool isNull(); //TODO: Realize!
 
-    bool isRoot();
+    int     getUid(); //TODO: Delete
+    int getGroupID(); //TODO: Delete
 
+    bool isRoot(); //TODO: Delete
+
+    QUuid getUuid() const;
     QString getName() const;
     QString getNameFormStr() const;
     QStringList getNameFormList() const;
@@ -63,7 +65,7 @@ protected:
 
 private:
     //Блок не менее...
-    static qreal baseBlockWidth;
+    static qreal baseBlockWidth; //TODO: Вынести в Sizes
 
     void nameCompressing();
 
@@ -71,7 +73,7 @@ private:
     int groupID = -1;
     int groupType = -1;
 
-    QString longUid; //TODO: QUuid!
+    QUuid uuid;
 
     bool root = false;
 

@@ -622,6 +622,6 @@ QString TermNode::getDebugString() {
 
     p << " upLevels:" + QString::number(getUpLevels() - getPaintLevel());
     //        addInterf += QString::number(personalAddInterval) + " ";
-    p << getLongUid(true);
+    p << "Uuid" << getUuid().toString();
     return p.join("\n");
 }
