@@ -18,6 +18,7 @@ MainWindow::MainWindow(QObject *parent) :
     TermInfo::db = db;
     TermGroup::db = db;
     MainScene::db = db;
+    Glb::db = db;
 
     db->makeStartBaseCheck();
 

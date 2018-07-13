@@ -33,6 +33,8 @@ typedef QList< Edge* >      EdgesList;
 class Glb
 {
 public:
+    static DBAbstract *db;
+
     static int getLevDistance(const QString &src, const QString &dst);
 
     static QString ptToStr( int x, int y, QString divider = "x" );
