@@ -21,6 +21,7 @@ QColor Colors::transparent = QColor(0,0,0,0);
 quint16 NetworkSettings::listenPort = 46377;
 
 CloudServicesWrapper*Glb::cloud = nullptr;
+DBAbstract* Glb::db = nullptr;
 
 int Glb::getLevDistance(const QString &src, const QString &dst)
 {
