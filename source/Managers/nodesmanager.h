@@ -2,6 +2,7 @@
 #define NODESMANAGER_H
 
 #include <QObject>
+#include "../glb.h"
 
 class NodesManager : public QObject
 {
