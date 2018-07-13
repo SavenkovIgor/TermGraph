@@ -8,7 +8,7 @@
 #include <QGraphicsView>
 
 #include "glb.h"
-#include "Helpers/networkmanager.h"
+#include "Managers/networkmanager.h"
 #include "termgroup.h"
 #include "mainwindow.h"
 

@@ -25,6 +25,7 @@ bool NetworkManager::connectAndSendGroup(QString hostIp, QJsonDocument doc)
     outputSocket = new QTcpSocket();
     connect(outputSocket, SIGNAL(connected()), SLOT(sendGroup()));
     outputSocket->connectToHost(hAddress, NetworkSettings::listenPort, QIODevice::WriteOnly);
+    return true;
 }
 
 bool NetworkManager::startListen()
