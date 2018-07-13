@@ -494,17 +494,6 @@ QStringList MainScene::getGroupsNames(bool withAllVeiw)
     return ret;
 }
 
-void MainScene::dropEdgesOnSelected()
-{
-    TermNode *nd = getSelected();
-    if( nd == nullptr )
-        return;
-
-//    db->edgeTbl->deleteAllEdgesFor(nd->getUid(),-1);
-//    db->edgeTbl->deleteAllEdgesFor(-1,nd->getUid());
-    updateModel();
-}
-
 void MainScene::checkSelection()
 {
     bool someSel = false;

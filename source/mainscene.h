@@ -83,8 +83,6 @@ public slots:
         showGroup(currGroupIndex);
     }
 
-    void dropEdgesOnSelected();
-
     void locateGroupsVertically();
     void updateSceneRect();
     void centerViewOn(QPointF pt);
