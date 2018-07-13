@@ -25,7 +25,9 @@ HEADERS += \
         source/wordfreqanalyze.h \
         source/tgroupname.h \
     source/termgraph.h \
-    source/Helpers/networkmanager.h
+    source/Helpers/networkmanager.h \
+    source/Helpers/groupsmanager.h \
+    source/Helpers/nodesmanager.h
 
 SOURCES += \
         source/main.cpp\
@@ -49,7 +51,9 @@ SOURCES += \
         source/termnode.cpp\
         source/wordfreqanalyze.cpp \
     source/termgraph.cpp \
-    source/Helpers/networkmanager.cpp
+    source/Helpers/networkmanager.cpp \
+    source/Helpers/groupsmanager.cpp \
+    source/Helpers/nodesmanager.cpp
 
 FORMS += \
         source/ui/reminder.ui\
