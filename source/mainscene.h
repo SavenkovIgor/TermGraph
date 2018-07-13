@@ -45,7 +45,7 @@ public:
 
     NodesList getAllNodes();
 
-    static DBAbstract *db;
+    static DBAbstract *db; //TODO: Сделать инжект! или избавиться в идеале
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *evt);
     void mousePressEvent(QGraphicsSceneMouseEvent *evt);
@@ -170,9 +170,9 @@ private slots:
     void importGroupFromJson(QJsonDocument json);
 
 private:
-    NetworkManager* network;
-    GroupsManager* groupsMgr;
-    NodesManager* nodesMgr;
+    NetworkManager* network; //TODO: Сделать инжект!
+    GroupsManager* groupsMgr; //TODO: Сделать инжект!
+    NodesManager* nodesMgr; //TODO: Сделать инжект!
 };
 
 #endif // MAINSCENE_H
