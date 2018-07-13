@@ -2,6 +2,7 @@
 #define GROUPSMANAGER_H
 
 #include <QObject>
+#include "../glb.h"
 
 class GroupsManager : public QObject
 {
@@ -10,8 +11,11 @@ public:
     explicit GroupsManager(QObject *parent = nullptr);
 
 signals:
+    void groupsListChanged();
 
 public slots:
+
+    void addNewGroup(QString name, QString comment, int type);
 };
 
 #endif // GROUPSMANAGER_H

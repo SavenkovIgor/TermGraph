@@ -9,6 +9,8 @@
 
 #include "glb.h"
 #include "Managers/networkmanager.h"
+#include "Managers/groupsmanager.h"
+#include "Managers/nodesmanager.h"
 #include "termgroup.h"
 #include "mainwindow.h"
 
@@ -109,7 +111,6 @@ public slots:
         return getSelected() != nullptr;
     }
 
-    void addNewGroup(QString name, QString comment, int type);
     void deleteGroup(QString name);
     void exportGrpToJson(QString grpName);
     void saveGroupInFolder(TermGroup *g);
@@ -150,6 +151,11 @@ public slots:
     void sendGroupByNetwork(QString groupName);
     void setReceiverHost(QString ip);
 
+    // For registering in qml
+    NetworkManager* getNetworkManager() { return network; }
+    GroupsManager* getGroupsManager() { return groupsMgr; }
+    NodesManager* getNodesManager() { return nodesMgr; }
+
 private:
     QPointF lastPressPt;
     bool groupInFocus = false;
@@ -162,8 +168,11 @@ public slots:
 private slots:
     void importGroupFromJson(QString rawJson);
     void importGroupFromJson(QJsonDocument json);
+
 private:
     NetworkManager* network;
+    GroupsManager* groupsMgr;
+    NodesManager* nodesMgr;
 };
 
 #endif // MAINSCENE_H

@@ -42,6 +42,9 @@ MainWindow::MainWindow(QObject *parent) :
     engn->addImageProvider("sceneimage",scView);
     engn->rootContext()->setContextProperty("mainObj",this);
     engn->rootContext()->setContextProperty("sceneObj",scene);
+    engn->rootContext()->setContextProperty("networkManager", scene->getNetworkManager());
+    engn->rootContext()->setContextProperty("groupsManager", scene->getGroupsManager());
+    engn->rootContext()->setContextProperty("nodesManager", scene->getNodesManager());
     engn->rootContext()->setContextProperty("mainViewObj",scView);
     engn->rootContext()->setContextProperty("tagProcessor",tagProcessor);
     engn->load(QUrl("qrc:/qml/MainWindow.qml"));

@@ -74,6 +74,13 @@ Item {
         }
     }
 
+    Connections {
+        target: groupsManager
+        onGroupsListChanged: {
+            groupListView.refreshModel()
+        }
+    }
+
     Frame {
         id: sceneFrame
 

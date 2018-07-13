@@ -105,6 +105,13 @@ Item {
         }
     }
 
+    Connections {
+        target: groupsManager
+        onGroupsListChanged: {
+            groupsList.refreshModel()
+        }
+    }
+
     ListView {
         id: groupsList
         anchors.fill: parent
@@ -250,7 +257,7 @@ Item {
                     text: "Добавить"
 
                     onClicked: {
-                        sceneObj.addNewGroup(newGroupName.text,newGroupComment.text,newGroupType.currentIndex -1 ) //-1 for default group
+                        groupsManager.addNewGroup(newGroupName.text,newGroupComment.text,newGroupType.currentIndex -1 ) //-1 for default group
                         newGroupDrawer.close()
                     }
                 }

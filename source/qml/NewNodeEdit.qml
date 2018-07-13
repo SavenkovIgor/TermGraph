@@ -169,6 +169,13 @@ Item {
                     }
                 }
 
+                Connections {
+                    target: groupsManager
+                    onGroupsListChanged: {
+                        nodeGroup.refreshModel()
+                    }
+                }
+
                 MyComboBox {
                     id: nodeGroup
                     model: sceneObj.getGroupsNames()

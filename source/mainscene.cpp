@@ -17,6 +17,9 @@ MainScene::MainScene() : QGraphicsScene()
     network = new NetworkManager();
     connect(network,SIGNAL(newSyncGroup(QString)),SLOT(importGroupFromJson(QString)));
 
+    groupsMgr = new GroupsManager();
+    nodesMgr = new NodesManager();
+
     setItemIndexMethod(NoIndex);
     updateModel();
 }
@@ -292,15 +295,6 @@ void MainScene::dropSelectedNode()
 //    db->edgeTbl->deleteAllEdgesFor(-1,nd->getUid());
     db->nodeTbl->deleteNode(nd->getUuid());
     updateModel();
-}
-
-void MainScene::addNewGroup(QString name, QString comment, int type )
-{
-    if ( !db->groupTbl->addGroup( name, comment, type ) ) {
-        showMessage( "Название группы не уникально", 2500 );
-        return;
-    }
-    updateGroupLists();
 }
 
 void MainScene::deleteGroup(QString name)
@@ -610,7 +604,7 @@ bool MainScene::getCurrNodeIsRoot()
 
 void MainScene::createTestGroups()
 {
-    addNewGroup("TestGroup1","",GroupType::terms);
+    groupsMgr->addNewGroup("TestGroup1","",GroupType::terms);
 
     addNewNode("1","","","","","TestGroup1");
     addNewNode("2","","","","","TestGroup1");
