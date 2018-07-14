@@ -241,17 +241,6 @@ QString MainScene::getExportPath()
     return StdFolderPaths::groupsJsonPath();
 }
 
-void MainScene::importFile(QString filename)
-{
-    QUrl url(filename);
-    QFile file(url.toLocalFile());
-    if(file.open(QIODevice::ReadOnly)) {
-        QByteArray arr = file.readAll();
-        QJsonDocument doc = QJsonDocument::fromJson(arr);
-        groupsMgr->importGroupFromJson(doc);
-    }
-}
-
 QString MainScene::getGroupString(QString grp)
 {
     TermGroup* g = getGroupByName( grp );

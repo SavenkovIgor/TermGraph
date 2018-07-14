@@ -74,7 +74,7 @@ Item {
 
         onAccepted: {
             console.log("You chose: " + importDialog.fileUrls)
-            sceneObj.importFile(importDialog.fileUrl)
+            groupsManager.importGroupFromJsonFile(importDialog.fileUrl)
         }
     }
 

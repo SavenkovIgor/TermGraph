@@ -21,6 +21,7 @@ public slots:
     void deleteGroup(QString name);
 
     //Json
+    void importGroupFromJsonFile(QString filename);
     void importGroupFromJson(QString rawJson);
     void importGroupFromJson(QJsonDocument json);
 

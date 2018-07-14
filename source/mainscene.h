@@ -109,8 +109,6 @@ public slots:
     void saveGroupInFolder(TermGroup *g);
     QString getExportPath();
 
-    void importFile(QString filename);
-
     QString getGroupString(QString grp);
 
 //    void testSlot() {

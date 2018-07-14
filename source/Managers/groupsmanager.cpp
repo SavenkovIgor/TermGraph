@@ -30,6 +30,16 @@ void GroupsManager::deleteGroup(QString name)
     groupsListChanged();
 }
 
+void GroupsManager::importGroupFromJsonFile(QString filename)
+{
+    QUrl url(filename);
+    QFile file(url.toLocalFile());
+    if(file.open(QIODevice::ReadOnly)) {
+        QByteArray arr = file.readAll();
+        importGroupFromJson(QString(arr));
+    }
+}
+
 void GroupsManager::importGroupFromJson(QString rawJson)
 {
     QByteArray byteArr;
