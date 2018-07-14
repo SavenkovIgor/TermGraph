@@ -21,6 +21,7 @@ MainScene::MainScene() : QGraphicsScene()
     connect(groupsMgr, SIGNAL(groupsListChanged()), SLOT(updateModel()));
 
     nodesMgr = new NodesManager();
+    connect(nodesMgr, SIGNAL(nodeChanged()), SLOT(updateModel()));
 
     setItemIndexMethod(NoIndex);
     updateModel();
@@ -99,7 +100,7 @@ void MainScene::importGroupFromJson(QJsonDocument json)
         // Create
         if( !db->nodeTbl->isNodeWithUuidExist( nodeUuid ) ) {
             db->nodeTbl->addNode(nodeUuid, name);
-            changeNode(nodeUuid, name, forms, definition, description, examples, groupName);
+            nodesMgr->changeNode(nodeUuid, name, forms, definition, description, examples, groupName);
         } else {
             // Update
             if(name.simplified() != "")
@@ -326,45 +327,6 @@ void MainScene::saveGroupInFolder(TermGroup* g)
 QString MainScene::getExportPath()
 {
     return StdFolderPaths::groupsJsonPath();
-}
-
-void MainScene::addNewNode(QString name, QString forms, QString def, QString descr, QString exam, QString groupName)
-{
-    //TODO: Тоже фигня. Нельзя искать в базе по имени группы!
-    if( !db->groupTbl->hasGroupWithName(groupName) ) {
-        qDebug()<<"Группа не найдена";
-        return;
-    }
-
-    QUuid nodeUuid = db->nodeTbl->addNode(name);
-    changeNode(nodeUuid, name, forms, def, descr, exam, groupName);
-}
-
-void MainScene::changeNode(
-        QUuid nodeUuid,
-        QString name,
-        QString forms,
-        QString def,
-        QString descr,
-        QString exam,
-        QString groupName)
-{
-    //TODO: Тоже фигня. Нельзя искать в базе по имени группы!
-    if( !db->groupTbl->hasGroupWithName(groupName) ) {
-        qDebug()<<"Группа не найдена";
-        return;
-    }
-
-    QUuid groupUuid = db->groupTbl->getUuid( groupName );
-
-    db->nodeTbl->setName        (nodeUuid, name);
-    db->nodeTbl->setWordForms   (nodeUuid, forms);
-    db->nodeTbl->setDefinition  (nodeUuid, def);
-    db->nodeTbl->setDescription (nodeUuid, descr);
-    db->nodeTbl->setExamples    (nodeUuid, exam);
-    db->nodeTbl->setGroup       (nodeUuid, groupUuid);
-
-    updateModel();
 }
 
 void MainScene::importFile(QString filename)
@@ -604,13 +566,13 @@ void MainScene::createTestGroups()
 {
     groupsMgr->addNewGroup("TestGroup1","",GroupType::terms);
 
-    addNewNode("1","","","","","TestGroup1");
-    addNewNode("2","","","","","TestGroup1");
-    addNewNode("3","","{1}{2}","","","TestGroup1");
-    addNewNode("4","","{1}{2}","","","TestGroup1");
-    addNewNode("5","","{1}","","","TestGroup1");
-    addNewNode("6","","{5}","","","TestGroup1");
-    addNewNode("7","","{5}","","","TestGroup1");
-    addNewNode("8","","{6}{7}","","","TestGroup1");
-    addNewNode("9","","","","","TestGroup1");
+    nodesMgr->addNewNode("1","","","","","TestGroup1");
+    nodesMgr->addNewNode("2","","","","","TestGroup1");
+    nodesMgr->addNewNode("3","","{1}{2}","","","TestGroup1");
+    nodesMgr->addNewNode("4","","{1}{2}","","","TestGroup1");
+    nodesMgr->addNewNode("5","","{1}","","","TestGroup1");
+    nodesMgr->addNewNode("6","","{5}","","","TestGroup1");
+    nodesMgr->addNewNode("7","","{5}","","","TestGroup1");
+    nodesMgr->addNewNode("8","","{6}{7}","","","TestGroup1");
+    nodesMgr->addNewNode("9","","","","","TestGroup1");
 }

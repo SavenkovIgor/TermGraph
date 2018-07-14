@@ -11,8 +11,26 @@ public:
     explicit NodesManager(QObject *parent = nullptr);
 
 signals:
+    void nodeChanged();
 
 public slots:
+
+    void addNewNode(
+            QString name,
+            QString forms,
+            QString def,
+            QString descr,
+            QString exam,
+            QString groupName );
+
+    void changeNode(
+            QUuid nodeUuid,
+            QString name,
+            QString forms,
+            QString def,
+            QString descr,
+            QString exam,
+            QString groupName );
 };
 
 #endif // NODESMANAGER_H

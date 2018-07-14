@@ -114,25 +114,6 @@ public slots:
     void saveGroupInFolder(TermGroup *g);
     QString getExportPath();
 
-    void addNewNode(
-            QString name,
-            QString forms,
-            QString def,
-            QString descr,
-            QString exam,
-            QString groupName
-                    );
-
-    void changeNode(
-            QUuid nodeUuid,
-            QString name,
-            QString forms,
-            QString def,
-            QString descr,
-            QString exam,
-            QString groupName
-                    );
-
     void importFile(QString filename);
 
     QString getGroupString(QString grp);

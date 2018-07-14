@@ -207,7 +207,7 @@ Item {
                     }
 
                     if( changeN.text == "" ) {
-                        sceneObj.addNewNode(
+                        nodesManager.addNewNode(
                                     termName.text,
                                     termForms.text,
                                     termDefin.text,
@@ -216,7 +216,7 @@ Item {
                                     nodeGroup.currentText
                                     )
                     } else {
-                        sceneObj.changeNode(
+                        nodesManager.changeNode(
                                     changeN.text,
                                     termName.text,
                                     termForms.text,
