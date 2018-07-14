@@ -51,3 +51,10 @@ void NodesManager::changeNode(
 
     nodeChanged();
 }
+
+void NodesManager::deleteNode(QUuid uuid)
+{
+    DBAbstract* db = Glb::db;
+    db->nodeTbl->deleteNode(uuid);
+    nodeChanged();
+}

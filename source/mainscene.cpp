@@ -294,10 +294,7 @@ void MainScene::deleteSelectedNode()
     if( nd == nullptr )
         return;
 
-//    db->edgeTbl->deleteAllEdgesFor(nd->getUid(),-1);
-//    db->edgeTbl->deleteAllEdgesFor(-1,nd->getUid());
-    db->nodeTbl->deleteNode(nd->getUuid());
-    updateModel();
+    nodesMgr->deleteNode(nd->getUuid());
 }
 
 void MainScene::exportGrpToJson(QString grpName)

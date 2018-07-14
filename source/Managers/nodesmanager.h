@@ -31,6 +31,8 @@ public slots:
             QString descr,
             QString exam,
             QString groupName );
+
+    void deleteNode(QUuid uuid);
 };
 
 #endif // NODESMANAGER_H
