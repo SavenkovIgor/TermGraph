@@ -171,10 +171,10 @@ Item {
 
                 MyComboBox {
                     id: nodeGroup
-                    model: sceneObj.getGroupsNames()
+                    model: groupsManager.getAllGroupsNames()
 
                     function refreshModel() {
-                        model = sceneObj.getGroupsNames()
+                        model = groupsManager.getAllGroupsNames()
                     }
 //                    currentIndex: mainObj.currGroupNum
 

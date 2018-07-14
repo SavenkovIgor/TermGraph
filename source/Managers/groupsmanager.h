@@ -14,6 +14,7 @@ signals:
     void groupsListChanged();
 
 public slots:
+    QStringList getAllGroupsNames(bool withAllVeiw = false);
 
     void addNewGroup(QString name, QString comment, int type);
     void deleteGroup(QString name);

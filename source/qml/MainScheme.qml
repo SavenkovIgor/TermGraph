@@ -451,10 +451,10 @@ Item {
 
                             id: groupListView
                             anchors.fill: parent
-                            model: sceneObj.getGroupsNames(true)
+                            model: groupsManager.getAllGroupsNames(true)
 
                             function refreshModel() {
-                                model = sceneObj.getGroupsNames(true)
+                                model = groupsManager.getAllGroupsNames(true)
                             }
 
                             keyNavigationEnabled: true

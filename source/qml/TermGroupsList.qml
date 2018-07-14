@@ -108,11 +108,11 @@ Item {
     ListView {
         id: groupsList
         anchors.fill: parent
-        model: sceneObj.getGroupsNames()
+        model: groupsManager.getAllGroupsNames()
         keyNavigationEnabled: true
 
         function refreshModel() {
-            model = sceneObj.getGroupsNames()
+            model = groupsManager.getAllGroupsNames()
         }
 
         highlight: Rectangle {

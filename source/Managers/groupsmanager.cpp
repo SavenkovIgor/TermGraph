@@ -7,7 +7,8 @@ GroupsManager::GroupsManager(QObject *parent) : QObject(parent)
 
 void GroupsManager::addNewGroup(QString name, QString comment, int type)
 {
-    if ( Glb::db->groupTbl->addGroup( name, comment, type ) )
+    DBAbstract* db = Glb::db;
+    if ( db->groupTbl->addGroup( name, comment, type ) )
         groupsListChanged();
     else
         qDebug()<<"Название группы не уникально"; //TODO: Сделать уведомлением!
@@ -15,6 +16,16 @@ void GroupsManager::addNewGroup(QString name, QString comment, int type)
 
 void GroupsManager::deleteGroup(QString name)
 {
-    Glb::db->groupTbl->deleteGroup( name );
+    DBAbstract* db = Glb::db;
+    db->groupTbl->deleteGroup( name );
     groupsListChanged();
+}
+
+QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
+{
+    DBAbstract* db = Glb::db;
+    QStringList ret = db->groupTbl->getAllGroupsNames();
+    if (withAllVeiw)
+        ret.push_front("Все группы");
+    return ret;
 }

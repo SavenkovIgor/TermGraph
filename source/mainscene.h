@@ -69,8 +69,6 @@ signals:
     void mouseInfo(QString str);
 
 public slots:
-    QStringList getGroupsNames(bool withAllVeiw = false);
-
     void showGroup(int num); //TODO: Постараться избавиться от этой функции
     void showGroup( QString grp = "");
 

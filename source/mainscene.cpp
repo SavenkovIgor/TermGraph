@@ -365,7 +365,7 @@ void MainScene::setReceiverHost(QString ip)
 
 void MainScene::showGroup(int num)
 {
-    QStringList lst = db->groupTbl->getAllGroupsNames();
+    QStringList lst = groupsMgr->getAllGroupsNames();
 
     if( num < 0 || num >= lst.size() )
         return;
@@ -440,13 +440,7 @@ void MainScene::setAnimSpeed(int val)
     }
 }
 
-QStringList MainScene::getGroupsNames(bool withAllVeiw)
-{
-    QStringList ret = db->groupTbl->getAllGroupsNames();
-    if (withAllVeiw)
-        ret.push_front("Все группы");
-    return ret;
-}
+
 
 void MainScene::checkSelection()
 {
