@@ -137,12 +137,8 @@ public slots:
     void stayGroupInFocus( bool val ) { groupInFocus = val; }
     void createTestGroups();
 
-private slots:
-    void importGroupFromJson(QString rawJson);
-    void importGroupFromJson(QJsonDocument json);
-
 private:
-    NetworkManager* network; //TODO: Сделать инжект!
+    NetworkManager* network; //TODO: Убрать отсюда. Здесь этого быть не должно
     GroupsManager* groupsMgr;
     NodesManager* nodesMgr;
 };

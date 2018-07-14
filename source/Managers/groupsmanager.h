@@ -3,12 +3,13 @@
 
 #include <QObject>
 #include "../glb.h"
+#include "nodesmanager.h"
 
 class GroupsManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit GroupsManager(QObject *parent = nullptr);
+    explicit GroupsManager(NodesManager* nodesMgr, QObject *parent = nullptr);
 
 signals:
     void groupsListChanged();
@@ -20,7 +21,13 @@ public slots:
     void deleteGroup(QString name);
 
     //Json
-    bool isValidGroupJson(QJsonDocument json); //TODO: private
+    void importGroupFromJson(QString rawJson);
+    void importGroupFromJson(QJsonDocument json);
+
+private:
+    bool isValidGroupJson(QJsonDocument json);
+
+    NodesManager* nodesMgr;
 };
 
 #endif // GROUPSMANAGER_H

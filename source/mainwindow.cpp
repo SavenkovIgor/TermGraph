@@ -25,8 +25,8 @@ MainWindow::MainWindow(QObject *parent) :
     tagProcessor = new TagProcessor();
 
 //    network = new NetworkManager();
-    groupsMgr = new GroupsManager();
     nodesMgr = new NodesManager();
+    groupsMgr = new GroupsManager(nodesMgr);
 
     scene = new MainScene(groupsMgr, nodesMgr);
 

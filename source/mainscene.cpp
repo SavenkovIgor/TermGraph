@@ -21,7 +21,7 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphi
         qDebug() << "Critical error: nodesManager is null!";
 
     network = new NetworkManager();
-    connect(network,SIGNAL(newSyncGroup(QString)),SLOT(importGroupFromJson(QString)));
+    connect(network, SIGNAL(newSyncGroup(QString)), groupsMgr, SLOT(importGroupFromJson(QString)));
 
     this->groupsMgr = groupsMgr;
     connect(groupsMgr, SIGNAL(groupsListChanged()), SLOT(updateModel()));
@@ -52,79 +52,6 @@ void MainScene::addGroupToScene(TermGroup *group)
     addItem(group->baseRect);
     connect(&sceneRhytm,SIGNAL(timeout()),group,SLOT(sceneUpdateSignal()));
     groupList << group;
-}
-
-void MainScene::importGroupFromJson(QString rawJson)
-{
-    QByteArray byteArr;
-    byteArr.append(rawJson);
-    QJsonDocument doc = QJsonDocument::fromJson(byteArr);
-    importGroupFromJson(doc);
-}
-
-void MainScene::importGroupFromJson(QJsonDocument json)
-{
-    if(!groupsMgr->isValidGroupJson(json))
-        return;
-
-    QJsonObject jsonGroup = json.object();
-    QUuid groupUuid = QUuid(jsonGroup.value("longUID").toString());
-
-    if(groupUuid.isNull())
-        return;
-
-    QString groupName = jsonGroup.value("name").toString();
-    QString comment;
-    int type = jsonGroup.value("type").toInt();
-
-    QJsonArray nodes = jsonGroup.value("nodesList").toArray();
-
-    // Searching for existed group
-    if( db->groupTbl->hasGroupWithUuid(groupUuid) ) { //Group found
-        db->groupTbl->setName(groupUuid, groupName);
-        db->groupTbl->setComment(groupUuid, comment);
-        db->groupTbl->setType(groupUuid, type);
-    } else {
-        db->groupTbl->addGroup(groupUuid, groupName, comment, type);
-    }
-
-    // Importing nodes
-    for(QJsonValue nodeValue: nodes) {
-        QJsonObject nodeObj = nodeValue.toObject();
-
-        QUuid nodeUuid = QUuid(nodeObj.value("longUID").toString());
-
-        if(nodeUuid.isNull())
-            continue;
-
-        QString name = nodeObj.value("name").toString();
-        QString forms = nodeObj.value("nameForms").toString();
-        QString definition = nodeObj.value("definition").toString();
-        QString description = nodeObj.value("description").toString();
-        QString examples = nodeObj.value("examples").toString();
-
-        // Create
-        if( !db->nodeTbl->isNodeWithUuidExist( nodeUuid ) ) {
-            db->nodeTbl->addNode(nodeUuid, name);
-            nodesMgr->changeNode(nodeUuid, name, forms, definition, description, examples, groupName);
-        } else {
-            // Update
-            if(name.simplified() != "")
-                db->nodeTbl->setName(nodeUuid, name);
-            if(forms.simplified() != "")
-                db->nodeTbl->setWordForms(nodeUuid, forms);
-            if(definition.simplified() != "")
-                db->nodeTbl->setDefinition (nodeUuid, definition);
-            if(description.simplified() != "")
-                db->nodeTbl->setDescription(nodeUuid, description);
-            if(examples.simplified() != "")
-                db->nodeTbl->setExamples(nodeUuid, examples);
-
-            db->nodeTbl->setGroup(nodeUuid, groupUuid);
-        }
-    }
-
-    updateModel();
 }
 
 
@@ -321,7 +248,7 @@ void MainScene::importFile(QString filename)
     if(file.open(QIODevice::ReadOnly)) {
         QByteArray arr = file.readAll();
         QJsonDocument doc = QJsonDocument::fromJson(arr);
-        importGroupFromJson(doc);
+        groupsMgr->importGroupFromJson(doc);
     }
 }
 
