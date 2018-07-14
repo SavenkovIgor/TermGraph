@@ -18,8 +18,6 @@ class MainScene : public QGraphicsScene
 {
     Q_OBJECT
 
-    TermGroup* createGroupFromJson(QJsonDocument json);
-
     void initAllGroups();
     void addGroupToScene(TermGroup* group);
     void deleteAllGroups();
