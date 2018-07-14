@@ -18,6 +18,9 @@ public slots:
 
     void addNewGroup(QString name, QString comment, int type);
     void deleteGroup(QString name);
+
+    //Json
+    bool isValidGroupJson(QJsonDocument json); //TODO: private
 };
 
 #endif // GROUPSMANAGER_H

@@ -21,6 +21,24 @@ void GroupsManager::deleteGroup(QString name)
     groupsListChanged();
 }
 
+bool GroupsManager::isValidGroupJson(QJsonDocument json)
+{
+    QJsonObject jsonGroup = json.object();
+
+    //Checking keys
+    if(
+            jsonGroup.contains("name") &&
+            jsonGroup.value("name").isString() &&
+            jsonGroup.contains("type") &&
+            jsonGroup.value("type").isDouble() &&
+            jsonGroup.contains("nodesList") &&
+            jsonGroup.value("nodesList").isArray()
+            ) {
+        return true;
+    }
+    return false;
+}
+
 QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
 {
     DBAbstract* db = Glb::db;

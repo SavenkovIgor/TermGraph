@@ -58,7 +58,7 @@ void MainScene::importGroupFromJson(QString rawJson)
 
 void MainScene::importGroupFromJson(QJsonDocument json)
 {
-    if(!isValidGroupJson(json))
+    if(!groupsMgr->isValidGroupJson(json))
         return;
 
     QJsonObject jsonGroup = json.object();
@@ -121,23 +121,7 @@ void MainScene::importGroupFromJson(QJsonDocument json)
     updateModel();
 }
 
-bool MainScene::isValidGroupJson(QJsonDocument json)
-{
-    QJsonObject jsonGroup = json.object();
 
-    //Checking keys
-    if(
-            jsonGroup.contains("name") &&
-            jsonGroup.value("name").isString() &&
-            jsonGroup.contains("type") &&
-            jsonGroup.value("type").isDouble() &&
-            jsonGroup.contains("nodesList") &&
-            jsonGroup.value("nodesList").isArray()
-            ) {
-        return true;
-    }
-    return false;
-}
 
 void MainScene::deleteAllGroups()
 {    
