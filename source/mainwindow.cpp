@@ -24,7 +24,11 @@ MainWindow::MainWindow(QObject *parent) :
 
     tagProcessor = new TagProcessor();
 
-    scene = new MainScene();
+//    network = new NetworkManager();
+    groupsMgr = new GroupsManager();
+    nodesMgr = new NodesManager();
+
+    scene = new MainScene(groupsMgr, nodesMgr);
 
     scView = new MyView();
 
@@ -39,12 +43,13 @@ MainWindow::MainWindow(QObject *parent) :
 
     connect(engn,SIGNAL(objectCreated(QObject*,QUrl)),SLOT(onQmlCreated(QObject*,QUrl)));
 
+
     engn->addImageProvider("sceneimage",scView);
     engn->rootContext()->setContextProperty("mainObj",this);
     engn->rootContext()->setContextProperty("sceneObj",scene);
     engn->rootContext()->setContextProperty("networkManager", scene->getNetworkManager());
-    engn->rootContext()->setContextProperty("groupsManager", scene->getGroupsManager());
-    engn->rootContext()->setContextProperty("nodesManager", scene->getNodesManager());
+    engn->rootContext()->setContextProperty("groupsManager", groupsMgr);
+    engn->rootContext()->setContextProperty("nodesManager", nodesMgr);
     engn->rootContext()->setContextProperty("mainViewObj",scView);
     engn->rootContext()->setContextProperty("tagProcessor",tagProcessor);
     engn->load(QUrl("qrc:/qml/MainWindow.qml"));

@@ -2,7 +2,7 @@
 
 DBAbstract* MainScene::db = nullptr;
 
-MainScene::MainScene() : QGraphicsScene()
+MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphicsScene()
 {
     sceneRhytm.setSingleShot(false);
     sceneRhytm.setInterval(30);
@@ -14,13 +14,19 @@ MainScene::MainScene() : QGraphicsScene()
 //    viewGrpTimer.setSingleShot(false);
 //    connect(&viewGrpTimer,SIGNAL(timeout()),SLOT(showGroup()));
 
+    if(groupsMgr == nullptr)
+        qDebug() << "Critical error: groupsManager is null!";
+
+    if(nodesMgr == nullptr)
+        qDebug() << "Critical error: nodesManager is null!";
+
     network = new NetworkManager();
     connect(network,SIGNAL(newSyncGroup(QString)),SLOT(importGroupFromJson(QString)));
 
-    groupsMgr = new GroupsManager();
+    this->groupsMgr = groupsMgr;
     connect(groupsMgr, SIGNAL(groupsListChanged()), SLOT(updateModel()));
 
-    nodesMgr = new NodesManager();
+    this->nodesMgr = nodesMgr;
     connect(nodesMgr, SIGNAL(nodeChanged()), SLOT(updateModel()));
 
     setItemIndexMethod(NoIndex);

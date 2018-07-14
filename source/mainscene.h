@@ -30,7 +30,7 @@ class MainScene : public QGraphicsScene
     int currGroupIndex = 0;
 
 public:
-    MainScene();
+    MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr);
     ~MainScene();
 
     qreal xWindow;
@@ -126,9 +126,7 @@ public slots:
     void setReceiverHost(QString ip);
 
     // For registering in qml
-    NetworkManager* getNetworkManager() { return network; }
-    GroupsManager* getGroupsManager() { return groupsMgr; }
-    NodesManager* getNodesManager() { return nodesMgr; }
+    NetworkManager* getNetworkManager() { return network; } //TODO: Remove
 
 private:
     QPointF lastPressPt;
@@ -145,8 +143,8 @@ private slots:
 
 private:
     NetworkManager* network; //TODO: Сделать инжект!
-    GroupsManager* groupsMgr; //TODO: Сделать инжект!
-    NodesManager* nodesMgr; //TODO: Сделать инжект!
+    GroupsManager* groupsMgr;
+    NodesManager* nodesMgr;
 };
 
 #endif // MAINSCENE_H

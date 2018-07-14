@@ -73,6 +73,10 @@ private:
     QQmlApplicationEngine *engn;
 
     QString dbPath;
+
+//    NetworkManager* network;
+    GroupsManager* groupsMgr;
+    NodesManager* nodesMgr;
 };
 
 
