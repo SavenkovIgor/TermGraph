@@ -288,7 +288,7 @@ void MainScene::centerViewOn(QPointF pt)
     }
 }
 
-void MainScene::dropSelectedNode()
+void MainScene::deleteSelectedNode()
 {
     TermNode *nd = getSelected();
     if( nd == nullptr )
@@ -299,8 +299,6 @@ void MainScene::dropSelectedNode()
     db->nodeTbl->deleteNode(nd->getUuid());
     updateModel();
 }
-
-
 
 void MainScene::exportGrpToJson(QString grpName)
 {
@@ -385,8 +383,6 @@ TermNode *MainScene::getSelected()
     return ret;
 }
 
-
-
 NodesList MainScene::getAllTermsAtPoint(int x, int y) {
     NodesList ret;
     for( TermNode *n: getAllNodes() ) {
@@ -439,8 +435,6 @@ void MainScene::setAnimSpeed(int val)
         g->setAnimSpeed( val );
     }
 }
-
-
 
 void MainScene::checkSelection()
 {

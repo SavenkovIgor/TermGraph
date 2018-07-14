@@ -87,7 +87,7 @@ public slots:
     void centerViewOn(QPointF pt);
 
     void updateModel();
-    void dropSelectedNode();
+    void deleteSelectedNode();
 
     void checkSelection();
 

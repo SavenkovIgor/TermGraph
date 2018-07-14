@@ -116,7 +116,7 @@ Item {
             icon: StandardIcon.Question
 
             onYes: {
-                sceneObj.dropSelectedNode()
+                sceneObj.deleteSelectedNode()
                 nodeDelDialog.visible = false
             }
 
