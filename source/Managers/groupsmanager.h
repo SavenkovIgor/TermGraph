@@ -16,6 +16,7 @@ signals:
 public slots:
 
     void addNewGroup(QString name, QString comment, int type);
+    void deleteGroup(QString name);
 };
 
 #endif // GROUPSMANAGER_H

@@ -62,7 +62,6 @@ signals:
     void stopMove();
 
     void showMessage(QString msg,int time);
-    void updateGroupLists();
 
     void someSelected();
     void selectionDrop();
@@ -111,7 +110,6 @@ public slots:
         return getSelected() != nullptr;
     }
 
-    void deleteGroup(QString name);
     void exportGrpToJson(QString grpName);
     void saveGroupInFolder(TermGroup *g);
     QString getExportPath();

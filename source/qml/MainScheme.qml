@@ -69,9 +69,6 @@ Item {
         onSelectionDrop: {
             hideButtons()
         }
-        onUpdateGroupLists: {
-            groupListView.refreshModel()
-        }
     }
 
     Connections {

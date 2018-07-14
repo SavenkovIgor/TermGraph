@@ -163,13 +163,6 @@ Item {
                 }
 
                 Connections {
-                    target: sceneObj
-                    onUpdateGroupLists: {
-                        nodeGroup.refreshModel()
-                    }
-                }
-
-                Connections {
                     target: groupsManager
                     onGroupsListChanged: {
                         nodeGroup.refreshModel()

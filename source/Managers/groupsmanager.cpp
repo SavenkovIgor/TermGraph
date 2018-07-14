@@ -12,3 +12,9 @@ void GroupsManager::addNewGroup(QString name, QString comment, int type)
     else
         qDebug()<<"Название группы не уникально"; //TODO: Сделать уведомлением!
 }
+
+void GroupsManager::deleteGroup(QString name)
+{
+    Glb::db->groupTbl->deleteGroup( name );
+    groupsListChanged();
+}

@@ -99,13 +99,6 @@ Item {
     }
 
     Connections {
-        target: sceneObj
-        onUpdateGroupLists: {
-            groupsList.refreshModel()
-        }
-    }
-
-    Connections {
         target: groupsManager
         onGroupsListChanged: {
             groupsList.refreshModel()
@@ -207,7 +200,7 @@ Item {
         icon: StandardIcon.Question
 
         onYes: {
-            sceneObj.deleteGroup(groupsList.currentItem.text)
+            groupsManager.deleteGroup(groupsList.currentItem.text)
         }
     }
 

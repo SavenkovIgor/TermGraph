@@ -141,7 +141,6 @@ void MainWindow::openBase()
 //    db->openDB(lst.first());
 //    dbPath = lst.first();
 //    scene->updateModel();
-//    scene->updateGroupLists();
 }
 
 void MainWindow::testSlot()

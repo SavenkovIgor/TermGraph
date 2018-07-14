@@ -18,6 +18,8 @@ MainScene::MainScene() : QGraphicsScene()
     connect(network,SIGNAL(newSyncGroup(QString)),SLOT(importGroupFromJson(QString)));
 
     groupsMgr = new GroupsManager();
+    connect(groupsMgr, SIGNAL(groupsListChanged()), SLOT(updateModel()));
+
     nodesMgr = new NodesManager();
 
     setItemIndexMethod(NoIndex);
@@ -297,11 +299,7 @@ void MainScene::dropSelectedNode()
     updateModel();
 }
 
-void MainScene::deleteGroup(QString name)
-{
-    db->groupTbl->deleteGroup( name );
-    updateGroupLists();
-}
+
 
 void MainScene::exportGrpToJson(QString grpName)
 {
