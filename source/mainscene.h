@@ -118,23 +118,15 @@ public slots:
         return TermGroup::getTypesNames();
     }
 
-    void sendGroupByNetwork(QString groupName);
-    void setReceiverHost(QString ip);
-
-    // For registering in qml
-    NetworkManager* getNetworkManager() { return network; } //TODO: Remove
-
 private:
     QPointF lastPressPt;
     bool groupInFocus = false;
 
-    QString receiverIp = "127.0.0.1";
 public slots:
     void stayGroupInFocus( bool val ) { groupInFocus = val; }
     void createTestGroups();
 
 private:
-    NetworkManager* network; //TODO: Убрать отсюда. Здесь этого быть не должно
     GroupsManager* groupsMgr;
     NodesManager* nodesMgr;
 };

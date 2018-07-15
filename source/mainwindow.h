@@ -74,7 +74,7 @@ private:
 
     QString dbPath;
 
-//    NetworkManager* network;
+    NetworkManager* network;
     GroupsManager* groupsMgr;
     NodesManager* nodesMgr;
 };

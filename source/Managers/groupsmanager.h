@@ -4,12 +4,14 @@
 #include <QObject>
 #include "../glb.h"
 #include "nodesmanager.h"
+#include "networkmanager.h"
+#include "../termgroup.h"
 
 class GroupsManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit GroupsManager(NodesManager* nodesMgr, QObject *parent = nullptr);
+    explicit GroupsManager(NodesManager* nodesMgr, NetworkManager* network, QObject *parent = nullptr);
 
 signals:
     void groupsListChanged();
@@ -20,6 +22,7 @@ public slots:
 
     QSqlRecord getGroupSqlRecord(QUuid groupUuid);
 
+
     void addNewGroup(QString name, QString comment, int type);
     void deleteGroup(QString name);
 
@@ -28,10 +31,14 @@ public slots:
     void importGroupFromJson(QString rawJson);
     void importGroupFromJson(QJsonDocument json);
 
+    //Network
+    void sendGroupByNetwork(QString groupName);
 private:
     bool isValidGroupJson(QJsonDocument json);
+    TermGroup* getGroupByNameForInnerUse(QString name);
 
     NodesManager* nodesMgr;
+    NetworkManager* network;
 };
 
 #endif // GROUPSMANAGER_H

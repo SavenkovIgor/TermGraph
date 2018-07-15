@@ -1,8 +1,10 @@
 #include "groupsmanager.h"
 
-GroupsManager::GroupsManager(NodesManager *nodesMgr, QObject *parent) : QObject(parent)
+GroupsManager::GroupsManager(NodesManager *nodesMgr, NetworkManager* network, QObject *parent) : QObject(parent)
 {
     this->nodesMgr = nodesMgr;
+    this->network = network;
+    connect(this->network, SIGNAL(newSyncGroup(QString)), SLOT(importGroupFromJson(QString)));
 }
 
 QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
@@ -78,6 +80,20 @@ bool GroupsManager::isValidGroupJson(QJsonDocument json)
     return false;
 }
 
+TermGroup *GroupsManager::getGroupByNameForInnerUse(QString name)
+{
+    DBAbstract* db = Glb::db;
+    QUuid groupUuid = db->groupTbl->getUuid(name);
+    if(groupUuid.isNull())
+        return nullptr;
+
+    QSqlRecord groupRecord = getGroupSqlRecord(groupUuid);
+    if(groupRecord.count() != 1)
+        return nullptr;
+
+    return new TermGroup(groupRecord);
+}
+
 void GroupsManager::importGroupFromJson(QJsonDocument json)
 {
     DBAbstract* db = Glb::db;
@@ -143,4 +159,13 @@ void GroupsManager::importGroupFromJson(QJsonDocument json)
     }
 
     groupsListChanged();
+}
+
+void GroupsManager::sendGroupByNetwork(QString groupName)
+{
+    TermGroup* g = getGroupByNameForInnerUse(groupName);
+    if ( g == nullptr )
+        return;
+
+    network->connectAndSendGroup(g->getJsonDoc());
 }

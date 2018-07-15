@@ -63,7 +63,7 @@ Item {
         labelText: "Ip получателя"
         text: "127.0.0.1"
 
-        onTextChanged: { sceneObj.setReceiverHost(text) }
+        onTextChanged: { networkManager.setReceiverHostIp(text) }
     }
 
     /*

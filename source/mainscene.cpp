@@ -18,9 +18,6 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphi
     if(nodesMgr == nullptr)
         qDebug() << "Critical error: nodesManager is null!";
 
-    network = new NetworkManager();
-    connect(network, SIGNAL(newSyncGroup(QString)), groupsMgr, SLOT(importGroupFromJson(QString)));
-
     this->groupsMgr = groupsMgr;
     connect(groupsMgr, SIGNAL(groupsListChanged()), SLOT(updateModel()));
 
@@ -244,20 +241,6 @@ QString MainScene::getGroupString(QString grp)
         return g->getTypeString();
 
     return "";
-}
-
-void MainScene::sendGroupByNetwork(QString groupName)
-{
-    TermGroup* g = getGroupByName(groupName);
-    if ( g == nullptr )
-        return;
-
-    network->connectAndSendGroup(receiverIp, g->getJsonDoc());
-}
-
-void MainScene::setReceiverHost(QString ip)
-{
-    receiverIp = ip;
 }
 
 void MainScene::showGroup(int num)

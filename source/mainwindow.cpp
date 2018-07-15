@@ -23,9 +23,9 @@ MainWindow::MainWindow(QObject *parent) :
 
     tagProcessor = new TagProcessor();
 
-//    network = new NetworkManager();
+    network = new NetworkManager();
     nodesMgr = new NodesManager();
-    groupsMgr = new GroupsManager(nodesMgr);
+    groupsMgr = new GroupsManager(nodesMgr, network);
 
     scene = new MainScene(groupsMgr, nodesMgr);
 
@@ -46,7 +46,7 @@ MainWindow::MainWindow(QObject *parent) :
     engn->addImageProvider("sceneimage",scView);
     engn->rootContext()->setContextProperty("mainObj",this);
     engn->rootContext()->setContextProperty("sceneObj",scene);
-    engn->rootContext()->setContextProperty("networkManager", scene->getNetworkManager());
+    engn->rootContext()->setContextProperty("networkManager", network);
     engn->rootContext()->setContextProperty("groupsManager", groupsMgr);
     engn->rootContext()->setContextProperty("nodesManager", nodesMgr);
     engn->rootContext()->setContextProperty("mainViewObj",scView);

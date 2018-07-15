@@ -10,9 +10,9 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
     connect(server, SIGNAL(newConnection()), SLOT(newConnection()));
 }
 
-bool NetworkManager::connectAndSendGroup(QString hostIp, QJsonDocument doc)
+bool NetworkManager::connectAndSendGroup(QJsonDocument doc)
 {
-    QHostAddress hAddress(hostIp);
+    QHostAddress hAddress(receiverIp);
     if(hAddress.isNull())
         return false;
 
@@ -31,6 +31,11 @@ bool NetworkManager::connectAndSendGroup(QString hostIp, QJsonDocument doc)
 bool NetworkManager::startListen()
 {
     return server->listen(QHostAddress::Any, NetworkSettings::listenPort);
+}
+
+void NetworkManager::setReceiverHostIp(QString ip)
+{
+    receiverIp = ip;
 }
 
 void NetworkManager::newConnection()

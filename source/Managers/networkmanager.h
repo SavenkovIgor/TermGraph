@@ -12,7 +12,7 @@ class NetworkManager : public QObject
 public:
     explicit NetworkManager(QObject *parent = nullptr);
 
-    bool connectAndSendGroup(QString hostIp, QJsonDocument doc);
+    bool connectAndSendGroup(QJsonDocument doc);
 signals:
     void newSyncGroup(QString groupJsonRaw);
 
@@ -20,6 +20,7 @@ signals:
 public slots:
     bool startListen();
 
+    void setReceiverHostIp(QString ip);
 
 private slots:
     void newConnection();
@@ -32,6 +33,8 @@ private:
     QTcpSocket* outputSocket;
 
     QJsonDocument jsonSendBuffer;
+
+    QString receiverIp = "127.0.0.1";
 };
 
 #endif // NETWORKMANAGER_H
