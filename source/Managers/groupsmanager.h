@@ -16,6 +16,9 @@ signals:
 
 public slots:
     QStringList getAllGroupsNames(bool withAllVeiw = false);
+    QList<QUuid> getAllGroupsUuids();
+
+    QSqlRecord getGroupSqlRecord(QUuid groupUuid);
 
     void addNewGroup(QString name, QString comment, int type);
     void deleteGroup(QString name);

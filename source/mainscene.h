@@ -42,8 +42,6 @@ public:
 
     NodesList getAllNodes();
 
-    static DBAbstract *db; //TODO: Сделать инжект! или избавиться в идеале
-
     void mouseMoveEvent(QGraphicsSceneMouseEvent *evt);
     void mousePressEvent(QGraphicsSceneMouseEvent *evt);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *evt);

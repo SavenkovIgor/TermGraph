@@ -14,6 +14,18 @@ QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
     return ret;
 }
 
+QList<QUuid> GroupsManager::getAllGroupsUuids()
+{
+    DBAbstract* db = Glb::db;
+    return db->groupTbl->getAllGroupsUuid();
+}
+
+QSqlRecord GroupsManager::getGroupSqlRecord(QUuid groupUuid)
+{
+    DBAbstract* db = Glb::db;
+    return db->groupTbl->getGroup( groupUuid );
+}
+
 void GroupsManager::addNewGroup(QString name, QString comment, int type)
 {
     DBAbstract* db = Glb::db;

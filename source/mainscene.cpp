@@ -1,7 +1,5 @@
 #include "mainscene.h"
 
-DBAbstract* MainScene::db = nullptr;
-
 MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphicsScene()
 {
     sceneRhytm.setSingleShot(false);
@@ -39,8 +37,8 @@ MainScene::~MainScene()
 
 void MainScene::initAllGroups()
 {
-    for( QUuid uuid: db->groupTbl->getAllGroupsUuid() ) {
-        QSqlRecord rec = db->groupTbl->getGroup( uuid );
+    for( QUuid uuid: groupsMgr->getAllGroupsUuids() ) {
+        QSqlRecord rec = groupsMgr->getGroupSqlRecord( uuid );
         if(rec.count() == 0)
             continue;
         addGroupToScene(new TermGroup(rec));
@@ -53,8 +51,6 @@ void MainScene::addGroupToScene(TermGroup *group)
     connect(&sceneRhytm,SIGNAL(timeout()),group,SLOT(sceneUpdateSignal()));
     groupList << group;
 }
-
-
 
 void MainScene::deleteAllGroups()
 {    
