@@ -61,8 +61,17 @@ void NetworkManager::newConnection()
 
 void NetworkManager::newInputData()
 {
-    QString jsonString(inputSocket->readAll());
-    newSyncGroup(jsonString);
+    static QByteArray byteBuffer = "";
+
+    byteBuffer.append(inputSocket->readAll());
+
+    QJsonDocument doc = QJsonDocument::fromJson(byteBuffer);
+
+    //Подаем на импорт только валидные json
+    if(!doc.isNull()) {
+        newSyncGroup(QString(byteBuffer));
+        byteBuffer.clear();
+    }
 }
 
 void NetworkManager::sendGroup()
