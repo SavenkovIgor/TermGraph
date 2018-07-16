@@ -38,6 +38,16 @@ void NetworkManager::setReceiverHostIp(QString ip)
     receiverIp = ip;
 }
 
+QString NetworkManager::getFirstLocalIpString()
+{
+    for(const QHostAddress &address: QNetworkInterface::allAddresses()) {
+        if (address.protocol() == QAbstractSocket::IPv4Protocol && address != QHostAddress(QHostAddress::LocalHost)) {
+            return address.toString();
+        }
+    }
+    return "";
+}
+
 void NetworkManager::newConnection()
 {
     if(server->hasPendingConnections()) {

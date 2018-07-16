@@ -50,13 +50,24 @@ Item {
         onClicked:  { fileDialog.open() }
     }
 
+    Label {
+        id: localIpDescription
+        anchors {
+            left: parent.left
+            right: parent.right
+            top: srchBtn.bottom
+        }
+        font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
+        text: "LocalIp:" + networkManager.getFirstLocalIpString()
+    }
+
     MyTextField {
         id: receiverIp
 
         anchors {
             left: parent.left
             right: parent.right
-            top: srchBtn.bottom
+            top: localIpDescription.bottom
             bottom: parent.bottom
         }
 

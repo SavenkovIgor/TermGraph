@@ -22,6 +22,8 @@ public slots:
 
     void setReceiverHostIp(QString ip);
 
+    QString getFirstLocalIpString();
+
 private slots:
     void newConnection();
     void newInputData();
