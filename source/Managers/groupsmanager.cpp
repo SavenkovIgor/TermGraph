@@ -128,6 +128,9 @@ void GroupsManager::importGroupFromJson(QJsonDocument json)
         QUuid nodeUuid = QUuid(nodeObj.value("longUID").toString());
 
         if(nodeUuid.isNull())
+            nodeUuid = QUuid(nodeObj.value("longUid").toString());
+
+        if(nodeUuid.isNull())
             continue;
 
         QString name = nodeObj.value("name").toString();
