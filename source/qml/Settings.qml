@@ -72,9 +72,9 @@ Item {
         }
 
         labelText: "Ip получателя"
-        text: "192.168.0.80"
 
         onTextChanged: { networkManager.setReceiverHostIp(text) }
+        Component.onCompleted: { text = networkManager.getReceiverIp() }
     }
 
     /*

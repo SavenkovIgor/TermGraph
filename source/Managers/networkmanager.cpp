@@ -38,6 +38,11 @@ void NetworkManager::setReceiverHostIp(QString ip)
     receiverIp = ip;
 }
 
+QString NetworkManager::getReceiverIp()
+{
+    return receiverIp;
+}
+
 QString NetworkManager::getFirstLocalIpString()
 {
     for(const QHostAddress &address: QNetworkInterface::allAddresses()) {

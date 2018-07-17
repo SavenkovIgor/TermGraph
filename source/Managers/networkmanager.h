@@ -21,6 +21,7 @@ public slots:
     bool startListen();
 
     void setReceiverHostIp(QString ip);
+    QString getReceiverIp();
 
     QString getFirstLocalIpString();
 
@@ -36,7 +37,7 @@ private:
 
     QJsonDocument jsonSendBuffer;
 
-    QString receiverIp = "127.0.0.1";
+    QString receiverIp = "192.168.0.80";
 };
 
 #endif // NETWORKMANAGER_H
