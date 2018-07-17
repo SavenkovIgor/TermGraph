@@ -47,6 +47,7 @@ Item {
         termDefin.text   = sceneObj.getCurrNodeDefinition()
         termDescr.text   = sceneObj.getCurrNodeDescription()
         termExampl.text  = sceneObj.getCurrNodeExamples()
+        nodeGroup.selectElement(sceneObj.getCurrNodeGroupName())
     }
 
     function clear() {
@@ -176,12 +177,14 @@ Item {
                     function refreshModel() {
                         model = groupsManager.getAllGroupsNames()
                     }
-//                    currentIndex: mainObj.currGroupNum
 
-//                    anchors.left: grpLabel.right
-//                    anchors.right: viewColumn.right
+                    function selectElement(name) {
+                        var index = find(name)
+                        if(index !== -1) {
+                            currentIndex = index
+                        }
+                    }
                     Layout.fillWidth: true
-
                 }
             }
 

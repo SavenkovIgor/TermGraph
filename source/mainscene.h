@@ -97,6 +97,7 @@ public slots:
     QString getCurrNodeDefinition();
     QString getCurrNodeDescription();
     QString getCurrNodeExamples();
+    QString getCurrNodeGroupName();
     bool    getCurrNodeIsRoot();
 
     bool hasSelection(){

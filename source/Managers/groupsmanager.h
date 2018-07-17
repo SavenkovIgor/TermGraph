@@ -21,7 +21,7 @@ public slots:
     QList<QUuid> getAllGroupsUuids();
 
     QSqlRecord getGroupSqlRecord(QUuid groupUuid);
-
+    QString getGroupNameByUuid(QUuid groupUuid);
 
     void addNewGroup(QString name, QString comment, int type);
     void deleteGroup(QString name);

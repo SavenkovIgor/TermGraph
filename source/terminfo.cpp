@@ -9,6 +9,7 @@ TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
     uuid = QUuid(rec.value(db->nodeTbl->longUID).toString());
     groupID = rec.value(db->nodeTbl->termGroup).toInt();
 
+    groupUuid = QUuid(rec.value(db->nodeTbl->termGroup).toString());
     groupType = db->groupTbl->getType( groupID );
 
     name        = rec.value( db->nodeTbl->term ).toString();
@@ -40,6 +41,11 @@ QUuid TermInfo::getUuid() const
 int TermInfo::getGroupID()
 {
     return groupID;
+}
+
+QUuid TermInfo::getGroupUuid()
+{
+    return groupUuid;
 }
 
 QString TermInfo::getName() const

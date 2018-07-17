@@ -422,6 +422,18 @@ QString MainScene::getCurrNodeExamples()
     return nd->getExamples();
 }
 
+QString MainScene::getCurrNodeGroupName()
+{
+    TermNode* nd = getSelected();
+    if( nd == nullptr )
+        return "";
+
+    QUuid uuid = nd->getGroupUuid();
+    if(uuid.isNull())
+        return "";
+    return groupsMgr->getGroupNameByUuid(uuid);
+}
+
 bool MainScene::getCurrNodeIsRoot()
 {
     TermNode* nd = getSelected();

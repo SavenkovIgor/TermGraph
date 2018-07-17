@@ -28,6 +28,15 @@ QSqlRecord GroupsManager::getGroupSqlRecord(QUuid groupUuid)
     return db->groupTbl->getGroup( groupUuid );
 }
 
+QString GroupsManager::getGroupNameByUuid(QUuid groupUuid)
+{
+    DBAbstract* db = Glb::db;
+    QSqlRecord rec = getGroupSqlRecord(groupUuid);
+    if(!rec.contains(db->groupTbl->name))
+        return "";
+    return rec.value(db->groupTbl->name).toString();
+}
+
 void GroupsManager::addNewGroup(QString name, QString comment, int type)
 {
     DBAbstract* db = Glb::db;
