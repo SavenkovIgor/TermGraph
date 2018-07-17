@@ -50,15 +50,15 @@ Item {
         onClicked:  { fileDialog.open() }
     }
 
-    Label {
+    MyLabelPair{
         id: localIpDescription
+        name: "Ip этого устройства:"
+        text: networkManager.getFirstLocalIpString()
         anchors {
             left: parent.left
             right: parent.right
             top: srchBtn.bottom
         }
-        font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
-        text: "LocalIp:" + networkManager.getFirstLocalIpString()
     }
 
     MyTextField {
@@ -72,7 +72,7 @@ Item {
         }
 
         labelText: "Ip получателя"
-        text: "127.0.0.1"
+        text: "192.168.0.80"
 
         onTextChanged: { networkManager.setReceiverHostIp(text) }
     }
