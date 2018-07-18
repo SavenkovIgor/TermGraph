@@ -27,7 +27,8 @@ HEADERS += \
     source/termgraph.h \
     source/Managers/networkmanager.h \
     source/Managers/groupsmanager.h \
-    source/Managers/nodesmanager.h
+    source/Managers/nodesmanager.h \
+    source/Helpers/multipleshottimer.h
 
 SOURCES += \
         source/main.cpp\
@@ -53,7 +54,8 @@ SOURCES += \
     source/termgraph.cpp \
     source/Managers/networkmanager.cpp \
     source/Managers/groupsmanager.cpp \
-    source/Managers/nodesmanager.cpp
+    source/Managers/nodesmanager.cpp \
+    source/Helpers/multipleshottimer.cpp
 
 FORMS += \
         source/ui/reminder.ui\
