@@ -87,7 +87,7 @@ bool NetworkManager::sendGroup(QJsonDocument doc)
     if(!isValidHostAddress(receiverIp))
         return false;
 
-    if(outputSocket->state() != QAbstractSocket::ConnectedState) {
+    if(outputSocket->state() == QAbstractSocket::ConnectedState) {
         outputSocket->write(doc.toJson());
         outputSocket->flush();
         return true;

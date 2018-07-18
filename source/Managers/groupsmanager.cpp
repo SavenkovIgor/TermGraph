@@ -97,9 +97,6 @@ TermGroup *GroupsManager::getGroupByNameForInnerUse(QString name)
         return nullptr;
 
     QSqlRecord groupRecord = getGroupSqlRecord(groupUuid);
-    if(groupRecord.count() != 1)
-        return nullptr;
-
     return new TermGroup(groupRecord);
 }
 
@@ -179,5 +176,5 @@ void GroupsManager::sendGroupByNetwork(QString groupName)
     if ( g == nullptr )
         return;
 
-    network->connectAndSendGroup(g->getJsonDoc());
+    network->sendGroup(g->getJsonDoc());
 }
