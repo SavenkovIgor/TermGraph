@@ -38,6 +38,8 @@ private:
     QJsonDocument jsonSendBuffer;
 
     QString receiverIp = "192.168.0.80";
+
+    QString getDescriptionForSocketState(QAbstractSocket::SocketState state);
 };
 
 #endif // NETWORKMANAGER_H

@@ -89,3 +89,18 @@ void NetworkManager::sendGroup()
     outputSocket->flush();
     groupSended();
 }
+
+QString NetworkManager::getDescriptionForSocketState(QAbstractSocket::SocketState state)
+{
+    switch (state) {
+    case QAbstractSocket::UnconnectedState: return "Нет соединения";
+    case QAbstractSocket::HostLookupState: return "Поиск хоста";
+    case QAbstractSocket::ConnectingState: return "Установка соединения";
+    case QAbstractSocket::ConnectedState: return "Соединение установлено";
+    case QAbstractSocket::BoundState: return "";
+    case QAbstractSocket::ListeningState: return "";
+    case QAbstractSocket::ClosingState: return "Соединение закрывается";
+    }
+
+    return "";
+}
