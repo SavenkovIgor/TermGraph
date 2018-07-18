@@ -5,90 +5,50 @@ import "UIExtensions"
 
 Item {
 
-    Text {
-        id: txtLabel
-        anchors {
-            left:  parent.left
-            right: parent.right
-            top:   parent.top
+    Column {
+
+        anchors.fill: parent
+
+        MyLabelPair{
+            id: localIpDescription
+            name: "Ip этого устройства:"
+            text: networkManager.getFirstLocalIpString()
         }
 
-        text: qsTr("Установить расположение файла базы данных")
-    }
-
-    Text {
-        anchors {
-            left: parent.left
-            top: txtLabel.bottom
+        MyTextField {
+            id: receiverIp
+            labelText: "Ip получателя"
+            onTextChanged: { networkManager.setReceiverHostIp(text) }
+            Component.onCompleted: { text = networkManager.getReceiverIp() }
         }
 
-        id: currLocD
-        text: "Текущее расположение:"
-    }
-
-    Text {
-        text: "//someDir"
-
-        anchors {
-            left: currLocD.right
-            right: parent.right
-            top: txtLabel.bottom
-
-        }
-    }
-
-    Button{
-        id: srchBtn
-        anchors {
-            left:   parent.left
-            right:  parent.right
-            top:    currLocD.bottom
+        MyLabelPair{
+            id: connectionState
+            name: "Состояние подключения:"
         }
 
-        text: "Обзор..."
-
-        onClicked:  { fileDialog.open() }
-    }
-
-    MyLabelPair{
-        id: localIpDescription
-        name: "Ip этого устройства:"
-        text: networkManager.getFirstLocalIpString()
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: srchBtn.bottom
-        }
-    }
-
-    MyTextField {
-        id: receiverIp
-
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: localIpDescription.bottom
-            bottom: parent.bottom
+        Connections {
+            target: networkManager
+            onNewOutputConnectionState: {
+                connectionState.text = state
+                if(networkManager.isConnected()) {
+                    connectButton.text = "Отключиться"
+                } else {
+                    connectButton.text = "Подключиться"
+                }
+            }
         }
 
-        labelText: "Ip получателя"
-
-        onTextChanged: { networkManager.setReceiverHostIp(text) }
-        Component.onCompleted: { text = networkManager.getReceiverIp() }
-    }
-
-    /*
-    Button{
-        anchors {
-            left: parent.left
-            right: parent.right
-            top: srchBtn.bottom
-            bottom: parent.bottom
+        Button{
+            id: connectButton
+            text: "Подключиться"
+            onClicked:  {
+                if(networkManager.isConnected()) {
+                    networkManager.disconnectFromHost()
+                } else {
+                    networkManager.connectToHost()
+                }
+            }
         }
-
-        text: "Тест"
-        onClicked: sceneObj.createTestGroups()
-
     }
-    */
 }

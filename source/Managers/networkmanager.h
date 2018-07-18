@@ -12,16 +12,21 @@ class NetworkManager : public QObject
 public:
     explicit NetworkManager(QObject *parent = nullptr);
 
-    bool connectAndSendGroup(QJsonDocument doc);
+    bool sendGroup(QJsonDocument doc);
+
 signals:
     void newSyncGroup(QString groupJsonRaw);
 
-    void groupSended();
+    void newOutputConnectionState(QString state);
+
 public slots:
     bool startListen();
 
+    bool connectToHost();
+    void disconnectFromHost();
     void setReceiverHostIp(QString ip);
     QString getReceiverIp();
+    bool isConnected();
 
     QString getFirstLocalIpString();
 
@@ -29,18 +34,16 @@ private slots:
     void newConnection();
     void newInputData();
 
-    void sendGroup();
+    void outputConnectionStateChange(QAbstractSocket::SocketState state);
+
 private:
     QTcpServer* server;
     QTcpSocket* inputSocket;
     QTcpSocket* outputSocket;
 
-    QJsonDocument jsonSendBuffer;
-
     QString receiverIp = "192.168.0.80";
 
     bool isValidHostAddress(QString ip);
-
     QString getDescriptionForSocketState(QAbstractSocket::SocketState state);
 };
 

@@ -4,28 +4,14 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 {
     server = new QTcpServer();
     inputSocket = nullptr;
-    outputSocket = nullptr;
+    outputSocket = new QTcpSocket();
+    connect(
+                outputSocket,
+                SIGNAL(stateChanged(QAbstractSocket::SocketState)),
+                SLOT(outputConnectionStateChange(QAbstractSocket::SocketState)));
 
     startListen();
     connect(server, SIGNAL(newConnection()), SLOT(newConnection()));
-}
-
-bool NetworkManager::connectAndSendGroup(QJsonDocument doc)
-{
-    QHostAddress hAddress(receiverIp);
-    if(hAddress.isNull())
-        return false;
-
-    jsonSendBuffer = doc;
-
-    if(outputSocket != nullptr) {
-        delete outputSocket;
-    }
-
-    outputSocket = new QTcpSocket();
-    connect(outputSocket, SIGNAL(connected()), SLOT(sendGroup()));
-    outputSocket->connectToHost(hAddress, NetworkSettings::listenPort, QIODevice::WriteOnly);
-    return true;
 }
 
 bool NetworkManager::startListen()
@@ -33,14 +19,31 @@ bool NetworkManager::startListen()
     return server->listen(QHostAddress::Any, NetworkSettings::listenPort);
 }
 
+bool NetworkManager::connectToHost()
+{
+    outputSocket->connectToHost(receiverIp, NetworkSettings::listenPort, QIODevice::WriteOnly);
+}
+
+void NetworkManager::disconnectFromHost()
+{
+    outputSocket->disconnectFromHost();
+}
+
 void NetworkManager::setReceiverHostIp(QString ip)
 {
+    if(!isValidHostAddress(ip))
+        return;
     receiverIp = ip;
 }
 
 QString NetworkManager::getReceiverIp()
 {
     return receiverIp;
+}
+
+bool NetworkManager::isConnected()
+{
+    return outputSocket->state() == QAbstractSocket::ConnectedState;
 }
 
 QString NetworkManager::getFirstLocalIpString()
@@ -79,15 +82,24 @@ void NetworkManager::newInputData()
     }
 }
 
-void NetworkManager::sendGroup()
+bool NetworkManager::sendGroup(QJsonDocument doc)
 {
-    if(outputSocket == nullptr) {
-        return;
-    }
+    if(!isValidHostAddress(receiverIp))
+        return false;
 
-    outputSocket->write(jsonSendBuffer.toJson());
-    outputSocket->flush();
-    groupSended();
+    if(outputSocket->state() != QAbstractSocket::ConnectedState) {
+        outputSocket->write(doc.toJson());
+        outputSocket->flush();
+        return true;
+    } else {
+        return false;
+    }
+}
+
+void NetworkManager::outputConnectionStateChange(QAbstractSocket::SocketState state)
+{
+    QString description = getDescriptionForSocketState(state);
+    newOutputConnectionState(description);
 }
 
 bool NetworkManager::isValidHostAddress(QString ip)
