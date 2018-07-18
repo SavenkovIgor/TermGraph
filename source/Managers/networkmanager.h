@@ -39,6 +39,8 @@ private:
 
     QString receiverIp = "192.168.0.80";
 
+    bool isValidHostAddress(QString ip);
+
     QString getDescriptionForSocketState(QAbstractSocket::SocketState state);
 };
 

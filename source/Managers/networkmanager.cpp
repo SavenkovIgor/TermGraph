@@ -90,6 +90,11 @@ void NetworkManager::sendGroup()
     groupSended();
 }
 
+bool NetworkManager::isValidHostAddress(QString ip)
+{
+    return !(QHostAddress(ip).isNull());
+}
+
 QString NetworkManager::getDescriptionForSocketState(QAbstractSocket::SocketState state)
 {
     switch (state) {
