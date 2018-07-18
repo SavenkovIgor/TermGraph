@@ -95,7 +95,7 @@ Item {
         anchors.right: importButton.left
         anchors.bottom: parent.bottom
 
-        onClicked: { sceneObj.sendGroupByNetwork(groupsList.currentItem.text) }
+        onClicked: { groupsManager.sendGroupByNetwork(groupsList.currentItem.text) }
     }
 
     Connections {
