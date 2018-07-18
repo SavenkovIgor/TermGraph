@@ -64,38 +64,17 @@ Item {
             groupExportedDialog.text = path
             groupExportedDialog.visible = true
         }
-
-        Component.onCompleted: loadIcon("qrc:/icons/share-boxed")
-    }
-
-    FileDialog {
-        id: importDialog
-        title: "Пожалуйста выберите файл для импорта"
-
-        onAccepted: {
-            console.log("You chose: " + importDialog.fileUrls)
-            groupsManager.importGroupFromJsonFile(importDialog.fileUrl)
-        }
-    }
-
-    MyRoundButton {
-        id: importButton
-
-        anchors.right: exportButton.left
-        anchors.bottom: parent.bottom
-
-        onClicked: {
-            importDialog.visible = true
-        }
     }
 
     MyRoundButton {
         id: sendByNetworkButton
 
-        anchors.right: importButton.left
+        anchors.right: exportButton.left
         anchors.bottom: parent.bottom
 
         onClicked: { groupsManager.sendGroupByNetwork(groupsList.currentItem.text) }
+
+        Component.onCompleted: loadIcon("qrc:/icons/share-boxed")
     }
 
     Connections {
