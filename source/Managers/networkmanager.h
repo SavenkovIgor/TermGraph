@@ -1,10 +1,10 @@
 #ifndef NETWORKMANAGER_H
 #define NETWORKMANAGER_H
 
-#include "../glb.h"
-
 #include <QObject>
 #include <QtNetwork>
+
+#include "../glb.h"
 
 class NetworkManager : public QObject
 {
@@ -47,4 +47,4 @@ private:
     QString getDescriptionForSocketState(QAbstractSocket::SocketState state);
 };
 
-#endif // NETWORKMANAGER_H
+#endif  // NETWORKMANAGER_H
