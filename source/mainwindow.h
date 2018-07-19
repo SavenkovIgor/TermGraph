@@ -31,11 +31,8 @@
 #include "Helpers/tagprocessor.h"
 
 class MainScene;
-//namespace Ui {
-//class MainWindow;
-//}
 
-class MainWindow : public QObject//, public QQuickPaintedItem
+class MainWindow : public QObject
 {
     Q_OBJECT
 
@@ -56,19 +53,26 @@ public:
     void loadDbPath();
 
 private slots:
-    void onQmlCreated(QObject *, QUrl );
+    void onQmlCreated(QObject *, QUrl);
     void openBase();
 
 public slots:
-    void takeSceneMouse(qreal x, qreal y, qreal winPosX, qreal winPosY, qreal hght, QString info = "", QString buttonInfo = "");
+    void takeSceneMouse(
+            qreal x,
+            qreal y,
+            qreal winPosX,
+            qreal winPosY,
+            qreal hght,
+            QString info = "",
+            QString buttonInfo = "");
 
     void testSlot();
 
-    int getUiElementSize( QString elementTypeName );
+    int getUiElementSize(QString elementTypeName);
 
 private:
     void initElemSizes();
-    QMap<QString,int> elementSizes;
+    QMap<QString, int> elementSizes;
 
     QQmlApplicationEngine *engn;
 
@@ -79,5 +83,4 @@ private:
     NodesManager* nodesMgr;
 };
 
-
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H
