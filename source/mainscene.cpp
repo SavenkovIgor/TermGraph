@@ -356,6 +356,7 @@ void MainScene::stopAllGroupTimers()
 
 QString MainScene::getCurrNodeDebugInfo()
 {
+    return "";
     TermNode* nd = getSelected();
     if( nd == nullptr )
         return "";

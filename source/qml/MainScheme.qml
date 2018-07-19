@@ -235,19 +235,40 @@ Item {
                 edge: Qt.BottomEdge
 
                 onOpened: {
-                    ptDbgInfo.text     = sceneObj.getCurrNodeDebugInfo()
-                    ptName.text        = sceneObj.getCurrNodeName()
-                    ptDefinition.text  = sceneObj.getCurrNodeDefinition()
-                    ptDescription.text = sceneObj.getCurrNodeDescription()
-                    ptExamples.text    = sceneObj.getCurrNodeExamples()
+                    if (sceneObj.getCurrNodeDebugInfo() !== "") {
+                        ptDbgInfo.text = sceneObj.getCurrNodeDebugInfo()
+                        ptDbgInfo.visible = true
+                    } else {
+                        ptDbgInfo.visible = false
+                    }
 
-                    ptDbgInfo.visible     = ( ptDbgInfo.text     != "" )
-                    ptName.visible        = ( ptName.text        != "" )
-                    ptDefinition.visible  = ( ptDefinition.text  != "" )
-                    ptDescription.visible = ( ptDescription.text != "" )
-                    ptExamples.visible    = ( ptExamples.text    != "" )
+                    if (sceneObj.getCurrNodeName() !== "") {
+                        ptName.text = sceneObj.getCurrNodeName()
+                        ptName.visible = true
+                    } else {
+                        ptName.visible = false
+                    }
 
-                    ptIsRoot.visible      = sceneObj.getCurrNodeIsRoot()
+                    if (sceneObj.getCurrNodeDefinition() !== "") {
+                        ptDefinition.text = sceneObj.getCurrNodeName() + " - это " + sceneObj.getCurrNodeDefinition()
+                        ptDefinition.visible = true
+                    } else {
+                        ptDefinition.visible = false
+                    }
+
+                    if (sceneObj.getCurrNodeDescription() !== "") {
+                        ptDescription.text = sceneObj.getCurrNodeDescription()
+                        ptDescription.visible = true
+                    } else {
+                        ptDescription.visible = false
+                    }
+
+                    if (sceneObj.getCurrNodeExamples() !== "") {
+                        ptExamples.text = sceneObj.getCurrNodeExamples()
+                        ptExamples.visible = true
+                    } else {
+                        ptExamples.visible = false
+                    }
                 }
 
                 onClosed: {
@@ -299,15 +320,9 @@ Item {
                         name: "Пример:"
                     }
 
-                    MyLabelPair{
-                        id: ptIsRoot
-                        name: "Является корневым элементом в группе"
-                    }
-
 //                    Item{
 //                        Layout.fillHeight: true
 //                    }
-
                 }
             }
 

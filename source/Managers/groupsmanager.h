@@ -2,6 +2,7 @@
 #define GROUPSMANAGER_H
 
 #include <QObject>
+
 #include "../glb.h"
 #include "./nodesmanager.h"
 #include "./networkmanager.h"
