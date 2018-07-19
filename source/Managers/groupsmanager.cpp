@@ -1,10 +1,17 @@
 #include "groupsmanager.h"
 
-GroupsManager::GroupsManager(NodesManager *nodesMgr, NetworkManager* network, QObject *parent) : QObject(parent)
+GroupsManager::GroupsManager(
+        NodesManager *nodesMgr,
+        NetworkManager* network,
+        QObject *parent):
+    QObject(parent)
 {
     this->nodesMgr = nodesMgr;
     this->network = network;
-    connect(this->network, SIGNAL(newSyncGroup(QString)), SLOT(importGroupFromJson(QString)));
+    connect(
+                this->network,
+                SIGNAL(newSyncGroup(QString)),
+                SLOT(importGroupFromJson(QString)));
 }
 
 QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
@@ -32,7 +39,7 @@ QString GroupsManager::getGroupNameByUuid(QUuid groupUuid)
 {
     DBAbstract* db = Glb::db;
     QSqlRecord rec = getGroupSqlRecord(groupUuid);
-    if(!rec.contains(db->groupTbl->name))
+    if (!rec.contains(db->groupTbl->name))
         return "";
     return rec.value(db->groupTbl->name).toString();
 }
@@ -40,16 +47,18 @@ QString GroupsManager::getGroupNameByUuid(QUuid groupUuid)
 void GroupsManager::addNewGroup(QString name, QString comment, int type)
 {
     DBAbstract* db = Glb::db;
-    if ( db->groupTbl->addGroup( name, comment, type ) )
+    if (db->groupTbl->addGroup(name, comment, type)) {
         groupsListChanged();
-    else
-        qDebug()<<"Название группы не уникально"; //TODO: Сделать уведомлением!
+    } else {
+        // TODO: Сделать уведомлением!
+        qDebug() << "Название группы не уникально";
+    }
 }
 
 void GroupsManager::deleteGroup(QString name)
 {
     DBAbstract* db = Glb::db;
-    db->groupTbl->deleteGroup( name );
+    db->groupTbl->deleteGroup(name);
     groupsListChanged();
 }
 
@@ -57,7 +66,7 @@ void GroupsManager::importGroupFromJsonFile(QString filename)
 {
     QUrl url(filename);
     QFile file(url.toLocalFile());
-    if(file.open(QIODevice::ReadOnly)) {
+    if (file.open(QIODevice::ReadOnly)) {
         QByteArray arr = file.readAll();
         importGroupFromJson(QString(arr));
     }
@@ -75,8 +84,8 @@ bool GroupsManager::isValidGroupJson(QJsonDocument json)
 {
     QJsonObject jsonGroup = json.object();
 
-    //Checking keys
-    if(
+    // Checking keys
+    if (
             jsonGroup.contains("name") &&
             jsonGroup.value("name").isString() &&
             jsonGroup.contains("type") &&
@@ -93,7 +102,7 @@ TermGroup *GroupsManager::getGroupByNameForInnerUse(QString name)
 {
     DBAbstract* db = Glb::db;
     QUuid groupUuid = db->groupTbl->getUuid(name);
-    if(groupUuid.isNull())
+    if (groupUuid.isNull())
         return nullptr;
 
     QSqlRecord groupRecord = getGroupSqlRecord(groupUuid);
@@ -103,13 +112,13 @@ TermGroup *GroupsManager::getGroupByNameForInnerUse(QString name)
 void GroupsManager::importGroupFromJson(QJsonDocument json)
 {
     DBAbstract* db = Glb::db;
-    if(!isValidGroupJson(json))
+    if (!isValidGroupJson(json))
         return;
 
     QJsonObject jsonGroup = json.object();
     QUuid groupUuid = QUuid(jsonGroup.value("longUID").toString());
 
-    if(groupUuid.isNull())
+    if (groupUuid.isNull())
         return;
 
     QString groupName = jsonGroup.value("name").toString();
@@ -119,7 +128,7 @@ void GroupsManager::importGroupFromJson(QJsonDocument json)
     QJsonArray nodes = jsonGroup.value("nodesList").toArray();
 
     // Searching for existed group
-    if( db->groupTbl->hasGroupWithUuid(groupUuid) ) { //Group found
+    if (db->groupTbl->hasGroupWithUuid(groupUuid)) {  // Group found
         db->groupTbl->setName(groupUuid, groupName);
         db->groupTbl->setComment(groupUuid, comment);
         db->groupTbl->setType(groupUuid, type);
@@ -128,15 +137,15 @@ void GroupsManager::importGroupFromJson(QJsonDocument json)
     }
 
     // Importing nodes
-    for(QJsonValue nodeValue: nodes) {
+    for (QJsonValue nodeValue : nodes) {
         QJsonObject nodeObj = nodeValue.toObject();
 
         QUuid nodeUuid = QUuid(nodeObj.value("longUID").toString());
 
-        if(nodeUuid.isNull())
+        if (nodeUuid.isNull())
             nodeUuid = QUuid(nodeObj.value("longUid").toString());
 
-        if(nodeUuid.isNull())
+        if (nodeUuid.isNull())
             continue;
 
         QString name = nodeObj.value("name").toString();
@@ -146,21 +155,29 @@ void GroupsManager::importGroupFromJson(QJsonDocument json)
         QString examples = nodeObj.value("examples").toString();
 
         // Create
-        if( !db->nodeTbl->isNodeWithUuidExist( nodeUuid ) ) {
-            //TODO: Отрефакторить. отдавать всю работу nodesManager это его ответственность
+        if (!db->nodeTbl->isNodeWithUuidExist(nodeUuid)) {
+            // TODO: Отрефакторить. отдавать всю работу nodesManager,
+            // это его ответственность
             db->nodeTbl->addNode(nodeUuid, name);
-            nodesMgr->changeNode(nodeUuid, name, forms, definition, description, examples, groupName);
+            nodesMgr->changeNode(
+                        nodeUuid,
+                        name,
+                        forms,
+                        definition,
+                        description,
+                        examples,
+                        groupName);
         } else {
             // Update
-            if(name.simplified() != "")
+            if (name.simplified() != "")
                 db->nodeTbl->setName(nodeUuid, name);
-            if(forms.simplified() != "")
+            if (forms.simplified() != "")
                 db->nodeTbl->setWordForms(nodeUuid, forms);
-            if(definition.simplified() != "")
-                db->nodeTbl->setDefinition (nodeUuid, definition);
-            if(description.simplified() != "")
+            if (definition.simplified() != "")
+                db->nodeTbl->setDefinition(nodeUuid, definition);
+            if (description.simplified() != "")
                 db->nodeTbl->setDescription(nodeUuid, description);
-            if(examples.simplified() != "")
+            if (examples.simplified() != "")
                 db->nodeTbl->setExamples(nodeUuid, examples);
 
             db->nodeTbl->setGroup(nodeUuid, groupUuid);
@@ -173,7 +190,7 @@ void GroupsManager::importGroupFromJson(QJsonDocument json)
 void GroupsManager::sendGroupByNetwork(QString groupName)
 {
     TermGroup* g = getGroupByNameForInnerUse(groupName);
-    if ( g == nullptr )
+    if (g == nullptr)
         return;
 
     network->sendGroup(g->getJsonDoc());

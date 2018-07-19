@@ -3,15 +3,18 @@
 
 #include <QObject>
 #include "../glb.h"
-#include "nodesmanager.h"
-#include "networkmanager.h"
+#include "./nodesmanager.h"
+#include "./networkmanager.h"
 #include "../termgroup.h"
 
 class GroupsManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit GroupsManager(NodesManager* nodesMgr, NetworkManager* network, QObject *parent = nullptr);
+    explicit GroupsManager(
+            NodesManager* nodesMgr,
+            NetworkManager* network,
+            QObject *parent = nullptr);
 
 signals:
     void groupsListChanged();
@@ -26,12 +29,12 @@ public slots:
     void addNewGroup(QString name, QString comment, int type);
     void deleteGroup(QString name);
 
-    //Json
+    // Json
     void importGroupFromJsonFile(QString filename);
     void importGroupFromJson(QString rawJson);
     void importGroupFromJson(QJsonDocument json);
 
-    //Network
+    // Network
     void sendGroupByNetwork(QString groupName);
 private:
     bool isValidGroupJson(QJsonDocument json);
@@ -41,4 +44,4 @@ private:
     NetworkManager* network;
 };
 
-#endif // GROUPSMANAGER_H
+#endif  // GROUPSMANAGER_H
