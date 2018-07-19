@@ -13,6 +13,6 @@ MultipleShotTimer::MultipleShotTimer(unsigned int shots, unsigned int interval):
 void MultipleShotTimer::increaseShot()
 {
     shotsCount++;
-    if(shotsCount >= shotsLimit)
-        stop(); //Останавливаем таймер
+    if (shotsCount >= shotsLimit)
+        stop();  // Останавливаем таймер
 }
