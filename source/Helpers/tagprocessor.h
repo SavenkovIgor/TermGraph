@@ -14,4 +14,4 @@ public slots:
     QString addTagInPosition(int cursorPosition, QString str);
 };
 
-#endif // TEXTPROCESSOR_H
+#endif  // TEXTPROCESSOR_H
