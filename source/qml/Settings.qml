@@ -39,7 +39,7 @@ Item {
             }
         }
 
-        Button{
+        MySquareButton {
             id: connectButton
             text: "Подключиться"
             onClicked:  {
