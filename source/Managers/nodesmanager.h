@@ -21,7 +21,7 @@ public slots:
             QString def,
             QString descr,
             QString exam,
-            QString groupName );
+            QString groupName);
 
     void changeNode(
             QUuid nodeUuid,
@@ -30,9 +30,9 @@ public slots:
             QString def,
             QString descr,
             QString exam,
-            QString groupName );
+            QString groupName);
 
     void deleteNode(QUuid uuid);
 };
 
-#endif // NODESMANAGER_H
+#endif  // NODESMANAGER_H

@@ -1,9 +1,7 @@
 #include "nodesmanager.h"
 
 NodesManager::NodesManager(QObject *parent) : QObject(parent)
-{
-
-}
+{ }
 
 void NodesManager::addNewNode(
         QString name,
@@ -14,9 +12,9 @@ void NodesManager::addNewNode(
         QString groupName)
 {
     DBAbstract* db = Glb::db;
-    //TODO: Тоже фигня. Нельзя искать в базе по имени группы!
-    if( !db->groupTbl->hasGroupWithName(groupName) ) {
-        qDebug()<<"Группа не найдена";
+    // TODO: Тоже фигня. Нельзя искать в базе по имени группы!
+    if (!db->groupTbl->hasGroupWithName(groupName)) {
+        qDebug() << "Группа не найдена";
         return;
     }
 
@@ -34,20 +32,20 @@ void NodesManager::changeNode(
         QString groupName)
 {
     DBAbstract* db = Glb::db;
-    //TODO: Тоже фигня. Нельзя искать в базе по имени группы!
-    if( !db->groupTbl->hasGroupWithName(groupName) ) {
-        qDebug()<<"Группа не найдена";
+    // TODO: Тоже фигня. Нельзя искать в базе по имени группы!
+    if (!db->groupTbl->hasGroupWithName(groupName)) {
+        qDebug() << "Группа не найдена";
         return;
     }
 
-    QUuid groupUuid = db->groupTbl->getUuid( groupName );
+    QUuid groupUuid = db->groupTbl->getUuid(groupName);
 
-    db->nodeTbl->setName        (nodeUuid, name);
-    db->nodeTbl->setWordForms   (nodeUuid, forms);
-    db->nodeTbl->setDefinition  (nodeUuid, def);
-    db->nodeTbl->setDescription (nodeUuid, descr);
-    db->nodeTbl->setExamples    (nodeUuid, exam);
-    db->nodeTbl->setGroup       (nodeUuid, groupUuid);
+    db->nodeTbl->setName(nodeUuid, name);
+    db->nodeTbl->setWordForms(nodeUuid, forms);
+    db->nodeTbl->setDefinition(nodeUuid, def);
+    db->nodeTbl->setDescription(nodeUuid, descr);
+    db->nodeTbl->setExamples(nodeUuid, exam);
+    db->nodeTbl->setGroup(nodeUuid, groupUuid);
 
     nodeChanged();
 }
