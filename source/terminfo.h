@@ -22,7 +22,6 @@ public:
     };
 
     explicit TermInfo(QSqlRecord rec, QObject *parent = 0);
-    TermInfo(QJsonObject jsonObject, QObject *parent = 0);
 
 //    bool isNull(); //TODO: Realize!
 
