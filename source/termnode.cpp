@@ -9,11 +9,11 @@ DBAbstract *TermNode::db = nullptr;
 
 QList< Qt::Edge > TermNode::sides;
 
-TermNode::TermNode( QSqlRecord rec ):
-    TermInfo( rec ),
+TermNode::TermNode(QSqlRecord rec):
+    TermInfo(rec),
     QGraphicsItem()
 {
-    if( sides.isEmpty() ) {
+    if (sides.isEmpty()) {
         sides << Qt::BottomEdge;
         sides << Qt::TopEdge;
         sides << Qt::RightEdge;
@@ -22,8 +22,8 @@ TermNode::TermNode( QSqlRecord rec ):
 
     adjustSizeForName();
 
-//    setFlag( QGraphicsItem::ItemIsSelectable,true );
-//    setFlag(QGraphicsItem::ItemIsMovable,false);
+    //    setFlag( QGraphicsItem::ItemIsSelectable,true );
+    //    setFlag(QGraphicsItem::ItemIsMovable,false);
 
     setAcceptHoverEvents(true);
     setZValue(1);
@@ -33,7 +33,6 @@ TermNode::TermNode(QJsonObject jsonObject):
     TermInfo(jsonObject),
     QGraphicsItem()
 {
-
 }
 
 TermNode::~TermNode()
@@ -44,8 +43,8 @@ void TermNode::adjustSizeForName()
 {
     prepareGeometryChange();
     QSizeF nameSize = getNameSize();
-    nodeSize.setWidth( nameSize.width() + 16 );
-    nodeSize.setHeight( nameSize.height() + 4 );
+    nodeSize.setWidth(nameSize.width() + 16);
+    nodeSize.setHeight(nameSize.height() + 4);
 }
 
 TermNode *TermNode::getNearestLeftNeigh()
@@ -55,15 +54,15 @@ TermNode *TermNode::getNearestLeftNeigh()
 
     QRectF myRect = getNodeRect(CoordType::scene);
     QRectF neighRect;
-    for( TermNode *t : neighbourNodes ) {
 
+    for (TermNode *t : neighbourNodes) {
         neighRect = t->getNodeRect(CoordType::scene);
 
-        if( neighRect.center().x() > myRect.center().x() )
+        if (neighRect.center().x() > myRect.center().x())
             continue;
 
-        if( qAbs( neighRect.center().x() - myRect.center().x() ) < diff ) {
-            diff = qAbs( neighRect.center().x() - myRect.center().x() );
+        if (qAbs(neighRect.center().x() - myRect.center().x()) < diff) {
+            diff = qAbs(neighRect.center().x() - myRect.center().x());
             ret = t;
         }
     }
@@ -77,15 +76,14 @@ TermNode *TermNode::getNearestRightNeigh()
 
     QRectF myRect = getNodeRect(CoordType::scene);
     QRectF neighRect;
-    for(TermNode *t:neighbourNodes) {
-
+    for (TermNode *t : neighbourNodes) {
         neighRect = t->getNodeRect(CoordType::scene);
 
-        if( neighRect.center().x() < myRect.center().x() )
+        if (neighRect.center().x() < myRect.center().x())
             continue;
 
-        if( qAbs( neighRect.left() - myRect.right() ) < diff ) {
-            diff = qAbs( neighRect.left() - myRect.right() );
+        if (qAbs(neighRect.left() - myRect.right()) < diff) {
+            diff = qAbs(neighRect.left() - myRect.right());
             ret = t;
         }
     }
@@ -95,14 +93,14 @@ TermNode *TermNode::getNearestRightNeigh()
 EdgesList TermNode::getEdgesInLayer()
 {
     EdgesList ret;
-    for( TermNode *t : neighbourNodes ) {
+    for (TermNode *t : neighbourNodes) {
         ret << t->edgesToRoots;
         ret << t->edgesToLeafs;
     }
 
     EdgesList ret2;
-    for( Edge *e : ret ) {
-        if( e->getLayerDistance() == 1 )
+    for (Edge *e : ret) {
+        if (e->getLayerDistance() == 1)
             ret2 << e;
     }
     return ret2;
@@ -139,19 +137,19 @@ QRectF TermNode::getRcWithBorders()
 {
     //    qreal val = mainRect.width()*0.08;
     qreal val = qBound(0.0, nodeSize.width()*0.1, 8.0);
-    QMarginsF mrg(val,val,val,val);
+    QMarginsF mrg(val, val, val, val);
     QRectF ret = getInnerNodeRect();
     ret = ret.marginsAdded(mrg);
-    ret = ret.translated( this->scenePos() );
+    ret = ret.translated(this->scenePos());
     return ret;
 }
 
 QSizeF TermNode::getSize(bool withBorder)
 {
-    qreal val = qBound(0.0, nodeSize.height()*0.2,8.0);
+    qreal val = qBound(0.0, nodeSize.height()*0.2, 8.0);
     QRectF ret = getInnerNodeRect();
-    if(withBorder) {
-        QMarginsF mrg(val,val,val,val);
+    if (withBorder) {
+        QMarginsF mrg(val, val, val, val);
         ret = ret.marginsAdded(mrg);
     }
     return ret.size();
@@ -163,17 +161,16 @@ QLineF TermNode::getRectLine(Qt::Edge sd)
 
     switch ( sd ) {
     case Qt::TopEdge:
-        return QLineF(rc.topLeft(),rc.topRight());
+        return QLineF(rc.topLeft(), rc.topRight());
 
     case Qt::RightEdge:
-        return QLineF(rc.topRight(),rc.bottomRight());
+        return QLineF(rc.topRight(), rc.bottomRight());
 
     case Qt::BottomEdge:
-        return QLineF(rc.bottomLeft(),rc.bottomRight());
+        return QLineF(rc.bottomLeft(), rc.bottomRight());
 
     case Qt::LeftEdge:
-        return QLineF(rc.topLeft(),rc.bottomLeft());
-
+        return QLineF(rc.topLeft(), rc.bottomLeft());
     }
     return QLineF();
 }
@@ -182,15 +179,15 @@ NodeType TermNode::getNodeType()
 {
     if (edgesToRoots.isEmpty()) {
         if (edgesToLeafs.isEmpty()) {
-            return NodeType::orphan; //Оба пустые
+            return NodeType::orphan;  // Оба пустые
         } else {
-            return NodeType::root; //Вниз связей нет, вверх - есть
+            return NodeType::root;  // Вниз связей нет, вверх - есть
         }
     } else {
         if (edgesToLeafs.isEmpty()) {
-            return NodeType::endLeaf; //Вниз есть, а вверх - нету
+            return NodeType::endLeaf;  // Вниз есть, а вверх - нету
         } else {
-            return NodeType::middleLeaf; //Есть и вверх и вниз
+            return NodeType::middleLeaf;  // Есть и вверх и вниз
         }
     }
     return NodeType::root;
@@ -209,20 +206,20 @@ QColor TermNode::getBaseColor()
 
 void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    //defaults
+    // defaults
     QRectF rcBase = getInnerNodeRect();
     QColor col = getBaseColor();
     int transpVal = 100;
     setZValue(1);
 
-    if( someoneHover || someoneSelect ) {
-        if( thisHovered || isSelected() || relative ) {
-            if( isSelected() || thisHovered )
+    if (someoneHover || someoneSelect) {
+        if (thisHovered || isSelected() || relative) {
+            if (isSelected() || thisHovered)
                 col = Colors::nodeSelected;
-            col.setAlpha( 255 );
+            col.setAlpha(255);
             setZValue(2);
         } else {
-            col.setAlpha( transpVal );
+            col.setAlpha(transpVal);
             setZValue(1);
         }
     }
@@ -240,42 +237,42 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     //    ed<<edgesDownList;
     //    str += " :" + QString::number(ed.count());
     //    str += " :" + QString::number( personalAddInterval );
-//    str += " :" + Glb::ptToStr( scenePos() );
+    //    str += " :" + Glb::ptToStr( scenePos() );
     //    QString testStrInner = " :" + QString::number( personalAddInterval );
     //    QString testStrInner = " :" + QString::number( newPosOffs );
 
-    QBrush br( col, Qt::SolidPattern );
+    QBrush br(col, Qt::SolidPattern);
 
-    painter->setPen(QColor(0,0,0,col.alpha()));
+    painter->setPen(QColor(0, 0, 0, col.alpha()));
     painter->setBrush(br);
 
-    if ( thisHovered )
-        painter->drawRoundedRect(rcBase.adjusted(-1,-1,1,1),5,5);
+    if (thisHovered)
+        painter->drawRoundedRect(rcBase.adjusted(-1, -1, 1, 1), 5, 5);
     else
         painter->drawRoundedRect(rcBase, 5, 5);
 
-    painter->drawText(rcBase.adjusted(1,0,1,0),Qt::AlignCenter,str);
-    
-    if( atLearning() ) {
-        QRectF miniRc = QRectF(rcBase.topLeft(),QSizeF(11,14));
-        painter->setBrush(QColor(245,222,179));
-        painter->drawRoundedRect(miniRc,1,1);
-        painter->drawText(rcBase.topLeft() + QPointF(2,12), QString::number(getRepNum()));
+    painter->drawText(rcBase.adjusted(1, 0, 1, 0), Qt::AlignCenter, str);
+
+    if (atLearning()) {
+        QRectF miniRc = QRectF(rcBase.topLeft(), QSizeF(11, 14));
+        painter->setBrush(QColor(245, 222, 179));
+        painter->drawRoundedRect(miniRc, 1, 1);
+        painter->drawText(rcBase.topLeft() + QPointF(2, 12), QString::number(getRepNum()));
     }
 }
 
 void TermNode::setRelatPaint(bool val)
 {
-    for(TermNode *n:rootNodes)
+    for (TermNode *n : rootNodes)
         n->relative = val;
 
-    for(TermNode *n:leafNodes)
+    for (TermNode *n : leafNodes)
         n->relative = val;
 
-    for(Edge *e:edgesToRoots)
+    for (Edge *e : edgesToRoots)
         e->wide = val;
 
-    for(Edge *e:edgesToLeafs)
+    for (Edge *e : edgesToLeafs)
         e->wide = val;
 }
 
@@ -298,7 +295,7 @@ void TermNode::hoverLeaveEvent(QGraphicsSceneHoverEvent *evt)
 
     relative = false;
 
-    if( !isSelected() )
+    if (!isSelected())
         setRelatPaint(false);
 
     QGraphicsItem::hoverLeaveEvent(evt);
@@ -316,14 +313,14 @@ bool TermNode::hasConnections()
 
 bool TermNode::hasConnectionsInGroup()
 {
-    for( Edge *e : edgesToLeafs ) {
-        if( e->getLeaf()->getGroupID() == getGroupID() ) {
+    for (Edge *e : edgesToLeafs) {
+        if (e->getLeaf()->getGroupID() == getGroupID()) {
             return true;
         }
     }
 
-    for( Edge *e : edgesToRoots ) {
-        if( e->getLeaf()->getGroupID() == getGroupID() ) {
+    for (Edge *e : edgesToRoots) {
+        if (e->getLeaf()->getGroupID() == getGroupID()) {
             return true;
         }
     }
@@ -332,25 +329,25 @@ bool TermNode::hasConnectionsInGroup()
 
 void TermNode::setLevel(int lev)
 {
-    if(lev > paintLevel)
+    if (lev > paintLevel)
         paintLevel = lev;
 
-    for(TermNode *t:leafNodes) {
-        if( getGroupID() != t->getGroupID() )
+    for (TermNode *t : leafNodes) {
+        if (getGroupID() != t->getGroupID())
             continue;
-        t->setLevel( lev + 1 );
+        t->setLevel(lev + 1);
     }
 }
 
 int TermNode::getUpLevels(int pLevel)
 {
-    Q_UNUSED(pLevel) //TODO: check!
+    Q_UNUSED(pLevel)  // TODO: check!
     int ret = -1;
-    for( TermNode *n : leafNodes ){
-        ret = qMax( ret, n->getUpLevels() );
+    for (TermNode *n : leafNodes) {
+        ret = qMax(ret, n->getUpLevels());
     }
 
-    if( ret == -1 )
+    if (ret == -1)
         ret = getPaintLevel();
 
     return ret;
@@ -374,12 +371,12 @@ void TermNode::addToNeighboursList(TermNode *t)
 
 void TermNode::addEdgeRef(Edge *edge)
 {
-    if( edge->getRoot() == this && edge->getLeaf() != this) { //We are source - connection up
+    if (edge->getRoot() == this && edge->getLeaf() != this) {  // We are source - connection up
         edgesToLeafs    << edge;
         leafNodes << edge->getLeaf();
     }
 
-    if( edge->getLeaf() == this && edge->getRoot() != this) { //We are acceptor - connection down
+    if (edge->getLeaf() == this && edge->getRoot() != this) {  // We are acceptor - connection down
         edgesToRoots << edge;
         rootNodes  << edge->getRoot();
     }
@@ -389,7 +386,7 @@ int TermNode::getPaintLevel() { return paintLevel; }
 
 void TermNode::countForces()
 {
-    if(!hasConnections() && !isRoot())
+    if (!hasConnections() && !isRoot())
         return;
 
     qreal edForce = 0.0;
@@ -402,22 +399,22 @@ void TermNode::countForces()
     edges << edgesToRoots;
     edges << edgesToLeafs;
 
-    for( Edge *e : edges ) {
-        if( !e->isInGroupEdge() )
+    for (Edge *e : edges) {
+        if (!e->isInGroupEdge())
             continue;
 
         tmp = e->getYProjection();
 
-        if( e->getRoot() == this )
+        if (e->getRoot() == this)
             notMyPos = e->getLeaf()->getCenter(CoordType::scene).y();
-        else if( e->getLeaf() == this )
+        else if (e->getLeaf() == this)
             notMyPos = e->getRoot()->getCenter(CoordType::scene).y();
         else
             continue;
 
         tmp *= verScale;
 
-        if(notMyPos > myX)
+        if (notMyPos > myX)
             edForce += tmp;
         else
             edForce += (-1)*tmp;
@@ -437,39 +434,38 @@ int TermNode::getIntersections(bool swapped)
 
     edges << getEdgesInLayer();
 
-//    qDebug()<<"edges.size"<<this->getName()<<edges.size();
+    //    qDebug()<<"edges.size"<<this->getName()<<edges.size();
 
     QList< QPointF > interList;
 
-    for( int i = 0; i < edges.size(); i++ ) {
-        for( int j = i+1; j < edges.size(); j++ ) {
-            QLineF l1 = edges[i]->getLine( swapped ),
-                    l2 = edges[j]->getLine( swapped );
+    for (int i = 0; i < edges.size(); i++) {
+        for (int j = i+1; j < edges.size(); j++) {
+            QLineF l1 = edges[i]->getLine(swapped),
+                    l2 = edges[j]->getLine(swapped);
 
-            QPointF *interPt = new QPointF() ;
-            if( l1.intersect(l2,interPt) == QLineF::BoundedIntersection ) {
-
+            QPointF *interPt = new QPointF();
+            if (l1.intersect(l2, interPt) == QLineF::BoundedIntersection) {
                 bool nearFound = false;
 
                 qreal dist = 0.01;
-                if(isNearPoints(*interPt,l1.p1(),dist))
+                if (isNearPoints(*interPt, l1.p1(), dist))
                     nearFound = true;
-                if(isNearPoints(*interPt,l1.p2(),dist))
+                if (isNearPoints(*interPt, l1.p2(), dist))
                     nearFound = true;
-                if(isNearPoints(*interPt,l2.p1(),dist))
+                if (isNearPoints(*interPt, l2.p1(), dist))
                     nearFound = true;
-                if(isNearPoints(*interPt,l2.p2(),dist))
+                if (isNearPoints(*interPt, l2.p2(), dist))
                     nearFound = true;
 
-                if(!nearFound) {
+                if (!nearFound) {
                     bool interFound = false;
-                    for( QPointF inPt : interList ) {
-                        if( isNearPoints(inPt,*interPt,dist) ) {
+                    for (QPointF inPt : interList) {
+                        if (isNearPoints(inPt, *interPt, dist)) {
                             interFound = true;
                             break;
                         }
                     }
-                    if( !interFound )
+                    if (!interFound)
                         interList << *interPt;
                 }
             }
@@ -479,13 +475,13 @@ int TermNode::getIntersections(bool swapped)
     return interList.size();
 }
 
-qreal TermNode::getSumEdgesLength( bool swap = false)
+qreal TermNode::getSumEdgesLength(bool swap = false)
 {
     EdgesList edges;
     edges << edgesToLeafs;
     edges << edgesToRoots;
     qreal ret = 0.0;
-    for( Edge *e : edges ) {
+    for (Edge *e : edges) {
         if (!e->isInGroupEdge())
             continue;
         ret += qAbs(e->getLine(swap).dx());
@@ -498,11 +494,11 @@ void TermNode::setSwap(QPointF toPt)
     EdgesList lst;
     lst = getConnectedEdges();
 
-    for( Edge *e : edgesToRoots ) {
+    for (Edge *e : edgesToRoots) {
         e->swPtBran = toPt;
     }
 
-    for( Edge *e : edgesToLeafs ) {
+    for (Edge *e : edgesToLeafs) {
         e->swPtRoot = toPt;
     }
 }
@@ -512,19 +508,19 @@ void TermNode::dropSwap()
     EdgesList lst;
     lst = getConnectedEdges();
 
-    for( Edge *e : lst ) {
+    for (Edge *e : lst) {
         e->swPtBran = QPointF();
         e->swPtRoot = QPointF();
     }
 }
 
-bool TermNode::isNearPoints(QPointF pt1,QPointF pt2,qreal dist) {
+bool TermNode::isNearPoints(QPointF pt1, QPointF pt2, qreal dist) {
     pt1 -= pt2;
     //    pt1.setX(qAbs(pt1.x()));
     //    pt1.setY(qAbs(pt1.y()));
     //    if(qAbs(pt1.x()) <= dist && qAbs(pt1.y()) <= dist)
     //        return true;
-    if( pt1.manhattanLength() <= dist )
+    if (pt1.manhattanLength() <= dist)
         return true;
     return false;
 }
@@ -556,36 +552,35 @@ bool TermNode::isInTree()
 
 bool TermNode::applyMove()
 {
-    //Если сильно смещение - кидаем true
-
+    // Если сильно смещение - кидаем true
     TermNode *left = getNearestLeftNeigh();
     TermNode *right = getNearestRightNeigh();
 
     QRectF myRc = getRcWithBorders();
-    myRc = myRc.translated(newPosOffs,0.0);
+    myRc = myRc.translated(newPosOffs, 0.0);
     QRectF leftRc;
     QRectF rightRc;
 
     qreal k = 0.01;
-    newPosOffs = qBound( -myRc.width()*k, newPosOffs, myRc.width()*k );
+    newPosOffs = qBound(-myRc.width()*k, newPosOffs, myRc.width()*k);
 
-    if( newPosOffs < 0 ) {
-        if( left != nullptr ) {
+    if (newPosOffs < 0) {
+        if (left != nullptr) {
             leftRc = left->getRcWithBorders();
-            newPosOffs = qBound( leftRc.right() - myRc.left(), newPosOffs, 0.0 );
+            newPosOffs = qBound(leftRc.right() - myRc.left(), newPosOffs, 0.0);
         }
     }
 
-    if( newPosOffs > 0 ) {
-        if( right != nullptr) {
+    if (newPosOffs > 0) {
+        if (right != nullptr) {
             rightRc = right->getRcWithBorders();
-            newPosOffs = qBound( 0.0, newPosOffs, rightRc.left() - myRc.right() );
+            newPosOffs = qBound(0.0, newPosOffs, rightRc.left() - myRc.right());
         }
     }
 
 
-    if( qAbs(newPosOffs) > 0.05 ) {
-        moveBy(0.0,newPosOffs);
+    if (qAbs(newPosOffs) > 0.05) {
+        moveBy(0.0, newPosOffs);
         return true;
     }
 
@@ -601,19 +596,18 @@ EdgesList TermNode::getConnectedEdges()
 }
 
 QString TermNode::getDebugString() {
-
     QStringList p;
     QString tmp;
 
-    p << Glb::ptToStr( pos() );
+    p << Glb::ptToStr(pos());
 
     tmp = " childs:";
     QList<QGraphicsItem*> childs = childItems();
-    for( int i = 0; i < childs.size(); i++ ) {
+    for (int i = 0; i < childs.size(); i++) {
         TermNode *n = (TermNode*)childs[i];
         tmp += " " + n->getUuid().toString();
     }
-    p << Glb::ptToStr( scenePos() );
+    p << Glb::ptToStr(scenePos());
 
     QString addInterf;
     addInterf += QString::number(getIntersections()) + " ";
