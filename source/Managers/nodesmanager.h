@@ -15,13 +15,12 @@ signals:
 
 public slots:
 
-    void addNewNode(
-            QString name,
-            QString forms,
-            QString def,
-            QString descr,
-            QString exam,
-            QString groupName);
+    void addNewNode(QString name,
+            const QString forms,
+            const QString def,
+            const QString descr,
+            const QString exam,
+            const QString groupName);
 
     void changeNode(
             QUuid nodeUuid,

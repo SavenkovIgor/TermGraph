@@ -27,19 +27,19 @@ public slots:
     QSqlRecord getGroupSqlRecord(QUuid groupUuid);
     QString getGroupNameByUuid(QUuid groupUuid);
 
-    void addNewGroup(const QString name, const QString comment, const int type);
+    void addNewGroup(const QString &name, const QString &comment, const int &type);
     void deleteGroup(QString name);
 
     // Json
-    void importGroupFromJsonFile(QString filename);
-    void importGroupFromJson(QString rawJson);
+    void importGroupFromJsonFile(const QString& filename);
+    void importGroupFromJson(const QString& rawJson);
     void importGroupFromJson(QJsonDocument json);
 
     // Network
     void sendGroupByNetwork(const QString groupName);
 private:
-    bool isValidGroupJson(QJsonDocument json);
-    TermGroup* getGroupByNameForInnerUse(QString name);
+    bool isValidGroupJson(const QJsonDocument json);
+    TermGroup* getGroupByNameForInnerUse(const QString name);
 
     NodesManager* nodesMgr;
     NetworkManager* network;

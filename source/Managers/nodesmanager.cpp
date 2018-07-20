@@ -5,11 +5,11 @@ NodesManager::NodesManager(QObject *parent) : QObject(parent)
 
 void NodesManager::addNewNode(
         QString name,
-        QString forms,
-        QString def,
-        QString descr,
-        QString exam,
-        QString groupName)
+        const QString forms,
+        const QString def,
+        const QString descr,
+        const QString exam,
+        const QString groupName)
 {
     DBAbstract* db = Glb::db;
     // TODO: Тоже фигня. Нельзя искать в базе по имени группы!

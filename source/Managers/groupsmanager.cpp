@@ -44,7 +44,7 @@ QString GroupsManager::getGroupNameByUuid(QUuid groupUuid)
     return rec.value(db->groupTbl->name).toString();
 }
 
-void GroupsManager::addNewGroup(const QString name, const QString comment, const int type)
+void GroupsManager::addNewGroup(const QString& name, const QString& comment, const int& type)
 {
     DBAbstract* db = Glb::db;
     if (db->groupTbl->addGroup(name, comment, type)) {
@@ -62,7 +62,7 @@ void GroupsManager::deleteGroup(QString name)
     groupsListChanged();
 }
 
-void GroupsManager::importGroupFromJsonFile(QString filename)
+void GroupsManager::importGroupFromJsonFile(const QString& filename)
 {
     QUrl url(filename);
     QFile file(url.toLocalFile());
@@ -72,7 +72,7 @@ void GroupsManager::importGroupFromJsonFile(QString filename)
     }
 }
 
-void GroupsManager::importGroupFromJson(QString rawJson)
+void GroupsManager::importGroupFromJson(const QString& rawJson)
 {
     QByteArray byteArr;
     byteArr.append(rawJson);
@@ -80,7 +80,7 @@ void GroupsManager::importGroupFromJson(QString rawJson)
     importGroupFromJson(doc);
 }
 
-bool GroupsManager::isValidGroupJson(QJsonDocument json)
+bool GroupsManager::isValidGroupJson(const QJsonDocument json)
 {
     QJsonObject jsonGroup = json.object();
 
@@ -98,7 +98,7 @@ bool GroupsManager::isValidGroupJson(QJsonDocument json)
     return false;
 }
 
-TermGroup *GroupsManager::getGroupByNameForInnerUse(QString name)
+TermGroup *GroupsManager::getGroupByNameForInnerUse(const QString name)
 {
     DBAbstract* db = Glb::db;
     QUuid groupUuid = db->groupTbl->getUuid(name);
