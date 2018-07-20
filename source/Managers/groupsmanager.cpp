@@ -44,7 +44,7 @@ QString GroupsManager::getGroupNameByUuid(QUuid groupUuid)
     return rec.value(db->groupTbl->name).toString();
 }
 
-void GroupsManager::addNewGroup(QString name, QString comment, int type)
+void GroupsManager::addNewGroup(const QString name, const QString comment, const int type)
 {
     DBAbstract* db = Glb::db;
     if (db->groupTbl->addGroup(name, comment, type)) {
@@ -187,7 +187,7 @@ void GroupsManager::importGroupFromJson(QJsonDocument json)
     groupsListChanged();
 }
 
-void GroupsManager::sendGroupByNetwork(QString groupName)
+void GroupsManager::sendGroupByNetwork(const QString groupName)
 {
     TermGroup* g = getGroupByNameForInnerUse(groupName);
     if (g == nullptr)
