@@ -173,18 +173,17 @@ NodeType TermNode::getNodeType()
 {
     if (edgesToRoots.isEmpty()) {
         if (edgesToLeafs.isEmpty()) {
-            return NodeType::orphan;  // Оба пустые
+            return NodeType::orphan;      // Оба пустые
         } else {
-            return NodeType::root;  // Вниз связей нет, вверх - есть
+            return NodeType::root;        // Вниз связей нет, вверх - есть
         }
     } else {
         if (edgesToLeafs.isEmpty()) {
-            return NodeType::endLeaf;  // Вниз есть, а вверх - нету
+            return NodeType::endLeaf;     // Вниз есть, а вверх - нету
         } else {
             return NodeType::middleLeaf;  // Есть и вверх и вниз
         }
     }
-    return NodeType::root;
 }
 
 QColor TermNode::getBaseColor()
@@ -194,7 +193,6 @@ QColor TermNode::getBaseColor()
     case NodeType::root: return Colors::nodeRoot;
     case NodeType::endLeaf: return Colors::nodeLeaf;
     case NodeType::middleLeaf: return Colors::nodeLeaf;
-    default: return Colors::nodeLeaf;
     }
 }
 
