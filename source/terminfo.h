@@ -21,7 +21,7 @@ public:
         wellRemindLvl
     };
 
-    explicit TermInfo(QSqlRecord rec, QObject *parent = 0);
+    explicit TermInfo(QSqlRecord rec, QObject *parent = nullptr);
 
 //    bool isNull(); //TODO: Realize!
 

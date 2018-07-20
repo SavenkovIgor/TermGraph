@@ -12,9 +12,9 @@ TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
     groupUuid = QUuid(rec.value(db->nodeTbl->termGroup).toString());
     groupType = db->groupTbl->getType( groupID );
 
-    name        = rec.value( db->nodeTbl->term ).toString();
-    nameForms   = rec.value( db->nodeTbl->termForms ).toString();
-    definition  = rec.value( db->nodeTbl->definition ).toString();
+    name = rec.value( db->nodeTbl->term ).toString();
+    nameForms = rec.value( db->nodeTbl->termForms ).toString();
+    definition = rec.value( db->nodeTbl->definition ).toString();
     description = rec.value( db->nodeTbl->description ).toString();
 
     examples = rec.value( db->nodeTbl->examples ).toString();
@@ -25,7 +25,7 @@ TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
     repNum = rec.value( db->nodeTbl->remindNum).toInt();
     atLearn = rec.value( db->nodeTbl->atLearn).toString() == "1";
 
-    nameCompressing( );
+    nameCompressing();
 }
 
 QUuid TermInfo::getUuid() const

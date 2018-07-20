@@ -28,7 +28,6 @@ class TermNode:  public TermInfo, public QGraphicsItem
 
 public:
     TermNode(QSqlRecord rec);
-    TermNode(QJsonObject jsonObject);
     ~TermNode();
 
     void addEdgeRef(Edge *edge);
