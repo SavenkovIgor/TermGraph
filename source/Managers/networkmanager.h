@@ -22,7 +22,7 @@ signals:
 public slots:
     bool startListen();
 
-    bool connectToHost();
+    void connectToHost();
     void disconnectFromHost();
     void setReceiverHostIp(QString ip);
     QString getReceiverIp();

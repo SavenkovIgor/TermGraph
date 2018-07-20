@@ -19,7 +19,7 @@ bool NetworkManager::startListen()
     return server->listen(QHostAddress::Any, NetworkSettings::listenPort);
 }
 
-bool NetworkManager::connectToHost()
+void NetworkManager::connectToHost()
 {
     outputSocket->connectToHost(
                 receiverIp,
