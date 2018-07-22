@@ -1,6 +1,5 @@
 #include "dbabstract.h"
 
-
 DBAbstract::DBAbstract(QString file, QObject *parent) :
     QObject(parent)
 {
@@ -20,8 +19,6 @@ DBAbstract::DBAbstract(QString file, QObject *parent) :
 //    }
 }
 
-
-
 DBAbstract::~DBAbstract()
 {
     delete nodeTbl;
@@ -32,20 +29,20 @@ DBAbstract::~DBAbstract()
 
 void DBAbstract::openDB(QString file)
 {
-    if( nodeTbl != nullptr )
+    if (nodeTbl != nullptr)
         delete nodeTbl;
 
 //    if( edgeTbl != nullptr )
 //        delete edgeTbl;
 
-    if( groupTbl != nullptr )
+    if (groupTbl != nullptr)
         delete groupTbl;
 
     base->setDatabaseName(file);
-    if( base->open() ) {
-        qDebug()<<"baseIsOpen";
+    if (base->open()) {
+        qDebug() << "baseIsOpen";
     } else {
-        qDebug()<<"cantOpenBase"<<base->lastError().text();
+        qDebug() << "cantOpenBase" << base->lastError().text();
     }
 
     nodeTbl  = new NdTbl(base);
@@ -63,15 +60,15 @@ void DBAbstract::checkCols()
 void DBAbstract::normalizeNodesGroupUuid()
 {
     QMap<int, QUuid> uidMatching;
-    for( QUuid uuid: groupTbl->getAllGroupsUuid() ) {
-        QSqlRecord rec = groupTbl->getGroup( uuid );
-        if(rec.count() == 0)
+    for (QUuid uuid : groupTbl->getAllGroupsUuid()) {
+        QSqlRecord rec = groupTbl->getGroup(uuid);
+        if (rec.count() == 0)
             continue;
 
-        if(!rec.contains(groupTbl->uid))
+        if (!rec.contains(groupTbl->uid))
             continue;
 
-        if(!rec.contains(groupTbl->longUID))
+        if (!rec.contains(groupTbl->longUID))
             continue;
 
         int groupUid = rec.value(groupTbl->uid).toInt();
@@ -80,17 +77,17 @@ void DBAbstract::normalizeNodesGroupUuid()
         uidMatching[groupUid] = groupUuid;
     }
 
-    for( QUuid nodeUuid: nodeTbl->getAllNodesUuids() ) {
+    for (QUuid nodeUuid : nodeTbl->getAllNodesUuids()) {
         QSqlRecord rec = nodeTbl->getNodeSqlRecord(nodeUuid);
 
-        if(!rec.contains(nodeTbl->uid))
+        if (!rec.contains(nodeTbl->uid))
             continue;
         bool ok = false;
         int currentGroup = rec.value(nodeTbl->termGroup).toInt(&ok);
-        if(!ok)
+        if (!ok)
             continue;
-        if(uidMatching.contains(currentGroup))
-            nodeTbl->setGroup(nodeUuid,uidMatching[currentGroup]);
+        if (uidMatching.contains(currentGroup))
+            nodeTbl->setGroup(nodeUuid, uidMatching[currentGroup]);
     }
 }
 
@@ -104,24 +101,23 @@ void DBAbstract::createAllTables()
 QStringList DBAbstract::recordToStrList(QSqlRecord q)
 {
     QStringList ret;
-    
-    for(int i=0;i<q.count();i++)
+
+    for (int i = 0; i < q.count(); i++) {
         ret << q.value(i).toString();
-    
+    }
     return ret;
 }
 
 QStringList DBAbstract::queryToStrList(QSqlQuery q)
 {
     QStringList ret;
-    
-    for(int i = 0; i < 100000000; i++) {
-        if(!q.next())
+
+    for (int i = 0; i < 100000000; i++) {
+        if (!q.next())
             break;
-        
         ret << recordToStrList(q.record()).join(" ");
     }
-    
+
     return ret;
 }
 

@@ -4,23 +4,22 @@
 #include <QObject>
 #include <QtSql>
 
-#include "ndtbl.h"
-#include "edgtbl.h"
-#include "termgrouptbl.h"
+#include "./ndtbl.h"
+#include "./edgtbl.h"
+#include "./termgrouptbl.h"
 
 class DBAbstract : public QObject
 {
     Q_OBJECT
 public:
-
     NdTbl* nodeTbl  = nullptr;
 //    EdgTbl* edgeTbl  = nullptr;
     TermGroupTbl* groupTbl = nullptr;
 
-    explicit DBAbstract( QString file, QObject *parent = 0);
+    explicit DBAbstract(QString file, QObject *parent = nullptr);
     ~DBAbstract();
 
-    void openDB( QString file );
+    void openDB(QString file);
 
     QStringList recordToStrList(QSqlRecord q);
     QStringList queryToStrList(QSqlQuery q);
@@ -37,4 +36,4 @@ private:
     void normalizeNodesGroupUuid();
 };
 
-#endif // DBABSTRACT_H
+#endif  // DBABSTRACT_H
