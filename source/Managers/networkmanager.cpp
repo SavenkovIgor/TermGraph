@@ -2,29 +2,23 @@
 
 NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 {
-    server = new QTcpServer();
-    inputSocket = nullptr;
-    outputSocket = new QTcpSocket();
+    server = new SimpleListenServer(NetworkSettings::listenPort, this);
+    server->startListen();
+    connect(
+                server,
+                SIGNAL(newReceivedData(QHostAddress, QByteArray)),
+                SLOT(newInputData(QHostAddress, QByteArray)));
+
+    outputSocket = new QTcpSocket(this);
     connect(
                outputSocket,
                SIGNAL(stateChanged(QAbstractSocket::SocketState)),
                SLOT(outputConnectionStateChange(QAbstractSocket::SocketState)));
-
-    startListen();
-    connect(server, SIGNAL(newConnection()), SLOT(newConnection()));
-}
-
-bool NetworkManager::startListen()
-{
-    return server->listen(QHostAddress::Any, NetworkSettings::listenPort);
 }
 
 void NetworkManager::connectToHost()
 {
-    outputSocket->connectToHost(
-                receiverIp,
-                NetworkSettings::listenPort,
-                QIODevice::WriteOnly);
+    outputSocket->connectToHost(receiverIp, NetworkSettings::listenPort, QIODevice::WriteOnly);
 }
 
 void NetworkManager::disconnectFromHost()
@@ -60,22 +54,12 @@ QString NetworkManager::getFirstLocalIpString()
     return "";
 }
 
-void NetworkManager::newConnection()
+void NetworkManager::newInputData(QHostAddress fromHost, QByteArray data)
 {
-    if (server->hasPendingConnections()) {
-        if (inputSocket != nullptr) {
-            inputSocket->close();
-        }
-        inputSocket = server->nextPendingConnection();
-        connect(inputSocket, SIGNAL(readyRead()), SLOT(newInputData()));
-    }
-}
+    Q_UNUSED(fromHost);
 
-void NetworkManager::newInputData()
-{
     static QByteArray byteBuffer = "";
-
-    byteBuffer.append(inputSocket->readAll());
+    byteBuffer.append(data);
 
     QJsonDocument doc = QJsonDocument::fromJson(byteBuffer);
 

@@ -5,6 +5,7 @@
 #include <QtNetwork>
 
 #include "../glb.h"
+#include "../Helpers/simplelistenserver.h"
 
 class NetworkManager : public QObject
 {
@@ -20,7 +21,6 @@ signals:
     void newOutputConnectionState(QString state);
 
 public slots:
-    bool startListen();
 
     void connectToHost();
     void disconnectFromHost();
@@ -31,13 +31,13 @@ public slots:
     QString getFirstLocalIpString();
 
 private slots:
-    void newConnection();
-    void newInputData();
-
+    void newInputData(QHostAddress fromHost, QByteArray data);
     void outputConnectionStateChange(QAbstractSocket::SocketState state);
 
 private:
-    QTcpServer* server;
+    SimpleListenServer *server;
+
+//    QTcpServer* server;
     QTcpSocket* inputSocket;
     QTcpSocket* outputSocket;
 

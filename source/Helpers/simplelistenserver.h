@@ -28,4 +28,4 @@ private:
     QList<QTcpSocket*> inputSockets;
 };
 
-#endif // LISTENSERVER_H
+#endif  // LISTENSERVER_H
