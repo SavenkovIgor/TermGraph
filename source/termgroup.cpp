@@ -55,13 +55,13 @@ void TermGroup::commonInit()
 
     switch (getType()) {
     case freeEdges:
-        baseRect->setBrush(Colors::groupBackgroundFreeConnections);
+        baseRect->setBrush(Colors::Groups::backgroundFreeConnections);
         break;
     case terms:
-        baseRect->setBrush(Colors::groupBackgroundTerms);
+        baseRect->setBrush(Colors::Groups::backgroundTerms);
         break;
     }
-    baseRect->setPen(Colors::groupBorder);
+    baseRect->setPen(Colors::Groups::border);
 
     this->grNmItem->setParentItem(baseRect);
 

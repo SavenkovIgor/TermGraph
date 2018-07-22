@@ -73,24 +73,33 @@ public:
 
 class Colors {
 public:
-    // Nodes
-    static QColor nodeText;
-    static QColor nodeBorder;
 
-    static QColor nodeLeaf;
-    static QColor nodeRoot;
-    static QColor nodeOrphan;
+    class Nodes {
+    public:
+        static QColor border;
+        static QColor text;
 
-    static QColor nodeLeafSelected;
-    static QColor nodeRootSelected;
-    static QColor nodeOrphanSelected;
+        static QColor leaf;
+        static QColor root;
+        static QColor orphan;
 
-    static QColor groupBorder;
-    static QColor groupText;
-    static QColor groupBackgroundTerms;
-    static QColor groupBackgroundFreeConnections;
+        static QColor leafSelected;
+        static QColor rootSelected;
+        static QColor orphanSelected;
+    };
 
-    static QColor sceneBackground;
+    class Groups {
+    public:
+        static QColor border;
+        static QColor text;
+        static QColor backgroundTerms;
+        static QColor backgroundFreeConnections;
+    };
+
+    class Scene {
+    public:
+        static QColor background;
+    };
 
     static QColor transparent;
 };

@@ -16,7 +16,7 @@ public:
         QPoint offset(10.0, Sizes::groupVerticalSpacer);
         QGraphicsSimpleTextItem::setPos( offset );
 
-        this->setPen(Colors::groupText);
+        this->setPen(Colors::Groups::text);
         QFont font = qApp->font();
         font.setWeight(2);
         this->setFont(font);

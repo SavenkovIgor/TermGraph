@@ -189,20 +189,20 @@ NodeType TermNode::getNodeType()
 QColor TermNode::getBaseColor()
 {
     switch (getNodeType()) {
-    case NodeType::orphan: return Colors::nodeOrphan;
-    case NodeType::root: return Colors::nodeRoot;
-    case NodeType::endLeaf: return Colors::nodeLeaf;
-    case NodeType::middleLeaf: return Colors::nodeLeaf;
+    case NodeType::orphan: return Colors::Nodes::orphan;
+    case NodeType::root: return Colors::Nodes::root;
+    case NodeType::endLeaf: return Colors::Nodes::leaf;
+    case NodeType::middleLeaf: return Colors::Nodes::leaf;
     }
 }
 
 QColor TermNode::getSelectedColor()
 {
     switch (getNodeType()) {
-    case NodeType::orphan: return Colors::nodeOrphanSelected;
-    case NodeType::root: return Colors::nodeRootSelected;
-    case NodeType::endLeaf: return Colors::nodeLeafSelected;
-    case NodeType::middleLeaf: return Colors::nodeLeafSelected;
+    case NodeType::orphan: return Colors::Nodes::orphanSelected;
+    case NodeType::root: return Colors::Nodes::rootSelected;
+    case NodeType::endLeaf: return Colors::Nodes::leafSelected;
+    case NodeType::middleLeaf: return Colors::Nodes::leafSelected;
     }
 }
 
@@ -245,7 +245,7 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
 
     QBrush br(col, Qt::SolidPattern);
 
-    QColor borderColor = Colors::nodeBorder;
+    QColor borderColor = Colors::Nodes::border;
     borderColor.setAlpha(col.alpha());
     painter->setPen(borderColor);
     painter->setBrush(br);
@@ -255,7 +255,7 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     else
         painter->drawRoundedRect(rcBase, 5, 5);
 
-    painter->setPen(Colors::nodeText);
+    painter->setPen(Colors::Nodes::text);
     painter->drawText(rcBase.adjusted(1, 0, 1, 0), Qt::AlignCenter, str);
 
     if (atLearning()) {
