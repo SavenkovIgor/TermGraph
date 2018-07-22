@@ -18,4 +18,4 @@ private:
     DropboxConnection *dropConn;
 };
 
-#endif  // CLOUDSERVICES_H
+#endif   // CLOUDSERVICES_H
