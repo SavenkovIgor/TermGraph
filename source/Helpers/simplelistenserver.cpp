@@ -1,18 +1,18 @@
-#include "listenserver.h"
+#include "simplelistenserver.h"
 
-ListenServer::ListenServer(quint16 listenPort, QObject *parent) : QObject(parent)
+SimpleListenServer::SimpleListenServer(quint16 listenPort, QObject *parent) : QObject(parent)
 {
     this->listenPort = listenPort;
     server = new QTcpServer(this);
     connect(server, SIGNAL(newConnection()), SLOT(newConnection()));
 }
 
-bool ListenServer::startListen()
+bool SimpleListenServer::startListen()
 {
     return server->listen(QHostAddress::Any, listenPort);
 }
 
-void ListenServer::newConnection()
+void SimpleListenServer::newConnection()
 {
     if (server->hasPendingConnections()) {
         QTcpSocket* newSocket = server->nextPendingConnection();
@@ -21,7 +21,7 @@ void ListenServer::newConnection()
     }
 }
 
-void ListenServer::newInputData()
+void SimpleListenServer::newInputData()
 {
     QTcpSocket *inputSocket = dynamic_cast<QTcpSocket*>(sender());
     if (inputSocket == nullptr)

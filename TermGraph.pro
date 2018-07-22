@@ -29,7 +29,7 @@ HEADERS += \
     source/Managers/groupsmanager.h \
     source/Managers/nodesmanager.h \
     source/Helpers/multipleshottimer.h \
-    source/Helpers/listenserver.h
+    source/Helpers/simplelistenserver.h
 
 SOURCES += \
         source/main.cpp\
@@ -57,7 +57,7 @@ SOURCES += \
     source/Managers/groupsmanager.cpp \
     source/Managers/nodesmanager.cpp \
     source/Helpers/multipleshottimer.cpp \
-    source/Helpers/listenserver.cpp
+    source/Helpers/simplelistenserver.cpp
 
 FORMS += \
         source/ui/reminder.ui\
