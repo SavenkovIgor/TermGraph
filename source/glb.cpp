@@ -9,18 +9,23 @@ qreal Sizes::orphansHorizontalSpacer = 10.0;
 qreal Sizes::treeLayerHorizontalSpacer = 15.0;
 
 // Nodes
-QColor Colors::nodeText = QColor(0, 0, 0);
+QColor Colors::nodeText = QColor(255, 255, 255);
 QColor Colors::nodeBorder = QColor(0, 0, 0);
-QColor Colors::nodeLeaf = QColor(69, 196, 139);
-QColor Colors::nodeRoot = QColor(244, 121, 66);
-QColor Colors::nodeOrphan = QColor(6, 133, 140);
-QColor Colors::nodeSelected = QColor(255, 208, 57);
 
-QColor Colors::groupBorder = QColor(123, 135, 160);
-QColor Colors::groupBackgroundTerms = QColor(196, 216, 255);
+QColor Colors::nodeLeaf = QColor("#6d9a28");
+QColor Colors::nodeRoot = QColor("#802915");
+QColor Colors::nodeOrphan = QColor("#124b6a");
+
+QColor Colors::nodeLeafSelected = QColor("#83c31b");
+QColor Colors::nodeRootSelected = QColor("#dc4c1d");
+QColor Colors::nodeOrphanSelected = QColor("#0b77b1");
+
+QColor Colors::groupBorder = QColor(255, 255, 255);
+QColor Colors::groupText = QColor(255, 255, 255);
+QColor Colors::groupBackgroundTerms = QColor(0, 0, 0, 0);
 QColor Colors::groupBackgroundFreeConnections = QColor(0, 0, 0, 0);
 
-QColor Colors::sceneBackground = QColor(50, 55, 65);
+QColor Colors::sceneBackground = QColor("#332f30");
 
 QColor Colors::transparent = QColor(0,0,0,0);
 
@@ -97,4 +102,22 @@ void Glb::saveFile(QString subDir, QString fileName, QByteArray data)
 QString StdFolderPaths::groupsJsonPath()
 {
     return QDir::home().absolutePath() + "/.TermGraph/GroupsJson";
+}
+
+QFont Fonts::getFont()
+{
+    return qApp->font();
+}
+
+QFont Fonts::getWidthFont()
+{
+    QFont font = getFont();
+    font.setWeight(2);
+    return font;
+}
+
+QRectF Fonts::getTextMetrics(QString text, QFont font)
+{
+    QFontMetricsF mtr = QFontMetricsF(font);
+    return  mtr.boundingRect(text);
 }

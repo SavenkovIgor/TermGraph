@@ -13,9 +13,13 @@ public:
     TGroupName( QString name ):
         QGraphicsSimpleTextItem()
     {
-        QPoint offset(10.0,Sizes::groupVerticalSpacer);
+        QPoint offset(10.0, Sizes::groupVerticalSpacer);
         QGraphicsSimpleTextItem::setPos( offset );
 
+        this->setPen(Colors::groupText);
+        QFont font = qApp->font();
+        font.setWeight(2);
+        this->setFont(font);
         this->name = name;
         updateName();
     }
@@ -55,7 +59,9 @@ private:
     }
 
     QRectF textMetric(QString str) {
-        QFontMetricsF mtr = QFontMetricsF( qApp->font() );
+        QFont font = qApp->font();
+        font.setWeight(2);
+        QFontMetricsF mtr = QFontMetricsF(font);
         return  mtr.boundingRect(str);
     }
 

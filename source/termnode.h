@@ -58,6 +58,7 @@ public:
 
     NodeType getNodeType();
     QColor getBaseColor();
+    QColor getSelectedColor();
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget *);
 

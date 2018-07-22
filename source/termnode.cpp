@@ -188,11 +188,21 @@ NodeType TermNode::getNodeType()
 
 QColor TermNode::getBaseColor()
 {
-    switch ( getNodeType() ) {
+    switch (getNodeType()) {
     case NodeType::orphan: return Colors::nodeOrphan;
     case NodeType::root: return Colors::nodeRoot;
     case NodeType::endLeaf: return Colors::nodeLeaf;
     case NodeType::middleLeaf: return Colors::nodeLeaf;
+    }
+}
+
+QColor TermNode::getSelectedColor()
+{
+    switch (getNodeType()) {
+    case NodeType::orphan: return Colors::nodeOrphanSelected;
+    case NodeType::root: return Colors::nodeRootSelected;
+    case NodeType::endLeaf: return Colors::nodeLeafSelected;
+    case NodeType::middleLeaf: return Colors::nodeLeafSelected;
     }
 }
 
@@ -207,7 +217,7 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     if (someoneHover || someoneSelect) {
         if (thisHovered || isSelected() || relative) {
             if (isSelected() || thisHovered)
-                col = Colors::nodeSelected;
+                col = getSelectedColor();
             col.setAlpha(255);
             setZValue(2);
         } else {

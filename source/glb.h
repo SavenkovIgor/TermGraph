@@ -45,6 +45,14 @@ public:
 
     static void saveFile(QString subDir,QString fileName, QString data);
     static void saveFile(QString subDir,QString fileName, QByteArray data);
+
+};
+
+class Fonts {
+public:
+    static QFont getFont();
+    static QFont getWidthFont();
+    static QRectF getTextMetrics(QString text, QFont font = getFont());
 };
 
 class StdFolderPaths {
@@ -68,12 +76,17 @@ public:
     // Nodes
     static QColor nodeText;
     static QColor nodeBorder;
+
     static QColor nodeLeaf;
     static QColor nodeRoot;
     static QColor nodeOrphan;
-    static QColor nodeSelected;
+
+    static QColor nodeLeafSelected;
+    static QColor nodeRootSelected;
+    static QColor nodeOrphanSelected;
 
     static QColor groupBorder;
+    static QColor groupText;
     static QColor groupBackgroundTerms;
     static QColor groupBackgroundFreeConnections;
 
@@ -91,7 +104,5 @@ public:
 #include "edge.h"
 #include "databaseWorks/dbabstract.h"
 #include "databaseWorks/cloudservices.h"
-//#include "mainscene.h"
-//#include "reminder.h"
 
 #endif // GLB_H
