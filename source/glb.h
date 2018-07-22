@@ -66,12 +66,18 @@ public:
 class Colors {
 public:
     // Nodes
+    static QColor nodeText;
+    static QColor nodeBorder;
     static QColor nodeLeaf;
     static QColor nodeRoot;
     static QColor nodeOrphan;
     static QColor nodeSelected;
 
-    static QColor groupBackTerms;
+    static QColor groupBorder;
+    static QColor groupBackgroundTerms;
+    static QColor groupBackgroundFreeConnections;
+
+    static QColor sceneBackground;
 
     static QColor transparent;
 };

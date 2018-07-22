@@ -235,7 +235,9 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
 
     QBrush br(col, Qt::SolidPattern);
 
-    painter->setPen(QColor(0, 0, 0, col.alpha()));
+    QColor borderColor = Colors::nodeBorder;
+    borderColor.setAlpha(col.alpha());
+    painter->setPen(borderColor);
     painter->setBrush(br);
 
     if (thisHovered)
@@ -243,6 +245,7 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     else
         painter->drawRoundedRect(rcBase, 5, 5);
 
+    painter->setPen(Colors::nodeText);
     painter->drawText(rcBase.adjusted(1, 0, 1, 0), Qt::AlignCenter, str);
 
     if (atLearning()) {

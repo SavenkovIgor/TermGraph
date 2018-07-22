@@ -53,9 +53,15 @@ void TermGroup::commonInit()
 
     //    centerRect  = new QGraphicsRectItem( nullptr );
 
-    if( getType() == terms ) {
-        baseRect->setBrush(Colors::groupBackTerms);
+    switch (getType()) {
+    case freeEdges:
+        baseRect->setBrush(Colors::groupBackgroundFreeConnections);
+        break;
+    case terms:
+        baseRect->setBrush(Colors::groupBackgroundTerms);
+        break;
     }
+    baseRect->setPen(Colors::groupBorder);
 
     this->grNmItem->setParentItem(baseRect);
 

@@ -9,12 +9,18 @@ qreal Sizes::orphansHorizontalSpacer = 10.0;
 qreal Sizes::treeLayerHorizontalSpacer = 15.0;
 
 // Nodes
-QColor Colors::nodeLeaf = QColor(94,196,99);
-QColor Colors::nodeRoot = QColor(255, 153, 0);
-QColor Colors::nodeOrphan = QColor(179, 141, 217);
-QColor Colors::nodeSelected = QColor(128,129,176);
+QColor Colors::nodeText = QColor(0, 0, 0);
+QColor Colors::nodeBorder = QColor(0, 0, 0);
+QColor Colors::nodeLeaf = QColor(69, 196, 139);
+QColor Colors::nodeRoot = QColor(244, 121, 66);
+QColor Colors::nodeOrphan = QColor(6, 133, 140);
+QColor Colors::nodeSelected = QColor(255, 208, 57);
 
-QColor Colors::groupBackTerms = QColor(211,222,237,60);
+QColor Colors::groupBorder = QColor(123, 135, 160);
+QColor Colors::groupBackgroundTerms = QColor(196, 216, 255);
+QColor Colors::groupBackgroundFreeConnections = QColor(0, 0, 0, 0);
+
+QColor Colors::sceneBackground = QColor(50, 55, 65);
 
 QColor Colors::transparent = QColor(0,0,0,0);
 
