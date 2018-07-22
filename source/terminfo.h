@@ -4,11 +4,11 @@
 #include <QObject>
 #include <QDebug>
 #include <QApplication>
-#include <QFontMetricsF>
 #include <QSqlRecord>
 
 #include "databaseWorks/dbabstract.h"
 #include "Helpers/tagprocessor.h"
+#include "Helpers/fonts.h"
 
 class TermInfo : public QObject
 {

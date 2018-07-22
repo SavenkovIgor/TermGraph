@@ -103,21 +103,3 @@ QString StdFolderPaths::groupsJsonPath()
 {
     return QDir::home().absolutePath() + "/.TermGraph/GroupsJson";
 }
-
-QFont Fonts::getFont()
-{
-    return qApp->font();
-}
-
-QFont Fonts::getWidthFont()
-{
-    QFont font = getFont();
-    font.setWeight(2);
-    return font;
-}
-
-QRectF Fonts::getTextMetrics(QString text, QFont font)
-{
-    QFontMetricsF mtr = QFontMetricsF(font);
-    return  mtr.boundingRect(text);
-}

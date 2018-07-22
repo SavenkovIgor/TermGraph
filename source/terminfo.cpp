@@ -67,12 +67,10 @@ void TermInfo::nameCompressing( )
 {
     smallName = name;
 
-    QFontMetricsF mtr = QFontMetricsF( qApp->font() );
-
     if( name.contains(" ") ) {
         //Если имя превышает базовую ширину и содержит пробелы то пытаемся его разбить на 2
 
-        if( mtr.boundingRect(smallName).width() + 15 > baseBlockWidth ) { //Пытаемся ужать в 2 строки
+        if( Fonts::getTextMetrics(smallName).width() + 15 > baseBlockWidth ) { //Пытаемся ужать в 2 строки
 
             int mid = smallName.size()/2;
 
@@ -95,8 +93,8 @@ void TermInfo::nameCompressing( )
     //Устанавливаем максимальную ширину сжатого имени
     QStringList lst = smallName.split("\n");
     for( QString s : lst ) {
-        nameSize.setWidth( qMax( nameSize.width(), mtr.boundingRect(s).width() ) );
-        nameSize.setHeight( nameSize.height() + mtr.boundingRect(s).height() );
+        nameSize.setWidth( qMax( nameSize.width(), Fonts::getTextMetrics(s).width() ) );
+        nameSize.setHeight( nameSize.height() + Fonts::getTextMetrics(s).height() );
     }
 }
 

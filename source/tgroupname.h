@@ -3,7 +3,6 @@
 
 #include <QApplication>
 #include <QObject>
-#include <QFontMetricsF>
 #include <QGraphicsSimpleTextItem>
 #include "glb.h"
 
@@ -16,10 +15,8 @@ public:
         QPoint offset(10.0, Sizes::groupVerticalSpacer);
         QGraphicsSimpleTextItem::setPos( offset );
 
-        this->setPen(Colors::Groups::text);
-        QFont font = qApp->font();
-        font.setWeight(2);
-        this->setFont(font);
+        this->setBrush(Colors::Groups::text);
+        this->setFont(Fonts::getWeightFont());
         this->name = name;
         updateName();
     }
@@ -41,7 +38,7 @@ public:
     }
 
     QRectF getNameRect() {
-        return textMetric(getFullText());
+        return Fonts::getTextMetrics(getFullText(), Fonts::getWeightFont());
     }
 
 private:
@@ -56,13 +53,6 @@ private:
         if( !timerActive )
             set += " (s)";
         setText( set );
-    }
-
-    QRectF textMetric(QString str) {
-        QFont font = qApp->font();
-        font.setWeight(2);
-        QFontMetricsF mtr = QFontMetricsF(font);
-        return  mtr.boundingRect(str);
     }
 
     bool timerActive = true;

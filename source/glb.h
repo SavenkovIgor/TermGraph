@@ -48,13 +48,6 @@ public:
 
 };
 
-class Fonts {
-public:
-    static QFont getFont();
-    static QFont getWidthFont();
-    static QRectF getTextMetrics(QString text, QFont font = getFont());
-};
-
 class StdFolderPaths {
 public:
     static QString groupsJsonPath();
