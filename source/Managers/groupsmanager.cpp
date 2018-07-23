@@ -27,12 +27,15 @@ QList<TermGroup*> GroupsManager::getAllGroups()
 {
     DBAbstract* db = Glb::db;
     QList<TermGroup*> ret;
-    for (QUuid uuid : db->groupTbl->getAllGroupsUuid()) {
-        QSqlRecord rec = getGroupSqlRecord(uuid);
+    for (QUuid groupUuid : db->groupTbl->getAllGroupsUuid()) {
+        QSqlRecord rec = getGroupSqlRecord(groupUuid);
+
         if(rec.count() == 0)
             continue;
 
-        ret << new TermGroup(rec);
+        TermGroup* group = new TermGroup(rec);
+        group->loadNodes(nodesMgr->getAllNodesForGroup(groupUuid));
+        ret << group;
     }
     return ret;
 }

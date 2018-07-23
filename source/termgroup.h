@@ -41,7 +41,7 @@ public:
 
     static bool checkJson(QJsonDocument doc);
 
-    void commonInit();
+    void initNewNodes();
 
     QGraphicsRectItem *baseRect;
 
@@ -70,6 +70,7 @@ public:
 
     QJsonDocument getJsonDoc();
 
+    void loadNodes(NodesList newNodes);
 public slots:
     void checkSwap();
 
@@ -90,8 +91,6 @@ private:
     qreal getGroupMinWidth();
     void updateRectsPositions();
     void updateBaseRectSize();
-    void loadNodes();
-    void addNodeToGroup(TermNode* node);
     void loadEdges();
 
     // Tree
@@ -129,7 +128,7 @@ private:
     NodesList nodesList;
     EdgesList edgesList;
 
-    QUuid grUuid;
+    QUuid groupUuid;
     GroupType type = freeEdges;
     QString longUid = "";
 

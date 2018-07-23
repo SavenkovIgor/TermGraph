@@ -10,12 +10,9 @@ TermGroup::TermGroup( QSqlRecord rec, QObject *parent):
     QString groupName = rec.value( db->groupTbl->name ).toString();
     this->grNmItem = new TGroupName( groupName );
 
-    this->grUuid   = QUuid(rec.value( db->groupTbl->longUID ).toString());
+    this->groupUuid   = QUuid(rec.value( db->groupTbl->longUID ).toString());
     this->longUid = rec.value( db->groupTbl->longUID ).toString();
     this->type    = static_cast<GroupType>(rec.value( db->groupTbl->type ).toInt());
-
-    loadNodes();
-    commonInit();
 }
 
 TermGroup::TermGroup(QJsonDocument doc, QObject *parent):
@@ -28,11 +25,9 @@ TermGroup::TermGroup(QJsonDocument doc, QObject *parent):
 
     QString groupName = jsonObject.value("name").toString();
     this->grNmItem = new TGroupName( groupName );
-
-    commonInit();
 }
 
-void TermGroup::commonInit()
+void TermGroup::initNewNodes()
 {
     loadEdges();
 
@@ -148,27 +143,17 @@ QMap<GroupType, QString> TermGroup::getTypesMap()
     return ret;
 }
 
-void TermGroup::loadNodes()
+void TermGroup::loadNodes(NodesList newNodes)
 {
     nodesList.clear();
-
-    QList<QUuid> uuidLst = db->nodeTbl->getAllNodesUuidsInGroup( grUuid );
-
-    for( QUuid uuid: uuidLst ) {
-        QSqlRecord rec = db->nodeTbl->getNodeSqlRecord( uuid );
-
-        if(rec.count() == 0)
+    for (TermNode* node : newNodes) {
+        if (node->getGroupUuid() != groupUuid) {
+            qDebug() << "NodeLoad error for node:" << node->getUuid().toString();
             continue;
-
-        addNodeToGroup(new TermNode( rec ));
+        }
+        nodesList << node;
     }
-}
-
-void TermGroup::addNodeToGroup(TermNode *node)
-{
-    connect( node, SIGNAL(startGroupAnimation()), SLOT(startAnimation()) );
-    connect( node, SIGNAL(stopGroupAnimation()),  SLOT(stopAnimation())  );
-    nodesList << node;
+    initNewNodes();
 }
 
 void TermGroup::loadEdges()

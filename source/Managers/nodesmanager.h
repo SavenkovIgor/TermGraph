@@ -32,6 +32,11 @@ public slots:
             QString groupName);
 
     void deleteNode(QUuid uuid);
+
+    NodesList getAllNodesForGroup(QUuid groupUuid);
+private:
+    QList<QUuid> getAllNodesUuidsInGroup(QUuid groupUuid);
+    QSqlRecord getNodeSqlRecord(QUuid nodeUuid);
 };
 
 #endif  // NODESMANAGER_H

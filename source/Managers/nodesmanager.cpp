@@ -56,3 +56,28 @@ void NodesManager::deleteNode(QUuid uuid)
     db->nodeTbl->deleteNode(uuid);
     nodeChanged();
 }
+
+NodesList NodesManager::getAllNodesForGroup(QUuid groupUuid)
+{
+    NodesList ret;
+    for (QUuid uuid : getAllNodesUuidsInGroup(groupUuid)) {
+        QSqlRecord rec = getNodeSqlRecord(uuid);
+        if (rec.count() == 0)
+            continue;
+
+        ret << new TermNode(rec);
+    }
+    return ret;
+}
+
+QList<QUuid> NodesManager::getAllNodesUuidsInGroup(QUuid groupUuid)
+{
+    DBAbstract* db = Glb::db;
+    return db->nodeTbl->getAllNodesUuidsInGroup(groupUuid);
+}
+
+QSqlRecord NodesManager::getNodeSqlRecord(QUuid nodeUuid)
+{
+    DBAbstract* db = Glb::db;
+    return db->nodeTbl->getNodeSqlRecord(nodeUuid);
+}

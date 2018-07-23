@@ -93,10 +93,6 @@ public:
 
     bool isInTree();
 
-signals:
-    void startGroupAnimation();
-    void stopGroupAnimation();
-
 private:
     // Info
     bool hasConnections();
