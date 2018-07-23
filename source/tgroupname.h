@@ -4,18 +4,20 @@
 #include <QApplication>
 #include <QObject>
 #include <QGraphicsSimpleTextItem>
-#include "glb.h"
+
+#include "./Helpers/appstyle.h"
+#include "./glb.h"  // TODO: delete. Possibly dont need
 
 class TGroupName : public QGraphicsSimpleTextItem
 {
 public:
-    TGroupName( QString name ):
+    TGroupName(QString name):
         QGraphicsSimpleTextItem()
     {
         QPoint offset(10.0, Sizes::groupVerticalSpacer);
-        QGraphicsSimpleTextItem::setPos( offset );
+        QGraphicsSimpleTextItem::setPos(offset);
 
-        this->setBrush(Colors::Groups::text);
+        this->setBrush(AppStyle::Colors::Groups::text);
         this->setFont(Fonts::getWeightFont());
         this->name = name;
         updateName();
@@ -42,7 +44,6 @@ public:
     }
 
 private:
-
     QString getFullText() const {
         return QGraphicsSimpleTextItem::text();
     }
@@ -50,13 +51,14 @@ private:
     void updateName()
     {
         QString set = name;
-        if( !timerActive )
+        if (!timerActive) {
             set += " (s)";
-        setText( set );
+        }
+        setText(set);
     }
 
     bool timerActive = true;
     QString name = "";
 };
 
-#endif // TGROUPNAME_H
+#endif  // TGROUPNAME_H

@@ -55,13 +55,13 @@ void TermGroup::commonInit()
 
     switch (getType()) {
     case freeEdges:
-        baseRect->setBrush(Colors::Groups::backgroundFreeConnections);
+        baseRect->setBrush(AppStyle::Colors::Groups::backgroundFreeConnections);
         break;
     case terms:
-        baseRect->setBrush(Colors::Groups::backgroundTerms);
+        baseRect->setBrush(AppStyle::Colors::Groups::backgroundTerms);
         break;
     }
-    baseRect->setPen(Colors::Groups::border);
+    baseRect->setPen(AppStyle::Colors::Groups::border);
 
     this->grNmItem->setParentItem(baseRect);
 
@@ -354,8 +354,8 @@ void TermGroup::animateGroup()
 
 void TermGroup::hideRect(QGraphicsRectItem *item)
 {
-    item->setBrush(Colors::transparent);
-    item->setPen(QPen(Colors::transparent));
+    item->setBrush(AppStyle::Colors::transparent);
+    item->setPen(QPen(AppStyle::Colors::transparent));
 }
 
 NodesList TermGroup::getRootNodes()

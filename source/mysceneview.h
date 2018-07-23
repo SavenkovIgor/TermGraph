@@ -9,8 +9,9 @@
 #include <QTimer>
 #include <QQuickImageProvider>
 #include <QResizeEvent>
+
 #include "glb.h"
-//#include "mainscene.h"
+#include "./Helpers/appstyle.h"
 
 class MainScene;
 

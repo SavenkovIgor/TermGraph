@@ -30,7 +30,7 @@ QImage MyView::requestImage(const QString &id, QSize *size, const QSize &request
 
     if( pt.isActive() ) {
         pt.setRenderHint(QPainter::Antialiasing);
-        pt.fillRect(img.rect(), Colors::Scene::background);
+        pt.fillRect(img.rect(), AppStyle::Colors::Scene::background);
 
         this->setMinimumSize(img.size());
         this->setBaseSize(img.size());

@@ -5,6 +5,7 @@
 #include <QGraphicsItem>
 #include <QDebug>
 
+#include "./Helpers/appstyle.h"
 #include "glb.h"
 #include "terminfo.h"
 

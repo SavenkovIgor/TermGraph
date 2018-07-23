@@ -8,27 +8,6 @@ qreal Sizes::orphansHorizontalSpacer = 10.0;
 
 qreal Sizes::treeLayerHorizontalSpacer = 15.0;
 
-// Nodes
-QColor Colors::Nodes::text = QColor(255, 255, 255);
-QColor Colors::Nodes::border = QColor(0, 0, 0);
-
-QColor Colors::Nodes::leaf = QColor("#6d9a28");
-QColor Colors::Nodes::root = QColor("#802915");
-QColor Colors::Nodes::orphan = QColor("#124b6a");
-
-QColor Colors::Nodes::leafSelected = QColor("#83c31b");
-QColor Colors::Nodes::rootSelected = QColor("#dc4c1d");
-QColor Colors::Nodes::orphanSelected = QColor("#0b77b1");
-
-QColor Colors::Groups::border = QColor(255, 255, 255);
-QColor Colors::Groups::text = QColor(255, 255, 255);
-QColor Colors::Groups::backgroundTerms = QColor(0, 0, 0, 0);
-QColor Colors::Groups::backgroundFreeConnections = QColor(0, 0, 0, 0);
-
-QColor Colors::Scene::background = QColor("#332f30");
-
-QColor Colors::transparent = QColor(0,0,0,0);
-
 quint16 NetworkSettings::listenPort = 46377;
 
 CloudServicesWrapper*Glb::cloud = nullptr;

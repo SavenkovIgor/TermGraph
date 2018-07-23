@@ -64,39 +64,6 @@ public:
     static qreal treeLayerHorizontalSpacer;
 };
 
-class Colors {
-public:
-
-    class Nodes {
-    public:
-        static QColor border;
-        static QColor text;
-
-        static QColor leaf;
-        static QColor root;
-        static QColor orphan;
-
-        static QColor leafSelected;
-        static QColor rootSelected;
-        static QColor orphanSelected;
-    };
-
-    class Groups {
-    public:
-        static QColor border;
-        static QColor text;
-        static QColor backgroundTerms;
-        static QColor backgroundFreeConnections;
-    };
-
-    class Scene {
-    public:
-        static QColor background;
-    };
-
-    static QColor transparent;
-};
-
 class NetworkSettings {
 public:
     static quint16 listenPort;
