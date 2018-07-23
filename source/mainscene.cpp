@@ -34,11 +34,8 @@ MainScene::~MainScene()
 
 void MainScene::initAllGroups()
 {
-    for( QUuid uuid: groupsMgr->getAllGroupsUuids() ) {
-        QSqlRecord rec = groupsMgr->getGroupSqlRecord( uuid );
-        if(rec.count() == 0)
-            continue;
-        addGroupToScene(new TermGroup(rec));
+    for( TermGroup *group : groupsMgr->getAllGroups() ) {
+        addGroupToScene(group);
     }
 }
 

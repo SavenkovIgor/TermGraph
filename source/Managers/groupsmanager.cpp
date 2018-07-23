@@ -23,10 +23,18 @@ QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
     return ret;
 }
 
-QList<QUuid> GroupsManager::getAllGroupsUuids()
+QList<TermGroup*> GroupsManager::getAllGroups()
 {
     DBAbstract* db = Glb::db;
-    return db->groupTbl->getAllGroupsUuid();
+    QList<TermGroup*> ret;
+    for (QUuid uuid : db->groupTbl->getAllGroupsUuid()) {
+        QSqlRecord rec = getGroupSqlRecord(uuid);
+        if(rec.count() == 0)
+            continue;
+
+        ret << new TermGroup(rec);
+    }
+    return ret;
 }
 
 QSqlRecord GroupsManager::getGroupSqlRecord(QUuid groupUuid)

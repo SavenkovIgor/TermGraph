@@ -22,9 +22,8 @@ signals:
 
 public slots:
     QStringList getAllGroupsNames(bool withAllVeiw = false);
-    QList<QUuid> getAllGroupsUuids();
+    QList <TermGroup*> getAllGroups();
 
-    QSqlRecord getGroupSqlRecord(QUuid groupUuid);
     QString getGroupNameByUuid(QUuid groupUuid);
 
     void addNewGroup(const QString &name, const QString &comment, const int &type);
@@ -37,8 +36,10 @@ public slots:
 
     // Network
     void sendGroupByNetwork(const QString groupName);
+
 private:
     bool isValidGroupJson(const QJsonDocument json);
+    QSqlRecord getGroupSqlRecord(QUuid groupUuid);
     TermGroup* getGroupByNameForInnerUse(const QString name);
 
     NodesManager* nodesMgr;
