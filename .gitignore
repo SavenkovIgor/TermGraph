@@ -5,3 +5,4 @@ source/build/*
 Makefile
 TermGraph.pro.user*
 TermGraph.qbs.user*
+TermGraphTest.pro.user*

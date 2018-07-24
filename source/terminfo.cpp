@@ -98,40 +98,6 @@ void TermInfo::nameCompressing( )
     }
 }
 
-void TermInfo::testFunc()
-{
-    return;
-    struct test{
-        QString     desc;
-        QStringList tags;
-        bool        err;
-    };
-
-    QList<test> tests;
-    test t;
-    t.desc = "a{bc}";    t.tags = QStringList()<<"bc";       t.err = false;  tests<<t;
-    t.desc = "a{bc\\}}"; t.tags = QStringList()<<"bc}";      t.err = false;  tests<<t;
-    t.desc = "a{bc}}";   t.tags = QStringList()<<"bc";       t.err = false;  tests<<t;
-    t.desc = "}}";       t.tags = QStringList();             t.err = false;  tests<<t;
-    t.desc = "{{";       t.tags = QStringList();             t.err = true;   tests<<t;
-    t.desc = "a{bc\\}";  t.tags = QStringList()<<"bc\\";     t.err = false;  tests<<t;
-    t.desc = "a{b}{c}";  t.tags = QStringList()<<"b"<<"c";   t.err = false;  tests<<t;
-    t.desc = "a{b";      t.tags = QStringList();             t.err = true;   tests<<t;
-    t.desc = "a{a\\";    t.tags = QStringList();             t.err = true;   tests<<t;
-    t.desc = "\\}\\}";   t.tags = QStringList();             t.err = false;  tests<<t;
-
-    qDebug()<<"-----------------------------------------";
-
-    for( test t : tests ) {
-        definition = t.desc;
-//        QString err;
-        qDebug()<<"tag:"<<t.desc<<t.tags<<getTags();
-//        if( (err.isEmpty() && t.err) || (!err.isEmpty() && !t.err) )
-//            qDebug()<<"some err"<< err.isEmpty();
-    }
-    qDebug()<<"-----------------------------------------";
-}
-
 QJsonObject TermInfo::toJson()
 {
     QJsonObject ret;

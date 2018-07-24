@@ -1,7 +1,43 @@
 #include "tagprocessor.h"
 
+const QChar TagProcessor::leftBracket = '{';
+const QChar TagProcessor::rightBracket = '}';
+
 TagProcessor::TagProcessor(QObject *parent) : QObject(parent)
 { }
+
+bool TagProcessor::isPairedBrackets(QString text)
+{
+    int depth = 0;
+    for (QChar sym : text) {
+        if (sym == leftBracket) {
+            depth++;
+        } else if (sym == rightBracket) {
+            depth--;
+        }
+        if (depth < 0)
+            return false;
+    }
+    return depth == 0;
+}
+
+int TagProcessor::getMaxDepthOfNestedBrackets(QString text)
+{
+    if (!isPairedBrackets(text))
+        return -1;
+
+    int depth = 0;
+    int maxDepth = 0;
+    for (QChar sym : text) {
+        if (sym == leftBracket) {
+            depth++;
+        } else if (sym == rightBracket) {
+            depth--;
+        }
+        maxDepth = qMax(maxDepth, depth);
+    }
+    return maxDepth;
+}
 
 QStringList TagProcessor::extractTags(QString str, QString &errorString)
 {
