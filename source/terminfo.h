@@ -86,8 +86,6 @@ private:
     int repNum = -1;
     bool atLearn;
 
-    void testFunc();
-
     bool fromJson(QJsonObject obj);
 
     // Learning
