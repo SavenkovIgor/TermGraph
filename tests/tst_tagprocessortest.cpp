@@ -1,4 +1,5 @@
 #include <QtTest>
+#include <QCoreApplication>
 
 // add necessary includes here
 #include "../source/Helpers/tagprocessor.h"
@@ -28,6 +29,16 @@ TagProcessorTest::~TagProcessorTest()
 
 void TagProcessorTest::test_case1()
 {
+//    TagProcessor* processor = new TagProcessor(this);
+    QVERIFY(TagProcessor::isPairedBrackets("a}b{c") == false);
+    QVERIFY(TagProcessor::isPairedBrackets("a}b}c") == false);
+    QVERIFY(TagProcessor::isPairedBrackets("a{b{c") == false);
+    QVERIFY(TagProcessor::isPairedBrackets("a{b{c") == false);
+    QVERIFY(TagProcessor::isPairedBrackets("{{}{}}}") == false);
+
+    QVERIFY(TagProcessor::isPairedBrackets("{{}{}}") == true);
+    QVERIFY(TagProcessor::isPairedBrackets("{{{{{{{{{{}}}}}}}}}}") == true);
+    QVERIFY(TagProcessor::isPairedBrackets("{}{}{}{}{}{}") == true);
     /*
     struct test{
         QString     desc;

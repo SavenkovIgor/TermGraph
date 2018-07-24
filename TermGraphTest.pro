@@ -6,4 +6,7 @@ CONFIG -= app_bundle
 
 TEMPLATE = app
 
-SOURCES +=  ./tests/tst_tagprocessortest.cpp
+HEADERS += ./source/Helpers/tagprocessor.h
+
+SOURCES +=  ./tests/tst_tagprocessortest.cpp \
+    ./source/Helpers/tagprocessor.cpp
