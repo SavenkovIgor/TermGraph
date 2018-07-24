@@ -9,37 +9,35 @@ class TagProcessorTest : public QObject
     Q_OBJECT
 
 public:
-    TagProcessorTest();
-    ~TagProcessorTest();
+    TagProcessorTest() { }
+
+    ~TagProcessorTest() { }
 
 private slots:
-    void test_case1();
 
-};
+    void test_case1_data() {
+        QTest::addColumn<QString>("text");
+        QTest::addColumn<bool>("result");
 
-TagProcessorTest::TagProcessorTest()
-{
+        QTest::newRow("wrong0") << "a}b{c" << false;
+        QTest::newRow("wrong1") << "a}b}c" << false;
+        QTest::newRow("wrong2") << "a{b{c" << false;
+        QTest::newRow("wrong3") << "a{b{c" << false;
+        QTest::newRow("wrong4") << "{{}{}}}" << false;
 
-}
+        QTest::newRow("ok0") << "{{}{}}" << true;
+        QTest::newRow("ok1") << "{{{{{{{{{{}}}}}}}}}}" << true;
+        QTest::newRow("ok2") << "{}{}{}{}{}{}" << true;
+    }
 
-TagProcessorTest::~TagProcessorTest()
-{
+    void test_case1()
+    {
+        //    TagProcessor* processor = new TagProcessor(this);
+        QFETCH(QString, text);
+        QFETCH(bool, result);
 
-}
-
-void TagProcessorTest::test_case1()
-{
-//    TagProcessor* processor = new TagProcessor(this);
-    QVERIFY(TagProcessor::isPairedBrackets("a}b{c") == false);
-    QVERIFY(TagProcessor::isPairedBrackets("a}b}c") == false);
-    QVERIFY(TagProcessor::isPairedBrackets("a{b{c") == false);
-    QVERIFY(TagProcessor::isPairedBrackets("a{b{c") == false);
-    QVERIFY(TagProcessor::isPairedBrackets("{{}{}}}") == false);
-
-    QVERIFY(TagProcessor::isPairedBrackets("{{}{}}") == true);
-    QVERIFY(TagProcessor::isPairedBrackets("{{{{{{{{{{}}}}}}}}}}") == true);
-    QVERIFY(TagProcessor::isPairedBrackets("{}{}{}{}{}{}") == true);
-    /*
+        QVERIFY(TagProcessor::isPairedBrackets(text) == result);
+        /*
     struct test{
         QString     desc;
         QStringList tags;
@@ -70,7 +68,9 @@ void TagProcessorTest::test_case1()
     }
     qDebug()<<"-----------------------------------------";
     */
-}
+    }
+
+};
 
 QTEST_APPLESS_MAIN(TagProcessorTest)
 
