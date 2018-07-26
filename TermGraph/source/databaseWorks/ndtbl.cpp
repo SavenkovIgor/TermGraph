@@ -184,6 +184,15 @@ QList<QUuid> NdTbl::getAllNodesUuidsInGroup(QUuid groupUuid)
     return ret;
 }
 
+QDateTime NdTbl::getLastEdit(QUuid uuid)
+{
+    QString field = getStringField(this->lastEdit, uuid);
+    if (field.isEmpty()) {
+        return QDateTime();
+    }
+    return QDateTime::fromString(field, Qt::ISODate);
+}
+
 QSqlRecord NdTbl::getNodeSqlRecord(QUuid uuid)
 {
     QSqlQuery sel = select(getAllCols(), WhereCondition::uuidEqual(uuid));

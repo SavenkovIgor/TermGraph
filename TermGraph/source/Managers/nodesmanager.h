@@ -32,6 +32,8 @@ public slots:
             QString groupName);
 
     void deleteNode(QUuid uuid);
+
+    QDateTime getLastEdit(QUuid nodeUuid);
 };
 
 #endif  // NODESMANAGER_H

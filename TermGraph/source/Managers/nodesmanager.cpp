@@ -56,3 +56,9 @@ void NodesManager::deleteNode(QUuid uuid)
     db->nodeTbl->deleteNode(uuid);
     nodeChanged();
 }
+
+QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
+{
+    DBAbstract* db = Glb::db;
+    return db->nodeTbl->getLastEdit(nodeUuid);
+}
