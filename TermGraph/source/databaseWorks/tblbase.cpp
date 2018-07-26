@@ -19,15 +19,13 @@ void TblBase::setField(QString columnName, QUuid uuid, QString val)
     updateWhere(set, WhereCondition::uuidEqual(uuid));
 }
 
-int TblBase::getIntField(QString columnName, int uid)
+int TblBase::getIntField(QString columnName, QUuid uuid)
 {
     if( !isColumnNameExist(columnName) )
         return -1;
 
-    WhereCondition where;
-    where.equal("uid", uid);
-
-    QSqlQuery sel = select(QStringList() << columnName,where);
+    QSqlQuery sel = select(QStringList() << columnName,
+                           WhereCondition::uuidEqual(uuid));
 
     if(!sel.next())
         return -1;

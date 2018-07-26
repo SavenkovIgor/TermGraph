@@ -20,7 +20,7 @@ protected:
     void setField(QString columnName, int uid, QString val); //TODO: Удалить когда все данные будут сохранены
     void setField(QString columnName, QUuid uuid, QString val);
 
-    int     getIntField   (QString columnName, int uid);
+    int getIntField(QString columnName, QUuid uuid);
     QString getStringField(QString columnName, int uid);
 
     void initColumn(QString columnName, QString columnType);

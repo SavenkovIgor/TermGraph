@@ -148,9 +148,9 @@ QString TermGroupTbl::getLongUid(int groupUid)
     return getStringField(this->longUID, groupUid);
 }
 
-int TermGroupTbl::getType(int groupUid)
+int TermGroupTbl::getType(QUuid groupUuid)
 {
-    return getIntField( this->type, groupUid );
+    return getIntField(this->type, groupUuid);
 }
 
 void TermGroupTbl::setName(QUuid uuid, QString name)
