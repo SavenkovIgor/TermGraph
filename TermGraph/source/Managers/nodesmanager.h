@@ -33,6 +33,7 @@ public slots:
 
     void deleteNode(QUuid uuid);
 
+    QList<QUuid> getAllNodesUuids(QUuid groupUuid);
     QDateTime getLastEdit(QUuid nodeUuid);
 };
 

@@ -41,6 +41,8 @@ private:
     bool isValidGroupJson(const QJsonDocument json);
     TermGroup* getGroupByNameForInnerUse(const QString name);
 
+    QDateTime getLastEdit(QUuid groupUuid);
+
     NodesManager* nodesMgr;
     NetworkManager* network;
 };

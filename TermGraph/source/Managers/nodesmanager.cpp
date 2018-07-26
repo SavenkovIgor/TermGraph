@@ -57,6 +57,12 @@ void NodesManager::deleteNode(QUuid uuid)
     nodeChanged();
 }
 
+QList<QUuid> NodesManager::getAllNodesUuids(QUuid groupUuid)
+{
+    DBAbstract* db = Glb::db;
+    return db->nodeTbl->getAllNodesUuidsInGroup(groupUuid);
+}
+
 QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
 {
     DBAbstract* db = Glb::db;
