@@ -123,7 +123,7 @@ TermGroup *GroupsManager::getGroupByNameForInnerUse(const QString name)
 QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 {
     QDateTime lastEdit;
-    for (QUuid nodeUuid : nodesMgr->getAllNodesUuids(groupUuid)) {
+    for (QUuid nodeUuid : nodesMgr->getAllNodesUuidsInGroup(groupUuid)) {
         QDateTime currNodeLastEdit = nodesMgr->getLastEdit(nodeUuid);
         if (lastEdit.isNull()) {
             lastEdit = currNodeLastEdit;

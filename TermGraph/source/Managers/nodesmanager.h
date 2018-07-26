@@ -33,12 +33,12 @@ public slots:
 
     void deleteNode(QUuid uuid);
 
+    QList<QUuid> getAllNodesUuidsInGroup(QUuid groupUuid);
     NodesList getAllNodesForGroup(QUuid groupUuid);
 
-private:
-    QList<QUuid> getAllNodesUuidsInGroup(QUuid groupUuid);
-    QSqlRecord getNodeSqlRecord(QUuid nodeUuid);
     QDateTime getLastEdit(QUuid nodeUuid);
+private:
+    QSqlRecord getNodeSqlRecord(QUuid nodeUuid);
 };
 
 #endif  // NODESMANAGER_H
