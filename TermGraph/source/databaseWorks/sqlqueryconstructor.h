@@ -68,6 +68,13 @@ public:
     WhereConditions(ConditionType type = And) {
         this->type = type;
     }
+
+    static WhereConditions uuidEqual(QUuid uuid) {
+        WhereConditions where;
+        where.equal("longUID", uuid.toString());
+        return  where;
+    }
+
     void notEqual(QString column, int value) {
         notEqual(column,QString::number(value));
     }
