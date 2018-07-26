@@ -138,16 +138,6 @@ bool TermGroupTbl::hasGroupWithUuid(QUuid uuid)
     return true;
 }
 
-QString TermGroupTbl::getName(int groupUid)
-{
-    return getStringField(this->name, groupUid);
-}
-
-QString TermGroupTbl::getLongUid(int groupUid)
-{
-    return getStringField(this->longUID, groupUid);
-}
-
 int TermGroupTbl::getType(QUuid groupUuid)
 {
     return getIntField(this->type, groupUuid);
