@@ -36,9 +36,7 @@ public:
     bool addGroup(QString name, QString comment, int type);
     bool addGroup(QUuid uuid, QString name, QString comment, int type);
 
-    QString getName    ( int groupUid ); //TODO: Переделать на uuid
-    QString getLongUid ( int groupUid );
-    int     getType    ( int groupUid );
+    int getType(QUuid groupUuid);
 
     void setName(QUuid uuid, QString name);
     void setComment(QUuid uuid, QString comment);

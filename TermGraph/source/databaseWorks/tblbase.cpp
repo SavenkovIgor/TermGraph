@@ -5,7 +5,7 @@ void TblBase::setField(QString columnName, int uid, QString val)
     SetExpression set;
     set.set(columnName, val);
 
-    WhereConditions where;
+    WhereCondition where;
     where.equal("uid",uid);
 
     updateWhere(set,where);
@@ -16,21 +16,16 @@ void TblBase::setField(QString columnName, QUuid uuid, QString val)
     SetExpression set;
     set.set(columnName, val);
 
-    WhereConditions where;
-    where.equal("longUID", uuid.toString());
-
-    updateWhere(set, where);
+    updateWhere(set, WhereCondition::uuidEqual(uuid));
 }
 
-int TblBase::getIntField(QString columnName, int uid)
+int TblBase::getIntField(QString columnName, QUuid uuid)
 {
     if( !isColumnNameExist(columnName) )
         return -1;
 
-    WhereConditions where;
-    where.equal("uid", uid);
-
-    QSqlQuery sel = select(QStringList() << columnName,where);
+    QSqlQuery sel = select(QStringList() << columnName,
+                           WhereCondition::uuidEqual(uuid));
 
     if(!sel.next())
         return -1;
@@ -38,15 +33,13 @@ int TblBase::getIntField(QString columnName, int uid)
     return sel.record().value(columnName).toInt();
 }
 
-QString TblBase::getStringField(QString columnName, int uid)
+QString TblBase::getStringField(QString columnName, QUuid uuid)
 {
     if( !isColumnNameExist(columnName) )
         return "";
 
-    WhereConditions where;
-    where.equal("uid", uid);
-
-    QSqlQuery sel = select(QStringList() << columnName,where);
+    QSqlQuery sel = select(QStringList() << columnName,
+                           WhereCondition::uuidEqual(uuid));
 
     if(!sel.next())
         return "";
@@ -113,12 +106,12 @@ bool TblBase::insertInto(QList<InsertContainer> values)
     return true;
 }
 
-QSqlQuery TblBase::select(QStringList cols, WhereConditions where, QString orderBy)
+QSqlQuery TblBase::select(QStringList cols, WhereCondition where, QString orderBy)
 {
     return executeSelect(cols, where, orderBy);
 }
 
-QSqlQuery TblBase::executeSelect(QStringList cols, WhereConditions where, QString orderBy)
+QSqlQuery TblBase::executeSelect(QStringList cols, WhereCondition where, QString orderBy)
 {
     QString query = queryConstructor->selectQuery(cols,where,orderBy);
     return startQuery(query);
@@ -130,7 +123,7 @@ QSqlQuery TblBase::executeInsert(QList<InsertContainer> values)
     return startQuery(query);
 }
 
-void TblBase::executeUpdate(SetExpression set, WhereConditions where)
+void TblBase::executeUpdate(SetExpression set, WhereCondition where)
 {
     QString query = queryConstructor->updateQuery(set,where);
     startQuery(query);
@@ -138,7 +131,7 @@ void TblBase::executeUpdate(SetExpression set, WhereConditions where)
 
 
 
-void TblBase::updateWhere(SetExpression set, WhereConditions where)
+void TblBase::updateWhere(SetExpression set, WhereCondition where)
 {
     executeUpdate(set, where);
 }
@@ -149,7 +142,7 @@ void TblBase::deleteRecord(QUuid uuid)
     startQuery(query);
 }
 
-void TblBase::deleteWhere(WhereConditions where)
+void TblBase::deleteWhere(WhereCondition where)
 {
     QString query = queryConstructor->deleteWhereQuery(where);
     startQuery(query);

@@ -42,6 +42,8 @@ private:
     QSqlRecord getGroupSqlRecord(QUuid groupUuid);
     TermGroup* getGroupByNameForInnerUse(const QString name);
 
+    QDateTime getLastEdit(QUuid groupUuid);
+
     NodesManager* nodesMgr;
     NetworkManager* network;
 };

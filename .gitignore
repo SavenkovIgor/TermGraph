@@ -6,3 +6,4 @@ Makefile
 TermGraph.pro.user*
 TermGraph.qbs.user*
 TermGraphTest.pro.user*
+TermGraphProject.pro.user*

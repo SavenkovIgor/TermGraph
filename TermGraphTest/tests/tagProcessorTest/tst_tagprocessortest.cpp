@@ -2,7 +2,7 @@
 #include <QCoreApplication>
 
 // add necessary includes here
-#include "../source/Helpers/tagprocessor.h"
+#include "../../../TermGraph/source/Helpers/tagprocessor.h"
 
 class TagProcessorTest : public QObject
 {

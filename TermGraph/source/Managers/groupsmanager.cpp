@@ -120,6 +120,20 @@ TermGroup *GroupsManager::getGroupByNameForInnerUse(const QString name)
     return new TermGroup(groupRecord);
 }
 
+QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
+{
+    QDateTime lastEdit;
+    for (QUuid nodeUuid : nodesMgr->getAllNodesUuids(groupUuid)) {
+        QDateTime currNodeLastEdit = nodesMgr->getLastEdit(nodeUuid);
+        if (lastEdit.isNull()) {
+            lastEdit = currNodeLastEdit;
+        } else {
+            lastEdit = qMax(lastEdit, currNodeLastEdit);
+        }
+    }
+    return lastEdit;
+}
+
 void GroupsManager::importGroupFromJson(QJsonDocument json)
 {
     DBAbstract* db = Glb::db;

@@ -20,20 +20,20 @@ protected:
     void setField(QString columnName, int uid, QString val); //TODO: Удалить когда все данные будут сохранены
     void setField(QString columnName, QUuid uuid, QString val);
 
-    int     getIntField   (QString columnName, int uid);
-    QString getStringField(QString columnName, int uid);
+    int getIntField(QString columnName, QUuid uuid);
+    QString getStringField(QString columnName, QUuid uuid);
 
     void initColumn(QString columnName, QString columnType);
     QStringList getAllCols();
 
-    QSqlQuery select(QStringList cols, WhereConditions where = WhereConditions(), QString orderBy = "");
+    QSqlQuery select(QStringList cols, WhereCondition where = WhereCondition(), QString orderBy = "");
 
     bool insertInto(QList<InsertContainer> values);
 
-    void updateWhere(SetExpression set, WhereConditions where);
+    void updateWhere(SetExpression set, WhereCondition where);
 
     void deleteRecord(QUuid uuid);
-    void deleteWhere(WhereConditions where);
+    void deleteWhere(WhereCondition where);
 
     RecList toRecList(QSqlQuery q);
 
@@ -49,9 +49,9 @@ private:
     QSqlQuery startQuery(QString str);
     bool hasErrors(QString errString);
 
-    QSqlQuery executeSelect(QStringList cols, WhereConditions where, QString orderBy = "");
+    QSqlQuery executeSelect(QStringList cols, WhereCondition where, QString orderBy = "");
     QSqlQuery executeInsert(QList<InsertContainer> values);
-    void      executeUpdate(SetExpression set, WhereConditions where);
+    void      executeUpdate(SetExpression set, WhereCondition where);
 
 };
 

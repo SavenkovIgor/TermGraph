@@ -36,7 +36,7 @@ QString SqlQueryConstructor::addColumn(TableColumnDescription column)
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::selectQuery(QStringList columns, WhereConditions where, QString orderBy)
+QString SqlQueryConstructor::selectQuery(QStringList columns, WhereCondition where, QString orderBy)
 {
     QStringList qry;
     qry << "SELECT";
@@ -80,7 +80,7 @@ QString SqlQueryConstructor::insertQuery(QList<InsertContainer> values)
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::updateQuery(SetExpression set, WhereConditions where)
+QString SqlQueryConstructor::updateQuery(SetExpression set, WhereCondition where)
 {
     QStringList qry;
     qry << "UPDATE";
@@ -93,7 +93,7 @@ QString SqlQueryConstructor::updateQuery(SetExpression set, WhereConditions wher
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::deleteWhereQuery(WhereConditions where)
+QString SqlQueryConstructor::deleteWhereQuery(WhereCondition where)
 {
     QStringList qry;
     qry << "DELETE";

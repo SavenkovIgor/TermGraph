@@ -97,10 +97,7 @@ void NdTbl::setRemindNum(QUuid uuid, int num, QDate date)
     set.set(this->remindNum, num);
     set.set(this->lastRemind, date.toString());
 
-    WhereConditions where;
-    where.equal(this->longUID, uuid.toString());
-
-    updateWhere(set,where);
+    updateWhere(set, WhereCondition::uuidEqual(uuid));
 }
 
 void NdTbl::deleteNode(QUuid uuid)
@@ -115,10 +112,9 @@ void NdTbl::updateLastEdit(QUuid uuid)
 
 bool NdTbl::isUuidExist(QUuid uuid)
 {
-    WhereConditions where;
-    where.equal(this->longUID, uuid.toString());
 
-    RecList recs = toRecList(select(QStringList() << this->longUID, where));
+    RecList recs = toRecList( select( QStringList() << this->longUID,
+                                      WhereCondition::uuidEqual(uuid)));
     return !recs.isEmpty();
 }
 
@@ -155,7 +151,7 @@ QList<int> NdTbl::getGroupNodeID(int groupID)
     if(groupID == -1)
         return ret;
 
-    WhereConditions where;
+    WhereCondition where;
     where.equal(this->termGroup, groupID);
 
     RecList idS = toRecList(select(QStringList() << uid, where));
@@ -171,7 +167,7 @@ QList<QUuid> NdTbl::getAllNodesUuidsInGroup(QUuid groupUuid)
 {
     QList<QUuid> ret;
 
-    WhereConditions where;
+    WhereCondition where;
     where.equal(this->termGroup, groupUuid.toString());
 
     RecList nodesRecords = toRecList(select(QStringList() << this->longUID, where));
@@ -188,12 +184,18 @@ QList<QUuid> NdTbl::getAllNodesUuidsInGroup(QUuid groupUuid)
     return ret;
 }
 
+QDateTime NdTbl::getLastEdit(QUuid uuid)
+{
+    QString field = getStringField(this->lastEdit, uuid);
+    if (field.isEmpty()) {
+        return QDateTime();
+    }
+    return QDateTime::fromString(field, Qt::ISODate);
+}
+
 QSqlRecord NdTbl::getNodeSqlRecord(QUuid uuid)
 {
-    WhereConditions where;
-    where.equal(longUID, uuid.toString());
-
-    QSqlQuery sel = select(getAllCols(), where);
+    QSqlQuery sel = select(getAllCols(), WhereCondition::uuidEqual(uuid));
 
     if(!sel.next())
         return QSqlRecord();

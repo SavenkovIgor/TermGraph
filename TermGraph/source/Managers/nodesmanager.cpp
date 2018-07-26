@@ -81,3 +81,9 @@ QSqlRecord NodesManager::getNodeSqlRecord(QUuid nodeUuid)
     DBAbstract* db = Glb::db;
     return db->nodeTbl->getNodeSqlRecord(nodeUuid);
 }
+
+QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
+{
+    DBAbstract* db = Glb::db;
+    return db->nodeTbl->getLastEdit(nodeUuid);
+}

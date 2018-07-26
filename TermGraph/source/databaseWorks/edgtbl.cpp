@@ -24,7 +24,7 @@ QList<QPair<int, int> > EdgTbl::getAllEdges()
 
 bool EdgTbl::hasThisEdge(int from, int to)
 {
-    WhereConditions where;
+    WhereCondition where;
     where.equal(this->fromID,from);
     where.equal(this->toID,to);
 
@@ -43,7 +43,7 @@ void EdgTbl::clearFromDuplicates()
 //        int uid = q.record().value(this->uid).toInt();
 //        qDebug() << "uid" << uid;
 
-        WhereConditions where;
+        WhereCondition where;
         where.equal(this->toID,  q.record().value( this->toID  ).toString());
         where.equal(this->fromID,q.record().value( this->fromID).toString());
 
@@ -88,7 +88,7 @@ void EdgTbl::addEdge(int from, int to, QString comment)
 
 void EdgTbl::deleteAllEdgesFor(int fromID, int toID)
 {
-    WhereConditions where(Or);
+    WhereCondition where(Or);
     where.equal(this->toID,toID);
     where.equal(this->fromID,fromID);
 
@@ -97,7 +97,7 @@ void EdgTbl::deleteAllEdgesFor(int fromID, int toID)
 
 void EdgTbl::deleteEdge (int uid)
 {
-    WhereConditions where;
+    WhereCondition where;
     where.equal(this->uid,uid);
     deleteWhere(where);
 }

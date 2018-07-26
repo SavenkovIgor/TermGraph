@@ -54,6 +54,8 @@ public:
     QList<int>   getGroupNodeID(int groupID);
     QList<QUuid> getAllNodesUuidsInGroup(QUuid groupUuid);
 
+    QDateTime getLastEdit(QUuid uuid);
+
     void setName        (QUuid uuid, QString name);
     void setWordForms   (QUuid uuid, QString forms);
     void setDefinition  (QUuid uuid, QString definition);

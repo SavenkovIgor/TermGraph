@@ -42,7 +42,7 @@ QList<int> TermGroupTbl::getAllGroupsUid()
 {
     QList<int> ret;
 
-    QSqlQuery q = select(QStringList() << this->uid, WhereConditions(), "uid");
+    QSqlQuery q = select(QStringList() << this->uid, WhereCondition(), "uid");
 
     for(int i=0;i<1000000;i++) {
         if(!q.next())
@@ -70,17 +70,15 @@ QList<QUuid> TermGroupTbl::getAllGroupsUuid()
 
 void TermGroupTbl::deleteGroup(QString name)
 {
-    WhereConditions where;
-    where.equal(this->name,name);
+    WhereCondition where;
+    where.equal(this->name, name);
     deleteWhere(where);
 }
 
 bool TermGroupTbl::isUuidExist(QUuid uuid)
 {
-    WhereConditions where;
-    where.equal(this->longUID, uuid.toString());
-
-    RecList recs = toRecList(select(QStringList() << this->longUID, where));
+    RecList recs = toRecList(select(QStringList() << this->longUID,
+                                    WhereCondition::uuidEqual(uuid)));
     return !recs.isEmpty();
 }
 
@@ -105,7 +103,7 @@ void TermGroupTbl::normalizeUuid()
 
 int TermGroupTbl::getUid(QString groupName)
 {
-    WhereConditions where;
+    WhereCondition where;
     where.equal(this->name, groupName);
 
     QSqlQuery q = select(QStringList() << this->uid, where);
@@ -117,7 +115,7 @@ int TermGroupTbl::getUid(QString groupName)
 
 QUuid TermGroupTbl::getUuid(QString groupName)
 {
-    WhereConditions where;
+    WhereCondition where;
     where.equal(this->name, groupName);
 
     QSqlQuery q = select(QStringList() << this->longUID, where);
@@ -134,10 +132,7 @@ bool TermGroupTbl::hasGroupWithName(QString groupName)
 
 bool TermGroupTbl::hasGroupWithUuid(QUuid uuid)
 {
-    WhereConditions where;
-    where.equal(this->longUID, uuid.toString());
-
-    QSqlQuery q = select(QStringList()<<this->longUID, where);
+    QSqlQuery q = select(QStringList()<<this->longUID, WhereCondition::uuidEqual(uuid));
 
     if(!q.next())
         return false;
@@ -145,19 +140,9 @@ bool TermGroupTbl::hasGroupWithUuid(QUuid uuid)
     return true;
 }
 
-QString TermGroupTbl::getName(int groupUid)
+int TermGroupTbl::getType(QUuid groupUuid)
 {
-    return getStringField(this->name, groupUid);
-}
-
-QString TermGroupTbl::getLongUid(int groupUid)
-{
-    return getStringField(this->longUID, groupUid);
-}
-
-int TermGroupTbl::getType(int groupUid)
-{
-    return getIntField( this->type, groupUid );
+    return getIntField(this->type, groupUuid);
 }
 
 void TermGroupTbl::setName(QUuid uuid, QString name)
@@ -179,7 +164,7 @@ QStringList TermGroupTbl::getAllGroupsNames(QString area, bool withUid)
 {
     QStringList ret;
 
-    QSqlQuery q = select(QStringList() << this->name << this->uid, WhereConditions(), "uid");
+    QSqlQuery q = select(QStringList() << this->name << this->uid, WhereCondition(), "uid");
 
     for(int i=0;i<1000000;i++) {
         if(!q.next())
@@ -196,7 +181,7 @@ QStringList TermGroupTbl::getAllGroupsNames(QString area, bool withUid)
 
 QSqlRecord TermGroupTbl::getGroup(int id)
 {
-    WhereConditions where;
+    WhereCondition where;
     where.equal(this->uid,id);
 
     QSqlQuery sel = select(getAllCols(), where);
@@ -209,10 +194,7 @@ QSqlRecord TermGroupTbl::getGroup(int id)
 
 QSqlRecord TermGroupTbl::getGroup(QUuid uuid)
 {
-    WhereConditions where;
-    where.equal(this->longUID, uuid.toString());
-
-    QSqlQuery sel = select(getAllCols(), where);
+    QSqlQuery sel = select(getAllCols(), WhereCondition::uuidEqual(uuid));
 
     if(!sel.next())
         return QSqlRecord();
