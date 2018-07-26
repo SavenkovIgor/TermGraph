@@ -55,7 +55,7 @@ enum ConditionType{
 };
 
 
-class WhereConditions {
+class WhereCondition {
 private:
     QString concat(QString str1, QString str2, QString str3) {
         return str1 + " " + str2 + " " + str3;
@@ -65,12 +65,12 @@ private:
     ConditionType type;
 
 public:
-    WhereConditions(ConditionType type = And) {
+    WhereCondition(ConditionType type = And) {
         this->type = type;
     }
 
-    static WhereConditions uuidEqual(QUuid uuid) {
-        WhereConditions where;
+    static WhereCondition uuidEqual(QUuid uuid) {
+        WhereCondition where;
         where.equal("longUID", uuid.toString());
         return  where;
     }
@@ -121,11 +121,11 @@ public:
     QString createTable(QList<TableColumnDescription> columns);
     QString addColumn(TableColumnDescription column);
 
-    QString selectQuery(QStringList columns, WhereConditions where, QString orderBy = "");
+    QString selectQuery(QStringList columns, WhereCondition where, QString orderBy = "");
     QString insertQuery(QList<InsertContainer> values);
-    QString updateQuery(SetExpression set, WhereConditions where);
+    QString updateQuery(SetExpression set, WhereCondition where);
 
-    QString deleteWhereQuery(WhereConditions where);
+    QString deleteWhereQuery(WhereCondition where);
     QString deleteByUuidQuery(QUuid uuid, QString primaryKeyName = "longUID");
 
     static QStringList vv(QStringList lst);
