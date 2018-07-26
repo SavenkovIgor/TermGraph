@@ -33,15 +33,13 @@ int TblBase::getIntField(QString columnName, QUuid uuid)
     return sel.record().value(columnName).toInt();
 }
 
-QString TblBase::getStringField(QString columnName, int uid)
+QString TblBase::getStringField(QString columnName, QUuid uuid)
 {
     if( !isColumnNameExist(columnName) )
         return "";
 
-    WhereCondition where;
-    where.equal("uid", uid);
-
-    QSqlQuery sel = select(QStringList() << columnName,where);
+    QSqlQuery sel = select(QStringList() << columnName,
+                           WhereCondition::uuidEqual(uuid));
 
     if(!sel.next())
         return "";

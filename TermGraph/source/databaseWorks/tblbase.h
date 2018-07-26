@@ -21,7 +21,7 @@ protected:
     void setField(QString columnName, QUuid uuid, QString val);
 
     int getIntField(QString columnName, QUuid uuid);
-    QString getStringField(QString columnName, int uid);
+    QString getStringField(QString columnName, QUuid uuid);
 
     void initColumn(QString columnName, QString columnType);
     QStringList getAllCols();
