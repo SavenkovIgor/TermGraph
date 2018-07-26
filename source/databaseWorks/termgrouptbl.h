@@ -6,7 +6,7 @@
 class TermGroupTbl : public TblBase
 {
 public:
-    const QString uid     = "uid"; //TODO: Грохнуть
+    static const QString uid;  // TODO: Грохнуть
     const QString longUID = "longUID";
     const QString name    = "name";
     const QString comment = "comment";

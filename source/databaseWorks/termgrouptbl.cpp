@@ -1,5 +1,7 @@
 #include "termgrouptbl.h"
 
+const QString TermGroupTbl::uid = "uid";
+
 bool TermGroupTbl::addGroup(QString name, QString comment, int type)
 {
     if(name.simplified() == "")
