@@ -180,7 +180,7 @@ void GroupsManager::importGroupFromJson(QJsonDocument json)
     QJsonArray nodes = jsonGroup.value("nodesList").toArray();
 
     // Searching for existed group
-    if (db->groupTbl->isUuidExist(groupUuid)) {  // Group found
+    if (db->groupTbl->hasGroupWithUuid(groupUuid)) {  // Group found
         db->groupTbl->setName(groupUuid, groupName);
         db->groupTbl->setComment(groupUuid, comment);
         db->groupTbl->setType(groupUuid, type);

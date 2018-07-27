@@ -49,7 +49,7 @@ void TermGroupTbl::deleteGroup(QString name)
     deleteWhere(where);
 }
 
-bool TermGroupTbl::isUuidExist(QUuid uuid)
+bool TermGroupTbl::hasGroupWithUuid(QUuid uuid)
 {
     RecList recs = toRecList(select(QStringList() << this->longUID,
                                     WhereCondition::uuidEqual(uuid)));
@@ -61,7 +61,7 @@ QUuid TermGroupTbl::generateNewUuid()
     QUuid uuid;
     for( int i = 0; i < 1000; i++ ) {
         uuid = QUuid::createUuid();
-        if(!isUuidExist(uuid)){
+        if(!hasGroupWithUuid(uuid)){
             break;
         }
     }

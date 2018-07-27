@@ -43,7 +43,7 @@ public:
     void setType(QUuid uuid, int type);
 
     // Checkers
-    bool isUuidExist(QUuid uuid);
+    bool hasGroupWithUuid(QUuid uuid);
     bool hasGroupWithName(QString groupName);
 
 private:
