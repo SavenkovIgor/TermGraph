@@ -84,6 +84,13 @@ Item {
         }
     }
 
+    Connections {
+        target: nodesManager
+        onNodeChanged: {
+            groupsList.refreshModel()
+        }
+    }
+
     ListView {
         id: groupsList
         anchors.fill: parent

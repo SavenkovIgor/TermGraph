@@ -170,6 +170,13 @@ Item {
                     }
                 }
 
+                Connections {
+                    target: nodesManager
+                    onNodeChanged: {
+                        nodeGroup.refreshModel()
+                    }
+                }
+
                 MyComboBox {
                     id: nodeGroup
                     model: groupsManager.getAllGroupsNames()

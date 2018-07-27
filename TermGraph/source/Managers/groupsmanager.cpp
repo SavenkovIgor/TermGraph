@@ -17,7 +17,34 @@ GroupsManager::GroupsManager(
 QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
 {
     DBAbstract* db = Glb::db;
-    QStringList ret = db->groupTbl->getAllGroupsNames();
+    QList<QPair<QUuid, QDateTime>> groupSorting;
+
+    // Forming structure with group uuids and last edit times
+    for (QUuid groupUuid : db->groupTbl->getAllGroupsUuid()) {
+        QPair<QUuid, QDateTime> pair;
+        pair.first = groupUuid;
+        pair.second = getLastEdit(groupUuid);
+        groupSorting.append(pair);
+    }
+
+    // Sorting this structure
+    int nMaxDate;
+    for (int i = 0; i < groupSorting.size(); i++) {
+        nMaxDate = i;
+        for (int j = i + 1; j < groupSorting.size(); j++) {
+            if (groupSorting[nMaxDate].second < groupSorting[j].second) {
+                nMaxDate = j;
+            }
+        }
+        groupSorting.swap(nMaxDate, i);
+    }
+
+    // Casting uuids to names
+    QStringList ret;
+    for (int i = 0; i < groupSorting.size(); i++) {
+        ret << db->groupTbl->getName(groupSorting[i].first);
+    }
+
     if (withAllVeiw)
         ret.push_front("Все группы");
     return ret;
