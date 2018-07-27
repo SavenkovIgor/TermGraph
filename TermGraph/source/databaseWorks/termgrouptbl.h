@@ -42,6 +42,8 @@ public:
     void setComment(QUuid uuid, QString comment);
     void setType(QUuid uuid, int type);
 
+    QString getName(QUuid uuid);
+
     void deleteGroup( QString name );
 
     bool isUuidExist(QUuid uuid);

@@ -160,6 +160,11 @@ void TermGroupTbl::setType(QUuid uuid, int type)
     setField(this->type, uuid, QString::number(type));
 }
 
+QString TermGroupTbl::getName(QUuid uuid)
+{
+    return getStringField(this->name, uuid);
+}
+
 QStringList TermGroupTbl::getAllGroupsNames(QString area, bool withUid)
 {
     QStringList ret;
