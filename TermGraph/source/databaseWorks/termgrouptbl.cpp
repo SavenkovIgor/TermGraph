@@ -85,16 +85,6 @@ bool TermGroupTbl::hasGroupWithName(QString groupName)
     return !getUuid(groupName).isNull();
 }
 
-bool TermGroupTbl::hasGroupWithUuid(QUuid uuid)
-{
-    QSqlQuery q = select(QStringList()<<this->longUID, WhereCondition::uuidEqual(uuid));
-
-    if(!q.next())
-        return false;
-
-    return true;
-}
-
 int TermGroupTbl::getType(QUuid groupUuid)
 {
     return getIntField(this->type, groupUuid);

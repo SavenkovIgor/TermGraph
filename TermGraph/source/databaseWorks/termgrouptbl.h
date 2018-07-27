@@ -45,7 +45,6 @@ public:
     // Checkers
     bool isUuidExist(QUuid uuid);
     bool hasGroupWithName(QString groupName);
-    bool hasGroupWithUuid(QUuid uuid);
 
 private:
     QUuid generateNewUuid();
