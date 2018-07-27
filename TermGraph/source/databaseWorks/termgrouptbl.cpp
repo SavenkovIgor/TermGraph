@@ -7,18 +7,8 @@ bool TermGroupTbl::addGroup(QString name, QString comment, int type)
     if(name.simplified() == "")
         return false;
 
-    QUuid uuid;
-
-    for( int i = 0; i < 1000; i++ ) {
-        uuid = QUuid::createUuid();
-        if(!isUuidExist(uuid.toString())) {
-            if( i == 0)
-                qDebug()<<"break at 0";
-            break;
-        }
-    }
-
-    return addGroup(uuid.toString(), name, comment, type);
+    QUuid uuid = generateNewUuid();
+    return addGroup(uuid, name, comment, type);
 }
 
 bool TermGroupTbl::addGroup(QUuid uuid, QString name, QString comment, int type)
@@ -99,6 +89,18 @@ void TermGroupTbl::normalizeUuid()
     } else {
         qDebug()<<"Nothing to normalize";
     }
+}
+
+QUuid TermGroupTbl::generateNewUuid()
+{
+    QUuid uuid;
+    for( int i = 0; i < 1000; i++ ) {
+        uuid = QUuid::createUuid();
+        if(!isUuidExist(uuid)){
+            break;
+        }
+    }
+    return uuid;
 }
 
 int TermGroupTbl::getUid(QString groupName)
