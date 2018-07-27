@@ -22,33 +22,32 @@ public:
         initColumn(type,    "INTEGER DEFAULT '-1'");
     }
 
-    QList<int>   getAllGroupsUid();
+    // Adding, deleting
+    bool addGroup(QString name, QString comment, int type);
+    bool addGroup(QUuid uuid, QString name, QString comment, int type);
+    void deleteGroup(QString name);
+
+    // Getters
+    QSqlRecord getGroup(QUuid uuid);
+    QString getName(QUuid uuid);
+    int getType(QUuid groupUuid);
+    QUuid getUuid(QString groupName);
+
+    // Massive getters
     QList<QUuid> getAllGroupsUuid();
     QStringList getAllGroupsNames(QString area = "", bool withUid = false);
 
-    QSqlRecord getGroup(int id); //TODO: Удалить, когда все данные будут сохранены
-    QSqlRecord getGroup(QUuid uuid);
-
-    int getUid(QString   groupName); //TODO: Удалить, когда все данные будут сохранены
-    QUuid getUuid(QString groupName);
-    bool hasGroupWithName(QString groupName);
-    bool hasGroupWithUuid(QUuid uuid);
-    bool addGroup(QString name, QString comment, int type);
-    bool addGroup(QUuid uuid, QString name, QString comment, int type);
-
-    int getType(QUuid groupUuid);
-
+    // Setters
     void setName(QUuid uuid, QString name);
     void setComment(QUuid uuid, QString comment);
     void setType(QUuid uuid, int type);
 
-    QString getName(QUuid uuid);
-
-    void deleteGroup( QString name );
-
+    // Checkers
     bool isUuidExist(QUuid uuid);
-    void normalizeUuid();
+    bool hasGroupWithName(QString groupName);
+    bool hasGroupWithUuid(QUuid uuid);
 
+private:
     QUuid generateNewUuid();
 };
 

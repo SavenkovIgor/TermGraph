@@ -125,7 +125,6 @@ void DBAbstract::makeStartBaseCheck()
 {
     createAllTables();
     checkCols();
-    groupTbl->normalizeUuid();
 //    edgeTbl->clearFromDuplicates();
     normalizeNodesGroupUuid();
 }
