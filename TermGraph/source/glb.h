@@ -20,15 +20,13 @@
 #include <vector>
 #include <algorithm>
 
-
 class TermNode;
-//class MainScene;
 class Edge;
 class DBAbstract;
 class CloudServicesWrapper;
 
-typedef QList< TermNode* >  NodesList;
-typedef QList< Edge* >      EdgesList;
+typedef QList<TermNode*> NodesList;
+typedef QList<Edge*> EdgesList;
 
 class Glb
 {
@@ -37,15 +35,14 @@ public:
 
     static int getLevDistance(const QString &src, const QString &dst);
 
-    static QString ptToStr( int x, int y, QString divider = "x" );
-    static QString ptToStr( QPoint  pt,   QString divider = "x" );
-    static QString ptToStr( QPointF pt,   QString divider = "x" );
+    static QString ptToStr(int x, int y, QString divider = "x");
+    static QString ptToStr(QPoint  pt, QString divider = "x");
+    static QString ptToStr(QPointF pt, QString divider = "x");
 
     static CloudServicesWrapper *cloud;
 
-    static void saveFile(QString subDir,QString fileName, QString data);
-    static void saveFile(QString subDir,QString fileName, QByteArray data);
-
+    static void saveFile(QString subDir, QString fileName, QString data);
+    static void saveFile(QString subDir, QString fileName, QByteArray data);
 };
 
 class StdFolderPaths {
@@ -69,9 +66,9 @@ public:
     static quint16 listenPort;
 };
 
-#include "termnode.h"
-#include "edge.h"
-#include "databaseWorks/dbabstract.h"
-#include "databaseWorks/cloudservices.h"
+#include "./termnode.h"
+#include "./edge.h"
+#include "./databaseWorks/dbabstract.h"
+#include "./databaseWorks/cloudservices.h"
 
-#endif // GLB_H
+#endif  // GLB_H

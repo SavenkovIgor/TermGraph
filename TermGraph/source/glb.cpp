@@ -36,8 +36,8 @@ int Glb::getLevDistance(const QString &src, const QString &dst)
 
     int above_cell, left_cell, diagonal_cell, cost;
 
-    for(int i = 1; i <= m; ++i) {
-        for(int j = 1; j <= n; ++j) {
+    for (int i = 1; i <= m; ++i) {
+        for (int j = 1; j <= n; ++j) {
             cost = src[i - 1] == dst[j - 1] ? 0 : 1;
             above_cell = matrix[i - 1][j];
             left_cell = matrix[i][j - 1];
@@ -54,27 +54,27 @@ QString Glb::ptToStr(int x, int y, QString divider) {
 }
 
 QString Glb::ptToStr(QPoint pt, QString divider){
-    return ptToStr( pt.x(), pt.y(), divider );
+    return ptToStr(pt.x(), pt.y(), divider);
 }
 
 QString Glb::ptToStr(QPointF pt, QString divider){
-    return ptToStr( pt.toPoint(), divider );
+    return ptToStr(pt.toPoint(), divider);
 }
 
 void Glb::saveFile(QString subDir, QString fileName, QString data) {
     QByteArray arr;
     arr.append(data);
-    saveFile(subDir,fileName,arr);
+    saveFile(subDir, fileName, arr);
 }
 
 void Glb::saveFile(QString subDir, QString fileName, QByteArray data)
 {
     QDir groupsDir(qApp->applicationDirPath());
     groupsDir.mkpath(subDir);
-    QFile jsonFile(subDir + "/" + fileName);
-    if(jsonFile.open(QIODevice::WriteOnly)) {
-        jsonFile.write(data);
-        jsonFile.close();
+    QFile someFile(subDir + "/" + fileName);
+    if (someFile.open(QIODevice::WriteOnly)) {
+        someFile.write(data);
+        someFile.close();
     }
 }
 
