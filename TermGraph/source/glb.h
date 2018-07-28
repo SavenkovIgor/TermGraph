@@ -8,7 +8,6 @@
 #include <QList>
 #include <QTimer>
 #include <QDebug>
-#include <QColor>
 #include <QPainter>
 #include <QPushButton>
 #include <QGraphicsItem>
