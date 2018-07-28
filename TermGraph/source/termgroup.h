@@ -5,12 +5,12 @@
 #include <QtSql>
 
 #include "./Helpers/appstyle.h"
-#include "databaseWorks/dbabstract.h"
-#include "termnode.h"
-#include "tgroupname.h"
-#include "edge.h"
+#include "./databaseWorks/dbabstract.h"
+#include "./termnode.h"
+#include "./tgroupname.h"
+#include "./edge.h"
 
-enum GroupType {
+enum GroupType {  // TODO: class!
     freeEdges = -1,
     terms = 0
 };
@@ -35,8 +35,8 @@ class TermGroup : public QObject
 public:
     static DBAbstract *db;
 
-    explicit TermGroup(QSqlRecord rec, QObject* parent = 0);
-    TermGroup(QJsonDocument doc, QObject* parent = 0);
+    explicit TermGroup(QSqlRecord rec, QObject* parent = nullptr);
+    TermGroup(QJsonDocument doc, QObject* parent = nullptr);
     ~TermGroup();
 
     static bool checkJson(QJsonDocument doc);
@@ -48,7 +48,7 @@ public:
     GroupType getType();
     QString getTypeString();
     static QStringList getTypesNames();
-    static QMap<GroupType,QString> getTypesMap();
+    static QMap<GroupType, QString> getTypesMap();
 
     QString getName();
     QString getUid();
@@ -66,7 +66,7 @@ public:
     void updateGroupFrame();
 
     // Connections search
-    void suggestConnections(); //TODO: доделать эту функцию
+    void suggestConnections();  // TODO: доделать эту функцию
 
     QJsonDocument getJsonDoc();
 
@@ -106,7 +106,7 @@ private:
     NodesList sortNodesInLayer(NodesList lst);
 
     // Edges
-    EdgesList searchConnections(); //TODO: Переделать эту функцию так же
+    EdgesList searchConnections();  // TODO: Переделать эту функцию так же
 
     // Orphans
     NodesList getOrphanNodes();
@@ -116,7 +116,7 @@ private:
     // Tools
     qreal getMaxHeightInAllLevels() const;
     QSizeF getVerticalStackedSize(NodesList lst) const;
-    void swapNodes( TermNode *n1, TermNode *n2 );
+    void swapNodes(TermNode *n1, TermNode *n2);
 
     void hideRect(QGraphicsRectItem* item);
 
@@ -131,7 +131,6 @@ private:
     QUuid groupUuid;
     GroupType type = freeEdges;
     QString longUid = "";
-
 };
 
-#endif // TERMGROUP_H
+#endif  // TERMGROUP_H
