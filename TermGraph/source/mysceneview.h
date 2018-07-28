@@ -10,7 +10,7 @@
 #include <QQuickImageProvider>
 #include <QResizeEvent>
 
-#include "glb.h"
+#include "./glb.h"
 #include "./Helpers/appstyle.h"
 
 class MainScene;
@@ -24,7 +24,7 @@ class MyView : public QGraphicsView, public QQuickImageProvider
 {
     Q_OBJECT
 
-    QSize retImgSz = QSize(400,300);
+    QSize retImgSz = QSize(400, 300);
 
 public:
     MyView();
@@ -33,27 +33,27 @@ public:
 
     void mousePressEvent(QMouseEvent *evt)
     {
-        newInfo( "press " + Glb::ptToStr( evt->pos() ) );
-        newPos( evt->pos().x(),evt->pos().y() );
+        newInfo("press " + Glb::ptToStr(evt->pos()));
+        newPos(evt->pos().x(), evt->pos().y());
         QGraphicsView::mousePressEvent(evt);
     }
 
     void mouseReleaseEvent(QMouseEvent *evt)
     {
-        newInfo( "release " + Glb::ptToStr( evt->pos() ) );
+        newInfo("release " + Glb::ptToStr(evt->pos()));
         QGraphicsView::mouseReleaseEvent(evt);
     }
 
     void mouseMoveEvent(QMouseEvent *evt)
     {
-        newInfo( "move " + Glb::ptToStr( evt->pos() ) );
+        newInfo("move " + Glb::ptToStr(evt->pos()));
         QGraphicsView::mouseMoveEvent(evt);
     }
 
     QImage requestImage(const QString &id, QSize *size, const QSize &requestedSize);
 
     bool event(QEvent *event){
-        return QWidget::event(event); //Не знаю почему, но без этого не работает...
+        return QWidget::event(event);  // Не знаю почему, но без этого не работает...
     }
 
 public slots:
@@ -67,34 +67,33 @@ public slots:
     void moveDown()  { moveView(QPointF(0.0, 10.0));  }
 
     void setDragMove(bool drg) {
-        if( drg )
+        if (drg) {
             setDragMode(QGraphicsView::ScrollHandDrag);
-        else
+        } else {
             setDragMode(QGraphicsView::NoDrag);
+        }
     }
 
     void setSceneSize(int width, int height)
     {
-        retImgSz.setWidth(  width  );
-        retImgSz.setHeight( height );
+        retImgSz.setWidth(width);
+        retImgSz.setHeight(height);
     }
 
 signals:
     void newInfo(QString info);
-    void newPos(int x,int y);
+    void newPos(int x, int y);
 
 private:
     void scaleChange(SceneScale scaleChange);
 
-    void moveView(QPointF move){
+    void moveView(QPointF move) {
         QPointF pt = mapToScene(viewport()->rect().center());
-        centerOn( pt + move );
+        centerOn(pt + move);
     }
 
     int scaleCount = 0;
     QPointF centerPoint = QPointF();
-
 };
 
-
-#endif // MYSCENEVIEW_H
+#endif  // MYSCENEVIEW_H
