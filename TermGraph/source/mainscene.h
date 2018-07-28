@@ -7,12 +7,12 @@
 #include <QMessageBox>
 #include <QGraphicsView>
 
-#include "glb.h"
-#include "Managers/networkmanager.h"
-#include "Managers/groupsmanager.h"
-#include "Managers/nodesmanager.h"
-#include "termgroup.h"
-#include "mainwindow.h"
+#include "./glb.h"
+#include "./Managers/networkmanager.h"
+#include "./Managers/groupsmanager.h"
+#include "./Managers/nodesmanager.h"
+#include "./termgroup.h"
+#include "./mainwindow.h"
 
 class MainScene : public QGraphicsScene
 {
@@ -34,7 +34,7 @@ public:
     ~MainScene();
 
     qreal xWindow;
-    qreal yWindow;//dirtyHack
+    qreal yWindow;  // dirtyHack
 
     QList < TermGroup* > groupList;
     TermGroup* getGroupByName(QString name);
@@ -47,7 +47,7 @@ public:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *evt);
 
     TermNode* getSelected();
-    NodesList getAllTermsAtPoint  ( int x, int y );
+    NodesList getAllTermsAtPoint(int x, int y);
 
     void setAnimSpeed(int val);
 
@@ -56,7 +56,7 @@ signals:
 
     void stopMove();
 
-    void showMessage(QString msg,int time);
+    void showMessage(QString msg, int time);
 
     void someSelected();
     void selectionDrop();
@@ -64,16 +64,16 @@ signals:
     void mouseInfo(QString str);
 
 public slots:
-    void showGroup(int num); //TODO: Постараться избавиться от этой функции
-    void showGroup( QString grp = "");
+    void showGroup(int num);  // TODO: Постараться избавиться от этой функции
+    void showGroup(QString grp = "");
 
     void toPreviousGroup() {
-        currGroupIndex = qBound( 0, currGroupIndex - 1, groupList.size() - 1 );
+        currGroupIndex = qBound(0, currGroupIndex - 1, groupList.size() - 1);
         showGroup(currGroupIndex);
     }
 
     void toNextGroup() {
-        currGroupIndex = qBound( 0, currGroupIndex + 1, groupList.size() - 1 );
+        currGroupIndex = qBound(0, currGroupIndex + 1, groupList.size() - 1);
         showGroup(currGroupIndex);
     }
 
@@ -124,7 +124,7 @@ private:
     bool groupInFocus = false;
 
 public slots:
-    void stayGroupInFocus( bool val ) { groupInFocus = val; }
+    void stayGroupInFocus(bool val) { groupInFocus = val; }
     void createTestGroups();
 
 private:
@@ -132,4 +132,4 @@ private:
     NodesManager* nodesMgr;
 };
 
-#endif // MAINSCENE_H
+#endif  // MAINSCENE_H
