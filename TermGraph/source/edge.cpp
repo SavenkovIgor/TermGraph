@@ -16,16 +16,16 @@ Edge::Edge(TermNode *from, TermNode *to, EdgeType type)
     this->toLeaf = to;
     this->type = type;
 
-    from->addEdgeRef( this );
-    to->addEdgeRef(   this );
+    from->addEdgeRef(this);
+    to->addEdgeRef(this);
 
     setAcceptHoverEvents(false);
     setZValue(0);
 }
 
-bool Edge::hasNode(TermNode *nd)
+bool Edge::hasNode(TermNode *node)
 {
-    if(nd == toRoot || nd == toLeaf)
+    if (node == toRoot || node == toLeaf)
         return true;
 
     return false;
@@ -33,7 +33,7 @@ bool Edge::hasNode(TermNode *nd)
 
 bool Edge::isSameEdge(TermNode *rt, TermNode *br)
 {
-    bool rOk = (toRoot  == rt || toRoot  == br);
+    bool rOk = (toRoot == rt || toRoot == br);
     bool bOk = (toLeaf == rt || toLeaf == br);
 
     return rOk && bOk;
@@ -46,11 +46,11 @@ bool Edge::isInGroupEdge()
 
 TermNode *Edge::getOtherSide(TermNode *n)
 {
-    if( n == toRoot )
+    if (n == toRoot) {
         return toLeaf;
-
-    else if( n == toLeaf )
+    } else if (n == toLeaf) {
         return toRoot;
+    }
 
     return nullptr;
 }
@@ -60,7 +60,7 @@ QRectF Edge::boundingRect() const
     QPointF pt1 = toRoot->getCenter(CoordType::scene),
             pt2 = toLeaf->getCenter(CoordType::scene);
 
-    QRectF rc = QRectF(pt1,pt2);
+    QRectF rc = QRectF(pt1, pt2);
     rc = rc.normalized();
     return rc;
 }
@@ -68,19 +68,18 @@ QRectF Edge::boundingRect() const
 void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     QPen p;
-
-    p.setStyle( isInGroupEdge()? Qt::SolidLine : Qt::DashDotLine);
-    p.setColor( getEdgeColor() );
+    p.setStyle(isInGroupEdge() ? Qt::SolidLine : Qt::DashDotLine);
+    p.setColor(getEdgeColor());
 
     int baseWidth = 3;
-    if( wide ) {
+    if (wide) {
         baseWidth *= 2;
-        p.setColor(QColor(0,166,147));
+        p.setColor(QColor(0, 166, 147));  // TODO: Вынести
     } else {
         baseWidth /= 2;
     }
 
-    QLineF edLine( toRoot->getCenter(CoordType::local), toLeaf->getCenter(CoordType::local) );
+    QLineF edLine(toRoot->getCenter(CoordType::local), toLeaf->getCenter(CoordType::local));
 
     p.setWidth(baseWidth);
     painter->setPen(p);
@@ -89,38 +88,40 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     QPointF *ptTo = new QPointF();
     QPointF *ptFrom = new QPointF();
 
-    for( Qt::Edge s : TermNode::sides ) {
-        tmpLine = toLeaf->getRectLine( s );
-        if( tmpLine.intersect( edLine, ptTo ) == QLineF::BoundedIntersection )
+    for (Qt::Edge side : TermNode::sides) {
+        tmpLine = toLeaf->getRectLine(side);
+        if (tmpLine.intersect(edLine, ptTo) == QLineF::BoundedIntersection) {
             break;
+        }
     }
 
-    for( Qt::Edge s : TermNode::sides ) {
-        tmpLine = toRoot->getRectLine( s );
-        if( tmpLine.intersect( edLine, ptFrom ) == QLineF::BoundedIntersection )
+    for (Qt::Edge side : TermNode::sides) {
+        tmpLine = toRoot->getRectLine(side);
+        if (tmpLine.intersect(edLine, ptFrom) == QLineF::BoundedIntersection) {
             break;
+        }
     }
 
-    if( ptTo->isNull() || ptFrom->isNull() ) {
-        painter->drawLine( edLine );
+    if (ptTo->isNull() || ptFrom->isNull()) {
+        painter->drawLine(edLine);
         return;
     } else {
-        painter->drawLine( QLineF( *ptFrom, *ptTo ) );
+        painter->drawLine(QLineF(*ptFrom, *ptTo));
     }
 
-    p.setStyle( Qt::SolidLine );
+    p.setStyle(Qt::SolidLine);
     painter->setPen(p);
     const qreal len     = -9;    // Negative len. Hack!)
     const qreal andOffs = 16;
-    QLineF l1 = QLineF::fromPolar( len, edLine.angle() + andOffs );
-    QLineF l2 = QLineF::fromPolar( len, edLine.angle() - andOffs );
-    l1.translate( *ptTo );
-    l2.translate( *ptTo );
+    QLineF l1 = QLineF::fromPolar(len, edLine.angle() + andOffs);
+    QLineF l2 = QLineF::fromPolar(len, edLine.angle() - andOffs);
+    l1.translate(*ptTo);
+    l2.translate(*ptTo);
 
-    QPolygonF pol( QVector<QPointF>()<<*ptTo<<l1.p2()<<l2.p2() );
+    QPolygonF pol(QVector<QPointF>() << *ptTo << l1.p2() << l2.p2());
 
-    painter->setBrush( QBrush( Qt::black ) );
-    painter->drawConvexPolygon( pol );
+    painter->setBrush(Qt::black);
+    painter->drawConvexPolygon(pol);
 
     delete ptTo;
     delete ptFrom;
@@ -144,17 +145,16 @@ qreal Edge::getYProjection()
     return boundingRect().height();
 }
 
-QLineF Edge::getLine( bool swap )
+QLineF Edge::getLine(bool swap)
 {
     QPointF pt1 = toRoot->getCenter(CoordType::scene),
             pt2 = toLeaf->getCenter(CoordType::scene);
 
-    if( swap ) {
-
-        if( !swPtRoot.isNull() )
+    if (swap) {
+        if (!swPtRoot.isNull())
             pt1 = swPtRoot;
 
-        if( !swPtBran.isNull() )
+        if (!swPtBran.isNull())
             pt2 = swPtBran;
     }
 

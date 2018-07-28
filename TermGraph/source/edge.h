@@ -1,7 +1,7 @@
 #ifndef EDGE_H
 #define EDGE_H
 
-#include "glb.h"
+#include "./glb.h"
 
 class TermNode;
 
@@ -27,14 +27,14 @@ public:
     bool wide = false;
 
 public:
-    Edge( TermNode *toRoot, TermNode *toLeaf, EdgeType type = EdgeType::termin );
+    Edge(TermNode *toRoot, TermNode *toLeaf, EdgeType type = EdgeType::termin);
 
     TermNode* getRoot() { return toRoot; }
     TermNode* getLeaf() { return toLeaf; }
 
     bool hasNode(TermNode *nd);
 
-    bool isSameEdge(TermNode* rt,TermNode* br);
+    bool isSameEdge(TermNode* rt, TermNode* br);
     bool isInGroupEdge();
     TermNode* getOtherSide(TermNode* n);
 
@@ -50,7 +50,7 @@ public:
 //    QPointF swP1 = QPointF();
     QPointF swPtRoot = QPointF();
     QPointF swPtBran = QPointF();
-    QLineF getLine( bool swap = false);
+    QLineF getLine(bool swap = false);
 };
 
-#endif // EDGE_H
+#endif  // EDGE_H

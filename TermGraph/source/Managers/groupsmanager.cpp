@@ -57,7 +57,7 @@ QList<TermGroup*> GroupsManager::getAllGroups()
     for (QUuid groupUuid : db->groupTbl->getAllGroupsUuid()) {
         QSqlRecord rec = getGroupSqlRecord(groupUuid);
 
-        if(rec.count() == 0)
+        if (rec.count() == 0)
             continue;
 
         TermGroup* group = new TermGroup(rec);
