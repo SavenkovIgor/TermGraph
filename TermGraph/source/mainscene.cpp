@@ -7,16 +7,18 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphi
 
     selectTimer.setSingleShot(false);
     selectTimer.setInterval(200);
-    connect(&selectTimer,SIGNAL(timeout()),SLOT(checkSelection()));
+    connect(&selectTimer, SIGNAL(timeout()), SLOT(checkSelection()));
 
 //    viewGrpTimer.setSingleShot(false);
 //    connect(&viewGrpTimer,SIGNAL(timeout()),SLOT(showGroup()));
 
-    if(groupsMgr == nullptr)
+    if (groupsMgr == nullptr) {
         qDebug() << "Critical error: groupsManager is null!";
+    }
 
-    if(nodesMgr == nullptr)
+    if (nodesMgr == nullptr) {
         qDebug() << "Critical error: nodesManager is null!";
+    }
 
     this->groupsMgr = groupsMgr;
     connect(groupsMgr, SIGNAL(groupsListChanged()), SLOT(updateModel()));
@@ -34,7 +36,7 @@ MainScene::~MainScene()
 
 void MainScene::initAllGroups()
 {
-    for( TermGroup *group : groupsMgr->getAllGroups() ) {
+    for (TermGroup* group : groupsMgr->getAllGroups()) {
         addGroupToScene(group);
     }
 }
@@ -42,14 +44,15 @@ void MainScene::initAllGroups()
 void MainScene::addGroupToScene(TermGroup *group)
 {
     addItem(group->baseRect);
-    connect(&sceneRhytm,SIGNAL(timeout()),group,SLOT(sceneUpdateSignal()));
+    connect(&sceneRhytm, SIGNAL(timeout()), group, SLOT(sceneUpdateSignal()));
     groupList << group;
 }
 
 void MainScene::deleteAllGroups()
-{    
-    for( TermGroup* g: groupList )
-        removeItem(g->baseRect);
+{
+    for (TermGroup* group : groupList) {
+        removeItem(group->baseRect);
+    }
 
     groupList.clear();
 }
@@ -57,25 +60,30 @@ void MainScene::deleteAllGroups()
 NodesList MainScene::getAllNodes()
 {
     NodesList ret;
-    for( TermGroup* g: groupList )
-        ret << g->getAllNodes();
+    for (TermGroup* group : groupList) {
+        ret << group->getAllNodes();
+    }
     return ret;
 }
 
 TermGroup *MainScene::getGroupByName(QString name)
 {
-    for( TermGroup* g: groupList )
-        if( g->getName() == name )
-            return g;
+    for (TermGroup* group : groupList) {
+        if (group->getName() == name) {
+            return group;
+        }
+    }
 
     return nullptr;
 }
 
 TermGroup *MainScene::getGroupByUuid(QUuid uuid)
 {
-    for( TermGroup* g: groupList )
-        if( g->getUid() == uuid.toString() )
-            return g;
+    for (TermGroup* group : groupList) {
+        if (group->getUid() == uuid.toString()) {
+            return group;
+        }
+    }
 
     return nullptr;
 }
@@ -83,7 +91,7 @@ TermGroup *MainScene::getGroupByUuid(QUuid uuid)
 void MainScene::mouseMoveEvent(QGraphicsSceneMouseEvent *evt)
 {
     mouseInfo("move");
-    evt->setScreenPos(evt->screenPos() - QPoint(xWindow,yWindow));
+    evt->setScreenPos(evt->screenPos() - QPointF(xWindow, yWindow).toPoint());
 
     QGraphicsScene::mouseMoveEvent(evt);
 }
@@ -91,14 +99,14 @@ void MainScene::mouseMoveEvent(QGraphicsSceneMouseEvent *evt)
 void MainScene::mousePressEvent(QGraphicsSceneMouseEvent *evt)
 {
     //    qDebug()<<"press";
-    //setScenePos влияет на позицию курсора в сцене но только во время
-    //соотв. события (нажатия клавиши и пр). довольно тупо пытаться
-    //это так использовать
-    //TODO: Переписать! вынести xWindow в вид по возможности
-    evt->setScreenPos(evt->screenPos() - QPoint(xWindow,yWindow));
-    //        evt->setScenePos(evt->scenePos() + QPoint(15,yWindow));
+    // setScenePos влияет на позицию курсора в сцене но только во время
+    // соотв. события (нажатия клавиши и пр). довольно тупо пытаться
+    // это так использовать
+    // TODO: Переписать! вынести xWindow в вид по возможности
+    evt->setScreenPos(evt->screenPos() - QPointF(xWindow, yWindow).toPoint());
+//    evt->setScenePos(evt->scenePos() + QPoint(15,yWindow));
 
-    //        mouseInfo( "press at " + Glb::ptToStr(evt->scenePos()) );
+//    mouseInfo( "press at " + Glb::ptToStr(evt->scenePos()) );
     lastPressPt = evt->scenePos();
 
     QGraphicsScene::mousePressEvent(evt);
@@ -108,23 +116,23 @@ void MainScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *evt)
 {
     //    qDebug()<<"release";
     mouseInfo("release");
-    evt->setScreenPos(evt->screenPos() - QPoint(xWindow,yWindow));
-    NodesList ndLst = getAllTermsAtPoint(evt->scenePos().x(),evt->scenePos().y());
-    if( ndLst.size() == 1 ) {
+    evt->setScreenPos(evt->screenPos() - QPointF(xWindow, yWindow).toPoint());
+    NodesList nodesList = getAllTermsAtPoint(evt->scenePos());
+    if (nodesList.size() == 1) {
         int dist = 0;
-        dist += qAbs( lastPressPt.x() - evt->scenePos().x() );
-        dist += qAbs( lastPressPt.y() - evt->scenePos().y() );
+        dist += qAbs(lastPressPt.x() - evt->scenePos().x());
+        dist += qAbs(lastPressPt.y() - evt->scenePos().y());
 
-        if( dist <= 30 ) {
-            qDebug()<<dist<<lastPressPt<<evt->scenePos();
-            ndLst.first()->setFlag( QGraphicsItem::ItemIsSelectable,true );
-            ndLst.first()->setSelected(true);
+        if (dist <= 30) {
+            qDebug() << dist << lastPressPt << evt->scenePos();
+            nodesList.first()->setFlag(QGraphicsItem::ItemIsSelectable, true);
+            nodesList.first()->setSelected(true);
             evt->accept();
         }
     } else {
-        for( TermNode* n: getAllNodes() ) {
-            n->setFlag( QGraphicsItem::ItemIsSelectable, false );
-            n->setSelected( false );
+        for (TermNode* node : getAllNodes()) {
+            node->setFlag(QGraphicsItem::ItemIsSelectable, false);
+            node->setSelected(false);
             //                    evt->accept();
         }
     }
@@ -142,8 +150,9 @@ void MainScene::updateModel()
     deleteAllGroups();
     initAllGroups();
 
-    for( TermGroup* g: groupList )
-        g->sceneUpdateSignal();
+    for (TermGroup* group : groupList) {
+        group->sceneUpdateSignal();
+    }
 
     locateGroupsVertically();
 
@@ -158,10 +167,9 @@ void MainScene::locateGroupsVertically()
     int y = 0;
 
     // Выставляем позиции групп
-    for(TermGroup* group: groupList) {
-
+    for (TermGroup* group : groupList) {
         QRectF baseRc = group->baseRect->rect().translated(group->baseRect->scenePos());
-        group->setBasePoint(QPointF(0,y));
+        group->setBasePoint(QPointF(0, y));
 
         y += baseRc.height() + 40;
     }
@@ -173,57 +181,61 @@ void MainScene::updateSceneRect()
 {
     QRectF allRect;
 
-    for(TermGroup* group: groupList) {
-        if( !group->baseRect->isVisible() )
+    for (TermGroup* group : groupList) {
+        if (!group->baseRect->isVisible()) {
             continue;
+        }
 
         QRectF baseRc = group->baseRect->rect().translated(group->baseRect->scenePos());
         allRect = allRect.united(baseRc);
     }
 
     int mV = 50;
-    QMarginsF mrg(mV,mV,mV,mV);
+    QMarginsF mrg(mV, mV, mV, mV);
     setSceneRect(allRect.marginsAdded(mrg));
 }
 
-void MainScene::centerViewOn(QPointF pt)
+void MainScene::centerViewOn(QPointF point)
 {
-    QList< QGraphicsView * > v = views();
+    QList<QGraphicsView*> viewsList = views();
 
-    for( QGraphicsView* view: v ) {
-        view->centerOn(pt);
+    for (QGraphicsView* view : viewsList) {
+        view->centerOn(point);
     }
 }
 
 void MainScene::deleteSelectedNode()
 {
-    TermNode *nd = getSelected();
-    if( nd == nullptr )
+    TermNode* node = getSelected();
+    if (node == nullptr) {
         return;
+    }
 
-    nodesMgr->deleteNode(nd->getUuid());
+    nodesMgr->deleteNode(node->getUuid());
 }
 
-void MainScene::exportGrpToJson(QString grpName)
+void MainScene::exportGrpToJson(QString groupName)
 {
-    TermGroup* g = getGroupByName( grpName);
-    if ( g == nullptr )
+    TermGroup* group = getGroupByName(groupName);
+    if (group == nullptr) {
         return;
+    }
 
-    saveGroupInFolder(g);
+    saveGroupInFolder(group);
 
-    QJsonDocument doc = g->getJsonDoc();
-    QClipboard *clp = qApp->clipboard();
-    clp->setText(doc.toJson());
+    QJsonDocument document = group->getJsonDoc();
+    QClipboard* clipboard = qApp->clipboard();
+    clipboard->setText(document.toJson());
 }
 
-void MainScene::saveGroupInFolder(TermGroup* g)
+void MainScene::saveGroupInFolder(TermGroup* group)
 {
-    if (g == nullptr)
+    if (group == nullptr) {
         return;
+    }
 
-    QString fileName = g->getName() + " " + g->getUid() + ".grp";
-    Glb::saveFile(StdFolderPaths::groupsJsonPath(), fileName, g->getJsonDoc().toJson());
+    QString fileName = group->getName() + " " + group->getUid() + ".grp";
+    Glb::saveFile(StdFolderPaths::groupsJsonPath(), fileName, group->getJsonDoc().toJson());
 }
 
 QString MainScene::getExportPath()
@@ -233,46 +245,49 @@ QString MainScene::getExportPath()
 
 QString MainScene::getGroupString(QString grp)
 {
-    TermGroup* g = getGroupByName( grp );
-    if ( g != nullptr )
-        return g->getTypeString();
+    TermGroup* group = getGroupByName(grp);
+    if (group != nullptr) {
+        return group->getTypeString();
+    }
 
     return "";
 }
 
 void MainScene::showGroup(int num)
 {
-    QStringList lst = groupsMgr->getAllGroupsNames();
+    QStringList allGroupNames = groupsMgr->getAllGroupsNames();
 
-    if( num < 0 || num >= lst.size() )
+    if (num < 0 || num >= allGroupNames.size()) {
         return;
+    }
 
-    showGroup( lst[num] );
+    showGroup(allGroupNames[num]);
 }
 
 TermNode *MainScene::getSelected()
 {
     TermNode* ret = nullptr;
 
-    QList<QGraphicsItem *> sel = selectedItems();
-    if(sel.size() != 1)
+    QList<QGraphicsItem*> sel = selectedItems();
+    if (sel.size() != 1) {
         return ret;
+    }
 
     ret = (TermNode *)sel.first();
     return ret;
 }
 
-NodesList MainScene::getAllTermsAtPoint(int x, int y) {
+NodesList MainScene::getAllTermsAtPoint(QPointF point) {
     NodesList ret;
-    for( TermNode *n: getAllNodes() ) {
-        if( n->getNodeRect(CoordType::scene).contains( x,y ) ) {
-            ret << n;
+    for (TermNode* node : getAllNodes()) {
+        if (node->getNodeRect(CoordType::scene).contains(point)) {
+            ret << node;
         }
     }
     return ret;
 }
 
-void MainScene::showGroup(QString grp)
+void MainScene::showGroup(QString groupName)
 {
 //    if( viewGrpTimer.isActive() ) {
 //        timerCount++;
@@ -282,18 +297,19 @@ void MainScene::showGroup(QString grp)
 //        }
 //    }
 
-    static QString lastGrp;
-    if( grp == "" )
-        grp = lastGrp;
+    static QString lastGroupName;
+    if (groupName == "") {
+        groupName = lastGroupName;
+    }
 
-    if (grp == "Все группы") {
-        for( TermGroup *group : groupList )
+    if (groupName == "Все группы") {
+        for (TermGroup* group : groupList) {
             group->baseRect->show();
+        }
 
     } else {
-
-        for( TermGroup *group : groupList ) {
-            if( group->getName().contains(grp) ) {
+        for (TermGroup* group : groupList) {
+            if (group->getName().contains(groupName)) {
                 group->baseRect->show();
                 QRectF baseRc = group->baseRect->rect().translated(group->baseRect->scenePos());
                 centerViewOn(baseRc.center());
@@ -305,35 +321,36 @@ void MainScene::showGroup(QString grp)
 
     updateSceneRect();
 
-    lastGrp = grp;
+    lastGroupName = groupName;
 }
 
 void MainScene::setAnimSpeed(int val)
 {
-    for( TermGroup *g : groupList ) {
-        g->setAnimSpeed( val );
+    for (TermGroup* group : groupList) {
+        group->setAnimSpeed(val);
     }
 }
 
 void MainScene::checkSelection()
 {
     bool someSel = false;
-    for( TermNode *n : getAllNodes() ) {
-        if(n->isSelected()) {
+    for (TermNode* node : getAllNodes()) {
+        if (node->isSelected()) {
             someSelected();
             someSel = true;
             TermNode::someoneSelect = true;
-            n->setRelatPaint(true);
+            node->setRelatPaint(true);
         }
-
     }
 
-    if(!someSel) {
+    if (!someSel) {
         selectionDrop();
         TermNode::someoneSelect = false;
-        if(!TermNode::someoneHover)
-            for( TermNode *n : getAllNodes() )
-                n->setRelatPaint(false);
+        if (!TermNode::someoneHover) {
+            for (TermNode* node : getAllNodes()) {
+                node->setRelatPaint(false);
+            }
+        }
     }
 
 //    qDebug()<<"count of items"<<this->items().count();
@@ -341,118 +358,128 @@ void MainScene::checkSelection()
 
 void MainScene::startAllGroupTimers()
 {
-    for( TermGroup *g : groupList )
-        g->startAnimation();
+    for (TermGroup* group : groupList)
+        group->startAnimation();
 }
 
 void MainScene::stopAllGroupTimers()
 {
-    for( TermGroup *g : groupList )
-        g->stopAnimation();
+    for (TermGroup* group : groupList)
+        group->stopAnimation();
 }
 
 QString MainScene::getCurrNodeDebugInfo()
 {
     return "";
-    TermNode* nd = getSelected();
-    if( nd == nullptr )
-        return "";
+//    TermNode* nd = getSelected();
+//    if (nd == nullptr) {
+//        return "";
+//    }
 
-    QStringList ret;
-    ret << "Uuid:" << nd->getUuid().toString();
-    ret << nd->getDebugString();
-//    for( EdgesList *e : nd->ed)
+//    QStringList ret;
+//    ret << "Uuid:" << nd->getUuid().toString();
+//    ret << nd->getDebugString();
 
-    return ret.join(" ");
+//    return ret.join(" ");
 }
 
 QString MainScene::getCurrNodeLongUid()
 {
-    TermNode* nd = getSelected();
-    if( nd == nullptr )
+    TermNode* node = getSelected();
+    if (node == nullptr) {
         return "";
+    }
 
-    return nd->getUuid().toString();
+    return node->getUuid().toString();
 }
 
 QString MainScene::getCurrNodeName()
 {
-    TermNode* nd = getSelected();
-    if( nd == nullptr )
+    TermNode* node = getSelected();
+    if (node == nullptr) {
         return "";
+    }
 
-    return nd->getName();
+    return node->getName();
 }
 
 QString MainScene::getCurrNodeForms()
 {
-    TermNode* nd = getSelected();
-    if( nd == nullptr )
+    TermNode* node = getSelected();
+    if (node == nullptr) {
         return "";
+    }
 
-    return nd->getNameFormStr();
+    return node->getNameFormStr();
 }
 
 QString MainScene::getCurrNodeDefinition()
 {
-    TermNode* nd = getSelected();
-    if( nd == nullptr )
+    TermNode* node = getSelected();
+    if (node == nullptr) {
         return "";
+    }
 
-    return nd->getDefinition();
+    return node->getDefinition();
 }
 
 QString MainScene::getCurrNodeDescription()
 {
-    TermNode* nd = getSelected();
-    if( nd == nullptr )
+    TermNode* node = getSelected();
+    if (node == nullptr) {
         return "";
+    }
 
-    return nd->getDescription();
+    return node->getDescription();
 }
 
 QString MainScene::getCurrNodeExamples()
 {
-    TermNode* nd = getSelected();
-    if( nd == nullptr )
+    TermNode* node = getSelected();
+    if (node == nullptr) {
         return "";
+    }
 
-    return nd->getExamples();
+    return node->getExamples();
 }
 
 QString MainScene::getCurrNodeGroupName()
 {
-    TermNode* nd = getSelected();
-    if( nd == nullptr )
+    TermNode* node = getSelected();
+    if (node == nullptr) {
         return "";
+    }
 
-    QUuid uuid = nd->getGroupUuid();
-    if(uuid.isNull())
+    QUuid uuid = node->getGroupUuid();
+    if (uuid.isNull()) {
         return "";
+    }
+
     return groupsMgr->getGroupNameByUuid(uuid);
 }
 
 bool MainScene::getCurrNodeIsRoot()
 {
-    TermNode* nd = getSelected();
-    if( nd == nullptr )
-        return "";
+    TermNode* node = getSelected();
+    if (node == nullptr) {
+        return false;
+    }
 
-    return nd->isRoot();
-    //TODO: Возможно переделать в функциональном стиле!
+    return node->isRoot();
+    // TODO: Возможно переделать в функциональном стиле!
 }
 
 void MainScene::createTestGroups()
 {
-    groupsMgr->addNewGroup("TestGroup1","",GroupType::terms);
+    groupsMgr->addNewGroup("TestGroup1", "", GroupType::terms);
 
-    nodesMgr->addNewNode("1","","","","","TestGroup1");
-    nodesMgr->addNewNode("2","","","","","TestGroup1");
-    nodesMgr->addNewNode("3","","{1}{2}","","","TestGroup1");
-    nodesMgr->addNewNode("4","","{1}{2}","","","TestGroup1");
-    nodesMgr->addNewNode("5","","{1}","","","TestGroup1");
-    nodesMgr->addNewNode("6","","{5}","","","TestGroup1");
-    nodesMgr->addNewNode("7","","{5}","","","TestGroup1");
-    nodesMgr->addNewNode("8","","{6}{7}","","","TestGroup1");
-    nodesMgr->addNewNode("9","","","","","TestGroup1");
+    nodesMgr->addNewNode("1", "", "", "", "", "TestGroup1");
+    nodesMgr->addNewNode("2", "", "", "", "", "TestGroup1");
+    nodesMgr->addNewNode("3", "", "{1}{2}", "", "", "TestGroup1");
+    nodesMgr->addNewNode("4", "", "{1}{2}", "", "", "TestGroup1");
+    nodesMgr->addNewNode("5", "", "{1}", "", "", "TestGroup1");
+    nodesMgr->addNewNode("6", "", "{5}", "", "", "TestGroup1");
+    nodesMgr->addNewNode("7", "", "{5}", "", "", "TestGroup1");
+    nodesMgr->addNewNode("8", "", "{6}{7}", "", "", "TestGroup1");
+    nodesMgr->addNewNode("9", "", "", "", "", "TestGroup1");
 }

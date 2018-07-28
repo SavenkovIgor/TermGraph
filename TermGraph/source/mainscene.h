@@ -47,7 +47,6 @@ public:
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *evt);
 
     TermNode* getSelected();
-    NodesList getAllTermsAtPoint(int x, int y);
 
     void setAnimSpeed(int val);
 
@@ -79,7 +78,7 @@ public slots:
 
     void locateGroupsVertically();
     void updateSceneRect();
-    void centerViewOn(QPointF pt);
+    void centerViewOn(QPointF point);
 
     void updateModel();
     void deleteSelectedNode();
@@ -104,8 +103,8 @@ public slots:
         return getSelected() != nullptr;
     }
 
-    void exportGrpToJson(QString grpName);
-    void saveGroupInFolder(TermGroup *g);
+    void exportGrpToJson(QString groupName);
+    void saveGroupInFolder(TermGroup *group);
     QString getExportPath();
 
     QString getGroupString(QString grp);
@@ -130,6 +129,8 @@ public slots:
 private:
     GroupsManager* groupsMgr;
     NodesManager* nodesMgr;
+
+    NodesList getAllTermsAtPoint(QPointF point);
 };
 
 #endif  // MAINSCENE_H
