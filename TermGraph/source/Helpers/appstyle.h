@@ -32,6 +32,13 @@ public:
             static QColor backgroundFreeConnections;
         };
 
+        class Edges {
+        public:
+            static QColor standard;
+            static QColor termin;
+            static QColor description;
+        };
+
         class Scene {
         public:
             static QColor background;

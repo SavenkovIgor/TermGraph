@@ -17,6 +17,10 @@ QColor AppStyle::Colors::Groups::text = QColor(255, 255, 255);
 QColor AppStyle::Colors::Groups::backgroundTerms = QColor(0, 0, 0, 0);
 QColor AppStyle::Colors::Groups::backgroundFreeConnections = QColor(0, 0, 0, 0);
 
+QColor AppStyle::Colors::Edges::standard = QColor(Qt::black);
+QColor AppStyle::Colors::Edges::termin = QColor("#225b7a");
+QColor AppStyle::Colors::Edges::description = QColor(Qt::green);
+
 QColor AppStyle::Colors::Scene::background = QColor("#332f30");
 
 QColor AppStyle::Colors::transparent = QColor(0,0,0,0);

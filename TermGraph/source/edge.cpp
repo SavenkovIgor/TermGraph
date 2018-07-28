@@ -3,9 +3,9 @@
 QColor Edge::getEdgeColor()
 {
     switch (type) {
-    case standart: return QColor(Qt::black);
-    case termin: return QColor(Qt::blue);
-    case description: return QColor(Qt::green);
+    case standart: return AppStyle::Colors::Edges::standard;
+    case termin: return AppStyle::Colors::Edges::termin;
+    case description: return AppStyle::Colors::Edges::description;
     }
     return QColor(Qt::black);
 }
@@ -120,7 +120,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 
     QPolygonF pol(QVector<QPointF>() << *ptTo << l1.p2() << l2.p2());
 
-    painter->setBrush(Qt::black);
+    painter->setBrush(getEdgeColor());
     painter->drawConvexPolygon(pol);
 
     delete ptTo;
