@@ -1,7 +1,7 @@
 #ifndef TERMGROUPTBL_H
 #define TERMGROUPTBL_H
 
-#include "tblbase.h"
+#include "./tblbase.h"
 
 class TermGroupTbl : public TblBase
 {
@@ -12,8 +12,8 @@ public:
     const QString comment = "comment";
     const QString type    = "type";
 
-    TermGroupTbl(QSqlDatabase *base):
-        TblBase("termGroup",base)
+    TermGroupTbl(QSqlDatabase* base):
+        TblBase("termGroup", base)
     {
         initColumn(uid,     "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
         initColumn(longUID, "TEXT");
@@ -50,4 +50,4 @@ private:
     QUuid generateNewUuid();
 };
 
-#endif // TERMGROUPTBL_H
+#endif  // TERMGROUPTBL_H

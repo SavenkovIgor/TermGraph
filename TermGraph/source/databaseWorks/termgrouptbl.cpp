@@ -4,8 +4,9 @@ const QString TermGroupTbl::uid = "uid";
 
 bool TermGroupTbl::addGroup(QString name, QString comment, int type)
 {
-    if(name.simplified() == "")
+    if (name.simplified() == "") {
         return false;
+    }
 
     QUuid uuid = generateNewUuid();
     return addGroup(uuid, name, comment, type);
@@ -13,11 +14,13 @@ bool TermGroupTbl::addGroup(QString name, QString comment, int type)
 
 bool TermGroupTbl::addGroup(QUuid uuid, QString name, QString comment, int type)
 {
-    if(uuid.isNull())
+    if (uuid.isNull()) {
         return false;
+    }
 
-    if(name.simplified() == "")
+    if (name.simplified() == "") {
         return false;
+    }
 
     QList<InsertContainer> values;
     values << InsertContainer(this->longUID, uuid.toString());
@@ -33,10 +36,11 @@ QList<QUuid> TermGroupTbl::getAllGroupsUuid()
     QList<QUuid> ret;
     RecList records = toRecList(select(QStringList() << this->longUID));
 
-    for(QSqlRecord record: records) {
+    for (QSqlRecord record : records) {
         QUuid uuid(record.value(this->longUID).toString());
-        if(!uuid.isNull())
+        if (!uuid.isNull()) {
             ret << uuid;
+        }
     }
 
     return ret;
@@ -59,9 +63,9 @@ bool TermGroupTbl::hasGroupWithUuid(QUuid uuid)
 QUuid TermGroupTbl::generateNewUuid()
 {
     QUuid uuid;
-    for( int i = 0; i < 1000; i++ ) {
+    for (int i = 0; i < 1000; i++) {
         uuid = QUuid::createUuid();
-        if(!hasGroupWithUuid(uuid)){
+        if (!hasGroupWithUuid(uuid)) {
             break;
         }
     }
@@ -74,8 +78,9 @@ QUuid TermGroupTbl::getUuid(QString groupName)
     where.equal(this->name, groupName);
 
     QSqlQuery q = select(QStringList() << this->longUID, where);
-    if(!q.next())
+    if (!q.next()) {
         return QUuid();
+    }
 
     return QUuid(q.record().value(this->longUID).toString());
 }
@@ -116,14 +121,16 @@ QStringList TermGroupTbl::getAllGroupsNames(QString area, bool withUid)
 
     QSqlQuery q = select(QStringList() << this->name << this->uid, WhereCondition(), "uid");
 
-    for(int i=0;i<1000000;i++) {
-        if(!q.next())
+    for (int i = 0; i < 1000000; i++) {
+        if (!q.next()) {
             break;
+        }
 
-        if( withUid )
+        if (withUid) {
             ret << q.record().value(this->name).toString() + " (" + q.record().value(this->uid).toString() + ")";
-        else
+        } else {
             ret << q.record().value(this->name).toString();
+        }
     }
 
     return ret;
@@ -133,8 +140,9 @@ QSqlRecord TermGroupTbl::getGroup(QUuid uuid)
 {
     QSqlQuery sel = select(getAllCols(), WhereCondition::uuidEqual(uuid));
 
-    if(!sel.next())
+    if (!sel.next()) {
         return QSqlRecord();
+    }
 
     return sel.record();
 }
