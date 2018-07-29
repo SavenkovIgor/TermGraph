@@ -1,7 +1,6 @@
 #ifndef TBLBASE_H
 #define TBLBASE_H
 
-#include <QObject>
 #include <QtSql>
 
 #include "sqlqueryconstructor.h"

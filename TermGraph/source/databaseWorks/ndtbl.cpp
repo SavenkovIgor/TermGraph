@@ -1,4 +1,4 @@
-#include "ndtbl.h"
+#include "./ndtbl.h"
 
 QUuid NdTbl::addNode(QString name)
 {
@@ -8,8 +8,9 @@ QUuid NdTbl::addNode(QString name)
 
 QUuid NdTbl::addNode(QUuid uuid, QString name)
 {
-    if( name.simplified() == "" )
-        return ""; //Создать вершину не удалось
+    if (name.simplified() == "") {
+        return "";  // Создать вершину не удалось
+    }
 
     QList<InsertContainer> values;
     values << InsertContainer(this->term, name);
@@ -25,8 +26,9 @@ int NdTbl::getRemindNum(QUuid uuid)
 {
     QSqlRecord rec = getNodeSqlRecord(uuid);
 
-    if( rec.isEmpty() )
+    if (rec.isEmpty()) {
         return -1;
+    }
     return rec.value(this->remindNum).toInt();
 }
 
@@ -80,16 +82,17 @@ void NdTbl::setGroup(QUuid nodeUuid, QUuid groupUuid)
 
 void NdTbl::setAtLearn(QUuid uuid, bool learn)
 {
-    if( learn )
+    if (learn) {
         setField(this->atLearn, uuid, "1");
-    else
+    } else {
         setField(this->atLearn, uuid, "0");
+    }
 }
 
-//void NdTbl::setRemindToday(int uid)
-//{
-//    setRemindNum(uid, getRemindNum(uid) + 1, QDateTime::currentDateTime() );
-//}
+// void NdTbl::setRemindToday(int uid)
+// {
+//     setRemindNum(uid, getRemindNum(uid) + 1, QDateTime::currentDateTime() );
+// }
 
 void NdTbl::setRemindNum(QUuid uuid, int num, QDate date)
 {
@@ -112,8 +115,7 @@ void NdTbl::updateLastEdit(QUuid uuid)
 
 bool NdTbl::isUuidExist(QUuid uuid)
 {
-
-    RecList recs = toRecList( select( QStringList() << this->longUID,
+    RecList recs = toRecList(select(QStringList() << this->longUID,
                                       WhereCondition::uuidEqual(uuid)));
     return !recs.isEmpty();
 }
@@ -121,9 +123,9 @@ bool NdTbl::isUuidExist(QUuid uuid)
 QUuid NdTbl::generateNewUuid()
 {
     QUuid uuid;
-    for( int i = 0; i < 1000; i++ ) {
+    for (int i = 0; i < 1000; i++) {
         uuid = QUuid::createUuid();
-        if(!isUuidExist(uuid)){
+        if (!isUuidExist(uuid)) {
             break;
         }
     }
@@ -135,10 +137,11 @@ QList<QUuid> NdTbl::getAllNodesUuids()
     QList<QUuid> ret;
 
     RecList idS = toRecList(select(QStringList() << this->longUID));
-    for( QSqlRecord &r : idS ) {
-        QUuid tmpUuid(r.value( this->longUID ).toString());
-        if(!tmpUuid.isNull())
+    for (QSqlRecord& r : idS) {
+        QUuid tmpUuid(r.value(this->longUID).toString());
+        if (!tmpUuid.isNull()) {
             ret << tmpUuid;
+        }
     }
 
     return ret;
@@ -148,16 +151,17 @@ QList<int> NdTbl::getGroupNodeID(int groupID)
 {
     QList<int> ret;
 
-    if(groupID == -1)
+    if (groupID == -1) {
         return ret;
+    }
 
     WhereCondition where;
     where.equal(this->termGroup, groupID);
 
     RecList idS = toRecList(select(QStringList() << uid, where));
 
-    for( QSqlRecord &r : idS ) {
-        ret << r.value( uid ).toInt();
+    for (QSqlRecord& r : idS) {
+        ret << r.value(uid).toInt();
     }
 
     return ret;
@@ -172,13 +176,15 @@ QList<QUuid> NdTbl::getAllNodesUuidsInGroup(QUuid groupUuid)
 
     RecList nodesRecords = toRecList(select(QStringList() << this->longUID, where));
 
-    for( QSqlRecord &record : nodesRecords ) {
-        if(!record.contains( this->longUID ))
+    for (QSqlRecord& record : nodesRecords) {
+        if (!record.contains(this->longUID)) {
             continue;
+        }
 
-        QUuid tmpUuid( record.value( this->longUID ).toString() );
-        if(!tmpUuid.isNull())
+        QUuid tmpUuid(record.value(this->longUID).toString());
+        if (!tmpUuid.isNull()) {
             ret << tmpUuid;
+        }
     }
 
     return ret;
@@ -197,8 +203,9 @@ QSqlRecord NdTbl::getNodeSqlRecord(QUuid uuid)
 {
     QSqlQuery sel = select(getAllCols(), WhereCondition::uuidEqual(uuid));
 
-    if(!sel.next())
+    if (!sel.next()) {
         return QSqlRecord();
+    }
 
     return sel.record();
 }
@@ -207,4 +214,3 @@ bool NdTbl::isNodeWithUuidExist(QUuid uuid)
 {
     return isUuidExist(uuid);
 }
-
