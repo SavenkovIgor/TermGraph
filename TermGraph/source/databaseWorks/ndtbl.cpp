@@ -147,26 +147,6 @@ QList<QUuid> NodeTable::getAllNodesUuids()
     return ret;
 }
 
-QList<int> NodeTable::getGroupNodeID(int groupID)
-{
-    QList<int> ret;
-
-    if (groupID == -1) {
-        return ret;
-    }
-
-    WhereCondition where;
-    where.equal(this->termGroup, groupID);
-
-    RecList idS = toRecList(select(QStringList() << uid, where));
-
-    for (QSqlRecord& r : idS) {
-        ret << r.value(uid).toInt();
-    }
-
-    return ret;
-}
-
 QList<QUuid> NodeTable::getAllNodesUuidsInGroup(QUuid groupUuid)
 {
     QList<QUuid> ret;

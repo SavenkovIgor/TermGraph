@@ -54,7 +54,6 @@ public:
     bool isNodeWithUuidExist(QUuid uuid);
 
     QList<QUuid> getAllNodesUuids();
-    QList<int>   getGroupNodeID(int groupID);
     QList<QUuid> getAllNodesUuidsInGroup(QUuid groupUuid);
 
     QDateTime getLastEdit(QUuid uuid);
