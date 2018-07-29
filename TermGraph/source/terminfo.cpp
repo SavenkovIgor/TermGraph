@@ -6,8 +6,6 @@ TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
     QObject(parent)
 {
     uuid = QUuid(rec.value(NodeColumn::longUID).toString());
-    groupID = rec.value(NodeColumn::termGroup).toInt();
-
     groupUuid = QUuid(rec.value(NodeColumn::termGroup).toString());
 
     name = rec.value(NodeColumn::term).toString();
@@ -31,12 +29,7 @@ QUuid TermInfo::getUuid() const
     return uuid;
 }
 
-int TermInfo::getGroupID()
-{
-    return groupID;
-}
-
-QUuid TermInfo::getGroupUuid()
+QUuid TermInfo::getGroupUuid() const
 {
     return groupUuid;
 }

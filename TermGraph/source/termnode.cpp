@@ -317,13 +317,13 @@ bool TermNode::hasConnections()
 bool TermNode::hasConnectionsInGroup()
 {
     for (Edge *e : edgesToLeafs) {
-        if (e->getLeaf()->getGroupID() == getGroupID()) {
+        if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
             return true;
         }
     }
 
     for (Edge *e : edgesToRoots) {
-        if (e->getLeaf()->getGroupID() == getGroupID()) {
+        if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
             return true;
         }
     }
@@ -336,7 +336,7 @@ void TermNode::setLevel(int lev)
         paintLevel = lev;
 
     for (TermNode *t : leafNodes) {
-        if (getGroupID() != t->getGroupID())
+        if (getGroupUuid() != t->getGroupUuid())
             continue;
         t->setLevel(lev + 1);
     }

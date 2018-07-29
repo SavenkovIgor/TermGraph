@@ -41,7 +41,7 @@ bool Edge::isSameEdge(TermNode *rt, TermNode *br)
 
 bool Edge::isInGroupEdge()
 {
-    return toRoot->getGroupID() == toLeaf->getGroupID();
+    return toRoot->getGroupUuid() == toLeaf->getGroupUuid();
 }
 
 TermNode *Edge::getOtherSide(TermNode *n)

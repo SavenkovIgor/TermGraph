@@ -25,10 +25,8 @@ public:
 
 //    bool isNull(); //TODO: Realize!
 
-    int getGroupID(); //TODO: Delete
-    QUuid getGroupUuid();
-
     QUuid getUuid() const;
+    QUuid getGroupUuid() const;
     QString getName() const;
     QString getNameFormStr() const;
     QStringList getNameFormList() const;
@@ -62,7 +60,6 @@ private:
 
     void nameCompressing();
 
-    int groupID = -1;
     QUuid groupUuid;
 
     QUuid uuid;
