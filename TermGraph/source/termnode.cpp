@@ -147,11 +147,11 @@ QSizeF TermNode::getSize(bool withBorder)
     return ret.size();
 }
 
-QLineF TermNode::getRectLine(Qt::Edge sd)
+QLineF TermNode::getRectLine(Qt::Edge side)
 {
     QRectF rc = getNodeRect(CoordType::local);
 
-    switch ( sd ) {
+    switch (side) {
     case Qt::TopEdge:
         return QLineF(rc.topLeft(), rc.topRight());
 

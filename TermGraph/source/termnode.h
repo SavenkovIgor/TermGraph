@@ -6,8 +6,8 @@
 #include <QDebug>
 
 #include "./Helpers/appstyle.h"
-#include "glb.h"
-#include "terminfo.h"
+#include "./glb.h"
+#include "./terminfo.h"
 
 enum class NodeType {
     orphan,
@@ -51,9 +51,9 @@ public:
 
     QRectF boundingRect() const;
     QRectF getRcWithBorders();
-    QSizeF getSize( bool withBorder = true );
+    QSizeF getSize(bool withBorder = true);
 
-    QLineF getRectLine( Qt::Edge sd );
+    QLineF getRectLine(Qt::Edge side);
 
     NodeType getNodeType();
     QColor getBaseColor();
@@ -65,7 +65,7 @@ public:
 
 
     void setLevel(int lev);
-    int getUpLevels( int pLevel = -1 );
+    int getUpLevels(int pLevel = -1);
 
     void clearNeighbours();
     void clearConnBrRootLists();
@@ -110,7 +110,7 @@ private:
     bool thisHovered = false;
     bool thisSelected = false;
 
-    QSizeF nodeSize = QSizeF(40.0,10.0);
+    QSizeF nodeSize = QSizeF(40.0, 10.0);
     QRectF getInnerNodeRect() const;
 
     QString testStr;
@@ -123,9 +123,9 @@ private:
     NodesList leafNodes;
     NodesList neighbourNodes;
 
-    EdgesList edgesToOtherGroups; //Пока никак не используются но будут.
+    EdgesList edgesToOtherGroups;  // Пока никак не используются но будут.
     EdgesList edgesToLeafs;
     EdgesList edgesToRoots;
 };
 
-#endif // TERMNODE_H
+#endif  // TERMNODE_H
