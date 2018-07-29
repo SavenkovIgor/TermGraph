@@ -80,7 +80,7 @@ TermGroup *MainScene::getGroupByName(QString name)
 TermGroup *MainScene::getGroupByUuid(QUuid uuid)
 {
     for (TermGroup* group : groupList) {
-        if (group->getUid() == uuid.toString()) {
+        if (group->getUuid() == uuid) {
             return group;
         }
     }
@@ -234,7 +234,7 @@ void MainScene::saveGroupInFolder(TermGroup* group)
         return;
     }
 
-    QString fileName = group->getName() + " " + group->getUid() + ".grp";
+    QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
     Glb::saveFile(StdFolderPaths::groupsJsonPath(), fileName, group->getJsonDoc().toJson());
 }
 

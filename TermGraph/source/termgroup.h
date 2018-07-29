@@ -51,7 +51,7 @@ public:
     static QMap<GroupType, QString> getTypesMap();
 
     QString getName();
-    QString getUid();
+    QUuid getUuid();
 
     NodesList getAllNodes();
     EdgesList getAllEdges();
@@ -130,7 +130,6 @@ private:
 
     QUuid groupUuid;
     GroupType type = freeEdges;
-    QString longUid = "";
 };
 
 #endif  // TERMGROUP_H

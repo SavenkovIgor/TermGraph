@@ -11,7 +11,6 @@ TermGroup::TermGroup(QSqlRecord rec, QObject *parent):
     this->grNmItem = new TGroupName(groupName);
 
     this->groupUuid = QUuid(rec.value(db->groupTbl->longUID).toString());
-    this->longUid = rec.value(db->groupTbl->longUID).toString();
     this->type = static_cast<GroupType>(rec.value(db->groupTbl->type).toInt());
 }
 
@@ -20,7 +19,7 @@ TermGroup::TermGroup(QJsonDocument doc, QObject *parent):
 {
     QJsonObject jsonObject = doc.object();
 
-    this->longUid = jsonObject.value("longUID").toString();
+    this->groupUuid = QUuid(jsonObject.value("longUID").toString());
     this->type = static_cast<GroupType>(jsonObject.value("type").toInt());
 
     QString groupName = jsonObject.value("name").toString();
@@ -232,7 +231,7 @@ QJsonDocument TermGroup::getJsonDoc()
     QJsonDocument doc;
 //    obj.insert("uid",     QJsonValue(grUid));
     QJsonObject obj;
-    obj.insert(db->groupTbl->longUID, QJsonValue(this->longUid));
+    obj.insert(db->groupTbl->longUID, QJsonValue(this->groupUuid.toString()));
     obj.insert(db->groupTbl->name, QJsonValue(getName()));
     obj.insert(db->groupTbl->type, QJsonValue(this->getType()));
 
@@ -704,9 +703,9 @@ QString TermGroup::getName()
     return grNmItem->getNameOnly();
 }
 
-QString TermGroup::getUid()
+QUuid TermGroup::getUuid()
 {
-    return longUid;
+    return groupUuid;
 }
 
 QSizeF TermGroup::getOrphansSize()
