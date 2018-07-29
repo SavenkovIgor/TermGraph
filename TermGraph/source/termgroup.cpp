@@ -33,11 +33,10 @@ void TermGroup::initNewNodes()
 
     baseRect = new QGraphicsRectItem(QRectF(QPoint(0, 0), QSizeF(10.0, 10.0)), nullptr);
     baseRect->setZValue(1);
-    baseRect->setBrush(QColor(0, 0, 0, 60));
 
     treeRect = new QGraphicsRectItem(nullptr);
     treeRect->setParentItem(baseRect);
-    treeRect->setBrush(QColor(0, 255, 0, 60));
+    treeRect->setBrush(AppStyle::Colors::testColor);
 
     orphansRect = new QGraphicsRectItem(nullptr);
     orphansRect->setParentItem(baseRect);

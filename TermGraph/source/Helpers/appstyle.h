@@ -9,6 +9,7 @@ public:
     class Colors {
     public:
         static QColor transparent;
+        static QColor testColor;
 
         class Nodes {
         public:
@@ -22,6 +23,8 @@ public:
             static QColor leafSelected;
             static QColor rootSelected;
             static QColor orphanSelected;
+
+            static QColor atLearn;
         };
 
         class Groups {
@@ -37,6 +40,7 @@ public:
             static QColor standard;
             static QColor termin;
             static QColor description;
+            static QColor selected;
         };
 
         class Scene {

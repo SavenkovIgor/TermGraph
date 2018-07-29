@@ -260,7 +260,7 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
 
     if (atLearning()) {
         QRectF miniRc = QRectF(rcBase.topLeft(), QSizeF(11, 14));
-        painter->setBrush(QColor(245, 222, 179));
+        painter->setBrush(AppStyle::Colors::Nodes::atLearn);
         painter->drawRoundedRect(miniRc, 1, 1);
         painter->drawText(rcBase.topLeft() + QPointF(2, 12), QString::number(getRepNum()));
     }

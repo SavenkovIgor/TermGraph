@@ -74,7 +74,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     int baseWidth = 3;
     if (wide) {
         baseWidth *= 2;
-        p.setColor(QColor(0, 166, 147));  // TODO: Вынести
+        p.setColor(AppStyle::Colors::Edges::selected);
     } else {
         baseWidth /= 2;
     }
