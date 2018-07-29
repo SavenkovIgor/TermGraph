@@ -6,7 +6,7 @@
 #include <QApplication>
 #include <QSqlRecord>
 
-#include "databaseWorks/dbabstract.h"
+#include "databaseWorks/ndtbl.h"
 #include "Helpers/tagprocessor.h"
 #include "Helpers/fonts.h"
 
