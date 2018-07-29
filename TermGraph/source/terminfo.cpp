@@ -2,7 +2,7 @@
 
 qreal TermInfo::baseBlockWidth = 40.0;
 
-TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
+TermInfo::TermInfo(QSqlRecord rec, QObject *parent) :
     QObject(parent)
 {
     uuid = QUuid(rec.value(NodeColumn::longUID).toString());
@@ -49,38 +49,37 @@ QSizeF TermInfo::getNameSize() const
     return nameSize;
 }
 
-void TermInfo::nameCompressing( )
+void TermInfo::nameCompressing()
 {
     smallName = name;
 
-    if( name.contains(" ") ) {
-        //Если имя превышает базовую ширину и содержит пробелы то пытаемся его разбить на 2
+    if (name.contains(" ")) {
+        // Если имя превышает базовую ширину и содержит пробелы то пытаемся его разбить на 2
 
-        if( Fonts::getTextMetrics(smallName).width() + 15 > baseBlockWidth ) { //Пытаемся ужать в 2 строки
-
+        if (Fonts::getTextMetrics(smallName).width() + 15 > baseBlockWidth) {  // Пытаемся ужать в 2 строки
             int mid = smallName.size()/2;
 
-            for(int i=0;i<mid;i++) {
-                int l = qBound(0,mid-i,mid);
-                int r = qBound(mid,mid+i,name.size()-1);
+            for (int i = 0; i < mid; i++) {
+                int l = qBound(0, mid-i, mid);
+                int r = qBound(mid, mid+i, name.size()-1);
 
-                if(smallName[l] == ' ') {
+                if (smallName[l] == ' ') {
                     smallName[l] = '\n';
                     break;
                 }
 
-                if(smallName[r] == ' ') {
+                if (smallName[r] == ' ') {
                     smallName[r] = '\n';
                     break;
                 }
             }
         }
     }
-    //Устанавливаем максимальную ширину сжатого имени
+    // Устанавливаем максимальную ширину сжатого имени
     QStringList lst = smallName.split("\n");
-    for( QString s : lst ) {
-        nameSize.setWidth( qMax( nameSize.width(), Fonts::getTextMetrics(s).width() ) );
-        nameSize.setHeight( nameSize.height() + Fonts::getTextMetrics(s).height() );
+    for (QString s : lst) {
+        nameSize.setWidth(qMax(nameSize.width(), Fonts::getTextMetrics(s).width()));
+        nameSize.setHeight(nameSize.height() + Fonts::getTextMetrics(s).height());
     }
 }
 
@@ -106,15 +105,17 @@ bool TermInfo::atLearning()
 
 bool TermInfo::needRemindToday()
 {
-    if( lastRepeatDate.addDays(getNextRepeatOffset(repNum)) <= QDate::currentDate() )
+    if (lastRepeatDate.addDays(getNextRepeatOffset(repNum)) <= QDate::currentDate()) {
         return true;
+    }
     return false;
 }
 
 bool TermInfo::isRemindDateMissed()
 {
-    if( lastRepeatDate.addDays(getNextRepeatOffset(repNum)) < QDate::currentDate() )
+    if (lastRepeatDate.addDays(getNextRepeatOffset(repNum)) < QDate::currentDate()) {
         return true;
+    }
     return false;
 }
 
@@ -146,27 +147,27 @@ int TermInfo::getRepNum() const
     return repNum;
 }
 
-//void TermInfo::swithcAtLearnVar()
-//{
-//    atLearn = !atLearn;
-//    db->nodeTbl->setAtLearn(getUuid().toString(),atLearn);
-//}
+// void TermInfo::swithcAtLearnVar()
+// {
+//     atLearn = !atLearn;
+//     db->nodeTbl->setAtLearn(getUuid().toString(),atLearn);
+// }
 
 bool TermInfo::fromJson(QJsonObject obj) {
-    QStringList checkKeys;
-    checkKeys<<"uid";
-    checkKeys<<"longUID";
-    checkKeys<<"name";
-    checkKeys<<"nameForms";
-    checkKeys<<"definition";
-    checkKeys<<"description";
-    checkKeys<<"examples";
-    checkKeys<<"wikiRef";
-    checkKeys<<"wikiImg";
+    QStringList checkKeys;  // TODO: Переделать на colums
+    checkKeys << "uid";
+    checkKeys << "longUID";
+    checkKeys << "name";
+    checkKeys << "nameForms";
+    checkKeys << "definition";
+    checkKeys << "description";
+    checkKeys << "examples";
+    checkKeys << "wikiRef";
+    checkKeys << "wikiImg";
 
-    for( QString str : checkKeys ) {
+    for (QString str : checkKeys) {
         if (!obj.contains(str)) {
-            qDebug()<<"noSuchKey"<<str;
+            qDebug() << "noSuchKey" << str;
             return false;
         }
     }
@@ -190,15 +191,17 @@ int TermInfo::getNextRepeatOffset(int lvl)
 
 int TermInfo::getLevelDaysFromBase(int lvl)
 {
-    if( lvl <= 0 )
-        return 0; //Варианты 0 и 1
+    if (lvl <= 0) {
+        return 0;  // Варианты 0 и 1
+    }
 
-    if( lvl >= 10 )
-        return 512; //2^9
+    if (lvl >= 10) {
+        return 512;  // 2^9
+    }
 
     lvl--;
     int ret = 1;
-    for(int i = 0; i < lvl; i++) {
+    for (int i = 0; i < lvl; i++) {
         ret *= 2;
     }
     return ret;
@@ -212,11 +215,12 @@ QString TermInfo::getNameFormStr() const
 QStringList TermInfo::getNameFormList() const
 {
     QStringList ret;
-    ret<<getName();
+    ret << getName();
 
-    QStringList tmp = getNameFormStr().split(";",QString::SkipEmptyParts);
-    for( QString s : tmp )
+    QStringList tmp = getNameFormStr().split(";", QString::SkipEmptyParts);
+    for (QString s : tmp) {
         ret << s.simplified();
+    }
 
     ret.removeDuplicates();
 
@@ -232,7 +236,7 @@ QStringList TermInfo::getTags() const
 {
     QString error;
     auto tags = TagProcessor::extractTags(definition, error);
-    if( !error.isEmpty() ) {
+    if (!error.isEmpty()) {
         qDebug() << getUuid().toString() << error;
     }
     return tags;

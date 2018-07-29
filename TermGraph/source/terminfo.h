@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QDebug>
-#include <QApplication>
 #include <QSqlRecord>
 
 #include "databaseWorks/ndtbl.h"
@@ -14,7 +13,6 @@ class TermInfo : public QObject
 {
     Q_OBJECT
 public:
-
     enum KnowLevel{
         dontKnowLvl = 0,
         remindLvl,
@@ -55,8 +53,8 @@ protected:
     QSizeF getNameSize()    const;
 
 private:
-    //Блок не менее...
-    static qreal baseBlockWidth; //TODO: Вынести в Sizes
+    // Блок не менее...
+    static qreal baseBlockWidth;  // TODO: Вынести в Sizes
 
     void nameCompressing();
 
@@ -64,7 +62,7 @@ private:
 
     QUuid uuid;
     QString name;
-    QString smallName; //То же самое название но ужатое до 2х строчек"
+    QString smallName;  // То же самое название но ужатое до 2х строчек"
     QSizeF  nameSize;
     QString nameForms;
 
@@ -85,4 +83,4 @@ private:
     int getLevelDaysFromBase(int lvl);
 };
 
-#endif // TERMINFO_H
+#endif  // TERMINFO_H
