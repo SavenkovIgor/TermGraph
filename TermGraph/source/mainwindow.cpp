@@ -13,9 +13,6 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
 
     db = new DBAbstract(dbPath);
 
-    TermNode::db = db;
-    TermInfo::db = db;
-    TermGroup::db = db;
     Glb::db = db;
 
     db->makeStartBaseCheck();

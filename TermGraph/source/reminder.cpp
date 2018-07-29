@@ -92,7 +92,7 @@ void Reminder::dontRemember()
 {
     if( currItem == nullptr )
         return;
-    currItem->nd->setRemind(TermNode::KnowLevel::dontKnowLvl );
+//    currItem->nd->setRemind(TermNode::KnowLevel::dontKnowLvl );
     formLearnList();
 }
 
@@ -100,7 +100,7 @@ void Reminder::remember()
 {
     if( currItem == nullptr )
         return;
-    currItem->nd->setRemind(TermNode::KnowLevel::remindLvl );
+//    currItem->nd->setRemind(TermNode::KnowLevel::remindLvl );
     formLearnList();
 }
 
@@ -108,6 +108,6 @@ void Reminder::wellKnow()
 {
     if( currItem == nullptr )
         return;
-    currItem->nd->setRemind(TermNode::KnowLevel::wellRemindLvl );
+//    currItem->nd->setRemind(TermNode::KnowLevel::wellRemindLvl );
     formLearnList();
 }

@@ -33,8 +33,6 @@ class TermGroup : public QObject
     int currAnimLevel = -1;
 
 public:
-    static DBAbstract *db;
-
     explicit TermGroup(QSqlRecord rec, QObject* parent = nullptr);
     TermGroup(QJsonDocument doc, QObject* parent = nullptr);
     ~TermGroup();

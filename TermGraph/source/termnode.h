@@ -35,8 +35,6 @@ public:
 
     static QList< Qt::Edge > sides;
 
-    static DBAbstract *db;
-
     static const qreal verScale;
 
     static bool someoneHover;

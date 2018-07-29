@@ -5,8 +5,6 @@ bool TermNode::someoneSelect = false;
 
 const qreal TermNode::verScale = 0.0200;
 
-DBAbstract *TermNode::db = nullptr;
-
 QList< Qt::Edge > TermNode::sides;
 
 TermNode::TermNode(QSqlRecord rec):

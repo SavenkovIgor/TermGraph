@@ -1,6 +1,5 @@
 #include "terminfo.h"
 
-DBAbstract* TermInfo::db = nullptr;
 qreal TermInfo::baseBlockWidth = 40.0;
 
 TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
@@ -10,7 +9,6 @@ TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
     groupID = rec.value(NodeColumn::termGroup).toInt();
 
     groupUuid = QUuid(rec.value(NodeColumn::termGroup).toString());
-    groupType = db->groupTbl->getType( groupUuid );
 
     name = rec.value(NodeColumn::term).toString();
     nameForms = rec.value(NodeColumn::termForms).toString();
@@ -56,11 +54,6 @@ QString TermInfo::getSmallName() const
 QSizeF TermInfo::getNameSize() const
 {
     return nameSize;
-}
-
-int TermInfo::getGroupType() const
-{
-    return groupType;
 }
 
 void TermInfo::nameCompressing( )
@@ -132,6 +125,7 @@ bool TermInfo::isRemindDateMissed()
     return false;
 }
 
+/*
 void TermInfo::setRemind(KnowLevel lvl)
 {
     switch (lvl) {
@@ -152,17 +146,18 @@ void TermInfo::setRemind(KnowLevel lvl)
     lastRepeatDate = QDate::currentDate();
     db->nodeTbl->setRemindNum(getUuid(), repNum, QDate::currentDate());
 }
+*/
 
 int TermInfo::getRepNum() const
 {
     return repNum;
 }
 
-void TermInfo::swithcAtLearnVar()
-{
-    atLearn = !atLearn;
-    db->nodeTbl->setAtLearn(getUuid().toString(),atLearn);
-}
+//void TermInfo::swithcAtLearnVar()
+//{
+//    atLearn = !atLearn;
+//    db->nodeTbl->setAtLearn(getUuid().toString(),atLearn);
+//}
 
 bool TermInfo::fromJson(QJsonObject obj) {
     QStringList checkKeys;

@@ -42,23 +42,19 @@ public:
 
     QJsonObject toJson();
 
-    static DBAbstract *db;
-
     // Learning
     bool atLearning();
-    void swithcAtLearnVar();
+//    void swithcAtLearnVar();
 
     bool needRemindToday();
     bool isRemindDateMissed();
-    void setRemind(KnowLevel lvl);
+//    void setRemind(KnowLevel lvl);
 
     int getRepNum() const;
 
 protected:
     QString getSmallName()  const;
     QSizeF getNameSize()    const;
-
-    int   getGroupType()    const;
 
 private:
     //Блок не менее...
@@ -68,7 +64,6 @@ private:
 
     int groupID = -1;
     QUuid groupUuid;
-    int groupType = -1;
 
     QUuid uuid;
     QString name;

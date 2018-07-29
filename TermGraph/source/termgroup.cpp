@@ -1,7 +1,5 @@
 #include "termgroup.h"
 
-DBAbstract *TermGroup::db = nullptr;
-
 int TermGroup::animSpeed = 300;
 
 TermGroup::TermGroup(QSqlRecord rec, QObject *parent):
