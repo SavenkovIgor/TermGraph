@@ -5,44 +5,42 @@
 
 class NodeColumn {
 public:
-//    static const QString uid;  // TODO: Грохнуть
+    static const QString uid;  // TODO: Грохнуть
+    static const QString longUID;
+    static const QString term;
+    static const QString termForms;
+    static const QString definition;
+    static const QString description;
+    static const QString examples;
+    static const QString wikiRef;
+    static const QString wikiImg;
+    static const QString termGroup;
+    static const QString lastRemind;
+    static const QString remindNum;
+    static const QString atLearn;
+    static const QString lastEdit;
 };
 
 class NodeTable : public TblBase
 {
 public:
-    const QString uid         = "uid";
-    const QString longUID     = "longUID";
-    const QString term        = "term";
-    const QString termForms   = "termForms";
-    const QString definition  = "definition";
-    const QString description = "description";
-    const QString examples    = "examples";
-    const QString wikiRef     = "wikiRef";
-    const QString wikiImg     = "wikiImg";
-    const QString termGroup   = "termGroup";
-    const QString lastRemind  = "lastRemind";
-    const QString remindNum   = "remindNum";
-    const QString atLearn     = "atLearn";  // на изучении
-    const QString lastEdit    = "lastEdit";
-
     NodeTable(QSqlDatabase* base):
         TblBase("termNode", base)
     {
-        initColumn(uid,         "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
-        initColumn(longUID,     "TEXT");
-        initColumn(term,        "TEXT");
-        initColumn(termForms,   "TEXT");
-        initColumn(definition,  "TEXT");
-        initColumn(description, "TEXT");
-        initColumn(examples,    "TEXT");
-        initColumn(wikiRef,     "TEXT");
-        initColumn(wikiImg,     "TEXT");
-        initColumn(termGroup,   "INTEGER DEFAULT '-1'");  // -1 - because uid [0;+8)
-        initColumn(lastRemind,  "TEXT");
-        initColumn(remindNum,   "INTEGER DEFAULT '0'");
-        initColumn(atLearn,     "INTEGER DEFAULT '0'");
-        initColumn(lastEdit,    "TEXT");
+        initColumn(NodeColumn::uid,         "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
+        initColumn(NodeColumn::longUID,     "TEXT");
+        initColumn(NodeColumn::term,        "TEXT");
+        initColumn(NodeColumn::termForms,   "TEXT");
+        initColumn(NodeColumn::definition,  "TEXT");
+        initColumn(NodeColumn::description, "TEXT");
+        initColumn(NodeColumn::examples,    "TEXT");
+        initColumn(NodeColumn::wikiRef,     "TEXT");
+        initColumn(NodeColumn::wikiImg,     "TEXT");
+        initColumn(NodeColumn::termGroup,   "INTEGER DEFAULT '-1'");  // -1 - because uid [0;+8)
+        initColumn(NodeColumn::lastRemind,  "TEXT");
+        initColumn(NodeColumn::remindNum,   "INTEGER DEFAULT '0'");
+        initColumn(NodeColumn::atLearn,     "INTEGER DEFAULT '0'");
+        initColumn(NodeColumn::lastEdit,    "TEXT");
     }
 
     QUuid addNode(QString name);

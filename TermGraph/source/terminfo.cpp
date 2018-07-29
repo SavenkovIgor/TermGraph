@@ -6,24 +6,24 @@ qreal TermInfo::baseBlockWidth = 40.0;
 TermInfo::TermInfo( QSqlRecord rec, QObject *parent ) :
     QObject(parent)
 {
-    uuid = QUuid(rec.value(db->nodeTbl->longUID).toString());
-    groupID = rec.value(db->nodeTbl->termGroup).toInt();
+    uuid = QUuid(rec.value(NodeColumn::longUID).toString());
+    groupID = rec.value(NodeColumn::termGroup).toInt();
 
-    groupUuid = QUuid(rec.value(db->nodeTbl->termGroup).toString());
+    groupUuid = QUuid(rec.value(NodeColumn::termGroup).toString());
     groupType = db->groupTbl->getType( groupUuid );
 
-    name = rec.value( db->nodeTbl->term ).toString();
-    nameForms = rec.value( db->nodeTbl->termForms ).toString();
-    definition = rec.value( db->nodeTbl->definition ).toString();
-    description = rec.value( db->nodeTbl->description ).toString();
+    name = rec.value(NodeColumn::term).toString();
+    nameForms = rec.value(NodeColumn::termForms).toString();
+    definition = rec.value(NodeColumn::definition).toString();
+    description = rec.value(NodeColumn::description).toString();
 
-    examples = rec.value( db->nodeTbl->examples ).toString();
-    wikiRef = rec.value( db->nodeTbl->wikiRef ).toString();
-    wikiImg = rec.value( db->nodeTbl->wikiImg ).toString();
+    examples = rec.value(NodeColumn::examples).toString();
+    wikiRef = rec.value(NodeColumn::wikiRef).toString();
+    wikiImg = rec.value(NodeColumn::wikiImg).toString();
 
-    lastRepeatDate = QDate::fromString(rec.value( db->nodeTbl->lastRemind).toString() );
-    repNum = rec.value( db->nodeTbl->remindNum).toInt();
-    atLearn = rec.value( db->nodeTbl->atLearn).toString() == "1";
+    lastRepeatDate = QDate::fromString(rec.value(NodeColumn::lastRemind).toString() );
+    repNum = rec.value(NodeColumn::remindNum).toInt();
+    atLearn = rec.value(NodeColumn::atLearn).toString() == "1";
 
     nameCompressing();
 }

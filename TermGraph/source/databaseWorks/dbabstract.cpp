@@ -80,10 +80,10 @@ void DBAbstract::normalizeNodesGroupUuid()
     for (QUuid nodeUuid : nodeTbl->getAllNodesUuids()) {
         QSqlRecord rec = nodeTbl->getNodeSqlRecord(nodeUuid);
 
-        if (!rec.contains(nodeTbl->uid))
+        if (!rec.contains(NodeColumn::uid))
             continue;
         bool ok = false;
-        int currentGroup = rec.value(nodeTbl->termGroup).toInt(&ok);
+        int currentGroup = rec.value(NodeColumn::termGroup).toInt(&ok);
         if (!ok)
             continue;
         if (uidMatching.contains(currentGroup))
