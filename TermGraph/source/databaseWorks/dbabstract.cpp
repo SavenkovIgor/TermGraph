@@ -47,7 +47,7 @@ void DBAbstract::openDB(QString file)
 
     nodeTbl  = new NdTbl(base);
 //    edgeTbl  = new EdgTbl(base);
-    groupTbl = new TermGroupTbl(base);
+    groupTbl = new TermGroupTable(base);
 }
 
 void DBAbstract::checkCols()
@@ -65,14 +65,14 @@ void DBAbstract::normalizeNodesGroupUuid()
         if (rec.count() == 0)
             continue;
 
-        if (!rec.contains(groupTbl->uid))
+        if (!rec.contains(TermGroupColumn::uid))
             continue;
 
-        if (!rec.contains(groupTbl->longUID))
+        if (!rec.contains(TermGroupColumn::longUID))
             continue;
 
-        int groupUid = rec.value(groupTbl->uid).toInt();
-        QString groupUuid = rec.value(groupTbl->longUID).toString();
+        int groupUid = rec.value(TermGroupColumn::uid).toInt();
+        QString groupUuid = rec.value(TermGroupColumn::longUID).toString();
 
         uidMatching[groupUid] = groupUuid;
     }

@@ -7,11 +7,11 @@ int TermGroup::animSpeed = 300;
 TermGroup::TermGroup(QSqlRecord rec, QObject *parent):
     QObject(parent)
 {
-    QString groupName = rec.value(db->groupTbl->name).toString();
+    QString groupName = rec.value(TermGroupColumn::name).toString();
     this->grNmItem = new TGroupName(groupName);
 
-    this->groupUuid = QUuid(rec.value(db->groupTbl->longUID).toString());
-    this->type = static_cast<GroupType>(rec.value(db->groupTbl->type).toInt());
+    this->groupUuid = QUuid(rec.value(TermGroupColumn::longUID).toString());
+    this->type = static_cast<GroupType>(rec.value(TermGroupColumn::type).toInt());
 }
 
 TermGroup::TermGroup(QJsonDocument doc, QObject *parent):
@@ -231,9 +231,9 @@ QJsonDocument TermGroup::getJsonDoc()
     QJsonDocument doc;
 //    obj.insert("uid",     QJsonValue(grUid));
     QJsonObject obj;
-    obj.insert(db->groupTbl->longUID, QJsonValue(this->groupUuid.toString()));
-    obj.insert(db->groupTbl->name, QJsonValue(getName()));
-    obj.insert(db->groupTbl->type, QJsonValue(this->getType()));
+    obj.insert(TermGroupColumn::longUID, QJsonValue(this->groupUuid.toString()));
+    obj.insert(TermGroupColumn::name, QJsonValue(getName()));
+    obj.insert(TermGroupColumn::type, QJsonValue(this->getType()));
 
     QJsonArray ndArr;
 

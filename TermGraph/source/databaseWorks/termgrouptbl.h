@@ -3,23 +3,26 @@
 
 #include "./tblbase.h"
 
-class TermGroupTbl : public TblBase
-{
+class TermGroupColumn {
 public:
     static const QString uid;  // TODO: Грохнуть
-    const QString longUID = "longUID";
-    const QString name    = "name";
-    const QString comment = "comment";
-    const QString type    = "type";
+    static const QString longUID;
+    static const QString name;
+    static const QString comment;
+    static const QString type;
+};
 
-    TermGroupTbl(QSqlDatabase* base):
+class TermGroupTable : public TblBase
+{
+public:
+    TermGroupTable(QSqlDatabase* base):
         TblBase("termGroup", base)
     {
-        initColumn(uid,     "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
-        initColumn(longUID, "TEXT");
-        initColumn(name,    "TEXT UNIQUE");
-        initColumn(comment, "TEXT");
-        initColumn(type,    "INTEGER DEFAULT '-1'");
+        initColumn(TermGroupColumn::uid,     "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
+        initColumn(TermGroupColumn::longUID, "TEXT");
+        initColumn(TermGroupColumn::name,    "TEXT UNIQUE");
+        initColumn(TermGroupColumn::comment, "TEXT");
+        initColumn(TermGroupColumn::type,    "INTEGER DEFAULT '-1'");
     }
 
     // Adding, deleting
@@ -35,7 +38,6 @@ public:
 
     // Massive getters
     QList<QUuid> getAllGroupsUuid();
-    QStringList getAllGroupsNames(QString area = "", bool withUid = false);
 
     // Setters
     void setName(QUuid uuid, QString name);
