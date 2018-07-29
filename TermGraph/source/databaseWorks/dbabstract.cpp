@@ -45,7 +45,7 @@ void DBAbstract::openDB(QString file)
         qDebug() << "cantOpenBase" << base->lastError().text();
     }
 
-    nodeTbl  = new NdTbl(base);
+    nodeTbl  = new NodeTable(base);
 //    edgeTbl  = new EdgTbl(base);
     groupTbl = new TermGroupTable(base);
 }

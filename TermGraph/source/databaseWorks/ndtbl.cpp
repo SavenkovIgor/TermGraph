@@ -1,12 +1,14 @@
 #include "./ndtbl.h"
 
-QUuid NdTbl::addNode(QString name)
+//const QString NodeColumn::uid = "uid";
+
+QUuid NodeTable::addNode(QString name)
 {
     QUuid uuid = generateNewUuid();
     return addNode(uuid, name);
 }
 
-QUuid NdTbl::addNode(QUuid uuid, QString name)
+QUuid NodeTable::addNode(QUuid uuid, QString name)
 {
     if (name.simplified() == "") {
         return "";  // Создать вершину не удалось
@@ -22,7 +24,7 @@ QUuid NdTbl::addNode(QUuid uuid, QString name)
     return uuid;
 }
 
-int NdTbl::getRemindNum(QUuid uuid)
+int NodeTable::getRemindNum(QUuid uuid)
 {
     QSqlRecord rec = getNodeSqlRecord(uuid);
 
@@ -32,55 +34,47 @@ int NdTbl::getRemindNum(QUuid uuid)
     return rec.value(this->remindNum).toInt();
 }
 
-void NdTbl::setName(QUuid uuid, QString name)
+void NodeTable::setName(QUuid uuid, QString name)
 {
-    setField(this->term, uuid, name);
-    updateLastEdit(uuid);
+    setFieldUpdateLastEdit(this->term, uuid, name);
 }
 
-void NdTbl::setWordForms(QUuid uuid, QString forms)
+void NodeTable::setWordForms(QUuid uuid, QString forms)
 {
-    setField(this->termForms, uuid, forms);
-    updateLastEdit(uuid);
+    setFieldUpdateLastEdit(this->termForms, uuid, forms);
 }
 
-void NdTbl::setDefinition(QUuid uuid, QString definition)
+void NodeTable::setDefinition(QUuid uuid, QString definition)
 {
-    setField(this->definition, uuid, definition);
-    updateLastEdit(uuid);
+    setFieldUpdateLastEdit(this->definition, uuid, definition);
 }
 
-void NdTbl::setDescription(QUuid uuid, QString description)
+void NodeTable::setDescription(QUuid uuid, QString description)
 {
-    setField(this->description, uuid, description);
-    updateLastEdit(uuid);
+    setFieldUpdateLastEdit(this->description, uuid, description);
 }
 
-void NdTbl::setExamples(QUuid uuid, QString example)
+void NodeTable::setExamples(QUuid uuid, QString example)
 {
-    setField(this->examples, uuid, example);
-    updateLastEdit(uuid);
+    setFieldUpdateLastEdit(this->examples, uuid, example);
 }
 
-void NdTbl::setWikiRef(QUuid uuid, QString wikiRef)
+void NodeTable::setWikiRef(QUuid uuid, QString wikiRef)
 {
-    setField(this->wikiRef, uuid, wikiRef);
-    updateLastEdit(uuid);
+    setFieldUpdateLastEdit(this->wikiRef, uuid, wikiRef);
 }
 
-void NdTbl::setWikiImg(QUuid uuid, QString wikiImage)
+void NodeTable::setWikiImg(QUuid uuid, QString wikiImage)
 {
-    setField(this->wikiImg, uuid, wikiImage);
-    updateLastEdit(uuid);
+    setFieldUpdateLastEdit(this->wikiImg, uuid, wikiImage);
 }
 
-void NdTbl::setGroup(QUuid nodeUuid, QUuid groupUuid)
+void NodeTable::setGroup(QUuid nodeUuid, QUuid groupUuid)
 {
-    setField(this->termGroup, nodeUuid, groupUuid.toString());
-    updateLastEdit(nodeUuid);
+    setFieldUpdateLastEdit(this->termGroup, nodeUuid, groupUuid.toString());
 }
 
-void NdTbl::setAtLearn(QUuid uuid, bool learn)
+void NodeTable::setAtLearn(QUuid uuid, bool learn)
 {
     if (learn) {
         setField(this->atLearn, uuid, "1");
@@ -94,7 +88,7 @@ void NdTbl::setAtLearn(QUuid uuid, bool learn)
 //     setRemindNum(uid, getRemindNum(uid) + 1, QDateTime::currentDateTime() );
 // }
 
-void NdTbl::setRemindNum(QUuid uuid, int num, QDate date)
+void NodeTable::setRemindNum(QUuid uuid, int num, QDate date)
 {
     SetExpression set;
     set.set(this->remindNum, num);
@@ -103,24 +97,30 @@ void NdTbl::setRemindNum(QUuid uuid, int num, QDate date)
     updateWhere(set, WhereCondition::uuidEqual(uuid));
 }
 
-void NdTbl::deleteNode(QUuid uuid)
+void NodeTable::deleteNode(QUuid uuid)
 {
     deleteRecord(uuid);
 }
 
-void NdTbl::updateLastEdit(QUuid uuid)
+void NodeTable::setFieldUpdateLastEdit(QString columnName, QUuid uuid, QString val)
+{
+    setField(columnName, uuid, val);
+    updateLastEdit(uuid);
+}
+
+void NodeTable::updateLastEdit(QUuid uuid)
 {
     setField(this->lastEdit, uuid, QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
 }
 
-bool NdTbl::isUuidExist(QUuid uuid)
+bool NodeTable::isUuidExist(QUuid uuid)
 {
     RecList recs = toRecList(select(QStringList() << this->longUID,
                                       WhereCondition::uuidEqual(uuid)));
     return !recs.isEmpty();
 }
 
-QUuid NdTbl::generateNewUuid()
+QUuid NodeTable::generateNewUuid()
 {
     QUuid uuid;
     for (int i = 0; i < 1000; i++) {
@@ -132,7 +132,7 @@ QUuid NdTbl::generateNewUuid()
     return uuid;
 }
 
-QList<QUuid> NdTbl::getAllNodesUuids()
+QList<QUuid> NodeTable::getAllNodesUuids()
 {
     QList<QUuid> ret;
 
@@ -147,7 +147,7 @@ QList<QUuid> NdTbl::getAllNodesUuids()
     return ret;
 }
 
-QList<int> NdTbl::getGroupNodeID(int groupID)
+QList<int> NodeTable::getGroupNodeID(int groupID)
 {
     QList<int> ret;
 
@@ -167,7 +167,7 @@ QList<int> NdTbl::getGroupNodeID(int groupID)
     return ret;
 }
 
-QList<QUuid> NdTbl::getAllNodesUuidsInGroup(QUuid groupUuid)
+QList<QUuid> NodeTable::getAllNodesUuidsInGroup(QUuid groupUuid)
 {
     QList<QUuid> ret;
 
@@ -190,7 +190,7 @@ QList<QUuid> NdTbl::getAllNodesUuidsInGroup(QUuid groupUuid)
     return ret;
 }
 
-QDateTime NdTbl::getLastEdit(QUuid uuid)
+QDateTime NodeTable::getLastEdit(QUuid uuid)
 {
     QString field = getStringField(this->lastEdit, uuid);
     if (field.isEmpty()) {
@@ -199,7 +199,7 @@ QDateTime NdTbl::getLastEdit(QUuid uuid)
     return QDateTime::fromString(field, Qt::ISODate);
 }
 
-QSqlRecord NdTbl::getNodeSqlRecord(QUuid uuid)
+QSqlRecord NodeTable::getNodeSqlRecord(QUuid uuid)
 {
     QSqlQuery sel = select(getAllCols(), WhereCondition::uuidEqual(uuid));
 
@@ -210,7 +210,7 @@ QSqlRecord NdTbl::getNodeSqlRecord(QUuid uuid)
     return sel.record();
 }
 
-bool NdTbl::isNodeWithUuidExist(QUuid uuid)
+bool NodeTable::isNodeWithUuidExist(QUuid uuid)
 {
     return isUuidExist(uuid);
 }

@@ -12,7 +12,7 @@ class DBAbstract : public QObject
 {
     Q_OBJECT
 public:
-    NdTbl* nodeTbl  = nullptr;
+    NodeTable* nodeTbl  = nullptr;
 //    EdgTbl* edgeTbl  = nullptr;
     TermGroupTable* groupTbl = nullptr;
 

@@ -3,7 +3,12 @@
 
 #include "./tblbase.h"
 
-class NdTbl: public TblBase
+class NodeColumn {
+public:
+//    static const QString uid;  // TODO: Грохнуть
+};
+
+class NodeTable : public TblBase
 {
 public:
     const QString uid         = "uid";
@@ -22,7 +27,7 @@ public:
     const QString atLearn     = "atLearn";  // на изучении
     const QString lastEdit    = "lastEdit";
 
-    NdTbl(QSqlDatabase* base):
+    NodeTable(QSqlDatabase* base):
         TblBase("termNode", base)
     {
         initColumn(uid,         "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
@@ -71,6 +76,7 @@ public:
     void deleteNode(QUuid uuid);
 
 private:
+    void setFieldUpdateLastEdit(QString columnName, QUuid uuid, QString val);
     void updateLastEdit(QUuid uuid);
     bool isUuidExist(QUuid uuid);
 
