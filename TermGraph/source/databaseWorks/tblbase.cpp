@@ -1,16 +1,5 @@
 #include "tblbase.h"
 
-void TblBase::setField(QString columnName, int uid, QString val)
-{
-    SetExpression set;
-    set.set(columnName, val);
-
-    WhereCondition where;
-    where.equal("uid",uid);
-
-    updateWhere(set,where);
-}
-
 void TblBase::setField(QString columnName, QUuid uuid, QString val)
 {
     SetExpression set;

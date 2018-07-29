@@ -16,7 +16,6 @@ public:
     void checkCols();
 
 protected:
-    void setField(QString columnName, int uid, QString val); //TODO: Удалить когда все данные будут сохранены
     void setField(QString columnName, QUuid uuid, QString val);
 
     int getIntField(QString columnName, QUuid uuid);
