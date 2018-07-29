@@ -1,4 +1,4 @@
-#include "sqlqueryconstructor.h"
+#include "./sqlqueryconstructor.h"
 
 SqlQueryConstructor::SqlQueryConstructor(QString tableName)
 {
@@ -8,7 +8,7 @@ SqlQueryConstructor::SqlQueryConstructor(QString tableName)
 QString SqlQueryConstructor::createTable(QList<TableColumnDescription> columns)
 {
     QStringList colsDescription;
-    for(TableColumnDescription col : columns) {
+    for (TableColumnDescription col : columns) {
         colsDescription << col.name + " " + col.type;
     }
 
@@ -43,11 +43,11 @@ QString SqlQueryConstructor::selectQuery(QStringList columns, WhereCondition whe
     qry << columns.join(CommonQueryFunctions::joinParam());
     qry << "FROM";
     qry << tableName;
-    if(where.getJoinedConditions() != ""){
+    if (where.getJoinedConditions() != ""){
         qry << "WHERE";
         qry << where.getJoinedConditions();
     }
-    if(orderBy.simplified() != "") {
+    if (orderBy.simplified() != "") {
        qry << "ORDER BY";
        qry << orderBy;
     }
@@ -60,7 +60,7 @@ QString SqlQueryConstructor::insertQuery(QList<InsertContainer> values)
     QStringList columns;
     QStringList insertValues;
 
-    for(InsertContainer value : values) {
+    for (InsertContainer value : values) {
         columns << value.getColumnName();
         insertValues << CommonQueryFunctions::vv(value.getValue());
     }
@@ -123,7 +123,7 @@ QString SqlQueryConstructor::deleteByUuidQuery(QUuid uuid, QString primaryKeyNam
 
 QStringList SqlQueryConstructor::vv(QStringList lst)
 {
-    for(QString &str: lst) {
+    for (QString& str : lst) {
         str = CommonQueryFunctions::vv(str);
     }
     return lst;

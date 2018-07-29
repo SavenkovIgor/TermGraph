@@ -6,7 +6,6 @@
 #include <QGraphicsSimpleTextItem>
 
 #include "./Helpers/appstyle.h"
-#include "./glb.h"  // TODO: delete. Possibly dont need
 
 class TGroupName : public QGraphicsSimpleTextItem
 {
