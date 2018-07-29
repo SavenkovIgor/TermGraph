@@ -1,13 +1,5 @@
 #include "glb.h"
 
-qreal Sizes::groupVerticalSpacer = 10.0;
-qreal Sizes::groupHorizontalSpacer = 10.0;
-
-qreal Sizes::orphansVerticalSpacer = 10.0;
-qreal Sizes::orphansHorizontalSpacer = 10.0;
-
-qreal Sizes::treeLayerHorizontalSpacer = 15.0;
-
 quint16 NetworkSettings::listenPort = 46377;
 
 CloudServicesWrapper*Glb::cloud = nullptr;

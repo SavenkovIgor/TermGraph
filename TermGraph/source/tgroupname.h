@@ -13,7 +13,7 @@ public:
     TGroupName(QString name):
         QGraphicsSimpleTextItem()
     {
-        QPoint offset(10.0, Sizes::groupVerticalSpacer);
+        QPoint offset(10.0, AppStyle::Sizes::groupVerticalSpacer);
         QGraphicsSimpleTextItem::setPos(offset);
 
         this->setBrush(AppStyle::Colors::Groups::text);

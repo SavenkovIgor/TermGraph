@@ -1,7 +1,5 @@
 #include "terminfo.h"
 
-qreal TermInfo::baseBlockWidth = 40.0;
-
 TermInfo::TermInfo(QSqlRecord rec, QObject *parent) :
     QObject(parent)
 {
@@ -56,7 +54,8 @@ void TermInfo::nameCompressing()
     if (name.contains(" ")) {
         // Если имя превышает базовую ширину и содержит пробелы то пытаемся его разбить на 2
 
-        if (Fonts::getTextMetrics(smallName).width() + 15 > baseBlockWidth) {  // Пытаемся ужать в 2 строки
+        if (Fonts::getTextMetrics(smallName).width() + 15 > AppStyle::Sizes::baseBlockWidth) {
+            // Пытаемся ужать в 2 строки
             int mid = smallName.size()/2;
 
             for (int i = 0; i < mid; i++) {

@@ -49,17 +49,6 @@ public:
     static QString groupsJsonPath();
 };
 
-class Sizes {
-public:
-    static qreal groupVerticalSpacer;
-    static qreal groupHorizontalSpacer;
-
-    static qreal orphansVerticalSpacer;
-    static qreal orphansHorizontalSpacer;
-
-    static qreal treeLayerHorizontalSpacer;
-};
-
 class NetworkSettings {
 public:
     static quint16 listenPort;

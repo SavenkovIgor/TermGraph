@@ -449,8 +449,8 @@ void TermGroup::setBasePoint(QPointF pt)
 
 void TermGroup::updateRectsPositions()
 {
-    qreal vSpacer = Sizes::groupVerticalSpacer;
-    qreal hSpacer = Sizes::groupHorizontalSpacer;
+    qreal vSpacer = AppStyle::Sizes::groupVerticalSpacer;
+    qreal hSpacer = AppStyle::Sizes::groupHorizontalSpacer;
     QPointF basePoint(QPointF(hSpacer, vSpacer));
 
     QSizeF nameSize = grNmItem->getNameRect().size();
@@ -477,8 +477,8 @@ void TermGroup::updateBaseRectSize()
     QSizeF nameSize = grNmItem->getNameRect().size();
     QSizeF treeSize = getTheoreticalTreeSize();
     QSizeF orphansSize = getOrphansSize();
-    qreal vSpacer = Sizes::groupVerticalSpacer;
-    qreal hSpacer = Sizes::groupHorizontalSpacer;
+    qreal vSpacer = AppStyle::Sizes::groupVerticalSpacer;
+    qreal hSpacer = AppStyle::Sizes::groupHorizontalSpacer;
 
     qreal width = 0.0;
     qreal height = 0.0;
@@ -584,14 +584,14 @@ void TermGroup::setOrphCoords(qreal maxWidth)
         QSizeF nodeSize = currNode->getSize(false);
 
         if (x + nodeSize.width() > maxWidth) {
-            y+= maxHeightInRow + Sizes::orphansVerticalSpacer;
+            y+= maxHeightInRow + AppStyle::Sizes::orphansVerticalSpacer;
             //Переходим на следующий ряд
             maxHeightInRow = 0;
             x = 0;
         }
 
         currNode->setPos(x, y);
-        x += nodeSize.width() + Sizes::orphansHorizontalSpacer;
+        x += nodeSize.width() + AppStyle::Sizes::orphansHorizontalSpacer;
 
         maxHeightInRow = qMax(maxHeightInRow, nodeSize.height());
     }
@@ -635,7 +635,7 @@ void TermGroup::setTreeCoords()
         }
 
         //А после выставления всех координат - вторую
-        x += (layerWidth/2 + Sizes::treeLayerHorizontalSpacer);
+        x += (layerWidth/2 + AppStyle::Sizes::treeLayerHorizontalSpacer);
     }
 }
 
@@ -726,7 +726,7 @@ QSizeF TermGroup::getTheoreticalTreeSize()
         QSizeF levelSize = getVerticalStackedSize(nodes);
         treeWidth += levelSize.width();
         if (layer < layers) {
-            treeWidth += Sizes::treeLayerHorizontalSpacer;
+            treeWidth += AppStyle::Sizes::treeLayerHorizontalSpacer;
         }
         treeHeight = qMax(treeHeight, levelSize.height());
     }

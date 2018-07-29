@@ -5,9 +5,10 @@
 #include <QDebug>
 #include <QSqlRecord>
 
-#include "databaseWorks/ndtbl.h"
-#include "Helpers/tagprocessor.h"
-#include "Helpers/fonts.h"
+#include "./Helpers/appstyle.h"
+#include "./databaseWorks/ndtbl.h"
+#include "./Helpers/tagprocessor.h"
+#include "./Helpers/fonts.h"
 
 class TermInfo : public QObject
 {
@@ -53,9 +54,6 @@ protected:
     QSizeF getNameSize()    const;
 
 private:
-    // Блок не менее...
-    static qreal baseBlockWidth;  // TODO: Вынести в Sizes
-
     void nameCompressing();
 
     QUuid groupUuid;

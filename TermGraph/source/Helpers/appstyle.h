@@ -48,6 +48,19 @@ public:
             static QColor background;
         };
     };
+
+    class Sizes {
+    public:
+        static qreal groupVerticalSpacer;
+        static qreal groupHorizontalSpacer;
+
+        static qreal orphansVerticalSpacer;
+        static qreal orphansHorizontalSpacer;
+
+        static qreal treeLayerHorizontalSpacer;
+
+        static qreal baseBlockWidth;
+    };
 };
 
 #endif // APPSTYLE_H
