@@ -20,7 +20,6 @@ public:
     const QString examples    = "examples";
     const QString wikiRef     = "wikiRef";
     const QString wikiImg     = "wikiImg";
-    const QString techComment = "techComment";
     const QString termGroup   = "termGroup";
     const QString lastRemind  = "lastRemind";
     const QString remindNum   = "remindNum";
@@ -39,7 +38,6 @@ public:
         initColumn(examples,    "TEXT");
         initColumn(wikiRef,     "TEXT");
         initColumn(wikiImg,     "TEXT");
-        initColumn(techComment, "TEXT");
         initColumn(termGroup,   "INTEGER DEFAULT '-1'");  // -1 - because uid [0;+8)
         initColumn(lastRemind,  "TEXT");
         initColumn(remindNum,   "INTEGER DEFAULT '0'");
