@@ -455,7 +455,7 @@ QString MainScene::getCurrNodeGroupName()
         return "";
     }
 
-    return groupsMgr->getGroupNameByUuid(uuid);
+    return groupsMgr->getGroupName(uuid);
 }
 
 bool MainScene::getCurrNodeIsRoot()

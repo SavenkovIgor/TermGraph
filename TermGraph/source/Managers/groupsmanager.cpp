@@ -55,28 +55,30 @@ QList<TermGroup*> GroupsManager::getAllGroups()
     DBAbstract* db = Glb::db;
     QList<TermGroup*> ret;
     for (QUuid groupUuid : db->groupTbl->getAllGroupsUuid()) {
-        QSqlRecord rec = getGroupSqlRecord(groupUuid);
+        TermGroup* group = createGroup(groupUuid);
 
-        if (rec.count() == 0)
+        if (group == nullptr) {
+            qDebug() << "Cant create group with Uuid: " << groupUuid;
             continue;
+        }
 
-        TermGroup* group = new TermGroup(rec);
-        group->loadNodes(nodesMgr->getAllNodesForGroup(groupUuid));
         ret << group;
     }
     return ret;
 }
 
-QSqlRecord GroupsManager::getGroupSqlRecord(QUuid groupUuid)
+QString GroupsManager::getGroupName(QUuid groupUuid)
 {
     DBAbstract* db = Glb::db;
-    return db->groupTbl->getGroup( groupUuid );
+    QSqlRecord rec = db->groupTbl->getGroup(groupUuid);
+    return rec.value(TermGroupColumn::name).toString();
 }
 
-QString GroupsManager::getGroupNameByUuid(QUuid groupUuid)
+QUuid GroupsManager::getGroupUuid(QString groupName)
 {
-    QSqlRecord rec = getGroupSqlRecord(groupUuid);
-    return rec.value(TermGroupColumn::name).toString();
+    DBAbstract* db = Glb::db;
+    QUuid groupUuid = db->groupTbl->getUuid(groupName);
+    return groupUuid;
 }
 
 void GroupsManager::addNewGroup(const QString& name, const QString& comment, const int& type)
@@ -133,15 +135,21 @@ bool GroupsManager::isValidGroupJson(const QJsonDocument json)
     return false;
 }
 
-TermGroup *GroupsManager::getGroupByNameForInnerUse(const QString name)
+TermGroup* GroupsManager::createGroup(const QString groupName)
+{
+    return createGroup(getGroupUuid(groupName));
+}
+
+TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
 {
     DBAbstract* db = Glb::db;
-    QUuid groupUuid = db->groupTbl->getUuid(name);
     if (groupUuid.isNull())
         return nullptr;
 
-    QSqlRecord groupRecord = getGroupSqlRecord(groupUuid);
-    return new TermGroup(groupRecord);
+    QSqlRecord groupRecord = db->groupTbl->getGroup(groupUuid);
+    TermGroup* group = new TermGroup(groupRecord);
+    group->loadNodes(nodesMgr->getAllNodesForGroup(groupUuid));
+    return group;
 }
 
 QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
@@ -163,6 +171,8 @@ void GroupsManager::importGroupFromJson(QJsonDocument json)
     DBAbstract* db = Glb::db;
     if (!isValidGroupJson(json))
         return;
+
+    qDebug() << json;
 
     QJsonObject jsonGroup = json.object();
     QUuid groupUuid = QUuid(jsonGroup.value("longUID").toString());
@@ -238,9 +248,11 @@ void GroupsManager::importGroupFromJson(QJsonDocument json)
 
 void GroupsManager::sendGroupByNetwork(const QString groupName)
 {
-    TermGroup* g = getGroupByNameForInnerUse(groupName);
-    if (g == nullptr)
+    TermGroup* group = createGroup(groupName);
+    if (group == nullptr) {
         return;
+    }
 
-    network->sendGroup(g->getJsonDoc());
+    network->sendGroup(group->getJsonDoc());
+//    delete group;  // TODO: Проверить, почему удаление вызывает ошибку
 }

@@ -24,7 +24,8 @@ public slots:
     QStringList getAllGroupsNames(bool withAllVeiw = false);
     QList <TermGroup*> getAllGroups();
 
-    QString getGroupNameByUuid(QUuid groupUuid);
+    QString getGroupName(QUuid groupUuid);
+    QUuid getGroupUuid(QString groupName);
 
     void addNewGroup(const QString &name, const QString &comment, const int &type);
     void deleteGroup(QString name);
@@ -39,8 +40,9 @@ public slots:
 
 private:
     bool isValidGroupJson(const QJsonDocument json);
-    QSqlRecord getGroupSqlRecord(QUuid groupUuid);
-    TermGroup* getGroupByNameForInnerUse(const QString name);
+
+    TermGroup* createGroup(const QString groupName);
+    TermGroup* createGroup(const QUuid groupUuid);
 
     QDateTime getLastEdit(QUuid groupUuid);
 
