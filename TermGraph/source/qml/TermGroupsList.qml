@@ -52,6 +52,9 @@ Item {
         Component.onCompleted: loadIcon("qrc:/icons/x")
     }
 
+    // Temporary hide FileExportButton
+    // TODO: Restore File exporting later!
+    /*
     MyRoundButton {
         id: exportButton
 
@@ -65,11 +68,12 @@ Item {
             groupExportedDialog.visible = true
         }
     }
+    */
 
     MyRoundButton {
         id: sendByNetworkButton
 
-        anchors.right: exportButton.left
+        anchors.right: addGroupBtn.left
         anchors.bottom: parent.bottom
 
         onClicked: { groupsManager.sendGroupByNetwork(groupsList.currentItem.text) }
