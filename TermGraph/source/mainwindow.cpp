@@ -184,6 +184,7 @@ void MainWindow::initElemSizes()
     elementSizes["button"] = 5;
     elementSizes["colSpace"] = 4;
     elementSizes["appHeader"] = 9;
+    elementSizes["infoLabel"] = 6;
 #endif
 
 #if defined( Q_OS_ANDROID )
@@ -196,5 +197,6 @@ void MainWindow::initElemSizes()
     elementSizes["button"] = 4;
     elementSizes["colSpace"] = 2;
     elementSizes["appHeader"] = 6;
+    elementSizes["infoLabel"] = 4;
 #endif
 }
