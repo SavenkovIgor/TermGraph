@@ -26,6 +26,10 @@ bool TermGroupTable::addGroup(QUuid uuid, QString name, QString comment, int typ
         return false;
     }
 
+    if (hasGroupWithName(name)) {
+        return false;
+    }
+
     QList<InsertContainer> values;
     values << InsertContainer(TermGroupColumn::longUID, uuid.toString());
     values << InsertContainer(TermGroupColumn::name, name);
