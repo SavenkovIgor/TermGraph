@@ -20,6 +20,10 @@ public:
 signals:
     void groupsListChanged();
 
+    void showInfo(QString info);
+    void showWarning(QString warning);
+    void showError(QString error);
+
 public slots:
     QStringList getAllGroupsNames(bool withAllVeiw = false);
     QList <TermGroup*> getAllGroups();

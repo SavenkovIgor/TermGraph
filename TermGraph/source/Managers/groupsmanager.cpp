@@ -87,8 +87,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment, con
     if (db->groupTbl->addGroup(name, comment, type)) {
         groupsListChanged();
     } else {
-        // TODO: Сделать уведомлением!
-        qDebug() << "Название группы не уникально";
+        showError("Название группы не уникально");
     }
 }
 
