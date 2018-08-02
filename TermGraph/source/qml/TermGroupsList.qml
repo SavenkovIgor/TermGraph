@@ -206,7 +206,7 @@ Item {
 
         onClosed: {
             newGroupName.text = ""
-            newGroupComment.text = ""
+//            newGroupComment.text = ""
             newGroupType.currentIndex = 0
         }
 
