@@ -74,36 +74,11 @@ ApplicationWindow {
 
         dragMargin: Qt.styleHints.startDragDistance*2
 
-        FileDialog {
-            id: fileDialog
-            title: "Пожалуйста выберите файл базы данных"
-
-            onAccepted: {
-                console.log("You chose: " + fileDialog.fileUrls)
-            }
-        }
-
-        MyRoundButton {
-            id: openFolder
-
-            onClicked: fileDialog.open()
-
-            anchors.top: parent.top
-            anchors.right: parent.right
-
-            Component.onCompleted: loadIcon( "qrc:/icons/folder" )
-        }
-
         ListView {
             id: listView
 
             currentIndex: 0
-            anchors {
-                top: openFolder.bottom
-                left: parent.left
-                right: parent.right
-                bottom: parent.bottom
-            }
+            anchors.fill: parent
 
             function openNewNode() {
                 stackView.pushItem(winModel.get(1).source)
