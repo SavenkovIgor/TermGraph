@@ -27,7 +27,7 @@ public slots:
     QString getGroupName(QUuid groupUuid);
     QUuid getGroupUuid(QString groupName);
 
-    void addNewGroup(const QString &name, const QString &comment, const int &type);
+    void addNewGroup(const QString &name, const QString &comment, const int &type = GroupType::terms);
     void deleteGroup(QString name);
 
     // Json

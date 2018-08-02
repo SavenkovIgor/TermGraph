@@ -219,18 +219,13 @@ Item {
                 placeholderText: "[Введите название]"
             }
 
+            /*
             MyTextField {
                 id: newGroupComment
                 labelText: "Комментарий к группе"
                 placeholderText: "[Комментарий]"
             }
-
-            MyComboBox {
-                id: newGroupType
-                Component.onCompleted: {
-                    model = sceneObj.getGroupTypes()
-                }
-            }
+            */
 
             RowLayout {
                 spacing: 30
@@ -240,7 +235,8 @@ Item {
                     text: "Добавить"
 
                     onClicked: {
-                        groupsManager.addNewGroup(newGroupName.text,newGroupComment.text,newGroupType.currentIndex -1 ) //-1 for default group
+//                        groupsManager.addNewGroup(newGroupName.text,newGroupComment.text)
+                        groupsManager.addNewGroup(newGroupName.text,"")
                         newGroupDrawer.close()
                     }
                 }
