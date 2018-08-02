@@ -140,6 +140,56 @@ ApplicationWindow {
         }
     }
 
+    Drawer {
+        id : infoPanel
+        width: window.width
+        height: mainObj.getUiElementSize("infoLabel")*Screen.pixelDensity*2
+        interactive: false
+        edge: Qt.BottomEdge
+
+        onOpened: { infoHideTimer.start() }
+
+        function setTextAndOpen(text) {
+            infoLabel.text = text
+            infoPanel.open()
+        }
+
+        function showError(error) {
+            setTextAndOpen("Error: " + error)
+        }
+
+        function showWarning(warning) {
+            setTextAndOpen("Warning: " + warning)
+        }
+
+        function showInfo(info) {
+            setTextAndOpen("Info: " + info)
+        }
+
+        Connections {
+            target: groupsManager
+            onShowInfo: infoPanel.showInfo(info)
+            onShowWarning: infoPanel.showWarning(warning)
+            onShowError: infoPanel.showError(error)
+        }
+
+        Label {
+            id: infoLabel
+            text: ""
+            horizontalAlignment: Text.AlignHCenter
+            font.pixelSize: mainObj.getUiElementSize("infoLabel")*Screen.pixelDensity
+            anchors.fill: parent
+            anchors.margins: mainObj.getUiElementSize("infoLabel")*Screen.pixelDensity*0.5
+        }
+
+        Timer {
+            id: infoHideTimer
+            interval: 1700
+            repeat: false
+            onTriggered: infoPanel.close()
+        }
+    }
+
     StackView {
         id: stackView
 
