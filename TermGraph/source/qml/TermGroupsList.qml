@@ -207,7 +207,7 @@ Item {
         onClosed: {
             newGroupName.text = ""
 //            newGroupComment.text = ""
-            newGroupType.currentIndex = 0
+//            newGroupType.currentIndex = 0
         }
 
         ColumnLayout {
