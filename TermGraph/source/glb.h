@@ -47,6 +47,8 @@ public:
 class StdFolderPaths {
 public:
     static QString groupsJsonPath();
+private:
+    static QString userAppConfigFolder();
 };
 
 class NetworkSettings {

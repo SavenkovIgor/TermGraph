@@ -72,5 +72,10 @@ void Glb::saveFile(QString subDir, QString fileName, QByteArray data)
 
 QString StdFolderPaths::groupsJsonPath()
 {
-    return QDir::home().absolutePath() + "/.TermGraph/GroupsJson";
+    return userAppConfigFolder() + "/GroupsJson";
+}
+
+QString StdFolderPaths::userAppConfigFolder()
+{
+    return QDir::home().absolutePath() + "/.TermGraph";
 }
