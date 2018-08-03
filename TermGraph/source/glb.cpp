@@ -70,9 +70,25 @@ void Glb::saveFile(QString subDir, QString fileName, QByteArray data)
     }
 }
 
+void StdFolderPaths::createDefaultFoldersIfNeed()
+{
+    QStringList necessaryDirs;
+    necessaryDirs << defaultDatabasePath();
+    necessaryDirs << groupsJsonPath();
+
+    for (QString path : necessaryDirs) {
+        QDir().mkpath(path);
+    }
+}
+
 QString StdFolderPaths::groupsJsonPath()
 {
     return userAppConfigFolder() + "/GroupsJson";
+}
+
+QString StdFolderPaths::defaultDatabasePath()
+{
+    return userAppConfigFolder();
 }
 
 QString StdFolderPaths::userAppConfigFolder()

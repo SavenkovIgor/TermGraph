@@ -46,7 +46,10 @@ public:
 
 class StdFolderPaths {
 public:
+    static void createDefaultFoldersIfNeed();
+
     static QString groupsJsonPath();
+    static QString defaultDatabasePath();
 private:
     static QString userAppConfigFolder();
 };
