@@ -49,7 +49,7 @@ public:
     static void createDefaultFoldersIfNeed();
 
     static QString groupsJsonPath();
-    static QString defaultDatabasePath();
+    static QString defaultDatabaseFilePath();
 private:
     static QString userAppConfigFolder();
 };

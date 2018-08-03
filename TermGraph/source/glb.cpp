@@ -73,8 +73,11 @@ void Glb::saveFile(QString subDir, QString fileName, QByteArray data)
 void StdFolderPaths::createDefaultFoldersIfNeed()
 {
     QStringList necessaryDirs;
-    necessaryDirs << defaultDatabasePath();
+
+#if defined( Q_OS_WIN ) || defined( Q_OS_LINUX ) || defined( Q_OS_MACOS )
+    necessaryDirs << defaultDatabaseFilePath();
     necessaryDirs << groupsJsonPath();
+#endif
 
     for (QString path : necessaryDirs) {
         QDir().mkpath(path);
@@ -86,9 +89,19 @@ QString StdFolderPaths::groupsJsonPath()
     return userAppConfigFolder() + "/GroupsJson";
 }
 
-QString StdFolderPaths::defaultDatabasePath()
+QString StdFolderPaths::defaultDatabaseFilePath()
 {
-    return userAppConfigFolder();
+    QString dbFilePath;
+
+#if defined( Q_OS_WIN ) || defined( Q_OS_LINUX ) || defined( Q_OS_MACOS )
+    dbFilePath = userAppConfigFolder() + "/tg.termGraph";
+#endif
+
+#if defined( Q_OS_ANDROID )
+    dbFilePath = "tg.termGraph";
+#endif
+
+    return dbFilePath;
 }
 
 QString StdFolderPaths::userAppConfigFolder()

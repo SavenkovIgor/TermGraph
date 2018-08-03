@@ -11,7 +11,7 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
 
     QQuickStyle::setStyle("Material");
 
-    db = new DBAbstract(StdFolderPaths::defaultDatabasePath() + "/tg.termGraph");
+    db = new DBAbstract(StdFolderPaths::defaultDatabaseFilePath());
 
     Glb::db = db;
 
