@@ -3,15 +3,15 @@
 MainWindow::MainWindow(QObject *parent): QObject(parent)
 {
     initElemSizes();
+    StdFolderPaths::createDefaultFoldersIfNeed();
+
     engn = new QQmlApplicationEngine();
 
     Glb::cloud = new CloudServicesWrapper();
 
     QQuickStyle::setStyle("Material");
 
-    loadDbPath();
-
-    db = new DBAbstract(dbPath);
+    db = new DBAbstract(StdFolderPaths::defaultDatabasePath() + "/tg.termGraph");
 
     Glb::db = db;
 
@@ -115,7 +115,6 @@ void MainWindow::saveSett()
     QSettings sett("appSettings.ini", QSettings::IniFormat);
     // TODO: заменить индекс группы на uuid
     sett.setValue("animationSpeed", TermGroup::getAnimSpeed());
-    sett.setValue("dataPath", dbPath);
 }
 
 void MainWindow::loadSett()
@@ -127,12 +126,6 @@ void MainWindow::loadSett()
 
     // TODO: Переделать заргузку на сцену и на uuid
 //    scene->setAnimSpeed( sett.value("animationSpeed",300).toInt() );
-}
-
-void MainWindow::loadDbPath()
-{
-    QSettings sett("appSettings.ini", QSettings::IniFormat);
-    dbPath = sett.value("dataPath", "tg.termGraph").toString();
 }
 
 void MainWindow::onQmlCreated(QObject*, QUrl)

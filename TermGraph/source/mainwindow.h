@@ -50,7 +50,6 @@ public:
 
     void saveSett();
     void loadSett();
-    void loadDbPath();
 
 private slots:
     void onQmlCreated(QObject *, QUrl);
@@ -75,8 +74,6 @@ private:
     QMap<QString, int> elementSizes;
 
     QQmlApplicationEngine *engn;
-
-    QString dbPath;
 
     NetworkManager* network;
     GroupsManager* groupsMgr;
