@@ -235,12 +235,12 @@ void MainScene::saveGroupInFolder(TermGroup* group)
     }
 
     QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
-    Glb::saveFile(StdFolderPaths::groupsJsonPath(), fileName, group->getJsonDoc().toJson());
+    Glb::saveFile(StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
 }
 
 QString MainScene::getExportPath()
 {
-    return StdFolderPaths::groupsJsonPath();
+    return StdFolderPaths::groupsJsonFolder();
 }
 
 QString MainScene::getGroupString(QString grp)

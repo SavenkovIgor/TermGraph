@@ -75,8 +75,8 @@ void StdFolderPaths::createDefaultFoldersIfNeed()
     QStringList necessaryDirs;
 
 #if defined( Q_OS_WIN ) || defined( Q_OS_LINUX ) || defined( Q_OS_MACOS )
-    necessaryDirs << defaultDatabaseFilePath();
-    necessaryDirs << groupsJsonPath();
+    necessaryDirs << userAppConfigFolder();
+    necessaryDirs << groupsJsonFolder();
 #endif
 
     for (QString path : necessaryDirs) {
@@ -84,7 +84,7 @@ void StdFolderPaths::createDefaultFoldersIfNeed()
     }
 }
 
-QString StdFolderPaths::groupsJsonPath()
+QString StdFolderPaths::groupsJsonFolder()
 {
     return userAppConfigFolder() + "/GroupsJson";
 }
