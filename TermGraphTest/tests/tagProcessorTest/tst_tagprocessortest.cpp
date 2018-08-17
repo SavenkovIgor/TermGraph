@@ -1,5 +1,6 @@
 #include <QtTest>
 #include <QCoreApplication>
+#include <QDebug>
 
 // add necessary includes here
 #include "../../../TermGraph/source/Helpers/tagprocessor.h"
@@ -10,68 +11,273 @@ class TagProcessorTest : public QObject
 
 public:
     TagProcessorTest() { }
-
     ~TagProcessorTest() { }
 
 private slots:
 
-    void test_case1_data() {
+    void pairBrackets_data()
+    {
         QTest::addColumn<QString>("text");
         QTest::addColumn<bool>("result");
-
-        QTest::newRow("wrong0") << "a}b{c" << false;
-        QTest::newRow("wrong1") << "a}b}c" << false;
-        QTest::newRow("wrong2") << "a{b{c" << false;
-        QTest::newRow("wrong3") << "a{b{c" << false;
-        QTest::newRow("wrong4") << "{{}{}}}" << false;
 
         QTest::newRow("ok0") << "{{}{}}" << true;
         QTest::newRow("ok1") << "{{{{{{{{{{}}}}}}}}}}" << true;
         QTest::newRow("ok2") << "{}{}{}{}{}{}" << true;
+        QTest::newRow("ok3") << "" << true;
+
+        QTest::newRow("wrong0") << "a}b{c" << false;
+        QTest::newRow("wrong1") << "a}b}c" << false;
+        QTest::newRow("wrong2") << "a{b{c" << false;
+        QTest::newRow("wrong3") << "{" << false;
+        QTest::newRow("wrong3") << "}" << false;
+        QTest::newRow("wrong3") << "}{" << false;
+        QTest::newRow("wrong4") << "{{}{}}}" << false;
     }
 
-    void test_case1()
+    void pairBrackets()
     {
-        //    TagProcessor* processor = new TagProcessor(this);
         QFETCH(QString, text);
         QFETCH(bool, result);
-
         QVERIFY(TagProcessor::isPairedBrackets(text) == result);
-        /*
-    struct test{
-        QString     desc;
-        QStringList tags;
-        bool        err;
-    };
-
-    QList<test> tests;
-    test t;
-    t.desc = "a{bc}";    t.tags = QStringList()<<"bc";       t.err = false;  tests<<t;
-    t.desc = "a{bc\\}}"; t.tags = QStringList()<<"bc}";      t.err = false;  tests<<t;
-    t.desc = "a{bc}}";   t.tags = QStringList()<<"bc";       t.err = false;  tests<<t;
-    t.desc = "}}";       t.tags = QStringList();             t.err = false;  tests<<t;
-    t.desc = "{{";       t.tags = QStringList();             t.err = true;   tests<<t;
-    t.desc = "a{bc\\}";  t.tags = QStringList()<<"bc\\";     t.err = false;  tests<<t;
-    t.desc = "a{b}{c}";  t.tags = QStringList()<<"b"<<"c";   t.err = false;  tests<<t;
-    t.desc = "a{b";      t.tags = QStringList();             t.err = true;   tests<<t;
-    t.desc = "a{a\\";    t.tags = QStringList();             t.err = true;   tests<<t;
-    t.desc = "\\}\\}";   t.tags = QStringList();             t.err = false;  tests<<t;
-
-    qDebug()<<"-----------------------------------------";
-
-    for( test t : tests ) {
-        definition = t.desc;
-        //        QString err;
-        qDebug()<<"tag:"<<t.desc<<t.tags<<getTags();
-        //        if( (err.isEmpty() && t.err) || (!err.isEmpty() && !t.err) )
-        //            qDebug()<<"some err"<< err.isEmpty();
-    }
-    qDebug()<<"-----------------------------------------";
-    */
     }
 
+    void bracketsDepth_data()
+    {
+        QTest::addColumn<QString>("text");
+        QTest::addColumn<int>("result");
+
+        QTest::newRow("case0") << "{}" << 1;
+        QTest::newRow("case1") << "a{a}a{a}a{a}a" << 1;
+        QTest::newRow("case2") << "  " << 0;
+        QTest::newRow("case3") << "{{{}}}  " << 3;
+        QTest::newRow("case4") << "a{}  {{{}}} {}a" << 3;
+        QTest::newRow("case5") << "{" << -1;
+        QTest::newRow("case6") << "}" << -1;
+        QTest::newRow("case7") << "aa}" << -1;
+        QTest::newRow("case8") << "}aa" << -1;
+        QTest::newRow("case9") << "}}" << -1;
+        QTest::newRow("case10") << "{{" << -1;
+    }
+
+    void bracketsDepth()
+    {
+        QFETCH(QString, text);
+        QFETCH(int, result);
+        QVERIFY(TagProcessor::getMaxDepthOfNestedBrackets(text) == result);
+    }
+
+    void tagExtraction_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<QStringList>("tags");
+
+        QTest::newRow("ok0") << "a{bc}" << (QStringList() << "bc");
+        QTest::newRow("ok1") << "a{a}{b}" << (QStringList() << "a" << "b");
+        QTest::newRow("ok2") << "a{bc}{bc}" << (QStringList() << "bc");
+        QTest::newRow("ok3") << "a{bc\\}" << (QStringList() << "bc\\");
+
+        QTest::newRow("error0") << "a{bc\\}}" << QStringList();
+        QTest::newRow("error1") << "a{bc}}" << QStringList();
+        QTest::newRow("error2") << "}}" << QStringList();
+        QTest::newRow("error3") << "{{" << QStringList();
+        QTest::newRow("error4") << "a{b" << QStringList();
+        QTest::newRow("error5") << "a{a\\" << QStringList();
+        QTest::newRow("error6") << "\\}\\}" << QStringList();
+    }
+
+    void tagExtraction()
+    {
+        QFETCH(QString, src);
+        QFETCH(QStringList, tags);
+
+        QVERIFY(TagProcessor::extractTags(src) == tags);
+    }
+
+    void wordBorder_data()
+    {
+        QTest::addColumn<int>("dir");
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<int>("startPosition");
+        QTest::addColumn<int>("targetPosition");
+
+        // Предполагается что -1 - влево, 1 - вправо
+        // В пустой строке поиск и в лево и вправо должен вовращать 0
+        QTest::newRow("case0") << -1 << "" << 0 << 0;
+        QTest::newRow("case1") << 1  << "" << 0 << 0;
+
+        QTest::newRow("case2") << -1 << " " << 0 << 0;
+        QTest::newRow("case3") << 1  << " " << 0 << 0;
+
+        QTest::newRow("case4") << -1 << " " << 1 << 1;
+        QTest::newRow("case5") << 1  << " " << 1 << 1;
+
+        QTest::newRow("case6") << -1 << " a" << 1 << 1;
+        QTest::newRow("case7") << 1  << " a" << 1 << 2;
+
+        QTest::newRow("case8") << -1 << "ab" << 0 << 0;
+        QTest::newRow("case9") << 1  << "ab" << 0 << 2;
+
+        QTest::newRow("case10") << -1 << "ab" << 1 << 0;
+        QTest::newRow("case11") << 1  << "ab" << 1 << 2;
+
+        QTest::newRow("case12") << -1 << "ab" << 2 << 0;
+        QTest::newRow("case13") << 1  << "ab" << 2 << 2;
+
+        QTest::newRow("case14") << -1 << " ab " << 0 << 0;
+        QTest::newRow("case15") << 1  << " ab " << 0 << 0;
+
+        QTest::newRow("case16") << -1 << " ab " << 1 << 1;
+        QTest::newRow("case17") << 1  << " ab " << 1 << 3;
+
+        QTest::newRow("case18") << -1 << " ab, " << 1 << 1;
+        QTest::newRow("case19") << 1  << " ab, " << 1 << 3;
+
+        QTest::newRow("case20") << -1 << " a a " << 3 << 3;
+        QTest::newRow("case21") << 1  << " a a " << 3 << 4;
+
+        QTest::newRow("case22") << -1 << " a a " << 4 << 3;
+        QTest::newRow("case23") << 1  << " a a " << 4 << 4;
+    }
+
+    void wordBorder()
+    {
+        QFETCH(int, dir);
+        QFETCH(QString, src);
+        QFETCH(int, startPosition);
+        QFETCH(int, targetPosition);
+
+        auto left = TagProcessor::SearchDirection::left;
+        auto right = TagProcessor::SearchDirection::right;
+
+        if (dir == 1) {
+            QVERIFY(TagProcessor::searchWordBorder(right, src, startPosition) == targetPosition);
+        }
+
+        if (dir == -1) {
+            QVERIFY(TagProcessor::searchWordBorder(left, src, startPosition) == targetPosition);
+        }
+    }
+
+    void nearestBracket_data()
+    {
+        QTest::addColumn<int>("dir");
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<int>("startPosition");
+        QTest::addColumn<QChar>("bracket");
+
+        QChar leftBracket = '{';
+        QChar rightBracket = '}';
+
+        // Предполагается что -1 - влево, 1 - вправо
+        // В пустой строке поиск и в лево и вправо должен вовращать пустой символ
+        QTest::newRow("case0") << -1 << "" << 0 << QChar();
+        QTest::newRow("case1") << 1  << "" << 0 << QChar();
+
+        QTest::newRow("case2") << -1 << "{" << 0 << QChar();
+        QTest::newRow("case3") << 1  << "{" << 0 << leftBracket;
+
+        QTest::newRow("case4") << -1 << "{" << 1 << leftBracket;
+        QTest::newRow("case5") << 1  << "{" << 1 << QChar();
+
+        QTest::newRow("case6") << -1 << "}" << 0 << QChar();
+        QTest::newRow("case7") << 1  << "}" << 0 << rightBracket;
+
+        QTest::newRow("case8") << -1 << "}" << 1 << rightBracket;
+        QTest::newRow("case9") << 1  << "}" << 1 << QChar();
+
+        QTest::newRow("case10") << -1 << " { asdf } " << 2 << leftBracket;
+        QTest::newRow("case11") << 1  << " { asdf } " << 2 << rightBracket;
+
+        QTest::newRow("case12") << -1 << " } asdf { " << 2 << rightBracket;
+        QTest::newRow("case13") << 1  << " } asdf { " << 2 << leftBracket;
+    }
+
+    void nearestBracket()
+    {
+        QFETCH(int, dir);
+        QFETCH(QString, src);
+        QFETCH(int, startPosition);
+        QFETCH(QChar, bracket);
+
+        auto left = TagProcessor::SearchDirection::left;
+        auto right = TagProcessor::SearchDirection::right;
+
+        if (dir == 1) {
+            QVERIFY(TagProcessor::getNearesBracket(right, src, startPosition) == bracket);
+        }
+
+        if (dir == -1) {
+            QVERIFY(TagProcessor::getNearesBracket(left, src, startPosition) == bracket);
+        }
+    }
+
+    void inTag_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<int>("cursorPosition");
+        QTest::addColumn<bool>("result");
+
+        QTest::newRow("case0") << "{}" << 0 << false;
+        QTest::newRow("case1") << "{}" << 1 << true;
+        QTest::newRow("case2") << "{}" << 2 << false;
+        QTest::newRow("case3") << " " << 0 << false;
+        QTest::newRow("case4") << " " << 1 << false;
+        QTest::newRow("case5") << "{  }" << 2 << true;
+        QTest::newRow("case6") << "a{a}a" << 2 << true;
+        QTest::newRow("case7") << "a{a}a" << 3 << true;
+        QTest::newRow("case8") << "} a {" << 1 << false;
+        QTest::newRow("case9") << "}{" << 0 << false;
+        QTest::newRow("case10") << "}{" << 1 << false;
+        QTest::newRow("case11") << "}{" << 2 << false;
+        QTest::newRow("case12") << "}" << 0 << false;
+        QTest::newRow("case13") << "}" << 1 << false;
+        QTest::newRow("case14") << "{" << 0 << false;
+        QTest::newRow("case15") << "{" << 1 << false;
+    }
+
+    void inTag()
+    {
+        QFETCH(QString, src);
+        QFETCH(int, cursorPosition);
+        QFETCH(bool, result);
+
+        QVERIFY(TagProcessor::isInsideTag(src, cursorPosition) == result);
+    }
+
+    void addTags_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<int>("cursorPosition");
+        QTest::addColumn<QString>("result");
+
+        QTest::newRow("case0") << "" << 0 << "{}";
+        QTest::newRow("case1") << "a" << 0 << "{a}";
+        QTest::newRow("case2") << "a" << 1 << "{a}";
+        QTest::newRow("case3") << " a " << 0 << "{} a ";
+        QTest::newRow("case4") << " a " << 1 << " {a} ";
+        QTest::newRow("case5") << " a " << 2 << " {a} ";
+        QTest::newRow("case6") << " a " << 3 << " a {}";
+        QTest::newRow("case7") << " {a} " << 1 << " {}{a} ";
+        QTest::newRow("case8") << " {a} " << 2 << " {a} ";
+        QTest::newRow("case9") << " {a} " << 3 << " {a} ";
+        QTest::newRow("case10") << " {a} " << 4 << " {a}{} ";
+        QTest::newRow("case11") << " aa bb " << 1 << " {aa} bb ";
+        QTest::newRow("case12") << " aaaaa, " << 1 << " {aaaaa}, ";
+    }
+
+    void addTags()
+    {
+        QFETCH(QString, src);
+        QFETCH(int, cursorPosition);
+        QFETCH(QString, result);
+
+        TagProcessor* proc = new TagProcessor();
+
+        QVERIFY(proc->addTagInPosition(cursorPosition, src) == result);
+    }
 };
 
 QTEST_APPLESS_MAIN(TagProcessorTest)
 
 #include "tst_tagprocessortest.moc"
+

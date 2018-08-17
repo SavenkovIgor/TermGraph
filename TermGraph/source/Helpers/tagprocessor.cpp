@@ -2,9 +2,93 @@
 
 const QChar TagProcessor::leftBracket = '{';
 const QChar TagProcessor::rightBracket = '}';
+const QString TagProcessor::emptyBrackets = "{}";
 
 TagProcessor::TagProcessor(QObject *parent) : QObject(parent)
 { }
+
+bool TagProcessor::isBracket(QChar ch)
+{
+    return ch == leftBracket || ch == rightBracket;
+}
+
+int TagProcessor::searchWordBorder(const SearchDirection searchDirection, const QString& text, int cursorPosition)
+{
+    if (searchDirection == SearchDirection::left) {
+        if (cursorPosition == 0) {
+            // Если мы у левой границы строки - возвращаем эту границу
+            return cursorPosition;
+        }
+
+        QChar leftChar = text[cursorPosition - 1];
+
+        if (leftChar.isLetterOrNumber()) {  // Если это символ или цифра - ищем левее
+            return searchWordBorder(searchDirection, text, cursorPosition - 1);
+        } else {
+            return cursorPosition;
+        }
+    } else {
+        if (cursorPosition == text.size()) {
+            // Если мы у правой границы строки - возвращаем эту границу
+            return cursorPosition;
+        }
+
+        QChar rightChar = text[cursorPosition];
+
+        if (rightChar.isLetterOrNumber()) {
+            return searchWordBorder(searchDirection, text, cursorPosition + 1);
+        } else {
+            return cursorPosition;
+        }
+    }
+}
+
+QChar TagProcessor::getNearesBracket(const SearchDirection searchDirection, const QString &text, int cursorPosition)
+{
+    if (searchDirection == SearchDirection::left) {
+        if (cursorPosition == 0) {
+            // Если мы у левой границы строки - возвращаем пустой символ
+            return QChar();
+        }
+
+        QChar leftChar = text[cursorPosition - 1];
+
+        if (isBracket(leftChar)) {
+            // Если это одна из скобок, возвращаем ее
+            return leftChar;
+        } else {
+            // Иначе ищем левее
+            return getNearesBracket(searchDirection, text, cursorPosition - 1);
+        }
+    } else {
+        if (cursorPosition == text.size()) {
+            // Если мы у правой границы строки - возвращаем пустой символ
+            return QChar();
+        }
+
+        QChar rightChar = text[cursorPosition];
+
+        if (isBracket(rightChar)) {
+            // Если это одна из скобок, возвращаем ее
+            return rightChar;
+        } else {
+            // Иначе ищем правее
+            return getNearesBracket(searchDirection, text, cursorPosition + 1);
+        }
+    }
+}
+
+bool TagProcessor::isInsideTag(const QString &text, int cursorPosition)
+{
+    QChar firstLeftBracket = getNearesBracket(SearchDirection::left, text, cursorPosition);
+    QChar firstRightBracket = getNearesBracket(SearchDirection::right, text, cursorPosition);
+
+    if (firstLeftBracket == leftBracket && firstRightBracket == rightBracket) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 bool TagProcessor::isPairedBrackets(QString text)
 {
@@ -39,52 +123,43 @@ int TagProcessor::getMaxDepthOfNestedBrackets(QString text)
     return maxDepth;
 }
 
-QStringList TagProcessor::extractTags(QString str, QString &errorString)
+QStringList TagProcessor::extractTags(QString str)
 {
-    // TODO: Разбить функцию на несколько.
-    // Она не должна проверять ошибки.
-    // Она должна только найти теги, какие сможет
-    errorString = "";
+    // На данном этапе считаем, что экранировать символы тегов нельзя
+    // Функция работает только с корректными тегами
+    // Если в строке непарные скобки или вложенность становится отрицательной
+    // сразу возвращаем пустой список
+    // То же самое для глубины вложенности скобок больше 1.
+    // С такими вариантами тоже не работаем
 
-    QStringList ret;
-    QString tmpStr;
-    bool skipNext = false;
+    if (!isPairedBrackets(str)) {
+        return QStringList();
+    }
+
+    if (getMaxDepthOfNestedBrackets(str) != 1) {
+        return QStringList();
+    }
+
+    QStringList tags;
+    QString wordBuffer;
     bool insideTag = false;
 
-    for (int i = 0; i < str.size(); i++) {
-        QChar c = str[i];
+    for (QChar symbol : str) {
         if (insideTag) {
-            if (c == '\\') {
-                // Поймали экранирующий символ.
-                // Следующий символ пропускаем без вопросов
-                skipNext = true;
-                continue;
-            }
-            if (skipNext) {
-                tmpStr += c;
-                skipNext = false;  // Отменяем пропуск
-                continue;
-            }
-            if (c == '{') {
-                errorString = "Неэкранированный символ { внутри тега";
-                return QStringList();
-            }
-            if (c == '}') {  // Тег кончился - заносим в список
+            if (symbol == rightBracket) {  // Тег кончился - заносим в список
                 insideTag = false;
-                ret << tmpStr;
-                tmpStr.clear();
+                tags << wordBuffer;
+                wordBuffer.clear();
                 continue;
             }
-            if (i == str.size() - 1) {
-                errorString = "Незакрытый тег в конце строки";
-                return QStringList();
-            }
-            tmpStr += c;
+            wordBuffer += symbol;
         }
-        if (c == '{')  // Заходим в тег
+        if (symbol == leftBracket) {  // Заходим в тег
             insideTag = true;
+        }
     }
-    return ret;
+    tags.removeDuplicates();
+    return tags;
 }
 
 /// Описание:
@@ -93,91 +168,38 @@ QStringList TagProcessor::extractTags(QString str, QString &errorString)
 /// При встрече уже обрамленного тега - ничего не сделает
 QString TagProcessor::addTagInPosition(int cursorPosition, QString str)
 {
+    // Проверка корректности курсора
+    if (cursorPosition < 0 || cursorPosition > str.size()) {
+        return str;
+    }
     // str = str.simplified();
     // Нельзя просто так упрощать строку - индекс курсора же не меняется
 
-    if (str.simplified() == "")
+    if (str.simplified() == "") {
         // Пустые строчки обслуживаем не считая.
         // Так же мы гарантируем, что в строчке
         // будет хотя бы один непробельный символ.
-        return "{}";
-
-    int startPos = -1, endPos = -1, lCursor = -1, rCursor = -1;
-    //Позиции курсора, куда пихать потом скобки
-    //И временные смещения курсора
-    QChar lCurLChar, lCurRChar;
-    //символы слева и справа от курсора у левого курсора
-    //По умолчанию - null символы
-    QChar rCurLChar, rCurRChar;
-    //символы слева и справа от курсора у левого курсора
-
-    //проблема столбов и заборов pos - позиция курсора а не символа
-
-    for (int i = 0; i < 400; i++) {
-        lCursor = qBound(0, cursorPosition - i, str.size());
-        //Движемся влево  str.size() - НЕ ОШИБКА!
-        rCursor = qBound(0, cursorPosition + i, str.size());
-        //Движемся вправо str.size() - НЕ ОШИБКА!
-
-        if (lCursor == 0) {
-            lCurLChar = QChar();  // Слева пусто
-            lCurRChar = str[ lCursor ];
-        } else if (lCursor == str.size()) {
-            lCurLChar = str[ lCursor - 1 ];
-            lCurRChar = QChar();
-        } else {  // Мы где то в середине
-            lCurLChar = str[ lCursor - 1 ];
-            lCurRChar = str[ lCursor ];
-        }
-
-        if (rCursor == 0) {
-            rCurLChar = QChar();
-            rCurRChar = str[ rCursor ];
-        } else if (rCursor == str.size()) {
-            rCurLChar = str[ rCursor - 1 ];
-            rCurRChar = QChar();
-        } else {
-            rCurLChar = str[ rCursor - 1 ];
-            rCurRChar = str[ rCursor ];
-        }
-
-        if (startPos != -1 && endPos != -1)
-            // Нашли обе позиции вставки, выходим
-            break;
-
-        if (startPos == -1) {  // Если еще не нашли, то ищем
-            // Если один из символов пустой - то мы уже нашли.
-            if (lCurLChar.isNull())
-                startPos = lCursor;
-            // поскольку пустые строки у нас невозможны,
-            // значит мы по любому в середине строки
-            else if (lCurLChar.isSpace())
-                startPos = lCursor;
-        }
-
-        if (endPos == -1) {  // Если еще не нашли, то ищем
-            // Если один из символов пустой - то мы уже нашли.
-            if (rCurRChar.isNull())
-                endPos = rCursor;
-            // поскольку пустые строки у нас невозможны,
-            // значит мы по любому в середине строки
-            else if (rCurRChar.isSpace())
-                endPos = rCursor;
-        }
+        return emptyBrackets;
     }
 
-    //Сначала конец вставляем, потом начало из за смещения индексов
-    //Если у нас пустой тег - нафиг он нужен
-    //Случай с пустой строкой - уже вверху рассматривали
-    if (startPos != endPos) {
-        if (str[startPos] != '{' && str[endPos - 1] != '}') {
-            // Защита от вписывания дополнительных тегов
-            // TODO: написать функцию проверки уже в теге?
-            // Чтобы избегать случаев вида: asdf {asdf {asdf}} asdf
-            str.insert(endPos, '}');
-            str.insert(startPos, '{');
-        }
+    // Если мы уже находимся внутри тега - ничего не делаем
+    if (isInsideTag(str, cursorPosition)) {
+        return str;
     }
+
+    /*if (cursorPosition > 0 && cursorPosition < str.size()) {
+        // Если мы в середине строки
+        QChar leftChar = str[cursorPosition-1];
+        QChar rightChar = str[cursorPosition];
+    }
+    */
+
+    int leftWordBorder = searchWordBorder(SearchDirection::left, str, cursorPosition);
+    int rightWordBorder = searchWordBorder(SearchDirection::right, str, cursorPosition);
+
+    //Сначала вставляем правую, потом левую из за смещения курсора
+    str.insert(rightWordBorder, rightBracket);
+    str.insert(leftWordBorder, leftBracket);
 
     return str;
 }

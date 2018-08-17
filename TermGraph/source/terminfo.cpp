@@ -234,7 +234,8 @@ QString TermInfo::getDefinition() const
 QStringList TermInfo::getTags() const
 {
     QString error;
-    auto tags = TagProcessor::extractTags(definition, error);
+    auto tags = TagProcessor::extractTags(definition);
+    // TODO: Fix error work in tagProcessor
     if (!error.isEmpty()) {
         qDebug() << getUuid().toString() << error;
     }
