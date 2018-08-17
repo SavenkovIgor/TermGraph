@@ -172,27 +172,14 @@ QString TagProcessor::addTagInPosition(int cursorPosition, QString str)
     if (cursorPosition < 0 || cursorPosition > str.size()) {
         return str;
     }
-    // str = str.simplified();
-    // Нельзя просто так упрощать строку - индекс курсора же не меняется
 
-    if (str.simplified() == "") {
-        // Пустые строчки обслуживаем не считая.
-        // Так же мы гарантируем, что в строчке
-        // будет хотя бы один непробельный символ.
-        return emptyBrackets;
-    }
+    // Нельзя просто так упрощать строку - индекс курсора же не меняется
+    // str = str.simplified();
 
     // Если мы уже находимся внутри тега - ничего не делаем
     if (isInsideTag(str, cursorPosition)) {
         return str;
     }
-
-    /*if (cursorPosition > 0 && cursorPosition < str.size()) {
-        // Если мы в середине строки
-        QChar leftChar = str[cursorPosition-1];
-        QChar rightChar = str[cursorPosition];
-    }
-    */
 
     int leftWordBorder = searchWordBorder(SearchDirection::left, str, cursorPosition);
     int rightWordBorder = searchWordBorder(SearchDirection::right, str, cursorPosition);

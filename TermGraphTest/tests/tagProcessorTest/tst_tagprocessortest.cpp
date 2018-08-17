@@ -251,6 +251,8 @@ private slots:
         QTest::addColumn<QString>("result");
 
         QTest::newRow("case0") << "" << 0 << "{}";
+        QTest::newRow("case0") << " " << 0 << "{} ";
+        QTest::newRow("case0") << " " << 1 << " {}";
         QTest::newRow("case1") << "a" << 0 << "{a}";
         QTest::newRow("case2") << "a" << 1 << "{a}";
         QTest::newRow("case3") << " a " << 0 << "{} a ";
