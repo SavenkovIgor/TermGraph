@@ -16,45 +16,20 @@ GroupsManager::GroupsManager(
 
 QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
 {
-    DBAbstract* db = Glb::db;
-    QList<QPair<QUuid, QDateTime>> groupSorting;
+    QList<QUuid> allUuids = getAllUuidsSortedByLastEdit();
+    QStringList groupNames = getGroupNames(allUuids);
 
-    // Forming structure with group uuids and last edit times
-    for (QUuid groupUuid : db->groupTbl->getAllGroupsUuid()) {
-        QPair<QUuid, QDateTime> pair;
-        pair.first = groupUuid;
-        pair.second = getLastEdit(groupUuid);
-        groupSorting.append(pair);
+    if (withAllVeiw) {
+        groupNames.push_front("Все группы");
     }
 
-    // Sorting this structure
-    int nMaxDate;
-    for (int i = 0; i < groupSorting.size(); i++) {
-        nMaxDate = i;
-        for (int j = i + 1; j < groupSorting.size(); j++) {
-            if (groupSorting[nMaxDate].second < groupSorting[j].second) {
-                nMaxDate = j;
-            }
-        }
-        groupSorting.swap(nMaxDate, i);
-    }
-
-    // Casting uuids to names
-    QStringList ret;
-    for (int i = 0; i < groupSorting.size(); i++) {
-        ret << db->groupTbl->getName(groupSorting[i].first);
-    }
-
-    if (withAllVeiw)
-        ret.push_front("Все группы");
-    return ret;
+    return groupNames;
 }
 
 QList<TermGroup*> GroupsManager::getAllGroups()
 {
-    DBAbstract* db = Glb::db;
     QList<TermGroup*> ret;
-    for (QUuid groupUuid : db->groupTbl->getAllGroupsUuid()) {
+    for (QUuid groupUuid : getAllUuidsSortedByLastEdit()) {
         TermGroup* group = createGroup(groupUuid);
 
         if (group == nullptr) {
@@ -79,6 +54,15 @@ QUuid GroupsManager::getGroupUuid(QString groupName)
     DBAbstract* db = Glb::db;
     QUuid groupUuid = db->groupTbl->getUuid(groupName);
     return groupUuid;
+}
+
+QStringList GroupsManager::getGroupNames(QList<QUuid> groupUuids)
+{
+    QStringList ret;
+    for (QUuid uuid : groupUuids) {
+        ret << getGroupName(uuid);
+    }
+    return ret;
 }
 
 void GroupsManager::addNewGroup(const QString& name, const QString& comment, const int& type)
@@ -163,6 +147,40 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
         }
     }
     return lastEdit;
+}
+
+QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
+{
+    DBAbstract* db = Glb::db;
+    QList<QPair<QUuid, QDateTime>> groupSorting;
+
+    // Forming structure with group uuids and last edit times
+    for (QUuid groupUuid : db->groupTbl->getAllGroupsUuid()) {
+        QPair<QUuid, QDateTime> pair;
+        pair.first = groupUuid;
+        pair.second = getLastEdit(groupUuid);
+        groupSorting.append(pair);
+    }
+
+    // Sorting this structure
+    int nMaxDate;
+    for (int i = 0; i < groupSorting.size(); i++) {
+        nMaxDate = i;
+        for (int j = i + 1; j < groupSorting.size(); j++) {
+            if (groupSorting[nMaxDate].second < groupSorting[j].second) {
+                nMaxDate = j;
+            }
+        }
+        groupSorting.swap(nMaxDate, i);
+    }
+
+    // Casting back to uuids only
+    QList<QUuid> ret;
+    for (int i = 0; i < groupSorting.size(); i++) {
+        ret << groupSorting[i].first;
+    }
+
+    return ret;
 }
 
 void GroupsManager::importGroupFromJson(QJsonDocument json)

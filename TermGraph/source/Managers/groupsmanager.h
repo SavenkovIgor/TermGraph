@@ -31,6 +31,8 @@ public slots:
     QString getGroupName(QUuid groupUuid);
     QUuid getGroupUuid(QString groupName);
 
+    QStringList getGroupNames(QList<QUuid> groupUuids);
+
     void addNewGroup(const QString &name, const QString &comment, const int &type = GroupType::terms);
     void deleteGroup(QString name);
 
@@ -49,6 +51,8 @@ private:
     TermGroup* createGroup(const QUuid groupUuid);
 
     QDateTime getLastEdit(QUuid groupUuid);
+
+    QList<QUuid> getAllUuidsSortedByLastEdit();
 
     NodesManager* nodesMgr;
     NetworkManager* network;
