@@ -248,10 +248,12 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     painter->setPen(borderColor);
     painter->setBrush(br);
 
+    qreal minSide = qMin(rcBase.width(), rcBase.height());
+    int cornerRadius = qRound(minSide * 0.18);
     if (thisHovered)
-        painter->drawRoundedRect(rcBase.adjusted(-1, -1, 1, 1), 5, 5);
+        painter->drawRoundedRect(rcBase.adjusted(-1, -1, 1, 1), cornerRadius, cornerRadius);
     else
-        painter->drawRoundedRect(rcBase, 5, 5);
+        painter->drawRoundedRect(rcBase, cornerRadius, cornerRadius);
 
     painter->setPen(AppStyle::Colors::Nodes::text);
     painter->drawText(rcBase.adjusted(1, 0, 1, 0), Qt::AlignCenter, str);
