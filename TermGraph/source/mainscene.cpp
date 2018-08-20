@@ -273,7 +273,7 @@ TermNode *MainScene::getSelected()
         return ret;
     }
 
-    ret = (TermNode *)sel.first();
+    ret = dynamic_cast<TermNode*>(sel.first());
     return ret;
 }
 
