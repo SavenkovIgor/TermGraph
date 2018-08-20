@@ -37,6 +37,8 @@ public slots:
     NodesList getAllNodesForGroup(QUuid groupUuid);
 
     QDateTime getLastEdit(QUuid nodeUuid);
+
+    void importNodeFromJson(QJsonObject nodeObject);
 private:
     QSqlRecord getNodeSqlRecord(QUuid nodeUuid);
 };

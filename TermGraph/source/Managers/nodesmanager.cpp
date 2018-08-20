@@ -87,3 +87,54 @@ QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
     DBAbstract* db = Glb::db;
     return db->nodeTbl->getLastEdit(nodeUuid);
 }
+
+void NodesManager::importNodeFromJson(QJsonObject nodeObject)
+{
+    /*
+    DBAbstract* db = Glb::db;
+    QUuid nodeUuid = QUuid(nodeObject.value(NodeColumn::longUID).toString());
+
+    if (nodeUuid.isNull()) {
+        nodeUuid = QUuid(nodeObject.value("longUid").toString());
+    }
+
+    if (nodeUuid.isNull()) {
+        return;
+    }
+
+    QString name = nodeObject.value(NodeColumn::term).toString();
+    QString forms = nodeObject.value(NodeColumn::termForms).toString();
+    QString definition = nodeObject.value(NodeColumn::definition).toString();
+    QString description = nodeObject.value(NodeColumn::description).toString();
+    QString examples = nodeObject.value(NodeColumn::examples).toString();
+
+    // Create
+    if (!db->nodeTbl->isNodeWithUuidExist(nodeUuid)) {
+        // TODO: Отрефакторить. отдавать всю работу nodesManager,
+        // это его ответственность
+        db->nodeTbl->addNode(nodeUuid, name);
+        nodesMgr->changeNode(
+                    nodeUuid,
+                    name,
+                    forms,
+                    definition,
+                    description,
+                    examples,
+                    groupName);
+    } else {
+        // Update
+        if (name.simplified() != "")
+            db->nodeTbl->setName(nodeUuid, name);
+        if (forms.simplified() != "")
+            db->nodeTbl->setWordForms(nodeUuid, forms);
+        if (definition.simplified() != "")
+            db->nodeTbl->setDefinition(nodeUuid, definition);
+        if (description.simplified() != "")
+            db->nodeTbl->setDescription(nodeUuid, description);
+        if (examples.simplified() != "")
+            db->nodeTbl->setExamples(nodeUuid, examples);
+
+        db->nodeTbl->setGroup(nodeUuid, groupUuid);
+    }
+    */
+}
