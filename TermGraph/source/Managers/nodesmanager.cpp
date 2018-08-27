@@ -26,9 +26,9 @@ void NodesManager::changeNode(
         QUuid nodeUuid,
         QString name,
         QString forms,
-        QString def,
-        QString descr,
-        QString exam,
+        QString definition,
+        QString description,
+        QString example,
         QString groupName)
 {
     DBAbstract* db = Glb::db;
@@ -39,12 +39,25 @@ void NodesManager::changeNode(
     }
 
     QUuid groupUuid = db->groupTbl->getUuid(groupName);
+    changeNode(nodeUuid, name, forms, definition, description, example, groupUuid);
+}
+
+void NodesManager::changeNode(
+        QUuid nodeUuid,
+        QString name,
+        QString forms,
+        QString definition,
+        QString description,
+        QString example,
+        QUuid groupUuid)
+{
+    DBAbstract* db = Glb::db;
 
     db->nodeTbl->setName(nodeUuid, name);
     db->nodeTbl->setWordForms(nodeUuid, forms);
-    db->nodeTbl->setDefinition(nodeUuid, def);
-    db->nodeTbl->setDescription(nodeUuid, descr);
-    db->nodeTbl->setExamples(nodeUuid, exam);
+    db->nodeTbl->setDefinition(nodeUuid, definition);
+    db->nodeTbl->setDescription(nodeUuid, description);
+    db->nodeTbl->setExamples(nodeUuid, example);
     db->nodeTbl->setGroup(nodeUuid, groupUuid);
 
     nodeChanged();
@@ -90,7 +103,6 @@ QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
 
 void NodesManager::importNodeFromJson(QJsonObject nodeObject)
 {
-    /*
     DBAbstract* db = Glb::db;
     QUuid nodeUuid = QUuid(nodeObject.value(NodeColumn::longUID).toString());
 
@@ -107,21 +119,22 @@ void NodesManager::importNodeFromJson(QJsonObject nodeObject)
     QString definition = nodeObject.value(NodeColumn::definition).toString();
     QString description = nodeObject.value(NodeColumn::description).toString();
     QString examples = nodeObject.value(NodeColumn::examples).toString();
+    QUuid groupUuid = QUuid(nodeObject.value(NodeColumn::termGroup).toString());
+    QString lastEditString = nodeObject.value(NodeColumn::lastEdit).toString();
+    QDateTime lastEdit = QDateTime::fromString(lastEditString, Qt::ISODate);
+
+    if (groupUuid.isNull()) {
+        return;
+    }
 
     // Create
     if (!db->nodeTbl->isNodeWithUuidExist(nodeUuid)) {
         // TODO: Отрефакторить. отдавать всю работу nodesManager,
         // это его ответственность
         db->nodeTbl->addNode(nodeUuid, name);
-        nodesMgr->changeNode(
-                    nodeUuid,
-                    name,
-                    forms,
-                    definition,
-                    description,
-                    examples,
-                    groupName);
+        changeNode(nodeUuid, name, forms, definition, description, examples, groupUuid);
     } else {
+        // TODO: Continue from here!!!
         // Update
         if (name.simplified() != "")
             db->nodeTbl->setName(nodeUuid, name);
@@ -136,5 +149,4 @@ void NodesManager::importNodeFromJson(QJsonObject nodeObject)
 
         db->nodeTbl->setGroup(nodeUuid, groupUuid);
     }
-    */
 }
