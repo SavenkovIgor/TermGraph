@@ -6,7 +6,7 @@ import QtQuick.Dialogs 1.2
 
 import "UIExtensions"
 
-Item {
+Page {
     id: newNodeEdit
     objectName: "newNodeEdit"
     anchors.fill: parent

@@ -7,7 +7,7 @@ import QtQuick.Dialogs 1.2
 
 import "UIExtensions"
 
-Item {
+Page {
 
     anchors.fill: parent
 

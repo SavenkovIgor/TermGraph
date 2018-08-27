@@ -3,7 +3,7 @@ import QtQuick.Controls 2.2
 
 import "UIExtensions"
 
-Item {
+Page {
 
     Column {
 
