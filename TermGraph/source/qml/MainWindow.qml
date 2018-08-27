@@ -33,10 +33,8 @@ ApplicationWindow {
                 }
 
                 onClicked: {
-                    console.log("clicked")
                     if ( stackView.depth > 1 ) {
                         stackView.pop()
-                        listView.currentIndex = 0
                     } else {
                         appSideMenu.open()
                     }
