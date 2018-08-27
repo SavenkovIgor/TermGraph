@@ -38,14 +38,13 @@ ApplicationWindow {
                         stackView.pop()
                         listView.currentIndex = 0
                     } else {
-                        drawer.open()
+                        appSideMenu.open()
                     }
                 }
             }
 
             Label {
                 id: titleLabel
-                //                text: drawer.listView.currentItem ? drawer.listView.currentItem.text : "TermGraph"
                 text: "TermGraph"
                 font.pixelSize: mainObj.getUiElementSize("appHeader")*Screen.pixelDensity
                 elide: Label.ElideRight
@@ -78,7 +77,7 @@ ApplicationWindow {
     }
 
     Drawer {
-        id : drawer
+        id : appSideMenu
         height: window.height
         interactive: stackView.depth === 1
 
@@ -91,7 +90,7 @@ ApplicationWindow {
 
         function openItem(item) {
             stackView.push(item)
-            drawer.close()
+            appSideMenu.close()
         }
 
         ColumnLayout {
@@ -114,7 +113,7 @@ ApplicationWindow {
                 Layout.leftMargin: 25
                 Layout.rightMargin: 25
 
-                onClicked: drawer.openItem(groupsListItem)
+                onClicked: appSideMenu.openItem(groupsListItem)
             }
 
             Button {
@@ -133,7 +132,7 @@ ApplicationWindow {
                 Layout.leftMargin: 25
                 Layout.rightMargin: 25
 
-                onClicked: drawer.openItem(settingsItem)
+                onClicked: appSideMenu.openItem(settingsItem)
             }
 
             Item {
@@ -195,54 +194,57 @@ ApplicationWindow {
     StackView {
         id: stackView
 
-        anchors.top: header.bottom
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors {
+            top: header.bottom
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
+        }
 
         initialItem: mainSchemeItem
 
-        onCurrentItemChanged:  {
-            if( depth > 1 )
-                mainMenuBtn.loadIcon( "qrc:/icons/arrow-thick-left" )
-            else
-                mainMenuBtn.loadIcon( "qrc:/icons/menu" )
+        onCurrentItemChanged: {
+            if (depth > 1) {
+                mainMenuBtn.loadIcon("qrc:/icons/arrow-thick-left")
+            } else {
+                mainMenuBtn.loadIcon("qrc:/icons/menu")
+            }
 
-            if( currentItem.objectName == "mainScheme") {
+            if (currentItem.objectName == "mainScheme") {
                 titleLabel.text = "TermGraph"
                 currentItem.toTop()
-                currentItem.setOffs( header.height + 11 )
-            } else if( currentItem.objectName == "newNodeEdit" ) {
+                currentItem.setOffs(header.height + 11)
+            } else if (currentItem.objectName == "newNodeEdit") {
                 titleLabel.text = "Правка вершин"
                 currentItem.prepare();
-            } else if( currentItem.objectName == "grpLst" ) {
+            } else if (currentItem.objectName == "grpLst") {
                 titleLabel.text = "Список групп"
                 currentItem.groupListOpen()
             }
         }
 
         Keys.onPressed: {
-            if( event.modifiers === Qt.ControlModifier) {
-                if( event.key === Qt.Key_Right )
-                    if( drawer.isClose() )
-                        drawer.open()
+            if (event.modifiers === Qt.ControlModifier) {
+                if (event.key === Qt.Key_Right) {
+                    if (appSideMenu.isClose()) {
+                        appSideMenu.open()
+                    }
+                }
 
-                if( event.key === Qt.Key_Left )
-                    if( currentItem.objectName == "mainScheme" ) {
+                if (event.key === Qt.Key_Left) {
+                    if (currentItem.objectName == "mainScheme") {
                         stackView.currentItem.openGroupList()
                         stackView.forceActiveFocus()
                     }
+                }
             }
 
-            if( event.key === Qt.Key_Back ) {
-                if( stackView.depth > 1) {
+            if (event.key === Qt.Key_Back) {
+                if (stackView.depth > 1) {
                     stackView.pop()
                     event.accepted = true
                 }
             }
-
-            console.log("presses in stack view")
         }
-
     }
 }
