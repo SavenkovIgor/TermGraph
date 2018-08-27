@@ -129,7 +129,7 @@ ApplicationWindow {
                 ListElement { title: "Схема";               source: "qrc:/qml/MainScheme.qml" }
                 ListElement { title: "Добавить вершину";    source: "qrc:/qml/NewNodeEdit.qml" }
                 ListElement { title: "Группы";              source: "qrc:/qml/TermGroupsList.qml" }
-                ListElement { title: "Настройки";           source: "qrc:/qml/Settings.qml" }
+                ListElement { title: "Настройки";           source: "qrc:/qml/MySettings.qml" }
                 //                ListElement { title: "Изучение";            source: "" }
                 //                ListElement { title: "Базы данных";         source: "" }
                 //                ListElement { title: "Настройки";           source: "" }
