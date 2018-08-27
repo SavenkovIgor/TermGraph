@@ -178,6 +178,7 @@ void MainWindow::initElemSizes()
     elementSizes["colSpace"] = 4;
     elementSizes["appHeader"] = 9;
     elementSizes["infoLabel"] = 6;
+    elementSizes["sideMenu"] = 7;
 #endif
 
 #if defined( Q_OS_ANDROID )
@@ -191,5 +192,6 @@ void MainWindow::initElemSizes()
     elementSizes["colSpace"] = 2;
     elementSizes["appHeader"] = 6;
     elementSizes["infoLabel"] = 4;
+    elementSizes["sideMenu"] = 5;
 #endif
 }
