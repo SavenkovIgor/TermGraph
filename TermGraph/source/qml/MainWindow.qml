@@ -14,11 +14,6 @@ ApplicationWindow {
     width:  500
     height: 500
 
-//    MainScheme {//NOTE: possible problems
-//        id: mainSc
-//        visible: false
-//    }
-
 //    Component.onCompleted: {
 //        showMaximized();
 //    }
@@ -40,7 +35,7 @@ ApplicationWindow {
                 onClicked: {
                     console.log("clicked")
                     if ( stackView.depth > 1 ) {
-                        stackView.popItem()
+                        stackView.pop()
                         listView.currentIndex = 0
                     } else {
                         drawer.open()
@@ -61,9 +56,29 @@ ApplicationWindow {
         }
     }
 
+    Component {
+        id: mainSchemeItem
+        MainScheme {
+            mainStack: stackView
+        }
+    }
+
+    Component {
+        id: groupsListItem
+        TermGroupsList {
+            mainStack: stackView
+        }
+    }
+
+    Component {
+        id: settingsItem
+        MySettings {
+            mainStack: stackView
+        }
+    }
+
     Drawer {
         id : drawer
-        width: Math.min(window.width, window.height) / 3 * 2
         height: window.height
         interactive: stackView.depth === 1
 
@@ -74,69 +89,56 @@ ApplicationWindow {
 
         dragMargin: Qt.styleHints.startDragDistance*2
 
-        ListView {
-            id: listView
+        function openItem(item) {
+            stackView.push(item)
+            drawer.close()
+        }
 
-            currentIndex: 0
+        ColumnLayout {
+
             anchors.fill: parent
 
-            function openNewNode() {
-                stackView.pushItem(winModel.get(1).source)
-                stackView.get(1).prepare("")
-                drawer.close()
-            }
+            Button {
+                id: groupMenuButton
+                text: "Группы"
 
-            function openEditNode(nodeUid) {
-                stackView.pushItem(winModel.get(1).source)
-                stackView.get(1).prepare(nodeUid)
-                drawer.close()
-            }
-
-            function openMainWindow() {
-                while( stackView.depth > 1) {
-                    stackView.popItem()
-                }
-                drawer.close()
-            }
-
-            function openGroups() {
-                stackView.pushItem(winModel.get(2).source)
-            }
-
-            Keys.onPressed: {
-                if( event.modifiers | Qt.ControlModifier && event.key === Qt.Key_Left)
-                    drawer.close()
-            }
-
-            delegate: ItemDelegate {
-                id: listViewDgl
-                width: parent.width
-                height: Math.floor( font.pixelSize * 2.7 )
-                leftPadding: 50
-                text: model.title
-                font.weight: Font.Medium
+                flat: true
                 font.pixelSize: mainObj.getUiElementSize("capitalText")*Screen.pixelDensity
-                highlighted: ListView.isCurrentItem
-                onClicked: {
-                    stackView.pushItem(model.source)
-                    drawer.close()
-                }
+                height: Math.floor( font.pixelSize * 2.7 )
+                font.weight: Font.Medium
 
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                Layout.topMargin: 5
+                Layout.bottomMargin: 5
+                Layout.leftMargin: 25
+                Layout.rightMargin: 25
+
+                onClicked: drawer.openItem(groupsListItem)
             }
 
-            model: ListModel {
-                id: winModel
-                ListElement { title: "Схема";               source: "qrc:/qml/MainScheme.qml" }
-                ListElement { title: "Добавить вершину";    source: "qrc:/qml/NewNodeEdit.qml" }
-                ListElement { title: "Группы";              source: "qrc:/qml/TermGroupsList.qml" }
-                ListElement { title: "Настройки";           source: "qrc:/qml/MySettings.qml" }
-                //                ListElement { title: "Изучение";            source: "" }
-                //                ListElement { title: "Базы данных";         source: "" }
-                //                ListElement { title: "Настройки";           source: "" }
-                //                ListElement { title: "Справка";             source: "" }
+            Button {
+                id: settingsMenuButton
+                text: "Настройки"
+
+                flat: true
+                font.pixelSize: mainObj.getUiElementSize("capitalText")*Screen.pixelDensity
+                height: Math.floor( font.pixelSize * 2.7 )
+                font.weight: Font.Medium
+
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                Layout.topMargin: 5
+                Layout.bottomMargin: 5
+                Layout.leftMargin: 25
+                Layout.rightMargin: 25
+
+                onClicked: drawer.openItem(settingsItem)
             }
 
-            ScrollIndicator.vertical: ScrollIndicator { }
+            Item {
+                Layout.fillHeight: true
+            }
         }
     }
 
@@ -198,32 +200,14 @@ ApplicationWindow {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
 
-        initialItem: "qrc:/qml/MainScheme.qml"
-
-        property string lastItem: "qrc:/qml/MainScheme.qml"
-
-        function pushItem( itmStr ){
-            console.log( lastItem + " " + itmStr )
-            if( lastItem !== itmStr ){
-                lastItem = itmStr
-                push(itmStr)
-            }
-        }
-
-        function popItem(){
-            lastItem = ""
-            pop()
-        }
+        initialItem: mainSchemeItem
 
         onCurrentItemChanged:  {
             if( depth > 1 )
                 mainMenuBtn.loadIcon( "qrc:/icons/arrow-thick-left" )
             else
                 mainMenuBtn.loadIcon( "qrc:/icons/menu" )
-            //            console.log(currentItem)
-            //            if( currentItem == newNodeEdit)
-            //                console.log("newNodeEdit!!!")
-            //            console.log( "itemChange!" + currentItem.objectName )
+
             if( currentItem.objectName == "mainScheme") {
                 titleLabel.text = "TermGraph"
                 currentItem.toTop()
@@ -252,7 +236,7 @@ ApplicationWindow {
 
             if( event.key === Qt.Key_Back ) {
                 if( stackView.depth > 1) {
-                    stackView.popItem()
+                    stackView.pop()
                     event.accepted = true
                 }
             }

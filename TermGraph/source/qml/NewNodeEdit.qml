@@ -12,6 +12,7 @@ Page {
     objectName: "newNodeEdit"  // TODO: Remove after stack cleanup
 
     property StackView mainStack
+    property string changingNodeUuid
 
     anchors.fill: parent
 
@@ -26,7 +27,7 @@ Page {
     }
 
     function moveBack() {
-        stackView.popItem()
+        mainStack.pop()
     }
 
     function prepare(nodeUid) {

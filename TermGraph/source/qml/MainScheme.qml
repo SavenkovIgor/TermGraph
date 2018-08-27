@@ -86,6 +86,22 @@ Page {
         }
     }
 
+
+    NewNodeEdit {
+        id: newNodePage
+        mainStack: stackView
+    }
+
+    function openNewNodePage() {
+        newNodePage.prepare("")
+        mainStack.push(newNodePage)
+    }
+
+    function openEditNodePage(nodeUuid) {
+        newNodePage.prepare(nodeUuid)
+        mainStack.push(newNodePage)
+    }
+
     Frame {
         id: sceneFrame
 
@@ -172,7 +188,7 @@ Page {
                     top: mainSceneImg.top
                 }
 
-                onClicked: listView.openNewNode()
+                onClicked: openNewNodePage()
                 Component.onCompleted: loadIcon( "qrc:/icons/plus" )
             }
 
@@ -197,7 +213,7 @@ Page {
                 }
 
                 onClicked: {
-                    listView.openEditNode(sceneObj.getCurrNodeLongUid())
+                    openEditNodePage(sceneObj.getCurrNodeLongUid())
                 }
 
                 Component.onCompleted: loadIcon( "qrc:/icons/aperture" )
@@ -409,12 +425,12 @@ Page {
                         }
 
                         if( event.key === Qt.Key_E ) {
-                            listView.openEditNode(sceneObj.getCurrNodeLongUid())
+                            openEditNodePage(sceneObj.getCurrNodeLongUid())
                             event.accepted = true
                         }
 
                         if( event.key === Qt.Key_N ) {
-                            listView.openNewNode()
+                            openNewNodePage()
                             event.accepted = true
                         }
 
