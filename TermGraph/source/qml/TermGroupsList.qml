@@ -7,8 +7,11 @@ import QtQuick.Dialogs 1.2
 import "UIExtensions"
 
 Page {
+
     id: grpLst
-    objectName: "grpLst"
+    objectName: "grpLst"  // TODO: Remove after stack cleanup
+
+    property StackView mainStack
 
     function groupListOpen() {
         groupsList.forceActiveFocus()

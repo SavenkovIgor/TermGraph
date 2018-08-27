@@ -9,12 +9,13 @@ import "UIExtensions"
 
 Page {
 
-    anchors.fill: parent
-
     id: mainScheme
-    objectName: "mainScheme"
+    objectName: "mainScheme"  // TODO: Remove after stack cleanup
 
+    property StackView mainStack
     property int scOffset: 0
+
+    anchors.fill: parent
 
     function setOffs(hg) {
         console.log("hg " + hg)

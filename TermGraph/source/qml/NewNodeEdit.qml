@@ -7,8 +7,12 @@ import QtQuick.Dialogs 1.2
 import "UIExtensions"
 
 Page {
+
     id: newNodeEdit
-    objectName: "newNodeEdit"
+    objectName: "newNodeEdit"  // TODO: Remove after stack cleanup
+
+    property StackView mainStack
+
     anchors.fill: parent
 
     Keys.onEscapePressed: {

@@ -5,6 +5,8 @@ import "UIExtensions"
 
 Page {
 
+    property StackView mainStack
+
     Column {
 
         anchors.fill: parent
