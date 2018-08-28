@@ -17,6 +17,16 @@ Page {
         groupsList.forceActiveFocus()
     }
 
+    header: MainHeader {
+
+        id: mainHeader
+        titleText: "Список групп"
+
+        Component.onCompleted: mainHeader.showArrowIcon()
+
+        onMenuClick: mainStack.pop()
+    }
+
     Keys.onPressed: {
         if( event.modifiers === Qt.ControlModifier ) {
             if( event.key === Qt.Key_N ) {

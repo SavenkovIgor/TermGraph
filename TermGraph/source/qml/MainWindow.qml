@@ -18,6 +18,7 @@ ApplicationWindow {
 //        showMaximized();
 //    }
 
+    /*
     header: MainHeader {
         id: mainHeader
 
@@ -29,11 +30,13 @@ ApplicationWindow {
             }
         }
     }
+    */
 
     Component {
         id: mainSchemeItem
         MainScheme {
             mainStack: stackView
+            sideMenu: appSideMenu
         }
     }
 
@@ -159,16 +162,20 @@ ApplicationWindow {
     StackView {
         id: stackView
 
+        anchors.fill: parent
+        /*
         anchors {
             top: header.bottom
             left: parent.left
             right: parent.right
             bottom: parent.bottom
         }
+        */
 
         initialItem: mainSchemeItem
 
         onCurrentItemChanged: {
+            /*
             if (depth > 1) {
                 mainHeader.showArrowIcon()
             } else {
@@ -183,6 +190,7 @@ ApplicationWindow {
                 mainHeader.titleText = "Список групп"
                 currentItem.groupListOpen()
             }
+            */
         }
 
         Keys.onPressed: {

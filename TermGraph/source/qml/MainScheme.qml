@@ -13,6 +13,7 @@ Page {
     objectName: "mainScheme"  // TODO: Remove after stack cleanup
 
     property StackView mainStack
+    property Drawer sideMenu
     property int scOffset: 0
 
     anchors.fill: parent
@@ -26,12 +27,22 @@ Page {
         groupSelectDrw.open()
     }
 
-    Keys.onPressed: {
-//        console.log("someGoHere");
-    }
-
     function toTop() {
         mouseAr.forceActiveFocus()
+    }
+
+    header: MainHeader {
+
+        id: mainHeader
+        titleText: "TermGraph"
+
+        Component.onCompleted: mainHeader.showMenuIcon()
+
+        onMenuClick: sideMenu.open()
+    }
+
+    Keys.onPressed: {
+//        console.log("someGoHere");
     }
 
     /*RowLayout {

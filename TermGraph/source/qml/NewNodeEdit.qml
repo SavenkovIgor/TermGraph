@@ -15,6 +15,16 @@ Page {
 
     anchors.fill: parent
 
+    header: MainHeader {
+
+        id: mainHeader
+        titleText: ""
+
+        Component.onCompleted: mainHeader.showArrowIcon()
+
+        onMenuClick: mainStack.pop()
+    }
+
     Keys.onEscapePressed: {
         moveBack()
     }
@@ -35,12 +45,14 @@ Page {
             clear()
             changeLbl.visible = false
             changeN.visible = false
-            addNode.text = "Добавить";
+            addNode.text = "Добавить"
+            mainHeader.titleText = "Добавить вершину"
         } else {
             fillInfo()
             changeLbl.visible = true
             changeN.visible = true
-            addNode.text = "Изменить";
+            addNode.text = "Изменить"
+            mainHeader.titleText = "Изменить вершину"
         }
         termName.forceActiveFocus()
     }

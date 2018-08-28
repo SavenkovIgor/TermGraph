@@ -27,7 +27,7 @@ ToolBar {
             id: mainMenuButton
 
             Component.onCompleted: {
-                loadIcon( "qrc:/icons/menu")
+//                loadIcon( "qrc:/icons/menu")
                 hideBack()
             }
 

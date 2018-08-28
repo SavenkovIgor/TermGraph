@@ -7,6 +7,16 @@ Page {
 
     property StackView mainStack
 
+    header: MainHeader {
+
+        id: mainHeader
+        titleText: "Настройки"
+
+        Component.onCompleted: mainHeader.showArrowIcon()
+
+        onMenuClick: mainStack.pop()
+    }
+
     Column {
 
         anchors.fill: parent
