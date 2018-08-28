@@ -26,10 +26,19 @@ public slots:
             QUuid nodeUuid,
             QString name,
             QString forms,
-            QString def,
-            QString descr,
-            QString exam,
+            QString definition,
+            QString description,
+            QString example,
             QString groupName);
+
+    void changeNode(
+            QUuid nodeUuid,
+            QString name,
+            QString forms,
+            QString definition,
+            QString description,
+            QString example,
+            QUuid groupUuid);
 
     void deleteNode(QUuid uuid);
 

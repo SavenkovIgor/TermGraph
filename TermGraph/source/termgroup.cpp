@@ -336,7 +336,8 @@ void TermGroup::animateGroup()
     }
 
     if (!someMoved) {
-        animTimer.stop();
+        stopAnimation();
+//        animTimer.stop();
     }
 }
 
