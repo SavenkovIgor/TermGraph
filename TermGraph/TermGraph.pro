@@ -74,11 +74,3 @@ RESOURCES += \
     source/qml.qrc
 
 #INSTALLS += target
-
-#DISTFILES += \
-#    source/TestQmlForm.qml \
-#    source/GoupsSideBar.qml \
-#    source/MainScheme.qml \
-#    source/MainWindow.qml \
-#    source/NewNodeEdit.qml \
-#    source/MyIconButton.qml
