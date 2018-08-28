@@ -12,8 +12,8 @@ RoundButton {
         iconImg.width  = Math.floor(sz)
         iconImg.height = Math.floor(sz)
 
-        console.log(iconImg.width)
-        console.log(iconImg.height)
+//        console.log(iconImg.width)
+//        console.log(iconImg.height)
 
         iconImg.source = nameUrl + prefix + ".png"
     }

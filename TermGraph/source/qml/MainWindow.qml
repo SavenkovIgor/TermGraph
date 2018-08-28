@@ -18,20 +18,6 @@ ApplicationWindow {
 //        showMaximized();
 //    }
 
-    /*
-    header: MainHeader {
-        id: mainHeader
-
-        onMenuClick: {
-            if (stackView.depth > 1) {
-                stackView.pop()
-            } else {
-                appSideMenu.open()
-            }
-        }
-    }
-    */
-
     Component {
         id: mainSchemeItem
         MainScheme {
@@ -160,38 +146,11 @@ ApplicationWindow {
     }
 
     StackView {
+
         id: stackView
-
-        anchors.fill: parent
-        /*
-        anchors {
-            top: header.bottom
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-        */
-
         initialItem: mainSchemeItem
 
-        onCurrentItemChanged: {
-            /*
-            if (depth > 1) {
-                mainHeader.showArrowIcon()
-            } else {
-                mainHeader.showMenuIcon()
-            }
-
-            if (currentItem.objectName == "mainScheme") {
-                mainHeader.titleText = "TermGraph"
-                currentItem.toTop()
-                currentItem.setOffs(header.height + 11)
-            } else if (currentItem.objectName == "grpLst") {
-                mainHeader.titleText = "Список групп"
-                currentItem.groupListOpen()
-            }
-            */
-        }
+        anchors.fill: parent
 
         Keys.onPressed: {
             if (event.modifiers === Qt.ControlModifier) {

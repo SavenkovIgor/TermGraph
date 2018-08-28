@@ -9,13 +9,8 @@ import "UIExtensions"
 Page {
 
     id: grpLst
-    objectName: "grpLst"  // TODO: Remove after stack cleanup
 
     property StackView mainStack
-
-    function groupListOpen() {
-        groupsList.forceActiveFocus()
-    }
 
     header: MainHeader {
 
@@ -121,7 +116,7 @@ Page {
         highlight: Rectangle {
             width: 200; height: 20
             color: "#FFFF88"
-            y: listView.currentItem.y;
+            y: groupsList.currentItem.y;
         }
 
         delegate: Rectangle {

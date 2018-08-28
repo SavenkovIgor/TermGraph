@@ -10,18 +10,12 @@ import "UIExtensions"
 Page {
 
     id: mainScheme
-    objectName: "mainScheme"  // TODO: Remove after stack cleanup
 
     property StackView mainStack
     property Drawer sideMenu
-    property int scOffset: 0
+    property int scOffset: mainHeader.height
 
     anchors.fill: parent
-
-    function setOffs(hg) {
-        console.log("hg " + hg)
-        scOffset = hg
-    }
 
     function openGroupList() {
         groupSelectDrw.open()
@@ -40,26 +34,6 @@ Page {
 
         onMenuClick: sideMenu.open()
     }
-
-    Keys.onPressed: {
-//        console.log("someGoHere");
-    }
-
-    /*RowLayout {
-
-        id: topTools
-        Layout.maximumHeight: 15
-        anchors.top : parent.top
-        spacing: 15
-
-        Item { width: 1 }
-
-
-        /*Button {
-            objectName: "Browse"
-            text: "Browse"
-        }*//*
-    }*/
 
     function showButtons() {
         changePointBtn.visible = true
@@ -115,12 +89,6 @@ Page {
     Frame {
         id: sceneFrame
 
-//        anchors{
-//            top:topTools.bottom
-//            left:   parent.left
-//            right:  parent.right
-//            bottom: parent.bottom
-//        }
         anchors.fill: parent
 
         anchors.margins: 0
@@ -367,11 +335,9 @@ Page {
 
                 acceptedButtons: Qt.AllButtons;
 
-                //                onClicked: { }
-
                 //Функция коррекции по вертикали
                 function getHgh() {
-                    return mainScheme.scOffset //+ topTools.height
+                    return mainScheme.scOffset
                 }
 
                 //Вызов ивентов мышки
@@ -476,90 +442,79 @@ Page {
                         }
                     }
                 }
-                Item {
-                    id: grpLst
-                    objectName: "grpLst"
 
-                    function groupListOpen() {
-                        groupListView.forceActiveFocus()
-                    }
+                Drawer {
 
-                    Drawer {
+                    id : groupSelectDrw
 
-                        id : groupSelectDrw
-                        y: scOffset
-                        width: mainSceneImg.width*0.6
-                        height: mainSceneImg.height
-                        interactive: true //True - уже проверял. по дурацки работает из за списка
+                    width: window.width*0.6
+                    height: window.height
 
-                        edge: Qt.RightEdge
+                    interactive: true
+                    edge: Qt.RightEdge
 
-                        onOpened: groupListView.forceActiveFocus()
+                    onOpened: groupListView.forceActiveFocus()
 
-                        ListView {
+                    ListView {
 
-                            id: groupListView
-                            anchors.fill: parent
-                            model: groupsManager.getAllGroupsNames(true)
+                        id: groupListView
+                        anchors.fill: parent
+                        model: groupsManager.getAllGroupsNames(true)
 
-                            function refreshModel() {
-                                model = groupsManager.getAllGroupsNames(true)
+                        function refreshModel() {
+                            model = groupsManager.getAllGroupsNames(true)
+                        }
+
+                        keyNavigationEnabled: true
+
+                        highlight: Rectangle {
+                            width: 200; height: 20
+                            color: "#FFFF88"
+                            y: groupListView.currentItem.y;
+                        }
+
+
+                        delegate: Rectangle {
+                            id: groupLstDlgt
+                            border.color: "lightGray"
+                            border.width: 1
+                            anchors.left: parent.left
+                            anchors.right: parent.right
+
+                            property alias text: curText.text
+
+                            height: curText.height
+                            states: State {
+                                name: "Current"
+                                when: groupLstDlgt.ListView.isCurrentItem
+                                PropertyChanges { target: groupLstDlgt; color: "darkGray" }
                             }
 
-                            keyNavigationEnabled: true
+                            Text{
+                                id: curText
+                                padding: 30
 
-                            highlight: Rectangle {
-                                width: 200; height: 20
-                                color: "#FFFF88"
-                                y: listView.currentItem.y;
+                                font.weight: Font.Thin
+                                height: Math.floor( font.pixelSize*2.0 )
+
+                                text: modelData
+                                font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity
+                                anchors.fill: parent
+                                verticalAlignment: Text.AlignVCenter
+                                horizontalAlignment: Text.AlignLeft
                             }
 
-
-                            delegate: Rectangle {
-                                id: groupLstDlgt
-                                border.color: "lightGray"
-                                border.width: 1
-                                anchors.left: parent.left
-                                anchors.right: parent.right
-
-                                property alias text: curText.text
-
-                                height: curText.height
-                                states: State {
-                                    name: "Current"
-                                    when: groupLstDlgt.ListView.isCurrentItem
-                                    PropertyChanges { target: groupLstDlgt; color: "darkGray" }
-                                }
-
-                                Text{
-                                    id: curText
-                                    padding: 30
-
-                                    font.weight: Font.Thin
-                                    height: Math.floor( font.pixelSize*2.0 )
-
-                                    text: modelData
-                                    font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity
-                                    anchors.fill: parent
-                                    verticalAlignment: Text.AlignVCenter
-                                    horizontalAlignment: Text.AlignLeft
-                                }
-
-                                MouseArea {
-                                    anchors.fill: parent
-                                    onClicked: {
-                                        groupSelectDrw.close()
-                                        sceneObj.showGroup(curText.text)
-    //                                    groupLstDlgt.ListView.view.currentIndex = index
-                                    }
+                            MouseArea {
+                                anchors.fill: parent
+                                onClicked: {
+                                    groupSelectDrw.close()
+                                    sceneObj.showGroup(curText.text)
                                 }
                             }
                         }
                     }
                 }
             }
-
-
         }
     }
 }
