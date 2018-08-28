@@ -86,7 +86,6 @@ Page {
         }
     }
 
-
     NewNodeEdit {
         id: newNodePage
         mainStack: stackView

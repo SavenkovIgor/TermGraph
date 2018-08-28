@@ -9,7 +9,6 @@ import "UIExtensions"
 Page {
 
     id: newNodeEdit
-    objectName: "newNodeEdit"  // TODO: Remove after stack cleanup
 
     property StackView mainStack
     property string changingNodeUuid

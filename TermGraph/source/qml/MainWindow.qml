@@ -179,9 +179,6 @@ ApplicationWindow {
                 mainHeader.titleText = "TermGraph"
                 currentItem.toTop()
                 currentItem.setOffs(header.height + 11)
-            } else if (currentItem.objectName == "newNodeEdit") {
-                mainHeader.titleText = "Правка вершин"
-                currentItem.prepare();
             } else if (currentItem.objectName == "grpLst") {
                 mainHeader.titleText = "Список групп"
                 currentItem.groupListOpen()
