@@ -12,5 +12,6 @@
         <file>qml/UIExtensions/MySquareButton.qml</file>
         <file>qml/UIExtensions/MyLabelPair.qml</file>
         <file>qml/MySettings.qml</file>
+        <file>qml/UIExtensions/SideMenuButton.qml</file>
     </qresource>
 </RCC>

@@ -97,14 +97,9 @@ ApplicationWindow {
 
             anchors.fill: parent
 
-            Button {
+            SideMenuButton {
                 id: groupMenuButton
                 text: "Группы"
-
-                flat: true
-                font.pixelSize: mainObj.getUiElementSize("capitalText")*Screen.pixelDensity
-                height: Math.floor( font.pixelSize * 2.7 )
-                font.weight: Font.Medium
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
@@ -116,14 +111,9 @@ ApplicationWindow {
                 onClicked: appSideMenu.openItem(groupsListItem)
             }
 
-            Button {
+            SideMenuButton {
                 id: settingsMenuButton
                 text: "Настройки"
-
-                flat: true
-                font.pixelSize: mainObj.getUiElementSize("capitalText")*Screen.pixelDensity
-                height: Math.floor( font.pixelSize * 2.7 )
-                font.weight: Font.Medium
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
