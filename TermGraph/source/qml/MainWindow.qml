@@ -18,37 +18,14 @@ ApplicationWindow {
 //        showMaximized();
 //    }
 
-    header: ToolBar {
-        id: header
-//        Material.foreground: "white"
-        RowLayout {
-            spacing: 20
-            anchors.fill: parent
+    header: MainHeader {
+        id: mainHeader
 
-            MyRoundButton {
-                id: mainMenuBtn
-                Component.onCompleted: {
-                    loadIcon( "qrc:/icons/menu")
-                    hideBack()
-                }
-
-                onClicked: {
-                    if ( stackView.depth > 1 ) {
-                        stackView.pop()
-                    } else {
-                        appSideMenu.open()
-                    }
-                }
-            }
-
-            Label {
-                id: titleLabel
-                text: "TermGraph"
-                font.pixelSize: mainObj.getUiElementSize("appHeader")*Screen.pixelDensity
-                elide: Label.ElideRight
-                horizontalAlignment: Qt.AlignHCenter
-                verticalAlignment: Qt.AlignVCenter
-                Layout.fillWidth: true
+        onMenuClick: {
+            if (stackView.depth > 1) {
+                stackView.pop()
+            } else {
+                appSideMenu.open()
             }
         }
     }
@@ -193,20 +170,20 @@ ApplicationWindow {
 
         onCurrentItemChanged: {
             if (depth > 1) {
-                mainMenuBtn.loadIcon("qrc:/icons/arrow-thick-left")
+                mainHeader.showArrowIcon()
             } else {
-                mainMenuBtn.loadIcon("qrc:/icons/menu")
+                mainHeader.showMenuIcon()
             }
 
             if (currentItem.objectName == "mainScheme") {
-                titleLabel.text = "TermGraph"
+                mainHeader.titleText = "TermGraph"
                 currentItem.toTop()
                 currentItem.setOffs(header.height + 11)
             } else if (currentItem.objectName == "newNodeEdit") {
-                titleLabel.text = "Правка вершин"
+                mainHeader.titleText = "Правка вершин"
                 currentItem.prepare();
             } else if (currentItem.objectName == "grpLst") {
-                titleLabel.text = "Список групп"
+                mainHeader.titleText = "Список групп"
                 currentItem.groupListOpen()
             }
         }

@@ -13,5 +13,6 @@
         <file>qml/UIExtensions/MyLabelPair.qml</file>
         <file>qml/MySettings.qml</file>
         <file>qml/UIExtensions/SideMenuButton.qml</file>
+        <file>qml/UIExtensions/MainHeader.qml</file>
     </qresource>
 </RCC>
