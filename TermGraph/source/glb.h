@@ -24,6 +24,7 @@ class Edge;
 class DBAbstract;
 class CloudServicesWrapper;
 
+// TODO: Remove unneeded type
 typedef QList<TermNode*> NodesList;
 typedef QList<Edge*> EdgesList;
 
