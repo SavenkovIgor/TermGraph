@@ -119,7 +119,6 @@ private:
     int paintLevel = -1;
     qreal newPosOffs = 0.0;
 
-    NodesList leafNodes;
     NodesList neighbourNodes;
 
     EdgesList edgesToOtherGroups;  // Пока никак не используются но будут.

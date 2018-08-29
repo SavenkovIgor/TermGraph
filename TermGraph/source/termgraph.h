@@ -20,7 +20,7 @@ public:
 public:
 //private:  // TODO: Uncomment. Incapsulation!!!
 
-
+    NodesGraphList leafNodes;
 private:
     NodesGraphList rootNodes;
 };

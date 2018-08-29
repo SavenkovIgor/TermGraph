@@ -268,12 +268,13 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
 
 void TermNode::setRelatPaint(bool val)
 {
-    for (TermGraph *n : getRootNodes()) {
+    for (TermGraph* n : getRootNodes()) {
         dynamic_cast<TermNode*>(n)->relative = val;
     }
 
-    for (TermNode *n : leafNodes)
-        n->relative = val;
+    for (TermGraph* n : leafNodes) {
+        dynamic_cast<TermNode*>(n)->relative = val;
+    }
 
     for (Edge *e : edgesToRoots)
         e->wide = val;
@@ -338,10 +339,11 @@ void TermNode::setLevel(int lev)
     if (lev > paintLevel)
         paintLevel = lev;
 
-    for (TermNode *t : leafNodes) {
-        if (getGroupUuid() != t->getGroupUuid())
+    for (TermGraph *t : leafNodes) {
+        TermNode* n = dynamic_cast<TermNode*>(t);
+        if (getGroupUuid() != n->getGroupUuid())
             continue;
-        t->setLevel(lev + 1);
+        n->setLevel(lev + 1);
     }
 }
 
@@ -349,7 +351,8 @@ int TermNode::getUpLevels(int pLevel)
 {
     Q_UNUSED(pLevel)  // TODO: check!
     int ret = -1;
-    for (TermNode *n : leafNodes) {
+    for (TermGraph* t : leafNodes) {
+        TermNode* n = dynamic_cast<TermNode*>(t);
         ret = qMax(ret, n->getUpLevels());
     }
 
