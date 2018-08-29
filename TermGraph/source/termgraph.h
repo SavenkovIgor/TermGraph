@@ -17,12 +17,16 @@ public:
     NodesGraphList getRootNodes();  // TODO: Maybe delete later
     void addNodeToRootNodes(TermGraph* node);  // TODO: Delete later
     void clearRootNodes();  // TODO: Delete later
+
+    NodesGraphList getLeafNodes();  // TODO: Maybe delete later
+    void addNodeToLeafNodes(TermGraph* node);  // TODO: Delete later
+    void clearLeafNodes();  // TODO: Delete later
 public:
 //private:  // TODO: Uncomment. Incapsulation!!!
 
-    NodesGraphList leafNodes;
 private:
     NodesGraphList rootNodes;
+    NodesGraphList leafNodes;
 };
 
 #endif // TERMGRAPH_H

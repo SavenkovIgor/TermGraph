@@ -272,7 +272,7 @@ void TermNode::setRelatPaint(bool val)
         dynamic_cast<TermNode*>(n)->relative = val;
     }
 
-    for (TermGraph* n : leafNodes) {
+    for (TermGraph* n : getLeafNodes()) {
         dynamic_cast<TermNode*>(n)->relative = val;
     }
 
@@ -315,7 +315,7 @@ void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
 
 bool TermNode::hasConnections()
 {
-    return !( getRootNodes().isEmpty() && leafNodes.isEmpty() );
+    return !( getRootNodes().isEmpty() && getLeafNodes().isEmpty() );
 }
 
 bool TermNode::hasConnectionsInGroup()
@@ -339,7 +339,7 @@ void TermNode::setLevel(int lev)
     if (lev > paintLevel)
         paintLevel = lev;
 
-    for (TermGraph *t : leafNodes) {
+    for (TermGraph *t : getLeafNodes()) {
         TermNode* n = dynamic_cast<TermNode*>(t);
         if (getGroupUuid() != n->getGroupUuid())
             continue;
@@ -351,7 +351,7 @@ int TermNode::getUpLevels(int pLevel)
 {
     Q_UNUSED(pLevel)  // TODO: check!
     int ret = -1;
-    for (TermGraph* t : leafNodes) {
+    for (TermGraph* t : getLeafNodes()) {
         TermNode* n = dynamic_cast<TermNode*>(t);
         ret = qMax(ret, n->getUpLevels());
     }
@@ -370,7 +370,7 @@ void TermNode::clearNeighbours()
 void TermNode::clearConnBrRootLists()
 {
     clearRootNodes();
-    leafNodes.clear();
+    clearLeafNodes();
 }
 
 void TermNode::addToNeighboursList(TermNode *t)
@@ -382,7 +382,7 @@ void TermNode::addEdgeRef(Edge *edge)
 {
     if (edge->getRoot() == this && edge->getLeaf() != this) {  // We are source - connection up
         edgesToLeafs    << edge;
-        leafNodes << edge->getLeaf();
+        addNodeToLeafNodes(edge->getLeaf());
     }
 
     if (edge->getLeaf() == this && edge->getRoot() != this) {  // We are acceptor - connection down
