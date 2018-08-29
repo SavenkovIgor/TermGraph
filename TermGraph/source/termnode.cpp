@@ -268,7 +268,7 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
 
 void TermNode::setRelatPaint(bool val)
 {
-    for (TermGraph *n : rootNodes) {
+    for (TermGraph *n : getRootNodes()) {
         dynamic_cast<TermNode*>(n)->relative = val;
     }
 
@@ -314,7 +314,7 @@ void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
 
 bool TermNode::hasConnections()
 {
-    return !( rootNodes.isEmpty() && leafNodes.isEmpty() );
+    return !( getRootNodes().isEmpty() && leafNodes.isEmpty() );
 }
 
 bool TermNode::hasConnectionsInGroup()
@@ -366,7 +366,7 @@ void TermNode::clearNeighbours()
 
 void TermNode::clearConnBrRootLists()
 {
-    rootNodes.clear();
+    clearRootNodes();
     leafNodes.clear();
 }
 
@@ -384,7 +384,7 @@ void TermNode::addEdgeRef(Edge *edge)
 
     if (edge->getLeaf() == this && edge->getRoot() != this) {  // We are acceptor - connection down
         edgesToRoots << edge;
-        rootNodes  << edge->getRoot();
+        addNodeToRootNodes(edge->getRoot());
     }
 }
 
