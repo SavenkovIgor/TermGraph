@@ -7,7 +7,7 @@
 
 #include "./Helpers/appstyle.h"
 #include "./glb.h"
-#include "./terminfo.h"
+#include "./termgraph.h"
 
 enum class NodeType {
     orphan,
@@ -22,7 +22,7 @@ enum class CoordType {
     scene
 };
 
-class TermNode:  public TermInfo, public QGraphicsItem
+class TermNode:  public TermGraph, public QGraphicsItem
 {
     Q_OBJECT
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
@@ -119,7 +119,6 @@ private:
     int paintLevel = -1;
     qreal newPosOffs = 0.0;
 
-    NodesList rootNodes;
     NodesList leafNodes;
     NodesList neighbourNodes;
 

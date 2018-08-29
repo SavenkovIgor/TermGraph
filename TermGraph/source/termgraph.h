@@ -1,17 +1,23 @@
 #ifndef TERMGRAPH_H
 #define TERMGRAPH_H
 
-#include <QObject>
+#include <QList>
+#include "terminfo.h"
 
-class TermGraph : public QObject
+class TermGraph;
+
+typedef QList<TermGraph*> NodesGraphList;
+
+class TermGraph : public TermInfo
 {
-    Q_OBJECT
+
 public:
-    explicit TermGraph(QObject *parent = nullptr);
+    TermGraph(QSqlRecord rec);
 
-signals:
+public:
+//private:  // TODO: Uncomment. Incapsulation!!!
 
-public slots:
+    NodesGraphList rootNodes;
 };
 
 #endif // TERMGRAPH_H

@@ -8,7 +8,7 @@ const qreal TermNode::verScale = 0.0200;
 QList< Qt::Edge > TermNode::sides;
 
 TermNode::TermNode(QSqlRecord rec):
-    TermInfo(rec),
+    TermGraph(rec),
     QGraphicsItem()
 {
     if (sides.isEmpty()) {
@@ -268,8 +268,9 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
 
 void TermNode::setRelatPaint(bool val)
 {
-    for (TermNode *n : rootNodes)
-        n->relative = val;
+    for (TermGraph *n : rootNodes) {
+        dynamic_cast<TermNode*>(n)->relative = val;
+    }
 
     for (TermNode *n : leafNodes)
         n->relative = val;
