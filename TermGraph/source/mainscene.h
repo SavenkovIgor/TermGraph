@@ -10,6 +10,7 @@
 #include "./glb.h"
 #include "./Managers/groupsmanager.h"
 #include "./Managers/nodesmanager.h"
+#include "./Helpers/appconfig.h"
 #include "./termgroup.h"
 
 class MainScene : public QGraphicsScene

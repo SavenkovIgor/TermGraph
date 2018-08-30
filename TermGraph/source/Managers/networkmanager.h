@@ -6,6 +6,7 @@
 
 #include "../glb.h"
 #include "../Helpers/simplelistenserver.h"
+#include "../Helpers/appconfig.h"
 
 class NetworkManager : public QObject
 {

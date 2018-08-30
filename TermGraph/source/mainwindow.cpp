@@ -3,13 +3,13 @@
 MainWindow::MainWindow(QObject *parent): QObject(parent)
 {
     initElemSizes();
-    StdFolderPaths::createDefaultFoldersIfNeed();
+    AppConfig::StdFolderPaths::createDefaultFoldersIfNeed();
 
     engn = new QQmlApplicationEngine();
 
     QQuickStyle::setStyle("Material");
 
-    db = new DBAbstract(StdFolderPaths::defaultDatabaseFilePath());
+    db = new DBAbstract(AppConfig::StdFolderPaths::defaultDatabaseFilePath());
 
     Glb::db = db;
 

@@ -32,7 +32,8 @@ HEADERS += \
     source/Helpers/simplelistenserver.h \
     source/Helpers/fonts.h \
     source/Helpers/appstyle.h \
-    source/Helpers/helpstuff.h
+    source/Helpers/helpstuff.h \
+    source/Helpers/appconfig.h
 
 SOURCES += \
         source/main.cpp\
@@ -63,7 +64,8 @@ SOURCES += \
     source/Helpers/simplelistenserver.cpp \
     source/Helpers/fonts.cpp \
     source/Helpers/appstyle.cpp \
-    source/Helpers/helpstuff.cpp
+    source/Helpers/helpstuff.cpp \
+    source/Helpers/appconfig.cpp
 
 FORMS += \
         source/ui/reminder.ui\

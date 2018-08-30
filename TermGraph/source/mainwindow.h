@@ -12,6 +12,7 @@
 #include "mysceneview.h"
 #include "wordfreqanalyze.h"
 #include "Helpers/tagprocessor.h"
+#include "./Helpers/appconfig.h"
 
 class MainScene;
 

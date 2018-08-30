@@ -37,21 +37,6 @@ public:
     static void saveFile(QString subDir, QString fileName, QByteArray data);
 };
 
-class StdFolderPaths {
-public:
-    static void createDefaultFoldersIfNeed();
-
-    static QString groupsJsonFolder();
-    static QString defaultDatabaseFilePath();
-private:
-    static QString userAppConfigFolder();
-};
-
-class NetworkSettings {
-public:
-    static quint16 listenPort;
-};
-
 #include "./termnode.h"
 #include "./edge.h"
 #include "./databaseWorks/dbabstract.h"
