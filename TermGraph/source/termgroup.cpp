@@ -527,7 +527,7 @@ EdgesList TermGroup::searchConnections()
                     // TODO: Сделать защиту от формирования двухсторонних связей
                     // TODO: Найти способ вызывать функцию в mainScene addEdge
                     // TODO: Переделать так чтобы это было предложением а не обязательным действием
-                    if (Glb::getLevDistance(s1, s2) <= acceptableDistance) {
+                    if (TagProcessor::getLevDistance(s1, s2) <= acceptableDistance) {
                         if (s1.left(3) == s2.left(3)) {
                             ret << new Edge( m, n );
                         }

@@ -26,6 +26,8 @@ public:
 
     static QString getErrorFor(QString str);  // TODO: Realize!
 
+    static int getLevDistance(const QString &src, const QString &dst);
+
 public slots:
     static QStringList extractTags(QString str);
     QString addTagInPosition(int cursorPosition, QString str);
