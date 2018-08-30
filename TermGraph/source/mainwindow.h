@@ -1,23 +1,10 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QtGui>
-#include <QtQml>
-#include <QFlags>
-#include <QGraphicsScene>
-#include <QLabel>
-#include <QMessageBox>
-#include <QFileDialog>
-#include <QGuiApplication>
-#include <QQmlEngine>
-#include <QQmlContext>
-#include <QQuickItem>
-#include <QQuickView>
-#include <QtQuickControls2/QQuickStyle>
-#include <QQuickImageProvider>
-#include <QQuickPaintedItem>
+#include <QObject>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
+#include <QtQuickControls2/QQuickStyle>
 
 #include "reminder.h"
 #include "mainscene.h"
@@ -41,7 +28,7 @@ private:
     TagProcessor *tagProcessor;
 
 public:
-    explicit MainWindow(QObject *parent = 0);
+    explicit MainWindow(QObject *parent = nullptr);
     ~MainWindow();
 
     void saveSett();

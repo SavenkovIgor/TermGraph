@@ -4,15 +4,13 @@
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsItem>
-#include <QMessageBox>
 #include <QGraphicsView>
+#include <QClipboard>
 
 #include "./glb.h"
-#include "./Managers/networkmanager.h"
 #include "./Managers/groupsmanager.h"
 #include "./Managers/nodesmanager.h"
 #include "./termgroup.h"
-#include "./mainwindow.h"
 
 class MainScene : public QGraphicsScene
 {

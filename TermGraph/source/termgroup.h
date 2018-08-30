@@ -5,7 +5,6 @@
 #include <QtSql>
 
 #include "./Helpers/appstyle.h"
-#include "./databaseWorks/dbabstract.h"
 #include "./termnode.h"
 #include "./tgroupname.h"
 #include "./edge.h"
