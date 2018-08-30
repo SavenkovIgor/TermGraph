@@ -47,11 +47,13 @@ TermNode *TermNode::getNearestLeftNeigh()
     QRectF myRect = getNodeRect(CoordType::scene);
     QRectF neighRect;
 
-    for (TermNode *t : neighbourNodes) {
+    for (TermGraph* n : getNeighbourNodes()) {
+        TermNode* t = dynamic_cast<TermNode*>(n);
         neighRect = t->getNodeRect(CoordType::scene);
 
-        if (neighRect.center().x() > myRect.center().x())
+        if (neighRect.center().x() > myRect.center().x()) {
             continue;
+        }
 
         if (qAbs(neighRect.center().x() - myRect.center().x()) < diff) {
             diff = qAbs(neighRect.center().x() - myRect.center().x());
@@ -68,7 +70,8 @@ TermNode *TermNode::getNearestRightNeigh()
 
     QRectF myRect = getNodeRect(CoordType::scene);
     QRectF neighRect;
-    for (TermNode *t : neighbourNodes) {
+    for (TermGraph* n : getNeighbourNodes()) {
+        TermNode* t = dynamic_cast<TermNode*>(n);
         neighRect = t->getNodeRect(CoordType::scene);
 
         if (neighRect.center().x() < myRect.center().x())
@@ -85,7 +88,8 @@ TermNode *TermNode::getNearestRightNeigh()
 EdgesList TermNode::getEdgesInLayer()
 {
     EdgesList ret;
-    for (TermNode *t : neighbourNodes) {
+    for (TermGraph* n : getNeighbourNodes()) {
+        TermNode* t = dynamic_cast<TermNode*>(n);
         ret << t->edgesToRoots;
         ret << t->edgesToLeafs;
     }
@@ -364,7 +368,7 @@ int TermNode::getUpLevels(int pLevel)
 
 void TermNode::clearNeighbours()
 {
-    neighbourNodes.clear();
+    clearNeighbourNodes();
 }
 
 void TermNode::clearConnBrRootLists()
@@ -375,7 +379,7 @@ void TermNode::clearConnBrRootLists()
 
 void TermNode::addToNeighboursList(TermNode *t)
 {
-    neighbourNodes << t;
+    addNeighbourNode(t);
 }
 
 void TermNode::addEdgeRef(Edge *edge)

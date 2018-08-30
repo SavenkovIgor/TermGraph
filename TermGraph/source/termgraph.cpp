@@ -34,3 +34,18 @@ void TermGraph::clearLeafNodes()
 {
     leafNodes.clear();
 }
+
+NodesGraphList TermGraph::getNeighbourNodes()
+{
+    return neighbourNodes;
+}
+
+void TermGraph::addNeighbourNode(TermGraph *node)
+{
+    neighbourNodes << node;
+}
+
+void TermGraph::clearNeighbourNodes()
+{
+    neighbourNodes.clear();
+}
