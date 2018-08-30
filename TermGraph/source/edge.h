@@ -1,9 +1,11 @@
 #ifndef EDGE_H
 #define EDGE_H
 
-#include "./glb.h"
+#include <QColor>
+#include <QGraphicsItem>
 
-class TermNode;
+#include "./termnode.h"
+#include "./Helpers/appstyle.h"
 
 enum EdgeType{
     standart,
