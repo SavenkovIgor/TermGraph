@@ -5,20 +5,6 @@ quint16 NetworkSettings::listenPort = 46377;
 CloudServicesWrapper*Glb::cloud = nullptr;
 DBAbstract* Glb::db = nullptr;
 
-
-
-QString Glb::ptToStr(int x, int y, QString divider) {
-    return QString::number(x) + divider + QString::number(y);
-}
-
-QString Glb::ptToStr(QPoint pt, QString divider){
-    return ptToStr(pt.x(), pt.y(), divider);
-}
-
-QString Glb::ptToStr(QPointF pt, QString divider){
-    return ptToStr(pt.toPoint(), divider);
-}
-
 void Glb::saveFile(QString subDir, QString fileName, QString data) {
     QByteArray arr;
     arr.append(data);

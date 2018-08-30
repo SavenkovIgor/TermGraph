@@ -11,6 +11,7 @@
 #include <QResizeEvent>
 
 #include "./glb.h"
+#include "./Helpers/helpstuff.h"
 #include "./Helpers/appstyle.h"
 
 class MainScene;
@@ -33,20 +34,20 @@ public:
 
     void mousePressEvent(QMouseEvent *evt)
     {
-        newInfo("press " + Glb::ptToStr(evt->pos()));
+        newInfo("press " + HelpStuff::ptToStr(evt->pos()));
         newPos(evt->pos().x(), evt->pos().y());
         QGraphicsView::mousePressEvent(evt);
     }
 
     void mouseReleaseEvent(QMouseEvent *evt)
     {
-        newInfo("release " + Glb::ptToStr(evt->pos()));
+        newInfo("release " + HelpStuff::ptToStr(evt->pos()));
         QGraphicsView::mouseReleaseEvent(evt);
     }
 
     void mouseMoveEvent(QMouseEvent *evt)
     {
-        newInfo("move " + Glb::ptToStr(evt->pos()));
+        newInfo("move " + HelpStuff::ptToStr(evt->pos()));
         QGraphicsView::mouseMoveEvent(evt);
     }
 

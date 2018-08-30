@@ -31,7 +31,8 @@ HEADERS += \
     source/Helpers/multipleshottimer.h \
     source/Helpers/simplelistenserver.h \
     source/Helpers/fonts.h \
-    source/Helpers/appstyle.h
+    source/Helpers/appstyle.h \
+    source/Helpers/helpstuff.h
 
 SOURCES += \
         source/main.cpp\
@@ -61,7 +62,8 @@ SOURCES += \
     source/Helpers/multipleshottimer.cpp \
     source/Helpers/simplelistenserver.cpp \
     source/Helpers/fonts.cpp \
-    source/Helpers/appstyle.cpp
+    source/Helpers/appstyle.cpp \
+    source/Helpers/helpstuff.cpp
 
 FORMS += \
         source/ui/reminder.ui\

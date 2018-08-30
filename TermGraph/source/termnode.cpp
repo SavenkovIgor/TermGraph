@@ -612,7 +612,7 @@ QString TermNode::getDebugString() {
     QStringList p;
     QString tmp;
 
-    p << Glb::ptToStr(pos());
+    p << HelpStuff::ptToStr(pos());
 
     tmp = " childs:";
     QList<QGraphicsItem*> childs = childItems();
@@ -620,7 +620,7 @@ QString TermNode::getDebugString() {
         TermNode *n = (TermNode*)childs[i];
         tmp += " " + n->getUuid().toString();
     }
-    p << Glb::ptToStr(scenePos());
+    p << HelpStuff::ptToStr(scenePos());
 
     QString addInterf;
     addInterf += QString::number(getIntersections()) + " ";

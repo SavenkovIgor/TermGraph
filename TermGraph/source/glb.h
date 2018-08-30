@@ -33,10 +33,6 @@ class Glb
 public:
     static DBAbstract* db;
 
-    static QString ptToStr(int x, int y, QString divider = "x");
-    static QString ptToStr(QPoint  pt, QString divider = "x");
-    static QString ptToStr(QPointF pt, QString divider = "x");
-
     static CloudServicesWrapper *cloud;
 
     static void saveFile(QString subDir, QString fileName, QString data);

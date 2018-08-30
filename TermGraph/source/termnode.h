@@ -6,6 +6,7 @@
 #include <QDebug>
 
 #include "./Helpers/appstyle.h"
+#include "./Helpers/helpstuff.h"
 #include "./glb.h"
 #include "./termgraph.h"
 
