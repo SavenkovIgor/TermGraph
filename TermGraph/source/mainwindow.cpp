@@ -7,8 +7,6 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
 
     engn = new QQmlApplicationEngine();
 
-    Glb::cloud = new CloudServicesWrapper();
-
     QQuickStyle::setStyle("Material");
 
     db = new DBAbstract(StdFolderPaths::defaultDatabaseFilePath());

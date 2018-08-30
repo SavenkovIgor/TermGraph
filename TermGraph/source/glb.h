@@ -33,8 +33,6 @@ class Glb
 public:
     static DBAbstract* db;
 
-    static CloudServicesWrapper *cloud;
-
     static void saveFile(QString subDir, QString fileName, QString data);
     static void saveFile(QString subDir, QString fileName, QByteArray data);
 };
