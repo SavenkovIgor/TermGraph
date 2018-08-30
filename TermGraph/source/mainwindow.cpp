@@ -114,7 +114,7 @@ void MainWindow::saveSett()
 {
     QSettings sett("appSettings.ini", QSettings::IniFormat);
     // TODO: заменить индекс группы на uuid
-    sett.setValue("animationSpeed", TermGroup::getAnimSpeed());
+//    sett.setValue("animationSpeed", TermGroup::getAnimSpeed());
 }
 
 void MainWindow::loadSett()

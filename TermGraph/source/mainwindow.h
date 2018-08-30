@@ -20,14 +20,10 @@
 #include <QQmlApplicationEngine>
 
 #include "reminder.h"
-#include "termnode.h"
-#include "termgroup.h"
-#include "edge.h"
 #include "mainscene.h"
 #include "databaseWorks/dbabstract.h"
 #include "mysceneview.h"
 #include "wordfreqanalyze.h"
-#include "glb.h"
 #include "Helpers/tagprocessor.h"
 
 class MainScene;
