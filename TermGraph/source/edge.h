@@ -1,6 +1,8 @@
 #ifndef EDGE_H
 #define EDGE_H
 
+#include <QPen>
+#include <QPainter>
 #include <QColor>
 #include <QGraphicsItem>
 
