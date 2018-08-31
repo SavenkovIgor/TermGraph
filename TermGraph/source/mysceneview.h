@@ -10,11 +10,8 @@
 #include <QQuickImageProvider>
 #include <QResizeEvent>
 
-#include "./glb.h"
 #include "./Helpers/helpstuff.h"
 #include "./Helpers/appstyle.h"
-
-class MainScene;
 
 enum SceneScale {
     up = 1,
