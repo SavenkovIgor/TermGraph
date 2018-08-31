@@ -2,7 +2,12 @@
 #define NODESMANAGER_H
 
 #include <QObject>
-#include "../glb.h"
+#include <QString>
+#include <QUuid>
+#include <QSqlRecord>
+#include <QJsonObject>
+
+#include "../termnode.h"
 
 class NodesManager : public QObject
 {
