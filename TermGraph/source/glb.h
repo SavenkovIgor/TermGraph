@@ -3,10 +3,10 @@
 
 #include <QList>
 
+#include "./databaseWorks/dbabstract.h"
+
 class TermNode;
 class Edge;
-class DBAbstract;
-class CloudServicesWrapper;
 
 // TODO: Remove unneeded type
 typedef QList<TermNode*> NodesList;
@@ -20,7 +20,5 @@ public:
 
 #include "./termnode.h"
 #include "./edge.h"
-#include "./databaseWorks/dbabstract.h"
-#include "./databaseWorks/cloudservices.h"
 
 #endif  // GLB_H
