@@ -34,7 +34,8 @@ HEADERS += \
     source/Helpers/appstyle.h \
     source/Helpers/helpstuff.h \
     source/Helpers/appconfig.h \
-    source/Helpers/fsworks.h
+    source/Helpers/fsworks.h \
+    source/Helpers/handytypes.h
 
 SOURCES += \
         source/main.cpp\

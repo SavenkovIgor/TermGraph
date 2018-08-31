@@ -1,13 +1,13 @@
 #ifndef TERMNODE_H
 #define TERMNODE_H
 
-#include <QMenu>
 #include <QGraphicsItem>
 #include <QDebug>
 
+#include "./Helpers/handytypes.h"
+#include "./edge.h"
 #include "./Helpers/appstyle.h"
 #include "./Helpers/helpstuff.h"
-#include "./glb.h"
 #include "./termgraph.h"
 
 enum class NodeType {

@@ -7,6 +7,8 @@
 #include <QSqlRecord>
 #include <QJsonObject>
 
+#include "../glb.h"
+#include "../databaseWorks/dbabstract.h"
 #include "../termnode.h"
 
 class NodesManager : public QObject

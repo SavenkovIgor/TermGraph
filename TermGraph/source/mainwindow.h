@@ -13,6 +13,7 @@
 #include "wordfreqanalyze.h"
 #include "Helpers/tagprocessor.h"
 #include "./Helpers/appconfig.h"
+#include "./glb.h"
 
 class MainScene;
 

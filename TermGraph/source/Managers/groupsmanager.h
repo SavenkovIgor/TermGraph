@@ -3,6 +3,7 @@
 
 #include <QObject>
 
+#include "../glb.h"
 #include "./nodesmanager.h"
 #include "./networkmanager.h"
 #include "../termgroup.h"
