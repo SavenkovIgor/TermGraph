@@ -7,7 +7,6 @@
 #include <QGraphicsView>
 #include <QClipboard>
 
-#include "./glb.h"
 #include "./Managers/groupsmanager.h"
 #include "./Managers/nodesmanager.h"
 #include "./Helpers/appconfig.h"
