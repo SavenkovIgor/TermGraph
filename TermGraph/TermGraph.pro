@@ -33,7 +33,8 @@ HEADERS += \
     source/Helpers/fonts.h \
     source/Helpers/appstyle.h \
     source/Helpers/helpstuff.h \
-    source/Helpers/appconfig.h
+    source/Helpers/appconfig.h \
+    source/Helpers/fsworks.h
 
 SOURCES += \
         source/main.cpp\
@@ -65,7 +66,8 @@ SOURCES += \
     source/Helpers/fonts.cpp \
     source/Helpers/appstyle.cpp \
     source/Helpers/helpstuff.cpp \
-    source/Helpers/appconfig.cpp
+    source/Helpers/appconfig.cpp \
+    source/Helpers/fsworks.cpp
 
 FORMS += \
         source/ui/reminder.ui\

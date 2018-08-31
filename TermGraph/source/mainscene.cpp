@@ -235,7 +235,7 @@ void MainScene::saveGroupInFolder(TermGroup* group)
     }
 
     QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
-    Glb::saveFile(AppConfig::StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
+    FSWorks::saveFile(AppConfig::StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
 }
 
 QString MainScene::getExportPath()
