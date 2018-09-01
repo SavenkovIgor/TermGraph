@@ -22,7 +22,8 @@ class TermGraph : public TermInfo
 public:
     TermGraph(QSqlRecord rec);
 
-    EdgesList getConnectedEdges();
+    NodesGraphList getUpDownNodes();
+    EdgesList getUpDownEdges();
 
     void addToNeighboursList(TermGraph *t);
     void clearNeighbours();

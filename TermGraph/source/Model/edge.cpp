@@ -120,19 +120,6 @@ qreal Edge::getYProjection()
     return boundingRect().height();
 }
 
-//QPointF Edge::getOtherSideCenter(TermNode *node)
-//{
-//    if (getRoot() == node) {
-//        TermNode *leaf = dynamic_cast<TermNode*>(getLeaf());
-//        return leaf->getCenter(CoordType::scene);
-//    } else if (getLeaf() == node) {
-//        TermNode *root = dynamic_cast<TermNode*>(getRoot());
-//        return root->getCenter(CoordType::scene);
-//    }
-
-//    return QPointF();
-//}
-
 QLineF Edge::getLine(bool swap)
 {
     TermNode* toRoot = dynamic_cast<TermNode*>(getRoot());

@@ -5,7 +5,7 @@ TermGraph::TermGraph(QSqlRecord rec) : TermInfo(rec)
 
 }
 
-EdgesList TermGraph::getConnectedEdges()
+EdgesList TermGraph::getUpDownEdges()
 {
     EdgesList ret;
     ret << edgesToLeafs;
@@ -63,6 +63,14 @@ NodeType TermGraph::getNodeType()
             return NodeType::middleLeaf;  // Есть и вверх и вниз
         }
     }
+}
+
+NodesGraphList TermGraph::getUpDownNodes()
+{
+    NodesGraphList ret;
+    ret << rootNodes;
+    ret << leafNodes;
+    return ret;
 }
 
 NodesGraphList TermGraph::getRootNodes()

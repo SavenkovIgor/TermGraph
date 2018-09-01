@@ -44,8 +44,6 @@ public:
     qreal getXProjection();
     qreal getYProjection();
 
-//    QPointF getOtherSideCenter(TermNode* node);
-
 //    QPointF swP1 = QPointF();
     QPointF swPtRoot = QPointF();
     QPointF swPtBran = QPointF();

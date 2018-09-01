@@ -171,8 +171,6 @@ QLineF TermNode::getRectLine(Qt::Edge side)
     return QLineF();
 }
 
-
-
 QColor TermNode::getBaseColor()
 {
     switch (getNodeType()) {
@@ -257,19 +255,13 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
 
 void TermNode::setRelatPaint(bool val)
 {
-    for (TermGraph* n : getRootNodes()) {
+    for (TermGraph* n : getUpDownNodes()) {
         dynamic_cast<TermNode*>(n)->relative = val;
     }
 
-    for (TermGraph* n : getLeafNodes()) {
-        dynamic_cast<TermNode*>(n)->relative = val;
+    for (Edge*  e : getUpDownEdges()) {
+        e->wide = val;
     }
-
-    for (Edge *e : getEdgesToRoots())
-        e->wide = val;
-
-    for (Edge *e : getEdgesToLeafs())
-        e->wide = val;
 }
 
 void TermNode::hoverEnterEvent(QGraphicsSceneHoverEvent *evt)
@@ -301,8 +293,6 @@ void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
 {
     QGraphicsItem::mousePressEvent(evt);
 }
-
-
 
 bool TermNode::hasConnectionsInGroup()
 {
@@ -347,10 +337,6 @@ int TermNode::getUpLevels(int pLevel)
 
     return ret;
 }
-
-
-
-
 
 void TermNode::addEdgeRef(Edge *edge)
 {
@@ -475,7 +461,7 @@ qreal TermNode::getSumEdgesLength(bool swap = false)
 void TermNode::setSwap(QPointF toPt)
 {
     EdgesList lst;
-    lst = getConnectedEdges();
+    lst = getUpDownEdges();
 
     for (Edge *e : getEdgesToRoots()) {
         e->swPtBran = toPt;
@@ -489,7 +475,7 @@ void TermNode::setSwap(QPointF toPt)
 void TermNode::dropSwap()
 {
     EdgesList lst;
-    lst = getConnectedEdges();
+    lst = getUpDownEdges();
 
     for (Edge *e : lst) {
         e->swPtBran = QPointF();
@@ -549,8 +535,6 @@ bool TermNode::applyMove()
 
     return false;
 }
-
-
 
 QString TermNode::getDebugString() {
     QStringList p;
