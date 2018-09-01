@@ -13,6 +13,11 @@ EdgesList TermGraph::getConnectedEdges()
     return ret;
 }
 
+void TermGraph::addToNeighboursList(TermGraph *t)
+{
+    neighbourNodes << t;
+}
+
 NodesGraphList TermGraph::getRootNodes()
 {
     return rootNodes;
@@ -46,11 +51,6 @@ void TermGraph::clearLeafNodes()
 NodesGraphList TermGraph::getNeighbourNodes()
 {
     return neighbourNodes;
-}
-
-void TermGraph::addNeighbourNode(TermGraph *node)
-{
-    neighbourNodes << node;
 }
 
 void TermGraph::clearNeighbourNodes()

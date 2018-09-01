@@ -371,16 +371,7 @@ void TermNode::clearNeighbours()
     clearNeighbourNodes();
 }
 
-void TermNode::clearConnBrRootLists()
-{
-    clearRootNodes();
-    clearLeafNodes();
-}
 
-void TermNode::addToNeighboursList(TermNode *t)
-{
-    addNeighbourNode(t);
-}
 
 void TermNode::addEdgeRef(Edge *edge)
 {

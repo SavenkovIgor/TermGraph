@@ -64,14 +64,10 @@ public:
 
     void mousePressEvent(QGraphicsSceneMouseEvent *evt);
 
-
     void setLevel(int lev);
     int getUpLevels(int pLevel = -1);
 
     void clearNeighbours();
-    void clearConnBrRootLists();
-
-    void addToNeighboursList(TermNode *t);
 
     int getPaintLevel();
 

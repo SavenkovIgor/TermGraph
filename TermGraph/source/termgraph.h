@@ -17,6 +17,8 @@ public:
 
     EdgesList getConnectedEdges();
 
+    void addToNeighboursList(TermGraph *t);
+
     // Delete section
     NodesGraphList getRootNodes();  // TODO: Maybe delete later
     void addNodeToRootNodes(TermGraph* node);  // TODO: Delete later
@@ -27,7 +29,6 @@ public:
     void clearLeafNodes();  // TODO: Delete later
 
     NodesGraphList getNeighbourNodes();  // TODO: Maybe delete later
-    void addNeighbourNode(TermGraph* node);  // TODO: Delete later
     void clearNeighbourNodes();  // TODO: delete later
 
     EdgesList getEdgesToLeafs();  // TODO: Maybe delete later
