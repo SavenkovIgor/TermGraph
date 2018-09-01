@@ -171,22 +171,7 @@ QLineF TermNode::getRectLine(Qt::Edge side)
     return QLineF();
 }
 
-NodeType TermNode::getNodeType()
-{
-    if (getEdgesToRoots().isEmpty()) {
-        if (getEdgesToLeafs().isEmpty()) {
-            return NodeType::orphan;      // Оба пустые
-        } else {
-            return NodeType::root;        // Вниз связей нет, вверх - есть
-        }
-    } else {
-        if (getEdgesToLeafs().isEmpty()) {
-            return NodeType::endLeaf;     // Вниз есть, а вверх - нету
-        } else {
-            return NodeType::middleLeaf;  // Есть и вверх и вниз
-        }
-    }
-}
+
 
 QColor TermNode::getBaseColor()
 {
@@ -532,26 +517,6 @@ bool TermNode::isNearPoints(QPointF pt1, QPointF pt2, qreal dist) {
 QRectF TermNode::getInnerNodeRect() const
 {
     return QRectF(QPointF(0.0, 0.0), nodeSize);
-}
-
-bool TermNode::isRoot() {
-    return getNodeType() == NodeType::root;
-}
-
-bool TermNode::isOrphan()
-{
-    return getNodeType() == NodeType::orphan;
-}
-
-bool TermNode::isLeaf()
-{
-    NodeType type = getNodeType();
-    return type == NodeType::endLeaf || type == NodeType::middleLeaf;
-}
-
-bool TermNode::isInTree()
-{
-    return !isOrphan();
 }
 
 bool TermNode::applyMove()

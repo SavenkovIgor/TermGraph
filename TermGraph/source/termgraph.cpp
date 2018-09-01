@@ -18,6 +18,43 @@ void TermGraph::addToNeighboursList(TermGraph *t)
     neighbourNodes << t;
 }
 
+bool TermGraph::isRoot() {
+    return getNodeType() == NodeType::root;
+}
+
+bool TermGraph::isOrphan()
+{
+    return getNodeType() == NodeType::orphan;
+}
+
+bool TermGraph::isLeaf()
+{
+    NodeType type = getNodeType();
+    return type == NodeType::endLeaf || type == NodeType::middleLeaf;
+}
+
+bool TermGraph::isInTree()
+{
+    return !isOrphan();
+}
+
+NodeType TermGraph::getNodeType()
+{
+    if ( edgesToRoots.isEmpty()) {
+        if (edgesToLeafs.isEmpty()) {
+            return NodeType::orphan;      // Оба пустые
+        } else {
+            return NodeType::root;        // Вниз связей нет, вверх - есть
+        }
+    } else {
+        if (edgesToLeafs.isEmpty()) {
+            return NodeType::endLeaf;     // Вниз есть, а вверх - нету
+        } else {
+            return NodeType::middleLeaf;  // Есть и вверх и вниз
+        }
+    }
+}
+
 NodesGraphList TermGraph::getRootNodes()
 {
     return rootNodes;

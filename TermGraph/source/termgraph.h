@@ -9,6 +9,13 @@ class TermGraph;
 
 typedef QList<TermGraph*> NodesGraphList;
 
+enum class NodeType {
+    orphan,
+    root,
+    endLeaf,
+    middleLeaf
+};
+
 class TermGraph : public TermInfo
 {
 
@@ -18,6 +25,14 @@ public:
     EdgesList getConnectedEdges();
 
     void addToNeighboursList(TermGraph *t);
+
+    bool isRoot();
+    bool isOrphan();
+    bool isLeaf();
+
+    bool isInTree();
+
+    NodeType getNodeType();
 
     // Delete section
     NodesGraphList getRootNodes();  // TODO: Maybe delete later

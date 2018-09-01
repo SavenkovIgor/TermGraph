@@ -10,13 +10,6 @@
 #include "./Helpers/helpstuff.h"
 #include "./termgraph.h"
 
-enum class NodeType {
-    orphan,
-    root,
-    endLeaf,
-    middleLeaf
-};
-
 enum class CoordType {
     none,
     local,
@@ -56,7 +49,7 @@ public:
 
     QLineF getRectLine(Qt::Edge side);
 
-    NodeType getNodeType();
+
     QColor getBaseColor();
     QColor getSelectedColor();
 
@@ -81,12 +74,6 @@ public:
 
 
     QString getDebugString();
-
-    bool isRoot();
-    bool isOrphan();
-    bool isLeaf();
-
-    bool isInTree();
 
 private:
     // Info
