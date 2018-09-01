@@ -105,6 +105,7 @@ private:
     NodesList sortNodesInLayer(NodesList lst);
 
     // Edges
+    Edge* addNewEdge(TermNode* node1, TermNode* node2);
     EdgesList searchConnections();  // TODO: Переделать эту функцию так же
 
     // Orphans

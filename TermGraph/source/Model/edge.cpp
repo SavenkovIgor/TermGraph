@@ -15,9 +15,6 @@ Edge::Edge(TermNode *from, TermNode *to, EdgeType type) :
 {
     this->type = type;
 
-    from->addEdgeRef(this);
-    to->addEdgeRef(this);
-
     setAcceptHoverEvents(false);
     setZValue(0);
 }

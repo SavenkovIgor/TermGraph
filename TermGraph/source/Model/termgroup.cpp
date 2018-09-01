@@ -520,7 +520,7 @@ EdgesList TermGroup::searchConnections()
                     QString s1 = z.toLower();
                     QString s2 = s.toLower();
                     if (s1 == s2) {  // Точное соответствие
-                        ret << new Edge(m, n);
+                        ret << addNewEdge(m, n);
                     }
                     int acceptableDistance = 4*(1 + s1.count(' '));  // Пропорционально количеству слов
                     acceptableDistance = 4;
@@ -529,7 +529,7 @@ EdgesList TermGroup::searchConnections()
                     // TODO: Переделать так чтобы это было предложением а не обязательным действием
                     if (TagProcessor::getLevDistance(s1, s2) <= acceptableDistance) {
                         if (s1.left(3) == s2.left(3)) {
-                            ret << new Edge( m, n );
+                            ret << addNewEdge(m, n);
                         }
                     }
                 }
@@ -663,6 +663,14 @@ NodesList TermGroup::sortNodesInLayer(NodesList lst)
             ret.push_back(lst[i]);
     }
     return ret;
+}
+
+Edge *TermGroup::addNewEdge(TermNode *node1, TermNode *node2)
+{
+    Edge* edge = new Edge(node1, node2);
+    node1->addEdgeRef(edge);
+    node2->addEdgeRef(edge);
+    return edge;
 }
 
 void TermGroup::setNeighbours()
