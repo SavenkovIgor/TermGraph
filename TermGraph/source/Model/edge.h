@@ -5,7 +5,9 @@
 #include <QPainter>
 #include <QColor>
 #include <QGraphicsItem>
+#include <optional>
 
+#include "./graphedge.h"
 #include "./termnode.h"
 #include "../Helpers/appstyle.h"
 
@@ -15,13 +17,11 @@ enum EdgeType{
     description
 };
 
-class Edge : public QGraphicsItem
+class Edge : public GraphEdge, public QGraphicsItem
 {
 //    Q_OBJECT
 
 private:
-    TermNode* toRoot;
-    TermNode* toLeaf;
 
     EdgeType type = termin;
 
@@ -33,14 +33,7 @@ public:
 public:
     Edge(TermNode *toRoot, TermNode *toLeaf, EdgeType type = EdgeType::termin);
 
-    TermNode* getRoot() { return toRoot; }
-    TermNode* getLeaf() { return toLeaf; }
-
-    bool hasNode(TermNode *nd);
-
-    bool isSameEdge(TermNode* rt, TermNode* br);
     bool isInGroupEdge();
-    TermNode* getOtherSide(TermNode* n);
 
     QRectF boundingRect() const;
 
@@ -50,6 +43,8 @@ public:
 
     qreal getXProjection();
     qreal getYProjection();
+
+//    QPointF getOtherSideCenter(TermNode* node);
 
 //    QPointF swP1 = QPointF();
     QPointF swPtRoot = QPointF();

@@ -10,10 +10,9 @@ QColor Edge::getEdgeColor()
     return QColor(Qt::black);
 }
 
-Edge::Edge(TermNode *from, TermNode *to, EdgeType type)
+Edge::Edge(TermNode *from, TermNode *to, EdgeType type) :
+    GraphEdge(from, to)
 {
-    this->toRoot = from;
-    this->toLeaf = to;
     this->type = type;
 
     from->addEdgeRef(this);
@@ -23,42 +22,15 @@ Edge::Edge(TermNode *from, TermNode *to, EdgeType type)
     setZValue(0);
 }
 
-bool Edge::hasNode(TermNode *node)
-{
-    if (node == toRoot || node == toLeaf)
-        return true;
-
-    return false;
-}
-
-bool Edge::isSameEdge(TermNode *rt, TermNode *br)
-{
-    bool rOk = (toRoot == rt || toRoot == br);
-    bool bOk = (toLeaf == rt || toLeaf == br);
-
-    return rOk && bOk;
-}
-
 bool Edge::isInGroupEdge()
 {
-    return toRoot->getGroupUuid() == toLeaf->getGroupUuid();
-}
-
-TermNode *Edge::getOtherSide(TermNode *n)
-{
-    if (n == toRoot) {
-        return toLeaf;
-    } else if (n == toLeaf) {
-        return toRoot;
-    }
-
-    return nullptr;
+    return getRoot()->getGroupUuid() == getLeaf()->getGroupUuid();
 }
 
 QRectF Edge::boundingRect() const
 {
-    QPointF pt1 = toRoot->getCenter(CoordType::scene),
-            pt2 = toLeaf->getCenter(CoordType::scene);
+    QPointF pt1 = dynamic_cast<TermNode*>(getRoot())->getCenter(CoordType::scene);
+    QPointF pt2 = dynamic_cast<TermNode*>(getLeaf())->getCenter(CoordType::scene);
 
     QRectF rc = QRectF(pt1, pt2);
     rc = rc.normalized();
@@ -67,6 +39,9 @@ QRectF Edge::boundingRect() const
 
 void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
+    TermNode* toRoot = dynamic_cast<TermNode*>(getRoot());
+    TermNode* toLeaf = dynamic_cast<TermNode*>(getLeaf());
+
     QPen p;
     p.setStyle(isInGroupEdge() ? Qt::SolidLine : Qt::DashDotLine);
     p.setColor(getEdgeColor());
@@ -129,14 +104,14 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 
 int Edge::getLayerDistance()
 {
+    TermNode* toRoot = dynamic_cast<TermNode*>(getRoot());
+    TermNode* toLeaf = dynamic_cast<TermNode*>(getLeaf());
+
     return qAbs(toRoot->getPaintLevel() - toLeaf->getPaintLevel());
 }
 
 qreal Edge::getXProjection()
 {
-//    if( toRoot->getPaintLevel() == -1 || toBrnch->getPaintLevel() == -1 )
-//        return 0.0;
-
     return boundingRect().width();
 }
 
@@ -145,10 +120,26 @@ qreal Edge::getYProjection()
     return boundingRect().height();
 }
 
+//QPointF Edge::getOtherSideCenter(TermNode *node)
+//{
+//    if (getRoot() == node) {
+//        TermNode *leaf = dynamic_cast<TermNode*>(getLeaf());
+//        return leaf->getCenter(CoordType::scene);
+//    } else if (getLeaf() == node) {
+//        TermNode *root = dynamic_cast<TermNode*>(getRoot());
+//        return root->getCenter(CoordType::scene);
+//    }
+
+//    return QPointF();
+//}
+
 QLineF Edge::getLine(bool swap)
 {
-    QPointF pt1 = toRoot->getCenter(CoordType::scene),
-            pt2 = toLeaf->getCenter(CoordType::scene);
+    TermNode* toRoot = dynamic_cast<TermNode*>(getRoot());
+    TermNode* toLeaf = dynamic_cast<TermNode*>(getLeaf());
+
+    QPointF pt1 = toRoot->getCenter(CoordType::scene);
+    QPointF pt2 = toLeaf->getCenter(CoordType::scene);
 
     if (swap) {
         if (!swPtRoot.isNull())

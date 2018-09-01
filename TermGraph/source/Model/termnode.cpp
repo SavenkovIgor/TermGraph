@@ -388,12 +388,12 @@ void TermNode::countForces()
 
         tmp = e->getYProjection();
 
-        if (e->getRoot() == this)
-            notMyPos = e->getLeaf()->getCenter(CoordType::scene).y();
-        else if (e->getLeaf() == this)
-            notMyPos = e->getRoot()->getCenter(CoordType::scene).y();
-        else
+        TermNode* otherSide = dynamic_cast<TermNode*>(e->getOtherSide(this));
+        if (otherSide == nullptr) {
             continue;
+        }
+
+        notMyPos = otherSide->getCenter(CoordType::scene).y();
 
         tmp *= verScale;
 
