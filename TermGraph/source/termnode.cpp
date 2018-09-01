@@ -90,8 +90,8 @@ EdgesList TermNode::getEdgesInLayer()
     EdgesList ret;
     for (TermGraph* n : getNeighbourNodes()) {
         TermNode* t = dynamic_cast<TermNode*>(n);
-        ret << t->edgesToRoots;
-        ret << t->edgesToLeafs;
+        ret << t->getEdgesToRoots();
+        ret << t->getEdgesToLeafs();
     }
 
     EdgesList ret2;
@@ -173,14 +173,14 @@ QLineF TermNode::getRectLine(Qt::Edge side)
 
 NodeType TermNode::getNodeType()
 {
-    if (edgesToRoots.isEmpty()) {
-        if (edgesToLeafs.isEmpty()) {
+    if (getEdgesToRoots().isEmpty()) {
+        if (getEdgesToLeafs().isEmpty()) {
             return NodeType::orphan;      // Оба пустые
         } else {
             return NodeType::root;        // Вниз связей нет, вверх - есть
         }
     } else {
-        if (edgesToLeafs.isEmpty()) {
+        if (getEdgesToLeafs().isEmpty()) {
             return NodeType::endLeaf;     // Вниз есть, а вверх - нету
         } else {
             return NodeType::middleLeaf;  // Есть и вверх и вниз
@@ -280,10 +280,10 @@ void TermNode::setRelatPaint(bool val)
         dynamic_cast<TermNode*>(n)->relative = val;
     }
 
-    for (Edge *e : edgesToRoots)
+    for (Edge *e : getEdgesToRoots())
         e->wide = val;
 
-    for (Edge *e : edgesToLeafs)
+    for (Edge *e : getEdgesToLeafs())
         e->wide = val;
 }
 
@@ -324,13 +324,13 @@ bool TermNode::hasConnections()
 
 bool TermNode::hasConnectionsInGroup()
 {
-    for (Edge *e : edgesToLeafs) {
+    for (Edge *e : getEdgesToLeafs()) {
         if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
             return true;
         }
     }
 
-    for (Edge *e : edgesToRoots) {
+    for (Edge *e : getEdgesToRoots()) {
         if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
             return true;
         }
@@ -385,12 +385,12 @@ void TermNode::addToNeighboursList(TermNode *t)
 void TermNode::addEdgeRef(Edge *edge)
 {
     if (edge->getRoot() == this && edge->getLeaf() != this) {  // We are source - connection up
-        edgesToLeafs    << edge;
+        addEdgeToLeaf(edge);
         addNodeToLeafNodes(edge->getLeaf());
     }
 
     if (edge->getLeaf() == this && edge->getRoot() != this) {  // We are acceptor - connection down
-        edgesToRoots << edge;
+        addEdgeToRoot(edge);
         addNodeToRootNodes(edge->getRoot());
     }
 }
@@ -409,8 +409,8 @@ void TermNode::countForces()
     qreal notMyPos = 0.0;
 
     EdgesList edges;
-    edges << edgesToRoots;
-    edges << edgesToLeafs;
+    edges << getEdgesToRoots();
+    edges << getEdgesToLeafs();
 
     for (Edge *e : edges) {
         if (!e->isInGroupEdge())
@@ -443,7 +443,7 @@ int TermNode::getIntersections(bool swapped)
 {
     EdgesList edges;
     //    edges << edgesUpList;
-    edges << edgesToRoots;
+    edges << getEdgesToRoots();
 
     edges << getEdgesInLayer();
 
@@ -491,8 +491,8 @@ int TermNode::getIntersections(bool swapped)
 qreal TermNode::getSumEdgesLength(bool swap = false)
 {
     EdgesList edges;
-    edges << edgesToLeafs;
-    edges << edgesToRoots;
+    edges << getEdgesToLeafs();
+    edges << getEdgesToRoots();
     qreal ret = 0.0;
     for (Edge *e : edges) {
         if (!e->isInGroupEdge())
@@ -507,11 +507,11 @@ void TermNode::setSwap(QPointF toPt)
     EdgesList lst;
     lst = getConnectedEdges();
 
-    for (Edge *e : edgesToRoots) {
+    for (Edge *e : getEdgesToRoots()) {
         e->swPtBran = toPt;
     }
 
-    for (Edge *e : edgesToLeafs) {
+    for (Edge *e : getEdgesToLeafs()) {
         e->swPtRoot = toPt;
     }
 }
@@ -603,8 +603,8 @@ bool TermNode::applyMove()
 EdgesList TermNode::getConnectedEdges()
 {
     EdgesList ret;
-    ret << edgesToLeafs;
-    ret << edgesToRoots;
+    ret << getEdgesToLeafs();
+    ret << getEdgesToRoots();
     return ret;
 }
 

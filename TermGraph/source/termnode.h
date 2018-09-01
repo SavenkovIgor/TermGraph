@@ -119,10 +119,6 @@ private:
     // Paint / Animation
     int paintLevel = -1;
     qreal newPosOffs = 0.0;
-
-    EdgesList edgesToOtherGroups;  // Пока никак не используются но будут.
-    EdgesList edgesToLeafs;
-    EdgesList edgesToRoots;
 };
 
 #endif  // TERMNODE_H

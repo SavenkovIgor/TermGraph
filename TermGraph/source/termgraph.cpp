@@ -49,3 +49,23 @@ void TermGraph::clearNeighbourNodes()
 {
     neighbourNodes.clear();
 }
+
+EdgesList TermGraph::getEdgesToLeafs()
+{
+    return edgesToLeafs;
+}
+
+void TermGraph::addEdgeToLeaf(Edge *edge)
+{
+    edgesToLeafs << edge;
+}
+
+EdgesList TermGraph::getEdgesToRoots()
+{
+    return edgesToRoots;
+}
+
+void TermGraph::addEdgeToRoot(Edge *edge)
+{
+    edgesToRoots << edge;
+}

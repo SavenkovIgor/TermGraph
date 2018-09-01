@@ -3,6 +3,7 @@
 
 #include <QList>
 #include "terminfo.h"
+#include "./Helpers/handytypes.h"
 
 class TermGraph;
 
@@ -27,6 +28,12 @@ public:
     NodesGraphList getNeighbourNodes();  // TODO: Maybe delete later
     void addNeighbourNode(TermGraph* node);  // TODO: Delete later
     void clearNeighbourNodes();  // TODO: delete later
+
+    EdgesList getEdgesToLeafs();  // TODO: Maybe delete later
+    void addEdgeToLeaf(Edge* edge);  // TODO: Delete later
+
+    EdgesList getEdgesToRoots();  // TODO: Maybe delete later
+    void addEdgeToRoot(Edge* edge);  // TODO: Delete later
 public:
 //private:  // TODO: Uncomment. Incapsulation!!!
 
@@ -35,6 +42,11 @@ private:
     NodesGraphList leafNodes;
 
     NodesGraphList neighbourNodes;
+
+    EdgesList edgesToOtherGroups;  // Пока никак не используются но будут.
+
+    EdgesList edgesToLeafs;
+    EdgesList edgesToRoots;
 };
 
 #endif // TERMGRAPH_H
