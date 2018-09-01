@@ -3,11 +3,13 @@
 
 #include <QList>
 #include "./terminfo.h"
+#include "./graphedge.h"
 #include "../Helpers/handytypes.h"
 
 class TermGraph;
 
 typedef QList<TermGraph*> NodesGraphList;
+typedef QList<GraphEdge*> EdgesGraphList;
 
 enum class NodeType {
     orphan,
@@ -63,7 +65,7 @@ private:
 
     NodesGraphList neighbourNodes;
 
-    EdgesList edgesToOtherGroups;  // Пока никак не используются но будут.
+    EdgesGraphList edgesToOtherGroups;  // Пока никак не используются но будут.
 
     EdgesList edgesToLeafs;
     EdgesList edgesToRoots;
