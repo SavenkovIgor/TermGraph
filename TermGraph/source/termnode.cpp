@@ -302,10 +302,7 @@ void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
     QGraphicsItem::mousePressEvent(evt);
 }
 
-bool TermNode::hasConnections()
-{
-    return !( getRootNodes().isEmpty() && getLeafNodes().isEmpty() );
-}
+
 
 bool TermNode::hasConnectionsInGroup()
 {
@@ -351,10 +348,7 @@ int TermNode::getUpLevels(int pLevel)
     return ret;
 }
 
-void TermNode::clearNeighbours()
-{
-    clearNeighbourNodes();
-}
+
 
 
 

@@ -49,7 +49,6 @@ public:
 
     QLineF getRectLine(Qt::Edge side);
 
-
     QColor getBaseColor();
     QColor getSelectedColor();
 
@@ -59,8 +58,6 @@ public:
 
     void setLevel(int lev);
     int getUpLevels(int pLevel = -1);
-
-    void clearNeighbours();
 
     int getPaintLevel();
 
@@ -72,12 +69,10 @@ public:
 
     bool applyMove();
 
-
     QString getDebugString();
 
 private:
     // Info
-    bool hasConnections();
     bool hasConnectionsInGroup();
 
     // Initialize

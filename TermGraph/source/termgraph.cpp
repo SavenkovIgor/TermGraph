@@ -18,6 +18,11 @@ void TermGraph::addToNeighboursList(TermGraph *t)
     neighbourNodes << t;
 }
 
+void TermGraph::clearNeighbours()
+{
+    neighbourNodes.clear();
+}
+
 bool TermGraph::isRoot() {
     return getNodeType() == NodeType::root;
 }
@@ -36,6 +41,11 @@ bool TermGraph::isLeaf()
 bool TermGraph::isInTree()
 {
     return !isOrphan();
+}
+
+bool TermGraph::hasConnections()
+{
+    return !( rootNodes.isEmpty() && leafNodes.isEmpty() );
 }
 
 NodeType TermGraph::getNodeType()
@@ -88,11 +98,6 @@ void TermGraph::clearLeafNodes()
 NodesGraphList TermGraph::getNeighbourNodes()
 {
     return neighbourNodes;
-}
-
-void TermGraph::clearNeighbourNodes()
-{
-    neighbourNodes.clear();
 }
 
 EdgesList TermGraph::getEdgesToLeafs()

@@ -25,12 +25,15 @@ public:
     EdgesList getConnectedEdges();
 
     void addToNeighboursList(TermGraph *t);
+    void clearNeighbours();
 
     bool isRoot();
     bool isOrphan();
     bool isLeaf();
 
     bool isInTree();
+
+    bool hasConnections();
 
     NodeType getNodeType();
 
@@ -44,7 +47,6 @@ public:
     void clearLeafNodes();  // TODO: Delete later
 
     NodesGraphList getNeighbourNodes();  // TODO: Maybe delete later
-    void clearNeighbourNodes();  // TODO: delete later
 
     EdgesList getEdgesToLeafs();  // TODO: Maybe delete later
     void addEdgeToLeaf(Edge* edge);  // TODO: Delete later
