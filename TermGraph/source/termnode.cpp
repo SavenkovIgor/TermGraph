@@ -600,13 +600,7 @@ bool TermNode::applyMove()
     return false;
 }
 
-EdgesList TermNode::getConnectedEdges()
-{
-    EdgesList ret;
-    ret << getEdgesToLeafs();
-    ret << getEdgesToRoots();
-    return ret;
-}
+
 
 QString TermNode::getDebugString() {
     QStringList p;

@@ -5,6 +5,14 @@ TermGraph::TermGraph(QSqlRecord rec) : TermInfo(rec)
 
 }
 
+EdgesList TermGraph::getConnectedEdges()
+{
+    EdgesList ret;
+    ret << edgesToLeafs;
+    ret << edgesToRoots;
+    return ret;
+}
+
 NodesGraphList TermGraph::getRootNodes()
 {
     return rootNodes;

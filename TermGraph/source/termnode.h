@@ -96,7 +96,6 @@ private:
     // Info
     bool hasConnections();
     bool hasConnectionsInGroup();
-    EdgesList getConnectedEdges();
 
     // Initialize
     void adjustSizeForName();

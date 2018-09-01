@@ -15,6 +15,7 @@ class TermGraph : public TermInfo
 public:
     TermGraph(QSqlRecord rec);
 
+    EdgesList getConnectedEdges();
 
     // Delete section
     NodesGraphList getRootNodes();  // TODO: Maybe delete later
