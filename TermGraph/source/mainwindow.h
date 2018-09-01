@@ -6,12 +6,12 @@
 #include <QQmlContext>
 #include <QtQuickControls2/QQuickStyle>
 
-#include "reminder.h"
-#include "mainscene.h"
-#include "databaseWorks/dbabstract.h"
-#include "mysceneview.h"
-#include "wordfreqanalyze.h"
-#include "Helpers/tagprocessor.h"
+#include "./Model/reminder.h"
+#include "./mainscene.h"
+#include "./databaseWorks/dbabstract.h"
+#include "./mysceneview.h"
+#include "./Model/wordfreqanalyze.h"
+#include "./Helpers/tagprocessor.h"
 #include "./Helpers/appconfig.h"
 #include "./glb.h"
 

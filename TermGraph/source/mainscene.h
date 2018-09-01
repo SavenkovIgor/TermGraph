@@ -11,7 +11,7 @@
 #include "./Managers/nodesmanager.h"
 #include "./Helpers/appconfig.h"
 #include "./Helpers/fsworks.h"
-#include "./termgroup.h"
+#include "./Model/termgroup.h"
 
 class MainScene : public QGraphicsScene
 {

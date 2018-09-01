@@ -7,7 +7,7 @@
 #include <QGraphicsItem>
 
 #include "./termnode.h"
-#include "./Helpers/appstyle.h"
+#include "../Helpers/appstyle.h"
 
 enum EdgeType{
     standart,

@@ -2,8 +2,8 @@
 #define TERMGRAPH_H
 
 #include <QList>
-#include "terminfo.h"
-#include "./Helpers/handytypes.h"
+#include "./terminfo.h"
+#include "../Helpers/handytypes.h"
 
 class TermGraph;
 

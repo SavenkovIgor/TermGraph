@@ -4,9 +4,9 @@
 #include <QObject>
 #include <QtSql>
 
-#include "./databaseWorks/termgrouptbl.h"
-#include "./Helpers/appstyle.h"
-#include "./Helpers/tagprocessor.h"
+#include "../databaseWorks/termgrouptbl.h"
+#include "../Helpers/appstyle.h"
+#include "../Helpers/tagprocessor.h"
 #include "./termnode.h"
 #include "./tgroupname.h"
 #include "./edge.h"

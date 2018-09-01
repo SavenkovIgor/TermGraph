@@ -9,7 +9,7 @@
 
 #include "../glb.h"
 #include "../databaseWorks/dbabstract.h"
-#include "../termnode.h"
+#include "../Model/termnode.h"
 
 class NodesManager : public QObject
 {

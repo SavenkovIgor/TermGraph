@@ -5,7 +5,7 @@
 #include <QObject>
 #include <QGraphicsSimpleTextItem>
 
-#include "./Helpers/appstyle.h"
+#include "../Helpers/appstyle.h"
 
 class TGroupName : public QGraphicsSimpleTextItem
 {

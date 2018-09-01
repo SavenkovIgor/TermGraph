@@ -4,10 +4,10 @@
 #include <QGraphicsItem>
 #include <QDebug>
 
-#include "./Helpers/handytypes.h"
+#include "../Helpers/handytypes.h"
 #include "./edge.h"
-#include "./Helpers/appstyle.h"
-#include "./Helpers/helpstuff.h"
+#include "../Helpers/appstyle.h"
+#include "../Helpers/helpstuff.h"
 #include "./termgraph.h"
 
 enum class CoordType {

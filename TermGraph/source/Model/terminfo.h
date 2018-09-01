@@ -5,10 +5,10 @@
 #include <QDebug>
 #include <QSqlRecord>
 
-#include "./Helpers/appstyle.h"
-#include "./databaseWorks/ndtbl.h"
-#include "./Helpers/tagprocessor.h"
-#include "./Helpers/fonts.h"
+#include "../Helpers/appstyle.h"
+#include "../databaseWorks/ndtbl.h"
+#include "../Helpers/tagprocessor.h"
+#include "../Helpers/fonts.h"
 
 class TermInfo : public QObject
 {
