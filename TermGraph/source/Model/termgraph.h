@@ -9,7 +9,6 @@
 class TermGraph;
 
 typedef QList<TermGraph*> NodesGraphList;
-typedef QList<GraphEdge*> EdgesGraphList;
 
 enum class NodeType {
     orphan,
@@ -39,6 +38,8 @@ public:
     bool hasConnections();
 
     NodeType getNodeType();
+
+    void addEdgeRef(GraphEdge *edge);
 
     // Delete section
     NodesGraphList getRootNodes();  // TODO: Maybe delete later

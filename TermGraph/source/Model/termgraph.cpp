@@ -65,6 +65,19 @@ NodeType TermGraph::getNodeType()
     }
 }
 
+void TermGraph::addEdgeRef(GraphEdge *edge)
+{
+    if (edge->getRoot() == this && edge->getLeaf() != this) {  // We are source - connection up
+        addEdgeToLeaf(edge);
+        addNodeToLeafNodes(edge->getLeaf());
+    }
+
+    if (edge->getLeaf() == this && edge->getRoot() != this) {  // We are acceptor - connection down
+        addEdgeToRoot(edge);
+        addNodeToRootNodes(edge->getRoot());
+    }
+}
+
 NodesGraphList TermGraph::getUpDownNodes()
 {
     NodesGraphList ret;

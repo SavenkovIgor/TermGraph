@@ -339,18 +339,7 @@ int TermNode::getUpLevels(int pLevel)
     return ret;
 }
 
-void TermNode::addEdgeRef(Edge *edge)
-{
-    if (edge->getRoot() == this && edge->getLeaf() != this) {  // We are source - connection up
-        addEdgeToLeaf(edge);
-        addNodeToLeafNodes(edge->getLeaf());
-    }
 
-    if (edge->getLeaf() == this && edge->getRoot() != this) {  // We are acceptor - connection down
-        addEdgeToRoot(edge);
-        addNodeToRootNodes(edge->getRoot());
-    }
-}
 
 int TermNode::getPaintLevel() { return paintLevel; }
 

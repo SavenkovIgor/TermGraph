@@ -25,8 +25,6 @@ public:
     TermNode(QSqlRecord rec);
     ~TermNode();
 
-    void addEdgeRef(Edge *edge);
-
     static QList< Qt::Edge > sides;
 
     static const qreal verScale;
