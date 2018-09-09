@@ -43,11 +43,9 @@ public:
 
     // Delete section
     NodesGraphList getRootNodes();  // TODO: Maybe delete later
-    void addNodeToRootNodes(TermGraph* node);  // TODO: Delete later
     void clearRootNodes();  // TODO: Delete later
 
     NodesGraphList getLeafNodes();  // TODO: Maybe delete later
-    void addNodeToLeafNodes(TermGraph* node);  // TODO: Delete later
     void clearLeafNodes();  // TODO: Delete later
 
     NodesGraphList getNeighbourNodes();  // TODO: Maybe delete later

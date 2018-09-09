@@ -69,12 +69,12 @@ void TermGraph::addEdgeRef(GraphEdge *edge)
 {
     if (edge->getRoot() == this && edge->getLeaf() != this) {  // We are source - connection up
         addEdgeToLeaf(edge);
-        addNodeToLeafNodes(edge->getLeaf());
+        leafNodes << edge->getLeaf();
     }
 
     if (edge->getLeaf() == this && edge->getRoot() != this) {  // We are acceptor - connection down
         addEdgeToRoot(edge);
-        addNodeToRootNodes(edge->getRoot());
+        rootNodes << edge->getRoot();
     }
 }
 
@@ -91,11 +91,6 @@ NodesGraphList TermGraph::getRootNodes()
     return rootNodes;
 }
 
-void TermGraph::addNodeToRootNodes(TermGraph *node)
-{
-    rootNodes << node;
-}
-
 void TermGraph::clearRootNodes()
 {
     rootNodes.clear();
@@ -104,11 +99,6 @@ void TermGraph::clearRootNodes()
 NodesGraphList TermGraph::getLeafNodes()
 {
     return leafNodes;
-}
-
-void TermGraph::addNodeToLeafNodes(TermGraph *node)
-{
-    leafNodes << node;
 }
 
 void TermGraph::clearLeafNodes()
