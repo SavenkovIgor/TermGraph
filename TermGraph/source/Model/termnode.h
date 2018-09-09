@@ -16,7 +16,7 @@ enum class CoordType {
     scene
 };
 
-class TermNode:  public TermGraph, public QGraphicsItem
+class TermNode: public TermGraph, public QGraphicsItem
 {
     Q_OBJECT
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)

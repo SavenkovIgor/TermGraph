@@ -90,8 +90,8 @@ EdgesList TermNode::getEdgesInLayer()
     EdgesList ret;
     for (TermGraph* n : getNeighbourNodes()) {
         TermNode* t = dynamic_cast<TermNode*>(n);
-        ret << t->getEdgesToRoots();
-        ret << t->getEdgesToLeafs();
+        ret << Edge::castToEdgeList(t->getEdgesToRoots());
+        ret << Edge::castToEdgeList(t->getEdgesToLeafs());
     }
 
     EdgesList ret2;
@@ -259,7 +259,8 @@ void TermNode::setRelatPaint(bool val)
         dynamic_cast<TermNode*>(n)->relative = val;
     }
 
-    for (Edge*  e : getUpDownEdges()) {
+    for (GraphEdge* d : getUpDownEdges()) {
+        auto e = dynamic_cast<Edge*>(d);
         e->wide = val;
     }
 }
@@ -296,13 +297,13 @@ void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
 
 bool TermNode::hasConnectionsInGroup()
 {
-    for (Edge *e : getEdgesToLeafs()) {
+    for (GraphEdge *e : getEdgesToLeafs()) {
         if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
             return true;
         }
     }
 
-    for (Edge *e : getEdgesToRoots()) {
+    for (GraphEdge *e : getEdgesToRoots()) {
         if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
             return true;
         }
@@ -365,8 +366,8 @@ void TermNode::countForces()
     qreal notMyPos = 0.0;
 
     EdgesList edges;
-    edges << getEdgesToRoots();
-    edges << getEdgesToLeafs();
+    edges << Edge::castToEdgeList(getEdgesToRoots());
+    edges << Edge::castToEdgeList(getEdgesToLeafs());
 
     for (Edge *e : edges) {
         if (!e->isInGroupEdge())
@@ -399,7 +400,7 @@ int TermNode::getIntersections(bool swapped)
 {
     EdgesList edges;
     //    edges << edgesUpList;
-    edges << getEdgesToRoots();
+    edges << Edge::castToEdgeList(getEdgesToRoots());
 
     edges << getEdgesInLayer();
 
@@ -447,8 +448,8 @@ int TermNode::getIntersections(bool swapped)
 qreal TermNode::getSumEdgesLength(bool swap = false)
 {
     EdgesList edges;
-    edges << getEdgesToLeafs();
-    edges << getEdgesToRoots();
+    edges << Edge::castToEdgeList(getEdgesToLeafs());
+    edges << Edge::castToEdgeList(getEdgesToRoots());
     qreal ret = 0.0;
     for (Edge *e : edges) {
         if (!e->isInGroupEdge())
@@ -460,14 +461,18 @@ qreal TermNode::getSumEdgesLength(bool swap = false)
 
 void TermNode::setSwap(QPointF toPt)
 {
-    EdgesList lst;
-    lst = getUpDownEdges();
+    auto graphLst = getUpDownEdges();
 
-    for (Edge *e : getEdgesToRoots()) {
+    EdgesList lst;
+    for (auto graphEdg : graphLst) {
+        lst << dynamic_cast<Edge*>(graphEdg);
+    }
+
+    for (Edge *e : Edge::castToEdgeList(getEdgesToRoots())) {
         e->swPtBran = toPt;
     }
 
-    for (Edge *e : getEdgesToLeafs()) {
+    for (Edge *e : Edge::castToEdgeList(getEdgesToLeafs())) {
         e->swPtRoot = toPt;
     }
 }
@@ -475,7 +480,7 @@ void TermNode::setSwap(QPointF toPt)
 void TermNode::dropSwap()
 {
     EdgesList lst;
-    lst = getUpDownEdges();
+    lst = Edge::castToEdgeList(getUpDownEdges());
 
     for (Edge *e : lst) {
         e->swPtBran = QPointF();

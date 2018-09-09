@@ -5,9 +5,9 @@ TermGraph::TermGraph(QSqlRecord rec) : TermInfo(rec)
 
 }
 
-EdgesList TermGraph::getUpDownEdges()
+EdgesGraphList TermGraph::getUpDownEdges()
 {
-    EdgesList ret;
+    EdgesGraphList ret;
     ret << edgesToLeafs;
     ret << edgesToRoots;
     return ret;
@@ -108,22 +108,24 @@ NodesGraphList TermGraph::getNeighbourNodes()
     return neighbourNodes;
 }
 
-EdgesList TermGraph::getEdgesToLeafs()
+EdgesGraphList TermGraph::getEdgesToLeafs()
 {
     return edgesToLeafs;
 }
 
-void TermGraph::addEdgeToLeaf(Edge *edge)
+void TermGraph::addEdgeToLeaf(GraphEdge *edge)
 {
     edgesToLeafs << edge;
 }
 
-EdgesList TermGraph::getEdgesToRoots()
+EdgesGraphList TermGraph::getEdgesToRoots()
 {
     return edgesToRoots;
 }
 
-void TermGraph::addEdgeToRoot(Edge *edge)
+void TermGraph::addEdgeToRoot(GraphEdge* edge)
 {
     edgesToRoots << edge;
 }
+
+

@@ -25,7 +25,7 @@ public:
     TermGraph(QSqlRecord rec);
 
     NodesGraphList getUpDownNodes();
-    EdgesList getUpDownEdges();
+    EdgesGraphList getUpDownEdges();
 
     void addToNeighboursList(TermGraph *t);
     void clearNeighbours();
@@ -51,11 +51,12 @@ public:
 
     NodesGraphList getNeighbourNodes();  // TODO: Maybe delete later
 
-    EdgesList getEdgesToLeafs();  // TODO: Maybe delete later
-    void addEdgeToLeaf(Edge* edge);  // TODO: Delete later
+    EdgesGraphList getEdgesToLeafs();  // TODO: Maybe delete later
+    void addEdgeToLeaf(GraphEdge *edge);  // TODO: Delete later
 
-    EdgesList getEdgesToRoots();  // TODO: Maybe delete later
-    void addEdgeToRoot(Edge* edge);  // TODO: Delete later
+    EdgesGraphList getEdgesToRoots();  // TODO: Maybe delete later
+    void addEdgeToRoot(GraphEdge* edge);  // TODO: Delete later
+
 public:
 //private:  // TODO: Uncomment. Incapsulation!!!
 
@@ -67,8 +68,8 @@ private:
 
     EdgesGraphList edgesToOtherGroups;  // Пока никак не используются но будут.
 
-    EdgesList edgesToLeafs;
-    EdgesList edgesToRoots;
+    EdgesGraphList edgesToLeafs;
+    EdgesGraphList edgesToRoots;
 };
 
 #endif // TERMGRAPH_H

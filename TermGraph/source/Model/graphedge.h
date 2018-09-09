@@ -1,6 +1,8 @@
 #ifndef GRAPHEDGE_H
 #define GRAPHEDGE_H
 
+#include <QList>
+
 class TermGraph;
 
 class GraphEdge
@@ -15,9 +17,13 @@ public:
     bool isSameEdge(TermGraph* rt, TermGraph* br) const;
     TermGraph* getOtherSide(TermGraph* n) const;
 
+    virtual ~GraphEdge() = default;
+
 private:
     TermGraph* toRoot;
     TermGraph* toLeaf;
 };
+
+typedef QList<GraphEdge*> EdgesGraphList;
 
 #endif // GRAPHEDGE_H
