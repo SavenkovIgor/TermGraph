@@ -54,10 +54,7 @@ public:
 
     void mousePressEvent(QGraphicsSceneMouseEvent *evt);
 
-    void setLevel(int lev);
     int getUpLevels(int pLevel = -1);
-
-    int getPaintLevel();
 
     void countForces();
     int  getIntersections(bool swapped  = false);
@@ -70,9 +67,6 @@ public:
     QString getDebugString();
 
 private:
-    // Info
-    bool hasConnectionsInGroup();
-
     // Initialize
     void adjustSizeForName();
 
@@ -92,7 +86,6 @@ private:
     QString testStr;
 
     // Paint / Animation
-    int paintLevel = -1;
     qreal newPosOffs = 0.0;
 };
 

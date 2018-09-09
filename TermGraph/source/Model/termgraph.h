@@ -13,7 +13,7 @@ enum class NodeType {
     middleLeaf
 };
 
-class TermGraph : public TermInfo
+class TermGraph : public TermInfo  // TODO: Rename TermGraph to GraphNode
 {
 
 public:
@@ -38,8 +38,12 @@ public:
 
     NodeType getNodeType();
 
+    void setLevel(int lev);  // TODO: Rename
+    int getPaintLevel() const;  // TODO: Rename
+
     void addEdgeRef(GraphEdge *edge);
     static bool isInGroupEdge(GraphEdge* edge);
+    bool hasConnectionsInGroup();
 
     // Delete section
     TermGraph::NodesGraphList getRootNodes();  // TODO: Maybe delete later
@@ -65,6 +69,8 @@ private:
 
     EdgesGraphList edgesToLeafs;
     EdgesGraphList edgesToRoots;
+
+    int paintLevel = -1;  // TODO: Rename
 };
 
 #endif // TERMGRAPH_H

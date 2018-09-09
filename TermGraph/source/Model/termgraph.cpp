@@ -65,6 +65,24 @@ NodeType TermGraph::getNodeType()
     }
 }
 
+void TermGraph::setLevel(int lev)
+{
+    if (lev > paintLevel)
+        paintLevel = lev;
+
+    for (TermGraph* n : getLeafNodes()) {
+        if (getGroupUuid() != n->getGroupUuid()) {
+            continue;
+        }
+        n->setLevel(lev + 1);
+    }
+}
+
+int TermGraph::getPaintLevel() const
+{
+    return paintLevel;
+}
+
 void TermGraph::addEdgeRef(GraphEdge *edge)
 {
     if (edge->getRoot() == this && edge->getLeaf() != this) {  // We are source - connection up
@@ -81,6 +99,22 @@ void TermGraph::addEdgeRef(GraphEdge *edge)
 bool TermGraph::isInGroupEdge(GraphEdge *edge)
 {
     return edge->getRoot()->getGroupUuid() == edge->getLeaf()->getGroupUuid();
+}
+
+bool TermGraph::hasConnectionsInGroup()
+{
+    for (GraphEdge *e : edgesToLeafs) {
+        if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
+            return true;
+        }
+    }
+
+    for (GraphEdge *e : edgesToRoots) {
+        if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
+            return true;
+        }
+    }
+    return false;
 }
 
 TermGraph::NodesGraphList TermGraph::getUpDownNodes()

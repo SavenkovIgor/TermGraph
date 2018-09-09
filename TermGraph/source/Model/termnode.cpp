@@ -295,34 +295,7 @@ void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
     QGraphicsItem::mousePressEvent(evt);
 }
 
-bool TermNode::hasConnectionsInGroup()
-{
-    for (GraphEdge *e : getEdgesToLeafs()) {
-        if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
-            return true;
-        }
-    }
 
-    for (GraphEdge *e : getEdgesToRoots()) {
-        if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
-            return true;
-        }
-    }
-    return false;
-}
-
-void TermNode::setLevel(int lev)
-{
-    if (lev > paintLevel)
-        paintLevel = lev;
-
-    for (TermGraph *t : getLeafNodes()) {
-        TermNode* n = dynamic_cast<TermNode*>(t);
-        if (getGroupUuid() != n->getGroupUuid())
-            continue;
-        n->setLevel(lev + 1);
-    }
-}
 
 int TermNode::getUpLevels(int pLevel)
 {
@@ -338,10 +311,6 @@ int TermNode::getUpLevels(int pLevel)
 
     return ret;
 }
-
-
-
-int TermNode::getPaintLevel() { return paintLevel; }
 
 void TermNode::countForces()
 {
