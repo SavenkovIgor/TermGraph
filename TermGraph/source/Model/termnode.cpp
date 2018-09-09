@@ -295,8 +295,6 @@ void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
     QGraphicsItem::mousePressEvent(evt);
 }
 
-
-
 int TermNode::getUpLevels(int pLevel)
 {
     Q_UNUSED(pLevel)  // TODO: check!
@@ -508,7 +506,7 @@ QString TermNode::getDebugString() {
     tmp = " childs:";
     QList<QGraphicsItem*> childs = childItems();
     for (int i = 0; i < childs.size(); i++) {
-        TermNode *n = (TermNode*)childs[i];
+        TermNode* n = dynamic_cast<TermNode*>(childs[i]);
         tmp += " " + n->getUuid().toString();
     }
     p << HelpStuff::ptToStr(scenePos());
