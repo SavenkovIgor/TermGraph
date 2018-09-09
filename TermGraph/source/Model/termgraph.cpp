@@ -68,12 +68,12 @@ NodeType TermGraph::getNodeType()
 void TermGraph::addEdgeRef(GraphEdge *edge)
 {
     if (edge->getRoot() == this && edge->getLeaf() != this) {  // We are source - connection up
-        addEdgeToLeaf(edge);
+        edgesToLeafs << edge;
         leafNodes << edge->getLeaf();
     }
 
     if (edge->getLeaf() == this && edge->getRoot() != this) {  // We are acceptor - connection down
-        addEdgeToRoot(edge);
+        edgesToRoots << edge;
         rootNodes << edge->getRoot();
     }
 }
@@ -116,19 +116,7 @@ EdgesGraphList TermGraph::getEdgesToLeafs()
     return edgesToLeafs;
 }
 
-void TermGraph::addEdgeToLeaf(GraphEdge *edge)
-{
-    edgesToLeafs << edge;
-}
-
 EdgesGraphList TermGraph::getEdgesToRoots()
 {
     return edgesToRoots;
 }
-
-void TermGraph::addEdgeToRoot(GraphEdge* edge)
-{
-    edgesToRoots << edge;
-}
-
-

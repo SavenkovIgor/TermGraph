@@ -49,12 +49,8 @@ public:
     void clearLeafNodes();  // TODO: Delete later
 
     NodesGraphList getNeighbourNodes();  // TODO: Maybe delete later
-
     EdgesGraphList getEdgesToLeafs();  // TODO: Maybe delete later
-    void addEdgeToLeaf(GraphEdge *edge);  // TODO: Delete later
-
     EdgesGraphList getEdgesToRoots();  // TODO: Maybe delete later
-    void addEdgeToRoot(GraphEdge* edge);  // TODO: Delete later
 
 public:
 //private:  // TODO: Uncomment. Incapsulation!!!
