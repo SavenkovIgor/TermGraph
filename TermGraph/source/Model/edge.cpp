@@ -19,11 +19,6 @@ Edge::Edge(TermNode *from, TermNode *to, EdgeType type) :
     setZValue(0);
 }
 
-bool Edge::isInGroupEdge()
-{
-    return getRoot()->getGroupUuid() == getLeaf()->getGroupUuid();
-}
-
 QRectF Edge::boundingRect() const
 {
     QPointF pt1 = dynamic_cast<TermNode*>(getRoot())->getCenter(CoordType::scene);
@@ -40,7 +35,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     TermNode* toLeaf = dynamic_cast<TermNode*>(getLeaf());
 
     QPen p;
-    p.setStyle(isInGroupEdge() ? Qt::SolidLine : Qt::DashDotLine);
+    p.setStyle(TermGraph::isInGroupEdge(this) ? Qt::SolidLine : Qt::DashDotLine);
     p.setColor(getEdgeColor());
 
     int baseWidth = 3;

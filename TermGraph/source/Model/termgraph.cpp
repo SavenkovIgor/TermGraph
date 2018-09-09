@@ -78,7 +78,12 @@ void TermGraph::addEdgeRef(GraphEdge *edge)
     }
 }
 
-NodesGraphList TermGraph::getUpDownNodes()
+bool TermGraph::isInGroupEdge(GraphEdge *edge)
+{
+    return edge->getRoot()->getGroupUuid() == edge->getLeaf()->getGroupUuid();
+}
+
+TermGraph::NodesGraphList TermGraph::getUpDownNodes()
 {
     NodesGraphList ret;
     ret << rootNodes;
@@ -86,7 +91,7 @@ NodesGraphList TermGraph::getUpDownNodes()
     return ret;
 }
 
-NodesGraphList TermGraph::getRootNodes()
+TermGraph::NodesGraphList TermGraph::getRootNodes()
 {
     return rootNodes;
 }
@@ -96,7 +101,7 @@ void TermGraph::clearRootNodes()
     rootNodes.clear();
 }
 
-NodesGraphList TermGraph::getLeafNodes()
+TermGraph::NodesGraphList TermGraph::getLeafNodes()
 {
     return leafNodes;
 }
@@ -106,7 +111,7 @@ void TermGraph::clearLeafNodes()
     leafNodes.clear();
 }
 
-NodesGraphList TermGraph::getNeighbourNodes()
+TermGraph::NodesGraphList TermGraph::getNeighbourNodes()
 {
     return neighbourNodes;
 }

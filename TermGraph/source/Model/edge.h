@@ -33,8 +33,6 @@ public:
 public:
     Edge(TermNode *toRoot, TermNode *toLeaf, EdgeType type = EdgeType::termin);
 
-    bool isInGroupEdge();
-
     QRectF boundingRect() const;
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);

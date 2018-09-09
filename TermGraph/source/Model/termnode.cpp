@@ -359,7 +359,7 @@ void TermNode::countForces()
     edges << Edge::castToEdgeList(getEdgesToLeafs());
 
     for (Edge *e : edges) {
-        if (!e->isInGroupEdge())
+        if (!TermGraph::isInGroupEdge(e))
             continue;
 
         tmp = e->getYProjection();
@@ -441,7 +441,7 @@ qreal TermNode::getSumEdgesLength(bool swap = false)
     edges << Edge::castToEdgeList(getEdgesToRoots());
     qreal ret = 0.0;
     for (Edge *e : edges) {
-        if (!e->isInGroupEdge())
+        if (!TermGraph::isInGroupEdge(e))
             continue;
         ret += qAbs(e->getLine(swap).dx());
     }

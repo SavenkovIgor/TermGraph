@@ -6,10 +6,6 @@
 #include "./graphedge.h"
 #include "../Helpers/handytypes.h"
 
-class TermGraph;
-
-typedef QList<TermGraph*> NodesGraphList;
-
 enum class NodeType {
     orphan,
     root,
@@ -21,6 +17,9 @@ class TermGraph : public TermInfo
 {
 
 public:
+
+    typedef QList<TermGraph*> NodesGraphList;
+
     TermGraph(QSqlRecord rec);
 
     NodesGraphList getUpDownNodes();
@@ -40,15 +39,16 @@ public:
     NodeType getNodeType();
 
     void addEdgeRef(GraphEdge *edge);
+    static bool isInGroupEdge(GraphEdge* edge);
 
     // Delete section
-    NodesGraphList getRootNodes();  // TODO: Maybe delete later
+    TermGraph::NodesGraphList getRootNodes();  // TODO: Maybe delete later
     void clearRootNodes();  // TODO: Delete later
 
-    NodesGraphList getLeafNodes();  // TODO: Maybe delete later
+    TermGraph::NodesGraphList getLeafNodes();  // TODO: Maybe delete later
     void clearLeafNodes();  // TODO: Delete later
 
-    NodesGraphList getNeighbourNodes();  // TODO: Maybe delete later
+    TermGraph::NodesGraphList getNeighbourNodes();  // TODO: Maybe delete later
     EdgesGraphList getEdgesToLeafs();  // TODO: Maybe delete later
     EdgesGraphList getEdgesToRoots();  // TODO: Maybe delete later
 
