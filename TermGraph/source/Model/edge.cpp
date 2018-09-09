@@ -135,3 +135,12 @@ QLineF Edge::getLine(bool swap)
 
     return QLineF( pt1, pt2 );
 }
+
+EdgesList Edge::castToEdgeList(EdgesGraphList lst)
+{
+    EdgesList edgeLst;
+    for (auto graphEdg : lst) {
+        edgeLst << dynamic_cast<Edge*>(graphEdg);
+    }
+    return  edgeLst;
+}
