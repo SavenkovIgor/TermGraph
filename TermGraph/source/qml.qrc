@@ -14,5 +14,6 @@
         <file>qml/MySettings.qml</file>
         <file>qml/UIExtensions/SideMenuButton.qml</file>
         <file>qml/UIExtensions/MainHeader.qml</file>
+        <file>qml/AlterMainScheme.qml</file>
     </qresource>
 </RCC>

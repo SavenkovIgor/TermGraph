@@ -40,6 +40,14 @@ ApplicationWindow {
         }
     }
 
+    Component {
+        id: alterScheme
+        AlterMainScheme {
+            mainStack: stackView
+            sideMenu: appSideMenu
+        }
+    }
+
     Drawer {
         id : appSideMenu
         height: window.height
@@ -87,6 +95,20 @@ ApplicationWindow {
                 Layout.rightMargin: 25
 
                 onClicked: appSideMenu.openItem(settingsItem)
+            }
+
+            SideMenuButton {
+                id: alterSchemeMenuButton
+                text: "Альтернативная схема"
+
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                Layout.topMargin: 5
+                Layout.bottomMargin: 5
+                Layout.leftMargin: 25
+                Layout.rightMargin: 25
+
+                onClicked: appSideMenu.openItem(alterScheme)
             }
 
             Item {
