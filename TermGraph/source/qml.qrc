@@ -15,5 +15,6 @@
         <file>qml/UIExtensions/SideMenuButton.qml</file>
         <file>qml/UIExtensions/MainHeader.qml</file>
         <file>qml/AlterMainScheme.qml</file>
+        <file>qml/TermView.qml</file>
     </qresource>
 </RCC>
