@@ -385,77 +385,60 @@ QString MainScene::getCurrNodeDebugInfo()
 
 QString MainScene::getCurrNodeLongUid()
 {
-    TermNode* node = getSelected();
-    if (node == nullptr) {
-        return "";
+    if (TermNode* node = getSelected()) {
+        return node->getUuid().toString();
     }
-
-    return node->getUuid().toString();
+    return "";
 }
 
 QString MainScene::getCurrNodeName()
 {
-    TermNode* node = getSelected();
-    if (node == nullptr) {
-        return "";
+    if (TermNode* node = getSelected()) {
+        return node->getName();
     }
-
-    return node->getName();
+    return "";
 }
 
 QString MainScene::getCurrNodeForms()
 {
-    TermNode* node = getSelected();
-    if (node == nullptr) {
-        return "";
+    if (TermNode* node = getSelected()) {
+        return node->getNameFormStr();
     }
-
-    return node->getNameFormStr();
+    return "";
 }
 
 QString MainScene::getCurrNodeDefinition()
 {
-    TermNode* node = getSelected();
-    if (node == nullptr) {
-        return "";
+    if (TermNode* node = getSelected()) {
+        return node->getDefinition();
     }
-
-    return node->getDefinition();
+    return "";
 }
 
 QString MainScene::getCurrNodeDescription()
 {
-    TermNode* node = getSelected();
-    if (node == nullptr) {
-        return "";
+    if (TermNode* node = getSelected()) {
+        return node->getDescription();
     }
-
-    return node->getDescription();
+    return "";
 }
 
 QString MainScene::getCurrNodeExamples()
 {
-    TermNode* node = getSelected();
-    if (node == nullptr) {
-        return "";
+    if (TermNode* node = getSelected()) {
+        return node->getExamples();
     }
-
-    return node->getExamples();
+    return "";
 }
 
 QString MainScene::getCurrNodeGroupName()
 {
-    TermNode* node = getSelected();
-    if (node == nullptr) {
-        return "";
+    if (TermNode* node = getSelected()) {
+        if (QUuid uuid = node->getGroupUuid(); !uuid.isNull()) {
+            return groupsMgr->getGroupName(uuid);
+        }
     }
-
-    QUuid uuid = node->getGroupUuid();
-    if (uuid.isNull()) {
-        return "";
-    }
-
-    return groupsMgr->getGroupName(uuid);
+    return "";
 }
 
 bool MainScene::getCurrNodeIsRoot()
