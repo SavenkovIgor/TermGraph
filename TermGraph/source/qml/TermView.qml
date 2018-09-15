@@ -1,5 +1,6 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.2
+import QtQuick.Layouts 1.3
 
 import "UIExtensions"
 
@@ -58,9 +59,9 @@ Page {
     ScrollView {
         anchors.fill: parent
 
-        Column {
+        ColumnLayout {
             spacing: 14
-            padding: 10
+//            padding: 10
             width: termView.width
 
             MyLabelPair{
