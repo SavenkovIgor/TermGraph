@@ -434,7 +434,8 @@ QString MainScene::getCurrNodeExamples()
 QString MainScene::getCurrNodeGroupName()
 {
     if (TermNode* node = getSelected()) {
-        if (QUuid uuid = node->getGroupUuid(); !uuid.isNull()) {
+        QUuid uuid = node->getGroupUuid();
+        if (!uuid.isNull()) {
             return groupsMgr->getGroupName(uuid);
         }
     }

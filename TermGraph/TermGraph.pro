@@ -3,6 +3,8 @@ QT       += core gui sql quickwidgets quickcontrols2 network #charts
 TARGET = TermGraph
 TEMPLATE = app
 
+CONFIG += c++17
+
 HEADERS += \
     source/databaseWorks/dbabstract.h\
     source/databaseWorks/edgtbl.h\

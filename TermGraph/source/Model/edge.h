@@ -5,7 +5,6 @@
 #include <QPainter>
 #include <QColor>
 #include <QGraphicsItem>
-#include <optional>
 
 #include "./graphedge.h"
 #include "./termnode.h"
