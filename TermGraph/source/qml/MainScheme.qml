@@ -36,15 +36,15 @@ Page {
     }
 
     function showButtons() {
-        changeNodeBtn.visible = true
-        deleteSelNodeBtn.visible = true
-        opInfoBtn.visible = true
+        editNodeButton.visible = true
+        deleteNodeButton.visible = true
+        nodeInfoButton.visible = true
     }
 
     function hideButtons() {
-        changeNodeBtn.visible = false
-        deleteSelNodeBtn.visible = false
-        opInfoBtn.visible = false
+        editNodeButton.visible = false
+        deleteNodeButton.visible = false
+        nodeInfoButton.visible = false
     }
 
     Connections {
@@ -79,11 +79,6 @@ Page {
     TermView {
         id: termView
         mainStack: stackView
-    }
-
-    function openNewNodePage() {
-        newNodePage.prepare("")
-        mainStack.push(newNodePage)
     }
 
     Frame {
@@ -159,19 +154,29 @@ Page {
             }
 
             MyRoundButton {
-                id: addNode
+                id: addNodeButton
 
                 anchors {
-                    right: showGlpLst.left
+                    right: showGroupListButton.left
                     top: mainSceneImg.top
+                }
+
+                Shortcut {
+                    sequence: "Ctrl+n"
+                    onActivated: addNodeButton.openNewNodePage()
                 }
 
                 onClicked: openNewNodePage()
                 Component.onCompleted: loadIcon( "qrc:/icons/plus" )
+
+                function openNewNodePage() {
+                    newNodePage.prepare("")
+                    mainStack.push(newNodePage)
+                }
             }
 
             MyRoundButton {
-                id: showGlpLst
+                id: showGroupListButton
 
                 anchors {
                     right: mainSceneImg.right
@@ -183,7 +188,7 @@ Page {
             }
 
             MyRoundButton {
-                id: changeNodeBtn
+                id: editNodeButton
 
                 anchors {
                     right: mainSceneImg.right
@@ -192,10 +197,11 @@ Page {
 
                 Shortcut {
                     sequence: "Ctrl+e"
-                    onActivated: changeNodeBtn.openEditNodePage(sceneObj.getCurrNodeLongUid())
+                    onActivated: editNodeButton.openEditNodePage(sceneObj.getCurrNodeLongUid())
                 }
 
                 onClicked: openEditNodePage(sceneObj.getCurrNodeLongUid())
+                Component.onCompleted: loadIcon( "qrc:/icons/aperture" )
 
                 function openEditNodePage(nodeUuid) {
                     if (nodeUuid !== "") {
@@ -203,16 +209,14 @@ Page {
                         mainStack.push(newNodePage)
                     }
                 }
-
-                Component.onCompleted: loadIcon( "qrc:/icons/aperture" )
             }
 
             MyRoundButton {
-                id : deleteSelNodeBtn
+                id : deleteNodeButton
 
                 anchors {
                     right: mainSceneImg.right
-                    bottom: changeNodeBtn.top
+                    bottom: editNodeButton.top
                 }
 
                 onClicked: mainSceneImg.nodeDeleteCheck()
@@ -220,14 +224,14 @@ Page {
             }
 
             MyRoundButton {
-                id : opInfoBtn
+                id : nodeInfoButton
 
-                anchors.right: changeNodeBtn.left
+                anchors.right: editNodeButton.left
                 anchors.bottom: mainSceneImg.bottom
 
                 Shortcut {
                     sequence: "Ctrl+i"
-                    onActivated: opInfoBtn.openTerm()
+                    onActivated: nodeInfoButton.openTerm()
                 }
 
                 onClicked: openTerm()
@@ -310,11 +314,6 @@ Page {
 
                         if( event.key === Qt.Key_BracketRight ) {
                             sceneObj.toNextGroup()
-                            event.accepted = true
-                        }
-
-                        if( event.key === Qt.Key_N ) {
-                            openNewNodePage()
                             event.accepted = true
                         }
 
