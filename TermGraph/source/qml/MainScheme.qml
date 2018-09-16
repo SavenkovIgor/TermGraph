@@ -36,13 +36,13 @@ Page {
     }
 
     function showButtons() {
-        changePointBtn.visible = true
+        changeNodeBtn.visible = true
         deleteSelNodeBtn.visible = true
         opInfoBtn.visible = true
     }
 
     function hideButtons() {
-        changePointBtn.visible = false
+        changeNodeBtn.visible = false
         deleteSelNodeBtn.visible = false
         opInfoBtn.visible = false
     }
@@ -83,11 +83,6 @@ Page {
 
     function openNewNodePage() {
         newNodePage.prepare("")
-        mainStack.push(newNodePage)
-    }
-
-    function openEditNodePage(nodeUuid) {
-        newNodePage.prepare(nodeUuid)
         mainStack.push(newNodePage)
     }
 
@@ -188,15 +183,25 @@ Page {
             }
 
             MyRoundButton {
-                id: changePointBtn
+                id: changeNodeBtn
 
                 anchors {
                     right: mainSceneImg.right
                     bottom: mainSceneImg.bottom
                 }
 
-                onClicked: {
-                    openEditNodePage(sceneObj.getCurrNodeLongUid())
+                Shortcut {
+                    sequence: "Ctrl+e"
+                    onActivated: changeNodeBtn.openEditNodePage(sceneObj.getCurrNodeLongUid())
+                }
+
+                onClicked: openEditNodePage(sceneObj.getCurrNodeLongUid())
+
+                function openEditNodePage(nodeUuid) {
+                    if (nodeUuid !== "") {
+                        newNodePage.prepare(nodeUuid)
+                        mainStack.push(newNodePage)
+                    }
                 }
 
                 Component.onCompleted: loadIcon( "qrc:/icons/aperture" )
@@ -207,7 +212,7 @@ Page {
 
                 anchors {
                     right: mainSceneImg.right
-                    bottom: changePointBtn.top
+                    bottom: changeNodeBtn.top
                 }
 
                 onClicked: mainSceneImg.nodeDeleteCheck()
@@ -217,22 +222,23 @@ Page {
             MyRoundButton {
                 id : opInfoBtn
 
-                anchors.right: changePointBtn.left
+                anchors.right: changeNodeBtn.left
                 anchors.bottom: mainSceneImg.bottom
 
                 Shortcut {
                     sequence: "Ctrl+i"
-                    onActivated: {
-                        if( sceneObj.hasSelection() )
-                            nodeInfoDrw.open()
-                    }
+                    onActivated: opInfoBtn.openTerm()
                 }
 
-                onClicked: {
-                    mainStack.push(termView)
-                    termView.loadSelectedNode()
-                }
+                onClicked: openTerm()
                 Component.onCompleted: loadIcon( "qrc:/icons/chevron-top" )
+
+                function openTerm() {
+                    if (sceneObj.hasSelection()) {
+                        mainStack.push(termView)
+                        termView.loadSelectedNode()
+                    }
+                }
             }
 
             MouseArea {
@@ -304,11 +310,6 @@ Page {
 
                         if( event.key === Qt.Key_BracketRight ) {
                             sceneObj.toNextGroup()
-                            event.accepted = true
-                        }
-
-                        if( event.key === Qt.Key_E ) {
-                            openEditNodePage(sceneObj.getCurrNodeLongUid())
                             event.accepted = true
                         }
 
