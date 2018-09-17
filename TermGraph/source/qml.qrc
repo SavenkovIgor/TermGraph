@@ -16,5 +16,6 @@
         <file>qml/UIExtensions/MainHeader.qml</file>
         <file>qml/AlterMainScheme.qml</file>
         <file>qml/TermView.qml</file>
+        <file>qml/JsExtensions/nodePaint.js</file>
     </qresource>
 </RCC>

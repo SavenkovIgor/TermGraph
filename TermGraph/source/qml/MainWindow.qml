@@ -53,7 +53,7 @@ ApplicationWindow {
         height: window.height
         interactive: stackView.depth === 1
 
-        onOpened: { listView.forceActiveFocus() }
+        onOpened: { groupMenuButton.forceActiveFocus() }
 
         function isOpen() { return position == 1.0 }
         function isClose(){ return position == 0.0 }
