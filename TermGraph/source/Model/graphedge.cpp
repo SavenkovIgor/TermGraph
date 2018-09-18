@@ -1,12 +1,12 @@
 #include "graphedge.h"
 
-GraphEdge::GraphEdge(TermGraph *toRoot, TermGraph *toLeaf)
+GraphEdge::GraphEdge(GraphTerm *toRoot, GraphTerm *toLeaf)
 {
     this->toRoot = toRoot;
     this->toLeaf = toLeaf;
 }
 
-bool GraphEdge::hasNode(TermGraph* node) const
+bool GraphEdge::hasNode(GraphTerm* node) const
 {
     if (node == toRoot || node == toLeaf)
         return true;
@@ -14,7 +14,7 @@ bool GraphEdge::hasNode(TermGraph* node) const
     return false;
 }
 
-bool GraphEdge::isSameEdge(TermGraph* rt, TermGraph* br) const
+bool GraphEdge::isSameEdge(GraphTerm* rt, GraphTerm* br) const
 {
     bool rOk = (toRoot == rt || toRoot == br);
     bool bOk = (toLeaf == rt || toLeaf == br);
@@ -22,7 +22,7 @@ bool GraphEdge::isSameEdge(TermGraph* rt, TermGraph* br) const
     return rOk && bOk;
 }
 
-TermGraph* GraphEdge::getOtherSide(TermGraph* n) const
+GraphTerm* GraphEdge::getOtherSide(GraphTerm* n) const
 {
     if (n == toRoot) {
         return toLeaf;

@@ -24,7 +24,6 @@ HEADERS += \
     source/Model/termnode.h\
     source/Model/wordfreqanalyze.h \
     source/Model/tgroupname.h \
-    source/Model/termgraph.h \
     source/Model/reminder.h\
     source/Managers/networkmanager.h \
     source/Managers/groupsmanager.h \
@@ -38,7 +37,8 @@ HEADERS += \
     source/Helpers/appconfig.h \
     source/Helpers/fsworks.h \
     source/Helpers/handytypes.h \
-    source/Model/graphedge.h
+    source/Model/graphedge.h \
+    source/Model/graphterm.h
 
 SOURCES += \
     source/main.cpp\
@@ -60,7 +60,6 @@ SOURCES += \
     source/Model/termgroup.cpp\
     source/Model/termnode.cpp\
     source/Model/wordfreqanalyze.cpp \
-    source/Model/termgraph.cpp \
     source/Managers/networkmanager.cpp \
     source/Managers/groupsmanager.cpp \
     source/Managers/nodesmanager.cpp \
@@ -72,7 +71,8 @@ SOURCES += \
     source/Helpers/helpstuff.cpp \
     source/Helpers/appconfig.cpp \
     source/Helpers/fsworks.cpp \
-    source/Model/graphedge.cpp
+    source/Model/graphedge.cpp \
+    source/Model/graphterm.cpp
 
 FORMS += \
     source/ui/reminder.ui\

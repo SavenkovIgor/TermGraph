@@ -8,7 +8,7 @@
 #include "./edge.h"
 #include "../Helpers/appstyle.h"
 #include "../Helpers/helpstuff.h"
-#include "./termgraph.h"
+#include "./graphterm.h"
 
 enum class CoordType {
     none,
@@ -16,7 +16,7 @@ enum class CoordType {
     scene
 };
 
-class TermNode: public TermGraph, public QGraphicsItem
+class TermNode: public GraphTerm, public QGraphicsItem
 {
     Q_OBJECT
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)

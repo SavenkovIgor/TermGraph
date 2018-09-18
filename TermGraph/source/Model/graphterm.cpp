@@ -1,11 +1,11 @@
-#include "termgraph.h"
+#include "graphterm.h"
 
-TermGraph::TermGraph(QSqlRecord rec) : TermInfo(rec)
+GraphTerm::GraphTerm(QSqlRecord rec) : TermInfo(rec)
 {
 
 }
 
-EdgesGraphList TermGraph::getUpDownEdges()
+EdgesGraphList GraphTerm::getUpDownEdges()
 {
     EdgesGraphList ret;
     ret << edgesToLeafs;
@@ -13,42 +13,42 @@ EdgesGraphList TermGraph::getUpDownEdges()
     return ret;
 }
 
-void TermGraph::addToNeighboursList(TermGraph *t)
+void GraphTerm::addToNeighboursList(GraphTerm *t)
 {
     neighbourNodes << t;
 }
 
-void TermGraph::clearNeighbours()
+void GraphTerm::clearNeighbours()
 {
     neighbourNodes.clear();
 }
 
-bool TermGraph::isRoot() {
+bool GraphTerm::isRoot() {
     return getNodeType() == NodeType::root;
 }
 
-bool TermGraph::isOrphan()
+bool GraphTerm::isOrphan()
 {
     return getNodeType() == NodeType::orphan;
 }
 
-bool TermGraph::isLeaf()
+bool GraphTerm::isLeaf()
 {
     NodeType type = getNodeType();
     return type == NodeType::endLeaf || type == NodeType::middleLeaf;
 }
 
-bool TermGraph::isInTree()
+bool GraphTerm::isInTree()
 {
     return !isOrphan();
 }
 
-bool TermGraph::hasConnections()
+bool GraphTerm::hasConnections()
 {
     return !( rootNodes.isEmpty() && leafNodes.isEmpty() );
 }
 
-NodeType TermGraph::getNodeType()
+NodeType GraphTerm::getNodeType()
 {
     if ( edgesToRoots.isEmpty()) {
         if (edgesToLeafs.isEmpty()) {
@@ -65,12 +65,12 @@ NodeType TermGraph::getNodeType()
     }
 }
 
-void TermGraph::setLevel(int lev)
+void GraphTerm::setLevel(int lev)
 {
     if (lev > paintLevel)
         paintLevel = lev;
 
-    for (TermGraph* n : getLeafNodes()) {
+    for (GraphTerm* n : getLeafNodes()) {
         if (getGroupUuid() != n->getGroupUuid()) {
             continue;
         }
@@ -78,12 +78,12 @@ void TermGraph::setLevel(int lev)
     }
 }
 
-int TermGraph::getPaintLevel() const
+int GraphTerm::getPaintLevel() const
 {
     return paintLevel;
 }
 
-void TermGraph::addEdgeRef(GraphEdge *edge)
+void GraphTerm::addEdgeRef(GraphEdge *edge)
 {
     if (edge->getRoot() == this && edge->getLeaf() != this) {  // We are source - connection up
         edgesToLeafs << edge;
@@ -96,12 +96,12 @@ void TermGraph::addEdgeRef(GraphEdge *edge)
     }
 }
 
-bool TermGraph::isInGroupEdge(GraphEdge *edge)
+bool GraphTerm::isInGroupEdge(GraphEdge *edge)
 {
     return edge->getRoot()->getGroupUuid() == edge->getLeaf()->getGroupUuid();
 }
 
-bool TermGraph::hasConnectionsInGroup()
+bool GraphTerm::hasConnectionsInGroup()
 {
     for (GraphEdge *e : edgesToLeafs) {
         if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
@@ -117,7 +117,7 @@ bool TermGraph::hasConnectionsInGroup()
     return false;
 }
 
-TermGraph::NodesGraphList TermGraph::getUpDownNodes()
+GraphTerm::NodesGraphList GraphTerm::getUpDownNodes()
 {
     NodesGraphList ret;
     ret << rootNodes;
@@ -125,37 +125,37 @@ TermGraph::NodesGraphList TermGraph::getUpDownNodes()
     return ret;
 }
 
-TermGraph::NodesGraphList TermGraph::getRootNodes()
+GraphTerm::NodesGraphList GraphTerm::getRootNodes()
 {
     return rootNodes;
 }
 
-void TermGraph::clearRootNodes()
+void GraphTerm::clearRootNodes()
 {
     rootNodes.clear();
 }
 
-TermGraph::NodesGraphList TermGraph::getLeafNodes()
+GraphTerm::NodesGraphList GraphTerm::getLeafNodes()
 {
     return leafNodes;
 }
 
-void TermGraph::clearLeafNodes()
+void GraphTerm::clearLeafNodes()
 {
     leafNodes.clear();
 }
 
-TermGraph::NodesGraphList TermGraph::getNeighbourNodes()
+GraphTerm::NodesGraphList GraphTerm::getNeighbourNodes()
 {
     return neighbourNodes;
 }
 
-EdgesGraphList TermGraph::getEdgesToLeafs()
+EdgesGraphList GraphTerm::getEdgesToLeafs()
 {
     return edgesToLeafs;
 }
 
-EdgesGraphList TermGraph::getEdgesToRoots()
+EdgesGraphList GraphTerm::getEdgesToRoots()
 {
     return edgesToRoots;
 }

@@ -8,7 +8,7 @@ const qreal TermNode::verScale = 0.0200;
 QList< Qt::Edge > TermNode::sides;
 
 TermNode::TermNode(QSqlRecord rec):
-    TermGraph(rec),
+    GraphTerm(rec),
     QGraphicsItem()
 {
     if (sides.isEmpty()) {
@@ -47,7 +47,7 @@ TermNode *TermNode::getNearestLeftNeigh()
     QRectF myRect = getNodeRect(CoordType::scene);
     QRectF neighRect;
 
-    for (TermGraph* n : getNeighbourNodes()) {
+    for (GraphTerm* n : getNeighbourNodes()) {
         TermNode* t = dynamic_cast<TermNode*>(n);
         neighRect = t->getNodeRect(CoordType::scene);
 
@@ -70,7 +70,7 @@ TermNode *TermNode::getNearestRightNeigh()
 
     QRectF myRect = getNodeRect(CoordType::scene);
     QRectF neighRect;
-    for (TermGraph* n : getNeighbourNodes()) {
+    for (GraphTerm* n : getNeighbourNodes()) {
         TermNode* t = dynamic_cast<TermNode*>(n);
         neighRect = t->getNodeRect(CoordType::scene);
 
@@ -88,7 +88,7 @@ TermNode *TermNode::getNearestRightNeigh()
 EdgesList TermNode::getEdgesInLayer()
 {
     EdgesList ret;
-    for (TermGraph* n : getNeighbourNodes()) {
+    for (GraphTerm* n : getNeighbourNodes()) {
         TermNode* t = dynamic_cast<TermNode*>(n);
         ret << Edge::castToEdgeList(t->getEdgesToRoots());
         ret << Edge::castToEdgeList(t->getEdgesToLeafs());
@@ -255,7 +255,7 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
 
 void TermNode::setRelatPaint(bool val)
 {
-    for (TermGraph* n : getUpDownNodes()) {
+    for (GraphTerm* n : getUpDownNodes()) {
         dynamic_cast<TermNode*>(n)->relative = val;
     }
 
@@ -299,7 +299,7 @@ int TermNode::getUpLevels(int pLevel)
 {
     Q_UNUSED(pLevel)  // TODO: check!
     int ret = -1;
-    for (TermGraph* t : getLeafNodes()) {
+    for (GraphTerm* t : getLeafNodes()) {
         TermNode* n = dynamic_cast<TermNode*>(t);
         ret = qMax(ret, n->getUpLevels());
     }
@@ -326,7 +326,7 @@ void TermNode::countForces()
     edges << Edge::castToEdgeList(getEdgesToLeafs());
 
     for (Edge *e : edges) {
-        if (!TermGraph::isInGroupEdge(e))
+        if (!GraphTerm::isInGroupEdge(e))
             continue;
 
         tmp = e->getYProjection();
@@ -408,7 +408,7 @@ qreal TermNode::getSumEdgesLength(bool swap = false)
     edges << Edge::castToEdgeList(getEdgesToRoots());
     qreal ret = 0.0;
     for (Edge *e : edges) {
-        if (!TermGraph::isInGroupEdge(e))
+        if (!GraphTerm::isInGroupEdge(e))
             continue;
         ret += qAbs(e->getLine(swap).dx());
     }

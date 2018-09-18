@@ -35,7 +35,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     TermNode* toLeaf = dynamic_cast<TermNode*>(getLeaf());
 
     QPen p;
-    p.setStyle(TermGraph::isInGroupEdge(this) ? Qt::SolidLine : Qt::DashDotLine);
+    p.setStyle(GraphTerm::isInGroupEdge(this) ? Qt::SolidLine : Qt::DashDotLine);
     p.setColor(getEdgeColor());
 
     int baseWidth = 3;

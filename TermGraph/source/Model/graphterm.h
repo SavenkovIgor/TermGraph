@@ -13,19 +13,19 @@ enum class NodeType {
     middleLeaf
 };
 
-class TermGraph : public TermInfo  // TODO: Rename TermGraph to GraphNode
+class GraphTerm : public TermInfo  // TODO: Rename TermGraph to GraphNode
 {
 
 public:
 
-    typedef QList<TermGraph*> NodesGraphList;
+    typedef QList<GraphTerm*> NodesGraphList;
 
-    TermGraph(QSqlRecord rec);
+    GraphTerm(QSqlRecord rec);
 
     NodesGraphList getUpDownNodes();
     EdgesGraphList getUpDownEdges();
 
-    void addToNeighboursList(TermGraph *t);
+    void addToNeighboursList(GraphTerm *t);
     void clearNeighbours();
 
     bool isRoot();
@@ -46,13 +46,13 @@ public:
     bool hasConnectionsInGroup();
 
     // Delete section
-    TermGraph::NodesGraphList getRootNodes();  // TODO: Maybe delete later
+    GraphTerm::NodesGraphList getRootNodes();  // TODO: Maybe delete later
     void clearRootNodes();  // TODO: Delete later
 
-    TermGraph::NodesGraphList getLeafNodes();  // TODO: Maybe delete later
+    GraphTerm::NodesGraphList getLeafNodes();  // TODO: Maybe delete later
     void clearLeafNodes();  // TODO: Delete later
 
-    TermGraph::NodesGraphList getNeighbourNodes();  // TODO: Maybe delete later
+    GraphTerm::NodesGraphList getNeighbourNodes();  // TODO: Maybe delete later
     EdgesGraphList getEdgesToLeafs();  // TODO: Maybe delete later
     EdgesGraphList getEdgesToRoots();  // TODO: Maybe delete later
 

@@ -3,25 +3,25 @@
 
 #include <QList>
 
-class TermGraph;
+class GraphTerm;
 
 class GraphEdge
 {
 public:
-    GraphEdge(TermGraph* toRoot, TermGraph* toLeaf);
+    GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf);
 
-    TermGraph* getRoot() const { return toRoot; }
-    TermGraph* getLeaf() const { return toLeaf; }
+    GraphTerm* getRoot() const { return toRoot; }
+    GraphTerm* getLeaf() const { return toLeaf; }
 
-    bool hasNode(TermGraph* node) const;
-    bool isSameEdge(TermGraph* rt, TermGraph* br) const;
-    TermGraph* getOtherSide(TermGraph* n) const;
+    bool hasNode(GraphTerm* node) const;
+    bool isSameEdge(GraphTerm* rt, GraphTerm* br) const;
+    GraphTerm* getOtherSide(GraphTerm* n) const;
 
     virtual ~GraphEdge() = default;
 
 private:
-    TermGraph* toRoot;
-    TermGraph* toLeaf;
+    GraphTerm* toRoot;
+    GraphTerm* toLeaf;
 };
 
 typedef QList<GraphEdge*> EdgesGraphList;
