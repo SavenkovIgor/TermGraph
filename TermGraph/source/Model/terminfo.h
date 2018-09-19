@@ -21,7 +21,7 @@ public:
     };
 
     explicit TermInfo(QSqlRecord rec, QObject *parent = nullptr);
-
+    virtual ~TermInfo();
 //    bool isNull(); //TODO: Realize!
 
     QUuid getUuid() const;

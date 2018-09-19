@@ -8,7 +8,7 @@ const qreal TermNode::verScale = 0.0200;
 QList< Qt::Edge > TermNode::sides;
 
 TermNode::TermNode(QSqlRecord rec):
-    GraphTerm(rec),
+    PaintedNode(rec),
     QGraphicsItem()
 {
     if (sides.isEmpty()) {

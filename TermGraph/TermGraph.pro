@@ -38,7 +38,8 @@ HEADERS += \
     source/Helpers/fsworks.h \
     source/Helpers/handytypes.h \
     source/Model/graphedge.h \
-    source/Model/graphterm.h
+    source/Model/graphterm.h \
+    source/Model/paintednode.h
 
 SOURCES += \
     source/main.cpp\
@@ -72,7 +73,8 @@ SOURCES += \
     source/Helpers/appconfig.cpp \
     source/Helpers/fsworks.cpp \
     source/Model/graphedge.cpp \
-    source/Model/graphterm.cpp
+    source/Model/graphterm.cpp \
+    source/Model/paintednode.cpp
 
 FORMS += \
     source/ui/reminder.ui\

@@ -22,6 +22,11 @@ TermInfo::TermInfo(QSqlRecord rec, QObject *parent) :
     nameCompressing();
 }
 
+TermInfo::~TermInfo()
+{
+
+}
+
 QUuid TermInfo::getUuid() const
 {
     return uuid;
