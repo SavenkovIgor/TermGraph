@@ -1,8 +1,5 @@
 #include "termnode.h"
 
-bool TermNode::someoneHover  = false;
-bool TermNode::someoneSelect = false;
-
 const qreal TermNode::verScale = 0.0200;
 
 QList< Qt::Edge > TermNode::sides;

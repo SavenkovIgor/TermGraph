@@ -29,8 +29,6 @@ public:
 
     static const qreal verScale;
 
-    static bool someoneHover;
-    static bool someoneSelect;
     bool relative = false;
     void setRelatPaint(bool val);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *evt);
@@ -76,11 +74,7 @@ private:
     EdgesList getEdgesInLayer();
     bool isNearPoints(QPointF pt1, QPointF pt2, qreal dist);
 
-    // Hovers
-    bool thisHovered = false;
-    bool thisSelected = false;
 
-    QSizeF nodeSize = QSizeF(40.0, 10.0);
     QRectF getInnerNodeRect() const;
 
     QString testStr;

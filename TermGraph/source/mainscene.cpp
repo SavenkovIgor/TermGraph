@@ -338,15 +338,15 @@ void MainScene::checkSelection()
         if (node->isSelected()) {
             someSelected();
             someSel = true;
-            TermNode::someoneSelect = true;
+            PaintedNode::someoneSelect = true;
             node->setRelatPaint(true);
         }
     }
 
     if (!someSel) {
         selectionDrop();
-        TermNode::someoneSelect = false;
-        if (!TermNode::someoneHover) {
+        PaintedNode::someoneSelect = false;
+        if (!PaintedNode::someoneHover) {
             for (TermNode* node : getAllNodes()) {
                 node->setRelatPaint(false);
             }
