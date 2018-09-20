@@ -5,9 +5,9 @@ GraphTerm::GraphTerm(QSqlRecord rec) : TermInfo(rec)
 
 }
 
-EdgesGraphList GraphTerm::getUpDownEdges()
+GraphEdge::List GraphTerm::getUpDownEdges()
 {
-    EdgesGraphList ret;
+    GraphEdge::List ret;
     ret << edgesToLeafs;
     ret << edgesToRoots;
     return ret;
@@ -150,12 +150,12 @@ GraphTerm::NodesGraphList GraphTerm::getNeighbourNodes()
     return neighbourNodes;
 }
 
-EdgesGraphList GraphTerm::getEdgesToLeafs()
+GraphEdge::List GraphTerm::getEdgesToLeafs()
 {
     return edgesToLeafs;
 }
 
-EdgesGraphList GraphTerm::getEdgesToRoots()
+GraphEdge::List GraphTerm::getEdgesToRoots()
 {
     return edgesToRoots;
 }

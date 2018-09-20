@@ -131,7 +131,7 @@ QLineF Edge::getLine(bool swap)
     return QLineF( pt1, pt2 );
 }
 
-EdgesList Edge::castToEdgeList(EdgesGraphList lst)
+EdgesList Edge::castToEdgeList(GraphEdge::List lst)
 {
     EdgesList edgeLst;
     for (auto graphEdg : lst) {

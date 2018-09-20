@@ -46,7 +46,7 @@ QColor PaintedNode::getSelectedColor()
 /*
 EdgesList PaintedNode::getEdgesInLayer()
 {
-    EdgesGraphList ret;
+    GraphEdge::List ret;
     for (GraphTerm* t : getNeighbourNodes()) {
         ret << t->getEdgesToRoots();
         ret << t->getEdgesToLeafs();

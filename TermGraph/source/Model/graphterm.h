@@ -23,7 +23,7 @@ public:
     GraphTerm(QSqlRecord rec);
 
     NodesGraphList getUpDownNodes();
-    EdgesGraphList getUpDownEdges();
+    GraphEdge::List getUpDownEdges();
 
     void addToNeighboursList(GraphTerm *t);
     void clearNeighbours();
@@ -53,8 +53,8 @@ public:
     void clearLeafNodes();  // TODO: Delete later
 
     GraphTerm::NodesGraphList getNeighbourNodes();  // TODO: Maybe delete later
-    EdgesGraphList getEdgesToLeafs();  // TODO: Maybe delete later
-    EdgesGraphList getEdgesToRoots();  // TODO: Maybe delete later
+    GraphEdge::List getEdgesToLeafs();  // TODO: Maybe delete later
+    GraphEdge::List getEdgesToRoots();  // TODO: Maybe delete later
 
 public:
 //private:  // TODO: Uncomment. Incapsulation!!!
@@ -65,10 +65,10 @@ private:
 
     NodesGraphList neighbourNodes;
 
-    EdgesGraphList edgesToOtherGroups;  // Пока никак не используются но будут.
+    GraphEdge::List edgesToOtherGroups;  // Пока никак не используются но будут.
 
-    EdgesGraphList edgesToLeafs;
-    EdgesGraphList edgesToRoots;
+    GraphEdge::List edgesToLeafs;
+    GraphEdge::List edgesToRoots;
 
     int paintLevel = -1;  // TODO: Rename
 };

@@ -46,7 +46,7 @@ public:
     QPointF swPtBran = QPointF();
     QLineF getLine(bool swap = false);
 
-    static EdgesList castToEdgeList(EdgesGraphList lst);  // TODO: Delete!!!
+    static EdgesList castToEdgeList(GraphEdge::List lst);  // TODO: Delete!!!
 };
 
 #endif  // EDGE_H

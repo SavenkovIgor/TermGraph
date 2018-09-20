@@ -8,6 +8,8 @@ class GraphTerm;
 class GraphEdge
 {
 public:
+    typedef QList<GraphEdge*> List;
+
     GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf);
 
     GraphTerm* getRoot() const { return toRoot; }
@@ -24,6 +26,4 @@ private:
     GraphTerm* toLeaf;
 };
 
-typedef QList<GraphEdge*> EdgesGraphList;
-
-#endif // GRAPHEDGE_H
+#endif  // GRAPHEDGE_H
