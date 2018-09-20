@@ -139,3 +139,13 @@ EdgesList Edge::castToEdgeList(GraphEdge::List lst)
     }
     return  edgeLst;
 }
+
+bool Edge::getWide() const
+{
+    return wide;
+}
+
+void Edge::setWide(bool value)
+{
+    wide = value;
+}

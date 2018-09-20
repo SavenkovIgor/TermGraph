@@ -240,7 +240,7 @@ void TermNode::setRelatedPaint(bool val)
 
     for (GraphEdge* d : getUpDownEdges()) {
         auto e = dynamic_cast<Edge*>(d);
-        e->wide = val;
+        e->setWide(val);
     }
 }
 

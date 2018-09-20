@@ -18,17 +18,6 @@ enum EdgeType{
 
 class Edge : public GraphEdge, public QGraphicsItem
 {
-//    Q_OBJECT
-
-private:
-
-    EdgeType type = termin;
-
-    QColor getEdgeColor();
-
-public:
-    bool wide = false;
-
 public:
     Edge(TermNode *toRoot, TermNode *toLeaf, EdgeType type = EdgeType::termin);
 
@@ -47,6 +36,16 @@ public:
     QLineF getLine(bool swap = false);
 
     static EdgesList castToEdgeList(GraphEdge::List lst);  // TODO: Delete!!!
+
+    // Paint width
+    bool getWide() const;
+    void setWide(bool value);
+
+private:
+    QColor getEdgeColor();
+
+    bool wide = false;
+    EdgeType type = termin;
 };
 
 #endif  // EDGE_H
