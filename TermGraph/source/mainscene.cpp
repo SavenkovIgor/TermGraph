@@ -339,7 +339,7 @@ void MainScene::checkSelection()
             someSelected();
             someSel = true;
             PaintedNode::someoneSelect = true;
-            node->setRelatPaint(true);
+            node->setRelatedPaint(true);
         }
     }
 
@@ -348,7 +348,7 @@ void MainScene::checkSelection()
         PaintedNode::someoneSelect = false;
         if (!PaintedNode::someoneHover) {
             for (TermNode* node : getAllNodes()) {
-                node->setRelatPaint(false);
+                node->setRelatedPaint(false);
             }
         }
     }

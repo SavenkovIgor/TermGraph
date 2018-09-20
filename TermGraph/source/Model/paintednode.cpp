@@ -23,7 +23,19 @@ int PaintedNode::getUpLevels(int pLevel)
 
     return ret;
 }
+/*
+void PaintedNode::setRelatPaint(bool val)
+{
+    for (GraphTerm* n : getUpDownNodes()) {
+        static_cast<PaintedNode*>(n)->relative = val;
+    }
 
+    for (GraphEdge* d : getUpDownEdges()) {
+        auto e = static_cast<Edge*>(d);
+        e->wide = val;
+    }
+}
+*/
 QColor PaintedNode::getBaseColor()
 {
     switch (getNodeType()) {

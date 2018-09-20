@@ -10,12 +10,6 @@
 #include "../Helpers/helpstuff.h"
 #include "./paintednode.h"
 
-enum class CoordType {
-    none,
-    local,
-    scene
-};
-
 class TermNode: public PaintedNode, public QGraphicsItem
 {
     Q_OBJECT
@@ -29,7 +23,6 @@ public:
 
     static const qreal verScale;
 
-    bool relative = false;
     void setRelatPaint(bool val);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *evt);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *evt);

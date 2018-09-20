@@ -177,7 +177,7 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     setZValue(1);
 
     if (someoneHover || someoneSelect) {
-        if (thisHovered || isSelected() || relative) {
+        if (thisHovered || isSelected() || relativePaint) {
             if (isSelected() || thisHovered)
                 col = getSelectedColor();
             col.setAlpha(255);
@@ -230,10 +230,10 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     }
 }
 
-void TermNode::setRelatPaint(bool val)
+void TermNode::setRelatedPaint(bool val)
 {
     for (GraphTerm* n : getUpDownNodes()) {
-        dynamic_cast<TermNode*>(n)->relative = val;
+        dynamic_cast<TermNode*>(n)->relativePaint = val;
     }
 
     for (GraphEdge* d : getUpDownEdges()) {
@@ -244,12 +244,12 @@ void TermNode::setRelatPaint(bool val)
 
 void TermNode::hoverEnterEvent(QGraphicsSceneHoverEvent *evt)
 {
-    thisHovered = true;
     someoneHover = true;
+    thisHovered = true;
 
-    relative = true;
+    relativePaint = true;
 
-    setRelatPaint(true);
+    setRelatedPaint(true);
 
     QGraphicsItem::hoverEnterEvent(evt);
 }
@@ -259,10 +259,10 @@ void TermNode::hoverLeaveEvent(QGraphicsSceneHoverEvent *evt)
     thisHovered = false;
     someoneHover = false;
 
-    relative = false;
+    relativePaint = false;
 
     if (!isSelected())
-        setRelatPaint(false);
+        setRelatedPaint(false);
 
     QGraphicsItem::hoverLeaveEvent(evt);
 }
