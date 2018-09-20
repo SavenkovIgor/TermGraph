@@ -17,12 +17,11 @@ class GraphTerm : public TermInfo  // TODO: Rename TermGraph to GraphNode
 {
 
 public:
-
-    typedef QList<GraphTerm*> NodesGraphList;
+    typedef QList<GraphTerm*> List;
 
     GraphTerm(QSqlRecord rec);
 
-    NodesGraphList getUpDownNodes();
+    List getUpDownNodes();
     GraphEdge::List getUpDownEdges();
 
     void addToNeighboursList(GraphTerm *t);
@@ -46,13 +45,13 @@ public:
     bool hasConnectionsInGroup();
 
     // Delete section
-    GraphTerm::NodesGraphList getRootNodes();  // TODO: Maybe delete later
+    GraphTerm::List getRootNodes();  // TODO: Maybe delete later
     void clearRootNodes();  // TODO: Delete later
 
-    GraphTerm::NodesGraphList getLeafNodes();  // TODO: Maybe delete later
+    GraphTerm::List getLeafNodes();  // TODO: Maybe delete later
     void clearLeafNodes();  // TODO: Delete later
 
-    GraphTerm::NodesGraphList getNeighbourNodes();  // TODO: Maybe delete later
+    GraphTerm::List getNeighbourNodes();  // TODO: Maybe delete later
     GraphEdge::List getEdgesToLeafs();  // TODO: Maybe delete later
     GraphEdge::List getEdgesToRoots();  // TODO: Maybe delete later
 
@@ -60,10 +59,10 @@ public:
 //private:  // TODO: Uncomment. Incapsulation!!!
 
 private:
-    NodesGraphList rootNodes;
-    NodesGraphList leafNodes;
+    List rootNodes;
+    List leafNodes;
 
-    NodesGraphList neighbourNodes;
+    List neighbourNodes;
 
     GraphEdge::List edgesToOtherGroups;  // Пока никак не используются но будут.
 

@@ -20,10 +20,9 @@ public:
     ~TermNode();
 
     static QList< Qt::Edge > sides;
-
     static const qreal verScale;
 
-    void setRelatPaint(bool val);
+    void setRelatedPaint(bool val);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *evt);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *evt);
 

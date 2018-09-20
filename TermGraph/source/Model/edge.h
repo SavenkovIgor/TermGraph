@@ -42,8 +42,8 @@ public:
     qreal getYProjection();
 
 //    QPointF swP1 = QPointF();
-    QPointF swPtRoot = QPointF();
-    QPointF swPtBran = QPointF();
+    QPointF swapPointRoot = QPointF();
+    QPointF swapPointLeaf = QPointF();
     QLineF getLine(bool swap = false);
 
     static EdgesList castToEdgeList(GraphEdge::List lst);  // TODO: Delete!!!

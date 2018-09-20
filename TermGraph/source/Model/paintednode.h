@@ -44,7 +44,7 @@ protected:
     // Hovers
     bool thisHovered = false;
     bool thisSelected = false;
-    bool relative = false;
+    bool relativePaint = false;
 
     QSizeF nodeSize = QSizeF(40.0, 10.0);
 

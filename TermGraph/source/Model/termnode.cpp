@@ -84,15 +84,17 @@ TermNode *TermNode::getNearestRightNeigh()
 
 EdgesList TermNode::getEdgesInLayer()
 {
-    EdgesList ret;
-    for (GraphTerm* n : getNeighbourNodes()) {
-        TermNode* t = dynamic_cast<TermNode*>(n);
-        ret << Edge::castToEdgeList(t->getEdgesToRoots());
-        ret << Edge::castToEdgeList(t->getEdgesToLeafs());
+    // Taking all edges in this paint level
+    GraphEdge::List allEdgesInLayerList;
+    for (GraphTerm* t : getNeighbourNodes()) {
+        allEdgesInLayerList << t->getEdgesToRoots();
+        allEdgesInLayerList << t->getEdgesToLeafs();
     }
 
+    // Stay only with distance 1
+    EdgesList edgLst = Edge::castToEdgeList(allEdgesInLayerList);
     EdgesList ret2;
-    for (Edge *e : ret) {
+    for (Edge *e : edgLst) {
         if (e->getLayerDistance() == 1)
             ret2 << e;
     }
@@ -379,19 +381,12 @@ qreal TermNode::getSumEdgesLength(bool swap = false)
 
 void TermNode::setSwap(QPointF toPt)
 {
-    auto graphLst = getUpDownEdges();
-
-    EdgesList lst;
-    for (auto graphEdg : graphLst) {
-        lst << dynamic_cast<Edge*>(graphEdg);
-    }
-
     for (Edge *e : Edge::castToEdgeList(getEdgesToRoots())) {
-        e->swPtBran = toPt;
+        e->swapPointLeaf = toPt;
     }
 
     for (Edge *e : Edge::castToEdgeList(getEdgesToLeafs())) {
-        e->swPtRoot = toPt;
+        e->swapPointRoot = toPt;
     }
 }
 
@@ -401,8 +396,8 @@ void TermNode::dropSwap()
     lst = Edge::castToEdgeList(getUpDownEdges());
 
     for (Edge *e : lst) {
-        e->swPtBran = QPointF();
-        e->swPtRoot = QPointF();
+        e->swapPointLeaf = QPointF();
+        e->swapPointRoot = QPointF();
     }
 }
 

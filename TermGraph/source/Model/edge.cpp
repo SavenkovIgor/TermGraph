@@ -121,11 +121,11 @@ QLineF Edge::getLine(bool swap)
     QPointF pt2 = toLeaf->getCenter(CoordType::scene);
 
     if (swap) {
-        if (!swPtRoot.isNull())
-            pt1 = swPtRoot;
+        if (!swapPointRoot.isNull())
+            pt1 = swapPointRoot;
 
-        if (!swPtBran.isNull())
-            pt2 = swPtBran;
+        if (!swapPointLeaf.isNull())
+            pt2 = swapPointLeaf;
     }
 
     return QLineF( pt1, pt2 );

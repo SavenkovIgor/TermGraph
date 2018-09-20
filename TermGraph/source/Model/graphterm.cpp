@@ -117,15 +117,15 @@ bool GraphTerm::hasConnectionsInGroup()
     return false;
 }
 
-GraphTerm::NodesGraphList GraphTerm::getUpDownNodes()
+GraphTerm::List GraphTerm::getUpDownNodes()
 {
-    NodesGraphList ret;
+    List ret;
     ret << rootNodes;
     ret << leafNodes;
     return ret;
 }
 
-GraphTerm::NodesGraphList GraphTerm::getRootNodes()
+GraphTerm::List GraphTerm::getRootNodes()
 {
     return rootNodes;
 }
@@ -135,7 +135,7 @@ void GraphTerm::clearRootNodes()
     rootNodes.clear();
 }
 
-GraphTerm::NodesGraphList GraphTerm::getLeafNodes()
+GraphTerm::List GraphTerm::getLeafNodes()
 {
     return leafNodes;
 }
@@ -145,7 +145,7 @@ void GraphTerm::clearLeafNodes()
     leafNodes.clear();
 }
 
-GraphTerm::NodesGraphList GraphTerm::getNeighbourNodes()
+GraphTerm::List GraphTerm::getNeighbourNodes()
 {
     return neighbourNodes;
 }
