@@ -45,14 +45,9 @@ public:
 
     QLineF getRectLine(Qt::Edge side);
 
-    QColor getBaseColor();
-    QColor getSelectedColor();
-
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget *);
 
     void mousePressEvent(QGraphicsSceneMouseEvent *evt);
-
-    int getUpLevels(int pLevel = -1);
 
     void countForces();
     int  getIntersections(bool swapped  = false);
@@ -65,22 +60,14 @@ public:
     QString getDebugString();
 
 private:
+    EdgesList getEdgesInLayer();
+
     // Initialize
     void adjustSizeForName();
 
     // Positioning
     TermNode* getNearestLeftNeigh();
     TermNode* getNearestRightNeigh();
-    EdgesList getEdgesInLayer();
-    bool isNearPoints(QPointF pt1, QPointF pt2, qreal dist);
-
-
-    QRectF getInnerNodeRect() const;
-
-    QString testStr;
-
-    // Paint / Animation
-    qreal newPosOffs = 0.0;
 };
 
 #endif  // TERMNODE_H

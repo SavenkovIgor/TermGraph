@@ -168,26 +168,6 @@ QLineF TermNode::getRectLine(Qt::Edge side)
     return QLineF();
 }
 
-QColor TermNode::getBaseColor()
-{
-    switch (getNodeType()) {
-    case NodeType::orphan: return AppStyle::Colors::Nodes::orphan;
-    case NodeType::root: return AppStyle::Colors::Nodes::root;
-    case NodeType::endLeaf: return AppStyle::Colors::Nodes::leaf;
-    case NodeType::middleLeaf: return AppStyle::Colors::Nodes::leaf;
-    }
-}
-
-QColor TermNode::getSelectedColor()
-{
-    switch (getNodeType()) {
-    case NodeType::orphan: return AppStyle::Colors::Nodes::orphanSelected;
-    case NodeType::root: return AppStyle::Colors::Nodes::rootSelected;
-    case NodeType::endLeaf: return AppStyle::Colors::Nodes::leafSelected;
-    case NodeType::middleLeaf: return AppStyle::Colors::Nodes::leafSelected;
-    }
-}
-
 void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     // defaults
@@ -290,21 +270,6 @@ void TermNode::hoverLeaveEvent(QGraphicsSceneHoverEvent *evt)
 void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
 {
     QGraphicsItem::mousePressEvent(evt);
-}
-
-int TermNode::getUpLevels(int pLevel)
-{
-    Q_UNUSED(pLevel)  // TODO: check!
-    int ret = -1;
-    for (GraphTerm* t : getLeafNodes()) {
-        TermNode* n = dynamic_cast<TermNode*>(t);
-        ret = qMax(ret, n->getUpLevels());
-    }
-
-    if (ret == -1)
-        ret = getPaintLevel();
-
-    return ret;
 }
 
 void TermNode::countForces()
@@ -439,22 +404,6 @@ void TermNode::dropSwap()
         e->swPtBran = QPointF();
         e->swPtRoot = QPointF();
     }
-}
-
-bool TermNode::isNearPoints(QPointF pt1, QPointF pt2, qreal dist) {
-    pt1 -= pt2;
-    //    pt1.setX(qAbs(pt1.x()));
-    //    pt1.setY(qAbs(pt1.y()));
-    //    if(qAbs(pt1.x()) <= dist && qAbs(pt1.y()) <= dist)
-    //        return true;
-    if (pt1.manhattanLength() <= dist)
-        return true;
-    return false;
-}
-
-QRectF TermNode::getInnerNodeRect() const
-{
-    return QRectF(QPointF(0.0, 0.0), nodeSize);
 }
 
 bool TermNode::applyMove()
