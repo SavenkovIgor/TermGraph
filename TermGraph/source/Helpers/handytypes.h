@@ -3,7 +3,6 @@
 
 #include <QList>
 
-class TermNode;
 class Edge;
 
 typedef QList<Edge*> EdgesList;
