@@ -88,6 +88,88 @@ QSizeF PaintedNode::getSize(bool withBorder) const
     return ret.size();
 }
 
+bool PaintedNode::applyMove()
+{
+    // Если сильно смещение - кидаем true
+    PaintedNode* left = getNearestLeftNeigh();
+    PaintedNode* right = getNearestRightNeigh();
+
+    QRectF myRc = getRcWithBorders();
+    myRc = myRc.translated(newPosOffs, 0.0);
+    QRectF leftRc;
+    QRectF rightRc;
+
+    qreal k = 0.01;
+    newPosOffs = qBound(-myRc.width()*k, newPosOffs, myRc.width()*k);
+
+    if (newPosOffs < 0) {
+        if (left != nullptr) {
+            leftRc = left->getRcWithBorders();
+            newPosOffs = qBound(leftRc.right() - myRc.left(), newPosOffs, 0.0);
+        }
+    }
+
+    if (newPosOffs > 0) {
+        if (right != nullptr) {
+            rightRc = right->getRcWithBorders();
+            newPosOffs = qBound(0.0, newPosOffs, rightRc.left() - myRc.right());
+        }
+    }
+
+    if (qAbs(newPosOffs) > 0.05) {
+        movePosBy(0.0, newPosOffs);
+        return true;
+    }
+
+    return false;
+}
+
+PaintedNode* PaintedNode::getNearestLeftNeigh()
+{
+    PaintedNode* ret = nullptr;
+    qreal diff = 100000.0;
+
+    QRectF myRect = getNodeRect(CoordType::scene);
+    QRectF neighRect;
+
+    for (GraphTerm* n : getNeighbourNodes()) {
+        PaintedNode* t = static_cast<PaintedNode*>(n);
+        neighRect = t->getNodeRect(CoordType::scene);
+
+        if (neighRect.center().x() > myRect.center().x()) {
+            continue;
+        }
+
+        if (qAbs(neighRect.center().x() - myRect.center().x()) < diff) {
+            diff = qAbs(neighRect.center().x() - myRect.center().x());
+            ret = t;
+        }
+    }
+    return ret;
+}
+
+PaintedNode *PaintedNode::getNearestRightNeigh()
+{
+    PaintedNode* ret = nullptr;
+    qreal diff = 100000.0;
+
+    QRectF myRect = getNodeRect(CoordType::scene);
+    QRectF neighRect;
+    for (GraphTerm* n : getNeighbourNodes()) {
+        PaintedNode* t = static_cast<PaintedNode*>(n);
+        neighRect = t->getNodeRect(CoordType::scene);
+
+        if (neighRect.center().x() < myRect.center().x())
+            continue;
+
+        if (qAbs(neighRect.left() - myRect.right()) < diff) {
+            diff = qAbs(neighRect.left() - myRect.right());
+            ret = t;
+        }
+    }
+    return ret;
+}
+
 /*
 void PaintedNode::setRelatPaint(bool val)
 {

@@ -36,52 +36,6 @@ void TermNode::adjustSizeForName()
     nodeSize.setHeight(nameSize.height() + 4);
 }
 
-TermNode *TermNode::getNearestLeftNeigh()
-{
-    TermNode* ret = nullptr;
-    qreal diff = 100000.0;
-
-    QRectF myRect = getNodeRect(CoordType::scene);
-    QRectF neighRect;
-
-    for (GraphTerm* n : getNeighbourNodes()) {
-        TermNode* t = dynamic_cast<TermNode*>(n);
-        neighRect = t->getNodeRect(CoordType::scene);
-
-        if (neighRect.center().x() > myRect.center().x()) {
-            continue;
-        }
-
-        if (qAbs(neighRect.center().x() - myRect.center().x()) < diff) {
-            diff = qAbs(neighRect.center().x() - myRect.center().x());
-            ret = t;
-        }
-    }
-    return ret;
-}
-
-TermNode *TermNode::getNearestRightNeigh()
-{
-    TermNode* ret = nullptr;
-    qreal diff = 100000.0;
-
-    QRectF myRect = getNodeRect(CoordType::scene);
-    QRectF neighRect;
-    for (GraphTerm* n : getNeighbourNodes()) {
-        TermNode* t = dynamic_cast<TermNode*>(n);
-        neighRect = t->getNodeRect(CoordType::scene);
-
-        if (neighRect.center().x() < myRect.center().x())
-            continue;
-
-        if (qAbs(neighRect.left() - myRect.right()) < diff) {
-            diff = qAbs(neighRect.left() - myRect.right());
-            ret = t;
-        }
-    }
-    return ret;
-}
-
 EdgesList TermNode::getEdgesInLayer()
 {
     // Taking all edges in this paint level
@@ -337,42 +291,7 @@ void TermNode::dropSwap()
     }
 }
 
-bool TermNode::applyMove()
-{
-    // Если сильно смещение - кидаем true
-    TermNode *left = getNearestLeftNeigh();
-    TermNode *right = getNearestRightNeigh();
 
-    QRectF myRc = getRcWithBorders();
-    myRc = myRc.translated(newPosOffs, 0.0);
-    QRectF leftRc;
-    QRectF rightRc;
-
-    qreal k = 0.01;
-    newPosOffs = qBound(-myRc.width()*k, newPosOffs, myRc.width()*k);
-
-    if (newPosOffs < 0) {
-        if (left != nullptr) {
-            leftRc = left->getRcWithBorders();
-            newPosOffs = qBound(leftRc.right() - myRc.left(), newPosOffs, 0.0);
-        }
-    }
-
-    if (newPosOffs > 0) {
-        if (right != nullptr) {
-            rightRc = right->getRcWithBorders();
-            newPosOffs = qBound(0.0, newPosOffs, rightRc.left() - myRc.right());
-        }
-    }
-
-
-    if (qAbs(newPosOffs) > 0.05) {
-        moveBy(0.0, newPosOffs);
-        return true;
-    }
-
-    return false;
-}
 
 QString TermNode::getDebugString() {
     QStringList p;
@@ -408,3 +327,12 @@ QPointF TermNode::getScenePos() const
 {
     return this->scenePos();
 }
+
+void TermNode::movePosBy(qreal dx, qreal dy)
+{
+    moveBy(dx,dy);
+}
+
+
+
+

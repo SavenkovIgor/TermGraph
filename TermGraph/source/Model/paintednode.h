@@ -30,8 +30,11 @@ public:
 //    void setRelatPaint(bool val);
     QLineF getRectLine(Qt::Edge side);
 
+    // Pure virtual functions
     virtual QPointF getPos() const = 0;
     virtual QPointF getScenePos() const = 0;
+
+    virtual void movePosBy(qreal dx, qreal dy) = 0;
 
     // NodeRect tools
     QRectF getNodeRect(CoordType inCoordinates) const;
@@ -42,10 +45,17 @@ public:
     QRectF getRcWithBorders() const;
     QSizeF getSize(bool withBorder = true) const;
 
+    // Animation
+    bool applyMove();
+
 protected:
     // Color tools
     QColor getBaseColor();
     QColor getSelectedColor();
+
+    // Neighbours tools
+    PaintedNode* getNearestLeftNeigh();
+    PaintedNode* getNearestRightNeigh();
 
 //    EdgesList getEdgesInLayer();
 

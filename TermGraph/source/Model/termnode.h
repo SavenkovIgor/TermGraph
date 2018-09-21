@@ -23,14 +23,12 @@ public:
     static const qreal verScale;
 
     void setRelatedPaint(bool val);
+    void mousePressEvent(QGraphicsSceneMouseEvent *evt);
     void hoverEnterEvent(QGraphicsSceneHoverEvent *evt);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *evt);
 
     QRectF boundingRect() const;
-
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget *);
-
-    void mousePressEvent(QGraphicsSceneMouseEvent *evt);
 
     void countForces();
     int  getIntersections(bool swapped  = false);
@@ -38,23 +36,19 @@ public:
     void setSwap(QPointF toPt);
     void dropSwap();
 
-    bool applyMove();
-
     QString getDebugString();
 
     // Overriding of PaintedNode
     QPointF getPos() const override;
     QPointF getScenePos() const override;
 
+    void movePosBy(qreal dx, qreal dy) override;
+
 private:
     EdgesList getEdgesInLayer();
 
     // Initialize
     void adjustSizeForName();
-
-    // Positioning
-    TermNode* getNearestLeftNeigh();
-    TermNode* getNearestRightNeigh();
 };
 
 #endif  // TERMNODE_H
