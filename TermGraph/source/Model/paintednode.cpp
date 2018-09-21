@@ -3,10 +3,18 @@
 bool PaintedNode::someoneHover  = false;
 bool PaintedNode::someoneSelect = false;
 
+const qreal PaintedNode::verScale = 0.0200;
+QList<Qt::Edge> PaintedNode::sides;
+
 PaintedNode::PaintedNode(QSqlRecord rec) :
     GraphTerm (rec)
 {
-
+    if (sides.isEmpty()) {
+        sides << Qt::BottomEdge;
+        sides << Qt::TopEdge;
+        sides << Qt::RightEdge;
+        sides << Qt::LeftEdge;
+    }
 }
 
 int PaintedNode::getUpLevels(int pLevel)
@@ -22,6 +30,18 @@ int PaintedNode::getUpLevels(int pLevel)
         ret = getPaintLevel();
 
     return ret;
+}
+
+void PaintedNode::setRelatedPaint(bool val)
+{
+    for (GraphTerm* n : getUpDownNodes()) {
+        static_cast<PaintedNode*>(n)->relativePaint = val;
+    }
+
+    for (GraphEdge* d : getUpDownEdges()) {
+        auto e = dynamic_cast<Edge*>(d);
+        e->setWide(val);
+    }
 }
 
 QLineF PaintedNode::getRectLine(Qt::Edge side)
@@ -124,6 +144,160 @@ bool PaintedNode::applyMove()
     return false;
 }
 
+void PaintedNode::countForces()
+{
+    if (!hasConnections() && !isRoot())
+        return;
+
+    qreal edForce = 0.0;
+    qreal myX = getCenter(CoordType::scene).y();
+
+    qreal tmp = 0.0;
+    qreal notMyPos = 0.0;
+
+    EdgesList edges;
+    edges << Edge::castToEdgeList(getEdgesToRoots());
+    edges << Edge::castToEdgeList(getEdgesToLeafs());
+
+    for (Edge *e : edges) {
+        if (!GraphTerm::isInGroupEdge(e))
+            continue;
+
+        tmp = e->getYProjection();
+
+        PaintedNode* otherSide = dynamic_cast<PaintedNode*>(e->getOtherSide(this));
+        if (otherSide == nullptr) {
+            continue;
+        }
+
+        notMyPos = otherSide->getCenter(CoordType::scene).y();
+
+        tmp *= verScale;
+
+        if (notMyPos > myX)
+            edForce += tmp;
+        else
+            edForce += (-1)*tmp;
+    }
+
+    //    testStr += "edf:" + QString::number(edForce);
+
+    newPosOffs = 0.0;
+    newPosOffs += edForce;
+}
+
+int PaintedNode::getIntersections(bool swapped)
+{
+    EdgesList edges;
+    //    edges << edgesUpList;
+    edges << Edge::castToEdgeList(getEdgesToRoots());
+
+    edges << getEdgesInLayer();
+
+    //    qDebug()<<"edges.size"<<this->getName()<<edges.size();
+
+    QList< QPointF > interList;
+
+    for (int i = 0; i < edges.size(); i++) {
+        for (int j = i+1; j < edges.size(); j++) {
+            QLineF l1 = edges[i]->getLine(swapped),
+                    l2 = edges[j]->getLine(swapped);
+
+            QPointF *interPt = new QPointF();
+            if (l1.intersect(l2, interPt) == QLineF::BoundedIntersection) {
+                bool nearFound = false;
+
+                qreal dist = 0.01;
+                if (isNearPoints(*interPt, l1.p1(), dist))
+                    nearFound = true;
+                if (isNearPoints(*interPt, l1.p2(), dist))
+                    nearFound = true;
+                if (isNearPoints(*interPt, l2.p1(), dist))
+                    nearFound = true;
+                if (isNearPoints(*interPt, l2.p2(), dist))
+                    nearFound = true;
+
+                if (!nearFound) {
+                    bool interFound = false;
+                    for (QPointF inPt : interList) {
+                        if (isNearPoints(inPt, *interPt, dist)) {
+                            interFound = true;
+                            break;
+                        }
+                    }
+                    if (!interFound)
+                        interList << *interPt;
+                }
+            }
+            delete interPt;
+        }
+    }
+    return interList.size();
+}
+
+EdgesList PaintedNode::getEdgesInLayer()
+{
+    // Taking all edges in this paint level
+    GraphEdge::List allEdgesInLayerList;
+    for (GraphTerm* t : getNeighbourNodes()) {
+        allEdgesInLayerList << t->getEdgesToRoots();
+        allEdgesInLayerList << t->getEdgesToLeafs();
+    }
+
+    // Stay only with distance 1
+    EdgesList edgLst = Edge::castToEdgeList(allEdgesInLayerList);
+    EdgesList ret2;
+    for (Edge *e : edgLst) {
+        if (e->getLayerDistance() == 1)
+            ret2 << e;
+    }
+    return ret2;
+}
+
+void PaintedNode::dropSwap()
+{
+    EdgesList lst;
+    lst = Edge::castToEdgeList(getUpDownEdges());
+
+    for (Edge *e : lst) {
+        e->swapPointLeaf = QPointF();
+        e->swapPointRoot = QPointF();
+    }
+}
+
+void PaintedNode::setSwap(QPointF toPt)
+{
+    for (Edge *e : Edge::castToEdgeList(getEdgesToRoots())) {
+        e->swapPointLeaf = toPt;
+    }
+
+    for (Edge *e : Edge::castToEdgeList(getEdgesToLeafs())) {
+        e->swapPointRoot = toPt;
+    }
+}
+
+qreal PaintedNode::getSumEdgesLength(bool swap)
+{
+    EdgesList edges;
+    edges << Edge::castToEdgeList(getEdgesToLeafs());
+    edges << Edge::castToEdgeList(getEdgesToRoots());
+    qreal ret = 0.0;
+    for (Edge *e : edges) {
+        if (!GraphTerm::isInGroupEdge(e))
+            continue;
+        ret += qAbs(e->getLine(swap).dx());
+    }
+    return ret;
+}
+
+void PaintedNode::adjustSizeForName()
+{
+    PrepareGeometryChangeCall();
+    QSizeF nameSize = getNameSize();
+    nodeSize.setWidth(nameSize.width() + 16);
+    nodeSize.setHeight(nameSize.height() + 4);
+}
+
 PaintedNode* PaintedNode::getNearestLeftNeigh()
 {
     PaintedNode* ret = nullptr;
@@ -170,19 +344,6 @@ PaintedNode *PaintedNode::getNearestRightNeigh()
     return ret;
 }
 
-/*
-void PaintedNode::setRelatPaint(bool val)
-{
-    for (GraphTerm* n : getUpDownNodes()) {
-        static_cast<PaintedNode*>(n)->relative = val;
-    }
-
-    for (GraphEdge* d : getUpDownEdges()) {
-        auto e = static_cast<Edge*>(d);
-        e->wide = val;
-    }
-}
-*/
 QColor PaintedNode::getBaseColor()
 {
     switch (getNodeType()) {
@@ -202,24 +363,7 @@ QColor PaintedNode::getSelectedColor()
     case NodeType::middleLeaf: return AppStyle::Colors::Nodes::leafSelected;
     }
 }
-/*
-EdgesList PaintedNode::getEdgesInLayer()
-{
-    GraphEdge::List ret;
-    for (GraphTerm* t : getNeighbourNodes()) {
-        ret << t->getEdgesToRoots();
-        ret << t->getEdgesToLeafs();
-    }
 
-    EdgesList srcList = Edge::castToEdgeList(ret);
-    EdgesList ret2;
-    for (Edge* e : srcList) {
-        if (e->getLayerDistance() == 1)
-            ret2 << e;
-    }
-    return ret2;
-}
-*/
 bool PaintedNode::isNearPoints(QPointF pt1, QPointF pt2, qreal dist) {
     pt1 -= pt2;
     //    pt1.setX(qAbs(pt1.x()));

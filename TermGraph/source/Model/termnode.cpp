@@ -1,20 +1,9 @@
 #include "termnode.h"
 
-const qreal TermNode::verScale = 0.0200;
-
-QList< Qt::Edge > TermNode::sides;
-
 TermNode::TermNode(QSqlRecord rec):
     PaintedNode(rec),
     QGraphicsItem()
 {
-    if (sides.isEmpty()) {
-        sides << Qt::BottomEdge;
-        sides << Qt::TopEdge;
-        sides << Qt::RightEdge;
-        sides << Qt::LeftEdge;
-    }
-
     adjustSizeForName();
 
     //    setFlag( QGraphicsItem::ItemIsSelectable,true );
@@ -22,37 +11,6 @@ TermNode::TermNode(QSqlRecord rec):
 
     setAcceptHoverEvents(true);
     setZValue(1);
-}
-
-TermNode::~TermNode()
-{
-}
-
-void TermNode::adjustSizeForName()
-{
-    prepareGeometryChange();
-    QSizeF nameSize = getNameSize();
-    nodeSize.setWidth(nameSize.width() + 16);
-    nodeSize.setHeight(nameSize.height() + 4);
-}
-
-EdgesList TermNode::getEdgesInLayer()
-{
-    // Taking all edges in this paint level
-    GraphEdge::List allEdgesInLayerList;
-    for (GraphTerm* t : getNeighbourNodes()) {
-        allEdgesInLayerList << t->getEdgesToRoots();
-        allEdgesInLayerList << t->getEdgesToLeafs();
-    }
-
-    // Stay only with distance 1
-    EdgesList edgLst = Edge::castToEdgeList(allEdgesInLayerList);
-    EdgesList ret2;
-    for (Edge *e : edgLst) {
-        if (e->getLayerDistance() == 1)
-            ret2 << e;
-    }
-    return ret2;
 }
 
 QRectF TermNode::boundingRect() const
@@ -122,18 +80,6 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     }
 }
 
-void TermNode::setRelatedPaint(bool val)
-{
-    for (GraphTerm* n : getUpDownNodes()) {
-        dynamic_cast<TermNode*>(n)->relativePaint = val;
-    }
-
-    for (GraphEdge* d : getUpDownEdges()) {
-        auto e = dynamic_cast<Edge*>(d);
-        e->setWide(val);
-    }
-}
-
 void TermNode::hoverEnterEvent(QGraphicsSceneHoverEvent *evt)
 {
     someoneHover = true;
@@ -163,135 +109,6 @@ void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
 {
     QGraphicsItem::mousePressEvent(evt);
 }
-
-void TermNode::countForces()
-{
-    if (!hasConnections() && !isRoot())
-        return;
-
-    qreal edForce = 0.0;
-    qreal myX = getCenter(CoordType::scene).y();
-
-    qreal tmp = 0.0;
-    qreal notMyPos = 0.0;
-
-    EdgesList edges;
-    edges << Edge::castToEdgeList(getEdgesToRoots());
-    edges << Edge::castToEdgeList(getEdgesToLeafs());
-
-    for (Edge *e : edges) {
-        if (!GraphTerm::isInGroupEdge(e))
-            continue;
-
-        tmp = e->getYProjection();
-
-        TermNode* otherSide = dynamic_cast<TermNode*>(e->getOtherSide(this));
-        if (otherSide == nullptr) {
-            continue;
-        }
-
-        notMyPos = otherSide->getCenter(CoordType::scene).y();
-
-        tmp *= verScale;
-
-        if (notMyPos > myX)
-            edForce += tmp;
-        else
-            edForce += (-1)*tmp;
-    }
-
-    //    testStr += "edf:" + QString::number(edForce);
-
-    newPosOffs = 0.0;
-    newPosOffs += edForce;
-}
-
-int TermNode::getIntersections(bool swapped)
-{
-    EdgesList edges;
-    //    edges << edgesUpList;
-    edges << Edge::castToEdgeList(getEdgesToRoots());
-
-    edges << getEdgesInLayer();
-
-    //    qDebug()<<"edges.size"<<this->getName()<<edges.size();
-
-    QList< QPointF > interList;
-
-    for (int i = 0; i < edges.size(); i++) {
-        for (int j = i+1; j < edges.size(); j++) {
-            QLineF l1 = edges[i]->getLine(swapped),
-                    l2 = edges[j]->getLine(swapped);
-
-            QPointF *interPt = new QPointF();
-            if (l1.intersect(l2, interPt) == QLineF::BoundedIntersection) {
-                bool nearFound = false;
-
-                qreal dist = 0.01;
-                if (isNearPoints(*interPt, l1.p1(), dist))
-                    nearFound = true;
-                if (isNearPoints(*interPt, l1.p2(), dist))
-                    nearFound = true;
-                if (isNearPoints(*interPt, l2.p1(), dist))
-                    nearFound = true;
-                if (isNearPoints(*interPt, l2.p2(), dist))
-                    nearFound = true;
-
-                if (!nearFound) {
-                    bool interFound = false;
-                    for (QPointF inPt : interList) {
-                        if (isNearPoints(inPt, *interPt, dist)) {
-                            interFound = true;
-                            break;
-                        }
-                    }
-                    if (!interFound)
-                        interList << *interPt;
-                }
-            }
-            delete interPt;
-        }
-    }
-    return interList.size();
-}
-
-qreal TermNode::getSumEdgesLength(bool swap = false)
-{
-    EdgesList edges;
-    edges << Edge::castToEdgeList(getEdgesToLeafs());
-    edges << Edge::castToEdgeList(getEdgesToRoots());
-    qreal ret = 0.0;
-    for (Edge *e : edges) {
-        if (!GraphTerm::isInGroupEdge(e))
-            continue;
-        ret += qAbs(e->getLine(swap).dx());
-    }
-    return ret;
-}
-
-void TermNode::setSwap(QPointF toPt)
-{
-    for (Edge *e : Edge::castToEdgeList(getEdgesToRoots())) {
-        e->swapPointLeaf = toPt;
-    }
-
-    for (Edge *e : Edge::castToEdgeList(getEdgesToLeafs())) {
-        e->swapPointRoot = toPt;
-    }
-}
-
-void TermNode::dropSwap()
-{
-    EdgesList lst;
-    lst = Edge::castToEdgeList(getUpDownEdges());
-
-    for (Edge *e : lst) {
-        e->swapPointLeaf = QPointF();
-        e->swapPointRoot = QPointF();
-    }
-}
-
-
 
 QString TermNode::getDebugString() {
     QStringList p;
@@ -333,6 +150,7 @@ void TermNode::movePosBy(qreal dx, qreal dy)
     moveBy(dx,dy);
 }
 
-
-
-
+void TermNode::PrepareGeometryChangeCall()
+{
+    prepareGeometryChange();
+}

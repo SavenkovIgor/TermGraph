@@ -7,8 +7,10 @@
 #include <QGraphicsItem>
 
 #include "./graphedge.h"
-#include "./termnode.h"
+#include "./paintednode.h"
 #include "../Helpers/appstyle.h"
+
+class PaintedNode;
 
 enum EdgeType{
     standart,
@@ -19,7 +21,7 @@ enum EdgeType{
 class Edge : public GraphEdge, public QGraphicsItem
 {
 public:
-    Edge(TermNode *toRoot, TermNode *toLeaf, EdgeType type = EdgeType::termin);
+    Edge(PaintedNode* toRoot, PaintedNode* toLeaf, EdgeType type = EdgeType::termin);
 
     QRectF boundingRect() const;
 

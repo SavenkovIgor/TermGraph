@@ -5,7 +5,7 @@
 #include <QSizeF>
 
 #include "graphterm.h"
-//#include "edge.h"
+#include "edge.h"
 
 // For coordinate types
 enum class CoordType {
@@ -20,6 +20,8 @@ public:
     static bool someoneHover;
     static bool someoneSelect;
 
+    static QList<Qt::Edge> sides;
+
     PaintedNode(QSqlRecord rec);
 
     // Leveling tools
@@ -27,7 +29,7 @@ public:
 
     // Painting tools
 
-//    void setRelatPaint(bool val);
+    void setRelatedPaint(bool val);
     QLineF getRectLine(Qt::Edge side);
 
     // Pure virtual functions
@@ -35,6 +37,7 @@ public:
     virtual QPointF getScenePos() const = 0;
 
     virtual void movePosBy(qreal dx, qreal dy) = 0;
+    virtual void PrepareGeometryChangeCall() = 0;
 
     // NodeRect tools
     QRectF getNodeRect(CoordType inCoordinates) const;
@@ -47,6 +50,16 @@ public:
 
     // Animation
     bool applyMove();
+    void countForces();
+
+    // Edges work
+    int  getIntersections(bool swapped = false);
+    EdgesList getEdgesInLayer();
+    void dropSwap();
+    void setSwap(QPointF toPt);
+    qreal getSumEdgesLength(bool swap);
+
+    void adjustSizeForName();
 
 protected:
     // Color tools
@@ -74,6 +87,8 @@ protected:
 
     // Paint / Animation
     qreal newPosOffs = 0.0;
+private:
+    static const qreal verScale;
 };
 
 #endif // PAINTEDNODE_H

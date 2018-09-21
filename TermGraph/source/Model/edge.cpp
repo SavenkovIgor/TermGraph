@@ -10,7 +10,7 @@ QColor Edge::getEdgeColor()
     return QColor(Qt::black);
 }
 
-Edge::Edge(TermNode *from, TermNode *to, EdgeType type) :
+Edge::Edge(PaintedNode* from, PaintedNode* to, EdgeType type) :
     GraphEdge(from, to)
 {
     this->type = type;
@@ -21,8 +21,8 @@ Edge::Edge(TermNode *from, TermNode *to, EdgeType type) :
 
 QRectF Edge::boundingRect() const
 {
-    QPointF pt1 = dynamic_cast<TermNode*>(getRoot())->getCenter(CoordType::scene);
-    QPointF pt2 = dynamic_cast<TermNode*>(getLeaf())->getCenter(CoordType::scene);
+    QPointF pt1 = dynamic_cast<PaintedNode*>(getRoot())->getCenter(CoordType::scene);
+    QPointF pt2 = dynamic_cast<PaintedNode*>(getLeaf())->getCenter(CoordType::scene);
 
     QRectF rc = QRectF(pt1, pt2);
     rc = rc.normalized();
@@ -31,8 +31,8 @@ QRectF Edge::boundingRect() const
 
 void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
-    TermNode* toRoot = dynamic_cast<TermNode*>(getRoot());
-    TermNode* toLeaf = dynamic_cast<TermNode*>(getLeaf());
+    PaintedNode* toRoot = dynamic_cast<PaintedNode*>(getRoot());
+    PaintedNode* toLeaf = dynamic_cast<PaintedNode*>(getLeaf());
 
     QPen p;
     p.setStyle(GraphTerm::isInGroupEdge(this) ? Qt::SolidLine : Qt::DashDotLine);
@@ -55,14 +55,14 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     QPointF *ptTo = new QPointF();
     QPointF *ptFrom = new QPointF();
 
-    for (Qt::Edge side : TermNode::sides) {
+    for (Qt::Edge side : PaintedNode::sides) {
         tmpLine = toLeaf->getRectLine(side);
         if (tmpLine.intersect(edLine, ptTo) == QLineF::BoundedIntersection) {
             break;
         }
     }
 
-    for (Qt::Edge side : TermNode::sides) {
+    for (Qt::Edge side : PaintedNode::sides) {
         tmpLine = toRoot->getRectLine(side);
         if (tmpLine.intersect(edLine, ptFrom) == QLineF::BoundedIntersection) {
             break;
@@ -96,8 +96,8 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 
 int Edge::getLayerDistance()
 {
-    TermNode* toRoot = dynamic_cast<TermNode*>(getRoot());
-    TermNode* toLeaf = dynamic_cast<TermNode*>(getLeaf());
+    PaintedNode* toRoot = dynamic_cast<PaintedNode*>(getRoot());
+    PaintedNode* toLeaf = dynamic_cast<PaintedNode*>(getLeaf());
 
     return qAbs(toRoot->getPaintLevel() - toLeaf->getPaintLevel());
 }
@@ -114,8 +114,8 @@ qreal Edge::getYProjection()
 
 QLineF Edge::getLine(bool swap)
 {
-    TermNode* toRoot = dynamic_cast<TermNode*>(getRoot());
-    TermNode* toLeaf = dynamic_cast<TermNode*>(getLeaf());
+    PaintedNode* toRoot = dynamic_cast<PaintedNode*>(getRoot());
+    PaintedNode* toLeaf = dynamic_cast<PaintedNode*>(getLeaf());
 
     QPointF pt1 = toRoot->getCenter(CoordType::scene);
     QPointF pt2 = toLeaf->getCenter(CoordType::scene);
