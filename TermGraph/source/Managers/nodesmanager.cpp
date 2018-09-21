@@ -70,9 +70,9 @@ void NodesManager::deleteNode(QUuid uuid)
     nodeChanged();
 }
 
-NodesList NodesManager::getAllNodesForGroup(QUuid groupUuid)
+TermNode::List NodesManager::getAllNodesForGroup(QUuid groupUuid)
 {
-    NodesList ret;
+    TermNode::List ret;
     for (QUuid uuid : getAllNodesUuidsInGroup(groupUuid)) {
         QSqlRecord rec = getNodeSqlRecord(uuid);
         if (rec.count() == 0)

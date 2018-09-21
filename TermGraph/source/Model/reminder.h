@@ -20,7 +20,7 @@ class Reminder : public QWidget
     
 public:
 
-    explicit Reminder(NodesList allNodes, QWidget *parent = 0);
+    explicit Reminder(TermNode::List allNodes, QWidget *parent = 0);
     ~Reminder();
 
 public slots:
@@ -43,7 +43,7 @@ private:
 
     void formLearnList();
 
-    NodesList allNodes;
+    TermNode::List allNodes;
 
     Ui::Reminder *ui;
 

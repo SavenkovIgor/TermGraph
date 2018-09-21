@@ -140,7 +140,7 @@ QMap<GroupType, QString> TermGroup::getTypesMap()
     return ret;
 }
 
-void TermGroup::loadNodes(NodesList newNodes)
+void TermGroup::loadNodes(TermNode::List newNodes)
 {
     nodesList.clear();
     for (TermNode* node : newNodes) {
@@ -178,7 +178,7 @@ void TermGroup::addEdgesToParents()
     }
 }
 
-QSizeF TermGroup::getVerticalStackedSize(NodesList lst) const
+QSizeF TermGroup::getVerticalStackedSize(TermNode::List lst) const
 {
     qreal width = 0.0;
     qreal height = 0.0;
@@ -270,7 +270,7 @@ void TermGroup::checkSwap()
     int maxLevel = getLayersCount();
 
     for (int i = 1; i <= maxLevel; i++) {  // TODO: Обдумать этот момент i=1 because we need to ignore roots.
-        NodesList levLst = getNodesInLevel(i);
+        TermNode::List levLst = getNodesInLevel(i);
 
         for (int j = 0; j < levLst.size() - 1; j++) {
             int inter = levLst[j]->getIntersections();
@@ -347,9 +347,9 @@ void TermGroup::hideRect(QGraphicsRectItem *item)
     item->setPen(QPen(AppStyle::Colors::transparent));
 }
 
-NodesList TermGroup::getRootNodes()
+TermNode::List TermGroup::getRootNodes()
 {
-    NodesList ret;
+    TermNode::List ret;
     for (TermNode* node : nodesList) {
         if (node->isRoot()) {
             ret << node;
@@ -358,9 +358,9 @@ NodesList TermGroup::getRootNodes()
     return ret;
 }
 
-NodesList TermGroup::getNodesInLevel(int lev) const
+TermNode::List TermGroup::getNodesInLevel(int lev) const
 {
-    NodesList ret;
+    TermNode::List ret;
     for (TermNode* node : nodesList) {
         if (node->getPaintLevel() == lev) {
             ret << node;
@@ -382,9 +382,9 @@ NodesList TermGroup::getNodesInLevel(int lev) const
     return ret;
 }
 
-NodesList TermGroup::getOrphanNodes()
+TermNode::List TermGroup::getOrphanNodes()
 {
-    NodesList ndLst;
+    TermNode::List ndLst;
     for (TermNode* n : nodesList) {
         if (n->isOrphan()) {
             ndLst << n;
@@ -394,9 +394,9 @@ NodesList TermGroup::getOrphanNodes()
     return ndLst;
 }
 
-NodesList TermGroup::getInTreeNodes()
+TermNode::List TermGroup::getInTreeNodes()
 {
-    NodesList ret;
+    TermNode::List ret;
     for (TermNode* n : nodesList) {
         if (n->isInTree()) {
             ret << n;
@@ -420,7 +420,7 @@ qreal TermGroup::getGroupMinWidth()
     return width;
 }
 
-NodesList TermGroup::getAllNodes()
+TermNode::List TermGroup::getAllNodes()
 {
     return nodesList;
 }
@@ -561,7 +561,7 @@ qreal TermGroup::getMaxHeightInAllLevels() const
 
 void TermGroup::setOrphCoords(qreal maxWidth)
 {
-    NodesList nodesList = getOrphanNodes();
+    TermNode::List nodesList = getOrphanNodes();
     if (nodesList.isEmpty()) {
         return;
     }
@@ -640,10 +640,10 @@ void TermGroup::setTreeCoords()
     }
 }
 
-NodesList TermGroup::sortNodesInLayer(NodesList lst)
+TermNode::List TermGroup::sortNodesInLayer(TermNode::List lst)
 {
     // Сначала сортируем по убыванию количества связей
-    NodesList ret;
+    TermNode::List ret;
     int nMax = 0;
 
     for (int i = 0; i < lst.size(); i++) {
@@ -731,7 +731,7 @@ QSizeF TermGroup::getTheoreticalTreeSize()
     qreal treeHeight = 0.0;
 
     for (int layer = 0; layer <= layers; layer++) {
-        NodesList nodes = getNodesInLevel(layer);
+        TermNode::List nodes = getNodesInLevel(layer);
         QSizeF levelSize = getVerticalStackedSize(nodes);
         treeWidth += levelSize.width();
         if (layer < layers) {

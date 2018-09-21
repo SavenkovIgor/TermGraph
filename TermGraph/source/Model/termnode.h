@@ -15,6 +15,9 @@ class TermNode: public PaintedNode, public QGraphicsItem
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
 
 public:
+
+    typedef QList<TermNode*> List;
+
     TermNode(QSqlRecord rec);
 
     // Overriding of QGraphicsItem

@@ -57,9 +57,9 @@ void MainScene::deleteAllGroups()
     groupList.clear();
 }
 
-NodesList MainScene::getAllNodes()
+TermNode::List MainScene::getAllNodes()
 {
-    NodesList ret;
+    TermNode::List ret;
     for (TermGroup* group : groupList) {
         ret << group->getAllNodes();
     }
@@ -117,7 +117,7 @@ void MainScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *evt)
     //    qDebug()<<"release";
     mouseInfo("release");
     evt->setScreenPos(evt->screenPos() - QPointF(xWindow, yWindow).toPoint());
-    NodesList nodesList = getAllTermsAtPoint(evt->scenePos());
+    TermNode::List nodesList = getAllTermsAtPoint(evt->scenePos());
     if (nodesList.size() == 1) {
         int dist = 0;
         dist += qAbs(lastPressPt.x() - evt->scenePos().x());
@@ -277,8 +277,8 @@ TermNode *MainScene::getSelected()
     return ret;
 }
 
-NodesList MainScene::getAllTermsAtPoint(QPointF point) {
-    NodesList ret;
+TermNode::List MainScene::getAllTermsAtPoint(QPointF point) {
+    TermNode::List ret;
     for (TermNode* node : getAllNodes()) {
         if (node->getNodeRect(CoordType::scene).contains(point)) {
             ret << node;

@@ -39,7 +39,7 @@ public:
     TermGroup* getGroupByName(QString name);
     TermGroup* getGroupByUuid(QUuid uuid);
 
-    NodesList getAllNodes();
+    TermNode::List getAllNodes();
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *evt);
     void mousePressEvent(QGraphicsSceneMouseEvent *evt);
@@ -129,7 +129,7 @@ private:
     GroupsManager* groupsMgr;
     NodesManager* nodesMgr;
 
-    NodesList getAllTermsAtPoint(QPointF point);
+    TermNode::List getAllTermsAtPoint(QPointF point);
 };
 
 #endif  // MAINSCENE_H

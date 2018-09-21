@@ -1,7 +1,7 @@
 #include "reminder.h"
 #include "ui_reminder.h"
 
-Reminder::Reminder(NodesList allNodes, QWidget *parent) :
+Reminder::Reminder(TermNode::List allNodes, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Reminder)
 {

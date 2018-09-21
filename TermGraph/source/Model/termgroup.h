@@ -52,7 +52,7 @@ public:
     QString getName();
     QUuid getUuid();
 
-    NodesList getAllNodes();
+    TermNode::List getAllNodes();
     EdgesList getAllEdges();
 
     void setAnimSpeed(int val);
@@ -69,7 +69,7 @@ public:
 
     QJsonDocument getJsonDoc();
 
-    void loadNodes(NodesList newNodes);
+    void loadNodes(TermNode::List newNodes);
 public slots:
     void checkSwap();
 
@@ -93,29 +93,29 @@ private:
     void loadEdges();
 
     // Tree
-    NodesList getInTreeNodes();
-    NodesList getRootNodes();
+    TermNode::List getInTreeNodes();
+    TermNode::List getRootNodes();
     void setLayers();
     void setTreeCoords();
     void setNeighbours();
     // Tree tools
     QSizeF getTheoreticalTreeSize();
     int getLayersCount() const;
-    NodesList getNodesInLevel(int lev) const;
-    NodesList sortNodesInLayer(NodesList lst);
+    TermNode::List getNodesInLevel(int lev) const;
+    TermNode::List sortNodesInLayer(TermNode::List lst);
 
     // Edges
     Edge* addNewEdge(TermNode* node1, TermNode* node2);
     EdgesList searchConnections();  // TODO: Переделать эту функцию так же
 
     // Orphans
-    NodesList getOrphanNodes();
+    TermNode::List getOrphanNodes();
     QSizeF getOrphansSize();
     void setOrphCoords(qreal maxWidth = 200.0);
 
     // Tools
     qreal getMaxHeightInAllLevels() const;
-    QSizeF getVerticalStackedSize(NodesList lst) const;
+    QSizeF getVerticalStackedSize(TermNode::List lst) const;
     void swapNodes(TermNode *n1, TermNode *n2);
 
     void hideRect(QGraphicsRectItem* item);
@@ -125,7 +125,7 @@ private:
     QGraphicsRectItem *treeRect;
     QGraphicsRectItem *orphansRect;
 
-    NodesList nodesList;
+    TermNode::List nodesList;
     EdgesList edgesList;
 
     QUuid groupUuid;
