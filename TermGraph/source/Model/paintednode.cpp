@@ -23,6 +23,71 @@ int PaintedNode::getUpLevels(int pLevel)
 
     return ret;
 }
+
+QLineF PaintedNode::getRectLine(Qt::Edge side)
+{
+    QRectF rc = getNodeRect(CoordType::local);
+
+    switch (side) {
+    case Qt::TopEdge:
+        return QLineF(rc.topLeft(), rc.topRight());
+
+    case Qt::RightEdge:
+        return QLineF(rc.topRight(), rc.bottomRight());
+
+    case Qt::BottomEdge:
+        return QLineF(rc.bottomLeft(), rc.bottomRight());
+
+    case Qt::LeftEdge:
+        return QLineF(rc.topLeft(), rc.bottomLeft());
+    }
+    return QLineF();
+}
+
+QRectF PaintedNode::getNodeRect(CoordType inCoordinates) const
+{
+    QRectF ret = getInnerNodeRect();
+
+    switch (inCoordinates) {
+    case CoordType::none: break;
+    case CoordType::local:
+        ret = ret.translated(this->getPos());
+        break;
+    case CoordType::scene:
+        ret = ret.translated(this->getScenePos());
+        break;
+    }
+
+    return ret;
+}
+
+QPointF PaintedNode::getCenter(CoordType inCoordinates) const
+{
+    return getNodeRect(inCoordinates).center();
+}
+
+QRectF PaintedNode::getRcWithBorders() const
+{
+    //    qreal val = mainRect.width()*0.08;
+    qreal val = qBound(0.0, nodeSize.width()*0.1, 8.0);
+    QMarginsF mrg(val, val, val, val);
+    QRectF ret = getInnerNodeRect();
+    ret = ret.marginsAdded(mrg);
+    ret = ret.translated(getScenePos());
+    return ret;
+}
+
+QSizeF PaintedNode::getSize(bool withBorder) const
+{
+    qreal val = qBound(0.0, nodeSize.height()*0.2, 8.0);
+    QRectF ret = getInnerNodeRect();
+    if (withBorder) {
+        QMarginsF mrg(val, val, val, val);
+        ret = ret.marginsAdded(mrg);
+    }
+    return ret.size();
+}
+
 /*
 void PaintedNode::setRelatPaint(bool val)
 {

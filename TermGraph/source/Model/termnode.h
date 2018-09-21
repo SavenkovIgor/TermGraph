@@ -26,16 +26,7 @@ public:
     void hoverEnterEvent(QGraphicsSceneHoverEvent *evt);
     void hoverLeaveEvent(QGraphicsSceneHoverEvent *evt);
 
-    QRectF getNodeRect(CoordType inCoordinates) const;
-    QRectF getFrameRect(CoordType inCoordinates) const;
-
-    QPointF getCenter(CoordType inCoordinates) const;
-
     QRectF boundingRect() const;
-    QRectF getRcWithBorders();
-    QSizeF getSize(bool withBorder = true);
-
-    QLineF getRectLine(Qt::Edge side);
 
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget *);
 
@@ -50,6 +41,10 @@ public:
     bool applyMove();
 
     QString getDebugString();
+
+    // Overriding of PaintedNode
+    QPointF getPos() const override;
+    QPointF getScenePos() const override;
 
 private:
     EdgesList getEdgesInLayer();

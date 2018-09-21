@@ -101,73 +101,9 @@ EdgesList TermNode::getEdgesInLayer()
     return ret2;
 }
 
-QRectF TermNode::getNodeRect(CoordType inCoordinates) const
-{
-    QRectF ret = getInnerNodeRect();
-
-    switch (inCoordinates) {
-    case CoordType::none: break;
-    case CoordType::local:
-        ret = ret.translated(this->pos());
-        break;
-    case CoordType::scene:
-        ret = ret.translated(this->scenePos());
-        break;
-    }
-
-    return ret;
-}
-
-QPointF TermNode::getCenter(CoordType inCoordinates) const
-{
-    return getNodeRect(inCoordinates).center();
-}
-
 QRectF TermNode::boundingRect() const
 {
     return getInnerNodeRect();
-}
-
-QRectF TermNode::getRcWithBorders()
-{
-    //    qreal val = mainRect.width()*0.08;
-    qreal val = qBound(0.0, nodeSize.width()*0.1, 8.0);
-    QMarginsF mrg(val, val, val, val);
-    QRectF ret = getInnerNodeRect();
-    ret = ret.marginsAdded(mrg);
-    ret = ret.translated(this->scenePos());
-    return ret;
-}
-
-QSizeF TermNode::getSize(bool withBorder)
-{
-    qreal val = qBound(0.0, nodeSize.height()*0.2, 8.0);
-    QRectF ret = getInnerNodeRect();
-    if (withBorder) {
-        QMarginsF mrg(val, val, val, val);
-        ret = ret.marginsAdded(mrg);
-    }
-    return ret.size();
-}
-
-QLineF TermNode::getRectLine(Qt::Edge side)
-{
-    QRectF rc = getNodeRect(CoordType::local);
-
-    switch (side) {
-    case Qt::TopEdge:
-        return QLineF(rc.topLeft(), rc.topRight());
-
-    case Qt::RightEdge:
-        return QLineF(rc.topRight(), rc.bottomRight());
-
-    case Qt::BottomEdge:
-        return QLineF(rc.bottomLeft(), rc.bottomRight());
-
-    case Qt::LeftEdge:
-        return QLineF(rc.topLeft(), rc.bottomLeft());
-    }
-    return QLineF();
 }
 
 void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
@@ -461,4 +397,14 @@ QString TermNode::getDebugString() {
     //        addInterf += QString::number(personalAddInterval) + " ";
     p << "Uuid" << getUuid().toString();
     return p.join("\n");
+}
+
+QPointF TermNode::getPos() const
+{
+    return this->pos();
+}
+
+QPointF TermNode::getScenePos() const
+{
+    return this->scenePos();
 }
