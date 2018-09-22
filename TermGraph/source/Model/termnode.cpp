@@ -4,7 +4,7 @@ TermNode::TermNode(QSqlRecord rec):
     PaintedNode(rec),
     QGraphicsItem()
 {
-    adjustSizeForName();
+    adjustRectSizeForName();
 
     //    setFlag( QGraphicsItem::ItemIsSelectable,true );
     //    setFlag(QGraphicsItem::ItemIsMovable,false);

@@ -90,9 +90,8 @@ QRectF PaintedNode::getRcWithBorders() const
 {
     //    qreal val = mainRect.width()*0.08;
     qreal val = qBound(0.0, nodeSize.width()*0.1, 8.0);
-    QMarginsF mrg(val, val, val, val);
     QRectF ret = getInnerNodeRect();
-    ret = ret.marginsAdded(mrg);
+    ret = addMarginsToRect(ret, val);
     ret = ret.translated(getScenePos());
     return ret;
 }
@@ -102,8 +101,7 @@ QSizeF PaintedNode::getSize(bool withBorder) const
     qreal val = qBound(0.0, nodeSize.height()*0.2, 8.0);
     QRectF ret = getInnerNodeRect();
     if (withBorder) {
-        QMarginsF mrg(val, val, val, val);
-        ret = ret.marginsAdded(mrg);
+        ret = addMarginsToRect(ret, val);
     }
     return ret.size();
 }
@@ -115,29 +113,29 @@ bool PaintedNode::applyMove()
     PaintedNode* right = getNearestRightNeigh();
 
     QRectF myRc = getRcWithBorders();
-    myRc = myRc.translated(newPosOffs, 0.0);
+    myRc = myRc.translated(newPosOffset, 0.0);
     QRectF leftRc;
     QRectF rightRc;
 
     qreal k = 0.01;
-    newPosOffs = qBound(-myRc.width()*k, newPosOffs, myRc.width()*k);
+    newPosOffset = qBound(-myRc.width()*k, newPosOffset, myRc.width()*k);
 
-    if (newPosOffs < 0) {
+    if (newPosOffset < 0) {
         if (left != nullptr) {
             leftRc = left->getRcWithBorders();
-            newPosOffs = qBound(leftRc.right() - myRc.left(), newPosOffs, 0.0);
+            newPosOffset = qBound(leftRc.right() - myRc.left(), newPosOffset, 0.0);
         }
     }
 
-    if (newPosOffs > 0) {
+    if (newPosOffset > 0) {
         if (right != nullptr) {
             rightRc = right->getRcWithBorders();
-            newPosOffs = qBound(0.0, newPosOffs, rightRc.left() - myRc.right());
+            newPosOffset = qBound(0.0, newPosOffset, rightRc.left() - myRc.right());
         }
     }
 
-    if (qAbs(newPosOffs) > 0.05) {
-        movePosBy(0.0, newPosOffs);
+    if (qAbs(newPosOffset) > 0.05) {
+        movePosBy(0.0, newPosOffset);
         return true;
     }
 
@@ -182,8 +180,8 @@ void PaintedNode::countForces()
 
     //    testStr += "edf:" + QString::number(edForce);
 
-    newPosOffs = 0.0;
-    newPosOffs += edForce;
+    newPosOffset = 0.0;
+    newPosOffset += edForce;
 }
 
 int PaintedNode::getIntersections(bool swapped)
@@ -254,6 +252,12 @@ EdgesList PaintedNode::getEdgesInLayer()
     return ret2;
 }
 
+QRectF PaintedNode::addMarginsToRect(QRectF rc, qreal mrg)
+{
+    QMarginsF mrgObj(mrg, mrg, mrg, mrg);
+    return rc.marginsAdded(mrgObj);
+}
+
 void PaintedNode::dropSwap()
 {
     EdgesList lst;
@@ -290,7 +294,7 @@ qreal PaintedNode::getSumEdgesLength(bool swap)
     return ret;
 }
 
-void PaintedNode::adjustSizeForName()
+void PaintedNode::adjustRectSizeForName()
 {
     PrepareGeometryChangeCall();
     QSizeF nameSize = getNameSize();

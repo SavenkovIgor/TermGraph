@@ -28,7 +28,6 @@ public:
     int getUpLevels(int pLevel = -1);
 
     // Painting tools
-
     void setRelatedPaint(bool val);
     QLineF getRectLine(Qt::Edge side);
 
@@ -54,41 +53,48 @@ public:
 
     // Edges work
     int  getIntersections(bool swapped = false);
-    EdgesList getEdgesInLayer();
-    void dropSwap();
-    void setSwap(QPointF toPt);
     qreal getSumEdgesLength(bool swap);
 
-    void adjustSizeForName();
+    void setSwap(QPointF toPt);
+    void dropSwap();
 
 protected:
+    // --- Methods ---
     // Color tools
     QColor getBaseColor();
     QColor getSelectedColor();
+
+    // Geometry tools
+    // --- Methods ---
+    void adjustRectSizeForName();
+    QRectF getInnerNodeRect() const;
+
+    // --- Variables ---
+    // Hovers
+    bool thisHovered = false;
+    bool relativePaint = false;
+
+private:
+    // Scene tools
+    static bool isNearPoints(QPointF pt1, QPointF pt2, qreal dist);
 
     // Neighbours tools
     PaintedNode* getNearestLeftNeigh();
     PaintedNode* getNearestRightNeigh();
 
-//    EdgesList getEdgesInLayer();
+    // Edges tools
+    EdgesList getEdgesInLayer();
 
-    // Scene tools
-    static bool isNearPoints(QPointF pt1, QPointF pt2, qreal dist);
+    // Rect tools
+    static QRectF addMarginsToRect(QRectF rc, qreal mrg);
 
-    // Geometry tools
-    QRectF getInnerNodeRect() const;
-
-    // Hovers
-    bool thisHovered = false;
-    bool thisSelected = false;
-    bool relativePaint = false;
-
-    QSizeF nodeSize = QSizeF(40.0, 10.0);
+    // --- Variables ---
+    static const qreal verScale;
 
     // Paint / Animation
-    qreal newPosOffs = 0.0;
-private:
-    static const qreal verScale;
+    qreal newPosOffset = 0.0;
+
+    QSizeF nodeSize = QSizeF(40.0, 10.0);
 };
 
 #endif // PAINTEDNODE_H
