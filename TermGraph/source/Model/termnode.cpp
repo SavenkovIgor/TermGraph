@@ -15,13 +15,13 @@ TermNode::TermNode(QSqlRecord rec):
 
 QRectF TermNode::boundingRect() const
 {
-    return getInnerNodeRect();
+    return getNodeRect(CoordType::zeroPoint);
 }
 
 void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     // defaults
-    QRectF rcBase = getInnerNodeRect();
+    QRectF rcBase = getNodeRect(CoordType::zeroPoint);
     QColor col = getBaseColor();
     int transpVal = 100;
     setZValue(1);

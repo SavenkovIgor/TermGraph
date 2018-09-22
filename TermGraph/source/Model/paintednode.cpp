@@ -66,10 +66,10 @@ QLineF PaintedNode::getRectLine(Qt::Edge side)
 
 QRectF PaintedNode::getNodeRect(CoordType inCoordinates) const
 {
-    QRectF ret = getInnerNodeRect();
+    QRectF ret = QRectF(QPointF(), nodeSize);
 
     switch (inCoordinates) {
-    case CoordType::none: break;
+    case CoordType::zeroPoint: break;
     case CoordType::local:
         ret = ret.translated(this->getPos());
         break;
@@ -81,29 +81,16 @@ QRectF PaintedNode::getNodeRect(CoordType inCoordinates) const
     return ret;
 }
 
+QRectF PaintedNode::getFrameRect(CoordType inCoordinates) const
+{
+    qreal val = qBound(0.0, nodeSize.width()*0.2, 8.0);
+    QRectF ret = getNodeRect(inCoordinates);
+    return addMarginsToRect(ret, val);
+}
+
 QPointF PaintedNode::getCenter(CoordType inCoordinates) const
 {
     return getNodeRect(inCoordinates).center();
-}
-
-QRectF PaintedNode::getRcWithBorders() const
-{
-    //    qreal val = mainRect.width()*0.08;
-    qreal val = qBound(0.0, nodeSize.width()*0.1, 8.0);
-    QRectF ret = getInnerNodeRect();
-    ret = addMarginsToRect(ret, val);
-    ret = ret.translated(getScenePos());
-    return ret;
-}
-
-QSizeF PaintedNode::getSize(bool withBorder) const
-{
-    qreal val = qBound(0.0, nodeSize.height()*0.2, 8.0);
-    QRectF ret = getInnerNodeRect();
-    if (withBorder) {
-        ret = addMarginsToRect(ret, val);
-    }
-    return ret.size();
 }
 
 bool PaintedNode::applyMove()
@@ -112,7 +99,7 @@ bool PaintedNode::applyMove()
     PaintedNode* left = getNearestLeftNeigh();
     PaintedNode* right = getNearestRightNeigh();
 
-    QRectF myRc = getRcWithBorders();
+    QRectF myRc = getFrameRect(CoordType::scene);
     myRc = myRc.translated(newPosOffset, 0.0);
     QRectF leftRc;
     QRectF rightRc;
@@ -122,14 +109,14 @@ bool PaintedNode::applyMove()
 
     if (newPosOffset < 0) {
         if (left != nullptr) {
-            leftRc = left->getRcWithBorders();
+            leftRc = left->getFrameRect(CoordType::scene);
             newPosOffset = qBound(leftRc.right() - myRc.left(), newPosOffset, 0.0);
         }
     }
 
     if (newPosOffset > 0) {
         if (right != nullptr) {
-            rightRc = right->getRcWithBorders();
+            rightRc = right->getFrameRect(CoordType::scene);
             newPosOffset = qBound(0.0, newPosOffset, rightRc.left() - myRc.right());
         }
     }
@@ -377,9 +364,4 @@ bool PaintedNode::isNearPoints(QPointF pt1, QPointF pt2, qreal dist) {
     if (pt1.manhattanLength() <= dist)
         return true;
     return false;
-}
-
-QRectF PaintedNode::getInnerNodeRect() const
-{
-    return QRectF(QPointF(0.0, 0.0), nodeSize);
 }

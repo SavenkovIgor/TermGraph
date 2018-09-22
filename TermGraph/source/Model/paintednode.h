@@ -9,9 +9,9 @@
 
 // For coordinate types
 enum class CoordType {
-    none,   // Default
-    local,  // Local coordinate system
-    scene   // Scene coordinate system
+    zeroPoint,  // Rect located in zero point
+    local,      // Local coordinate system
+    scene       // Scene coordinate system
 };
 
 class PaintedNode : public GraphTerm
@@ -40,12 +40,9 @@ public:
 
     // NodeRect tools
     QRectF getNodeRect(CoordType inCoordinates) const;
-    QRectF getFrameRect(CoordType inCoordinates) const;  // TODO: Realize!
+    QRectF getFrameRect(CoordType inCoordinates) const;
 
     QPointF getCenter(CoordType inCoordinates) const;
-
-    QRectF getRcWithBorders() const;
-    QSizeF getSize(bool withBorder = true) const;
 
     // Animation
     bool applyMove();
@@ -67,7 +64,6 @@ protected:
     // Geometry tools
     // --- Methods ---
     void adjustRectSizeForName();
-    QRectF getInnerNodeRect() const;
 
     // --- Variables ---
     // Hovers

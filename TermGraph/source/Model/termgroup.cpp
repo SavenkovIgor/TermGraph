@@ -184,7 +184,7 @@ QSizeF TermGroup::getVerticalStackedSize(TermNode::List lst) const
     qreal height = 0.0;
 
     for (TermNode* node : lst) {
-        QSizeF sz = node->getSize();
+        QSizeF sz = node->getFrameRect(CoordType::zeroPoint).size();
         height += sz.height();
         width = qMax(width, sz.width());
     }
@@ -569,7 +569,9 @@ void TermGroup::setOrphCoords(qreal maxWidth)
     for (int i = 0; i < nodesList.size(); i++) {
         int nMax = i;
         for (int j = i+1; j < nodesList.size(); j++) {
-            if (nodesList[j]->getSize().width() < nodesList[nMax]->getSize().width()) {
+            qreal currentWidth = nodesList[j]->getFrameRect(CoordType::zeroPoint).size().width();
+            qreal maxWidth = nodesList[nMax]->getFrameRect(CoordType::zeroPoint).size().width();
+            if (currentWidth < maxWidth) {
                 nMax = j;
             }
         }
@@ -582,7 +584,7 @@ void TermGroup::setOrphCoords(qreal maxWidth)
     maxWidth = qBound(10.0, groupMinWidth, 700.0);
 
     for (TermNode* currNode : nodesList) {
-        QSizeF nodeSize = currNode->getSize(false);
+        QSizeF nodeSize = currNode->getNodeRect(CoordType::zeroPoint).size();
 
         if (x + nodeSize.width() > maxWidth) {
             y+= maxHeightInRow + AppStyle::Sizes::orphansVerticalSpacer;
@@ -613,8 +615,8 @@ void TermGroup::setTreeCoords()
         return;
     }
 
-    int x = 0, y = 0;
-    int layerHeight = 0;
+    qreal x = 0, y = 0;
+    qreal layerHeight = 0;
     qreal layerWidth = 0;
     qreal allTreeHeight = getMaxHeightInAllLevels();
 
@@ -627,12 +629,12 @@ void TermGroup::setTreeCoords()
         layerHeight = getVerticalStackedSize(tList).height();
         layerWidth = getVerticalStackedSize(tList).width();
 
-        y = -(allTreeHeight - layerHeight)/2;
+        y = -(allTreeHeight - layerHeight)/2.0;
         x += layerWidth/2;  // Сначала добавляем первую половину максимума
 
         for (TermNode* node : tList) {
             node->setPos(x - node->getNodeRect(CoordType::scene).width()/2, -y);
-            y -= node->getSize().height();
+            y -= node->getFrameRect(CoordType::zeroPoint).size().height();
         }
 
         //А после выставления всех координат - вторую
