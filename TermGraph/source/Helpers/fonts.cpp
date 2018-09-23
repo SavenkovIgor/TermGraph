@@ -12,7 +12,7 @@ QFont Fonts::getWeightFont(int weight)
     return font;
 }
 
-QRectF Fonts::getTextMetrics(QString text, QFont font)
+QRectF Fonts::getTextMetrics(const QString& text, const QFont& font)
 {
     QFontMetricsF mtr = QFontMetricsF(font);
     return  mtr.boundingRect(text);

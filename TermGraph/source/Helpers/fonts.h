@@ -10,7 +10,7 @@ class Fonts {
 public:
     static QFont getFont();
     static QFont getWeightFont(int weight = QFont::Black);
-    static QRectF getTextMetrics(QString text, QFont font = getFont());
+    static QRectF getTextMetrics(const QString& text, const QFont& font = getFont());
 };
 
 #endif // FONTS_H

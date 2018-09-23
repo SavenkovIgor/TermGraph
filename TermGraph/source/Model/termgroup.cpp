@@ -432,7 +432,7 @@ EdgesList TermGroup::getAllEdges()
 
 void TermGroup::setAnimSpeed(int val)
 {
-    checkSwapTimer.setInterval(val*1.5);
+    checkSwapTimer.setInterval(static_cast<int>(val*1.5));
     swAnim1.setDuration(val);
     swAnim2.setDuration(val);
     animSpeed = val;
@@ -497,7 +497,7 @@ void TermGroup::updateBaseRectSize()
         height += orphansSize.height() + vSpacer;
     height += vSpacer;
 
-    baseRect->setRect(QRectF(QPointF(), QSize(width, height)));
+    baseRect->setRect(QRectF(QPointF(), QSizeF(width, height)));
 }
 
 void TermGroup::updateGroupFrame()
