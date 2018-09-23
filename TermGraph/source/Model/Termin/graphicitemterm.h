@@ -9,7 +9,7 @@
 #include "./paintedterm.h"
 
 // This class contains function to draw Term in particular system of drawing
-class GraphicItemTerm: public PaintedTerm, public QGraphicsItem
+class GraphicItemTerm final: public PaintedTerm, public QGraphicsItem
 {
     Q_OBJECT
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
@@ -28,7 +28,7 @@ public:
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget *) override;
 
-    // Overriding of PaintedNode
+    // Overriding of PaintedTerm
     QPointF getPos() const override;
     QPointF getScenePos() const override;
     void movePosBy(qreal dx, qreal dy) override;

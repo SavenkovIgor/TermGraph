@@ -39,7 +39,8 @@ HEADERS += \
     source/Model/Termin/graphterm.h \
     source/Model/Termin/infoterm.h \
     source/Model/Termin/paintedterm.h \
-    source/Model/Termin/graphicitemterm.h
+    source/Model/Termin/graphicitemterm.h \
+    source/Model/Termin/quickitemterm.h
 
 SOURCES += \
     source/main.cpp\
@@ -74,7 +75,8 @@ SOURCES += \
     source/Model/Termin/graphterm.cpp \
     source/Model/Termin/infoterm.cpp \
     source/Model/Termin/paintedterm.cpp \
-    source/Model/Termin/graphicitemterm.cpp
+    source/Model/Termin/graphicitemterm.cpp \
+    source/Model/Termin/quickitemterm.cpp
 
 FORMS += \
     source/ui/reminder.ui\
