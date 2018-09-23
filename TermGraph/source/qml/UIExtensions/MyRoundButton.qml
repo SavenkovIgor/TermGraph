@@ -52,7 +52,7 @@ RoundButton {
         back.color = "#00000000"
     }
 
-    anchors.margins: 30
+    anchors.margins: width/2
     z: 1
 
     background: Rectangle{
