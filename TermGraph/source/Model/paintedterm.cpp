@@ -1,12 +1,12 @@
-#include "paintednode.h"
+#include "paintedterm.h"
 
-bool PaintedNode::someoneHover  = false;
-bool PaintedNode::someoneSelect = false;
+bool PaintedTerm::someoneHover  = false;
+bool PaintedTerm::someoneSelect = false;
 
-const qreal PaintedNode::verScale = 0.0200;
-QList<Qt::Edge> PaintedNode::sides;
+const qreal PaintedTerm::verScale = 0.0200;
+QList<Qt::Edge> PaintedTerm::sides;
 
-PaintedNode::PaintedNode(QSqlRecord rec) :
+PaintedTerm::PaintedTerm(QSqlRecord rec) :
     GraphTerm (rec)
 {
     if (sides.isEmpty()) {
@@ -17,12 +17,12 @@ PaintedNode::PaintedNode(QSqlRecord rec) :
     }
 }
 
-int PaintedNode::getUpLevels(int pLevel)
+int PaintedTerm::getUpLevels(int pLevel)
 {
     Q_UNUSED(pLevel)  // TODO: check!
     int ret = -1;
     for (GraphTerm* t : getLeafNodes()) {
-        PaintedNode* n = static_cast<PaintedNode*>(t);
+        PaintedTerm* n = static_cast<PaintedTerm*>(t);
         ret = qMax(ret, n->getUpLevels());
     }
 
@@ -32,10 +32,10 @@ int PaintedNode::getUpLevels(int pLevel)
     return ret;
 }
 
-void PaintedNode::setRelatedPaint(bool val)
+void PaintedTerm::setRelatedPaint(bool val)
 {
     for (GraphTerm* n : getUpDownNodes()) {
-        static_cast<PaintedNode*>(n)->relativePaint = val;
+        static_cast<PaintedTerm*>(n)->relativePaint = val;
     }
 
     for (GraphEdge* d : getUpDownEdges()) {
@@ -44,7 +44,7 @@ void PaintedNode::setRelatedPaint(bool val)
     }
 }
 
-QLineF PaintedNode::getRectLine(Qt::Edge side)
+QLineF PaintedTerm::getRectLine(Qt::Edge side)
 {
     QRectF rc = getNodeRect(CoordType::local);
 
@@ -64,7 +64,7 @@ QLineF PaintedNode::getRectLine(Qt::Edge side)
     return QLineF();
 }
 
-QRectF PaintedNode::getNodeRect(CoordType inCoordinates) const
+QRectF PaintedTerm::getNodeRect(CoordType inCoordinates) const
 {
     QRectF ret = QRectF(QPointF(), nodeSize);
 
@@ -81,23 +81,23 @@ QRectF PaintedNode::getNodeRect(CoordType inCoordinates) const
     return ret;
 }
 
-QRectF PaintedNode::getFrameRect(CoordType inCoordinates) const
+QRectF PaintedTerm::getFrameRect(CoordType inCoordinates) const
 {
     qreal val = qBound(0.0, nodeSize.width()*0.2, 8.0);
     QRectF ret = getNodeRect(inCoordinates);
     return addMarginsToRect(ret, val);
 }
 
-QPointF PaintedNode::getCenter(CoordType inCoordinates) const
+QPointF PaintedTerm::getCenter(CoordType inCoordinates) const
 {
     return getNodeRect(inCoordinates).center();
 }
 
-bool PaintedNode::applyMove()
+bool PaintedTerm::applyMove()
 {
     // Если сильно смещение - кидаем true
-    PaintedNode* left = getNearestLeftNeigh();
-    PaintedNode* right = getNearestRightNeigh();
+    PaintedTerm* left = getNearestLeftNeigh();
+    PaintedTerm* right = getNearestRightNeigh();
 
     QRectF myRc = getFrameRect(CoordType::scene);
     myRc = myRc.translated(newPosOffset, 0.0);
@@ -129,7 +129,7 @@ bool PaintedNode::applyMove()
     return false;
 }
 
-void PaintedNode::countForces()
+void PaintedTerm::countForces()
 {
     if (!hasConnections() && !isRoot())
         return;
@@ -150,7 +150,7 @@ void PaintedNode::countForces()
 
         tmp = e->getYProjection();
 
-        PaintedNode* otherSide = dynamic_cast<PaintedNode*>(e->getOtherSide(this));
+        PaintedTerm* otherSide = dynamic_cast<PaintedTerm*>(e->getOtherSide(this));
         if (otherSide == nullptr) {
             continue;
         }
@@ -171,7 +171,7 @@ void PaintedNode::countForces()
     newPosOffset += edForce;
 }
 
-int PaintedNode::getIntersections(bool swapped)
+int PaintedTerm::getIntersections(bool swapped)
 {
     EdgesList edges;
     //    edges << edgesUpList;
@@ -220,7 +220,7 @@ int PaintedNode::getIntersections(bool swapped)
     return interList.size();
 }
 
-EdgesList PaintedNode::getEdgesInLayer()
+EdgesList PaintedTerm::getEdgesInLayer()
 {
     // Taking all edges in this paint level
     GraphEdge::List allEdgesInLayerList;
@@ -239,13 +239,13 @@ EdgesList PaintedNode::getEdgesInLayer()
     return ret2;
 }
 
-QRectF PaintedNode::addMarginsToRect(QRectF rc, qreal mrg)
+QRectF PaintedTerm::addMarginsToRect(QRectF rc, qreal mrg)
 {
     QMarginsF mrgObj(mrg, mrg, mrg, mrg);
     return rc.marginsAdded(mrgObj);
 }
 
-void PaintedNode::dropSwap()
+void PaintedTerm::dropSwap()
 {
     EdgesList lst;
     lst = Edge::castToEdgeList(getUpDownEdges());
@@ -256,7 +256,7 @@ void PaintedNode::dropSwap()
     }
 }
 
-void PaintedNode::setSwap(QPointF toPt)
+void PaintedTerm::setSwap(QPointF toPt)
 {
     for (Edge *e : Edge::castToEdgeList(getEdgesToRoots())) {
         e->swapPointLeaf = toPt;
@@ -267,7 +267,7 @@ void PaintedNode::setSwap(QPointF toPt)
     }
 }
 
-qreal PaintedNode::getSumEdgesLength(bool swap)
+qreal PaintedTerm::getSumEdgesLength(bool swap)
 {
     EdgesList edges;
     edges << Edge::castToEdgeList(getEdgesToLeafs());
@@ -281,7 +281,7 @@ qreal PaintedNode::getSumEdgesLength(bool swap)
     return ret;
 }
 
-void PaintedNode::adjustRectSizeForName()
+void PaintedTerm::adjustRectSizeForName()
 {
     PrepareGeometryChangeCall();
     QSizeF nameSize = getNameSize();
@@ -289,16 +289,16 @@ void PaintedNode::adjustRectSizeForName()
     nodeSize.setHeight(nameSize.height() + 4);
 }
 
-PaintedNode* PaintedNode::getNearestLeftNeigh()
+PaintedTerm* PaintedTerm::getNearestLeftNeigh()
 {
-    PaintedNode* ret = nullptr;
+    PaintedTerm* ret = nullptr;
     qreal diff = 100000.0;
 
     QRectF myRect = getNodeRect(CoordType::scene);
     QRectF neighRect;
 
     for (GraphTerm* n : getNeighbourNodes()) {
-        PaintedNode* t = static_cast<PaintedNode*>(n);
+        PaintedTerm* t = static_cast<PaintedTerm*>(n);
         neighRect = t->getNodeRect(CoordType::scene);
 
         if (neighRect.center().x() > myRect.center().x()) {
@@ -313,15 +313,15 @@ PaintedNode* PaintedNode::getNearestLeftNeigh()
     return ret;
 }
 
-PaintedNode *PaintedNode::getNearestRightNeigh()
+PaintedTerm *PaintedTerm::getNearestRightNeigh()
 {
-    PaintedNode* ret = nullptr;
+    PaintedTerm* ret = nullptr;
     qreal diff = 100000.0;
 
     QRectF myRect = getNodeRect(CoordType::scene);
     QRectF neighRect;
     for (GraphTerm* n : getNeighbourNodes()) {
-        PaintedNode* t = static_cast<PaintedNode*>(n);
+        PaintedTerm* t = static_cast<PaintedTerm*>(n);
         neighRect = t->getNodeRect(CoordType::scene);
 
         if (neighRect.center().x() < myRect.center().x())
@@ -335,7 +335,7 @@ PaintedNode *PaintedNode::getNearestRightNeigh()
     return ret;
 }
 
-QColor PaintedNode::getBaseColor()
+QColor PaintedTerm::getBaseColor()
 {
     switch (getNodeType()) {
     case NodeType::orphan: return AppStyle::Colors::Nodes::orphan;
@@ -345,7 +345,7 @@ QColor PaintedNode::getBaseColor()
     }
 }
 
-QColor PaintedNode::getSelectedColor()
+QColor PaintedTerm::getSelectedColor()
 {
     switch (getNodeType()) {
     case NodeType::orphan: return AppStyle::Colors::Nodes::orphanSelected;
@@ -355,7 +355,7 @@ QColor PaintedNode::getSelectedColor()
     }
 }
 
-bool PaintedNode::isNearPoints(QPointF pt1, QPointF pt2, qreal dist) {
+bool PaintedTerm::isNearPoints(QPointF pt1, QPointF pt2, qreal dist) {
     pt1 -= pt2;
     //    pt1.setX(qAbs(pt1.x()));
     //    pt1.setY(qAbs(pt1.y()));

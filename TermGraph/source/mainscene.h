@@ -39,13 +39,13 @@ public:
     TermGroup* getGroupByName(QString name);
     TermGroup* getGroupByUuid(QUuid uuid);
 
-    TermNode::List getAllNodes();
+    GraphicItemTerm::List getAllNodes();
 
     void mouseMoveEvent(QGraphicsSceneMouseEvent *evt);
     void mousePressEvent(QGraphicsSceneMouseEvent *evt);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *evt);
 
-    TermNode* getSelected();
+    GraphicItemTerm* getSelected();
 
     void setAnimSpeed(int val);
 
@@ -129,7 +129,7 @@ private:
     GroupsManager* groupsMgr;
     NodesManager* nodesMgr;
 
-    TermNode::List getAllTermsAtPoint(QPointF point);
+    GraphicItemTerm::List getAllTermsAtPoint(QPointF point);
 };
 
 #endif  // MAINSCENE_H

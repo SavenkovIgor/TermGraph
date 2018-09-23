@@ -4,21 +4,21 @@
 #include <QGraphicsItem>
 #include <QDebug>
 
-//#include "../Helpers/handytypes.h"
 #include "../Helpers/appstyle.h"
 #include "../Helpers/helpstuff.h"
-#include "./paintednode.h"
+#include "./paintedterm.h"
 
-class TermNode: public PaintedNode, public QGraphicsItem
+// This class contains function to draw Term in particular system of drawing
+class GraphicItemTerm: public PaintedTerm, public QGraphicsItem
 {
     Q_OBJECT
     Q_PROPERTY(QPointF pos READ pos WRITE setPos)
 
 public:
 
-    typedef QList<TermNode*> List;
+    typedef QList<GraphicItemTerm*> List;  // TODO: Перенести частично в родительский элемент
 
-    TermNode(QSqlRecord rec);
+    GraphicItemTerm(QSqlRecord rec);
 
     // Overriding of QGraphicsItem
     void mousePressEvent(QGraphicsSceneMouseEvent *evt) override;

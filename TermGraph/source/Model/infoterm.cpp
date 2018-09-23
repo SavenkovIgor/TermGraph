@@ -1,6 +1,6 @@
-#include "terminfo.h"
+#include "infoterm.h"
 
-TermInfo::TermInfo(QSqlRecord rec, QObject *parent) :
+InfoTerm::InfoTerm(QSqlRecord rec, QObject *parent) :
     QObject(parent)
 {
     uuid = QUuid(rec.value(NodeColumn::longUID).toString());
@@ -22,37 +22,37 @@ TermInfo::TermInfo(QSqlRecord rec, QObject *parent) :
     nameCompressing();
 }
 
-TermInfo::~TermInfo()
+InfoTerm::~InfoTerm()
 {
 
 }
 
-QUuid TermInfo::getUuid() const
+QUuid InfoTerm::getUuid() const
 {
     return uuid;
 }
 
-QUuid TermInfo::getGroupUuid() const
+QUuid InfoTerm::getGroupUuid() const
 {
     return groupUuid;
 }
 
-QString TermInfo::getName() const
+QString InfoTerm::getName() const
 {
     return name;
 }
 
-QString TermInfo::getSmallName() const
+QString InfoTerm::getSmallName() const
 {
     return smallName;
 }
 
-QSizeF TermInfo::getNameSize() const
+QSizeF InfoTerm::getNameSize() const
 {
     return nameSize;
 }
 
-void TermInfo::nameCompressing()
+void InfoTerm::nameCompressing()
 {
     smallName = name;
 
@@ -87,7 +87,7 @@ void TermInfo::nameCompressing()
     }
 }
 
-QJsonObject TermInfo::toJson()
+QJsonObject InfoTerm::toJson()
 {
     QJsonObject ret;
 //    ret.insert("uid",         QJsonValue(uid));
@@ -102,12 +102,12 @@ QJsonObject TermInfo::toJson()
     return ret;
 }
 
-bool TermInfo::atLearning()
+bool InfoTerm::atLearning()
 {
     return atLearn;
 }
 
-bool TermInfo::needRemindToday()
+bool InfoTerm::needRemindToday()
 {
     if (lastRepeatDate.addDays(getNextRepeatOffset(repNum)) <= QDate::currentDate()) {
         return true;
@@ -115,7 +115,7 @@ bool TermInfo::needRemindToday()
     return false;
 }
 
-bool TermInfo::isRemindDateMissed()
+bool InfoTerm::isRemindDateMissed()
 {
     if (lastRepeatDate.addDays(getNextRepeatOffset(repNum)) < QDate::currentDate()) {
         return true;
@@ -146,7 +146,7 @@ void TermInfo::setRemind(KnowLevel lvl)
 }
 */
 
-int TermInfo::getRepNum() const
+int InfoTerm::getRepNum() const
 {
     return repNum;
 }
@@ -157,7 +157,7 @@ int TermInfo::getRepNum() const
 //     db->nodeTbl->setAtLearn(getUuid().toString(),atLearn);
 // }
 
-bool TermInfo::fromJson(QJsonObject obj) {
+bool InfoTerm::fromJson(QJsonObject obj) {
     QStringList checkKeys;  // TODO: Переделать на colums
     checkKeys << "uid";
     checkKeys << "longUID";
@@ -188,12 +188,12 @@ bool TermInfo::fromJson(QJsonObject obj) {
     return true;
 }
 
-int TermInfo::getNextRepeatOffset(int lvl)
+int InfoTerm::getNextRepeatOffset(int lvl)
 {
     return getLevelDaysFromBase( lvl + 1 ) - getLevelDaysFromBase( lvl );
 }
 
-int TermInfo::getLevelDaysFromBase(int lvl)
+int InfoTerm::getLevelDaysFromBase(int lvl)
 {
     if (lvl <= 0) {
         return 0;  // Варианты 0 и 1
@@ -211,12 +211,12 @@ int TermInfo::getLevelDaysFromBase(int lvl)
     return ret;
 }
 
-QString TermInfo::getNameFormStr() const
+QString InfoTerm::getNameFormStr() const
 {
     return nameForms;
 }
 
-QStringList TermInfo::getNameFormList() const
+QStringList InfoTerm::getNameFormList() const
 {
     QStringList ret;
     ret << getName();
@@ -231,12 +231,12 @@ QStringList TermInfo::getNameFormList() const
     return ret;
 }
 
-QString TermInfo::getDefinition() const
+QString InfoTerm::getDefinition() const
 {
     return definition;
 }
 
-QStringList TermInfo::getTags() const
+QStringList InfoTerm::getTags() const
 {
     QString error;
     auto tags = TagProcessor::extractTags(definition);
@@ -247,22 +247,22 @@ QStringList TermInfo::getTags() const
     return tags;
 }
 
-QString TermInfo::getDescription() const
+QString InfoTerm::getDescription() const
 {
     return description;
 }
 
-QString TermInfo::getExamples() const
+QString InfoTerm::getExamples() const
 {
     return examples;
 }
 
-QString TermInfo::getWikiRef() const
+QString InfoTerm::getWikiRef() const
 {
     return wikiRef;
 }
 
-QString TermInfo::getWikiImg() const
+QString InfoTerm::getWikiImg() const
 {
     return wikiImg;
 }

@@ -2,7 +2,7 @@
 #define TERMGRAPH_H
 
 #include <QList>
-#include "./terminfo.h"
+#include "./infoterm.h"
 #include "./graphedge.h"
 #include "../Helpers/handytypes.h"
 
@@ -13,7 +13,9 @@ enum class NodeType {
     middleLeaf
 };
 
-class GraphTerm : public TermInfo  // TODO: Rename TermGraph to GraphNode
+// This class contains all "graph" part of term
+// like edges, place in graph hierarchy and so on
+class GraphTerm : public InfoTerm
 {
 
 public:

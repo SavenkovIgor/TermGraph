@@ -20,8 +20,6 @@ HEADERS += \
     source/mysceneview.h\
     source/Model/edge.h\
     source/Model/termgroup.h\
-    source/Model/terminfo.h\
-    source/Model/termnode.h\
     source/Model/wordfreqanalyze.h \
     source/Model/tgroupname.h \
     source/Model/reminder.h\
@@ -39,7 +37,9 @@ HEADERS += \
     source/Helpers/handytypes.h \
     source/Model/graphedge.h \
     source/Model/graphterm.h \
-    source/Model/paintednode.h
+    source/Model/infoterm.h \
+    source/Model/paintedterm.h \
+    source/Model/graphicitemterm.h
 
 SOURCES += \
     source/main.cpp\
@@ -57,9 +57,7 @@ SOURCES += \
     source/mysceneview.cpp\
     source/Model/reminder.cpp\
     source/Model/edge.cpp\
-    source/Model/terminfo.cpp\
     source/Model/termgroup.cpp\
-    source/Model/termnode.cpp\
     source/Model/wordfreqanalyze.cpp \
     source/Managers/networkmanager.cpp \
     source/Managers/groupsmanager.cpp \
@@ -74,7 +72,9 @@ SOURCES += \
     source/Helpers/fsworks.cpp \
     source/Model/graphedge.cpp \
     source/Model/graphterm.cpp \
-    source/Model/paintednode.cpp
+    source/Model/infoterm.cpp \
+    source/Model/paintedterm.cpp \
+    source/Model/graphicitemterm.cpp
 
 FORMS += \
     source/ui/reminder.ui\

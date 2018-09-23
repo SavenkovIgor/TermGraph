@@ -14,7 +14,9 @@ enum class CoordType {
     scene       // Scene coordinate system
 };
 
-class PaintedNode : public GraphTerm
+// This class contains all info for paint Term somewhere
+// Has functions about paint color, positioning. This kind of stuff
+class PaintedTerm : public GraphTerm
 {
 public:
     static bool someoneHover;
@@ -22,7 +24,7 @@ public:
 
     static QList<Qt::Edge> sides;
 
-    PaintedNode(QSqlRecord rec);
+    PaintedTerm(QSqlRecord rec);
 
     // Leveling tools
     int getUpLevels(int pLevel = -1);
@@ -75,8 +77,8 @@ private:
     static bool isNearPoints(QPointF pt1, QPointF pt2, qreal dist);
 
     // Neighbours tools
-    PaintedNode* getNearestLeftNeigh();
-    PaintedNode* getNearestRightNeigh();
+    PaintedTerm* getNearestLeftNeigh();
+    PaintedTerm* getNearestRightNeigh();
 
     // Edges tools
     EdgesList getEdgesInLayer();

@@ -10,7 +10,8 @@
 #include "../Helpers/tagprocessor.h"
 #include "../Helpers/fonts.h"
 
-class TermInfo : public QObject
+// This class contains all "information" part of term, like name, definition and other...
+class InfoTerm : public QObject
 {
     Q_OBJECT
 public:
@@ -20,8 +21,8 @@ public:
         wellRemindLvl
     };
 
-    explicit TermInfo(QSqlRecord rec, QObject *parent = nullptr);
-    virtual ~TermInfo();
+    explicit InfoTerm(QSqlRecord rec, QObject *parent = nullptr);
+    virtual ~InfoTerm();
 //    bool isNull(); //TODO: Realize!
 
     QUuid getUuid() const;

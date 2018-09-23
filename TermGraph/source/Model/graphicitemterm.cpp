@@ -1,7 +1,7 @@
-#include "termnode.h"
+#include "graphicitemterm.h"
 
-TermNode::TermNode(QSqlRecord rec):
-    PaintedNode(rec),
+GraphicItemTerm::GraphicItemTerm(QSqlRecord rec):
+    PaintedTerm(rec),
     QGraphicsItem()
 {
     adjustRectSizeForName();
@@ -13,12 +13,12 @@ TermNode::TermNode(QSqlRecord rec):
     setZValue(1);
 }
 
-QRectF TermNode::boundingRect() const
+QRectF GraphicItemTerm::boundingRect() const
 {
     return getNodeRect(CoordType::zeroPoint);
 }
 
-void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
+void GraphicItemTerm::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
 {
     // defaults
     QRectF rcBase = getNodeRect(CoordType::zeroPoint);
@@ -80,7 +80,7 @@ void TermNode::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidge
     }
 }
 
-void TermNode::hoverEnterEvent(QGraphicsSceneHoverEvent *evt)
+void GraphicItemTerm::hoverEnterEvent(QGraphicsSceneHoverEvent *evt)
 {
     someoneHover = true;
     thisHovered = true;
@@ -92,7 +92,7 @@ void TermNode::hoverEnterEvent(QGraphicsSceneHoverEvent *evt)
     QGraphicsItem::hoverEnterEvent(evt);
 }
 
-void TermNode::hoverLeaveEvent(QGraphicsSceneHoverEvent *evt)
+void GraphicItemTerm::hoverLeaveEvent(QGraphicsSceneHoverEvent *evt)
 {
     thisHovered = false;
     someoneHover = false;
@@ -105,12 +105,12 @@ void TermNode::hoverLeaveEvent(QGraphicsSceneHoverEvent *evt)
     QGraphicsItem::hoverLeaveEvent(evt);
 }
 
-void TermNode::mousePressEvent(QGraphicsSceneMouseEvent *evt)
+void GraphicItemTerm::mousePressEvent(QGraphicsSceneMouseEvent *evt)
 {
     QGraphicsItem::mousePressEvent(evt);
 }
 
-QString TermNode::getDebugString() {
+QString GraphicItemTerm::getDebugString() {
     QStringList p;
     QString tmp;
 
@@ -119,7 +119,7 @@ QString TermNode::getDebugString() {
     tmp = " childs:";
     QList<QGraphicsItem*> childs = childItems();
     for (int i = 0; i < childs.size(); i++) {
-        TermNode* n = dynamic_cast<TermNode*>(childs[i]);
+        GraphicItemTerm* n = dynamic_cast<GraphicItemTerm*>(childs[i]);
         tmp += " " + n->getUuid().toString();
     }
     p << HelpStuff::ptToStr(scenePos());
@@ -135,22 +135,22 @@ QString TermNode::getDebugString() {
     return p.join("\n");
 }
 
-QPointF TermNode::getPos() const
+QPointF GraphicItemTerm::getPos() const
 {
     return this->pos();
 }
 
-QPointF TermNode::getScenePos() const
+QPointF GraphicItemTerm::getScenePos() const
 {
     return this->scenePos();
 }
 
-void TermNode::movePosBy(qreal dx, qreal dy)
+void GraphicItemTerm::movePosBy(qreal dx, qreal dy)
 {
     moveBy(dx,dy);
 }
 
-void TermNode::PrepareGeometryChangeCall()
+void GraphicItemTerm::PrepareGeometryChangeCall()
 {
     prepareGeometryChange();
 }

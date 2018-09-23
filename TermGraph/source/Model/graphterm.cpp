@@ -1,6 +1,6 @@
 #include "graphterm.h"
 
-GraphTerm::GraphTerm(QSqlRecord rec) : TermInfo(rec)
+GraphTerm::GraphTerm(QSqlRecord rec) : InfoTerm(rec)
 {
 
 }

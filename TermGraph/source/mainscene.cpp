@@ -57,9 +57,9 @@ void MainScene::deleteAllGroups()
     groupList.clear();
 }
 
-TermNode::List MainScene::getAllNodes()
+GraphicItemTerm::List MainScene::getAllNodes()
 {
-    TermNode::List ret;
+    GraphicItemTerm::List ret;
     for (TermGroup* group : groupList) {
         ret << group->getAllNodes();
     }
@@ -117,7 +117,7 @@ void MainScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *evt)
     //    qDebug()<<"release";
     mouseInfo("release");
     evt->setScreenPos(evt->screenPos() - QPointF(xWindow, yWindow).toPoint());
-    TermNode::List nodesList = getAllTermsAtPoint(evt->scenePos());
+    GraphicItemTerm::List nodesList = getAllTermsAtPoint(evt->scenePos());
     if (nodesList.size() == 1) {
         int dist = 0;
         dist += qAbs(lastPressPt.x() - evt->scenePos().x());
@@ -130,7 +130,7 @@ void MainScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *evt)
             evt->accept();
         }
     } else {
-        for (TermNode* node : getAllNodes()) {
+        for (GraphicItemTerm* node : getAllNodes()) {
             node->setFlag(QGraphicsItem::ItemIsSelectable, false);
             node->setSelected(false);
             //                    evt->accept();
@@ -206,7 +206,7 @@ void MainScene::centerViewOn(QPointF point)
 
 void MainScene::deleteSelectedNode()
 {
-    TermNode* node = getSelected();
+    GraphicItemTerm* node = getSelected();
     if (node == nullptr) {
         return;
     }
@@ -264,22 +264,22 @@ void MainScene::showGroup(int num)
     showGroup(allGroupNames[num]);
 }
 
-TermNode *MainScene::getSelected()
+GraphicItemTerm *MainScene::getSelected()
 {
-    TermNode* ret = nullptr;
+    GraphicItemTerm* ret = nullptr;
 
     QList<QGraphicsItem*> sel = selectedItems();
     if (sel.size() != 1) {
         return ret;
     }
 
-    ret = dynamic_cast<TermNode*>(sel.first());
+    ret = dynamic_cast<GraphicItemTerm*>(sel.first());
     return ret;
 }
 
-TermNode::List MainScene::getAllTermsAtPoint(QPointF point) {
-    TermNode::List ret;
-    for (TermNode* node : getAllNodes()) {
+GraphicItemTerm::List MainScene::getAllTermsAtPoint(QPointF point) {
+    GraphicItemTerm::List ret;
+    for (GraphicItemTerm* node : getAllNodes()) {
         if (node->getNodeRect(CoordType::scene).contains(point)) {
             ret << node;
         }
@@ -334,20 +334,20 @@ void MainScene::setAnimSpeed(int val)
 void MainScene::checkSelection()
 {
     bool someSel = false;
-    for (TermNode* node : getAllNodes()) {
+    for (GraphicItemTerm* node : getAllNodes()) {
         if (node->isSelected()) {
             someSelected();
             someSel = true;
-            PaintedNode::someoneSelect = true;
+            PaintedTerm::someoneSelect = true;
             node->setRelatedPaint(true);
         }
     }
 
     if (!someSel) {
         selectionDrop();
-        PaintedNode::someoneSelect = false;
-        if (!PaintedNode::someoneHover) {
-            for (TermNode* node : getAllNodes()) {
+        PaintedTerm::someoneSelect = false;
+        if (!PaintedTerm::someoneHover) {
+            for (GraphicItemTerm* node : getAllNodes()) {
                 node->setRelatedPaint(false);
             }
         }
@@ -385,7 +385,7 @@ QString MainScene::getCurrNodeDebugInfo()
 
 QString MainScene::getCurrNodeLongUid()
 {
-    if (TermNode* node = getSelected()) {
+    if (GraphicItemTerm* node = getSelected()) {
         return node->getUuid().toString();
     }
     return "";
@@ -393,7 +393,7 @@ QString MainScene::getCurrNodeLongUid()
 
 QString MainScene::getCurrNodeName()
 {
-    if (TermNode* node = getSelected()) {
+    if (GraphicItemTerm* node = getSelected()) {
         return node->getName();
     }
     return "";
@@ -401,7 +401,7 @@ QString MainScene::getCurrNodeName()
 
 QString MainScene::getCurrNodeForms()
 {
-    if (TermNode* node = getSelected()) {
+    if (GraphicItemTerm* node = getSelected()) {
         return node->getNameFormStr();
     }
     return "";
@@ -409,7 +409,7 @@ QString MainScene::getCurrNodeForms()
 
 QString MainScene::getCurrNodeDefinition()
 {
-    if (TermNode* node = getSelected()) {
+    if (GraphicItemTerm* node = getSelected()) {
         return node->getDefinition();
     }
     return "";
@@ -417,7 +417,7 @@ QString MainScene::getCurrNodeDefinition()
 
 QString MainScene::getCurrNodeDescription()
 {
-    if (TermNode* node = getSelected()) {
+    if (GraphicItemTerm* node = getSelected()) {
         return node->getDescription();
     }
     return "";
@@ -425,7 +425,7 @@ QString MainScene::getCurrNodeDescription()
 
 QString MainScene::getCurrNodeExamples()
 {
-    if (TermNode* node = getSelected()) {
+    if (GraphicItemTerm* node = getSelected()) {
         return node->getExamples();
     }
     return "";
@@ -433,7 +433,7 @@ QString MainScene::getCurrNodeExamples()
 
 QString MainScene::getCurrNodeGroupName()
 {
-    if (TermNode* node = getSelected()) {
+    if (GraphicItemTerm* node = getSelected()) {
         QUuid uuid = node->getGroupUuid();
         if (!uuid.isNull()) {
             return groupsMgr->getGroupName(uuid);
@@ -444,7 +444,7 @@ QString MainScene::getCurrNodeGroupName()
 
 bool MainScene::getCurrNodeIsRoot()
 {
-    TermNode* node = getSelected();
+    GraphicItemTerm* node = getSelected();
     if (node == nullptr) {
         return false;
     }

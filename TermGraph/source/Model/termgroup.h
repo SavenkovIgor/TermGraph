@@ -7,7 +7,7 @@
 #include "../databaseWorks/termgrouptbl.h"
 #include "../Helpers/appstyle.h"
 #include "../Helpers/tagprocessor.h"
-#include "./termnode.h"
+#include "./graphicitemterm.h"
 #include "./tgroupname.h"
 #include "./edge.h"
 
@@ -52,7 +52,7 @@ public:
     QString getName();
     QUuid getUuid();
 
-    TermNode::List getAllNodes();
+    GraphicItemTerm::List getAllNodes();
     EdgesList getAllEdges();
 
     void setAnimSpeed(int val);
@@ -69,7 +69,7 @@ public:
 
     QJsonDocument getJsonDoc();
 
-    void loadNodes(TermNode::List newNodes);
+    void loadNodes(GraphicItemTerm::List newNodes);
 public slots:
     void checkSwap();
 
@@ -93,30 +93,30 @@ private:
     void loadEdges();
 
     // Tree
-    TermNode::List getInTreeNodes();
-    TermNode::List getRootNodes();
+    GraphicItemTerm::List getInTreeNodes();
+    GraphicItemTerm::List getRootNodes();
     void setLayers();
     void setTreeCoords();
     void setNeighbours();
     // Tree tools
     QSizeF getTheoreticalTreeSize();
     int getLayersCount() const;
-    TermNode::List getNodesInLevel(int lev) const;
-    TermNode::List sortNodesInLayer(TermNode::List lst);
+    GraphicItemTerm::List getNodesInLevel(int lev) const;
+    GraphicItemTerm::List sortNodesInLayer(GraphicItemTerm::List lst);
 
     // Edges
-    Edge* addNewEdge(TermNode* node1, TermNode* node2);
+    Edge* addNewEdge(GraphicItemTerm* node1, GraphicItemTerm* node2);
     EdgesList searchConnections();  // TODO: Переделать эту функцию так же
 
     // Orphans
-    TermNode::List getOrphanNodes();
+    GraphicItemTerm::List getOrphanNodes();
     QSizeF getOrphansSize();
     void setOrphCoords(qreal maxWidth = 200.0);
 
     // Tools
     qreal getMaxHeightInAllLevels() const;
-    QSizeF getVerticalStackedSize(TermNode::List lst) const;
-    void swapNodes(TermNode *n1, TermNode *n2);
+    QSizeF getVerticalStackedSize(GraphicItemTerm::List lst) const;
+    void swapNodes(GraphicItemTerm *n1, GraphicItemTerm *n2);
 
     void hideRect(QGraphicsRectItem* item);
 
@@ -125,7 +125,7 @@ private:
     QGraphicsRectItem *treeRect;
     QGraphicsRectItem *orphansRect;
 
-    TermNode::List nodesList;
+    GraphicItemTerm::List nodesList;
     EdgesList edgesList;
 
     QUuid groupUuid;
