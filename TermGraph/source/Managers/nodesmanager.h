@@ -9,7 +9,7 @@
 
 #include "../glb.h"
 #include "../databaseWorks/dbabstract.h"
-#include "../Model/graphicitemterm.h"
+#include "../Model/Termin/graphicitemterm.h"
 
 class NodesManager : public QObject
 {

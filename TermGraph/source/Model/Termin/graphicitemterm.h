@@ -4,8 +4,8 @@
 #include <QGraphicsItem>
 #include <QDebug>
 
-#include "../Helpers/appstyle.h"
-#include "../Helpers/helpstuff.h"
+#include "../../Helpers/appstyle.h"
+#include "../../Helpers/helpstuff.h"
 #include "./paintedterm.h"
 
 // This class contains function to draw Term in particular system of drawing

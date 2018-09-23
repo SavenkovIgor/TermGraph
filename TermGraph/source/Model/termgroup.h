@@ -7,9 +7,9 @@
 #include "../databaseWorks/termgrouptbl.h"
 #include "../Helpers/appstyle.h"
 #include "../Helpers/tagprocessor.h"
-#include "./graphicitemterm.h"
+#include "./Termin/graphicitemterm.h"
 #include "./tgroupname.h"
-#include "./edge.h"
+#include "./TerminEdge/edge.h"
 
 enum GroupType {  // TODO: class!
     freeEdges = -1,

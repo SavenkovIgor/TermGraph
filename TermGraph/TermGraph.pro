@@ -18,7 +18,7 @@ HEADERS += \
     source/mainscene.h\
     source/mainwindow.h\
     source/mysceneview.h\
-    source/Model/edge.h\
+    source/Model/TerminEdge/edge.h\
     source/Model/termgroup.h\
     source/Model/wordfreqanalyze.h \
     source/Model/tgroupname.h \
@@ -35,11 +35,11 @@ HEADERS += \
     source/Helpers/appconfig.h \
     source/Helpers/fsworks.h \
     source/Helpers/handytypes.h \
-    source/Model/graphedge.h \
-    source/Model/graphterm.h \
-    source/Model/infoterm.h \
-    source/Model/paintedterm.h \
-    source/Model/graphicitemterm.h
+    source/Model/TerminEdge/graphedge.h \
+    source/Model/Termin/graphterm.h \
+    source/Model/Termin/infoterm.h \
+    source/Model/Termin/paintedterm.h \
+    source/Model/Termin/graphicitemterm.h
 
 SOURCES += \
     source/main.cpp\
@@ -56,7 +56,7 @@ SOURCES += \
     source/mainwindow.cpp\
     source/mysceneview.cpp\
     source/Model/reminder.cpp\
-    source/Model/edge.cpp\
+    source/Model/TerminEdge/edge.cpp\
     source/Model/termgroup.cpp\
     source/Model/wordfreqanalyze.cpp \
     source/Managers/networkmanager.cpp \
@@ -70,11 +70,11 @@ SOURCES += \
     source/Helpers/helpstuff.cpp \
     source/Helpers/appconfig.cpp \
     source/Helpers/fsworks.cpp \
-    source/Model/graphedge.cpp \
-    source/Model/graphterm.cpp \
-    source/Model/infoterm.cpp \
-    source/Model/paintedterm.cpp \
-    source/Model/graphicitemterm.cpp
+    source/Model/TerminEdge/graphedge.cpp \
+    source/Model/Termin/graphterm.cpp \
+    source/Model/Termin/infoterm.cpp \
+    source/Model/Termin/paintedterm.cpp \
+    source/Model/Termin/graphicitemterm.cpp
 
 FORMS += \
     source/ui/reminder.ui\

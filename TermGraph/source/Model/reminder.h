@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QListWidgetItem>
-#include "graphicitemterm.h"
+#include "./Termin/graphicitemterm.h"
 
 namespace Ui {
 class Reminder;

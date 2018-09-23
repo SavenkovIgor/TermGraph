@@ -3,8 +3,8 @@
 
 #include <QList>
 #include "./infoterm.h"
-#include "./graphedge.h"
-#include "../Helpers/handytypes.h"
+#include "../TerminEdge/graphedge.h"
+#include "../../Helpers/handytypes.h"
 
 enum class NodeType {
     orphan,

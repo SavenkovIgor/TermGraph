@@ -4,8 +4,8 @@
 #include <QSqlRecord>
 #include <QSizeF>
 
-#include "graphterm.h"
-#include "edge.h"
+#include "./graphterm.h"
+#include "../TerminEdge/edge.h"
 
 // For coordinate types
 enum class CoordType {

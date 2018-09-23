@@ -7,8 +7,8 @@
 #include <QGraphicsItem>
 
 #include "./graphedge.h"
-#include "./paintedterm.h"
-#include "../Helpers/appstyle.h"
+#include "../Termin/paintedterm.h"
+#include "../../Helpers/appstyle.h"
 
 class PaintedTerm;
 
