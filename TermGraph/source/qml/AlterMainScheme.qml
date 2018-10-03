@@ -57,7 +57,7 @@ Page {
             console.log("log!!!")
             var ctx = mainSceneImg.getContext('2d')
 
-            JsPaint.paintNode(ctx, 0, 0, "")
+            JsPaint.paintNode(ctx, "textText", 100, 100, "#00ff00")
 //            ctx.fillStyle = 'green'
 //            ctx.fillRect(10, 10, 100, 100)
 //            ctx.strokeRect(40, 40, 70, 70)
