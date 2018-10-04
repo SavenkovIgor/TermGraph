@@ -149,3 +149,8 @@ void Edge::setWide(bool value)
 {
     wide = value;
 }
+
+void Edge::setSceneParent(QGraphicsItem *item)
+{
+    this->setParentItem(item);
+}

@@ -43,6 +43,9 @@ public:
     bool getWide() const;
     void setWide(bool value);
 
+    // Scene stuff
+    void setSceneParent(QGraphicsItem* item);
+
 private:
     QColor getEdgeColor();
 

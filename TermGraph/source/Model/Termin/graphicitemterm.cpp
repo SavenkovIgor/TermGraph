@@ -154,3 +154,8 @@ void GraphicItemTerm::PrepareGeometryChangeCall()
 {
     prepareGeometryChange();
 }
+
+void GraphicItemTerm::setSceneParent(QGraphicsItem *item)
+{
+    this->setParentItem(item);
+}

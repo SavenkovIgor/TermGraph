@@ -163,18 +163,18 @@ void TermGroup::loadEdges()
 void TermGroup::addNodesToParents()
 {
     for (GraphicItemTerm* node : getInTreeNodes()) {
-        node->setParentItem(treeRect);
+        node->setSceneParent(treeRect);
     }
 
     for (GraphicItemTerm* node : getOrphanNodes()) {
-        node->setParentItem(orphansRect);
+        node->setSceneParent(orphansRect);
     }
 }
 
 void TermGroup::addEdgesToParents()
 {
     for (Edge* edge : getAllEdges()) {
-        edge->setParentItem(treeRect);
+        edge->setSceneParent(treeRect);
     }
 }
 

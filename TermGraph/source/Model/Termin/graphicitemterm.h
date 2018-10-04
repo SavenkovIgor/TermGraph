@@ -34,6 +34,9 @@ public:
     void movePosBy(qreal dx, qreal dy) override;
     void PrepareGeometryChangeCall() override;
 
+    // Methods for replacement
+    void setSceneParent(QGraphicsItem* item);
+
 private:
     QString getDebugString();
 };
