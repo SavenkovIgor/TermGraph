@@ -455,7 +455,7 @@ bool MainScene::getCurrNodeIsRoot()
 
 void MainScene::createTestGroups()
 {
-    groupsMgr->addNewGroup("TestGroup1", "", GroupType::terms);
+    groupsMgr->addNewGroup("TestGroup1", "");
 
     nodesMgr->addNewNode("1", "", "", "", "", "TestGroup1");
     nodesMgr->addNewNode("2", "", "", "", "", "TestGroup1");

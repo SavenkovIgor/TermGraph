@@ -8,15 +8,11 @@
 #include "../Helpers/appstyle.h"
 #include "../Helpers/tagprocessor.h"
 #include "./Termin/graphicitemterm.h"
+#include "./termgroupinfo.h"
 #include "./tgroupname.h"
 #include "./TerminEdge/edge.h"
 
-enum GroupType {  // TODO: class!
-    freeEdges = -1,
-    terms = 0
-};
-
-class TermGroup : public QObject
+class TermGroup : public QObject, public TermGroupInfo
 {
     Q_OBJECT
 
@@ -44,15 +40,12 @@ public:
 
     QGraphicsRectItem *baseRect;
 
-    GroupType getType();
     QString getTypeString();
     static QStringList getTypesNames();
     static QMap<GroupType, QString> getTypesMap();
 
     QString getName();
-    QUuid getUuid();
 
-    GraphicItemTerm::List getAllNodes();
     EdgesList getAllEdges();
 
     void setAnimSpeed(int val);
@@ -125,11 +118,7 @@ private:
     QGraphicsRectItem *treeRect;
     QGraphicsRectItem *orphansRect;
 
-    GraphicItemTerm::List nodesList;
     EdgesList edgesList;
-
-    QUuid groupUuid;
-    GroupType type = freeEdges;
 };
 
 #endif  // TERMGROUP_H

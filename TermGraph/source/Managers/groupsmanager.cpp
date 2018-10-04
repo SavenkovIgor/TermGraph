@@ -65,9 +65,10 @@ QStringList GroupsManager::getGroupNames(QList<QUuid> groupUuids)
     return ret;
 }
 
-void GroupsManager::addNewGroup(const QString& name, const QString& comment, const int& type)
+void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 {
     DBAbstract* db = Glb::db;
+    int type = 0;  // GroupType::terms
     if (db->groupTbl->addGroup(name, comment, type)) {
         groupsListChanged();
     } else {

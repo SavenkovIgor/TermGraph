@@ -3,22 +3,24 @@
 int TermGroup::animSpeed = 300;
 
 TermGroup::TermGroup(QSqlRecord rec, QObject *parent):
-    QObject(parent)
+    QObject(parent),
+    TermGroupInfo()
 {
     QString groupName = rec.value(TermGroupColumn::name).toString();
     this->grNmItem = new TGroupName(groupName);
 
-    this->groupUuid = QUuid(rec.value(TermGroupColumn::longUID).toString());
-    this->type = static_cast<GroupType>(rec.value(TermGroupColumn::type).toInt());
+    setGroupUuid(QUuid(rec.value(TermGroupColumn::longUID).toString()));
+    setType(static_cast<GroupType>(rec.value(TermGroupColumn::type).toInt()));
 }
 
 TermGroup::TermGroup(QJsonDocument doc, QObject *parent):
-    QObject(parent)
+    QObject(parent),
+    TermGroupInfo()
 {
     QJsonObject jsonObject = doc.object();
 
-    this->groupUuid = QUuid(jsonObject.value("longUID").toString());
-    this->type = static_cast<GroupType>(jsonObject.value("type").toInt());
+    setGroupUuid(QUuid(jsonObject.value("longUID").toString()));
+    setType(static_cast<GroupType>(jsonObject.value("type").toInt()));
 
     QString groupName = jsonObject.value("name").toString();
     this->grNmItem = new TGroupName( groupName );
@@ -45,10 +47,10 @@ void TermGroup::initNewNodes()
     //    centerRect  = new QGraphicsRectItem( nullptr );
 
     switch (getType()) {
-    case freeEdges:
+    case GroupType::freeEdges:
         baseRect->setBrush(AppStyle::Colors::Groups::backgroundFreeConnections);
         break;
-    case terms:
+    case GroupType::terms:
         baseRect->setBrush(AppStyle::Colors::Groups::backgroundTerms);
         break;
     }
@@ -111,11 +113,6 @@ bool TermGroup::checkJson(QJsonDocument doc)  // TODO: Вынести это о�
     return true;
 }
 
-GroupType TermGroup::getType()
-{
-    return type;
-}
-
 QString TermGroup::getTypeString()
 {
     return getTypesMap()[getType()];
@@ -135,20 +132,20 @@ QStringList TermGroup::getTypesNames()
 QMap<GroupType, QString> TermGroup::getTypesMap()
 {
     QMap<GroupType, QString> ret;
-    ret[freeEdges] = "Свободные связи";
-    ret[terms]     = "Термины";
+    ret[GroupType::freeEdges] = "Свободные связи";
+    ret[GroupType::terms]     = "Термины";
     return ret;
 }
 
 void TermGroup::loadNodes(GraphicItemTerm::List newNodes)
 {
-    nodesList.clear();
+    clearNodesList();
     for (GraphicItemTerm* node : newNodes) {
-        if (node->getGroupUuid() != groupUuid) {
+        if (node->getGroupUuid() != this->getUuid()) {
             qDebug() << "NodeLoad error for node:" << node->getUuid().toString();
             continue;
         }
-        nodesList << node;
+        addNodeToList(node);
     }
     initNewNodes();
 }
@@ -229,13 +226,13 @@ QJsonDocument TermGroup::getJsonDoc()
     QJsonDocument doc;
 //    obj.insert("uid",     QJsonValue(grUid));
     QJsonObject obj;
-    obj.insert(TermGroupColumn::longUID, QJsonValue(this->groupUuid.toString()));
+    obj.insert(TermGroupColumn::longUID, QJsonValue(getUuid().toString()));
     obj.insert(TermGroupColumn::name, QJsonValue(getName()));
-    obj.insert(TermGroupColumn::type, QJsonValue(this->getType()));
+    obj.insert(TermGroupColumn::type, QJsonValue(static_cast<int>(this->getType())));
 
     QJsonArray ndArr;
 
-    for (GraphicItemTerm* node : nodesList) {
+    for (GraphicItemTerm* node : getAllNodes()) {
         ndArr.append(node->toJson());
     }
     obj.insert("nodesList", ndArr);
@@ -318,7 +315,7 @@ void TermGroup::animateGroup()
         return;
     }
 
-    for (GraphicItemTerm* node : nodesList) {
+    for (GraphicItemTerm* node : getAllNodes()) {
         if (animGrp.state() != QAbstractAnimation::Stopped && node->getPaintLevel() == currAnimLevel) {
             continue;
         }
@@ -326,7 +323,7 @@ void TermGroup::animateGroup()
     }
 
     bool someMoved = false;
-    for (GraphicItemTerm* node : nodesList) {
+    for (GraphicItemTerm* node : getAllNodes()) {
         if (animGrp.state() != QAbstractAnimation::Stopped && node->getPaintLevel() == currAnimLevel) {
             continue;
         }
@@ -350,7 +347,7 @@ void TermGroup::hideRect(QGraphicsRectItem *item)
 GraphicItemTerm::List TermGroup::getRootNodes()
 {
     GraphicItemTerm::List ret;
-    for (GraphicItemTerm* node : nodesList) {
+    for (GraphicItemTerm* node : getAllNodes()) {
         if (node->isRoot()) {
             ret << node;
         }
@@ -361,7 +358,7 @@ GraphicItemTerm::List TermGroup::getRootNodes()
 GraphicItemTerm::List TermGroup::getNodesInLevel(int lev) const
 {
     GraphicItemTerm::List ret;
-    for (GraphicItemTerm* node : nodesList) {
+    for (GraphicItemTerm* node : getAllNodes()) {
         if (node->getPaintLevel() == lev) {
             ret << node;
         }
@@ -385,7 +382,7 @@ GraphicItemTerm::List TermGroup::getNodesInLevel(int lev) const
 GraphicItemTerm::List TermGroup::getOrphanNodes()
 {
     GraphicItemTerm::List ndLst;
-    for (GraphicItemTerm* n : nodesList) {
+    for (GraphicItemTerm* n : getAllNodes()) {
         if (n->isOrphan()) {
             ndLst << n;
         }
@@ -397,7 +394,7 @@ GraphicItemTerm::List TermGroup::getOrphanNodes()
 GraphicItemTerm::List TermGroup::getInTreeNodes()
 {
     GraphicItemTerm::List ret;
-    for (GraphicItemTerm* n : nodesList) {
+    for (GraphicItemTerm* n : getAllNodes()) {
         if (n->isInTree()) {
             ret << n;
         }
@@ -420,10 +417,7 @@ qreal TermGroup::getGroupMinWidth()
     return width;
 }
 
-GraphicItemTerm::List TermGroup::getAllNodes()
-{
-    return nodesList;
-}
+
 
 EdgesList TermGroup::getAllEdges()
 {
@@ -509,8 +503,8 @@ void TermGroup::updateGroupFrame()
 EdgesList TermGroup::searchConnections()
 {
     EdgesList ret;
-    for (GraphicItemTerm* n : nodesList) {
-        for (GraphicItemTerm* m : nodesList) {
+    for (GraphicItemTerm* n : getAllNodes()) {
+        for (GraphicItemTerm* m : getAllNodes()) {
             if (n == m) {
                 continue;
             }
@@ -542,7 +536,7 @@ EdgesList TermGroup::searchConnections()
 int TermGroup::getLayersCount() const
 {
     int ret = 0;
-    for (GraphicItemTerm* node : nodesList) {
+    for (GraphicItemTerm* node : getAllNodes()) {
         ret = qMax(ret, node->getPaintLevel());
     }
 
@@ -611,7 +605,7 @@ void TermGroup::setTreeCoords()
 {
     int maxLevel = getLayersCount();
 
-    if (nodesList.isEmpty()) {
+    if (getAllNodes().isEmpty()) {
         return;
     }
 
@@ -679,7 +673,7 @@ void TermGroup::setNeighbours()
 {
     QList<int> levLst;
 
-    for (GraphicItemTerm* node : nodesList) {
+    for (GraphicItemTerm* node : getAllNodes()) {
         if (!levLst.contains(node->getPaintLevel())) {
             levLst << node->getPaintLevel();
         }
@@ -689,7 +683,7 @@ void TermGroup::setNeighbours()
     for (int i : levLst) {
         levNd.clear();
 
-        for (GraphicItemTerm *node : nodesList) {
+        for (GraphicItemTerm *node : getAllNodes()) {
             if (node->getPaintLevel() == i) {
                 levNd << node;
             }
@@ -710,11 +704,6 @@ void TermGroup::setNeighbours()
 QString TermGroup::getName()
 {
     return grNmItem->getNameOnly();
-}
-
-QUuid TermGroup::getUuid()
-{
-    return groupUuid;
 }
 
 QSizeF TermGroup::getOrphansSize()
