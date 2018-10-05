@@ -385,50 +385,32 @@ QString MainScene::getCurrNodeDebugInfo()
 
 QString MainScene::getCurrNodeLongUid()
 {
-    if (GraphicItemTerm* node = getSelected()) {
-        return node->getUuid().toString();
-    }
-    return "";
+    return getCurrNodeStringField([] (InfoTerm* node) { return node->getUuid().toString(); });
 }
 
 QString MainScene::getCurrNodeName()
 {
-    if (GraphicItemTerm* node = getSelected()) {
-        return node->getName();
-    }
-    return "";
+    return getCurrNodeStringField([] (InfoTerm* node) { return node->getName(); });
 }
 
 QString MainScene::getCurrNodeForms()
 {
-    if (GraphicItemTerm* node = getSelected()) {
-        return node->getNameFormStr();
-    }
-    return "";
+    return getCurrNodeStringField([] (InfoTerm* node) { return node->getNameFormStr(); });
 }
 
 QString MainScene::getCurrNodeDefinition()
 {
-    if (GraphicItemTerm* node = getSelected()) {
-        return node->getDefinition();
-    }
-    return "";
+    return getCurrNodeStringField([] (InfoTerm* node) { return node->getDefinition(); });
 }
 
 QString MainScene::getCurrNodeDescription()
 {
-    if (GraphicItemTerm* node = getSelected()) {
-        return node->getDescription();
-    }
-    return "";
+    return getCurrNodeStringField([] (InfoTerm* node) { return node->getDescription(); });
 }
 
 QString MainScene::getCurrNodeExamples()
 {
-    if (GraphicItemTerm* node = getSelected()) {
-        return node->getExamples();
-    }
-    return "";
+    return getCurrNodeStringField([] (InfoTerm* node) { return node->getExamples(); });
 }
 
 QString MainScene::getCurrNodeGroupName()
@@ -444,13 +426,18 @@ QString MainScene::getCurrNodeGroupName()
 
 bool MainScene::getCurrNodeIsRoot()
 {
-    GraphicItemTerm* node = getSelected();
-    if (node == nullptr) {
-        return false;
+    if (GraphicItemTerm* node = getSelected()) {
+        return node->isRoot();
     }
+    return false;
+}
 
-    return node->isRoot();
-    // TODO: Возможно переделать в функциональном стиле!
+QString MainScene::getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction)
+{
+    if (InfoTerm* node = getSelected()) {
+        return strFunction(node);
+    }
+    return "";
 }
 
 void MainScene::createTestGroups()

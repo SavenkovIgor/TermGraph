@@ -1,6 +1,8 @@
 #ifndef MAINSCENE_H
 #define MAINSCENE_H
 
+#include <stdlib.h>
+
 #include <QGraphicsScene>
 #include <QGraphicsSceneMouseEvent>
 #include <QGraphicsItem>
@@ -97,6 +99,11 @@ public slots:
     QString getCurrNodeExamples();
     QString getCurrNodeGroupName();
     bool    getCurrNodeIsRoot();
+
+private:
+    QString getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction);
+
+public slots:
 
     bool hasSelection(){
         return getSelected() != nullptr;
