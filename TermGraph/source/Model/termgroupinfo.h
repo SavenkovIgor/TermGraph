@@ -44,11 +44,6 @@ protected:
 
     // Edges tools
     void loadEdges();
-    Edge* addNewEdge(GraphicItemTerm* node1, GraphicItemTerm* node2);
-
-    // Connections search
-    EdgesList searchConnections();
-    EdgesList suggestConnections();  // TODO: Realize!
 
 private:
     // Group info
@@ -60,7 +55,14 @@ private:
     GraphicItemTerm::List filterFromNodesList(std::function<bool(GraphicItemTerm*)> filterCheck) const;
             // Filters nodes from nodesList with lambda
 
+    // Edges & tools
     EdgesList edgesList;
+
+    Edge* addNewEdge(GraphicItemTerm* node1, GraphicItemTerm* node2);
+
+    // Edge connections search
+    EdgesList searchConnections();
+    EdgesList suggestConnections();  // TODO: Realize!
 };
 
 #endif // TERMGROUPINFO_H
