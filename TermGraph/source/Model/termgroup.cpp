@@ -150,12 +150,7 @@ void TermGroup::loadNodes(GraphicItemTerm::List newNodes)
     initNewNodes();
 }
 
-void TermGroup::loadEdges()
-{
-    if (getType() == GroupType::terms) {
-        edgesList << searchConnections();
-    }
-}
+
 
 void TermGroup::addNodesToParents()
 {
@@ -344,16 +339,7 @@ void TermGroup::hideRect(QGraphicsRectItem *item)
     item->setPen(QPen(AppStyle::Colors::transparent));
 }
 
-GraphicItemTerm::List TermGroup::getRootNodes()
-{
-    GraphicItemTerm::List ret;
-    for (GraphicItemTerm* node : getAllNodes()) {
-        if (node->isRoot()) {
-            ret << node;
-        }
-    }
-    return ret;
-}
+
 
 GraphicItemTerm::List TermGroup::getNodesInLevel(int lev) const
 {
@@ -379,29 +365,6 @@ GraphicItemTerm::List TermGroup::getNodesInLevel(int lev) const
     return ret;
 }
 
-GraphicItemTerm::List TermGroup::getOrphanNodes()
-{
-    GraphicItemTerm::List ndLst;
-    for (GraphicItemTerm* n : getAllNodes()) {
-        if (n->isOrphan()) {
-            ndLst << n;
-        }
-    }
-
-    return ndLst;
-}
-
-GraphicItemTerm::List TermGroup::getInTreeNodes()
-{
-    GraphicItemTerm::List ret;
-    for (GraphicItemTerm* n : getAllNodes()) {
-        if (n->isInTree()) {
-            ret << n;
-        }
-    }
-    return ret;
-}
-
 qreal TermGroup::getGroupMinWidth()
 {
     qreal width = 0.0;
@@ -418,11 +381,6 @@ qreal TermGroup::getGroupMinWidth()
 }
 
 
-
-EdgesList TermGroup::getAllEdges()
-{
-    return edgesList;
-}
 
 void TermGroup::setAnimSpeed(int val)
 {
@@ -500,38 +458,7 @@ void TermGroup::updateGroupFrame()
     updateBaseRectSize();
 }
 
-EdgesList TermGroup::searchConnections()
-{
-    EdgesList ret;
-    for (GraphicItemTerm* n : getAllNodes()) {
-        for (GraphicItemTerm* m : getAllNodes()) {
-            if (n == m) {
-                continue;
-            }
-            QStringList lst = n->getTags();
-            for (QString s : lst) {
-                for (QString z : m->getNameFormList()) {  // TODO: Переименовать при случае
-                    QString s1 = z.toLower();
-                    QString s2 = s.toLower();
-                    if (s1 == s2) {  // Точное соответствие
-                        ret << addNewEdge(m, n);
-                    }
-                    int acceptableDistance = 4*(1 + s1.count(' '));  // Пропорционально количеству слов
-                    acceptableDistance = 4;
-                    // TODO: Сделать защиту от формирования двухсторонних связей
-                    // TODO: Найти способ вызывать функцию в mainScene addEdge
-                    // TODO: Переделать так чтобы это было предложением а не обязательным действием
-                    if (TagProcessor::getLevDistance(s1, s2) <= acceptableDistance) {
-                        if (s1.left(3) == s2.left(3)) {
-                            ret << addNewEdge(m, n);
-                        }
-                    }
-                }
-            }
-        }
-    }
-    return ret;
-}
+
 
 int TermGroup::getLayersCount() const
 {
@@ -661,13 +588,7 @@ GraphicItemTerm::List TermGroup::sortNodesInLayer(GraphicItemTerm::List lst)
     return ret;
 }
 
-Edge *TermGroup::addNewEdge(GraphicItemTerm *node1, GraphicItemTerm *node2)
-{
-    Edge* edge = new Edge(node1, node2);
-    node1->addEdgeRef(edge);
-    node2->addEdgeRef(edge);
-    return edge;
-}
+
 
 void TermGroup::setNeighbours()
 {

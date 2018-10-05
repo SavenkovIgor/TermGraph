@@ -159,6 +159,30 @@ int TagProcessor::getLevDistance(const QString &src, const QString &dst)
     return matrix[m][n];
 }
 
+bool TagProcessor::isTagCorrespondToTermName(QString termName, QString tag)
+{
+    // To lower capital
+    termName = termName.toLower();
+    tag = tag.toLower();
+
+    if (termName == tag) {  // Точное соответствие
+        return true;
+    }
+
+    int acceptableDistance = 4*(1 + termName.count(' '));  // Пропорционально количеству слов
+    acceptableDistance = 4;
+    // TODO: Сделать защиту от формирования двухсторонних связей
+    // TODO: Найти способ вызывать функцию в mainScene addEdge
+    // TODO: Переделать так чтобы это было предложением а не обязательным действием
+    if (TagProcessor::getLevDistance(termName, tag) <= acceptableDistance) {
+        if (termName.left(3) == tag.left(3)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 QStringList TagProcessor::extractTags(QString str)
 {
     // На данном этапе считаем, что экранировать символы тегов нельзя

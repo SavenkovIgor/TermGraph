@@ -28,6 +28,7 @@ public:
 
     static int getLevDistance(const QString &src, const QString &dst);
 
+    static bool isTagCorrespondToTermName(QString termName, QString tag);
 public slots:
     static QStringList extractTags(QString str);
     QString addTagInPosition(int cursorPosition, QString str);

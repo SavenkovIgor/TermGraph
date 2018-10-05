@@ -104,7 +104,6 @@ private:
     QString getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction);
 
 public slots:
-
     bool hasSelection(){
         return getSelected() != nullptr;
     }

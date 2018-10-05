@@ -7,7 +7,6 @@
 #include "../databaseWorks/termgrouptbl.h"
 #include "../Helpers/appstyle.h"
 #include "../Helpers/tagprocessor.h"
-#include "./Termin/graphicitemterm.h"
 #include "./termgroupinfo.h"
 #include "./tgroupname.h"
 #include "./TerminEdge/edge.h"
@@ -46,8 +45,6 @@ public:
 
     QString getName();
 
-    EdgesList getAllEdges();
-
     void setAnimSpeed(int val);
     static int getAnimSpeed();
 
@@ -56,9 +53,6 @@ public:
     // Position and frame
     void setBasePoint(QPointF pt);
     void updateGroupFrame();
-
-    // Connections search
-    void suggestConnections();  // TODO: доделать эту функцию
 
     QJsonDocument getJsonDoc();
 
@@ -83,11 +77,8 @@ private:
     qreal getGroupMinWidth();
     void updateRectsPositions();
     void updateBaseRectSize();
-    void loadEdges();
 
     // Tree
-    GraphicItemTerm::List getInTreeNodes();
-    GraphicItemTerm::List getRootNodes();
     void setLayers();
     void setTreeCoords();
     void setNeighbours();
@@ -97,12 +88,7 @@ private:
     GraphicItemTerm::List getNodesInLevel(int lev) const;
     GraphicItemTerm::List sortNodesInLayer(GraphicItemTerm::List lst);
 
-    // Edges
-    Edge* addNewEdge(GraphicItemTerm* node1, GraphicItemTerm* node2);
-    EdgesList searchConnections();  // TODO: Переделать эту функцию так же
-
     // Orphans
-    GraphicItemTerm::List getOrphanNodes();
     QSizeF getOrphansSize();
     void setOrphCoords(qreal maxWidth = 200.0);
 
@@ -117,8 +103,6 @@ private:
     TGroupName *grNmItem;
     QGraphicsRectItem *treeRect;
     QGraphicsRectItem *orphansRect;
-
-    EdgesList edgesList;
 };
 
 #endif  // TERMGROUP_H
