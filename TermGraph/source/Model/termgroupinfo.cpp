@@ -82,6 +82,131 @@ void TermGroupInfo::loadEdges()
     }
 }
 
+void TermGroupInfo::setLayers()
+{
+    for (GraphicItemTerm* node : getRootNodes()) {
+        node->setLevel(0);
+    }
+}
+
+int TermGroupInfo::getLayersCount() const
+{
+    int ret = 0;
+    for (GraphicItemTerm* node : nodesList) {
+        ret = qMax(ret, node->getPaintLayer());
+    }
+
+    return ret;
+}
+
+QList<int> TermGroupInfo::getLayerNumbersList(bool withRoot) const
+{
+    QList<int> ret;
+    int startFrom = 1;
+
+    if (withRoot) {
+        startFrom = 0;
+    }
+
+    for (int i = startFrom; i <= getLayersCount(); i++) {
+        ret << i;
+    }
+
+    return ret;
+}
+
+GraphicItemTerm::List TermGroupInfo::getNodesInLayer(int layer) const
+{
+    GraphicItemTerm::List ret;
+    for (GraphicItemTerm* node : nodesList) {
+        if (node->getPaintLayer() == layer) {
+            ret << node;
+        }
+    }
+
+    // sort
+    int nMin;
+
+    for (int i = 0; i < ret.size(); i++) {
+        nMin = i;
+        for (int j = i + 1; j < ret.size(); j++) {
+            if (ret[j]->pos().y() < ret[nMin]->pos().y()) {
+                nMin = j;
+            }
+        }
+        ret.swap(i, nMin);
+    }
+    return ret;
+}
+
+QSizeF TermGroupInfo::getTheoreticalTreeSize()
+{
+    int layers = getLayersCount();
+    qreal treeWidth = 0.0;
+    qreal treeHeight = 0.0;
+
+    for (int layer : getLayerNumbersList()) {
+        GraphicItemTerm::List nodes = getNodesInLayer(layer);
+        QSizeF levelSize = getVerticalStackedSize(nodes);
+        treeWidth += levelSize.width();
+        if (layer < layers) {
+            treeWidth += AppStyle::Sizes::treeLayerHorizontalSpacer;
+        }
+        treeHeight = qMax(treeHeight, levelSize.height());
+    }
+    return QSizeF(treeWidth, treeHeight);
+}
+
+void TermGroupInfo::setNeighbours()
+{
+    for (int layer : getLayerNumbersList()) {
+
+        GraphicItemTerm::List levNd = getNodesInLayer(layer);
+        GraphTerm::List castedList;
+
+        for (GraphicItemTerm* term : levNd) {
+            castedList << static_cast<GraphTerm*>(term);
+        }
+
+        for (GraphicItemTerm* term : levNd) {
+            term->clearNeighboursList();
+            term->addLayerNeighbours(castedList);
+        }
+    }
+}
+
+QSizeF TermGroupInfo::getVerticalStackedSize(GraphicItemTerm::List lst) const
+{
+    qreal width = 0.0;
+    qreal height = 0.0;
+
+    for (GraphicItemTerm* node : lst) {
+        QSizeF sz = node->getFrameRect(CoordType::zeroPoint).size();
+        height += sz.height();
+        width = qMax(width, sz.width());
+    }
+    return QSizeF(width, height);
+}
+
+qreal TermGroupInfo::getMaxHeightInAllLevels() const
+{
+    qreal maxHeight = 0.0;
+    for (int i : getLayerNumbersList()) {
+        QSizeF stackSize = getVerticalStackedSize(getNodesInLayer(i));
+        maxHeight = qMax(maxHeight, stackSize.height());
+    }
+    return maxHeight;
+}
+
+QSizeF TermGroupInfo::getOrphansSize()
+{
+    QRectF orphansRc;
+    for (GraphicItemTerm* node : getOrphanNodes()) {
+        orphansRc = orphansRc.united(node ->getNodeRect(CoordType::scene));
+    }
+    return orphansRc.size();
+}
+
 GraphicItemTerm::List TermGroupInfo::filterFromNodesList(std::function<bool(GraphicItemTerm*)> filterCheck) const
 {
     GraphicItemTerm::List ret;

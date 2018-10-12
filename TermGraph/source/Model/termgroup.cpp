@@ -150,8 +150,6 @@ void TermGroup::loadNodes(GraphicItemTerm::List newNodes)
     initNewNodes();
 }
 
-
-
 void TermGroup::addNodesToParents()
 {
     for (GraphicItemTerm* node : getInTreeNodes()) {
@@ -170,18 +168,7 @@ void TermGroup::addEdgesToParents()
     }
 }
 
-QSizeF TermGroup::getVerticalStackedSize(GraphicItemTerm::List lst) const
-{
-    qreal width = 0.0;
-    qreal height = 0.0;
 
-    for (GraphicItemTerm* node : lst) {
-        QSizeF sz = node->getFrameRect(CoordType::zeroPoint).size();
-        height += sz.height();
-        width = qMax(width, sz.width());
-    }
-    return QSizeF(width, height);
-}
 
 void TermGroup::swapNodes(GraphicItemTerm* n1, GraphicItemTerm* n2)
 {
@@ -190,7 +177,7 @@ void TermGroup::swapNodes(GraphicItemTerm* n1, GraphicItemTerm* n2)
     // Because of lags, timer can still work, but animation will slow down and it cause
     // animation lags
 
-    currAnimLevel = n1->getPaintLevel();
+    currAnimLevel = n1->getPaintLayer();
 
     QRectF rc1 = n1->getNodeRect(CoordType::local);
     QRectF rc2 = n2->getNodeRect(CoordType::local);
@@ -259,10 +246,9 @@ void TermGroup::checkSwap()
 {
     QTime t;
     t.start();
-    int maxLevel = getLayersCount();
 
-    for (int i = 1; i <= maxLevel; i++) {  // TODO: Обдумать этот момент i=1 because we need to ignore roots.
-        GraphicItemTerm::List levLst = getNodesInLevel(i);
+    for (int layer : getLayerNumbersList(false)) {  // TODO: Обдумать этот момент i=1 because we need to ignore roots.
+        GraphicItemTerm::List levLst = getNodesInLayer(layer);
 
         for (int j = 0; j < levLst.size() - 1; j++) {
             int inter = levLst[j]->getIntersections();
@@ -311,7 +297,7 @@ void TermGroup::animateGroup()
     }
 
     for (GraphicItemTerm* node : getAllNodes()) {
-        if (animGrp.state() != QAbstractAnimation::Stopped && node->getPaintLevel() == currAnimLevel) {
+        if (animGrp.state() != QAbstractAnimation::Stopped && node->getPaintLayer() == currAnimLevel) {
             continue;
         }
         node->countForces();
@@ -319,7 +305,7 @@ void TermGroup::animateGroup()
 
     bool someMoved = false;
     for (GraphicItemTerm* node : getAllNodes()) {
-        if (animGrp.state() != QAbstractAnimation::Stopped && node->getPaintLevel() == currAnimLevel) {
+        if (animGrp.state() != QAbstractAnimation::Stopped && node->getPaintLayer() == currAnimLevel) {
             continue;
         }
         if (node->applyMove() && !someMoved) {
@@ -339,32 +325,6 @@ void TermGroup::hideRect(QGraphicsRectItem *item)
     item->setPen(QPen(AppStyle::Colors::transparent));
 }
 
-
-
-GraphicItemTerm::List TermGroup::getNodesInLevel(int lev) const
-{
-    GraphicItemTerm::List ret;
-    for (GraphicItemTerm* node : getAllNodes()) {
-        if (node->getPaintLevel() == lev) {
-            ret << node;
-        }
-    }
-
-    // sort
-    int nMin;
-
-    for (int i = 0; i < ret.size(); i++) {
-        nMin = i;
-        for (int j = i + 1; j < ret.size(); j++) {
-            if (ret[j]->pos().y() < ret[nMin]->pos().y()) {
-                nMin = j;
-            }
-        }
-        ret.swap(i, nMin);
-    }
-    return ret;
-}
-
 qreal TermGroup::getGroupMinWidth()
 {
     qreal width = 0.0;
@@ -379,8 +339,6 @@ qreal TermGroup::getGroupMinWidth()
 
     return width;
 }
-
-
 
 void TermGroup::setAnimSpeed(int val)
 {
@@ -458,28 +416,6 @@ void TermGroup::updateGroupFrame()
     updateBaseRectSize();
 }
 
-
-
-int TermGroup::getLayersCount() const
-{
-    int ret = 0;
-    for (GraphicItemTerm* node : getAllNodes()) {
-        ret = qMax(ret, node->getPaintLevel());
-    }
-
-    return ret;
-}
-
-qreal TermGroup::getMaxHeightInAllLevels() const
-{
-    qreal maxHeight = 0.0;
-    for (int i = 0; i <= getLayersCount(); i++) {
-        QSizeF stackSize = getVerticalStackedSize(getNodesInLevel(i));
-        maxHeight = qMax(maxHeight, stackSize.height());
-    }
-    return maxHeight;
-}
-
 void TermGroup::setOrphCoords(qreal maxWidth)
 {
     GraphicItemTerm::List nodesList = getOrphanNodes();
@@ -521,17 +457,8 @@ void TermGroup::setOrphCoords(qreal maxWidth)
     }
 }
 
-void TermGroup::setLayers()
-{
-    for (GraphicItemTerm* node : getRootNodes()) {
-        node->setLevel(0);
-    }
-}
-
 void TermGroup::setTreeCoords()
 {
-    int maxLevel = getLayersCount();
-
     if (getAllNodes().isEmpty()) {
         return;
     }
@@ -541,8 +468,8 @@ void TermGroup::setTreeCoords()
     qreal layerWidth = 0;
     qreal allTreeHeight = getMaxHeightInAllLevels();
 
-    for (int i = 0; i <= maxLevel; i++) {
-        QList< GraphicItemTerm *> tList = getNodesInLevel(i);
+    for (int i : getLayerNumbersList()) {
+        QList< GraphicItemTerm *> tList = getNodesInLayer(i);
 
         // Сортируем вершины в более "удачном" порядке
         tList = sortNodesInLayer(tList);
@@ -588,68 +515,7 @@ GraphicItemTerm::List TermGroup::sortNodesInLayer(GraphicItemTerm::List lst)
     return ret;
 }
 
-
-
-void TermGroup::setNeighbours()
-{
-    QList<int> levLst;
-
-    for (GraphicItemTerm* node : getAllNodes()) {
-        if (!levLst.contains(node->getPaintLevel())) {
-            levLst << node->getPaintLevel();
-        }
-    }
-
-    QList<GraphicItemTerm*> levNd;
-    for (int i : levLst) {
-        levNd.clear();
-
-        for (GraphicItemTerm *node : getAllNodes()) {
-            if (node->getPaintLevel() == i) {
-                levNd << node;
-            }
-        }
-
-        for (int j = 0; j< levNd.size(); j++) {
-            levNd[j]->clearNeighbours();
-            for (int k = 0; k < levNd.size(); k++) {
-                if (j == k) {
-                    continue;
-                }
-                levNd[j]->addToNeighboursList(levNd[k]);
-            }
-        }
-    }
-}
-
 QString TermGroup::getName()
 {
     return grNmItem->getNameOnly();
-}
-
-QSizeF TermGroup::getOrphansSize()
-{
-    QRectF orphansRc;
-    for (GraphicItemTerm* node : getOrphanNodes()) {
-        orphansRc = orphansRc.united(node ->getNodeRect(CoordType::scene));
-    }
-    return orphansRc.size();
-}
-
-QSizeF TermGroup::getTheoreticalTreeSize()
-{
-    int layers = getLayersCount();
-    qreal treeWidth = 0.0;
-    qreal treeHeight = 0.0;
-
-    for (int layer = 0; layer <= layers; layer++) {
-        GraphicItemTerm::List nodes = getNodesInLevel(layer);
-        QSizeF levelSize = getVerticalStackedSize(nodes);
-        treeWidth += levelSize.width();
-        if (layer < layers) {
-            treeWidth += AppStyle::Sizes::treeLayerHorizontalSpacer;
-        }
-        treeHeight = qMax(treeHeight, levelSize.height());
-    }
-    return QSizeF(treeWidth, treeHeight);
 }

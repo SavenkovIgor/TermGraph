@@ -79,24 +79,16 @@ private:
     void updateBaseRectSize();
 
     // Tree
-    void setLayers();
     void setTreeCoords();
-    void setNeighbours();
+
     // Tree tools
-    QSizeF getTheoreticalTreeSize();
-    int getLayersCount() const;
-    GraphicItemTerm::List getNodesInLevel(int lev) const;
     GraphicItemTerm::List sortNodesInLayer(GraphicItemTerm::List lst);
 
     // Orphans
-    QSizeF getOrphansSize();
     void setOrphCoords(qreal maxWidth = 200.0);
 
     // Tools
-    qreal getMaxHeightInAllLevels() const;
-    QSizeF getVerticalStackedSize(GraphicItemTerm::List lst) const;
     void swapNodes(GraphicItemTerm *n1, GraphicItemTerm *n2);
-
     void hideRect(QGraphicsRectItem* item);
 
     // Main objects

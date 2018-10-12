@@ -13,12 +13,17 @@ GraphEdge::List GraphTerm::getUpDownEdges()
     return ret;
 }
 
-void GraphTerm::addToNeighboursList(GraphTerm *t)
+void GraphTerm::addLayerNeighbours(GraphTerm::List neighboursList)
 {
-    neighbourNodes << t;
+    for (GraphTerm* term : neighboursList) {
+        if (term == this) {
+            continue;
+        }
+        neighbourNodes << term;
+    }
 }
 
-void GraphTerm::clearNeighbours()
+void GraphTerm::clearNeighboursList()
 {
     neighbourNodes.clear();
 }
@@ -78,7 +83,7 @@ void GraphTerm::setLevel(int lev)
     }
 }
 
-int GraphTerm::getPaintLevel() const
+int GraphTerm::getPaintLayer() const
 {
     return paintLevel;
 }

@@ -26,8 +26,8 @@ public:
     List getUpDownNodes();
     GraphEdge::List getUpDownEdges();
 
-    void addToNeighboursList(GraphTerm *t);
-    void clearNeighbours();
+    void addLayerNeighbours(GraphTerm::List neighboursList);
+    void clearNeighboursList();
 
     bool isRoot();
     bool isOrphan();
@@ -40,7 +40,7 @@ public:
     NodeType getNodeType();
 
     void setLevel(int lev);  // TODO: Rename
-    int getPaintLevel() const;  // TODO: Rename
+    int getPaintLayer() const;  // TODO: Rename
 
     void addEdgeRef(GraphEdge *edge);
     static bool isInGroupEdge(GraphEdge* edge);

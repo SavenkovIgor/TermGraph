@@ -45,6 +45,23 @@ protected:
     // Edges tools
     void loadEdges();
 
+    // Tree tools
+    void setLayers();
+    int getLayersCount() const;  // TODO: Delete
+    // Returns layer list in asc order
+    QList<int> getLayerNumbersList(bool withRoot = true) const;
+    GraphicItemTerm::List getNodesInLayer(int layer) const;
+    QSizeF getTheoreticalTreeSize();
+
+    void setNeighbours();
+
+    // NodeStack tools
+    QSizeF getVerticalStackedSize(GraphicItemTerm::List lst) const;
+    qreal getMaxHeightInAllLevels() const;
+
+    // Orphans tools
+    QSizeF getOrphansSize();
+
 private:
     // Group info
     QUuid groupUuid;
