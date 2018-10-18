@@ -84,19 +84,15 @@ void TermGroupInfo::loadEdges()
 
 void TermGroupInfo::setLayers()
 {
+    // Set layer numbers
     for (GraphicItemTerm* node : getRootNodes()) {
         node->setLevel(0);
     }
-}
 
-int TermGroupInfo::getLayersCount() const
-{
-    int ret = 0;
+    // Set max layer variable
     for (GraphicItemTerm* node : nodesList) {
-        ret = qMax(ret, node->getPaintLayer());
+        layersCount = qMax(layersCount, node->getPaintLayer());
     }
-
-    return ret;
 }
 
 QList<int> TermGroupInfo::getLayerNumbersList(bool withRoot) const
@@ -108,7 +104,7 @@ QList<int> TermGroupInfo::getLayerNumbersList(bool withRoot) const
         startFrom = 0;
     }
 
-    for (int i = startFrom; i <= getLayersCount(); i++) {
+    for (int i = startFrom; i <= layersCount; i++) {
         ret << i;
     }
 
@@ -141,7 +137,6 @@ GraphicItemTerm::List TermGroupInfo::getNodesInLayer(int layer) const
 
 QSizeF TermGroupInfo::getTheoreticalTreeSize()
 {
-    int layers = getLayersCount();
     qreal treeWidth = 0.0;
     qreal treeHeight = 0.0;
 
@@ -149,7 +144,7 @@ QSizeF TermGroupInfo::getTheoreticalTreeSize()
         GraphicItemTerm::List nodes = getNodesInLayer(layer);
         QSizeF levelSize = getVerticalStackedSize(nodes);
         treeWidth += levelSize.width();
-        if (layer < layers) {
+        if (layer < layersCount) {
             treeWidth += AppStyle::Sizes::treeLayerHorizontalSpacer;
         }
         treeHeight = qMax(treeHeight, levelSize.height());

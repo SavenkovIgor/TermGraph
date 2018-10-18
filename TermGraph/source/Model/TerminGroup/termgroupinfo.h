@@ -47,7 +47,6 @@ protected:
 
     // Tree tools
     void setLayers();
-    int getLayersCount() const;  // TODO: Delete
     // Returns layer list in asc order
     QList<int> getLayerNumbersList(bool withRoot = true) const;
     GraphicItemTerm::List getNodesInLayer(int layer) const;
@@ -66,6 +65,7 @@ private:
     // Group info
     QUuid groupUuid;
     GroupType type = GroupType::freeEdges;
+    int layersCount = 0;
 
     // Group content
     GraphicItemTerm::List nodesList;
