@@ -19,9 +19,9 @@ HEADERS += \
     source/mainwindow.h\
     source/mysceneview.h\
     source/Model/TerminEdge/edge.h\
-    source/Model/termgroup.h\
+    source/Model/TerminGroup/termgroup.h\
     source/Model/wordfreqanalyze.h \
-    source/Model/tgroupname.h \
+    source/Model/TerminGroup/tgroupname.h \
     source/Model/reminder.h\
     source/Managers/networkmanager.h \
     source/Managers/groupsmanager.h \
@@ -41,7 +41,7 @@ HEADERS += \
     source/Model/Termin/paintedterm.h \
     source/Model/Termin/graphicitemterm.h \
     source/Model/Termin/quickitemterm.h \
-    source/Model/termgroupinfo.h
+    source/Model/TerminGroup/termgroupinfo.h
 
 SOURCES += \
     source/main.cpp\
@@ -59,7 +59,7 @@ SOURCES += \
     source/mysceneview.cpp\
     source/Model/reminder.cpp\
     source/Model/TerminEdge/edge.cpp\
-    source/Model/termgroup.cpp\
+    source/Model/TerminGroup/termgroup.cpp\
     source/Model/wordfreqanalyze.cpp \
     source/Managers/networkmanager.cpp \
     source/Managers/groupsmanager.cpp \
@@ -78,7 +78,7 @@ SOURCES += \
     source/Model/Termin/paintedterm.cpp \
     source/Model/Termin/graphicitemterm.cpp \
     source/Model/Termin/quickitemterm.cpp \
-    source/Model/termgroupinfo.cpp
+    source/Model/TerminGroup/termgroupinfo.cpp
 
 FORMS += \
     source/ui/reminder.ui\
