@@ -6,7 +6,7 @@
 #include "../glb.h"
 #include "./nodesmanager.h"
 #include "./networkmanager.h"
-#include "../Model/termgroup.h"
+#include "../Model/TerminGroup/termgroup.h"
 
 class GroupsManager : public QObject
 {

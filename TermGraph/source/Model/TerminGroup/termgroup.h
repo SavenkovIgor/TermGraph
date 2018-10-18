@@ -4,12 +4,12 @@
 #include <QObject>
 #include <QtSql>
 
-#include "../databaseWorks/termgrouptbl.h"
-#include "../Helpers/appstyle.h"
-#include "../Helpers/tagprocessor.h"
+#include "../../databaseWorks/termgrouptbl.h"
+#include "../../Helpers/appstyle.h"
+#include "../../Helpers/tagprocessor.h"
 #include "./termgroupinfo.h"
 #include "./tgroupname.h"
-#include "./TerminEdge/edge.h"
+#include "../TerminEdge/edge.h"
 
 class TermGroup : public QObject, public TermGroupInfo
 {

@@ -5,8 +5,8 @@
 #include <QDebug>
 #include <QUuid>
 
-#include "./Termin/graphicitemterm.h"
-#include "../Helpers/tagprocessor.h"
+#include "../Termin/graphicitemterm.h"
+#include "../../Helpers/tagprocessor.h"
 
 enum class GroupType {
     freeEdges = -1,

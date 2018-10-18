@@ -13,7 +13,7 @@
 #include "./Managers/nodesmanager.h"
 #include "./Helpers/appconfig.h"
 #include "./Helpers/fsworks.h"
-#include "./Model/termgroup.h"
+#include "./Model/TerminGroup/termgroup.h"
 
 class MainScene : public QGraphicsScene
 {
