@@ -20,6 +20,8 @@ public:
 
     PaintedTerm::List getAllNodesInStack() const;
 
+    QSizeF getSize() const;  // Clearly counted value. Ignoring real node positions
+
 private:
     PaintedTerm::List terms;
 };

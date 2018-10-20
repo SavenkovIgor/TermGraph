@@ -40,6 +40,25 @@ void TermTree::setSceneParent(QGraphicsItem *parent)
     }
 }
 
+QSizeF TermTree::getTreeSize() const
+{
+    qreal width = 0.0;
+    qreal height = 0.0;
+
+    for (int i = 0; i < stacks.size(); i++) {
+        QSizeF stackSize = stacks[i].getSize();
+
+        width += stackSize.width();
+
+        if (i < stacks.size() - 1) {
+            width += AppStyle::Sizes::treeLayerHorizontalSpacer;
+        }
+
+        height = qMax(height, stackSize.height());
+    }
+    return QSizeF(width, height);
+}
+
 PaintedTerm::List TermTree::getAllNodesInTree() const
 {
     PaintedTerm::List ret;

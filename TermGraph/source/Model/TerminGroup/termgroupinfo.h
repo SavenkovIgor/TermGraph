@@ -53,7 +53,8 @@ protected:
     // Returns layer list in asc order
     QList<int> getLayerNumbersList(bool withRoot = true) const;
     GraphicItemTerm::List getNodesInLayer(int layer) const;
-    QSizeF getTheoreticalTreeSize();
+    QSizeF getTheoreticalTreeSize();  // TODO: Delete!
+    QSizeF getAllTreesSize();
 
     void setNeighbours();
 

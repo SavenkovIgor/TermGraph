@@ -21,6 +21,8 @@ public:
 
     void setSceneParent(QGraphicsItem* parent);
 
+    QSizeF getTreeSize() const;  // Clearly counted value. Ignoring real node positions
+
 private:
     NodeVerticalStack::List stacks;
 

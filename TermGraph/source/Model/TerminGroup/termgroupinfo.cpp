@@ -186,6 +186,20 @@ QSizeF TermGroupInfo::getTheoreticalTreeSize()
     return QSizeF(treeWidth, treeHeight);
 }
 
+QSizeF TermGroupInfo::getAllTreesSize()
+{
+    qreal width = 0.0;
+    qreal height = 0.0;
+
+    for (auto tree : trees) {
+        QSizeF treeSize = tree.getTreeSize();
+        width = qMax(width, treeSize.width());
+        height += treeSize.height();
+    }
+
+    return QSizeF(width, height);
+}
+
 void TermGroupInfo::setNeighbours()
 {
     for (int layer : getLayerNumbersList()) {
