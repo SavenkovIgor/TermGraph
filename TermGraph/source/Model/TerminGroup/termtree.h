@@ -6,6 +6,7 @@
 #include <stdlib.h>
 
 #include "../Termin/graphicitemterm.h"
+#include "../TerminEdge/edge.h"
 #include "./nodeverticalstack.h"
 
 class TermTree
@@ -18,6 +19,7 @@ public:
 
     void addTerm(PaintedTerm* term);
     bool hasTerm(PaintedTerm* term);
+    bool hasEdge(Edge* edge);
 
     void setSceneParent(QGraphicsItem* parent);
 

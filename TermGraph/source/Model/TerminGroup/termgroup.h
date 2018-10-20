@@ -94,7 +94,8 @@ private:
 
     // Main objects
     TGroupName *grNmItem;
-    QGraphicsRectItem *treeRect;
+    QList<QGraphicsRectItem*> treeRects;
+    void initTreeRects();
     QGraphicsRectItem *orphansRect;
 };
 

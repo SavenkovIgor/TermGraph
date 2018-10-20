@@ -169,23 +169,6 @@ GraphicItemTerm::List TermGroupInfo::getNodesInLayer(int layer) const
     return ret;
 }
 
-QSizeF TermGroupInfo::getTheoreticalTreeSize()
-{
-    qreal treeWidth = 0.0;
-    qreal treeHeight = 0.0;
-
-    for (int layer : getLayerNumbersList()) {
-        GraphicItemTerm::List nodes = getNodesInLayer(layer);
-        QSizeF levelSize = getVerticalStackedSize(nodes);
-        treeWidth += levelSize.width();
-        if (layer < layersCount) {
-            treeWidth += AppStyle::Sizes::treeLayerHorizontalSpacer;
-        }
-        treeHeight = qMax(treeHeight, levelSize.height());
-    }
-    return QSizeF(treeWidth, treeHeight);
-}
-
 QSizeF TermGroupInfo::getAllTreesSize()
 {
     qreal width = 0.0;

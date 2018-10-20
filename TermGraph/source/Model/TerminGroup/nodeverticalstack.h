@@ -16,7 +16,6 @@ public:
 
     void addTerm(PaintedTerm* term);
     bool hasTerm(PaintedTerm* term);
-    bool hasEdge(Edge* edge);
 
     PaintedTerm::List getAllNodesInStack() const;
 

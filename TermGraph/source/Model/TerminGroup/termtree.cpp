@@ -32,6 +32,13 @@ bool TermTree::hasTerm(PaintedTerm *term)
     return false;
 }
 
+bool TermTree::hasEdge(Edge *edge)
+{
+    PaintedTerm* rootTerm = dynamic_cast<PaintedTerm*>(edge->getRoot());
+    PaintedTerm* leafTerm = dynamic_cast<PaintedTerm*>(edge->getLeaf());
+    return hasTerm(rootTerm) && hasTerm(leafTerm);
+}
+
 void TermTree::setSceneParent(QGraphicsItem *parent)
 {
     for (auto node : getAllNodesInTree()) {

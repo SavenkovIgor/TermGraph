@@ -33,15 +33,10 @@ void TermGroup::initNewNodes()
     baseRect = new QGraphicsRectItem(QRectF(QPoint(0, 0), QSizeF(10.0, 10.0)), nullptr);
     baseRect->setZValue(1);
 
-    treeRect = new QGraphicsRectItem(nullptr);
-    treeRect->setParentItem(baseRect);
-    treeRect->setBrush(AppStyle::Colors::testColor);
-
     orphansRect = new QGraphicsRectItem(nullptr);
     orphansRect->setParentItem(baseRect);
 
     // Скрываем рамку
-    hideRect(treeRect);
     hideRect(orphansRect);
 
     //    centerRect  = new QGraphicsRectItem( nullptr );
@@ -58,11 +53,14 @@ void TermGroup::initNewNodes()
 
     this->grNmItem->setParentItem(baseRect);
 
-    addNodesToParents();
-    addEdgesToParents();
 
     setLayers();
     initTrees();
+    initTreeRects();
+
+    addNodesToParents();
+    addEdgesToParents();
+
     setTreeCoords();
     setNeighbours();
     setOrphCoords();
@@ -90,7 +88,11 @@ TermGroup::~TermGroup()
     animTimer.stop();
 
     delete grNmItem;
-    delete treeRect;
+
+    for (auto treeRect : treeRects) {
+        delete treeRect;
+    }
+
     delete orphansRect;
     delete baseRect;
 }
@@ -153,8 +155,8 @@ void TermGroup::loadNodes(GraphicItemTerm::List newNodes)
 
 void TermGroup::addNodesToParents()
 {
-    for (GraphicItemTerm* node : getInTreeNodes()) {
-        node->setSceneParent(treeRect);
+    for (int i = 0; i < trees.size(); i++) {
+        trees[i].setSceneParent(treeRects[i]);
     }
 
     for (GraphicItemTerm* node : getOrphanNodes()) {
@@ -165,7 +167,11 @@ void TermGroup::addNodesToParents()
 void TermGroup::addEdgesToParents()
 {
     for (Edge* edge : getAllEdges()) {
-        edge->setSceneParent(treeRect);
+        for (int i = 0; i < trees.size(); i++) {
+            if (trees[i].hasEdge(edge)) {
+                edge->setSceneParent(treeRects[i]);
+            }
+        }
     }
 }
 
@@ -324,12 +330,24 @@ void TermGroup::hideRect(QGraphicsRectItem *item)
     item->setPen(QPen(AppStyle::Colors::transparent));
 }
 
+void TermGroup::initTreeRects()
+{
+    for (auto tree : trees) {
+        QGraphicsRectItem* newRect = new QGraphicsRectItem(nullptr);
+        newRect->setParentItem(baseRect);
+        newRect->setBrush(AppStyle::Colors::testColor);
+
+        hideRect(newRect);
+        treeRects << newRect;
+    }
+}
+
 qreal TermGroup::getGroupMinWidth()
 {
     qreal width = 0.0;
 
     qreal groupNameWidth = grNmItem->getNameRect().width();
-    qreal treeWidth = getTheoreticalTreeSize().width();
+    qreal treeWidth = getAllTreesSize().width();
     qreal orphansWidth = getVerticalStackedSize(getOrphanNodes()).width();
 
     width = qMax(width, groupNameWidth);
@@ -364,19 +382,20 @@ void TermGroup::updateRectsPositions()
     QPointF basePoint(QPointF(hSpacer, vSpacer));
 
     QSizeF nameSize = grNmItem->getNameRect().size();
-    QSizeF treeSize = getTheoreticalTreeSize();
-    QSizeF orphansSize = getOrphansSize();
 
     // Устанавливаем базовую точку имени
     grNmItem->setPos(basePoint);
     basePoint.ry() += nameSize.height() + vSpacer;
 
     // Вычисляем под дерево
-    treeRect->setPos(basePoint);
-    treeRect->setRect(QRectF(QPoint(), treeSize));  // Применяем его
-    if (getTheoreticalTreeSize().height() > 0)
-        basePoint.ry() += getTheoreticalTreeSize().height() + vSpacer;
+    for (int i = 0; i < trees.size(); i++) {
+        auto treeSize = trees[i].getTreeSize();
+        treeRects[i]->setPos(basePoint);
+        treeRects[i]->setRect(QRectF(QPointF(), treeSize));
+        basePoint.ry() += treeSize.height() + vSpacer;
+    }
 
+    QSizeF orphansSize = getOrphansSize();
     // Вычисляем под несвязанные вершины
     orphansRect->setPos(basePoint);
     orphansRect->setRect(QRectF(QPoint(), orphansSize));  // Применяем
@@ -385,7 +404,7 @@ void TermGroup::updateRectsPositions()
 void TermGroup::updateBaseRectSize()
 {
     QSizeF nameSize = grNmItem->getNameRect().size();
-    QSizeF treeSize = getTheoreticalTreeSize();
+    QSizeF treesSize = getAllTreesSize();
     QSizeF orphansSize = getOrphansSize();
     qreal vSpacer = AppStyle::Sizes::groupVerticalSpacer;
     qreal hSpacer = AppStyle::Sizes::groupHorizontalSpacer;
@@ -394,14 +413,14 @@ void TermGroup::updateBaseRectSize()
     qreal height = 0.0;
 
     width = qMax(width, nameSize.width());
-    width = qMax(width, treeSize.width());
+    width = qMax(width, treesSize.width());
     width = qMax(width, orphansSize.width());
     width += hSpacer*2;
 
     height += vSpacer;
     height += nameSize.height();
-    if (treeSize.height() > 0)
-        height += treeSize.height() + vSpacer;
+    if (treesSize.height() > 0)
+        height += treesSize.height() + vSpacer;
     if (orphansSize.height() > 0)
         height += orphansSize.height() + vSpacer;
     height += vSpacer;

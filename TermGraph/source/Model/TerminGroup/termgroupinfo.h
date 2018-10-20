@@ -53,7 +53,6 @@ protected:
     // Returns layer list in asc order
     QList<int> getLayerNumbersList(bool withRoot = true) const;
     GraphicItemTerm::List getNodesInLayer(int layer) const;
-    QSizeF getTheoreticalTreeSize();  // TODO: Delete!
     QSizeF getAllTreesSize();
 
     void setNeighbours();
@@ -65,14 +64,15 @@ protected:
     // Orphans tools
     QSizeF getOrphansSize();
 
+    // Termgroup
+    TermTree::List trees;
+
 private:
     // Group info
     QUuid groupUuid;
     GroupType type = GroupType::freeEdges;
     int layersCount = 0;
 
-    // Termgroup
-    TermTree::List trees;
 
     // Group content
     GraphicItemTerm::List nodesList;

@@ -20,12 +20,7 @@ bool NodeVerticalStack::hasTerm(PaintedTerm *term)
     return false;
 }
 
-bool NodeVerticalStack::hasEdge(Edge *edge)
-{
-    PaintedTerm* rootTerm = dynamic_cast<PaintedTerm*>(edge->getRoot());
-    PaintedTerm* leafTerm = dynamic_cast<PaintedTerm*>(edge->getLeaf());
-    return hasTerm(rootTerm) && hasTerm(leafTerm);
-}
+
 
 PaintedTerm::List NodeVerticalStack::getAllNodesInStack() const
 {
