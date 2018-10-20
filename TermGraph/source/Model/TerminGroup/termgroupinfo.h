@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QUuid>
 
+#include "./termtree.h"
 #include "../Termin/graphicitemterm.h"
 #include "../../Helpers/tagprocessor.h"
 
@@ -47,6 +48,8 @@ protected:
 
     // Tree tools
     void setLayers();
+    void initTrees();
+    TermTree::List getAllTrees() const;
     // Returns layer list in asc order
     QList<int> getLayerNumbersList(bool withRoot = true) const;
     GraphicItemTerm::List getNodesInLayer(int layer) const;
@@ -66,6 +69,9 @@ private:
     QUuid groupUuid;
     GroupType type = GroupType::freeEdges;
     int layersCount = 0;
+
+    // Termgroup
+    TermTree::List trees;
 
     // Group content
     GraphicItemTerm::List nodesList;

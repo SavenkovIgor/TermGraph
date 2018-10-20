@@ -57,6 +57,7 @@ public:
     QJsonDocument getJsonDoc();
 
     void loadNodes(GraphicItemTerm::List newNodes);
+
 public slots:
     void checkSwap();
 

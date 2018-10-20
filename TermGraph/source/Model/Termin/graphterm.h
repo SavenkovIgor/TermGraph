@@ -42,6 +42,9 @@ public:
     void setLevel(int lev);  // TODO: Rename
     int getPaintLayer() const;  // TODO: Rename
 
+    void setTreeId(unsigned int treeId);
+    unsigned int getTreeId() const;
+
     void addEdgeRef(GraphEdge *edge);
     static bool isInGroupEdge(GraphEdge* edge);
     bool hasConnectionsInGroup();
@@ -56,9 +59,7 @@ public:
     GraphTerm::List getNeighbourNodes();  // TODO: Maybe delete later
     GraphEdge::List getEdgesToLeafs();  // TODO: Maybe delete later
     GraphEdge::List getEdgesToRoots();  // TODO: Maybe delete later
-
-public:
-//private:  // TODO: Uncomment. Incapsulation!!!
+    GraphEdge::List getAllConnectedEdges();
 
 private:
     List rootNodes;
@@ -72,6 +73,7 @@ private:
     GraphEdge::List edgesToRoots;
 
     int paintLevel = -1;  // TODO: Rename
+    unsigned int treeId = 0; // 0 = no value
 };
 
 #endif // TERMGRAPH_H

@@ -88,6 +88,24 @@ int GraphTerm::getPaintLayer() const
     return paintLevel;
 }
 
+void GraphTerm::setTreeId(unsigned int treeId)
+{
+    if (this->treeId == 0) {
+        this->treeId = treeId;
+    } else {
+        return;
+    }
+
+    for (auto edge : getAllConnectedEdges()) {
+        edge->getOtherSide(this)->setTreeId(treeId);
+    }
+}
+
+unsigned int GraphTerm::getTreeId() const
+{
+    return treeId;
+}
+
 void GraphTerm::addEdgeRef(GraphEdge *edge)
 {
     if (edge->getRoot() == this && edge->getLeaf() != this) {  // We are source - connection up
@@ -163,4 +181,12 @@ GraphEdge::List GraphTerm::getEdgesToLeafs()
 GraphEdge::List GraphTerm::getEdgesToRoots()
 {
     return edgesToRoots;
+}
+
+GraphEdge::List GraphTerm::getAllConnectedEdges()
+{
+    GraphEdge::List ret;
+    ret << edgesToRoots;
+    ret << edgesToLeafs;
+    return ret;
 }

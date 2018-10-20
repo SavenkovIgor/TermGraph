@@ -62,6 +62,7 @@ void TermGroup::initNewNodes()
     addEdgesToParents();
 
     setLayers();
+    initTrees();
     setTreeCoords();
     setNeighbours();
     setOrphCoords();
@@ -167,8 +168,6 @@ void TermGroup::addEdgesToParents()
         edge->setSceneParent(treeRect);
     }
 }
-
-
 
 void TermGroup::swapNodes(GraphicItemTerm* n1, GraphicItemTerm* n2)
 {

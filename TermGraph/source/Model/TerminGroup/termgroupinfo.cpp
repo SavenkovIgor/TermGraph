@@ -95,6 +95,40 @@ void TermGroupInfo::setLayers()
     }
 }
 
+void TermGroupInfo::initTrees()
+{
+    trees.clear();
+    unsigned int treeId = 1;
+
+    auto treeNodes = getInTreeNodes();
+
+    // Set all tree Id's
+    for (auto node : treeNodes) {
+        if (node->getTreeId() == 0) {
+            node->setTreeId(treeId);
+            treeId++;
+        }
+    }
+
+    unsigned int treesCount = treeId - 1; // last treeId increase was fictious
+
+    // Set all trees
+    for (unsigned int treeId = 1; treeId <= treesCount; treeId++) {
+        TermTree tree;
+        for (auto node : treeNodes) {
+            if (node->getTreeId() == treeId) {
+                tree.addTerm(node);
+            }
+        }
+        trees.push_back(tree);
+    }
+}
+
+QList<TermTree> TermGroupInfo::getAllTrees() const
+{
+    return trees;
+}
+
 QList<int> TermGroupInfo::getLayerNumbersList(bool withRoot) const
 {
     QList<int> ret;

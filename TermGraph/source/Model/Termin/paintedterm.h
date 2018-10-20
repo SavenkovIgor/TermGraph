@@ -19,6 +19,9 @@ enum class CoordType {
 class PaintedTerm : public GraphTerm
 {
 public:
+
+    typedef QList<PaintedTerm*> List;
+
     static bool someoneHover;
     static bool someoneSelect;
 
