@@ -2,10 +2,44 @@
 
 TermTree::TermTree()
 {
-
+//    qDebug() << "Create tree";
+    rect = new QGraphicsRectItem();
+    rect->setBrush(AppStyle::Colors::transparent);
+//    rect->setBrush(AppStyle::Colors::testColor);
+    rect->setPen(QPen(AppStyle::Colors::transparent));
 }
 
-void TermTree::addTerm(PaintedTerm *term)
+TermTree::~TermTree()
+{
+//    qDebug() << "Delete tree";
+    for (auto stack : stacks) {
+        delete stack;
+    }
+    delete rect;
+}
+
+void TermTree::setTreeNodeCoors(QPointF leftTopPoint)
+{
+    if (getAllNodesInTree().isEmpty()) {
+        return;
+    }
+
+    qreal allTreeHeight = getMaxStackHeight();
+
+    auto startPoint = leftTopPoint;
+    startPoint.ry() += allTreeHeight / 2;
+
+    auto centerPoint = startPoint;
+
+    for (auto stack : stacks) {
+        auto stackSize = stack->getSize();
+        centerPoint.rx() += stackSize.width()/2;
+        stack->placeTerms(centerPoint);
+        centerPoint.rx() += stackSize.width()/2 + AppStyle::Sizes::treeLayerHorizontalSpacer;
+    }
+}
+
+void TermTree::addTerm(GraphicItemTerm* term)
 {
     int paintLayer = term->getPaintLayer();
 
@@ -16,16 +50,19 @@ void TermTree::addTerm(PaintedTerm *term)
 
     int increaseSizeCount = paintLayer - stacks.size() + 1;
     for (int i = 0; i < increaseSizeCount; i++) {
-        stacks.push_back(NodeVerticalStack());
+        stacks.push_back(new NodeVerticalStack());
     }
 
-    stacks[paintLayer].addTerm(term);
+    GraphicItemTerm* grTerm = dynamic_cast<GraphicItemTerm*>(term);
+    grTerm->setSceneParent(rect);
+
+    stacks[paintLayer]->addTerm(term);
 }
 
-bool TermTree::hasTerm(PaintedTerm *term)
+bool TermTree::hasTerm(GraphicItemTerm *term)
 {
     for (auto stack : stacks) {
-        if (stack.hasTerm(term)) {
+        if (stack->hasTerm(term)) {
             return true;
         }
     }
@@ -34,17 +71,9 @@ bool TermTree::hasTerm(PaintedTerm *term)
 
 bool TermTree::hasEdge(Edge *edge)
 {
-    PaintedTerm* rootTerm = dynamic_cast<PaintedTerm*>(edge->getRoot());
-    PaintedTerm* leafTerm = dynamic_cast<PaintedTerm*>(edge->getLeaf());
+    GraphicItemTerm* rootTerm = dynamic_cast<GraphicItemTerm*>(edge->getRoot());
+    GraphicItemTerm* leafTerm = dynamic_cast<GraphicItemTerm*>(edge->getLeaf());
     return hasTerm(rootTerm) && hasTerm(leafTerm);
-}
-
-void TermTree::setSceneParent(QGraphicsItem *parent)
-{
-    for (auto node : getAllNodesInTree()) {
-        GraphicItemTerm* term = dynamic_cast<GraphicItemTerm*>(node);
-        term->setSceneParent(parent);
-    }
 }
 
 QSizeF TermTree::getTreeSize() const
@@ -53,7 +82,7 @@ QSizeF TermTree::getTreeSize() const
     qreal height = 0.0;
 
     for (int i = 0; i < stacks.size(); i++) {
-        QSizeF stackSize = stacks[i].getSize();
+        QSizeF stackSize = stacks[i]->getSize();
 
         width += stackSize.width();
 
@@ -66,11 +95,21 @@ QSizeF TermTree::getTreeSize() const
     return QSizeF(width, height);
 }
 
-PaintedTerm::List TermTree::getAllNodesInTree() const
+GraphicItemTerm::List TermTree::getAllNodesInTree() const
 {
-    PaintedTerm::List ret;
+    GraphicItemTerm::List ret;
     for (auto stack : stacks) {
-        ret << stack.getAllNodesInStack();
+        ret << stack->getAllNodesInStack();
     }
     return ret;
+}
+
+qreal TermTree::getMaxStackHeight() const
+{
+    qreal maxHeight = 0.0;
+    for (auto stack : stacks) {
+        QSizeF stackSize = stack->getSize();
+        maxHeight = qMax(maxHeight, stackSize.height());
+    }
+    return maxHeight;
 }

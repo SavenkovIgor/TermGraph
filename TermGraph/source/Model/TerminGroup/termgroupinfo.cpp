@@ -97,6 +97,9 @@ void TermGroupInfo::setLayers()
 
 void TermGroupInfo::initTrees()
 {
+    for (auto tree : trees) {
+        delete tree;
+    }
     trees.clear();
     unsigned int treeId = 1;
 
@@ -114,17 +117,17 @@ void TermGroupInfo::initTrees()
 
     // Set all trees
     for (unsigned int treeId = 1; treeId <= treesCount; treeId++) {
-        TermTree tree;
+        TermTree* tree = new TermTree();
         for (auto node : treeNodes) {
             if (node->getTreeId() == treeId) {
-                tree.addTerm(node);
+                tree->addTerm(node);
             }
         }
         trees.push_back(tree);
     }
 }
 
-QList<TermTree> TermGroupInfo::getAllTrees() const
+TermTree::List TermGroupInfo::getAllTrees() const
 {
     return trees;
 }
@@ -175,7 +178,7 @@ QSizeF TermGroupInfo::getAllTreesSize()
     qreal height = 0.0;
 
     for (auto tree : trees) {
-        QSizeF treeSize = tree.getTreeSize();
+        QSizeF treeSize = tree->getTreeSize();
         width = qMax(width, treeSize.width());
         height += treeSize.height();
     }

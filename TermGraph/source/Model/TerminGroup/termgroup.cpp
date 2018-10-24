@@ -56,9 +56,9 @@ void TermGroup::initNewNodes()
 
     setLayers();
     initTrees();
-    initTreeRects();
+    addTreeRectsToScene();
 
-    addNodesToParents();
+    addOrphansToParents();
     addEdgesToParents();
 
     setTreeCoords();
@@ -88,11 +88,6 @@ TermGroup::~TermGroup()
     animTimer.stop();
 
     delete grNmItem;
-
-    for (auto treeRect : treeRects) {
-        delete treeRect;
-    }
-
     delete orphansRect;
     delete baseRect;
 }
@@ -153,12 +148,8 @@ void TermGroup::loadNodes(GraphicItemTerm::List newNodes)
     initNewNodes();
 }
 
-void TermGroup::addNodesToParents()
+void TermGroup::addOrphansToParents()
 {
-    for (int i = 0; i < trees.size(); i++) {
-        trees[i].setSceneParent(treeRects[i]);
-    }
-
     for (GraphicItemTerm* node : getOrphanNodes()) {
         node->setSceneParent(orphansRect);
     }
@@ -167,9 +158,9 @@ void TermGroup::addNodesToParents()
 void TermGroup::addEdgesToParents()
 {
     for (Edge* edge : getAllEdges()) {
-        for (int i = 0; i < trees.size(); i++) {
-            if (trees[i].hasEdge(edge)) {
-                edge->setSceneParent(treeRects[i]);
+        for (auto tree : trees) {
+            if (tree->hasEdge(edge)) {
+                edge->setSceneParent(tree->rect);
             }
         }
     }
@@ -330,15 +321,10 @@ void TermGroup::hideRect(QGraphicsRectItem *item)
     item->setPen(QPen(AppStyle::Colors::transparent));
 }
 
-void TermGroup::initTreeRects()
+void TermGroup::addTreeRectsToScene()
 {
     for (auto tree : trees) {
-        QGraphicsRectItem* newRect = new QGraphicsRectItem(nullptr);
-        newRect->setParentItem(baseRect);
-        newRect->setBrush(AppStyle::Colors::testColor);
-
-        hideRect(newRect);
-        treeRects << newRect;
+        tree->rect->setParentItem(baseRect);
     }
 }
 
@@ -388,10 +374,10 @@ void TermGroup::updateRectsPositions()
     basePoint.ry() += nameSize.height() + vSpacer;
 
     // Вычисляем под дерево
-    for (int i = 0; i < trees.size(); i++) {
-        auto treeSize = trees[i].getTreeSize();
-        treeRects[i]->setPos(basePoint);
-        treeRects[i]->setRect(QRectF(QPointF(), treeSize));
+    for (auto tree : trees) {
+        auto treeSize = tree->getTreeSize();
+        tree->rect->setPos(basePoint);
+        tree->rect->setRect(QRectF(QPointF(), treeSize));
         basePoint.ry() += treeSize.height() + vSpacer;
     }
 
@@ -477,34 +463,8 @@ void TermGroup::setOrphCoords(qreal maxWidth)
 
 void TermGroup::setTreeCoords()
 {
-    if (getAllNodes().isEmpty()) {
-        return;
-    }
-
-    qreal x = 0, y = 0;
-    qreal layerHeight = 0;
-    qreal layerWidth = 0;
-    qreal allTreeHeight = getMaxHeightInAllLevels();
-
-    for (int i : getLayerNumbersList()) {
-        QList< GraphicItemTerm *> tList = getNodesInLayer(i);
-
-        // Сортируем вершины в более "удачном" порядке
-        tList = sortNodesInLayer(tList);
-
-        layerHeight = getVerticalStackedSize(tList).height();
-        layerWidth = getVerticalStackedSize(tList).width();
-
-        y = -(allTreeHeight - layerHeight)/2.0;
-        x += layerWidth/2;  // Сначала добавляем первую половину максимума
-
-        for (GraphicItemTerm* node : tList) {
-            node->setPos(x - node->getNodeRect(CoordType::scene).width()/2, -y);
-            y -= node->getFrameRect(CoordType::zeroPoint).size().height();
-        }
-
-        //А после выставления всех координат - вторую
-        x += (layerWidth/2 + AppStyle::Sizes::treeLayerHorizontalSpacer);
+    for (auto tree : trees) {
+        tree->setTreeNodeCoors();
     }
 }
 

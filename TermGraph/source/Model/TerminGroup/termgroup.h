@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QtSql>
+#include <QGraphicsRectItem>
 
 #include "../../databaseWorks/termgrouptbl.h"
 #include "../../Helpers/appstyle.h"
@@ -71,7 +72,7 @@ private slots:
 
 private:
     // Base init
-    void addNodesToParents();
+    void addOrphansToParents();
     void addEdgesToParents();
 
     // Group
@@ -94,8 +95,7 @@ private:
 
     // Main objects
     TGroupName *grNmItem;
-    QList<QGraphicsRectItem*> treeRects;
-    void initTreeRects();
+    void addTreeRectsToScene();
     QGraphicsRectItem *orphansRect;
 };
 

@@ -3,26 +3,28 @@
 
 #include <QList>
 
-#include "../Termin/paintedterm.h"
+#include "../Termin/graphicitemterm.h"
 #include "../TerminEdge/edge.h"
 
 class NodeVerticalStack
 {
 public:
-
-    typedef QList<NodeVerticalStack> List;
+    typedef QList<NodeVerticalStack*> List;
 
     NodeVerticalStack();
 
-    void addTerm(PaintedTerm* term);
-    bool hasTerm(PaintedTerm* term);
+    void addTerm(GraphicItemTerm* term);
+    bool hasTerm(GraphicItemTerm* term);
 
-    PaintedTerm::List getAllNodesInStack() const;
+    GraphicItemTerm::List getAllNodesInStack() const;
 
     QSizeF getSize() const;  // Clearly counted value. Ignoring real node positions
 
+    void sortTerms();
+    void placeTerms(QPointF centerPoint);
+
 private:
-    PaintedTerm::List terms;
+    GraphicItemTerm::List terms;
 };
 
 #endif // NODEVERTICALSTACK_H

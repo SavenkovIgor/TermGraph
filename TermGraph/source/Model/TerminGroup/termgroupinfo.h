@@ -73,7 +73,6 @@ private:
     GroupType type = GroupType::freeEdges;
     int layersCount = 0;
 
-
     // Group content
     GraphicItemTerm::List nodesList;
     GraphicItemTerm::List filterFromNodesList(std::function<bool(GraphicItemTerm*)> filterCheck) const;
@@ -81,7 +80,6 @@ private:
 
     // Edges & tools
     EdgesList edgesList;
-
     Edge* addNewEdge(GraphicItemTerm* node1, GraphicItemTerm* node2);
 
     // Edge connections search

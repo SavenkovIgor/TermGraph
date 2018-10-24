@@ -3,6 +3,7 @@
 
 #include <QList>
 #include <QGraphicsItem>
+#include <QGraphicsRectItem>
 #include <stdlib.h>
 
 #include "../Termin/graphicitemterm.h"
@@ -12,23 +13,28 @@
 class TermTree
 {
 public:
-
-    typedef QList<TermTree> List;
+    typedef QList<TermTree*> List;
 
     TermTree();
+    ~TermTree();
 
-    void addTerm(PaintedTerm* term);
-    bool hasTerm(PaintedTerm* term);
+    QGraphicsRectItem* rect = nullptr;
+
+    void setTreeNodeCoors(QPointF leftTopPoint = QPointF());
+
+    void addTerm(GraphicItemTerm* term);
+    bool hasTerm(GraphicItemTerm* term);
     bool hasEdge(Edge* edge);
-
-    void setSceneParent(QGraphicsItem* parent);
 
     QSizeF getTreeSize() const;  // Clearly counted value. Ignoring real node positions
 
+    TermTree(const TermTree&) = delete;
 private:
     NodeVerticalStack::List stacks;
 
-    PaintedTerm::List getAllNodesInTree() const;
+    GraphicItemTerm::List getAllNodesInTree() const;
+
+    qreal getMaxStackHeight() const;
 };
 
 #endif // TERMTREE_H
