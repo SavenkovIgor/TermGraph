@@ -5,8 +5,8 @@ TermTree::TermTree()
 //    qDebug() << "Create tree";
     rect = new QGraphicsRectItem();
     rect->setBrush(AppStyle::Colors::transparent);
-//    rect->setBrush(AppStyle::Colors::testColor);
-    rect->setPen(QPen(AppStyle::Colors::transparent));
+    rect->setPen(AppStyle::Colors::transparent);
+    rect->setPen(AppStyle::Colors::testColor);
 }
 
 TermTree::~TermTree()
@@ -39,6 +39,13 @@ void TermTree::setTreeNodeCoors(QPointF leftTopPoint)
     }
 }
 
+void TermTree::setNeighbours()
+{
+    for (auto stack : stacks) {
+        stack->setNeighbours();
+    }
+}
+
 void TermTree::addTerm(GraphicItemTerm* term)
 {
     int paintLayer = term->getPaintLayer();
@@ -59,7 +66,7 @@ void TermTree::addTerm(GraphicItemTerm* term)
     stacks[paintLayer]->addTerm(term);
 }
 
-bool TermTree::hasTerm(GraphicItemTerm *term)
+bool TermTree::hasTerm(GraphicItemTerm *term) const
 {
     for (auto stack : stacks) {
         if (stack->hasTerm(term)) {
@@ -69,7 +76,7 @@ bool TermTree::hasTerm(GraphicItemTerm *term)
     return false;
 }
 
-bool TermTree::hasEdge(Edge *edge)
+bool TermTree::hasEdge(Edge *edge) const
 {
     GraphicItemTerm* rootTerm = dynamic_cast<GraphicItemTerm*>(edge->getRoot());
     GraphicItemTerm* leafTerm = dynamic_cast<GraphicItemTerm*>(edge->getLeaf());

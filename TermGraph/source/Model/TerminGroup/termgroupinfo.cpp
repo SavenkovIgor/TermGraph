@@ -183,24 +183,17 @@ QSizeF TermGroupInfo::getAllTreesSize()
         height += treeSize.height();
     }
 
+    if (!trees.isEmpty()) {
+        height += (trees.size() - 1)*AppStyle::Sizes::groupVerticalSpacer;
+    }
+
     return QSizeF(width, height);
 }
 
 void TermGroupInfo::setNeighbours()
 {
-    for (int layer : getLayerNumbersList()) {
-
-        GraphicItemTerm::List levNd = getNodesInLayer(layer);
-        GraphTerm::List castedList;
-
-        for (GraphicItemTerm* term : levNd) {
-            castedList << static_cast<GraphTerm*>(term);
-        }
-
-        for (GraphicItemTerm* term : levNd) {
-            term->clearNeighboursList();
-            term->addLayerNeighbours(castedList);
-        }
+    for (auto tree : trees) {
+        tree->setNeighbours();
     }
 }
 
@@ -215,16 +208,6 @@ QSizeF TermGroupInfo::getVerticalStackedSize(GraphicItemTerm::List lst) const
         width = qMax(width, sz.width());
     }
     return QSizeF(width, height);
-}
-
-qreal TermGroupInfo::getMaxHeightInAllLevels() const
-{
-    qreal maxHeight = 0.0;
-    for (int i : getLayerNumbersList()) {
-        QSizeF stackSize = getVerticalStackedSize(getNodesInLayer(i));
-        maxHeight = qMax(maxHeight, stackSize.height());
-    }
-    return maxHeight;
 }
 
 QSizeF TermGroupInfo::getOrphansSize()

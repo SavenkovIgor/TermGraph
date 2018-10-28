@@ -10,7 +10,7 @@ void NodeVerticalStack::addTerm(GraphicItemTerm* term)
     terms << term;
 }
 
-bool NodeVerticalStack::hasTerm(GraphicItemTerm *term)
+bool NodeVerticalStack::hasTerm(GraphicItemTerm *term) const
 {
     for (auto stackTerm : terms) {
         if (stackTerm == term) {
@@ -84,6 +84,21 @@ void NodeVerticalStack::placeTerms(QPointF centerPoint)
         QPointF leftTopPt(x - termSize.width()/2, y - termSize.height()/2);
         term->setPos(leftTopPt);
         y -= termSize.height()/2;
+    }
+}
+
+void NodeVerticalStack::setNeighbours()
+{
+    // Casting list to GraphicItemTerm
+    GraphTerm::List castedList;
+
+    for (auto term: terms) {
+        castedList << static_cast<GraphTerm*>(term);
+    }
+
+    for (auto term : terms) {
+        term->clearNeighboursList();
+        term->addLayerNeighbours(castedList);
     }
 }
 

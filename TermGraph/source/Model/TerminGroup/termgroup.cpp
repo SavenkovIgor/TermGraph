@@ -240,9 +240,6 @@ void TermGroup::sceneUpdateSignal()
 
 void TermGroup::checkSwap()
 {
-    QTime t;
-    t.start();
-
     for (int layer : getLayerNumbersList(false)) {  // TODO: Обдумать этот момент i=1 because we need to ignore roots.
         GraphicItemTerm::List levLst = getNodesInLayer(layer);
 
@@ -466,31 +463,6 @@ void TermGroup::setTreeCoords()
     for (auto tree : trees) {
         tree->setTreeNodeCoors();
     }
-}
-
-GraphicItemTerm::List TermGroup::sortNodesInLayer(GraphicItemTerm::List lst)
-{
-    // Сначала сортируем по убыванию количества связей
-    GraphicItemTerm::List ret;
-    int nMax = 0;
-
-    for (int i = 0; i < lst.size(); i++) {
-        nMax = i;
-        for (int j = i + 1; j < lst.size(); j++) {
-            if (lst[j]->getUpLevels() > lst[nMax]->getUpLevels()) {
-                nMax = j;
-            }
-        }
-        lst.swap(i, nMax);
-    }
-    // Формируем новый список так чтобы максимально нагруженные вершины были ближе к центру
-    for (int i = 0; i < lst.size(); i++) {
-        if (i%2 == 0)
-            ret.push_front(lst[i]);
-        else
-            ret.push_back(lst[i]);
-    }
-    return ret;
 }
 
 QString TermGroup::getName()

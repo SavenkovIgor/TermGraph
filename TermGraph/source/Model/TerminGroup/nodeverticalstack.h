@@ -14,7 +14,7 @@ public:
     NodeVerticalStack();
 
     void addTerm(GraphicItemTerm* term);
-    bool hasTerm(GraphicItemTerm* term);
+    bool hasTerm(GraphicItemTerm* term) const;
 
     GraphicItemTerm::List getAllNodesInStack() const;
 
@@ -22,6 +22,7 @@ public:
 
     void sortTerms();
     void placeTerms(QPointF centerPoint);
+    void setNeighbours();
 
 private:
     GraphicItemTerm::List terms;

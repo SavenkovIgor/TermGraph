@@ -15,25 +15,33 @@ class TermTree
 public:
     typedef QList<TermTree*> List;
 
+    // Constructor/Destructor
     TermTree();
     ~TermTree();
 
     QGraphicsRectItem* rect = nullptr;
 
-    void setTreeNodeCoors(QPointF leftTopPoint = QPointF());
-
+    // Add info
     void addTerm(GraphicItemTerm* term);
-    bool hasTerm(GraphicItemTerm* term);
-    bool hasEdge(Edge* edge);
+
+    // TreeInfo
+    bool hasTerm(GraphicItemTerm* term) const;
+    bool hasEdge(Edge* edge) const;
 
     QSizeF getTreeSize() const;  // Clearly counted value. Ignoring real node positions
 
+    // Internal counts and preparations
+    void setTreeNodeCoors(QPointF leftTopPoint = QPointF());
+    void setNeighbours();
+
+    // Deletions
     TermTree(const TermTree&) = delete;
+
 private:
     NodeVerticalStack::List stacks;
 
+    // Internal Info
     GraphicItemTerm::List getAllNodesInTree() const;
-
     qreal getMaxStackHeight() const;
 };
 

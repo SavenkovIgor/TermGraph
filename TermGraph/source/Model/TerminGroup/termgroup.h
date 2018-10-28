@@ -83,9 +83,6 @@ private:
     // Tree
     void setTreeCoords();
 
-    // Tree tools
-    GraphicItemTerm::List sortNodesInLayer(GraphicItemTerm::List lst);
-
     // Orphans
     void setOrphCoords(qreal maxWidth = 200.0);
 
