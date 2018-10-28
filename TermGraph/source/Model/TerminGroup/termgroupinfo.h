@@ -49,7 +49,6 @@ protected:
     // Tree tools
     void setLayers();
     void initTrees();
-    TermTree::List getAllTrees() const;
     // Returns layer list in asc order
     QList<int> getLayerNumbersList(bool withRoot = true) const;  // TODO: Delete!
     GraphicItemTerm::List getNodesInLayer(int layer) const;  // TODO: Delete!

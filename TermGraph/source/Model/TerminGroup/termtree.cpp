@@ -11,7 +11,7 @@ TermTree::TermTree()
 
 TermTree::~TermTree()
 {
-//    qDebug() << "Delete tree";
+//    qDebug() << "Remove tree";
     for (auto stack : stacks) {
         delete stack;
     }

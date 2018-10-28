@@ -127,11 +127,6 @@ void TermGroupInfo::initTrees()
     }
 }
 
-TermTree::List TermGroupInfo::getAllTrees() const
-{
-    return trees;
-}
-
 QList<int> TermGroupInfo::getLayerNumbersList(bool withRoot) const
 {
     QList<int> ret;
