@@ -1,12 +1,12 @@
 #include "fsworks.h"
 
-void FSWorks::saveFile(QString subDir, QString fileName, QString data) {
+void FSWorks::saveFile(const QString& subDir, const QString& fileName, QString data) {
     QByteArray arr;
     arr.append(data);
     saveFile(subDir, fileName, arr);
 }
 
-void FSWorks::saveFile(QString subDir, QString fileName, QByteArray data)
+void FSWorks::saveFile(const QString& subDir, const QString& fileName, QByteArray data)
 {
     QDir groupsDir(qApp->applicationDirPath());
     groupsDir.mkpath(subDir);

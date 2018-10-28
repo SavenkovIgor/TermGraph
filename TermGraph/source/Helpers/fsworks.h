@@ -9,8 +9,8 @@ class FSWorks
 {
 public:
 
-    static void saveFile(QString subDir, QString fileName, QString data);
-    static void saveFile(QString subDir, QString fileName, QByteArray data);
+    static void saveFile(const QString& subDir, const QString& fileName, QString data);
+    static void saveFile(const QString& subDir, const QString& fileName, QByteArray data);
 };
 
 #endif // FSWORKS_H
