@@ -5,11 +5,11 @@
 #include <QPoint>
 #include <QPointF>
 
-class HelpStuff{
+class HelpStuff {
 public:
-    static QString ptToStr(int x, int y, QString divider = "x");
-    static QString ptToStr(QPoint pt, QString divider = "x");
-    static QString ptToStr(QPointF pt, QString divider = "x");
+    static QString ptToStr(const int& x, const int& y, const QString& divider = "x");
+    static QString ptToStr(const QPoint& pt, const QString& divider = "x");
+    static QString ptToStr(const QPointF& pt, const QString& divider = "x");
 };
 
 #endif // HELPSTUFF_H
