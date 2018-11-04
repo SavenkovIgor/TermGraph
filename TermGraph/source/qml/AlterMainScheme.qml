@@ -95,7 +95,7 @@ Page {
                         var rect = sceneObj.currentNodeRect()
                         var color = sceneObj.currentNodeColor()
 
-                        JsPaint.paintNode(ctx, nodeName, rect.x, rect.y, color)
+                        JsPaint.paintNode(ctx, nodeName, rect, color)
 
                         sceneObj.nextNode()
                     }
