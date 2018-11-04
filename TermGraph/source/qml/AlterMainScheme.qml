@@ -43,29 +43,66 @@ Page {
         }
     }
 
-    Canvas {
-        id: mainSceneImg
+    Flickable {
         anchors.fill: parent
 
-        property color fillStyle: "#ae32a0" // purple
+        contentWidth: mainSceneImg.width
+        contentHeight: mainSceneImg.height
 
-        Component.onCompleted: {
-            requestPaint()
-        }
+        boundsBehavior: Flickable.StopAtBounds
 
-        onPaint: {
-            console.log("log!!!")
-            var ctx = mainSceneImg.getContext('2d')
+        Canvas {
+            id: mainSceneImg
 
-            JsPaint.paintNode(ctx, "textText", 100, 100, "#00ff00")
-//            ctx.fillStyle = 'green'
-//            ctx.fillRect(10, 10, 100, 100)
-//            ctx.strokeRect(40, 40, 70, 70)
+            height: 100
+            width: 100
 
-//            ctx.fillStyle = "#00FF00"
-//            ctx.clearRect(0, 0, mainSceneImg.width, mainSceneImg.height)
-//            ctx.roundedRect(10, 10, 40, 40, 5, 5)
+            property color fillStyle: "#ae32a0" // purple
 
+            Component.onCompleted: {
+                updateSize()
+                requestPaint()
+            }
+
+            Connections {
+                target: sceneObj
+                onSceneUpdated: {
+                    updateSize()
+                }
+            }
+
+            function updateSize() {
+                mainSceneImg.height = sceneObj.size.height
+                mainSceneImg.width = sceneObj.size.width
+            }
+
+            onPaint: {
+                var ctx = mainSceneImg.getContext('2d')
+
+                sceneObj.startGroupIterator()
+                for (var i = 0; i < 1000000; i++) {
+                    if (sceneObj.groupIteratorAtEnd()) {
+                        break;
+                    }
+
+                    var name = sceneObj.startNodeIterator()
+                    for (var j = 0; j < 1000000; j++) {
+                        if (sceneObj.nodeIteratorAtEnd()) {
+                            break;
+                        }
+
+                        var nodeName = sceneObj.currentNodeText()
+                        var rect = sceneObj.currentNodeRect()
+                        var color = sceneObj.currentNodeColor()
+
+                        JsPaint.paintNode(ctx, nodeName, rect.x, rect.y, color)
+
+                        sceneObj.nextNode()
+                    }
+
+                    sceneObj.nextGroup()
+                }
+            }
         }
     }
 }

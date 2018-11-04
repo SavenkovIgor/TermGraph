@@ -41,15 +41,8 @@ void TermGroup::initNewNodes()
 
     //    centerRect  = new QGraphicsRectItem( nullptr );
 
-    switch (getType()) {
-    case GroupType::freeEdges:
-        baseRect->setBrush(AppStyle::Colors::Groups::backgroundFreeConnections);
-        break;
-    case GroupType::terms:
-        baseRect->setBrush(AppStyle::Colors::Groups::backgroundTerms);
-        break;
-    }
-    baseRect->setPen(AppStyle::Colors::Groups::border);
+    baseRect->setBrush(getGroupFillColor());
+    baseRect->setPen(getGroupColor());
 
     this->grNmItem->setParentItem(baseRect);
 
@@ -369,4 +362,22 @@ void TermGroup::setTreeCoords()
 QString TermGroup::getName()
 {
     return grNmItem->getNameOnly();
+}
+
+QRectF TermGroup::getGroupRect()
+{
+    return baseRect->rect();
+}
+
+QColor TermGroup::getGroupColor()
+{
+    return AppStyle::Colors::Groups::border;
+}
+
+QColor TermGroup::getGroupFillColor()
+{
+    switch (getType()) {
+    case GroupType::freeEdges: return AppStyle::Colors::Groups::backgroundFreeConnections;
+    case GroupType::terms: return AppStyle::Colors::Groups::backgroundTerms;
+    }
 }

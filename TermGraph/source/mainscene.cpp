@@ -160,6 +160,7 @@ void MainScene::updateModel()
 //    viewGrpTimer.start(200);
     sceneRhytm.start();
     startAllGroupTimers();
+    sceneUpdated();
 }
 
 void MainScene::locateGroupsVertically()
@@ -193,6 +194,7 @@ void MainScene::updateSceneRect()
     int mV = 50;
     QMarginsF mrg(mV, mV, mV, mV);
     setSceneRect(allRect.marginsAdded(mrg));
+    sceneRect = allRect;
 }
 
 void MainScene::centerViewOn(QPointF point)
@@ -251,6 +253,100 @@ QString MainScene::getGroupString(QString grp)
     }
 
     return "";
+}
+
+void MainScene::startGroupIterator()
+{
+    groupIterator = 0;
+}
+
+void MainScene::nextGroup()
+{
+    groupIterator++;
+}
+
+bool MainScene::groupIteratorAtEnd()
+{
+    return groupIterator >= groupList.size();
+}
+
+QRectF MainScene::currentGroupRect()
+{
+    return groupList[groupIterator]->getGroupRect();
+}
+
+QColor MainScene::currentGroupColor()
+{
+    return groupList[groupIterator]->getGroupColor();
+}
+
+QColor MainScene::currentGroupFillColor()
+{
+    return groupList[groupIterator]->getGroupFillColor();
+}
+
+QString MainScene::currentGroupName()
+{
+    return groupList[groupIterator]->getName();
+}
+
+void MainScene::startEdgeIterator()
+{
+    edgeIterator = 0;
+}
+
+void MainScene::nextEdge()
+{
+    edgeIterator++;
+}
+
+bool MainScene::edgeIteratorAtEnd()
+{
+    return edgeIterator >= groupList[groupIterator]->getAllEdges().count();
+}
+
+QPointF MainScene::currentFirstEdgePoint()
+{
+    auto graphTerm = groupList[groupIterator]->getAllEdges()[edgeIterator]->getRoot();
+    PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
+    return paintedTerm->getScenePos();
+}
+
+QPointF MainScene::currentLastEdgePoint()
+{
+    auto graphTerm = groupList[groupIterator]->getAllEdges()[edgeIterator]->getLeaf();
+    PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
+    return paintedTerm->getScenePos();
+}
+
+void MainScene::startNodeIterator()
+{
+    nodeIterator = 0;
+}
+
+void MainScene::nextNode()
+{
+    nodeIterator++;
+}
+
+bool MainScene::nodeIteratorAtEnd()
+{
+    return nodeIterator >= groupList[groupIterator]->getAllNodes().count();
+}
+
+QRectF MainScene::currentNodeRect()
+{
+    return groupList[groupIterator]->getAllNodes()[nodeIterator]->getNodeRect(CoordType::scene);
+}
+
+QColor MainScene::currentNodeColor()
+{
+    return groupList[groupIterator]->getAllNodes()[nodeIterator]->getBaseColor();
+}
+
+QString MainScene::currentNodeText()
+{
+    return groupList[groupIterator]->getAllNodes()[nodeIterator]->getSmallName();
 }
 
 void MainScene::showGroup(int num)
@@ -430,6 +526,11 @@ bool MainScene::getCurrNodeIsRoot()
         return node->isRoot();
     }
     return false;
+}
+
+QSize MainScene::getSceneSize()
+{
+    return sceneRect.toRect().size();
 }
 
 QString MainScene::getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction)

@@ -37,6 +37,9 @@ public:
     static QMap<GroupType, QString> getTypesMap();
 
     QString getName();
+    QRectF getGroupRect();
+    QColor getGroupColor();
+    QColor getGroupFillColor();
 
     void setAnimSpeed(int val);
     static int getAnimSpeed();
@@ -79,7 +82,6 @@ private:
     void setOrphCoords(qreal maxWidth = 200.0);
 
     // Tools
-//    void swapNodes(GraphicItemTerm *n1, GraphicItemTerm *n2);
     void hideRect(QGraphicsRectItem* item);
 
     // Main objects

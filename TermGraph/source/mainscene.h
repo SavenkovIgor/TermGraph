@@ -18,6 +18,7 @@
 class MainScene : public QGraphicsScene
 {
     Q_OBJECT
+    Q_PROPERTY(QSize size READ getSceneSize)
 
     void initAllGroups();
     void addGroupToScene(TermGroup* group);
@@ -62,6 +63,8 @@ signals:
     void selectionDrop();
 
     void mouseInfo(QString str);
+
+    void sceneUpdated();
 
 public slots:
     void showGroup(int num);  // TODO: Постараться избавиться от этой функции
@@ -123,6 +126,41 @@ public slots:
         return TermGroup::getTypesNames();
     }
 
+public slots:
+
+    // Drawing API
+    // Group iterator
+    void startGroupIterator();
+    void nextGroup();
+    bool groupIteratorAtEnd();
+
+    QRectF currentGroupRect();
+    QColor currentGroupColor();
+    QColor currentGroupFillColor();
+    QString currentGroupName();
+
+    // Edge iterator
+    void startEdgeIterator();
+    void nextEdge();
+    bool edgeIteratorAtEnd();
+
+    QPointF currentFirstEdgePoint();
+    QPointF currentLastEdgePoint();
+
+    // Node iterator
+    void startNodeIterator();
+    void nextNode();
+    bool nodeIteratorAtEnd();
+
+    QRectF currentNodeRect();
+    QColor currentNodeColor();
+    QString currentNodeText();
+
+private:
+    int groupIterator = 0;
+    int edgeIterator = 0;
+    int nodeIterator = 0;
+
 private:
     QPointF lastPressPt;
     bool groupInFocus = false;
@@ -134,6 +172,9 @@ public slots:
 private:
     GroupsManager* groupsMgr;
     NodesManager* nodesMgr;
+
+    QRectF sceneRect;
+    QSize getSceneSize();
 
     GraphicItemTerm::List getAllTermsAtPoint(QPointF point);
 };

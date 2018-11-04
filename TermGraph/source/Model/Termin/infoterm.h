@@ -28,6 +28,7 @@ public:
     QUuid getUuid() const;
     QUuid getGroupUuid() const;
     QString getName() const;
+    QString getSmallName()  const;
     QString getNameFormStr() const;
     QStringList getNameFormList() const;
 
@@ -51,7 +52,6 @@ public:
     int getRepNum() const;
 
 protected:
-    QString getSmallName()  const;
     QSizeF getNameSize()    const;
 
 private:

@@ -60,12 +60,11 @@ public:
     void setSwap(QPointF toPt);
     void dropSwap();
 
-protected:
-    // --- Methods ---
     // Color tools
     QColor getBaseColor();
     QColor getSelectedColor();
 
+protected:
     // Geometry tools
     // --- Methods ---
     void adjustRectSizeForName();
