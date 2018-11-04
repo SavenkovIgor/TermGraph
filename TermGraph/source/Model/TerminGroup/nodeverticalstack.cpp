@@ -1,10 +1,5 @@
 #include "nodeverticalstack.h"
 
-NodeVerticalStack::NodeVerticalStack()
-{
-
-}
-
 void NodeVerticalStack::addTerm(GraphicItemTerm* term)
 {
     terms << term;
@@ -73,17 +68,22 @@ void NodeVerticalStack::placeTerms(QPointF centerPoint)
     sortTerms();
 
     auto stackSize = getSize();
-    QPointF startPoint(centerPoint.x(), centerPoint.y() + stackSize.height()/2);
+    QPointF startPoint(centerPoint.x(), centerPoint.y() - stackSize.height() / 2);
 
-    auto x = startPoint.x();
-    auto y = startPoint.y();
+    auto placingPoint = startPoint;
 
     for (auto term : terms) {
-        auto termSize = term->getFrameRect(CoordType::zeroPoint).size();
-        y -= termSize.height()/2;
-        QPointF leftTopPt(x - termSize.width()/2, y - termSize.height()/2);
+        auto frameSize = term->getFrameRect(CoordType::zeroPoint).size();
+        auto rectSize = term->getNodeRect(CoordType::zeroPoint).size();
+        placingPoint.ry() += frameSize.height() / 2;
+
+        QPointF leftTopPt;
+        leftTopPt.setX(placingPoint.x() - rectSize.width() / 2);
+        leftTopPt.setY(placingPoint.y() - rectSize.height() / 2);
+
         term->setPos(leftTopPt);
-        y -= termSize.height()/2;
+
+        placingPoint.ry() += frameSize.height() / 2;
     }
 }
 
@@ -101,4 +101,3 @@ void NodeVerticalStack::setNeighbours()
         term->addLayerNeighbours(castedList);
     }
 }
-

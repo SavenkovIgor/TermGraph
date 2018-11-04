@@ -11,8 +11,6 @@ class NodeVerticalStack
 public:
     typedef QList<NodeVerticalStack*> List;
 
-    NodeVerticalStack();
-
     void addTerm(GraphicItemTerm* term);
     bool hasTerm(GraphicItemTerm* term) const;
 
