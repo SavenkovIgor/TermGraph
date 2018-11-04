@@ -21,14 +21,6 @@ class TermGroup : public QObject, public TermGroupInfo
     QTimer animTimer;
     QTimer checkSwapTimer;
 
-    bool lockForce = true;
-
-    QPropertyAnimation swAnim1;
-    QPropertyAnimation swAnim2;
-    QParallelAnimationGroup animGrp;
-
-    int currAnimLevel = -1;
-
 public:
     explicit TermGroup(QSqlRecord rec, QObject* parent = nullptr);
     TermGroup(QJsonDocument doc, QObject* parent = nullptr);
@@ -87,7 +79,7 @@ private:
     void setOrphCoords(qreal maxWidth = 200.0);
 
     // Tools
-    void swapNodes(GraphicItemTerm *n1, GraphicItemTerm *n2);
+//    void swapNodes(GraphicItemTerm *n1, GraphicItemTerm *n2);
     void hideRect(QGraphicsRectItem* item);
 
     // Main objects

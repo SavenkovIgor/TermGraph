@@ -4,6 +4,8 @@
 #include <QList>
 #include <QGraphicsItem>
 #include <QGraphicsRectItem>
+#include <QParallelAnimationGroup>
+#include <QPropertyAnimation>
 #include <stdlib.h>
 
 #include "../Termin/graphicitemterm.h"
@@ -33,6 +35,17 @@ public:
     // Internal counts and preparations
     void setTreeNodeCoors(QPointF leftTopPoint = QPointF());
     void setNeighbours();
+
+    // Animation  // TODO: Make animation! Later...
+    QParallelAnimationGroup animationGroup;
+    QPropertyAnimation swAnim1;
+    QPropertyAnimation swAnim2;
+
+    int currAnimLevel = -1;
+    bool lockForce = true;
+
+    void animateTree();
+    void checkSwap();
 
     // Deletions
     TermTree(const TermTree&) = delete;

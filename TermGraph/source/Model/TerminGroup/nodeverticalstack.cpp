@@ -1,5 +1,17 @@
 #include "nodeverticalstack.h"
 
+NodeVerticalStack::NodeVerticalStack()
+{
+    animationGroup.addAnimation(&swAnim1);
+    animationGroup.addAnimation(&swAnim2);
+
+    swAnim1.setPropertyName("pos");
+    swAnim2.setPropertyName("pos");
+
+    swAnim1.setEasingCurve(QEasingCurve::InOutQuad);
+    swAnim2.setEasingCurve(QEasingCurve::InOutQuad);
+}
+
 void NodeVerticalStack::addTerm(GraphicItemTerm* term)
 {
     terms << term;

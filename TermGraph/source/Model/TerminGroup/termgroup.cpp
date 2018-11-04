@@ -72,14 +72,6 @@ void TermGroup::initNewNodes()
     animTimer.setSingleShot(false);
     animTimer.setInterval(50);
     connect(&animTimer, SIGNAL(timeout()), SLOT(animateGroup()));
-
-    animGrp.addAnimation(&swAnim1);
-    animGrp.addAnimation(&swAnim2);
-
-    swAnim1.setPropertyName("pos");
-    swAnim2.setPropertyName("pos");
-    swAnim1.setEasingCurve(QEasingCurve::InOutQuad);
-    swAnim2.setEasingCurve(QEasingCurve::InOutQuad);
 }
 
 TermGroup::~TermGroup()
@@ -166,39 +158,6 @@ void TermGroup::addEdgesToParents()
     }
 }
 
-void TermGroup::swapNodes(GraphicItemTerm* n1, GraphicItemTerm* n2)
-{
-    if (animGrp.state() != QAbstractAnimation::Stopped)
-        return;  // Very important instruction.
-    // Because of lags, timer can still work, but animation will slow down and it cause
-    // animation lags
-
-    currAnimLevel = n1->getPaintLayer();
-
-    QRectF rc1 = n1->getNodeRect(CoordType::local);
-    QRectF rc2 = n2->getNodeRect(CoordType::local);
-
-    QPointF pos1, pos2;
-
-    if (rc1.top() < rc2.top()) {
-        pos1 = QPointF(n1->pos().x() + rc1.width()/2 - rc2.width()/2, n1->pos().y());
-        pos2 = QPointF(n2->pos().x() + rc2.width()/2 - rc1.width()/2, n2->pos().y() - rc1.height() + rc2.height());
-    } else {
-        pos1 = QPointF(n1->pos().x() + rc1.width()/2-rc2.width()/2, n1->pos().y() - rc2.height() + rc1.height());
-        pos2 = QPointF(n2->pos().x() + rc2.width()/2-rc1.width()/2, n2->pos().y());
-    }
-
-    swAnim1.setTargetObject(n1);
-    swAnim1.setStartValue(n1->pos());
-    swAnim1.setEndValue(pos2);
-
-    swAnim2.setTargetObject(n2);
-    swAnim2.setStartValue(n2->pos());
-    swAnim2.setEndValue(pos1);
-
-    animGrp.start();
-}
-
 QJsonDocument TermGroup::getJsonDoc()
 {
     QJsonDocument doc;
@@ -240,75 +199,15 @@ void TermGroup::sceneUpdateSignal()
 
 void TermGroup::checkSwap()
 {
-    for (int layer : getLayerNumbersList(false)) {  // TODO: Обдумать этот момент i=1 because we need to ignore roots.
-        GraphicItemTerm::List levLst = getNodesInLayer(layer);
-
-        for (int j = 0; j < levLst.size() - 1; j++) {
-            int inter = levLst[j]->getIntersections();
-
-            QPointF pt1 = levLst[j]->getCenter(CoordType::scene);
-            QPointF pt2 = levLst[j+1]->getCenter(CoordType::scene);
-
-            levLst[j]->setSwap(pt2);
-            levLst[j+1]->setSwap(pt1);
-
-            qreal sum1 = levLst[j]->getSumEdgesLength(false) + levLst[j+1]->getSumEdgesLength(false);
-            qreal sum2 = levLst[j]->getSumEdgesLength(true) + levLst[j+1]->getSumEdgesLength(true);
-
-            int newIntersect = levLst[j]->getIntersections(true);
-
-            levLst[j]->dropSwap();
-            levLst[j+1]->dropSwap();
-
-            if (levLst[j]->getNodeRect(CoordType::scene).intersects(levLst[j+1]->getNodeRect(CoordType::scene))) {
-                continue;
-            }
-
-            if (newIntersect < inter) {
-                swapNodes(levLst[j], levLst[j+1]);
-                //                qDebug()<<"swapReason:intersections"<<t.elapsed();
-                return;
-            } else if (newIntersect <= inter && (sum2 < sum1 && sum1-sum2 > sum1*0.2)) {
-                swapNodes(levLst[j], levLst[j+1]);
-                //                qDebug()<<"swapReason:length"<<t.elapsed();
-                return;
-            }
-        }
+    for (auto tree : trees) {
+        tree->checkSwap();
     }
-
-    lockForce = false;
-
-    //    qDebug()<<"noSwap"<<t.elapsed();
 }
 
 void TermGroup::animateGroup()
 {
-    //    if(animGrp.state() != QAbstractAnimation::Stopped)
-    //        return;
-    if (lockForce) {
-        return;
-    }
-
-    for (GraphicItemTerm* node : getAllNodes()) {
-        if (animGrp.state() != QAbstractAnimation::Stopped && node->getPaintLayer() == currAnimLevel) {
-            continue;
-        }
-        node->countForces();
-    }
-
-    bool someMoved = false;
-    for (GraphicItemTerm* node : getAllNodes()) {
-        if (animGrp.state() != QAbstractAnimation::Stopped && node->getPaintLayer() == currAnimLevel) {
-            continue;
-        }
-        if (node->applyMove() && !someMoved) {
-            someMoved = true;
-        }
-    }
-
-    if (!someMoved) {
-        stopAnimation();
-//        animTimer.stop();
+    for (auto tree : trees) {
+        tree->animateTree();
     }
 }
 
@@ -343,8 +242,10 @@ qreal TermGroup::getGroupMinWidth()
 void TermGroup::setAnimSpeed(int val)
 {
     checkSwapTimer.setInterval(static_cast<int>(val*1.5));
-    swAnim1.setDuration(val);
-    swAnim2.setDuration(val);
+    for (auto tree : trees) {
+        tree->swAnim1.setDuration(val);
+        tree->swAnim2.setDuration(val);
+    }
     animSpeed = val;
 }
 
