@@ -6,7 +6,7 @@ TermTree::TermTree()
     rect = new QGraphicsRectItem();
     rect->setBrush(AppStyle::Colors::transparent);
     rect->setPen(AppStyle::Colors::transparent);
-    rect->setPen(AppStyle::Colors::testColor);
+//    rect->setPen(AppStyle::Colors::testColor);
 
     animationGroup.addAnimation(&swAnim1);
     animationGroup.addAnimation(&swAnim2);
