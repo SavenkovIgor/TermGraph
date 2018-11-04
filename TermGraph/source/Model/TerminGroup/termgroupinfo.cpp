@@ -127,46 +127,6 @@ void TermGroupInfo::initTrees()
     }
 }
 
-QList<int> TermGroupInfo::getLayerNumbersList(bool withRoot) const
-{
-    QList<int> ret;
-    int startFrom = 1;
-
-    if (withRoot) {
-        startFrom = 0;
-    }
-
-    for (int i = startFrom; i <= layersCount; i++) {
-        ret << i;
-    }
-
-    return ret;
-}
-
-GraphicItemTerm::List TermGroupInfo::getNodesInLayer(int layer) const
-{
-    GraphicItemTerm::List ret;
-    for (GraphicItemTerm* node : nodesList) {
-        if (node->getPaintLayer() == layer) {
-            ret << node;
-        }
-    }
-
-    // sort
-    int nMin;
-
-    for (int i = 0; i < ret.size(); i++) {
-        nMin = i;
-        for (int j = i + 1; j < ret.size(); j++) {
-            if (ret[j]->pos().y() < ret[nMin]->pos().y()) {
-                nMin = j;
-            }
-        }
-        ret.swap(i, nMin);
-    }
-    return ret;
-}
-
 QSizeF TermGroupInfo::getAllTreesSize()
 {
     qreal width = 0.0;
@@ -192,18 +152,7 @@ void TermGroupInfo::setNeighbours()
     }
 }
 
-QSizeF TermGroupInfo::getVerticalStackedSize(GraphicItemTerm::List lst) const
-{
-    qreal width = 0.0;
-    qreal height = 0.0;
 
-    for (GraphicItemTerm* node : lst) {
-        QSizeF sz = node->getFrameRect(CoordType::zeroPoint).size();
-        height += sz.height();
-        width = qMax(width, sz.width());
-    }
-    return QSizeF(width, height);
-}
 
 QSizeF TermGroupInfo::getOrphansSize()
 {

@@ -6,6 +6,11 @@
 #include "../Termin/graphicitemterm.h"
 #include "../TerminEdge/edge.h"
 
+class NodeVerticalStackTools {
+public:
+    static QSizeF getNodeVerticalStackedSize(const GraphicItemTerm::List &nodes);
+};
+
 class NodeVerticalStack
 {
 public:

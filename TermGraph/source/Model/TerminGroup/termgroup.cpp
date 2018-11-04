@@ -230,7 +230,7 @@ qreal TermGroup::getGroupMinWidth()
 
     qreal groupNameWidth = grNmItem->getNameRect().width();
     qreal treeWidth = getAllTreesSize().width();
-    qreal orphansWidth = getVerticalStackedSize(getOrphanNodes()).width();
+    qreal orphansWidth = NodeVerticalStackTools::getNodeVerticalStackedSize(getOrphanNodes()).width();
 
     width = qMax(width, groupNameWidth);
     width = qMax(width, treeWidth);

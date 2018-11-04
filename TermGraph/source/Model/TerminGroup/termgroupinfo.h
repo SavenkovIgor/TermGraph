@@ -49,15 +49,8 @@ protected:
     // Tree tools
     void setLayers();
     void initTrees();
-    // Returns layer list in asc order
-    QList<int> getLayerNumbersList(bool withRoot = true) const;  // TODO: Delete!
-    GraphicItemTerm::List getNodesInLayer(int layer) const;  // TODO: Delete!
     QSizeF getAllTreesSize();
-
     void setNeighbours();
-
-    // NodeStack tools
-    QSizeF getVerticalStackedSize(GraphicItemTerm::List lst) const;  // TODO: Delete!
 
     // Orphans tools
     QSizeF getOrphansSize();
