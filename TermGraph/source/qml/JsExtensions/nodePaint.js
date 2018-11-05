@@ -1,6 +1,6 @@
 
 function paintNode(ctx, text, rect, rectColor) {
-    paintCustomizedNode(ctx, text, "#FFFFFF", rect, 5, rectColor, 1, "#000000")
+    paintCustomizedNode(ctx, text, "#FFFFFF", rect, 5, rectColor, 2, "#000000")
 }
 
 function paintCustomizedNode(ctx, text, textColor, rect, rectRadius, rectColor, borderWidth, borderColor) {

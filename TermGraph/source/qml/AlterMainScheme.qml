@@ -24,9 +24,8 @@ Page {
         id: mainHeader
         titleText: "TermGraph"
 
-        Component.onCompleted: mainHeader.showMenuIcon()
-
-        onMenuClick: sideMenu.open()
+        Component.onCompleted: mainHeader.showArrowIcon()
+        onMenuClick: mainStack.pop()
     }
 
     Connections {
