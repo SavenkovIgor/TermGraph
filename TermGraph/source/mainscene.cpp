@@ -349,6 +349,11 @@ QString MainScene::currentNodeText()
     return groupList[groupIterator]->getAllNodes()[nodeIterator]->getSmallName();
 }
 
+QColor MainScene::getSceneBackgroundColor()
+{
+    return AppStyle::Colors::Scene::background;
+}
+
 void MainScene::showGroup(int num)
 {
     QStringList allGroupNames = groupsMgr->getAllGroupsNames();
@@ -528,9 +533,9 @@ bool MainScene::getCurrNodeIsRoot()
     return false;
 }
 
-QSize MainScene::getSceneSize()
+QRectF MainScene::getSceneRect()
 {
-    return sceneRect.toRect().size();
+    return sceneRect.toRect();
 }
 
 QString MainScene::getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction)

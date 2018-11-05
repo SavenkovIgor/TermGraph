@@ -72,12 +72,14 @@ Page {
             }
 
             function updateSize() {
-                mainSceneImg.height = sceneObj.size.height
-                mainSceneImg.width = sceneObj.size.width
+                mainSceneImg.height = sceneObj.rect.height
+                mainSceneImg.width = sceneObj.rect.width
             }
 
             onPaint: {
                 var ctx = mainSceneImg.getContext('2d')
+
+                JsPaint.paintRect(ctx, sceneObj.rect, sceneObj.getSceneBackgroundColor())
 
                 sceneObj.startGroupIterator()
                 for (var i = 0; i < 1000000; i++) {

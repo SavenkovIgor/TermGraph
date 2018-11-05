@@ -18,7 +18,7 @@
 class MainScene : public QGraphicsScene
 {
     Q_OBJECT
-    Q_PROPERTY(QSize size READ getSceneSize)
+    Q_PROPERTY(QRectF rect READ getSceneRect)
 
     void initAllGroups();
     void addGroupToScene(TermGroup* group);
@@ -117,11 +117,6 @@ public slots:
 
     QString getGroupString(QString grp);
 
-//    void testSlot() {
-//        groupList[0]->setBasePoint(QPoint(200,200));
-//        sceneRhytm.stop();
-//    }
-
     QStringList getGroupTypes() {
         return TermGroup::getTypesNames();
     }
@@ -156,6 +151,8 @@ public slots:
     QColor currentNodeColor();
     QString currentNodeText();
 
+    QColor getSceneBackgroundColor();
+
 private:
     int groupIterator = 0;
     int edgeIterator = 0;
@@ -174,7 +171,7 @@ private:
     NodesManager* nodesMgr;
 
     QRectF sceneRect;
-    QSize getSceneSize();
+    QRectF getSceneRect();
 
     GraphicItemTerm::List getAllTermsAtPoint(QPointF point);
 };

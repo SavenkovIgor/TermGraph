@@ -29,3 +29,10 @@ function paintCustomizedNode(ctx, text, textColor, rect, rectRadius, rectColor, 
 
     ctx.restore()
 }
+
+function paintRect(ctx, rect, color) {
+    ctx.save()
+    ctx.fillStyle = color
+    ctx.fillRect(rect.x, rect.y, rect.width, rect.height)
+    ctx.restore()
+}
