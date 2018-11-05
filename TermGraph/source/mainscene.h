@@ -8,6 +8,7 @@
 #include <QGraphicsItem>
 #include <QGraphicsView>
 #include <QClipboard>
+#include <QElapsedTimer>
 
 #include "./Managers/groupsmanager.h"
 #include "./Managers/nodesmanager.h"
@@ -121,9 +122,17 @@ public slots:
         return TermGroup::getTypesNames();
     }
 
+private:
+    // Timer
+    QElapsedTimer elTimer;
+
 public slots:
 
     // Drawing API
+    // Timer
+    void startCheckTimer();
+    void stopCheckTimer();
+
     // Group iterator
     void startGroupIterator();
     void nextGroup();

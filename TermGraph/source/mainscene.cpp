@@ -255,6 +255,16 @@ QString MainScene::getGroupString(QString grp)
     return "";
 }
 
+void MainScene::startCheckTimer()
+{
+    elTimer.start();
+}
+
+void MainScene::stopCheckTimer()
+{
+    qDebug()<<"paint speed" << elTimer.elapsed();
+}
+
 void MainScene::startGroupIterator()
 {
     groupIterator = 0;

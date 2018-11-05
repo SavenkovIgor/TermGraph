@@ -75,16 +75,24 @@ Page {
                 mainSceneImg.width = sceneObj.rect.width
             }
 
-            onPaint: {
-                var ctx = mainSceneImg.getContext('2d')
 
-                JsPaint.paintRect(ctx, sceneObj.rect, sceneObj.getSceneBackgroundColor())
+            onPaint: {
+                sceneObj.startCheckTimer()
+
+                var ctx = mainSceneImg.getContext('2d')
+                JsPaint.prepareContext(ctx)
+
+                JsPaint.paintFilledRect(ctx, sceneObj.rect, sceneObj.getSceneBackgroundColor())
 
                 sceneObj.startGroupIterator()
                 for (var i = 0; i < 1000000; i++) {
                     if (sceneObj.groupIteratorAtEnd()) {
                         break;
                     }
+
+                    var groupRect = sceneObj.currentGroupRect()
+//                    var groupColor = sceneObj.currentGroupColor()
+                    JsPaint.paintRect(ctx, groupRect, "#FFFFFF")
 
                     var name = sceneObj.startNodeIterator()
                     for (var j = 0; j < 1000000; j++) {
@@ -103,6 +111,8 @@ Page {
 
                     sceneObj.nextGroup()
                 }
+
+                sceneObj.stopCheckTimer()
             }
         }
     }

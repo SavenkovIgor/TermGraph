@@ -366,7 +366,7 @@ QString TermGroup::getName()
 
 QRectF TermGroup::getGroupRect()
 {
-    return baseRect->rect();
+    return baseRect->rect().translated(baseRect->scenePos());
 }
 
 QColor TermGroup::getGroupColor()
