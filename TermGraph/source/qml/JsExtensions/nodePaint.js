@@ -1,39 +1,36 @@
-function prepareContext(ctx) {
-    ctx.textBaseline = "middle"
-    ctx.font = "10.5pt sans-serif"
+function prepareRoundedRects(ctx) {
+    ctx.strokeStyle = "#000000"
+    ctx.lineWidth = 4
 }
 
-function paintNode(ctx, text, rect, rectColor) {
-    paintCustomizedNode(ctx, text, "#FFFFFF", rect, 5, rectColor, 2, "#000000")
-}
-
-// TODO: Optimize!
-function paintCustomizedNode(ctx, text, textColor, rect, rectRadius, rectColor, borderWidth, borderColor) {
-
-    ctx.save()
+function paintRoundedRect(ctx, rect, rectColor) {
 
     // Draw border
-    ctx.strokeStyle = borderColor
-    ctx.lineWidth = borderWidth*2
     ctx.beginPath()
-    ctx.roundedRect(rect.x, rect.y, rect.width, rect.height, rectRadius, rectRadius)
+    //var cornerRadius = rect.height*0.18
+    //ctx.roundedRect(rect.x, rect.y, rect.width, rect.height, cornerRadius, cornerRadius)
+    ctx.roundedRect(rect.x, rect.y, rect.width, rect.height, 5, 5)
     ctx.stroke()
 
     // Draw inner rect with the same path
     ctx.fillStyle = rectColor
     ctx.fill()
+}
+
+function prepareText(ctx) {
+    ctx.textBaseline = "middle"
+    ctx.font = "10.5pt sans-serif"
+    ctx.fillStyle = "#FFFFFF"
+}
+
+function paintText(ctx, text, rect) {
 
     // Draw text
-
-    ctx.fillStyle = textColor
-
     var txtW = ctx.measureText(text).width
     var rectCenterX = rect.x + rect.width / 2
     var rectCenterY = rect.y + rect.height / 2
 
-    ctx.fillText(text, rectCenterX - txtW / 2, rectCenterY + borderWidth)
-
-    ctx.restore()
+    ctx.fillText(text, rectCenterX - txtW / 2, rectCenterY + 2)
 }
 
 function paintRect(ctx, rect, borderColor) {

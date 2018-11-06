@@ -131,7 +131,7 @@ public slots:
     // Drawing API
     // Timer
     void startCheckTimer();
-    void stopCheckTimer();
+    void restartCheckTimer();
 
     // Group iterator
     void startGroupIterator();
@@ -139,7 +139,6 @@ public slots:
     bool groupIteratorAtEnd();
 
     QRectF currentGroupRect();
-    QColor currentGroupColor();
     QColor currentGroupFillColor();
     QString currentGroupName();
 

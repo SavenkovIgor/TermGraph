@@ -165,12 +165,13 @@ void MainScene::updateModel()
 
 void MainScene::locateGroupsVertically()
 {
-    int y = 0;
+    auto y = 40;
+    auto x = 40;
 
     // Выставляем позиции групп
     for (TermGroup* group : groupList) {
         QRectF baseRc = group->baseRect->rect().translated(group->baseRect->scenePos());
-        group->setBasePoint(QPointF(0, y));
+        group->setBasePoint(QPointF(x, y));
 
         y += baseRc.height() + 40;
     }
@@ -193,8 +194,9 @@ void MainScene::updateSceneRect()
 
     int mV = 50;
     QMarginsF mrg(mV, mV, mV, mV);
-    setSceneRect(allRect.marginsAdded(mrg));
-    sceneRect = allRect;
+    auto withMargins = allRect.marginsAdded(mrg);
+    setSceneRect(withMargins);
+    sceneRect = withMargins;
 }
 
 void MainScene::centerViewOn(QPointF point)
@@ -260,9 +262,9 @@ void MainScene::startCheckTimer()
     elTimer.start();
 }
 
-void MainScene::stopCheckTimer()
+void MainScene::restartCheckTimer()
 {
-    qDebug()<<"paint speed" << elTimer.elapsed();
+    qDebug()<<"paint speed" << elTimer.restart();;
 }
 
 void MainScene::startGroupIterator()
@@ -283,11 +285,6 @@ bool MainScene::groupIteratorAtEnd()
 QRectF MainScene::currentGroupRect()
 {
     return groupList[groupIterator]->getGroupRect();
-}
-
-QColor MainScene::currentGroupColor()
-{
-    return groupList[groupIterator]->getGroupColor();
 }
 
 QColor MainScene::currentGroupFillColor()

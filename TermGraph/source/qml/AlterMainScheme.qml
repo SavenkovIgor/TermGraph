@@ -77,42 +77,73 @@ Page {
 
 
             onPaint: {
-                sceneObj.startCheckTimer()
-
                 var ctx = mainSceneImg.getContext('2d')
-                JsPaint.prepareContext(ctx)
+                paintAll(ctx)
+            }
 
+            function paintAll(ctx) {
+                sceneObj.startCheckTimer()
                 JsPaint.paintFilledRect(ctx, sceneObj.rect, sceneObj.getSceneBackgroundColor())
+                paintAllRects(ctx)
+                sceneObj.restartCheckTimer()
+                paintAllTexts(ctx)
+                sceneObj.restartCheckTimer()
+            }
 
+            function paintAllRects(ctx) {
                 sceneObj.startGroupIterator()
+
                 for (var i = 0; i < 1000000; i++) {
                     if (sceneObj.groupIteratorAtEnd()) {
                         break;
                     }
 
                     var groupRect = sceneObj.currentGroupRect()
-//                    var groupColor = sceneObj.currentGroupColor()
                     JsPaint.paintRect(ctx, groupRect, "#FFFFFF")
 
-                    var name = sceneObj.startNodeIterator()
+                    sceneObj.startNodeIterator()
+                    JsPaint.prepareRoundedRects(ctx)
+
+                    for (var j = 0; j < 1000000; j++) {
+                        if (sceneObj.nodeIteratorAtEnd()) {
+                            break;
+                        }
+
+                        var rect = sceneObj.currentNodeRect()
+                        var color = sceneObj.currentNodeColor()
+
+                        JsPaint.paintRoundedRect(ctx, rect, color)
+
+                        sceneObj.nextNode()
+                    }
+                    sceneObj.nextGroup()
+                }
+            }
+
+            function paintAllTexts(ctx) {
+                sceneObj.startGroupIterator()
+
+                for (var i = 0; i < 1000000; i++) {
+                    if (sceneObj.groupIteratorAtEnd()) {
+                        break;
+                    }
+
+                    sceneObj.startNodeIterator()
+                    JsPaint.prepareText(ctx)
+
                     for (var j = 0; j < 1000000; j++) {
                         if (sceneObj.nodeIteratorAtEnd()) {
                             break;
                         }
 
                         var nodeName = sceneObj.currentNodeText()
-                        var rect = sceneObj.currentNodeRect()
-                        var color = sceneObj.currentNodeColor()
-
-                        JsPaint.paintNode(ctx, nodeName, rect, color)
+                        var rect2 = sceneObj.currentNodeRect()
+                        JsPaint.paintText(ctx, nodeName, rect2)
 
                         sceneObj.nextNode()
                     }
-
                     sceneObj.nextGroup()
                 }
-
-                sceneObj.stopCheckTimer()
             }
         }
     }
