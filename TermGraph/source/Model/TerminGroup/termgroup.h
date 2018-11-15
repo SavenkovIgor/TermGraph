@@ -37,6 +37,7 @@ public:
     static QMap<GroupType, QString> getTypesMap();
 
     QString getName();
+    QPointF getNamePos();
     QRectF getGroupRect();
     QColor getGroupColor();
     QColor getGroupFillColor();

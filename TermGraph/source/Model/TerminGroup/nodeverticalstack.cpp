@@ -81,7 +81,7 @@ void NodeVerticalStack::sortTerms()
 
 void NodeVerticalStack::placeTerms(QPointF centerPoint)
 {
-    sortTerms();
+    //sortTerms(); //TODO: Check. maybe causing random bug
 
     auto stackSize = getSize();
     QPointF startPoint(centerPoint.x(), centerPoint.y() - stackSize.height() / 2);

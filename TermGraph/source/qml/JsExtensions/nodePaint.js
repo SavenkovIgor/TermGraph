@@ -3,13 +3,13 @@ function prepareRoundedRects(ctx) {
     ctx.lineWidth = 4
 }
 
-function paintRoundedRect(ctx, rect, rectColor) {
+function paintRoundedRect(ctx, rect, rectColor, radius) {
 
     // Draw border
     ctx.beginPath()
     //var cornerRadius = rect.height*0.18
     //ctx.roundedRect(rect.x, rect.y, rect.width, rect.height, cornerRadius, cornerRadius)
-    ctx.roundedRect(rect.x, rect.y, rect.width, rect.height, 5, 5)
+    ctx.roundedRect(rect.x, rect.y, rect.width, rect.height, radius, radius)
     ctx.stroke()
 
     // Draw inner rect with the same path
@@ -23,6 +23,14 @@ function prepareText(ctx) {
     ctx.fillStyle = "#FFFFFF"
 }
 
+function paintGroupName(ctx, text, basePoint) {
+    ctx.textBaseline = "middle"
+    ctx.font = "bold 10.5pt sans-serif"
+
+    ctx.fillStyle = "#FFFFFF"
+    ctx.fillText(text, basePoint.x, basePoint.y)
+}
+
 function paintText(ctx, text, rect) {
 
     // Draw text
@@ -30,7 +38,19 @@ function paintText(ctx, text, rect) {
     var rectCenterX = rect.x + rect.width / 2
     var rectCenterY = rect.y + rect.height / 2
 
-    ctx.fillText(text, rectCenterX - txtW / 2, rectCenterY + 2)
+    var posX = rectCenterX - txtW / 2
+    var posY = rectCenterY + 2
+
+    var count = Object.keys(text).length
+
+    if (count === 1) {
+        ctx.fillText(text[0], posX, posY)
+    }
+
+    if (count === 2) {
+        ctx.fillText(text[0], posX, posY-4)
+        ctx.fillText(text[1], posX, posY+4)
+    }
 }
 
 function paintRect(ctx, rect, borderColor) {

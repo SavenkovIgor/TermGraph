@@ -98,8 +98,12 @@ Page {
                         break;
                     }
 
+                    var groupName = sceneObj.currentGroupName()
                     var groupRect = sceneObj.currentGroupRect()
                     JsPaint.paintRect(ctx, groupRect, "#FFFFFF")
+
+                    var groupNamePos = sceneObj.currentGroupNamePos()
+                    JsPaint.paintGroupName(ctx, groupName, groupNamePos)
 
                     sceneObj.startNodeIterator()
                     JsPaint.prepareRoundedRects(ctx)
@@ -111,8 +115,9 @@ Page {
 
                         var rect = sceneObj.currentNodeRect()
                         var color = sceneObj.currentNodeColor()
+                        var radius = sceneObj.currentNodeRadius()
 
-                        JsPaint.paintRoundedRect(ctx, rect, color)
+                        JsPaint.paintRoundedRect(ctx, rect, color, radius)
 
                         sceneObj.nextNode()
                     }

@@ -245,6 +245,11 @@ QRectF PaintedTerm::addMarginsToRect(QRectF rc, qreal mrg)
     return rc.marginsAdded(mrgObj);
 }
 
+void PaintedTerm::updateCornerRadius()
+{
+    cornerRadius = nodeSize.height()*0.2;
+}
+
 void PaintedTerm::dropSwap()
 {
     EdgesList lst;
@@ -287,6 +292,7 @@ void PaintedTerm::adjustRectSizeForName()
     QSizeF nameSize = getNameSize();
     nodeSize.setWidth(nameSize.width() + 16);
     nodeSize.setHeight(nameSize.height() + 4);
+    updateCornerRadius();
 }
 
 PaintedTerm* PaintedTerm::getNearestLeftNeigh()
@@ -353,6 +359,11 @@ QColor PaintedTerm::getSelectedColor()
     case NodeType::endLeaf: return AppStyle::Colors::Nodes::leafSelected;
     case NodeType::middleLeaf: return AppStyle::Colors::Nodes::leafSelected;
     }
+}
+
+qreal PaintedTerm::getCornerRadius()
+{
+    return cornerRadius;
 }
 
 bool PaintedTerm::isNearPoints(QPointF pt1, QPointF pt2, qreal dist) {

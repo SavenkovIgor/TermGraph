@@ -297,6 +297,11 @@ QString MainScene::currentGroupName()
     return groupList[groupIterator]->getName();
 }
 
+QPointF MainScene::currentGroupNamePos()
+{
+    return groupList[groupIterator]->getNamePos();
+}
+
 void MainScene::startEdgeIterator()
 {
     edgeIterator = 0;
@@ -331,6 +336,11 @@ void MainScene::startNodeIterator()
     nodeIterator = 0;
 }
 
+qreal MainScene::currentNodeRadius()
+{
+    return groupList[groupIterator]->getAllNodes()[nodeIterator]->getCornerRadius();
+}
+
 void MainScene::nextNode()
 {
     nodeIterator++;
@@ -351,9 +361,11 @@ QColor MainScene::currentNodeColor()
     return groupList[groupIterator]->getAllNodes()[nodeIterator]->getBaseColor();
 }
 
-QString MainScene::currentNodeText()
+QStringList MainScene::currentNodeText()
 {
-    return groupList[groupIterator]->getAllNodes()[nodeIterator]->getSmallName();
+    auto smallName = groupList[groupIterator]->getAllNodes()[nodeIterator]->getSmallName();
+    auto list = smallName.split("\n", QString::SkipEmptyParts);
+    return list;
 }
 
 QColor MainScene::getSceneBackgroundColor()

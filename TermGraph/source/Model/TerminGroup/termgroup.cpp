@@ -364,6 +364,13 @@ QString TermGroup::getName()
     return grNmItem->getNameOnly();
 }
 
+QPointF TermGroup::getNamePos()
+{
+    auto pt = grNmItem->scenePos();
+    pt.ry() += grNmItem->getNameRect().height() / 2;
+    return pt;
+}
+
 QRectF TermGroup::getGroupRect()
 {
     return baseRect->rect().translated(baseRect->scenePos());

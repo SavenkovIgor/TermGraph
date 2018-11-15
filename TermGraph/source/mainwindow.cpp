@@ -34,6 +34,8 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
 
     analyze = new WordFreqAnalyze();
 
+    qmlRegisterType<GraphicItemTerm>();
+
     connect(
                 engn,
                 SIGNAL(objectCreated(QObject*, QUrl)),

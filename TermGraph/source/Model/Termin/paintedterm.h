@@ -64,6 +64,7 @@ public:
     QColor getBaseColor();
     QColor getSelectedColor();
 
+    qreal getCornerRadius();
 protected:
     // Geometry tools
     // --- Methods ---
@@ -95,6 +96,9 @@ private:
     qreal newPosOffset = 0.0;
 
     QSizeF nodeSize = QSizeF(40.0, 10.0);
+
+    qreal cornerRadius = 0;
+    void updateCornerRadius();
 };
 
 #endif // PAINTEDNODE_H

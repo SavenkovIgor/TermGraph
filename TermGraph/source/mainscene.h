@@ -141,6 +141,7 @@ public slots:
     QRectF currentGroupRect();
     QColor currentGroupFillColor();
     QString currentGroupName();
+    QPointF currentGroupNamePos();
 
     // Edge iterator
     void startEdgeIterator();
@@ -157,7 +158,8 @@ public slots:
 
     QRectF currentNodeRect();
     QColor currentNodeColor();
-    QString currentNodeText();
+    QStringList currentNodeText();
+    qreal currentNodeRadius();
 
     QColor getSceneBackgroundColor();
 
