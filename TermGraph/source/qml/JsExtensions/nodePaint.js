@@ -7,8 +7,6 @@ function paintRoundedRect(ctx, rect, rectColor, radius) {
 
     // Draw border
     ctx.beginPath()
-    //var cornerRadius = rect.height*0.18
-    //ctx.roundedRect(rect.x, rect.y, rect.width, rect.height, cornerRadius, cornerRadius)
     ctx.roundedRect(rect.x, rect.y, rect.width, rect.height, radius, radius)
     ctx.stroke()
 
@@ -31,25 +29,27 @@ function paintGroupName(ctx, text, basePoint) {
     ctx.fillText(text, basePoint.x, basePoint.y)
 }
 
-function paintText(ctx, text, rect) {
+function paintText(ctx, text, center, rect) {
 
     // Draw text
-    var txtW = ctx.measureText(text).width
-    var rectCenterX = rect.x + rect.width / 2
-    var rectCenterY = rect.y + rect.height / 2
-
-    var posX = rectCenterX - txtW / 2
-    var posY = rectCenterY + 2
-
     var count = Object.keys(text).length
 
     if (count === 1) {
-        ctx.fillText(text[0], posX, posY)
+        var txtW = ctx.measureText(text[0]).width
+        var posX = center.x - txtW / 2
+        ctx.fillText(text[0], posX, center.y)
     }
 
     if (count === 2) {
-        ctx.fillText(text[0], posX, posY-4)
-        ctx.fillText(text[1], posX, posY+4)
+        var heightQuater = rect.height / 4
+
+        txtW = ctx.measureText(text[0]).width
+        posX = center.x - txtW / 2
+        ctx.fillText(text[0], posX, center.y - heightQuater)
+
+        txtW = ctx.measureText(text[1]).width
+        posX = center.x - txtW / 2
+        ctx.fillText(text[1], posX, center.y + heightQuater)
     }
 }
 

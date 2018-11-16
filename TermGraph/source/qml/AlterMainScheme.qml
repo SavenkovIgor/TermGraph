@@ -142,8 +142,9 @@ Page {
                         }
 
                         var nodeName = sceneObj.currentNodeText()
-                        var rect2 = sceneObj.currentNodeRect()
-                        JsPaint.paintText(ctx, nodeName, rect2)
+                        var rect = sceneObj.currentNodeRect()
+                        var center = sceneObj.currentNodeCenter()
+                        JsPaint.paintText(ctx, nodeName, center, rect)
 
                         sceneObj.nextNode()
                     }

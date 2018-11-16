@@ -157,6 +157,7 @@ public slots:
     bool nodeIteratorAtEnd();
 
     QRectF currentNodeRect();
+    QPointF currentNodeCenter();
     QColor currentNodeColor();
     QStringList currentNodeText();
     qreal currentNodeRadius();

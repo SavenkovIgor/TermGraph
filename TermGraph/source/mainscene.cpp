@@ -356,6 +356,11 @@ QRectF MainScene::currentNodeRect()
     return groupList[groupIterator]->getAllNodes()[nodeIterator]->getNodeRect(CoordType::scene);
 }
 
+QPointF MainScene::currentNodeCenter()
+{
+    return groupList[groupIterator]->getAllNodes()[nodeIterator]->getNodeRect(CoordType::scene).center();
+}
+
 QColor MainScene::currentNodeColor()
 {
     return groupList[groupIterator]->getAllNodes()[nodeIterator]->getBaseColor();
