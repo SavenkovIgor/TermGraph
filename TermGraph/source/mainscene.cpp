@@ -317,18 +317,27 @@ bool MainScene::edgeIteratorAtEnd()
     return edgeIterator >= groupList[groupIterator]->getAllEdges().count();
 }
 
+QColor MainScene::getEdgeColor()
+{
+    return AppStyle::Colors::Edges::termin;
+}
+
 QPointF MainScene::currentFirstEdgePoint()
 {
     auto graphTerm = groupList[groupIterator]->getAllEdges()[edgeIterator]->getRoot();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
-    return paintedTerm->getScenePos();
+    auto pt = paintedTerm->getScenePos();
+    pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
+    return pt;
 }
 
 QPointF MainScene::currentLastEdgePoint()
 {
     auto graphTerm = groupList[groupIterator]->getAllEdges()[edgeIterator]->getLeaf();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
-    return paintedTerm->getScenePos();
+    auto pt = paintedTerm->getScenePos();
+    pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
+    return pt;
 }
 
 void MainScene::startNodeIterator()

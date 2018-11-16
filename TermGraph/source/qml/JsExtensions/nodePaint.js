@@ -15,9 +15,20 @@ function paintRoundedRect(ctx, rect, rectColor, radius) {
     ctx.fill()
 }
 
+function prepareEdge(ctx, color) {
+    ctx.strokeStyle = color
+}
+
+function paintLine(ctx, pt1, pt2) {
+    ctx.beginPath()
+    ctx.moveTo(pt1.x, pt1.y)
+    ctx.lineTo(pt2.x, pt2.y)
+    ctx.stroke()
+}
+
 function prepareText(ctx) {
     ctx.textBaseline = "middle"
-    ctx.font = "10.5pt sans-serif"
+    ctx.font = "10pt sans-serif"
     ctx.fillStyle = "#FFFFFF"
 }
 

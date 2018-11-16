@@ -147,6 +147,7 @@ public slots:
     void startEdgeIterator();
     void nextEdge();
     bool edgeIteratorAtEnd();
+    QColor getEdgeColor();
 
     QPointF currentFirstEdgePoint();
     QPointF currentLastEdgePoint();

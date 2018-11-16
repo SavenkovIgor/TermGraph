@@ -84,10 +84,40 @@ Page {
             function paintAll(ctx) {
                 sceneObj.startCheckTimer()
                 JsPaint.paintFilledRect(ctx, sceneObj.rect, sceneObj.getSceneBackgroundColor())
+                paintAllEdges(ctx)
+                sceneObj.restartCheckTimer()
                 paintAllRects(ctx)
                 sceneObj.restartCheckTimer()
                 paintAllTexts(ctx)
                 sceneObj.restartCheckTimer()
+            }
+
+            function paintAllEdges(ctx) {
+                sceneObj.startGroupIterator()
+
+                JsPaint.prepareEdge(ctx, sceneObj.getEdgeColor())
+                for (var i = 0; i < 1000000; i++) {
+                    if (sceneObj.groupIteratorAtEnd()) {
+                        break;
+                    }
+
+                    sceneObj.startEdgeIterator()
+
+
+                    for (var j = 0; j < 1000000; j++) {
+                        if (sceneObj.edgeIteratorAtEnd()) {
+                            break;
+                        }
+
+                        var pt1 = sceneObj.currentFirstEdgePoint()
+                        var pt2 = sceneObj.currentLastEdgePoint()
+
+                        JsPaint.paintLine(ctx, pt1, pt2)
+
+                        sceneObj.nextEdge()
+                    }
+                    sceneObj.nextGroup()
+                }
             }
 
             function paintAllRects(ctx) {
