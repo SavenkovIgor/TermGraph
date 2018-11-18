@@ -124,11 +124,10 @@ ApplicationWindow {
         interactive: false
         edge: Qt.BottomEdge
 
-        onOpened: { infoHideTimer.start() }
-
         function setTextAndOpen(text) {
             infoLabel.text = text
             infoPanel.open()
+            infoHideTimer.start()
         }
 
         function showError(error) {
@@ -145,6 +144,13 @@ ApplicationWindow {
 
         Connections {
             target: groupsManager
+            onShowInfo: infoPanel.showInfo(info)
+            onShowWarning: infoPanel.showWarning(warning)
+            onShowError: infoPanel.showError(error)
+        }
+
+        Connections {
+            target: sceneObj
             onShowInfo: infoPanel.showInfo(info)
             onShowWarning: infoPanel.showWarning(warning)
             onShowError: infoPanel.showError(error)
