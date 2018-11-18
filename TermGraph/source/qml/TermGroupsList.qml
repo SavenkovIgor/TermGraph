@@ -91,16 +91,12 @@ Page {
 
     Connections {
         target: groupsManager
-        onGroupsListChanged: {
-            groupsList.refreshModel()
-        }
+        onGroupsListChanged: groupsList.refreshModel()
     }
 
     Connections {
         target: nodesManager
-        onNodeChanged: {
-            groupsList.refreshModel()
-        }
+        onNodeChanged: groupsList.refreshModel()
     }
 
     ListView {

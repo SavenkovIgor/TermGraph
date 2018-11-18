@@ -181,16 +181,12 @@ Page {
 
                 Connections {
                     target: groupsManager
-                    onGroupsListChanged: {
-                        nodeGroup.refreshModel()
-                    }
+                    onGroupsListChanged: nodeGroup.refreshModel()
                 }
 
                 Connections {
                     target: nodesManager
-                    onNodeChanged: {
-                        nodeGroup.refreshModel()
-                    }
+                    onNodeChanged: nodeGroup.refreshModel()
                 }
 
                 MyComboBox {

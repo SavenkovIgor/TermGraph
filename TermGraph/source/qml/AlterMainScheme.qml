@@ -30,16 +30,12 @@ Page {
 
     Connections {
         target: groupsManager
-        onGroupsListChanged: {
-            groupListView.refreshModel()
-        }
+        onGroupsListChanged: groupListView.refreshModel()
     }
 
     Connections {
         target: nodesManager
-        onNodeChanged: {
-            groupListView.refreshModel()
-        }
+        onNodeChanged: groupListView.refreshModel()
     }
 
     Rectangle {
@@ -85,14 +81,8 @@ Page {
 
             Connections {
                 target: sceneObj
-
-                onSceneUpdated: {
-                    sceneImage.updateSize()
-                }
-
-                onRepaintQmlScene: {
-                    sceneImage.requestPaint()
-                }
+                onSceneUpdated: sceneImage.updateSize()
+                onRepaintQmlScene: sceneImage.requestPaint()
             }
 
             function updateSize() {

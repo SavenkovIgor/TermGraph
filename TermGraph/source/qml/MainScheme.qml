@@ -49,26 +49,18 @@ Page {
 
     Connections {
         target: sceneObj
-        onSomeSelected: {
-            showButtons()
-        }
-        onSelectionDrop: {
-            hideButtons()
-        }
+        onSomeSelected: showButtons()
+        onSelectionDrop: hideButtons()
     }
 
     Connections {
         target: groupsManager
-        onGroupsListChanged: {
-            groupListView.refreshModel()
-        }
+        onGroupsListChanged: groupListView.refreshModel()
     }
 
     Connections {
         target: nodesManager
-        onNodeChanged: {
-            groupListView.refreshModel()
-        }
+        onNodeChanged: groupListView.refreshModel()
     }
 
     NewNodeEdit {
