@@ -42,54 +42,80 @@ Page {
         }
     }
 
-    Flickable {
+    Rectangle {
+        id: sceneBackground
         anchors.fill: parent
+        z: 1
 
-        contentWidth: mainSceneImg.width
-        contentHeight: mainSceneImg.height
+        color: sceneObj.getSceneBackgroundColor()
+    }
+
+    Flickable {
+        id: sceneView
+        anchors.fill: parent
+        z: 2
+
+        contentWidth: sceneImage.width
+        contentHeight: sceneImage.height
 
         boundsBehavior: Flickable.StopAtBounds
 
+        onContentXChanged: sendSceneViewRect()
+        onContentYChanged: sendSceneViewRect()
+        onWidthChanged: sendSceneViewRect()
+        onHeightChanged: sendSceneViewRect()
+
+        function sendSceneViewRect() {
+            sceneObj.setSceneViewRect(sceneView.contentX, sceneView.contentY, sceneView.width, sceneView.height)
+        }
+
         Canvas {
-            id: mainSceneImg
+            id: sceneImage
 
             height: 100
             width: 100
 
-            property color fillStyle: "#ae32a0" // purple
+            renderStrategy: Canvas.Immediate
+            renderTarget: Canvas.Image
 
             Component.onCompleted: {
                 updateSize()
-                requestPaint()
+                sceneObj.resetPaintFlags()
             }
 
             Connections {
                 target: sceneObj
+
                 onSceneUpdated: {
-                    updateSize()
+                    sceneImage.updateSize()
+                }
+
+                onRepaintQmlScene: {
+                    sceneImage.requestPaint()
                 }
             }
 
             function updateSize() {
-                mainSceneImg.height = sceneObj.rect.height
-                mainSceneImg.width = sceneObj.rect.width
+                sceneImage.height = sceneObj.rect.height
+                sceneImage.width = sceneObj.rect.width
             }
 
-
             onPaint: {
-                var ctx = mainSceneImg.getContext('2d')
+                sceneObj.setPaintInProcess(true)
+                var ctx = sceneImage.getContext('2d')
+
                 paintAll(ctx)
+                sceneObj.setPaintInProcess(false)
             }
 
             function paintAll(ctx) {
                 sceneObj.startCheckTimer()
-                JsPaint.paintFilledRect(ctx, sceneObj.rect, sceneObj.getSceneBackgroundColor())
                 paintAllEdges(ctx)
-                sceneObj.restartCheckTimer()
+                sceneObj.restartCheckTimer("Edges")
                 paintAllRects(ctx)
-                sceneObj.restartCheckTimer()
+                sceneObj.restartCheckTimer("Rects")
                 paintAllTexts(ctx)
-                sceneObj.restartCheckTimer()
+                sceneObj.restartCheckTimer("Texts")
             }
 
             function paintAllEdges(ctx) {

@@ -30,6 +30,8 @@ class MainScene : public QGraphicsScene
 //    int    timerCount;
     QTimer sceneRhytm;
 
+    QTimer userInactiveTimer;
+
     int currGroupIndex = 0;
 
 public:
@@ -39,7 +41,6 @@ public:
     qreal xWindow;
     qreal yWindow;  // dirtyHack
 
-    QList < TermGroup* > groupList;
     TermGroup* getGroupByName(QString name);
     TermGroup* getGroupByUuid(QUuid uuid);
 
@@ -58,14 +59,18 @@ signals:
 
     void stopMove();
 
-    void showMessage(QString msg, int time);
-
     void someSelected();
     void selectionDrop();
 
     void mouseInfo(QString str);
 
     void sceneUpdated();
+
+    void repaintQmlScene();
+
+    void showInfo(QString info);
+    void showWarning(QString warning);
+    void showError(QString error);
 
 public slots:
     void showGroup(int num);  // TODO: Постараться избавиться от этой функции
@@ -104,6 +109,8 @@ public slots:
     QString getCurrNodeGroupName();
     bool    getCurrNodeIsRoot();
 
+    TermGroup* getNearestNotPaintedGroup();
+    void paintOneGroupIfNeed();
 private:
     QString getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction);
 
@@ -131,7 +138,10 @@ public slots:
     // Drawing API
     // Timer
     void startCheckTimer();
-    void restartCheckTimer();
+    void restartCheckTimer(QString label = "paint speed");
+
+    // ViewFrame
+    void setSceneViewRect(int x, int y, int width, int height);
 
     // Group iterator
     void startGroupIterator();
@@ -165,10 +175,15 @@ public slots:
 
     QColor getSceneBackgroundColor();
 
+    void resetPaintFlags();
+
+    void setPaintInProcess(bool painting);
+
 private:
     int groupIterator = 0;
     int edgeIterator = 0;
     int nodeIterator = 0;
+
 
 private:
     QPointF lastPressPt;
@@ -182,8 +197,15 @@ private:
     GroupsManager* groupsMgr;
     NodesManager* nodesMgr;
 
-    QRectF sceneRect;
+    QRectF sceneRect = QRectF(0, 0, 100, 100);
     QRectF getSceneRect();
+
+    QRectF sceneViewRect = QRectF(0, 0, 100, 100);
+
+    bool paintInProcess = false;
+
+    QList < TermGroup* > groupList;
+    QList < TermGroup* > paintQueueGroupList;
 
     GraphicItemTerm::List getAllTermsAtPoint(QPointF point);
 };
