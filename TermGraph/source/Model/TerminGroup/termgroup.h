@@ -55,6 +55,8 @@ public:
 
     void loadNodes(GraphicItemTerm::List newNodes);
 
+    bool alreadyPainted = false;
+
 public slots:
     void checkSwap();
 
