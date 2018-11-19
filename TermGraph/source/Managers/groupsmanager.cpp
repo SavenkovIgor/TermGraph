@@ -243,7 +243,8 @@ void GroupsManager::importGroupFromJson(QJsonDocument json)
                         definition,
                         description,
                         examples,
-                        groupName);
+                        groupName,
+                        false);
         } else {
             // Update
             if (name.simplified() != "")

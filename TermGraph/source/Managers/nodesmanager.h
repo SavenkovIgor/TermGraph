@@ -22,30 +22,34 @@ signals:
 
 public slots:
 
-    void addNewNode(QString name,
-            const QString forms,
-            const QString def,
-            const QString descr,
-            const QString exam,
-            const QString groupName);
+    void addNewNode(
+            const QString& name,
+            const QString& forms,
+            const QString& def,
+            const QString& descr,
+            const QString& exam,
+            const QString& groupName,
+            const bool& sendChangeSignal = true);
 
     void changeNode(
-            QUuid nodeUuid,
-            QString name,
-            QString forms,
-            QString definition,
-            QString description,
-            QString example,
-            QString groupName);
+            const QUuid& nodeUuid,
+            const QString& name,
+            const QString& forms,
+            const QString& definition,
+            const QString& description,
+            const QString& example,
+            const QString& groupName,
+            const bool& sendChangeSignal = true);
 
     void changeNode(
-            QUuid nodeUuid,
-            QString name,
-            QString forms,
-            QString definition,
-            QString description,
-            QString example,
-            QUuid groupUuid);
+            const QUuid& nodeUuid,
+            const QString& name,
+            const QString& forms,
+            const QString& definition,
+            const QString& description,
+            const QString& example,
+            const QUuid& groupUuid,
+            const bool& sendChangeSignal = true);
 
     void deleteNode(QUuid uuid);
 

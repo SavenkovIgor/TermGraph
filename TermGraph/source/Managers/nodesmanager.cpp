@@ -3,13 +3,13 @@
 NodesManager::NodesManager(QObject *parent) : QObject(parent)
 { }
 
-void NodesManager::addNewNode(
-        QString name,
-        const QString forms,
-        const QString def,
-        const QString descr,
-        const QString exam,
-        const QString groupName)
+void NodesManager::addNewNode(const QString &name,
+        const QString &forms,
+        const QString &def,
+        const QString &descr,
+        const QString &exam,
+        const QString &groupName,
+        const bool &sendChangeSignal)
 {
     DBAbstract* db = Glb::db;
     // TODO: Тоже фигня. Нельзя искать в базе по имени группы!
@@ -19,17 +19,17 @@ void NodesManager::addNewNode(
     }
 
     QUuid nodeUuid = db->nodeTbl->addNode(name);
-    changeNode(nodeUuid, name, forms, def, descr, exam, groupName);
+    changeNode(nodeUuid, name, forms, def, descr, exam, groupName, sendChangeSignal);
 }
 
-void NodesManager::changeNode(
-        QUuid nodeUuid,
-        QString name,
-        QString forms,
-        QString definition,
-        QString description,
-        QString example,
-        QString groupName)
+void NodesManager::changeNode(const QUuid &nodeUuid,
+        const QString &name,
+        const QString &forms,
+        const QString &definition,
+        const QString &description,
+        const QString &example,
+        const QString &groupName,
+        const bool &sendChangeSignal)
 {
     DBAbstract* db = Glb::db;
     // TODO: Тоже фигня. Нельзя искать в базе по имени группы!
@@ -39,17 +39,18 @@ void NodesManager::changeNode(
     }
 
     QUuid groupUuid = db->groupTbl->getUuid(groupName);
-    changeNode(nodeUuid, name, forms, definition, description, example, groupUuid);
+    changeNode(nodeUuid, name, forms, definition, description, example, groupUuid, sendChangeSignal);
 }
 
 void NodesManager::changeNode(
-        QUuid nodeUuid,
-        QString name,
-        QString forms,
-        QString definition,
-        QString description,
-        QString example,
-        QUuid groupUuid)
+        const QUuid& nodeUuid,
+        const QString& name,
+        const QString& forms,
+        const QString& definition,
+        const QString& description,
+        const QString& example,
+        const QUuid& groupUuid,
+        const bool& sendChangeSignal)
 {
     DBAbstract* db = Glb::db;
 
@@ -60,7 +61,9 @@ void NodesManager::changeNode(
     db->nodeTbl->setExamples(nodeUuid, example);
     db->nodeTbl->setGroup(nodeUuid, groupUuid);
 
-    nodeChanged();
+    if (sendChangeSignal) {
+        nodeChanged();
+    }
 }
 
 void NodesManager::deleteNode(QUuid uuid)
