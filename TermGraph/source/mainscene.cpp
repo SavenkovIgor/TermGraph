@@ -324,6 +324,24 @@ QPointF MainScene::currentGroupNamePos()
     return paintQueueGroupList[groupIterator]->getNamePos();
 }
 
+QStringList MainScene::currentGroupAllNodeNames()
+{
+    QStringList ret;
+    for (auto node : paintQueueGroupList[groupIterator]->getAllNodes()) {
+        ret << node->getSmallName();
+    }
+    return ret;
+}
+
+QList<QRectF> MainScene::currentGroupAllRects()
+{
+    QList<QRectF> ret;
+    for (auto node : paintQueueGroupList[groupIterator]->getAllNodes()) {
+        ret << node->getNodeRect(CoordType::scene);
+    }
+    return ret;
+}
+
 void MainScene::startEdgeIterator()
 {
     edgeIterator = 0;
