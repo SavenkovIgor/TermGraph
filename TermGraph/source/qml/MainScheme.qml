@@ -138,6 +138,10 @@ Page {
             }
 
             onPaint: {
+                if (mainStack.currentItem != mainScheme) {
+                    return
+                }
+
                 var ctx = mainSceneImg.getContext('2d')
                 ctx.drawImage(imgPath + imgNum,0,0)
                 unloadImage(imgPath + imgNum)
