@@ -182,15 +182,17 @@ Page {
                     sceneObj.startNodeIterator()
                     JsPaint.prepareText(ctx)
 
+                    var allTexts = sceneObj.currentGroupAllNodeNames()
+                    //var allRects = sceneObj.currentGroupAllRects()
+
                     for (var j = 0; j < 1000000; j++) {
                         if (sceneObj.nodeIteratorAtEnd()) {
                             break;
                         }
 
-                        var nodeName = sceneObj.currentNodeText()
                         var rect = sceneObj.currentNodeRect()
                         var center = sceneObj.currentNodeCenter()
-                        JsPaint.paintText(ctx, nodeName, center, rect)
+                        JsPaint.paintTextWithSplit(ctx, allTexts[j], center, rect)
 
                         sceneObj.nextNode()
                     }

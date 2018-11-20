@@ -40,27 +40,29 @@ function paintGroupName(ctx, text, basePoint) {
     ctx.fillText(text, basePoint.x, basePoint.y)
 }
 
-function paintText(ctx, text, center, rect) {
+function paintTextWithSplit(ctx, text, center, rect) {
 
     // Draw text
-    var count = Object.keys(text).length
+    var txtList = text.split('\n');
+
+    var count = Object.keys(txtList).length
 
     if (count === 1) {
-        var txtW = ctx.measureText(text[0]).width
+        var txtW = ctx.measureText(txtList[0]).width
         var posX = center.x - txtW / 2
-        ctx.fillText(text[0], posX, center.y)
+        ctx.fillText(txtList[0], posX, center.y)
     }
 
     if (count === 2) {
         var heightQuater = rect.height / 4
 
-        txtW = ctx.measureText(text[0]).width
+        txtW = ctx.measureText(txtList[0]).width
         posX = center.x - txtW / 2
-        ctx.fillText(text[0], posX, center.y - heightQuater)
+        ctx.fillText(txtList[0], posX, center.y - heightQuater)
 
-        txtW = ctx.measureText(text[1]).width
+        txtW = ctx.measureText(txtList[1]).width
         posX = center.x - txtW / 2
-        ctx.fillText(text[1], posX, center.y + heightQuater)
+        ctx.fillText(txtList[1], posX, center.y + heightQuater)
     }
 }
 
