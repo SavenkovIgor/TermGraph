@@ -44,7 +44,7 @@ private:
     QList<TableColumnDescription> columns;
     bool isColumnNameExist(QString columnName);
 
-    QSqlQuery startQuery(QString str);
+    QSqlQuery startQuery(const QString& str);
     bool hasErrors(QString errString);
 
     QSqlQuery executeSelect(QStringList cols, WhereCondition where, QString orderBy = "");

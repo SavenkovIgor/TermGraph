@@ -45,16 +45,16 @@ QStringList TblBase::getAllCols()
     return lst;
 }
 
-QSqlQuery TblBase::startQuery(QString str)
+QSqlQuery TblBase::startQuery(const QString& queryString)
 {
     //    qDebug()<<str;
-    if (str.simplified().isEmpty())
+    if (queryString.simplified().isEmpty())
         return QSqlQuery();
 
-    QSqlQuery ret = base->exec(str);
+    QSqlQuery ret = base->exec(queryString);
 
     if(hasErrors(ret.lastError().text())) {
-        qDebug()<<"Query "<<str<<"\nfails with error"<<ret.lastError().text();
+        qDebug() << "Query " << queryString << "\nfails with error" << ret.lastError().text();
     }
 
     return ret;
