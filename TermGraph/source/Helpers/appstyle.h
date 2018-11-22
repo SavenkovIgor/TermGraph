@@ -51,15 +51,15 @@ public:
 
     class Sizes {
     public:
-        static qreal groupVerticalSpacer;
-        static qreal groupHorizontalSpacer;
+        static constexpr qreal groupVerticalSpacer = 10.0;
+        static constexpr qreal groupHorizontalSpacer = 10.0;
 
-        static qreal orphansVerticalSpacer;
-        static qreal orphansHorizontalSpacer;
+        static constexpr qreal orphansVerticalSpacer = 10.0;
+        static constexpr qreal orphansHorizontalSpacer = 10.0;
 
-        static qreal treeLayerHorizontalSpacer;
+        static constexpr qreal treeLayerHorizontalSpacer = 15.0;
 
-        static qreal baseBlockWidth;
+        static constexpr qreal baseBlockWidth = 40.0;
     };
 };
 

@@ -28,13 +28,3 @@ QColor AppStyle::Colors::Scene::background = QColor(51, 47, 48);
 
 QColor AppStyle::Colors::transparent = QColor(0,0,0,0);
 QColor AppStyle::Colors::testColor = QColor(0, 255, 0);
-
-qreal AppStyle::Sizes::groupVerticalSpacer = 10.0;
-qreal AppStyle::Sizes::groupHorizontalSpacer = 10.0;
-
-qreal AppStyle::Sizes::orphansVerticalSpacer = 10.0;
-qreal AppStyle::Sizes::orphansHorizontalSpacer = 10.0;
-
-qreal AppStyle::Sizes::treeLayerHorizontalSpacer = 15.0;
-
-qreal AppStyle::Sizes::baseBlockWidth = 40.0;
