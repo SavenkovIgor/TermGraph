@@ -18,33 +18,41 @@ private:
     QString value;
 
 public:
-    InsertContainer(QString columnName, QString value) {
+    InsertContainer(const QString& columnName, const QString& value) {
         this->columnName = columnName;
         this->value = value;
     }
 
-    InsertContainer(QString columnName, int value) {
+    InsertContainer(const QString& columnName, const int& value) {
         this->columnName = columnName;
         this->value = QString::number(value);
     }
 
-    QString getColumnName() { return columnName; }
-    QString getValue() { return value; }
+    QString getColumnName() const
+    {
+        return columnName;
+    }
+
+    QString getValue() const
+    {
+        return value;
+    }
 };
 
 class SetExpression {
 private:
     QStringList expression;
+
 public:
-    void set(QString column, int value) {
+    void set(const QString& column, const int& value) {
         set(column, QString::number(value));
     }
 
-    void set(QString column,QString value) {
+    void set(const QString& column, const QString& value) {
         expression << column + " = " + CommonQueryFunctions::vv(value);
     }
 
-    QString getExpression() {
+    QString getExpression() const {
         return expression.join(CommonQueryFunctions::joinParam());
     }
 };
@@ -57,7 +65,7 @@ enum ConditionType{
 
 class WhereCondition {
 private:
-    QString concat(QString str1, QString str2, QString str3) {
+    inline QString concat(QString str1, QString str2, QString str3) {
         return str1 + " " + str2 + " " + str3;
     }
 
@@ -65,41 +73,41 @@ private:
     ConditionType type;
 
 public:
-    WhereCondition(ConditionType type = And) {
+    WhereCondition(const ConditionType& type = And) {
         this->type = type;
     }
 
-    static WhereCondition uuidEqual(QUuid uuid) {
+    static WhereCondition uuidEqual(const QUuid& uuid) {
         WhereCondition where;
         where.equal("longUID", uuid.toString());
         return  where;
     }
 
-    void notEqual(QString column, int value) {
-        notEqual(column,QString::number(value));
+    void notEqual(const QString& column, const int& value) {
+        notEqual(column, QString::number(value));
     }
 
-    void notEqual(QString column, QString value) {
-        conditions << concat(column,"!=",CommonQueryFunctions::vv(value));
+    void notEqual(const QString& column, const QString& value) {
+        conditions << concat(column, "!=", CommonQueryFunctions::vv(value));
     }
 
-    void equal(QString column, int value) {
+    void equal(const QString& column, const int& value) {
         equal(column,QString::number(value));
     }
 
-    void equal(QString column, QString value) {
-        conditions << concat(column,"=",CommonQueryFunctions::vv(value));
+    void equal(const QString& column, const QString& value) {
+        conditions << concat(column, "=", CommonQueryFunctions::vv(value));
     }
 
-    void isNull(QString column) {
+    void isNull(const QString& column) {
         conditions << column + " IS NULL";
     }
 
-    void isNotNull(QString column) {
+    void isNotNull(const QString& column) {
         conditions << column + " IS NOT NULL";
     }
 
-    QString getJoinedConditions() {
+    QString getJoinedConditions() const {
         switch (type) {
         case And: return conditions.join(" AND ");
         case Or:  return conditions.join(" OR ");
@@ -121,12 +129,12 @@ public:
     QString createTable(QList<TableColumnDescription> columns);
     QString addColumn(TableColumnDescription column);
 
-    QString selectQuery(QStringList columns, WhereCondition where, QString orderBy = "");
-    QString insertQuery(QList<InsertContainer> values);
-    QString updateQuery(SetExpression set, WhereCondition where);
+    QString selectQuery(const QStringList &columns, const WhereCondition &where, const QString &orderBy = "");
+    QString insertQuery(const QList<InsertContainer> &values);
+    QString updateQuery(const SetExpression &set, const WhereCondition &where);
 
-    QString deleteWhereQuery(WhereCondition where);
-    QString deleteByUuidQuery(QUuid uuid, QString primaryKeyName = "longUID");
+    QString deleteWhereQuery(const WhereCondition &where);
+    QString deleteByUuidQuery(const QUuid &uuid, const QString &primaryKeyName = "longUID");
 
     static QStringList vv(QStringList lst);
 };

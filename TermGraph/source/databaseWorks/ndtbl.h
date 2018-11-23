@@ -72,7 +72,7 @@ public:
 
 private:
     void setFieldUpdateLastEdit(QString columnName, QUuid uuid, QString val);
-    void updateLastEdit(QUuid uuid);
+    void updateLastEdit(const QUuid &uuid);
     bool isUuidExist(QUuid uuid);
 
     QUuid generateNewUuid();

@@ -121,7 +121,7 @@ void NodeTable::setFieldUpdateLastEdit(QString columnName, QUuid uuid, QString v
     updateLastEdit(uuid);
 }
 
-void NodeTable::updateLastEdit(QUuid uuid)
+void NodeTable::updateLastEdit(const QUuid& uuid)
 {
     setField(NodeColumn::lastEdit, uuid, QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
 }

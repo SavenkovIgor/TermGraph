@@ -36,7 +36,7 @@ QString SqlQueryConstructor::addColumn(TableColumnDescription column)
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::selectQuery(QStringList columns, WhereCondition where, QString orderBy)
+QString SqlQueryConstructor::selectQuery(const QStringList& columns, const WhereCondition& where, const QString& orderBy)
 {
     QStringList qry;
     qry << "SELECT";
@@ -55,7 +55,7 @@ QString SqlQueryConstructor::selectQuery(QStringList columns, WhereCondition whe
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::insertQuery(QList<InsertContainer> values)
+QString SqlQueryConstructor::insertQuery(const QList<InsertContainer>& values)
 {
     QStringList columns;
     QStringList insertValues;
@@ -80,7 +80,7 @@ QString SqlQueryConstructor::insertQuery(QList<InsertContainer> values)
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::updateQuery(SetExpression set, WhereCondition where)
+QString SqlQueryConstructor::updateQuery(const SetExpression& set, const WhereCondition& where)
 {
     QStringList qry;
     qry << "UPDATE";
@@ -93,7 +93,7 @@ QString SqlQueryConstructor::updateQuery(SetExpression set, WhereCondition where
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::deleteWhereQuery(WhereCondition where)
+QString SqlQueryConstructor::deleteWhereQuery(const WhereCondition& where)
 {
     QStringList qry;
     qry << "DELETE";
@@ -105,7 +105,7 @@ QString SqlQueryConstructor::deleteWhereQuery(WhereCondition where)
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::deleteByUuidQuery(QUuid uuid, QString primaryKeyName)
+QString SqlQueryConstructor::deleteByUuidQuery(const QUuid& uuid, const QString& primaryKeyName)
 {
     QStringList qry;
     qry << "DELETE";

@@ -662,7 +662,7 @@ void MainScene::paintOneGroupIfNeed()
 //        showInfo("Paint " + paintGroup->getName());
 
         repaintQmlScene();
-        //userInactiveTimer.start();
+        userInactiveTimer.start();
     } else {
         qDebug() << "No paint";
     }

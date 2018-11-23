@@ -1,6 +1,8 @@
 #ifndef COMMONQUERYFUNCTIONS_H
 #define COMMONQUERYFUNCTIONS_H
 
+#include <QString>
+
 class CommonQueryFunctions {
 public:
     static QString joinParam() {
