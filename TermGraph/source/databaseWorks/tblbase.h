@@ -16,7 +16,7 @@ public:
     void checkCols();
 
 protected:
-    void setField(QString columnName, QUuid uuid, QString val);
+    void setField(const QString &columnName, const QUuid &uuid, const QString &val);
 
     int getIntField(QString columnName, QUuid uuid);
     QString getStringField(QString columnName, QUuid uuid);
@@ -28,7 +28,7 @@ protected:
 
     bool insertInto(QList<InsertContainer> values);
 
-    void updateWhere(SetExpression set, WhereCondition where);
+    void updateWhere(const SetExpression &set, const WhereCondition &where);
 
     void deleteRecord(QUuid uuid);
     void deleteWhere(WhereCondition where);
@@ -49,7 +49,7 @@ private:
 
     QSqlQuery executeSelect(QStringList cols, WhereCondition where, QString orderBy = "");
     QSqlQuery executeInsert(QList<InsertContainer> values);
-    void      executeUpdate(SetExpression set, WhereCondition where);
+    void      executeUpdate(const SetExpression &set, const WhereCondition &where);
 
 };
 

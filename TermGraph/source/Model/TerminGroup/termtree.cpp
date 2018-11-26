@@ -161,8 +161,8 @@ bool TermTree::hasTerm(GraphicItemTerm *term) const
 
 bool TermTree::hasEdge(Edge *edge) const
 {
-    GraphicItemTerm* rootTerm = dynamic_cast<GraphicItemTerm*>(edge->getRoot());
-    GraphicItemTerm* leafTerm = dynamic_cast<GraphicItemTerm*>(edge->getLeaf());
+    auto* rootTerm = dynamic_cast<GraphicItemTerm*>(edge->getRoot());
+    auto* leafTerm = dynamic_cast<GraphicItemTerm*>(edge->getLeaf());
     return hasTerm(rootTerm) && hasTerm(leafTerm);
 }
 

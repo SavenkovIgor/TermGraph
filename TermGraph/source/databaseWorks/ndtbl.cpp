@@ -47,47 +47,47 @@ int NodeTable::getRemindNum(QUuid uuid)
     return rec.value(NodeColumn::remindNum).toInt();
 }
 
-void NodeTable::setName(QUuid uuid, QString name)
+void NodeTable::setName(const QUuid& uuid, const QString& name)
 {
     setFieldUpdateLastEdit(NodeColumn::term, uuid, name);
 }
 
-void NodeTable::setWordForms(QUuid uuid, QString forms)
+void NodeTable::setWordForms(const QUuid& uuid, const QString& forms)
 {
     setFieldUpdateLastEdit(NodeColumn::termForms, uuid, forms);
 }
 
-void NodeTable::setDefinition(QUuid uuid, QString definition)
+void NodeTable::setDefinition(const QUuid& uuid, const QString& definition)
 {
     setFieldUpdateLastEdit(NodeColumn::definition, uuid, definition);
 }
 
-void NodeTable::setDescription(QUuid uuid, QString description)
+void NodeTable::setDescription(const QUuid& uuid, const QString& description)
 {
     setFieldUpdateLastEdit(NodeColumn::description, uuid, description);
 }
 
-void NodeTable::setExamples(QUuid uuid, QString example)
+void NodeTable::setExamples(const QUuid& uuid, const QString& example)
 {
     setFieldUpdateLastEdit(NodeColumn::examples, uuid, example);
 }
 
-void NodeTable::setWikiRef(QUuid uuid, QString wikiRef)
+void NodeTable::setWikiRef(const QUuid& uuid, const QString& wikiRef)
 {
     setFieldUpdateLastEdit(NodeColumn::wikiRef, uuid, wikiRef);
 }
 
-void NodeTable::setWikiImg(QUuid uuid, QString wikiImage)
+void NodeTable::setWikiImg(const QUuid& uuid, const QString& wikiImage)
 {
     setFieldUpdateLastEdit(NodeColumn::wikiImg, uuid, wikiImage);
 }
 
-void NodeTable::setGroup(QUuid nodeUuid, QUuid groupUuid)
+void NodeTable::setGroup(const QUuid& nodeUuid, const QUuid& groupUuid)
 {
     setFieldUpdateLastEdit(NodeColumn::termGroup, nodeUuid, groupUuid.toString());
 }
 
-void NodeTable::setAtLearn(QUuid uuid, bool learn)
+void NodeTable::setAtLearn(const QUuid& uuid, const bool& learn)
 {
     if (learn) {
         setField(NodeColumn::atLearn, uuid, "1");
@@ -115,7 +115,7 @@ void NodeTable::deleteNode(QUuid uuid)
     deleteRecord(uuid);
 }
 
-void NodeTable::setFieldUpdateLastEdit(QString columnName, QUuid uuid, QString val)
+void NodeTable::setFieldUpdateLastEdit(const QString& columnName, const QUuid& uuid, const QString& val)
 {
     setField(columnName, uuid, val);
     updateLastEdit(uuid);

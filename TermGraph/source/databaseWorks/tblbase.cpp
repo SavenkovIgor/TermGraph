@@ -1,6 +1,6 @@
 #include "tblbase.h"
 
-void TblBase::setField(QString columnName, QUuid uuid, QString val)
+void TblBase::setField(const QString& columnName, const QUuid& uuid, const QString& val)
 {
     SetExpression set;
     set.set(columnName, val);
@@ -112,15 +112,13 @@ QSqlQuery TblBase::executeInsert(QList<InsertContainer> values)
     return startQuery(query);
 }
 
-void TblBase::executeUpdate(SetExpression set, WhereCondition where)
+void TblBase::executeUpdate(const SetExpression& set, const WhereCondition& where)
 {
     QString query = queryConstructor->updateQuery(set,where);
     startQuery(query);
 }
 
-
-
-void TblBase::updateWhere(SetExpression set, WhereCondition where)
+void TblBase::updateWhere(const SetExpression& set, const WhereCondition& where)
 {
     executeUpdate(set, where);
 }

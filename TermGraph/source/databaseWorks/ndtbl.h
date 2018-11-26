@@ -54,15 +54,15 @@ public:
 
     QDateTime getLastEdit(QUuid uuid);
 
-    void setName(QUuid uuid, QString name);
-    void setWordForms(QUuid uuid, QString forms);
-    void setDefinition(QUuid uuid, QString definition);
-    void setDescription(QUuid uuid, QString description);
-    void setExamples(QUuid uuid, QString example);
-    void setWikiRef(QUuid uuid, QString wikiRef);
-    void setWikiImg(QUuid uuid, QString wikiImage);
-    void setAtLearn(QUuid uuid, bool learn);
-    void setGroup(QUuid nodeUuid, QUuid groupUuid);
+    void setName(const QUuid& uuid, const QString& name);
+    void setWordForms(const QUuid& uuid, const QString& forms);
+    void setDefinition(const QUuid& uuid, const QString& definition);
+    void setDescription(const QUuid& uuid, const QString& description);
+    void setExamples(const QUuid& uuid, const QString& example);
+    void setWikiRef(const QUuid& uuid, const QString& wikiRef);
+    void setWikiImg(const QUuid &uuid, const QString &wikiImage);
+    void setAtLearn(const QUuid &uuid, const bool &learn);
+    void setGroup(const QUuid &nodeUuid, const QUuid &groupUuid);
 
     int  getRemindNum(QUuid uuid);
     void setRemindNum(QUuid uuid, int num, QDate date);
@@ -71,7 +71,7 @@ public:
     void deleteNode(QUuid uuid);
 
 private:
-    void setFieldUpdateLastEdit(QString columnName, QUuid uuid, QString val);
+    void setFieldUpdateLastEdit(const QString &columnName, const QUuid &uuid, const QString &val);
     void updateLastEdit(const QUuid &uuid);
     bool isUuidExist(QUuid uuid);
 
