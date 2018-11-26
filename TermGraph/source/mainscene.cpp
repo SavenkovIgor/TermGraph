@@ -439,6 +439,14 @@ void MainScene::setPaintInProcess(bool painting)
     paintInProcess = painting;
 }
 
+void MainScene::setMousePos(qreal x, qreal y)
+{
+    mousePos.setX(x);
+    mousePos.setY(y);
+
+    findSelection();
+}
+
 void MainScene::showGroup(int num)
 {
     QStringList allGroupNames = groupsMgr->getAllGroupsNames();
@@ -671,6 +679,16 @@ void MainScene::paintOneGroupIfNeed()
 QRectF MainScene::getSceneRect()
 {
     return sceneRect.toRect();
+}
+
+void MainScene::findSelection()
+{
+    for (auto group : groupList) {
+        if (group->baseRect->contains(mousePos)) {
+            paintQueueGroupList << group;
+            repaintQmlScene();
+        }
+    }
 }
 
 QString MainScene::getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction)

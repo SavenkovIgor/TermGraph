@@ -181,6 +181,8 @@ public slots:
 
     void setPaintInProcess(bool painting);
 
+    void setMousePos(qreal x, qreal y);
+
 private:
     int groupIterator = 0;
     int edgeIterator = 0;
@@ -205,6 +207,9 @@ private:
     QRectF sceneViewRect = QRectF(0, 0, 100, 100);
 
     bool paintInProcess = false;
+
+    QPointF mousePos;
+    void findSelection();
 
     QList < TermGroup* > groupList;
     QList < TermGroup* > paintQueueGroupList;
