@@ -31,10 +31,10 @@ public:
     void deleteGroup(QString name);
 
     // Getters
-    QSqlRecord getGroup(QUuid uuid);
-    QString getName(QUuid uuid);
+    QSqlRecord getGroup(const QUuid &uuid);
+    QString getName(const QUuid &uuid);
     int getType(QUuid groupUuid);
-    QUuid getUuid(QString groupName);
+    QUuid getUuid(const QString &groupName);
 
     // Massive getters
     QList<QUuid> getAllGroupsUuid();
@@ -45,7 +45,7 @@ public:
     void setType(QUuid uuid, int type);
 
     // Checkers
-    bool hasGroupWithUuid(QUuid uuid);
+    bool hasGroupWithUuid(const QUuid &uuid);
     bool hasGroupWithName(QString groupName);
 
 private:

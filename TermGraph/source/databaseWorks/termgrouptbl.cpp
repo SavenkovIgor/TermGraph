@@ -61,7 +61,7 @@ void TermGroupTable::deleteGroup(QString name)
     deleteWhere(where);
 }
 
-bool TermGroupTable::hasGroupWithUuid(QUuid uuid)
+bool TermGroupTable::hasGroupWithUuid(const QUuid& uuid)
 {
     RecList recs = toRecList(select(QStringList() << TermGroupColumn::longUID,
                                     WhereCondition::uuidEqual(uuid)));
@@ -80,7 +80,7 @@ QUuid TermGroupTable::generateNewUuid()
     return uuid;
 }
 
-QUuid TermGroupTable::getUuid(QString groupName)
+QUuid TermGroupTable::getUuid(const QString& groupName)
 {
     WhereCondition where;
     where.equal(TermGroupColumn::name, groupName);
@@ -118,12 +118,12 @@ void TermGroupTable::setType(QUuid uuid, int type)
     setField(TermGroupColumn::type, uuid, QString::number(type));
 }
 
-QString TermGroupTable::getName(QUuid uuid)
+QString TermGroupTable::getName(const QUuid& uuid)
 {
     return getStringField(TermGroupColumn::name, uuid);
 }
 
-QSqlRecord TermGroupTable::getGroup(QUuid uuid)
+QSqlRecord TermGroupTable::getGroup(const QUuid& uuid)
 {
     QSqlQuery sel = select(getAllCols(), WhereCondition::uuidEqual(uuid));
 

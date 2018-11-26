@@ -18,20 +18,20 @@ public:
 protected:
     void setField(const QString &columnName, const QUuid &uuid, const QString &val);
 
-    int getIntField(QString columnName, QUuid uuid);
-    QString getStringField(QString columnName, QUuid uuid);
+    int getIntField(const QString& columnName, const QUuid& uuid);
+    QString getStringField(const QString &columnName, const QUuid &uuid);
 
-    void initColumn(QString columnName, QString columnType);
+    void initColumn(const QString &columnName, const QString &columnType);
     QStringList getAllCols();
 
-    QSqlQuery select(QStringList cols, WhereCondition where = WhereCondition(), QString orderBy = "");
+    QSqlQuery select(const QStringList &cols, const WhereCondition &where = WhereCondition(), const QString &orderBy = "");
 
-    bool insertInto(QList<InsertContainer> values);
+    bool insertInto(const QList<InsertContainer> &values);
 
     void updateWhere(const SetExpression &set, const WhereCondition &where);
 
-    void deleteRecord(QUuid uuid);
-    void deleteWhere(WhereCondition where);
+    void deleteRecord(const QUuid& uuid);
+    void deleteWhere(const WhereCondition& where);
 
     RecList toRecList(QSqlQuery q);
 
@@ -42,13 +42,13 @@ private:
     QString tableName;
 
     QList<TableColumnDescription> columns;
-    bool isColumnNameExist(QString columnName);
+    bool isColumnNameExist(const QString& columnName) const;
 
     QSqlQuery startQuery(const QString& str);
-    bool hasErrors(QString errString);
+    bool hasErrors(const QString &errString);
 
-    QSqlQuery executeSelect(QStringList cols, WhereCondition where, QString orderBy = "");
-    QSqlQuery executeInsert(QList<InsertContainer> values);
+    QSqlQuery executeSelect(const QStringList &cols, const WhereCondition &where, const QString &orderBy = "");
+    QSqlQuery executeInsert(const QList<InsertContainer> &values);
     void      executeUpdate(const SetExpression &set, const WhereCondition &where);
 
 };

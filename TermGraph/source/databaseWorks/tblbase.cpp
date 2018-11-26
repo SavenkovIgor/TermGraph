@@ -8,7 +8,7 @@ void TblBase::setField(const QString& columnName, const QUuid& uuid, const QStri
     updateWhere(set, WhereCondition::uuidEqual(uuid));
 }
 
-int TblBase::getIntField(QString columnName, QUuid uuid)
+int TblBase::getIntField(const QString &columnName, const QUuid &uuid)
 {
     if( !isColumnNameExist(columnName) )
         return -1;
@@ -22,7 +22,7 @@ int TblBase::getIntField(QString columnName, QUuid uuid)
     return sel.record().value(columnName).toInt();
 }
 
-QString TblBase::getStringField(QString columnName, QUuid uuid)
+QString TblBase::getStringField(const QString& columnName, const QUuid& uuid)
 {
     if( !isColumnNameExist(columnName) )
         return "";
@@ -60,7 +60,7 @@ QSqlQuery TblBase::startQuery(const QString& queryString)
     return ret;
 }
 
-bool TblBase::hasErrors(QString errString)
+bool TblBase::hasErrors(const QString& errString)
 {
     bool ret;
     ret = (errString != "" && errString != " ");
@@ -79,14 +79,14 @@ QSqlQuery TblBase::createTable() {
     return startQuery(query);
 }
 
-void TblBase::initColumn(QString columnName, QString columnType) {
+void TblBase::initColumn(const QString& columnName, const QString& columnType) {
     TableColumnDescription column;
     column.name = columnName;
     column.type = columnType;
     columns.append(column);
 }
 
-bool TblBase::insertInto(QList<InsertContainer> values)
+bool TblBase::insertInto(const QList<InsertContainer>& values)
 {
     QSqlQuery q = executeInsert(values);
 
@@ -95,18 +95,18 @@ bool TblBase::insertInto(QList<InsertContainer> values)
     return true;
 }
 
-QSqlQuery TblBase::select(QStringList cols, WhereCondition where, QString orderBy)
+QSqlQuery TblBase::select(const QStringList& cols, const WhereCondition& where, const QString& orderBy)
 {
     return executeSelect(cols, where, orderBy);
 }
 
-QSqlQuery TblBase::executeSelect(QStringList cols, WhereCondition where, QString orderBy)
+QSqlQuery TblBase::executeSelect(const QStringList& cols, const WhereCondition& where, const QString& orderBy)
 {
     QString query = queryConstructor->selectQuery(cols,where,orderBy);
     return startQuery(query);
 }
 
-QSqlQuery TblBase::executeInsert(QList<InsertContainer> values)
+QSqlQuery TblBase::executeInsert(const QList<InsertContainer>& values)
 {
     QString query = queryConstructor->insertQuery(values);
     return startQuery(query);
@@ -123,23 +123,24 @@ void TblBase::updateWhere(const SetExpression& set, const WhereCondition& where)
     executeUpdate(set, where);
 }
 
-void TblBase::deleteRecord(QUuid uuid)
+void TblBase::deleteRecord(const QUuid &uuid)
 {
     QString query = queryConstructor->deleteByUuidQuery(uuid);
     startQuery(query);
 }
 
-void TblBase::deleteWhere(WhereCondition where)
+void TblBase::deleteWhere(const WhereCondition &where)
 {
     QString query = queryConstructor->deleteWhereQuery(where);
     startQuery(query);
 }
 
-bool TblBase::isColumnNameExist(QString columnName)
+bool TblBase::isColumnNameExist(const QString& columnName) const
 {
-    for(TableColumnDescription col : columns) {
-        if (col.name == columnName)
+    for(auto col : columns) {
+        if (col.name == columnName) {
             return true;
+        }
     }
     return false;
 }

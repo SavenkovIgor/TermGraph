@@ -49,14 +49,14 @@ QString GroupsManager::getGroupName(QUuid groupUuid)
     return rec.value(TermGroupColumn::name).toString();
 }
 
-QUuid GroupsManager::getGroupUuid(QString groupName)
+QUuid GroupsManager::getGroupUuid(const QString& groupName)
 {
     DBAbstract* db = Glb::db;
     QUuid groupUuid = db->groupTbl->getUuid(groupName);
     return groupUuid;
 }
 
-QStringList GroupsManager::getGroupNames(QList<QUuid> groupUuids)
+QStringList GroupsManager::getGroupNames(const QList<QUuid>& groupUuids)
 {
     QStringList ret;
     for (QUuid uuid : groupUuids) {
@@ -119,7 +119,7 @@ bool GroupsManager::isValidGroupJson(const QJsonDocument json)
     return false;
 }
 
-TermGroup* GroupsManager::createGroup(const QString groupName)
+TermGroup* GroupsManager::createGroup(const QString& groupName)
 {
     return createGroup(getGroupUuid(groupName));
 }
@@ -184,7 +184,7 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
     return ret;
 }
 
-void GroupsManager::importGroupFromJson(QJsonDocument json)
+void GroupsManager::importGroupFromJson(const QJsonDocument& json)
 {
     DBAbstract* db = Glb::db;
     if (!isValidGroupJson(json))
