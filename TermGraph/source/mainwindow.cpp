@@ -108,6 +108,7 @@ void MainWindow::takeSceneMouse(
 MainWindow::~MainWindow()
 {
     saveSett();
+    delete engn;
 }
 
 void MainWindow::saveSett()

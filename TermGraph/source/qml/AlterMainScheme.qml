@@ -70,7 +70,7 @@ Page {
 
             anchors.fill: sceneImage
 
-            //hoverEnabled: true  // TODO: Uncomment later
+            hoverEnabled: true
 
             onMouseXChanged: sceneObj.setMousePos(sceneMouse.mouseX, sceneMouse.mouseY)
             onMouseYChanged: sceneObj.setMousePos(sceneMouse.mouseX, sceneMouse.mouseY)
@@ -129,7 +129,6 @@ Page {
                     }
 
                     sceneObj.startEdgeIterator()
-
 
                     for (var j = 0; j < 1000000; j++) {
                         if (sceneObj.edgeIteratorAtEnd()) {

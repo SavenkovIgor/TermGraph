@@ -16,6 +16,7 @@ function paintRoundedRect(ctx, rect, rectColor, radius) {
 }
 
 function prepareEdge(ctx, color) {
+    ctx.lineWidth = 2
     ctx.strokeStyle = color
 }
 

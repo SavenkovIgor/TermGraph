@@ -31,6 +31,7 @@ class MainScene : public QGraphicsScene
     QTimer sceneRhytm;
 
     QTimer userInactiveTimer;
+    QTimer mouseMoveReactionTimer;
 
     int currGroupIndex = 0;
 

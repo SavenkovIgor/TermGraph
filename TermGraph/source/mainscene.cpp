@@ -9,9 +9,12 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphi
     selectTimer.setInterval(200);
     connect(&selectTimer, SIGNAL(timeout()), SLOT(checkSelection()));
 
-    userInactiveTimer.setInterval(200);
+    userInactiveTimer.setInterval(static_cast<int>(1000/30));
     userInactiveTimer.setSingleShot(true);
     connect(&userInactiveTimer, SIGNAL(timeout()), SLOT(paintOneGroupIfNeed()));
+
+    mouseMoveReactionTimer.setInterval(static_cast<int>(1000/30));
+    mouseMoveReactionTimer.setSingleShot(true);
 
 //    viewGrpTimer.setSingleShot(false);
 //    connect(&viewGrpTimer,SIGNAL(timeout()),SLOT(showGroup()));
@@ -683,8 +686,18 @@ QRectF MainScene::getSceneRect()
 
 void MainScene::findSelection()
 {
+    if (mouseMoveReactionTimer.isActive()) {
+        // qDebug() << "Ignore";
+        return;
+    } else {
+        // qDebug() << "Start";
+        mouseMoveReactionTimer.start();
+    }
+
+    paintQueueGroupList.clear();
+
     for (auto group : groupList) {
-        if (group->baseRect->contains(mousePos)) {
+        if (group->getGroupRect().contains(mousePos)) {
             paintQueueGroupList << group;
             repaintQmlScene();
         }
