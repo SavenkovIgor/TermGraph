@@ -65,6 +65,17 @@ Page {
             sceneObj.setSceneViewRect(sceneView.contentX, sceneView.contentY, sceneView.width, sceneView.height)
         }
 
+        MouseArea {
+            id: sceneMouse
+
+            anchors.fill: sceneImage
+
+            //hoverEnabled: true  // TODO: Uncomment later
+
+            onMouseXChanged: sceneObj.setMousePos(sceneMouse.mouseX, sceneMouse.mouseY)
+            onMouseYChanged: sceneObj.setMousePos(sceneMouse.mouseX, sceneMouse.mouseY)
+        }
+
         Canvas {
             id: sceneImage
 
