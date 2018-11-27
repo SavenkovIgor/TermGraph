@@ -68,18 +68,18 @@ function paintTextWithSplit(ctx, text, center, rect) {
 }
 
 function paintRect(ctx, rect, borderColor) {
-    ctx.save()
     ctx.strokeStyle = borderColor
     ctx.lineWidth = 1
     ctx.beginPath()
     ctx.rect(rect.x, rect.y, rect.width, rect.height)
     ctx.stroke()
-    ctx.restore()
+}
+
+function clearRect(ctx, rect, offset) {
+    ctx.clearRect(rect.x - offset, rect.y - offset, rect.width + 2*offset, rect.height + 2*offset)
 }
 
 function paintFilledRect(ctx, rect, color) {
-    ctx.save()
     ctx.fillStyle = color
     ctx.fillRect(rect.x, rect.y, rect.width, rect.height)
-    ctx.restore()
 }
