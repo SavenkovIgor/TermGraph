@@ -1,13 +1,9 @@
 #include "tagprocessor.h"
 
-const QChar TagProcessor::leftBracket = '{';
-const QChar TagProcessor::rightBracket = '}';
-const QString TagProcessor::emptyBrackets = "{}";
-
 TagProcessor::TagProcessor(QObject *parent) : QObject(parent)
 { }
 
-bool TagProcessor::isBracket(QChar ch)
+bool TagProcessor::isBracket(const QChar& ch)
 {
     return ch == leftBracket || ch == rightBracket;
 }
