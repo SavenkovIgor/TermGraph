@@ -19,6 +19,7 @@ enum class CoordType {
 class PaintedTerm : public GraphTerm
 {
 public:
+    bool needPaint = true;  // Flag for placing in paintQueue
 
     typedef QList<PaintedTerm*> List;
 
