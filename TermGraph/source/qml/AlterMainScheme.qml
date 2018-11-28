@@ -112,7 +112,7 @@ Page {
             function paintAll(ctx) {
                 sceneObj.startCheckTimer()
 
-                for (var i = 0; i < 1000000; i++) {
+                while (true) {
                     if (sceneObj.groupPaintQueueEmpty())
                         break;
 
@@ -140,7 +140,7 @@ Page {
 
                 sceneObj.startEdgeIterator()
 
-                for (var j = 0; j < 1000000; j++) {
+                while (true) {
                     if (sceneObj.edgeIteratorAtEnd()) {
                         break;
                     }
