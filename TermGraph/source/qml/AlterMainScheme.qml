@@ -111,10 +111,9 @@ Page {
 
             function paintAll(ctx) {
                 sceneObj.startCheckTimer()
-                sceneObj.startGroupIterator()
 
                 for (var i = 0; i < 1000000; i++) {
-                    if (sceneObj.groupIteratorAtEnd())
+                    if (sceneObj.groupPaintQueueEmpty())
                         break;
 
                     var groupRect = sceneObj.currentGroupRect()
@@ -132,7 +131,7 @@ Page {
                     paintAllTextsInThisGroup(ctx)
                     sceneObj.restartCheckTimer("Texts")
 
-                    sceneObj.nextGroup()
+                    sceneObj.nextPaintGroup()
                 }
             }
 

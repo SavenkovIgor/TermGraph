@@ -145,9 +145,8 @@ public slots:
     void setSceneViewRect(int x, int y, int width, int height);
 
     // Group iterator
-    void startGroupIterator();
-    void nextGroup();
-    bool groupIteratorAtEnd();
+    void nextPaintGroup();
+    bool groupPaintQueueEmpty();
 
     QRectF currentGroupRect();
     QColor currentGroupFillColor();
@@ -185,7 +184,6 @@ public slots:
     void setMousePos(qreal x, qreal y);
 
 private:
-    int groupIterator = 0;
     int edgeIterator = 0;
     int nodeIterator = 0;
 
@@ -213,7 +211,7 @@ private:
     void findSelection();
 
     QList < TermGroup* > groupList;
-    QList < TermGroup* > paintQueueGroupList;
+    QQueue < TermGroup* > groupsForPaint;
 
     GraphicItemTerm::List getAllTermsAtPoint(QPointF point);
 };

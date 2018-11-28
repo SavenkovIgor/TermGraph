@@ -292,45 +292,40 @@ void MainScene::setSceneViewRect(int x, int y, int width, int height)
     userInactiveTimer.start();
 }
 
-void MainScene::startGroupIterator()
+void MainScene::nextPaintGroup()
 {
-    groupIterator = 0;
+    groupsForPaint.dequeue();
 }
 
-void MainScene::nextGroup()
+bool MainScene::groupPaintQueueEmpty()
 {
-    groupIterator++;
-}
-
-bool MainScene::groupIteratorAtEnd()
-{
-    return groupIterator >= paintQueueGroupList.size();
+    return groupsForPaint.empty();
 }
 
 QRectF MainScene::currentGroupRect()
 {
-    return paintQueueGroupList[groupIterator]->getGroupRect();
+    return groupsForPaint.head()->getGroupRect();
 }
 
 QColor MainScene::currentGroupFillColor()
 {
-    return paintQueueGroupList[groupIterator]->getGroupFillColor();
+    return groupsForPaint.head()->getGroupFillColor();
 }
 
 QString MainScene::currentGroupName()
 {
-    return paintQueueGroupList[groupIterator]->getName();
+    return groupsForPaint.head()->getName();
 }
 
 QPointF MainScene::currentGroupNamePos()
 {
-    return paintQueueGroupList[groupIterator]->getNamePos();
+    return groupsForPaint.head()->getNamePos();
 }
 
 QStringList MainScene::currentGroupAllNodeNames()
 {
     QStringList ret;
-    for (auto node : paintQueueGroupList[groupIterator]->getAllNodes()) {
+    for (auto node : groupsForPaint.head()->getAllNodes()) {
         ret << node->getSmallName();
     }
     return ret;
@@ -339,7 +334,7 @@ QStringList MainScene::currentGroupAllNodeNames()
 QList<QRectF> MainScene::currentGroupAllRects()
 {
     QList<QRectF> ret;
-    for (auto node : paintQueueGroupList[groupIterator]->getAllNodes()) {
+    for (auto node : groupsForPaint.head()->getAllNodes()) {
         ret << node->getNodeRect(CoordType::scene);
     }
     return ret;
@@ -357,7 +352,7 @@ void MainScene::nextEdge()
 
 bool MainScene::edgeIteratorAtEnd()
 {
-    return edgeIterator >= paintQueueGroupList[groupIterator]->getAllEdges().count();
+    return edgeIterator >= groupsForPaint.head()->getAllEdges().count();
 }
 
 QColor MainScene::getEdgeColor()
@@ -367,7 +362,7 @@ QColor MainScene::getEdgeColor()
 
 QPointF MainScene::currentFirstEdgePoint()
 {
-    auto graphTerm = paintQueueGroupList[groupIterator]->getAllEdges()[edgeIterator]->getRoot();
+    auto graphTerm = groupsForPaint.head()->getAllEdges()[edgeIterator]->getRoot();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
     auto pt = paintedTerm->getScenePos();
     pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
@@ -376,7 +371,7 @@ QPointF MainScene::currentFirstEdgePoint()
 
 QPointF MainScene::currentLastEdgePoint()
 {
-    auto graphTerm = paintQueueGroupList[groupIterator]->getAllEdges()[edgeIterator]->getLeaf();
+    auto graphTerm = groupsForPaint.head()->getAllEdges()[edgeIterator]->getLeaf();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
     auto pt = paintedTerm->getScenePos();
     pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
@@ -390,7 +385,7 @@ void MainScene::startNodeIterator()
 
 qreal MainScene::currentNodeRadius()
 {
-    return paintQueueGroupList[groupIterator]->getAllNodes()[nodeIterator]->getCornerRadius();
+    return groupsForPaint.head()->getAllNodes()[nodeIterator]->getCornerRadius();
 }
 
 void MainScene::nextNode()
@@ -400,27 +395,27 @@ void MainScene::nextNode()
 
 bool MainScene::nodeIteratorAtEnd()
 {
-    return nodeIterator >= paintQueueGroupList[groupIterator]->getAllNodes().count();
+    return nodeIterator >= groupsForPaint.head()->getAllNodes().count();
 }
 
 QRectF MainScene::currentNodeRect()
 {
-    return paintQueueGroupList[groupIterator]->getAllNodes()[nodeIterator]->getNodeRect(CoordType::scene);
+    return groupsForPaint.head()->getAllNodes()[nodeIterator]->getNodeRect(CoordType::scene);
 }
 
 QPointF MainScene::currentNodeCenter()
 {
-    return paintQueueGroupList[groupIterator]->getAllNodes()[nodeIterator]->getNodeRect(CoordType::scene).center();
+    return groupsForPaint.head()->getAllNodes()[nodeIterator]->getNodeRect(CoordType::scene).center();
 }
 
 QColor MainScene::currentNodeColor()
 {
-    return paintQueueGroupList[groupIterator]->getAllNodes()[nodeIterator]->getBaseColor();
+    return groupsForPaint.head()->getAllNodes()[nodeIterator]->getBaseColor();
 }
 
 QStringList MainScene::currentNodeText()
 {
-    auto smallName = paintQueueGroupList[groupIterator]->getAllNodes()[nodeIterator]->getSmallName();
+    auto smallName = groupsForPaint.head()->getAllNodes()[nodeIterator]->getSmallName();
     auto list = smallName.split("\n", QString::SkipEmptyParts);
     return list;
 }
@@ -667,8 +662,8 @@ void MainScene::paintOneGroupIfNeed()
 
         paintGroup->alreadyPainted = true;
 
-        paintQueueGroupList.clear();
-        paintQueueGroupList.append(paintGroup);
+        groupsForPaint.clear();
+        groupsForPaint.enqueue(paintGroup);
 
 //        showInfo("Paint " + paintGroup->getName());
 
@@ -687,18 +682,16 @@ QRectF MainScene::getSceneRect()
 void MainScene::findSelection()
 {
     if (mouseMoveReactionTimer.isActive()) {
-        // qDebug() << "Ignore";
         return;
     } else {
-        // qDebug() << "Start";
         mouseMoveReactionTimer.start();
     }
 
-    paintQueueGroupList.clear();
+    groupsForPaint.clear();
 
     for (auto group : groupList) {
         if (group->getGroupRect().contains(mousePos)) {
-            paintQueueGroupList << group;
+            groupsForPaint.enqueue(group);
             repaintQmlScene();
         }
     }
