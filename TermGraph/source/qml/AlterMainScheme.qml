@@ -112,12 +112,14 @@ Page {
             function paintAll(ctx) {
                 sceneObj.startCheckTimer()
 
+                sceneObj.updatePaintQueuesInAllGroups()
+
                 while (true) {
                     if (sceneObj.groupPaintQueueEmpty())
                         break;
 
                     var groupRect = sceneObj.currentGroupRect()
-                    JsPaint.clearRect(ctx, groupRect, 2)
+                    // JsPaint.clearRect(ctx, groupRect, 2)
                     JsPaint.paintRect(ctx, groupRect, "#FFFFFF")
 
                     var groupName = sceneObj.currentGroupName()
@@ -125,11 +127,7 @@ Page {
                     JsPaint.paintGroupName(ctx, groupName, groupNamePos)
 
                     paintAllEdgesInThisGroup(ctx)
-                    sceneObj.restartCheckTimer("Edges")
                     paintAllRectsInThisGroup(ctx)
-                    sceneObj.restartCheckTimer("Rects")
-                    paintAllTextsInThisGroup(ctx)
-                    sceneObj.restartCheckTimer("Texts")
 
                     sceneObj.nextPaintGroup()
                 }
@@ -138,10 +136,8 @@ Page {
             function paintAllEdgesInThisGroup(ctx) {
                 JsPaint.prepareEdge(ctx, sceneObj.getEdgeColor())
 
-                sceneObj.startEdgeIterator()
-
                 while (true) {
-                    if (sceneObj.edgeIteratorAtEnd()) {
+                    if (sceneObj.edgeQueueEmpty()) {
                         break;
                     }
 
@@ -156,11 +152,10 @@ Page {
 
             function paintAllRectsInThisGroup(ctx) {
                 JsPaint.prepareRoundedRects(ctx)
-
-                sceneObj.startNodeIterator()
+                JsPaint.prepareText(ctx)
 
                 for (var j = 0; j < 1000000; j++) {
-                    if (sceneObj.nodeIteratorAtEnd()) {
+                    if (sceneObj.nodeQueueEmpty()) {
                         break;
                     }
 
@@ -170,25 +165,10 @@ Page {
 
                     JsPaint.paintRoundedRect(ctx, rect, color, radius)
 
-                    sceneObj.nextNode()
-                }
-            }
-
-            function paintAllTextsInThisGroup(ctx) {
-                JsPaint.prepareText(ctx)
-
-                sceneObj.startNodeIterator()
-
-                var allTexts = sceneObj.currentGroupAllNodeNames()
-
-                for (var j = 0; j < 1000000; j++) {
-                    if (sceneObj.nodeIteratorAtEnd()) {
-                        break;
-                    }
-
-                    var rect = sceneObj.currentNodeRect()
                     var center = sceneObj.currentNodeCenter()
-                    JsPaint.paintTextWithSplit(ctx, allTexts[j], center, rect)
+                    var text = sceneObj.currentNodeText()
+
+                    JsPaint.paintTextWithSplit(ctx, text, center, rect)
 
                     sceneObj.nextNode()
                 }

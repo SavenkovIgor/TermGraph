@@ -46,7 +46,6 @@ void TermGroup::initNewNodes()
 
     this->grNmItem->setParentItem(baseRect);
 
-
     setLayers();
     initTrees();
     addTreeRectsToScene();
@@ -131,6 +130,23 @@ void TermGroup::loadNodes(GraphicItemTerm::List newNodes)
         addNodeToList(node);
     }
     initNewNodes();
+}
+
+void TermGroup::updatePaintQueues()
+{
+    for (auto edge : getAllEdges()) {
+        if (edge->needPaint) {
+            edgesPaintQueue.enqueue(edge);
+            edge->needPaint = false;
+        }
+    }
+
+    for (auto node : getAllNodes()) {
+        if (node->needPaint) {
+            nodesPaintQueue.enqueue(node);
+            node->needPaint = false;
+        }
+    }
 }
 
 void TermGroup::addOrphansToParents()

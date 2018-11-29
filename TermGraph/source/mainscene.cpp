@@ -292,6 +292,13 @@ void MainScene::setSceneViewRect(int x, int y, int width, int height)
     userInactiveTimer.start();
 }
 
+void MainScene::updatePaintQueuesInAllGroups()
+{
+    for (auto group : groupList) {
+        group->updatePaintQueues();
+    }
+}
+
 void MainScene::nextPaintGroup()
 {
     groupsForPaint.dequeue();
@@ -340,19 +347,14 @@ QList<QRectF> MainScene::currentGroupAllRects()
     return ret;
 }
 
-void MainScene::startEdgeIterator()
-{
-    edgeIterator = 0;
-}
-
 void MainScene::nextEdge()
 {
-    edgeIterator++;
+    groupsForPaint.head()->edgesPaintQueue.dequeue();
 }
 
-bool MainScene::edgeIteratorAtEnd()
+bool MainScene::edgeQueueEmpty()
 {
-    return edgeIterator >= groupsForPaint.head()->getAllEdges().count();
+    return groupsForPaint.head()->edgesPaintQueue.isEmpty();
 }
 
 QColor MainScene::getEdgeColor()
@@ -362,7 +364,7 @@ QColor MainScene::getEdgeColor()
 
 QPointF MainScene::currentFirstEdgePoint()
 {
-    auto graphTerm = groupsForPaint.head()->getAllEdges()[edgeIterator]->getRoot();
+    auto graphTerm = groupsForPaint.head()->edgesPaintQueue.head()->getRoot();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
     auto pt = paintedTerm->getScenePos();
     pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
@@ -371,53 +373,46 @@ QPointF MainScene::currentFirstEdgePoint()
 
 QPointF MainScene::currentLastEdgePoint()
 {
-    auto graphTerm = groupsForPaint.head()->getAllEdges()[edgeIterator]->getLeaf();
+    auto graphTerm = groupsForPaint.head()->edgesPaintQueue.head()->getLeaf();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
     auto pt = paintedTerm->getScenePos();
     pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
     return pt;
 }
 
-void MainScene::startNodeIterator()
-{
-    nodeIterator = 0;
-}
-
 qreal MainScene::currentNodeRadius()
 {
-    return groupsForPaint.head()->getAllNodes()[nodeIterator]->getCornerRadius();
+    return groupsForPaint.head()->nodesPaintQueue.head()->getCornerRadius();
 }
 
 void MainScene::nextNode()
 {
-    nodeIterator++;
+    groupsForPaint.head()->nodesPaintQueue.dequeue();
 }
 
-bool MainScene::nodeIteratorAtEnd()
+bool MainScene::nodeQueueEmpty()
 {
-    return nodeIterator >= groupsForPaint.head()->getAllNodes().count();
+    return groupsForPaint.head()->nodesPaintQueue.isEmpty();
 }
 
 QRectF MainScene::currentNodeRect()
 {
-    return groupsForPaint.head()->getAllNodes()[nodeIterator]->getNodeRect(CoordType::scene);
+    return groupsForPaint.head()->nodesPaintQueue.head()->getNodeRect(CoordType::scene);
 }
 
 QPointF MainScene::currentNodeCenter()
 {
-    return groupsForPaint.head()->getAllNodes()[nodeIterator]->getNodeRect(CoordType::scene).center();
+    return groupsForPaint.head()->nodesPaintQueue.head()->getNodeRect(CoordType::scene).center();
 }
 
 QColor MainScene::currentNodeColor()
 {
-    return groupsForPaint.head()->getAllNodes()[nodeIterator]->getBaseColor();
+    return groupsForPaint.head()->nodesPaintQueue.head()->getBaseColor();
 }
 
-QStringList MainScene::currentNodeText()
+QString MainScene::currentNodeText()
 {
-    auto smallName = groupsForPaint.head()->getAllNodes()[nodeIterator]->getSmallName();
-    auto list = smallName.split("\n", QString::SkipEmptyParts);
-    return list;
+    return groupsForPaint.head()->nodesPaintQueue.head()->getSmallName();
 }
 
 QColor MainScene::getSceneBackgroundColor()

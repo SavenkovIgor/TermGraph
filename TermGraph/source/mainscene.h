@@ -145,6 +145,8 @@ public slots:
     void setSceneViewRect(int x, int y, int width, int height);
 
     // Group iterator
+    void updatePaintQueuesInAllGroups();
+
     void nextPaintGroup();
     bool groupPaintQueueEmpty();
 
@@ -156,23 +158,21 @@ public slots:
     QList<QRectF> currentGroupAllRects();
 
     // Edge iterator
-    void startEdgeIterator();
     void nextEdge();
-    bool edgeIteratorAtEnd();
+    bool edgeQueueEmpty();
     QColor getEdgeColor();
 
     QPointF currentFirstEdgePoint();
     QPointF currentLastEdgePoint();
 
     // Node iterator
-    void startNodeIterator();
     void nextNode();
-    bool nodeIteratorAtEnd();
+    bool nodeQueueEmpty();
 
     QRectF currentNodeRect();
     QPointF currentNodeCenter();
     QColor currentNodeColor();
-    QStringList currentNodeText();
+    QString currentNodeText();
     qreal currentNodeRadius();
 
     QColor getSceneBackgroundColor();
@@ -182,11 +182,6 @@ public slots:
     void setPaintInProcess(bool painting);
 
     void setMousePos(qreal x, qreal y);
-
-private:
-    int edgeIterator = 0;
-    int nodeIterator = 0;
-
 
 private:
     QPointF lastPressPt;

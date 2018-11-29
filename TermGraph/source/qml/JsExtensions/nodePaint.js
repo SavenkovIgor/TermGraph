@@ -30,7 +30,6 @@ function paintLine(ctx, pt1, pt2) {
 function prepareText(ctx) {
     ctx.textBaseline = "middle"
     ctx.font = "10pt sans-serif"
-    ctx.fillStyle = "#FFFFFF"
 }
 
 function paintGroupName(ctx, text, basePoint) {
@@ -43,6 +42,7 @@ function paintGroupName(ctx, text, basePoint) {
 
 function paintTextWithSplit(ctx, text, center, rect) {
 
+    ctx.fillStyle = "#FFFFFF"
     // Draw text
     var txtList = text.split('\n');
 

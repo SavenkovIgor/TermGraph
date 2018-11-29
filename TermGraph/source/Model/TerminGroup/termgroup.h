@@ -57,6 +57,12 @@ public:
 
     bool alreadyPainted = false;
 
+    // Paint queues
+    QQueue <GraphicItemTerm*> nodesPaintQueue;
+    QQueue <GraphEdge*> edgesPaintQueue;
+
+    void updatePaintQueues();
+
 public slots:
     void checkSwap();
 
@@ -91,6 +97,7 @@ private:
     TGroupName *grNmItem;
     void addTreeRectsToScene();
     QGraphicsRectItem *orphansRect;
+
 };
 
 #endif  // TERMGROUP_H
