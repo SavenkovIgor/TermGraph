@@ -203,7 +203,8 @@ private:
     bool paintInProcess = false;
 
     QPointF mousePos;
-    void findSelection();
+    GraphicItemTerm* hoverNode = nullptr;
+    void findHover();
 
     QList < TermGroup* > groupList;
     QQueue < TermGroup* > groupsForPaint;

@@ -48,6 +48,8 @@ public:
     void animateTree();
     void checkSwap();
 
+    GraphicItemTerm* getNodeAtPoint(QPointF pt);
+
     void checkHover(QPointF mousePos);
 
     // Deletions

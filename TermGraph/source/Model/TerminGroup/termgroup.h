@@ -63,6 +63,7 @@ public:
 
     void updatePaintQueues();
 
+    GraphicItemTerm* getNodeAtPoint(QPointF pt);
     void setHover(QPointF mousePos);
 
 public slots:

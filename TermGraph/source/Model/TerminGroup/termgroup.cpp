@@ -149,6 +149,26 @@ void TermGroup::updatePaintQueues()
     }
 }
 
+GraphicItemTerm *TermGroup::getNodeAtPoint(QPointF pt)
+{
+    for (auto tree : trees) {
+        if (tree->getTreeRect(CoordType::scene).contains(pt)) {
+            return tree->getNodeAtPoint(pt);
+        }
+    }
+
+    auto orphansRect = QRectF(this->orphansRect->pos(), this->orphansRect->rect().size());
+    if (orphansRect.contains(pt)) {
+        for (auto orphan : getOrphanNodes()) {
+            if (orphan->getNodeRect(CoordType::scene).contains(pt)) {
+                return orphan;
+            }
+        }
+    }
+
+    return nullptr;
+}
+
 void TermGroup::setHover(QPointF mousePos)
 {
     for (auto tree : trees) {

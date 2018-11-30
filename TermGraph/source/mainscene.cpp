@@ -439,7 +439,7 @@ void MainScene::setMousePos(qreal x, qreal y)
     mousePos.setX(x);
     mousePos.setY(y);
 
-    findSelection();
+    findHover();
 }
 
 void MainScene::showGroup(int num)
@@ -676,7 +676,7 @@ QRectF MainScene::getSceneRect()
     return sceneRect.toRect();
 }
 
-void MainScene::findSelection()
+void MainScene::findHover()
 {
     if (mouseMoveReactionTimer.isActive()) {
         return;
@@ -684,13 +684,26 @@ void MainScene::findSelection()
         mouseMoveReactionTimer.start();
     }
 
+    if (hoverNode != nullptr) {
+        if (!hoverNode->getNodeRect(CoordType::scene).contains(mousePos)) {
+            hoverNode->setHover(false);
+        } else {
+            return;
+        }
+    }
+
     groupsForPaint.clear();
 
     for (auto group : groupList) {
         if (group->getGroupRect().contains(mousePos)) {
-            group->setHover(mousePos);
-            groupsForPaint.enqueue(group);
-            repaintQmlScene();
+            auto node = group->getNodeAtPoint(mousePos);
+            if (node != nullptr) {
+                node->setHover(true);
+                hoverNode = node;
+                groupsForPaint.enqueue(group);
+                repaintQmlScene();
+                break;
+            }
         }
     }
 }

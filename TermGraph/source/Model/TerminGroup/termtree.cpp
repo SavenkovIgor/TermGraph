@@ -129,6 +129,17 @@ void TermTree::checkSwap()
     //    qDebug()<<"noSwap"<<t.elapsed();
 }
 
+GraphicItemTerm *TermTree::getNodeAtPoint(QPointF pt)
+{
+    for (auto node : getAllNodesInTree()) {
+        if (node->getNodeRect(CoordType::scene).contains(pt)) {
+            return node;
+        }
+    }
+
+    return nullptr;
+}
+
 void TermTree::checkHover(QPointF mousePos)
 {
     for (auto node : getAllNodesInTree()) {
