@@ -407,7 +407,9 @@ QPointF MainScene::currentNodeCenter()
 
 QColor MainScene::currentNodeColor()
 {
-    return groupsForPaint.head()->nodesPaintQueue.head()->getBaseColor();
+    auto col = groupsForPaint.head()->nodesPaintQueue.head()->getColor();
+    qDebug() << "col " << col;
+    return col;
 }
 
 QString MainScene::currentNodeText()
@@ -686,6 +688,7 @@ void MainScene::findSelection()
 
     for (auto group : groupList) {
         if (group->getGroupRect().contains(mousePos)) {
+            group->setHover(mousePos);
             groupsForPaint.enqueue(group);
             repaintQmlScene();
         }

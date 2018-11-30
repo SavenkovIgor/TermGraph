@@ -261,6 +261,17 @@ void PaintedTerm::dropSwap()
     }
 }
 
+QColor PaintedTerm::getColor()
+{
+    QColor col = getBaseColor();
+
+    if (thisHovered || relativePaint) {
+        col = getSelectedColor();
+    }
+
+    return col;
+}
+
 void PaintedTerm::setSwap(QPointF toPt)
 {
     for (Edge *e : Edge::castToEdgeList(getEdgesToRoots())) {
@@ -364,6 +375,14 @@ QColor PaintedTerm::getSelectedColor()
 qreal PaintedTerm::getCornerRadius()
 {
     return cornerRadius;
+}
+
+void PaintedTerm::setHover(bool hovered)
+{
+    if (thisHovered != hovered) {
+        thisHovered = hovered;
+        needPaint = true;
+    }
 }
 
 bool PaintedTerm::isNearPoints(QPointF pt1, QPointF pt2, qreal dist) {

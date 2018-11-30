@@ -20,6 +20,7 @@ class PaintedTerm : public GraphTerm
 {
 public:
     bool needPaint = true;  // Flag for placing in paintQueue
+    bool thisHovered = false;
 
     typedef QList<PaintedTerm*> List;
 
@@ -62,10 +63,12 @@ public:
     void dropSwap();
 
     // Color tools
-    QColor getBaseColor();
-    QColor getSelectedColor();
+    QColor getColor();
 
     qreal getCornerRadius();
+
+    void setHover(bool hovered);
+
 protected:
     // Geometry tools
     // --- Methods ---
@@ -73,8 +76,11 @@ protected:
 
     // --- Variables ---
     // Hovers
-    bool thisHovered = false;
     bool relativePaint = false;
+
+    // Color tools
+    QColor getBaseColor();
+    QColor getSelectedColor();
 
 private:
     // Scene tools

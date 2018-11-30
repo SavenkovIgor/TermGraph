@@ -63,6 +63,8 @@ public:
 
     void updatePaintQueues();
 
+    void setHover(QPointF mousePos);
+
 public slots:
     void checkSwap();
 
@@ -97,7 +99,6 @@ private:
     TGroupName *grNmItem;
     void addTreeRectsToScene();
     QGraphicsRectItem *orphansRect;
-
 };
 
 #endif  // TERMGROUP_H

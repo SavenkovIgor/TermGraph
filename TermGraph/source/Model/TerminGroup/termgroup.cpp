@@ -149,6 +149,18 @@ void TermGroup::updatePaintQueues()
     }
 }
 
+void TermGroup::setHover(QPointF mousePos)
+{
+    for (auto tree : trees) {
+        tree->checkHover(mousePos);
+    }
+
+    for (auto orphan : getOrphanNodes()) {
+        auto hover = orphan->getNodeRect(CoordType::scene).contains(mousePos);
+        orphan->setHover(hover);
+    }
+}
+
 void TermGroup::addOrphansToParents()
 {
     for (GraphicItemTerm* node : getOrphanNodes()) {

@@ -129,6 +129,14 @@ void TermTree::checkSwap()
     //    qDebug()<<"noSwap"<<t.elapsed();
 }
 
+void TermTree::checkHover(QPointF mousePos)
+{
+    for (auto node : getAllNodesInTree()) {
+        auto hovers = node->getNodeRect(CoordType::scene).contains(mousePos);
+        node->setHover(hovers);
+    }
+}
+
 void TermTree::addTerm(GraphicItemTerm* term)
 {
     int paintLayer = term->getPaintLayer();
@@ -164,6 +172,23 @@ bool TermTree::hasEdge(Edge *edge) const
     auto* rootTerm = dynamic_cast<GraphicItemTerm*>(edge->getRoot());
     auto* leafTerm = dynamic_cast<GraphicItemTerm*>(edge->getLeaf());
     return hasTerm(rootTerm) && hasTerm(leafTerm);
+}
+
+QRectF TermTree::getTreeRect(CoordType inCoordinates) const
+{
+    QRectF ret = QRectF(QPointF(), getTreeSize());
+
+    switch (inCoordinates) {
+    case CoordType::zeroPoint: break;
+    case CoordType::local:
+        ret = ret.translated(rect->pos());
+        break;
+    case CoordType::scene:
+        ret = ret.translated(rect->scenePos());
+        break;
+    }
+
+    return ret;
 }
 
 QSizeF TermTree::getTreeSize() const

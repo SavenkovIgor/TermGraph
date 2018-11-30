@@ -30,6 +30,7 @@ public:
     bool hasTerm(GraphicItemTerm* term) const;
     bool hasEdge(Edge* edge) const;
 
+    QRectF getTreeRect(CoordType inCoordinates) const;
     QSizeF getTreeSize() const;  // Clearly counted value. Ignoring real node positions
 
     // Internal counts and preparations
@@ -46,6 +47,8 @@ public:
 
     void animateTree();
     void checkSwap();
+
+    void checkHover(QPointF mousePos);
 
     // Deletions
     TermTree(const TermTree&) = delete;
