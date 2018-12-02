@@ -40,6 +40,8 @@ public:
     MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr);
     ~MainScene();
 
+    PaintManager* getPaintManager();
+
     qreal xWindow;
     qreal yWindow;  // dirtyHack
 
@@ -113,8 +115,6 @@ public slots:
 
     TermGroup* getNearestNotPaintedGroup();
     void paintOneGroupIfNeed();
-private:
-    QString getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction);
 
 public slots:
     bool hasSelection(){
@@ -156,8 +156,6 @@ public slots:
 
     void setMousePos(qreal x, qreal y);
 
-    PaintQueueManager* getPaintManager();
-
 private:
     QPointF lastPressPt;
     bool groupInFocus = false;
@@ -181,11 +179,13 @@ private:
     GraphicItemTerm* hoverNode = nullptr;
     void findHover();
 
-    PaintQueueManager* paintManager;
+    PaintManager* paintManager;
 
     QList < TermGroup* > groupList;
 
     GraphicItemTerm::List getAllTermsAtPoint(QPointF point);
+
+    QString getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction);
 };
 
 #endif  // MAINSCENE_H

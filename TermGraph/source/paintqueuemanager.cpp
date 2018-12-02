@@ -1,51 +1,51 @@
 #include "paintqueuemanager.h"
 
-PaintQueueManager::PaintQueueManager() : QObject ()
+PaintManager::PaintManager() : QObject ()
 {
 
 }
 
-void PaintQueueManager::clearGroupsQueue()
+void PaintManager::clearGroupsQueue()
 {
     groupsForPaint.clear();
 }
 
-void PaintQueueManager::addGroup(TermGroup *group)
+void PaintManager::addGroup(TermGroup *group)
 {
     groupsForPaint.enqueue(group);
 }
 
-void PaintQueueManager::nextGroup()
+void PaintManager::nextGroup()
 {
     groupsForPaint.dequeue();
 }
 
-bool PaintQueueManager::groupQueueEmpty()
+bool PaintManager::groupQueueEmpty()
 {
     return groupsForPaint.isEmpty();
 }
 
-QRectF PaintQueueManager::currentGroupRect()
+QRectF PaintManager::currentGroupRect()
 {
     return groupsForPaint.head()->getGroupRect();
 }
 
-QColor PaintQueueManager::currentGroupFillColor()
+QColor PaintManager::currentGroupFillColor()
 {
     return groupsForPaint.head()->getGroupFillColor();
 }
 
-QString PaintQueueManager::currentGroupName()
+QString PaintManager::currentGroupName()
 {
     return groupsForPaint.head()->getName();
 }
 
-QPointF PaintQueueManager::currentGroupNamePos()
+QPointF PaintManager::currentGroupNamePos()
 {
     return groupsForPaint.head()->getNamePos();
 }
 
-QStringList PaintQueueManager::currentGroupAllNodeNames()
+QStringList PaintManager::currentGroupAllNodeNames()
 {
     QStringList ret;
     for (auto node : groupsForPaint.head()->getAllNodes()) {
@@ -54,7 +54,7 @@ QStringList PaintQueueManager::currentGroupAllNodeNames()
     return ret;
 }
 
-QList<QRectF> PaintQueueManager::currentGroupAllRects()
+QList<QRectF> PaintManager::currentGroupAllRects()
 {
     QList<QRectF> ret;
     for (auto node : groupsForPaint.head()->getAllNodes()) {
@@ -63,22 +63,22 @@ QList<QRectF> PaintQueueManager::currentGroupAllRects()
     return ret;
 }
 
-void PaintQueueManager::nextEdge()
+void PaintManager::nextEdge()
 {
     groupsForPaint.head()->edgesPaintQueue.dequeue();
 }
 
-bool PaintQueueManager::edgeQueueEmpty()
+bool PaintManager::edgeQueueEmpty()
 {
     return groupsForPaint.head()->edgesPaintQueue.isEmpty();
 }
 
-QColor PaintQueueManager::getEdgeColor()
+QColor PaintManager::getEdgeColor()
 {
     return AppStyle::Colors::Edges::termin;
 }
 
-QPointF PaintQueueManager::currentFirstEdgePoint()
+QPointF PaintManager::currentFirstEdgePoint()
 {
     auto graphTerm = groupsForPaint.head()->edgesPaintQueue.head()->getRoot();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
@@ -87,7 +87,7 @@ QPointF PaintQueueManager::currentFirstEdgePoint()
     return pt;
 }
 
-QPointF PaintQueueManager::currentLastEdgePoint()
+QPointF PaintManager::currentLastEdgePoint()
 {
     auto graphTerm = groupsForPaint.head()->edgesPaintQueue.head()->getLeaf();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
@@ -96,39 +96,39 @@ QPointF PaintQueueManager::currentLastEdgePoint()
     return pt;
 }
 
-void PaintQueueManager::nextNode()
+void PaintManager::nextNode()
 {
     groupsForPaint.head()->nodesPaintQueue.dequeue();
 }
 
-bool PaintQueueManager::nodeQueueEmpty()
+bool PaintManager::nodeQueueEmpty()
 {
     return groupsForPaint.head()->nodesPaintQueue.isEmpty();
 }
 
-qreal PaintQueueManager::currentNodeRadius()
+qreal PaintManager::currentNodeRadius()
 {
     return groupsForPaint.head()->nodesPaintQueue.head()->getCornerRadius();
 }
 
-QRectF PaintQueueManager::currentNodeRect()
+QRectF PaintManager::currentNodeRect()
 {
     return groupsForPaint.head()->nodesPaintQueue.head()->getNodeRect(CoordType::scene);
 }
 
-QPointF PaintQueueManager::currentNodeCenter()
+QPointF PaintManager::currentNodeCenter()
 {
     return groupsForPaint.head()->nodesPaintQueue.head()->getNodeRect(CoordType::scene).center();
 }
 
-QColor PaintQueueManager::currentNodeColor()
+QColor PaintManager::currentNodeColor()
 {
     auto col = groupsForPaint.head()->nodesPaintQueue.head()->getColor();
     qDebug() << "col " << col;
     return col;
 }
 
-QString PaintQueueManager::currentNodeText()
+QString PaintManager::currentNodeText()
 {
     return groupsForPaint.head()->nodesPaintQueue.head()->getSmallName();
 }

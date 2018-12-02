@@ -33,7 +33,7 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphi
     this->nodesMgr = nodesMgr;
     connect(nodesMgr, SIGNAL(nodeChanged()), SLOT(updateModel()));
 
-    paintManager = new PaintQueueManager();
+    paintManager = new PaintManager();
 
     setItemIndexMethod(NoIndex);
     updateModel();
@@ -41,6 +41,7 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphi
 
 MainScene::~MainScene()
 {
+    delete paintManager;
 }
 
 void MainScene::initAllGroups()
@@ -326,7 +327,7 @@ void MainScene::setMousePos(qreal x, qreal y)
     findHover();
 }
 
-PaintQueueManager *MainScene::getPaintManager()
+PaintManager *MainScene::getPaintManager()
 {
     return paintManager;
 }

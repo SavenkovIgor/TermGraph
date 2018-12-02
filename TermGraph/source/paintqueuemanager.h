@@ -6,12 +6,12 @@
 
 #include "./Model/TerminGroup/termgroup.h"
 
-class PaintQueueManager : public QObject
+class PaintManager : public QObject
 {
     Q_OBJECT
 
 public:
-    PaintQueueManager();
+    PaintManager();
 
 public slots:
     // Groups
