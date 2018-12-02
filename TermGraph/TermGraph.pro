@@ -43,7 +43,8 @@ HEADERS += \
     source/Model/Termin/quickitemterm.h \
     source/Model/TerminGroup/termgroupinfo.h \
     source/Model/TerminGroup/nodeverticalstack.h \
-    source/Model/TerminGroup/termtree.h
+    source/Model/TerminGroup/termtree.h \
+    source/paintqueuemanager.h
 
 SOURCES += \
     source/main.cpp\
@@ -82,7 +83,8 @@ SOURCES += \
     source/Model/Termin/quickitemterm.cpp \
     source/Model/TerminGroup/termgroupinfo.cpp \
     source/Model/TerminGroup/nodeverticalstack.cpp \
-    source/Model/TerminGroup/termtree.cpp
+    source/Model/TerminGroup/termtree.cpp \
+    source/paintqueuemanager.cpp
 
 FORMS += \
     source/ui/reminder.ui\

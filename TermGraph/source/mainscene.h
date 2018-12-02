@@ -10,6 +10,7 @@
 #include <QClipboard>
 #include <QElapsedTimer>
 
+#include "./paintqueuemanager.h"
 #include "./Managers/groupsmanager.h"
 #include "./Managers/nodesmanager.h"
 #include "./Helpers/appconfig.h"
@@ -147,34 +148,6 @@ public slots:
     // Group iterator
     void updatePaintQueuesInAllGroups();
 
-    void nextPaintGroup();
-    bool groupPaintQueueEmpty();
-
-    QRectF currentGroupRect();
-    QColor currentGroupFillColor();
-    QString currentGroupName();
-    QPointF currentGroupNamePos();
-    QStringList currentGroupAllNodeNames();
-    QList<QRectF> currentGroupAllRects();
-
-    // Edge iterator
-    void nextEdge();
-    bool edgeQueueEmpty();
-    QColor getEdgeColor();
-
-    QPointF currentFirstEdgePoint();
-    QPointF currentLastEdgePoint();
-
-    // Node iterator
-    void nextNode();
-    bool nodeQueueEmpty();
-
-    QRectF currentNodeRect();
-    QPointF currentNodeCenter();
-    QColor currentNodeColor();
-    QString currentNodeText();
-    qreal currentNodeRadius();
-
     QColor getSceneBackgroundColor();
 
     void resetPaintFlags();
@@ -182,6 +155,8 @@ public slots:
     void setPaintInProcess(bool painting);
 
     void setMousePos(qreal x, qreal y);
+
+    PaintQueueManager* getPaintManager();
 
 private:
     QPointF lastPressPt;
@@ -206,8 +181,9 @@ private:
     GraphicItemTerm* hoverNode = nullptr;
     void findHover();
 
+    PaintQueueManager* paintManager;
+
     QList < TermGroup* > groupList;
-    QQueue < TermGroup* > groupsForPaint;
 
     GraphicItemTerm::List getAllTermsAtPoint(QPointF point);
 };

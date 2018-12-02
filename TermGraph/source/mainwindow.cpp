@@ -45,6 +45,7 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
     engn->addImageProvider("sceneimage", scView);
     engn->rootContext()->setContextProperty("mainObj", this);
     engn->rootContext()->setContextProperty("sceneObj", scene);
+    engn->rootContext()->setContextProperty("paintManager", scene->getPaintManager());
     engn->rootContext()->setContextProperty("networkManager", network);
     engn->rootContext()->setContextProperty("groupsManager", groupsMgr);
     engn->rootContext()->setContextProperty("nodesManager", nodesMgr);

@@ -9,11 +9,11 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphi
     selectTimer.setInterval(200);
     connect(&selectTimer, SIGNAL(timeout()), SLOT(checkSelection()));
 
-    userInactiveTimer.setInterval(static_cast<int>(1000/30));
+    userInactiveTimer.setInterval(static_cast<int>(1000/AppConfig::SceneSettings::FPS));
     userInactiveTimer.setSingleShot(true);
     connect(&userInactiveTimer, SIGNAL(timeout()), SLOT(paintOneGroupIfNeed()));
 
-    mouseMoveReactionTimer.setInterval(static_cast<int>(1000/30));
+    mouseMoveReactionTimer.setInterval(static_cast<int>(1000/AppConfig::SceneSettings::FPS));
     mouseMoveReactionTimer.setSingleShot(true);
 
 //    viewGrpTimer.setSingleShot(false);
@@ -32,6 +32,8 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphi
 
     this->nodesMgr = nodesMgr;
     connect(nodesMgr, SIGNAL(nodeChanged()), SLOT(updateModel()));
+
+    paintManager = new PaintQueueManager();
 
     setItemIndexMethod(NoIndex);
     updateModel();
@@ -299,124 +301,6 @@ void MainScene::updatePaintQueuesInAllGroups()
     }
 }
 
-void MainScene::nextPaintGroup()
-{
-    groupsForPaint.dequeue();
-}
-
-bool MainScene::groupPaintQueueEmpty()
-{
-    return groupsForPaint.empty();
-}
-
-QRectF MainScene::currentGroupRect()
-{
-    return groupsForPaint.head()->getGroupRect();
-}
-
-QColor MainScene::currentGroupFillColor()
-{
-    return groupsForPaint.head()->getGroupFillColor();
-}
-
-QString MainScene::currentGroupName()
-{
-    return groupsForPaint.head()->getName();
-}
-
-QPointF MainScene::currentGroupNamePos()
-{
-    return groupsForPaint.head()->getNamePos();
-}
-
-QStringList MainScene::currentGroupAllNodeNames()
-{
-    QStringList ret;
-    for (auto node : groupsForPaint.head()->getAllNodes()) {
-        ret << node->getSmallName();
-    }
-    return ret;
-}
-
-QList<QRectF> MainScene::currentGroupAllRects()
-{
-    QList<QRectF> ret;
-    for (auto node : groupsForPaint.head()->getAllNodes()) {
-        ret << node->getNodeRect(CoordType::scene);
-    }
-    return ret;
-}
-
-void MainScene::nextEdge()
-{
-    groupsForPaint.head()->edgesPaintQueue.dequeue();
-}
-
-bool MainScene::edgeQueueEmpty()
-{
-    return groupsForPaint.head()->edgesPaintQueue.isEmpty();
-}
-
-QColor MainScene::getEdgeColor()
-{
-    return AppStyle::Colors::Edges::termin;
-}
-
-QPointF MainScene::currentFirstEdgePoint()
-{
-    auto graphTerm = groupsForPaint.head()->edgesPaintQueue.head()->getRoot();
-    PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
-    auto pt = paintedTerm->getScenePos();
-    pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
-    return pt;
-}
-
-QPointF MainScene::currentLastEdgePoint()
-{
-    auto graphTerm = groupsForPaint.head()->edgesPaintQueue.head()->getLeaf();
-    PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
-    auto pt = paintedTerm->getScenePos();
-    pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
-    return pt;
-}
-
-qreal MainScene::currentNodeRadius()
-{
-    return groupsForPaint.head()->nodesPaintQueue.head()->getCornerRadius();
-}
-
-void MainScene::nextNode()
-{
-    groupsForPaint.head()->nodesPaintQueue.dequeue();
-}
-
-bool MainScene::nodeQueueEmpty()
-{
-    return groupsForPaint.head()->nodesPaintQueue.isEmpty();
-}
-
-QRectF MainScene::currentNodeRect()
-{
-    return groupsForPaint.head()->nodesPaintQueue.head()->getNodeRect(CoordType::scene);
-}
-
-QPointF MainScene::currentNodeCenter()
-{
-    return groupsForPaint.head()->nodesPaintQueue.head()->getNodeRect(CoordType::scene).center();
-}
-
-QColor MainScene::currentNodeColor()
-{
-    auto col = groupsForPaint.head()->nodesPaintQueue.head()->getColor();
-    qDebug() << "col " << col;
-    return col;
-}
-
-QString MainScene::currentNodeText()
-{
-    return groupsForPaint.head()->nodesPaintQueue.head()->getSmallName();
-}
-
 QColor MainScene::getSceneBackgroundColor()
 {
     return AppStyle::Colors::Scene::background;
@@ -440,6 +324,11 @@ void MainScene::setMousePos(qreal x, qreal y)
     mousePos.setY(y);
 
     findHover();
+}
+
+PaintQueueManager *MainScene::getPaintManager()
+{
+    return paintManager;
 }
 
 void MainScene::showGroup(int num)
@@ -659,8 +548,8 @@ void MainScene::paintOneGroupIfNeed()
 
         paintGroup->alreadyPainted = true;
 
-        groupsForPaint.clear();
-        groupsForPaint.enqueue(paintGroup);
+        paintManager->clearGroupsQueue();
+        paintManager->addGroup(paintGroup);
 
 //        showInfo("Paint " + paintGroup->getName());
 
@@ -692,7 +581,7 @@ void MainScene::findHover()
         }
     }
 
-    groupsForPaint.clear();
+    paintManager->clearGroupsQueue();
 
     for (auto group : groupList) {
         if (group->getGroupRect().contains(mousePos)) {
@@ -700,7 +589,7 @@ void MainScene::findHover()
             if (node != nullptr) {
                 node->setHover(true);
                 hoverNode = node;
-                groupsForPaint.enqueue(group);
+                paintManager->addGroup(group);
                 repaintQmlScene();
                 break;
             }
@@ -713,6 +602,7 @@ QString MainScene::getCurrNodeStringField(std::function<QString (InfoTerm*)> str
     if (InfoTerm* node = getSelected()) {
         return strFunction(node);
     }
+
     return "";
 }
 
