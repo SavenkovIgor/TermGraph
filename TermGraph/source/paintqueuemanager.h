@@ -13,10 +13,16 @@ class PaintManager : public QObject
 public:
     PaintManager();
 
+signals:
+    void paintGroupQueue();
+    void paintNodeQueue();
+
 public slots:
     // Groups
     void clearGroupsQueue();
-    void addGroup(TermGroup* group);
+    void addGroup(TermGroup* group, bool sendPaintSignal = true);
+    void addNode(GraphicItemTerm* node, bool sendPaintSignal = true);
+    void fillNodeAndEdgeQueuesFromCurrentGroup();
     void nextGroup();
     bool groupQueueEmpty();
 
@@ -45,8 +51,17 @@ public slots:
     QColor currentNodeColor();
     QString currentNodeText();
 
+    // Flags
+    void setPaintInProcessFlag(bool paintNow);
+    bool isPaintInProcessNow();
+
 private:
+    bool paintInProcessFlag = false;
+
+    // Paint queues
     QQueue < TermGroup* > groupsForPaint;
+    QQueue <GraphicItemTerm*> nodesForPaint;
+    QQueue <GraphEdge*> edgesForPaint;
 };
 
 #endif // PAINTQUEUEMANAGER_H

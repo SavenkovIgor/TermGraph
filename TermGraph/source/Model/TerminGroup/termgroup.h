@@ -57,12 +57,6 @@ public:
 
     bool alreadyPainted = false;
 
-    // Paint queues
-    QQueue <GraphicItemTerm*> nodesPaintQueue;
-    QQueue <GraphEdge*> edgesPaintQueue;
-
-    void updatePaintQueues();
-
     GraphicItemTerm* getNodeAtPoint(QPointF pt);
     void setHover(QPointF mousePos);
 

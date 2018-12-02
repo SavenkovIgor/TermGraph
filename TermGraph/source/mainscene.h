@@ -70,8 +70,6 @@ signals:
 
     void sceneUpdated();
 
-    void repaintQmlScene();
-
     void showInfo(QString info);
     void showWarning(QString warning);
     void showError(QString error);
@@ -145,14 +143,9 @@ public slots:
     // ViewFrame
     void setSceneViewRect(int x, int y, int width, int height);
 
-    // Group iterator
-    void updatePaintQueuesInAllGroups();
-
     QColor getSceneBackgroundColor();
 
     void resetPaintFlags();
-
-    void setPaintInProcess(bool painting);
 
     void setMousePos(qreal x, qreal y);
 
@@ -172,8 +165,6 @@ private:
     QRectF getSceneRect();
 
     QRectF sceneViewRect = QRectF(0, 0, 100, 100);
-
-    bool paintInProcess = false;
 
     QPointF mousePos;
     GraphicItemTerm* hoverNode = nullptr;

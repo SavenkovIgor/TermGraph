@@ -82,6 +82,9 @@ Page {
             height: 100
             width: 100
 
+            property bool paintGroups: true
+            property bool paintNode: false
+
             renderStrategy: Canvas.Immediate
             renderTarget: Canvas.Image
 
@@ -93,7 +96,20 @@ Page {
             Connections {
                 target: sceneObj
                 onSceneUpdated: sceneImage.updateSize()
-                onRepaintQmlScene: sceneImage.requestPaint()
+            }
+
+            Connections {
+                target: paintManager
+                onPaintGroupQueue: {
+                    sceneImage.paintGroups = true
+                    sceneImage.paintNode = false
+                    sceneImage.requestPaint()
+                }
+                onPaintNodeQueue: {
+                    sceneImage.paintGroups = false
+                    sceneImage.paintNode = true
+                    sceneImage.requestPaint()
+                }
             }
 
             function updateSize() {
@@ -102,21 +118,26 @@ Page {
             }
 
             onPaint: {
-                sceneObj.setPaintInProcess(true)
+                paintManager.setPaintInProcessFlag(true)
                 var ctx = sceneImage.getContext('2d')
 
-                paintAll(ctx)
-                sceneObj.setPaintInProcess(false)
+                if (sceneImage.paintGroups)
+                    paintAll(ctx)
+
+                if (sceneImage.paintNode)
+                    paintNodesOnly(ctx)
+
+                paintManager.setPaintInProcessFlag(false)
             }
 
             function paintAll(ctx) {
                 sceneObj.startCheckTimer()
 
-                sceneObj.updatePaintQueuesInAllGroups()
-
                 while (true) {
                     if (paintManager.groupQueueEmpty())
                         break;
+
+                    paintManager.fillNodeAndEdgeQueuesFromCurrentGroup()
 
                     var groupRect = paintManager.currentGroupRect()
                     // JsPaint.clearRect(ctx, groupRect, 2)
@@ -130,6 +151,32 @@ Page {
                     paintAllRectsInThisGroup(ctx)
 
                     paintManager.nextGroup()
+                }
+            }
+
+
+            function paintNodesOnly(ctx) {
+
+                JsPaint.prepareRoundedRects(ctx)
+                JsPaint.prepareText(ctx)
+
+                while (true) {
+                    if (paintManager.nodeQueueEmpty()) {
+                        break;
+                    }
+
+                    var rect = paintManager.currentNodeRect()
+                    var color = paintManager.currentNodeColor()
+                    var radius = paintManager.currentNodeRadius()
+
+                    JsPaint.paintRoundedRect(ctx, rect, color, radius)
+
+                    var center = paintManager.currentNodeCenter()
+                    var text = paintManager.currentNodeText()
+
+                    JsPaint.paintTextWithSplit(ctx, text, center, rect)
+
+                    paintManager.nextNode()
                 }
             }
 

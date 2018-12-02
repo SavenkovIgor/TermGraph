@@ -295,13 +295,6 @@ void MainScene::setSceneViewRect(int x, int y, int width, int height)
     userInactiveTimer.start();
 }
 
-void MainScene::updatePaintQueuesInAllGroups()
-{
-    for (auto group : groupList) {
-        group->updatePaintQueues();
-    }
-}
-
 QColor MainScene::getSceneBackgroundColor()
 {
     return AppStyle::Colors::Scene::background;
@@ -312,11 +305,6 @@ void MainScene::resetPaintFlags()
     for (auto group : groupList) {
         group->alreadyPainted = false;
     }
-}
-
-void MainScene::setPaintInProcess(bool painting)
-{
-    paintInProcess = painting;
 }
 
 void MainScene::setMousePos(qreal x, qreal y)
@@ -540,7 +528,7 @@ TermGroup *MainScene::getNearestNotPaintedGroup()
 
 void MainScene::paintOneGroupIfNeed()
 {
-    if (paintInProcess) {
+    if (paintManager->isPaintInProcessNow()) {
         userInactiveTimer.start();
         return;
     }
@@ -552,9 +540,6 @@ void MainScene::paintOneGroupIfNeed()
         paintManager->clearGroupsQueue();
         paintManager->addGroup(paintGroup);
 
-//        showInfo("Paint " + paintGroup->getName());
-
-        repaintQmlScene();
         userInactiveTimer.start();
     } else {
         qDebug() << "No paint";
@@ -577,12 +562,12 @@ void MainScene::findHover()
     if (hoverNode != nullptr) {
         if (!hoverNode->getNodeRect(CoordType::scene).contains(mousePos)) {
             hoverNode->setHover(false);
+            paintManager->addNode(hoverNode, true);
+            hoverNode = nullptr;
         } else {
             return;
         }
     }
-
-    paintManager->clearGroupsQueue();
 
     for (auto group : groupList) {
         if (group->getGroupRect().contains(mousePos)) {
@@ -590,8 +575,7 @@ void MainScene::findHover()
             if (node != nullptr) {
                 node->setHover(true);
                 hoverNode = node;
-                paintManager->addGroup(group);
-                repaintQmlScene();
+                paintManager->addNode(node, true);
                 break;
             }
         }

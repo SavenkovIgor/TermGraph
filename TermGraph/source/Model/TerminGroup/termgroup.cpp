@@ -132,23 +132,6 @@ void TermGroup::loadNodes(GraphicItemTerm::List newNodes)
     initNewNodes();
 }
 
-void TermGroup::updatePaintQueues()
-{
-    for (auto edge : getAllEdges()) {
-        if (edge->needPaint) {
-            edgesPaintQueue.enqueue(edge);
-            edge->needPaint = false;
-        }
-    }
-
-    for (auto node : getAllNodes()) {
-        if (node->needPaint) {
-            nodesPaintQueue.enqueue(node);
-            node->needPaint = false;
-        }
-    }
-}
-
 GraphicItemTerm *TermGroup::getNodeAtPoint(QPointF pt)
 {
     for (auto tree : trees) {

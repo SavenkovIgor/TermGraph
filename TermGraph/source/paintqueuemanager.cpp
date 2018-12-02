@@ -10,9 +10,37 @@ void PaintManager::clearGroupsQueue()
     groupsForPaint.clear();
 }
 
-void PaintManager::addGroup(TermGroup *group)
+void PaintManager::addGroup(TermGroup *group, bool sendPaintSignal)
 {
     groupsForPaint.enqueue(group);
+    if (sendPaintSignal) {
+        paintGroupQueue();
+    }
+}
+
+void PaintManager::addNode(GraphicItemTerm *node, bool sendPaintSignal)
+{
+    nodesForPaint.enqueue(node);
+    if (sendPaintSignal) {
+        paintNodeQueue();
+    }
+}
+
+void PaintManager::fillNodeAndEdgeQueuesFromCurrentGroup()
+{
+    for (auto edge : groupsForPaint.head()->getAllEdges()) {
+        if (edge->needPaint) {
+            edgesForPaint.enqueue(edge);
+            edge->needPaint = false;
+        }
+    }
+
+    for (auto node : groupsForPaint.head()->getAllNodes()) {
+        if (node->needPaint) {
+            nodesForPaint.enqueue(node);
+            node->needPaint = false;
+        }
+    }
 }
 
 void PaintManager::nextGroup()
@@ -65,12 +93,12 @@ QList<QRectF> PaintManager::currentGroupAllRects()
 
 void PaintManager::nextEdge()
 {
-    groupsForPaint.head()->edgesPaintQueue.dequeue();
+    edgesForPaint.dequeue();
 }
 
 bool PaintManager::edgeQueueEmpty()
 {
-    return groupsForPaint.head()->edgesPaintQueue.isEmpty();
+    return edgesForPaint.isEmpty();
 }
 
 QColor PaintManager::getEdgeColor()
@@ -80,7 +108,7 @@ QColor PaintManager::getEdgeColor()
 
 QPointF PaintManager::currentFirstEdgePoint()
 {
-    auto graphTerm = groupsForPaint.head()->edgesPaintQueue.head()->getRoot();
+    auto graphTerm = edgesForPaint.head()->getRoot();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
     auto pt = paintedTerm->getScenePos();
     pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
@@ -89,7 +117,7 @@ QPointF PaintManager::currentFirstEdgePoint()
 
 QPointF PaintManager::currentLastEdgePoint()
 {
-    auto graphTerm = groupsForPaint.head()->edgesPaintQueue.head()->getLeaf();
+    auto graphTerm = edgesForPaint.head()->getLeaf();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
     auto pt = paintedTerm->getScenePos();
     pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
@@ -98,37 +126,47 @@ QPointF PaintManager::currentLastEdgePoint()
 
 void PaintManager::nextNode()
 {
-    groupsForPaint.head()->nodesPaintQueue.dequeue();
+    nodesForPaint.dequeue();
 }
 
 bool PaintManager::nodeQueueEmpty()
 {
-    return groupsForPaint.head()->nodesPaintQueue.isEmpty();
+    return nodesForPaint.isEmpty();
 }
 
 qreal PaintManager::currentNodeRadius()
 {
-    return groupsForPaint.head()->nodesPaintQueue.head()->getCornerRadius();
+    return nodesForPaint.head()->getCornerRadius();
 }
 
 QRectF PaintManager::currentNodeRect()
 {
-    return groupsForPaint.head()->nodesPaintQueue.head()->getNodeRect(CoordType::scene);
+    return nodesForPaint.head()->getNodeRect(CoordType::scene);
 }
 
 QPointF PaintManager::currentNodeCenter()
 {
-    return groupsForPaint.head()->nodesPaintQueue.head()->getNodeRect(CoordType::scene).center();
+    return nodesForPaint.head()->getNodeRect(CoordType::scene).center();
 }
 
 QColor PaintManager::currentNodeColor()
 {
-    auto col = groupsForPaint.head()->nodesPaintQueue.head()->getColor();
+    auto col = nodesForPaint.head()->getColor();
     qDebug() << "col " << col;
     return col;
 }
 
 QString PaintManager::currentNodeText()
 {
-    return groupsForPaint.head()->nodesPaintQueue.head()->getSmallName();
+    return nodesForPaint.head()->getSmallName();
+}
+
+void PaintManager::setPaintInProcessFlag(bool paintNow)
+{
+    paintInProcessFlag = paintNow;
+}
+
+bool PaintManager::isPaintInProcessNow()
+{
+    return paintInProcessFlag;
 }
