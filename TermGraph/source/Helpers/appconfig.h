@@ -9,7 +9,12 @@ namespace AppConfig {
 
 class NetworkSettings {
 public:
-    static quint16 listenPort;
+    constexpr static quint16 listenPort = 46377;
+};
+
+class SceneSettings {
+public:
+    constexpr static int FPS = 30;
 };
 
 class StdFolderPaths {

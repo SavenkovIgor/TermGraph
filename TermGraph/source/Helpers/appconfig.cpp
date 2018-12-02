@@ -1,7 +1,5 @@
 #include "appconfig.h"
 
-quint16 AppConfig::NetworkSettings::listenPort = 46377;
-
 void AppConfig::StdFolderPaths::createDefaultFoldersIfNeed()
 {
     QStringList necessaryDirs;
