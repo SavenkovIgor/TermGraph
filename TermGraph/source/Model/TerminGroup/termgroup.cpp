@@ -140,7 +140,7 @@ GraphicItemTerm *TermGroup::getNodeAtPoint(QPointF pt)
         }
     }
 
-    auto orphansRect = QRectF(this->orphansRect->pos(), this->orphansRect->rect().size());
+    auto orphansRect = QRectF(this->orphansRect->scenePos(), this->orphansRect->rect().size());
     if (orphansRect.contains(pt)) {
         for (auto orphan : getOrphanNodes()) {
             if (orphan->getNodeRect(CoordType::scene).contains(pt)) {
