@@ -551,6 +551,17 @@ QRectF MainScene::getSceneRect()
     return sceneRect.toRect();
 }
 
+GraphicItemTerm *MainScene::getNodeAtPoint(QPointF pt)
+{
+    for (auto group : groupList) {
+        if (group->getGroupRect().contains(pt)) {
+            return group->getNodeAtPoint(mousePos);
+        }
+    }
+
+    return nullptr;
+}
+
 void MainScene::findHover()
 {
     if (mouseMoveReactionTimer.isActive()) {
@@ -569,16 +580,10 @@ void MainScene::findHover()
         }
     }
 
-    for (auto group : groupList) {
-        if (group->getGroupRect().contains(mousePos)) {
-            auto node = group->getNodeAtPoint(mousePos);
-            if (node != nullptr) {
-                node->setHover(true);
-                hoverNode = node;
-                paintManager->addNode(node, true);
-                break;
-            }
-        }
+    if (auto node = getNodeAtPoint(mousePos)) {
+        node->setHover(true);
+        hoverNode = node;
+        paintManager->addNode(node, true);
     }
 }
 

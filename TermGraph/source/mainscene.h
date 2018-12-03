@@ -168,6 +168,7 @@ private:
 
     QPointF mousePos;
     GraphicItemTerm* hoverNode = nullptr;
+    GraphicItemTerm* getNodeAtPoint(QPointF pt);
     void findHover();
 
     PaintManager* paintManager;
