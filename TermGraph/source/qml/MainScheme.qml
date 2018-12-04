@@ -31,7 +31,6 @@ Page {
         titleText: "TermGraph"
 
         Component.onCompleted: mainHeader.showMenuIcon()
-
         onMenuClick: sideMenu.open()
     }
 

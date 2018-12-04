@@ -23,8 +23,8 @@ Page {
         id: mainHeader
         titleText: "TermGraph"
 
-        Component.onCompleted: mainHeader.showArrowIcon()
-        onMenuClick: mainStack.pop()
+        Component.onCompleted: mainHeader.showMenuIcon()
+        onMenuClick: sideMenu.open()
     }
 
     function showButtons() {
@@ -230,7 +230,7 @@ Page {
             property bool paintNode: false
             property bool clearAll: false
 
-            renderStrategy: Canvas.Immediate
+            renderStrategy: Canvas.Threaded
             renderTarget: Canvas.Image
 
             Component.onCompleted: {

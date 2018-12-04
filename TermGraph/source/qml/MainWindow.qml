@@ -20,7 +20,7 @@ ApplicationWindow {
 
     Component {
         id: mainSchemeItem
-        MainScheme {
+        AlterMainScheme {
             mainStack: stackView
             sideMenu: appSideMenu
         }
