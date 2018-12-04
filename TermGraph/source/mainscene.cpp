@@ -155,6 +155,7 @@ void MainScene::updateModel()
     selectTimer.stop();
 //    viewGrpTimer.stop();
     sceneRhytm.stop();
+    userInactiveTimer.stop();
     stopAllGroupTimers();
 
     deleteAllGroups();
@@ -171,6 +172,7 @@ void MainScene::updateModel()
     sceneRhytm.start();
     startAllGroupTimers();
     sceneUpdated();
+    userInactiveTimer.start();
     qDebug() << "model updated";
 }
 
@@ -221,12 +223,9 @@ void MainScene::centerViewOn(QPointF point)
 
 void MainScene::deleteSelectedNode()
 {
-    GraphicItemTerm* node = getSelected();
-    if (node == nullptr) {
-        return;
+    if (GraphicItemTerm* node = getSelected()) {
+        nodesMgr->deleteNode(node->getUuid());
     }
-
-    nodesMgr->deleteNode(node->getUuid());
 }
 
 void MainScene::exportGrpToJson(QString groupName)
@@ -303,7 +302,7 @@ QColor MainScene::getSceneBackgroundColor()
 void MainScene::resetPaintFlags()
 {
     for (auto group : groupList) {
-        group->alreadyPainted = false;
+        group->resetPaintFlags();
     }
 }
 
@@ -337,15 +336,7 @@ void MainScene::showGroup(int num)
 
 GraphicItemTerm *MainScene::getSelected()
 {
-    GraphicItemTerm* ret = nullptr;
-
-    QList<QGraphicsItem*> sel = selectedItems();
-    if (sel.size() != 1) {
-        return ret;
-    }
-
-    ret = dynamic_cast<GraphicItemTerm*>(sel.first());
-    return ret;
+    return selectedNode;
 }
 
 GraphicItemTerm::List MainScene::getAllTermsAtPoint(QPointF point) {
@@ -548,6 +539,10 @@ void MainScene::paintOneGroupIfNeed()
     } else {
         qDebug() << "No paint";
     }
+}
+
+bool MainScene::hasSelection() {
+    return getSelected() != nullptr;
 }
 
 QRectF MainScene::getSceneRect() const

@@ -10,7 +10,6 @@ import "UIExtensions"
 import "JsExtensions/nodePaint.js" as JsPaint
 
 Page {
-
     id: alterMainScheme
 
     property StackView mainStack
@@ -56,6 +55,16 @@ Page {
         onNodeChanged: groupListView.refreshModel()
     }
 
+    NewNodeEdit {
+        id: newNodePage
+        mainStack: stackView
+    }
+
+    TermView {
+        id: termView
+        mainStack: stackView
+    }
+
     Rectangle {
         id: sceneBackground
         anchors.fill: parent
@@ -65,13 +74,49 @@ Page {
     }
 
     MyRoundButton {
+        id: addNodeButton
+        z: 3
+
+        anchors {
+            right: showGroupListButton.left
+            top: parent.top
+        }
+
+        Shortcut {
+            sequence: "Ctrl+n"
+            onActivated: addNodeButton.openNewNodePage()
+        }
+
+        onClicked: openNewNodePage()
+        Component.onCompleted: loadIcon( "qrc:/icons/plus" )
+
+        function openNewNodePage() {
+            newNodePage.prepare("")
+            alterMainScheme.mainStack.push(newNodePage)
+        }
+    }
+
+    MyRoundButton {
+        id: showGroupListButton
+        z: 3
+
+        anchors {
+            right: parent.right
+            top: parent.top
+        }
+
+        onClicked: groupSelectDrw.open()
+        Component.onCompleted: loadIcon( "qrc:/icons/spreadsheet")
+    }
+
+    MyRoundButton {
         id: editNodeButton
         z: 3
         visible: false
 
         anchors {
-            right: alterMainScheme.right
-            bottom: alterMainScheme.bottom
+            right: parent.right
+            bottom: parent.bottom
         }
 
         Shortcut {
@@ -85,7 +130,7 @@ Page {
         function openEditNodePage(nodeUuid) {
             if (nodeUuid !== "") {
                 newNodePage.prepare(nodeUuid)
-                mainStack.push(newNodePage)
+                alterMainScheme.mainStack.push(newNodePage)
             }
         }
     }
@@ -96,12 +141,27 @@ Page {
         visible: false
 
         anchors {
-            right: alterMainScheme.right
+            right: parent.right
             bottom: editNodeButton.top
         }
 
-        onClicked: mainSceneImg.nodeDeleteCheck()
+        onClicked: nodeDelDialog.visible = true
         Component.onCompleted: loadIcon( "qrc:/icons/ban" )
+    }
+
+    MessageDialog {
+        id: nodeDelDialog
+
+        title: "Удаление вершины"
+        text:  "Удалить выделенную вершину?"
+
+        standardButtons: StandardButton.Yes | StandardButton.No
+        icon: StandardIcon.Question
+
+        onYes: {
+            sceneObj.deleteSelectedNode()
+            nodeDelDialog.visible = false
+        }
     }
 
     MyRoundButton {
@@ -110,7 +170,7 @@ Page {
         visible: false
 
         anchors.right: editNodeButton.left
-        anchors.bottom: alterMainScheme.bottom
+        anchors.bottom: parent.bottom
 
         Shortcut {
             sequence: "Ctrl+i"
@@ -122,7 +182,7 @@ Page {
 
         function openTerm() {
             if (sceneObj.hasSelection()) {
-                mainStack.push(termView)
+                alterMainScheme.mainStack.push(termView)
                 termView.loadSelectedNode()
             }
         }
@@ -302,6 +362,78 @@ Page {
                     JsPaint.paintTextWithSplit(ctx, text, center, rect)
 
                     paintManager.nextNode()
+                }
+            }
+
+        }
+    }
+
+    Drawer {
+        id : groupSelectDrw
+
+        width: window.width*0.6
+        height: window.height
+
+        interactive: true
+        edge: Qt.RightEdge
+
+        onOpened: groupListView.forceActiveFocus()
+
+        ListView {
+
+            id: groupListView
+            anchors.fill: parent
+            model: groupsManager.getAllGroupsNames(true)
+
+            function refreshModel() {
+                model = groupsManager.getAllGroupsNames(true)
+            }
+
+            keyNavigationEnabled: true
+
+            highlight: Rectangle {
+                width: 200; height: 20
+                color: "#FFFF88"
+                y: groupListView.currentItem.y;
+            }
+
+
+            delegate: Rectangle {
+                id: groupLstDlgt
+                border.color: "lightGray"
+                border.width: 1
+                anchors.left: parent.left
+                anchors.right: parent.right
+
+                property alias text: curText.text
+
+                height: curText.height
+                states: State {
+                    name: "Current"
+                    when: groupLstDlgt.ListView.isCurrentItem
+                    PropertyChanges { target: groupLstDlgt; color: "darkGray" }
+                }
+
+                Text{
+                    id: curText
+                    padding: 30
+
+                    font.weight: Font.Thin
+                    height: Math.floor( font.pixelSize*2.0 )
+
+                    text: modelData
+                    font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity
+                    anchors.fill: parent
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        groupSelectDrw.close()
+                        sceneObj.showGroup(curText.text)
+                    }
                 }
             }
         }

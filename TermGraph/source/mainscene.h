@@ -115,9 +115,7 @@ public slots:
     void paintOneGroupIfNeed();
 
 public slots:
-    bool hasSelection(){
-        return getSelected() != nullptr;
-    }
+    bool hasSelection();
 
     void exportGrpToJson(QString groupName);
     void saveGroupInFolder(TermGroup *group);

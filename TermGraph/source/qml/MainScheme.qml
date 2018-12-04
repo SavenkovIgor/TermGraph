@@ -108,7 +108,6 @@ Page {
                 sceneObj.deleteSelectedNode()
                 nodeDelDialog.visible = false
             }
-
         }
 
         Canvas {
