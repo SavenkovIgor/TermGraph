@@ -226,8 +226,9 @@ Page {
             height: 100
             width: 100
 
-            property bool paintGroups: true
+            property bool paintGroups: false
             property bool paintNode: false
+            property bool clearAll: false
 
             renderStrategy: Canvas.Immediate
             renderTarget: Canvas.Image
@@ -246,12 +247,14 @@ Page {
                 target: paintManager
                 onPaintGroupQueue: {
                     sceneImage.paintGroups = true
-                    sceneImage.paintNode = false
                     sceneImage.requestPaint()
                 }
                 onPaintNodeQueue: {
-                    sceneImage.paintGroups = false
                     sceneImage.paintNode = true
+                    sceneImage.requestPaint()
+                }
+                onCleanAll: {
+                    sceneImage.clearAll = true
                     sceneImage.requestPaint()
                 }
             }
@@ -265,11 +268,21 @@ Page {
                 paintManager.setPaintInProcessFlag(true)
                 var ctx = sceneImage.getContext('2d')
 
-                if (sceneImage.paintGroups)
+                if (sceneImage.paintGroups) {
                     paintAll(ctx)
+                    sceneImage.paintGroups = false
+                }
 
-                if (sceneImage.paintNode)
+                if (sceneImage.paintNode) {
                     paintNodesOnly(ctx)
+                    sceneImage.paintNode = false
+                }
+
+                if (sceneImage.clearAll) {
+                    var rect = {x:0, y:0, width:sceneImage.width, height:sceneImage.height}
+                    JsPaint.clearRect(ctx, rect, 0)
+                    sceneImage.clearAll = false
+                }
 
                 paintManager.setPaintInProcessFlag(false)
             }

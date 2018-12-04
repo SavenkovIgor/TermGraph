@@ -5,6 +5,11 @@ PaintManager::PaintManager() : QObject ()
 
 }
 
+void PaintManager::sendCleanAllSignal()
+{
+    cleanAll();
+}
+
 void PaintManager::clearGroupsQueue()
 {
     groupsForPaint.clear();

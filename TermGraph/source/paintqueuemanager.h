@@ -13,9 +13,12 @@ class PaintManager : public QObject
 public:
     PaintManager();
 
+    void sendCleanAllSignal();
 signals:
     void paintGroupQueue();
     void paintNodeQueue();
+
+    void cleanAll();
 
 public slots:
     // Groups

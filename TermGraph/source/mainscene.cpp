@@ -158,6 +158,7 @@ void MainScene::updateModel()
     userInactiveTimer.stop();
     stopAllGroupTimers();
 
+    paintManager->sendCleanAllSignal();
     deleteAllGroups();
     initAllGroups();
 
