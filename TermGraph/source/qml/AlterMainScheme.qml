@@ -28,6 +28,24 @@ Page {
         onMenuClick: mainStack.pop()
     }
 
+    function showButtons() {
+        editNodeButton.visible = true
+        deleteNodeButton.visible = true
+        nodeInfoButton.visible = true
+    }
+
+    function hideButtons() {
+        editNodeButton.visible = false
+        deleteNodeButton.visible = false
+        nodeInfoButton.visible = false
+    }
+
+    Connections {
+        target: sceneObj
+        onSomeSelected: showButtons()
+        onSelectionDrop: hideButtons()
+    }
+
     Connections {
         target: groupsManager
         onGroupsListChanged: groupListView.refreshModel()
@@ -44,6 +62,70 @@ Page {
         z: 1
 
         color: sceneObj.getSceneBackgroundColor()
+    }
+
+    MyRoundButton {
+        id: editNodeButton
+        z: 3
+        visible: false
+
+        anchors {
+            right: alterMainScheme.right
+            bottom: alterMainScheme.bottom
+        }
+
+        Shortcut {
+            sequence: "Ctrl+e"
+            onActivated: editNodeButton.openEditNodePage(sceneObj.getCurrNodeLongUid())
+        }
+
+        onClicked: openEditNodePage(sceneObj.getCurrNodeLongUid())
+        Component.onCompleted: loadIcon( "qrc:/icons/aperture" )
+
+        function openEditNodePage(nodeUuid) {
+            if (nodeUuid !== "") {
+                newNodePage.prepare(nodeUuid)
+                mainStack.push(newNodePage)
+            }
+        }
+    }
+
+    MyRoundButton {
+        id : deleteNodeButton
+        z: 3
+        visible: false
+
+        anchors {
+            right: alterMainScheme.right
+            bottom: editNodeButton.top
+        }
+
+        onClicked: mainSceneImg.nodeDeleteCheck()
+        Component.onCompleted: loadIcon( "qrc:/icons/ban" )
+    }
+
+    MyRoundButton {
+        id : nodeInfoButton
+        z: 3
+        visible: false
+
+        anchors.right: editNodeButton.left
+        anchors.bottom: alterMainScheme.bottom
+
+        Shortcut {
+            sequence: "Ctrl+i"
+            onActivated: nodeInfoButton.openTerm()
+        }
+
+        onClicked: openTerm()
+        Component.onCompleted: loadIcon( "qrc:/icons/chevron-top" )
+
+        function openTerm() {
+            if (sceneObj.hasSelection()) {
+                mainStack.push(termView)
+                termView.loadSelectedNode()
+            }
+        }
     }
 
     Flickable {
@@ -74,6 +156,8 @@ Page {
 
             onMouseXChanged: sceneObj.setMousePos(sceneMouse.mouseX, sceneMouse.mouseY)
             onMouseYChanged: sceneObj.setMousePos(sceneMouse.mouseX, sceneMouse.mouseY)
+
+            onClicked: sceneObj.setMouseClick(sceneMouse.mouseX, sceneMouse.mouseY)
         }
 
         Canvas {

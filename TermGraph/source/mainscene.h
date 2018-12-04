@@ -148,6 +148,7 @@ public slots:
     void resetPaintFlags();
 
     void setMousePos(qreal x, qreal y);
+    void setMouseClick(qreal x, qreal y);
 
 private:
     QPointF lastPressPt;
@@ -162,14 +163,20 @@ private:
     NodesManager* nodesMgr;
 
     QRectF sceneRect = QRectF(0, 0, 100, 100);
-    QRectF getSceneRect();
+    QRectF getSceneRect() const;
 
     QRectF sceneViewRect = QRectF(0, 0, 100, 100);
 
+    // Mouse interaction
     QPointF mousePos;
+
     GraphicItemTerm* hoverNode = nullptr;
-    GraphicItemTerm* getNodeAtPoint(QPointF pt);
+    GraphicItemTerm* selectedNode = nullptr;
+
+    GraphicItemTerm* getNodeAtPoint(const QPointF& pt) const;
+
     void findHover();
+    void findClick();
 
     PaintManager* paintManager;
 

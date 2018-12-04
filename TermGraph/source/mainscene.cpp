@@ -309,10 +309,14 @@ void MainScene::resetPaintFlags()
 
 void MainScene::setMousePos(qreal x, qreal y)
 {
-    mousePos.setX(x);
-    mousePos.setY(y);
-
+    mousePos = QPointF(x,y);
     findHover();
+}
+
+void MainScene::setMouseClick(qreal x, qreal y)
+{
+    mousePos = QPointF(x,y);
+    findClick();
 }
 
 PaintManager *MainScene::getPaintManager()
@@ -403,7 +407,7 @@ void MainScene::checkSelection()
     bool someSel = false;
     for (GraphicItemTerm* node : getAllNodes()) {
         if (node->isSelected()) {
-            someSelected();
+//            someSelected();
             someSel = true;
             PaintedTerm::someoneSelect = true;
             node->setRelatedPaint(true);
@@ -411,7 +415,7 @@ void MainScene::checkSelection()
     }
 
     if (!someSel) {
-        selectionDrop();
+//        selectionDrop();
         PaintedTerm::someoneSelect = false;
         if (!PaintedTerm::someoneHover) {
             for (GraphicItemTerm* node : getAllNodes()) {
@@ -546,16 +550,16 @@ void MainScene::paintOneGroupIfNeed()
     }
 }
 
-QRectF MainScene::getSceneRect()
+QRectF MainScene::getSceneRect() const
 {
-    return sceneRect.toRect();
+    return sceneRect;
 }
 
-GraphicItemTerm *MainScene::getNodeAtPoint(QPointF pt)
+GraphicItemTerm *MainScene::getNodeAtPoint(const QPointF &pt) const
 {
     for (auto group : groupList) {
         if (group->getGroupRect().contains(pt)) {
-            return group->getNodeAtPoint(mousePos);
+            return group->getNodeAtPoint(pt);
         }
     }
 
@@ -584,6 +588,31 @@ void MainScene::findHover()
         node->setHover(true);
         hoverNode = node;
         paintManager->addNode(node, true);
+    }
+}
+
+void MainScene::findClick()
+{
+    if (selectedNode != nullptr) {
+        if (!selectedNode->getNodeRect(CoordType::scene).contains(mousePos)) {
+            selectedNode->setSelection(false);
+            paintManager->addNode(selectedNode, true);
+            selectedNode = nullptr;
+        } else {
+            return;
+        }
+    }
+
+    if (auto node = getNodeAtPoint(mousePos)) {
+        node->setSelection(true);
+        selectedNode = node;
+        paintManager->addNode(node, true);
+    }
+
+    if (selectedNode != nullptr) {
+        someSelected();
+    } else {
+        selectionDrop();
     }
 }
 
