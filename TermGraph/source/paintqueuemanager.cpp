@@ -151,9 +151,7 @@ QPointF PaintManager::currentNodeCenter()
 
 QColor PaintManager::currentNodeColor()
 {
-    auto col = nodesForPaint.head()->getColor();
-    qDebug() << "col " << col;
-    return col;
+    return nodesForPaint.head()->getColor();
 }
 
 QString PaintManager::currentNodeText()
