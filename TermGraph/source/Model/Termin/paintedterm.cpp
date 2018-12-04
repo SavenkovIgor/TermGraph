@@ -265,7 +265,7 @@ QColor PaintedTerm::getColor()
 {
     QColor col = getBaseColor();
 
-    if (thisHovered || relativePaint) {
+    if (thisHovered || relativePaint || thisSelected) {
         col = getSelectedColor();
     }
 
@@ -377,10 +377,18 @@ qreal PaintedTerm::getCornerRadius()
     return cornerRadius;
 }
 
-void PaintedTerm::setHover(bool hovered)
+void PaintedTerm::setHover(const bool& hovered)
 {
     if (thisHovered != hovered) {
         thisHovered = hovered;
+        needPaint = true;
+    }
+}
+
+void PaintedTerm::setSelection(const bool &selected)
+{
+    if (thisSelected != selected) {
+        thisSelected = selected;
         needPaint = true;
     }
 }
