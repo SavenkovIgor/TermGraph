@@ -56,6 +56,7 @@ public:
     void loadNodes(GraphicItemTerm::List newNodes);
 
     bool alreadyPainted = false;
+    void resetPaintFlags();
 
     GraphicItemTerm* getNodeAtPoint(const QPointF &pt) const;
     void setHover(QPointF mousePos);

@@ -132,6 +132,19 @@ void TermGroup::loadNodes(GraphicItemTerm::List newNodes)
     initNewNodes();
 }
 
+void TermGroup::resetPaintFlags()
+{
+    alreadyPainted = false;
+
+    for (auto node : getAllNodes()) {
+        node->needPaint = true;
+    }
+
+    for (auto edge : getAllEdges()) {
+        edge->needPaint = true;
+    }
+}
+
 GraphicItemTerm *TermGroup::getNodeAtPoint(const QPointF& pt) const
 {
     for (auto tree : trees) {
