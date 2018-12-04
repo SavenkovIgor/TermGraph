@@ -38,7 +38,7 @@ public:
 
     QString getName();
     QPointF getNamePos();
-    QRectF getGroupRect();
+    QRectF getGroupRect() const;
     QColor getGroupColor();
     QColor getGroupFillColor();
 
@@ -57,7 +57,7 @@ public:
 
     bool alreadyPainted = false;
 
-    GraphicItemTerm* getNodeAtPoint(QPointF pt);
+    GraphicItemTerm* getNodeAtPoint(const QPointF &pt) const;
     void setHover(QPointF mousePos);
 
 public slots:

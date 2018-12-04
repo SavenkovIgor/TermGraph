@@ -132,7 +132,7 @@ void TermGroup::loadNodes(GraphicItemTerm::List newNodes)
     initNewNodes();
 }
 
-GraphicItemTerm *TermGroup::getNodeAtPoint(QPointF pt)
+GraphicItemTerm *TermGroup::getNodeAtPoint(const QPointF& pt) const
 {
     for (auto tree : trees) {
         if (tree->getTreeRect(CoordType::scene).contains(pt)) {
@@ -402,7 +402,7 @@ QPointF TermGroup::getNamePos()
     return pt;
 }
 
-QRectF TermGroup::getGroupRect()
+QRectF TermGroup::getGroupRect() const
 {
     return baseRect->rect().translated(baseRect->scenePos());
 }
