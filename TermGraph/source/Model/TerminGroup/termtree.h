@@ -48,7 +48,7 @@ public:
     void animateTree();
     void checkSwap();
 
-    GraphicItemTerm* getNodeAtPoint(QPointF pt);
+    GraphicItemTerm* getNodeAtPoint(const QPointF &pt) const;
 
     void checkHover(QPointF mousePos);
 

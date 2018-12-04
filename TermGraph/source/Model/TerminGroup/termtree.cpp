@@ -129,7 +129,7 @@ void TermTree::checkSwap()
     //    qDebug()<<"noSwap"<<t.elapsed();
 }
 
-GraphicItemTerm *TermTree::getNodeAtPoint(QPointF pt)
+GraphicItemTerm *TermTree::getNodeAtPoint(const QPointF& pt) const
 {
     for (auto node : getAllNodesInTree()) {
         if (node->getNodeRect(CoordType::scene).contains(pt)) {
