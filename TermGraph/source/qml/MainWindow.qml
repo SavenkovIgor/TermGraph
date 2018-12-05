@@ -11,8 +11,8 @@ ApplicationWindow {
     id: window
     visible: true
 
-    width:  500
-    height: 500
+    width:  1000
+    height: 800
 
 //    Component.onCompleted: {
 //        showMaximized();
@@ -37,14 +37,6 @@ ApplicationWindow {
         id: settingsItem
         MySettings {
             mainStack: stackView
-        }
-    }
-
-    Component {
-        id: alterScheme
-        AlterMainScheme {
-            mainStack: stackView
-            sideMenu: appSideMenu
         }
     }
 
@@ -95,20 +87,6 @@ ApplicationWindow {
                 Layout.rightMargin: 25
 
                 onClicked: appSideMenu.openItem(settingsItem)
-            }
-
-            SideMenuButton {
-                id: alterSchemeMenuButton
-                text: "Альтернативная схема"
-
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter
-                Layout.topMargin: 5
-                Layout.bottomMargin: 5
-                Layout.leftMargin: 25
-                Layout.rightMargin: 25
-
-                onClicked: appSideMenu.openItem(alterScheme)
             }
 
             Item {

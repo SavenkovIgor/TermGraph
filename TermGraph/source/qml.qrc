@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>qml/GoupsSideBar.qml</file>
-        <file>qml/MainScheme.qml</file>
         <file>qml/MainWindow.qml</file>
         <file>qml/NewNodeEdit.qml</file>
         <file>qml/TermGroupsList.qml</file>
