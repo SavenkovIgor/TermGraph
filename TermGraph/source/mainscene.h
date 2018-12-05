@@ -17,7 +17,7 @@
 #include "./Helpers/fsworks.h"
 #include "./Model/TerminGroup/termgroup.h"
 
-class MainScene : public QGraphicsScene
+class MainScene : public QGraphicsScene  // TODO: Maybe remove QGraphicScene dependency
 {
     Q_OBJECT
     Q_PROPERTY(QRectF rect READ getSceneRect)
@@ -82,7 +82,7 @@ public slots:
 
     void locateGroupsVertically();
     void updateSceneRect();
-    void centerViewOn(QPointF point);
+    void centerViewOn(QPointF point);  // TODO: Realize!
 
     void updateModel();
     void deleteSelectedNode();
@@ -138,11 +138,7 @@ public slots:
     void setMousePos(qreal x, qreal y);
     void setMouseClick(qreal x, qreal y);
 
-private:
-    bool groupInFocus = false;
-
-public slots:
-    void stayGroupInFocus(bool val) { groupInFocus = val; }
+    // For testing
     void createTestGroups();
 
 private:

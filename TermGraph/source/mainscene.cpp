@@ -42,7 +42,7 @@ MainScene::~MainScene()
 
 void MainScene::initAllGroups()
 {
-    for (TermGroup* group : groupsMgr->getAllGroups()) {
+    for (auto group : groupsMgr->getAllGroups()) {
         addGroupToScene(group);
     }
 }
@@ -56,7 +56,7 @@ void MainScene::addGroupToScene(TermGroup *group)
 
 void MainScene::deleteAllGroups()
 {
-    for (TermGroup* group : groupList) {
+    for (auto group : groupList) {
         removeItem(group->baseRect);
     }
 
@@ -66,7 +66,7 @@ void MainScene::deleteAllGroups()
 GraphicItemTerm::List MainScene::getAllNodes()
 {
     GraphicItemTerm::List ret;
-    for (TermGroup* group : groupList) {
+    for (auto group : groupList) {
         ret << group->getAllNodes();
     }
     return ret;
@@ -74,7 +74,7 @@ GraphicItemTerm::List MainScene::getAllNodes()
 
 TermGroup *MainScene::getGroupByName(QString name)
 {
-    for (TermGroup* group : groupList) {
+    for (auto group : groupList) {
         if (group->getName() == name) {
             return group;
         }
@@ -85,7 +85,7 @@ TermGroup *MainScene::getGroupByName(QString name)
 
 TermGroup *MainScene::getGroupByUuid(QUuid uuid)
 {
-    for (TermGroup* group : groupList) {
+    for (auto group : groupList) {
         if (group->getUuid() == uuid) {
             return group;
         }
@@ -139,7 +139,7 @@ void MainScene::updateSceneRect()
 {
     QRectF allRect;
 
-    for (TermGroup* group : groupList) {
+    for (auto group : groupList) {
         if (!group->baseRect->isVisible()) {
             continue;
         }
@@ -157,32 +157,26 @@ void MainScene::updateSceneRect()
 
 void MainScene::centerViewOn(QPointF point)
 {
-    QList<QGraphicsView*> viewsList = views();
 
-    for (QGraphicsView* view : viewsList) {
-        view->centerOn(point);
-    }
 }
 
 void MainScene::deleteSelectedNode()
 {
-    if (GraphicItemTerm* node = getSelected()) {
+    if (auto node = getSelected()) {
         nodesMgr->deleteNode(node->getUuid());
     }
 }
 
 void MainScene::exportGrpToJson(QString groupName)
 {
-    TermGroup* group = getGroupByName(groupName);
-    if (group == nullptr) {
-        return;
+    if (auto group = getGroupByName(groupName)) {
+
+        saveGroupInFolder(group);
+
+        QJsonDocument document = group->getJsonDoc();
+        QClipboard* clipboard = qApp->clipboard();
+        clipboard->setText(document.toJson());
     }
-
-    saveGroupInFolder(group);
-
-    QJsonDocument document = group->getJsonDoc();
-    QClipboard* clipboard = qApp->clipboard();
-    clipboard->setText(document.toJson());
 }
 
 void MainScene::saveGroupInFolder(TermGroup* group)
@@ -202,8 +196,7 @@ QString MainScene::getExportPath()
 
 QString MainScene::getGroupString(QString grp)
 {
-    TermGroup* group = getGroupByName(grp);
-    if (group != nullptr) {
+    if (auto group = getGroupByName(grp)) {
         return group->getTypeString();
     }
 
@@ -319,20 +312,21 @@ void MainScene::showGroup(QString groupName)
 
 void MainScene::setAnimSpeed(int val)
 {
-    for (TermGroup* group : groupList) {
+    for (auto group : groupList) {
         group->setAnimSpeed(val);
     }
 }
 
 void MainScene::startAllGroupTimers()
 {
-    for (TermGroup* group : groupList)
+    for (auto group : groupList) {
         group->startAnimation();
+    }
 }
 
 void MainScene::stopAllGroupTimers()
 {
-    for (TermGroup* group : groupList)
+    for (auto group : groupList)
         group->stopAnimation();
 }
 
@@ -383,7 +377,7 @@ QString MainScene::getCurrNodeExamples()
 
 QString MainScene::getCurrNodeGroupName()
 {
-    if (GraphicItemTerm* node = getSelected()) {
+    if (auto node = getSelected()) {
         QUuid uuid = node->getGroupUuid();
         if (!uuid.isNull()) {
             return groupsMgr->getGroupName(uuid);
@@ -394,7 +388,7 @@ QString MainScene::getCurrNodeGroupName()
 
 bool MainScene::getCurrNodeIsRoot()
 {
-    if (GraphicItemTerm* node = getSelected()) {
+    if (auto node = getSelected()) {
         return node->isRoot();
     }
     return false;
@@ -404,7 +398,7 @@ TermGroup *MainScene::getNearestNotPaintedGroup()
 {
     TermGroup* nearestNotPaintedGroup = nullptr;
 
-    for (auto group: groupList) {
+    for (auto group : groupList) {
         if (group->alreadyPainted) {
             continue;
         }
@@ -519,7 +513,7 @@ void MainScene::findClick(const QPointF &atPt)
 
 QString MainScene::getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction)
 {
-    if (InfoTerm* node = getSelected()) {
+    if (auto node = getSelected()) {
         return strFunction(node);
     }
 
