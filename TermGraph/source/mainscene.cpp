@@ -5,10 +5,6 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphi
     sceneRhytm.setSingleShot(false);
     sceneRhytm.setInterval(30);
 
-    selectTimer.setSingleShot(false);
-    selectTimer.setInterval(200);
-    connect(&selectTimer, SIGNAL(timeout()), SLOT(checkSelection()));
-
     userInactiveTimer.setInterval(static_cast<int>(1000/AppConfig::SceneSettings::FPS));
     userInactiveTimer.setSingleShot(true);
     connect(&userInactiveTimer, SIGNAL(timeout()), SLOT(paintOneGroupIfNeed()));
@@ -98,61 +94,8 @@ TermGroup *MainScene::getGroupByUuid(QUuid uuid)
     return nullptr;
 }
 
-void MainScene::mouseMoveEvent(QGraphicsSceneMouseEvent *evt)
-{
-    mouseInfo("move");
-    evt->setScreenPos(evt->screenPos() - QPointF(xWindow, yWindow).toPoint());
-
-    QGraphicsScene::mouseMoveEvent(evt);
-}
-
-void MainScene::mousePressEvent(QGraphicsSceneMouseEvent *evt)
-{
-    //    qDebug()<<"press";
-    // setScenePos влияет на позицию курсора в сцене но только во время
-    // соотв. события (нажатия клавиши и пр). довольно тупо пытаться
-    // это так использовать
-    // TODO: Переписать! вынести xWindow в вид по возможности
-    evt->setScreenPos(evt->screenPos() - QPointF(xWindow, yWindow).toPoint());
-//    evt->setScenePos(evt->scenePos() + QPoint(15,yWindow));
-
-//    mouseInfo( "press at " + Glb::ptToStr(evt->scenePos()) );
-    lastPressPt = evt->scenePos();
-
-    QGraphicsScene::mousePressEvent(evt);
-}
-
-void MainScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *evt)
-{
-    //    qDebug()<<"release";
-    mouseInfo("release");
-    evt->setScreenPos(evt->screenPos() - QPointF(xWindow, yWindow).toPoint());
-    GraphicItemTerm::List nodesList = getAllTermsAtPoint(evt->scenePos());
-    if (nodesList.size() == 1) {
-        int dist = 0;
-        dist += qAbs(lastPressPt.x() - evt->scenePos().x());
-        dist += qAbs(lastPressPt.y() - evt->scenePos().y());
-
-        if (dist <= 30) {
-            qDebug() << dist << lastPressPt << evt->scenePos();
-            nodesList.first()->setFlag(QGraphicsItem::ItemIsSelectable, true);
-            nodesList.first()->setSelected(true);
-            evt->accept();
-        }
-    } else {
-        for (GraphicItemTerm* node : getAllNodes()) {
-            node->setFlag(QGraphicsItem::ItemIsSelectable, false);
-            node->setSelected(false);
-            //                    evt->accept();
-        }
-    }
-
-    QGraphicsScene::mouseReleaseEvent(evt);
-}
-
 void MainScene::updateModel()
 {
-    selectTimer.stop();
 //    viewGrpTimer.stop();
     sceneRhytm.stop();
     userInactiveTimer.stop();
@@ -168,7 +111,6 @@ void MainScene::updateModel()
 
     locateGroupsVertically();
 
-    selectTimer.start();
 //    viewGrpTimer.start(200);
     sceneRhytm.start();
     // startAllGroupTimers();
@@ -309,14 +251,12 @@ void MainScene::resetPaintFlags()
 
 void MainScene::setMousePos(qreal x, qreal y)
 {
-    mousePos = QPointF(x,y);
-    findHover();
+    findHover(QPointF(x,y));
 }
 
 void MainScene::setMouseClick(qreal x, qreal y)
 {
-    mousePos = QPointF(x,y);
-    findClick();
+    findClick(QPointF(x,y));
 }
 
 PaintManager *MainScene::getPaintManager()
@@ -338,16 +278,6 @@ void MainScene::showGroup(int num)
 GraphicItemTerm *MainScene::getSelected()
 {
     return selectedNode;
-}
-
-GraphicItemTerm::List MainScene::getAllTermsAtPoint(QPointF point) {
-    GraphicItemTerm::List ret;
-    for (GraphicItemTerm* node : getAllNodes()) {
-        if (node->getNodeRect(CoordType::scene).contains(point)) {
-            ret << node;
-        }
-    }
-    return ret;
 }
 
 void MainScene::showGroup(QString groupName)
@@ -392,31 +322,6 @@ void MainScene::setAnimSpeed(int val)
     for (TermGroup* group : groupList) {
         group->setAnimSpeed(val);
     }
-}
-
-void MainScene::checkSelection()
-{
-    bool someSel = false;
-    for (GraphicItemTerm* node : getAllNodes()) {
-        if (node->isSelected()) {
-//            someSelected();
-            someSel = true;
-            PaintedTerm::someoneSelect = true;
-            node->setRelatedPaint(true);
-        }
-    }
-
-    if (!someSel) {
-//        selectionDrop();
-        PaintedTerm::someoneSelect = false;
-        if (!PaintedTerm::someoneHover) {
-            for (GraphicItemTerm* node : getAllNodes()) {
-                node->setRelatedPaint(false);
-            }
-        }
-    }
-
-//    qDebug()<<"count of items"<<this->items().count();
 }
 
 void MainScene::startAllGroupTimers()
@@ -562,7 +467,7 @@ GraphicItemTerm *MainScene::getNodeAtPoint(const QPointF &pt) const
     return nullptr;
 }
 
-void MainScene::findHover()
+void MainScene::findHover(const QPointF &atPt)
 {
     if (mouseMoveReactionTimer.isActive()) {
         return;
@@ -571,7 +476,7 @@ void MainScene::findHover()
     }
 
     if (hoverNode != nullptr) {
-        if (!hoverNode->getNodeRect(CoordType::scene).contains(mousePos)) {
+        if (!hoverNode->getNodeRect(CoordType::scene).contains(atPt)) {
             hoverNode->setHover(false);
             paintManager->addNode(hoverNode, true);
             hoverNode = nullptr;
@@ -580,17 +485,17 @@ void MainScene::findHover()
         }
     }
 
-    if (auto node = getNodeAtPoint(mousePos)) {
+    if (auto node = getNodeAtPoint(atPt)) {
         node->setHover(true);
         hoverNode = node;
         paintManager->addNode(node, true);
     }
 }
 
-void MainScene::findClick()
+void MainScene::findClick(const QPointF &atPt)
 {
     if (selectedNode != nullptr) {
-        if (!selectedNode->getNodeRect(CoordType::scene).contains(mousePos)) {
+        if (!selectedNode->getNodeRect(CoordType::scene).contains(atPt)) {
             selectedNode->setSelection(false);
             paintManager->addNode(selectedNode, true);
             selectedNode = nullptr;
@@ -599,7 +504,7 @@ void MainScene::findClick()
         }
     }
 
-    if (auto node = getNodeAtPoint(mousePos)) {
+    if (auto node = getNodeAtPoint(atPt)) {
         node->setSelection(true);
         selectedNode = node;
         paintManager->addNode(node, true);

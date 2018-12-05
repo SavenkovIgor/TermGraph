@@ -26,7 +26,6 @@ class MainScene : public QGraphicsScene
     void addGroupToScene(TermGroup* group);
     void deleteAllGroups();
 
-    QTimer selectTimer;
 //    QTimer viewGrpTimer;
 //    int    timerCount;
     QTimer sceneRhytm;
@@ -42,17 +41,10 @@ public:
 
     PaintManager* getPaintManager();
 
-    qreal xWindow;
-    qreal yWindow;  // dirtyHack
-
     TermGroup* getGroupByName(QString name);
     TermGroup* getGroupByUuid(QUuid uuid);
 
     GraphicItemTerm::List getAllNodes();
-
-    void mouseMoveEvent(QGraphicsSceneMouseEvent *evt);
-    void mousePressEvent(QGraphicsSceneMouseEvent *evt);
-    void mouseReleaseEvent(QGraphicsSceneMouseEvent *evt);
 
     GraphicItemTerm* getSelected();
 
@@ -94,8 +86,6 @@ public slots:
 
     void updateModel();
     void deleteSelectedNode();
-
-    void checkSelection();
 
     void startAllGroupTimers();
     void stopAllGroupTimers();
@@ -149,7 +139,6 @@ public slots:
     void setMouseClick(qreal x, qreal y);
 
 private:
-    QPointF lastPressPt;
     bool groupInFocus = false;
 
 public slots:
@@ -166,21 +155,17 @@ private:
     QRectF sceneViewRect = QRectF(0, 0, 100, 100);
 
     // Mouse interaction
-    QPointF mousePos;
-
     GraphicItemTerm* hoverNode = nullptr;
     GraphicItemTerm* selectedNode = nullptr;
 
     GraphicItemTerm* getNodeAtPoint(const QPointF& pt) const;
 
-    void findHover();
-    void findClick();
+    void findHover(const QPointF& atPt);
+    void findClick(const QPointF& atPt);
 
     PaintManager* paintManager;
 
     QList < TermGroup* > groupList;
-
-    GraphicItemTerm::List getAllTermsAtPoint(QPointF point);
 
     QString getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction);
 };

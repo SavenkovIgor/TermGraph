@@ -17,7 +17,6 @@ HEADERS += \
     source/glb.h\
     source/mainscene.h\
     source/mainwindow.h\
-    source/mysceneview.h\
     source/Model/TerminEdge/edge.h\
     source/Model/TerminGroup/termgroup.h\
     source/Model/wordfreqanalyze.h \
@@ -59,7 +58,6 @@ SOURCES += \
     source/glb.cpp\
     source/mainscene.cpp\
     source/mainwindow.cpp\
-    source/mysceneview.cpp\
     source/Model/reminder.cpp\
     source/Model/TerminEdge/edge.cpp\
     source/Model/TerminGroup/termgroup.cpp\

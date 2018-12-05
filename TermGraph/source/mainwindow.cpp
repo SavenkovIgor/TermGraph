@@ -23,14 +23,9 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
 
     scene = new MainScene(groupsMgr, nodesMgr);
 
-    scView = new MyView();
-
-    scView->setScene(scene);
 //    Glb::scRef = scene;
-    scView->setMouseTracking(true);
-    scView->setRenderHint(QPainter::Antialiasing, true);
 
-    remind = new Reminder(scene->getAllNodes());
+    // remind = new Reminder(scene->getAllNodes());
 
     analyze = new WordFreqAnalyze();
 
@@ -42,68 +37,14 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
                 SLOT(onQmlCreated(QObject*, QUrl)));
 
 
-    engn->addImageProvider("sceneimage", scView);
     engn->rootContext()->setContextProperty("mainObj", this);
     engn->rootContext()->setContextProperty("sceneObj", scene);
     engn->rootContext()->setContextProperty("paintManager", scene->getPaintManager());
     engn->rootContext()->setContextProperty("networkManager", network);
     engn->rootContext()->setContextProperty("groupsManager", groupsMgr);
     engn->rootContext()->setContextProperty("nodesManager", nodesMgr);
-    engn->rootContext()->setContextProperty("mainViewObj", scView);
     engn->rootContext()->setContextProperty("tagProcessor", tagProcessor);
     engn->load(QUrl("qrc:/qml/MainWindow.qml"));
-}
-
-void MainWindow::takeSceneMouse(
-        qreal x,
-        qreal y,
-        qreal winPosX,
-        qreal winPosY,
-        qreal hght,
-        QString actionInfo,
-        QString buttonInfo)
-{
-    scene->xWindow = winPosX;  // dirty,dirty hack
-    scene->yWindow = winPosY + hght;
-
-    QEvent::Type tp;
-    if (actionInfo == "press")
-        tp = QEvent::MouseButtonPress;
-    else if (actionInfo == "release")
-        tp = QEvent::MouseButtonRelease;
-    else if (actionInfo == "move")
-        tp = QEvent::MouseMove;
-    else
-        tp = QEvent::MouseMove;
-
-    Qt::MouseButton bt;
-    static Qt::MouseButton lastPressedBtn;
-    if (buttonInfo == "left") {
-        bt = Qt::LeftButton;
-    } else if (buttonInfo == "right") {
-        bt = Qt::RightButton;
-    } else {
-        bt = Qt::NoButton;
-    }
-
-    if (tp == QEvent::MouseButtonPress) {
-        //Буферизует нажатую кнопку, чтобы указать потом какая была отпущена
-        lastPressedBtn = bt;
-    } else if (tp == QEvent::MouseButtonRelease) {
-        bt = lastPressedBtn;
-        lastPressedBtn = Qt::NoButton;
-    }
-
-    Qt::MouseButtons flg;
-    flg.setFlag(bt);
-
-    QMouseEvent *evt =
-            new QMouseEvent(tp, QPointF(x, y), bt, flg, Qt::NoModifier);
-
-    qApp->sendEvent(scView, evt);
-
-    if (evt != nullptr)
-        delete evt;
 }
 
 MainWindow::~MainWindow()
