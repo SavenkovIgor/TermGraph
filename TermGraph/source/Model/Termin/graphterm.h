@@ -50,15 +50,12 @@ public:
     bool hasConnectionsInGroup();
 
     // Delete section
-    GraphTerm::List getRootNodes();  // TODO: Maybe delete later
-    void clearRootNodes();  // TODO: Delete later
+    GraphTerm::List getRootNodes();
+    GraphTerm::List getLeafNodes();
 
-    GraphTerm::List getLeafNodes();  // TODO: Maybe delete later
-    void clearLeafNodes();  // TODO: Delete later
-
-    GraphTerm::List getNeighbourNodes();  // TODO: Maybe delete later
-    GraphEdge::List getEdgesToLeafs();  // TODO: Maybe delete later
-    GraphEdge::List getEdgesToRoots();  // TODO: Maybe delete later
+    GraphTerm::List getNeighbourNodes();
+    GraphEdge::List getEdgesToLeafs();
+    GraphEdge::List getEdgesToRoots();
     GraphEdge::List getAllConnectedEdges();
 
 private:
@@ -68,6 +65,7 @@ private:
     List neighbourNodes;
 
     GraphEdge::List edgesToOtherGroups;  // Пока никак не используются но будут.
+    GraphEdge::List brokenEdges;  // Пока никак не используются но будут.
 
     GraphEdge::List edgesToLeafs;
     GraphEdge::List edgesToRoots;

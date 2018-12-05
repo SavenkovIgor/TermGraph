@@ -153,19 +153,9 @@ GraphTerm::List GraphTerm::getRootNodes()
     return rootNodes;
 }
 
-void GraphTerm::clearRootNodes()
-{
-    rootNodes.clear();
-}
-
 GraphTerm::List GraphTerm::getLeafNodes()
 {
     return leafNodes;
-}
-
-void GraphTerm::clearLeafNodes()
-{
-    leafNodes.clear();
 }
 
 GraphTerm::List GraphTerm::getNeighbourNodes()
