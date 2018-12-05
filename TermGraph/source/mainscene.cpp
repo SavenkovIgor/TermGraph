@@ -171,7 +171,7 @@ void MainScene::updateModel()
     selectTimer.start();
 //    viewGrpTimer.start(200);
     sceneRhytm.start();
-    startAllGroupTimers();
+    // startAllGroupTimers();
     sceneUpdated();
     userInactiveTimer.start();
     qDebug() << "model updated";
