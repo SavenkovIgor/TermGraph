@@ -29,6 +29,8 @@ public:
     // Edges tools
     EdgesList getAllEdges() const;
 
+    EdgesList getAllEdgesForPainting() const;
+
 protected:
     // Group info methods
     void setGroupUuid(QUuid uuid);

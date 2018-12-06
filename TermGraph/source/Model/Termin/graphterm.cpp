@@ -206,23 +206,13 @@ void GraphTerm::breakEdge(GraphEdge *edge)
 
     auto otherSideNode = edge->getOtherSide(this);
 
-    if (!edgesToLeafs.removeOne(edge)) {
-        qDebug() << "Delete error from edgesToLeafs!";
-    }
+    edgesToLeafs.removeOne(edge);
+    otherSideNode->edgesToRoots.removeOne(edge);
 
-    if (!otherSideNode->edgesToRoots.removeOne(edge)) {
-        qDebug() << "Delete error from otherSide edgesToRoots";
-    }
-
+    leafNodes.removeOne(otherSideNode);
+    otherSideNode->rootNodes.removeOne(this);
 
     // Other side first
-
-    otherSideNode->removeEdgeFromLists(edge);
-    otherSideNode->removeNodeFromLists(this);
-
-    removeEdgeFromLists(edge);
-    removeNodeFromLists(otherSideNode);
-
     if (!brokenEdges.contains(edge)) {
         brokenEdges << edge;
     }

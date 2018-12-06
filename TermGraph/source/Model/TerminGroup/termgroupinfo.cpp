@@ -30,6 +30,15 @@ EdgesList TermGroupInfo::getAllEdges() const
     return edgesList;
 }
 
+EdgesList TermGroupInfo::getAllEdgesForPainting() const
+{
+    edgesList lst;
+    lst << edgesList;
+    for (auto node : getAllNodes()) {
+        if (!lst.conta)
+    }
+}
+
 GraphicItemTerm::List TermGroupInfo::getRootNodes() const
 {
     return filterFromNodesList([] (GraphicItemTerm* node) { return node->isRoot(); });
@@ -87,7 +96,7 @@ void TermGroupInfo::removeCycles()
     for (auto node : nodesList) {
         if (auto edge = node->getCycleEdge()) {
             qDebug() << "Remove edge for " << node->getName();
-            node->breakEdge(edge);
+            edge->getRoot()->breakEdge(edge);
 
             if (auto grEdge = dynamic_cast<Edge*>(edge)) {
                 edgesList.removeOne(grEdge);

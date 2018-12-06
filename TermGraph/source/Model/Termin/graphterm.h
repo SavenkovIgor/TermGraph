@@ -63,6 +63,10 @@ public:
 
     int cycleSearchFlag = 0;
 
+    GraphEdge::List getBrokenEdges() const {
+        return brokenEdges;
+    }
+
 private:
     List rootNodes;
     List leafNodes;
