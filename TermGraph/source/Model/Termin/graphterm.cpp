@@ -200,8 +200,23 @@ GraphEdge::List GraphTerm::getAllConnectedEdges()
 
 void GraphTerm::breakEdge(GraphEdge *edge)
 {
-    // Other side first
+    if (edge->getRoot() != this) {
+        return;
+    }
+
     auto otherSideNode = edge->getOtherSide(this);
+
+    if (!edgesToLeafs.removeOne(edge)) {
+        qDebug() << "Delete error from edgesToLeafs!";
+    }
+
+    if (!otherSideNode->edgesToRoots.removeOne(edge)) {
+        qDebug() << "Delete error from otherSide edgesToRoots";
+    }
+
+
+    // Other side first
+
     otherSideNode->removeEdgeFromLists(edge);
     otherSideNode->removeNodeFromLists(this);
 
@@ -210,31 +225,5 @@ void GraphTerm::breakEdge(GraphEdge *edge)
 
     if (!brokenEdges.contains(edge)) {
         brokenEdges << edge;
-    }
-}
-
-void GraphTerm::removeEdgeFromLists(GraphEdge *edge)
-{
-    if (edgesToLeafs.contains(edge)) {
-        edgesToLeafs.removeOne(edge);
-        qDebug() << "remove edge from leafs in node " << getName();
-    }
-
-    if (edgesToRoots.contains(edge)) {
-        edgesToRoots.removeOne(edge);
-        qDebug() << "remove edge from roots in node " << getName();
-    }
-}
-
-void GraphTerm::removeNodeFromLists(GraphTerm *node)
-{
-    if (rootNodes.contains(node)) {
-        rootNodes.removeOne(node);
-        qDebug() << "remove node from root in node " << getName();
-    }
-
-    if (leafNodes.contains(node)) {
-        leafNodes.removeOne(node);
-        qDebug() << "remove node from leafs in node " << getName();
     }
 }

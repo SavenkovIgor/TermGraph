@@ -61,9 +61,6 @@ public:
 
     void breakEdge(GraphEdge* breakingEdge);
 
-    void removeEdgeFromLists(GraphEdge* edge);
-    void removeNodeFromLists(GraphTerm* node);
-
     int cycleSearchFlag = 0;
 
 private:
