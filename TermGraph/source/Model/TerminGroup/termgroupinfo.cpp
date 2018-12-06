@@ -89,6 +89,10 @@ void TermGroupInfo::removeCycles()
             qDebug() << "Remove edge for " << node->getName();
             node->breakEdge(edge);
 
+            if (auto grEdge = dynamic_cast<Edge*>(edge)) {
+                edgesList.removeOne(grEdge);
+            }
+
             // Drop cycle flag
             for (auto dropNode : nodesList) {
                 dropNode->cycleSearchFlag = 0;
