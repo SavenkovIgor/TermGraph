@@ -29,6 +29,7 @@ TermGroup::TermGroup(QJsonDocument doc, QObject *parent):
 void TermGroup::initNewNodes()
 {
     loadEdges();
+    removeCycles();
 
     baseRect = new QGraphicsRectItem(QRectF(QPoint(0, 0), QSizeF(10.0, 10.0)), nullptr);
     baseRect->setZValue(1);
@@ -46,7 +47,7 @@ void TermGroup::initNewNodes()
 
     this->grNmItem->setParentItem(baseRect);
 
-    setLayers();
+    setLevels();
     initTrees();
     addTreeRectsToScene();
 

@@ -82,16 +82,29 @@ void TermGroupInfo::loadEdges()
     }
 }
 
-void TermGroupInfo::setLayers()
+void TermGroupInfo::removeCycles()
+{
+    for (auto node : nodesList) {
+        if (auto edge = node->getCycleEdge()) {
+            qDebug() << "Remove edge for " << node->getName();
+            node->breakEdge(edge);
+
+            // Drop cycle flag
+            for (auto dropNode : nodesList) {
+                dropNode->cycleSearchFlag = 0;
+            }
+
+        } else {
+            break;
+        }
+    }
+}
+
+void TermGroupInfo::setLevels()
 {
     // Set layer numbers
-    for (GraphicItemTerm* node : getRootNodes()) {
+    for (auto node : getRootNodes()) {
         node->setLevel(0);
-    }
-
-    // Set max layer variable
-    for (GraphicItemTerm* node : nodesList) {
-        layersCount = qMax(layersCount, node->getPaintLevel());
     }
 }
 

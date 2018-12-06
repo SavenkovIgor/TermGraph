@@ -41,6 +41,7 @@ public:
 
     void setLevel(int level);
     int getPaintLevel() const;
+    GraphEdge* getCycleEdge();
 
     void setTreeId(unsigned int treeId);
     unsigned int getTreeId() const;
@@ -57,6 +58,13 @@ public:
     GraphEdge::List getEdgesToLeafs();
     GraphEdge::List getEdgesToRoots();
     GraphEdge::List getAllConnectedEdges();
+
+    void breakEdge(GraphEdge* breakingEdge);
+
+    void removeEdgeFromLists(GraphEdge* edge);
+    void removeNodeFromLists(GraphTerm* node);
+
+    int cycleSearchFlag = 0;
 
 private:
     List rootNodes;

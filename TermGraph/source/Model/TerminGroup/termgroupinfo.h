@@ -45,9 +45,10 @@ protected:
 
     // Edges tools
     void loadEdges();
+    void removeCycles();
 
     // Tree tools
-    void setLayers();
+    void setLevels();
     void initTrees();
     QSizeF getAllTreesSize();
     void setNeighbours();
@@ -62,7 +63,6 @@ private:
     // Group info
     QUuid groupUuid;
     GroupType type = GroupType::freeEdges;
-    int layersCount = 0;
 
     // Group content
     GraphicItemTerm::List nodesList;
