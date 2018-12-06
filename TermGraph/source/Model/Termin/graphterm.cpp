@@ -70,20 +70,20 @@ NodeType GraphTerm::getNodeType()
     }
 }
 
-void GraphTerm::setLevel(int lev)
+void GraphTerm::setLevel(int level)
 {
-    if (lev > paintLevel)
-        paintLevel = lev;
+    if (level > paintLevel)
+        paintLevel = level;
 
-    for (GraphTerm* n : getLeafNodes()) {
+    for (auto n : getLeafNodes()) {
         if (getGroupUuid() != n->getGroupUuid()) {
             continue;
         }
-        n->setLevel(lev + 1);
+        n->setLevel(level + 1);
     }
 }
 
-int GraphTerm::getPaintLayer() const
+int GraphTerm::getPaintLevel() const
 {
     return paintLevel;
 }

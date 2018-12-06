@@ -39,8 +39,8 @@ public:
 
     NodeType getNodeType();
 
-    void setLevel(int lev);  // TODO: Rename
-    int getPaintLayer() const;  // TODO: Rename
+    void setLevel(int level);
+    int getPaintLevel() const;
 
     void setTreeId(unsigned int treeId);
     unsigned int getTreeId() const;
@@ -70,7 +70,7 @@ private:
     GraphEdge::List edgesToLeafs;
     GraphEdge::List edgesToRoots;
 
-    int paintLevel = -1;  // TODO: Rename
+    int paintLevel = -1;
     unsigned int treeId = 0; // 0 = no value
 };
 

@@ -91,7 +91,7 @@ void TermGroupInfo::setLayers()
 
     // Set max layer variable
     for (GraphicItemTerm* node : nodesList) {
-        layersCount = qMax(layersCount, node->getPaintLayer());
+        layersCount = qMax(layersCount, node->getPaintLevel());
     }
 }
 

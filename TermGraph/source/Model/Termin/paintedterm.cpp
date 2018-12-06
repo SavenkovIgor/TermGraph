@@ -27,7 +27,7 @@ int PaintedTerm::getUpLevels(int pLevel)
     }
 
     if (ret == -1)
-        ret = getPaintLayer();
+        ret = getPaintLevel();
 
     return ret;
 }

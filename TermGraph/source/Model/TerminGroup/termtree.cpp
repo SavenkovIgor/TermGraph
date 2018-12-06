@@ -64,7 +64,7 @@ void TermTree::animateTree()
     }
 
     for (GraphicItemTerm* node : getAllNodesInTree()) {
-        if (animationGroup.state() != QAbstractAnimation::Stopped && node->getPaintLayer() == currAnimLevel) {
+        if (animationGroup.state() != QAbstractAnimation::Stopped && node->getPaintLevel() == currAnimLevel) {
             continue;
         }
         node->countForces();
@@ -72,7 +72,7 @@ void TermTree::animateTree()
 
     bool someMoved = false;
     for (GraphicItemTerm* node : getAllNodesInTree()) {
-        if (animationGroup.state() != QAbstractAnimation::Stopped && node->getPaintLayer() == currAnimLevel) {
+        if (animationGroup.state() != QAbstractAnimation::Stopped && node->getPaintLevel() == currAnimLevel) {
             continue;
         }
         if (node->applyMove() && !someMoved) {
@@ -150,7 +150,7 @@ void TermTree::checkHover(QPointF mousePos)
 
 void TermTree::addTerm(GraphicItemTerm* term)
 {
-    int paintLayer = term->getPaintLayer();
+    int paintLayer = term->getPaintLevel();
 
     if (paintLayer < 0) {
         qDebug() << "Biig problems with paint layer";

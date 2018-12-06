@@ -129,7 +129,7 @@ QString GraphicItemTerm::getDebugString() {
     addInterf += QString::number(getIntersections(true));
     p << addInterf;
 
-    p << " upLevels:" + QString::number(getUpLevels() - getPaintLayer());
+    p << " upLevels:" + QString::number(getUpLevels() - getPaintLevel());
     //        addInterf += QString::number(personalAddInterval) + " ";
     p << "Uuid" << getUuid().toString();
     return p.join("\n");
