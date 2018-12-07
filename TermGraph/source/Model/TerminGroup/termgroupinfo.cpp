@@ -97,25 +97,21 @@ void TermGroupInfo::loadEdges()
 
 void TermGroupInfo::removeCycles()
 {
+    // First find all edges to break
     for (auto node : nodesList) {
-        if (auto edge = node->getCycleEdge()) {
-            qDebug() << "Remove edge for " << node->getName();
-            edge->getRoot()->breakEdge(edge);
+        node->getCycleEdge();
+    }
 
-            dynamic_cast<Edge*>(edge)->setBrokenType();
-
-            if (auto grEdge = dynamic_cast<Edge*>(edge)) {
-                edgesList.removeOne(grEdge);
-            }
-
-            // Drop cycle flag
-            for (auto dropNode : nodesList) {
-                dropNode->cycleSearchFlag = 0;
-            }
-
-        } else {
-            break;
+    EdgesList brokeList;
+    for (auto edge : edgesList) {
+        if (edge->needBroke) {
+            brokeList << edge;
         }
+    }
+
+    for (auto edge : brokeList) {
+        edge->brokeEdge();
+        edgesList.removeOne(edge);
     }
 }
 

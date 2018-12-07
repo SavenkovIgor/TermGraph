@@ -22,6 +22,7 @@ public:
     virtual ~GraphEdge() = default;
 
     bool needPaint = true;  // Flag for placing in paintQueue
+    bool needBroke = false;
 
 private:
     GraphTerm* toRoot;

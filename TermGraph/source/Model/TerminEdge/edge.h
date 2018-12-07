@@ -49,7 +49,7 @@ public:
 
     QColor getEdgeColor() const;
 
-    void setBrokenType();
+    void brokeEdge();
 
 private:
     bool wide = false;

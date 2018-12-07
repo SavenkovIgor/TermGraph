@@ -88,21 +88,24 @@ int GraphTerm::getPaintLevel() const
     return paintLevel;
 }
 
-GraphEdge* GraphTerm::getCycleEdge()
+void GraphTerm::getCycleEdge()
 {
     cycleSearchFlag = 1;
     for (auto edge : edgesToLeafs) {
+        if (edge->needBroke) {
+            continue;
+        }
+
         auto leafNode = edge->getOtherSide(this);
         if (leafNode->cycleSearchFlag == 1) {
-            return edge;
+            edge->needBroke = true;
         } else {
             if (leafNode->cycleSearchFlag == 0) {
-                return leafNode->getCycleEdge();
+                leafNode->getCycleEdge();
             }
         }
     }
     cycleSearchFlag = 2;
-    return nullptr;
 }
 
 void GraphTerm::setTreeId(unsigned int treeId)
@@ -198,21 +201,22 @@ GraphEdge::List GraphTerm::getAllConnectedEdges()
     return ret;
 }
 
-void GraphTerm::breakEdge(GraphEdge *edge)
+void GraphTerm::removeEdgeToLeafs(GraphEdge *edge)
 {
-    if (edge->getRoot() != this) {
-        return;
-    }
-
-    auto otherSideNode = edge->getOtherSide(this);
-
+    auto node = edge->getOtherSide(this);
     edgesToLeafs.removeOne(edge);
-    otherSideNode->edgesToRoots.removeOne(edge);
+    leafNodes.removeOne(node);
+}
 
-    leafNodes.removeOne(otherSideNode);
-    otherSideNode->rootNodes.removeOne(this);
+void GraphTerm::removeEdgeToRoots(GraphEdge *edge)
+{
+    auto node = edge->getOtherSide(this);
+    edgesToRoots.removeOne(edge);
+    rootNodes.removeOne(node);
+}
 
-    // Other side first
+void GraphTerm::addBrokenEdge(GraphEdge *edge)
+{
     if (!brokenEdges.contains(edge)) {
         brokenEdges << edge;
     }

@@ -11,8 +11,11 @@ QColor Edge::getEdgeColor() const
     return AppStyle::Colors::Edges::standard;
 }
 
-void Edge::setBrokenType()
+void Edge::brokeEdge()
 {
+    getRoot()->removeEdgeToLeafs(this);
+    getRoot()->addBrokenEdge(this);
+    getLeaf()->removeEdgeToRoots(this);
     type = EdgeType::broken;
 }
 
