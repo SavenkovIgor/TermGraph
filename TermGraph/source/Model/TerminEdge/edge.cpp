@@ -1,13 +1,19 @@
 #include "edge.h"
 
-QColor Edge::getEdgeColor()
+QColor Edge::getEdgeColor() const
 {
     switch (type) {
-    case standart: return AppStyle::Colors::Edges::standard;
-    case termin: return AppStyle::Colors::Edges::termin;
-    case description: return AppStyle::Colors::Edges::description;
+    case EdgeType::standart: return AppStyle::Colors::Edges::standard;
+    case EdgeType::termin: return AppStyle::Colors::Edges::termin;
+    case EdgeType::description: return AppStyle::Colors::Edges::description;
+    case EdgeType::broken: return AppStyle::Colors::Edges::broken;
     }
-    return QColor(Qt::black);
+    return AppStyle::Colors::Edges::standard;
+}
+
+void Edge::setBrokenType()
+{
+    type = EdgeType::broken;
 }
 
 Edge::Edge(PaintedTerm* from, PaintedTerm* to, EdgeType type) :

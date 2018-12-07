@@ -217,3 +217,7 @@ void GraphTerm::breakEdge(GraphEdge *edge)
         brokenEdges << edge;
     }
 }
+
+GraphEdge::List GraphTerm::getBrokenEdges() const {
+    return brokenEdges;
+}

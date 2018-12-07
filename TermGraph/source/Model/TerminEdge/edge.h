@@ -12,10 +12,11 @@
 
 class PaintedTerm;
 
-enum EdgeType{
+enum class EdgeType {
     standart,
     termin,
-    description
+    description,
+    broken
 };
 
 class Edge : public GraphEdge, public QGraphicsItem
@@ -46,11 +47,13 @@ public:
     // Scene stuff
     void setSceneParent(QGraphicsItem* item);
 
-private:
-    QColor getEdgeColor();
+    QColor getEdgeColor() const;
 
+    void setBrokenType();
+
+private:
     bool wide = false;
-    EdgeType type = termin;
+    EdgeType type = EdgeType::termin;
 };
 
 #endif  // EDGE_H

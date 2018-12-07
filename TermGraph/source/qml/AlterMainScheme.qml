@@ -338,7 +338,7 @@ Page {
             }
 
             function paintAllEdgesInThisGroup(ctx) {
-                JsPaint.prepareEdge(ctx, paintManager.getEdgeColor())
+                JsPaint.prepareEdge(ctx)
 
                 while (true) {
                     if (paintManager.edgeQueueEmpty()) {
@@ -347,8 +347,9 @@ Page {
 
                     var pt1 = paintManager.currentFirstEdgePoint()
                     var pt2 = paintManager.currentLastEdgePoint()
+                    var col = paintManager.getEdgeColor()
 
-                    JsPaint.paintLine(ctx, pt1, pt2)
+                    JsPaint.paintLine(ctx, pt1, pt2, col)
 
                     paintManager.nextEdge()
                 }

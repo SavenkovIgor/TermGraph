@@ -33,7 +33,7 @@ void PaintManager::addNode(GraphicItemTerm *node, bool sendPaintSignal)
 
 void PaintManager::fillNodeAndEdgeQueuesFromCurrentGroup()
 {
-    for (auto edge : groupsForPaint.head()->getAllEdges()) {
+    for (auto edge : groupsForPaint.head()->getAllEdgesForPainting()) {
         if (edge->needPaint) {
             edgesForPaint.enqueue(edge);
             edge->needPaint = false;
@@ -108,7 +108,7 @@ bool PaintManager::edgeQueueEmpty()
 
 QColor PaintManager::getEdgeColor()
 {
-    return AppStyle::Colors::Edges::termin;
+    return edgesForPaint.head()->getEdgeColor();
 }
 
 QPointF PaintManager::currentFirstEdgePoint()

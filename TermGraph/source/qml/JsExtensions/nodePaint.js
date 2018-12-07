@@ -15,12 +15,12 @@ function paintRoundedRect(ctx, rect, rectColor, radius) {
     ctx.fill()
 }
 
-function prepareEdge(ctx, color) {
+function prepareEdge(ctx) {
     ctx.lineWidth = 2
-    ctx.strokeStyle = color
 }
 
-function paintLine(ctx, pt1, pt2) {
+function paintLine(ctx, pt1, pt2, color) {
+    ctx.strokeStyle = color
     ctx.beginPath()
     ctx.moveTo(pt1.x, pt1.y)
     ctx.lineTo(pt2.x, pt2.y)

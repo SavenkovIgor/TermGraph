@@ -64,7 +64,7 @@ private:
     // Paint queues
     QQueue < TermGroup* > groupsForPaint;
     QQueue <GraphicItemTerm*> nodesForPaint;
-    QQueue <GraphEdge*> edgesForPaint;
+    QQueue <Edge*> edgesForPaint;
 };
 
 #endif // PAINTQUEUEMANAGER_H
