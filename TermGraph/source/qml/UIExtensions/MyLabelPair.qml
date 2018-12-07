@@ -8,9 +8,6 @@ Column {
     property alias name: nameLbl.text
     property alias text: textLbl.text
 
-    anchors.left: parent.left
-    anchors.right: parent.right
-
 //    height: Math.max(nameLbl.height,textLbl.height)
 
     spacing: 6
