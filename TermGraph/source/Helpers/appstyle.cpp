@@ -23,6 +23,7 @@ QColor AppStyle::Colors::Edges::standard = QColor(Qt::black);
 QColor AppStyle::Colors::Edges::termin = QColor(34, 91, 122);
 QColor AppStyle::Colors::Edges::description = QColor(Qt::green);
 QColor AppStyle::Colors::Edges::selected = QColor(0, 166, 147);
+QColor AppStyle::Colors::Edges::broken = Qt::red;
 
 QColor AppStyle::Colors::Scene::background = QColor(51, 47, 48);
 

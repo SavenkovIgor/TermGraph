@@ -41,6 +41,7 @@ public:
             static QColor termin;
             static QColor description;
             static QColor selected;
+            static QColor broken;
         };
 
         class Scene {
