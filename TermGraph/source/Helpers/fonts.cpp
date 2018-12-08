@@ -2,7 +2,8 @@
 
 QFont Fonts::getFont()
 {
-    return qApp->font();
+    QFont font("Arial");
+    return font;
 }
 
 QFont Fonts::getWeightFont(int weight)
