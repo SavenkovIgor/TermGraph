@@ -1,6 +1,8 @@
-function prepareRoundedRects(ctx) {
+function prepareRects(ctx) {
     ctx.strokeStyle = "#000000"
     ctx.lineWidth = 4
+    ctx.textBaseline = "middle"
+    ctx.font = "10pt sans-serif Arial"
 }
 
 function paintRoundedRect(ctx, rect, rectColor, radius) {
@@ -27,14 +29,9 @@ function paintLine(ctx, pt1, pt2, color) {
     ctx.stroke()
 }
 
-function prepareText(ctx) {
-    ctx.textBaseline = "middle"
-    ctx.font = "10pt sans-serif"
-}
-
 function paintGroupName(ctx, text, basePoint) {
     ctx.textBaseline = "middle"
-    ctx.font = "bold 10.5pt sans-serif"
+    ctx.font = "bold 10.5pt sans-serif Arial"
 
     ctx.fillStyle = "#FFFFFF"
     ctx.fillText(text, basePoint.x, basePoint.y)

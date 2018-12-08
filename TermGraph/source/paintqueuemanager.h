@@ -18,23 +18,25 @@ signals:
     void paintGroupQueue();
     void paintNodeQueue();
 
-    void cleanAll();
+    void clearAll();
 
 public slots:
-    // Groups
-    void clearGroupsQueue();
-    void addGroup(TermGroup* group, bool sendPaintSignal = true);
-    void addNode(GraphicItemTerm* node, bool sendPaintSignal = true);
-    void fillNodeAndEdgeQueuesFromCurrentGroup();
-    void nextGroup();
-    bool groupQueueEmpty();
+    // Fill functions
+    void clearAllQueues();
+    void addGroup(TermGroup* group, bool ignoreNeedPaintFlag = false, bool paintNow = true);
+    void addNode(GraphicItemTerm* node, bool paintNow = true);
 
+    // GroupRects
+    void nextGroupRect();
+    bool groupRectQueueEmpty();
     QRectF currentGroupRect();
     QColor currentGroupFillColor();
+
+    // GroupNames
+    void nextGroupName();
+    bool groupNamesQueueEmpty();
     QString currentGroupName();
     QPointF currentGroupNamePos();
-    QStringList currentGroupAllNodeNames();
-    QList<QRectF> currentGroupAllRects();
 
     // Edges
     void nextEdge();
@@ -62,7 +64,8 @@ private:
     bool paintInProcessFlag = false;
 
     // Paint queues
-    QQueue < TermGroup* > groupsForPaint;
+    QQueue < QPair<QRectF, QColor> > groupRectsForPaint;
+    QQueue < QPair<QPointF, QString> > groupNamesForPaint;
     QQueue <GraphicItemTerm*> nodesForPaint;
     QQueue <Edge*> edgesForPaint;
 };

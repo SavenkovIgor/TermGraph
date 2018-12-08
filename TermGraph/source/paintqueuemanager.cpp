@@ -7,93 +7,95 @@ PaintManager::PaintManager() : QObject ()
 
 void PaintManager::sendCleanAllSignal()
 {
-    cleanAll();
+    clearAll();
 }
 
-void PaintManager::clearGroupsQueue()
+void PaintManager::clearAllQueues()
 {
-    groupsForPaint.clear();
+    groupRectsForPaint.clear();
+    groupNamesForPaint.clear();
+    nodesForPaint.clear();
+    edgesForPaint.clear();
 }
 
-void PaintManager::addGroup(TermGroup *group, bool sendPaintSignal)
+void PaintManager::addGroup(TermGroup *group, bool ignoreNeedPaintFlag, bool paintNow)
 {
-    groupsForPaint.enqueue(group);
-    if (sendPaintSignal) {
+    groupRectsForPaint.enqueue(QPair<QRectF, QColor>(group->getGroupRect(), group->getGroupFillColor()));
+    groupNamesForPaint.enqueue(QPair<QPointF, QString>(group->getNamePos(), group->getName()));
+
+    for (auto edge : group->getAllEdgesForPainting()) {
+        if (ignoreNeedPaintFlag) {
+            edgesForPaint.enqueue(edge);
+        } else {
+            if (edge->needPaint) {
+                edgesForPaint.enqueue(edge);
+                edge->needPaint = false;
+            }
+        }
+    }
+
+    for (auto node : group->getAllNodes()) {
+        if (ignoreNeedPaintFlag) {
+            nodesForPaint.enqueue(node);
+        } else {
+            if (node->needPaint) {
+                nodesForPaint.enqueue(node);
+                node->needPaint = false;
+            }
+        }
+    }
+
+    if (paintNow) {
         paintGroupQueue();
     }
 }
 
-void PaintManager::addNode(GraphicItemTerm *node, bool sendPaintSignal)
+void PaintManager::addNode(GraphicItemTerm *node, bool paintNow)
 {
     nodesForPaint.enqueue(node);
-    if (sendPaintSignal) {
+    if (paintNow) {
         paintNodeQueue();
     }
 }
 
-void PaintManager::fillNodeAndEdgeQueuesFromCurrentGroup()
+void PaintManager::nextGroupRect()
 {
-    for (auto edge : groupsForPaint.head()->getAllEdgesForPainting()) {
-        if (edge->needPaint) {
-            edgesForPaint.enqueue(edge);
-            edge->needPaint = false;
-        }
-    }
-
-    for (auto node : groupsForPaint.head()->getAllNodes()) {
-        if (node->needPaint) {
-            nodesForPaint.enqueue(node);
-            node->needPaint = false;
-        }
-    }
+    groupRectsForPaint.dequeue();
 }
 
-void PaintManager::nextGroup()
+bool PaintManager::groupRectQueueEmpty()
 {
-    groupsForPaint.dequeue();
-}
-
-bool PaintManager::groupQueueEmpty()
-{
-    return groupsForPaint.isEmpty();
+    return groupRectsForPaint.isEmpty();
 }
 
 QRectF PaintManager::currentGroupRect()
 {
-    return groupsForPaint.head()->getGroupRect();
+    return groupRectsForPaint.head().first;
 }
 
 QColor PaintManager::currentGroupFillColor()
 {
-    return groupsForPaint.head()->getGroupFillColor();
+    return groupRectsForPaint.head().second;
+}
+
+void PaintManager::nextGroupName()
+{
+    groupNamesForPaint.dequeue();
+}
+
+bool PaintManager::groupNamesQueueEmpty()
+{
+    return groupNamesForPaint.isEmpty();
 }
 
 QString PaintManager::currentGroupName()
 {
-    return groupsForPaint.head()->getName();
+    return groupNamesForPaint.head().second;
 }
 
 QPointF PaintManager::currentGroupNamePos()
 {
-    return groupsForPaint.head()->getNamePos();
-}
-
-QStringList PaintManager::currentGroupAllNodeNames()
-{
-    QStringList ret;
-    for (auto node : groupsForPaint.head()->getAllNodes()) {
-        ret << node->getSmallName();
-    }
-    return ret;
-}
-
-QList<QRectF> PaintManager::currentGroupAllRects()
-{
-    QList<QRectF> ret;
-    for (auto node : groupsForPaint.head()->getAllNodes()) {
-        ret << node->getNodeRect(CoordType::scene);
-    }
-    return ret;
+    return groupNamesForPaint.head().first;
 }
 
 void PaintManager::nextEdge()

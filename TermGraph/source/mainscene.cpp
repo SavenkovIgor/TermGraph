@@ -432,7 +432,7 @@ void MainScene::paintOneGroupIfNeed()
 
         paintGroup->alreadyPainted = true;
 
-        paintManager->clearGroupsQueue();
+        paintManager->clearAllQueues();
         paintManager->addGroup(paintGroup);
 
         userInactiveTimer.start();

@@ -230,7 +230,7 @@ Page {
             property bool paintNode: false
             property bool clearAll: false
 
-            renderStrategy: Canvas.Threaded
+            renderStrategy: Canvas.Cooperative
             renderTarget: Canvas.Image
 
             Component.onCompleted: {
@@ -253,7 +253,7 @@ Page {
                     sceneImage.paintNode = true
                     sceneImage.requestPaint()
                 }
-                onCleanAll: {
+                onClearAll: {
                     sceneImage.clearAll = true
                     sceneImage.requestPaint()
                 }
@@ -274,7 +274,7 @@ Page {
                 }
 
                 if (sceneImage.paintNode) {
-                    paintNodesOnly(ctx)
+                    paintNodes(ctx)
                     sceneImage.paintNode = false
                 }
 
@@ -288,56 +288,41 @@ Page {
             }
 
             function paintAll(ctx) {
-                sceneObj.startCheckTimer()
+                paintGroupRects(ctx)
+                paintGroupNames(ctx)
+                paintEdges(ctx)
+                paintNodes(ctx)
+            }
+
+            function paintGroupRects(ctx) {
 
                 while (true) {
-                    if (paintManager.groupQueueEmpty())
+                    if (paintManager.groupRectQueueEmpty())
                         break;
-
-                    paintManager.fillNodeAndEdgeQueuesFromCurrentGroup()
 
                     var groupRect = paintManager.currentGroupRect()
                     // JsPaint.clearRect(ctx, groupRect, 2)
                     JsPaint.paintRect(ctx, groupRect, "#FFFFFF")
 
+                    paintManager.nextGroupRect()
+                }
+            }
+
+            function paintGroupNames(ctx) {
+
+                while (true) {
+                    if (paintManager.groupNamesQueueEmpty())
+                        break;
+
                     var groupName = paintManager.currentGroupName()
                     var groupNamePos = paintManager.currentGroupNamePos()
                     JsPaint.paintGroupName(ctx, groupName, groupNamePos)
 
-                    paintAllEdgesInThisGroup(ctx)
-                    paintAllRectsInThisGroup(ctx)
-
-                    paintManager.nextGroup()
+                    paintManager.nextGroupName()
                 }
             }
 
-
-            function paintNodesOnly(ctx) {
-
-                JsPaint.prepareRoundedRects(ctx)
-                JsPaint.prepareText(ctx)
-
-                while (true) {
-                    if (paintManager.nodeQueueEmpty()) {
-                        break;
-                    }
-
-                    var rect = paintManager.currentNodeRect()
-                    var color = paintManager.currentNodeColor()
-                    var radius = paintManager.currentNodeRadius()
-
-                    JsPaint.paintRoundedRect(ctx, rect, color, radius)
-
-                    var center = paintManager.currentNodeCenter()
-                    var text = paintManager.currentNodeText()
-
-                    JsPaint.paintTextWithSplit(ctx, text, center, rect)
-
-                    paintManager.nextNode()
-                }
-            }
-
-            function paintAllEdgesInThisGroup(ctx) {
+            function paintEdges(ctx) {
                 JsPaint.prepareEdge(ctx)
 
                 while (true) {
@@ -355,11 +340,10 @@ Page {
                 }
             }
 
-            function paintAllRectsInThisGroup(ctx) {
-                JsPaint.prepareRoundedRects(ctx)
-                JsPaint.prepareText(ctx)
+            function paintNodes(ctx) {
+                JsPaint.prepareRects(ctx)
 
-                for (var j = 0; j < 1000000; j++) {
+                while (true) {
                     if (paintManager.nodeQueueEmpty()) {
                         break;
                     }
