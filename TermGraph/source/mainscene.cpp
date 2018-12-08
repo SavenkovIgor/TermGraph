@@ -223,8 +223,8 @@ void MainScene::setSceneViewRect(int x, int y, int width, int height)
 
     if (tmpRect != sceneRect) {
         sceneRect = tmpRect;
-        resetPaintFlags();
-        sceneUpdated();
+//        resetPaintFlags();
+//        sceneUpdated();
     }
 
     userInactiveTimer.start();
@@ -244,6 +244,7 @@ void MainScene::resetPaintFlags()
 
 void MainScene::setMousePos(qreal x, qreal y)
 {
+    startCheckTimer();
     findHover(QPointF(x,y));
 }
 
@@ -289,6 +290,9 @@ void MainScene::showGroup(QString groupName)
     }
 
     if (groupName == "Все группы") {
+        locateGroupsVertically();
+        resetPaintFlags();
+        userInactiveTimer.start();
         for (TermGroup* group : groupList) {
             group->baseRect->show();
         }
@@ -296,16 +300,20 @@ void MainScene::showGroup(QString groupName)
     } else {
         for (TermGroup* group : groupList) {
             if (group->getName().contains(groupName)) {
-                group->baseRect->show();
-                QRectF baseRc = group->baseRect->rect().translated(group->baseRect->scenePos());
-                centerViewOn(baseRc.center());
+                group->baseRect->show();  // TODO: Delete show/hide. Not need
+                group->setBasePoint(QPointF(40, 40));
+
+                paintManager->addGroup(group, true);
+                // centerViewOn(baseRc.center());
             } else {
                 group->baseRect->hide();
+                group->setBasePoint(QPointF(10000,10000));
             }
         }
     }
 
     updateSceneRect();
+    sceneUpdated();
 
     lastGroupName = groupName;
 }
@@ -435,7 +443,7 @@ void MainScene::paintOneGroupIfNeed()
         paintManager->clearAllQueues();
         paintManager->addGroup(paintGroup);
 
-        userInactiveTimer.start();
+//        userInactiveTimer.start();
     } else {
         qDebug() << "No paint";
     }
@@ -469,10 +477,13 @@ void MainScene::findHover(const QPointF &atPt)
         mouseMoveReactionTimer.start();
     }
 
+    bool needSignal = false;
+
     if (hoverNode != nullptr) {
         if (!hoverNode->getNodeRect(CoordType::scene).contains(atPt)) {
             hoverNode->setHover(false);
-            paintManager->addNode(hoverNode, true);
+            paintManager->addNode(hoverNode, false);
+            needSignal = true;
             hoverNode = nullptr;
         } else {
             return;
@@ -482,8 +493,14 @@ void MainScene::findHover(const QPointF &atPt)
     if (auto node = getNodeAtPoint(atPt)) {
         node->setHover(true);
         hoverNode = node;
-        paintManager->addNode(node, true);
+        paintManager->addNode(node, false);
+        needSignal = true;
     }
+
+    if (needSignal) {
+        paintManager->sendPaintNodeSignal();
+    }
+    restartCheckTimer("hoverSearch" + QTime::currentTime().toString());
 }
 
 void MainScene::findClick(const QPointF &atPt)

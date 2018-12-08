@@ -10,6 +10,11 @@ void PaintManager::sendCleanAllSignal()
     clearAll();
 }
 
+void PaintManager::sendPaintNodeSignal()
+{
+    paintNodeQueue();
+}
+
 void PaintManager::clearAllQueues()
 {
     groupRectsForPaint.clear();

@@ -265,6 +265,7 @@ Page {
             }
 
             onPaint: {
+                console.log("Paint call")
                 paintManager.setPaintInProcessFlag(true)
                 var ctx = sceneImage.getContext('2d')
 
@@ -274,7 +275,9 @@ Page {
                 }
 
                 if (sceneImage.paintNode) {
+                    sceneObj.restartCheckTimer("signalReceived");
                     paintNodes(ctx)
+                    sceneObj.restartCheckTimer("paintEnded");
                     sceneImage.paintNode = false
                 }
 
