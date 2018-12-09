@@ -105,11 +105,15 @@ void MainScene::updateModel()
     deleteAllGroups();
     initAllGroups();
 
-    for (TermGroup* group : groupList) {
+    for (auto group : groupList) {
         group->sceneUpdateSignal();
     }
 
-    locateGroupsVertically();
+    if (!groupList.isEmpty()) {
+        showGroup(groupList.first()->getUuid());
+    } else {
+        locateGroupsVertically();
+    }
 
 //    viewGrpTimer.start(200);
     sceneRhytm.start();
@@ -140,7 +144,7 @@ void MainScene::updateSceneRect()
     QRectF allRect;
 
     for (auto group : groupList) {
-        if (!group->baseRect->isVisible()) {
+        if (group->getUuid() != currGroupUuid) {
             continue;
         }
 
@@ -276,46 +280,42 @@ GraphicItemTerm *MainScene::getSelected()
 
 void MainScene::showGroup(QString groupName)
 {
-//    if( viewGrpTimer.isActive() ) {
-//        timerCount++;
-//        if( timerCount > 5 ) {
-//            viewGrpTimer.stop();
-//            timerCount = 0;
-//        }
-//    }
-
-    static QString lastGroupName;
-    if (groupName == "") {
-        groupName = lastGroupName;
-    }
-
     if (groupName == "Все группы") {
-        locateGroupsVertically();
-        resetPaintFlags();
-        userInactiveTimer.start();
-        for (TermGroup* group : groupList) {
-            group->baseRect->show();
-        }
-
+        showAllGroups();
+        updateSceneRect();
+        sceneUpdated();
+        currGroupUuid = QUuid();
     } else {
-        for (TermGroup* group : groupList) {
-            if (group->getName().contains(groupName)) {
-                group->baseRect->show();  // TODO: Delete show/hide. Not need
-                group->setBasePoint(QPointF(40, 40));
+        auto groupUuid = groupsMgr->getGroupUuid(groupName);
+        if (!groupUuid.isNull()) {
+            showGroup(groupUuid);
+        }
+    }
+}
 
-                paintManager->addGroup(group, true);
-                // centerViewOn(baseRc.center());
-            } else {
-                group->baseRect->hide();
-                group->setBasePoint(QPointF(10000,10000));
-            }
+void MainScene::showGroup(QUuid groupUuid)
+{
+    currGroupUuid = QUuid();
+
+    for (auto group : groupList) {
+        if (group->getUuid() == groupUuid) {
+            group->setBasePoint(QPointF(40, 40));
+            paintManager->addGroup(group, true);
+            currGroupUuid = groupUuid;
+        } else {
+            group->setBasePoint(QPointF(10000,10000));
         }
     }
 
     updateSceneRect();
     sceneUpdated();
+}
 
-    lastGroupName = groupName;
+void MainScene::showAllGroups()
+{
+    locateGroupsVertically();
+    resetPaintFlags();
+    userInactiveTimer.start();
 }
 
 void MainScene::setAnimSpeed(int val)

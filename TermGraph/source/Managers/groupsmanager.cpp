@@ -20,7 +20,7 @@ QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
     QStringList groupNames = getGroupNames(allUuids);
 
     if (withAllVeiw) {
-        groupNames.push_front("Все группы");
+        groupNames.push_back("Все группы");
     }
 
     return groupNames;

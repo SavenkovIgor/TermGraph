@@ -26,8 +26,6 @@ class MainScene : public QGraphicsScene  // TODO: Maybe remove QGraphicScene dep
     void addGroupToScene(TermGroup* group);
     void deleteAllGroups();
 
-//    QTimer viewGrpTimer;
-//    int    timerCount;
     QTimer sceneRhytm;
 
     QTimer userInactiveTimer;
@@ -51,14 +49,8 @@ public:
     void setAnimSpeed(int val);
 
 signals:
-    //    void mousePos(QString);
-
-    void stopMove();
-
     void someSelected();
     void selectionDrop();
-
-    void mouseInfo(QString str);
 
     void sceneUpdated();
 
@@ -68,7 +60,9 @@ signals:
 
 public slots:
     void showGroup(int num);  // TODO: Постараться избавиться от этой функции
-    void showGroup(QString grp = "");
+    void showGroup(QString grp);
+    void showGroup(QUuid groupUuid);
+    void showAllGroups();
 
     void toPreviousGroup() {
         currGroupIndex = qBound(0, currGroupIndex - 1, groupList.size() - 1);
@@ -162,6 +156,7 @@ private:
     PaintManager* paintManager;
 
     QList < TermGroup* > groupList;
+    QUuid currGroupUuid;
 
     QString getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction);
 };
