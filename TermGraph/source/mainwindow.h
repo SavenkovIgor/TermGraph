@@ -14,8 +14,6 @@
 #include "./Helpers/appconfig.h"
 #include "./glb.h"
 
-class MainScene;
-
 class MainWindow : public QObject
 {
     Q_OBJECT
@@ -24,22 +22,17 @@ public:
     explicit MainWindow(QObject *parent = nullptr);
     ~MainWindow();
 
-    void saveSett();
-    void loadSett();
-
-private slots:
-    void onQmlCreated(QObject *, QUrl);
-    void openBase();
+    // App settings
+//    void saveAppSettings();
+//    void loadAppSettings();
 
 public slots:
-    void testSlot();
     int getUiElementSize(QString elementTypeName);
 
 private:
     void initElemSizes();
     QMap<QString, int> elementSizes;
 
-    DBAbstract* db;
     MainScene* scene;
 
     QQmlApplicationEngine* engn;

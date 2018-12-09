@@ -9,11 +9,9 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
 
     QQuickStyle::setStyle("Material");
 
-    db = new DBAbstract(AppConfig::StdFolderPaths::defaultDatabaseFilePath());
-
-    Glb::db = db;
-
-    db->makeStartBaseCheck();
+    // Database init
+    Glb::db = new DBAbstract(AppConfig::StdFolderPaths::defaultDatabaseFilePath());
+    Glb::db->makeStartBaseCheck();
 
     tagProcessor = new TagProcessor();
 
@@ -23,19 +21,11 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
 
     scene = new MainScene(groupsMgr, nodesMgr);
 
-//    Glb::scRef = scene;
-
     // remind = new Reminder(scene->getAllNodes());
 
     analyze = new WordFreqAnalyze();
 
     qmlRegisterType<GraphicItemTerm>();
-
-    connect(
-                engn,
-                SIGNAL(objectCreated(QObject*, QUrl)),
-                SLOT(onQmlCreated(QObject*, QUrl)));
-
 
     engn->rootContext()->setContextProperty("mainObj", this);
     engn->rootContext()->setContextProperty("sceneObj", scene);
@@ -49,54 +39,19 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
 
 MainWindow::~MainWindow()
 {
-    saveSett();
+//    saveAppSettings();
     delete engn;
 }
 
-void MainWindow::saveSett()
-{
-    QSettings sett("appSettings.ini", QSettings::IniFormat);
-    // TODO: заменить индекс группы на uuid
-//    sett.setValue("animationSpeed", TermGroup::getAnimSpeed());
-}
+//void MainWindow::saveAppSettings()
+//{
+//    QSettings sett(AppConfig::StdFolderPaths::defaultConfigFilePath(), QSettings::IniFormat);
+//}
 
-void MainWindow::loadSett()
-{
-    QSettings sett("appSettings.ini", QSettings::IniFormat);
-    QString str = sett.value("currGroup", "").toString();
-    if (str == "")
-        return;
-
-    // TODO: Переделать заргузку на сцену и на uuid
-//    scene->setAnimSpeed( sett.value("animationSpeed",300).toInt() );
-}
-
-void MainWindow::onQmlCreated(QObject*, QUrl)
-{
-    loadSett();
-}
-
-void MainWindow::openBase()
-{
-//    QFileDialog *dial = new QFileDialog(
-//                this,
-//                "Select database",
-//                qApp->applicationDirPath(),
-//                "Database( *.termGraph *.sqlite )");
-//    dial->exec();
-//    QStringList lst = dial->selectedFiles();
-//    if( lst.isEmpty() )
-//        return;
-
-//    db->openDB(lst.first());
-//    dbPath = lst.first();
-//    scene->updateModel();
-}
-
-void MainWindow::testSlot()
-{
-    scene->updateModel();
-}
+//void MainWindow::loadAppSettings()
+//{
+//    QSettings sett(AppConfig::StdFolderPaths::defaultConfigFilePath(), QSettings::IniFormat);
+//}
 
 int MainWindow::getUiElementSize(QString elementTypeName)
 {
