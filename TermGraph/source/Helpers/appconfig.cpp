@@ -34,6 +34,21 @@ QString AppConfig::StdFolderPaths::defaultDatabaseFilePath()
     return dbFilePath;
 }
 
+QString AppConfig::StdFolderPaths::defaultConfigFilePath()
+{
+    QString configFilePath;
+
+#if defined( Q_OS_WIN ) || defined( Q_OS_LINUX ) || defined( Q_OS_MACOS )
+    configFilePath = userAppConfigFolder() + "/appSettings.ini";
+#endif
+
+#if defined( Q_OS_ANDROID )
+    configFilePath = "appSettings.ini";
+#endif
+
+    return configFilePath;
+}
+
 QString AppConfig::StdFolderPaths::userAppConfigFolder()
 {
     return QDir::home().absolutePath() + "/.TermGraph";

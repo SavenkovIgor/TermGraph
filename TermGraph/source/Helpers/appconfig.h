@@ -23,6 +23,7 @@ public:
 
     static QString groupsJsonFolder();
     static QString defaultDatabaseFilePath();
+    static QString defaultConfigFilePath();
 
 private:
     static QString userAppConfigFolder();
