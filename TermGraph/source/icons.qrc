@@ -96,5 +96,11 @@
         <file>icons/spreadsheet-6x.png</file>
         <file>icons/spreadsheet-8x.png</file>
         <file>icons/spreadsheet.png</file>
+        <file>icons/check.png</file>
+        <file>icons/check-2x.png</file>
+        <file>icons/check-3x.png</file>
+        <file>icons/check-4x.png</file>
+        <file>icons/check-6x.png</file>
+        <file>icons/check-8x.png</file>
     </qresource>
 </RCC>

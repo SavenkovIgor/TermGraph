@@ -20,9 +20,13 @@ Page {
         id: mainHeader
         titleText: ""
 
-        Component.onCompleted: mainHeader.showArrowIcon()
+        Component.onCompleted: {
+            mainHeader.showCheckButton()
+            mainHeader.showArrowIcon()
+        }
 
         onMenuClick: mainStack.pop()
+        onCheckClick: newNodeEdit.addOrChangeNode()
     }
 
     Keys.onEscapePressed: {
@@ -32,7 +36,7 @@ Page {
     Keys.onPressed: {
         if( event.modifiers === Qt.ControlModifier )
             if( event.key === Qt.Key_Return || event.key === Qt.Key_Enter )
-                addNode.addOrChangeNode()
+                newNodeEdit.addOrChangeNode()
     }
 
     function moveBack() {
@@ -45,13 +49,11 @@ Page {
             clear()
             changeLbl.visible = false
             changeN.visible = false
-            addNode.text = "Добавить"
             mainHeader.titleText = "Добавить вершину"
         } else {
             fillInfo()
             changeLbl.visible = true
             changeN.visible = true
-            addNode.text = "Изменить"
             mainHeader.titleText = "Изменить вершину"
         }
         termName.forceActiveFocus()
@@ -73,6 +75,36 @@ Page {
         termDefin.text   = ""
         termDescr.text   = ""
         termExampl.text  = ""
+    }
+
+    function addOrChangeNode() {
+        if(termName.text == "") {
+            emptyNodeNameDelDialog.visible = true
+            return
+        }
+
+        if( changeN.text == "" ) {
+            nodesManager.addNewNode(
+                        termName.text,
+                        termForms.text,
+                        termDefin.text,
+                        termDescr.text,
+                        termExampl.text,
+                        nodeGroup.currentText
+                        )
+        } else {
+            nodesManager.changeNode(
+                        changeN.text,
+                        termName.text,
+                        termForms.text,
+                        termDefin.text,
+                        termDescr.text,
+                        termExampl.text,
+                        nodeGroup.currentText
+                        )
+        }
+
+        moveBack()
     }
 
 
@@ -111,7 +143,7 @@ Page {
 
                 Label {
                     id : changeN
-//                    text: mainObj.changeNum
+                    //                    text: mainObj.changeNum
                     font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
                     onTextChanged: {
                         fillInfo()
@@ -215,42 +247,6 @@ Page {
 
                 standardButtons: StandardButton.Ok
                 icon: StandardIcon.Warning
-            }
-
-            MySquareButton {
-                id: addNode
-                text : "Добавить/Изменить"
-
-                onClicked: addOrChangeNode()
-                function addOrChangeNode() {
-                    if(termName.text == "") {
-                        emptyNodeNameDelDialog.visible = true
-                        return
-                    }
-
-                    if( changeN.text == "" ) {
-                        nodesManager.addNewNode(
-                                    termName.text,
-                                    termForms.text,
-                                    termDefin.text,
-                                    termDescr.text,
-                                    termExampl.text,
-                                    nodeGroup.currentText
-                                    )
-                    } else {
-                        nodesManager.changeNode(
-                                    changeN.text,
-                                    termName.text,
-                                    termForms.text,
-                                    termDefin.text,
-                                    termDescr.text,
-                                    termExampl.text,
-                                    nodeGroup.currentText
-                                    )
-                    }
-
-                    moveBack()
-                }
             }
 
             //            Item{
