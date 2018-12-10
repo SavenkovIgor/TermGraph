@@ -125,6 +125,7 @@ Page {
 
     ScrollView {
         anchors.fill: parent
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
         Column {
             id: viewColumn

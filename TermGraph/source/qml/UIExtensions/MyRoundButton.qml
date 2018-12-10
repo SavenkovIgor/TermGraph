@@ -55,7 +55,7 @@ RoundButton {
     anchors.margins: width/2
     z: 1
 
-    background: Rectangle{
+    background: Rectangle {
         id: back
         radius: width/2
         color: {
