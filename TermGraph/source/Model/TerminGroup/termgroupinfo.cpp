@@ -112,7 +112,7 @@ void TermGroupInfo::removeCycles()
     for (auto edge : brokeList) {
         edge->brokeEdge();
         edgesList.removeOne(edge);
-        delete edge;
+//        delete edge;  // TODO: Разобраться почему упало
     }
 }
 
