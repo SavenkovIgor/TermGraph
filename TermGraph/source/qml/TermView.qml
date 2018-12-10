@@ -58,10 +58,11 @@ Page {
 
     ScrollView {
         anchors.fill: parent
+        clip: true
+        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
         ColumnLayout {
             spacing: 14
-//            padding: 10
             width: termView.width
 
             MyLabelPair{
@@ -88,10 +89,6 @@ Page {
                 id: ptExamples
                 name: "Пример:"
             }
-
-            //                    Item{
-            //                        Layout.fillHeight: true
-            //                    }
         }
     }
 }

@@ -3,12 +3,10 @@ import QtQuick.Layouts 1.3
 import QtQuick.Controls 2.2
 import QtQuick.Window 2.3
 
-Column {
+ColumnLayout {
 
     property alias name: nameLbl.text
     property alias text: textLbl.text
-
-//    height: Math.max(nameLbl.height,textLbl.height)
 
     spacing: 6
 
@@ -16,21 +14,17 @@ Column {
         id: nameLbl
         font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity + 1
         font.weight: Font.DemiBold
-//        anchors.left: parent.left
+
+        Layout.fillWidth: true
     }
+
     Label {
         id: textLbl
         font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity
         wrapMode: TextEdit.WordWrap
 
-        anchors.left: parent.left
-        anchors.right: parent.right
-
         anchors.leftMargin: 30
 
-//        onHeightChanged: {
-//            parent.height = Math.max(nameLbl.height,textLbl.height)
-//        }
-
+        Layout.fillWidth: true
     }
 }
