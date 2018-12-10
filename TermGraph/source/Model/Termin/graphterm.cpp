@@ -50,7 +50,7 @@ bool GraphTerm::isInTree()
 
 bool GraphTerm::hasConnections()
 {
-    return !( rootNodes.isEmpty() && leafNodes.isEmpty() );
+    return !( edgesToRoots.isEmpty() && edgesToLeafs.isEmpty() );
 }
 
 NodeType GraphTerm::getNodeType()
@@ -130,12 +130,10 @@ void GraphTerm::addEdgeRef(GraphEdge *edge)
 {
     if (edge->getRoot() == this && edge->getLeaf() != this) {  // We are source - connection up
         edgesToLeafs << edge;
-        leafNodes << edge->getLeaf();
     }
 
     if (edge->getLeaf() == this && edge->getRoot() != this) {  // We are acceptor - connection down
         edgesToRoots << edge;
-        rootNodes << edge->getRoot();
     }
 }
 
@@ -163,19 +161,31 @@ bool GraphTerm::hasConnectionsInGroup()
 GraphTerm::List GraphTerm::getUpDownNodes()
 {
     List ret;
-    ret << rootNodes;
-    ret << leafNodes;
+    ret << getRootNodes();
+    ret << getLeafNodes();
     return ret;
 }
 
 GraphTerm::List GraphTerm::getRootNodes()
 {
-    return rootNodes;
+    GraphTerm::List ret;
+
+    for (auto edge : edgesToRoots) {
+        ret << edge->getOtherSide(this);
+    }
+
+    return ret;
 }
 
 GraphTerm::List GraphTerm::getLeafNodes()
 {
-    return leafNodes;
+    GraphTerm::List ret;
+
+    for (auto edge : edgesToLeafs) {
+        ret << edge->getOtherSide(this);
+    }
+
+    return ret;
 }
 
 GraphTerm::List GraphTerm::getNeighbourNodes()
@@ -203,16 +213,12 @@ GraphEdge::List GraphTerm::getAllConnectedEdges()
 
 void GraphTerm::removeEdgeToLeafs(GraphEdge *edge)
 {
-    auto node = edge->getOtherSide(this);
     edgesToLeafs.removeOne(edge);
-    leafNodes.removeOne(node);
 }
 
 void GraphTerm::removeEdgeToRoots(GraphEdge *edge)
 {
-    auto node = edge->getOtherSide(this);
     edgesToRoots.removeOne(edge);
-    rootNodes.removeOne(node);
 }
 
 void GraphTerm::addBrokenEdge(GraphEdge *edge)

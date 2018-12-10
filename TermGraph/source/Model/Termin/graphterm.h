@@ -68,9 +68,6 @@ public:
     GraphEdge::List getBrokenEdges() const;
 
 private:
-    List rootNodes;
-    List leafNodes;
-
     List neighbourNodes;
 
     GraphEdge::List edgesToOtherGroups;  // Пока никак не используются но будут.
