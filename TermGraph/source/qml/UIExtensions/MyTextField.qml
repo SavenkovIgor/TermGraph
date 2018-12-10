@@ -19,21 +19,14 @@ Column {
 
     Label {
         id: label
-        anchors {
-            left: parent.left
-            right: parent.right
-        }
+        width: parent.width
         font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
     }
 
     TextField {
         id : txtField
+        width: parent.width
         font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
-        anchors {
-            left: parent.left
-            right: parent.right
-        }
-
         selectByMouse: true
     }
 }
