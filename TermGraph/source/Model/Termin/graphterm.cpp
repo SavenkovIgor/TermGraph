@@ -234,17 +234,13 @@ GraphEdge::List GraphTerm::getBrokenEdges() const {
 
 void GraphTerm::checkForExceedEdges()
 {
-    for (auto breakTargetEdge : edgesToRoots) {
-        auto otherSide = breakTargetEdge->getOtherSide(this);
-
-        for (auto edgesForCheck : edgesToRoots) {
-            if (breakTargetEdge == edgesForCheck) {
-                continue;
-            }
-
-            // If we can find this node in other path, remove direct edge
-            if (edgesForCheck->getOtherSide(this)->hasTermInRoots(otherSide)) {
-                breakTargetEdge->needCutOut = true;
+    for (auto node : getRootNodes()) {
+        if (findLongPathToNode(node) != nullptr) {
+            // If we found long path, we need mark direct path for cut out
+            for (auto edge : edgesToRoots) {
+                if (edge->getOtherSide(this) == node) {
+                    edge->needCutOut = true;
+                }
             }
         }
     }
@@ -263,4 +259,21 @@ bool GraphTerm::hasTermInRoots(GraphTerm* term)
     }
 
     return false;
+}
+
+GraphEdge *GraphTerm::findLongPathToNode(GraphTerm *node)
+{
+    for (auto edge : edgesToRoots) {
+
+        auto otherSideNode = edge->getOtherSide(this);
+        // Ignore direct connection
+        if (otherSideNode == node) {
+            continue;
+        }
+
+        if (otherSideNode->hasTermInRoots(node)) {
+            return edge;
+        }
+    }
+    return nullptr;
 }

@@ -30,6 +30,7 @@ void TermGroup::initNewNodes()
 {
     loadEdges();
     removeCycles();
+    removeExceedEdges();
 
     baseRect = new QGraphicsRectItem(QRectF(QPoint(0, 0), QSizeF(10.0, 10.0)), nullptr);
     baseRect->setZValue(1);

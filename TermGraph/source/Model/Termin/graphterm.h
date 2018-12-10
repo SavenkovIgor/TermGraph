@@ -82,6 +82,8 @@ private:
     unsigned int treeId = 0; // 0 = no value
 
     bool hasTermInRoots(GraphTerm* term);
+
+    GraphEdge *findLongPathToNode(GraphTerm* node);
 };
 
 #endif // TERMGRAPH_H
