@@ -384,10 +384,10 @@ Page {
 
             id: groupListView
             anchors.fill: parent
-            model: groupsManager.getAllGroupsNames(true)
+            model: groupsManager.getAllGroupsNames()
 
             function refreshModel() {
-                model = groupsManager.getAllGroupsNames(true)
+                model = groupsManager.getAllGroupsNames()
             }
 
             keyNavigationEnabled: true
