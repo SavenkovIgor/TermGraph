@@ -23,6 +23,7 @@ public:
 
     bool needPaint = true;  // Flag for placing in paintQueue
     bool needBroke = false;
+    bool needCutOut = false;
 
 private:
     GraphTerm* toRoot;

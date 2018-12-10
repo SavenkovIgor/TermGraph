@@ -67,6 +67,8 @@ public:
     void addBrokenEdge(GraphEdge* edge);
     GraphEdge::List getBrokenEdges() const;
 
+    void checkForExceedEdges();
+
 private:
     List neighbourNodes;
 
@@ -78,6 +80,8 @@ private:
 
     int paintLevel = -1;
     unsigned int treeId = 0; // 0 = no value
+
+    bool hasTermInRoots(GraphTerm* term);
 };
 
 #endif // TERMGRAPH_H

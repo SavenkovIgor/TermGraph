@@ -50,6 +50,7 @@ public:
     QColor getEdgeColor() const;
 
     void brokeEdge();
+    void cutOutFromSides();
 
 private:
     bool wide = false;

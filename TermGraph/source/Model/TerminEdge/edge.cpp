@@ -19,6 +19,12 @@ void Edge::brokeEdge()
     type = EdgeType::broken;
 }
 
+void Edge::cutOutFromSides()
+{
+    getRoot()->removeEdgeToLeafs(this);
+    getLeaf()->removeEdgeToRoots(this);
+}
+
 Edge::Edge(PaintedTerm* from, PaintedTerm* to, EdgeType type) :
     GraphEdge(from, to)
 {

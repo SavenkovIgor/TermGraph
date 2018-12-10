@@ -48,6 +48,7 @@ protected:
     // Edges tools
     void loadEdges();
     void removeCycles();
+    void removeExceedEdges();
 
     // Tree tools
     void setLevels();

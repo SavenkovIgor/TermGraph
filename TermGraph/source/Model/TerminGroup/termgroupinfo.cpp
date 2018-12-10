@@ -112,6 +112,29 @@ void TermGroupInfo::removeCycles()
     for (auto edge : brokeList) {
         edge->brokeEdge();
         edgesList.removeOne(edge);
+        delete edge;
+    }
+}
+
+void TermGroupInfo::removeExceedEdges()
+{
+    return;
+    // First find all edges to break
+    for (auto node : nodesList) {
+        node->checkForExceedEdges();
+    }
+
+    EdgesList brokeList;
+    for (auto edge : edgesList) {
+        if (edge->needCutOut) {
+            brokeList << edge;
+        }
+    }
+
+    for (auto edge : brokeList) {
+        edge->cutOutFromSides();
+        edgesList.removeOne(edge);
+        delete edge;
     }
 }
 

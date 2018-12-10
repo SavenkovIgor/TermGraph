@@ -231,3 +231,36 @@ void GraphTerm::addBrokenEdge(GraphEdge *edge)
 GraphEdge::List GraphTerm::getBrokenEdges() const {
     return brokenEdges;
 }
+
+void GraphTerm::checkForExceedEdges()
+{
+    for (auto breakTargetEdge : edgesToRoots) {
+        auto otherSide = breakTargetEdge->getOtherSide(this);
+
+        for (auto edgesForCheck : edgesToRoots) {
+            if (breakTargetEdge == edgesForCheck) {
+                continue;
+            }
+
+            // If we can find this node in other path, remove direct edge
+            if (edgesForCheck->getOtherSide(this)->hasTermInRoots(otherSide)) {
+                breakTargetEdge->needCutOut = true;
+            }
+        }
+    }
+}
+
+bool GraphTerm::hasTermInRoots(GraphTerm* term)
+{
+    if (term == this) {
+        return true;
+    }
+
+    for (auto node : getRootNodes()) {
+        if (node->hasTermInRoots(term)) {
+            return true;
+        }
+    }
+
+    return false;
+}
