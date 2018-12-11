@@ -1,24 +1,27 @@
 #ifndef NDTBL_H
 #define NDTBL_H
 
+#include <string>
 #include "./tblbase.h"
+
+using namespace std;
 
 class NodeColumn {
 public:
-    static const QString uid;  // TODO: Грохнуть
-    static const QString longUID;
-    static const QString term;
-    static const QString termForms;
-    static const QString definition;
-    static const QString description;
-    static const QString examples;
-    static const QString wikiRef;
-    static const QString wikiImg;
-    static const QString termGroup;
-    static const QString lastRemind;
-    static const QString remindNum;
-    static const QString atLearn;
-    static const QString lastEdit;
+    constexpr static auto uid         = "uid";  // TODO: Грохнуть
+    constexpr static auto longUID     = "longUID";
+    constexpr static auto term        = "term";
+    constexpr static auto termForms   = "termForms";
+    constexpr static auto definition  = "definition";
+    constexpr static auto description = "description";
+    constexpr static auto examples    = "examples";
+    constexpr static auto wikiRef     = "wikiRef";
+    constexpr static auto wikiImg     = "wikiImg";
+    constexpr static auto termGroup   = "termGroup";
+    constexpr static auto lastRemind  = "lastRemind";
+    constexpr static auto remindNum   = "remindNum";
+    constexpr static auto atLearn     = "atLearn";
+    constexpr static auto lastEdit    = "lastEdit";
 };
 
 class NodeTable : public TblBase
@@ -43,16 +46,16 @@ public:
         initColumn(NodeColumn::lastEdit,    "TEXT");
     }
 
-    QUuid addNode(QString name);
-    QUuid addNode(QUuid uuid, QString name);
-    QSqlRecord getNodeSqlRecord(QUuid uuid);
+    QUuid addNode(const QString &name);
+    QUuid addNode(const QUuid &uuid, const QString &name);
+    QSqlRecord getNodeSqlRecord(const QUuid& uuid);
 
-    bool isNodeWithUuidExist(QUuid uuid);
+    bool isNodeWithUuidExist(const QUuid& uuid);
 
     QList<QUuid> getAllNodesUuids();
-    QList<QUuid> getAllNodesUuidsInGroup(QUuid groupUuid);
+    QList<QUuid> getAllNodesUuidsInGroup(const QUuid &groupUuid);
 
-    QDateTime getLastEdit(QUuid uuid);
+    QDateTime getLastEdit(const QUuid& uuid);
 
     void setName(const QUuid& uuid, const QString& name);
     void setWordForms(const QUuid& uuid, const QString& forms);
@@ -64,16 +67,16 @@ public:
     void setAtLearn(const QUuid &uuid, const bool &learn);
     void setGroup(const QUuid &nodeUuid, const QUuid &groupUuid);
 
-    int  getRemindNum(QUuid uuid);
-    void setRemindNum(QUuid uuid, int num, QDate date);
+    int  getRemindNum(const QUuid& uuid);
+    void setRemindNum(const QUuid& uuid, const int& num, const QDate& date);
 //    void setRemindToday(int uid);
 
-    void deleteNode(QUuid uuid);
+    void deleteNode(const QUuid& uuid);
 
 private:
     void setFieldUpdateLastEdit(const QString &columnName, const QUuid &uuid, const QString &val);
     void updateLastEdit(const QUuid &uuid);
-    bool isUuidExist(QUuid uuid);
+    bool isUuidExist(const QUuid& uuid);
 
     QUuid generateNewUuid();
 };

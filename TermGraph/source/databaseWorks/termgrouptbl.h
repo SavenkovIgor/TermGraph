@@ -5,11 +5,11 @@
 
 class TermGroupColumn {
 public:
-    static const QString uid;  // TODO: Грохнуть
-    static const QString longUID;
-    static const QString name;
-    static const QString comment;
-    static const QString type;
+    constexpr static auto uid     = "uid";  // TODO: Грохнуть
+    constexpr static auto longUID = "longUID";
+    constexpr static auto name    = "name";
+    constexpr static auto comment = "comment";
+    constexpr static auto type    = "type";
 };
 
 class TermGroupTable : public TblBase

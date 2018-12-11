@@ -5,9 +5,7 @@
 
 class CommonQueryFunctions {
 public:
-    static QString joinParam() {
-        return ", ";
-    }
+    constexpr static auto joinParam = ", ";
 
     static QString vv(QString str)
     {

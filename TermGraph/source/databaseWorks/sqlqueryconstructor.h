@@ -53,7 +53,7 @@ public:
     }
 
     QString getExpression() const {
-        return expression.join(CommonQueryFunctions::joinParam());
+        return expression.join(CommonQueryFunctions::joinParam);
     }
 };
 
