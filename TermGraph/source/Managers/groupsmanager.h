@@ -17,6 +17,9 @@ public:
             NetworkManager* network,
             QObject *parent = nullptr);
 
+    QList<QUuid> getAllUuidsSortedByLastEdit();
+    TermGroup* createGroup(const QUuid groupUuid);
+
 signals:
     void groupsListChanged();
 
@@ -48,11 +51,9 @@ private:
     bool isValidGroupJson(const QJsonDocument json);
 
     TermGroup* createGroup(const QString &groupName);
-    TermGroup* createGroup(const QUuid groupUuid);
+
 
     QDateTime getLastEdit(QUuid groupUuid);
-
-    QList<QUuid> getAllUuidsSortedByLastEdit();
 
     NodesManager* nodesMgr;
     NetworkManager* network;

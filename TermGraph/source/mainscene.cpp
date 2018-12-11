@@ -42,7 +42,17 @@ MainScene::~MainScene()
 
 void MainScene::initAllGroups()
 {
-    for (auto group : groupsMgr->getAllGroups()) {
+    QUuid loadGroup = currGroupUuid;
+
+    if (loadGroup.isNull()) {
+        auto allGroupsUuids = groupsMgr->getAllUuidsSortedByLastEdit();
+        if (!allGroupsUuids.isEmpty()) {
+            loadGroup = allGroupsUuids.first();
+        }
+    }
+
+    if (!loadGroup.isNull()) {
+        auto group = groupsMgr->createGroup(loadGroup);
         addGroupToScene(group);
     }
 }
@@ -109,15 +119,17 @@ void MainScene::updateModel()
         group->sceneUpdateSignal();
     }
 
-    if (!groupList.isEmpty()) {
-        showGroup(groupList.first()->getUuid());
-    } else {
-        locateGroupsVertically();
-    }
+//    if (!groupList.isEmpty()) {
+//        showGroup(groupList.first()->getUuid());
+//    } else {
+//        locateGroupsVertically();
+//    }
+    locateGroupsVertically();
 
 //    viewGrpTimer.start(200);
     sceneRhytm.start();
     // startAllGroupTimers();
+    updateSceneRect();
     sceneUpdated();
     userInactiveTimer.start();
     qDebug() << "model updated";
@@ -156,6 +168,7 @@ void MainScene::updateSceneRect()
     QMarginsF mrg(mV, mV, mV, mV);
     auto withMargins = allRect.marginsAdded(mrg);
     sceneRect = withMargins;
+    sceneRect = sceneRect.united(sceneViewRect);
     setSceneRect(sceneRect);
 }
 
@@ -295,18 +308,21 @@ void MainScene::showGroup(QString groupName)
 
 void MainScene::showGroup(QUuid groupUuid)
 {
-    currGroupUuid = QUuid();
+    currGroupUuid = groupUuid;
 
+    /*
     for (auto group : groupList) {
         if (group->getUuid() == groupUuid) {
-            group->setBasePoint(QPointF(40, 40));
+//            group->setBasePoint(QPointF(40, 40));
             paintManager->addGroup(group, true);
             currGroupUuid = groupUuid;
         } else {
             group->setBasePoint(QPointF(10000,10000));
         }
     }
+    */
 
+    updateModel();
     updateSceneRect();
     sceneUpdated();
 }
