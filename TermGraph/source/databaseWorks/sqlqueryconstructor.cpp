@@ -17,7 +17,7 @@ QString SqlQueryConstructor::createTable(QList<TableColumnDescription> columns)
     qry << "TABLE";
     qry << tableName;
     qry << "(";
-    qry << colsDescription.join(CommonQueryFunctions::joinParam());
+    qry << colsDescription.join(CommonQueryFunctions::joinParam);
     qry << ")";
 
     return qry.join(" ");
@@ -40,7 +40,7 @@ QString SqlQueryConstructor::selectQuery(const QStringList& columns, const Where
 {
     QStringList qry;
     qry << "SELECT";
-    qry << columns.join(CommonQueryFunctions::joinParam());
+    qry << columns.join(CommonQueryFunctions::joinParam);
     qry << "FROM";
     qry << tableName;
     if (where.getJoinedConditions() != ""){
@@ -70,11 +70,11 @@ QString SqlQueryConstructor::insertQuery(const QList<InsertContainer>& values)
     qry << "INTO";
     qry << tableName;
     qry << "(";
-    qry << columns.join(CommonQueryFunctions::joinParam());
+    qry << columns.join(CommonQueryFunctions::joinParam);
     qry << ")";
     qry << "VALUES";
     qry << "(";
-    qry << insertValues.join(CommonQueryFunctions::joinParam());
+    qry << insertValues.join(CommonQueryFunctions::joinParam);
     qry << ")";
 
     return qry.join(" ");
