@@ -184,6 +184,15 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
     return ret;
 }
 
+QStringList GroupsManager::getAllUuidStringsSortedByLastEdit()
+{
+    QStringList ret;
+    for (auto uuid : getAllUuidsSortedByLastEdit()) {
+        ret << uuid.toString();
+    }
+    return ret;
+}
+
 void GroupsManager::importGroupFromJson(const QJsonDocument& json)
 {
     DBAbstract* db = Glb::db;

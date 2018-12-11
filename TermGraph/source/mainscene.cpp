@@ -12,9 +12,6 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphi
     mouseMoveReactionTimer.setInterval(static_cast<int>(1000/AppConfig::SceneSettings::FPS));
     mouseMoveReactionTimer.setSingleShot(true);
 
-//    viewGrpTimer.setSingleShot(false);
-//    connect(&viewGrpTimer,SIGNAL(timeout()),SLOT(showGroup()));
-
     if (groupsMgr == nullptr) {
         qDebug() << "Critical error: groupsManager is null!";
     }
@@ -106,7 +103,6 @@ TermGroup *MainScene::getGroupByUuid(QUuid uuid)
 
 void MainScene::updateModel()
 {
-//    viewGrpTimer.stop();
     sceneRhytm.stop();
     userInactiveTimer.stop();
     stopAllGroupTimers();
@@ -119,14 +115,8 @@ void MainScene::updateModel()
         group->sceneUpdateSignal();
     }
 
-//    if (!groupList.isEmpty()) {
-//        showGroup(groupList.first()->getUuid());
-//    } else {
-//        locateGroupsVertically();
-//    }
     locateGroupsVertically();
 
-//    viewGrpTimer.start(200);
     sceneRhytm.start();
     // startAllGroupTimers();
     updateSceneRect();
@@ -275,53 +265,19 @@ PaintManager *MainScene::getPaintManager()
     return paintManager;
 }
 
-void MainScene::showGroup(int num)
-{
-    QStringList allGroupNames = groupsMgr->getAllGroupsNames();
-
-    if (num < 0 || num >= allGroupNames.size()) {
-        return;
-    }
-
-    showGroup(allGroupNames[num]);
-}
-
 GraphicItemTerm *MainScene::getSelected()
 {
     return selectedNode;
 }
 
-void MainScene::showGroup(QString groupName)
+void MainScene::showGroup(QString groupUuid)
 {
-    if (groupName == "Все группы") {
-        showAllGroups();
-        updateSceneRect();
-        sceneUpdated();
-        currGroupUuid = QUuid();
-    } else {
-        auto groupUuid = groupsMgr->getGroupUuid(groupName);
-        if (!groupUuid.isNull()) {
-            showGroup(groupUuid);
-        }
-    }
+    showGroup(QUuid(groupUuid));
 }
 
 void MainScene::showGroup(QUuid groupUuid)
 {
     currGroupUuid = groupUuid;
-
-    /*
-    for (auto group : groupList) {
-        if (group->getUuid() == groupUuid) {
-//            group->setBasePoint(QPointF(40, 40));
-            paintManager->addGroup(group, true);
-            currGroupUuid = groupUuid;
-        } else {
-            group->setBasePoint(QPointF(10000,10000));
-        }
-    }
-    */
-
     updateModel();
     updateSceneRect();
     sceneUpdated();

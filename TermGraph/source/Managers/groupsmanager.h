@@ -17,7 +17,6 @@ public:
             NetworkManager* network,
             QObject *parent = nullptr);
 
-    QList<QUuid> getAllUuidsSortedByLastEdit();
     TermGroup* createGroup(const QUuid groupUuid);
 
 signals:
@@ -29,6 +28,8 @@ signals:
 
 public slots:
     QStringList getAllGroupsNames(bool withAllVeiw = false);
+    QList<QUuid> getAllUuidsSortedByLastEdit();
+    QStringList getAllUuidStringsSortedByLastEdit();
     QList <TermGroup*> getAllGroups();
 
     QString getGroupName(QUuid groupUuid);

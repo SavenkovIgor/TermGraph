@@ -59,20 +59,9 @@ signals:
     void showError(QString error);
 
 public slots:
-    void showGroup(int num);  // TODO: Постараться избавиться от этой функции
-    void showGroup(QString grp);
+    void showGroup(QString groupUuid);
     void showGroup(QUuid groupUuid);
     void showAllGroups();
-
-    void toPreviousGroup() {
-        currGroupIndex = qBound(0, currGroupIndex - 1, groupList.size() - 1);
-        showGroup(currGroupIndex);
-    }
-
-    void toNextGroup() {
-        currGroupIndex = qBound(0, currGroupIndex + 1, groupList.size() - 1);
-        showGroup(currGroupIndex);
-    }
 
     void locateGroupsVertically();
     void updateSceneRect();

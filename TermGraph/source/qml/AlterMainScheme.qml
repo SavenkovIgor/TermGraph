@@ -384,10 +384,10 @@ Page {
 
             id: groupListView
             anchors.fill: parent
-            model: groupsManager.getAllGroupsNames()
+            model: groupsManager.getAllUuidStringsSortedByLastEdit()
 
             function refreshModel() {
-                model = groupsManager.getAllGroupsNames()
+                model = groupsManager.getAllUuidStringsSortedByLastEdit()
             }
 
             keyNavigationEnabled: true
@@ -397,7 +397,6 @@ Page {
                 color: "#FFFF88"
                 y: groupListView.currentItem.y;
             }
-
 
             delegate: Rectangle {
                 id: groupLstDlgt
@@ -415,14 +414,14 @@ Page {
                     PropertyChanges { target: groupLstDlgt; color: "darkGray" }
                 }
 
-                Text{
+                Text {
                     id: curText
                     padding: 30
 
                     font.weight: Font.Thin
                     height: Math.floor( font.pixelSize*2.0 )
 
-                    text: modelData
+                    text: groupsManager.getGroupName(modelData)
                     font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity
                     anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
@@ -433,7 +432,7 @@ Page {
                     anchors.fill: parent
                     onClicked: {
                         groupSelectDrw.close()
-                        sceneObj.showGroup(curText.text)
+                        sceneObj.showGroup(modelData)
                     }
                 }
             }
