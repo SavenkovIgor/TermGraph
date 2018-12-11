@@ -1,10 +1,10 @@
 #include "termgrouptbl.h"
 
-const QString TermGroupColumn::uid = "uid";
-const QString TermGroupColumn::longUID = "longUID";
-const QString TermGroupColumn::name = "name";
-const QString TermGroupColumn::comment = "comment";
-const QString TermGroupColumn::type = "type";
+
+
+
+
+
 
 bool TermGroupTable::addGroup(QString name, QString comment, int type)
 {
