@@ -1,11 +1,5 @@
 #include "termgrouptbl.h"
 
-
-
-
-
-
-
 bool TermGroupTable::addGroup(QString name, QString comment, int type)
 {
     if (name.simplified() == "") {
@@ -80,7 +74,7 @@ QUuid TermGroupTable::generateNewUuid()
     return uuid;
 }
 
-QUuid TermGroupTable::getUuid(const QString& groupName)
+QUuid TermGroupTable::getUuid(const QString& groupName) const
 {
     WhereCondition where;
     where.equal(TermGroupColumn::name, groupName);
@@ -98,7 +92,7 @@ bool TermGroupTable::hasGroupWithName(QString groupName)
     return !getUuid(groupName).isNull();
 }
 
-int TermGroupTable::getType(QUuid groupUuid)
+int TermGroupTable::getType(QUuid groupUuid) const
 {
     return getIntField(TermGroupColumn::type, groupUuid);
 }
@@ -118,7 +112,7 @@ void TermGroupTable::setType(QUuid uuid, int type)
     setField(TermGroupColumn::type, uuid, QString::number(type));
 }
 
-QString TermGroupTable::getName(const QUuid& uuid)
+QString TermGroupTable::getName(const QUuid& uuid) const
 {
     return getStringField(TermGroupColumn::name, uuid);
 }

@@ -8,7 +8,7 @@ void TblBase::setField(const QString& columnName, const QUuid& uuid, const QStri
     updateWhere(set, WhereCondition::uuidEqual(uuid));
 }
 
-int TblBase::getIntField(const QString &columnName, const QUuid &uuid)
+int TblBase::getIntField(const QString &columnName, const QUuid &uuid) const
 {
     if( !isColumnNameExist(columnName) )
         return -1;
@@ -22,7 +22,7 @@ int TblBase::getIntField(const QString &columnName, const QUuid &uuid)
     return sel.record().value(columnName).toInt();
 }
 
-QString TblBase::getStringField(const QString& columnName, const QUuid& uuid)
+QString TblBase::getStringField(const QString& columnName, const QUuid& uuid) const
 {
     if( !isColumnNameExist(columnName) )
         return "";
@@ -45,7 +45,7 @@ QStringList TblBase::getAllCols()
     return lst;
 }
 
-QSqlQuery TblBase::startQuery(const QString& queryString)
+QSqlQuery TblBase::startQuery(const QString& queryString) const
 {
     //    qDebug()<<str;
     if (queryString.simplified().isEmpty())
@@ -60,7 +60,7 @@ QSqlQuery TblBase::startQuery(const QString& queryString)
     return ret;
 }
 
-bool TblBase::hasErrors(const QString& errString)
+bool TblBase::hasErrors(const QString& errString) const
 {
     bool ret;
     ret = (errString != "" && errString != " ");
@@ -95,12 +95,12 @@ bool TblBase::insertInto(const QList<InsertContainer>& values)
     return true;
 }
 
-QSqlQuery TblBase::select(const QStringList& cols, const WhereCondition& where, const QString& orderBy)
+QSqlQuery TblBase::select(const QStringList& cols, const WhereCondition& where, const QString& orderBy) const
 {
     return executeSelect(cols, where, orderBy);
 }
 
-QSqlQuery TblBase::executeSelect(const QStringList& cols, const WhereCondition& where, const QString& orderBy)
+QSqlQuery TblBase::executeSelect(const QStringList& cols, const WhereCondition& where, const QString& orderBy) const
 {
     QString query = queryConstructor->selectQuery(cols,where,orderBy);
     return startQuery(query);

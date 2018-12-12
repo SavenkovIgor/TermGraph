@@ -32,9 +32,9 @@ public:
 
     // Getters
     QSqlRecord getGroup(const QUuid &uuid);
-    QString getName(const QUuid &uuid);
-    int getType(QUuid groupUuid);
-    QUuid getUuid(const QString &groupName);
+    QString getName(const QUuid &uuid) const;
+    int getType(QUuid groupUuid) const;
+    QUuid getUuid(const QString &groupName) const;
 
     // Massive getters
     QList<QUuid> getAllGroupsUuid();

@@ -18,13 +18,13 @@ public:
 protected:
     void setField(const QString &columnName, const QUuid &uuid, const QString &val);
 
-    int getIntField(const QString& columnName, const QUuid& uuid);
-    QString getStringField(const QString &columnName, const QUuid &uuid);
+    int getIntField(const QString& columnName, const QUuid& uuid) const;
+    QString getStringField(const QString &columnName, const QUuid &uuid) const;
 
     void initColumn(const QString &columnName, const QString &columnType);
     QStringList getAllCols();
 
-    QSqlQuery select(const QStringList &cols, const WhereCondition &where = WhereCondition(), const QString &orderBy = "");
+    QSqlQuery select(const QStringList &cols, const WhereCondition &where = WhereCondition(), const QString &orderBy = "") const;
 
     bool insertInto(const QList<InsertContainer> &values);
 
@@ -44,10 +44,10 @@ private:
     QList<TableColumnDescription> columns;
     bool isColumnNameExist(const QString& columnName) const;
 
-    QSqlQuery startQuery(const QString& str);
-    bool hasErrors(const QString &errString);
+    QSqlQuery startQuery(const QString& str) const;
+    bool hasErrors(const QString &errString) const;
 
-    QSqlQuery executeSelect(const QStringList &cols, const WhereCondition &where, const QString &orderBy = "");
+    QSqlQuery executeSelect(const QStringList &cols, const WhereCondition &where, const QString &orderBy = "") const;
     QSqlQuery executeInsert(const QList<InsertContainer> &values);
     void      executeUpdate(const SetExpression &set, const WhereCondition &where);
 
