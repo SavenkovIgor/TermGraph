@@ -84,7 +84,7 @@ Page {
         anchors.right: addGroupBtn.left
         anchors.bottom: parent.bottom
 
-        onClicked: { groupsManager.sendGroupByNetwork(groupsList.currentItem.text) }
+        onClicked: { groupsManager.sendGroupByNetwork(groupsList.currentItem.groupUuid) }
 
         Component.onCompleted: loadIcon("qrc:/icons/share-boxed")
     }
@@ -102,11 +102,11 @@ Page {
     ListView {
         id: groupsList
         anchors.fill: parent
-        model: groupsManager.getAllGroupsNames()
+        model: groupsManager.getAllUuidStringsSortedByLastEdit()
         keyNavigationEnabled: true
 
         function refreshModel() {
-            model = groupsManager.getAllGroupsNames()
+            model = groupsManager.getAllUuidStringsSortedByLastEdit()
         }
 
         highlight: Rectangle {
@@ -123,6 +123,7 @@ Page {
             anchors.right: parent.right
 
             property alias text: grpName.text
+            property string groupUuid: modelData
 
             height: grCol.height
             states: State {
@@ -142,7 +143,7 @@ Page {
 
                     font.weight: Font.Medium
 
-                    text: modelData
+                    text: groupsManager.getGroupName(modelData)
                     font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
@@ -194,7 +195,7 @@ Page {
         icon: StandardIcon.Question
 
         onYes: {
-            groupsManager.deleteGroup(groupsList.currentItem.text)
+            groupsManager.deleteGroup(groupsList.currentItem.groupUuid)
         }
     }
 

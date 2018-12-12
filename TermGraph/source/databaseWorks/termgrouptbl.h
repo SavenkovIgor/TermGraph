@@ -28,7 +28,7 @@ public:
     // Adding, deleting
     bool addGroup(QString name, QString comment, int type);
     bool addGroup(QUuid uuid, QString name, QString comment, int type);
-    void deleteGroup(QString name);
+    void deleteGroup(QUuid uuid);
 
     // Getters
     QSqlRecord getGroup(const QUuid &uuid);

@@ -76,10 +76,9 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
     }
 }
 
-void GroupsManager::deleteGroup(QString name)
+void GroupsManager::deleteGroup(QString uuidString)
 {
-    DBAbstract* db = Glb::db;
-    db->groupTbl->deleteGroup(name);
+    Glb::db->groupTbl->deleteGroup(QUuid(uuidString));
     groupsListChanged();
 }
 
@@ -274,13 +273,10 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     groupsListChanged();
 }
 
-void GroupsManager::sendGroupByNetwork(const QString groupName)
+void GroupsManager::sendGroupByNetwork(const QString groupUuid)
 {
-    TermGroup* group = createGroup(groupName);
-    if (group == nullptr) {
-        return;
+    if (auto group = createGroup(QUuid(groupUuid))) {
+        network->sendGroup(group->getJsonDoc());
+        //    delete group;  // TODO: Проверить, почему удаление вызывает ошибку
     }
-
-    network->sendGroup(group->getJsonDoc());
-//    delete group;  // TODO: Проверить, почему удаление вызывает ошибку
 }

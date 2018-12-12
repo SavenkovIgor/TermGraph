@@ -38,7 +38,7 @@ public slots:
     QStringList getGroupNames(const QList<QUuid> &groupUuids);
 
     void addNewGroup(const QString &name, const QString &comment);
-    void deleteGroup(QString name);
+    void deleteGroup(QString groupUuid);
 
     // Json
     void importGroupFromJsonFile(const QString& filename);
@@ -46,7 +46,7 @@ public slots:
     void importGroupFromJson(const QJsonDocument &json);
 
     // Network
-    void sendGroupByNetwork(const QString groupName);
+    void sendGroupByNetwork(const QString groupUuid);
 
 private:
     bool isValidGroupJson(const QJsonDocument json);

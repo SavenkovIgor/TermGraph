@@ -48,11 +48,9 @@ QList<QUuid> TermGroupTable::getAllGroupsUuid()
     return ret;
 }
 
-void TermGroupTable::deleteGroup(QString name)
+void TermGroupTable::deleteGroup(QUuid uuid)
 {
-    WhereCondition where;
-    where.equal(TermGroupColumn::name, name);
-    deleteWhere(where);
+    deleteWhere(WhereCondition::uuidEqual(uuid));
 }
 
 bool TermGroupTable::hasGroupWithUuid(const QUuid& uuid)
