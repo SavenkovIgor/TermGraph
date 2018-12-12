@@ -147,12 +147,10 @@ QList<QUuid> NodeTable::getAllNodesUuids()
 
 QList<QUuid> NodeTable::getAllNodesUuidsInGroup(const QUuid& groupUuid)
 {
-    QList<QUuid> ret;
-
-    WhereCondition where;
-    where.equal(NodeColumn::termGroup, groupUuid.toString());
-
+    auto where = WhereCondition::columnEqual(NodeColumn::termGroup, groupUuid.toString());
     RecList nodesRecords = toRecList(select(QStringList() << NodeColumn::longUID, where));
+
+    QList<QUuid> ret;
 
     for (QSqlRecord& record : nodesRecords) {
         if (!record.contains(NodeColumn::longUID)) {

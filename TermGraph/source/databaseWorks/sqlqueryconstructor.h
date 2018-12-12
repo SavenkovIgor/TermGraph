@@ -83,6 +83,18 @@ public:
         return  where;
     }
 
+    static WhereCondition columnEqual(const QString& column, const QString& value) {
+        WhereCondition where;
+        where.equal(column, value);
+        return where;
+    }
+
+    static WhereCondition columnEqual(const QString& column, const int& value) {
+        WhereCondition where;
+        where.equal(column, value);
+        return where;
+    }
+
     void notEqual(const QString& column, const int& value) {
         notEqual(column, QString::number(value));
     }

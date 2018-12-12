@@ -74,9 +74,7 @@ QUuid TermGroupTable::generateNewUuid()
 
 QUuid TermGroupTable::getUuid(const QString& groupName) const
 {
-    WhereCondition where;
-    where.equal(TermGroupColumn::name, groupName);
-
+    auto where = WhereCondition::columnEqual(TermGroupColumn::name, groupName);
     QSqlQuery q = select(QStringList() << TermGroupColumn::longUID, where);
     if (!q.next()) {
         return QUuid();
