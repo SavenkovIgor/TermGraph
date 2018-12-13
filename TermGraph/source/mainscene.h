@@ -35,11 +35,10 @@ public:
     void setAnimSpeed(int val);
 
 signals:
-
+    // Scene signals
     void someSelected();
     void selectionDrop();
-
-    void sceneUpdated();
+    void sceneContentUpdated();
 
     // Debug signals
     void showInfo(QString info);

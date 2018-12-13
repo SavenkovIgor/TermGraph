@@ -109,7 +109,7 @@ void MainScene::updateModel()
     sceneRhytm.start();
     // startAllGroupTimers();
     updateSceneRect();
-    sceneUpdated();
+    sceneContentUpdated();
     userInactiveTimer.start();
     qDebug() << "model updated";
 }
@@ -208,7 +208,7 @@ void MainScene::setSceneViewRect(int x, int y, int width, int height)
     if (tmpRect != sceneRect) {
         sceneRect = tmpRect;
 //        resetPaintFlags();
-//        sceneUpdated();
+//        sceneContentUpdated();
     }
 
     userInactiveTimer.start();
@@ -256,7 +256,7 @@ void MainScene::showGroup(QUuid groupUuid)
     currGroupUuid = groupUuid;
     updateModel();
     updateSceneRect();
-    sceneUpdated();
+    sceneContentUpdated();
 }
 
 void MainScene::showAllGroups()

@@ -240,7 +240,7 @@ Page {
 
             Connections {
                 target: sceneObj
-                onSceneUpdated: sceneCanvas.updateSize()
+                onSceneContentUpdated: sceneCanvas.updateSize()
             }
 
             Connections {
