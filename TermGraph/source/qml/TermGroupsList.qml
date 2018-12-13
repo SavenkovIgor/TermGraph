@@ -70,8 +70,8 @@ Page {
         anchors.bottom: parent.bottom
 
         onClicked: {
-            sceneObj.exportGrpToJson(groupsList.currentItem.text)
-            var path = "Группа экспортирована в папку GroupsJson\n. Путь к папке:" + sceneObj.getExportPath()
+            groupsManager.exportGrpToJson(groupsList.currentItem.text)
+            var path = "Группа экспортирована в папку GroupsJson\n. Путь к папке:" + groupsManager.getExportPath()
             groupExportedDialog.text = path
             groupExportedDialog.visible = true
         }
@@ -157,7 +157,7 @@ Page {
 
                     font.weight: Font.Thin
 
-                    text: sceneObj.getGroupString(modelData)
+                    text: "Uuid: " + modelData
                     font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity*0.7
 
                     verticalAlignment:  Text.AlignVCenter
