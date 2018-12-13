@@ -22,17 +22,6 @@ class MainScene : public QGraphicsScene  // TODO: Maybe remove QGraphicScene dep
     Q_OBJECT
     Q_PROPERTY(QRectF rect READ getSceneRect)
 
-    void initAllGroups();
-    void addGroupToScene(TermGroup* group);
-    void deleteAllGroups();
-
-    QTimer sceneRhytm;
-
-    QTimer userInactiveTimer;
-    QTimer mouseMoveReactionTimer;
-
-    int currGroupIndex = 0;
-
 public:
     MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr);
     ~MainScene();
@@ -40,20 +29,19 @@ public:
     PaintManager* getPaintManager();
 
     TermGroup* getGroupByName(QString name);
-    TermGroup* getGroupByUuid(QUuid uuid);
 
     GraphicItemTerm::List getAllNodes();
-
-    GraphicItemTerm* getSelected();
 
     void setAnimSpeed(int val);
 
 signals:
+
     void someSelected();
     void selectionDrop();
 
     void sceneUpdated();
 
+    // Debug signals
     void showInfo(QString info);
     void showWarning(QString warning);
     void showError(QString error);
@@ -63,7 +51,6 @@ public slots:
     void showGroup(QUuid groupUuid);
     void showAllGroups();
 
-    void locateGroupsVertically();
     void updateSceneRect();
     void centerViewOn(QPointF point);  // TODO: Realize!
 
@@ -87,7 +74,6 @@ public slots:
     TermGroup* getNearestNotPaintedGroup();
     void paintOneGroupIfNeed();
 
-public slots:
     bool hasSelection();
 
     void exportGrpToJson(QString groupName);
@@ -99,8 +85,6 @@ public slots:
     QStringList getGroupTypes() {
         return TermGroup::getTypesNames();
     }
-
-public slots:
 
     // Drawing API
     // ViewFrame
@@ -117,28 +101,45 @@ public slots:
     void createTestGroups();
 
 private:
+
+    // Timers
+    QTimer sceneRhytm;
+    QTimer userInactiveTimer;
+    QTimer mouseMoveReactionTimer;
+
+    // Managers
     GroupsManager* groupsMgr;
     NodesManager* nodesMgr;
+    PaintManager* paintManager;
 
+    // Scene rect
     QRectF sceneRect = QRectF(0, 0, 100, 100);
-    QRectF getSceneRect() const;
-
     QRectF sceneViewRect = QRectF(0, 0, 100, 100);
+
+    QRectF getSceneRect() const;
 
     // Mouse interaction
     GraphicItemTerm* hoverNode = nullptr;
     GraphicItemTerm* selectedNode = nullptr;
 
-    GraphicItemTerm* getNodeAtPoint(const QPointF& pt) const;
+    GraphicItemTerm* getSelectedNode();
 
     void findHover(const QPointF& atPt);
     void findClick(const QPointF& atPt);
 
-    PaintManager* paintManager;
+    GraphicItemTerm* getNodeAtPoint(const QPointF& pt) const;
 
+    // Groups fields
     QList < TermGroup* > groupList;
     QUuid currGroupUuid;
 
+    void initAllGroups();
+    void addGroupToScene(TermGroup* group);
+    void deleteAllGroups();
+
+    void locateGroupsVertically();
+
+    // Helpers
     QString getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction);
 };
 

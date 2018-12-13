@@ -90,17 +90,6 @@ TermGroup *MainScene::getGroupByName(QString name)
     return nullptr;
 }
 
-TermGroup *MainScene::getGroupByUuid(QUuid uuid)
-{
-    for (auto group : groupList) {
-        if (group->getUuid() == uuid) {
-            return group;
-        }
-    }
-
-    return nullptr;
-}
-
 void MainScene::updateModel()
 {
     sceneRhytm.stop();
@@ -169,7 +158,7 @@ void MainScene::centerViewOn(QPointF point)
 
 void MainScene::deleteSelectedNode()
 {
-    if (auto node = getSelected()) {
+    if (auto node = getSelectedNode()) {
         nodesMgr->deleteNode(node->getUuid());
     }
 }
@@ -188,12 +177,10 @@ void MainScene::exportGrpToJson(QString groupName)
 
 void MainScene::saveGroupInFolder(TermGroup* group)
 {
-    if (group == nullptr) {
-        return;
+    if (group != nullptr) {
+        QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
+        FSWorks::saveFile(AppConfig::StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
     }
-
-    QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
-    FSWorks::saveFile(AppConfig::StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
 }
 
 QString MainScene::getExportPath()
@@ -254,7 +241,7 @@ PaintManager *MainScene::getPaintManager()
     return paintManager;
 }
 
-GraphicItemTerm *MainScene::getSelected()
+GraphicItemTerm *MainScene::getSelectedNode()
 {
     return selectedNode;
 }
@@ -346,7 +333,7 @@ QString MainScene::getCurrNodeExamples()
 
 QString MainScene::getCurrNodeGroupName()
 {
-    if (auto node = getSelected()) {
+    if (auto node = getSelectedNode()) {
         QUuid uuid = node->getGroupUuid();
         if (!uuid.isNull()) {
             return groupsMgr->getGroupName(uuid);
@@ -357,7 +344,7 @@ QString MainScene::getCurrNodeGroupName()
 
 bool MainScene::getCurrNodeIsRoot()
 {
-    if (auto node = getSelected()) {
+    if (auto node = getSelectedNode()) {
         return node->isRoot();
     }
     return false;
@@ -411,7 +398,7 @@ void MainScene::paintOneGroupIfNeed()
 }
 
 bool MainScene::hasSelection() {
-    return getSelected() != nullptr;
+    return getSelectedNode() != nullptr;
 }
 
 QRectF MainScene::getSceneRect() const
@@ -490,7 +477,7 @@ void MainScene::findClick(const QPointF &atPt)
 
 QString MainScene::getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction)
 {
-    if (auto node = getSelected()) {
+    if (auto node = getSelectedNode()) {
         return strFunction(node);
     }
 
