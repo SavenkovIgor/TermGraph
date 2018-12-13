@@ -193,8 +193,8 @@ Page {
         anchors.fill: parent
         z: 2
 
-        contentWidth: sceneImage.width
-        contentHeight: sceneImage.height
+        contentWidth: sceneCanvas.width
+        contentHeight: sceneCanvas.height
 
         boundsBehavior: Flickable.StopAtBounds
 
@@ -210,7 +210,7 @@ Page {
         MouseArea {
             id: sceneMouse
 
-            anchors.fill: sceneImage
+            anchors.fill: sceneCanvas
 
             hoverEnabled: true
 
@@ -221,7 +221,7 @@ Page {
         }
 
         Canvas {
-            id: sceneImage
+            id: sceneCanvas
 
             height: 100
             width: 100
@@ -240,51 +240,49 @@ Page {
 
             Connections {
                 target: sceneObj
-                onSceneUpdated: sceneImage.updateSize()
+                onSceneUpdated: sceneCanvas.updateSize()
             }
 
             Connections {
                 target: paintManager
                 onPaintGroupQueue: {
-                    sceneImage.paintGroups = true
-                    sceneImage.requestPaint()
+                    sceneCanvas.paintGroups = true
+                    sceneCanvas.requestPaint()
                 }
                 onPaintNodeQueue: {
-                    sceneImage.paintNode = true
-                    sceneImage.requestPaint()
+                    sceneCanvas.paintNode = true
+                    sceneCanvas.requestPaint()
                 }
                 onClearAll: {
-                    sceneImage.clearAll = true
-                    sceneImage.requestPaint()
+                    sceneCanvas.clearAll = true
+                    sceneCanvas.requestPaint()
                 }
             }
 
             function updateSize() {
-                sceneImage.height = sceneObj.rect.height
-                sceneImage.width = sceneObj.rect.width
+                sceneCanvas.height = sceneObj.rect.height
+                sceneCanvas.width = sceneObj.rect.width
             }
 
             onPaint: {
                 console.log("Paint call")
                 paintManager.setPaintInProcessFlag(true)
-                var ctx = sceneImage.getContext('2d')
+                var ctx = sceneCanvas.getContext('2d')
 
-                if (sceneImage.paintGroups) {
+                if (sceneCanvas.paintGroups) {
                     paintAll(ctx)
-                    sceneImage.paintGroups = false
+                    sceneCanvas.paintGroups = false
                 }
 
-                if (sceneImage.paintNode) {
-                    sceneObj.restartCheckTimer("signalReceived");
+                if (sceneCanvas.paintNode) {
                     paintNodes(ctx)
-                    sceneObj.restartCheckTimer("paintEnded");
-                    sceneImage.paintNode = false
+                    sceneCanvas.paintNode = false
                 }
 
-                if (sceneImage.clearAll) {
-                    var rect = {x:0, y:0, width:sceneImage.width, height:sceneImage.height}
+                if (sceneCanvas.clearAll) {
+                    var rect = {x:0, y:0, width:sceneCanvas.width, height:sceneCanvas.height}
                     JsPaint.clearRect(ctx, rect, 0)
-                    sceneImage.clearAll = false
+                    sceneCanvas.clearAll = false
                 }
 
                 paintManager.setPaintInProcessFlag(false)
