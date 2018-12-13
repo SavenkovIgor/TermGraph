@@ -210,16 +210,6 @@ QString MainScene::getGroupString(QString grp)
     return "";
 }
 
-void MainScene::startCheckTimer()
-{
-    elTimer.start();
-}
-
-void MainScene::restartCheckTimer(QString label)
-{
-    qDebug() << label << " " << elTimer.restart();;
-}
-
 void MainScene::setSceneViewRect(int x, int y, int width, int height)
 {
     sceneViewRect = QRectF(x, y, width, height);
@@ -251,7 +241,6 @@ void MainScene::resetPaintFlags()
 
 void MainScene::setMousePos(qreal x, qreal y)
 {
-    startCheckTimer();
     findHover(QPointF(x,y));
 }
 
@@ -472,7 +461,6 @@ void MainScene::findHover(const QPointF &atPt)
     if (needSignal) {
         paintManager->sendPaintNodeSignal();
     }
-    restartCheckTimer("hoverSearch" + QTime::currentTime().toString());
 }
 
 void MainScene::findClick(const QPointF &atPt)

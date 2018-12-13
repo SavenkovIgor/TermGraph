@@ -100,17 +100,9 @@ public slots:
         return TermGroup::getTypesNames();
     }
 
-private:
-    // Timer
-    QElapsedTimer elTimer;
-
 public slots:
 
     // Drawing API
-    // Timer
-    void startCheckTimer();
-    void restartCheckTimer(QString label = "paint speed");
-
     // ViewFrame
     void setSceneViewRect(int x, int y, int width, int height);
 

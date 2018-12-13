@@ -180,3 +180,13 @@ bool PaintManager::isPaintInProcessNow()
 {
     return paintInProcessFlag;
 }
+
+void PaintManager::startCheckTimer()
+{
+    paintSpeedTimer.start();
+}
+
+void PaintManager::restartCheckTimer(QString label)
+{
+    qDebug() << label << " " << paintSpeedTimer.restart();
+}

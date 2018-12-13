@@ -62,6 +62,10 @@ public slots:
     void setPaintInProcessFlag(bool paintNow);
     bool isPaintInProcessNow();
 
+    // Paint speed check
+    void startCheckTimer();
+    void restartCheckTimer(QString label = "paint speed");
+
 private:
     bool paintInProcessFlag = false;
 
@@ -70,6 +74,9 @@ private:
     QQueue < QPair<QPointF, QString> > groupNamesForPaint;
     QQueue <GraphicItemTerm*> nodesForPaint;
     QQueue <Edge*> edgesForPaint;
+
+    // Timer
+    QElapsedTimer paintSpeedTimer;
 };
 
 #endif // PAINTQUEUEMANAGER_H
