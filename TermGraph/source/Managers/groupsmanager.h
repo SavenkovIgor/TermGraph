@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include "../glb.h"
+#include "../Helpers/fsworks.h"
 #include "./nodesmanager.h"
 #include "./networkmanager.h"
 #include "../Model/TerminGroup/termgroup.h"
@@ -44,6 +45,10 @@ public slots:
     void importGroupFromJsonFile(const QString& filename);
     void importGroupFromJson(const QString& rawJson);
     void importGroupFromJson(const QJsonDocument &json);
+
+    QString getExportPath() const;
+    void exportGrpToJson(QString groupUuid);
+    void saveGroupInFolder(TermGroup *group);
 
     // Network
     void sendGroupByNetwork(const QString groupUuid);

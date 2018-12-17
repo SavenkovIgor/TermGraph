@@ -17,7 +17,7 @@
 #include "./Helpers/fsworks.h"
 #include "./Model/TerminGroup/termgroup.h"
 
-class MainScene : public QGraphicsScene  // TODO: Maybe remove QGraphicScene dependency
+class MainScene : public QGraphicsScene  // NOTE: Maybe remove QGraphicScene dependency
 {
     Q_OBJECT
     Q_PROPERTY(QRectF rect READ getSceneRect)
@@ -25,10 +25,6 @@ class MainScene : public QGraphicsScene  // TODO: Maybe remove QGraphicScene dep
 public:
     MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager* paintManager);
     ~MainScene();
-
-    TermGroup* getGroupByName(QString name);
-
-    GraphicItemTerm::List getAllNodes();
 
     void setAnimSpeed(int val);
 
@@ -73,16 +69,6 @@ public slots:
 
     bool hasSelection();
 
-    void exportGrpToJson(QString groupName);
-    void saveGroupInFolder(TermGroup *group);
-    QString getExportPath();
-
-    QString getGroupString(QString grp);
-
-    QStringList getGroupTypes() {
-        return TermGroup::getTypesNames();
-    }
-
     // Drawing API
     // ViewFrame
     void setSceneViewRect(int x, int y, int width, int height);
@@ -98,7 +84,6 @@ public slots:
     void createTestGroups();
 
 private:
-
     // Timers
     QTimer sceneRhytm;
     QTimer userInactiveTimer;

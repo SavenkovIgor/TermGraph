@@ -273,6 +273,33 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     groupsListChanged();
 }
 
+QString GroupsManager::getExportPath() const
+{
+    return AppConfig::StdFolderPaths::groupsJsonFolder();
+}
+
+void GroupsManager::exportGrpToJson(QString groupUuid)
+{
+    if (auto group = createGroup(QUuid(groupUuid))) {
+
+        saveGroupInFolder(group);
+
+        //            QJsonDocument document = group->getJsonDoc();
+        //            QClipboard* clipboard = qApp->clipboard();
+        //            clipboard->setText(document.toJson());
+
+        delete group;
+    }
+}
+
+void GroupsManager::saveGroupInFolder(TermGroup *group)
+{
+    if (group != nullptr) {
+        QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
+        FSWorks::saveFile(AppConfig::StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
+    }
+}
+
 void GroupsManager::sendGroupByNetwork(const QString groupUuid)
 {
     if (auto group = createGroup(QUuid(groupUuid))) {

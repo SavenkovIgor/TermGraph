@@ -63,26 +63,6 @@ void MainScene::deleteAllGroups()
     groupList.clear();
 }
 
-GraphicItemTerm::List MainScene::getAllNodes()
-{
-    GraphicItemTerm::List ret;
-    for (auto group : groupList) {
-        ret << group->getAllNodes();
-    }
-    return ret;
-}
-
-TermGroup *MainScene::getGroupByName(QString name)
-{
-    for (auto group : groupList) {
-        if (group->getName() == name) {
-            return group;
-        }
-    }
-
-    return nullptr;
-}
-
 void MainScene::updateModel()
 {
     sceneRhytm.stop();
@@ -154,40 +134,6 @@ void MainScene::deleteSelectedNode()
     if (auto node = getSelectedNode()) {
         nodesMgr->deleteNode(node->getUuid());
     }
-}
-
-void MainScene::exportGrpToJson(QString groupName)
-{
-    if (auto group = getGroupByName(groupName)) {
-
-        saveGroupInFolder(group);
-
-        QJsonDocument document = group->getJsonDoc();
-        QClipboard* clipboard = qApp->clipboard();
-        clipboard->setText(document.toJson());
-    }
-}
-
-void MainScene::saveGroupInFolder(TermGroup* group)
-{
-    if (group != nullptr) {
-        QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
-        FSWorks::saveFile(AppConfig::StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
-    }
-}
-
-QString MainScene::getExportPath()
-{
-    return AppConfig::StdFolderPaths::groupsJsonFolder();
-}
-
-QString MainScene::getGroupString(QString grp)
-{
-    if (auto group = getGroupByName(grp)) {
-        return group->getTypeString();
-    }
-
-    return "";
 }
 
 void MainScene::setSceneViewRect(int x, int y, int width, int height)
