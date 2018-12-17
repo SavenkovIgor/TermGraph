@@ -12,17 +12,11 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphi
     mouseMoveReactionTimer.setInterval(static_cast<int>(1000/AppConfig::SceneSettings::FPS));
     mouseMoveReactionTimer.setSingleShot(true);
 
-    if (groupsMgr == nullptr) {
-        qDebug() << "Critical error: groupsManager is null!";
-    }
-
-    if (nodesMgr == nullptr) {
-        qDebug() << "Critical error: nodesManager is null!";
-    }
-
+    Q_ASSERT(groupsMgr != nullptr);
     this->groupsMgr = groupsMgr;
     connect(groupsMgr, SIGNAL(groupsListChanged()), SLOT(updateModel()));
 
+    Q_ASSERT(nodesMgr != nullptr);
     this->nodesMgr = nodesMgr;
     connect(nodesMgr, SIGNAL(nodeChanged()), SLOT(updateModel()));
 
