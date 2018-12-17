@@ -8,6 +8,7 @@
 
 #include "./Model/reminder.h"
 #include "./mainscene.h"
+#include "./paintqueuemanager.h"
 #include "./databaseWorks/dbabstract.h"
 #include "./Model/wordfreqanalyze.h"
 #include "./Helpers/tagprocessor.h"
@@ -40,6 +41,7 @@ private:
     NetworkManager* network;
     GroupsManager* groupsMgr;
     NodesManager* nodesMgr;
+    PaintManager* paintManager;
 
     // Reminder* remind;
     WordFreqAnalyze* analyze;

@@ -23,10 +23,8 @@ class MainScene : public QGraphicsScene  // TODO: Maybe remove QGraphicScene dep
     Q_PROPERTY(QRectF rect READ getSceneRect)
 
 public:
-    MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr);
+    MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager* paintManager);
     ~MainScene();
-
-    PaintManager* getPaintManager();
 
     TermGroup* getGroupByName(QString name);
 

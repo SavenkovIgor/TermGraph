@@ -18,8 +18,9 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
     network = new NetworkManager();
     nodesMgr = new NodesManager();
     groupsMgr = new GroupsManager(nodesMgr, network);
+    paintManager = new PaintManager();
 
-    scene = new MainScene(groupsMgr, nodesMgr);
+    scene = new MainScene(groupsMgr, nodesMgr, paintManager);
 
     // remind = new Reminder(scene->getAllNodes());
 
@@ -29,7 +30,7 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
 
     engn->rootContext()->setContextProperty("mainObj", this);
     engn->rootContext()->setContextProperty("sceneObj", scene);
-    engn->rootContext()->setContextProperty("paintManager", scene->getPaintManager());
+    engn->rootContext()->setContextProperty("paintManager", paintManager);
     engn->rootContext()->setContextProperty("networkManager", network);
     engn->rootContext()->setContextProperty("groupsManager", groupsMgr);
     engn->rootContext()->setContextProperty("nodesManager", nodesMgr);
@@ -39,7 +40,14 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
 
 MainWindow::~MainWindow()
 {
-//    saveAppSettings();
+    delete analyze;
+    delete scene;
+    delete paintManager;
+    delete groupsMgr;
+    delete nodesMgr;
+    delete network;
+    delete tagProcessor;
+    delete Glb::db;
     delete engn;
 }
 

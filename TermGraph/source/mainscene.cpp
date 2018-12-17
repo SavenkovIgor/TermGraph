@@ -1,6 +1,6 @@
 #include "mainscene.h"
 
-MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphicsScene()
+MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager *paintManager) : QGraphicsScene()
 {
     sceneRhytm.setSingleShot(false);
     sceneRhytm.setInterval(30);
@@ -20,14 +20,14 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphi
     this->nodesMgr = nodesMgr;
     connect(nodesMgr, SIGNAL(nodeChanged()), SLOT(updateModel()));
 
-    paintManager = new PaintManager();
+    Q_ASSERT(paintManager != nullptr);
+    this->paintManager = paintManager;
 
     setItemIndexMethod(NoIndex);
 }
 
 MainScene::~MainScene()
 {
-    delete paintManager;
 }
 
 void MainScene::initAllGroups()
@@ -227,11 +227,6 @@ void MainScene::setMousePos(qreal x, qreal y)
 void MainScene::setMouseClick(qreal x, qreal y)
 {
     findClick(QPointF(x,y));
-}
-
-PaintManager *MainScene::getPaintManager()
-{
-    return paintManager;
 }
 
 GraphicItemTerm *MainScene::getSelectedNode()
