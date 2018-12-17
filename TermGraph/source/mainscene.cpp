@@ -23,7 +23,6 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr) : QGraphi
     paintManager = new PaintManager();
 
     setItemIndexMethod(NoIndex);
-    updateModel();
 }
 
 MainScene::~MainScene()

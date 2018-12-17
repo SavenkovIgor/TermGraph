@@ -234,8 +234,12 @@ Page {
             renderTarget: Canvas.Image
 
             Component.onCompleted: {
-                updateSize()
-                sceneObj.resetPaintFlags()
+                // Try to show first group
+                var groupsUuids = groupsManager.getAllUuidStringsSortedByLastEdit()
+
+                if (groupsUuids.length !== 0) {
+                    sceneObj.showGroup(groupsUuids[0])
+                }
             }
 
             Connections {
@@ -265,7 +269,7 @@ Page {
             }
 
             onPaint: {
-                console.log("Paint call")
+                // console.log("Paint call")
                 paintManager.setPaintInProcessFlag(true)
                 var ctx = sceneCanvas.getContext('2d')
 
