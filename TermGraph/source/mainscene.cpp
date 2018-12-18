@@ -28,6 +28,7 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintMana
 
 MainScene::~MainScene()
 {
+    deleteAllGroups();
 }
 
 void MainScene::initAllGroups()
@@ -58,6 +59,7 @@ void MainScene::deleteAllGroups()
 {
     for (auto group : groupList) {
         removeItem(group->baseRect);
+        delete group;
     }
 
     groupList.clear();

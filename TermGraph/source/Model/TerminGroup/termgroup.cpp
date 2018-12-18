@@ -11,6 +11,8 @@ TermGroup::TermGroup(QSqlRecord rec, QObject *parent):
 
     setGroupUuid(QUuid(rec.value(TermGroupColumn::longUID).toString()));
     setType(static_cast<GroupType>(rec.value(TermGroupColumn::type).toInt()));
+
+//    qDebug() << "Create group" << getName();
 }
 
 TermGroup::TermGroup(QJsonDocument doc, QObject *parent):
@@ -24,6 +26,19 @@ TermGroup::TermGroup(QJsonDocument doc, QObject *parent):
 
     QString groupName = jsonObject.value("name").toString();
     this->grNmItem = new TGroupName( groupName );
+
+//    qDebug() << "Create group" << getName();
+}
+
+TermGroup::~TermGroup()
+{
+//    qDebug() << "Delete group" << getName();
+    checkSwapTimer.stop();
+    animTimer.stop();
+
+    delete grNmItem;
+    delete orphansRect;
+    delete baseRect;
 }
 
 void TermGroup::initNewNodes()
@@ -66,16 +81,6 @@ void TermGroup::initNewNodes()
     animTimer.setSingleShot(false);
     animTimer.setInterval(50);
     connect(&animTimer, SIGNAL(timeout()), SLOT(animateGroup()));
-}
-
-TermGroup::~TermGroup()
-{
-    checkSwapTimer.stop();
-    animTimer.stop();
-
-    delete grNmItem;
-    delete orphansRect;
-    delete baseRect;
 }
 
 bool TermGroup::checkJson(QJsonDocument doc)  // TODO: Вынести это отсюда!
