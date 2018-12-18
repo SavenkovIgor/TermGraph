@@ -5,6 +5,13 @@ TermGroupInfo::TermGroupInfo()
 
 }
 
+TermGroupInfo::~TermGroupInfo()
+{
+    for (auto tree : trees) {
+        delete tree;
+    }
+}
+
 QUuid TermGroupInfo::getUuid() const
 {
     return groupUuid;

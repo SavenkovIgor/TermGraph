@@ -23,7 +23,6 @@ TermTree::~TermTree()
     for (auto stack : stacks) {
         delete stack;
     }
-    delete rect;
 }
 
 void TermTree::setTreeNodeCoors(QPointF leftTopPoint)

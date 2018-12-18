@@ -18,6 +18,7 @@ class TermGroupInfo
 {
 public:
     TermGroupInfo();
+    ~TermGroupInfo();
 
     // Group info
     QUuid getUuid() const;
