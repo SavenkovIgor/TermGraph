@@ -5,6 +5,11 @@ GraphTerm::GraphTerm(QSqlRecord rec) : InfoTerm(rec)
 
 }
 
+GraphTerm::~GraphTerm()
+{
+
+}
+
 GraphEdge::List GraphTerm::getUpDownEdges()
 {
     GraphEdge::List ret;

@@ -13,6 +13,11 @@ GraphicItemTerm::GraphicItemTerm(QSqlRecord rec):
     setZValue(1);
 }
 
+GraphicItemTerm::~GraphicItemTerm()
+{
+
+}
+
 QRectF GraphicItemTerm::boundingRect() const
 {
     return getNodeRect(CoordType::zeroPoint);

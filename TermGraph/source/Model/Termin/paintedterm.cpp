@@ -17,6 +17,11 @@ PaintedTerm::PaintedTerm(QSqlRecord rec) :
     }
 }
 
+PaintedTerm::~PaintedTerm()
+{
+
+}
+
 int PaintedTerm::getUpLevels(int pLevel)
 {
     Q_UNUSED(pLevel)  // TODO: check!

@@ -18,6 +18,7 @@ public:
     typedef QList<GraphicItemTerm*> List;  // TODO: Перенести частично в родительский элемент
 
     GraphicItemTerm(QSqlRecord rec);
+    ~GraphicItemTerm();
 
     // Overriding of QGraphicsItem
     void mousePressEvent(QGraphicsSceneMouseEvent *evt) override;
