@@ -5,11 +5,6 @@ GraphicItemTerm::GraphicItemTerm(QSqlRecord rec):
     QGraphicsItem()
 {
     adjustRectSizeForName();
-
-    //    setFlag( QGraphicsItem::ItemIsSelectable,true );
-    //    setFlag(QGraphicsItem::ItemIsMovable,false);
-
-    setAcceptHoverEvents(true);
     setZValue(1);
 }
 
