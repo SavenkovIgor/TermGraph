@@ -23,6 +23,7 @@ class Edge : public GraphEdge, public QGraphicsItem
 {
 public:
     Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin);
+    ~Edge();
 
     QRectF boundingRect() const;
 

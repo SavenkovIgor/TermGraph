@@ -34,6 +34,11 @@ Edge::Edge(PaintedTerm* from, PaintedTerm* to, EdgeType type) :
     setZValue(0);
 }
 
+Edge::~Edge()
+{
+
+}
+
 QRectF Edge::boundingRect() const
 {
     QPointF pt1 = dynamic_cast<PaintedTerm*>(getRoot())->getCenter(CoordType::scene);

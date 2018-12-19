@@ -11,6 +11,7 @@ public:
     typedef QList<GraphEdge*> List;
 
     GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf);
+    virtual ~GraphEdge() = default;
 
     GraphTerm* getRoot() const { return toRoot; }
     GraphTerm* getLeaf() const { return toLeaf; }
@@ -18,8 +19,6 @@ public:
     bool hasNode(GraphTerm* node) const;
     bool isSameEdge(GraphTerm* rt, GraphTerm* br) const;
     GraphTerm* getOtherSide(GraphTerm* n) const;
-
-    virtual ~GraphEdge() = default;
 
     bool needPaint = true;  // Flag for placing in paintQueue
     bool needBroke = false;
