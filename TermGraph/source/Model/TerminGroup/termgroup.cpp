@@ -37,7 +37,13 @@ TermGroup::~TermGroup()
     animTimer.stop();
 
     delete grNmItem;
+    for (auto child : orphansRect->childItems()) {
+        child->setParentItem(nullptr);
+    }
     delete orphansRect;
+    for (auto child : baseRect->childItems()) {
+        child->setParentItem(nullptr);
+    }
     delete baseRect;
 }
 

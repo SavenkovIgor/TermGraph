@@ -31,7 +31,7 @@ public:
     static QList<Qt::Edge> sides;
 
     PaintedTerm(QSqlRecord rec);
-    ~PaintedTerm();
+    ~PaintedTerm() override;
 
     // Leveling tools
     int getUpLevels(int pLevel = -1);

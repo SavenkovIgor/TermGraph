@@ -10,6 +10,14 @@ TermGroupInfo::~TermGroupInfo()
     for (auto tree : trees) {
         delete tree;
     }
+
+    for (auto node : getAllNodes()) {
+        delete node;
+    }
+
+    for (auto edge : getAllEdges()) {
+        delete edge;
+    }
 }
 
 QUuid TermGroupInfo::getUuid() const

@@ -19,7 +19,11 @@ TermTree::TermTree()
 
 TermTree::~TermTree()
 {
-//    qDebug() << "Remove tree";
+    for (auto child : rect->childItems()) {
+        child->setParentItem(nullptr);
+    }
+    delete rect;
+
     for (auto stack : stacks) {
         delete stack;
     }

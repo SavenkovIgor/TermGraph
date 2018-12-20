@@ -25,6 +25,11 @@ NodeVerticalStack::NodeVerticalStack()
     swAnim2.setEasingCurve(QEasingCurve::InOutQuad);
 }
 
+NodeVerticalStack::~NodeVerticalStack()
+{
+    terms.clear();
+}
+
 void NodeVerticalStack::addTerm(GraphicItemTerm* term)
 {
     terms << term;

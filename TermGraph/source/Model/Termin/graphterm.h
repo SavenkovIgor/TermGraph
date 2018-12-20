@@ -22,7 +22,7 @@ public:
     typedef QList<GraphTerm*> List;
 
     GraphTerm(QSqlRecord rec);
-    ~GraphTerm();
+    ~GraphTerm() override;
 
     List getUpDownNodes();
     GraphEdge::List getUpDownEdges();
