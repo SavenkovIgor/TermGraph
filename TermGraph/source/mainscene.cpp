@@ -123,7 +123,6 @@ void MainScene::updateSceneRect()
     auto withMargins = allRect.marginsAdded(mrg);
     sceneRect = withMargins;
     sceneRect = sceneRect.united(sceneViewRect);
-    setSceneRect(sceneRect);
 }
 
 void MainScene::centerViewOn(QPointF point)
