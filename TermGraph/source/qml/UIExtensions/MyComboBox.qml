@@ -20,8 +20,8 @@ ComboBox {
     }
 
     background: Rectangle {
-        implicitWidth: contItem.width+35
-        implicitHeight: contItem.height
+        width: contItem.width+35
+        height: contItem.height
         border.color: "#000000"
         border.width: 1
     }

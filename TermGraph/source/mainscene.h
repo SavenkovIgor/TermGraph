@@ -30,7 +30,7 @@ public:
 signals:
     // Scene signals
     void someSelected();
-    void selectionDrop();
+    void selectionDropSignal();
     void sceneContentUpdated();
 
     // Debug signals
@@ -103,6 +103,7 @@ private:
     GraphicItemTerm* selectedNode = nullptr;
 
     GraphicItemTerm* getSelectedNode();
+    void dropSelection();
 
     void findHover(const QPointF& atPt);
     void findClick(const QPointF& atPt);

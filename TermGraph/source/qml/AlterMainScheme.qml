@@ -42,7 +42,7 @@ Page {
     Connections {
         target: sceneObj
         onSomeSelected: showButtons()
-        onSelectionDrop: hideButtons()
+        onSelectionDropSignal: hideButtons()
     }
 
     Connections {

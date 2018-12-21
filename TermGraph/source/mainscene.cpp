@@ -73,6 +73,10 @@ void MainScene::updateModel()
 
     paintManager->sendCleanAllSignal();
     deleteAllGroups();
+
+    hoverNode = nullptr;
+    selectedNode = nullptr;
+
     initAllGroups();
 
     for (auto group : groupList) {
@@ -134,6 +138,7 @@ void MainScene::deleteSelectedNode()
 {
     if (auto node = getSelectedNode()) {
         nodesMgr->deleteNode(node->getUuid());
+        dropSelection();
     }
 }
 
@@ -179,6 +184,12 @@ void MainScene::setMouseClick(qreal x, qreal y)
 GraphicItemTerm *MainScene::getSelectedNode()
 {
     return selectedNode;
+}
+
+void MainScene::dropSelection()
+{
+    selectedNode = nullptr;
+    selectionDropSignal();
 }
 
 void MainScene::showGroup(QString groupUuid)
@@ -406,7 +417,7 @@ void MainScene::findClick(const QPointF &atPt)
     if (selectedNode != nullptr) {
         someSelected();
     } else {
-        selectionDrop();
+        selectionDropSignal();
     }
 }
 
