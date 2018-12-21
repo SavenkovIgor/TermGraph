@@ -264,8 +264,8 @@ Page {
             }
 
             function updateSize() {
-                sceneCanvas.height = sceneObj.rect.height
-                sceneCanvas.width = sceneObj.rect.width
+                sceneCanvas.height = sceneObj.getSceneRect().height
+                sceneCanvas.width = sceneObj.getSceneRect().width
             }
 
             onPaint: {

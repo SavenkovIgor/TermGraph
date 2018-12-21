@@ -155,7 +155,7 @@ void MainScene::setSceneViewRect(int x, int y, int width, int height)
     userInactiveTimer.start();
 }
 
-QColor MainScene::getSceneBackgroundColor()
+QColor MainScene::getSceneBackgroundColor() const
 {
     return AppStyle::Colors::Scene::background;
 }

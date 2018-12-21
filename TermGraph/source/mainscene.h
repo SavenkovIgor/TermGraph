@@ -20,7 +20,6 @@
 class MainScene : public QGraphicsScene  // NOTE: Maybe remove QGraphicScene dependency
 {
     Q_OBJECT
-    Q_PROPERTY(QRectF rect READ getSceneRect)
 
 public:
     MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager* paintManager);
@@ -73,7 +72,8 @@ public slots:
     // ViewFrame
     void setSceneViewRect(int x, int y, int width, int height);
 
-    QColor getSceneBackgroundColor();
+    QRectF getSceneRect() const;
+    QColor getSceneBackgroundColor() const;
 
     void resetPaintFlags();
 
@@ -97,8 +97,6 @@ private:
     // Scene rect
     QRectF sceneRect = QRectF(0, 0, 100, 100);
     QRectF sceneViewRect = QRectF(0, 0, 100, 100);
-
-    QRectF getSceneRect() const;
 
     // Mouse interaction
     GraphicItemTerm* hoverNode = nullptr;
