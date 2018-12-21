@@ -74,6 +74,11 @@ TblBase::TblBase(QString tblName, QSqlDatabase *base):
     queryConstructor = new SqlQueryConstructor(tblName);
 }
 
+TblBase::~TblBase()
+{
+    delete queryConstructor;
+}
+
 QSqlQuery TblBase::createTable() {
     QString query = queryConstructor->createTable(columns);
     return startQuery(query);

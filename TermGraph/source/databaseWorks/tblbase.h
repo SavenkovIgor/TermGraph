@@ -11,6 +11,7 @@ typedef QList<QSqlRecord>       RecList;
 class TblBase{
 public:
     TblBase(QString tableName,QSqlDatabase *base);
+    ~TblBase();
 
     QSqlQuery createTable();
     void checkCols();
@@ -24,7 +25,10 @@ protected:
     void initColumn(const QString &columnName, const QString &columnType);
     QStringList getAllCols() const;
 
-    QSqlQuery select(const QStringList &cols, const WhereCondition &where = WhereCondition(), const QString &orderBy = "") const;
+    QSqlQuery select(
+            const QStringList &cols,
+            const WhereCondition &where = WhereCondition(),
+            const QString &orderBy = "") const;
 
     bool insertInto(const QList<InsertContainer> &values);
 
