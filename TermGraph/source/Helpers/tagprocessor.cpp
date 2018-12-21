@@ -155,13 +155,14 @@ int TagProcessor::getLevDistance(const QString &src, const QString &dst)
     return matrix[m][n];
 }
 
-bool TagProcessor::isTagCorrespondToTermName(QString termName, QString tag)
+bool TagProcessor::isTagCorrespondToTermName(QString termName, QString tag)  // TODO: Maybe refactor
 {
     // To lower capital
     termName = termName.toLower();
     tag = tag.toLower();
 
-    if (termName == tag) {  // Точное соответствие
+    // Exact match
+    if (termName.size() == tag.size() && termName == tag) {
         return true;
     }
 

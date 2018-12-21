@@ -236,7 +236,7 @@ QString InfoTerm::getDefinition() const
     return definition;
 }
 
-QStringList InfoTerm::getTags() const
+QStringList InfoTerm::getDefinitionTags() const
 {
     QString error;
     auto tags = TagProcessor::extractTags(definition);

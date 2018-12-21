@@ -33,7 +33,7 @@ public:
     QStringList getNameFormList() const;
 
     QString getDefinition() const;
-    QStringList getTags() const;
+    QStringList getDefinitionTags() const;
     QString getDescription() const;
     QString getExamples() const;
     QString getWikiRef() const;

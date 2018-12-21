@@ -78,7 +78,9 @@ private:
     Edge* addNewEdge(GraphicItemTerm* node1, GraphicItemTerm* node2);
 
     // Edge connections search
-    EdgesList searchConnections();
+    EdgesList searchAllConnections();
+    GraphicItemTerm* getRootNodeForTag(const QString& tag);
+
     EdgesList suggestConnections();  // TODO: Realize!
 };
 

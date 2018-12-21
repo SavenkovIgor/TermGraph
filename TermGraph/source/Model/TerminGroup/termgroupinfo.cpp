@@ -73,40 +73,56 @@ GraphicItemTerm::List TermGroupInfo::getOrphanNodes() const
     return filterFromNodesList([] (GraphicItemTerm* node) { return node->isOrphan(); } );
 }
 
-Edge* TermGroupInfo::addNewEdge(GraphicItemTerm* node1, GraphicItemTerm* node2)
+Edge* TermGroupInfo::addNewEdge(GraphicItemTerm* rootNode, GraphicItemTerm* leafNode)
 {
-    Edge* edge = new Edge(node1, node2);
-    node1->addEdgeRef(edge);
-    node2->addEdgeRef(edge);
+    auto edge = new Edge(rootNode, leafNode);
+    rootNode->addEdgeRef(edge);
+    leafNode->addEdgeRef(edge);
     return edge;
 }
 
-EdgesList TermGroupInfo::searchConnections()
+EdgesList TermGroupInfo::searchAllConnections()
 {
     EdgesList ret;
     // Compare everything with everything
-    for (GraphicItemTerm* n : nodesList) {
-        for (GraphicItemTerm* m : nodesList) {
-            if (n == m) {
-                continue;
-            }
-
-            for (QString tag : n->getTags()) {
-                for (QString termName : m->getNameFormList()) {  // TODO: Переименовать при случае
-                    if (TagProcessor::isTagCorrespondToTermName(termName, tag)) {
-                        ret << addNewEdge(m, n);
-                    }
+    for (auto node : nodesList) {
+        for (auto tag : node->getDefinitionTags()) {
+            if (auto foundNode = getRootNodeForTag(tag)) {
+                if (node != foundNode) {
+                    ret << addNewEdge(foundNode, node);
                 }
             }
         }
     }
+
     return ret;
+}
+
+GraphicItemTerm *TermGroupInfo::getRootNodeForTag(const QString &tag)
+{
+    GraphicItemTerm* targetTerm = nullptr;
+
+    for (auto node : nodesList) {
+
+        for (auto& termName : node->getNameFormList()) {  // TODO: Переименовать при случае
+
+            if (termName.size() == tag.size() && termName == tag) {
+                return node;
+            }
+
+            if (TagProcessor::isTagCorrespondToTermName(termName, tag)) {  // TODO: Rework comparsion scheme!
+                targetTerm = node;
+            }
+        }
+    }
+
+    return targetTerm;
 }
 
 void TermGroupInfo::loadEdges()
 {
     if (getType() == GroupType::terms) {
-        edgesList << searchConnections();
+        edgesList << searchAllConnections();
     }
 }
 
