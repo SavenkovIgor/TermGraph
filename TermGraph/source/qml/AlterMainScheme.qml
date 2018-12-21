@@ -16,8 +16,6 @@ Page {
     property Drawer sideMenu
     property int scOffset: mainHeader.height
 
-    anchors.fill: parent
-
     header: MainHeader {
 
         id: mainHeader

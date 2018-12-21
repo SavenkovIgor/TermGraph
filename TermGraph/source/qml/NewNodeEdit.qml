@@ -13,8 +13,6 @@ Page {
     property StackView mainStack
     property string changingNodeUuid
 
-    anchors.fill: parent
-
     header: MainHeader {
 
         id: mainHeader
