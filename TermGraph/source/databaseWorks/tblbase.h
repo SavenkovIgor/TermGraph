@@ -22,7 +22,7 @@ protected:
     QString getStringField(const QString &columnName, const QUuid &uuid) const;
 
     void initColumn(const QString &columnName, const QString &columnType);
-    QStringList getAllCols();
+    QStringList getAllCols() const;
 
     QSqlQuery select(const QStringList &cols, const WhereCondition &where = WhereCondition(), const QString &orderBy = "") const;
 
@@ -33,7 +33,7 @@ protected:
     void deleteRecord(const QUuid& uuid);
     void deleteWhere(const WhereCondition& where);
 
-    RecList toRecList(QSqlQuery q);
+    static RecList toRecList(QSqlQuery q);
 
 private:
     QSqlDatabase *base;

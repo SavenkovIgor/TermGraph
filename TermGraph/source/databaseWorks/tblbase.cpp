@@ -36,7 +36,7 @@ QString TblBase::getStringField(const QString& columnName, const QUuid& uuid) co
     return sel.record().value(columnName).toString();
 }
 
-QStringList TblBase::getAllCols()
+QStringList TblBase::getAllCols() const
 {
     QStringList lst;
     for(TableColumnDescription column : columns) {
