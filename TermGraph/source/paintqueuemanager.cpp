@@ -15,6 +15,11 @@ void PaintManager::sendPaintNodeSignal()
     paintNodeQueue();
 }
 
+void PaintManager::sendPaintGroupSignal()
+{
+    paintGroupQueue();
+}
+
 void PaintManager::clearAllQueues()
 {
     groupRectsForPaint.clear();

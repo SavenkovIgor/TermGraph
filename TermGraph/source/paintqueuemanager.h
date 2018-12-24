@@ -15,6 +15,7 @@ public:
 
     void sendCleanAllSignal();
     void sendPaintNodeSignal();
+    void sendPaintGroupSignal();
 
 signals:
     void paintGroupQueue();

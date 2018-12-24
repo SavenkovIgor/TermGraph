@@ -444,3 +444,14 @@ void MainScene::createTestGroups()
     nodesMgr->addNewNode("8", "", "{6}{7}", "", "", "TestGroup1");
     nodesMgr->addNewNode("9", "", "", "", "", "TestGroup1");
 }
+
+void MainScene::sendGroupsToPaintManager(bool requestPaint)
+{
+    for (auto group : groupList) {
+        paintManager->addGroup(group, false, false);
+    }
+
+    if (requestPaint) {
+        paintManager->sendPaintGroupSignal();
+    }
+}
