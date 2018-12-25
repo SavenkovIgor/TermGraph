@@ -55,7 +55,7 @@ public:
 
     void loadNodes(GraphicItemTerm::List newNodes);
 
-    bool alreadyPainted = false;
+    bool needPaint() const;
     void resetPaintFlags();
 
     GraphicItemTerm* getNodeAtPoint(const QPointF &pt) const;

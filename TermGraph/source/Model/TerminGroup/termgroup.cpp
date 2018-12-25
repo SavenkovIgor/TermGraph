@@ -145,10 +145,25 @@ void TermGroup::loadNodes(GraphicItemTerm::List newNodes)
     initNewNodes();
 }
 
+bool TermGroup::needPaint() const
+{
+    for (auto node : getAllNodes()) {
+        if (node->needPaint) {
+            return true;
+        }
+    }
+
+    for (auto edge : getAllEdges()) {
+        if (edge->needPaint) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void TermGroup::resetPaintFlags()
 {
-    alreadyPainted = false;
-
     for (auto node : getAllNodes()) {
         node->needPaint = true;
     }

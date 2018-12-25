@@ -301,7 +301,7 @@ TermGroup *MainScene::getNearestNotPaintedGroup()
     TermGroup* nearestNotPaintedGroup = nullptr;
 
     for (auto group : groupList) {
-        if (group->alreadyPainted) {
+        if (!group->needPaint()) {
             continue;
         }
 
@@ -331,8 +331,6 @@ void MainScene::paintOneGroupIfNeed()
     }
 
     if (auto paintGroup = getNearestNotPaintedGroup()) {
-
-        paintGroup->alreadyPainted = true;
 
         paintManager->clearAllQueues();
         paintManager->addGroup(paintGroup);
