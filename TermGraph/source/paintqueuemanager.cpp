@@ -5,11 +5,6 @@ PaintManager::PaintManager() : QObject ()
 
 }
 
-void PaintManager::sendCleanAllSignal()
-{
-    clearAll();
-}
-
 void PaintManager::sendPaintNodeSignal()
 {
     paintNodeQueue();
@@ -18,6 +13,30 @@ void PaintManager::sendPaintNodeSignal()
 void PaintManager::sendPaintGroupSignal()
 {
     paintGroupQueue();
+}
+
+void PaintManager::addClearRect(const QRectF &rect, bool paintNow)
+{
+    clearPaintArea.enqueue(rect);
+
+    if (paintNow) {
+        paintGroupQueue();
+    }
+}
+
+QRectF PaintManager::currentClearRect()
+{
+    return clearPaintArea.head();
+}
+
+void PaintManager::nextClearRect()
+{
+    clearPaintArea.dequeue();
+}
+
+bool PaintManager::clearQueueEmpty() const
+{
+    return clearPaintArea.isEmpty();
 }
 
 void PaintManager::clearAllQueues()
@@ -73,7 +92,7 @@ void PaintManager::nextGroupRect()
     groupRectsForPaint.dequeue();
 }
 
-bool PaintManager::groupRectQueueEmpty()
+bool PaintManager::groupRectQueueEmpty() const
 {
     return groupRectsForPaint.isEmpty();
 }
@@ -93,7 +112,7 @@ void PaintManager::nextGroupName()
     groupNamesForPaint.dequeue();
 }
 
-bool PaintManager::groupNamesQueueEmpty()
+bool PaintManager::groupNamesQueueEmpty() const
 {
     return groupNamesForPaint.isEmpty();
 }
@@ -113,7 +132,7 @@ void PaintManager::nextEdge()
     edgesForPaint.dequeue();
 }
 
-bool PaintManager::edgeQueueEmpty()
+bool PaintManager::edgeQueueEmpty() const
 {
     return edgesForPaint.isEmpty();
 }
@@ -146,7 +165,7 @@ void PaintManager::nextNode()
     nodesForPaint.dequeue();
 }
 
-bool PaintManager::nodeQueueEmpty()
+bool PaintManager::nodeQueueEmpty() const
 {
     return nodesForPaint.isEmpty();
 }

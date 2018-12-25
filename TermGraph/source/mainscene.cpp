@@ -71,7 +71,7 @@ void MainScene::updateModel()
     userInactiveTimer.stop();
     stopAllGroupTimers();
 
-    paintManager->sendCleanAllSignal();
+    paintManager->addClearRect(sceneRect, true);
     deleteAllGroups();
 
     hoverNode = nullptr;

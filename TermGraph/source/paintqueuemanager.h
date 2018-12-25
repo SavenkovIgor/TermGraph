@@ -13,7 +13,6 @@ class PaintManager : public QObject
 public:
     PaintManager();
 
-    void sendCleanAllSignal();
     void sendPaintNodeSignal();
     void sendPaintGroupSignal();
 
@@ -21,9 +20,13 @@ signals:
     void paintGroupQueue();
     void paintNodeQueue();
 
-    void clearAll();
-
 public slots:
+    // Clear functions
+    void addClearRect(const QRectF& rect, bool paintNow = false);
+    QRectF currentClearRect();
+    void nextClearRect();
+    bool clearQueueEmpty() const;
+
     // Fill functions
     void clearAllQueues();
     void addGroup(TermGroup* group, bool ignoreNeedPaintFlag = false, bool paintNow = true);
@@ -31,19 +34,21 @@ public slots:
 
     // GroupRects
     void nextGroupRect();
-    bool groupRectQueueEmpty();
+    bool groupRectQueueEmpty() const;
+
     QRectF currentGroupRect();
     QColor currentGroupFillColor();
 
     // GroupNames
     void nextGroupName();
-    bool groupNamesQueueEmpty();
+    bool groupNamesQueueEmpty() const;
+
     QString currentGroupName();
     QPointF currentGroupNamePos();
 
     // Edges
     void nextEdge();
-    bool edgeQueueEmpty();
+    bool edgeQueueEmpty() const;
 
     QColor getEdgeColor();
     QPointF currentFirstEdgePoint();
@@ -51,7 +56,7 @@ public slots:
 
     // Nodes
     void nextNode();
-    bool nodeQueueEmpty();
+    bool nodeQueueEmpty() const;
 
     qreal currentNodeRadius();
     QRectF currentNodeRect();
@@ -71,6 +76,7 @@ private:
     bool paintInProcessFlag = false;
 
     // Paint queues
+    QQueue <QRectF> clearPaintArea;
     QQueue < QPair<QRectF, QColor> > groupRectsForPaint;
     QQueue < QPair<QPointF, QString> > groupNamesForPaint;
     QQueue <GraphicItemTerm*> nodesForPaint;

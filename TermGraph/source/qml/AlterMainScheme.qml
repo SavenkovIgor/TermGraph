@@ -226,7 +226,6 @@ Page {
 
             property bool paintGroups: false
             property bool paintNode: false
-            property bool clearAll: false
 
             renderStrategy: Canvas.Cooperative
             renderTarget: Canvas.Image
@@ -255,10 +254,6 @@ Page {
                     sceneCanvas.paintNode = true
                     sceneCanvas.requestPaint()
                 }
-                onClearAll: {
-                    sceneCanvas.clearAll = true
-                    sceneCanvas.requestPaint()
-                }
             }
 
             function updateSize() {
@@ -281,20 +276,28 @@ Page {
                     sceneCanvas.paintNode = false
                 }
 
-                if (sceneCanvas.clearAll) {
-                    var rect = {x:0, y:0, width:sceneCanvas.width, height:sceneCanvas.height}
-                    JsPaint.clearRect(ctx, rect, 0)
-                    sceneCanvas.clearAll = false
-                }
-
                 paintManager.setPaintInProcessFlag(false)
             }
 
             function paintAll(ctx) {
+                clearRects(ctx)
                 paintGroupRects(ctx)
                 paintGroupNames(ctx)
                 paintEdges(ctx)
                 paintNodes(ctx)
+            }
+
+            function clearRects(ctx) {
+
+                while (true) {
+                    if (paintManager.clearQueueEmpty())
+                        break;
+
+                    var rect = paintManager.currentClearRect()
+                    JsPaint.clearRect(ctx, rect, 0)
+
+                    paintManager.nextClearRect()
+                }
             }
 
             function paintGroupRects(ctx) {
