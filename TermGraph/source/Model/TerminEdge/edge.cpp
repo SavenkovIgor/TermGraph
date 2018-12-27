@@ -168,6 +168,7 @@ bool Edge::getWide() const
 void Edge::setWide(bool value)
 {
     wide = value;
+    needPaint = true;
 }
 
 void Edge::setSceneParent(QGraphicsItem *item)
