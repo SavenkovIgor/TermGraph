@@ -36,37 +36,38 @@ public slots:
     void nextGroupRect();
     bool groupRectQueueEmpty() const;
 
-    QRectF currentGroupRect();
-    QColor currentGroupFillColor();
+    QRectF currentGroupRect() const;
+    QColor currentGroupFillColor() const;
 
     // GroupNames
     void nextGroupName();
     bool groupNamesQueueEmpty() const;
 
-    QString currentGroupName();
-    QPointF currentGroupNamePos();
+    QString currentGroupName() const;
+    QPointF currentGroupNamePos() const;
 
     // Edges
     void nextEdge();
     bool edgeQueueEmpty() const;
 
-    QColor getEdgeColor();
-    QPointF currentFirstEdgePoint();
-    QPointF currentLastEdgePoint();
+    bool currentEdgeWide() const;
+    QColor getEdgeColor() const;
+    QPointF currentFirstEdgePoint() const;
+    QPointF currentLastEdgePoint() const;
 
     // Nodes
     void nextNode();
     bool nodeQueueEmpty() const;
 
-    qreal currentNodeRadius();
-    QRectF currentNodeRect();
-    QPointF currentNodeCenter();
-    QColor currentNodeColor();
-    QString currentNodeText();
+    qreal currentNodeRadius() const;
+    QRectF currentNodeRect() const;
+    QPointF currentNodeCenter() const;
+    QColor currentNodeColor() const;
+    QString currentNodeText() const;
 
     // Flags
     void setPaintInProcessFlag(bool paintNow);
-    bool isPaintInProcessNow();
+    bool isPaintInProcessNow() const;
 
     // Paint speed check
     void startCheckTimer();

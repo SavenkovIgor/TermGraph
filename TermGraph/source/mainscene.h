@@ -94,6 +94,7 @@ private:
     NodesManager* nodesMgr;
     PaintManager* paintManager;
 
+    void requestPaint();
     void sendGroupsToPaintManager(bool requestPaint = true);
 
     // Scene rect

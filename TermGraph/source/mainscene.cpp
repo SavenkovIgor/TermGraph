@@ -399,7 +399,7 @@ void MainScene::findClick(const QPointF &atPt)
     if (selectedNode != nullptr) {
         if (!selectedNode->getNodeRect(CoordType::scene).contains(atPt)) {
             selectedNode->setSelection(false);
-            paintManager->addNode(selectedNode, true);
+            requestPaint();
             selectedNode = nullptr;
         } else {
             return;
@@ -409,7 +409,7 @@ void MainScene::findClick(const QPointF &atPt)
     if (auto node = getNodeAtPoint(atPt)) {
         node->setSelection(true);
         selectedNode = node;
-        paintManager->addNode(node, true);
+        requestPaint();
     }
 
     if (selectedNode != nullptr) {
@@ -441,6 +441,11 @@ void MainScene::createTestGroups()
     nodesMgr->addNewNode("7", "", "{5}", "", "", "TestGroup1");
     nodesMgr->addNewNode("8", "", "{6}{7}", "", "", "TestGroup1");
     nodesMgr->addNewNode("9", "", "", "", "", "TestGroup1");
+}
+
+void MainScene::requestPaint()
+{
+    sendGroupsToPaintManager(true);
 }
 
 void MainScene::sendGroupsToPaintManager(bool requestPaint)

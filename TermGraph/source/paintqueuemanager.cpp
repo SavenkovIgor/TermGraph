@@ -97,12 +97,12 @@ bool PaintManager::groupRectQueueEmpty() const
     return groupRectsForPaint.isEmpty();
 }
 
-QRectF PaintManager::currentGroupRect()
+QRectF PaintManager::currentGroupRect() const
 {
     return groupRectsForPaint.head().first;
 }
 
-QColor PaintManager::currentGroupFillColor()
+QColor PaintManager::currentGroupFillColor() const
 {
     return groupRectsForPaint.head().second;
 }
@@ -117,12 +117,12 @@ bool PaintManager::groupNamesQueueEmpty() const
     return groupNamesForPaint.isEmpty();
 }
 
-QString PaintManager::currentGroupName()
+QString PaintManager::currentGroupName() const
 {
     return groupNamesForPaint.head().second;
 }
 
-QPointF PaintManager::currentGroupNamePos()
+QPointF PaintManager::currentGroupNamePos() const
 {
     return groupNamesForPaint.head().first;
 }
@@ -137,12 +137,17 @@ bool PaintManager::edgeQueueEmpty() const
     return edgesForPaint.isEmpty();
 }
 
-QColor PaintManager::getEdgeColor()
+bool PaintManager::currentEdgeWide() const
+{
+    return edgesForPaint.head()->getWide();
+}
+
+QColor PaintManager::getEdgeColor() const
 {
     return edgesForPaint.head()->getEdgeColor();
 }
 
-QPointF PaintManager::currentFirstEdgePoint()
+QPointF PaintManager::currentFirstEdgePoint() const
 {
     auto graphTerm = edgesForPaint.head()->getRoot();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
@@ -151,7 +156,7 @@ QPointF PaintManager::currentFirstEdgePoint()
     return pt;
 }
 
-QPointF PaintManager::currentLastEdgePoint()
+QPointF PaintManager::currentLastEdgePoint() const
 {
     auto graphTerm = edgesForPaint.head()->getLeaf();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
@@ -170,27 +175,27 @@ bool PaintManager::nodeQueueEmpty() const
     return nodesForPaint.isEmpty();
 }
 
-qreal PaintManager::currentNodeRadius()
+qreal PaintManager::currentNodeRadius() const
 {
     return nodesForPaint.head()->getCornerRadius();
 }
 
-QRectF PaintManager::currentNodeRect()
+QRectF PaintManager::currentNodeRect() const
 {
     return nodesForPaint.head()->getNodeRect(CoordType::scene);
 }
 
-QPointF PaintManager::currentNodeCenter()
+QPointF PaintManager::currentNodeCenter() const
 {
     return nodesForPaint.head()->getNodeRect(CoordType::scene).center();
 }
 
-QColor PaintManager::currentNodeColor()
+QColor PaintManager::currentNodeColor() const
 {
     return nodesForPaint.head()->getColor();
 }
 
-QString PaintManager::currentNodeText()
+QString PaintManager::currentNodeText() const
 {
     return nodesForPaint.head()->getSmallName();
 }
@@ -200,7 +205,7 @@ void PaintManager::setPaintInProcessFlag(bool paintNow)
     paintInProcessFlag = paintNow;
 }
 
-bool PaintManager::isPaintInProcessNow()
+bool PaintManager::isPaintInProcessNow() const
 {
     return paintInProcessFlag;
 }
