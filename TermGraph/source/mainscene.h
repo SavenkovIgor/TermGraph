@@ -94,8 +94,8 @@ private:
     NodesManager* nodesMgr;
     PaintManager* paintManager;
 
-    void requestPaint();
-    void sendGroupsToPaintManager(bool requestPaint = true);
+    void requestPaint(bool paintAll = false);
+    void sendGroupsToPaintManager(bool requestPaint = true, bool paintAll = false);
 
     // Scene rect
     QRectF sceneRect = QRectF(0, 0, 100, 100);
@@ -104,6 +104,7 @@ private:
     // Mouse interaction
     GraphicItemTerm* hoverNode = nullptr;
     GraphicItemTerm* selectedNode = nullptr;
+    void sendSelectionChangeSignal();
 
     GraphicItemTerm* getSelectedNode();
     void dropSelection();

@@ -45,7 +45,7 @@ void PaintedTerm::setRelatedPaint(bool val)
 
     for (GraphEdge* d : getUpDownEdges()) {
         auto e = dynamic_cast<Edge*>(d);
-        e->setWide(val);
+        e->setSelected(val);
     }
 }
 
@@ -395,6 +395,12 @@ void PaintedTerm::setSelection(const bool &selected)
     if (thisSelected != selected) {
         thisSelected = selected;
         needPaint = true;
+
+        someoneSelect = selected;
+        thisSelected = selected;
+        relativePaint = selected;
+
+        setRelatedPaint(selected);
     }
 }
 

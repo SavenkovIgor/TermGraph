@@ -396,27 +396,23 @@ void MainScene::findHover(const QPointF &atPt)
 
 void MainScene::findClick(const QPointF &atPt)
 {
-    if (selectedNode != nullptr) {
-        if (!selectedNode->getNodeRect(CoordType::scene).contains(atPt)) {
-            selectedNode->setSelection(false);
-            requestPaint();
-            selectedNode = nullptr;
-        } else {
+    // Check for click in same point
+    if (auto selected = getSelectedNode()) {
+        if (selected->getNodeRect(CoordType::scene).contains(atPt)) {
             return;
         }
     }
 
-    if (auto node = getNodeAtPoint(atPt)) {
+    selectedNode->setSelection(false);
+    selectedNode = nullptr;
+
+    if (auto node = getNodeAtPoint(atPt)) {  // Click in other node
         node->setSelection(true);
         selectedNode = node;
-        requestPaint();
     }
 
-    if (selectedNode != nullptr) {
-        someSelected();
-    } else {
-        selectionDropSignal();
-    }
+    requestPaint(true);
+    sendSelectionChangeSignal();
 }
 
 QString MainScene::getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction)
@@ -443,18 +439,31 @@ void MainScene::createTestGroups()
     nodesMgr->addNewNode("9", "", "", "", "", "TestGroup1");
 }
 
-void MainScene::requestPaint()
+void MainScene::requestPaint(bool paintAll)
 {
-    sendGroupsToPaintManager(true);
+    sendGroupsToPaintManager(true, paintAll);
 }
 
-void MainScene::sendGroupsToPaintManager(bool requestPaint)
+void MainScene::sendGroupsToPaintManager(bool requestPaint, bool paintAll)
 {
+    if (paintAll) {
+        paintManager->addClearRect(sceneRect, true);
+    }
+
     for (auto group : groupList) {
-        paintManager->addGroup(group, false, false);
+        paintManager->addGroup(group, paintAll, false);
     }
 
     if (requestPaint) {
         paintManager->sendPaintGroupSignal();
+    }
+}
+
+void MainScene::sendSelectionChangeSignal()
+{
+    if (hasSelection()) {
+        someSelected();
+    } else {
+        selectionDropSignal();
     }
 }

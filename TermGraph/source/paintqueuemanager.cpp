@@ -137,11 +137,6 @@ bool PaintManager::edgeQueueEmpty() const
     return edgesForPaint.isEmpty();
 }
 
-bool PaintManager::currentEdgeWide() const
-{
-    return edgesForPaint.head()->getWide();
-}
-
 QColor PaintManager::getEdgeColor() const
 {
     return edgesForPaint.head()->getEdgeColor();

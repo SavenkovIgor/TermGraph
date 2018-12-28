@@ -2,12 +2,17 @@
 
 QColor Edge::getEdgeColor() const
 {
+    if (selected) {
+        return AppStyle::Colors::Edges::selected;
+    }
+
     switch (type) {
     case EdgeType::standart: return AppStyle::Colors::Edges::standard;
     case EdgeType::termin: return AppStyle::Colors::Edges::termin;
     case EdgeType::description: return AppStyle::Colors::Edges::description;
     case EdgeType::broken: return AppStyle::Colors::Edges::broken;
     }
+
     return AppStyle::Colors::Edges::standard;
 }
 
@@ -59,7 +64,7 @@ void Edge::paint(QPainter *painter, const QStyleOptionGraphicsItem *, QWidget *)
     p.setColor(getEdgeColor());
 
     int baseWidth = 3;
-    if (wide) {
+    if (selected) {
         baseWidth *= 2;
         p.setColor(AppStyle::Colors::Edges::selected);
     } else {
@@ -160,14 +165,9 @@ EdgesList Edge::castToEdgeList(GraphEdge::List lst)
     return  edgeLst;
 }
 
-bool Edge::getWide() const
+void Edge::setSelected(bool value)
 {
-    return wide;
-}
-
-void Edge::setWide(bool value)
-{
-    wide = value;
+    selected = value;
     needPaint = true;
 }
 

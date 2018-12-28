@@ -50,7 +50,6 @@ public slots:
     void nextEdge();
     bool edgeQueueEmpty() const;
 
-    bool currentEdgeWide() const;
     QColor getEdgeColor() const;
     QPointF currentFirstEdgePoint() const;
     QPointF currentLastEdgePoint() const;

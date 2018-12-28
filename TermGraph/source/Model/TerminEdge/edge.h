@@ -42,8 +42,7 @@ public:
     static EdgesList castToEdgeList(GraphEdge::List lst);  // TODO: Delete!!!
 
     // Paint width
-    bool getWide() const;
-    void setWide(bool value);
+    void setSelected(bool value);
 
     // Scene stuff
     void setSceneParent(QGraphicsItem* item);
@@ -54,7 +53,7 @@ public:
     void cutOutFromSides();
 
 private:
-    bool wide = false;
+    bool selected = false;
     EdgeType type = EdgeType::termin;
 };
 
