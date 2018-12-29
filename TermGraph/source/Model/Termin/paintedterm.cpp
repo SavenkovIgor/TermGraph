@@ -270,8 +270,12 @@ QColor PaintedTerm::getColor()
 {
     QColor col = getBaseColor();
 
-    if (thisHovered || relativePaint || thisSelected) {
-        col = getSelectedColor();
+    if (someoneSelect) {
+        if (thisHovered || relativePaint || thisSelected) {
+            col = getSelectedColor();
+        } else {
+            col.setAlpha(100);
+        }
     }
 
     return col;

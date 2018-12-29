@@ -5,10 +5,6 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintMana
     sceneRhytm.setSingleShot(false);
     sceneRhytm.setInterval(30);
 
-    userInactiveTimer.setInterval(static_cast<int>(1000/AppConfig::SceneSettings::FPS));
-    userInactiveTimer.setSingleShot(true);
-    connect(&userInactiveTimer, SIGNAL(timeout()), SLOT(paintOneGroupIfNeed()));
-
     mouseMoveReactionTimer.setInterval(static_cast<int>(1000/AppConfig::SceneSettings::FPS));
     mouseMoveReactionTimer.setSingleShot(true);
 
@@ -68,7 +64,6 @@ void MainScene::deleteAllGroups()
 void MainScene::updateModel()
 {
     sceneRhytm.stop();
-    userInactiveTimer.stop();
     stopAllGroupTimers();
 
     paintManager->addClearRect(sceneRect, true);
@@ -89,7 +84,8 @@ void MainScene::updateModel()
     // startAllGroupTimers();
     updateSceneRect();
     sceneContentUpdated();
-    userInactiveTimer.start();
+
+    requestPaint(true);
     qDebug() << "model updated";
 }
 
@@ -155,8 +151,6 @@ void MainScene::setSceneViewRect(int x, int y, int width, int height)
 //        resetPaintFlags();
 //        sceneContentUpdated();
     }
-
-    userInactiveTimer.start();
 }
 
 QColor MainScene::getSceneBackgroundColor() const
@@ -209,7 +203,6 @@ void MainScene::showAllGroups()
 {
     locateGroupsVertically();
     resetPaintFlags();
-    userInactiveTimer.start();
 }
 
 void MainScene::setAnimSpeed(int val)
@@ -323,24 +316,6 @@ TermGroup *MainScene::getNearestNotPaintedGroup()
     return nearestNotPaintedGroup;
 }
 
-void MainScene::paintOneGroupIfNeed()
-{
-    if (paintManager->isPaintInProcessNow()) {
-        userInactiveTimer.start();
-        return;
-    }
-
-    if (auto paintGroup = getNearestNotPaintedGroup()) {
-
-        paintManager->clearAllQueues();
-        paintManager->addGroup(paintGroup);
-
-//        userInactiveTimer.start();
-    } else {
-        qDebug() << "No paint";
-    }
-}
-
 bool MainScene::hasSelection() {
     return getSelectedNode() != nullptr;
 }
@@ -398,13 +373,16 @@ void MainScene::findClick(const QPointF &atPt)
 {
     // Check for click in same point
     if (auto selected = getSelectedNode()) {
+        // if same rect - exit
         if (selected->getNodeRect(CoordType::scene).contains(atPt)) {
             return;
+        } else {
+
+            // Else drop current selection
+            selectedNode->setSelection(false);
+            selectedNode = nullptr;
         }
     }
-
-    selectedNode->setSelection(false);
-    selectedNode = nullptr;
 
     if (auto node = getNodeAtPoint(atPt)) {  // Click in other node
         node->setSelection(true);

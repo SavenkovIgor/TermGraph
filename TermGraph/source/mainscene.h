@@ -64,7 +64,6 @@ public slots:
     bool    getCurrNodeIsRoot();
 
     TermGroup* getNearestNotPaintedGroup();
-    void paintOneGroupIfNeed();
 
     bool hasSelection();
 
@@ -86,7 +85,6 @@ public slots:
 private:
     // Timers
     QTimer sceneRhytm;
-    QTimer userInactiveTimer;
     QTimer mouseMoveReactionTimer;
 
     // Managers
