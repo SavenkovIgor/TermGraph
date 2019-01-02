@@ -80,36 +80,6 @@ void GraphicItemTerm::paint(QPainter *painter, const QStyleOptionGraphicsItem *,
     }
 }
 
-void GraphicItemTerm::hoverEnterEvent(QGraphicsSceneHoverEvent *evt)
-{
-    someoneHover = true;
-    thisHovered = true;
-
-    relativePaint = true;
-
-    setRelatedPaint(true);
-
-    QGraphicsItem::hoverEnterEvent(evt);
-}
-
-void GraphicItemTerm::hoverLeaveEvent(QGraphicsSceneHoverEvent *evt)
-{
-    thisHovered = false;
-    someoneHover = false;
-
-    relativePaint = false;
-
-    if (!isSelected())
-        setRelatedPaint(false);
-
-    QGraphicsItem::hoverLeaveEvent(evt);
-}
-
-void GraphicItemTerm::mousePressEvent(QGraphicsSceneMouseEvent *evt)
-{
-    QGraphicsItem::mousePressEvent(evt);
-}
-
 QString GraphicItemTerm::getDebugString() {
     QStringList p;
     QString tmp;

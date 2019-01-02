@@ -20,11 +20,6 @@ public:
     GraphicItemTerm(QSqlRecord rec);
     ~GraphicItemTerm() override;
 
-    // Overriding of QGraphicsItem
-    void mousePressEvent(QGraphicsSceneMouseEvent *evt) override;
-    void hoverEnterEvent(QGraphicsSceneHoverEvent *evt) override;
-    void hoverLeaveEvent(QGraphicsSceneHoverEvent *evt) override;
-
     QRectF boundingRect() const override;
     void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget *) override;
 
