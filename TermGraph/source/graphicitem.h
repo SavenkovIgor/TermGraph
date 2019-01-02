@@ -23,7 +23,6 @@ public:
 
 private:
     QPointF position;
-
     GraphicItem* parentItem = nullptr;
 };
 

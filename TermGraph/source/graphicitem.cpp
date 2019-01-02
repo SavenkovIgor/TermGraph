@@ -4,6 +4,11 @@ GraphicItem::GraphicItem()
 {
 }
 
+void GraphicItem::setParentItem(GraphicItem *item)
+{
+    parentItem = item;
+}
+
 void GraphicItem::setPos(QPointF pt)
 {
     position = pt;
