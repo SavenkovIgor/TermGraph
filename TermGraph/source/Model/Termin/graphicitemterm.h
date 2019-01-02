@@ -12,7 +12,6 @@
 class GraphicItemTerm final: public PaintedTerm, public QGraphicsItem
 {
     Q_OBJECT
-    Q_PROPERTY(QPointF pos READ pos WRITE setPos)
 
 public:
     typedef QList<GraphicItemTerm*> List;  // TODO: Перенести частично в родительский элемент
