@@ -2,19 +2,24 @@
 #define GRAPHICITEM_H
 
 #include <QPointF>
+#include <QRectF>
 
 class GraphicItem
 {
 public:
     GraphicItem();
+    virtual ~GraphicItem() = 0;
 
     // Parents
-    void setParentItem(GraphicItem* item);
+    virtual void setParentItem(GraphicItem* item);
 
     // Position
-    void setPos(QPointF pt);
-    QPointF pos() const;
-    QPointF scenePos() const;
+    virtual void setPos(QPointF pt);
+    virtual QPointF pos() const;
+    virtual QPointF scenePos() const;
+
+    // Size
+    virtual QRectF boundingRect() const = 0;
 
 private:
     QPointF position;
