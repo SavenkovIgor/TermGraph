@@ -39,13 +39,17 @@ int PaintedTerm::getUpLevels(int pLevel)
 
 void PaintedTerm::setRelatedPaint(bool val)
 {
-    for (GraphTerm* n : getUpDownNodes()) {
-        static_cast<PaintedTerm*>(n)->relativePaint = val;
+    for (auto node : getRootNodes()) {
+        static_cast<PaintedTerm*>(node)->relativePaint = val;
     }
 
-    for (GraphEdge* d : getUpDownEdges()) {
-        auto e = dynamic_cast<Edge*>(d);
-        e->setSelected(val);
+    for (auto d : getEdgesToRoots()) {
+        auto edge = dynamic_cast<Edge*>(d);
+        edge->setSelected(val);
+    }
+
+    for (auto node : getRootNodes()) {
+        static_cast<PaintedTerm*>(node)->setRelatedPaint(val);
     }
 }
 
