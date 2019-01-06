@@ -8,7 +8,7 @@ class GraphicItem
 {
 public:
     GraphicItem();
-    virtual ~GraphicItem() = 0;
+    virtual ~GraphicItem();
 
     // Parents
     virtual void setParentItem(GraphicItem* item);

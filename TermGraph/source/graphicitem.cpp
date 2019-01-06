@@ -1,8 +1,7 @@
 #include "graphicitem.h"
 
-GraphicItem::GraphicItem()
-{
-}
+GraphicItem::GraphicItem()  { }
+GraphicItem::~GraphicItem() { }
 
 void GraphicItem::setParentItem(GraphicItem *item)
 {
