@@ -24,9 +24,13 @@ public:
     // Size
     virtual QRectF boundingRect() const = 0;
 
+    // Z-value
+    void setZValue(const int& z);
+
 private:
     QPointF position;
     GraphicItem* parentItem = nullptr;
+    int zValue = 0;
 };
 
 #endif // GRAPHICITEM_H
