@@ -45,7 +45,8 @@ HEADERS += \
     source/Model/TerminGroup/termtree.h \
     source/Model/GraphicItem/graphicitem.h \
     source/Model/GraphicItem/rectgraphicitem.h \
-    source/paintqueuemanager.h
+    source/paintqueuemanager.h \
+    source/Model/GraphicItem/labelgraphicitem.h
 
 SOURCES += \
     source/main.cpp\
@@ -86,7 +87,8 @@ SOURCES += \
     source/Model/TerminGroup/termtree.cpp \
     source/Model/GraphicItem/graphicitem.cpp \
     source/Model/GraphicItem/rectgraphicitem.cpp \
-    source/paintqueuemanager.cpp
+    source/paintqueuemanager.cpp \
+    source/Model/GraphicItem/labelgraphicitem.cpp
 
 FORMS += \
     source/ui/reminder.ui\
