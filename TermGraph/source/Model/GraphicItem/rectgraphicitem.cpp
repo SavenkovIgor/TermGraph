@@ -1,6 +1,6 @@
 #include "rectgraphicitem.h"
 
-RectGraphicItem::RectGraphicItem()  { }
+RectGraphicItem::RectGraphicItem() : GraphicItem () { }
 
 RectGraphicItem::RectGraphicItem(const QPointF &pt, const QSizeF &size)
 {
