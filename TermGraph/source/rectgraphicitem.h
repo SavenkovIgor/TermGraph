@@ -8,7 +8,11 @@
 class RectGraphicItem : public GraphicItem
 {
 public:
+    // Constructors
     RectGraphicItem();
+    explicit RectGraphicItem(const QPointF& pt, const QSizeF& size);
+
+    // Destructor
     ~RectGraphicItem() override;
 
     virtual QRectF boundingRect() const override;

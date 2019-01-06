@@ -1,6 +1,13 @@
 #include "rectgraphicitem.h"
 
 RectGraphicItem::RectGraphicItem()  { }
+
+RectGraphicItem::RectGraphicItem(const QPointF &pt, const QSizeF &size)
+{
+    setPos(pt);
+    setSize(size);
+}
+
 RectGraphicItem::~RectGraphicItem() { }
 
 QRectF RectGraphicItem::boundingRect() const
