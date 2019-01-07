@@ -2,9 +2,7 @@
 #define TERMGROUP_H
 
 #include <QObject>
-#include <QPen>
 #include <QtSql>
-#include <QGraphicsRectItem>
 
 #include "../../databaseWorks/termgrouptbl.h"
 #include "../../Helpers/appstyle.h"
@@ -32,7 +30,7 @@ public:
 
     void initNewNodes();
 
-    QGraphicsRectItem *baseRect;
+    RectGraphicItem *baseRect;
 
     QString getTypeString();
     static QStringList getTypesNames();
@@ -46,8 +44,6 @@ public:
 
     void setAnimSpeed(int val);
     static int getAnimSpeed();
-
-//    QGraphicsRectItem *centerRect;
 
     // Position and frame
     void setBasePoint(QPointF pt);

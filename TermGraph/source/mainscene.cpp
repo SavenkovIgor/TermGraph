@@ -1,6 +1,6 @@
 #include "mainscene.h"
 
-MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager *paintManager) : QGraphicsScene()
+MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager *paintManager)
 {
     sceneRhytm.setSingleShot(false);
     sceneRhytm.setInterval(30);
@@ -18,8 +18,6 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintMana
 
     Q_ASSERT(paintManager != nullptr);
     this->paintManager = paintManager;
-
-    setItemIndexMethod(NoIndex);
 }
 
 MainScene::~MainScene()
@@ -46,7 +44,6 @@ void MainScene::initAllGroups()
 
 void MainScene::addGroupToScene(TermGroup *group)
 {
-    addItem(group->baseRect);
     connect(&sceneRhytm, SIGNAL(timeout()), group, SLOT(sceneUpdateSignal()));
     groupList << group;
 }
@@ -54,7 +51,6 @@ void MainScene::addGroupToScene(TermGroup *group)
 void MainScene::deleteAllGroups()
 {
     for (auto group : groupList) {
-        removeItem(group->baseRect);
         delete group;
     }
 
@@ -96,7 +92,8 @@ void MainScene::locateGroupsVertically()
 
     // Выставляем позиции групп
     for (TermGroup* group : groupList) {
-        QRectF baseRc = group->baseRect->rect().translated(group->baseRect->scenePos());
+        auto baseRc = group->baseRect->frameRect();
+        baseRc.moveTo(group->baseRect->scenePos());
         group->setBasePoint(QPointF(x, y));
 
         y += baseRc.height() + 40;
@@ -114,7 +111,8 @@ void MainScene::updateSceneRect()
             continue;
         }
 
-        QRectF baseRc = group->baseRect->rect().translated(group->baseRect->scenePos());
+        auto baseRc = group->baseRect->frameRect();
+        baseRc.moveTo(group->baseRect->scenePos());
         allRect = allRect.united(baseRc);
     }
 

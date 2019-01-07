@@ -38,9 +38,6 @@ TermGroup::~TermGroup()
 
     delete grNmItem;
     delete orphansRect;
-    for (auto child : baseRect->childItems()) {
-        child->setParentItem(nullptr);
-    }
     delete baseRect;
 }
 
@@ -50,16 +47,10 @@ void TermGroup::initNewNodes()
     removeCycles();
     removeExceedEdges();
 
-    baseRect = new QGraphicsRectItem(QRectF(QPoint(0, 0), QSizeF(10.0, 10.0)), nullptr);
-    baseRect->setZValue(1);
+    baseRect = new RectGraphicItem(QPoint(0, 0), QSizeF(10.0, 10.0));
 
     orphansRect = new RectGraphicItem();
     orphansRect->setParentItem(baseRect);
-
-    //    centerRect  = new QGraphicsRectItem( nullptr );
-
-    baseRect->setBrush(getGroupFillColor());
-    baseRect->setPen(getGroupColor());
 
     this->grNmItem->setParentItem(baseRect);
 
@@ -360,7 +351,7 @@ void TermGroup::updateBaseRectSize()
         height += orphansSize.height() + vSpacer;
     height += vSpacer;
 
-    baseRect->setRect(QRectF(QPointF(), QSizeF(width, height)));
+    baseRect->setSize(QSizeF(width, height));
 }
 
 void TermGroup::updateGroupFrame()
@@ -431,7 +422,9 @@ QPointF TermGroup::getNamePos()
 
 QRectF TermGroup::getGroupRect() const
 {
-    return baseRect->rect().translated(baseRect->scenePos());
+    auto rect = baseRect->frameRect();
+    rect.moveTo(baseRect->scenePos());
+    return rect;
 }
 
 QColor TermGroup::getGroupColor()

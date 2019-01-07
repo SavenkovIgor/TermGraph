@@ -3,10 +3,7 @@
 
 #include <stdlib.h>
 
-#include <QGraphicsScene>
-#include <QGraphicsSceneMouseEvent>
-#include <QGraphicsItem>
-#include <QGraphicsView>
+#include <QObject>
 #include <QClipboard>
 #include <QElapsedTimer>
 
@@ -17,7 +14,7 @@
 #include "./Helpers/fsworks.h"
 #include "./Model/TerminGroup/termgroup.h"
 
-class MainScene : public QGraphicsScene  // NOTE: Maybe remove QGraphicScene dependency
+class MainScene : public QObject
 {
     Q_OBJECT
 

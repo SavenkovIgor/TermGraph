@@ -25,11 +25,7 @@ QSizeF RectGraphicItem::size() const
     return _size;
 }
 
-QRectF RectGraphicItem::getRect() const
+QRectF RectGraphicItem::getRect() const  // TODO: Write full function with parameter
 {
-    // make pos - center point
-    auto pt = pos();
-    pt.rx() -= _size.width()/2;
-    pt.ry() -= _size.height()/2;
-    return QRectF(pt, _size);
+    return QRectF(pos(), _size);
 }
