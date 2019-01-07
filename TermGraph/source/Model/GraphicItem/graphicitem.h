@@ -3,6 +3,7 @@
 
 #include <QPointF>
 #include <QRectF>
+#include <QGraphicsItem>
 
 class GraphicItem
 {
@@ -12,6 +13,7 @@ public:
 
     // Parents
     virtual void setParentItem(GraphicItem* item);
+    virtual void setParentItem(QGraphicsItem* item);  // TODO: Delete later
 
     // Position
     virtual void setPos(const QPointF& pt);
@@ -30,6 +32,7 @@ public:
 private:
     QPointF position;
     GraphicItem* parentItem = nullptr;
+    QGraphicsItem* grParentItem = nullptr;  // TODO: Delete later
     int zValue = 0;
 };
 

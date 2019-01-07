@@ -8,6 +8,11 @@ void GraphicItem::setParentItem(GraphicItem *item)
     parentItem = item;
 }
 
+void GraphicItem::setParentItem(QGraphicsItem *item)
+{
+    grParentItem = item;
+}
+
 void GraphicItem::setPos(const QPointF &pt)
 {
     position = pt;
@@ -37,11 +42,25 @@ QPointF GraphicItem::pos() const
 
 QPointF GraphicItem::scenePos() const
 {
-    if (parentItem == nullptr) {
+//    if (parentItem == nullptr) {
+//        return position;
+//    }
+
+//    return position + parentItem->scenePos();
+
+    if (parentItem == nullptr && grParentItem == nullptr) {
         return position;
     }
 
-    return position + parentItem->scenePos();
+    if (parentItem != nullptr) {
+        return position + parentItem->scenePos();
+    }
+
+    if (grParentItem != nullptr) {
+        return position + grParentItem->scenePos();
+    }
+
+    return position;
 }
 
 void GraphicItem::setZValue(const int &z)
