@@ -247,14 +247,12 @@ void TermGroup::startAnimation()
 {
     animTimer.start();
     checkSwapTimer.start();
-    grNmItem->timerStarted();
 }
 
 void TermGroup::stopAnimation()
 {
     animTimer.stop();
     checkSwapTimer.stop();
-    grNmItem->timerStopped();
 }
 
 void TermGroup::sceneUpdateSignal()
@@ -433,7 +431,7 @@ void TermGroup::setTreeCoords()
 
 QString TermGroup::getName()
 {
-    return grNmItem->getNameOnly();
+    return grNmItem->getName();
 }
 
 QPointF TermGroup::getNamePos()

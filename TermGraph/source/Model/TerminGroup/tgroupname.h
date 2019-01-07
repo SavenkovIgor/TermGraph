@@ -1,11 +1,11 @@
 #ifndef TGROUPNAME_H
 #define TGROUPNAME_H
 
-#include <QApplication>
-#include <QObject>
+#include <QBrush>
 #include <QGraphicsSimpleTextItem>
 
 #include "../../Helpers/appstyle.h"
+#include "../../Helpers/fonts.h"
 
 class TGroupName : public QGraphicsSimpleTextItem
 {
@@ -16,47 +16,22 @@ public:
         QPointF offset(10.0, AppStyle::Sizes::groupVerticalSpacer);
         QGraphicsSimpleTextItem::setPos(offset);
 
-        this->setBrush(AppStyle::Colors::Groups::text);
+        this->setBrush(QBrush(AppStyle::Colors::Groups::text));
         this->setFont(Fonts::getWeightFont());
         this->name = name;
-        updateName();
+        setText(name);
     }
 
-    void timerStopped()
+    QString getName() const
     {
-        timerActive = false;
-        updateName();
-    }
-
-    void timerStarted()
-    {
-        timerActive = true;
-        updateName();
-    }
-
-    QString getNameOnly(){
         return name;
     }
 
     QRectF getNameRect() {
-        return Fonts::getTextMetrics(getFullText(), Fonts::getWeightFont());
+        return Fonts::getTextMetrics(getName(), Fonts::getWeightFont());
     }
 
 private:
-    QString getFullText() const {
-        return QGraphicsSimpleTextItem::text();
-    }
-
-    void updateName()
-    {
-        QString set = name;
-        if (!timerActive) {
-            set += " (s)";
-        }
-        setText(set);
-    }
-
-    bool timerActive = true;
     QString name = "";
 };
 
