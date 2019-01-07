@@ -211,7 +211,7 @@ void TermGroup::addEdgesToParents()
     for (Edge* edge : getAllEdges()) {
         for (auto tree : trees) {
             if (tree->hasEdge(edge)) {
-                edge->setSceneParent(tree->rect);
+                edge->setParentItem(tree->rect);
             }
         }
     }

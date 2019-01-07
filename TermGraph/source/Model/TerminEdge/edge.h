@@ -8,6 +8,7 @@
 
 #include "./graphedge.h"
 #include "../Termin/paintedterm.h"
+#include "../GraphicItem/graphicitem.h"
 #include "../../Helpers/appstyle.h"
 
 class PaintedTerm;
@@ -19,22 +20,19 @@ enum class EdgeType {
     broken
 };
 
-class Edge : public GraphEdge, public QGraphicsItem
+class Edge : public GraphEdge, public GraphicItem
 {
 public:
     Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin);
-    ~Edge();
+    ~Edge() override;
 
-    QRectF boundingRect() const;
-
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget*);
+    QRectF frameRect() const override;
 
     int getLayerDistance();
 
     qreal getXProjection();
     qreal getYProjection();
 
-//    QPointF swP1 = QPointF();
     QPointF swapPointRoot = QPointF();
     QPointF swapPointLeaf = QPointF();
     QLineF getLine(bool swap = false);
@@ -43,9 +41,6 @@ public:
 
     // Paint width
     void setSelected(bool value);
-
-    // Scene stuff
-    void setSceneParent(QGraphicsItem* item);
 
     QColor getEdgeColor() const;
 
