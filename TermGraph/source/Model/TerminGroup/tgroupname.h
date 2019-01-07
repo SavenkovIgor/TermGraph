@@ -27,7 +27,7 @@ public:
         return name;
     }
 
-    QSizeF getNameSize() {
+    QSizeF getNameSize() const {
         return Fonts::getTextMetrics(getName(), Fonts::getWeightFont());
     }
 

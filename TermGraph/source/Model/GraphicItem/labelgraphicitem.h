@@ -3,19 +3,24 @@
 
 #include <QString>
 
+#include "../../Helpers/fonts.h"
 #include "./graphicitem.h"
 
 class LabelGraphicItem : public GraphicItem
 {
 public:
     LabelGraphicItem();
-    LabelGraphicItem(const QString& label);
+    LabelGraphicItem(const QString& label, const QFont& font = Fonts::getWeightFont());
     ~LabelGraphicItem() override;
 
     void setLabel(const QString& label);
+    void setFont(const QFont& font);
+
+    QSizeF getNameSize() const;
 
 private:
     QString _label;
+    QFont _font;
 };
 
 #endif // LABELGRAPHICITEM_H
