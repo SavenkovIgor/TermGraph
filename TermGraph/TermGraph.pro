@@ -38,7 +38,6 @@ HEADERS += \
     source/Model/Termin/infoterm.h \
     source/Model/Termin/paintedterm.h \
     source/Model/Termin/graphicitemterm.h \
-    source/Model/Termin/quickitemterm.h \
     source/Model/TerminGroup/termgroupinfo.h \
     source/Model/TerminGroup/nodeverticalstack.h \
     source/Model/TerminGroup/termtree.h \
@@ -80,7 +79,6 @@ SOURCES += \
     source/Model/Termin/infoterm.cpp \
     source/Model/Termin/paintedterm.cpp \
     source/Model/Termin/graphicitemterm.cpp \
-    source/Model/Termin/quickitemterm.cpp \
     source/Model/TerminGroup/termgroupinfo.cpp \
     source/Model/TerminGroup/nodeverticalstack.cpp \
     source/Model/TerminGroup/termtree.cpp \
