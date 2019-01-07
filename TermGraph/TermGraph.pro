@@ -20,7 +20,6 @@ HEADERS += \
     source/Model/TerminEdge/edge.h\
     source/Model/TerminGroup/termgroup.h\
     source/Model/wordfreqanalyze.h \
-    source/Model/TerminGroup/tgroupname.h \
     source/Model/reminder.h\
     source/Managers/networkmanager.h \
     source/Managers/groupsmanager.h \

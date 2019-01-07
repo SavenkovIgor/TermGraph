@@ -9,8 +9,8 @@
 #include "../../Helpers/appstyle.h"
 #include "../../Helpers/tagprocessor.h"
 #include "./termgroupinfo.h"
-#include "./tgroupname.h"
 #include "../TerminEdge/edge.h"
+#include "../GraphicItem/labelgraphicitem.h"
 
 class TermGroup : public QObject, public TermGroupInfo
 {
@@ -92,7 +92,7 @@ private:
     void hideRect(QGraphicsRectItem* item);
 
     // Main objects
-    TGroupName *grNmItem;
+    LabelGraphicItem* grNmItem;
     void addTreeRectsToScene();
     QGraphicsRectItem *orphansRect;
 };

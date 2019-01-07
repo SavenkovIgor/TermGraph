@@ -7,7 +7,7 @@ TermGroup::TermGroup(QSqlRecord rec, QObject *parent):
     TermGroupInfo()
 {
     QString groupName = rec.value(TermGroupColumn::name).toString();
-    this->grNmItem = new TGroupName(groupName);
+    this->grNmItem = new LabelGraphicItem(groupName);
 
     setGroupUuid(QUuid(rec.value(TermGroupColumn::longUID).toString()));
     setType(static_cast<GroupType>(rec.value(TermGroupColumn::type).toInt()));
@@ -25,7 +25,7 @@ TermGroup::TermGroup(QJsonDocument doc, QObject *parent):
     setType(static_cast<GroupType>(jsonObject.value("type").toInt()));
 
     QString groupName = jsonObject.value("name").toString();
-    this->grNmItem = new TGroupName( groupName );
+    this->grNmItem = new LabelGraphicItem(groupName);
 
 //    qDebug() << "Create group" << getName();
 }
@@ -431,7 +431,7 @@ void TermGroup::setTreeCoords()
 
 QString TermGroup::getName()
 {
-    return grNmItem->getName();
+    return grNmItem->getLabel();
 }
 
 QPointF TermGroup::getNamePos()
