@@ -291,7 +291,7 @@ qreal TermGroup::getGroupMinWidth()
 {
     qreal width = 0.0;
 
-    qreal groupNameWidth = grNmItem->getNameRect().width();
+    qreal groupNameWidth = grNmItem->getNameSize().width();
     qreal treeWidth = getAllTreesSize().width();
     qreal orphansWidth = NodeVerticalStackTools::getNodeVerticalStackedSize(getOrphanNodes()).width();
 
@@ -328,7 +328,7 @@ void TermGroup::updateRectsPositions()
     qreal hSpacer = AppStyle::Sizes::groupHorizontalSpacer;
     QPointF basePoint(QPointF(hSpacer, vSpacer));
 
-    QSizeF nameSize = grNmItem->getNameRect().size();
+    auto nameSize = grNmItem->getNameSize();
 
     // Устанавливаем базовую точку имени
     grNmItem->setPos(basePoint);
@@ -350,7 +350,7 @@ void TermGroup::updateRectsPositions()
 
 void TermGroup::updateBaseRectSize()
 {
-    QSizeF nameSize = grNmItem->getNameRect().size();
+    QSizeF nameSize = grNmItem->getNameSize();
     QSizeF treesSize = getAllTreesSize();
     QSizeF orphansSize = getOrphansSize();
     qreal vSpacer = AppStyle::Sizes::groupVerticalSpacer;
@@ -437,7 +437,7 @@ QString TermGroup::getName()
 QPointF TermGroup::getNamePos()
 {
     auto pt = grNmItem->scenePos();
-    pt.ry() += grNmItem->getNameRect().height() / 2;
+    pt.ry() += grNmItem->getNameSize().height() / 2;
     return pt;
 }
 

@@ -4,13 +4,13 @@
 #include <QApplication>
 #include <QFont>
 #include <QFontMetricsF>
-#include <QRectF>
+#include <QSizeF>
 
 class Fonts {
 public:
     static QFont getFont();
     static QFont getWeightFont(int weight = QFont::Black);
-    static QRectF getTextMetrics(const QString& text, const QFont& font = getFont());
+    static QSizeF getTextMetrics(const QString& text, const QFont& font = getFont());
 };
 
 #endif // FONTS_H

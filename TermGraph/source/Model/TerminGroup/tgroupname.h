@@ -27,7 +27,7 @@ public:
         return name;
     }
 
-    QRectF getNameRect() {
+    QSizeF getNameSize() {
         return Fonts::getTextMetrics(getName(), Fonts::getWeightFont());
     }
 
