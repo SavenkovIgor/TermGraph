@@ -2,6 +2,7 @@
 #define TERMGROUP_H
 
 #include <QObject>
+#include <QPen>
 #include <QtSql>
 #include <QGraphicsRectItem>
 

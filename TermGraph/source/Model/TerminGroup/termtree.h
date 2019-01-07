@@ -2,14 +2,13 @@
 #define TERMTREE_H
 
 #include <QList>
-#include <QGraphicsItem>
-#include <QGraphicsRectItem>
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
 #include <stdlib.h>
 
 #include "../Termin/graphicitemterm.h"
 #include "../TerminEdge/edge.h"
+#include "../GraphicItem/rectgraphicitem.h"
 #include "./nodeverticalstack.h"
 
 class TermTree
@@ -21,7 +20,7 @@ public:
     TermTree();
     ~TermTree();
 
-    QGraphicsRectItem* rect = nullptr;
+    RectGraphicItem* rect = nullptr;
 
     // Add info
     void addTerm(GraphicItemTerm* term);

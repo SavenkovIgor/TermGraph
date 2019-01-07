@@ -326,7 +326,7 @@ void TermGroup::updateRectsPositions()
     for (auto tree : trees) {
         auto treeSize = tree->getTreeSize();
         tree->rect->setPos(basePoint);
-        tree->rect->setRect(QRectF(QPointF(), treeSize));
+        tree->rect->setSize(treeSize);
         basePoint.ry() += treeSize.height() + vSpacer;
     }
 

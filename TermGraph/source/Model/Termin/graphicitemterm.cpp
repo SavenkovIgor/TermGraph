@@ -29,8 +29,3 @@ void GraphicItemTerm::movePosBy(qreal dx, qreal dy)
 {
     moveBy(dx,dy);
 }
-
-void GraphicItemTerm::setSceneParent(QGraphicsItem *item)
-{
-    this->setParentItem(item);
-}

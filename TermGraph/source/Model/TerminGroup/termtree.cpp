@@ -3,10 +3,7 @@
 TermTree::TermTree()
 {
 //    qDebug() << "Create tree";
-    rect = new QGraphicsRectItem();
-    rect->setBrush(AppStyle::Colors::transparent);
-    rect->setPen(AppStyle::Colors::transparent);
-//    rect->setPen(AppStyle::Colors::testColor);
+    rect = new RectGraphicItem();
 
     animationGroup.addAnimation(&swAnim1);
     animationGroup.addAnimation(&swAnim2);
@@ -19,9 +16,6 @@ TermTree::TermTree()
 
 TermTree::~TermTree()
 {
-    for (auto child : rect->childItems()) {
-        child->setParentItem(nullptr);
-    }
     delete rect;
 
     for (auto stack : stacks) {
@@ -166,7 +160,7 @@ void TermTree::addTerm(GraphicItemTerm* term)
     }
 
     GraphicItemTerm* grTerm = dynamic_cast<GraphicItemTerm*>(term);
-    grTerm->setSceneParent(rect);
+    grTerm->setParentItem(rect);
 
     stacks[paintLayer]->addTerm(term);
 }

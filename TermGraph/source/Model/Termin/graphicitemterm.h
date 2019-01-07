@@ -25,9 +25,6 @@ public:
     QPointF getPos() const override;
     QPointF getScenePos() const override;
     void movePosBy(qreal dx, qreal dy) override;
-
-    // Methods for replacement
-    void setSceneParent(QGraphicsItem* item);
 };
 
 #endif  // TERMNODE_H
