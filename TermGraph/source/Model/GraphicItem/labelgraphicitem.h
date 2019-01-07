@@ -9,6 +9,7 @@ class LabelGraphicItem : public GraphicItem
 {
 public:
     LabelGraphicItem();
+    LabelGraphicItem(const QString& label);
     ~LabelGraphicItem() override;
 
     void setLabel(const QString& label);
