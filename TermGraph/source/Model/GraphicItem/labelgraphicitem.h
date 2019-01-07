@@ -16,7 +16,10 @@ public:
     void setLabel(const QString& label);
     void setFont(const QFont& font);
 
+    QString getLabel() const;
     QSizeF getNameSize() const;
+
+    QRectF frameRect() const override;
 
 private:
     QString _label;

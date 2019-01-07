@@ -24,7 +24,7 @@ public:
     virtual QPointF scenePos() const;
 
     // Size
-    virtual QRectF boundingRect() const = 0;
+    virtual QRectF frameRect() const = 0;
 
     // Z-value
     void setZValue(const int& z);

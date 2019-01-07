@@ -10,10 +10,9 @@ RectGraphicItem::RectGraphicItem(const QPointF &pt, const QSizeF &size)
 
 RectGraphicItem::~RectGraphicItem() { }
 
-QRectF RectGraphicItem::boundingRect() const
+QRectF RectGraphicItem::frameRect() const
 {
-//    return getRect();
-    return QRectF();
+    return getRect();
 }
 
 void RectGraphicItem::setSize(const QSizeF& size)

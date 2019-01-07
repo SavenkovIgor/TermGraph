@@ -15,7 +15,7 @@ public:
     // Destructor
     ~RectGraphicItem() override;
 
-    virtual QRectF boundingRect() const override;
+    virtual QRectF frameRect() const override;
 
     void setSize(const QSizeF& size);
 
