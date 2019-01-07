@@ -312,7 +312,6 @@ qreal PaintedTerm::getSumEdgesLength(bool swap)
 
 void PaintedTerm::adjustRectSizeForName()
 {
-    PrepareGeometryChangeCall();
     QSizeF nameSize = getNameSize();
     nodeSize.setWidth(nameSize.width() + 16);
     nodeSize.setHeight(nameSize.height() + 4);

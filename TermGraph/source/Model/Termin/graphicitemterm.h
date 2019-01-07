@@ -1,15 +1,15 @@
 #ifndef TERMNODE_H
 #define TERMNODE_H
 
-#include <QGraphicsItem>
 #include <QDebug>
 
 #include "../../Helpers/appstyle.h"
 #include "../../Helpers/helpstuff.h"
+#include "../GraphicItem/graphicitem.h"
 #include "./paintedterm.h"
 
 // This class contains function to draw Term in particular system of drawing
-class GraphicItemTerm final: public PaintedTerm, public QGraphicsItem
+class GraphicItemTerm final: public PaintedTerm, public GraphicItem
 {
     Q_OBJECT
 
@@ -19,20 +19,15 @@ public:
     GraphicItemTerm(QSqlRecord rec);
     ~GraphicItemTerm() override;
 
-    QRectF boundingRect() const override;
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem*, QWidget *) override;
+    QRectF frameRect() const override;
 
     // Overriding of PaintedTerm
     QPointF getPos() const override;
     QPointF getScenePos() const override;
     void movePosBy(qreal dx, qreal dy) override;
-    void PrepareGeometryChangeCall() override;
 
     // Methods for replacement
     void setSceneParent(QGraphicsItem* item);
-
-private:
-    QString getDebugString();
 };
 
 #endif  // TERMNODE_H

@@ -45,7 +45,6 @@ public:
     virtual QPointF getScenePos() const = 0;
 
     virtual void movePosBy(qreal dx, qreal dy) = 0;
-    virtual void PrepareGeometryChangeCall() = 0;
 
     // NodeRect tools
     QRectF getNodeRect(CoordType inCoordinates) const;

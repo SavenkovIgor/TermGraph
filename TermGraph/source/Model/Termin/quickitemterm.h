@@ -18,7 +18,6 @@ public:
     QPointF getPos() const override;
     QPointF getScenePos() const override;
     void movePosBy(qreal dx, qreal dy) override;
-    void PrepareGeometryChangeCall() override;
 };
 
 #endif // QUICKITEMTERM_H

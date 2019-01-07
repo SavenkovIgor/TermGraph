@@ -83,7 +83,3 @@ void QuickItemTerm::movePosBy(qreal dx, qreal dy)  // TODO: Realize!
 {
 
 }
-
-void QuickItemTerm::PrepareGeometryChangeCall()
-{
-}
