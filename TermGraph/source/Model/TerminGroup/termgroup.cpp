@@ -37,9 +37,6 @@ TermGroup::~TermGroup()
     animTimer.stop();
 
     delete grNmItem;
-    for (auto child : orphansRect->childItems()) {
-        child->setParentItem(nullptr);
-    }
     delete orphansRect;
     for (auto child : baseRect->childItems()) {
         child->setParentItem(nullptr);
@@ -56,11 +53,8 @@ void TermGroup::initNewNodes()
     baseRect = new QGraphicsRectItem(QRectF(QPoint(0, 0), QSizeF(10.0, 10.0)), nullptr);
     baseRect->setZValue(1);
 
-    orphansRect = new QGraphicsRectItem(nullptr);
+    orphansRect = new RectGraphicItem();
     orphansRect->setParentItem(baseRect);
-
-    // Скрываем рамку
-    hideRect(orphansRect);
 
     //    centerRect  = new QGraphicsRectItem( nullptr );
 
@@ -181,7 +175,7 @@ GraphicItemTerm *TermGroup::getNodeAtPoint(const QPointF& pt) const
         }
     }
 
-    auto orphansRect = QRectF(this->orphansRect->scenePos(), this->orphansRect->rect().size());
+    auto orphansRect = QRectF(this->orphansRect->scenePos(), this->orphansRect->size());
     if (orphansRect.contains(pt)) {
         for (auto orphan : getOrphanNodes()) {
             if (orphan->getNodeRect(CoordType::scene).contains(pt)) {
@@ -208,7 +202,7 @@ void TermGroup::setHover(QPointF mousePos)
 void TermGroup::addOrphansToParents()
 {
     for (GraphicItemTerm* node : getOrphanNodes()) {
-        node->setSceneParent(orphansRect);
+        node->setParentItem(orphansRect);
     }
 }
 
@@ -272,12 +266,6 @@ void TermGroup::animateGroup()
     for (auto tree : trees) {
         tree->animateTree();
     }
-}
-
-void TermGroup::hideRect(QGraphicsRectItem *item)
-{
-    item->setBrush(AppStyle::Colors::transparent);
-    item->setPen(QPen(AppStyle::Colors::transparent));
 }
 
 void TermGroup::addTreeRectsToScene()
@@ -345,7 +333,7 @@ void TermGroup::updateRectsPositions()
     QSizeF orphansSize = getOrphansSize();
     // Вычисляем под несвязанные вершины
     orphansRect->setPos(basePoint);
-    orphansRect->setRect(QRectF(QPoint(), orphansSize));  // Применяем
+    orphansRect->setSize(orphansSize);  // Применяем
 }
 
 void TermGroup::updateBaseRectSize()

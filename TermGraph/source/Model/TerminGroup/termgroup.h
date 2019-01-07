@@ -8,6 +8,7 @@
 #include "../../databaseWorks/termgrouptbl.h"
 #include "../../Helpers/appstyle.h"
 #include "../../Helpers/tagprocessor.h"
+#include "../GraphicItem/rectgraphicitem.h"
 #include "./termgroupinfo.h"
 #include "../TerminEdge/edge.h"
 #include "../GraphicItem/labelgraphicitem.h"
@@ -88,13 +89,10 @@ private:
     // Orphans
     void setOrphCoords(qreal maxWidth = 200.0);
 
-    // Tools
-    void hideRect(QGraphicsRectItem* item);
-
     // Main objects
     LabelGraphicItem* grNmItem;
     void addTreeRectsToScene();
-    QGraphicsRectItem *orphansRect;
+    RectGraphicItem *orphansRect;
 };
 
 #endif  // TERMGROUP_H

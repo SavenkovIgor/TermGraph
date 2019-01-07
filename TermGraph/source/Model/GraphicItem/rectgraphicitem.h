@@ -19,6 +19,7 @@ public:
 
     void setSize(const QSizeF& size);
 
+    QSizeF size() const;
 private:
     QSizeF _size;
 
