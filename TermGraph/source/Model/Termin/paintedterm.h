@@ -6,13 +6,7 @@
 
 #include "./graphterm.h"
 #include "../TerminEdge/edge.h"
-
-// For coordinate types
-enum class CoordType {
-    zeroPoint,  // Rect located in zero point
-    local,      // Local coordinate system
-    scene       // Scene coordinate system
-};
+#include "../enums.h"
 
 // This class contains all info for paint Term somewhere
 // Has functions about paint color, positioning. This kind of stuff

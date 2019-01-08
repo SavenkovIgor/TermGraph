@@ -44,7 +44,8 @@ HEADERS += \
     source/Model/GraphicItem/graphicitem.h \
     source/Model/GraphicItem/rectgraphicitem.h \
     source/paintqueuemanager.h \
-    source/Model/GraphicItem/labelgraphicitem.h
+    source/Model/GraphicItem/labelgraphicitem.h \
+    source/Model/enums.h
 
 SOURCES += \
     source/main.cpp\
