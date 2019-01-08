@@ -26,7 +26,7 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
 
     analyze = new WordFreqAnalyze();
 
-    qmlRegisterType<GraphicItemTerm>();
+    qmlRegisterType<PaintedTerm>();
 
     engn->rootContext()->setContextProperty("mainObj", this);
     engn->rootContext()->setContextProperty("sceneObj", scene);

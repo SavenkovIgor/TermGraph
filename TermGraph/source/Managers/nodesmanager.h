@@ -9,7 +9,7 @@
 
 #include "../glb.h"
 #include "../databaseWorks/dbabstract.h"
-#include "../Model/Termin/graphicitemterm.h"
+#include "../Model/Termin/paintedterm.h"
 
 class NodesManager : public QObject
 {
@@ -54,7 +54,7 @@ public slots:
     void deleteNode(QUuid uuid);
 
     QList<QUuid> getAllNodesUuidsInGroup(QUuid groupUuid);
-    GraphicItemTerm::List getAllNodesForGroup(QUuid groupUuid);
+    PaintedTerm::List getAllNodesForGroup(QUuid groupUuid);
 
     QDateTime getLastEdit(QUuid nodeUuid);
 

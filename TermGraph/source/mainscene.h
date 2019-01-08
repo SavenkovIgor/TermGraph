@@ -97,17 +97,17 @@ private:
     QRectF sceneViewRect = QRectF(0, 0, 100, 100);
 
     // Mouse interaction
-    GraphicItemTerm* hoverNode = nullptr;
-    GraphicItemTerm* selectedNode = nullptr;
+    PaintedTerm* hoverNode = nullptr;
+    PaintedTerm* selectedNode = nullptr;
     void sendSelectionChangeSignal();
 
-    GraphicItemTerm* getSelectedNode();
+    PaintedTerm* getSelectedNode();
     void dropSelection();
 
     void findHover(const QPointF& atPt);
     void findClick(const QPointF& atPt);
 
-    GraphicItemTerm* getNodeAtPoint(const QPointF& pt) const;
+    PaintedTerm* getNodeAtPoint(const QPointF& pt) const;
 
     // Groups fields
     QList < TermGroup* > groupList;

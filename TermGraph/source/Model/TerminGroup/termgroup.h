@@ -51,12 +51,12 @@ public:
 
     QJsonDocument getJsonDoc();
 
-    void loadNodes(GraphicItemTerm::List newNodes);
+    void loadNodes(PaintedTerm::List newNodes);
 
     bool needPaint() const;
     void resetPaintFlags();
 
-    GraphicItemTerm* getNodeAtPoint(const QPointF &pt) const;
+    PaintedTerm* getNodeAtPoint(const QPointF &pt) const;
     void setHover(QPointF mousePos);
 
 public slots:

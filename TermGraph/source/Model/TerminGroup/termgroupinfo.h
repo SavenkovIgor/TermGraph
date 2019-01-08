@@ -6,7 +6,7 @@
 #include <QUuid>
 
 #include "./termtree.h"
-#include "../Termin/graphicitemterm.h"
+#include "../Termin/paintedterm.h"
 #include "../../Helpers/tagprocessor.h"
 
 enum class GroupType {
@@ -25,7 +25,7 @@ public:
     GroupType getType() const;
 
     // Group content
-    GraphicItemTerm::List getAllNodes() const;
+    PaintedTerm::List getAllNodes() const;
 
     // Edges tools
     EdgesList getAllEdges() const;
@@ -38,13 +38,13 @@ protected:
     void setType(const GroupType &value);
 
     // Group content methods
-    void addNodeToList(GraphicItemTerm *node);
+    void addNodeToList(PaintedTerm* node);
     void clearNodesList();
 
     // Nodes tools
-    GraphicItemTerm::List getRootNodes() const;
-    GraphicItemTerm::List getInTreeNodes() const;
-    GraphicItemTerm::List getOrphanNodes() const;
+    PaintedTerm::List getRootNodes() const;
+    PaintedTerm::List getInTreeNodes() const;
+    PaintedTerm::List getOrphanNodes() const;
 
     // Edges tools
     void loadEdges();
@@ -69,17 +69,17 @@ private:
     GroupType type = GroupType::freeEdges;
 
     // Group content
-    GraphicItemTerm::List nodesList;
-    GraphicItemTerm::List filterFromNodesList(std::function<bool(GraphicItemTerm*)> filterCheck) const;
+    PaintedTerm::List nodesList;
+    PaintedTerm::List filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const;
             // Filters nodes from nodesList with lambda
 
     // Edges & tools
     EdgesList edgesList;
-    Edge* addNewEdge(GraphicItemTerm* node1, GraphicItemTerm* node2);
+    Edge* addNewEdge(PaintedTerm* node1, PaintedTerm* node2);
 
     // Edge connections search
     EdgesList searchAllConnections();
-    GraphicItemTerm* getRootNodeForTag(const QString& tag);
+    PaintedTerm* getRootNodeForTag(const QString& tag);
 
     EdgesList suggestConnections();  // TODO: Realize!
 };

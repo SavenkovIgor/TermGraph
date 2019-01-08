@@ -60,7 +60,7 @@ void TermTree::animateTree()
         return;
     }
 
-    for (GraphicItemTerm* node : getAllNodesInTree()) {
+    for (auto node : getAllNodesInTree()) {
         if (animationGroup.state() != QAbstractAnimation::Stopped && node->getPaintLevel() == currAnimLevel) {
             continue;
         }
@@ -68,7 +68,7 @@ void TermTree::animateTree()
     }
 
     bool someMoved = false;
-    for (GraphicItemTerm* node : getAllNodesInTree()) {
+    for (auto node : getAllNodesInTree()) {
         if (animationGroup.state() != QAbstractAnimation::Stopped && node->getPaintLevel() == currAnimLevel) {
             continue;
         }
@@ -86,7 +86,7 @@ void TermTree::animateTree()
 void TermTree::checkSwap()
 {
     for (int layer = 1; layer < stacks.size(); layer++) {  // TODO: Обдумать этот момент i=1 because we need to ignore roots.
-        GraphicItemTerm::List levLst = stacks[layer]->getAllNodesInStack();
+        auto levLst = stacks[layer]->getAllNodesInStack();
 
         for (int j = 0; j < levLst.size() - 1; j++) {
             int inter = levLst[j]->getIntersections();
@@ -126,7 +126,7 @@ void TermTree::checkSwap()
     //    qDebug()<<"noSwap"<<t.elapsed();
 }
 
-GraphicItemTerm *TermTree::getNodeAtPoint(const QPointF& pt) const
+PaintedTerm* TermTree::getNodeAtPoint(const QPointF& pt) const
 {
     for (auto node : getAllNodesInTree()) {
         if (node->getNodeRect(CoordType::scene).contains(pt)) {
@@ -145,7 +145,7 @@ void TermTree::checkHover(QPointF mousePos)
     }
 }
 
-void TermTree::addTerm(GraphicItemTerm* term)
+void TermTree::addTerm(PaintedTerm* term)
 {
     int paintLayer = term->getPaintLevel();
 
@@ -159,13 +159,11 @@ void TermTree::addTerm(GraphicItemTerm* term)
         stacks.push_back(new NodeVerticalStack());
     }
 
-    GraphicItemTerm* grTerm = dynamic_cast<GraphicItemTerm*>(term);
-    grTerm->setParentItem(rect);
-
+    term->setParentItem(rect);
     stacks[paintLayer]->addTerm(term);
 }
 
-bool TermTree::hasTerm(GraphicItemTerm *term) const
+bool TermTree::hasTerm(PaintedTerm *term) const
 {
     for (auto stack : stacks) {
         if (stack->hasTerm(term)) {
@@ -177,8 +175,8 @@ bool TermTree::hasTerm(GraphicItemTerm *term) const
 
 bool TermTree::hasEdge(Edge *edge) const
 {
-    auto* rootTerm = dynamic_cast<GraphicItemTerm*>(edge->getRoot());
-    auto* leafTerm = dynamic_cast<GraphicItemTerm*>(edge->getLeaf());
+    auto* rootTerm = dynamic_cast<PaintedTerm*>(edge->getRoot());
+    auto* leafTerm = dynamic_cast<PaintedTerm*>(edge->getLeaf());
     return hasTerm(rootTerm) && hasTerm(leafTerm);
 }
 
@@ -217,9 +215,9 @@ QSizeF TermTree::getTreeSize() const
     return QSizeF(width, height);
 }
 
-GraphicItemTerm::List TermTree::getAllNodesInTree() const
+PaintedTerm::List TermTree::getAllNodesInTree() const
 {
-    GraphicItemTerm::List ret;
+    PaintedTerm::List ret;
     for (auto stack : stacks) {
         ret << stack->getAllNodesInStack();
     }

@@ -79,7 +79,7 @@ void PaintManager::addGroup(TermGroup *group, bool ignoreNeedPaintFlag, bool pai
     }
 }
 
-void PaintManager::addNode(GraphicItemTerm *node, bool paintNow)
+void PaintManager::addNode(PaintedTerm* node, bool paintNow)
 {
     nodesForPaint.enqueue(node);
     if (paintNow) {
@@ -146,7 +146,7 @@ QPointF PaintManager::currentFirstEdgePoint() const
 {
     auto graphTerm = edgesForPaint.head()->getRoot();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
-    auto pt = paintedTerm->getScenePos();
+    auto pt = paintedTerm->scenePos();
     pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
     return pt;
 }
@@ -155,7 +155,7 @@ QPointF PaintManager::currentLastEdgePoint() const
 {
     auto graphTerm = edgesForPaint.head()->getLeaf();
     PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
-    auto pt = paintedTerm->getScenePos();
+    auto pt = paintedTerm->scenePos();
     pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
     return pt;
 }

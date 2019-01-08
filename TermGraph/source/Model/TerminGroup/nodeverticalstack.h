@@ -3,12 +3,12 @@
 
 #include <QList>
 
-#include "../Termin/graphicitemterm.h"
+#include "../Termin/paintedterm.h"
 #include "../TerminEdge/edge.h"
 
 class NodeVerticalStackTools {
 public:
-    static QSizeF getNodeVerticalStackedSize(const GraphicItemTerm::List &nodes);
+    static QSizeF getNodeVerticalStackedSize(const PaintedTerm::List &nodes);
 };
 
 class NodeVerticalStack
@@ -19,10 +19,10 @@ public:
     NodeVerticalStack();
     ~NodeVerticalStack();
 
-    void addTerm(GraphicItemTerm* term);
-    bool hasTerm(GraphicItemTerm* term) const;
+    void addTerm(PaintedTerm* term);
+    bool hasTerm(PaintedTerm* term) const;
 
-    GraphicItemTerm::List getAllNodesInStack() const;
+    PaintedTerm::List getAllNodesInStack() const;
 
     QSizeF getSize() const;  // Clearly counted value. Ignoring real node positions
 
@@ -35,7 +35,7 @@ public:
     QPropertyAnimation swAnim1;
     QPropertyAnimation swAnim2;
 
-    void swapNodes(GraphicItemTerm *n1, GraphicItemTerm *n2)
+    void swapNodes(PaintedTerm *n1, PaintedTerm *n2)
     {
         if (animationGroup.state() != QAbstractAnimation::Stopped) {
             return;  // Very important instruction.
@@ -74,7 +74,7 @@ public:
     }
 
 private:
-    GraphicItemTerm::List terms;
+    PaintedTerm::List terms;
 };
 
 #endif // NODEVERTICALSTACK_H

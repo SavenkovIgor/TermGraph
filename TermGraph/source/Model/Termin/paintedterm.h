@@ -6,11 +6,12 @@
 
 #include "./graphterm.h"
 #include "../TerminEdge/edge.h"
+#include "../GraphicItem/graphicitem.h"
 #include "../enums.h"
 
 // This class contains all info for paint Term somewhere
 // Has functions about paint color, positioning. This kind of stuff
-class PaintedTerm : public GraphTerm
+class PaintedTerm : public GraphTerm, public GraphicItem
 {
 public:
     bool needPaint = true;  // Flag for placing in paintQueue
@@ -33,12 +34,6 @@ public:
     // Painting tools
     void setRelatedPaint(bool val);
     QLineF getRectLine(Qt::Edge side);
-
-    // Pure virtual functions
-    virtual QPointF getPos() const = 0;
-    virtual QPointF getScenePos() const = 0;
-
-    virtual void movePosBy(qreal dx, qreal dy) = 0;
 
     // NodeRect tools
     QRectF getNodeRect(CoordType inCoordinates) const;

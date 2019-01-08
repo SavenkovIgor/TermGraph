@@ -171,7 +171,7 @@ void MainScene::setMouseClick(qreal x, qreal y)
     findClick(QPointF(x,y));
 }
 
-GraphicItemTerm *MainScene::getSelectedNode()
+PaintedTerm *MainScene::getSelectedNode()
 {
     return selectedNode;
 }
@@ -321,7 +321,7 @@ QRectF MainScene::getSceneRect() const
     return sceneRect;
 }
 
-GraphicItemTerm *MainScene::getNodeAtPoint(const QPointF &pt) const
+PaintedTerm *MainScene::getNodeAtPoint(const QPointF &pt) const
 {
     for (auto group : groupList) {
         if (group->getGroupRect().contains(pt)) {

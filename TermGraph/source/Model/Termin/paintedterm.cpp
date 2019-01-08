@@ -7,7 +7,8 @@ const qreal PaintedTerm::verScale = 0.0200;
 QList<Qt::Edge> PaintedTerm::sides;
 
 PaintedTerm::PaintedTerm(QSqlRecord rec) :
-    GraphTerm (rec)
+    GraphTerm(rec),
+    GraphicItem()
 {
     if (sides.isEmpty()) {
         sides << Qt::BottomEdge;
@@ -15,6 +16,7 @@ PaintedTerm::PaintedTerm(QSqlRecord rec) :
         sides << Qt::RightEdge;
         sides << Qt::LeftEdge;
     }
+    adjustRectSizeForName();
 }
 
 PaintedTerm::~PaintedTerm()
@@ -75,19 +77,11 @@ QLineF PaintedTerm::getRectLine(Qt::Edge side)
 
 QRectF PaintedTerm::getNodeRect(CoordType inCoordinates) const
 {
-    QRectF ret = QRectF(QPointF(), nodeSize);
-
     switch (inCoordinates) {
-    case CoordType::zeroPoint: break;
-    case CoordType::local:
-        ret = ret.translated(this->getPos());
-        break;
-    case CoordType::scene:
-        ret = ret.translated(this->getScenePos());
-        break;
+    case CoordType::zeroPoint: return QRectF(QPointF(),  nodeSize);
+    case CoordType::local:     return QRectF(pos(),      nodeSize);
+    case CoordType::scene:     return QRectF(scenePos(), nodeSize);
     }
-
-    return ret;
 }
 
 QRectF PaintedTerm::getFrameRect(CoordType inCoordinates) const
@@ -131,7 +125,7 @@ bool PaintedTerm::applyMove()
     }
 
     if (qAbs(newPosOffset) > 0.05) {
-        movePosBy(0.0, newPosOffset);
+        moveBy(0.0, newPosOffset);
         return true;
     }
 

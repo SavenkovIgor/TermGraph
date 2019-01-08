@@ -30,7 +30,7 @@ public slots:
     // Fill functions
     void clearAllQueues();
     void addGroup(TermGroup* group, bool ignoreNeedPaintFlag = false, bool paintNow = true);
-    void addNode(GraphicItemTerm* node, bool paintNow = true);
+    void addNode(PaintedTerm* node, bool paintNow = true);
 
     // GroupRects
     void nextGroupRect();
@@ -79,7 +79,7 @@ private:
     QQueue <QRectF> clearPaintArea;
     QQueue < QPair<QRectF, QColor> > groupRectsForPaint;
     QQueue < QPair<QPointF, QString> > groupNamesForPaint;
-    QQueue <GraphicItemTerm*> nodesForPaint;
+    QQueue <PaintedTerm*> nodesForPaint;
     QQueue <Edge*> edgesForPaint;
 
     // Timer

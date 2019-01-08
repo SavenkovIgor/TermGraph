@@ -6,7 +6,7 @@
 #include <QPropertyAnimation>
 #include <stdlib.h>
 
-#include "../Termin/graphicitemterm.h"
+#include "../Termin/paintedterm.h"
 #include "../TerminEdge/edge.h"
 #include "../GraphicItem/rectgraphicitem.h"
 #include "./nodeverticalstack.h"
@@ -23,10 +23,10 @@ public:
     RectGraphicItem* rect = nullptr;
 
     // Add info
-    void addTerm(GraphicItemTerm* term);
+    void addTerm(PaintedTerm* term);
 
     // TreeInfo
-    bool hasTerm(GraphicItemTerm* term) const;
+    bool hasTerm(PaintedTerm* term) const;
     bool hasEdge(Edge* edge) const;
 
     QRectF getTreeRect(CoordType inCoordinates) const;
@@ -47,7 +47,7 @@ public:
     void animateTree();
     void checkSwap();
 
-    GraphicItemTerm* getNodeAtPoint(const QPointF &pt) const;
+    PaintedTerm* getNodeAtPoint(const QPointF &pt) const;
 
     void checkHover(QPointF mousePos);
 
@@ -58,7 +58,7 @@ private:
     NodeVerticalStack::List stacks;
 
     // Internal Info
-    GraphicItemTerm::List getAllNodesInTree() const;
+    PaintedTerm::List getAllNodesInTree() const;
     qreal getMaxStackHeight() const;
 };
 

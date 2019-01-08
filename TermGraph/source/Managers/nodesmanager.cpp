@@ -73,15 +73,15 @@ void NodesManager::deleteNode(QUuid uuid)
     nodeChanged();
 }
 
-GraphicItemTerm::List NodesManager::getAllNodesForGroup(QUuid groupUuid)
+PaintedTerm::List NodesManager::getAllNodesForGroup(QUuid groupUuid)
 {
-    GraphicItemTerm::List ret;
+    PaintedTerm::List ret;
     for (QUuid uuid : getAllNodesUuidsInGroup(groupUuid)) {
         QSqlRecord rec = getNodeSqlRecord(uuid);
         if (rec.count() == 0)
             continue;
 
-        ret << new GraphicItemTerm(rec);
+        ret << new PaintedTerm(rec);
     }
     return ret;
 }

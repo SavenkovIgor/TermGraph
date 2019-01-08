@@ -117,10 +117,10 @@ QMap<GroupType, QString> TermGroup::getTypesMap()
     return ret;
 }
 
-void TermGroup::loadNodes(GraphicItemTerm::List newNodes)
+void TermGroup::loadNodes(PaintedTerm::List newNodes)
 {
     clearNodesList();
-    for (GraphicItemTerm* node : newNodes) {
+    for (auto node : newNodes) {
         if (node->getGroupUuid() != this->getUuid()) {
             qDebug() << "NodeLoad error for node:" << node->getUuid().toString();
             continue;
@@ -158,7 +158,7 @@ void TermGroup::resetPaintFlags()
     }
 }
 
-GraphicItemTerm *TermGroup::getNodeAtPoint(const QPointF& pt) const
+PaintedTerm *TermGroup::getNodeAtPoint(const QPointF& pt) const
 {
     for (auto tree : trees) {
         if (tree->getTreeRect(CoordType::scene).contains(pt)) {
@@ -192,7 +192,7 @@ void TermGroup::setHover(QPointF mousePos)
 
 void TermGroup::addOrphansToParents()
 {
-    for (GraphicItemTerm* node : getOrphanNodes()) {
+    for (auto node : getOrphanNodes()) {
         node->setParentItem(orphansRect);
     }
 }
@@ -219,7 +219,7 @@ QJsonDocument TermGroup::getJsonDoc()
 
     QJsonArray ndArr;
 
-    for (GraphicItemTerm* node : getAllNodes()) {
+    for (auto node : getAllNodes()) {
         ndArr.append(node->toJson());
     }
     obj.insert("nodesList", ndArr);
@@ -362,7 +362,7 @@ void TermGroup::updateGroupFrame()
 
 void TermGroup::setOrphCoords(qreal maxWidth)
 {
-    GraphicItemTerm::List nodesList = getOrphanNodes();
+    auto nodesList = getOrphanNodes();
     if (nodesList.isEmpty()) {
         return;
     }
@@ -384,7 +384,7 @@ void TermGroup::setOrphCoords(qreal maxWidth)
     qreal groupMinWidth = getGroupMinWidth();
     maxWidth = qBound(10.0, groupMinWidth, 700.0);
 
-    for (GraphicItemTerm* currNode : nodesList) {
+    for (auto currNode : nodesList) {
         QSizeF nodeSize = currNode->getNodeRect(CoordType::zeroPoint).size();
 
         if (x + nodeSize.width() > maxWidth) {

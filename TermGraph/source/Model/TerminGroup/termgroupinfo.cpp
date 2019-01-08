@@ -35,7 +35,7 @@ GroupType TermGroupInfo::getType() const
     return type;
 }
 
-GraphicItemTerm::List TermGroupInfo::getAllNodes() const
+PaintedTerm::List TermGroupInfo::getAllNodes() const
 {
     return nodesList;
 }
@@ -58,22 +58,22 @@ EdgesList TermGroupInfo::getAllEdgesForPainting() const
     return lst;
 }
 
-GraphicItemTerm::List TermGroupInfo::getRootNodes() const
+PaintedTerm::List TermGroupInfo::getRootNodes() const
 {
-    return filterFromNodesList([] (GraphicItemTerm* node) { return node->isRoot(); });
+    return filterFromNodesList([] (PaintedTerm* node) { return node->isRoot(); });
 }
 
-GraphicItemTerm::List TermGroupInfo::getInTreeNodes() const
+PaintedTerm::List TermGroupInfo::getInTreeNodes() const
 {
-    return filterFromNodesList([] (GraphicItemTerm* node) { return node->isInTree(); });
+    return filterFromNodesList([] (PaintedTerm* node) { return node->isInTree(); });
 }
 
-GraphicItemTerm::List TermGroupInfo::getOrphanNodes() const
+PaintedTerm::List TermGroupInfo::getOrphanNodes() const
 {
-    return filterFromNodesList([] (GraphicItemTerm* node) { return node->isOrphan(); } );
+    return filterFromNodesList([] (PaintedTerm* node) { return node->isOrphan(); } );
 }
 
-Edge* TermGroupInfo::addNewEdge(GraphicItemTerm* rootNode, GraphicItemTerm* leafNode)
+Edge* TermGroupInfo::addNewEdge(PaintedTerm* rootNode, PaintedTerm* leafNode)
 {
     auto edge = new Edge(rootNode, leafNode);
     rootNode->addEdgeRef(edge);
@@ -98,9 +98,9 @@ EdgesList TermGroupInfo::searchAllConnections()
     return ret;
 }
 
-GraphicItemTerm *TermGroupInfo::getRootNodeForTag(const QString &tag)
+PaintedTerm *TermGroupInfo::getRootNodeForTag(const QString &tag)
 {
-    GraphicItemTerm* targetTerm = nullptr;
+    PaintedTerm* targetTerm = nullptr;
 
     for (auto node : nodesList) {
 
@@ -237,16 +237,16 @@ void TermGroupInfo::setNeighbours()
 QSizeF TermGroupInfo::getOrphansSize()
 {
     QRectF orphansRc;
-    for (GraphicItemTerm* node : getOrphanNodes()) {
+    for (auto node : getOrphanNodes()) {
         orphansRc = orphansRc.united(node ->getNodeRect(CoordType::scene));
     }
     return orphansRc.size();
 }
 
-GraphicItemTerm::List TermGroupInfo::filterFromNodesList(std::function<bool(GraphicItemTerm*)> filterCheck) const
+PaintedTerm::List TermGroupInfo::filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const
 {
-    GraphicItemTerm::List ret;
-    for (GraphicItemTerm* n : nodesList) {
+    PaintedTerm::List ret;
+    for (auto n : nodesList) {
         if (filterCheck(n)) {
             ret << n;
         }
@@ -259,7 +259,7 @@ void TermGroupInfo::setType(const GroupType &value)
     type = value;
 }
 
-void TermGroupInfo::addNodeToList(GraphicItemTerm *node)
+void TermGroupInfo::addNodeToList(PaintedTerm *node)
 {
     nodesList << node;
 }

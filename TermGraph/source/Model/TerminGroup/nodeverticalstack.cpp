@@ -1,11 +1,11 @@
 #include "nodeverticalstack.h"
 
-QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const GraphicItemTerm::List& nodes)
+QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::List& nodes)
 {
     qreal width = 0.0;
     qreal height = 0.0;
 
-    for (GraphicItemTerm* node : nodes) {
+    for (auto node : nodes) {
         QSizeF sz = node->getFrameRect(CoordType::zeroPoint).size();
         height += sz.height();
         width = qMax(width, sz.width());
@@ -30,12 +30,12 @@ NodeVerticalStack::~NodeVerticalStack()
     terms.clear();
 }
 
-void NodeVerticalStack::addTerm(GraphicItemTerm* term)
+void NodeVerticalStack::addTerm(PaintedTerm* term)
 {
     terms << term;
 }
 
-bool NodeVerticalStack::hasTerm(GraphicItemTerm *term) const
+bool NodeVerticalStack::hasTerm(PaintedTerm *term) const
 {
     for (auto stackTerm : terms) {
         if (stackTerm == term) {
@@ -45,7 +45,7 @@ bool NodeVerticalStack::hasTerm(GraphicItemTerm *term) const
     return false;
 }
 
-GraphicItemTerm::List NodeVerticalStack::getAllNodesInStack() const
+PaintedTerm::List NodeVerticalStack::getAllNodesInStack() const
 {
     return terms;
 }
@@ -59,7 +59,7 @@ void NodeVerticalStack::sortTerms()
 {
     // Сначала сортируем по убыванию количества связей
 
-    GraphicItemTerm::List tmpList = terms;
+    PaintedTerm::List tmpList = terms;
     int nMax = 0;
 
     for (int i = 0; i < tmpList.size(); i++) {
@@ -72,7 +72,7 @@ void NodeVerticalStack::sortTerms()
         tmpList.swap(i, nMax);
     }
 
-    GraphicItemTerm::List ret;
+    PaintedTerm::List ret;
     // Формируем новый список так чтобы максимально нагруженные вершины были ближе к центру
     for (int i = 0; i < tmpList.size(); i++) {
         if (i%2 == 0)

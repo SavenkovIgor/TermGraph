@@ -1,7 +1,7 @@
 #include "reminder.h"
 #include "ui_reminder.h"
 
-Reminder::Reminder(GraphicItemTerm::List allNodes, QWidget *parent) :
+Reminder::Reminder(PaintedTerm::List allNodes, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Reminder)
 {
@@ -23,7 +23,7 @@ void Reminder::formLearnList()
     ui->learnWgt->clear();
     remItems.clear();
 
-    for( GraphicItemTerm *n : allNodes ) {
+    for (auto *n : allNodes) {
         if( n->atLearning() ) {
             if( n->needRemindToday() ) {
                 qDebug()<<n->getName()<<n->getRepNum();

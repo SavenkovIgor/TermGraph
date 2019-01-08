@@ -3,14 +3,14 @@
 
 #include <QWidget>
 #include <QListWidgetItem>
-#include "./Termin/graphicitemterm.h"
+#include "./Termin/paintedterm.h"
 
 namespace Ui {
 class Reminder;
 }
 
 struct RemItem{
-    GraphicItemTerm *nd;
+    PaintedTerm *nd;
     QListWidgetItem* itm;
 };
 
@@ -19,7 +19,7 @@ class Reminder : public QWidget
     Q_OBJECT
     
 public:
-    explicit Reminder(GraphicItemTerm::List allNodes, QWidget *parent = nullptr);
+    explicit Reminder(PaintedTerm::List allNodes, QWidget *parent = nullptr);
     ~Reminder();
 
 public slots:
@@ -39,7 +39,7 @@ private:
 
     void formLearnList();
 
-    GraphicItemTerm::List allNodes;
+    PaintedTerm::List allNodes;
 
     Ui::Reminder *ui;
 
