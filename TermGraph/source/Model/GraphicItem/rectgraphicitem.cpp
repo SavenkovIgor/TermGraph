@@ -10,22 +10,21 @@ RectGraphicItem::RectGraphicItem(const QPointF &pt, const QSizeF &size)
 
 RectGraphicItem::~RectGraphicItem() { }
 
-QRectF RectGraphicItem::frameRect() const
-{
-    return getRect();
-}
-
 void RectGraphicItem::setSize(const QSizeF& size)
 {
     _size = size;
 }
 
-QSizeF RectGraphicItem::size() const
+QRectF RectGraphicItem::getRect(CoordType coord) const
 {
-    return _size;
+    switch (coord) {
+    case CoordType::zeroPoint: return QRectF(QPointF(),  _size);
+    case CoordType::local:     return QRectF(pos(),      _size);
+    case CoordType::scene:     return QRectF(scenePos(), _size);
+    }
 }
 
-QRectF RectGraphicItem::getRect() const  // TODO: Write full function with parameter
+QSizeF RectGraphicItem::getSize() const
 {
-    return QRectF(pos(), _size);
+    return _size;
 }

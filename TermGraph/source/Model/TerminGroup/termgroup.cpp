@@ -166,7 +166,7 @@ GraphicItemTerm *TermGroup::getNodeAtPoint(const QPointF& pt) const
         }
     }
 
-    auto orphansRect = QRectF(this->orphansRect->scenePos(), this->orphansRect->size());
+    auto orphansRect = QRectF(this->orphansRect->scenePos(), this->orphansRect->getSize());
     if (orphansRect.contains(pt)) {
         for (auto orphan : getOrphanNodes()) {
             if (orphan->getNodeRect(CoordType::scene).contains(pt)) {
@@ -422,9 +422,7 @@ QPointF TermGroup::getNamePos()
 
 QRectF TermGroup::getGroupRect() const
 {
-    auto rect = baseRect->frameRect();
-    rect.moveTo(baseRect->scenePos());
-    return rect;
+    return baseRect->getRect(CoordType::scene);
 }
 
 QColor TermGroup::getGroupColor()

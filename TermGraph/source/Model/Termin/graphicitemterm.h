@@ -19,8 +19,6 @@ public:
     GraphicItemTerm(QSqlRecord rec);
     ~GraphicItemTerm() override;
 
-    QRectF frameRect() const override;
-
     // Overriding of PaintedTerm
     QPointF getPos() const override;
     QPointF getScenePos() const override;

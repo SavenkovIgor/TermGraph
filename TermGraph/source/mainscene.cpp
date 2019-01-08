@@ -92,8 +92,7 @@ void MainScene::locateGroupsVertically()
 
     // Выставляем позиции групп
     for (TermGroup* group : groupList) {
-        auto baseRc = group->baseRect->frameRect();
-        baseRc.moveTo(group->baseRect->scenePos());
+        auto baseRc = group->baseRect->getRect(CoordType::scene);
         group->setBasePoint(QPointF(x, y));
 
         y += baseRc.height() + 40;
@@ -111,8 +110,7 @@ void MainScene::updateSceneRect()
             continue;
         }
 
-        auto baseRc = group->baseRect->frameRect();
-        baseRc.moveTo(group->baseRect->scenePos());
+        auto baseRc = group->baseRect->getRect(CoordType::scene);
         allRect = allRect.united(baseRc);
     }
 

@@ -41,7 +41,7 @@ Edge::~Edge()
 
 }
 
-QRectF Edge::frameRect() const
+QRectF Edge::edgeRect() const
 {
     QPointF pt1 = dynamic_cast<PaintedTerm*>(getRoot())->getCenter(CoordType::scene);
     QPointF pt2 = dynamic_cast<PaintedTerm*>(getLeaf())->getCenter(CoordType::scene);
@@ -61,12 +61,12 @@ int Edge::getLayerDistance()
 
 qreal Edge::getXProjection()
 {
-    return frameRect().width();
+    return edgeRect().width();
 }
 
 qreal Edge::getYProjection()
 {
-    return frameRect().height();
+    return edgeRect().height();
 }
 
 QLineF Edge::getLine(bool swap)

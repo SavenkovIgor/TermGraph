@@ -10,11 +10,6 @@ GraphicItemTerm::GraphicItemTerm(QSqlRecord rec):
 
 GraphicItemTerm::~GraphicItemTerm() { }
 
-QRectF GraphicItemTerm::frameRect() const
-{
-    return getNodeRect(CoordType::zeroPoint);
-}
-
 QPointF GraphicItemTerm::getPos() const
 {
     return this->pos();

@@ -29,8 +29,3 @@ QString LabelGraphicItem::getLabel() const
 QSizeF LabelGraphicItem::getNameSize() const {
     return Fonts::getTextMetrics(_label, _font);
 }
-
-QRectF LabelGraphicItem::frameRect() const
-{
-    return QRectF(pos(), getNameSize());
-}

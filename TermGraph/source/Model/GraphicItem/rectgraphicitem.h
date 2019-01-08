@@ -3,6 +3,7 @@
 
 #include <QSizeF>
 
+#include "../enums.h"
 #include "./graphicitem.h"
 
 class RectGraphicItem : public GraphicItem
@@ -10,20 +11,18 @@ class RectGraphicItem : public GraphicItem
 public:
     // Constructors
     RectGraphicItem();
-    explicit RectGraphicItem(const QPointF& pt, const QSizeF& size);
+    explicit RectGraphicItem(const QPointF& pt, const QSizeF& getSize);
 
     // Destructor
     ~RectGraphicItem() override;
 
-    virtual QRectF frameRect() const override;
+    void setSize(const QSizeF& getSize);
 
-    void setSize(const QSizeF& size);
+    QRectF getRect(CoordType coord) const;
+    QSizeF getSize() const;
 
-    QSizeF size() const;
 private:
     QSizeF _size;
-
-    QRectF getRect() const;
 };
 
 #endif // RECTGRAPHICITEM_H

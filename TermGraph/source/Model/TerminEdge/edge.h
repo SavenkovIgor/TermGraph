@@ -23,7 +23,7 @@ public:
     Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin);
     ~Edge() override;
 
-    QRectF frameRect() const override;
+    QRectF edgeRect() const;
 
     int getLayerDistance();
 

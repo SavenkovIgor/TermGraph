@@ -19,8 +19,6 @@ public:
     QString getLabel() const;
     QSizeF getNameSize() const;
 
-    QRectF frameRect() const override;
-
 private:
     QString _label;
     QFont _font;

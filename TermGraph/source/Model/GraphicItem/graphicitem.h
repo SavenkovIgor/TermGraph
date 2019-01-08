@@ -11,18 +11,15 @@ public:
     virtual ~GraphicItem();
 
     // Parents
-    virtual void setParentItem(GraphicItem* item);
+    void setParentItem(GraphicItem* item);
 
     // Position
-    virtual void setPos(const QPointF& pt);
-    virtual void setPos(const qreal& x, const qreal& y);
-    virtual void moveBy(const QPointF& pt);
-    virtual void moveBy(const qreal& x, const qreal& y);
-    virtual QPointF pos() const;
-    virtual QPointF scenePos() const;
-
-    // Size
-    virtual QRectF frameRect() const = 0;
+    void setPos(const QPointF& pt);
+    void setPos(const qreal& x, const qreal& y);
+    void moveBy(const QPointF& pt);
+    void moveBy(const qreal& x, const qreal& y);
+    QPointF pos() const;
+    QPointF scenePos() const;
 
     // Z-value
     void setZValue(const int& z);
