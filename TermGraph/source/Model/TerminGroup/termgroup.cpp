@@ -362,29 +362,29 @@ void TermGroup::updateGroupFrame()
 
 void TermGroup::setOrphCoords(qreal maxWidth)
 {
-    auto nodesList = getOrphanNodes();
-    if (nodesList.isEmpty()) {
+    auto orphansList = getOrphanNodes();
+    if (orphansList.isEmpty()) {
         return;
     }
 
-    for (int i = 0; i < nodesList.size(); i++) {
+    for (int i = 0; i < orphansList.size(); i++) {
         int nMax = i;
-        for (int j = i+1; j < nodesList.size(); j++) {
-            qreal currentWidth = nodesList[j]->getFrameRect(CoordType::zeroPoint).size().width();
-            qreal maxWidth = nodesList[nMax]->getFrameRect(CoordType::zeroPoint).size().width();
+        for (int j = i+1; j < orphansList.size(); j++) {
+            qreal currentWidth = orphansList[j]->getFrameRect(CoordType::zeroPoint).size().width();
+            qreal maxWidth = orphansList[nMax]->getFrameRect(CoordType::zeroPoint).size().width();
             if (currentWidth < maxWidth) {
                 nMax = j;
             }
         }
-        nodesList.swap(i, nMax);
+        orphansList.swap(i, nMax);
     }
 
     int x = 0, y = 0;
     qreal maxHeightInRow = 0.0;
     qreal groupMinWidth = getGroupMinWidth();
-    maxWidth = qBound(10.0, groupMinWidth, 700.0);
+    maxWidth = qBound(10.0, groupMinWidth, 2000.0);
 
-    for (auto currNode : nodesList) {
+    for (auto currNode : orphansList) {
         QSizeF nodeSize = currNode->getNodeRect(CoordType::zeroPoint).size();
 
         if (x + nodeSize.width() > maxWidth) {
