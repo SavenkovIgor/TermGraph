@@ -222,10 +222,10 @@ Page {
 
                 MyComboBox {
                     id: nodeGroup
-                    model: groupsManager.getAllGroupsNames()
+                    model: groupsManager.getAllUuidStringsSortedByLastEdit()
 
                     function refreshModel() {
-                        model = groupsManager.getAllGroupsNames()
+                        model = groupsManager.getAllUuidStringsSortedByLastEdit()
                     }
 
                     function selectElement(name) {

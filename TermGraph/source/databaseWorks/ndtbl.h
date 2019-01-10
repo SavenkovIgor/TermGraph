@@ -48,8 +48,8 @@ public:
 
     bool hasNodeWithNameInGroup(const QString& name, const QUuid& groupUuid) const;
 
-    QUuid addNode(const QString &name);
-    QUuid addNode(const QUuid &uuid, const QString &name);
+    QUuid addNode(const QString &name, const QUuid& groupUuid);
+    QUuid addNode(const QUuid &uuid, const QString &name, const QUuid& groupUuid);
     QSqlRecord getNodeSqlRecord(const QUuid& uuid);
 
     bool isNodeWithUuidExist(const QUuid& uuid);

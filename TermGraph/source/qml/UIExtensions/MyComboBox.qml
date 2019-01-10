@@ -12,7 +12,7 @@ ComboBox {
 
         height: contentHeight * 1.8
 
-        text: control.displayText
+        text: groupsManager.getGroupName(control.displayText)
         font: control.font
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
@@ -51,7 +51,7 @@ ComboBox {
     delegate: ItemDelegate {
         width: control.width
         contentItem: Text {
-            text: modelData
+            text: groupsManager.getGroupName(modelData)
             font: control.font
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter

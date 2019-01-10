@@ -248,7 +248,7 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
         if (!db->nodeTbl->isNodeWithUuidExist(nodeUuid)) {
             // TODO: Отрефакторить. отдавать всю работу nodesManager,
             // это его ответственность
-            db->nodeTbl->addNode(nodeUuid, name);
+            db->nodeTbl->addNode(nodeUuid, name, groupUuid);
             nodesMgr->changeNode(
                         nodeUuid,
                         name,
@@ -256,7 +256,7 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
                         definition,
                         description,
                         examples,
-                        groupName,
+                        groupUuid.toString(),
                         false);
         } else {
             // Update

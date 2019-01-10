@@ -32,7 +32,7 @@ public slots:
             const QString& def,
             const QString& descr,
             const QString& exam,
-            const QString& groupName,
+            const QString& groupUuidString,
             const bool& sendChangeSignal = true);
 
     void changeNode(
@@ -42,7 +42,7 @@ public slots:
             const QString& definition,
             const QString& description,
             const QString& example,
-            const QString& groupName,
+            const QString& groupUuidString,
             const bool& sendChangeSignal = true);
 
     void changeNode(
@@ -63,7 +63,10 @@ public slots:
     QDateTime getLastEdit(QUuid nodeUuid);
 
     void importNodeFromJson(QJsonObject nodeObject);
+
 private:
+    bool correctGroupUuid(const QUuid& groupUuid, bool sendWarnings = true);
+    bool correctNodeName(const QString& name, QUuid& groupUuid, bool showWarnings = true);
     QSqlRecord getNodeSqlRecord(QUuid nodeUuid);
 };
 

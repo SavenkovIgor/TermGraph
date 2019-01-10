@@ -1,31 +1,25 @@
 #include "nodesmanager.h"
 
-NodesManager::NodesManager(QObject *parent) : QObject(parent)
-{ }
+NodesManager::NodesManager(QObject *parent) : QObject(parent) { }
 
 void NodesManager::addNewNode(const QString &name,
         const QString &forms,
         const QString &def,
         const QString &descr,
         const QString &exam,
-        const QString &groupName,
+        const QString &groupUuidString,
         const bool &sendChangeSignal)
 {
-    DBAbstract* db = Glb::db;
-    // TODO: Тоже фигня. Нельзя искать в базе по имени группы!
-    if (!db->groupTbl->hasGroupWithName(groupName)) {
-        qDebug() << "Группа не найдена";
-        return;
-    }
+    QUuid groupUuid = QUuid(groupUuidString);
 
-    QUuid groupUuid = db->groupTbl->getUuid(groupName);
-    if (db->nodeTbl->hasNodeWithNameInGroup(name, groupUuid)) {
-        showWarning("Термин с таким названием уже существует в этой группе");
+    if (!correctGroupUuid(groupUuid))
         return;
-    }
 
-    QUuid nodeUuid = db->nodeTbl->addNode(name);
-    changeNode(nodeUuid, name, forms, def, descr, exam, groupName, sendChangeSignal);
+    if (!correctNodeName(name, groupUuid))
+        return;
+
+    QUuid nodeUuid = Glb::db->nodeTbl->addNode(name, groupUuid);
+    changeNode(nodeUuid, name, forms, def, descr, exam, groupUuid, sendChangeSignal);
 }
 
 void NodesManager::changeNode(const QUuid &nodeUuid,
@@ -34,17 +28,17 @@ void NodesManager::changeNode(const QUuid &nodeUuid,
         const QString &definition,
         const QString &description,
         const QString &example,
-        const QString &groupName,
+        const QString &groupUuidString,
         const bool &sendChangeSignal)
 {
-    DBAbstract* db = Glb::db;
-    // TODO: Тоже фигня. Нельзя искать в базе по имени группы!
-    if (!db->groupTbl->hasGroupWithName(groupName)) {
-        qDebug() << "Группа не найдена";
-        return;
-    }
+    QUuid groupUuid = QUuid(groupUuidString);
 
-    QUuid groupUuid = db->groupTbl->getUuid(groupName);
+    if (!correctGroupUuid(groupUuid))
+        return;
+
+    if (!correctNodeName(name, groupUuid))
+        return;
+
     changeNode(nodeUuid, name, forms, definition, description, example, groupUuid, sendChangeSignal);
 }
 
@@ -140,7 +134,7 @@ void NodesManager::importNodeFromJson(QJsonObject nodeObject)
     if (!db->nodeTbl->isNodeWithUuidExist(nodeUuid)) {
         // TODO: Отрефакторить. отдавать всю работу nodesManager,
         // это его ответственность
-        db->nodeTbl->addNode(nodeUuid, name);
+        db->nodeTbl->addNode(nodeUuid, name, groupUuid);
         changeNode(nodeUuid, name, forms, definition, description, examples, groupUuid);
     } else {
         // TODO: Continue from here!!!
@@ -158,4 +152,35 @@ void NodesManager::importNodeFromJson(QJsonObject nodeObject)
 
         db->nodeTbl->setGroup(nodeUuid, groupUuid);
     }
+}
+
+bool NodesManager::correctGroupUuid(const QUuid &groupUuid, bool sendWarnings)
+{
+    if (groupUuid.isNull()) {
+        if (sendWarnings) {
+            showWarning("Пустой или некорректный Uuid группы");
+        }
+        return false;
+    }
+
+    if (!Glb::db->groupTbl->hasGroupWithUuid(groupUuid)) {
+        if (sendWarnings) {
+            showWarning("Группа " + groupUuid.toString() + " не найдена");
+        }
+        return false;
+    }
+
+    return true;
+}
+
+bool NodesManager::correctNodeName(const QString &name, QUuid &groupUuid, bool showWarnings)
+{
+    if (Glb::db->nodeTbl->hasNodeWithNameInGroup(name, groupUuid)) {
+        if (showWarnings) {
+            showWarning("Термин с таким названием уже существует в этой группе");
+        }
+        return false;
+    }
+
+    return true;
 }

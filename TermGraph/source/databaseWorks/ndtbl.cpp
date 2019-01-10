@@ -9,13 +9,13 @@ bool NodeTable::hasNodeWithNameInGroup(const QString &name, const QUuid &groupUu
     return !nodesRecords.isEmpty();
 }
 
-QUuid NodeTable::addNode(const QString& name)
+QUuid NodeTable::addNode(const QString& name, const QUuid& groupUuid)
 {
     QUuid uuid = generateNewUuid();
-    return addNode(uuid, name);
+    return addNode(uuid, name, groupUuid);
 }
 
-QUuid NodeTable::addNode(const QUuid& uuid, const QString& name)
+QUuid NodeTable::addNode(const QUuid& uuid, const QString& name, const QUuid& groupUuid)
 {
     if (name.simplified() == "") {
         return "";  // Создать вершину не удалось
