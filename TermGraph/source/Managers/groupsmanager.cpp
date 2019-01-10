@@ -135,6 +135,11 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
     return group;
 }
 
+bool GroupsManager::hasAnyGroup() const
+{
+    return !Glb::db->groupTbl->getAllGroupsUuid().isEmpty();
+}
+
 QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 {
     QDateTime lastEdit;

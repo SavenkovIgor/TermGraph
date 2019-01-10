@@ -23,6 +23,10 @@ ApplicationWindow {
         AlterMainScheme {
             mainStack: stackView
             sideMenu: appSideMenu
+
+            onShowInfo: infoPanel.showInfo(info)
+            onShowWarning: infoPanel.showWarning(warning)
+            onShowError: infoPanel.showError(error)
         }
     }
 

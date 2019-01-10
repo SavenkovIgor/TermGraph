@@ -11,7 +11,7 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
 
     // Database init
     Glb::db = new DBAbstract(AppConfig::StdFolderPaths::defaultDatabaseFilePath());
-//    Glb::db->makeStartBaseCheck();
+    Glb::db->makeStartBaseCheck();
 
     tagProcessor = new TagProcessor();
 

@@ -16,6 +16,10 @@ Page {
     property Drawer sideMenu
     property int scOffset: mainHeader.height
 
+    signal showInfo(string info)
+    signal showWarning(string warning)
+    signal showError(string error)
+
     header: MainHeader {
 
         id: mainHeader
@@ -58,6 +62,11 @@ Page {
         mainStack: stackView
     }
 
+    TermGroupsList {
+        id: termGroupsList
+        mainStack: stackView
+    }
+
     TermView {
         id: termView
         mainStack: stackView
@@ -89,8 +98,13 @@ Page {
         Component.onCompleted: loadIcon( "qrc:/icons/plus" )
 
         function openNewNodePage() {
-            newNodePage.prepare("")
-            alterMainScheme.mainStack.push(newNodePage)
+            if (groupsManager.hasAnyGroup()) {
+                newNodePage.prepare("")
+                alterMainScheme.mainStack.push(newNodePage)
+            } else {
+                showWarning("Create group first!")
+                alterMainScheme.mainStack.push(termGroupsList)
+            }
         }
     }
 

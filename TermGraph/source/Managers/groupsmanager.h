@@ -28,6 +28,9 @@ signals:
     void showError(QString error);
 
 public slots:
+
+    bool hasAnyGroup() const;
+
     QStringList getAllGroupsNames(bool withAllVeiw = false);
     QList<QUuid> getAllUuidsSortedByLastEdit();
     QStringList getAllUuidStringsSortedByLastEdit();

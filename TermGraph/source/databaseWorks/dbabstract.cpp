@@ -124,7 +124,7 @@ QStringList DBAbstract::queryToStrList(QSqlQuery q)
 void DBAbstract::makeStartBaseCheck()
 {
     createAllTables();
-    checkCols();
+    //checkCols();
 //    edgeTbl->clearFromDuplicates();
     normalizeNodesGroupUuid();
 }
