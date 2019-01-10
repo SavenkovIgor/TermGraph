@@ -20,6 +20,10 @@ public:
 signals:
     void nodeChanged();
 
+    void showInfo(QString info);
+    void showWarning(QString warning);
+    void showError(QString error);
+
 public slots:
 
     void addNewNode(

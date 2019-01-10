@@ -132,6 +132,13 @@ ApplicationWindow {
         }
 
         Connections {
+            target: nodesManager
+            onShowInfo: infoPanel.showInfo(info)
+            onShowWarning: infoPanel.showWarning(warning)
+            onShowError: infoPanel.showError(error)
+        }
+
+        Connections {
             target: sceneObj
             onShowInfo: infoPanel.showInfo(info)
             onShowWarning: infoPanel.showWarning(warning)

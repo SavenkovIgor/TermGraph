@@ -18,6 +18,12 @@ void NodesManager::addNewNode(const QString &name,
         return;
     }
 
+    QUuid groupUuid = db->groupTbl->getUuid(groupName);
+    if (db->nodeTbl->hasNodeWithNameInGroup(name, groupUuid)) {
+        showWarning("Термин с таким названием уже существует в этой группе");
+        return;
+    }
+
     QUuid nodeUuid = db->nodeTbl->addNode(name);
     changeNode(nodeUuid, name, forms, def, descr, exam, groupName, sendChangeSignal);
 }
