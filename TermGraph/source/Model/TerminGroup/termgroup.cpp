@@ -382,7 +382,7 @@ void TermGroup::setOrphCoords(qreal maxWidth)
     int x = 0, y = 0;
     qreal maxHeightInRow = 0.0;
     qreal groupMinWidth = getGroupMinWidth();
-    maxWidth = qBound(10.0, groupMinWidth, 700.0);
+    maxWidth = qBound(10.0, groupMinWidth, 2000.0);
 
     for (auto currNode : orphansList) {
         QSizeF nodeSize = currNode->getNodeRect(CoordType::zeroPoint).size();
