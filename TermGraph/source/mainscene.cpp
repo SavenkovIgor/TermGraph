@@ -400,17 +400,20 @@ QString MainScene::getCurrNodeStringField(std::function<QString (InfoTerm*)> str
 
 void MainScene::createTestGroups()
 {
-    groupsMgr->addNewGroup("TestGroup1", "");
+    QString groupName = "TestGroup1";
+    groupsMgr->addNewGroup(groupName, "");
 
-    nodesMgr->addNewNode("1", "", "", "", "", "TestGroup1");
-    nodesMgr->addNewNode("2", "", "", "", "", "TestGroup1");
-    nodesMgr->addNewNode("3", "", "{1}{2}", "", "", "TestGroup1");
-    nodesMgr->addNewNode("4", "", "{1}{2}", "", "", "TestGroup1");
-    nodesMgr->addNewNode("5", "", "{1}", "", "", "TestGroup1");
-    nodesMgr->addNewNode("6", "", "{5}", "", "", "TestGroup1");
-    nodesMgr->addNewNode("7", "", "{5}", "", "", "TestGroup1");
-    nodesMgr->addNewNode("8", "", "{6}{7}", "", "", "TestGroup1");
-    nodesMgr->addNewNode("9", "", "", "", "", "TestGroup1");
+    auto groupUuid = groupsMgr->getGroupUuid(groupName);
+
+    nodesMgr->addNewNode("1", "", "", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("2", "", "", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("3", "", "{1}{2}", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("4", "", "{1}{2}", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("5", "", "{1}", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("6", "", "{5}", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("7", "", "{5}", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("8", "", "{6}{7}", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("9", "", "", "", "", groupUuid.toString());
 }
 
 void MainScene::requestPaint(bool paintAll)
