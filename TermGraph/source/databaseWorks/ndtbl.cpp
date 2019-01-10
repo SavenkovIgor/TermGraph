@@ -24,6 +24,7 @@ QUuid NodeTable::addNode(const QUuid& uuid, const QString& name, const QUuid& gr
     QList<InsertContainer> values;
     values << InsertContainer(NodeColumn::term, name);
     values << InsertContainer(NodeColumn::longUID, uuid.toString());
+    values << InsertContainer(NodeColumn::termGroup, groupUuid.toString());
 
     insertInto(values);
 
