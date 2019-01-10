@@ -57,13 +57,13 @@ public:
     }
 };
 
-enum ConditionType{
+enum class ConditionType{
     And,
     Or
 };
 
 
-class WhereCondition {
+class WhereCondition {  // TODO: Make chain calls!
 private:
     inline QString concat(QString str1, QString str2, QString str3) {
         return str1 + " " + str2 + " " + str3;
@@ -73,7 +73,7 @@ private:
     ConditionType type;
 
 public:
-    WhereCondition(const ConditionType& type = And) {
+    WhereCondition(const ConditionType& type = ConditionType::And) {
         this->type = type;
     }
 
@@ -121,8 +121,8 @@ public:
 
     QString getJoinedConditions() const {
         switch (type) {
-        case And: return conditions.join(" AND ");
-        case Or:  return conditions.join(" OR ");
+        case ConditionType::And: return conditions.join(" AND ");
+        case ConditionType::Or:  return conditions.join(" OR ");
         }
 
         return conditions.join("");
