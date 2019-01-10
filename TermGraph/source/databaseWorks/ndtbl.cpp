@@ -1,5 +1,14 @@
 #include "./ndtbl.h"
 
+bool NodeTable::hasNodeWithNameInGroup(const QString &name, const QUuid &groupUuid) const
+{
+    auto where = WhereCondition();
+    where.equal(NodeColumn::term, name);
+    where.equal(NodeColumn::termGroup, groupUuid.toString());
+    RecList nodesRecords = toRecList(select(QStringList() << NodeColumn::longUID, where));
+    return !nodesRecords.isEmpty();
+}
+
 QUuid NodeTable::addNode(const QString& name)
 {
     QUuid uuid = generateNewUuid();
