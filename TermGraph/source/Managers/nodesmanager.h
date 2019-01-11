@@ -14,6 +14,7 @@
 class NodesManager : public QObject
 {
     Q_OBJECT
+
 public:
     explicit NodesManager(QObject *parent = nullptr);
 
@@ -25,8 +26,11 @@ signals:
     void showError(QString error);
 
 public slots:
+    bool correctNewNodeName(const QString& name, QUuid& groupUuid, bool showWarnings = true);
+    QUuid getNodeUuidByNameAndGroup(const QString& name, QUuid& groupUuid) const;
+    bool hasNodeWithNameInGroup(const QString& name, QUuid& groupUuid) const;
 
-    void addNewNode(
+    /*[[nodiscard]]*/ bool addNewNode(
             const QString& name,
             const QString& forms,
             const QString& def,
@@ -35,7 +39,7 @@ public slots:
             const QString& groupUuidString,
             const bool& sendChangeSignal = true);
 
-    void changeNode(
+    /*[[nodiscard]]*/ bool changeNode(
             const QUuid& nodeUuid,
             const QString& name,
             const QString& forms,
@@ -45,7 +49,7 @@ public slots:
             const QString& groupUuidString,
             const bool& sendChangeSignal = true);
 
-    void changeNode(
+    /*[[nodiscard]]*/ bool changeNode(
             const QUuid& nodeUuid,
             const QString& name,
             const QString& forms,
@@ -66,7 +70,6 @@ public slots:
 
 private:
     bool correctGroupUuid(const QUuid& groupUuid, bool sendWarnings = true);
-    bool correctNodeName(const QString& name, QUuid& groupUuid, bool showWarnings = true);
     QSqlRecord getNodeSqlRecord(QUuid nodeUuid);
 };
 

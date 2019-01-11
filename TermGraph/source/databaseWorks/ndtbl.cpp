@@ -1,12 +1,17 @@
 #include "./ndtbl.h"
 
-bool NodeTable::hasNodeWithNameInGroup(const QString &name, const QUuid &groupUuid) const
+QUuid NodeTable::nodeUuidForNameAndGroup(const QString &name, const QUuid &groupUuid) const
 {
     auto where = WhereCondition();
     where.equal(NodeColumn::term, name);
     where.equal(NodeColumn::termGroup, groupUuid.toString());
     RecList nodesRecords = toRecList(select(QStringList() << NodeColumn::longUID, where));
-    return !nodesRecords.isEmpty();
+
+    if (!nodesRecords.isEmpty()) {
+        return QUuid(nodesRecords.first().value(NodeColumn::longUID).toString());
+    }
+
+    return QUuid();
 }
 
 QUuid NodeTable::addNode(const QString& name, const QUuid& groupUuid)

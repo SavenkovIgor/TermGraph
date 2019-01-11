@@ -46,7 +46,8 @@ public:
         initColumn(NodeColumn::lastEdit,    "TEXT");
     }
 
-    bool hasNodeWithNameInGroup(const QString& name, const QUuid& groupUuid) const;
+    QUuid nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const;
+
 
     QUuid addNode(const QString &name, const QUuid& groupUuid);
     QUuid addNode(const QUuid &uuid, const QString &name, const QUuid& groupUuid);

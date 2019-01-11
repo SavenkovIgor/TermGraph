@@ -81,8 +81,9 @@ Page {
             return
         }
 
+        var result = true;
         if( changeN.text == "" ) {
-            nodesManager.addNewNode(
+            result = nodesManager.addNewNode(
                         termName.text,
                         termForms.text,
                         termDefin.text,
@@ -91,7 +92,7 @@ Page {
                         nodeGroup.currentText
                         )
         } else {
-            nodesManager.changeNode(
+            result = nodesManager.changeNode(
                         changeN.text,
                         termName.text,
                         termForms.text,
@@ -102,7 +103,9 @@ Page {
                         )
         }
 
-        moveBack()
+        if (result) {
+            moveBack()
+        }
     }
 
 
