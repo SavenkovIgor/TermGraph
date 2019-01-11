@@ -105,6 +105,7 @@ ApplicationWindow {
         height: mainObj.getUiElementSize("infoLabel")*Screen.pixelDensity*2
         interactive: false
         edge: Qt.BottomEdge
+        dim: false
 
         function setTextAndOpen(text) {
             infoLabel.text = text
