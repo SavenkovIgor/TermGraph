@@ -30,6 +30,7 @@ public slots:
     // Fill functions
     void clearAllQueues();
     void addGroup(TermGroup* group, bool ignoreNeedPaintFlag = false, bool paintNow = true);
+    void addRect(QRectF rect, QColor color = Qt::white);
     void addNode(PaintedTerm* node, bool paintNow = true);
 
     // GroupRects

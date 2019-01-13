@@ -118,7 +118,6 @@ void MainScene::updateSceneRect()
     QMarginsF mrg(mV, mV, mV, mV);
     auto withMargins = allRect.marginsAdded(mrg);
     sceneRect = withMargins;
-    sceneRect = sceneRect.united(sceneViewRect);
 }
 
 void MainScene::centerViewOn(QPointF point)
@@ -430,6 +429,8 @@ void MainScene::sendGroupsToPaintManager(bool requestPaint, bool paintAll)
     for (auto group : groupList) {
         paintManager->addGroup(group, paintAll, false);
     }
+
+//    paintManager->addRect(sceneRect);
 
     if (requestPaint) {
         paintManager->sendPaintGroupSignal();

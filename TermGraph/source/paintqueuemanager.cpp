@@ -79,6 +79,11 @@ void PaintManager::addGroup(TermGroup *group, bool ignoreNeedPaintFlag, bool pai
     }
 }
 
+void PaintManager::addRect(QRectF rect, QColor color)
+{
+    groupRectsForPaint.enqueue(QPair<QRectF, QColor>(rect, color));
+}
+
 void PaintManager::addNode(PaintedTerm* node, bool paintNow)
 {
     nodesForPaint.enqueue(node);
