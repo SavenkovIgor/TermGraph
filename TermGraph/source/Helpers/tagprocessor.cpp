@@ -8,76 +8,57 @@ bool TagProcessor::isBracket(const QChar& ch)
     return ch == leftBracket || ch == rightBracket;
 }
 
-int TagProcessor::searchWordBorder(const SearchDirection searchDirection, const QString& text, int cursorPosition)
+int TagProcessor::searchWordBorder(const SearchDirection direction, const QString& text, int cursorPos)
 {
-    if (searchDirection == SearchDirection::left) {
-        if (cursorPosition == 0) {
+    if (direction == SearchDirection::left) {
+        if (cursorPos == 0) {
             // Если мы у левой границы строки - возвращаем эту границу
-            return cursorPosition;
+            return cursorPos;
         }
 
-        QChar leftChar = text[cursorPosition - 1];
+        QChar leftChar = text[cursorPos - 1];
 
         if (leftChar.isLetterOrNumber()) {  // Если это символ или цифра - ищем левее
-            return searchWordBorder(searchDirection, text, cursorPosition - 1);
+            return searchWordBorder(direction, text, cursorPos - 1);
         } else {
-            return cursorPosition;
+            return cursorPos;
         }
     } else {
-        if (cursorPosition == text.size()) {
+        if (cursorPos == text.size()) {
             // Если мы у правой границы строки - возвращаем эту границу
-            return cursorPosition;
+            return cursorPos;
         }
 
-        QChar rightChar = text[cursorPosition];
+        QChar rightChar = text[cursorPos];
 
         if (rightChar.isLetterOrNumber()) {
-            return searchWordBorder(searchDirection, text, cursorPosition + 1);
+            return searchWordBorder(direction, text, cursorPos + 1);
         } else {
-            return cursorPosition;
+            return cursorPos;
         }
     }
 }
 
-QChar TagProcessor::getNearesBracket(const SearchDirection searchDirection, const QString &text, int cursorPosition)
+QChar TagProcessor::getNearesBracket(const SearchDirection direction, const QString &text, int cursorPos)
 {
-    if (searchDirection == SearchDirection::left) {
-        if (cursorPosition == 0) {
-            // Если мы у левой границы строки - возвращаем пустой символ
-            return QChar();
-        }
+    auto pos = getCursorPosition(direction, text, cursorPos, isBracket);
 
-        QChar leftChar = text[cursorPosition - 1];
-
-        if (isBracket(leftChar)) {
-            // Если это одна из скобок, возвращаем ее
-            return leftChar;
-        } else {
-            // Иначе ищем левее
-            return getNearesBracket(searchDirection, text, cursorPosition - 1);
-        }
-    } else {
-        if (cursorPosition == text.size()) {
-            // Если мы у правой границы строки - возвращаем пустой символ
-            return QChar();
-        }
-
-        QChar rightChar = text[cursorPosition];
-
-        if (isBracket(rightChar)) {
-            // Если это одна из скобок, возвращаем ее
-            return rightChar;
-        } else {
-            // Иначе ищем правее
-            return getNearesBracket(searchDirection, text, cursorPosition + 1);
-        }
+    if (pos == -1) {
+        return QChar();
     }
+
+    switch (direction) {
+    case SearchDirection::left: return text[pos-1];
+    case SearchDirection::right: return text[pos];
+    }
+
+    return QChar();
 }
 
-bool TagProcessor::isInsideTag(const QString &text, int cursorPosition)
+bool TagProcessor::isInsideTag(const QString &text, int cursorPos)
 {
-    QChar firstLeftBracket = getNearesBracket(SearchDirection::left, text, cursorPosition);
-    QChar firstRightBracket = getNearesBracket(SearchDirection::right, text, cursorPosition);
+    QChar firstLeftBracket = getNearesBracket(SearchDirection::left, text, cursorPos);
+    QChar firstRightBracket = getNearesBracket(SearchDirection::right, text, cursorPos);
 
     if (firstLeftBracket == leftBracket && firstRightBracket == rightBracket) {
         return true;
@@ -180,6 +161,45 @@ bool TagProcessor::isTagCorrespondToTermName(QString termName, QString tag)  // 
     return false;
 }
 
+int TagProcessor::getCursorPosition(
+        const SearchDirection& direction,
+        const QString& text,
+        int cursorPos,
+        std::function<bool(QChar)> exitCondition)
+{
+    if (direction == SearchDirection::left) {
+        if (cursorPos == 0) {
+            // Если мы у левой границы строки - возвращаем -1
+            return -1;
+        }
+
+        QChar leftChar = text[cursorPos - 1];
+
+        if (exitCondition(leftChar)) {
+            // Если для символа слева условие выполняется, возвращаем эту позицию
+            return cursorPos;
+        } else {
+            // Иначе ищем левее
+            return getCursorPosition(direction, text, cursorPos - 1, exitCondition);
+        }
+    } else {
+        if (cursorPos == text.size()) {
+            // Если мы у правой границы строки - возвращаем -1
+            return -1;
+        }
+
+        QChar rightChar = text[cursorPos];
+
+        if (exitCondition(rightChar)) {
+            // Если для символа справа условие выполняется, возвращаем эту позицию
+            return cursorPos;
+        } else {
+            // Иначе ищем правее
+            return getCursorPosition(direction, text, cursorPos + 1, exitCondition);
+        }
+    }
+}
+
 QStringList TagProcessor::extractTags(QString str)
 {
     // На данном этапе считаем, что экранировать символы тегов нельзя
@@ -246,4 +266,18 @@ QString TagProcessor::addTagInPosition(int cursorPosition, QString str)
     str.insert(leftWordBorder, leftBracket);
 
     return str;
+}
+
+QString TagProcessor::extendRight(int cursorPosition, QString str)
+{
+    if (cursorPosition < 0 || cursorPosition > str.size()) {
+        return str;
+    }
+
+    if (!isInsideTag(str, cursorPosition)) {
+        return str;
+    }
+
+    // Move to right bracket
+    auto barcketPos = getNearesBracket(SearchDirection::right, str, cursorPosition);
 }

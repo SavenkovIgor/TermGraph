@@ -1,6 +1,8 @@
 #ifndef TEXTPROCESSOR_H
 #define TEXTPROCESSOR_H
 
+#include <functional>
+
 #include <QObject>
 
 class TagProcessor : public QObject
@@ -18,9 +20,9 @@ public:
 
     static inline bool isBracket(const QChar &ch);
 
-    static int searchWordBorder(const SearchDirection searchDirection, const QString& text, int cursorPosition);
-    static QChar getNearesBracket(const SearchDirection searchDirection, const QString& text, int cursorPosition);
-    static bool isInsideTag(const QString& text, int cursorPosition);
+    static int searchWordBorder(const SearchDirection direction, const QString& text, int cursorPos);
+    static QChar getNearesBracket(const SearchDirection direction, const QString& text, int cursorPos);
+    static bool isInsideTag(const QString& text, int cursorPos);
 
     static bool isPairedBrackets(QString text);
     static int getMaxDepthOfNestedBrackets(QString text);
@@ -30,9 +32,17 @@ public:
     static int getLevDistance(const QString &src, const QString &dst);
 
     static bool isTagCorrespondToTermName(QString termName, QString tag);
+
+    static int getCursorPosition(
+            const SearchDirection& direction,
+            const QString& text,
+            int cursorPos,
+            std::function<bool(QChar)> exitCondition);
+
 public slots:
     static QStringList extractTags(QString str);
     QString addTagInPosition(int cursorPosition, QString str);
+    QString extendRight(int cursorPosition, QString str);
 };
 
 #endif  // TEXTPROCESSOR_H
