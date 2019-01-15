@@ -23,6 +23,10 @@ Column {
         return txtArea.cursorPosition
     }
 
+    function setCursPosition(pos) {
+        txtArea.cursorPosition = pos
+    }
+
     Label {
         id: label
         anchors {

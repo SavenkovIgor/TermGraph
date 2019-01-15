@@ -294,15 +294,12 @@ QString TagProcessor::expandRight(int cursorPosition, QString str)
     auto bracketPos = getCursorPosition(SearchDirection::right, str, cursorPosition, isBracket);
     // Move to word
     auto wordStartPos = getCursorPosition(SearchDirection::right, str, bracketPos + 1, isLetterOrNumber);
-    auto openBracketPos = getCursorPosition(SearchDirection::right, str,)
-    qDebug() << "bracketPos" << bracketPos;
-    qDebug() << "wordStartPos" << wordStartPos;
+    auto openBracketPos = getCursorPosition(SearchDirection::right, str, bracketPos + 1, isLeftBracket);
+
     // Protection from capturing next tag
-    if (wordStartPos != -1) {
-        if (wordStartPos < str.size()) {
-            if (str[wordStartPos] == leftBracket) {
-                return str;
-            }
+    if (openBracketPos != -1) {
+        if (wordStartPos > openBracketPos) {
+            return str;
         }
     }
 

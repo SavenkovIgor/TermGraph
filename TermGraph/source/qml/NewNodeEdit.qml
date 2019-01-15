@@ -119,7 +119,9 @@ Page {
 
         onClicked: {
             termDefin.makeFocusInField()
-            termDefin.text = tagProcessor.addTagInPosition( termDefin.getCursPosition(), termDefin.text )
+            var pos = termDefin.getCursPosition()
+            termDefin.text = tagProcessor.addTagInPosition( pos, termDefin.text )
+            termDefin.setCursPosition(pos);
         }
         Component.onCompleted: loadIcon("qrc:/icons/code")
     }
@@ -134,7 +136,9 @@ Page {
 
         onClicked: {
             termDefin.makeFocusInField()
-            termDefin.text = tagProcessor.expandRight( termDefin.getCursPosition(), termDefin.text )
+            var pos = termDefin.getCursPosition()
+            termDefin.text = tagProcessor.expandRight( pos, termDefin.text )
+            termDefin.setCursPosition(pos)
         }
         Component.onCompleted: loadIcon("qrc:/icons/extendRight")
     }
