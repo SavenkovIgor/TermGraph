@@ -4,6 +4,7 @@
 #include <functional>
 
 #include <QObject>
+#include <QDebug>
 
 class TagProcessor : public QObject
 {
@@ -37,8 +38,10 @@ public slots:
     QString expandRight(int cursorPosition, QString str);
 
 private:
-    // Conditions
+    // Exit conditions
     static inline bool isBracket(const QChar &ch);
+    static inline bool isLeftBracket(const QChar & ch);
+    static inline bool isRightBracket(const QChar & ch);
     static inline bool isLetterOrNumber(const QChar& ch);
     static inline bool isLetterOrNumberInverse(const QChar& ch);
     static inline bool isSpaceCharacter(const QChar& ch);

@@ -8,6 +8,16 @@ bool TagProcessor::isBracket(const QChar& ch)
     return ch == leftBracket || ch == rightBracket;
 }
 
+bool TagProcessor::isLeftBracket(const QChar &ch)
+{
+    return ch == leftBracket;
+}
+
+bool TagProcessor::isRightBracket(const QChar &ch)
+{
+    return ch == rightBracket;
+}
+
 bool TagProcessor::isLetterOrNumber(const QChar &ch)
 {
     return ch.isLetterOrNumber();
@@ -284,6 +294,18 @@ QString TagProcessor::expandRight(int cursorPosition, QString str)
     auto bracketPos = getCursorPosition(SearchDirection::right, str, cursorPosition, isBracket);
     // Move to word
     auto wordStartPos = getCursorPosition(SearchDirection::right, str, bracketPos + 1, isLetterOrNumber);
+    auto openBracketPos = getCursorPosition(SearchDirection::right, str,)
+    qDebug() << "bracketPos" << bracketPos;
+    qDebug() << "wordStartPos" << wordStartPos;
+    // Protection from capturing next tag
+    if (wordStartPos != -1) {
+        if (wordStartPos < str.size()) {
+            if (str[wordStartPos] == leftBracket) {
+                return str;
+            }
+        }
+    }
+
     auto wordEndPos = getCursorPosition(SearchDirection::right, str, wordStartPos, isSpaceCharacter);
 
     if (wordStartPos != -1 && wordEndPos == -1) {
