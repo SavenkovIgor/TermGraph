@@ -8,6 +8,16 @@ bool TagProcessor::isBracket(const QChar& ch)
     return ch == leftBracket || ch == rightBracket;
 }
 
+bool TagProcessor::isLetterOrNumber(const QChar &ch)
+{
+    return ch.isLetterOrNumber();
+}
+
+bool TagProcessor::isSpaceCharacter(const QChar &ch)
+{
+    return ch.isSpace();
+}
+
 int TagProcessor::searchWordBorder(const SearchDirection direction, const QString& text, int cursorPos)
 {
     if (direction == SearchDirection::left) {
@@ -167,8 +177,12 @@ int TagProcessor::getCursorPosition(
         int cursorPos,
         std::function<bool(QChar)> exitCondition)
 {
+    if (cursorPos == -1) {
+        return -1;
+    }
+
     if (direction == SearchDirection::left) {
-        if (cursorPos == 0) {
+        if (cursorPos <= 0) {
             // Если мы у левой границы строки - возвращаем -1
             return -1;
         }
@@ -183,7 +197,7 @@ int TagProcessor::getCursorPosition(
             return getCursorPosition(direction, text, cursorPos - 1, exitCondition);
         }
     } else {
-        if (cursorPos == text.size()) {
+        if (cursorPos >= text.size()) {
             // Если мы у правой границы строки - возвращаем -1
             return -1;
         }
@@ -279,5 +293,16 @@ QString TagProcessor::extendRight(int cursorPosition, QString str)
     }
 
     // Move to right bracket
-    auto barcketPos = getNearesBracket(SearchDirection::right, str, cursorPosition);
+    auto bracketPos = getCursorPosition(SearchDirection::right, str, cursorPosition, isBracket);
+    // Move to word
+    auto wordStartPos = getCursorPosition(SearchDirection::right, str, bracketPos + 1, isLetterOrNumber);
+    auto wordEndPos = getCursorPosition(SearchDirection::right, str, wordStartPos, isSpaceCharacter);
+
+    if (bracketPos != -1 && wordEndPos != -1) {
+        str.insert(wordEndPos, rightBracket);
+        str.remove(bracketPos,1);
+        return str;
+    }
+
+    return str;
 }

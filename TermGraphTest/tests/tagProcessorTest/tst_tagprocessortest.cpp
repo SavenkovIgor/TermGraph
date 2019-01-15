@@ -277,6 +277,57 @@ private slots:
 
         QVERIFY(proc->addTagInPosition(cursorPosition, src) == result);
     }
+
+    void extendRight_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<int>("cursorPosition");
+        QTest::addColumn<QString>("result");
+
+        QTest::newRow("case0") << "" << 0 << "";
+        QTest::newRow("case1") << " " << 0 << " ";
+        QTest::newRow("case2") << " " << 1 << " ";
+        QTest::newRow("case3") << "a" << 0 << "a";
+        QTest::newRow("case4") << "a" << 1 << "a";
+        QTest::newRow("case5") << " a " << 0 << " a ";
+        QTest::newRow("case6") << " a " << 1 << " a ";
+        QTest::newRow("case7") << " a " << 2 << " a ";
+        QTest::newRow("case8") << " a " << 3 << " a ";
+        QTest::newRow("case9") << " a a " << 0 << " a a ";
+        QTest::newRow("case10") << " a a " << 1 << " a a ";
+        QTest::newRow("case11") << " a a " << 2 << " a a ";
+        QTest::newRow("case12") << " a a " << 3 << " a a ";
+        QTest::newRow("case13") << " a a " << 4 << " a a ";
+        QTest::newRow("case14") << " a a " << 5 << " a a ";
+        QTest::newRow("case15") << " {a}" << 2 << " {a}";
+        QTest::newRow("case16") << " {a}" << 3 << " {a}";
+        QTest::newRow("case17") << " {a} " << 2 << " {a} ";
+        QTest::newRow("case18") << " {a} " << 3 << " {a} ";
+        QTest::newRow("case19") << " {a} a " << 2 << " {a a} ";
+        QTest::newRow("case20") << " {a} a " << 3 << " {a a} ";
+        QTest::newRow("case21") << " {a } a " << 2 << " {a  a} ";
+        QTest::newRow("case22") << " {a } a " << 3 << " {a  a} ";
+        QTest::newRow("case23") << " {a } a " << 4 << " {a  a} ";
+        QTest::newRow("case24") << " {a}a " << 2 << " {aa} ";
+        QTest::newRow("case25") << " {a}a " << 3 << " {aa} ";
+        QTest::newRow("case26") << " {aa} bb " << 2 << " {aa bb} ";
+        QTest::newRow("case27") << " aaaaa, " << 1 << " aaaaa, ";
+        QTest::newRow("case28") << "{a}" << 0 << "{a}";
+        QTest::newRow("case29") << "{a}" << 1 << "{a}";
+        QTest::newRow("case30") << "{a}" << 2 << "{a}";
+        QTest::newRow("case31") << "{a}" << 3 << "{a}";
+    }
+
+    void extendRight()
+    {
+        QFETCH(QString, src);
+        QFETCH(int, cursorPosition);
+        QFETCH(QString, result);
+
+        TagProcessor* proc = new TagProcessor();
+
+        QVERIFY(proc->extendRight(cursorPosition, src) == result);
+    }
 };
 
 QTEST_APPLESS_MAIN(TagProcessorTest)

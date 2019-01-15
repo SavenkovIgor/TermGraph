@@ -18,8 +18,6 @@ public:
 
     explicit TagProcessor(QObject *parent = nullptr);
 
-    static inline bool isBracket(const QChar &ch);
-
     static int searchWordBorder(const SearchDirection direction, const QString& text, int cursorPos);
     static QChar getNearesBracket(const SearchDirection direction, const QString& text, int cursorPos);
     static bool isInsideTag(const QString& text, int cursorPos);
@@ -33,16 +31,24 @@ public:
 
     static bool isTagCorrespondToTermName(QString termName, QString tag);
 
+public slots:
+    static QStringList extractTags(QString str);
+    QString addTagInPosition(int cursorPosition, QString str);
+    QString extendRight(int cursorPosition, QString str);
+
+private:
+    // Conditions
+    static inline bool isBracket(const QChar &ch);
+    static inline bool isLetterOrNumber(const QChar& ch);
+    static inline bool isSpaceCharacter(const QChar& ch);
+
+    // SearchCursorPosition
     static int getCursorPosition(
             const SearchDirection& direction,
             const QString& text,
             int cursorPos,
             std::function<bool(QChar)> exitCondition);
 
-public slots:
-    static QStringList extractTags(QString str);
-    QString addTagInPosition(int cursorPosition, QString str);
-    QString extendRight(int cursorPosition, QString str);
 };
 
 #endif  // TEXTPROCESSOR_H
