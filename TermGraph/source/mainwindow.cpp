@@ -74,7 +74,7 @@ void MainWindow::initElemSizes()
 {
 #if defined( Q_OS_WIN ) || defined( Q_OS_LINUX ) || defined( Q_OS_MACOS )
     // Screen.pixelDencity - pixel in millimeters
-    elementSizes["roundButton"] = 12;
+    elementSizes["roundButton"] = 15;
     elementSizes["text"] = 5;
     elementSizes["capitalText"] = 4;
     elementSizes["inputLabel"] = 7;

@@ -137,7 +137,7 @@ Page {
         }
 
         onClicked: openEditNodePage(sceneObj.getCurrNodeLongUid())
-        Component.onCompleted: loadIcon( "qrc:/icons/aperture" )
+        Component.onCompleted: loadIcon( "qrc:/icons/pencil" )
 
         function openEditNodePage(nodeUuid) {
             if (nodeUuid !== "") {
@@ -190,7 +190,7 @@ Page {
         }
 
         onClicked: openTerm()
-        Component.onCompleted: loadIcon( "qrc:/icons/chevron-top" )
+        Component.onCompleted: loadIcon( "qrc:/icons/info" )
 
         function openTerm() {
             if (sceneObj.hasSelection()) {

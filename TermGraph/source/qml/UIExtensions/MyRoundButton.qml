@@ -70,7 +70,7 @@ RoundButton {
 
             }
 
-            return "#d4d4d4"
+            return "#fffff0"
         }
     }
 
