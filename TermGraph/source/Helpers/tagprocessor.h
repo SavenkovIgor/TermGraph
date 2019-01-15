@@ -34,12 +34,13 @@ public:
 public slots:
     static QStringList extractTags(QString str);
     QString addTagInPosition(int cursorPosition, QString str);
-    QString extendRight(int cursorPosition, QString str);
+    QString expandRight(int cursorPosition, QString str);
 
 private:
     // Conditions
     static inline bool isBracket(const QChar &ch);
     static inline bool isLetterOrNumber(const QChar& ch);
+    static inline bool isLetterOrNumberInverse(const QChar& ch);
     static inline bool isSpaceCharacter(const QChar& ch);
 
     // SearchCursorPosition

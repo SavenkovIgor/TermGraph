@@ -110,9 +110,9 @@ Page {
 
 
     MyRoundButton {
-        id: makeBrackets
+        id: makeTag
 
-        anchors.right: parent.right
+        anchors.right: expandTagRight.left
         anchors.top: parent.top
 
         visible: false
@@ -122,6 +122,21 @@ Page {
             termDefin.text = tagProcessor.addTagInPosition( termDefin.getCursPosition(), termDefin.text )
         }
         Component.onCompleted: loadIcon("qrc:/icons/code")
+    }
+
+    MyRoundButton {
+        id: expandTagRight
+
+        anchors.right: parent.right
+        anchors.top: parent.top
+
+        visible: false
+
+        onClicked: {
+            termDefin.makeFocusInField()
+            termDefin.text = tagProcessor.expandRight( termDefin.getCursPosition(), termDefin.text )
+        }
+        Component.onCompleted: loadIcon("qrc:/icons/extendRight")
     }
 
     ScrollView {
@@ -170,10 +185,9 @@ Page {
                 id: termDefin
                 placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
                 onTxtFocusChanged: {
-                    if( txtFocus )
-                        makeBrackets.visible = true
-                    else
-                        makeBrackets.visible = false
+                    var visible = txtFocus
+                    expandTagRight.visible = visible
+                    makeTag.visible = visible
                 }
             }
 

@@ -102,5 +102,11 @@
         <file>icons/check-4x.png</file>
         <file>icons/check-6x.png</file>
         <file>icons/check-8x.png</file>
+        <file>icons/extendRight.png</file>
+        <file>icons/extendRight-2x.png</file>
+        <file>icons/extendRight-3x.png</file>
+        <file>icons/extendRight-4x.png</file>
+        <file>icons/extendRight-6x.png</file>
+        <file>icons/extendRight-8x.png</file>
     </qresource>
 </RCC>

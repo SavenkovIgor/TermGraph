@@ -316,6 +316,11 @@ private slots:
         QTest::newRow("case29") << "{a}" << 1 << "{a}";
         QTest::newRow("case30") << "{a}" << 2 << "{a}";
         QTest::newRow("case31") << "{a}" << 3 << "{a}";
+        QTest::newRow("case32") << "{a}a" << 0 << "{a}a";
+        QTest::newRow("case33") << "{a}a" << 1 << "{aa}";
+        QTest::newRow("case34") << "{a}a" << 2 << "{aa}";
+        QTest::newRow("case35") << "{a}a" << 3 << "{a}a";
+        QTest::newRow("case36") << "{a}a" << 4 << "{a}a";
     }
 
     void extendRight()
@@ -326,7 +331,7 @@ private slots:
 
         TagProcessor* proc = new TagProcessor();
 
-        QVERIFY(proc->extendRight(cursorPosition, src) == result);
+        QVERIFY(proc->expandRight(cursorPosition, src) == result);
     }
 };
 

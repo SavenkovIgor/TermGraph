@@ -13,6 +13,11 @@ bool TagProcessor::isLetterOrNumber(const QChar &ch)
     return ch.isLetterOrNumber();
 }
 
+bool TagProcessor::isLetterOrNumberInverse(const QChar &ch)
+{
+    return !isLetterOrNumber(ch);
+}
+
 bool TagProcessor::isSpaceCharacter(const QChar &ch)
 {
     return ch.isSpace();
@@ -20,33 +25,16 @@ bool TagProcessor::isSpaceCharacter(const QChar &ch)
 
 int TagProcessor::searchWordBorder(const SearchDirection direction, const QString& text, int cursorPos)
 {
-    if (direction == SearchDirection::left) {
-        if (cursorPos == 0) {
-            // Если мы у левой границы строки - возвращаем эту границу
-            return cursorPos;
-        }
+    auto pos = getCursorPosition(direction, text, cursorPos, isLetterOrNumberInverse);
 
-        QChar leftChar = text[cursorPos - 1];
-
-        if (leftChar.isLetterOrNumber()) {  // Если это символ или цифра - ищем левее
-            return searchWordBorder(direction, text, cursorPos - 1);
-        } else {
-            return cursorPos;
-        }
-    } else {
-        if (cursorPos == text.size()) {
-            // Если мы у правой границы строки - возвращаем эту границу
-            return cursorPos;
-        }
-
-        QChar rightChar = text[cursorPos];
-
-        if (rightChar.isLetterOrNumber()) {
-            return searchWordBorder(direction, text, cursorPos + 1);
-        } else {
-            return cursorPos;
+    if (pos == -1) {
+        switch (direction) {
+        case SearchDirection::left:  return 0;
+        case SearchDirection::right: return text.size();
         }
     }
+
+    return pos;
 }
 
 QChar TagProcessor::getNearesBracket(const SearchDirection direction, const QString &text, int cursorPos)
@@ -282,7 +270,7 @@ QString TagProcessor::addTagInPosition(int cursorPosition, QString str)
     return str;
 }
 
-QString TagProcessor::extendRight(int cursorPosition, QString str)
+QString TagProcessor::expandRight(int cursorPosition, QString str)
 {
     if (cursorPosition < 0 || cursorPosition > str.size()) {
         return str;
@@ -297,6 +285,10 @@ QString TagProcessor::extendRight(int cursorPosition, QString str)
     // Move to word
     auto wordStartPos = getCursorPosition(SearchDirection::right, str, bracketPos + 1, isLetterOrNumber);
     auto wordEndPos = getCursorPosition(SearchDirection::right, str, wordStartPos, isSpaceCharacter);
+
+    if (wordStartPos != -1 && wordEndPos == -1) {
+        wordEndPos = str.size();
+    }
 
     if (bracketPos != -1 && wordEndPos != -1) {
         str.insert(wordEndPos, rightBracket);
