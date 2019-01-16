@@ -67,7 +67,7 @@ ApplicationWindow {
 
             SideMenuButton {
                 id: groupMenuButton
-                text: "Группы"
+                label: "Группы"
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
@@ -77,11 +77,13 @@ ApplicationWindow {
                 Layout.rightMargin: 25
 
                 onClicked: appSideMenu.openItem(groupsListItem)
+
+                Component.onCompleted: loadIcon( "qrc:/icons/list" )
             }
 
             SideMenuButton {
                 id: settingsMenuButton
-                text: "Настройки"
+                label: "Настройки"  // qsTr("text")
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
@@ -91,6 +93,8 @@ ApplicationWindow {
                 Layout.rightMargin: 25
 
                 onClicked: appSideMenu.openItem(settingsItem)
+
+                Component.onCompleted: loadIcon( "qrc:/icons/cog" )
             }
 
             Item {
