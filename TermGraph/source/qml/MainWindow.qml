@@ -46,8 +46,10 @@ ApplicationWindow {
 
     Drawer {
         id : appSideMenu
+        width: groupMenuButton.width
         height: window.height
         interactive: stackView.depth === 1
+
 
         onOpened: { groupMenuButton.forceActiveFocus() }
 
@@ -68,6 +70,7 @@ ApplicationWindow {
             SideMenuButton {
                 id: groupMenuButton
                 label: "Группы"
+                iconPath: "qrc:/icons/list-8x.png"
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
@@ -77,13 +80,12 @@ ApplicationWindow {
                 Layout.rightMargin: 25
 
                 onClicked: appSideMenu.openItem(groupsListItem)
-
-                Component.onCompleted: loadIcon( "qrc:/icons/list" )
             }
 
             SideMenuButton {
                 id: settingsMenuButton
                 label: "Настройки"  // qsTr("text")
+                iconPath: "qrc:/icons/cog-8x.png"
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
@@ -93,8 +95,6 @@ ApplicationWindow {
                 Layout.rightMargin: 25
 
                 onClicked: appSideMenu.openItem(settingsItem)
-
-                Component.onCompleted: loadIcon( "qrc:/icons/cog" )
             }
 
             Item {
