@@ -76,7 +76,7 @@ void MainWindow::initElemSizes()
     // Screen.pixelDencity - pixel in millimeters
     elementSizes["roundButton"] = 15;
     elementSizes["text"] = 5;
-    elementSizes["capitalText"] = 4;
+    elementSizes["capitalText"] = 5;
     elementSizes["inputLabel"] = 7;
     elementSizes["inputText"] = 6;
     elementSizes["combo"] = 5;

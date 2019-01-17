@@ -46,8 +46,8 @@ ApplicationWindow {
 
     Drawer {
         id : appSideMenu
-        width: groupMenuButton.width
         height: window.height
+
         interactive: stackView.depth === 1
 
 
@@ -69,8 +69,8 @@ ApplicationWindow {
 
             SideMenuButton {
                 id: groupMenuButton
-                label: "Группы"
-                iconPath: "qrc:/icons/list-8x.png"
+                text: "Группы    "
+                icon.source: "qrc:/icons/list-8x.png"
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
@@ -84,8 +84,8 @@ ApplicationWindow {
 
             SideMenuButton {
                 id: settingsMenuButton
-                label: "Настройки"  // qsTr("text")
-                iconPath: "qrc:/icons/cog-8x.png"
+                text: "Настройки"
+                icon.source: "qrc:/icons/cog-8x.png"
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
