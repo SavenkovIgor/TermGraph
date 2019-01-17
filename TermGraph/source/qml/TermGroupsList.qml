@@ -23,17 +23,17 @@ Page {
     }
 
     Keys.onPressed: {
-        if( event.modifiers === Qt.ControlModifier ) {
-            if( event.key === Qt.Key_N ) {
+        if (event.modifiers === Qt.ControlModifier) {
+            if (event.key === Qt.Key_N) {
                 newGroupDrawer.open()
                 event.accepted = true
             }
-        }
-        else if( event.key === Qt.Key_Escape )
-            if( newGroupDrawer.isOpen ) {
+        } else if (event.key === Qt.Key_Escape) {
+            if (newGroupDrawer.isOpen) {
                 newGroupDrawer.close()
                 event.accepted = true
             }
+        }
     }
 
     MyRoundButton {
@@ -202,7 +202,7 @@ Page {
     Drawer {
         id : newGroupDrawer
         width: grpLst.width
-        height: grpLst.height
+        height: grpLst.height * 0.4
         interactive: false
 
         edge: Qt.BottomEdge
@@ -224,14 +224,6 @@ Page {
                 placeholderText: "[Введите название]"
             }
 
-            /*
-            MyTextField {
-                id: newGroupComment
-                labelText: "Комментарий к группе"
-                placeholderText: "[Комментарий]"
-            }
-            */
-
             RowLayout {
                 spacing: 30
 
@@ -240,7 +232,6 @@ Page {
                     text: "Добавить"
 
                     onClicked: {
-//                        groupsManager.addNewGroup(newGroupName.text,newGroupComment.text)
                         groupsManager.addNewGroup(newGroupName.text,"")
                         newGroupDrawer.close()
                     }
@@ -252,9 +243,9 @@ Page {
                     onClicked: newGroupDrawer.close()
                 }
 
-                Item {
-                    Layout.fillHeight: true
-                }
+//                Item {
+//                    Layout.fillHeight: true
+//                }
             }
         }
     }
