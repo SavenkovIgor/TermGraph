@@ -40,6 +40,8 @@ public:
 
     NodeType getNodeType();
 
+    QString getHierarchyDefinition();
+
     void setLevel(int level);
     int getPaintLevel() const;
     void getCycleEdge();
@@ -85,6 +87,8 @@ private:
     bool hasTermInRoots(GraphTerm* term);
 
     GraphEdge *findLongPathToNode(GraphTerm* node);
+
+    void fillAllParentsList(GraphTerm *searchNode, GraphTerm::List &lst);
 };
 
 #endif // TERMGRAPH_H

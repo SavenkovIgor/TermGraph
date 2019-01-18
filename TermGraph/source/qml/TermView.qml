@@ -41,6 +41,13 @@ Page {
             ptDefinition.visible = false
         }
 
+        if (sceneObj.getCurrNodeHierarchyDefinition() !== "") {
+            hierarchyDefinition.text = sceneObj.getCurrNodeHierarchyDefinition()
+            hierarchyDefinition.visible = true
+        } else {
+            hierarchyDefinition.visible = false
+        }
+
         if (sceneObj.getCurrNodeDescription() !== "") {
             ptDescription.text = sceneObj.getCurrNodeDescription()
             ptDescription.visible = true
@@ -78,6 +85,11 @@ Page {
             MyLabelPair{
                 id: ptDefinition
                 name: "Определение:"
+            }
+
+            MyLabelPair{
+                id: hierarchyDefinition
+                name: "Иерархия определений:"
             }
 
             MyLabelPair{

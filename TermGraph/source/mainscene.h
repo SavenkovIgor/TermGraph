@@ -55,6 +55,7 @@ public slots:
     QString getCurrNodeName();
     QString getCurrNodeForms();
     QString getCurrNodeDefinition();
+    QString getCurrNodeHierarchyDefinition();
     QString getCurrNodeDescription();
     QString getCurrNodeExamples();
     QString getCurrNodeGroupName();

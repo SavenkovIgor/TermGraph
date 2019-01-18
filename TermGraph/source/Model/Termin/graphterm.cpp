@@ -75,6 +75,37 @@ NodeType GraphTerm::getNodeType()
     }
 }
 
+QString GraphTerm::getHierarchyDefinition()
+{
+    GraphTerm::List parentsList;
+    fillAllParentsList(this, parentsList);
+
+    if (parentsList.isEmpty()) {
+        return "";
+    }
+
+    // Sorting parents list
+    for (int i = 0; i < parentsList.size(); i++) {
+        int minIndex = i;
+        for (int j = i + 1; j < parentsList.size(); j++) {
+            if (parentsList[minIndex]->paintLevel > parentsList[j]->paintLevel) {
+                minIndex = j;
+            }
+        }
+        parentsList.swap(i, minIndex);
+    }
+
+    QStringList definitions;
+    for (auto node : parentsList) {
+        definitions << node->getName() + " -  это " + node->getDefinition();
+    }
+
+    // Add this definition
+    definitions << getName() + " - это " + getDefinition();
+
+    return definitions.join("\n");
+}
+
 void GraphTerm::setLevel(int level)
 {
     if (level > paintLevel)
@@ -281,4 +312,15 @@ GraphEdge *GraphTerm::findLongPathToNode(GraphTerm *node)
         }
     }
     return nullptr;
+}
+
+void GraphTerm::fillAllParentsList(GraphTerm *searchNode, GraphTerm::List &lst)
+{
+    for (auto node : searchNode->getRootNodes()) {
+        if (!lst.contains(node)) {
+            lst << node;
+        }
+
+        fillAllParentsList(node, lst);
+    }
 }

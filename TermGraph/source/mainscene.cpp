@@ -255,6 +255,15 @@ QString MainScene::getCurrNodeDefinition()
     return getCurrNodeStringField([] (InfoTerm* node) { return node->getDefinition(); });
 }
 
+QString MainScene::getCurrNodeHierarchyDefinition()
+{
+    if (auto node = getSelectedNode()) {
+        return node->getHierarchyDefinition();
+    }
+
+    return "";
+}
+
 QString MainScene::getCurrNodeDescription()
 {
     return getCurrNodeStringField([] (InfoTerm* node) { return node->getDescription(); });
