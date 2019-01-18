@@ -42,6 +42,11 @@ QString InfoTerm::getName() const
     return name;
 }
 
+QString InfoTerm::getNameAndDefinition() const
+{
+    return name + " - это " + definition;
+}
+
 QString InfoTerm::getSmallName() const
 {
     return smallName;

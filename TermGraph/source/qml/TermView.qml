@@ -35,7 +35,7 @@ Page {
         }
 
         if (sceneObj.getCurrNodeDefinition() !== "") {
-            ptDefinition.text = sceneObj.getCurrNodeName() + " - это " + sceneObj.getCurrNodeDefinition()
+            ptDefinition.text = sceneObj.getCurrNodeNameAndDefinition()
             ptDefinition.visible = true
         } else {
             ptDefinition.visible = false

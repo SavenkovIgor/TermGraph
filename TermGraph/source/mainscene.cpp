@@ -245,6 +245,11 @@ QString MainScene::getCurrNodeName()
     return getCurrNodeStringField([] (InfoTerm* node) { return node->getName(); });
 }
 
+QString MainScene::getCurrNodeNameAndDefinition()
+{
+    return getCurrNodeStringField([] (InfoTerm* node) { return node->getNameAndDefinition(); });
+}
+
 QString MainScene::getCurrNodeForms()
 {
     return getCurrNodeStringField([] (InfoTerm* node) { return node->getNameFormStr(); });

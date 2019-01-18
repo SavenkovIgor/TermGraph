@@ -97,11 +97,11 @@ QString GraphTerm::getHierarchyDefinition()
 
     QStringList definitions;
     for (auto node : parentsList) {
-        definitions << node->getName() + " -  это " + node->getDefinition();
+        definitions << node->getNameAndDefinition();
     }
 
     // Add this definition
-    definitions << getName() + " - это " + getDefinition();
+    definitions << getNameAndDefinition();
 
     return definitions.join("\n");
 }
