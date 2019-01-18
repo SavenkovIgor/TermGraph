@@ -182,7 +182,7 @@ int TagProcessor::getCursorPosition(
     }
 }
 
-int TagProcessor::moveLeft(const QString &text, int cursorPos, std::function<bool (QChar)> exitCondition)
+int TagProcessor::moveLeft(const QString &text, int cursorPos, std::function<bool(const QChar)> exitCondition)
 {
     if (cursorPos <= 0) {
         // Если мы у левой границы строки - возвращаем -1
@@ -200,7 +200,7 @@ int TagProcessor::moveLeft(const QString &text, int cursorPos, std::function<boo
     }
 }
 
-int TagProcessor::moveRight(const QString &text, int cursorPos, std::function<bool (QChar)> exitCondition)
+int TagProcessor::moveRight(const QString &text, int cursorPos, std::function<bool(const QChar)> exitCondition)
 {
     if (cursorPos >= text.size() || cursorPos == -1) {
         // Если мы у правой границы строки - возвращаем -1

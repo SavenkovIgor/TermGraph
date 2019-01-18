@@ -91,6 +91,8 @@ private slots:
         QFETCH(QStringList, tags);
 
         QVERIFY(TagProcessor::extractTags(src) == tags);
+
+        QBENCHMARK(TagProcessor::extractTags(src));
     }
 
     void wordBorder_data()
