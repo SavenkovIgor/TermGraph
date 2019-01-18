@@ -309,7 +309,7 @@ QString TagProcessor::expandRight(int cursorPosition, QString str)
         }
     }
 
-    auto wordEndPos = getCursorPosition(SearchDirection::right, str, wordStartPos, isSpaceCharacter);
+    auto wordEndPos = getCursorPosition(SearchDirection::right, str, wordStartPos, isLetterOrNumberInverse);
 
     if (wordStartPos != -1 && wordEndPos == -1) {
         wordEndPos = str.size();

@@ -325,6 +325,7 @@ private slots:
         QTest::newRow("case38") << "{a} {a}" << 2 << "{a} {a}";
         QTest::newRow("case39") << "{a}{a}" << 1 << "{a}{a}";
         QTest::newRow("case40") << "{a}{a}" << 2 << "{a}{a}";
+        QTest::newRow("case41") << " {a} aaaaa, " << 2 << " {a aaaaa}, ";
     }
 
     void extendRight()
