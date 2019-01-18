@@ -175,40 +175,46 @@ int TagProcessor::getCursorPosition(
         int cursorPos,
         std::function<bool(QChar)> exitCondition)
 {
-    if (cursorPos == -1) {
+    if (direction == SearchDirection::left) {
+        return moveLeft(text, cursorPos, exitCondition);
+    } else {
+        return moveRight(text, cursorPos, exitCondition);
+    }
+}
+
+int TagProcessor::moveLeft(const QString &text, int cursorPos, std::function<bool (QChar)> exitCondition)
+{
+    if (cursorPos <= 0) {
+        // Если мы у левой границы строки - возвращаем -1
         return -1;
     }
 
-    if (direction == SearchDirection::left) {
-        if (cursorPos <= 0) {
-            // Если мы у левой границы строки - возвращаем -1
-            return -1;
-        }
+    const QChar leftChar = text[cursorPos - 1];
 
-        QChar leftChar = text[cursorPos - 1];
-
-        if (exitCondition(leftChar)) {
-            // Если для символа слева условие выполняется, возвращаем эту позицию
-            return cursorPos;
-        } else {
-            // Иначе ищем левее
-            return getCursorPosition(direction, text, cursorPos - 1, exitCondition);
-        }
+    if (exitCondition(leftChar)) {
+        // Если для символа слева условие выполняется, возвращаем эту позицию
+        return cursorPos;
     } else {
-        if (cursorPos >= text.size()) {
-            // Если мы у правой границы строки - возвращаем -1
-            return -1;
-        }
+        // Иначе ищем левее
+        return moveLeft(text, cursorPos - 1, exitCondition);
+    }
+}
 
-        QChar rightChar = text[cursorPos];
+int TagProcessor::moveRight(const QString &text, int cursorPos, std::function<bool (QChar)> exitCondition)
+{
+    if (cursorPos >= text.size() || cursorPos == -1) {
+        // Если мы у правой границы строки - возвращаем -1
+        return -1;
+    }
 
-        if (exitCondition(rightChar)) {
-            // Если для символа справа условие выполняется, возвращаем эту позицию
-            return cursorPos;
-        } else {
-            // Иначе ищем правее
-            return getCursorPosition(direction, text, cursorPos + 1, exitCondition);
-        }
+    const QChar rightChar = text[cursorPos];
+
+    if (exitCondition(rightChar)) {
+        // Если для символа справа условие выполняется, возвращаем эту позицию
+        return cursorPos;
+    } else {
+        // Иначе ищем правее
+        return moveRight(text, cursorPos + 1, exitCondition);
     }
 }
 

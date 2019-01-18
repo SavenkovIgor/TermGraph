@@ -53,6 +53,8 @@ private:
             int cursorPos,
             std::function<bool(QChar)> exitCondition);
 
+    static int moveLeft(const QString& text, int cursorPos, std::function<bool(QChar)> exitCondition);
+    static int moveRight(const QString& text, int cursorPos, std::function<bool(QChar)> exitCondition);
 };
 
 #endif  // TEXTPROCESSOR_H
