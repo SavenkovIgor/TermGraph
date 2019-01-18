@@ -59,7 +59,7 @@ Page {
 
     function fillInfo() {
         termName.text    = sceneObj.getCurrNodeName()
-        termForms.text   = sceneObj.getCurrNodeForms()
+//        termForms.text   = sceneObj.getCurrNodeForms()
         termDefin.text   = sceneObj.getCurrNodeDefinition()
         termDescr.text   = sceneObj.getCurrNodeDescription()
         termExampl.text  = sceneObj.getCurrNodeExamples()
@@ -69,7 +69,7 @@ Page {
     function clear() {
         changeN.text     = ""
         termName.text    = ""
-        termForms.text   = ""
+//        termForms.text   = ""
         termDefin.text   = ""
         termDescr.text   = ""
         termExampl.text  = ""
@@ -85,7 +85,7 @@ Page {
         if( changeN.text == "" ) {
             result = nodesManager.addNewNode(
                         termName.text,
-                        termForms.text,
+                        "",
                         termDefin.text,
                         termDescr.text,
                         termExampl.text,
@@ -95,7 +95,7 @@ Page {
             result = nodesManager.changeNode(
                         changeN.text,
                         termName.text,
-                        termForms.text,
+                        "",
                         termDefin.text,
                         termDescr.text,
                         termExampl.text,
@@ -178,11 +178,11 @@ Page {
                 placeholderText: "[Термин]"
             }
 
-            MyTextField {
-                id : termForms
-                labelText : "Грамматические формы:"
-                placeholderText: "[Альтернативные окончания термина, как слОва]"
-            }
+//            MyTextField {
+//                id : termForms
+//                labelText : "Грамматические формы:"
+//                placeholderText: "[Альтернативные окончания термина, как слОва]"
+//            }
 
             MyTextArea {
                 labelText: "-это"
