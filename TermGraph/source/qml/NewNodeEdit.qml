@@ -45,13 +45,11 @@ Page {
         changeN.text = nodeUid
         if( changeN.text === "" ) {
             clear()
-            changeLbl.visible = false
-            changeN.visible = false
+            changeNodeRow.visible = false
             mainHeader.titleText = "Добавить вершину"
         } else {
             fillInfo()
-            changeLbl.visible = true
-            changeN.visible = true
+            changeNodeRow.visible = true
             mainHeader.titleText = "Изменить вершину"
         }
         termName.forceActiveFocus()
@@ -156,19 +154,17 @@ Page {
             spacing: mainObj.getUiElementSize("colSpace")*Screen.pixelDensity
 
             Row {
+                id: changeNodeRow
+
                 Label {
-                    id : changeLbl
                     text: "Изменить: "
                     font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
                 }
 
                 Label {
                     id : changeN
-                    //                    text: mainObj.changeNum
                     font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
-                    onTextChanged: {
-                        fillInfo()
-                    }
+                    onTextChanged: fillInfo()
                 }
             }
 
