@@ -235,7 +235,7 @@ QString MainScene::getCurrNodeDebugInfo()
 //    return ret.join(" ");
 }
 
-QString MainScene::getCurrNodeLongUid()
+QString MainScene::getCurrNodeUuid()
 {
     return getCurrNodeStringField([] (InfoTerm* node) { return node->getUuid().toString(); });
 }

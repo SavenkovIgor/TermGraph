@@ -103,7 +103,7 @@ QString GraphTerm::getHierarchyDefinition()
     // Add this definition
     definitions << getNameAndDefinition();
 
-    return definitions.join("\n");
+    return definitions.join("\n\n");
 }
 
 void GraphTerm::setLevel(int level)

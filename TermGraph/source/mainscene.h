@@ -51,7 +51,7 @@ public slots:
 
     QString getCurrNodeDebugInfo();
 
-    QString getCurrNodeLongUid();
+    QString getCurrNodeUuid();
     QString getCurrNodeName();
     QString getCurrNodeNameAndDefinition();
     QString getCurrNodeForms();
