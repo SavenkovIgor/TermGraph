@@ -74,7 +74,7 @@ ApplicationWindow {
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
-                Layout.topMargin: 5
+                Layout.topMargin: 25
                 Layout.bottomMargin: 5
                 Layout.leftMargin: 25
                 Layout.rightMargin: 25
