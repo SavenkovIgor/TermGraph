@@ -290,6 +290,15 @@ QString MainScene::getCurrNodeGroupName()
     return "";
 }
 
+QString MainScene::getCurrGroupUuid()
+{
+    if (groupList.isEmpty()) {
+        return "";
+    }
+
+    return groupList.first()->getUuid().toString();
+}
+
 bool MainScene::getCurrNodeIsRoot()
 {
     if (auto node = getSelectedNode()) {

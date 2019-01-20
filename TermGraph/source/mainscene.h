@@ -60,6 +60,7 @@ public slots:
     QString getCurrNodeDescription();
     QString getCurrNodeExamples();
     QString getCurrNodeGroupName();
+    QString getCurrGroupUuid();
     bool    getCurrNodeIsRoot();
 
     TermGroup* getNearestNotPaintedGroup();

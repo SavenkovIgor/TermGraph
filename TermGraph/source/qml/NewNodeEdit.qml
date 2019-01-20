@@ -28,30 +28,39 @@ Page {
     }
 
     Keys.onEscapePressed: {
-        moveBack()
+        exitFromThisPage()
     }
 
     Keys.onPressed: {
-        if( event.modifiers === Qt.ControlModifier )
-            if( event.key === Qt.Key_Return || event.key === Qt.Key_Enter )
+        if (event.modifiers === Qt.ControlModifier) {
+            if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
                 newNodeEdit.addOrChangeNode()
+            }
+        }
     }
 
-    function moveBack() {
+    function exitFromThisPage() {
         mainStack.pop()
     }
 
-    function prepare(nodeUid) {
-        changeN.text = nodeUid
-        if( changeN.text === "" ) {
-            clear()
-            changeNodeRow.visible = false
+    function prepare(nodeUuid) {
+        changeNodeRow.text = nodeUuid
+
+        var newNode = changeNodeRow.text === ""  // bool
+
+        changeNodeRow.visible = !newNode
+        currentGroupFixedRow.visible = newNode
+        currentGroupEditableRow.visible = !newNode
+
+        if (newNode) {
+            clear()    
             mainHeader.titleText = "Добавить вершину"
+            currentGroupFixedRow.groupUuid = sceneObj.getCurrGroupUuid()
         } else {
             fillInfo()
-            changeNodeRow.visible = true
             mainHeader.titleText = "Изменить вершину"
         }
+
         termName.forceActiveFocus()
     }
 
@@ -65,7 +74,7 @@ Page {
     }
 
     function clear() {
-        changeN.text     = ""
+        changeNodeRow.text     = ""
         termName.text    = ""
 //        termForms.text   = ""
         termDefin.text   = ""
@@ -74,24 +83,26 @@ Page {
     }
 
     function addOrChangeNode() {
-        if(termName.text == "") {
+        if (termName.text == "") {
             emptyNodeNameDelDialog.visible = true
             return
         }
 
-        var result = true;
-        if( changeN.text == "" ) {
-            result = nodesManager.addNewNode(
+        var success = true;
+        var newNode = changeNodeRow.text === ""  // bool
+
+        if (newNode) {
+            success = nodesManager.addNewNode(
                         termName.text,
                         "",
                         termDefin.text,
                         termDescr.text,
                         termExampl.text,
-                        nodeGroup.currentText
+                        currentGroupFixedRow.groupUuid
                         )
         } else {
-            result = nodesManager.changeNode(
-                        changeN.text,
+            success = nodesManager.changeNode(
+                        changeNodeRow.text,
                         termName.text,
                         "",
                         termDefin.text,
@@ -101,8 +112,8 @@ Page {
                         )
         }
 
-        if (result) {
-            moveBack()
+        if (success) {
+            exitFromThisPage()
         }
     }
 
@@ -153,19 +164,18 @@ Page {
 
             spacing: mainObj.getUiElementSize("colSpace")*Screen.pixelDensity
 
-            Row {
+            MyLabelPair {
                 id: changeNodeRow
+                name: "Изменить вершину с uuid: "
+                onTextChanged: fillInfo()
+            }
 
-                Label {
-                    text: "Изменить: "
-                    font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
-                }
+            MyLabelPair {
+                id: currentGroupFixedRow
+                name: "Текущая группа: "
 
-                Label {
-                    id : changeN
-                    font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
-                    onTextChanged: fillInfo()
-                }
+                property string groupUuid: ""
+                onGroupUuidChanged: currentGroupFixedRow.text = groupsManager.getGroupName(groupUuid)
             }
 
             MyTextField {
@@ -220,6 +230,8 @@ Page {
 
             // Здесь есть проблема с anchors
             RowLayout {
+                id: currentGroupEditableRow
+
                 width: parent.width
                 Label {
                     id: grpLabel
