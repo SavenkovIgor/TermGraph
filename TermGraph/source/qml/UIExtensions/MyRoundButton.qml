@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.2
 import QtQuick.Window 2.3
+import QtGraphicalEffects 1.0
 
 RoundButton {
     id: root
@@ -82,9 +83,25 @@ RoundButton {
 
     padding: 0.27*width
 
-    contentItem: Image {
+    property alias color: colorRect.color
+
+    Rectangle {
+        id: colorRect
+        anchors.fill: iconImg
+        color: "#000000"
+        visible: false
+    }
+
+    Image {
         id: iconImg
+        visible: false
+    }
+
+    contentItem: OpacityMask {
+        id: opacityImg
         anchors.centerIn: parent
+        source: colorRect
+        maskSource: iconImg
     }
 }
 
