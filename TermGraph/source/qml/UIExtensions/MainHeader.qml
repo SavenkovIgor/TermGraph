@@ -9,6 +9,11 @@ ToolBar {
     signal menuClick
     signal checkClick
 
+    background: Rectangle {
+        anchors.fill: parent
+        color: "#4f4f4f"
+    }
+
     property alias titleText: titleLabel.text
 
     function showMenuIcon() {
@@ -29,10 +34,9 @@ ToolBar {
 
         MyRoundButton {
             id: mainMenuButton
+            color: "#e8e8e8"
 
-            Component.onCompleted: {
-                hideBack()
-            }
+            Component.onCompleted: hideBack()
 
             onClicked: mainHeader.menuClick()
         }
@@ -50,6 +54,8 @@ ToolBar {
         MyRoundButton {
             id: checkButton
             visible: false
+
+            color: "#e8e8e8"
 
             Component.onCompleted: {
                 hideBack()
