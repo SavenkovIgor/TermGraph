@@ -67,6 +67,11 @@ QStringList GroupsManager::getGroupNames(const QList<QUuid>& groupUuids)
 
 void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 {
+    if (name.simplified().isEmpty()) {
+        showError("Название группы не может быть пустым");
+        return;
+    }
+
     DBAbstract* db = Glb::db;
     int type = 0;  // GroupType::terms
     if (db->groupTbl->addGroup(name, comment, type)) {

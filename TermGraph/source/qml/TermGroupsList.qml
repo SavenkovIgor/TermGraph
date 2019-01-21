@@ -8,7 +8,7 @@ import "UIExtensions"
 
 Page {
 
-    id: grpLst
+    id: groupsPage
 
     property StackView mainStack
 
@@ -201,51 +201,68 @@ Page {
 
     Drawer {
         id : newGroupDrawer
-        width: grpLst.width
-        height: grpLst.height * 0.4
-        interactive: false
+        width: groupsPage.width
+        height: addGroupLay.height
+        interactive: true
 
         edge: Qt.BottomEdge
 
         onOpened: newGroupName.takeFocus()
+        onClosed: newGroupName.text = ""
 
-        onClosed: {
-            newGroupName.text = ""
-//            newGroupComment.text = ""
-//            newGroupType.currentIndex = 0
-        }
+        RowLayout {
+            id: addGroupLay
 
-        ColumnLayout {
-            anchors.fill: parent
-            anchors.margins: 40
-            MyTextField {
+            width: groupsPage.width
+
+            spacing: newGroupAddButton.width / 2
+
+            ColumnLayout {
                 id: newGroupName
-                labelText: "Название новой группы"
-                placeholderText: "[Введите название]"
+
+                Layout.topMargin: addGroupLay.spacing
+                Layout.leftMargin: addGroupLay.spacing
+                Layout.bottomMargin: addGroupLay.spacing
+
+                property alias text: txtField.text
+
+                function takeFocus() {
+                    txtField.forceActiveFocus()
+                }
+
+                Label {
+                    id: label
+                    text: "Название новой группы"
+
+                    Layout.fillWidth: true
+
+                    font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
+                }
+
+                TextField {
+                    id : txtField
+                    placeholderText: "[Введите название]"
+
+                    Layout.fillWidth: true
+
+                    font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
+                    selectByMouse: true
+                }
             }
 
-            RowLayout {
-                spacing: 30
+            MyRoundButton {
+                id: newGroupAddButton
 
-                MySquareButton {
-                    id: addGroup
-                    text: "Добавить"
+                Layout.rightMargin: addGroupLay.spacing
 
-                    onClicked: {
-                        groupsManager.addNewGroup(newGroupName.text,"")
-                        newGroupDrawer.close()
-                    }
+                Component.onCompleted: {
+                    loadIcon("qrc:/icons/check")
                 }
 
-                MySquareButton {
-                    id: cancelNewGrp
-                    text: "Отмена"
-                    onClicked: newGroupDrawer.close()
+                onClicked: {
+                    groupsManager.addNewGroup(newGroupName.text, "")
+                    newGroupDrawer.close()
                 }
-
-//                Item {
-//                    Layout.fillHeight: true
-//                }
             }
         }
     }
