@@ -134,8 +134,8 @@ Page {
 
             Column {
                 id: grCol
-                height: grpName.height + grpType.height
-                Text{
+
+                Text {
                     id: grpName
                     topPadding: font.pixelSize/2
                     leftPadding: font.pixelSize
@@ -149,19 +149,19 @@ Page {
                     horizontalAlignment: Text.AlignLeft
                 }
 
-                Text{
-                    id: grpType
-                    topPadding: 0
-                    leftPadding: font.pixelSize*3
-                    bottomPadding: font.pixelSize
+                SmallInfoText {
+                    description: "Uuid"
+                    label: modelData
+                }
 
-                    font.weight: Font.Thin
+                SmallInfoText {
+                    description: "Last editing time"
+                    label: groupsManager.getLastEditString(modelData)
+                }
 
-                    text: "Uuid: " + modelData
-                    font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity*0.7
-
-                    verticalAlignment:  Text.AlignVCenter
-                    horizontalAlignment: Text.AlignLeft
+                SmallInfoText {
+                    description: "Node count"
+                    label: groupsManager.getNodesCount(modelData)
                 }
             }
 

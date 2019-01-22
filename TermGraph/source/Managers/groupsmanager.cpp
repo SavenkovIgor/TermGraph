@@ -42,11 +42,21 @@ QList<TermGroup*> GroupsManager::getAllGroups()
     return ret;
 }
 
-QString GroupsManager::getGroupName(QUuid groupUuid)
+QString GroupsManager::getGroupName(QUuid groupUuid) const
 {
     DBAbstract* db = Glb::db;
     QSqlRecord rec = db->groupTbl->getGroup(groupUuid);
     return rec.value(TermGroupColumn::name).toString();
+}
+
+QString GroupsManager::getLastEditString(QUuid groupUuid)
+{
+    return getLastEdit(groupUuid).toString();
+}
+
+int GroupsManager::getNodesCount(QUuid groupUuid)
+{
+    return nodesMgr->getAllNodesUuidsInGroup(groupUuid).size();
 }
 
 QUuid GroupsManager::getGroupUuid(const QString& groupName)

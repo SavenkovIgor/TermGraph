@@ -36,7 +36,9 @@ public slots:
     QStringList getAllUuidStringsSortedByLastEdit();
     QList <TermGroup*> getAllGroups();
 
-    QString getGroupName(QUuid groupUuid);
+    QString getGroupName(QUuid groupUuid) const;
+    QString getLastEditString(QUuid groupUuid);
+    int getNodesCount(QUuid groupUuid);
     QUuid getGroupUuid(const QString &groupName);
 
     QStringList getGroupNames(const QList<QUuid> &groupUuids);
