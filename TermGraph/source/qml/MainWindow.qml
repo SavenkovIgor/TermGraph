@@ -62,7 +62,7 @@ ApplicationWindow {
             }
 
             Rectangle {
-                color: "#9c9c9c"
+                color: "#4f4f4f"
                 width: parent.width
                 height: parent.height
             }
@@ -84,8 +84,10 @@ ApplicationWindow {
 
             SideMenuButton {
                 id: groupMenuButton
-                text: "Группы    "
-                icon.source: "qrc:/icons/list-8x.png"
+                labelText: "Группы    "
+                iconPath: "qrc:/icons/list"
+
+                baseColor: "#e8e8e8"
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
@@ -99,8 +101,10 @@ ApplicationWindow {
 
             SideMenuButton {
                 id: settingsMenuButton
-                text: "Настройки"
-                icon.source: "qrc:/icons/cog-8x.png"
+                labelText: "Настройки"
+                iconPath: "qrc:/icons/cog"
+
+                baseColor: "#e8e8e8"
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter

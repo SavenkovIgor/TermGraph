@@ -7,12 +7,44 @@ Button {
     leftPadding: 12
     bottomPadding: 10
     topPadding: 10
-    spacing: icon.width / 2
+
     flat: true
 
-    icon.width: font.pixelSize * 1.8
-    icon.height: font.pixelSize * 1.8
+    property alias labelText: label.text
+    property alias iconPath: icon.iconPath
 
-    font.weight: Font.Thin
-    font.pixelSize: mainObj.getUiElementSize("capitalText") * Screen.pixelDensity
+    property string baseColor: "#FF0000"
+
+    onBaseColorChanged: {
+        icon.color = baseColor
+        label.color = baseColor
+    }
+
+    contentItem: Row {
+
+        spacing: icon.width / 5
+
+        MyRoundButton {
+            id: icon
+            property string iconPath: ""
+
+            icon.width: label.font.pixelSize * 1.8
+            icon.height: label.font.pixelSize * 1.8
+
+            Component.onCompleted: {
+                loadIcon(iconPath)
+                hideBack()
+            }
+        }
+
+        Text {
+            id: label
+            height: icon.height
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+
+            font.weight: Font.Thin
+            font.pixelSize: mainObj.getUiElementSize("capitalText") * Screen.pixelDensity
+        }
+    }
 }
