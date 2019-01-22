@@ -27,6 +27,14 @@ Page {
         onCheckClick: newNodeEdit.addOrChangeNode()
     }
 
+    /*
+    Rectangle {
+        anchors.fill: parent
+        color: "#332f30"
+        z: -1
+    }
+    */
+
     Keys.onEscapePressed: {
         exitFromThisPage()
     }
