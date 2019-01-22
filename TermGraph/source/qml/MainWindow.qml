@@ -50,8 +50,23 @@ ApplicationWindow {
 
         interactive: stackView.depth === 1
 
-
         onOpened: { groupMenuButton.forceActiveFocus() }
+
+        background: Rectangle {
+            Rectangle {
+                x: parent.width - width
+                width: parent.width / 100
+                height: parent.height
+                color: "#e8e8e8"
+                z: 1
+            }
+
+            Rectangle {
+                color: "#9c9c9c"
+                width: parent.width
+                height: parent.height
+            }
+        }
 
         function isOpen() { return position == 1.0 }
         function isClose(){ return position == 0.0 }

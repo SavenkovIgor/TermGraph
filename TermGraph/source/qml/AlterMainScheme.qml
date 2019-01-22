@@ -133,10 +133,10 @@ Page {
 
         Shortcut {
             sequence: "Ctrl+e"
-            onActivated: editNodeButton.openEditNodePage(sceneObj.getCurrNodeLongUid())
+            onActivated: editNodeButton.openEditNodePage(sceneObj.getCurrNodeUuid())
         }
 
-        onClicked: openEditNodePage(sceneObj.getCurrNodeLongUid())
+        onClicked: openEditNodePage(sceneObj.getCurrNodeUuid())
         Component.onCompleted: loadIcon( "qrc:/icons/pencil" )
 
         function openEditNodePage(nodeUuid) {
