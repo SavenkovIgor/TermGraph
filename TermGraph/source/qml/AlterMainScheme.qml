@@ -407,20 +407,28 @@ Page {
                 model = groupsManager.getAllUuidStringsSortedByLastEdit()
             }
 
+            Rectangle {
+                anchors.fill: parent
+                color: "#4f4f4f"
+                z: -1
+            }
+
             keyNavigationEnabled: true
 
             highlight: Rectangle {
                 width: 200; height: 20
-                color: "#FFFF88"
+                color: "darkGray"
                 y: groupListView.currentItem.y;
             }
 
             delegate: Rectangle {
                 id: groupLstDlgt
-                border.color: "lightGray"
-                border.width: 1
+                border.color: "#e8e8e8"
+                border.width: 0
                 anchors.left: parent.left
                 anchors.right: parent.right
+
+                color: "transparent"
 
                 property alias text: curText.text
 
@@ -431,12 +439,22 @@ Page {
                     PropertyChanges { target: groupLstDlgt; color: "darkGray" }
                 }
 
+                Rectangle {
+                    x: Math.max((parent.width - width) / 2, 1)
+                    y: parent.height - height
+                    height: Math.max(parent.height / 100, 1)
+                    width: parent.width * 0.95
+                    color: "#e8e8e8"
+                }
+
                 Text {
                     id: curText
                     padding: 30
 
                     font.weight: Font.Thin
                     height: Math.floor( font.pixelSize*2.0 )
+
+                    color: "#e8e8e8"
 
                     text: groupsManager.getGroupName(modelData)
                     font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity

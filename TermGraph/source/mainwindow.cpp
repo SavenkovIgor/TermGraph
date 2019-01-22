@@ -89,7 +89,7 @@ void MainWindow::initElemSizes()
 
 #if defined( Q_OS_ANDROID )
     elementSizes["roundButton"] = 9;
-    elementSizes["text"] = 4;
+    elementSizes["text"] = 5;
     elementSizes["capitalText"] = 4;
     elementSizes["inputLabel"] = 4;
     elementSizes["inputText"] = 4;
