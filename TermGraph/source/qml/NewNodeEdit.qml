@@ -27,14 +27,6 @@ Page {
         onCheckClick: newNodeEdit.addOrChangeNode()
     }
 
-    /*
-    Rectangle {
-        anchors.fill: parent
-        color: "#332f30"
-        z: -1
-    }
-    */
-
     Keys.onEscapePressed: {
         exitFromThisPage()
     }
@@ -163,6 +155,10 @@ Page {
     ScrollView {
         anchors.fill: parent
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
+        background: Rectangle {
+            color: "#332f30"
+        }
 
         Column {
             id: viewColumn

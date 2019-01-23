@@ -23,4 +23,6 @@ Text {
     // Alignment
     verticalAlignment:  Text.AlignVCenter
     horizontalAlignment: Text.AlignLeft
+
+    color: "#e8e8e8"
 }

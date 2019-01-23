@@ -10,10 +10,12 @@ ColumnLayout {
 
     spacing: 6
 
-    Label{
+    Label {
         id: nameLbl
         font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity + 1
         font.weight: Font.DemiBold
+
+        color: "#e8e8e8"
 
         Layout.fillWidth: true
     }
@@ -24,6 +26,8 @@ ColumnLayout {
         wrapMode: TextEdit.WordWrap
 
         anchors.leftMargin: 30
+
+        color: "#e8e8e8"
 
         Layout.fillWidth: true
     }
