@@ -15,7 +15,7 @@ ColumnLayout {
         font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity + 1
         font.weight: Font.DemiBold
 
-        color: "#e8e8e8"
+        color: "#2f7ba3"
 
         Layout.fillWidth: true
     }

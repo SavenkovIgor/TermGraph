@@ -18,6 +18,11 @@ Page {
         onMenuClick: mainStack.pop()
     }
 
+    Rectangle {
+        anchors.fill: parent
+        color: "#332f30"
+    }
+
     function loadSelectedNode() {
 
         if (sceneObj.getCurrNodeDebugInfo() !== "") {

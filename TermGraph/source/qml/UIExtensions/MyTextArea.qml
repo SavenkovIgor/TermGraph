@@ -34,7 +34,7 @@ Column {
             right: parent.right
         }
 
-        color: "#e8e8e8"
+        color: "#2f7ba3"
 
         font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
     }
