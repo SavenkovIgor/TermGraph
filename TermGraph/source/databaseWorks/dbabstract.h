@@ -13,7 +13,6 @@ class DBAbstract : public QObject
     Q_OBJECT
 public:
     NodeTable* nodeTbl  = nullptr;
-//    EdgTbl* edgeTbl  = nullptr;
     TermGroupTable* groupTbl = nullptr;
 
     explicit DBAbstract(QString file, QObject *parent = nullptr);
