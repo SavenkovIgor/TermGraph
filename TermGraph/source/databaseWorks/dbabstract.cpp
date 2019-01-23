@@ -22,21 +22,14 @@ DBAbstract::DBAbstract(QString file, QObject *parent) :
 DBAbstract::~DBAbstract()
 {
     delete nodeTbl;
-//    delete edgeTbl;
     delete groupTbl;
     delete base;
 }
 
 void DBAbstract::openDB(QString file)
 {
-    if (nodeTbl != nullptr)
-        delete nodeTbl;
-
-//    if( edgeTbl != nullptr )
-//        delete edgeTbl;
-
-    if (groupTbl != nullptr)
-        delete groupTbl;
+    delete nodeTbl;
+    delete groupTbl;
 
     base->setDatabaseName(file);
     if (base->open()) {
@@ -46,14 +39,12 @@ void DBAbstract::openDB(QString file)
     }
 
     nodeTbl  = new NodeTable(base);
-//    edgeTbl  = new EdgTbl(base);
     groupTbl = new TermGroupTable(base);
 }
 
 void DBAbstract::checkCols()
 {
     nodeTbl->checkCols();
-//    edgeTbl->checkCols();
     groupTbl->checkCols();
 }
 
@@ -94,7 +85,6 @@ void DBAbstract::normalizeNodesGroupUuid()
 void DBAbstract::createAllTables()
 {
     nodeTbl->createTable();
-//    edgeTbl->createTable();
     groupTbl->createTable();
 }
 
@@ -125,6 +115,5 @@ void DBAbstract::makeStartBaseCheck()
 {
     createAllTables();
     //checkCols();
-//    edgeTbl->clearFromDuplicates();
     normalizeNodesGroupUuid();
 }

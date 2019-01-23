@@ -22,7 +22,7 @@ public:
     };
 
     explicit InfoTerm(QSqlRecord rec, QObject *parent = nullptr);
-    virtual ~InfoTerm();
+    virtual ~InfoTerm() = default;
 //    bool isNull(); //TODO: Realize!
 
     QUuid getUuid() const;

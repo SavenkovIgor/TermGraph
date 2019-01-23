@@ -18,6 +18,11 @@ Page {
         onMenuClick: mainStack.pop()
     }
 
+    Rectangle {
+        anchors.fill: parent
+        color: "#332f30"
+    }
+
     function loadSelectedNode() {
 
         if (sceneObj.getCurrNodeDebugInfo() !== "") {
@@ -72,32 +77,32 @@ Page {
             spacing: 14
             width: termView.width
 
-            MyLabelPair{
+            MyLabelPair {
                 id: ptDbgInfo
                 name: "Dbg:"
             }
 
-            MyLabelPair{
+            MyLabelPair {
                 id: ptName
                 name: "Название:"
             }
 
-            MyLabelPair{
+            MyLabelPair {
                 id: ptDefinition
                 name: "Определение:"
             }
 
-            MyLabelPair{
+            MyLabelPair {
                 id: hierarchyDefinition
                 name: "Иерархия определений:"
             }
 
-            MyLabelPair{
+            MyLabelPair {
                 id: ptDescription
                 name: "Описание:"
             }
 
-            MyLabelPair{
+            MyLabelPair {
                 id: ptExamples
                 name: "Пример:"
             }

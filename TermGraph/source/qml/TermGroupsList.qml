@@ -99,6 +99,11 @@ Page {
         onNodeChanged: groupsList.refreshModel()
     }
 
+    Rectangle {
+        anchors.fill: parent
+        color: "#332f30"
+    }
+
     ListView {
         id: groupsList
         anchors.fill: parent
@@ -111,26 +116,34 @@ Page {
 
         highlight: Rectangle {
             width: 200; height: 20
-            color: "#FFFF88"
+            color: "#464544"
             y: groupsList.currentItem.y;
         }
 
         delegate: Rectangle {
             id: lstDlgt
-            border.color: "lightGray"
-            border.width: 1
+//            border.color: "lightGray"
+//            border.width: 1
             anchors.left: parent.left
             anchors.right: parent.right
 
             property alias text: grpName.text
             property string groupUuid: modelData
 
+            Rectangle {
+                y: lstDlgt.height - height
+                height: Math.max(lstDlgt.height / 100, 1)
+                width: lstDlgt.width
+            }
+
             height: grCol.height
             states: State {
                 name: "Current"
                 when: lstDlgt.ListView.isCurrentItem
-                PropertyChanges { target: lstDlgt; color: "darkGray" }
+                PropertyChanges { target: lstDlgt; color: "#464544" }
             }
+
+            color: "transparent"
 
             Column {
                 id: grCol
@@ -142,6 +155,8 @@ Page {
                     bottomPadding: font.pixelSize/3
 
                     font.weight: Font.Medium
+
+                    color: "#e8e8e8"
 
                     text: groupsManager.getGroupName(modelData)
                     font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity
@@ -162,6 +177,8 @@ Page {
                 SmallInfoText {
                     description: "Node count"
                     label: groupsManager.getNodesCount(modelData)
+
+                    bottomPadding: grpName.font.pixelSize / 2
                 }
             }
 

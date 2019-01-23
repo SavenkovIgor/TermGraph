@@ -34,6 +34,8 @@ Column {
             right: parent.right
         }
 
+        color: "#2f7ba3"
+
         font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
     }
 
@@ -43,6 +45,9 @@ Column {
             left: parent.left
             right: parent.right
         }
+
+        color: "#e8e8e8"
+        placeholderTextColor: "#9c9c9c"
 
         font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
 

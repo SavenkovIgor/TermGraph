@@ -21,6 +21,8 @@ Column {
         id: label
         width: parent.width
         font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
+
+        color: "#2f7ba3"
     }
 
     TextField {
@@ -28,5 +30,8 @@ Column {
         width: parent.width
         font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
         selectByMouse: true
+
+        color: "#e8e8e8"
+        placeholderTextColor: "#9c9c9c"
     }
 }

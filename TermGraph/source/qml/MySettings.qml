@@ -17,6 +17,11 @@ Page {
         onMenuClick: mainStack.pop()
     }
 
+    Rectangle {
+        anchors.fill: parent
+        color: "#332f30"
+    }
+
     Column {
 
         anchors.fill: parent

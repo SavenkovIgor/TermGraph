@@ -10,28 +10,30 @@ void TblBase::setField(const QString& columnName, const QUuid& uuid, const QStri
 
 int TblBase::getIntField(const QString &columnName, const QUuid &uuid) const
 {
-    if( !isColumnNameExist(columnName) )
+    if (!isColumnNameExist(columnName)) {
         return -1;
+    }
 
-    QSqlQuery sel = select(QStringList() << columnName,
-                           WhereCondition::uuidEqual(uuid));
+    QSqlQuery sel = select(QStringList() << columnName, WhereCondition::uuidEqual(uuid));
 
-    if(!sel.next())
+    if (!sel.next()) {
         return -1;
+    }
 
     return sel.record().value(columnName).toInt();
 }
 
 QString TblBase::getStringField(const QString& columnName, const QUuid& uuid) const
 {
-    if( !isColumnNameExist(columnName) )
+    if (!isColumnNameExist(columnName)) {
         return "";
+    }
 
-    QSqlQuery sel = select(QStringList() << columnName,
-                           WhereCondition::uuidEqual(uuid));
+    QSqlQuery sel = select(QStringList() << columnName, WhereCondition::uuidEqual(uuid));
 
-    if(!sel.next())
+    if (!sel.next()) {
         return "";
+    }
 
     return sel.record().value(columnName).toString();
 }
@@ -39,7 +41,7 @@ QString TblBase::getStringField(const QString& columnName, const QUuid& uuid) co
 QStringList TblBase::getAllCols() const
 {
     QStringList lst;
-    for(TableColumnDescription column : columns) {
+    for (auto column : columns) {
         lst << column.name;
     }
     return lst;
@@ -48,12 +50,13 @@ QStringList TblBase::getAllCols() const
 QSqlQuery TblBase::startQuery(const QString& queryString) const
 {
     //    qDebug()<<str;
-    if (queryString.simplified().isEmpty())
+    if (queryString.simplified().isEmpty()) {
         return QSqlQuery();
+    }
 
     QSqlQuery ret = base->exec(queryString);
 
-    if(hasErrors(ret.lastError().text())) {
+    if (hasErrors(ret.lastError().text())) {
         qDebug() << "Query " << queryString << "\nfails with error" << ret.lastError().text();
     }
 
@@ -95,8 +98,10 @@ bool TblBase::insertInto(const QList<InsertContainer>& values)
 {
     QSqlQuery q = executeInsert(values);
 
-    if( hasErrors( q.lastError().text() ) )
+    if (hasErrors(q.lastError().text())) {
         return false;
+    }
+
     return true;
 }
 
@@ -142,17 +147,18 @@ void TblBase::deleteWhere(const WhereCondition &where)
 
 bool TblBase::isColumnNameExist(const QString& columnName) const
 {
-    for(auto col : columns) {
+    for (auto col : columns) {
         if (col.name == columnName) {
             return true;
         }
     }
+
     return false;
 }
 
 void TblBase::checkCols()
 {
-    for( TableColumnDescription column : columns ) {
+    for (auto column : columns) {
         QString query = queryConstructor->addColumn(column);
         startQuery(query);
     }
@@ -161,10 +167,14 @@ void TblBase::checkCols()
 RecList TblBase::toRecList(QSqlQuery q)
 {
     RecList ret;
-    for(int i=0;i<1000000;i++) {
-        if(!q.next())
+
+    for (int i = 0; i < 1000000; i++) {
+        if (!q.next()) {
             break;
+        }
+
         ret << q.record();
     }
+
     return ret;
 }
