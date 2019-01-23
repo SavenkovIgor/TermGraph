@@ -22,11 +22,6 @@ InfoTerm::InfoTerm(QSqlRecord rec, QObject *parent) :
     nameCompressing();
 }
 
-InfoTerm::~InfoTerm()
-{
-
-}
-
 QUuid InfoTerm::getUuid() const
 {
     return uuid;
