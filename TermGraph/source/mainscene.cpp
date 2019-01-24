@@ -87,8 +87,8 @@ void MainScene::updateModel()
 
 void MainScene::locateGroupsVertically()
 {
-    auto y = 40;
-    auto x = 40;
+    qreal y = 40;
+    qreal x = 40;
 
     // Выставляем позиции групп
     for (TermGroup* group : groupList) {
@@ -181,12 +181,12 @@ void MainScene::dropSelection()
     selectionDropSignal();
 }
 
-void MainScene::showGroup(QString groupUuid)
+void MainScene::showGroup(const QString &groupUuid)
 {
     showGroup(QUuid(groupUuid));
 }
 
-void MainScene::showGroup(QUuid groupUuid)
+void MainScene::showGroup(const QUuid &groupUuid)
 {
     currGroupUuid = groupUuid;
     updateModel();

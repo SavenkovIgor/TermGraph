@@ -379,7 +379,7 @@ void TermGroup::setOrphCoords(qreal maxWidth)
         orphansList.swap(i, nMax);
     }
 
-    int x = 0, y = 0;
+    qreal x = 0, y = 0;
     qreal maxHeightInRow = 0.0;
     qreal groupMinWidth = getGroupMinWidth();
     maxWidth = qBound(10.0, groupMinWidth, 2000.0);

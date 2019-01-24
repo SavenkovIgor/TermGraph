@@ -37,8 +37,8 @@ signals:
     void showError(QString error);
 
 public slots:
-    void showGroup(QString groupUuid);
-    void showGroup(QUuid groupUuid);
+    void showGroup(const QString& groupUuid);
+    void showGroup(const QUuid& groupUuid);
     void showAllGroups();
 
     void updateSceneRect();
