@@ -28,7 +28,7 @@ public:
 //    void loadAppSettings();
 
 public slots:
-    int getUiElementSize(QString elementTypeName);
+    int getUiElementSize(const QString& elementTypeName);
 
 private:
     void initElemSizes();

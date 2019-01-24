@@ -11,7 +11,8 @@ class PaintManager : public QObject
     Q_OBJECT
 
 public:
-    PaintManager();
+    PaintManager() = default;
+    ~PaintManager() = default;
 
     void sendPaintNodeSignal();
     void sendPaintGroupSignal();
@@ -30,7 +31,7 @@ public slots:
     // Fill functions
     void clearAllQueues();
     void addGroup(TermGroup* group, bool ignoreNeedPaintFlag = false, bool paintNow = true);
-    void addRect(QRectF rect, QColor color = Qt::white);
+    void addRect(const QRectF& rect, const QColor& color = Qt::white);
     void addNode(PaintedTerm* node, bool paintNow = true);
 
     // GroupRects

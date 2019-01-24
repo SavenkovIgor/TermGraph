@@ -1,10 +1,5 @@
 #include "paintqueuemanager.h"
 
-PaintManager::PaintManager() : QObject ()
-{
-
-}
-
 void PaintManager::sendPaintNodeSignal()
 {
     paintNodeQueue();
@@ -79,7 +74,7 @@ void PaintManager::addGroup(TermGroup *group, bool ignoreNeedPaintFlag, bool pai
     }
 }
 
-void PaintManager::addRect(QRectF rect, QColor color)
+void PaintManager::addRect(const QRectF &rect, const QColor &color)
 {
     groupRectsForPaint.enqueue(QPair<QRectF, QColor>(rect, color));
 }
@@ -150,7 +145,7 @@ QColor PaintManager::getEdgeColor() const
 QPointF PaintManager::currentFirstEdgePoint() const
 {
     auto graphTerm = edgesForPaint.head()->getRoot();
-    PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
+    auto paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
     auto pt = paintedTerm->scenePos();
     pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
     return pt;
@@ -159,7 +154,7 @@ QPointF PaintManager::currentFirstEdgePoint() const
 QPointF PaintManager::currentLastEdgePoint() const
 {
     auto graphTerm = edgesForPaint.head()->getLeaf();
-    PaintedTerm* paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
+    auto paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
     auto pt = paintedTerm->scenePos();
     pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
     return pt;

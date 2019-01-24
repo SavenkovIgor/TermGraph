@@ -61,11 +61,12 @@ MainWindow::~MainWindow()
 //    QSettings sett(AppConfig::StdFolderPaths::defaultConfigFilePath(), QSettings::IniFormat);
 //}
 
-int MainWindow::getUiElementSize(QString elementTypeName)
+int MainWindow::getUiElementSize(const QString &elementTypeName)
 {
-    if (elementSizes.contains(elementTypeName))
+    if (elementSizes.contains(elementTypeName)) {
         // чтобы эти значения не вставлялись. на всякий случай
         return elementSizes[elementTypeName];
+    }
     qDebug() << "Отсутствует размер для элемента:" << elementTypeName;
     return 0;
 }
