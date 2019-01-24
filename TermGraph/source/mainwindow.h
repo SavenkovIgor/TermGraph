@@ -38,7 +38,7 @@ private:
 
     QQmlApplicationEngine* engn;
 
-    NetworkManager* network;
+    QScopedPointer<NetworkManager> network;
     GroupsManager* groupsMgr;
     NodesManager* nodesMgr;
     PaintManager* paintManager;

@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 
-MainWindow::MainWindow(QObject *parent): QObject(parent)
+MainWindow::MainWindow(QObject *parent):
+    QObject(parent),
+    network(new NetworkManager())
 {
     initElemSizes();
     AppConfig::StdFolderPaths::createDefaultFoldersIfNeed();
@@ -15,9 +17,8 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
 
     tagProcessor = new TagProcessor();
 
-    network = new NetworkManager();
     nodesMgr = new NodesManager();
-    groupsMgr = new GroupsManager(nodesMgr, network);
+    groupsMgr = new GroupsManager(nodesMgr, network.get());
     paintManager = new PaintManager();
 
     scene = new MainScene(groupsMgr, nodesMgr, paintManager);
@@ -31,7 +32,7 @@ MainWindow::MainWindow(QObject *parent): QObject(parent)
     engn->rootContext()->setContextProperty("mainObj", this);
     engn->rootContext()->setContextProperty("sceneObj", scene);
     engn->rootContext()->setContextProperty("paintManager", paintManager);
-    engn->rootContext()->setContextProperty("networkManager", network);
+    engn->rootContext()->setContextProperty("networkManager", network.get());
     engn->rootContext()->setContextProperty("groupsManager", groupsMgr);
     engn->rootContext()->setContextProperty("nodesManager", nodesMgr);
     engn->rootContext()->setContextProperty("tagProcessor", tagProcessor);
@@ -45,7 +46,6 @@ MainWindow::~MainWindow()
     delete paintManager;
     delete groupsMgr;
     delete nodesMgr;
-    delete network;
     delete tagProcessor;
     delete Glb::db;
     delete engn;
