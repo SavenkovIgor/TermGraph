@@ -2,12 +2,17 @@
 
 MainWindow::MainWindow(QObject *parent):
     QObject(parent),
-    network(new NetworkManager())
+    network(new NetworkManager()),
+    nodesManager(new NodesManager()),
+    paintManager(new PaintManager()),
+    analyze(new WordFreqAnalyze()),
+    tagProcessor(new TagProcessor()),
+    groupsManager(new GroupsManager(nodesManager.get(), network.get())),
+    scene(new MainScene(groupsManager.get(), nodesManager.get(), paintManager.get())),
+    qmlEngine(new QQmlApplicationEngine())
 {
     initElemSizes();
     AppConfig::StdFolderPaths::createDefaultFoldersIfNeed();
-
-    engn = new QQmlApplicationEngine();
 
     QQuickStyle::setStyle("Material");
 
@@ -15,40 +20,23 @@ MainWindow::MainWindow(QObject *parent):
     Glb::db = new DBAbstract(AppConfig::StdFolderPaths::defaultDatabaseFilePath());
     Glb::db->makeStartBaseCheck();
 
-    tagProcessor = new TagProcessor();
-
-    nodesMgr = new NodesManager();
-    groupsMgr = new GroupsManager(nodesMgr, network.get());
-    paintManager = new PaintManager();
-
-    scene = new MainScene(groupsMgr, nodesMgr, paintManager);
-
     // remind = new Reminder(scene->getAllNodes());
-
-    analyze = new WordFreqAnalyze();
 
     qmlRegisterType<PaintedTerm>();
 
-    engn->rootContext()->setContextProperty("mainObj", this);
-    engn->rootContext()->setContextProperty("sceneObj", scene);
-    engn->rootContext()->setContextProperty("paintManager", paintManager);
-    engn->rootContext()->setContextProperty("networkManager", network.get());
-    engn->rootContext()->setContextProperty("groupsManager", groupsMgr);
-    engn->rootContext()->setContextProperty("nodesManager", nodesMgr);
-    engn->rootContext()->setContextProperty("tagProcessor", tagProcessor);
-    engn->load(QUrl("qrc:/qml/MainWindow.qml"));
+    qmlEngine->rootContext()->setContextProperty("mainObj", this);
+    qmlEngine->rootContext()->setContextProperty("sceneObj", scene.get());
+    qmlEngine->rootContext()->setContextProperty("paintManager", paintManager.get());
+    qmlEngine->rootContext()->setContextProperty("networkManager", network.get());
+    qmlEngine->rootContext()->setContextProperty("groupsManager", groupsManager.get());
+    qmlEngine->rootContext()->setContextProperty("nodesManager", nodesManager.get());
+    qmlEngine->rootContext()->setContextProperty("tagProcessor", tagProcessor.get());
+    qmlEngine->load(QUrl("qrc:/qml/MainWindow.qml"));
 }
 
 MainWindow::~MainWindow()
 {
-    delete analyze;
-    delete scene;
-    delete paintManager;
-    delete groupsMgr;
-    delete nodesMgr;
-    delete tagProcessor;
     delete Glb::db;
-    delete engn;
 }
 
 //void MainWindow::saveAppSettings()

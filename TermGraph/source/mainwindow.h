@@ -34,18 +34,19 @@ private:
     void initElemSizes();
     QMap<QString, int> elementSizes;
 
-    MainScene* scene;
-
-    QQmlApplicationEngine* engn;
-
+    // Independent init
     QScopedPointer<NetworkManager> network;
-    GroupsManager* groupsMgr;
-    NodesManager* nodesMgr;
-    PaintManager* paintManager;
+    QScopedPointer<NodesManager> nodesManager;
+    QScopedPointer<PaintManager> paintManager;
 
-    // Reminder* remind;
-    WordFreqAnalyze* analyze;
-    TagProcessor* tagProcessor;
+    // Helper stuff (still independent init)
+    QScopedPointer<WordFreqAnalyze> analyze;
+    QScopedPointer<TagProcessor> tagProcessor;
+
+    // Dependent init
+    QScopedPointer<GroupsManager> groupsManager;
+    QScopedPointer<MainScene> scene;
+    QScopedPointer<QQmlApplicationEngine> qmlEngine;
 };
 
 #endif  // MAINWINDOW_H
