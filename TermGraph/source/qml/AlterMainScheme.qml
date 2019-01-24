@@ -33,12 +33,14 @@ Page {
         editNodeButton.visible = true
         deleteNodeButton.visible = true
         nodeInfoButton.visible = true
+        addNodeButton.visible = false
     }
 
     function hideButtons() {
         editNodeButton.visible = false
         deleteNodeButton.visible = false
         nodeInfoButton.visible = false
+        addNodeButton.visible = true
     }
 
     Connections {
@@ -82,11 +84,12 @@ Page {
 
     MyRoundButton {
         id: addNodeButton
+        visible: true
         z: 3
 
         anchors {
-            right: showGroupListButton.left
-            top: parent.top
+            right: parent.right
+            bottom: parent.bottom
         }
 
         Shortcut {
