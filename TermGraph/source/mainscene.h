@@ -28,6 +28,7 @@ signals:
     // Scene signals
     void someSelected();
     void selectionDropSignal();
+    void selectionDoubleClick();
     void sceneContentUpdated();
 
     // Debug signals

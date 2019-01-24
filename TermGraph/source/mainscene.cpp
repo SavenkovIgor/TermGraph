@@ -393,6 +393,7 @@ void MainScene::findClick(const QPointF &atPt)
     if (auto selected = getSelectedNode()) {
         // if same rect - exit
         if (selected->getNodeRect(CoordType::scene).contains(atPt)) {
+            selectionDoubleClick();
             return;
         } else {
 

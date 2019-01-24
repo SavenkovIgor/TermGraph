@@ -47,6 +47,7 @@ Page {
         target: sceneObj
         onSomeSelected: showButtons()
         onSelectionDropSignal: hideButtons()
+        onSelectionDoubleClick: nodeInfoButton.openTerm()
     }
 
     Connections {
