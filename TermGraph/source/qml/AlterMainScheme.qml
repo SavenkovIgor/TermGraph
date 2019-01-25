@@ -199,7 +199,6 @@ Page {
         function openTerm() {
             if (sceneObj.hasSelection()) {
                 termViewPage.open()
-                termViewPage.loadSelectedNode()
             }
         }
     }
