@@ -30,18 +30,14 @@ ApplicationWindow {
         }
     }
 
-    Component {
-        id: groupsListItem
-        TermGroupsList {
-            mainStack: stackView
-        }
+    TermGroupsList {
+        id: groupsListPage
+        mainStack: stackView
     }
 
-    Component {
-        id: settingsItem
-        MySettings {
-            mainStack: stackView
-        }
+    MySettings {
+        id: settingsPage
+        mainStack: stackView
     }
 
     Drawer {
@@ -74,7 +70,7 @@ ApplicationWindow {
         dragMargin: Qt.styleHints.startDragDistance*2
 
         function openItem(item) {
-            stackView.push(item)
+            item.open()
             appSideMenu.close()
         }
 
@@ -96,7 +92,7 @@ ApplicationWindow {
                 Layout.leftMargin: 25
                 Layout.rightMargin: 25
 
-                onClicked: appSideMenu.openItem(groupsListItem)
+                onClicked: appSideMenu.openItem(groupsListPage)
             }
 
             SideMenuButton {
@@ -113,7 +109,7 @@ ApplicationWindow {
                 Layout.leftMargin: 25
                 Layout.rightMargin: 25
 
-                onClicked: appSideMenu.openItem(settingsItem)
+                onClicked: appSideMenu.openItem(settingsPage)
             }
 
             Item {

@@ -7,10 +7,10 @@ import QtQuick.Dialogs 1.2
 import "UIExtensions"
 
 Page {
-
     id: groupsPage
 
     property StackView mainStack
+    function open() { mainStack.push(groupsPage) }
 
     header: MainHeader {
 

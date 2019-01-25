@@ -5,9 +5,10 @@ import QtQuick.Layouts 1.3
 import "UIExtensions"
 
 Page {
-    id: termView
+    id: termViewPage
 
     property StackView mainStack
+    function open() { mainStack.push(termViewPage) }
 
     header: MainHeader {
         id: mainHeader
@@ -75,7 +76,7 @@ Page {
 
         ColumnLayout {
             spacing: 14
-            width: termView.width
+            width: termViewPage.width
 
             MyLabelPair {
                 id: ptDbgInfo

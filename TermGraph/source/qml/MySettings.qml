@@ -4,8 +4,10 @@ import QtQuick.Controls 2.2
 import "UIExtensions"
 
 Page {
+    id: settingsPage
 
     property StackView mainStack
+    function open() { mainStack.push(settingsPage) }
 
     header: MainHeader {
 

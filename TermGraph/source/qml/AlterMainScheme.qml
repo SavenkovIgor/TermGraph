@@ -66,12 +66,12 @@ Page {
     }
 
     TermGroupsList {
-        id: termGroupsList
+        id: groupsListPage
         mainStack: stackView
     }
 
     TermView {
-        id: termView
+        id: termViewPage
         mainStack: stackView
     }
 
@@ -104,10 +104,10 @@ Page {
         function openNewNodePage() {
             if (groupsManager.hasAnyGroup()) {
                 newNodePage.prepare("")
-                alterMainScheme.mainStack.push(newNodePage)
+                newNodePage.open()
             } else {
                 showWarning("Create group first!")
-                alterMainScheme.mainStack.push(termGroupsList)
+                groupsListPage.open()
             }
         }
     }
@@ -198,8 +198,8 @@ Page {
 
         function openTerm() {
             if (sceneObj.hasSelection()) {
-                alterMainScheme.mainStack.push(termView)
-                termView.loadSelectedNode()
+                termViewPage.open()
+                termViewPage.loadSelectedNode()
             }
         }
     }

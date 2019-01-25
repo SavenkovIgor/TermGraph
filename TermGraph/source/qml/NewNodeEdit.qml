@@ -7,10 +7,11 @@ import QtQuick.Dialogs 1.2
 import "UIExtensions"
 
 Page {
-
     id: newNodeEdit
 
     property StackView mainStack
+    function open() { mainStack.push(newNodeEdit) }
+
     property string changingNodeUuid
 
     header: MainHeader {
