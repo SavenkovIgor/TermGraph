@@ -14,6 +14,7 @@ struct TColumn {
     const char* type;  // Type description of column
 
     constexpr TColumn(const char* name, const char* type) : name(name), type(type) { }
+    constexpr TColumn(const TColumn& col) : name(col.name), type(col.type) { }
 };
 
 class InsertContainer {

@@ -87,6 +87,11 @@ void TblBase::initColumn(const char* columnName, const char* columnType) {
     columns.append(column);
 }
 
+void TblBase::initColumn(const TColumn &column)
+{
+    columns.append(column);
+}
+
 bool TblBase::insertInto(const QList<InsertContainer>& values)
 {
     QSqlQuery q = executeInsert(values);

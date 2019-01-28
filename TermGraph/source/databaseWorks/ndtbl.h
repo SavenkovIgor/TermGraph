@@ -30,7 +30,7 @@ public:
     NodeTable(QSqlDatabase* base):
         TblBase("termNode", base)
     {
-        initColumn(NodeColumn::uid,         "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
+        initColumn(TColumn(NodeColumn::uid, "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL"));
         initColumn(NodeColumn::longUID,     "TEXT");
         initColumn(NodeColumn::term,        "TEXT");
         initColumn(NodeColumn::termForms,   "TEXT");

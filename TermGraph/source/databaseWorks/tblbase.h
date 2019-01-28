@@ -23,6 +23,7 @@ protected:
     QString getStringField(const QString &columnName, const QUuid &uuid) const;
 
     void initColumn(const char* columnName, const char* columnType);
+    void initColumn(const TColumn& column);
     QStringList getAllCols() const;
 
     QSqlQuery select(
