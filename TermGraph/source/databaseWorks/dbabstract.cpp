@@ -1,7 +1,6 @@
 #include "dbabstract.h"
 
-DBAbstract::DBAbstract(QString file, QObject *parent) :
-    QObject(parent)
+DBAbstract::DBAbstract(QString file)
 {
     base = new QSqlDatabase();
     (*base) = QSqlDatabase::addDatabase("QSQLITE");

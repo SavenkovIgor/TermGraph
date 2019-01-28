@@ -8,14 +8,13 @@
 #include "./edgtbl.h"
 #include "./termgrouptbl.h"
 
-class DBAbstract : public QObject
+class DBAbstract
 {
-    Q_OBJECT
 public:
     NodeTable* nodeTbl  = nullptr;
     TermGroupTable* groupTbl = nullptr;
 
-    explicit DBAbstract(QString file, QObject *parent = nullptr);
+    explicit DBAbstract(QString file);
     ~DBAbstract();
 
     void openDB(QString file);
@@ -23,7 +22,6 @@ public:
     QStringList recordToStrList(QSqlRecord q);
     QStringList queryToStrList(QSqlQuery q);
 
-public slots:
     void makeStartBaseCheck();
 
 private:
