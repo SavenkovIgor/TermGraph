@@ -72,14 +72,9 @@ bool TblBase::hasErrors(const QString& errString) const
 
 TblBase::TblBase(QString tblName, QSqlDatabase *base):
     tableName(tblName),
-    base(base)
+    base(base),
+    queryConstructor(new SqlQueryConstructor(tblName))
 {
-    queryConstructor = new SqlQueryConstructor(tblName);
-}
-
-TblBase::~TblBase()
-{
-    delete queryConstructor;
 }
 
 QSqlQuery TblBase::createTable() {

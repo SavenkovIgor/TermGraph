@@ -11,7 +11,7 @@ typedef QList<QSqlRecord>       RecList;
 class TblBase{
 public:
     TblBase(QString tableName,QSqlDatabase *base);
-    ~TblBase();
+    ~TblBase() = default;
 
     QSqlQuery createTable();
     void checkCols();
@@ -41,7 +41,7 @@ protected:
 
 private:
     QSqlDatabase *base;
-    SqlQueryConstructor *queryConstructor;
+    QScopedPointer<SqlQueryConstructor> queryConstructor;
 
     QString tableName;
 
