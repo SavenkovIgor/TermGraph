@@ -7,9 +7,11 @@
 
 //typedef QString ColumnName;
 
-struct TableColumnDescription {
-    QString name;
-    QString type;
+struct TColumn {
+    typedef QList<TColumn> List;
+
+    QString name;  // Name of column
+    QString type;  // Type description of column
 };
 
 class InsertContainer {
@@ -138,8 +140,8 @@ private:
 public:
     SqlQueryConstructor(QString tableName);
 
-    QString createTable(QList<TableColumnDescription> columns);
-    QString addColumn(TableColumnDescription column);
+    QString createTable(TColumn::List columns);
+    QString addColumn(TColumn column);
 
     QString selectQuery(const QStringList &columns, const WhereCondition &where, const QString &orderBy = "");
     QString insertQuery(const QList<InsertContainer> &values);

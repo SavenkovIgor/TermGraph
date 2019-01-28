@@ -5,10 +5,10 @@ SqlQueryConstructor::SqlQueryConstructor(QString tableName)
     this->tableName = tableName;
 }
 
-QString SqlQueryConstructor::createTable(QList<TableColumnDescription> columns)
+QString SqlQueryConstructor::createTable(TColumn::List columns)
 {
     QStringList colsDescription;
-    for (TableColumnDescription col : columns) {
+    for (auto col : columns) {
         colsDescription << col.name + " " + col.type;
     }
 
@@ -23,7 +23,7 @@ QString SqlQueryConstructor::createTable(QList<TableColumnDescription> columns)
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::addColumn(TableColumnDescription column)
+QString SqlQueryConstructor::addColumn(TColumn column)
 {
     QStringList qry;
     qry << "ALTER";

@@ -45,7 +45,7 @@ private:
 
     QString tableName;
 
-    QList<TableColumnDescription> columns;
+    TColumn::List columns;
     bool isColumnNameExist(const QString& columnName) const;
 
     QSqlQuery startQuery(const QString& str) const;
