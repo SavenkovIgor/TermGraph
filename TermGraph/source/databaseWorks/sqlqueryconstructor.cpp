@@ -9,7 +9,7 @@ QString SqlQueryConstructor::createTable(TColumn::List columns)
 {
     QStringList colsDescription;
     for (auto col : columns) {
-        colsDescription << col.name + " " + col.type;
+        colsDescription << QString(col.name) + " " + QString(col.type);
     }
 
     QStringList qry;

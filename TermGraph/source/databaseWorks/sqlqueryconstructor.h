@@ -10,8 +10,10 @@
 struct TColumn {
     typedef QList<TColumn> List;
 
-    QString name;  // Name of column
-    QString type;  // Type description of column
+    const char* name;  // Name of column
+    const char* type;  // Type description of column
+
+    constexpr TColumn(const char* name, const char* type) : name(name), type(type) { }
 };
 
 class InsertContainer {
