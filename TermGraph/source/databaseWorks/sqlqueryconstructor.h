@@ -41,16 +41,6 @@ public:
         this->value = QString::number(value);
     }
 
-    InsertContainer(const QString& columnName, const QString& value) {
-        this->columnName = columnName;
-        this->value = value;
-    }
-
-    InsertContainer(const QString& columnName, const int& value) {
-        this->columnName = columnName;
-        this->value = QString::number(value);
-    }
-
     QString getColumnName() const
     {
         return columnName;
@@ -110,29 +100,17 @@ public:
 
     static WhereCondition uuidEqual(const QUuid& uuid) {
         WhereCondition where;
-        where.equal("longUID", uuid.toString());
+        where.equal(TColumn("longUID", ""), uuid.toString());
         return  where;
     }
 
     static WhereCondition columnEqual(const TColumn& column, const QString& value) {
-        WhereCondition where;
-        where.equal(column.name, value);
-        return where;
-    }
-
-    static WhereCondition columnEqual(const QString& column, const QString& value) {
         WhereCondition where;
         where.equal(column, value);
         return where;
     }
 
     static WhereCondition columnEqual(const TColumn& column, const int& value) {
-        WhereCondition where;
-        where.equal(column.name, value);
-        return where;
-    }
-
-    static WhereCondition columnEqual(const QString& column, const int& value) {
         WhereCondition where;
         where.equal(column, value);
         return where;
@@ -147,18 +125,10 @@ public:
     }
 
     void equal(const TColumn& column, const int& value) {
-        equal(column.name, value);
+        equal(column, QString::number(value));
     }
 
     void equal(const TColumn& column, const QString& value) {
-        equal(column.name, value);
-    }
-
-    void equal(const QString& column, const int& value) {
-        equal(column,QString::number(value));
-    }
-
-    void equal(const QString& column, const QString& value) {
         conditions << concat(column, "=", CommonQueryFunctions::vv(value));
     }
 
