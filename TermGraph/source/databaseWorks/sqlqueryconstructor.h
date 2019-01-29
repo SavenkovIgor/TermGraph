@@ -20,6 +20,10 @@ struct TColumn {
     operator QString() const {
         return QString(name);
     }
+
+    bool operator ==(const TColumn& otherCol) const {
+        return name == otherCol.name && type == otherCol.type;
+    }
 };
 
 class InsertContainer {

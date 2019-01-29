@@ -2,7 +2,7 @@
 
 int TblBase::getIntField(const TColumn &column, const QUuid &uuid) const
 {
-    if (!isColumnNameExist(column)) {
+    if (!isColumnExist(column)) {
         return -1;
     }
 
@@ -17,7 +17,7 @@ int TblBase::getIntField(const TColumn &column, const QUuid &uuid) const
 
 QString TblBase::getStringField(const TColumn& column, const QUuid& uuid) const
 {
-    if (!isColumnNameExist(column)) {
+    if (!isColumnExist(column)) {
         return "";
     }
 
@@ -125,10 +125,10 @@ void TblBase::deleteWhere(const WhereCondition &where)
     startQuery(query);
 }
 
-bool TblBase::isColumnNameExist(const QString& columnName) const
+bool TblBase::isColumnExist(const TColumn &column) const
 {
     for (auto col : getAllColumns()) {
-        if (col.name == columnName) {
+        if (col == column) {
             return true;
         }
     }

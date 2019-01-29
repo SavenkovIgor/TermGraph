@@ -49,7 +49,7 @@ private:
 
     QString tableName;
 
-    bool isColumnNameExist(const QString& columnName) const;
+    bool isColumnExist(const TColumn& column) const;
 
     QSqlQuery startQuery(const QString& str) const;
     bool hasErrors(const QString &errString) const;
