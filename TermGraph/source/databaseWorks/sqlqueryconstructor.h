@@ -5,9 +5,8 @@
 
 #include "commonqueryfunctions.h"
 
-//typedef QString ColumnName;
-
-struct TColumn {
+struct TColumn
+{
     typedef QList<TColumn> List;
 
     const char* name;  // Name of column
@@ -25,52 +24,39 @@ struct TColumn {
     }
 };
 
-class InsertContainer {
+class InsertContainer
+{
+public:
+    InsertContainer(const TColumn& column, const QString& value) :
+        columnName(column.name),
+        value(value)
+    { }
+
+    InsertContainer(const TColumn& column, const int& value) :
+        columnName(column.name),
+        value(QString::number(value))
+    { }
+
+    QString getColumnName() const { return columnName; }
+    QString getValue() const { return value; }
+
 private:
     QString columnName;
     QString value;
-
-public:
-    InsertContainer(const TColumn& column, const QString& value) {
-        this->columnName = column.name;
-        this->value = value;
-    }
-
-    InsertContainer(const TColumn& column, const int& value) {
-        this->columnName = column.name;
-        this->value = QString::number(value);
-    }
-
-    QString getColumnName() const
-    {
-        return columnName;
-    }
-
-    QString getValue() const
-    {
-        return value;
-    }
 };
 
-class SetExpression {
+class SetExpression
+{
 private:
     QStringList expression;
 
 public:
     void set(const TColumn& column, const int& value) {
-        set(column.name, value);
-    }
-
-    void set(const QString& column, const int& value) {
         set(column, QString::number(value));
     }
 
     void set(const TColumn& column, const QString& value) {
-        set(column.name, value);
-    }
-
-    void set(const QString& column, const QString& value) {
-        expression << column + " = " + CommonQueryFunctions::vv(value);
+        expression << QString(column) + " = " + CommonQueryFunctions::vv(value);
     }
 
     QString getExpression() const {

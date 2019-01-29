@@ -147,7 +147,7 @@ void TblBase::checkCols()
 void TblBase::setField(const TColumn &column, const QUuid &uuid, const QString &val)
 {
     SetExpression set;
-    set.set(column.name, val);
+    set.set(column, val);
 
     updateWhere(set, WhereCondition::uuidEqual(uuid));
 }
