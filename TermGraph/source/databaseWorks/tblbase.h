@@ -18,10 +18,10 @@ public:
     void checkCols();
 
 protected:
-    void setField(const TColumn&column, const QUuid &uuid, const QString &val);
+    void setField(const TColumn& column, const QUuid &uuid, const QString &val);
 
-    int getIntField(const QString& columnName, const QUuid& uuid) const;
-    QString getStringField(const QString &columnName, const QUuid &uuid) const;
+    int getIntField(const TColumn& column, const QUuid& uuid) const;
+    QString getStringField(const TColumn& column, const QUuid &uuid) const;
 
     QSqlQuery select(
             const TColumn& column,
@@ -30,11 +30,6 @@ protected:
 
     QSqlQuery select(
             const TColumn::List &columns,
-            const WhereCondition &where = WhereCondition(),
-            const QString &orderBy = "") const;
-
-    QSqlQuery select(
-            const QStringList &cols,
             const WhereCondition &where = WhereCondition(),
             const QString &orderBy = "") const;
 

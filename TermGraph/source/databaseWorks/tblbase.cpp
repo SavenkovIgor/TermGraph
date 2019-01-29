@@ -1,33 +1,33 @@
 #include "tblbase.h"
 
-int TblBase::getIntField(const QString &columnName, const QUuid &uuid) const
+int TblBase::getIntField(const TColumn &column, const QUuid &uuid) const
 {
-    if (!isColumnNameExist(columnName)) {
+    if (!isColumnNameExist(column)) {
         return -1;
     }
 
-    QSqlQuery sel = select(QStringList() << columnName, WhereCondition::uuidEqual(uuid));
+    QSqlQuery sel = select(column, WhereCondition::uuidEqual(uuid));
 
     if (!sel.next()) {
         return -1;
     }
 
-    return sel.record().value(columnName).toInt();
+    return sel.record().value(column).toInt();
 }
 
-QString TblBase::getStringField(const QString& columnName, const QUuid& uuid) const
+QString TblBase::getStringField(const TColumn& column, const QUuid& uuid) const
 {
-    if (!isColumnNameExist(columnName)) {
+    if (!isColumnNameExist(column)) {
         return "";
     }
 
-    QSqlQuery sel = select(QStringList() << columnName, WhereCondition::uuidEqual(uuid));
+    QSqlQuery sel = select(column, WhereCondition::uuidEqual(uuid));
 
     if (!sel.next()) {
         return "";
     }
 
-    return sel.record().value(columnName).toString();
+    return sel.record().value(column).toString();
 }
 
 QSqlQuery TblBase::startQuery(const QString& queryString) const
@@ -87,17 +87,12 @@ QSqlQuery TblBase::select(const TColumn::List &columns, const WhereCondition &wh
     for (auto column : columns) {
         colsNames << column.name;
     }
-    return select(colsNames, where, orderBy);
-}
-
-QSqlQuery TblBase::select(const QStringList& cols, const WhereCondition& where, const QString& orderBy) const
-{
-    return executeSelect(cols, where, orderBy);
+    return executeSelect(colsNames, where, orderBy);
 }
 
 QSqlQuery TblBase::executeSelect(const QStringList& cols, const WhereCondition& where, const QString& orderBy) const
 {
-    QString query = queryConstructor->selectQuery(cols,where,orderBy);
+    QString query = queryConstructor->selectQuery(cols, where, orderBy);
     return startQuery(query);
 }
 

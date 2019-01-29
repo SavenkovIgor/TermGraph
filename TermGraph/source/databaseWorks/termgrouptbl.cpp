@@ -36,7 +36,7 @@ bool TermGroupTable::addGroup(QUuid uuid, QString name, QString comment, int typ
 QList<QUuid> TermGroupTable::getAllGroupsUuid()
 {
     QList<QUuid> ret;
-    RecList records = toRecList(select(QStringList() << TermGroupColumn::longUID));
+    RecList records = toRecList(select(TermGroupColumn::longUID));
 
     for (QSqlRecord record : records) {
         QUuid uuid(record.value(TermGroupColumn::longUID).toString());
@@ -55,8 +55,7 @@ void TermGroupTable::deleteGroup(QUuid uuid)
 
 bool TermGroupTable::hasGroupWithUuid(const QUuid& uuid)
 {
-    RecList recs = toRecList(select(QStringList() << TermGroupColumn::longUID,
-                                    WhereCondition::uuidEqual(uuid)));
+    RecList recs = toRecList(select(TermGroupColumn::longUID, WhereCondition::uuidEqual(uuid)));
     return !recs.isEmpty();
 }
 
@@ -75,7 +74,7 @@ QUuid TermGroupTable::generateNewUuid()
 QUuid TermGroupTable::getUuid(const QString& groupName) const
 {
     auto where = WhereCondition::columnEqual(TermGroupColumn::name, groupName);
-    QSqlQuery q = select(QStringList() << TermGroupColumn::longUID, where);
+    QSqlQuery q = select(TermGroupColumn::longUID, where);
     if (!q.next()) {
         return QUuid();
     }
