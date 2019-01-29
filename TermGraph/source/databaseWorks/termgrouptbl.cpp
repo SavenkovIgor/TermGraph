@@ -88,6 +88,15 @@ bool TermGroupTable::hasGroupWithName(QString groupName)
     return !getUuid(groupName).isNull();
 }
 
+TColumn::List TermGroupTable::getAllColumns() const
+{
+    TColumn::List lst;
+    for (auto col : TermGroupColumn::columns) {
+        lst << col;
+    }
+    return lst;
+}
+
 int TermGroupTable::getType(QUuid groupUuid) const
 {
     return getIntField(TermGroupColumn::type, groupUuid);
@@ -115,7 +124,7 @@ QString TermGroupTable::getName(const QUuid& uuid) const
 
 QSqlRecord TermGroupTable::getGroup(const QUuid& uuid)
 {
-    QSqlQuery sel = select(getAllCols(), WhereCondition::uuidEqual(uuid));
+    QSqlQuery sel = select(getAllColumns(), WhereCondition::uuidEqual(uuid));
 
     if (!sel.next()) {
         return QSqlRecord();

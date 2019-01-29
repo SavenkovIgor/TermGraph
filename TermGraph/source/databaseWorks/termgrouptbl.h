@@ -24,15 +24,8 @@ public:
 class TermGroupTable : public TblBase
 {
 public:
-    TermGroupTable(QSqlDatabase* base):
-        TblBase("termGroup", base)
-    {
-        initColumn(TermGroupColumn::uid);
-        initColumn(TermGroupColumn::longUID);
-        initColumn(TermGroupColumn::name);
-        initColumn(TermGroupColumn::comment);
-        initColumn(TermGroupColumn::type);
-    }
+    TermGroupTable(QSqlDatabase* base): TblBase("termGroup", base) { }
+    ~TermGroupTable() override = default;
 
     // Adding, deleting
     bool addGroup(QString name, QString comment, int type);
@@ -56,6 +49,9 @@ public:
     // Checkers
     bool hasGroupWithUuid(const QUuid &uuid);
     bool hasGroupWithName(QString groupName);
+
+protected:
+    TColumn::List getAllColumns() const override;
 
 private:
     QUuid generateNewUuid();

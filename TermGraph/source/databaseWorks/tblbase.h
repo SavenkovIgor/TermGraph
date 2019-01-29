@@ -12,20 +12,16 @@ class TblBase
 {
 public:
     TblBase(QString tableName,QSqlDatabase *base);
-    ~TblBase() = default;
+    virtual ~TblBase() = default;
 
     QSqlQuery createTable();
     void checkCols();
 
 protected:
     void setField(const TColumn&column, const QUuid &uuid, const QString &val);
-    void setField(const QString &columnName, const QUuid &uuid, const QString &val);
 
     int getIntField(const QString& columnName, const QUuid& uuid) const;
     QString getStringField(const QString &columnName, const QUuid &uuid) const;
-
-    void initColumn(const TColumn& column);
-    QStringList getAllCols() const;
 
     QSqlQuery select(
             const TColumn& column,
@@ -51,13 +47,13 @@ protected:
 
     static RecList toRecList(QSqlQuery q);
 
+    virtual TColumn::List getAllColumns() const = 0;
 private:
     QSqlDatabase *base;
     QScopedPointer<SqlQueryConstructor> queryConstructor;
 
     QString tableName;
 
-    TColumn::List columns;
     bool isColumnNameExist(const QString& columnName) const;
 
     QSqlQuery startQuery(const QString& str) const;

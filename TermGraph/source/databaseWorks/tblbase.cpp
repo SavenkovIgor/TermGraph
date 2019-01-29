@@ -1,13 +1,5 @@
 #include "tblbase.h"
 
-void TblBase::setField(const QString& columnName, const QUuid& uuid, const QString& val)
-{
-    SetExpression set;
-    set.set(columnName, val);
-
-    updateWhere(set, WhereCondition::uuidEqual(uuid));
-}
-
 int TblBase::getIntField(const QString &columnName, const QUuid &uuid) const
 {
     if (!isColumnNameExist(columnName)) {
@@ -36,15 +28,6 @@ QString TblBase::getStringField(const QString& columnName, const QUuid& uuid) co
     }
 
     return sel.record().value(columnName).toString();
-}
-
-QStringList TblBase::getAllCols() const
-{
-    QStringList lst;
-    for (auto column : columns) {
-        lst << column.name;
-    }
-    return lst;
 }
 
 QSqlQuery TblBase::startQuery(const QString& queryString) const
@@ -78,13 +61,8 @@ TblBase::TblBase(QString tblName, QSqlDatabase *base):
 }
 
 QSqlQuery TblBase::createTable() {
-    QString query = queryConstructor->createTable(columns);
+    QString query = queryConstructor->createTable(getAllColumns());
     return startQuery(query);
-}
-
-void TblBase::initColumn(const TColumn &column)
-{
-    columns.append(column);
 }
 
 bool TblBase::insertInto(const QList<InsertContainer>& values)
@@ -154,7 +132,7 @@ void TblBase::deleteWhere(const WhereCondition &where)
 
 bool TblBase::isColumnNameExist(const QString& columnName) const
 {
-    for (auto col : columns) {
+    for (auto col : getAllColumns()) {
         if (col.name == columnName) {
             return true;
         }
@@ -165,7 +143,7 @@ bool TblBase::isColumnNameExist(const QString& columnName) const
 
 void TblBase::checkCols()
 {
-    for (auto column : columns) {
+    for (auto column : getAllColumns()) {
         QString query = queryConstructor->addColumn(column);
         startQuery(query);
     }
@@ -173,7 +151,10 @@ void TblBase::checkCols()
 
 void TblBase::setField(const TColumn &column, const QUuid &uuid, const QString &val)
 {
-    setField(column.name, uuid, val);
+    SetExpression set;
+    set.set(column.name, val);
+
+    updateWhere(set, WhereCondition::uuidEqual(uuid));
 }
 
 RecList TblBase::toRecList(QSqlQuery q)

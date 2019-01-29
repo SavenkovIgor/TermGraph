@@ -45,24 +45,8 @@ public:
 class NodeTable : public TblBase
 {
 public:
-    NodeTable(QSqlDatabase* base):
-        TblBase("termNode", base)
-    {
-        initColumn(NodeColumn::uid);
-        initColumn(NodeColumn::longUID);
-        initColumn(NodeColumn::term);
-        initColumn(NodeColumn::termForms);
-        initColumn(NodeColumn::definition);
-        initColumn(NodeColumn::description);
-        initColumn(NodeColumn::examples);
-        initColumn(NodeColumn::wikiRef);
-        initColumn(NodeColumn::wikiImg);
-        initColumn(NodeColumn::termGroup);  // -1 - because uid [0;+8)
-        initColumn(NodeColumn::lastRemind);
-        initColumn(NodeColumn::remindNum);
-        initColumn(NodeColumn::atLearn);
-        initColumn(NodeColumn::lastEdit);
-    }
+    NodeTable(QSqlDatabase* base): TblBase("termNode", base) { }
+    ~NodeTable() override = default;
 
     QUuid nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const;
 
@@ -94,9 +78,11 @@ public:
 
     void deleteNode(const QUuid& uuid);
 
+protected:
+    TColumn::List getAllColumns() const;
+
 private:
     void setFieldUpdateLastEdit(const TColumn &column, const QUuid &uuid, const QString &val);
-    void setFieldUpdateLastEdit(const QString &columnName, const QUuid &uuid, const QString &val);
     void updateLastEdit(const QUuid &uuid);
     bool isUuidExist(const QUuid& uuid);
 

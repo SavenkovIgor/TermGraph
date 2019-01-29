@@ -115,14 +115,18 @@ void NodeTable::deleteNode(const QUuid &uuid)
     deleteRecord(uuid);
 }
 
-void NodeTable::setFieldUpdateLastEdit(const TColumn &column, const QUuid &uuid, const QString &val)
+TColumn::List NodeTable::getAllColumns() const
 {
-    setFieldUpdateLastEdit(column.name, uuid, val);
+    TColumn::List lst;
+    for (auto col : NodeColumn::columns) {
+        lst << col;
+    }
+    return lst;
 }
 
-void NodeTable::setFieldUpdateLastEdit(const QString& columnName, const QUuid& uuid, const QString& val)
+void NodeTable::setFieldUpdateLastEdit(const TColumn &column, const QUuid &uuid, const QString &val)
 {
-    setField(columnName, uuid, val);
+    setField(column, uuid, val);
     updateLastEdit(uuid);
 }
 
@@ -196,7 +200,7 @@ QDateTime NodeTable::getLastEdit(const QUuid &uuid)
 
 QSqlRecord NodeTable::getNodeSqlRecord(const QUuid &uuid)
 {
-    QSqlQuery sel = select(getAllCols(), WhereCondition::uuidEqual(uuid));
+    QSqlQuery sel = select(getAllColumns(), WhereCondition::uuidEqual(uuid));
 
     if (!sel.next()) {
         return QSqlRecord();
