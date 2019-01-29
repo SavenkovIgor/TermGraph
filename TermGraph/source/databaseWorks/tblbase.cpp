@@ -82,11 +82,6 @@ QSqlQuery TblBase::createTable() {
     return startQuery(query);
 }
 
-void TblBase::initColumn(const char* columnName, const char* columnType) {
-    TColumn column(columnName, columnType);
-    columns.append(column);
-}
-
 void TblBase::initColumn(const TColumn &column)
 {
     columns.append(column);

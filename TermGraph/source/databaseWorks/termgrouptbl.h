@@ -18,11 +18,11 @@ public:
     TermGroupTable(QSqlDatabase* base):
         TblBase("termGroup", base)
     {
-        initColumn(TermGroupColumn::uid,     "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
-        initColumn(TermGroupColumn::longUID, "TEXT");
-        initColumn(TermGroupColumn::name,    "TEXT UNIQUE");
-        initColumn(TermGroupColumn::comment, "TEXT");
-        initColumn(TermGroupColumn::type,    "INTEGER DEFAULT '-1'");
+        initColumn(TColumn(TermGroupColumn::uid,     "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL"));
+        initColumn(TColumn(TermGroupColumn::longUID, "TEXT"));
+        initColumn(TColumn(TermGroupColumn::name,    "TEXT UNIQUE"));
+        initColumn(TColumn(TermGroupColumn::comment, "TEXT"));
+        initColumn(TColumn(TermGroupColumn::type,    "INTEGER DEFAULT '-1'"));
     }
 
     // Adding, deleting

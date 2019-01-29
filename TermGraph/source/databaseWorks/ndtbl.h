@@ -31,19 +31,19 @@ public:
         TblBase("termNode", base)
     {
         initColumn(TColumn(NodeColumn::uid, "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL"));
-        initColumn(NodeColumn::longUID,     "TEXT");
-        initColumn(NodeColumn::term,        "TEXT");
-        initColumn(NodeColumn::termForms,   "TEXT");
-        initColumn(NodeColumn::definition,  "TEXT");
-        initColumn(NodeColumn::description, "TEXT");
-        initColumn(NodeColumn::examples,    "TEXT");
-        initColumn(NodeColumn::wikiRef,     "TEXT");
-        initColumn(NodeColumn::wikiImg,     "TEXT");
-        initColumn(NodeColumn::termGroup,   "INTEGER DEFAULT '-1'");  // -1 - because uid [0;+8)
-        initColumn(NodeColumn::lastRemind,  "TEXT");
-        initColumn(NodeColumn::remindNum,   "INTEGER DEFAULT '0'");
-        initColumn(NodeColumn::atLearn,     "INTEGER DEFAULT '0'");
-        initColumn(NodeColumn::lastEdit,    "TEXT");
+        initColumn(TColumn(NodeColumn::longUID,     "TEXT"));
+        initColumn(TColumn(NodeColumn::term,        "TEXT"));
+        initColumn(TColumn(NodeColumn::termForms,   "TEXT"));
+        initColumn(TColumn(NodeColumn::definition,  "TEXT"));
+        initColumn(TColumn(NodeColumn::description, "TEXT"));
+        initColumn(TColumn(NodeColumn::examples,    "TEXT"));
+        initColumn(TColumn(NodeColumn::wikiRef,     "TEXT"));
+        initColumn(TColumn(NodeColumn::wikiImg,     "TEXT"));
+        initColumn(TColumn(NodeColumn::termGroup,   "INTEGER DEFAULT '-1'"));  // -1 - because uid [0;+8)
+        initColumn(TColumn(NodeColumn::lastRemind,  "TEXT"));
+        initColumn(TColumn(NodeColumn::remindNum,   "INTEGER DEFAULT '0'"));
+        initColumn(TColumn(NodeColumn::atLearn,     "INTEGER DEFAULT '0'"));
+        initColumn(TColumn(NodeColumn::lastEdit,    "TEXT"));
     }
 
     QUuid nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const;
