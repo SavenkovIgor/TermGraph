@@ -8,20 +8,38 @@ using namespace std;
 
 class NodeColumn {
 public:
-    constexpr static auto uid         = "uid";  // TODO: Грохнуть
-    constexpr static auto longUID     = "longUID";
-    constexpr static auto term        = "term";
-    constexpr static auto termForms   = "termForms";
-    constexpr static auto definition  = "definition";
-    constexpr static auto description = "description";
-    constexpr static auto examples    = "examples";
-    constexpr static auto wikiRef     = "wikiRef";
-    constexpr static auto wikiImg     = "wikiImg";
-    constexpr static auto termGroup   = "termGroup";
-    constexpr static auto lastRemind  = "lastRemind";
-    constexpr static auto remindNum   = "remindNum";
-    constexpr static auto atLearn     = "atLearn";
-    constexpr static auto lastEdit    = "lastEdit";
+    // TODO: Грохнуть uid
+    constexpr static auto uid         = TColumn("uid",         "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
+    constexpr static auto longUID     = TColumn("longUID",     "TEXT");
+    constexpr static auto term        = TColumn("term",        "TEXT");
+    constexpr static auto termForms   = TColumn("termForms",   "TEXT");
+    constexpr static auto definition  = TColumn("definition",  "TEXT");
+    constexpr static auto description = TColumn("description", "TEXT");
+    constexpr static auto examples    = TColumn("examples",    "TEXT");
+    constexpr static auto wikiRef     = TColumn("wikiRef",     "TEXT");
+    constexpr static auto wikiImg     = TColumn("wikiImg",     "TEXT");
+    constexpr static auto termGroup   = TColumn("termGroup",   "INTEGER DEFAULT '-1'");
+    constexpr static auto lastRemind  = TColumn("lastRemind",  "TEXT");
+    constexpr static auto remindNum   = TColumn("remindNum",   "INTEGER DEFAULT '0'");
+    constexpr static auto atLearn     = TColumn("atLearn",     "INTEGER DEFAULT '0'");
+    constexpr static auto lastEdit    = TColumn("lastEdit",    "TEXT");
+
+    constexpr static TColumn columnNames[] = {
+        uid,
+        longUID,
+        term,
+        termForms,
+        definition,
+        description,
+        examples,
+        wikiRef,
+        wikiImg,
+        termGroup,
+        lastRemind,
+        remindNum,
+        atLearn,
+        lastEdit
+    };
 };
 
 class NodeTable : public TblBase
@@ -30,20 +48,20 @@ public:
     NodeTable(QSqlDatabase* base):
         TblBase("termNode", base)
     {
-        initColumn(TColumn(NodeColumn::uid, "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL"));
-        initColumn(TColumn(NodeColumn::longUID,     "TEXT"));
-        initColumn(TColumn(NodeColumn::term,        "TEXT"));
-        initColumn(TColumn(NodeColumn::termForms,   "TEXT"));
-        initColumn(TColumn(NodeColumn::definition,  "TEXT"));
-        initColumn(TColumn(NodeColumn::description, "TEXT"));
-        initColumn(TColumn(NodeColumn::examples,    "TEXT"));
-        initColumn(TColumn(NodeColumn::wikiRef,     "TEXT"));
-        initColumn(TColumn(NodeColumn::wikiImg,     "TEXT"));
-        initColumn(TColumn(NodeColumn::termGroup,   "INTEGER DEFAULT '-1'"));  // -1 - because uid [0;+8)
-        initColumn(TColumn(NodeColumn::lastRemind,  "TEXT"));
-        initColumn(TColumn(NodeColumn::remindNum,   "INTEGER DEFAULT '0'"));
-        initColumn(TColumn(NodeColumn::atLearn,     "INTEGER DEFAULT '0'"));
-        initColumn(TColumn(NodeColumn::lastEdit,    "TEXT"));
+        initColumn(NodeColumn::uid);
+        initColumn(NodeColumn::longUID);
+        initColumn(NodeColumn::term);
+        initColumn(NodeColumn::termForms);
+        initColumn(NodeColumn::definition);
+        initColumn(NodeColumn::description);
+        initColumn(NodeColumn::examples);
+        initColumn(NodeColumn::wikiRef);
+        initColumn(NodeColumn::wikiImg);
+        initColumn(NodeColumn::termGroup);  // -1 - because uid [0;+8)
+        initColumn(NodeColumn::lastRemind);
+        initColumn(NodeColumn::remindNum);
+        initColumn(NodeColumn::atLearn);
+        initColumn(NodeColumn::lastEdit);
     }
 
     QUuid nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const;
@@ -77,6 +95,7 @@ public:
     void deleteNode(const QUuid& uuid);
 
 private:
+    void setFieldUpdateLastEdit(const TColumn &column, const QUuid &uuid, const QString &val);
     void setFieldUpdateLastEdit(const QString &columnName, const QUuid &uuid, const QString &val);
     void updateLastEdit(const QUuid &uuid);
     bool isUuidExist(const QUuid& uuid);

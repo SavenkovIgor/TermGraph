@@ -98,6 +98,20 @@ bool TblBase::insertInto(const QList<InsertContainer>& values)
     return true;
 }
 
+QSqlQuery TblBase::select(const TColumn &column, const WhereCondition &where, const QString &orderBy) const
+{
+    return select(TColumn::List() << column, where, orderBy);
+}
+
+QSqlQuery TblBase::select(const TColumn::List &columns, const WhereCondition &where, const QString &orderBy) const
+{
+    QStringList colsNames;
+    for (auto column : columns) {
+        colsNames << column.name;
+    }
+    return select(colsNames, where, orderBy);
+}
+
 QSqlQuery TblBase::select(const QStringList& cols, const WhereCondition& where, const QString& orderBy) const
 {
     return executeSelect(cols, where, orderBy);
@@ -155,6 +169,11 @@ void TblBase::checkCols()
         QString query = queryConstructor->addColumn(column);
         startQuery(query);
     }
+}
+
+void TblBase::setField(const TColumn &column, const QUuid &uuid, const QString &val)
+{
+    setField(column.name, uuid, val);
 }
 
 RecList TblBase::toRecList(QSqlQuery q)

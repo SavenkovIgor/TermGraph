@@ -17,6 +17,7 @@ public:
     void checkCols();
 
 protected:
+    void setField(const TColumn&column, const QUuid &uuid, const QString &val);
     void setField(const QString &columnName, const QUuid &uuid, const QString &val);
 
     int getIntField(const QString& columnName, const QUuid& uuid) const;
@@ -24,6 +25,16 @@ protected:
 
     void initColumn(const TColumn& column);
     QStringList getAllCols() const;
+
+    QSqlQuery select(
+            const TColumn& column,
+            const WhereCondition &where = WhereCondition(),
+            const QString &orderBy = "") const;
+
+    QSqlQuery select(
+            const TColumn::List &columns,
+            const WhereCondition &where = WhereCondition(),
+            const QString &orderBy = "") const;
 
     QSqlQuery select(
             const QStringList &cols,

@@ -15,6 +15,11 @@ struct TColumn {
 
     constexpr TColumn(const char* name, const char* type) : name(name), type(type) { }
     constexpr TColumn(const TColumn& col) : name(col.name), type(col.type) { }
+
+    // TODO: Delete this cast later
+    operator QString() const {
+        return QString(name);
+    }
 };
 
 class InsertContainer {
@@ -23,6 +28,16 @@ private:
     QString value;
 
 public:
+    InsertContainer(const TColumn& column, const QString& value) {
+        this->columnName = column.name;
+        this->value = value;
+    }
+
+    InsertContainer(const TColumn& column, const int& value) {
+        this->columnName = column.name;
+        this->value = QString::number(value);
+    }
+
     InsertContainer(const QString& columnName, const QString& value) {
         this->columnName = columnName;
         this->value = value;
@@ -49,8 +64,16 @@ private:
     QStringList expression;
 
 public:
+    void set(const TColumn& column, const int& value) {
+        set(column.name, value);
+    }
+
     void set(const QString& column, const int& value) {
         set(column, QString::number(value));
+    }
+
+    void set(const TColumn& column, const QString& value) {
+        set(column.name, value);
     }
 
     void set(const QString& column, const QString& value) {
@@ -88,9 +111,21 @@ public:
         return  where;
     }
 
+    static WhereCondition columnEqual(const TColumn& column, const QString& value) {
+        WhereCondition where;
+        where.equal(column.name, value);
+        return where;
+    }
+
     static WhereCondition columnEqual(const QString& column, const QString& value) {
         WhereCondition where;
         where.equal(column, value);
+        return where;
+    }
+
+    static WhereCondition columnEqual(const TColumn& column, const int& value) {
+        WhereCondition where;
+        where.equal(column.name, value);
         return where;
     }
 
@@ -106,6 +141,14 @@ public:
 
     void notEqual(const QString& column, const QString& value) {
         conditions << concat(column, "!=", CommonQueryFunctions::vv(value));
+    }
+
+    void equal(const TColumn& column, const int& value) {
+        equal(column.name, value);
+    }
+
+    void equal(const TColumn& column, const QString& value) {
+        equal(column.name, value);
     }
 
     void equal(const QString& column, const int& value) {

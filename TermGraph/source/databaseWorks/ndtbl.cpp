@@ -5,7 +5,7 @@ QUuid NodeTable::nodeUuidForNameAndGroup(const QString &name, const QUuid &group
     auto where = WhereCondition();
     where.equal(NodeColumn::term, name);
     where.equal(NodeColumn::termGroup, groupUuid.toString());
-    RecList nodesRecords = toRecList(select(QStringList() << NodeColumn::longUID, where));
+    RecList nodesRecords = toRecList(select(NodeColumn::longUID, where));
 
     if (!nodesRecords.isEmpty()) {
         return QUuid(nodesRecords.first().value(NodeColumn::longUID).toString());
@@ -115,6 +115,11 @@ void NodeTable::deleteNode(const QUuid &uuid)
     deleteRecord(uuid);
 }
 
+void NodeTable::setFieldUpdateLastEdit(const TColumn &column, const QUuid &uuid, const QString &val)
+{
+    setFieldUpdateLastEdit(column.name, uuid, val);
+}
+
 void NodeTable::setFieldUpdateLastEdit(const QString& columnName, const QUuid& uuid, const QString& val)
 {
     setField(columnName, uuid, val);
@@ -128,8 +133,7 @@ void NodeTable::updateLastEdit(const QUuid& uuid)
 
 bool NodeTable::isUuidExist(const QUuid &uuid)
 {
-    RecList recs = toRecList(select(QStringList() << NodeColumn::longUID,
-                                      WhereCondition::uuidEqual(uuid)));
+    RecList recs = toRecList(select(NodeColumn::longUID, WhereCondition::uuidEqual(uuid)));
     return !recs.isEmpty();
 }
 
@@ -149,7 +153,7 @@ QList<QUuid> NodeTable::getAllNodesUuids()
 {
     QList<QUuid> ret;
 
-    RecList idS = toRecList(select(QStringList() << NodeColumn::longUID));
+    RecList idS = toRecList(select(NodeColumn::longUID));
     for (QSqlRecord& r : idS) {
         QUuid tmpUuid(r.value(NodeColumn::longUID).toString());
         if (!tmpUuid.isNull()) {
@@ -163,7 +167,7 @@ QList<QUuid> NodeTable::getAllNodesUuids()
 QList<QUuid> NodeTable::getAllNodesUuidsInGroup(const QUuid& groupUuid)
 {
     auto where = WhereCondition::columnEqual(NodeColumn::termGroup, groupUuid.toString());
-    RecList nodesRecords = toRecList(select(QStringList() << NodeColumn::longUID, where));
+    RecList nodesRecords = toRecList(select(NodeColumn::longUID, where));
 
     QList<QUuid> ret;
 
