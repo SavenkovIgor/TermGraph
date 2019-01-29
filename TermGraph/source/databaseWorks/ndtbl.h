@@ -50,7 +50,6 @@ public:
 
     QUuid nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const;
 
-
     QUuid addNode(const QString &name, const QUuid& groupUuid);
     QUuid addNode(const QUuid &uuid, const QString &name, const QUuid& groupUuid);
     QSqlRecord getNodeSqlRecord(const QUuid& uuid);
@@ -79,7 +78,7 @@ public:
     void deleteNode(const QUuid& uuid);
 
 protected:
-    TColumn::List getAllColumns() const;
+    TColumn::List getAllColumns() const override;
 
 private:
     void setFieldUpdateLastEdit(const TColumn &column, const QUuid &uuid, const QString &val);
