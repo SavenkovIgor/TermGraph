@@ -60,7 +60,7 @@ public slots:
     QString getCurrNodeHierarchyDefinition();
     QString getCurrNodeDescription();
     QString getCurrNodeExamples();
-    QString getCurrNodeGroupName();
+    QString getCurrNodeGroupUuid();
     QString getCurrGroupUuid();
     bool    getCurrNodeIsRoot();
 

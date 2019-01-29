@@ -71,7 +71,7 @@ Page {
         termDefin.text   = sceneObj.getCurrNodeDefinition()
         termDescr.text   = sceneObj.getCurrNodeDescription()
         termExampl.text  = sceneObj.getCurrNodeExamples()
-        nodeGroup.selectElement(sceneObj.getCurrNodeGroupName())
+        nodeGroup.selectElement(sceneObj.getCurrNodeGroupUuid())
     }
 
     function clear() {
@@ -264,7 +264,7 @@ Page {
 
                     function selectElement(name) {
                         var index = find(name)
-                        if(index !== -1) {
+                        if (index !== -1) {
                             currentIndex = index
                         }
                     }

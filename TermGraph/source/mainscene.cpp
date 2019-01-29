@@ -279,12 +279,12 @@ QString MainScene::getCurrNodeExamples()
     return getCurrNodeStringField([] (InfoTerm* node) { return node->getExamples(); });
 }
 
-QString MainScene::getCurrNodeGroupName()
+QString MainScene::getCurrNodeGroupUuid()
 {
     if (auto node = getSelectedNode()) {
         QUuid uuid = node->getGroupUuid();
         if (!uuid.isNull()) {
-            return groupsMgr->getGroupName(uuid);
+            return uuid.toString();
         }
     }
     return "";
