@@ -24,7 +24,7 @@ public:
     constexpr static auto atLearn     = TColumn("atLearn",     "INTEGER DEFAULT '0'");
     constexpr static auto lastEdit    = TColumn("lastEdit",    "TEXT");
 
-    constexpr static TColumn columnNames[] = {
+    constexpr static TColumn columns[] = {
         uid,
         longUID,
         term,

@@ -5,11 +5,20 @@
 
 class TermGroupColumn {
 public:
-    constexpr static auto uid     = "uid";  // TODO: Грохнуть
-    constexpr static auto longUID = "longUID";
-    constexpr static auto name    = "name";
-    constexpr static auto comment = "comment";
-    constexpr static auto type    = "type";
+    // TODO: Грохнуть короткий uid
+    constexpr static auto uid     = TColumn("uid",     "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
+    constexpr static auto longUID = TColumn("longUID", "TEXT");
+    constexpr static auto name    = TColumn("name",    "TEXT UNIQUE");
+    constexpr static auto comment = TColumn("comment", "TEXT");
+    constexpr static auto type    = TColumn("type",    "INTEGER DEFAULT '-1'");
+
+    constexpr static TColumn columns[] = {
+        uid,
+        longUID,
+        name,
+        comment,
+        type
+    };
 };
 
 class TermGroupTable : public TblBase
@@ -18,11 +27,11 @@ public:
     TermGroupTable(QSqlDatabase* base):
         TblBase("termGroup", base)
     {
-        initColumn(TColumn(TermGroupColumn::uid,     "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL"));
-        initColumn(TColumn(TermGroupColumn::longUID, "TEXT"));
-        initColumn(TColumn(TermGroupColumn::name,    "TEXT UNIQUE"));
-        initColumn(TColumn(TermGroupColumn::comment, "TEXT"));
-        initColumn(TColumn(TermGroupColumn::type,    "INTEGER DEFAULT '-1'"));
+        initColumn(TermGroupColumn::uid);
+        initColumn(TermGroupColumn::longUID);
+        initColumn(TermGroupColumn::name);
+        initColumn(TermGroupColumn::comment);
+        initColumn(TermGroupColumn::type);
     }
 
     // Adding, deleting

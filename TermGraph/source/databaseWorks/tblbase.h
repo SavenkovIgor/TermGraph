@@ -8,7 +8,8 @@
 typedef QMap <QString, QString> SqCond;
 typedef QList<QSqlRecord>       RecList;
 
-class TblBase{
+class TblBase
+{
 public:
     TblBase(QString tableName,QSqlDatabase *base);
     ~TblBase() = default;
