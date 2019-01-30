@@ -348,7 +348,7 @@ private slots:
 
         QTest::newRow("case0") << "" << "";
         QTest::newRow("case1") << " asdf " << " asdf ";
-        QTest::newRow("case2") << " {asdf} " << " <font color=\"#ffaa55\">asdf<\\font> ";
+        QTest::newRow("case2") << " {asdf} " << " <font color=\"#6d9a28\">asdf</font> ";
     }
 
     void decorateTags()

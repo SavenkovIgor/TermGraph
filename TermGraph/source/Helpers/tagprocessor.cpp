@@ -338,5 +338,5 @@ QString TagProcessor::expandRight(int cursorPosition, QString str)
 
 QString TagProcessor::decorateTags(const QString &src)
 {
-    return replaceTags(src, "<font color=\"#ffaa55\">", "<\\font>");
+    return replaceTags(src, "<font color=\"#6d9a28\">", "</font>");
 }
