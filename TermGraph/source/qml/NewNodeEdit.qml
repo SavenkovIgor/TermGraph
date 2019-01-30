@@ -128,7 +128,7 @@ Page {
         visible: false
 
         onClicked: {
-            termDefin.makeFocusInField()
+            termDefin.takeFocus()
             var pos = termDefin.cursorPosition
             termDefin.text = tagProcessor.addTagInPosition( pos, termDefin.text )
             termDefin.cursorPosition = pos;
@@ -145,7 +145,7 @@ Page {
         visible: false
 
         onClicked: {
-            termDefin.makeFocusInField()
+            termDefin.takeFocus()
             var pos = termDefin.cursorPosition
             termDefin.text = tagProcessor.expandRight( pos, termDefin.text )
             termDefin.cursorPosition = pos
