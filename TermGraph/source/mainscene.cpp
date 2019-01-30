@@ -128,8 +128,8 @@ void MainScene::centerViewOn(QPointF point)
 void MainScene::deleteSelectedNode()
 {
     if (auto node = getSelectedNode()) {
-        nodesMgr->deleteNode(node->getUuid());
         dropSelection();
+        nodesMgr->deleteNode(node->getUuid());
     }
 }
 
@@ -175,10 +175,21 @@ PaintedTerm *MainScene::getSelectedNode()
     return selectedNode;
 }
 
-void MainScene::dropSelection()
+void MainScene::dropSelection(bool withSignal)
 {
-    selectedNode = nullptr;
-    selectionDropSignal();
+    if (selectedNode != nullptr) {
+        selectedNode->setSelection(false);
+        selectedNode = nullptr;
+    }
+
+    if (withSignal) {
+        selectionDropSignal();
+    }
+}
+
+void MainScene::dropHover()
+{
+    hoverNode = nullptr;
 }
 
 void MainScene::showGroup(const QString &groupUuid)
@@ -188,6 +199,9 @@ void MainScene::showGroup(const QString &groupUuid)
 
 void MainScene::showGroup(const QUuid &groupUuid)
 {
+    dropSelection(false);
+    dropHover();
+
     currGroupUuid = groupUuid;
     updateModel();
     updateSceneRect();

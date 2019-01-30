@@ -106,7 +106,8 @@ private:
     void sendSelectionChangeSignal();
 
     PaintedTerm* getSelectedNode();
-    void dropSelection();
+    void dropSelection(bool withSignal = true);
+    void dropHover();
 
     void findHover(const QPointF& atPt);
     void findClick(const QPointF& atPt);
