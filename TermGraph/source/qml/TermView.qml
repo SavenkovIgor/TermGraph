@@ -30,7 +30,7 @@ Page {
     function loadSelectedNode() {
         ptDbgInfo.text           = sceneObj.getCurrNodeDebugInfo()
         ptName.text              = sceneObj.getCurrNodeName()
-        ptDefinition.text        = sceneObj.getCurrNodeNameAndDefinition()
+        ptDefinition.text        = tagProcessor.decorateTags(sceneObj.getCurrNodeNameAndDefinition())
         hierarchyDefinition.text = sceneObj.getCurrNodeHierarchyDefinition()
         ptDescription.text       = sceneObj.getCurrNodeDescription()
         ptExamples.text          = sceneObj.getCurrNodeExamples()
