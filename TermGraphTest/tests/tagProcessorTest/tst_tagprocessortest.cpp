@@ -340,6 +340,26 @@ private slots:
 
         QVERIFY(proc->expandRight(cursorPosition, src) == result);
     }
+
+    void decorateTags_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<QString>("result");
+
+        QTest::newRow("case0") << "" << "";
+        QTest::newRow("case1") << " asdf " << " asdf ";
+        QTest::newRow("case2") << " {asdf} " << " <font color=\"#ffaa55\">asdf<\\font> ";
+    }
+
+    void decorateTags()
+    {
+        QFETCH(QString, src);
+        QFETCH(QString, result);
+
+        TagProcessor* proc = new TagProcessor();
+
+        QVERIFY(proc->decorateTags(src) == result);
+    }
 };
 
 QTEST_APPLESS_MAIN(TagProcessorTest)

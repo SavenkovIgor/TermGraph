@@ -34,8 +34,9 @@ public:
 
 public slots:
     static QStringList extractTags(QString str);
-    QString addTagInPosition(int cursorPosition, QString str);
-    QString expandRight(int cursorPosition, QString str);
+    static QString addTagInPosition(int cursorPosition, QString str);
+    static QString expandRight(int cursorPosition, QString str);
+    static QString decorateTags(const QString& src);
 
 private:
     // Exit conditions
@@ -55,6 +56,11 @@ private:
 
     static int moveLeft(const QString& text, int cursorPos, std::function<bool(const QChar)> exitCondition);
     static int moveRight(const QString& text, int cursorPos, std::function<bool(const QChar)> exitCondition);
+
+    static QString replaceTags(
+            const QString &src,
+            const QString &leftBrReplacement,
+            const QString &rightBrReplacement);
 };
 
 #endif  // TEXTPROCESSOR_H

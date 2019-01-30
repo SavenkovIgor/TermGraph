@@ -218,6 +218,18 @@ int TagProcessor::moveRight(const QString &text, int cursorPos, std::function<bo
     }
 }
 
+QString TagProcessor::replaceTags(const QString &src, const QString &leftBrReplacement, const QString &rightBrReplacement)
+{
+    if (!isPairedBrackets(src)) {
+        return src;
+    }
+
+    QString ret = src;
+    ret.replace(leftBracket, leftBrReplacement);
+    ret.replace(rightBracket, rightBrReplacement);
+    return ret;
+}
+
 QStringList TagProcessor::extractTags(QString str)
 {
     // На данном этапе считаем, что экранировать символы тегов нельзя
@@ -322,4 +334,9 @@ QString TagProcessor::expandRight(int cursorPosition, QString str)
     }
 
     return str;
+}
+
+QString TagProcessor::decorateTags(const QString &src)
+{
+    return replaceTags(src, "<font color=\"#ffaa55\">", "<\\font>");
 }
