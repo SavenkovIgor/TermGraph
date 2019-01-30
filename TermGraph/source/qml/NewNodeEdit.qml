@@ -128,9 +128,9 @@ Page {
         visible: false
 
         onClicked: {
-            termDefin.takeFocus()
             var pos = termDefin.cursorPosition
             termDefin.text = tagProcessor.addTagInPosition( pos, termDefin.text )
+            termDefin.takeFocus()
             termDefin.cursorPosition = pos;
         }
         Component.onCompleted: loadIcon("qrc:/icons/code")
@@ -145,9 +145,9 @@ Page {
         visible: false
 
         onClicked: {
-            termDefin.takeFocus()
             var pos = termDefin.cursorPosition
             termDefin.text = tagProcessor.expandRight( pos, termDefin.text )
+            termDefin.takeFocus()
             termDefin.cursorPosition = pos
         }
         Component.onCompleted: loadIcon("qrc:/icons/extendRight")
