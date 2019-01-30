@@ -97,13 +97,13 @@ QString GraphTerm::getHierarchyDefinition()
 
     QStringList definitions;
     for (auto node : parentsList) {
-        definitions << node->getNameAndDefinition();
+        definitions << node->getNameAndDefinition(true);
     }
 
     // Add this definition
-    definitions << getNameAndDefinition();
+    definitions << getNameAndDefinition(true);
 
-    return definitions.join("\n\n");
+    return definitions.join("<br><br>");
 }
 
 void GraphTerm::setLevel(int level)

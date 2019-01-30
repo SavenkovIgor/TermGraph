@@ -37,8 +37,11 @@ QString InfoTerm::getName() const
     return name;
 }
 
-QString InfoTerm::getNameAndDefinition() const
+QString InfoTerm::getNameAndDefinition(bool decorated) const
 {
+    if (decorated) {
+        return "<font color=\"#00a693\">" + name + "</font>" + " - это " + TagProcessor::decorateTags(definition);
+    }
     return name + " - это " + definition;
 }
 

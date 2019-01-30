@@ -28,7 +28,7 @@ public:
     QUuid getUuid() const;
     QUuid getGroupUuid() const;
     QString getName() const;
-    QString getNameAndDefinition() const;
+    QString getNameAndDefinition(bool decorated = false) const;
     QString getSmallName()  const;
     QString getNameFormStr() const;
     QStringList getNameFormList() const;
