@@ -9,6 +9,7 @@ Column {
     property alias placeholderText:  txtArea.placeholderText
     property alias text: txtArea.text
     property alias txtFocus: txtArea.focus
+    property alias cursorPosition: txtArea.cursorPosition
 
     anchors {
         left: parent.left
@@ -17,15 +18,7 @@ Column {
 
     function takeFocus() {
         txtArea.forceActiveFocus()
-        setCursPosition(txtArea.text.length)
-    }
-
-    function getCursPosition() {
-        return txtArea.cursorPosition
-    }
-
-    function setCursPosition(pos) {
-        txtArea.cursorPosition = pos
+        txtArea.cursorPosition = txtArea.text.length
     }
 
     Label {
