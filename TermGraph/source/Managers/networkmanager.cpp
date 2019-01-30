@@ -9,6 +9,8 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
                 SIGNAL(newReceivedData(QHostAddress, QByteArray)),
                 SLOT(newInputData(QHostAddress, QByteArray)));
 
+    connect(server, SIGNAL(newConnectionFrom(QString)), SLOT(sendConnectionInfo(QString)));
+
     outputSocket = new QTcpSocket(this);
     connect(
                outputSocket,
@@ -89,6 +91,11 @@ void NetworkManager::outputConnectionStateChange(
 {
     QString description = getDescriptionForSocketState(state);
     newOutputConnectionState(description);
+}
+
+void NetworkManager::sendConnectionInfo(QString info)
+{
+    showInfo("Подключение от: " + info);
 }
 
 bool NetworkManager::isValidHostAddress(QString ip)

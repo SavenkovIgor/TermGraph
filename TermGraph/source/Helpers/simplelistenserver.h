@@ -14,6 +14,7 @@ public:
 
 signals:
     void newReceivedData(QHostAddress fromHost, QByteArray data);
+    void newConnectionFrom(QString hostDescription);
 
 public slots:
     bool startListen();
@@ -26,6 +27,8 @@ private:
     quint16 listenPort;
     QTcpServer* server;
     QList<QTcpSocket*> inputSockets;
+
+    static QString getSocketDescription(QTcpSocket* socket);
 };
 
 #endif  // LISTENSERVER_H

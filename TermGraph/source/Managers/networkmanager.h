@@ -20,6 +20,11 @@ signals:
 
     void newOutputConnectionState(QString state);
 
+    // Notify
+    void showInfo(QString info);
+    void showWarning(QString warning);
+    void showError(QString error);
+
 public slots:
 
     void connectToHost();
@@ -33,6 +38,8 @@ public slots:
 private slots:
     void newInputData(QHostAddress fromHost, QByteArray data);
     void outputConnectionStateChange(QAbstractSocket::SocketState state);
+
+    void sendConnectionInfo(QString info);
 
 private:
     SimpleListenServer *server;

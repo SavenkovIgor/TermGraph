@@ -145,6 +145,13 @@ ApplicationWindow {
         }
 
         Connections {
+            target: networkManager
+            onShowInfo: infoPanel.showInfo(info)
+            onShowWarning: infoPanel.showWarning(warning)
+            onShowError: infoPanel.showError(error)
+        }
+
+        Connections {
             target: groupsManager
             onShowInfo: infoPanel.showInfo(info)
             onShowWarning: infoPanel.showWarning(warning)
