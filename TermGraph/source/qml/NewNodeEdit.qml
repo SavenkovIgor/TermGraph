@@ -57,12 +57,12 @@ Page {
             clear()    
             mainHeader.titleText = "Добавить вершину"
             currentGroupFixedRow.groupUuid = sceneObj.getCurrGroupUuid()
+            termName.takeFocus()
         } else {
             fillInfo()
             mainHeader.titleText = "Изменить вершину"
+            termDefin.takeFocus()
         }
-
-        termName.forceActiveFocus()
     }
 
     function fillInfo() {

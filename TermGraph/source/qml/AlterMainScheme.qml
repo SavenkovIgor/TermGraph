@@ -103,8 +103,8 @@ Page {
 
         function openNewNodePage() {
             if (groupsManager.hasAnyGroup()) {
-                newNodePage.prepare("")
                 newNodePage.open()
+                newNodePage.prepare("")
             } else {
                 showWarning("Create group first!")
                 groupsListPage.open()
@@ -145,8 +145,8 @@ Page {
 
         function openEditNodePage(nodeUuid) {
             if (nodeUuid !== "") {
+                newNodePage.open()
                 newNodePage.prepare(nodeUuid)
-                alterMainScheme.mainStack.push(newNodePage)
             }
         }
     }

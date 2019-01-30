@@ -15,8 +15,9 @@ Column {
         right: parent.right
     }
 
-    function makeFocusInField() {
+    function takeFocus() {
         txtArea.forceActiveFocus()
+        setCursPosition(txtArea.text.length)
     }
 
     function getCursPosition() {
