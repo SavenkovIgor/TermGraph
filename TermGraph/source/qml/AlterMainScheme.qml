@@ -395,7 +395,7 @@ Page {
         width: window.width*0.6
         height: window.height
 
-        interactive: true
+        interactive: mainStack.currentItem == alterMainScheme
         edge: Qt.RightEdge
 
         onOpened: groupListView.forceActiveFocus()
