@@ -21,7 +21,7 @@ class Edge : public GraphEdge, public GraphicItem
 {
 public:
     Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin);
-    ~Edge() override;
+    ~Edge() override = default;
 
     QRectF edgeRect() const;
 

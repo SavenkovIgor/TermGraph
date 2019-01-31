@@ -1,10 +1,5 @@
 #include "termgroupinfo.h"
 
-TermGroupInfo::TermGroupInfo()
-{
-
-}
-
 TermGroupInfo::~TermGroupInfo()
 {
     for (auto tree : trees) {
@@ -86,7 +81,7 @@ EdgesList TermGroupInfo::searchAllConnections()
     EdgesList ret;
     // Compare everything with everything
     for (auto node : nodesList) {
-        for (auto tag : node->getDefinitionTags()) {
+        for (const auto& tag : node->getDefinitionTags()) {
             if (auto foundNode = getRootNodeForTag(tag)) {
                 if (node != foundNode) {
                     ret << addNewEdge(foundNode, node);
@@ -197,7 +192,7 @@ void TermGroupInfo::initTrees()
 
     // Set all trees
     for (unsigned int treeId = 1; treeId <= treesCount; treeId++) {
-        TermTree* tree = new TermTree();
+        auto tree = new TermTree();
         for (auto node : treeNodes) {
             if (node->getTreeId() == treeId) {
                 tree->addTerm(node);

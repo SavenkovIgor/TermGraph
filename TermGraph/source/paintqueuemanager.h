@@ -72,7 +72,7 @@ public slots:
 
     // Paint speed check
     void startCheckTimer();
-    void restartCheckTimer(QString label = "paint speed");
+    void restartCheckTimer(const QString& label = "paint speed");
 
 private:
     bool paintInProcessFlag = false;

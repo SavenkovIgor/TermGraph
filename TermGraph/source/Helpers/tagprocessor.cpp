@@ -70,9 +70,9 @@ bool TagProcessor::isInsideTag(const QString &text, int cursorPos)
 
     if (firstLeftBracket == leftBracket && firstRightBracket == rightBracket) {
         return true;
-    } else {
-        return false;
     }
+
+    return false;
 }
 
 bool TagProcessor::isPairedBrackets(QString text)

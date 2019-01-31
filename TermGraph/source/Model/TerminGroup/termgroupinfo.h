@@ -17,7 +17,7 @@ enum class GroupType {
 class TermGroupInfo
 {
 public:
-    TermGroupInfo();
+    TermGroupInfo() = default;
     ~TermGroupInfo();
 
     // Group info

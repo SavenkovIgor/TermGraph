@@ -210,7 +210,7 @@ void PaintManager::startCheckTimer()
     paintSpeedTimer.start();
 }
 
-void PaintManager::restartCheckTimer(QString label)
+void PaintManager::restartCheckTimer(const QString& label)
 {
     qDebug() << label << " " << paintSpeedTimer.restart();
 }

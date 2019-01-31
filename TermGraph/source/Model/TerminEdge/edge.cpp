@@ -36,11 +36,6 @@ Edge::Edge(PaintedTerm* from, PaintedTerm* to, EdgeType type) :
     this->type = type;
 }
 
-Edge::~Edge()
-{
-
-}
-
 QRectF Edge::edgeRect() const
 {
     QPointF pt1 = dynamic_cast<PaintedTerm*>(getRoot())->getCenter(CoordType::scene);
@@ -53,8 +48,8 @@ QRectF Edge::edgeRect() const
 
 int Edge::getLayerDistance()
 {
-    PaintedTerm* toRoot = dynamic_cast<PaintedTerm*>(getRoot());
-    PaintedTerm* toLeaf = dynamic_cast<PaintedTerm*>(getLeaf());
+    auto toRoot = dynamic_cast<PaintedTerm*>(getRoot());
+    auto toLeaf = dynamic_cast<PaintedTerm*>(getLeaf());
 
     return qAbs(toRoot->getPaintLevel() - toLeaf->getPaintLevel());
 }
@@ -71,8 +66,8 @@ qreal Edge::getYProjection()
 
 QLineF Edge::getLine(bool swap)
 {
-    PaintedTerm* toRoot = dynamic_cast<PaintedTerm*>(getRoot());
-    PaintedTerm* toLeaf = dynamic_cast<PaintedTerm*>(getLeaf());
+    auto toRoot = dynamic_cast<PaintedTerm*>(getRoot());
+    auto toLeaf = dynamic_cast<PaintedTerm*>(getLeaf());
 
     QPointF pt1 = toRoot->getCenter(CoordType::scene);
     QPointF pt2 = toLeaf->getCenter(CoordType::scene);
