@@ -392,7 +392,7 @@ Page {
     Drawer {
         id : groupSelectDrw
 
-        width: window.width*0.6
+        width: Math.min(Math.max(window.width*0.3, groupListView.width), window.width*0.7)
         height: window.height
 
         interactive: mainStack.currentItem == alterMainScheme
