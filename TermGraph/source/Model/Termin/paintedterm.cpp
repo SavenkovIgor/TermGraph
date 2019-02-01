@@ -398,7 +398,6 @@ void PaintedTerm::setSelection(const bool &selected)
         needPaint = true;
 
         someoneSelect = selected;
-        thisSelected = selected;
         relativePaint = selected;
 
         setRelatedPaint(selected);
