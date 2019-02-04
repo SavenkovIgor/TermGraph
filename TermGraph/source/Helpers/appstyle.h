@@ -8,45 +8,45 @@ class AppStyle
 public:
     class Colors {
     public:
-        static QColor transparent;
-        static QColor testColor;
+        inline static auto transparent = QColor(0,0,0,0);
+        inline static auto testColor = QColor(0, 255, 0);
 
         class Nodes {
         public:
-            static QColor border;
-            static QColor text;
+            inline static auto border = QColor(0, 0, 0);
+            inline static auto text = QColor(255, 255, 255);
 
-            static QColor leaf;
-            static QColor root;
-            static QColor orphan;
+            inline static auto leaf = QColor(109, 154, 40);
+            inline static auto root = QColor(128, 41, 21);
+            inline static auto orphan = QColor(18, 75, 106);
 
-            static QColor leafSelected;
-            static QColor rootSelected;
-            static QColor orphanSelected;
+            inline static auto leafSelected = QColor(131, 195, 27);
+            inline static auto rootSelected = QColor(220, 76, 29);
+            inline static auto orphanSelected = QColor(11, 119, 177);
 
-            static QColor atLearn;
+            inline static auto atLearn = QColor(245, 222, 179);
         };
 
         class Groups {
         public:
-            static QColor border;
-            static QColor text;
-            static QColor backgroundTerms;
-            static QColor backgroundFreeConnections;
+            inline static auto border = QColor(255, 255, 255);
+            inline static auto text = QColor(255, 255, 255);
+            inline static auto backgroundTerms = QColor(0, 0, 0, 0);
+            inline static auto backgroundFreeConnections = QColor(0, 0, 0, 0);
         };
 
         class Edges {
         public:
-            static QColor standard;
-            static QColor termin;
-            static QColor description;
-            static QColor selected;
-            static QColor broken;
+            inline static auto standard = QColor(Qt::black);
+            inline static auto termin = QColor(34, 91, 122);
+            inline static auto description = QColor(Qt::green);
+            inline static auto selected = QColor(0, 166, 147);
+            inline static auto broken = Qt::red;
         };
 
         class Scene {
         public:
-            static QColor background;
+            inline static auto background = QColor(51, 47, 48);
         };
     };
 

@@ -70,7 +70,6 @@ SOURCES += \
     source/Helpers/multipleshottimer.cpp \
     source/Helpers/simplelistenserver.cpp \
     source/Helpers/fonts.cpp \
-    source/Helpers/appstyle.cpp \
     source/Helpers/helpstuff.cpp \
     source/Helpers/appconfig.cpp \
     source/Helpers/fsworks.cpp \
