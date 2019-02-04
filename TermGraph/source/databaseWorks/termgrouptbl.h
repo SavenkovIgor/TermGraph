@@ -24,7 +24,7 @@ public:
 class TermGroupTable : public TblBase
 {
 public:
-    TermGroupTable(QSqlDatabase* base): TblBase("termGroup", base) { }
+    TermGroupTable(QSqlDatabase* base): TblBase(TABLE_NAME, base) { }
     ~TermGroupTable() override = default;
 
     // Adding, deleting
@@ -54,6 +54,9 @@ protected:
     TColumn::List getAllColumns() const override;
 
 private:
+    // Constants
+    constexpr static auto TABLE_NAME = "termGroup";
+
     QUuid generateNewUuid();
 };
 

@@ -60,7 +60,7 @@ QString SqlQueryConstructor::insertQuery(const QList<InsertContainer>& values)
     QStringList columns;
     QStringList insertValues;
 
-    for (InsertContainer value : values) {
+    for (const auto& value : values) {
         columns << value.getColumnName();
         insertValues << CommonQueryFunctions::vv(value.getValue());
     }

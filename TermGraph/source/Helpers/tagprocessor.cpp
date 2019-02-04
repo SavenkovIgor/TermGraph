@@ -68,11 +68,7 @@ bool TagProcessor::isInsideTag(const QString &text, int cursorPos)
     QChar firstLeftBracket = getNearesBracket(SearchDirection::left, text, cursorPos);
     QChar firstRightBracket = getNearesBracket(SearchDirection::right, text, cursorPos);
 
-    if (firstLeftBracket == leftBracket && firstRightBracket == rightBracket) {
-        return true;
-    }
-
-    return false;
+    return firstLeftBracket == leftBracket && firstRightBracket == rightBracket;
 }
 
 bool TagProcessor::isPairedBrackets(QString text)

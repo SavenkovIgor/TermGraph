@@ -54,7 +54,6 @@ bool TblBase::hasErrors(const QString& errString) const
 }
 
 TblBase::TblBase(QString tblName, QSqlDatabase *base):
-    tableName(tblName),
     base(base),
     queryConstructor(new SqlQueryConstructor(tblName))
 {

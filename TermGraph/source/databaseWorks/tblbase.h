@@ -47,8 +47,6 @@ private:
     QSqlDatabase *base;
     QScopedPointer<SqlQueryConstructor> queryConstructor;
 
-    QString tableName;
-
     bool isColumnExist(const TColumn& column) const;
 
     QSqlQuery startQuery(const QString& str) const;
