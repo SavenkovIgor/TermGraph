@@ -17,6 +17,12 @@ enum class EdgeType {
     broken
 };
 
+enum class EdgeSelected {
+    none,
+    forward,
+    backward
+};
+
 class Edge : public GraphEdge, public GraphicItem
 {
 public:
@@ -37,7 +43,8 @@ public:
     static EdgesList castToEdgeList(GraphEdge::List lst);  // TODO: Delete!!!
 
     // Paint width
-    void setSelected(bool value);
+    void setSelectedForward(bool value);
+    void setSelectedBackward(bool value);
 
     QColor getEdgeColor() const;
 
@@ -45,7 +52,7 @@ public:
     void cutOutFromSides();
 
 private:
-    bool selected = false;
+    EdgeSelected selected = EdgeSelected::none;
     EdgeType type = EdgeType::termin;
 };
 

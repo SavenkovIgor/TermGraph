@@ -32,7 +32,8 @@ public:
     int getUpLevels(int pLevel = -1);
 
     // Painting tools
-    void setRelatedPaint(bool val);
+    void setRelatedPaintUp(bool val);
+    void setRelatedPaintDown(bool val);
     QLineF getRectLine(Qt::Edge side);
 
     // NodeRect tools

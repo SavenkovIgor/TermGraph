@@ -2,15 +2,17 @@
 
 QColor Edge::getEdgeColor() const
 {
-    if (selected) {
-        return AppStyle::Colors::Edges::selected;
+    switch (selected) {
+    case EdgeSelected::backward: return AppStyle::Colors::Edges::selected;
+    case EdgeSelected::forward:  return AppStyle::Colors::Edges::selectedAlt;
+    default: break;
     }
 
     switch (type) {
-    case EdgeType::standart: return AppStyle::Colors::Edges::standard;
-    case EdgeType::termin: return AppStyle::Colors::Edges::termin;
+    case EdgeType::standart:    return AppStyle::Colors::Edges::standard;
+    case EdgeType::termin:      return AppStyle::Colors::Edges::termin;
     case EdgeType::description: return AppStyle::Colors::Edges::description;
-    case EdgeType::broken: return AppStyle::Colors::Edges::broken;
+    case EdgeType::broken:      return AppStyle::Colors::Edges::broken;
     }
 
     return AppStyle::Colors::Edges::standard;
@@ -92,8 +94,24 @@ EdgesList Edge::castToEdgeList(GraphEdge::List lst)
     return  edgeLst;
 }
 
-void Edge::setSelected(bool value)
+void Edge::setSelectedForward(bool value)
 {
-    selected = value;
+    if (value) {
+        selected = EdgeSelected::forward;
+    } else {
+        selected = EdgeSelected::none;
+    }
+
+    needPaint = true;
+}
+
+void Edge::setSelectedBackward(bool value)
+{
+    if (value) {
+        selected = EdgeSelected::backward;
+    } else {
+        selected = EdgeSelected::none;
+    }
+
     needPaint = true;
 }

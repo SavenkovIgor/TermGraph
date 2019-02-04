@@ -39,7 +39,23 @@ int PaintedTerm::getUpLevels(int pLevel)
     return ret;
 }
 
-void PaintedTerm::setRelatedPaint(bool val)
+void PaintedTerm::setRelatedPaintUp(bool val)
+{
+    for (auto node : getLeafNodes()) {
+        static_cast<PaintedTerm*>(node)->relativePaint = val;
+    }
+
+    for (auto d : getEdgesToLeafs()) {
+        auto edge = dynamic_cast<Edge*>(d);
+        edge->setSelectedForward(val);
+    }
+
+    for (auto node : getLeafNodes()) {
+        static_cast<PaintedTerm*>(node)->setRelatedPaintUp(val);
+    }
+}
+
+void PaintedTerm::setRelatedPaintDown(bool val)
 {
     for (auto node : getRootNodes()) {
         static_cast<PaintedTerm*>(node)->relativePaint = val;
@@ -47,11 +63,11 @@ void PaintedTerm::setRelatedPaint(bool val)
 
     for (auto d : getEdgesToRoots()) {
         auto edge = dynamic_cast<Edge*>(d);
-        edge->setSelected(val);
+        edge->setSelectedBackward(val);
     }
 
     for (auto node : getRootNodes()) {
-        static_cast<PaintedTerm*>(node)->setRelatedPaint(val);
+        static_cast<PaintedTerm*>(node)->setRelatedPaintDown(val);
     }
 }
 
@@ -400,7 +416,8 @@ void PaintedTerm::setSelection(const bool &selected)
         someoneSelect = selected;
         relativePaint = selected;
 
-        setRelatedPaint(selected);
+        setRelatedPaintDown(selected);
+        setRelatedPaintUp(selected);
     }
 }
 
