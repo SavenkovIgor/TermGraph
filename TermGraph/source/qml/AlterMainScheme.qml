@@ -419,21 +419,16 @@ Page {
             keyNavigationEnabled: true
 
             highlight: Rectangle {
-                width: 200; height: 20
                 color: "darkGray"
                 y: groupListView.currentItem.y;
             }
 
             delegate: Rectangle {
                 id: groupLstDlgt
-                border.color: "#e8e8e8"
-                border.width: 0
                 anchors.left: parent.left
                 anchors.right: parent.right
 
                 color: "transparent"
-
-                property alias text: curText.text
 
                 height: curText.height
                 states: State {
