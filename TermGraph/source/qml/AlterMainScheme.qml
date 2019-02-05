@@ -401,7 +401,6 @@ Page {
         onOpened: groupListView.forceActiveFocus()
 
         ListView {
-
             id: groupListView
             anchors.fill: parent
             model: groupsManager.getAllUuidStringsSortedByLastEdit()
@@ -418,11 +417,6 @@ Page {
 
             keyNavigationEnabled: true
 
-            highlight: Rectangle {
-                color: "darkGray"
-                y: groupListView.currentItem.y;
-            }
-
             delegate: Rectangle {
                 id: groupLstDlgt
                 anchors.left: parent.left
@@ -431,18 +425,11 @@ Page {
                 color: "transparent"
 
                 height: curText.height
+
                 states: State {
                     name: "Current"
                     when: groupLstDlgt.ListView.isCurrentItem
                     PropertyChanges { target: groupLstDlgt; color: "darkGray" }
-                }
-
-                Rectangle {
-                    x: Math.max((parent.width - width) / 2, 1)
-                    y: parent.height - height
-                    height: Math.max(parent.height / 100, 1)
-                    width: parent.width * 0.95
-                    color: "#e8e8e8"
                 }
 
                 Text {
@@ -459,6 +446,14 @@ Page {
                     anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
+                }
+
+                Rectangle {
+                    x: Math.max((parent.width - width) / 2, 1)
+                    y: parent.height - height
+                    height: Math.max(parent.height / 100, 1)
+                    width: parent.width * 0.95
+                    color: "#e8e8e8"
                 }
 
                 MouseArea {
