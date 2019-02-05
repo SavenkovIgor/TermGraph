@@ -121,7 +121,7 @@ ApplicationWindow {
     Drawer {
         id : infoPanel
         width: window.width
-        height: mainObj.getUiElementSize("infoLabel")*Screen.pixelDensity*2
+        height: infoLabel.height
         interactive: false
         edge: Qt.BottomEdge
         dim: false
@@ -172,13 +172,16 @@ ApplicationWindow {
             onShowError: infoPanel.showError(error)
         }
 
-        Label {
+        TextArea {
             id: infoLabel
+            width: infoPanel.width
+
             text: ""
+            readOnly: true
+            wrapMode: TextEdit.WordWrap
+
             horizontalAlignment: Text.AlignHCenter
             font.pixelSize: mainObj.getUiElementSize("infoLabel")*Screen.pixelDensity
-            anchors.fill: parent
-            anchors.margins: mainObj.getUiElementSize("infoLabel")*Screen.pixelDensity*0.5
         }
 
         Timer {
