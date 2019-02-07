@@ -3,7 +3,7 @@
 TColumn::List AppConfigTable::getAllColumns() const
 {
     TColumn::List lst;
-    for (auto col : NodeColumn::columns) {
+    for (auto col : AppConfigColumn::columns) {
         lst << col;
     }
     return lst;
