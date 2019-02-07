@@ -392,7 +392,7 @@ Page {
     Drawer {
         id : groupSelectDrw
 
-        width: Math.min(Math.max(window.width*0.5, groupListView.width), window.width*0.6)
+        width: Math.min(window.width*0.8, groupListView.maxWidth)
         height: window.height
 
         interactive: mainStack.currentItem == alterMainScheme
@@ -403,6 +403,9 @@ Page {
         ListView {
             id: groupListView
             anchors.fill: parent
+
+            property real maxWidth: 0
+
             model: groupsManager.getAllUuidStringsSortedByLastEdit()
 
             function refreshModel() {
@@ -442,6 +445,13 @@ Page {
                     color: "#e8e8e8"
 
                     text: groupsManager.getGroupName(modelData)
+
+                    onContentWidthChanged: {
+                        if (contentWidth > groupListView.maxWidth) {
+                            groupListView.maxWidth = contentWidth + padding * 2
+                        }
+                    }
+
                     font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity
                     anchors.fill: parent
                     verticalAlignment: Text.AlignVCenter
