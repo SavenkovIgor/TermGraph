@@ -3,6 +3,7 @@
 
 #include <string>
 #include "./tblbase.h"
+#include "./dbtablenames.h"
 
 using namespace std;
 
@@ -45,7 +46,7 @@ public:
 class NodeTable : public TblBase
 {
 public:
-    NodeTable(QSqlDatabase* base): TblBase(TABLE_NAME, base) { }
+    NodeTable(QSqlDatabase* base): TblBase(TableName::NODES, base) { }
     ~NodeTable() override = default;
 
     QUuid nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const;
@@ -81,9 +82,6 @@ protected:
     TColumn::List getAllColumns() const override;
 
 private:
-    // Constants
-    constexpr static auto TABLE_NAME = "termNode";
-
     void setFieldUpdateLastEdit(const TColumn &column, const QUuid &uuid, const QString &val);
     void updateLastEdit(const QUuid &uuid);
     bool isUuidExist(const QUuid& uuid);

@@ -2,6 +2,7 @@
 #define TERMGROUPTBL_H
 
 #include "./tblbase.h"
+#include "./dbtablenames.h"
 
 class TermGroupColumn {
 public:
@@ -24,7 +25,7 @@ public:
 class TermGroupTable : public TblBase
 {
 public:
-    TermGroupTable(QSqlDatabase* base): TblBase(TABLE_NAME, base) { }
+    TermGroupTable(QSqlDatabase* base): TblBase(TableName::GROUPS, base) { }
     ~TermGroupTable() override = default;
 
     // Adding, deleting
@@ -54,9 +55,6 @@ protected:
     TColumn::List getAllColumns() const override;
 
 private:
-    // Constants
-    constexpr static auto TABLE_NAME = "termGroup";
-
     QUuid generateNewUuid();
 };
 
