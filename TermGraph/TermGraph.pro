@@ -46,7 +46,8 @@ HEADERS += \
     source/Model/GraphicItem/labelgraphicitem.h \
     source/Model/enums.h \
     source/databaseWorks/dbtablenames.h \
-    source/databaseWorks/appconfigtable.h
+    source/databaseWorks/appconfigtable.h \
+    source/Helpers/textprocessor.h
 
 SOURCES += \
     source/main.cpp\
@@ -86,7 +87,8 @@ SOURCES += \
     source/Model/GraphicItem/rectgraphicitem.cpp \
     source/paintqueuemanager.cpp \
     source/Model/GraphicItem/labelgraphicitem.cpp \
-    source/databaseWorks/appconfigtable.cpp
+    source/databaseWorks/appconfigtable.cpp \
+    source/Helpers/textprocessor.cpp
 
 FORMS += \
     source/ui/reminder.ui\
