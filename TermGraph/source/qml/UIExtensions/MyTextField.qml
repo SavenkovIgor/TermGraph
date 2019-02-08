@@ -8,6 +8,8 @@ Column {
     property alias placeholderText: txtField.placeholderText
     property alias text: txtField.text
 
+    signal newText
+
     anchors {
         left: parent.left
         right: parent.right
@@ -30,6 +32,8 @@ Column {
         width: parent.width
         font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
         selectByMouse: true
+
+        onTextChanged: newText()
 
         color: "#e8e8e8"
         placeholderTextColor: "#9c9c9c"

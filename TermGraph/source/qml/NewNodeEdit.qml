@@ -187,6 +187,8 @@ Page {
                 id: termName
                 labelText: "Название:"
                 placeholderText: "[Термин]"
+
+                onNewText: console.log("new text " + text)
             }
 
 //            MyTextField {
