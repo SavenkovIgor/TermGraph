@@ -184,11 +184,24 @@ Page {
             }
 
             MyTextField {
+                property string prevText: ""
+
                 id: termName
                 labelText: "Название:"
                 placeholderText: "[Термин]"
 
-                onNewText: console.log("new text " + text)
+                onNewText: checkNewText(text)
+
+                function checkNewText(text) {
+                    var differ = prevText.length - text.length
+                    if (differ >= 2 || differ <= -2) {
+                        if (textProcessor.isTermWithDefinition(text)) {
+                            termName.text = textProcessor.getTerm(text)
+                            termDefin.text = textProcessor.getDefinition(text)
+                        }
+                    }
+                    prevText = text
+                }
             }
 
 //            MyTextField {

@@ -1,5 +1,5 @@
-#ifndef TEXTPROCESSOR_H
-#define TEXTPROCESSOR_H
+#ifndef TAGPROCESSOR_H
+#define TAGPROCESSOR_H
 
 #include <functional>
 
@@ -63,4 +63,4 @@ private:
             const QString &rightBrReplacement);
 };
 
-#endif  // TEXTPROCESSOR_H
+#endif  // TAGPROCESSOR_H

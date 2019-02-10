@@ -1,4 +1,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += \
-  ./tests/tagProcessorTest
+  ./tests/tagProcessorTest \
+  ./tests/textProcessorTest

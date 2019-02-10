@@ -11,13 +11,15 @@ public:
     TextProcessor(QObject* parent = nullptr);
 
 public slots:
-    bool IsTermWithDefinition(const QString& def) const;
+    bool isTermWithDefinition(const QString& def) const;
 
     QString getTerm(const QString& def) const;
     QString getDefinition(const QString& def) const;
 
 private:
-    static QStringList splitters;
+    QStringList splitters;
+
+    int splitterIndex(const QString& str) const;
 };
 
 #endif // TEXTPROCESSOR_H
