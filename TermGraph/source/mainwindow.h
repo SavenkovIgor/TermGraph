@@ -12,6 +12,7 @@
 #include "./databaseWorks/dbabstract.h"
 #include "./Model/wordfreqanalyze.h"
 #include "./Helpers/tagprocessor.h"
+#include "./Helpers/textprocessor.h"
 #include "./Helpers/appconfig.h"
 #include "./glb.h"
 
@@ -42,6 +43,7 @@ private:
     // Helper stuff (still independent init)
     QScopedPointer<WordFreqAnalyze> analyze;
     QScopedPointer<TagProcessor> tagProcessor;
+    QScopedPointer<TextProcessor> textProcessor;
 
     // Dependent init
     QScopedPointer<GroupsManager> groupsManager;

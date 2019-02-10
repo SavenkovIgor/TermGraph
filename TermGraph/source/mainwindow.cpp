@@ -7,6 +7,7 @@ MainWindow::MainWindow(QObject *parent):
     paintManager(new PaintManager()),
     analyze(new WordFreqAnalyze()),
     tagProcessor(new TagProcessor()),
+    textProcessor(new TextProcessor()),
     groupsManager(new GroupsManager(nodesManager.get(), network.get())),
     scene(new MainScene(groupsManager.get(), nodesManager.get(), paintManager.get())),
     qmlEngine(new QQmlApplicationEngine())
@@ -31,6 +32,7 @@ MainWindow::MainWindow(QObject *parent):
     qmlEngine->rootContext()->setContextProperty("groupsManager", groupsManager.get());
     qmlEngine->rootContext()->setContextProperty("nodesManager", nodesManager.get());
     qmlEngine->rootContext()->setContextProperty("tagProcessor", tagProcessor.get());
+    qmlEngine->rootContext()->setContextProperty("textProcessor", textProcessor.get());
     qmlEngine->load(QUrl("qrc:/qml/MainWindow.qml"));
 }
 
