@@ -82,6 +82,15 @@ QUuid TermGroupTable::getUuid(const QString& groupName) const
     return QUuid(q.record().value(TermGroupColumn::longUID).toString());
 }
 
+RecList TermGroupTable::getAllUuidsAndNames()
+{
+    TColumn::List columns;
+    columns << TermGroupColumn::longUID;
+    columns << TermGroupColumn::name;
+    auto sel = select(columns);
+    return toRecList(sel);
+}
+
 bool TermGroupTable::hasGroupWithName(QString groupName)
 {
     return !getUuid(groupName).isNull();

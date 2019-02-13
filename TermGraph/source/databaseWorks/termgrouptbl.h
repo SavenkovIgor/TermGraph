@@ -38,6 +38,7 @@ public:
     QString getName(const QUuid &uuid) const;
     int getType(QUuid groupUuid) const;
     QUuid getUuid(const QString &groupName) const;
+    RecList getAllUuidsAndNames();
 
     // Massive getters
     QList<QUuid> getAllGroupsUuid();

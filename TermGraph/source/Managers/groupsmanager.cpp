@@ -12,6 +12,8 @@ GroupsManager::GroupsManager(
                 this->network,
                 SIGNAL(newSyncGroup(QString)),
                 SLOT(importGroupFromJson(QString)));
+
+    connect(this, SIGNAL(groupsListChanged()), SLOT(updateGroupUuidNameMaps()));
 }
 
 QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
@@ -42,11 +44,22 @@ QList<TermGroup*> GroupsManager::getAllGroups()
     return ret;
 }
 
-QString GroupsManager::getGroupName(QUuid groupUuid) const
+QString GroupsManager::getGroupName(const QUuid& groupUuid) const
 {
-    DBAbstract* db = Glb::db;
-    QSqlRecord rec = db->groupTbl->getGroup(groupUuid);
-    return rec.value(TermGroupColumn::name).toString();
+    if (uuidToNames.contains(groupUuid)) {
+        return uuidToNames[groupUuid];
+    }
+
+    return "";
+}
+
+QUuid GroupsManager::getGroupUuid(const QString& groupName) const
+{
+    if (namesToUuid.contains(groupName)) {
+        return namesToUuid[groupName];
+    }
+
+    return QUuid();
 }
 
 QString GroupsManager::getLastEditString(QUuid groupUuid)
@@ -57,13 +70,6 @@ QString GroupsManager::getLastEditString(QUuid groupUuid)
 int GroupsManager::getNodesCount(QUuid groupUuid)
 {
     return nodesMgr->getAllNodesUuidsInGroup(groupUuid).size();
-}
-
-QUuid GroupsManager::getGroupUuid(const QString& groupName)
-{
-    DBAbstract* db = Glb::db;
-    QUuid groupUuid = db->groupTbl->getUuid(groupName);
-    return groupUuid;
 }
 
 QStringList GroupsManager::getGroupNames(const QList<QUuid>& groupUuids)
@@ -325,5 +331,24 @@ void GroupsManager::sendGroupByNetwork(const QString groupUuid)
     if (auto group = createGroup(QUuid(groupUuid))) {
         network->sendGroup(group->getJsonDoc());
         //    delete group;  // TODO: Проверить, почему удаление вызывает ошибку
+    }
+}
+
+void GroupsManager::updateGroupUuidNameMaps()
+{
+    qDebug() << "List updated";
+    if (Glb::db == nullptr) {
+        return;
+    }
+
+    uuidToNames.clear();
+    namesToUuid.clear();
+
+    for (auto sqlRecord : Glb::db->groupTbl->getAllUuidsAndNames()) {
+        QUuid uuid(sqlRecord.value(TermGroupColumn::longUID).toString());
+        QString name = sqlRecord.value(TermGroupColumn::name).toString();
+
+        uuidToNames.insert(uuid, name);
+        namesToUuid.insert(name, uuid);
     }
 }
