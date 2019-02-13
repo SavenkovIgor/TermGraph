@@ -220,12 +220,19 @@ Page {
         id : newGroupDrawer
         width: groupsPage.width
         height: addGroupLay.height
-        interactive: true
+        interactive: false
 
         edge: Qt.BottomEdge
 
-        onOpened: newGroupName.takeFocus()
-        onClosed: newGroupName.text = ""
+        onOpened: {
+            interactive = true
+            newGroupName.takeFocus()
+        }
+
+        onClosed: {
+            interactive = false
+            newGroupName.text = ""
+        }
 
         RowLayout {
             id: addGroupLay
