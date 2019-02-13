@@ -7,6 +7,7 @@ TextProcessor::TextProcessor(QObject *parent) :
         splitters << "‐";
         splitters << "-";
         splitters << "-";
+        splitters << "—";
     }
 }
 
@@ -23,7 +24,8 @@ bool TextProcessor::isTermWithDefinition(const QString &def) const
 
 QString TextProcessor::getTerm(const QString &def) const
 {
-    if (int pos = splitterIndex(def); pos != -1) {
+    int pos = splitterIndex(def);
+    if (pos != -1) {
         return def.left(pos).simplified();
     }
     return "";
@@ -31,7 +33,8 @@ QString TextProcessor::getTerm(const QString &def) const
 
 QString TextProcessor::getDefinition(const QString &def) const
 {
-    if (int pos = splitterIndex(def); pos != -1) {
+    int pos = splitterIndex(def);
+    if (pos != -1) {
         return def.mid(pos+1).simplified();
     }
     return "";
