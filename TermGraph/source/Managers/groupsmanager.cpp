@@ -12,8 +12,6 @@ GroupsManager::GroupsManager(
                 this->network,
                 SIGNAL(newSyncGroup(QString)),
                 SLOT(importGroupFromJson(QString)));
-
-    connect(this, SIGNAL(groupsListChanged()), SLOT(updateGroupUuidNameMaps()));
 }
 
 QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
@@ -91,6 +89,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
     DBAbstract* db = Glb::db;
     int type = 0;  // GroupType::terms
     if (db->groupTbl->addGroup(name, comment, type)) {
+        updateGroupUuidNameMaps();
         groupsListChanged();
     } else {
         showError("Название группы не уникально");
@@ -100,6 +99,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 void GroupsManager::deleteGroup(QString uuidString)
 {
     Glb::db->groupTbl->deleteGroup(QUuid(uuidString));
+    updateGroupUuidNameMaps();
     groupsListChanged();
 }
 
@@ -296,6 +296,7 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
         }
     }
 
+    updateGroupUuidNameMaps();
     groupsListChanged();
 }
 
