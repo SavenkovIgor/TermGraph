@@ -5,7 +5,17 @@ DBAbstract::DBAbstract(QString file)
     base = new QSqlDatabase();
     (*base) = QSqlDatabase::addDatabase("QSQLITE");
 
-    openDB(file);
+    base->setDatabaseName(file);
+    if (base->open()) {
+        qDebug() << "baseIsOpen";
+    } else {
+        qDebug() << "cantOpenBase" << base->lastError().text();
+    }
+
+    nodeTbl  = new NodeTable(base);
+    groupTbl = new TermGroupTable(base);
+    appConfigTable = new AppConfigTable(base);
+
 //    base.setHostName("127.0.0.1");
 //    base.setUserName("root");
 //    base.setPassword("12345");
@@ -22,23 +32,8 @@ DBAbstract::~DBAbstract()
 {
     delete nodeTbl;
     delete groupTbl;
+    delete appConfigTable;
     delete base;
-}
-
-void DBAbstract::openDB(QString file)
-{
-    delete nodeTbl;
-    delete groupTbl;
-
-    base->setDatabaseName(file);
-    if (base->open()) {
-        qDebug() << "baseIsOpen";
-    } else {
-        qDebug() << "cantOpenBase" << base->lastError().text();
-    }
-
-    nodeTbl  = new NodeTable(base);
-    groupTbl = new TermGroupTable(base);
 }
 
 void DBAbstract::checkCols()
@@ -85,6 +80,7 @@ void DBAbstract::createAllTables()
 {
     nodeTbl->createTable();
     groupTbl->createTable();
+    appConfigTable->createTable();
 }
 
 QStringList DBAbstract::recordToStrList(QSqlRecord q)

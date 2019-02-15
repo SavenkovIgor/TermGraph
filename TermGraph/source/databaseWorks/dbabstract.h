@@ -6,6 +6,7 @@
 
 #include "./ndtbl.h"
 #include "./edgtbl.h"
+#include "./appconfigtable.h"
 #include "./termgrouptbl.h"
 
 class DBAbstract
@@ -13,11 +14,10 @@ class DBAbstract
 public:
     NodeTable* nodeTbl  = nullptr;
     TermGroupTable* groupTbl = nullptr;
+    AppConfigTable* appConfigTable = nullptr;
 
     explicit DBAbstract(QString file);
     ~DBAbstract();
-
-    void openDB(QString file);
 
     QStringList recordToStrList(QSqlRecord q);
     QStringList queryToStrList(QSqlQuery q);
