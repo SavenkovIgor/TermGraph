@@ -42,40 +42,6 @@ void DBAbstract::checkCols()
     groupTbl->checkCols();
 }
 
-void DBAbstract::normalizeNodesGroupUuid()
-{
-    QMap<int, QUuid> uidMatching;
-    for (QUuid uuid : groupTbl->getAllGroupsUuid()) {
-        QSqlRecord rec = groupTbl->getGroup(uuid);
-        if (rec.count() == 0)
-            continue;
-
-        if (!rec.contains(TermGroupColumn::uid))
-            continue;
-
-        if (!rec.contains(TermGroupColumn::longUID))
-            continue;
-
-        int groupUid = rec.value(TermGroupColumn::uid).toInt();
-        QString groupUuid = rec.value(TermGroupColumn::longUID).toString();
-
-        uidMatching[groupUid] = groupUuid;
-    }
-
-    for (QUuid nodeUuid : nodeTbl->getAllNodesUuids()) {
-        QSqlRecord rec = nodeTbl->getNodeSqlRecord(nodeUuid);
-
-        if (!rec.contains(NodeColumn::uid))
-            continue;
-        bool ok = false;
-        int currentGroup = rec.value(NodeColumn::termGroup).toInt(&ok);
-        if (!ok)
-            continue;
-        if (uidMatching.contains(currentGroup))
-            nodeTbl->setGroup(nodeUuid, uidMatching[currentGroup]);
-    }
-}
-
 void DBAbstract::createAllTables()
 {
     nodeTbl->createTable();
@@ -110,5 +76,4 @@ void DBAbstract::makeStartBaseCheck()
 {
     createAllTables();
     //checkCols();
-    normalizeNodesGroupUuid();
 }
