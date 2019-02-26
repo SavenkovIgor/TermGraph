@@ -24,8 +24,16 @@ public:
 
     void initTable();
 
+    bool isDbNeedUpdate();
+
 protected:
     TColumn::List getAllColumns() const override;
+
+private:
+    constexpr static auto dbVersionPropertyName = "dbVersion";
+    constexpr static auto dbVersion = 1;
+
+    void insertVersionFieldIfNeed();
 };
 
 #endif // APPCONFIGTABLE_H

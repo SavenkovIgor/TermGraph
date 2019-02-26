@@ -3,7 +3,12 @@
 void AppConfigTable::initTable()
 {
     createTable();
-    // TODO: Fill fields!
+
+    QList<InsertContainer> values;
+    values << InsertContainer(AppConfigColumn::parameter, dbVersionPropertyName);
+    values << InsertContainer(AppConfigColumn::value, dbVersion);
+
+    insertInto(values);
 }
 
 TColumn::List AppConfigTable::getAllColumns() const
@@ -13,4 +18,12 @@ TColumn::List AppConfigTable::getAllColumns() const
         lst << col;
     }
     return lst;
+}
+
+void AppConfigTable::insertVersionFieldIfNeed()
+{
+    // Check for dbVersion record exist
+    auto where = WhereCondition();
+    where.equal(AppConfigColumn::parameter, dbVersionPropertyName);
+    toRecList(select(AppConfigColumn::value, where));
 }
