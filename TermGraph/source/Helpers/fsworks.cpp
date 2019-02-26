@@ -1,5 +1,10 @@
 #include "fsworks.h"
 
+bool FSWorks::fileExist(const QString &filePath)
+{
+    return QFile::exists(filePath);
+}
+
 void FSWorks::saveFile(const QString& subDir, const QString& fileName, QString data) {
     QByteArray arr;
     arr.append(data);
