@@ -115,6 +115,11 @@ void NodeTable::deleteNode(const QUuid &uuid)
     deleteRecord(uuid);
 }
 
+void NodeTable::initTable()
+{
+    createTable();
+}
+
 TColumn::List NodeTable::getAllColumns() const
 {
     TColumn::List lst;

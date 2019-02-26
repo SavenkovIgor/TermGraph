@@ -19,7 +19,6 @@ MainWindow::MainWindow(QObject *parent):
 
     // Database init
     Glb::db = new DBAbstract(AppConfig::StdFolderPaths::defaultDatabaseFilePath());
-    Glb::db->makeStartBaseCheck();
     groupsManager->updateGroupUuidNameMaps();
 
     // remind = new Reminder(scene->getAllNodes());

@@ -78,6 +78,8 @@ public:
 
     void deleteNode(const QUuid& uuid);
 
+    void initTable();
+
 protected:
     TColumn::List getAllColumns() const override;
 

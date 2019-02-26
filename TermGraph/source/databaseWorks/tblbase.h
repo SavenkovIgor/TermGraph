@@ -14,10 +14,11 @@ public:
     TblBase(QString tableName,QSqlDatabase *base);
     virtual ~TblBase() = default;
 
+
+protected:
     QSqlQuery createTable();
     void checkCols();
 
-protected:
     void setField(const TColumn& column, const QUuid &uuid, const QString &val);
 
     int getIntField(const TColumn& column, const QUuid& uuid) const;

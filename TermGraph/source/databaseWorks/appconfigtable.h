@@ -22,6 +22,8 @@ public:
     AppConfigTable(QSqlDatabase* base): TblBase(TableName::CONFIG, base) { }
     ~AppConfigTable() override = default;
 
+    void initTable();
+
 protected:
     TColumn::List getAllColumns() const override;
 };

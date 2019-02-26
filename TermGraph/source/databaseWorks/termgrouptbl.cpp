@@ -96,6 +96,11 @@ bool TermGroupTable::hasGroupWithName(QString groupName)
     return !getUuid(groupName).isNull();
 }
 
+void TermGroupTable::initTable()
+{
+    createTable();
+}
+
 TColumn::List TermGroupTable::getAllColumns() const
 {
     TColumn::List lst;

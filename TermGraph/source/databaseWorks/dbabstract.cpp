@@ -1,11 +1,21 @@
 #include "dbabstract.h"
 
-DBAbstract::DBAbstract(QString file)
+DBAbstract::DBAbstract(const QString &filePath)
 {
     base = new QSqlDatabase();
     (*base) = QSqlDatabase::addDatabase("QSQLITE");
 
-    base->setDatabaseName(file);
+    // Check base exist
+    auto baseExists = databaseExists(filePath);
+
+    if (baseExists) {
+        qDebug() << "Base file is exists";
+    } else {
+        qDebug() << "Base file don't exist";
+    }
+
+    // Create database if not exist earlier
+    base->setDatabaseName(filePath);
     if (base->open()) {
         qDebug() << "baseIsOpen";
     } else {
@@ -16,16 +26,11 @@ DBAbstract::DBAbstract(QString file)
     groupTbl = new TermGroupTable(base);
     appConfigTable = new AppConfigTable(base);
 
-//    base.setHostName("127.0.0.1");
-//    base.setUserName("root");
-//    base.setPassword("12345");
-//    base.setPort(3306);
-//    if( base->open() ) {
-//        ui->connState->setText("connect");
-//    } else {
-//        ui->connState->setText("notConnected");
-//        qDebug()<<base->lastError().text();
-//    }
+    // If database just created, create all tables
+    if (!baseExists) {
+        qDebug() << "Creating tables";
+        InitAllTables();
+    }
 }
 
 DBAbstract::~DBAbstract()
@@ -36,17 +41,11 @@ DBAbstract::~DBAbstract()
     delete base;
 }
 
-void DBAbstract::checkCols()
+void DBAbstract::InitAllTables()
 {
-    nodeTbl->checkCols();
-    groupTbl->checkCols();
-}
-
-void DBAbstract::createAllTables()
-{
-    nodeTbl->createTable();
-    groupTbl->createTable();
-    appConfigTable->createTable();
+    nodeTbl->initTable();
+    groupTbl->initTable();
+    appConfigTable->initTable();
 }
 
 QStringList DBAbstract::recordToStrList(QSqlRecord q)
@@ -72,8 +71,7 @@ QStringList DBAbstract::queryToStrList(QSqlQuery q)
     return ret;
 }
 
-void DBAbstract::makeStartBaseCheck()
+bool DBAbstract::databaseExists(const QString &dbFilePath) const
 {
-    createAllTables();
-    //checkCols();
+    return FSWorks::fileExist(dbFilePath);
 }

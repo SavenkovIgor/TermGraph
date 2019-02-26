@@ -8,6 +8,7 @@
 #include "./edgtbl.h"
 #include "./appconfigtable.h"
 #include "./termgrouptbl.h"
+#include "../Helpers/fsworks.h"
 
 class DBAbstract
 {
@@ -16,19 +17,17 @@ public:
     TermGroupTable* groupTbl = nullptr;
     AppConfigTable* appConfigTable = nullptr;
 
-    explicit DBAbstract(QString file);
+    explicit DBAbstract(const QString& filePath);
     ~DBAbstract();
 
     QStringList recordToStrList(QSqlRecord q);
     QStringList queryToStrList(QSqlQuery q);
 
-    void makeStartBaseCheck();
-
 private:
     QSqlDatabase *base;
 
-    void createAllTables();
-    void checkCols();
+    bool databaseExists(const QString& dbFilePath) const;
+    void InitAllTables();
 };
 
 #endif  // DBABSTRACT_H

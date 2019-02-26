@@ -52,6 +52,8 @@ public:
     bool hasGroupWithUuid(const QUuid &uuid);
     bool hasGroupWithName(QString groupName);
 
+    void initTable();
+
 protected:
     TColumn::List getAllColumns() const override;
 
