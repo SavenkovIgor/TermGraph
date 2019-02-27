@@ -66,6 +66,11 @@ void MainWindow::addDbVersionNumberRecord()
     Glb::db->appConfigTable->addDbVersionKeyIfNeed();
 }
 
+void MainWindow::initConfigTable()
+{
+    Glb::db->appConfigTable->initTable();
+}
+
 void MainWindow::initElemSizes()
 {
 #if defined( Q_OS_WIN ) || defined( Q_OS_LINUX ) || defined( Q_OS_MACOS )

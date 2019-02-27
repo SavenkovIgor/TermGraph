@@ -31,7 +31,9 @@ public:
 public slots:
     int getUiElementSize(const QString& elementTypeName);
 
+    // TODO: Delete this later
     void addDbVersionNumberRecord();
+    void initConfigTable();
 
 private:
     void initElemSizes();
