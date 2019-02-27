@@ -31,6 +31,8 @@ public:
 public slots:
     int getUiElementSize(const QString& elementTypeName);
 
+    void addDbVersionNumberRecord();
+
 private:
     void initElemSizes();
     QMap<QString, int> elementSizes;

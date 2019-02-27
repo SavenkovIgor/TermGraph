@@ -61,6 +61,11 @@ int MainWindow::getUiElementSize(const QString &elementTypeName)
     return 0;
 }
 
+void MainWindow::addDbVersionNumberRecord()
+{
+    Glb::db->appConfigTable->addDbVersionKeyIfNeed();
+}
+
 void MainWindow::initElemSizes()
 {
 #if defined( Q_OS_WIN ) || defined( Q_OS_LINUX ) || defined( Q_OS_MACOS )

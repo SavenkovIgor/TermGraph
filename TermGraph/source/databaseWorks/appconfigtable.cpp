@@ -4,9 +4,14 @@ void AppConfigTable::initTable()
 {
     createTable();
     // Add database version parameter
-    addValue(dbVersionPropertyName, dbVersion);
+    setValue(dbVersionPropertyName, QString::number(dbVersion));
+}
 
-    getValue(dbVersionPropertyName, 10);
+void AppConfigTable::addDbVersionKeyIfNeed()
+{
+    if (!hasKey(dbVersionPropertyName)) {
+        setValue(dbVersionPropertyName, QString::number(dbVersion));
+    }
 }
 
 TColumn::List AppConfigTable::getAllColumns() const
@@ -18,21 +23,28 @@ TColumn::List AppConfigTable::getAllColumns() const
     return lst;
 }
 
-void AppConfigTable::insertVersionFieldIfNeed()
+bool AppConfigTable::hasKey(const QString &key)
 {
-    // Check for dbVersion record exist
-    auto where = WhereCondition();
-    where.equal(AppConfigColumn::parameter, dbVersionPropertyName);
-    toRecList(select(AppConfigColumn::value, where));
+    WhereCondition where;
+    where.equal(AppConfigColumn::parameter, key);
+    auto recList = toRecList(select(AppConfigColumn::parameter, where));
+    return recList.size() == 1;
 }
 
-void AppConfigTable::addValue(const QString &key, const int &value)
+void AppConfigTable::setValue(const QString &key, const QString &value)
 {
-    addValue(key, QString::number(value));
-}
+    if (hasKey(key)) {
+        // If has key - updating
+        SetExpression set;
+        set.set(AppConfigColumn::value, value);
 
-void AppConfigTable::addValue(const QString &key, const QString &value)
-{
+        WhereCondition where;
+        where.equal(AppConfigColumn::parameter, key);
+
+        updateWhere(set, where);
+    }
+
+    // Else adding new key
     QList<InsertContainer> values;
 
     values << InsertContainer(AppConfigColumn::parameter, key);
@@ -41,28 +53,7 @@ void AppConfigTable::addValue(const QString &key, const QString &value)
     insertInto(values);
 }
 
-bool AppConfigTable::hasKey(const QString &key)
-{
-    auto where = WhereCondition();
-    where.equal(AppConfigColumn::parameter, key);
-    auto recList = toRecList(select(AppConfigColumn::parameter, where));
-    return recList.size() == 1;
-}
-
-int AppConfigTable::getValue(const QString &key, const int &defaultValue)
-{
-    auto strValue = getValue(key, QString::number(defaultValue));
-    bool* castOk = new bool(false);
-    auto result = strValue.toInt(castOk);
-    if (castOk) {
-        delete castOk;
-        return result;
-    }
-    delete castOk;
-    return defaultValue;
-}
-
-QString AppConfigTable::getValue(const QString &key, const QString &defaultValue)
+QString AppConfigTable::value(const QString &key, const QString &defaultValue)
 {
     if (hasKey(key)) {
         auto where = WhereCondition();
@@ -71,6 +62,5 @@ QString AppConfigTable::getValue(const QString &key, const QString &defaultValue
         return recList.first().value(AppConfigColumn::value).toString();
     }
 
-    addValue(key, defaultValue);
     return defaultValue;
 }

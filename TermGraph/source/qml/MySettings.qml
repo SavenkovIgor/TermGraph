@@ -69,5 +69,11 @@ Page {
                 }
             }
         }
+
+        MySquareButton {
+            id: createDatabaseVersionRecord
+            text: "Создать запись с версией базы данных в таблице настроек"
+            onClicked: mainObj.addDbVersionNumberRecord()
+        }
     }
 }
