@@ -17,5 +17,6 @@
         <file>qml/TermView.qml</file>
         <file>qml/JsExtensions/nodePaint.js</file>
         <file>qml/UIExtensions/SmallInfoText.qml</file>
+        <file>qml/UIExtensions/GroupsDrawer.qml</file>
     </qresource>
 </RCC>

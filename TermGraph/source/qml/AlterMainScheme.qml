@@ -121,7 +121,7 @@ Page {
             top: parent.top
         }
 
-        onClicked: groupSelectDrw.open()
+        onClicked: groupsList.open()
         Component.onCompleted: loadIcon( "qrc:/icons/spreadsheet")
     }
 
@@ -389,91 +389,12 @@ Page {
         }
     }
 
-    Drawer {
-        id : groupSelectDrw
+    GroupsDrawer {
+        id : groupsList
 
-        width: Math.min(window.width*0.8, groupListView.maxWidth)
+        width: Math.min(window.width*0.8, groupsList.maxWidth)
         height: window.height
 
         interactive: mainStack.currentItem == alterMainScheme
-        edge: Qt.RightEdge
-
-        onOpened: groupListView.forceActiveFocus()
-
-        ListView {
-            id: groupListView
-            anchors.fill: parent
-
-            property real maxWidth: 0
-
-            model: groupsManager.getAllUuidStringsSortedByLastEdit()
-
-            function refreshModel() {
-                model = groupsManager.getAllUuidStringsSortedByLastEdit()
-            }
-
-            Rectangle {
-                anchors.fill: parent
-                color: "#4f4f4f"
-                z: -1
-            }
-
-            keyNavigationEnabled: true
-
-            delegate: Rectangle {
-                id: groupLstDlgt
-                anchors.left: parent.left
-                anchors.right: parent.right
-
-                color: "transparent"
-
-                height: curText.height
-
-                states: State {
-                    name: "Current"
-                    when: groupLstDlgt.ListView.isCurrentItem
-                    PropertyChanges { target: groupLstDlgt; color: "darkGray" }
-                }
-
-                Text {
-                    id: curText
-                    padding: 30
-
-                    font.weight: Font.Thin
-                    height: Math.floor( font.pixelSize*2.0 )
-
-                    color: "#e8e8e8"
-
-                    text: groupsManager.getGroupName(modelData)
-
-                    onContentWidthChanged: {
-                        if (contentWidth > groupListView.maxWidth) {
-                            groupListView.maxWidth = contentWidth + padding * 2
-                        }
-                    }
-
-                    font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity
-                    anchors.fill: parent
-                    verticalAlignment: Text.AlignVCenter
-                    horizontalAlignment: Text.AlignLeft
-                }
-
-                Rectangle {
-                    x: Math.max((parent.width - width) / 2, 1)
-                    y: parent.height - height
-                    height: Math.max(parent.height / 100, 1)
-                    width: parent.width * 0.95
-                    color: "#e8e8e8"
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        groupSelectDrw.close()
-                        sceneObj.showGroup(modelData)
-                    }
-                }
-            }
-        }
     }
 }
