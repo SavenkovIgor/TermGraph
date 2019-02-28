@@ -81,5 +81,11 @@ Page {
             text: "Создать запись с версией базы данных в таблице настроек"
             onClicked: mainObj.addDbVersionNumberRecord()
         }
+
+        MyLabelPair{
+            id: databaseVersion
+            name: "Версия базы данных:"
+            text: mainObj.dbVersion()
+        }
     }
 }

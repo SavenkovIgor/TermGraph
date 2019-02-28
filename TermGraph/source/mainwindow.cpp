@@ -71,6 +71,11 @@ void MainWindow::initConfigTable()
     Glb::db->appConfigTable->initTable();
 }
 
+int MainWindow::dbVersion()
+{
+    return Glb::db->appConfigTable->getDbVersion();
+}
+
 void MainWindow::initElemSizes()
 {
 #if defined( Q_OS_WIN ) || defined( Q_OS_LINUX ) || defined( Q_OS_MACOS )

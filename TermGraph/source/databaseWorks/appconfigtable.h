@@ -27,11 +27,14 @@ public:
     void initTable();
     void addDbVersionKeyIfNeed();
 
+    int getDbVersion();
+
 protected:
     TColumn::List getAllColumns() const override;
 
 private:
     constexpr static auto dbVersionPropertyName = "dbVersion";
+    constexpr static auto startDbVersion = 1;
     constexpr static auto dbVersion = 1;
 
     // Values works

@@ -4,14 +4,19 @@ void AppConfigTable::initTable()
 {
     createTable();
     // Add database version parameter
-    setValue(dbVersionPropertyName, QString::number(dbVersion));
+    setValue(dbVersionPropertyName, QString::number(startDbVersion));
 }
 
 void AppConfigTable::addDbVersionKeyIfNeed()
 {
     if (!hasKey(dbVersionPropertyName)) {
-        setValue(dbVersionPropertyName, QString::number(dbVersion));
+        setValue(dbVersionPropertyName, QString::number(startDbVersion));
     }
+}
+
+int AppConfigTable::getDbVersion()
+{
+    return value(dbVersionPropertyName, "0").toInt();
 }
 
 TColumn::List AppConfigTable::getAllColumns() const

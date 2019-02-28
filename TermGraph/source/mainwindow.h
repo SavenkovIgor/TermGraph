@@ -35,6 +35,8 @@ public slots:
     void addDbVersionNumberRecord();
     void initConfigTable();
 
+    int dbVersion();
+
 private:
     void initElemSizes();
     QMap<QString, int> elementSizes;
