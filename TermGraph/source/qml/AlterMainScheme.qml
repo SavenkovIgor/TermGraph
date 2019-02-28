@@ -222,6 +222,16 @@ Page {
             sceneObj.setSceneViewRect(sceneView.contentX, sceneView.contentY, sceneView.width, sceneView.height)
         }
 
+        GroupsDrawer {
+            id : groupsList
+
+            y: mainHeader.height
+            width: Math.min(window.width*0.8, groupsList.maxWidth)
+            height: sceneView.height
+
+            interactive: mainStack.currentItem == alterMainScheme
+        }
+
         MouseArea {
             id: sceneMouse
 
@@ -385,16 +395,6 @@ Page {
                     paintManager.nextNode()
                 }
             }
-
         }
-    }
-
-    GroupsDrawer {
-        id : groupsList
-
-        width: Math.min(window.width*0.8, groupsList.maxWidth)
-        height: window.height
-
-        interactive: mainStack.currentItem == alterMainScheme
     }
 }
