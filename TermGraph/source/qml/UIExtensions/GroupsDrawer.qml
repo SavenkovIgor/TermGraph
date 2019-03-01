@@ -10,6 +10,10 @@ Drawer {
     edge: Qt.RightEdge
     onOpened: groupListView.forceActiveFocus()
 
+    function refreshModel() {
+        groupListView.refreshModel()
+    }
+
     ListView {
         id: groupListView
         anchors.fill: parent

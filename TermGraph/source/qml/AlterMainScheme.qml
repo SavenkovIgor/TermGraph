@@ -52,12 +52,12 @@ Page {
 
     Connections {
         target: groupsManager
-        onGroupsListChanged: groupListView.refreshModel()
+        onGroupsListChanged: groupsList.refreshModel()
     }
 
     Connections {
         target: nodesManager
-        onNodeChanged: groupListView.refreshModel()
+        onNodeChanged: groupsList.refreshModel()
     }
 
     NewNodeEdit {
