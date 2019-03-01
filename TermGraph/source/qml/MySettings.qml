@@ -7,7 +7,14 @@ Page {
     id: settingsPage
 
     property StackView mainStack
-    function open() { mainStack.push(settingsPage) }
+    function open() {
+        mainStack.push(settingsPage)
+        openActions()
+    }
+
+    function openActions() {
+        databaseVersion.updateText()
+    }
 
     header: MainHeader {
 
@@ -19,6 +26,7 @@ Page {
         onMenuClick: mainStack.pop()
     }
 
+
     Rectangle {
         anchors.fill: parent
         color: "#332f30"
@@ -28,7 +36,7 @@ Page {
 
         anchors.fill: parent
 
-        MyLabelPair{
+        MyLabelPair {
             id: localIpDescription
             name: "Ip этого устройства:"
             text: networkManager.getFirstLocalIpString()
@@ -73,19 +81,29 @@ Page {
         MySquareButton {
             id: initConfigTable
             text: "Создать таблицу конфигурации и записать версию"
-            onClicked: mainObj.initConfigTable()
+            onClicked: {
+                mainObj.initConfigTable()
+                databaseVersion.updateText()
+            }
         }
 
         MySquareButton {
             id: createDatabaseVersionRecord
             text: "Создать запись с версией базы данных в таблице настроек"
-            onClicked: mainObj.addDbVersionNumberRecord()
+            onClicked: {
+                mainObj.addDbVersionNumberRecord()
+                databaseVersion.updateText()
+            }
         }
 
-        MyLabelPair{
+        MyLabelPair {
             id: databaseVersion
             name: "Версия базы данных:"
             text: mainObj.dbVersion()
+
+            function updateText() {
+                text = mainObj.dbVersion()
+            }
         }
     }
 }
