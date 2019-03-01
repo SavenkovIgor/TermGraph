@@ -24,7 +24,7 @@ public:
 
     // TODO: Delete this later
     // This function must be called only once, when initing database
-    void initTable();
+    void initTable() override;
     void addDbVersionKeyIfNeed();
 
     int getDbVersion();

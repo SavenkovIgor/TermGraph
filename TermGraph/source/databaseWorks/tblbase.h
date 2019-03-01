@@ -14,7 +14,6 @@ public:
     TblBase(QString tableName,QSqlDatabase *base);
     virtual ~TblBase() = default;
 
-
 protected:
     QSqlQuery createTable();
     void checkCols();
@@ -44,6 +43,8 @@ protected:
     static RecList toRecList(QSqlQuery q);
 
     virtual TColumn::List getAllColumns() const = 0;
+    virtual void initTable() = 0;
+
 private:
     QSqlDatabase *base;
     QScopedPointer<SqlQueryConstructor> queryConstructor;
