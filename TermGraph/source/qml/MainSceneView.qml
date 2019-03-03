@@ -162,7 +162,7 @@ Page {
         }
 
         onClicked: nodeDelDialog.visible = true
-        Component.onCompleted: loadIcon( "qrc:/icons/ban" )
+        Component.onCompleted: loadIcon( "qrc:/icons/trash" )
     }
 
     MessageDialog {

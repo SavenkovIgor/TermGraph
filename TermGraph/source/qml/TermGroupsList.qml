@@ -57,7 +57,7 @@ Page {
         onClicked: {
             groupDeleteDialog.visible = true
         }
-        Component.onCompleted: loadIcon("qrc:/icons/x")
+        Component.onCompleted: loadIcon("qrc:/icons/trash")
     }
 
     // Temporary hide FileExportButton
