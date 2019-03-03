@@ -10,14 +10,15 @@ Page {
     id: newNodeEdit
 
     property StackView mainStack
-    function open() { mainStack.push(newNodeEdit) }
+    property string nodeUuid: "startValue"
+    property bool newNode: nodeUuid === ""
 
-    property string changingNodeUuid
+    function open() { mainStack.push(newNodeEdit) }
 
     header: MainHeader {
 
         id: mainHeader
-        titleText: ""
+        titleText: newNode ? "Добавить вершину" : "Изменить вершину"
 
         Component.onCompleted: {
             mainHeader.showCheckButton()
@@ -44,43 +45,17 @@ Page {
         mainStack.pop()
     }
 
-    function prepare(nodeUuid) {
-        changeNodeRow.text = nodeUuid
-
-        var newNode = changeNodeRow.text === ""  // bool
-
-        changeNodeRow.visible = !newNode
-        currentGroupFixedRow.visible = newNode
-        currentGroupEditableRow.visible = !newNode
-
+    onNodeUuidChanged: {
+        var newNode = nodeUuid === ""
         if (newNode) {
-            clear()    
-            mainHeader.titleText = "Добавить вершину"
+            termName.text    = ""
             currentGroupFixedRow.groupUuid = sceneObj.getCurrGroupUuid()
             termName.takeFocus()
         } else {
-            fillInfo()
-            mainHeader.titleText = "Изменить вершину"
+            termName.text    = sceneObj.getCurrNodeName()
+            nodeGroup.selectElement(sceneObj.getCurrNodeGroupUuid())
             termDefin.takeFocus()
         }
-    }
-
-    function fillInfo() {
-        termName.text    = sceneObj.getCurrNodeName()
-//        termForms.text   = sceneObj.getCurrNodeForms()
-        termDefin.text   = sceneObj.getCurrNodeDefinition()
-        termDescr.text   = sceneObj.getCurrNodeDescription()
-        termExampl.text  = sceneObj.getCurrNodeExamples()
-        nodeGroup.selectElement(sceneObj.getCurrNodeGroupUuid())
-    }
-
-    function clear() {
-        changeNodeRow.text     = ""
-        termName.text    = ""
-//        termForms.text   = ""
-        termDefin.text   = ""
-        termDescr.text   = ""
-        termExampl.text  = ""
     }
 
     function addOrChangeNode() {
@@ -125,7 +100,7 @@ Page {
         anchors.right: expandTagRight.left
         anchors.top: parent.top
 
-        visible: false
+        visible: termDefin.txtFocus
 
         onClicked: {
             var pos = termDefin.cursorPosition
@@ -142,7 +117,7 @@ Page {
         anchors.right: parent.right
         anchors.top: parent.top
 
-        visible: false
+        visible: termDefin.txtFocus
 
         onClicked: {
             var pos = termDefin.cursorPosition
@@ -172,7 +147,8 @@ Page {
             MyLabelPair {
                 id: changeNodeRow
                 name: "Изменить вершину с uuid: "
-                onTextChanged: fillInfo()
+                text: newNodeEdit.nodeUuid
+                visible: text !== ""
             }
 
             MyLabelPair {
@@ -181,6 +157,8 @@ Page {
 
                 property string groupUuid: ""
                 onGroupUuidChanged: currentGroupFixedRow.text = groupsManager.getGroupName(groupUuid)
+
+                visible: newNode
             }
 
             MyTextField {
@@ -208,28 +186,27 @@ Page {
 //                id : termForms
 //                labelText : "Грамматические формы:"
 //                placeholderText: "[Альтернативные окончания термина, как слОва]"
+//                text: newNode ? sceneObj.getCurrNodeForms() : ""
 //            }
 
             MyTextArea {
-                labelText: "-это"
                 id: termDefin
+                labelText: "-это"
                 placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
-                onTxtFocusChanged: {
-                    var visible = txtFocus
-                    expandTagRight.visible = visible
-                    makeTag.visible = visible
-                }
+                text: newNode ? sceneObj.getCurrNodeDefinition() : ""
             }
 
             MyTextArea {
-                labelText : "Описание"
                 id: termDescr
+                labelText : "Описание"
                 placeholderText: "[Общее словестное описание, пока никак не участвует в логике]"
+                text: newNode ? sceneObj.getCurrNodeDescription() : ""
             }
 
             MyTextArea {
-                labelText: "Примеры"
                 id: termExampl
+                labelText: "Примеры"
+                text: newNode ? sceneObj.getCurrNodeExamples() : ""
             }
 
             MyTextField {
@@ -253,6 +230,8 @@ Page {
                 id: currentGroupEditableRow
 
                 width: parent.width
+                visible: !newNode
+
                 Label {
                     id: grpLabel
                     text : "Группа"

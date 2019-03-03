@@ -104,7 +104,7 @@ Page {
         function openNewNodePage() {
             if (groupsManager.hasAnyGroup()) {
                 newNodePage.open()
-                newNodePage.prepare("")
+                newNodePage.nodeUuid = ""
             } else {
                 showWarning("Create group first!")
                 groupsListPage.open()
@@ -146,7 +146,7 @@ Page {
         function openEditNodePage(nodeUuid) {
             if (nodeUuid !== "") {
                 newNodePage.open()
-                newNodePage.prepare(nodeUuid)
+                newNodePage.nodeUuid = nodeUuid
             }
         }
     }
