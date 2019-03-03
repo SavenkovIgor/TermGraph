@@ -13,10 +13,10 @@
         <file>qml/MySettings.qml</file>
         <file>qml/UIExtensions/SideMenuButton.qml</file>
         <file>qml/UIExtensions/MainHeader.qml</file>
-        <file>qml/AlterMainScheme.qml</file>
         <file>qml/TermView.qml</file>
         <file>qml/JsExtensions/nodePaint.js</file>
         <file>qml/UIExtensions/SmallInfoText.qml</file>
         <file>qml/UIExtensions/GroupsDrawer.qml</file>
+        <file>qml/MainSceneView.qml</file>
     </qresource>
 </RCC>

@@ -10,7 +10,7 @@ import "UIExtensions"
 import "JsExtensions/nodePaint.js" as JsPaint
 
 Page {
-    id: alterMainScheme
+    id: mainSceneView
 
     property StackView mainStack
     property Drawer sideMenu
@@ -229,7 +229,7 @@ Page {
             width: Math.min(window.width*0.8, groupsList.maxWidth)
             height: sceneView.height
 
-            interactive: mainStack.currentItem == alterMainScheme
+            interactive: mainStack.currentItem == mainSceneView
         }
 
         MouseArea {

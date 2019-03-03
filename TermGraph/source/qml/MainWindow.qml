@@ -19,8 +19,8 @@ ApplicationWindow {
 //    }
 
     Component {
-        id: mainSchemeItem
-        AlterMainScheme {
+        id: mainSceneItem
+        MainSceneView {
             mainStack: stackView
             sideMenu: appSideMenu
 
@@ -195,7 +195,7 @@ ApplicationWindow {
     StackView {
 
         id: stackView
-        initialItem: mainSchemeItem
+        initialItem: mainSceneItem
 
         anchors.fill: parent
 
