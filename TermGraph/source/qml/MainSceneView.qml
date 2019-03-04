@@ -52,7 +52,10 @@ Page {
 
     Connections {
         target: groupsManager
-        onGroupsListChanged: groupsList.refreshModel()
+        onGroupsListChanged: {
+            showGroupListButton.updateVisibility()
+            groupsList.refreshModel()
+        }
     }
 
     Connections {
@@ -119,6 +122,12 @@ Page {
         anchors {
             right: parent.right
             top: parent.top
+        }
+
+        visible: groupsManager.hasAnyGroup()
+
+        function updateVisibility() {
+            visible = groupsManager.hasAnyGroup()
         }
 
         onClicked: groupsList.open()
