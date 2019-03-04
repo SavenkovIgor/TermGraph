@@ -52,8 +52,10 @@ void DBAbstract::InitAllTables()
 
 void DBAbstract::makeDbUpdatesIfNeed()
 {
-    if (appConfigTable->isDbVersionActual())
+    if (appConfigTable->isDbVersionActual()) {
+        qDebug() << "Database is actual. No need to update";
         return;
+    }
 
     auto dbVersion = appConfigTable->getDbVersion();
     qDebug() << "Updating database!";
