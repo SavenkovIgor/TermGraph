@@ -78,24 +78,6 @@ Page {
             }
         }
 
-        MySquareButton {
-            id: initConfigTable
-            text: "Создать таблицу конфигурации и записать версию"
-            onClicked: {
-                mainObj.initConfigTable()
-                databaseVersion.updateText()
-            }
-        }
-
-        MySquareButton {
-            id: createDatabaseVersionRecord
-            text: "Создать запись с версией базы данных в таблице настроек"
-            onClicked: {
-                mainObj.addDbVersionNumberRecord()
-                databaseVersion.updateText()
-            }
-        }
-
         MyLabelPair {
             id: databaseVersion
             name: "Версия базы данных:"
