@@ -7,16 +7,19 @@ void AppConfigTable::initTable()
     setValue(dbVersionPropertyName, QString::number(startDbVersion));
 }
 
-void AppConfigTable::addDbVersionKeyIfNeed()
-{
-    if (!hasKey(dbVersionPropertyName)) {
-        setValue(dbVersionPropertyName, QString::number(startDbVersion));
-    }
-}
-
 int AppConfigTable::getDbVersion()
 {
     return value(dbVersionPropertyName, "0").toInt();
+}
+
+bool AppConfigTable::isDbVersionActual()
+{
+    return getDbVersion() == dbVersion;
+}
+
+void AppConfigTable::updateDbVersionNumber()
+{
+    setValue(dbVersionPropertyName, QString::number(dbVersion));
 }
 
 TColumn::List AppConfigTable::getAllColumns() const
@@ -47,15 +50,15 @@ void AppConfigTable::setValue(const QString &key, const QString &value)
         where.equal(AppConfigColumn::parameter, key);
 
         updateWhere(set, where);
+    } else {
+        // Else adding new key
+        QList<InsertContainer> values;
+
+        values << InsertContainer(AppConfigColumn::parameter, key);
+        values << InsertContainer(AppConfigColumn::value, value);
+
+        insertInto(values);
     }
-
-    // Else adding new key
-    QList<InsertContainer> values;
-
-    values << InsertContainer(AppConfigColumn::parameter, key);
-    values << InsertContainer(AppConfigColumn::value, value);
-
-    insertInto(values);
 }
 
 QString AppConfigTable::value(const QString &key, const QString &defaultValue)

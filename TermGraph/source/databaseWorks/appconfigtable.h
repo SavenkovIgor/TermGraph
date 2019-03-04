@@ -25,9 +25,10 @@ public:
     // TODO: Delete this later
     // This function must be called only once, when initing database
     void initTable() override;
-    void addDbVersionKeyIfNeed();
 
     int getDbVersion();
+    bool isDbVersionActual();
+    void updateDbVersionNumber();
 
 protected:
     TColumn::List getAllColumns() const override;

@@ -31,6 +31,8 @@ DBAbstract::DBAbstract(const QString &filePath)
         qDebug() << "Creating tables";
         InitAllTables();
     }
+
+    makeDbUpdatesIfNeed();
 }
 
 DBAbstract::~DBAbstract()
@@ -46,6 +48,24 @@ void DBAbstract::InitAllTables()
     nodeTbl->initTable();
     groupTbl->initTable();
     appConfigTable->initTable();
+}
+
+void DBAbstract::makeDbUpdatesIfNeed()
+{
+    if (appConfigTable->isDbVersionActual())
+        return;
+
+    auto dbVersion = appConfigTable->getDbVersion();
+    qDebug() << "Updating database!";
+    qDebug() << "Start version: " << dbVersion;
+
+    if (dbVersion < 1) {
+        qDebug() << "Initing appConfig table";
+        appConfigTable->initTable();
+    }
+
+    appConfigTable->updateDbVersionNumber();
+    qDebug() << "Update finished. New db version:" << appConfigTable->getDbVersion();
 }
 
 QStringList DBAbstract::recordToStrList(QSqlRecord q)

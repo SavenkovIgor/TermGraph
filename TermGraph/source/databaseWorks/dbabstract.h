@@ -28,6 +28,8 @@ private:
 
     bool databaseExists(const QString& dbFilePath) const;
     void InitAllTables();
+
+    void makeDbUpdatesIfNeed();
 };
 
 #endif  // DBABSTRACT_H
