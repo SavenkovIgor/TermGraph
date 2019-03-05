@@ -144,5 +144,11 @@
         <file>icons/trash-4x.png</file>
         <file>icons/trash-6x.png</file>
         <file>icons/trash-8x.png</file>
+        <file>icons/book.png</file>
+        <file>icons/book-2x.png</file>
+        <file>icons/book-3x.png</file>
+        <file>icons/book-4x.png</file>
+        <file>icons/book-6x.png</file>
+        <file>icons/book-8x.png</file>
     </qresource>
 </RCC>
