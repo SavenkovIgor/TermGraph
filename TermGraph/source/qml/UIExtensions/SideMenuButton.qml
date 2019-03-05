@@ -13,7 +13,11 @@ Button {
     property alias labelText: label.text
     property alias iconPath: icon.iconPath
 
-    property string baseColor: "#FF0000"
+    property string baseColor: "#e8e8e8"
+
+    onEnabledChanged: {
+        baseColor = "#55e8e8e8"
+    }
 
     onBaseColorChanged: {
         icon.color = baseColor
@@ -27,6 +31,8 @@ Button {
         MyRoundButton {
             id: icon
             property string iconPath: ""
+
+            color: "#e8e8e8"
 
             icon.width: label.font.pixelSize * 1.8
             icon.height: label.font.pixelSize * 1.8
@@ -42,6 +48,8 @@ Button {
             height: icon.height
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
+
+            color: "#e8e8e8"
 
             font.weight: Font.Thin
             font.pixelSize: mainObj.getUiElementSize("capitalText") * Screen.pixelDensity

@@ -83,8 +83,6 @@ ApplicationWindow {
                 labelText: "Группы    "
                 iconPath: "qrc:/icons/list"
 
-                baseColor: "#e8e8e8"
-
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
                 Layout.topMargin: 25
@@ -100,8 +98,6 @@ ApplicationWindow {
                 labelText: "Настройки"
                 iconPath: "qrc:/icons/cog"
 
-                baseColor: "#e8e8e8"
-
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
                 Layout.topMargin: 5
@@ -110,6 +106,22 @@ ApplicationWindow {
                 Layout.rightMargin: 25
 
                 onClicked: appSideMenu.openItem(settingsPage)
+            }
+
+            SideMenuButton {
+                id: helpMenuButton
+                enabled: false
+                labelText: "Справка"
+                iconPath: "qrc:/icons/book"
+
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                Layout.topMargin: 5
+                Layout.bottomMargin: 5
+                Layout.leftMargin: 25
+                Layout.rightMargin: 25
+
+//                onClicked: appSideMenu.openItem(settingsPage)
             }
 
             Item {
