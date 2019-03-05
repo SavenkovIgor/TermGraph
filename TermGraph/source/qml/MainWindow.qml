@@ -40,6 +40,11 @@ ApplicationWindow {
         mainStack: stackView
     }
 
+    OnboardingGallery {
+        id: onboarding
+        mainStack: stackView
+    }
+
     Drawer {
         id : appSideMenu
         height: window.height
@@ -121,7 +126,7 @@ ApplicationWindow {
                 Layout.leftMargin: 25
                 Layout.rightMargin: 25
 
-//                onClicked: appSideMenu.openItem(settingsPage)
+                onClicked: appSideMenu.openItem(onboarding)
             }
 
             Item {
