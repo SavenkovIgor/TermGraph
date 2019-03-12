@@ -7,11 +7,17 @@ void AppConfig::StdFolderPaths::createDefaultFoldersIfNeed()
 #if defined( Q_OS_WIN ) || defined( Q_OS_LINUX ) || defined( Q_OS_MACOS )
     necessaryDirs << userAppConfigFolder();
     necessaryDirs << groupsJsonFolder();
+    necessaryDirs << backupFolder();
 #endif
 
-    for (QString path : necessaryDirs) {
+    for (auto path : necessaryDirs) {
         QDir().mkpath(path);
     }
+}
+
+QString AppConfig::StdFolderPaths::backupFolder()
+{
+    return userAppConfigFolder() + "/DbBackup";
 }
 
 QString AppConfig::StdFolderPaths::groupsJsonFolder()
