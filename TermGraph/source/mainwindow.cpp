@@ -41,16 +41,6 @@ MainWindow::~MainWindow()
     delete Glb::db;
 }
 
-//void MainWindow::saveAppSettings()
-//{
-//    QSettings sett(AppConfig::StdFolderPaths::defaultConfigFilePath(), QSettings::IniFormat);
-//}
-
-//void MainWindow::loadAppSettings()
-//{
-//    QSettings sett(AppConfig::StdFolderPaths::defaultConfigFilePath(), QSettings::IniFormat);
-//}
-
 int MainWindow::getUiElementSize(const QString &elementTypeName)
 {
     if (elementSizes.contains(elementTypeName)) {

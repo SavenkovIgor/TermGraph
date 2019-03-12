@@ -24,13 +24,8 @@ public:
     explicit MainWindow(QObject *parent = nullptr);
     ~MainWindow();
 
-    // App settings
-//    void saveAppSettings();
-//    void loadAppSettings();
-
 public slots:
     int getUiElementSize(const QString& elementTypeName);
-
     int dbVersion();
 
 private:
