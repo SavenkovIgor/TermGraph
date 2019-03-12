@@ -9,8 +9,10 @@ import "UIExtensions"
 Page {
     id: newNodeEdit
 
+    property string defaultUuidText: "startValue"
+
     property StackView mainStack
-    property string nodeUuid: "startValue"
+    property string nodeUuid: defaultUuidText
     property bool newNode: nodeUuid === ""
 
     function open() { mainStack.push(newNodeEdit) }
@@ -25,7 +27,7 @@ Page {
             mainHeader.showArrowIcon()
         }
 
-        onMenuClick: mainStack.pop()
+        onMenuClick: exitFromThisPage()
         onCheckClick: newNodeEdit.addOrChangeNode()
     }
 
@@ -43,6 +45,7 @@ Page {
 
     function exitFromThisPage() {
         mainStack.pop()
+        nodeUuid = defaultUuidText
     }
 
     onNodeUuidChanged: {
