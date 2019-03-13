@@ -10,8 +10,8 @@ class TagProcessorTest : public QObject
     Q_OBJECT
 
 public:
-    TagProcessorTest() { }
-    ~TagProcessorTest() { }
+    TagProcessorTest() = default;
+    ~TagProcessorTest() override = default;
 
 private slots:
 
@@ -275,7 +275,7 @@ private slots:
         QFETCH(int, cursorPosition);
         QFETCH(QString, result);
 
-        TagProcessor* proc = new TagProcessor();
+        auto proc = new TagProcessor();
 
         QVERIFY(proc->addTagInPosition(cursorPosition, src) == result);
     }
@@ -336,7 +336,7 @@ private slots:
         QFETCH(int, cursorPosition);
         QFETCH(QString, result);
 
-        TagProcessor* proc = new TagProcessor();
+        auto proc = new TagProcessor();
 
         QVERIFY(proc->expandRight(cursorPosition, src) == result);
     }
@@ -356,7 +356,7 @@ private slots:
         QFETCH(QString, src);
         QFETCH(QString, result);
 
-        TagProcessor* proc = new TagProcessor();
+        auto proc = new TagProcessor();
 
         QVERIFY(proc->decorateTags(src) == result);
     }

@@ -10,8 +10,8 @@ class TextProcessorTest : public QObject
     Q_OBJECT
 
 public:
-    TextProcessorTest() { }
-    ~TextProcessorTest() { }
+    TextProcessorTest() = default;
+    ~TextProcessorTest() override = default;
 
 private slots:
 
