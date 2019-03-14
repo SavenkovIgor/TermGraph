@@ -8,6 +8,7 @@
 #include "./edgtbl.h"
 #include "./appconfigtable.h"
 #include "./termgrouptbl.h"
+#include "../Helpers/appconfig.h"
 #include "../Helpers/fsworks.h"
 
 class DBAbstract
@@ -29,7 +30,11 @@ private:
     bool databaseExists(const QString& dbFilePath) const;
     void InitAllTables();
 
-    void makeDbUpdatesIfNeed();
+    int currentDbVersion();
+    bool needDbUpdate();
+    void makeBackupBeforeUpdate(const QString& filePath, const int& oldDbVersion);
+    void makeDbUpdate();
+    void execMigrationConditions(const int& currentDbVersion);
 };
 
 #endif  // DBABSTRACT_H

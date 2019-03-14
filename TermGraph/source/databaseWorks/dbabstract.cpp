@@ -16,8 +16,9 @@ DBAbstract::DBAbstract(const QString &filePath)
 
     // Create database if not exist earlier
     base->setDatabaseName(filePath);
+
     if (base->open()) {
-        qDebug() << "baseIsOpen";
+        qDebug() << "Database opened";
     } else {
         qDebug() << "cantOpenBase" << base->lastError().text();
     }
@@ -32,7 +33,19 @@ DBAbstract::DBAbstract(const QString &filePath)
         InitAllTables();
     }
 
-    makeDbUpdatesIfNeed();
+    if (needDbUpdate()) {
+        auto oldDbVersion = currentDbVersion();
+        // Close, make backup, open again, and then update base
+        qDebug() << "Closing database";
+        base->close();
+        makeBackupBeforeUpdate(filePath, oldDbVersion);
+        qDebug() << "Opening database";
+        base->open();
+        makeDbUpdate();
+    } else {
+        qDebug() << "Database is actual. No need to update";
+    }
+
 }
 
 DBAbstract::~DBAbstract()
@@ -50,24 +63,46 @@ void DBAbstract::InitAllTables()
     appConfigTable->initTable();
 }
 
-void DBAbstract::makeDbUpdatesIfNeed()
+int DBAbstract::currentDbVersion()
 {
-    if (appConfigTable->isDbVersionActual()) {
-        qDebug() << "Database is actual. No need to update";
-        return;
-    }
+    return appConfigTable->getDbVersion();
+}
 
-    auto dbVersion = appConfigTable->getDbVersion();
+bool DBAbstract::needDbUpdate()
+{
+    return !appConfigTable->isDbVersionActual();
+}
+
+void DBAbstract::makeBackupBeforeUpdate(const QString &filePath, const int &oldDbVersion)
+{
+    qDebug() << "Making backup";
+    QFile dbFile(filePath);
+    QString fileName;
+    fileName += "dbVersion_" + QString::number(oldDbVersion);
+    fileName += " date_" + QDateTime::currentDateTime().toString(Qt::ISODate);
+    fileName += ".termGraph";
+    fileName.replace(':','_');
+    dbFile.copy(AppConfig::StdFolderPaths::backupFolder() + "/" + fileName);
+}
+
+void DBAbstract::makeDbUpdate()
+{
+    auto dbVersion = currentDbVersion();
     qDebug() << "Updating database!";
     qDebug() << "Start version: " << dbVersion;
 
-    if (dbVersion < 1) {
+    execMigrationConditions(dbVersion);
+
+    appConfigTable->updateDbVersionNumber();
+    qDebug() << "Update finished. New db version:" << currentDbVersion();
+}
+
+void DBAbstract::execMigrationConditions(const int &currentDbVersion)
+{
+    if (currentDbVersion < 1) {
         qDebug() << "Initing appConfig table";
         appConfigTable->initTable();
     }
-
-    appConfigTable->updateDbVersionNumber();
-    qDebug() << "Update finished. New db version:" << appConfigTable->getDbVersion();
 }
 
 QStringList DBAbstract::recordToStrList(QSqlRecord q)

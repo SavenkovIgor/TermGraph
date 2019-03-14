@@ -17,7 +17,7 @@ void AppConfig::StdFolderPaths::createDefaultFoldersIfNeed()
 
 QString AppConfig::StdFolderPaths::backupFolder()
 {
-    return userAppConfigFolder() + "/DbBackup";
+    return userAppConfigFolder() + "/MigrationBackup";
 }
 
 QString AppConfig::StdFolderPaths::groupsJsonFolder()
