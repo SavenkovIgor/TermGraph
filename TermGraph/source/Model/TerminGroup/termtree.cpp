@@ -111,11 +111,11 @@ void TermTree::checkSwap()
 
             if (newIntersect < inter) {
                 stacks[layer]->swapNodes(levLst[j], levLst[j+1]);
-                //                qDebug()<<"swapReason:intersections"<<t.elapsed();
                 return;
-            } else if (newIntersect <= inter && (sum2 < sum1 && sum1-sum2 > sum1*0.2)) {
+            }
+
+            if (newIntersect <= inter && (sum2 < sum1 && sum1-sum2 > sum1*0.2)) {
                 stacks[layer]->swapNodes(levLst[j], levLst[j+1]);
-                //                qDebug()<<"swapReason:length"<<t.elapsed();
                 return;
             }
         }
