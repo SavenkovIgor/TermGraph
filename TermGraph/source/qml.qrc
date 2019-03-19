@@ -19,5 +19,6 @@
         <file>qml/UIExtensions/GroupsDrawer.qml</file>
         <file>qml/MainSceneView.qml</file>
         <file>qml/OnboardingGallery.qml</file>
+        <file>qml/UIExtensions/OnBoardCard.qml</file>
     </qresource>
 </RCC>

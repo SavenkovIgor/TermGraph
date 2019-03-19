@@ -29,48 +29,19 @@ Page {
 
         property real minWH: Math.min(width, height)
 
-        Pane {
-            background: Rectangle {
-                color: "#332f30"
-            }
-
-            Rectangle {
-                id: tip1
-
-                property real marginVal: swipeView.minWH * 0.03
-
-                anchors.fill: parent
-
-                anchors.topMargin: marginVal
-                anchors.bottomMargin: marginVal
-                anchors.leftMargin: marginVal
-                anchors.rightMargin: marginVal
-
-                radius: swipeView.minWH * 0.08
-                color: "#6f6f6f"
-            }
+        OnBoardCard {
+            id: tip1
+            baseSize: swipeView.minWH
         }
 
-        Pane {
-            background: Rectangle {
-                color: "#332f30"
-            }
+        OnBoardCard {
+            id: tip2
+            baseSize: swipeView.minWH
+        }
 
-            Rectangle {
-                id: tip2
-
-                property real marginVal: swipeView.minWH * 0.03
-
-                anchors.fill: parent
-
-                anchors.topMargin: marginVal
-                anchors.bottomMargin: marginVal
-                anchors.leftMargin: marginVal
-                anchors.rightMargin: marginVal
-
-                radius: swipeView.minWH * 0.08
-                color: "#6f6f6f"
-            }
+        OnBoardCard {
+            id: tip3
+            baseSize: swipeView.minWH
         }
     }
 
