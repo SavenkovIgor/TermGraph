@@ -18,6 +18,19 @@ ApplicationWindow {
 //        showMaximized();
 //    }
 
+    // Qml colors object
+    QtObject {
+        id: appColors
+        property string black:         "#000000"
+        property string white:         "#e8e8e8"
+        property string whiteDisabled: "#9c9c9c"
+        property string base:          "#332f30"
+        property string baseLight:     "#4f4f4f"
+        property string baseLight2:    "#464544"
+        property string baseLight3:    "#6f6f6f"
+        property string accent:        "#2f7ba3"
+    }
+
     Component {
         id: mainSceneItem
         MainSceneView {
@@ -58,12 +71,12 @@ ApplicationWindow {
                 x: parent.width - width
                 width: parent.width / 100
                 height: parent.height
-                color: "#e8e8e8"
+                color: appColors.white
                 z: 1
             }
 
             Rectangle {
-                color: "#4f4f4f"
+                color: appColors.baseLight
                 width: parent.width
                 height: parent.height
             }

@@ -131,7 +131,7 @@ Page {
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
         background: Rectangle {
-            color: "#332f30"
+            color: appColors.base
         }
 
         Column {

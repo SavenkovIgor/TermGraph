@@ -29,7 +29,7 @@ Page {
 
     Rectangle {
         anchors.fill: parent
-        color: "#332f30"
+        color: appColors.base
     }
 
     Column {

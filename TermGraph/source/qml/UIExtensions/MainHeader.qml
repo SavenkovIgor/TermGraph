@@ -11,7 +11,7 @@ ToolBar {
 
     background: Rectangle {
         anchors.fill: parent
-        color: "#4f4f4f"
+        color: appColors.baseLight
     }
 
     property alias titleText: titleLabel.text
@@ -29,7 +29,7 @@ ToolBar {
 
         MyRoundButton {
             id: mainMenuButton
-            color: "#e8e8e8"
+            color: appColors.white
             backgroundHidden: true
             onClicked: mainHeader.menuClick()
         }
@@ -48,7 +48,7 @@ ToolBar {
             id: checkButton
             iconName: "check"
             visible: false
-            color: "#e8e8e8"
+            color: appColors.white
             backgroundHidden: true
 
             onClicked: mainHeader.checkClick()

@@ -28,7 +28,7 @@ Drawer {
 
         Rectangle {
             anchors.fill: parent
-            color: "#4f4f4f"
+            color: appColors.baseLight
             z: -1
         }
 
@@ -56,7 +56,7 @@ Drawer {
                 font.weight: Font.Thin
                 height: Math.floor( font.pixelSize*2.0 )
 
-                color: "#e8e8e8"
+                color: appColors.white
 
                 text: groupsManager.getGroupName(modelData)
 
@@ -77,7 +77,7 @@ Drawer {
                 y: parent.height - height
                 height: Math.max(parent.height / 100, 1)
                 width: parent.width * 0.95
-                color: "#e8e8e8"
+                color: appColors.white
             }
 
             MouseArea {

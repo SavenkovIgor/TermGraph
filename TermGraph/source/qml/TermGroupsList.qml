@@ -93,7 +93,7 @@ Page {
 
     Rectangle {
         anchors.fill: parent
-        color: "#332f30"
+        color: appColors.base
     }
 
     ListView {
@@ -108,7 +108,7 @@ Page {
 
         highlight: Rectangle {
             width: 200; height: 20
-            color: "#464544"
+            color: appColors.baseLight2
             y: groupsList.currentItem.y;
         }
 
@@ -132,7 +132,7 @@ Page {
             states: State {
                 name: "Current"
                 when: lstDlgt.ListView.isCurrentItem
-                PropertyChanges { target: lstDlgt; color: "#464544" }
+                PropertyChanges { target: lstDlgt; color: appColors.baseLight2 }
             }
 
             color: "transparent"
@@ -148,7 +148,7 @@ Page {
 
                     font.weight: Font.Medium
 
-                    color: "#e8e8e8"
+                    color: appColors.white
 
                     text: groupsManager.getGroupName(modelData)
                     font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity

@@ -21,7 +21,7 @@ Column {
         width: parent.width
         font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
 
-        color: "#2f7ba3"
+        color: appColors.accent
     }
 
     TextField {
@@ -32,7 +32,7 @@ Column {
 
         onTextChanged: newText()
 
-        color: "#e8e8e8"
-        placeholderTextColor: "#9c9c9c"
+        color: appColors.white
+        placeholderTextColor: appColors.whiteDisabled
     }
 }

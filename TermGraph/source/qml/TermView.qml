@@ -24,7 +24,7 @@ Page {
 
     Rectangle {  // Background
         anchors.fill: parent
-        color: "#332f30"
+        color: appColors.base
     }
 
     function loadSelectedNode() {

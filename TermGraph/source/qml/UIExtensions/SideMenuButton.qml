@@ -13,10 +13,10 @@ Button {
     property alias labelText: label.text
     property alias iconName: icon.iconName
 
-    property string baseColor: "#e8e8e8"
+    property string baseColor: appColors.white
 
     onEnabledChanged: {
-        baseColor = "#55e8e8e8"
+        baseColor = appColors.whiteDisabled
     }
 
     onBaseColorChanged: {
@@ -30,7 +30,7 @@ Button {
 
         MyRoundButton {
             id: icon
-            color: "#e8e8e8"
+            color: appColors.white
             backgroundHidden: true
 
             icon.width: label.font.pixelSize * 1.8
@@ -43,7 +43,7 @@ Button {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
 
-            color: "#e8e8e8"
+            color: appColors.white
 
             font.weight: Font.Thin
             font.pixelSize: mainObj.getUiElementSize("capitalText") * Screen.pixelDensity

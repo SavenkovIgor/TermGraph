@@ -3,7 +3,7 @@ import QtQuick.Controls 2.5
 
 Pane {
     background: Rectangle {
-        color: "#332f30"
+        color: appColors.base
     }
 
     property real baseSize: 50
@@ -21,7 +21,7 @@ Pane {
         anchors.rightMargin: marginVal
 
         radius: baseSize * 0.08
-        color: "#6f6f6f"
+        color: appColors.baseLight3
 
         Text {
             id: tip1title

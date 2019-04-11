@@ -54,7 +54,7 @@ RoundButton {
     background: Rectangle {
         id: back
         radius: width / 2
-        color: !root.backgroundHidden ? "#fffff0" : "#00000000"
+        color: !root.backgroundHidden ? appColors.white : "transparent"
     }
 
     width:  mainObj.getUiElementSize("roundButton")*Screen.pixelDensity

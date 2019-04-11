@@ -15,7 +15,7 @@ ColumnLayout {
         font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity + 1
         font.weight: Font.DemiBold
 
-        color: "#2f7ba3"
+        color: appColors.accent
 
         Layout.fillWidth: true
     }
@@ -27,7 +27,7 @@ ColumnLayout {
 
         anchors.leftMargin: 30
 
-        color: "#e8e8e8"
+        color: appColors.white
 
         Layout.fillWidth: true
     }

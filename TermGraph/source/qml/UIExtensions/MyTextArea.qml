@@ -22,7 +22,7 @@ Column {
         id: label
         anchors { left: parent.left; right: parent.right; }
 
-        color: "#2f7ba3"
+        color: appColors.accent
 
         font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
     }
@@ -31,8 +31,8 @@ Column {
         id: txtArea
         anchors { left: parent.left; right: parent.right; }
 
-        color: "#e8e8e8"
-        placeholderTextColor: "#9c9c9c"
+        color: appColors.white
+        placeholderTextColor: appColors.whiteDisabled
 
         font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
 

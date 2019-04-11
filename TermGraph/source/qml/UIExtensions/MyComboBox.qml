@@ -22,7 +22,7 @@ ComboBox {
     background: Rectangle {
         width: contItem.width+35
         height: contItem.height
-        border.color: "#000000"
+        border.color: appColors.black
         border.width: 1
     }
 
@@ -42,7 +42,7 @@ ComboBox {
         }
 
         background: Rectangle {
-            border.color: "#000000"
+            border.color: appColors.black
             radius: 2
         }
     }
