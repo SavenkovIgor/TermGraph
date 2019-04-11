@@ -150,5 +150,11 @@
         <file>icons/book-4x.png</file>
         <file>icons/book-6x.png</file>
         <file>icons/book-8x.png</file>
+        <file>icons/loop-circular.png</file>
+        <file>icons/loop-circular-2x.png</file>
+        <file>icons/loop-circular-3x.png</file>
+        <file>icons/loop-circular-4x.png</file>
+        <file>icons/loop-circular-6x.png</file>
+        <file>icons/loop-circular-8x.png</file>
     </qresource>
 </RCC>

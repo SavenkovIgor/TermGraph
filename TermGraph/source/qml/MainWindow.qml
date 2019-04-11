@@ -99,6 +99,22 @@ ApplicationWindow {
             }
 
             SideMenuButton {
+                id: syncMenuButton
+                enabled: false
+                labelText: "Синхронизация"
+                iconPath: "qrc:/icons/loop-circular"
+
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                Layout.topMargin: 5
+                Layout.bottomMargin: 5
+                Layout.leftMargin: 25
+                Layout.rightMargin: 25
+
+                onClicked: appSideMenu.openItem(groupsListPage)
+            }
+
+            SideMenuButton {
                 id: settingsMenuButton
                 labelText: "Настройки"
                 iconPath: "qrc:/icons/cog"
