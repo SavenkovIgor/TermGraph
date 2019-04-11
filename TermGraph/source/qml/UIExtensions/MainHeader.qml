@@ -35,9 +35,7 @@ ToolBar {
         MyRoundButton {
             id: mainMenuButton
             color: "#e8e8e8"
-
-            Component.onCompleted: hideBack()
-
+            backgroundHidden: true
             onClicked: mainHeader.menuClick()
         }
 
@@ -54,13 +52,10 @@ ToolBar {
         MyRoundButton {
             id: checkButton
             visible: false
-
             color: "#e8e8e8"
+            backgroundHidden: true
 
-            Component.onCompleted: {
-                hideBack()
-                loadIcon("qrc:/icons/check")
-            }
+            Component.onCompleted: loadIcon("qrc:/icons/check")
 
             onClicked: mainHeader.checkClick()
         }

@@ -33,14 +33,12 @@ Button {
             property string iconPath: ""
 
             color: "#e8e8e8"
+            backgroundHidden: true
 
             icon.width: label.font.pixelSize * 1.8
             icon.height: label.font.pixelSize * 1.8
 
-            Component.onCompleted: {
-                loadIcon(iconPath)
-                hideBack()
-            }
+            Component.onCompleted: loadIcon(iconPath)
         }
 
         Text {
