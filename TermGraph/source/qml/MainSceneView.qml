@@ -88,13 +88,12 @@ Page {
 
     MyRoundButton {
         id: addNodeButton
-        visible: true
         z: 3
 
-        anchors {
-            right: parent.right
-            bottom: parent.bottom
-        }
+        iconName: "plus"
+        visible: true
+
+        anchors { right: parent.right; bottom: parent.bottom; }
 
         Shortcut {
             sequence: "Ctrl+n"
@@ -102,7 +101,6 @@ Page {
         }
 
         onClicked: openNewNodePage()
-        Component.onCompleted: loadIcon( "qrc:/icons/plus" )
 
         function openNewNodePage() {
             if (groupsManager.hasAnyGroup()) {
@@ -118,31 +116,25 @@ Page {
     MyRoundButton {
         id: showGroupListButton
         z: 3
-
-        anchors {
-            right: parent.right
-            top: parent.top
-        }
-
+        iconName: "spreadsheet"
         visible: groupsManager.hasAnyGroup()
+
+        anchors { top: parent.top; right: parent.right; }
 
         function updateVisibility() {
             visible = groupsManager.hasAnyGroup()
         }
 
         onClicked: groupsList.open()
-        Component.onCompleted: loadIcon( "qrc:/icons/spreadsheet")
     }
 
     MyRoundButton {
         id: editNodeButton
         z: 3
+        iconName: "pencil"
         visible: false
 
-        anchors {
-            right: parent.right
-            bottom: parent.bottom
-        }
+        anchors { right: parent.right; bottom: parent.bottom; }
 
         Shortcut {
             sequence: "Ctrl+e"
@@ -150,7 +142,7 @@ Page {
         }
 
         onClicked: openEditNodePage(sceneObj.getCurrNodeUuid())
-        Component.onCompleted: loadIcon( "qrc:/icons/pencil" )
+
 
         function openEditNodePage(nodeUuid) {
             if (nodeUuid !== "") {
@@ -163,15 +155,12 @@ Page {
     MyRoundButton {
         id : deleteNodeButton
         z: 3
+        iconName: "trash"
         visible: false
 
-        anchors {
-            right: parent.right
-            bottom: editNodeButton.top
-        }
+        anchors { right: parent.right; bottom: editNodeButton.top; }
 
         onClicked: nodeDelDialog.visible = true
-        Component.onCompleted: loadIcon( "qrc:/icons/trash" )
     }
 
     MessageDialog {
@@ -192,6 +181,7 @@ Page {
     MyRoundButton {
         id : nodeInfoButton
         z: 3
+        iconName: "info"
         visible: false
 
         anchors.right: editNodeButton.left
@@ -203,7 +193,6 @@ Page {
         }
 
         onClicked: openTerm()
-        Component.onCompleted: loadIcon( "qrc:/icons/info" )
 
         function openTerm() {
             if (sceneObj.hasSelection()) {

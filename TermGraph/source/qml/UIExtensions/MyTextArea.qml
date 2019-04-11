@@ -11,10 +11,7 @@ Column {
     property alias txtFocus: txtArea.focus
     property alias cursorPosition: txtArea.cursorPosition
 
-    anchors {
-        left: parent.left
-        right: parent.right
-    }
+    anchors { left: parent.left; right: parent.right; }
 
     function takeFocus() {
         txtArea.forceActiveFocus()
@@ -23,10 +20,7 @@ Column {
 
     Label {
         id: label
-        anchors {
-            left: parent.left
-            right: parent.right
-        }
+        anchors { left: parent.left; right: parent.right; }
 
         color: "#2f7ba3"
 
@@ -35,10 +29,7 @@ Column {
 
     TextArea {
         id: txtArea
-        anchors {
-            left: parent.left
-            right: parent.right
-        }
+        anchors { left: parent.left; right: parent.right; }
 
         color: "#e8e8e8"
         placeholderTextColor: "#9c9c9c"

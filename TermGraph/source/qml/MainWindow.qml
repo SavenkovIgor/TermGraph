@@ -86,7 +86,7 @@ ApplicationWindow {
             SideMenuButton {
                 id: groupMenuButton
                 labelText: "Группы    "
-                iconPath: "qrc:/icons/list"
+                iconName: "list"
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
@@ -102,7 +102,7 @@ ApplicationWindow {
                 id: syncMenuButton
                 enabled: false
                 labelText: "Синхронизация"
-                iconPath: "qrc:/icons/loop-circular"
+                iconName: "loop-circular"
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
@@ -117,7 +117,7 @@ ApplicationWindow {
             SideMenuButton {
                 id: settingsMenuButton
                 labelText: "Настройки"
-                iconPath: "qrc:/icons/cog"
+                iconName: "cog"
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
@@ -133,7 +133,7 @@ ApplicationWindow {
                 id: helpMenuButton
                 enabled: false
                 labelText: "Справка"
-                iconPath: "qrc:/icons/book"
+                iconName: "book"
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter

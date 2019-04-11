@@ -10,10 +10,7 @@ Column {
 
     signal newText
 
-    anchors {
-        left: parent.left
-        right: parent.right
-    }
+    anchors { left: parent.left; right: parent.right; }
 
     function takeFocus() {
         txtField.forceActiveFocus()

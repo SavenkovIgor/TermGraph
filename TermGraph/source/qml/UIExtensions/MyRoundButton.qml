@@ -9,32 +9,30 @@ RoundButton {
     property alias color: root.icon.color
     property bool backgroundHidden: false
 
-    function loadIcon(nameUrl) {
-        var sz = width - (2 * padding) //need icon width
+    property string iconName: ""
 
-        var prefix = getPrefixForSize(sz)
+    onIconNameChanged: loadIcon()
 
+    function loadIcon() {
+        // Take object width
+        var sz = width - (2 * padding)
         icon.width  = Math.floor(sz)
         icon.height = Math.floor(sz)
 
-        icon.source = nameUrl + prefix + ".png"
+        var prefix = getPrefixForSize(sz)
+        icon.source = "qrc:/icons/" + iconName + prefix + ".png"
     }
 
     function getPrefixForSize(size) {
-        //8 16 24 32 48 64 sizes
-        //8  ""
-        //16 "-2x"
-        //24 "-3x"
-        //32 "-4x"
-        //48 "-6x"
-        //64 "-8x"
+        // file suffixes
+        // 8() 16(-2x) 24(-3x) 32(-4x) 48(-6x) 64(-8x)
 
-        //Middles:
-        //8  - 16: 12
-        //16 - 24: 20
-        //24 - 32: 28
-        //32 - 48: 40
-        //48 - 64: 56
+        // Middles:
+        // 8  - 16: 12
+        // 16 - 24: 20
+        // 24 - 32: 28
+        // 32 - 48: 40
+        // 48 - 64: 56
 
         if (size <= 12)
             return ""

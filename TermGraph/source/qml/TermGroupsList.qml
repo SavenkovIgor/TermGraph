@@ -38,26 +38,20 @@ Page {
 
     MyRoundButton {
         id: addGroupBtn
+        iconName: "plus"
 
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
+        anchors { right: parent.right; bottom: parent.bottom; }
 
-        onClicked: {
-            newGroupDrawer.open()
-        }
-        Component.onCompleted: loadIcon("qrc:/icons/plus")
+        onClicked: newGroupDrawer.open()
     }
 
     MyRoundButton {
         id: deleteGroupBtn
+        iconName: "trash"
 
-        anchors.right: parent.right
-        anchors.bottom: addGroupBtn.top
+        anchors { right: parent.right; bottom: addGroupBtn.top; }
 
-        onClicked: {
-            groupDeleteDialog.visible = true
-        }
-        Component.onCompleted: loadIcon("qrc:/icons/trash")
+        onClicked: groupDeleteDialog.visible = true
     }
 
     // Temporary hide FileExportButton
@@ -80,13 +74,11 @@ Page {
 
     MyRoundButton {
         id: sendByNetworkButton
+        iconName: "share-boxed"
 
-        anchors.right: addGroupBtn.left
-        anchors.bottom: parent.bottom
+        anchors { right: addGroupBtn.left; bottom: parent.bottom; }
 
-        onClicked: { groupsManager.sendGroupByNetwork(groupsList.currentItem.groupUuid) }
-
-        Component.onCompleted: loadIcon("qrc:/icons/share-boxed")
+        onClicked: groupsManager.sendGroupByNetwork(groupsList.currentItem.groupUuid)
     }
 
     Connections {
@@ -276,12 +268,9 @@ Page {
 
             MyRoundButton {
                 id: newGroupAddButton
+                iconName: "check"
 
                 Layout.rightMargin: addGroupLay.spacing
-
-                Component.onCompleted: {
-                    loadIcon("qrc:/icons/check")
-                }
 
                 onClicked: {
                     groupsManager.addNewGroup(newGroupName.text, "")

@@ -96,14 +96,12 @@ Page {
         }
     }
 
-
     MyRoundButton {
         id: makeTag
-
-        anchors.right: expandTagRight.left
-        anchors.top: parent.top
-
+        iconName: "code"
         visible: termDefin.txtFocus
+
+        anchors { top: parent.top; right: expandTagRight.left; }
 
         onClicked: {
             var pos = termDefin.cursorPosition
@@ -111,16 +109,14 @@ Page {
             termDefin.takeFocus()
             termDefin.cursorPosition = pos;
         }
-        Component.onCompleted: loadIcon("qrc:/icons/code")
     }
 
     MyRoundButton {
         id: expandTagRight
-
-        anchors.right: parent.right
-        anchors.top: parent.top
-
+        iconName: "extendRight"
         visible: termDefin.txtFocus
+
+        anchors { top: parent.top; right: parent.right; }
 
         onClicked: {
             var pos = termDefin.cursorPosition
@@ -128,7 +124,6 @@ Page {
             termDefin.takeFocus()
             termDefin.cursorPosition = pos
         }
-        Component.onCompleted: loadIcon("qrc:/icons/extendRight")
     }
 
     ScrollView {

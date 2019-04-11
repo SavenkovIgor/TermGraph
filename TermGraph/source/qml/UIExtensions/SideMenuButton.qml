@@ -11,7 +11,7 @@ Button {
     flat: true
 
     property alias labelText: label.text
-    property alias iconPath: icon.iconPath
+    property alias iconName: icon.iconName
 
     property string baseColor: "#e8e8e8"
 
@@ -30,15 +30,11 @@ Button {
 
         MyRoundButton {
             id: icon
-            property string iconPath: ""
-
             color: "#e8e8e8"
             backgroundHidden: true
 
             icon.width: label.font.pixelSize * 1.8
             icon.height: label.font.pixelSize * 1.8
-
-            Component.onCompleted: loadIcon(iconPath)
         }
 
         Text {

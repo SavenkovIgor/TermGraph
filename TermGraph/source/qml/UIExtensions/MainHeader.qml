@@ -16,13 +16,8 @@ ToolBar {
 
     property alias titleText: titleLabel.text
 
-    function showMenuIcon() {
-        mainMenuButton.loadIcon("qrc:/icons/menu")
-    }
-
-    function showArrowIcon() {
-        mainMenuButton.loadIcon("qrc:/icons/arrow-thick-left")
-    }
+    function showMenuIcon()  { mainMenuButton.iconName = "menu" }
+    function showArrowIcon() { mainMenuButton.iconName = "arrow-thick-left" }
 
     function showCheckButton() {
         checkButton.visible = true
@@ -51,11 +46,10 @@ ToolBar {
 
         MyRoundButton {
             id: checkButton
+            iconName: "check"
             visible: false
             color: "#e8e8e8"
             backgroundHidden: true
-
-            Component.onCompleted: loadIcon("qrc:/icons/check")
 
             onClicked: mainHeader.checkClick()
         }
