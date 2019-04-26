@@ -22,7 +22,7 @@ class MainWindow : public QObject
 
 public:
     explicit MainWindow(QObject *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() = default;
 
 public slots:
     int getUiElementSize(const QString& elementTypeName);

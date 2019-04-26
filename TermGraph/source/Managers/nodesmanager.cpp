@@ -19,7 +19,7 @@ bool NodesManager::addNewNode(
     if (!correctNewNodeName(name, groupUuid))
         return false;
 
-    QUuid nodeUuid = Glb::db->nodeTbl->addNode(name, groupUuid);
+    QUuid nodeUuid = Glb::dbPtr->nodeTbl->addNode(name, groupUuid);
     return changeNode(nodeUuid, name, forms, def, descr, exam, groupUuid, sendChangeSignal);
 }
 
@@ -60,7 +60,7 @@ bool NodesManager::changeNode(
         const QUuid& groupUuid,
         const bool& sendChangeSignal)
 {
-    DBAbstract* db = Glb::db;
+    DBAbstract* db = Glb::dbPtr.get();
 
     db->nodeTbl->setName(nodeUuid, name);
     db->nodeTbl->setWordForms(nodeUuid, forms);
@@ -78,8 +78,7 @@ bool NodesManager::changeNode(
 
 void NodesManager::deleteNode(QUuid uuid)
 {
-    DBAbstract* db = Glb::db;
-    db->nodeTbl->deleteNode(uuid);
+    Glb::dbPtr->nodeTbl->deleteNode(uuid);
     nodeChanged();
 }
 
@@ -98,25 +97,22 @@ PaintedTerm::List NodesManager::getAllNodesForGroup(QUuid groupUuid)
 
 QList<QUuid> NodesManager::getAllNodesUuidsInGroup(QUuid groupUuid)
 {
-    DBAbstract* db = Glb::db;
-    return db->nodeTbl->getAllNodesUuidsInGroup(groupUuid);
+    return Glb::dbPtr->nodeTbl->getAllNodesUuidsInGroup(groupUuid);
 }
 
 QSqlRecord NodesManager::getNodeSqlRecord(QUuid nodeUuid)
 {
-    DBAbstract* db = Glb::db;
-    return db->nodeTbl->getNodeSqlRecord(nodeUuid);
+    return Glb::dbPtr->nodeTbl->getNodeSqlRecord(nodeUuid);
 }
 
 QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
 {
-    DBAbstract* db = Glb::db;
-    return db->nodeTbl->getLastEdit(nodeUuid);
+    return Glb::dbPtr->nodeTbl->getLastEdit(nodeUuid);
 }
 
 void NodesManager::importNodeFromJson(QJsonObject nodeObject)
 {
-    DBAbstract* db = Glb::db;
+    DBAbstract* db = Glb::dbPtr.get();
     QUuid nodeUuid = QUuid(nodeObject.value(NodeColumn::longUID).toString());
 
     if (nodeUuid.isNull()) {
@@ -173,7 +169,7 @@ bool NodesManager::correctGroupUuid(const QUuid &groupUuid, bool sendWarnings)
         return false;
     }
 
-    if (!Glb::db->groupTbl->hasGroupWithUuid(groupUuid)) {
+    if (!Glb::dbPtr->groupTbl->hasGroupWithUuid(groupUuid)) {
         if (sendWarnings) {
             showWarning("Группа " + groupUuid.toString() + " не найдена");
         }
@@ -197,7 +193,7 @@ bool NodesManager::correctNewNodeName(const QString &name, QUuid &groupUuid, boo
 
 QUuid NodesManager::getNodeUuidByNameAndGroup(const QString &name, QUuid &groupUuid) const
 {
-    return Glb::db->nodeTbl->nodeUuidForNameAndGroup(name, groupUuid);
+    return Glb::dbPtr->nodeTbl->nodeUuidForNameAndGroup(name, groupUuid);
 }
 
 bool NodesManager::hasNodeWithNameInGroup(const QString &name, QUuid &groupUuid) const

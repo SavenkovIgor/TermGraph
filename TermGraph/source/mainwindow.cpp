@@ -18,7 +18,7 @@ MainWindow::MainWindow(QObject *parent):
     QQuickStyle::setStyle("Material");
 
     // Database init
-    Glb::db = new DBAbstract(AppConfig::StdFolderPaths::defaultDatabaseFilePath());
+    Glb::dbPtr.reset(new DBAbstract(AppConfig::StdFolderPaths::defaultDatabaseFilePath()));
     groupsManager->updateGroupUuidNameMaps();
 
     // remind = new Reminder(scene->getAllNodes());
@@ -36,11 +36,6 @@ MainWindow::MainWindow(QObject *parent):
     qmlEngine->load(QUrl("qrc:/qml/MainWindow.qml"));
 }
 
-MainWindow::~MainWindow()
-{
-    delete Glb::db;
-}
-
 int MainWindow::getUiElementSize(const QString &elementTypeName)
 {
     if (elementSizes.contains(elementTypeName)) {
@@ -53,7 +48,7 @@ int MainWindow::getUiElementSize(const QString &elementTypeName)
 
 int MainWindow::dbVersion()
 {
-    return Glb::db->appConfigTable->getDbVersion();
+    return Glb::dbPtr->appConfigTable->getDbVersion();
 }
 
 void MainWindow::initElemSizes()

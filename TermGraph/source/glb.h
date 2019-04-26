@@ -3,12 +3,14 @@
 
 #include <QList>
 
+#include <memory>
+
 #include "./databaseWorks/dbabstract.h"
 
 class Glb
 {
 public:
-    static DBAbstract* db;
+    static std::unique_ptr<DBAbstract> dbPtr;
 };
 
 #endif  // GLB_H

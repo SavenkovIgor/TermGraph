@@ -86,9 +86,8 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
         return;
     }
 
-    DBAbstract* db = Glb::db;
     int type = 0;  // GroupType::terms
-    if (db->groupTbl->addGroup(name, comment, type)) {
+    if (Glb::dbPtr->groupTbl->addGroup(name, comment, type)) {
         updateGroupUuidNameMaps();
         groupsListChanged();
     } else {
@@ -98,7 +97,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 
 void GroupsManager::deleteGroup(QString uuidString)
 {
-    Glb::db->groupTbl->deleteGroup(QUuid(uuidString));
+    Glb::dbPtr->groupTbl->deleteGroup(QUuid(uuidString));
     updateGroupUuidNameMaps();
     groupsListChanged();
 }
@@ -146,11 +145,10 @@ TermGroup* GroupsManager::createGroup(const QString& groupName)
 
 TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
 {
-    DBAbstract* db = Glb::db;
     if (groupUuid.isNull())
         return nullptr;
 
-    QSqlRecord groupRecord = db->groupTbl->getGroup(groupUuid);
+    QSqlRecord groupRecord = Glb::dbPtr->groupTbl->getGroup(groupUuid);
     TermGroup* group = new TermGroup(groupRecord);
     group->loadNodes(nodesMgr->getAllNodesForGroup(groupUuid));
     return group;
@@ -158,7 +156,7 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
 
 bool GroupsManager::hasAnyGroup() const
 {
-    return !Glb::db->groupTbl->getAllGroupsUuid().isEmpty();
+    return !Glb::dbPtr->groupTbl->getAllGroupsUuid().isEmpty();
 }
 
 QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
@@ -177,11 +175,10 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 
 QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
 {
-    DBAbstract* db = Glb::db;
     QList<QPair<QUuid, QDateTime>> groupSorting;
 
     // Forming structure with group uuids and last edit times
-    for (QUuid groupUuid : db->groupTbl->getAllGroupsUuid()) {
+    for (QUuid groupUuid : Glb::dbPtr->groupTbl->getAllGroupsUuid()) {
         QPair<QUuid, QDateTime> pair;
         pair.first = groupUuid;
         pair.second = getLastEdit(groupUuid);
@@ -220,7 +217,7 @@ QStringList GroupsManager::getAllUuidStringsSortedByLastEdit()
 
 void GroupsManager::importGroupFromJson(const QJsonDocument& json)
 {
-    DBAbstract* db = Glb::db;
+    DBAbstract* db = Glb::dbPtr.get();
     if (!isValidGroupJson(json))
         return;
 
@@ -338,14 +335,11 @@ void GroupsManager::sendGroupByNetwork(const QString groupUuid)
 void GroupsManager::updateGroupUuidNameMaps()
 {
     qDebug() << "List updated";
-    if (Glb::db == nullptr) {
-        return;
-    }
 
     uuidToNames.clear();
     namesToUuid.clear();
 
-    for (auto sqlRecord : Glb::db->groupTbl->getAllUuidsAndNames()) {
+    for (auto sqlRecord : Glb::dbPtr->groupTbl->getAllUuidsAndNames()) {
         QUuid uuid(sqlRecord.value(TermGroupColumn::longUID).toString());
         QString name = sqlRecord.value(TermGroupColumn::name).toString();
 
