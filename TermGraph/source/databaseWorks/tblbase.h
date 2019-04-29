@@ -42,6 +42,7 @@ protected:
     void deleteWhere(const WhereCondition& where);
 
     static RecList toRecList(QSqlQuery&& q);
+    static RecVector toRecVector(QSqlQuery&& q);
 
     virtual TColumn::List getAllColumns() const = 0;
     virtual void initTable() = 0;

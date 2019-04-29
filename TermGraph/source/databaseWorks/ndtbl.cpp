@@ -162,9 +162,9 @@ QList<QUuid> NodeTable::getAllNodesUuids()
 {
     QList<QUuid> ret;
 
-    RecList idS = toRecList(select(NodeColumn::longUID));
-    for (QSqlRecord& r : idS) {
-        QUuid tmpUuid(r.value(NodeColumn::longUID).toString());
+    auto nodesUuids = toRecVector(select(NodeColumn::longUID));
+    for (auto& record : nodesUuids) {
+        QUuid tmpUuid(record.value(NodeColumn::longUID).toString());
         if (!tmpUuid.isNull()) {
             ret << tmpUuid;
         }
@@ -176,11 +176,11 @@ QList<QUuid> NodeTable::getAllNodesUuids()
 QList<QUuid> NodeTable::getAllNodesUuidsInGroup(const QUuid& groupUuid)
 {
     auto where = WhereCondition::columnEqual(NodeColumn::termGroup, groupUuid.toString());
-    RecList nodesRecords = toRecList(select(NodeColumn::longUID, where));
+    auto nodesRecords = toRecVector(select(NodeColumn::longUID, where));
 
     QList<QUuid> ret;
 
-    for (QSqlRecord& record : nodesRecords) {
+    for (auto& record : nodesRecords) {
         if (!record.contains(NodeColumn::longUID)) {
             continue;
         }

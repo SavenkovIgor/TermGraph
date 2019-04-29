@@ -165,3 +165,22 @@ RecList TblBase::toRecList(QSqlQuery&& q)
 
     return ret;
 }
+
+RecVector TblBase::toRecVector(QSqlQuery &&q)
+{
+    RecVector ret;
+
+    if (auto size = q.size(); size > 0) {
+        ret.reserve(size);
+    }
+
+    for (;;) {
+        if (!q.next()) {
+            break;
+        }
+
+        ret << q.record();
+    }
+
+    return ret;
+}

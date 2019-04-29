@@ -35,8 +35,8 @@ bool AppConfigTable::hasKey(const QString &key)
 {
     WhereCondition where;
     where.equal(AppConfigColumn::parameter, key);
-    auto recList = toRecList(select(AppConfigColumn::parameter, where));
-    return recList.size() == 1;
+    auto recVector = toRecVector(select(AppConfigColumn::parameter, where));
+    return recVector.size() == 1;
 }
 
 void AppConfigTable::setValue(const QString &key, const QString &value)
