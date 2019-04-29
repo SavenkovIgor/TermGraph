@@ -89,6 +89,18 @@ QSqlQuery TblBase::select(const TColumn::List &columns, const WhereCondition &wh
     return executeSelect(colsNames, where, orderBy);
 }
 
+bool TblBase::hasAnyRecord(const WhereCondition &where) const
+{
+    QString query = queryConstructor->selectOneQuery(where);
+    auto result = startQuery(query);
+    if (!result.next()) {
+        return false;
+    }
+
+    auto count = result.record().value("COUNT(*)").toInt();
+    return count > 0;
+}
+
 QSqlQuery TblBase::executeSelect(const QStringList& cols, const WhereCondition& where, const QString& orderBy) const
 {
     QString query = queryConstructor->selectQuery(cols, where, orderBy);

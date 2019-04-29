@@ -43,7 +43,7 @@ QString SqlQueryConstructor::selectQuery(const QStringList& columns, const Where
     qry << columns.join(CommonQueryFunctions::joinParam);
     qry << "FROM";
     qry << tableName;
-    if (where.getJoinedConditions() != ""){
+    if (where.getJoinedConditions() != "") {
         qry << "WHERE";
         qry << where.getJoinedConditions();
     }
@@ -51,6 +51,23 @@ QString SqlQueryConstructor::selectQuery(const QStringList& columns, const Where
        qry << "ORDER BY";
        qry << orderBy;
     }
+
+    return qry.join(" ");
+}
+
+QString SqlQueryConstructor::selectOneQuery(const WhereCondition &where)
+{
+    QStringList qry;
+    qry << "SELECT";
+    qry << "COUNT(*)";
+    qry << "FROM";
+    qry << tableName;
+    if (where.getJoinedConditions() != "") {
+        qry << "WHERE";
+        qry << where.getJoinedConditions();
+    }
+
+    qry << "LIMIT 1";
 
     return qry.join(" ");
 }

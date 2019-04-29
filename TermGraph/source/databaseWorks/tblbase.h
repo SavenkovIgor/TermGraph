@@ -11,7 +11,7 @@ typedef QVector<QSqlRecord>     RecVector;
 class TblBase
 {
 public:
-    TblBase(QString tableName,QSqlDatabase *base);
+    TblBase(QString tableName, QSqlDatabase *base);
     virtual ~TblBase() = default;
 
 protected:
@@ -32,6 +32,8 @@ protected:
             const TColumn::List &columns,
             const WhereCondition &where = WhereCondition(),
             const QString &orderBy = "") const;
+
+    bool hasAnyRecord(const WhereCondition& where) const;
 
     bool insertInto(const QList<InsertContainer> &values);
 

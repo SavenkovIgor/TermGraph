@@ -142,8 +142,7 @@ void NodeTable::updateLastEdit(const QUuid& uuid)
 
 bool NodeTable::isUuidExist(const QUuid &uuid)
 {
-    auto records = toRecVector(select(NodeColumn::longUID, WhereCondition::uuidEqual(uuid)));
-    return !records.isEmpty();
+    return hasAnyRecord(WhereCondition::uuidEqual(uuid));
 }
 
 QUuid NodeTable::generateNewUuid()

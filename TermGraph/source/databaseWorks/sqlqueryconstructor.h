@@ -148,7 +148,8 @@ public:
     QString createTable(TColumn::List columns);
     QString addColumn(TColumn column);
 
-    QString selectQuery(const QStringList &columns, const WhereCondition &where, const QString &orderBy = "");
+    QString selectQuery(const QStringList& columns, const WhereCondition& where, const QString &orderBy = "");
+    QString selectOneQuery(const WhereCondition& where);
     QString insertQuery(const QList<InsertContainer> &values);
     QString updateQuery(const SetExpression &set, const WhereCondition &where);
 

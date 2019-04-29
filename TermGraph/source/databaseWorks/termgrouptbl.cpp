@@ -55,8 +55,7 @@ void TermGroupTable::deleteGroup(QUuid uuid)
 
 bool TermGroupTable::hasGroupWithUuid(const QUuid& uuid)
 {
-    auto recs = toRecVector(select(TermGroupColumn::longUID, WhereCondition::uuidEqual(uuid)));
-    return !recs.isEmpty();
+    return hasAnyRecord(WhereCondition::uuidEqual(uuid));
 }
 
 QUuid TermGroupTable::generateNewUuid()
