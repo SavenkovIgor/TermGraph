@@ -85,12 +85,15 @@ void NodesManager::deleteNode(QUuid uuid)
 PaintedTerm::List NodesManager::getAllNodesForGroup(QUuid groupUuid)
 {
     PaintedTerm::List ret;
-    for (QUuid uuid : getAllNodesUuidsInGroup(groupUuid)) {
-        QSqlRecord rec = getNodeSqlRecord(uuid);
-        if (rec.count() == 0)
+
+    auto records = Glb::dbPtr->nodeTbl->getAllNodesDBRecrods(groupUuid);
+
+    for (auto record : records) {
+
+        if (record.count() == 0)
             continue;
 
-        ret << new PaintedTerm(rec);
+        ret << new PaintedTerm(record);
     }
     return ret;
 }

@@ -193,6 +193,12 @@ QList<QUuid> NodeTable::getAllNodesUuidsInGroup(const QUuid& groupUuid)
     return ret;
 }
 
+RecVector NodeTable::getAllNodesDBRecrods(const QUuid &groupUuid)
+{
+    auto where = WhereCondition::columnEqual(NodeColumn::termGroup, groupUuid.toString());
+    return toRecVector(select(getAllColumns(), where));
+}
+
 QDateTime NodeTable::getLastEdit(const QUuid &uuid)
 {
     QString field = getStringField(NodeColumn::lastEdit, uuid);

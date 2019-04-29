@@ -59,6 +59,7 @@ public:
 
     QList<QUuid> getAllNodesUuids();
     QList<QUuid> getAllNodesUuidsInGroup(const QUuid &groupUuid);
+    RecVector getAllNodesDBRecrods(const QUuid &groupUuid);
 
     QDateTime getLastEdit(const QUuid& uuid);
 

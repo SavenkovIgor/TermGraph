@@ -32,7 +32,7 @@ QString TblBase::getStringField(const TColumn& column, const QUuid& uuid) const
 
 QSqlQuery TblBase::startQuery(const QString& queryString) const
 {
-//    qDebug()<<queryString;
+//    qDebug() << queryString;
     if (queryString.simplified().isEmpty()) {
         return QSqlQuery();
     }
