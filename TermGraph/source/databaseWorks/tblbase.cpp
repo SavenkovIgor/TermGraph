@@ -151,11 +151,11 @@ void TblBase::setField(const TColumn &column, const QUuid &uuid, const QString &
     updateWhere(set, WhereCondition::uuidEqual(uuid));
 }
 
-RecList TblBase::toRecList(QSqlQuery q)
+RecList TblBase::toRecList(QSqlQuery&& q)
 {
     RecList ret;
 
-    for (int i = 0; i < 1000000; i++) {
+    for (;;) {
         if (!q.next()) {
             break;
         }

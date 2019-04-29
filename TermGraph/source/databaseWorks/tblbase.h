@@ -7,6 +7,7 @@
 
 typedef QMap <QString, QString> SqCond;
 typedef QList<QSqlRecord>       RecList;
+typedef QVector<QSqlRecord>     RecVector;
 
 class TblBase
 {
@@ -40,7 +41,7 @@ protected:
     void deleteRecord(const QUuid& uuid);
     void deleteWhere(const WhereCondition& where);
 
-    static RecList toRecList(QSqlQuery q);
+    static RecList toRecList(QSqlQuery&& q);
 
     virtual TColumn::List getAllColumns() const = 0;
     virtual void initTable() = 0;

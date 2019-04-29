@@ -88,7 +88,7 @@ RecList TermGroupTable::getAllUuidsAndNames()
     columns << TermGroupColumn::longUID;
     columns << TermGroupColumn::name;
     auto sel = select(columns);
-    return toRecList(sel);
+    return toRecList(std::move(sel));
 }
 
 bool TermGroupTable::hasGroupWithName(QString groupName)
