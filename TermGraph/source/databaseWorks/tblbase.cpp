@@ -151,21 +151,6 @@ void TblBase::setField(const TColumn &column, const QUuid &uuid, const QString &
     updateWhere(set, WhereCondition::uuidEqual(uuid));
 }
 
-RecList TblBase::toRecList(QSqlQuery&& q)
-{
-    RecList ret;
-
-    for (;;) {
-        if (!q.next()) {
-            break;
-        }
-
-        ret << q.record();
-    }
-
-    return ret;
-}
-
 RecVector TblBase::toRecVector(QSqlQuery &&q)
 {
     RecVector ret;

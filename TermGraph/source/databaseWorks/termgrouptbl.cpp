@@ -36,9 +36,9 @@ bool TermGroupTable::addGroup(QUuid uuid, QString name, QString comment, int typ
 QList<QUuid> TermGroupTable::getAllGroupsUuid()
 {
     QList<QUuid> ret;
-    RecList records = toRecList(select(TermGroupColumn::longUID));
+    auto records = toRecVector(select(TermGroupColumn::longUID));
 
-    for (QSqlRecord record : records) {
+    for (auto& record : records) {
         QUuid uuid(record.value(TermGroupColumn::longUID).toString());
         if (!uuid.isNull()) {
             ret << uuid;
@@ -55,7 +55,7 @@ void TermGroupTable::deleteGroup(QUuid uuid)
 
 bool TermGroupTable::hasGroupWithUuid(const QUuid& uuid)
 {
-    RecList recs = toRecList(select(TermGroupColumn::longUID, WhereCondition::uuidEqual(uuid)));
+    auto recs = toRecVector(select(TermGroupColumn::longUID, WhereCondition::uuidEqual(uuid)));
     return !recs.isEmpty();
 }
 
@@ -82,13 +82,13 @@ QUuid TermGroupTable::getUuid(const QString& groupName) const
     return QUuid(q.record().value(TermGroupColumn::longUID).toString());
 }
 
-RecList TermGroupTable::getAllUuidsAndNames()
+RecVector TermGroupTable::getAllUuidsAndNames()
 {
     TColumn::List columns;
     columns << TermGroupColumn::longUID;
     columns << TermGroupColumn::name;
     auto sel = select(columns);
-    return toRecList(std::move(sel));
+    return toRecVector(std::move(sel));
 }
 
 bool TermGroupTable::hasGroupWithName(QString groupName)

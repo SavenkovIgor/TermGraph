@@ -5,7 +5,7 @@ QUuid NodeTable::nodeUuidForNameAndGroup(const QString &name, const QUuid &group
     auto where = WhereCondition();
     where.equal(NodeColumn::term, name);
     where.equal(NodeColumn::termGroup, groupUuid.toString());
-    RecList nodesRecords = toRecList(select(NodeColumn::longUID, where));
+    auto nodesRecords = toRecVector(select(NodeColumn::longUID, where));
 
     if (!nodesRecords.isEmpty()) {
         return QUuid(nodesRecords.first().value(NodeColumn::longUID).toString());
@@ -142,8 +142,8 @@ void NodeTable::updateLastEdit(const QUuid& uuid)
 
 bool NodeTable::isUuidExist(const QUuid &uuid)
 {
-    RecList recs = toRecList(select(NodeColumn::longUID, WhereCondition::uuidEqual(uuid)));
-    return !recs.isEmpty();
+    auto records = toRecVector(select(NodeColumn::longUID, WhereCondition::uuidEqual(uuid)));
+    return !records.isEmpty();
 }
 
 QUuid NodeTable::generateNewUuid()

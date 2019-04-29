@@ -28,7 +28,7 @@ bool EdgTbl::hasThisEdge(int from, int to)
     where.equal(this->fromID,from);
     where.equal(this->toID,to);
 
-    RecList idS = toRecList(select(QStringList()<< uid, where));
+    auto idS = toRecVector(select(QStringList()<< uid, where));
 
     return !idS.isEmpty(); //Если список пуст - такого ребра нет
 }
