@@ -208,6 +208,15 @@ QDateTime NodeTable::getLastEdit(const QUuid &uuid)
     return QDateTime::fromString(field, Qt::ISODate);
 }
 
+RecVector NodeTable::getAllLastEditRecords()
+{
+    auto columns = TColumn::List();
+    columns << NodeColumn::longUID;
+    columns << NodeColumn::termGroup;
+    columns << NodeColumn::lastEdit;
+    return toRecVector(select(columns));
+}
+
 QSqlRecord NodeTable::getNodeSqlRecord(const QUuid &uuid)
 {
     QSqlQuery sel = select(getAllColumns(), WhereCondition::uuidEqual(uuid));

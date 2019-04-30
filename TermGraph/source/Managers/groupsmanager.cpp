@@ -175,13 +175,40 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 
 QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
 {
+    using namespace std;
+
+    // First - nodeUuid, second - groupUuid, third - lastEdit
+    QList<tuple<QUuid, QUuid, QDateTime>> allLastEdits;
+
+    for (auto record : Glb::dbPtr->nodeTbl->getAllLastEditRecords()) {
+        QUuid nodeUuid  = QUuid(record.value(NodeColumn::longUID).toString());
+        QUuid groupUuid = QUuid(record.value(NodeColumn::termGroup).toString());
+        QDateTime lastEdit = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
+
+        allLastEdits << make_tuple(nodeUuid, groupUuid, lastEdit);
+    }
+
+    // Taking group last edit
+    QMap<QUuid, QDateTime> groupsLastEdit;
+
+    for (const auto& [nodeUuid, groupUuid, lastEdit] : allLastEdits) {
+        if (groupsLastEdit.contains(groupUuid)) {
+            if (groupsLastEdit[groupUuid] < lastEdit) {
+                groupsLastEdit[groupUuid] = lastEdit;
+            }
+        } else {
+            groupsLastEdit.insert(groupUuid, lastEdit);
+        }
+    }
+
+    // Casting to pairs
     QList<QPair<QUuid, QDateTime>> groupSorting;
 
     // Forming structure with group uuids and last edit times
-    for (QUuid groupUuid : Glb::dbPtr->groupTbl->getAllGroupsUuid()) {
+    for (auto& [groupUuid, lastEdit] : groupsLastEdit.toStdMap()) {
         QPair<QUuid, QDateTime> pair;
         pair.first = groupUuid;
-        pair.second = getLastEdit(groupUuid);
+        pair.second = lastEdit;
         groupSorting.append(pair);
     }
 

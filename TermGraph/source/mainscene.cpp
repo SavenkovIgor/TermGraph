@@ -199,6 +199,9 @@ void MainScene::showGroup(const QString &groupUuid)
 
 void MainScene::showGroup(const QUuid &groupUuid)
 {
+    QElapsedTimer groupChangeTimer;
+    groupChangeTimer.start();
+
     dropSelection(false);
     dropHover();
 
@@ -206,6 +209,8 @@ void MainScene::showGroup(const QUuid &groupUuid)
     updateModel();
     updateSceneRect();
     sceneContentUpdated();
+
+    qDebug() << "Group changed in: " << groupChangeTimer.restart();
 }
 
 void MainScene::showAllGroups()

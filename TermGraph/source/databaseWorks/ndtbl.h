@@ -62,6 +62,7 @@ public:
     RecVector getAllNodesDBRecrods(const QUuid &groupUuid);
 
     QDateTime getLastEdit(const QUuid& uuid);
+    RecVector getAllLastEditRecords();
 
     void setName(const QUuid& uuid, const QString& name);
     void setWordForms(const QUuid& uuid, const QString& forms);
