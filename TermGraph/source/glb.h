@@ -5,12 +5,12 @@
 
 #include <memory>
 
-#include "./databaseWorks/dbabstract.h"
+#include "./databaseWorks/database.h"
 
 class Glb
 {
 public:
-    static std::unique_ptr<DBAbstract> dbPtr;
+    static std::unique_ptr<Database> dbPtr;
 };
 
 #endif  // GLB_H

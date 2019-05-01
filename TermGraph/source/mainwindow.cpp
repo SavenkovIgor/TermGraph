@@ -18,7 +18,7 @@ MainWindow::MainWindow(QObject *parent):
     QQuickStyle::setStyle("Material");
 
     // Database init
-    Glb::dbPtr.reset(new DBAbstract(AppConfig::StdFolderPaths::defaultDatabaseFilePath()));
+    Glb::dbPtr.reset(new Database(AppConfig::StdFolderPaths::defaultDatabaseFilePath()));
     groupsManager->updateGroupUuidNameMaps();
 
     // remind = new Reminder(scene->getAllNodes());

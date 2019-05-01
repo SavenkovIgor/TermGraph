@@ -242,7 +242,7 @@ QStringList GroupsManager::getAllUuidStringsSortedByLastEdit()
 
 void GroupsManager::importGroupFromJson(const QJsonDocument& json)
 {
-    DBAbstract* db = Glb::dbPtr.get();
+    Database* db = Glb::dbPtr.get();
     if (!isValidGroupJson(json))
         return;
 

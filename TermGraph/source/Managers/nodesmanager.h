@@ -8,7 +8,7 @@
 #include <QJsonObject>
 
 #include "../glb.h"
-#include "../databaseWorks/dbabstract.h"
+#include "../databaseWorks/database.h"
 #include "../Model/Termin/paintedterm.h"
 
 class NodesManager : public QObject

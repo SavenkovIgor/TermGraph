@@ -60,7 +60,7 @@ bool NodesManager::changeNode(
         const QUuid& groupUuid,
         const bool& sendChangeSignal)
 {
-    DBAbstract* db = Glb::dbPtr.get();
+    Database* db = Glb::dbPtr.get();
 
     db->nodeTbl->setName(nodeUuid, name);
     db->nodeTbl->setWordForms(nodeUuid, forms);
@@ -115,7 +115,7 @@ QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
 
 void NodesManager::importNodeFromJson(QJsonObject nodeObject)
 {
-    DBAbstract* db = Glb::dbPtr.get();
+    Database* db = Glb::dbPtr.get();
     QUuid nodeUuid = QUuid(nodeObject.value(NodeColumn::longUID).toString());
 
     if (nodeUuid.isNull()) {

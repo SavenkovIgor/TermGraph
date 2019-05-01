@@ -1,3 +1,3 @@
 #include "glb.h"
 
-std::unique_ptr<DBAbstract> Glb::dbPtr {nullptr};
+std::unique_ptr<Database> Glb::dbPtr {nullptr};

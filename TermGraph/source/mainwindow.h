@@ -9,7 +9,7 @@
 #include "./Model/reminder.h"
 #include "./mainscene.h"
 #include "./paintqueuemanager.h"
-#include "./databaseWorks/dbabstract.h"
+#include "./databaseWorks/database.h"
 #include "./Model/wordfreqanalyze.h"
 #include "./Helpers/tagprocessor.h"
 #include "./Helpers/textprocessor.h"

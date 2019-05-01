@@ -1,5 +1,5 @@
-#ifndef DBABSTRACT_H
-#define DBABSTRACT_H
+#ifndef DATABASE_H
+#define DATABASE_H
 
 #include <QObject>
 #include <QtSql>
@@ -11,15 +11,16 @@
 #include "../Helpers/appconfig.h"
 #include "../Helpers/fsworks.h"
 
-class DBAbstract
+// Singleton!
+class Database
 {
 public:
     NodeTable* nodeTbl  = nullptr;
     TermGroupTable* groupTbl = nullptr;
     AppConfigTable* appConfigTable = nullptr;
 
-    explicit DBAbstract(const QString& filePath);
-    ~DBAbstract();
+    explicit Database(const QString& filePath);
+    ~Database();
 
     QStringList recordToStrList(QSqlRecord q);
     QStringList queryToStrList(QSqlQuery q);
@@ -37,4 +38,4 @@ private:
     void execMigrationConditions(const int& currentDbVersion);
 };
 
-#endif  // DBABSTRACT_H
+#endif  // DATABASE_H

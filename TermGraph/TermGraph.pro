@@ -6,7 +6,7 @@ TEMPLATE = app
 CONFIG += c++17
 
 HEADERS += \
-    source/databaseWorks/dbabstract.h\
+    source/databaseWorks/database.h\
     source/databaseWorks/edgtbl.h\
     source/databaseWorks/tblbase.h\
     source/databaseWorks/ndtbl.h\
@@ -51,7 +51,7 @@ HEADERS += \
 
 SOURCES += \
     source/main.cpp\
-    source/databaseWorks/dbabstract.cpp\
+    source/databaseWorks/database.cpp\
     source/databaseWorks/edgtbl.cpp\
     source/databaseWorks/tblbase.cpp\
     source/databaseWorks/ndtbl.cpp\

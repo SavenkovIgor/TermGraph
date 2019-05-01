@@ -1,6 +1,6 @@
-#include "dbabstract.h"
+#include "database.h"
 
-DBAbstract::DBAbstract(const QString &filePath)
+Database::Database(const QString& filePath)
 {
     base = new QSqlDatabase();
     (*base) = QSqlDatabase::addDatabase("QSQLITE");
@@ -48,7 +48,7 @@ DBAbstract::DBAbstract(const QString &filePath)
 
 }
 
-DBAbstract::~DBAbstract()
+Database::~Database()
 {
     delete nodeTbl;
     delete groupTbl;
@@ -56,24 +56,24 @@ DBAbstract::~DBAbstract()
     delete base;
 }
 
-void DBAbstract::InitAllTables()
+void Database::InitAllTables()
 {
     nodeTbl->initTable();
     groupTbl->initTable();
     appConfigTable->initTable();
 }
 
-int DBAbstract::currentDbVersion()
+int Database::currentDbVersion()
 {
     return appConfigTable->getDbVersion();
 }
 
-bool DBAbstract::needDbUpdate()
+bool Database::needDbUpdate()
 {
     return !appConfigTable->isDbVersionActual();
 }
 
-void DBAbstract::makeBackupBeforeUpdate(const QString &filePath, const int &oldDbVersion)
+void Database::makeBackupBeforeUpdate(const QString &filePath, const int &oldDbVersion)
 {
     qDebug() << "Making backup";
     QFile dbFile(filePath);
@@ -85,7 +85,7 @@ void DBAbstract::makeBackupBeforeUpdate(const QString &filePath, const int &oldD
     dbFile.copy(AppConfig::StdFolderPaths::backupFolder() + "/" + fileName);
 }
 
-void DBAbstract::makeDbUpdate()
+void Database::makeDbUpdate()
 {
     auto dbVersion = currentDbVersion();
     qDebug() << "Updating database!";
@@ -97,7 +97,7 @@ void DBAbstract::makeDbUpdate()
     qDebug() << "Update finished. New db version:" << currentDbVersion();
 }
 
-void DBAbstract::execMigrationConditions(const int &currentDbVersion)
+void Database::execMigrationConditions(const int &currentDbVersion)
 {
     if (currentDbVersion < 1) {
         qDebug() << "Initing appConfig table";
@@ -105,7 +105,7 @@ void DBAbstract::execMigrationConditions(const int &currentDbVersion)
     }
 }
 
-QStringList DBAbstract::recordToStrList(QSqlRecord q)
+QStringList Database::recordToStrList(QSqlRecord q)
 {
     QStringList ret;
 
@@ -115,7 +115,7 @@ QStringList DBAbstract::recordToStrList(QSqlRecord q)
     return ret;
 }
 
-QStringList DBAbstract::queryToStrList(QSqlQuery q)
+QStringList Database::queryToStrList(QSqlQuery q)
 {
     QStringList ret;
 
@@ -128,7 +128,7 @@ QStringList DBAbstract::queryToStrList(QSqlQuery q)
     return ret;
 }
 
-bool DBAbstract::databaseExists(const QString &dbFilePath) const
+bool Database::databaseExists(const QString &dbFilePath) const
 {
     return FSWorks::fileExist(dbFilePath);
 }
