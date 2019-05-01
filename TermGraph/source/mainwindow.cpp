@@ -18,7 +18,6 @@ MainWindow::MainWindow(QObject *parent):
     QQuickStyle::setStyle("Material");
 
     // Database init
-    Glb::dbPtr.reset(new Database(AppConfig::StdFolderPaths::defaultDatabaseFilePath()));
     groupsManager->updateGroupUuidNameMaps();
 
     // remind = new Reminder(scene->getAllNodes());
@@ -48,7 +47,7 @@ int MainWindow::getUiElementSize(const QString &elementTypeName)
 
 int MainWindow::dbVersion()
 {
-    return Glb::dbPtr->appConfigTable->getDbVersion();
+    return Database::instance().appConfigTable->getDbVersion();
 }
 
 void MainWindow::initElemSizes()

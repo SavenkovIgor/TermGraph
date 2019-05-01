@@ -19,7 +19,7 @@ bool NodesManager::addNewNode(
     if (!correctNewNodeName(name, groupUuid))
         return false;
 
-    QUuid nodeUuid = Glb::dbPtr->nodeTbl->addNode(name, groupUuid);
+    QUuid nodeUuid = Database::instance().nodeTbl->addNode(name, groupUuid);
     return changeNode(nodeUuid, name, forms, def, descr, exam, groupUuid, sendChangeSignal);
 }
 
@@ -60,14 +60,14 @@ bool NodesManager::changeNode(
         const QUuid& groupUuid,
         const bool& sendChangeSignal)
 {
-    Database* db = Glb::dbPtr.get();
+    auto& db = Database::instance();
 
-    db->nodeTbl->setName(nodeUuid, name);
-    db->nodeTbl->setWordForms(nodeUuid, forms);
-    db->nodeTbl->setDefinition(nodeUuid, definition);
-    db->nodeTbl->setDescription(nodeUuid, description);
-    db->nodeTbl->setExamples(nodeUuid, example);
-    db->nodeTbl->setGroup(nodeUuid, groupUuid);
+    db.nodeTbl->setName(nodeUuid, name);
+    db.nodeTbl->setWordForms(nodeUuid, forms);
+    db.nodeTbl->setDefinition(nodeUuid, definition);
+    db.nodeTbl->setDescription(nodeUuid, description);
+    db.nodeTbl->setExamples(nodeUuid, example);
+    db.nodeTbl->setGroup(nodeUuid, groupUuid);
 
     if (sendChangeSignal) {
         nodeChanged();
@@ -78,7 +78,7 @@ bool NodesManager::changeNode(
 
 void NodesManager::deleteNode(QUuid uuid)
 {
-    Glb::dbPtr->nodeTbl->deleteNode(uuid);
+    Database::instance().nodeTbl->deleteNode(uuid);
     nodeChanged();
 }
 
@@ -86,7 +86,7 @@ PaintedTerm::List NodesManager::getAllNodesForGroup(QUuid groupUuid)
 {
     PaintedTerm::List ret;
 
-    auto records = Glb::dbPtr->nodeTbl->getAllNodesDBRecrods(groupUuid);
+    auto records = Database::instance().nodeTbl->getAllNodesDBRecrods(groupUuid);
 
     for (auto record : records) {
 
@@ -100,22 +100,22 @@ PaintedTerm::List NodesManager::getAllNodesForGroup(QUuid groupUuid)
 
 QList<QUuid> NodesManager::getAllNodesUuidsInGroup(QUuid groupUuid)
 {
-    return Glb::dbPtr->nodeTbl->getAllNodesUuidsInGroup(groupUuid);
+    return Database::instance().nodeTbl->getAllNodesUuidsInGroup(groupUuid);
 }
 
 QSqlRecord NodesManager::getNodeSqlRecord(QUuid nodeUuid)
 {
-    return Glb::dbPtr->nodeTbl->getNodeSqlRecord(nodeUuid);
+    return Database::instance().nodeTbl->getNodeSqlRecord(nodeUuid);
 }
 
 QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
 {
-    return Glb::dbPtr->nodeTbl->getLastEdit(nodeUuid);
+    return Database::instance().nodeTbl->getLastEdit(nodeUuid);
 }
 
 void NodesManager::importNodeFromJson(QJsonObject nodeObject)
 {
-    Database* db = Glb::dbPtr.get();
+    auto& db = Database::instance();
     QUuid nodeUuid = QUuid(nodeObject.value(NodeColumn::longUID).toString());
 
     if (nodeUuid.isNull()) {
@@ -140,26 +140,26 @@ void NodesManager::importNodeFromJson(QJsonObject nodeObject)
     }
 
     // Create
-    if (!db->nodeTbl->isNodeWithUuidExist(nodeUuid)) {
+    if (!db.nodeTbl->isNodeWithUuidExist(nodeUuid)) {
         // TODO: Отрефакторить. отдавать всю работу nodesManager,
         // это его ответственность
-        db->nodeTbl->addNode(nodeUuid, name, groupUuid);
+        db.nodeTbl->addNode(nodeUuid, name, groupUuid);
         changeNode(nodeUuid, name, forms, definition, description, examples, groupUuid);
     } else {
         // TODO: Continue from here!!!
         // Update
         if (name.simplified() != "")
-            db->nodeTbl->setName(nodeUuid, name);
+            db.nodeTbl->setName(nodeUuid, name);
         if (forms.simplified() != "")
-            db->nodeTbl->setWordForms(nodeUuid, forms);
+            db.nodeTbl->setWordForms(nodeUuid, forms);
         if (definition.simplified() != "")
-            db->nodeTbl->setDefinition(nodeUuid, definition);
+            db.nodeTbl->setDefinition(nodeUuid, definition);
         if (description.simplified() != "")
-            db->nodeTbl->setDescription(nodeUuid, description);
+            db.nodeTbl->setDescription(nodeUuid, description);
         if (examples.simplified() != "")
-            db->nodeTbl->setExamples(nodeUuid, examples);
+            db.nodeTbl->setExamples(nodeUuid, examples);
 
-        db->nodeTbl->setGroup(nodeUuid, groupUuid);
+        db.nodeTbl->setGroup(nodeUuid, groupUuid);
     }
 }
 
@@ -172,7 +172,7 @@ bool NodesManager::correctGroupUuid(const QUuid &groupUuid, bool sendWarnings)
         return false;
     }
 
-    if (!Glb::dbPtr->groupTbl->hasGroupWithUuid(groupUuid)) {
+    if (!Database::instance().groupTbl->hasGroupWithUuid(groupUuid)) {
         if (sendWarnings) {
             showWarning("Группа " + groupUuid.toString() + " не найдена");
         }
@@ -196,7 +196,7 @@ bool NodesManager::correctNewNodeName(const QString &name, QUuid &groupUuid, boo
 
 QUuid NodesManager::getNodeUuidByNameAndGroup(const QString &name, QUuid &groupUuid) const
 {
-    return Glb::dbPtr->nodeTbl->nodeUuidForNameAndGroup(name, groupUuid);
+    return Database::instance().nodeTbl->nodeUuidForNameAndGroup(name, groupUuid);
 }
 
 bool NodesManager::hasNodeWithNameInGroup(const QString &name, QUuid &groupUuid) const

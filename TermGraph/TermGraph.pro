@@ -14,7 +14,6 @@ HEADERS += \
     source/databaseWorks/sqlqueryconstructor.h\
     source/databaseWorks/cloudservices.h\
     source/databaseWorks/dropboxconnection.h\
-    source/glb.h\
     source/mainscene.h\
     source/mainwindow.h\
     source/Model/TerminEdge/edge.h\
@@ -59,7 +58,6 @@ SOURCES += \
     source/databaseWorks/sqlqueryconstructor.cpp\
     source/databaseWorks/cloudservices.cpp\
     source/databaseWorks/dropboxconnection.cpp\
-    source/glb.cpp\
     source/mainscene.cpp\
     source/mainwindow.cpp\
     source/Model/reminder.cpp\

@@ -3,7 +3,6 @@
 
 #include <QObject>
 
-#include "../glb.h"
 #include "../Helpers/fsworks.h"
 #include "./nodesmanager.h"
 #include "./networkmanager.h"

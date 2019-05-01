@@ -14,7 +14,6 @@
 #include "./Helpers/tagprocessor.h"
 #include "./Helpers/textprocessor.h"
 #include "./Helpers/appconfig.h"
-#include "./glb.h"
 
 class MainWindow : public QObject
 {

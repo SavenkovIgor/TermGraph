@@ -1,6 +1,11 @@
 #include "database.h"
 
-Database::Database(const QString& filePath)
+Database::Database() : Database(AppConfig::StdFolderPaths::defaultDatabaseFilePath()) { }
+
+Database::Database(const QString& filePath) :
+    nodeTbl(nullptr),
+    groupTbl(nullptr),
+    appConfigTable(nullptr)
 {
     base = new QSqlDatabase();
     (*base) = QSqlDatabase::addDatabase("QSQLITE");
@@ -23,9 +28,9 @@ Database::Database(const QString& filePath)
         qDebug() << "cantOpenBase" << base->lastError().text();
     }
 
-    nodeTbl  = new NodeTable(base);
-    groupTbl = new TermGroupTable(base);
-    appConfigTable = new AppConfigTable(base);
+    nodeTbl.reset(new NodeTable(base));
+    groupTbl.reset(new TermGroupTable(base));
+    appConfigTable.reset(new AppConfigTable(base));
 
     // If database just created, create all tables
     if (!baseExists) {
@@ -50,9 +55,6 @@ Database::Database(const QString& filePath)
 
 Database::~Database()
 {
-    delete nodeTbl;
-    delete groupTbl;
-    delete appConfigTable;
     delete base;
 }
 

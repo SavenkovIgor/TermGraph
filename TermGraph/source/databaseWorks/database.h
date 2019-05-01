@@ -15,17 +15,27 @@
 class Database
 {
 public:
-    NodeTable* nodeTbl  = nullptr;
-    TermGroupTable* groupTbl = nullptr;
-    AppConfigTable* appConfigTable = nullptr;
+    QScopedPointer<NodeTable> nodeTbl;
+    QScopedPointer<TermGroupTable> groupTbl;
+    QScopedPointer<AppConfigTable> appConfigTable;
 
-    explicit Database(const QString& filePath);
-    ~Database();
+    static Database& instance()
+    {
+        static Database instance;
+        return instance;
+    }
 
     QStringList recordToStrList(QSqlRecord q);
     QStringList queryToStrList(QSqlQuery q);
 
+    Database(const Database&) = delete;
+    void operator = (const Database&) = delete;
+
 private:
+    explicit Database();
+    explicit Database(const QString& filePath);
+    ~Database();
+
     QSqlDatabase *base;
 
     bool databaseExists(const QString& dbFilePath) const;

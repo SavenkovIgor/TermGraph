@@ -7,7 +7,6 @@
 #include <QSqlRecord>
 #include <QJsonObject>
 
-#include "../glb.h"
 #include "../databaseWorks/database.h"
 #include "../Model/Termin/paintedterm.h"
 
