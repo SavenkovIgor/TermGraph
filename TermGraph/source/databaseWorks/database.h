@@ -15,8 +15,8 @@
 class Database
 {
 public:
-    QScopedPointer<NodeTable> nodeTbl;
-    QScopedPointer<TermGroupTable> groupTbl;
+    QScopedPointer<NodeTable> nodeTable;
+    QScopedPointer<TermGroupTable> groupTable;
     QScopedPointer<AppConfigTable> appConfigTable;
 
     static Database& instance()

@@ -87,7 +87,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
     }
 
     int type = 0;  // GroupType::terms
-    if (Database::instance().groupTbl->addGroup(name, comment, type)) {
+    if (Database::instance().groupTable->addGroup(name, comment, type)) {
         updateGroupUuidNameMaps();
         groupsListChanged();
     } else {
@@ -97,7 +97,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 
 void GroupsManager::deleteGroup(QString uuidString)
 {
-    Database::instance().groupTbl->deleteGroup(QUuid(uuidString));
+    Database::instance().groupTable->deleteGroup(QUuid(uuidString));
     updateGroupUuidNameMaps();
     groupsListChanged();
 }
@@ -148,7 +148,7 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
     if (groupUuid.isNull())
         return nullptr;
 
-    QSqlRecord groupRecord = Database::instance().groupTbl->getGroup(groupUuid);
+    QSqlRecord groupRecord = Database::instance().groupTable->getGroup(groupUuid);
     TermGroup* group = new TermGroup(groupRecord);
     group->loadNodes(nodesMgr->getAllNodesForGroup(groupUuid));
     return group;
@@ -156,7 +156,7 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
 
 bool GroupsManager::hasAnyGroup() const
 {
-    return !Database::instance().groupTbl->getAllUuids().isEmpty();
+    return !Database::instance().groupTable->getAllUuids().isEmpty();
 }
 
 QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
@@ -180,7 +180,7 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
     // Load info from groups table - need if any group is empty and has no lastEdit value
     QMap<QUuid, QDateTime> groupsLastEdit;
 
-    for (const auto& record : Database::instance().groupTbl->getAllUuids()) {
+    for (const auto& record : Database::instance().groupTable->getAllUuids()) {
         groupsLastEdit.insert(record, QDateTime());
     }
 
@@ -188,7 +188,7 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
     // First - groupUuid, third - lastEdit
     QList<tuple<QUuid, QDateTime>> allNodesLastEdits;
 
-    for (auto record : Database::instance().nodeTbl->getAllLastEditRecords()) {
+    for (auto record : Database::instance().nodeTable->getAllLastEditRecords()) {
 
         QUuid groupUuid = QUuid(record.value(NodeColumn::termGroup).toString());
         QDateTime lastEdit = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
@@ -261,12 +261,12 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     QJsonArray nodes = jsonGroup.value("nodesList").toArray();
 
     // Searching for existed group
-    if (db.groupTbl->hasGroupWithUuid(groupUuid)) {  // Group found
-        db.groupTbl->setName(groupUuid, groupName);
-        db.groupTbl->setComment(groupUuid, comment);
-        db.groupTbl->setType(groupUuid, type);
+    if (db.groupTable->hasGroupWithUuid(groupUuid)) {  // Group found
+        db.groupTable->setName(groupUuid, groupName);
+        db.groupTable->setComment(groupUuid, comment);
+        db.groupTable->setType(groupUuid, type);
     } else {
-        db.groupTbl->addGroup(groupUuid, groupName, comment, type);
+        db.groupTable->addGroup(groupUuid, groupName, comment, type);
     }
 
     // Importing nodes
@@ -288,10 +288,10 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
         QString examples = nodeObj.value("examples").toString();
 
         // Create
-        if (!db.nodeTbl->isNodeWithUuidExist(nodeUuid)) {
+        if (!db.nodeTable->isNodeWithUuidExist(nodeUuid)) {
             // TODO: Отрефакторить. отдавать всю работу nodesManager,
             // это его ответственность
-            db.nodeTbl->addNode(nodeUuid, name, groupUuid);
+            db.nodeTable->addNode(nodeUuid, name, groupUuid);
             nodesMgr->changeNode(
                         nodeUuid,
                         name,
@@ -304,17 +304,17 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
         } else {
             // Update
             if (name.simplified() != "")
-                db.nodeTbl->setName(nodeUuid, name);
+                db.nodeTable->setName(nodeUuid, name);
             if (forms.simplified() != "")
-                db.nodeTbl->setWordForms(nodeUuid, forms);
+                db.nodeTable->setWordForms(nodeUuid, forms);
             if (definition.simplified() != "")
-                db.nodeTbl->setDefinition(nodeUuid, definition);
+                db.nodeTable->setDefinition(nodeUuid, definition);
             if (description.simplified() != "")
-                db.nodeTbl->setDescription(nodeUuid, description);
+                db.nodeTable->setDescription(nodeUuid, description);
             if (examples.simplified() != "")
-                db.nodeTbl->setExamples(nodeUuid, examples);
+                db.nodeTable->setExamples(nodeUuid, examples);
 
-            db.nodeTbl->setGroup(nodeUuid, groupUuid);
+            db.nodeTable->setGroup(nodeUuid, groupUuid);
         }
     }
 
@@ -364,7 +364,7 @@ void GroupsManager::updateGroupUuidNameMaps()
     uuidToNames.clear();
     namesToUuid.clear();
 
-    for (auto sqlRecord : Database::instance().groupTbl->getAllUuidsAndNames()) {
+    for (auto sqlRecord : Database::instance().groupTable->getAllUuidsAndNames()) {
         QUuid uuid(sqlRecord.value(TermGroupColumn::longUID).toString());
         QString name = sqlRecord.value(TermGroupColumn::name).toString();
 

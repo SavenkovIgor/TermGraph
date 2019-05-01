@@ -3,8 +3,8 @@
 Database::Database() : Database(AppConfig::StdFolderPaths::defaultDatabaseFilePath()) { }
 
 Database::Database(const QString& filePath) :
-    nodeTbl(nullptr),
-    groupTbl(nullptr),
+    nodeTable(nullptr),
+    groupTable(nullptr),
     appConfigTable(nullptr)
 {
     base = new QSqlDatabase();
@@ -28,8 +28,8 @@ Database::Database(const QString& filePath) :
         qDebug() << "cantOpenBase" << base->lastError().text();
     }
 
-    nodeTbl.reset(new NodeTable(base));
-    groupTbl.reset(new TermGroupTable(base));
+    nodeTable.reset(new NodeTable(base));
+    groupTable.reset(new TermGroupTable(base));
     appConfigTable.reset(new AppConfigTable(base));
 
     // If database just created, create all tables
@@ -60,8 +60,8 @@ Database::~Database()
 
 void Database::InitAllTables()
 {
-    nodeTbl->initTable();
-    groupTbl->initTable();
+    nodeTable->initTable();
+    groupTable->initTable();
     appConfigTable->initTable();
 }
 
