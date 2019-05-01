@@ -33,12 +33,12 @@ bool TermGroupTable::addGroup(QUuid uuid, QString name, QString comment, int typ
     return insertInto(values);
 }
 
-QList<QUuid> TermGroupTable::getAllGroupsUuid()
+QVector<QUuid> TermGroupTable::getAllUuids()
 {
-    QList<QUuid> ret;
+    QVector<QUuid> ret;
     auto records = toRecVector(select(TermGroupColumn::longUID));
 
-    for (auto& record : records) {
+    for (const auto& record : records) {
         QUuid uuid(record.value(TermGroupColumn::longUID).toString());
         if (!uuid.isNull()) {
             ret << uuid;

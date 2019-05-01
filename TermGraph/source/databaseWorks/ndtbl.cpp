@@ -211,7 +211,6 @@ QDateTime NodeTable::getLastEdit(const QUuid &uuid)
 RecVector NodeTable::getAllLastEditRecords()
 {
     auto columns = TColumn::List();
-    columns << NodeColumn::longUID;
     columns << NodeColumn::termGroup;
     columns << NodeColumn::lastEdit;
     return toRecVector(select(columns));

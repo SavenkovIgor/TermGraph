@@ -156,7 +156,7 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
 
 bool GroupsManager::hasAnyGroup() const
 {
-    return !Glb::dbPtr->groupTbl->getAllGroupsUuid().isEmpty();
+    return !Glb::dbPtr->groupTbl->getAllUuids().isEmpty();
 }
 
 QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
@@ -177,27 +177,28 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
 {
     using namespace std;
 
-    // First - nodeUuid, second - groupUuid, third - lastEdit
-    QList<tuple<QUuid, QUuid, QDateTime>> allLastEdits;
+    // Load info from groups table - need if any group is empty and has no lastEdit value
+    QMap<QUuid, QDateTime> groupsLastEdit;
+
+    for (const auto& record : Glb::dbPtr->groupTbl->getAllUuids()) {
+        groupsLastEdit.insert(record, QDateTime());
+    }
+
+    // Try to fill lastEdit dateTimes
+    // First - groupUuid, third - lastEdit
+    QList<tuple<QUuid, QDateTime>> allNodesLastEdits;
 
     for (auto record : Glb::dbPtr->nodeTbl->getAllLastEditRecords()) {
-        QUuid nodeUuid  = QUuid(record.value(NodeColumn::longUID).toString());
+
         QUuid groupUuid = QUuid(record.value(NodeColumn::termGroup).toString());
         QDateTime lastEdit = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
 
-        allLastEdits << make_tuple(nodeUuid, groupUuid, lastEdit);
-    }
-
-    // Taking group last edit
-    QMap<QUuid, QDateTime> groupsLastEdit;
-
-    for (const auto& [nodeUuid, groupUuid, lastEdit] : allLastEdits) {
         if (groupsLastEdit.contains(groupUuid)) {
-            if (groupsLastEdit[groupUuid] < lastEdit) {
+            if (groupsLastEdit[groupUuid].isNull()) {
                 groupsLastEdit[groupUuid] = lastEdit;
+            } else {
+                groupsLastEdit[groupUuid] = qMax(groupsLastEdit[groupUuid], lastEdit);
             }
-        } else {
-            groupsLastEdit.insert(groupUuid, lastEdit);
         }
     }
 
@@ -206,10 +207,7 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
 
     // Forming structure with group uuids and last edit times
     for (auto& [groupUuid, lastEdit] : groupsLastEdit.toStdMap()) {
-        QPair<QUuid, QDateTime> pair;
-        pair.first = groupUuid;
-        pair.second = lastEdit;
-        groupSorting.append(pair);
+        groupSorting.append(QPair(groupUuid, lastEdit));
     }
 
     // Sorting this structure

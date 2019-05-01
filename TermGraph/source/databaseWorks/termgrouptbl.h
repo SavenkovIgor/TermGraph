@@ -41,7 +41,7 @@ public:
     RecVector getAllUuidsAndNames();
 
     // Massive getters
-    QList<QUuid> getAllGroupsUuid();
+    QVector<QUuid> getAllUuids();
 
     // Setters
     void setName(QUuid uuid, QString name);
