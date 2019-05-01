@@ -5,6 +5,6 @@
 
 class Edge;
 
-typedef QList<Edge*> EdgesList;
+using EdgesList = QList<Edge*>;
 
 #endif // HANDYTYPES_H

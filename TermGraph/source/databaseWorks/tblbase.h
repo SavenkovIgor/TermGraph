@@ -5,8 +5,8 @@
 
 #include "sqlqueryconstructor.h"
 
-typedef QMap <QString, QString> SqCond;
-typedef QVector<QSqlRecord>     RecVector;
+using SqCond = QMap<QString, QString>;
+using RecVector = QVector<QSqlRecord>;
 
 class TblBase
 {

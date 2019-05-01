@@ -52,7 +52,7 @@ QChar TagProcessor::getNearesBracket(const SearchDirection direction, const QStr
     auto pos = getCursorPosition(direction, text, cursorPos, isBracket);
 
     if (pos == -1) {
-        return QChar();
+        return {};
     }
 
     switch (direction) {
@@ -60,7 +60,7 @@ QChar TagProcessor::getNearesBracket(const SearchDirection direction, const QStr
     case SearchDirection::right: return text[pos];
     }
 
-    return QChar();
+    return {};
 }
 
 bool TagProcessor::isInsideTag(const QString &text, int cursorPos)

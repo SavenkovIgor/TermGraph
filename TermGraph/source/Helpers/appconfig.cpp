@@ -10,7 +10,7 @@ void AppConfig::StdFolderPaths::createDefaultFoldersIfNeed()
     necessaryDirs << backupFolder();
 #endif
 
-    for (auto path : necessaryDirs) {
+    for (const auto& path : necessaryDirs) {
         QDir().mkpath(path);
     }
 }

@@ -7,7 +7,7 @@
 
 struct TColumn
 {
-    typedef QList<TColumn> List;
+    using List = QList<TColumn>;
 
     const char* name;  // Name of column
     const char* type;  // Type description of column
