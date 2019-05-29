@@ -29,24 +29,30 @@ Page {
         onMenuClick: sideMenu.open()
     }
 
-    function showButtons() {
-        editNodeButton.visible = true
-        deleteNodeButton.visible = true
-        nodeInfoButton.visible = true
-        addNodeButton.visible = false
-    }
+    property string someSelectedSt: "SomeSelected"
+    property string noneSelectedSt: "NoneSelected"
 
-    function hideButtons() {
-        editNodeButton.visible = false
-        deleteNodeButton.visible = false
-        nodeInfoButton.visible = false
-        addNodeButton.visible = true
-    }
+    states: [
+        State {
+            name: someSelectedSt
+            PropertyChanges { target: editNodeButton;   visible: true }
+            PropertyChanges { target: deleteNodeButton; visible: true }
+            PropertyChanges { target: nodeInfoButton;   visible: true }
+            PropertyChanges { target: addNodeButton;    visible: false }
+        },
+        State {
+            name: noneSelectedSt
+            PropertyChanges { target: editNodeButton;   visible: false }
+            PropertyChanges { target: deleteNodeButton; visible: false }
+            PropertyChanges { target: nodeInfoButton;   visible: false }
+            PropertyChanges { target: addNodeButton;    visible: true }
+        }
+    ]
 
     Connections {
         target: sceneObj
-        onSomeSelected: showButtons()
-        onSelectionDropSignal: hideButtons()
+        onSomeSelected: mainSceneView.state = mainSceneView.someSelectedSt
+        onSelectionDropSignal: mainSceneView.state = mainSceneView.noneSelectedSt
         onSelectionDoubleClick: nodeInfoButton.openTerm()
     }
 
