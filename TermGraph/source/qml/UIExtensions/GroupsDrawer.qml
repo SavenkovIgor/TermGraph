@@ -72,11 +72,9 @@ Drawer {
                 horizontalAlignment: Text.AlignLeft
             }
 
-            Rectangle {
-                x: Math.max((parent.width - width) / 2, 1)
-                y: parent.height - height
-                height: Math.max(parent.height / 100, 1)
-                width: parent.width * 0.95
+            ThinLine {
+                target: parent
+                side: ThinLine.LineSide.Bottom
                 color: appColors.white
             }
 

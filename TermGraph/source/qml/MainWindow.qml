@@ -64,21 +64,19 @@ ApplicationWindow {
 
         interactive: stackView.depth === 1
 
-        onOpened: { groupMenuButton.forceActiveFocus() }
+        onOpened: groupMenuButton.forceActiveFocus()
 
         background: Rectangle {
-            Rectangle {
-                x: parent.width - width
-                width: parent.width / 100
-                height: parent.height
-                color: appColors.white
-                z: 1
-            }
 
             Rectangle {
                 color: appColors.baseLight
-                width: parent.width
-                height: parent.height
+                anchors.fill: parent
+            }
+
+            ThinLine {
+                target: parent
+                side: ThinLine.LineSide.Right
+                color: appColors.white
             }
         }
 

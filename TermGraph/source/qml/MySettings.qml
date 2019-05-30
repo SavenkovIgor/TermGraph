@@ -7,6 +7,7 @@ Page {
     id: settingsPage
 
     property StackView mainStack
+
     function open() {
         mainStack.push(settingsPage)
         openActions()
@@ -25,7 +26,6 @@ Page {
 
         onMenuClick: mainStack.pop()
     }
-
 
     Rectangle {
         anchors.fill: parent

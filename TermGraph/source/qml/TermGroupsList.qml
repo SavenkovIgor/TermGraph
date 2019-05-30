@@ -122,10 +122,9 @@ Page {
             property alias text: grpName.text
             property string groupUuid: modelData
 
-            Rectangle {
-                y: lstDlgt.height - height
-                height: Math.max(lstDlgt.height / 100, 1)
-                width: lstDlgt.width
+            ThinLine {
+                target: lstDlgt
+                side: ThinLine.LineSide.Bottom
             }
 
             height: grCol.height

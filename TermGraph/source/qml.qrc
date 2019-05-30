@@ -20,5 +20,6 @@
         <file>qml/MainSceneView.qml</file>
         <file>qml/OnboardingGallery.qml</file>
         <file>qml/UIExtensions/OnBoardCard.qml</file>
+        <file>qml/UIExtensions/ThinLine.qml</file>
     </qresource>
 </RCC>
