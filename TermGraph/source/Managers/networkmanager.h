@@ -15,10 +15,13 @@ public:
 
     bool sendGroup(QJsonDocument doc);
 
+    Q_PROPERTY(bool isConnected READ hasConnection NOTIFY newOutputConnectionState)
+    Q_PROPERTY(QString connectionState READ getOutputSocketState NOTIFY newOutputConnectionState)
+
 signals:
     void newSyncGroup(QString groupJsonRaw);
 
-    void newOutputConnectionState(QString state);
+    void newOutputConnectionState();
 
     // Notify
     void showInfo(QString info);
@@ -31,7 +34,7 @@ public slots:
     void disconnectFromHost();
     void setReceiverHostIp(QString ip);
     QString getReceiverIp();
-    bool isConnected();
+    bool hasConnection();
 
     QString getFirstLocalIpString();
 
@@ -48,10 +51,12 @@ private:
     QTcpSocket* inputSocket;
     QTcpSocket* outputSocket;
 
-    QString receiverIp = "192.168.0.80";
+    QString receiverIp = QStringLiteral("192.168.1.100");
 
-    bool isValidHostAddress(QString ip);
-    QString getDescriptionForSocketState(QAbstractSocket::SocketState state);
+    QString getOutputSocketState();
+
+    static bool isValidHostAddress(const QString& ip);
+    static QString getSocketStateDescription(QAbstractSocket::SocketState state);
 };
 
 #endif  // NETWORKMANAGER_H

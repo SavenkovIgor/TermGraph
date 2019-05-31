@@ -151,12 +151,13 @@ Page {
 
             MyLabelPair {
                 id: currentGroupFixedRow
-                name: "Текущая группа: "
 
                 property string groupUuid: ""
-                onGroupUuidChanged: currentGroupFixedRow.text = groupsManager.getGroupName(groupUuid)
 
-                visible: newNode
+                name: "Текущая группа: "
+                text: groupsManager.getGroupName(groupUuid)
+
+                visible: newNodeEdit.newNode
             }
 
             MyTextField {

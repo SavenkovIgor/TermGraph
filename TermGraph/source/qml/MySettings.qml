@@ -52,25 +52,14 @@ Page {
         MyLabelPair{
             id: connectionState
             name: "Состояние подключения:"
-        }
-
-        Connections {
-            target: networkManager
-            onNewOutputConnectionState: {
-                connectionState.text = state
-                if(networkManager.isConnected()) {
-                    connectButton.text = "Отключиться"
-                } else {
-                    connectButton.text = "Подключиться"
-                }
-            }
+            text: networkManager.connectionState
         }
 
         MySquareButton {
             id: connectButton
-            text: "Подключиться"
+            text: networkManager.isConnected ? "Отключиться" : "Подключиться"
             onClicked:  {
-                if(networkManager.isConnected()) {
+                if(networkManager.isConnected) {
                     networkManager.disconnectFromHost()
                 } else {
                     networkManager.connectToHost()

@@ -4,23 +4,23 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 {
     server = new SimpleListenServer(AppConfig::NetworkSettings::listenPort, this);
     server->startListen();
-    connect(
-                server,
-                SIGNAL(newReceivedData(QHostAddress, QByteArray)),
-                SLOT(newInputData(QHostAddress, QByteArray)));
+    connect(server,
+            SIGNAL(newReceivedData(QHostAddress, QByteArray)),
+            SLOT(newInputData(QHostAddress, QByteArray)));
 
     connect(server, SIGNAL(newConnectionFrom(QString)), SLOT(sendConnectionInfo(QString)));
 
     outputSocket = new QTcpSocket(this);
-    connect(
-               outputSocket,
-               SIGNAL(stateChanged(QAbstractSocket::SocketState)),
-               SLOT(outputConnectionStateChange(QAbstractSocket::SocketState)));
+    connect(outputSocket,
+            SIGNAL(stateChanged(QAbstractSocket::SocketState)),
+            SLOT(outputConnectionStateChange(QAbstractSocket::SocketState)));
 }
 
 void NetworkManager::connectToHost()
 {
-    outputSocket->connectToHost(receiverIp, AppConfig::NetworkSettings::listenPort, QIODevice::WriteOnly);
+    outputSocket->connectToHost(receiverIp,
+                                AppConfig::NetworkSettings::listenPort,
+                                QIODevice::WriteOnly);
 }
 
 void NetworkManager::disconnectFromHost()
@@ -32,6 +32,7 @@ void NetworkManager::setReceiverHostIp(QString ip)
 {
     if (!isValidHostAddress(ip))
         return;
+
     receiverIp = ip;
 }
 
@@ -40,7 +41,7 @@ QString NetworkManager::getReceiverIp()
     return receiverIp;
 }
 
-bool NetworkManager::isConnected()
+bool NetworkManager::hasConnection()
 {
     return outputSocket->state() == QAbstractSocket::ConnectedState;
 }
@@ -48,8 +49,8 @@ bool NetworkManager::isConnected()
 QString NetworkManager::getFirstLocalIpString()
 {
     for (const QHostAddress &address : QNetworkInterface::allAddresses()) {
-        if (address.protocol() == QAbstractSocket::IPv4Protocol &&
-                address != QHostAddress(QHostAddress::LocalHost)) {
+        if (address.protocol() == QAbstractSocket::IPv4Protocol
+            && address != QHostAddress(QHostAddress::LocalHost)) {
             return address.toString();
         }
     }
@@ -86,11 +87,10 @@ bool NetworkManager::sendGroup(QJsonDocument doc)
     }
 }
 
-void NetworkManager::outputConnectionStateChange(
-        QAbstractSocket::SocketState state)
+void NetworkManager::outputConnectionStateChange(QAbstractSocket::SocketState state)
 {
-    QString description = getDescriptionForSocketState(state);
-    emit newOutputConnectionState(description);
+    Q_UNUSED(state)
+    emit newOutputConnectionState();
 }
 
 void NetworkManager::sendConnectionInfo(QString info)
@@ -98,14 +98,20 @@ void NetworkManager::sendConnectionInfo(QString info)
     emit showInfo("Подключение от: " + info);
 }
 
-bool NetworkManager::isValidHostAddress(QString ip)
+QString NetworkManager::getOutputSocketState()
+{
+    if (outputSocket == nullptr)
+        return "";
+
+    return getSocketStateDescription(outputSocket->state());
+}
+
+bool NetworkManager::isValidHostAddress(const QString& ip)
 {
     return !(QHostAddress(ip).isNull());
 }
 
-QString NetworkManager::getDescriptionForSocketState(
-        QAbstractSocket::SocketState state
-        )
+QString NetworkManager::getSocketStateDescription(QAbstractSocket::SocketState state)
 {
     switch (state) {
     case QAbstractSocket::UnconnectedState: return "Нет соединения";
