@@ -183,7 +183,7 @@ void MainScene::dropSelection(bool withSignal)
     }
 
     if (withSignal) {
-        emit selectionDropSignal();
+        emit selectionChanged();
     }
 }
 
@@ -353,7 +353,7 @@ TermGroup *MainScene::getNearestNotPaintedGroup()
     return nearestNotPaintedGroup;
 }
 
-bool MainScene::hasSelection() {
+bool MainScene::isAnyNodeSelected() {
     return getSelectedNode() != nullptr;
 }
 
@@ -428,7 +428,7 @@ void MainScene::findClick(const QPointF &atPt)
     }
 
     requestPaint(true);
-    sendSelectionChangeSignal();
+    emit selectionChanged();
 }
 
 QString MainScene::getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction)
@@ -477,14 +477,5 @@ void MainScene::sendGroupsToPaintManager(bool requestPaint, bool paintAll)
 
     if (requestPaint) {
         paintManager->sendPaintGroupSignal();
-    }
-}
-
-void MainScene::sendSelectionChangeSignal()
-{
-    if (hasSelection()) {
-        emit someSelected();
-    } else {
-        emit selectionDropSignal();
     }
 }

@@ -32,6 +32,8 @@ Page {
     property string someSelectedSt: "SomeSelected"
     property string noneSelectedSt: "NoneSelected"
 
+    state: sceneObj.hasSelection ? someSelectedSt : noneSelectedSt
+
     states: [
         State {
             name: someSelectedSt
@@ -51,8 +53,6 @@ Page {
 
     Connections {
         target: sceneObj
-        onSomeSelected: mainSceneView.state = mainSceneView.someSelectedSt
-        onSelectionDropSignal: mainSceneView.state = mainSceneView.noneSelectedSt
         onSelectionDoubleClick: nodeInfoButton.openTerm()
     }
 
@@ -161,10 +161,7 @@ Page {
         standardButtons: StandardButton.Yes | StandardButton.No
         icon: StandardIcon.Question
 
-        onYes: {
-            sceneObj.deleteSelectedNode()
-            nodeDelDialog.visible = false
-        }
+        onYes: sceneObj.deleteSelectedNode()
     }
 
     MyRoundButton {

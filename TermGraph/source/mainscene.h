@@ -24,10 +24,11 @@ public:
 
     void setAnimSpeed(int val);
 
+    Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
+
 signals:
     // Scene signals
-    void someSelected();
-    void selectionDropSignal();
+    void selectionChanged();
     void selectionDoubleClick();
     void sceneContentUpdated();
 
@@ -66,7 +67,7 @@ public slots:
 
     TermGroup* getNearestNotPaintedGroup();
 
-    bool hasSelection();
+    bool isAnyNodeSelected();
 
     // Drawing API
     // ViewFrame
@@ -103,7 +104,6 @@ private:
     // Mouse interaction
     PaintedTerm* hoverNode = nullptr;
     PaintedTerm* selectedNode = nullptr;
-    void sendSelectionChangeSignal();
 
     PaintedTerm* getSelectedNode();
     void dropSelection(bool withSignal = true);
