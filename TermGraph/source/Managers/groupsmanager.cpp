@@ -82,16 +82,16 @@ QStringList GroupsManager::getGroupNames(const QList<QUuid>& groupUuids)
 void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 {
     if (name.simplified().isEmpty()) {
-        showError("Название группы не может быть пустым");
+        emit showError("Название группы не может быть пустым");
         return;
     }
 
     int type = 0;  // GroupType::terms
     if (Database::instance().groupTable->addGroup(name, comment, type)) {
         updateGroupUuidNameMaps();
-        groupsListChanged();
+        emit groupsListChanged();
     } else {
-        showError("Название группы не уникально");
+        emit showError("Название группы не уникально");
     }
 }
 
@@ -99,7 +99,7 @@ void GroupsManager::deleteGroup(QString uuidString)
 {
     Database::instance().groupTable->deleteGroup(QUuid(uuidString));
     updateGroupUuidNameMaps();
-    groupsListChanged();
+    emit groupsListChanged();
 }
 
 void GroupsManager::importGroupFromJsonFile(const QString& filename)
@@ -319,7 +319,7 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     }
 
     updateGroupUuidNameMaps();
-    groupsListChanged();
+    emit groupsListChanged();
 }
 
 QString GroupsManager::getExportPath() const

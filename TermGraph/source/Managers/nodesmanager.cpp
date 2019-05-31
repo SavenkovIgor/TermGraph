@@ -42,7 +42,7 @@ bool NodesManager::changeNode(
     auto alterNodeUuid = getNodeUuidByNameAndGroup(name, groupUuid);
     if (!alterNodeUuid.isNull()) {
         if (alterNodeUuid != nodeUuid) {
-            showWarning("Термин с таким названием уже существует в этой группе");
+            emit showWarning("Термин с таким названием уже существует в этой группе");
             return false;
         }
     }
@@ -70,7 +70,7 @@ bool NodesManager::changeNode(
     db.nodeTable->setGroup(nodeUuid, groupUuid);
 
     if (sendChangeSignal) {
-        nodeChanged();
+        emit nodeChanged();
     }
 
     return true;
@@ -79,7 +79,7 @@ bool NodesManager::changeNode(
 void NodesManager::deleteNode(QUuid uuid)
 {
     Database::instance().nodeTable->deleteNode(uuid);
-    nodeChanged();
+    emit nodeChanged();
 }
 
 PaintedTerm::List NodesManager::getAllNodesForGroup(QUuid groupUuid)
@@ -167,14 +167,14 @@ bool NodesManager::correctGroupUuid(const QUuid &groupUuid, bool sendWarnings)
 {
     if (groupUuid.isNull()) {
         if (sendWarnings) {
-            showWarning("Пустой или некорректный Uuid группы");
+            emit showWarning("Пустой или некорректный Uuid группы");
         }
         return false;
     }
 
     if (!Database::instance().groupTable->hasGroupWithUuid(groupUuid)) {
         if (sendWarnings) {
-            showWarning("Группа " + groupUuid.toString() + " не найдена");
+            emit showWarning("Группа " + groupUuid.toString() + " не найдена");
         }
         return false;
     }
@@ -186,7 +186,7 @@ bool NodesManager::correctNewNodeName(const QString &name, QUuid &groupUuid, boo
 {
     if (hasNodeWithNameInGroup(name, groupUuid)) {
         if (showWarnings) {
-            showWarning("Термин с таким названием уже существует в этой группе");
+            emit showWarning("Термин с таким названием уже существует в этой группе");
         }
         return false;
     }

@@ -2,12 +2,12 @@
 
 void PaintManager::sendPaintNodeSignal()
 {
-    paintNodeQueue();
+    emit paintNodeQueue();
 }
 
 void PaintManager::sendPaintGroupSignal()
 {
-    paintGroupQueue();
+    emit paintGroupQueue();
 }
 
 void PaintManager::addClearRect(const QRectF &rect, bool paintNow)
@@ -15,7 +15,7 @@ void PaintManager::addClearRect(const QRectF &rect, bool paintNow)
     clearPaintArea.enqueue(rect);
 
     if (paintNow) {
-        paintGroupQueue();
+        emit paintGroupQueue();
     }
 }
 
@@ -70,7 +70,7 @@ void PaintManager::addGroup(TermGroup *group, bool ignoreNeedPaintFlag, bool pai
     }
 
     if (paintNow) {
-        paintGroupQueue();
+        emit paintGroupQueue();
     }
 }
 
@@ -83,7 +83,7 @@ void PaintManager::addNode(PaintedTerm* node, bool paintNow)
 {
     nodesForPaint.enqueue(node);
     if (paintNow) {
-        paintNodeQueue();
+        emit paintNodeQueue();
     }
 }
 

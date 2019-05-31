@@ -11,9 +11,6 @@ class CloudServicesWrapper : public QObject
 public:
     explicit CloudServicesWrapper(QObject *parent = nullptr);
 
-signals:
-
-public slots:
 private:
     DropboxConnection *dropConn;
 };

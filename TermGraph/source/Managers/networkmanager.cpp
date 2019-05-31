@@ -67,7 +67,7 @@ void NetworkManager::newInputData(QHostAddress fromHost, QByteArray data)
 
     // Подаем на импорт только валидные json
     if (!doc.isNull()) {
-        newSyncGroup(QString(byteBuffer));
+        emit newSyncGroup(QString(byteBuffer));
         byteBuffer.clear();
     }
 }
@@ -90,12 +90,12 @@ void NetworkManager::outputConnectionStateChange(
         QAbstractSocket::SocketState state)
 {
     QString description = getDescriptionForSocketState(state);
-    newOutputConnectionState(description);
+    emit newOutputConnectionState(description);
 }
 
 void NetworkManager::sendConnectionInfo(QString info)
 {
-    showInfo("Подключение от: " + info);
+    emit showInfo("Подключение от: " + info);
 }
 
 bool NetworkManager::isValidHostAddress(QString ip)

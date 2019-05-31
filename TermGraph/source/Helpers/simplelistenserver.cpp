@@ -18,7 +18,7 @@ void SimpleListenServer::newConnection()
         QTcpSocket* newSocket = server->nextPendingConnection();
         connect(newSocket, SIGNAL(readyRead()), SLOT(newInputData()));
         this->inputSockets.append(newSocket);
-        newConnectionFrom(getSocketDescription(newSocket));
+        emit newConnectionFrom(getSocketDescription(newSocket));
     }
 }
 
@@ -29,7 +29,7 @@ void SimpleListenServer::newInputData()
         return;
     QHostAddress senderAddress = inputSocket->peerAddress();
     QByteArray data = inputSocket->readAll();
-    newReceivedData(senderAddress, data);
+    emit newReceivedData(senderAddress, data);
 }
 
 QString SimpleListenServer::getSocketDescription(QTcpSocket *socket)

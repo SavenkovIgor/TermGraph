@@ -79,7 +79,7 @@ void MainScene::updateModel()
     sceneRhytm.start();
     // startAllGroupTimers();
     updateSceneRect();
-    sceneContentUpdated();
+    emit sceneContentUpdated();
 
     requestPaint(true);
     qDebug() << "model updated";
@@ -144,7 +144,7 @@ void MainScene::setSceneViewRect(int x, int y, int width, int height)
     if (tmpRect != sceneRect) {
         sceneRect = tmpRect;
 //        resetPaintFlags();
-//        sceneContentUpdated();
+//        emit sceneContentUpdated();
     }
 }
 
@@ -183,7 +183,7 @@ void MainScene::dropSelection(bool withSignal)
     }
 
     if (withSignal) {
-        selectionDropSignal();
+        emit selectionDropSignal();
     }
 }
 
@@ -208,7 +208,7 @@ void MainScene::showGroup(const QUuid &groupUuid)
     currGroupUuid = groupUuid;
     updateModel();
     updateSceneRect();
-    sceneContentUpdated();
+    emit sceneContentUpdated();
 
     qDebug() << "Group changed in: " << groupChangeTimer.restart();
 }
@@ -412,7 +412,7 @@ void MainScene::findClick(const QPointF &atPt)
     if (auto selected = getSelectedNode()) {
         // if same rect - exit
         if (selected->getNodeRect(CoordType::scene).contains(atPt)) {
-            selectionDoubleClick();
+            emit selectionDoubleClick();
             return;
         } else {
 
@@ -483,8 +483,8 @@ void MainScene::sendGroupsToPaintManager(bool requestPaint, bool paintAll)
 void MainScene::sendSelectionChangeSignal()
 {
     if (hasSelection()) {
-        someSelected();
+        emit someSelected();
     } else {
-        selectionDropSignal();
+        emit selectionDropSignal();
     }
 }
