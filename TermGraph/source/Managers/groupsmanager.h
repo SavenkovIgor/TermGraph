@@ -19,6 +19,9 @@ public:
 
     TermGroup* createGroup(const QUuid groupUuid);
 
+    Q_PROPERTY(bool hasAnyGroup READ getHasAnyGroup NOTIFY groupsListChanged)
+    Q_PROPERTY(QStringList allUuidSorted READ getAllUuidStringsSortedByLastEdit NOTIFY groupsListChanged)
+
 signals:
     void groupsListChanged();
 
@@ -28,7 +31,7 @@ signals:
 
 public slots:
 
-    bool hasAnyGroup() const;
+    bool getHasAnyGroup() const;
 
     QStringList getAllGroupsNames(bool withAllVeiw = false);
     QList<QUuid> getAllUuidsSortedByLastEdit();

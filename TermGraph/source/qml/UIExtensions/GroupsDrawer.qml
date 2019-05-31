@@ -10,21 +10,13 @@ Drawer {
     edge: Qt.RightEdge
     onOpened: groupListView.forceActiveFocus()
 
-    function refreshModel() {
-        groupListView.refreshModel()
-    }
-
     ListView {
         id: groupListView
         anchors.fill: parent
 
         property real maxWidth: 0
 
-        model: groupsManager.getAllUuidStringsSortedByLastEdit()
-
-        function refreshModel() {
-            model = groupsManager.getAllUuidStringsSortedByLastEdit()
-        }
+        model: groupsManager.allUuidSorted
 
         Rectangle {
             anchors.fill: parent

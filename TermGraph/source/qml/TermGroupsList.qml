@@ -81,16 +81,6 @@ Page {
         onClicked: groupsManager.sendGroupByNetwork(groupsList.currentItem.groupUuid)
     }
 
-    Connections {
-        target: groupsManager
-        onGroupsListChanged: groupsList.refreshModel()
-    }
-
-    Connections {
-        target: nodesManager
-        onNodeChanged: groupsList.refreshModel()
-    }
-
     Rectangle {
         anchors.fill: parent
         color: appColors.base
@@ -99,12 +89,8 @@ Page {
     ListView {
         id: groupsList
         anchors.fill: parent
-        model: groupsManager.getAllUuidStringsSortedByLastEdit()
+        model: groupsManager.allUuidSorted
         keyNavigationEnabled: true
-
-        function refreshModel() {
-            model = groupsManager.getAllUuidStringsSortedByLastEdit()
-        }
 
         highlight: Rectangle {
             width: 200; height: 20

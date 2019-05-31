@@ -56,19 +56,6 @@ Page {
         onSelectionDoubleClick: nodeInfoButton.openTerm()
     }
 
-    Connections {
-        target: groupsManager
-        onGroupsListChanged: {
-            showGroupListButton.updateVisibility()
-            groupsList.refreshModel()
-        }
-    }
-
-    Connections {
-        target: nodesManager
-        onNodeChanged: groupsList.refreshModel()
-    }
-
     NewNodeEdit {
         id: newNodePage
         mainStack: stackView
@@ -109,7 +96,7 @@ Page {
         onClicked: openNewNodePage()
 
         function openNewNodePage() {
-            if (groupsManager.hasAnyGroup()) {
+            if (groupsManager.hasAnyGroup) {
                 newNodePage.open()
                 newNodePage.nodeUuid = ""
             } else {
@@ -123,13 +110,9 @@ Page {
         id: showGroupListButton
         z: 3
         iconName: "spreadsheet"
-        visible: groupsManager.hasAnyGroup()
+        visible: groupsManager.hasAnyGroup
 
         anchors { top: parent.top; right: parent.right; }
-
-        function updateVisibility() {
-            visible = groupsManager.hasAnyGroup()
-        }
 
         onClicked: groupsList.open()
     }

@@ -236,23 +236,9 @@ Page {
                     font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
                 }
 
-                Connections {
-                    target: groupsManager
-                    onGroupsListChanged: nodeGroup.refreshModel()
-                }
-
-                Connections {
-                    target: nodesManager
-                    onNodeChanged: nodeGroup.refreshModel()
-                }
-
                 MyComboBox {
                     id: nodeGroup
-                    model: groupsManager.getAllUuidStringsSortedByLastEdit()
-
-                    function refreshModel() {
-                        model = groupsManager.getAllUuidStringsSortedByLastEdit()
-                    }
+                    model: groupsManager.allUuidSorted
 
                     function selectElement(name) {
                         var index = find(name)

@@ -12,6 +12,7 @@ GroupsManager::GroupsManager(
                 this->network,
                 SIGNAL(newSyncGroup(QString)),
                 SLOT(importGroupFromJson(QString)));
+    connect(nodesMgr, &NodesManager::nodeChanged, this, &GroupsManager::groupsListChanged);
 }
 
 QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
@@ -154,7 +155,7 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
     return group;
 }
 
-bool GroupsManager::hasAnyGroup() const
+bool GroupsManager::getHasAnyGroup() const
 {
     return !Database::instance().groupTable->getAllUuids().isEmpty();
 }
