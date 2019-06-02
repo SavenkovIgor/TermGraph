@@ -8,7 +8,8 @@ MainWindow::MainWindow(QObject *parent):
     analyze(new WordFreqAnalyze()),
     tagProcessor(new TagProcessor()),
     textProcessor(new TextProcessor()),
-    groupsManager(new GroupsManager(nodesManager.get(), network.get())),
+    groupsManager(new GroupsManager(nodesManager.get())),
+    syncManager(new SyncManager(network.get(), groupsManager.get(), nodesManager.get())),
     scene(new MainScene(groupsManager.get(), nodesManager.get(), paintManager.get())),
     qmlEngine(new QQmlApplicationEngine())
 {
@@ -32,6 +33,7 @@ MainWindow::MainWindow(QObject *parent):
     qmlEngine->rootContext()->setContextProperty("nodesManager", nodesManager.get());
     qmlEngine->rootContext()->setContextProperty("tagProcessor", tagProcessor.get());
     qmlEngine->rootContext()->setContextProperty("textProcessor", textProcessor.get());
+    qmlEngine->rootContext()->setContextProperty("syncManager", syncManager.get());
     qmlEngine->load(QUrl("qrc:/qml/MainWindow.qml"));
 }
 

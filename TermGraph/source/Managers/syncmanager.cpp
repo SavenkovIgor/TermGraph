@@ -1,12 +1,19 @@
 #include "syncmanager.h"
 
-SyncManager::SyncManager(GroupsManager *groupsManger,
+SyncManager::SyncManager(NetworkManager *networkManager,
+                         GroupsManager *groupsManger,
                          NodesManager *nodesManager,
                          QObject *parent)
     : QObject(parent)
 {
+    this->networkManager = networkManager;
     this->groupsManager = groupsManger;
     this->nodesManager = nodesManager;
+
+    connect(this->networkManager,
+            SIGNAL(newSyncGroup(QString)),
+            this->groupsManager,
+            SLOT(importGroupFromJson(QString)));
 }
 
 bool SyncManager::isDataContainer(const QJsonDocument &doc)
@@ -22,6 +29,15 @@ bool SyncManager::isDataContainer(const QJsonDocument &doc)
     hasContent = docObject.contains(contentFieldName);
 
     return hasContentType && hasVersion && hasContent;
+}
+
+void SyncManager::sendGroupByNetwork(const QString &groupUuid)
+{
+    if (auto group = groupsManager->createGroup(QUuid(groupUuid))) {
+        networkManager->sendGroup(group->getJsonDoc());
+        group->deleteLater();
+//        delete group; // TODO: Проверить, почему удаление вызывает ошибку
+    }
 }
 
 QString SyncManager::getContentTypeName(const SyncManager::ContentType &type)

@@ -5,6 +5,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+#include "networkmanager.h"
 #include "groupsmanager.h"
 #include "nodesmanager.h"
 
@@ -13,7 +14,8 @@ class SyncManager : public QObject
     Q_OBJECT
 
 public:
-    explicit SyncManager(GroupsManager *groupsManger,
+    explicit SyncManager(NetworkManager *networkManager,
+                         GroupsManager *groupsManger,
                          NodesManager *nodesManager,
                          QObject *parent = nullptr);
 
@@ -25,9 +27,12 @@ public:
 
     static bool isDataContainer(const QJsonDocument &doc);
     //signals:
-    //public slots:
+
+public slots:
+    void sendGroupByNetwork(const QString& groupUuid);
 
 private:
+    NetworkManager* networkManager;
     GroupsManager* groupsManager;
     NodesManager* nodesManager;
 

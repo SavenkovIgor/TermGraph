@@ -14,6 +14,7 @@
 #include "./Helpers/tagprocessor.h"
 #include "./Helpers/textprocessor.h"
 #include "./Helpers/appconfig.h"
+#include "./Managers/syncmanager.h"
 
 class MainWindow : public QObject
 {
@@ -43,6 +44,7 @@ private:
 
     // Dependent init
     QScopedPointer<GroupsManager> groupsManager;
+    QScopedPointer<SyncManager> syncManager;
     QScopedPointer<MainScene> scene;
     QScopedPointer<QQmlApplicationEngine> qmlEngine;
 };

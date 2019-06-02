@@ -1,17 +1,9 @@
 #include "groupsmanager.h"
 
-GroupsManager::GroupsManager(
-        NodesManager *nodesMgr,
-        NetworkManager* network,
-        QObject *parent):
-    QObject(parent)
+GroupsManager::GroupsManager(NodesManager *nodesMgr, QObject *parent)
+    : QObject(parent)
 {
     this->nodesMgr = nodesMgr;
-    this->network = network;
-    connect(
-                this->network,
-                SIGNAL(newSyncGroup(QString)),
-                SLOT(importGroupFromJson(QString)));
     connect(nodesMgr, &NodesManager::nodeChanged, this, &GroupsManager::groupsListChanged);
 }
 
@@ -347,14 +339,6 @@ void GroupsManager::saveGroupInFolder(TermGroup *group)
     if (group != nullptr) {
         QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
         FSWorks::saveFile(AppConfig::StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
-    }
-}
-
-void GroupsManager::sendGroupByNetwork(const QString groupUuid)
-{
-    if (auto group = createGroup(QUuid(groupUuid))) {
-        network->sendGroup(group->getJsonDoc());
-        //    delete group;  // TODO: Проверить, почему удаление вызывает ошибку
     }
 }
 

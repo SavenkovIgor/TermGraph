@@ -5,17 +5,13 @@
 
 #include "../Helpers/fsworks.h"
 #include "./nodesmanager.h"
-#include "./networkmanager.h"
 #include "../Model/TerminGroup/termgroup.h"
 
 class GroupsManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit GroupsManager(
-            NodesManager* nodesMgr,
-            NetworkManager* network,
-            QObject *parent = nullptr);
+    explicit GroupsManager(NodesManager *nodesMgr, QObject *parent = nullptr);
 
     TermGroup* createGroup(const QUuid groupUuid);
 
@@ -59,9 +55,6 @@ public slots:
     void exportGrpToJson(QString groupUuid);
     void saveGroupInFolder(TermGroup *group);
 
-    // Network
-    void sendGroupByNetwork(const QString groupUuid);
-
 private:
     bool isValidGroupJson(const QJsonDocument json);
 
@@ -70,7 +63,6 @@ private:
     QDateTime getLastEdit(QUuid groupUuid);
 
     NodesManager* nodesMgr;
-    NetworkManager* network;
 
     // Cache
     QMap<QUuid, QString> uuidToNames;

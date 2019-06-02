@@ -78,7 +78,7 @@ Page {
 
         anchors { right: addGroupBtn.left; bottom: parent.bottom; }
 
-        onClicked: groupsManager.sendGroupByNetwork(groupsList.currentItem.groupUuid)
+        onClicked: syncManager.sendGroupByNetwork(groupsList.currentItem.groupUuid)
     }
 
     Rectangle {
