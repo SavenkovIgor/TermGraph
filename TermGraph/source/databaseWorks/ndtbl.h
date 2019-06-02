@@ -7,6 +7,20 @@
 
 using namespace std;
 
+struct NodeContainer
+{
+    QUuid nodeUuid;
+    QString name;
+    QString wordForms;
+    QString definition;
+    QString description;
+    QString example;
+    QString wikiRef;
+    QString wikiImage;
+    QUuid groupUuid;
+    QDateTime lastEdit;
+};
+
 class NodeColumn {
 public:
     // TODO: Грохнуть uid
