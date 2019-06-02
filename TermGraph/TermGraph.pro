@@ -6,6 +6,7 @@ TEMPLATE = app
 CONFIG += c++17
 
 HEADERS += \
+    source/Managers/syncmanager.h \
     source/databaseWorks/database.h\
     source/databaseWorks/edgtbl.h\
     source/databaseWorks/tblbase.h\
@@ -49,6 +50,7 @@ HEADERS += \
     source/Helpers/textprocessor.h
 
 SOURCES += \
+    source/Managers/syncmanager.cpp \
     source/main.cpp\
     source/databaseWorks/database.cpp\
     source/databaseWorks/edgtbl.cpp\
