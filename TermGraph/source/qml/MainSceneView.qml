@@ -181,7 +181,7 @@ Page {
         onClicked: openTerm()
 
         function openTerm() {
-            if (sceneObj.hasSelection()) {
+            if (sceneObj.hasSelection) {
                 termViewPage.open()
             }
         }
