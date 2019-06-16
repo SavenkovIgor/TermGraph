@@ -7,6 +7,7 @@ CONFIG += c++17
 
 HEADERS += \
     source/Managers/syncmanager.h \
+    source/Model/Termin/nodeinfocontainer.h \
     source/databaseWorks/database.h\
     source/databaseWorks/edgtbl.h\
     source/databaseWorks/tblbase.h\

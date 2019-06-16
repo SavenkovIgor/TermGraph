@@ -110,7 +110,7 @@ void NodeTable::setRemindNum(const QUuid& uuid, const int& num, const QDate& dat
     updateWhere(set, WhereCondition::uuidEqual(uuid));
 }
 
-void NodeTable::deleteNode(const QUuid &uuid)
+void NodeTable::deleteNode(const QUuid& uuid)
 {
     deleteRecord(uuid);
 }
