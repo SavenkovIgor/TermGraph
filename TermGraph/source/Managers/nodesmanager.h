@@ -60,8 +60,8 @@ public slots:
 
     void deleteNode(QUuid uuid);
 
-    QList<QUuid> getAllNodesUuidsInGroup(QUuid groupUuid);
-    PaintedTerm::List getAllNodesForGroup(QUuid groupUuid);
+    UuidList getAllNodesUuidsInGroup(const QUuid& groupUuid);
+    PaintedTerm::List getAllNodesForGroup(const QUuid& groupUuid);
 
     QDateTime getLastEdit(QUuid nodeUuid);
 

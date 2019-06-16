@@ -5,6 +5,7 @@
 #include "./tblbase.h"
 #include "./dbtablenames.h"
 #include "../Model/Termin/nodeinfocontainer.h"
+#include "../Helpers/handytypes.h"
 
 using namespace std;
 
@@ -58,7 +59,7 @@ public:
 
     bool isNodeWithUuidExist(const QUuid& uuid);
 
-    QList<QUuid> getAllNodesUuids(const QUuid& groupUuid = QUuid());
+    UuidList getAllNodesUuids(const QUuid& groupUuid = QUuid());
     RecVector getAllNodesDBRecrods(const QUuid& groupUuid);
 
     QDateTime getLastEdit(const QUuid& uuid);

@@ -157,9 +157,9 @@ QUuid NodeTable::generateNewUuid()
     return uuid;
 }
 
-QList<QUuid> NodeTable::getAllNodesUuids(const QUuid& groupUuid)
+UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
 {
-    QList<QUuid> ret;
+    UuidList ret;
     QVector<QSqlRecord> sqlRecords;
 
     if (groupUuid.isNull()) { // Taking all uuids
@@ -173,7 +173,7 @@ QList<QUuid> NodeTable::getAllNodesUuids(const QUuid& groupUuid)
         if (!record.contains(NodeColumn::longUID))
             continue;
 
-        ret << QUuid(record.value(NodeColumn::longUID).toString());
+        ret.push_back(QUuid(record.value(NodeColumn::longUID).toString()));
     }
 
     return filterEmptyUuids(ret);

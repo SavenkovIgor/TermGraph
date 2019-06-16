@@ -82,14 +82,12 @@ void NodesManager::deleteNode(QUuid uuid)
     emit nodeChanged();
 }
 
-PaintedTerm::List NodesManager::getAllNodesForGroup(QUuid groupUuid)
+PaintedTerm::List NodesManager::getAllNodesForGroup(const QUuid &groupUuid)
 {
     PaintedTerm::List ret;
-
     auto records = Database::instance().nodeTable->getAllNodesDBRecrods(groupUuid);
 
     for (auto record : records) {
-
         if (record.count() == 0)
             continue;
 
@@ -98,7 +96,7 @@ PaintedTerm::List NodesManager::getAllNodesForGroup(QUuid groupUuid)
     return ret;
 }
 
-QList<QUuid> NodesManager::getAllNodesUuidsInGroup(QUuid groupUuid)
+UuidList NodesManager::getAllNodesUuidsInGroup(const QUuid& groupUuid)
 {
     return Database::instance().nodeTable->getAllNodesUuids(groupUuid);
 }

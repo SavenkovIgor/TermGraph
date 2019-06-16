@@ -119,12 +119,12 @@ void TblBase::executeUpdate(const SetExpression& set, const WhereCondition& wher
     startQuery(query);
 }
 
-QList<QUuid> TblBase::filterEmptyUuids(const QList<QUuid>& uuids)
+UuidList TblBase::filterEmptyUuids(const UuidList& uuids)
 {
-    QList<QUuid> ret;
+    UuidList ret;
     for (auto& uuid : uuids) {
         if (!uuid.isNull()) {
-            ret << uuid;
+            ret.push_back(uuid);
         }
     }
 

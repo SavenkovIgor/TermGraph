@@ -3,6 +3,7 @@
 
 #include <QtSql>
 
+#include "../Helpers/handytypes.h"
 #include "sqlqueryconstructor.h"
 
 using SqCond = QMap<QString, QString>;
@@ -47,7 +48,7 @@ protected:
     virtual TColumn::List getAllColumns() const = 0;
     virtual void initTable() = 0;
 
-    static QList<QUuid> filterEmptyUuids(const QList<QUuid>& uuids);
+    static UuidList filterEmptyUuids(const UuidList& uuids);
 
 private:
     QSqlDatabase *base;
