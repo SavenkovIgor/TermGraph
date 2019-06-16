@@ -58,9 +58,8 @@ public:
 
     bool isNodeWithUuidExist(const QUuid& uuid);
 
-    QList<QUuid> getAllNodesUuids();
-    QList<QUuid> getAllNodesUuidsInGroup(const QUuid &groupUuid);
-    RecVector getAllNodesDBRecrods(const QUuid &groupUuid);
+    QList<QUuid> getAllNodesUuids(const QUuid& groupUuid = QUuid());
+    RecVector getAllNodesDBRecrods(const QUuid& groupUuid);
 
     QDateTime getLastEdit(const QUuid& uuid);
     RecVector getAllLastEditRecords();

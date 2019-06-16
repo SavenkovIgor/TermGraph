@@ -100,7 +100,7 @@ PaintedTerm::List NodesManager::getAllNodesForGroup(QUuid groupUuid)
 
 QList<QUuid> NodesManager::getAllNodesUuidsInGroup(QUuid groupUuid)
 {
-    return Database::instance().nodeTable->getAllNodesUuidsInGroup(groupUuid);
+    return Database::instance().nodeTable->getAllNodesUuids(groupUuid);
 }
 
 QSqlRecord NodesManager::getNodeSqlRecord(QUuid nodeUuid)

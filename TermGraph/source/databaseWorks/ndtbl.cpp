@@ -1,4 +1,4 @@
-#include "./ndtbl.h"
+﻿#include "./ndtbl.h"
 
 QUuid NodeTable::nodeUuidForNameAndGroup(const QString &name, const QUuid &groupUuid) const
 {
@@ -157,40 +157,26 @@ QUuid NodeTable::generateNewUuid()
     return uuid;
 }
 
-QList<QUuid> NodeTable::getAllNodesUuids()
+QList<QUuid> NodeTable::getAllNodesUuids(const QUuid& groupUuid)
 {
     QList<QUuid> ret;
+    QVector<QSqlRecord> sqlRecords;
 
-    auto nodesUuids = toRecVector(select(NodeColumn::longUID));
-    for (auto& record : nodesUuids) {
-        QUuid tmpUuid(record.value(NodeColumn::longUID).toString());
-        if (!tmpUuid.isNull()) {
-            ret << tmpUuid;
-        }
+    if (groupUuid.isNull()) { // Taking all uuids
+        sqlRecords = toRecVector(select(NodeColumn::longUID));
+    } else {
+        auto where = WhereCondition::columnEqual(NodeColumn::termGroup, groupUuid.toString());
+        sqlRecords = toRecVector(select(NodeColumn::longUID, where));
     }
 
-    return ret;
-}
-
-QList<QUuid> NodeTable::getAllNodesUuidsInGroup(const QUuid& groupUuid)
-{
-    auto where = WhereCondition::columnEqual(NodeColumn::termGroup, groupUuid.toString());
-    auto nodesRecords = toRecVector(select(NodeColumn::longUID, where));
-
-    QList<QUuid> ret;
-
-    for (auto& record : nodesRecords) {
-        if (!record.contains(NodeColumn::longUID)) {
+    for (auto& record : sqlRecords) {
+        if (!record.contains(NodeColumn::longUID))
             continue;
-        }
 
-        QUuid tmpUuid(record.value(NodeColumn::longUID).toString());
-        if (!tmpUuid.isNull()) {
-            ret << tmpUuid;
-        }
+        ret << QUuid(record.value(NodeColumn::longUID).toString());
     }
 
-    return ret;
+    return filterEmptyUuids(ret);
 }
 
 RecVector NodeTable::getAllNodesDBRecrods(const QUuid &groupUuid)

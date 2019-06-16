@@ -47,6 +47,8 @@ protected:
     virtual TColumn::List getAllColumns() const = 0;
     virtual void initTable() = 0;
 
+    static QList<QUuid> filterEmptyUuids(const QList<QUuid>& uuids);
+
 private:
     QSqlDatabase *base;
     QScopedPointer<SqlQueryConstructor> queryConstructor;
@@ -59,7 +61,6 @@ private:
     QSqlQuery executeSelect(const QStringList &cols, const WhereCondition &where, const QString &orderBy = "") const;
     QSqlQuery executeInsert(const QList<InsertContainer> &values);
     void      executeUpdate(const SetExpression &set, const WhereCondition &where);
-
 };
 
 #endif // TBLBASE_H

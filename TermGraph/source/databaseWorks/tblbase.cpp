@@ -119,6 +119,18 @@ void TblBase::executeUpdate(const SetExpression& set, const WhereCondition& wher
     startQuery(query);
 }
 
+QList<QUuid> TblBase::filterEmptyUuids(const QList<QUuid>& uuids)
+{
+    QList<QUuid> ret;
+    for (auto& uuid : uuids) {
+        if (!uuid.isNull()) {
+            ret << uuid;
+        }
+    }
+
+    return ret;
+}
+
 void TblBase::updateWhere(const SetExpression& set, const WhereCondition& where)
 {
     executeUpdate(set, where);
@@ -163,7 +175,7 @@ void TblBase::setField(const TColumn &column, const QUuid &uuid, const QString &
     updateWhere(set, WhereCondition::uuidEqual(uuid));
 }
 
-RecVector TblBase::toRecVector(QSqlQuery &&q)
+RecVector TblBase::toRecVector(QSqlQuery&& q)
 {
     RecVector ret;
 
