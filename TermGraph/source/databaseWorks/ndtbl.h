@@ -7,7 +7,7 @@
 
 using namespace std;
 
-struct NodeContainer
+struct NodeInfoContainer
 {
     QUuid nodeUuid;
     QString name;
