@@ -24,9 +24,8 @@ PaintedTerm::~PaintedTerm()
 
 }
 
-int PaintedTerm::getUpLevels(int pLevel)
+int PaintedTerm::getUpLevels([[maybe_unused]] int pLevel)  // TODO: check why plevel unused
 {
-    Q_UNUSED(pLevel)  // TODO: check!
     int ret = -1;
     for (GraphTerm* t : getLeafNodes()) {
         PaintedTerm* n = static_cast<PaintedTerm*>(t);

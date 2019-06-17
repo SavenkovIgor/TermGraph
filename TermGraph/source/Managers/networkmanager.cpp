@@ -53,10 +53,8 @@ QString NetworkManager::getFirstLocalIpString()
     return "";
 }
 
-void NetworkManager::newInputData(QHostAddress fromHost, QByteArray data)
+void NetworkManager::newInputData([[maybe_unused]] QHostAddress fromHost, QByteArray data)
 {
-    Q_UNUSED(fromHost);
-
     static QByteArray byteBuffer = "";
     byteBuffer.append(data);
 
@@ -83,9 +81,8 @@ bool NetworkManager::sendGroup(QJsonDocument doc)
     }
 }
 
-void NetworkManager::outputConnectionStateChange(QAbstractSocket::SocketState state)
+void NetworkManager::outputConnectionStateChange([[maybe_unused]] QAbstractSocket::SocketState state)
 {
-    Q_UNUSED(state)
     emit newOutputConnectionState();
 }
 

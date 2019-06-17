@@ -53,9 +53,8 @@ void Reminder::updateList()
     formLearnList();
 }
 
-void Reminder::setCurrItem(QListWidgetItem* it1,QListWidgetItem* it2)
+void Reminder::setCurrItem(QListWidgetItem* it1, [[maybe_unused]] QListWidgetItem* it2)
 {
-    Q_UNUSED(it2)
     currItem = nullptr;
     for( RemItem* i : remItems ) {
         if( i->itm == it1 ) {
