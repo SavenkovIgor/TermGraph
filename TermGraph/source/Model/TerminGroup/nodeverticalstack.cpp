@@ -1,16 +1,15 @@
 #include "nodeverticalstack.h"
 
+#include "../../Helpers/helpstuff.h"
+
 QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::List& nodes)
 {
-    qreal width = 0.0;
-    qreal height = 0.0;
+    SizesList sizeList;
 
-    for (auto node : nodes) {
-        QSizeF sz = node->getFrameRect(CoordType::zeroPoint).size();
-        height += sz.height();
-        width = qMax(width, sz.width());
-    }
-    return QSizeF(width, height);
+    for (auto node : nodes)
+        sizeList.push_back(node->getFrameRect(CoordType::zeroPoint).size());
+
+    return HelpStuff::getStackedSize(sizeList, Qt::Vertical);
 }
 
 NodeVerticalStack::NodeVerticalStack()
