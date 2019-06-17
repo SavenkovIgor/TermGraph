@@ -101,11 +101,11 @@ void GroupsManager::importGroupFromJsonFile(const QString& filename)
     QFile file(url.toLocalFile());
     if (file.open(QIODevice::ReadOnly)) {
         QByteArray arr = file.readAll();
-        importGroupFromJson(QString(arr));
+        importGroupFromJsonString(QString(arr));
     }
 }
 
-void GroupsManager::importGroupFromJson(const QString& rawJson)
+void GroupsManager::importGroupFromJsonString(const QString& rawJson)
 {
     QByteArray byteArr;
     byteArr.append(rawJson);

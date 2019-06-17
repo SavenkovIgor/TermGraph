@@ -11,9 +11,9 @@ SyncManager::SyncManager(NetworkManager *networkManager,
     this->nodesManager = nodesManager;
 
     connect(this->networkManager,
-            SIGNAL(newSyncGroup(QString)),
+            &NetworkManager::newSyncGroup,
             this->groupsManager,
-            SLOT(importGroupFromJson(QString)));
+            &GroupsManager::importGroupFromJsonString);
 }
 
 bool SyncManager::isDataContainer(const QJsonDocument &doc)

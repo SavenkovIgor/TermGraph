@@ -4,16 +4,12 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 {
     server = new SimpleListenServer(AppConfig::NetworkSettings::listenPort, this);
     server->startListen();
-    connect(server,
-            SIGNAL(newReceivedData(QHostAddress, QByteArray)),
-            SLOT(newInputData(QHostAddress, QByteArray)));
 
-    connect(server, SIGNAL(newConnectionFrom(QString)), SLOT(sendConnectionInfo(QString)));
+    connect(server, &SimpleListenServer::newReceivedData, this, &NetworkManager::newInputData);
+    connect(server, &SimpleListenServer::newConnectionFrom, this, &NetworkManager::sendConnectionInfo);
 
     outputSocket = new QTcpSocket(this);
-    connect(outputSocket,
-            SIGNAL(stateChanged(QAbstractSocket::SocketState)),
-            SLOT(outputConnectionStateChange(QAbstractSocket::SocketState)));
+    connect(outputSocket, &QTcpSocket::stateChanged, this, &NetworkManager::outputConnectionStateChange);
 }
 
 void NetworkManager::connectToHost()

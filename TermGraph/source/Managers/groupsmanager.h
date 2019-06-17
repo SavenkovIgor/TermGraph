@@ -48,7 +48,7 @@ public slots:
 
     // Json
     void importGroupFromJsonFile(const QString& filename);
-    void importGroupFromJson(const QString& rawJson);
+    void importGroupFromJsonString(const QString& rawJson);
     void importGroupFromJson(const QJsonDocument &json);
 
     QString getExportPath() const;

@@ -10,12 +10,12 @@ Reminder::Reminder(PaintedTerm::List allNodes, QWidget *parent) :
 
     formLearnList();
 
-    connect(ui->learnWgt,SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),SLOT(setCurrItem(QListWidgetItem*,QListWidgetItem*)));
-    connect(ui->showAns,SIGNAL(clicked(bool)),SLOT(showResult()));
+//    connect(ui->learnWgt,SIGNAL(currentItemChanged(QListWidgetItem*,QListWidgetItem*)),SLOT(setCurrItem(QListWidgetItem*,QListWidgetItem*)));
+//    connect(ui->showAns,SIGNAL(clicked(bool)),SLOT(showResult()));
 
-    connect(ui->dontRemember,SIGNAL(clicked(bool)),SLOT(dontRemember()));
-    connect(ui->remember,SIGNAL(clicked(bool)),SLOT(remember()));
-    connect(ui->know,SIGNAL(clicked(bool)),SLOT(wellKnow()));
+//    connect(ui->dontRemember,SIGNAL(clicked(bool)),SLOT(dontRemember()));
+//    connect(ui->remember,SIGNAL(clicked(bool)),SLOT(remember()));
+//    connect(ui->know,SIGNAL(clicked(bool)),SLOT(wellKnow()));
 }
 
 void Reminder::formLearnList()
