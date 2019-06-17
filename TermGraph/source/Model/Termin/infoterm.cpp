@@ -1,7 +1,10 @@
 #include "infoterm.h"
 
-InfoTerm::InfoTerm(QSqlRecord rec, QObject *parent) :
-    QObject(parent)
+#include "../../Helpers/textprocessor.h"
+#include "../../Helpers/helpstuff.h"
+
+InfoTerm::InfoTerm(QSqlRecord rec, QObject* parent)
+    : QObject(parent)
 {
     uuid = QUuid(rec.value(NodeColumn::longUID).toString());
     groupUuid = QUuid(rec.value(NodeColumn::termGroup).toString());
@@ -18,8 +21,26 @@ InfoTerm::InfoTerm(QSqlRecord rec, QObject *parent) :
     lastRepeatDate = QDate::fromString(rec.value(NodeColumn::lastRemind).toString() );
     repNum = rec.value(NodeColumn::remindNum).toInt();
     atLearn = rec.value(NodeColumn::atLearn).toString() == "1";
+}
 
-    nameCompressing();
+InfoTerm::InfoTerm(const NodeInfoContainer& info, QObject* parent)
+    : QObject(parent)
+{
+    uuid = info.uuid;
+    groupUuid = info.groupUuid;
+
+    name = info.name;
+    nameForms = info.wordForms;
+    definition = info.definition;
+    description = info.description;
+
+    examples = info.examples;
+    wikiRef = info.wikiRef;
+    wikiImg = info.wikiImage;
+
+    lastRepeatDate = QDate::currentDate();
+    repNum = 0;
+    atLearn = false;
 }
 
 QUuid InfoTerm::getUuid() const
@@ -45,49 +66,37 @@ QString InfoTerm::getNameAndDefinition(bool decorated) const
     return name + " - это " + definition;
 }
 
-QString InfoTerm::getSmallName() const
+QString InfoTerm::getSmallName()
 {
-    return smallName;
-}
+    if (smallName.isNull()) {
+        smallName = name;
 
-QSizeF InfoTerm::getNameSize() const
-{
-    return nameSize;
-}
+        if (smallName.contains(" ")) {
+            // Если имя превышает базовую ширину и содержит пробелы то пытаемся его разбить на 2
 
-void InfoTerm::nameCompressing()
-{
-    smallName = name;
-
-    if (name.contains(" ")) {
-        // Если имя превышает базовую ширину и содержит пробелы то пытаемся его разбить на 2
-
-        if (Fonts::getTextMetrics(smallName).width() + 15 > AppStyle::Sizes::baseBlockWidth) {
-            // Пытаемся ужать в 2 строки
-            int mid = smallName.size()/2;
-
-            for (int i = 0; i < mid; i++) {
-                int l = qBound(0, mid-i, mid);
-                int r = qBound(mid, mid+i, name.size()-1);
-
-                if (smallName[l] == ' ') {
-                    smallName[l] = '\n';
-                    break;
-                }
-
-                if (smallName[r] == ' ') {
-                    smallName[r] = '\n';
-                    break;
-                }
+            if (Fonts::getTextMetrics(smallName).width() + 15 > AppStyle::Sizes::baseBlockWidth) {
+                // Пытаемся ужать в 2 строки
+                smallName = TextProcessor::insertNewLineNearMiddle(smallName);
             }
         }
     }
-    // Устанавливаем максимальную ширину сжатого имени
-    QStringList lst = smallName.split("\n");
-    for (QString s : lst) {
-        nameSize.setWidth(qMax(nameSize.width(), Fonts::getTextMetrics(s).width()));
-        nameSize.setHeight(nameSize.height() + Fonts::getTextMetrics(s).height());
+
+    return smallName;
+}
+
+QSizeF InfoTerm::getNameSize()
+{
+    if (!nameSize.isValid()) {
+        SizesList sizes;
+        auto nameParts = getSmallName().split("\n");
+
+        for (auto& part : nameParts)
+            sizes.push_back(Fonts::getTextMetrics(part));
+
+        nameSize = HelpStuff::getStackedSize(sizes, Qt::Vertical);
     }
+
+    return nameSize;
 }
 
 QJsonObject InfoTerm::toJson()

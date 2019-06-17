@@ -1,18 +1,21 @@
 #ifndef NODEINFOCONTAINER_H
 #define NODEINFOCONTAINER_H
 
+#include <vector>
 #include <QString>
 #include <QUuid>
 #include <QDateTime>
 
 struct NodeInfoContainer
 {
-    QUuid nodeUuid;
+    using List = std::vector<NodeInfoContainer>;
+
+    QUuid uuid;
     QString name;
     QString wordForms;
     QString definition;
     QString description;
-    QString example;
+    QString examples;
     QString wikiRef;
     QString wikiImage;
     QUuid groupUuid;

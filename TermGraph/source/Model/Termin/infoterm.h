@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QSqlRecord>
 
+#include "nodeinfocontainer.h"
 #include "../../databaseWorks/ndtbl.h"
 #include "../../Helpers/appstyle.h"
 #include "../../Helpers/tagprocessor.h"
@@ -22,6 +23,7 @@ public:
     };
 
     explicit InfoTerm(QSqlRecord rec, QObject *parent = nullptr);
+    explicit InfoTerm(const NodeInfoContainer& info, QObject* parent = nullptr);
     virtual ~InfoTerm() = default;
 //    bool isNull(); //TODO: Realize!
 
@@ -29,7 +31,7 @@ public:
     QUuid getGroupUuid() const;
     QString getName() const;
     QString getNameAndDefinition(bool decorated = false) const;
-    QString getSmallName()  const;
+    QString getSmallName();  // Lazy
     QString getNameFormStr() const;
     QStringList getNameFormList() const;
 
@@ -53,17 +55,15 @@ public:
     int getRepNum() const;
 
 protected:
-    QSizeF getNameSize()    const;
+    QSizeF getNameSize();  // Lazy
 
 private:
-    void nameCompressing();
-
     QUuid groupUuid;
 
     QUuid uuid;
     QString name;
-    QString smallName;  // То же самое название но ужатое до 2х строчек"
-    QSizeF  nameSize;
+    QString smallName = QString();  // То же самое название но ужатое до 2х строчек"
+    QSizeF  nameSize = QSizeF();
     QString nameForms;
 
     QString definition;
