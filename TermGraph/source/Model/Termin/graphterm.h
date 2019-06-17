@@ -17,12 +17,11 @@ enum class NodeType {
 // like edges, place in graph hierarchy and so on
 class GraphTerm : public InfoTerm
 {
-
 public:
     typedef QList<GraphTerm*> List;
 
     GraphTerm(QSqlRecord rec);
-    ~GraphTerm() override;
+    ~GraphTerm() override = default;
 
     List getUpDownNodes();
     GraphEdge::List getUpDownEdges();

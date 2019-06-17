@@ -227,8 +227,6 @@ void TermGroupInfo::setNeighbours()
     }
 }
 
-
-
 QSizeF TermGroupInfo::getOrphansSize()
 {
     QRectF orphansRc;
