@@ -192,20 +192,20 @@ Page {
                 id: termDefin
                 labelText: "-это"
                 placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
-                text: newNode ? sceneObj.getCurrNodeDefinition() : ""
+                text: nodeUuid !== "" ? sceneObj.getCurrNodeDefinition() : ""
             }
 
             MyTextArea {
                 id: termDescr
                 labelText : "Описание"
                 placeholderText: "[Общее словестное описание, пока никак не участвует в логике]"
-                text: newNode ? sceneObj.getCurrNodeDescription() : ""
+                text: nodeUuid !== "" ? sceneObj.getCurrNodeDescription() : ""
             }
 
             MyTextArea {
                 id: termExampl
                 labelText: "Примеры"
-                text: newNode ? sceneObj.getCurrNodeExamples() : ""
+                text: nodeUuid !== "" ? sceneObj.getCurrNodeExamples() : ""
             }
 
             MyTextField {
