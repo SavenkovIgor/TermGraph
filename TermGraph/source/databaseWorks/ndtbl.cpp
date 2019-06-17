@@ -1,5 +1,7 @@
 ﻿#include "./ndtbl.h"
 
+#include "./columns/nodecolumn.h"
+
 QUuid NodeTable::nodeUuidForNameAndGroup(const QString &name, const QUuid &groupUuid) const
 {
     auto where = WhereCondition();

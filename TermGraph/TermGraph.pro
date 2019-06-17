@@ -8,6 +8,9 @@ CONFIG += c++17
 HEADERS += \
     source/Managers/syncmanager.h \
     source/Model/Termin/nodeinfocontainer.h \
+    source/databaseWorks/columns/nodecolumn.h \
+    source/databaseWorks/columns/tcolumn.h \
+    source/databaseWorks/columns/termgroupcolumn.h \
     source/databaseWorks/database.h\
     source/databaseWorks/edgtbl.h\
     source/databaseWorks/tblbase.h\

@@ -1,6 +1,10 @@
 #include "nodesmanager.h"
 
-NodesManager::NodesManager(QObject *parent) : QObject(parent) { }
+#include "../databaseWorks/columns/nodecolumn.h"
+
+NodesManager::NodesManager(QObject* parent)
+    : QObject(parent)
+{}
 
 bool NodesManager::addNewNode(
         const QString &name,

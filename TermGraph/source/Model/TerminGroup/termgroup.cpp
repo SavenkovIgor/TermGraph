@@ -1,5 +1,7 @@
 #include "termgroup.h"
 
+#include "../../databaseWorks/columns/termgroupcolumn.h"
+
 int TermGroup::animSpeed = 300;
 
 TermGroup::TermGroup(QSqlRecord rec, QObject *parent):

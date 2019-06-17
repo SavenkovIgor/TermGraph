@@ -4,7 +4,7 @@
 #include <QtSql>
 
 #include "../Helpers/handytypes.h"
-#include "sqlqueryconstructor.h"
+#include "./sqlqueryconstructor.h"
 
 using SqCond = QMap<QString, QString>;
 using RecVector = QVector<QSqlRecord>;

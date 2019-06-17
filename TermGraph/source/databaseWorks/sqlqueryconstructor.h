@@ -3,26 +3,8 @@
 
 #include <QtCore>
 
-#include "commonqueryfunctions.h"
-
-struct TColumn
-{
-    using List = QList<TColumn>;
-
-    const char* name;  // Name of column
-    const char* type;  // Type description of column
-
-    constexpr TColumn(const char* name, const char* type) : name(name), type(type) { }
-    constexpr TColumn(const TColumn& col) : name(col.name), type(col.type) { }
-
-    operator QString() const {
-        return QString(name);
-    }
-
-    bool operator ==(const TColumn& otherCol) const {
-        return name == otherCol.name && type == otherCol.type;
-    }
-};
+#include "./commonqueryfunctions.h"
+#include "./columns/tcolumn.h"
 
 class InsertContainer
 {

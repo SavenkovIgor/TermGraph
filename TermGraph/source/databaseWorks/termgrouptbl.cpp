@@ -1,5 +1,7 @@
 #include "termgrouptbl.h"
 
+#include "./columns/termgroupcolumn.h"
+
 bool TermGroupTable::addGroup(QString name, QString comment, int type)
 {
     if (name.simplified() == "") {

@@ -1,5 +1,8 @@
 #include "groupsmanager.h"
 
+#include "../databaseWorks/columns/termgroupcolumn.h"
+#include "../databaseWorks/columns/nodecolumn.h"
+
 GroupsManager::GroupsManager(NodesManager *nodesMgr, QObject *parent)
     : QObject(parent)
 {
