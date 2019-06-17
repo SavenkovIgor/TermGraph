@@ -36,3 +36,23 @@ QString HelpStuff::rectToStr(const QRectF &rect)
 {
     return rectToStr(rect.toRect());
 }
+
+QSizeF HelpStuff::getStackedSize(const SizesList& sizeList, const Qt::Orientation stackOrientation)
+{
+    qreal width = 0;
+    qreal height = 0;
+
+    if (stackOrientation == Qt::Vertical) {
+        for (auto& size : sizeList) {
+            width = qMax(width, size.width());
+            height += size.height();
+        }
+    } else if (stackOrientation == Qt::Horizontal) {
+        for (auto& size : sizeList) {
+            width += size.width();
+            height = qMax(height, size.height());
+        }
+    }
+
+    return QSizeF(width, height);
+}

@@ -6,6 +6,8 @@
 #include <QSizeF>
 #include <QRectF>
 
+#include "handytypes.h"
+
 class HelpStuff {
 public:
     static QString ptToStr(const int& x, const int& y);
@@ -18,6 +20,8 @@ public:
 
     static QString rectToStr(const QRect& rect);
     static QString rectToStr(const QRectF& rect);
+
+    static QSizeF getStackedSize(const SizesList& sizeList, const Qt::Orientation stackOrientation = Qt::Vertical);
 };
 
 #endif // HELPSTUFF_H
