@@ -1,7 +1,7 @@
 #include "graphterm.h"
 
-GraphTerm::GraphTerm(QSqlRecord rec)
-    : InfoTerm(rec)
+GraphTerm::GraphTerm(const NodeInfoContainer &info)
+    : InfoTerm(info)
 {}
 
 GraphEdge::List GraphTerm::getUpDownEdges()

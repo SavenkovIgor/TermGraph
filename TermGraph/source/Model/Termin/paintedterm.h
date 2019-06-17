@@ -25,8 +25,8 @@ public:
 
     static QList<Qt::Edge> sides;
 
-    PaintedTerm(QSqlRecord rec);
-    ~PaintedTerm() override;
+    PaintedTerm(const NodeInfoContainer& info);
+    ~PaintedTerm() override = default;
 
     // Leveling tools
     int getUpLevels(int pLevel = -1);

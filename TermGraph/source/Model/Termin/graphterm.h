@@ -20,7 +20,7 @@ class GraphTerm : public InfoTerm
 public:
     typedef QList<GraphTerm*> List;
 
-    GraphTerm(QSqlRecord rec);
+    GraphTerm(const NodeInfoContainer& info);
     ~GraphTerm() override = default;
 
     List getUpDownNodes();

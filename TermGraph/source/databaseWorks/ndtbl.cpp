@@ -179,16 +179,11 @@ UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
     return filterEmptyUuids(ret);
 }
 
-RecVector NodeTable::getAllNodesDBRecrods(const QUuid &groupUuid)
-{
-    auto where = WhereCondition::columnEqual(NodeColumn::termGroup, groupUuid.toString());
-    return toRecVector(select(getAllColumns(), where));
-}
-
 NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
 {
     NodeInfoContainer::List ret;
-    auto records = getAllNodesDBRecrods(groupUuid);
+    auto where = WhereCondition::columnEqual(NodeColumn::termGroup, groupUuid.toString());
+    auto records = toRecVector(select(getAllColumns(), where));
 
     for (auto& record : records) {
         NodeInfoContainer container;

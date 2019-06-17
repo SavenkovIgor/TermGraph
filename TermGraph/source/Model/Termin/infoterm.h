@@ -22,7 +22,6 @@ public:
         wellRemindLvl
     };
 
-    explicit InfoTerm(QSqlRecord rec, QObject *parent = nullptr);
     explicit InfoTerm(const NodeInfoContainer& info, QObject* parent = nullptr);
     virtual ~InfoTerm() = default;
 //    bool isNull(); //TODO: Realize!

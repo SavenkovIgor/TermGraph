@@ -82,17 +82,14 @@ void NodesManager::deleteNode(QUuid uuid)
     emit nodeChanged();
 }
 
-PaintedTerm::List NodesManager::getAllNodesForGroup(const QUuid &groupUuid)
+PaintedTerm::List NodesManager::getAllNodesForGroup(const QUuid& groupUuid)
 {
     PaintedTerm::List ret;
-    auto records = Database::instance().nodeTable->getAllNodesDBRecrods(groupUuid);
+    auto nodesInfo = Database::instance().nodeTable->getAllNodesInfo(groupUuid);
 
-    for (auto record : records) {
-        if (record.count() == 0)
-            continue;
+    for (const auto& info : nodesInfo)
+        ret << new PaintedTerm(info);
 
-        ret << new PaintedTerm(record);
-    }
     return ret;
 }
 

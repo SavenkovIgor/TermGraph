@@ -6,9 +6,9 @@ bool PaintedTerm::someoneSelect = false;
 const qreal PaintedTerm::verScale = 0.0200;
 QList<Qt::Edge> PaintedTerm::sides;
 
-PaintedTerm::PaintedTerm(QSqlRecord rec) :
-    GraphTerm(rec),
-    GraphicItem()
+PaintedTerm::PaintedTerm(const NodeInfoContainer& info)
+    : GraphTerm(info)
+    , GraphicItem()
 {
     if (sides.isEmpty()) {
         sides << Qt::BottomEdge;
@@ -17,11 +17,6 @@ PaintedTerm::PaintedTerm(QSqlRecord rec) :
         sides << Qt::LeftEdge;
     }
     adjustRectSizeForName();
-}
-
-PaintedTerm::~PaintedTerm()
-{
-
 }
 
 int PaintedTerm::getUpLevels([[maybe_unused]] int pLevel)  // TODO: check why plevel unused

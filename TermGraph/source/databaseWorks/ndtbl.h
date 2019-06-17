@@ -60,7 +60,6 @@ public:
     bool isNodeWithUuidExist(const QUuid& uuid);
 
     UuidList getAllNodesUuids(const QUuid& groupUuid = QUuid());
-    RecVector getAllNodesDBRecrods(const QUuid& groupUuid);  // TODO: Replace with bottom function
     NodeInfoContainer::List getAllNodesInfo(const QUuid& groupUuid);
 
     QDateTime getLastEdit(const QUuid& uuid);

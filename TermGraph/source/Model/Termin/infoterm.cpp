@@ -3,26 +3,6 @@
 #include "../../Helpers/textprocessor.h"
 #include "../../Helpers/helpstuff.h"
 
-InfoTerm::InfoTerm(QSqlRecord rec, QObject* parent)
-    : QObject(parent)
-{
-    uuid = QUuid(rec.value(NodeColumn::longUID).toString());
-    groupUuid = QUuid(rec.value(NodeColumn::termGroup).toString());
-
-    name = rec.value(NodeColumn::term).toString();
-    nameForms = rec.value(NodeColumn::termForms).toString();
-    definition = rec.value(NodeColumn::definition).toString();
-    description = rec.value(NodeColumn::description).toString();
-
-    examples = rec.value(NodeColumn::examples).toString();
-    wikiRef = rec.value(NodeColumn::wikiRef).toString();
-    wikiImg = rec.value(NodeColumn::wikiImg).toString();
-
-    lastRepeatDate = QDate::fromString(rec.value(NodeColumn::lastRemind).toString() );
-    repNum = rec.value(NodeColumn::remindNum).toInt();
-    atLearn = rec.value(NodeColumn::atLearn).toString() == "1";
-}
-
 InfoTerm::InfoTerm(const NodeInfoContainer& info, QObject* parent)
     : QObject(parent)
 {
