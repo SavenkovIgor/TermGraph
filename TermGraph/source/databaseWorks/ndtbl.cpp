@@ -185,6 +185,31 @@ RecVector NodeTable::getAllNodesDBRecrods(const QUuid &groupUuid)
     return toRecVector(select(getAllColumns(), where));
 }
 
+NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
+{
+    NodeInfoContainer::List ret;
+    auto records = getAllNodesDBRecrods(groupUuid);
+
+    for (auto& record : records) {
+        NodeInfoContainer container;
+
+        container.uuid    = QUuid(record.value(NodeColumn::longUID).toString());
+        container.name        = record.value(NodeColumn::term).toString();
+        container.wordForms   = record.value(NodeColumn::termForms).toString();;
+        container.definition  = record.value(NodeColumn::definition).toString();
+        container.description = record.value(NodeColumn::description).toString();
+        container.examples     = record.value(NodeColumn::examples).toString();
+        container.wikiRef     = record.value(NodeColumn::wikiRef).toString();
+        container.wikiImage   = record.value(NodeColumn::wikiImg).toString();
+        container.groupUuid   = QUuid(record.value(NodeColumn::termGroup).toString());
+        container.lastEdit    = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
+
+        ret.push_back(std::move(container));
+    }
+
+    return ret;
+}
+
 QDateTime NodeTable::getLastEdit(const QUuid &uuid)
 {
     QString field = getStringField(NodeColumn::lastEdit, uuid);
