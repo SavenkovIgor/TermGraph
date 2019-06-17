@@ -14,7 +14,7 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintMana
 
     Q_ASSERT(nodesMgr != nullptr);
     this->nodesMgr = nodesMgr;
-    connect(nodesMgr, SIGNAL(nodeChanged()), SLOT(updateModel()));
+    connect(nodesMgr, &NodesManager::nodeChanged, this, &MainScene::updateModel);
 
     Q_ASSERT(paintManager != nullptr);
     this->paintManager = paintManager;
@@ -63,6 +63,7 @@ void MainScene::updateModel()
     stopAllGroupTimers();
 
     paintManager->addClearRect(sceneRect, true);
+    paintManager->clearAllQueues();
     deleteAllGroups();
 
     hoverNode = nullptr;
