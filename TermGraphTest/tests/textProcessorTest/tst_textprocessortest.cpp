@@ -70,6 +70,24 @@ private slots:
         QFETCH(QString, result);
         QVERIFY(TextProcessor().getDefinition(text) == result);
     }
+
+    void insertNewLineInMiddle_data()
+    {
+        QTest::addColumn<QString>("text");
+        QTest::addColumn<QString>("result");
+
+        QTest::newRow("case0") << "a b" << "a\nb";
+        QTest::newRow("case1") << "aaa b" << "aaa\nb";
+        QTest::newRow("case2") << "a bbb" << "a\nbbb";
+        QTest::newRow("case3") << "aabb" << "aabb";
+    }
+
+    void insertNewLineInMiddle()
+    {
+        QFETCH(QString, text);
+        QFETCH(QString, result);
+        QVERIFY(TextProcessor().insertNewLineNearMiddle(text) == result);
+    }
 };
 
 QTEST_APPLESS_MAIN(TextProcessorTest)

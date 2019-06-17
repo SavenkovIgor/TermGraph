@@ -16,6 +16,8 @@ public slots:
     QString getTerm(const QString& def) const;
     QString getDefinition(const QString& def) const;
 
+    static QString insertNewLineNearMiddle(const QString& str);
+
 private:
     QStringList splitters;
 
