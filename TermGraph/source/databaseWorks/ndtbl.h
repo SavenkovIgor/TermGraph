@@ -7,8 +7,6 @@
 #include "../Model/Termin/nodeinfocontainer.h"
 #include "../Helpers/handytypes.h"
 
-using namespace std;
-
 class NodeColumn {
 public:
     // TODO: Грохнуть uid

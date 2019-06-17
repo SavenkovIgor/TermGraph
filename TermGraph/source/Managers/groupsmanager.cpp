@@ -168,8 +168,6 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 
 QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
 {
-    using namespace std;
-
     // Load info from groups table - need if any group is empty and has no lastEdit value
     QMap<QUuid, QDateTime> groupsLastEdit;
 
@@ -179,7 +177,7 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
 
     // Try to fill lastEdit dateTimes
     // First - groupUuid, third - lastEdit
-    QList<tuple<QUuid, QDateTime>> allNodesLastEdits;
+    QList<std::tuple<QUuid, QDateTime>> allNodesLastEdits;
 
     for (auto record : Database::instance().nodeTable->getAllLastEditRecords()) {
 
