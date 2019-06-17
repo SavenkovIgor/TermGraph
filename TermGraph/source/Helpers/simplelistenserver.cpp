@@ -4,7 +4,7 @@ SimpleListenServer::SimpleListenServer(quint16 listenPort, QObject *parent) : QO
 {
     this->listenPort = listenPort;
     server = new QTcpServer(this);
-    connect(server, SIGNAL(newConnection()), SLOT(newConnection()));
+    connect(server, &QTcpServer::newConnection, this, &SimpleListenServer::newConnection);
 }
 
 bool SimpleListenServer::startListen()
@@ -16,7 +16,7 @@ void SimpleListenServer::newConnection()
 {
     if (server->hasPendingConnections()) {
         QTcpSocket* newSocket = server->nextPendingConnection();
-        connect(newSocket, SIGNAL(readyRead()), SLOT(newInputData()));
+        connect(newSocket, &QTcpSocket::readyRead, this, &SimpleListenServer::newInputData);
         this->inputSockets.append(newSocket);
         emit newConnectionFrom(getSocketDescription(newSocket));
     }

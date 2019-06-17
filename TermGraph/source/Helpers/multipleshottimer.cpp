@@ -7,7 +7,7 @@ MultipleShotTimer::MultipleShotTimer(unsigned int shots, unsigned int interval):
     setInterval(interval);
     shotsLimit = shots;
     shotsCount = 0;
-    connect(this, SIGNAL(timeout()), this, SLOT(increaseShot()));
+    connect(this, &QTimer::timeout, this, &MultipleShotTimer::increaseShot);
 }
 
 void MultipleShotTimer::increaseShot()

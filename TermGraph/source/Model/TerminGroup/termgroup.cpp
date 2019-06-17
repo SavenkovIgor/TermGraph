@@ -67,11 +67,11 @@ void TermGroup::initNewNodes()
 
     checkSwapTimer.setSingleShot(false);
     setAnimSpeed(300);
-    connect(&checkSwapTimer, SIGNAL(timeout()), SLOT(checkSwap()));
+    connect(&checkSwapTimer, &QTimer::timeout, this, &TermGroup::checkSwap);
 
     animTimer.setSingleShot(false);
     animTimer.setInterval(50);
-    connect(&animTimer, SIGNAL(timeout()), SLOT(animateGroup()));
+    connect(&animTimer, &QTimer::timeout, this, &TermGroup::animateGroup);
 }
 
 bool TermGroup::checkJson(QJsonDocument doc)  // TODO: Вынести это отсюда!

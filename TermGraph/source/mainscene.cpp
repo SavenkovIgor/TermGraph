@@ -10,7 +10,7 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintMana
 
     Q_ASSERT(groupsMgr != nullptr);
     this->groupsMgr = groupsMgr;
-    connect(groupsMgr, SIGNAL(groupsListChanged()), SLOT(updateModel()));
+    connect(groupsMgr, &GroupsManager::groupsListChanged, this, &MainScene::updateModel);
 
     Q_ASSERT(nodesMgr != nullptr);
     this->nodesMgr = nodesMgr;
@@ -44,7 +44,7 @@ void MainScene::initAllGroups()
 
 void MainScene::addGroupToScene(TermGroup *group)
 {
-    connect(&sceneRhytm, SIGNAL(timeout()), group, SLOT(sceneUpdateSignal()));
+    connect(&sceneRhytm, &QTimer::timeout, group, &TermGroup::sceneUpdateSignal);
     groupList << group;
 }
 
