@@ -1,5 +1,7 @@
 #include "termgroupinfo.h"
 
+#include "../../Helpers/helpstuff.h"
+
 TermGroupInfo::~TermGroupInfo()
 {
     for (auto tree : trees) {
@@ -204,20 +206,18 @@ void TermGroupInfo::initTrees()
 
 QSizeF TermGroupInfo::getAllTreesSize()
 {
-    qreal width = 0.0;
-    qreal height = 0.0;
+    SizesList sizeList;
 
-    for (auto tree : trees) {
-        QSizeF treeSize = tree->getTreeSize();
-        width = qMax(width, treeSize.width());
-        height += treeSize.height();
-    }
+    for (const auto& tree : trees)
+        sizeList.push_back(tree->getTreeSize());
+
+    auto totalSize = HelpStuff::getStackedSize(sizeList, Qt::Vertical);
 
     if (!trees.isEmpty()) {
-        height += (trees.size() - 1)*AppStyle::Sizes::groupVerticalSpacer;
+        totalSize.rheight() += (trees.size() - 1)*AppStyle::Sizes::groupVerticalSpacer;
     }
 
-    return QSizeF(width, height);
+    return totalSize;
 }
 
 void TermGroupInfo::setNeighbours()
