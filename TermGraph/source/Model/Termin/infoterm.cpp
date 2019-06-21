@@ -1,5 +1,6 @@
 #include "infoterm.h"
 
+#include "../../databaseWorks/columns/nodecolumn.h"
 #include "../../Helpers/textprocessor.h"
 #include "../../Helpers/helpstuff.h"
 
@@ -21,6 +22,7 @@ InfoTerm::InfoTerm(const NodeInfoContainer& info, QObject* parent)
     lastRepeatDate = QDate::currentDate();
     repNum = 0;
     atLearn = false;
+    this->info = info;
 }
 
 QUuid InfoTerm::getUuid() const
@@ -79,19 +81,9 @@ QSizeF InfoTerm::getNameSize()
     return nameSize;
 }
 
-QJsonObject InfoTerm::toJson()
+NodeInfoContainer InfoTerm::infoContainer() const
 {
-    QJsonObject ret;
-//    ret.insert("uid",         QJsonValue(uid));
-    ret.insert("longUID",     QJsonValue(getUuid().toString()));
-    ret.insert("name",        QJsonValue(name));
-    ret.insert("nameForms",   QJsonValue(nameForms));
-    ret.insert("definition",  QJsonValue(definition));
-    ret.insert("description", QJsonValue(description));
-    ret.insert("examples",    QJsonValue(examples));
-    ret.insert("wikiRef",     QJsonValue());
-    ret.insert("wikiImg",     QJsonValue());
-    return ret;
+    return info;
 }
 
 bool InfoTerm::atLearning()

@@ -1,6 +1,7 @@
 #include "termgroup.h"
 
 #include "../../databaseWorks/columns/termgroupcolumn.h"
+#include "../../Managers/jsoninfocontainerparser.h"
 
 int TermGroup::animSpeed = 300;
 
@@ -222,7 +223,9 @@ QJsonDocument TermGroup::getJsonDoc()
     QJsonArray ndArr;
 
     for (auto node : getAllNodes()) {
-        ndArr.append(node->toJson());
+        auto info = node->infoContainer();
+        auto jsonObj = JsonInfoContainerParser::toJson(info);
+        ndArr.append(jsonObj);
     }
     obj.insert("nodesList", ndArr);
 

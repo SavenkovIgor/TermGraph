@@ -41,7 +41,7 @@ public:
     QString getWikiRef() const;
     QString getWikiImg() const;
 
-    QJsonObject toJson();
+    NodeInfoContainer infoContainer() const;
 
     // Learning
     bool atLearning();
@@ -80,6 +80,8 @@ private:
     // Learning
     int getNextRepeatOffset(int lvl);
     int getLevelDaysFromBase(int lvl);
+
+    NodeInfoContainer info;
 };
 
 #endif  // TERMINFO_H
