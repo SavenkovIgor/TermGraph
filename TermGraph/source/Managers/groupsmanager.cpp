@@ -184,7 +184,7 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
 
     for (auto record : Database::instance().nodeTable->getAllLastEditRecords()) {
 
-        QUuid groupUuid = QUuid(record.value(NodeColumn::termGroup).toString());
+        QUuid groupUuid = QUuid(record.value(NodeColumn::groupUuid).toString());
         QDateTime lastEdit = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
 
         if (groupsLastEdit.contains(groupUuid)) {

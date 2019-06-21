@@ -9,13 +9,13 @@ InfoTerm::InfoTerm(const NodeInfoContainer& info, QObject* parent)
     uuid = info.uuid;
     groupUuid = info.groupUuid;
 
-    name = info.name;
-    nameForms = info.wordForms;
+    name = info.term;
+    nameForms = info.termForms;
     definition = info.definition;
     description = info.description;
 
     examples = info.examples;
-    wikiRef = info.wikiRef;
+    wikiRef = info.wikiUrl;
     wikiImg = info.wikiImage;
 
     lastRepeatDate = QDate::currentDate();

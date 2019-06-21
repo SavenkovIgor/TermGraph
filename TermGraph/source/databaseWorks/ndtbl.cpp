@@ -6,11 +6,11 @@ QUuid NodeTable::nodeUuidForNameAndGroup(const QString &name, const QUuid &group
 {
     auto where = WhereCondition();
     where.equal(NodeColumn::term, name);
-    where.equal(NodeColumn::termGroup, groupUuid.toString());
-    auto nodesRecords = toRecVector(select(NodeColumn::longUID, where));
+    where.equal(NodeColumn::groupUuid, groupUuid.toString());
+    auto nodesRecords = toRecVector(select(NodeColumn::uuid, where));
 
     if (!nodesRecords.isEmpty()) {
-        return QUuid(nodesRecords.first().value(NodeColumn::longUID).toString());
+        return QUuid(nodesRecords.first().value(NodeColumn::uuid).toString());
     }
 
     return QUuid();
@@ -30,8 +30,8 @@ QUuid NodeTable::addNode(const QUuid& uuid, const QString& name, const QUuid& gr
 
     QList<InsertContainer> values;
     values << InsertContainer(NodeColumn::term, name);
-    values << InsertContainer(NodeColumn::longUID, uuid.toString());
-    values << InsertContainer(NodeColumn::termGroup, groupUuid.toString());
+    values << InsertContainer(NodeColumn::uuid, uuid.toString());
+    values << InsertContainer(NodeColumn::groupUuid, groupUuid.toString());
 
     insertInto(values);
 
@@ -76,17 +76,17 @@ void NodeTable::setExamples(const QUuid& uuid, const QString& example)
 
 void NodeTable::setWikiRef(const QUuid& uuid, const QString& wikiRef)
 {
-    setFieldUpdateLastEdit(NodeColumn::wikiRef, uuid, wikiRef);
+    setFieldUpdateLastEdit(NodeColumn::wikiUrl, uuid, wikiRef);
 }
 
 void NodeTable::setWikiImg(const QUuid& uuid, const QString& wikiImage)
 {
-    setFieldUpdateLastEdit(NodeColumn::wikiImg, uuid, wikiImage);
+    setFieldUpdateLastEdit(NodeColumn::wikiImage, uuid, wikiImage);
 }
 
 void NodeTable::setGroup(const QUuid& nodeUuid, const QUuid& groupUuid)
 {
-    setFieldUpdateLastEdit(NodeColumn::termGroup, nodeUuid, groupUuid.toString());
+    setFieldUpdateLastEdit(NodeColumn::groupUuid, nodeUuid, groupUuid.toString());
 }
 
 void NodeTable::setAtLearn(const QUuid& uuid, const bool& learn)
@@ -165,17 +165,17 @@ UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
     QVector<QSqlRecord> sqlRecords;
 
     if (groupUuid.isNull()) { // Taking all uuids
-        sqlRecords = toRecVector(select(NodeColumn::longUID));
+        sqlRecords = toRecVector(select(NodeColumn::uuid));
     } else {
-        auto where = WhereCondition::columnEqual(NodeColumn::termGroup, groupUuid.toString());
-        sqlRecords = toRecVector(select(NodeColumn::longUID, where));
+        auto where = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
+        sqlRecords = toRecVector(select(NodeColumn::uuid, where));
     }
 
     for (auto& record : sqlRecords) {
-        if (!record.contains(NodeColumn::longUID))
+        if (!record.contains(NodeColumn::uuid))
             continue;
 
-        ret.push_back(QUuid(record.value(NodeColumn::longUID).toString()));
+        ret.push_back(QUuid(record.value(NodeColumn::uuid).toString()));
     }
 
     return filterEmptyUuids(ret);
@@ -184,21 +184,21 @@ UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
 NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
 {
     NodeInfoContainer::List ret;
-    auto where = WhereCondition::columnEqual(NodeColumn::termGroup, groupUuid.toString());
+    auto where = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
     auto records = toRecVector(select(getAllColumns(), where));
 
     for (auto& record : records) {
         NodeInfoContainer container;
 
-        container.uuid    = QUuid(record.value(NodeColumn::longUID).toString());
-        container.name        = record.value(NodeColumn::term).toString();
-        container.wordForms   = record.value(NodeColumn::termForms).toString();;
+        container.uuid        = QUuid(record.value(NodeColumn::uuid).toString());
+        container.term        = record.value(NodeColumn::term).toString();
+        container.termForms   = record.value(NodeColumn::termForms).toString();;
         container.definition  = record.value(NodeColumn::definition).toString();
         container.description = record.value(NodeColumn::description).toString();
-        container.examples     = record.value(NodeColumn::examples).toString();
-        container.wikiRef     = record.value(NodeColumn::wikiRef).toString();
-        container.wikiImage   = record.value(NodeColumn::wikiImg).toString();
-        container.groupUuid   = QUuid(record.value(NodeColumn::termGroup).toString());
+        container.examples    = record.value(NodeColumn::examples).toString();
+        container.wikiUrl     = record.value(NodeColumn::wikiUrl).toString();
+        container.wikiImage   = record.value(NodeColumn::wikiImage).toString();
+        container.groupUuid   = QUuid(record.value(NodeColumn::groupUuid).toString());
         container.lastEdit    = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
 
         ret.push_back(std::move(container));
@@ -219,7 +219,7 @@ QDateTime NodeTable::getLastEdit(const QUuid &uuid)
 RecVector NodeTable::getAllLastEditRecords()
 {
     auto columns = TColumn::List();
-    columns << NodeColumn::termGroup;
+    columns << NodeColumn::groupUuid;
     columns << NodeColumn::lastEdit;
     return toRecVector(select(columns));
 }

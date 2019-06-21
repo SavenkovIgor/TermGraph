@@ -115,7 +115,7 @@ QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
 void NodesManager::importNodeFromJson(QJsonObject nodeObject)
 {
     auto& db = Database::instance();
-    QUuid nodeUuid = QUuid(nodeObject.value(NodeColumn::longUID).toString());
+    QUuid nodeUuid = QUuid(nodeObject.value(NodeColumn::uuid).toString());
 
     if (nodeUuid.isNull()) {
         nodeUuid = QUuid(nodeObject.value("longUid").toString());
@@ -130,7 +130,7 @@ void NodesManager::importNodeFromJson(QJsonObject nodeObject)
     QString definition = nodeObject.value(NodeColumn::definition).toString();
     QString description = nodeObject.value(NodeColumn::description).toString();
     QString examples = nodeObject.value(NodeColumn::examples).toString();
-    QUuid groupUuid = QUuid(nodeObject.value(NodeColumn::termGroup).toString());
+    QUuid groupUuid = QUuid(nodeObject.value(NodeColumn::groupUuid).toString());
     QString lastEditString = nodeObject.value(NodeColumn::lastEdit).toString();
     QDateTime lastEdit = QDateTime::fromString(lastEditString, Qt::ISODate);
 

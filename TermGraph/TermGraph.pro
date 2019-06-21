@@ -6,6 +6,7 @@ TEMPLATE = app
 CONFIG += c++17
 
 HEADERS += \
+    source/Managers/jsoninfocontainerparser.h \
     source/Managers/syncmanager.h \
     source/Model/Termin/nodeinfocontainer.h \
     source/databaseWorks/columns/nodecolumn.h \
@@ -54,6 +55,7 @@ HEADERS += \
     source/Helpers/textprocessor.h
 
 SOURCES += \
+    source/Managers/jsoninfocontainerparser.cpp \
     source/Managers/syncmanager.cpp \
     source/main.cpp\
     source/databaseWorks/database.cpp\

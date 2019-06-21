@@ -11,12 +11,12 @@ struct NodeInfoContainer
     using List = std::vector<NodeInfoContainer>;
 
     QUuid uuid;
-    QString name;
-    QString wordForms;
+    QString term;
+    QString termForms;
     QString definition;
     QString description;
     QString examples;
-    QString wikiRef;
+    QString wikiUrl;
     QString wikiImage;
     QUuid groupUuid;
     QDateTime lastEdit;
