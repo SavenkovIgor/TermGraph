@@ -15,7 +15,10 @@ NodeInfoContainer JsonInfoContainerParser::fromJson(const QJsonObject& jsonObj)
     info.wikiUrl     = jsonObj[NodeColumn::wikiUrl].toString();
     info.wikiImage   = jsonObj[NodeColumn::wikiImage].toString();
     info.groupUuid   = QUuid(jsonObj[NodeColumn::groupUuid].toString());
-    info.lastEdit    = QDateTime::fromString(jsonObj[NodeColumn::lastEdit].toString(), Qt::ISODate);
+
+    if (jsonObj.contains(NodeColumn::lastEdit)) {
+        info.lastEdit = QDateTime::fromString(jsonObj[NodeColumn::lastEdit].toString(), Qt::ISODate);
+    }
 
     return info;
 }
