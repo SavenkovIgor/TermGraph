@@ -262,17 +262,17 @@ QString MainScene::getCurrNodeUuid()
 
 QString MainScene::getCurrNodeName()
 {
-    return getCurrNodeStringField([] (InfoTerm* node) { return node->getName(); });
+    return getCurrNodeStringField([] (InfoTerm* node) { return node->getTerm(); });
 }
 
 QString MainScene::getCurrNodeNameAndDefinition()
 {
-    return getCurrNodeStringField([] (InfoTerm* node) { return node->getNameAndDefinition(); });
+    return getCurrNodeStringField([] (InfoTerm* node) { return node->getTermAndDefinition(); });
 }
 
 QString MainScene::getCurrNodeForms()
 {
-    return getCurrNodeStringField([] (InfoTerm* node) { return node->getNameFormStr(); });
+    return getCurrNodeStringField([] (InfoTerm* node) { return node->getTermForms(); });
 }
 
 QString MainScene::getCurrNodeDefinition()

@@ -28,18 +28,18 @@ public:
 
     QUuid getUuid() const;
     QUuid getGroupUuid() const;
-    QString getName() const;
-    QString getNameAndDefinition(bool decorated = false) const;
+    QString getTerm() const;
+    QString getTermAndDefinition(bool decorated = false) const;
     QString getSmallName();  // Lazy
-    QString getNameFormStr() const;
-    QStringList getNameFormList() const;
+    QString getTermForms() const;
+    QStringList termFormsList() const;
 
     QString getDefinition() const;
     QStringList getDefinitionTags() const;
     QString getDescription() const;
     QString getExamples() const;
-    QString getWikiRef() const;
-    QString getWikiImg() const;
+    QString getWikiUrl() const;
+    QString getWikiImage() const;
 
     NodeInfoContainer infoContainer() const;
 
@@ -57,19 +57,8 @@ protected:
     QSizeF getNameSize();  // Lazy
 
 private:
-    QUuid groupUuid;
-
-    QUuid uuid;
-    QString name;
     QString smallName = QString();  // То же самое название но ужатое до 2х строчек"
     QSizeF  nameSize = QSizeF();
-    QString nameForms;
-
-    QString definition;
-    QString description;
-    QString examples;
-    QString wikiRef;
-    QString wikiImg;
 
     QDate lastRepeatDate;
     int repNum = -1;

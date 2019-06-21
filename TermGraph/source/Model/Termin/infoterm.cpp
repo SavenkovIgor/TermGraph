@@ -7,18 +7,6 @@
 InfoTerm::InfoTerm(const NodeInfoContainer& info, QObject* parent)
     : QObject(parent)
 {
-    uuid = info.uuid;
-    groupUuid = info.groupUuid;
-
-    name = info.term;
-    nameForms = info.termForms;
-    definition = info.definition;
-    description = info.description;
-
-    examples = info.examples;
-    wikiRef = info.wikiUrl;
-    wikiImg = info.wikiImage;
-
     lastRepeatDate = QDate::currentDate();
     repNum = 0;
     atLearn = false;
@@ -27,31 +15,33 @@ InfoTerm::InfoTerm(const NodeInfoContainer& info, QObject* parent)
 
 QUuid InfoTerm::getUuid() const
 {
-    return uuid;
+    return info.uuid;
 }
 
 QUuid InfoTerm::getGroupUuid() const
 {
-    return groupUuid;
+    return info.groupUuid;
 }
 
-QString InfoTerm::getName() const
+QString InfoTerm::getTerm() const
 {
-    return name;
+    return info.term;
 }
 
-QString InfoTerm::getNameAndDefinition(bool decorated) const
+QString InfoTerm::getTermAndDefinition(bool decorated) const
 {
     if (decorated) {
-        return "<font color=\"#00a693\">" + name + "</font>" + " - это " + TagProcessor::decorateTags(definition);
+        auto ret = "<font color=\"#00a693\">" + getTerm() + "</font>";
+        ret += " - это " + TagProcessor::decorateTags(getDefinition());
+        return ret;
     }
-    return name + " - это " + definition;
+    return getTerm() + " - это " + getDefinition();
 }
 
 QString InfoTerm::getSmallName()
 {
     if (smallName.isNull()) {
-        smallName = name;
+        smallName = getTerm();
 
         if (smallName.contains(" ")) {
             // Если имя превышает базовую ширину и содержит пробелы то пытаемся его разбить на 2
@@ -164,17 +154,17 @@ int InfoTerm::getLevelDaysFromBase(int lvl)
     return ret;
 }
 
-QString InfoTerm::getNameFormStr() const
+QString InfoTerm::getTermForms() const
 {
-    return nameForms;
+    return info.termForms;
 }
 
-QStringList InfoTerm::getNameFormList() const
+QStringList InfoTerm::termFormsList() const
 {
     QStringList ret;
-    ret << getName();
+    ret << getTerm();
 
-    QStringList tmp = getNameFormStr().split(";", QString::SkipEmptyParts);
+    QStringList tmp = getTermForms().split(";", QString::SkipEmptyParts);
     for (QString s : tmp) {
         ret << s.simplified();
     }
@@ -186,13 +176,13 @@ QStringList InfoTerm::getNameFormList() const
 
 QString InfoTerm::getDefinition() const
 {
-    return definition;
+    return info.definition;
 }
 
 QStringList InfoTerm::getDefinitionTags() const
 {
     QString error;
-    auto tags = TagProcessor::extractTags(definition);
+    auto tags = TagProcessor::extractTags(getDefinition());
     // TODO: Fix error work in tagProcessor
     if (!error.isEmpty()) {
         qDebug() << getUuid().toString() << error;
@@ -202,20 +192,20 @@ QStringList InfoTerm::getDefinitionTags() const
 
 QString InfoTerm::getDescription() const
 {
-    return description;
+    return info.description;
 }
 
 QString InfoTerm::getExamples() const
 {
-    return examples;
+    return info.examples;
 }
 
-QString InfoTerm::getWikiRef() const
+QString InfoTerm::getWikiUrl() const
 {
-    return wikiRef;
+    return info.wikiUrl;
 }
 
-QString InfoTerm::getWikiImg() const
+QString InfoTerm::getWikiImage() const
 {
-    return wikiImg;
+    return info.wikiImage;
 }

@@ -26,11 +26,11 @@ void Reminder::formLearnList()
     for (auto *n : allNodes) {
         if( n->atLearning() ) {
             if( n->needRemindToday() ) {
-                qDebug()<<n->getName()<<n->getRepNum();
+                qDebug()<<n->getTerm()<<n->getRepNum();
                 RemItem *tmp = new RemItem();
                 tmp->nd = n;
                 tmp->itm = new QListWidgetItem();
-                tmp->itm->setText(n->getName() + " (" + QString::number(n->getRepNum()) + ")" );
+                tmp->itm->setText(n->getTerm() + " (" + QString::number(n->getRepNum()) + ")" );
                 remItems << tmp;
             }
         }
@@ -66,7 +66,7 @@ void Reminder::setCurrItem(QListWidgetItem* it1, [[maybe_unused]] QListWidgetIte
     if( currItem == nullptr )
         return;
 
-    ui->term->setText( currItem->nd->getName() );
+    ui->term->setText( currItem->nd->getTerm() );
     ui->ansStack->setCurrentWidget( ui->showAns_2 );
 }
 

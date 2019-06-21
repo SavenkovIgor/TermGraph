@@ -101,7 +101,7 @@ PaintedTerm *TermGroupInfo::getRootNodeForTag(const QString &tag)
 
     for (auto node : nodesList) {
 
-        for (auto& termName : node->getNameFormList()) {  // TODO: Переименовать при случае
+        for (auto& termName : node->termFormsList()) {  // TODO: Переименовать при случае
 
             if (termName.size() == tag.size() && termName == tag) {
                 return node;
