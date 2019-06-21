@@ -141,37 +141,6 @@ int InfoTerm::getRepNum() const
 //     db->nodeTbl->setAtLearn(getUuid().toString(),atLearn);
 // }
 
-bool InfoTerm::fromJson(QJsonObject obj) {
-    QStringList checkKeys;  // TODO: Переделать на colums
-    checkKeys << "uid";
-    checkKeys << "longUID";
-    checkKeys << "name";
-    checkKeys << "nameForms";
-    checkKeys << "definition";
-    checkKeys << "description";
-    checkKeys << "examples";
-    checkKeys << "wikiRef";
-    checkKeys << "wikiImg";
-
-    for (QString str : checkKeys) {
-        if (!obj.contains(str)) {
-            qDebug() << "noSuchKey" << str;
-            return false;
-        }
-    }
-
-    this->uuid     = QUuid(obj["longUID"].toString());
-    this->name        = obj["name"].toString();
-    this->nameForms   = obj["nameForms"].toString();
-    this->definition  = obj["definition"].toString();
-    this->description = obj["description"].toString();
-    this->examples    = obj["examples"].toString();
-    this->wikiRef     = obj["wikiRef"].toString();
-    this->wikiImg     = obj["wikiImg"].toString();
-
-    return true;
-}
-
 int InfoTerm::getNextRepeatOffset(int lvl)
 {
     return getLevelDaysFromBase( lvl + 1 ) - getLevelDaysFromBase( lvl );

@@ -75,8 +75,6 @@ private:
     int repNum = -1;
     bool atLearn;
 
-    bool fromJson(QJsonObject obj);
-
     // Learning
     int getNextRepeatOffset(int lvl);
     int getLevelDaysFromBase(int lvl);
