@@ -57,6 +57,8 @@ protected:
     QSizeF getNameSize();  // Lazy
 
 private:
+    NodeInfoContainer info;
+
     QString smallName = QString();  // То же самое название но ужатое до 2х строчек"
     QSizeF  nameSize = QSizeF();
 
@@ -67,8 +69,6 @@ private:
     // Learning
     int getNextRepeatOffset(int lvl);
     int getLevelDaysFromBase(int lvl);
-
-    NodeInfoContainer info;
 };
 
 #endif  // TERMINFO_H
