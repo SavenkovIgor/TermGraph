@@ -235,7 +235,7 @@ QSqlRecord NodeTable::getNodeSqlRecord(const QUuid &uuid)
     return sel.record();
 }
 
-bool NodeTable::isNodeWithUuidExist(const QUuid &uuid)
+bool NodeTable::hasNodeWithUuid(const QUuid &uuid)
 {
     return isUuidExist(uuid);
 }

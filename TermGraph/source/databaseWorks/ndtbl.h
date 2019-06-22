@@ -1,7 +1,6 @@
 #ifndef NDTBL_H
 #define NDTBL_H
 
-#include <string>
 #include "./tblbase.h"
 #include "./dbtablenames.h"
 #include "../Model/Termin/nodeinfocontainer.h"
@@ -21,7 +20,7 @@ public:
     QUuid addNode(const QUuid& uuid, const QString& name, const QUuid& groupUuid);
     QSqlRecord getNodeSqlRecord(const QUuid& uuid);
 
-    bool isNodeWithUuidExist(const QUuid& uuid);
+    bool hasNodeWithUuid(const QUuid& uuid);
 
     UuidList getAllNodesUuids(const QUuid& groupUuid = QUuid());
     NodeInfoContainer::List getAllNodesInfo(const QUuid& groupUuid);

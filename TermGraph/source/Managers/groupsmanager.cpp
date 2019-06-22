@@ -282,7 +282,7 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
         QString examples = nodeObj.value("examples").toString();
 
         // Create
-        if (!db.nodeTable->isNodeWithUuidExist(nodeUuid)) {
+        if (!db.nodeTable->hasNodeWithUuid(nodeUuid)) {
             // TODO: Отрефакторить. отдавать всю работу nodesManager,
             // это его ответственность
             db.nodeTable->addNode(nodeUuid, name, groupUuid);

@@ -139,7 +139,7 @@ void NodesManager::importNodeFromJson(QJsonObject nodeObject)
     }
 
     // Create
-    if (!db.nodeTable->isNodeWithUuidExist(nodeUuid)) {
+    if (!db.nodeTable->hasNodeWithUuid(nodeUuid)) {
         // TODO: Отрефакторить. отдавать всю работу nodesManager,
         // это его ответственность
         db.nodeTable->addNode(nodeUuid, name, groupUuid);
