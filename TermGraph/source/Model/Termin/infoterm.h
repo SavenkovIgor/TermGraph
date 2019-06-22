@@ -2,14 +2,9 @@
 #define TERMINFO_H
 
 #include <QObject>
-#include <QDebug>
-#include <QSqlRecord>
 
 #include "nodeinfocontainer.h"
-#include "../../databaseWorks/ndtbl.h"
-#include "../../Helpers/appstyle.h"
-#include "../../Helpers/tagprocessor.h"
-#include "../../Helpers/fonts.h"
+#include "../../databaseWorks/ndtbl.h"  // TODO: удаление почему то вызывает проблемы со сборкой
 
 // This class contains all "information" part of term, like name, definition and other...
 class InfoTerm : public QObject

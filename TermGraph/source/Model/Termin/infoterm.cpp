@@ -1,8 +1,12 @@
 #include "infoterm.h"
 
-#include "../../databaseWorks/columns/nodecolumn.h"
-#include "../../Helpers/textprocessor.h"
+#include <QDebug>
+
+#include "../../Helpers/appstyle.h"
+#include "../../Helpers/fonts.h"
 #include "../../Helpers/helpstuff.h"
+#include "../../Helpers/tagprocessor.h"
+#include "../../Helpers/textprocessor.h"
 
 InfoTerm::InfoTerm(const NodeInfoContainer& info, QObject* parent)
     : QObject(parent)
