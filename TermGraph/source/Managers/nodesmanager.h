@@ -65,7 +65,7 @@ public slots:
 
     QDateTime getLastEdit(QUuid nodeUuid);
 
-    void importNodeFromJson(QJsonObject nodeJson, bool importIfGroupNotExist = false);
+    void importNodeFromJson(QJsonObject nodeJson, QUuid groupUuid, bool importIfGroupNotExist = false);
 
 private:
     bool correctGroupUuid(const QUuid& groupUuid, bool sendWarnings = true);

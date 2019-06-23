@@ -265,7 +265,7 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
 
     // Importing nodes
     for (const auto nodeValue : nodes) {
-        nodesMgr->importNodeFromJson(nodeValue.toObject());
+        nodesMgr->importNodeFromJson(nodeValue.toObject(), groupUuid);
     }
 
     updateGroupUuidNameMaps();

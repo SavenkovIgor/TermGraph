@@ -113,13 +113,16 @@ QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
     return Database::instance().nodeTable->getLastEdit(nodeUuid);
 }
 
-void NodesManager::importNodeFromJson(QJsonObject nodeJson, bool importIfGroupNotExist)
+void NodesManager::importNodeFromJson(QJsonObject nodeJson, QUuid groupUuid, bool importIfGroupNotExist)
 {
     auto& db = Database::instance();
     auto info = JsonInfoContainerParser::fromJson(nodeJson);
 
     if (info.uuid.isNull())
         return;
+
+    if (info.groupUuid.isNull())  // TODO: delete later
+        info.groupUuid = groupUuid;
 
     if (info.groupUuid.isNull())
         return;
@@ -132,9 +135,9 @@ void NodesManager::importNodeFromJson(QJsonObject nodeJson, bool importIfGroupNo
 
     // Create
     if (!db.nodeTable->hasNodeWithUuid(info.uuid)) {
-        db.nodeTable->updateNode(info, NodeTable::LastEditSource::TakeFromNodeInfo);
-    } else {
         db.nodeTable->addNode(info);
+    } else {
+        db.nodeTable->updateNode(info, NodeTable::LastEditSource::TakeFromNodeInfo);
     }
 }
 
