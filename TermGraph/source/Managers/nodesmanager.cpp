@@ -116,7 +116,7 @@ QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
 void NodesManager::importNodeFromJson(QJsonObject nodeJson, QUuid groupUuid, bool importIfGroupNotExist)
 {
     auto& db = Database::instance();
-    auto info = JsonInfoContainerParser::fromJson(nodeJson);
+    auto info = JsonNodeInfoContainerParser::fromJson(nodeJson);
 
     if (info.uuid.isNull())
         return;

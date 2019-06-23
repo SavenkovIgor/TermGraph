@@ -209,7 +209,7 @@ QJsonDocument TermGroup::getJsonDoc()
 
     for (auto node : getAllNodes()) {
         auto info = node->infoContainer();
-        auto jsonObj = JsonInfoContainerParser::toJson(info);
+        auto jsonObj = JsonNodeInfoContainerParser::toJson(info);
         ndArr.append(jsonObj);
     }
     obj.insert("nodesList", ndArr);

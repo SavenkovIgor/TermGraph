@@ -5,7 +5,7 @@
 
 #include "../Model/Termin/nodeinfocontainer.h"
 
-class JsonInfoContainerParser
+class JsonNodeInfoContainerParser
 {
 public:
     static NodeInfoContainer fromJson(const QJsonObject& jsonObj);

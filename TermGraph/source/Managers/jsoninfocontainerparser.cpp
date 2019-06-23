@@ -2,7 +2,7 @@
 
 #include "../databaseWorks/columns/nodecolumn.h"
 
-NodeInfoContainer JsonInfoContainerParser::fromJson(const QJsonObject& jsonObj)
+NodeInfoContainer JsonNodeInfoContainerParser::fromJson(const QJsonObject& jsonObj)
 {
     NodeInfoContainer info;
 
@@ -34,7 +34,7 @@ NodeInfoContainer JsonInfoContainerParser::fromJson(const QJsonObject& jsonObj)
     return info;
 }
 
-QJsonObject JsonInfoContainerParser::toJson(const NodeInfoContainer &info)
+QJsonObject JsonNodeInfoContainerParser::toJson(const NodeInfoContainer &info)
 {
     QJsonObject ret;
 
