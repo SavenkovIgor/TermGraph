@@ -11,6 +11,11 @@
 class NodeTable : public TblBase
 {
 public:
+    enum LastEditSource {
+        TakeFromNodeInfo = 0,
+        AutoGenerate
+    };
+
     NodeTable(QSqlDatabase* base): TblBase(TableName::NODES, base) { }
     ~NodeTable() override = default;
 
@@ -18,6 +23,7 @@ public:
 
     QUuid addNode(const QString& name, const QUuid& groupUuid);
     QUuid addNode(const QUuid& uuid, const QString& name, const QUuid& groupUuid);
+    QUuid addNode(const NodeInfoContainer& info);  // TODO: remove all other functioins and change to bool
     QSqlRecord getNodeSqlRecord(const QUuid& uuid);
 
     bool hasNodeWithUuid(const QUuid& uuid);
@@ -27,6 +33,8 @@ public:
 
     QDateTime getLastEdit(const QUuid& uuid);
     RecVector getAllLastEditRecords();
+
+    bool updateNode(const NodeInfoContainer& info, LastEditSource lastEditSource, bool checkLastEdit = true);
 
     void setName(const QUuid& uuid, const QString& name);
     void setWordForms(const QUuid& uuid, const QString& forms);
@@ -55,6 +63,9 @@ private:
     bool isUuidExist(const QUuid& uuid);
 
     QUuid generateNewUuid();
+
+    static QDateTime getLastEditNow();
+    static QString getLastEditNowString();
 };
 
 #endif  // NDTBL_H

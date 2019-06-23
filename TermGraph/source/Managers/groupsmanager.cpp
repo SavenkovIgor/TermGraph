@@ -264,52 +264,8 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     }
 
     // Importing nodes
-    for (QJsonValue nodeValue : nodes) {
-        QJsonObject nodeObj = nodeValue.toObject();
-
-        QUuid nodeUuid = QUuid(nodeObj.value("longUID").toString());
-
-        if (nodeUuid.isNull())
-            nodeUuid = QUuid(nodeObj.value("longUid").toString());
-
-        if (nodeUuid.isNull())
-            continue;
-
-        QString name = nodeObj.value("name").toString();
-        QString forms = nodeObj.value("nameForms").toString();
-        QString definition = nodeObj.value("definition").toString();
-        QString description = nodeObj.value("description").toString();
-        QString examples = nodeObj.value("examples").toString();
-
-        // Create
-        if (!db.nodeTable->hasNodeWithUuid(nodeUuid)) {
-            // TODO: Отрефакторить. отдавать всю работу nodesManager,
-            // это его ответственность
-            db.nodeTable->addNode(nodeUuid, name, groupUuid);
-            nodesMgr->changeNode(
-                        nodeUuid,
-                        name,
-                        forms,
-                        definition,
-                        description,
-                        examples,
-                        groupUuid.toString(),
-                        false);
-        } else {
-            // Update
-            if (name.simplified() != "")
-                db.nodeTable->setName(nodeUuid, name);
-            if (forms.simplified() != "")
-                db.nodeTable->setWordForms(nodeUuid, forms);
-            if (definition.simplified() != "")
-                db.nodeTable->setDefinition(nodeUuid, definition);
-            if (description.simplified() != "")
-                db.nodeTable->setDescription(nodeUuid, description);
-            if (examples.simplified() != "")
-                db.nodeTable->setExamples(nodeUuid, examples);
-
-            db.nodeTable->setGroup(nodeUuid, groupUuid);
-        }
+    for (const auto nodeValue : nodes) {
+        nodesMgr->importNodeFromJson(nodeValue.toObject());
     }
 
     updateGroupUuidNameMaps();

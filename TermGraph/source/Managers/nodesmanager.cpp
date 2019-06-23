@@ -1,6 +1,7 @@
 #include "nodesmanager.h"
 
 #include "../databaseWorks/columns/nodecolumn.h"
+#include "../Managers/jsoninfocontainerparser.h"
 
 NodesManager::NodesManager(QObject* parent)
     : QObject(parent)
@@ -112,53 +113,28 @@ QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
     return Database::instance().nodeTable->getLastEdit(nodeUuid);
 }
 
-void NodesManager::importNodeFromJson(QJsonObject nodeObject)
+void NodesManager::importNodeFromJson(QJsonObject nodeJson, bool importIfGroupNotExist)
 {
     auto& db = Database::instance();
-    QUuid nodeUuid = QUuid(nodeObject.value(NodeColumn::uuid).toString());
+    auto info = JsonInfoContainerParser::fromJson(nodeJson);
 
-    if (nodeUuid.isNull()) {
-        nodeUuid = QUuid(nodeObject.value("longUid").toString());
-    }
-
-    if (nodeUuid.isNull()) {
+    if (info.uuid.isNull())
         return;
-    }
 
-    QString name = nodeObject.value(NodeColumn::term).toString();
-    QString forms = nodeObject.value(NodeColumn::termForms).toString();
-    QString definition = nodeObject.value(NodeColumn::definition).toString();
-    QString description = nodeObject.value(NodeColumn::description).toString();
-    QString examples = nodeObject.value(NodeColumn::examples).toString();
-    QUuid groupUuid = QUuid(nodeObject.value(NodeColumn::groupUuid).toString());
-    QString lastEditString = nodeObject.value(NodeColumn::lastEdit).toString();
-    QDateTime lastEdit = QDateTime::fromString(lastEditString, Qt::ISODate);
-
-    if (groupUuid.isNull()) {
+    if (info.groupUuid.isNull())
         return;
+
+    if (!db.groupTable->hasGroupWithUuid(info.groupUuid)) {
+        if (!importIfGroupNotExist) {
+            return;
+        }
     }
 
     // Create
-    if (!db.nodeTable->hasNodeWithUuid(nodeUuid)) {
-        // TODO: Отрефакторить. отдавать всю работу nodesManager,
-        // это его ответственность
-        db.nodeTable->addNode(nodeUuid, name, groupUuid);
-        changeNode(nodeUuid, name, forms, definition, description, examples, groupUuid);
+    if (!db.nodeTable->hasNodeWithUuid(info.uuid)) {
+        db.nodeTable->updateNode(info, NodeTable::LastEditSource::TakeFromNodeInfo);
     } else {
-        // TODO: Continue from here!!!
-        // Update
-        if (name.simplified() != "")
-            db.nodeTable->setName(nodeUuid, name);
-        if (forms.simplified() != "")
-            db.nodeTable->setWordForms(nodeUuid, forms);
-        if (definition.simplified() != "")
-            db.nodeTable->setDefinition(nodeUuid, definition);
-        if (description.simplified() != "")
-            db.nodeTable->setDescription(nodeUuid, description);
-        if (examples.simplified() != "")
-            db.nodeTable->setExamples(nodeUuid, examples);
-
-        db.nodeTable->setGroup(nodeUuid, groupUuid);
+        db.nodeTable->addNode(info);
     }
 }
 

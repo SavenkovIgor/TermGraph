@@ -25,18 +25,61 @@ QUuid NodeTable::addNode(const QString& name, const QUuid& groupUuid)
 QUuid NodeTable::addNode(const QUuid& uuid, const QString& name, const QUuid& groupUuid)
 {
     if (name.simplified() == "") {
-        return "";  // Создать вершину не удалось
+        return QUuid();  // Создать вершину не удалось
     }
 
+    if (hasNodeWithUuid(uuid))
+        return QUuid();
+
     QList<InsertContainer> values;
-    values << InsertContainer(NodeColumn::term, name);
     values << InsertContainer(NodeColumn::uuid, uuid.toString());
+    values << InsertContainer(NodeColumn::term, name);
     values << InsertContainer(NodeColumn::groupUuid, groupUuid.toString());
 
     insertInto(values);
 
     updateLastEdit(uuid);
     return uuid;
+}
+
+QUuid NodeTable::addNode(const NodeInfoContainer& info)
+{
+    if (info.term.simplified() == "") {
+        return QUuid(); // Создать вершину не удалось
+    }
+
+    if (hasNodeWithUuid(info.uuid)) // This node already exist
+        return QUuid();
+
+    QList<InsertContainer> values;
+
+    QUuid nodeUuid = info.uuid;
+
+    if (nodeUuid.isNull()) {  // Generate new if empty
+        nodeUuid = generateNewUuid();
+    }
+
+    values << InsertContainer(NodeColumn::uuid, nodeUuid.toString());
+    values << InsertContainer(NodeColumn::term, info.term);
+    values << InsertContainer(NodeColumn::termForms, info.termForms);
+    values << InsertContainer(NodeColumn::definition, info.definition);
+    values << InsertContainer(NodeColumn::description, info.description);
+    values << InsertContainer(NodeColumn::examples, info.examples);
+    values << InsertContainer(NodeColumn::wikiUrl, info.wikiUrl);
+    values << InsertContainer(NodeColumn::wikiImage, info.wikiImage);
+    values << InsertContainer(NodeColumn::groupUuid, info.groupUuid.toString());
+
+    QDateTime lastEdit = info.lastEdit;
+
+    if (lastEdit.isNull()) {
+        lastEdit = getLastEditNow();
+    }
+
+    values << InsertContainer(NodeColumn::lastEdit, lastEdit.toString(Qt::ISODate));
+
+    insertInto(values);
+
+    return info.uuid;
 }
 
 int NodeTable::getRemindNum(const QUuid &uuid)
@@ -139,7 +182,7 @@ void NodeTable::setFieldUpdateLastEdit(const TColumn &column, const QUuid &uuid,
 
 void NodeTable::updateLastEdit(const QUuid& uuid)
 {
-    setField(NodeColumn::lastEdit, uuid, QDateTime::currentDateTimeUtc().toString(Qt::ISODate));
+    setField(NodeColumn::lastEdit, uuid, getLastEditNowString());
 }
 
 bool NodeTable::isUuidExist(const QUuid &uuid)
@@ -157,6 +200,16 @@ QUuid NodeTable::generateNewUuid()
         }
     }
     return uuid;
+}
+
+QDateTime NodeTable::getLastEditNow()
+{
+    return QDateTime::currentDateTimeUtc();
+}
+
+QString NodeTable::getLastEditNowString()
+{
+    return getLastEditNow().toString(Qt::ISODate);
 }
 
 UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
@@ -209,10 +262,11 @@ NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
 
 QDateTime NodeTable::getLastEdit(const QUuid &uuid)
 {
-    QString field = getStringField(NodeColumn::lastEdit, uuid);
-    if (field.isEmpty()) {
+    auto field = getStringField(NodeColumn::lastEdit, uuid);
+
+    if (field.isEmpty())
         return QDateTime();
-    }
+
     return QDateTime::fromString(field, Qt::ISODate);
 }
 
@@ -222,6 +276,48 @@ RecVector NodeTable::getAllLastEditRecords()
     columns << NodeColumn::groupUuid;
     columns << NodeColumn::lastEdit;
     return toRecVector(select(columns));
+}
+
+bool NodeTable::updateNode(const NodeInfoContainer& info,
+                           NodeTable::LastEditSource lastEditSource,
+                           bool checkLastEdit)
+{
+    if (info.uuid.isNull())
+        return false;
+
+    if (!hasNodeWithUuid(info.uuid))
+        return false;
+
+    if (checkLastEdit) {
+        auto currentLastEdit = getLastEdit(info.uuid);
+        auto newLastEdit = info.lastEdit;
+        if (currentLastEdit > newLastEdit)  // If db version is fresher, do nothing
+            return false;
+    }
+
+    SetExpression set;
+
+    set.set(NodeColumn::term, info.term);
+    set.set(NodeColumn::termForms, info.termForms);
+    set.set(NodeColumn::definition, info.definition);
+    set.set(NodeColumn::description, info.description);
+    set.set(NodeColumn::examples, info.examples);
+    set.set(NodeColumn::wikiUrl, info.wikiUrl);
+    set.set(NodeColumn::wikiImage, info.wikiImage);
+    set.set(NodeColumn::groupUuid, info.groupUuid.toString());
+
+    switch (lastEditSource) {
+    case NodeTable::TakeFromNodeInfo:
+        set.set(NodeColumn::lastEdit, info.lastEdit.toString(Qt::ISODate));
+        break;
+    case NodeTable::AutoGenerate:
+        set.set(NodeColumn::lastEdit, getLastEditNowString());
+        break;
+    }
+
+    updateWhere(set, WhereCondition::uuidEqual(info.uuid));
+
+    return true;
 }
 
 QSqlRecord NodeTable::getNodeSqlRecord(const QUuid &uuid)
