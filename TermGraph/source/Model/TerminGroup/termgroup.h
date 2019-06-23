@@ -22,7 +22,6 @@ class TermGroup : public QObject, public TermGroupInfo
 
 public:
     explicit TermGroup(QSqlRecord rec, QObject* parent = nullptr);
-    TermGroup(QJsonDocument doc, QObject* parent = nullptr);
     ~TermGroup();
 
     static bool checkJson(QJsonDocument doc);

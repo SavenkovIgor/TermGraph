@@ -8,11 +8,7 @@
 #include "./termtree.h"
 #include "../Termin/paintedterm.h"
 #include "../../Helpers/tagprocessor.h"
-
-enum class GroupType {
-    freeEdges = -1,
-    terms = 0
-};
+#include "./groupinfocontainer.h"
 
 class TermGroupInfo
 {

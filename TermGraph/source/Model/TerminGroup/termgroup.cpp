@@ -5,30 +5,15 @@
 
 int TermGroup::animSpeed = 300;
 
-TermGroup::TermGroup(QSqlRecord rec, QObject *parent):
-    QObject(parent),
-    TermGroupInfo()
+TermGroup::TermGroup(QSqlRecord rec, QObject* parent)
+    : QObject(parent)
+    , TermGroupInfo()
 {
     QString groupName = rec.value(TermGroupColumn::name).toString();
     this->grNmItem = new LabelGraphicItem(groupName);
 
     setGroupUuid(QUuid(rec.value(TermGroupColumn::longUID).toString()));
     setType(static_cast<GroupType>(rec.value(TermGroupColumn::type).toInt()));
-
-//    qDebug() << "Create group" << getName();
-}
-
-TermGroup::TermGroup(QJsonDocument doc, QObject *parent):
-    QObject(parent),
-    TermGroupInfo()
-{
-    QJsonObject jsonObject = doc.object();
-
-    setGroupUuid(QUuid(jsonObject.value("longUID").toString()));
-    setType(static_cast<GroupType>(jsonObject.value("type").toInt()));
-
-    QString groupName = jsonObject.value("name").toString();
-    this->grNmItem = new LabelGraphicItem(groupName);
 
 //    qDebug() << "Create group" << getName();
 }

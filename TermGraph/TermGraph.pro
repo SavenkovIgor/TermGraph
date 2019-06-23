@@ -9,6 +9,7 @@ HEADERS += \
     source/Managers/jsoninfocontainerparser.h \
     source/Managers/syncmanager.h \
     source/Model/Termin/nodeinfocontainer.h \
+    source/Model/TerminGroup/groupinfocontainer.h \
     source/databaseWorks/columns/nodecolumn.h \
     source/databaseWorks/columns/tcolumn.h \
     source/databaseWorks/columns/termgroupcolumn.h \
