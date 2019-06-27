@@ -152,7 +152,7 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
 
 bool GroupsManager::getHasAnyGroup() const
 {
-    return !Database::instance().groupTable->getAllUuids().isEmpty();
+    return !Database::instance().groupTable->getAllUuids().empty();
 }
 
 QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
@@ -174,8 +174,8 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
     // Load info from groups table - need if any group is empty and has no lastEdit value
     QMap<QUuid, QDateTime> groupsLastEdit;
 
-    for (const auto& record : Database::instance().groupTable->getAllUuids()) {
-        groupsLastEdit.insert(record, QDateTime());
+    for (const auto& uuid : Database::instance().groupTable->getAllUuids()) {
+        groupsLastEdit.insert(uuid, QDateTime());
     }
 
     // Try to fill lastEdit dateTimes

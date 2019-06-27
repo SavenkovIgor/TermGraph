@@ -1,7 +1,7 @@
 #include "termgroup.h"
 
 #include "../../databaseWorks/columns/termgroupcolumn.h"
-#include "../../Managers/jsoninfocontainerparser.h"
+#include "../../Managers/jsonnodeinfocontainerparser.h"
 
 int TermGroup::animSpeed = 300;
 

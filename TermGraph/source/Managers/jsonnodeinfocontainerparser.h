@@ -1,5 +1,5 @@
-#ifndef JSONINFOCONTAINERPARSER_H
-#define JSONINFOCONTAINERPARSER_H
+#ifndef JSONNODEINFOCONTAINERPARSER_H
+#define JSONNODEINFOCONTAINERPARSER_H
 
 #include <QJsonObject>
 
@@ -12,4 +12,4 @@ public:
     static QJsonObject toJson(const NodeInfoContainer& info);
 };
 
-#endif // JSONINFOCONTAINERPARSER_H
+#endif // JSONNODEINFOCONTAINERPARSER_H

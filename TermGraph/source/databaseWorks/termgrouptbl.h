@@ -4,6 +4,7 @@
 #include "./tblbase.h"
 #include "./dbtablenames.h"
 #include "./columns/tcolumn.h"
+#include "../Model/TerminGroup/groupinfocontainer.h"
 
 class TermGroupTable : public TblBase
 {
@@ -14,17 +15,17 @@ public:
     // Adding, deleting
     bool addGroup(QString name, QString comment, int type);
     bool addGroup(QUuid uuid, QString name, QString comment, int type);
-    void deleteGroup(QUuid uuid);
+    bool addGroup(const GroupInfoContainer& info);
+    void deleteGroup(const QUuid& uuid);
 
     // Getters
     QSqlRecord getGroup(const QUuid &uuid);
-    QString getName(const QUuid &uuid) const;
-    int getType(QUuid groupUuid) const;
+    GroupInfoContainer getGroupInfoContainer(const QUuid& uuid);
     QUuid getUuid(const QString &groupName) const;
     RecVector getAllUuidsAndNames();
 
     // Massive getters
-    QVector<QUuid> getAllUuids();
+    UuidList getAllUuids();
 
     // Setters
     void setName(QUuid uuid, QString name);

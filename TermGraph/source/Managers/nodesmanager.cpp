@@ -1,7 +1,7 @@
 #include "nodesmanager.h"
 
 #include "../databaseWorks/columns/nodecolumn.h"
-#include "../Managers/jsoninfocontainerparser.h"
+#include "../Managers/jsonnodeinfocontainerparser.h"
 
 NodesManager::NodesManager(QObject* parent)
     : QObject(parent)

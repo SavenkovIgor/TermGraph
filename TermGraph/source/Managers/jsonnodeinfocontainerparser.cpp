@@ -1,4 +1,4 @@
-#include "jsoninfocontainerparser.h"
+#include "jsonnodeinfocontainerparser.h"
 
 #include "../databaseWorks/columns/nodecolumn.h"
 
