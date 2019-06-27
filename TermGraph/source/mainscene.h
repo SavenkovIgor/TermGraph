@@ -115,7 +115,7 @@ private:
     PaintedTerm* getNodeAtPoint(const QPointF& pt) const;
 
     // Groups fields
-    QList < TermGroup* > groupList;
+    QList<TermGroup*> groupList;
     QUuid currGroupUuid;
 
     void initAllGroups();

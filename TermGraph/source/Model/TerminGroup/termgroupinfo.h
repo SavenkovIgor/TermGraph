@@ -13,11 +13,13 @@
 class TermGroupInfo
 {
 public:
-    TermGroupInfo() = default;
+    TermGroupInfo() = delete;
+    TermGroupInfo(const GroupInfoContainer& info);
     ~TermGroupInfo();
 
     // Group info
     QUuid getUuid() const;
+    QString getName() const;
     GroupType getType() const;
 
     // Group content
@@ -25,14 +27,9 @@ public:
 
     // Edges tools
     EdgesList getAllEdges() const;
-
     EdgesList getAllEdgesForPainting() const;
 
 protected:
-    // Group info methods
-    void setGroupUuid(QUuid uuid);
-    void setType(const GroupType &value);
-
     // Group content methods
     void addNodeToList(PaintedTerm* node);
     void clearNodesList();
@@ -61,8 +58,7 @@ protected:
 
 private:
     // Group info
-    QUuid groupUuid;
-    GroupType type = GroupType::freeEdges;
+    GroupInfoContainer info;
 
     // Group content
     PaintedTerm::List nodesList;

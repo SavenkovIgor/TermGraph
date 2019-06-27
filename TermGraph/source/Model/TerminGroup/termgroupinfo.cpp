@@ -2,34 +2,36 @@
 
 #include "../../Helpers/helpstuff.h"
 
+TermGroupInfo::TermGroupInfo(const GroupInfoContainer& info)
+{
+    this->info = info;
+}
+
 TermGroupInfo::~TermGroupInfo()
 {
-    for (auto tree : trees) {
+    for (auto tree : trees)
         delete tree;
-    }
 
-    for (auto node : getAllNodes()) {
+    for (auto node : getAllNodes())
         delete node;
-    }
 
-    for (auto edge : getAllEdges()) {
+    for (auto edge : getAllEdges())
         delete edge;
-    }
 }
 
 QUuid TermGroupInfo::getUuid() const
 {
-    return groupUuid;
+    return info.uuid;
 }
 
-void TermGroupInfo::setGroupUuid(QUuid uuid)
+QString TermGroupInfo::getName() const
 {
-    groupUuid = uuid;
+    return info.name;
 }
 
 GroupType TermGroupInfo::getType() const
 {
-    return type;
+    return info.type;
 }
 
 PaintedTerm::List TermGroupInfo::getAllNodes() const
@@ -245,11 +247,6 @@ PaintedTerm::List TermGroupInfo::filterFromNodesList(std::function<bool(PaintedT
         }
     }
     return ret;
-}
-
-void TermGroupInfo::setType(const GroupType &value)
-{
-    type = value;
 }
 
 void TermGroupInfo::addNodeToList(PaintedTerm *node)

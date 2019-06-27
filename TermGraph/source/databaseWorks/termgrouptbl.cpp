@@ -136,17 +136,6 @@ void TermGroupTable::setType(QUuid uuid, int type)
     setField(TermGroupColumn::type, uuid, QString::number(type));
 }
 
-QSqlRecord TermGroupTable::getGroup(const QUuid& uuid)
-{
-    QSqlQuery sel = select(getAllColumns(), WhereCondition::uuidEqual(uuid));
-
-    if (!sel.next()) {
-        return QSqlRecord();
-    }
-
-    return sel.record();
-}
-
 GroupInfoContainer TermGroupTable::getGroupInfoContainer(const QUuid& uuid)
 {
     GroupInfoContainer info;

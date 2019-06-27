@@ -5,17 +5,11 @@
 
 int TermGroup::animSpeed = 300;
 
-TermGroup::TermGroup(QSqlRecord rec, QObject* parent)
+TermGroup::TermGroup(const GroupInfoContainer& info, QObject* parent)
     : QObject(parent)
-    , TermGroupInfo()
+    , TermGroupInfo(info)
 {
-    QString groupName = rec.value(TermGroupColumn::name).toString();
-    this->grNmItem = new LabelGraphicItem(groupName);
-
-    setGroupUuid(QUuid(rec.value(TermGroupColumn::longUID).toString()));
-    setType(static_cast<GroupType>(rec.value(TermGroupColumn::type).toInt()));
-
-//    qDebug() << "Create group" << getName();
+    this->grNmItem = new LabelGraphicItem(getName());
 }
 
 TermGroup::~TermGroup()
@@ -398,7 +392,7 @@ void TermGroup::setTreeCoords()
     }
 }
 
-QString TermGroup::getName()
+QString TermGroup::getNameLabel()
 {
     return grNmItem->getLabel();
 }

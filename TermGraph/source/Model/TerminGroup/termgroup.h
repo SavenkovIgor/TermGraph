@@ -21,7 +21,7 @@ class TermGroup : public QObject, public TermGroupInfo
     QTimer checkSwapTimer;
 
 public:
-    explicit TermGroup(QSqlRecord rec, QObject* parent = nullptr);
+    TermGroup(const GroupInfoContainer& info, QObject* parent = nullptr);
     ~TermGroup();
 
     static bool checkJson(QJsonDocument doc);
@@ -34,7 +34,7 @@ public:
     static QStringList getTypesNames();
     static QMap<GroupType, QString> getTypesMap();
 
-    QString getName();
+    QString getNameLabel();
     QPointF getNamePos();
     QRectF getGroupRect() const;
     QColor getGroupColor();

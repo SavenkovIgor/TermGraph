@@ -19,7 +19,6 @@ public:
     void deleteGroup(const QUuid& uuid);
 
     // Getters
-    QSqlRecord getGroup(const QUuid &uuid);
     GroupInfoContainer getGroupInfoContainer(const QUuid& uuid);
     QUuid getUuid(const QString &groupName) const;
     RecVector getAllUuidsAndNames();
