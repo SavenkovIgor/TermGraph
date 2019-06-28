@@ -24,11 +24,11 @@ public:
     QUuid addNode(const QString& name, const QUuid& groupUuid);
     QUuid addNode(const QUuid& uuid, const QString& name, const QUuid& groupUuid);
     QUuid addNode(const NodeInfoContainer& info);  // TODO: remove all other functioins and change to bool
-    QSqlRecord getNodeSqlRecord(const QUuid& uuid);
 
     bool hasNodeWithUuid(const QUuid& uuid);
 
     UuidList getAllNodesUuids(const QUuid& groupUuid = QUuid());
+    NodeInfoContainer getNode(const QUuid& uuid);
     NodeInfoContainer::List getAllNodesInfo(const QUuid& groupUuid);
 
     QDateTime getLastEdit(const QUuid& uuid);
@@ -66,6 +66,10 @@ private:
 
     static QDateTime getLastEditNow();
     static QString getLastEditNowString();
+
+    QSqlRecord getNodeSqlRecord(const QUuid& uuid);  // TODO: Delete!
+
+    NodeInfoContainer recordToNodeInfo(QSqlRecord& record);
 };
 
 #endif  // NDTBL_H

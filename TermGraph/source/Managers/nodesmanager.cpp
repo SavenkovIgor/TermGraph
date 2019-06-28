@@ -103,11 +103,6 @@ UuidList NodesManager::getAllNodesUuidsInGroup(const QUuid& groupUuid)
     return Database::instance().nodeTable->getAllNodesUuids(groupUuid);
 }
 
-QSqlRecord NodesManager::getNodeSqlRecord(QUuid nodeUuid)
-{
-    return Database::instance().nodeTable->getNodeSqlRecord(nodeUuid);
-}
-
 QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
 {
     return Database::instance().nodeTable->getLastEdit(nodeUuid);
@@ -139,6 +134,12 @@ void NodesManager::importNodeFromJson(QJsonObject nodeJson, QUuid groupUuid, boo
     } else {
         db.nodeTable->updateNode(info, NodeTable::LastEditSource::TakeFromNodeInfo);
     }
+}
+
+QJsonObject NodesManager::getNodeJson(const QUuid& uuid)
+{
+    auto info = Database::instance().nodeTable->getNode(uuid);
+    return JsonNodeInfoContainerParser::toJson(info);
 }
 
 bool NodesManager::correctGroupUuid(const QUuid &groupUuid, bool sendWarnings)

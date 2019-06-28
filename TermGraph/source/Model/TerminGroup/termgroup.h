@@ -2,7 +2,6 @@
 #define TERMGROUP_H
 
 #include <QObject>
-#include <QtSql>
 
 #include "../../Helpers/appstyle.h"
 #include "../../Helpers/tagprocessor.h"
@@ -24,8 +23,6 @@ public:
     TermGroup(const GroupInfoContainer& info, QObject* parent = nullptr);
     ~TermGroup();
 
-    static bool checkJson(QJsonDocument doc);
-
     void initNewNodes();
 
     RectGraphicItem *baseRect;
@@ -46,8 +43,6 @@ public:
     // Position and frame
     void setBasePoint(QPointF pt);
     void updateGroupFrame();
-
-    QJsonDocument getJsonDoc();
 
     void loadNodes(PaintedTerm::List newNodes);
 

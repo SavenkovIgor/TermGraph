@@ -54,6 +54,8 @@ public slots:
     void exportGrpToJson(QString groupUuid);
     void saveGroupInFolder(TermGroup *group);
 
+    QJsonDocument getGroupForExport(const QUuid& groupUuid);
+
 private:
     bool isValidGroupJson(const QJsonDocument json);
 

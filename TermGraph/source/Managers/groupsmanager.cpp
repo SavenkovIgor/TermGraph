@@ -295,9 +295,30 @@ void GroupsManager::exportGrpToJson(QString groupUuid)
 void GroupsManager::saveGroupInFolder(TermGroup *group)
 {
     if (group != nullptr) {
-        QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
-        FSWorks::saveFile(AppConfig::StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
+//        QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
+//        FSWorks::saveFile(AppConfig::StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
     }
+}
+
+QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid)
+{
+    auto& db = Database::instance();
+
+    auto info = db.groupTable->getGroup(groupUuid);
+    auto groupJson = JsonGroupInfoContainerParser::toJson(info);
+
+    auto nodesUuids = db.nodeTable->getAllNodesUuids(groupUuid);
+
+    QJsonArray nodesArray;
+
+    for (auto nodeUuid : nodesUuids) {
+        auto nodeJson = nodesMgr->getNodeJson(nodeUuid);
+        nodesArray.append(nodeJson);
+    }
+
+    groupJson.insert("nodesList", nodesArray);
+
+    return QJsonDocument(groupJson);
 }
 
 void GroupsManager::updateGroupUuidNameMaps()

@@ -234,6 +234,20 @@ UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
     return filterEmptyUuids(ret);
 }
 
+NodeInfoContainer NodeTable::getNode(const QUuid& uuid)
+{
+    NodeInfoContainer info;
+
+    auto where = WhereCondition::uuidEqual(uuid);
+    auto records = toRecVector(select(getAllColumns(), where));
+
+    if (records.isEmpty())
+        return info;
+
+    auto record = records.first();
+    return recordToNodeInfo(record);
+}
+
 NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
 {
     NodeInfoContainer::List ret;
@@ -241,20 +255,8 @@ NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
     auto records = toRecVector(select(getAllColumns(), where));
 
     for (auto& record : records) {
-        NodeInfoContainer container;
-
-        container.uuid        = QUuid(record.value(NodeColumn::uuid).toString());
-        container.term        = record.value(NodeColumn::term).toString();
-        container.termForms   = record.value(NodeColumn::termForms).toString();;
-        container.definition  = record.value(NodeColumn::definition).toString();
-        container.description = record.value(NodeColumn::description).toString();
-        container.examples    = record.value(NodeColumn::examples).toString();
-        container.wikiUrl     = record.value(NodeColumn::wikiUrl).toString();
-        container.wikiImage   = record.value(NodeColumn::wikiImage).toString();
-        container.groupUuid   = QUuid(record.value(NodeColumn::groupUuid).toString());
-        container.lastEdit    = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
-
-        ret.push_back(std::move(container));
+        NodeInfoContainer info = recordToNodeInfo(record);
+        ret.push_back(std::move(info));
     }
 
     return ret;
@@ -329,6 +331,24 @@ QSqlRecord NodeTable::getNodeSqlRecord(const QUuid &uuid)
     }
 
     return sel.record();
+}
+
+NodeInfoContainer NodeTable::recordToNodeInfo(QSqlRecord& record)
+{
+    NodeInfoContainer info;
+
+    info.uuid        = QUuid(record.value(NodeColumn::uuid).toString());
+    info.term        = record.value(NodeColumn::term).toString();
+    info.termForms   = record.value(NodeColumn::termForms).toString();;
+    info.definition  = record.value(NodeColumn::definition).toString();
+    info.description = record.value(NodeColumn::description).toString();
+    info.examples    = record.value(NodeColumn::examples).toString();
+    info.wikiUrl     = record.value(NodeColumn::wikiUrl).toString();
+    info.wikiImage   = record.value(NodeColumn::wikiImage).toString();
+    info.groupUuid   = QUuid(record.value(NodeColumn::groupUuid).toString());
+    info.lastEdit    = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
+
+    return info;
 }
 
 bool NodeTable::hasNodeWithUuid(const QUuid &uuid)

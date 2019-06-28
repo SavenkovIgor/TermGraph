@@ -1,8 +1,5 @@
 #include "termgroup.h"
 
-#include "../../databaseWorks/columns/termgroupcolumn.h"
-#include "../../Managers/jsonnodeinfocontainerparser.h"
-
 int TermGroup::animSpeed = 300;
 
 TermGroup::TermGroup(const GroupInfoContainer& info, QObject* parent)
@@ -54,25 +51,6 @@ void TermGroup::initNewNodes()
     animTimer.setSingleShot(false);
     animTimer.setInterval(50);
     connect(&animTimer, &QTimer::timeout, this, &TermGroup::animateGroup);
-}
-
-bool TermGroup::checkJson(QJsonDocument doc)  // TODO: Вынести это отсюда!
-{
-    QJsonObject json = doc.object();
-
-    QStringList checkKeys;
-    checkKeys << "longUID";
-    checkKeys << "name";
-    checkKeys << "type";
-    checkKeys << "nodesList";
-
-    for (auto key : checkKeys) {
-        if (!json.contains(key)) {
-            return false;
-        }
-    }
-
-    return true;
 }
 
 QString TermGroup::getTypeString()
@@ -188,28 +166,6 @@ void TermGroup::addEdgesToParents()
             }
         }
     }
-}
-
-QJsonDocument TermGroup::getJsonDoc()
-{
-    QJsonDocument doc;
-//    obj.insert("uid",     QJsonValue(grUid));
-    QJsonObject obj;
-    obj.insert(TermGroupColumn::longUID, QJsonValue(getUuid().toString()));
-    obj.insert(TermGroupColumn::name, QJsonValue(getName()));
-    obj.insert(TermGroupColumn::type, QJsonValue(static_cast<int>(this->getType())));
-
-    QJsonArray ndArr;
-
-    for (auto node : getAllNodes()) {
-        auto info = node->infoContainer();
-        auto jsonObj = JsonNodeInfoContainerParser::toJson(info);
-        ndArr.append(jsonObj);
-    }
-    obj.insert("nodesList", ndArr);
-
-    doc.setObject(obj);
-    return doc;
 }
 
 void TermGroup::startAnimation()

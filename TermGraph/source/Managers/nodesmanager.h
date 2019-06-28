@@ -66,10 +66,10 @@ public slots:
     QDateTime getLastEdit(QUuid nodeUuid);
 
     void importNodeFromJson(QJsonObject nodeJson, QUuid groupUuid, bool importIfGroupNotExist = false);
+    QJsonObject getNodeJson(const QUuid& uuid);
 
 private:
     bool correctGroupUuid(const QUuid& groupUuid, bool sendWarnings = true);
-    QSqlRecord getNodeSqlRecord(QUuid nodeUuid);
 };
 
 #endif  // NODESMANAGER_H

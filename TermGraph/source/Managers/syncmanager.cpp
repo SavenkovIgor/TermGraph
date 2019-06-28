@@ -33,11 +33,8 @@ bool SyncManager::isDataContainer(const QJsonDocument &doc)
 
 void SyncManager::sendGroupByNetwork(const QString &groupUuid)
 {
-    if (auto group = groupsManager->createGroup(QUuid(groupUuid))) {
-        networkManager->sendGroup(group->getJsonDoc());
-        group->deleteLater();
-//        delete group; // TODO: Проверить, почему удаление вызывает ошибку
-    }
+    auto jsonDoc = groupsManager->getGroupForExport(groupUuid);
+    networkManager->sendGroup(jsonDoc);
 }
 
 QString SyncManager::getContentTypeName(const SyncManager::ContentType &type)
