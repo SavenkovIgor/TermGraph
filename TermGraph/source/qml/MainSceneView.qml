@@ -56,7 +56,7 @@ Page {
         onSelectionDoubleClick: nodeInfoButton.openTerm()
     }
 
-    NewNodeEdit {
+    NewNode {
         id: newNodePage
         mainStack: stackView
     }

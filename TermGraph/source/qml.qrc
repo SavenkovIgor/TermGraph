@@ -2,7 +2,6 @@
     <qresource prefix="/">
         <file>qml/GoupsSideBar.qml</file>
         <file>qml/MainWindow.qml</file>
-        <file>qml/NewNodeEdit.qml</file>
         <file>qml/TermGroupsList.qml</file>
         <file>qml/UIExtensions/MyRoundButton.qml</file>
         <file>qml/UIExtensions/MyTextArea.qml</file>
@@ -21,5 +20,7 @@
         <file>qml/OnboardingGallery.qml</file>
         <file>qml/UIExtensions/OnBoardCard.qml</file>
         <file>qml/UIExtensions/ThinLine.qml</file>
+        <file>qml/EditNode.qml</file>
+        <file>qml/NewNode.qml</file>
     </qresource>
 </RCC>
