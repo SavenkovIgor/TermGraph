@@ -7,20 +7,17 @@ import QtQuick.Dialogs 1.2
 import "UIExtensions"
 
 Page {
-    id: newNodeEdit
-
-    property string defaultUuidText: "startValue"
+    id: root
 
     property StackView mainStack
-    property string nodeUuid: defaultUuidText
-    property bool newNode: nodeUuid === ""
+    property string nodeUuid: ""
 
-    function open() { mainStack.push(newNodeEdit) }
+    function open() { mainStack.push(root) }
 
     header: MainHeader {
 
         id: mainHeader
-        titleText: newNode ? "Добавить вершину" : "Изменить вершину"
+        titleText: "Изменить вершину"
 
         Component.onCompleted: {
             mainHeader.showCheckButton()
@@ -28,68 +25,42 @@ Page {
         }
 
         onMenuClick: exitFromThisPage()
-        onCheckClick: newNodeEdit.addOrChangeNode()
+        onCheckClick: root.updateNode()
     }
 
-    Keys.onEscapePressed: {
-        exitFromThisPage()
-    }
+    Keys.onEscapePressed: { exitFromThisPage() }
 
     Keys.onPressed: {
         if (event.modifiers === Qt.ControlModifier) {
             if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                newNodeEdit.addOrChangeNode()
+                root.updateNode()
             }
         }
     }
 
-    function exitFromThisPage() {
-        mainStack.pop()
-        nodeUuid = defaultUuidText
-    }
+    function exitFromThisPage() { mainStack.pop() }
 
     onNodeUuidChanged: {
-        var newNode = nodeUuid === ""
-        if (newNode) {
-            termName.text    = ""
-            currentGroupFixedRow.groupUuid = sceneObj.getCurrGroupUuid()
-            termName.takeFocus()
-        } else {
-            termName.text    = sceneObj.getCurrNodeName()
-            nodeGroup.selectElement(sceneObj.getCurrNodeGroupUuid())
-            termDefin.takeFocus()
-        }
+        termName.text = sceneObj.getCurrNodeName()
+        nodeGroup.selectElement(sceneObj.getCurrNodeGroupUuid())
+        termDefin.takeFocus()
     }
 
-    function addOrChangeNode() {
+    function updateNode() {
         if (termName.text == "") {
             emptyNodeNameDelDialog.visible = true
             return
         }
 
-        var success = true;
-        var newNode = changeNodeRow.text === ""  // bool
-
-        if (newNode) {
-            success = nodesManager.addNewNode(
-                        termName.text,
-                        "",
-                        termDefin.text,
-                        termDescr.text,
-                        termExampl.text,
-                        currentGroupFixedRow.groupUuid
-                        )
-        } else {
-            success = nodesManager.changeNode(
-                        changeNodeRow.text,
-                        termName.text,
-                        "",
-                        termDefin.text,
-                        termDescr.text,
-                        termExampl.text,
-                        nodeGroup.currentText
-                        )
-        }
+        var success = nodesManager.changeNode(
+                    changeNodeRow.text,
+                    termName.text,
+                    "",
+                    termDefin.text,
+                    termDescr.text,
+                    termExampl.text,
+                    nodeGroup.currentText
+                    )
 
         if (success) {
             exitFromThisPage()
@@ -127,143 +98,134 @@ Page {
     }
 
     ScrollView {
+        id: scroll
+
         anchors.fill: parent
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
-        background: Rectangle {
-            color: appColors.base
-        }
+        background: Rectangle { color: appColors.base }
 
-        Column {
-            id: viewColumn
+        Item {
+            width: scroll.width
 
-            anchors.margins: 12
-            width: newNodeEdit.width
+            Column {
+                id: viewColumn
 
-            spacing: mainObj.getUiElementSize("colSpace")*Screen.pixelDensity
+                anchors.margins: 12
+                anchors.fill: parent
 
-            MyLabelPair {
-                id: changeNodeRow
-                name: "Изменить вершину с uuid: "
-                text: newNodeEdit.nodeUuid
-                visible: text !== ""
-            }
+                spacing: mainObj.getUiElementSize("colSpace")*Screen.pixelDensity
 
-            MyLabelPair {
-                id: currentGroupFixedRow
+                MyLabelPair {
+                    id: changeNodeRow
+                    name: "Изменить вершину с uuid: "
+                    text: root.nodeUuid
+                }
 
-                property string groupUuid: ""
+                MyTextField {
+                    property string prevText: ""
 
-                name: "Текущая группа: "
-                text: groupsManager.getGroupName(groupUuid)
+                    id: termName
+                    labelText: "Название:"
+                    placeholderText: "[Термин]"
 
-                visible: newNodeEdit.newNode
-            }
+                    onNewText: checkNewText(text)
 
-            MyTextField {
-                property string prevText: ""
-
-                id: termName
-                labelText: "Название:"
-                placeholderText: "[Термин]"
-
-                onNewText: checkNewText(text)
-
-                function checkNewText(text) {
-                    var differ = prevText.length - text.length
-                    if (differ >= 2 || differ <= -2) {
-                        if (textProcessor.isTermWithDefinition(text)) {
-                            termName.text = textProcessor.getTerm(text)
-                            termDefin.text = textProcessor.getDefinition(text)
+                    function checkNewText(text) {
+                        var differ = prevText.length - text.length
+                        if (differ >= 2 || differ <= -2) {
+                            if (textProcessor.isTermWithDefinition(text)) {
+                                termName.text = textProcessor.getTerm(text)
+                                termDefin.text = textProcessor.getDefinition(text)
+                            }
                         }
+                        prevText = text
                     }
-                    prevText = text
-                }
-            }
-
-//            MyTextField {
-//                id : termForms
-//                labelText : "Грамматические формы:"
-//                placeholderText: "[Альтернативные окончания термина, как слОва]"
-//                text: newNode ? sceneObj.getCurrNodeForms() : ""
-//            }
-
-            MyTextArea {
-                id: termDefin
-                labelText: "-это"
-                placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
-                text: nodeUuid !== "" ? sceneObj.getCurrNodeDefinition() : ""
-            }
-
-            MyTextArea {
-                id: termDescr
-                labelText : "Описание"
-                placeholderText: "[Общее словестное описание, пока никак не участвует в логике]"
-                text: nodeUuid !== "" ? sceneObj.getCurrNodeDescription() : ""
-            }
-
-            MyTextArea {
-                id: termExampl
-                labelText: "Примеры"
-                text: nodeUuid !== "" ? sceneObj.getCurrNodeExamples() : ""
-            }
-
-            MyTextField {
-                enabled: false
-                visible: false
-
-                labelText: "Ссылка на Wiki статью"
-                placeholderText: "http://"
-            }
-
-            MyTextField {
-                enabled: false
-                visible: false
-
-                labelText: "Ссылка на Wiki изображение"
-                placeholderText: "http://"
-            }
-
-            // Здесь есть проблема с anchors
-            RowLayout {
-                id: currentGroupEditableRow
-
-                width: parent.width
-                visible: !newNode
-
-                Label {
-                    id: grpLabel
-                    text : "Группа"
-                    font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
                 }
 
-                MyComboBox {
-                    id: nodeGroup
-                    model: groupsManager.allUuidSorted
+                //            MyTextField {
+                //                id : termForms
+                //                labelText : "Грамматические формы:"
+                //                placeholderText: "[Альтернативные окончания термина, как слОва]"
+                //                text: newNode ? sceneObj.getCurrNodeForms() : ""
+                //            }
 
-                    function selectElement(name) {
-                        var index = find(name)
-                        if (index !== -1) {
-                            currentIndex = index
+                MyTextArea {
+                    id: termDefin
+                    labelText: "-это"
+                    placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
+                    text: { [root.nodeUuid]; return sceneObj.getCurrNodeDefinition(); }
+                }
+
+                MyTextArea {
+                    id: termDescr
+                    labelText : "Описание"
+                    placeholderText: "[Общее словестное описание, пока никак не участвует в логике]"
+                    text: { [root.nodeUuid]; return sceneObj.getCurrNodeDescription() }
+                }
+
+                MyTextArea {
+                    id: termExampl
+                    labelText: "Примеры"
+                    text: { [root.nodeUuid]; return sceneObj.getCurrNodeExamples() }
+                }
+
+                MyTextField {
+                    enabled: false
+                    visible: false
+
+                    labelText: "Ссылка на Wiki статью"
+                    placeholderText: "http://"
+                }
+
+                MyTextField {
+                    enabled: false
+                    visible: false
+
+                    labelText: "Ссылка на Wiki изображение"
+                    placeholderText: "http://"
+                }
+
+                // Здесь есть проблема с anchors
+                RowLayout {
+                    id: currentGroupEditableRow
+
+                    width: parent.width
+
+                    Label {
+                        id: grpLabel
+                        text : "Группа"
+                        font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
+                    }
+
+                    MyComboBox {
+                        id: nodeGroup
+                        model: groupsManager.allUuidSorted
+
+                        function selectElement(name) {
+                            var index = find(name)
+                            if (index !== -1) {
+                                currentIndex = index
+                            }
                         }
+                        Layout.fillWidth: true
                     }
-                    Layout.fillWidth: true
                 }
+
+                MessageDialog {
+                    id: emptyNodeNameDelDialog
+
+                    title: "Невозможно создать вершину"
+                    text:  "Невозможно создать пустой термин.\nЗаполните поле \"Название\""
+
+                    standardButtons: StandardButton.Ok
+                    icon: StandardIcon.Warning
+                }
+
+                //            Item{
+                //                Layout.fillHeight: true
+                //            }
             }
-
-            MessageDialog {
-                id: emptyNodeNameDelDialog
-
-                title: "Невозможно создать вершину"
-                text:  "Невозможно создать пустой термин.\nЗаполните поле \"Название\""
-
-                standardButtons: StandardButton.Ok
-                icon: StandardIcon.Warning
-            }
-
-            //            Item{
-            //                Layout.fillHeight: true
-            //            }
         }
     }
 }

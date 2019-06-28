@@ -12,15 +12,16 @@ Page {
     property string defaultUuidText: "startValue"
 
     property StackView mainStack
-    property string nodeUuid: defaultUuidText
-    property bool newNode: nodeUuid === ""
 
-    function open() { mainStack.push(newNodeEdit) }
+    function open() {
+        mainStack.push(newNodeEdit)
+        prepareForOpen()
+    }
 
     header: MainHeader {
 
         id: mainHeader
-        titleText: newNode ? "Добавить вершину" : "Изменить вершину"
+        titleText: "Добавить вершину"
 
         Component.onCompleted: {
             mainHeader.showCheckButton()
@@ -28,7 +29,7 @@ Page {
         }
 
         onMenuClick: exitFromThisPage()
-        onCheckClick: newNodeEdit.addOrChangeNode()
+        onCheckClick: newNodeEdit.addNode()
     }
 
     Keys.onEscapePressed: {
@@ -38,58 +39,38 @@ Page {
     Keys.onPressed: {
         if (event.modifiers === Qt.ControlModifier) {
             if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                newNodeEdit.addOrChangeNode()
+                newNodeEdit.addNode()
             }
         }
     }
 
-    function exitFromThisPage() {
-        mainStack.pop()
-        nodeUuid = defaultUuidText
+    function exitFromThisPage() { mainStack.pop() }
+
+    function prepareForOpen() {
+        currentGroupFixedRow.groupUuid = sceneObj.getCurrGroupUuid()
+        clearText(termName)
+        clearText(termDefin)
+        clearText(termDescr)
+        clearText(termExampl)
+        termName.takeFocus()
     }
 
-    onNodeUuidChanged: {
-        var newNode = nodeUuid === ""
-        if (newNode) {
-            termName.text    = ""
-            currentGroupFixedRow.groupUuid = sceneObj.getCurrGroupUuid()
-            termName.takeFocus()
-        } else {
-            termName.text    = sceneObj.getCurrNodeName()
-            nodeGroup.selectElement(sceneObj.getCurrNodeGroupUuid())
-            termDefin.takeFocus()
-        }
-    }
+    function clearText(textItem) { textItem.text = "" }
 
-    function addOrChangeNode() {
-        if (termName.text == "") {
+    function addNode() {
+        if (termName.text === "") {
             emptyNodeNameDelDialog.visible = true
             return
         }
 
-        var success = true;
-        var newNode = changeNodeRow.text === ""  // bool
-
-        if (newNode) {
-            success = nodesManager.addNewNode(
-                        termName.text,
-                        "",
-                        termDefin.text,
-                        termDescr.text,
-                        termExampl.text,
-                        currentGroupFixedRow.groupUuid
-                        )
-        } else {
-            success = nodesManager.changeNode(
-                        changeNodeRow.text,
-                        termName.text,
-                        "",
-                        termDefin.text,
-                        termDescr.text,
-                        termExampl.text,
-                        nodeGroup.currentText
-                        )
-        }
+        var success = nodesManager.addNewNode(
+                    termName.text,
+                    "",
+                    termDefin.text,
+                    termDescr.text,
+                    termExampl.text,
+                    currentGroupFixedRow.groupUuid
+                    )
 
         if (success) {
             exitFromThisPage()
@@ -127,143 +108,108 @@ Page {
     }
 
     ScrollView {
+        id: scroll
         anchors.fill: parent
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
-        background: Rectangle {
-            color: appColors.base
-        }
+        background: Rectangle { color: appColors.base }
 
-        Column {
-            id: viewColumn
+        Item {
+            width: scroll.width
 
-            anchors.margins: 12
-            width: newNodeEdit.width
+            Column {
+                anchors.fill: parent
+                anchors.margins: 15
 
-            spacing: mainObj.getUiElementSize("colSpace")*Screen.pixelDensity
+                spacing: mainObj.getUiElementSize("colSpace")*Screen.pixelDensity
 
-            MyLabelPair {
-                id: changeNodeRow
-                name: "Изменить вершину с uuid: "
-                text: newNodeEdit.nodeUuid
-                visible: text !== ""
-            }
+                MyLabelPair {
+                    id: currentGroupFixedRow
 
-            MyLabelPair {
-                id: currentGroupFixedRow
+                    property string groupUuid: ""
 
-                property string groupUuid: ""
+                    name: "Текущая группа: "
+                    text: groupsManager.getGroupName(groupUuid)
+                }
 
-                name: "Текущая группа: "
-                text: groupsManager.getGroupName(groupUuid)
+                MyTextField {
+                    property string prevText: ""
 
-                visible: newNodeEdit.newNode
-            }
+                    id: termName
+                    labelText: "Название:"
+                    placeholderText: "[Термин]"
 
-            MyTextField {
-                property string prevText: ""
+                    onNewText: checkNewText(text)
 
-                id: termName
-                labelText: "Название:"
-                placeholderText: "[Термин]"
-
-                onNewText: checkNewText(text)
-
-                function checkNewText(text) {
-                    var differ = prevText.length - text.length
-                    if (differ >= 2 || differ <= -2) {
-                        if (textProcessor.isTermWithDefinition(text)) {
-                            termName.text = textProcessor.getTerm(text)
-                            termDefin.text = textProcessor.getDefinition(text)
+                    function checkNewText(text) {
+                        var differ = prevText.length - text.length
+                        if (differ >= 2 || differ <= -2) {
+                            if (textProcessor.isTermWithDefinition(text)) {
+                                termName.text = textProcessor.getTerm(text)
+                                termDefin.text = textProcessor.getDefinition(text)
+                            }
                         }
+                        prevText = text
                     }
-                    prevText = text
-                }
-            }
-
-//            MyTextField {
-//                id : termForms
-//                labelText : "Грамматические формы:"
-//                placeholderText: "[Альтернативные окончания термина, как слОва]"
-//                text: newNode ? sceneObj.getCurrNodeForms() : ""
-//            }
-
-            MyTextArea {
-                id: termDefin
-                labelText: "-это"
-                placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
-                text: nodeUuid !== "" ? sceneObj.getCurrNodeDefinition() : ""
-            }
-
-            MyTextArea {
-                id: termDescr
-                labelText : "Описание"
-                placeholderText: "[Общее словестное описание, пока никак не участвует в логике]"
-                text: nodeUuid !== "" ? sceneObj.getCurrNodeDescription() : ""
-            }
-
-            MyTextArea {
-                id: termExampl
-                labelText: "Примеры"
-                text: nodeUuid !== "" ? sceneObj.getCurrNodeExamples() : ""
-            }
-
-            MyTextField {
-                enabled: false
-                visible: false
-
-                labelText: "Ссылка на Wiki статью"
-                placeholderText: "http://"
-            }
-
-            MyTextField {
-                enabled: false
-                visible: false
-
-                labelText: "Ссылка на Wiki изображение"
-                placeholderText: "http://"
-            }
-
-            // Здесь есть проблема с anchors
-            RowLayout {
-                id: currentGroupEditableRow
-
-                width: parent.width
-                visible: !newNode
-
-                Label {
-                    id: grpLabel
-                    text : "Группа"
-                    font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
                 }
 
-                MyComboBox {
-                    id: nodeGroup
-                    model: groupsManager.allUuidSorted
+                //            MyTextField {
+                //                id : termForms
+                //                labelText : "Грамматические формы:"
+                //                placeholderText: "[Альтернативные окончания термина, как слОва]"
+                //                text: newNode ? sceneObj.getCurrNodeForms() : ""
+                //            }
 
-                    function selectElement(name) {
-                        var index = find(name)
-                        if (index !== -1) {
-                            currentIndex = index
-                        }
-                    }
-                    Layout.fillWidth: true
+                MyTextArea {
+                    id: termDefin
+                    labelText: "-это"
+                    placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
+                    text: ""
                 }
+
+                MyTextArea {
+                    id: termDescr
+                    labelText : "Описание"
+                    placeholderText: "[Общее словестное описание, пока никак не участвует в логике]"
+                    text: ""
+                }
+
+                MyTextArea {
+                    id: termExampl
+                    labelText: "Примеры"
+                    text: ""
+                }
+
+                MyTextField {
+                    enabled: false
+                    visible: false
+
+                    labelText: "Ссылка на Wiki статью"
+                    placeholderText: "http://"
+                }
+
+                MyTextField {
+                    enabled: false
+                    visible: false
+
+                    labelText: "Ссылка на Wiki изображение"
+                    placeholderText: "http://"
+                }
+
+                MessageDialog {
+                    id: emptyNodeNameDelDialog
+
+                    title: "Невозможно создать вершину"
+                    text:  "Невозможно создать пустой термин.\nЗаполните поле \"Название\""
+
+                    standardButtons: StandardButton.Ok
+                    icon: StandardIcon.Warning
+                }
+
+                //            Item{
+                //                Layout.fillHeight: true
+                //            }
             }
-
-            MessageDialog {
-                id: emptyNodeNameDelDialog
-
-                title: "Невозможно создать вершину"
-                text:  "Невозможно создать пустой термин.\nЗаполните поле \"Название\""
-
-                standardButtons: StandardButton.Ok
-                icon: StandardIcon.Warning
-            }
-
-            //            Item{
-            //                Layout.fillHeight: true
-            //            }
         }
     }
 }

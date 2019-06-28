@@ -61,6 +61,11 @@ Page {
         mainStack: stackView
     }
 
+    EditNode {
+        id: editNodePage
+        mainStack: stackView
+    }
+
     TermGroupsList {
         id: groupsListPage
         mainStack: stackView
@@ -98,7 +103,6 @@ Page {
         function openNewNodePage() {
             if (groupsManager.hasAnyGroup) {
                 newNodePage.open()
-                newNodePage.nodeUuid = ""
             } else {
                 showWarning("Create group first!")
                 groupsListPage.open()
@@ -135,8 +139,8 @@ Page {
 
         function openEditNodePage(nodeUuid) {
             if (nodeUuid !== "") {
-                newNodePage.open()
-                newNodePage.nodeUuid = nodeUuid
+                editNodePage.open()
+                editNodePage.nodeUuid = nodeUuid
             }
         }
     }
