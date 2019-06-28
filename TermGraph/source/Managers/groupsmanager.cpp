@@ -2,6 +2,7 @@
 
 #include "../databaseWorks/columns/termgroupcolumn.h"
 #include "../databaseWorks/columns/nodecolumn.h"
+#include "source/Managers/jsongroupinfocontainerparser.h"
 
 GroupsManager::GroupsManager(NodesManager *nodesMgr, QObject *parent)
     : QObject(parent)
@@ -82,8 +83,13 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
         return;
     }
 
-    int type = 0;  // GroupType::terms
-    if (Database::instance().groupTable->addGroup(name, comment, type)) {
+    GroupInfoContainer info;
+
+    info.name    = name;
+    info.comment = comment;
+    info.type    = GroupType::terms;
+
+    if (Database::instance().groupTable->addGroup(info)) {
         updateGroupUuidNameMaps();
         emit groupsListChanged();
     } else {
@@ -144,7 +150,7 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
     if (groupUuid.isNull())
         return nullptr;
 
-    auto info = Database::instance().groupTable->getGroupInfoContainer(groupUuid);
+    auto info = Database::instance().groupTable->getGroup(groupUuid);
     TermGroup* group = new TermGroup(info);
     group->loadNodes(nodesMgr->getAllNodesForGroup(groupUuid));
     return group;
@@ -243,29 +249,24 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     qDebug() << json;
 
     QJsonObject jsonGroup = json.object();
-    QUuid groupUuid = QUuid(jsonGroup.value("longUID").toString());
 
-    if (groupUuid.isNull())
+    auto info = JsonGroupInfoContainerParser::fromJson(jsonGroup);
+
+    if (info.uuid.isNull())
         return;
-
-    QString groupName = jsonGroup.value("name").toString();
-    QString comment;
-    int type = jsonGroup.value("type").toInt();
 
     QJsonArray nodes = jsonGroup.value("nodesList").toArray();
 
     // Searching for existed group
-    if (db.groupTable->hasGroupWithUuid(groupUuid)) {  // Group found
-        db.groupTable->setName(groupUuid, groupName);
-        db.groupTable->setComment(groupUuid, comment);
-        db.groupTable->setType(groupUuid, type);
+    if (!db.groupTable->hasGroupWithUuid(info.uuid)) { // Group found
+        db.groupTable->addGroup(info);
     } else {
-        db.groupTable->addGroup(groupUuid, groupName, comment, type);
+        db.groupTable->updateGroup(info);
     }
 
     // Importing nodes
     for (const auto nodeValue : nodes) {
-        nodesMgr->importNodeFromJson(nodeValue.toObject(), groupUuid);
+        nodesMgr->importNodeFromJson(nodeValue.toObject(), info.uuid);
     }
 
     updateGroupUuidNameMaps();

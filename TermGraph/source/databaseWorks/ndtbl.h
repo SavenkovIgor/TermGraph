@@ -36,7 +36,7 @@ public:
 
     bool updateNode(const NodeInfoContainer& info, LastEditSource lastEditSource, bool checkLastEdit = true);
 
-    void setName(const QUuid& uuid, const QString& name);
+    void setName(const QUuid& uuid, const QString& name); // TODO: Try to delete
     void setWordForms(const QUuid& uuid, const QString& forms);
     void setDefinition(const QUuid& uuid, const QString& definition);
     void setDescription(const QUuid& uuid, const QString& description);

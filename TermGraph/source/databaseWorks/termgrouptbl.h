@@ -9,31 +9,26 @@
 class TermGroupTable : public TblBase
 {
 public:
-    TermGroupTable(QSqlDatabase* base): TblBase(TableName::GROUPS, base) { }
+    TermGroupTable(QSqlDatabase* base)
+        : TblBase(TableName::GROUPS, base)
+    {}
     ~TermGroupTable() override = default;
 
-    // Adding, deleting
-    bool addGroup(QString name, QString comment, int type);
-    bool addGroup(QUuid uuid, QString name, QString comment, int type);
+    // Add, update, delete
     bool addGroup(const GroupInfoContainer& info);
+    bool updateGroup(const GroupInfoContainer& info);
     void deleteGroup(const QUuid& uuid);
 
     // Getters
-    GroupInfoContainer getGroupInfoContainer(const QUuid& uuid);
-    QUuid getUuid(const QString &groupName) const;
+    GroupInfoContainer getGroup(const QUuid& uuid);
     RecVector getAllUuidsAndNames();
-
-    // Massive getters
     UuidList getAllUuids();
 
-    // Setters
-    void setName(QUuid uuid, QString name);
-    void setComment(QUuid uuid, QString comment);
-    void setType(QUuid uuid, int type);
+    QUuid getUuid(const QString& groupName) const;
 
     // Checkers
-    bool hasGroupWithUuid(const QUuid &uuid);
-    bool hasGroupWithName(QString groupName);
+    bool hasGroupWithUuid(const QUuid& uuid);
+    bool hasGroupWithName(const QString& groupName);
 
     void initTable() override;
 

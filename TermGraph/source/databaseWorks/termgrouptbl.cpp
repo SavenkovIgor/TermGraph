@@ -2,32 +2,13 @@
 
 #include "./columns/termgroupcolumn.h"
 
-bool TermGroupTable::addGroup(QString name, QString comment, int type)
-{
-    if (name.simplified() == "") {
-        return false;
-    }
-
-    QUuid uuid = generateNewUuid();
-    return addGroup(uuid, name, comment, type);
-}
-
-bool TermGroupTable::addGroup(QUuid uuid, QString name, QString comment, int type)
-{
-    GroupInfoContainer info;
-
-    info.uuid = uuid;
-    info.name = name;
-    info.comment = comment;
-    info.type = static_cast<GroupType>(type);
-
-    return addGroup(info);
-}
-
 bool TermGroupTable::addGroup(const GroupInfoContainer &info)
 {
-    if (info.uuid.isNull())
-        return false;
+    QUuid groupUuid = info.uuid;
+
+    if (groupUuid.isNull()) {
+        groupUuid = generateNewUuid();
+    }
 
     if (info.name.simplified() == "")
         return false;
@@ -37,12 +18,31 @@ bool TermGroupTable::addGroup(const GroupInfoContainer &info)
 
     QList<InsertContainer> values;
 
-    values << InsertContainer(TermGroupColumn::longUID, info.uuid.toString());
+    values << InsertContainer(TermGroupColumn::longUID, groupUuid.toString());
     values << InsertContainer(TermGroupColumn::name,    info.name);
     values << InsertContainer(TermGroupColumn::comment, info.comment);
     values << InsertContainer(TermGroupColumn::type,    static_cast<int>(info.type));
 
     return insertInto(values);
+}
+
+bool TermGroupTable::updateGroup(const GroupInfoContainer &info)
+{
+    if (info.uuid.isNull())
+        return false;
+
+    if (!hasGroupWithUuid(info.uuid))
+        return false;
+
+    SetExpression set;
+
+    set.set(TermGroupColumn::name,    info.name);
+    set.set(TermGroupColumn::comment, info.comment);
+    set.set(TermGroupColumn::type,    static_cast<int>(info.type));
+
+    updateWhere(set, WhereCondition::uuidEqual(info.uuid));
+
+    return true;
 }
 
 UuidList TermGroupTable::getAllUuids()
@@ -102,7 +102,7 @@ RecVector TermGroupTable::getAllUuidsAndNames()
     return toRecVector(std::move(sel));
 }
 
-bool TermGroupTable::hasGroupWithName(QString groupName)
+bool TermGroupTable::hasGroupWithName(const QString &groupName)
 {
     return !getUuid(groupName).isNull();
 }
@@ -121,22 +121,7 @@ TColumn::List TermGroupTable::getAllColumns() const
     return lst;
 }
 
-void TermGroupTable::setName(QUuid uuid, QString name)
-{
-    setField(TermGroupColumn::name, uuid, name);
-}
-
-void TermGroupTable::setComment(QUuid uuid, QString comment)
-{
-    setField(TermGroupColumn::comment, uuid, comment);
-}
-
-void TermGroupTable::setType(QUuid uuid, int type)
-{
-    setField(TermGroupColumn::type, uuid, QString::number(type));
-}
-
-GroupInfoContainer TermGroupTable::getGroupInfoContainer(const QUuid& uuid)
+GroupInfoContainer TermGroupTable::getGroup(const QUuid& uuid)
 {
     GroupInfoContainer info;
 

@@ -26,7 +26,6 @@ signals:
     void showError(QString error);
 
 public slots:
-
     bool getHasAnyGroup() const;
 
     QStringList getAllGroupsNames(bool withAllVeiw = false);
