@@ -9,7 +9,9 @@ HEADERS += \
     source/Managers/jsongroupinfocontainerparser.h \
     source/Managers/jsonnodeinfocontainerparser.h \
     source/Managers/syncmanager.h \
+    source/Model/Termin/nodegadgetwrapper.h \
     source/Model/Termin/nodeinfocontainer.h \
+    source/Model/TerminGroup/groupgadgetwrapper.h \
     source/Model/TerminGroup/groupinfocontainer.h \
     source/databaseWorks/columns/nodecolumn.h \
     source/databaseWorks/columns/tcolumn.h \
@@ -60,6 +62,8 @@ SOURCES += \
     source/Managers/jsongroupinfocontainerparser.cpp \
     source/Managers/jsonnodeinfocontainerparser.cpp \
     source/Managers/syncmanager.cpp \
+    source/Model/Termin/nodegadgetwrapper.cpp \
+    source/Model/TerminGroup/groupgadgetwrapper.cpp \
     source/main.cpp\
     source/databaseWorks/database.cpp\
     source/databaseWorks/edgtbl.cpp\
