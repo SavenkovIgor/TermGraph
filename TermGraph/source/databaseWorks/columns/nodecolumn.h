@@ -1,7 +1,7 @@
 #ifndef NODECOLUMN_H
 #define NODECOLUMN_H
 
-#include "./tcolumn.h"
+#include "source/databaseWorks/columns/tcolumn.h"
 
 class NodeColumn {
 public:

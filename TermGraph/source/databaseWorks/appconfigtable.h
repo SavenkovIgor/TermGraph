@@ -1,8 +1,8 @@
 #ifndef APPCONFIGTABLE_H
 #define APPCONFIGTABLE_H
 
-#include "./tblbase.h"
-#include "./dbtablenames.h"
+#include "source/databaseWorks/tblbase.h"
+#include "source/databaseWorks/dbtablenames.h"
 
 class AppConfigColumn
 {

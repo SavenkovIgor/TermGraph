@@ -3,8 +3,8 @@
 
 #include <QString>
 
-#include "../../Helpers/fonts.h"
-#include "./graphicitem.h"
+#include "source/Helpers/fonts.h"
+#include "source/Model/GraphicItem/graphicitem.h"
 
 class LabelGraphicItem : public GraphicItem
 {

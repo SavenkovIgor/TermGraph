@@ -1,7 +1,7 @@
 #ifndef TERMGROUPCOLUMN_H
 #define TERMGROUPCOLUMN_H
 
-#include "./tcolumn.h"
+#include "source/databaseWorks/columns/tcolumn.h"
 
 class TermGroupColumn {
 public:

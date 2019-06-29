@@ -4,10 +4,10 @@
 #include <QSqlRecord>
 #include <QSizeF>
 
-#include "./graphterm.h"
-#include "../TerminEdge/edge.h"
-#include "../GraphicItem/graphicitem.h"
-#include "../enums.h"
+#include "source/Model/Termin/graphterm.h"
+#include "source/Model/TerminEdge/edge.h"
+#include "source/Model/GraphicItem/graphicitem.h"
+#include "source/Model/enums.h"
 
 // This class contains all info for paint Term somewhere
 // Has functions about paint color, positioning. This kind of stuff

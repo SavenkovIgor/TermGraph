@@ -3,12 +3,12 @@
 
 #include <QObject>
 
-#include "../../Helpers/appstyle.h"
-#include "../../Helpers/tagprocessor.h"
-#include "../GraphicItem/rectgraphicitem.h"
-#include "./termgroupinfo.h"
-#include "../TerminEdge/edge.h"
-#include "../GraphicItem/labelgraphicitem.h"
+#include "source/Helpers/appstyle.h"
+#include "source/Helpers/tagprocessor.h"
+#include "source/Model/GraphicItem/rectgraphicitem.h"
+#include "source/Model/TerminGroup/termgroupinfo.h"
+#include "source/Model/TerminEdge/edge.h"
+#include "source/Model/GraphicItem/labelgraphicitem.h"
 
 class TermGroup : public QObject, public TermGroupInfo
 {

@@ -3,8 +3,8 @@
 
 #include <QtCore>
 
-#include "./commonqueryfunctions.h"
-#include "./columns/tcolumn.h"
+#include "source/databaseWorks/commonqueryfunctions.h"
+#include "source/databaseWorks/columns/tcolumn.h"
 
 class InsertContainer
 {

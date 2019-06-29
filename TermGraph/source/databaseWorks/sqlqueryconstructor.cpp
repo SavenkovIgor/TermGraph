@@ -1,4 +1,4 @@
-#include "./sqlqueryconstructor.h"
+#include "source/databaseWorks/sqlqueryconstructor.h"
 
 SqlQueryConstructor::SqlQueryConstructor(QString tableName)
 {

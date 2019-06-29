@@ -3,10 +3,10 @@
 
 #include <QColor>
 
-#include "./graphedge.h"
-#include "../Termin/paintedterm.h"
-#include "../GraphicItem/graphicitem.h"
-#include "../../Helpers/appstyle.h"
+#include "source/Model/TerminEdge/graphedge.h"
+#include "source/Model/Termin/paintedterm.h"
+#include "source/Model/GraphicItem/graphicitem.h"
+#include "source/Helpers/appstyle.h"
 
 class PaintedTerm;
 

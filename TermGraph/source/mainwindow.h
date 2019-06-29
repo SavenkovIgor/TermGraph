@@ -6,15 +6,15 @@
 #include <QQmlContext>
 #include <QtQuickControls2/QQuickStyle>
 
-#include "./Model/reminder.h"
-#include "./mainscene.h"
-#include "./paintqueuemanager.h"
-#include "./databaseWorks/database.h"
-#include "./Model/wordfreqanalyze.h"
-#include "./Helpers/tagprocessor.h"
-#include "./Helpers/textprocessor.h"
-#include "./Helpers/appconfig.h"
-#include "./Managers/syncmanager.h"
+#include "source/Model/reminder.h"
+#include "source/mainscene.h"
+#include "source/paintqueuemanager.h"
+#include "source/databaseWorks/database.h"
+#include "source/Model/wordfreqanalyze.h"
+#include "source/Helpers/tagprocessor.h"
+#include "source/Helpers/textprocessor.h"
+#include "source/Helpers/appconfig.h"
+#include "source/Managers/syncmanager.h"
 
 class MainWindow : public QObject
 {

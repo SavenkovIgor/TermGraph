@@ -3,7 +3,7 @@
 
 #include <QJsonObject>
 
-#include "../Model/TerminGroup/groupinfocontainer.h"
+#include "source/Model/TerminGroup/groupinfocontainer.h"
 
 class JsonGroupInfoContainerParser
 {

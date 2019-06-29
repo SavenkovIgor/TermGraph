@@ -7,8 +7,8 @@
 #include <QSqlRecord>
 #include <QJsonObject>
 
-#include "../databaseWorks/database.h"
-#include "../Model/Termin/paintedterm.h"
+#include "source/databaseWorks/database.h"
+#include "source/Model/Termin/paintedterm.h"
 
 class NodesManager : public QObject
 {

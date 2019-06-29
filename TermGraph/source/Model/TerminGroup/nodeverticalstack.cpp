@@ -1,6 +1,6 @@
 #include "nodeverticalstack.h"
 
-#include "../../Helpers/helpstuff.h"
+#include "source/Helpers/helpstuff.h"
 
 QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::List& nodes)
 {

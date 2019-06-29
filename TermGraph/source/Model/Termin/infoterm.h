@@ -4,7 +4,7 @@
 #include <QObject>
 
 #include "nodeinfocontainer.h"
-#include "../../databaseWorks/ndtbl.h"  // TODO: удаление почему то вызывает проблемы со сборкой
+#include "source/databaseWorks/ndtbl.h"  // TODO: удаление почему то вызывает проблемы со сборкой
 
 // This class contains all "information" part of term, like name, definition and other...
 class InfoTerm : public QObject

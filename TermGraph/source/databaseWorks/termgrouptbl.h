@@ -1,10 +1,10 @@
 #ifndef TERMGROUPTBL_H
 #define TERMGROUPTBL_H
 
-#include "./tblbase.h"
-#include "./dbtablenames.h"
-#include "./columns/tcolumn.h"
-#include "../Model/TerminGroup/groupinfocontainer.h"
+#include "source/databaseWorks/tblbase.h"
+#include "source/databaseWorks/dbtablenames.h"
+#include "source/databaseWorks/columns/tcolumn.h"
+#include "source/Model/TerminGroup/groupinfocontainer.h"
 
 class TermGroupTable : public TblBase
 {

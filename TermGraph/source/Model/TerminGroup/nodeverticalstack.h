@@ -3,8 +3,8 @@
 
 #include <QList>
 
-#include "../Termin/paintedterm.h"
-#include "../TerminEdge/edge.h"
+#include "source/Model/Termin/paintedterm.h"
+#include "source/Model/TerminEdge/edge.h"
 
 class NodeVerticalStackTools {
 public:

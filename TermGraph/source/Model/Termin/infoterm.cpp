@@ -2,11 +2,11 @@
 
 #include <QDebug>
 
-#include "../../Helpers/appstyle.h"
-#include "../../Helpers/fonts.h"
-#include "../../Helpers/helpstuff.h"
-#include "../../Helpers/tagprocessor.h"
-#include "../../Helpers/textprocessor.h"
+#include "source/Helpers/appstyle.h"
+#include "source/Helpers/fonts.h"
+#include "source/Helpers/helpstuff.h"
+#include "source/Helpers/tagprocessor.h"
+#include "source/Helpers/textprocessor.h"
 
 InfoTerm::InfoTerm(const NodeInfoContainer& info, QObject* parent)
     : QObject(parent)

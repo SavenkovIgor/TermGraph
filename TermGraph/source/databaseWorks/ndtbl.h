@@ -1,12 +1,12 @@
 #ifndef NDTBL_H
 #define NDTBL_H
 
-#include "./tblbase.h"
-#include "./dbtablenames.h"
-#include "../Model/Termin/nodeinfocontainer.h"
-#include "../Helpers/handytypes.h"
+#include "source/databaseWorks/tblbase.h"
+#include "source/databaseWorks/dbtablenames.h"
+#include "source/Model/Termin/nodeinfocontainer.h"
+#include "source/Helpers/handytypes.h"
 
-#include "./columns/tcolumn.h"
+#include "source/databaseWorks/columns/tcolumn.h"
 
 class NodeTable : public TblBase
 {

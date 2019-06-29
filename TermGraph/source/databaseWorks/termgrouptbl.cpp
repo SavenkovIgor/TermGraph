@@ -1,6 +1,6 @@
 #include "termgrouptbl.h"
 
-#include "./columns/termgroupcolumn.h"
+#include "source/databaseWorks/columns/termgroupcolumn.h"
 
 bool TermGroupTable::addGroup(const GroupInfoContainer &info)
 {

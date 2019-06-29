@@ -7,12 +7,12 @@
 #include <QClipboard>
 #include <QElapsedTimer>
 
-#include "./paintqueuemanager.h"
-#include "./Managers/groupsmanager.h"
-#include "./Managers/nodesmanager.h"
-#include "./Helpers/appconfig.h"
-#include "./Helpers/fsworks.h"
-#include "./Model/TerminGroup/termgroup.h"
+#include "source/paintqueuemanager.h"
+#include "source/Managers/groupsmanager.h"
+#include "source/Managers/nodesmanager.h"
+#include "source/Helpers/appconfig.h"
+#include "source/Helpers/fsworks.h"
+#include "source/Model/TerminGroup/termgroup.h"
 
 class MainScene : public QObject
 {

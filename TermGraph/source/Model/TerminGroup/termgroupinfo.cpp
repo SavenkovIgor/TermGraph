@@ -1,6 +1,6 @@
 #include "termgroupinfo.h"
 
-#include "../../Helpers/helpstuff.h"
+#include "source/Helpers/helpstuff.h"
 
 TermGroupInfo::TermGroupInfo(const GroupInfoContainer& info)
 {

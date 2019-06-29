@@ -1,6 +1,6 @@
-﻿#include "./ndtbl.h"
+﻿#include "source/databaseWorks/ndtbl.h"
 
-#include "./columns/nodecolumn.h"
+#include "source/databaseWorks/columns/nodecolumn.h"
 
 QUuid NodeTable::nodeUuidForNameAndGroup(const QString &name, const QUuid &groupUuid) const
 {

@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QQueue>
 
-#include "./Model/TerminGroup/termgroup.h"
+#include "source/Model/TerminGroup/termgroup.h"
 
 class PaintManager : public QObject
 {

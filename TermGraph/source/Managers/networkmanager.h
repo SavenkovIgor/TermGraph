@@ -4,8 +4,8 @@
 #include <QObject>
 #include <QtNetwork>
 
-#include "../Helpers/simplelistenserver.h"
-#include "../Helpers/appconfig.h"
+#include "source/Helpers/simplelistenserver.h"
+#include "source/Helpers/appconfig.h"
 
 class NetworkManager : public QObject
 {

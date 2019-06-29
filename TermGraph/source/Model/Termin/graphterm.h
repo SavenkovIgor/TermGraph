@@ -2,9 +2,9 @@
 #define TERMGRAPH_H
 
 #include <QList>
-#include "./infoterm.h"
-#include "../TerminEdge/graphedge.h"
-#include "../../Helpers/handytypes.h"
+#include "source/Model/Termin/infoterm.h"
+#include "source/Model/TerminEdge/graphedge.h"
+#include "source/Helpers/handytypes.h"
 
 enum class NodeType {
     orphan,

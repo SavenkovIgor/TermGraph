@@ -5,10 +5,10 @@
 #include <QDebug>
 #include <QUuid>
 
-#include "./termtree.h"
-#include "../Termin/paintedterm.h"
-#include "../../Helpers/tagprocessor.h"
-#include "./groupinfocontainer.h"
+#include "source/Model/TerminGroup/termtree.h"
+#include "source/Model/Termin/paintedterm.h"
+#include "source/Helpers/tagprocessor.h"
+#include "source/Model/TerminGroup/groupinfocontainer.h"
 
 class TermGroupInfo
 {

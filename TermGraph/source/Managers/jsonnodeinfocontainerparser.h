@@ -3,7 +3,7 @@
 
 #include <QJsonObject>
 
-#include "../Model/Termin/nodeinfocontainer.h"
+#include "source/Model/Termin/nodeinfocontainer.h"
 
 class JsonNodeInfoContainerParser
 {

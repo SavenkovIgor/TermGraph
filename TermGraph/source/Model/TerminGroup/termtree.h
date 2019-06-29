@@ -6,10 +6,10 @@
 #include <QPropertyAnimation>
 #include <stdlib.h>
 
-#include "../Termin/paintedterm.h"
-#include "../TerminEdge/edge.h"
-#include "../GraphicItem/rectgraphicitem.h"
-#include "./nodeverticalstack.h"
+#include "source/Model/Termin/paintedterm.h"
+#include "source/Model/TerminEdge/edge.h"
+#include "source/Model/GraphicItem/rectgraphicitem.h"
+#include "source/Model/TerminGroup/nodeverticalstack.h"
 
 class TermTree
 {

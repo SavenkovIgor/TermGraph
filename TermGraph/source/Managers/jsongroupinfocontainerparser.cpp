@@ -1,6 +1,6 @@
 #include "jsongroupinfocontainerparser.h"
 
-#include "../databaseWorks/columns/termgroupcolumn.h"
+#include "source/databaseWorks/columns/termgroupcolumn.h"
 
 GroupInfoContainer JsonGroupInfoContainerParser::fromJson(const QJsonObject& jsonObj)
 {

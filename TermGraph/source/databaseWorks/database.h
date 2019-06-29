@@ -4,12 +4,12 @@
 #include <QObject>
 #include <QtSql>
 
-#include "./ndtbl.h"
-#include "./edgtbl.h"
-#include "./appconfigtable.h"
-#include "./termgrouptbl.h"
-#include "../Helpers/appconfig.h"
-#include "../Helpers/fsworks.h"
+#include "source/databaseWorks/ndtbl.h"
+#include "source/databaseWorks/edgtbl.h"
+#include "source/databaseWorks/appconfigtable.h"
+#include "source/databaseWorks/termgrouptbl.h"
+#include "source/Helpers/appconfig.h"
+#include "source/Helpers/fsworks.h"
 
 // Singleton!
 class Database

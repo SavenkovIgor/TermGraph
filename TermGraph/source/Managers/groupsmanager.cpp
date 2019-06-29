@@ -1,7 +1,7 @@
 #include "groupsmanager.h"
 
-#include "../databaseWorks/columns/termgroupcolumn.h"
-#include "../databaseWorks/columns/nodecolumn.h"
+#include "source/databaseWorks/columns/termgroupcolumn.h"
+#include "source/databaseWorks/columns/nodecolumn.h"
 #include "source/Managers/jsongroupinfocontainerparser.h"
 
 GroupsManager::GroupsManager(NodesManager *nodesMgr, QObject *parent)

@@ -3,9 +3,9 @@
 
 #include <QObject>
 
-#include "../Helpers/fsworks.h"
-#include "./nodesmanager.h"
-#include "../Model/TerminGroup/termgroup.h"
+#include "source/Helpers/fsworks.h"
+#include "source/Managers/nodesmanager.h"
+#include "source/Model/TerminGroup/termgroup.h"
 
 class GroupsManager : public QObject
 {
