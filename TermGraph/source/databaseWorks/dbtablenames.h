@@ -1,5 +1,4 @@
-#ifndef DBTABLENAMES_H
-#define DBTABLENAMES_H
+#pragma once
 
 class TableName {
 public:
@@ -7,5 +6,3 @@ public:
     constexpr static auto GROUPS = "termGroup";
     constexpr static auto CONFIG = "appConfig";
 };
-
-#endif // DBTABLENAMES_H

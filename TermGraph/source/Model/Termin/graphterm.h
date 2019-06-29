@@ -1,5 +1,4 @@
-#ifndef TERMGRAPH_H
-#define TERMGRAPH_H
+#pragma once
 
 #include <QList>
 #include "source/Model/Termin/infoterm.h"
@@ -89,5 +88,3 @@ private:
 
     void fillAllParentsList(GraphTerm *searchNode, GraphTerm::List &lst);
 };
-
-#endif // TERMGRAPH_H

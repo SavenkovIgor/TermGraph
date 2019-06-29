@@ -1,5 +1,4 @@
-#ifndef HELPSTUFF_H
-#define HELPSTUFF_H
+#pragma once
 
 #include <QString>
 #include <QPointF>
@@ -23,5 +22,3 @@ public:
 
     static QSizeF getStackedSize(const SizesList& sizeList, const Qt::Orientation stackOrientation = Qt::Vertical);
 };
-
-#endif // HELPSTUFF_H

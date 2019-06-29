@@ -1,5 +1,4 @@
-#ifndef RECTGRAPHICITEM_H
-#define RECTGRAPHICITEM_H
+#pragma once
 
 #include <QSizeF>
 
@@ -24,5 +23,3 @@ public:
 private:
     QSizeF _size;
 };
-
-#endif // RECTGRAPHICITEM_H

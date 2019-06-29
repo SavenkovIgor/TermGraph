@@ -1,5 +1,4 @@
-#ifndef TERMGROUPTBL_H
-#define TERMGROUPTBL_H
+#pragma once
 
 #include "source/databaseWorks/tblbase.h"
 #include "source/databaseWorks/dbtablenames.h"
@@ -38,5 +37,3 @@ protected:
 private:
     QUuid generateNewUuid();
 };
-
-#endif  // TERMGROUPTBL_H

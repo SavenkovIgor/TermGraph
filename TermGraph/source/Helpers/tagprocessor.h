@@ -1,5 +1,4 @@
-#ifndef TAGPROCESSOR_H
-#define TAGPROCESSOR_H
+#pragma once
 
 #include <functional>
 
@@ -62,5 +61,3 @@ private:
             const QString &leftBrReplacement,
             const QString &rightBrReplacement);
 };
-
-#endif  // TAGPROCESSOR_H

@@ -1,5 +1,4 @@
-#ifndef MULTIPLESHOTTIMER_H
-#define MULTIPLESHOTTIMER_H
+#pragma once
 
 #include <QTimer>
 
@@ -16,5 +15,3 @@ private slots:
 public:
     MultipleShotTimer(unsigned int shots, unsigned int interval);
 };
-
-#endif  // MULTIPLESHOTTIMER_H

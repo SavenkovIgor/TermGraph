@@ -1,5 +1,4 @@
-#ifndef TBLBASE_H
-#define TBLBASE_H
+#pragma once
 
 #include <QtSql>
 
@@ -63,5 +62,3 @@ private:
     QSqlQuery executeInsert(const QList<InsertContainer> &values);
     void      executeUpdate(const SetExpression &set, const WhereCondition &where);
 };
-
-#endif // TBLBASE_H

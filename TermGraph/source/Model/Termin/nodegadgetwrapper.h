@@ -1,5 +1,4 @@
-#ifndef NODEGADGETWRAPPER_H
-#define NODEGADGETWRAPPER_H
+#pragma once
 
 #include <QObject>
 
@@ -10,5 +9,3 @@ class NodeGadgetWrapper
 public:
     NodeGadgetWrapper();
 };
-
-#endif // NODEGADGETWRAPPER_H

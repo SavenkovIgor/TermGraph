@@ -1,5 +1,4 @@
-#ifndef JSONGROUPINFOCONTAINERPARSER_H
-#define JSONGROUPINFOCONTAINERPARSER_H
+#pragma once
 
 #include <QJsonObject>
 
@@ -11,5 +10,3 @@ public:
     static GroupInfoContainer fromJson(const QJsonObject& jsonObj);
     static QJsonObject toJson(const GroupInfoContainer& info);
 };
-
-#endif // JSONGROUPINFOCONTAINERPARSER_H

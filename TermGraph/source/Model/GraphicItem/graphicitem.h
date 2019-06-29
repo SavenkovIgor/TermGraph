@@ -1,5 +1,4 @@
-#ifndef GRAPHICITEM_H
-#define GRAPHICITEM_H
+#pragma once
 
 #include <QPointF>
 #include <QRectF>
@@ -29,5 +28,3 @@ private:
     GraphicItem* parentItem = nullptr;
     int zValue = 0;
 };
-
-#endif // GRAPHICITEM_H

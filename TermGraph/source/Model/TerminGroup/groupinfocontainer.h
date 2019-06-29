@@ -1,5 +1,4 @@
-#ifndef GROUPINFOCONTAINER_H
-#define GROUPINFOCONTAINER_H
+#pragma once
 
 #include <QString>
 #include <QUuid>
@@ -13,5 +12,3 @@ struct GroupInfoContainer
     QString comment;
     GroupType type = GroupType::terms;
 };
-
-#endif // GROUPINFOCONTAINER_H

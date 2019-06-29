@@ -1,5 +1,4 @@
-#ifndef DATABASE_H
-#define DATABASE_H
+#pragma once
 
 #include <QObject>
 #include <QtSql>
@@ -47,5 +46,3 @@ private:
     void makeDbUpdate();
     void execMigrationConditions(const int& currentDbVersion);
 };
-
-#endif  // DATABASE_H

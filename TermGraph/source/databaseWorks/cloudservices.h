@@ -1,5 +1,4 @@
-#ifndef CLOUDSERVICES_H
-#define CLOUDSERVICES_H
+#pragma once
 
 #include <QObject>
 
@@ -14,5 +13,3 @@ public:
 private:
     DropboxConnection *dropConn;
 };
-
-#endif   // CLOUDSERVICES_H

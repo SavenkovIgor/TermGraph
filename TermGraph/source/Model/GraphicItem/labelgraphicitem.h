@@ -1,5 +1,4 @@
-#ifndef LABELGRAPHICITEM_H
-#define LABELGRAPHICITEM_H
+#pragma once
 
 #include <QString>
 
@@ -23,5 +22,3 @@ private:
     QString _label;
     QFont _font;
 };
-
-#endif // LABELGRAPHICITEM_H

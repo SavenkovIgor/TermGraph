@@ -1,5 +1,4 @@
-#ifndef PAINTEDNODE_H
-#define PAINTEDNODE_H
+#pragma once
 
 #include <QSqlRecord>
 #include <QSizeF>
@@ -99,5 +98,3 @@ private:
     qreal cornerRadius = 0;
     void updateCornerRadius();
 };
-
-#endif // PAINTEDNODE_H

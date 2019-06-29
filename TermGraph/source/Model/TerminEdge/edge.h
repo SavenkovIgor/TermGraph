@@ -1,5 +1,4 @@
-#ifndef EDGE_H
-#define EDGE_H
+#pragma once
 
 #include <QColor>
 
@@ -55,5 +54,3 @@ private:
     EdgeSelected selected = EdgeSelected::none;
     EdgeType type = EdgeType::termin;
 };
-
-#endif  // EDGE_H

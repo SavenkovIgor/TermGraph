@@ -1,5 +1,4 @@
-#ifndef PAINTQUEUEMANAGER_H
-#define PAINTQUEUEMANAGER_H
+#pragma once
 
 #include <QObject>
 #include <QQueue>
@@ -87,5 +86,3 @@ private:
     // Timer
     QElapsedTimer paintSpeedTimer;
 };
-
-#endif // PAINTQUEUEMANAGER_H

@@ -1,5 +1,4 @@
-#ifndef REMINDER_H
-#define REMINDER_H
+#pragma once
 
 #include <QWidget>
 #include <QListWidgetItem>
@@ -44,5 +43,3 @@ private:
     Ui::Reminder *ui;
 
 };
-
-#endif // REMINDER_H

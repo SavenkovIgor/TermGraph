@@ -1,5 +1,4 @@
-#ifndef ENUMS_H
-#define ENUMS_H
+#pragma once
 
 // For coordinate types
 enum class CoordType {
@@ -7,5 +6,3 @@ enum class CoordType {
     local,      // Local coordinate system
     scene       // Scene coordinate system
 };
-
-#endif // ENUMS_H

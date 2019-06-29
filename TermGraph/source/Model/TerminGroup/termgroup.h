@@ -1,5 +1,4 @@
-#ifndef TERMGROUP_H
-#define TERMGROUP_H
+#pragma once
 
 #include <QObject>
 
@@ -84,5 +83,3 @@ private:
     void addTreeRectsToScene();
     RectGraphicItem *orphansRect;
 };
-
-#endif  // TERMGROUP_H

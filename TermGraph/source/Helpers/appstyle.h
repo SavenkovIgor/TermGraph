@@ -1,5 +1,4 @@
-#ifndef APPSTYLE_H
-#define APPSTYLE_H
+#pragma once
 
 #include <QColor>
 
@@ -64,5 +63,3 @@ public:
         static constexpr qreal baseBlockWidth = 40.0;
     };
 };
-
-#endif // APPSTYLE_H

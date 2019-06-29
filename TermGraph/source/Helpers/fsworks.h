@@ -1,5 +1,4 @@
-#ifndef FSWORKS_H
-#define FSWORKS_H
+#pragma once
 
 #include <QApplication>
 #include <QString>
@@ -14,5 +13,3 @@ public:
     static void saveFile(const QString& subDir, const QString& fileName, const QString& data);
     static void saveFile(const QString& subDir, const QString& fileName, const QByteArray& data);
 };
-
-#endif // FSWORKS_H

@@ -1,5 +1,4 @@
-#ifndef APPCONFIG_H
-#define APPCONFIG_H
+#pragma once
 
 #include <QtGlobal>
 #include <QStringList>
@@ -30,5 +29,3 @@ private:
 };
 
 }
-
-#endif // APPCONFIG_H

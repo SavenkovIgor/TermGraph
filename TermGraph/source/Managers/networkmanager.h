@@ -1,5 +1,4 @@
-#ifndef NETWORKMANAGER_H
-#define NETWORKMANAGER_H
+#pragma once
 
 #include <QObject>
 #include <QtNetwork>
@@ -58,5 +57,3 @@ private:
     static bool isValidHostAddress(const QString& ip);
     static QString getSocketStateDescription(QAbstractSocket::SocketState state);
 };
-
-#endif  // NETWORKMANAGER_H

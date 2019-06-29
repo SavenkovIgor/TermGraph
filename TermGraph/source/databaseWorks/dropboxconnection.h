@@ -1,5 +1,4 @@
-#ifndef DROPBOXCONNECTION_H
-#define DROPBOXCONNECTION_H
+#pragma once
 
 #include <QObject>
 
@@ -14,5 +13,3 @@ public:
 private:
 //    QDropbox *dropbox;
 };
-
-#endif // DROPBOXCONNECTION_H

@@ -1,5 +1,4 @@
-#ifndef TEXTPROCESSOR_H
-#define TEXTPROCESSOR_H
+#pragma once
 
 #include <QObject>
 
@@ -23,5 +22,3 @@ private:
 
     int splitterIndex(const QString& str) const;
 };
-
-#endif // TEXTPROCESSOR_H

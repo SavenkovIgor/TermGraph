@@ -1,5 +1,4 @@
-#ifndef TERMINFO_H
-#define TERMINFO_H
+#pragma once
 
 #include <QObject>
 
@@ -65,5 +64,3 @@ private:
     int getNextRepeatOffset(int lvl);
     int getLevelDaysFromBase(int lvl);
 };
-
-#endif  // TERMINFO_H

@@ -1,5 +1,4 @@
-#ifndef GROUPSMANAGER_H
-#define GROUPSMANAGER_H
+#pragma once
 
 #include <QObject>
 
@@ -69,5 +68,3 @@ private:
     QMap<QUuid, QString> uuidToNames;
     QMap<QString, QUuid> namesToUuid;
 };
-
-#endif  // GROUPSMANAGER_H

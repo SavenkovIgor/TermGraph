@@ -1,5 +1,4 @@
-#ifndef NDTBL_H
-#define NDTBL_H
+#pragma once
 
 #include "source/databaseWorks/tblbase.h"
 #include "source/databaseWorks/dbtablenames.h"
@@ -71,5 +70,3 @@ private:
 
     NodeInfoContainer recordToNodeInfo(QSqlRecord& record);
 };
-
-#endif  // NDTBL_H

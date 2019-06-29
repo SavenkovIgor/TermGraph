@@ -1,5 +1,4 @@
-#ifndef EDGTBL_H
-#define EDGTBL_H
+#pragma once
 
 #include "tblbase.h"
 /*
@@ -30,4 +29,3 @@ public:
     void deleteEdge ( int uid );
 };
 */
-#endif // EDGTBL_H

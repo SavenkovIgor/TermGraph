@@ -1,5 +1,4 @@
-#ifndef MAINSCENE_H
-#define MAINSCENE_H
+#pragma once
 
 #include <stdlib.h>
 
@@ -127,5 +126,3 @@ private:
     // Helpers
     QString getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction);
 };
-
-#endif  // MAINSCENE_H

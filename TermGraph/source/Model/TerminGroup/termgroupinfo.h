@@ -1,5 +1,4 @@
-#ifndef TERMGROUPINFO_H
-#define TERMGROUPINFO_H
+#pragma once
 
 #include <stdlib.h>
 #include <QDebug>
@@ -75,5 +74,3 @@ private:
 
     EdgesList suggestConnections();  // TODO: Realize!
 };
-
-#endif // TERMGROUPINFO_H

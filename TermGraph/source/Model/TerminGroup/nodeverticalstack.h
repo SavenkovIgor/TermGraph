@@ -1,5 +1,4 @@
-#ifndef NODEVERTICALSTACK_H
-#define NODEVERTICALSTACK_H
+#pragma once
 
 #include <QList>
 
@@ -76,5 +75,3 @@ public:
 private:
     PaintedTerm::List terms;
 };
-
-#endif // NODEVERTICALSTACK_H

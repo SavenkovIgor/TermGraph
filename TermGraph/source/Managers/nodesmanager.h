@@ -1,5 +1,4 @@
-#ifndef NODESMANAGER_H
-#define NODESMANAGER_H
+#pragma once
 
 #include <QObject>
 #include <QString>
@@ -71,5 +70,3 @@ public slots:
 private:
     bool correctGroupUuid(const QUuid& groupUuid, bool sendWarnings = true);
 };
-
-#endif  // NODESMANAGER_H

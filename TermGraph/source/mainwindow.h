@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QObject>
 #include <QQmlApplicationEngine>
@@ -48,5 +47,3 @@ private:
     QScopedPointer<MainScene> scene;
     QScopedPointer<QQmlApplicationEngine> qmlEngine;
 };
-
-#endif  // MAINWINDOW_H

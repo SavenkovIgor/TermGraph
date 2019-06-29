@@ -1,5 +1,4 @@
-#ifndef TERMGROUPCOLUMN_H
-#define TERMGROUPCOLUMN_H
+#pragma once
 
 #include "source/databaseWorks/columns/tcolumn.h"
 
@@ -20,5 +19,3 @@ public:
         type
     };
 };
-
-#endif // TERMGROUPCOLUMN_H

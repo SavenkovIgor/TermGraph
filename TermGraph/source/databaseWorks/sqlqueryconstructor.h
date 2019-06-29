@@ -1,5 +1,4 @@
-#ifndef SQLQUERYCONSTRUCTOR_H
-#define SQLQUERYCONSTRUCTOR_H
+#pragma once
 
 #include <QtCore>
 
@@ -140,5 +139,3 @@ public:
 
     static QStringList vv(QStringList lst);
 };
-
-#endif // SQLQUERYCONSTRUCTOR_H

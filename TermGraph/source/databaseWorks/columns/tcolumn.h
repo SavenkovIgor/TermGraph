@@ -1,5 +1,4 @@
-#ifndef TCOLUMN_H
-#define TCOLUMN_H
+#pragma once
 
 #include <QList>
 #include <QString>
@@ -22,5 +21,3 @@ struct TColumn
         return name == otherCol.name && type == otherCol.type;
     }
 };
-
-#endif // TCOLUMN_H

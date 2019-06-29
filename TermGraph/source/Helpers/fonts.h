@@ -1,5 +1,4 @@
-#ifndef FONTS_H
-#define FONTS_H
+#pragma once
 
 #include <QApplication>
 #include <QFont>
@@ -12,5 +11,3 @@ public:
     static QFont getWeightFont(int weight = QFont::Black);
     static QSizeF getTextMetrics(const QString& text, const QFont& font = getFont());
 };
-
-#endif // FONTS_H

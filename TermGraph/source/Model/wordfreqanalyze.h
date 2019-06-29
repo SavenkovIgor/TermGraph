@@ -1,5 +1,4 @@
-#ifndef WORDFREQANALYZE_H
-#define WORDFREQANALYZE_H
+#pragma once
 
 #include <QWidget>
 //#include <QtCharts/QChartView>
@@ -38,5 +37,3 @@ private:
 
     Ui::WordFreqAnalyze *ui;
 };
-
-#endif // WORDFREQANALYZE_H

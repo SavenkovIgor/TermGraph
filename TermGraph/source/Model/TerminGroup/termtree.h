@@ -1,5 +1,4 @@
-#ifndef TERMTREE_H
-#define TERMTREE_H
+#pragma once
 
 #include <QList>
 #include <QParallelAnimationGroup>
@@ -61,5 +60,3 @@ private:
     PaintedTerm::List getAllNodesInTree() const;
     qreal getMaxStackHeight() const;
 };
-
-#endif // TERMTREE_H

@@ -1,5 +1,4 @@
-#ifndef HANDYTYPES_H
-#define HANDYTYPES_H
+#pragma once
 
 #include <vector>
 #include <QList>
@@ -11,5 +10,3 @@ class Edge;
 using EdgesList = QList<Edge*>;
 using UuidList = std::vector<QUuid>;
 using SizesList = std::vector<QSizeF>;
-
-#endif // HANDYTYPES_H

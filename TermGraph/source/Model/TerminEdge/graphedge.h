@@ -1,5 +1,4 @@
-#ifndef GRAPHEDGE_H
-#define GRAPHEDGE_H
+#pragma once
 
 #include <QList>
 
@@ -28,5 +27,3 @@ private:
     GraphTerm* toRoot;
     GraphTerm* toLeaf;
 };
-
-#endif  // GRAPHEDGE_H

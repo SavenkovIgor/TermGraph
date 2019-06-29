@@ -1,5 +1,4 @@
-#ifndef NODEINFOCONTAINER_H
-#define NODEINFOCONTAINER_H
+#pragma once
 
 #include <vector>
 #include <QString>
@@ -21,5 +20,3 @@ struct NodeInfoContainer
     QUuid groupUuid;
     QDateTime lastEdit;
 };
-
-#endif // NODEINFOCONTAINER_H

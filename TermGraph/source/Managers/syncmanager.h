@@ -1,5 +1,4 @@
-#ifndef SYNCMANAGER_H
-#define SYNCMANAGER_H
+#pragma once
 
 #include <QObject>
 #include <QJsonDocument>
@@ -39,5 +38,3 @@ private:
     static QString getContentTypeName(const ContentType& type);
     static ContentType getContentTypeByName(const QString& typeName);
 };
-
-#endif // SYNCMANAGER_H

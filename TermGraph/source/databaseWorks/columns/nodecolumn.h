@@ -1,5 +1,4 @@
-#ifndef NODECOLUMN_H
-#define NODECOLUMN_H
+#pragma once
 
 #include "source/databaseWorks/columns/tcolumn.h"
 
@@ -38,5 +37,3 @@ public:
         lastEdit
     };
 };
-
-#endif // NODECOLUMN_H

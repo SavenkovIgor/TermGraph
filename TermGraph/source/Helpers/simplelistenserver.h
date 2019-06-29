@@ -1,5 +1,4 @@
-#ifndef LISTENSERVER_H
-#define LISTENSERVER_H
+#pragma once
 
 #include <QObject>
 #include <QTcpServer>
@@ -30,5 +29,3 @@ private:
 
     static QString getSocketDescription(QTcpSocket* socket);
 };
-
-#endif  // LISTENSERVER_H

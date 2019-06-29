@@ -1,5 +1,4 @@
-#ifndef GROUPGADGETWRAPPER_H
-#define GROUPGADGETWRAPPER_H
+#pragma once
 
 #include <QObject>
 
@@ -10,5 +9,3 @@ class GroupGadgetWrapper
 public:
     GroupGadgetWrapper();
 };
-
-#endif // GROUPGADGETWRAPPER_H

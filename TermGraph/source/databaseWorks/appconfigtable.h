@@ -1,5 +1,4 @@
-#ifndef APPCONFIGTABLE_H
-#define APPCONFIGTABLE_H
+#pragma once
 
 #include "source/databaseWorks/tblbase.h"
 #include "source/databaseWorks/dbtablenames.h"
@@ -44,5 +43,3 @@ private:
     void setValue(const QString& key, const QString& value);
     QString value(const QString& key, const QString& defaultValue);
 };
-
-#endif // APPCONFIGTABLE_H
