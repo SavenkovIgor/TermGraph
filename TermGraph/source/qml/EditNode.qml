@@ -42,6 +42,9 @@ Page {
 
     onNodeUuidChanged: {
         termName.text = sceneObj.getCurrNodeName()
+        termDefin.text = sceneObj.getCurrNodeDefinition()
+        termDescr.text = sceneObj.getCurrNodeDescription()
+        termExampl.text = sceneObj.getCurrNodeExamples()
         nodeGroup.selectElement(sceneObj.getCurrNodeGroupUuid())
         termDefin.takeFocus()
     }
@@ -154,20 +157,17 @@ Page {
                     id: termDefin
                     labelText: "-это"
                     placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
-                    text: { [root.nodeUuid]; return sceneObj.getCurrNodeDefinition(); }
                 }
 
                 MyTextArea {
                     id: termDescr
                     labelText : "Описание"
                     placeholderText: "[Общее словестное описание, пока никак не участвует в логике]"
-                    text: { [root.nodeUuid]; return sceneObj.getCurrNodeDescription() }
                 }
 
                 MyTextArea {
                     id: termExampl
                     labelText: "Примеры"
-                    text: { [root.nodeUuid]; return sceneObj.getCurrNodeExamples() }
                 }
 
                 MyTextField {
@@ -221,10 +221,6 @@ Page {
                     standardButtons: StandardButton.Ok
                     icon: StandardIcon.Warning
                 }
-
-                //            Item{
-                //                Layout.fillHeight: true
-                //            }
             }
         }
     }
