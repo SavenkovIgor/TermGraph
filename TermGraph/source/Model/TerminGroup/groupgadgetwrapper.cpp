@@ -43,3 +43,8 @@ void GroupGadgetWrapper::setType(const GroupType& type)
 {
     _info.type = type;
 }
+
+GroupInfoContainer GroupGadgetWrapper::unwrap() const
+{
+    return _info;
+}

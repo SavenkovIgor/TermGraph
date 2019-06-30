@@ -4,8 +4,6 @@
 
 #include "source/Model/TerminGroup/groupinfocontainer.h"
 
-// TODO: Realize
-
 class GroupGadgetWrapper
 {
 public:
@@ -35,6 +33,8 @@ public:
     // Type
     GroupType type() const;
     void setType(const GroupType& type);
+
+    GroupInfoContainer unwrap() const;
 
 private:
     GroupInfoContainer _info;

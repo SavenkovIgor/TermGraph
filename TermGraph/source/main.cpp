@@ -1,10 +1,9 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QQuickStyle>
-//#include <QDebug>
 
 #include "source/Model/TerminGroup/groupgadgetwrapper.h"
-//#include "source/Model/Termin/nodegadgetwrapper.h"
+#include "source/Model/Termin/nodegadgetwrapper.h"
 
 int main(int argc, char *argv[])
 {
@@ -13,7 +12,7 @@ int main(int argc, char *argv[])
     QQuickStyle::setStyle("Material");
 
     qmlRegisterType<GroupGadgetWrapper>();
-//    qmlRegisterType<NodeGadgetWrapper>();
+    qmlRegisterType<NodeGadgetWrapper>();
 
     MainWindow w;
 
