@@ -6,61 +6,62 @@
 
 class NodeGadgetWrapper
 {
-public:
     Q_GADGET
 
-    Q_PROPERTY(QString uuid READ uuid WRITE setUuid)
-    Q_PROPERTY(QString term READ term WRITE setTerm)
-    Q_PROPERTY(QString termForms READ termForms WRITE setTermForms)
-    Q_PROPERTY(QString definition READ definition WRITE setDefinition)
-    Q_PROPERTY(QString description READ description WRITE setDescription)
-    Q_PROPERTY(QString examples READ examples WRITE setExamples)
-    Q_PROPERTY(QString wikiUrl READ wikiUrl WRITE setWikiUrl)
-    Q_PROPERTY(QString wikiImage READ wikiImage WRITE setWikiImage)
-    Q_PROPERTY(QString groupUuid READ groupUuid WRITE setGroupUuid)
+public:
+    Q_PROPERTY(QString uuid READ getUuid WRITE setUuid)
+    Q_PROPERTY(QString term READ getTerm WRITE setTerm)
+    Q_PROPERTY(QString termForms READ getTermForms WRITE setTermForms)
+    Q_PROPERTY(QString definition READ getDefinition WRITE setDefinition)
+    Q_PROPERTY(QString description READ getDescription WRITE setDescription)
+    Q_PROPERTY(QString examples READ getExamples WRITE setExamples)
+    Q_PROPERTY(QString wikiUrl READ getWikiUrl WRITE setWikiUrl)
+    Q_PROPERTY(QString wikiImage READ getWikiImage WRITE setWikiImage)
+    Q_PROPERTY(QString groupUuid READ getGroupUuid WRITE setGroupUuid)
 
     NodeGadgetWrapper(const NodeInfoContainer& info);
 
     // Uuid
-    QString uuid() const;
+    QString getUuid() const;
     void setUuid(const QString& uuid);
 
     // Term
-    QString term() const;
+    QString getTerm() const;
     void setTerm(const QString& term);
 
     // TermForms
-    QString termForms() const;
+    QString getTermForms() const;
     void setTermForms(const QString& termForms);
 
     // Definition
-    QString definition() const;
+    QString getDefinition() const;
     void setDefinition(const QString& definition);
 
     // Description
-    QString description() const;
+    QString getDescription() const;
     void setDescription(const QString& description);
 
     // Examples
-    QString examples() const;
+    QString getExamples() const;
     void setExamples(const QString& examples);
 
     // WikiUrl
-    QString wikiUrl() const;
+    QString getWikiUrl() const;
     void setWikiUrl(const QString& wikiUrl);
 
     // WikiImage
-    QString wikiImage() const;
+    QString getWikiImage() const;
     void setWikiImage(const QString& wikiImage);
 
     // GroupUuid
-    QString groupUuid() const;
+    QString getGroupUuid() const;
     void setGroupUuid(const QString& groupUuid);
 
     // LastEdit
     // Not editable...
 
     NodeInfoContainer unwrap() const;
+
 private:
     NodeInfoContainer _info;
 };

@@ -12,6 +12,7 @@
 #include "source/Helpers/appconfig.h"
 #include "source/Helpers/fsworks.h"
 #include "source/Model/TerminGroup/termgroup.h"
+#include "source/Model/Termin/nodegadgetwrapper.h"
 
 class MainScene : public QObject
 {
@@ -24,6 +25,7 @@ public:
     void setAnimSpeed(int val);
 
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
+    Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode CONSTANT)
 
 signals:
     // Scene signals
@@ -52,6 +54,7 @@ public slots:
 
     QString getCurrNodeDebugInfo();
 
+    NodeGadgetWrapper getCurrentNode();
     QString getCurrNodeUuid();
     QString getCurrNodeName();
     QString getCurrNodeNameAndDefinition();

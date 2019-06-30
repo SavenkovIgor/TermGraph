@@ -252,7 +252,17 @@ QString MainScene::getCurrNodeDebugInfo()
 //    ret << "Uuid:" << nd->getUuid().toString();
 //    ret << nd->getDebugString();
 
-//    return ret.join(" ");
+    //    return ret.join(" ");
+}
+
+NodeGadgetWrapper MainScene::getCurrentNode()
+{
+    if (auto node = getSelectedNode()) {
+        auto info = node->infoContainer();
+        return NodeGadgetWrapper(info);
+    }
+
+    return NodeGadgetWrapper(NodeInfoContainer());
 }
 
 QString MainScene::getCurrNodeUuid()

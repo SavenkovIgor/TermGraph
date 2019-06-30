@@ -6,32 +6,32 @@
 
 class GroupGadgetWrapper
 {
-public:
     Q_GADGET
 
+public:
     Q_ENUM(GroupType)
 
-    Q_PROPERTY(QString uuid READ uuid WRITE setUuid)
-    Q_PROPERTY(QString name READ name WRITE setName)
-    Q_PROPERTY(QString comment READ comment WRITE setComment)
-    Q_PROPERTY(GroupType type READ type WRITE setType)
+    Q_PROPERTY(QString uuid READ getUuid WRITE setUuid)
+    Q_PROPERTY(QString name READ getName WRITE setName)
+    Q_PROPERTY(QString comment READ getComment WRITE setComment)
+    Q_PROPERTY(GroupType type READ getType WRITE setType)
 
     GroupGadgetWrapper(const GroupInfoContainer& info);
 
     // Uuid
-    QString uuid() const;
+    QString getUuid() const;
     void setUuid(const QString& uuid);
 
     // Name
-    QString name() const;
+    QString getName() const;
     void setName(const QString& name);
 
     // Comment
-    QString comment() const;
+    QString getComment() const;
     void setComment(const QString& comment);
 
     // Type
-    GroupType type() const;
+    GroupType getType() const;
     void setType(const GroupType& type);
 
     GroupInfoContainer unwrap() const;
