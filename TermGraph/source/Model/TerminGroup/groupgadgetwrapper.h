@@ -16,6 +16,7 @@ public:
     Q_PROPERTY(QString comment READ getComment WRITE setComment)
     Q_PROPERTY(GroupType type READ getType WRITE setType)
 
+    GroupGadgetWrapper() = default;
     GroupGadgetWrapper(const GroupInfoContainer& info);
 
     // Uuid
@@ -39,3 +40,5 @@ public:
 private:
     GroupInfoContainer _info;
 };
+
+Q_DECLARE_METATYPE(GroupGadgetWrapper)

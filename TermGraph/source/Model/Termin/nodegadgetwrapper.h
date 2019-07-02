@@ -19,6 +19,7 @@ public:
     Q_PROPERTY(QString wikiImage READ getWikiImage WRITE setWikiImage)
     Q_PROPERTY(QString groupUuid READ getGroupUuid WRITE setGroupUuid)
 
+    NodeGadgetWrapper() = default;
     NodeGadgetWrapper(const NodeInfoContainer& info);
 
     // Uuid
@@ -65,3 +66,5 @@ public:
 private:
     NodeInfoContainer _info;
 };
+
+Q_DECLARE_METATYPE(NodeGadgetWrapper)
