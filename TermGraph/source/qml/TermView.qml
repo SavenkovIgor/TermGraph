@@ -29,11 +29,11 @@ Page {
 
     function loadSelectedNode() {
         ptDbgInfo.text           = sceneObj.getCurrNodeDebugInfo()
-        ptName.text              = sceneObj.getCurrNodeName()
+        ptName.text              = sceneObj.currentNode.term
         ptDefinition.text        = tagProcessor.decorateTags(sceneObj.getCurrNodeNameAndDefinition())
         hierarchyDefinition.text = sceneObj.getCurrNodeHierarchyDefinition()
-        ptDescription.text       = sceneObj.getCurrNodeDescription()
-        ptExamples.text          = sceneObj.getCurrNodeExamples()
+        ptDescription.text       = sceneObj.currentNode.description
+        ptExamples.text          = sceneObj.currentNode.examples
     }
 
     ScrollView {

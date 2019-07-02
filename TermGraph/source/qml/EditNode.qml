@@ -41,11 +41,11 @@ Page {
     function exitFromThisPage() { mainStack.pop() }
 
     onNodeUuidChanged: {
-        termName.text = sceneObj.getCurrNodeName()
-        termDefin.text = sceneObj.getCurrNodeDefinition()
-        termDescr.text = sceneObj.getCurrNodeDescription()
-        termExampl.text = sceneObj.getCurrNodeExamples()
-        nodeGroup.selectElement(sceneObj.getCurrNodeGroupUuid())
+        termName.text = sceneObj.currentNode.term
+        termDefin.text = sceneObj.currentNode.definition
+        termDescr.text = sceneObj.currentNode.description
+        termExampl.text = sceneObj.currentNode.examples
+        nodeGroup.selectElement(sceneObj.currentNode.groupUuid)
         termDefin.takeFocus()
     }
 
@@ -150,7 +150,7 @@ Page {
                 //                id : termForms
                 //                labelText : "Грамматические формы:"
                 //                placeholderText: "[Альтернативные окончания термина, как слОва]"
-                //                text: newNode ? sceneObj.getCurrNodeForms() : ""
+                //                text: newNode ? sceneObj.currentNode.termForms : ""
                 //            }
 
                 MyTextArea {

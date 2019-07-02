@@ -157,7 +157,7 @@ Page {
                 //                id : termForms
                 //                labelText : "Грамматические формы:"
                 //                placeholderText: "[Альтернативные окончания термина, как слОва]"
-                //                text: newNode ? sceneObj.getCurrNodeForms() : ""
+                //                text: newNode ? sceneObj.currentNode.termForms : ""
                 //            }
 
                 MyTextArea {

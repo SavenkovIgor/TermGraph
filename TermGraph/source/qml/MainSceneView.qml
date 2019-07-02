@@ -131,10 +131,10 @@ Page {
 
         Shortcut {
             sequence: "Ctrl+e"
-            onActivated: editNodeButton.openEditNodePage(sceneObj.getCurrNodeUuid())
+            onActivated: editNodeButton.openEditNodePage(sceneObj.currentNode.uuid)
         }
 
-        onClicked: openEditNodePage(sceneObj.getCurrNodeUuid())
+        onClicked: openEditNodePage(sceneObj.currentNode.uuid)
 
 
         function openEditNodePage(nodeUuid) {

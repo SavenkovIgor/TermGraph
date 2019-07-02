@@ -25,7 +25,7 @@ public:
     void setAnimSpeed(int val);
 
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
-    Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode CONSTANT)
+    Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode) // Read only. without notify
 
 signals:
     // Scene signals
@@ -52,20 +52,12 @@ public slots:
     void startAllGroupTimers();
     void stopAllGroupTimers();
 
-    QString getCurrNodeDebugInfo();
-
     NodeGadgetWrapper getCurrentNode();
-    QString getCurrNodeUuid();
-    QString getCurrNodeName();
+    QString getCurrNodeDebugInfo();
     QString getCurrNodeNameAndDefinition();
-    QString getCurrNodeForms();
-    QString getCurrNodeDefinition();
     QString getCurrNodeHierarchyDefinition();
-    QString getCurrNodeDescription();
-    QString getCurrNodeExamples();
-    QString getCurrNodeGroupUuid();
+
     QString getCurrGroupUuid();
-    bool    getCurrNodeIsRoot();
 
     TermGroup* getNearestNotPaintedGroup();
 
@@ -125,7 +117,4 @@ private:
     void deleteAllGroups();
 
     void locateGroupsVertically();
-
-    // Helpers
-    QString getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction);
 };

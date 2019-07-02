@@ -262,32 +262,15 @@ NodeGadgetWrapper MainScene::getCurrentNode()
         return NodeGadgetWrapper(info);
     }
 
-    return NodeGadgetWrapper(NodeInfoContainer());
-}
-
-QString MainScene::getCurrNodeUuid()
-{
-    return getCurrNodeStringField([] (InfoTerm* node) { return node->getUuid().toString(); });
-}
-
-QString MainScene::getCurrNodeName()
-{
-    return getCurrNodeStringField([] (InfoTerm* node) { return node->getTerm(); });
+    return NodeGadgetWrapper();
 }
 
 QString MainScene::getCurrNodeNameAndDefinition()
 {
-    return getCurrNodeStringField([] (InfoTerm* node) { return node->getTermAndDefinition(); });
-}
+    if (auto node = getSelectedNode())
+        return node->getTermAndDefinition();
 
-QString MainScene::getCurrNodeForms()
-{
-    return getCurrNodeStringField([] (InfoTerm* node) { return node->getTermForms(); });
-}
-
-QString MainScene::getCurrNodeDefinition()
-{
-    return getCurrNodeStringField([] (InfoTerm* node) { return node->getDefinition(); });
+    return "";
 }
 
 QString MainScene::getCurrNodeHierarchyDefinition()
@@ -299,27 +282,6 @@ QString MainScene::getCurrNodeHierarchyDefinition()
     return "";
 }
 
-QString MainScene::getCurrNodeDescription()
-{
-    return getCurrNodeStringField([] (InfoTerm* node) { return node->getDescription(); });
-}
-
-QString MainScene::getCurrNodeExamples()
-{
-    return getCurrNodeStringField([] (InfoTerm* node) { return node->getExamples(); });
-}
-
-QString MainScene::getCurrNodeGroupUuid()
-{
-    if (auto node = getSelectedNode()) {
-        QUuid uuid = node->getGroupUuid();
-        if (!uuid.isNull()) {
-            return uuid.toString();
-        }
-    }
-    return "";
-}
-
 QString MainScene::getCurrGroupUuid()
 {
     if (groupList.isEmpty()) {
@@ -327,14 +289,6 @@ QString MainScene::getCurrGroupUuid()
     }
 
     return groupList.first()->getUuid().toString();
-}
-
-bool MainScene::getCurrNodeIsRoot()
-{
-    if (auto node = getSelectedNode()) {
-        return node->isRoot();
-    }
-    return false;
 }
 
 TermGroup *MainScene::getNearestNotPaintedGroup()
@@ -440,15 +394,6 @@ void MainScene::findClick(const QPointF &atPt)
 
     requestPaint(true);
     emit selectionChanged();
-}
-
-QString MainScene::getCurrNodeStringField(std::function<QString (InfoTerm*)> strFunction)
-{
-    if (auto node = getSelectedNode()) {
-        return strFunction(node);
-    }
-
-    return "";
 }
 
 void MainScene::createTestGroups()
