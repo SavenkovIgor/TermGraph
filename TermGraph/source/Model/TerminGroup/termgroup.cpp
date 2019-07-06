@@ -80,28 +80,29 @@ QMap<GroupType, QString> TermGroup::getTypesMap()
 void TermGroup::loadNodes(PaintedTerm::List newNodes)
 {
     clearNodesList();
+
     for (auto node : newNodes) {
-        if (node->getGroupUuid() != this->getUuid()) {
-            qDebug() << "NodeLoad error for node:" << node->getUuid().toString();
+        Q_ASSERT_X(node->getGroupUuid() == this->getUuid(), Q_FUNC_INFO, "Node group error");
+
+        if (node->getGroupUuid() != this->getUuid())
             continue;
-        }
+
         addNodeToList(node);
     }
+
     initNewNodes();
 }
 
 bool TermGroup::needPaint() const
 {
     for (auto node : getAllNodes()) {
-        if (node->needPaint) {
+        if (node->needPaint)
             return true;
-        }
     }
 
     for (auto edge : getAllEdges()) {
-        if (edge->needPaint) {
+        if (edge->needPaint)
             return true;
-        }
     }
 
     return false;
@@ -109,13 +110,11 @@ bool TermGroup::needPaint() const
 
 void TermGroup::resetPaintFlags()
 {
-    for (auto node : getAllNodes()) {
+    for (auto node : getAllNodes())
         node->needPaint = true;
-    }
 
-    for (auto edge : getAllEdges()) {
+    for (auto edge : getAllEdges())
         edge->needPaint = true;
-    }
 }
 
 PaintedTerm *TermGroup::getNodeAtPoint(const QPointF& pt) const
@@ -140,9 +139,8 @@ PaintedTerm *TermGroup::getNodeAtPoint(const QPointF& pt) const
 
 void TermGroup::setHover(QPointF mousePos)
 {
-    for (auto tree : trees) {
+    for (auto tree : trees)
         tree->checkHover(mousePos);
-    }
 
     for (auto orphan : getOrphanNodes()) {
         auto hover = orphan->getNodeRect(CoordType::scene).contains(mousePos);
@@ -187,23 +185,20 @@ void TermGroup::sceneUpdateSignal()
 
 void TermGroup::checkSwap()
 {
-    for (auto tree : trees) {
+    for (auto tree : trees)
         tree->checkSwap();
-    }
 }
 
 void TermGroup::animateGroup()
 {
-    for (auto tree : trees) {
+    for (auto tree : trees)
         tree->animateTree();
-    }
 }
 
 void TermGroup::addTreeRectsToScene()
 {
-    for (auto tree : trees) {
+    for (auto tree : trees)
         tree->rect->setParentItem(baseRect);
-    }
 }
 
 qreal TermGroup::getGroupMinWidth()

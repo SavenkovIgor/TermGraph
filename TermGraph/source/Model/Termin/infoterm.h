@@ -21,19 +21,14 @@ public:
 //    bool isNull(); //TODO: Realize!
 
     QUuid getUuid() const;
-    QUuid getGroupUuid() const;
     QString getTerm() const;
+    QUuid getGroupUuid() const;
     QString getTermAndDefinition(bool decorated = false) const;
     QString getSmallName();  // Lazy
-    QString getTermForms() const;
     QStringList termFormsList() const;
 
     QString getDefinition() const;
     QStringList getDefinitionTags() const;
-    QString getDescription() const;
-    QString getExamples() const;
-    QString getWikiUrl() const;
-    QString getWikiImage() const;
 
     NodeInfoContainer infoContainer() const;
 

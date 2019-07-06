@@ -20,27 +20,27 @@ Reminder::Reminder(PaintedTerm::List allNodes, QWidget *parent) :
 
 void Reminder::formLearnList()
 {
-    ui->learnWgt->clear();
-    remItems.clear();
+//    ui->learnWgt->clear();
+//    remItems.clear();
 
-    for (auto *n : allNodes) {
-        if( n->atLearning() ) {
-            if( n->needRemindToday() ) {
-                qDebug()<<n->getTerm()<<n->getRepNum();
-                RemItem *tmp = new RemItem();
-                tmp->nd = n;
-                tmp->itm = new QListWidgetItem();
-                tmp->itm->setText(n->getTerm() + " (" + QString::number(n->getRepNum()) + ")" );
-                remItems << tmp;
-            }
-        }
-    }
+//    for (auto* n : allNodes) {
+//        if (n->atLearning()) {
+//            if (n->needRemindToday()) {
+//                //                qDebug()<<n->infoContainer().term<<n->getRepNum();
+//                RemItem* tmp = new RemItem();
+//                tmp->nd = n;
+//                tmp->itm = new QListWidgetItem();
+//                //                tmp->itm->setText(n->getTerm() + " (" + QString::number(n->getRepNum()) + ")" );
+//                remItems << tmp;
+//            }
+//        }
+//    }
 
-    ui->learnWgt->clear();
+//    ui->learnWgt->clear();
 
-    for( RemItem* i : remItems ) {
-        ui->learnWgt->addItem( i->itm );
-    }
+//    for (RemItem* i : remItems) {
+//        ui->learnWgt->addItem(i->itm);
+//    }
 }
 
 Reminder::~Reminder()
@@ -55,36 +55,36 @@ void Reminder::updateList()
 
 void Reminder::setCurrItem(QListWidgetItem* it1, [[maybe_unused]] QListWidgetItem* it2)
 {
-    currItem = nullptr;
-    for( RemItem* i : remItems ) {
-        if( i->itm == it1 ) {
-            currItem = i;
-            break;
-        }
-    }
+//    currItem = nullptr;
+//    for( RemItem* i : remItems ) {
+//        if( i->itm == it1 ) {
+//            currItem = i;
+//            break;
+//        }
+//    }
 
-    if( currItem == nullptr )
-        return;
+//    if( currItem == nullptr )
+//        return;
 
-    ui->term->setText( currItem->nd->getTerm() );
-    ui->ansStack->setCurrentWidget( ui->showAns_2 );
+//    ui->term->setText( currItem->nd->getTerm() );
+//    ui->ansStack->setCurrentWidget( ui->showAns_2 );
 }
 
 void Reminder::showResult()
 {
-    if( currItem == nullptr )
-        return;
+//    if( currItem == nullptr )
+//        return;
 
-    QString def  = currItem->nd->getDefinition();
-    QString desc = currItem->nd->getDescription();
-    if( def. isEmpty() && desc.isEmpty() ) {
-        def = "Нет данных";
-    }
+//    QString def  = currItem->nd->getDefinition();
+//    QString desc = currItem->nd->getDescription();
+//    if( def. isEmpty() && desc.isEmpty() ) {
+//        def = "Нет данных";
+//    }
 
-    ui->answer->setText( def );
-    ui->descr->setText( desc );
+//    ui->answer->setText( def );
+//    ui->descr->setText( desc );
 
-    ui->ansStack->setCurrentWidget(ui->result);
+//    ui->ansStack->setCurrentWidget(ui->result);
 }
 
 void Reminder::dontRemember()

@@ -22,14 +22,14 @@ QUuid InfoTerm::getUuid() const
     return info.uuid;
 }
 
-QUuid InfoTerm::getGroupUuid() const
-{
-    return info.groupUuid;
-}
-
 QString InfoTerm::getTerm() const
 {
     return info.term;
+}
+
+QUuid InfoTerm::getGroupUuid() const
+{
+    return info.groupUuid;
 }
 
 QString InfoTerm::getTermAndDefinition(bool decorated) const
@@ -158,17 +158,12 @@ int InfoTerm::getLevelDaysFromBase(int lvl)
     return ret;
 }
 
-QString InfoTerm::getTermForms() const
-{
-    return info.termForms;
-}
-
 QStringList InfoTerm::termFormsList() const
 {
     QStringList ret;
-    ret << getTerm();
+    ret << info.term;
 
-    QStringList tmp = getTermForms().split(";", QString::SkipEmptyParts);
+    QStringList tmp = info.termForms.split(";", QString::SkipEmptyParts);
     for (QString s : tmp) {
         ret << s.simplified();
     }
@@ -192,24 +187,4 @@ QStringList InfoTerm::getDefinitionTags() const
         qDebug() << getUuid().toString() << error;
     }
     return tags;
-}
-
-QString InfoTerm::getDescription() const
-{
-    return info.description;
-}
-
-QString InfoTerm::getExamples() const
-{
-    return info.examples;
-}
-
-QString InfoTerm::getWikiUrl() const
-{
-    return info.wikiUrl;
-}
-
-QString InfoTerm::getWikiImage() const
-{
-    return info.wikiImage;
 }
