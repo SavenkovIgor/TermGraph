@@ -7,6 +7,7 @@ Pane {
     }
 
     property real baseSize: 50
+    property alias text: tipTitle.text
 
     Rectangle {
         id: tipFrame
@@ -23,11 +24,17 @@ Pane {
         radius: baseSize * 0.08
         color: appColors.baseLight3
 
-        Text {
-            id: tip1title
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.topMargin: tip1title.font.pixelSize * 3
-            text: "Шаг 1. Добавьте группу!"
+        TextEdit {
+            id: tipTitle
+            anchors {
+                fill: parent
+                margins: tipTitle.font.pixelSize * 3
+            }
+
+            wrapMode: TextEdit.WordWrap
+//                horizontalCenter: parent.horizontalCenter
+//            anchors.topMargin:
+//            text: "Шаг 1. Добавьте группу!"
             color: "white"
         }
     }

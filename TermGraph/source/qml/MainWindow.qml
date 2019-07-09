@@ -142,7 +142,7 @@ ApplicationWindow {
 
             SideMenuButton {
                 id: helpMenuButton
-                enabled: false
+//                enabled: false
                 labelText: "Справка"
                 iconName: "book"
 
