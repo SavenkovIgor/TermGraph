@@ -1,10 +1,9 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.5
+import QtQuick.Window 2.12
 
 Pane {
-    background: Rectangle {
-        color: appColors.base
-    }
+    background: Rectangle { color: appColors.base }
 
     property real baseSize: 50
     property alias text: tipTitle.text
@@ -14,28 +13,36 @@ Pane {
 
         property real marginVal: baseSize * 0.03
 
-        anchors.fill: parent
-
-        anchors.topMargin: marginVal
-        anchors.bottomMargin: marginVal
-        anchors.leftMargin: marginVal
-        anchors.rightMargin: marginVal
+        anchors {
+            fill: parent
+            margins: marginVal
+        }
 
         radius: baseSize * 0.08
         color: appColors.baseLight3
+//        Rectangle { anchors.fill: item; color: "darkcyan"; }
 
-        TextEdit {
-            id: tipTitle
+        Item {
+            id: item
             anchors {
                 fill: parent
-                margins: tipTitle.font.pixelSize * 3
+                leftMargin: parent.width * 0.1
+                rightMargin: parent.width * 0.1
+                topMargin: parent.height * 0.1
+                bottomMargin: parent.height * 0.1
             }
 
-            wrapMode: TextEdit.WordWrap
-//                horizontalCenter: parent.horizontalCenter
-//            anchors.topMargin:
-//            text: "Шаг 1. Добавьте группу!"
-            color: "white"
+            TextEdit {
+                id: tipTitle
+                anchors.fill: parent
+
+                wrapMode: TextEdit.WordWrap
+                //                horizontalCenter: parent.horizontalCenter
+                //            anchors.topMargin:
+
+                font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
+                color: "white"
+            }
         }
     }
 }
