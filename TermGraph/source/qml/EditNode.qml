@@ -12,7 +12,10 @@ Page {
     property StackView mainStack
     property string nodeUuid: ""
 
-    function open() { mainStack.push(root) }
+    function open() {
+        mainStack.push(root)
+        updateInfo()
+    }
 
     header: MainHeader {
 
@@ -25,7 +28,7 @@ Page {
         }
 
         onMenuClick: exitFromThisPage()
-        onCheckClick: root.updateNode()
+        onCheckClick: root.applyNodeChange()
     }
 
     Keys.onEscapePressed: { exitFromThisPage() }
@@ -33,14 +36,15 @@ Page {
     Keys.onPressed: {
         if (event.modifiers === Qt.ControlModifier) {
             if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                root.updateNode()
+                root.applyNodeChange()
             }
         }
     }
 
     function exitFromThisPage() { mainStack.pop() }
 
-    onNodeUuidChanged: {
+    function updateInfo() {
+        lastEditText.text = sceneObj.currentNode.lastEdit
         termName.text = sceneObj.currentNode.term
         termDefin.text = sceneObj.currentNode.definition
         termDescr.text = sceneObj.currentNode.description
@@ -49,14 +53,14 @@ Page {
         termDefin.takeFocus()
     }
 
-    function updateNode() {
+    function applyNodeChange() {
         if (termName.text == "") {
             emptyNodeNameDelDialog.visible = true
             return
         }
 
         var success = nodesManager.changeNode(
-                    changeNodeRow.text,
+                    nodeUuidText.text,
                     termName.text,
                     "",
                     termDefin.text,
@@ -108,7 +112,7 @@ Page {
 
         background: Rectangle { color: appColors.base }
 
-        Item {
+        contentItem: Item {
             width: scroll.width
 
             Column {
@@ -120,7 +124,7 @@ Page {
                 spacing: mainObj.getUiElementSize("colSpace")*Screen.pixelDensity
 
                 MyLabelPair {
-                    id: changeNodeRow
+                    id: nodeUuidText
                     name: "Изменить вершину с uuid: "
                     text: root.nodeUuid
                 }
@@ -210,6 +214,11 @@ Page {
                         }
                         Layout.fillWidth: true
                     }
+                }
+
+                MyLabelPair {
+                    id: lastEditText
+                    name: "Последняя правка:"
                 }
 
                 MessageDialog {

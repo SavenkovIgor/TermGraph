@@ -94,6 +94,11 @@ void NodeGadgetWrapper::setGroupUuid(const QString& groupUuid)
     _info.groupUuid.fromString(groupUuid);
 }
 
+QString NodeGadgetWrapper::getLastEdit() const
+{
+    return _info.lastEdit.toString("dd MMM yyyy hh:mm:ss t");
+}
+
 NodeInfoContainer NodeGadgetWrapper::unwrap() const
 {
     return _info;

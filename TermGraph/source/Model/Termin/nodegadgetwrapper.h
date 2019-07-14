@@ -18,6 +18,7 @@ public:
     Q_PROPERTY(QString wikiUrl READ getWikiUrl WRITE setWikiUrl)
     Q_PROPERTY(QString wikiImage READ getWikiImage WRITE setWikiImage)
     Q_PROPERTY(QString groupUuid READ getGroupUuid WRITE setGroupUuid)
+    Q_PROPERTY(QString lastEdit READ getLastEdit)
 
     NodeGadgetWrapper() = default;
     NodeGadgetWrapper(const NodeInfoContainer& info);
@@ -60,6 +61,7 @@ public:
 
     // LastEdit
     // Not editable...
+    QString getLastEdit() const;
 
     NodeInfoContainer unwrap() const;
 
