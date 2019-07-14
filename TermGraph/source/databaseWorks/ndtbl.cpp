@@ -24,14 +24,18 @@ QUuid NodeTable::addNode(const QString& name, const QUuid& groupUuid)
 
 QUuid NodeTable::addNode(const QUuid& uuid, const QString& name, const QUuid& groupUuid)
 {
-    if (name.simplified() == "") {
-        return QUuid();  // Создать вершину не удалось
-    }
+    Q_ASSERT(!name.simplified().isEmpty());
+    Q_ASSERT(!hasNodeWithUuid(uuid));
+
+    // Don't create node with empty name
+    if (name.simplified() == "")
+        return QUuid();
 
     if (hasNodeWithUuid(uuid))
         return QUuid();
 
     QList<InsertContainer> values;
+
     values << InsertContainer(NodeColumn::uuid, uuid.toString());
     values << InsertContainer(NodeColumn::term, name);
     values << InsertContainer(NodeColumn::groupUuid, groupUuid.toString());
@@ -44,18 +48,23 @@ QUuid NodeTable::addNode(const QUuid& uuid, const QString& name, const QUuid& gr
 
 QUuid NodeTable::addNode(const NodeInfoContainer& info)
 {
-    if (info.term.simplified() == "") {
-        return QUuid(); // Создать вершину не удалось
-    }
+    Q_ASSERT(!info.term.simplified().isEmpty());
+    Q_ASSERT(!hasNodeWithUuid(info.uuid));
 
-    if (hasNodeWithUuid(info.uuid)) // This node already exist
+    // Создать вершину не удалось
+    if (info.term.simplified().isEmpty())
+        return QUuid();
+
+    // This node already exist
+    if (hasNodeWithUuid(info.uuid))
         return QUuid();
 
     QList<InsertContainer> values;
 
     QUuid nodeUuid = info.uuid;
 
-    if (nodeUuid.isNull()) {  // Generate new if empty
+    // Generate new uuid if current is empty
+    if (nodeUuid.isNull()) {
         nodeUuid = generateNewUuid();
     }
 
@@ -339,7 +348,7 @@ NodeInfoContainer NodeTable::recordToNodeInfo(QSqlRecord& record)
 
     info.uuid        = QUuid(record.value(NodeColumn::uuid).toString());
     info.term        = record.value(NodeColumn::term).toString();
-    info.termForms   = record.value(NodeColumn::termForms).toString();;
+    info.termForms   = record.value(NodeColumn::termForms).toString();
     info.definition  = record.value(NodeColumn::definition).toString();
     info.description = record.value(NodeColumn::description).toString();
     info.examples    = record.value(NodeColumn::examples).toString();
