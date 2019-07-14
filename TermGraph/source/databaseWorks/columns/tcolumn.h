@@ -18,6 +18,11 @@ struct TColumn
     }
 
     bool operator ==(const TColumn& otherCol) const {
-        return name == otherCol.name && type == otherCol.type;
+        QString nameSelf(name);
+        QString nameOther(otherCol.name);
+
+        QString typeSelf(type);
+        QString typeOther(otherCol.type);
+        return nameSelf == nameOther && typeSelf == typeOther;
     }
 };
