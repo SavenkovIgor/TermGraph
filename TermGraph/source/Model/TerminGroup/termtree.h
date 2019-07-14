@@ -13,7 +13,7 @@
 class TermTree
 {
 public:
-    typedef QList<TermTree*> List;
+    using List = QList<TermTree*>;
 
     // Constructor/Destructor
     TermTree();

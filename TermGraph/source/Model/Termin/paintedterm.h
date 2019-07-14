@@ -17,7 +17,7 @@ public:
     bool thisHovered = false;
     bool thisSelected = false;
 
-    typedef QList<PaintedTerm*> List;
+    using List = QList<PaintedTerm*>;
 
     static bool someoneHover;
     static bool someoneSelect;

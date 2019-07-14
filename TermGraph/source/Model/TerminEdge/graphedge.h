@@ -7,7 +7,7 @@ class GraphTerm;
 class GraphEdge
 {
 public:
-    typedef QList<GraphEdge*> List;
+    using List = QList<GraphEdge*>;
 
     GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf);
     virtual ~GraphEdge() = default;

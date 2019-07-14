@@ -12,14 +12,14 @@ namespace Ui {
 class WordFreqAnalyze;
 }
 
-typedef QMap<QString,int> WrdStat;
+using WrdStat = QMap<QString, int>;
 
 class WordFreqAnalyze : public QWidget
 {
     Q_OBJECT
 
 public:
-    explicit WordFreqAnalyze(QWidget *parent = 0);
+    explicit WordFreqAnalyze(QWidget *parent = nullptr);
     ~WordFreqAnalyze();
 
 //    WrdStat makeWordStat( QString txt );

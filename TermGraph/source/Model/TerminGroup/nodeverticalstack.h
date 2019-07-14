@@ -13,7 +13,7 @@ public:
 class NodeVerticalStack
 {
 public:
-    typedef QList<NodeVerticalStack*> List;
+    using List = QList<NodeVerticalStack*>;
 
     NodeVerticalStack();
     ~NodeVerticalStack();

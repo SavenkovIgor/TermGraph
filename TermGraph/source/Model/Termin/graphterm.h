@@ -17,7 +17,7 @@ enum class NodeType {
 class GraphTerm : public InfoTerm
 {
 public:
-    typedef QList<GraphTerm*> List;
+    using List = QList<GraphTerm*>;
 
     GraphTerm(const NodeInfoContainer& info);
     ~GraphTerm() override = default;
