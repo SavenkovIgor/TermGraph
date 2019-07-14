@@ -6,8 +6,8 @@
 class GraphicItem
 {
 public:
-    GraphicItem();
-    virtual ~GraphicItem();
+    GraphicItem() = default;
+    virtual ~GraphicItem() = default;
 
     // Parents
     void setParentItem(GraphicItem* item);

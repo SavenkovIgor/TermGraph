@@ -53,7 +53,8 @@ enum class ConditionType{
 
 class WhereCondition {  // TODO: Make chain calls!
 private:
-    inline QString concat(QString str1, QString str2, QString str3) {
+    inline QString concat(const QString& str1, const QString& str2, const QString& str3)
+    {
         return str1 + " " + str2 + " " + str3;
     }
 
@@ -132,10 +133,10 @@ public:
     QString selectQuery(const QStringList& columns, const WhereCondition& where, const QString &orderBy = "");
     QString selectOneQuery(const WhereCondition& where);
     QString insertQuery(const QList<InsertContainer> &values);
-    QString updateQuery(const SetExpression &set, const WhereCondition &where);
+    QString updateQuery(const SetExpression& set, const WhereCondition& where);
 
-    QString deleteWhereQuery(const WhereCondition &where);
-    QString deleteByUuidQuery(const QUuid &uuid, const QString &primaryKeyName = "longUID");
+    QString deleteWhereQuery(const WhereCondition& where);
+    QString deleteByUuidQuery(const QUuid& uuid, const QString& primaryKeyName = "longUID");
 
     static QStringList vv(QStringList lst);
 };
