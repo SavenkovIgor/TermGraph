@@ -17,9 +17,7 @@ int TblBase::getIntField(const TColumn &column, const QUuid &uuid) const
 
 QString TblBase::getStringField(const TColumn& column, const QUuid& uuid) const
 {
-    if (!isColumnExist(column)) {
-        return "";
-    }
+    Q_ASSERT(isColumnExist(column));
 
     QSqlQuery sel = select(column, WhereCondition::uuidEqual(uuid));
 
