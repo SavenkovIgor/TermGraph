@@ -32,16 +32,26 @@ Pane {
                 bottomMargin: parent.height * 0.1
             }
 
-            TextEdit {
-                id: tipTitle
+            ScrollView {
                 anchors.fill: parent
 
-                wrapMode: TextEdit.WordWrap
-                //                horizontalCenter: parent.horizontalCenter
-                //            anchors.topMargin:
+                clip: true
+                ScrollBar.vertical.policy: ScrollBar.AlwaysOn
 
-                font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
-                color: "white"
+                contentItem: TextEdit {
+                    id: tipTitle
+
+                    width: parent.width
+
+                    textFormat: TextEdit.RichText
+                    wrapMode: TextEdit.WordWrap
+                    readOnly: true
+                    //                horizontalCenter: parent.horizontalCenter
+                    //            anchors.topMargin:
+
+                    font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
+                    color: "white"
+                }
             }
         }
     }
