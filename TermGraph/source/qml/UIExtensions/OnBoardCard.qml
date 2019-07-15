@@ -35,8 +35,6 @@ Pane {
                 id: scrollView
                 anchors.fill: parent
 
-                property bool visibleScrollBar: ScrollBar.vertical.active
-
                 clip: true
                 ScrollBar.vertical.policy: ScrollBar.AsNeeded
 
