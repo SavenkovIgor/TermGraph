@@ -20,7 +20,6 @@ Pane {
 
         radius: baseSize * 0.08
         color: appColors.baseLight3
-//        Rectangle { anchors.fill: item; color: "darkcyan"; }
 
         Item {
             id: item
@@ -33,24 +32,41 @@ Pane {
             }
 
             ScrollView {
+                id: scrollView
                 anchors.fill: parent
 
-                clip: true
-                ScrollBar.vertical.policy: ScrollBar.AlwaysOn
+                property bool visibleScrollBar: ScrollBar.vertical.active
 
-                contentItem: TextEdit {
+                clip: true
+                ScrollBar.vertical.policy: ScrollBar.AsNeeded
+
+                contentWidth: tipTitle.width
+                contentHeight: tipTitle.height
+
+                TextEdit {
                     id: tipTitle
 
-                    width: parent.width
+                    width: item.width
 
                     textFormat: TextEdit.RichText
                     wrapMode: TextEdit.WordWrap
                     readOnly: true
-                    //                horizontalCenter: parent.horizontalCenter
-                    //            anchors.topMargin:
 
-                    font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
+                    font.pixelSize: mainObj.getUiElementSize("inputText") * Screen.pixelDensity
                     color: "white"
+                }
+            }
+
+            Rectangle {
+                anchors.left: scrollView.left
+                anchors.bottom: scrollView.bottom
+
+                width: scrollView.width
+                height: scrollView.height * 0.05
+
+                gradient: Gradient {
+                    GradientStop { position: 0.0; color: "transparent"; }
+                    GradientStop { position: 1.0; color: appColors.baseLight3; }
                 }
             }
         }
