@@ -22,6 +22,8 @@ Page {
         onMenuClick: root.StackView.view.pop()
     }
 
+    background: Rectangle { color: appColors.base }
+
     Keys.onPressed: {
         if (event.modifiers === Qt.ControlModifier) {
             if (event.key === Qt.Key_N) {
@@ -81,14 +83,8 @@ Page {
         onClicked: syncManager.sendGroupByNetwork(groupsList.currentItem.groupUuid)
     }
 
-    Rectangle {
-        anchors.fill: parent
-        color: appColors.base
-    }
-
-    ListView {
+    contentItem: ListView {
         id: groupsList
-        anchors.fill: parent
         model: groupsManager.allUuidSorted
         keyNavigationEnabled: true
 
