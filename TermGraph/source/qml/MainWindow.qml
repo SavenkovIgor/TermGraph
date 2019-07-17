@@ -53,7 +53,7 @@ ApplicationWindow {
         mainStack: stackView
     }
 
-    OnboardingGallery {
+    HelpPage {
         id: onboarding
         mainStack: stackView
     }

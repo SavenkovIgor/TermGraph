@@ -99,10 +99,9 @@ Page {
         onMenuClick: root.StackView.view.pop()
     }
 
-    SwipeView {
+    contentItem: SwipeView {
         id: swipeView
         currentIndex: 0
-        anchors.fill: parent
 
         property real minWH: Math.min(width, height)
 
