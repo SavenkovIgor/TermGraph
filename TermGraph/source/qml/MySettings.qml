@@ -27,15 +27,9 @@ Page {
         onMenuClick: root.StackView.view.pop()
     }
 
-    Rectangle {
-        anchors.fill: parent
-        color: appColors.base
-    }
+    background: Rectangle { color: appColors.base }
 
-    Column {
-
-        anchors.fill: parent
-
+    contentItem: Column {
         MyLabelPair {
             id: localIpDescription
             name: "Ip этого устройства:"
