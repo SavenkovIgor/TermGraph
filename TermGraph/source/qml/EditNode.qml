@@ -31,6 +31,8 @@ Page {
         onCheckClick: root.applyNodeChange()
     }
 
+    background: Rectangle { color: appColors.base }
+
     Keys.onEscapePressed: { exitFromThisPage() }
 
     Keys.onPressed: {
@@ -109,8 +111,6 @@ Page {
 
         anchors.fill: parent
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
-
-        background: Rectangle { color: appColors.base }
 
         contentItem: Item {
             width: scroll.width
