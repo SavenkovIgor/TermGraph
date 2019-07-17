@@ -174,8 +174,7 @@ Page {
         iconName: "info"
         visible: false
 
-        anchors.right: editNodeButton.left
-        anchors.bottom: parent.bottom
+        anchors { right: editNodeButton.left; bottom: parent.bottom; }
 
         Shortcut {
             sequence: "Ctrl+i"
