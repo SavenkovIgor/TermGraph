@@ -8,6 +8,7 @@ Page {
     id: root
 
     property StackView mainStack
+
     function open() {
         mainStack.push(root)
         loadSelectedNode()
@@ -22,11 +23,6 @@ Page {
         onMenuClick: root.StackView.view.pop()
     }
 
-    Rectangle {  // Background
-        anchors.fill: parent
-        color: appColors.base
-    }
-
     function loadSelectedNode() {
         ptDbgInfo.text           = sceneObj.getCurrNodeDebugInfo()
         ptName.text              = sceneObj.currentNode.term
@@ -36,8 +32,7 @@ Page {
         ptExamples.text          = sceneObj.currentNode.examples
     }
 
-    ScrollView {
-        anchors.fill: parent
+    contentItem: ScrollView {
         clip: true
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
@@ -88,4 +83,6 @@ Page {
             }
         }
     }
+
+    background: Rectangle { color: appColors.base }
 }
