@@ -7,14 +7,14 @@ import QtQuick.Dialogs 1.3
 import "UIExtensions"
 
 Page {
-    id: newNodeEdit
+    id: root
 
     property string defaultUuidText: "startValue"
 
     property StackView mainStack
 
     function open() {
-        mainStack.push(newNodeEdit)
+        mainStack.push(root)
         prepareForOpen()
     }
 
@@ -29,7 +29,7 @@ Page {
         }
 
         onMenuClick: exitFromThisPage()
-        onCheckClick: newNodeEdit.addNode()
+        onCheckClick: root.addNode()
     }
 
     Keys.onEscapePressed: {
@@ -39,12 +39,12 @@ Page {
     Keys.onPressed: {
         if (event.modifiers === Qt.ControlModifier) {
             if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                newNodeEdit.addNode()
+                root.addNode()
             }
         }
     }
 
-    function exitFromThisPage() { mainStack.pop() }
+    function exitFromThisPage() { root.StackView.view.pop() }
 
     function prepareForOpen() {
         currentGroupFixedRow.groupUuid = sceneObj.getCurrGroupUuid()

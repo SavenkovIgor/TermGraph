@@ -96,7 +96,7 @@ Page {
 
         Component.onCompleted: mainHeader.showArrowIcon()
 
-        onMenuClick: mainStack.pop()
+        onMenuClick: root.StackView.view.pop()
     }
 
     SwipeView {

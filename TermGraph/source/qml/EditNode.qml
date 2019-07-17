@@ -41,7 +41,7 @@ Page {
         }
     }
 
-    function exitFromThisPage() { mainStack.pop() }
+    function exitFromThisPage() { root.StackView.view.pop() }
 
     function updateInfo() {
         lastEditText.text = sceneObj.currentNode.lastEdit

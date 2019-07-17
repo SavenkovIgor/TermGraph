@@ -5,11 +5,11 @@ import QtQuick.Layouts 1.12
 import "UIExtensions"
 
 Page {
-    id: termViewPage
+    id: root
 
     property StackView mainStack
     function open() {
-        mainStack.push(termViewPage)
+        mainStack.push(root)
         loadSelectedNode()
     }
 
@@ -19,7 +19,7 @@ Page {
 
         Component.onCompleted: mainHeader.showArrowIcon()
 
-        onMenuClick: mainStack.pop()
+        onMenuClick: root.StackView.view.pop()
     }
 
     Rectangle {  // Background
@@ -43,7 +43,7 @@ Page {
 
         ColumnLayout {
             spacing: 14
-            width: termViewPage.width
+            width: root.width
 
             MyLabelPair {
                 id: ptDbgInfo

@@ -7,10 +7,10 @@ import QtQuick.Dialogs 1.3
 import "UIExtensions"
 
 Page {
-    id: groupsPage
+    id: root
 
     property StackView mainStack
-    function open() { mainStack.push(groupsPage) }
+    function open() { mainStack.push(root) }
 
     header: MainHeader {
 
@@ -19,7 +19,7 @@ Page {
 
         Component.onCompleted: mainHeader.showArrowIcon()
 
-        onMenuClick: mainStack.pop()
+        onMenuClick: root.StackView.view.pop()
     }
 
     Keys.onPressed: {
@@ -195,7 +195,7 @@ Page {
 
     Drawer {
         id : newGroupDrawer
-        width: groupsPage.width
+        width: root.width
         height: addGroupLay.height
         interactive: false
 
@@ -214,7 +214,7 @@ Page {
         RowLayout {
             id: addGroupLay
 
-            width: groupsPage.width
+            width: root.width
 
             spacing: newGroupAddButton.width / 2
 

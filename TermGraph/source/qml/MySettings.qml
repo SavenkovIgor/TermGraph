@@ -4,12 +4,12 @@ import QtQuick.Controls 2.12
 import "UIExtensions"
 
 Page {
-    id: settingsPage
+    id: root
 
     property StackView mainStack
 
     function open() {
-        mainStack.push(settingsPage)
+        mainStack.push(root)
         openActions()
     }
 
@@ -24,7 +24,7 @@ Page {
 
         Component.onCompleted: mainHeader.showArrowIcon()
 
-        onMenuClick: mainStack.pop()
+        onMenuClick: root.StackView.view.pop()
     }
 
     Rectangle {
