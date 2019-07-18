@@ -18,7 +18,7 @@ Page {
         onMenuClick: root.StackView.view.pop()
     }
 
-    background: Rectangle { color: appColors.base }
+    background: Rectangle { color: appColors.base; }
 
     contentItem: Column {
         MyLabelPair {
