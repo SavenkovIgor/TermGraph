@@ -68,7 +68,6 @@ Page {
 
     TermGroupsList {
         id: groupsListPage
-        mainStack: stackView
     }
 
     TermView {

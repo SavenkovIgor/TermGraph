@@ -9,9 +9,6 @@ import "UIExtensions"
 Page {
     id: root
 
-    property StackView mainStack
-    function open() { mainStack.push(root) }
-
     header: MainHeader {
 
         id: mainHeader

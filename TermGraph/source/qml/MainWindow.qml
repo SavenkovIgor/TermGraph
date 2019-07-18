@@ -43,14 +43,14 @@ ApplicationWindow {
         }
     }
 
-    TermGroupsList {
-        id: groupsListPage
-        mainStack: stackView
+    Component {
+        id: groupsListComponent
+        TermGroupsList { }
     }
 
-    MySettings {
-        id: settingsPage
-        mainStack: stackView
+    Component {
+        id: settingsComponent
+        MySettings { }
     }
 
     HelpPage {
@@ -87,7 +87,6 @@ ApplicationWindow {
 
         function openItem(item) {
             item.open()
-            appSideMenu.close()
         }
 
         ColumnLayout {
@@ -106,7 +105,7 @@ ApplicationWindow {
                 Layout.leftMargin: 25
                 Layout.rightMargin: 25
 
-                onClicked: appSideMenu.openItem(groupsListPage)
+                onClicked: stackView.push(groupsListComponent)
             }
 
             SideMenuButton {
@@ -121,8 +120,6 @@ ApplicationWindow {
                 Layout.bottomMargin: 5
                 Layout.leftMargin: 25
                 Layout.rightMargin: 25
-
-                onClicked: appSideMenu.openItem(groupsListPage)
             }
 
             SideMenuButton {
@@ -137,7 +134,7 @@ ApplicationWindow {
                 Layout.leftMargin: 25
                 Layout.rightMargin: 25
 
-                onClicked: appSideMenu.openItem(settingsPage)
+                onClicked: stackView.push(settingsComponent)
             }
 
             SideMenuButton {
@@ -242,6 +239,8 @@ ApplicationWindow {
         initialItem: mainSceneItem
 
         anchors.fill: parent
+
+        onCurrentItemChanged: appSideMenu.close()
 
         Keys.onPressed: {
             if (event.modifiers === Qt.ControlModifier) {

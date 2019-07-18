@@ -6,16 +6,7 @@ import "UIExtensions"
 Page {
     id: root
 
-    property StackView mainStack
-
-    function open() {
-        mainStack.push(root)
-        openActions()
-    }
-
-    function openActions() {
-        databaseVersion.updateText()
-    }
+    Component.onCompleted: { databaseVersion.updateText(); }
 
     header: MainHeader {
 
