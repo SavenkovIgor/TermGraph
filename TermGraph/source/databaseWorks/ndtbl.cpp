@@ -224,14 +224,13 @@ QString NodeTable::getLastEditNowString()
 UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
 {
     UuidList ret;
-    QVector<QSqlRecord> sqlRecords;
 
-    if (groupUuid.isNull()) { // Taking all uuids
-        sqlRecords = toRecVector(select(NodeColumn::uuid));
-    } else {
-        auto where = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
-        sqlRecords = toRecVector(select(NodeColumn::uuid, where));
-    }
+    WhereCondition where;  // Take all uuids
+
+    if (!groupUuid.isNull())  // Take only uuids in specifig group
+        where = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
+
+    auto sqlRecords = toRecVector(select(NodeColumn::uuid, where));
 
     for (auto& record : sqlRecords) {
         if (!record.contains(NodeColumn::uuid))
@@ -245,6 +244,8 @@ UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
 
 NodeInfoContainer NodeTable::getNode(const QUuid& uuid)
 {
+    Q_ASSERT(!uuid.isNull());
+
     NodeInfoContainer info;
 
     auto where = WhereCondition::uuidEqual(uuid);
@@ -259,6 +260,8 @@ NodeInfoContainer NodeTable::getNode(const QUuid& uuid)
 
 NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
 {
+    Q_ASSERT(!groupUuid.isNull());
+
     NodeInfoContainer::List ret;
     auto where = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
     auto records = toRecVector(select(getAllColumns(), where));
