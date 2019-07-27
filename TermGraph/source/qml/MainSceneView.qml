@@ -10,11 +10,12 @@ import "UIExtensions"
 import "JsExtensions/nodePaint.js" as JsPaint
 
 Page {
-    id: mainSceneView
+    id: root
 
     property StackView mainStack
     property Drawer sideMenu
     property int scOffset: mainHeader.height
+    property bool currentPageOpened: StackView.visible
 
     signal showInfo(string info)
     signal showWarning(string warning)
@@ -29,21 +30,18 @@ Page {
         onMenuClick: sideMenu.open()
     }
 
-    property string someSelectedSt: "SomeSelected"
-    property string noneSelectedSt: "NoneSelected"
-
-    state: sceneObj.hasSelection ? someSelectedSt : noneSelectedSt
+    state: sceneObj.hasSelection ? "some" : "none"
 
     states: [
         State {
-            name: someSelectedSt
+            name: "some"
             PropertyChanges { target: editNodeButton;   visible: true }
             PropertyChanges { target: deleteNodeButton; visible: true }
             PropertyChanges { target: nodeInfoButton;   visible: true }
             PropertyChanges { target: addNodeButton;    visible: false }
         },
         State {
-            name: noneSelectedSt
+            name: "none"
             PropertyChanges { target: editNodeButton;   visible: false }
             PropertyChanges { target: deleteNodeButton; visible: false }
             PropertyChanges { target: nodeInfoButton;   visible: false }
@@ -103,7 +101,7 @@ Page {
             }
         }
 
-        Shortcut { sequence: "Ctrl+n"; onActivated: addNodeButton.openNewNodePage(); }
+        Shortcut { sequence: "Ctrl+n"; enabled: root.currentPageOpened; onActivated: addNodeButton.openNewNodePage(); }
     }
 
     MyRoundButton {
@@ -194,7 +192,7 @@ Page {
         height: sceneView.height
 
         clip: true
-        interactive: mainStack.currentItem == mainSceneView
+        interactive: mainStack.currentItem == root
 
         Shortcut {
             sequence: "Ctrl+Left"

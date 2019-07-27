@@ -32,19 +32,10 @@ Page {
         onCheckClick: root.addNode()
     }
 
+    Shortcut { sequence: "Ctrl+Enter";  onActivated: root.addNode(); }
+    Shortcut { sequence: "Ctrl+Return"; onActivated: root.addNode(); }
+
     background: Rectangle { color: appColors.base }
-
-    Keys.onEscapePressed: {
-        exitFromThisPage()
-    }
-
-    Keys.onPressed: {
-        if (event.modifiers === Qt.ControlModifier) {
-            if (event.key === Qt.Key_Return || event.key === Qt.Key_Enter) {
-                root.addNode()
-            }
-        }
-    }
 
     function exitFromThisPage() { root.StackView.view.pop() }
 

@@ -21,20 +21,6 @@ Page {
 
     background: Rectangle { color: appColors.base }
 
-    Keys.onPressed: {
-        if (event.modifiers === Qt.ControlModifier) {
-            if (event.key === Qt.Key_N) {
-                newGroupDrawer.open()
-                event.accepted = true
-            }
-        } else if (event.key === Qt.Key_Escape) {
-            if (newGroupDrawer.isOpen) {
-                newGroupDrawer.close()
-                event.accepted = true
-            }
-        }
-    }
-
     MyRoundButton {
         id: addGroupBtn
         iconName: "plus"
