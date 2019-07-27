@@ -6,8 +6,6 @@ import "UIExtensions"
 Page {
     id: root
 
-    property StackView mainStack
-
     property ListModel helpModel: ListModel {
 
         ListElement {
@@ -88,10 +86,6 @@ Page {
         }
     }
 
-    function open() {
-        mainStack.push(root)
-    }
-
     header: MainHeader {
         id: mainHeader
         titleText: "Справка"
@@ -101,34 +95,26 @@ Page {
         onMenuClick: root.StackView.view.pop()
     }
 
-    contentItem: SwipeView {
-        id: swipeView
-        currentIndex: 0
+    contentItem: Item {
+        SwipeView {
+            id: swipeView
+            anchors.fill: parent
 
-        property real minWH: Math.min(width, height)
-
-        Repeater {
-            model: root.helpModel
-
-            Loader {
-                active: SwipeView.isCurrentItem || SwipeView.isNextItem || SwipeView.isPreviousItem
-                sourceComponent: OnBoardCard {
-                    id: tip
-                    baseSize: swipeView.minWH
-                    text: model.text
-                }
+            Repeater {
+                model: root.helpModel
+                delegate: HelpCard { text: model.text }
             }
         }
-    }
 
-    PageIndicator {
-        id: pageIndicator
+        PageIndicator {
+            id: pageIndicator
 
-        count: swipeView.count
-        currentIndex: swipeView.currentIndex
+            count: swipeView.count
+            currentIndex: swipeView.currentIndex
 
-        anchors.bottom: swipeView.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: swipeView.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
     }
 }
 

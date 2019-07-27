@@ -53,9 +53,9 @@ ApplicationWindow {
         MySettings { }
     }
 
-    HelpPage {
-        id: onboarding
-        mainStack: stackView
+    Component {
+        id: helpPageComponent
+        HelpPage { }
     }
 
     Drawer {
@@ -130,7 +130,6 @@ ApplicationWindow {
 
             SideMenuButton {
                 id: helpMenuButton
-//                enabled: false
                 labelText: "Справка"
                 iconName: "book"
 
@@ -141,12 +140,10 @@ ApplicationWindow {
                 Layout.leftMargin: 25
                 Layout.rightMargin: 25
 
-                onClicked: appSideMenu.openItem(onboarding)
+                onClicked: stackView.push(helpPageComponent)
             }
 
-            Item {
-                Layout.fillHeight: true
-            }
+            Item { Layout.fillHeight: true; }
         }
     }
 
@@ -217,7 +214,6 @@ ApplicationWindow {
     }
 
     StackView {
-
         id: stackView
         initialItem: mainSceneItem
 

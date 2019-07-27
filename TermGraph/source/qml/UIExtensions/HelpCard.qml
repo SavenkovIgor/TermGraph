@@ -1,21 +1,23 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import QtQuick.Templates 2.12 as T
 import QtQuick.Window 2.12
 
-Pane {
-    background: Rectangle { color: appColors.base; }
+T.Control {
+    id: root
 
     property real baseSize: 50
     property alias text: tipTitle.text
+    property real minSizing: Math.min(width, height);
 
-    Rectangle {
-        id: tipFrame
+    background: Rectangle { color: appColors.base; }
 
-        property real marginVal: baseSize * 0.03
+    contentItem: Rectangle {
+        property real marginVal: root.minSizing * 0.05
 
         anchors { fill: parent; margins: marginVal; }
 
-        radius: baseSize * 0.08
+        radius: root.minSizing * 0.08
         color: appColors.baseLight3
 
         Item {
