@@ -77,26 +77,21 @@ Page {
 
     Rectangle {
         id: sceneBackground
-        anchors.fill: parent
+
         z: 1
+        anchors.fill: parent
 
         color: sceneObj.getSceneBackgroundColor()
     }
 
     MyRoundButton {
         id: addNodeButton
-        z: 3
 
-        iconName: "plus"
+        z: 3
+        anchors { right: parent.right; bottom: parent.bottom; }
         visible: true
 
-        anchors { right: parent.right; bottom: parent.bottom; }
-
-        Shortcut {
-            sequence: "Ctrl+n"
-            onActivated: addNodeButton.openNewNodePage()
-        }
-
+        iconName: "plus"
         onClicked: openNewNodePage()
 
         function openNewNodePage() {
@@ -107,6 +102,8 @@ Page {
                 groupsListPage.open()
             }
         }
+
+        Shortcut { sequence: "Ctrl+n"; onActivated: addNodeButton.openNewNodePage(); }
     }
 
     MyRoundButton {
@@ -189,6 +186,25 @@ Page {
         }
     }
 
+    GroupsDrawer {
+        id : groupsList
+
+        y: mainHeader.height
+        width: Math.min(window.width * 0.8, groupsList.maxWidth)
+        height: sceneView.height
+
+        clip: true
+        interactive: mainStack.currentItem == mainSceneView
+
+        Shortcut {
+            sequence: "Ctrl+Left"
+            onActivated: {
+                groupsList.open();
+                groupsList.forceActiveFocus();
+            }
+        }
+    }
+
     Flickable {
         id: sceneView
         anchors.fill: parent
@@ -206,16 +222,6 @@ Page {
 
         function sendSceneViewRect() {
             sceneObj.setSceneViewRect(sceneView.contentX, sceneView.contentY, sceneView.width, sceneView.height)
-        }
-
-        GroupsDrawer {
-            id : groupsList
-
-            y: mainHeader.height
-            width: Math.min(window.width*0.8, groupsList.maxWidth)
-            height: sceneView.height
-
-            interactive: mainStack.currentItem == mainSceneView
         }
 
         MouseArea {

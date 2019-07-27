@@ -215,34 +215,11 @@ ApplicationWindow {
 
     StackView {
         id: stackView
-        initialItem: mainSceneItem
-
         anchors.fill: parent
-
+        initialItem: mainSceneItem
         onCurrentItemChanged: appSideMenu.close()
-
-        Keys.onPressed: {
-            if (event.modifiers === Qt.ControlModifier) {
-                if (event.key === Qt.Key_Right) {
-                    if (appSideMenu.isClose()) {
-                        appSideMenu.open()
-                    }
-                }
-
-                if (event.key === Qt.Key_Left) {
-                    if (currentItem.objectName == "mainScheme") {
-                        stackView.currentItem.openGroupList()
-                        stackView.forceActiveFocus()
-                    }
-                }
-            }
-
-            if (event.key === Qt.Key_Back) {
-                if (stackView.depth > 1) {
-                    stackView.pop()
-                    event.accepted = true
-                }
-            }
-        }
     }
+
+    Shortcut { sequence: "Ctrl+Right"; onActivated: appSideMenu.open(); }
+    Shortcut { sequence: "Escape"; onActivated: stackView.pop(); }
 }
