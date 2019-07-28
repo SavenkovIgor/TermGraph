@@ -30,16 +30,16 @@ QString TblBase::getStringField(const TColumn& column, const QUuid& uuid) const
 
 QSqlQuery TblBase::startQuery(const QString& queryString) const
 {
-//    qDebug() << queryString;
-    if (queryString.simplified().isEmpty()) {
-        return QSqlQuery();
-    }
+    //    qDebug() << queryString;
+    Q_ASSERT(!queryString.simplified().isEmpty());
 
     QSqlQuery ret = base->exec(queryString);
 
-    if (hasErrors(ret.lastError().text())) {
-        qDebug() << "Query " << queryString << "\nfails with error" << ret.lastError().text();
-    }
+    Q_ASSERT_X(!ret.lastError().isValid(),
+               Q_FUNC_INFO,
+               QString("Query " + queryString + "\nfails with error " + ret.lastError().text())
+                   .toStdString()
+                   .c_str());
 
     return ret;
 }

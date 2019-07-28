@@ -50,7 +50,6 @@ Database::Database(const QString& filePath) :
     } else {
         qDebug() << "Database is actual. No need to update";
     }
-
 }
 
 Database::~Database()
