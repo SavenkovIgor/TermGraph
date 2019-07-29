@@ -1,5 +1,7 @@
 #include "tblbase.h"
 
+#include "dbtools.h"
+
 int TblBase::getIntField(const TColumn &column, const QUuid &uuid) const
 {
     if (!isColumnExist(column)) {
@@ -30,18 +32,7 @@ QString TblBase::getStringField(const TColumn& column, const QUuid& uuid) const
 
 QSqlQuery TblBase::startQuery(const QString& queryString) const
 {
-    //    qDebug() << queryString;
-    Q_ASSERT(!queryString.simplified().isEmpty());
-
-    QSqlQuery ret = base->exec(queryString);
-
-    Q_ASSERT_X(!ret.lastError().isValid(),
-               Q_FUNC_INFO,
-               QString("Query " + queryString + "\nfails with error " + ret.lastError().text())
-                   .toStdString()
-                   .c_str());
-
-    return ret;
+    return DbTools::startQuery(base, queryString);
 }
 
 bool TblBase::hasErrors(const QString& errString) const

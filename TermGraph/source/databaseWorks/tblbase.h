@@ -55,7 +55,7 @@ private:
 
     bool isColumnExist(const TColumn& column) const;
 
-    QSqlQuery startQuery(const QString& str) const;
+    QSqlQuery startQuery(const QString& queryString) const;
     bool hasErrors(const QString &errString) const;
 
     QSqlQuery executeSelect(const QStringList &cols, const WhereCondition &where, const QString &orderBy = "") const;
