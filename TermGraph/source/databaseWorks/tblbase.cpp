@@ -1,6 +1,6 @@
 #include "tblbase.h"
 
-#include "dbtools.h"
+#include "tools/dbtools.h"
 
 int TblBase::getIntField(const TColumn &column, const QUuid &uuid) const
 {
@@ -42,11 +42,10 @@ bool TblBase::hasErrors(const QString& errString) const
     return ret;
 }
 
-TblBase::TblBase(QString tableName, QSqlDatabase *base):
-    base(base),
-    queryConstructor(new SqlQueryConstructor(tableName))
-{
-}
+TblBase::TblBase(QString tableName, QSqlDatabase* base)
+    : base(base)
+    , queryConstructor(new SqlQueryConstructor(tableName))
+{}
 
 QSqlQuery TblBase::createTable() {
     QString query = queryConstructor->createTable(getAllColumns());

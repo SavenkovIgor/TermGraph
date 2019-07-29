@@ -17,7 +17,7 @@ HEADERS += \
     source/databaseWorks/columns/tcolumn.h \
     source/databaseWorks/columns/termgroupcolumn.h \
     source/databaseWorks/database.h\
-    source/databaseWorks/dbtools.h \
+    source/databaseWorks/tools/dbtools.h \
     source/databaseWorks/edgtbl.h\
     source/databaseWorks/tblbase.h\
     source/databaseWorks/ndtbl.h\
@@ -65,7 +65,7 @@ SOURCES += \
     source/Managers/syncmanager.cpp \
     source/Model/Termin/nodegadgetwrapper.cpp \
     source/Model/TerminGroup/groupgadgetwrapper.cpp \
-    source/databaseWorks/dbtools.cpp \
+    source/databaseWorks/tools/dbtools.cpp \
     source/main.cpp\
     source/databaseWorks/database.cpp\
     source/databaseWorks/edgtbl.cpp\
