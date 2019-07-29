@@ -1,7 +1,7 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
-import QtQuick.Templates 2.12 as T
-import QtQuick.Window 2.12
+import QtQuick 2.13
+import QtQuick.Controls 2.13
+import QtQuick.Templates 2.13 as T
+import QtQuick.Window 2.13
 
 T.Control {
     id: root
