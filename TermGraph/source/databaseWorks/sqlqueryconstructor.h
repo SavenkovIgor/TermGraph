@@ -4,27 +4,7 @@
 
 #include "source/databaseWorks/commonqueryfunctions.h"
 #include "source/databaseWorks/columns/tcolumn.h"
-
-class InsertContainer
-{
-public:
-    InsertContainer(const TColumn& column, const QString& value) :
-        columnName(column.name),
-        value(value)
-    { }
-
-    InsertContainer(const TColumn& column, const int& value) :
-        columnName(column.name),
-        value(QString::number(value))
-    { }
-
-    QString getColumnName() const { return columnName; }
-    QString getValue() const { return value; }
-
-private:
-    QString columnName;
-    QString value;
-};
+#include "source/databaseWorks/tools/insertcontainer.h"
 
 class SetExpression
 {
@@ -132,7 +112,7 @@ public:
 
     QString selectQuery(const QStringList& columns, const WhereCondition& where, const QString &orderBy = "");
     QString selectOneQuery(const WhereCondition& where);
-    QString insertQuery(const QList<InsertContainer> &values);
+    QString insertQuery(const InsertContainer::List& values);
     QString updateQuery(const SetExpression& set, const WhereCondition& where);
 
     QString deleteWhereQuery(const WhereCondition& where);

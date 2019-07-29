@@ -35,7 +35,7 @@ protected:
 
     bool hasAnyRecord(const WhereCondition& where) const;
 
-    bool insertInto(const QList<InsertContainer> &values);
+    bool insertInto(const InsertContainer::List& values);
 
     void updateWhere(const SetExpression &set, const WhereCondition &where);
 
@@ -59,6 +59,6 @@ private:
     bool hasErrors(const QString &errString) const;
 
     QSqlQuery executeSelect(const QStringList &cols, const WhereCondition &where, const QString &orderBy = "") const;
-    QSqlQuery executeInsert(const QList<InsertContainer> &values);
+    QSqlQuery executeInsert(const InsertContainer::List& values);
     void      executeUpdate(const SetExpression &set, const WhereCondition &where);
 };

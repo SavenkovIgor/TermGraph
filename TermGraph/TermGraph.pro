@@ -25,6 +25,7 @@ HEADERS += \
     source/databaseWorks/sqlqueryconstructor.h\
     source/databaseWorks/cloudservices.h\
     source/databaseWorks/dropboxconnection.h\
+    source/databaseWorks/tools/insertcontainer.h \
     source/mainscene.h\
     source/mainwindow.h\
     source/Model/TerminEdge/edge.h\
@@ -66,6 +67,7 @@ SOURCES += \
     source/Model/Termin/nodegadgetwrapper.cpp \
     source/Model/TerminGroup/groupgadgetwrapper.cpp \
     source/databaseWorks/tools/dbtools.cpp \
+    source/databaseWorks/tools/insertcontainer.cpp \
     source/main.cpp\
     source/databaseWorks/database.cpp\
     source/databaseWorks/edgtbl.cpp\

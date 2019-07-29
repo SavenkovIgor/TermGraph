@@ -72,7 +72,7 @@ QString SqlQueryConstructor::selectOneQuery(const WhereCondition &where)
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::insertQuery(const QList<InsertContainer>& values)
+QString SqlQueryConstructor::insertQuery(const InsertContainer::List& values)
 {
     QStringList columns;
     QStringList insertValues;

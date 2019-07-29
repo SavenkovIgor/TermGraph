@@ -51,10 +51,10 @@ void AppConfigTable::setValue(const QString &key, const QString &value)
         updateWhere(set, where);
     } else {
         // Else adding new key
-        QList<InsertContainer> values;
+        InsertContainer::List values;
 
-        values << InsertContainer(AppConfigColumn::parameter, key);
-        values << InsertContainer(AppConfigColumn::value, value);
+        values.push_back(InsertContainer(AppConfigColumn::parameter, key));
+        values.push_back(InsertContainer(AppConfigColumn::value, value));
 
         insertInto(values);
     }

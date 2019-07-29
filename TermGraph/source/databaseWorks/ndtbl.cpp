@@ -34,11 +34,11 @@ QUuid NodeTable::addNode(const QUuid& uuid, const QString& name, const QUuid& gr
     if (hasNodeWithUuid(uuid))
         return QUuid();
 
-    QList<InsertContainer> values;
+    InsertContainer::List values;
 
-    values << InsertContainer(NodeColumn::uuid, uuid.toString());
-    values << InsertContainer(NodeColumn::term, name);
-    values << InsertContainer(NodeColumn::groupUuid, groupUuid.toString());
+    values.push_back(InsertContainer(NodeColumn::uuid, uuid.toString()));
+    values.push_back(InsertContainer(NodeColumn::term, name));
+    values.push_back(InsertContainer(NodeColumn::groupUuid, groupUuid.toString()));
 
     insertInto(values);
 
@@ -59,7 +59,7 @@ QUuid NodeTable::addNode(const NodeInfoContainer& info)
     if (hasNodeWithUuid(info.uuid))
         return QUuid();
 
-    QList<InsertContainer> values;
+    InsertContainer::List values;
 
     QUuid nodeUuid = info.uuid;
 
@@ -68,15 +68,15 @@ QUuid NodeTable::addNode(const NodeInfoContainer& info)
         nodeUuid = generateNewUuid();
     }
 
-    values << InsertContainer(NodeColumn::uuid, nodeUuid.toString());
-    values << InsertContainer(NodeColumn::term, info.term);
-    values << InsertContainer(NodeColumn::termForms, info.termForms);
-    values << InsertContainer(NodeColumn::definition, info.definition);
-    values << InsertContainer(NodeColumn::description, info.description);
-    values << InsertContainer(NodeColumn::examples, info.examples);
-    values << InsertContainer(NodeColumn::wikiUrl, info.wikiUrl);
-    values << InsertContainer(NodeColumn::wikiImage, info.wikiImage);
-    values << InsertContainer(NodeColumn::groupUuid, info.groupUuid.toString());
+    values.push_back(InsertContainer(NodeColumn::uuid, nodeUuid.toString()));
+    values.push_back(InsertContainer(NodeColumn::term, info.term));
+    values.push_back(InsertContainer(NodeColumn::termForms, info.termForms));
+    values.push_back(InsertContainer(NodeColumn::definition, info.definition));
+    values.push_back(InsertContainer(NodeColumn::description, info.description));
+    values.push_back(InsertContainer(NodeColumn::examples, info.examples));
+    values.push_back(InsertContainer(NodeColumn::wikiUrl, info.wikiUrl));
+    values.push_back(InsertContainer(NodeColumn::wikiImage, info.wikiImage));
+    values.push_back(InsertContainer(NodeColumn::groupUuid, info.groupUuid.toString()));
 
     QDateTime lastEdit = info.lastEdit;
 
@@ -84,7 +84,7 @@ QUuid NodeTable::addNode(const NodeInfoContainer& info)
         lastEdit = getLastEditNow();
     }
 
-    values << InsertContainer(NodeColumn::lastEdit, lastEdit.toString(Qt::ISODate));
+    values.push_back(InsertContainer(NodeColumn::lastEdit, lastEdit.toString(Qt::ISODate)));
 
     insertInto(values);
 

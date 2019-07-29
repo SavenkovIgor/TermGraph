@@ -1,6 +1,6 @@
 #include "tblbase.h"
 
-#include "tools/dbtools.h"
+#include "source/databaseWorks/tools/dbtools.h"
 
 int TblBase::getIntField(const TColumn &column, const QUuid &uuid) const
 {
@@ -52,7 +52,7 @@ QSqlQuery TblBase::createTable() {
     return startQuery(query);
 }
 
-bool TblBase::insertInto(const QList<InsertContainer>& values)
+bool TblBase::insertInto(const InsertContainer::List& values)
 {
     QSqlQuery q = executeInsert(values);
 
@@ -95,7 +95,7 @@ QSqlQuery TblBase::executeSelect(const QStringList& cols, const WhereCondition& 
     return startQuery(query);
 }
 
-QSqlQuery TblBase::executeInsert(const QList<InsertContainer>& values)
+QSqlQuery TblBase::executeInsert(const InsertContainer::List& values)
 {
     QString query = queryConstructor->insertQuery(values);
     return startQuery(query);

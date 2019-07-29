@@ -16,12 +16,12 @@ bool TermGroupTable::addGroup(const GroupInfoContainer &info)
     if (hasGroupWithName(info.name))
         return false;
 
-    QList<InsertContainer> values;
+    InsertContainer::List values;
 
-    values << InsertContainer(TermGroupColumn::longUID, groupUuid.toString());
-    values << InsertContainer(TermGroupColumn::name,    info.name);
-    values << InsertContainer(TermGroupColumn::comment, info.comment);
-    values << InsertContainer(TermGroupColumn::type,    static_cast<int>(info.type));
+    values.push_back(InsertContainer(TermGroupColumn::longUID, groupUuid.toString()));
+    values.push_back(InsertContainer(TermGroupColumn::name,    info.name));
+    values.push_back(InsertContainer(TermGroupColumn::comment, info.comment));
+    values.push_back(InsertContainer(TermGroupColumn::type,    static_cast<int>(info.type)));
 
     return insertInto(values);
 }
