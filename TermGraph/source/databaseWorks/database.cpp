@@ -111,29 +111,6 @@ void Database::execMigrationConditions(const int &currentDbVersion)
     }
 }
 
-QStringList Database::recordToStrList(QSqlRecord q)
-{
-    QStringList ret;
-
-    for (int i = 0; i < q.count(); i++) {
-        ret << q.value(i).toString();
-    }
-    return ret;
-}
-
-QStringList Database::queryToStrList(QSqlQuery q)
-{
-    QStringList ret;
-
-    for (int i = 0; i < 100000000; i++) {
-        if (!q.next())
-            break;
-        ret << recordToStrList(q.record()).join(" ");
-    }
-
-    return ret;
-}
-
 bool Database::databaseExists(const QString &dbFilePath) const
 {
     return FSWorks::fileExist(dbFilePath);

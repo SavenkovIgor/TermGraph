@@ -24,9 +24,6 @@ public:
         return instance;
     }
 
-    QStringList recordToStrList(QSqlRecord q);
-    QStringList queryToStrList(QSqlQuery q);
-
     Database(const Database&) = delete;
     void operator = (const Database&) = delete;
 
