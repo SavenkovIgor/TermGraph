@@ -6,11 +6,6 @@ SqlQueryConstructor::SqlQueryConstructor(QString tableName)
     this->tableName = tableName;
 }
 
-QString SqlQueryConstructor::createTable(const TColumn::List& columns)
-{
-    return createTable(tableName, columns);
-}
-
 QString SqlQueryConstructor::createTable(const QString& tableName, const TColumn::List& columns)
 {
     QStringList colsDescription;
