@@ -151,7 +151,7 @@ bool TblBase::isColumnExist(const TColumn &column) const
 void TblBase::checkCols()
 {
     for (auto column : getAllColumns()) {
-        QString query = queryConstructor->addColumn(column);
+        auto query = SqlQueryConstructor::addColumn(tableName(), column);
         startQuery(query);
     }
 }

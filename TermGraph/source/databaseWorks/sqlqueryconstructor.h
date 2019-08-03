@@ -14,8 +14,6 @@ class SqlQueryConstructor
 public:
     SqlQueryConstructor(QString tableName);
 
-    QString addColumn(TColumn column);
-
     QString selectQuery(const QStringList& columns,
                         const WhereCondition& where,
                         const QString& orderBy = "");
@@ -28,6 +26,7 @@ public:
 
     // Static methods
     static QString createTable(const QString& tableName, const TColumn::List& columns);
+    static QString addColumn(const QString& tableName, const TColumn& column);
 
 private:
     QString tableName;

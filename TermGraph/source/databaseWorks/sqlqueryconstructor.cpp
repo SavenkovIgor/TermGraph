@@ -21,11 +21,10 @@ QString SqlQueryConstructor::createTable(const QString& tableName, const TColumn
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::addColumn(TColumn column)
+QString SqlQueryConstructor::addColumn(const QString& tableName, const TColumn& column)
 {
     QStringList qry;
-    qry << "ALTER";
-    qry << "TABLE";
+    qry << "ALTER TABLE";
     qry << tableName;
     qry << "ADD COLUMN";
     qry << column.name;
