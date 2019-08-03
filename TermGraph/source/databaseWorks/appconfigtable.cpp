@@ -22,6 +22,11 @@ void AppConfigTable::updateDbVersionNumber()
     setValue(dbVersionPropertyName, QString::number(dbVersion));
 }
 
+const char* AppConfigTable::tableName() const
+{
+    return TableName::CONFIG;
+}
+
 TColumn::List AppConfigTable::getAllColumns() const
 {
     TColumn::List lst;

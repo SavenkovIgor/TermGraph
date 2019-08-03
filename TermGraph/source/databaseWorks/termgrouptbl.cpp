@@ -107,6 +107,11 @@ bool TermGroupTable::hasGroupWithName(const QString &groupName)
     return !getUuid(groupName).isNull();
 }
 
+const char* TermGroupTable::tableName() const
+{
+    return TableName::GROUPS;
+}
+
 void TermGroupTable::initTable()
 {
     createTable();

@@ -30,6 +30,7 @@ public:
     void updateDbVersionNumber();
 
 protected:
+    const char* tableName() const override;
     TColumn::List getAllColumns() const override;
 
 private:

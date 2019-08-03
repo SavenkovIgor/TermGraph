@@ -169,6 +169,11 @@ void NodeTable::deleteNode(const QUuid& uuid)
     deleteRecord(uuid);
 }
 
+const char* NodeTable::tableName() const
+{
+    return TableName::NODES;
+}
+
 void NodeTable::initTable()
 {
     createTable();

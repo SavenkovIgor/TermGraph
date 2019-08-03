@@ -29,6 +29,7 @@ public:
     bool hasGroupWithUuid(const QUuid& uuid);
     bool hasGroupWithName(const QString& groupName);
 
+    const char* tableName() const override;
     void initTable() override;
 
 protected:

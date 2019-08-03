@@ -16,7 +16,7 @@ private:
 public:
     SqlQueryConstructor(QString tableName);
 
-    QString createTable(TColumn::List columns);
+    QString createTable(const TColumn::List& columns);
     QString addColumn(TColumn column);
 
     QString selectQuery(const QStringList& columns, const WhereCondition& where, const QString &orderBy = "");
@@ -26,4 +26,7 @@ public:
 
     QString deleteWhereQuery(const WhereCondition& where);
     QString deleteByUuidQuery(const QUuid& uuid, const QString& primaryKeyName = "longUID");
+
+    // Static methods
+    static QString createTable(const QString& tableName, const TColumn::List& columns);
 };

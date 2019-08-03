@@ -44,6 +44,7 @@ protected:
 
     static RecVector toRecVector(QSqlQuery&& q);
 
+    virtual const char* tableName() const = 0;
     virtual TColumn::List getAllColumns() const = 0;
     virtual void initTable() = 0;
 

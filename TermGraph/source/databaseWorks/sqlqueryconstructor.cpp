@@ -6,20 +6,22 @@ SqlQueryConstructor::SqlQueryConstructor(QString tableName)
     this->tableName = tableName;
 }
 
-QString SqlQueryConstructor::createTable(TColumn::List columns)
+QString SqlQueryConstructor::createTable(const TColumn::List& columns)
+{
+    return createTable(tableName, columns);
+}
+
+QString SqlQueryConstructor::createTable(const QString& tableName, const TColumn::List& columns)
 {
     QStringList colsDescription;
-    for (auto col : columns) {
+    for (auto col : columns)
         colsDescription << QString(col.name) + " " + QString(col.type);
-    }
 
     QStringList qry;
-    qry << "CREATE";
-    qry << "TABLE";
+
+    qry << "CREATE TABLE";
     qry << tableName;
-    qry << "(";
-    qry << colsDescription.join(QueryTools::joinParam);
-    qry << ")";
+    qry << "(" + colsDescription.join(QueryTools::joinParam) + ")";
 
     return qry.join(" ");
 }

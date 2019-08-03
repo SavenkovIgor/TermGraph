@@ -51,6 +51,7 @@ public:
 
     void deleteNode(const QUuid& uuid);
 
+    const char* tableName() const override;
     void initTable() override;
 
 protected:

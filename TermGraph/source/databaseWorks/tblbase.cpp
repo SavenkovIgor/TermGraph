@@ -47,8 +47,9 @@ TblBase::TblBase(QString tableName, QSqlDatabase* base)
     , queryConstructor(new SqlQueryConstructor(tableName))
 {}
 
-QSqlQuery TblBase::createTable() {
-    QString query = queryConstructor->createTable(getAllColumns());
+QSqlQuery TblBase::createTable()
+{
+    auto query = SqlQueryConstructor::createTable(tableName(), getAllColumns());
     return startQuery(query);
 }
 
