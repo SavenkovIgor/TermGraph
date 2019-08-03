@@ -2,28 +2,10 @@
 
 #include <QtCore>
 
-#include "source/databaseWorks/commonqueryfunctions.h"
+#include "source/databaseWorks/tools/querytools.h"
 #include "source/databaseWorks/columns/tcolumn.h"
 #include "source/databaseWorks/tools/insertcontainer.h"
-
-class SetExpression
-{
-private:
-    QStringList expression;
-
-public:
-    void set(const TColumn& column, const int& value) {
-        set(column, QString::number(value));
-    }
-
-    void set(const TColumn& column, const QString& value) {
-        expression << QString(column) + " = " + CommonQueryFunctions::vv(value);
-    }
-
-    QString getExpression() const {
-        return expression.join(CommonQueryFunctions::joinParam);
-    }
-};
+#include "source/databaseWorks/tools/setexpression.h"
 
 enum class ConditionType{
     And,
@@ -69,7 +51,7 @@ public:
     }
 
     void notEqual(const QString& column, const QString& value) {
-        conditions << concat(column, "!=", CommonQueryFunctions::vv(value));
+        conditions << concat(column, "!=", QueryTools::vv(value));
     }
 
     void equal(const TColumn& column, const int& value) {
@@ -77,7 +59,7 @@ public:
     }
 
     void equal(const TColumn& column, const QString& value) {
-        conditions << concat(column, "=", CommonQueryFunctions::vv(value));
+        conditions << concat(column, "=", QueryTools::vv(value));
     }
 
     void isNull(const QString& column) {
@@ -117,6 +99,4 @@ public:
 
     QString deleteWhereQuery(const WhereCondition& where);
     QString deleteByUuidQuery(const QUuid& uuid, const QString& primaryKeyName = "longUID");
-
-    static QStringList vv(QStringList lst);
 };

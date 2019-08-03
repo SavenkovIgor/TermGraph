@@ -1,4 +1,5 @@
 #include "source/databaseWorks/sqlqueryconstructor.h"
+#include "source/databaseWorks/tools/querytools.h"
 
 SqlQueryConstructor::SqlQueryConstructor(QString tableName)
 {
@@ -17,7 +18,7 @@ QString SqlQueryConstructor::createTable(TColumn::List columns)
     qry << "TABLE";
     qry << tableName;
     qry << "(";
-    qry << colsDescription.join(CommonQueryFunctions::joinParam);
+    qry << colsDescription.join(QueryTools::joinParam);
     qry << ")";
 
     return qry.join(" ");
@@ -40,7 +41,7 @@ QString SqlQueryConstructor::selectQuery(const QStringList& columns, const Where
 {
     QStringList qry;
     qry << "SELECT";
-    qry << columns.join(CommonQueryFunctions::joinParam);
+    qry << columns.join(QueryTools::joinParam);
     qry << "FROM";
     qry << tableName;
     if (where.getJoinedConditions() != "") {
@@ -79,7 +80,7 @@ QString SqlQueryConstructor::insertQuery(const InsertContainer::List& values)
 
     for (const auto& value : values) {
         columns << value.getColumnName();
-        insertValues << CommonQueryFunctions::vv(value.getValue());
+        insertValues << QueryTools::vv(value.getValue());
     }
 
     QStringList qry;
@@ -87,11 +88,11 @@ QString SqlQueryConstructor::insertQuery(const InsertContainer::List& values)
     qry << "INTO";
     qry << tableName;
     qry << "(";
-    qry << columns.join(CommonQueryFunctions::joinParam);
+    qry << columns.join(QueryTools::joinParam);
     qry << ")";
     qry << "VALUES";
     qry << "(";
-    qry << insertValues.join(CommonQueryFunctions::joinParam);
+    qry << insertValues.join(QueryTools::joinParam);
     qry << ")";
 
     return qry.join(" ");
@@ -131,17 +132,7 @@ QString SqlQueryConstructor::deleteByUuidQuery(const QUuid& uuid, const QString&
     qry << "WHERE";
     qry << primaryKeyName;
     qry << "=";
-    qry << CommonQueryFunctions::vv(uuid.toString());
+    qry << QueryTools::vv(uuid.toString());
 
     return qry.join(" ");
-}
-
-
-
-QStringList SqlQueryConstructor::vv(QStringList lst)
-{
-    for (QString& str : lst) {
-        str = CommonQueryFunctions::vv(str);
-    }
-    return lst;
 }
