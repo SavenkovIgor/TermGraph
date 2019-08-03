@@ -28,6 +28,7 @@ HEADERS += \
     source/databaseWorks/dropboxconnection.h\
     source/databaseWorks/tools/insertcontainer.h \
     source/databaseWorks/tools/setexpression.h \
+    source/databaseWorks/tools/wherecondition.h \
     source/mainscene.h\
     source/mainwindow.h\
     source/Model/TerminEdge/edge.h\
@@ -71,6 +72,7 @@ SOURCES += \
     source/databaseWorks/tools/dbtools.cpp \
     source/databaseWorks/tools/insertcontainer.cpp \
     source/databaseWorks/tools/setexpression.cpp \
+    source/databaseWorks/tools/wherecondition.cpp \
     source/main.cpp\
     source/databaseWorks/database.cpp\
     source/databaseWorks/edgtbl.cpp\
