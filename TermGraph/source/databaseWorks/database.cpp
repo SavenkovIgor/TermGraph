@@ -47,6 +47,11 @@ Database::Database(const QString& filePath) :
         qDebug() << "Opening database";
         base->open();
         makeDbUpdate();
+
+        // Recreate tables after update
+        nodeTable.reset(new NodeTable(base));
+        groupTable.reset(new TermGroupTable(base));
+        appConfigTable.reset(new AppConfigTable(base));
     } else {
         qDebug() << "Database is actual. No need to update";
     }
