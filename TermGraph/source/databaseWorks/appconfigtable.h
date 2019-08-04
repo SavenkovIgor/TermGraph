@@ -18,7 +18,7 @@ public:
 class AppConfigTable : public TblBase
 {
 public:
-    AppConfigTable(QSqlDatabase* base): TblBase(TableName::CONFIG, base) { }
+    AppConfigTable(QSqlDatabase* base): TblBase(base) { }
     ~AppConfigTable() override = default;
 
     // TODO: Delete this later

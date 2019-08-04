@@ -15,7 +15,7 @@ public:
         AutoGenerate
     };
 
-    NodeTable(QSqlDatabase* base): TblBase(TableName::NODES, base) { }
+    NodeTable(QSqlDatabase* base): TblBase(base) { }
     ~NodeTable() override = default;
 
     QUuid nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const;

@@ -1,11 +1,6 @@
 #include "source/databaseWorks/sqlqueryconstructor.h"
 #include "source/databaseWorks/tools/querytools.h"
 
-SqlQueryConstructor::SqlQueryConstructor(QString tableName)
-{
-    this->tableName = tableName;
-}
-
 QString SqlQueryConstructor::createTable(const QString& tableName, const TColumn::List& columns)
 {
     QStringList colsDescription;
@@ -33,7 +28,10 @@ QString SqlQueryConstructor::addColumn(const QString& tableName, const TColumn& 
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::selectQuery(const QStringList& columns, const WhereCondition& where, const QString& orderBy)
+QString SqlQueryConstructor::selectQuery(const QString& tableName,
+                                         const QStringList& columns,
+                                         const WhereCondition& where,
+                                         const QString& orderBy)
 {
     QStringList qry;
     qry << "SELECT";
@@ -45,19 +43,17 @@ QString SqlQueryConstructor::selectQuery(const QStringList& columns, const Where
         qry << where.getJoinedConditions();
     }
     if (orderBy.simplified() != "") {
-       qry << "ORDER BY";
-       qry << orderBy;
+        qry << "ORDER BY";
+        qry << orderBy;
     }
 
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::selectOneQuery(const WhereCondition &where)
+QString SqlQueryConstructor::selectOneQuery(const QString& tableName, const WhereCondition& where)
 {
     QStringList qry;
-    qry << "SELECT";
-    qry << "COUNT(*)";
-    qry << "FROM";
+    qry << "SELECT COUNT(*) FROM";
     qry << tableName;
     if (where.getJoinedConditions() != "") {
         qry << "WHERE";
@@ -69,7 +65,8 @@ QString SqlQueryConstructor::selectOneQuery(const WhereCondition &where)
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::insertQuery(const InsertContainer::List& values)
+QString SqlQueryConstructor::insertQuery(const QString& tableName,
+                                         const InsertContainer::List& values)
 {
     QStringList columns;
     QStringList insertValues;
@@ -80,21 +77,18 @@ QString SqlQueryConstructor::insertQuery(const InsertContainer::List& values)
     }
 
     QStringList qry;
-    qry << "INSERT";
-    qry << "INTO";
+    qry << "INSERT INTO";
     qry << tableName;
-    qry << "(";
-    qry << columns.join(QueryTools::joinParam);
-    qry << ")";
+    qry << "( " + columns.join(QueryTools::joinParam) + " )";
     qry << "VALUES";
-    qry << "(";
-    qry << insertValues.join(QueryTools::joinParam);
-    qry << ")";
+    qry << "( " + insertValues.join(QueryTools::joinParam) + " )";
 
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::updateQuery(const SetExpression& set, const WhereCondition& where)
+QString SqlQueryConstructor::updateQuery(const QString& tableName,
+                                         const SetExpression& set,
+                                         const WhereCondition& where)
 {
     QStringList qry;
     qry << "UPDATE";
@@ -107,11 +101,10 @@ QString SqlQueryConstructor::updateQuery(const SetExpression& set, const WhereCo
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::deleteWhereQuery(const WhereCondition& where)
+QString SqlQueryConstructor::deleteWhereQuery(const QString& tableName, const WhereCondition& where)
 {
     QStringList qry;
-    qry << "DELETE";
-    qry << "FROM";
+    qry << "DELETE FROM";
     qry << tableName;
     qry << "WHERE";
     qry << where.getJoinedConditions();
@@ -119,11 +112,12 @@ QString SqlQueryConstructor::deleteWhereQuery(const WhereCondition& where)
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::deleteByUuidQuery(const QUuid& uuid, const QString& primaryKeyName)
+QString SqlQueryConstructor::deleteByUuidQuery(const QString& tableName,
+                                               const QUuid& uuid,
+                                               const QString& primaryKeyName)
 {
     QStringList qry;
-    qry << "DELETE";
-    qry << "FROM";
+    qry << "DELETE FROM";
     qry << tableName;
     qry << "WHERE";
     qry << primaryKeyName;

@@ -9,7 +9,7 @@ class TermGroupTable : public TblBase
 {
 public:
     TermGroupTable(QSqlDatabase* base)
-        : TblBase(TableName::GROUPS, base)
+        : TblBase(base)
     {}
     ~TermGroupTable() override = default;
 

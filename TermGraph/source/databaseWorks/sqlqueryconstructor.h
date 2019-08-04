@@ -9,25 +9,26 @@
 #include "source/databaseWorks/tools/wherecondition.h"
 
 // Задача этого класса - формировать запросы
+// Clear static class
 class SqlQueryConstructor
 {
 public:
-    SqlQueryConstructor(QString tableName);
-
-    QString selectQuery(const QStringList& columns,
-                        const WhereCondition& where,
-                        const QString& orderBy = "");
-    QString selectOneQuery(const WhereCondition& where);
-    QString insertQuery(const InsertContainer::List& values);
-    QString updateQuery(const SetExpression& set, const WhereCondition& where);
-
-    QString deleteWhereQuery(const WhereCondition& where);
-    QString deleteByUuidQuery(const QUuid& uuid, const QString& primaryKeyName = "longUID");
-
-    // Static methods
     static QString createTable(const QString& tableName, const TColumn::List& columns);
     static QString addColumn(const QString& tableName, const TColumn& column);
 
-private:
-    QString tableName;
+    static QString selectQuery(const QString& tableName,
+                               const QStringList& columns,
+                               const WhereCondition& where,
+                               const QString& orderBy = "");
+    static QString selectOneQuery(const QString& tableName, const WhereCondition& where);
+    static QString insertQuery(const QString& tableName, const InsertContainer::List& values);
+
+    static QString updateQuery(const QString& tableName,
+                        const SetExpression& set,
+                        const WhereCondition& where);
+
+    static QString deleteWhereQuery(const QString& tableName, const WhereCondition& where);
+    static QString deleteByUuidQuery(const QString& tableName,
+                                     const QUuid& uuid,
+                                     const QString& primaryKeyName = "longUID");
 };

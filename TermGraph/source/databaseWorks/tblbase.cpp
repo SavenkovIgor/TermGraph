@@ -42,9 +42,8 @@ bool TblBase::hasErrors(const QString& errString) const
     return ret;
 }
 
-TblBase::TblBase(QString tableName, QSqlDatabase* base)
+TblBase::TblBase(QSqlDatabase* base)
     : base(base)
-    , queryConstructor(new SqlQueryConstructor(tableName))
 {}
 
 QSqlQuery TblBase::createTable()
@@ -80,7 +79,7 @@ QSqlQuery TblBase::select(const TColumn::List &columns, const WhereCondition &wh
 
 bool TblBase::hasAnyRecord(const WhereCondition &where) const
 {
-    QString query = queryConstructor->selectOneQuery(where);
+    auto query = SqlQueryConstructor::selectOneQuery(tableName(), where);
     auto result = startQuery(query);
     if (!result.next()) {
         return false;
@@ -92,19 +91,19 @@ bool TblBase::hasAnyRecord(const WhereCondition &where) const
 
 QSqlQuery TblBase::executeSelect(const QStringList& cols, const WhereCondition& where, const QString& orderBy) const
 {
-    QString query = queryConstructor->selectQuery(cols, where, orderBy);
+    auto query = SqlQueryConstructor::selectQuery(tableName(), cols, where, orderBy);
     return startQuery(query);
 }
 
 QSqlQuery TblBase::executeInsert(const InsertContainer::List& values)
 {
-    QString query = queryConstructor->insertQuery(values);
+    auto query = SqlQueryConstructor::insertQuery(tableName(), values);
     return startQuery(query);
 }
 
 void TblBase::executeUpdate(const SetExpression& set, const WhereCondition& where)
 {
-    QString query = queryConstructor->updateQuery(set,where);
+    auto query = SqlQueryConstructor::updateQuery(tableName(), set, where);
     startQuery(query);
 }
 
@@ -127,13 +126,13 @@ void TblBase::updateWhere(const SetExpression& set, const WhereCondition& where)
 
 void TblBase::deleteRecord(const QUuid &uuid)
 {
-    QString query = queryConstructor->deleteByUuidQuery(uuid);
+    auto query = SqlQueryConstructor::deleteByUuidQuery(tableName(), uuid);
     startQuery(query);
 }
 
 void TblBase::deleteWhere(const WhereCondition &where)
 {
-    QString query = queryConstructor->deleteWhereQuery(where);
+    auto query = SqlQueryConstructor::deleteWhereQuery(tableName(), where);
     startQuery(query);
 }
 

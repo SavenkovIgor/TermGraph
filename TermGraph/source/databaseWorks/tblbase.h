@@ -11,7 +11,7 @@ using RecVector = QVector<QSqlRecord>;
 class TblBase
 {
 public:
-    TblBase(QString tableName, QSqlDatabase *base);
+    TblBase(QSqlDatabase *base);
     virtual ~TblBase() = default;
 
 protected:
@@ -52,8 +52,6 @@ protected:
 
 private:
     QSqlDatabase *base;
-    QScopedPointer<SqlQueryConstructor> queryConstructor;
-
     bool isColumnExist(const TColumn& column) const;
 
     QSqlQuery startQuery(const QString& queryString) const;
