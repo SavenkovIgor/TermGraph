@@ -2,21 +2,6 @@
 
 #include "source/databaseWorks/tools/dbtools.h"
 
-int TblBase::getIntField(const TColumn &column, const QUuid &uuid) const
-{
-    if (!isColumnExist(column)) {
-        return -1;
-    }
-
-    QSqlQuery sel = select(column, WhereCondition::uuidEqual(uuid));
-
-    if (!sel.next()) {
-        return -1;
-    }
-
-    return sel.record().value(column).toInt();
-}
-
 QString TblBase::getStringField(const TColumn& column, const QUuid& uuid) const
 {
     Q_ASSERT(isColumnExist(column));
@@ -145,14 +130,6 @@ bool TblBase::isColumnExist(const TColumn &column) const
     }
 
     return false;
-}
-
-void TblBase::checkCols()
-{
-    for (auto column : getAllColumns()) {
-        auto query = SqlQueryConstructor::addColumn(tableName(), column);
-        startQuery(query);
-    }
 }
 
 void TblBase::setField(const TColumn &column, const QUuid &uuid, const QString &val)

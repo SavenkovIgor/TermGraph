@@ -16,11 +16,9 @@ public:
 
 protected:
     QSqlQuery createTable();
-    void checkCols();
 
     void setField(const TColumn& column, const QUuid &uuid, const QString &val);
 
-    int getIntField(const TColumn& column, const QUuid& uuid) const;
     QString getStringField(const TColumn& column, const QUuid &uuid) const;
 
     QSqlQuery select(
