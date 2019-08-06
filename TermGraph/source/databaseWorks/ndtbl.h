@@ -35,16 +35,6 @@ public:
 
     bool updateNode(const NodeInfoContainer& info, LastEditSource lastEditSource, bool checkLastEdit = true);
 
-    void setName(const QUuid& uuid, const QString& name); // TODO: Try to delete
-    void setWordForms(const QUuid& uuid, const QString& forms);
-    void setDefinition(const QUuid& uuid, const QString& definition);
-    void setDescription(const QUuid& uuid, const QString& description);
-    void setExamples(const QUuid& uuid, const QString& example);
-    void setWikiRef(const QUuid& uuid, const QString& wikiRef);
-    void setWikiImg(const QUuid& uuid, const QString& wikiImage);
-    void setAtLearn(const QUuid& uuid, const bool& learn);
-    void setGroup(const QUuid& nodeUuid, const QUuid& groupUuid);
-
     int  getRemindNum(const QUuid& uuid);
     void setRemindNum(const QUuid& uuid, const int& num, const QDate& date);
 //    void setRemindToday(int uid);

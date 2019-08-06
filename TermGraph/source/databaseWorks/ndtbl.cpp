@@ -101,55 +101,6 @@ int NodeTable::getRemindNum(const QUuid &uuid)
     return rec.value(NodeColumn::remindNum).toInt();
 }
 
-void NodeTable::setName(const QUuid& uuid, const QString& name)
-{
-    setFieldUpdateLastEdit(NodeColumn::term, uuid, name);
-}
-
-void NodeTable::setWordForms(const QUuid& uuid, const QString& forms)
-{
-    setFieldUpdateLastEdit(NodeColumn::termForms, uuid, forms);
-}
-
-void NodeTable::setDefinition(const QUuid& uuid, const QString& definition)
-{
-    setFieldUpdateLastEdit(NodeColumn::definition, uuid, definition);
-}
-
-void NodeTable::setDescription(const QUuid& uuid, const QString& description)
-{
-    setFieldUpdateLastEdit(NodeColumn::description, uuid, description);
-}
-
-void NodeTable::setExamples(const QUuid& uuid, const QString& example)
-{
-    setFieldUpdateLastEdit(NodeColumn::examples, uuid, example);
-}
-
-void NodeTable::setWikiRef(const QUuid& uuid, const QString& wikiRef)
-{
-    setFieldUpdateLastEdit(NodeColumn::wikiUrl, uuid, wikiRef);
-}
-
-void NodeTable::setWikiImg(const QUuid& uuid, const QString& wikiImage)
-{
-    setFieldUpdateLastEdit(NodeColumn::wikiImage, uuid, wikiImage);
-}
-
-void NodeTable::setGroup(const QUuid& nodeUuid, const QUuid& groupUuid)
-{
-    setFieldUpdateLastEdit(NodeColumn::groupUuid, nodeUuid, groupUuid.toString());
-}
-
-void NodeTable::setAtLearn(const QUuid& uuid, const bool& learn)
-{
-    if (learn) {
-        setField(NodeColumn::atLearn, uuid, "1");
-    } else {
-        setField(NodeColumn::atLearn, uuid, "0");
-    }
-}
-
 // void NdTbl::setRemindToday(int uid)
 // {
 //     setRemindNum(uid, getRemindNum(uid) + 1, QDateTime::currentDateTime() );
@@ -301,6 +252,9 @@ bool NodeTable::updateNode(const NodeInfoContainer& info,
                            NodeTable::LastEditSource lastEditSource,
                            bool checkLastEdit)
 {
+    Q_ASSERT(!info.uuid.isNull());
+    Q_ASSERT(hasNodeWithUuid(info.uuid));
+
     if (info.uuid.isNull())
         return false;
 

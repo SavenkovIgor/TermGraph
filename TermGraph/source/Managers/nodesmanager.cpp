@@ -67,12 +67,17 @@ bool NodesManager::changeNode(
 {
     auto& db = Database::instance();
 
-    db.nodeTable->setName(nodeUuid, name);
-    db.nodeTable->setWordForms(nodeUuid, forms);
-    db.nodeTable->setDefinition(nodeUuid, definition);
-    db.nodeTable->setDescription(nodeUuid, description);
-    db.nodeTable->setExamples(nodeUuid, example);
-    db.nodeTable->setGroup(nodeUuid, groupUuid);
+    NodeInfoContainer info;
+
+    info.uuid = nodeUuid;
+    info.term = name;
+    info.termForms = forms;
+    info.definition = definition;
+    info.description = description;
+    info.examples = example;
+    info.groupUuid = groupUuid;
+
+    db.nodeTable->updateNode(info, NodeTable::LastEditSource::AutoGenerate, false);
 
     if (sendChangeSignal) {
         emit nodeChanged();
