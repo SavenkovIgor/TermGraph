@@ -28,6 +28,11 @@ QString SqlQueryConstructor::addColumn(const QString& tableName, const TColumn& 
     return qry.join(" ");
 }
 
+QString SqlQueryConstructor::dropTable(const QString& tableName)
+{
+    return "DROP TABLE " + tableName;
+}
+
 QString SqlQueryConstructor::selectQuery(const QString& tableName,
                                          const QStringList& columns,
                                          const WhereCondition& where,

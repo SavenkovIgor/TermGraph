@@ -13,9 +13,12 @@
 class SqlQueryConstructor
 {
 public:
+    // Tables
     static QString createTable(const QString& tableName, const TColumn::List& columns);
     static QString addColumn(const QString& tableName, const TColumn& column);
+    static QString dropTable(const QString& tableName);
 
+    // Data
     static QString selectQuery(const QString& tableName,
                                const QStringList& columns,
                                const WhereCondition& where,
