@@ -37,6 +37,8 @@ protected:
 
     void updateWhere(const SetExpression &set, const WhereCondition &where);
 
+    WhereCondition primaryKeyEqual(const QString &value);
+
     void deleteRecord(const QUuid& uuid);
     void deleteWhere(const WhereCondition& where);
 

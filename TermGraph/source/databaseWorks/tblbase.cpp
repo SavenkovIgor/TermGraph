@@ -109,6 +109,11 @@ void TblBase::updateWhere(const SetExpression& set, const WhereCondition& where)
     executeUpdate(set, where);
 }
 
+WhereCondition TblBase::primaryKeyEqual(const QString& value)
+{
+    return WhereCondition::columnEqual(primaryKey(), value);
+}
+
 void TblBase::deleteRecord(const QUuid &uuid)
 {
     auto query = SqlQueryConstructor::deleteByUuidQuery(tableName(), uuid);
