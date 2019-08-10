@@ -111,18 +111,3 @@ QString SqlQueryConstructor::deleteWhereQuery(const QString& tableName, const Wh
 
     return qry.join(" ");
 }
-
-QString SqlQueryConstructor::deleteByUuidQuery(const QString& tableName,
-                                               const QUuid& uuid,
-                                               const QString& primaryKeyName)
-{
-    QStringList qry;
-    qry << "DELETE FROM";
-    qry << tableName;
-    qry << "WHERE";
-    qry << primaryKeyName;
-    qry << "=";
-    qry << QueryTools::vv(uuid.toString());
-
-    return qry.join(" ");
-}

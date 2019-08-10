@@ -24,11 +24,8 @@ public:
     static QString insertQuery(const QString& tableName, const InsertContainer::List& values);
 
     static QString updateQuery(const QString& tableName,
-                        const SetExpression& set,
-                        const WhereCondition& where);
+                               const SetExpression& set,
+                               const WhereCondition& where);
 
     static QString deleteWhereQuery(const QString& tableName, const WhereCondition& where);
-    static QString deleteByUuidQuery(const QString& tableName,
-                                     const QUuid& uuid,
-                                     const QString& primaryKeyName = "longUID");
 };
