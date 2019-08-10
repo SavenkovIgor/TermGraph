@@ -11,14 +11,8 @@ NodeInfoContainer JsonNodeInfoContainerParser::fromJson(const QJsonObject& jsonO
     if (jsonObj.contains(NodeColumn::term))
         info.term = jsonObj[NodeColumn::term].toString();
 
-    if (jsonObj.contains("name")) // TODO: delete later. alternate form
-        info.term = jsonObj["name"].toString();
-
     if (jsonObj.contains(NodeColumn::termForms))
         info.termForms = jsonObj[NodeColumn::termForms].toString();
-
-    if (jsonObj.contains("nameForms")) // TODO: delete later. alternate form
-        info.termForms = jsonObj["nameForms"].toString();
 
     info.definition  = jsonObj[NodeColumn::definition].toString();
     info.description = jsonObj[NodeColumn::description].toString();

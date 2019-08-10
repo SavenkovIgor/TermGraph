@@ -113,16 +113,13 @@ QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
     return Database::instance().nodeTable->getLastEdit(nodeUuid);
 }
 
-void NodesManager::importNodeFromJson(QJsonObject nodeJson, QUuid groupUuid, bool importIfGroupNotExist)
+void NodesManager::importNodeFromJson(QJsonObject nodeJson, bool importIfGroupNotExist)
 {
     auto& db = Database::instance();
     auto info = JsonNodeInfoContainerParser::fromJson(nodeJson);
 
     if (info.uuid.isNull())
         return;
-
-    if (info.groupUuid.isNull())  // TODO: delete later
-        info.groupUuid = groupUuid;
 
     if (info.groupUuid.isNull())
         return;
