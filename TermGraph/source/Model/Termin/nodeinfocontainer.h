@@ -11,7 +11,6 @@ struct NodeInfoContainer
 
     QUuid uuid;
     QString term;
-    QString termForms;
     QString definition;
     QString description;
     QString examples;

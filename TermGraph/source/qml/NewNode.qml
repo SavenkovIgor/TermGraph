@@ -143,13 +143,6 @@ Page {
                     }
                 }
 
-                //            MyTextField {
-                //                id : termForms
-                //                labelText : "Грамматические формы:"
-                //                placeholderText: "[Альтернативные окончания термина, как слОва]"
-                //                text: newNode ? sceneObj.currentNode.termForms : ""
-                //            }
-
                 MyTextArea {
                     id: termDefin
                     labelText: "-это"

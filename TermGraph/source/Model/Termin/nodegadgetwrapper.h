@@ -11,7 +11,6 @@ class NodeGadgetWrapper
 public:
     Q_PROPERTY(QString uuid READ getUuid WRITE setUuid)
     Q_PROPERTY(QString term READ getTerm WRITE setTerm)
-    Q_PROPERTY(QString termForms READ getTermForms WRITE setTermForms)
     Q_PROPERTY(QString definition READ getDefinition WRITE setDefinition)
     Q_PROPERTY(QString description READ getDescription WRITE setDescription)
     Q_PROPERTY(QString examples READ getExamples WRITE setExamples)
@@ -30,10 +29,6 @@ public:
     // Term
     QString getTerm() const;
     void setTerm(const QString& term);
-
-    // TermForms
-    QString getTermForms() const;
-    void setTermForms(const QString& termForms);
 
     // Definition
     QString getDefinition() const;

@@ -403,15 +403,15 @@ void MainScene::createTestGroups()
 
     auto groupUuid = groupsMgr->getGroupUuid(groupName);
 
-    nodesMgr->addNewNode("1", "", "", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("2", "", "", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("3", "", "{1}{2}", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("4", "", "{1}{2}", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("5", "", "{1}", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("6", "", "{5}", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("7", "", "{5}", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("8", "", "{6}{7}", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("9", "", "", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("1", "", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("2", "", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("3", "{1}{2}", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("4", "{1}{2}", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("5", "{1}", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("6", "{5}", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("7", "{5}", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("8", "{6}{7}", "", "", groupUuid.toString());
+    nodesMgr->addNewNode("9", "", "", "", groupUuid.toString());
 }
 
 void MainScene::requestPaint(bool paintAll)

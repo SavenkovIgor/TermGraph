@@ -11,9 +11,6 @@ NodeInfoContainer JsonNodeInfoContainerParser::fromJson(const QJsonObject& jsonO
     if (jsonObj.contains(NodeColumn::term))
         info.term = jsonObj[NodeColumn::term].toString();
 
-    if (jsonObj.contains(NodeColumn::termForms))
-        info.termForms = jsonObj[NodeColumn::termForms].toString();
-
     info.definition  = jsonObj[NodeColumn::definition].toString();
     info.description = jsonObj[NodeColumn::description].toString();
     info.examples    = jsonObj[NodeColumn::examples].toString();
@@ -34,7 +31,6 @@ QJsonObject JsonNodeInfoContainerParser::toJson(const NodeInfoContainer &info)
 
     ret.insert(NodeColumn::uuid,        QJsonValue(info.uuid.toString()));
     ret.insert(NodeColumn::term,        QJsonValue(info.term));
-    ret.insert(NodeColumn::termForms,   QJsonValue(info.termForms));
     ret.insert(NodeColumn::definition,  QJsonValue(info.definition));
     ret.insert(NodeColumn::description, QJsonValue(info.description));
     ret.insert(NodeColumn::examples,    QJsonValue(info.examples));

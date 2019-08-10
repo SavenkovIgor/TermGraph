@@ -70,7 +70,6 @@ QUuid NodeTable::addNode(const NodeInfoContainer& info)
 
     values.push_back(InsertContainer(NodeColumn::uuid, nodeUuid.toString()));
     values.push_back(InsertContainer(NodeColumn::term, info.term));
-    values.push_back(InsertContainer(NodeColumn::termForms, info.termForms));
     values.push_back(InsertContainer(NodeColumn::definition, info.definition));
     values.push_back(InsertContainer(NodeColumn::description, info.description));
     values.push_back(InsertContainer(NodeColumn::examples, info.examples));
@@ -271,7 +270,6 @@ bool NodeTable::updateNode(const NodeInfoContainer& info,
     SetExpression set;
 
     set.set(NodeColumn::term, info.term);
-    set.set(NodeColumn::termForms, info.termForms);
     set.set(NodeColumn::definition, info.definition);
     set.set(NodeColumn::description, info.description);
     set.set(NodeColumn::examples, info.examples);
@@ -310,7 +308,6 @@ NodeInfoContainer NodeTable::recordToNodeInfo(QSqlRecord& record)
 
     info.uuid        = QUuid(record.value(NodeColumn::uuid).toString());
     info.term        = record.value(NodeColumn::term).toString();
-    info.termForms   = record.value(NodeColumn::termForms).toString();
     info.definition  = record.value(NodeColumn::definition).toString();
     info.description = record.value(NodeColumn::description).toString();
     info.examples    = record.value(NodeColumn::examples).toString();

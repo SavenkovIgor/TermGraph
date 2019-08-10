@@ -158,21 +158,6 @@ int InfoTerm::getLevelDaysFromBase(int lvl)
     return ret;
 }
 
-QStringList InfoTerm::termFormsList() const
-{
-    QStringList ret;
-    ret << info.term;
-
-    QStringList tmp = info.termForms.split(";", QString::SkipEmptyParts);
-    for (QString s : tmp) {
-        ret << s.simplified();
-    }
-
-    ret.removeDuplicates();
-
-    return ret;
-}
-
 QString InfoTerm::getDefinition() const
 {
     return info.definition;

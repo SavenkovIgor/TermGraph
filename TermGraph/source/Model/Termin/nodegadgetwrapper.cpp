@@ -24,16 +24,6 @@ void NodeGadgetWrapper::setTerm(const QString& term)
     _info.term = term;
 }
 
-QString NodeGadgetWrapper::getTermForms() const
-{
-    return _info.termForms;
-}
-
-void NodeGadgetWrapper::setTermForms(const QString& termForms)
-{
-    _info.termForms = termForms;
-}
-
 QString NodeGadgetWrapper::getDefinition() const
 {
     return _info.definition;

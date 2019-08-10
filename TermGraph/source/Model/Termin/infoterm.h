@@ -25,7 +25,6 @@ public:
     QUuid getGroupUuid() const;
     QString getTermAndDefinition(bool decorated = false) const;
     QString getSmallName();  // Lazy
-    QStringList termFormsList() const;
 
     QString getDefinition() const;
     QStringList getDefinitionTags() const;

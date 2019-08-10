@@ -102,16 +102,14 @@ PaintedTerm *TermGroupInfo::getRootNodeForTag(const QString &tag)
     PaintedTerm* targetTerm = nullptr;
 
     for (auto node : nodesList) {
+        auto termName = node->getTerm();
 
-        for (auto& termName : node->termFormsList()) {  // TODO: Переименовать при случае
+        if (termName.size() == tag.size() && termName == tag)
+            return node;
 
-            if (termName.size() == tag.size() && termName == tag) {
-                return node;
-            }
-
-            if (TagProcessor::isTagCorrespondToTermName(termName, tag)) {  // TODO: Rework comparsion scheme!
-                targetTerm = node;
-            }
+        // TODO: Rework comparsion scheme!
+        if (TagProcessor::isTagCorrespondToTermName(termName, tag)) {
+            targetTerm = node;
         }
     }
 

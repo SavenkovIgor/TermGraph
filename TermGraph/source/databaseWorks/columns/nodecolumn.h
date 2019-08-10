@@ -8,7 +8,6 @@ public:
     constexpr static auto uid         = TColumn("uid",         "INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL");
     constexpr static auto uuid        = TColumn("longUID",     "TEXT");
     constexpr static auto term        = TColumn("term",        "TEXT");
-    constexpr static auto termForms   = TColumn("termForms",   "TEXT");
     constexpr static auto definition  = TColumn("definition",  "TEXT");
     constexpr static auto description = TColumn("description", "TEXT");
     constexpr static auto examples    = TColumn("examples",    "TEXT");
@@ -24,7 +23,6 @@ public:
         uid,
         uuid,
         term,
-        termForms,
         definition,
         description,
         examples,

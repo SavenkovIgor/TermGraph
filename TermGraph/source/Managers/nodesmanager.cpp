@@ -7,14 +7,12 @@ NodesManager::NodesManager(QObject* parent)
     : QObject(parent)
 {}
 
-bool NodesManager::addNewNode(
-        const QString &name,
-        const QString &forms,
-        const QString &def,
-        const QString &descr,
-        const QString &exam,
-        const QString &groupUuidString,
-        const bool &sendChangeSignal)
+bool NodesManager::addNewNode(const QString& name,
+                              const QString& def,
+                              const QString& descr,
+                              const QString& exam,
+                              const QString& groupUuidString,
+                              const bool& sendChangeSignal)
 {
     QUuid groupUuid = QUuid(groupUuidString);
 
@@ -25,18 +23,16 @@ bool NodesManager::addNewNode(
         return false;
 
     QUuid nodeUuid = Database::instance().nodeTable->addNode(name, groupUuid);
-    return changeNode(nodeUuid, name, forms, def, descr, exam, groupUuid, sendChangeSignal);
+    return changeNode(nodeUuid, name, def, descr, exam, groupUuid, sendChangeSignal);
 }
 
-bool NodesManager::changeNode(
-        const QUuid &nodeUuid,
-        const QString &name,
-        const QString &forms,
-        const QString &definition,
-        const QString &description,
-        const QString &example,
-        const QString &groupUuidString,
-        const bool &sendChangeSignal)
+bool NodesManager::changeNode(const QUuid& nodeUuid,
+                              const QString& name,
+                              const QString& definition,
+                              const QString& description,
+                              const QString& example,
+                              const QString& groupUuidString,
+                              const bool& sendChangeSignal)
 {
     QUuid groupUuid = QUuid(groupUuidString);
 
@@ -52,18 +48,16 @@ bool NodesManager::changeNode(
         }
     }
 
-    return changeNode(nodeUuid, name, forms, definition, description, example, groupUuid, sendChangeSignal);
+    return changeNode(nodeUuid, name, definition, description, example, groupUuid, sendChangeSignal);
 }
 
-bool NodesManager::changeNode(
-        const QUuid& nodeUuid,
-        const QString& name,
-        const QString& forms,
-        const QString& definition,
-        const QString& description,
-        const QString& example,
-        const QUuid& groupUuid,
-        const bool& sendChangeSignal)
+bool NodesManager::changeNode(const QUuid& nodeUuid,
+                              const QString& name,
+                              const QString& definition,
+                              const QString& description,
+                              const QString& example,
+                              const QUuid& groupUuid,
+                              const bool& sendChangeSignal)
 {
     auto& db = Database::instance();
 
@@ -71,7 +65,6 @@ bool NodesManager::changeNode(
 
     info.uuid = nodeUuid;
     info.term = name;
-    info.termForms = forms;
     info.definition = definition;
     info.description = description;
     info.examples = example;
