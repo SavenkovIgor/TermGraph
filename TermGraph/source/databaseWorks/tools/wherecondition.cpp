@@ -5,13 +5,6 @@ WhereCondition::WhereCondition(const ConditionType& type)
     this->type = type;
 }
 
-WhereCondition WhereCondition::uuidEqual(const QUuid& uuid)
-{
-    WhereCondition where;
-    where.equal(TColumn("longUID"), uuid.toString());
-    return where;
-}
-
 WhereCondition WhereCondition::columnEqual(const TColumn& column, const QString& value)
 {
     WhereCondition where;

@@ -2,11 +2,11 @@
 
 #include "source/databaseWorks/tools/dbtools.h"
 
-QString TblBase::getStringField(const TColumn& column, const QUuid& uuid) const
+QString TblBase::getStringField(const TColumn& column, const QString &key) const
 {
     Q_ASSERT(isColumnExist(column));
 
-    QSqlQuery sel = select(column, WhereCondition::uuidEqual(uuid));
+    QSqlQuery sel = select(column, primaryKeyEqual(key));
 
     if (!sel.next()) {
         return "";
@@ -109,7 +109,7 @@ void TblBase::updateWhere(const SetExpression& set, const WhereCondition& where)
     executeUpdate(set, where);
 }
 
-WhereCondition TblBase::primaryKeyEqual(const QString& value)
+WhereCondition TblBase::primaryKeyEqual(const QString& value) const
 {
     return WhereCondition::columnEqual(primaryKey(), value);
 }
@@ -137,12 +137,12 @@ bool TblBase::isColumnExist(const TColumn &column) const
     return false;
 }
 
-void TblBase::setField(const TColumn &column, const QUuid &uuid, const QString &val)
+void TblBase::setField(const TColumn& column, const QString& key, const QString& val)
 {
     SetExpression set;
     set.set(column, val);
 
-    updateWhere(set, WhereCondition::uuidEqual(uuid));
+    updateWhere(set, primaryKeyEqual(key));
 }
 
 RecVector TblBase::toRecVector(QSqlQuery&& q)

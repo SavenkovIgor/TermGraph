@@ -121,18 +121,18 @@ TColumn::List NodeTable::getAllColumns() const
 
 void NodeTable::setFieldUpdateLastEdit(const TColumn &column, const QUuid &uuid, const QString &val)
 {
-    setField(column, uuid, val);
+    setField(column, uuid.toString(), val);
     updateLastEdit(uuid);
 }
 
 void NodeTable::updateLastEdit(const QUuid& uuid)
 {
-    setField(NodeColumn::lastEdit, uuid, getLastEditNowString());
+    setField(NodeColumn::lastEdit, uuid.toString(), getLastEditNowString());
 }
 
 bool NodeTable::isUuidExist(const QUuid &uuid)
 {
-    return hasAnyRecord(WhereCondition::uuidEqual(uuid));
+    return hasAnyRecord(whereUuidEqual(uuid));
 }
 
 QUuid NodeTable::generateNewUuid()
@@ -184,8 +184,7 @@ NodeInfoContainer NodeTable::getNode(const QUuid& uuid)
 
     NodeInfoContainer info;
 
-    auto where = WhereCondition::uuidEqual(uuid);
-    auto records = toRecVector(select(getAllColumns(), where));
+    auto records = toRecVector(select(getAllColumns(), whereUuidEqual(uuid)));
 
     if (records.isEmpty())
         return info;
@@ -212,7 +211,7 @@ NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
 
 QDateTime NodeTable::getLastEdit(const QUuid &uuid)
 {
-    auto field = getStringField(NodeColumn::lastEdit, uuid);
+    auto field = getStringField(NodeColumn::lastEdit, uuid.toString());
 
     if (field.isEmpty())
         return QDateTime();
@@ -267,14 +266,14 @@ bool NodeTable::updateNode(const NodeInfoContainer& info,
         break;
     }
 
-    updateWhere(set, WhereCondition::uuidEqual(info.uuid));
+    updateWhere(set, whereUuidEqual(info.uuid));
 
     return true;
 }
 
 QSqlRecord NodeTable::getNodeSqlRecord(const QUuid &uuid)
 {
-    QSqlQuery sel = select(getAllColumns(), WhereCondition::uuidEqual(uuid));
+    QSqlQuery sel = select(getAllColumns(), whereUuidEqual(uuid));
 
     if (!sel.next()) {
         return QSqlRecord();
@@ -298,6 +297,11 @@ NodeInfoContainer NodeTable::recordToNodeInfo(QSqlRecord& record)
     info.lastEdit    = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
 
     return info;
+}
+
+WhereCondition NodeTable::whereUuidEqual(const QUuid& uuid)
+{
+    return primaryKeyEqual(uuid.toString());
 }
 
 bool NodeTable::hasNodeWithUuid(const QUuid &uuid)

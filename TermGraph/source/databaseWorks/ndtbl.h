@@ -56,4 +56,6 @@ private:
     QSqlRecord getNodeSqlRecord(const QUuid& uuid);  // TODO: Delete!
 
     NodeInfoContainer recordToNodeInfo(QSqlRecord& record);
+
+    WhereCondition whereUuidEqual(const QUuid& uuid);
 };

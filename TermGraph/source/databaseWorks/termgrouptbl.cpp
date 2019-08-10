@@ -40,7 +40,7 @@ bool TermGroupTable::updateGroup(const GroupInfoContainer &info)
     set.set(TermGroupColumn::comment, info.comment);
     set.set(TermGroupColumn::type,    static_cast<int>(info.type));
 
-    updateWhere(set, WhereCondition::uuidEqual(info.uuid));
+    updateWhere(set, whereUuidEqual(info.uuid));
 
     return true;
 }
@@ -60,14 +60,14 @@ UuidList TermGroupTable::getAllUuids()
     return ret;
 }
 
-void TermGroupTable::deleteGroup(const QUuid &uuid)
+void TermGroupTable::deleteGroup(const QUuid& uuid)
 {
-    deleteWhere(WhereCondition::uuidEqual(uuid));
+    deleteWhere(whereUuidEqual(uuid));
 }
 
 bool TermGroupTable::hasGroupWithUuid(const QUuid& uuid)
 {
-    return hasAnyRecord(WhereCondition::uuidEqual(uuid));
+    return hasAnyRecord(whereUuidEqual(uuid));
 }
 
 QUuid TermGroupTable::generateNewUuid()
@@ -135,7 +135,7 @@ GroupInfoContainer TermGroupTable::getGroup(const QUuid& uuid)
 {
     GroupInfoContainer info;
 
-    QSqlQuery sel = select(getAllColumns(), WhereCondition::uuidEqual(uuid));
+    QSqlQuery sel = select(getAllColumns(), whereUuidEqual(uuid));
 
     if (!sel.next())
         return info;
@@ -148,4 +148,9 @@ GroupInfoContainer TermGroupTable::getGroup(const QUuid& uuid)
     info.type = static_cast<GroupType>(rec.value(TermGroupColumn::type).toInt());
 
     return info;
+}
+
+WhereCondition TermGroupTable::whereUuidEqual(const QUuid& uuid)
+{
+    return primaryKeyEqual(uuid.toString());
 }

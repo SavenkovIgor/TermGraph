@@ -16,7 +16,6 @@ public:
     WhereCondition(const ConditionType& type = ConditionType::And);
 
     // Build methods
-    static WhereCondition uuidEqual(const QUuid& uuid);
     static WhereCondition columnEqual(const TColumn& column, const QString& value);
     static WhereCondition columnEqual(const TColumn& column, const int& value);
 

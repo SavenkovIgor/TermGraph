@@ -17,9 +17,9 @@ public:
 protected:
     QSqlQuery createTable();
 
-    void setField(const TColumn& column, const QUuid &uuid, const QString &val);
+    void setField(const TColumn& column, const QString &key, const QString &val);
 
-    QString getStringField(const TColumn& column, const QUuid &uuid) const;
+    QString getStringField(const TColumn& column, const QString& key) const;
 
     QSqlQuery select(
             const TColumn& column,
@@ -37,7 +37,7 @@ protected:
 
     void updateWhere(const SetExpression &set, const WhereCondition &where);
 
-    WhereCondition primaryKeyEqual(const QString &value);
+    WhereCondition primaryKeyEqual(const QString &value) const;
 
     void deleteRecord(const QUuid& uuid);
     void deleteWhere(const WhereCondition& where);

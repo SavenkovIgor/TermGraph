@@ -38,4 +38,6 @@ protected:
 
 private:
     QUuid generateNewUuid();
+
+    WhereCondition whereUuidEqual(const QUuid& uuid);
 };
