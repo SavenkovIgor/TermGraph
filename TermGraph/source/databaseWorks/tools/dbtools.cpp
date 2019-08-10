@@ -1,10 +1,21 @@
 #include "dbtools.h"
 
 #include <QSqlError>
+#include <QDebug>
+
+void DbTools::startTransaction(QSqlDatabase *base)
+{
+    startQuery(base, "BEGIN TRANSACTION");
+}
+
+void DbTools::endTransaction(QSqlDatabase *base)
+{
+    startQuery(base, "END TRANSACTION");
+}
 
 QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
 {
-    //    qDebug() << queryString;
+    qDebug() << queryString;
     Q_ASSERT(base != nullptr);
     Q_ASSERT(!queryString.simplified().isEmpty());
 
