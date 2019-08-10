@@ -58,7 +58,6 @@ Page {
 
         var success = nodesManager.addNewNode(
                     termName.text,
-                    "",
                     termDefin.text,
                     termDescr.text,
                     termExampl.text,

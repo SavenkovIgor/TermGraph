@@ -57,7 +57,6 @@ Page {
         var success = nodesManager.changeNode(
                     nodeUuidText.text,
                     termName.text,
-                    "",
                     termDefin.text,
                     termDescr.text,
                     termExampl.text,
