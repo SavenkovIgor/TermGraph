@@ -10,8 +10,20 @@ struct TColumn
     const char* name;  // Name of column
     const char* type;  // Type description of column
 
-    constexpr TColumn(const char* name, const char* type) : name(name), type(type) { }
-    constexpr TColumn(const TColumn& col) : name(col.name), type(col.type) { }
+    TColumn(const char* name)
+        : name(name)
+        , type("")
+    {}
+
+    constexpr TColumn(const char* name, const char* type)
+        : name(name)
+        , type(type)
+    {}
+
+    constexpr TColumn(const TColumn& col)
+        : name(col.name)
+        , type(col.type)
+    {}
 
     operator QString() const {
         return QString(name);

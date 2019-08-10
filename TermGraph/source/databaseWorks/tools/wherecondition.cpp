@@ -8,7 +8,7 @@ WhereCondition::WhereCondition(const ConditionType& type)
 WhereCondition WhereCondition::uuidEqual(const QUuid& uuid)
 {
     WhereCondition where;
-    where.equal(TColumn("longUID", ""), uuid.toString());
+    where.equal(TColumn("longUID"), uuid.toString());
     return where;
 }
 
