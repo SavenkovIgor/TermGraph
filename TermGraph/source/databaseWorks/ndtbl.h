@@ -34,11 +34,6 @@ public:
     RecVector getAllLastEditRecords();
 
     bool updateNode(const NodeInfoContainer& info, LastEditSource lastEditSource, bool checkLastEdit = true);
-
-    int  getRemindNum(const QUuid& uuid);
-    void setRemindNum(const QUuid& uuid, const int& num, const QDate& date);
-//    void setRemindToday(int uid);
-
     void deleteNode(const QUuid& uuid);
 
     const char* tableName() const override;

@@ -90,30 +90,6 @@ QUuid NodeTable::addNode(const NodeInfoContainer& info)
     return info.uuid;
 }
 
-int NodeTable::getRemindNum(const QUuid &uuid)
-{
-    QSqlRecord rec = getNodeSqlRecord(uuid);
-
-    if (rec.isEmpty()) {
-        return -1;
-    }
-    return rec.value(NodeColumn::remindNum).toInt();
-}
-
-// void NdTbl::setRemindToday(int uid)
-// {
-//     setRemindNum(uid, getRemindNum(uid) + 1, QDateTime::currentDateTime() );
-// }
-
-void NodeTable::setRemindNum(const QUuid& uuid, const int& num, const QDate& date)
-{
-    SetExpression set;
-    set.set(NodeColumn::remindNum, num);
-    set.set(NodeColumn::lastRemind, date.toString());
-
-    updateWhere(set, WhereCondition::uuidEqual(uuid));
-}
-
 void NodeTable::deleteNode(const QUuid& uuid)
 {
     deleteRecord(uuid);
