@@ -92,7 +92,7 @@ QUuid NodeTable::addNode(const NodeInfoContainer& info)
 
 void NodeTable::deleteNode(const QUuid& uuid)
 {
-    deleteRecord(uuid.toString());
+    deleteByKey(uuid.toString());
 }
 
 const char* NodeTable::tableName() const

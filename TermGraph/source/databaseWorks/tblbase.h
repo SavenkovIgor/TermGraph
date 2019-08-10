@@ -39,7 +39,7 @@ protected:
 
     WhereCondition primaryKeyEqual(const QString &value) const;
 
-    void deleteRecord(const QString &key);
+    void deleteByKey(const QString &key);
     void deleteWhere(const WhereCondition& where);
 
     static RecVector toRecVector(QSqlQuery&& q);

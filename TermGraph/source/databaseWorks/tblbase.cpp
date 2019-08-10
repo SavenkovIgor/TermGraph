@@ -114,7 +114,7 @@ WhereCondition TblBase::primaryKeyEqual(const QString& value) const
     return WhereCondition::columnEqual(primaryKey(), value);
 }
 
-void TblBase::deleteRecord(const QString& key)
+void TblBase::deleteByKey(const QString& key)
 {
     auto query = SqlQueryConstructor::deleteWhereQuery(tableName(), primaryKeyEqual(key));
     startQuery(query);
