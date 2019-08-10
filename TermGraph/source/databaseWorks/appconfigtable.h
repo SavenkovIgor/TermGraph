@@ -9,10 +9,7 @@ public:
     constexpr static auto parameter = TColumn("parameter", "TEXT UNIQUE");
     constexpr static auto value     = TColumn("value", "TEXT");
 
-    constexpr static TColumn columns[] = {
-        parameter,
-        value
-    };
+    constexpr static TColumn columns[] = {parameter, value};
 };
 
 class AppConfigTable : public TblBase
@@ -31,6 +28,7 @@ public:
 
 protected:
     const char* tableName() const override;
+    TColumn primaryKey() const override;
     TColumn::List getAllColumns() const override;
 
 private:

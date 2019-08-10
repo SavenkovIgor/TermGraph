@@ -30,6 +30,7 @@ public:
     bool hasGroupWithName(const QString& groupName);
 
     const char* tableName() const override;
+    TColumn primaryKey() const override;
     void initTable() override;
 
 protected:

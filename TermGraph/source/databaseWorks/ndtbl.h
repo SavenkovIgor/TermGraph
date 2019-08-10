@@ -37,6 +37,7 @@ public:
     void deleteNode(const QUuid& uuid);
 
     const char* tableName() const override;
+    TColumn primaryKey() const override;
     void initTable() override;
 
 protected:

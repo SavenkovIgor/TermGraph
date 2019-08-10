@@ -27,6 +27,11 @@ const char* AppConfigTable::tableName() const
     return TableName::CONFIG;
 }
 
+TColumn AppConfigTable::primaryKey() const
+{
+    return AppConfigColumn::parameter;
+}
+
 TColumn::List AppConfigTable::getAllColumns() const
 {
     TColumn::List lst;

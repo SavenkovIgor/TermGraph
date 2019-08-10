@@ -112,6 +112,11 @@ const char* TermGroupTable::tableName() const
     return TableName::GROUPS;
 }
 
+TColumn TermGroupTable::primaryKey() const
+{
+    return TermGroupColumn::uuid;
+}
+
 void TermGroupTable::initTable()
 {
     createTable();
