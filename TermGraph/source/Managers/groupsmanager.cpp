@@ -329,7 +329,7 @@ void GroupsManager::updateGroupUuidNameMaps()
     namesToUuid.clear();
 
     for (auto sqlRecord : Database::instance().groupTable->getAllUuidsAndNames()) {
-        QUuid uuid(sqlRecord.value(TermGroupColumn::longUID).toString());
+        QUuid uuid(sqlRecord.value(TermGroupColumn::uuid).toString());
         QString name = sqlRecord.value(TermGroupColumn::name).toString();
 
         uuidToNames.insert(uuid, name);

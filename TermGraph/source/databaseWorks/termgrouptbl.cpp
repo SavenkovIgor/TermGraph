@@ -18,7 +18,7 @@ bool TermGroupTable::addGroup(const GroupInfoContainer &info)
 
     InsertContainer::List values;
 
-    values.push_back(InsertContainer(TermGroupColumn::longUID, groupUuid.toString()));
+    values.push_back(InsertContainer(TermGroupColumn::uuid, groupUuid.toString()));
     values.push_back(InsertContainer(TermGroupColumn::name,    info.name));
     values.push_back(InsertContainer(TermGroupColumn::comment, info.comment));
     values.push_back(InsertContainer(TermGroupColumn::type,    static_cast<int>(info.type)));
@@ -48,10 +48,10 @@ bool TermGroupTable::updateGroup(const GroupInfoContainer &info)
 UuidList TermGroupTable::getAllUuids()
 {
     UuidList ret;
-    auto records = toRecVector(select(TermGroupColumn::longUID));
+    auto records = toRecVector(select(TermGroupColumn::uuid));
 
     for (const auto& record : records) {
-        QUuid uuid(record.value(TermGroupColumn::longUID).toString());
+        QUuid uuid(record.value(TermGroupColumn::uuid).toString());
         if (!uuid.isNull()) {
             ret.push_back(uuid);
         }
@@ -85,18 +85,18 @@ QUuid TermGroupTable::generateNewUuid()
 QUuid TermGroupTable::getUuid(const QString& groupName) const
 {
     auto where = WhereCondition::columnEqual(TermGroupColumn::name, groupName);
-    QSqlQuery q = select(TermGroupColumn::longUID, where);
+    QSqlQuery q = select(TermGroupColumn::uuid, where);
     if (!q.next()) {
         return QUuid();
     }
 
-    return QUuid(q.record().value(TermGroupColumn::longUID).toString());
+    return QUuid(q.record().value(TermGroupColumn::uuid).toString());
 }
 
 RecVector TermGroupTable::getAllUuidsAndNames()
 {
     TColumn::List columns;
-    columns << TermGroupColumn::longUID;
+    columns << TermGroupColumn::uuid;
     columns << TermGroupColumn::name;
     auto sel = select(columns);
     return toRecVector(std::move(sel));
@@ -137,7 +137,7 @@ GroupInfoContainer TermGroupTable::getGroup(const QUuid& uuid)
 
     auto rec = sel.record();
 
-    info.uuid = QUuid(rec.value(TermGroupColumn::longUID).toString());
+    info.uuid = QUuid(rec.value(TermGroupColumn::uuid).toString());
     info.name = rec.value(TermGroupColumn::name).toString();
     info.comment = rec.value(TermGroupColumn::comment).toString();
     info.type = static_cast<GroupType>(rec.value(TermGroupColumn::type).toInt());
