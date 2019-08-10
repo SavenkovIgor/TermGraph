@@ -1,7 +1,7 @@
 #include "dbtools.h"
 
 #include <QSqlError>
-#include <QDebug>
+//#include <QDebug>
 
 void DbTools::startTransaction(QSqlDatabase *base)
 {
@@ -15,7 +15,7 @@ void DbTools::endTransaction(QSqlDatabase *base)
 
 QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
 {
-    qDebug() << queryString;
+//    qDebug() << queryString;
     Q_ASSERT(base != nullptr);
     Q_ASSERT(!queryString.simplified().isEmpty());
 
