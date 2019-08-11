@@ -121,7 +121,7 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
     importGroupFromJson(doc);
 }
 
-bool GroupsManager::isValidGroupJson(const QJsonDocument json)
+bool GroupsManager::isValidGroupJson(const QJsonDocument json) // TODO: Rework!
 {
     QJsonObject jsonGroup = json.object();
 
@@ -129,8 +129,6 @@ bool GroupsManager::isValidGroupJson(const QJsonDocument json)
     if (
             jsonGroup.contains("name") &&
             jsonGroup.value("name").isString() &&
-            jsonGroup.contains("type") &&
-            jsonGroup.value("type").isDouble() &&
             jsonGroup.contains("nodesList") &&
             jsonGroup.value("nodesList").isArray()
             ) {
@@ -310,7 +308,7 @@ QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid)
 
     QJsonArray nodesArray;
 
-    for (auto nodeUuid : nodesUuids) {
+    for (const auto& nodeUuid : nodesUuids) {
         auto nodeJson = nodesMgr->getNodeJson(nodeUuid);
         nodesArray.append(nodeJson);
     }

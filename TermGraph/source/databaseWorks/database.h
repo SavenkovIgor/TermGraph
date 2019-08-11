@@ -10,6 +10,8 @@
 #include "source/Helpers/appconfig.h"
 #include "source/Helpers/fsworks.h"
 
+// TODO: Move db version here
+// TODO: JSON send version must be synced with db version
 // Singleton!
 class Database
 {
