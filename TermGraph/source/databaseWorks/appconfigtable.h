@@ -7,7 +7,7 @@ class AppConfigColumn
 {
 public:
     constexpr static auto parameter = TColumn("parameter", "TEXT UNIQUE");
-    constexpr static auto value     = TColumn("value", "TEXT");
+    constexpr static auto value     = TColumn("value",     "TEXT");
 
     constexpr static TColumn columns[] = {parameter, value};
 };
@@ -34,7 +34,7 @@ protected:
 private:
     constexpr static auto dbVersionPropertyName = "dbVersion";
     constexpr static auto startDbVersion = 1;
-    constexpr static auto dbVersion = 1;
+    constexpr static auto dbVersion = 2;
 
     // Values works
     bool hasKey(const QString& key);

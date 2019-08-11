@@ -42,4 +42,8 @@ private:
     void makeBackupBeforeUpdate(const QString& filePath, const int& oldDbVersion);
     void makeDbUpdate();
     void execMigrationConditions(const int& currentDbVersion);
+
+    // Migrations
+    void updateNodesToSecondVersion();
+    void updateGroupsToSecondVersion();
 };
