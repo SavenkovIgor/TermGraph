@@ -53,30 +53,6 @@ void TermGroup::initNewNodes()
     connect(&animTimer, &QTimer::timeout, this, &TermGroup::animateGroup);
 }
 
-QString TermGroup::getTypeString()
-{
-    return getTypesMap()[getType()];
-}
-
-QStringList TermGroup::getTypesNames()
-{
-    QMap<GroupType, QString> map = getTypesMap();
-    QStringList ret;
-    for (QString s : map) {
-        ret << s;
-    }
-
-    return ret;
-}
-
-QMap<GroupType, QString> TermGroup::getTypesMap()
-{
-    QMap<GroupType, QString> ret;
-    ret[GroupType::freeEdges] = "Свободные связи";
-    ret[GroupType::terms]     = "Термины";
-    return ret;
-}
-
 void TermGroup::loadNodes(PaintedTerm::List newNodes)
 {
     clearNodesList();
@@ -367,8 +343,5 @@ QColor TermGroup::getGroupColor()
 
 QColor TermGroup::getGroupFillColor()
 {
-    switch (getType()) {
-    case GroupType::freeEdges: return AppStyle::Colors::Groups::backgroundFreeConnections;
-    case GroupType::terms: return AppStyle::Colors::Groups::backgroundTerms;
-    }
+    return AppStyle::Colors::Groups::backgroundTerms;
 }

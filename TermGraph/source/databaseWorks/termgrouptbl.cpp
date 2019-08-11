@@ -6,11 +6,10 @@ bool TermGroupTable::addGroup(const GroupInfoContainer &info)
 {
     QUuid groupUuid = info.uuid;
 
-    if (groupUuid.isNull()) {
+    if (groupUuid.isNull())
         groupUuid = generateNewUuid();
-    }
 
-    if (info.name.simplified() == "")
+    if (info.name.simplified().isEmpty())
         return false;
 
     if (hasGroupWithName(info.name))
@@ -21,7 +20,6 @@ bool TermGroupTable::addGroup(const GroupInfoContainer &info)
     values.push_back(InsertContainer(TermGroupColumn::uuid, groupUuid.toString()));
     values.push_back(InsertContainer(TermGroupColumn::name,    info.name));
     values.push_back(InsertContainer(TermGroupColumn::comment, info.comment));
-    values.push_back(InsertContainer(TermGroupColumn::type,    static_cast<int>(info.type)));
 
     return insertInto(values);
 }
@@ -38,7 +36,6 @@ bool TermGroupTable::updateGroup(const GroupInfoContainer &info)
 
     set.set(TermGroupColumn::name,    info.name);
     set.set(TermGroupColumn::comment, info.comment);
-    set.set(TermGroupColumn::type,    static_cast<int>(info.type));
 
     updateWhere(set, whereUuidEqual(info.uuid));
 
@@ -145,7 +142,6 @@ GroupInfoContainer TermGroupTable::getGroup(const QUuid& uuid)
     info.uuid = QUuid(rec.value(TermGroupColumn::uuid).toString());
     info.name = rec.value(TermGroupColumn::name).toString();
     info.comment = rec.value(TermGroupColumn::comment).toString();
-    info.type = static_cast<GroupType>(rec.value(TermGroupColumn::type).toInt());
 
     return info;
 }

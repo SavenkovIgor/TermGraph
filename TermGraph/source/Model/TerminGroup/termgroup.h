@@ -26,10 +26,6 @@ public:
 
     RectGraphicItem *baseRect;
 
-    QString getTypeString();
-    static QStringList getTypesNames();
-    static QMap<GroupType, QString> getTypesMap();
-
     QString getNameLabel();
     QPointF getNamePos();
     QRectF getGroupRect() const;

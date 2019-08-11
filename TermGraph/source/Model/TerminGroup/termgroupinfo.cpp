@@ -29,11 +29,6 @@ QString TermGroupInfo::getName() const
     return info.name;
 }
 
-GroupType TermGroupInfo::getType() const
-{
-    return info.type;
-}
-
 PaintedTerm::List TermGroupInfo::getAllNodes() const
 {
     return nodesList;
@@ -118,9 +113,7 @@ PaintedTerm *TermGroupInfo::getRootNodeForTag(const QString &tag)
 
 void TermGroupInfo::loadEdges()
 {
-    if (getType() == GroupType::terms) {
-        edgesList << searchAllConnections();
-    }
+    edgesList << searchAllConnections();
 }
 
 void TermGroupInfo::removeCycles()

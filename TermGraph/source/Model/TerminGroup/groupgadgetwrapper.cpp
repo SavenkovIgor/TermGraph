@@ -34,16 +34,6 @@ void GroupGadgetWrapper::setComment(const QString& comment)
     _info.comment = comment;
 }
 
-GroupType GroupGadgetWrapper::getType() const
-{
-    return _info.type;
-}
-
-void GroupGadgetWrapper::setType(const GroupType& type)
-{
-    _info.type = type;
-}
-
 GroupInfoContainer GroupGadgetWrapper::unwrap() const
 {
     return _info;

@@ -87,7 +87,6 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 
     info.name    = name;
     info.comment = comment;
-    info.type    = GroupType::terms;
 
     if (Database::instance().groupTable->addGroup(info)) {
         updateGroupUuidNameMaps();

@@ -19,7 +19,6 @@ public:
     // Group info
     QUuid getUuid() const;
     QString getName() const;
-    GroupType getType() const;
 
     // Group content
     PaintedTerm::List getAllNodes() const;
