@@ -39,6 +39,7 @@ QUuid NodeTable::addNode(const QUuid& uuid, const QString& name, const QUuid& gr
     values.push_back(InsertContainer(NodeColumn::uuid, uuid.toString()));
     values.push_back(InsertContainer(NodeColumn::term, name));
     values.push_back(InsertContainer(NodeColumn::groupUuid, groupUuid.toString()));
+    values.push_back(InsertContainer(NodeColumn::lastEdit, getLastEditNowString()));
 
     insertInto(values);
 
