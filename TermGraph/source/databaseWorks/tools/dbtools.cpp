@@ -3,6 +3,8 @@
 #include <QSqlError>
 //#include <QDebug>
 
+#include "source/databaseWorks/sqlqueryconstructor.h"
+
 void DbTools::startTransaction(QSqlDatabase *base)
 {
     startQuery(base, "BEGIN TRANSACTION");
@@ -28,4 +30,12 @@ QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
                    .c_str());
 
     return ret;
+}
+
+int DbTools::recordsCount(QSqlDatabase* base, const QString& tableName)
+{
+    auto queryString = SqlQueryConstructor::recordsCount(tableName);
+    auto query = startQuery(base, queryString);
+    query.next();
+    return query.value("COUNT(*)").toInt();
 }

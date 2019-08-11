@@ -18,6 +18,8 @@ public:
     static QString addColumn(const QString& tableName, const TColumn& column);
     static QString dropTable(const QString& tableName);
 
+    static QString recordsCount(const QString& tableName);
+
     // Data
     static QString selectQuery(const QString& tableName,
                                const QStringList& columns,
