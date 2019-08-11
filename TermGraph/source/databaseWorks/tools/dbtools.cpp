@@ -15,6 +15,11 @@ void DbTools::endTransaction(QSqlDatabase *base)
     startQuery(base, "END TRANSACTION");
 }
 
+void DbTools::reduceSpace(QSqlDatabase* base)
+{
+    startQuery(base, "VACUUM");
+}
+
 QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
 {
 //    qDebug() << queryString;

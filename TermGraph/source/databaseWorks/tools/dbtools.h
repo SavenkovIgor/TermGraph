@@ -10,6 +10,9 @@ public:
     static void startTransaction(QSqlDatabase* base);
     static void endTransaction(QSqlDatabase* base);
 
+    // Database
+    static void reduceSpace(QSqlDatabase* base);
+
     // Query
     static QSqlQuery startQuery(QSqlDatabase* base, const QString& queryString);
 

@@ -124,6 +124,9 @@ void Database::execMigrationConditions(const int &currentDbVersion)
         updateGroupsToSecondVersion();
 
         DbTools::endTransaction(base);
+
+        // Reduce database file
+        DbTools::reduceSpace(base);
     }
 }
 
