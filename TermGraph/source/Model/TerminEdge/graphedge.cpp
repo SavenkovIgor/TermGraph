@@ -2,7 +2,7 @@
 
 GraphEdge::GraphEdge(GraphTerm *toRoot, GraphTerm *toLeaf)
 {
-    Q_ASSERT(toRoot != toLeaf);
+    assert(toRoot != toLeaf);
     this->toRoot = toRoot;
     this->toLeaf = toLeaf;
 }

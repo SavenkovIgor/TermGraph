@@ -4,7 +4,7 @@
 
 QString TblBase::getStringField(const TColumn& column, const QString &key) const
 {
-    Q_ASSERT(isColumnExist(column));
+    assert(isColumnExist(column));
 
     QSqlQuery sel = select(column, primaryKeyEqual(key));
 

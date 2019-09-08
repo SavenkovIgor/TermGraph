@@ -23,8 +23,8 @@ void DbTools::reduceSpace(QSqlDatabase* base)
 QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
 {
 //    qDebug() << queryString;
-    Q_ASSERT(base != nullptr);
-    Q_ASSERT(!queryString.simplified().isEmpty());
+    assert(base != nullptr);
+    assert(!queryString.simplified().isEmpty());
 
     QSqlQuery ret = base->exec(queryString);
 

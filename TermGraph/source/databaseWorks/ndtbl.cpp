@@ -24,8 +24,8 @@ QUuid NodeTable::addNode(const QString& name, const QUuid& groupUuid)
 
 QUuid NodeTable::addNode(const QUuid& uuid, const QString& name, const QUuid& groupUuid)
 {
-    Q_ASSERT(!name.simplified().isEmpty());
-    Q_ASSERT(!hasNodeWithUuid(uuid));
+    assert(!name.simplified().isEmpty());
+    assert(!hasNodeWithUuid(uuid));
 
     // Don't create node with empty name
     if (name.simplified() == "")
@@ -49,8 +49,8 @@ QUuid NodeTable::addNode(const QUuid& uuid, const QString& name, const QUuid& gr
 
 QUuid NodeTable::addNode(const NodeInfoContainer& info)
 {
-    Q_ASSERT(!info.term.simplified().isEmpty());
-    Q_ASSERT(!hasNodeWithUuid(info.uuid));
+    assert(!info.term.simplified().isEmpty());
+    assert(!hasNodeWithUuid(info.uuid));
 
     // Создать вершину не удалось
     if (info.term.simplified().isEmpty())
@@ -181,7 +181,7 @@ UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
 
 NodeInfoContainer NodeTable::getNode(const QUuid& uuid)
 {
-    Q_ASSERT(!uuid.isNull());
+    assert(!uuid.isNull());
 
     NodeInfoContainer info;
 
@@ -196,7 +196,7 @@ NodeInfoContainer NodeTable::getNode(const QUuid& uuid)
 
 NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
 {
-    Q_ASSERT(!groupUuid.isNull());
+    assert(!groupUuid.isNull());
 
     NodeInfoContainer::List ret;
     auto where = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
@@ -232,8 +232,8 @@ bool NodeTable::updateNode(const NodeInfoContainer& info,
                            NodeTable::LastEditSource lastEditSource,
                            bool checkLastEdit)
 {
-    Q_ASSERT(!info.uuid.isNull());
-    Q_ASSERT(hasNodeWithUuid(info.uuid));
+    assert(!info.uuid.isNull());
+    assert(hasNodeWithUuid(info.uuid));
 
     if (info.uuid.isNull())
         return false;

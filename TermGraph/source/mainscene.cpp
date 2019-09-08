@@ -8,15 +8,15 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintMana
     mouseMoveReactionTimer.setInterval(static_cast<int>(1000/AppConfig::SceneSettings::FPS));
     mouseMoveReactionTimer.setSingleShot(true);
 
-    Q_ASSERT(groupsMgr != nullptr);
+    assert(groupsMgr != nullptr);
     this->groupsMgr = groupsMgr;
     connect(groupsMgr, &GroupsManager::groupsListChanged, this, &MainScene::updateModel);
 
-    Q_ASSERT(nodesMgr != nullptr);
+    assert(nodesMgr != nullptr);
     this->nodesMgr = nodesMgr;
     connect(nodesMgr, &NodesManager::nodeChanged, this, &MainScene::updateModel);
 
-    Q_ASSERT(paintManager != nullptr);
+    assert(paintManager != nullptr);
     this->paintManager = paintManager;
 }
 
