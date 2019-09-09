@@ -134,7 +134,7 @@ bool PaintedTerm::applyMove()
         }
     }
 
-    if (qAbs(newPosOffset) > 0.05) {
+    if (std::abs(newPosOffset) > 0.05) {
         moveBy(0.0, newPosOffset);
         return true;
     }
@@ -309,7 +309,7 @@ qreal PaintedTerm::getSumEdgesLength(bool swap)
     for (Edge *e : edges) {
         if (!GraphTerm::isInGroupEdge(e))
             continue;
-        ret += qAbs(e->getLine(swap).dx());
+        ret += std::abs(e->getLine(swap).dx());
     }
     return ret;
 }
@@ -338,8 +338,8 @@ PaintedTerm* PaintedTerm::getNearestLeftNeigh()
             continue;
         }
 
-        if (qAbs(neighRect.center().x() - myRect.center().x()) < diff) {
-            diff = qAbs(neighRect.center().x() - myRect.center().x());
+        if (std::abs(neighRect.center().x() - myRect.center().x()) < diff) {
+            diff = std::abs(neighRect.center().x() - myRect.center().x());
             ret = t;
         }
     }
@@ -360,8 +360,8 @@ PaintedTerm *PaintedTerm::getNearestRightNeigh()
         if (neighRect.center().x() < myRect.center().x())
             continue;
 
-        if (qAbs(neighRect.left() - myRect.right()) < diff) {
-            diff = qAbs(neighRect.left() - myRect.right());
+        if (std::abs(neighRect.left() - myRect.right()) < diff) {
+            diff = std::abs(neighRect.left() - myRect.right());
             ret = t;
         }
     }
@@ -417,9 +417,9 @@ void PaintedTerm::setSelection(const bool &selected)
 
 bool PaintedTerm::isNearPoints(QPointF pt1, QPointF pt2, qreal dist) {
     pt1 -= pt2;
-    //    pt1.setX(qAbs(pt1.x()));
-    //    pt1.setY(qAbs(pt1.y()));
-    //    if(qAbs(pt1.x()) <= dist && qAbs(pt1.y()) <= dist)
+    //    pt1.setX(std::abs(pt1.x()));
+    //    pt1.setY(std::abs(pt1.y()));
+    //    if(std::abs(pt1.x()) <= dist && std::abs(pt1.y()) <= dist)
     //        return true;
     if (pt1.manhattanLength() <= dist)
         return true;

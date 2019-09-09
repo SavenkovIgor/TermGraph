@@ -53,7 +53,7 @@ int Edge::getLayerDistance()
     auto toRoot = dynamic_cast<PaintedTerm*>(getRoot());
     auto toLeaf = dynamic_cast<PaintedTerm*>(getLeaf());
 
-    return qAbs(toRoot->getPaintLevel() - toLeaf->getPaintLevel());
+    return std::abs(toRoot->getPaintLevel() - toLeaf->getPaintLevel());
 }
 
 qreal Edge::getXProjection()
