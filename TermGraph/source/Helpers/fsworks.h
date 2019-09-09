@@ -1,12 +1,12 @@
 #pragma once
 
-#include <QApplication>
 #include <QString>
-#include <QDir>
+#include <QByteArray>
 
 class FSWorks
 {
 public:
+    static bool createPath(const QString& path);
 
     static bool fileExist(const QString& filePath);
 

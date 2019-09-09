@@ -1,18 +1,19 @@
 #include "appconfig.h"
 
+#include "source/Helpers/fsworks.h"
+
 void AppConfig::StdFolderPaths::createDefaultFoldersIfNeed()
 {
     QStringList necessaryDirs;
 
-#if defined( Q_OS_WIN ) || defined( Q_OS_LINUX ) || defined( Q_OS_MACOS )
+#if defined(Q_OS_WIN) || defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
     necessaryDirs << userAppConfigFolder();
     necessaryDirs << groupsJsonFolder();
     necessaryDirs << backupFolder();
 #endif
 
-    for (const auto& path : necessaryDirs) {
-        QDir().mkpath(path);
-    }
+    for (const auto& path : necessaryDirs)
+        FSWorks::createPath(path);
 }
 
 QString AppConfig::StdFolderPaths::backupFolder()
