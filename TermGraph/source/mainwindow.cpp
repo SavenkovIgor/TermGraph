@@ -14,7 +14,7 @@ MainWindow::MainWindow(QObject *parent):
     qmlEngine(new QQmlApplicationEngine())
 {
     initElemSizes();
-    AppConfig::StdFolderPaths::createDefaultFoldersIfNeed();
+    AppSettings::StdPaths::createDefaultFoldersIfNeed();
 
     QQuickStyle::setStyle("Material");
 

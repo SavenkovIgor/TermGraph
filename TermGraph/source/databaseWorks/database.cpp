@@ -6,7 +6,7 @@
 
 #include "source/databaseWorks/tools/dbtools.h"
 
-Database::Database() : Database(AppConfig::StdFolderPaths::defaultDatabaseFilePath()) { }
+Database::Database() : Database(AppSettings::StdPaths::defaultDatabaseFilePath()) { }
 
 Database::Database(const QString& filePath) :
     nodeTable(nullptr),
@@ -94,7 +94,7 @@ void Database::makeBackupBeforeUpdate(const QString &filePath, const int &oldDbV
     fileName += " date_" + QDateTime::currentDateTime().toString(Qt::ISODate);
     fileName += ".termGraph";
     fileName.replace(':','_');
-    dbFile.copy(AppConfig::StdFolderPaths::backupFolder() + "/" + fileName);
+    dbFile.copy(AppSettings::StdPaths::backupFolder() + "/" + fileName);
 }
 
 void Database::makeDbUpdate()

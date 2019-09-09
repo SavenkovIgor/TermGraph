@@ -2,7 +2,7 @@
 
 NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 {
-    server = new SimpleListenServer(AppConfig::NetworkSettings::listenPort, this);
+    server = new SimpleListenServer(AppSettings::Network::listenPort, this);
     server->startListen();
 
     connect(server, &SimpleListenServer::newReceivedData, this, &NetworkManager::newInputData);
@@ -15,7 +15,7 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 void NetworkManager::connectToHost()
 {
     outputSocket->connectToHost(receiverIp,
-                                AppConfig::NetworkSettings::listenPort,
+                                AppSettings::Network::listenPort,
                                 QIODevice::WriteOnly);
 }
 

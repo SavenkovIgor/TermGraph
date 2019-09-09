@@ -272,7 +272,7 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
 
 QString GroupsManager::getExportPath() const
 {
-    return AppConfig::StdFolderPaths::groupsJsonFolder();
+    return AppSettings::StdPaths::groupsJsonFolder();
 }
 
 void GroupsManager::exportGrpToJson(QString groupUuid)

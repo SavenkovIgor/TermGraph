@@ -4,46 +4,48 @@
 
 #include "source/Helpers/fsworks.h"
 
-void AppConfig::StdFolderPaths::createDefaultFoldersIfNeed()
+using namespace AppSettings;
+
+void StdPaths::createDefaultFoldersIfNeed()
 {
     QStringList necessaryDirs;
 
-#if defined(Q_OS_WIN) || defined(Q_OS_LINUX) || defined(Q_OS_MACOS)
-    necessaryDirs << userAppConfigFolder();
-    necessaryDirs << groupsJsonFolder();
-    necessaryDirs << backupFolder();
-#endif
+    if constexpr (Platform::isDesktop()) {
+        necessaryDirs << userAppConfigFolder();
+        necessaryDirs << groupsJsonFolder();
+        necessaryDirs << backupFolder();
+    }
 
     for (const auto& path : necessaryDirs)
         FSWorks::createPath(path);
 }
 
-QString AppConfig::StdFolderPaths::backupFolder()
+QString StdPaths::backupFolder()
 {
     return userAppConfigFolder() + "/MigrationBackup";
 }
 
-QString AppConfig::StdFolderPaths::groupsJsonFolder()
+QString StdPaths::groupsJsonFolder()
 {
     return userAppConfigFolder() + "/GroupsJson";
 }
 
-QString AppConfig::StdFolderPaths::defaultDatabaseFilePath()
+QString StdPaths::defaultDatabaseFilePath()
 {
     QString dbFilePath;
 
-#if defined( Q_OS_WIN ) || defined( Q_OS_LINUX ) || defined( Q_OS_MACOS )
-    dbFilePath = userAppConfigFolder() + "/tg.termGraph";
-#endif
+    if constexpr (Platform::isDesktop()) {
+        dbFilePath = userAppConfigFolder() + "/tg.termGraph";
+    }
 
-#if defined( Q_OS_ANDROID )
-    dbFilePath = "tg.termGraph";
-#endif
+    if constexpr (Platform::isMobile()) {
+        dbFilePath = "tg.termGraph";
+    }
 
     return dbFilePath;
 }
 
-QString AppConfig::StdFolderPaths::userAppConfigFolder()
+QString StdPaths::userAppConfigFolder()
 {
     auto path = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).first();
     assert(!path.isEmpty());

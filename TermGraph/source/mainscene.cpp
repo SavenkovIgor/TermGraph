@@ -5,7 +5,7 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintMana
     sceneRhytm.setSingleShot(false);
     sceneRhytm.setInterval(30);
 
-    mouseMoveReactionTimer.setInterval(static_cast<int>(1000/AppConfig::SceneSettings::FPS));
+    mouseMoveReactionTimer.setInterval(static_cast<int>(1000/AppSettings::Scene::FPS));
     mouseMoveReactionTimer.setSingleShot(true);
 
     assert(groupsMgr != nullptr);
