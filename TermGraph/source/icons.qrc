@@ -156,5 +156,11 @@
         <file>icons/loop-circular-4x.png</file>
         <file>icons/loop-circular-6x.png</file>
         <file>icons/loop-circular-8x.png</file>
+        <file>icons/question-mark-8x.png</file>
+        <file>icons/question-mark-6x.png</file>
+        <file>icons/question-mark-4x.png</file>
+        <file>icons/question-mark-3x.png</file>
+        <file>icons/question-mark-2x.png</file>
+        <file>icons/question-mark.png</file>
     </qresource>
 </RCC>

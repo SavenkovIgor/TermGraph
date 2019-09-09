@@ -100,6 +100,22 @@ ApplicationWindow {
             }
 
             SideMenuButton {
+                id: learnMenuButton
+                labelText: "Изучение"
+                iconName: "book"
+
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter
+                Layout.topMargin: 5
+                Layout.bottomMargin: 5
+                Layout.leftMargin: 25
+                Layout.rightMargin: 25
+
+//                onClicked: stackView.push(helpPageComponent)
+                enabled: false
+            }
+
+            SideMenuButton {
                 id: syncMenuButton
                 enabled: false
                 labelText: "Синхронизация"
@@ -131,7 +147,7 @@ ApplicationWindow {
             SideMenuButton {
                 id: helpMenuButton
                 labelText: "Справка"
-                iconName: "book"
+                iconName: "question-mark"
 
                 Layout.fillWidth: true
                 Layout.alignment: Qt.AlignHCenter
