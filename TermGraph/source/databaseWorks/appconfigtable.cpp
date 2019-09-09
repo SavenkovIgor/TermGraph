@@ -4,7 +4,7 @@ void AppConfigTable::initTable()
 {
     createTable();
     // Add database version parameter
-    setValue(dbVersionPropertyName, QString::number(startDbVersion));
+    setValue(dbVersionPropertyName, QString::number(dbVersion));
 }
 
 int AppConfigTable::getDbVersion()
