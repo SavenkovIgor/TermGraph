@@ -205,7 +205,7 @@ QSizeF TermTree::getTreeSize() const
     for (auto stack : stacks) {
         QSizeF stackSize = stack->getSize();
         width += stackSize.width();
-        height = qMax(height, stackSize.height());
+        height = std::max(height, stackSize.height());
     }
 
     if (!stacks.empty()) {
@@ -229,7 +229,7 @@ qreal TermTree::getMaxStackHeight() const
     qreal maxHeight = 0.0;
     for (auto stack : stacks) {
         QSizeF stackSize = stack->getSize();
-        maxHeight = qMax(maxHeight, stackSize.height());
+        maxHeight = std::max(maxHeight, stackSize.height());
     }
     return maxHeight;
 }

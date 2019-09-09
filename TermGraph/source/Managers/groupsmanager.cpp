@@ -166,7 +166,7 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
         if (lastEdit.isNull()) {
             lastEdit = currNodeLastEdit;
         } else {
-            lastEdit = qMax(lastEdit, currNodeLastEdit);
+            lastEdit = std::max(lastEdit, currNodeLastEdit);
         }
     }
     return lastEdit;
@@ -194,7 +194,7 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
             if (groupsLastEdit[groupUuid].isNull()) {
                 groupsLastEdit[groupUuid] = lastEdit;
             } else {
-                groupsLastEdit[groupUuid] = qMax(groupsLastEdit[groupUuid], lastEdit);
+                groupsLastEdit[groupUuid] = std::max(groupsLastEdit[groupUuid], lastEdit);
             }
         }
     }

@@ -24,7 +24,7 @@ int PaintedTerm::getUpLevels([[maybe_unused]] int pLevel)  // TODO: check why pl
     int ret = -1;
     for (GraphTerm* t : getLeafNodes()) {
         PaintedTerm* n = static_cast<PaintedTerm*>(t);
-        ret = qMax(ret, n->getUpLevels());
+        ret = std::max(ret, n->getUpLevels());
     }
 
     if (ret == -1)

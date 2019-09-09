@@ -185,9 +185,9 @@ qreal TermGroup::getGroupMinWidth()
     qreal treeWidth = getAllTreesSize().width();
     qreal orphansWidth = NodeVerticalStackTools::getNodeVerticalStackedSize(getOrphanNodes()).width();
 
-    width = qMax(width, groupNameWidth);
-    width = qMax(width, treeWidth);
-    width = qMax(width, orphansWidth);
+    width = std::max(width, groupNameWidth);
+    width = std::max(width, treeWidth);
+    width = std::max(width, orphansWidth);
 
     return width;
 }
@@ -249,9 +249,9 @@ void TermGroup::updateBaseRectSize()
     qreal width = 0.0;
     qreal height = 0.0;
 
-    width = qMax(width, nameSize.width());
-    width = qMax(width, treesSize.width());
-    width = qMax(width, orphansSize.width());
+    width = std::max(width, nameSize.width());
+    width = std::max(width, treesSize.width());
+    width = std::max(width, orphansSize.width());
     width += hSpacer*2;
 
     height += vSpacer;
@@ -308,7 +308,7 @@ void TermGroup::setOrphCoords(qreal maxWidth)
         currNode->setPos(x, y);
         x += nodeSize.width() + AppStyle::Sizes::orphansHorizontalSpacer;
 
-        maxHeightInRow = qMax(maxHeightInRow, nodeSize.height());
+        maxHeightInRow = std::max(maxHeightInRow, nodeSize.height());
     }
 }
 

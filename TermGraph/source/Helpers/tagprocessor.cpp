@@ -99,7 +99,7 @@ int TagProcessor::getMaxDepthOfNestedBrackets(QString text)
         } else if (sym == rightBracket) {
             depth--;
         }
-        maxDepth = qMax(maxDepth, depth);
+        maxDepth = std::max(maxDepth, depth);
     }
     return maxDepth;
 }

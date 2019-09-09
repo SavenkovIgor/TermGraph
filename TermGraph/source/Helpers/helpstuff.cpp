@@ -44,13 +44,13 @@ QSizeF HelpStuff::getStackedSize(const SizesList& sizeList, const Qt::Orientatio
 
     if (stackOrientation == Qt::Vertical) {
         for (auto& size : sizeList) {
-            width = qMax(width, size.width());
+            width = std::max(width, size.width());
             height += size.height();
         }
     } else if (stackOrientation == Qt::Horizontal) {
         for (auto& size : sizeList) {
             width += size.width();
-            height = qMax(height, size.height());
+            height = std::max(height, size.height());
         }
     }
 

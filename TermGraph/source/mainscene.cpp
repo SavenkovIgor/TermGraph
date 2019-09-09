@@ -139,8 +139,8 @@ void MainScene::setSceneViewRect(int x, int y, int width, int height)
     sceneViewRect = QRectF(x, y, width, height);
 
     auto tmpRect = sceneRect;
-    tmpRect.setWidth(qMax(sceneRect.width(), sceneViewRect.width()));
-    tmpRect.setHeight(qMax(sceneRect.height(), sceneViewRect.height()));
+    tmpRect.setWidth(std::max(sceneRect.width(), sceneViewRect.width()));
+    tmpRect.setHeight(std::max(sceneRect.height(), sceneViewRect.height()));
 
     if (tmpRect != sceneRect) {
         sceneRect = tmpRect;
