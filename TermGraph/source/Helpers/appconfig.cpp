@@ -1,5 +1,7 @@
 #include "appconfig.h"
 
+#include <QStandardPaths>
+
 #include "source/Helpers/fsworks.h"
 
 void AppConfig::StdFolderPaths::createDefaultFoldersIfNeed()
@@ -43,5 +45,7 @@ QString AppConfig::StdFolderPaths::defaultDatabaseFilePath()
 
 QString AppConfig::StdFolderPaths::userAppConfigFolder()
 {
-    return QDir::home().absolutePath() + "/.TermGraph";
+    auto path = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).first();
+    assert(!path.isEmpty());
+    return path;
 }
