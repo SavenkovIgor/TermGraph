@@ -38,7 +38,7 @@ QString StdPaths::defaultDatabaseFilePath()
         dbFilePath = userAppConfigFolder() + "/tg.termGraph";
     }
 
-    if constexpr (Platform::isMobile()) {
+    if constexpr (Platform::isAndroid()) {
         dbFilePath = "tg.termGraph";
     }
 

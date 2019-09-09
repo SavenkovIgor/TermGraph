@@ -54,32 +54,32 @@ int MainWindow::dbVersion()
 
 void MainWindow::initElemSizes()
 {
-#if defined( Q_OS_WIN ) || defined( Q_OS_LINUX ) || defined( Q_OS_MACOS )
-    // Screen.pixelDencity - pixel in millimeters
-    elementSizes["roundButton"] = 15;
-    elementSizes["text"] = 5;
-    elementSizes["capitalText"] = 5;
-    elementSizes["inputLabel"] = 7;
-    elementSizes["inputText"] = 6;
-    elementSizes["combo"] = 5;
-    elementSizes["button"] = 5;
-    elementSizes["colSpace"] = 4;
-    elementSizes["appHeader"] = 9;
-    elementSizes["infoLabel"] = 6;
-    elementSizes["sideMenu"] = 7;
-#endif
+    if constexpr (AppSettings::Platform::isDesktop()) {
+        // Screen.pixelDencity - pixel in millimeters
+        elementSizes["roundButton"] = 15;
+        elementSizes["text"]        = 5;
+        elementSizes["capitalText"] = 5;
+        elementSizes["inputLabel"]  = 7;
+        elementSizes["inputText"]   = 6;
+        elementSizes["combo"]       = 5;
+        elementSizes["button"]      = 5;
+        elementSizes["colSpace"]    = 4;
+        elementSizes["appHeader"]   = 9;
+        elementSizes["infoLabel"]   = 6;
+        elementSizes["sideMenu"]    = 7;
+    }
 
-#if defined( Q_OS_ANDROID )
-    elementSizes["roundButton"] = 9;
-    elementSizes["text"] = 4;
-    elementSizes["capitalText"] = 4;
-    elementSizes["inputLabel"] = 4;
-    elementSizes["inputText"] = 4;
-    elementSizes["combo"] = 4;
-    elementSizes["button"] = 4;
-    elementSizes["colSpace"] = 2;
-    elementSizes["appHeader"] = 6;
-    elementSizes["infoLabel"] = 4;
-    elementSizes["sideMenu"] = 5;
-#endif
+    if constexpr (AppSettings::Platform::isAndroid()) {
+        elementSizes["roundButton"] = 9;
+        elementSizes["text"]        = 4;
+        elementSizes["capitalText"] = 4;
+        elementSizes["inputLabel"]  = 4;
+        elementSizes["inputText"]   = 4;
+        elementSizes["combo"]       = 4;
+        elementSizes["button"]      = 4;
+        elementSizes["colSpace"]    = 2;
+        elementSizes["appHeader"]   = 6;
+        elementSizes["infoLabel"]   = 4;
+        elementSizes["sideMenu"]    = 5;
+    }
 }
