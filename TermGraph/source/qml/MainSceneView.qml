@@ -68,9 +68,9 @@ Page {
         id: groupsListPage
     }
 
-    TermView {
-        id: termViewPage
-        mainStack: stackView
+    Component {
+        id: termViewComponent
+        TermView { }
     }
 
     Rectangle {
@@ -179,7 +179,7 @@ Page {
 
         function openTerm() {
             if (sceneObj.hasSelection) {
-                termViewPage.open()
+                root.StackView.view.push(termViewComponent)
             }
         }
     }

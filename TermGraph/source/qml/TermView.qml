@@ -7,13 +7,6 @@ import "UIExtensions"
 Page {
     id: root
 
-    property StackView mainStack
-
-    function open() {
-        mainStack.push(root)
-        loadSelectedNode()
-    }
-
     header: MainHeader {
         id: mainHeader
         titleText: "Термин"
@@ -21,15 +14,6 @@ Page {
         Component.onCompleted: mainHeader.showArrowIcon()
 
         onMenuClick: root.StackView.view.pop()
-    }
-
-    function loadSelectedNode() {
-        ptDbgInfo.text           = sceneObj.getCurrNodeDebugInfo()
-        ptName.text              = sceneObj.currentNode.term
-        ptDefinition.text        = tagProcessor.decorateTags(sceneObj.getCurrNodeNameAndDefinition())
-        hierarchyDefinition.text = sceneObj.getCurrNodeHierarchyDefinition()
-        ptDescription.text       = sceneObj.currentNode.description
-        ptExamples.text          = sceneObj.currentNode.examples
     }
 
     contentItem: ScrollView {
@@ -41,45 +25,39 @@ Page {
             width: root.width
 
             MyLabelPair {
-                id: ptDbgInfo
                 name: "Dbg:"
-                visible: false
-                onTextChanged: visible = text !== ""
+                text: sceneObj.getCurrNodeDebugInfo()
+                visible: text !== ""
             }
 
             MyLabelPair {
-                id: ptName
                 name: "Название:"
-                visible: false
-                onTextChanged: visible = text !== ""
+                text: sceneObj.currentNode.term
+                visible: text !== ""
             }
 
             MyLabelPair {
-                id: ptDefinition
                 name: "Определение:"
-                visible: false
-                onTextChanged: visible = text !== ""
+                text: tagProcessor.decorateTags(sceneObj.getCurrNodeNameAndDefinition())
+                visible: text !== ""
             }
 
             MyLabelPair {
-                id: hierarchyDefinition
                 name: "Иерархия определений:"
-                visible: false
-                onTextChanged: visible = text !== ""
+                text: sceneObj.getCurrNodeHierarchyDefinition()
+                visible: text !== ""
             }
 
             MyLabelPair {
-                id: ptDescription
                 name: "Описание:"
-                visible: false
-                onTextChanged: visible = text !== ""
+                text: sceneObj.currentNode.description
+                visible: text !== ""
             }
 
             MyLabelPair {
-                id: ptExamples
                 name: "Пример:"
-                visible: false
-                onTextChanged: visible = text !== ""
+                text: sceneObj.currentNode.examples
+                visible: text !== ""
             }
         }
     }
