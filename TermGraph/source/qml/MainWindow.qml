@@ -80,86 +80,55 @@ ApplicationWindow {
             item.open()
         }
 
-        ColumnLayout {
+        contentItem: Control {
 
-            anchors.fill: parent
+            padding: 25
 
-            SideMenuButton {
-                id: groupMenuButton
-                labelText: "Группы    "
-                iconName: "list"
+            contentItem: ColumnLayout {
 
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter
-                Layout.topMargin: 25
-                Layout.bottomMargin: 5
-                Layout.leftMargin: 25
-                Layout.rightMargin: 25
+                spacing: 10
 
-                onClicked: stackView.push(groupsListComponent)
+                SideMenuButton {
+                    id: groupMenuButton
+                    labelText: "Группы"
+                    iconName: "list"
+                    Layout.fillWidth: true
+
+                    onClicked: stackView.push(groupsListComponent)
+                }
+
+                SideMenuButton {
+                    labelText: "Изучение"
+                    iconName: "book"
+                    Layout.fillWidth: true
+                    visible: false
+                }
+
+                SideMenuButton {
+                    labelText: "Синхронизация"
+                    iconName: "loop-circular"
+                    Layout.fillWidth: true
+                    visible: false
+                }
+
+                SideMenuButton {
+                    labelText: "Настройки"
+                    iconName: "cog"
+                    Layout.fillWidth: true
+
+                    onClicked: stackView.push(settingsComponent)
+                }
+
+                SideMenuButton {
+                    labelText: "Справка"
+                    iconName: "question-mark"
+                    Layout.fillWidth: true
+
+                    onClicked: stackView.push(helpPageComponent)
+                }
+
+                Item { Layout.fillHeight: true; }
             }
-
-            SideMenuButton {
-                id: learnMenuButton
-                labelText: "Изучение"
-                iconName: "book"
-
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter
-                Layout.topMargin: 5
-                Layout.bottomMargin: 5
-                Layout.leftMargin: 25
-                Layout.rightMargin: 25
-
-//                onClicked: stackView.push(helpPageComponent)
-                enabled: false
-            }
-
-            SideMenuButton {
-                id: syncMenuButton
-                enabled: false
-                labelText: "Синхронизация"
-                iconName: "loop-circular"
-
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter
-                Layout.topMargin: 5
-                Layout.bottomMargin: 5
-                Layout.leftMargin: 25
-                Layout.rightMargin: 25
-            }
-
-            SideMenuButton {
-                id: settingsMenuButton
-                labelText: "Настройки"
-                iconName: "cog"
-
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter
-                Layout.topMargin: 5
-                Layout.bottomMargin: 5
-                Layout.leftMargin: 25
-                Layout.rightMargin: 25
-
-                onClicked: stackView.push(settingsComponent)
-            }
-
-            SideMenuButton {
-                id: helpMenuButton
-                labelText: "Справка"
-                iconName: "question-mark"
-
-                Layout.fillWidth: true
-                Layout.alignment: Qt.AlignHCenter
-                Layout.topMargin: 5
-                Layout.bottomMargin: 5
-                Layout.leftMargin: 25
-                Layout.rightMargin: 25
-
-                onClicked: stackView.push(helpPageComponent)
-            }
-
-            Item { Layout.fillHeight: true; }
         }
     }
 
