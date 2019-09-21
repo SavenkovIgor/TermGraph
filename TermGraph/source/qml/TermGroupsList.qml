@@ -5,6 +5,7 @@ import QtQuick.Window 2.13
 import QtQuick.Dialogs 1.3
 
 import "UIExtensions"
+import "JsExtensions/iconpath.js" as IconPath
 
 Page {
     id: root
@@ -23,7 +24,7 @@ Page {
 
     MyRoundButton {
         id: addGroupBtn
-        iconName: "plus"
+        icon.source: IconPath.plus
 
         anchors { right: parent.right; bottom: parent.bottom; }
 

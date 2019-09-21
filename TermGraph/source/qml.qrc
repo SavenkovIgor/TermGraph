@@ -23,5 +23,6 @@
         <file>qml/NewNode.qml</file>
         <file>qml/UIExtensions/HelpCard.qml</file>
         <file>qml/JsExtensions/debug.js</file>
+        <file>qml/JsExtensions/iconpath.js</file>
     </qresource>
 </RCC>

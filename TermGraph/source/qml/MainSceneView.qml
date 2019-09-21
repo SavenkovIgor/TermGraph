@@ -8,6 +8,7 @@ import QtQuick.Dialogs 1.3
 import "UIExtensions"
 
 import "JsExtensions/nodePaint.js" as JsPaint
+import "JsExtensions/iconpath.js" as IconPath
 
 Page {
     id: root
@@ -64,11 +65,10 @@ Page {
         anchors { right: parent.right; bottom: parent.bottom; }
         visible: true
 
-        iconName: action.icon.name
+        icon.source: IconPath.plus
 
         action: Action {
             text: "AddNode"
-            icon.name: "plus"
             shortcut: "Ctrl+n"
             enabled: root.currentPageOpened
             onTriggered: {

@@ -48,12 +48,6 @@
         <file>icons/pencil-4x.png</file>
         <file>icons/pencil-6x.png</file>
         <file>icons/pencil-8x.png</file>
-        <file>icons/plus.png</file>
-        <file>icons/plus-2x.png</file>
-        <file>icons/plus-3x.png</file>
-        <file>icons/plus-4x.png</file>
-        <file>icons/plus-6x.png</file>
-        <file>icons/plus-8x.png</file>
         <file>icons/x.png</file>
         <file>icons/x-2x.png</file>
         <file>icons/x-3x.png</file>
@@ -162,5 +156,6 @@
         <file>icons/question-mark-3x.png</file>
         <file>icons/question-mark-2x.png</file>
         <file>icons/question-mark.png</file>
+        <file>icons/plus.svg</file>
     </qresource>
 </RCC>
