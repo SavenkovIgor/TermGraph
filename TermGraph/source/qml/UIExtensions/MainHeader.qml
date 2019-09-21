@@ -18,7 +18,7 @@ ToolBar {
 
     property alias title: titleLabel.text
 
-    function showMenuIcon()  { mainMenuButton.iconName = "menu" }
+    function showMenuIcon()  { mainMenuButton.icon.source = IconPath.menu }
     function showArrowIcon() { mainMenuButton.icon.source = IconPath.leftArrow }
 
     function showCheckButton() {
