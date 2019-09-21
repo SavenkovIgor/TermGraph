@@ -61,7 +61,6 @@ Page {
     MyRoundButton {
         id: addNodeButton
 
-        z: 3
         anchors { right: parent.right; bottom: parent.bottom; }
         visible: true
 
@@ -85,7 +84,6 @@ Page {
 
     MyRoundButton {
         id: showGroupListButton
-        z: 3
         iconName: "spreadsheet"
         visible: groupsManager.hasAnyGroup
 
@@ -96,7 +94,6 @@ Page {
 
     MyRoundButton {
         id: editNodeButton
-        z: 3
         visible: false
         anchors { right: parent.right; bottom: parent.bottom; }
 
@@ -117,7 +114,6 @@ Page {
 
     MyRoundButton {
         id : deleteNodeButton
-        z: 3
         iconName: "trash"
         visible: false
 
@@ -140,7 +136,6 @@ Page {
 
     MyRoundButton {
         id : nodeInfoButton
-        z: 3
         iconName: "info"
         visible: false
 
@@ -179,10 +174,8 @@ Page {
         }
     }
 
-    Flickable {
+    contentItem: Flickable {
         id: sceneView
-        anchors.fill: parent
-        z: 2
 
         contentWidth: sceneCanvas.width
         contentHeight: sceneCanvas.height
