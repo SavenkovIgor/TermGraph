@@ -12,7 +12,7 @@ Page {
     header: MainHeader {
 
         id: mainHeader
-        titleText: "Список групп"
+        title: "Список групп"
 
         Component.onCompleted: mainHeader.showArrowIcon()
 

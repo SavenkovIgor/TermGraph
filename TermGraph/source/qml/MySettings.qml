@@ -11,7 +11,7 @@ Page {
     header: MainHeader {
 
         id: mainHeader
-        titleText: "Настройки"
+        title: "Настройки"
 
         Component.onCompleted: mainHeader.showArrowIcon()
 

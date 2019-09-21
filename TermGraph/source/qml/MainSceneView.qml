@@ -20,9 +20,8 @@ Page {
     signal showError(string error)
 
     header: MainHeader {
-
         id: mainHeader
-        titleText: "TermGraph"
+        title: "TermGraph"
 
         Component.onCompleted: showMenuIcon()
         onMenuClick: sideMenu.open()

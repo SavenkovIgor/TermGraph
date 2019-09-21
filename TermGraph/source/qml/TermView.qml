@@ -9,7 +9,7 @@ Page {
 
     header: MainHeader {
         id: mainHeader
-        titleText: "Термин"
+        title: "Термин"
 
         Component.onCompleted: mainHeader.showArrowIcon()
 

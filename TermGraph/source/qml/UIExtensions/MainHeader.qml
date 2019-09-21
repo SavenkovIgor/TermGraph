@@ -14,7 +14,7 @@ ToolBar {
         color: appColors.baseLight
     }
 
-    property alias titleText: titleLabel.text
+    property alias title: titleLabel.text
 
     function showMenuIcon()  { mainMenuButton.iconName = "menu" }
     function showArrowIcon() { mainMenuButton.iconName = "arrow-thick-left" }

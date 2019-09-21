@@ -14,7 +14,7 @@ Page {
     header: MainHeader {
 
         id: mainHeader
-        titleText: "Изменить вершину"
+        title: "Изменить вершину"
 
         Component.onCompleted: {
             mainHeader.showCheckButton()

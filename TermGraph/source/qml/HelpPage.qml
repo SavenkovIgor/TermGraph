@@ -88,7 +88,7 @@ Page {
 
     header: MainHeader {
         id: mainHeader
-        titleText: "Справка"
+        title: "Справка"
 
         Component.onCompleted: mainHeader.showArrowIcon()
 
