@@ -24,5 +24,6 @@
         <file>qml/UIExtensions/HelpCard.qml</file>
         <file>qml/JsExtensions/debug.js</file>
         <file>qml/JsExtensions/iconpath.js</file>
+        <file>qml/Learning/LearnGroupsList.qml</file>
     </qresource>
 </RCC>

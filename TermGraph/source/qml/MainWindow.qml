@@ -6,6 +6,7 @@ import QtQuick.Dialogs 1.3
 //import QtQuick.Controls.Material 2.2
 
 import "UIExtensions"
+import "Learning"
 import "JsExtensions/iconpath.js" as IconPath
 
 ApplicationWindow {
@@ -44,6 +45,7 @@ ApplicationWindow {
     }
 
     Component { id: groupsListComponent; TermGroupsList { } }
+    Component { id: learnGroupsComponent; LearnGroupsList { } }
     Component { id: settingsComponent;   MySettings { } }
     Component { id: helpPageComponent;   HelpPage { } }
 
@@ -59,9 +61,6 @@ ApplicationWindow {
             color: appColors.baseLight
             ThinLine { target: parent; side: ThinLine.LineSide.Right; color: appColors.white; }
         }
-
-        function isOpen() { return position == 1.0 }
-        function isClose(){ return position == 0.0 }
 
         dragMargin: Qt.styleHints.startDragDistance * 2
 
@@ -91,6 +90,7 @@ ApplicationWindow {
                     iconSource: IconPath.book
                     Layout.fillWidth: true
                     visible: false
+                    onClicked: stackView.push(learnGroupsComponent)
                 }
 
                 SideMenuButton {

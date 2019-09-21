@@ -40,6 +40,8 @@ ToolBar {
             id: titleLabel
 
             font.pixelSize: mainObj.getUiElementSize("appHeader") * Screen.pixelDensity
+            minimumPixelSize: font.pixelSize / 2
+            fontSizeMode: Text.Fit
             elide: Label.ElideRight
             horizontalAlignment: Qt.AlignHCenter
             verticalAlignment: Qt.AlignVCenter
