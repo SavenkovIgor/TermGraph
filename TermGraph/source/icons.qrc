@@ -1,47 +1,17 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/aperture-4x.png</file>
-        <file>icons/ban-4x.png</file>
-        <file>icons/bug-4x.png</file>
-        <file>icons/link-broken-4x.png</file>
-        <file>icons/link-intact-4x.png</file>
         <file>icons/menu.png</file>
         <file>icons/menu-2x.png</file>
         <file>icons/menu-3x.png</file>
         <file>icons/menu-4x.png</file>
         <file>icons/menu-6x.png</file>
         <file>icons/menu-8x.png</file>
-        <file>icons/aperture.png</file>
-        <file>icons/aperture-2x.png</file>
-        <file>icons/aperture-3x.png</file>
-        <file>icons/aperture-6x.png</file>
-        <file>icons/aperture-8x.png</file>
         <file>icons/arrow-thick-left.png</file>
         <file>icons/arrow-thick-left-2x.png</file>
         <file>icons/arrow-thick-left-3x.png</file>
         <file>icons/arrow-thick-left-4x.png</file>
         <file>icons/arrow-thick-left-6x.png</file>
         <file>icons/arrow-thick-left-8x.png</file>
-        <file>icons/ban.png</file>
-        <file>icons/ban-2x.png</file>
-        <file>icons/ban-3x.png</file>
-        <file>icons/ban-6x.png</file>
-        <file>icons/ban-8x.png</file>
-        <file>icons/bug.png</file>
-        <file>icons/bug-2x.png</file>
-        <file>icons/bug-3x.png</file>
-        <file>icons/bug-6x.png</file>
-        <file>icons/bug-8x.png</file>
-        <file>icons/link-broken.png</file>
-        <file>icons/link-broken-2x.png</file>
-        <file>icons/link-broken-3x.png</file>
-        <file>icons/link-broken-6x.png</file>
-        <file>icons/link-broken-8x.png</file>
-        <file>icons/link-intact.png</file>
-        <file>icons/link-intact-2x.png</file>
-        <file>icons/link-intact-3x.png</file>
-        <file>icons/link-intact-6x.png</file>
-        <file>icons/link-intact-8x.png</file>
         <file>icons/pencil.png</file>
         <file>icons/pencil-2x.png</file>
         <file>icons/pencil-3x.png</file>
@@ -54,18 +24,6 @@
         <file>icons/x-4x.png</file>
         <file>icons/x-6x.png</file>
         <file>icons/x-8x.png</file>
-        <file>icons/chevron-top.png</file>
-        <file>icons/chevron-top-2x.png</file>
-        <file>icons/chevron-top-3x.png</file>
-        <file>icons/chevron-top-4x.png</file>
-        <file>icons/chevron-top-6x.png</file>
-        <file>icons/chevron-top-8x.png</file>
-        <file>icons/chevron-bottom.png</file>
-        <file>icons/chevron-bottom-2x.png</file>
-        <file>icons/chevron-bottom-3x.png</file>
-        <file>icons/chevron-bottom-4x.png</file>
-        <file>icons/chevron-bottom-6x.png</file>
-        <file>icons/chevron-bottom-8x.png</file>
         <file>icons/code.png</file>
         <file>icons/code-2x.png</file>
         <file>icons/code-3x.png</file>
@@ -138,7 +96,6 @@
         <file>icons/trash-4x.png</file>
         <file>icons/trash-6x.png</file>
         <file>icons/trash-8x.png</file>
-        <file>icons/book.png</file>
         <file>icons/book-2x.png</file>
         <file>icons/book-3x.png</file>
         <file>icons/book-4x.png</file>
