@@ -33,7 +33,7 @@ Page {
 
     MyRoundButton {
         id: deleteGroupBtn
-        iconName: "trash"
+        icon.source: IconPath.trash
 
         anchors { right: parent.right; bottom: addGroupBtn.top; }
 
@@ -60,7 +60,7 @@ Page {
 
     MyRoundButton {
         id: sendByNetworkButton
-        iconName: "share-boxed"
+        icon.source: IconPath.share
 
         anchors { right: addGroupBtn.left; bottom: parent.bottom; }
 
@@ -233,7 +233,7 @@ Page {
 
             MyRoundButton {
                 id: newGroupAddButton
-                iconName: "check"
+                icon.source: IconPath.check
 
                 Layout.rightMargin: addGroupLay.spacing
 

@@ -1,78 +1,23 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/code.png</file>
-        <file>icons/code-2x.png</file>
-        <file>icons/code-3x.png</file>
-        <file>icons/code-4x.png</file>
-        <file>icons/code-6x.png</file>
-        <file>icons/code-8x.png</file>
-        <file>icons/share-boxed.png</file>
-        <file>icons/share-boxed-2x.png</file>
-        <file>icons/share-boxed-3x.png</file>
-        <file>icons/share-boxed-4x.png</file>
-        <file>icons/share-boxed-6x.png</file>
-        <file>icons/share-boxed-8x.png</file>
-        <file>icons/spreadsheet-2x.png</file>
-        <file>icons/spreadsheet-3x.png</file>
-        <file>icons/spreadsheet-4x.png</file>
-        <file>icons/spreadsheet-6x.png</file>
-        <file>icons/spreadsheet-8x.png</file>
-        <file>icons/spreadsheet.png</file>
-        <file>icons/check.png</file>
-        <file>icons/check-2x.png</file>
-        <file>icons/check-3x.png</file>
-        <file>icons/check-4x.png</file>
-        <file>icons/check-6x.png</file>
-        <file>icons/check-8x.png</file>
-        <file>icons/extendRight.png</file>
-        <file>icons/extendRight-2x.png</file>
-        <file>icons/extendRight-3x.png</file>
-        <file>icons/extendRight-4x.png</file>
-        <file>icons/extendRight-6x.png</file>
-        <file>icons/extendRight-8x.png</file>
-        <file>icons/info.png</file>
-        <file>icons/info-2x.png</file>
-        <file>icons/info-3x.png</file>
-        <file>icons/info-4x.png</file>
-        <file>icons/info-6x.png</file>
-        <file>icons/info-8x.png</file>
-        <file>icons/list.png</file>
-        <file>icons/list-2x.png</file>
-        <file>icons/list-3x.png</file>
-        <file>icons/list-4x.png</file>
-        <file>icons/list-6x.png</file>
-        <file>icons/list-8x.png</file>
-        <file>icons/magnifying-glass.png</file>
-        <file>icons/magnifying-glass-2x.png</file>
-        <file>icons/magnifying-glass-3x.png</file>
-        <file>icons/magnifying-glass-4x.png</file>
-        <file>icons/magnifying-glass-6x.png</file>
-        <file>icons/magnifying-glass-8x.png</file>
-        <file>icons/trash.png</file>
-        <file>icons/trash-2x.png</file>
-        <file>icons/trash-3x.png</file>
-        <file>icons/trash-4x.png</file>
-        <file>icons/trash-6x.png</file>
-        <file>icons/trash-8x.png</file>
-        <file>icons/loop-circular.png</file>
-        <file>icons/loop-circular-2x.png</file>
-        <file>icons/loop-circular-3x.png</file>
-        <file>icons/loop-circular-4x.png</file>
-        <file>icons/loop-circular-6x.png</file>
-        <file>icons/loop-circular-8x.png</file>
-        <file>icons/question-mark-8x.png</file>
-        <file>icons/question-mark-6x.png</file>
-        <file>icons/question-mark-4x.png</file>
-        <file>icons/question-mark-3x.png</file>
-        <file>icons/question-mark-2x.png</file>
-        <file>icons/question-mark.png</file>
-        <file>icons/plus.svg</file>
-        <file>icons/cog.svg</file>
         <file>icons/arrow-thick-left.svg</file>
         <file>icons/book.svg</file>
+        <file>icons/check.svg</file>
+        <file>icons/chevron-right.svg</file>
+        <file>icons/code.svg</file>
+        <file>icons/cog.svg</file>
+        <file>icons/folder.svg</file>
+        <file>icons/info.svg</file>
+        <file>icons/list.svg</file>
+        <file>icons/loop-circular.svg</file>
+        <file>icons/magnifying-glass.svg</file>
         <file>icons/menu.svg</file>
         <file>icons/pencil.svg</file>
+        <file>icons/plus.svg</file>
+        <file>icons/question-mark.svg</file>
+        <file>icons/share.svg</file>
+        <file>icons/spreadsheet.svg</file>
+        <file>icons/trash.svg</file>
         <file>icons/warning.svg</file>
-        <file>icons/folder.svg</file>
     </qresource>
 </RCC>

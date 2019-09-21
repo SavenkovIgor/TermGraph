@@ -80,7 +80,7 @@ ApplicationWindow {
                 SideMenuButton {
                     id: groupMenuButton
                     labelText: "Группы"
-                    iconName: "list"
+                    iconSource: IconPath.list
                     Layout.fillWidth: true
 
                     onClicked: stackView.push(groupsListComponent)
@@ -95,7 +95,7 @@ ApplicationWindow {
 
                 SideMenuButton {
                     labelText: "Синхронизация"
-                    iconName: "loop-circular"
+                    iconSource: IconPath.loopCircular
                     Layout.fillWidth: true
                     visible: false
                 }
@@ -110,7 +110,7 @@ ApplicationWindow {
 
                 SideMenuButton {
                     labelText: "Справка"
-                    iconName: "question-mark"
+                    iconSource: IconPath.questionMark
                     Layout.fillWidth: true
 
                     onClicked: stackView.push(helpPageComponent)

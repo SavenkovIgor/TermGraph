@@ -5,6 +5,7 @@ import QtQuick.Window 2.13
 import QtQuick.Dialogs 1.3
 
 import "UIExtensions"
+import "JsExtensions/iconpath.js" as IconPath
 
 Page {
     id: root
@@ -66,7 +67,7 @@ Page {
 
     MyRoundButton {
         id: makeTag
-        iconName: "code"
+        icon.source: IconPath.code
         visible: termDefin.txtFocus || makeTag.focus || expandTagRight.focus
 
         anchors { top: parent.top; right: expandTagRight.left; }
@@ -81,7 +82,7 @@ Page {
 
     MyRoundButton {
         id: expandTagRight
-        iconName: "extendRight"
+        icon.source: IconPath.chevronRight
         visible: termDefin.txtFocus || makeTag.focus || expandTagRight.focus
 
         anchors { top: parent.top; right: parent.right; }

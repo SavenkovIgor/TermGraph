@@ -48,7 +48,7 @@ ToolBar {
 
         MyRoundButton {
             id: checkButton
-            iconName: "check"
+            icon.source: IconPath.check
             visible: false
             color: appColors.white
             backgroundHidden: true

@@ -84,7 +84,7 @@ Page {
 
     MyRoundButton {
         id: showGroupListButton
-        iconName: "spreadsheet"
+        icon.source: IconPath.spreadsheet
         visible: groupsManager.hasAnyGroup
 
         anchors { top: parent.top; right: parent.right; }
@@ -96,8 +96,6 @@ Page {
         id: editNodeButton
         visible: false
         anchors { right: parent.right; bottom: parent.bottom; }
-
-        iconName: action.icon.name
 
         action: Action {
             text: "EditNode"
@@ -114,7 +112,7 @@ Page {
 
     MyRoundButton {
         id : deleteNodeButton
-        iconName: "trash"
+        icon.source: IconPath.trash
         visible: false
 
         anchors { right: parent.right; bottom: editNodeButton.top; }
@@ -136,7 +134,7 @@ Page {
 
     MyRoundButton {
         id : nodeInfoButton
-        iconName: "info"
+        icon.source: IconPath.info
         visible: false
 
         anchors { right: editNodeButton.left; bottom: parent.bottom; }
