@@ -60,12 +60,6 @@
         <file>icons/extendRight-4x.png</file>
         <file>icons/extendRight-6x.png</file>
         <file>icons/extendRight-8x.png</file>
-        <file>icons/cog.png</file>
-        <file>icons/cog-2x.png</file>
-        <file>icons/cog-3x.png</file>
-        <file>icons/cog-4x.png</file>
-        <file>icons/cog-6x.png</file>
-        <file>icons/cog-8x.png</file>
         <file>icons/info.png</file>
         <file>icons/info-2x.png</file>
         <file>icons/info-3x.png</file>
@@ -114,5 +108,6 @@
         <file>icons/question-mark-2x.png</file>
         <file>icons/question-mark.png</file>
         <file>icons/plus.svg</file>
+        <file>icons/cog.svg</file>
     </qresource>
 </RCC>

@@ -6,6 +6,7 @@ import QtQuick.Dialogs 1.3
 //import QtQuick.Controls.Material 2.2
 
 import "UIExtensions"
+import "JsExtensions/iconpath.js" as IconPath
 
 ApplicationWindow {
     id: window
@@ -101,7 +102,7 @@ ApplicationWindow {
 
                 SideMenuButton {
                     labelText: "Настройки"
-                    iconName: "cog"
+                    iconSource: IconPath.cog
                     Layout.fillWidth: true
 
                     onClicked: stackView.push(settingsComponent)

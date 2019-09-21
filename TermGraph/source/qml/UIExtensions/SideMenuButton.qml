@@ -11,6 +11,7 @@ Button {
     flat: true
 
     property alias labelText: label.text
+    property alias iconSource: icon.icon.source
     property alias iconName: icon.iconName
 
     property string baseColor: appColors.white
