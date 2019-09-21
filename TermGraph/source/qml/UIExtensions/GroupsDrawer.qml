@@ -46,7 +46,7 @@ Drawer {
                 padding: 30
 
                 font.weight: Font.Thin
-                height: Math.floor( font.pixelSize*2.0 )
+                height: Math.floor( font.pixelSize * 2.0 )
 
                 color: appColors.white
 

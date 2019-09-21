@@ -21,7 +21,7 @@ Column {
         width: parent.width
 
         color: appColors.accent
-        font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
+        font.pixelSize: mainObj.getUiElementSize("inputLabel") * Screen.pixelDensity
     }
 
     TextArea {
@@ -30,7 +30,7 @@ Column {
         width: parent.width
         placeholderTextColor: appColors.whiteDisabled
 
-        font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
+        font.pixelSize: mainObj.getUiElementSize("inputText") * Screen.pixelDensity
         wrapMode: TextEdit.WordWrap
     }
 }

@@ -57,12 +57,12 @@ RoundButton {
         color: !root.backgroundHidden ? appColors.white : "transparent"
     }
 
-    width:  mainObj.getUiElementSize("roundButton")*Screen.pixelDensity
-    height: mainObj.getUiElementSize("roundButton")*Screen.pixelDensity
+    width:  mainObj.getUiElementSize("roundButton") * Screen.pixelDensity
+    height: mainObj.getUiElementSize("roundButton") * Screen.pixelDensity
 
     implicitWidth: width
     implicitHeight: height
 
-    padding: 0.27*width
+    padding: 0.27 * width
 }
 

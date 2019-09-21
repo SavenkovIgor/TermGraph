@@ -16,7 +16,7 @@ Column {
     Label {
         id: label
         width: parent.width
-        font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
+        font.pixelSize: mainObj.getUiElementSize("inputLabel") * Screen.pixelDensity
 
         color: appColors.accent
     }
@@ -24,7 +24,7 @@ Column {
     TextField {
         id : txtField
         width: parent.width
-        font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
+        font.pixelSize: mainObj.getUiElementSize("inputText") * Screen.pixelDensity
         selectByMouse: true
 
         onTextChanged: newText()

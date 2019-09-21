@@ -99,7 +99,7 @@ Page {
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
         ColumnLayout {
-            spacing: mainObj.getUiElementSize("colSpace")*Screen.pixelDensity
+            spacing: mainObj.getUiElementSize("colSpace") * Screen.pixelDensity
             width: scroll.width - scroll.leftPadding - scroll.rightPadding
 
             MyLabelPair {
@@ -177,7 +177,7 @@ Page {
                 Label {
                     id: grpLabel
                     text : "Группа"
-                    font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
+                    font.pixelSize: mainObj.getUiElementSize("inputText") * Screen.pixelDensity
                 }
 
                 MyComboBox {

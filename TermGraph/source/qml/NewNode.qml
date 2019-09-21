@@ -100,7 +100,7 @@ Page {
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
         ColumnLayout {
-            spacing: mainObj.getUiElementSize("colSpace")*Screen.pixelDensity
+            spacing: mainObj.getUiElementSize("colSpace") * Screen.pixelDensity
             width: scroll.width - scroll.leftPadding - scroll.rightPadding
 
             MyLabelPair {

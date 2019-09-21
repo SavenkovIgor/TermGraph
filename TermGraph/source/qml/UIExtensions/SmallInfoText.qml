@@ -18,7 +18,7 @@ Text {
 
     // Font
     font.weight: Font.Thin
-    font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity*0.7
+    font.pixelSize: mainObj.getUiElementSize("text") * Screen.pixelDensity * 0.7
 
     // Alignment
     verticalAlignment:  Text.AlignVCenter

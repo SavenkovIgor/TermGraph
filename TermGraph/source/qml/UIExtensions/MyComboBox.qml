@@ -4,7 +4,7 @@ import QtQuick.Window 2.13
 
 ComboBox {
     id: control
-    font.pixelSize: mainObj.getUiElementSize("combo")*Screen.pixelDensity;
+    font.pixelSize: mainObj.getUiElementSize("combo") * Screen.pixelDensity;
 
     contentItem: Text {
 

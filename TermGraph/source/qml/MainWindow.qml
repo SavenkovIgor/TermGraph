@@ -62,7 +62,7 @@ ApplicationWindow {
         function isOpen() { return position == 1.0 }
         function isClose(){ return position == 0.0 }
 
-        dragMargin: Qt.styleHints.startDragDistance*2
+        dragMargin: Qt.styleHints.startDragDistance * 2
 
         function openItem(item) {
             item.open()
@@ -175,7 +175,7 @@ ApplicationWindow {
             wrapMode: TextEdit.WordWrap
 
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: mainObj.getUiElementSize("infoLabel")*Screen.pixelDensity
+            font.pixelSize: mainObj.getUiElementSize("infoLabel") * Screen.pixelDensity
         }
 
         Timer {

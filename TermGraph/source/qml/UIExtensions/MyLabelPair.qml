@@ -12,7 +12,7 @@ ColumnLayout {
 
     Label {
         id: nameLbl
-        font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity + 1
+        font.pixelSize: mainObj.getUiElementSize("text") * Screen.pixelDensity + 1
         font.weight: Font.DemiBold
 
         color: appColors.accent
@@ -22,7 +22,7 @@ ColumnLayout {
 
     Label {
         id: textLbl
-        font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity
+        font.pixelSize: mainObj.getUiElementSize("text") * Screen.pixelDensity
         wrapMode: TextEdit.WordWrap
 
         anchors.leftMargin: 30

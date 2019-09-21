@@ -115,7 +115,7 @@ Page {
                     color: appColors.white
 
                     text: groupsManager.getGroupName(modelData)
-                    font.pixelSize: mainObj.getUiElementSize("text")*Screen.pixelDensity
+                    font.pixelSize: mainObj.getUiElementSize("text") * Screen.pixelDensity
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
                 }
@@ -216,7 +216,7 @@ Page {
 
                     Layout.fillWidth: true
 
-                    font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
+                    font.pixelSize: mainObj.getUiElementSize("inputLabel") * Screen.pixelDensity
                 }
 
                 TextField {
@@ -225,7 +225,7 @@ Page {
 
                     Layout.fillWidth: true
 
-                    font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
+                    font.pixelSize: mainObj.getUiElementSize("inputText") * Screen.pixelDensity
                     selectByMouse: true
                 }
             }
