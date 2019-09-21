@@ -11,8 +11,6 @@ Column {
     property alias txtFocus: txtArea.focus
     property alias cursorPosition: txtArea.cursorPosition
 
-    anchors { left: parent.left; right: parent.right; }
-
     function takeFocus() {
         txtArea.forceActiveFocus()
         txtArea.cursorPosition = txtArea.text.length
@@ -20,23 +18,19 @@ Column {
 
     Label {
         id: label
-        anchors { left: parent.left; right: parent.right; }
+        width: parent.width
 
         color: appColors.accent
-
         font.pixelSize: mainObj.getUiElementSize("inputLabel")*Screen.pixelDensity
     }
 
     TextArea {
         id: txtArea
-        anchors { left: parent.left; right: parent.right; }
-
         color: appColors.white
+        width: parent.width
         placeholderTextColor: appColors.whiteDisabled
 
         font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
-
         wrapMode: TextEdit.WordWrap
-
     }
 }

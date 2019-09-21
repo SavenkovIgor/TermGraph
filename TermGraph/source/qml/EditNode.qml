@@ -66,7 +66,7 @@ Page {
     MyRoundButton {
         id: makeTag
         iconName: "code"
-        visible: termDefin.txtFocus
+        visible: termDefin.txtFocus || makeTag.focus || expandTagRight.focus
 
         anchors { top: parent.top; right: expandTagRight.left; }
 
@@ -81,7 +81,7 @@ Page {
     MyRoundButton {
         id: expandTagRight
         iconName: "extendRight"
-        visible: termDefin.txtFocus
+        visible: termDefin.txtFocus || makeTag.focus || expandTagRight.focus
 
         anchors { top: parent.top; right: parent.right; }
 
@@ -93,123 +93,122 @@ Page {
         }
     }
 
-    ScrollView {
+    contentItem: ScrollView {
         id: scroll
-
-        anchors.fill: parent
+        padding: 12
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
-        contentItem: Item {
-            width: scroll.width
+        ColumnLayout {
+            spacing: mainObj.getUiElementSize("colSpace")*Screen.pixelDensity
+            width: scroll.width - scroll.leftPadding - scroll.rightPadding
 
-            Column {
-                id: viewColumn
+            MyLabelPair {
+                id: nodeUuidText
+                name: "Изменить вершину с uuid: "
+                Layout.fillWidth: true
+            }
 
-                anchors.margins: 12
-                anchors.fill: parent
+            MyTextField {
+                property string prevText: ""
 
-                spacing: mainObj.getUiElementSize("colSpace")*Screen.pixelDensity
+                id: termName
+                labelText: "Название:"
+                placeholderText: "[Термин]"
 
-                MyLabelPair {
-                    id: nodeUuidText
-                    name: "Изменить вершину с uuid: "
-                }
+                Layout.fillWidth: true
+                onNewText: checkNewText(text)
 
-                MyTextField {
-                    property string prevText: ""
-
-                    id: termName
-                    labelText: "Название:"
-                    placeholderText: "[Термин]"
-
-                    onNewText: checkNewText(text)
-
-                    function checkNewText(text) {
-                        var differ = prevText.length - text.length
-                        if (differ >= 2 || differ <= -2) {
-                            if (textProcessor.isTermWithDefinition(text)) {
-                                termName.text = textProcessor.getTerm(text)
-                                termDefin.text = textProcessor.getDefinition(text)
-                            }
+                function checkNewText(text) {
+                    var differ = prevText.length - text.length
+                    if (differ >= 2 || differ <= -2) {
+                        if (textProcessor.isTermWithDefinition(text)) {
+                            termName.text = textProcessor.getTerm(text)
+                            termDefin.text = textProcessor.getDefinition(text)
                         }
-                        prevText = text
                     }
-                }
-
-                MyTextArea {
-                    id: termDefin
-                    labelText: "-это"
-                    placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
-                }
-
-                MyTextArea {
-                    id: termDescr
-                    labelText : "Описание"
-                    placeholderText: "[Общее словестное описание, пока никак не участвует в логике]"
-                }
-
-                MyTextArea {
-                    id: termExampl
-                    labelText: "Примеры"
-                }
-
-                MyTextField {
-                    enabled: false
-                    visible: false
-
-                    labelText: "Ссылка на Wiki статью"
-                    placeholderText: "http://"
-                }
-
-                MyTextField {
-                    enabled: false
-                    visible: false
-
-                    labelText: "Ссылка на Wiki изображение"
-                    placeholderText: "http://"
-                }
-
-                // Здесь есть проблема с anchors
-                RowLayout {
-                    id: currentGroupEditableRow
-
-                    width: parent.width
-
-                    Label {
-                        id: grpLabel
-                        text : "Группа"
-                        font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
-                    }
-
-                    MyComboBox {
-                        id: nodeGroup
-                        model: groupsManager.allUuidSorted
-
-                        function selectElement(name) {
-                            var index = find(name)
-                            if (index !== -1) {
-                                currentIndex = index
-                            }
-                        }
-                        Layout.fillWidth: true
-                    }
-                }
-
-                MyLabelPair {
-                    id: lastEditText
-                    name: "Последняя правка:"
-                }
-
-                MessageDialog {
-                    id: emptyNodeNameDelDialog
-
-                    title: "Невозможно создать вершину"
-                    text:  "Невозможно создать пустой термин.\nЗаполните поле \"Название\""
-
-                    standardButtons: StandardButton.Ok
-                    icon: StandardIcon.Warning
+                    prevText = text
                 }
             }
+
+            MyTextArea {
+                id: termDefin
+                Layout.fillWidth: true
+                labelText: "-это"
+                placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
+            }
+
+            MyTextArea {
+                id: termDescr
+                Layout.fillWidth: true
+                labelText : "Описание"
+                placeholderText: "[Общее словестное описание, пока никак не участвует в логике]"
+            }
+
+            MyTextArea {
+                id: termExampl
+                Layout.fillWidth: true
+                labelText: "Примеры"
+            }
+
+            MyTextField {
+                enabled: false
+                visible: false
+                Layout.fillWidth: true
+
+                labelText: "Ссылка на Wiki статью"
+                placeholderText: "http://"
+            }
+
+            MyTextField {
+                enabled: false
+                visible: false
+                Layout.fillWidth: true
+
+                labelText: "Ссылка на Wiki изображение"
+                placeholderText: "http://"
+            }
+
+            // Здесь есть проблема с anchors
+            RowLayout {
+                id: currentGroupEditableRow
+
+                Layout.fillWidth: true
+
+                Label {
+                    id: grpLabel
+                    text : "Группа"
+                    font.pixelSize: mainObj.getUiElementSize("inputText")*Screen.pixelDensity
+                }
+
+                MyComboBox {
+                    id: nodeGroup
+                    model: groupsManager.allUuidSorted
+
+                    function selectElement(name) {
+                        var index = find(name)
+                        if (index !== -1) {
+                            currentIndex = index
+                        }
+                    }
+                    Layout.fillWidth: true
+                }
+            }
+
+            MyLabelPair {
+                id: lastEditText
+                Layout.fillWidth: true
+                name: "Последняя правка:"
+            }
         }
+    }
+
+    MessageDialog {
+        id: emptyNodeNameDelDialog
+
+        title: "Невозможно создать вершину"
+        text:  "Невозможно создать пустой термин.\nЗаполните поле \"Название\""
+
+        standardButtons: StandardButton.Ok
+        icon: StandardIcon.Warning
     }
 }

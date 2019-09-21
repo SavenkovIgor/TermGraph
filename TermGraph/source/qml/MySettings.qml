@@ -21,10 +21,14 @@ Page {
     background: Rectangle { color: appColors.base; }
 
     contentItem: Column {
+        padding: 12
+        property real expectedWidth: width - leftPadding - rightPadding
+
         MyLabelPair {
             id: localIpDescription
             name: "Ip этого устройства:"
             text: networkManager.getFirstLocalIpString()
+            width: parent.expectedWidth
         }
 
         MyTextField {
@@ -32,12 +36,14 @@ Page {
             labelText: "Ip получателя"
             onTextChanged: { networkManager.setReceiverHostIp(text) }
             Component.onCompleted: { text = networkManager.getReceiverIp() }
+            width: parent.expectedWidth
         }
 
         MyLabelPair{
             id: connectionState
             name: "Состояние подключения:"
             text: networkManager.connectionState
+            width: parent.expectedWidth
         }
 
         MySquareButton {
@@ -56,6 +62,7 @@ Page {
             id: databaseVersion
             name: "Версия базы данных:"
             text: mainObj.dbVersion()
+            width: parent.expectedWidth
 
             function updateText() {
                 text = mainObj.dbVersion()
