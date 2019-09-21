@@ -12,7 +12,6 @@ import "JsExtensions/nodePaint.js" as JsPaint
 Page {
     id: root
 
-    property StackView mainStack
     property Drawer sideMenu
     property int scOffset: mainHeader.height
     property bool currentPageOpened: StackView.visible
@@ -54,14 +53,10 @@ Page {
         onSelectionDoubleClick: nodeInfoButton.openTerm()
     }
 
-    NewNode {
-        id: newNodePage
-        mainStack: stackView
-    }
-
-    Component { id: editNodeComponent; EditNode { } }
+    Component { id: newNodeComponent;    NewNode { } }
+    Component { id: editNodeComponent;   EditNode { } }
     Component { id: groupsListComponent; TermGroupsList { } }
-    Component { id: termViewComponent; TermView { } }
+    Component { id: termViewComponent;   TermView { } }
 
     Rectangle {
         id: sceneBackground
@@ -79,19 +74,22 @@ Page {
         anchors { right: parent.right; bottom: parent.bottom; }
         visible: true
 
-        iconName: "plus"
-        onClicked: openNewNodePage()
+        iconName: action.icon.name
 
-        function openNewNodePage() {
-            if (groupsManager.hasAnyGroup) {
-                newNodePage.open()
-            } else {
-                showWarning("Create group first!")
-                root.StackView.view.push(groupsListComponent)
+        action: Action {
+            text: "AddNode"
+            icon.name: "plus"
+            shortcut: "Ctrl+n"
+            enabled: root.currentPageOpened
+            onTriggered: {
+                if (groupsManager.hasAnyGroup) {
+                    root.StackView.view.push(newNodeComponent)
+                } else {
+                    showWarning("Create group first!")
+                    root.StackView.view.push(groupsListComponent)
+                }
             }
         }
-
-        Shortcut { sequence: "Ctrl+n"; enabled: root.currentPageOpened; onActivated: addNodeButton.openNewNodePage(); }
     }
 
     MyRoundButton {
@@ -108,13 +106,12 @@ Page {
     MyRoundButton {
         id: editNodeButton
         z: 3
-        iconName: editNodeAction.icon.name
         visible: false
-
         anchors { right: parent.right; bottom: parent.bottom; }
 
+        iconName: action.icon.name
+
         action: Action {
-            id: editNodeAction
             text: "EditNode"
             icon.name: "pencil"
             shortcut: "Ctrl+e"
@@ -179,7 +176,7 @@ Page {
         height: sceneView.height
 
         clip: true
-        interactive: mainStack.currentItem == root
+        interactive: root.currentPageOpened
 
         Shortcut {
             sequence: "Ctrl+Left"

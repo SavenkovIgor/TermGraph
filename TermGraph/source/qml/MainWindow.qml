@@ -34,7 +34,6 @@ ApplicationWindow {
     Component {
         id: mainSceneItem
         MainSceneView {
-            mainStack: stackView
             sideMenu: appSideMenu
 
             onShowInfo: infoPanel.showInfo(info)
@@ -43,20 +42,9 @@ ApplicationWindow {
         }
     }
 
-    Component {
-        id: groupsListComponent
-        TermGroupsList { }
-    }
-
-    Component {
-        id: settingsComponent
-        MySettings { }
-    }
-
-    Component {
-        id: helpPageComponent
-        HelpPage { }
-    }
+    Component { id: groupsListComponent; TermGroupsList { } }
+    Component { id: settingsComponent;   MySettings { } }
+    Component { id: helpPageComponent;   HelpPage { } }
 
     Drawer {
         id : appSideMenu

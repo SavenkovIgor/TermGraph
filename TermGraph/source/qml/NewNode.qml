@@ -11,12 +11,7 @@ Page {
 
     property string defaultUuidText: "startValue"
 
-    property StackView mainStack
-
-    function open() {
-        mainStack.push(root)
-        prepareForOpen()
-    }
+    StackView.onActivating: prepareForOpen()
 
     header: MainHeader {
 
