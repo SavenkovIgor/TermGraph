@@ -18,4 +18,6 @@ struct NodeInfoContainer
     QString wikiImage;
     QUuid groupUuid;
     QDateTime lastEdit;
+
+    bool isNull() { return uuid.isNull() && term.isEmpty(); }
 };

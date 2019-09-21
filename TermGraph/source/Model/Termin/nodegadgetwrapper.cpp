@@ -4,6 +4,11 @@ NodeGadgetWrapper::NodeGadgetWrapper(const NodeInfoContainer& info)
     : _info(info)
 {}
 
+bool NodeGadgetWrapper::isNull()
+{
+    return _info.isNull();
+}
+
 QString NodeGadgetWrapper::getUuid() const
 {
     return _info.uuid.toString();

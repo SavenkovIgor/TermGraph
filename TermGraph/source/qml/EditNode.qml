@@ -9,13 +9,7 @@ import "UIExtensions"
 Page {
     id: root
 
-    property StackView mainStack
-    property string nodeUuid: ""
-
-    function open() {
-        mainStack.push(root)
-        updateInfo()
-    }
+    StackView.onActivating: updateInfo()
 
     header: MainHeader {
 
@@ -39,6 +33,7 @@ Page {
     function exitFromThisPage() { root.StackView.view.pop() }
 
     function updateInfo() {
+        nodeUuidText.text = sceneObj.currentNode.uuid
         lastEditText.text = sceneObj.currentNode.lastEdit
         termName.text = sceneObj.currentNode.term
         termDefin.text = sceneObj.currentNode.definition
@@ -118,7 +113,6 @@ Page {
                 MyLabelPair {
                     id: nodeUuidText
                     name: "Изменить вершину с uuid: "
-                    text: root.nodeUuid
                 }
 
                 MyTextField {

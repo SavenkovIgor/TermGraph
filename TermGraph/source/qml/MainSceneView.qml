@@ -59,20 +59,9 @@ Page {
         mainStack: stackView
     }
 
-    EditNode {
-        id: editNodePage
-        mainStack: stackView
-    }
-
-    Component {
-        id: groupsListComponent
-        TermGroupsList { }
-    }
-
-    Component {
-        id: termViewComponent
-        TermView { }
-    }
+    Component { id: editNodeComponent; EditNode { } }
+    Component { id: groupsListComponent; TermGroupsList { } }
+    Component { id: termViewComponent; TermView { } }
 
     Rectangle {
         id: sceneBackground
@@ -119,23 +108,20 @@ Page {
     MyRoundButton {
         id: editNodeButton
         z: 3
-        iconName: "pencil"
+        iconName: editNodeAction.icon.name
         visible: false
 
         anchors { right: parent.right; bottom: parent.bottom; }
 
-        Shortcut {
-            sequence: "Ctrl+e"
-            onActivated: editNodeButton.openEditNodePage(sceneObj.currentNode.uuid)
-        }
-
-        onClicked: openEditNodePage(sceneObj.currentNode.uuid)
-
-
-        function openEditNodePage(nodeUuid) {
-            if (nodeUuid !== "") {
-                editNodePage.open()
-                editNodePage.nodeUuid = nodeUuid
+        action: Action {
+            id: editNodeAction
+            text: "EditNode"
+            icon.name: "pencil"
+            shortcut: "Ctrl+e"
+            onTriggered: {
+                if (!sceneObj.currentNode.isNull()) {
+                    root.StackView.view.push(editNodeComponent)
+                }
             }
         }
     }
