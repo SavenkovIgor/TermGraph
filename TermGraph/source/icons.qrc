@@ -12,12 +12,6 @@
         <file>icons/share-boxed-4x.png</file>
         <file>icons/share-boxed-6x.png</file>
         <file>icons/share-boxed-8x.png</file>
-        <file>icons/folder-2x.png</file>
-        <file>icons/folder-3x.png</file>
-        <file>icons/folder-4x.png</file>
-        <file>icons/folder-6x.png</file>
-        <file>icons/folder-8x.png</file>
-        <file>icons/folder.png</file>
         <file>icons/spreadsheet-2x.png</file>
         <file>icons/spreadsheet-3x.png</file>
         <file>icons/spreadsheet-4x.png</file>
@@ -54,12 +48,6 @@
         <file>icons/magnifying-glass-4x.png</file>
         <file>icons/magnifying-glass-6x.png</file>
         <file>icons/magnifying-glass-8x.png</file>
-        <file>icons/warning.png</file>
-        <file>icons/warning-2x.png</file>
-        <file>icons/warning-3x.png</file>
-        <file>icons/warning-4x.png</file>
-        <file>icons/warning-6x.png</file>
-        <file>icons/warning-8x.png</file>
         <file>icons/trash.png</file>
         <file>icons/trash-2x.png</file>
         <file>icons/trash-3x.png</file>
@@ -84,5 +72,7 @@
         <file>icons/book.svg</file>
         <file>icons/menu.svg</file>
         <file>icons/pencil.svg</file>
+        <file>icons/warning.svg</file>
+        <file>icons/folder.svg</file>
     </qresource>
 </RCC>
