@@ -3,6 +3,8 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Window 2.13
 
+import "../JsExtensions/iconpath.js" as IconPath
+
 ToolBar {
     id: mainHeader
 
@@ -17,7 +19,7 @@ ToolBar {
     property alias title: titleLabel.text
 
     function showMenuIcon()  { mainMenuButton.iconName = "menu" }
-    function showArrowIcon() { mainMenuButton.iconName = "arrow-thick-left" }
+    function showArrowIcon() { mainMenuButton.icon.source = IconPath.leftArrow }
 
     function showCheckButton() {
         checkButton.visible = true
