@@ -64,8 +64,9 @@ Page {
         mainStack: stackView
     }
 
-    TermGroupsList {
-        id: groupsListPage
+    Component {
+        id: groupsListComponent
+        TermGroupsList { }
     }
 
     Component {
@@ -97,7 +98,7 @@ Page {
                 newNodePage.open()
             } else {
                 showWarning("Create group first!")
-                groupsListPage.open()
+                root.StackView.view.push(groupsListComponent)
             }
         }
 
