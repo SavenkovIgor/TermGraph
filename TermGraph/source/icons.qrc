@@ -1,11 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/x.png</file>
-        <file>icons/x-2x.png</file>
-        <file>icons/x-3x.png</file>
-        <file>icons/x-4x.png</file>
-        <file>icons/x-6x.png</file>
-        <file>icons/x-8x.png</file>
         <file>icons/code.png</file>
         <file>icons/code-2x.png</file>
         <file>icons/code-3x.png</file>
