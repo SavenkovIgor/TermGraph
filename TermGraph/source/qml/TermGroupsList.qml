@@ -107,9 +107,9 @@ Page {
 
                 Text {
                     id: grpName
-                    topPadding: font.pixelSize/2
+                    topPadding: font.pixelSize / 2
                     leftPadding: font.pixelSize
-                    bottomPadding: font.pixelSize/3
+                    bottomPadding: font.pixelSize / 3
 
                     font.weight: Font.Medium
 
