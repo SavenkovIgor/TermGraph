@@ -13,7 +13,6 @@ Page {
     id: root
 
     property Drawer sideMenu
-    property int scOffset: mainHeader.height
     property bool currentPageOpened: StackView.visible
 
     signal showInfo(string info)
@@ -25,7 +24,7 @@ Page {
         id: mainHeader
         titleText: "TermGraph"
 
-        Component.onCompleted: mainHeader.showMenuIcon()
+        Component.onCompleted: showMenuIcon()
         onMenuClick: sideMenu.open()
     }
 
@@ -58,14 +57,7 @@ Page {
     Component { id: groupsListComponent; TermGroupsList { } }
     Component { id: termViewComponent;   TermView { } }
 
-    Rectangle {
-        id: sceneBackground
-
-        z: 1
-        anchors.fill: parent
-
-        color: sceneObj.getSceneBackgroundColor()
-    }
+    background: Rectangle { color: sceneObj.getSceneBackgroundColor() }
 
     MyRoundButton {
         id: addNodeButton
@@ -115,6 +107,7 @@ Page {
             text: "EditNode"
             icon.name: "pencil"
             shortcut: "Ctrl+e"
+            enabled: root.currentPageOpened
             onTriggered: {
                 if (!sceneObj.currentNode.isNull()) {
                     root.StackView.view.push(editNodeComponent)
