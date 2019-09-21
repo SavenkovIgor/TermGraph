@@ -88,7 +88,7 @@ ApplicationWindow {
 
                 SideMenuButton {
                     labelText: "Изучение"
-                    iconName: "book"
+                    iconSource: IconPath.book
                     Layout.fillWidth: true
                     visible: false
                 }

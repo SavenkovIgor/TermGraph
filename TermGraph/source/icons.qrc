@@ -84,11 +84,6 @@
         <file>icons/trash-4x.png</file>
         <file>icons/trash-6x.png</file>
         <file>icons/trash-8x.png</file>
-        <file>icons/book-2x.png</file>
-        <file>icons/book-3x.png</file>
-        <file>icons/book-4x.png</file>
-        <file>icons/book-6x.png</file>
-        <file>icons/book-8x.png</file>
         <file>icons/loop-circular.png</file>
         <file>icons/loop-circular-2x.png</file>
         <file>icons/loop-circular-3x.png</file>
@@ -104,5 +99,6 @@
         <file>icons/plus.svg</file>
         <file>icons/cog.svg</file>
         <file>icons/arrow-thick-left.svg</file>
+        <file>icons/book.svg</file>
     </qresource>
 </RCC>
