@@ -1,6 +1,7 @@
 .pragma library
 
 const leftArrow = "qrc:/icons/arrow-thick-left.svg"
+const rightArrow = "qrc:/icons/arrow-thick-right.svg"
 const book = "qrc:/icons/book.svg"
 const check = "qrc:/icons/check.svg"
 const chevronRight = "qrc:/icons/chevron-right.svg"
