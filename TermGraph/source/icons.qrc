@@ -1,11 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/pencil.png</file>
-        <file>icons/pencil-2x.png</file>
-        <file>icons/pencil-3x.png</file>
-        <file>icons/pencil-4x.png</file>
-        <file>icons/pencil-6x.png</file>
-        <file>icons/pencil-8x.png</file>
         <file>icons/x.png</file>
         <file>icons/x-2x.png</file>
         <file>icons/x-3x.png</file>
@@ -95,5 +89,6 @@
         <file>icons/arrow-thick-left.svg</file>
         <file>icons/book.svg</file>
         <file>icons/menu.svg</file>
+        <file>icons/pencil.svg</file>
     </qresource>
 </RCC>

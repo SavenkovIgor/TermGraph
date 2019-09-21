@@ -101,7 +101,7 @@ Page {
 
         action: Action {
             text: "EditNode"
-            icon.name: "pencil"
+            icon.source: IconPath.pencil
             shortcut: "Ctrl+e"
             enabled: root.currentPageOpened
             onTriggered: {
