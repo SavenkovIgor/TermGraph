@@ -22,5 +22,6 @@
         <file>qml/EditNode.qml</file>
         <file>qml/NewNode.qml</file>
         <file>qml/UIExtensions/HelpCard.qml</file>
+        <file>qml/JsExtensions/debug.js</file>
     </qresource>
 </RCC>
