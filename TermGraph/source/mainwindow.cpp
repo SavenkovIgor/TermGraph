@@ -58,7 +58,7 @@ void MainWindow::initElemSizes()
         // Screen.pixelDencity - pixel in millimeters
         elementSizes["roundButton"] = 15;
         elementSizes["text"]        = 5;
-        elementSizes["capitalText"] = 5;
+        elementSizes["capitalText"] = 6;
         elementSizes["inputLabel"]  = 7;
         elementSizes["inputText"]   = 6;
         elementSizes["combo"]       = 5;
@@ -72,7 +72,7 @@ void MainWindow::initElemSizes()
     if constexpr (AppSettings::Platform::isAndroid()) {
         elementSizes["roundButton"] = 9;
         elementSizes["text"]        = 4;
-        elementSizes["capitalText"] = 4;
+        elementSizes["capitalText"] = 5;
         elementSizes["inputLabel"]  = 4;
         elementSizes["inputText"]   = 4;
         elementSizes["combo"]       = 4;
