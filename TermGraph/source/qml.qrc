@@ -25,5 +25,6 @@
         <file>qml/JsExtensions/debug.js</file>
         <file>qml/JsExtensions/iconpath.js</file>
         <file>qml/Learning/LearnGroupsList.qml</file>
+        <file>qml/Learning/LearnMode.qml</file>
     </qresource>
 </RCC>
