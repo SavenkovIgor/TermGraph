@@ -27,9 +27,9 @@ public:
 
     static QString getErrorFor(QString str);  // TODO: Realize!
 
-    static int getLevDistance(const QString &src, const QString &dst);
+    static int getLevDistance(const QString& src, const QString& dst, int limit = 100000);
 
-    static bool isTagCorrespondToTermName(QString termName, QString tag);
+    static std::pair<bool, int> isTagCorrespondToTermName(QString termName, QString tag);
 
 public slots:
     static QStringList extractTags(QString str);

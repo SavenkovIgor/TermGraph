@@ -104,65 +104,71 @@ int TagProcessor::getMaxDepthOfNestedBrackets(QString text)
     return maxDepth;
 }
 
-int TagProcessor::getLevDistance(const QString &src, const QString &dst)
+int TagProcessor::getLevDistance(const QString& src, const QString& dst, int limit)
 {
     const int m = src.size();
     const int n = dst.size();
-    if (m == 0) {
-        return n;
-    }
-    if (n == 0) {
-        return m;
-    }
 
-    std::vector< std::vector<int> > matrix(m + 1);
+    if (m == 0)
+        return n;
+
+    if (n == 0)
+        return m;
+
+    std::vector<std::vector<int>> matrix(m + 1);
 
     for (int i = 0; i <= m; ++i) {
         matrix[i].resize(n + 1);
         matrix[i][0] = i;
     }
+
     for (int i = 0; i <= n; ++i) {
         matrix[0][i] = i;
     }
 
-    int above_cell, left_cell, diagonal_cell, cost;
+    int above_cell, left_cell, diagonal_cell, cost, min_in_row;
 
     for (int i = 1; i <= m; ++i) {
+        min_in_row = 100000;
         for (int j = 1; j <= n; ++j) {
-            cost = src[i - 1] == dst[j - 1] ? 0 : 1;
-            above_cell = matrix[i - 1][j];
-            left_cell = matrix[i][j - 1];
+            cost          = src[i - 1] == dst[j - 1] ? 0 : 1;
+            above_cell    = matrix[i - 1][j];
+            left_cell     = matrix[i][j - 1];
             diagonal_cell = matrix[i - 1][j - 1];
-            matrix[i][j] = std::min(std::min(above_cell + 1, left_cell + 1), diagonal_cell + cost);
+            matrix[i][j]  = std::min(std::min(above_cell + 1, left_cell + 1), diagonal_cell + cost);
+            min_in_row    = std::min(min_in_row, matrix[i][j]);
+        }
+        if (min_in_row > limit) {
+            return 100000;
         }
     }
 
     return matrix[m][n];
 }
 
-bool TagProcessor::isTagCorrespondToTermName(QString termName, QString tag)  // TODO: Maybe refactor
+std::pair<bool, int> TagProcessor::isTagCorrespondToTermName(QString termName, QString tag)  // TODO: Maybe refactor
 {
     // To lower capital
     termName = termName.toLower();
     tag = tag.toLower();
 
     // Exact match
-    if (termName.size() == tag.size() && termName == tag) {
-        return true;
-    }
+    if (termName.size() == tag.size() && termName == tag)
+        return std::pair(true, 0);
 
-    int acceptableDistance = 4*(1 + termName.count(' '));  // Пропорционально количеству слов
-    acceptableDistance = 4;
+    int acceptableDistance = 4 * (termName.count(' ') + 1);  // Пропорционально количеству слов
+                                                             //    acceptableDistance = 4;
     // TODO: Сделать защиту от формирования двухсторонних связей
     // TODO: Найти способ вызывать функцию в mainScene addEdge
     // TODO: Переделать так чтобы это было предложением а не обязательным действием
-    if (TagProcessor::getLevDistance(termName, tag) <= acceptableDistance) {
+    auto distance = TagProcessor::getLevDistance(termName, tag, acceptableDistance);
+    if (distance <= acceptableDistance) {
         if (termName.left(3) == tag.left(3)) {
-            return true;
+            return std::pair(true, distance);
         }
     }
 
-    return false;
+    return std::pair(false, distance);
 }
 
 int TagProcessor::getCursorPosition(
@@ -251,7 +257,7 @@ QStringList TagProcessor::extractTags(QString str)
         if (insideTag) {
             if (symbol == rightBracket) {  // Тег кончился - заносим в список
                 insideTag = false;
-                tags << wordBuffer;
+                tags << wordBuffer.simplified();
                 wordBuffer.clear();
                 continue;
             }

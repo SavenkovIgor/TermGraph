@@ -69,7 +69,7 @@ private:
 
     // Edge connections search
     EdgesList searchAllConnections();
-    PaintedTerm* getRootNodeForTag(const QString& tag);
+    PaintedTerm* getNearestNodeForTag(const QString& tag);
 
     EdgesList suggestConnections();  // TODO: Realize!
 };

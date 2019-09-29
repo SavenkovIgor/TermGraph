@@ -1,6 +1,7 @@
 #include "termgroupinfo.h"
 
 #include "source/Helpers/helpstuff.h"
+#include "source/Model/TerminGroup/groupnamecache.h"
 
 TermGroupInfo::TermGroupInfo(const GroupInfoContainer& info)
 {
@@ -69,6 +70,9 @@ PaintedTerm::List TermGroupInfo::getOrphanNodes() const
 
 Edge* TermGroupInfo::addNewEdge(PaintedTerm* rootNode, PaintedTerm* leafNode)
 {
+    if (rootNode == leafNode)
+        return nullptr;
+
     auto edge = new Edge(rootNode, leafNode);
     rootNode->addEdgeRef(edge);
     leafNode->addEdgeRef(edge);
@@ -78,12 +82,18 @@ Edge* TermGroupInfo::addNewEdge(PaintedTerm* rootNode, PaintedTerm* leafNode)
 EdgesList TermGroupInfo::searchAllConnections()
 {
     EdgesList ret;
+
+    auto nameCache = GroupNameCache(nodesList);
     // Compare everything with everything
     for (auto node : nodesList) {
         for (const auto& tag : node->getDefinitionTags()) {
-            if (auto foundNode = getRootNodeForTag(tag)) {
-                if (node != foundNode) {
-                    ret << addNewEdge(foundNode, node);
+            if (auto foundNode = nameCache.getIfExist(tag)) {
+                if (auto edge = addNewEdge(foundNode, node)) {
+                    ret << edge;
+                }
+            } else if (auto foundNode = getNearestNodeForTag(tag)) {
+                if (auto edge = addNewEdge(foundNode, node)) {
+                    ret << edge;
                 }
             }
         }
@@ -92,9 +102,11 @@ EdgesList TermGroupInfo::searchAllConnections()
     return ret;
 }
 
-PaintedTerm *TermGroupInfo::getRootNodeForTag(const QString &tag)
+PaintedTerm *TermGroupInfo::getNearestNodeForTag(const QString &tag)
 {
     PaintedTerm* targetTerm = nullptr;
+
+    int minDistance = 100000;
 
     for (auto node : nodesList) {
         auto termName = node->getTerm();
@@ -102,9 +114,12 @@ PaintedTerm *TermGroupInfo::getRootNodeForTag(const QString &tag)
         if (termName.size() == tag.size() && termName == tag)
             return node;
 
-        // TODO: Rework comparsion scheme!
-        if (TagProcessor::isTagCorrespondToTermName(termName, tag)) {
-            targetTerm = node;
+        auto [match, distance] = TagProcessor::isTagCorrespondToTermName(termName, tag);
+        if (match) {
+            if (distance < minDistance) {
+                minDistance = distance;
+                targetTerm  = node;
+            }
         }
     }
 
