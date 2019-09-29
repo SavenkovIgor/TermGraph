@@ -1,5 +1,7 @@
 #pragma once
 
+#include <QList>
+#include <QMap>
 #include <QSqlRecord>
 #include <QSizeF>
 
@@ -18,6 +20,7 @@ public:
     bool thisSelected = false;
 
     using List = QList<PaintedTerm*>;
+    using Map  = QMap<QString, PaintedTerm*>;
 
     static bool someoneHover;
     static bool someoneSelect;
