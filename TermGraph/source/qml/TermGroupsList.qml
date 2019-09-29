@@ -26,7 +26,7 @@ Page {
         id: addGroupBtn
         icon.source: IconPath.plus
 
-        anchors { right: parent.right; bottom: parent.bottom; }
+        anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
 
         onClicked: newGroupDrawer.open()
     }
@@ -35,7 +35,7 @@ Page {
         id: deleteGroupBtn
         icon.source: IconPath.trash
 
-        anchors { right: parent.right; bottom: addGroupBtn.top; }
+        anchors { right: parent.right; bottom: addGroupBtn.top; margins: width / 2; }
 
         onClicked: groupDeleteDialog.visible = true
     }
@@ -48,6 +48,7 @@ Page {
 
         anchors.right: addGroupBtn.left
         anchors.bottom: parent.bottom
+        anchors.margins: width / 2;
 
         onClicked: {
             groupsManager.exportGrpToJson(groupsList.currentItem.text)
@@ -62,7 +63,7 @@ Page {
         id: sendByNetworkButton
         icon.source: IconPath.share
 
-        anchors { right: addGroupBtn.left; bottom: parent.bottom; }
+        anchors { right: addGroupBtn.left; bottom: parent.bottom; margins: width / 2; }
 
         onClicked: syncManager.sendGroupByNetwork(groupsList.currentItem.groupUuid)
     }

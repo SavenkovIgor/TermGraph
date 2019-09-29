@@ -62,14 +62,13 @@ Page {
     MyRoundButton {
         id: addNodeButton
 
-        anchors { right: parent.right; bottom: parent.bottom; }
+        anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
         visible: true
-
-        icon.source: IconPath.plus
 
         action: Action {
             text: "AddNode"
             shortcut: "Ctrl+n"
+            icon.source: IconPath.plus
             enabled: root.currentPageOpened
             onTriggered: {
                 if (groupsManager.hasAnyGroup) {
@@ -87,7 +86,7 @@ Page {
         icon.source: IconPath.spreadsheet
         visible: groupsManager.hasAnyGroup
 
-        anchors { top: parent.top; right: parent.right; }
+        anchors { top: parent.top; right: parent.right; margins: width / 2; }
 
         onClicked: groupsList.open()
     }
@@ -95,7 +94,7 @@ Page {
     MyRoundButton {
         id: editNodeButton
         visible: false
-        anchors { right: parent.right; bottom: parent.bottom; }
+        anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
 
         action: Action {
             text: "EditNode"
@@ -115,7 +114,7 @@ Page {
         icon.source: IconPath.trash
         visible: false
 
-        anchors { right: parent.right; bottom: editNodeButton.top; }
+        anchors { right: parent.right; bottom: editNodeButton.top; margins: width / 2; }
 
         onClicked: nodeDelDialog.visible = true
     }
@@ -137,7 +136,7 @@ Page {
         icon.source: IconPath.info
         visible: false
 
-        anchors { right: editNodeButton.left; bottom: parent.bottom; }
+        anchors { right: editNodeButton.left; bottom: parent.bottom; margins: width / 2; }
 
         Shortcut {
             sequence: "Ctrl+i"

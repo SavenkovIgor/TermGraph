@@ -9,11 +9,9 @@ RoundButton {
     property alias color: root.icon.color
     property bool backgroundHidden: false
 
-    anchors.margins: width / 2
-    z: 1
+    property real size: mainObj.getUiElementSize("roundButton") * Screen.pixelDensity
 
     background: Rectangle {
-        id: back
         radius: width / 2
         color: !root.backgroundHidden ? appColors.white : "transparent"
     }
@@ -21,9 +19,12 @@ RoundButton {
     width:  implicitWidth
     height: implicitHeight
 
-    implicitWidth:  mainObj.getUiElementSize("roundButton") * Screen.pixelDensity
-    implicitHeight: mainObj.getUiElementSize("roundButton") * Screen.pixelDensity
+    icon.width: implicitWidth
+    icon.height: implicitHeight
 
-    padding: 0.27 * width
+    implicitWidth:  root.size
+    implicitHeight: root.size
+
+    padding: 0.28 * width
 }
 

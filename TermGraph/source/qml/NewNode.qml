@@ -70,7 +70,7 @@ Page {
         icon.source: IconPath.code
         visible: termDefin.txtFocus || makeTag.focus || expandTagRight.focus
 
-        anchors { top: parent.top; right: expandTagRight.left; }
+        anchors { top: parent.top; right: expandTagRight.left; margins: width / 2; }
 
         onClicked: {
             var pos = termDefin.cursorPosition
@@ -85,7 +85,7 @@ Page {
         icon.source: IconPath.chevronRight
         visible: termDefin.txtFocus || makeTag.focus || expandTagRight.focus
 
-        anchors { top: parent.top; right: parent.right; }
+        anchors { top: parent.top; right: parent.right; margins: width / 2; }
 
         onClicked: {
             var pos = termDefin.cursorPosition

@@ -24,7 +24,7 @@ Page {
 
     MyRoundButton {
         id: addGroupBtn
-        anchors { right: parent.right; bottom: parent.bottom; }
+        anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
         icon.source: IconPath.rightArrow
     }
 
