@@ -13,6 +13,7 @@ HEADERS += \
     source/Model/Termin/nodeinfocontainer.h \
     source/Model/TerminGroup/groupgadgetwrapper.h \
     source/Model/TerminGroup/groupinfocontainer.h \
+    source/Model/TerminGroup/groupnamecache.h \
     source/databaseWorks/columns/nodecolumn.h \
     source/databaseWorks/columns/tcolumn.h \
     source/databaseWorks/columns/termgroupcolumn.h \
@@ -69,6 +70,7 @@ SOURCES += \
     source/Managers/syncmanager.cpp \
     source/Model/Termin/nodegadgetwrapper.cpp \
     source/Model/TerminGroup/groupgadgetwrapper.cpp \
+    source/Model/TerminGroup/groupnamecache.cpp \
     source/databaseWorks/tools/dbtools.cpp \
     source/databaseWorks/tools/insertcontainer.cpp \
     source/databaseWorks/tools/setexpression.cpp \
