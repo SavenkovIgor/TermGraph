@@ -2,8 +2,8 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "UIExtensions"
-// primitive -> element -> component -> view
-Page {
+
+MPage {
     id: root
 
     Component.onCompleted: { databaseVersion.updateText(); }
@@ -21,7 +21,6 @@ Page {
     background: Rectangle { color: appColors.base; }
 
     contentItem: Column {
-        padding: 12
         property real expectedWidth: width - leftPadding - rightPadding
 
         MyLabelPair {

@@ -26,5 +26,6 @@
         <file>qml/JsExtensions/iconpath.js</file>
         <file>qml/Learning/LearnGroupsList.qml</file>
         <file>qml/Learning/LearnMode.qml</file>
+        <file>qml/UIExtensions/MPage.qml</file>
     </qresource>
 </RCC>

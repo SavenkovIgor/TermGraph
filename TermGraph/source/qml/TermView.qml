@@ -4,7 +4,7 @@ import QtQuick.Layouts 1.13
 
 import "UIExtensions"
 
-Page {
+MPage {
     id: root
 
     header: MainHeader {
@@ -17,12 +17,14 @@ Page {
     }
 
     contentItem: ScrollView {
+        id: scroll
+
         clip: true
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
         ColumnLayout {
             spacing: 14
-            width: root.width
+            width: scroll.width
 
             MyLabelPair {
                 name: "Dbg:"

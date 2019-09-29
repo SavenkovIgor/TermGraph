@@ -7,7 +7,7 @@ import QtQuick.Dialogs 1.3
 import "UIExtensions"
 import "JsExtensions/iconpath.js" as IconPath
 
-Page {
+MPage {
     id: root
 
     StackView.onActivating: updateInfo()
@@ -96,7 +96,6 @@ Page {
 
     contentItem: ScrollView {
         id: scroll
-        padding: 12
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
         ColumnLayout {
