@@ -35,6 +35,9 @@ void Edge::cutOutFromSides()
 Edge::Edge(PaintedTerm* from, PaintedTerm* to, EdgeType type) :
     GraphEdge(from, to)
 {
+    assert(from != to);
+    assert(from != nullptr);
+    assert(to != nullptr);
     this->type = type;
 }
 
