@@ -13,6 +13,12 @@ private:
 
     constexpr static PlatformType currentPlatform()
     {
+#if defined(Q_OS_ANDROID)
+        return PlatformType::Android;
+#endif
+#if defined(Q_OS_IOS)
+        return PlatformType::IOS;
+#endif
 #if defined(Q_OS_LINUX)
         return PlatformType::Linux;
 #endif
@@ -21,12 +27,6 @@ private:
 #endif
 #if defined(Q_OS_MACOS)
         return PlatformType::MacOS;
-#endif
-#if defined(Q_OS_ANDROID)
-        return PlatformType::Android;
-#endif
-#if defined(Q_OS_IOS)
-        return PlatformType::IOS;
 #endif
     }
 

@@ -83,16 +83,23 @@ EdgesList TermGroupInfo::searchAllConnections()
 {
     EdgesList ret;
 
+    QMap<QString, PaintedTerm*> previousSearchCache;
+
     auto nameCache = GroupNameCache(nodesList);
     // Compare everything with everything
     for (auto node : nodesList) {
         for (const auto& tag : node->getDefinitionTags()) {
-            if (auto foundNode = nameCache.getIfExist(tag)) {
+            auto* foundNode = previousSearchCache.value(tag, nullptr);
+
+            if (!foundNode)
+                foundNode = nameCache.getIfExist(tag);
+
+            if (!foundNode)
+                foundNode = getNearestNodeForTag(tag);
+
+            if (foundNode) {
                 if (auto edge = addNewEdge(foundNode, node)) {
-                    ret << edge;
-                }
-            } else if (auto foundNode = getNearestNodeForTag(tag)) {
-                if (auto edge = addNewEdge(foundNode, node)) {
+                    previousSearchCache.insert(tag, foundNode);
                     ret << edge;
                 }
             }
