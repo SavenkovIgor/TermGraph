@@ -6,7 +6,6 @@ import QtQuick.Window 2.13
 T.Control {
     id: root
 
-    property real baseSize: 50
     property alias text: tipTitle.text
     property real minSizing: Math.min(width, height);
 
