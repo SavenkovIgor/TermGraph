@@ -13,7 +13,6 @@
         <file>qml/UIExtensions/SideMenuButton.qml</file>
         <file>qml/UIExtensions/MainHeader.qml</file>
         <file>qml/TermView.qml</file>
-        <file>qml/JsExtensions/nodePaint.js</file>
         <file>qml/UIExtensions/SmallInfoText.qml</file>
         <file>qml/UIExtensions/GroupsDrawer.qml</file>
         <file>qml/MainSceneView.qml</file>
@@ -22,8 +21,9 @@
         <file>qml/EditNode.qml</file>
         <file>qml/NewNode.qml</file>
         <file>qml/UIExtensions/HelpCard.qml</file>
-        <file>qml/JsExtensions/debug.js</file>
-        <file>qml/JsExtensions/iconpath.js</file>
+        <file>qml/Js/nodePaint.js</file>
+        <file>qml/Js/debug.js</file>
+        <file>qml/Js/iconpath.js</file>
         <file>qml/Learning/LearnGroupsList.qml</file>
         <file>qml/Learning/LearnMode.qml</file>
         <file>qml/UIExtensions/MPage.qml</file>

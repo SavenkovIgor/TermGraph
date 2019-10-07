@@ -3,7 +3,7 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Window 2.13
 
-import "../JsExtensions/iconpath.js" as IconPath
+import "../Js/iconpath.js" as IconPath
 
 ToolBar {
     id: mainHeader

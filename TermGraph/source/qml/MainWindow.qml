@@ -7,7 +7,7 @@ import QtQuick.Dialogs 1.3
 
 import "UIExtensions"
 import "Learning"
-import "JsExtensions/iconpath.js" as IconPath
+import "Js/iconpath.js" as IconPath
 
 ApplicationWindow {
     id: window

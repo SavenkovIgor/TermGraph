@@ -7,8 +7,8 @@ import QtQuick.Dialogs 1.3
 
 import "UIExtensions"
 
-import "JsExtensions/nodePaint.js" as JsPaint
-import "JsExtensions/iconpath.js" as IconPath
+import "Js/nodePaint.js" as JsPaint
+import "Js/iconpath.js" as IconPath
 
 Page {
     id: root
