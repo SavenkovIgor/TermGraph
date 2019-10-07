@@ -6,6 +6,7 @@ import QtQuick.Dialogs 1.3
 
 import "UIExtensions"
 import "Js/IconPath.js" as IconPath
+import "Js/Colors.js" as Colors
 
 MPage {
     id: root
@@ -29,7 +30,7 @@ MPage {
     Shortcut { sequence: "Ctrl+Enter";  onActivated: root.applyNodeChange(); }
     Shortcut { sequence: "Ctrl+Return"; onActivated: root.applyNodeChange(); }
 
-    background: Rectangle { color: appColors.base }
+    background: Rectangle { color: Colors.base }
 
     function exitFromThisPage() { root.StackView.view.pop() }
 

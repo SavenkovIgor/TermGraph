@@ -3,13 +3,15 @@ import QtQuick.Controls 2.13
 import QtQuick.Templates 2.13 as T
 import QtQuick.Window 2.13
 
+import "../Js/Colors.js" as Colors
+
 T.Control {
     id: root
 
     property real baseSize: 50
     property real minSizing: Math.min(width, height);
 
-    background: Rectangle { color: appColors.base; }
+    background: Rectangle { color: Colors.base; }
 
     contentItem: Rectangle {
         property real marginVal: root.minSizing * 0.05
@@ -17,7 +19,7 @@ T.Control {
         anchors { fill: parent; margins: marginVal; }
 
         radius: root.minSizing * 0.08
-        color: appColors.baseLight3
+        color: Colors.baseLight3
 
         Column {
             id: item

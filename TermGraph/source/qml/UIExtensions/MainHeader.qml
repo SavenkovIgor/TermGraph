@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.13
 import QtQuick.Window 2.13
 
 import "../Js/IconPath.js" as IconPath
+import "../Js/Colors.js" as Colors
 
 ToolBar {
     id: mainHeader
@@ -13,7 +14,7 @@ ToolBar {
 
     background: Rectangle {
         anchors.fill: parent
-        color: appColors.baseLight
+        color: Colors.baseLight
     }
 
     property alias title: titleLabel.text
@@ -31,7 +32,7 @@ ToolBar {
 
         MyRoundButton {
             id: mainMenuButton
-            color: appColors.white
+            color: Colors.white
             backgroundHidden: true
             onClicked: mainHeader.menuClick()
         }
@@ -52,7 +53,7 @@ ToolBar {
             id: checkButton
             icon.source: IconPath.check
             visible: false
-            color: appColors.white
+            color: Colors.white
             backgroundHidden: true
 
             onClicked: mainHeader.checkClick()

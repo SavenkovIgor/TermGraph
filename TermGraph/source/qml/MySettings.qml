@@ -2,6 +2,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "UIExtensions"
+import "Js/Colors.js" as Colors
 
 MPage {
     id: root
@@ -18,7 +19,7 @@ MPage {
         onMenuClick: root.StackView.view.pop()
     }
 
-    background: Rectangle { color: appColors.base; }
+    background: Rectangle { color: Colors.base; }
 
     contentItem: Column {
         property real expectedWidth: width - leftPadding - rightPadding

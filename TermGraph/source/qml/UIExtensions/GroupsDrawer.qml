@@ -2,6 +2,8 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Window 2.13
 
+import "../Js/Colors.js" as Colors
+
 Drawer {
     id: drawer
 
@@ -20,7 +22,7 @@ Drawer {
 
         Rectangle {
             anchors.fill: parent
-            color: appColors.baseLight
+            color: Colors.baseLight
             z: -1
         }
 
@@ -48,7 +50,7 @@ Drawer {
                 font.weight: Font.Thin
                 height: Math.floor( font.pixelSize * 2.0 )
 
-                color: appColors.white
+                color: Colors.white
 
                 text: groupsManager.getGroupName(modelData)
 
@@ -67,7 +69,7 @@ Drawer {
             ThinLine {
                 target: parent
                 side: ThinLine.LineSide.Bottom
-                color: appColors.white
+                color: Colors.white
             }
 
             MouseArea {

@@ -3,6 +3,8 @@ import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
 import QtQuick.Window 2.13
 
+import "../Js/Colors.js" as Colors
+
 ColumnLayout {
 
     property alias name: nameLbl.text
@@ -15,7 +17,7 @@ ColumnLayout {
         font.pixelSize: mainObj.getUiElementSize("text") * Screen.pixelDensity + 1
         font.weight: Font.DemiBold
 
-        color: appColors.accent
+        color: Colors.accent
 
         Layout.fillWidth: true
     }
@@ -27,7 +29,7 @@ ColumnLayout {
 
         anchors.leftMargin: 30
 
-        color: appColors.white
+        color: Colors.white
 
         Layout.fillWidth: true
     }

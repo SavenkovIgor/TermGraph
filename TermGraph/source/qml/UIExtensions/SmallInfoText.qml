@@ -4,6 +4,8 @@ import QtQuick.Layouts 1.13
 import QtQuick.Window 2.13
 import QtQuick.Dialogs 1.3
 
+import "../Js/Colors.js" as Colors
+
 Text {
     // Info
     property string description: ""
@@ -24,5 +26,5 @@ Text {
     verticalAlignment:  Text.AlignVCenter
     horizontalAlignment: Text.AlignLeft
 
-    color: appColors.white
+    color: Colors.white
 }

@@ -3,6 +3,8 @@ import QtQuick.Controls 2.13
 import QtQuick.Window 2.13
 import QtGraphicalEffects 1.0
 
+import "../Js/Colors.js" as Colors
+
 RoundButton {
     id: root
 
@@ -13,7 +15,7 @@ RoundButton {
 
     background: Rectangle {
         radius: width / 2
-        color: !root.backgroundHidden ? appColors.white : "transparent"
+        color: !root.backgroundHidden ? Colors.white : "transparent"
     }
 
     width:  implicitWidth

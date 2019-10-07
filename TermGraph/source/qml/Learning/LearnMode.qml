@@ -6,6 +6,7 @@ import QtQuick.Dialogs 1.3
 
 import "../UIExtensions"
 import "../Js/IconPath.js" as IconPath
+import "../Js/Colors.js" as Colors
 
 Page {
     id: root
@@ -20,7 +21,7 @@ Page {
         onMenuClick: root.StackView.view.pop()
     }
 
-    background: Rectangle { color: appColors.base }
+    background: Rectangle { color: Colors.base }
 
     MyRoundButton {
         id: addGroupBtn
@@ -35,7 +36,7 @@ Page {
 
         highlight: Rectangle {
             width: 200; height: 20
-            color: appColors.baseLight2
+            color: Colors.baseLight2
             y: groupsList.currentItem.y;
         }
 
@@ -57,7 +58,7 @@ Page {
                 horizontalAlignment: Text.AlignLeft
 
                 text: modelData
-                color: appColors.white
+                color: Colors.white
                 font {
                     weight: Font.Thin
                     pixelSize: mainObj.getUiElementSize("capitalText") * Screen.pixelDensity

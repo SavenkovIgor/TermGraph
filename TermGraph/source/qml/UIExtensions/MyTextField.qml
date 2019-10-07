@@ -2,6 +2,8 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Window 2.13
 
+import "../Js/Colors.js" as Colors
+
 Column {
     property alias labelText: label.text
     property alias placeholderText: txtField.placeholderText
@@ -18,7 +20,7 @@ Column {
         width: parent.width
         font.pixelSize: mainObj.getUiElementSize("inputLabel") * Screen.pixelDensity
 
-        color: appColors.accent
+        color: Colors.accent
     }
 
     TextField {
@@ -29,7 +31,7 @@ Column {
 
         onTextChanged: newText()
 
-        color: appColors.white
-        placeholderTextColor: appColors.whiteDisabled
+        color: Colors.white
+        placeholderTextColor: Colors.whiteDisabled
     }
 }

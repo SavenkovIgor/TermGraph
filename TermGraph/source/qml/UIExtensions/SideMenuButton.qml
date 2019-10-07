@@ -2,6 +2,8 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Window 2.13
 
+import "../Js/Colors.js" as Colors
+
 Button {
     rightPadding: 12
     leftPadding: 12
@@ -13,10 +15,10 @@ Button {
     property alias labelText: label.text
     property alias iconSource: icon.icon.source
 
-    property string baseColor: appColors.white
+    property string baseColor: Colors.white
 
     onEnabledChanged: {
-        baseColor = appColors.whiteDisabled
+        baseColor = Colors.whiteDisabled
     }
 
     onBaseColorChanged: {
@@ -30,7 +32,7 @@ Button {
 
         MyRoundButton {
             id: icon
-            color: appColors.white
+            color: Colors.white
             backgroundHidden: true
 
             icon.width: label.font.pixelSize * 1.8
@@ -43,7 +45,7 @@ Button {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
 
-            color: appColors.white
+            color: Colors.white
 
             font.weight: Font.Thin
             font.pixelSize: mainObj.getUiElementSize("capitalText") * Screen.pixelDensity

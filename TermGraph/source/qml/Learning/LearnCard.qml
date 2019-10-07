@@ -5,6 +5,7 @@ import QtQuick.Templates 2.13 as T
 import QtQuick.Window 2.13
 
 import "../UIExtensions"
+import "../Js/Colors.js" as Colors
 
 MPage {
     id: root
@@ -12,7 +13,7 @@ MPage {
     property alias text: tipTitle.text
     property real minSizing: Math.min(width, height);
 
-    background: Rectangle { color: appColors.base }
+    background: Rectangle { color: Colors.base }
 
     contentItem: ColumnLayout {
         property real marginVal: root.minSizing * 0.05
@@ -20,7 +21,7 @@ MPage {
         anchors { fill: parent; margins: marginVal; }
 
         radius: root.minSizing * 0.08
-        color: appColors.baseLight3
+        color: Colors.baseLight3
 
         Item {
             id: card

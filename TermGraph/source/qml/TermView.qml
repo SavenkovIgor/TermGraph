@@ -3,6 +3,7 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 
 import "UIExtensions"
+import "Js/Colors.js" as Colors
 
 MPage {
     id: root
@@ -64,5 +65,5 @@ MPage {
         }
     }
 
-    background: Rectangle { color: appColors.base }
+    background: Rectangle { color: Colors.base }
 }

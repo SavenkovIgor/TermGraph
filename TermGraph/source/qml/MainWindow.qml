@@ -8,6 +8,7 @@ import QtQuick.Dialogs 1.3
 import "UIExtensions"
 import "Learning"
 import "Js/IconPath.js" as IconPath
+import "Js/Colors.js" as Colors
 
 ApplicationWindow {
     id: window
@@ -19,19 +20,6 @@ ApplicationWindow {
 //    Component.onCompleted: {
 //        showMaximized();
 //    }
-
-    // Qml colors object
-    QtObject {
-        id: appColors
-        property color black:         "#000000"
-        property color white:         "#e8e8e8"
-        property color whiteDisabled: "#9c9c9c"
-        property color base:          "#332f30"
-        property color baseLight:     "#4f4f4f"
-        property color baseLight2:    "#464544"
-        property color baseLight3:    "#6f6f6f"
-        property color accent:        "#2f7ba3"
-    }
 
     Component {
         id: mainSceneItem
@@ -58,8 +46,8 @@ ApplicationWindow {
         onOpened: groupMenuButton.forceActiveFocus()
 
         background: Rectangle {
-            color: appColors.baseLight
-            ThinLine { target: parent; side: ThinLine.LineSide.Right; color: appColors.white; }
+            color: Colors.baseLight
+            ThinLine { target: parent; side: ThinLine.LineSide.Right; color: Colors.white; }
         }
 
         dragMargin: Qt.styleHints.startDragDistance * 2

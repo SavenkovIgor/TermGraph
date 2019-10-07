@@ -2,6 +2,8 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Window 2.13
 
+import "../Js/Colors.js" as Colors
+
 ComboBox {
     id: control
     font.pixelSize: mainObj.getUiElementSize("combo") * Screen.pixelDensity;
@@ -22,7 +24,7 @@ ComboBox {
     background: Rectangle {
         width: contItem.width + 35
         height: contItem.height
-        border.color: appColors.black
+        border.color: Colors.black
         border.width: 1
     }
 
@@ -42,7 +44,7 @@ ComboBox {
         }
 
         background: Rectangle {
-            border.color: appColors.black
+            border.color: Colors.black
             radius: 2
         }
     }
