@@ -5,7 +5,7 @@ import QtQuick.Window 2.13
 import QtQuick.Dialogs 1.3
 
 import "../UIExtensions"
-import "../Js/iconpath.js" as IconPath
+import "../Js/IconPath.js" as IconPath
 
 Page {
     id: root
