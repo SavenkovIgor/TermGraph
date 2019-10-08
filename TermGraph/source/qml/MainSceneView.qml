@@ -92,6 +92,21 @@ Page {
     }
 
     MyRoundButton {
+        id: screenShotButton
+        icon.source: IconPath.share
+        visible: groupsManager.hasAnyGroup
+
+        anchors { top: showGroupListButton.bottom; right: parent.right; margins: width / 2; }
+
+        onClicked: {
+            sceneCanvas.grabToImage(function(result){
+                var name = mainObj.screenshotNameAndPath();
+                result.saveToFile(name);
+            });
+        }
+    }
+
+    MyRoundButton {
         id: editNodeButton
         visible: false
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
@@ -220,6 +235,14 @@ Page {
                 if (groupsUuids.length !== 0) {
                     sceneObj.showGroup(groupsUuids[0])
                 }
+            }
+
+            Rectangle {
+                // Background for scene
+                // Need here because of screenshots
+                z: -1
+                anchors.fill: parent
+                color: sceneObj.getSceneBackgroundColor()
             }
 
             Connections {

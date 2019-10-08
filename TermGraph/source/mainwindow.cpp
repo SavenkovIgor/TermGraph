@@ -37,6 +37,15 @@ MainWindow::MainWindow(QObject *parent):
     qmlEngine->load(QUrl("qrc:/qml/MainWindow.qml"));
 }
 
+QString MainWindow::screenshotNameAndPath()
+{
+    auto path = AppSettings::StdPaths::screenshotFolder();
+    auto name = QUuid::createUuid().toString() + ".png";
+    auto ret = path + "/" + name;
+    // TODO: Make notify about it!
+    return ret;
+}
+
 int MainWindow::getUiElementSize(const QString &elementTypeName)
 {
     if (elementSizes.contains(elementTypeName)) {

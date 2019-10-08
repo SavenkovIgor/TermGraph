@@ -23,6 +23,8 @@ public:
     explicit MainWindow(QObject *parent = nullptr);
     ~MainWindow() = default;
 
+    Q_INVOKABLE QString screenshotNameAndPath();
+
 public slots:
     int getUiElementSize(const QString& elementTypeName);
     int dbVersion();

@@ -30,8 +30,8 @@
         <file>qml/Js/Debug.js</file>
         <file>qml/Js/IconPath.js</file>
         <file>qml/Js/NodePaint.js</file>
-        <file>qml/Atoms/MHeader.qml</file>
-        <file>qml/Atoms/MPageTitle.qml</file>
+        <file>qml/Atoms/MPageHeader.qml</file>
+        <file>qml/Atoms/MPageTitleLabel.qml</file>
         <file>qml/Atoms/MRoundButton.qml</file>
         <file>qml/Atoms/MToolButton.qml</file>
         <file>qml/Molecules/MBurgerButton.qml</file>

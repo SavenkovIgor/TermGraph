@@ -51,3 +51,10 @@ QString StdPaths::userAppConfigFolder()
     assert(!path.isEmpty());
     return path;
 }
+
+QString StdPaths::screenshotFolder()
+{
+    auto path = QStandardPaths::standardLocations(QStandardPaths::DownloadLocation).first();
+    assert(!path.isEmpty());
+    return path;
+}
