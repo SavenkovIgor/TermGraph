@@ -23,6 +23,13 @@ MainWindow::MainWindow(QObject *parent):
 
     // remind = new Reminder(scene->getAllNodes());
 
+    auto registration = []([[maybe_unused]] QQmlEngine* engine,
+                           [[maybe_unused]] QJSEngine*  scriptEngine) -> QObject* {
+        return &NotificationManager::instance();
+    };
+
+    qmlRegisterSingletonType<NotificationManager>("Notification", 1, 0, "Notification", registration);
+
     qmlRegisterType<PaintedTerm>();
 
     qmlEngine->rootContext()->setContextProperty("mainObj", this);

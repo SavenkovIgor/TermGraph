@@ -193,12 +193,12 @@ void MainScene::dropHover()
     hoverNode = nullptr;
 }
 
-void MainScene::showGroup(const QString &groupUuid)
+void MainScene::showGroup(const QString& groupUuid)
 {
     showGroup(QUuid(groupUuid));
 }
 
-void MainScene::showGroup(const QUuid &groupUuid)
+void MainScene::showGroup(const QUuid& groupUuid)
 {
     QElapsedTimer groupChangeTimer;
     groupChangeTimer.start();

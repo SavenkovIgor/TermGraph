@@ -43,7 +43,8 @@ bool NodesManager::changeNode(const QUuid& nodeUuid,
     auto alterNodeUuid = getNodeUuidByNameAndGroup(name, groupUuid);
     if (!alterNodeUuid.isNull()) {
         if (alterNodeUuid != nodeUuid) {
-            emit showWarning("Термин с таким названием уже существует в этой группе");
+            NotificationManager::showWarning(
+                "Термин с таким названием уже существует в этой группе");
             return false;
         }
     }
@@ -141,14 +142,14 @@ bool NodesManager::correctGroupUuid(const QUuid &groupUuid, bool sendWarnings)
 {
     if (groupUuid.isNull()) {
         if (sendWarnings) {
-            emit showWarning("Пустой или некорректный Uuid группы");
+            NotificationManager::showWarning("Пустой или некорректный Uuid группы");
         }
         return false;
     }
 
     if (!Database::instance().groupTable->hasGroupWithUuid(groupUuid)) {
         if (sendWarnings) {
-            emit showWarning("Группа " + groupUuid.toString() + " не найдена");
+            NotificationManager::showWarning("Группа " + groupUuid.toString() + " не найдена");
         }
         return false;
     }
@@ -160,7 +161,8 @@ bool NodesManager::correctNewNodeName(const QString &name, QUuid &groupUuid, boo
 {
     if (hasNodeWithNameInGroup(name, groupUuid)) {
         if (showWarnings) {
-            emit showWarning("Термин с таким названием уже существует в этой группе");
+            NotificationManager::showWarning(
+                "Термин с таким названием уже существует в этой группе");
         }
         return false;
     }

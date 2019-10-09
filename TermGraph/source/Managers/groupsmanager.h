@@ -5,6 +5,7 @@
 #include "source/Helpers/fsworks.h"
 #include "source/Managers/nodesmanager.h"
 #include "source/Model/TerminGroup/termgroup.h"
+#include "source/Managers/notificationmanager.h"
 
 class GroupsManager : public QObject
 {
@@ -19,10 +20,6 @@ public:
 
 signals:
     void groupsListChanged();
-
-    void showInfo(QString info);
-    void showWarning(QString warning);
-    void showError(QString error);
 
 public slots:
     bool getHasAnyGroup() const;

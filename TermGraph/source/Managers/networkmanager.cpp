@@ -88,7 +88,7 @@ void NetworkManager::outputConnectionStateChange([[maybe_unused]] QAbstractSocke
 
 void NetworkManager::sendConnectionInfo(QString info)
 {
-    emit showInfo("Подключение от: " + info);
+    NotificationManager::showInfo("Подключение от: " + info);
 }
 
 QString NetworkManager::getOutputSocketState()

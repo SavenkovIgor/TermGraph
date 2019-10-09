@@ -5,6 +5,8 @@ import QtQuick.Window 2.13
 import QtQuick.Dialogs 1.3
 //import QtQuick.Controls.Material 2.2
 
+import Notification 1.0
+
 import "UIExtensions"
 import "Learning"
 import "Js/IconPath.js" as IconPath
@@ -21,21 +23,11 @@ ApplicationWindow {
 //        showMaximized();
 //    }
 
-    Component {
-        id: mainSceneItem
-        MainSceneView {
-            sideMenu: appSideMenu
-
-            onShowInfo: infoPanel.showInfo(info)
-            onShowWarning: infoPanel.showWarning(warning)
-            onShowError: infoPanel.showError(error)
-        }
-    }
-
-    Component { id: groupsListComponent; TermGroupsList { } }
+    Component { id: mainSceneComponent;        MainSceneView { sideMenu: appSideMenu; } }
+    Component { id: groupsListComponent;  TermGroupsList { } }
     Component { id: learnGroupsComponent; LearnGroupsList { } }
-    Component { id: settingsComponent;   MySettings { } }
-    Component { id: helpPageComponent;   HelpPage { } }
+    Component { id: settingsComponent;    MySettings { } }
+    Component { id: helpPageComponent;    HelpPage { } }
 
     Drawer {
         id : appSideMenu
@@ -110,7 +102,8 @@ ApplicationWindow {
     }
 
     Drawer {
-        id : infoPanel
+        id: notifyDrawer
+
         width: window.width
         height: infoLabel.height
         interactive: false
@@ -119,7 +112,7 @@ ApplicationWindow {
 
         function setTextAndOpen(text) {
             infoLabel.text = text
-            infoPanel.open()
+            notifyDrawer.open()
             infoHideTimer.start()
         }
 
@@ -128,36 +121,15 @@ ApplicationWindow {
         function showInfo(info)       { setTextAndOpen("Info: " + info);       }
 
         Connections {
-            target: networkManager
-            onShowInfo: infoPanel.showInfo(info)
-            onShowWarning: infoPanel.showWarning(warning)
-            onShowError: infoPanel.showError(error)
-        }
-
-        Connections {
-            target: groupsManager
-            onShowInfo: infoPanel.showInfo(info)
-            onShowWarning: infoPanel.showWarning(warning)
-            onShowError: infoPanel.showError(error)
-        }
-
-        Connections {
-            target: nodesManager
-            onShowInfo: infoPanel.showInfo(info)
-            onShowWarning: infoPanel.showWarning(warning)
-            onShowError: infoPanel.showError(error)
-        }
-
-        Connections {
-            target: sceneObj
-            onShowInfo: infoPanel.showInfo(info)
-            onShowWarning: infoPanel.showWarning(warning)
-            onShowError: infoPanel.showError(error)
+            target: Notification
+            onShowInfoQml: notifyDrawer.showInfo(info)
+            onShowWarningQml: notifyDrawer.showWarning(warning)
+            onShowErrorQml: notifyDrawer.showError(error)
         }
 
         TextArea {
             id: infoLabel
-            width: infoPanel.width
+            width: notifyDrawer.width
 
             text: ""
             readOnly: true
@@ -171,14 +143,14 @@ ApplicationWindow {
             id: infoHideTimer
             interval: 1700
             repeat: false
-            onTriggered: infoPanel.close()
+            onTriggered: notifyDrawer.close()
         }
     }
 
     StackView {
         id: stackView
         anchors.fill: parent
-        initialItem: mainSceneItem
+        initialItem: mainSceneComponent
         onCurrentItemChanged: appSideMenu.close()
     }
 

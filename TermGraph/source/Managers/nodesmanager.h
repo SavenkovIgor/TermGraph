@@ -8,6 +8,7 @@
 
 #include "source/databaseWorks/database.h"
 #include "source/Model/Termin/paintedterm.h"
+#include "source/Managers/notificationmanager.h"
 
 class NodesManager : public QObject
 {
@@ -18,10 +19,6 @@ public:
 
 signals:
     void nodeChanged();
-
-    void showInfo(QString info);
-    void showWarning(QString warning);
-    void showError(QString error);
 
 public slots:
     bool correctNewNodeName(const QString& name, QUuid& groupUuid, bool showWarnings = true);

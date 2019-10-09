@@ -79,7 +79,7 @@ QStringList GroupsManager::getGroupNames(const QList<QUuid>& groupUuids)
 void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 {
     if (name.simplified().isEmpty()) {
-        emit showError("Название группы не может быть пустым");
+        NotificationManager::showError("Название группы не может быть пустым");
         return;
     }
 
@@ -92,7 +92,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
         updateGroupUuidNameMaps();
         emit groupsListChanged();
     } else {
-        emit showError("Название группы не уникально");
+        NotificationManager::showError("Название группы не уникально");
     }
 }
 

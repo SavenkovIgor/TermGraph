@@ -33,11 +33,6 @@ signals:
     void selectionDoubleClick();
     void sceneContentUpdated();
 
-    // Debug signals
-    void showInfo(QString info);
-    void showWarning(QString warning);
-    void showError(QString error);
-
 public slots:
     void showGroup(const QString& groupUuid);
     void showGroup(const QUuid& groupUuid);

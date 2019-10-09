@@ -14,6 +14,7 @@
 #include "source/Helpers/textprocessor.h"
 #include "source/Helpers/appconfig.h"
 #include "source/Managers/syncmanager.h"
+#include "source/Managers/notificationmanager.h"
 
 class MainWindow : public QObject
 {

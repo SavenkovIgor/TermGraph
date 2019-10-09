@@ -5,6 +5,8 @@ import QtQuick.Window 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
+import Notification 1.0
+
 import "UIExtensions"
 
 import "Js/NodePaint.js" as JsPaint
@@ -15,10 +17,6 @@ Page {
 
     property Drawer sideMenu
     property bool currentPageOpened: StackView.visible
-
-    signal showInfo(string info)
-    signal showWarning(string warning)
-    signal showError(string error)
 
     header: MainHeader {
         id: mainHeader
@@ -74,7 +72,7 @@ Page {
                 if (groupsManager.hasAnyGroup) {
                     root.StackView.view.push(newNodeComponent)
                 } else {
-                    showWarning("Create group first!")
+                    Notification.showWarning("Create group first!")
                     root.StackView.view.push(groupsListComponent)
                 }
             }

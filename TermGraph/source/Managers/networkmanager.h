@@ -5,6 +5,7 @@
 
 #include "source/Helpers/simplelistenserver.h"
 #include "source/Helpers/appconfig.h"
+#include "source/Managers/notificationmanager.h"
 
 class NetworkManager : public QObject
 {
@@ -19,16 +20,9 @@ public:
 
 signals:
     void newSyncGroup(QString groupJsonRaw);
-
     void newOutputConnectionState();
 
-    // Notify
-    void showInfo(QString info);
-    void showWarning(QString warning);
-    void showError(QString error);
-
 public slots:
-
     void connectToHost();
     void disconnectFromHost();
     void setReceiverHostIp(QString ip);
