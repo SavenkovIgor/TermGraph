@@ -24,7 +24,7 @@ public:
     explicit MainWindow(QObject *parent = nullptr);
     ~MainWindow() = default;
 
-    Q_INVOKABLE QString screenshotNameAndPath();
+    Q_INVOKABLE QString screenshotNameAndPath(const QString& groupUuid);
 
 public slots:
     int getUiElementSize(const QString& elementTypeName);

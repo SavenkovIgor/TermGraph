@@ -67,7 +67,6 @@ public:
     static QString backupFolder();
     static QString groupsJsonFolder();
     static QString defaultDatabaseFilePath();
-    static QString screenshotFolder();
 
 private:
     static QString userAppConfigFolder();

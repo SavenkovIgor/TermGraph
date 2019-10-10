@@ -141,7 +141,7 @@ ApplicationWindow {
 
         Timer {
             id: infoHideTimer
-            interval: 1700
+            interval: 3000
             repeat: false
             onTriggered: notifyDrawer.close()
         }

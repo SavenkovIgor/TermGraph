@@ -9,9 +9,24 @@ bool FSWorks::createPath(const QString& path)
     return dir.mkpath(path);
 }
 
+bool FSWorks::createFile(const QString& filePath)
+{
+    QFile file(filePath);
+    if (file.open(QIODevice::WriteOnly)) {
+        file.close();
+        return true;
+    }
+    return false;
+}
+
 bool FSWorks::fileExist(const QString& filePath)
 {
     return QFile::exists(filePath);
+}
+
+bool FSWorks::removeFile(const QString& filePath)
+{
+    return QFile::remove(filePath);
 }
 
 void FSWorks::saveFile(const QString& subDir, const QString& fileName, const QString& data)

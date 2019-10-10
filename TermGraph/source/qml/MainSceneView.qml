@@ -98,8 +98,13 @@ Page {
 
         onClicked: {
             sceneCanvas.grabToImage(function(result){
-                var name = mainObj.screenshotNameAndPath();
-                result.saveToFile(name);
+                let name = mainObj.screenshotNameAndPath("GroupName"); // TODO: Add group name
+                if (name !== "") {
+                    result.saveToFile(name);
+                    Notification.showInfo("Снимок группы создан. Путь:" + name);
+                } else {
+                    Notification.showInfo("Снимок не создан((");
+                }
             });
         }
     }

@@ -44,13 +44,29 @@ MainWindow::MainWindow(QObject *parent):
     qmlEngine->load(QUrl("qrc:/qml/MainWindow.qml"));
 }
 
-QString MainWindow::screenshotNameAndPath()
+QString MainWindow::screenshotNameAndPath(const QString& groupUuid)
 {
-    auto path = AppSettings::StdPaths::screenshotFolder();
-    auto name = QUuid::createUuid().toString() + ".png";
-    auto ret = path + "/" + name;
-    // TODO: Make notify about it!
-    return ret;
+    assert(!groupUuid.isEmpty());
+
+    QStringList checkPaths;
+
+    checkPaths << QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
+    checkPaths << QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation);
+    checkPaths << QStandardPaths::standardLocations(QStandardPaths::DownloadLocation);
+
+    auto fileName = groupUuid + ".png";
+
+    for (const auto& path : checkPaths) {
+        auto fullPath = path + "/" + fileName;
+        if (FSWorks::createFile(fullPath)) {
+            // If we can create such file we remove it and return path
+            FSWorks::removeFile(fullPath);
+            return fullPath;
+        }
+    }
+
+    NotificationManager::showError("Директория для записи не найдена");
+    return "";
 }
 
 int MainWindow::getUiElementSize(const QString &elementTypeName)
