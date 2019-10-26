@@ -20,5 +20,6 @@
         <file>icons/spreadsheet.svg</file>
         <file>icons/trash.svg</file>
         <file>icons/warning.svg</file>
+        <file>icons/crossOnCircle.svg</file>
     </qresource>
 </RCC>
