@@ -36,5 +36,6 @@
         <file>qml/Atoms/MToolButton.qml</file>
         <file>qml/Molecules/MBurgerButton.qml</file>
         <file>qml/Molecules/MDefaultHeader.qml</file>
+        <file>qml/LicensePage.qml</file>
     </qresource>
 </RCC>

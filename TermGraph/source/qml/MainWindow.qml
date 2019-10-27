@@ -49,6 +49,7 @@ ApplicationWindow {
     Component { id: learnGroupsComponent; LearnGroupsList { } }
     Component { id: settingsComponent;    MySettings { } }
     Component { id: helpPageComponent;    HelpPage { } }
+    Component { id: licensePage;          LicensePage { } }
 
     Drawer {
         id : appSideMenu
@@ -115,6 +116,13 @@ ApplicationWindow {
                     Layout.fillWidth: true
 
                     onClicked: stackView.push(helpPageComponent)
+                }
+
+                SideMenuButton {
+                    labelText: "О приложении"
+                    Layout.fillWidth: true
+
+                    onClicked: stackView.push(licensePage)
                 }
 
                 Item { Layout.fillHeight: true; }
