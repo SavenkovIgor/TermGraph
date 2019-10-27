@@ -21,8 +21,6 @@
 
 import QtQuick 2.13
 import QtQuick.Controls 2.13
-import QtQuick.Window 2.13
-import QtGraphicalEffects 1.0
 
 import "../Js/Colors.js" as Colors
 
@@ -32,7 +30,7 @@ RoundButton {
     property alias color: root.icon.color
     property bool backgroundHidden: false
 
-    property real size: mainObj.getUiElementSize("roundButton") * Screen.pixelDensity
+    property real size: mainObj.getUiElementSize("roundButton")
 
     background: Rectangle {
         radius: width / 2

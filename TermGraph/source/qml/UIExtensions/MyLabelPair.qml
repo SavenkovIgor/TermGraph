@@ -22,7 +22,6 @@
 import QtQuick 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
-import QtQuick.Window 2.13
 
 import "../Js/Colors.js" as Colors
 
@@ -35,7 +34,7 @@ ColumnLayout {
 
     Label {
         id: nameLbl
-        font.pixelSize: mainObj.getUiElementSize("text") * Screen.pixelDensity + 1
+        font.pixelSize: mainObj.getUiElementSize("text") + 1
         font.weight: Font.DemiBold
 
         color: Colors.accent
@@ -45,7 +44,7 @@ ColumnLayout {
 
     Label {
         id: textLbl
-        font.pixelSize: mainObj.getUiElementSize("text") * Screen.pixelDensity
+        font.pixelSize: mainObj.getUiElementSize("text")
         wrapMode: TextEdit.WordWrap
 
         anchors.leftMargin: 30

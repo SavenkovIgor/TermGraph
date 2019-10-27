@@ -21,6 +21,8 @@
 
 #include "mainwindow.h"
 
+#include <QScreen>
+
 MainWindow::MainWindow(QObject *parent):
     QObject(parent),
     network(new NetworkManager()),
@@ -94,7 +96,9 @@ int MainWindow::getUiElementSize(const QString &elementTypeName)
 {
     if (elementSizes.contains(elementTypeName)) {
         // чтобы эти значения не вставлялись. на всякий случай
-        return elementSizes[elementTypeName];
+        auto screenDencity = MainWindow::screenPixelDensity();
+        auto screenCorrectedSize = screenDencity * elementSizes[elementTypeName];
+        return static_cast<int>(screenCorrectedSize);
     }
     qDebug() << "Отсутствует размер для элемента:" << elementTypeName;
     return 0;
@@ -135,4 +139,14 @@ void MainWindow::initElemSizes()
         elementSizes["infoLabel"]   = 4;
         elementSizes["sideMenu"]    = 5;
     }
+}
+
+qreal MainWindow::screenPixelDensity()
+{
+    const qreal inchToMillimeterRatio = 0.039370;
+
+    auto dotsPerInch        = qApp->primaryScreen()->physicalDotsPerInch();
+    auto dontsPerMillimeter = dotsPerInch * inchToMillimeterRatio;
+
+    return dontsPerMillimeter;
 }

@@ -23,7 +23,6 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Templates 2.13 as T
-import QtQuick.Window 2.13
 
 import "../UIExtensions"
 import "../Js/Colors.js" as Colors

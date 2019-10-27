@@ -22,7 +22,6 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
-import QtQuick.Window 2.13
 import QtQuick.Dialogs 1.3
 
 import "../UIExtensions"
@@ -82,7 +81,7 @@ Page {
                 color: Colors.white
                 font {
                     weight: Font.Thin
-                    pixelSize: mainObj.getUiElementSize("capitalText") * Screen.pixelDensity
+                    pixelSize: mainObj.getUiElementSize("capitalText")
                 }
 
                 MouseArea{ anchors.fill: parent }  // TODO: Make action here

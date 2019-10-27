@@ -21,7 +21,6 @@
 
 import QtQuick 2.13
 import QtQuick.Controls 2.13
-import QtQuick.Window 2.13
 
 import "../Js/Colors.js" as Colors
 
@@ -39,7 +38,7 @@ Column {
     Label {
         id: label
         width: parent.width
-        font.pixelSize: mainObj.getUiElementSize("inputLabel") * Screen.pixelDensity
+        font.pixelSize: mainObj.getUiElementSize("inputLabel")
 
         color: Colors.accent
     }
@@ -47,7 +46,7 @@ Column {
     TextField {
         id : txtField
         width: parent.width
-        font.pixelSize: mainObj.getUiElementSize("inputText") * Screen.pixelDensity
+        font.pixelSize: mainObj.getUiElementSize("inputText")
         selectByMouse: true
 
         onTextChanged: newText()

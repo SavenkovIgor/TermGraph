@@ -70,4 +70,6 @@ private:
     QScopedPointer<SyncManager> syncManager;
     QScopedPointer<MainScene> scene;
     QScopedPointer<QQmlApplicationEngine> qmlEngine;
+
+    static qreal screenPixelDensity();
 };

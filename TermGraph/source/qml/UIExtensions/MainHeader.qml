@@ -22,7 +22,6 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
-import QtQuick.Window 2.13
 
 import "../Js/IconPath.js" as IconPath
 import "../Js/Colors.js" as Colors
@@ -61,7 +60,7 @@ ToolBar {
         Label {
             id: titleLabel
 
-            font.pixelSize: mainObj.getUiElementSize("appHeader") * Screen.pixelDensity
+            font.pixelSize: mainObj.getUiElementSize("appHeader")
             minimumPixelSize: font.pixelSize / 2
             fontSizeMode: Text.Fit
             elide: Label.ElideRight

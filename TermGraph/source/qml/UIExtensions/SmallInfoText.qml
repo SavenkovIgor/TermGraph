@@ -22,7 +22,6 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
-import QtQuick.Window 2.13
 import QtQuick.Dialogs 1.3
 
 import "../Js/Colors.js" as Colors
@@ -41,7 +40,7 @@ Text {
 
     // Font
     font.weight: Font.Thin
-    font.pixelSize: mainObj.getUiElementSize("text") * Screen.pixelDensity * 0.7
+    font.pixelSize: mainObj.getUiElementSize("text") * 0.7
 
     // Alignment
     verticalAlignment:  Text.AlignVCenter

@@ -21,13 +21,12 @@
 
 import QtQuick 2.13
 import QtQuick.Controls 2.13
-import QtQuick.Window 2.13
 
 import "../Js/Colors.js" as Colors
 
 ComboBox {
     id: control
-    font.pixelSize: mainObj.getUiElementSize("combo") * Screen.pixelDensity;
+    font.pixelSize: mainObj.getUiElementSize("combo");
 
     contentItem: Text {
 

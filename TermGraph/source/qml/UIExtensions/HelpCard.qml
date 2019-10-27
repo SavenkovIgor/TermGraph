@@ -22,7 +22,6 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Templates 2.13 as T
-import QtQuick.Window 2.13
 
 import "../Js/Colors.js" as Colors
 
@@ -71,7 +70,7 @@ T.Control {
                     wrapMode: TextEdit.WordWrap
                     readOnly: true
 
-                    font.pixelSize: mainObj.getUiElementSize("inputText") * Screen.pixelDensity
+                    font.pixelSize: mainObj.getUiElementSize("inputText")
                     color: "white"
                 }
             }

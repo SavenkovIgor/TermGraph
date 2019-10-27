@@ -22,7 +22,6 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
-import QtQuick.Window 2.13
 import QtQuick.Dialogs 1.3
 
 import "UIExtensions"
@@ -120,7 +119,7 @@ MPage {
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
         ColumnLayout {
-            spacing: mainObj.getUiElementSize("colSpace") * Screen.pixelDensity
+            spacing: mainObj.getUiElementSize("colSpace")
             width: scroll.width - scroll.leftPadding - scroll.rightPadding
 
             MyLabelPair {

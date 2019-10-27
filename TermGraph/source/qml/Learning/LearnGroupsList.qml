@@ -22,7 +22,6 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
-import QtQuick.Window 2.13
 import QtQuick.Dialogs 1.3
 
 import "../UIExtensions"
@@ -99,7 +98,7 @@ Page {
                     color: Colors.white
 
                     text: groupsManager.getGroupName(modelData)
-                    font.pixelSize: mainObj.getUiElementSize("text") * Screen.pixelDensity
+                    font.pixelSize: mainObj.getUiElementSize("text")
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
                 }

@@ -22,7 +22,6 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
-import QtQuick.Window 2.13
 
 import "../Js/Colors.js" as Colors
 
@@ -44,7 +43,7 @@ Column {
         width: parent.width
 
         color: Colors.accent
-        font.pixelSize: mainObj.getUiElementSize("inputLabel") * Screen.pixelDensity
+        font.pixelSize: mainObj.getUiElementSize("inputLabel")
     }
 
     TextArea {
@@ -53,7 +52,7 @@ Column {
         width: parent.width
         placeholderTextColor: Colors.whiteDisabled
 
-        font.pixelSize: mainObj.getUiElementSize("inputText") * Screen.pixelDensity
+        font.pixelSize: mainObj.getUiElementSize("inputText")
         wrapMode: TextEdit.WordWrap
     }
 }

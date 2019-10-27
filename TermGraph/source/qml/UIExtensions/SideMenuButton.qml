@@ -21,7 +21,6 @@
 
 import QtQuick 2.13
 import QtQuick.Controls 2.13
-import QtQuick.Window 2.13
 
 import "../Js/Colors.js" as Colors
 
@@ -69,7 +68,7 @@ Button {
             color: Colors.white
 
             font.weight: Font.Thin
-            font.pixelSize: mainObj.getUiElementSize("capitalText") * Screen.pixelDensity
+            font.pixelSize: mainObj.getUiElementSize("capitalText")
         }
     }
 }

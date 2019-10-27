@@ -21,7 +21,6 @@
 
 import QtQuick 2.13
 import QtQuick.Controls 2.13
-import QtQuick.Window 2.13
 
 import "../Js/Colors.js" as Colors
 
@@ -81,7 +80,7 @@ Drawer {
                     }
                 }
 
-                font.pixelSize: mainObj.getUiElementSize("text") * Screen.pixelDensity
+                font.pixelSize: mainObj.getUiElementSize("text")
                 anchors.fill: parent
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignLeft
