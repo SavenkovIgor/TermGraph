@@ -23,6 +23,8 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 
+import "../Atoms"
+import "../Molecules"
 import "../Js/IconPath.js" as IconPath
 import "../Js/Colors.js" as Colors
 
@@ -39,8 +41,8 @@ ToolBar {
 
     property alias title: titleLabel.text
 
-    function showMenuIcon()  { mainMenuButton.icon.source = IconPath.menu }
-    function showArrowIcon() { mainMenuButton.icon.source = IconPath.leftArrow }
+    function showMenuIcon()  { mainMenuButton.buttonState = MBurgerButton.IconState.Burger }
+    function showArrowIcon() { mainMenuButton.buttonState = MBurgerButton.IconState.Back }
 
     function showCheckButton() {
         checkButton.visible = true
@@ -50,10 +52,8 @@ ToolBar {
         spacing: 20
         anchors.fill: parent
 
-        MyRoundButton {
+        MBurgerButton {
             id: mainMenuButton
-            color: Colors.white
-            backgroundHidden: true
             onClicked: mainHeader.menuClick()
         }
 
@@ -69,12 +69,10 @@ ToolBar {
             Layout.fillWidth: true
         }
 
-        MyRoundButton {
+        MToolButton {
             id: checkButton
             icon.source: IconPath.check
             visible: false
-            color: Colors.white
-            backgroundHidden: true
 
             onClicked: mainHeader.checkClick()
         }

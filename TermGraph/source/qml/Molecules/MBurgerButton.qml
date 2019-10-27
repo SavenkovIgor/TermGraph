@@ -19,4 +19,28 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import QtQuick 2.13
 
+import "../Atoms"
+import "../Js/IconPath.js" as IconPath
+
+MToolButton {
+
+    enum IconState {
+        Burger = 0,
+        Back
+    }
+
+    property int buttonState: MBurgerButton.IconState.Burger
+
+    icon.source: {
+        switch (buttonState) {
+        case MBurgerButton.IconState.Burger:
+            return IconPath.menu;
+        case MBurgerButton.IconState.Back:
+            return IconPath.leftArrow;
+        }
+
+        return IconPath.menu;
+    }
+}
