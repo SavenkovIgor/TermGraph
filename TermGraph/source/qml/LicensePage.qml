@@ -24,20 +24,33 @@ import QtQuick.Controls 2.13
 import QtQuick.Window 2.13
 
 import "UIExtensions"
+import "Js/Colors.js" as Colors
 
 MPage {
-    contentItem: Column {
-        Text {
-            width: parent.width
+    id: root
 
-            horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: mainObj.getUiElementSize("appHeader") * Screen.pixelDensity
+    header: MainHeader {
 
-            text: "License"
-        }
+        id: mainHeader
+        title: "Лицензия"
+
+        Component.onCompleted: mainHeader.showArrowIcon()
+
+        onMenuClick: root.StackView.view.pop()
+    }
+
+    contentItem: ScrollView {
+        id: scroll
 
         TextArea {
-            width: parent.width
+            width: scroll.width
+
+            horizontalAlignment: TextEdit.AlignHCenter
+            readOnly: true
+            color: Colors.white
+
+            background: Rectangle { color: root.background.color }
+
             text: "
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007

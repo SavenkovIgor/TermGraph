@@ -51,8 +51,6 @@ MPage {
     Shortcut { sequence: "Ctrl+Enter";  onActivated: root.applyNodeChange(); }
     Shortcut { sequence: "Ctrl+Return"; onActivated: root.applyNodeChange(); }
 
-    background: Rectangle { color: Colors.base }
-
     function exitFromThisPage() { root.StackView.view.pop() }
 
     function updateInfo() {

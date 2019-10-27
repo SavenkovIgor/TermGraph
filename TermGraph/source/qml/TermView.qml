@@ -85,6 +85,4 @@ MPage {
             }
         }
     }
-
-    background: Rectangle { color: Colors.base }
 }

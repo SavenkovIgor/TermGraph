@@ -31,8 +31,6 @@ import "../Js/Colors.js" as Colors
 MPage {
     id: root
 
-    background: Rectangle { color: Colors.base }
-
     contentItem: ColumnLayout {
 
         spacing: root.height * 0.05

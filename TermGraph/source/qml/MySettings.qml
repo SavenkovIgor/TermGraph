@@ -40,8 +40,6 @@ MPage {
         onMenuClick: root.StackView.view.pop()
     }
 
-    background: Rectangle { color: Colors.base; }
-
     contentItem: Column {
         property real expectedWidth: width - leftPadding - rightPadding
 
