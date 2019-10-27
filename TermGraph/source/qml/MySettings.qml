@@ -28,10 +28,7 @@ import "Js/Colors.js" as Colors
 MPage {
     id: root
 
-    Component.onCompleted: { databaseVersion.updateText(); }
-
     header: MainHeader {
-
         id: mainHeader
         title: "Настройки"
 
@@ -41,32 +38,27 @@ MPage {
     }
 
     contentItem: Column {
-        property real expectedWidth: width - leftPadding - rightPadding
 
         MyLabelPair {
-            id: localIpDescription
-            name: "Ip этого устройства:"
+            name: "Ip этого устройства"
             text: networkManager.getFirstLocalIpString()
-            width: parent.expectedWidth
+            width: parent.width
         }
 
         MyTextField {
-            id: receiverIp
             labelText: "Ip получателя"
             onTextChanged: { networkManager.setReceiverHostIp(text) }
             Component.onCompleted: { text = networkManager.getReceiverIp() }
-            width: parent.expectedWidth
+            width: parent.width
         }
 
         MyLabelPair{
-            id: connectionState
-            name: "Состояние подключения:"
+            name: "Состояние подключения"
             text: networkManager.connectionState
-            width: parent.expectedWidth
+            width: parent.width
         }
 
         MySquareButton {
-            id: connectButton
             text: networkManager.isConnected ? "Отключиться" : "Подключиться"
             onClicked:  {
                 if(networkManager.isConnected) {
@@ -78,14 +70,11 @@ MPage {
         }
 
         MyLabelPair {
-            id: databaseVersion
             name: "Версия базы данных:"
             text: mainObj.dbVersion()
-            width: parent.expectedWidth
+            width: parent.width
 
-            function updateText() {
-                text = mainObj.dbVersion()
-            }
+            Component.onCompleted: { text = mainObj.dbVersion(); }
         }
     }
 }
