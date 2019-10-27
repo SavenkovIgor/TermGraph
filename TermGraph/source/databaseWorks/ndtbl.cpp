@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-﻿#include "source/databaseWorks/ndtbl.h"
+#include "source/databaseWorks/ndtbl.h"
 
 #include "source/databaseWorks/columns/nodecolumn.h"
 
