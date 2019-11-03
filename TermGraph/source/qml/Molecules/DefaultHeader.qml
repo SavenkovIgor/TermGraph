@@ -30,14 +30,34 @@ import "../Js/Colors.js" as Colors
 A.PageHeader {
     id: root
 
-    signal burgerClick()
+    signal openMainMenu()
 
+    property Page page: undefined
     property alias title: titleLabel.text
     property alias burgerState: burgerButton.buttonState
 
     BurgerButton {
         id: burgerButton
-        onClicked: root.burgerClick()
+
+        buttonState: {
+            if (!root.page.StackView.view)
+                return -1;
+
+            return root.page.StackView.view.depth <= 1
+                    ? BurgerButton.IconState.Burger
+                    : BurgerButton.IconState.Back
+        }
+
+        onClicked: {
+            switch (buttonState) {
+            case BurgerButton.IconState.Burger:
+                root.openMainMenu();
+                return;
+            case BurgerButton.IconState.Back:
+                root.page.StackView.view.pop();
+                return;
+            }
+        }
     }
 
     A.PageTitleLabel {

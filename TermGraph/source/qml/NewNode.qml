@@ -41,8 +41,7 @@ M.Page {
 
     header: M.DefaultHeader {
         title: root.title
-        burgerState: M.BurgerButton.IconState.Back
-        onBurgerClick: root.StackView.view.pop()
+        page: root
 
         A.ToolButton {
             id: checkButton
