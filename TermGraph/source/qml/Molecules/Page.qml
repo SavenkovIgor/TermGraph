@@ -25,6 +25,36 @@ import QtQuick.Controls 2.13
 import "../Js/Colors.js" as Colors
 
 Page {
+    id: root
+
+    signal openMainMenu()
+
     padding: Math.min(width, height) * 0.035
     background: Rectangle { color: Colors.base }
+
+    header: DefaultHeader {
+        id: pageHeader
+
+        title: root.title
+
+        burgerState: {
+            if (!root.StackView.view)
+                return -1;
+
+            return root.StackView.view.depth <= 1
+                    ? BurgerButton.IconState.Burger
+                    : BurgerButton.IconState.Back
+        }
+
+        onBurgerClick: {
+            switch (burgerState) {
+            case BurgerButton.IconState.Burger:
+                root.openMainMenu();
+                return;
+            case BurgerButton.IconState.Back:
+                root.StackView.view.pop();
+                return;
+            }
+        }
+    }
 }

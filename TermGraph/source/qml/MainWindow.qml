@@ -43,7 +43,7 @@ ApplicationWindow {
 //        showMaximized();
 //    }
 
-    Component { id: mainSceneComponent;        MainSceneView { sideMenu: appSideMenu; } }
+    Component { id: mainSceneComponent;   MainSceneView { sideMenu: appSideMenu; } }
     Component { id: groupsListComponent;  TermGroupsList { } }
     Component { id: learnGroupsComponent; LearnGroupsList { } }
     Component { id: settingsComponent;    MySettings { } }

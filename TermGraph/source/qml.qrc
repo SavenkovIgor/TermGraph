@@ -11,7 +11,6 @@
         <file>qml/UIExtensions/MyLabelPair.qml</file>
         <file>qml/MySettings.qml</file>
         <file>qml/UIExtensions/SideMenuButton.qml</file>
-        <file>qml/UIExtensions/MainHeader.qml</file>
         <file>qml/TermView.qml</file>
         <file>qml/UIExtensions/SmallInfoText.qml</file>
         <file>qml/UIExtensions/GroupsDrawer.qml</file>
@@ -21,7 +20,6 @@
         <file>qml/EditNode.qml</file>
         <file>qml/NewNode.qml</file>
         <file>qml/UIExtensions/HelpCard.qml</file>
-        <file>qml/UIExtensions/MPage.qml</file>
         <file>qml/Learning/LearnGroupsList.qml</file>
         <file>qml/Learning/LearnMode.qml</file>
         <file>qml/Learning/LearnCard.qml</file>
@@ -34,6 +32,7 @@
         <file>qml/Atoms/PageTitleLabel.qml</file>
         <file>qml/Atoms/RoundButton.qml</file>
         <file>qml/Atoms/ToolButton.qml</file>
+        <file>qml/Molecules/Page.qml</file>
         <file>qml/Molecules/BurgerButton.qml</file>
         <file>qml/Molecules/DefaultHeader.qml</file>
         <file>qml/LicensePage.qml</file>

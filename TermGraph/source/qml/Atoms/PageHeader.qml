@@ -26,14 +26,6 @@ import QtQuick.Layouts 1.13
 import "../Js/Colors.js" as Colors
 
 ToolBar {
-    id: mainHeader
-
-    background: Rectangle {
-        anchors.fill: parent
-        color: Colors.baseLight
-    }
-
-    contentItem: RowLayout {
-        spacing: 20
-    }
+    background: Rectangle { color: Colors.baseLight; }
+    contentItem: RowLayout { spacing: 20; }
 }

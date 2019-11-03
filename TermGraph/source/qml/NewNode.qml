@@ -25,50 +25,50 @@ import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 import "UIExtensions"
+import "Atoms" as A
+import "Molecules" as M
 import "Js/IconPath.js" as IconPath
 import "Js/Colors.js" as Colors
 
-MPage {
+M.Page {
     id: root
 
     property string defaultUuidText: "startValue"
 
     StackView.onActivating: prepareForOpen()
 
-    header: MainHeader {
+    title: "Добавить вершину"
 
-        id: mainHeader
-        title: "Добавить вершину"
+    header: M.DefaultHeader {
+        title: root.title
+        burgerState: M.BurgerButton.IconState.Back
+        onBurgerClick: root.StackView.view.pop()
 
-        Component.onCompleted: {
-            mainHeader.showCheckButton()
-            mainHeader.showArrowIcon()
+        A.ToolButton {
+            id: checkButton
+            icon.source: IconPath.check
+            onClicked: root.addNode()
         }
-
-        onMenuClick: exitFromThisPage()
-        onCheckClick: root.addNode()
     }
 
     Shortcut { sequence: "Ctrl+Enter";  onActivated: root.addNode(); }
     Shortcut { sequence: "Ctrl+Return"; onActivated: root.addNode(); }
 
-    function exitFromThisPage() { root.StackView.view.pop() }
-
     function prepareForOpen() {
-        currentGroupFixedRow.groupUuid = sceneObj.getCurrGroupUuid()
-        clearText(termName)
-        clearText(termDefin)
-        clearText(termDescr)
-        clearText(termExampl)
-        termName.takeFocus()
+        currentGroupFixedRow.groupUuid = sceneObj.getCurrGroupUuid();
+        clearText(termName);
+        clearText(termDefin);
+        clearText(termDescr);
+        clearText(termExampl);
+        termName.takeFocus();
     }
 
-    function clearText(textItem) { textItem.text = "" }
+    function clearText(textItem) { textItem.text = ""; }
 
     function addNode() {
         if (termName.text === "") {
-            emptyNodeNameDelDialog.visible = true
-            return
+            emptyNodeNameDelDialog.visible = true;
+            return;
         }
 
         var success = nodesManager.addNewNode(
@@ -77,11 +77,10 @@ MPage {
                     termDescr.text,
                     termExampl.text,
                     currentGroupFixedRow.groupUuid
-                    )
+                    );
 
-        if (success) {
-            exitFromThisPage()
-        }
+        if (success)
+            root.StackView.view.pop();
     }
 
     MyRoundButton {

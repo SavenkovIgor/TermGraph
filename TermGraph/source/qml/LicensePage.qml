@@ -23,20 +23,11 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "UIExtensions"
+import "Molecules" as M
 import "Js/Colors.js" as Colors
 
-MPage {
-    id: root
-
-    header: MainHeader {
-
-        id: mainHeader
-        title: "Лицензия"
-
-        Component.onCompleted: mainHeader.showArrowIcon()
-
-        onMenuClick: root.StackView.view.pop()
-    }
+M.Page {
+    title: "Лицензия"
 
     contentItem: ScrollView {
         id: scroll
@@ -48,7 +39,7 @@ MPage {
             readOnly: true
             color: Colors.white
 
-            background: Rectangle { color: root.background.color }
+            background: Rectangle { color: "transparent" }
 
             text: "
                     GNU GENERAL PUBLIC LICENSE

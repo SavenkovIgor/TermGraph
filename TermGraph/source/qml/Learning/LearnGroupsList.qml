@@ -25,23 +25,12 @@ import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 import "../UIExtensions"
+import "../Molecules" as M
 import "../Js/IconPath.js" as IconPath
 import "../Js/Colors.js" as Colors
 
-Page {
-    id: root
-
-    header: MainHeader {
-
-        id: mainHeader
-        title: "Выберите группу для повторения"
-
-        Component.onCompleted: mainHeader.showArrowIcon()
-
-        onMenuClick: root.StackView.view.pop()
-    }
-
-    background: Rectangle { color: Colors.base }
+M.Page {
+    title: "Выберите группу для повторения"
 
     MyRoundButton {
         id: addGroupBtn

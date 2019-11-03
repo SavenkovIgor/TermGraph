@@ -25,23 +25,15 @@ import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 import "UIExtensions"
+import "Molecules" as M
 import "Js/IconPath.js" as IconPath
 import "Js/Colors.js" as Colors
 
-Page {
+M.Page {
     id: root
 
-    header: MainHeader {
-
-        id: mainHeader
-        title: "Список групп"
-
-        Component.onCompleted: mainHeader.showArrowIcon()
-
-        onMenuClick: root.StackView.view.pop()
-    }
-
-    background: Rectangle { color: Colors.base }
+    title: "Список групп"
+    padding: 0
 
     MyRoundButton {
         id: addGroupBtn

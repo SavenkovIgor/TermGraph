@@ -25,32 +25,32 @@ import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 import "UIExtensions"
+import "Atoms" as A
+import "Molecules" as M
 import "Js/IconPath.js" as IconPath
 import "Js/Colors.js" as Colors
 
-MPage {
+M.Page {
     id: root
+
+    title: "Изменить вершину"
 
     StackView.onActivating: updateInfo()
 
-    header: MainHeader {
+    header: M.DefaultHeader {
+        title: root.title
+        burgerState: M.BurgerButton.IconState.Back
+        onBurgerClick: root.StackView.view.pop()
 
-        id: mainHeader
-        title: "Изменить вершину"
-
-        Component.onCompleted: {
-            mainHeader.showCheckButton()
-            mainHeader.showArrowIcon()
+        A.ToolButton {
+            id: checkButton
+            icon.source: IconPath.check
+            onClicked: root.applyNodeChange()
         }
-
-        onMenuClick: exitFromThisPage()
-        onCheckClick: root.applyNodeChange()
     }
 
     Shortcut { sequence: "Ctrl+Enter";  onActivated: root.applyNodeChange(); }
     Shortcut { sequence: "Ctrl+Return"; onActivated: root.applyNodeChange(); }
-
-    function exitFromThisPage() { root.StackView.view.pop() }
 
     function updateInfo() {
         nodeUuidText.text = sceneObj.currentNode.uuid
@@ -65,8 +65,8 @@ MPage {
 
     function applyNodeChange() {
         if (termName.text == "") {
-            emptyNodeNameDelDialog.visible = true
-            return
+            emptyNodeNameDelDialog.visible = true;
+            return;
         }
 
         var success = nodesManager.changeNode(
@@ -76,10 +76,10 @@ MPage {
                     termDescr.text,
                     termExampl.text,
                     nodeGroup.currentText
-                    )
+                    );
 
         if (success) {
-            exitFromThisPage()
+            root.StackView.view.pop();
         }
     }
 

@@ -23,19 +23,11 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "UIExtensions"
+import "Molecules" as M
 import "Js/Colors.js" as Colors
 
-MPage {
-    id: root
-
-    header: MainHeader {
-        id: mainHeader
-        title: "Настройки"
-
-        Component.onCompleted: mainHeader.showArrowIcon()
-
-        onMenuClick: root.StackView.view.pop()
-    }
+M.Page {
+    title: "Настройки"
 
     contentItem: Column {
 

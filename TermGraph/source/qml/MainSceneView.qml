@@ -29,22 +29,20 @@ import Notification 1.0
 
 import "UIExtensions"
 
+import "Molecules" as M
 import "Js/NodePaint.js" as JsPaint
 import "Js/IconPath.js" as IconPath
 
-Page {
+M.Page {
     id: root
 
     property Drawer sideMenu
     property bool currentPageOpened: StackView.visible
 
-    header: MainHeader {
-        id: mainHeader
-        title: "TermGraph"
+    padding: 0
 
-        Component.onCompleted: showMenuIcon()
-        onMenuClick: sideMenu.open()
-    }
+    title: "TermGraph"
+    onOpenMainMenu: sideMenu.open()
 
     state: sceneObj.hasSelection ? "some" : "none"
 
@@ -193,7 +191,7 @@ Page {
     GroupsDrawer {
         id : groupsList
 
-        y: mainHeader.height
+        y: root.header.height
         width: Math.min(window.width * 0.8, groupsList.maxWidth)
         height: sceneView.height
 

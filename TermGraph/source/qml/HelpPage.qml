@@ -23,8 +23,9 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "UIExtensions"
+import "Molecules" as M
 
-Page {
+M.Page {
     id: root
 
     property ListModel helpModel: ListModel {
@@ -107,14 +108,8 @@ Page {
         }
     }
 
-    header: MainHeader {
-        id: mainHeader
-        title: "Справка"
-
-        Component.onCompleted: mainHeader.showArrowIcon()
-
-        onMenuClick: root.StackView.view.pop()
-    }
+    title: "Справка"
+    padding: 0
 
     contentItem: Item {
         SwipeView {
