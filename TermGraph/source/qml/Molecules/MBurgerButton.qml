@@ -21,10 +21,10 @@
 
 import QtQuick 2.13
 
-import "../Atoms"
+import "../Atoms" as A
 import "../Js/IconPath.js" as IconPath
 
-MToolButton {
+A.ToolButton {
 
     enum IconState {
         Burger = 0,

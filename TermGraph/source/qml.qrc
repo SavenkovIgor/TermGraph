@@ -30,10 +30,10 @@
         <file>qml/Js/Debug.js</file>
         <file>qml/Js/IconPath.js</file>
         <file>qml/Js/NodePaint.js</file>
-        <file>qml/Atoms/MPageHeader.qml</file>
-        <file>qml/Atoms/MPageTitleLabel.qml</file>
-        <file>qml/Atoms/MRoundButton.qml</file>
-        <file>qml/Atoms/MToolButton.qml</file>
+        <file>qml/Atoms/PageHeader.qml</file>
+        <file>qml/Atoms/PageTitleLabel.qml</file>
+        <file>qml/Atoms/RoundButton.qml</file>
+        <file>qml/Atoms/ToolButton.qml</file>
         <file>qml/Molecules/MBurgerButton.qml</file>
         <file>qml/Molecules/MDefaultHeader.qml</file>
         <file>qml/LicensePage.qml</file>

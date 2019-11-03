@@ -27,7 +27,7 @@ import "../Atoms" as A
 import "../Js/IconPath.js" as IconPath
 import "../Js/Colors.js" as Colors
 
-A.MPageHeader {
+A.PageHeader {
     id: root
 
     signal burgerClick()
@@ -40,7 +40,7 @@ A.MPageHeader {
         onClicked: root.burgerClick()
     }
 
-    A.MPageTitleLabel {
+    A.PageTitleLabel {
         id: titleLabel
         Layout.fillWidth: true
     }

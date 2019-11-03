@@ -23,7 +23,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 
-import "../Atoms"
+import "../Atoms" as A
 import "../Molecules"
 import "../Js/IconPath.js" as IconPath
 import "../Js/Colors.js" as Colors
@@ -69,7 +69,7 @@ ToolBar {
             Layout.fillWidth: true
         }
 
-        MToolButton {
+        A.ToolButton {
             id: checkButton
             icon.source: IconPath.check
             visible: false
