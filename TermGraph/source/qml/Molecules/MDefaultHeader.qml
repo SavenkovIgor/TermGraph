@@ -19,4 +19,29 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import QtQuick 2.13
+import QtQuick.Controls 2.13
+import QtQuick.Layouts 1.13
 
+import "../Atoms" as A
+import "../Js/IconPath.js" as IconPath
+import "../Js/Colors.js" as Colors
+
+A.MPageHeader {
+    id: root
+
+    signal burgerClick()
+
+    property alias title: titleLabel.text
+    property alias burgerState: burgerButton.buttonState
+
+    MBurgerButton {
+        id: burgerButton
+        onClicked: root.burgerClick()
+    }
+
+    A.MPageTitleLabel {
+        id: titleLabel
+        Layout.fillWidth: true
+    }
+}

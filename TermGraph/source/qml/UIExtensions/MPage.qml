@@ -26,6 +26,5 @@ import "../Js/Colors.js" as Colors
 
 Page {
     padding: Math.min(width, height) * 0.035
-
     background: Rectangle { color: Colors.base }
 }
