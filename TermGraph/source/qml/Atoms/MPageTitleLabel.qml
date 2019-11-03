@@ -19,4 +19,16 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import QtQuick 2.13
 
+import "../Js/Colors.js" as Colors
+
+Text {
+    font.pixelSize: mainObj.getUiElementSize("appHeader")
+    minimumPixelSize: font.pixelSize / 2
+    fontSizeMode: Text.Fit
+    elide: Text.ElideRight
+    color: Colors.white
+    horizontalAlignment: Qt.AlignHCenter
+    verticalAlignment: Qt.AlignVCenter
+}
