@@ -34,8 +34,8 @@
         <file>qml/Atoms/PageTitleLabel.qml</file>
         <file>qml/Atoms/RoundButton.qml</file>
         <file>qml/Atoms/ToolButton.qml</file>
-        <file>qml/Molecules/MBurgerButton.qml</file>
-        <file>qml/Molecules/MDefaultHeader.qml</file>
+        <file>qml/Molecules/BurgerButton.qml</file>
+        <file>qml/Molecules/DefaultHeader.qml</file>
         <file>qml/LicensePage.qml</file>
     </qresource>
 </RCC>

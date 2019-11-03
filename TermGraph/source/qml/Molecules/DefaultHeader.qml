@@ -20,27 +20,28 @@
  */
 
 import QtQuick 2.13
+import QtQuick.Controls 2.13
+import QtQuick.Layouts 1.13
 
 import "../Atoms" as A
 import "../Js/IconPath.js" as IconPath
+import "../Js/Colors.js" as Colors
 
-A.ToolButton {
+A.PageHeader {
+    id: root
 
-    enum IconState {
-        Burger = 0,
-        Back
+    signal burgerClick()
+
+    property alias title: titleLabel.text
+    property alias burgerState: burgerButton.buttonState
+
+    BurgerButton {
+        id: burgerButton
+        onClicked: root.burgerClick()
     }
 
-    property int buttonState: MBurgerButton.IconState.Burger
-
-    icon.source: {
-        switch (buttonState) {
-        case MBurgerButton.IconState.Burger:
-            return IconPath.menu;
-        case MBurgerButton.IconState.Back:
-            return IconPath.leftArrow;
-        }
-
-        return IconPath.menu;
+    A.PageTitleLabel {
+        id: titleLabel
+        Layout.fillWidth: true
     }
 }

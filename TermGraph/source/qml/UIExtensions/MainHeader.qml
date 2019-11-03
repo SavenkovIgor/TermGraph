@@ -24,7 +24,7 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 
 import "../Atoms" as A
-import "../Molecules"
+import "../Molecules" as M
 import "../Js/IconPath.js" as IconPath
 import "../Js/Colors.js" as Colors
 
@@ -41,8 +41,8 @@ ToolBar {
 
     property alias title: titleLabel.text
 
-    function showMenuIcon()  { mainMenuButton.buttonState = MBurgerButton.IconState.Burger }
-    function showArrowIcon() { mainMenuButton.buttonState = MBurgerButton.IconState.Back }
+    function showMenuIcon()  { mainMenuButton.buttonState = M.BurgerButton.IconState.Burger }
+    function showArrowIcon() { mainMenuButton.buttonState = M.BurgerButton.IconState.Back }
 
     function showCheckButton() {
         checkButton.visible = true
@@ -52,7 +52,7 @@ ToolBar {
         spacing: 20
         anchors.fill: parent
 
-        MBurgerButton {
+        M.BurgerButton {
             id: mainMenuButton
             onClicked: mainHeader.menuClick()
         }
