@@ -19,4 +19,21 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import QtQuick 2.13
+import QtQuick.Controls 2.13
+import QtQuick.Layouts 1.13
 
+import "../Js/Colors.js" as Colors
+
+ToolBar {
+    id: mainHeader
+
+    background: Rectangle {
+        anchors.fill: parent
+        color: Colors.baseLight
+    }
+
+    contentItem: RowLayout {
+        spacing: 20
+    }
+}
