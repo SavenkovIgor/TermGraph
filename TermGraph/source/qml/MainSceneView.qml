@@ -75,135 +75,25 @@ M.Page {
 
     background: Rectangle { color: sceneObj.getSceneBackgroundColor() }
 
-    MyRoundButton {
-        id: addNodeButton
+    MouseArea {
+        id: sceneMouse
 
-        anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
-        visible: true
+        anchors.fill: sceneView
+        hoverEnabled: true
 
-        action: Action {
-            text: "AddNode"
-            shortcut: "Ctrl+n"
-            icon.source: IconPath.plus
-            enabled: root.currentPageOpened
-            onTriggered: {
-                if (groupsManager.hasAnyGroup) {
-                    root.StackView.view.push(newNodeComponent)
-                } else {
-                    Notification.showWarning("Create group first!")
-                    root.StackView.view.push(groupsListComponent)
-                }
-            }
-        }
-    }
-
-    MyRoundButton {
-        id: showGroupListButton
-        icon.source: IconPath.spreadsheet
-        visible: groupsManager.hasAnyGroup
-
-        anchors { top: parent.top; right: parent.right; margins: width / 2; }
-
-        onClicked: groupsList.open()
-    }
-
-    MyRoundButton {
-        id: screenShotButton
-        icon.source: IconPath.share
-        visible: groupsManager.hasAnyGroup
-
-        anchors { top: showGroupListButton.bottom; right: parent.right; margins: width / 2; }
+        onMouseXChanged: setPos()
+        onMouseYChanged: setPos()
 
         onClicked: {
-            sceneCanvas.grabToImage(function(result){
-                let name = mainObj.screenshotNameAndPath("GroupName"); // TODO: Add group name
-                if (name !== "") {
-                    result.saveToFile(name);
-                    Notification.showInfo("Снимок группы создан. Путь:" + name);
-                } else {
-                    Notification.showInfo("Снимок не создан((");
-                }
-            });
-        }
-    }
-
-    MyRoundButton {
-        id: editNodeButton
-        visible: false
-        anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
-
-        action: Action {
-            text: "EditNode"
-            icon.source: IconPath.pencil
-            shortcut: "Ctrl+e"
-            enabled: root.currentPageOpened
-            onTriggered: {
-                if (!sceneObj.currentNode.isNull()) {
-                    root.StackView.view.push(editNodeComponent)
-                }
-            }
-        }
-    }
-
-    MyRoundButton {
-        id : deleteNodeButton
-        icon.source: IconPath.trash
-        visible: false
-
-        anchors { right: parent.right; bottom: editNodeButton.top; margins: width / 2; }
-
-        onClicked: nodeDelDialog.visible = true
-    }
-
-    MessageDialog {
-        id: nodeDelDialog
-
-        title: "Удаление вершины"
-        text:  "Удалить выделенную вершину?"
-
-        standardButtons: StandardButton.Yes | StandardButton.No
-        icon: StandardIcon.Question
-
-        onYes: sceneObj.deleteSelectedNode()
-    }
-
-    MyRoundButton {
-        id : nodeInfoButton
-        icon.source: IconPath.info
-        visible: false
-
-        anchors { right: editNodeButton.left; bottom: parent.bottom; margins: width / 2; }
-
-        Shortcut {
-            sequence: "Ctrl+i"
-            onActivated: nodeInfoButton.openTerm()
+            let pt = scenePt();
+            sceneObj.setMouseClick(pt.x, pt.y)
         }
 
-        onClicked: openTerm()
+        function scenePt() { return sceneMouse.mapToItem(sceneCanvas, mouseX, mouseY); }
 
-        function openTerm() {
-            if (sceneObj.hasSelection) {
-                root.StackView.view.push(termViewComponent)
-            }
-        }
-    }
-
-    GroupsDrawer {
-        id : groupsList
-
-        y: root.header.height
-        width: Math.min(window.width * 0.8, groupsList.maxWidth)
-        height: sceneView.height
-
-        clip: true
-        interactive: root.currentPageOpened
-
-        Shortcut {
-            sequence: "Ctrl+Left"
-            onActivated: {
-                groupsList.open();
-                groupsList.forceActiveFocus();
-            }
+        function setPos() {
+            let pt = scenePt();
+            sceneObj.setMousePos(pt.x, pt.y);
         }
     }
 
@@ -222,19 +112,6 @@ M.Page {
 
         function sendSceneViewRect() {
             sceneObj.setSceneViewRect(sceneView.contentX, sceneView.contentY, sceneView.width, sceneView.height)
-        }
-
-        MouseArea {
-            id: sceneMouse
-
-            anchors.fill: sceneCanvas
-
-            hoverEnabled: true
-
-            onMouseXChanged: sceneObj.setMousePos(sceneMouse.mouseX, sceneMouse.mouseY)
-            onMouseYChanged: sceneObj.setMousePos(sceneMouse.mouseX, sceneMouse.mouseY)
-
-            onClicked: sceneObj.setMouseClick(sceneMouse.mouseX, sceneMouse.mouseY)
         }
 
         Canvas {
@@ -394,6 +271,138 @@ M.Page {
 
                     paintManager.nextNode()
                 }
+            }
+        }
+    }
+
+    MyRoundButton {
+        id: addNodeButton
+
+        anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
+        visible: true
+
+        action: Action {
+            text: "AddNode"
+            shortcut: "Ctrl+n"
+            icon.source: IconPath.plus
+            enabled: root.currentPageOpened
+            onTriggered: {
+                if (groupsManager.hasAnyGroup) {
+                    root.StackView.view.push(newNodeComponent)
+                } else {
+                    Notification.showWarning("Create group first!")
+                    root.StackView.view.push(groupsListComponent)
+                }
+            }
+        }
+    }
+
+    MyRoundButton {
+        id: showGroupListButton
+        icon.source: IconPath.spreadsheet
+        visible: groupsManager.hasAnyGroup
+
+        anchors { top: parent.top; right: parent.right; margins: width / 2; }
+
+        onClicked: groupsList.open()
+    }
+
+    MyRoundButton {
+        id: screenShotButton
+        icon.source: IconPath.share
+        visible: groupsManager.hasAnyGroup
+
+        anchors { top: showGroupListButton.bottom; right: parent.right; margins: width / 2; }
+
+        onClicked: {
+            sceneCanvas.grabToImage(function(result){
+                let name = mainObj.screenshotNameAndPath("GroupName"); // TODO: Add group name
+                if (name !== "") {
+                    result.saveToFile(name);
+                    Notification.showInfo("Снимок группы создан. Путь:" + name);
+                } else {
+                    Notification.showInfo("Снимок не создан((");
+                }
+            });
+        }
+    }
+
+    MyRoundButton {
+        id: editNodeButton
+        visible: false
+        anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
+
+        action: Action {
+            text: "EditNode"
+            icon.source: IconPath.pencil
+            shortcut: "Ctrl+e"
+            enabled: root.currentPageOpened
+            onTriggered: {
+                if (!sceneObj.currentNode.isNull()) {
+                    root.StackView.view.push(editNodeComponent)
+                }
+            }
+        }
+    }
+
+    MyRoundButton {
+        id : deleteNodeButton
+        icon.source: IconPath.trash
+        visible: false
+
+        anchors { right: parent.right; bottom: editNodeButton.top; margins: width / 2; }
+
+        onClicked: nodeDelDialog.visible = true
+    }
+
+    MessageDialog {
+        id: nodeDelDialog
+
+        title: "Удаление вершины"
+        text:  "Удалить выделенную вершину?"
+
+        standardButtons: StandardButton.Yes | StandardButton.No
+        icon: StandardIcon.Question
+
+        onYes: sceneObj.deleteSelectedNode()
+    }
+
+    MyRoundButton {
+        id : nodeInfoButton
+        icon.source: IconPath.info
+        visible: false
+
+        anchors { right: editNodeButton.left; bottom: parent.bottom; margins: width / 2; }
+
+        Shortcut {
+            sequence: "Ctrl+i"
+            onActivated: nodeInfoButton.openTerm()
+        }
+
+        onClicked: openTerm()
+
+        function openTerm() {
+            if (sceneObj.hasSelection) {
+                root.StackView.view.push(termViewComponent)
+            }
+        }
+    }
+
+    GroupsDrawer {
+        id : groupsList
+
+        y: root.header.height
+        width: Math.min(window.width * 0.8, groupsList.maxWidth)
+        height: sceneView.height
+
+        clip: true
+        interactive: root.currentPageOpened
+
+        Shortcut {
+            sequence: "Ctrl+Left"
+            onActivated: {
+                groupsList.open();
+                groupsList.forceActiveFocus();
             }
         }
     }
