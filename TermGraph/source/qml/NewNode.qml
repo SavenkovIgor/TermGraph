@@ -163,7 +163,7 @@ M.Page {
             MyTextArea {
                 id: termDescr
                 labelText : "Описание"
-                placeholderText: "[Общее словестное описание, пока никак не участвует в логике]"
+                placeholderText: "[Общее словесное описание, пока никак не участвует в логике]"
                 text: ""
                 Layout.fillWidth: true
             }
