@@ -83,7 +83,7 @@ void MainScene::updateModel()
     sceneRhytm.stop();
     stopAllGroupTimers();
 
-    paintManager->addClearRect(sceneRect, true);
+    paintManager->addClearRect(getSceneRect(), true);
     paintManager->clearAllQueues();
     deleteAllGroups();
 
@@ -139,7 +139,7 @@ void MainScene::updateSceneRect()
     int mV = 40;
     QMarginsF mrg(mV, mV, mV, mV);
     auto withMargins = allRect.marginsAdded(mrg);
-    sceneRect = withMargins;
+    setSceneRect(withMargins);
 }
 
 void MainScene::centerViewOn(QPointF point)
@@ -152,21 +152,6 @@ void MainScene::deleteSelectedNode()
     if (auto node = getSelectedNode()) {
         dropSelection();
         nodesMgr->deleteNode(node->getUuid());
-    }
-}
-
-void MainScene::setSceneViewRect(int x, int y, int width, int height)
-{
-    sceneViewRect = QRectF(x, y, width, height);
-
-    auto tmpRect = sceneRect;
-    tmpRect.setWidth(std::max(sceneRect.width(), sceneViewRect.width()));
-    tmpRect.setHeight(std::max(sceneRect.height(), sceneViewRect.height()));
-
-    if (tmpRect != sceneRect) {
-        sceneRect = tmpRect;
-//        resetPaintFlags();
-//        emit sceneContentUpdated();
     }
 }
 
@@ -345,7 +330,15 @@ bool MainScene::isAnyNodeSelected() {
 
 QRectF MainScene::getSceneRect() const
 {
-    return sceneRect;
+    return mSceneRect;
+}
+
+void MainScene::setSceneRect(const QRectF& newRect)
+{
+    if (mSceneRect != newRect) {
+        mSceneRect = newRect;
+        emit sceneRectChanged();
+    }
 }
 
 PaintedTerm *MainScene::getNodeAtPoint(const QPointF &pt) const
@@ -442,17 +435,14 @@ void MainScene::requestPaint(bool paintAll)
 
 void MainScene::sendGroupsToPaintManager(bool requestPaint, bool paintAll)
 {
-    if (paintAll) {
-        paintManager->addClearRect(sceneRect, true);
-    }
+    if (paintAll)
+        paintManager->addClearRect(getSceneRect(), true);
 
-    for (auto group : groupList) {
+    for (auto group : groupList)
         paintManager->addGroup(group, paintAll, false);
-    }
 
 //    paintManager->addRect(sceneRect);
 
-    if (requestPaint) {
+    if (requestPaint)
         paintManager->sendPaintGroupSignal();
-    }
 }

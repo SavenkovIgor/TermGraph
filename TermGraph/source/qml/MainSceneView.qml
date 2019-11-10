@@ -105,20 +105,11 @@ M.Page {
 
         boundsBehavior: Flickable.StopAtBounds
 
-        onContentXChanged: sendSceneViewRect()
-        onContentYChanged: sendSceneViewRect()
-        onWidthChanged: sendSceneViewRect()
-        onHeightChanged: sendSceneViewRect()
-
-        function sendSceneViewRect() {
-            sceneObj.setSceneViewRect(sceneView.contentX, sceneView.contentY, sceneView.width, sceneView.height)
-        }
-
         Canvas {
             id: sceneCanvas
 
-            height: 100
-            width: 100
+            height: sceneObj.sceneRect.height
+            width: sceneObj.sceneRect.width
 
             property bool paintGroups: false
             property bool paintNode: false
@@ -144,11 +135,6 @@ M.Page {
             }
 
             Connections {
-                target: sceneObj
-                onSceneContentUpdated: sceneCanvas.updateSize()
-            }
-
-            Connections {
                 target: paintManager
                 onPaintGroupQueue: {
                     sceneCanvas.paintGroups = true
@@ -158,11 +144,6 @@ M.Page {
                     sceneCanvas.paintNode = true
                     sceneCanvas.requestPaint()
                 }
-            }
-
-            function updateSize() {
-                sceneCanvas.height = sceneObj.getSceneRect().height
-                sceneCanvas.width = sceneObj.getSceneRect().width
             }
 
             onPaint: {

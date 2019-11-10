@@ -47,12 +47,15 @@ public:
 
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
     Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode) // Read only. without notify
+    Q_PROPERTY(QRectF sceneRect READ getSceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
 
 signals:
     // Scene signals
     void selectionChanged();
     void selectionDoubleClick();
     void sceneContentUpdated();
+
+    void sceneRectChanged();
 
 public slots:
     void showGroup(const QString& groupUuid);
@@ -80,10 +83,9 @@ public slots:
     bool isAnyNodeSelected();
 
     // Drawing API
-    // ViewFrame
-    void setSceneViewRect(int x, int y, int width, int height);
-
     QRectF getSceneRect() const;
+    void setSceneRect(const QRectF& newRect);
+
     QColor getSceneBackgroundColor() const;
 
     void resetPaintFlags();
@@ -108,7 +110,7 @@ private:
     void sendGroupsToPaintManager(bool requestPaint = true, bool paintAll = false);
 
     // Scene rect
-    QRectF sceneRect = QRectF(0, 0, 100, 100);
+    QRectF mSceneRect = QRectF(0, 0, 100, 100);
     QRectF sceneViewRect = QRectF(0, 0, 100, 100);
 
     // Mouse interaction
