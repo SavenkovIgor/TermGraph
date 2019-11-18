@@ -19,85 +19,92 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-function prepareRects(ctx) {
-    ctx.strokeStyle = "#000000"
-    ctx.lineWidth = 2
-    ctx.textBaseline = "middle"
-    ctx.font = "10pt sans-serif Arial"
+.pragma library
+
+function prepareRects(ctx)
+{
+    ctx.strokeStyle = "#000000";
+    ctx.lineWidth = 2;
+    ctx.textBaseline = "middle";
+    ctx.font = "10pt sans-serif Arial";
 }
 
-function paintRoundedRect(ctx, rect, rectColor, radius) {
-
+function paintRoundedRect(ctx, rect, rectColor, radius)
+{
     // Draw border
-    ctx.beginPath()
-    ctx.roundedRect(rect.x, rect.y, rect.width, rect.height, radius, radius)
-    ctx.stroke()
+    ctx.beginPath();
+    ctx.roundedRect(rect.x, rect.y, rect.width, rect.height, radius, radius);
+    ctx.stroke();
 
     // Draw inner rect with the same path
-    ctx.fillStyle = rectColor
-    ctx.fill()
+    ctx.fillStyle = rectColor;
+    ctx.fill();
 }
 
-function prepareEdge(ctx) {
-    ctx.lineWidth = 2
+function prepareEdge(ctx)
+{
+    ctx.lineWidth = 2;
 }
 
-function paintLine(ctx, pt1, pt2, color) {
-    ctx.strokeStyle = color
-    ctx.beginPath()
-    ctx.moveTo(pt1.x, pt1.y)
-    ctx.lineTo(pt2.x, pt2.y)
-    ctx.stroke()
+function drawBLine(ctx, pt1, pt2, color)
+{
+    const coeff = 0.5;
+    const width = pt2.x - pt1.x;
+    const ptb1 = {x: pt1.x + width * coeff, y: pt1.y};
+    const ptb2 = {x: pt2.x - width * coeff, y: pt2.y};
+
+    ctx.moveTo(pt1.x, pt1.y);
+    ctx.bezierCurveTo(ptb1.x, ptb1.y, ptb2.x, ptb2.y, pt2.x, pt2.y);
 }
 
-function paintGroupName(ctx, text, basePoint) {
-    ctx.textBaseline = "middle"
-    ctx.font = "bold 10.5pt sans-serif Arial"
+function paintGroupName(ctx, text, basePoint)
+{
+    ctx.textBaseline = "middle";
+    ctx.font = "bold 10.5pt sans-serif Arial";
 
-    ctx.fillStyle = "#FFFFFF"
-    ctx.fillText(text, basePoint.x, basePoint.y)
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillText(text, basePoint.x, basePoint.y);
 }
 
-function paintTextWithSplit(ctx, text, center, rect) {
-
-    ctx.fillStyle = "#FFFFFF"
+function paintTextWithSplit(ctx, text, center, rect)
+{
+    ctx.fillStyle = "#FFFFFF";
     // Draw text
-    var txtList = text.split('\n');
+    const txtList = text.split('\n');
 
-    var count = Object.keys(txtList).length
+    const count = Object.keys(txtList).length;
+    const firstLineWidth = ctx.measureText(txtList[0]).width;
+    const posX = center.x - firstLineWidth / 2;
 
     if (count === 1) {
-        var txtW = ctx.measureText(txtList[0]).width
-        var posX = center.x - txtW / 2
-        ctx.fillText(txtList[0], posX, center.y)
-    }
+        ctx.fillText(txtList[0], posX, center.y);
+    } else if (count === 2) {
+        const heightQuater = rect.height / 4;
 
-    if (count === 2) {
-        var heightQuater = rect.height / 4
+        ctx.fillText(txtList[0], posX, center.y - heightQuater);
 
-        txtW = ctx.measureText(txtList[0]).width
-        posX = center.x - txtW / 2
-        ctx.fillText(txtList[0], posX, center.y - heightQuater)
-
-        txtW = ctx.measureText(txtList[1]).width
-        posX = center.x - txtW / 2
-        ctx.fillText(txtList[1], posX, center.y + heightQuater)
+        const secondLineWidth = ctx.measureText(txtList[1]).width;
+        const pos2X = center.x - secondLineWidth / 2;
+        ctx.fillText(txtList[1], pos2X, center.y + heightQuater);
     }
 }
 
-function paintRect(ctx, rect, borderColor) {
-    ctx.strokeStyle = borderColor
-    ctx.lineWidth = 1
-    ctx.beginPath()
-    ctx.rect(rect.x, rect.y, rect.width, rect.height)
-    ctx.stroke()
+function paintRect(ctx, rect, borderColor)
+{
+    ctx.strokeStyle = borderColor;
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.rect(rect.x, rect.y, rect.width, rect.height);
+    ctx.stroke();
 }
 
-function clearRect(ctx, rect, offset) {
-    ctx.clearRect(rect.x - offset, rect.y - offset, rect.width + 2*offset, rect.height + 2*offset)
+function clearRect(ctx, rect, offset)
+{
+    ctx.clearRect(rect.x - offset, rect.y - offset, rect.width + 2*offset, rect.height + 2*offset);
 }
 
-function paintFilledRect(ctx, rect, color) {
-    ctx.fillStyle = color
-    ctx.fillRect(rect.x, rect.y, rect.width, rect.height)
+function paintFilledRect(ctx, rect, color)
+{
+    ctx.fillStyle = color;
+    ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
 }

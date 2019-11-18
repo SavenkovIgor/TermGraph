@@ -85,14 +85,14 @@ M.Page {
         onMouseYChanged: setPos()
 
         onClicked: {
-            let pt = scenePt();
+            const pt = scenePt();
             sceneObj.setMouseClick(pt.x, pt.y)
         }
 
         function scenePt() { return sceneMouse.mapToItem(sceneCanvas, mouseX, mouseY); }
 
         function setPos() {
-            let pt = scenePt();
+            const pt = scenePt();
             sceneObj.setMousePos(pt.x, pt.y);
         }
     }
@@ -119,7 +119,7 @@ M.Page {
 
             Component.onCompleted: {
                 // Try to show first group
-                var groupsUuids = groupsManager.getAllUuidStringsSortedByLastEdit()
+                const groupsUuids = groupsManager.getAllUuidStringsSortedByLastEdit()
 
                 if (groupsUuids.length !== 0) {
                     sceneObj.showGroup(groupsUuids[0])
@@ -148,109 +148,113 @@ M.Page {
 
             onPaint: {
                 // console.log("Paint call")
-                paintManager.setPaintInProcessFlag(true)
-                var ctx = sceneCanvas.getContext('2d')
+                paintManager.setPaintInProcessFlag(true);
+                const ctx = sceneCanvas.getContext('2d');
 
                 if (sceneCanvas.paintGroups) {
-                    paintAll(ctx)
-                    sceneCanvas.paintGroups = false
+                    paintAll(ctx);
+                    sceneCanvas.paintGroups = false;
                 }
 
                 if (sceneCanvas.paintNode) {
-                    paintNodes(ctx)
-                    sceneCanvas.paintNode = false
+                    paintNodes(ctx);
+                    sceneCanvas.paintNode = false;
                 }
 
-                paintManager.setPaintInProcessFlag(false)
+                paintManager.setPaintInProcessFlag(false);
             }
 
-            function paintAll(ctx) {
-                clearRects(ctx)
-                paintGroupRects(ctx)
-                paintGroupNames(ctx)
-                paintEdges(ctx)
-                paintNodes(ctx)
+            function paintAll(ctx)
+            {
+                clearRects(ctx);
+                paintGroupRects(ctx);
+                paintGroupNames(ctx);
+                paintEdges(ctx);
+                paintNodes(ctx);
             }
 
-            function clearRects(ctx) {
-
+            function clearRects(ctx)
+            {
                 while (true) {
                     if (paintManager.clearQueueEmpty())
                         break;
 
-                    var rect = paintManager.currentClearRect()
-                    JsPaint.clearRect(ctx, rect, 0)
+                    const rect = paintManager.currentClearRect();
+                    JsPaint.clearRect(ctx, rect, 0);
 
-                    paintManager.nextClearRect()
+                    paintManager.nextClearRect();
                 }
             }
 
-            function paintGroupRects(ctx) {
-
+            function paintGroupRects(ctx)
+            {
                 while (true) {
                     if (paintManager.groupRectQueueEmpty())
                         break;
 
-                    var groupRect = paintManager.currentGroupRect()
+                    const groupRect = paintManager.currentGroupRect();
                     // JsPaint.clearRect(ctx, groupRect, 2)
-                    JsPaint.paintRect(ctx, groupRect, "#FFFFFF")
+                    JsPaint.paintRect(ctx, groupRect, "#FFFFFF");
 
-                    paintManager.nextGroupRect()
+                    paintManager.nextGroupRect();
                 }
             }
 
-            function paintGroupNames(ctx) {
-
+            function paintGroupNames(ctx)
+            {
                 while (true) {
                     if (paintManager.groupNamesQueueEmpty())
                         break;
 
-                    var groupName = paintManager.currentGroupName()
-                    var groupNamePos = paintManager.currentGroupNamePos()
-                    JsPaint.paintGroupName(ctx, groupName, groupNamePos)
+                    const groupName = paintManager.currentGroupName();
+                    const groupNamePos = paintManager.currentGroupNamePos();
+                    JsPaint.paintGroupName(ctx, groupName, groupNamePos);
 
-                    paintManager.nextGroupName()
+                    paintManager.nextGroupName();
                 }
             }
 
-            function paintEdges(ctx) {
-                JsPaint.prepareEdge(ctx)
+            function paintEdges(ctx)
+            {
+                JsPaint.prepareEdge(ctx);
 
                 while (true) {
-                    if (paintManager.edgeQueueEmpty()) {
+                    if (paintManager.edgeQueueEmpty())
                         break;
-                    }
 
-                    var pt1 = paintManager.currentFirstEdgePoint()
-                    var pt2 = paintManager.currentLastEdgePoint()
-                    var col = paintManager.getEdgeColor()
+                    const pt1 = paintManager.currentFirstEdgePoint();
+                    const pt2 = paintManager.currentLastEdgePoint();
+                    const col = paintManager.getEdgeColor();
 
-                    JsPaint.paintLine(ctx, pt1, pt2, col)
+                    ctx.strokeStyle = col;
+                    ctx.beginPath();
+                    JsPaint.drawBLine(ctx, pt1, pt2, col);
+                    ctx.stroke();
 
-                    paintManager.nextEdge()
+                    paintManager.nextEdge();
                 }
             }
 
-            function paintNodes(ctx) {
-                JsPaint.prepareRects(ctx)
+            function paintNodes(ctx)
+            {
+                JsPaint.prepareRects(ctx);
 
                 while (true) {
-                    if (paintManager.nodeQueueEmpty()) {
+                    if (paintManager.nodeQueueEmpty())
                         break;
-                    }
 
-                    var rect = paintManager.currentNodeRect()
-                    var color = paintManager.currentNodeColor()
-                    var radius = paintManager.currentNodeRadius()
+                    const rect = paintManager.currentNodeRect();
+                    const color = paintManager.currentNodeColor();
+                    const radius = paintManager.currentNodeRadius();
 
-                    JsPaint.paintRoundedRect(ctx, rect, color, radius)
+                    JsPaint.paintRoundedRect(ctx, rect, color, radius);
 
-                    var center = paintManager.currentNodeCenter()
-                    var text = paintManager.currentNodeText()
+                    const center = paintManager.currentNodeCenter();
+                    const text = paintManager.currentNodeText();
 
-                    JsPaint.paintTextWithSplit(ctx, text, center, rect)
+                    JsPaint.paintTextWithSplit(ctx, text, center, rect);
 
-                    paintManager.nextNode()
+                    paintManager.nextNode();
                 }
             }
         }
@@ -297,7 +301,7 @@ M.Page {
 
         onClicked: {
             sceneCanvas.grabToImage(function(result){
-                let name = mainObj.screenshotNameAndPath("GroupName"); // TODO: Add group name
+                const name = mainObj.screenshotNameAndPath("GroupName"); // TODO: Add group name
                 if (name !== "") {
                     result.saveToFile(name);
                     Notification.showInfo("Снимок группы создан. Путь:" + name);
