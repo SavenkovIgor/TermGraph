@@ -11,14 +11,17 @@ Item {
     width: 200
     height: 200
 
-    property real aScale: 1
+    property color col1: "#6d9a28"
+    property color col2: Colors.accent
+    property color col3: Colors.baseLight
+    property color colText: "#dcdcdc"
 
     A.Hex {
         id: hex1
         anchors.centerIn: parent
         width: root.width
         height: root.height
-        color: Colors.baseLight2
+        color: root.col1
     }
 
     DropShadow {
@@ -35,7 +38,7 @@ Item {
         anchors.centerIn: parent
         width: parent.width * 0.866
         height: parent.height * 0.866
-        color: Colors.accent
+        color: root.col2
         rotation: 30
     }
 
@@ -54,7 +57,7 @@ Item {
         anchors.centerIn: parent
         width: parent.width * Math.pow(0.866, 2)
         height: parent.height * Math.pow(0.866, 2)
-        color: Colors.baseLight
+        color: root.col3
         rotation: 60
     }
 
@@ -74,7 +77,7 @@ Item {
         anchors.verticalCenterOffset: -root.height * 0.02
         text: "Tg"
         font.pixelSize: root.height * 0.35
-        color: "#dcdcdc"
+        color: root.colText
     }
 
     DropShadow {
