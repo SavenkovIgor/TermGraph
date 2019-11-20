@@ -23,6 +23,8 @@
 
 #include <QScreen>
 
+#include "source/Helpers/platform.h"
+
 MainWindow::MainWindow(QObject *parent):
     QObject(parent),
     network(new NetworkManager()),
@@ -111,7 +113,8 @@ int MainWindow::dbVersion()
 
 void MainWindow::initElemSizes()
 {
-    if constexpr (AppSettings::Platform::isDesktop()) {
+    if constexpr (Platform::isDesktop())
+    {
         // Screen.pixelDencity - pixel in millimeters
         elementSizes["roundButton"] = 15;
         elementSizes["text"]        = 5;
@@ -126,7 +129,8 @@ void MainWindow::initElemSizes()
         elementSizes["sideMenu"]    = 7;
     }
 
-    if constexpr (AppSettings::Platform::isAndroid()) {
+    if constexpr (Platform::isAndroid())
+    {
         elementSizes["roundButton"] = 9;
         elementSizes["text"]        = 4;
         elementSizes["capitalText"] = 5;

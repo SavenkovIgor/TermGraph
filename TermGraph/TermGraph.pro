@@ -25,6 +25,7 @@ TEMPLATE = app
 CONFIG += c++17
 
 HEADERS += \
+    source/Helpers/platform.h \
     source/Managers/jsongroupinfocontainerparser.h \
     source/Managers/jsonnodeinfocontainerparser.h \
     source/Managers/notificationmanager.h \
