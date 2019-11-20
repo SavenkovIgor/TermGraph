@@ -22,6 +22,9 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <QQuickStyle>
+#include <QSurface>
+
+#include "source/Helpers/platform.h"
 
 #ifdef Q_OS_ANDROID
 #include <QtSvg>    //Because deployment sometimes just forgets to include this lib otherwise
@@ -32,6 +35,14 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     QQuickStyle::setStyle("Material");
+
+    // TODO: Check it on mobile!
+    if constexpr (Platform::isDesktop())
+    {
+        QSurfaceFormat format = QSurfaceFormat::defaultFormat();
+        format.setSamples(8);
+        QSurfaceFormat::setDefaultFormat(format);
+    }
 
     MainWindow w;
 

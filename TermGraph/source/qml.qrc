@@ -36,5 +36,7 @@
         <file>qml/Molecules/BurgerButton.qml</file>
         <file>qml/Molecules/DefaultHeader.qml</file>
         <file>qml/LicensePage.qml</file>
+        <file>qml/Atoms/Hex.qml</file>
+        <file>qml/Molecules/AppIcon.qml</file>
     </qresource>
 </RCC>
