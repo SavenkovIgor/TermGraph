@@ -38,5 +38,6 @@
         <file>qml/LicensePage.qml</file>
         <file>qml/Atoms/Hex.qml</file>
         <file>qml/Molecules/AppIcon.qml</file>
+        <file>qml/Pages/AppIconsSaving.qml</file>
     </qresource>
 </RCC>
