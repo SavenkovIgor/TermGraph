@@ -141,7 +141,7 @@ FORMS += \
     source/ui/wordfreqanalyze.ui
 
 RESOURCES += \
-    source/icons.qrc\
+    icons/icons.qrc\
     source/qml.qrc
 
 #INSTALLS += target
