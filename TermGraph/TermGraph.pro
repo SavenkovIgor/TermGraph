@@ -133,8 +133,8 @@ SOURCES += \
     source/Helpers/textprocessor.cpp
 
 RESOURCES += \
-    icons/icons.qrc\
-    source/qml.qrc
+    icons/icons.qrc \
+    qml/qml.qrc
 
 #INSTALLS += target
 

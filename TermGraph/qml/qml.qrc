@@ -1,0 +1,43 @@
+<RCC>
+    <qresource prefix="/">
+        <file>GoupsSideBar.qml</file>
+        <file>MainWindow.qml</file>
+        <file>TermGroupsList.qml</file>
+        <file>UIExtensions/MyRoundButton.qml</file>
+        <file>UIExtensions/MyTextArea.qml</file>
+        <file>UIExtensions/MyTextField.qml</file>
+        <file>UIExtensions/MyComboBox.qml</file>
+        <file>UIExtensions/MySquareButton.qml</file>
+        <file>UIExtensions/MyLabelPair.qml</file>
+        <file>MySettings.qml</file>
+        <file>UIExtensions/SideMenuButton.qml</file>
+        <file>TermView.qml</file>
+        <file>UIExtensions/SmallInfoText.qml</file>
+        <file>UIExtensions/GroupsDrawer.qml</file>
+        <file>MainSceneView.qml</file>
+        <file>HelpPage.qml</file>
+        <file>UIExtensions/ThinLine.qml</file>
+        <file>EditNode.qml</file>
+        <file>NewNode.qml</file>
+        <file>UIExtensions/HelpCard.qml</file>
+        <file>Learning/LearnGroupsList.qml</file>
+        <file>Learning/LearnMode.qml</file>
+        <file>Learning/LearnCard.qml</file>
+        <file>Learning/CardsStartScreen.qml</file>
+        <file>Js/Colors.js</file>
+        <file>Js/Debug.js</file>
+        <file>Js/IconPath.js</file>
+        <file>Js/NodePaint.js</file>
+        <file>Atoms/PageHeader.qml</file>
+        <file>Atoms/PageTitleLabel.qml</file>
+        <file>Atoms/RoundButton.qml</file>
+        <file>Atoms/ToolButton.qml</file>
+        <file>Molecules/Page.qml</file>
+        <file>Molecules/BurgerButton.qml</file>
+        <file>Molecules/DefaultHeader.qml</file>
+        <file>LicensePage.qml</file>
+        <file>Atoms/Hex.qml</file>
+        <file>Molecules/AppIcon.qml</file>
+        <file>Pages/AppIconsSaving.qml</file>
+    </qresource>
+</RCC>
