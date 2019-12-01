@@ -27,7 +27,7 @@
 #include <QtQuickControls2/QQuickStyle>
 
 #include "source/mainscene.h"
-#include "source/paintqueuemanager.h"
+#include "source/Managers/paintqueuemanager.h"
 #include "source/databaseWorks/database.h"
 #include "source/Helpers/tagprocessor.h"
 #include "source/Helpers/textprocessor.h"

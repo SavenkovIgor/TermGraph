@@ -76,7 +76,7 @@ HEADERS += \
     source/Model/TerminGroup/termtree.h \
     source/Model/GraphicItem/graphicitem.h \
     source/Model/GraphicItem/rectgraphicitem.h \
-    source/paintqueuemanager.h \
+    source/Managers/paintqueuemanager.h \
     source/Model/GraphicItem/labelgraphicitem.h \
     source/Model/enums.h \
     source/databaseWorks/dbtablenames.h \
@@ -127,7 +127,7 @@ SOURCES += \
     source/Model/TerminGroup/termtree.cpp \
     source/Model/GraphicItem/graphicitem.cpp \
     source/Model/GraphicItem/rectgraphicitem.cpp \
-    source/paintqueuemanager.cpp \
+    source/Managers/paintqueuemanager.cpp \
     source/Model/GraphicItem/labelgraphicitem.cpp \
     source/databaseWorks/appconfigtable.cpp \
     source/Helpers/textprocessor.cpp

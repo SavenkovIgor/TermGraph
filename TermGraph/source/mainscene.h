@@ -27,7 +27,7 @@
 #include <QClipboard>
 #include <QElapsedTimer>
 
-#include "source/paintqueuemanager.h"
+#include "source/Managers/paintqueuemanager.h"
 #include "source/Managers/groupsmanager.h"
 #include "source/Managers/nodesmanager.h"
 #include "source/Helpers/appconfig.h"
