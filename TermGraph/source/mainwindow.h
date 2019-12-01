@@ -26,11 +26,9 @@
 #include <QQmlContext>
 #include <QtQuickControls2/QQuickStyle>
 
-#include "source/Model/reminder.h"
 #include "source/mainscene.h"
 #include "source/paintqueuemanager.h"
 #include "source/databaseWorks/database.h"
-#include "source/Model/wordfreqanalyze.h"
 #include "source/Helpers/tagprocessor.h"
 #include "source/Helpers/textprocessor.h"
 #include "source/Helpers/appconfig.h"
@@ -61,7 +59,6 @@ private:
     QScopedPointer<PaintManager> paintManager;
 
     // Helper stuff (still independent init)
-    QScopedPointer<WordFreqAnalyze> analyze;
     QScopedPointer<TagProcessor> tagProcessor;
     QScopedPointer<TextProcessor> textProcessor;
 

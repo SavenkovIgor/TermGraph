@@ -30,7 +30,6 @@ MainWindow::MainWindow(QObject *parent):
     network(new NetworkManager()),
     nodesManager(new NodesManager()),
     paintManager(new PaintManager()),
-    analyze(new WordFreqAnalyze()),
     tagProcessor(new TagProcessor()),
     textProcessor(new TextProcessor()),
     groupsManager(new GroupsManager(nodesManager.get())),

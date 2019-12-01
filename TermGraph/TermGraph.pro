@@ -55,8 +55,6 @@ HEADERS += \
     source/mainwindow.h\
     source/Model/TerminEdge/edge.h\
     source/Model/TerminGroup/termgroup.h\
-    source/Model/wordfreqanalyze.h \
-    source/Model/reminder.h\
     source/Managers/networkmanager.h \
     source/Managers/groupsmanager.h \
     source/Managers/nodesmanager.h \
@@ -108,10 +106,8 @@ SOURCES += \
     source/databaseWorks/dropboxconnection.cpp\
     source/mainscene.cpp\
     source/mainwindow.cpp\
-    source/Model/reminder.cpp\
     source/Model/TerminEdge/edge.cpp\
     source/Model/TerminGroup/termgroup.cpp\
-    source/Model/wordfreqanalyze.cpp \
     source/Managers/networkmanager.cpp \
     source/Managers/groupsmanager.cpp \
     source/Managers/nodesmanager.cpp \
@@ -135,10 +131,6 @@ SOURCES += \
     source/Model/GraphicItem/labelgraphicitem.cpp \
     source/databaseWorks/appconfigtable.cpp \
     source/Helpers/textprocessor.cpp
-
-FORMS += \
-    source/ui/reminder.ui\
-    source/ui/wordfreqanalyze.ui
 
 RESOURCES += \
     icons/icons.qrc\
