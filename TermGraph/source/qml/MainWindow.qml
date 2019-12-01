@@ -65,10 +65,6 @@ ApplicationWindow {
 
         dragMargin: Qt.styleHints.startDragDistance * 2
 
-        function openItem(item) {
-            item.open()
-        }
-
         contentItem: Control {
 
             padding: 25
