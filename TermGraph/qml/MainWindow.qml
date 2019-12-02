@@ -31,6 +31,7 @@ import "UIExtensions"
 import "Learning"
 import "Js/IconPath.js" as IconPath
 import "Js/Colors.js" as Colors
+import "Pages" as P
 
 ApplicationWindow {
     id: window
@@ -47,7 +48,7 @@ ApplicationWindow {
     Component { id: groupsListComponent;  TermGroupsList { } }
     Component { id: learnGroupsComponent; LearnGroupsList { } }
     Component { id: settingsComponent;    MySettings { } }
-    Component { id: helpPageComponent;    HelpPage { } }
+    Component { id: helpPageComponent;    P.HelpPage { } }
     Component { id: licensePage;          LicensePage { } }
 
     Drawer {

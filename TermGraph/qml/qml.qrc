@@ -15,11 +15,10 @@
         <file>UIExtensions/SmallInfoText.qml</file>
         <file>UIExtensions/GroupsDrawer.qml</file>
         <file>MainSceneView.qml</file>
-        <file>HelpPage.qml</file>
         <file>UIExtensions/ThinLine.qml</file>
         <file>EditNode.qml</file>
         <file>NewNode.qml</file>
-        <file>UIExtensions/HelpCard.qml</file>
+        <file>Molecules/HelpCard.qml</file>
         <file>Learning/LearnGroupsList.qml</file>
         <file>Learning/LearnMode.qml</file>
         <file>Learning/LearnCard.qml</file>
@@ -39,5 +38,6 @@
         <file>Atoms/Hex.qml</file>
         <file>Molecules/AppIcon.qml</file>
         <file>Pages/AppIconsSaving.qml</file>
+        <file>Pages/HelpPage.qml</file>
     </qresource>
 </RCC>

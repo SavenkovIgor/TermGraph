@@ -22,8 +22,8 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 
-import "UIExtensions"
-import "Molecules" as M
+import "../UIExtensions"
+import "../Molecules" as M
 
 M.Page {
     id: root
@@ -118,7 +118,7 @@ M.Page {
 
             Repeater {
                 model: root.helpModel
-                delegate: HelpCard { text: model.text }
+                delegate: M.HelpCard { text: model.text }
             }
         }
 
