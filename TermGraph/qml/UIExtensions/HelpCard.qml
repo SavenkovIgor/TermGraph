@@ -45,26 +45,28 @@ T.Control {
             id: item
             anchors {
                 fill: parent
-                leftMargin: parent.width * 0.1
-                rightMargin: parent.width * 0.1
-                topMargin: parent.height * 0.1
-                bottomMargin: parent.height * 0.1
+                leftMargin: parent.width * 0.075
+                rightMargin: parent.width * 0.075
+                topMargin: parent.height * 0.075
+                bottomMargin: parent.height * 0.075
             }
 
-            ScrollView {
+            Flickable {
                 id: scrollView
                 anchors.fill: parent
 
                 clip: true
-                ScrollBar.vertical.policy: ScrollBar.AsNeeded
+                ScrollBar.vertical: ScrollBar { }
 
                 contentWidth: tipTitle.width
-                contentHeight: tipTitle.height
+                contentHeight: tipTitle.height * 1.05
+
+                boundsBehavior: Flickable.StopAtBounds
 
                 TextEdit {
                     id: tipTitle
 
-                    width: item.width
+                    width: scrollView.width
 
                     textFormat: TextEdit.RichText
                     wrapMode: TextEdit.WordWrap
