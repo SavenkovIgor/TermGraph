@@ -78,8 +78,7 @@ T.Control {
             }
 
             Rectangle {
-                anchors.left: scrollView.left
-                anchors.bottom: scrollView.bottom
+                anchors { left: scrollView.left; bottom: scrollView.bottom; }
 
                 width: scrollView.width
                 height: scrollView.height * 0.05
