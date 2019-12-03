@@ -25,6 +25,7 @@ import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 import "UIExtensions"
+import "Atoms" as A
 import "Molecules" as M
 import "Js/IconPath.js" as IconPath
 import "Js/Colors.js" as Colors
@@ -94,27 +95,22 @@ M.Page {
 
         delegate: Rectangle {
             id: lstDlgt
-//            border.color: "lightGray"
-//            border.width: 1
-            anchors.left: parent.left
-            anchors.right: parent.right
 
             property alias text: grpName.text
             property string groupUuid: modelData
 
-            ThinLine {
-                target: lstDlgt
-                side: ThinLine.LineSide.Bottom
-            }
-
+            anchors { left: parent.left; right: parent.right; }
             height: grCol.height
+
+            color: "transparent"
+
             states: State {
                 name: "Current"
                 when: lstDlgt.ListView.isCurrentItem
                 PropertyChanges { target: lstDlgt; color: Colors.baseLight2 }
             }
 
-            color: "transparent"
+            A.BottomThinLine { }
 
             Column {
                 id: grCol

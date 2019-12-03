@@ -31,6 +31,7 @@ import "UIExtensions"
 import "Learning"
 import "Js/IconPath.js" as IconPath
 import "Js/Colors.js" as Colors
+import "Atoms" as A
 import "Pages" as P
 
 ApplicationWindow {
@@ -61,7 +62,7 @@ ApplicationWindow {
 
         background: Rectangle {
             color: Colors.baseLight
-            ThinLine { target: parent; side: ThinLine.LineSide.Right; color: Colors.white; }
+            A.RightThinLine { color: Colors.white; }
         }
 
         dragMargin: Qt.styleHints.startDragDistance * 2

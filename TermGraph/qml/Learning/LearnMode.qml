@@ -25,6 +25,7 @@ import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 import "../UIExtensions"
+import "../Atoms" as A
 import "../Molecules" as M
 import "../Js/IconPath.js" as IconPath
 import "../Js/Colors.js" as Colors
@@ -59,7 +60,7 @@ M.Page {
 
             background: Rectangle {
                 color: "transparent"
-                ThinLine { target: parent; side: ThinLine.LineSide.Bottom; }
+                A.BottomThinLine { }
             }
 
             contentItem: Text {

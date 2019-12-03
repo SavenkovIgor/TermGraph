@@ -15,7 +15,7 @@
         <file>UIExtensions/SmallInfoText.qml</file>
         <file>UIExtensions/GroupsDrawer.qml</file>
         <file>MainSceneView.qml</file>
-        <file>UIExtensions/ThinLine.qml</file>
+        <file>Atoms/ThinLine.qml</file>
         <file>EditNode.qml</file>
         <file>NewNode.qml</file>
         <file>Molecules/HelpCard.qml</file>
@@ -39,5 +39,7 @@
         <file>Molecules/AppIcon.qml</file>
         <file>Pages/AppIconsSaving.qml</file>
         <file>Pages/HelpPage.qml</file>
+        <file>Atoms/BottomThinLine.qml</file>
+        <file>Atoms/RightThinLine.qml</file>
     </qresource>
 </RCC>

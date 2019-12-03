@@ -23,6 +23,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "../Js/Colors.js" as Colors
+import "../Atoms" as A
 
 Drawer {
     id: drawer
@@ -50,12 +51,11 @@ Drawer {
 
         delegate: Rectangle {
             id: groupLstDlgt
-            anchors.left: parent.left
-            anchors.right: parent.right
+
+            anchors { left: parent.left; right: parent.right; }
+            height: curText.height
 
             color: "transparent"
-
-            height: curText.height
 
             states: State {
                 name: "Current"
@@ -86,17 +86,13 @@ Drawer {
                 horizontalAlignment: Text.AlignLeft
             }
 
-            ThinLine {
-                target: parent
-                side: ThinLine.LineSide.Bottom
-                color: Colors.white
-            }
+            A.BottomThinLine { color: Colors.white; }
 
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    drawer.close()
-                    sceneObj.showGroup(modelData)
+                    drawer.close();
+                    sceneObj.showGroup(modelData);
                 }
             }
         }
