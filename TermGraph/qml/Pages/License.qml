@@ -22,9 +22,8 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 
-import "UIExtensions"
-import "Molecules" as M
-import "Js/Colors.js" as Colors
+import "../Molecules" as M
+import "../Js/Colors.js" as Colors
 
 M.Page {
     title: "Лицензия"

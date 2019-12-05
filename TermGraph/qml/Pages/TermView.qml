@@ -23,9 +23,8 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 
-import "UIExtensions"
-import "Molecules" as M
-import "Js/Colors.js" as Colors
+import "../Molecules" as M
+import "../Js/Colors.js" as Colors
 
 M.Page {
     title: "Термин"
@@ -40,37 +39,37 @@ M.Page {
             spacing: 14
             width: scroll.width
 
-            MyLabelPair {
+            M.LabelPair {
                 name: "Dbg:"
                 text: sceneObj.getCurrNodeDebugInfo()
                 visible: text !== ""
             }
 
-            MyLabelPair {
+            M.LabelPair {
                 name: "Название:"
                 text: sceneObj.currentNode.term
                 visible: text !== ""
             }
 
-            MyLabelPair {
+            M.LabelPair {
                 name: "Определение:"
                 text: tagProcessor.decorateTags(sceneObj.getCurrNodeNameAndDefinition())
                 visible: text !== ""
             }
 
-            MyLabelPair {
+            M.LabelPair {
                 name: "Иерархия определений:"
                 text: sceneObj.getCurrNodeHierarchyDefinition()
                 visible: text !== ""
             }
 
-            MyLabelPair {
+            M.LabelPair {
                 name: "Описание:"
                 text: sceneObj.currentNode.description
                 visible: text !== ""
             }
 
-            MyLabelPair {
+            M.LabelPair {
                 name: "Пример:"
                 text: sceneObj.currentNode.examples
                 visible: text !== ""

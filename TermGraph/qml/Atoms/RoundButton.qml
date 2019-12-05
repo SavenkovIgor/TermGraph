@@ -20,5 +20,32 @@
  */
 
 import QtQuick 2.13
+import QtQuick.Controls 2.13
 
-Item{}
+import "../Js/Colors.js" as Colors
+
+RoundButton {
+    id: root
+
+    property alias color: root.icon.color
+    property bool backgroundHidden: false
+
+    property real size: mainObj.getUiElementSize("roundButton")
+
+    background: Rectangle {
+        radius: width / 2
+        color: !root.backgroundHidden ? Colors.white : "transparent"
+    }
+
+    width:  implicitWidth
+    height: implicitHeight
+
+    icon.width: implicitWidth
+    icon.height: implicitHeight
+
+    implicitWidth:  root.size
+    implicitHeight: root.size
+
+    padding: 0.28 * width
+}
+

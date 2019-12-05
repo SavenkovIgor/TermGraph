@@ -23,6 +23,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "../Js/Colors.js" as Colors
+import "../Atoms" as A
 
 Button {
     rightPadding: 12
@@ -50,7 +51,7 @@ Button {
 
         spacing: icon.width / 5
 
-        MyRoundButton {
+        A.RoundButton {
             id: icon
             color: Colors.white
             backgroundHidden: true

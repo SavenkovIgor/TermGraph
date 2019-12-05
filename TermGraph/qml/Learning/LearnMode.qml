@@ -24,7 +24,6 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
-import "../UIExtensions"
 import "../Atoms" as A
 import "../Molecules" as M
 import "../Js/IconPath.js" as IconPath
@@ -35,7 +34,7 @@ M.Page {
 
     background: Rectangle { color: Colors.base }
 
-    MyRoundButton {
+    A.RoundButton {
         id: addGroupBtn
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
         icon.source: IconPath.rightArrow

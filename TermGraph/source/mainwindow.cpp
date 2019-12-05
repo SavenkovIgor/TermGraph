@@ -65,7 +65,7 @@ MainWindow::MainWindow(QObject *parent):
     qmlEngine->rootContext()->setContextProperty("tagProcessor", tagProcessor.get());
     qmlEngine->rootContext()->setContextProperty("textProcessor", textProcessor.get());
     qmlEngine->rootContext()->setContextProperty("syncManager", syncManager.get());
-    qmlEngine->load(QUrl("qrc:/MainWindow.qml"));
+    qmlEngine->load(QUrl("qrc:/main.qml"));
 }
 
 QString MainWindow::screenshotNameAndPath(const QString& groupUuid)

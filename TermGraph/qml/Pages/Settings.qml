@@ -22,35 +22,35 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 
-import "UIExtensions"
-import "Molecules" as M
-import "Js/Colors.js" as Colors
+import "../Atoms" as A
+import "../Molecules" as M
+import "../Js/Colors.js" as Colors
 
 M.Page {
     title: "Настройки"
 
     contentItem: Column {
 
-        MyLabelPair {
+        M.LabelPair {
             name: "Ip этого устройства"
             text: networkManager.getFirstLocalIpString()
             width: parent.width
         }
 
-        MyTextField {
+        M.TextField {
             labelText: "Ip получателя"
             onTextChanged: { networkManager.setReceiverHostIp(text) }
             Component.onCompleted: { text = networkManager.getReceiverIp() }
             width: parent.width
         }
 
-        MyLabelPair{
+        M.LabelPair {
             name: "Состояние подключения"
             text: networkManager.connectionState
             width: parent.width
         }
 
-        MySquareButton {
+        A.SquareButton {
             text: networkManager.isConnected ? "Отключиться" : "Подключиться"
             onClicked:  {
                 if(networkManager.isConnected) {
@@ -61,7 +61,7 @@ M.Page {
             }
         }
 
-        MyLabelPair {
+        M.LabelPair {
             name: "Версия базы данных:"
             text: mainObj.dbVersion()
             width: parent.width

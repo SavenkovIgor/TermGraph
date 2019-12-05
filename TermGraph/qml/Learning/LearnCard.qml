@@ -24,7 +24,6 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Templates 2.13 as T
 
-import "../UIExtensions"
 import "../Molecules" as M
 import "../Js/Colors.js" as Colors
 

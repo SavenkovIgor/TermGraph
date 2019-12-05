@@ -27,11 +27,11 @@ import QtQuick.Dialogs 1.3
 
 import Notification 1.0
 
-import "UIExtensions"
-
-import "Molecules" as M
-import "Js/NodePaint.js" as JsPaint
-import "Js/IconPath.js" as IconPath
+import "../Atoms" as A
+import "../Molecules" as M
+import "../Pages" as P
+import "../Js/NodePaint.js" as JsPaint
+import "../Js/IconPath.js" as IconPath
 
 M.Page {
     id: root
@@ -68,10 +68,10 @@ M.Page {
         onSelectionDoubleClick: nodeInfoButton.openTerm()
     }
 
-    Component { id: newNodeComponent;    NewNode { } }
-    Component { id: editNodeComponent;   EditNode { } }
-    Component { id: groupsListComponent; TermGroupsList { } }
-    Component { id: termViewComponent;   TermView { } }
+    Component { id: newNodeComponent;    P.NewNode { } }
+    Component { id: editNodeComponent;   P.EditNode { } }
+    Component { id: groupsListComponent; P.GroupsList { } }
+    Component { id: termViewComponent;   P.TermView { } }
 
     background: Rectangle { color: sceneObj.getSceneBackgroundColor() }
 
@@ -260,7 +260,7 @@ M.Page {
         }
     }
 
-    MyRoundButton {
+    A.RoundButton {
         id: addNodeButton
 
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
@@ -282,7 +282,7 @@ M.Page {
         }
     }
 
-    MyRoundButton {
+    A.RoundButton {
         id: showGroupListButton
         icon.source: IconPath.spreadsheet
         visible: groupsManager.hasAnyGroup
@@ -292,7 +292,7 @@ M.Page {
         onClicked: groupsList.open()
     }
 
-    MyRoundButton {
+    A.RoundButton {
         id: screenShotButton
         icon.source: IconPath.share
         visible: groupsManager.hasAnyGroup
@@ -312,7 +312,7 @@ M.Page {
         }
     }
 
-    MyRoundButton {
+    A.RoundButton {
         id: editNodeButton
         visible: false
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
@@ -330,7 +330,7 @@ M.Page {
         }
     }
 
-    MyRoundButton {
+    A.RoundButton {
         id : deleteNodeButton
         icon.source: IconPath.trash
         visible: false
@@ -352,7 +352,7 @@ M.Page {
         onYes: sceneObj.deleteSelectedNode()
     }
 
-    MyRoundButton {
+    A.RoundButton {
         id : nodeInfoButton
         icon.source: IconPath.info
         visible: false
@@ -373,7 +373,7 @@ M.Page {
         }
     }
 
-    GroupsDrawer {
+    M.GroupsDrawer {
         id : groupsList
 
         y: root.header.height

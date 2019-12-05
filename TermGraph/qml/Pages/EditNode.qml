@@ -24,11 +24,10 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
-import "UIExtensions"
-import "Atoms" as A
-import "Molecules" as M
-import "Js/IconPath.js" as IconPath
-import "Js/Colors.js" as Colors
+import "../Atoms" as A
+import "../Molecules" as M
+import "../Js/IconPath.js" as IconPath
+import "../Js/Colors.js" as Colors
 
 M.Page {
     id: root
@@ -82,7 +81,7 @@ M.Page {
         }
     }
 
-    MyRoundButton {
+    A.RoundButton {
         id: makeTag
         icon.source: IconPath.code
         visible: termDefin.txtFocus || makeTag.focus || expandTagRight.focus
@@ -97,7 +96,7 @@ M.Page {
         }
     }
 
-    MyRoundButton {
+    A.RoundButton {
         id: expandTagRight
         icon.source: IconPath.chevronRight
         visible: termDefin.txtFocus || makeTag.focus || expandTagRight.focus
@@ -120,13 +119,13 @@ M.Page {
             spacing: mainObj.getUiElementSize("colSpace")
             width: scroll.width - scroll.leftPadding - scroll.rightPadding
 
-            MyLabelPair {
+            M.LabelPair {
                 id: nodeUuidText
                 name: "Изменить вершину с uuid: "
                 Layout.fillWidth: true
             }
 
-            MyTextField {
+            M.TextField {
                 property string prevText: ""
 
                 id: termName
@@ -148,27 +147,27 @@ M.Page {
                 }
             }
 
-            MyTextArea {
+            M.TextArea {
                 id: termDefin
                 Layout.fillWidth: true
                 labelText: "-это"
                 placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
             }
 
-            MyTextArea {
+            M.TextArea {
                 id: termDescr
                 Layout.fillWidth: true
                 labelText : "Описание"
                 placeholderText: "[Общее словесное описание, пока никак не участвует в логике]"
             }
 
-            MyTextArea {
+            M.TextArea {
                 id: termExampl
                 Layout.fillWidth: true
                 labelText: "Примеры"
             }
 
-            MyTextField {
+            M.TextField {
                 enabled: false
                 visible: false
                 Layout.fillWidth: true
@@ -177,7 +176,7 @@ M.Page {
                 placeholderText: "http://"
             }
 
-            MyTextField {
+            M.TextField {
                 enabled: false
                 visible: false
                 Layout.fillWidth: true
@@ -198,7 +197,7 @@ M.Page {
                     font.pixelSize: mainObj.getUiElementSize("inputText")
                 }
 
-                MyComboBox {
+                A.ComboBox {
                     id: nodeGroup
                     model: groupsManager.allUuidSorted
 
@@ -212,7 +211,7 @@ M.Page {
                 }
             }
 
-            MyLabelPair {
+            M.LabelPair {
                 id: lastEditText
                 Layout.fillWidth: true
                 name: "Последняя правка:"

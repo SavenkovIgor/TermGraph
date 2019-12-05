@@ -24,11 +24,10 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
-import "UIExtensions"
-import "Atoms" as A
-import "Molecules" as M
-import "Js/IconPath.js" as IconPath
-import "Js/Colors.js" as Colors
+import "../Atoms" as A
+import "../Molecules" as M
+import "../Js/IconPath.js" as IconPath
+import "../Js/Colors.js" as Colors
 
 M.Page {
     id: root
@@ -36,7 +35,7 @@ M.Page {
     title: "Список групп"
     padding: 0
 
-    MyRoundButton {
+    A.RoundButton {
         id: addGroupBtn
         icon.source: IconPath.plus
 
@@ -45,7 +44,7 @@ M.Page {
         onClicked: newGroupDrawer.open()
     }
 
-    MyRoundButton {
+    A.RoundButton {
         id: deleteGroupBtn
         icon.source: IconPath.trash
 
@@ -57,7 +56,7 @@ M.Page {
     // Temporary hide FileExportButton
     // TODO: Restore File exporting later!
     /*
-    MyRoundButton {
+    A.RoundButton {
         id: exportButton
 
         anchors.right: addGroupBtn.left
@@ -73,7 +72,7 @@ M.Page {
     }
     */
 
-    MyRoundButton {
+    A.RoundButton {
         id: sendByNetworkButton
         icon.source: IconPath.share
 
@@ -131,17 +130,17 @@ M.Page {
                     horizontalAlignment: Text.AlignLeft
                 }
 
-                SmallInfoText {
+                A.SmallInfoText {
                     description: "Uuid"
                     label: modelData
                 }
 
-                SmallInfoText {
+                A.SmallInfoText {
                     description: "Last editing time"
                     label: groupsManager.getLastEditString(modelData)
                 }
 
-                SmallInfoText {
+                A.SmallInfoText {
                     description: "Node count"
                     label: groupsManager.getNodesCount(modelData)
 
@@ -241,7 +240,7 @@ M.Page {
                 }
             }
 
-            MyRoundButton {
+            A.RoundButton {
                 id: newGroupAddButton
                 icon.source: IconPath.check
 

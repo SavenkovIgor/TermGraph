@@ -24,11 +24,10 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
-import "UIExtensions"
-import "Atoms" as A
-import "Molecules" as M
-import "Js/IconPath.js" as IconPath
-import "Js/Colors.js" as Colors
+import "../Atoms" as A
+import "../Molecules" as M
+import "../Js/IconPath.js" as IconPath
+import "../Js/Colors.js" as Colors
 
 M.Page {
     id: root
@@ -82,7 +81,7 @@ M.Page {
             root.StackView.view.pop();
     }
 
-    MyRoundButton {
+    A.RoundButton {
         id: makeTag
         icon.source: IconPath.code
         visible: termDefin.txtFocus || makeTag.focus || expandTagRight.focus
@@ -97,7 +96,7 @@ M.Page {
         }
     }
 
-    MyRoundButton {
+    A.RoundButton {
         id: expandTagRight
         icon.source: IconPath.chevronRight
         visible: termDefin.txtFocus || makeTag.focus || expandTagRight.focus
@@ -120,7 +119,7 @@ M.Page {
             spacing: mainObj.getUiElementSize("colSpace")
             width: scroll.width - scroll.leftPadding - scroll.rightPadding
 
-            MyLabelPair {
+            M.LabelPair {
                 id: currentGroupFixedRow
 
                 property string groupUuid: ""
@@ -130,7 +129,7 @@ M.Page {
                 Layout.fillWidth: true
             }
 
-            MyTextField {
+            M.TextField {
                 property string prevText: ""
 
                 id: termName
@@ -152,7 +151,7 @@ M.Page {
                 }
             }
 
-            MyTextArea {
+            M.TextArea {
                 id: termDefin
                 labelText: "-это"
                 placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
@@ -160,7 +159,7 @@ M.Page {
                 Layout.fillWidth: true
             }
 
-            MyTextArea {
+            M.TextArea {
                 id: termDescr
                 labelText : "Описание"
                 placeholderText: "[Общее словесное описание, пока никак не участвует в логике]"
@@ -168,14 +167,14 @@ M.Page {
                 Layout.fillWidth: true
             }
 
-            MyTextArea {
+            M.TextArea {
                 id: termExampl
                 labelText: "Примеры"
                 text: ""
                 Layout.fillWidth: true
             }
 
-            MyTextField {
+            M.TextField {
                 enabled: false
                 visible: false
 
@@ -184,7 +183,7 @@ M.Page {
                 Layout.fillWidth: true
             }
 
-            MyTextField {
+            M.TextField {
                 enabled: false
                 visible: false
 

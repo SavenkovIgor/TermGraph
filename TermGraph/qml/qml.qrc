@@ -1,24 +1,27 @@
 <RCC>
     <qresource prefix="/">
-        <file>GoupsSideBar.qml</file>
-        <file>MainWindow.qml</file>
-        <file>TermGroupsList.qml</file>
-        <file>UIExtensions/MyRoundButton.qml</file>
-        <file>UIExtensions/MyTextArea.qml</file>
-        <file>UIExtensions/MyTextField.qml</file>
-        <file>UIExtensions/MyComboBox.qml</file>
-        <file>UIExtensions/MySquareButton.qml</file>
-        <file>UIExtensions/MyLabelPair.qml</file>
-        <file>MySettings.qml</file>
-        <file>UIExtensions/SideMenuButton.qml</file>
-        <file>TermView.qml</file>
-        <file>UIExtensions/SmallInfoText.qml</file>
-        <file>UIExtensions/GroupsDrawer.qml</file>
-        <file>MainSceneView.qml</file>
+        <file>Atoms/BottomThinLine.qml</file>
+        <file>Atoms/ComboBox.qml</file>
+        <file>Atoms/Hex.qml</file>
+        <file>Atoms/PageHeader.qml</file>
+        <file>Atoms/PageTitleLabel.qml</file>
+        <file>Atoms/RoundButton.qml</file>
+        <file>Atoms/RightThinLine.qml</file>
+        <file>Atoms/SquareButton.qml</file>
+        <file>Atoms/SideMenuButton.qml</file>
+        <file>Atoms/SmallInfoText.qml</file>
         <file>Atoms/ThinLine.qml</file>
-        <file>EditNode.qml</file>
-        <file>NewNode.qml</file>
+        <file>Atoms/ToolButton.qml</file>
+        <file>Molecules/TextArea.qml</file>
+        <file>Molecules/TextField.qml</file>
+        <file>Molecules/LabelPair.qml</file>
+        <file>Molecules/GroupsDrawer.qml</file>
         <file>Molecules/HelpCard.qml</file>
+        <file>Molecules/Page.qml</file>
+        <file>Molecules/DefaultHeader.qml</file>
+        <file>Molecules/BurgerButton.qml</file>
+        <file>Molecules/AppIcon.qml</file>
+        <file>main.qml</file>
         <file>Learning/LearnGroupsList.qml</file>
         <file>Learning/LearnMode.qml</file>
         <file>Learning/LearnCard.qml</file>
@@ -27,19 +30,14 @@
         <file>Js/Debug.js</file>
         <file>Js/IconPath.js</file>
         <file>Js/NodePaint.js</file>
-        <file>Atoms/PageHeader.qml</file>
-        <file>Atoms/PageTitleLabel.qml</file>
-        <file>Atoms/RoundButton.qml</file>
-        <file>Atoms/ToolButton.qml</file>
-        <file>Molecules/Page.qml</file>
-        <file>Molecules/BurgerButton.qml</file>
-        <file>Molecules/DefaultHeader.qml</file>
-        <file>LicensePage.qml</file>
-        <file>Atoms/Hex.qml</file>
-        <file>Molecules/AppIcon.qml</file>
+        <file>Pages/MainScene.qml</file>
+        <file>Pages/GroupsList.qml</file>
+        <file>Pages/EditNode.qml</file>
+        <file>Pages/NewNode.qml</file>
+        <file>Pages/Settings.qml</file>
+        <file>Pages/TermView.qml</file>
+        <file>Pages/License.qml</file>
         <file>Pages/AppIconsSaving.qml</file>
-        <file>Pages/HelpPage.qml</file>
-        <file>Atoms/BottomThinLine.qml</file>
-        <file>Atoms/RightThinLine.qml</file>
+        <file>Pages/Help.qml</file>
     </qresource>
 </RCC>

@@ -27,7 +27,6 @@ import QtQuick.Dialogs 1.3
 
 import Notification 1.0
 
-import "UIExtensions"
 import "Learning"
 import "Js/IconPath.js" as IconPath
 import "Js/Colors.js" as Colors
@@ -45,12 +44,12 @@ ApplicationWindow {
 //        showMaximized();
 //    }
 
-    Component { id: mainSceneComponent;   MainSceneView { sideMenu: appSideMenu; } }
-    Component { id: groupsListComponent;  TermGroupsList { } }
+    Component { id: mainSceneComponent;   P.MainScene { sideMenu: appSideMenu; } }
+    Component { id: groupsListComponent;  P.GroupsList { } }
     Component { id: learnGroupsComponent; LearnGroupsList { } }
-    Component { id: settingsComponent;    MySettings { } }
-    Component { id: helpPageComponent;    P.HelpPage { } }
-    Component { id: licensePage;          LicensePage { } }
+    Component { id: settingsComponent;    P.Settings { } }
+    Component { id: helpPageComponent;    P.Help { } }
+    Component { id: licensePage;          P.License { } }
 
     Drawer {
         id : appSideMenu
@@ -75,7 +74,7 @@ ApplicationWindow {
 
                 spacing: 10
 
-                SideMenuButton {
+                A.SideMenuButton {
                     id: groupMenuButton
                     labelText: "Группы"
                     iconSource: IconPath.list
@@ -84,7 +83,7 @@ ApplicationWindow {
                     onClicked: stackView.push(groupsListComponent)
                 }
 
-                SideMenuButton {
+                A.SideMenuButton {
                     labelText: "Изучение"
                     iconSource: IconPath.book
                     Layout.fillWidth: true
@@ -92,14 +91,14 @@ ApplicationWindow {
                     onClicked: stackView.push(learnGroupsComponent)
                 }
 
-                SideMenuButton {
+                A.SideMenuButton {
                     labelText: "Синхронизация"
                     iconSource: IconPath.loopCircular
                     Layout.fillWidth: true
                     visible: false
                 }
 
-                SideMenuButton {
+                A.SideMenuButton {
                     labelText: "Настройки"
                     iconSource: IconPath.cog
                     Layout.fillWidth: true
@@ -107,7 +106,7 @@ ApplicationWindow {
                     onClicked: stackView.push(settingsComponent)
                 }
 
-                SideMenuButton {
+                A.SideMenuButton {
                     labelText: "Справка"
                     iconSource: IconPath.questionMark
                     Layout.fillWidth: true
@@ -115,7 +114,7 @@ ApplicationWindow {
                     onClicked: stackView.push(helpPageComponent)
                 }
 
-                SideMenuButton {
+                A.SideMenuButton {
                     labelText: "О приложении"
                     Layout.fillWidth: true
 

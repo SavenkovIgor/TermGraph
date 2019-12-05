@@ -24,7 +24,6 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
-import "../UIExtensions"
 import "../Atoms" as A
 import "../Molecules" as M
 import "../Js/IconPath.js" as IconPath
@@ -33,7 +32,7 @@ import "../Js/Colors.js" as Colors
 M.Page {
     title: "Выберите группу для повторения"
 
-    MyRoundButton {
+    A.RoundButton {
         id: addGroupBtn
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
         icon.source: IconPath.rightArrow
@@ -88,17 +87,17 @@ M.Page {
                     horizontalAlignment: Text.AlignLeft
                 }
 
-                SmallInfoText {
+                A.SmallInfoText {
                     description: "Uuid"
                     label: modelData
                 }
 
-                SmallInfoText {
+                A.SmallInfoText {
                     description: "Last editing time"
                     label: groupsManager.getLastEditString(modelData)
                 }
 
-                SmallInfoText {
+                A.SmallInfoText {
                     description: "Node count"
                     label: groupsManager.getNodesCount(modelData)
 
