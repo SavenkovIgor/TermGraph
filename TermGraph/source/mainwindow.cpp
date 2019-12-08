@@ -49,7 +49,9 @@ MainWindow::MainWindow(QObject *parent):
 
     auto registration = []([[maybe_unused]] QQmlEngine* engine,
                            [[maybe_unused]] QJSEngine*  scriptEngine) -> QObject* {
-        return &NotificationManager::instance();
+        auto& notificationManager = NotificationManager::instance();
+        engine->setObjectOwnership(&notificationManager, QQmlEngine::CppOwnership);
+        return &notificationManager;
     };
 
     qmlRegisterSingletonType<NotificationManager>("Notification", 1, 0, "Notification", registration);
