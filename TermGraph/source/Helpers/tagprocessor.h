@@ -41,11 +41,11 @@ public:
 
     explicit TagProcessor(QObject* parent = nullptr);
 
-    static int   searchWordBorder(const SearchDirection direction, const QString& text, int cursorPos);
-    static QChar getNearesBracket(const SearchDirection direction, const QString& text, int cursorPos);
+    static int   searchWordBorder(const SearchDirection direction, QStringView str, int cursorPos);
+    static QChar getNearesBracket(const SearchDirection direction, QStringView str, int cursorPos);
 
-    static bool isPairedBrackets(QStringView text);
-    static int  getMaxDepthOfNestedBrackets(QStringView text);
+    static bool isPairedBrackets(QStringView str);
+    static int  getMaxDepthOfNestedBrackets(QStringView str);
 
     static QString getErrorFor(QString str);  // TODO: Realize!
 
@@ -54,12 +54,12 @@ public:
     static std::pair<bool, int> isTagCorrespondToTermName(QString termName, QString tag);
 
 public slots:
-    static bool        isInsideTag(const QString& text, int cursorPos);
+    static bool        isInsideTag(QStringView str, int cursorPos);
     static QStringList extractTags(QString str);
-    static QString     addTagInPosition(int cursorPosition, QString str);
-    static QString     removeTagInPosition(int cursorPosition, QString str);
-    static QString     expandRight(int cursorPosition, QString str);
-    static QString     decorateTags(const QString& src);
+    static QString     addTag(QString str, int cursorPosition);
+    static QString     removeTag(QString str, int cursorPosition);
+    static QString     expandTagRight(QString str, int cursorPosition);
+    static QString     decorateTags(QString str);
 
 private:
     // Exit conditions
@@ -72,18 +72,22 @@ private:
 
     // SearchCursorPosition
     static int getCursorPosition(const SearchDirection&     direction,
-                                 const QString&             text,
+                                 QStringView                str,
                                  int                        cursorPos,
                                  std::function<bool(QChar)> exitCondition);
 
-    static int moveLeft(const QString& text, int cursorPos, std::function<bool(const QChar)> exitCondition);
-    static int moveRight(const QString& text, int cursorPos, std::function<bool(const QChar)> exitCondition);
+    static int moveLeft(QStringView str, int cursorPos, std::function<bool(const QChar)> exitCondition);
+    static int moveRight(QStringView str, int cursorPos, std::function<bool(const QChar)> exitCondition);
 
-    static QString replaceTags(const QString& src, const QString& leftBrReplacement, const QString& rightBrReplacement);
+    static QString replaceTags(QString str, const QString& leftBrReplacement, const QString& rightBrReplacement);
 
-    static inline bool isValidCursor(int cursorPosition, QStringView str)
+    static inline bool isValidCursor(QStringView str, int cursorPosition)
     {
         // Cursor can be after last symbol
-        return 0 <= cursorPosition && cursorPosition <= str.size();
+        auto valid = 0 <= cursorPosition && cursorPosition <= str.size();
+        if (!valid)
+            qWarning() << "Invalid cursor!";
+
+        return valid;
     }
 };

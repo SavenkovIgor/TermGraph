@@ -240,22 +240,29 @@ private slots:
         QTest::addColumn<int>("cursorPosition");
         QTest::addColumn<bool>("result");
 
-        QTest::newRow("case0") << "{}" << 0 << false;
-        QTest::newRow("case1") << "{}" << 1 << true;
-        QTest::newRow("case2") << "{}" << 2 << false;
-        QTest::newRow("case3") << " " << 0 << false;
-        QTest::newRow("case4") << " " << 1 << false;
-        QTest::newRow("case5") << "{  }" << 2 << true;
-        QTest::newRow("case6") << "a{a}a" << 2 << true;
-        QTest::newRow("case7") << "a{a}a" << 3 << true;
-        QTest::newRow("case8") << "} a {" << 1 << false;
-        QTest::newRow("case9") << "}{" << 0 << false;
-        QTest::newRow("case10") << "}{" << 1 << false;
-        QTest::newRow("case11") << "}{" << 2 << false;
-        QTest::newRow("case12") << "}" << 0 << false;
-        QTest::newRow("case13") << "}" << 1 << false;
-        QTest::newRow("case14") << "{" << 0 << false;
-        QTest::newRow("case15") << "{" << 1 << false;
+        QTest::newRow("case0") << "" << -1 << false;
+        QTest::newRow("case1") << "" << 0 << false;
+        QTest::newRow("case2") << "" << 1 << false;
+        QTest::newRow("case3") << "{}" << -1 << false;
+        QTest::newRow("case4") << "{}" << 0 << false;
+        QTest::newRow("case5") << "{}" << 1 << true;
+        QTest::newRow("case6") << "{}" << 2 << false;
+        QTest::newRow("case7") << "{}" << 3 << false;
+        QTest::newRow("case8") << " " << -1 << false;
+        QTest::newRow("case9") << " " << 0 << false;
+        QTest::newRow("case10") << " " << 1 << false;
+        QTest::newRow("case11") << " " << 2 << false;
+        QTest::newRow("case12") << "{  }" << 2 << true;
+        QTest::newRow("case13") << "a{a}a" << 2 << true;
+        QTest::newRow("case14") << "a{a}a" << 3 << true;
+        QTest::newRow("case15") << "} a {" << 1 << false;
+        QTest::newRow("case16") << "}{" << 0 << false;
+        QTest::newRow("case17") << "}{" << 1 << false;
+        QTest::newRow("case18") << "}{" << 2 << false;
+        QTest::newRow("case19") << "}" << 0 << false;
+        QTest::newRow("case20") << "}" << 1 << false;
+        QTest::newRow("case21") << "{" << 0 << false;
+        QTest::newRow("case22") << "{" << 1 << false;
     }
 
     void inTag()
@@ -273,11 +280,15 @@ private slots:
         QTest::addColumn<int>("cursorPosition");
         QTest::addColumn<QString>("result");
 
+        QTest::newRow("case0") << "" << -1 << "";
         QTest::newRow("case0") << "" << 0 << "{}";
+        QTest::newRow("case0") << "" << 1 << "";
         QTest::newRow("case0") << " " << 0 << "{} ";
         QTest::newRow("case0") << " " << 1 << " {}";
+        QTest::newRow("case1") << "a" << -1 << "a";
         QTest::newRow("case1") << "a" << 0 << "{a}";
         QTest::newRow("case2") << "a" << 1 << "{a}";
+        QTest::newRow("case1") << "a" << 2 << "a";
         QTest::newRow("case3") << " a " << 0 << "{} a ";
         QTest::newRow("case4") << " a " << 1 << " {a} ";
         QTest::newRow("case5") << " a " << 2 << " {a} ";
@@ -298,7 +309,7 @@ private slots:
 
         auto proc = new TagProcessor();
 
-        QVERIFY(proc->addTagInPosition(cursorPosition, src) == result);
+        QVERIFY(proc->addTag(src, cursorPosition) == result);
     }
 
     void removeTags_data()
@@ -334,7 +345,7 @@ private slots:
 
         auto proc = new TagProcessor();
 
-        QVERIFY(proc->removeTagInPosition(cursorPosition, src) == result);
+        QVERIFY(proc->removeTag(src, cursorPosition) == result);
     }
 
     void extendRight_data()
@@ -395,7 +406,7 @@ private slots:
 
         auto proc = new TagProcessor();
 
-        QVERIFY(proc->expandRight(cursorPosition, src) == result);
+        QVERIFY(proc->expandTagRight(src, cursorPosition) == result);
     }
 
     void decorateTags_data()
