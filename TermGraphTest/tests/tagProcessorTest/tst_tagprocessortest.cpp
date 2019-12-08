@@ -301,6 +301,42 @@ private slots:
         QVERIFY(proc->addTagInPosition(cursorPosition, src) == result);
     }
 
+    void removeTags_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<int>("cursorPosition");
+        QTest::addColumn<QString>("result");
+
+        QTest::newRow("case0") << "{}" << 0 << "{}";
+        QTest::newRow("case1") << "{}" << 1 << "";
+        QTest::newRow("case2") << "{}" << 2 << "{}";
+        QTest::newRow("case3") << "a{}" << 2 << "a";
+        QTest::newRow("case4") << "a{}" << 1 << "a{}";
+        QTest::newRow("case5") << "{}a" << 0 << "{}a";
+        QTest::newRow("case6") << "{}a" << 1 << "a";
+        QTest::newRow("case7") << " {} " << 2 << "  ";
+        QTest::newRow("case8") << " {a } " << 2 << " a  ";
+        QTest::newRow("case9") << " {a } " << 3 << " a  ";
+        QTest::newRow("case10") << " {a } " << 4 << " a  ";
+        QTest::newRow("case11") << " a " << 0 << " a ";
+        QTest::newRow("case12") << " a " << 1 << " a ";
+        QTest::newRow("case13") << " a " << 2 << " a ";
+        QTest::newRow("case14") << " a " << 3 << " a ";
+        QTest::newRow("case15") << " {abcd} " << 2 << " abcd ";
+        QTest::newRow("case16") << " {abcd abcd} " << 2 << " abcd abcd ";
+    }
+
+    void removeTags()
+    {
+        QFETCH(QString, src);
+        QFETCH(int, cursorPosition);
+        QFETCH(QString, result);
+
+        auto proc = new TagProcessor();
+
+        QVERIFY(proc->removeTagInPosition(cursorPosition, src) == result);
+    }
+
     void extendRight_data()
     {
         QTest::addColumn<QString>("src");
