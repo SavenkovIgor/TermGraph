@@ -177,6 +177,14 @@ ApplicationWindow {
         anchors.fill: parent
         initialItem: mainSceneComponent
         onCurrentItemChanged: appSideMenu.close()
+
+        Keys.onBackPressed: { // Android back button
+            event.accepted = true;
+            if(depth > 1)
+                pop();
+            else
+                Qt.quit();
+        }
     }
 
     Shortcut { sequence: "Ctrl+Right"; onActivated: appSideMenu.open(); }
