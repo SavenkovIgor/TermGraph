@@ -288,6 +288,7 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     }
 
     updateGroupUuidNameMaps();
+    NotificationManager::showInfo(info.name + " synchronized");
     emit groupsListChanged();
 }
 
