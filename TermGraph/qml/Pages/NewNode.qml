@@ -89,9 +89,9 @@ M.Page {
         anchors { top: parent.top; right: expandTagRight.left; margins: width / 2; }
 
         onClicked: {
-            var pos = termDefin.cursorPosition
-            termDefin.text = tagProcessor.addTagInPosition( pos, termDefin.text )
-            termDefin.takeFocus()
+            var pos = termDefin.cursorPosition;
+            termDefin.text = tagProcessor.addTag(termDefin.text, pos);
+            termDefin.takeFocus();
             termDefin.cursorPosition = pos;
         }
     }
@@ -104,10 +104,10 @@ M.Page {
         anchors { top: parent.top; right: parent.right; margins: width / 2; }
 
         onClicked: {
-            var pos = termDefin.cursorPosition
-            termDefin.text = tagProcessor.expandRight( pos, termDefin.text )
-            termDefin.takeFocus()
-            termDefin.cursorPosition = pos
+            var pos = termDefin.cursorPosition;
+            termDefin.text = tagProcessor.expandTagRight(termDefin.text, pos);
+            termDefin.takeFocus();
+            termDefin.cursorPosition = pos;
         }
     }
 

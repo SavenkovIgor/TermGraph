@@ -67,7 +67,7 @@ M.Page {
             return;
         }
 
-        var success = nodesManager.changeNode(
+        let success = nodesManager.changeNode(
                     nodeUuidText.text,
                     termName.text,
                     termDefin.text,
@@ -89,8 +89,8 @@ M.Page {
         anchors { top: parent.top; right: expandTagRight.left; margins: width / 2; }
 
         onClicked: {
-            var pos = termDefin.cursorPosition
-            termDefin.text = tagProcessor.addTagInPosition( pos, termDefin.text )
+            var pos = termDefin.cursorPosition;
+            termDefin.text = tagProcessor.addTag(termDefin.text, pos);
             termDefin.takeFocus()
             termDefin.cursorPosition = pos;
         }
@@ -104,10 +104,10 @@ M.Page {
         anchors { top: parent.top; right: parent.right; margins: width / 2; }
 
         onClicked: {
-            var pos = termDefin.cursorPosition
-            termDefin.text = tagProcessor.expandRight( pos, termDefin.text )
-            termDefin.takeFocus()
-            termDefin.cursorPosition = pos
+            var pos = termDefin.cursorPosition;
+            termDefin.text = tagProcessor.expandTagRight(termDefin.text, pos);
+            termDefin.takeFocus();
+            termDefin.cursorPosition = pos;
         }
     }
 
@@ -136,7 +136,7 @@ M.Page {
                 onNewText: checkNewText(text)
 
                 function checkNewText(text) {
-                    var differ = prevText.length - text.length
+                    let differ = prevText.length - text.length
                     if (differ >= 2 || differ <= -2) {
                         if (textProcessor.isTermWithDefinition(text)) {
                             termName.text = textProcessor.getTerm(text)
@@ -202,7 +202,7 @@ M.Page {
                     model: groupsManager.allUuidSorted
 
                     function selectElement(name) {
-                        var index = find(name)
+                        let index = find(name)
                         if (index !== -1) {
                             currentIndex = index
                         }
