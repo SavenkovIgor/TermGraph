@@ -28,6 +28,7 @@ import "../Atoms" as A
 import "../Molecules" as M
 import "../Js/IconPath.js" as IconPath
 import "../Js/Colors.js" as Colors
+import "../Js/Fonts.js" as Fonts
 
 M.Page {
     title: "Режим изучения"
@@ -68,12 +69,10 @@ M.Page {
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignLeft
 
-                text: modelData
                 color: Colors.white
-                font {
-                    weight: Font.Thin
-                    pixelSize: mainObj.getUiElementSize("capitalText")
-                }
+                font: Fonts.setWeight(Fonts.capitalText, Font.Thin)
+
+                text: modelData
 
                 MouseArea{ anchors.fill: parent }  // TODO: Make action here
             }

@@ -23,6 +23,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "../Js/Colors.js" as Colors
+import "../Js/Fonts.js" as Fonts
 import "../Atoms" as A
 
 Drawer {
@@ -65,12 +66,15 @@ Drawer {
 
             Text {
                 id: curText
-                padding: 30
 
-                font.weight: Font.Thin
+                padding: 30
                 height: Math.floor( font.pixelSize * 2.0 )
+                anchors.fill: parent
 
                 color: Colors.white
+                font: Fonts.setWeight(Fonts.text, Font.Thin)
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignLeft
 
                 text: groupsManager.getGroupName(modelData)
 
@@ -79,11 +83,6 @@ Drawer {
                         groupListView.maxWidth = contentWidth + padding * 2
                     }
                 }
-
-                font.pixelSize: mainObj.getUiElementSize("text")
-                anchors.fill: parent
-                verticalAlignment: Text.AlignVCenter
-                horizontalAlignment: Text.AlignLeft
             }
 
             A.BottomThinLine { color: Colors.white; }

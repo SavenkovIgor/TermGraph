@@ -25,6 +25,7 @@ import QtQuick.Layouts 1.13
 import QtQuick.Dialogs 1.3
 
 import "../Js/Colors.js" as Colors
+import "../Js/Fonts.js" as Fonts
 
 Text {
     // Info
@@ -39,8 +40,12 @@ Text {
     bottomPadding: Math.max(font.pixelSize / 4, 1)
 
     // Font
-    font.weight: Font.Thin
-    font.pixelSize: mainObj.getUiElementSize("text") * 0.7
+    font: {
+        let f = Fonts.text;
+        f.pixelSize *= 0.7;
+        f.weight = Font.Thin;
+        return f;
+    }
 
     // Alignment
     verticalAlignment:  Text.AlignVCenter

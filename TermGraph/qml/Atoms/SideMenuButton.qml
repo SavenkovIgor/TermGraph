@@ -23,6 +23,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "../Js/Colors.js" as Colors
+import "../Js/Fonts.js" as Fonts
 import "../Atoms" as A
 
 Button {
@@ -63,13 +64,11 @@ Button {
         Text {
             id: label
             height: icon.height
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
 
             color: Colors.white
-
-            font.weight: Font.Thin
-            font.pixelSize: mainObj.getUiElementSize("capitalText")
+            font: Fonts.setWeight(Fonts.capitalText, Font.Thin)
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
         }
     }
 }

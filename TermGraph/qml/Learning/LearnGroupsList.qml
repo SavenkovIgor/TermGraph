@@ -28,6 +28,7 @@ import "../Atoms" as A
 import "../Molecules" as M
 import "../Js/IconPath.js" as IconPath
 import "../Js/Colors.js" as Colors
+import "../Js/Fonts.js" as Fonts
 
 M.Page {
     title: "Выберите группу для повторения"
@@ -77,14 +78,12 @@ M.Page {
                     leftPadding: font.pixelSize
                     bottomPadding: font.pixelSize / 3
 
-                    font.weight: Font.Medium
-
                     color: Colors.white
-
-                    text: groupsManager.getGroupName(modelData)
-                    font.pixelSize: mainObj.getUiElementSize("text")
+                    font: Fonts.setWeight(Fonts.text, Font.Medium)
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
+
+                    text: groupsManager.getGroupName(modelData)
                 }
 
                 A.SmallInfoText {

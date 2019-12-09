@@ -24,6 +24,7 @@ import QtQuick.Controls 2.13
 import QtQuick.Templates 2.13 as T
 
 import "../Js/Colors.js" as Colors
+import "../Js/Fonts.js" as Fonts
 
 T.Control {
     id: root
@@ -57,13 +58,13 @@ T.Control {
                 textFormat: TextEdit.RichText
                 text: "Карточки"
 
-                font.pixelSize: mainObj.getUiElementSize("appHeader")
+                font: Fonts.header
                 color: "white"
             }
 
             Text {
                 topPadding: 40
-                font.pixelSize: mainObj.getUiElementSize("inputText")
+                font: Fonts.inputText
                 color: "white"
                 width: parent.width
                 wrapMode: Text.Wrap
@@ -74,7 +75,7 @@ T.Control {
 
             Button {
                 text: "Погнали"
-                font.pixelSize: mainObj.getUiElementSize("inputText")
+                font: Fonts.inputText
             }
         }
     }

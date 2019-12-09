@@ -22,10 +22,12 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 
+import "../Js/Fonts.js" as Fonts
+
 Button {
     id: btn
 //    width: 400
-    font.pixelSize: mainObj.getUiElementSize("button");
+    font: Fonts.text
     implicitHeight: mainObj.getUiElementSize("button") * 2.2;
 
     leftPadding: 20

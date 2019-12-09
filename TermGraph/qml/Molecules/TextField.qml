@@ -23,6 +23,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "../Js/Colors.js" as Colors
+import "../Js/Fonts.js" as Fonts
 
 Column {
     property alias labelText: label.text
@@ -38,15 +39,14 @@ Column {
     Label {
         id: label
         width: parent.width
-        font.pixelSize: mainObj.getUiElementSize("inputLabel")
-
+        font: Fonts.inputLabel
         color: Colors.accent
     }
 
     TextField {
         id : txtField
         width: parent.width
-        font.pixelSize: mainObj.getUiElementSize("inputText")
+        font: Fonts.inputText
         selectByMouse: true
 
         onTextChanged: newText()

@@ -19,17 +19,14 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.13
+const header      = Qt.font({ pixelSize: mainObj.getUiElementSize("appHeader"), weight: 30 });
+const inputLabel  = Qt.font({ pixelSize: mainObj.getUiElementSize("inputLabel") });
+const capitalText = Qt.font({ pixelSize: mainObj.getUiElementSize("capitalText") });
+const inputText   = Qt.font({ pixelSize: mainObj.getUiElementSize("inputText") });
+const text        = Qt.font({ pixelSize: mainObj.getUiElementSize("text") });
 
-import "../Js/Colors.js" as Colors
-import "../Js/Fonts.js" as Fonts
-
-Text {
-    font: Fonts.header
-    minimumPixelSize: font.pixelSize / 2
-    fontSizeMode: Text.Fit
-    elide: Text.ElideRight
-    color: Colors.white
-    horizontalAlignment: Qt.AlignHCenter
-    verticalAlignment: Qt.AlignVCenter
+function setWeight(font, weight) {
+    font.weight = weight;
+    return font;
 }
+

@@ -28,6 +28,7 @@ import "../Atoms" as A
 import "../Molecules" as M
 import "../Js/IconPath.js" as IconPath
 import "../Js/Colors.js" as Colors
+import "../Js/Fonts.js" as Fonts
 
 M.Page {
     id: root
@@ -194,7 +195,7 @@ M.Page {
                 Label {
                     id: grpLabel
                     text : "Группа"
-                    font.pixelSize: mainObj.getUiElementSize("inputText")
+                    font: Fonts.inputText
                 }
 
                 A.ComboBox {

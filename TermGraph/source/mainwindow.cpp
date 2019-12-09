@@ -122,12 +122,9 @@ void MainWindow::initElemSizes()
         elementSizes["capitalText"] = 6;
         elementSizes["inputLabel"]  = 7;
         elementSizes["inputText"]   = 6;
-        elementSizes["combo"]       = 5;
         elementSizes["button"]      = 5;
         elementSizes["colSpace"]    = 4;
         elementSizes["appHeader"]   = 9;
-        elementSizes["infoLabel"]   = 6;
-        elementSizes["sideMenu"]    = 7;
     }
 
     if constexpr (Platform::isAndroid())
@@ -137,12 +134,9 @@ void MainWindow::initElemSizes()
         elementSizes["capitalText"] = 5;
         elementSizes["inputLabel"]  = 4;
         elementSizes["inputText"]   = 4;
-        elementSizes["combo"]       = 4;
         elementSizes["button"]      = 4;
         elementSizes["colSpace"]    = 2;
         elementSizes["appHeader"]   = 6;
-        elementSizes["infoLabel"]   = 4;
-        elementSizes["sideMenu"]    = 5;
     }
 }
 

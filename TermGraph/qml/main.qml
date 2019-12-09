@@ -30,6 +30,7 @@ import Notification 1.0
 import "Learning"
 import "Js/IconPath.js" as IconPath
 import "Js/Colors.js" as Colors
+import "Js/Fonts.js" as Fonts
 import "Atoms" as A
 import "Pages" as P
 
@@ -161,7 +162,7 @@ ApplicationWindow {
             wrapMode: TextEdit.WordWrap
 
             horizontalAlignment: Text.AlignHCenter
-            font.pixelSize: mainObj.getUiElementSize("infoLabel")
+            font: Fonts.inputText
         }
 
         Timer {
