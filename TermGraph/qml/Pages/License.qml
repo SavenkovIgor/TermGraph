@@ -24,6 +24,7 @@ import QtQuick.Controls 2.13
 
 import "../Molecules" as M
 import "../Js/Colors.js" as Colors
+import "../Js/Fonts.js" as Fonts
 
 M.Page {
     title: "Лицензия"
@@ -37,6 +38,7 @@ M.Page {
             horizontalAlignment: TextEdit.AlignHCenter
             readOnly: true
             color: Colors.white
+            font: Fonts.text
 
             background: Rectangle { color: "transparent" }
 
