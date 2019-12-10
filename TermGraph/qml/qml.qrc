@@ -41,5 +41,6 @@
         <file>Pages/Help.qml</file>
         <file>Js/Fonts.js</file>
         <file>Molecules/TagEditorArea.qml</file>
+        <file>Molecules/EmptyView.qml</file>
     </qresource>
 </RCC>
