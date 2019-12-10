@@ -85,31 +85,32 @@ M.Page {
     A.RoundButton {
         id: makeTag
         icon.source: IconPath.code
-        visible: termDefin.txtFocus || makeTag.focus || expandTagRight.focus
+        visible: termDefin.addTagButtonVisible || focus || expandTagRight.focus
 
         anchors { top: parent.top; right: expandTagRight.left; margins: width / 2; }
 
-        onClicked: {
-            var pos = termDefin.cursorPosition;
-            termDefin.text = tagProcessor.addTag(termDefin.text, pos);
-            termDefin.takeFocus()
-            termDefin.cursorPosition = pos;
-        }
+        onClicked: termDefin.addTag()
     }
 
     A.RoundButton {
         id: expandTagRight
         icon.source: IconPath.chevronRight
-        visible: termDefin.txtFocus || makeTag.focus || expandTagRight.focus
+        visible: termDefin.extendTagButtonVisible || focus || makeTag.focus
 
         anchors { top: parent.top; right: parent.right; margins: width / 2; }
 
-        onClicked: {
-            var pos = termDefin.cursorPosition;
-            termDefin.text = tagProcessor.expandTagRight(termDefin.text, pos);
-            termDefin.takeFocus();
-            termDefin.cursorPosition = pos;
-        }
+        onClicked: termDefin.expandTagRight()
+    }
+
+    A.RoundButton {
+        id: removeTagRight
+        icon.source: IconPath.code
+        icon.color: "crimson"
+        visible: termDefin.removeTagButtonVisible || focus
+
+        anchors { top: parent.top; right: expandTagRight.left; margins: width / 2; }
+
+        onClicked: termDefin.removeTag()
     }
 
     contentItem: ScrollView {
@@ -148,7 +149,7 @@ M.Page {
                 }
             }
 
-            M.TextArea {
+            M.TagEditorArea {
                 id: termDefin
                 Layout.fillWidth: true
                 labelText: "-это"

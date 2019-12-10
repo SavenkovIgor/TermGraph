@@ -40,5 +40,6 @@
         <file>Pages/AppIconsSaving.qml</file>
         <file>Pages/Help.qml</file>
         <file>Js/Fonts.js</file>
+        <file>Molecules/TagEditorArea.qml</file>
     </qresource>
 </RCC>
