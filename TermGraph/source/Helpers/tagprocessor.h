@@ -54,6 +54,9 @@ public:
     static std::pair<bool, int> isTagCorrespondToTermName(QString termName, QString tag);
 
 public slots:
+    static bool        isValidCursor(const QString& str, int cursorPosition);
+    static bool        isValidCursor(QStringView str, int cursorPosition);
+    static bool        isInsideTag(const QString& str, int cursorPos);
     static bool        isInsideTag(QStringView str, int cursorPos);
     static QStringList extractTags(QString str);
     static QString     addTag(QString str, int cursorPosition);
@@ -80,14 +83,4 @@ private:
     static int moveRight(QStringView str, int cursorPos, std::function<bool(const QChar)> exitCondition);
 
     static QString replaceTags(QString str, const QString& leftBrReplacement, const QString& rightBrReplacement);
-
-    static inline bool isValidCursor(QStringView str, int cursorPosition)
-    {
-        // Cursor can be after last symbol
-        auto valid = 0 <= cursorPosition && cursorPosition <= str.size();
-        if (!valid)
-            qWarning() << "Invalid cursor!";
-
-        return valid;
-    }
 };

@@ -197,6 +197,22 @@ std::pair<bool, int> TagProcessor::isTagCorrespondToTermName(QString termName, Q
     return std::pair(false, distance);
 }
 
+bool TagProcessor::isValidCursor(const QString &str, int cursorPosition)
+{
+    return isValidCursor(QStringView(str), cursorPosition);
+}
+
+bool TagProcessor::isValidCursor(QStringView str, int cursorPosition)
+{
+    // Cursor can be after last symbol, and it's correct
+    return 0 <= cursorPosition && cursorPosition <= str.size();
+}
+
+bool TagProcessor::isInsideTag(const QString& str, int cursorPos)
+{
+    return isInsideTag(QStringView(str), cursorPos);
+}
+
 int TagProcessor::getCursorPosition(const SearchDirection&     direction,
                                     QStringView                str,
                                     int                        cursorPos,
@@ -301,14 +317,14 @@ QStringList TagProcessor::extractTags(QString str)
 QString TagProcessor::addTag(QString str, int cursorPosition)
 {
     // Проверка корректности курсора
-    if (!isValidCursor(str, cursorPosition))
+    if (!isValidCursor(QStringView(str), cursorPosition))
         return str;
 
     // Нельзя просто так упрощать строку - индекс курсора же не меняется
     // str = str.simplified();
 
     // Если мы уже находимся внутри тега - ничего не делаем
-    if (isInsideTag(str, cursorPosition))
+    if (isInsideTag(QStringView(str), cursorPosition))
         return str;
 
     int leftWordBorder  = searchWordBorder(SearchDirection::left, str, cursorPosition);
@@ -324,14 +340,14 @@ QString TagProcessor::addTag(QString str, int cursorPosition)
 QString TagProcessor::removeTag(QString str, int cursorPosition)
 {
     // Проверка корректности курсора
-    if (!isValidCursor(str, cursorPosition))
+    if (!isValidCursor(QStringView(str), cursorPosition))
         return str;
 
     // Нельзя просто так упрощать строку - индекс курсора же не меняется
     // str = str.simplified();
 
     // Если мы не находимся внутри тега - ничего не делаем
-    if (!isInsideTag(str, cursorPosition))
+    if (!isInsideTag(QStringView(str), cursorPosition))
         return str;
 
     auto leftBracketPos  = getCursorPosition(SearchDirection::left, str, cursorPosition, isBracket);
@@ -346,10 +362,10 @@ QString TagProcessor::removeTag(QString str, int cursorPosition)
 
 QString TagProcessor::expandTagRight(QString str, int cursorPosition)
 {
-    if (!isValidCursor(str, cursorPosition))
+    if (!isValidCursor(QStringView(str), cursorPosition))
         return str;
 
-    if (!isInsideTag(str, cursorPosition))
+    if (!isInsideTag(QStringView(str), cursorPosition))
         return str;
 
     // Move to right bracket

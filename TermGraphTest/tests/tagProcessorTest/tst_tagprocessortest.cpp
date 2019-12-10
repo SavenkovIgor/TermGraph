@@ -274,6 +274,30 @@ private slots:
         QVERIFY(TagProcessor::isInsideTag(src, cursorPosition) == result);
     }
 
+    void validCursor_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<int>("cursorPosition");
+        QTest::addColumn<bool>("result");
+
+        QTest::newRow("case0") << "" << -1 << false;
+        QTest::newRow("case1") << "" << 0 << true;
+        QTest::newRow("case2") << "" << 1 << false;
+        QTest::newRow("case3") << "a" << -1 << false;
+        QTest::newRow("case4") << "a" << 0 << true;
+        QTest::newRow("case5") << "a" << 1 << true;
+        QTest::newRow("case6") << "a" << 2 << false;
+    }
+
+    void validCursor()
+    {
+        QFETCH(QString, src);
+        QFETCH(int, cursorPosition);
+        QFETCH(bool, result);
+
+        QVERIFY(TagProcessor::isValidCursor(src, cursorPosition) == result);
+    }
+
     void addTags_data()
     {
         QTest::addColumn<QString>("src");
