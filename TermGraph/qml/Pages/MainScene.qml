@@ -39,6 +39,8 @@ M.Page {
     property Drawer sideMenu
     property bool currentPageOpened: StackView.visible
 
+    signal openGroupsList()
+
     padding: 0
 
     title: "TermGraph"
@@ -390,5 +392,15 @@ M.Page {
                 groupsList.forceActiveFocus();
             }
         }
+    }
+
+    M.EmptyView {
+        anchors.fill: sceneView
+        visible: !groupsManager.hasAnyGroup
+
+        mainText: "Группы отсутствуют"
+        detailedText: "Думаю вам стоит создать одну"
+        buttonText: "Перейти в список групп"
+        onClicked: root.openGroupsList()
     }
 }

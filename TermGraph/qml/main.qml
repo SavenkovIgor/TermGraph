@@ -45,12 +45,26 @@ ApplicationWindow {
 //        showMaximized();
 //    }
 
-    Component { id: mainSceneComponent;   P.MainScene { sideMenu: appSideMenu; } }
+    Component {
+        id: mainSceneComponent;
+
+        P.MainScene {
+            sideMenu: appSideMenu;
+            onOpenGroupsList: openGroupsAction.trigger()
+        }
+    }
     Component { id: groupsListComponent;  P.GroupsList { } }
     Component { id: learnGroupsComponent; LearnGroupsList { } }
     Component { id: settingsComponent;    P.Settings { } }
     Component { id: helpPageComponent;    P.Help { } }
     Component { id: licensePage;          P.License { } }
+
+    Action {
+        id: openGroupsAction
+        text: "Группы"
+        icon.source: IconPath.list
+        onTriggered: stackView.push(groupsListComponent)
+    }
 
     Drawer {
         id : appSideMenu
@@ -77,11 +91,10 @@ ApplicationWindow {
 
                 A.SideMenuButton {
                     id: groupMenuButton
-                    labelText: "Группы"
-                    iconSource: IconPath.list
+                    action: openGroupsAction
+                    labelText: action.text
+                    iconSource: action.icon.source
                     Layout.fillWidth: true
-
-                    onClicked: stackView.push(groupsListComponent)
                 }
 
                 A.SideMenuButton {
