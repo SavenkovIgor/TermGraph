@@ -82,10 +82,12 @@ M.Page {
         }
     }
 
+    property bool someOfToolButtonsHaveFocus: addTag.focus || expandTagRight.focus || removeTag.focus
+
     A.RoundButton {
-        id: makeTag
+        id: addTag
         icon.source: IconPath.code
-        visible: termDefin.addTagButtonVisible || focus || expandTagRight.focus
+        visible: termDefin.addTagButtonVisible || someOfToolButtonsHaveFocus
 
         anchors { top: parent.top; right: expandTagRight.left; margins: width / 2; }
 
@@ -95,7 +97,7 @@ M.Page {
     A.RoundButton {
         id: expandTagRight
         icon.source: IconPath.chevronRight
-        visible: termDefin.extendTagButtonVisible || focus || makeTag.focus
+        visible: termDefin.extendTagButtonVisible || someOfToolButtonsHaveFocus
 
         anchors { top: parent.top; right: parent.right; margins: width / 2; }
 
@@ -103,10 +105,10 @@ M.Page {
     }
 
     A.RoundButton {
-        id: removeTagRight
+        id: removeTag
         icon.source: IconPath.code
         icon.color: "crimson"
-        visible: termDefin.removeTagButtonVisible || focus
+        visible: termDefin.removeTagButtonVisible || someOfToolButtonsHaveFocus
 
         anchors { top: parent.top; right: expandTagRight.left; margins: width / 2; }
 
