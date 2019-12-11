@@ -36,7 +36,7 @@ M.Page {
 
     StackView.onActivating: prepareForOpen()
 
-    title: "Добавить вершину"
+    title: "Новая вершина"
 
     header: M.DefaultHeader {
         title: root.title

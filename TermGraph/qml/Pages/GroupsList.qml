@@ -33,54 +33,8 @@ import "../Js/Fonts.js" as Fonts
 M.Page {
     id: root
 
-    title: "Список групп"
+    title: "Группы"
     padding: 0
-
-    A.RoundButton {
-        id: addGroupBtn
-        icon.source: IconPath.plus
-
-        anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
-
-        onClicked: newGroupDrawer.open()
-    }
-
-    A.RoundButton {
-        id: deleteGroupBtn
-        icon.source: IconPath.trash
-
-        anchors { right: parent.right; bottom: addGroupBtn.top; margins: width / 2; }
-
-        onClicked: groupDeleteDialog.visible = true
-    }
-
-    // Temporary hide FileExportButton
-    // TODO: Restore File exporting later!
-    /*
-    A.RoundButton {
-        id: exportButton
-
-        anchors.right: addGroupBtn.left
-        anchors.bottom: parent.bottom
-        anchors.margins: width / 2;
-
-        onClicked: {
-            groupsManager.exportGrpToJson(groupsList.currentItem.text)
-            var path = "Группа экспортирована в папку GroupsJson\n. Путь к папке:" + groupsManager.getExportPath()
-            groupExportedDialog.text = path
-            groupExportedDialog.visible = true
-        }
-    }
-    */
-
-    A.RoundButton {
-        id: sendByNetworkButton
-        icon.source: IconPath.share
-
-        anchors { right: addGroupBtn.left; bottom: parent.bottom; margins: width / 2; }
-
-        onClicked: syncManager.sendGroupByNetwork(groupsList.currentItem.groupUuid)
-    }
 
     contentItem: ListView {
         id: groupsList
@@ -155,6 +109,66 @@ M.Page {
                 }
             }
         }
+    }
+
+    M.EmptyView {
+        anchors.fill: groupsList
+        visible: !groupsManager.hasAnyGroup
+
+        mainText: "Пусто..."
+        detailedText: ""
+        buttonVisible: false
+    }
+
+    A.RoundButton {
+        id: addGroupBtn
+        icon.source: IconPath.plus
+
+        ToolTip.text: "Нажмите чтобы добавить группу"
+        ToolTip.visible: !groupsManager.hasAnyGroup
+
+        anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
+
+        onClicked: newGroupDrawer.open()
+    }
+
+    A.RoundButton {
+        id: deleteGroupBtn
+        icon.source: IconPath.trash
+        visible: groupsManager.hasAnyGroup
+
+        anchors { right: parent.right; bottom: addGroupBtn.top; margins: width / 2; }
+
+        onClicked: groupDeleteDialog.visible = true
+    }
+
+    // Temporary hide FileExportButton
+    // TODO: Restore File exporting later!
+    /*
+    A.RoundButton {
+        id: exportButton
+
+        anchors.right: addGroupBtn.left
+        anchors.bottom: parent.bottom
+        anchors.margins: width / 2;
+
+        onClicked: {
+            groupsManager.exportGrpToJson(groupsList.currentItem.text)
+            var path = "Группа экспортирована в папку GroupsJson\n. Путь к папке:" + groupsManager.getExportPath()
+            groupExportedDialog.text = path
+            groupExportedDialog.visible = true
+        }
+    }
+    */
+
+    A.RoundButton {
+        id: sendByNetworkButton
+        icon.source: IconPath.share
+        visible: groupsManager.hasAnyGroup
+
+        anchors { right: addGroupBtn.left; bottom: parent.bottom; margins: width / 2; }
+
+        onClicked: syncManager.sendGroupByNetwork(groupsList.currentItem.groupUuid)
     }
 
     MessageDialog {
