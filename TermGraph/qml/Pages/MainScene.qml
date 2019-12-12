@@ -268,7 +268,12 @@ M.Page {
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
         visible: true
 
-        ToolTip.visible: groupsManager.isEmptyGroup(sceneObj.getCurrGroupUuid()) && currentPageOpened
+        ToolTip.visible: {
+            let vis = groupsManager.hasAnyGroup;
+            vis = vis && currentPageOpened;
+            vis = vis && groupsManager.isEmptyGroup(sceneObj.getCurrGroupUuid());
+            return vis;
+        }
         ToolTip.text: "Добавить термин"
         ToolTip.timeout: -1
 
