@@ -30,24 +30,17 @@ ComboBox {
     font: Fonts.text
 
     contentItem: Text {
-
         id: contItem
-
-        height: contentHeight * 1.8
-
         text: groupsManager.getGroupName(control.displayText)
         font: control.font
+        color: Colors.white
+        padding: font.pixelSize
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
     }
 
-    background: Rectangle {
-        width: contItem.width + 35
-        height: contItem.height
-        border.color: Colors.black
-        border.width: 1
-    }
+    background: Rectangle { color: Colors.baseLight2 }
 
     popup: Popup {
         y: control.height - 1
@@ -82,5 +75,4 @@ ComboBox {
 
         highlighted: control.highlightedIndex === index
     }
-
 }

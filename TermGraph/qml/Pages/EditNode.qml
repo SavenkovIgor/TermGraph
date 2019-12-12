@@ -190,6 +190,7 @@ M.Page {
                 id: currentGroupEditableRow
 
                 Layout.fillWidth: true
+                spacing: root.width * 0.025
 
                 Label {
                     id: grpLabel
@@ -200,6 +201,8 @@ M.Page {
 
                 A.ComboBox {
                     id: nodeGroup
+                    Layout.fillWidth: true
+
                     model: groupsManager.allUuidSorted
 
                     function selectElement(name) {
@@ -208,7 +211,6 @@ M.Page {
                             currentIndex = index
                         }
                     }
-                    Layout.fillWidth: true
                 }
             }
 
