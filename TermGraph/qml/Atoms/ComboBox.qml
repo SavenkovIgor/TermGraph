@@ -34,7 +34,7 @@ ComboBox {
         text: groupsManager.getGroupName(control.displayText)
         font: control.font
         color: Colors.white
-        padding: font.pixelSize
+        padding: font.pixelSize / 1.5
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight

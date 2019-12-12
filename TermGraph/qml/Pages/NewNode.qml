@@ -118,9 +118,11 @@ M.Page {
         id: scroll
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
 
+        contentWidth: root.implicitContentWidth
+
         ColumnLayout {
             spacing: mainObj.getUiElementSize("colSpace")
-            width: scroll.width - scroll.leftPadding - scroll.rightPadding
+            width: scroll.width
 
             M.LabelPair {
                 id: currentGroupFixedRow
