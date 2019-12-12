@@ -27,10 +27,14 @@ import "../Molecules" as M
 import "../Js/Colors.js" as Colors
 
 M.Page {
+    id: root
+
     title: "Термин"
 
     contentItem: ScrollView {
         id: scroll
+
+        contentWidth: root.implicitContentWidth
 
         clip: true
         ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
