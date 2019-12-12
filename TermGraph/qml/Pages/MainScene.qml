@@ -297,7 +297,7 @@ M.Page {
     A.RoundButton {
         id: screenShotButton
         icon.source: IconPath.share
-        visible: groupsManager.hasAnyGroup
+        visible: false
 
         anchors { top: showGroupListButton.bottom; right: parent.right; margins: width / 2; }
 
