@@ -133,24 +133,9 @@ M.Page {
             }
 
             M.TextField {
-                property string prevText: ""
-
                 id: termName
-                labelText: "Термин:"
-
-                onNewText: checkNewText(text)
                 Layout.fillWidth: true
-
-                function checkNewText(text) {
-                    var differ = prevText.length - text.length
-                    if (differ >= 2 || differ <= -2) {
-                        if (textProcessor.isTermWithDefinition(text)) {
-                            termName.text = textProcessor.getTerm(text)
-                            termDefin.text = textProcessor.getDefinition(text)
-                        }
-                    }
-                    prevText = text
-                }
+                labelText: "Термин:"
             }
 
             M.TagEditorArea {
