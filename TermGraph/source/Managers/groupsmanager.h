@@ -39,6 +39,8 @@ public:
     Q_PROPERTY(bool hasAnyGroup READ getHasAnyGroup NOTIFY groupsListChanged)
     Q_PROPERTY(QStringList allUuidSorted READ getAllUuidStringsSortedByLastEdit NOTIFY groupsListChanged)
 
+    Q_INVOKABLE bool isEmptyGroup(const QString& groupUuid);
+
 signals:
     void groupsListChanged();
 

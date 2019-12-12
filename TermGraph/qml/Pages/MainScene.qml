@@ -268,6 +268,10 @@ M.Page {
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
         visible: true
 
+        ToolTip.visible: groupsManager.isEmptyGroup(sceneObj.getCurrGroupUuid()) && currentPageOpened
+        ToolTip.text: "Добавить термин"
+        ToolTip.timeout: -1
+
         action: Action {
             text: "AddNode"
             shortcut: "Ctrl+n"

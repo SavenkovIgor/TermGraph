@@ -174,6 +174,16 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
     return group;
 }
 
+bool GroupsManager::isEmptyGroup(const QString& groupUuid)
+{
+    QUuid uuid(groupUuid);
+
+    if (uuid.isNull())
+        return true;
+
+    return getNodesCount(uuid) == 0;
+}
+
 bool GroupsManager::getHasAnyGroup() const
 {
     return !Database::instance().groupTable->getAllUuids().empty();
