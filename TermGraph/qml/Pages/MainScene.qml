@@ -354,8 +354,8 @@ M.Page {
     MessageDialog {
         id: nodeDelDialog
 
-        title: "Удаление вершины"
-        text:  "Удалить выделенную вершину?"
+        title: "Удаление термина"
+        text:  "Удалить выделенный термин?"
 
         standardButtons: StandardButton.Yes | StandardButton.No
         icon: StandardIcon.Question

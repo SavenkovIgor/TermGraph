@@ -36,7 +36,7 @@ M.Page {
 
     StackView.onActivating: prepareForOpen()
 
-    title: "Новая вершина"
+    title: "Новый термин"
 
     header: M.DefaultHeader {
         title: root.title
@@ -127,7 +127,7 @@ M.Page {
 
                 property string groupUuid: ""
 
-                name: "Текущая группа: "
+                name: "Группа: "
                 text: groupsManager.getGroupName(groupUuid)
                 Layout.fillWidth: true
             }
@@ -136,8 +136,7 @@ M.Page {
                 property string prevText: ""
 
                 id: termName
-                labelText: "Название:"
-                placeholderText: "[Термин]"
+                labelText: "Термин:"
 
                 onNewText: checkNewText(text)
                 Layout.fillWidth: true
@@ -156,43 +155,35 @@ M.Page {
 
             M.TagEditorArea {
                 id: termDefin
-                labelText: "-это"
-                placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
-                text: ""
                 Layout.fillWidth: true
+                labelText: "Определение"
+                placeholderText: "- это"
             }
 
             M.TextArea {
                 id: termDescr
-                labelText : "Описание"
-                placeholderText: "[Общее словесное описание, пока никак не участвует в логике]"
-                text: ""
                 Layout.fillWidth: true
+                labelText : "Описание"
             }
 
             M.TextArea {
                 id: termExampl
-                labelText: "Примеры"
-                text: ""
                 Layout.fillWidth: true
+                labelText: "Примеры"
             }
 
             M.TextField {
-                enabled: false
                 visible: false
-
+                Layout.fillWidth: true
                 labelText: "Ссылка на Wiki статью"
                 placeholderText: "http://"
-                Layout.fillWidth: true
             }
 
             M.TextField {
-                enabled: false
                 visible: false
-
+                Layout.fillWidth: true
                 labelText: "Ссылка на Wiki изображение"
                 placeholderText: "http://"
-                Layout.fillWidth: true
             }
 
         }
@@ -201,8 +192,8 @@ M.Page {
     MessageDialog {
         id: emptyNodeNameDelDialog
 
-        title: "Невозможно создать вершину"
-        text:  "Невозможно создать пустой термин.\nЗаполните поле \"Название\""
+        title: "Ошибка"
+        text:  "Заполните поле \"Термин\""
 
         standardButtons: StandardButton.Ok
         icon: StandardIcon.Warning

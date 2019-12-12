@@ -33,7 +33,7 @@ import "../Js/Fonts.js" as Fonts
 M.Page {
     id: root
 
-    title: "Изменить вершину"
+    title: "Изменить термин"
 
     StackView.onActivating: updateInfo()
 
@@ -125,7 +125,7 @@ M.Page {
 
             M.LabelPair {
                 id: nodeUuidText
-                name: "Изменить вершину с uuid: "
+                name: "Uuid термина:"
                 Layout.fillWidth: true
             }
 
@@ -133,8 +133,7 @@ M.Page {
                 property string prevText: ""
 
                 id: termName
-                labelText: "Название:"
-                placeholderText: "[Термин]"
+                labelText: "Термин:"
 
                 Layout.fillWidth: true
                 onNewText: checkNewText(text)
@@ -154,15 +153,14 @@ M.Page {
             M.TagEditorArea {
                 id: termDefin
                 Layout.fillWidth: true
-                labelText: "-это"
-                placeholderText: "[Определение. Ссылки формируются с помощью фигурных скобок {} ]"
+                labelText: "Определение"
+                placeholderText: "- это"
             }
 
             M.TextArea {
                 id: termDescr
                 Layout.fillWidth: true
                 labelText : "Описание"
-                placeholderText: "[Общее словесное описание, пока никак не участвует в логике]"
             }
 
             M.TextArea {
@@ -172,7 +170,6 @@ M.Page {
             }
 
             M.TextField {
-                enabled: false
                 visible: false
                 Layout.fillWidth: true
 
@@ -181,7 +178,6 @@ M.Page {
             }
 
             M.TextField {
-                enabled: false
                 visible: false
                 Layout.fillWidth: true
 
@@ -199,6 +195,7 @@ M.Page {
                     id: grpLabel
                     text : "Группа"
                     font: Fonts.inputText
+                    color: Colors.accent
                 }
 
                 A.ComboBox {
@@ -226,8 +223,8 @@ M.Page {
     MessageDialog {
         id: emptyNodeNameDelDialog
 
-        title: "Невозможно создать вершину"
-        text:  "Невозможно создать пустой термин.\nЗаполните поле \"Название\""
+        title: "Ошибка"
+        text:  "Заполните поле \"Термин\""
 
         standardButtons: StandardButton.Ok
         icon: StandardIcon.Warning

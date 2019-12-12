@@ -43,7 +43,7 @@ M.Page {
 
     contentItem: ListView {
         id: groupsList
-        model: ["Названия вершин"]
+        model: ["Названия терминов"]
         keyNavigationEnabled: true
 
         highlight: Rectangle {
