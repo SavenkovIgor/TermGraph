@@ -213,12 +213,15 @@ M.Page {
             newGroupName.text = ""
         }
 
+        background: Rectangle { color: Colors.baseLight; }
+
         RowLayout {
             id: addGroupLay
 
             width: root.width
 
             spacing: newGroupAddButton.width / 2
+
 
             ColumnLayout {
                 id: newGroupName
@@ -235,16 +238,17 @@ M.Page {
 
                 Label {
                     id: label
-                    text: "Название новой группы"
-
                     Layout.fillWidth: true
 
+                    color: Colors.white
                     font: Fonts.inputLabel
+
+                    text: "Название новой группы"
                 }
 
                 TextField {
                     id : txtField
-                    placeholderText: "[Введите название]"
+                    placeholderText: ""
 
                     Layout.fillWidth: true
 
