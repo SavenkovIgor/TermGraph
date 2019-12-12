@@ -275,6 +275,7 @@ M.Page {
             return vis;
         }
         ToolTip.text: "Добавить термин"
+        ToolTip.font: Fonts.text
         ToolTip.timeout: -1
 
         action: Action {
