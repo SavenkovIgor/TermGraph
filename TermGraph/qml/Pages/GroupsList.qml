@@ -198,7 +198,6 @@ M.Page {
     Drawer {
         id : newGroupDrawer
         width: root.width
-        height: addGroupLay.height
         interactive: false
 
         edge: Qt.BottomEdge
@@ -213,55 +212,22 @@ M.Page {
             newGroupName.text = ""
         }
 
-        background: Rectangle { color: Colors.baseLight; }
+        background: Rectangle { color: Colors.baseLight2 }
 
-        RowLayout {
-            id: addGroupLay
+        contentItem: RowLayout {
 
-            width: root.width
-
-            spacing: newGroupAddButton.width / 2
-
-
-            ColumnLayout {
+            M.TextField {
                 id: newGroupName
+                Layout.fillWidth: true
+                Layout.margins: implicitHeight * 0.5
 
-                Layout.topMargin: addGroupLay.spacing
-                Layout.leftMargin: addGroupLay.spacing
-                Layout.bottomMargin: addGroupLay.spacing
-
-                property alias text: txtField.text
-
-                function takeFocus() {
-                    txtField.forceActiveFocus()
-                }
-
-                Label {
-                    id: label
-                    Layout.fillWidth: true
-
-                    color: Colors.white
-                    font: Fonts.inputLabel
-
-                    text: "Название новой группы"
-                }
-
-                TextField {
-                    id : txtField
-                    placeholderText: ""
-
-                    Layout.fillWidth: true
-
-                    font: Fonts.inputText
-                    selectByMouse: true
-                }
+                labelText: "Название новой группы"
             }
 
             A.RoundButton {
                 id: newGroupAddButton
                 icon.source: IconPath.check
-
-                Layout.rightMargin: addGroupLay.spacing
+                Layout.rightMargin: newGroupName.implicitHeight * 0.5
 
                 onClicked: {
                     groupsManager.addNewGroup(newGroupName.text, "")
