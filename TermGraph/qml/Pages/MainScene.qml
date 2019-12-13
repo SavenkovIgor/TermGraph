@@ -268,15 +268,15 @@ M.Page {
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
         visible: true
 
-        ToolTip.visible: {
-            let vis = groupsManager.hasAnyGroup;
-            vis = vis && currentPageOpened;
-            vis = vis && groupsManager.isEmptyGroup(sceneObj.getCurrGroupUuid());
-            return vis;
+        A.ToolTip {
+            text: "Добавить термин"
+            visible: {
+                let vis = groupsManager.hasAnyGroup;
+                vis = vis && currentPageOpened;
+                vis = vis && groupsManager.isEmptyGroup(sceneObj.getCurrGroupUuid());
+                return vis;
+            }
         }
-        ToolTip.text: "Добавить термин"
-//        ToolTip.font: Fonts.text
-        ToolTip.timeout: -1
 
         action: Action {
             text: "AddNode"

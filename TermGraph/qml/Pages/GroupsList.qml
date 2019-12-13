@@ -124,9 +124,10 @@ M.Page {
         id: addGroupBtn
         icon.source: IconPath.plus
 
-        ToolTip.text: "Нажмите чтобы добавить группу"
-//        ToolTip.font: Fonts.text
-        ToolTip.visible: !groupsManager.hasAnyGroup
+        A.ToolTip {
+            text: "Нажмите чтобы добавить группу"
+            visible: !groupsManager.hasAnyGroup
+        }
 
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
 

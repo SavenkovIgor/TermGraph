@@ -42,5 +42,6 @@
         <file>Js/Fonts.js</file>
         <file>Molecules/TagEditorArea.qml</file>
         <file>Molecules/EmptyView.qml</file>
+        <file>Atoms/ToolTip.qml</file>
     </qresource>
 </RCC>
