@@ -1,7 +1,7 @@
-import QtQuick 2.13
-import QtQuick.Window 2.13
-import QtQuick.Controls 2.13
-import QtGraphicalEffects 1.13
+import QtQuick 2.14
+import QtQuick.Window 2.14
+import QtQuick.Controls 2.14
+import QtGraphicalEffects 1.14
 
 import "../Js/Colors.js" as Colors
 import "../Atoms" as A
