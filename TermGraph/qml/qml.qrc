@@ -43,5 +43,6 @@
         <file>Molecules/TagEditorArea.qml</file>
         <file>Molecules/EmptyView.qml</file>
         <file>Atoms/ToolTip.qml</file>
+        <file>Molecules/GraphCanvas.qml</file>
     </qresource>
 </RCC>
