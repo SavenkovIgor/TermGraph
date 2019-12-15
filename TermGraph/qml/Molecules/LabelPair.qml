@@ -30,6 +30,7 @@ ColumnLayout {
 
     property alias name: nameLbl.text
     property alias text: textLbl.text
+    property alias textObj: textLbl
 
     spacing: 6
 
@@ -40,11 +41,11 @@ ColumnLayout {
         Layout.fillWidth: true
     }
 
-    Label {
+    Text {
         id: textLbl
         font: Fonts.text
         wrapMode: TextEdit.WordWrap
-
+        elide: Text.ElideRight
         anchors.leftMargin: 30
 
         color: Colors.white
