@@ -28,6 +28,7 @@ import "../Atoms" as A
 import "../Molecules" as M
 import "../Js/IconPath.js" as IconPath
 import "../Js/Colors.js" as Colors
+import "../Js/Fonts.js" as Fonts
 
 M.Page {
     id: root
@@ -124,14 +125,32 @@ M.Page {
             spacing: mainObj.getUiElementSize("colSpace")
             width: scroll.width
 
-            M.LabelPair {
+            RowLayout {
                 id: currentGroupFixedRow
 
                 property string groupUuid: ""
 
-                name: "Группа: "
-                text: groupsManager.getGroupName(groupUuid)
+                spacing: 6
                 Layout.fillWidth: true
+
+                Label {
+                    font: Fonts.setWeight(Fonts.text, Font.DemiBold)
+                    color: Colors.accent
+
+                    text: "Группа:"
+                }
+
+                Text {
+                    Layout.fillWidth: true
+                    leftPadding: 15
+
+                    font: Fonts.text
+                    wrapMode: TextEdit.NoWrap
+                    elide: Text.ElideRight
+                    color: Colors.white
+
+                    text: groupsManager.getGroupName(currentGroupFixedRow.groupUuid)
+                }
             }
 
             M.TextField {
