@@ -129,7 +129,7 @@ ApplicationWindow {
                 }
 
                 A.SideMenuButton {
-                    labelText: "О приложении"
+                    labelText: "О программе"
                     Layout.fillWidth: true
 
                     onClicked: stackView.push(licensePage)
