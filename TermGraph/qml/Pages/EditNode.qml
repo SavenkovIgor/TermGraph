@@ -42,9 +42,28 @@ M.Page {
         page: root
 
         A.ToolButton {
-            id: checkButton
+            icon.source: IconPath.trash
+            onClicked: nodeDelDialog.visible = true
+        }
+
+        A.ToolButton {
             icon.source: IconPath.check
             onClicked: root.applyNodeChange()
+        }
+    }
+
+    MessageDialog {
+        id: nodeDelDialog
+
+        title: "Удаление термина"
+        text:  "Удалить выделенный термин?"
+
+        standardButtons: StandardButton.Yes | StandardButton.No
+        icon: StandardIcon.Question
+
+        onYes: {
+            sceneObj.deleteSelectedNode()
+            root.StackView.view.pop();
         }
     }
 

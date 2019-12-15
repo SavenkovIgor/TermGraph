@@ -51,14 +51,12 @@ M.Page {
         State {
             name: "some"
             PropertyChanges { target: editNodeButton;   visible: true }
-            PropertyChanges { target: deleteNodeButton; visible: true }
             PropertyChanges { target: nodeInfoButton;   visible: true }
             PropertyChanges { target: addNodeButton;    visible: false }
         },
         State {
             name: "none"
             PropertyChanges { target: editNodeButton;   visible: false }
-            PropertyChanges { target: deleteNodeButton; visible: false }
             PropertyChanges { target: nodeInfoButton;   visible: false }
             PropertyChanges { target: addNodeButton;    visible: true }
         }
@@ -187,28 +185,6 @@ M.Page {
                 }
             }
         }
-    }
-
-    A.RoundButton {
-        id : deleteNodeButton
-        icon.source: IconPath.trash
-        visible: false
-
-        anchors { right: parent.right; bottom: editNodeButton.top; margins: width / 2; }
-
-        onClicked: nodeDelDialog.visible = true
-    }
-
-    MessageDialog {
-        id: nodeDelDialog
-
-        title: "Удаление термина"
-        text:  "Удалить выделенный термин?"
-
-        standardButtons: StandardButton.Yes | StandardButton.No
-        icon: StandardIcon.Question
-
-        onYes: sceneObj.deleteSelectedNode()
     }
 
     A.RoundButton {
