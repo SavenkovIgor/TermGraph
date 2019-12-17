@@ -23,11 +23,12 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "../Js/Colors.js" as Colors
+import "../Js/Sizes.js" as Sizes
 
 RoundButton {
     id: root
 
-    property real size: mainObj.getUiElementSize("roundButton")
+    property real size: Sizes.base
 
     background: Rectangle { radius: width / 2; color: highlighted ? "#00000099" : "transparent"; }
 

@@ -19,34 +19,11 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.13
-import QtQuick.Controls 2.13
-
-import "../Js/Colors.js" as Colors
-import "../Js/Sizes.js" as Sizes
-
-RoundButton {
-    id: root
-
-    property alias color: root.icon.color
-    property bool backgroundHidden: false
-
-    property real size: Sizes.base
-
-    background: Rectangle {
-        radius: width / 2
-        color: !root.backgroundHidden ? Colors.white : "transparent"
-    }
-
-    width:  implicitWidth
-    height: implicitHeight
-
-    icon.width: implicitWidth
-    icon.height: implicitHeight
-
-    implicitWidth:  root.size
-    implicitHeight: root.size
-
-    padding: 0.28 * width
-}
-
+var baseX100 = base * 2;
+var baseX75  = base * 1.75;
+var baseX50  = base * 1.5;
+var baseX25  = base * 1.25;
+var base     = mainObj.getUiElementSize("roundButton");
+var baseR25  = base * 0.75;
+var baseR50  = base * 0.5;
+var baseR75  = base * 0.25;

@@ -23,6 +23,8 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "../Molecules" as M
+import "../Js/Sizes.js" as Sizes
+import "../Js/Colors.js" as Colors
 
 M.Page {
     id: root
@@ -131,6 +133,13 @@ M.Page {
 
             anchors.bottom: swipeView.bottom
             anchors.horizontalCenter: parent.horizontalCenter
+
+            delegate: Rectangle {
+                width: Sizes.baseR75
+                height: Sizes.baseR75
+                radius: width / 2
+                color: index === pageIndicator.currentIndex ? Colors.baseLight2 : Colors.black
+            }
         }
     }
 }
