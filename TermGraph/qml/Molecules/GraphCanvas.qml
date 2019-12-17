@@ -1,5 +1,5 @@
-import QtQuick 2.14
-import QtQuick.Controls 2.14
+import QtQuick 2.13
+import QtQuick.Controls 2.13
 
 import "../Js/NodePaint.js" as JsPaint
 
