@@ -134,11 +134,17 @@ M.Page {
             anchors.bottom: swipeView.bottom
             anchors.horizontalCenter: parent.horizontalCenter
 
-            delegate: Rectangle {
-                width: Sizes.baseR75
-                height: Sizes.baseR75
-                radius: width / 2
-                color: index === pageIndicator.currentIndex ? Colors.baseLight2 : Colors.black
+            delegate: Item {
+                width: pin.width * 1.5
+                height: pin.height * 1.5
+                Rectangle {
+                    id: pin
+                    width: Sizes.baseR75
+                    height: Sizes.baseR75
+                    anchors.centerIn: parent
+                    radius: width / 2
+                    color: index === pageIndicator.currentIndex ? Colors.baseLight2 : Colors.black
+                }
             }
         }
     }
