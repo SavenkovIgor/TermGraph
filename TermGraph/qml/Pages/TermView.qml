@@ -45,37 +45,37 @@ M.Page {
 
             M.LabelPair {
                 name: "Dbg:"
-                text: sceneObj.getCurrNodeDebugInfo()
+                text: scene.getCurrNodeDebugInfo()
                 visible: text !== ""
             }
 
             M.LabelPair {
                 name: "Название:"
-                text: sceneObj.currentNode.term
+                text: scene.currentNode.term
                 visible: text !== ""
             }
 
             M.LabelPair {
                 name: "Определение:"
-                text: tagProcessor.decorateTags(sceneObj.getCurrNodeNameAndDefinition())
+                text: tagProcessor.decorateTags(scene.getCurrNodeNameAndDefinition())
                 visible: text !== ""
             }
 
             M.LabelPair {
                 name: "Иерархия определений:"
-                text: sceneObj.getCurrNodeHierarchyDefinition()
+                text: scene.getCurrNodeHierarchyDefinition()
                 visible: text !== ""
             }
 
             M.LabelPair {
                 name: "Описание:"
-                text: sceneObj.currentNode.description
+                text: scene.currentNode.description
                 visible: text !== ""
             }
 
             M.LabelPair {
                 name: "Пример:"
-                text: sceneObj.currentNode.examples
+                text: scene.currentNode.examples
                 visible: text !== ""
             }
         }

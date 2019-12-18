@@ -62,7 +62,7 @@ M.Page {
         icon: StandardIcon.Question
 
         onYes: {
-            sceneObj.deleteSelectedNode()
+            scene.deleteSelectedNode()
             root.StackView.view.pop();
         }
     }
@@ -71,14 +71,14 @@ M.Page {
     Shortcut { sequence: "Ctrl+Return"; onActivated: root.applyNodeChange(); }
 
     function updateInfo() {
-        nodeUuidText.text = sceneObj.currentNode.uuid
-        lastEditText.text = sceneObj.currentNode.lastEdit
-        termName.text = sceneObj.currentNode.term
-        termDefin.text = sceneObj.currentNode.definition
-        termDescr.text = sceneObj.currentNode.description
-        termExampl.text = sceneObj.currentNode.examples
-        nodeGroup.selectElement(sceneObj.currentNode.groupUuid)
-        termDefin.takeFocus()
+        nodeUuidText.text = scene.currentNode.uuid;
+        lastEditText.text = scene.currentNode.lastEdit;
+        termName.text = scene.currentNode.term;
+        termDefin.text = scene.currentNode.definition;
+        termDescr.text = scene.currentNode.description;
+        termExampl.text = scene.currentNode.examples;
+        nodeGroup.selectElement(scene.currentNode.groupUuid);
+        termDefin.takeFocus();
     }
 
     function applyNodeChange() {

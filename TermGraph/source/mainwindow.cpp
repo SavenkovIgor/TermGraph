@@ -59,7 +59,7 @@ MainWindow::MainWindow(QObject *parent):
     qmlRegisterType<PaintedTerm>();
 
     qmlEngine->rootContext()->setContextProperty("mainObj", this);
-    qmlEngine->rootContext()->setContextProperty("sceneObj", scene.get());
+    qmlEngine->rootContext()->setContextProperty("scene", scene.get());
     qmlEngine->rootContext()->setContextProperty("paintManager", paintManager.get());
     qmlEngine->rootContext()->setContextProperty("networkManager", network.get());
     qmlEngine->rootContext()->setContextProperty("groupsManager", groupsManager.get());

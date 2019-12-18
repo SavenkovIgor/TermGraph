@@ -45,7 +45,7 @@ M.Page {
     title: "TermGraph"
     onOpenMainMenu: sideMenu.open()
 
-    state: sceneObj.hasSelection ? "some" : "none"
+    state: scene.hasSelection ? "some" : "none"
 
     states: [
         State {
@@ -63,7 +63,7 @@ M.Page {
     ]
 
     Connections {
-        target: sceneObj
+        target: scene
         onSelectionDoubleClick: nodeInfoButton.openTerm()
     }
 
@@ -72,7 +72,7 @@ M.Page {
     Component { id: groupsListComponent; P.GroupsList { } }
     Component { id: termViewComponent;   P.TermView { } }
 
-    background: Rectangle { color: sceneObj.getSceneBackgroundColor() }
+    background: Rectangle { color: scene.getSceneBackgroundColor() }
 
     MouseArea {
         id: sceneMouse
@@ -85,14 +85,14 @@ M.Page {
 
         onClicked: {
             const pt = scenePt();
-            sceneObj.setMouseClick(pt.x, pt.y)
+            scene.setMouseClick(pt.x, pt.y)
         }
 
         function scenePt() { return sceneMouse.mapToItem(sceneCanvas, mouseX, mouseY); }
 
         function setPos() {
             const pt = scenePt();
-            sceneObj.setMousePos(pt.x, pt.y);
+            scene.setMousePos(pt.x, pt.y);
         }
     }
 
@@ -118,7 +118,7 @@ M.Page {
             visible: {
                 let vis = groupsManager.hasAnyGroup;
                 vis = vis && currentPageOpened;
-                vis = vis && groupsManager.isEmptyGroup(sceneObj.getCurrGroupUuid());
+                vis = vis && groupsManager.isEmptyGroup(scene.getCurrGroupUuid());
                 return vis;
             }
         }
@@ -180,7 +180,7 @@ M.Page {
             shortcut: "Ctrl+e"
             enabled: root.currentPageOpened
             onTriggered: {
-                if (!sceneObj.currentNode.isNull()) {
+                if (!scene.currentNode.isNull()) {
                     root.StackView.view.push(editNodeComponent)
                 }
             }
@@ -202,7 +202,7 @@ M.Page {
         onClicked: openTerm()
 
         function openTerm() {
-            if (sceneObj.hasSelection) {
+            if (scene.hasSelection) {
                 root.StackView.view.push(termViewComponent)
             }
         }

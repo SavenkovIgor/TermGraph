@@ -5,10 +5,10 @@ import "../Js/NodePaint.js" as JsPaint
 
 Control {
 
-    height: sceneObj.sceneRect.height
-    width: sceneObj.sceneRect.width
+    height: scene.sceneRect.height
+    width: scene.sceneRect.width
 
-    background: Rectangle { color: sceneObj.getSceneBackgroundColor() }
+    background: Rectangle { color: scene.getSceneBackgroundColor() }
 
     contentItem: Canvas {
         id: root
@@ -24,7 +24,7 @@ Control {
             const groupsUuids = groupsManager.getAllUuidStringsSortedByLastEdit()
 
             if (groupsUuids.length !== 0) {
-                sceneObj.showGroup(groupsUuids[0])
+                scene.showGroup(groupsUuids[0])
             }
         }
 
