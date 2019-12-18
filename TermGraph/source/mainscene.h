@@ -100,7 +100,6 @@ public slots:
 
 private:
     // Timers
-    QTimer sceneRhytm;
     QTimer mouseMoveReactionTimer;
 
     // Managers

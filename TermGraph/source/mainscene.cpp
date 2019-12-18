@@ -23,9 +23,6 @@
 
 MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager *paintManager)
 {
-    sceneRhytm.setSingleShot(false);
-    sceneRhytm.setInterval(30);
-
     mouseMoveReactionTimer.setInterval(static_cast<int>(1000/AppSettings::Scene::FPS));
     mouseMoveReactionTimer.setSingleShot(true);
 
@@ -65,7 +62,6 @@ void MainScene::initAllGroups()
 
 void MainScene::addGroupToScene(TermGroup *group)
 {
-    connect(&sceneRhytm, &QTimer::timeout, group, &TermGroup::sceneUpdateSignal);
     groupList << group;
 }
 
@@ -80,7 +76,6 @@ void MainScene::deleteAllGroups()
 
 void MainScene::updateModel()
 {
-    sceneRhytm.stop();
     stopAllGroupTimers();
 
     paintManager->addClearRect(getSceneRect(), true);
@@ -98,7 +93,6 @@ void MainScene::updateModel()
 
     locateGroupsVertically();
 
-    sceneRhytm.start();
     // startAllGroupTimers();
     updateSceneRect();
 
