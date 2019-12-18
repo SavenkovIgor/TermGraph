@@ -162,9 +162,8 @@ QColor MainScene::getSceneBackgroundColor() const
 
 void MainScene::resetPaintFlags()
 {
-    for (auto group : groupList) {
+    for (auto group : groupList)
         group->resetPaintFlags();
-    }
 }
 
 void MainScene::setMousePos(qreal x, qreal y)
@@ -189,9 +188,8 @@ void MainScene::dropSelection(bool withSignal)
         selectedNode = nullptr;
     }
 
-    if (withSignal) {
+    if (withSignal)
         emit selectionChanged();
-    }
 }
 
 void MainScene::dropHover()
@@ -232,16 +230,14 @@ void MainScene::showAllGroups()
 
 void MainScene::setAnimSpeed(int val)
 {
-    for (auto group : groupList) {
+    for (auto group : groupList)
         group->setAnimSpeed(val);
-    }
 }
 
 void MainScene::startAllGroupTimers()
 {
-    for (auto group : groupList) {
+    for (auto group : groupList)
         group->startAnimation();
-    }
 }
 
 void MainScene::stopAllGroupTimers()
@@ -285,9 +281,8 @@ QString MainScene::getCurrNodeNameAndDefinition()
 
 QString MainScene::getCurrNodeHierarchyDefinition()
 {
-    if (auto node = getSelectedNode()) {
+    if (auto node = getSelectedNode())
         return node->getHierarchyDefinition();
-    }
 
     return "";
 }
@@ -302,9 +297,8 @@ TermGroup *MainScene::getNearestNotPaintedGroup()
     TermGroup* nearestNotPaintedGroup = nullptr;
 
     for (auto group : groupList) {
-        if (!group->needPaint()) {
+        if (!group->needPaint())
             continue;
-        }
 
         if (nearestNotPaintedGroup == nullptr) {
             nearestNotPaintedGroup = group;
