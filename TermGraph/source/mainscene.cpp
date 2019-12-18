@@ -40,7 +40,6 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintMana
 
 MainScene::~MainScene()
 {
-    deleteAllGroups();
 }
 
 void MainScene::initAllGroups()
@@ -56,38 +55,28 @@ void MainScene::initAllGroups()
 
     if (!loadGroup.isNull()) {
         auto group = groupsMgr->createGroup(loadGroup);
-        addGroupToScene(group);
+        setSceneGroup(group);
     }
 }
 
-void MainScene::addGroupToScene(TermGroup *group)
+void MainScene::setSceneGroup(TermGroup* group)
 {
-    groupList << group;
-}
-
-void MainScene::deleteAllGroups()
-{
-    for (auto group : groupList) {
-        delete group;
-    }
-
-    groupList.clear();
+    mCurrentGroup.reset(group);
 }
 
 void MainScene::updateModel()
 {
     paintManager->addClearRect(getSceneRect(), true);
     paintManager->clearAllQueues();
-    deleteAllGroups();
+    mCurrentGroup.reset();
 
     hoverNode = nullptr;
     selectedNode = nullptr;
 
     initAllGroups();
 
-    for (auto group : groupList) {
-        group->sceneUpdateSignal();
-    }
+    if (mCurrentGroup)
+        mCurrentGroup->sceneUpdateSignal();
 
     locateGroupsVertically();
 
@@ -99,37 +88,26 @@ void MainScene::updateModel()
 
 void MainScene::locateGroupsVertically()
 {
-    qreal y = 40;
-    qreal x = 40;
+    if (!mCurrentGroup)
+        return;
 
     // Выставляем позиции групп
-    for (TermGroup* group : groupList) {
-        auto baseRc = group->baseRect->getRect(CoordType::scene);
-        group->setBasePoint(QPointF(x, y));
-
-        y += baseRc.height() + 40;
-    }
-
+    auto  basePt = QPointF(40, 40);
+    mCurrentGroup->setBasePoint(basePt);
     updateSceneRect();
 }
 
 void MainScene::updateSceneRect()
 {
-    QRectF allRect;
+    if (!mCurrentGroup)
+        return;
 
-    for (auto group : groupList) {
-        if (group->getUuid() != mCurrGroupUuid) {
-            continue;
-        }
+    auto baseRc = mCurrentGroup->baseRect->getRect(CoordType::scene);
 
-        auto baseRc = group->baseRect->getRect(CoordType::scene);
-        allRect = allRect.united(baseRc);
-    }
-
-    int mV = 40;
+    int       mV = 40;
     QMarginsF mrg(mV, mV, mV, mV);
-    auto withMargins = allRect.marginsAdded(mrg);
-    setSceneRect(withMargins);
+    baseRc = baseRc.marginsAdded(mrg);
+    setSceneRect(baseRc);
 }
 
 void MainScene::centerViewOn(QPointF point)
@@ -152,8 +130,10 @@ QColor MainScene::getSceneBackgroundColor() const
 
 void MainScene::resetPaintFlags()
 {
-    for (auto group : groupList)
-        group->resetPaintFlags();
+    if (!mCurrentGroup)
+        return;
+
+    mCurrentGroup->resetPaintFlags();
 }
 
 void MainScene::setMousePos(qreal x, qreal y)
@@ -280,13 +260,13 @@ void MainScene::setSceneRect(const QRectF& newRect)
     }
 }
 
-PaintedTerm *MainScene::getNodeAtPoint(const QPointF &pt) const
+PaintedTerm* MainScene::getNodeAtPoint(const QPointF& pt) const
 {
-    for (auto group : groupList) {
-        if (group->getGroupRect().contains(pt)) {
-            return group->getNodeAtPoint(pt);
-        }
-    }
+    if (!mCurrentGroup)
+        return nullptr;
+
+    if (mCurrentGroup->getGroupRect().contains(pt))
+        return mCurrentGroup->getNodeAtPoint(pt);
 
     return nullptr;
 }
@@ -377,10 +357,10 @@ void MainScene::sendGroupsToPaintManager(bool requestPaint, bool paintAll)
     if (paintAll)
         paintManager->addClearRect(getSceneRect(), true);
 
-    for (auto group : groupList)
-        paintManager->addGroup(group, paintAll, false);
+    if (mCurrentGroup)
+        paintManager->addGroup(mCurrentGroup.get(), paintAll, false);
 
-//    paintManager->addRect(sceneRect);
+    //    paintManager->addRect(sceneRect);
 
     if (requestPaint)
         paintManager->sendPaintGroupSignal();

@@ -120,12 +120,11 @@ private:
     PaintedTerm* getNodeAtPoint(const QPointF& pt) const;
 
     // Groups fields
-    QList<TermGroup*> groupList;
+    QScopedPointer<TermGroup> mCurrentGroup;
     QUuid mCurrGroupUuid;
 
     void initAllGroups();
-    void addGroupToScene(TermGroup* group);
-    void deleteAllGroups();
+    void setSceneGroup(TermGroup* group);
 
     void locateGroupsVertically();
 };
