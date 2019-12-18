@@ -76,8 +76,6 @@ void MainScene::deleteAllGroups()
 
 void MainScene::updateModel()
 {
-    stopAllGroupTimers();
-
     paintManager->addClearRect(getSceneRect(), true);
     paintManager->clearAllQueues();
     deleteAllGroups();
@@ -93,7 +91,6 @@ void MainScene::updateModel()
 
     locateGroupsVertically();
 
-    // startAllGroupTimers();
     updateSceneRect();
 
     requestPaint(true);
@@ -218,24 +215,6 @@ void MainScene::showAllGroups()
 {
     locateGroupsVertically();
     resetPaintFlags();
-}
-
-void MainScene::setAnimSpeed(int val)
-{
-    for (auto group : groupList)
-        group->setAnimSpeed(val);
-}
-
-void MainScene::startAllGroupTimers()
-{
-    for (auto group : groupList)
-        group->startAnimation();
-}
-
-void MainScene::stopAllGroupTimers()
-{
-    for (auto group : groupList)
-        group->stopAnimation();
 }
 
 QString MainScene::getCurrNodeDebugInfo()

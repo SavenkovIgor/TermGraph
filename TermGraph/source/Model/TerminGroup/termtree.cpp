@@ -106,6 +106,7 @@ void TermTree::animateTree()
 
 void TermTree::checkSwap()
 {
+    return;
     for (int layer = 1; layer < stacks.size(); layer++) {  // TODO: Обдумать этот момент i=1 because we need to ignore roots.
         auto levLst = stacks[layer]->getAllNodesInStack();
 

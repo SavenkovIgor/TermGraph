@@ -43,8 +43,6 @@ public:
     MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager* paintManager);
     ~MainScene();
 
-    void setAnimSpeed(int val);
-
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
     Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode) // Read only. without notify
     Q_PROPERTY(QRectF sceneRect READ getSceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
@@ -70,9 +68,6 @@ public slots:
 
     void updateModel();
     void deleteSelectedNode();
-
-    void startAllGroupTimers();
-    void stopAllGroupTimers();
 
     NodeGadgetWrapper getCurrentNode();
     QString getCurrNodeDebugInfo();
