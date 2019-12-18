@@ -263,32 +263,6 @@ QString MainScene::currentGroupUuid()
     return mCurrGroupUuid.toString();
 }
 
-TermGroup *MainScene::getNearestNotPaintedGroup()
-{
-    TermGroup* nearestNotPaintedGroup = nullptr;
-
-    for (auto group : groupList) {
-        if (!group->needPaint())
-            continue;
-
-        if (nearestNotPaintedGroup == nullptr) {
-            nearestNotPaintedGroup = group;
-        } else {
-            auto nearGroupCenter = nearestNotPaintedGroup->getGroupRect().center();
-            auto currentGroupCenter = group->getGroupRect().center();
-            auto sceneViewCenter = sceneViewRect.center();
-
-            auto lineToNear = QLineF(nearGroupCenter, sceneViewCenter);
-            auto lineToCurrent = QLineF(currentGroupCenter, sceneViewCenter);
-            if (lineToCurrent.length() < lineToNear.length()) {
-                nearestNotPaintedGroup = group;
-            }
-        }
-    }
-
-    return nearestNotPaintedGroup;
-}
-
 bool MainScene::isAnyNodeSelected() {
     return getSelectedNode() != nullptr;
 }

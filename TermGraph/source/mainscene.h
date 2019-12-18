@@ -74,9 +74,6 @@ public slots:
     QString getCurrNodeNameAndDefinition();
     QString getCurrNodeHierarchyDefinition();
 
-
-    TermGroup* getNearestNotPaintedGroup();
-
     bool isAnyNodeSelected();
 
     // Drawing API
