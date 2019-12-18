@@ -48,12 +48,14 @@ public:
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
     Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode) // Read only. without notify
     Q_PROPERTY(QRectF sceneRect READ getSceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
+    Q_PROPERTY(QString currentGroup READ getCurrGroupUuid WRITE showGroup NOTIFY currentGroupChanged)
 
 signals:
     // Scene signals
     void selectionChanged();
     void selectionDoubleClick();
     void sceneContentUpdated();
+    void currentGroupChanged();
 
     void sceneRectChanged();
 

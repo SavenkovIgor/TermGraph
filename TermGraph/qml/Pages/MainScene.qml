@@ -118,7 +118,7 @@ M.Page {
             visible: {
                 let vis = groupsManager.hasAnyGroup;
                 vis = vis && currentPageOpened;
-                vis = vis && groupsManager.isEmptyGroup(scene.getCurrGroupUuid());
+                vis = vis && groupsManager.isEmptyGroup(scene.currentGroup);
                 return vis;
             }
         }

@@ -91,7 +91,7 @@ Drawer {
                 anchors.fill: parent
                 onClicked: {
                     drawer.close();
-                    scene.showGroup(modelData);
+                    scene.currentGroup = modelData;
                 }
             }
         }

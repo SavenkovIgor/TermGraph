@@ -212,7 +212,11 @@ void MainScene::showGroup(const QUuid& groupUuid)
     dropSelection(false);
     dropHover();
 
-    currGroupUuid = groupUuid;
+    if (currGroupUuid != groupUuid) {
+        currGroupUuid = groupUuid;
+        emit currentGroupChanged();
+    }
+
     updateModel();
     updateSceneRect();
     emit sceneContentUpdated();
@@ -290,11 +294,7 @@ QString MainScene::getCurrNodeHierarchyDefinition()
 
 QString MainScene::getCurrGroupUuid()
 {
-    if (groupList.isEmpty()) {
-        return "";
-    }
-
-    return groupList.first()->getUuid().toString();
+    return currGroupUuid.toString();
 }
 
 TermGroup *MainScene::getNearestNotPaintedGroup()

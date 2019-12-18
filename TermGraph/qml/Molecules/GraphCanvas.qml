@@ -24,7 +24,7 @@ Control {
             const groupsUuids = groupsManager.getAllUuidStringsSortedByLastEdit()
 
             if (groupsUuids.length !== 0) {
-                scene.showGroup(groupsUuids[0])
+                scene.currentGroup = groupsUuids[0];
             }
         }
 
