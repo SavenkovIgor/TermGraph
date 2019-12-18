@@ -48,7 +48,7 @@ MainScene::~MainScene()
 
 void MainScene::initAllGroups()
 {
-    QUuid loadGroup = currGroupUuid;
+    QUuid loadGroup = mCurrGroupUuid;
 
     if (loadGroup.isNull()) {
         auto allGroupsUuids = groupsMgr->getAllUuidsSortedByLastEdit();
@@ -101,7 +101,6 @@ void MainScene::updateModel()
     sceneRhytm.start();
     // startAllGroupTimers();
     updateSceneRect();
-    emit sceneContentUpdated();
 
     requestPaint(true);
     qDebug() << "model updated";
@@ -128,7 +127,7 @@ void MainScene::updateSceneRect()
     QRectF allRect;
 
     for (auto group : groupList) {
-        if (group->getUuid() != currGroupUuid) {
+        if (group->getUuid() != mCurrGroupUuid) {
             continue;
         }
 
@@ -197,12 +196,12 @@ void MainScene::dropHover()
     hoverNode = nullptr;
 }
 
-void MainScene::showGroup(const QString& groupUuid)
+void MainScene::setCurrentGroup(const QString& groupUuid)
 {
-    showGroup(QUuid(groupUuid));
+    setCurrentGroup(QUuid(groupUuid));
 }
 
-void MainScene::showGroup(const QUuid& groupUuid)
+void MainScene::setCurrentGroup(const QUuid& groupUuid)
 {
     QElapsedTimer groupChangeTimer;
     groupChangeTimer.start();
@@ -210,14 +209,13 @@ void MainScene::showGroup(const QUuid& groupUuid)
     dropSelection(false);
     dropHover();
 
-    if (currGroupUuid != groupUuid) {
-        currGroupUuid = groupUuid;
+    if (mCurrGroupUuid != groupUuid) {
+        mCurrGroupUuid = groupUuid;
         emit currentGroupChanged();
     }
 
     updateModel();
     updateSceneRect();
-    emit sceneContentUpdated();
 
     qDebug() << "Group changed in: " << groupChangeTimer.restart();
 }
@@ -287,9 +285,9 @@ QString MainScene::getCurrNodeHierarchyDefinition()
     return "";
 }
 
-QString MainScene::getCurrGroupUuid()
+QString MainScene::currentGroupUuid()
 {
-    return currGroupUuid.toString();
+    return mCurrGroupUuid.toString();
 }
 
 TermGroup *MainScene::getNearestNotPaintedGroup()

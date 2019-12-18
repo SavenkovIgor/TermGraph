@@ -62,8 +62,8 @@ M.Page {
         icon: StandardIcon.Question
 
         onYes: {
-            scene.deleteSelectedNode()
             root.StackView.view.pop();
+            scene.deleteSelectedNode();
         }
     }
 

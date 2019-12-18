@@ -192,9 +192,7 @@ M.Page {
         standardButtons: StandardButton.Yes | StandardButton.No
         icon: StandardIcon.Question
 
-        onYes: {
-            groupsManager.deleteGroup(groupsList.currentItem.groupUuid)
-        }
+        onYes: groupsManager.deleteGroup(groupsList.currentItem.groupUuid)
     }
 
     Drawer {

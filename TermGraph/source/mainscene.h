@@ -48,20 +48,21 @@ public:
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
     Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode) // Read only. without notify
     Q_PROPERTY(QRectF sceneRect READ getSceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
-    Q_PROPERTY(QString currentGroup READ getCurrGroupUuid WRITE showGroup NOTIFY currentGroupChanged)
+    Q_PROPERTY(QString currentGroup READ currentGroupUuid WRITE setCurrentGroup NOTIFY currentGroupChanged)
 
 signals:
     // Scene signals
     void selectionChanged();
     void selectionDoubleClick();
-    void sceneContentUpdated();
     void currentGroupChanged();
 
     void sceneRectChanged();
 
 public slots:
-    void showGroup(const QString& groupUuid);
-    void showGroup(const QUuid& groupUuid);
+    void setCurrentGroup(const QString& groupUuid);
+    void setCurrentGroup(const QUuid& groupUuid);
+    QString currentGroupUuid();
+
     void showAllGroups();
 
     void updateSceneRect();
@@ -78,7 +79,6 @@ public slots:
     QString getCurrNodeNameAndDefinition();
     QString getCurrNodeHierarchyDefinition();
 
-    QString getCurrGroupUuid();
 
     TermGroup* getNearestNotPaintedGroup();
 
@@ -130,7 +130,7 @@ private:
 
     // Groups fields
     QList<TermGroup*> groupList;
-    QUuid currGroupUuid;
+    QUuid mCurrGroupUuid;
 
     void initAllGroups();
     void addGroupToScene(TermGroup* group);
