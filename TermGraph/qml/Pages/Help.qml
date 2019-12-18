@@ -139,8 +139,8 @@ M.Page {
                 height: pin.height * 1.5
                 Rectangle {
                     id: pin
-                    width: Sizes.baseR75
-                    height: Sizes.baseR75
+                    width: Sizes.baseR75 * 0.75
+                    height: width
                     anchors.centerIn: parent
                     radius: width / 2
                     color: index === pageIndicator.currentIndex ? Colors.baseLight2 : Colors.black
