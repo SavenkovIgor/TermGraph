@@ -247,7 +247,7 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
                 nMaxDate = j;
             }
         }
-        groupSorting.swap(nMaxDate, i);
+        groupSorting.swapItemsAt(nMaxDate, i);
     }
 
     // Casting back to uuids only
@@ -262,9 +262,9 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
 QStringList GroupsManager::getAllUuidStringsSortedByLastEdit()
 {
     QStringList ret;
-    for (auto uuid : getAllUuidsSortedByLastEdit()) {
+    for (auto uuid : getAllUuidsSortedByLastEdit())
         ret << uuid.toString();
-    }
+
     return ret;
 }
 

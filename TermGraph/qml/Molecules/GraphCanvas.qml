@@ -21,7 +21,7 @@ Control {
 
         Component.onCompleted: {
             // Try to show first group
-            const groupsUuids = groupsManager.getAllUuidStringsSortedByLastEdit()
+            const groupsUuids = groupsManager.allUuidSorted;
 
             if (groupsUuids.length !== 0) {
                 scene.currentGroup = groupsUuids[0];

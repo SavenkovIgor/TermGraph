@@ -49,7 +49,7 @@ public slots:
 
     QStringList getAllGroupsNames(bool withAllVeiw = false);
     QList<QUuid> getAllUuidsSortedByLastEdit();
-    QStringList getAllUuidStringsSortedByLastEdit();
+
     QList <TermGroup*> getAllGroups();
 
     QString getGroupName(const QUuid& groupUuid) const;
@@ -76,6 +76,8 @@ public slots:
     QJsonDocument getGroupForExport(const QUuid& groupUuid);
 
 private:
+    QStringList getAllUuidStringsSortedByLastEdit();
+
     bool isValidGroupJson(const QJsonDocument json);
 
     TermGroup* createGroup(const QString &groupName);
