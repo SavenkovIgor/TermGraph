@@ -44,7 +44,7 @@ MainScene::~MainScene()
 
 void MainScene::initAllGroups()
 {
-    QUuid loadGroup = mCurrGroupUuid;
+    auto loadGroup = QUuid(currentGroupUuid());
 
     if (loadGroup.isNull()) {
         auto allGroupsUuids = groupsMgr->getAllUuidsSortedByLastEdit();
@@ -54,19 +54,14 @@ void MainScene::initAllGroups()
     }
 
     if (!loadGroup.isNull()) {
-        auto group = groupsMgr->createGroup(loadGroup);
-        setSceneGroup(group);
+        auto* group = groupsMgr->createGroup(loadGroup);
+        mCurrentGroup.reset(group);
     }
-}
-
-void MainScene::setSceneGroup(TermGroup* group)
-{
-    mCurrentGroup.reset(group);
 }
 
 void MainScene::updateModel()
 {
-    paintManager->addClearRect(getSceneRect(), true);
+    paintManager->addClearRect(sceneRect(), true);
     paintManager->clearAllQueues();
     mCurrentGroup.reset();
 
@@ -79,7 +74,6 @@ void MainScene::updateModel()
         mCurrentGroup->sceneUpdateSignal();
 
     locateGroupsVertically();
-
     updateSceneRect();
 
     requestPaint(true);
@@ -94,7 +88,6 @@ void MainScene::locateGroupsVertically()
     // Выставляем позиции групп
     auto  basePt = QPointF(40, 40);
     mCurrentGroup->setBasePoint(basePt);
-    updateSceneRect();
 }
 
 void MainScene::updateSceneRect()
@@ -151,15 +144,13 @@ PaintedTerm *MainScene::getSelectedNode()
     return selectedNode;
 }
 
-void MainScene::dropSelection(bool withSignal)
+void MainScene::dropSelection()
 {
     if (selectedNode != nullptr) {
         selectedNode->setSelection(false);
         selectedNode = nullptr;
-    }
-
-    if (withSignal)
         emit selectionChanged();
+    }
 }
 
 void MainScene::dropHover()
@@ -174,10 +165,7 @@ void MainScene::setCurrentGroup(const QString& groupUuid)
 
 void MainScene::setCurrentGroup(const QUuid& groupUuid)
 {
-    QElapsedTimer groupChangeTimer;
-    groupChangeTimer.start();
-
-    dropSelection(false);
+    dropSelection();
     dropHover();
 
     if (mCurrGroupUuid != groupUuid) {
@@ -186,15 +174,6 @@ void MainScene::setCurrentGroup(const QUuid& groupUuid)
     }
 
     updateModel();
-    updateSceneRect();
-
-    qDebug() << "Group changed in: " << groupChangeTimer.restart();
-}
-
-void MainScene::showAllGroups()
-{
-    locateGroupsVertically();
-    resetPaintFlags();
 }
 
 QString MainScene::getCurrNodeDebugInfo()
@@ -247,7 +226,7 @@ bool MainScene::isAnyNodeSelected() {
     return getSelectedNode() != nullptr;
 }
 
-QRectF MainScene::getSceneRect() const
+QRectF MainScene::sceneRect() const
 {
     return mSceneRect;
 }
@@ -355,7 +334,7 @@ void MainScene::requestPaint(bool paintAll)
 void MainScene::sendGroupsToPaintManager(bool requestPaint, bool paintAll)
 {
     if (paintAll)
-        paintManager->addClearRect(getSceneRect(), true);
+        paintManager->addClearRect(sceneRect(), true);
 
     if (mCurrentGroup)
         paintManager->addGroup(mCurrentGroup.get(), paintAll, false);

@@ -45,7 +45,7 @@ public:
 
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
     Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode) // Read only. without notify
-    Q_PROPERTY(QRectF sceneRect READ getSceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
+    Q_PROPERTY(QRectF sceneRect READ sceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
     Q_PROPERTY(QString currentGroup READ currentGroupUuid WRITE setCurrentGroup NOTIFY currentGroupChanged)
 
 signals:
@@ -61,8 +61,6 @@ public slots:
     void setCurrentGroup(const QUuid& groupUuid);
     QString currentGroupUuid();
 
-    void showAllGroups();
-
     void updateSceneRect();
     void centerViewOn(QPointF point);  // TODO: Realize!
 
@@ -77,7 +75,7 @@ public slots:
     bool isAnyNodeSelected();
 
     // Drawing API
-    QRectF getSceneRect() const;
+    QRectF sceneRect() const;
     void setSceneRect(const QRectF& newRect);
 
     QColor getSceneBackgroundColor() const;
@@ -111,7 +109,7 @@ private:
     PaintedTerm* selectedNode = nullptr;
 
     PaintedTerm* getSelectedNode();
-    void dropSelection(bool withSignal = true);
+    void dropSelection();
     void dropHover();
 
     void findHover(const QPointF& atPt);
@@ -124,7 +122,5 @@ private:
     QUuid mCurrGroupUuid;
 
     void initAllGroups();
-    void setSceneGroup(TermGroup* group);
-
     void locateGroupsVertically();
 };
