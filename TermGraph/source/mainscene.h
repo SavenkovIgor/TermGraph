@@ -41,7 +41,7 @@ class MainScene : public QObject
 
 public:
     MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager* paintManager);
-    ~MainScene();
+    ~MainScene() override = default;
 
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
     Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode) // Read only. without notify
@@ -121,6 +121,7 @@ private:
     QScopedPointer<TermGroup> mCurrentGroup;
     QUuid mCurrGroupUuid;
 
-    void initAllGroups();
+    void tryLoadLastEditedGroup();
+    void loadGroup(const QUuid& groupUuid);
     void locateGroupsVertically();
 };

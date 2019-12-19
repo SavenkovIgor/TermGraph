@@ -38,25 +38,19 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintMana
     this->paintManager = paintManager;
 }
 
-MainScene::~MainScene()
+void MainScene::tryLoadLastEditedGroup()
 {
+    auto groupUuid = groupsMgr->getLastEditedGroupUuid();
+
+    if (!groupUuid.isNull())
+        loadGroup(groupUuid);
 }
 
-void MainScene::initAllGroups()
+void MainScene::loadGroup(const QUuid& groupUuid)
 {
-    auto loadGroup = QUuid(currentGroupUuid());
-
-    if (loadGroup.isNull()) {
-        auto allGroupsUuids = groupsMgr->getAllUuidsSortedByLastEdit();
-        if (!allGroupsUuids.isEmpty()) {
-            loadGroup = allGroupsUuids.first();
-        }
-    }
-
-    if (!loadGroup.isNull()) {
-        auto* group = groupsMgr->createGroup(loadGroup);
-        mCurrentGroup.reset(group);
-    }
+    assert(!groupUuid.isNull());
+    auto* group = groupsMgr->createGroup(groupUuid);
+    mCurrentGroup.reset(group);
 }
 
 void MainScene::updateModel()
@@ -68,7 +62,12 @@ void MainScene::updateModel()
     hoverNode = nullptr;
     selectedNode = nullptr;
 
-    initAllGroups();
+    auto currGroupUuid = QUuid(currentGroupUuid());
+
+    if (!currGroupUuid.isNull())
+        loadGroup(currGroupUuid);
+    else
+        tryLoadLastEditedGroup();
 
     if (mCurrentGroup)
         mCurrentGroup->sceneUpdateSignal();

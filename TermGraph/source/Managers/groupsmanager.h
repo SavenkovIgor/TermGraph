@@ -49,6 +49,7 @@ public slots:
 
     QStringList getAllGroupsNames(bool withAllVeiw = false);
     QList<QUuid> getAllUuidsSortedByLastEdit();
+    QUuid        getLastEditedGroupUuid();
 
     QList <TermGroup*> getAllGroups();
 

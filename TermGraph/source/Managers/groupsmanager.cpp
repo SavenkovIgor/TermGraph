@@ -259,6 +259,15 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
     return ret;
 }
 
+QUuid GroupsManager::getLastEditedGroupUuid()
+{
+    auto allGroupsUuids = getAllUuidsSortedByLastEdit();
+    if (!allGroupsUuids.isEmpty())
+        return allGroupsUuids.first();
+
+    return QUuid();
+}
+
 QStringList GroupsManager::getAllUuidStringsSortedByLastEdit()
 {
     QStringList ret;
