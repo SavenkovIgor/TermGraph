@@ -43,6 +43,8 @@ public:
 
 signals:
     void groupsListChanged();
+    void groupAdded();
+    void groupDeleted();
 
 public slots:
     bool getHasAnyGroup() const;

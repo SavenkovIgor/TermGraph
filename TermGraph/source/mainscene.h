@@ -64,7 +64,6 @@ public slots:
     void updateSceneRect();
     void centerViewOn(QPointF point);  // TODO: Realize!
 
-    void updateModel();
     void deleteSelectedNode();
 
     NodeGadgetWrapper getCurrentNode();
@@ -76,7 +75,7 @@ public slots:
 
     // Drawing API
     QRectF sceneRect() const;
-    void setSceneRect(const QRectF& newRect);
+    void   setSceneRect(const QRectF& newRect);
 
     QColor getSceneBackgroundColor() const;
 
@@ -87,6 +86,13 @@ public slots:
 
     // For testing
     void createTestGroups();
+
+private slots:
+    void updateGroup();
+
+    // Groups modify reaction
+    void checkGroupAddition();
+    void checkGroupDeletion();
 
 private:
     // Timers
@@ -109,8 +115,8 @@ private:
     PaintedTerm* selectedNode = nullptr;
 
     PaintedTerm* getSelectedNode();
-    void dropSelection();
-    void dropHover();
+    void dropSelectedNode(bool sendSignal = true);
+    void dropHoveredNode();
 
     void findHover(const QPointF& atPt);
     void findClick(const QPointF& atPt);
@@ -119,9 +125,6 @@ private:
 
     // Groups fields
     QScopedPointer<TermGroup> mCurrentGroup;
-    QUuid mCurrGroupUuid;
 
-    void tryLoadLastEditedGroup();
-    void loadGroup(const QUuid& groupUuid);
-    void locateGroupsVertically();
+    void dropGroup();
 };

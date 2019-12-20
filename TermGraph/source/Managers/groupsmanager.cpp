@@ -112,6 +112,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
     if (Database::instance().groupTable->addGroup(info)) {
         updateGroupUuidNameMaps();
         emit groupsListChanged();
+        emit groupAdded();
     } else {
         NotificationManager::showError("Название группы не уникально");
     }
@@ -122,6 +123,7 @@ void GroupsManager::deleteGroup(QString uuidString)
     Database::instance().groupTable->deleteGroup(QUuid(uuidString));
     updateGroupUuidNameMaps();
     emit groupsListChanged();
+    emit groupDeleted();
 }
 
 void GroupsManager::importGroupFromJsonFile(const QString& filename)
@@ -309,6 +311,7 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     updateGroupUuidNameMaps();
     NotificationManager::showInfo(info.name + " synchronized");
     emit groupsListChanged();
+    emit groupAdded();
 }
 
 QString GroupsManager::getExportPath() const
