@@ -161,7 +161,7 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
     paintManager->clearAllQueues();
 
     dropHoveredNode();
-    dropSelectedNode(false);
+    dropSelectedNode();
 
     // Taking groupUuid from parameter or current groupUuid
     QUuid tmpGroupUuid = newGroup ? newGroupUuid : oldGroupUuid;
