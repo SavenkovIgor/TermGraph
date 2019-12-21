@@ -65,6 +65,7 @@ M.Page {
     Connections {
         target: scene
         onSelectionDoubleClick: nodeInfoButton.openTerm()
+        onCurrentGroupChanged: sceneView.moveToOrigin()
     }
 
     Component { id: newNodeComponent;    P.NewNode { } }
@@ -103,6 +104,11 @@ M.Page {
         contentHeight: sceneCanvas.height
 
         boundsBehavior: Flickable.StopAtBounds
+
+        function moveToOrigin() {
+            contentX = 0;
+            contentY = 0;
+        }
 
         M.GraphCanvas { id: sceneCanvas }
     }

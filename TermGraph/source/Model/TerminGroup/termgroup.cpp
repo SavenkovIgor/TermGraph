@@ -308,7 +308,7 @@ void TermGroup::setOrphCoords(qreal maxWidth)
                 nMax = j;
             }
         }
-        orphansList.swap(i, nMax);
+        orphansList.swapItemsAt(i, nMax);
     }
 
     qreal x = 0, y = 0;
