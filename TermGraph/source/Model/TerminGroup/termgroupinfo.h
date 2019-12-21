@@ -22,6 +22,7 @@
 #pragma once
 
 #include <stdlib.h>
+#include <functional>
 #include <QDebug>
 #include <QUuid>
 
@@ -46,6 +47,8 @@ public:
 
     // Edges tools
     EdgesList getAllEdges() const;
+    EdgesList filterFromEdgesList(std::function<bool(Edge*)> condition) const;
+    EdgesList getBrokenEdges() const;
     EdgesList getAllEdgesForPainting() const;
 
 protected:

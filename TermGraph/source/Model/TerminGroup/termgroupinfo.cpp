@@ -61,16 +61,37 @@ EdgesList TermGroupInfo::getAllEdges() const
     return edgesList;
 }
 
+EdgesList TermGroupInfo::filterFromEdgesList(std::function<bool(Edge*)> condition) const
+{
+    EdgesList ret;
+    for (auto* edge : getAllEdges()) {
+        if (condition(edge)) {
+            ret << edge;
+        }
+    }
+
+    return ret;
+}
+
+EdgesList TermGroupInfo::getBrokenEdges() const
+{
+    EdgesList ret;
+    for (auto* node : getAllNodes())
+        for (auto* edge : node->getBrokenEdges())
+            ret.push_back(dynamic_cast<Edge*>(edge));
+
+    return ret;
+}
+
 EdgesList TermGroupInfo::getAllEdgesForPainting() const
 {
     EdgesList lst;
-    lst << edgesList;
-    for (auto node : getAllNodes()) {
-        for (auto edge : node->getBrokenEdges()) {
-            auto castedEdge = dynamic_cast<Edge*>(edge);
-            lst << castedEdge;
-        }
-    }
+    auto      defaultTypeFilter  = [](Edge* e) { return e->selectedType() == EdgeSelected::none; };
+    auto      selectedTypeFilter = [](Edge* e) { return e->selectedType() != EdgeSelected::none; };
+
+    lst << filterFromEdgesList(defaultTypeFilter);
+    lst << filterFromEdgesList(selectedTypeFilter);
+    lst << getBrokenEdges();
     return lst;
 }
 

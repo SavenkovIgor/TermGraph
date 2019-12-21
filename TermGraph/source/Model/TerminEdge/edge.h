@@ -71,6 +71,8 @@ public:
     void brokeEdge();
     void cutOutFromSides();
 
+    EdgeSelected selectedType() const;
+
 private:
     EdgeSelected selected = EdgeSelected::none;
     EdgeType type = EdgeType::termin;

@@ -53,6 +53,11 @@ void Edge::cutOutFromSides()
     getLeaf()->removeEdgeToRoots(this);
 }
 
+EdgeSelected Edge::selectedType() const
+{
+    return selected;
+}
+
 Edge::Edge(PaintedTerm* from, PaintedTerm* to, EdgeType type) :
     GraphEdge(from, to)
 {
