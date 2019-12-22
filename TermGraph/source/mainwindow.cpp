@@ -70,9 +70,9 @@ MainWindow::MainWindow(QObject *parent):
     qmlEngine->load(QUrl("qrc:/main.qml"));
 }
 
-QString MainWindow::screenshotNameAndPath(const QString& groupUuid)
+QString MainWindow::screenshotFilePath(const QString& fileName)
 {
-    assert(!groupUuid.isEmpty());
+    assert(!fileName.isEmpty());
 
     QStringList checkPaths;
 
@@ -80,10 +80,8 @@ QString MainWindow::screenshotNameAndPath(const QString& groupUuid)
     checkPaths << QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation);
     checkPaths << QStandardPaths::standardLocations(QStandardPaths::DownloadLocation);
 
-    auto fileName = groupUuid + ".png";
-
     for (const auto& path : checkPaths) {
-        auto fullPath = path + "/" + fileName;
+        auto fullPath = path + "/" + fileName + ".png";
         if (FSWorks::createFile(fullPath)) {
             // If we can create such file we remove it and return path
             FSWorks::removeFile(fullPath);

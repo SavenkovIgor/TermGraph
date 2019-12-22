@@ -230,6 +230,11 @@ QString MainScene::currentGroupUuid()
     return mCurrentGroup ? mCurrentGroup->getUuid().toString() : "";
 }
 
+QString MainScene::currentGroupName()
+{
+    return mCurrentGroup ? mCurrentGroup->getName() : "";
+}
+
 bool MainScene::isAnyNodeSelected() {
     return getSelectedNode() != nullptr;
 }

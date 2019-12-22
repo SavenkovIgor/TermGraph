@@ -10,6 +10,19 @@ Control {
 
     background: Rectangle { color: scene.getSceneBackgroundColor() }
 
+    function makeScreenshot() {
+        grabToImage(function(result){
+            const groupName = scene.currentGroupName;
+            const name = mainObj.screenshotFilePath(groupName);
+            if (name !== "") {
+                result.saveToFile(name);
+                Notification.showInfo("Снимок группы создан. Путь:" + name);
+            } else {
+                Notification.showInfo("Снимок не создан((");
+            }
+        });
+    }
+
     contentItem: Canvas {
         id: root
 

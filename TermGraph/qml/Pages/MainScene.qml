@@ -157,22 +157,12 @@ M.Page {
 
     A.RoundButton {
         id: screenShotButton
-        icon.source: IconPath.share
         visible: false
-
         anchors { top: showGroupListButton.bottom; right: parent.right; margins: width / 2; }
 
-        onClicked: {
-            sceneCanvas.grabToImage(function(result){
-                const name = mainObj.screenshotNameAndPath("GroupName"); // TODO: Add group name
-                if (name !== "") {
-                    result.saveToFile(name);
-                    Notification.showInfo("Снимок группы создан. Путь:" + name);
-                } else {
-                    Notification.showInfo("Снимок не создан((");
-                }
-            });
-        }
+        icon.source: IconPath.share
+
+        onClicked: sceneCanvas.makeScreenshot()
     }
 
     A.RoundButton {

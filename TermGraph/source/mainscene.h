@@ -47,6 +47,7 @@ public:
     Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode) // Read only. without notify
     Q_PROPERTY(QRectF sceneRect READ sceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
     Q_PROPERTY(QString currentGroup READ currentGroupUuid WRITE setCurrentGroup NOTIFY currentGroupChanged)
+    Q_PROPERTY(QString currentGroupName READ currentGroupName NOTIFY currentGroupChanged)
 
 signals:
     // Scene signals
@@ -60,6 +61,7 @@ public slots:
     void setCurrentGroup(const QString& groupUuid);
     void setCurrentGroup(const QUuid& groupUuid);
     QString currentGroupUuid();
+    QString currentGroupName();
 
     void updateSceneRect();
     void centerViewOn(QPointF point);  // TODO: Realize!
