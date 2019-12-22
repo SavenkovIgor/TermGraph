@@ -120,7 +120,7 @@ M.Page {
         visible: true
 
         A.ToolTip {
-            text: "Добавить термин"
+            text: addNodeButton.action.text
             visible: {
                 let vis = groupsManager.hasAnyGroup;
                 vis = vis && currentPageOpened;
@@ -130,7 +130,7 @@ M.Page {
         }
 
         action: Action {
-            text: "AddNode"
+            text: "Добавить термин"
             shortcut: "Ctrl+n"
             icon.source: IconPath.plus
             enabled: root.currentPageOpened
@@ -138,7 +138,7 @@ M.Page {
                 if (groupsManager.hasAnyGroup) {
                     root.StackView.view.push(newNodeComponent)
                 } else {
-                    Notification.showWarning("Create group first!")
+                    Notification.showWarning("Нет групп для добавления вершин. Создайте группу!")
                     root.StackView.view.push(groupsListComponent)
                 }
             }
@@ -181,7 +181,7 @@ M.Page {
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
 
         action: Action {
-            text: "EditNode"
+            text: "Изменить вершину"
             icon.source: IconPath.pencil
             shortcut: "Ctrl+e"
             enabled: root.currentPageOpened

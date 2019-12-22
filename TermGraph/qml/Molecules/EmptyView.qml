@@ -55,7 +55,6 @@ Control {
             font: Fonts.capitalText
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
-            text: "Main text"
         }
 
         Text {
@@ -65,14 +64,12 @@ Control {
             font: Fonts.text
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
-            text: "Detailed text."
         }
 
         A.SquareButton {
             id: button
             width: implicitWidth
             Layout.alignment: Qt.AlignHCenter
-            text: "Button"
             onClicked: root.clicked()
         }
     }

@@ -155,9 +155,9 @@ ApplicationWindow {
             infoHideTimer.start()
         }
 
-        function showError(error)     { setTextAndOpen("Error: " + error);     }
-        function showWarning(warning) { setTextAndOpen("Warning: " + warning); }
-        function showInfo(info)       { setTextAndOpen("Info: " + info);       }
+        function showError(error)     { setTextAndOpen("Ошибка: " + error);     }
+        function showWarning(warning) { setTextAndOpen("Предупреждение: " + warning); }
+        function showInfo(info)       { setTextAndOpen("Информация: " + info);       }
 
         Connections {
             target: Notification
