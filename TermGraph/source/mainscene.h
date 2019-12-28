@@ -83,7 +83,6 @@ public slots:
 
     void resetPaintFlags();
 
-    void setMousePos(qreal x, qreal y);
     void setMouseClick(qreal x, qreal y);
 
     // For testing
@@ -113,14 +112,11 @@ private:
     QRectF sceneViewRect = QRectF(0, 0, 100, 100);
 
     // Mouse interaction
-    PaintedTerm* hoverNode = nullptr;
     PaintedTerm* selectedNode = nullptr;
 
     PaintedTerm* getSelectedNode();
     void dropSelectedNode(bool sendSignal = true);
-    void dropHoveredNode();
 
-    void findHover(const QPointF& atPt);
     void findClick(const QPointF& atPt);
 
     PaintedTerm* getNodeAtPoint(const QPointF& pt) const;

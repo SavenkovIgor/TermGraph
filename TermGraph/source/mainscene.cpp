@@ -42,7 +42,6 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintMana
 void MainScene::dropGroup()
 {
     dropSelectedNode();
-    dropHoveredNode();
 
     paintManager->addClearRect(sceneRect(), true);
     paintManager->clearAllQueues();
@@ -115,11 +114,6 @@ void MainScene::resetPaintFlags()
     mCurrentGroup->resetPaintFlags();
 }
 
-void MainScene::setMousePos(qreal x, qreal y)
-{
-    findHover(QPointF(x,y));
-}
-
 void MainScene::setMouseClick(qreal x, qreal y)
 {
     findClick(QPointF(x,y));
@@ -140,11 +134,6 @@ void MainScene::dropSelectedNode(bool sendSignal)
     }
 }
 
-void MainScene::dropHoveredNode()
-{
-    hoverNode = nullptr;
-}
-
 void MainScene::setCurrentGroup(const QString& groupUuid)
 {
     setCurrentGroup(QUuid(groupUuid));
@@ -160,7 +149,6 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
     paintManager->addClearRect(sceneRect(), true);
     paintManager->clearAllQueues();
 
-    dropHoveredNode();
     dropSelectedNode();
 
     // Taking groupUuid from parameter or current groupUuid
@@ -261,39 +249,6 @@ PaintedTerm* MainScene::getNodeAtPoint(const QPointF& pt) const
         return mCurrentGroup->getNodeAtPoint(pt);
 
     return nullptr;
-}
-
-void MainScene::findHover(const QPointF &atPt)
-{
-    if (mouseMoveReactionTimer.isActive()) {
-        return;
-    } else {
-        mouseMoveReactionTimer.start();
-    }
-
-    bool needSignal = false;
-
-    if (hoverNode != nullptr) {
-        if (!hoverNode->getNodeRect(CoordType::scene).contains(atPt)) {
-            hoverNode->setHover(false);
-            paintManager->addNode(hoverNode, false);
-            needSignal = true;
-            hoverNode = nullptr;
-        } else {
-            return;
-        }
-    }
-
-    if (auto node = getNodeAtPoint(atPt)) {
-        node->setHover(true);
-        hoverNode = node;
-        paintManager->addNode(node, false);
-        needSignal = true;
-    }
-
-    if (needSignal) {
-        paintManager->sendPaintNodeSignal();
-    }
 }
 
 void MainScene::findClick(const QPointF &atPt)

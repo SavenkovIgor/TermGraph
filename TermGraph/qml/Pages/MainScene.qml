@@ -81,20 +81,12 @@ M.Page {
         anchors.fill: sceneView
         hoverEnabled: true
 
-        onMouseXChanged: setPos()
-        onMouseYChanged: setPos()
-
         onClicked: {
             const pt = scenePt();
             scene.setMouseClick(pt.x, pt.y)
         }
 
         function scenePt() { return sceneMouse.mapToItem(sceneCanvas, mouseX, mouseY); }
-
-        function setPos() {
-            const pt = scenePt();
-            scene.setMousePos(pt.x, pt.y);
-        }
     }
 
     contentItem: Flickable {

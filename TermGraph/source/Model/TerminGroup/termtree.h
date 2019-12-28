@@ -69,8 +69,6 @@ public:
 
     PaintedTerm* getNodeAtPoint(const QPointF &pt) const;
 
-    void checkHover(QPointF mousePos);
-
     // Deletions
     TermTree(const TermTree&) = delete;
 

@@ -66,7 +66,6 @@ public:
     void resetPaintFlags();
 
     PaintedTerm* getNodeAtPoint(const QPointF &pt) const;
-    void setHover(QPointF mousePos);
 
 public slots:
     void checkSwap();

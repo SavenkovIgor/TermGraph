@@ -300,7 +300,7 @@ QColor PaintedTerm::getColor()
     QColor col = getBaseColor();
 
     if (someoneSelect) {
-        if (thisHovered || relativePaint || thisSelected) {
+        if (relativePaint || thisSelected) {
             col = getSelectedColor();
         } else {
             col.setAlpha(100);
@@ -412,14 +412,6 @@ QColor PaintedTerm::getSelectedColor()
 qreal PaintedTerm::getCornerRadius()
 {
     return cornerRadius;
-}
-
-void PaintedTerm::setHover(const bool& hovered)
-{
-    if (thisHovered != hovered) {
-        thisHovered = hovered;
-        needPaint = true;
-    }
 }
 
 void PaintedTerm::setSelection(const bool &selected)

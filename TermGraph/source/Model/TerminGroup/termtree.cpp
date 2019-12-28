@@ -159,14 +159,6 @@ PaintedTerm* TermTree::getNodeAtPoint(const QPointF& pt) const
     return nullptr;
 }
 
-void TermTree::checkHover(QPointF mousePos)
-{
-    for (auto node : getAllNodesInTree()) {
-        auto hovers = node->getNodeRect(CoordType::scene).contains(mousePos);
-        node->setHover(hovers);
-    }
-}
-
 void TermTree::addTerm(PaintedTerm* term)
 {
     int paintLayer = term->getPaintLevel();

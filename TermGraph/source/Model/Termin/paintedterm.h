@@ -37,7 +37,6 @@ class PaintedTerm : public GraphTerm, public GraphicItem
 {
 public:
     bool needPaint = true;  // Flag for placing in paintQueue
-    bool thisHovered = false;
     bool thisSelected = false;
 
     using List = QList<PaintedTerm*>;
@@ -81,7 +80,6 @@ public:
 
     qreal getCornerRadius();
 
-    void setHover(const bool& hovered);
     void setSelection(const bool& selected);
 
 protected:
