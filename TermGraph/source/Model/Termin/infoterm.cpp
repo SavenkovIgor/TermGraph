@@ -36,6 +36,7 @@ InfoTerm::InfoTerm(const NodeInfoContainer& info, QObject* parent)
     repNum = 0;
     atLearn = false;
     this->info = info;
+    cachedTermToLower = getTerm().toLower();
 }
 
 QUuid InfoTerm::getUuid() const
@@ -46,6 +47,11 @@ QUuid InfoTerm::getUuid() const
 QString InfoTerm::getTerm() const
 {
     return info.term;
+}
+
+const QString InfoTerm::getCachedLowerTerm() const
+{
+    return cachedTermToLower;
 }
 
 QUuid InfoTerm::getGroupUuid() const
@@ -192,5 +198,9 @@ QStringList InfoTerm::getDefinitionTags() const
     if (!error.isEmpty()) {
         qDebug() << getUuid().toString() << error;
     }
+
+    for (auto& tag : tags)
+        tag = tag.toLower();
+
     return tags;
 }

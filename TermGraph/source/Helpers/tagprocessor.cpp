@@ -172,29 +172,46 @@ int TagProcessor::getLevDistance(QStringView src, QStringView dst, int limit)
     return matrix[m][n];
 }
 
-std::pair<bool, int> TagProcessor::isTagCorrespondToTermName(QString termName, QString tag)  // TODO: Maybe refactor
+int TagProcessor::wordsCount(const QString& string)
 {
-    // To lower capital
-    termName = termName.toLower();
-    tag      = tag.toLower();
+    return string.count(' ') + 1;
+}
+
+bool TagProcessor::tagLengthSuitTerm(const QString& tag, const QString& termName)
+{
+    int wordsCountInTag = wordsCount(tag);
+    int maxWordDistance = 4 * wordsCountInTag;  // Magic numbers. Would be replaced further
+
+    auto stringSizeDiffer = std::abs(termName.size() - tag.size());
+    // No need to check. Term is not suit already
+    return stringSizeDiffer < maxWordDistance;
+}
+
+std::optional<int> TagProcessor::getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName)
+{
+    // For developing needs
+//    assert(termName == termName.toLower());
+//    assert(tag == tag.toLower());
 
     // Exact match
     if (termName.size() == tag.size() && termName == tag)
-        return std::pair(true, 0);
+        return 0;
 
-    int acceptableDistance = 4 * (termName.count(' ') + 1);  // Пропорционально количеству слов
-                                                             //    acceptableDistance = 4;
-    // TODO: Сделать защиту от формирования двухсторонних связей
-    // TODO: Найти способ вызывать функцию в mainScene addEdge
-    // TODO: Переделать так чтобы это было предложением а не обязательным действием
-    auto distance = TagProcessor::getLevDistance(termName, tag, acceptableDistance);
-    if (distance <= acceptableDistance) {
+    int wordsCountInTag = tag.count(' ') + 1;
+    int maxWordDistance = 4 * wordsCountInTag;
+
+    auto stringSizeDiffer = std::abs(termName.size() - tag.size());
+    if (stringSizeDiffer > maxWordDistance) // No need to check. Term is not suit already
+        return std::nullopt;
+
+    auto distance = TagProcessor::getLevDistance(termName, tag, maxWordDistance);
+    if (distance <= maxWordDistance) {
         if (termName.left(3) == tag.left(3)) {
-            return std::pair(true, distance);
+            return distance;
         }
     }
 
-    return std::pair(false, distance);
+    return std::nullopt;
 }
 
 bool TagProcessor::isValidCursor(const QString &str, int cursorPosition)

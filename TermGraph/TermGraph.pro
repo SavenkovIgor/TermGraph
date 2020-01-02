@@ -25,6 +25,7 @@ TEMPLATE = app
 CONFIG += c++17
 
 HEADERS += \
+    source/Helpers/globaltagcache.h \
     source/Helpers/platform.h \
     source/Managers/jsongroupinfocontainerparser.h \
     source/Managers/jsonnodeinfocontainerparser.h \
@@ -84,6 +85,7 @@ HEADERS += \
     source/Helpers/textprocessor.h
 
 SOURCES += \
+    source/Helpers/globaltagcache.cpp \
     source/Managers/jsongroupinfocontainerparser.cpp \
     source/Managers/jsonnodeinfocontainerparser.cpp \
     source/Managers/notificationmanager.cpp \

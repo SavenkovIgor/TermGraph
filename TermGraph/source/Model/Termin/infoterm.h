@@ -43,6 +43,7 @@ public:
 
     QUuid getUuid() const;
     QString getTerm() const;
+    const QString getCachedLowerTerm() const;
     QUuid getGroupUuid() const;
     QString getTermAndDefinition(bool decorated = false) const;
     QString getSmallName();  // Lazy
@@ -67,6 +68,8 @@ protected:
 
 private:
     NodeInfoContainer info;
+
+    QString cachedTermToLower;
 
     QString smallName = QString();  // То же самое название но ужатое до 2х строчек"
     QSizeF  nameSize = QSizeF();

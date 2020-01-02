@@ -22,6 +22,7 @@
 #include "termgroupinfo.h"
 
 #include "source/Helpers/helpstuff.h"
+#include "source/Helpers/globaltagcache.h"
 #include "source/Model/TerminGroup/groupnamecache.h"
 
 TermGroupInfo::TermGroupInfo(const GroupInfoContainer& info)
@@ -125,23 +126,11 @@ EdgesList TermGroupInfo::searchAllConnections()
 {
     EdgesList ret;
 
-    QMap<QString, PaintedTerm*> previousSearchCache;
-
-    auto nameCache = GroupNameCache(nodesList);
     // Compare everything with everything
     for (auto node : nodesList) {
         for (const auto& tag : node->getDefinitionTags()) {
-            auto* foundNode = previousSearchCache.value(tag, nullptr);
-
-            if (!foundNode)
-                foundNode = nameCache.getIfExist(tag);
-
-            if (!foundNode)
-                foundNode = getNearestNodeForTag(tag);
-
-            if (foundNode) {
-                if (auto edge = addNewEdge(foundNode, node)) {
-                    previousSearchCache.insert(tag, foundNode);
+            if (auto* foundNode = getNearestNodeForTag(tag)) {
+                if (auto* edge = addNewEdge(foundNode, node)) {
                     ret << edge;
                 }
             }
@@ -151,22 +140,35 @@ EdgesList TermGroupInfo::searchAllConnections()
     return ret;
 }
 
-PaintedTerm *TermGroupInfo::getNearestNodeForTag(const QString &tag)
+PaintedTerm* TermGroupInfo::getNearestNodeForTag(const QString& tag)
 {
     PaintedTerm* targetTerm = nullptr;
 
     int minDistance = 100000;
 
+    std::optional<int> optionalResult;
+
     for (auto node : nodesList) {
-        auto termName = node->getTerm();
+        auto termName = node->getCachedLowerTerm();
 
-        if (termName.size() == tag.size() && termName == tag)
-            return node;
+        if (!TagProcessor::tagLengthSuitTerm(tag, termName))
+            continue;
 
-        auto [match, distance] = TagProcessor::isTagCorrespondToTermName(termName, tag);
-        if (match) {
-            if (distance < minDistance) {
-                minDistance = distance;
+        auto cacheMatch = GlobalTagCache::instance().get(tag, termName);
+        if (cacheMatch) {
+            optionalResult = cacheMatch.value();
+        } else {
+            optionalResult = TagProcessor::getDistanceBetweenTagAndTerm(tag, termName);
+            GlobalTagCache::instance().add(tag, termName, optionalResult);
+        }
+
+        if (optionalResult) {
+
+            if (optionalResult.value() == 0) // Already best match, no need to count further
+                return node;
+
+            if (optionalResult.value() < minDistance) {
+                minDistance = optionalResult.value();
                 targetTerm  = node;
             }
         }

@@ -22,8 +22,8 @@
 #pragma once
 
 #include <functional>
+#include <optional>
 
-#include <QDebug>
 #include <QObject>
 #include <QString>
 #include <QStringView>
@@ -51,7 +51,9 @@ public:
 
     static int getLevDistance(QStringView src, QStringView dst, int limit = 100000);
 
-    static std::pair<bool, int> isTagCorrespondToTermName(QString termName, QString tag);
+    static int                wordsCount(const QString& string);
+    static bool               tagLengthSuitTerm(const QString& tag, const QString& termName);
+    static std::optional<int> getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName);
 
 public slots:
     static bool        isValidCursor(const QString& str, int cursorPosition);
