@@ -19,15 +19,33 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-const header      = Qt.font({ pixelSize: mainObj.getUiElementSize("appHeader"), weight: 30 });
-const inputLabel  = Qt.font({ pixelSize: mainObj.getUiElementSize("inputLabel") });
-const capitalText = Qt.font({ pixelSize: mainObj.getUiElementSize("capitalText") });
-const inputText   = Qt.font({ pixelSize: mainObj.getUiElementSize("inputText") });
-const text        = Qt.font({ pixelSize: mainObj.getUiElementSize("text") });
-const term        = Qt.font({ pixelSize: mainObj.getUiElementSize("text") * 0.75 });
+#pragma once
 
-function setWeight(font, weight) {
-    font.weight = weight;
-    return font;
-}
+#include <QObject>
+
+#include "source/Model/Termin/paintedterm.h"
+
+class TermNodeWrapper : public QObject
+{
+    Q_OBJECT
+
+public:
+    TermNodeWrapper(PaintedTerm* term, QObject* parent = nullptr);
+
+    Q_PROPERTY(QString term   READ term   CONSTANT)
+    Q_PROPERTY(QColor  color  READ color  NOTIFY colorChanged)
+    Q_PROPERTY(qreal   radius READ radius CONSTANT)
+    Q_PROPERTY(QRectF  rect   READ rect   CONSTANT)
+
+    QString term() const;
+    QColor  color() const;
+    qreal   radius() const;
+    QRectF  rect() const;
+
+signals:
+    void colorChanged();
+
+private:
+    PaintedTerm* mTerm;
+};
 

@@ -56,34 +56,31 @@ int PaintedTerm::getUpLevels([[maybe_unused]] int pLevel)  // TODO: check why pl
 
 void PaintedTerm::setRelatedPaintUp(bool val)
 {
-    for (auto node : getLeafNodes()) {
+    for (auto node : getLeafNodes())
         static_cast<PaintedTerm*>(node)->relativePaint = val;
-    }
 
-    for (auto d : getEdgesToLeafs()) {
-        auto edge = dynamic_cast<Edge*>(d);
-        edge->setSelectedForward(val);
-    }
+    for (auto* edge : getEdgesToLeafs())
+        dynamic_cast<Edge*>(edge)->setSelectedForward(val);
 
-    for (auto node : getLeafNodes()) {
+    for (auto node : getLeafNodes())
         static_cast<PaintedTerm*>(node)->setRelatedPaintUp(val);
-    }
+
+
+    emit colorChanged();
 }
 
 void PaintedTerm::setRelatedPaintDown(bool val)
 {
-    for (auto node : getRootNodes()) {
+    for (auto* node : getRootNodes())
         static_cast<PaintedTerm*>(node)->relativePaint = val;
-    }
 
-    for (auto d : getEdgesToRoots()) {
-        auto edge = dynamic_cast<Edge*>(d);
-        edge->setSelectedBackward(val);
-    }
+    for (auto* edge : getEdgesToRoots())
+        dynamic_cast<Edge*>(edge)->setSelectedBackward(val);
 
-    for (auto node : getRootNodes()) {
+    for (auto node : getRootNodes())
         static_cast<PaintedTerm*>(node)->setRelatedPaintDown(val);
-    }
+
+    emit colorChanged();
 }
 
 QLineF PaintedTerm::getRectLine(Qt::Edge side)
@@ -425,7 +422,14 @@ void PaintedTerm::setSelection(const bool &selected)
 
         setRelatedPaintDown(selected);
         setRelatedPaintUp(selected);
+
+        emit colorChanged();
     }
+}
+
+void PaintedTerm::colorChange()
+{
+    emit colorChanged();
 }
 
 bool PaintedTerm::isNearPoints(QPointF pt1, QPointF pt2, qreal dist) {

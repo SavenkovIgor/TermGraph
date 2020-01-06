@@ -20,6 +20,7 @@
  */
 
 #include "mainscene.h"
+#include "source/Managers/notificationmanager.h"
 
 MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager *paintManager)
 {
@@ -73,6 +74,18 @@ void MainScene::checkGroupDeletion()
     auto groupsUuids  = groupsMgr->getAllUuidsSortedByLastEdit();
     if (!groupsUuids.contains(currentGroup))
         dropGroup();
+}
+
+QList<TermNodeWrapper*> MainScene::getWrappedGroupNodes() const
+{
+    QList<TermNodeWrapper*> ret;
+    if (!mCurrentGroup)
+        return ret;
+
+    for (auto* node : mCurrentGroup->getAllNodes())
+        ret.push_back(new TermNodeWrapper(node));
+
+    return ret;
 }
 
 void MainScene::updateSceneRect()
@@ -131,7 +144,14 @@ void MainScene::dropSelectedNode(bool sendSignal)
         selectedNode = nullptr;
         if (sendSignal)
             emit selectionChanged();
+        updateColors();
     }
+}
+
+void MainScene::updateColors()
+{
+    for (auto* node : mCurrentGroup->getAllNodes())
+        node->colorChange();
 }
 
 void MainScene::setCurrentGroup(const QString& groupUuid)
@@ -170,6 +190,8 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
 
     if (newGroup)
         emit currentGroupChanged();
+
+    emit nodesChanged();
 }
 
 QString MainScene::getCurrNodeDebugInfo()
@@ -268,6 +290,7 @@ void MainScene::findClick(const QPointF &atPt)
     if (auto node = getNodeAtPoint(atPt)) {  // Click in other node
         node->setSelection(true);
         selectedNode = node;
+        updateColors();
     }
 
     requestPaint(true);

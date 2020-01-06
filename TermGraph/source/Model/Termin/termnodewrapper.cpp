@@ -19,15 +19,32 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-const header      = Qt.font({ pixelSize: mainObj.getUiElementSize("appHeader"), weight: 30 });
-const inputLabel  = Qt.font({ pixelSize: mainObj.getUiElementSize("inputLabel") });
-const capitalText = Qt.font({ pixelSize: mainObj.getUiElementSize("capitalText") });
-const inputText   = Qt.font({ pixelSize: mainObj.getUiElementSize("inputText") });
-const text        = Qt.font({ pixelSize: mainObj.getUiElementSize("text") });
-const term        = Qt.font({ pixelSize: mainObj.getUiElementSize("text") * 0.75 });
+#include "termnodewrapper.h"
 
-function setWeight(font, weight) {
-    font.weight = weight;
-    return font;
+TermNodeWrapper::TermNodeWrapper(PaintedTerm* term, QObject* parent) : QObject(parent)
+{
+    mTerm = term;
+    assert(mTerm != nullptr);
+    connect(mTerm, &PaintedTerm::colorChanged, this, &TermNodeWrapper::colorChanged);
+}
+
+QString TermNodeWrapper::term() const
+{
+    return mTerm->getSmallName();
+}
+
+QColor TermNodeWrapper::color() const
+{
+    return mTerm->getColor();
+}
+
+qreal TermNodeWrapper::radius() const
+{
+    return mTerm->getCornerRadius();
+}
+
+QRectF TermNodeWrapper::rect() const
+{
+    return mTerm->getNodeRect(CoordType::scene);
 }
 

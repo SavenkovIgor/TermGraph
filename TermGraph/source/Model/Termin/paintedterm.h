@@ -35,6 +35,7 @@
 // Has functions about paint color, positioning. This kind of stuff
 class PaintedTerm : public GraphTerm, public GraphicItem
 {
+    Q_OBJECT
 public:
     bool needPaint = true;  // Flag for placing in paintQueue
     bool thisSelected = false;
@@ -81,7 +82,10 @@ public:
     qreal getCornerRadius();
 
     void setSelection(const bool& selected);
+    void colorChange();
 
+signals:
+    void colorChanged();
 protected:
     // Geometry tools
     // --- Methods ---

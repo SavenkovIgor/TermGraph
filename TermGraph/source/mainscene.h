@@ -34,6 +34,7 @@
 #include "source/Helpers/fsworks.h"
 #include "source/Model/TerminGroup/termgroup.h"
 #include "source/Model/Termin/nodegadgetwrapper.h"
+#include "source/Model/Termin/termnodewrapper.h"
 
 class MainScene : public QObject
 {
@@ -48,12 +49,14 @@ public:
     Q_PROPERTY(QRectF sceneRect READ sceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
     Q_PROPERTY(QString currentGroup READ currentGroupUuid WRITE setCurrentGroup NOTIFY currentGroupChanged)
     Q_PROPERTY(QString currentGroupName READ currentGroupName NOTIFY currentGroupChanged)
+    Q_PROPERTY(QList<TermNodeWrapper*> nodes READ getWrappedGroupNodes NOTIFY nodesChanged)
 
 signals:
     // Scene signals
     void selectionChanged();
     void selectionDoubleClick();
     void currentGroupChanged();
+    void nodesChanged();
 
     void sceneRectChanged();
 
@@ -95,6 +98,8 @@ private slots:
     void checkGroupAddition();
     void checkGroupDeletion();
 
+    QList<TermNodeWrapper*> getWrappedGroupNodes() const;
+
 private:
     // Timers
     QTimer mouseMoveReactionTimer;
@@ -115,7 +120,8 @@ private:
     PaintedTerm* selectedNode = nullptr;
 
     PaintedTerm* getSelectedNode();
-    void dropSelectedNode(bool sendSignal = true);
+    void         dropSelectedNode(bool sendSignal = true);
+    void         updateColors();
 
     void findClick(const QPointF& atPt);
 
