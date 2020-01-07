@@ -43,9 +43,9 @@ TermGroup::~TermGroup()
 
 void TermGroup::initNewNodes()
 {
-    loadEdges(); // Hard
+    loadEdges();
     removeCycles();
-    removeExceedEdges(); // Hard
+    removeExceedEdges();
 
     baseRect = new RectGraphicItem(QPoint(0, 0), QSizeF(10.0, 10.0));
 

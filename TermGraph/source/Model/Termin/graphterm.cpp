@@ -297,19 +297,21 @@ void GraphTerm::checkForExceedEdges()
     }
 }
 
-bool GraphTerm::hasTermInRoots(GraphTerm* term)
+bool GraphTerm::hasTermInRoots(GraphTerm* targetTerm, QList<GraphTerm*>& visitList)
 {
-    if (term == this) {
+    if (visitList.isEmpty())
+        return false;
+
+    auto* currentTerm = visitList.takeFirst();
+
+    if (targetTerm == currentTerm)
         return true;
-    }
 
-    for (auto node : getRootNodes()) {
-        if (node->hasTermInRoots(term)) {
-            return true;
-        }
-    }
+    for (auto* rootNode : currentTerm->getRootNodes())
+        if (!visitList.contains(rootNode))
+            visitList.push_back(rootNode);
 
-    return false;
+    return hasTermInRoots(targetTerm, visitList);
 }
 
 GraphEdge *GraphTerm::findLongPathToNode(GraphTerm *node)
@@ -318,11 +320,13 @@ GraphEdge *GraphTerm::findLongPathToNode(GraphTerm *node)
 
         auto otherSideNode = edge->getOtherSide(this);
         // Ignore direct connection
-        if (otherSideNode == node) {
+        if (otherSideNode == node)
             continue;
-        }
 
-        if (otherSideNode->hasTermInRoots(node)) {
+        QList<GraphTerm*> visitList;
+        visitList.push_back(otherSideNode);
+
+        if (hasTermInRoots(node, visitList)) {
             return edge;
         }
     }

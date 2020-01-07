@@ -22,6 +22,7 @@
 #pragma once
 
 #include <QList>
+
 #include "source/Model/Termin/infoterm.h"
 #include "source/Model/TerminEdge/graphedge.h"
 #include "source/Helpers/handytypes.h"
@@ -103,7 +104,7 @@ private:
     int paintLevel = -1;
     unsigned int treeId = 0; // 0 = no value
 
-    bool hasTermInRoots(GraphTerm* term);
+    static bool hasTermInRoots(GraphTerm* term, QList<GraphTerm*>& visitList);
 
     GraphEdge *findLongPathToNode(GraphTerm* node);
 

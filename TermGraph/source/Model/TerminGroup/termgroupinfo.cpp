@@ -126,12 +126,28 @@ EdgesList TermGroupInfo::searchAllConnections()
 {
     EdgesList ret;
 
+    QMap<QString, PaintedTerm*> sameTagCache;
+
     // Compare everything with everything
     for (auto node : nodesList) {
         for (const auto& tag : node->getDefinitionTags()) {
-            if (auto* foundNode = getNearestNodeForTag(tag)) {
+            PaintedTerm* foundNode = nullptr;
+
+            if (!foundNode) {
+                // If we have same search earlier this cycle
+                auto sameTagIterator = sameTagCache.find(tag);
+
+                if (sameTagIterator != sameTagCache.end())
+                    foundNode = sameTagIterator.value();
+            }
+
+            if (!foundNode)
+                foundNode = getNearestNodeForTag(tag);
+
+            if (foundNode) {
                 if (auto* edge = addNewEdge(foundNode, node)) {
                     ret << edge;
+                    sameTagCache.insert(tag, foundNode);
                 }
             }
         }
