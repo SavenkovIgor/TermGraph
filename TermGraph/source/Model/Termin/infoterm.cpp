@@ -29,12 +29,8 @@
 #include "source/Helpers/tagprocessor.h"
 #include "source/Helpers/textprocessor.h"
 
-InfoTerm::InfoTerm(const NodeInfoContainer& info, QObject* parent)
-    : QObject(parent)
+InfoTerm::InfoTerm(const NodeInfoContainer& info)
 {
-    lastRepeatDate = QDate::currentDate();
-    repNum = 0;
-    atLearn = false;
     this->info = info;
     cachedTermToLower = getTerm().toLower();
 }
@@ -49,7 +45,7 @@ QString InfoTerm::getTerm() const
     return info.term;
 }
 
-const QString InfoTerm::getCachedLowerTerm() const
+QString InfoTerm::getCachedLowerTerm() const
 {
     return cachedTermToLower;
 }
@@ -105,84 +101,6 @@ QSizeF InfoTerm::getNameSize()
 NodeInfoContainer InfoTerm::infoContainer() const
 {
     return info;
-}
-
-bool InfoTerm::atLearning()
-{
-    return atLearn;
-}
-
-bool InfoTerm::needRemindToday()
-{
-    if (lastRepeatDate.addDays(getNextRepeatOffset(repNum)) <= QDate::currentDate()) {
-        return true;
-    }
-    return false;
-}
-
-bool InfoTerm::isRemindDateMissed()
-{
-    if (lastRepeatDate.addDays(getNextRepeatOffset(repNum)) < QDate::currentDate()) {
-        return true;
-    }
-    return false;
-}
-
-/*
-void TermInfo::setRemind(KnowLevel lvl)
-{
-    switch (lvl) {
-
-    case TermInfo::dontKnowLvl:
-        repNum = qBound(0,repNum-1,10);
-        break;
-
-    case TermInfo::remindLvl:
-        repNum = qBound(0,repNum+1,10);
-        break;
-
-    case TermInfo::wellRemindLvl:
-        repNum = qBound(0,repNum+2,10);
-        break;
-    }
-
-    lastRepeatDate = QDate::currentDate();
-    db->nodeTbl->setRemindNum(getUuid(), repNum, QDate::currentDate());
-}
-*/
-
-int InfoTerm::getRepNum() const
-{
-    return repNum;
-}
-
-// void TermInfo::swithcAtLearnVar()
-// {
-//     atLearn = !atLearn;
-//     db->nodeTbl->setAtLearn(getUuid().toString(),atLearn);
-// }
-
-int InfoTerm::getNextRepeatOffset(int lvl)
-{
-    return getLevelDaysFromBase( lvl + 1 ) - getLevelDaysFromBase( lvl );
-}
-
-int InfoTerm::getLevelDaysFromBase(int lvl)
-{
-    if (lvl <= 0) {
-        return 0;  // Варианты 0 и 1
-    }
-
-    if (lvl >= 10) {
-        return 512;  // 2^9
-    }
-
-    lvl--;
-    int ret = 1;
-    for (int i = 0; i < lvl; i++) {
-        ret *= 2;
-    }
-    return ret;
 }
 
 QString InfoTerm::getDefinition() const

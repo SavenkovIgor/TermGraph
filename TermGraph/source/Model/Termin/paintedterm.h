@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <QObject>
 #include <QList>
 #include <QMap>
 #include <QSqlRecord>
@@ -33,7 +34,7 @@
 
 // This class contains all info for paint Term somewhere
 // Has functions about paint color, positioning. This kind of stuff
-class PaintedTerm : public GraphTerm, public GraphicItem
+class PaintedTerm : public QObject, public GraphTerm, public GraphicItem
 {
     Q_OBJECT
 
@@ -45,6 +46,9 @@ class PaintedTerm : public GraphTerm, public GraphicItem
     QRectF  rect() const;
 
 public:
+    PaintedTerm(const NodeInfoContainer& info, QObject* parent = nullptr);
+    ~PaintedTerm() override = default;
+
     bool needPaint = true;  // Flag for placing in paintQueue
     bool thisSelected = false;
 
@@ -55,9 +59,6 @@ public:
     static bool someoneSelect;
 
     static QList<Qt::Edge> sides;
-
-    PaintedTerm(const NodeInfoContainer& info);
-    ~PaintedTerm() override = default;
 
     // Leveling tools
     int getUpLevels(int pLevel = -1);

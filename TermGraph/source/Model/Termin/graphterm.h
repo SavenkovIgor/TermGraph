@@ -93,7 +93,7 @@ public:
     void checkForExceedEdges();
 
 private:
-    List neighbourNodes;
+    GraphTerm::List neighbourNodes;
 
     GraphEdge::List edgesToOtherGroups;  // Пока никак не используются но будут.
     GraphEdge::List brokenEdges;  // Пока никак не используются но будут.
@@ -106,7 +106,7 @@ private:
 
     static bool hasTermInRoots(GraphTerm* term, QList<GraphTerm*>& visitList);
 
-    GraphEdge *findLongPathToNode(GraphTerm* node);
+    GraphEdge* findLongPathToNode(GraphTerm* node);
 
-    void fillAllParentsList(GraphTerm *searchNode, GraphTerm::List &lst);
+    void fillAllParentsList(GraphTerm* searchNode, GraphTerm::List& lst);
 };

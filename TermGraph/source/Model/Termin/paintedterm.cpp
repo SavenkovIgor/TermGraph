@@ -27,9 +27,8 @@ bool PaintedTerm::someoneSelect = false;
 const qreal PaintedTerm::verScale = 0.0200;
 QList<Qt::Edge> PaintedTerm::sides;
 
-PaintedTerm::PaintedTerm(const NodeInfoContainer& info)
-    : GraphTerm(info)
-    , GraphicItem()
+PaintedTerm::PaintedTerm(const NodeInfoContainer& info, QObject* parent)
+    : QObject(parent), GraphTerm(info), GraphicItem()
 {
     if (sides.isEmpty()) {
         sides << Qt::BottomEdge;

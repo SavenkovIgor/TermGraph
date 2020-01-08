@@ -21,47 +21,30 @@
 
 #pragma once
 
-#include <QObject>
+#include <QSizeF>
+#include <QString>
 
 #include "nodeinfocontainer.h"
-#include "source/databaseWorks/ndtbl.h"  // TODO: удаление почему то вызывает проблемы со сборкой
 
 // This class contains all "information" part of term, like name, definition and other...
-class InfoTerm : public QObject
+class InfoTerm
 {
-    Q_OBJECT
 public:
-    enum KnowLevel{
-        dontKnowLvl = 0,
-        remindLvl,
-        wellRemindLvl
-    };
-
-    explicit InfoTerm(const NodeInfoContainer& info, QObject* parent = nullptr);
+    explicit InfoTerm(const NodeInfoContainer& info);
     virtual ~InfoTerm() = default;
 //    bool isNull(); //TODO: Realize!
 
-    QUuid getUuid() const;
+    QUuid   getUuid() const;
     QString getTerm() const;
-    const QString getCachedLowerTerm() const;
-    QUuid getGroupUuid() const;
+    QString getCachedLowerTerm() const;
+    QUuid   getGroupUuid() const;
     QString getTermAndDefinition(bool decorated = false) const;
     QString getSmallName();  // Lazy
 
-    QString getDefinition() const;
+    QString     getDefinition() const;
     QStringList getDefinitionTags() const;
 
     NodeInfoContainer infoContainer() const;
-
-    // Learning
-    bool atLearning();
-//    void swithcAtLearnVar();
-
-    bool needRemindToday();
-    bool isRemindDateMissed();
-//    void setRemind(KnowLevel lvl);
-
-    int getRepNum() const;
 
 protected:
     QSizeF getNameSize();  // Lazy
@@ -70,15 +53,6 @@ private:
     NodeInfoContainer info;
 
     QString cachedTermToLower;
-
     QString smallName = QString();  // То же самое название но ужатое до 2х строчек"
     QSizeF  nameSize = QSizeF();
-
-    QDate lastRepeatDate;
-    int repNum = -1;
-    bool atLearn;
-
-    // Learning
-    int getNextRepeatOffset(int lvl);
-    int getLevelDaysFromBase(int lvl);
 };

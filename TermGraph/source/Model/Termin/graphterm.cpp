@@ -315,7 +315,7 @@ bool GraphTerm::hasTermInRoots(GraphTerm* targetTerm, QList<GraphTerm*>& visitLi
     return hasTermInRoots(targetTerm, visitList);
 }
 
-GraphEdge *GraphTerm::findLongPathToNode(GraphTerm *node)
+GraphEdge* GraphTerm::findLongPathToNode(GraphTerm* node)
 {
     for (auto edge : edgesToRoots) {
 
@@ -334,7 +334,7 @@ GraphEdge *GraphTerm::findLongPathToNode(GraphTerm *node)
     return nullptr;
 }
 
-void GraphTerm::fillAllParentsList(GraphTerm *searchNode, GraphTerm::List &lst)
+void GraphTerm::fillAllParentsList(GraphTerm* searchNode, GraphTerm::List& lst)
 {
     for (auto node : searchNode->getRootNodes()) {
         if (!lst.contains(node)) {

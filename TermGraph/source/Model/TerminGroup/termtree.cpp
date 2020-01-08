@@ -21,6 +21,8 @@
 
 #include "termtree.h"
 
+#include <QDebug>
+
 TermTree::TermTree()
 {
 //    qDebug() << "Create tree";

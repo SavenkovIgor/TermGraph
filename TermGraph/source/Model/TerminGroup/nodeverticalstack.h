@@ -22,6 +22,8 @@
 #pragma once
 
 #include <QList>
+#include <QPropertyAnimation>
+#include <QParallelAnimationGroup>
 
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminEdge/edge.h"

@@ -23,6 +23,7 @@
 
 #include <QObject>
 #include <QQueue>
+#include <QElapsedTimer>
 
 #include "source/Model/TerminGroup/termgroup.h"
 

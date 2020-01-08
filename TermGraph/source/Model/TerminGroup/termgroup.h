@@ -22,6 +22,7 @@
 #pragma once
 
 #include <QObject>
+#include <QTimer>
 
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/tagprocessor.h"

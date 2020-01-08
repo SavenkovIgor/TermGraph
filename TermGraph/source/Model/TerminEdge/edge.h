@@ -22,6 +22,8 @@
 #pragma once
 
 #include <QColor>
+#include <QPointF>
+#include <QLineF>
 
 #include "source/Model/TerminEdge/graphedge.h"
 #include "source/Model/Termin/paintedterm.h"
