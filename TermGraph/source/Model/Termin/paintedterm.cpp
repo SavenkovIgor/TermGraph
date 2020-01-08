@@ -40,6 +40,11 @@ PaintedTerm::PaintedTerm(const NodeInfoContainer& info)
     adjustRectSizeForName();
 }
 
+QRectF PaintedTerm::rect() const
+{
+    return getNodeRect(CoordType::scene);
+}
+
 int PaintedTerm::getUpLevels([[maybe_unused]] int pLevel)  // TODO: check why plevel unused
 {
     int ret = -1;

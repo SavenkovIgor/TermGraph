@@ -36,6 +36,14 @@
 class PaintedTerm : public GraphTerm, public GraphicItem
 {
     Q_OBJECT
+
+    Q_PROPERTY(QString term   READ getSmallName    CONSTANT)
+    Q_PROPERTY(QColor  color  READ getColor        NOTIFY colorChanged)
+    Q_PROPERTY(qreal   radius READ getCornerRadius CONSTANT)
+    Q_PROPERTY(QRectF  rect   READ rect            CONSTANT)
+
+    QRectF  rect() const;
+
 public:
     bool needPaint = true;  // Flag for placing in paintQueue
     bool thisSelected = false;

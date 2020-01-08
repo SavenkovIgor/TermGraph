@@ -33,7 +33,6 @@ HEADERS += \
     source/Managers/syncmanager.h \
     source/Model/Termin/nodegadgetwrapper.h \
     source/Model/Termin/nodeinfocontainer.h \
-    source/Model/Termin/termnodewrapper.h \
     source/Model/TerminGroup/groupgadgetwrapper.h \
     source/Model/TerminGroup/groupinfocontainer.h \
     source/Model/TerminGroup/groupnamecache.h \
@@ -92,7 +91,6 @@ SOURCES += \
     source/Managers/notificationmanager.cpp \
     source/Managers/syncmanager.cpp \
     source/Model/Termin/nodegadgetwrapper.cpp \
-    source/Model/Termin/termnodewrapper.cpp \
     source/Model/TerminGroup/groupgadgetwrapper.cpp \
     source/Model/TerminGroup/groupnamecache.cpp \
     source/databaseWorks/tools/dbtools.cpp \

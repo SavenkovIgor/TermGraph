@@ -77,16 +77,9 @@ void MainScene::checkGroupDeletion()
         dropGroup();
 }
 
-QList<TermNodeWrapper*> MainScene::getWrappedGroupNodes() const
+QList<PaintedTerm*> MainScene::getNodes() const
 {
-    QList<TermNodeWrapper*> ret;
-    if (!mCurrentGroup)
-        return ret;
-
-    for (auto* node : mCurrentGroup->getAllNodes())
-        ret.push_back(new TermNodeWrapper(node));
-
-    return ret;
+    return mCurrentGroup ? mCurrentGroup->getAllNodes() : PaintedTerm::List();
 }
 
 void MainScene::updateSceneRect()
