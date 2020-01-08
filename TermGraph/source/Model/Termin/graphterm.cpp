@@ -48,44 +48,45 @@ void GraphTerm::clearNeighboursList()
     neighbourNodes.clear();
 }
 
-bool GraphTerm::isRoot() {
+bool GraphTerm::isRoot() const
+{
     return getNodeType() == NodeType::root;
 }
 
-bool GraphTerm::isOrphan()
+bool GraphTerm::isOrphan() const
 {
     return getNodeType() == NodeType::orphan;
 }
 
-bool GraphTerm::isLeaf()
+bool GraphTerm::isLeaf() const
 {
     NodeType type = getNodeType();
     return type == NodeType::endLeaf || type == NodeType::middleLeaf;
 }
 
-bool GraphTerm::isInTree()
+bool GraphTerm::isInTree() const
 {
     return !isOrphan();
 }
 
-bool GraphTerm::hasConnections()
+bool GraphTerm::hasConnections() const
 {
-    return !( edgesToRoots.isEmpty() && edgesToLeafs.isEmpty() );
+    return !(edgesToRoots.isEmpty() && edgesToLeafs.isEmpty());
 }
 
-NodeType GraphTerm::getNodeType()
+NodeType GraphTerm::getNodeType() const
 {
-    if ( edgesToRoots.isEmpty()) {
+    if (edgesToRoots.isEmpty()) {
         if (edgesToLeafs.isEmpty()) {
-            return NodeType::orphan;      // Оба пустые
+            return NodeType::orphan;  // Both empty
         } else {
-            return NodeType::root;        // Вниз связей нет, вверх - есть
+            return NodeType::root;  // No connections down, has connections up
         }
     } else {
         if (edgesToLeafs.isEmpty()) {
-            return NodeType::endLeaf;     // Вниз есть, а вверх - нету
+            return NodeType::endLeaf;  // Has connections down, no connections up
         } else {
-            return NodeType::middleLeaf;  // Есть и вверх и вниз
+            return NodeType::middleLeaf;  // Has both connections, up and down
         }
     }
 }

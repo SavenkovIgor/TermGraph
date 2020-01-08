@@ -50,15 +50,15 @@ public:
     void addLayerNeighbours(GraphTerm::List neighboursList);
     void clearNeighboursList();
 
-    bool isRoot();
-    bool isOrphan();
-    bool isLeaf();
+    bool isRoot() const;
+    bool isOrphan() const;
+    bool isLeaf() const;
 
-    bool isInTree();
+    bool isInTree() const;
 
-    bool hasConnections();
+    bool hasConnections() const;
 
-    NodeType getNodeType();
+    NodeType getNodeType() const;
 
     QString getHierarchyDefinition();
 

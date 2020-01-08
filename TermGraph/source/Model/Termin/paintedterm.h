@@ -77,9 +77,9 @@ public:
     void dropSwap();
 
     // Color tools
-    QColor getColor();
+    QColor getColor() const;
 
-    qreal getCornerRadius();
+    qreal getCornerRadius() const;
 
     void setSelection(const bool& selected);
     void colorChange();
@@ -96,8 +96,8 @@ protected:
     bool relativePaint = false;
 
     // Color tools
-    QColor getBaseColor();
-    QColor getSelectedColor();
+    QColor getBaseColor() const;
+    QColor getSelectedColor() const;
 
 private:
     // Scene tools

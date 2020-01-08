@@ -292,7 +292,7 @@ void PaintedTerm::dropSwap()
     }
 }
 
-QColor PaintedTerm::getColor()
+QColor PaintedTerm::getColor() const
 {
     QColor col = getBaseColor();
 
@@ -386,7 +386,7 @@ PaintedTerm *PaintedTerm::getNearestRightNeigh()
     return ret;
 }
 
-QColor PaintedTerm::getBaseColor()
+QColor PaintedTerm::getBaseColor() const
 {
     switch (getNodeType()) {
     case NodeType::orphan: return AppStyle::Colors::Nodes::orphan;
@@ -396,7 +396,7 @@ QColor PaintedTerm::getBaseColor()
     }
 }
 
-QColor PaintedTerm::getSelectedColor()
+QColor PaintedTerm::getSelectedColor() const
 {
     switch (getNodeType()) {
     case NodeType::orphan: return AppStyle::Colors::Nodes::orphanSelected;
@@ -406,7 +406,7 @@ QColor PaintedTerm::getSelectedColor()
     }
 }
 
-qreal PaintedTerm::getCornerRadius()
+qreal PaintedTerm::getCornerRadius() const
 {
     return cornerRadius;
 }
