@@ -101,19 +101,19 @@ QString GraphTerm::getHierarchyDefinition()
 
     // Sorting parents list
     for (int i = 0; i < parentsList.size(); i++) {
-        int minIndex = i;
+        int maxIndex = i;
         for (int j = i + 1; j < parentsList.size(); j++) {
-            if (parentsList[minIndex]->paintLevel > parentsList[j]->paintLevel) {
-                minIndex = j;
+            if (parentsList[maxIndex]->paintLevel < parentsList[j]->paintLevel) {
+                maxIndex = j;
             }
         }
-        parentsList.swap(i, minIndex);
+        parentsList.swapItemsAt(i, maxIndex);
     }
 
     QStringList definitions;
-    for (auto node : parentsList) {
+
+    for (auto node : parentsList)
         definitions << node->getTermAndDefinition(true);
-    }
 
     // Add this definition
     definitions << getTermAndDefinition(true);
