@@ -82,8 +82,6 @@ public slots:
     QRectF sceneRect() const;
     void   setSceneRect(const QRectF& newRect);
 
-    QColor getSceneBackgroundColor() const;
-
     void resetPaintFlags();
 
     void setMouseClick(qreal x, qreal y);

@@ -64,11 +64,6 @@ public:
             inline static auto selectedAlt = QColor(220, 76, 29);
             inline static auto broken = Qt::red;
         };
-
-        class Scene {
-        public:
-            inline static auto background = QColor(51, 47, 48);
-        };
     };
 
     class Sizes {

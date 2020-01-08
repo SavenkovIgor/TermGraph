@@ -34,7 +34,7 @@ Control {
     height: scene.sceneRect.height
     width: scene.sceneRect.width
 
-    background: Rectangle { color: scene.getSceneBackgroundColor() }
+    background: Rectangle { color: Colors.base }
 
     Component.onCompleted: {
         // Try to show first group

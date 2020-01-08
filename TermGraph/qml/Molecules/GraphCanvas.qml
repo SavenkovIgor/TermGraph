@@ -23,13 +23,14 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "../Js/NodePaint.js" as JsPaint
+import "../Js/Colors.js" as Colors
 
 Control {
 
     height: scene.sceneRect.height
     width: scene.sceneRect.width
 
-    background: Rectangle { color: scene.getSceneBackgroundColor() }
+    background: Rectangle { color: Colors.base }
 
     function makeScreenshot() {
         grabToImage(function(result){

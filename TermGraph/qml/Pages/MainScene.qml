@@ -31,6 +31,7 @@ import "../Atoms" as A
 import "../Molecules" as M
 import "../Pages" as P
 import "../Js/IconPath.js" as IconPath
+import "../Js/Colors.js" as Colors
 
 M.Page {
     id: root
@@ -73,7 +74,7 @@ M.Page {
     Component { id: groupsListComponent; P.GroupsList { } }
     Component { id: termViewComponent;   P.TermView { } }
 
-    background: Rectangle { color: scene.getSceneBackgroundColor() }
+    background: Rectangle { color: Colors.base }
 
     MouseArea {
         id: sceneMouse

@@ -114,11 +114,6 @@ void MainScene::deleteSelectedNode()
     }
 }
 
-QColor MainScene::getSceneBackgroundColor() const
-{
-    return AppStyle::Colors::Scene::background;
-}
-
 void MainScene::resetPaintFlags()
 {
     if (!mCurrentGroup)
