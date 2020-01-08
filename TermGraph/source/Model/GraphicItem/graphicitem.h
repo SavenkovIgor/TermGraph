@@ -41,9 +41,6 @@ public:
     QPointF pos() const;
     QPointF scenePos() const;
 
-    // Z-value
-    void setZValue(const int& z);
-
 private:
     QPointF position;
     GraphicItem* parentItem = nullptr;

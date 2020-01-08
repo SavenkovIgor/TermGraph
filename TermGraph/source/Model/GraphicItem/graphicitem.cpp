@@ -61,8 +61,3 @@ QPointF GraphicItem::scenePos() const
 
     return position + parentItem->scenePos();
 }
-
-void GraphicItem::setZValue(const int &z)
-{
-    zValue = z;
-}
