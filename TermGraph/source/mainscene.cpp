@@ -22,7 +22,8 @@
 #include "mainscene.h"
 #include "source/Managers/notificationmanager.h"
 
-MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager *paintManager)
+MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager* paintManager, QObject* parent)
+    : QObject(parent)
 {
     mouseMoveReactionTimer.setInterval(static_cast<int>(1000/AppSettings::Scene::FPS));
     mouseMoveReactionTimer.setSingleShot(true);
