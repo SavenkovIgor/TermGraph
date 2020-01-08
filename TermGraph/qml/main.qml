@@ -144,15 +144,15 @@ ApplicationWindow {
         id: notifyDrawer
 
         width: window.width
-        height: infoLabel.height
+        height: Math.min(infoLabel.height, window.height * 0.8)
         interactive: position !== 0.0
         edge: Qt.BottomEdge
         dim: false
 
         function setTextAndOpen(text) {
-            infoLabel.text = text
-            notifyDrawer.open()
-            infoHideTimer.start()
+            infoLabel.text = text;
+            notifyDrawer.open();
+            infoHideTimer.start();
         }
 
         function showError(error)     { setTextAndOpen("Ошибка: " + error);     }
