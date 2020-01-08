@@ -145,7 +145,7 @@ ApplicationWindow {
 
         width: window.width
         height: infoLabel.height
-        interactive: false
+        interactive: position !== 0.0
         edge: Qt.BottomEdge
         dim: false
 
@@ -172,7 +172,9 @@ ApplicationWindow {
 
             text: ""
             readOnly: true
-            wrapMode: TextEdit.WordWrap
+            wrapMode: TextEdit.Wrap
+            leftPadding: width * 0.025
+            rightPadding: width * 0.025
 
             horizontalAlignment: Text.AlignHCenter
             font: Fonts.inputText
@@ -182,7 +184,10 @@ ApplicationWindow {
             id: infoHideTimer
             interval: 3000
             repeat: false
-            onTriggered: notifyDrawer.close()
+            onTriggered: {
+                if (infoLabel.lineCount == 1) // Auto close only if label is small
+                    notifyDrawer.close()
+            }
         }
     }
 
