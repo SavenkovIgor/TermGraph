@@ -24,7 +24,7 @@ const inputLabel  = Qt.font({ pixelSize: mainObj.getUiElementSize("inputLabel") 
 const capitalText = Qt.font({ pixelSize: mainObj.getUiElementSize("capitalText") });
 const inputText   = Qt.font({ pixelSize: mainObj.getUiElementSize("inputText") });
 const text        = Qt.font({ pixelSize: mainObj.getUiElementSize("text") });
-const term        = Qt.font({ pixelSize: mainObj.getUiElementSize("text") * 0.7 });
+const term        = Qt.font({ family: "Arial sans-serif", pointSize: 10 });
 
 function setWeight(font, weight) {
     font.weight = weight;
