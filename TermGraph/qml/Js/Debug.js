@@ -30,6 +30,17 @@ function properties(obj) {
     }
 }
 
+function propertiesStr(obj) {
+    let propValue;
+    let retStr = "";
+    for(let propName in obj) {
+        propValue = obj[propName]
+
+        retStr += propName + ":" + propValue + "\n";
+    }
+    return retStr;
+}
+
 function geometry(obj) {
     print("(%1 %2) [%3 %4]".arg(obj.x).arg(obj.y).arg(obj.width).arg(obj.height))
 }
