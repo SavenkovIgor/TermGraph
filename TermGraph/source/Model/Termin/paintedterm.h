@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include <cmath>
+
 #include <QObject>
 #include <QList>
 #include <QMap>

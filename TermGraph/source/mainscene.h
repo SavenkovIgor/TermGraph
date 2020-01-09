@@ -25,6 +25,7 @@
 
 #include <QObject>
 #include <QClipboard>
+#include <QQmlListProperty>
 
 #include "source/Managers/paintqueuemanager.h"
 #include "source/Managers/groupsmanager.h"
@@ -47,7 +48,7 @@ public:
     Q_PROPERTY(QRectF sceneRect READ sceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
     Q_PROPERTY(QString currentGroup READ currentGroupUuid WRITE setCurrentGroup NOTIFY currentGroupChanged)
     Q_PROPERTY(QString currentGroupName READ currentGroupName NOTIFY currentGroupChanged)
-    Q_PROPERTY(QList<PaintedTerm*> nodes READ getNodes NOTIFY nodesChanged)
+    Q_PROPERTY(QQmlListProperty<PaintedTerm> nodes READ getNodes NOTIFY nodesChanged)
 
 signals:
     // Scene signals
@@ -61,8 +62,8 @@ signals:
 public slots:
     void setCurrentGroup(const QString& groupUuid);
     void setCurrentGroup(const QUuid& groupUuid);
-    QString currentGroupUuid();
-    QString currentGroupName();
+    QString currentGroupUuid() const;
+    QString currentGroupName() const;
 
     void updateSceneRect();
     void centerViewOn(QPointF point);  // TODO: Realize!
@@ -74,7 +75,7 @@ public slots:
     QString getCurrNodeNameAndDefinition();
     QString getCurrNodeHierarchyDefinition();
 
-    bool isAnyNodeSelected();
+    bool isAnyNodeSelected() const;
 
     // Drawing API
     QRectF sceneRect() const;
@@ -94,7 +95,7 @@ private slots:
     void checkGroupAddition();
     void checkGroupDeletion();
 
-    QList<PaintedTerm*> getNodes() const;
+    QQmlListProperty<PaintedTerm> getNodes();
 
 private:
     // Timers
@@ -114,7 +115,7 @@ private:
     // Mouse interaction
     PaintedTerm* selectedNode = nullptr;
 
-    PaintedTerm* getSelectedNode();
+    PaintedTerm* getSelectedNode() const;
     void         dropSelectedNode(bool sendSignal = true);
     void         updateColors();
 
@@ -124,6 +125,12 @@ private:
 
     // Groups fields
     QScopedPointer<TermGroup> mCurrentGroup;
+
+    // For qml nodes list property
+    int                 termCount() const;
+    PaintedTerm*        term(int index) const;
+    static int          termCount(QQmlListProperty<PaintedTerm>* list);
+    static PaintedTerm* term(QQmlListProperty<PaintedTerm>* list, int i);
 
     void dropGroup();
 };

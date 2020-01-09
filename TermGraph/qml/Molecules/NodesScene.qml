@@ -23,6 +23,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 
 import "../Atoms" as A
+
 import "../Js/Fonts.js" as Fonts
 import "../Js/Colors.js" as Colors
 import "../Js/NodePaint.js" as JsPaint
@@ -49,7 +50,6 @@ Control {
         Canvas {
             id: lineCanvas
             anchors.fill: parent
-            z: 1
 
             renderStrategy: Canvas.Cooperative
             renderTarget: Canvas.Image

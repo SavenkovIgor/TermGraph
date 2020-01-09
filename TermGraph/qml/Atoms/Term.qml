@@ -13,8 +13,6 @@ Rectangle {
     width: rect.width
     height: rect.height
 
-    z: 2
-
     border { width: 1; color: Colors.black; }
 
     Text {

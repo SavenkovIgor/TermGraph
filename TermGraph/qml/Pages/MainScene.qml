@@ -103,7 +103,7 @@ M.Page {
             contentY = 0;
         }
 
-        M.GraphCanvas { id: sceneCanvas }
+        M.NodesScene { id: sceneCanvas }
     }
 
     A.RoundButton {
