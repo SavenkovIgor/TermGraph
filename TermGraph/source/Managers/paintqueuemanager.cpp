@@ -21,11 +21,6 @@
 
 #include "paintqueuemanager.h"
 
-void PaintManager::sendPaintNodeSignal()
-{
-    emit paintNodeQueue();
-}
-
 void PaintManager::sendPaintGroupSignal()
 {
     emit paintGroupQueue();
@@ -59,7 +54,6 @@ void PaintManager::clearAllQueues()
 {
     groupRectsForPaint.clear();
     groupNamesForPaint.clear();
-    nodesForPaint.clear();
     edgesForPaint.clear();
 }
 
@@ -79,17 +73,6 @@ void PaintManager::addGroup(TermGroup *group, bool ignoreNeedPaintFlag, bool pai
         }
     }
 
-    for (auto node : group->getAllNodes()) {
-        if (ignoreNeedPaintFlag) {
-            nodesForPaint.enqueue(node);
-        } else {
-            if (node->needPaint) {
-                nodesForPaint.enqueue(node);
-                node->needPaint = false;
-            }
-        }
-    }
-
     if (paintNow) {
         emit paintGroupQueue();
     }
@@ -98,14 +81,6 @@ void PaintManager::addGroup(TermGroup *group, bool ignoreNeedPaintFlag, bool pai
 void PaintManager::addRect(const QRectF &rect, const QColor &color)
 {
     groupRectsForPaint.enqueue(QPair<QRectF, QColor>(rect, color));
-}
-
-void PaintManager::addNode(PaintedTerm* node, bool paintNow)
-{
-    nodesForPaint.enqueue(node);
-    if (paintNow) {
-        emit paintNodeQueue();
-    }
 }
 
 void PaintManager::nextGroupRect()
@@ -179,41 +154,6 @@ QPointF PaintManager::currentLastEdgePoint() const
     auto pt = paintedTerm->scenePos();
     pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
     return pt;
-}
-
-void PaintManager::nextNode()
-{
-    nodesForPaint.dequeue();
-}
-
-bool PaintManager::nodeQueueEmpty() const
-{
-    return nodesForPaint.isEmpty();
-}
-
-qreal PaintManager::currentNodeRadius() const
-{
-    return nodesForPaint.head()->getCornerRadius();
-}
-
-QRectF PaintManager::currentNodeRect() const
-{
-    return nodesForPaint.head()->getNodeRect(CoordType::scene);
-}
-
-QPointF PaintManager::currentNodeCenter() const
-{
-    return nodesForPaint.head()->getNodeRect(CoordType::scene).center();
-}
-
-QColor PaintManager::currentNodeColor() const
-{
-    return nodesForPaint.head()->getColor();
-}
-
-QString PaintManager::currentNodeText() const
-{
-    return nodesForPaint.head()->getSmallName();
 }
 
 void PaintManager::setPaintInProcessFlag(bool paintNow)

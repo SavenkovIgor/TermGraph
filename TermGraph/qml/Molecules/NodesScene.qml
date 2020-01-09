@@ -46,6 +46,19 @@ Control {
         }
     }
 
+    function makeScreenshot() {
+        grabToImage(function(result){
+            const groupName = scene.currentGroupName;
+            const name = mainObj.screenshotFilePath(groupName);
+            if (name !== "") {
+                result.saveToFile(name);
+                Notification.showInfo("Снимок группы создан. Путь:" + name);
+            } else {
+                Notification.showInfo("Снимок не создан((");
+            }
+        });
+    }
+
     contentItem: Item {
         Canvas {
             id: lineCanvas
@@ -57,7 +70,6 @@ Control {
             Connections {
                 target: paintManager
                 onPaintGroupQueue: lineCanvas.requestPaint()
-                onPaintNodeQueue:  lineCanvas.requestPaint()
             }
 
             onPaint: {

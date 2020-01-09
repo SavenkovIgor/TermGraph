@@ -92,11 +92,6 @@ void TermGroup::loadNodes(PaintedTerm::List newNodes)
 
 bool TermGroup::needPaint() const
 {
-    for (auto node : getAllNodes()) {
-        if (node->needPaint)
-            return true;
-    }
-
     for (auto edge : getAllEdges()) {
         if (edge->needPaint)
             return true;
@@ -107,9 +102,6 @@ bool TermGroup::needPaint() const
 
 void TermGroup::resetPaintFlags()
 {
-    for (auto node : getAllNodes())
-        node->needPaint = true;
-
     for (auto edge : getAllEdges())
         edge->needPaint = true;
 }

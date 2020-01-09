@@ -51,7 +51,6 @@ public:
     PaintedTerm(const NodeInfoContainer& info, QObject* parent = nullptr);
     ~PaintedTerm() override = default;
 
-    bool needPaint = true;  // Flag for placing in paintQueue
     bool thisSelected = false;
 
     using List = QList<PaintedTerm*>;

@@ -35,12 +35,10 @@ public:
     PaintManager() = default;
     ~PaintManager() = default;
 
-    void sendPaintNodeSignal();
     void sendPaintGroupSignal();
 
 signals:
     void paintGroupQueue();
-    void paintNodeQueue();
 
 public slots:
     // Clear functions
@@ -53,7 +51,6 @@ public slots:
     void clearAllQueues();
     void addGroup(TermGroup* group, bool ignoreNeedPaintFlag = false, bool paintNow = true);
     void addRect(const QRectF& rect, const QColor& color = Qt::white);
-    void addNode(PaintedTerm* node, bool paintNow = true);
 
     // GroupRects
     void nextGroupRect();
@@ -77,16 +74,6 @@ public slots:
     QPointF currentFirstEdgePoint() const;
     QPointF currentLastEdgePoint() const;
 
-    // Nodes
-    void nextNode();
-    bool nodeQueueEmpty() const;
-
-    qreal currentNodeRadius() const;
-    QRectF currentNodeRect() const;
-    QPointF currentNodeCenter() const;
-    QColor currentNodeColor() const;
-    QString currentNodeText() const;
-
     // Flags
     void setPaintInProcessFlag(bool paintNow);
     bool isPaintInProcessNow() const;
@@ -99,11 +86,10 @@ private:
     bool paintInProcessFlag = false;
 
     // Paint queues
-    QQueue <QRectF> clearPaintArea;
-    QQueue < QPair<QRectF, QColor> > groupRectsForPaint;
-    QQueue < QPair<QPointF, QString> > groupNamesForPaint;
-    QQueue <PaintedTerm*> nodesForPaint;
-    QQueue <Edge*> edgesForPaint;
+    QQueue<QRectF>                   clearPaintArea;
+    QQueue<QPair<QRectF, QColor>>    groupRectsForPaint;
+    QQueue<QPair<QPointF, QString>>  groupNamesForPaint;
+    QQueue<Edge*>                    edgesForPaint;
 
     // Timer
     QElapsedTimer paintSpeedTimer;
