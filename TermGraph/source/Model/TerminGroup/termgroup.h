@@ -68,6 +68,8 @@ public:
 
     PaintedTerm* getNodeAtPoint(const QPointF &pt) const;
 
+    void checkColors(bool init = false);
+
 public slots:
     void checkSwap();
 

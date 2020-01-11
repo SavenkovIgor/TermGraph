@@ -133,14 +133,14 @@ void MainScene::dropSelectedNode(bool sendSignal)
         selectedNode = nullptr;
         if (sendSignal)
             emit selectionChanged();
-        updateColors();
+        checkGroupColors();
     }
 }
 
-void MainScene::updateColors()
+void MainScene::checkGroupColors()
 {
-    for (auto* node : mCurrentGroup->getAllNodes())
-        node->colorChange();
+    if (mCurrentGroup)
+        mCurrentGroup->checkColors();
 }
 
 void MainScene::setCurrentGroup(const QString& groupUuid)
@@ -306,7 +306,7 @@ void MainScene::findClick(const QPointF &atPt)
     if (auto node = getNodeAtPoint(atPt)) {  // Click in other node
         node->setSelection(true);
         selectedNode = node;
-        updateColors();
+        checkGroupColors();
     }
 
     requestPaint(true);

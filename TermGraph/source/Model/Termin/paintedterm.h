@@ -41,7 +41,7 @@ class PaintedTerm : public QObject, public GraphTerm, public GraphicItem
     Q_OBJECT
 
     Q_PROPERTY(QString term   READ getSmallName    CONSTANT)
-    Q_PROPERTY(QColor  color  READ getColor        NOTIFY colorChanged)
+    Q_PROPERTY(QColor  color  READ color        NOTIFY colorChanged)
     Q_PROPERTY(qreal   radius READ getCornerRadius CONSTANT)
     Q_PROPERTY(QRectF  rect   READ rect            CONSTANT)
 
@@ -86,16 +86,17 @@ public:
     void setSwap(QPointF toPt);
     void dropSwap();
 
-    // Color tools
-    QColor getColor() const;
-
     qreal getCornerRadius() const;
 
     void setSelection(const bool& selected);
-    void colorChange();
+
+    // Color tools
+    void initColor();
+    void checkColor();
 
 signals:
     void colorChanged();
+
 protected:
     // Geometry tools
     // --- Methods ---
@@ -105,11 +106,10 @@ protected:
     // Hovers
     bool relativePaint = false;
 
-    // Color tools
-    QColor getBaseColor() const;
-    QColor getSelectedColor() const;
-
 private:
+    QSizeF nodeSize = QSizeF(40.0, 10.0);
+    QColor mColor;
+
     // Scene tools
     static bool isNearPoints(QPointF pt1, QPointF pt2, qreal dist);
 
@@ -129,7 +129,10 @@ private:
     // Paint / Animation
     qreal newPosOffset = 0.0;
 
-    QSizeF nodeSize = QSizeF(40.0, 10.0);
+    // Color tools
+    QColor color() const;
+    QColor expectedColor() const;
+    static QColor baseColor(NodeType type, bool selected);
 
     qreal cornerRadius = 0;
     void updateCornerRadius();

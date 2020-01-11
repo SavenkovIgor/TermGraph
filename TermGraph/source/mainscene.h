@@ -117,7 +117,7 @@ private:
 
     PaintedTerm* getSelectedNode() const;
     void         dropSelectedNode(bool sendSignal = true);
-    void         updateColors();
+    void         checkGroupColors();
 
     void findClick(const QPointF& atPt);
 

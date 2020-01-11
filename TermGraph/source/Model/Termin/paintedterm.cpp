@@ -69,8 +69,7 @@ void PaintedTerm::setRelatedPaintUp(bool val)
     for (auto node : getLeafNodes())
         static_cast<PaintedTerm*>(node)->setRelatedPaintUp(val);
 
-
-    emit colorChanged();
+    checkColor();
 }
 
 void PaintedTerm::setRelatedPaintDown(bool val)
@@ -84,7 +83,7 @@ void PaintedTerm::setRelatedPaintDown(bool val)
     for (auto node : getRootNodes())
         static_cast<PaintedTerm*>(node)->setRelatedPaintDown(val);
 
-    emit colorChanged();
+    checkColor();
 }
 
 QLineF PaintedTerm::getRectLine(Qt::Edge side)
@@ -296,13 +295,19 @@ void PaintedTerm::dropSwap()
     }
 }
 
-QColor PaintedTerm::getColor() const
+QColor PaintedTerm::color() const
 {
-    QColor col = getBaseColor();
+    return mColor;
+}
+
+QColor PaintedTerm::expectedColor() const
+{
+    auto   nodeType = getNodeType();
+    QColor col = baseColor(nodeType, false);
 
     if (someoneSelect) {
         if (relativePaint || thisSelected) {
-            col = getSelectedColor();
+            col = baseColor(nodeType, true);
         } else {
             col.setAlpha(100);
         }
@@ -390,23 +395,17 @@ PaintedTerm *PaintedTerm::getNearestRightNeigh()
     return ret;
 }
 
-QColor PaintedTerm::getBaseColor() const
+QColor PaintedTerm::baseColor(NodeType type, bool selected)
 {
-    switch (getNodeType()) {
-    case NodeType::orphan: return AppStyle::Colors::Nodes::orphan;
-    case NodeType::root: return AppStyle::Colors::Nodes::root;
-    case NodeType::endLeaf: return AppStyle::Colors::Nodes::leaf;
-    case NodeType::middleLeaf: return AppStyle::Colors::Nodes::leaf;
-    }
-}
-
-QColor PaintedTerm::getSelectedColor() const
-{
-    switch (getNodeType()) {
-    case NodeType::orphan: return AppStyle::Colors::Nodes::orphanSelected;
-    case NodeType::root: return AppStyle::Colors::Nodes::rootSelected;
-    case NodeType::endLeaf: return AppStyle::Colors::Nodes::leafSelected;
-    case NodeType::middleLeaf: return AppStyle::Colors::Nodes::leafSelected;
+    switch (type) {
+    case NodeType::orphan:
+        return selected ? AppStyle::Colors::Nodes::orphanSelected : AppStyle::Colors::Nodes::orphan;
+    case NodeType::root:
+        return selected ? AppStyle::Colors::Nodes::rootSelected : AppStyle::Colors::Nodes::root;
+    case NodeType::endLeaf:
+        return selected ? AppStyle::Colors::Nodes::leafSelected : AppStyle::Colors::Nodes::leaf;
+    case NodeType::middleLeaf:
+        return selected ? AppStyle::Colors::Nodes::leafSelected : AppStyle::Colors::Nodes::leaf;
     }
 }
 
@@ -426,13 +425,22 @@ void PaintedTerm::setSelection(const bool &selected)
         setRelatedPaintDown(selected);
         setRelatedPaintUp(selected);
 
-        emit colorChanged();
+        checkColor();
     }
 }
 
-void PaintedTerm::colorChange()
+void PaintedTerm::initColor()
 {
-    emit colorChanged();
+    mColor = expectedColor();
+}
+
+void PaintedTerm::checkColor()
+{
+    auto expColor = expectedColor();
+    if (expColor != mColor) {
+        mColor = expColor;
+        emit colorChanged();
+    }
 }
 
 bool PaintedTerm::isNearPoints(QPointF pt1, QPointF pt2, qreal dist) {

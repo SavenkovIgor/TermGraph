@@ -180,13 +180,13 @@ unsigned int GraphTerm::getTreeId() const
 
 void GraphTerm::addEdgeRef(GraphEdge *edge)
 {
-    if (edge->getRoot() == this && edge->getLeaf() != this) {  // We are source - connection up
+    // We are source - connection up
+    if (edge->getRoot() == this && edge->getLeaf() != this)
         edgesToLeafs << edge;
-    }
 
-    if (edge->getLeaf() == this && edge->getRoot() != this) {  // We are acceptor - connection down
+    // We are acceptor - connection down
+    if (edge->getLeaf() == this && edge->getRoot() != this)
         edgesToRoots << edge;
-    }
 }
 
 bool GraphTerm::isInGroupEdge(GraphEdge *edge)

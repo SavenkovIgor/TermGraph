@@ -126,7 +126,7 @@ EdgesList TermGroupInfo::searchAllConnections()
 {
     EdgesList ret;
 
-    // Fill info about exact terms match into map
+    // Pre-heating of cache with exact terms match
     QMap<QString, PaintedTerm*> previousTagSearchCache = getExactTermMatchCache();
 
     // Compare everything with everything
