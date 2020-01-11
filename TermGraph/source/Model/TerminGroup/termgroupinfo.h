@@ -93,6 +93,7 @@ private:
 
     // Edge connections search
     EdgesList searchAllConnections();
+    QMap<QString, PaintedTerm*> getExactTermMatchCache();
     PaintedTerm* getNearestNodeForTag(const QString& tag);
 
     EdgesList suggestConnections();  // TODO: Realize!

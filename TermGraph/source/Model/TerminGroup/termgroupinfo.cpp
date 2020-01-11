@@ -126,20 +126,17 @@ EdgesList TermGroupInfo::searchAllConnections()
 {
     EdgesList ret;
 
-    QMap<QString, PaintedTerm*> sameTagCache;
+    // Fill info about exact terms match into map
+    QMap<QString, PaintedTerm*> previousTagSearchCache = getExactTermMatchCache();
 
     // Compare everything with everything
     for (auto node : nodesList) {
         for (const auto& tag : node->getDefinitionTags()) {
             PaintedTerm* foundNode = nullptr;
 
-            if (!foundNode) {
-                // If we have same search earlier this cycle
-                auto sameTagIterator = sameTagCache.find(tag);
-
-                if (sameTagIterator != sameTagCache.end())
-                    foundNode = sameTagIterator.value();
-            }
+            // If we have same search earlier this cycle
+            if (!foundNode)
+                foundNode = previousTagSearchCache.value(tag, nullptr);
 
             if (!foundNode)
                 foundNode = getNearestNodeForTag(tag);
@@ -147,11 +144,21 @@ EdgesList TermGroupInfo::searchAllConnections()
             if (foundNode) {
                 if (auto* edge = addNewEdge(foundNode, node)) {
                     ret << edge;
-                    sameTagCache.insert(tag, foundNode);
+                    previousTagSearchCache.insert(tag, foundNode);
                 }
             }
         }
     }
+
+    return ret;
+}
+
+QMap<QString, PaintedTerm*> TermGroupInfo::getExactTermMatchCache()
+{
+    QMap<QString, PaintedTerm*> ret;
+
+    for (auto* node : nodesList)
+        ret.insert(node->getCachedLowerTerm(), node);
 
     return ret;
 }
