@@ -123,7 +123,7 @@ M.Page {
         }
 
         action: Action {
-            text: "Добавить термин"
+            text: "Добавить\nтермин"
             shortcut: "Ctrl+n"
             icon.source: IconPath.plus
             enabled: root.currentPageOpened

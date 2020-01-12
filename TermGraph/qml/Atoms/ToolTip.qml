@@ -34,6 +34,8 @@ ToolTip {
         text: root.text
         font: Fonts.text
         color: Colors.whiteDisabled
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
     }
 
     background: Rectangle {
