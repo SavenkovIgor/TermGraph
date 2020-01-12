@@ -135,6 +135,7 @@ SOURCES += \
     source/Helpers/textprocessor.cpp
 
 RESOURCES += \
+    helpImages/helpImages.qrc \
     icons/icons.qrc \
     qml/qml.qrc
 
