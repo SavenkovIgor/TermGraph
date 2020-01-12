@@ -162,33 +162,33 @@ M.Page {
             M.TagEditorArea {
                 id: termDefin
                 Layout.fillWidth: true
-                labelText: "Определение"
+                labelText: "Определение:"
                 placeholderText: "- это"
             }
 
             M.TextArea {
                 id: termDescr
                 Layout.fillWidth: true
-                labelText : "Описание"
+                labelText : "Описание:"
             }
 
             M.TextArea {
                 id: termExampl
                 Layout.fillWidth: true
-                labelText: "Примеры"
+                labelText: "Примеры:"
             }
 
             M.TextField {
                 visible: false
                 Layout.fillWidth: true
-                labelText: "Ссылка на Wiki статью"
+                labelText: "Ссылка на Wiki статью:"
                 placeholderText: "http://"
             }
 
             M.TextField {
                 visible: false
                 Layout.fillWidth: true
-                labelText: "Ссылка на Wiki изображение"
+                labelText: "Ссылка на Wiki изображение:"
                 placeholderText: "http://"
             }
 
