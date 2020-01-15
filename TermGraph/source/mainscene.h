@@ -54,10 +54,9 @@ public:
     Q_INVOKABLE void selectTerm(const QUuid& nodeUuid);
     Q_INVOKABLE QString getTermName(const QString& termUuid);
     Q_INVOKABLE QStringList search(const QString& text);
-    Q_INVOKABLE void        moveTo(const QString& termUuid);
-    Q_INVOKABLE void        moveTo(QPointF point);
     Q_INVOKABLE void deleteSelectedTerm();
 
+    Q_INVOKABLE QPointF getTermPosition(const QString& termUuid) const;
     Q_INVOKABLE QString getCurrNodeDebugInfo();
 
 signals:
@@ -69,12 +68,9 @@ signals:
 
     void sceneRectChanged();
 
-    void showPt(QPointF pt);
-
 public slots:
     void setCurrentGroup(const QString& groupUuid);
     void setCurrentGroup(const QUuid& groupUuid);
-
 
     QString getCurrNodeNameAndDefinition();
     QString getCurrNodeHierarchyDefinition();
@@ -116,7 +112,7 @@ private:
     void         selectTerm(PaintedTerm* term);
     void         dropTermSelection();
 
-    PaintedTerm*      findNode(const QUuid& nodeUuid);
+    PaintedTerm*      findNode(const QUuid& nodeUuid) const;
     NodeGadgetWrapper getCurrentNode();
     void              checkGroupColors();
 

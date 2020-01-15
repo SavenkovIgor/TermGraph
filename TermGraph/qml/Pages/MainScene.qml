@@ -67,9 +67,8 @@ M.Page {
 
     Connections {
         target: scene
-        onSelectionDoubleClick: nodeInfoButton.openTerm()
+        onSelectionDoubleClick: nodeInfoAction.trigger()
         onCurrentGroupChanged: sceneView.moveToOrigin()
-        onShowPt: sceneView.pointToCenter(pt)
     }
 
     Component { id: newNodeComponent;    P.NewNode { } }
@@ -140,7 +139,9 @@ M.Page {
         y: 0
         width: txtField.width
         onSelected: {
-            scene.moveTo(nodeUuid);
+            let pt = scene.getTermPosition(nodeUuid);
+            scene.selectTerm(nodeUuid);
+            sceneView.pointToCenter(pt);
         }
     }
 
@@ -259,6 +260,7 @@ M.Page {
         visible: false
 
         action: Action {
+            id: nodeInfoAction
             icon.source: IconPath.info
             shortcut: "Ctrl+i"
             onTriggered: {

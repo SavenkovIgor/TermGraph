@@ -237,7 +237,7 @@ int TermGroup::getAnimSpeed()
 
 UuidList TermGroup::search(const QString& text, int limit)
 {
-    QString                  localText = text;
+    QString                  localText = text.toLower();
     QList<QPair<int, QUuid>> searchResults;
     // Taking distances
     for (auto* node : getAllNodes()) {

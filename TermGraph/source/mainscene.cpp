@@ -127,26 +127,20 @@ QStringList MainScene::search(const QString& text)
     return ret;
 }
 
-void MainScene::moveTo(const QString& nodeUuid)
-{
-    if (auto* node = findNode(QUuid(nodeUuid))) {
-        auto centerPt = node->getCenter(CoordType::scene);
-        selectTerm(node);
-        moveTo(centerPt);
-    }
-}
-
-void MainScene::moveTo(QPointF point)
-{
-    emit showPt(point);
-}
-
 void MainScene::deleteSelectedTerm()
 {
     if (auto* node = getSelectedTerm()) {
         dropTermSelection();
         nodesMgr->deleteNode(node->getUuid());
     }
+}
+
+QPointF MainScene::getTermPosition(const QString& termUuid) const
+{
+    if (auto* node = findNode(QUuid(termUuid)))
+        return node->getCenter(CoordType::scene);
+
+    return QPointF();
 }
 
 void MainScene::resetPaintFlags()
@@ -167,7 +161,7 @@ PaintedTerm* MainScene::getSelectedTerm() const
     return selectedTerm;
 }
 
-PaintedTerm* MainScene::findNode(const QUuid& nodeUuid)
+PaintedTerm* MainScene::findNode(const QUuid& nodeUuid) const
 {
     if (!mCurrentGroup)
         return nullptr;
@@ -192,6 +186,7 @@ void MainScene::selectTerm(PaintedTerm* term)
 
         emit selectionChanged();
         checkGroupColors();
+        requestPaint(true);
     }
 }
 
@@ -367,8 +362,6 @@ void MainScene::findClick(const QPointF &atPt)
         selectTerm(node);
     else
         dropTermSelection();
-
-    requestPaint(true);
 }
 
 void MainScene::createTestGroups()
