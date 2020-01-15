@@ -34,6 +34,7 @@ A.PageHeader {
 
     property Page page: undefined
     property alias title: titleLabel.text
+    property alias titleVisible: titleLabel.visible
     property alias burgerState: burgerButton.buttonState
 
     BurgerButton {
