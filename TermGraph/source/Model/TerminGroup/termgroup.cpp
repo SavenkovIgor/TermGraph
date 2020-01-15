@@ -21,6 +21,8 @@
 
 #include "termgroup.h"
 
+#include "source/Helpers/tagprocessor.h"
+
 int TermGroup::animSpeed = 300;
 
 TermGroup::TermGroup(const GroupInfoContainer& info, QObject* parent)
@@ -108,7 +110,7 @@ void TermGroup::resetPaintFlags()
         edge->needPaint = true;
 }
 
-PaintedTerm *TermGroup::getNodeAtPoint(const QPointF& pt) const
+PaintedTerm *TermGroup::getNode(const QPointF& pt) const
 {
     for (auto tree : trees) {
         if (tree->getTreeRect(CoordType::scene).contains(pt)) {
@@ -124,6 +126,15 @@ PaintedTerm *TermGroup::getNodeAtPoint(const QPointF& pt) const
             }
         }
     }
+
+    return nullptr;
+}
+
+PaintedTerm *TermGroup::getNode(const QUuid nodeUuid) const
+{
+    for (auto* node : getAllNodes())
+        if (node->getUuid() == nodeUuid)
+            return node;
 
     return nullptr;
 }
@@ -222,6 +233,36 @@ void TermGroup::setAnimSpeed(int val)
 int TermGroup::getAnimSpeed()
 {
     return animSpeed;
+}
+
+UuidList TermGroup::search(const QString& text, int limit)
+{
+    QString                  localText = text;
+    QList<QPair<int, QUuid>> searchResults;
+    // Taking distances
+    for (auto* node : getAllNodes()) {
+        auto optResult = TagProcessor::getDistanceBetweenTagAndTerm(localText, node->getCachedLowerTerm());
+        if (optResult)
+            searchResults << QPair(optResult.value(), node->getUuid());
+    }
+
+    // Sorting
+    auto order = [](const QPair<int, QUuid>& s1, const QPair<int, QUuid>& s2) { return s1.first < s2.first; };
+    std::sort(searchResults.begin(), searchResults.end(), order);
+
+    // Removing numbers
+    UuidList ret;
+    int      count = 0;
+    for (auto [dist, uuid] : searchResults) {
+        if (count >= limit)
+            break;
+
+        ret.push_back(uuid);
+
+        count++;
+    }
+
+    return ret;
 }
 
 void TermGroup::setBasePoint(QPointF pt)

@@ -30,6 +30,8 @@ import Notification 1.0
 import "../Atoms" as A
 import "../Molecules" as M
 import "../Pages" as P
+
+import "../Js/Fonts.js" as Fonts
 import "../Js/IconPath.js" as IconPath
 import "../Js/Colors.js" as Colors
 
@@ -67,6 +69,7 @@ M.Page {
         target: scene
         onSelectionDoubleClick: nodeInfoButton.openTerm()
         onCurrentGroupChanged: sceneView.moveToOrigin()
+        onShowPt: sceneView.pointToCenter(pt)
     }
 
     Component { id: newNodeComponent;    P.NewNode { } }
@@ -75,6 +78,71 @@ M.Page {
     Component { id: termViewComponent;   P.TermView { } }
 
     background: Rectangle { color: Colors.base }
+
+    header: M.DefaultHeader {
+        id: header
+        title: root.title
+        titleVisible: !searchBtn.checked
+        page: root
+        onOpenMainMenu: root.openMainMenu()
+
+        TextField {
+            id : txtField
+            Layout.fillWidth: true
+            font: Fonts.inputText
+            selectByMouse: true
+
+            onTextChanged: {
+                searchResult.model = scene.search(text);
+                searchResult.open();
+            }
+
+            color: Colors.white
+            placeholderTextColor: Colors.whiteDisabled
+            placeholderText: "Поиск"
+            visible: searchBtn.checked
+
+            onFocusChanged: {
+                if (!focus)
+                    closeSearch();
+            }
+
+            Keys.onEscapePressed: closeSearch()
+
+            onVisibleChanged: {
+                if (visible)
+                    forceActiveFocus();
+            }
+
+
+            function closeSearch() {
+                searchResult.close();
+                searchBtn.checked = false;
+            }
+        }
+
+        A.ToolButton {
+            id: searchBtn
+
+            action: Action {
+                text: "Поиск"
+                shortcut: "Ctrl+F"
+                icon.source: IconPath.magnifyingGlass
+                checkable: true
+            }
+        }
+    }
+
+    M.SearchResults {
+        id: searchResult
+
+        x: txtField.x
+        y: 0
+        width: txtField.width
+        onSelected: {
+            scene.moveTo(nodeUuid);
+        }
+    }
 
     MouseArea {
         id: sceneMouse
@@ -99,8 +167,17 @@ M.Page {
         boundsBehavior: Flickable.StopAtBounds
 
         function moveToOrigin() {
-            contentX = 0;
-            contentY = 0;
+            moveToPoint(Qt.point(0.0, 0.0))
+        }
+
+        function moveToPoint(pt) {
+            contentX = pt.x;
+            contentY = pt.y;
+        }
+
+        function pointToCenter(pt) {
+            contentX = pt.x - sceneView.width / 2;
+            contentY = pt.y - sceneView.height / 2;
         }
 
         M.NodesScene { id: sceneCanvas }
@@ -178,21 +255,15 @@ M.Page {
 
     A.RoundButton {
         id : nodeInfoButton
-        icon.source: IconPath.info
+        anchors { right: editNodeButton.left; bottom: parent.bottom; margins: width / 2; }
         visible: false
 
-        anchors { right: editNodeButton.left; bottom: parent.bottom; margins: width / 2; }
-
-        Shortcut {
-            sequence: "Ctrl+i"
-            onActivated: nodeInfoButton.openTerm()
-        }
-
-        onClicked: openTerm()
-
-        function openTerm() {
-            if (scene.hasSelection) {
-                root.StackView.view.push(termViewComponent)
+        action: Action {
+            icon.source: IconPath.info
+            shortcut: "Ctrl+i"
+            onTriggered: {
+                if (scene.hasSelection)
+                    root.StackView.view.push(termViewComponent)
             }
         }
     }

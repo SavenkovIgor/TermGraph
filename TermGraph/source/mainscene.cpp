@@ -41,9 +41,20 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintMana
     this->paintManager = paintManager;
 }
 
+void MainScene::selectTerm(const QString& nodeUuid)
+{
+    selectTerm(QUuid(nodeUuid));
+}
+
+void MainScene::selectTerm(const QUuid& nodeUuid)
+{
+    if (auto* node = findNode(nodeUuid))
+        selectTerm(node);
+}
+
 void MainScene::dropGroup()
 {
-    dropSelectedNode();
+    dropTermSelection();
 
     paintManager->addClearRect(sceneRect(), true);
     paintManager->clearAllQueues();
@@ -95,15 +106,45 @@ void MainScene::updateSceneRect()
     setSceneRect(baseRc);
 }
 
-void MainScene::centerViewOn(QPointF point)
+QString MainScene::getTermName(const QString& termUuid)
 {
+    if (auto* node = findNode(QUuid(termUuid)))
+        return node->getTerm();
 
+    return "";
 }
 
-void MainScene::deleteSelectedNode()
+QStringList MainScene::search(const QString& text)
 {
-    if (auto* node = getSelectedNode()) {
-        dropSelectedNode();
+    QStringList ret;
+
+    if (mCurrentGroup) {
+        auto resultUuids = mCurrentGroup->search(text);
+        for (auto uuid : resultUuids)
+            ret << uuid.toString();
+    }
+
+    return ret;
+}
+
+void MainScene::moveTo(const QString& nodeUuid)
+{
+    if (auto* node = findNode(QUuid(nodeUuid))) {
+        auto centerPt = node->getCenter(CoordType::scene);
+        selectTerm(node);
+        moveTo(centerPt);
+    }
+}
+
+void MainScene::moveTo(QPointF point)
+{
+    emit showPt(point);
+}
+
+void MainScene::deleteSelectedTerm()
+{
+    if (auto* node = getSelectedTerm()) {
+        dropTermSelection();
         nodesMgr->deleteNode(node->getUuid());
     }
 }
@@ -121,20 +162,42 @@ void MainScene::setMouseClick(qreal x, qreal y)
     findClick(QPointF(x,y));
 }
 
-PaintedTerm* MainScene::getSelectedNode() const
+PaintedTerm* MainScene::getSelectedTerm() const
 {
-    return selectedNode;
+    return selectedTerm;
 }
 
-void MainScene::dropSelectedNode(bool sendSignal)
+PaintedTerm* MainScene::findNode(const QUuid& nodeUuid)
 {
-    if (selectedNode != nullptr) {
-        selectedNode->setSelection(false);
-        selectedNode = nullptr;
-        if (sendSignal)
-            emit selectionChanged();
+    if (!mCurrentGroup)
+        return nullptr;
+
+    return mCurrentGroup->getNode(nodeUuid);
+}
+
+void MainScene::selectTerm(PaintedTerm* term)
+{
+    if (selectedTerm != term) {
+
+        // Drop selection
+        if (selectedTerm != nullptr)
+            selectedTerm->setSelection(false);
+
+        // Set new selection
+        selectedTerm = term;
+
+        // Call selection
+        if (selectedTerm != nullptr)
+            selectedTerm->setSelection(true);
+
+        emit selectionChanged();
         checkGroupColors();
     }
+}
+
+void MainScene::dropTermSelection()
+{
+    selectTerm(nullptr);
 }
 
 void MainScene::checkGroupColors()
@@ -158,7 +221,7 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
     paintManager->addClearRect(sceneRect(), true);
     paintManager->clearAllQueues();
 
-    dropSelectedNode();
+    dropTermSelection();
 
     // Taking groupUuid from parameter or current groupUuid
     QUuid tmpGroupUuid = newGroup ? newGroupUuid : oldGroupUuid;
@@ -200,7 +263,7 @@ QString MainScene::getCurrNodeDebugInfo()
 
 NodeGadgetWrapper MainScene::getCurrentNode()
 {
-    if (auto* node = getSelectedNode()) {
+    if (auto* node = getSelectedTerm()) {
         auto info = node->infoContainer();
         return NodeGadgetWrapper(info);
     }
@@ -210,7 +273,7 @@ NodeGadgetWrapper MainScene::getCurrentNode()
 
 QString MainScene::getCurrNodeNameAndDefinition()
 {
-    if (auto* node = getSelectedNode())
+    if (auto* node = getSelectedTerm())
         return node->getTermAndDefinition();
 
     return "";
@@ -218,7 +281,7 @@ QString MainScene::getCurrNodeNameAndDefinition()
 
 QString MainScene::getCurrNodeHierarchyDefinition()
 {
-    if (auto* node = getSelectedNode())
+    if (auto* node = getSelectedTerm())
         return node->getHierarchyDefinition();
 
     return "";
@@ -236,7 +299,7 @@ QString MainScene::currentGroupName() const
 
 bool MainScene::isAnyNodeSelected() const
 {
-    return getSelectedNode() != nullptr;
+    return getSelectedTerm() != nullptr;
 }
 
 QRectF MainScene::sceneRect() const
@@ -258,7 +321,7 @@ PaintedTerm* MainScene::getNodeAtPoint(const QPointF& pt) const
         return nullptr;
 
     if (mCurrentGroup->getGroupRect().contains(pt))
-        return mCurrentGroup->getNodeAtPoint(pt);
+        return mCurrentGroup->getNode(pt);
 
     return nullptr;
 }
@@ -292,25 +355,20 @@ PaintedTerm *MainScene::term(QQmlListProperty<PaintedTerm> *list, int i)
 void MainScene::findClick(const QPointF &atPt)
 {
     // Check for click in same point
-    if (auto selected = getSelectedNode()) {
+    if (auto selected = getSelectedTerm()) {
         // if same rect - exit
         if (selected->getNodeRect(CoordType::scene).contains(atPt)) {
             emit selectionDoubleClick();
             return;
-        } else {
-            // Else drop current selection
-            dropSelectedNode(false);
         }
     }
 
-    if (auto node = getNodeAtPoint(atPt)) {  // Click in other node
-        node->setSelection(true);
-        selectedNode = node;
-        checkGroupColors();
-    }
+    if (auto* node = getNodeAtPoint(atPt))  // Click in other node
+        selectTerm(node);
+    else
+        dropTermSelection();
 
     requestPaint(true);
-    emit selectionChanged();
 }
 
 void MainScene::createTestGroups()

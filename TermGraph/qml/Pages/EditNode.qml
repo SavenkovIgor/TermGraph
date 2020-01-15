@@ -63,7 +63,7 @@ M.Page {
 
         onYes: {
             root.StackView.view.pop();
-            scene.deleteSelectedNode();
+            scene.deleteSelectedTerm();
         }
     }
 

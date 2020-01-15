@@ -57,6 +57,8 @@ public:
     void setAnimSpeed(int val);
     static int getAnimSpeed();
 
+    UuidList search(const QString& text, int limit = 5);
+
     // Position and frame
     void setBasePoint(QPointF pt);
     void updateGroupFrame();
@@ -66,7 +68,8 @@ public:
     bool needPaint() const;
     void resetPaintFlags();
 
-    PaintedTerm* getNodeAtPoint(const QPointF &pt) const;
+    PaintedTerm* getNode(const QPointF &pt) const;
+    PaintedTerm* getNode(const QUuid nodeUuid) const;
 
     void checkColors(bool init = false);
 

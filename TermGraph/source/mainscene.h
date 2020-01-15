@@ -50,6 +50,16 @@ public:
     Q_PROPERTY(QString currentGroupName READ currentGroupName NOTIFY currentGroupChanged)
     Q_PROPERTY(QQmlListProperty<PaintedTerm> nodes READ getNodes NOTIFY nodesChanged)
 
+    Q_INVOKABLE void selectTerm(const QString& nodeUuid);
+    Q_INVOKABLE void selectTerm(const QUuid& nodeUuid);
+    Q_INVOKABLE QString getTermName(const QString& termUuid);
+    Q_INVOKABLE QStringList search(const QString& text);
+    Q_INVOKABLE void        moveTo(const QString& termUuid);
+    Q_INVOKABLE void        moveTo(QPointF point);
+    Q_INVOKABLE void deleteSelectedTerm();
+
+    Q_INVOKABLE QString getCurrNodeDebugInfo();
+
 signals:
     // Scene signals
     void selectionChanged();
@@ -59,34 +69,19 @@ signals:
 
     void sceneRectChanged();
 
+    void showPt(QPointF pt);
+
 public slots:
     void setCurrentGroup(const QString& groupUuid);
     void setCurrentGroup(const QUuid& groupUuid);
-    QString currentGroupUuid() const;
-    QString currentGroupName() const;
 
-    void updateSceneRect();
-    void centerViewOn(QPointF point);  // TODO: Realize!
 
-    void deleteSelectedNode();
-
-    NodeGadgetWrapper getCurrentNode();
-    QString getCurrNodeDebugInfo();
     QString getCurrNodeNameAndDefinition();
     QString getCurrNodeHierarchyDefinition();
 
     bool isAnyNodeSelected() const;
 
-    // Drawing API
-    QRectF sceneRect() const;
-    void   setSceneRect(const QRectF& newRect);
-
-    void resetPaintFlags();
-
     void setMouseClick(qreal x, qreal y);
-
-    // For testing
-    void createTestGroups();
 
 private slots:
     void updateGroup();
@@ -94,8 +89,6 @@ private slots:
     // Groups modify reaction
     void checkGroupAddition();
     void checkGroupDeletion();
-
-    QQmlListProperty<PaintedTerm> getNodes();
 
 private:
     // Timers
@@ -112,12 +105,20 @@ private:
     // Scene rect
     QRectF mSceneRect = QRectF(0, 0, 100, 100);
 
-    // Mouse interaction
-    PaintedTerm* selectedNode = nullptr;
+    QRectF sceneRect() const;
+    void   setSceneRect(const QRectF& newRect);
+    void   updateSceneRect();
 
-    PaintedTerm* getSelectedNode() const;
-    void         dropSelectedNode(bool sendSignal = true);
-    void         checkGroupColors();
+    // Mouse interaction
+    PaintedTerm* selectedTerm = nullptr;
+
+    PaintedTerm* getSelectedTerm() const;
+    void         selectTerm(PaintedTerm* term);
+    void         dropTermSelection();
+
+    PaintedTerm*      findNode(const QUuid& nodeUuid);
+    NodeGadgetWrapper getCurrentNode();
+    void              checkGroupColors();
 
     void findClick(const QPointF& atPt);
 
@@ -125,12 +126,21 @@ private:
 
     // Groups fields
     QScopedPointer<TermGroup> mCurrentGroup;
+    QString currentGroupUuid() const;
+    QString currentGroupName() const;
+    void dropGroup();
 
     // For qml nodes list property
+    QQmlListProperty<PaintedTerm> getNodes();
+
     int                 termCount() const;
     PaintedTerm*        term(int index) const;
     static int          termCount(QQmlListProperty<PaintedTerm>* list);
     static PaintedTerm* term(QQmlListProperty<PaintedTerm>* list, int i);
 
-    void dropGroup();
+    // Paint tools
+    void resetPaintFlags();
+
+    // For testing
+    void createTestGroups();
 };
