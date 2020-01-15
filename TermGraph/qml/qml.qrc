@@ -46,5 +46,6 @@
         <file>Js/Sizes.js</file>
         <file>Molecules/NodesScene.qml</file>
         <file>Atoms/Term.qml</file>
+        <file>Molecules/SearchResults.qml</file>
     </qresource>
 </RCC>
