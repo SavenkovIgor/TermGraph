@@ -109,8 +109,8 @@ private:
     PaintedTerm* selectedTerm = nullptr;
 
     PaintedTerm* getSelectedTerm() const;
-    void         selectTerm(PaintedTerm* term);
-    void         dropTermSelection();
+    void         selectTerm(PaintedTerm* term, bool needRepaint = true);
+    void         dropTermSelection(bool needRepaint = false);
 
     PaintedTerm*      findNode(const QUuid& nodeUuid) const;
     NodeGadgetWrapper getCurrentNode();

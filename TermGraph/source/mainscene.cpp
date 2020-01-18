@@ -177,10 +177,9 @@ PaintedTerm* MainScene::findNode(const QUuid& nodeUuid) const
     return mCurrentGroup->getNode(nodeUuid);
 }
 
-void MainScene::selectTerm(PaintedTerm* term)
+void MainScene::selectTerm(PaintedTerm* term, bool needRepaint)
 {
     if (selectedTerm != term) {
-
         // Drop selection
         if (selectedTerm != nullptr)
             selectedTerm->setSelection(false);
@@ -193,14 +192,17 @@ void MainScene::selectTerm(PaintedTerm* term)
             selectedTerm->setSelection(true);
 
         emit selectionChanged();
-        checkGroupColors();
-        requestPaint();
+
+        if (needRepaint) {
+            checkGroupColors();
+            requestPaint();
+        }
     }
 }
 
-void MainScene::dropTermSelection()
+void MainScene::dropTermSelection(bool needRepaint)
 {
-    selectTerm(nullptr);
+    selectTerm(nullptr, needRepaint);
 }
 
 void MainScene::checkGroupColors()
@@ -369,7 +371,7 @@ void MainScene::findClick(const QPointF &atPt)
     if (auto* node = getNodeAtPoint(atPt))  // Click in other node
         selectTerm(node);
     else
-        dropTermSelection();
+        dropTermSelection(true);
 }
 
 void MainScene::createTestGroups()
