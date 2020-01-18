@@ -81,44 +81,80 @@ M.Page {
     header: M.DefaultHeader {
         id: header
         title: root.title
-        titleVisible: !searchBtn.checked
         page: root
         onOpenMainMenu: root.openMainMenu()
 
         TextField {
-            id : txtField
+            id : searchText
             Layout.fillWidth: true
             font: Fonts.inputText
             selectByMouse: true
 
-            onTextChanged: {
-                searchResult.model = scene.search(text);
-                searchResult.open();
-            }
-
             color: Colors.white
             placeholderTextColor: Colors.whiteDisabled
             placeholderText: "Поиск"
-            visible: searchBtn.checked
 
-            onFocusChanged: {
-                if (!focus)
-                    closeSearch();
+            onTextChanged: {
+                if (text !== "")
+                    header.setSelectionWithResults();
             }
 
-            Keys.onEscapePressed: closeSearch()
+            Keys.forwardTo: searchResult
 
-            onVisibleChanged: {
-                if (visible)
-                    forceActiveFocus();
-            }
-
-
-            function closeSearch() {
-                searchResult.close();
-                searchBtn.checked = false;
+            Keys.onReturnPressed: {
+                let firstNodeUuid = searchResult.getFirst();
+                if (firstNodeUuid !== "")
+                    sceneView.select(firstNodeUuid);
+                header.setNoSelection();
             }
         }
+
+        states: [
+            State {
+                name: "selection"
+                PropertyChanges { target: header; titleVisible: false; }
+                PropertyChanges { target: searchText; visible: true; }
+                StateChangeScript {
+                    script: {
+                        searchText.forceActiveFocus();
+                        searchText.text = "";
+                        searchResult.close();
+                    }
+                }
+            },
+
+            State {
+                name: "selectionWithResults"
+                PropertyChanges { target: header; titleVisible: false; }
+                PropertyChanges { target: searchText; visible: true; }
+                StateChangeScript { script: { searchResult.open(); } }
+            },
+
+            State {
+                name: "noSelection"
+                PropertyChanges { target: header; titleVisible: true; }
+                PropertyChanges { target: searchText; visible: false; }
+                StateChangeScript {
+                    script: {
+                        sceneView.forceActiveFocus();
+                        searchResult.close();
+                    }
+                }
+            }
+        ]
+
+        function setNoSelection() { state = "noSelection"; }
+        function setSelectionWithResults() { state = "selectionWithResults"; }
+        function setSelection() { state = "selection"; }
+
+        function switchSelection() {
+            if (state === "selection" || state === "selectionWithResults")
+                setNoSelection();
+            else
+                setSelection();
+        }
+
+        state: "noSelection"
 
         A.ToolButton {
             id: searchBtn
@@ -127,7 +163,7 @@ M.Page {
                 text: "Поиск"
                 shortcut: "Ctrl+F"
                 icon.source: IconPath.magnifyingGlass
-                checkable: true
+                onTriggered: header.switchSelection()
             }
         }
     }
@@ -135,13 +171,17 @@ M.Page {
     M.SearchResults {
         id: searchResult
 
-        x: txtField.x
+        x: searchText.x
         y: 0
-        width: txtField.width
-        onSelected: {
-            let pt = scene.getTermPosition(nodeUuid);
-            scene.selectTerm(nodeUuid);
-            sceneView.pointToCenter(pt);
+        width: searchText.width
+        model: scene.search(searchText.text);
+
+        onOneVariant: sceneView.select(nodeUuid);
+        onNoResults: sceneView.dropSelection();
+
+        onClicked: {
+            sceneView.select(nodeUuid);
+            header.setNoSelection();
         }
     }
 
@@ -179,6 +219,17 @@ M.Page {
         function pointToCenter(pt) {
             contentX = pt.x - sceneView.width / 2;
             contentY = pt.y - sceneView.height / 2;
+        }
+
+        function select(nodeUuid) {
+            let pt = scene.getTermPosition(nodeUuid);
+            scene.selectTerm(nodeUuid);
+            pointToCenter(pt);
+        }
+
+        function dropSelection() {
+            moveToOrigin();
+            scene.selectTerm("");
         }
 
         M.NodesScene { id: sceneCanvas }

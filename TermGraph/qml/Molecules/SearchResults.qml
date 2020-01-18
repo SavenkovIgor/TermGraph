@@ -30,12 +30,16 @@ Popup {
 
     property alias model: searchList.model
 
-    signal selected(string nodeUuid)
+    signal clicked(string nodeUuid)
+    signal oneVariant(string nodeUuid)
+    signal noResults()
 
     padding: 0
     height: topPadding + contentItem.height + bottomPadding
 
     background: Rectangle { color: Colors.baseLight2 }
+
+    function getFirst() { return searchList.getFirst(); }
 
     contentItem: Item {
         height: searchList.visible ? searchList.contentHeight : nothingFound.height
@@ -54,6 +58,17 @@ Popup {
             id: searchList
             anchors.fill: parent
             visible: count !== 0
+            focus: true
+            onCountChanged: {
+                // Notify if only one variant
+                if (count === 1)
+                    root.oneVariant(getFirst());
+                if (count === 0)
+                    root.noResults();
+            }
+
+            function getFirst() { return count >= 1 ? model[0] : ""; }
+
             delegate: ItemDelegate {
                 background: Rectangle { color: Colors.baseLight2 }
                 width: ListView.view.width
@@ -65,7 +80,7 @@ Popup {
                     color: Colors.white
                 }
 
-                onClicked: root.selected(modelData)
+                onClicked: root.clicked(modelData)
             }
         }
     }
