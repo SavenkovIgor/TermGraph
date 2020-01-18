@@ -57,25 +57,15 @@ void PaintManager::clearAllQueues()
     edgesForPaint.clear();
 }
 
-void PaintManager::addGroup(TermGroup *group, bool ignoreNeedPaintFlag, bool paintNow)
+void PaintManager::addGroup(TermGroup *group)
 {
     groupRectsForPaint.enqueue(QPair<QRectF, QColor>(group->getGroupRect(), group->getGroupFillColor()));
     groupNamesForPaint.enqueue(QPair<QPointF, QString>(group->getNamePos(), group->getName()));
 
-    for (auto edge : group->getAllEdgesForPainting()) {
-        if (ignoreNeedPaintFlag) {
-            edgesForPaint.enqueue(edge);
-        } else {
-            if (edge->needPaint) {
-                edgesForPaint.enqueue(edge);
-                edge->needPaint = false;
-            }
-        }
-    }
+    for (auto edge : group->getAllEdgesForPainting())
+        edgesForPaint.enqueue(edge);
 
-    if (paintNow) {
-        emit paintGroupQueue();
-    }
+    emit paintGroupQueue();
 }
 
 void PaintManager::addRect(const QRectF &rect, const QColor &color)

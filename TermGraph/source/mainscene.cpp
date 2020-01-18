@@ -62,7 +62,7 @@ void MainScene::dropGroup()
 
     setSceneRect(QRectF());
 
-    requestPaint(true);
+    requestPaint();
 }
 
 void MainScene::updateGroup()
@@ -86,6 +86,14 @@ void MainScene::checkGroupDeletion()
     auto groupsUuids  = groupsMgr->getAllUuidsSortedByLastEdit();
     if (!groupsUuids.contains(currentGroup))
         dropGroup();
+}
+
+void MainScene::requestPaint()
+{
+    paintManager->addClearRect(sceneRect(), true);
+
+    if (mCurrentGroup)
+        paintManager->addGroup(mCurrentGroup.get());
 }
 
 QQmlListProperty<PaintedTerm> MainScene::getNodes()
@@ -186,7 +194,7 @@ void MainScene::selectTerm(PaintedTerm* term)
 
         emit selectionChanged();
         checkGroupColors();
-        requestPaint(true);
+        requestPaint();
     }
 }
 
@@ -233,7 +241,7 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
 
     updateSceneRect();
 
-    requestPaint(true);
+    requestPaint();
 
     if (newGroup)
         emit currentGroupChanged();
@@ -380,23 +388,4 @@ void MainScene::createTestGroups()
     nodesMgr->addNewNode("7", "{5}", "", "", groupUuid.toString());
     nodesMgr->addNewNode("8", "{6}{7}", "", "", groupUuid.toString());
     nodesMgr->addNewNode("9", "", "", "", groupUuid.toString());
-}
-
-void MainScene::requestPaint(bool paintAll)
-{
-    sendGroupsToPaintManager(true, paintAll);
-}
-
-void MainScene::sendGroupsToPaintManager(bool requestPaint, bool paintAll)
-{
-    if (paintAll)
-        paintManager->addClearRect(sceneRect(), true);
-
-    if (mCurrentGroup)
-        paintManager->addGroup(mCurrentGroup.get(), paintAll, false);
-
-    //    paintManager->addRect(sceneRect);
-
-    if (requestPaint)
-        paintManager->sendPaintGroupSignal();
 }

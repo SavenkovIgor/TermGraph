@@ -95,8 +95,8 @@ private:
     NodesManager* nodesMgr;
     PaintManager* paintManager;
 
-    void requestPaint(bool paintAll = false);
-    void sendGroupsToPaintManager(bool requestPaint = true, bool paintAll = false);
+    void requestPaint();
+    void sendGroupsToPaintManager();
 
     // Scene rect
     QRectF mSceneRect = QRectF(0, 0, 100, 100);

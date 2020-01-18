@@ -49,7 +49,7 @@ public slots:
 
     // Fill functions
     void clearAllQueues();
-    void addGroup(TermGroup* group, bool ignoreNeedPaintFlag = false, bool paintNow = true);
+    void addGroup(TermGroup* group);
     void addRect(const QRectF& rect, const QColor& color = Qt::white);
 
     // GroupRects
