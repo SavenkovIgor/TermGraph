@@ -38,8 +38,6 @@ M.Page {
     StackView.onActivating: updateInfo()
 
     header: M.DefaultHeader {
-        title: root.title
-        page: root
 
         A.ToolButton {
             icon.source: IconPath.trash

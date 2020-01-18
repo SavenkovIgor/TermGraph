@@ -33,8 +33,6 @@ Page {
     background: Rectangle { color: Colors.base }
 
     header: DefaultHeader {
-        title: root.title
-        page: root
         onOpenMainMenu: root.openMainMenu()
     }
 }

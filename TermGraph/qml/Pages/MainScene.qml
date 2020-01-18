@@ -80,8 +80,6 @@ M.Page {
 
     header: M.DefaultHeader {
         id: header
-        title: root.title
-        page: root
         onOpenMainMenu: root.openMainMenu()
 
         TextField {

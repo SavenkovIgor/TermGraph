@@ -40,8 +40,6 @@ M.Page {
     title: "Новый термин"
 
     header: M.DefaultHeader {
-        title: root.title
-        page: root
 
         A.ToolButton {
             id: checkButton

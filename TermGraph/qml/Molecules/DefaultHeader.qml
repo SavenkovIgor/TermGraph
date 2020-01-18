@@ -32,7 +32,7 @@ A.PageHeader {
 
     signal openMainMenu()
 
-    property Page page: undefined
+    property Page page: parent
     property alias title: titleLabel.text
     property alias titleVisible: titleLabel.visible
     property alias burgerState: burgerButton.buttonState
@@ -63,6 +63,7 @@ A.PageHeader {
 
     A.PageTitleLabel {
         id: titleLabel
+        text: root.page ? root.page.title : ""
         Layout.fillWidth: true
     }
 }
