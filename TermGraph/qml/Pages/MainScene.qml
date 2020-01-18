@@ -99,14 +99,7 @@ M.Page {
                     header.setSelectionWithResults();
             }
 
-            Keys.forwardTo: searchResult
-
-            Keys.onReturnPressed: {
-                let firstNodeUuid = searchResult.getFirst();
-                if (firstNodeUuid !== "")
-                    sceneView.select(firstNodeUuid);
-                header.setNoSelection();
-            }
+            Keys.onReturnPressed: searchResult.forceActiveFocus();
         }
 
         states: [
@@ -175,9 +168,6 @@ M.Page {
         y: 0
         width: searchText.width
         model: scene.search(searchText.text);
-
-        onOneVariant: sceneView.select(nodeUuid);
-        onNoResults: sceneView.dropSelection();
 
         onClicked: {
             sceneView.select(nodeUuid);

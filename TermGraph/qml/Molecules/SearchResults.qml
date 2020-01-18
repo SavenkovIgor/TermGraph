@@ -31,15 +31,11 @@ Popup {
     property alias model: searchList.model
 
     signal clicked(string nodeUuid)
-    signal oneVariant(string nodeUuid)
-    signal noResults()
 
     padding: 0
     height: topPadding + contentItem.height + bottomPadding
 
     background: Rectangle { color: Colors.baseLight2 }
-
-    function getFirst() { return searchList.getFirst(); }
 
     contentItem: Item {
         height: searchList.visible ? searchList.contentHeight : nothingFound.height
@@ -59,18 +55,12 @@ Popup {
             anchors.fill: parent
             visible: count !== 0
             focus: true
-            onCountChanged: {
-                // Notify if only one variant
-                if (count === 1)
-                    root.oneVariant(getFirst());
-                if (count === 0)
-                    root.noResults();
-            }
 
-            function getFirst() { return count >= 1 ? model[0] : ""; }
+            onActiveFocusChanged: print("List focus", activeFocus)
 
             delegate: ItemDelegate {
-                background: Rectangle { color: Colors.baseLight2 }
+                highlighted: ListView.isCurrentItem
+                background: Rectangle { color: highlighted ? Colors.baseLight3 : Colors.baseLight2 }
                 width: ListView.view.width
                 contentItem: Text {
                     topPadding: font.pixelSize
@@ -79,6 +69,8 @@ Popup {
                     font: Fonts.inputText
                     color: Colors.white
                 }
+
+                Keys.onReturnPressed: root.clicked(modelData)
 
                 onClicked: root.clicked(modelData)
             }
