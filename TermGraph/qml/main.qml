@@ -57,7 +57,11 @@ ApplicationWindow {
     Component { id: learnGroupsComponent; LearnGroupsList { } }
     Component { id: settingsComponent;    P.Settings { } }
     Component { id: helpPageComponent;    P.Help { } }
-    Component { id: licensePage;          P.License { } }
+    Component { id: licensePageComponent; P.License { } }
+    Component {
+        id: onBoardComponent
+        P.OnBoard { onFinished: stackView.replace(mainSceneComponent) }
+    }
 
     Action {
         id: openGroupsAction
@@ -132,7 +136,7 @@ ApplicationWindow {
                     labelText: "О программе"
                     Layout.fillWidth: true
 
-                    onClicked: stackView.push(licensePage)
+                    onClicked: stackView.push(licensePageComponent)
                 }
 
                 Item { Layout.fillHeight: true; }
@@ -194,7 +198,7 @@ ApplicationWindow {
     StackView {
         id: stackView
         anchors.fill: parent
-        initialItem: mainSceneComponent
+        initialItem: groupsManager.hasAnyGroup ? mainSceneComponent : onBoardComponent
         onCurrentItemChanged: appSideMenu.close()
 
         Keys.onBackPressed: { // Android back button
@@ -206,6 +210,5 @@ ApplicationWindow {
         }
     }
 
-    Shortcut { sequence: "Ctrl+Right"; onActivated: appSideMenu.open(); }
     Shortcut { sequence: "Escape"; onActivated: stackView.pop(); }
 }

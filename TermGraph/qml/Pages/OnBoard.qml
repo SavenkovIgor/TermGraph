@@ -20,17 +20,28 @@
  */
 
 import QtQuick 2.13
-import QtQuick.Controls 2.13
+import QtQuick.Layouts 1.13
 
+import "../Atoms" as A
 import "../Molecules" as M
+import "../Js/IconPath.js" as IconPath
 import "../Js/Sizes.js" as Sizes
-import "../Js/Colors.js" as Colors
 
 M.Page {
     id: root
 
-    padding: 0
-    title: "Справка"
+    signal finished()
 
-    contentItem: M.HelpView { }
+    header: A.PageHeader {
+
+        A.PageTitleLabel { Layout.fillWidth: true }
+
+        A.ToolButton {
+            icon.source: IconPath.check
+            visible: helpView.lastSlide
+            onClicked: root.finished()
+        }
+    }
+
+    contentItem: M.HelpView { id: helpView; focus: true; }
 }

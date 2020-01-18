@@ -47,5 +47,7 @@
         <file>Molecules/NodesScene.qml</file>
         <file>Atoms/Term.qml</file>
         <file>Molecules/SearchResults.qml</file>
+        <file>Pages/OnBoard.qml</file>
+        <file>Molecules/HelpView.qml</file>
     </qresource>
 </RCC>

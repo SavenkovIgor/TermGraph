@@ -24,8 +24,10 @@ import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 
 import "../Js/Colors.js" as Colors
+import "../Js/Sizes.js" as Sizes
 
 ToolBar {
+    height: Sizes.base
     background: Rectangle { color: Colors.baseLight; }
     contentItem: RowLayout { spacing: 20; }
 }
