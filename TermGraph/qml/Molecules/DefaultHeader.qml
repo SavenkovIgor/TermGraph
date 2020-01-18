@@ -41,6 +41,9 @@ A.PageHeader {
         id: burgerButton
 
         buttonState: {
+            if (!root.page)
+                return -1;
+
             if (!root.page.StackView.view)
                 return -1;
 
