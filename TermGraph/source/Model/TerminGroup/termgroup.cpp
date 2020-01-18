@@ -235,15 +235,27 @@ int TermGroup::getAnimSpeed()
     return animSpeed;
 }
 
-UuidList TermGroup::search(const QString& text, int limit)
+UuidList TermGroup::searchNearest(const QString& text, int limit)
 {
-    QString                  localText = text.toLower();
+    QString                  searchText = text.toLower();
     QList<QPair<int, QUuid>> searchResults;
     // Taking distances
     for (auto* node : getAllNodes()) {
-        auto optResult = TagProcessor::getDistanceBetweenTagAndTerm(localText, node->getCachedLowerTerm());
-        if (optResult)
-            searchResults << QPair(optResult.value(), node->getUuid());
+        auto lowerTerm = node->getCachedLowerTerm();
+
+        // Exact match
+        if (searchText == lowerTerm) {
+            searchResults << QPair(0, node->getUuid());
+            continue;
+        }
+
+        auto cuttedTerm = lowerTerm.left(searchText.size());  // Compare only left n characters
+
+        auto acceptableLimit = static_cast<int>(cuttedTerm.size() * 0.25);
+        auto distance = TagProcessor::getLevDistance(cuttedTerm, searchText, acceptableLimit);
+
+        if (distance <= acceptableLimit)
+            searchResults << QPair(distance, node->getUuid());
     }
 
     // Sorting
@@ -260,6 +272,22 @@ UuidList TermGroup::search(const QString& text, int limit)
         ret.push_back(uuid);
 
         count++;
+    }
+
+    return ret;
+}
+
+UuidList TermGroup::searchContains(const QString& text, int limit)
+{
+    UuidList ret;
+    auto     lowerSearch = text.toLower();
+
+    for (auto* node : getAllNodes()) {
+        if (node->getCachedLowerTerm().contains(lowerSearch))
+            ret.push_back(node->getUuid());
+
+        if (static_cast<int>(ret.size()) == limit)
+            break;
     }
 
     return ret;

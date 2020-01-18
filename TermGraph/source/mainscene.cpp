@@ -127,9 +127,19 @@ QStringList MainScene::search(const QString& text)
     QStringList ret;
 
     if (mCurrentGroup) {
-        auto resultUuids = mCurrentGroup->search(text);
-        for (auto uuid : resultUuids)
+        auto nearestUuids  = mCurrentGroup->searchNearest(text);
+        auto containsUuids = mCurrentGroup->searchContains(text);
+
+        for (auto uuid : nearestUuids)
             ret << uuid.toString();
+
+        for (auto uuid : containsUuids) {
+            auto insertVal = uuid.toString();
+            if (!ret.contains(insertVal))
+                ret << insertVal;
+        }
+
+        ret = ret.mid(0, 7);
     }
 
     return ret;

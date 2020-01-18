@@ -57,7 +57,8 @@ public:
     void setAnimSpeed(int val);
     static int getAnimSpeed();
 
-    UuidList search(const QString& text, int limit = 5);
+    UuidList searchNearest(const QString& text, int limit = 10);
+    UuidList searchContains(const QString& text, int limit = 10);
 
     // Position and frame
     void setBasePoint(QPointF pt);

@@ -190,8 +190,8 @@ bool TagProcessor::tagLengthSuitTerm(const QString& tag, const QString& termName
 std::optional<int> TagProcessor::getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName)
 {
     // For developing needs
-//    assert(termName == termName.toLower());
-//    assert(tag == tag.toLower());
+    assert(termName == termName.toLower());
+    assert(tag == tag.toLower());
 
     // Exact match
     if (termName.size() == tag.size() && termName == tag)

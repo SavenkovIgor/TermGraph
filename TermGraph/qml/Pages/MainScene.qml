@@ -100,6 +100,7 @@ M.Page {
             }
 
             Keys.onReturnPressed: searchResult.forceActiveFocus();
+            Keys.onDownPressed: searchResult.forceActiveFocus();
         }
 
         states: [
@@ -167,7 +168,10 @@ M.Page {
         x: searchText.x
         y: 0
         width: searchText.width
-        model: scene.search(searchText.text);
+        model: {
+            let searchRequest = searchText.text;
+            return searchRequest !== "" ? scene.search(searchRequest) : undefined;
+        }
 
         onClicked: {
             sceneView.select(nodeUuid);
