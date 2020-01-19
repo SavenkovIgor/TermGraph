@@ -199,12 +199,7 @@ M.Page {
                 Layout.fillWidth: true
                 spacing: root.width * 0.025
 
-                Label {
-                    id: grpLabel
-                    text : "Группа"
-                    font: Fonts.inputText
-                    color: Colors.accent
-                }
+                A.AccentText { text : "Группа:" }
 
                 A.ComboBox {
                     id: nodeGroup

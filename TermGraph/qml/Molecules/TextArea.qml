@@ -23,6 +23,7 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 
+import "../Atoms" as A
 import "../Js/Colors.js" as Colors
 import "../Js/Fonts.js" as Fonts
 
@@ -39,13 +40,7 @@ Column {
         txtArea.cursorPosition = txtArea.text.length
     }
 
-    Label {
-        id: label
-        width: parent.width
-
-        color: Colors.accent
-        font: Fonts.inputLabel
-    }
+    A.AccentText { id: label; width: parent.width; }
 
     TextArea {
         id: txtArea

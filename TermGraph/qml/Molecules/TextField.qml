@@ -22,6 +22,7 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 
+import "../Atoms" as A
 import "../Js/Colors.js" as Colors
 import "../Js/Fonts.js" as Fonts
 
@@ -36,12 +37,9 @@ Column {
         txtField.forceActiveFocus()
     }
 
-    Label {
-        id: label
-        width: parent.width
-        font: Fonts.inputLabel
-        color: Colors.accent
-    }
+    spacing: 6
+
+    A.AccentText { id: label; width: parent.width; }
 
     TextField {
         id : txtField

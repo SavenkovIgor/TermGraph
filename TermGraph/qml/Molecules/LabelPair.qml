@@ -23,6 +23,7 @@ import QtQuick 2.13
 import QtQuick.Layouts 1.13
 import QtQuick.Controls 2.13
 
+import "../Atoms" as A
 import "../Js/Colors.js" as Colors
 import "../Js/Fonts.js" as Fonts
 
@@ -34,12 +35,7 @@ ColumnLayout {
 
     spacing: 6
 
-    Label {
-        id: nameLbl
-        font: Fonts.setWeight(Fonts.text, Font.DemiBold)
-        color: Colors.accent
-        Layout.fillWidth: true
-    }
+    A.AccentText { id: nameLbl; Layout.fillWidth: true; }
 
     Text {
         id: textLbl

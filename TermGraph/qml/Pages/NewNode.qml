@@ -131,12 +131,7 @@ M.Page {
                 spacing: 6
                 Layout.fillWidth: true
 
-                Label {
-                    font: Fonts.setWeight(Fonts.text, Font.DemiBold)
-                    color: Colors.accent
-
-                    text: "Группа:"
-                }
+                A.AccentText { text: "Группа:" }
 
                 Text {
                     Layout.fillWidth: true
