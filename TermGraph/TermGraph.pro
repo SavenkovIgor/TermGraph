@@ -21,6 +21,7 @@ QT       += core gui sql quickwidgets quickcontrols2 network svg #charts
 
 TARGET = TermGraph
 TEMPLATE = app
+VERSION = 1.0.0
 
 CONFIG += c++17
 
