@@ -163,5 +163,5 @@ void NetworkManager::setServerEnabled(bool enabled)
 
 QString NetworkManager::serverState() const
 {
-    return isServerEnabled() ? "Ожидание соединения" : "Выключена";
+    return isServerEnabled() ? "Ожидание соединения" : "Выключен";
 }

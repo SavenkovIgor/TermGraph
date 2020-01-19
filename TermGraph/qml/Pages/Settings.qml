@@ -42,28 +42,40 @@ M.Page {
 
             GroupBox {
 
-                label: A.AccentText { text: "Синхронизация" }
+                label: Control {
+                    padding: Sizes.baseR75
+                    bottomPadding: 0
+                    contentItem: A.AccentText { text: "Настройки сервера" }
+                }
 
-                RowLayout {
+                background: Rectangle { color: "transparent"; border.color: Colors.accent; }
+                padding: Sizes.baseR75
 
-                    Switch {
-                        checked: false
-                        onCheckedChanged: { networkManager.synchronization = checked; }
+                contentItem: Column {
+                    RowLayout {
+
+                        Switch {
+                            scale: Qt.platform.os === "android" ? 2.0 : 1.0
+                            checked: false
+                            onCheckedChanged: { networkManager.synchronization = checked; }
+                        }
+
+                        Text {
+                            font: Fonts.text
+                            color: Colors.white
+                            text: networkManager.synchronizationState
+                        }
                     }
 
-                    Text {
-                        font: Fonts.text
-                        color: Colors.white
-                        text: networkManager.synchronizationState
+                    M.LabelPair {
+                        name: "Ip этого устройства"
+                        text: networkManager.getFirstLocalIpString()
+//                        Layout.alignment: Qt.AlignVCenter
                     }
                 }
+
             }
 
-            M.LabelPair {
-                name: "Ip этого устройства"
-                text: networkManager.getFirstLocalIpString()
-                Layout.alignment: Qt.AlignVCenter
-            }
         }
 
         M.TextField {
