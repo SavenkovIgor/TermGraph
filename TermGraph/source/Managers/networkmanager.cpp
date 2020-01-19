@@ -24,13 +24,14 @@
 NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 {
     server = new SimpleListenServer(AppSettings::Network::listenPort, this);
-    server->startListen();
 
     connect(server, &SimpleListenServer::newReceivedData, this, &NetworkManager::newInputData);
     connect(server, &SimpleListenServer::newConnectionFrom, this, &NetworkManager::sendConnectionInfo);
 
     outputSocket = new QTcpSocket(this);
     connect(outputSocket, &QTcpSocket::stateChanged, this, &NetworkManager::outputConnectionStateChange);
+
+    assert(!server->isListening());  // Minimal safety!
 }
 
 void NetworkManager::connectToHost()
@@ -138,4 +139,29 @@ QString NetworkManager::getSocketStateDescription(QAbstractSocket::SocketState s
     }
 
     return "";
+}
+
+bool NetworkManager::isServerEnabled() const
+{
+    return server->isListening();
+}
+
+void NetworkManager::setServerEnabled(bool enabled)
+{
+    if (server->isListening()) {
+        if (!enabled) {
+            server->stopListen();
+            emit serverStateChanged();
+        }
+    } else {
+        if (enabled) {
+            if (server->startListen())
+                emit serverStateChanged();
+        }
+    }
+}
+
+QString NetworkManager::serverState() const
+{
+    return isServerEnabled() ? "Ожидание соединения" : "Выключена";
 }

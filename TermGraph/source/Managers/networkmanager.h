@@ -38,10 +38,14 @@ public:
 
     Q_PROPERTY(bool isConnected READ hasConnection NOTIFY newOutputConnectionState)
     Q_PROPERTY(QString connectionState READ getOutputSocketState NOTIFY newOutputConnectionState)
+    Q_PROPERTY(bool synchronization READ isServerEnabled WRITE setServerEnabled NOTIFY serverStateChanged)
+    Q_PROPERTY(QString synchronizationState READ serverState NOTIFY serverStateChanged)
 
 signals:
     void newSyncGroup(QString groupJsonRaw);
     void newOutputConnectionState();
+
+    void serverStateChanged();
 
 public slots:
     void connectToHost();
@@ -71,4 +75,8 @@ private:
 
     static bool isValidHostAddress(const QString& ip);
     static QString getSocketStateDescription(QAbstractSocket::SocketState state);
+
+    bool    isServerEnabled() const;
+    void    setServerEnabled(bool enabled);
+    QString serverState() const;
 };

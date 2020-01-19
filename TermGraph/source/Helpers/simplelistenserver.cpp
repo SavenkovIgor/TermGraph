@@ -28,9 +28,19 @@ SimpleListenServer::SimpleListenServer(quint16 listenPort, QObject *parent) : QO
     connect(server, &QTcpServer::newConnection, this, &SimpleListenServer::newConnection);
 }
 
+bool SimpleListenServer::isListening()
+{
+    return server->isListening();
+}
+
 bool SimpleListenServer::startListen()
 {
     return server->listen(QHostAddress::Any, listenPort);
+}
+
+void SimpleListenServer::stopListen()
+{
+    server->close();
 }
 
 void SimpleListenServer::newConnection()

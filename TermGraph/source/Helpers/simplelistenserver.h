@@ -32,12 +32,13 @@ class SimpleListenServer : public QObject
 public:
     explicit SimpleListenServer(quint16 listenPort, QObject *parent = nullptr);
 
+    bool isListening();
+    bool startListen();
+    void stopListen();
+
 signals:
     void newReceivedData(QHostAddress fromHost, QByteArray data);
     void newConnectionFrom(QString hostDescription);
-
-public slots:
-    bool startListen();
 
 private slots:
     void newConnection();

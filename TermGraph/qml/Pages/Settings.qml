@@ -21,20 +21,49 @@
 
 import QtQuick 2.13
 import QtQuick.Controls 2.13
+import QtQuick.Layouts 1.13
 
 import "../Atoms" as A
 import "../Molecules" as M
 import "../Js/Colors.js" as Colors
+import "../Js/Fonts.js" as Fonts
+import "../Js/Sizes.js" as Sizes
 
 M.Page {
     title: "Настройки"
 
     contentItem: Column {
 
-        M.LabelPair {
-            name: "Ip этого устройства"
-            text: networkManager.getFirstLocalIpString()
-            width: parent.width
+        spacing: Sizes.baseR75
+
+        RowLayout {
+
+            spacing: Sizes.baseR50
+
+            GroupBox {
+
+                label: A.AccentText { text: "Синхронизация" }
+
+                RowLayout {
+
+                    Switch {
+                        checked: false
+                        onCheckedChanged: { networkManager.synchronization = checked; }
+                    }
+
+                    Text {
+                        font: Fonts.text
+                        color: Colors.white
+                        text: networkManager.synchronizationState
+                    }
+                }
+            }
+
+            M.LabelPair {
+                name: "Ip этого устройства"
+                text: networkManager.getFirstLocalIpString()
+                Layout.alignment: Qt.AlignVCenter
+            }
         }
 
         M.TextField {
