@@ -29,7 +29,6 @@
         <file>Js/Colors.js</file>
         <file>Js/Debug.js</file>
         <file>Js/IconPath.js</file>
-        <file>Js/NodePaint.js</file>
         <file>Pages/MainScene.qml</file>
         <file>Pages/GroupsList.qml</file>
         <file>Pages/EditNode.qml</file>

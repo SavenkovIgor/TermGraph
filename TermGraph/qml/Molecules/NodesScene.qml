@@ -27,7 +27,6 @@ import "../Atoms" as A
 
 import "../Js/Fonts.js" as Fonts
 import "../Js/Colors.js" as Colors
-import "../Js/NodePaint.js" as JsPaint
 
 import Notification 1.0
 
@@ -164,63 +163,6 @@ Control {
                 }
             }
         }
-
-//        Canvas {
-//            id: lineCanvas
-//            anchors.fill: parent
-
-//            renderStrategy: Canvas.Cooperative
-//            renderTarget: Canvas.Image
-
-//            onPaint: {
-//                paintManager.setPaintInProcessFlag(true);
-//                const ctx = lineCanvas.getContext('2d');
-
-//                paintAll(ctx);
-
-//                paintManager.setPaintInProcessFlag(false);
-//            }
-
-//            function paintAll(ctx)
-//            {
-//                clearRects(ctx);
-//                paintEdges(ctx);
-//            }
-
-//            function clearRects(ctx)
-//            {
-//                while (true) {
-//                    if (paintManager.clearQueueEmpty())
-//                        break;
-
-//                    const rect = paintManager.currentClearRect();
-//                    JsPaint.clearRect(ctx, rect, 0);
-
-//                    paintManager.nextClearRect();
-//                }
-//            }
-
-//            function paintEdges(ctx)
-//            {
-//                JsPaint.prepareEdge(ctx);
-
-//                while (true) {
-//                    if (paintManager.edgeQueueEmpty())
-//                        break;
-
-//                    const pt1 = paintManager.currentFirstEdgePoint();
-//                    const pt2 = paintManager.currentLastEdgePoint();
-//                    const col = paintManager.getEdgeColor();
-
-//                    ctx.strokeStyle = col;
-//                    ctx.beginPath();
-//                    JsPaint.drawBLine(ctx, pt1, pt2, col);
-//                    ctx.stroke();
-
-//                    paintManager.nextEdge();
-//                }
-//            }
-//        }
 
         Repeater {
             model: scene.nodes
