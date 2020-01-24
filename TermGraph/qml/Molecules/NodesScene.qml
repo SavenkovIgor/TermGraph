@@ -61,28 +61,29 @@ Control {
 
     contentItem: Item {
 
-        Frame {
+        Rectangle {
             readonly property int offset: 35
 
-            topInset: offset
-            bottomInset: offset
-            leftInset: offset
-            rightInset: offset
-
-            anchors.fill: parent
-            background: Rectangle {
-                color: "transparent"
-                border { color: Colors.white; width: 2 }
-                radius: 10
+            anchors {
+                fill: parent
+                leftMargin: offset
+                rightMargin: offset
+                topMargin: offset
+                bottomMargin: offset
             }
-        }
 
-        Text {
-            x: scene.currentGroupNamePos.x
-            y: scene.currentGroupNamePos.y - height / 2
-            text: scene.currentGroupName
-            color: Colors.white
-            font: Fonts.setWeight(Fonts.term, Font.DemiBold)
+            color: "transparent"
+            border { color: Colors.white; width: 2 }
+            radius: 10
+
+            Text {
+                anchors { left: parent.left; top: parent.top; }
+                topPadding: 15
+                leftPadding: 20
+                text: scene.currentGroupName
+                color: Colors.white
+                font: Fonts.setWeight(Fonts.term, Font.DemiBold)
+            }
         }
 
         Connections {
@@ -145,21 +146,16 @@ Control {
                 property point b1: Qt.point(pt1.x + halfWidth, pt1.y)
                 property point b2: Qt.point(pt2.x - halfWidth, pt2.y)
 
-                startX: pt1.x
-                startY: pt1.y
+                startX: pt1.x; startY: pt1.y;
 
                 strokeWidth: Qt.platform.os === "Android" ? 3 : 2
                 strokeColor: edgeColor
                 fillColor: "transparent"
 
                 PathCubic {
-                    x: sPath.pt2.x
-                    y: sPath.pt2.y
-
-                    control1X: b1.x
-                    control1Y: b1.y
-                    control2X: b2.x
-                    control2Y: b2.y
+                    x: sPath.pt2.x; y: sPath.pt2.y;
+                    control1X: b1.x; control1Y: b1.y;
+                    control2X: b2.x; control2Y: b2.y;
                 }
             }
         }

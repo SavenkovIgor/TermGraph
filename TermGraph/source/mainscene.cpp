@@ -312,11 +312,6 @@ QString MainScene::currentGroupName() const
     return mCurrentGroup ? mCurrentGroup->getName() : "";
 }
 
-QPointF MainScene::currentGroupNamePos() const
-{
-    return mCurrentGroup ? mCurrentGroup->getNamePos() : QPointF();
-}
-
 bool MainScene::isAnyNodeSelected() const
 {
     return getSelectedTerm() != nullptr;

@@ -48,7 +48,6 @@ public:
     Q_PROPERTY(QRectF sceneRect READ sceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
     Q_PROPERTY(QString currentGroup READ currentGroupUuid WRITE setCurrentGroup NOTIFY currentGroupChanged)
     Q_PROPERTY(QString currentGroupName READ currentGroupName NOTIFY currentGroupChanged)
-    Q_PROPERTY(QPointF currentGroupNamePos READ currentGroupNamePos NOTIFY currentGroupChanged)
     Q_PROPERTY(QQmlListProperty<PaintedTerm> nodes READ getNodes NOTIFY nodesChanged)
 
     Q_INVOKABLE void selectTerm(const QString& nodeUuid);
@@ -126,7 +125,6 @@ private:
 
     QString currentGroupUuid() const;
     QString currentGroupName() const;
-    QPointF currentGroupNamePos() const;
     void    dropGroup();
 
     // For qml nodes list property
