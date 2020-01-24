@@ -35,8 +35,6 @@ public:
     PaintManager() = default;
     ~PaintManager() = default;
 
-    void sendPaintGroupSignal();
-
 signals:
     void paintGroupQueue();
 

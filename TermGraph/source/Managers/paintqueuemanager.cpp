@@ -21,11 +21,6 @@
 
 #include "paintqueuemanager.h"
 
-void PaintManager::sendPaintGroupSignal()
-{
-    emit paintGroupQueue();
-}
-
 void PaintManager::addClearRect(const QRectF &rect, bool paintNow)
 {
     clearPaintArea.enqueue(rect);

@@ -21,6 +21,7 @@
 
 import QtQuick 2.13
 import QtQuick.Controls 2.13
+import QtQuick.Shapes 1.13
 
 import "../Atoms" as A
 
@@ -60,97 +61,166 @@ Control {
     }
 
     contentItem: Item {
-        Canvas {
-            id: lineCanvas
+
+        Frame {
+            readonly property int offset: 35
+
+            topInset: offset
+            bottomInset: offset
+            leftInset: offset
+            rightInset: offset
+
             anchors.fill: parent
-
-            renderStrategy: Canvas.Cooperative
-            renderTarget: Canvas.Image
-
-            Connections {
-                target: paintManager
-                onPaintGroupQueue: lineCanvas.requestPaint()
+            background: Rectangle {
+                color: "transparent"
+                border { color: Colors.white; width: 2 }
+                radius: 10
             }
+        }
 
-            onPaint: {
+        Text {
+            x: scene.currentGroupNamePos.x
+            y: scene.currentGroupNamePos.y - height / 2
+            text: scene.currentGroupName
+            color: Colors.white
+            font: Fonts.setWeight(Fonts.term, Font.DemiBold)
+        }
+
+        Connections {
+            target: paintManager
+            onPaintGroupQueue: edgesShape.updateEdges()
+        }
+
+        Shape {
+            id: edgesShape
+
+            function updateEdges() {
                 paintManager.setPaintInProcessFlag(true);
-                const ctx = lineCanvas.getContext('2d');
 
-                paintAll(ctx);
-
-                paintManager.setPaintInProcessFlag(false);
-            }
-
-            function paintAll(ctx)
-            {
-                clearRects(ctx);
-                paintGroupRects(ctx);
-                paintGroupNames(ctx);
-                paintEdges(ctx);
-            }
-
-            function clearRects(ctx)
-            {
-                while (true) {
-                    if (paintManager.clearQueueEmpty())
-                        break;
-
-                    const rect = paintManager.currentClearRect();
-                    JsPaint.clearRect(ctx, rect, 0);
-
+                while (!paintManager.clearQueueEmpty())
                     paintManager.nextClearRect();
-                }
-            }
 
-            function paintGroupRects(ctx)
-            {
-                while (true) {
-                    if (paintManager.groupRectQueueEmpty())
-                        break;
-
-                    const groupRect = paintManager.currentGroupRect();
-                    // JsPaint.clearRect(ctx, groupRect, 2)
-                    JsPaint.paintRect(ctx, groupRect, "#FFFFFF");
-
+                while (!paintManager.groupRectQueueEmpty())
                     paintManager.nextGroupRect();
-                }
-            }
 
-            function paintGroupNames(ctx)
-            {
-                while (true) {
-                    if (paintManager.groupNamesQueueEmpty())
-                        break;
-
-                    const groupName = paintManager.currentGroupName();
-                    const groupNamePos = paintManager.currentGroupNamePos();
-                    JsPaint.paintGroupName(ctx, groupName, groupNamePos);
-
+                while (!paintManager.groupNamesQueueEmpty())
                     paintManager.nextGroupName();
-                }
-            }
 
-            function paintEdges(ctx)
-            {
-                JsPaint.prepareEdge(ctx);
+                // Delete old edges
+                const arrayLength = edgesShape.data.length;
 
-                while (true) {
-                    if (paintManager.edgeQueueEmpty())
-                        break;
+                for (var i = 0; i < arrayLength; i++)
+                    edgesShape.data[i].destroy();
+
+                let newEdges = [];
+
+                while (!paintManager.edgeQueueEmpty()) {
 
                     const pt1 = paintManager.currentFirstEdgePoint();
                     const pt2 = paintManager.currentLastEdgePoint();
                     const col = paintManager.getEdgeColor();
 
-                    ctx.strokeStyle = col;
-                    ctx.beginPath();
-                    JsPaint.drawBLine(ctx, pt1, pt2, col);
-                    ctx.stroke();
+                    let edge = edgeComponent.createObject(edgesShape, { pt1: pt1, pt2: pt2, edgeColor: col });
+
+                    newEdges.push(edge);
 
                     paintManager.nextEdge();
                 }
+
+                edgesShape.data = newEdges;
+
+                paintManager.setPaintInProcessFlag(false);
             }
         }
+
+        Component {
+            id: edgeComponent
+
+            ShapePath {
+                id: sPath
+
+                property point pt1: Qt.point(0, 0)
+                property point pt2: Qt.point(0, 0)
+                property color edgeColor: "black"
+                property real halfWidth: (pt2.x - pt1.x) / 2;
+                property point b1: Qt.point(pt1.x + halfWidth, pt1.y)
+                property point b2: Qt.point(pt2.x - halfWidth, pt2.y)
+
+                startX: pt1.x
+                startY: pt1.y
+
+                strokeWidth: Qt.platform.os === "Android" ? 3 : 2
+                strokeColor: edgeColor
+                fillColor: "transparent"
+
+                PathCubic {
+                    x: sPath.pt2.x
+                    y: sPath.pt2.y
+
+                    control1X: b1.x
+                    control1Y: b1.y
+                    control2X: b2.x
+                    control2Y: b2.y
+                }
+            }
+        }
+
+//        Canvas {
+//            id: lineCanvas
+//            anchors.fill: parent
+
+//            renderStrategy: Canvas.Cooperative
+//            renderTarget: Canvas.Image
+
+//            onPaint: {
+//                paintManager.setPaintInProcessFlag(true);
+//                const ctx = lineCanvas.getContext('2d');
+
+//                paintAll(ctx);
+
+//                paintManager.setPaintInProcessFlag(false);
+//            }
+
+//            function paintAll(ctx)
+//            {
+//                clearRects(ctx);
+//                paintEdges(ctx);
+//            }
+
+//            function clearRects(ctx)
+//            {
+//                while (true) {
+//                    if (paintManager.clearQueueEmpty())
+//                        break;
+
+//                    const rect = paintManager.currentClearRect();
+//                    JsPaint.clearRect(ctx, rect, 0);
+
+//                    paintManager.nextClearRect();
+//                }
+//            }
+
+//            function paintEdges(ctx)
+//            {
+//                JsPaint.prepareEdge(ctx);
+
+//                while (true) {
+//                    if (paintManager.edgeQueueEmpty())
+//                        break;
+
+//                    const pt1 = paintManager.currentFirstEdgePoint();
+//                    const pt2 = paintManager.currentLastEdgePoint();
+//                    const col = paintManager.getEdgeColor();
+
+//                    ctx.strokeStyle = col;
+//                    ctx.beginPath();
+//                    JsPaint.drawBLine(ctx, pt1, pt2, col);
+//                    ctx.stroke();
+
+//                    paintManager.nextEdge();
+//                }
+//            }
+//        }
 
         Repeater {
             model: scene.nodes
