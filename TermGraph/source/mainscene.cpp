@@ -58,7 +58,7 @@ void MainScene::dropGroup()
 
     paintManager->requestPaint();
     paintManager->clearAllQueues();
-    emit edgesChanged();
+    updateEdgeCache();
     mCurrentGroup.reset();
 
     setSceneRect(QRectF());
@@ -92,7 +92,7 @@ void MainScene::checkGroupDeletion()
 void MainScene::requestPaint()
 {
     paintManager->requestPaint();
-    emit edgesChanged();
+    updateEdgeCache();
 
     if (mCurrentGroup)
         paintManager->addGroup(mCurrentGroup.get());
@@ -237,7 +237,6 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
 
     paintManager->requestPaint();
     paintManager->clearAllQueues();
-    emit edgesChanged();
 
     dropTermSelection();
 
@@ -262,6 +261,7 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
         emit currentGroupChanged();
 
     emit nodesChanged();
+    updateEdgeCache();
 }
 
 QString MainScene::getCurrNodeDebugInfo()
@@ -377,18 +377,15 @@ QQmlListProperty<Edge> MainScene::getEdges()
 
 int MainScene::edgeCount() const
 {
-    return mCurrentGroup ? mCurrentGroup->getAllEdgesForPainting().size() : 0;
+    return mCachedEdges.size();
 }
 
-Edge *MainScene::edge(int index) const
+Edge* MainScene::edge(int index) const
 {
-    if (!mCurrentGroup)
+    if (index < 0 || index >= mCachedEdges.size())
         return nullptr;
 
-    if (index < 0 || index >= mCurrentGroup->getAllEdgesForPainting().size())
-        return nullptr;
-
-    return mCurrentGroup->getAllEdgesForPainting()[index];
+    return mCachedEdges[index];
 }
 
 int MainScene::edgeCount(QQmlListProperty<Edge> *list)
@@ -399,6 +396,12 @@ int MainScene::edgeCount(QQmlListProperty<Edge> *list)
 Edge *MainScene::edge(QQmlListProperty<Edge> *list, int i)
 {
     return reinterpret_cast<MainScene*>(list->data)->edge(i);
+}
+
+void MainScene::updateEdgeCache()
+{
+    mCachedEdges = mCurrentGroup ? mCurrentGroup->getAllEdgesForPainting() : Edge::List();
+    emit edgesChanged();
 }
 
 void MainScene::findClick(const QPointF &atPt)

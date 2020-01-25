@@ -101,21 +101,40 @@ Control {
                 for (let i = 0; i < delArrayLength; ++i)
                     edgesShape.data[i].destroy();
 
-                let newEdges = [];
+                // Create new edges
 
-                const edgeArrayLength = scene.edges.length;
+                // Looks like a bug in shapes.
+                // If shapes data is empty, it wouldn't be redrawed
+                // It means that, if we remove all edges at once,
+                // old edges wouldn't disappear, and would be still visible
+                // So we create fake edge every time just for sure
+                // that shape redraw each time
 
-                for (let j = 0; j < edgeArrayLength; ++j) {
+                let fakeEdge = edgeComponent.createObject(
+                        edgesShape,
+                        {
+                            pt1: Qt.point(0, 0),
+                            pt2: Qt.point(0, 0),
+                            edgeColor: "black"
+                        });
 
-                    const pt1 = scene.edges[j].pt1; // paintManager.currentFirstEdgePoint();
-                    const pt2 = scene.edges[j].pt2; //paintManager.currentLastEdgePoint();
-                    const col = scene.edges[j].color; //paintManager.getEdgeColor();
+                let newEdges = [fakeEdge];
 
-                    let edge = edgeComponent.createObject(edgesShape, { pt1: pt1, pt2: pt2, edgeColor: col });
+                const edgesCount = scene.edges.length;
 
-                    newEdges.push(edge);
+                for (let j = 0; j < edgesCount; ++j) {
 
-//                    paintManager.nextEdge();
+                    const edge = scene.edges[j];
+
+                    const edgeLine = edgeComponent.createObject(
+                            edgesShape,
+                            {
+                                pt1: edge.pt1,
+                                pt2: edge.pt2,
+                                edgeColor: edge.color
+                            });
+
+                    newEdges.push(edgeLine);
                 }
 
                 edgesShape.data = newEdges;

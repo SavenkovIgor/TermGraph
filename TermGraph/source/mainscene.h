@@ -145,6 +145,12 @@ private:
     static int   edgeCount(QQmlListProperty<Edge>* list);
     static Edge* edge(QQmlListProperty<Edge>* list, int i);
 
+    Edge::List mCachedEdges;
+
+private slots:
+    void updateEdgeCache();
+
+private:
     // Paint tools
     void resetPaintFlags();
 
