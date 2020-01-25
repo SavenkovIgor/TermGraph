@@ -97,9 +97,6 @@ Control {
             function updateEdges() {
                 paintManager.setPaintInProcessFlag(true);
 
-                while (!paintManager.clearQueueEmpty())
-                    paintManager.nextClearRect();
-
                 while (!paintManager.groupRectQueueEmpty())
                     paintManager.nextGroupRect();
 

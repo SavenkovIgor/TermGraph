@@ -56,7 +56,7 @@ void MainScene::dropGroup()
 {
     dropTermSelection();
 
-    paintManager->addClearRect(sceneRect(), true);
+    paintManager->requestPaint();
     paintManager->clearAllQueues();
     mCurrentGroup.reset();
 
@@ -90,7 +90,7 @@ void MainScene::checkGroupDeletion()
 
 void MainScene::requestPaint()
 {
-    paintManager->addClearRect(sceneRect(), true);
+    paintManager->requestPaint();
 
     if (mCurrentGroup)
         paintManager->addGroup(mCurrentGroup.get());
@@ -233,7 +233,7 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
     auto oldGroupUuid = QUuid(currentGroupUuid());
     bool newGroup     = newGroupUuid != oldGroupUuid;
 
-    paintManager->addClearRect(sceneRect(), true);
+    paintManager->requestPaint();
     paintManager->clearAllQueues();
 
     dropTermSelection();

@@ -35,15 +35,12 @@ public:
     PaintManager() = default;
     ~PaintManager() = default;
 
+    void requestPaint();
+
 signals:
     void paintGroupQueue();
 
 public slots:
-    // Clear functions
-    void addClearRect(const QRectF& rect, bool paintNow = false);
-    QRectF currentClearRect();
-    void nextClearRect();
-    bool clearQueueEmpty() const;
 
     // Fill functions
     void clearAllQueues();
@@ -84,7 +81,6 @@ private:
     bool paintInProcessFlag = false;
 
     // Paint queues
-    QQueue<QRectF>                   clearPaintArea;
     QQueue<QPair<QRectF, QColor>>    groupRectsForPaint;
     QQueue<QPair<QPointF, QString>>  groupNamesForPaint;
     QQueue<Edge*>                    edgesForPaint;
