@@ -24,6 +24,7 @@
 #include <QColor>
 #include <QPointF>
 #include <QLineF>
+#include <QObject>
 
 #include "source/Model/TerminEdge/graphedge.h"
 #include "source/Model/GraphicItem/graphicitem.h"
@@ -43,12 +44,19 @@ enum class EdgeSelected {
     backward
 };
 
-class Edge : public GraphEdge, public GraphicItem
+class Edge : public QObject, public GraphEdge, public GraphicItem
 {
+    Q_OBJECT
+
+    Q_PROPERTY(QPointF pt1 READ rootPoint)
+    Q_PROPERTY(QPointF pt2 READ leafPoint)
+    Q_PROPERTY(QColor color READ getEdgeColor)
+
 public:
     using List = QList<Edge*>;
 
-    Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin);
+    explicit Edge(QObject* parent = nullptr);
+    Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin, QObject* parent = nullptr);
     ~Edge() override = default;
 
     QRectF edgeRect() const;
@@ -60,7 +68,11 @@ public:
 
     QPointF swapPointRoot = QPointF();
     QPointF swapPointLeaf = QPointF();
-    QLineF getLine(bool swap = false);
+    QLineF  getLine(bool swap = false);
+
+    QPointF rootPoint() const;
+    QPointF leafPoint() const;
+    QColor getEdgeColor() const;
 
     static List castToEdgeList(GraphEdge::List lst);  // TODO: Delete!!!
 
@@ -68,7 +80,6 @@ public:
     void setSelectedForward(bool value);
     void setSelectedBackward(bool value);
 
-    QColor getEdgeColor() const;
 
     void brokeEdge();
     void cutOutFromSides();

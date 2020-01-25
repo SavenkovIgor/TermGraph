@@ -31,6 +31,12 @@ GraphEdge::GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf)
     this->toLeaf = toLeaf;
 }
 
+GraphEdge::GraphEdge()
+{
+    this->toRoot = nullptr;
+    this->toLeaf = nullptr;
+}
+
 bool GraphEdge::hasNode(GraphTerm* node) const
 {
     if (node == toRoot || node == toLeaf)

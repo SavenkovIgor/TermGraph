@@ -87,8 +87,8 @@ Control {
         }
 
         Connections {
-            target: paintManager
-            onPaintGroupQueue: edgesShape.updateEdges()
+            target: scene
+            onEdgesChanged: edgesShape.updateEdges()
         }
 
         Shape {
@@ -96,24 +96,26 @@ Control {
 
             function updateEdges() {
                 // Delete old edges
-                const arrayLength = edgesShape.data.length;
+                const delArrayLength = edgesShape.data.length;
 
-                for (var i = 0; i < arrayLength; i++)
+                for (let i = 0; i < delArrayLength; ++i)
                     edgesShape.data[i].destroy();
 
                 let newEdges = [];
 
-                while (!paintManager.edgeQueueEmpty()) {
+                const edgeArrayLength = scene.edges.length;
 
-                    const pt1 = paintManager.currentFirstEdgePoint();
-                    const pt2 = paintManager.currentLastEdgePoint();
-                    const col = paintManager.getEdgeColor();
+                for (let j = 0; j < edgeArrayLength; ++j) {
+
+                    const pt1 = scene.edges[j].pt1; // paintManager.currentFirstEdgePoint();
+                    const pt2 = scene.edges[j].pt2; //paintManager.currentLastEdgePoint();
+                    const col = scene.edges[j].color; //paintManager.getEdgeColor();
 
                     let edge = edgeComponent.createObject(edgesShape, { pt1: pt1, pt2: pt2, edgeColor: col });
 
                     newEdges.push(edge);
 
-                    paintManager.nextEdge();
+//                    paintManager.nextEdge();
                 }
 
                 edgesShape.data = newEdges;

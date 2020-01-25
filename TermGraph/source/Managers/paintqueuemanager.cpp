@@ -56,14 +56,10 @@ QColor PaintManager::getEdgeColor() const
 
 QPointF PaintManager::currentFirstEdgePoint() const
 {
-    auto graphTerm = edgesForPaint.head()->getRoot();
-    auto paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
-    return paintedTerm->getNodeRect(CoordType::scene).center();
+    return edgesForPaint.head()->rootPoint();
 }
 
 QPointF PaintManager::currentLastEdgePoint() const
 {
-    auto graphTerm = edgesForPaint.head()->getLeaf();
-    auto paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
-    return paintedTerm->getNodeRect(CoordType::scene).center();
+    return edgesForPaint.head()->leafPoint();
 }

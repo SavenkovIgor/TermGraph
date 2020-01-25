@@ -49,6 +49,7 @@ public:
     Q_PROPERTY(QString currentGroup READ currentGroupUuid WRITE setCurrentGroup NOTIFY currentGroupChanged)
     Q_PROPERTY(QString currentGroupName READ currentGroupName NOTIFY currentGroupChanged)
     Q_PROPERTY(QQmlListProperty<PaintedTerm> nodes READ getNodes NOTIFY nodesChanged)
+    Q_PROPERTY(QQmlListProperty<Edge> edges READ getEdges NOTIFY edgesChanged)
 
     Q_INVOKABLE void selectTerm(const QString& nodeUuid);
     Q_INVOKABLE void selectTerm(const QUuid& nodeUuid);
@@ -65,6 +66,7 @@ signals:
     void selectionDoubleClick();
     void currentGroupChanged();
     void nodesChanged();
+    void edgesChanged();
 
     void sceneRectChanged();
 
@@ -134,6 +136,14 @@ private:
     PaintedTerm*        term(int index) const;
     static int          termCount(QQmlListProperty<PaintedTerm>* list);
     static PaintedTerm* term(QQmlListProperty<PaintedTerm>* list, int i);
+
+    // For qml edges list property
+    QQmlListProperty<Edge> getEdges();
+
+    int          edgeCount() const;
+    Edge*        edge(int index) const;
+    static int   edgeCount(QQmlListProperty<Edge>* list);
+    static Edge* edge(QQmlListProperty<Edge>* list, int i);
 
     // Paint tools
     void resetPaintFlags();

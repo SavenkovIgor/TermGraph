@@ -24,6 +24,10 @@
 #include <QScreen>
 
 #include "source/Helpers/platform.h"
+#include "source/Managers/notificationmanager.h"
+#include "source/databaseWorks/database.h"
+#include "source/Model/TerminEdge/edge.h"
+#include "source/Model/Termin/paintedterm.h"
 
 MainWindow::MainWindow(QObject *parent):
     QObject(parent),
@@ -56,7 +60,8 @@ MainWindow::MainWindow(QObject *parent):
 
     qmlRegisterSingletonType<NotificationManager>("Notification", 1, 0, "Notification", registration);
 
-    qmlRegisterType<PaintedTerm>();
+    qmlRegisterAnonymousType<PaintedTerm>("TermGraph", 1);
+    qmlRegisterAnonymousType<Edge>("TermGraph", 1);
 
     qmlEngine->rootContext()->setContextProperty("mainObj", this);
     qmlEngine->rootContext()->setContextProperty("scene", scene.get());

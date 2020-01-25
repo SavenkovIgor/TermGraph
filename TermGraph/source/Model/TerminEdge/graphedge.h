@@ -31,6 +31,7 @@ public:
     using List = QList<GraphEdge*>;
 
     GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf);
+    GraphEdge();
     virtual ~GraphEdge() = default;
 
     GraphTerm* getRoot() const { return toRoot; }

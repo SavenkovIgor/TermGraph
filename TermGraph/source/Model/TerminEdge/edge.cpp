@@ -24,8 +24,10 @@
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Helpers/appstyle.h"
 
-Edge::Edge(PaintedTerm *toRoot, PaintedTerm *toLeaf, EdgeType type) :
-      GraphEdge(toRoot, toLeaf)
+Edge::Edge(QObject* parent) : QObject(parent), GraphEdge(), GraphicItem() {}
+
+Edge::Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type, QObject* parent)
+    : QObject(parent), GraphEdge(toRoot, toLeaf), GraphicItem()
 {
     this->type = type;
 }
@@ -70,8 +72,8 @@ EdgeSelected Edge::selectedType() const
 
 QRectF Edge::edgeRect() const
 {
-    QPointF pt1 = dynamic_cast<PaintedTerm*>(getRoot())->getCenter(CoordType::scene);
-    QPointF pt2 = dynamic_cast<PaintedTerm*>(getLeaf())->getCenter(CoordType::scene);
+    QPointF pt1 = rootPoint();
+    QPointF pt2 = leafPoint();
 
     QRectF rc = QRectF(pt1, pt2);
     rc = rc.normalized();
@@ -98,11 +100,8 @@ qreal Edge::getYProjection()
 
 QLineF Edge::getLine(bool swap)
 {
-    auto toRoot = dynamic_cast<PaintedTerm*>(getRoot());
-    auto toLeaf = dynamic_cast<PaintedTerm*>(getLeaf());
-
-    QPointF pt1 = toRoot->getCenter(CoordType::scene);
-    QPointF pt2 = toLeaf->getCenter(CoordType::scene);
+    QPointF pt1 = rootPoint();
+    QPointF pt2 = leafPoint();
 
     if (swap) {
         if (!swapPointRoot.isNull())
@@ -113,6 +112,18 @@ QLineF Edge::getLine(bool swap)
     }
 
     return QLineF( pt1, pt2 );
+}
+
+QPointF Edge::rootPoint() const
+{
+    auto paintedTerm = dynamic_cast<PaintedTerm*>(getRoot());
+    return paintedTerm->getCenter(CoordType::scene);
+}
+
+QPointF Edge::leafPoint() const
+{
+    auto paintedTerm = dynamic_cast<PaintedTerm*>(getLeaf());
+    return paintedTerm->getCenter(CoordType::scene);
 }
 
 Edge::List Edge::castToEdgeList(GraphEdge::List lst)

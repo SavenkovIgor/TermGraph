@@ -28,12 +28,10 @@
 
 #include "source/mainscene.h"
 #include "source/Managers/paintqueuemanager.h"
-#include "source/databaseWorks/database.h"
 #include "source/Helpers/tagprocessor.h"
 #include "source/Helpers/textprocessor.h"
 #include "source/Helpers/appconfig.h"
 #include "source/Managers/syncmanager.h"
-#include "source/Managers/notificationmanager.h"
 
 class MainWindow : public QObject
 {
