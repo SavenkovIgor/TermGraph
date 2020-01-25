@@ -45,21 +45,10 @@ public slots:
     // Fill functions
     void clearAllQueues();
     void addGroup(TermGroup* group);
-    void addRect(const QRectF& rect, const QColor& color = Qt::white);
-
-    // GroupRects
-    void nextGroupRect();
-    bool groupRectQueueEmpty() const;
-
-    QRectF currentGroupRect() const;
-    QColor currentGroupFillColor() const;
 
     // GroupNames
     void nextGroupName();
     bool groupNamesQueueEmpty() const;
-
-    QString currentGroupName() const;
-    QPointF currentGroupNamePos() const;
 
     // Edges
     void nextEdge();
@@ -81,7 +70,6 @@ private:
     bool paintInProcessFlag = false;
 
     // Paint queues
-    QQueue<QPair<QRectF, QColor>>    groupRectsForPaint;
     QQueue<QPair<QPointF, QString>>  groupNamesForPaint;
     QQueue<Edge*>                    edgesForPaint;
 

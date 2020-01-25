@@ -28,45 +28,18 @@ void PaintManager::requestPaint()
 
 void PaintManager::clearAllQueues()
 {
-    groupRectsForPaint.clear();
     groupNamesForPaint.clear();
     edgesForPaint.clear();
 }
 
 void PaintManager::addGroup(TermGroup *group)
 {
-    groupRectsForPaint.enqueue(QPair<QRectF, QColor>(group->getGroupRect(), group->getGroupFillColor()));
     groupNamesForPaint.enqueue(QPair<QPointF, QString>(group->getNamePos(), group->getName()));
 
     for (auto edge : group->getAllEdgesForPainting())
         edgesForPaint.enqueue(edge);
 
     emit paintGroupQueue();
-}
-
-void PaintManager::addRect(const QRectF &rect, const QColor &color)
-{
-    groupRectsForPaint.enqueue(QPair<QRectF, QColor>(rect, color));
-}
-
-void PaintManager::nextGroupRect()
-{
-    groupRectsForPaint.dequeue();
-}
-
-bool PaintManager::groupRectQueueEmpty() const
-{
-    return groupRectsForPaint.isEmpty();
-}
-
-QRectF PaintManager::currentGroupRect() const
-{
-    return groupRectsForPaint.head().first;
-}
-
-QColor PaintManager::currentGroupFillColor() const
-{
-    return groupRectsForPaint.head().second;
 }
 
 void PaintManager::nextGroupName()
@@ -77,16 +50,6 @@ void PaintManager::nextGroupName()
 bool PaintManager::groupNamesQueueEmpty() const
 {
     return groupNamesForPaint.isEmpty();
-}
-
-QString PaintManager::currentGroupName() const
-{
-    return groupNamesForPaint.head().second;
-}
-
-QPointF PaintManager::currentGroupNamePos() const
-{
-    return groupNamesForPaint.head().first;
 }
 
 void PaintManager::nextEdge()
