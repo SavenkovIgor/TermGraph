@@ -95,8 +95,6 @@ Control {
             id: edgesShape
 
             function updateEdges() {
-                paintManager.setPaintInProcessFlag(true);
-
                 // Delete old edges
                 const arrayLength = edgesShape.data.length;
 
@@ -119,8 +117,6 @@ Control {
                 }
 
                 edgesShape.data = newEdges;
-
-                paintManager.setPaintInProcessFlag(false);
             }
         }
 

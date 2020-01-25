@@ -54,20 +54,7 @@ public slots:
     QPointF currentFirstEdgePoint() const;
     QPointF currentLastEdgePoint() const;
 
-    // Flags
-    void setPaintInProcessFlag(bool paintNow);
-    bool isPaintInProcessNow() const;
-
-    // Paint speed check
-    void startCheckTimer();
-    void restartCheckTimer(const QString& label = "paint speed");
-
 private:
-    bool paintInProcessFlag = false;
-
     // Paint queues
     QQueue<Edge*> edgesForPaint;
-
-    // Timer
-    QElapsedTimer paintSpeedTimer;
 };

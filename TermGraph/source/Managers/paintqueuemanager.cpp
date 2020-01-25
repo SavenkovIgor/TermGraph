@@ -71,23 +71,3 @@ QPointF PaintManager::currentLastEdgePoint() const
     pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
     return pt;
 }
-
-void PaintManager::setPaintInProcessFlag(bool paintNow)
-{
-    paintInProcessFlag = paintNow;
-}
-
-bool PaintManager::isPaintInProcessNow() const
-{
-    return paintInProcessFlag;
-}
-
-void PaintManager::startCheckTimer()
-{
-    paintSpeedTimer.start();
-}
-
-void PaintManager::restartCheckTimer(const QString& label)
-{
-    qDebug() << label << " " << paintSpeedTimer.restart();
-}
