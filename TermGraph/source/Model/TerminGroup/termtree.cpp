@@ -21,6 +21,8 @@
 
 #include "termtree.h"
 
+#include "source/Helpers/appstyle.h"
+
 #include <QDebug>
 
 TermTree::TermTree()
@@ -225,7 +227,7 @@ QSizeF TermTree::getTreeSize() const
     }
 
     if (!stacks.empty()) {
-        width += (stacks.size() - 1)*AppStyle::Sizes::treeLayerHorizontalSpacer;
+        width += (stacks.size() - 1) * AppStyle::Sizes::treeLayerHorizontalSpacer;
     }
 
     return QSizeF(width, height);

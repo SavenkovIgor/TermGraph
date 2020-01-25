@@ -23,6 +23,7 @@
 
 #include "source/Helpers/helpstuff.h"
 #include "source/Helpers/globaltagcache.h"
+#include "source/Helpers/appstyle.h"
 #include "source/Model/TerminGroup/groupnamecache.h"
 
 TermGroupInfo::TermGroupInfo(const GroupInfoContainer& info)
@@ -57,14 +58,14 @@ PaintedTerm::List TermGroupInfo::getAllNodes() const
     return nodesList;
 }
 
-EdgesList TermGroupInfo::getAllEdges() const
+Edge::List TermGroupInfo::getAllEdges() const
 {
     return edgesList;
 }
 
-EdgesList TermGroupInfo::filterFromEdgesList(std::function<bool(Edge*)> condition) const
+Edge::List TermGroupInfo::filterFromEdgesList(std::function<bool(Edge*)> condition) const
 {
-    EdgesList ret;
+    Edge::List ret;
     for (auto* edge : getAllEdges()) {
         if (condition(edge)) {
             ret << edge;
@@ -74,9 +75,9 @@ EdgesList TermGroupInfo::filterFromEdgesList(std::function<bool(Edge*)> conditio
     return ret;
 }
 
-EdgesList TermGroupInfo::getBrokenEdges() const
+Edge::List TermGroupInfo::getBrokenEdges() const
 {
-    EdgesList ret;
+    Edge::List ret;
     for (auto* node : getAllNodes())
         for (auto* edge : node->getBrokenEdges())
             ret.push_back(dynamic_cast<Edge*>(edge));
@@ -84,9 +85,9 @@ EdgesList TermGroupInfo::getBrokenEdges() const
     return ret;
 }
 
-EdgesList TermGroupInfo::getAllEdgesForPainting() const
+Edge::List TermGroupInfo::getAllEdgesForPainting() const
 {
-    EdgesList lst;
+    Edge::List lst;
     auto      defaultTypeFilter  = [](Edge* e) { return e->selectedType() == EdgeSelected::none; };
     auto      selectedTypeFilter = [](Edge* e) { return e->selectedType() != EdgeSelected::none; };
 
@@ -122,9 +123,9 @@ Edge* TermGroupInfo::addNewEdge(PaintedTerm* rootNode, PaintedTerm* leafNode)
     return edge;
 }
 
-EdgesList TermGroupInfo::searchAllConnections()
+Edge::List TermGroupInfo::searchAllConnections()
 {
-    EdgesList ret;
+    Edge::List ret;
 
     // Pre-heating of cache with exact terms match
     QMap<QString, PaintedTerm*> previousTagSearchCache = getExactTermMatchCache();
@@ -212,7 +213,7 @@ void TermGroupInfo::removeCycles()
         node->getCycleEdge();
     }
 
-    EdgesList brokeList;
+    Edge::List brokeList;
     for (auto edge : edgesList) {
         if (edge->needBroke) {
             brokeList << edge;
@@ -232,7 +233,7 @@ void TermGroupInfo::removeExceedEdges()
         node->checkForExceedEdges();
     }
 
-    EdgesList brokeList;
+    Edge::List brokeList;
     for (auto edge : edgesList) {
         if (edge->needCutOut) {
             brokeList << edge;
@@ -296,7 +297,7 @@ QSizeF TermGroupInfo::getAllTreesSize()
     auto totalSize = HelpStuff::getStackedSize(sizeList, Qt::Vertical);
 
     if (!trees.isEmpty()) {
-        totalSize.rheight() += (trees.size() - 1)*AppStyle::Sizes::groupVerticalSpacer;
+        totalSize.rheight() += (trees.size() - 1) * AppStyle::Sizes::groupVerticalSpacer;
     }
 
     return totalSize;

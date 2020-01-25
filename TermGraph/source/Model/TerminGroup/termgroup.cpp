@@ -22,6 +22,7 @@
 #include "termgroup.h"
 
 #include "source/Helpers/tagprocessor.h"
+#include "source/Helpers/appstyle.h"
 
 int TermGroup::animSpeed = 300;
 

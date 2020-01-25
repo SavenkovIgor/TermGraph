@@ -26,9 +26,7 @@
 #include <QLineF>
 
 #include "source/Model/TerminEdge/graphedge.h"
-#include "source/Model/Termin/paintedterm.h"
 #include "source/Model/GraphicItem/graphicitem.h"
-#include "source/Helpers/appstyle.h"
 
 class PaintedTerm;
 
@@ -48,6 +46,8 @@ enum class EdgeSelected {
 class Edge : public GraphEdge, public GraphicItem
 {
 public:
+    using List = QList<Edge*>;
+
     Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin);
     ~Edge() override = default;
 
@@ -62,7 +62,7 @@ public:
     QPointF swapPointLeaf = QPointF();
     QLineF getLine(bool swap = false);
 
-    static EdgesList castToEdgeList(GraphEdge::List lst);  // TODO: Delete!!!
+    static List castToEdgeList(GraphEdge::List lst);  // TODO: Delete!!!
 
     // Paint width
     void setSelectedForward(bool value);

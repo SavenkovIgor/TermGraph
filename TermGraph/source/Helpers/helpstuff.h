@@ -28,7 +28,8 @@
 
 #include "handytypes.h"
 
-class HelpStuff {
+class HelpStuff
+{
 public:
     static QString ptToStr(const int& x, const int& y);
     static QString ptToStr(const QPoint& pt);

@@ -24,11 +24,9 @@
 #include <QObject>
 #include <QTimer>
 
-#include "source/Helpers/appstyle.h"
-#include "source/Helpers/tagprocessor.h"
+#include "source/Helpers/handytypes.h"
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/TerminGroup/termgroupinfo.h"
-#include "source/Model/TerminEdge/edge.h"
 #include "source/Model/GraphicItem/labelgraphicitem.h"
 
 class TermGroup : public QObject, public TermGroupInfo

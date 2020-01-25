@@ -21,6 +21,15 @@
 
 #include "edge.h"
 
+#include "source/Model/Termin/paintedterm.h"
+#include "source/Helpers/appstyle.h"
+
+Edge::Edge(PaintedTerm *toRoot, PaintedTerm *toLeaf, EdgeType type) :
+      GraphEdge(toRoot, toLeaf)
+{
+    this->type = type;
+}
+
 QColor Edge::getEdgeColor() const
 {
     switch (selected) {
@@ -58,14 +67,6 @@ EdgeSelected Edge::selectedType() const
     return selected;
 }
 
-Edge::Edge(PaintedTerm* from, PaintedTerm* to, EdgeType type) :
-    GraphEdge(from, to)
-{
-    assert(from != to);
-    assert(from != nullptr);
-    assert(to != nullptr);
-    this->type = type;
-}
 
 QRectF Edge::edgeRect() const
 {
@@ -114,9 +115,9 @@ QLineF Edge::getLine(bool swap)
     return QLineF( pt1, pt2 );
 }
 
-EdgesList Edge::castToEdgeList(GraphEdge::List lst)
+Edge::List Edge::castToEdgeList(GraphEdge::List lst)
 {
-    EdgesList edgeLst;
+    Edge::List edgeLst;
     for (auto graphEdg : lst) {
         edgeLst << dynamic_cast<Edge*>(graphEdg);
     }

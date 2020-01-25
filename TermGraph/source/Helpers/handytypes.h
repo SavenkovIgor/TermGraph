@@ -28,6 +28,5 @@
 
 class Edge;
 
-using EdgesList = QList<Edge*>;
 using UuidList = std::vector<QUuid>;
 using SizesList = std::vector<QSizeF>;

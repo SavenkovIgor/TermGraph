@@ -21,9 +21,12 @@
 
 #include "graphedge.h"
 
-GraphEdge::GraphEdge(GraphTerm *toRoot, GraphTerm *toLeaf)
+GraphEdge::GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf)
 {
+    assert(toRoot != nullptr);
+    assert(toLeaf != nullptr);
     assert(toRoot != toLeaf);
+
     this->toRoot = toRoot;
     this->toLeaf = toLeaf;
 }

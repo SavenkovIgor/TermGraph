@@ -46,10 +46,10 @@ public:
     PaintedTerm::List getAllNodes() const;
 
     // Edges tools
-    EdgesList getAllEdges() const;
-    EdgesList filterFromEdgesList(std::function<bool(Edge*)> condition) const;
-    EdgesList getBrokenEdges() const;
-    EdgesList getAllEdgesForPainting() const;
+    Edge::List getAllEdges() const;
+    Edge::List filterFromEdgesList(std::function<bool(Edge*)> condition) const;
+    Edge::List getBrokenEdges() const;
+    Edge::List getAllEdgesForPainting() const;
 
 protected:
     // Group content methods
@@ -88,13 +88,13 @@ private:
             // Filters nodes from nodesList with lambda
 
     // Edges & tools
-    EdgesList edgesList;
+    Edge::List edgesList;
     Edge* addNewEdge(PaintedTerm* node1, PaintedTerm* node2);
 
     // Edge connections search
-    EdgesList searchAllConnections();
+    Edge::List searchAllConnections();
     QMap<QString, PaintedTerm*> getExactTermMatchCache();
     PaintedTerm* getNearestNodeForTag(const QString& tag);
 
-    EdgesList suggestConnections();  // TODO: Realize!
+    Edge::List suggestConnections();  // TODO: Realize!
 };

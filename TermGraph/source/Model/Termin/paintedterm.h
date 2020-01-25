@@ -118,7 +118,7 @@ private:
     PaintedTerm* getNearestRightNeigh();
 
     // Edges tools
-    EdgesList getEdgesInLayer();
+    Edge::List getEdgesInLayer();
 
     // Rect tools
     static QRectF addMarginsToRect(QRectF rc, qreal mrg);

@@ -21,6 +21,9 @@
 
 #include "paintedterm.h"
 
+#include "source/Model/TerminEdge/edge.h"
+#include "source/Helpers/appstyle.h"
+
 bool PaintedTerm::someoneHover  = false;
 bool PaintedTerm::someoneSelect = false;
 
@@ -174,7 +177,7 @@ void PaintedTerm::countForces()
     qreal tmp = 0.0;
     qreal notMyPos = 0.0;
 
-    EdgesList edges;
+    Edge::List edges;
     edges << Edge::castToEdgeList(getEdgesToRoots());
     edges << Edge::castToEdgeList(getEdgesToLeafs());
 
@@ -207,7 +210,7 @@ void PaintedTerm::countForces()
 
 int PaintedTerm::getIntersections(bool swapped)
 {
-    EdgesList edges;
+    Edge::List edges;
     //    edges << edgesUpList;
     edges << Edge::castToEdgeList(getEdgesToRoots());
 
@@ -254,7 +257,7 @@ int PaintedTerm::getIntersections(bool swapped)
     return interList.size();
 }
 
-EdgesList PaintedTerm::getEdgesInLayer()
+Edge::List PaintedTerm::getEdgesInLayer()
 {
     // Taking all edges in this paint level
     GraphEdge::List allEdgesInLayerList;
@@ -264,8 +267,8 @@ EdgesList PaintedTerm::getEdgesInLayer()
     }
 
     // Stay only with distance 1
-    EdgesList edgLst = Edge::castToEdgeList(allEdgesInLayerList);
-    EdgesList ret2;
+    Edge::List edgLst = Edge::castToEdgeList(allEdgesInLayerList);
+    Edge::List ret2;
     for (Edge *e : edgLst) {
         if (e->getLayerDistance() == 1)
             ret2 << e;
@@ -286,10 +289,10 @@ void PaintedTerm::updateCornerRadius()
 
 void PaintedTerm::dropSwap()
 {
-    EdgesList lst;
+    Edge::List lst;
     lst = Edge::castToEdgeList(getUpDownEdges());
 
-    for (Edge *e : lst) {
+    for (auto* e : lst) {
         e->swapPointLeaf = QPointF();
         e->swapPointRoot = QPointF();
     }
@@ -329,7 +332,7 @@ void PaintedTerm::setSwap(QPointF toPt)
 
 qreal PaintedTerm::getSumEdgesLength(bool swap)
 {
-    EdgesList edges;
+    Edge::List edges;
     edges << Edge::castToEdgeList(getEdgesToLeafs());
     edges << Edge::castToEdgeList(getEdgesToRoots());
     qreal ret = 0.0;
