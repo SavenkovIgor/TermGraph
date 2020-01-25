@@ -46,10 +46,6 @@ public slots:
     void clearAllQueues();
     void addGroup(TermGroup* group);
 
-    // GroupNames
-    void nextGroupName();
-    bool groupNamesQueueEmpty() const;
-
     // Edges
     void nextEdge();
     bool edgeQueueEmpty() const;
@@ -70,8 +66,7 @@ private:
     bool paintInProcessFlag = false;
 
     // Paint queues
-    QQueue<QPair<QPointF, QString>>  groupNamesForPaint;
-    QQueue<Edge*>                    edgesForPaint;
+    QQueue<Edge*> edgesForPaint;
 
     // Timer
     QElapsedTimer paintSpeedTimer;

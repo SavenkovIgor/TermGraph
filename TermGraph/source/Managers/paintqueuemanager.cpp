@@ -28,28 +28,15 @@ void PaintManager::requestPaint()
 
 void PaintManager::clearAllQueues()
 {
-    groupNamesForPaint.clear();
     edgesForPaint.clear();
 }
 
 void PaintManager::addGroup(TermGroup *group)
 {
-    groupNamesForPaint.enqueue(QPair<QPointF, QString>(group->getNamePos(), group->getName()));
-
     for (auto edge : group->getAllEdgesForPainting())
         edgesForPaint.enqueue(edge);
 
     emit paintGroupQueue();
-}
-
-void PaintManager::nextGroupName()
-{
-    groupNamesForPaint.dequeue();
-}
-
-bool PaintManager::groupNamesQueueEmpty() const
-{
-    return groupNamesForPaint.isEmpty();
 }
 
 void PaintManager::nextEdge()

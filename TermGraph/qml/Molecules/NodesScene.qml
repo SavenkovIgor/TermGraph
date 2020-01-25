@@ -97,9 +97,6 @@ Control {
             function updateEdges() {
                 paintManager.setPaintInProcessFlag(true);
 
-                while (!paintManager.groupNamesQueueEmpty())
-                    paintManager.nextGroupName();
-
                 // Delete old edges
                 const arrayLength = edgesShape.data.length;
 
