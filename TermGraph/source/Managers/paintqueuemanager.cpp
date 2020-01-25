@@ -58,16 +58,12 @@ QPointF PaintManager::currentFirstEdgePoint() const
 {
     auto graphTerm = edgesForPaint.head()->getRoot();
     auto paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
-    auto pt = paintedTerm->scenePos();
-    pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
-    return pt;
+    return paintedTerm->getNodeRect(CoordType::scene).center();
 }
 
 QPointF PaintManager::currentLastEdgePoint() const
 {
     auto graphTerm = edgesForPaint.head()->getLeaf();
     auto paintedTerm = dynamic_cast<PaintedTerm*>(graphTerm);
-    auto pt = paintedTerm->scenePos();
-    pt += paintedTerm->getNodeRect(CoordType::zeroPoint).center();
-    return pt;
+    return paintedTerm->getNodeRect(CoordType::scene).center();
 }

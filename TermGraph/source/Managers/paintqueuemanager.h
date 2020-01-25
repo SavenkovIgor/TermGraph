@@ -41,7 +41,6 @@ signals:
     void paintGroupQueue();
 
 public slots:
-
     // Fill functions
     void clearAllQueues();
     void addGroup(TermGroup* group);
