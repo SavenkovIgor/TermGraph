@@ -33,12 +33,11 @@ MainWindow::MainWindow(QObject *parent):
     QObject(parent),
     network(new NetworkManager()),
     nodesManager(new NodesManager()),
-    paintManager(new PaintManager()),
     tagProcessor(new TagProcessor()),
     textProcessor(new TextProcessor()),
     groupsManager(new GroupsManager(nodesManager.get())),
     syncManager(new SyncManager(network.get(), groupsManager.get(), nodesManager.get())),
-    scene(new MainScene(groupsManager.get(), nodesManager.get(), paintManager.get())),
+    scene(new MainScene(groupsManager.get(), nodesManager.get())),
     qmlEngine(new QQmlApplicationEngine())
 {
     initElemSizes();
@@ -65,7 +64,6 @@ MainWindow::MainWindow(QObject *parent):
 
     qmlEngine->rootContext()->setContextProperty("mainObj", this);
     qmlEngine->rootContext()->setContextProperty("scene", scene.get());
-    qmlEngine->rootContext()->setContextProperty("paintManager", paintManager.get());
     qmlEngine->rootContext()->setContextProperty("networkManager", network.get());
     qmlEngine->rootContext()->setContextProperty("groupsManager", groupsManager.get());
     qmlEngine->rootContext()->setContextProperty("nodesManager", nodesManager.get());

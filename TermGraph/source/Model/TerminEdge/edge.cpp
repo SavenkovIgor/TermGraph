@@ -137,22 +137,10 @@ Edge::List Edge::castToEdgeList(GraphEdge::List lst)
 
 void Edge::setSelectedForward(bool value)
 {
-    if (value) {
-        selected = EdgeSelected::forward;
-    } else {
-        selected = EdgeSelected::none;
-    }
-
-    needPaint = true;
+    selected  = value ? EdgeSelected::forward : EdgeSelected::none;
 }
 
 void Edge::setSelectedBackward(bool value)
 {
-    if (value) {
-        selected = EdgeSelected::backward;
-    } else {
-        selected = EdgeSelected::none;
-    }
-
-    needPaint = true;
+    selected = value ? EdgeSelected::backward : EdgeSelected::none;
 }

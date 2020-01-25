@@ -64,10 +64,7 @@ public:
 
     void loadNodes(PaintedTerm::List newNodes);
 
-    bool needPaint() const;
-    void resetPaintFlags();
-
-    PaintedTerm* getNode(const QPointF &pt) const;
+    PaintedTerm* getNode(const QPointF& pt) const;
     PaintedTerm* getNode(const QUuid nodeUuid) const;
 
     void checkColors(bool init = false);

@@ -27,7 +27,6 @@
 #include <QtQuickControls2/QQuickStyle>
 
 #include "source/mainscene.h"
-#include "source/Managers/paintqueuemanager.h"
 #include "source/Helpers/tagprocessor.h"
 #include "source/Helpers/textprocessor.h"
 #include "source/Helpers/appconfig.h"
@@ -54,7 +53,6 @@ private:
     // Independent init
     QScopedPointer<NetworkManager> network;
     QScopedPointer<NodesManager> nodesManager;
-    QScopedPointer<PaintManager> paintManager;
 
     // Helper stuff (still independent init)
     QScopedPointer<TagProcessor> tagProcessor;

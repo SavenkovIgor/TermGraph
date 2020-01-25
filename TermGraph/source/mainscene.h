@@ -27,7 +27,6 @@
 #include <QClipboard>
 #include <QQmlListProperty>
 
-#include "source/Managers/paintqueuemanager.h"
 #include "source/Managers/groupsmanager.h"
 #include "source/Managers/nodesmanager.h"
 #include "source/Helpers/appconfig.h"
@@ -40,7 +39,7 @@ class MainScene : public QObject
     Q_OBJECT
 
 public:
-    MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager* paintManager, QObject* parent = nullptr);
+    MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* parent = nullptr);
     ~MainScene() override = default;
 
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
@@ -95,10 +94,6 @@ private:
     // Managers
     GroupsManager* groupsMgr;
     NodesManager* nodesMgr;
-    PaintManager* paintManager;
-
-    void requestPaint();
-    void sendGroupsToPaintManager();
 
     // Scene rect
     QRectF mSceneRect = QRectF(0, 0, 100, 100);
@@ -146,14 +141,9 @@ private:
     static Edge* edge(QQmlListProperty<Edge>* list, int i);
 
     Edge::List mCachedEdges;
-
-private slots:
     void updateEdgeCache();
 
 private:
-    // Paint tools
-    void resetPaintFlags();
-
     // For testing
     void createTestGroups();
 };

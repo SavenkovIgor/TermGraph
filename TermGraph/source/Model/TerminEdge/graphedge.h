@@ -41,7 +41,6 @@ public:
     bool isSameEdge(GraphTerm* rt, GraphTerm* br) const;
     GraphTerm* getOtherSide(GraphTerm* n) const;
 
-    bool needPaint = true;  // Flag for placing in paintQueue
     bool needBroke = false;
     bool needCutOut = false;
 

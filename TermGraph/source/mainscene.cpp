@@ -22,7 +22,7 @@
 #include "mainscene.h"
 #include "source/Managers/notificationmanager.h"
 
-MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintManager* paintManager, QObject* parent)
+MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* parent)
     : QObject(parent)
 {
     mouseMoveReactionTimer.setInterval(static_cast<int>(1000/AppSettings::Scene::FPS));
@@ -36,9 +36,6 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, PaintMana
     assert(nodesMgr != nullptr);
     this->nodesMgr = nodesMgr;
     connect(nodesMgr, &NodesManager::nodeChanged, this, &MainScene::updateGroup);
-
-    assert(paintManager != nullptr);
-    this->paintManager = paintManager;
 }
 
 void MainScene::selectTerm(const QString& nodeUuid)
@@ -56,14 +53,11 @@ void MainScene::dropGroup()
 {
     dropTermSelection();
 
-    paintManager->requestPaint();
-    paintManager->clearAllQueues();
-    updateEdgeCache();
     mCurrentGroup.reset();
 
     setSceneRect(QRectF());
 
-    requestPaint();
+    updateEdgeCache();
 }
 
 void MainScene::updateGroup()
@@ -87,15 +81,6 @@ void MainScene::checkGroupDeletion()
     auto groupsUuids  = groupsMgr->getAllUuidsSortedByLastEdit();
     if (!groupsUuids.contains(currentGroup))
         dropGroup();
-}
-
-void MainScene::requestPaint()
-{
-    paintManager->requestPaint();
-    updateEdgeCache();
-
-    if (mCurrentGroup)
-        paintManager->addGroup(mCurrentGroup.get());
 }
 
 QQmlListProperty<PaintedTerm> MainScene::getNodes()
@@ -163,14 +148,6 @@ QPointF MainScene::getTermPosition(const QString& termUuid) const
     return QPointF();
 }
 
-void MainScene::resetPaintFlags()
-{
-    if (!mCurrentGroup)
-        return;
-
-    mCurrentGroup->resetPaintFlags();
-}
-
 void MainScene::setMouseClick(qreal x, qreal y)
 {
     findClick(QPointF(x,y));
@@ -207,7 +184,7 @@ void MainScene::selectTerm(PaintedTerm* term, bool needRepaint)
 
         if (needRepaint) {
             checkGroupColors();
-            requestPaint();
+            updateEdgeCache();
         }
     }
 }
@@ -235,9 +212,6 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
     auto oldGroupUuid = QUuid(currentGroupUuid());
     bool newGroup     = newGroupUuid != oldGroupUuid;
 
-    paintManager->requestPaint();
-    paintManager->clearAllQueues();
-
     dropTermSelection();
 
     // Taking groupUuid from parameter or current groupUuid
@@ -254,8 +228,6 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
     mCurrentGroup->setBasePoint(QPointF(40, 40));
 
     updateSceneRect();
-
-    requestPaint();
 
     if (newGroup)
         emit currentGroupChanged();

@@ -95,23 +95,7 @@ void TermGroup::loadNodes(PaintedTerm::List newNodes)
     initNewNodes();
 }
 
-bool TermGroup::needPaint() const
-{
-    for (auto edge : getAllEdges()) {
-        if (edge->needPaint)
-            return true;
-    }
-
-    return false;
-}
-
-void TermGroup::resetPaintFlags()
-{
-    for (auto edge : getAllEdges())
-        edge->needPaint = true;
-}
-
-PaintedTerm *TermGroup::getNode(const QPointF& pt) const
+PaintedTerm* TermGroup::getNode(const QPointF& pt) const
 {
     for (auto tree : trees) {
         if (tree->getTreeRect(CoordType::scene).contains(pt)) {
