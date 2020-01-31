@@ -60,18 +60,22 @@ public:
     {
         return currentPlatform() == PlatformType::Linux;
     }
+
     constexpr static bool isWindows()
     {
         return currentPlatform() == PlatformType::Windows;
     }
+
     constexpr static bool isMacOs()
     {
         return currentPlatform() == PlatformType::MacOS;
     }
+
     constexpr static bool isAndroid()
     {
         return currentPlatform() == PlatformType::Android;
     }
+
     constexpr static bool isIos()
     {
         return currentPlatform() == PlatformType::IOS;
