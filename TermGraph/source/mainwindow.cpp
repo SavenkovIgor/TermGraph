@@ -59,8 +59,8 @@ MainWindow::MainWindow(QObject *parent):
 
     qmlRegisterSingletonType<NotificationManager>("Notification", 1, 0, "Notification", registration);
 
-    qmlRegisterType<PaintedTerm>(); // TODO: replace with registerAnonimousType when qt 5.14 on android
-    qmlRegisterType<Edge>();  // TODO: replace with registerAnonimousType when qt 5.14 on android
+    qmlRegisterAnonymousType<PaintedTerm>("TermGraph", 1);
+    qmlRegisterAnonymousType<Edge>("TermGraph", 1);
 
     qmlEngine->rootContext()->setContextProperty("mainObj", this);
     qmlEngine->rootContext()->setContextProperty("scene", scene.get());
