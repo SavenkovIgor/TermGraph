@@ -21,6 +21,7 @@
 
 #include "mainwindow.h"
 
+#include <QApplication>
 #include <QScreen>
 
 #include "source/Helpers/platform.h"

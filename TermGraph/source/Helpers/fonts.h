@@ -21,7 +21,6 @@
 
 #pragma once
 
-#include <QApplication>
 #include <QFont>
 #include <QFontMetricsF>
 #include <QSizeF>
