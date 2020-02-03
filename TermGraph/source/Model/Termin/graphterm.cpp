@@ -245,17 +245,17 @@ GraphTerm::List GraphTerm::getNeighbourNodes()
     return neighbourNodes;
 }
 
-GraphEdge::List GraphTerm::getEdgesToLeafs()
+GraphEdge::List GraphTerm::getEdgesToLeafs() const
 {
     return edgesToLeafs;
 }
 
-GraphEdge::List GraphTerm::getEdgesToRoots()
+GraphEdge::List GraphTerm::getEdgesToRoots() const
 {
     return edgesToRoots;
 }
 
-GraphEdge::List GraphTerm::getAllConnectedEdges()
+GraphEdge::List GraphTerm::getAllConnectedEdges() const
 {
     GraphEdge::List ret;
     ret << edgesToRoots;

@@ -72,9 +72,9 @@ public:
     GraphTerm::List getLeafNodes();
 
     GraphTerm::List getNeighbourNodes();
-    GraphEdge::List getEdgesToLeafs();
-    GraphEdge::List getEdgesToRoots();
-    GraphEdge::List getAllConnectedEdges();
+    GraphEdge::List getEdgesToLeafs() const;
+    GraphEdge::List getEdgesToRoots() const;
+    GraphEdge::List getAllConnectedEdges() const;
 
     int cycleSearchFlag = 0;
 
