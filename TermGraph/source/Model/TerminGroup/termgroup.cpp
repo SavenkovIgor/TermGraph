@@ -22,6 +22,7 @@
 #include "termgroup.h"
 
 #include "source/Helpers/appstyle.h"
+#include "source/Helpers/fonts.h"
 #include "source/Helpers/tagprocessor.h"
 
 int TermGroup::animSpeed = 300;
@@ -29,9 +30,7 @@ int TermGroup::animSpeed = 300;
 TermGroup::TermGroup(const GroupInfoContainer& info, QObject* parent)
     : QObject(parent)
     , TermGroupInfo(info)
-{
-    this->grNmItem = new LabelGraphicItem(getName());
-}
+{}
 
 TermGroup::~TermGroup()
 {
@@ -39,7 +38,6 @@ TermGroup::~TermGroup()
     checkSwapTimer.stop();
     animTimer.stop();
 
-    delete grNmItem;
     delete orphansRect;
     delete baseRect;
 }
@@ -54,8 +52,6 @@ void TermGroup::initNewNodes()
 
     orphansRect = new RectGraphicItem();
     orphansRect->setParentItem(baseRect);
-
-    this->grNmItem->setParentItem(baseRect);
 
     setLevels();
     initTrees();
@@ -190,11 +186,16 @@ void TermGroup::addTreeRectsToScene()
         tree->rect->setParentItem(baseRect);
 }
 
+QSizeF TermGroup::getNameSize() const
+{
+    return Fonts::getTextMetrics(getName(), Fonts::getWeightFont());
+}
+
 qreal TermGroup::getGroupMinWidth()
 {
     qreal width = 0.0;
 
-    qreal groupNameWidth = grNmItem->getNameSize().width();
+    qreal groupNameWidth = getNameSize().width();
     qreal treeWidth      = getAllTreesSize().width();
     qreal orphansWidth   = NodeVerticalStackTools::getNodeVerticalStackedSize(getOrphanNodes()).width();
 
@@ -289,10 +290,9 @@ void TermGroup::updateRectsPositions()
     qreal   hSpacer = AppStyle::Sizes::groupHorizontalSpacer;
     QPointF basePoint(QPointF(hSpacer, vSpacer));
 
-    auto nameSize = grNmItem->getNameSize();
+    auto nameSize = getNameSize();
 
     // Устанавливаем базовую точку имени
-    grNmItem->setPos(basePoint);
     basePoint.ry() += nameSize.height() + vSpacer;
 
     // Вычисляем под дерево
@@ -311,7 +311,7 @@ void TermGroup::updateRectsPositions()
 
 void TermGroup::updateBaseRectSize()
 {
-    QSizeF nameSize    = grNmItem->getNameSize();
+    QSizeF nameSize    = getNameSize();
     QSizeF treesSize   = getAllTreesSize();
     QSizeF orphansSize = getOrphansSize();
     qreal  vSpacer     = AppStyle::Sizes::groupVerticalSpacer;
@@ -390,29 +390,7 @@ void TermGroup::setTreeCoords()
     }
 }
 
-QString TermGroup::getNameLabel()
-{
-    return grNmItem->getLabel();
-}
-
-QPointF TermGroup::getNamePos()
-{
-    auto pt = grNmItem->scenePos();
-    pt.ry() += grNmItem->getNameSize().height() / 2;
-    return pt;
-}
-
 QRectF TermGroup::getGroupRect() const
 {
     return baseRect->getRect(CoordType::scene);
-}
-
-QColor TermGroup::getGroupColor()
-{
-    return AppStyle::Colors::Groups::border;
-}
-
-QColor TermGroup::getGroupFillColor()
-{
-    return AppStyle::Colors::Groups::backgroundTerms;
 }

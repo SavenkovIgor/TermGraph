@@ -78,7 +78,6 @@ HEADERS += \
     source/Model/TerminGroup/termtree.h \
     source/Model/GraphicItem/graphicitem.h \
     source/Model/GraphicItem/rectgraphicitem.h \
-    source/Model/GraphicItem/labelgraphicitem.h \
     source/Model/enums.h \
     source/databaseWorks/dbtablenames.h \
     source/databaseWorks/appconfigtable.h \
@@ -129,7 +128,6 @@ SOURCES += \
     source/Model/TerminGroup/termtree.cpp \
     source/Model/GraphicItem/graphicitem.cpp \
     source/Model/GraphicItem/rectgraphicitem.cpp \
-    source/Model/GraphicItem/labelgraphicitem.cpp \
     source/databaseWorks/appconfigtable.cpp \
     source/Helpers/textprocessor.cpp
 

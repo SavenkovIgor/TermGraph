@@ -25,7 +25,6 @@
 #include <QTimer>
 
 #include "source/Helpers/handytypes.h"
-#include "source/Model/GraphicItem/labelgraphicitem.h"
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/TerminGroup/termgroupinfo.h"
 
@@ -46,11 +45,7 @@ public:
 
     RectGraphicItem* baseRect;
 
-    QString getNameLabel();
-    QPointF getNamePos();
     QRectF  getGroupRect() const;
-    QColor  getGroupColor();
-    QColor  getGroupFillColor();
 
     void       setAnimSpeed(int val);
     static int getAnimSpeed();
@@ -97,7 +92,8 @@ private:
     void setOrphCoords(qreal maxWidth = 200.0);
 
     // Main objects
-    LabelGraphicItem* grNmItem;
     void              addTreeRectsToScene();
     RectGraphicItem*  orphansRect;
+
+    QSizeF getNameSize() const;
 };
