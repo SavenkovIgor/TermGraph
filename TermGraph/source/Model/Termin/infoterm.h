@@ -32,7 +32,7 @@ class InfoTerm
 public:
     explicit InfoTerm(const NodeInfoContainer& info);
     virtual ~InfoTerm() = default;
-//    bool isNull(); //TODO: Realize!
+    //    bool isNull(); //TODO: Realize!
 
     QUuid   getUuid() const;
     QString getTerm() const;
@@ -54,5 +54,5 @@ private:
 
     QString cachedTermToLower;
     QString smallName = QString();  // То же самое название но ужатое до 2х строчек"
-    QSizeF  nameSize = QSizeF();
+    QSizeF  nameSize  = QSizeF();
 };

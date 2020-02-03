@@ -21,7 +21,8 @@
 
 #include "networkmanager.h"
 
-NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
+NetworkManager::NetworkManager(QObject* parent)
+    : QObject(parent)
 {
     server = new SimpleListenServer(AppSettings::Network::listenPort, this);
 
@@ -36,9 +37,7 @@ NetworkManager::NetworkManager(QObject *parent) : QObject(parent)
 
 void NetworkManager::connectToHost()
 {
-    outputSocket->connectToHost(receiverIp,
-                                AppSettings::Network::listenPort,
-                                QIODevice::WriteOnly);
+    outputSocket->connectToHost(receiverIp, AppSettings::Network::listenPort, QIODevice::WriteOnly);
 }
 
 void NetworkManager::disconnectFromHost()
@@ -66,9 +65,8 @@ bool NetworkManager::hasConnection()
 
 QString NetworkManager::getFirstLocalIpString()
 {
-    for (const QHostAddress &address : QNetworkInterface::allAddresses()) {
-        if (address.protocol() == QAbstractSocket::IPv4Protocol
-            && address != QHostAddress(QHostAddress::LocalHost)) {
+    for (const QHostAddress& address : QNetworkInterface::allAddresses()) {
+        if (address.protocol() == QAbstractSocket::IPv4Protocol && address != QHostAddress(QHostAddress::LocalHost)) {
             return address.toString();
         }
     }
@@ -129,13 +127,20 @@ bool NetworkManager::isValidHostAddress(const QString& ip)
 QString NetworkManager::getSocketStateDescription(QAbstractSocket::SocketState state)
 {
     switch (state) {
-    case QAbstractSocket::UnconnectedState: return "Нет соединения";
-    case QAbstractSocket::HostLookupState: return "Поиск хоста";
-    case QAbstractSocket::ConnectingState: return "Установка соединения";
-    case QAbstractSocket::ConnectedState: return "Соединение установлено";
-    case QAbstractSocket::BoundState: return "";
-    case QAbstractSocket::ListeningState: return "";
-    case QAbstractSocket::ClosingState: return "Соединение закрывается";
+    case QAbstractSocket::UnconnectedState:
+        return "Нет соединения";
+    case QAbstractSocket::HostLookupState:
+        return "Поиск хоста";
+    case QAbstractSocket::ConnectingState:
+        return "Установка соединения";
+    case QAbstractSocket::ConnectedState:
+        return "Соединение установлено";
+    case QAbstractSocket::BoundState:
+        return "";
+    case QAbstractSocket::ListeningState:
+        return "";
+    case QAbstractSocket::ClosingState:
+        return "Соединение закрывается";
     }
 
     return "";

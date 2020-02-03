@@ -25,9 +25,9 @@
 #include <QTimer>
 
 #include "source/Helpers/handytypes.h"
+#include "source/Model/GraphicItem/labelgraphicitem.h"
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/TerminGroup/termgroupinfo.h"
-#include "source/Model/GraphicItem/labelgraphicitem.h"
 
 class TermGroup : public QObject, public TermGroupInfo
 {
@@ -44,15 +44,15 @@ public:
 
     void initNewNodes();
 
-    RectGraphicItem *baseRect;
+    RectGraphicItem* baseRect;
 
     QString getNameLabel();
     QPointF getNamePos();
-    QRectF getGroupRect() const;
-    QColor getGroupColor();
-    QColor getGroupFillColor();
+    QRectF  getGroupRect() const;
+    QColor  getGroupColor();
+    QColor  getGroupFillColor();
 
-    void setAnimSpeed(int val);
+    void       setAnimSpeed(int val);
     static int getAnimSpeed();
 
     UuidList searchNearest(const QString& text, int limit = 10);
@@ -87,8 +87,8 @@ private:
 
     // Group
     qreal getGroupMinWidth();
-    void updateRectsPositions();
-    void updateBaseRectSize();
+    void  updateRectsPositions();
+    void  updateBaseRectSize();
 
     // Tree
     void setTreeCoords();
@@ -98,6 +98,6 @@ private:
 
     // Main objects
     LabelGraphicItem* grNmItem;
-    void addTreeRectsToScene();
-    RectGraphicItem *orphansRect;
+    void              addTreeRectsToScene();
+    RectGraphicItem*  orphansRect;
 };

@@ -21,22 +21,21 @@
 
 #pragma once
 
-#include "source/databaseWorks/tblbase.h"
-#include "source/databaseWorks/dbtablenames.h"
-#include "source/Model/Termin/nodeinfocontainer.h"
 #include "source/Helpers/handytypes.h"
+#include "source/Model/Termin/nodeinfocontainer.h"
+#include "source/databaseWorks/dbtablenames.h"
+#include "source/databaseWorks/tblbase.h"
 
 #include "source/databaseWorks/columns/tcolumn.h"
 
 class NodeTable : public TblBase
 {
 public:
-    enum LastEditSource {
-        TakeFromNodeInfo = 0,
-        AutoGenerate
-    };
+    enum LastEditSource { TakeFromNodeInfo = 0, AutoGenerate };
 
-    NodeTable(QSqlDatabase* base): TblBase(base) { }
+    NodeTable(QSqlDatabase* base)
+        : TblBase(base)
+    {}
     ~NodeTable() override = default;
 
     QUuid nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const;
@@ -47,8 +46,8 @@ public:
 
     bool hasNodeWithUuid(const QUuid& uuid);
 
-    UuidList getAllNodesUuids(const QUuid& groupUuid = QUuid());
-    NodeInfoContainer getNode(const QUuid& uuid);
+    UuidList                getAllNodesUuids(const QUuid& groupUuid = QUuid());
+    NodeInfoContainer       getNode(const QUuid& uuid);
     NodeInfoContainer::List getAllNodesInfo(const QUuid& groupUuid);
 
     QDateTime getLastEdit(const QUuid& uuid);
@@ -58,21 +57,21 @@ public:
     void deleteNode(const QUuid& uuid);
 
     const char* tableName() const override;
-    TColumn primaryKey() const override;
-    void initTable() override;
+    TColumn     primaryKey() const override;
+    void        initTable() override;
 
 protected:
     TColumn::List getAllColumns() const override;
 
 private:
     void setFieldUpdateLastEdit(const TColumn& column, const QUuid& uuid, const QString& val);
-    void updateLastEdit(const QUuid &uuid);
+    void updateLastEdit(const QUuid& uuid);
     bool isUuidExist(const QUuid& uuid);
 
     QUuid generateNewUuid();
 
     static QDateTime getLastEditNow();
-    static QString getLastEditNowString();
+    static QString   getLastEditNowString();
 
     QSqlRecord getNodeSqlRecord(const QUuid& uuid);  // TODO: Delete!
 

@@ -21,12 +21,12 @@
 
 #include "graphicitem.h"
 
-void GraphicItem::setParentItem(GraphicItem *item)
+void GraphicItem::setParentItem(GraphicItem* item)
 {
     parentItem = item;
 }
 
-void GraphicItem::setPos(const QPointF &pt)
+void GraphicItem::setPos(const QPointF& pt)
 {
     position = pt;
 }
@@ -37,12 +37,12 @@ void GraphicItem::setPos(const qreal& x, const qreal& y)
     position.setY(y);
 }
 
-void GraphicItem::moveBy(const QPointF &pt)
+void GraphicItem::moveBy(const QPointF& pt)
 {
     position += pt;
 }
 
-void GraphicItem::moveBy(const qreal &x, const qreal &y)
+void GraphicItem::moveBy(const qreal& x, const qreal& y)
 {
     position.rx() += x;
     position.ry() += y;

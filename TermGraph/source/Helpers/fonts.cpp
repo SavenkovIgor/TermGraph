@@ -38,5 +38,5 @@ QFont Fonts::getWeightFont(int weight)
 QSizeF Fonts::getTextMetrics(const QString& text, const QFont& font)
 {
     QFontMetricsF mtr = QFontMetricsF(font);
-    return  mtr.boundingRect(text).size();
+    return mtr.boundingRect(text).size();
 }

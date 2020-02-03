@@ -21,14 +21,14 @@
 
 #pragma once
 
+#include <stdlib.h>
 #include <QList>
 #include <QParallelAnimationGroup>
 #include <QPropertyAnimation>
-#include <stdlib.h>
 
+#include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminEdge/edge.h"
-#include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/TerminGroup/nodeverticalstack.h"
 
 class TermTree
@@ -58,16 +58,16 @@ public:
 
     // Animation  // TODO: Make animation! Later...
     QParallelAnimationGroup animationGroup;
-    QPropertyAnimation swAnim1;
-    QPropertyAnimation swAnim2;
+    QPropertyAnimation      swAnim1;
+    QPropertyAnimation      swAnim2;
 
-    int currAnimLevel = -1;
-    bool lockForce = true;
+    int  currAnimLevel = -1;
+    bool lockForce     = true;
 
     void animateTree();
     void checkSwap();
 
-    PaintedTerm* getNodeAtPoint(const QPointF &pt) const;
+    PaintedTerm* getNodeAtPoint(const QPointF& pt) const;
 
     // Deletions
     TermTree(const TermTree&) = delete;
@@ -77,5 +77,5 @@ private:
 
     // Internal Info
     PaintedTerm::List getAllNodesInTree() const;
-    qreal getMaxStackHeight() const;
+    qreal             getMaxStackHeight() const;
 };

@@ -21,8 +21,8 @@
 
 #include "termgroup.h"
 
-#include "source/Helpers/tagprocessor.h"
 #include "source/Helpers/appstyle.h"
+#include "source/Helpers/tagprocessor.h"
 
 int TermGroup::animSpeed = 300;
 
@@ -35,7 +35,7 @@ TermGroup::TermGroup(const GroupInfoContainer& info, QObject* parent)
 
 TermGroup::~TermGroup()
 {
-//    qDebug() << "Delete group" << getName();
+    //    qDebug() << "Delete group" << getName();
     checkSwapTimer.stop();
     animTimer.stop();
 
@@ -115,7 +115,7 @@ PaintedTerm* TermGroup::getNode(const QPointF& pt) const
     return nullptr;
 }
 
-PaintedTerm *TermGroup::getNode(const QUuid nodeUuid) const
+PaintedTerm* TermGroup::getNode(const QUuid nodeUuid) const
 {
     for (auto* node : getAllNodes())
         if (node->getUuid() == nodeUuid)
@@ -195,8 +195,8 @@ qreal TermGroup::getGroupMinWidth()
     qreal width = 0.0;
 
     qreal groupNameWidth = grNmItem->getNameSize().width();
-    qreal treeWidth = getAllTreesSize().width();
-    qreal orphansWidth = NodeVerticalStackTools::getNodeVerticalStackedSize(getOrphanNodes()).width();
+    qreal treeWidth      = getAllTreesSize().width();
+    qreal orphansWidth   = NodeVerticalStackTools::getNodeVerticalStackedSize(getOrphanNodes()).width();
 
     width = std::max(width, groupNameWidth);
     width = std::max(width, treeWidth);
@@ -207,7 +207,7 @@ qreal TermGroup::getGroupMinWidth()
 
 void TermGroup::setAnimSpeed(int val)
 {
-    checkSwapTimer.setInterval(static_cast<int>(val*1.5));
+    checkSwapTimer.setInterval(static_cast<int>(val * 1.5));
     for (auto tree : trees) {
         tree->swAnim1.setDuration(val);
         tree->swAnim2.setDuration(val);
@@ -237,7 +237,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit)
         auto cuttedTerm = lowerTerm.left(searchText.size());  // Compare only left n characters
 
         auto acceptableLimit = static_cast<int>(cuttedTerm.size() * 0.25);
-        auto distance = TagProcessor::getLevDistance(cuttedTerm, searchText, acceptableLimit);
+        auto distance        = TagProcessor::getLevDistance(cuttedTerm, searchText, acceptableLimit);
 
         if (distance <= acceptableLimit)
             searchResults << QPair(distance, node->getUuid());
@@ -285,8 +285,8 @@ void TermGroup::setBasePoint(QPointF pt)
 
 void TermGroup::updateRectsPositions()
 {
-    qreal vSpacer = AppStyle::Sizes::groupVerticalSpacer;
-    qreal hSpacer = AppStyle::Sizes::groupHorizontalSpacer;
+    qreal   vSpacer = AppStyle::Sizes::groupVerticalSpacer;
+    qreal   hSpacer = AppStyle::Sizes::groupHorizontalSpacer;
     QPointF basePoint(QPointF(hSpacer, vSpacer));
 
     auto nameSize = grNmItem->getNameSize();
@@ -311,19 +311,19 @@ void TermGroup::updateRectsPositions()
 
 void TermGroup::updateBaseRectSize()
 {
-    QSizeF nameSize = grNmItem->getNameSize();
-    QSizeF treesSize = getAllTreesSize();
+    QSizeF nameSize    = grNmItem->getNameSize();
+    QSizeF treesSize   = getAllTreesSize();
     QSizeF orphansSize = getOrphansSize();
-    qreal vSpacer = AppStyle::Sizes::groupVerticalSpacer;
-    qreal hSpacer = AppStyle::Sizes::groupHorizontalSpacer;
+    qreal  vSpacer     = AppStyle::Sizes::groupVerticalSpacer;
+    qreal  hSpacer     = AppStyle::Sizes::groupHorizontalSpacer;
 
-    qreal width = 0.0;
+    qreal width  = 0.0;
     qreal height = 0.0;
 
     width = std::max(width, nameSize.width());
     width = std::max(width, treesSize.width());
     width = std::max(width, orphansSize.width());
-    width += hSpacer*2;
+    width += hSpacer * 2;
 
     height += vSpacer;
     height += nameSize.height();
@@ -351,9 +351,9 @@ void TermGroup::setOrphCoords(qreal maxWidth)
 
     for (int i = 0; i < orphansList.size(); i++) {
         int nMax = i;
-        for (int j = i+1; j < orphansList.size(); j++) {
+        for (int j = i + 1; j < orphansList.size(); j++) {
             qreal currentWidth = orphansList[j]->getFrameRect(CoordType::zeroPoint).size().width();
-            qreal maxWidth = orphansList[nMax]->getFrameRect(CoordType::zeroPoint).size().width();
+            qreal maxWidth     = orphansList[nMax]->getFrameRect(CoordType::zeroPoint).size().width();
             if (currentWidth < maxWidth) {
                 nMax = j;
             }
@@ -363,17 +363,17 @@ void TermGroup::setOrphCoords(qreal maxWidth)
 
     qreal x = 0, y = 0;
     qreal maxHeightInRow = 0.0;
-    qreal groupMinWidth = getGroupMinWidth();
-    maxWidth = qBound(10.0, groupMinWidth, 2000.0);
+    qreal groupMinWidth  = getGroupMinWidth();
+    maxWidth             = qBound(10.0, groupMinWidth, 2000.0);
 
     for (auto currNode : orphansList) {
         QSizeF nodeSize = currNode->getNodeRect(CoordType::zeroPoint).size();
 
         if (x + nodeSize.width() > maxWidth) {
-            y+= maxHeightInRow + AppStyle::Sizes::orphansVerticalSpacer;
+            y += maxHeightInRow + AppStyle::Sizes::orphansVerticalSpacer;
             //Переходим на следующий ряд
             maxHeightInRow = 0;
-            x = 0;
+            x              = 0;
         }
 
         currNode->setPos(x, y);

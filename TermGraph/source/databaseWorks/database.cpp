@@ -21,20 +21,22 @@
 
 #include "database.h"
 
+#include <QDateTime>
 #include <QString>
 #include <QUuid>
-#include <QDateTime>
 
 #include "source/databaseWorks/tools/dbtools.h"
 
-Database::Database() : Database(AppSettings::StdPaths::defaultDatabaseFilePath()) { }
+Database::Database()
+    : Database(AppSettings::StdPaths::defaultDatabaseFilePath())
+{}
 
-Database::Database(const QString& filePath) :
-    nodeTable(nullptr),
-    groupTable(nullptr),
-    appConfigTable(nullptr)
+Database::Database(const QString& filePath)
+    : nodeTable(nullptr)
+    , groupTable(nullptr)
+    , appConfigTable(nullptr)
 {
-    base = new QSqlDatabase();
+    base    = new QSqlDatabase();
     (*base) = QSqlDatabase::addDatabase("QSQLITE");
 
     // Check base exist
@@ -106,15 +108,15 @@ bool Database::needDbUpdate()
     return !appConfigTable->isDbVersionActual();
 }
 
-void Database::makeBackupBeforeUpdate(const QString &filePath, const int &oldDbVersion)
+void Database::makeBackupBeforeUpdate(const QString& filePath, const int& oldDbVersion)
 {
     qDebug() << "Making backup";
-    QFile dbFile(filePath);
+    QFile   dbFile(filePath);
     QString fileName;
     fileName += "dbVersion_" + QString::number(oldDbVersion);
     fileName += " date_" + QDateTime::currentDateTime().toString(Qt::ISODate);
     fileName += ".termGraph";
-    fileName.replace(':','_');
+    fileName.replace(':', '_');
     dbFile.copy(AppSettings::StdPaths::backupFolder() + "/" + fileName);
 }
 
@@ -130,7 +132,7 @@ void Database::makeDbUpdate()
     qDebug() << "Update finished. New db version:" << currentDbVersion();
 }
 
-void Database::execMigrationConditions(const int &currentDbVersion)
+void Database::execMigrationConditions(const int& currentDbVersion)
 {
     if (currentDbVersion < 1) {
         qDebug() << "Initing appConfig table";
@@ -186,15 +188,15 @@ void Database::updateNodesToSecondVersion()
     while (oldNodeTable.next()) {
         InsertContainer::List values;
 
-        values.push_back(InsertContainer("uuid",        oldNodeTable.value("longUID").toString()));
-        values.push_back(InsertContainer("term",        oldNodeTable.value("term").toString()));
-        values.push_back(InsertContainer("definition",  oldNodeTable.value("definition").toString()));
+        values.push_back(InsertContainer("uuid", oldNodeTable.value("longUID").toString()));
+        values.push_back(InsertContainer("term", oldNodeTable.value("term").toString()));
+        values.push_back(InsertContainer("definition", oldNodeTable.value("definition").toString()));
         values.push_back(InsertContainer("description", oldNodeTable.value("description").toString()));
-        values.push_back(InsertContainer("examples",    oldNodeTable.value("examples").toString()));
-        values.push_back(InsertContainer("wikiUrl",     oldNodeTable.value("wikiRef").toString()));
-        values.push_back(InsertContainer("wikiImage",   oldNodeTable.value("wikiImg").toString()));
-        values.push_back(InsertContainer("groupUuid",   oldNodeTable.value("termGroup").toString()));
-        values.push_back(InsertContainer("lastEdit",    oldNodeTable.value("lastEdit").toString()));
+        values.push_back(InsertContainer("examples", oldNodeTable.value("examples").toString()));
+        values.push_back(InsertContainer("wikiUrl", oldNodeTable.value("wikiRef").toString()));
+        values.push_back(InsertContainer("wikiImage", oldNodeTable.value("wikiImg").toString()));
+        values.push_back(InsertContainer("groupUuid", oldNodeTable.value("termGroup").toString()));
+        values.push_back(InsertContainer("lastEdit", oldNodeTable.value("lastEdit").toString()));
 
         auto insertQuery = SqlQueryConstructor::insertQuery("terms", values);
         DbTools::startQuery(base, insertQuery);
@@ -220,7 +222,7 @@ void Database::updateGroupsToSecondVersion()
     //    - name;            TEXT UNIQUE          -> TEXT UNIQUE NOT NULL
 
     // Creating new table
-    QStringList nodeColumns;    
+    QStringList nodeColumns;
     nodeColumns << "uuid    TEXT PRIMARY KEY NOT NULL";
     nodeColumns << "name    TEXT UNIQUE NOT NULL";
     nodeColumns << "comment TEXT";
@@ -235,8 +237,8 @@ void Database::updateGroupsToSecondVersion()
     while (oldGroupsTable.next()) {
         InsertContainer::List values;
 
-        values.push_back(InsertContainer("uuid",    oldGroupsTable.value("longUID").toString()));
-        values.push_back(InsertContainer("name",    oldGroupsTable.value("name").toString()));
+        values.push_back(InsertContainer("uuid", oldGroupsTable.value("longUID").toString()));
+        values.push_back(InsertContainer("name", oldGroupsTable.value("name").toString()));
         values.push_back(InsertContainer("comment", oldGroupsTable.value("comment").toString()));
 
         auto insertQuery = SqlQueryConstructor::insertQuery("groups", values);
@@ -253,7 +255,7 @@ void Database::updateGroupsToSecondVersion()
     }
 }
 
-bool Database::databaseExists(const QString &dbFilePath) const
+bool Database::databaseExists(const QString& dbFilePath) const
 {
     return FSWorks::fileExist(dbFilePath);
 }

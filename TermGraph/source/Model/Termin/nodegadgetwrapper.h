@@ -47,35 +47,35 @@ public:
 
     // Uuid
     QString getUuid() const;
-    void setUuid(const QString& uuid);
+    void    setUuid(const QString& uuid);
 
     // Term
     QString getTerm() const;
-    void setTerm(const QString& term);
+    void    setTerm(const QString& term);
 
     // Definition
     QString getDefinition() const;
-    void setDefinition(const QString& definition);
+    void    setDefinition(const QString& definition);
 
     // Description
     QString getDescription() const;
-    void setDescription(const QString& description);
+    void    setDescription(const QString& description);
 
     // Examples
     QString getExamples() const;
-    void setExamples(const QString& examples);
+    void    setExamples(const QString& examples);
 
     // WikiUrl
     QString getWikiUrl() const;
-    void setWikiUrl(const QString& wikiUrl);
+    void    setWikiUrl(const QString& wikiUrl);
 
     // WikiImage
     QString getWikiImage() const;
-    void setWikiImage(const QString& wikiImage);
+    void    setWikiImage(const QString& wikiImage);
 
     // GroupUuid
     QString getGroupUuid() const;
-    void setGroupUuid(const QString& groupUuid);
+    void    setGroupUuid(const QString& groupUuid);
 
     // LastEdit
     // Not editable...

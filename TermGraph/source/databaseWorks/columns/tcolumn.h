@@ -46,11 +46,10 @@ struct TColumn
         , type(col.type)
     {}
 
-    operator QString() const {
-        return QString(name);
-    }
+    operator QString() const { return QString(name); }
 
-    bool operator ==(const TColumn& otherCol) const {
+    bool operator==(const TColumn& otherCol) const
+    {
         QString nameSelf(name);
         QString nameOther(otherCol.name);
 

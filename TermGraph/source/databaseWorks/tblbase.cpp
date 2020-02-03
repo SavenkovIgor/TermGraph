@@ -23,7 +23,7 @@
 
 #include "source/databaseWorks/tools/dbtools.h"
 
-QString TblBase::getStringField(const TColumn& column, const QString &key) const
+QString TblBase::getStringField(const TColumn& column, const QString& key) const
 {
     assert(isColumnExist(column));
 
@@ -69,12 +69,12 @@ bool TblBase::insertInto(const InsertContainer::List& values)
     return true;
 }
 
-QSqlQuery TblBase::select(const TColumn &column, const WhereCondition &where, const QString &orderBy) const
+QSqlQuery TblBase::select(const TColumn& column, const WhereCondition& where, const QString& orderBy) const
 {
     return select(TColumn::List() << column, where, orderBy);
 }
 
-QSqlQuery TblBase::select(const TColumn::List &columns, const WhereCondition &where, const QString &orderBy) const
+QSqlQuery TblBase::select(const TColumn::List& columns, const WhereCondition& where, const QString& orderBy) const
 {
     QStringList colsNames;
     for (auto column : columns) {
@@ -83,9 +83,9 @@ QSqlQuery TblBase::select(const TColumn::List &columns, const WhereCondition &wh
     return executeSelect(colsNames, where, orderBy);
 }
 
-bool TblBase::hasAnyRecord(const WhereCondition &where) const
+bool TblBase::hasAnyRecord(const WhereCondition& where) const
 {
-    auto query = SqlQueryConstructor::selectOneQuery(tableName(), where);
+    auto query  = SqlQueryConstructor::selectOneQuery(tableName(), where);
     auto result = startQuery(query);
     if (!result.next()) {
         return false;
@@ -141,13 +141,13 @@ void TblBase::deleteByKey(const QString& key)
     startQuery(query);
 }
 
-void TblBase::deleteWhere(const WhereCondition &where)
+void TblBase::deleteWhere(const WhereCondition& where)
 {
     auto query = SqlQueryConstructor::deleteWhereQuery(tableName(), where);
     startQuery(query);
 }
 
-bool TblBase::isColumnExist(const TColumn &column) const
+bool TblBase::isColumnExist(const TColumn& column) const
 {
     for (auto col : getAllColumns()) {
         if (col == column) {

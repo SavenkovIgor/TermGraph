@@ -21,12 +21,12 @@
 
 #pragma once
 
-#include <QObject>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QObject>
 
-#include "networkmanager.h"
 #include "groupsmanager.h"
+#include "networkmanager.h"
 #include "nodesmanager.h"
 
 class SyncManager : public QObject
@@ -34,18 +34,18 @@ class SyncManager : public QObject
     Q_OBJECT
 
 public:
-    explicit SyncManager(NetworkManager *networkManager,
-                         GroupsManager *groupsManger,
-                         NodesManager *nodesManager,
-                         QObject *parent = nullptr);
+    explicit SyncManager(NetworkManager* networkManager,
+                         GroupsManager*  groupsManger,
+                         NodesManager*   nodesManager,
+                         QObject*        parent = nullptr);
 
     enum class ContentType { undefined = 0, groupsHashList };
 
     constexpr static auto contentTypeFieldName = "contentType";
-    constexpr static auto versionFieldName = "version";
-    constexpr static auto contentFieldName = "content";
+    constexpr static auto versionFieldName     = "version";
+    constexpr static auto contentFieldName     = "content";
 
-    static bool isDataContainer(const QJsonDocument &doc);
+    static bool isDataContainer(const QJsonDocument& doc);
     //signals:
 
 public slots:
@@ -53,9 +53,9 @@ public slots:
 
 private:
     NetworkManager* networkManager;
-    GroupsManager* groupsManager;
-    NodesManager* nodesManager;
+    GroupsManager*  groupsManager;
+    NodesManager*   nodesManager;
 
-    static QString getContentTypeName(const ContentType& type);
+    static QString     getContentTypeName(const ContentType& type);
     static ContentType getContentTypeByName(const QString& typeName);
 };

@@ -27,18 +27,17 @@
 #include "source/Helpers/platform.h"
 
 #ifdef Q_OS_ANDROID
-#include <QtSvg>    //Because deployment sometimes just forgets to include this lib otherwise
+#include <QtSvg>  //Because deployment sometimes just forgets to include this lib otherwise
 #endif
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
 
     QQuickStyle::setStyle("Material");
 
     // TODO: Check it on mobile!
-    if constexpr (Platform::isDesktop())
-    {
+    if constexpr (Platform::isDesktop()) {
         QSurfaceFormat format = QSurfaceFormat::defaultFormat();
         format.setSamples(8);
         QSurfaceFormat::setDefaultFormat(format);

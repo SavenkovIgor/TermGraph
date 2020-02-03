@@ -29,8 +29,8 @@ class DropboxConnection : public QObject
 {
     Q_OBJECT
 public:
-    explicit DropboxConnection(QObject *parent = nullptr);
+    explicit DropboxConnection(QObject* parent = nullptr);
 
 private:
-//    QDropbox *dropbox;
+    //    QDropbox *dropbox;
 };

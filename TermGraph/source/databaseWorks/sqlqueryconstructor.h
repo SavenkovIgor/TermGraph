@@ -42,16 +42,14 @@ public:
     static QString recordsCount(const QString& tableName);
 
     // Data
-    static QString selectQuery(const QString& tableName,
-                               const QStringList& columns,
+    static QString selectQuery(const QString&        tableName,
+                               const QStringList&    columns,
                                const WhereCondition& where,
-                               const QString& orderBy = "");
+                               const QString&        orderBy = "");
     static QString selectOneQuery(const QString& tableName, const WhereCondition& where);
     static QString insertQuery(const QString& tableName, const InsertContainer::List& values);
 
-    static QString updateQuery(const QString& tableName,
-                               const SetExpression& set,
-                               const WhereCondition& where);
+    static QString updateQuery(const QString& tableName, const SetExpression& set, const WhereCondition& where);
 
     static QString deleteWhereQuery(const QString& tableName, const WhereCondition& where);
 };

@@ -23,7 +23,7 @@
 
 #include "source/databaseWorks/columns/termgroupcolumn.h"
 
-bool TermGroupTable::addGroup(const GroupInfoContainer &info)
+bool TermGroupTable::addGroup(const GroupInfoContainer& info)
 {
     QUuid groupUuid = info.uuid;
 
@@ -39,13 +39,13 @@ bool TermGroupTable::addGroup(const GroupInfoContainer &info)
     InsertContainer::List values;
 
     values.push_back(InsertContainer(TermGroupColumn::uuid, groupUuid.toString()));
-    values.push_back(InsertContainer(TermGroupColumn::name,    info.name));
+    values.push_back(InsertContainer(TermGroupColumn::name, info.name));
     values.push_back(InsertContainer(TermGroupColumn::comment, info.comment));
 
     return insertInto(values);
 }
 
-bool TermGroupTable::updateGroup(const GroupInfoContainer &info)
+bool TermGroupTable::updateGroup(const GroupInfoContainer& info)
 {
     if (info.uuid.isNull())
         return false;
@@ -55,7 +55,7 @@ bool TermGroupTable::updateGroup(const GroupInfoContainer &info)
 
     SetExpression set;
 
-    set.set(TermGroupColumn::name,    info.name);
+    set.set(TermGroupColumn::name, info.name);
     set.set(TermGroupColumn::comment, info.comment);
 
     updateWhere(set, whereUuidEqual(info.uuid));
@@ -66,7 +66,7 @@ bool TermGroupTable::updateGroup(const GroupInfoContainer &info)
 UuidList TermGroupTable::getAllUuids()
 {
     UuidList ret;
-    auto records = toRecVector(select(TermGroupColumn::uuid));
+    auto     records = toRecVector(select(TermGroupColumn::uuid));
 
     for (const auto& record : records) {
         QUuid uuid(record.value(TermGroupColumn::uuid).toString());
@@ -102,8 +102,8 @@ QUuid TermGroupTable::generateNewUuid()
 
 QUuid TermGroupTable::getUuid(const QString& groupName) const
 {
-    auto where = WhereCondition::columnEqual(TermGroupColumn::name, groupName);
-    QSqlQuery q = select(TermGroupColumn::uuid, where);
+    auto      where = WhereCondition::columnEqual(TermGroupColumn::name, groupName);
+    QSqlQuery q     = select(TermGroupColumn::uuid, where);
     if (!q.next()) {
         return QUuid();
     }
@@ -120,7 +120,7 @@ RecVector TermGroupTable::getAllUuidsAndNames()
     return toRecVector(std::move(sel));
 }
 
-bool TermGroupTable::hasGroupWithName(const QString &groupName)
+bool TermGroupTable::hasGroupWithName(const QString& groupName)
 {
     return !getUuid(groupName).isNull();
 }
@@ -160,8 +160,8 @@ GroupInfoContainer TermGroupTable::getGroup(const QUuid& uuid)
 
     auto rec = sel.record();
 
-    info.uuid = QUuid(rec.value(TermGroupColumn::uuid).toString());
-    info.name = rec.value(TermGroupColumn::name).toString();
+    info.uuid    = QUuid(rec.value(TermGroupColumn::uuid).toString());
+    info.name    = rec.value(TermGroupColumn::name).toString();
     info.comment = rec.value(TermGroupColumn::comment).toString();
 
     return info;

@@ -29,5 +29,5 @@ class JsonNodeInfoContainerParser
 {
 public:
     static NodeInfoContainer fromJson(const QJsonObject& jsonObj);
-    static QJsonObject toJson(const NodeInfoContainer& info);
+    static QJsonObject       toJson(const NodeInfoContainer& info);
 };

@@ -23,16 +23,16 @@
 
 #include <stdlib.h>
 
-#include <QObject>
 #include <QClipboard>
+#include <QObject>
 #include <QQmlListProperty>
 
-#include "source/Managers/groupsmanager.h"
-#include "source/Managers/nodesmanager.h"
 #include "source/Helpers/appconfig.h"
 #include "source/Helpers/fsworks.h"
-#include "source/Model/TerminGroup/termgroup.h"
+#include "source/Managers/groupsmanager.h"
+#include "source/Managers/nodesmanager.h"
 #include "source/Model/Termin/nodegadgetwrapper.h"
+#include "source/Model/TerminGroup/termgroup.h"
 
 class MainScene : public QObject
 {
@@ -43,7 +43,7 @@ public:
     ~MainScene() override = default;
 
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
-    Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode) // Read only. without notify
+    Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode)  // Read only. without notify
     Q_PROPERTY(QRectF sceneRect READ sceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
     Q_PROPERTY(QString currentGroup READ currentGroupUuid WRITE setCurrentGroup NOTIFY currentGroupChanged)
     Q_PROPERTY(QString currentGroupName READ currentGroupName NOTIFY currentGroupChanged)
@@ -54,7 +54,7 @@ public:
     Q_INVOKABLE void selectTerm(const QUuid& nodeUuid);
     Q_INVOKABLE QString getTermName(const QString& termUuid);
     Q_INVOKABLE QStringList search(const QString& text);
-    Q_INVOKABLE void deleteSelectedTerm();
+    Q_INVOKABLE void        deleteSelectedTerm();
 
     Q_INVOKABLE QPointF getTermPosition(const QString& termUuid) const;
     Q_INVOKABLE QString getCurrNodeDebugInfo();
@@ -93,7 +93,7 @@ private:
 
     // Managers
     GroupsManager* groupsMgr;
-    NodesManager* nodesMgr;
+    NodesManager*  nodesMgr;
 
     // Scene rect
     QRectF mSceneRect = QRectF(0, 0, 100, 100);
@@ -141,7 +141,7 @@ private:
     static Edge* edge(QQmlListProperty<Edge>* list, int i);
 
     Edge::List mCachedEdges;
-    void updateEdgeCache();
+    void       updateEdgeCache();
 
 private:
     // For testing

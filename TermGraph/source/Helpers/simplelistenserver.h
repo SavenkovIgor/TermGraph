@@ -30,7 +30,7 @@ class SimpleListenServer : public QObject
 {
     Q_OBJECT
 public:
-    explicit SimpleListenServer(quint16 listenPort, QObject *parent = nullptr);
+    explicit SimpleListenServer(quint16 listenPort, QObject* parent = nullptr);
 
     bool isListening();
     bool startListen();
@@ -45,8 +45,8 @@ private slots:
     void newInputData();
 
 private:
-    quint16 listenPort;
-    QTcpServer* server;
+    quint16            listenPort;
+    QTcpServer*        server;
     QList<QTcpSocket*> inputSockets;
 
     static QString getSocketDescription(QTcpSocket* socket);

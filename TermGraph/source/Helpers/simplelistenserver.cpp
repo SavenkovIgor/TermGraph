@@ -21,10 +21,11 @@
 
 #include "simplelistenserver.h"
 
-SimpleListenServer::SimpleListenServer(quint16 listenPort, QObject *parent) : QObject(parent)
+SimpleListenServer::SimpleListenServer(quint16 listenPort, QObject* parent)
+    : QObject(parent)
 {
     this->listenPort = listenPort;
-    server = new QTcpServer(this);
+    server           = new QTcpServer(this);
     connect(server, &QTcpServer::newConnection, this, &SimpleListenServer::newConnection);
 }
 
@@ -59,11 +60,11 @@ void SimpleListenServer::newInputData()
     if (inputSocket == nullptr)
         return;
     QHostAddress senderAddress = inputSocket->peerAddress();
-    QByteArray data = inputSocket->readAll();
-    emit newReceivedData(senderAddress, data);
+    QByteArray   data          = inputSocket->readAll();
+    emit         newReceivedData(senderAddress, data);
 }
 
-QString SimpleListenServer::getSocketDescription(QTcpSocket *socket)
+QString SimpleListenServer::getSocketDescription(QTcpSocket* socket)
 {
     if (socket != nullptr) {
         return socket->peerAddress().toString() + " " + socket->peerName();

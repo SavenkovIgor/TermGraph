@@ -21,7 +21,7 @@
 
 #include "graphterm.h"
 
-GraphTerm::GraphTerm(const NodeInfoContainer &info)
+GraphTerm::GraphTerm(const NodeInfoContainer& info)
     : InfoTerm(info)
 {}
 
@@ -178,7 +178,7 @@ unsigned int GraphTerm::getTreeId() const
     return treeId;
 }
 
-void GraphTerm::addEdgeRef(GraphEdge *edge)
+void GraphTerm::addEdgeRef(GraphEdge* edge)
 {
     // We are source - connection up
     if (edge->getRoot() == this && edge->getLeaf() != this)
@@ -189,20 +189,20 @@ void GraphTerm::addEdgeRef(GraphEdge *edge)
         edgesToRoots << edge;
 }
 
-bool GraphTerm::isInGroupEdge(GraphEdge *edge)
+bool GraphTerm::isInGroupEdge(GraphEdge* edge)
 {
     return edge->getRoot()->getGroupUuid() == edge->getLeaf()->getGroupUuid();
 }
 
 bool GraphTerm::hasConnectionsInGroup()
 {
-    for (GraphEdge *e : edgesToLeafs) {
+    for (GraphEdge* e : edgesToLeafs) {
         if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
             return true;
         }
     }
 
-    for (GraphEdge *e : edgesToRoots) {
+    for (GraphEdge* e : edgesToRoots) {
         if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
             return true;
         }
@@ -263,24 +263,25 @@ GraphEdge::List GraphTerm::getAllConnectedEdges()
     return ret;
 }
 
-void GraphTerm::removeEdgeToLeafs(GraphEdge *edge)
+void GraphTerm::removeEdgeToLeafs(GraphEdge* edge)
 {
     edgesToLeafs.removeOne(edge);
 }
 
-void GraphTerm::removeEdgeToRoots(GraphEdge *edge)
+void GraphTerm::removeEdgeToRoots(GraphEdge* edge)
 {
     edgesToRoots.removeOne(edge);
 }
 
-void GraphTerm::addBrokenEdge(GraphEdge *edge)
+void GraphTerm::addBrokenEdge(GraphEdge* edge)
 {
     if (!brokenEdges.contains(edge)) {
         brokenEdges << edge;
     }
 }
 
-GraphEdge::List GraphTerm::getBrokenEdges() const {
+GraphEdge::List GraphTerm::getBrokenEdges() const
+{
     return brokenEdges;
 }
 
@@ -318,7 +319,6 @@ bool GraphTerm::hasTermInRoots(GraphTerm* targetTerm, QList<GraphTerm*>& visitLi
 GraphEdge* GraphTerm::findLongPathToNode(GraphTerm* node)
 {
     for (auto edge : edgesToRoots) {
-
         auto otherSideNode = edge->getOtherSide(this);
         // Ignore direct connection
         if (otherSideNode == node)

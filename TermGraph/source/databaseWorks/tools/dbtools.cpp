@@ -26,12 +26,12 @@
 
 #include "source/databaseWorks/sqlqueryconstructor.h"
 
-void DbTools::startTransaction(QSqlDatabase *base)
+void DbTools::startTransaction(QSqlDatabase* base)
 {
     startQuery(base, "BEGIN TRANSACTION");
 }
 
-void DbTools::endTransaction(QSqlDatabase *base)
+void DbTools::endTransaction(QSqlDatabase* base)
 {
     startQuery(base, "END TRANSACTION");
 }
@@ -43,7 +43,7 @@ void DbTools::reduceSpace(QSqlDatabase* base)
 
 QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
 {
-//    qDebug() << queryString;
+    //    qDebug() << queryString;
     assert(base != nullptr);
     assert(!queryString.simplified().isEmpty());
 
@@ -51,9 +51,7 @@ QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
 
     Q_ASSERT_X(!ret.lastError().isValid(),
                Q_FUNC_INFO,
-               QString("Query " + queryString + "\nfails with error " + ret.lastError().text())
-                   .toStdString()
-                   .c_str());
+               QString("Query " + queryString + "\nfails with error " + ret.lastError().text()).toStdString().c_str());
 
     return ret;
 }
@@ -61,7 +59,7 @@ QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
 int DbTools::recordsCount(QSqlDatabase* base, const QString& tableName)
 {
     auto queryString = SqlQueryConstructor::recordsCount(tableName);
-    auto query = startQuery(base, queryString);
+    auto query       = startQuery(base, queryString);
     query.next();
     return query.value("COUNT(*)").toInt();
 }

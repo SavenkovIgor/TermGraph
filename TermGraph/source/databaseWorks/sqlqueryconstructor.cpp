@@ -54,15 +54,15 @@ QString SqlQueryConstructor::dropTable(const QString& tableName)
     return "DROP TABLE " + tableName;
 }
 
-QString SqlQueryConstructor::recordsCount(const QString &tableName)
+QString SqlQueryConstructor::recordsCount(const QString& tableName)
 {
     return "SELECT COUNT(*) FROM " + tableName;
 }
 
-QString SqlQueryConstructor::selectQuery(const QString& tableName,
-                                         const QStringList& columns,
+QString SqlQueryConstructor::selectQuery(const QString&        tableName,
+                                         const QStringList&    columns,
                                          const WhereCondition& where,
-                                         const QString& orderBy)
+                                         const QString&        orderBy)
 {
     QStringList qry;
     qry << "SELECT";
@@ -96,8 +96,7 @@ QString SqlQueryConstructor::selectOneQuery(const QString& tableName, const Wher
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::insertQuery(const QString& tableName,
-                                         const InsertContainer::List& values)
+QString SqlQueryConstructor::insertQuery(const QString& tableName, const InsertContainer::List& values)
 {
     QStringList columns;
     QStringList insertValues;
@@ -117,9 +116,7 @@ QString SqlQueryConstructor::insertQuery(const QString& tableName,
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::updateQuery(const QString& tableName,
-                                         const SetExpression& set,
-                                         const WhereCondition& where)
+QString SqlQueryConstructor::updateQuery(const QString& tableName, const SetExpression& set, const WhereCondition& where)
 {
     QStringList qry;
     qry << "UPDATE";

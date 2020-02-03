@@ -39,7 +39,7 @@ QJsonObject JsonGroupInfoContainerParser::toJson(const GroupInfoContainer& info)
     QJsonObject ret;
 
     ret.insert(TermGroupColumn::uuid, QJsonValue(info.uuid.toString()));
-    ret.insert(TermGroupColumn::name,    QJsonValue(info.name));
+    ret.insert(TermGroupColumn::name, QJsonValue(info.name));
     ret.insert(TermGroupColumn::comment, QJsonValue(info.comment));
 
     return ret;

@@ -23,15 +23,15 @@
 
 #include <cmath>
 
-#include <QObject>
 #include <QList>
 #include <QMap>
-#include <QSqlRecord>
+#include <QObject>
 #include <QSizeF>
+#include <QSqlRecord>
 
+#include "source/Model/GraphicItem/graphicitem.h"
 #include "source/Model/Termin/graphterm.h"
 #include "source/Model/TerminEdge/edge.h"
-#include "source/Model/GraphicItem/graphicitem.h"
 #include "source/Model/enums.h"
 
 // This class contains all info for paint Term somewhere
@@ -40,12 +40,12 @@ class PaintedTerm : public QObject, public GraphTerm, public GraphicItem
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString term   READ getSmallName    CONSTANT)
-    Q_PROPERTY(QColor  color  READ color        NOTIFY colorChanged)
-    Q_PROPERTY(qreal   radius READ getCornerRadius CONSTANT)
-    Q_PROPERTY(QRectF  rect   READ rect            CONSTANT)
+    Q_PROPERTY(QString term READ getSmallName CONSTANT)
+    Q_PROPERTY(QColor color READ color NOTIFY colorChanged)
+    Q_PROPERTY(qreal radius READ getCornerRadius CONSTANT)
+    Q_PROPERTY(QRectF rect READ rect CONSTANT)
 
-    QRectF  rect() const;
+    QRectF rect() const;
 
 public:
     PaintedTerm(const NodeInfoContainer& info, QObject* parent = nullptr);
@@ -65,8 +65,8 @@ public:
     int getUpLevels(int pLevel = -1);
 
     // Painting tools
-    void setRelatedPaintUp(bool val);
-    void setRelatedPaintDown(bool val);
+    void   setRelatedPaintUp(bool val);
+    void   setRelatedPaintDown(bool val);
     QLineF getRectLine(Qt::Edge side);
 
     // NodeRect tools
@@ -80,7 +80,7 @@ public:
     void countForces();
 
     // Edges work
-    int  getIntersections(bool swapped = false);
+    int   getIntersections(bool swapped = false);
     qreal getSumEdgesLength(bool swap);
 
     void setSwap(QPointF toPt);
@@ -130,10 +130,10 @@ private:
     qreal newPosOffset = 0.0;
 
     // Color tools
-    QColor color() const;
-    QColor expectedColor() const;
+    QColor        color() const;
+    QColor        expectedColor() const;
     static QColor baseColor(NodeType type, bool selected);
 
     qreal cornerRadius = 0;
-    void updateCornerRadius();
+    void  updateCornerRadius();
 };

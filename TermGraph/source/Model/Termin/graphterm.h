@@ -26,12 +26,7 @@
 #include "source/Model/Termin/infoterm.h"
 #include "source/Model/TerminEdge/graphedge.h"
 
-enum class NodeType {
-    orphan,
-    root,
-    endLeaf,
-    middleLeaf
-};
+enum class NodeType { orphan, root, endLeaf, middleLeaf };
 
 // This class contains all "graph" part of term
 // like edges, place in graph hierarchy and so on
@@ -43,7 +38,7 @@ public:
     GraphTerm(const NodeInfoContainer& info);
     ~GraphTerm() override = default;
 
-    List getUpDownNodes();
+    List            getUpDownNodes();
     GraphEdge::List getUpDownEdges();
 
     void addLayerNeighbours(GraphTerm::List neighboursList);
@@ -62,15 +57,15 @@ public:
     QString getHierarchyDefinition();
 
     void setLevel(int level);
-    int getPaintLevel() const;
+    int  getPaintLevel() const;
     void getCycleEdge();
 
-    void setTreeId(unsigned int treeId);
+    void         setTreeId(unsigned int treeId);
     unsigned int getTreeId() const;
 
-    void addEdgeRef(GraphEdge *edge);
+    void        addEdgeRef(GraphEdge* edge);
     static bool isInGroupEdge(GraphEdge* edge);
-    bool hasConnectionsInGroup();
+    bool        hasConnectionsInGroup();
 
     // Delete section
     GraphTerm::List getRootNodes();
@@ -86,7 +81,7 @@ public:
     void removeEdgeToLeafs(GraphEdge* edge);
     void removeEdgeToRoots(GraphEdge* edge);
 
-    void addBrokenEdge(GraphEdge* edge);
+    void            addBrokenEdge(GraphEdge* edge);
     GraphEdge::List getBrokenEdges() const;
 
     void checkForExceedEdges();
@@ -95,13 +90,13 @@ private:
     GraphTerm::List neighbourNodes;
 
     GraphEdge::List edgesToOtherGroups;  // Пока никак не используются но будут.
-    GraphEdge::List brokenEdges;  // Пока никак не используются но будут.
+    GraphEdge::List brokenEdges;         // Пока никак не используются но будут.
 
     GraphEdge::List edgesToLeafs;
     GraphEdge::List edgesToRoots;
 
-    int paintLevel = -1;
-    unsigned int treeId = 0; // 0 = no value
+    int          paintLevel = -1;
+    unsigned int treeId     = 0;  // 0 = no value
 
     static bool hasTermInRoots(GraphTerm* term, QList<GraphTerm*>& visitList);
 

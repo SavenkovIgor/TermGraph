@@ -62,14 +62,14 @@ TColumn::List AppConfigTable::getAllColumns() const
     return lst;
 }
 
-bool AppConfigTable::hasKey(const QString &key)
+bool AppConfigTable::hasKey(const QString& key)
 {
     WhereCondition where;
     where.equal(AppConfigColumn::parameter, key);
     return hasAnyRecord(where);
 }
 
-void AppConfigTable::setValue(const QString &key, const QString &value)
+void AppConfigTable::setValue(const QString& key, const QString& value)
 {
     if (hasKey(key)) {
         // If has key - updating
@@ -91,7 +91,7 @@ void AppConfigTable::setValue(const QString &key, const QString &value)
     }
 }
 
-QString AppConfigTable::value(const QString &key, const QString &defaultValue)
+QString AppConfigTable::value(const QString& key, const QString& defaultValue)
 {
     if (hasKey(key)) {
         auto where = WhereCondition();

@@ -21,25 +21,28 @@
 
 #pragma once
 
-#include <QtGlobal>
-#include <QStringList>
 #include <QDir>
+#include <QStringList>
+#include <QtGlobal>
 
 #include "platform.h"
 
 namespace AppSettings {
 
-class Network {
+class Network
+{
 public:
     constexpr static quint16 listenPort = 46377;
 };
 
-class Scene {
+class Scene
+{
 public:
     constexpr static int FPS = 30;
 };
 
-class StdPaths {
+class StdPaths
+{
 public:
     static void createDefaultFoldersIfNeed();
 
@@ -51,4 +54,4 @@ private:
     static QString userAppConfigFolder();
 };
 
-}
+}  // namespace AppSettings

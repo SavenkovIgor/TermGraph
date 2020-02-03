@@ -32,7 +32,7 @@ public:
     void operator=(GlobalTagCache const&) = delete;
 
     std::optional<std::optional<int>> get(const QString& tag, const QString& term);
-    void               add(const QString& tag, const QString& term, std::optional<int> value);
+    void                              add(const QString& tag, const QString& term, std::optional<int> value);
 
 private:
     GlobalTagCache() = default;

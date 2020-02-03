@@ -22,27 +22,18 @@
 #pragma once
 
 #include <QColor>
-#include <QPointF>
 #include <QLineF>
 #include <QObject>
+#include <QPointF>
 
-#include "source/Model/TerminEdge/graphedge.h"
 #include "source/Model/GraphicItem/graphicitem.h"
+#include "source/Model/TerminEdge/graphedge.h"
 
 class PaintedTerm;
 
-enum class EdgeType {
-    standart,
-    termin,
-    description,
-    broken
-};
+enum class EdgeType { standart, termin, description, broken };
 
-enum class EdgeSelected {
-    none,
-    forward,
-    backward
-};
+enum class EdgeSelected { none, forward, backward };
 
 class Edge : public QObject, public GraphEdge, public GraphicItem
 {
@@ -72,14 +63,13 @@ public:
 
     QPointF rootPoint() const;
     QPointF leafPoint() const;
-    QColor getEdgeColor() const;
+    QColor  getEdgeColor() const;
 
     static List castToEdgeList(GraphEdge::List lst);  // TODO: Delete!!!
 
     // Paint width
     void setSelectedForward(bool value);
     void setSelectedBackward(bool value);
-
 
     void brokeEdge();
     void cutOutFromSides();
@@ -88,5 +78,5 @@ public:
 
 private:
     EdgeSelected selected = EdgeSelected::none;
-    EdgeType type = EdgeType::termin;
+    EdgeType     type     = EdgeType::termin;
 };

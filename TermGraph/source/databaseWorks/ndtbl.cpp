@@ -23,7 +23,7 @@
 
 #include "source/databaseWorks/columns/nodecolumn.h"
 
-QUuid NodeTable::nodeUuidForNameAndGroup(const QString &name, const QUuid &groupUuid) const
+QUuid NodeTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const
 {
     auto where = WhereCondition();
     where.equal(NodeColumn::term, name);
@@ -141,7 +141,7 @@ TColumn::List NodeTable::getAllColumns() const
     return lst;
 }
 
-void NodeTable::setFieldUpdateLastEdit(const TColumn &column, const QUuid &uuid, const QString &val)
+void NodeTable::setFieldUpdateLastEdit(const TColumn& column, const QUuid& uuid, const QString& val)
 {
     setField(column, uuid.toString(), val);
     updateLastEdit(uuid);
@@ -152,7 +152,7 @@ void NodeTable::updateLastEdit(const QUuid& uuid)
     setField(NodeColumn::lastEdit, uuid.toString(), getLastEditNowString());
 }
 
-bool NodeTable::isUuidExist(const QUuid &uuid)
+bool NodeTable::isUuidExist(const QUuid& uuid)
 {
     return hasAnyRecord(whereUuidEqual(uuid));
 }
@@ -220,8 +220,8 @@ NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
     assert(!groupUuid.isNull());
 
     NodeInfoContainer::List ret;
-    auto where = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
-    auto records = toRecVector(select(getAllColumns(), where));
+    auto                    where   = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
+    auto                    records = toRecVector(select(getAllColumns(), where));
 
     for (auto& record : records) {
         NodeInfoContainer info = recordToNodeInfo(record);
@@ -231,7 +231,7 @@ NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
     return ret;
 }
 
-QDateTime NodeTable::getLastEdit(const QUuid &uuid)
+QDateTime NodeTable::getLastEdit(const QUuid& uuid)
 {
     auto field = getStringField(NodeColumn::lastEdit, uuid.toString());
 
@@ -249,9 +249,7 @@ RecVector NodeTable::getAllLastEditRecords()
     return toRecVector(select(columns));
 }
 
-bool NodeTable::updateNode(const NodeInfoContainer& info,
-                           NodeTable::LastEditSource lastEditSource,
-                           bool checkLastEdit)
+bool NodeTable::updateNode(const NodeInfoContainer& info, NodeTable::LastEditSource lastEditSource, bool checkLastEdit)
 {
     assert(!info.uuid.isNull());
     assert(hasNodeWithUuid(info.uuid));
@@ -264,7 +262,7 @@ bool NodeTable::updateNode(const NodeInfoContainer& info,
 
     if (checkLastEdit) {
         auto currentLastEdit = getLastEdit(info.uuid);
-        auto newLastEdit = info.lastEdit;
+        auto newLastEdit     = info.lastEdit;
         if (currentLastEdit > newLastEdit)  // If db version is fresher, do nothing
             return false;
     }
@@ -293,7 +291,7 @@ bool NodeTable::updateNode(const NodeInfoContainer& info,
     return true;
 }
 
-QSqlRecord NodeTable::getNodeSqlRecord(const QUuid &uuid)
+QSqlRecord NodeTable::getNodeSqlRecord(const QUuid& uuid)
 {
     QSqlQuery sel = select(getAllColumns(), whereUuidEqual(uuid));
 
@@ -326,7 +324,7 @@ WhereCondition NodeTable::whereUuidEqual(const QUuid& uuid)
     return primaryKeyEqual(uuid.toString());
 }
 
-bool NodeTable::hasNodeWithUuid(const QUuid &uuid)
+bool NodeTable::hasNodeWithUuid(const QUuid& uuid)
 {
     return isUuidExist(uuid);
 }

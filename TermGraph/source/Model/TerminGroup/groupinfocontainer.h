@@ -28,7 +28,7 @@
 
 struct GroupInfoContainer
 {
-    QUuid uuid;
+    QUuid   uuid;
     QString name;
     QString comment;
 };

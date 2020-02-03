@@ -21,8 +21,8 @@
 
 #include "nodesmanager.h"
 
-#include "source/databaseWorks/columns/nodecolumn.h"
 #include "source/Managers/jsonnodeinfocontainerparser.h"
+#include "source/databaseWorks/columns/nodecolumn.h"
 
 NodesManager::NodesManager(QObject* parent)
     : QObject(parent)
@@ -33,7 +33,7 @@ bool NodesManager::addNewNode(const QString& name,
                               const QString& descr,
                               const QString& exam,
                               const QString& groupUuidString,
-                              const bool& sendChangeSignal)
+                              const bool&    sendChangeSignal)
 {
     QUuid groupUuid = QUuid(groupUuidString);
 
@@ -47,13 +47,13 @@ bool NodesManager::addNewNode(const QString& name,
     return changeNode(nodeUuid, name, def, descr, exam, groupUuid, sendChangeSignal);
 }
 
-bool NodesManager::changeNode(const QUuid& nodeUuid,
+bool NodesManager::changeNode(const QUuid&   nodeUuid,
                               const QString& name,
                               const QString& definition,
                               const QString& description,
                               const QString& example,
                               const QString& groupUuidString,
-                              const bool& sendChangeSignal)
+                              const bool&    sendChangeSignal)
 {
     QUuid groupUuid = QUuid(groupUuidString);
 
@@ -64,8 +64,7 @@ bool NodesManager::changeNode(const QUuid& nodeUuid,
     auto alterNodeUuid = getNodeUuidByNameAndGroup(name, groupUuid);
     if (!alterNodeUuid.isNull()) {
         if (alterNodeUuid != nodeUuid) {
-            NotificationManager::showWarning(
-                "Термин с таким названием уже существует в этой группе");
+            NotificationManager::showWarning("Термин с таким названием уже существует в этой группе");
             return false;
         }
     }
@@ -73,24 +72,24 @@ bool NodesManager::changeNode(const QUuid& nodeUuid,
     return changeNode(nodeUuid, name, definition, description, example, groupUuid, sendChangeSignal);
 }
 
-bool NodesManager::changeNode(const QUuid& nodeUuid,
+bool NodesManager::changeNode(const QUuid&   nodeUuid,
                               const QString& name,
                               const QString& definition,
                               const QString& description,
                               const QString& example,
-                              const QUuid& groupUuid,
-                              const bool& sendChangeSignal)
+                              const QUuid&   groupUuid,
+                              const bool&    sendChangeSignal)
 {
     auto& db = Database::instance();
 
     NodeInfoContainer info;
 
-    info.uuid = nodeUuid;
-    info.term = name;
-    info.definition = definition;
+    info.uuid        = nodeUuid;
+    info.term        = name;
+    info.definition  = definition;
     info.description = description;
-    info.examples = example;
-    info.groupUuid = groupUuid;
+    info.examples    = example;
+    info.groupUuid   = groupUuid;
 
     db.nodeTable->updateNode(info, NodeTable::LastEditSource::AutoGenerate, false);
 
@@ -110,7 +109,7 @@ void NodesManager::deleteNode(QUuid uuid)
 PaintedTerm::List NodesManager::getAllNodesForGroup(const QUuid& groupUuid)
 {
     PaintedTerm::List ret;
-    auto nodesInfo = Database::instance().nodeTable->getAllNodesInfo(groupUuid);
+    auto              nodesInfo = Database::instance().nodeTable->getAllNodesInfo(groupUuid);
 
     for (const auto& info : nodesInfo)
         ret << new PaintedTerm(info);
@@ -130,8 +129,8 @@ QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
 
 void NodesManager::importNodeFromJson(QJsonObject nodeJson, bool importIfGroupNotExist)
 {
-    auto& db = Database::instance();
-    auto info = JsonNodeInfoContainerParser::fromJson(nodeJson);
+    auto& db   = Database::instance();
+    auto  info = JsonNodeInfoContainerParser::fromJson(nodeJson);
 
     if (info.uuid.isNull())
         return;
@@ -159,7 +158,7 @@ QJsonObject NodesManager::getNodeJson(const QUuid& uuid)
     return JsonNodeInfoContainerParser::toJson(info);
 }
 
-bool NodesManager::correctGroupUuid(const QUuid &groupUuid, bool sendWarnings)
+bool NodesManager::correctGroupUuid(const QUuid& groupUuid, bool sendWarnings)
 {
     if (groupUuid.isNull()) {
         if (sendWarnings) {
@@ -178,12 +177,11 @@ bool NodesManager::correctGroupUuid(const QUuid &groupUuid, bool sendWarnings)
     return true;
 }
 
-bool NodesManager::correctNewNodeName(const QString &name, QUuid &groupUuid, bool showWarnings)
+bool NodesManager::correctNewNodeName(const QString& name, QUuid& groupUuid, bool showWarnings)
 {
     if (hasNodeWithNameInGroup(name, groupUuid)) {
         if (showWarnings) {
-            NotificationManager::showWarning(
-                "Термин с таким названием уже существует в этой группе");
+            NotificationManager::showWarning("Термин с таким названием уже существует в этой группе");
         }
         return false;
     }
@@ -191,12 +189,12 @@ bool NodesManager::correctNewNodeName(const QString &name, QUuid &groupUuid, boo
     return true;
 }
 
-QUuid NodesManager::getNodeUuidByNameAndGroup(const QString &name, QUuid &groupUuid) const
+QUuid NodesManager::getNodeUuidByNameAndGroup(const QString& name, QUuid& groupUuid) const
 {
     return Database::instance().nodeTable->nodeUuidForNameAndGroup(name, groupUuid);
 }
 
-bool NodesManager::hasNodeWithNameInGroup(const QString &name, QUuid &groupUuid) const
+bool NodesManager::hasNodeWithNameInGroup(const QString& name, QUuid& groupUuid) const
 {
     return !getNodeUuidByNameAndGroup(name, groupUuid).isNull();
 }

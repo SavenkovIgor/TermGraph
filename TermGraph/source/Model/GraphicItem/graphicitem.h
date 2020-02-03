@@ -27,22 +27,22 @@
 class GraphicItem
 {
 public:
-    GraphicItem() = default;
+    GraphicItem()          = default;
     virtual ~GraphicItem() = default;
 
     // Parents
     void setParentItem(GraphicItem* item);
 
     // Position
-    void setPos(const QPointF& pt);
-    void setPos(const qreal& x, const qreal& y);
-    void moveBy(const QPointF& pt);
-    void moveBy(const qreal& x, const qreal& y);
+    void    setPos(const QPointF& pt);
+    void    setPos(const qreal& x, const qreal& y);
+    void    moveBy(const QPointF& pt);
+    void    moveBy(const qreal& x, const qreal& y);
     QPointF pos() const;
     QPointF scenePos() const;
 
 private:
-    QPointF position;
+    QPointF      position;
     GraphicItem* parentItem = nullptr;
-    int zValue = 0;
+    int          zValue     = 0;
 };

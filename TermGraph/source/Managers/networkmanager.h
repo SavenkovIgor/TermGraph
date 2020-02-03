@@ -24,15 +24,15 @@
 #include <QObject>
 #include <QtNetwork>
 
-#include "source/Helpers/simplelistenserver.h"
 #include "source/Helpers/appconfig.h"
+#include "source/Helpers/simplelistenserver.h"
 #include "source/Managers/notificationmanager.h"
 
 class NetworkManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit NetworkManager(QObject *parent = nullptr);
+    explicit NetworkManager(QObject* parent = nullptr);
 
     bool sendGroup(QJsonDocument doc);
 
@@ -48,11 +48,11 @@ signals:
     void serverStateChanged();
 
 public slots:
-    void connectToHost();
-    void disconnectFromHost();
-    void setReceiverHostIp(QString ip);
+    void    connectToHost();
+    void    disconnectFromHost();
+    void    setReceiverHostIp(QString ip);
     QString getReceiverIp();
-    bool hasConnection();
+    bool    hasConnection();
 
     QString getFirstLocalIpString();
 
@@ -63,9 +63,9 @@ private slots:
     void sendConnectionInfo(QString info);
 
 private:
-    SimpleListenServer *server;
+    SimpleListenServer* server;
 
-//    QTcpServer* server;
+    //    QTcpServer* server;
     QTcpSocket* inputSocket;
     QTcpSocket* outputSocket;
 
@@ -73,7 +73,7 @@ private:
 
     QString getOutputSocketState();
 
-    static bool isValidHostAddress(const QString& ip);
+    static bool    isValidHostAddress(const QString& ip);
     static QString getSocketStateDescription(QAbstractSocket::SocketState state);
 
     bool    isServerEnabled() const;

@@ -21,14 +21,14 @@
 
 #pragma once
 
-#include "source/databaseWorks/tblbase.h"
 #include "source/databaseWorks/dbtablenames.h"
+#include "source/databaseWorks/tblbase.h"
 
 class AppConfigColumn
 {
 public:
     constexpr static auto parameter = TColumn("parameter", "TEXT UNIQUE");
-    constexpr static auto value     = TColumn("value",     "TEXT");
+    constexpr static auto value     = TColumn("value", "TEXT");
 
     constexpr static TColumn columns[] = {parameter, value};
 };
@@ -36,30 +36,32 @@ public:
 class AppConfigTable : public TblBase
 {
 public:
-    AppConfigTable(QSqlDatabase* base): TblBase(base) { }
+    AppConfigTable(QSqlDatabase* base)
+        : TblBase(base)
+    {}
     ~AppConfigTable() override = default;
 
     // TODO: Delete this later
     // This function must be called only once, when initing database
     void initTable() override;
 
-    int getDbVersion();
+    int  getDbVersion();
     bool isDbVersionActual();
     void updateDbVersionNumber();
 
 protected:
-    const char* tableName() const override;
-    TColumn primaryKey() const override;
+    const char*   tableName() const override;
+    TColumn       primaryKey() const override;
     TColumn::List getAllColumns() const override;
 
 private:
     constexpr static auto dbVersionPropertyName = "dbVersion";
-    constexpr static auto startDbVersion = 1;
-    constexpr static auto dbVersion = 2;
+    constexpr static auto startDbVersion        = 1;
+    constexpr static auto dbVersion             = 2;
 
     // Values works
     bool hasKey(const QString& key);
 
-    void setValue(const QString& key, const QString& value);
+    void    setValue(const QString& key, const QString& value);
     QString value(const QString& key, const QString& defaultValue);
 };

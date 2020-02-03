@@ -25,7 +25,7 @@
 MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* parent)
     : QObject(parent)
 {
-    mouseMoveReactionTimer.setInterval(static_cast<int>(1000/AppSettings::Scene::FPS));
+    mouseMoveReactionTimer.setInterval(static_cast<int>(1000 / AppSettings::Scene::FPS));
     mouseMoveReactionTimer.setSingleShot(true);
 
     assert(groupsMgr != nullptr);
@@ -150,7 +150,7 @@ QPointF MainScene::getTermPosition(const QString& termUuid) const
 
 void MainScene::setMouseClick(qreal x, qreal y)
 {
-    findClick(QPointF(x,y));
+    findClick(QPointF(x, y));
 }
 
 PaintedTerm* MainScene::getSelectedTerm() const
@@ -239,14 +239,14 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
 QString MainScene::getCurrNodeDebugInfo()
 {
     return "";
-//    TermNode* nd = getSelected();
-//    if (nd == nullptr) {
-//        return "";
-//    }
+    //    TermNode* nd = getSelected();
+    //    if (nd == nullptr) {
+    //        return "";
+    //    }
 
-//    QStringList ret;
-//    ret << "Uuid:" << nd->getUuid().toString();
-//    ret << nd->getDebugString();
+    //    QStringList ret;
+    //    ret << "Uuid:" << nd->getUuid().toString();
+    //    ret << nd->getDebugString();
 
     //    return ret.join(" ");
 }
@@ -321,7 +321,7 @@ int MainScene::termCount() const
     return mCurrentGroup ? mCurrentGroup->getAllNodes().size() : 0;
 }
 
-PaintedTerm *MainScene::term(int index) const
+PaintedTerm* MainScene::term(int index) const
 {
     if (!mCurrentGroup)
         return nullptr;
@@ -332,12 +332,12 @@ PaintedTerm *MainScene::term(int index) const
     return mCurrentGroup->getAllNodes()[index];
 }
 
-int MainScene::termCount(QQmlListProperty<PaintedTerm> *list)
+int MainScene::termCount(QQmlListProperty<PaintedTerm>* list)
 {
     return reinterpret_cast<MainScene*>(list->data)->termCount();
 }
 
-PaintedTerm *MainScene::term(QQmlListProperty<PaintedTerm> *list, int i)
+PaintedTerm* MainScene::term(QQmlListProperty<PaintedTerm>* list, int i)
 {
     return reinterpret_cast<MainScene*>(list->data)->term(i);
 }
@@ -360,12 +360,12 @@ Edge* MainScene::edge(int index) const
     return mCachedEdges[index];
 }
 
-int MainScene::edgeCount(QQmlListProperty<Edge> *list)
+int MainScene::edgeCount(QQmlListProperty<Edge>* list)
 {
     return reinterpret_cast<MainScene*>(list->data)->edgeCount();
 }
 
-Edge *MainScene::edge(QQmlListProperty<Edge> *list, int i)
+Edge* MainScene::edge(QQmlListProperty<Edge>* list, int i)
 {
     return reinterpret_cast<MainScene*>(list->data)->edge(i);
 }
@@ -376,7 +376,7 @@ void MainScene::updateEdgeCache()
     emit edgesChanged();
 }
 
-void MainScene::findClick(const QPointF &atPt)
+void MainScene::findClick(const QPointF& atPt)
 {
     // Check for click in same point
     if (auto selected = getSelectedTerm()) {

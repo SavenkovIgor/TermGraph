@@ -22,15 +22,16 @@
 #pragma once
 
 #include <QList>
-#include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
+#include <QPropertyAnimation>
 
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminEdge/edge.h"
 
-class NodeVerticalStackTools {
+class NodeVerticalStackTools
+{
 public:
-    static QSizeF getNodeVerticalStackedSize(const PaintedTerm::List &nodes);
+    static QSizeF getNodeVerticalStackedSize(const PaintedTerm::List& nodes);
 };
 
 class NodeVerticalStack
@@ -54,10 +55,10 @@ public:
 
     // Animation
     QParallelAnimationGroup animationGroup;
-    QPropertyAnimation swAnim1;
-    QPropertyAnimation swAnim2;
+    QPropertyAnimation      swAnim1;
+    QPropertyAnimation      swAnim2;
 
-    void swapNodes(PaintedTerm *n1, PaintedTerm *n2)
+    void swapNodes(PaintedTerm* n1, PaintedTerm* n2)
     {
         if (animationGroup.state() != QAbstractAnimation::Stopped) {
             return;  // Very important instruction.
@@ -77,11 +78,13 @@ public:
         QPointF pos1, pos2;
 
         if (rc1.top() < rc2.top()) {
-            pos1 = QPointF(n1->pos().x() + rc1.width()/2 - rc2.width()/2, n1->pos().y());
-            pos2 = QPointF(n2->pos().x() + rc2.width()/2 - rc1.width()/2, n2->pos().y() - rc1.height() + rc2.height());
+            pos1 = QPointF(n1->pos().x() + rc1.width() / 2 - rc2.width() / 2, n1->pos().y());
+            pos2 = QPointF(n2->pos().x() + rc2.width() / 2 - rc1.width() / 2,
+                           n2->pos().y() - rc1.height() + rc2.height());
         } else {
-            pos1 = QPointF(n1->pos().x() + rc1.width()/2-rc2.width()/2, n1->pos().y() - rc2.height() + rc1.height());
-            pos2 = QPointF(n2->pos().x() + rc2.width()/2-rc1.width()/2, n2->pos().y());
+            pos1 = QPointF(n1->pos().x() + rc1.width() / 2 - rc2.width() / 2,
+                           n1->pos().y() - rc2.height() + rc1.height());
+            pos2 = QPointF(n2->pos().x() + rc2.width() / 2 - rc1.width() / 2, n2->pos().y());
         }
 
         swAnim1.setTargetObject(n1);

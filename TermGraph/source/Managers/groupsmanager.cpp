@@ -21,11 +21,11 @@
 
 #include "groupsmanager.h"
 
-#include "source/databaseWorks/columns/termgroupcolumn.h"
-#include "source/databaseWorks/columns/nodecolumn.h"
 #include "source/Managers/jsongroupinfocontainerparser.h"
+#include "source/databaseWorks/columns/nodecolumn.h"
+#include "source/databaseWorks/columns/termgroupcolumn.h"
 
-GroupsManager::GroupsManager(NodesManager *nodesMgr, QObject *parent)
+GroupsManager::GroupsManager(NodesManager* nodesMgr, QObject* parent)
     : QObject(parent)
 {
     this->nodesMgr = nodesMgr;
@@ -34,8 +34,8 @@ GroupsManager::GroupsManager(NodesManager *nodesMgr, QObject *parent)
 
 QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
 {
-    QList<QUuid> allUuids = getAllUuidsSortedByLastEdit();
-    QStringList groupNames = getGroupNames(allUuids);
+    QList<QUuid> allUuids   = getAllUuidsSortedByLastEdit();
+    QStringList  groupNames = getGroupNames(allUuids);
 
     if (withAllVeiw) {
         groupNames.push_back("Все группы");
@@ -128,7 +128,7 @@ void GroupsManager::deleteGroup(QString uuidString)
 
 void GroupsManager::importGroupFromJsonFile(const QString& filename)
 {
-    QUrl url(filename);
+    QUrl  url(filename);
     QFile file(url.toLocalFile());
     if (file.open(QIODevice::ReadOnly)) {
         QByteArray arr = file.readAll();
@@ -144,17 +144,13 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
     importGroupFromJson(doc);
 }
 
-bool GroupsManager::isValidGroupJson(const QJsonDocument json) // TODO: Rework!
+bool GroupsManager::isValidGroupJson(const QJsonDocument json)  // TODO: Rework!
 {
     QJsonObject jsonGroup = json.object();
 
     // Checking keys
-    if (
-            jsonGroup.contains("name") &&
-            jsonGroup.value("name").isString() &&
-            jsonGroup.contains("nodesList") &&
-            jsonGroup.value("nodesList").isArray()
-            ) {
+    if (jsonGroup.contains("name") && jsonGroup.value("name").isString() && jsonGroup.contains("nodesList")
+        && jsonGroup.value("nodesList").isArray()) {
         return true;
     }
     return false;
@@ -170,7 +166,7 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
     if (groupUuid.isNull())
         return nullptr;
 
-    auto info = Database::instance().groupTable->getGroup(groupUuid);
+    auto       info  = Database::instance().groupTable->getGroup(groupUuid);
     TermGroup* group = new TermGroup(info);
     group->loadNodes(nodesMgr->getAllNodesForGroup(groupUuid));
     return group;
@@ -219,9 +215,8 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
     QList<std::tuple<QUuid, QDateTime>> allNodesLastEdits;
 
     for (auto record : Database::instance().nodeTable->getAllLastEditRecords()) {
-
-        QUuid groupUuid = QUuid(record.value(NodeColumn::groupUuid).toString());
-        QDateTime lastEdit = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
+        QUuid     groupUuid = QUuid(record.value(NodeColumn::groupUuid).toString());
+        QDateTime lastEdit  = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
 
         if (groupsLastEdit.contains(groupUuid)) {
             if (groupsLastEdit[groupUuid].isNull()) {
@@ -297,7 +292,7 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     QJsonArray nodes = jsonGroup.value("nodesList").toArray();
 
     // Searching for existed group
-    if (!db.groupTable->hasGroupWithUuid(info.uuid)) { // Group found
+    if (!db.groupTable->hasGroupWithUuid(info.uuid)) {  // Group found
         db.groupTable->addGroup(info);
     } else {
         db.groupTable->updateGroup(info);
@@ -322,7 +317,6 @@ QString GroupsManager::getExportPath() const
 void GroupsManager::exportGrpToJson(QString groupUuid)
 {
     if (auto group = createGroup(QUuid(groupUuid))) {
-
         saveGroupInFolder(group);
 
         //            QJsonDocument document = group->getJsonDoc();
@@ -333,11 +327,11 @@ void GroupsManager::exportGrpToJson(QString groupUuid)
     }
 }
 
-void GroupsManager::saveGroupInFolder(TermGroup *group)
+void GroupsManager::saveGroupInFolder(TermGroup* group)
 {
     if (group != nullptr) {
-//        QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
-//        FSWorks::saveFile(AppConfig::StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
+        //        QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
+        //        FSWorks::saveFile(AppConfig::StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
     }
 }
 
@@ -345,7 +339,7 @@ QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid)
 {
     auto& db = Database::instance();
 
-    auto info = db.groupTable->getGroup(groupUuid);
+    auto info      = db.groupTable->getGroup(groupUuid);
     auto groupJson = JsonGroupInfoContainerParser::toJson(info);
 
     auto nodesUuids = db.nodeTable->getAllNodesUuids(groupUuid);
@@ -370,7 +364,7 @@ void GroupsManager::updateGroupUuidNameMaps()
     namesToUuid.clear();
 
     for (auto sqlRecord : Database::instance().groupTable->getAllUuidsAndNames()) {
-        QUuid uuid(sqlRecord.value(TermGroupColumn::uuid).toString());
+        QUuid   uuid(sqlRecord.value(TermGroupColumn::uuid).toString());
         QString name = sqlRecord.value(TermGroupColumn::name).toString();
 
         uuidToNames.insert(uuid, name);

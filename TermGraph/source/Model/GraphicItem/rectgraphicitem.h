@@ -23,8 +23,8 @@
 
 #include <QSizeF>
 
-#include "source/Model/enums.h"
 #include "source/Model/GraphicItem/graphicitem.h"
+#include "source/Model/enums.h"
 
 class RectGraphicItem : public GraphicItem
 {

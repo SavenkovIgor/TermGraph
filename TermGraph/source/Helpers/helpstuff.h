@@ -21,10 +21,10 @@
 
 #pragma once
 
-#include <QString>
 #include <QPointF>
-#include <QSizeF>
 #include <QRectF>
+#include <QSizeF>
+#include <QString>
 
 #include "handytypes.h"
 

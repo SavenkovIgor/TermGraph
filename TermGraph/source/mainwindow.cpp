@@ -29,16 +29,16 @@
 #include "source/Model/TerminEdge/edge.h"
 #include "source/Model/Termin/paintedterm.h"
 
-MainWindow::MainWindow(QObject *parent):
-    QObject(parent),
-    network(new NetworkManager()),
-    nodesManager(new NodesManager()),
-    tagProcessor(new TagProcessor()),
-    textProcessor(new TextProcessor()),
-    groupsManager(new GroupsManager(nodesManager.get())),
-    syncManager(new SyncManager(network.get(), groupsManager.get(), nodesManager.get())),
-    scene(new MainScene(groupsManager.get(), nodesManager.get())),
-    qmlEngine(new QQmlApplicationEngine())
+MainWindow::MainWindow(QObject* parent)
+    : QObject(parent)
+    , network(new NetworkManager())
+    , nodesManager(new NodesManager())
+    , tagProcessor(new TagProcessor())
+    , textProcessor(new TextProcessor())
+    , groupsManager(new GroupsManager(nodesManager.get()))
+    , syncManager(new SyncManager(network.get(), groupsManager.get(), nodesManager.get()))
+    , scene(new MainScene(groupsManager.get(), nodesManager.get()))
+    , qmlEngine(new QQmlApplicationEngine())
 {
     initElemSizes();
     AppSettings::StdPaths::createDefaultFoldersIfNeed();

@@ -21,8 +21,8 @@
 
 #pragma once
 
-#include <QString>
 #include <QByteArray>
+#include <QString>
 
 class FSWorks
 {

@@ -23,10 +23,10 @@
 
 #include <vector>
 #include <QList>
-#include <QUuid>
 #include <QSizeF>
+#include <QUuid>
 
 class Edge;
 
-using UuidList = std::vector<QUuid>;
+using UuidList  = std::vector<QUuid>;
 using SizesList = std::vector<QSizeF>;

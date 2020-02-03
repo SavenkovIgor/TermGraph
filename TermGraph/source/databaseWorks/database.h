@@ -24,12 +24,12 @@
 #include <QObject>
 #include <QtSql>
 
-#include "source/databaseWorks/ndtbl.h"
-#include "source/databaseWorks/edgtbl.h"
-#include "source/databaseWorks/appconfigtable.h"
-#include "source/databaseWorks/termgrouptbl.h"
 #include "source/Helpers/appconfig.h"
 #include "source/Helpers/fsworks.h"
+#include "source/databaseWorks/appconfigtable.h"
+#include "source/databaseWorks/edgtbl.h"
+#include "source/databaseWorks/ndtbl.h"
+#include "source/databaseWorks/termgrouptbl.h"
 
 // TODO: Move db version here
 // TODO: JSON send version must be synced with db version
@@ -37,7 +37,7 @@
 class Database
 {
 public:
-    QScopedPointer<NodeTable> nodeTable;
+    QScopedPointer<NodeTable>      nodeTable;
     QScopedPointer<TermGroupTable> groupTable;
     QScopedPointer<AppConfigTable> appConfigTable;
 
@@ -48,19 +48,19 @@ public:
     }
 
     Database(const Database&) = delete;
-    void operator = (const Database&) = delete;
+    void operator=(const Database&) = delete;
 
 private:
     explicit Database();
     explicit Database(const QString& filePath);
     ~Database();
 
-    QSqlDatabase *base;
+    QSqlDatabase* base;
 
     bool databaseExists(const QString& dbFilePath) const;
     void InitAllTables();
 
-    int currentDbVersion();
+    int  currentDbVersion();
     bool needDbUpdate();
     void makeBackupBeforeUpdate(const QString& filePath, const int& oldDbVersion);
     void makeDbUpdate();

@@ -37,9 +37,9 @@ public:
     void setFont(const QFont& font);
 
     QString getLabel() const;
-    QSizeF getNameSize() const;
+    QSizeF  getNameSize() const;
 
 private:
     QString _label;
-    QFont _font;
+    QFont   _font;
 };

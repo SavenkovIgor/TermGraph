@@ -21,7 +21,9 @@
 
 #include "tagprocessor.h"
 
-TagProcessor::TagProcessor(QObject* parent) : QObject(parent) {}
+TagProcessor::TagProcessor(QObject* parent)
+    : QObject(parent)
+{}
 
 bool TagProcessor::isBracket(const QChar& ch)
 {
@@ -201,7 +203,7 @@ std::optional<int> TagProcessor::getDistanceBetweenTagAndTerm(const QString& tag
     int maxWordDistance = 4 * wordsCountInTag;
 
     auto stringSizeDiffer = std::abs(termName.size() - tag.size());
-    if (stringSizeDiffer > maxWordDistance) // No need to check. Term is not suit already
+    if (stringSizeDiffer > maxWordDistance)  // No need to check. Term is not suit already
         return std::nullopt;
 
     auto distance = TagProcessor::getLevDistance(termName, tag, maxWordDistance);
@@ -214,7 +216,7 @@ std::optional<int> TagProcessor::getDistanceBetweenTagAndTerm(const QString& tag
     return std::nullopt;
 }
 
-bool TagProcessor::isValidCursor(const QString &str, int cursorPosition)
+bool TagProcessor::isValidCursor(const QString& str, int cursorPosition)
 {
     return isValidCursor(QStringView(str), cursorPosition);
 }
@@ -278,9 +280,7 @@ int TagProcessor::moveRight(QStringView str, int cursorPos, std::function<bool(c
     }
 }
 
-QString TagProcessor::replaceTags(QString str,
-                                  const QString& leftBrReplacement,
-                                  const QString& rightBrReplacement)
+QString TagProcessor::replaceTags(QString str, const QString& leftBrReplacement, const QString& rightBrReplacement)
 {
     if (!isPairedBrackets(str))
         return str;

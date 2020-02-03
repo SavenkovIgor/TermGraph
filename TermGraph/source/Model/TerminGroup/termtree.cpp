@@ -27,7 +27,7 @@
 
 TermTree::TermTree()
 {
-//    qDebug() << "Create tree";
+    //    qDebug() << "Create tree";
     rect = new RectGraphicItem();
 
     animationGroup.addAnimation(&swAnim1);
@@ -63,9 +63,9 @@ void TermTree::setTreeNodeCoors(QPointF leftTopPoint)
 
     for (auto stack : stacks) {
         auto stackSize = stack->getSize();
-        centerPoint.rx() += stackSize.width()/2;
+        centerPoint.rx() += stackSize.width() / 2;
         stack->placeTerms(centerPoint);
-        centerPoint.rx() += stackSize.width()/2 + AppStyle::Sizes::treeLayerHorizontalSpacer;
+        centerPoint.rx() += stackSize.width() / 2 + AppStyle::Sizes::treeLayerHorizontalSpacer;
     }
 }
 
@@ -111,37 +111,38 @@ void TermTree::animateTree()
 void TermTree::checkSwap()
 {
     return;
-    for (int layer = 1; layer < stacks.size(); layer++) {  // TODO: Обдумать этот момент i=1 because we need to ignore roots.
+    for (int layer = 1; layer < stacks.size();
+         layer++) {  // TODO: Обдумать этот момент i=1 because we need to ignore roots.
         auto levLst = stacks[layer]->getAllNodesInStack();
 
         for (int j = 0; j < levLst.size() - 1; j++) {
             int inter = levLst[j]->getIntersections();
 
             QPointF pt1 = levLst[j]->getCenter(CoordType::scene);
-            QPointF pt2 = levLst[j+1]->getCenter(CoordType::scene);
+            QPointF pt2 = levLst[j + 1]->getCenter(CoordType::scene);
 
             levLst[j]->setSwap(pt2);
-            levLst[j+1]->setSwap(pt1);
+            levLst[j + 1]->setSwap(pt1);
 
-            qreal sum1 = levLst[j]->getSumEdgesLength(false) + levLst[j+1]->getSumEdgesLength(false);
-            qreal sum2 = levLst[j]->getSumEdgesLength(true) + levLst[j+1]->getSumEdgesLength(true);
+            qreal sum1 = levLst[j]->getSumEdgesLength(false) + levLst[j + 1]->getSumEdgesLength(false);
+            qreal sum2 = levLst[j]->getSumEdgesLength(true) + levLst[j + 1]->getSumEdgesLength(true);
 
             int newIntersect = levLst[j]->getIntersections(true);
 
             levLst[j]->dropSwap();
-            levLst[j+1]->dropSwap();
+            levLst[j + 1]->dropSwap();
 
-            if (levLst[j]->getNodeRect(CoordType::scene).intersects(levLst[j+1]->getNodeRect(CoordType::scene))) {
+            if (levLst[j]->getNodeRect(CoordType::scene).intersects(levLst[j + 1]->getNodeRect(CoordType::scene))) {
                 continue;
             }
 
             if (newIntersect < inter) {
-                stacks[layer]->swapNodes(levLst[j], levLst[j+1]);
+                stacks[layer]->swapNodes(levLst[j], levLst[j + 1]);
                 return;
             }
 
-            if (newIntersect <= inter && (sum2 < sum1 && sum1-sum2 > sum1*0.2)) {
-                stacks[layer]->swapNodes(levLst[j], levLst[j+1]);
+            if (newIntersect <= inter && (sum2 < sum1 && sum1 - sum2 > sum1 * 0.2)) {
+                stacks[layer]->swapNodes(levLst[j], levLst[j + 1]);
                 return;
             }
         }
@@ -181,7 +182,7 @@ void TermTree::addTerm(PaintedTerm* term)
     stacks[paintLayer]->addTerm(term);
 }
 
-bool TermTree::hasTerm(PaintedTerm *term) const
+bool TermTree::hasTerm(PaintedTerm* term) const
 {
     for (auto stack : stacks) {
         if (stack->hasTerm(term)) {
@@ -191,7 +192,7 @@ bool TermTree::hasTerm(PaintedTerm *term) const
     return false;
 }
 
-bool TermTree::hasEdge(Edge *edge) const
+bool TermTree::hasEdge(Edge* edge) const
 {
     auto* rootTerm = dynamic_cast<PaintedTerm*>(edge->getRoot());
     auto* leafTerm = dynamic_cast<PaintedTerm*>(edge->getLeaf());
@@ -203,7 +204,8 @@ QRectF TermTree::getTreeRect(CoordType inCoordinates) const
     QRectF ret = QRectF(QPointF(), getTreeSize());
 
     switch (inCoordinates) {
-    case CoordType::zeroPoint: break;
+    case CoordType::zeroPoint:
+        break;
     case CoordType::local:
         ret = ret.translated(rect->pos());
         break;
@@ -217,7 +219,7 @@ QRectF TermTree::getTreeRect(CoordType inCoordinates) const
 
 QSizeF TermTree::getTreeSize() const
 {
-    qreal width = 0.0;
+    qreal width  = 0.0;
     qreal height = 0.0;
 
     for (auto stack : stacks) {
@@ -247,7 +249,7 @@ qreal TermTree::getMaxStackHeight() const
     qreal maxHeight = 0.0;
     for (auto stack : stacks) {
         QSizeF stackSize = stack->getSize();
-        maxHeight = std::max(maxHeight, stackSize.height());
+        maxHeight        = std::max(maxHeight, stackSize.height());
     }
     return maxHeight;
 }

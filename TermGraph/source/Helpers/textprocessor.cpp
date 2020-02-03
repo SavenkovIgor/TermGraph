@@ -21,8 +21,8 @@
 
 #include "textprocessor.h"
 
-TextProcessor::TextProcessor(QObject *parent) :
-    QObject(parent)
+TextProcessor::TextProcessor(QObject* parent)
+    : QObject(parent)
 {
     if (splitters.isEmpty()) {
         splitters << "‐";
@@ -32,7 +32,7 @@ TextProcessor::TextProcessor(QObject *parent) :
     }
 }
 
-bool TextProcessor::isTermWithDefinition(const QString &def) const
+bool TextProcessor::isTermWithDefinition(const QString& def) const
 {
     for (const auto& splitter : splitters) {
         if (def.contains(splitter)) {
@@ -43,7 +43,7 @@ bool TextProcessor::isTermWithDefinition(const QString &def) const
     return false;
 }
 
-QString TextProcessor::getTerm(const QString &def) const
+QString TextProcessor::getTerm(const QString& def) const
 {
     if (int pos = splitterIndex(def); pos != -1) {
         return def.left(pos).simplified();
@@ -51,7 +51,7 @@ QString TextProcessor::getTerm(const QString &def) const
     return "";
 }
 
-QString TextProcessor::getDefinition(const QString &def) const
+QString TextProcessor::getDefinition(const QString& def) const
 {
     if (int pos = splitterIndex(def); pos != -1) {
         return def.mid(pos + 1).simplified();
@@ -69,11 +69,11 @@ QString TextProcessor::insertNewLineNearMiddle(const QString& str)
         return false;
     };
 
-    QString ret = str;
-    int middleIndex = ret.size() / 2;
+    QString ret         = str;
+    int     middleIndex = ret.size() / 2;
 
     for (int i = 0; i < middleIndex; i++) {
-        int leftIndex = qBound(0, middleIndex - i, middleIndex);
+        int leftIndex  = qBound(0, middleIndex - i, middleIndex);
         int rightIndex = qBound(middleIndex, middleIndex + i, ret.size() - 1);
 
         if (tryReplaceSpaceWithNewLine(ret[leftIndex]))
@@ -86,7 +86,7 @@ QString TextProcessor::insertNewLineNearMiddle(const QString& str)
     return ret;
 }
 
-int TextProcessor::splitterIndex(const QString &str) const
+int TextProcessor::splitterIndex(const QString& str) const
 {
     int pos = -1;
     for (const auto& splitter : splitters) {

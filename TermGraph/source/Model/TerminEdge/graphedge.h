@@ -37,11 +37,11 @@ public:
     GraphTerm* getRoot() const { return toRoot; }
     GraphTerm* getLeaf() const { return toLeaf; }
 
-    bool hasNode(GraphTerm* node) const;
-    bool isSameEdge(GraphTerm* rt, GraphTerm* br) const;
+    bool       hasNode(GraphTerm* node) const;
+    bool       isSameEdge(GraphTerm* rt, GraphTerm* br) const;
     GraphTerm* getOtherSide(GraphTerm* n) const;
 
-    bool needBroke = false;
+    bool needBroke  = false;
     bool needCutOut = false;
 
 private:

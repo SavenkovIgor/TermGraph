@@ -39,15 +39,15 @@ public:
 
     // Uuid
     QString getUuid() const;
-    void setUuid(const QString& uuid);
+    void    setUuid(const QString& uuid);
 
     // Name
     QString getName() const;
-    void setName(const QString& name);
+    void    setName(const QString& name);
 
     // Comment
     QString getComment() const;
-    void setComment(const QString& comment);
+    void    setComment(const QString& comment);
 
     GroupInfoContainer unwrap() const;
 

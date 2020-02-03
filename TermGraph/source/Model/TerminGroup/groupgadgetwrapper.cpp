@@ -30,7 +30,7 @@ QString GroupGadgetWrapper::getUuid() const
     return _info.uuid.toString();
 }
 
-void GroupGadgetWrapper::setUuid(const QString &uuid)
+void GroupGadgetWrapper::setUuid(const QString& uuid)
 {
     _info.uuid.fromString(uuid);
 }

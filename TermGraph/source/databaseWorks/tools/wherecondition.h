@@ -52,7 +52,7 @@ public:
     QString getJoinedConditions() const;
 
 private:
-    QStringList conditions;
+    QStringList   conditions;
     ConditionType type;
 
     inline QString concat(const QString& str1, const QString& str2, const QString& str3)

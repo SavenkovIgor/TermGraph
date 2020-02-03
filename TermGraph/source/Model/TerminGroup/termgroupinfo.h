@@ -21,15 +21,15 @@
 
 #pragma once
 
-#include <stdlib.h>
 #include <functional>
+#include <stdlib.h>
 #include <QDebug>
 #include <QUuid>
 
-#include "source/Model/TerminGroup/termtree.h"
-#include "source/Model/Termin/paintedterm.h"
 #include "source/Helpers/tagprocessor.h"
+#include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminGroup/groupinfocontainer.h"
+#include "source/Model/TerminGroup/termtree.h"
 
 class TermGroupInfo
 {
@@ -39,7 +39,7 @@ public:
     ~TermGroupInfo();
 
     // Group info
-    QUuid getUuid() const;
+    QUuid   getUuid() const;
     QString getName() const;
 
     // Group content
@@ -67,10 +67,10 @@ protected:
     void removeExceedEdges();
 
     // Tree tools
-    void setLevels();
-    void initTrees();
+    void   setLevels();
+    void   initTrees();
     QSizeF getAllTreesSize();
-    void setNeighbours();
+    void   setNeighbours();
 
     // Orphans tools
     QSizeF getOrphansSize();
@@ -85,16 +85,16 @@ private:
     // Group content
     PaintedTerm::List nodesList;
     PaintedTerm::List filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const;
-            // Filters nodes from nodesList with lambda
+    // Filters nodes from nodesList with lambda
 
     // Edges & tools
     Edge::List edgesList;
-    Edge* addNewEdge(PaintedTerm* node1, PaintedTerm* node2);
+    Edge*      addNewEdge(PaintedTerm* node1, PaintedTerm* node2);
 
     // Edge connections search
-    Edge::List searchAllConnections();
+    Edge::List                  searchAllConnections();
     QMap<QString, PaintedTerm*> getExactTermMatchCache();
-    PaintedTerm* getNearestNodeForTag(const QString& tag);
+    PaintedTerm*                getNearestNodeForTag(const QString& tag);
 
     Edge::List suggestConnections();  // TODO: Realize!
 };

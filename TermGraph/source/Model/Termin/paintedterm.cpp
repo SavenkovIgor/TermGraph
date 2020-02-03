@@ -21,17 +21,19 @@
 
 #include "paintedterm.h"
 
-#include "source/Model/TerminEdge/edge.h"
 #include "source/Helpers/appstyle.h"
+#include "source/Model/TerminEdge/edge.h"
 
 bool PaintedTerm::someoneHover  = false;
 bool PaintedTerm::someoneSelect = false;
 
-const qreal PaintedTerm::verScale = 0.0200;
+const qreal     PaintedTerm::verScale = 0.0200;
 QList<Qt::Edge> PaintedTerm::sides;
 
 PaintedTerm::PaintedTerm(const NodeInfoContainer& info, QObject* parent)
-    : QObject(parent), GraphTerm(info), GraphicItem()
+    : QObject(parent)
+    , GraphTerm(info)
+    , GraphicItem()
 {
     if (sides.isEmpty()) {
         sides << Qt::BottomEdge;
@@ -52,7 +54,7 @@ int PaintedTerm::getUpLevels([[maybe_unused]] int pLevel)  // TODO: check why pl
     int ret = -1;
     for (GraphTerm* t : getLeafNodes()) {
         PaintedTerm* n = static_cast<PaintedTerm*>(t);
-        ret = std::max(ret, n->getUpLevels());
+        ret            = std::max(ret, n->getUpLevels());
     }
 
     if (ret == -1)
@@ -112,15 +114,18 @@ QLineF PaintedTerm::getRectLine(Qt::Edge side)
 QRectF PaintedTerm::getNodeRect(CoordType inCoordinates) const
 {
     switch (inCoordinates) {
-    case CoordType::zeroPoint: return QRectF(QPointF(),  nodeSize);
-    case CoordType::local:     return QRectF(pos(),      nodeSize);
-    case CoordType::scene:     return QRectF(scenePos(), nodeSize);
+    case CoordType::zeroPoint:
+        return QRectF(QPointF(), nodeSize);
+    case CoordType::local:
+        return QRectF(pos(), nodeSize);
+    case CoordType::scene:
+        return QRectF(scenePos(), nodeSize);
     }
 }
 
 QRectF PaintedTerm::getFrameRect(CoordType inCoordinates) const
 {
-    qreal val = qBound(0.0, nodeSize.width()*0.2, 8.0);
+    qreal  val = qBound(0.0, nodeSize.width() * 0.2, 8.0);
     QRectF ret = getNodeRect(inCoordinates);
     return addMarginsToRect(ret, val);
 }
@@ -133,27 +138,27 @@ QPointF PaintedTerm::getCenter(CoordType inCoordinates) const
 bool PaintedTerm::applyMove()
 {
     // Если сильно смещение - кидаем true
-    PaintedTerm* left = getNearestLeftNeigh();
+    PaintedTerm* left  = getNearestLeftNeigh();
     PaintedTerm* right = getNearestRightNeigh();
 
     QRectF myRc = getFrameRect(CoordType::scene);
-    myRc = myRc.translated(newPosOffset, 0.0);
+    myRc        = myRc.translated(newPosOffset, 0.0);
     QRectF leftRc;
     QRectF rightRc;
 
-    qreal k = 0.01;
-    newPosOffset = qBound(-myRc.width()*k, newPosOffset, myRc.width()*k);
+    qreal k      = 0.01;
+    newPosOffset = qBound(-myRc.width() * k, newPosOffset, myRc.width() * k);
 
     if (newPosOffset < 0) {
         if (left != nullptr) {
-            leftRc = left->getFrameRect(CoordType::scene);
+            leftRc       = left->getFrameRect(CoordType::scene);
             newPosOffset = qBound(leftRc.right() - myRc.left(), newPosOffset, 0.0);
         }
     }
 
     if (newPosOffset > 0) {
         if (right != nullptr) {
-            rightRc = right->getFrameRect(CoordType::scene);
+            rightRc      = right->getFrameRect(CoordType::scene);
             newPosOffset = qBound(0.0, newPosOffset, rightRc.left() - myRc.right());
         }
     }
@@ -172,16 +177,16 @@ void PaintedTerm::countForces()
         return;
 
     qreal edForce = 0.0;
-    qreal myX = getCenter(CoordType::scene).y();
+    qreal myX     = getCenter(CoordType::scene).y();
 
-    qreal tmp = 0.0;
+    qreal tmp      = 0.0;
     qreal notMyPos = 0.0;
 
     Edge::List edges;
     edges << Edge::castToEdgeList(getEdgesToRoots());
     edges << Edge::castToEdgeList(getEdgesToLeafs());
 
-    for (Edge *e : edges) {
+    for (Edge* e : edges) {
         if (!GraphTerm::isInGroupEdge(e))
             continue;
 
@@ -199,7 +204,7 @@ void PaintedTerm::countForces()
         if (notMyPos > myX)
             edForce += tmp;
         else
-            edForce += (-1)*tmp;
+            edForce += (-1) * tmp;
     }
 
     //    testStr += "edf:" + QString::number(edForce);
@@ -218,14 +223,13 @@ int PaintedTerm::getIntersections(bool swapped)
 
     //    qDebug()<<"edges.size"<<this->getName()<<edges.size();
 
-    QList< QPointF > interList;
+    QList<QPointF> interList;
 
     for (int i = 0; i < edges.size(); i++) {
-        for (int j = i+1; j < edges.size(); j++) {
-            QLineF l1 = edges[i]->getLine(swapped),
-                    l2 = edges[j]->getLine(swapped);
+        for (int j = i + 1; j < edges.size(); j++) {
+            QLineF l1 = edges[i]->getLine(swapped), l2 = edges[j]->getLine(swapped);
 
-            QPointF *interPt = new QPointF();
+            QPointF* interPt = new QPointF();
             if (l1.intersect(l2, interPt) == QLineF::BoundedIntersection) {
                 bool nearFound = false;
 
@@ -269,7 +273,7 @@ Edge::List PaintedTerm::getEdgesInLayer()
     // Stay only with distance 1
     Edge::List edgLst = Edge::castToEdgeList(allEdgesInLayerList);
     Edge::List ret2;
-    for (Edge *e : edgLst) {
+    for (Edge* e : edgLst) {
         if (e->getLayerDistance() == 1)
             ret2 << e;
     }
@@ -284,7 +288,7 @@ QRectF PaintedTerm::addMarginsToRect(QRectF rc, qreal mrg)
 
 void PaintedTerm::updateCornerRadius()
 {
-    cornerRadius = nodeSize.height()*0.2;
+    cornerRadius = nodeSize.height() * 0.2;
 }
 
 void PaintedTerm::dropSwap()
@@ -306,7 +310,7 @@ QColor PaintedTerm::color() const
 QColor PaintedTerm::expectedColor() const
 {
     auto   nodeType = getNodeType();
-    QColor col = baseColor(nodeType, false);
+    QColor col      = baseColor(nodeType, false);
 
     if (someoneSelect) {
         if (relativePaint || thisSelected) {
@@ -321,11 +325,11 @@ QColor PaintedTerm::expectedColor() const
 
 void PaintedTerm::setSwap(QPointF toPt)
 {
-    for (Edge *e : Edge::castToEdgeList(getEdgesToRoots())) {
+    for (Edge* e : Edge::castToEdgeList(getEdgesToRoots())) {
         e->swapPointLeaf = toPt;
     }
 
-    for (Edge *e : Edge::castToEdgeList(getEdgesToLeafs())) {
+    for (Edge* e : Edge::castToEdgeList(getEdgesToLeafs())) {
         e->swapPointRoot = toPt;
     }
 }
@@ -336,7 +340,7 @@ qreal PaintedTerm::getSumEdgesLength(bool swap)
     edges << Edge::castToEdgeList(getEdgesToLeafs());
     edges << Edge::castToEdgeList(getEdgesToRoots());
     qreal ret = 0.0;
-    for (Edge *e : edges) {
+    for (Edge* e : edges) {
         if (!GraphTerm::isInGroupEdge(e))
             continue;
         ret += std::abs(e->getLine(swap).dx());
@@ -354,15 +358,15 @@ void PaintedTerm::adjustRectSizeForName()
 
 PaintedTerm* PaintedTerm::getNearestLeftNeigh()
 {
-    PaintedTerm* ret = nullptr;
-    qreal diff = 100000.0;
+    PaintedTerm* ret  = nullptr;
+    qreal        diff = 100000.0;
 
     QRectF myRect = getNodeRect(CoordType::scene);
     QRectF neighRect;
 
     for (GraphTerm* n : getNeighbourNodes()) {
         PaintedTerm* t = static_cast<PaintedTerm*>(n);
-        neighRect = t->getNodeRect(CoordType::scene);
+        neighRect      = t->getNodeRect(CoordType::scene);
 
         if (neighRect.center().x() > myRect.center().x()) {
             continue;
@@ -370,29 +374,29 @@ PaintedTerm* PaintedTerm::getNearestLeftNeigh()
 
         if (std::abs(neighRect.center().x() - myRect.center().x()) < diff) {
             diff = std::abs(neighRect.center().x() - myRect.center().x());
-            ret = t;
+            ret  = t;
         }
     }
     return ret;
 }
 
-PaintedTerm *PaintedTerm::getNearestRightNeigh()
+PaintedTerm* PaintedTerm::getNearestRightNeigh()
 {
-    PaintedTerm* ret = nullptr;
-    qreal diff = 100000.0;
+    PaintedTerm* ret  = nullptr;
+    qreal        diff = 100000.0;
 
     QRectF myRect = getNodeRect(CoordType::scene);
     QRectF neighRect;
     for (GraphTerm* n : getNeighbourNodes()) {
         PaintedTerm* t = static_cast<PaintedTerm*>(n);
-        neighRect = t->getNodeRect(CoordType::scene);
+        neighRect      = t->getNodeRect(CoordType::scene);
 
         if (neighRect.center().x() < myRect.center().x())
             continue;
 
         if (std::abs(neighRect.left() - myRect.right()) < diff) {
             diff = std::abs(neighRect.left() - myRect.right());
-            ret = t;
+            ret  = t;
         }
     }
     return ret;
@@ -417,7 +421,7 @@ qreal PaintedTerm::getCornerRadius() const
     return cornerRadius;
 }
 
-void PaintedTerm::setSelection(const bool &selected)
+void PaintedTerm::setSelection(const bool& selected)
 {
     if (thisSelected != selected) {
         thisSelected = selected;
@@ -446,7 +450,8 @@ void PaintedTerm::checkColor()
     }
 }
 
-bool PaintedTerm::isNearPoints(QPointF pt1, QPointF pt2, qreal dist) {
+bool PaintedTerm::isNearPoints(QPointF pt1, QPointF pt2, qreal dist)
+{
     pt1 -= pt2;
     //    pt1.setX(std::abs(pt1.x()));
     //    pt1.setY(std::abs(pt1.y()));

@@ -31,7 +31,7 @@
 
 InfoTerm::InfoTerm(const NodeInfoContainer& info)
 {
-    this->info = info;
+    this->info        = info;
     cachedTermToLower = getTerm().toLower();
 }
 
@@ -87,7 +87,7 @@ QSizeF InfoTerm::getNameSize()
 {
     if (!nameSize.isValid()) {
         SizesList sizes;
-        auto nameParts = getSmallName().split("\n");
+        auto      nameParts = getSmallName().split("\n");
 
         for (auto& part : nameParts)
             sizes.push_back(Fonts::getTextMetrics(part));
@@ -111,7 +111,7 @@ QString InfoTerm::getDefinition() const
 QStringList InfoTerm::getDefinitionTags() const
 {
     QString error;
-    auto tags = TagProcessor::extractTags(getDefinition());
+    auto    tags = TagProcessor::extractTags(getDefinition());
     // TODO: Fix error work in tagProcessor
     if (!error.isEmpty()) {
         qDebug() << getUuid().toString() << error;

@@ -21,9 +21,9 @@
 
 #include "termgroupinfo.h"
 
-#include "source/Helpers/helpstuff.h"
-#include "source/Helpers/globaltagcache.h"
 #include "source/Helpers/appstyle.h"
+#include "source/Helpers/globaltagcache.h"
+#include "source/Helpers/helpstuff.h"
 #include "source/Model/TerminGroup/groupnamecache.h"
 
 TermGroupInfo::TermGroupInfo(const GroupInfoContainer& info)
@@ -88,8 +88,8 @@ Edge::List TermGroupInfo::getBrokenEdges() const
 Edge::List TermGroupInfo::getAllEdgesForPainting() const
 {
     Edge::List lst;
-    auto      defaultTypeFilter  = [](Edge* e) { return e->selectedType() == EdgeSelected::none; };
-    auto      selectedTypeFilter = [](Edge* e) { return e->selectedType() != EdgeSelected::none; };
+    auto       defaultTypeFilter  = [](Edge* e) { return e->selectedType() == EdgeSelected::none; };
+    auto       selectedTypeFilter = [](Edge* e) { return e->selectedType() != EdgeSelected::none; };
 
     lst << filterFromEdgesList(defaultTypeFilter);
     lst << filterFromEdgesList(selectedTypeFilter);
@@ -99,17 +99,17 @@ Edge::List TermGroupInfo::getAllEdgesForPainting() const
 
 PaintedTerm::List TermGroupInfo::getRootNodes() const
 {
-    return filterFromNodesList([] (PaintedTerm* node) { return node->isRoot(); });
+    return filterFromNodesList([](PaintedTerm* node) { return node->isRoot(); });
 }
 
 PaintedTerm::List TermGroupInfo::getInTreeNodes() const
 {
-    return filterFromNodesList([] (PaintedTerm* node) { return node->isInTree(); });
+    return filterFromNodesList([](PaintedTerm* node) { return node->isInTree(); });
 }
 
 PaintedTerm::List TermGroupInfo::getOrphanNodes() const
 {
-    return filterFromNodesList([] (PaintedTerm* node) { return node->isOrphan(); } );
+    return filterFromNodesList([](PaintedTerm* node) { return node->isOrphan(); });
 }
 
 Edge* TermGroupInfo::addNewEdge(PaintedTerm* rootNode, PaintedTerm* leafNode)
@@ -187,8 +187,7 @@ PaintedTerm* TermGroupInfo::getNearestNodeForTag(const QString& tag)
         }
 
         if (optionalResult) {
-
-            if (optionalResult.value() == 0) // Already best match, no need to count further
+            if (optionalResult.value() == 0)  // Already best match, no need to count further
                 return node;
 
             if (optionalResult.value() < minDistance) {
@@ -273,7 +272,7 @@ void TermGroupInfo::initTrees()
         }
     }
 
-    unsigned int treesCount = treeId - 1; // last treeId increase was fictious
+    unsigned int treesCount = treeId - 1;  // last treeId increase was fictious
 
     // Set all trees
     for (unsigned int treeId = 1; treeId <= treesCount; treeId++) {
@@ -314,7 +313,7 @@ QSizeF TermGroupInfo::getOrphansSize()
 {
     QRectF orphansRc;
     for (auto node : getOrphanNodes()) {
-        orphansRc = orphansRc.united(node ->getNodeRect(CoordType::scene));
+        orphansRc = orphansRc.united(node->getNodeRect(CoordType::scene));
     }
     return orphansRc.size();
 }
@@ -330,7 +329,7 @@ PaintedTerm::List TermGroupInfo::filterFromNodesList(std::function<bool(PaintedT
     return ret;
 }
 
-void TermGroupInfo::addNodeToList(PaintedTerm *node)
+void TermGroupInfo::addNodeToList(PaintedTerm* node)
 {
     nodesList << node;
 }

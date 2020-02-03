@@ -29,5 +29,5 @@ class JsonGroupInfoContainerParser
 {
 public:
     static GroupInfoContainer fromJson(const QJsonObject& jsonObj);
-    static QJsonObject toJson(const GroupInfoContainer& info);
+    static QJsonObject        toJson(const GroupInfoContainer& info);
 };

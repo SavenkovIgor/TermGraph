@@ -21,13 +21,19 @@
 
 #include "edge.h"
 
-#include "source/Model/Termin/paintedterm.h"
 #include "source/Helpers/appstyle.h"
+#include "source/Model/Termin/paintedterm.h"
 
-Edge::Edge(QObject* parent) : QObject(parent), GraphEdge(), GraphicItem() {}
+Edge::Edge(QObject* parent)
+    : QObject(parent)
+    , GraphEdge()
+    , GraphicItem()
+{}
 
 Edge::Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type, QObject* parent)
-    : QObject(parent), GraphEdge(toRoot, toLeaf), GraphicItem()
+    : QObject(parent)
+    , GraphEdge(toRoot, toLeaf)
+    , GraphicItem()
 {
     this->type = type;
 }
@@ -35,16 +41,23 @@ Edge::Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type, QObject* par
 QColor Edge::getEdgeColor() const
 {
     switch (selected) {
-    case EdgeSelected::backward: return AppStyle::Colors::Edges::selected;
-    case EdgeSelected::forward:  return AppStyle::Colors::Edges::selectedAlt;
-    default: break;
+    case EdgeSelected::backward:
+        return AppStyle::Colors::Edges::selected;
+    case EdgeSelected::forward:
+        return AppStyle::Colors::Edges::selectedAlt;
+    default:
+        break;
     }
 
     switch (type) {
-    case EdgeType::standart:    return AppStyle::Colors::Edges::standard;
-    case EdgeType::termin:      return AppStyle::Colors::Edges::termin;
-    case EdgeType::description: return AppStyle::Colors::Edges::description;
-    case EdgeType::broken:      return AppStyle::Colors::Edges::broken;
+    case EdgeType::standart:
+        return AppStyle::Colors::Edges::standard;
+    case EdgeType::termin:
+        return AppStyle::Colors::Edges::termin;
+    case EdgeType::description:
+        return AppStyle::Colors::Edges::description;
+    case EdgeType::broken:
+        return AppStyle::Colors::Edges::broken;
     }
 
     return AppStyle::Colors::Edges::standard;
@@ -69,14 +82,13 @@ EdgeSelected Edge::selectedType() const
     return selected;
 }
 
-
 QRectF Edge::edgeRect() const
 {
     QPointF pt1 = rootPoint();
     QPointF pt2 = leafPoint();
 
     QRectF rc = QRectF(pt1, pt2);
-    rc = rc.normalized();
+    rc        = rc.normalized();
     return rc;
 }
 
@@ -111,7 +123,7 @@ QLineF Edge::getLine(bool swap)
             pt2 = swapPointLeaf;
     }
 
-    return QLineF( pt1, pt2 );
+    return QLineF(pt1, pt2);
 }
 
 QPointF Edge::rootPoint() const
@@ -132,12 +144,12 @@ Edge::List Edge::castToEdgeList(GraphEdge::List lst)
     for (auto graphEdg : lst) {
         edgeLst << dynamic_cast<Edge*>(graphEdg);
     }
-    return  edgeLst;
+    return edgeLst;
 }
 
 void Edge::setSelectedForward(bool value)
 {
-    selected  = value ? EdgeSelected::forward : EdgeSelected::none;
+    selected = value ? EdgeSelected::forward : EdgeSelected::none;
 }
 
 void Edge::setSelectedBackward(bool value)

@@ -21,15 +21,15 @@
 
 #include "syncmanager.h"
 
-SyncManager::SyncManager(NetworkManager *networkManager,
-                         GroupsManager *groupsManger,
-                         NodesManager *nodesManager,
-                         QObject *parent)
+SyncManager::SyncManager(NetworkManager* networkManager,
+                         GroupsManager*  groupsManger,
+                         NodesManager*   nodesManager,
+                         QObject*        parent)
     : QObject(parent)
 {
     this->networkManager = networkManager;
-    this->groupsManager = groupsManger;
-    this->nodesManager = nodesManager;
+    this->groupsManager  = groupsManger;
+    this->nodesManager   = nodesManager;
 
     connect(this->networkManager,
             &NetworkManager::newSyncGroup,
@@ -37,28 +37,28 @@ SyncManager::SyncManager(NetworkManager *networkManager,
             &GroupsManager::importGroupFromJsonString);
 }
 
-bool SyncManager::isDataContainer(const QJsonDocument &doc)
+bool SyncManager::isDataContainer(const QJsonDocument& doc)
 {
     bool hasContentType = false;
-    bool hasVersion = false;
-    bool hasContent = false;
+    bool hasVersion     = false;
+    bool hasContent     = false;
 
     auto docObject = doc.object();
 
     hasContentType = docObject.contains(contentTypeFieldName);
-    hasVersion = docObject.contains(versionFieldName);
-    hasContent = docObject.contains(contentFieldName);
+    hasVersion     = docObject.contains(versionFieldName);
+    hasContent     = docObject.contains(contentFieldName);
 
     return hasContentType && hasVersion && hasContent;
 }
 
-void SyncManager::sendGroupByNetwork(const QString &groupUuid)
+void SyncManager::sendGroupByNetwork(const QString& groupUuid)
 {
     auto jsonDoc = groupsManager->getGroupForExport(groupUuid);
     networkManager->sendGroup(jsonDoc);
 }
 
-QString SyncManager::getContentTypeName(const SyncManager::ContentType &type)
+QString SyncManager::getContentTypeName(const SyncManager::ContentType& type)
 {
     switch (type) {
     case ContentType::groupsHashList:
@@ -70,7 +70,7 @@ QString SyncManager::getContentTypeName(const SyncManager::ContentType &type)
     return "";
 }
 
-SyncManager::ContentType SyncManager::getContentTypeByName(const QString &typeName)
+SyncManager::ContentType SyncManager::getContentTypeByName(const QString& typeName)
 {
     if (typeName == "groupsHashList") {
         return ContentType::groupsHashList;
