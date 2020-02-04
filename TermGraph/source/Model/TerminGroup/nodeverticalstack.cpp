@@ -108,12 +108,20 @@ void NodeVerticalStack::placeTerms(QPointF centerPoint)
 {
     //sortTerms(); //TODO: Check. maybe causing random bug
 
-    auto    stackSize = getSize();
+    PaintedTerm::List placingTerms = this->terms;
+
+    if (!isRootStack()) {
+        auto packs = getNodePacks(placingTerms);
+        sortNodePacks(packs);
+        placingTerms = flatNodePack(packs);
+    }
+
+    auto    stackSize = NodeVerticalStackTools::getNodeVerticalStackedSize(placingTerms);
     QPointF startPoint(centerPoint.x(), centerPoint.y() - stackSize.height() / 2);
 
     auto placingPoint = startPoint;
 
-    for (auto term : terms) {
+    for (auto term : placingTerms) {
         auto frameSize = term->getFrameRect(CoordType::zeroPoint).size();
         auto rectSize  = term->getNodeRect(CoordType::zeroPoint).size();
         placingPoint.ry() += frameSize.height() / 2;
@@ -141,4 +149,71 @@ void NodeVerticalStack::setNeighbours()
         term->clearNeighboursList();
         term->addLayerNeighbours(castedList);
     }
+}
+
+bool NodeVerticalStack::isRootStack()
+{
+    if (!terms.isEmpty())
+        return terms.first()->isRoot();
+
+    return false;
+}
+
+QList<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::List terms)
+{
+    QList<NodePack> ret;
+
+    for (auto* term : terms) {
+        auto rootsPositionOpt = term->optimalRootsBasedPosition();
+        auto optimalPt        = rootsPositionOpt.value_or(term->getCenter(CoordType::scene));
+
+        // Selecting pack for insert
+        bool inserted = false;
+
+        for (auto& [point, nodes] : ret) {
+            bool equalX = std::abs(point.x() - optimalPt.x()) < 0.1;
+            bool equalY = std::abs(point.y() - optimalPt.y()) < 0.1;
+            if (equalX && equalY) {
+                nodes.push_back(term);
+                inserted = true;
+                break;
+            }
+        }
+
+        if (!inserted) {
+            auto nodes = QList<PaintedTerm*>();
+            nodes.push_back(term);
+            ret.push_back(NodePack(optimalPt, nodes));
+        }
+    }
+
+    return ret;
+}
+
+void NodeVerticalStack::sortNodePacks(QList<NodeVerticalStack::NodePack>& pack)
+{
+    auto order = [](const NodeVerticalStack::NodePack& s1, const NodeVerticalStack::NodePack& s2) {
+        return s1.first.y() < s2.first.y();
+    };
+    std::sort(pack.begin(), pack.end(), order);
+
+    auto innerOrder = [](const PaintedTerm* t1, const PaintedTerm* t2) {
+        return t1->getSmallName() < t2->getSmallName();
+    };
+
+    for ([[maybe_unused]] auto& [pt, nodes] : pack) {
+        std::sort(nodes.begin(), nodes.end(), innerOrder);
+    }
+}
+
+PaintedTerm::List NodeVerticalStack::flatNodePack(const QList<NodeVerticalStack::NodePack>& pack)
+{
+    PaintedTerm::List ret;
+
+    for ([[maybe_unused]] const auto& [pt, nodes] : pack) {
+        for (auto* node : nodes)
+            ret.push_back(node);
+    }
+
+    return ret;
 }

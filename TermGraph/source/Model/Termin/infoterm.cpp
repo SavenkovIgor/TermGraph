@@ -65,7 +65,7 @@ QString InfoTerm::getTermAndDefinition(bool decorated) const
     return getTerm() + " - это " + getDefinition();
 }
 
-QString InfoTerm::getSmallName()
+QString InfoTerm::getSmallName() const
 {
     if (smallName.isNull()) {
         smallName = getTerm();

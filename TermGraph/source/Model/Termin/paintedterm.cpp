@@ -450,6 +450,28 @@ void PaintedTerm::checkColor()
     }
 }
 
+std::optional<QPointF> PaintedTerm::optimalRootsBasedPosition() const
+{
+    auto edges = getEdgesToRoots();
+
+    if (edges.isEmpty())
+        return std::nullopt;
+
+    double sumOfYCoords = 0.0;
+
+    for (auto* edge : edges) {
+        auto* parentNode = static_cast<PaintedTerm*>(edge->getRoot());
+        sumOfYCoords += parentNode->getCenter(CoordType::scene).y();
+    }
+
+    auto averageY = sumOfYCoords / edges.size();
+
+    auto centerPoint = getCenter(CoordType::scene);
+    centerPoint.setY(averageY);
+
+    return centerPoint;
+}
+
 bool PaintedTerm::isNearPoints(QPointF pt1, QPointF pt2, qreal dist)
 {
     pt1 -= pt2;

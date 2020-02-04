@@ -38,6 +38,7 @@ class NodeVerticalStack
 {
 public:
     using List = QList<NodeVerticalStack*>;
+    using NodePack = QPair<QPointF, PaintedTerm::List>;
 
     NodeVerticalStack();
     ~NodeVerticalStack();
@@ -52,6 +53,8 @@ public:
     void sortTerms();
     void placeTerms(QPointF centerPoint);
     void setNeighbours();
+
+    bool isRootStack();
 
     // Animation
     QParallelAnimationGroup animationGroup;
@@ -100,4 +103,7 @@ public:
 
 private:
     PaintedTerm::List terms;
+    static QList<NodePack>   getNodePacks(const PaintedTerm::List terms);
+    static void              sortNodePacks(QList<NodePack>& pack);
+    static PaintedTerm::List flatNodePack(const QList<NodePack>& pack);
 };

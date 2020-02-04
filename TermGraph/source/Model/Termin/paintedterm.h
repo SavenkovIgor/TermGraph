@@ -94,6 +94,8 @@ public:
     void initColor();
     void checkColor();
 
+    std::optional<QPointF> optimalRootsBasedPosition() const;
+
 signals:
     void colorChanged();
 
