@@ -44,3 +44,15 @@ function propertiesStr(obj) {
 function geometry(obj) {
     print("(%1 %2) [%3 %4]".arg(obj.x).arg(obj.y).arg(obj.width).arg(obj.height))
 }
+
+function randomColor() {
+    let colors = ["tan", "teal", "coral", "tomato", "salmon", "thistle", "steelblue",
+                  "rosybrown", "sandybrown", "lightslategrey", "lightsteelblue", "mediumseagreen"];
+    return colors[getRandomInt(0, colors.length - 1)];
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
