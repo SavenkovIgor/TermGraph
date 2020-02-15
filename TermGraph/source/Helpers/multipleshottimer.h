@@ -27,12 +27,13 @@ class MultipleShotTimer : public QTimer
 {
     Q_OBJECT
 
-    unsigned int shotsLimit;
-    unsigned int shotsCount;
+public:
+    MultipleShotTimer(int shots, int interval);
 
 private slots:
     void increaseShot();
 
-public:
-    MultipleShotTimer(unsigned int shots, unsigned int interval);
+private:
+    int shotsLimit;
+    int shotsCount;
 };

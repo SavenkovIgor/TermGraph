@@ -21,9 +21,11 @@
 
 #include "multipleshottimer.h"
 
-MultipleShotTimer::MultipleShotTimer(unsigned int shots, unsigned int interval)
-    : QTimer()
+MultipleShotTimer::MultipleShotTimer(int shots, int interval)
 {
+    assert(interval > 0);
+    assert(shots > 0);
+
     setSingleShot(false);
     setInterval(interval);
     shotsLimit = shots;

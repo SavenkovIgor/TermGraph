@@ -154,7 +154,11 @@ int TagProcessor::getLevDistance(QStringView src, QStringView dst, int limit)
         matrix[0][i] = i;
     }
 
-    int above_cell, left_cell, diagonal_cell, cost, min_in_row;
+    int above_cell;
+    int left_cell;
+    int diagonal_cell;
+    int cost;
+    int min_in_row;
 
     for (int i = 1; i <= m; ++i) {
         min_in_row = 100000;
