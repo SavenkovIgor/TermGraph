@@ -57,7 +57,9 @@ T.Control {
                 anchors.fill: parent
 
                 clip: true
-                ScrollBar.vertical: ScrollBar { }
+                ScrollBar.vertical: ScrollBar {
+                    policy: scrollView.height < tipTitle.height ? ScrollBar.AlwaysOn : ScrollBar.AsNeeded
+                }
 
                 contentWidth: tipTitle.width
                 contentHeight: tipTitle.height * 1.05
