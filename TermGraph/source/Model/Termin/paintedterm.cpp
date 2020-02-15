@@ -65,28 +65,32 @@ int PaintedTerm::getUpLevels([[maybe_unused]] int pLevel)  // TODO: check why pl
 
 void PaintedTerm::setRelatedPaintUp(bool val)
 {
-    for (auto node : getLeafNodes())
-        static_cast<PaintedTerm*>(node)->relativePaint = val;
-
     for (auto* edge : getEdgesToLeafs())
         dynamic_cast<Edge*>(edge)->setSelectedForward(val);
 
-    for (auto node : getLeafNodes())
-        static_cast<PaintedTerm*>(node)->setRelatedPaintUp(val);
+    for (auto node : getLeafNodes()) {
+        auto* paintNode = static_cast<PaintedTerm*>(node);
+        if (paintNode->relativePaint != val) {
+            paintNode->relativePaint = val;
+            paintNode->setRelatedPaintUp(val);
+        }
+    }
 
     checkColor();
 }
 
 void PaintedTerm::setRelatedPaintDown(bool val)
 {
-    for (auto* node : getRootNodes())
-        static_cast<PaintedTerm*>(node)->relativePaint = val;
-
     for (auto* edge : getEdgesToRoots())
         dynamic_cast<Edge*>(edge)->setSelectedBackward(val);
 
-    for (auto node : getRootNodes())
-        static_cast<PaintedTerm*>(node)->setRelatedPaintDown(val);
+    for (auto* node : getRootNodes()) {
+        auto* paintNode = static_cast<PaintedTerm*>(node);
+        if (paintNode->relativePaint != val) {
+            paintNode->relativePaint = val;
+            paintNode->setRelatedPaintDown(val);
+        }
+    }
 
     checkColor();
 }
