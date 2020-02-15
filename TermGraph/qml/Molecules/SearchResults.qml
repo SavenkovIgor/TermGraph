@@ -63,8 +63,8 @@ Popup {
                 background: Rectangle { color: highlighted ? Colors.baseLight3 : Colors.baseLight2 }
                 width: ListView.view.width
                 contentItem: Text {
-                    topPadding: font.pixelSize
-                    bottomPadding: font.pixelSize
+                    topPadding: font.pixelSize / 3
+                    bottomPadding: font.pixelSize / 3
                     text: scene.getTermName(modelData)
                     font: Fonts.inputText
                     color: Colors.white
