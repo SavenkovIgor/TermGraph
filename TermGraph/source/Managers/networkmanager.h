@@ -34,7 +34,7 @@ class NetworkManager : public QObject
 public:
     explicit NetworkManager(QObject* parent = nullptr);
 
-    bool sendGroup(QJsonDocument doc);
+    bool sendGroup(const QJsonDocument& doc);
 
     Q_PROPERTY(bool isConnected READ hasConnection NOTIFY newOutputConnectionState)
     Q_PROPERTY(QString connectionState READ getOutputSocketState NOTIFY newOutputConnectionState)
@@ -60,7 +60,7 @@ private slots:
     void newInputData(QHostAddress fromHost, QByteArray data);
     void outputConnectionStateChange(QAbstractSocket::SocketState state);
 
-    void sendConnectionInfo(QString info);
+    void sendConnectionInfo(const QString& info);
 
 private:
     SimpleListenServer* server;

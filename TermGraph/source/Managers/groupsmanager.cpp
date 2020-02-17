@@ -118,9 +118,9 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
     }
 }
 
-void GroupsManager::deleteGroup(QString uuidString)
+void GroupsManager::deleteGroup(QString groupUuid)
 {
-    Database::instance().groupTable->deleteGroup(QUuid(uuidString));
+    Database::instance().groupTable->deleteGroup(QUuid(groupUuid));
     updateGroupUuidNameMaps();
     emit groupsListChanged();
     emit groupDeleted();

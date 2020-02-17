@@ -87,7 +87,7 @@ void NetworkManager::newInputData([[maybe_unused]] QHostAddress fromHost, QByteA
     }
 }
 
-bool NetworkManager::sendGroup(QJsonDocument doc)
+bool NetworkManager::sendGroup(const QJsonDocument& doc)
 {
     if (!isValidHostAddress(receiverIp))
         return false;
@@ -96,9 +96,9 @@ bool NetworkManager::sendGroup(QJsonDocument doc)
         outputSocket->write(doc.toJson());
         outputSocket->flush();
         return true;
-    } else {
-        return false;
     }
+
+    return false;
 }
 
 void NetworkManager::outputConnectionStateChange([[maybe_unused]] QAbstractSocket::SocketState state)
@@ -106,7 +106,7 @@ void NetworkManager::outputConnectionStateChange([[maybe_unused]] QAbstractSocke
     emit newOutputConnectionState();
 }
 
-void NetworkManager::sendConnectionInfo(QString info)
+void NetworkManager::sendConnectionInfo(const QString& info)
 {
     NotificationManager::showInfo("Подключение от: " + info);
 }

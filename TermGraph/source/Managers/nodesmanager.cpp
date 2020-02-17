@@ -35,7 +35,7 @@ bool NodesManager::addNewNode(const QString& name,
                               const QString& groupUuidString,
                               const bool&    sendChangeSignal)
 {
-    QUuid groupUuid = QUuid(groupUuidString);
+    auto groupUuid = QUuid(groupUuidString);
 
     if (!correctGroupUuid(groupUuid))
         return false;
@@ -55,7 +55,7 @@ bool NodesManager::changeNode(const QUuid&   nodeUuid,
                               const QString& groupUuidString,
                               const bool&    sendChangeSignal)
 {
-    QUuid groupUuid = QUuid(groupUuidString);
+    auto groupUuid = QUuid(groupUuidString);
 
     if (!correctGroupUuid(groupUuid))
         return false;
@@ -127,7 +127,7 @@ QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
     return Database::instance().nodeTable->getLastEdit(nodeUuid);
 }
 
-void NodesManager::importNodeFromJson(QJsonObject nodeJson, bool importIfGroupNotExist)
+void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIfGroupNotExist)
 {
     auto& db   = Database::instance();
     auto  info = JsonNodeInfoContainerParser::fromJson(nodeJson);
