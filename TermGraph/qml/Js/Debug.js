@@ -48,7 +48,14 @@ function geometry(obj) {
 function randomColor() {
     let colors = ["tan", "teal", "coral", "tomato", "salmon", "thistle", "steelblue",
                   "rosybrown", "sandybrown", "lightslategrey", "lightsteelblue", "mediumseagreen"];
-    return colors[getRandomInt(0, colors.length - 1)];
+
+    if (typeof randomColor.randomIndex == 'undefined') { // static variable
+        randomColor.randomIndex = Math.floor(Math.random() * colors.length);
+    }
+
+    randomColor.randomIndex++;
+    randomColor.randomIndex %= colors.length;
+    return colors[randomColor.randomIndex];
 }
 
 function getRandomInt(min, max) {
