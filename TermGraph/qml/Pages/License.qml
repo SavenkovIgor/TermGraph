@@ -29,16 +29,27 @@ import "../Js/Fonts.js" as Fonts
 M.Page {
     title: "Лицензия"
 
-    contentItem: ScrollView {
-        id: scroll
+    contentItem: Flickable {
+        id: flick
+
+        contentWidth:  area.width
+        contentHeight: area.height
+
+//        flickableDirection: Flickable.VerticalFlick
+        boundsBehavior: Flickable.DragAndOvershootBounds
+
+        ScrollIndicator.vertical: ScrollIndicator { }
 
         TextArea {
-            width: scroll.width
+            id: area
+
+            width: flick.width
 
             horizontalAlignment: TextEdit.AlignHCenter
             readOnly: true
             color: Colors.white
             font: Fonts.text
+            wrapMode: TextEdit.Wrap
 
             background: Rectangle { color: "transparent" }
 

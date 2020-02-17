@@ -31,17 +31,24 @@ M.Page {
 
     title: "Термин"
 
-    contentItem: ScrollView {
-        id: scroll
-
-        contentWidth: root.implicitContentWidth
+    contentItem: Flickable {
+        id: flick
 
         clip: true
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+
+        contentWidth:  contentColumn.width
+        contentHeight: contentColumn.height
+
+        flickableDirection: Flickable.VerticalFlick
+        boundsBehavior: Flickable.DragAndOvershootBounds
+
+        ScrollIndicator.vertical: ScrollIndicator { }
 
         ColumnLayout {
+            id: contentColumn
+
             spacing: 14
-            width: scroll.width
+            width: flick.width
 
             M.LabelPair {
                 name: "Dbg:"

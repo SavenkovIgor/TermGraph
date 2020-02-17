@@ -53,12 +53,12 @@ T.Control {
             }
 
             Flickable {
-                id: scrollView
+                id: flick
                 anchors.fill: parent
 
                 clip: true
                 ScrollBar.vertical: ScrollBar {
-                    policy: scrollView.height < tipTitle.height ? ScrollBar.AlwaysOn : ScrollBar.AsNeeded
+                    policy: flick.height < tipTitle.height ? ScrollBar.AlwaysOn : ScrollBar.AsNeeded
                 }
 
                 contentWidth: tipTitle.width
@@ -69,7 +69,7 @@ T.Control {
                 TextEdit {
                     id: tipTitle
 
-                    width: scrollView.width
+                    width: flick.width
 
                     textFormat: TextEdit.RichText
                     wrapMode: TextEdit.WordWrap
@@ -81,10 +81,10 @@ T.Control {
             }
 
             Rectangle {
-                anchors { left: scrollView.left; bottom: scrollView.bottom; }
+                anchors { left: flick.left; bottom: flick.bottom; }
 
-                width: scrollView.width
-                height: scrollView.height * 0.05
+                width: flick.width
+                height: flick.height * 0.05
 
                 gradient: Gradient {
                     GradientStop { position: 0.0; color: "transparent"; }

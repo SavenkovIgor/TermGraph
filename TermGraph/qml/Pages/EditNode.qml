@@ -132,15 +132,22 @@ M.Page {
         onClicked: termDefin.removeTag()
     }
 
-    contentItem: ScrollView {
-        id: scroll
-        ScrollBar.horizontal.policy: ScrollBar.AlwaysOff
+    contentItem: Flickable {
+        id: flick
 
-        contentWidth: root.implicitContentWidth
+        contentWidth:  contentColumn.width
+        contentHeight: contentColumn.height
+
+        flickableDirection: Flickable.VerticalFlick
+        boundsBehavior: Flickable.DragAndOvershootBounds
+
+        ScrollIndicator.vertical: ScrollIndicator { }
 
         ColumnLayout {
+            id: contentColumn
+
             spacing: mainObj.getUiElementSize("colSpace")
-            width: scroll.width
+            width: flick.width
 
             M.LabelPair {
                 id: nodeUuidText
