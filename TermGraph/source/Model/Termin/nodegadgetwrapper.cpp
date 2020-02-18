@@ -37,7 +37,7 @@ QString NodeGadgetWrapper::getUuid() const
 
 void NodeGadgetWrapper::setUuid(const QString& uuid)
 {
-    _info.uuid.fromString(uuid);
+    _info.uuid = QUuid(uuid);
 }
 
 QString NodeGadgetWrapper::getTerm() const
@@ -107,7 +107,7 @@ QString NodeGadgetWrapper::getGroupUuid() const
 
 void NodeGadgetWrapper::setGroupUuid(const QString& groupUuid)
 {
-    _info.groupUuid.fromString(groupUuid);
+    _info.groupUuid = QUuid(groupUuid);
 }
 
 QString NodeGadgetWrapper::getLastEdit() const
