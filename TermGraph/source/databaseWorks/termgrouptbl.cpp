@@ -143,9 +143,10 @@ void TermGroupTable::initTable()
 TColumn::List TermGroupTable::getAllColumns() const
 {
     TColumn::List lst;
-    for (auto col : TermGroupColumn::columns) {
-        lst << col;
-    }
+
+    for (const auto& column : TermGroupColumn::columns)
+        lst << column;
+
     return lst;
 }
 

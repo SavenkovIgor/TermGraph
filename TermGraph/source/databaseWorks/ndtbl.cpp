@@ -135,9 +135,10 @@ void NodeTable::initTable()
 TColumn::List NodeTable::getAllColumns() const
 {
     TColumn::List lst;
-    for (auto col : NodeColumn::columns) {
-        lst << col;
-    }
+
+    for (const auto& column : NodeColumn::columns)
+        lst << column;
+
     return lst;
 }
 

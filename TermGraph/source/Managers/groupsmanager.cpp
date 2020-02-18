@@ -214,7 +214,7 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
     // First - groupUuid, third - lastEdit
     QList<std::tuple<QUuid, QDateTime>> allNodesLastEdits;
 
-    for (auto record : Database::instance().nodeTable->getAllLastEditRecords()) {
+    for (const auto& record : Database::instance().nodeTable->getAllLastEditRecords()) {
         QUuid     groupUuid = QUuid(record.value(NodeColumn::groupUuid).toString());
         QDateTime lastEdit  = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
 
@@ -249,9 +249,9 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
 
     // Casting back to uuids only
     QList<QUuid> ret;
-    for (int i = 0; i < groupSorting.size(); i++) {
-        ret << groupSorting[i].first;
-    }
+
+    for (const auto& group : groupSorting)
+        ret << group.first;
 
     return ret;
 }
@@ -363,7 +363,7 @@ void GroupsManager::updateGroupUuidNameMaps()
     uuidToNames.clear();
     namesToUuid.clear();
 
-    for (auto sqlRecord : Database::instance().groupTable->getAllUuidsAndNames()) {
+    for (const auto& sqlRecord : Database::instance().groupTable->getAllUuidsAndNames()) {
         QUuid   uuid(sqlRecord.value(TermGroupColumn::uuid).toString());
         QString name = sqlRecord.value(TermGroupColumn::name).toString();
 

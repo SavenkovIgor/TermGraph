@@ -25,8 +25,8 @@
 QString SqlQueryConstructor::createTable(const QString& tableName, const TColumn::List& columns)
 {
     QStringList colsDescription;
-    for (auto col : columns)
-        colsDescription << QString(col.name) + " " + QString(col.type);
+    for (const auto& column : columns)
+        colsDescription << QString(column.name) + " " + QString(column.type);
 
     QStringList qry;
 

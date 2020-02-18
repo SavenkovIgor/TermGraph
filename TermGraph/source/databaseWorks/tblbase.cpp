@@ -77,9 +77,10 @@ QSqlQuery TblBase::select(const TColumn& column, const WhereCondition& where, co
 QSqlQuery TblBase::select(const TColumn::List& columns, const WhereCondition& where, const QString& orderBy) const
 {
     QStringList colsNames;
-    for (auto column : columns) {
+
+    for (const auto& column : columns)
         colsNames << column.name;
-    }
+
     return executeSelect(colsNames, where, orderBy);
 }
 
@@ -149,11 +150,9 @@ void TblBase::deleteWhere(const WhereCondition& where)
 
 bool TblBase::isColumnExist(const TColumn& column) const
 {
-    for (auto col : getAllColumns()) {
-        if (col == column) {
+    for (const auto& col : getAllColumns())
+        if (col == column)
             return true;
-        }
-    }
 
     return false;
 }

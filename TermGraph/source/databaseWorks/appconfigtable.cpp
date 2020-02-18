@@ -56,9 +56,10 @@ TColumn AppConfigTable::primaryKey() const
 TColumn::List AppConfigTable::getAllColumns() const
 {
     TColumn::List lst;
-    for (auto col : AppConfigColumn::columns) {
-        lst << col;
-    }
+
+    for (const auto& column : AppConfigColumn::columns)
+        lst << column;
+
     return lst;
 }
 
