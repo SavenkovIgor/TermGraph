@@ -60,11 +60,11 @@ public slots:
     static bool        isValidCursor(QStringView str, int cursorPosition);
     static bool        isInsideTag(const QString& str, int cursorPos);
     static bool        isInsideTag(QStringView str, int cursorPos);
-    static QStringList extractTags(QString str);
+    static QStringList extractTags(QStringView str);
     static QString     addTag(QString str, int cursorPosition);
     static QString     removeTag(QString str, int cursorPosition);
     static QString     expandTagRight(QString str, int cursorPosition);
-    static QString     decorateTags(QString str);
+    static QString     decorateTags(const QString& str);
 
 private:
     // Exit conditions

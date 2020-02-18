@@ -45,7 +45,7 @@ void NetworkManager::disconnectFromHost()
     outputSocket->disconnectFromHost();
 }
 
-void NetworkManager::setReceiverHostIp(QString ip)
+void NetworkManager::setReceiverHostIp(const QString& ip)
 {
     if (!isValidHostAddress(ip))
         return;

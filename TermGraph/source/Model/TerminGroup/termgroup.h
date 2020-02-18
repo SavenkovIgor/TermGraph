@@ -57,7 +57,7 @@ public:
     void setBasePoint(QPointF pt);
     void updateGroupFrame();
 
-    void loadNodes(PaintedTerm::List newNodes);
+    void loadNodes(const PaintedTerm::List& newNodes);
 
     PaintedTerm* getNode(const QPointF& pt) const;
     PaintedTerm* getNode(const QUuid nodeUuid) const;

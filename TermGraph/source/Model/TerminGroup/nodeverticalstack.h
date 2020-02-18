@@ -103,7 +103,7 @@ public:
 
 private:
     PaintedTerm::List terms;
-    static QList<NodePack>   getNodePacks(const PaintedTerm::List terms);
+    static QList<NodePack>   getNodePacks(const PaintedTerm::List& terms);
     static void              sortNodePacks(QList<NodePack>& pack);
     static PaintedTerm::List flatNodePack(const QList<NodePack>& pack);
 };

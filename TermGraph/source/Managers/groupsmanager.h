@@ -65,7 +65,7 @@ public slots:
     QStringList getGroupNames(const QList<QUuid>& groupUuids);
 
     void addNewGroup(const QString& name, const QString& comment);
-    void deleteGroup(QString groupUuid);
+    void deleteGroup(const QString& groupUuid);
 
     // Json
     void importGroupFromJsonFile(const QString& filename);
@@ -73,7 +73,7 @@ public slots:
     void importGroupFromJson(const QJsonDocument& json);
 
     QString getExportPath() const;
-    void    exportGrpToJson(QString groupUuid);
+    void    exportGrpToJson(const QString& groupUuid);
     void    saveGroupInFolder(TermGroup* group);
 
     QJsonDocument getGroupForExport(const QUuid& groupUuid);

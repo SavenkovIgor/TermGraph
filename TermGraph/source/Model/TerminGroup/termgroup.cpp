@@ -75,7 +75,7 @@ void TermGroup::initNewNodes()
     checkColors(true);
 }
 
-void TermGroup::loadNodes(PaintedTerm::List newNodes)
+void TermGroup::loadNodes(const PaintedTerm::List& newNodes)
 {
     clearNodesList();
 

@@ -50,7 +50,7 @@ signals:
 public slots:
     void    connectToHost();
     void    disconnectFromHost();
-    void    setReceiverHostIp(QString ip);
+    void    setReceiverHostIp(const QString& ip);
     QString getReceiverIp();
     bool    hasConnection();
 

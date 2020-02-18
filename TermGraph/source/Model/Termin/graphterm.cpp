@@ -33,7 +33,7 @@ GraphEdge::List GraphTerm::getUpDownEdges()
     return ret;
 }
 
-void GraphTerm::addLayerNeighbours(GraphTerm::List neighboursList)
+void GraphTerm::addLayerNeighbours(const GraphTerm::List& neighboursList)
 {
     for (GraphTerm* term : neighboursList) {
         if (term == this) {

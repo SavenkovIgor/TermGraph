@@ -159,7 +159,7 @@ bool NodeVerticalStack::isRootStack()
     return false;
 }
 
-QList<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::List terms)
+QList<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::List& terms)
 {
     QList<NodePack> ret;
 

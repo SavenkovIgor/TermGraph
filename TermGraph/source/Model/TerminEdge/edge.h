@@ -65,7 +65,7 @@ public:
     QPointF leafPoint() const;
     QColor  getEdgeColor() const;
 
-    static List castToEdgeList(GraphEdge::List lst);  // TODO: Delete!!!
+    static List castToEdgeList(const GraphEdge::List& lst);  // TODO: Delete!!!
 
     // Paint width
     void setSelectedForward(bool value);

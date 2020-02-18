@@ -138,7 +138,7 @@ QPointF Edge::leafPoint() const
     return paintedTerm->getCenter(CoordType::scene);
 }
 
-Edge::List Edge::castToEdgeList(GraphEdge::List lst)
+Edge::List Edge::castToEdgeList(const GraphEdge::List& lst)
 {
     Edge::List edgeLst;
     for (auto graphEdg : lst) {

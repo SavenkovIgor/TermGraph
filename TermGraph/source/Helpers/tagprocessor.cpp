@@ -294,7 +294,7 @@ QString TagProcessor::replaceTags(QString str, const QString& leftBrReplacement,
     return str;
 }
 
-QStringList TagProcessor::extractTags(QString str)
+QStringList TagProcessor::extractTags(QStringView str)
 {
     // На данном этапе считаем, что экранировать символы тегов нельзя
     // Функция работает только с корректными тегами
@@ -417,7 +417,7 @@ QString TagProcessor::expandTagRight(QString str, int cursorPosition)
     return str;
 }
 
-QString TagProcessor::decorateTags(QString str)
+QString TagProcessor::decorateTags(const QString& str)
 {
     return replaceTags(str, "<font color=\"#6d9a28\">", "</font>");
 }

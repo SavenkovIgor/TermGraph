@@ -41,7 +41,7 @@ public:
     List            getUpDownNodes();
     GraphEdge::List getUpDownEdges();
 
-    void addLayerNeighbours(GraphTerm::List neighboursList);
+    void addLayerNeighbours(const GraphTerm::List& neighboursList);
     void clearNeighboursList();
 
     bool isRoot() const;

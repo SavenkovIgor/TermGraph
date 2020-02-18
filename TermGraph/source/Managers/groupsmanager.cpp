@@ -118,7 +118,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
     }
 }
 
-void GroupsManager::deleteGroup(QString groupUuid)
+void GroupsManager::deleteGroup(const QString& groupUuid)
 {
     Database::instance().groupTable->deleteGroup(QUuid(groupUuid));
     updateGroupUuidNameMaps();
@@ -314,7 +314,7 @@ QString GroupsManager::getExportPath() const
     return AppSettings::StdPaths::groupsJsonFolder();
 }
 
-void GroupsManager::exportGrpToJson(QString groupUuid)
+void GroupsManager::exportGrpToJson(const QString& groupUuid)
 {
     if (auto group = createGroup(QUuid(groupUuid))) {
         saveGroupInFolder(group);

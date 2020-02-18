@@ -89,7 +89,7 @@ private:
 
     // Edges & tools
     Edge::List edgesList;
-    Edge*      addNewEdge(PaintedTerm* node1, PaintedTerm* node2);
+    Edge*      addNewEdge(PaintedTerm* rootNode, PaintedTerm* leafNode);
 
     // Edge connections search
     Edge::List                  searchAllConnections();
