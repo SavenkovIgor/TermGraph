@@ -111,10 +111,19 @@ PaintedTerm* TermGroup::getNode(const QPointF& pt) const
     return nullptr;
 }
 
-PaintedTerm* TermGroup::getNode(const QUuid nodeUuid) const
+PaintedTerm* TermGroup::getNode(const QUuid& nodeUuid) const
 {
     for (auto* node : getAllNodes())
         if (node->getUuid() == nodeUuid)
+            return node;
+
+    return nullptr;
+}
+
+PaintedTerm* TermGroup::getNode(const QString& nodeName) const
+{
+    for (auto* node : getAllNodes())
+        if (node->getTerm() == nodeName)
             return node;
 
     return nullptr;

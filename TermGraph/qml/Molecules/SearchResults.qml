@@ -65,7 +65,7 @@ Popup {
                 contentItem: Text {
                     topPadding: font.pixelSize / 3
                     bottomPadding: font.pixelSize / 3
-                    text: scene.getTermName(modelData)
+                    text: scene.termUuidToName(modelData)
                     font: Fonts.inputText
                     color: Colors.white
                 }

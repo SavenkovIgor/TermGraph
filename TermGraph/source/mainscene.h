@@ -50,14 +50,17 @@ public:
     Q_PROPERTY(QQmlListProperty<PaintedTerm> nodes READ getNodes NOTIFY nodesChanged)
     Q_PROPERTY(QQmlListProperty<Edge> edges READ getEdges NOTIFY edgesChanged)
 
-    Q_INVOKABLE void selectTerm(const QString& nodeUuid);
-    Q_INVOKABLE void selectTerm(const QUuid& nodeUuid);
-    Q_INVOKABLE QString getTermName(const QString& termUuid);
+    Q_INVOKABLE void selectTerm(const QString& termUuid);
+    Q_INVOKABLE void selectTerm(const QUuid& termUuid);
+    Q_INVOKABLE void deleteSelectedTerm();
     Q_INVOKABLE QStringList search(const QString& text);
-    Q_INVOKABLE void        deleteSelectedTerm();
 
     Q_INVOKABLE QPointF getTermPosition(const QString& termUuid) const;
     Q_INVOKABLE QString getCurrNodeDebugInfo();
+
+    // Casts uuid <-> name
+    Q_INVOKABLE QString termUuidToName(const QString& termUuid) const;
+    Q_INVOKABLE QString termNameToUuid(const QString& termName) const;
 
 signals:
     // Scene signals

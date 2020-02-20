@@ -38,14 +38,14 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* 
     connect(nodesMgr, &NodesManager::nodeChanged, this, &MainScene::updateGroup);
 }
 
-void MainScene::selectTerm(const QString& nodeUuid)
+void MainScene::selectTerm(const QString& termUuid)
 {
-    selectTerm(QUuid(nodeUuid));
+    selectTerm(QUuid(termUuid));
 }
 
-void MainScene::selectTerm(const QUuid& nodeUuid)
+void MainScene::selectTerm(const QUuid& termUuid)
 {
-    if (auto* node = findNode(nodeUuid))
+    if (auto* node = findNode(termUuid))
         selectTerm(node);
 }
 
@@ -101,14 +101,6 @@ void MainScene::updateSceneRect()
     setSceneRect(baseRc);
 }
 
-QString MainScene::getTermName(const QString& termUuid)
-{
-    if (auto* node = findNode(QUuid(termUuid)))
-        return node->getTerm();
-
-    return "";
-}
-
 QStringList MainScene::search(const QString& text)
 {
     QStringList ret;
@@ -160,10 +152,7 @@ PaintedTerm* MainScene::getSelectedTerm() const
 
 PaintedTerm* MainScene::findNode(const QUuid& nodeUuid) const
 {
-    if (!mCurrentGroup)
-        return nullptr;
-
-    return mCurrentGroup->getNode(nodeUuid);
+    return mCurrentGroup ? mCurrentGroup->getNode(nodeUuid) : nullptr;
 }
 
 void MainScene::selectTerm(PaintedTerm* term, bool needRepaint)
@@ -249,6 +238,22 @@ QString MainScene::getCurrNodeDebugInfo()
     //    ret << nd->getDebugString();
 
     //    return ret.join(" ");
+}
+
+QString MainScene::termUuidToName(const QString& termUuid) const
+{
+    if (auto* node = findNode(QUuid(termUuid)))
+        return node->getTerm();
+
+    return "";
+}
+
+QString MainScene::termNameToUuid(const QString& termName) const
+{
+    if (auto* node = findNode(termName))
+        return node->getUuid().toString();
+
+    return "";
 }
 
 NodeGadgetWrapper MainScene::getCurrentNode()

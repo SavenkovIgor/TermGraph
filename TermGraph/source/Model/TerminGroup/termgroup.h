@@ -60,7 +60,8 @@ public:
     void loadNodes(const PaintedTerm::List& newNodes);
 
     PaintedTerm* getNode(const QPointF& pt) const;
-    PaintedTerm* getNode(const QUuid nodeUuid) const;
+    PaintedTerm* getNode(const QUuid& nodeUuid) const;
+    PaintedTerm* getNode(const QString& nodeName) const;
 
     void checkColors(bool init = false);
 
