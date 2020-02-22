@@ -48,6 +48,8 @@ M.Page {
         }
     }
 
+    signal newTermAdded(string termName)
+
     Shortcut { sequence: "Ctrl+Enter";  onActivated: root.addNode(); }
     Shortcut { sequence: "Ctrl+Return"; onActivated: root.addNode(); }
 
@@ -67,6 +69,8 @@ M.Page {
             emptyNodeNameDelDialog.visible = true;
             return;
         }
+
+        root.newTermAdded(termName.text); // Before node add. It is important
 
         var success = nodesManager.addNewNode(
                     termName.text,

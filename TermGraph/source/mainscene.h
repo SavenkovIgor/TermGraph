@@ -112,7 +112,7 @@ private:
     void         selectTerm(PaintedTerm* term, bool needRepaint = true);
     void         dropTermSelection(bool needRepaint = false);
 
-    PaintedTerm*      findNode(const QUuid& nodeUuid) const;
+    PaintedTerm*      findTerm(const QUuid& termUuid) const;
     NodeGadgetWrapper getCurrentNode();
     void              checkGroupColors();
 

@@ -45,7 +45,7 @@ void MainScene::selectTerm(const QString& termUuid)
 
 void MainScene::selectTerm(const QUuid& termUuid)
 {
-    if (auto* node = findNode(termUuid))
+    if (auto* node = findTerm(QUuid(termUuid)))
         selectTerm(node);
 }
 
@@ -134,7 +134,7 @@ void MainScene::deleteSelectedTerm()
 
 QPointF MainScene::getTermPosition(const QString& termUuid) const
 {
-    if (auto* node = findNode(QUuid(termUuid)))
+    if (auto* node = findTerm(QUuid(termUuid)))
         return node->getCenter(CoordType::scene);
 
     return QPointF();
@@ -150,9 +150,9 @@ PaintedTerm* MainScene::getSelectedTerm() const
     return selectedTerm;
 }
 
-PaintedTerm* MainScene::findNode(const QUuid& nodeUuid) const
+PaintedTerm* MainScene::findTerm(const QUuid& termUuid) const
 {
-    return mCurrentGroup ? mCurrentGroup->getNode(nodeUuid) : nullptr;
+    return mCurrentGroup ? mCurrentGroup->getNode(termUuid) : nullptr;
 }
 
 void MainScene::selectTerm(PaintedTerm* term, bool needRepaint)
@@ -242,7 +242,7 @@ QString MainScene::getCurrNodeDebugInfo()
 
 QString MainScene::termUuidToName(const QString& termUuid) const
 {
-    if (auto* node = findNode(QUuid(termUuid)))
+    if (auto* node = findTerm(QUuid(termUuid)))
         return node->getTerm();
 
     return "";
@@ -250,10 +250,8 @@ QString MainScene::termUuidToName(const QString& termUuid) const
 
 QString MainScene::termNameToUuid(const QString& termName) const
 {
-    if (auto* node = findNode(termName))
-        return node->getUuid().toString();
-
-    return "";
+    auto* node = mCurrentGroup ? mCurrentGroup->getNode(termName) : nullptr;
+    return node ? node->getUuid().toString() : "";
 }
 
 NodeGadgetWrapper MainScene::getCurrentNode()

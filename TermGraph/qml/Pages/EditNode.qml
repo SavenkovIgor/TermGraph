@@ -50,6 +50,8 @@ M.Page {
         }
     }
 
+    signal termEdited(string termName)
+
     MessageDialog {
         id: nodeDelDialog
 
@@ -84,6 +86,8 @@ M.Page {
             emptyNodeNameDelDialog.visible = true;
             return;
         }
+
+        root.termEdited(termName.text); // Before node change. It is important
 
         let success = nodesManager.changeNode(
                     nodeUuidText.text,

@@ -40,6 +40,7 @@ M.Page {
 
     property Drawer sideMenu
     property bool currentPageOpened: StackView.visible
+    property string lastChangedNodeName: ""
 
     signal openGroupsList()
 
@@ -69,10 +70,28 @@ M.Page {
         target: scene
         onSelectionDoubleClick: nodeInfoAction.trigger()
         onCurrentGroupChanged: sceneView.moveToOrigin()
+        onNodesChanged: {
+            if (root.lastChangedNodeName !== "") {
+                sceneView.selectName(root.lastChangedNodeName)
+                root.lastChangedNodeName = "";
+            }
+        }
     }
 
-    Component { id: newNodeComponent;    P.NewNode { } }
-    Component { id: editNodeComponent;   P.EditNode { } }
+    Component {
+        id: newNodeComponent
+
+        P.NewNode {
+            onNewTermAdded: root.lastChangedNodeName = termName
+        }
+    }
+    Component {
+        id: editNodeComponent;
+
+        P.EditNode {
+            onTermEdited: root.lastChangedNodeName = termName
+        }
+    }
     Component { id: groupsListComponent; P.GroupsList { } }
     Component { id: termViewComponent;   P.TermView { } }
 
@@ -172,7 +191,7 @@ M.Page {
         }
 
         onClicked: {
-            sceneView.select(nodeUuid);
+            sceneView.selectUuid(nodeUuid);
             header.setNoSelection();
         }
     }
@@ -213,9 +232,18 @@ M.Page {
             contentY = pt.y - sceneView.height / 2;
         }
 
-        function select(nodeUuid) {
-            let pt = scene.getTermPosition(nodeUuid);
-            scene.selectTerm(nodeUuid);
+        function selectName(termName) {
+            let termUuid = scene.termNameToUuid(termName);
+            if (termUuid !== "")
+                selectUuid(termUuid);
+        }
+
+        function selectUuid(termUuid) {
+            if (termUuid === "")
+                return;
+
+            let pt = scene.getTermPosition(termUuid);
+            scene.selectTerm(termUuid);
             pointToCenter(pt);
         }
 
