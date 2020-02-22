@@ -23,13 +23,29 @@ import QtQuick 2.13
 import QtQuick.Controls 2.13
 import QtQuick.Layouts 1.13
 
+import "../Atoms" as A
 import "../Molecules" as M
 import "../Js/Colors.js" as Colors
+import "../Js/IconPath.js" as IconPath
 
 M.Page {
     id: root
 
     title: "Термин"
+
+    signal editNode()
+
+    header: M.DefaultHeader {
+
+        A.ToolButton {
+            action: Action {
+                text: "Изменить вершину"
+                shortcut: "Ctrl+E"
+                icon.source: IconPath.pencil
+                onTriggered: root.editNode()
+            }
+        }
+    }
 
     contentItem: Flickable {
         id: flick

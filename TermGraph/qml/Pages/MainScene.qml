@@ -78,22 +78,18 @@ M.Page {
         }
     }
 
-    Component {
-        id: newNodeComponent
-
-        P.NewNode {
-            onNewTermAdded: root.lastChangedNodeName = termName
-        }
-    }
-    Component {
-        id: editNodeComponent;
-
-        P.EditNode {
-            onTermEdited: root.lastChangedNodeName = termName
-        }
-    }
+    Component { id: newNodeComponent;    P.NewNode { onNewTermAdded: root.lastChangedNodeName = termName } }
+    Component { id: editNodeComponent;   P.EditNode { onTermEdited: root.lastChangedNodeName = termName } }
     Component { id: groupsListComponent; P.GroupsList { } }
-    Component { id: termViewComponent;   P.TermView { } }
+    Component {
+        id: termViewComponent;
+        P.TermView {
+            onEditNode: {
+                root.StackView.view.pop();
+                root.StackView.view.push(editNodeComponent);
+            }
+        }
+    }
 
     background: Rectangle { color: Colors.base }
 
