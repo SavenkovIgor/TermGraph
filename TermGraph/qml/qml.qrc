@@ -50,5 +50,7 @@
         <file>Molecules/HelpView.qml</file>
         <file>Atoms/AccentText.qml</file>
         <file>Atoms/VerticalFlickable.qml</file>
+        <file>Atoms/RoundedRectangle.qml</file>
+        <file>Atoms/Round.qml</file>
     </qresource>
 </RCC>
