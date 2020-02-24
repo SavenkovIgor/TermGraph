@@ -22,6 +22,7 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 
+import "../Atoms" as A
 import "../Molecules" as M
 import "../Js/Colors.js" as Colors
 import "../Js/Sizes.js" as Sizes
@@ -157,12 +158,10 @@ Item {
             width: pin.width * 1.5
             height: pin.height * 1.5
 
-            Rectangle {
+            A.Round {
                 id: pin
-                width: Sizes.baseR75 * 0.75
-                height: width
+                diameter: Sizes.baseR75 * 0.75
                 anchors.centerIn: parent
-                radius: width / 2
                 color: index === pageIndicator.currentIndex ? Colors.baseLight2 : Colors.black
             }
         }

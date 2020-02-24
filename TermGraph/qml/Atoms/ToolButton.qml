@@ -30,7 +30,7 @@ RoundButton {
 
     property real size: Sizes.base
 
-    background: Rectangle { radius: width / 2; color: highlighted ? "#00000099" : "transparent"; }
+    background: Round { color: highlighted ? "#00000099" : "transparent"; }
 
     icon.color: Colors.white
 

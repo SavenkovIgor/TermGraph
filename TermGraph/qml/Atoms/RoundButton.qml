@@ -33,10 +33,7 @@ RoundButton {
 
     property real size: Sizes.base
 
-    background: Rectangle {
-        radius: width / 2
-        color: !root.backgroundHidden ? Colors.white : "transparent"
-    }
+    background: Round { color: !root.backgroundHidden ? Colors.white : "transparent" }
 
     width:  implicitWidth
     height: implicitHeight
