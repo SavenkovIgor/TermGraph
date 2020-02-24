@@ -136,16 +136,11 @@ M.Page {
         onClicked: termDefin.removeTag()
     }
 
-    contentItem: Flickable {
+    contentItem: A.VerticalFlickable {
         id: flick
 
         contentWidth:  contentColumn.width
         contentHeight: contentColumn.height
-
-        flickableDirection: Flickable.VerticalFlick
-        boundsBehavior: Flickable.DragAndOvershootBounds
-
-        ScrollIndicator.vertical: ScrollIndicator { }
 
         ColumnLayout {
             id: contentColumn

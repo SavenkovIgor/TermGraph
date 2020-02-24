@@ -47,18 +47,11 @@ M.Page {
         }
     }
 
-    contentItem: Flickable {
+    contentItem:  A.VerticalFlickable {
         id: flick
-
-        clip: true
 
         contentWidth:  contentColumn.width
         contentHeight: contentColumn.height
-
-        flickableDirection: Flickable.VerticalFlick
-        boundsBehavior: Flickable.DragAndOvershootBounds
-
-        ScrollIndicator.vertical: ScrollIndicator { }
 
         ColumnLayout {
             id: contentColumn

@@ -49,5 +49,6 @@
         <file>Pages/OnBoard.qml</file>
         <file>Molecules/HelpView.qml</file>
         <file>Atoms/AccentText.qml</file>
+        <file>Atoms/VerticalFlickable.qml</file>
     </qresource>
 </RCC>
