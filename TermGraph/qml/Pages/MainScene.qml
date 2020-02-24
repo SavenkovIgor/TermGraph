@@ -214,8 +214,8 @@ M.Page {
 
         boundsBehavior: Flickable.StopAtBounds
 
-        ScrollIndicator.vertical: ScrollIndicator { }
-        ScrollIndicator.horizontal: ScrollIndicator { }
+        ScrollIndicator.vertical:   A.ScrollIndicator { }
+        ScrollIndicator.horizontal: A.ScrollIndicator { }
 
         function moveToOrigin() {
             moveToPoint(Qt.point(0.0, 0.0))

@@ -22,6 +22,7 @@
 import QtQuick 2.13
 import QtQuick.Controls 2.13
 
+import "../Atoms" as A
 import "../Molecules" as M
 import "../Js/Colors.js" as Colors
 import "../Js/Fonts.js" as Fonts
@@ -38,7 +39,7 @@ M.Page {
 //        flickableDirection: Flickable.VerticalFlick
         boundsBehavior: Flickable.DragAndOvershootBounds
 
-        ScrollIndicator.vertical: ScrollIndicator { }
+        ScrollIndicator.vertical: A.ScrollIndicator { }
 
         TextArea {
             id: area
