@@ -41,72 +41,65 @@ M.Page {
         model: groupsManager.allUuidSorted
         keyNavigationEnabled: true
 
-        highlight: Rectangle {
-            width: 200; height: 20
-            color: Colors.baseLight2
-            y: groupsList.currentItem.y;
-        }
+        delegate: ItemDelegate {
+            id: delegate
 
-        delegate: Rectangle {
-            id: lstDlgt
-
-            property alias text: grpName.text
             property string groupUuid: modelData
+            property string groupName: groupsManager.getGroupName(modelData)
+            property string lastEdit: groupsManager.getLastEditString(modelData)
+            property int nodesCount: groupsManager.getNodesCount(modelData)
 
-            anchors { left: parent.left; right: parent.right; }
-            height: grCol.height
+            property real basePadding: Fonts.text.pixelSize
 
-            color: "transparent"
+            padding: basePadding / 2
+            width: ListView.view.width
 
-            states: State {
-                name: "Current"
-                when: lstDlgt.ListView.isCurrentItem
-                PropertyChanges { target: lstDlgt; color: Colors.baseLight2 }
-            }
-
-            A.BottomThinLine { }
-
-            Column {
-                id: grCol
+            contentItem: Column {
 
                 Text {
                     id: grpName
-                    topPadding: font.pixelSize / 2
-                    leftPadding: font.pixelSize
-                    bottomPadding: font.pixelSize / 3
+
+                    width: parent.width
+                    leftPadding: delegate.basePadding
+                    bottomPadding: delegate.basePadding / 3
 
                     color: Colors.white
                     font: Fonts.setWeight(Fonts.text, Font.Medium)
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
 
-                    text: groupsManager.getGroupName(modelData)
+                    text: delegate.groupName
                 }
 
                 A.SmallInfoText {
+                    width: parent.width
                     description: "Uuid"
-                    label: modelData
+                    label: delegate.groupUuid
                 }
 
                 A.SmallInfoText {
+                    width: parent.width
                     description: "Last editing time"
-                    label: groupsManager.getLastEditString(modelData)
+                    label: delegate.lastEdit
                 }
 
                 A.SmallInfoText {
+                    width: parent.width
                     description: "Node count"
-                    label: groupsManager.getNodesCount(modelData)
+                    label: delegate.nodesCount
 
-                    bottomPadding: grpName.font.pixelSize / 2
+                    bottomPadding: delegate.basePadding / 2
                 }
             }
 
-            MouseArea{
-                anchors.fill: parent
-                onClicked: {
-                    lstDlgt.forceActiveFocus()
-                    onClicked: lstDlgt.ListView.view.currentIndex = index
-                }
+            background: Rectangle {
+                color: delegate.ListView.isCurrentItem ? Colors.baseLight2 : "transparent"
+                A.BottomThinLine { }
+            }
+
+            onClicked: {
+                forceActiveFocus()
+                ListView.view.currentIndex = index
             }
         }
     }
