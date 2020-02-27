@@ -56,8 +56,6 @@ Popup {
             visible: count !== 0
             focus: true
 
-            onActiveFocusChanged: print("List focus", activeFocus)
-
             delegate: ItemDelegate {
                 highlighted: ListView.isCurrentItem
                 background: Rectangle { color: highlighted ? Colors.baseLight3 : Colors.baseLight2 }

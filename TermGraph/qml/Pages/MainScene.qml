@@ -217,21 +217,48 @@ M.Page {
         ScrollIndicator.vertical:   A.ScrollIndicator { }
         ScrollIndicator.horizontal: A.ScrollIndicator { }
 
-        Behavior on contentY { NumberAnimation { duration: 800; easing.type: Easing.InOutCubic; } }
-        Behavior on contentX { NumberAnimation { duration: 800; easing.type: Easing.InOutCubic; } }
+        property bool animationEnabled: false
+        property int moveAnimationDuration: 800
 
-        function moveToOrigin() {
-            moveToPoint(Qt.point(0.0, 0.0))
+        onAnimationEnabledChanged: {
+            if (animationEnabled)
+                animationEndTimer.start();
         }
 
-        function moveToPoint(pt) {
-            contentX = pt.x;
-            contentY = pt.y;
+        Timer {
+            id: animationEndTimer
+            interval: sceneView.moveAnimationDuration * 1.1
+            onTriggered: sceneView.animationEnabled = false
+        }
+
+        Behavior on contentX {
+            enabled: sceneView.animationEnabled
+            NumberAnimation { duration: sceneView.moveAnimationDuration; easing.type: Easing.InOutCubic; }
+        }
+
+        Behavior on contentY {
+            enabled: sceneView.animationEnabled
+            NumberAnimation { duration: sceneView.moveAnimationDuration; easing.type: Easing.InOutCubic; }
+        }
+
+        function moveToOrigin() {
+            moveToPoint(Qt.point(0.0, 0.0), false)
+        }
+
+        function moveToPoint(pt, withAnimation = true) {
+            if (withAnimation)
+                sceneView.animationEnabled = true;
+
+            Qt.callLater(function() {
+                contentX = pt.x;
+                contentY = pt.y;
+            });
         }
 
         function pointToCenter(pt) {
-            contentX = pt.x - sceneView.width / 2;
-            contentY = pt.y - sceneView.height / 2;
+            pt.x -= sceneView.width / 2;
+            pt.y -= sceneView.height / 2;
+            moveToPoint(pt);
         }
 
         function selectName(termName) {
