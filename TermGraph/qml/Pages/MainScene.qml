@@ -217,6 +217,9 @@ M.Page {
         ScrollIndicator.vertical:   A.ScrollIndicator { }
         ScrollIndicator.horizontal: A.ScrollIndicator { }
 
+        Behavior on contentY { NumberAnimation { duration: 800; easing.type: Easing.InOutCubic; } }
+        Behavior on contentX { NumberAnimation { duration: 800; easing.type: Easing.InOutCubic; } }
+
         function moveToOrigin() {
             moveToPoint(Qt.point(0.0, 0.0))
         }
