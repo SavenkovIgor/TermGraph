@@ -34,42 +34,22 @@ Drawer {
     edge: Qt.RightEdge
     onOpened: groupListView.forceActiveFocus()
 
-    ListView {
+    contentItem: ListView {
         id: groupListView
-        anchors.fill: parent
 
         property real maxWidth: 0
 
+        keyNavigationEnabled: true
         model: groupsManager.allUuidSorted
 
-        Rectangle {
-            anchors.fill: parent
-            color: Colors.baseLight
-            z: -1
-        }
-
-        keyNavigationEnabled: true
-
-        delegate: Rectangle {
+        delegate: ItemDelegate {
             id: groupLstDlgt
 
-            anchors { left: parent.left; right: parent.right; }
-            height: curText.height
+            width: ListView.view.width
 
-            color: "transparent"
+            contentItem: Text {
 
-            states: State {
-                name: "Current"
-                when: groupLstDlgt.ListView.isCurrentItem
-                PropertyChanges { target: groupLstDlgt; color: "darkGray" }
-            }
-
-            Text {
-                id: curText
-
-                padding: 30
-                height: Math.floor( font.pixelSize * 2.0 )
-                anchors.fill: parent
+                padding: font.pixelSize / 4
 
                 color: Colors.white
                 font: Fonts.setWeight(Fonts.text, Font.Thin)
@@ -85,15 +65,20 @@ Drawer {
                 }
             }
 
-            A.BottomThinLine { color: Colors.white; }
+            background: Rectangle {
+                color: groupLstDlgt.ListView.isCurrentItem ? "darkGray" : "transparent"
+                A.BottomThinLine { color: Colors.white }
+            }
 
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    drawer.close();
-                    scene.currentGroup = modelData;
-                }
+            Keys.onReturnPressed: apply()
+            onClicked: apply()
+
+            function apply() {
+                drawer.close();
+                scene.currentGroup = modelData;
             }
         }
     }
+
+    background: Rectangle { color: Colors.baseLight }
 }

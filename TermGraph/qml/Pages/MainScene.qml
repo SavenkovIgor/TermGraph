@@ -382,10 +382,7 @@ M.Page {
 
         Shortcut {
             sequence: "Ctrl+Left"
-            onActivated: {
-                groupsList.open();
-                groupsList.forceActiveFocus();
-            }
+            onActivated: groupsList.open()
         }
     }
 
