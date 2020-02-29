@@ -21,7 +21,6 @@
 
 #include "mainwindow.h"
 #include <QApplication>
-#include <QQuickStyle>
 #include <QSurface>
 
 #include "source/Helpers/platform.h"
@@ -33,8 +32,6 @@
 int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
-
-    QQuickStyle::setStyle("Material");
 
     // TODO: Check it on mobile!
     if constexpr (Platform::isDesktop()) {

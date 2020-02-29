@@ -24,7 +24,6 @@
 #include <QObject>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
-#include <QtQuickControls2/QQuickStyle>
 
 #include "source/mainscene.h"
 #include "source/Helpers/tagprocessor.h"

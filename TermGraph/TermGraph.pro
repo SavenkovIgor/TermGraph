@@ -17,7 +17,7 @@
 #  You should have received a copy of the GNU General Public License
 #  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
 
-QT       += core gui sql quickwidgets quickcontrols2 network svg #charts
+QT += core qml quickcontrols2 sql network svg #charts
 
 TARGET = TermGraph
 TEMPLATE = app

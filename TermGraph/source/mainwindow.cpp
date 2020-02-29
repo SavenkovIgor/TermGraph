@@ -44,8 +44,6 @@ MainWindow::MainWindow(QObject* parent)
     initElemSizes();
     AppSettings::StdPaths::createDefaultFoldersIfNeed();
 
-    QQuickStyle::setStyle("Material");
-
     // Database init
     groupsManager->updateGroupUuidNameMaps();
 
