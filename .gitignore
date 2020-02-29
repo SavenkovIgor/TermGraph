@@ -3,7 +3,8 @@ build/*
 source/build/*
 .qmake.stash
 Makefile
-TermGraph.pro.user*
-TermGraph.qbs.user*
-TermGraphTest.pro.user*
-TermGraphProject.pro.user*
+
+# Qt user files
+*.pro.user*
+*.qbs.user*
+*.txt.user*
