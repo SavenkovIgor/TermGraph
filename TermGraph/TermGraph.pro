@@ -132,7 +132,7 @@ SOURCES += \
     source/Helpers/textprocessor.cpp
 
 RESOURCES += \
-    helpImages/helpImages.qrc \
+    resources/helpImages/helpImages.qrc \
     icons/icons.qrc \
     qml/qml.qrc
 
