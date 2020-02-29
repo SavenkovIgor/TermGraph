@@ -96,44 +96,44 @@ ApplicationWindow {
                 A.SideMenuButton {
                     id: groupMenuButton
                     action: openGroupsAction
-                    labelText: action.text
-                    iconSource: action.icon.source
+                    text: action.text
+                    icon.source: action.icon.source
                     Layout.fillWidth: true
                 }
 
                 A.SideMenuButton {
-                    labelText: "Изучение"
-                    iconSource: IconPath.book
+                    text: "Изучение"
+                    icon.source: IconPath.book
                     Layout.fillWidth: true
                     visible: false
                     onClicked: stackView.push(learnGroupsComponent)
                 }
 
                 A.SideMenuButton {
-                    labelText: "Синхронизация"
-                    iconSource: IconPath.loopCircular
+                    text: "Синхронизация"
+                    icon.source: IconPath.loopCircular
                     Layout.fillWidth: true
                     visible: false
                 }
 
                 A.SideMenuButton {
-                    labelText: "Настройки"
-                    iconSource: IconPath.cog
+                    text: "Настройки"
+                    icon.source: IconPath.cog
                     Layout.fillWidth: true
 
                     onClicked: stackView.push(settingsComponent)
                 }
 
                 A.SideMenuButton {
-                    labelText: "Справка"
-                    iconSource: IconPath.questionMark
+                    text: "Справка"
+                    icon.source: IconPath.questionMark
                     Layout.fillWidth: true
 
                     onClicked: stackView.push(helpPageComponent)
                 }
 
                 A.SideMenuButton {
-                    labelText: "О программе"
+                    text: "О программе"
                     Layout.fillWidth: true
 
                     onClicked: stackView.push(licensePageComponent)

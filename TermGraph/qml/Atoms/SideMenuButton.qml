@@ -27,25 +27,18 @@ import "../Js/Fonts.js" as Fonts
 import "../Atoms" as A
 
 Button {
-    rightPadding: 12
-    leftPadding: 12
-    bottomPadding: 10
-    topPadding: 10
+    id: root
+
+    horizontalPadding: 12
+    verticalPadding: 10
 
     flat: true
 
-    property alias labelText: label.text
-    property alias iconSource: icon.icon.source
+    property color baseColor: {
+        if (!enabled)
+            return Colors.whiteDisabled;
 
-    property string baseColor: Colors.white
-
-    onEnabledChanged: {
-        baseColor = Colors.whiteDisabled
-    }
-
-    onBaseColorChanged: {
-        icon.color = baseColor
-        label.color = baseColor
+        return highlighted ? Colors.baseLight3 : Colors.white
     }
 
     contentItem: Row {
@@ -54,21 +47,24 @@ Button {
 
         A.RoundButton {
             id: icon
-            color: Colors.white
             backgroundHidden: true
+            color: root.baseColor
 
             icon.width: label.font.pixelSize * 1.8
             icon.height: label.font.pixelSize * 1.8
+            icon.source: root.icon.source
         }
 
         Text {
             id: label
             height: icon.height
 
-            color: Colors.white
+            color: root.baseColor
             font: Fonts.setWeight(Fonts.capitalText, Font.Thin)
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
+
+            text: root.text
         }
     }
 }
