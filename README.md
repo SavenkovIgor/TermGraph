@@ -1,11 +1,9 @@
 # TermGraph
 
-Project in Beta. Code still can be messy because of several concept changes.
-
 TermGraph is a project that trying to realize rather simple idea:
 In many good structured areas of knowledge we often can see, that terms are build up on each other in form some kind of a tree.
 With this software you can realize this idea, and actually build that tree of terms.
 
-![screenshot1](screens/2.png)
+![screenshot1](TermGraph/resources/oldScreens/2.png)
 
-![screenshot2](screens/3.png)
+![screenshot2](TermGraph/resources/oldScreens/3.png)
