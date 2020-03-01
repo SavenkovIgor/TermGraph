@@ -28,22 +28,16 @@ import "../Js/Sizes.js" as Sizes
 RoundButton {
     id: root
 
-    property alias color: root.icon.color
-    property bool backgroundHidden: false
-
-    property real size: Sizes.base
-
-    background: Round { color: !root.backgroundHidden ? Colors.white : "transparent" }
-
-    width:  implicitWidth
-    height: implicitHeight
-
-    icon.width: implicitWidth
-    icon.height: implicitHeight
+    property real size: Sizes.base * 0.9
 
     implicitWidth:  root.size
     implicitHeight: root.size
 
-    padding: 0.28 * width
+    icon.width: implicitWidth * 0.55
+    icon.height: implicitHeight * 0.55
+
+    display: AbstractButton.IconOnly
+
+    background: Round { color: Colors.white }
 }
 

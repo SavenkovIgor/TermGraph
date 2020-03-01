@@ -25,6 +25,6 @@ RoundedRectangle {
 
     property real diameter: 50
 
-    width: diameter
-    height: diameter
+    implicitWidth:  diameter
+    implicitHeight: diameter
 }

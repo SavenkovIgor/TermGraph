@@ -45,13 +45,12 @@ Button {
 
         spacing: icon.width / 5
 
-        A.RoundButton {
+        A.ToolButton {
             id: icon
-            backgroundHidden: true
-            color: root.baseColor
 
             icon.width: label.font.pixelSize * 1.8
             icon.height: label.font.pixelSize * 1.8
+            icon.color: root.baseColor
             icon.source: root.icon.source
         }
 
