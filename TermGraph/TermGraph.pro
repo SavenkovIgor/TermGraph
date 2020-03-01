@@ -133,7 +133,7 @@ SOURCES += \
 
 RESOURCES += \
     resources/helpImages/helpImages.qrc \
-    icons/icons.qrc \
+    resources/icons/icons.qrc \
     qml/qml.qrc
 
 #INSTALLS += target
