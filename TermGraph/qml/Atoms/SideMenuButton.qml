@@ -48,8 +48,8 @@ Button {
         A.ToolButton {
             id: icon
 
-            icon.width: label.font.pixelSize * 1.8
-            icon.height: label.font.pixelSize * 1.8
+            width: label.font.pixelSize * 2
+            height: label.font.pixelSize * 2
             icon.color: root.baseColor
             icon.source: root.icon.source
         }
