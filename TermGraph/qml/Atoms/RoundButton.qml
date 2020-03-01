@@ -28,13 +28,10 @@ import "../Js/Sizes.js" as Sizes
 RoundButton {
     id: root
 
-    property real size: Sizes.base * 0.9
+    property real size: Sizes.base
 
     implicitWidth:  root.size
     implicitHeight: root.size
-
-    icon.width: implicitWidth * 0.55
-    icon.height: implicitHeight * 0.55
 
     display: AbstractButton.IconOnly
 
