@@ -43,6 +43,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #    endif()
 #endif()
 
+# If you want, android build correctly,
+# This line must be before targets definition
+find_package(Qt5 COMPONENTS Core Quick QuickControls2 Sql Network Svg REQUIRED)
+
 if(ANDROID)
     add_library(${PROJECT_NAME} SHARED)
 else()
@@ -169,9 +173,6 @@ target_sources(${PROJECT_NAME}
         source/mainwindow.cpp
         source/mainwindow.h
 )
-
-
-find_package(Qt5 COMPONENTS Core Quick QuickControls2 Sql Network Svg REQUIRED)
 
 target_compile_definitions(${PROJECT_NAME}
     PRIVATE
