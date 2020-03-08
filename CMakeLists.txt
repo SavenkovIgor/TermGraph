@@ -63,6 +63,15 @@ target_sources(${PROJECT_NAME}
 # Qml folder
 target_sources(${PROJECT_NAME} PRIVATE qml/qml.qrc)
 
+# Some non compilable files
+target_sources(${PROJECT_NAME}
+    PRIVATE
+        android/AndroidManifest.xml
+        android/res/drawable-hdpi/icon.png
+        android/res/drawable-mdpi/icon.png
+        android/res/drawable-ldpi/icon.png
+)
+
 # Source folder
 target_sources(${PROJECT_NAME}
     PRIVATE
