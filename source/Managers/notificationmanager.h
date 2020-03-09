@@ -21,11 +21,21 @@
 
 #pragma once
 
+#include <optional>
+
 #include <QObject>
+#include <QPair>
+#include <QQueue>
+#include <QTimer>
 
 class NotificationManager : public QObject
 {
     Q_OBJECT
+
+    enum class NotifyType { Info = 0, Warning, Error, Debug };
+
+    using Notify = QPair<NotifyType, QString>;
+
 public:
     static NotificationManager& instance();
 
@@ -35,13 +45,35 @@ public:
     Q_INVOKABLE static void showInfo(const QString& info);
     Q_INVOKABLE static void showWarning(const QString& warning);
     Q_INVOKABLE static void showError(const QString& error);
+    Q_INVOKABLE static void showDebug(const QString& debug);
 
 signals:
     void showInfoQml(QString info);
     void showWarningQml(QString warning);
     void showErrorQml(QString error);
     void showDebugQml(QString debugInfo);
+    void hideNotify();
+
+public slots:
+    void handleNotifyShow();
+    void handleNotifyHide();
+    void handleUiInitialization();
+
+private slots:
+    void checkQueue();
 
 private:
     explicit NotificationManager(QObject* parent = nullptr);
+
+    bool uiInitialized = false;
+
+    QTimer hideNotifyTimer = QTimer(this);
+
+    QQueue<Notify> notificationsQueue;
+    std::optional<Notify> currentNotify() const;
+
+    void addNotify(const Notify& notify);
+    void showNotify(const Notify& notify);
+
+    static int predictMessageShowTime(const QString& message);
 };

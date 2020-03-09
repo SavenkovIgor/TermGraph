@@ -14,14 +14,21 @@ Drawer {
     edge: Qt.BottomEdge
     dim: false
 
-    function setTextAndOpen(text, startTimer = true) {
-        infoLabel.text = text;
-        root.open();
-        if (startTimer)
-            hideTimer.start();
+    onOpened: Notification.handleNotifyShow();
+    onClosed: Notification.handleNotifyHide();
+
+    Component.onCompleted: {
+        Qt.callLater(function() {
+            Notification.handleUiInitialization();
+        });
     }
 
-    function showDebug(debugInfo) { setTextAndOpen("Debug: " + debugInfo, false); }
+    function setTextAndOpen(text) {
+        infoLabel.text = text;
+        root.open();
+    }
+
+    function showDebug(debugInfo) { setTextAndOpen("Debug: " + debugInfo);        }
     function showError(error)     { setTextAndOpen("Ошибка: " + error);           }
     function showWarning(warning) { setTextAndOpen("Предупреждение: " + warning); }
     function showInfo(info)       { setTextAndOpen("Информация: " + info);        }
@@ -32,6 +39,7 @@ Drawer {
         onShowWarningQml: root.showWarning(warning)
         onShowErrorQml: root.showError(error)
         onShowDebugQml: root.showDebug(debugInfo)
+        onHideNotify: root.close();
     }
 
     contentItem: TextArea {
@@ -46,15 +54,5 @@ Drawer {
 
         leftPadding: Sizes.baseR50
         rightPadding: Sizes.baseR50
-    }
-
-    Timer {
-        id: hideTimer
-        interval: 3000
-        repeat: false
-        onTriggered: {
-            if (infoLabel.lineCount == 1) // Auto close only if label is small
-                root.close()
-        }
     }
 }
