@@ -21,8 +21,6 @@
 
 #include "notificationmanager.h"
 
-#include <QDebug>
-
 NotificationManager& NotificationManager::instance()
 {
     static NotificationManager mgr;
@@ -58,23 +56,21 @@ void NotificationManager::handleNotifyShow()
 
     const auto& [type, message] = notify.value();
 
-    qDebug() << "type" << static_cast<int>(type);
-
-    if (type == NotifyType::Debug) {
-        qDebug() << "exit";
+    if (type == NotifyType::Debug)
         return;
-    }
 
     auto notifyShowTime = predictMessageShowTime(message);
     hideNotifyTimer.start(notifyShowTime);
-    qDebug() << "start" << notifyShowTime;
 }
 
 void NotificationManager::handleNotifyHide()
 {
-    Q_ASSERT(!notificationsQueue.isEmpty());
+    // User can close notify drawer manually, while timer is still active
+    hideNotifyTimer.stop();
 
-    notificationsQueue.dequeue();
+    if (!notificationsQueue.isEmpty())
+        notificationsQueue.dequeue();
+
     checkQueue();
 }
 
