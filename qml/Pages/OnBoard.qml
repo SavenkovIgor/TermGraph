@@ -19,8 +19,8 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.13
-import QtQuick.Layouts 1.13
+import QtQuick 2.14
+import QtQuick.Layouts 1.14
 
 import "../Atoms" as A
 import "../Molecules" as M

@@ -1,4 +1,4 @@
-import QtQuick 2.13
+import QtQuick 2.14
 
 import "../Js/Fonts.js" as Fonts
 import "../Js/Colors.js" as Colors
