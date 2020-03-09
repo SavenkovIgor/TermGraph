@@ -40,6 +40,7 @@ signals:
     void showInfoQml(QString info);
     void showWarningQml(QString warning);
     void showErrorQml(QString error);
+    void showDebugQml(QString debugInfo);
 
 private:
     explicit NotificationManager(QObject* parent = nullptr);

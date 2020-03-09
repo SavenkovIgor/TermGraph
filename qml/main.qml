@@ -25,13 +25,11 @@ import QtQuick.Controls 2.14
 import QtQuick.Dialogs 1.3
 //import QtQuick.Controls.Material 2.2
 
-import Notification 1.0
-
 import "Learning"
 import "Js/IconPath.js" as IconPath
 import "Js/Colors.js" as Colors
-import "Js/Fonts.js" as Fonts
 import "Atoms" as A
+import "Molecules" as M
 import "Pages" as P
 
 ApplicationWindow {
@@ -144,55 +142,9 @@ ApplicationWindow {
         }
     }
 
-    Drawer {
-        id: notifyDrawer
-
+    M.NotificationDrawer {
         width: window.width
-        height: Math.min(infoLabel.height, window.height * 0.8)
-        interactive: position !== 0.0
-        edge: Qt.BottomEdge
-        dim: false
-
-        function setTextAndOpen(text) {
-            infoLabel.text = text;
-            notifyDrawer.open();
-            infoHideTimer.start();
-        }
-
-        function showError(error)     { setTextAndOpen("Ошибка: " + error);     }
-        function showWarning(warning) { setTextAndOpen("Предупреждение: " + warning); }
-        function showInfo(info)       { setTextAndOpen("Информация: " + info);       }
-
-        Connections {
-            target: Notification
-            onShowInfoQml: notifyDrawer.showInfo(info)
-            onShowWarningQml: notifyDrawer.showWarning(warning)
-            onShowErrorQml: notifyDrawer.showError(error)
-        }
-
-        TextArea {
-            id: infoLabel
-            width: notifyDrawer.width
-
-            text: ""
-            readOnly: true
-            wrapMode: TextEdit.Wrap
-            leftPadding: width * 0.025
-            rightPadding: width * 0.025
-
-            horizontalAlignment: Text.AlignHCenter
-            font: Fonts.inputText
-        }
-
-        Timer {
-            id: infoHideTimer
-            interval: 3000
-            repeat: false
-            onTriggered: {
-                if (infoLabel.lineCount == 1) // Auto close only if label is small
-                    notifyDrawer.close()
-            }
-        }
+        height: Math.min(implicitHeight, window.height * 0.8)
     }
 
     StackView {

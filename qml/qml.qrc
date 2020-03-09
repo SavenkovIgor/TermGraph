@@ -21,6 +21,7 @@
         <file>Molecules/DefaultHeader.qml</file>
         <file>Molecules/BurgerButton.qml</file>
         <file>Molecules/AppIcon.qml</file>
+        <file>Molecules/NotificationDrawer.qml</file>
         <file>main.qml</file>
         <file>Learning/LearnGroupsList.qml</file>
         <file>Learning/LearnMode.qml</file>
