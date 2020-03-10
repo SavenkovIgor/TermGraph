@@ -70,6 +70,7 @@ target_sources(${PROJECT_NAME}
         android/res/drawable-hdpi/icon.png
         android/res/drawable-mdpi/icon.png
         android/res/drawable-ldpi/icon.png
+        goodcheck.yml
 )
 
 # Source folder
