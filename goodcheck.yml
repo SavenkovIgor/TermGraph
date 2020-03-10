@@ -3,4 +3,4 @@ rules:
     message: Must be space between method name and bracket
     glob: "CMakeLists.txt"
     pattern:
-      - /[a-z_]+\(/
+      - /^\s*[a-z_]+\(/

@@ -19,16 +19,16 @@
 
 cmake_minimum_required (VERSION 3.16.0)
 
-project(TermGraph VERSION 1.0.0 LANGUAGES CXX)
+project (TermGraph VERSION 1.0.0 LANGUAGES CXX)
 
-set(CMAKE_INCLUDE_CURRENT_DIR ON)
+set (CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
+set (CMAKE_AUTOUIC ON)
+set (CMAKE_AUTOMOC ON)
+set (CMAKE_AUTORCC ON)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
 # Check http://doc.qt.io/qt-5/deployment-android.html for more information.
@@ -45,26 +45,26 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # If you want, android build correctly,
 # This line must be before targets definition
-find_package(Qt5 COMPONENTS Core Quick QuickControls2 Sql Network Svg REQUIRED)
+find_package (Qt5 COMPONENTS Core Quick QuickControls2 Sql Network Svg REQUIRED)
 
-if(ANDROID)
-    add_library(${PROJECT_NAME} SHARED)
-else()
-    add_executable(${PROJECT_NAME})
-endif()
+if (ANDROID)
+    add_library (${PROJECT_NAME} SHARED)
+else ()
+    add_executable (${PROJECT_NAME})
+endif ()
 
 # Resources folder
-target_sources(${PROJECT_NAME}
+target_sources (${PROJECT_NAME}
     PRIVATE
         resources/helpImages/helpImages.qrc
         resources/icons/icons.qrc
 )
 
 # Qml folder
-target_sources(${PROJECT_NAME} PRIVATE qml/qml.qrc)
+target_sources (${PROJECT_NAME} PRIVATE qml/qml.qrc)
 
 # Some non compilable files
-target_sources(${PROJECT_NAME}
+target_sources (${PROJECT_NAME}
     PRIVATE
         android/AndroidManifest.xml
         android/res/drawable-hdpi/icon.png
@@ -74,7 +74,7 @@ target_sources(${PROJECT_NAME}
 )
 
 # Source folder
-target_sources(${PROJECT_NAME}
+target_sources (${PROJECT_NAME}
     PRIVATE
         source/Helpers/appconfig.cpp
         source/Helpers/appconfig.h
@@ -184,12 +184,12 @@ target_sources(${PROJECT_NAME}
         source/mainwindow.h
 )
 
-target_compile_definitions(${PROJECT_NAME}
+target_compile_definitions (${PROJECT_NAME}
     PRIVATE
         $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>
 )
 
-target_link_libraries(${PROJECT_NAME}
+target_link_libraries (${PROJECT_NAME}
     PRIVATE
         Qt5::Core
         Qt5::Quick
