@@ -30,7 +30,6 @@
 #include <QtSvg>  //Because deployment sometimes just forgets to include this lib otherwise
 #endif
 
-// TODO: Icons in app are small by some reason
 // TODO: App icon is lost by some reason
 // TODO: Differen application binary on android?
 
