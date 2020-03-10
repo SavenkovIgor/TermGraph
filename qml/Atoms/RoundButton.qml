@@ -29,9 +29,13 @@ RoundButton {
     id: root
 
     property real size: Sizes.base
+    readonly property real iconPart: 0.46
 
     implicitWidth:  root.size
     implicitHeight: root.size
+
+    icon.width: implicitWidth * iconPart
+    icon.height: implicitHeight * iconPart
 
     display: AbstractButton.IconOnly
 
