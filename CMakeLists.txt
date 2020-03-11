@@ -159,15 +159,9 @@ target_sources (${PROJECT_NAME}
         source/databaseWorks/tools/wherecondition.h
         source/databaseWorks/appconfigtable.cpp
         source/databaseWorks/appconfigtable.h
-        source/databaseWorks/cloudservices.cpp
-        source/databaseWorks/cloudservices.h
         source/databaseWorks/database.cpp
         source/databaseWorks/database.h
         source/databaseWorks/dbtablenames.h
-        source/databaseWorks/dropboxconnection.cpp
-        source/databaseWorks/dropboxconnection.h
-        source/databaseWorks/edgtbl.cpp
-        source/databaseWorks/edgtbl.h
         source/databaseWorks/ndtbl.cpp
         source/databaseWorks/ndtbl.h
         source/databaseWorks/sqlqueryconstructor.cpp

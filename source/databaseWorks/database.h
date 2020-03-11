@@ -27,7 +27,6 @@
 #include "source/Helpers/appconfig.h"
 #include "source/Helpers/fsworks.h"
 #include "source/databaseWorks/appconfigtable.h"
-#include "source/databaseWorks/edgtbl.h"
 #include "source/databaseWorks/ndtbl.h"
 #include "source/databaseWorks/termgrouptbl.h"
 
