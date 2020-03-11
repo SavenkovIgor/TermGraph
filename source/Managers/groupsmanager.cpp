@@ -281,8 +281,6 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     if (!isValidGroupJson(json))
         return;
 
-    qDebug() << json;
-
     QJsonObject jsonGroup = json.object();
 
     auto info = JsonGroupInfoContainerParser::fromJson(jsonGroup);
@@ -359,7 +357,7 @@ QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid)
 
 void GroupsManager::updateGroupUuidNameMaps()
 {
-    qDebug() << "List updated";
+    qInfo("List updated");
 
     uuidToNames.clear();
     namesToUuid.clear();

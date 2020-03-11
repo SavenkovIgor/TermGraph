@@ -25,6 +25,7 @@
 #include <QString>
 #include <QUuid>
 
+#include "source/Managers/notificationmanager.h"
 #include "source/databaseWorks/tools/dbtools.h"
 
 Database::Database()
@@ -43,18 +44,19 @@ Database::Database(const QString& filePath)
     auto baseExists = databaseExists(filePath);
 
     if (baseExists) {
-        qDebug() << "Base file is exists";
+        qInfo("Base file is exists");
     } else {
-        qDebug() << "Base file don't exist";
+        qInfo("Base file don't exist");
     }
 
     // Create database if not exist earlier
     base->setDatabaseName(filePath);
 
     if (base->open()) {
-        qDebug() << "Database opened";
+        qInfo("Database opened");
     } else {
-        qDebug() << "cantOpenBase" << base->lastError().text();
+        auto msg = QString("Can't open database %1").arg(base->lastError().text());
+        NotificationManager::showDebug(msg);
     }
 
     nodeTable.reset(new NodeTable(base));
@@ -63,17 +65,17 @@ Database::Database(const QString& filePath)
 
     // If database just created, create all tables
     if (!baseExists) {
-        qDebug() << "Creating tables";
+        qInfo("Creating tables");
         InitAllTables();
     }
 
     if (needDbUpdate()) {
         auto oldDbVersion = currentDbVersion();
         // Close, make backup, open again, and then update base
-        qDebug() << "Closing database";
+        qInfo("Closing database");
         base->close();
         makeBackupBeforeUpdate(filePath, oldDbVersion);
-        qDebug() << "Opening database";
+        qInfo("Opening database");
         base->open();
         makeDbUpdate();
 
@@ -82,7 +84,7 @@ Database::Database(const QString& filePath)
         groupTable.reset(new TermGroupTable(base));
         appConfigTable.reset(new AppConfigTable(base));
     } else {
-        qDebug() << "Database is actual. No need to update";
+        qInfo("Database is already actual");
     }
 }
 
@@ -110,7 +112,7 @@ bool Database::needDbUpdate()
 
 void Database::makeBackupBeforeUpdate(const QString& filePath, const int& oldDbVersion)
 {
-    qDebug() << "Making backup";
+    qInfo("Making backup");
     QFile   dbFile(filePath);
     QString fileName;
     fileName += "dbVersion_" + QString::number(oldDbVersion);
@@ -123,24 +125,28 @@ void Database::makeBackupBeforeUpdate(const QString& filePath, const int& oldDbV
 void Database::makeDbUpdate()
 {
     auto dbVersion = currentDbVersion();
-    qDebug() << "Updating database!";
-    qDebug() << "Start version: " << dbVersion;
+
+    qInfo("Updating database!");
+    auto startVersionMsg = QString("Start version: %1").arg(dbVersion);
+    qInfo(startVersionMsg.toStdString().c_str());
 
     execMigrationConditions(dbVersion);
 
     appConfigTable->updateDbVersionNumber();
-    qDebug() << "Update finished. New db version:" << currentDbVersion();
+
+    auto endVersionMsg = QString("Update finished. New db version: %1").arg(currentDbVersion());
+    qInfo(endVersionMsg.toStdString().c_str());
 }
 
 void Database::execMigrationConditions(const int& currentDbVersion)
 {
     if (currentDbVersion < 1) {
-        qDebug() << "Initing appConfig table";
+        qInfo("Initing appConfig table");
         appConfigTable->initTable();
     }
 
     if (currentDbVersion < 2) {
-        qDebug() << "Move node table";
+        qInfo("Move node table");
         DbTools::startTransaction(base);
 
         updateNodesToSecondVersion();
@@ -204,7 +210,9 @@ void Database::updateNodesToSecondVersion()
 
     auto countInOld = DbTools::recordsCount(base, "termNode");
     auto countInNew = DbTools::recordsCount(base, "terms");
-    qDebug() << "Old count" << countInOld << "new count" << countInNew;
+
+    auto countComapreMsg = QString("Old count: %1 new count: %2").arg(countInOld).arg(countInNew);
+    qInfo(countComapreMsg.toStdString().c_str());
 
     if (countInOld == countInNew) {
         // Dropping old table
@@ -247,7 +255,9 @@ void Database::updateGroupsToSecondVersion()
 
     auto countInOld = DbTools::recordsCount(base, "termGroup");
     auto countInNew = DbTools::recordsCount(base, "groups");
-    qDebug() << "Old count" << countInOld << "new count" << countInNew;
+
+    auto countComapreMsg = QString("Old count: %1 new count: %2").arg(countInOld).arg(countInNew);
+    qInfo(countComapreMsg.toStdString().c_str());
 
     if (countInOld == countInNew) {
         // Dropping old table

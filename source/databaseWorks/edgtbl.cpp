@@ -62,7 +62,6 @@ void EdgTbl::clearFromDuplicates()
         if(!q.next())
             break;
 //        int uid = q.record().value(this->uid).toInt();
-//        qDebug() << "uid" << uid;
 
         WhereCondition where;
         where.equal(this->toID,  q.record().value( this->toID  ).toString());
@@ -77,14 +76,12 @@ void EdgTbl::clearFromDuplicates()
                 break;
             if( first ) { //Первый пропускаем
                 first = false;
-//                qDebug()<<"first"<<tmpQry.record().value( this->uid ).toString();
             } else {
                 forDel << tmpQry.record().value( this->uid ).toString();
             }
         }
 
         for( QString s : forDel ) {
-//            qDebug()<<"deleting"<<s;
             deleteEdge( s.toInt() );
         }
 
@@ -95,7 +92,6 @@ void EdgTbl::addEdge(int from, int to, QString comment)
 {
     bool edgeDuplicate = hasThisEdge( from, to ) || hasThisEdge( to, from );
     if( edgeDuplicate ) {
-        qDebug()<<"edgeDuplicate";
         return;
     }
 

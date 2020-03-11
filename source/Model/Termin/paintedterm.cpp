@@ -222,10 +222,7 @@ int PaintedTerm::getIntersections(bool swapped)
     Edge::List edges;
     //    edges << edgesUpList;
     edges << Edge::castToEdgeList(getEdgesToRoots());
-
     edges << getEdgesInLayer();
-
-    //    qDebug()<<"edges.size"<<this->getName()<<edges.size();
 
     QList<QPointF> interList;
 

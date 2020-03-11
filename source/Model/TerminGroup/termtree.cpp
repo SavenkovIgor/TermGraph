@@ -163,7 +163,7 @@ void TermTree::addTerm(PaintedTerm* term)
 {
     int paintLayer = term->getPaintLevel();
 
-    assert(paintLayer < 0);
+    assert(paintLayer >= 0);
     if (paintLayer < 0)
         return;
 

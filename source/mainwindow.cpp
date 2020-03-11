@@ -103,7 +103,8 @@ int MainWindow::getUiElementSize(const QString &elementTypeName)
         auto screenCorrectedSize = screenDencity * elementSizes[elementTypeName];
         return static_cast<int>(screenCorrectedSize);
     }
-    qDebug() << "Отсутствует размер для элемента:" << elementTypeName;
+
+    NotificationManager::showDebug(QString("Отсутствует размер для элемента: %1").arg(elementTypeName));
     return 0;
 }
 
