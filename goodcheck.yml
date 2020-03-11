@@ -4,3 +4,11 @@ rules:
     glob: "CMakeLists.txt"
     pattern:
       - /^\s*[a-z_]+\(/
+
+  - id: cpp.qdebug
+    message: Remove QDebug
+    glob:
+      - "**/**.h"
+      - "**/**.cpp"
+    pattern:
+      - /^#include <QDebug>/
