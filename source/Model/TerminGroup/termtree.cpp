@@ -23,11 +23,8 @@
 
 #include "source/Helpers/appstyle.h"
 
-#include <QDebug>
-
 TermTree::TermTree()
 {
-    //    qDebug() << "Create tree";
     rect = new RectGraphicItem();
 
     animationGroup.addAnimation(&swAnim1);
@@ -149,8 +146,6 @@ void TermTree::checkSwap()
     }
 
     lockForce = false;
-
-    //    qDebug()<<"noSwap"<<t.elapsed();
 }
 
 PaintedTerm* TermTree::getNodeAtPoint(const QPointF& pt) const
@@ -168,10 +163,9 @@ void TermTree::addTerm(PaintedTerm* term)
 {
     int paintLayer = term->getPaintLevel();
 
-    if (paintLayer < 0) {
-        qDebug() << "Biig problems with paint layer";
+    assert(paintLayer < 0);
+    if (paintLayer < 0)
         return;
-    }
 
     int increaseSizeCount = paintLayer - stacks.size() + 1;
     for (int i = 0; i < increaseSizeCount; i++) {

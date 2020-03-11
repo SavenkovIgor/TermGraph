@@ -21,8 +21,6 @@
 
 #include "infoterm.h"
 
-#include <QDebug>
-
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/fonts.h"
 #include "source/Helpers/helpstuff.h"
@@ -110,12 +108,7 @@ QString InfoTerm::getDefinition() const
 
 QStringList InfoTerm::getDefinitionTags() const
 {
-    QString error;
-    auto    tags = TagProcessor::extractTags(getDefinition());
-    // TODO: Fix error work in tagProcessor
-    if (!error.isEmpty()) {
-        qDebug() << getUuid().toString() << error;
-    }
+    auto tags = TagProcessor::extractTags(getDefinition());
 
     for (auto& tag : tags)
         tag = tag.toLower();

@@ -51,7 +51,8 @@ QList<TermGroup*> GroupsManager::getAllGroups()
         TermGroup* group = createGroup(groupUuid);
 
         if (group == nullptr) {
-            qDebug() << "Cant create group with Uuid: " << groupUuid;
+            auto errorMsg = QString("Cant create group with Uuid: %1").arg(groupUuid.toString());
+            NotificationManager::showDebug(errorMsg);
             continue;
         }
 

@@ -34,7 +34,6 @@ TermGroup::TermGroup(const GroupInfoContainer& info, QObject* parent)
 
 TermGroup::~TermGroup()
 {
-    //    qDebug() << "Delete group" << getName();
     checkSwapTimer.stop();
     animTimer.stop();
 

@@ -294,6 +294,7 @@ QString TagProcessor::replaceTags(QString str, const QString& leftBrReplacement,
     return str;
 }
 
+// TODO: Add error processing
 QStringList TagProcessor::extractTags(QStringView str)
 {
     // На данном этапе считаем, что экранировать символы тегов нельзя

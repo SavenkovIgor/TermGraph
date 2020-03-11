@@ -23,7 +23,6 @@
 
 #include <functional>
 #include <stdlib.h>
-#include <QDebug>
 #include <QUuid>
 
 #include "source/Helpers/tagprocessor.h"
