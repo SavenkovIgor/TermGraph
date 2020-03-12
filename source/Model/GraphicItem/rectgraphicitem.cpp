@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "rectgraphicitem.h"
+#include "source/Model/GraphicItem/rectgraphicitem.h"
 
 RectGraphicItem::RectGraphicItem()
     : GraphicItem()

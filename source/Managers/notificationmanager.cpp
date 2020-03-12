@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "notificationmanager.h"
+#include "source/Managers/notificationmanager.h"
 
 NotificationManager& NotificationManager::instance()
 {

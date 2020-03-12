@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "jsongroupinfocontainerparser.h"
+#include "source/Managers/jsongroupinfocontainerparser.h"
 
 #include "source/databaseWorks/columns/termgroupcolumn.h"
 

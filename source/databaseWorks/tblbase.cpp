@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "tblbase.h"
+#include "source/databaseWorks/tblbase.h"
 
 #include "source/databaseWorks/tools/dbtools.h"
 

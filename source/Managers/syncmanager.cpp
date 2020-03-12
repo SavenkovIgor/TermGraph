@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "syncmanager.h"
+#include "source/Managers/syncmanager.h"
 
 SyncManager::SyncManager(NetworkManager* networkManager,
                          GroupsManager*  groupsManger,

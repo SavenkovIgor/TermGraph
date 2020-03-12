@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "multipleshottimer.h"
+#include "source/Helpers/multipleshottimer.h"
 
 MultipleShotTimer::MultipleShotTimer(int shots, int interval)
 {

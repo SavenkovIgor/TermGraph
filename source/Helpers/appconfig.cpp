@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "appconfig.h"
+#include "source/Helpers/appconfig.h"
 
 #include <QStandardPaths>
 

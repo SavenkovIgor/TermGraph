@@ -8,15 +8,23 @@ rules:
   - id: cpp.qdebugInclude
     message: Remove QDebug
     glob:
-      - "source/**.h"
-      - "source/**.cpp"
+      - "source/**/**.h"
+      - "source/**/**.cpp"
     pattern:
-      - /^#include <QDebug>/
+      - /#include <QDebug>/
 
   - id: cpp.qdebug
     message: Remove qDebug or replace with qInfo, qWarning, qCritical or qFatal
     glob:
-      - "source/**.h"
-      - "source/**.cpp"
+      - "source/**/**.h"
+      - "source/**/**.cpp"
     pattern:
       - /qDebug\(\)/
+
+  - id: cpp.includeAbsolutePath
+    message: All includes must start from project root
+    glob:
+      - "source/**/**.h"
+      - "source/**/**.cpp"
+    pattern:
+      - /#include "(?!source)/

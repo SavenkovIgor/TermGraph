@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "infoterm.h"
+#include "source/Model/Termin/infoterm.h"
 
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/fonts.h"

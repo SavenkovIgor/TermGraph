@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "simplelistenserver.h"
+#include "source/Helpers/simplelistenserver.h"
 
 SimpleListenServer::SimpleListenServer(quint16 listenPort, QObject* parent)
     : QObject(parent)

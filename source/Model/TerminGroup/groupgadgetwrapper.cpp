@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "groupgadgetwrapper.h"
+#include "source/Model/TerminGroup/groupgadgetwrapper.h"
 
 GroupGadgetWrapper::GroupGadgetWrapper(const GroupInfoContainer& info)
     : _info(info)

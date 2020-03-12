@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "graphedge.h"
+#include "source/Model/TerminEdge/graphedge.h"
 
 GraphEdge::GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf)
 {

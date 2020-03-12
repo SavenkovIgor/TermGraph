@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "nodegadgetwrapper.h"
+#include "source/Model/Termin/nodegadgetwrapper.h"
 
 NodeGadgetWrapper::NodeGadgetWrapper(const NodeInfoContainer& info)
     : _info(info)

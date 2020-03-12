@@ -25,7 +25,7 @@
 #include <QStringList>
 #include <QtGlobal>
 
-#include "platform.h"
+#include "source/Helpers/platform.h"
 
 namespace AppSettings {
 

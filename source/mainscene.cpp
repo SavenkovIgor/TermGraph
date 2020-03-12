@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "mainscene.h"
+#include "source/mainscene.h"
 #include "source/Managers/notificationmanager.h"
 
 MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* parent)

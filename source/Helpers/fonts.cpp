@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "fonts.h"
+#include "source/Helpers/fonts.h"
 
 QFont Fonts::getFont()
 {

@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "termgroup.h"
+#include "source/Model/TerminGroup/termgroup.h"
 
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/fonts.h"

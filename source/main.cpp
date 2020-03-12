@@ -19,12 +19,12 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "mainwindow.h"
 #include <QApplication>
 #include <QSurface>
 #include <QtQuickControls2/QQuickStyle>
 
 #include "source/Helpers/platform.h"
+#include "source/mainwindow.h"
 
 #ifdef Q_OS_ANDROID
 #include <QtSvg>  //Because deployment sometimes just forgets to include this lib otherwise

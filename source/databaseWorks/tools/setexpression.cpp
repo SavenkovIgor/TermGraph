@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "setexpression.h"
+#include "source/databaseWorks/tools/setexpression.h"
 
 void SetExpression::set(const TColumn& column, const int& value)
 {

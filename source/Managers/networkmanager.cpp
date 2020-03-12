@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "networkmanager.h"
+#include "source/Managers/networkmanager.h"
 
 NetworkManager::NetworkManager(QObject* parent)
     : QObject(parent)

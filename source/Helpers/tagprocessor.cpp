@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "tagprocessor.h"
+#include "source/Helpers/tagprocessor.h"
 
 TagProcessor::TagProcessor(QObject* parent)
     : QObject(parent)

@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "groupnamecache.h"
+#include "source/Model/TerminGroup/groupnamecache.h"
 
 GroupNameCache::GroupNameCache(const PaintedTerm::List& nodes)
 {

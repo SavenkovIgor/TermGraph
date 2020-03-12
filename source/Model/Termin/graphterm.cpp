@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "graphterm.h"
+#include "source/Model/Termin/graphterm.h"
 
 GraphTerm::GraphTerm(const NodeInfoContainer& info)
     : InfoTerm(info)

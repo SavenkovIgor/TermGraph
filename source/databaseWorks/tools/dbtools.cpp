@@ -19,10 +19,9 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "dbtools.h"
+#include "source/databaseWorks/tools/dbtools.h"
 
 #include <QSqlError>
-//#include <QDebug>
 
 #include "source/databaseWorks/sqlqueryconstructor.h"
 

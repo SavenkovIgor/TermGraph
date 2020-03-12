@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "nodeverticalstack.h"
+#include "source/Model/TerminGroup/nodeverticalstack.h"
 
 #include "source/Helpers/helpstuff.h"
 

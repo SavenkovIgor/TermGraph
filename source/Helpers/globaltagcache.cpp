@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "globaltagcache.h"
+#include "source/Helpers/globaltagcache.h"
 
 GlobalTagCache& GlobalTagCache::instance()
 {

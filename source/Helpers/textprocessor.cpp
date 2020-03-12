@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "textprocessor.h"
+#include "source/Helpers/textprocessor.h"
 
 TextProcessor::TextProcessor(QObject* parent)
     : QObject(parent)

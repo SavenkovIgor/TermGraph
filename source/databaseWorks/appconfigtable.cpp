@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "appconfigtable.h"
+#include "source/databaseWorks/appconfigtable.h"
 
 void AppConfigTable::initTable()
 {

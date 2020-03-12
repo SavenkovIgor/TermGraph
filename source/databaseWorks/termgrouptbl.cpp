@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "termgrouptbl.h"
+#include "source/databaseWorks/termgrouptbl.h"
 
 #include "source/databaseWorks/columns/termgroupcolumn.h"
 

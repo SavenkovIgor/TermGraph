@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "fsworks.h"
+#include "source/Helpers/fsworks.h"
 
 #include <QApplication>
 #include <QDir>

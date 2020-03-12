@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "edge.h"
+#include "source/Model/TerminEdge/edge.h"
 
 #include "source/Helpers/appstyle.h"
 #include "source/Model/Termin/paintedterm.h"

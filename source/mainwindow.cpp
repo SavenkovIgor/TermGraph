@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "mainwindow.h"
+#include "source/mainwindow.h"
 
 #include <QApplication>
 #include <QScreen>

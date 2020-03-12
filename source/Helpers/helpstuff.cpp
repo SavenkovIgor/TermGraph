@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "helpstuff.h"
+#include "source/Helpers/helpstuff.h"
 
 QString HelpStuff::ptToStr(const int& x, const int& y)
 {

@@ -25,9 +25,9 @@
 #include <QJsonObject>
 #include <QObject>
 
-#include "groupsmanager.h"
-#include "networkmanager.h"
-#include "nodesmanager.h"
+#include "source/Managers/groupsmanager.h"
+#include "source/Managers/networkmanager.h"
+#include "source/Managers/nodesmanager.h"
 
 class SyncManager : public QObject
 {

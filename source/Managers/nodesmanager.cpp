@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "nodesmanager.h"
+#include "source/Managers/nodesmanager.h"
 
 #include "source/Managers/jsonnodeinfocontainerparser.h"
 #include "source/databaseWorks/columns/nodecolumn.h"

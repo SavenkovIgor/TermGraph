@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "insertcontainer.h"
+#include "source/databaseWorks/tools/insertcontainer.h"
 
 InsertContainer::InsertContainer(const TColumn& column, const QString& value)
     : columnName(column.name)

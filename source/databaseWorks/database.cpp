@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "database.h"
+#include "source/databaseWorks/database.h"
 
 #include <QDateTime>
 #include <QString>

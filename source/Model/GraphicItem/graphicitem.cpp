@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "graphicitem.h"
+#include "source/Model/GraphicItem/graphicitem.h"
 
 void GraphicItem::setParentItem(GraphicItem* item)
 {

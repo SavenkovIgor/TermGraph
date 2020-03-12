@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "wherecondition.h"
+#include "source/databaseWorks/tools/wherecondition.h"
 
 WhereCondition::WhereCondition(const ConditionType& type)
 {

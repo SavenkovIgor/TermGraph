@@ -24,7 +24,7 @@
 #include <QSizeF>
 #include <QString>
 
-#include "nodeinfocontainer.h"
+#include "source/Model/Termin/nodeinfocontainer.h"
 
 // This class contains all "information" part of term, like name, definition and other...
 class InfoTerm
