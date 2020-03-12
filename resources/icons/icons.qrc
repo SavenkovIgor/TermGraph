@@ -21,5 +21,6 @@
         <file>trash.svg</file>
         <file>warning.svg</file>
         <file>crossOnCircle.svg</file>
+        <file>options.svg</file>
     </qresource>
 </RCC>

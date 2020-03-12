@@ -173,6 +173,15 @@ M.Page {
                 onTriggered: header.switchSelection()
             }
         }
+
+        A.ToolButton {
+            id: options
+
+            action: Action {
+                icon.source: IconPath.options
+                onTriggered: sceneCanvas.makeScreenshot()
+            }
+        }
     }
 
     M.SearchResults {
