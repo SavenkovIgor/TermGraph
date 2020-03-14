@@ -97,6 +97,8 @@ target_sources (${PROJECT_NAME}
         source/Helpers/tagprocessor.h
         source/Helpers/textprocessor.cpp
         source/Helpers/textprocessor.h
+        source/Helpers/intmatrix.cpp
+        source/Helpers/intmatrix.h
 
         source/Managers/groupsmanager.cpp
         source/Managers/groupsmanager.h

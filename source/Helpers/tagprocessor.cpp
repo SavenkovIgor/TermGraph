@@ -21,6 +21,8 @@
 
 #include "source/Helpers/tagprocessor.h"
 
+#include "source/Helpers/intmatrix.h"
+
 TagProcessor::TagProcessor(QObject* parent)
     : QObject(parent)
 {}
@@ -143,10 +145,12 @@ int TagProcessor::getLevDistance(QStringView src, QStringView dst, int limit)
     if (n == 0)
         return m;
 
-    std::vector<std::vector<int>> matrix(m + 1);
+    static IntMatrix matrixContainer;
+    matrixContainer.checkSize(n + 1, m + 1);
+
+    auto& matrix = matrixContainer.matrix;
 
     for (int i = 0; i <= m; ++i) {
-        matrix[i].resize(n + 1);
         matrix[i][0] = i;
     }
 
