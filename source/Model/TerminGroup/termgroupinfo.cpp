@@ -182,7 +182,7 @@ PaintedTerm* TermGroupInfo::getNearestNodeForTag(const QString& tag)
         if (cacheMatch) {
             optionalResult = cacheMatch.value();
         } else {
-            optionalResult = TagProcessor::getDistanceBetweenTagAndTerm(tag, termName);
+            optionalResult = TagProcessor::getDistanceBetweenTagAndTerm(tag, termName, minDistance);
             GlobalTagCache::instance().add(tag, termName, optionalResult);
         }
 

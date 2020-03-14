@@ -193,7 +193,7 @@ bool TagProcessor::tagLengthSuitTerm(const QString& tag, const QString& termName
     return stringSizeDiffer < maxWordDistance;
 }
 
-std::optional<int> TagProcessor::getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName)
+std::optional<int> TagProcessor::getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit)
 {
     // For developing needs
     assert(termName == termName.toLower());
@@ -204,7 +204,7 @@ std::optional<int> TagProcessor::getDistanceBetweenTagAndTerm(const QString& tag
         return 0;
 
     int wordsCountInTag = tag.count(' ') + 1;
-    int maxWordDistance = 4 * wordsCountInTag;
+    int maxWordDistance = std::min(4 * wordsCountInTag, maxLimit);
 
     auto stringSizeDiffer = std::abs(termName.size() - tag.size());
     if (stringSizeDiffer > maxWordDistance)  // No need to check. Term is not suit already

@@ -53,7 +53,7 @@ public:
 
     static int                wordsCount(const QString& string);
     static bool               tagLengthSuitTerm(const QString& tag, const QString& termName);
-    static std::optional<int> getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName);
+    static std::optional<int> getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit);
 
 public slots:
     static bool        isValidCursor(const QString& str, int cursorPosition);
