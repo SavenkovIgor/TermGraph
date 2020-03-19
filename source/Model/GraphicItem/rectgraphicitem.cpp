@@ -48,6 +48,9 @@ QRectF RectGraphicItem::getRect(CoordType coord) const
     case CoordType::scene:
         return QRectF(scenePos(), _size);
     }
+
+    assert(false);  // must be unreachable
+    return QRectF();
 }
 
 QSizeF RectGraphicItem::getSize() const

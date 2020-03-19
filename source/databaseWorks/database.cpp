@@ -127,15 +127,13 @@ void Database::makeDbUpdate()
     auto dbVersion = currentDbVersion();
 
     qInfo("Updating database!");
-    auto startVersionMsg = QString("Start version: %1").arg(dbVersion);
-    qInfo(startVersionMsg.toStdString().c_str());
+    qInfo("Start version: %d", dbVersion);
 
     execMigrationConditions(dbVersion);
 
     appConfigTable->updateDbVersionNumber();
 
-    auto endVersionMsg = QString("Update finished. New db version: %1").arg(currentDbVersion());
-    qInfo(endVersionMsg.toStdString().c_str());
+    qInfo("Update finished. New db version: %d", currentDbVersion());
 }
 
 void Database::execMigrationConditions(const int& currentDbVersion)
@@ -211,8 +209,7 @@ void Database::updateNodesToSecondVersion()
     auto countInOld = DbTools::recordsCount(base, "termNode");
     auto countInNew = DbTools::recordsCount(base, "terms");
 
-    auto countComapreMsg = QString("Old count: %1 new count: %2").arg(countInOld).arg(countInNew);
-    qInfo(countComapreMsg.toStdString().c_str());
+    qInfo("Old count: %d new count: %d", countInOld, countInNew);
 
     if (countInOld == countInNew) {
         // Dropping old table
@@ -256,8 +253,7 @@ void Database::updateGroupsToSecondVersion()
     auto countInOld = DbTools::recordsCount(base, "termGroup");
     auto countInNew = DbTools::recordsCount(base, "groups");
 
-    auto countComapreMsg = QString("Old count: %1 new count: %2").arg(countInOld).arg(countInNew);
-    qInfo(countComapreMsg.toStdString().c_str());
+    qInfo("Old count: %d new count: %d", countInOld, countInNew);
 
     if (countInOld == countInNew) {
         // Dropping old table

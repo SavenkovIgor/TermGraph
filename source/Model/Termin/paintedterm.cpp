@@ -125,6 +125,9 @@ QRectF PaintedTerm::getNodeRect(CoordType inCoordinates) const
     case CoordType::scene:
         return QRectF(scenePos(), nodeSize);
     }
+
+    assert(false);  // must be unreachable
+    return QRectF();
 }
 
 QRectF PaintedTerm::getFrameRect(CoordType inCoordinates) const
@@ -231,7 +234,7 @@ int PaintedTerm::getIntersections(bool swapped)
             QLineF l1 = edges[i]->getLine(swapped), l2 = edges[j]->getLine(swapped);
 
             QPointF* interPt = new QPointF();
-            if (l1.intersect(l2, interPt) == QLineF::BoundedIntersection) {
+            if (l1.intersects(l2, interPt) == QLineF::BoundedIntersection) {
                 bool nearFound = false;
 
                 qreal dist = 0.01;
@@ -415,6 +418,9 @@ QColor PaintedTerm::baseColor(NodeType type, bool selected)
     case NodeType::middleLeaf:
         return selected ? AppStyle::Colors::Nodes::leafSelected : AppStyle::Colors::Nodes::leaf;
     }
+
+    assert(false);  // must be unreachable
+    return AppStyle::Colors::Nodes::orphan;
 }
 
 qreal PaintedTerm::getCornerRadius() const

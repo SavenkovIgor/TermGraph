@@ -89,7 +89,7 @@ void NodeVerticalStack::sortTerms()
                 nMax = j;
             }
         }
-        tmpList.swap(i, nMax);
+        tmpList.swapItemsAt(i, nMax);
     }
 
     PaintedTerm::List ret;
