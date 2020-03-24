@@ -195,4 +195,4 @@ target_link_libraries (${PROJECT_NAME}
         Qt5::Svg
 )
 
-#add_subdirectory (tests)
+add_subdirectory (tests)

@@ -17,7 +17,25 @@
 #  You should have received a copy of the GNU General Public License
 #  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
 
-enable_testing ()
+find_package (Qt5Test REQUIRED)
 
-add_subdirectory (tagProcessor)
-add_subdirectory (textProcessor)
+add_executable (${PROJECT_NAME}_tag_processor_test)
+
+include_directories (${CMAKE_SOURCE_DIR})
+
+target_sources (${PROJECT_NAME}_tag_processor_test
+    PRIVATE
+        ${CMAKE_SOURCE_DIR}/source/Helpers/tagprocessor.cpp
+        ${CMAKE_SOURCE_DIR}/source/Helpers/tagprocessor.h
+        ${CMAKE_SOURCE_DIR}/source/Helpers/intmatrix.cpp
+        ${CMAKE_SOURCE_DIR}/source/Helpers/intmatrix.h
+
+        tagprocessortest.cpp
+)
+
+add_test (
+    NAME    ${PROJECT_NAME}_tag_processor_test
+    COMMAND ${PROJECT_NAME}_tag_processor_test
+)
+
+target_link_libraries (${PROJECT_NAME}_tag_processor_test PRIVATE Qt5::Test)

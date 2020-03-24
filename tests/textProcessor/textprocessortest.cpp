@@ -24,7 +24,7 @@
 #include <QDebug>
 
 // add necessary includes here
-#include "../../../TermGraph/source/Helpers/textprocessor.h"
+#include "source/Helpers/textprocessor.h"
 
 class TextProcessorTest : public QObject
 {
@@ -113,5 +113,4 @@ private slots:
 
 QTEST_APPLESS_MAIN(TextProcessorTest)
 
-#include "tst_textprocessortest.moc"
-
+#include "textprocessortest.moc"

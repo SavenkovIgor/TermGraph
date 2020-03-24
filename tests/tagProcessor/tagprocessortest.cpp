@@ -24,7 +24,7 @@
 #include <QDebug>
 
 // add necessary includes here
-#include "../source/Helpers/tagprocessor.h"
+#include "source/Helpers/tagprocessor.h"
 
 class TagProcessorTest : public QObject
 {
@@ -456,5 +456,4 @@ private slots:
 
 QTEST_APPLESS_MAIN(TagProcessorTest)
 
-#include "tst_tagprocessortest.moc"
-
+#include "tagprocessortest.moc"
