@@ -3,7 +3,7 @@ rules:
     message: Must be space between method name and bracket
     glob:
       - "CMakeLists.txt"
-      - "tests/CMakeLists.txt"
+      - "**/**/CMakeLists.txt"
     pattern:
       - /^\s*[a-z_]+\(/
 
@@ -11,7 +11,7 @@ rules:
     message: Invalid license. Check rule or copy from valid file
     glob:
       - "CMakeLists.txt"
-      - "tests/CMakeLists.txt"
+      - "**/**/CMakeLists.txt"
     not:
       pattern:
         literal: |
@@ -38,7 +38,7 @@ rules:
     message: File must start from license comment
     glob:
       - "CMakeLists.txt"
-      - "tests/CMakeLists.txt"
+      - "**/**/CMakeLists.txt"
     not:
       pattern:
         - /\A#.*(License).*/m
