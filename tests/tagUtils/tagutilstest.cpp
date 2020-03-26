@@ -24,15 +24,15 @@
 #include <QDebug>
 
 // add necessary includes here
-#include "source/Helpers/tagprocessor.h"
+#include "source/Helpers/tagutils.h"
 
-class TagProcessorTest : public QObject
+class TagUtilsTest : public QObject
 {
     Q_OBJECT
 
 public:
-    TagProcessorTest() = default;
-    ~TagProcessorTest() override = default;
+    TagUtilsTest()           = default;
+    ~TagUtilsTest() override = default;
 
 private slots:
 
@@ -59,7 +59,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(bool, result);
-        QVERIFY(TagProcessor::isPairedBrackets(text) == result);
+        QVERIFY(TagUtils::isPairedBrackets(text) == result);
     }
 
     void bracketsDepth_data()
@@ -84,7 +84,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(int, result);
-        QVERIFY(TagProcessor::getMaxDepthOfNestedBrackets(text) == result);
+        QVERIFY(TagUtils::getBracketsDepth(text) == result);
     }
 
     void tagExtraction_data()
@@ -111,16 +111,16 @@ private slots:
         QFETCH(QString, src);
         QFETCH(QStringList, tags);
 
-        QVERIFY(TagProcessor::extractTags(src) == tags);
+        QVERIFY(TagUtils::extractTags(src) == tags);
 
-        QBENCHMARK(TagProcessor::extractTags(src));
+        QBENCHMARK(TagUtils::extractTags(src));
     }
 
     void wordBorder_data()
     {
         QTest::addColumn<int>("dir");
         QTest::addColumn<QString>("src");
-        QTest::addColumn<int>("startPosition");
+        QTest::addColumn<int>("startFrom");
         QTest::addColumn<int>("targetPosition");
 
         // Предполагается что -1 - влево, 1 - вправо
@@ -166,26 +166,24 @@ private slots:
     {
         QFETCH(int, dir);
         QFETCH(QString, src);
-        QFETCH(int, startPosition);
+        QFETCH(int, startFrom);
         QFETCH(int, targetPosition);
 
-        auto left = TagProcessor::SearchDirection::left;
-        auto right = TagProcessor::SearchDirection::right;
+        auto left  = TagUtils::SearchDirection::left;
+        auto right = TagUtils::SearchDirection::right;
 
-        if (dir == 1) {
-            QVERIFY(TagProcessor::searchWordBorder(right, src, startPosition) == targetPosition);
-        }
+        if (dir == 1)
+            QVERIFY(TagUtils::findWordBorder(src, startFrom, right) == targetPosition);
 
-        if (dir == -1) {
-            QVERIFY(TagProcessor::searchWordBorder(left, src, startPosition) == targetPosition);
-        }
+        if (dir == -1)
+            QVERIFY(TagUtils::findWordBorder(src, startFrom, left) == targetPosition);
     }
 
     void nearestBracket_data()
     {
         QTest::addColumn<int>("dir");
         QTest::addColumn<QString>("src");
-        QTest::addColumn<int>("startPosition");
+        QTest::addColumn<int>("startFrom");
         QTest::addColumn<QChar>("bracket");
 
         QChar leftBracket = '{';
@@ -219,18 +217,18 @@ private slots:
     {
         QFETCH(int, dir);
         QFETCH(QString, src);
-        QFETCH(int, startPosition);
+        QFETCH(int, startFrom);
         QFETCH(QChar, bracket);
 
-        auto left = TagProcessor::SearchDirection::left;
-        auto right = TagProcessor::SearchDirection::right;
+        auto left  = TagUtils::SearchDirection::left;
+        auto right = TagUtils::SearchDirection::right;
 
         if (dir == 1) {
-            QVERIFY(TagProcessor::getNearesBracket(right, src, startPosition) == bracket);
+            QVERIFY(TagUtils::getBracket(src, startFrom, right) == bracket);
         }
 
         if (dir == -1) {
-            QVERIFY(TagProcessor::getNearesBracket(left, src, startPosition) == bracket);
+            QVERIFY(TagUtils::getBracket(src, startFrom, left) == bracket);
         }
     }
 
@@ -271,7 +269,7 @@ private slots:
         QFETCH(int, cursorPosition);
         QFETCH(bool, result);
 
-        QVERIFY(TagProcessor::isInsideTag(src, cursorPosition) == result);
+        QVERIFY(TagUtils::isInsideTag(src, cursorPosition) == result);
     }
 
     void validCursor_data()
@@ -295,7 +293,7 @@ private slots:
         QFETCH(int, cursorPosition);
         QFETCH(bool, result);
 
-        QVERIFY(TagProcessor::isValidCursor(src, cursorPosition) == result);
+        QVERIFY(TagUtils::isValidCursor(src, cursorPosition) == result);
     }
 
     void addTags_data()
@@ -331,9 +329,7 @@ private slots:
         QFETCH(int, cursorPosition);
         QFETCH(QString, result);
 
-        auto proc = new TagProcessor();
-
-        QVERIFY(proc->addTag(src, cursorPosition) == result);
+        QVERIFY(TagUtils::addTag(src, cursorPosition) == result);
     }
 
     void removeTags_data()
@@ -367,9 +363,7 @@ private slots:
         QFETCH(int, cursorPosition);
         QFETCH(QString, result);
 
-        auto proc = new TagProcessor();
-
-        QVERIFY(proc->removeTag(src, cursorPosition) == result);
+        QVERIFY(TagUtils::removeTag(src, cursorPosition) == result);
     }
 
     void extendRight_data()
@@ -428,9 +422,7 @@ private slots:
         QFETCH(int, cursorPosition);
         QFETCH(QString, result);
 
-        auto proc = new TagProcessor();
-
-        QVERIFY(proc->expandTagRight(src, cursorPosition) == result);
+        QVERIFY(TagUtils::expandTagRight(src, cursorPosition) == result);
     }
 
     void decorateTags_data()
@@ -448,12 +440,10 @@ private slots:
         QFETCH(QString, src);
         QFETCH(QString, result);
 
-        auto proc = new TagProcessor();
-
-        QVERIFY(proc->decorateTags(src) == result);
+        QVERIFY(TagUtils::replaceTags(src, "<font color=\"#6d9a28\">", "</font>") == result);
     }
 };
 
-QTEST_APPLESS_MAIN(TagProcessorTest)
+QTEST_APPLESS_MAIN(TagUtilsTest)
 
-#include "tagprocessortest.moc"
+#include "tagutilstest.moc"

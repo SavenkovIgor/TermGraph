@@ -25,6 +25,7 @@
 #include "source/Helpers/fonts.h"
 #include "source/Helpers/helpstuff.h"
 #include "source/Helpers/tagprocessor.h"
+#include "source/Helpers/tagutils.h"
 #include "source/Helpers/textprocessor.h"
 
 InfoTerm::InfoTerm(const NodeInfoContainer& info)
@@ -108,7 +109,7 @@ QString InfoTerm::getDefinition() const
 
 QStringList InfoTerm::getDefinitionTags() const
 {
-    auto tags = TagProcessor::extractTags(getDefinition());
+    auto tags = TagUtils::extractTags(getDefinition());
 
     for (auto& tag : tags)
         tag = tag.toLower();

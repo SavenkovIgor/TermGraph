@@ -95,6 +95,8 @@ target_sources (${PROJECT_NAME}
         source/Helpers/simplelistenserver.h
         source/Helpers/tagprocessor.cpp
         source/Helpers/tagprocessor.h
+        source/Helpers/tagutils.cpp
+        source/Helpers/tagutils.h
         source/Helpers/textprocessor.cpp
         source/Helpers/textprocessor.h
         source/Helpers/intmatrix.cpp

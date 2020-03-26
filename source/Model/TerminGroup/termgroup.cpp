@@ -23,7 +23,7 @@
 
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/fonts.h"
-#include "source/Helpers/tagprocessor.h"
+#include "source/Helpers/tagutils.h"
 
 int TermGroup::animSpeed = 300;
 
@@ -246,7 +246,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit)
         auto cuttedTerm = lowerTerm.left(searchText.size());  // Compare only left n characters
 
         auto acceptableLimit = static_cast<int>(cuttedTerm.size() * 0.25);
-        auto distance        = TagProcessor::getLevDistance(cuttedTerm, searchText, acceptableLimit);
+        auto distance        = TagUtils::getLevDistance(cuttedTerm, searchText, acceptableLimit);
 
         if (distance <= acceptableLimit)
             searchResults << QPair(distance, node->getUuid());

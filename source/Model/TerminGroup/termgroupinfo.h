@@ -25,7 +25,6 @@
 #include <stdlib.h>
 #include <QUuid>
 
-#include "source/Helpers/tagprocessor.h"
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminGroup/groupinfocontainer.h"
 #include "source/Model/TerminGroup/termtree.h"

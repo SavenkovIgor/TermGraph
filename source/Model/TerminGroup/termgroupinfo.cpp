@@ -24,6 +24,7 @@
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/globaltagcache.h"
 #include "source/Helpers/helpstuff.h"
+#include "source/Helpers/tagutils.h"
 #include "source/Model/TerminGroup/groupnamecache.h"
 
 TermGroupInfo::TermGroupInfo(const GroupInfoContainer& info)
@@ -175,14 +176,14 @@ PaintedTerm* TermGroupInfo::getNearestNodeForTag(const QString& tag)
     for (auto node : nodesList) {
         auto termName = node->getCachedLowerTerm();
 
-        if (!TagProcessor::tagLengthSuitTerm(tag, termName))
+        if (!TagUtils::tagLengthSuitTerm(tag, termName))
             continue;
 
         auto cacheMatch = GlobalTagCache::instance().get(tag, termName);
         if (cacheMatch) {
             optionalResult = cacheMatch.value();
         } else {
-            optionalResult = TagProcessor::getDistanceBetweenTagAndTerm(tag, termName, minDistance);
+            optionalResult = TagUtils::getDistanceBetweenTagAndTerm(tag, termName, minDistance);
             GlobalTagCache::instance().add(tag, termName, optionalResult);
         }
 

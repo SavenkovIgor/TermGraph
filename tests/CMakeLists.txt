@@ -19,5 +19,5 @@
 
 enable_testing ()
 
-add_subdirectory (tagProcessor)
+add_subdirectory (tagUtils)
 add_subdirectory (textProcessor)
