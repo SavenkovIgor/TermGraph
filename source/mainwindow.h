@@ -26,7 +26,6 @@
 #include <QQmlContext>
 
 #include "source/mainscene.h"
-#include "source/Helpers/tagprocessor.h"
 #include "source/Helpers/textprocessor.h"
 #include "source/Helpers/appconfig.h"
 #include "source/Managers/syncmanager.h"
@@ -54,7 +53,6 @@ private:
     QScopedPointer<NodesManager> nodesManager;
 
     // Helper stuff (still independent init)
-    QScopedPointer<TagProcessor> tagProcessor;
     QScopedPointer<TextProcessor> textProcessor;
 
     // Dependent init

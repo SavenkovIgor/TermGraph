@@ -23,6 +23,8 @@ import QtQuick 2.14
 import QtQuick.Controls 2.14
 import QtQuick.Layouts 1.14
 
+import Helpers 1.0
+
 import "../Atoms" as A
 import "../Molecules" as M
 import "../Js/Colors.js" as Colors
@@ -30,6 +32,8 @@ import "../Js/IconPath.js" as IconPath
 
 M.Page {
     id: root
+
+    property TagProcessor tagTools: TagProcessor { }
 
     title: "Термин"
 
@@ -73,7 +77,7 @@ M.Page {
 
             M.LabelPair {
                 name: "Определение:"
-                text: tagProcessor.decorateTags(scene.getCurrNodeNameAndDefinition())
+                text: tagTools.decorateTags(scene.getCurrNodeNameAndDefinition())
                 visible: text !== ""
             }
 

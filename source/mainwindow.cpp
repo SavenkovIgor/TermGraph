@@ -25,16 +25,16 @@
 #include <QScreen>
 
 #include "source/Helpers/platform.h"
+#include "source/Helpers/tagprocessor.h"
 #include "source/Managers/notificationmanager.h"
-#include "source/databaseWorks/database.h"
-#include "source/Model/TerminEdge/edge.h"
 #include "source/Model/Termin/paintedterm.h"
+#include "source/Model/TerminEdge/edge.h"
+#include "source/databaseWorks/database.h"
 
 MainWindow::MainWindow(QObject* parent)
     : QObject(parent)
     , network(new NetworkManager())
     , nodesManager(new NodesManager())
-    , tagProcessor(new TagProcessor())
     , textProcessor(new TextProcessor())
     , groupsManager(new GroupsManager(nodesManager.get()))
     , syncManager(new SyncManager(network.get(), groupsManager.get(), nodesManager.get()))
@@ -60,13 +60,13 @@ MainWindow::MainWindow(QObject* parent)
 
     qmlRegisterAnonymousType<PaintedTerm>("Graph", 1);
     qmlRegisterAnonymousType<Edge>("Graph", 1);
+    qmlRegisterType<TagProcessor>("Helpers", 1, 0, "TagProcessor");
 
     qmlEngine->rootContext()->setContextProperty("mainObj", this);
     qmlEngine->rootContext()->setContextProperty("scene", scene.get());
     qmlEngine->rootContext()->setContextProperty("networkManager", network.get());
     qmlEngine->rootContext()->setContextProperty("groupsManager", groupsManager.get());
     qmlEngine->rootContext()->setContextProperty("nodesManager", nodesManager.get());
-    qmlEngine->rootContext()->setContextProperty("tagProcessor", tagProcessor.get());
     qmlEngine->rootContext()->setContextProperty("textProcessor", textProcessor.get());
     qmlEngine->rootContext()->setContextProperty("syncManager", syncManager.get());
     qmlEngine->load(QUrl("qrc:/main.qml"));

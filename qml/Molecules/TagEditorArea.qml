@@ -21,16 +21,20 @@
 
 import QtQuick 2.14
 
+import Helpers 1.0
+
 import "../Molecules" as M
 
 M.TextArea {
     id: root
 
+    property TagProcessor tagTools: TagProcessor { }
+
     readonly property bool isInsideTag: {
         // Cursor can be invalid in moment of text editing
         let pos = cursorPosition;
-        if (tagProcessor.isValidCursor(text, pos))
-            return tagProcessor.isInsideTag(text, pos);
+        if (tagTools.isValidCursor(text, pos))
+            return tagTools.isInsideTag(text, pos);
 
         return false;
     }
@@ -43,7 +47,7 @@ M.TextArea {
         let pos = cursorPosition;
 
         if (!isInsideTag) {
-            text = tagProcessor.addTag(text, pos);
+            text = tagTools.addTag(text, pos);
             takeFocusAndSetCursor(pos + 1);
         } else {
             takeFocusAndSetCursor(pos);
@@ -53,7 +57,7 @@ M.TextArea {
     function expandTagRight() {
         let pos = cursorPosition;
         if (isInsideTag) {
-            text = tagProcessor.expandTagRight(text, pos);
+            text = tagTools.expandTagRight(text, pos);
             takeFocusAndSetCursor(pos);
         }
     }
@@ -61,7 +65,7 @@ M.TextArea {
     function removeTag() {
         let pos = cursorPosition;
         if (isInsideTag) {
-            text = tagProcessor.removeTag(text, pos);
+            text = tagTools.removeTag(text, pos);
             takeFocusAndSetCursor(pos - 1);
         }
     }
