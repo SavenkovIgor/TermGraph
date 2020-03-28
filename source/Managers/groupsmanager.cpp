@@ -33,18 +33,6 @@ GroupsManager::GroupsManager(DataStorageInterface& dataStorage, NodesManager* no
     connect(nodesMgr, &NodesManager::nodeChanged, this, &GroupsManager::groupsListChanged);
 }
 
-QStringList GroupsManager::getAllGroupsNames(bool withAllVeiw)
-{
-    QList<QUuid> allUuids   = getAllUuidsSortedByLastEdit();
-    QStringList  groupNames = getGroupNames(allUuids);
-
-    if (withAllVeiw) {
-        groupNames.push_back("Все группы");
-    }
-
-    return groupNames;
-}
-
 QList<TermGroup*> GroupsManager::getAllGroups()
 {
     QList<TermGroup*> ret;
@@ -238,16 +226,11 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
     }
 
     // Sorting this structure
-    int nMaxDate;
-    for (int i = 0; i < groupSorting.size(); i++) {
-        nMaxDate = i;
-        for (int j = i + 1; j < groupSorting.size(); j++) {
-            if (groupSorting[nMaxDate].second < groupSorting[j].second) {
-                nMaxDate = j;
-            }
-        }
-        groupSorting.swapItemsAt(nMaxDate, i);
-    }
+    auto groupOrdering = [](const QPair<QUuid, QDateTime>& g1, const QPair<QUuid, QDateTime>& g2) {
+        return g1.second > g2.second;
+    };
+
+    std::sort(groupSorting.begin(), groupSorting.end(), groupOrdering);
 
     // Casting back to uuids only
     QList<QUuid> ret;

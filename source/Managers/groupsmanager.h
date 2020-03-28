@@ -50,7 +50,6 @@ signals:
 public slots:
     bool getHasAnyGroup() const;
 
-    QStringList  getAllGroupsNames(bool withAllVeiw = false);
     QList<QUuid> getAllUuidsSortedByLastEdit();
     QUuid        getLastEditedGroupUuid();
 
