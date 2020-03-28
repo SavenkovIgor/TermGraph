@@ -47,8 +47,8 @@ public:
     QUuid getUuid(const QString& groupName) const;
 
     // Checkers
-    bool hasGroupWithUuid(const QUuid& uuid);
-    bool hasGroupWithName(const QString& groupName);
+    bool groupExist(const QUuid& uuid);
+    bool groupWithNameExist(const QString& groupName);
 
     const char* tableName() const override;
     TColumn     primaryKey() const override;

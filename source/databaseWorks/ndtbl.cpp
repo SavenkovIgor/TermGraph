@@ -46,13 +46,13 @@ QUuid NodeTable::addNode(const QString& name, const QUuid& groupUuid)
 QUuid NodeTable::addNode(const QUuid& uuid, const QString& name, const QUuid& groupUuid)
 {
     assert(!name.simplified().isEmpty());
-    assert(!hasNodeWithUuid(uuid));
+    assert(!nodeExist(uuid));
 
     // Don't create node with empty name
     if (name.simplified() == "")
         return QUuid();
 
-    if (hasNodeWithUuid(uuid))
+    if (nodeExist(uuid))
         return QUuid();
 
     InsertContainer::List values;
@@ -71,14 +71,14 @@ QUuid NodeTable::addNode(const QUuid& uuid, const QString& name, const QUuid& gr
 QUuid NodeTable::addNode(const NodeInfoContainer& info)
 {
     assert(!info.term.simplified().isEmpty());
-    assert(!hasNodeWithUuid(info.uuid));
+    assert(!nodeExist(info.uuid));
 
     // Создать вершину не удалось
     if (info.term.simplified().isEmpty())
         return QUuid();
 
     // This node already exist
-    if (hasNodeWithUuid(info.uuid))
+    if (nodeExist(info.uuid))
         return QUuid();
 
     InsertContainer::List values;
@@ -253,12 +253,12 @@ RecVector NodeTable::getAllLastEditRecords()
 bool NodeTable::updateNode(const NodeInfoContainer& info, NodeTable::LastEditSource lastEditSource, bool checkLastEdit)
 {
     assert(!info.uuid.isNull());
-    assert(hasNodeWithUuid(info.uuid));
+    assert(nodeExist(info.uuid));
 
     if (info.uuid.isNull())
         return false;
 
-    if (!hasNodeWithUuid(info.uuid))
+    if (!nodeExist(info.uuid))
         return false;
 
     if (checkLastEdit) {
@@ -325,7 +325,7 @@ WhereCondition NodeTable::whereUuidEqual(const QUuid& uuid)
     return primaryKeyEqual(uuid.toString());
 }
 
-bool NodeTable::hasNodeWithUuid(const QUuid& uuid)
+bool NodeTable::nodeExist(const QUuid& nodeUuid)
 {
-    return isUuidExist(uuid);
+    return isUuidExist(nodeUuid);
 }

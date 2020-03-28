@@ -43,7 +43,7 @@ UuidList LocalDatabaseStorage::getAllGroupsUuidsSortedByLastEdit() const
 
 bool LocalDatabaseStorage::groupExist(const QUuid& groupUuid) const
 {
-    return db.groupTable->hasGroupWithUuid(groupUuid);
+    return db.groupTable->groupExist(groupUuid);
 }
 
 GroupInfoContainer LocalDatabaseStorage::getGroup(const QUuid& groupUuid) const
@@ -73,7 +73,7 @@ UuidList LocalDatabaseStorage::getAllNodesUuids(const QUuid& groupUuid) const
 
 bool LocalDatabaseStorage::nodeExist(const QUuid& nodeUuid) const
 {
-    return db.nodeTable->hasNodeWithUuid(nodeUuid);
+    return db.nodeTable->nodeExist(nodeUuid);
 }
 
 QUuid LocalDatabaseStorage::findNode(const QString& nodeName, QUuid& groupUuid) const

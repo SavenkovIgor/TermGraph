@@ -44,7 +44,7 @@ public:
     QUuid addNode(const QUuid& uuid, const QString& name, const QUuid& groupUuid);
     QUuid addNode(const NodeInfoContainer& info);  // TODO: remove all other functioins and change to bool
 
-    bool hasNodeWithUuid(const QUuid& uuid);
+    bool nodeExist(const QUuid& nodeUuid);
 
     UuidList                getAllNodesUuids(const QUuid& groupUuid = QUuid());
     NodeInfoContainer       getNode(const QUuid& uuid);

@@ -33,7 +33,7 @@ bool TermGroupTable::addGroup(const GroupInfoContainer& info)
     if (info.name.simplified().isEmpty())
         return false;
 
-    if (hasGroupWithName(info.name))
+    if (groupWithNameExist(info.name))
         return false;
 
     InsertContainer::List values;
@@ -50,7 +50,7 @@ bool TermGroupTable::updateGroup(const GroupInfoContainer& info)
     if (info.uuid.isNull())
         return false;
 
-    if (!hasGroupWithUuid(info.uuid))
+    if (!groupExist(info.uuid))
         return false;
 
     SetExpression set;
@@ -83,7 +83,7 @@ void TermGroupTable::deleteGroup(const QUuid& uuid)
     deleteWhere(whereUuidEqual(uuid));
 }
 
-bool TermGroupTable::hasGroupWithUuid(const QUuid& uuid)
+bool TermGroupTable::groupExist(const QUuid& uuid)
 {
     return hasAnyRecord(whereUuidEqual(uuid));
 }
@@ -93,7 +93,7 @@ QUuid TermGroupTable::generateNewUuid()
     QUuid uuid;
     for (int i = 0; i < 1000; i++) {
         uuid = QUuid::createUuid();
-        if (!hasGroupWithUuid(uuid)) {
+        if (!groupExist(uuid)) {
             break;
         }
     }
@@ -120,7 +120,7 @@ RecVector TermGroupTable::getAllUuidsAndNames()
     return toRecVector(std::move(sel));
 }
 
-bool TermGroupTable::hasGroupWithName(const QString& groupName)
+bool TermGroupTable::groupWithNameExist(const QString& groupName)
 {
     return !getUuid(groupName).isNull();
 }
