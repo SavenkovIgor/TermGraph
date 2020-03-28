@@ -22,8 +22,6 @@
 #include "source/Managers/groupsmanager.h"
 
 #include "source/Managers/jsongroupinfocontainerparser.h"
-#include "source/databaseWorks/columns/nodecolumn.h"
-#include "source/databaseWorks/columns/termgroupcolumn.h"
 
 GroupsManager::GroupsManager(DataStorageInterface& dataStorage, NodesManager* nodesMgr, QObject* parent)
     : QObject(parent)
@@ -193,50 +191,12 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 
 QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
 {
-    // Load info from groups table - need if any group is empty and has no lastEdit value
-    QMap<QUuid, QDateTime> groupsLastEdit;
-
-    for (const auto& uuid : dataStorage.getAllGroupsUuids()) {
-        groupsLastEdit.insert(uuid, QDateTime());
-    }
-
-    // Try to fill lastEdit dateTimes
-    // First - groupUuid, third - lastEdit
-    QList<std::tuple<QUuid, QDateTime>> allNodesLastEdits;
-
-    for (const auto& record : Database::instance().nodeTable->getAllLastEditRecords()) {
-        QUuid     groupUuid = QUuid(record.value(NodeColumn::groupUuid).toString());
-        QDateTime lastEdit  = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
-
-        if (groupsLastEdit.contains(groupUuid)) {
-            if (groupsLastEdit[groupUuid].isNull()) {
-                groupsLastEdit[groupUuid] = lastEdit;
-            } else {
-                groupsLastEdit[groupUuid] = std::max(groupsLastEdit[groupUuid], lastEdit);
-            }
-        }
-    }
-
-    // Casting to pairs
-    QList<QPair<QUuid, QDateTime>> groupSorting;
-
-    // Forming structure with group uuids and last edit times
-    for (auto& [groupUuid, lastEdit] : groupsLastEdit.toStdMap()) {
-        groupSorting.append(QPair(groupUuid, lastEdit));
-    }
-
-    // Sorting this structure
-    auto groupOrdering = [](const QPair<QUuid, QDateTime>& g1, const QPair<QUuid, QDateTime>& g2) {
-        return g1.second > g2.second;
-    };
-
-    std::sort(groupSorting.begin(), groupSorting.end(), groupOrdering);
-
-    // Casting back to uuids only
     QList<QUuid> ret;
 
-    for (const auto& group : groupSorting)
-        ret << group.first;
+    auto groupsUuids = dataStorage.getAllGroupsUuids(true);
+
+    for (const auto& uuid : groupsUuids)
+        ret << uuid;
 
     return ret;
 }

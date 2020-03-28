@@ -21,6 +21,11 @@
 
 #include "source/Managers/localdatabasestorage.h"
 
+#include <QMap>
+
+#include "source/databaseWorks/columns/nodecolumn.h"
+#include "source/databaseWorks/columns/termgroupcolumn.h"
+
 LocalDatabaseStorage::LocalDatabaseStorage(Database& db)
     : DataStorageInterface()
     , db(db)
@@ -31,14 +36,50 @@ int LocalDatabaseStorage::storageVersion() const
     return db.appConfigTable->getDbVersion();
 }
 
-UuidList LocalDatabaseStorage::getAllGroupsUuids() const
+UuidList LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
 {
-    return db.groupTable->getAllUuids();
-}
+    if (!sortByLastEdit)  // Simple variant
+        return db.groupTable->getAllUuids();
 
-UuidList LocalDatabaseStorage::getAllGroupsUuidsSortedByLastEdit() const
-{
-    return {};
+    // Load info from groups table - need if any group is empty and has no lastEdit value
+    QMap<QUuid, QDateTime> groupsLastEdit;
+
+    for (const auto& uuid : db.groupTable->getAllUuids())
+        groupsLastEdit.insert(uuid, QDateTime());
+
+    for (const auto& record : db.nodeTable->getAllLastEditRecords()) {
+        QUuid     groupUuid = QUuid(record.value(NodeColumn::groupUuid).toString());
+        QDateTime lastEdit  = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
+
+        if (groupsLastEdit.contains(groupUuid)) {
+            if (groupsLastEdit[groupUuid].isNull()) {
+                groupsLastEdit[groupUuid] = lastEdit;
+            } else {
+                groupsLastEdit[groupUuid] = std::max(groupsLastEdit[groupUuid], lastEdit);
+            }
+        }
+    }
+
+    // Casting to pairs
+    QList<QPair<QUuid, QDateTime>> groupSorting;
+
+    // Forming structure with group uuids and last edit times
+    for (auto& [groupUuid, lastEdit] : groupsLastEdit.toStdMap()) {
+        groupSorting.append(QPair(groupUuid, lastEdit));
+    }
+
+    // Sorting this structure
+    auto groupOrdering = [](const auto& g1, const auto& g2) { return g1.second > g2.second; };
+
+    std::sort(groupSorting.begin(), groupSorting.end(), groupOrdering);
+
+    // Casting back to uuids only
+    UuidList ret;
+
+    for (const auto& group : groupSorting)
+        ret.push_back(group.first);
+
+    return ret;
 }
 
 bool LocalDatabaseStorage::groupExist(const QUuid& groupUuid) const

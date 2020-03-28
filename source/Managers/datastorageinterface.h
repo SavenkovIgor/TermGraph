@@ -39,8 +39,7 @@ public:
     virtual int storageVersion() const = 0;
 
     // Groups
-    virtual UuidList getAllGroupsUuids() const                 = 0;
-    virtual UuidList getAllGroupsUuidsSortedByLastEdit() const = 0;
+    virtual UuidList getAllGroupsUuids(bool sortByLastEdit = false) const = 0;
 
     virtual bool                     groupExist(const QUuid& groupUuid) const = 0;
     virtual GroupInfoContainer       getGroup(const QUuid& groupUuid) const   = 0;

@@ -32,8 +32,7 @@ public:
 public:
     int storageVersion() const override;
 
-    UuidList getAllGroupsUuids() const override;
-    UuidList getAllGroupsUuidsSortedByLastEdit() const override;
+    UuidList getAllGroupsUuids(bool sortByLastEdit) const override;
 
     bool                     groupExist(const QUuid& groupUuid) const override;
     GroupInfoContainer       getGroup(const QUuid& groupUuid) const override;
