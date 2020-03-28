@@ -52,9 +52,9 @@ public:
     NodeInfoContainer::List getNodes(const UuidList* nodesUuids) const override;
     QDateTime               getNodeLastEdit(const QUuid& nodeUuid) const override;
 
-    QUuid addNode(const NodeInfoContainer& info) override;
-    bool  updateNode(const NodeInfoContainer& info, LastEditSource lastEditSource, bool checkLastEdit) override;
-    void  deleteNode(const QUuid& nodeUuid) override;
+    bool addNode(const NodeInfoContainer& info) override;
+    bool updateNode(const NodeInfoContainer& info, LastEditSource lastEditSource, bool checkLastEdit) override;
+    void deleteNode(const QUuid& nodeUuid) override;
 
 private:
     Database& db;

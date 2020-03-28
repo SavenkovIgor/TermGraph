@@ -43,9 +43,6 @@ signals:
     void nodeChanged();
 
 public slots:
-    bool  correctNewNodeName(const QString& name, QUuid& groupUuid, bool showWarnings = true);
-    QUuid getNodeUuidByNameAndGroup(const QString& name, QUuid& groupUuid) const;
-    bool  hasNodeWithNameInGroup(const QString& name, QUuid& groupUuid) const;
 
     /*[[nodiscard]]*/ bool addNewNode(const QString& name,
                                       const QString& def,
@@ -62,13 +59,6 @@ public slots:
                                       const QString& groupUuidString,
                                       const bool&    sendChangeSignal = true);
 
-    /*[[nodiscard]]*/ bool changeNode(const QUuid&   nodeUuid,
-                                      const QString& name,
-                                      const QString& definition,
-                                      const QString& description,
-                                      const QString& example,
-                                      const QUuid&   groupUuid,
-                                      const bool&    sendChangeSignal = true);
     void                   deleteNode(QUuid uuid);
 
     UuidList          getAllNodesUuidsInGroup(const QUuid& groupUuid);
@@ -82,5 +72,6 @@ public slots:
 private:
     DataStorageInterface& dataStorage;
 
-    bool correctGroupUuid(const QUuid& groupUuid, bool sendWarnings = true);
+    bool correctGroupUuid(const QUuid& groupUuid);
+    bool correctNewNodeName(const QString& name, QUuid& groupUuid);
 };

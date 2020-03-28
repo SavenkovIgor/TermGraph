@@ -43,49 +43,18 @@ QUuid NodeTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& group
     return QUuid();
 }
 
-QUuid NodeTable::addNode(const QString& name, const QUuid& groupUuid)
-{
-    QUuid uuid = generateNewUuid();
-    return addNode(uuid, name, groupUuid);
-}
-
-QUuid NodeTable::addNode(const QUuid& uuid, const QString& name, const QUuid& groupUuid)
-{
-    assert(!name.simplified().isEmpty());
-    assert(!nodeExist(uuid));
-
-    // Don't create node with empty name
-    if (name.simplified() == "")
-        return QUuid();
-
-    if (nodeExist(uuid))
-        return QUuid();
-
-    InsertContainer::List values;
-
-    values.push_back(InsertContainer(NodeColumn::uuid, uuid.toString()));
-    values.push_back(InsertContainer(NodeColumn::term, name));
-    values.push_back(InsertContainer(NodeColumn::groupUuid, groupUuid.toString()));
-    values.push_back(InsertContainer(NodeColumn::lastEdit, getLastEditNowString()));
-
-    insertInto(values);
-
-    updateLastEdit(uuid);
-    return uuid;
-}
-
-QUuid NodeTable::addNode(const NodeInfoContainer& info)
+bool NodeTable::addNode(const NodeInfoContainer& info)
 {
     assert(!info.term.simplified().isEmpty());
     assert(!nodeExist(info.uuid));
 
     // Создать вершину не удалось
     if (info.term.simplified().isEmpty())
-        return QUuid();
+        return false;
 
     // This node already exist
     if (nodeExist(info.uuid))
-        return QUuid();
+        return false;
 
     InsertContainer::List values;
 
@@ -115,7 +84,7 @@ QUuid NodeTable::addNode(const NodeInfoContainer& info)
 
     insertInto(values);
 
-    return info.uuid;
+    return true;
 }
 
 void NodeTable::deleteNode(const QUuid& uuid)
@@ -298,17 +267,6 @@ bool NodeTable::updateNode(const NodeInfoContainer&             info,
     updateWhere(set, whereUuidEqual(info.uuid));
 
     return true;
-}
-
-QSqlRecord NodeTable::getNodeSqlRecord(const QUuid& uuid)
-{
-    QSqlQuery sel = select(getAllColumns(), whereUuidEqual(uuid));
-
-    if (!sel.next()) {
-        return QSqlRecord();
-    }
-
-    return sel.record();
 }
 
 NodeInfoContainer NodeTable::recordToNodeInfo(QSqlRecord& record)

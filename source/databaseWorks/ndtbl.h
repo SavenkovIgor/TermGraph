@@ -36,9 +36,7 @@ public:
 
     QUuid nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const;
 
-    QUuid addNode(const QString& name, const QUuid& groupUuid);
-    QUuid addNode(const QUuid& uuid, const QString& name, const QUuid& groupUuid);
-    QUuid addNode(const NodeInfoContainer& info);  // TODO: remove all other functioins and change to bool
+    bool addNode(const NodeInfoContainer& info);
 
     bool nodeExist(const QUuid& nodeUuid);
 
@@ -70,8 +68,6 @@ private:
 
     static QDateTime getLastEditNow();
     static QString   getLastEditNowString();
-
-    QSqlRecord getNodeSqlRecord(const QUuid& uuid);  // TODO: Delete!
 
     NodeInfoContainer recordToNodeInfo(QSqlRecord& record);
 

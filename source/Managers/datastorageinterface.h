@@ -60,7 +60,7 @@ public:
     virtual NodeInfoContainer::List getNodes(const UuidList* nodesUuids) const                = 0;
     virtual QDateTime               getNodeLastEdit(const QUuid& nodeUuid) const              = 0;
 
-    virtual QUuid addNode(const NodeInfoContainer& info) = 0;
+    virtual bool addNode(const NodeInfoContainer& info) = 0;
     virtual bool updateNode(const NodeInfoContainer& info, LastEditSource lastEditSource, bool checkLastEdit = true) = 0;
-    virtual void  deleteNode(const QUuid& nodeUuid) = 0;
+    virtual void deleteNode(const QUuid& nodeUuid) = 0;
 };

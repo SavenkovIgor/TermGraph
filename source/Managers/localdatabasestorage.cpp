@@ -106,7 +106,7 @@ QDateTime LocalDatabaseStorage::getNodeLastEdit(const QUuid& nodeUuid) const
     return db.nodeTable->getLastEdit(nodeUuid);
 }
 
-QUuid LocalDatabaseStorage::addNode(const NodeInfoContainer& info)
+bool LocalDatabaseStorage::addNode(const NodeInfoContainer& info)
 {
     return db.nodeTable->addNode(info);
 }
