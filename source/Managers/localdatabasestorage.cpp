@@ -93,7 +93,7 @@ NodeInfoContainer LocalDatabaseStorage::getNode(const QUuid& nodeUuid) const
 
 NodeInfoContainer::List LocalDatabaseStorage::getNodes(const QUuid& groupUuid) const
 {
-    return {};
+    return db.nodeTable->getAllNodesInfo(groupUuid);
 }
 
 NodeInfoContainer::List LocalDatabaseStorage::getNodes(const UuidList* nodesUuids) const
@@ -115,7 +115,7 @@ bool LocalDatabaseStorage::updateNode(const NodeInfoContainer&             info,
                                       DataStorageInterface::LastEditSource lastEditSource,
                                       bool                                 checkLastEdit)
 {
-    return {};
+    return db.nodeTable->updateNode(info, lastEditSource, checkLastEdit);
 }
 
 void LocalDatabaseStorage::deleteNode(const QUuid& nodeUuid)

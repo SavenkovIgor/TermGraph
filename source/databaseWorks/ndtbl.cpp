@@ -23,6 +23,12 @@
 
 #include "source/databaseWorks/columns/nodecolumn.h"
 
+NodeTable::NodeTable(QSqlDatabase* base)
+    : TblBase(base)
+{
+    assert(base != nullptr);
+}
+
 QUuid NodeTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const
 {
     auto where = WhereCondition();
@@ -250,7 +256,9 @@ RecVector NodeTable::getAllLastEditRecords()
     return toRecVector(select(columns));
 }
 
-bool NodeTable::updateNode(const NodeInfoContainer& info, NodeTable::LastEditSource lastEditSource, bool checkLastEdit)
+bool NodeTable::updateNode(const NodeInfoContainer&             info,
+                           DataStorageInterface::LastEditSource lastEditSource,
+                           bool                                 checkLastEdit)
 {
     assert(!info.uuid.isNull());
     assert(nodeExist(info.uuid));
@@ -279,10 +287,10 @@ bool NodeTable::updateNode(const NodeInfoContainer& info, NodeTable::LastEditSou
     set.set(NodeColumn::groupUuid, info.groupUuid.toString());
 
     switch (lastEditSource) {
-    case NodeTable::TakeFromNodeInfo:
+    case DataStorageInterface::TakeFromNodeInfo:
         set.set(NodeColumn::lastEdit, info.lastEdit.toString(Qt::ISODate));
         break;
-    case NodeTable::AutoGenerate:
+    case DataStorageInterface::AutoGenerate:
         set.set(NodeColumn::lastEdit, getLastEditNowString());
         break;
     }

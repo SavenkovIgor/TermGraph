@@ -22,20 +22,16 @@
 #pragma once
 
 #include "source/Helpers/handytypes.h"
+#include "source/Managers/datastorageinterface.h"
 #include "source/Model/Termin/nodeinfocontainer.h"
+#include "source/databaseWorks/columns/tcolumn.h"
 #include "source/databaseWorks/dbtablenames.h"
 #include "source/databaseWorks/tblbase.h"
-
-#include "source/databaseWorks/columns/tcolumn.h"
 
 class NodeTable : public TblBase
 {
 public:
-    enum LastEditSource { TakeFromNodeInfo = 0, AutoGenerate };
-
-    NodeTable(QSqlDatabase* base)
-        : TblBase(base)
-    {}
+    NodeTable(QSqlDatabase* base);
     ~NodeTable() override = default;
 
     QUuid nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const;
@@ -53,7 +49,9 @@ public:
     QDateTime getLastEdit(const QUuid& uuid);
     RecVector getAllLastEditRecords();
 
-    bool updateNode(const NodeInfoContainer& info, LastEditSource lastEditSource, bool checkLastEdit = true);
+    bool updateNode(const NodeInfoContainer&             info,
+                    DataStorageInterface::LastEditSource lastEditSource,
+                    bool                                 checkLastEdit = true);
     void deleteNode(const QUuid& uuid);
 
     const char* tableName() const override;

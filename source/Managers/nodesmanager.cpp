@@ -81,8 +81,6 @@ bool NodesManager::changeNode(const QUuid&   nodeUuid,
                               const QUuid&   groupUuid,
                               const bool&    sendChangeSignal)
 {
-    auto& db = Database::instance();
-
     NodeInfoContainer info;
 
     info.uuid        = nodeUuid;
@@ -92,7 +90,7 @@ bool NodesManager::changeNode(const QUuid&   nodeUuid,
     info.examples    = example;
     info.groupUuid   = groupUuid;
 
-    db.nodeTable->updateNode(info, NodeTable::LastEditSource::AutoGenerate, false);
+    dataStorage.updateNode(info, DataStorageInterface::LastEditSource::AutoGenerate, false);
 
     if (sendChangeSignal) {
         emit nodeChanged();
@@ -110,7 +108,8 @@ void NodesManager::deleteNode(QUuid uuid)
 PaintedTerm::List NodesManager::getAllNodesForGroup(const QUuid& groupUuid)
 {
     PaintedTerm::List ret;
-    auto              nodesInfo = Database::instance().nodeTable->getAllNodesInfo(groupUuid);
+
+    auto nodesInfo = dataStorage.getNodes(groupUuid);
 
     for (const auto& info : nodesInfo)
         ret << new PaintedTerm(info);
@@ -130,7 +129,6 @@ QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
 
 void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIfGroupNotExist)
 {
-    auto& db   = Database::instance();
     auto  info = JsonNodeInfoContainerParser::fromJson(nodeJson);
 
     if (info.uuid.isNull())
@@ -149,7 +147,7 @@ void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIf
     if (!dataStorage.nodeExist(info.uuid)) {
         dataStorage.addNode(info);
     } else {
-        db.nodeTable->updateNode(info, NodeTable::LastEditSource::TakeFromNodeInfo);
+        dataStorage.updateNode(info, DataStorageInterface::LastEditSource::TakeFromNodeInfo);
     }
 }
 
