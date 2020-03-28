@@ -25,10 +25,11 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "source/mainscene.h"
-#include "source/Helpers/textprocessor.h"
 #include "source/Helpers/appconfig.h"
+#include "source/Helpers/textprocessor.h"
+#include "source/Managers/localdatabasestorage.h"
 #include "source/Managers/syncmanager.h"
+#include "source/mainscene.h"
 
 class MainWindow : public QObject
 {
@@ -50,15 +51,17 @@ private:
 
     // Independent init
     QScopedPointer<NetworkManager> network;
-    QScopedPointer<NodesManager> nodesManager;
 
     // Helper stuff (still independent init)
     QScopedPointer<TextProcessor> textProcessor;
 
     // Dependent init
-    QScopedPointer<GroupsManager> groupsManager;
-    QScopedPointer<SyncManager> syncManager;
-    QScopedPointer<MainScene> scene;
+    LocalDatabaseStorage localDb;
+
+    QScopedPointer<NodesManager>          nodesManager;
+    QScopedPointer<GroupsManager>         groupsManager;
+    QScopedPointer<SyncManager>           syncManager;
+    QScopedPointer<MainScene>             scene;
     QScopedPointer<QQmlApplicationEngine> qmlEngine;
 
     static qreal screenPixelDensity();

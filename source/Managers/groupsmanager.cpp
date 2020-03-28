@@ -25,8 +25,9 @@
 #include "source/databaseWorks/columns/nodecolumn.h"
 #include "source/databaseWorks/columns/termgroupcolumn.h"
 
-GroupsManager::GroupsManager(NodesManager* nodesMgr, QObject* parent)
+GroupsManager::GroupsManager(DataStorageInterface& dataStorage, NodesManager* nodesMgr, QObject* parent)
     : QObject(parent)
+    , dataStorage(dataStorage)
 {
     this->nodesMgr = nodesMgr;
     connect(nodesMgr, &NodesManager::nodeChanged, this, &GroupsManager::groupsListChanged);
@@ -110,7 +111,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
     info.name    = name;
     info.comment = comment;
 
-    if (Database::instance().groupTable->addGroup(info)) {
+    if (dataStorage.addGroup(info)) {
         updateGroupUuidNameMaps();
         emit groupsListChanged();
         emit groupAdded();
@@ -121,7 +122,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 
 void GroupsManager::deleteGroup(const QString& groupUuid)
 {
-    Database::instance().groupTable->deleteGroup(QUuid(groupUuid));
+    dataStorage.deleteGroup(QUuid(groupUuid));
     updateGroupUuidNameMaps();
     emit groupsListChanged();
     emit groupDeleted();
@@ -167,7 +168,7 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
     if (groupUuid.isNull())
         return nullptr;
 
-    auto       info  = Database::instance().groupTable->getGroup(groupUuid);
+    auto       info  = dataStorage.getGroup(groupUuid);
     TermGroup* group = new TermGroup(info);
     group->loadNodes(nodesMgr->getAllNodesForGroup(groupUuid));
     return group;
@@ -185,7 +186,7 @@ bool GroupsManager::isEmptyGroup(const QString& groupUuid)
 
 bool GroupsManager::getHasAnyGroup() const
 {
-    return !Database::instance().groupTable->getAllUuids().empty();
+    return !dataStorage.getAllGroupsUuids().empty();
 }
 
 QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
@@ -207,7 +208,7 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
     // Load info from groups table - need if any group is empty and has no lastEdit value
     QMap<QUuid, QDateTime> groupsLastEdit;
 
-    for (const auto& uuid : Database::instance().groupTable->getAllUuids()) {
+    for (const auto& uuid : dataStorage.getAllGroupsUuids()) {
         groupsLastEdit.insert(uuid, QDateTime());
     }
 
@@ -277,7 +278,6 @@ QStringList GroupsManager::getAllUuidStringsSortedByLastEdit()
 
 void GroupsManager::importGroupFromJson(const QJsonDocument& json)
 {
-    auto& db = Database::instance();
     if (!isValidGroupJson(json))
         return;
 
@@ -291,10 +291,10 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     QJsonArray nodes = jsonGroup.value("nodesList").toArray();
 
     // Searching for existed group
-    if (!db.groupTable->hasGroupWithUuid(info.uuid)) {  // Group found
-        db.groupTable->addGroup(info);
+    if (!dataStorage.groupExist(info.uuid)) {  // Group found
+        dataStorage.addGroup(info);
     } else {
-        db.groupTable->updateGroup(info);
+        dataStorage.updateGroup(info);
     }
 
     // Importing nodes
@@ -336,12 +336,10 @@ void GroupsManager::saveGroupInFolder(TermGroup* group)
 
 QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid)
 {
-    auto& db = Database::instance();
-
-    auto info      = db.groupTable->getGroup(groupUuid);
+    auto info      = dataStorage.getGroup(groupUuid);
     auto groupJson = JsonGroupInfoContainerParser::toJson(info);
 
-    auto nodesUuids = db.nodeTable->getAllNodesUuids(groupUuid);
+    auto nodesUuids = dataStorage.getAllNodesUuids(groupUuid);
 
     QJsonArray nodesArray;
 

@@ -24,8 +24,9 @@
 #include "source/Managers/jsonnodeinfocontainerparser.h"
 #include "source/databaseWorks/columns/nodecolumn.h"
 
-NodesManager::NodesManager(QObject* parent)
+NodesManager::NodesManager(DataStorageInterface& dataStorage, QObject* parent)
     : QObject(parent)
+    , dataStorage(dataStorage)
 {}
 
 bool NodesManager::addNewNode(const QString& name,
@@ -102,7 +103,7 @@ bool NodesManager::changeNode(const QUuid&   nodeUuid,
 
 void NodesManager::deleteNode(QUuid uuid)
 {
-    Database::instance().nodeTable->deleteNode(uuid);
+    dataStorage.deleteNode(uuid);
     emit nodeChanged();
 }
 
@@ -119,12 +120,12 @@ PaintedTerm::List NodesManager::getAllNodesForGroup(const QUuid& groupUuid)
 
 UuidList NodesManager::getAllNodesUuidsInGroup(const QUuid& groupUuid)
 {
-    return Database::instance().nodeTable->getAllNodesUuids(groupUuid);
+    return dataStorage.getAllNodesUuids(groupUuid);
 }
 
 QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
 {
-    return Database::instance().nodeTable->getLastEdit(nodeUuid);
+    return dataStorage.getNodeLastEdit(nodeUuid);
 }
 
 void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIfGroupNotExist)
@@ -138,15 +139,15 @@ void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIf
     if (info.groupUuid.isNull())
         return;
 
-    if (!db.groupTable->hasGroupWithUuid(info.groupUuid)) {
+    if (!dataStorage.groupExist(info.groupUuid)) {
         if (!importIfGroupNotExist) {
             return;
         }
     }
 
     // Create
-    if (!db.nodeTable->hasNodeWithUuid(info.uuid)) {
-        db.nodeTable->addNode(info);
+    if (!dataStorage.nodeExist(info.uuid)) {
+        dataStorage.addNode(info);
     } else {
         db.nodeTable->updateNode(info, NodeTable::LastEditSource::TakeFromNodeInfo);
     }
@@ -154,7 +155,7 @@ void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIf
 
 QJsonObject NodesManager::getNodeJson(const QUuid& uuid)
 {
-    auto info = Database::instance().nodeTable->getNode(uuid);
+    auto info = dataStorage.getNode(uuid);
     return JsonNodeInfoContainerParser::toJson(info);
 }
 
@@ -167,7 +168,7 @@ bool NodesManager::correctGroupUuid(const QUuid& groupUuid, bool sendWarnings)
         return false;
     }
 
-    if (!Database::instance().groupTable->hasGroupWithUuid(groupUuid)) {
+    if (!dataStorage.groupExist(groupUuid)) {
         if (sendWarnings) {
             NotificationManager::showWarning("Группа " + groupUuid.toString() + " не найдена");
         }
@@ -191,7 +192,7 @@ bool NodesManager::correctNewNodeName(const QString& name, QUuid& groupUuid, boo
 
 QUuid NodesManager::getNodeUuidByNameAndGroup(const QString& name, QUuid& groupUuid) const
 {
-    return Database::instance().nodeTable->nodeUuidForNameAndGroup(name, groupUuid);
+    return dataStorage.findNode(name, groupUuid);
 }
 
 bool NodesManager::hasNodeWithNameInGroup(const QString& name, QUuid& groupUuid) const

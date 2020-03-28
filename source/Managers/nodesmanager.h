@@ -27,6 +27,7 @@
 #include <QString>
 #include <QUuid>
 
+#include "source/Managers/datastorageinterface.h"
 #include "source/Managers/notificationmanager.h"
 #include "source/Model/Termin/paintedterm.h"
 #include "source/databaseWorks/database.h"
@@ -36,7 +37,7 @@ class NodesManager : public QObject
     Q_OBJECT
 
 public:
-    explicit NodesManager(QObject* parent = nullptr);
+    explicit NodesManager(DataStorageInterface& dataStorage, QObject* parent = nullptr);
 
 signals:
     void nodeChanged();
@@ -79,5 +80,7 @@ public slots:
     QJsonObject getNodeJson(const QUuid& uuid);
 
 private:
+    DataStorageInterface& dataStorage;
+
     bool correctGroupUuid(const QUuid& groupUuid, bool sendWarnings = true);
 };

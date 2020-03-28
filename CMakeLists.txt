@@ -116,6 +116,9 @@ target_sources (${PROJECT_NAME}
         source/Managers/notificationmanager.h
         source/Managers/syncmanager.cpp
         source/Managers/syncmanager.h
+        source/Managers/datastorageinterface.h
+        source/Managers/localdatabasestorage.cpp
+        source/Managers/localdatabasestorage.h
 
         source/Model/GraphicItem/graphicitem.cpp
         source/Model/GraphicItem/graphicitem.h

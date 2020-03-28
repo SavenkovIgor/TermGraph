@@ -34,9 +34,10 @@
 MainWindow::MainWindow(QObject* parent)
     : QObject(parent)
     , network(new NetworkManager())
-    , nodesManager(new NodesManager())
     , textProcessor(new TextProcessor())
-    , groupsManager(new GroupsManager(nodesManager.get()))
+    , localDb()
+    , nodesManager(new NodesManager(localDb))
+    , groupsManager(new GroupsManager(localDb, nodesManager.get()))
     , syncManager(new SyncManager(network.get(), groupsManager.get(), nodesManager.get()))
     , scene(new MainScene(groupsManager.get(), nodesManager.get()))
     , qmlEngine(new QQmlApplicationEngine())
@@ -110,7 +111,7 @@ int MainWindow::getUiElementSize(const QString &elementTypeName)
 
 int MainWindow::dbVersion()
 {
-    return Database::instance().appConfigTable->getDbVersion();
+    return localDb.storageVersion();
 }
 
 void MainWindow::initElemSizes()

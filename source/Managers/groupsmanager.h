@@ -24,6 +24,7 @@
 #include <QObject>
 
 #include "source/Helpers/fsworks.h"
+#include "source/Managers/datastorageinterface.h"
 #include "source/Managers/nodesmanager.h"
 #include "source/Managers/notificationmanager.h"
 #include "source/Model/TerminGroup/termgroup.h"
@@ -32,7 +33,7 @@ class GroupsManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit GroupsManager(NodesManager* nodesMgr, QObject* parent = nullptr);
+    explicit GroupsManager(DataStorageInterface& dataStorage, NodesManager* nodesMgr, QObject* parent = nullptr);
 
     TermGroup* createGroup(const QUuid groupUuid);
 
@@ -88,6 +89,8 @@ private:
     QDateTime getLastEdit(QUuid groupUuid);
 
     NodesManager* nodesMgr;
+
+    DataStorageInterface& dataStorage;
 
     // Cache
     QMap<QUuid, QString> uuidToNames;
