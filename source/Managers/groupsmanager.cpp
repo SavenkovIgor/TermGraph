@@ -360,11 +360,8 @@ void GroupsManager::updateGroupUuidNameMaps()
     uuidToNames.clear();
     namesToUuid.clear();
 
-    for (const auto& sqlRecord : Database::instance().groupTable->getAllUuidsAndNames()) {
-        QUuid   uuid(sqlRecord.value(TermGroupColumn::uuid).toString());
-        QString name = sqlRecord.value(TermGroupColumn::name).toString();
-
-        uuidToNames.insert(uuid, name);
-        namesToUuid.insert(name, uuid);
+    for (const auto& groupInfo : dataStorage.getGroups()) {
+        uuidToNames.insert(groupInfo.uuid, groupInfo.name);
+        namesToUuid.insert(groupInfo.name, groupInfo.uuid);
     }
 }

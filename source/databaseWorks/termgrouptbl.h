@@ -40,9 +40,9 @@ public:
     void deleteGroup(const QUuid& uuid);
 
     // Getters
-    GroupInfoContainer getGroup(const QUuid& uuid);
-    RecVector          getAllUuidsAndNames();
-    UuidList           getAllUuids();
+    UuidList                 getAllUuids();
+    GroupInfoContainer       getGroup(const QUuid& uuid);
+    GroupInfoContainer::List getGroups();
 
     QUuid getUuid(const QString& groupName) const;
 
@@ -61,4 +61,6 @@ private:
     QUuid generateNewUuid();
 
     WhereCondition whereUuidEqual(const QUuid& uuid);
+
+    static GroupInfoContainer sqlRecordToGroupInfo(const QSqlRecord& rec);
 };

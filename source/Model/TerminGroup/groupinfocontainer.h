@@ -28,6 +28,8 @@
 
 struct GroupInfoContainer
 {
+    using List = std::vector<GroupInfoContainer>;
+
     QUuid   uuid;
     QString name;
     QString comment;

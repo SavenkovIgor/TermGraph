@@ -51,6 +51,11 @@ GroupInfoContainer LocalDatabaseStorage::getGroup(const QUuid& groupUuid) const
     return db.groupTable->getGroup(groupUuid);
 }
 
+GroupInfoContainer::List LocalDatabaseStorage::getGroups() const
+{
+    return db.groupTable->getGroups();
+}
+
 bool LocalDatabaseStorage::addGroup(const GroupInfoContainer& groupInfo)
 {
     return db.groupTable->addGroup(groupInfo);

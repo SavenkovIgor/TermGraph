@@ -42,8 +42,9 @@ public:
     virtual UuidList getAllGroupsUuids() const                 = 0;
     virtual UuidList getAllGroupsUuidsSortedByLastEdit() const = 0;
 
-    virtual bool               groupExist(const QUuid& groupUuid) const = 0;
-    virtual GroupInfoContainer getGroup(const QUuid& groupUuid) const   = 0;
+    virtual bool                     groupExist(const QUuid& groupUuid) const = 0;
+    virtual GroupInfoContainer       getGroup(const QUuid& groupUuid) const   = 0;
+    virtual GroupInfoContainer::List getGroups() const                        = 0;
 
     virtual bool addGroup(const GroupInfoContainer& groupInfo) = 0;
     virtual bool updateGroup(const GroupInfoContainer& info)   = 0;

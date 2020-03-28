@@ -35,8 +35,9 @@ public:
     UuidList getAllGroupsUuids() const override;
     UuidList getAllGroupsUuidsSortedByLastEdit() const override;
 
-    bool               groupExist(const QUuid& groupUuid) const override;
-    GroupInfoContainer getGroup(const QUuid& groupUuid) const override;
+    bool                     groupExist(const QUuid& groupUuid) const override;
+    GroupInfoContainer       getGroup(const QUuid& groupUuid) const override;
+    GroupInfoContainer::List getGroups() const override;
 
     bool addGroup(const GroupInfoContainer& groupInfo) override;
     bool updateGroup(const GroupInfoContainer& info) override;

@@ -111,15 +111,6 @@ QUuid TermGroupTable::getUuid(const QString& groupName) const
     return QUuid(q.record().value(TermGroupColumn::uuid).toString());
 }
 
-RecVector TermGroupTable::getAllUuidsAndNames()
-{
-    TColumn::List columns;
-    columns << TermGroupColumn::uuid;
-    columns << TermGroupColumn::name;
-    auto sel = select(columns);
-    return toRecVector(std::move(sel));
-}
-
 bool TermGroupTable::groupWithNameExist(const QString& groupName)
 {
     return !getUuid(groupName).isNull();
@@ -152,23 +143,43 @@ TColumn::List TermGroupTable::getAllColumns() const
 
 GroupInfoContainer TermGroupTable::getGroup(const QUuid& uuid)
 {
-    GroupInfoContainer info;
-
     QSqlQuery sel = select(getAllColumns(), whereUuidEqual(uuid));
 
     if (!sel.next())
-        return info;
+        return GroupInfoContainer();
 
     auto rec = sel.record();
+
+    return sqlRecordToGroupInfo(rec);
+}
+
+GroupInfoContainer::List TermGroupTable::getGroups()
+{
+    GroupInfoContainer::List ret;
+
+    auto sel     = select(getAllColumns());
+    auto records = toRecVector(std::move(sel));
+
+    for (auto& record : records) {
+        GroupInfoContainer info = sqlRecordToGroupInfo(record);
+        ret.push_back(std::move(info));
+    }
+
+    return ret;
+}
+
+WhereCondition TermGroupTable::whereUuidEqual(const QUuid& uuid)
+{
+    return primaryKeyEqual(uuid.toString());
+}
+
+GroupInfoContainer TermGroupTable::sqlRecordToGroupInfo(const QSqlRecord& rec)
+{
+    GroupInfoContainer info;
 
     info.uuid    = QUuid(rec.value(TermGroupColumn::uuid).toString());
     info.name    = rec.value(TermGroupColumn::name).toString();
     info.comment = rec.value(TermGroupColumn::comment).toString();
 
     return info;
-}
-
-WhereCondition TermGroupTable::whereUuidEqual(const QUuid& uuid)
-{
-    return primaryKeyEqual(uuid.toString());
 }
