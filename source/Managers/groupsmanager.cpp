@@ -21,6 +21,11 @@
 
 #include "source/Managers/groupsmanager.h"
 
+#include <QFile>
+#include <QJsonArray>
+#include <QUrl>
+
+#include "source/Helpers/appconfig.h"
 #include "source/Managers/jsongroupinfocontainerparser.h"
 
 GroupsManager::GroupsManager(DataStorageInterface& dataStorage, NodesManager* nodesMgr, QObject* parent)

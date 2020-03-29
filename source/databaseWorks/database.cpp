@@ -28,10 +28,6 @@
 #include "source/Managers/notificationmanager.h"
 #include "source/databaseWorks/tools/dbtools.h"
 
-Database::Database()
-    : Database(AppSettings::StdPaths::defaultDatabaseFilePath())
-{}
-
 Database::Database(const QString& filePath)
     : nodeTable(nullptr)
     , groupTable(nullptr)

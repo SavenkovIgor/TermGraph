@@ -21,7 +21,11 @@
 
 #pragma once
 
+#include <QJsonDocument>
 #include <QObject>
+#include <QString>
+#include <QStringList>
+#include <QUuid>
 
 #include "source/Helpers/fsworks.h"
 #include "source/Managers/datastorageinterface.h"

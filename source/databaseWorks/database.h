@@ -32,7 +32,6 @@
 
 // TODO: Move db version here
 // TODO: JSON send version must be synced with db version
-// Singleton!
 class Database
 {
 public:
@@ -40,20 +39,13 @@ public:
     QScopedPointer<TermGroupTable> groupTable;
     QScopedPointer<AppConfigTable> appConfigTable;
 
-    static Database& instance()
-    {
-        static Database instance;
-        return instance;
-    }
+    explicit Database(const QString& filePath = AppSettings::StdPaths::defaultDatabaseFilePath());
+    ~Database();
 
     Database(const Database&) = delete;
     void operator=(const Database&) = delete;
 
 private:
-    explicit Database();
-    explicit Database(const QString& filePath);
-    ~Database();
-
     QSqlDatabase* base;
 
     bool databaseExists(const QString& dbFilePath) const;

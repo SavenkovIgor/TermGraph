@@ -29,7 +29,6 @@
 #include "source/Managers/notificationmanager.h"
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminEdge/edge.h"
-#include "source/databaseWorks/database.h"
 
 MainWindow::MainWindow(QObject* parent)
     : QObject(parent)
@@ -45,7 +44,6 @@ MainWindow::MainWindow(QObject* parent)
     initElemSizes();
     AppSettings::StdPaths::createDefaultFoldersIfNeed();
 
-    // Database init
     groupsManager->updateGroupUuidNameMaps();
 
     // remind = new Reminder(scene->getAllNodes());

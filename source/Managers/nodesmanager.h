@@ -30,7 +30,6 @@
 #include "source/Managers/datastorageinterface.h"
 #include "source/Managers/notificationmanager.h"
 #include "source/Model/Termin/paintedterm.h"
-#include "source/databaseWorks/database.h"
 
 class NodesManager : public QObject
 {
@@ -44,22 +43,22 @@ signals:
 
 public slots:
 
-    /*[[nodiscard]]*/ bool addNewNode(const QString& name,
-                                      const QString& def,
-                                      const QString& descr,
-                                      const QString& exam,
-                                      const QString& groupUuidString,
-                                      const bool&    sendChangeSignal = true);
+    bool addNewNode(const QString& name,
+                    const QString& def,
+                    const QString& descr,
+                    const QString& exam,
+                    const QString& groupUuidString,
+                    const bool&    sendChangeSignal = true);
 
-    /*[[nodiscard]]*/ bool changeNode(const QUuid&   nodeUuid,
-                                      const QString& name,
-                                      const QString& definition,
-                                      const QString& description,
-                                      const QString& example,
-                                      const QString& groupUuidString,
-                                      const bool&    sendChangeSignal = true);
+    bool changeNode(const QUuid&   nodeUuid,
+                    const QString& name,
+                    const QString& definition,
+                    const QString& description,
+                    const QString& example,
+                    const QString& groupUuidString,
+                    const bool&    sendChangeSignal = true);
 
-    void                   deleteNode(QUuid uuid);
+    void deleteNode(QUuid uuid);
 
     UuidList          getAllNodesUuidsInGroup(const QUuid& groupUuid);
     PaintedTerm::List getAllNodesForGroup(const QUuid& groupUuid);

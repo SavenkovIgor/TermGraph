@@ -22,7 +22,6 @@
 #include "source/Managers/nodesmanager.h"
 
 #include "source/Managers/jsonnodeinfocontainerparser.h"
-#include "source/databaseWorks/columns/nodecolumn.h"
 
 NodesManager::NodesManager(DataStorageInterface& dataStorage, QObject* parent)
     : QObject(parent)

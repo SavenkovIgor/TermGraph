@@ -20,13 +20,14 @@
  */
 #pragma once
 
+#include "source/Helpers/appconfig.h"
 #include "source/Managers/datastorageinterface.h"
 #include "source/databaseWorks/database.h"
 
 class LocalDatabaseStorage : public DataStorageInterface
 {
 public:
-    LocalDatabaseStorage(Database& db = Database::instance());
+    LocalDatabaseStorage(const QString& filePath = AppSettings::StdPaths::defaultDatabaseFilePath());
 
     // DataStorageInterface interface
 public:
@@ -56,5 +57,5 @@ public:
     void deleteNode(const QUuid& nodeUuid) override;
 
 private:
-    Database& db;
+    Database db;
 };

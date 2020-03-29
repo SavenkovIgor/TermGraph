@@ -26,9 +26,9 @@
 #include "source/databaseWorks/columns/nodecolumn.h"
 #include "source/databaseWorks/columns/termgroupcolumn.h"
 
-LocalDatabaseStorage::LocalDatabaseStorage(Database& db)
+LocalDatabaseStorage::LocalDatabaseStorage(const QString &filePath)
     : DataStorageInterface()
-    , db(db)
+    , db(filePath)
 {}
 
 int LocalDatabaseStorage::storageVersion() const
