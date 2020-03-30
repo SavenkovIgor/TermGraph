@@ -457,7 +457,7 @@ void PaintedTerm::checkColor()
     }
 }
 
-std::optional<QPointF> PaintedTerm::optimalRootsBasedPosition() const
+opt<QPointF> PaintedTerm::optimalRootsBasedPosition() const
 {
     auto edges = getEdgesToRoots();
 

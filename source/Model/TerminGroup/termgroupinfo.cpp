@@ -23,6 +23,7 @@
 
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/globaltagcache.h"
+#include "source/Helpers/handytypes.h"
 #include "source/Helpers/helpstuff.h"
 #include "source/Helpers/tagutils.h"
 #include "source/Model/TerminGroup/groupnamecache.h"
@@ -171,7 +172,7 @@ PaintedTerm* TermGroupInfo::getNearestNodeForTag(const QString& tag)
 
     int minDistance = 100000;
 
-    std::optional<int> optionalResult;
+    opt<int> optionalResult;
 
     for (auto node : nodesList) {
         auto termName = node->getCachedLowerTerm();

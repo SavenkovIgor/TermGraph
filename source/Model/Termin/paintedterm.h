@@ -29,6 +29,7 @@
 #include <QSizeF>
 #include <QSqlRecord>
 
+#include "source/Helpers/handytypes.h"
 #include "source/Model/GraphicItem/graphicitem.h"
 #include "source/Model/Termin/graphterm.h"
 #include "source/Model/TerminEdge/edge.h"
@@ -94,7 +95,7 @@ public:
     void initColor();
     void checkColor();
 
-    std::optional<QPointF> optimalRootsBasedPosition() const;
+    opt<QPointF> optimalRootsBasedPosition() const;
 
 signals:
     void colorChanged();

@@ -21,12 +21,13 @@
 
 #pragma once
 
+#include <optional>
 #include <vector>
-#include <QList>
 #include <QSizeF>
 #include <QUuid>
 
-class Edge;
-
 using UuidList  = std::vector<QUuid>;
 using SizesList = std::vector<QSizeF>;
+
+template<class T>
+using opt = std::optional<T>;

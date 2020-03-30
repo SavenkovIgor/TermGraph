@@ -20,9 +20,9 @@
  */
 #pragma once
 
-#include <optional>
-
 #include <QMap>
+
+#include "source/Helpers/handytypes.h"
 
 class GlobalTagCache
 {
@@ -31,11 +31,11 @@ public:
     GlobalTagCache(GlobalTagCache const&) = delete;
     void operator=(GlobalTagCache const&) = delete;
 
-    std::optional<std::optional<int>> get(const QString& tag, const QString& term);
-    void                              add(const QString& tag, const QString& term, std::optional<int> value);
+    opt<opt<int>> get(const QString& tag, const QString& term);
+    void          add(const QString& tag, const QString& term, opt<int> value);
 
 private:
     GlobalTagCache() = default;
 
-    QMap<QString, QMap<QString, std::optional<int>>> tagToTermCache;
+    QMap<QString, QMap<QString, opt<int>>> tagToTermCache;
 };

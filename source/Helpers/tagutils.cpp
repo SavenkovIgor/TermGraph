@@ -236,7 +236,7 @@ int TagUtils::getLevDistance(QStringView src, QStringView dst, int limit)
     return matrix[m][n];
 }
 
-std::optional<int> TagUtils::getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit)
+opt<int> TagUtils::getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit)
 {
     // For developing needs
     assert(termName == termName.toLower());

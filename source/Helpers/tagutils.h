@@ -21,12 +21,13 @@
 #pragma once
 
 #include <functional>
-#include <optional>
 
 #include <QChar>
 #include <QString>
 #include <QStringList>
 #include <QStringView>
+
+#include "source/Helpers/handytypes.h"
 
 // Static class
 class TagUtils
@@ -51,7 +52,7 @@ public:
 
     static int getLevDistance(QStringView src, QStringView dst, int limit = 100000);
 
-    static std::optional<int> getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit);
+    static opt<int> getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit);
 
     // Words
     static Cursor findWordBorder(QStringView str, Cursor from, SearchDirection dir);

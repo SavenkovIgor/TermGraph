@@ -21,12 +21,12 @@
 
 #pragma once
 
-#include <optional>
-
 #include <QObject>
 #include <QPair>
 #include <QQueue>
 #include <QTimer>
+
+#include "source/Helpers/handytypes.h"
 
 class NotificationManager : public QObject
 {
@@ -70,7 +70,7 @@ private:
     QTimer hideNotifyTimer = QTimer(this);
 
     QQueue<Notify> notificationsQueue;
-    std::optional<Notify> currentNotify() const;
+    opt<Notify>    currentNotify() const;
 
     void addNotify(const Notify& notify);
     void showNotify(const Notify& notify);
