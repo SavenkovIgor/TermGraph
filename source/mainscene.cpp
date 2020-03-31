@@ -172,7 +172,6 @@ void MainScene::selectTerm(PaintedTerm* term, bool needRepaint)
         emit selectionChanged();
 
         if (needRepaint) {
-            checkGroupColors();
             updateEdgeCache();
         }
     }
@@ -181,12 +180,6 @@ void MainScene::selectTerm(PaintedTerm* term, bool needRepaint)
 void MainScene::dropTermSelection(bool needRepaint)
 {
     selectTerm(nullptr, needRepaint);
-}
-
-void MainScene::checkGroupColors()
-{
-    if (mCurrentGroup)
-        mCurrentGroup->checkColors();
 }
 
 void MainScene::setCurrentGroup(const QString& groupUuid)

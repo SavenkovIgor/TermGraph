@@ -63,8 +63,6 @@ public:
     PaintedTerm* getNode(const QUuid& nodeUuid) const;
     PaintedTerm* getNode(const QString& nodeName) const;
 
-    void checkColors(bool init = false);
-
 public slots:
     void checkSwap();
 

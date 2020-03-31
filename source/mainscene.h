@@ -114,7 +114,6 @@ private:
 
     PaintedTerm*      findTerm(const QUuid& termUuid) const;
     NodeGadgetWrapper getCurrentNode();
-    void              checkGroupColors();
 
     void findClick(const QPointF& atPt);
 

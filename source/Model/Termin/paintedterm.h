@@ -42,17 +42,18 @@ class PaintedTerm : public QObject, public GraphTerm, public GraphicItem
     Q_OBJECT
 
     Q_PROPERTY(QString term READ getSmallName CONSTANT)
-    Q_PROPERTY(QColor color READ color NOTIFY colorChanged)
-    Q_PROPERTY(qreal radius READ getCornerRadius CONSTANT)
+    Q_PROPERTY(QColor color READ color NOTIFY selectionChanged)
+    Q_PROPERTY(qreal radius READ cornerRadius CONSTANT)
     Q_PROPERTY(QRectF rect READ rect CONSTANT)
+
+    Q_PROPERTY(bool isSelectedAnyway READ isSelectedAnyway NOTIFY selectionChanged)
+    Q_PROPERTY(bool isThisSelected READ isThisSelected NOTIFY selectionChanged)
 
     QRectF rect() const;
 
 public:
     PaintedTerm(const NodeInfoContainer& info, QObject* parent = nullptr);
     ~PaintedTerm() override = default;
-
-    bool thisSelected = false;
 
     using List = QList<PaintedTerm*>;
     using Map  = QMap<QString, PaintedTerm*>;
@@ -87,31 +88,27 @@ public:
     void setSwap(QPointF toPt);
     void dropSwap();
 
-    qreal getCornerRadius() const;
+    qreal cornerRadius() const;
 
     void setSelection(const bool& selected);
-
-    // Color tools
-    void initColor();
-    void checkColor();
+    bool isSelectedAnyway() const;
+    bool isThisSelected() const;
 
     opt<QPointF> optimalRootsBasedPosition() const;
 
 signals:
-    void colorChanged();
+    void selectionChanged();
 
 protected:
     // Geometry tools
     // --- Methods ---
     void adjustRectSizeForName();
 
-    // --- Variables ---
-    // Hovers
-    bool relativePaint = false;
-
 private:
     QSizeF nodeSize = QSizeF(40.0, 10.0);
-    QColor mColor;
+
+    bool mThisSelected  = false;
+    bool mRelativePaint = false;
 
     // Scene tools
     static bool isNearPoints(QPointF pt1, QPointF pt2, qreal dist);
@@ -134,9 +131,8 @@ private:
 
     // Color tools
     QColor        color() const;
-    QColor        expectedColor() const;
     static QColor baseColor(NodeType type, bool selected);
 
-    qreal cornerRadius = 0;
+    qreal mCornerRadius = 0;
     void  updateCornerRadius();
 };

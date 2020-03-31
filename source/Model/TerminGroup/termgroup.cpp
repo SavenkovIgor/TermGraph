@@ -70,8 +70,6 @@ void TermGroup::initNewNodes()
     animTimer.setSingleShot(false);
     animTimer.setInterval(50);
     connect(&animTimer, &QTimer::timeout, this, &TermGroup::animateGroup);
-
-    checkColors(true);
 }
 
 void TermGroup::loadNodes(const PaintedTerm::List& newNodes)
@@ -144,19 +142,6 @@ void TermGroup::addEdgesToParents()
             }
         }
     }
-}
-
-void TermGroup::checkColors(bool init)
-{
-    if (init) {
-        for (auto* node : getAllNodes())
-            node->initColor();
-
-        return;
-    }
-
-    for (auto* node : getAllNodes())
-        node->checkColor();
 }
 
 void TermGroup::startAnimation()

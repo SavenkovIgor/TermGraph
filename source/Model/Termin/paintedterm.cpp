@@ -70,13 +70,12 @@ void PaintedTerm::setRelatedPaintUp(bool val)
 
     for (auto node : getLeafNodes()) {
         auto* paintNode = static_cast<PaintedTerm*>(node);
-        if (paintNode->relativePaint != val) {
-            paintNode->relativePaint = val;
+        if (paintNode->mRelativePaint != val) {
+            paintNode->mRelativePaint = val;
+            emit paintNode->selectionChanged();
             paintNode->setRelatedPaintUp(val);
         }
     }
-
-    checkColor();
 }
 
 void PaintedTerm::setRelatedPaintDown(bool val)
@@ -86,13 +85,12 @@ void PaintedTerm::setRelatedPaintDown(bool val)
 
     for (auto* node : getRootNodes()) {
         auto* paintNode = static_cast<PaintedTerm*>(node);
-        if (paintNode->relativePaint != val) {
-            paintNode->relativePaint = val;
+        if (paintNode->mRelativePaint != val) {
+            paintNode->mRelativePaint = val;
+            emit paintNode->selectionChanged();
             paintNode->setRelatedPaintDown(val);
         }
     }
-
-    checkColor();
 }
 
 QLineF PaintedTerm::getRectLine(Qt::Edge side)
@@ -292,7 +290,7 @@ QRectF PaintedTerm::addMarginsToRect(QRectF rc, qreal mrg)
 
 void PaintedTerm::updateCornerRadius()
 {
-    cornerRadius = nodeSize.height() * 0.2;
+    mCornerRadius = nodeSize.height() * 0.2;
 }
 
 void PaintedTerm::dropSwap()
@@ -308,23 +306,7 @@ void PaintedTerm::dropSwap()
 
 QColor PaintedTerm::color() const
 {
-    return mColor;
-}
-
-QColor PaintedTerm::expectedColor() const
-{
-    auto   nodeType = getNodeType();
-    QColor col      = baseColor(nodeType, false);
-
-    if (someoneSelect) {
-        if (relativePaint || thisSelected) {
-            col = baseColor(nodeType, true);
-        } else {
-            col.setAlpha(100);
-        }
-    }
-
-    return col;
+    return baseColor(getNodeType(), isSelectedAnyway());
 }
 
 void PaintedTerm::setSwap(QPointF toPt)
@@ -423,38 +405,34 @@ QColor PaintedTerm::baseColor(NodeType type, bool selected)
     return AppStyle::Colors::Nodes::orphan;
 }
 
-qreal PaintedTerm::getCornerRadius() const
+qreal PaintedTerm::cornerRadius() const
 {
-    return cornerRadius;
+    return mCornerRadius;
 }
 
 void PaintedTerm::setSelection(const bool& selected)
 {
-    if (thisSelected != selected) {
-        thisSelected = selected;
+    if (mThisSelected != selected) {
+        mThisSelected = selected;
 
         someoneSelect = selected;
-        relativePaint = selected;
+        mRelativePaint = selected;
 
         setRelatedPaintDown(selected);
         setRelatedPaintUp(selected);
 
-        checkColor();
+        emit selectionChanged();
     }
 }
 
-void PaintedTerm::initColor()
+bool PaintedTerm::isSelectedAnyway() const
 {
-    mColor = expectedColor();
+    return mThisSelected || mRelativePaint;
 }
 
-void PaintedTerm::checkColor()
+bool PaintedTerm::isThisSelected() const
 {
-    auto expColor = expectedColor();
-    if (expColor != mColor) {
-        mColor = expColor;
-        emit colorChanged();
-    }
+    return mThisSelected;
 }
 
 opt<QPointF> PaintedTerm::optimalRootsBasedPosition() const
