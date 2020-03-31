@@ -41,7 +41,8 @@ class Edge : public QObject, public GraphEdge, public GraphicItem
 
     Q_PROPERTY(QPointF pt1 READ rootPoint)
     Q_PROPERTY(QPointF pt2 READ leafPoint)
-    Q_PROPERTY(QColor color READ getEdgeColor)
+    Q_PROPERTY(QColor color READ getEdgeColor NOTIFY selectionChanged)
+    Q_PROPERTY(bool isSelected READ isSelected NOTIFY selectionChanged)
 
 public:
     using List = QList<Edge*>;
@@ -67,16 +68,20 @@ public:
 
     static List castToEdgeList(const GraphEdge::List& lst);  // TODO: Delete!!!
 
-    // Paint width
-    void setSelectedForward(bool value);
-    void setSelectedBackward(bool value);
-
     void brokeEdge();
     void cutOutFromSides();
 
+    // Selection
+    void setSelectedForward(bool value);
+    void setSelectedBackward(bool value);
+
     EdgeSelected selectedType() const;
+    bool         isSelected() const;
+
+signals:
+    void selectionChanged();
 
 private:
-    EdgeSelected selected = EdgeSelected::none;
-    EdgeType     type     = EdgeType::termin;
+    EdgeSelected mSelected = EdgeSelected::none;
+    EdgeType     mType     = EdgeType::termin;
 };

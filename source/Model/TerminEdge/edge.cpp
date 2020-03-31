@@ -35,12 +35,12 @@ Edge::Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type, QObject* par
     , GraphEdge(toRoot, toLeaf)
     , GraphicItem()
 {
-    this->type = type;
+    mType = type;
 }
 
 QColor Edge::getEdgeColor() const
 {
-    switch (selected) {
+    switch (mSelected) {
     case EdgeSelected::backward:
         return AppStyle::Colors::Edges::selected;
     case EdgeSelected::forward:
@@ -49,7 +49,7 @@ QColor Edge::getEdgeColor() const
         break;
     }
 
-    switch (type) {
+    switch (mType) {
     case EdgeType::standart:
         return AppStyle::Colors::Edges::standard;
     case EdgeType::termin:
@@ -68,7 +68,8 @@ void Edge::brokeEdge()
     getRoot()->removeEdgeToLeafs(this);
     getRoot()->addBrokenEdge(this);
     getLeaf()->removeEdgeToRoots(this);
-    type = EdgeType::broken;
+
+    mType = EdgeType::broken;
 }
 
 void Edge::cutOutFromSides()
@@ -79,7 +80,12 @@ void Edge::cutOutFromSides()
 
 EdgeSelected Edge::selectedType() const
 {
-    return selected;
+    return mSelected;
+}
+
+bool Edge::isSelected() const
+{
+    return mSelected == EdgeSelected::forward || mSelected == EdgeSelected::backward;
 }
 
 QRectF Edge::edgeRect() const
@@ -149,10 +155,18 @@ Edge::List Edge::castToEdgeList(const GraphEdge::List& lst)
 
 void Edge::setSelectedForward(bool value)
 {
-    selected = value ? EdgeSelected::forward : EdgeSelected::none;
+    auto resultSelection = value ? EdgeSelected::forward : EdgeSelected::none;
+    if (mSelected != resultSelection) {
+        mSelected = resultSelection;
+        emit selectionChanged();
+    }
 }
 
 void Edge::setSelectedBackward(bool value)
 {
-    selected = value ? EdgeSelected::backward : EdgeSelected::none;
+    auto resultSelection = value ? EdgeSelected::backward : EdgeSelected::none;
+    if (mSelected != resultSelection) {
+        mSelected = resultSelection;
+        emit selectionChanged();
+    }
 }
