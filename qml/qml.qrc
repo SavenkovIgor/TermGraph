@@ -54,5 +54,6 @@
         <file>Atoms/ScrollIndicator.qml</file>
         <file>Atoms/RoundedRectangle.qml</file>
         <file>Atoms/Round.qml</file>
+        <file>Atoms/Edge.qml</file>
     </qresource>
 </RCC>

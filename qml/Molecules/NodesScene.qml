@@ -24,7 +24,6 @@ import QtQuick.Controls 2.14
 import QtQuick.Shapes 1.14
 
 import "../Atoms" as A
-
 import "../Js/Fonts.js" as Fonts
 import "../Js/Colors.js" as Colors
 
@@ -59,22 +58,19 @@ Control {
         });
     }
 
+    Component { id: edgeComponent; A.Edge { } }
+
     contentItem: Item {
 
         Rectangle {
-            readonly property int offset: 35
-
-            anchors {
-                fill: parent
-                leftMargin: offset
-                rightMargin: offset
-                topMargin: offset
-                bottomMargin: offset
-            }
+            id: graphFrame
+            anchors.fill: parent
+            anchors.margins: 35
 
             color: "transparent"
             border { color: Colors.white; width: 2 }
             radius: 10
+            z: 6
 
             Text {
                 anchors { left: parent.left; top: parent.top; }
@@ -86,13 +82,26 @@ Control {
             }
         }
 
+        Rectangle {  // Selection background
+            anchors.fill: graphFrame
+            visible: scene.hasSelection
+
+            z: 3
+            color: "#BB000000"
+            radius: graphFrame.radius
+        }
+
         Connections {
             target: scene
-            onEdgesChanged: edgesShape.updateEdges()
+            onEdgesChanged: {
+                edgesShape.updateEdges();
+                edgesSelectedShape.updateEdges();
+            }
         }
 
         Shape {
             id: edgesShape
+            z: 1
 
             function updateEdges() {
                 // Delete old edges
@@ -141,30 +150,58 @@ Control {
             }
         }
 
-        Component {
-            id: edgeComponent
+        Shape {
+            id: edgesSelectedShape
+            z: 4
+            visible: scene.hasSelection
 
-            ShapePath {
-                id: sPath
+            function updateEdges() {
+                // Delete old edges
+                const delArrayLength = edgesSelectedShape.data.length;
 
-                property point pt1: Qt.point(0, 0)
-                property point pt2: Qt.point(0, 0)
-                property color edgeColor: "black"
-                property real halfWidth: (pt2.x - pt1.x) / 2;
-                property point b1: Qt.point(pt1.x + halfWidth, pt1.y)
-                property point b2: Qt.point(pt2.x - halfWidth, pt2.y)
+                for (let i = 0; i < delArrayLength; ++i)
+                    edgesSelectedShape.data[i].destroy();
 
-                startX: pt1.x; startY: pt1.y;
+                // Create new edges
 
-                strokeWidth: Qt.platform.os === "Android" ? 3 : 2
-                strokeColor: edgeColor
-                fillColor: "transparent"
+                // Looks like a bug in shapes.
+                // If shapes data is empty, it wouldn't be redrawed
+                // It means that, if we remove all edges at once,
+                // old edges wouldn't disappear, and would be still visible
+                // So we create fake edge every time just for sure
+                // that shape redraw each time
 
-                PathCubic {
-                    x: sPath.pt2.x; y: sPath.pt2.y;
-                    control1X: b1.x; control1Y: b1.y;
-                    control2X: b2.x; control2Y: b2.y;
+                let fakeEdge = edgeComponent.createObject(
+                        edgesSelectedShape,
+                        {
+                            pt1: Qt.point(0, 0),
+                            pt2: Qt.point(0, 0),
+                            edgeColor: "black"
+                        });
+
+                let newEdges = [fakeEdge];
+
+                const edgesCount = scene.edges.length;
+
+                for (let j = 0; j < edgesCount; ++j) {
+
+                    const edge = scene.edges[j];
+
+                    if (!edge.isSelected)
+                        continue;
+
+                    const edgeLine = edgeComponent.createObject(
+                            edgesSelectedShape,
+                            {
+                                pt1: edge.pt1,
+                                pt2: edge.pt2,
+                                edgeColor: edge.color
+                            });
+
+                    newEdges.push(edgeLine);
                 }
+
+                edgesSelectedShape.data = newEdges;
             }
         }
 
@@ -176,6 +213,7 @@ Control {
                 radius: modelData.radius
                 color: modelData.color
                 text: modelData.term
+                z: modelData.isSelectedAnyway ? 5 : 2
             }
         }
     }
