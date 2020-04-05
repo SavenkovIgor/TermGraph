@@ -21,6 +21,8 @@
 
 #include "source/Model/Termin/graphterm.h"
 
+int GraphTerm::mMaxWeight = 0;
+
 GraphTerm::GraphTerm(const NodeInfoContainer& info)
     : InfoTerm(info)
 {}
@@ -275,14 +277,24 @@ void GraphTerm::removeEdgeToRoots(GraphEdge* edge)
 
 void GraphTerm::addBrokenEdge(GraphEdge* edge)
 {
-    if (!brokenEdges.contains(edge)) {
+    if (!brokenEdges.contains(edge))
         brokenEdges << edge;
-    }
+}
+
+void GraphTerm::addRedundantEdge(GraphEdge* edge)
+{
+    if (!redundantEdges.contains(edge))
+        redundantEdges << edge;
 }
 
 GraphEdge::List GraphTerm::getBrokenEdges() const
 {
     return brokenEdges;
+}
+
+GraphEdge::List GraphTerm::getRedundantEdges() const
+{
+    return redundantEdges;
 }
 
 void GraphTerm::checkForExceedEdges()
@@ -297,6 +309,36 @@ void GraphTerm::checkForExceedEdges()
             }
         }
     }
+}
+
+void GraphTerm::giveWeights()
+{
+    for (auto* edge : getEdgesToRoots())
+        edge->getOtherSide(this)->increaseWeight();
+
+    for (auto* edge : redundantEdges)
+        edge->getOtherSide(this)->increaseWeight();
+}
+
+void GraphTerm::resetMaxWeight()
+{
+    mMaxWeight = 0;
+}
+
+int GraphTerm::weight() const
+{
+    return mSelfWeight;
+}
+
+void GraphTerm::increaseWeight()
+{
+    mSelfWeight++;
+    mMaxWeight = std::max(mMaxWeight, mSelfWeight);
+}
+
+double GraphTerm::getRelativeWeight() const
+{
+    return static_cast<double>(weight()) / mMaxWeight;
 }
 
 bool GraphTerm::hasTermInRoots(GraphTerm* targetTerm, QList<GraphTerm*>& visitList)

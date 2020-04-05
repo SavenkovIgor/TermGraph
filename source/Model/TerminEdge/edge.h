@@ -31,7 +31,7 @@
 
 class PaintedTerm;
 
-enum class EdgeType { standart, termin, description, broken };
+enum class EdgeType { standart, termin, description, broken, redundant };
 
 enum class EdgeSelected { none, forward, backward };
 
@@ -69,6 +69,7 @@ public:
     static List castToEdgeList(const GraphEdge::List& lst);  // TODO: Delete!!!
 
     void brokeEdge();
+    void makeEdgeRedundant();
     void cutOutFromSides();
 
     // Selection
@@ -77,6 +78,8 @@ public:
 
     EdgeSelected selectedType() const;
     bool         isSelected() const;
+    bool         isBroken() const;
+    bool         isRedundant() const;
 
 signals:
     void selectionChanged();

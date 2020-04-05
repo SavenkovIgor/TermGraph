@@ -90,6 +90,9 @@ private:
     // Orphans
     void setOrphCoords(qreal maxWidth = 200.0);
 
+    // Weights
+    void setAllWeights();
+
     // Main objects
     void              addTreeRectsToScene();
     RectGraphicItem*  orphansRect;

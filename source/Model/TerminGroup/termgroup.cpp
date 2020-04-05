@@ -63,6 +63,8 @@ void TermGroup::initNewNodes()
     setNeighbours();
     setOrphCoords();
 
+    setAllWeights();
+
     checkSwapTimer.setSingleShot(false);
     setAnimSpeed(300);
     connect(&checkSwapTimer, &QTimer::timeout, this, &TermGroup::checkSwap);
@@ -374,6 +376,14 @@ void TermGroup::setOrphCoords(qreal maxWidth)
 
         maxHeightInRow = std::max(maxHeightInRow, nodeSize.height());
     }
+}
+
+void TermGroup::setAllWeights()
+{
+    GraphTerm::resetMaxWeight();
+
+    for (auto* node : getAllNodes())
+        node->giveWeights();
 }
 
 void TermGroup::setTreeCoords()

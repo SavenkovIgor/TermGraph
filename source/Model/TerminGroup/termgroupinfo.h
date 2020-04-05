@@ -47,6 +47,7 @@ public:
     Edge::List getAllEdges() const;
     Edge::List filterFromEdgesList(std::function<bool(Edge*)> condition) const;
     Edge::List getBrokenEdges() const;
+    Edge::List getRedundantEdges() const;
     Edge::List getAllEdgesForPainting() const;
 
 protected:

@@ -58,6 +58,8 @@ QColor Edge::getEdgeColor() const
         return AppStyle::Colors::Edges::description;
     case EdgeType::broken:
         return AppStyle::Colors::Edges::broken;
+    case EdgeType::redundant:
+        return AppStyle::Colors::Edges::standard;
     }
 
     return AppStyle::Colors::Edges::standard;
@@ -65,11 +67,18 @@ QColor Edge::getEdgeColor() const
 
 void Edge::brokeEdge()
 {
-    getRoot()->removeEdgeToLeafs(this);
+    cutOutFromSides();
     getRoot()->addBrokenEdge(this);
-    getLeaf()->removeEdgeToRoots(this);
 
     mType = EdgeType::broken;
+}
+
+void Edge::makeEdgeRedundant()
+{
+    cutOutFromSides();
+    getLeaf()->addRedundantEdge(this);
+
+    mType = EdgeType::redundant;
 }
 
 void Edge::cutOutFromSides()
@@ -86,6 +95,16 @@ EdgeSelected Edge::selectedType() const
 bool Edge::isSelected() const
 {
     return mSelected == EdgeSelected::forward || mSelected == EdgeSelected::backward;
+}
+
+bool Edge::isBroken() const
+{
+    return mType == EdgeType::broken;
+}
+
+bool Edge::isRedundant() const
+{
+    return mType == EdgeType::redundant;
 }
 
 QRectF Edge::edgeRect() const

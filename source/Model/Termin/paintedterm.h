@@ -45,6 +45,7 @@ class PaintedTerm : public QObject, public GraphTerm, public GraphicItem
     Q_PROPERTY(QColor color READ color NOTIFY selectionChanged)
     Q_PROPERTY(qreal radius READ cornerRadius CONSTANT)
     Q_PROPERTY(QRectF rect READ rect CONSTANT)
+    Q_PROPERTY(double weight READ getRelativeWeight CONSTANT)
 
     Q_PROPERTY(bool isSelectedAnyway READ isSelectedAnyway NOTIFY selectionChanged)
     Q_PROPERTY(bool isThisSelected READ isThisSelected NOTIFY selectionChanged)

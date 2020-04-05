@@ -25,16 +25,18 @@ import "../Js/Fonts.js" as Fonts
 import "../Js/Colors.js" as Colors
 
 Rectangle {
+    id: root
 
     property rect rect: Qt.rect(10, 10, 50, 30)
     property alias text: termLabel.text
+    property real weight: 1
 
     x: rect.x
     y: rect.y
     width: rect.width
     height: rect.height
 
-    border { width: 1; color: Colors.black; }
+    border { width: (1 * weight) + 1; color: Colors.black; }
 
     Text {
         id: termLabel

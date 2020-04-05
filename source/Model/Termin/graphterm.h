@@ -82,21 +82,34 @@ public:
     void removeEdgeToRoots(GraphEdge* edge);
 
     void            addBrokenEdge(GraphEdge* edge);
+    void            addRedundantEdge(GraphEdge* edge);
     GraphEdge::List getBrokenEdges() const;
+    GraphEdge::List getRedundantEdges() const;
 
     void checkForExceedEdges();
+
+    void        giveWeights();
+    static void resetMaxWeight();
+
+    int    weight() const;
+    void   increaseWeight();
+    double getRelativeWeight() const;
 
 private:
     GraphTerm::List neighbourNodes;
 
     GraphEdge::List edgesToOtherGroups;  // Пока никак не используются но будут.
     GraphEdge::List brokenEdges;         // Пока никак не используются но будут.
+    GraphEdge::List redundantEdges;
 
     GraphEdge::List edgesToLeafs;
     GraphEdge::List edgesToRoots;
 
     int          paintLevel = -1;
     unsigned int treeId     = 0;  // 0 = no value
+
+    int        mSelfWeight = 0;
+    static int mMaxWeight;
 
     static bool hasTermInRoots(GraphTerm* term, QList<GraphTerm*>& visitList);
 

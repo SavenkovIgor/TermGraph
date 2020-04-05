@@ -189,6 +189,7 @@ Control {
                 rect: modelData.rect
                 radius: modelData.radius
                 color: modelData.color
+                weight: modelData.weight
                 text: modelData.term
                 z: modelData.isSelectedAnyway ? 5 : 2
             }

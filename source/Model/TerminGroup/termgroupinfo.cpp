@@ -87,11 +87,21 @@ Edge::List TermGroupInfo::getBrokenEdges() const
     return ret;
 }
 
+Edge::List TermGroupInfo::getRedundantEdges() const
+{
+    Edge::List ret;
+    for (auto* node : getAllNodes())
+        for (auto* edge : node->getRedundantEdges())
+            ret.push_back(dynamic_cast<Edge*>(edge));
+
+    return ret;
+}
+
 Edge::List TermGroupInfo::getAllEdgesForPainting() const
 {
     Edge::List lst;
-    auto       defaultTypeFilter  = [](Edge* e) { return e->selectedType() == EdgeSelected::none; };
-    auto       selectedTypeFilter = [](Edge* e) { return e->selectedType() != EdgeSelected::none; };
+    auto       defaultTypeFilter  = [](Edge* e) { return !e->isSelected(); };
+    auto       selectedTypeFilter = [](Edge* e) { return e->isSelected(); };
 
     lst << filterFromEdgesList(defaultTypeFilter);
     lst << filterFromEdgesList(selectedTypeFilter);
@@ -242,9 +252,8 @@ void TermGroupInfo::removeExceedEdges()
     }
 
     for (auto edge : brokeList) {
-        edge->cutOutFromSides();
+        edge->makeEdgeRedundant();
         edgesList.removeOne(edge);
-        delete edge;
     }
 }
 
