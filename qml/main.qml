@@ -43,6 +43,8 @@ ApplicationWindow {
 //        showMaximized();
 //    }
 
+    color: Colors.base
+
     Component {
         id: mainSceneComponent;
 

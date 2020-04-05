@@ -30,7 +30,7 @@ Page {
     signal openMainMenu()
 
     padding: Math.min(width, height) * 0.035
-    background: Rectangle { color: Colors.base }
+    background: null
 
     header: DefaultHeader {
         onOpenMainMenu: root.openMainMenu()

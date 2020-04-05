@@ -91,8 +91,6 @@ M.Page {
         }
     }
 
-    background: Rectangle { color: Colors.base }
-
     header: M.DefaultHeader {
         id: header
         onOpenMainMenu: root.openMainMenu()
