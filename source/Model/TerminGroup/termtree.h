@@ -51,6 +51,7 @@ public:
 
     QRectF getTreeRect(CoordType inCoordinates) const;
     QSizeF getTreeSize() const;  // Clearly counted value. Ignoring real node positions
+    double square() const;
 
     // Internal counts and preparations
     void setTreeNodeCoors(QPointF leftTopPoint = QPointF());

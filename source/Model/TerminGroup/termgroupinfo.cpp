@@ -286,6 +286,10 @@ void TermGroupInfo::initTrees()
         }
         trees.push_back(tree);
     }
+
+    auto treeSorting = [](const TermTree* t1, const TermTree* t2) { return t1->square() > t2->square(); };
+
+    std::sort(trees.begin(), trees.end(), treeSorting);
 }
 
 QSizeF TermGroupInfo::getAllTreesSize()

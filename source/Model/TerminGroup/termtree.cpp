@@ -229,6 +229,12 @@ QSizeF TermTree::getTreeSize() const
     return QSizeF(width, height);
 }
 
+double TermTree::square() const
+{
+    auto size = getTreeSize();
+    return size.width() * size.height();
+}
+
 PaintedTerm::List TermTree::getAllNodesInTree() const
 {
     PaintedTerm::List ret;
