@@ -30,6 +30,7 @@ import "../Js/Colors.js" as Colors
 import Notification 1.0
 
 Control {
+    id: root
 
     height: scene.sceneRect.height
     width: scene.sceneRect.width
@@ -57,6 +58,15 @@ Control {
     }
 
     Component { id: edgeComponent; A.Edge { } }
+
+    function createEdge(parent, edgeInfo) {
+        return edgeComponent.createObject(parent,
+                                          { pt1: edgeInfo.pt1, pt2: edgeInfo.pt2, edgeColor: edgeInfo.color });
+    }
+
+    function createNullEdge(parent) {
+        return createEdge(parent, { pt1: Qt.point(0, 0), pt2: Qt.point(0, 0), edgeColor: "black" });
+    }
 
     contentItem: Item {
 
@@ -117,29 +127,12 @@ Control {
                 // So we create fake edge every time just for sure
                 // that shape redraw each time
 
-                let fakeEdge = edgeComponent.createObject(
-                        edgesShape,
-                        {
-                            pt1: Qt.point(0, 0),
-                            pt2: Qt.point(0, 0),
-                            edgeColor: "black"
-                        });
-
-                let newEdges = [fakeEdge];
+                let newEdges = [root.createNullEdge(edgesShape)];
 
                 const edgesCount = scene.edges.length;
 
                 for (let j = 0; j < edgesCount; ++j) {
-
-                    const edge = scene.edges[j];
-
-                    const edgeLine = edgeComponent.createObject(
-                            edgesShape,
-                            {
-                                pt1: edge.pt1,
-                                pt2: edge.pt2,
-                                edgeColor: edge.color
-                            });
+                    const edgeLine = root.createEdge(edgesShape, scene.edges[j]);
 
                     newEdges.push(edgeLine);
                 }
@@ -169,15 +162,7 @@ Control {
                 // So we create fake edge every time just for sure
                 // that shape redraw each time
 
-                let fakeEdge = edgeComponent.createObject(
-                        edgesSelectedShape,
-                        {
-                            pt1: Qt.point(0, 0),
-                            pt2: Qt.point(0, 0),
-                            edgeColor: "black"
-                        });
-
-                let newEdges = [fakeEdge];
+                let newEdges = [root.createNullEdge(edgesSelectedShape)];
 
                 const edgesCount = scene.edges.length;
 
@@ -188,13 +173,7 @@ Control {
                     if (!edge.isSelected)
                         continue;
 
-                    const edgeLine = edgeComponent.createObject(
-                            edgesSelectedShape,
-                            {
-                                pt1: edge.pt1,
-                                pt2: edge.pt2,
-                                edgeColor: edge.color
-                            });
+                    const edgeLine = root.createEdge(edgesSelectedShape, edge);
 
                     newEdges.push(edgeLine);
                 }
