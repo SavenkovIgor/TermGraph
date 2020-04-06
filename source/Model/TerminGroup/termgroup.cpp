@@ -25,8 +25,6 @@
 #include "source/Helpers/fonts.h"
 #include "source/Helpers/tagutils.h"
 
-int TermGroup::animSpeed = 300;
-
 TermGroup::TermGroup(const GroupInfoContainer& info, QObject* parent)
     : QObject(parent)
     , TermGroupInfo(info)
@@ -34,9 +32,6 @@ TermGroup::TermGroup(const GroupInfoContainer& info, QObject* parent)
 
 TermGroup::~TermGroup()
 {
-    checkSwapTimer.stop();
-    animTimer.stop();
-
     delete orphansRect;
     delete baseRect;
 }
@@ -60,18 +55,9 @@ void TermGroup::initNewNodes()
     addEdgesToParents();
 
     setTreeCoords();
-    setNeighbours();
     setOrphCoords();
 
     setAllWeights();
-
-    checkSwapTimer.setSingleShot(false);
-    setAnimSpeed(300);
-    connect(&checkSwapTimer, &QTimer::timeout, this, &TermGroup::checkSwap);
-
-    animTimer.setSingleShot(false);
-    animTimer.setInterval(50);
-    connect(&animTimer, &QTimer::timeout, this, &TermGroup::animateGroup);
 }
 
 void TermGroup::loadNodes(const PaintedTerm::List& newNodes)
@@ -146,33 +132,9 @@ void TermGroup::addEdgesToParents()
     }
 }
 
-void TermGroup::startAnimation()
-{
-    animTimer.start();
-    checkSwapTimer.start();
-}
-
-void TermGroup::stopAnimation()
-{
-    animTimer.stop();
-    checkSwapTimer.stop();
-}
-
 void TermGroup::sceneUpdateSignal()
 {
     updateGroupFrame();
-}
-
-void TermGroup::checkSwap()
-{
-    for (auto tree : trees)
-        tree->checkSwap();
-}
-
-void TermGroup::animateGroup()
-{
-    for (auto tree : trees)
-        tree->animateTree();
 }
 
 void TermGroup::addTreeRectsToScene()
@@ -199,21 +161,6 @@ qreal TermGroup::getGroupMinWidth()
     width = std::max(width, orphansWidth);
 
     return width;
-}
-
-void TermGroup::setAnimSpeed(int val)
-{
-    checkSwapTimer.setInterval(static_cast<int>(val * 1.5));
-    for (auto tree : trees) {
-        tree->swAnim1.setDuration(val);
-        tree->swAnim2.setDuration(val);
-    }
-    animSpeed = val;
-}
-
-int TermGroup::getAnimSpeed()
-{
-    return animSpeed;
 }
 
 UuidList TermGroup::searchNearest(const QString& text, int limit)

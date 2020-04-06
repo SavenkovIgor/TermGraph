@@ -317,13 +317,6 @@ QSizeF TermGroupInfo::getAllTreesSize()
     return totalSize;
 }
 
-void TermGroupInfo::setNeighbours()
-{
-    for (auto tree : trees) {
-        tree->setNeighbours();
-    }
-}
-
 QSizeF TermGroupInfo::getOrphansSize()
 {
     QRectF orphansRc;

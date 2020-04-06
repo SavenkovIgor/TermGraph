@@ -53,15 +53,6 @@ public:
 
     QRectF edgeRect() const;
 
-    int getLayerDistance();
-
-    qreal getXProjection();
-    qreal getYProjection();
-
-    QPointF swapPointRoot = QPointF();
-    QPointF swapPointLeaf = QPointF();
-    QLineF  getLine(bool swap = false);
-
     QPointF rootPoint() const;
     QPointF leafPoint() const;
     QColor  getEdgeColor() const;

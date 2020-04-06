@@ -117,40 +117,6 @@ QRectF Edge::edgeRect() const
     return rc;
 }
 
-int Edge::getLayerDistance()
-{
-    auto toRoot = dynamic_cast<PaintedTerm*>(getRoot());
-    auto toLeaf = dynamic_cast<PaintedTerm*>(getLeaf());
-
-    return std::abs(toRoot->getPaintLevel() - toLeaf->getPaintLevel());
-}
-
-qreal Edge::getXProjection()
-{
-    return edgeRect().width();
-}
-
-qreal Edge::getYProjection()
-{
-    return edgeRect().height();
-}
-
-QLineF Edge::getLine(bool swap)
-{
-    QPointF pt1 = rootPoint();
-    QPointF pt2 = leafPoint();
-
-    if (swap) {
-        if (!swapPointRoot.isNull())
-            pt1 = swapPointRoot;
-
-        if (!swapPointLeaf.isNull())
-            pt2 = swapPointLeaf;
-    }
-
-    return QLineF(pt1, pt2);
-}
-
 QPointF Edge::rootPoint() const
 {
     auto paintedTerm = dynamic_cast<PaintedTerm*>(getRoot());

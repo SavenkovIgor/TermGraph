@@ -23,8 +23,6 @@
 
 #include <stdlib.h>
 #include <QList>
-#include <QParallelAnimationGroup>
-#include <QPropertyAnimation>
 
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/Termin/paintedterm.h"
@@ -55,18 +53,6 @@ public:
 
     // Internal counts and preparations
     void setTreeNodeCoors(QPointF leftTopPoint = QPointF());
-    void setNeighbours();
-
-    // Animation  // TODO: Make animation! Later...
-    QParallelAnimationGroup animationGroup;
-    QPropertyAnimation      swAnim1;
-    QPropertyAnimation      swAnim2;
-
-    int  currAnimLevel = -1;
-    bool lockForce     = true;
-
-    void animateTree();
-    void checkSwap();
 
     PaintedTerm* getNodeAtPoint(const QPointF& pt) const;
 

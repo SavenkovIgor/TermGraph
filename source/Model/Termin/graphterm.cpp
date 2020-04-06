@@ -27,29 +27,6 @@ GraphTerm::GraphTerm(const NodeInfoContainer& info)
     : InfoTerm(info)
 {}
 
-GraphEdge::List GraphTerm::getUpDownEdges()
-{
-    GraphEdge::List ret;
-    ret << edgesToLeafs;
-    ret << edgesToRoots;
-    return ret;
-}
-
-void GraphTerm::addLayerNeighbours(const GraphTerm::List& neighboursList)
-{
-    for (GraphTerm* term : neighboursList) {
-        if (term == this) {
-            continue;
-        }
-        neighbourNodes << term;
-    }
-}
-
-void GraphTerm::clearNeighboursList()
-{
-    neighbourNodes.clear();
-}
-
 bool GraphTerm::isRoot() const
 {
     return getNodeType() == NodeType::root;
@@ -69,11 +46,6 @@ bool GraphTerm::isLeaf() const
 bool GraphTerm::isInTree() const
 {
     return !isOrphan();
-}
-
-bool GraphTerm::hasConnections() const
-{
-    return !(edgesToRoots.isEmpty() && edgesToLeafs.isEmpty());
 }
 
 NodeType GraphTerm::getNodeType() const
@@ -191,35 +163,6 @@ void GraphTerm::addEdgeRef(GraphEdge* edge)
         edgesToRoots << edge;
 }
 
-bool GraphTerm::isInGroupEdge(GraphEdge* edge)
-{
-    return edge->getRoot()->getGroupUuid() == edge->getLeaf()->getGroupUuid();
-}
-
-bool GraphTerm::hasConnectionsInGroup()
-{
-    for (GraphEdge* e : edgesToLeafs) {
-        if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
-            return true;
-        }
-    }
-
-    for (GraphEdge* e : edgesToRoots) {
-        if (e->getLeaf()->getGroupUuid() == getGroupUuid()) {
-            return true;
-        }
-    }
-    return false;
-}
-
-GraphTerm::List GraphTerm::getUpDownNodes()
-{
-    List ret;
-    ret << getRootNodes();
-    ret << getLeafNodes();
-    return ret;
-}
-
 GraphTerm::List GraphTerm::getRootNodes()
 {
     GraphTerm::List ret;
@@ -240,11 +183,6 @@ GraphTerm::List GraphTerm::getLeafNodes()
     }
 
     return ret;
-}
-
-GraphTerm::List GraphTerm::getNeighbourNodes()
-{
-    return neighbourNodes;
 }
 
 GraphEdge::List GraphTerm::getEdgesToLeafs() const

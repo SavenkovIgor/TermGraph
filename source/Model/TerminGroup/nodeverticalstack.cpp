@@ -35,14 +35,6 @@ QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::Lis
 
 NodeVerticalStack::NodeVerticalStack()
 {
-    animationGroup.addAnimation(&swAnim1);
-    animationGroup.addAnimation(&swAnim2);
-
-    swAnim1.setPropertyName("pos");
-    swAnim2.setPropertyName("pos");
-
-    swAnim1.setEasingCurve(QEasingCurve::InOutQuad);
-    swAnim2.setEasingCurve(QEasingCurve::InOutQuad);
 }
 
 NodeVerticalStack::~NodeVerticalStack()
@@ -133,21 +125,6 @@ void NodeVerticalStack::placeTerms(QPointF centerPoint)
         term->setPos(leftTopPt);
 
         placingPoint.ry() += frameSize.height() / 2;
-    }
-}
-
-void NodeVerticalStack::setNeighbours()
-{
-    // Casting list to GraphicItemTerm
-    GraphTerm::List castedList;
-
-    for (auto term : terms) {
-        castedList << static_cast<GraphTerm*>(term);
-    }
-
-    for (auto term : terms) {
-        term->clearNeighboursList();
-        term->addLayerNeighbours(castedList);
     }
 }
 

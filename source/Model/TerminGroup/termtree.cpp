@@ -26,14 +26,6 @@
 TermTree::TermTree()
 {
     rect = new RectGraphicItem();
-
-    animationGroup.addAnimation(&swAnim1);
-    animationGroup.addAnimation(&swAnim2);
-
-    swAnim1.setPropertyName("pos");
-    swAnim2.setPropertyName("pos");
-    swAnim1.setEasingCurve(QEasingCurve::InOutQuad);
-    swAnim2.setEasingCurve(QEasingCurve::InOutQuad);
 }
 
 TermTree::~TermTree()
@@ -64,88 +56,6 @@ void TermTree::setTreeNodeCoors(QPointF leftTopPoint)
         stack->placeTerms(centerPoint);
         centerPoint.rx() += stackSize.width() / 2 + AppStyle::Sizes::treeLayerHorizontalSpacer;
     }
-}
-
-void TermTree::setNeighbours()
-{
-    for (auto stack : stacks) {
-        stack->setNeighbours();
-    }
-}
-
-void TermTree::animateTree()
-{
-    return;  // TODO: Delete!
-    //    if(animGrp.state() != QAbstractAnimation::Stopped)
-    //        return;
-    if (lockForce) {
-        return;
-    }
-
-    for (auto node : getAllNodesInTree()) {
-        if (animationGroup.state() != QAbstractAnimation::Stopped && node->getPaintLevel() == currAnimLevel) {
-            continue;
-        }
-        node->countForces();
-    }
-
-    bool someMoved = false;
-    for (auto node : getAllNodesInTree()) {
-        if (animationGroup.state() != QAbstractAnimation::Stopped && node->getPaintLevel() == currAnimLevel) {
-            continue;
-        }
-        if (node->applyMove() && !someMoved) {
-            someMoved = true;
-        }
-    }
-
-    if (!someMoved) {
-        // stopAnimation();  // TODO: uncomment
-        //        animTimer.stop();
-    }
-}
-
-void TermTree::checkSwap()
-{
-    return;
-    for (int layer = 1; layer < stacks.size();
-         layer++) {  // TODO: Обдумать этот момент i=1 because we need to ignore roots.
-        auto levLst = stacks[layer]->getAllNodesInStack();
-
-        for (int j = 0; j < levLst.size() - 1; j++) {
-            int inter = levLst[j]->getIntersections();
-
-            QPointF pt1 = levLst[j]->getCenter(CoordType::scene);
-            QPointF pt2 = levLst[j + 1]->getCenter(CoordType::scene);
-
-            levLst[j]->setSwap(pt2);
-            levLst[j + 1]->setSwap(pt1);
-
-            qreal sum1 = levLst[j]->getSumEdgesLength(false) + levLst[j + 1]->getSumEdgesLength(false);
-            qreal sum2 = levLst[j]->getSumEdgesLength(true) + levLst[j + 1]->getSumEdgesLength(true);
-
-            int newIntersect = levLst[j]->getIntersections(true);
-
-            levLst[j]->dropSwap();
-            levLst[j + 1]->dropSwap();
-
-            if (levLst[j]->getNodeRect(CoordType::scene).intersects(levLst[j + 1]->getNodeRect(CoordType::scene))) {
-                continue;
-            }
-
-            if (newIntersect < inter) {
-                stacks[layer]->swapNodes(levLst[j], levLst[j + 1]);
-                return;
-            }
-
-            if (newIntersect <= inter && (sum2 < sum1 && sum1 - sum2 > sum1 * 0.2)) {
-                stacks[layer]->swapNodes(levLst[j], levLst[j + 1]);
-                return;
-            }
-        }
-    }
-
-    lockForce = false;
 }
 
 PaintedTerm* TermTree::getNodeAtPoint(const QPointF& pt) const

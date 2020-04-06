@@ -38,19 +38,11 @@ public:
     GraphTerm(const NodeInfoContainer& info);
     ~GraphTerm() override = default;
 
-    List            getUpDownNodes();
-    GraphEdge::List getUpDownEdges();
-
-    void addLayerNeighbours(const GraphTerm::List& neighboursList);
-    void clearNeighboursList();
-
     bool isRoot() const;
     bool isOrphan() const;
     bool isLeaf() const;
 
     bool isInTree() const;
-
-    bool hasConnections() const;
 
     NodeType getNodeType() const;
 
@@ -63,15 +55,12 @@ public:
     void         setTreeId(unsigned int treeId);
     unsigned int getTreeId() const;
 
-    void        addEdgeRef(GraphEdge* edge);
-    static bool isInGroupEdge(GraphEdge* edge);
-    bool        hasConnectionsInGroup();
+    void addEdgeRef(GraphEdge* edge);
 
     // Delete section
     GraphTerm::List getRootNodes();
     GraphTerm::List getLeafNodes();
 
-    GraphTerm::List getNeighbourNodes();
     GraphEdge::List getEdgesToLeafs() const;
     GraphEdge::List getEdgesToRoots() const;
     GraphEdge::List getAllConnectedEdges() const;
@@ -96,8 +85,6 @@ public:
     double getRelativeWeight() const;
 
 private:
-    GraphTerm::List neighbourNodes;
-
     GraphEdge::List edgesToOtherGroups;  // Пока никак не используются но будут.
     GraphEdge::List brokenEdges;         // Пока никак не используются но будут.
     GraphEdge::List redundantEdges;

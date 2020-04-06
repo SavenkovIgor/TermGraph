@@ -78,17 +78,6 @@ public:
 
     QPointF getCenter(CoordType inCoordinates) const;
 
-    // Animation
-    bool applyMove();
-    void countForces();
-
-    // Edges work
-    int   getIntersections(bool swapped = false);
-    qreal getSumEdgesLength(bool swap);
-
-    void setSwap(QPointF toPt);
-    void dropSwap();
-
     qreal cornerRadius() const;
 
     void setSelection(const bool& selected);
@@ -111,24 +100,8 @@ private:
     bool mThisSelected  = false;
     bool mRelativePaint = false;
 
-    // Scene tools
-    static bool isNearPoints(QPointF pt1, QPointF pt2, qreal dist);
-
-    // Neighbours tools
-    PaintedTerm* getNearestLeftNeigh();
-    PaintedTerm* getNearestRightNeigh();
-
-    // Edges tools
-    Edge::List getEdgesInLayer();
-
     // Rect tools
     static QRectF addMarginsToRect(QRectF rc, qreal mrg);
-
-    // --- Variables ---
-    static const qreal verScale;
-
-    // Paint / Animation
-    qreal newPosOffset = 0.0;
 
     // Color tools
     QColor        color() const;

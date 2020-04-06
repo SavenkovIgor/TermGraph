@@ -22,7 +22,6 @@
 #pragma once
 
 #include <QObject>
-#include <QTimer>
 
 #include "source/Helpers/handytypes.h"
 #include "source/Model/GraphicItem/rectgraphicitem.h"
@@ -31,11 +30,6 @@
 class TermGroup : public QObject, public TermGroupInfo
 {
     Q_OBJECT
-
-    static int animSpeed;
-
-    QTimer animTimer;
-    QTimer checkSwapTimer;
 
 public:
     TermGroup(const GroupInfoContainer& info, QObject* parent = nullptr);
@@ -46,9 +40,6 @@ public:
     RectGraphicItem* baseRect;
 
     QRectF  getGroupRect() const;
-
-    void       setAnimSpeed(int val);
-    static int getAnimSpeed();
 
     UuidList searchNearest(const QString& text, int limit = 10);
     UuidList searchContains(const QString& text, int limit = 10);
@@ -64,15 +55,7 @@ public:
     PaintedTerm* getNode(const QString& nodeName) const;
 
 public slots:
-    void checkSwap();
-
-    void startAnimation();
-    void stopAnimation();
-
     void sceneUpdateSignal();
-
-private slots:
-    void animateGroup();
 
 private:
     // Base init

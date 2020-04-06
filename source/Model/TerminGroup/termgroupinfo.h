@@ -69,7 +69,6 @@ protected:
     void   setLevels();
     void   initTrees();
     QSizeF getAllTreesSize();
-    void   setNeighbours();
 
     // Orphans tools
     QSizeF getOrphansSize();
