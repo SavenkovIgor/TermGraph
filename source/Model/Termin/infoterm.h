@@ -37,21 +37,23 @@ public:
 
     bool isNull() const;
 
-    QString getCachedLowerTerm() const;
-    QString getTermAndDefinition(bool decorated = false) const;
+    QString lowerTerm() const;
     QString decoratedTerm() const;
+    QSizeF  decoratedTermSize();
 
-    QStringList getDefinitionTags() const;
+    QStringList tags() const;
 
-    QSizeF getNameSize();  // Lazy
+    QString termAndDefinition(bool decorated = false) const;
 
 private:
     const NodeInfoContainer mInfo;
 
-    const QString mDecoratedTerm;
+    const QString     mLowerTerm;
+    const QString     mDecoratedTerm;
+    const QSizeF      mDecoratedTermSize;
+    const QStringList mLowerTags;
 
-    QString cachedTermToLower;
-    QSizeF  nameSize = QSizeF();
-
-    static QString decorateTerm(const QString& term);
+    static QString     getDecoratedTerm(const QString& term);
+    static QSizeF      getTermSize(const QString& decoratedTerm);
+    static QStringList getLowerTags(const QString& definition);
 };

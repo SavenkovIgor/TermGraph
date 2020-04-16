@@ -88,10 +88,10 @@ QString GraphTerm::getHierarchyDefinition()
     QStringList definitions;
 
     for (auto node : parentsList)
-        definitions << node->getTermAndDefinition(true);
+        definitions << node->termAndDefinition(true);
 
     // Add this definition
-    definitions << getTermAndDefinition(true);
+    definitions << termAndDefinition(true);
 
     return definitions.join("<br><br>");
 }

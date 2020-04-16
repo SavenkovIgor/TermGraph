@@ -28,11 +28,18 @@
 #include "source/Helpers/tagutils.h"
 #include "source/Helpers/textprocessor.h"
 
+// Initialization order is important!
 InfoTerm::InfoTerm(const NodeInfoContainer& info)
     : mInfo(info)
-    , mDecoratedTerm(decorateTerm(mInfo.term))
+    , mLowerTerm(info.term.toLower())
+    , mDecoratedTerm(getDecoratedTerm(info.term))
+    , mDecoratedTermSize(getTermSize(mDecoratedTerm))
+    , mLowerTags(getLowerTags(info.definition))
+{}
+
+const NodeInfoContainer& InfoTerm::info() const
 {
-    cachedTermToLower = mInfo.term.toLower();
+    return mInfo;
 }
 
 bool InfoTerm::isNull() const
@@ -40,12 +47,27 @@ bool InfoTerm::isNull() const
     return mInfo.isNull();
 }
 
-QString InfoTerm::getCachedLowerTerm() const
+QString InfoTerm::lowerTerm() const
 {
-    return cachedTermToLower;
+    return mLowerTerm;
 }
 
-QString InfoTerm::getTermAndDefinition(bool decorated) const
+QString InfoTerm::decoratedTerm() const
+{
+    return mDecoratedTerm;
+}
+
+QSizeF InfoTerm::decoratedTermSize()
+{
+    return mDecoratedTermSize;
+}
+
+QStringList InfoTerm::tags() const
+{
+    return mLowerTags;
+}
+
+QString InfoTerm::termAndDefinition(bool decorated) const
 {
     if (decorated) {
         auto ret = "<font color=\"#00a693\">" + mInfo.term + "</font>";
@@ -55,27 +77,7 @@ QString InfoTerm::getTermAndDefinition(bool decorated) const
     return mInfo.term + " - это " + mInfo.definition;
 }
 
-QString InfoTerm::decoratedTerm() const
-{
-    return mDecoratedTerm;
-}
-
-QSizeF InfoTerm::getNameSize()
-{
-    if (!nameSize.isValid()) {
-        SizesList sizes;
-        auto      nameParts = decoratedTerm().split("\n");
-
-        for (auto& part : nameParts)
-            sizes.push_back(Fonts::getTextMetrics(part));
-
-        nameSize = HelpStuff::getStackedSize(sizes, Qt::Vertical);
-    }
-
-    return nameSize;
-}
-
-QString InfoTerm::decorateTerm(const QString& term)
+QString InfoTerm::getDecoratedTerm(const QString& term)
 {
     QString ret = term;
 
@@ -91,14 +93,21 @@ QString InfoTerm::decorateTerm(const QString& term)
     return ret;
 }
 
-const NodeInfoContainer& InfoTerm::info() const
+QSizeF InfoTerm::getTermSize(const QString& decoratedTerm)
 {
-    return mInfo;
+    SizesList sizes;
+
+    auto termParts = decoratedTerm.split("\n");
+
+    for (auto& part : termParts)
+        sizes.push_back(Fonts::getTextMetrics(part));
+
+    return HelpStuff::getStackedSize(sizes, Qt::Vertical);
 }
 
-QStringList InfoTerm::getDefinitionTags() const
+QStringList InfoTerm::getLowerTags(const QString& definition)
 {
-    auto tags = TagUtils::extractTags(mInfo.definition);
+    auto tags = TagUtils::extractTags(definition);
 
     for (auto& tag : tags)
         tag = tag.toLower();
