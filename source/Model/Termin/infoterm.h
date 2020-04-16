@@ -32,7 +32,8 @@ class InfoTerm
 public:
     explicit InfoTerm(const NodeInfoContainer& info);
     virtual ~InfoTerm() = default;
-    //    bool isNull(); //TODO: Realize!
+
+    bool isNull();
 
     QUuid   getUuid() const;
     QString getTerm() const;
@@ -44,13 +45,13 @@ public:
     QString     getDefinition() const;
     QStringList getDefinitionTags() const;
 
-    NodeInfoContainer infoContainer() const;
+    const NodeInfoContainer& info() const;
 
 protected:
     QSizeF getNameSize();  // Lazy
 
 private:
-    NodeInfoContainer info;
+    NodeInfoContainer mInfo;
 
     QString cachedTermToLower;
     mutable QString smallName = QString();  // То же самое название но ужатое до 2х строчек"

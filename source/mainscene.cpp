@@ -250,8 +250,7 @@ QString MainScene::termNameToUuid(const QString& termName) const
 NodeGadgetWrapper MainScene::getCurrentNode()
 {
     if (auto* node = getSelectedTerm()) {
-        auto info = node->infoContainer();
-        return NodeGadgetWrapper(info);
+        return NodeGadgetWrapper(node->info());
     }
 
     return NodeGadgetWrapper();

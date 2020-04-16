@@ -30,18 +30,23 @@
 
 InfoTerm::InfoTerm(const NodeInfoContainer& info)
 {
-    this->info        = info;
+    mInfo             = info;
     cachedTermToLower = getTerm().toLower();
+}
+
+bool InfoTerm::isNull()
+{
+    return mInfo.isNull();
 }
 
 QUuid InfoTerm::getUuid() const
 {
-    return info.uuid;
+    return mInfo.uuid;
 }
 
 QString InfoTerm::getTerm() const
 {
-    return info.term;
+    return mInfo.term;
 }
 
 QString InfoTerm::getCachedLowerTerm() const
@@ -51,7 +56,7 @@ QString InfoTerm::getCachedLowerTerm() const
 
 QUuid InfoTerm::getGroupUuid() const
 {
-    return info.groupUuid;
+    return mInfo.groupUuid;
 }
 
 QString InfoTerm::getTermAndDefinition(bool decorated) const
@@ -97,14 +102,14 @@ QSizeF InfoTerm::getNameSize()
     return nameSize;
 }
 
-NodeInfoContainer InfoTerm::infoContainer() const
+const NodeInfoContainer& InfoTerm::info() const
 {
-    return info;
+    return mInfo;
 }
 
 QString InfoTerm::getDefinition() const
 {
-    return info.definition;
+    return mInfo.definition;
 }
 
 QStringList InfoTerm::getDefinitionTags() const
