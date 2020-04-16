@@ -175,7 +175,7 @@ void NodeVerticalStack::sortNodePacks(QList<NodeVerticalStack::NodePack>& pack)
     std::sort(pack.begin(), pack.end(), order);
 
     auto innerOrder = [](const PaintedTerm* t1, const PaintedTerm* t2) {
-        return t1->getSmallName() < t2->getSmallName();
+        return t1->decoratedTerm() < t2->decoratedTerm();
     };
 
     for ([[maybe_unused]] auto& [pt, nodes] : pack) {

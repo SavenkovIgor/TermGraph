@@ -39,7 +39,7 @@ public:
 
     QString getCachedLowerTerm() const;
     QString getTermAndDefinition(bool decorated = false) const;
-    QString getSmallName() const;  // Lazy
+    QString decoratedTerm() const;
 
     QStringList getDefinitionTags() const;
 
@@ -48,7 +48,10 @@ public:
 private:
     const NodeInfoContainer mInfo;
 
+    const QString mDecoratedTerm;
+
     QString cachedTermToLower;
-    mutable QString smallName = QString();  // То же самое название но ужатое до 2х строчек"
-    QSizeF  nameSize  = QSizeF();
+    QSizeF  nameSize = QSizeF();
+
+    static QString decorateTerm(const QString& term);
 };

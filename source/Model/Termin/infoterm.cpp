@@ -30,6 +30,7 @@
 
 InfoTerm::InfoTerm(const NodeInfoContainer& info)
     : mInfo(info)
+    , mDecoratedTerm(decorateTerm(mInfo.term))
 {
     cachedTermToLower = mInfo.term.toLower();
 }
@@ -54,29 +55,16 @@ QString InfoTerm::getTermAndDefinition(bool decorated) const
     return mInfo.term + " - это " + mInfo.definition;
 }
 
-QString InfoTerm::getSmallName() const
+QString InfoTerm::decoratedTerm() const
 {
-    if (smallName.isNull()) {
-        smallName = mInfo.term;
-
-        if (smallName.contains(" ")) {
-            // Если имя превышает базовую ширину и содержит пробелы то пытаемся его разбить на 2
-
-            if (Fonts::getTextMetrics(smallName).width() + 15 > AppStyle::Sizes::baseBlockWidth) {
-                // Пытаемся ужать в 2 строки
-                smallName = TextProcessor::insertNewLineNearMiddle(smallName);
-            }
-        }
-    }
-
-    return smallName;
+    return mDecoratedTerm;
 }
 
 QSizeF InfoTerm::getNameSize()
 {
     if (!nameSize.isValid()) {
         SizesList sizes;
-        auto      nameParts = getSmallName().split("\n");
+        auto      nameParts = decoratedTerm().split("\n");
 
         for (auto& part : nameParts)
             sizes.push_back(Fonts::getTextMetrics(part));
@@ -85,6 +73,22 @@ QSizeF InfoTerm::getNameSize()
     }
 
     return nameSize;
+}
+
+QString InfoTerm::decorateTerm(const QString& term)
+{
+    QString ret = term;
+
+    if (ret.contains(" ")) {
+        // Если имя превышает базовую ширину и содержит пробелы то пытаемся его разбить на 2
+
+        if (Fonts::getTextMetrics(ret).width() + 15 > AppStyle::Sizes::baseBlockWidth) {
+            // Пытаемся ужать в 2 строки
+            ret = TextProcessor::insertNewLineNearMiddle(ret);
+        }
+    }
+
+    return ret;
 }
 
 const NodeInfoContainer& InfoTerm::info() const

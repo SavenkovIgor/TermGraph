@@ -41,7 +41,7 @@ class PaintedTerm : public QObject, public GraphTerm, public GraphicItem
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString term READ getSmallName CONSTANT)
+    Q_PROPERTY(QString term READ decoratedTerm CONSTANT)
     Q_PROPERTY(QColor color READ color NOTIFY selectionChanged)
     Q_PROPERTY(qreal radius READ cornerRadius CONSTANT)
     Q_PROPERTY(QRectF rect READ rect CONSTANT)
