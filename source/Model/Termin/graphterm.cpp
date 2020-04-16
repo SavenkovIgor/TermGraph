@@ -102,7 +102,7 @@ void GraphTerm::setLevel(int level)
         paintLevel = level;
 
     for (auto n : getLeafNodes()) {
-        if (getGroupUuid() != n->getGroupUuid()) {
+        if (info().groupUuid != n->info().groupUuid) {
             continue;
         }
         n->setLevel(level + 1);

@@ -29,24 +29,14 @@
 #include "source/Helpers/textprocessor.h"
 
 InfoTerm::InfoTerm(const NodeInfoContainer& info)
+    : mInfo(info)
 {
-    mInfo             = info;
-    cachedTermToLower = getTerm().toLower();
+    cachedTermToLower = mInfo.term.toLower();
 }
 
-bool InfoTerm::isNull()
+bool InfoTerm::isNull() const
 {
     return mInfo.isNull();
-}
-
-QUuid InfoTerm::getUuid() const
-{
-    return mInfo.uuid;
-}
-
-QString InfoTerm::getTerm() const
-{
-    return mInfo.term;
 }
 
 QString InfoTerm::getCachedLowerTerm() const
@@ -54,25 +44,20 @@ QString InfoTerm::getCachedLowerTerm() const
     return cachedTermToLower;
 }
 
-QUuid InfoTerm::getGroupUuid() const
-{
-    return mInfo.groupUuid;
-}
-
 QString InfoTerm::getTermAndDefinition(bool decorated) const
 {
     if (decorated) {
-        auto ret = "<font color=\"#00a693\">" + getTerm() + "</font>";
-        ret += " - это " + TagProcessor::decorateTags(getDefinition());
+        auto ret = "<font color=\"#00a693\">" + mInfo.term + "</font>";
+        ret += " - это " + TagProcessor::decorateTags(mInfo.definition);
         return ret;
     }
-    return getTerm() + " - это " + getDefinition();
+    return mInfo.term + " - это " + mInfo.definition;
 }
 
 QString InfoTerm::getSmallName() const
 {
     if (smallName.isNull()) {
-        smallName = getTerm();
+        smallName = mInfo.term;
 
         if (smallName.contains(" ")) {
             // Если имя превышает базовую ширину и содержит пробелы то пытаемся его разбить на 2
@@ -107,14 +92,9 @@ const NodeInfoContainer& InfoTerm::info() const
     return mInfo;
 }
 
-QString InfoTerm::getDefinition() const
-{
-    return mInfo.definition;
-}
-
 QStringList InfoTerm::getDefinitionTags() const
 {
-    auto tags = TagUtils::extractTags(getDefinition());
+    auto tags = TagUtils::extractTags(mInfo.definition);
 
     for (auto& tag : tags)
         tag = tag.toLower();

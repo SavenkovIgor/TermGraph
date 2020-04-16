@@ -65,9 +65,9 @@ void TermGroup::loadNodes(const PaintedTerm::List& newNodes)
     clearNodesList();
 
     for (auto node : newNodes) {
-        Q_ASSERT_X(node->getGroupUuid() == this->getUuid(), Q_FUNC_INFO, "Node group error");
+        Q_ASSERT_X(node->info().groupUuid == this->getUuid(), Q_FUNC_INFO, "Node group error");
 
-        if (node->getGroupUuid() != this->getUuid())
+        if (node->info().groupUuid != this->getUuid())
             continue;
 
         addNodeToList(node);
@@ -99,7 +99,7 @@ PaintedTerm* TermGroup::getNode(const QPointF& pt) const
 PaintedTerm* TermGroup::getNode(const QUuid& nodeUuid) const
 {
     for (auto* node : getAllNodes())
-        if (node->getUuid() == nodeUuid)
+        if (node->info().uuid == nodeUuid)
             return node;
 
     return nullptr;
@@ -108,7 +108,7 @@ PaintedTerm* TermGroup::getNode(const QUuid& nodeUuid) const
 PaintedTerm* TermGroup::getNode(const QString& nodeName) const
 {
     for (auto* node : getAllNodes())
-        if (node->getTerm() == nodeName)
+        if (node->info().term == nodeName)
             return node;
 
     return nullptr;
@@ -173,7 +173,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit)
 
         // Exact match
         if (searchText == lowerTerm) {
-            searchResults << QPair(0, node->getUuid());
+            searchResults << QPair(0, node->info().uuid);
             continue;
         }
 
@@ -183,7 +183,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit)
         auto distance        = TagUtils::getLevDistance(cuttedTerm, searchText, acceptableLimit);
 
         if (distance <= acceptableLimit)
-            searchResults << QPair(distance, node->getUuid());
+            searchResults << QPair(distance, node->info().uuid);
     }
 
     // Sorting
@@ -212,7 +212,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit)
 
     for (auto* node : getAllNodes()) {
         if (node->getCachedLowerTerm().contains(lowerSearch))
-            ret.push_back(node->getUuid());
+            ret.push_back(node->info().uuid);
 
         if (static_cast<int>(ret.size()) == limit)
             break;

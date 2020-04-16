@@ -24,7 +24,7 @@
 GroupNameCache::GroupNameCache(const PaintedTerm::List& nodes)
 {
     for (const auto& node : nodes) {
-        auto name = node->getTerm().simplified();
+        auto name = node->info().term.simplified();
         nodeMap.insert(name, node);
     }
 }

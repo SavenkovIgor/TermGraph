@@ -128,7 +128,7 @@ void MainScene::deleteSelectedTerm()
 {
     if (auto* node = getSelectedTerm()) {
         dropTermSelection();
-        nodesMgr->deleteNode(node->getUuid());
+        nodesMgr->deleteNode(node->info().uuid);
     }
 }
 
@@ -236,7 +236,7 @@ QString MainScene::getCurrNodeDebugInfo()
 QString MainScene::termUuidToName(const QString& termUuid) const
 {
     if (auto* node = findTerm(QUuid(termUuid)))
-        return node->getTerm();
+        return node->info().term;
 
     return "";
 }
@@ -244,7 +244,7 @@ QString MainScene::termUuidToName(const QString& termUuid) const
 QString MainScene::termNameToUuid(const QString& termName) const
 {
     auto* node = mCurrentGroup ? mCurrentGroup->getNode(termName) : nullptr;
-    return node ? node->getUuid().toString() : "";
+    return node ? node->info().uuid.toString() : "";
 }
 
 NodeGadgetWrapper MainScene::getCurrentNode()

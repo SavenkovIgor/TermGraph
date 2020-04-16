@@ -26,32 +26,27 @@
 
 #include "source/Model/Termin/nodeinfocontainer.h"
 
-// This class contains all "information" part of term, like name, definition and other...
+// Const wrapper over NodeInfoContainer + some additional stuff
 class InfoTerm
 {
 public:
     explicit InfoTerm(const NodeInfoContainer& info);
     virtual ~InfoTerm() = default;
 
-    bool isNull();
+    const NodeInfoContainer& info() const;
 
-    QUuid   getUuid() const;
-    QString getTerm() const;
+    bool isNull() const;
+
     QString getCachedLowerTerm() const;
-    QUuid   getGroupUuid() const;
     QString getTermAndDefinition(bool decorated = false) const;
     QString getSmallName() const;  // Lazy
 
-    QString     getDefinition() const;
     QStringList getDefinitionTags() const;
 
-    const NodeInfoContainer& info() const;
-
-protected:
     QSizeF getNameSize();  // Lazy
 
 private:
-    NodeInfoContainer mInfo;
+    const NodeInfoContainer mInfo;
 
     QString cachedTermToLower;
     mutable QString smallName = QString();  // То же самое название но ужатое до 2х строчек"

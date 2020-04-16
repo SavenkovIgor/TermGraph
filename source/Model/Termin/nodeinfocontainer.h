@@ -40,5 +40,5 @@ struct NodeInfoContainer
     QUuid     groupUuid;
     QDateTime lastEdit;
 
-    bool isNull() { return uuid.isNull() && term.isEmpty(); }
+    bool isNull() const { return uuid.isNull() && term.isEmpty(); }
 };
