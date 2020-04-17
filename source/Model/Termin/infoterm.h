@@ -39,7 +39,7 @@ public:
 
     QString lowerTerm() const;
     QString decoratedTerm() const;
-    QSizeF  decoratedTermSize();
+    QSizeF  decoratedTermSize() const;
 
     QStringList tags() const;
 

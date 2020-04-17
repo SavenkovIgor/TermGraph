@@ -57,7 +57,7 @@ QString InfoTerm::decoratedTerm() const
     return mDecoratedTerm;
 }
 
-QSizeF InfoTerm::decoratedTermSize()
+QSizeF InfoTerm::decoratedTermSize() const
 {
     return mDecoratedTermSize;
 }
