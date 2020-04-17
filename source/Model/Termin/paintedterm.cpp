@@ -157,7 +157,7 @@ QColor PaintedTerm::color() const
 
 void PaintedTerm::adjustRectSizeForName()
 {
-    QSizeF nameSize = decoratedTermSize();
+    QSizeF nameSize = additionalInfo().decoratedTermSize();
     nodeSize.setWidth(nameSize.width() + 16);
     nodeSize.setHeight(nameSize.height() + 4);
     updateCornerRadius();
@@ -230,4 +230,9 @@ opt<QPointF> PaintedTerm::optimalRootsBasedPosition() const
     centerPoint.setY(averageY);
 
     return centerPoint;
+}
+
+QString PaintedTerm::decoratedTerm() const
+{
+    return additionalInfo().decoratedTerm();
 }

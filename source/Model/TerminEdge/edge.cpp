@@ -119,13 +119,13 @@ QRectF Edge::edgeRect() const
 
 QPointF Edge::rootPoint() const
 {
-    auto paintedTerm = dynamic_cast<PaintedTerm*>(getRoot());
+    auto paintedTerm = static_cast<PaintedTerm*>(getRoot());
     return paintedTerm->getCenter(CoordType::scene);
 }
 
 QPointF Edge::leafPoint() const
 {
-    auto paintedTerm = dynamic_cast<PaintedTerm*>(getLeaf());
+    auto paintedTerm = static_cast<PaintedTerm*>(getLeaf());
     return paintedTerm->getCenter(CoordType::scene);
 }
 

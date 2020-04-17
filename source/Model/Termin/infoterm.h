@@ -31,7 +31,7 @@ class InfoTerm
 {
 public:
     explicit InfoTerm(const NodeInfoContainer& info);
-    virtual ~InfoTerm() = default;
+    ~InfoTerm() = default;
 
     const NodeInfoContainer& info() const;
 

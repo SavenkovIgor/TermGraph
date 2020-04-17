@@ -259,7 +259,7 @@ NodeGadgetWrapper MainScene::getCurrentNode()
 QString MainScene::getCurrNodeNameAndDefinition()
 {
     if (auto* node = getSelectedTerm())
-        return node->termAndDefinition();
+        return node->additionalInfo().termAndDefinition();
 
     return "";
 }

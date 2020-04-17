@@ -24,7 +24,7 @@
 int GraphTerm::mMaxWeight = 0;
 
 GraphTerm::GraphTerm(const NodeInfoContainer& info)
-    : InfoTerm(info)
+    : mInfo(info)
 {}
 
 bool GraphTerm::isRoot() const
@@ -88,10 +88,10 @@ QString GraphTerm::getHierarchyDefinition()
     QStringList definitions;
 
     for (auto node : parentsList)
-        definitions << node->termAndDefinition(true);
+        definitions << node->additionalInfo().termAndDefinition(true);
 
     // Add this definition
-    definitions << termAndDefinition(true);
+    definitions << additionalInfo().termAndDefinition(true);
 
     return definitions.join("<br><br>");
 }
@@ -277,6 +277,16 @@ void GraphTerm::increaseWeight()
 double GraphTerm::getRelativeWeight() const
 {
     return static_cast<double>(weight()) / mMaxWeight;
+}
+
+const InfoTerm& GraphTerm::additionalInfo() const
+{
+    return mInfo;
+}
+
+const NodeInfoContainer& GraphTerm::info() const
+{
+    return mInfo.info();
 }
 
 bool GraphTerm::hasTermInRoots(GraphTerm* targetTerm, QList<GraphTerm*>& visitList)

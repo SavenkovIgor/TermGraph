@@ -169,7 +169,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit)
     QList<QPair<int, QUuid>> searchResults;
     // Taking distances
     for (auto* node : getAllNodes()) {
-        auto lowerTerm = node->lowerTerm();
+        auto lowerTerm = node->additionalInfo().lowerTerm();
 
         // Exact match
         if (searchText == lowerTerm) {
@@ -211,7 +211,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit)
     auto     lowerSearch = text.toLower();
 
     for (auto* node : getAllNodes()) {
-        if (node->lowerTerm().contains(lowerSearch))
+        if (node->additionalInfo().lowerTerm().contains(lowerSearch))
             ret.push_back(node->info().uuid);
 
         if (static_cast<int>(ret.size()) == limit)

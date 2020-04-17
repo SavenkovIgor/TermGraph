@@ -86,6 +86,8 @@ public:
 
     opt<QPointF> optimalRootsBasedPosition() const;
 
+    QString decoratedTerm() const;
+
 signals:
     void selectionChanged();
 

@@ -30,13 +30,13 @@ enum class NodeType { orphan, root, endLeaf, middleLeaf };
 
 // This class contains all "graph" part of term
 // like edges, place in graph hierarchy and so on
-class GraphTerm : public InfoTerm
+class GraphTerm
 {
 public:
     using List = QList<GraphTerm*>;
 
     GraphTerm(const NodeInfoContainer& info);
-    ~GraphTerm() override = default;
+    ~GraphTerm() = default;
 
     bool isRoot() const;
     bool isOrphan() const;
@@ -84,6 +84,9 @@ public:
     void   increaseWeight();
     double getRelativeWeight() const;
 
+    const NodeInfoContainer& info() const;
+    const InfoTerm&          additionalInfo() const;
+
 private:
     GraphEdge::List edgesToOtherGroups;  // Пока никак не используются но будут.
     GraphEdge::List brokenEdges;         // Пока никак не используются но будут.
@@ -97,6 +100,8 @@ private:
 
     int        mSelfWeight = 0;
     static int mMaxWeight;
+
+    const InfoTerm mInfo;
 
     static bool hasTermInRoots(GraphTerm* term, QList<GraphTerm*>& visitList);
 
