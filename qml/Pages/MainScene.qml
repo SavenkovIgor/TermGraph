@@ -202,15 +202,13 @@ M.Page {
     MouseArea {
         id: sceneMouse
 
+        readonly property point mousePt : Qt.point(mouseX, mouseY)
+        readonly property point scenePt : mapToItem(sceneCanvas, mousePt.x, mousePt.y)
+
         anchors.fill: sceneView
         hoverEnabled: true
 
-        onClicked: {
-            const pt = scenePt();
-            scene.setMouseClick(pt.x, pt.y)
-        }
-
-        function scenePt() { return sceneMouse.mapToItem(sceneCanvas, mouseX, mouseY); }
+        onClicked: scene.setMouseClick(scenePt.x, scenePt.y)
     }
 
     contentItem: Flickable {
