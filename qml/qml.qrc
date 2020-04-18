@@ -55,5 +55,6 @@
         <file>Atoms/RoundedRectangle.qml</file>
         <file>Atoms/Round.qml</file>
         <file>Atoms/Edge.qml</file>
+        <file>Atoms/DebugFrame.qml</file>
     </qresource>
 </RCC>
