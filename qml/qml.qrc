@@ -56,5 +56,6 @@
         <file>Atoms/Round.qml</file>
         <file>Atoms/Edge.qml</file>
         <file>Atoms/DebugFrame.qml</file>
+        <file>Atoms/MouseArea.qml</file>
     </qresource>
 </RCC>
