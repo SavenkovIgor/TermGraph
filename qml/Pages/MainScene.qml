@@ -31,6 +31,7 @@ import "../Atoms" as A
 import "../Molecules" as M
 import "../Pages" as P
 
+import "../Js/Tools.js" as Tools
 import "../Js/Fonts.js" as Fonts
 import "../Js/IconPath.js" as IconPath
 import "../Js/Colors.js" as Colors
@@ -293,7 +294,7 @@ M.Page {
             if (termUuid === "")
                 return;
 
-            let pt = scene.getTermPosition(termUuid);
+            let pt = sceneCanvas.getTermPosition(termUuid);
             scene.selectTerm(termUuid);
             pointToCenter(pt);
         }
@@ -318,13 +319,15 @@ M.Page {
             function downScale() { setScale(scale - scaleStep); }
 
             function setScale(newScale) {
-                scale = clamp(newScale, minScale, maxScale);
+                scale = Tools.clamp(newScale, minScale, maxScale);
                 let pt = mouse.posMappedTo(sceneView.contentItem);
+                pt = Tools.clampPoint(pt, scaledSize);
                 sceneView.resizeContent(scaledSize.width, scaledSize.height, pt);
             }
 
-            function clamp(num, min, max) {
-                return num <= min ? min : num >= max ? max : num;
+            function getTermPosition(termUuid) {
+                let pt = scene.getTermPosition(termUuid);
+                return Tools.scalePoint(pt, scale);
             }
         }
     }

@@ -58,5 +58,6 @@
         <file>Atoms/DebugFrame.qml</file>
         <file>Atoms/MouseArea.qml</file>
         <file>Atoms/Timer.qml</file>
+        <file>Js/Tools.js</file>
     </qresource>
 </RCC>
