@@ -57,5 +57,6 @@
         <file>Atoms/Edge.qml</file>
         <file>Atoms/DebugFrame.qml</file>
         <file>Atoms/MouseArea.qml</file>
+        <file>Atoms/Timer.qml</file>
     </qresource>
 </RCC>
