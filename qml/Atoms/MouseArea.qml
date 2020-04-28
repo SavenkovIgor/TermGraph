@@ -25,4 +25,8 @@ MouseArea {
     readonly property point pos: Qt.point(mouseX, mouseY)
 
     hoverEnabled: true
+
+    function posMappedTo(target) {
+        return mapToItem(target, pos.x, pos.y);
+    }
 }
