@@ -199,16 +199,40 @@ M.Page {
         }
     }
 
-    MouseArea {
-        id: sceneMouse
-
-        readonly property point mousePt : Qt.point(mouseX, mouseY)
-        readonly property point scenePt : mapToItem(sceneCanvas, mousePt.x, mousePt.y)
-
+    PinchArea {
         anchors.fill: sceneView
-        hoverEnabled: true
 
-        onClicked: scene.setMouseClick(scenePt.x, scenePt.y)
+        pinch {
+            target: sceneCanvas
+            minimumScale: sceneCanvas.minScale
+            maximumScale: sceneCanvas.maxScale
+            minimumRotation: 0.0
+            maximumRotation: 0.0
+            dragAxis: Pinch.XAndYAxis
+        }
+
+        A.MouseArea {
+            id: mouse
+
+            readonly property point scenePt: posMappedTo(sceneCanvas)
+
+            anchors.fill: parent
+
+            onClicked: scene.setMouseClick(scenePt.x, scenePt.y)
+
+            onWheel: {
+                if (wheel.modifiers & Qt.ControlModifier) {
+                    if (wheel.angleDelta.y > 0)
+                        sceneCanvas.upScale();
+                    else
+                        sceneCanvas.downScale();
+
+                    wheel.accepted = true;
+                } else {
+                    wheel.accepted = false;
+                }
+            }
+        }
     }
 
     contentItem: Flickable {
@@ -223,7 +247,7 @@ M.Page {
         ScrollIndicator.horizontal: A.ScrollIndicator { }
 
         property bool animationEnabled: false
-        property int moveAnimationDuration: 800
+        readonly property int moveAnimationDuration: 800
 
         onAnimationEnabledChanged: {
             if (animationEnabled)
@@ -286,7 +310,32 @@ M.Page {
             scene.selectTerm("");
         }
 
-        M.NodesScene { id: sceneCanvas }
+        M.NodesScene {
+            id: sceneCanvas
+
+            readonly property real minScale: 0.1
+            readonly property real maxScale: 2.0
+            readonly property real scaleStep: 0.1
+
+            property real itemScale: 1.0
+
+            readonly property size scaledSize: Qt.size(width * itemScale, height * itemScale)
+
+            function upScale()   { setScale(itemScale + scaleStep); }
+            function downScale() { setScale(itemScale - scaleStep); }
+
+            function setScale(newScale) {
+                itemScale = clamp(newScale, minScale, maxScale);
+                let pt = mouse.posMappedTo(sceneView.contentItem);
+                sceneView.resizeContent(scaledSize.width, scaledSize.height, pt);
+            }
+
+            function clamp(num, min, max) {
+                return num <= min ? min : num >= max ? max : num;
+            }
+
+            transform: Scale { xScale: sceneCanvas.itemScale; yScale: sceneCanvas.itemScale; }
+        }
     }
 
     A.RoundButton {
