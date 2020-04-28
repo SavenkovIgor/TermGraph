@@ -241,22 +241,15 @@ M.Page {
         contentWidth: sceneCanvas.width
         contentHeight: sceneCanvas.height
 
-        boundsBehavior: Flickable.StopAtBounds
-
         ScrollIndicator.vertical:   A.ScrollIndicator { }
         ScrollIndicator.horizontal: A.ScrollIndicator { }
 
         property bool animationEnabled: false
         readonly property int moveAnimationDuration: 800
 
-        onAnimationEnabledChanged: {
-            if (animationEnabled)
-                animationEndTimer.start();
-        }
-
-        Timer {
-            id: animationEndTimer
+        A.Timer {
             interval: sceneView.moveAnimationDuration * 1.1
+            startTrigger: sceneView.animationEnabled
             onTriggered: sceneView.animationEnabled = false
         }
 
@@ -317,15 +310,15 @@ M.Page {
             readonly property real maxScale: 2.0
             readonly property real scaleStep: 0.1
 
-            property real itemScale: 1.0
+            readonly property size scaledSize: Qt.size(width * scale, height * scale)
 
-            readonly property size scaledSize: Qt.size(width * itemScale, height * itemScale)
+            transformOrigin: Item.TopLeft
 
-            function upScale()   { setScale(itemScale + scaleStep); }
-            function downScale() { setScale(itemScale - scaleStep); }
+            function upScale()   { setScale(scale + scaleStep); }
+            function downScale() { setScale(scale - scaleStep); }
 
             function setScale(newScale) {
-                itemScale = clamp(newScale, minScale, maxScale);
+                scale = clamp(newScale, minScale, maxScale);
                 let pt = mouse.posMappedTo(sceneView.contentItem);
                 sceneView.resizeContent(scaledSize.width, scaledSize.height, pt);
             }
@@ -333,8 +326,6 @@ M.Page {
             function clamp(num, min, max) {
                 return num <= min ? min : num >= max ? max : num;
             }
-
-            transform: Scale { xScale: sceneCanvas.itemScale; yScale: sceneCanvas.itemScale; }
         }
     }
 
