@@ -304,6 +304,12 @@ M.Page {
             scene.selectTerm("");
         }
 
+        Timer {
+            id: returnToBoundsTimer
+            interval: 2000
+            onTriggered: sceneView.returnToBounds()
+        }
+
         M.NodesScene {
             id: sceneCanvas
 
@@ -323,6 +329,7 @@ M.Page {
                 let pt = mouse.posMappedTo(sceneView.contentItem);
                 pt = Tools.clampPoint(pt, scaledSize);
                 sceneView.resizeContent(scaledSize.width, scaledSize.height, pt);
+                returnToBoundsTimer.start();
             }
 
             function getTermPosition(termUuid) {
