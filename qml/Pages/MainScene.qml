@@ -70,10 +70,10 @@ M.Page {
     Connections {
         target: scene
         onSelectionDoubleClick: nodeInfoAction.trigger()
-        onCurrentGroupChanged: sceneView.moveToOrigin()
+        onCurrentGroupChanged: sceneFlick.moveToOrigin()
         onNodesChanged: {
             if (root.lastChangedNodeName !== "") {
-                sceneView.selectName(root.lastChangedNodeName)
+                sceneFlick.selectName(root.lastChangedNodeName)
                 root.lastChangedNodeName = "";
             }
         }
@@ -142,7 +142,7 @@ M.Page {
                 PropertyChanges { target: searchText; visible: false; }
                 StateChangeScript {
                     script: {
-                        sceneView.forceActiveFocus();
+                        sceneFlick.forceActiveFocus();
                         searchResult.close();
                     }
                 }
@@ -195,13 +195,13 @@ M.Page {
         }
 
         onClicked: {
-            sceneView.selectUuid(nodeUuid);
+            sceneFlick.selectUuid(nodeUuid);
             header.setNoSelection();
         }
     }
 
     PinchArea {
-        anchors.fill: sceneView
+        anchors.fill: sceneFlick
 
         pinch {
             target: sceneCanvas
@@ -237,7 +237,7 @@ M.Page {
     }
 
     contentItem: Flickable {
-        id: sceneView
+        id: sceneFlick
 
         contentWidth: sceneCanvas.width
         contentHeight: sceneCanvas.height
@@ -249,19 +249,19 @@ M.Page {
         readonly property int moveAnimationDuration: 800
 
         A.Timer {
-            interval: sceneView.moveAnimationDuration * 1.1
-            startTrigger: sceneView.animationEnabled
-            onTriggered: sceneView.animationEnabled = false
+            interval: sceneFlick.moveAnimationDuration * 1.1
+            startTrigger: sceneFlick.animationEnabled
+            onTriggered: sceneFlick.animationEnabled = false
         }
 
         Behavior on contentX {
-            enabled: sceneView.animationEnabled
-            NumberAnimation { duration: sceneView.moveAnimationDuration; easing.type: Easing.InOutCubic; }
+            enabled: sceneFlick.animationEnabled
+            NumberAnimation { duration: sceneFlick.moveAnimationDuration; easing.type: Easing.InOutCubic; }
         }
 
         Behavior on contentY {
-            enabled: sceneView.animationEnabled
-            NumberAnimation { duration: sceneView.moveAnimationDuration; easing.type: Easing.InOutCubic; }
+            enabled: sceneFlick.animationEnabled
+            NumberAnimation { duration: sceneFlick.moveAnimationDuration; easing.type: Easing.InOutCubic; }
         }
 
         function moveToOrigin() {
@@ -270,7 +270,7 @@ M.Page {
 
         function moveToPoint(pt, withAnimation = true) {
             if (withAnimation)
-                sceneView.animationEnabled = true;
+                sceneFlick.animationEnabled = true;
 
             Qt.callLater(function() {
                 contentX = pt.x;
@@ -279,8 +279,8 @@ M.Page {
         }
 
         function pointToCenter(pt) {
-            pt.x -= sceneView.width / 2;
-            pt.y -= sceneView.height / 2;
+            pt.x -= sceneFlick.width / 2;
+            pt.y -= sceneFlick.height / 2;
             moveToPoint(pt);
         }
 
@@ -307,7 +307,7 @@ M.Page {
         Timer {
             id: returnToBoundsTimer
             interval: 2000
-            onTriggered: sceneView.returnToBounds()
+            onTriggered: sceneFlick.returnToBounds()
         }
 
         M.NodesScene {
@@ -326,9 +326,9 @@ M.Page {
 
             function setScale(newScale) {
                 scale = Tools.clamp(newScale, minScale, maxScale);
-                let pt = mouse.posMappedTo(sceneView.contentItem);
+                let pt = mouse.posMappedTo(sceneFlick.contentItem);
                 pt = Tools.clampPoint(pt, scaledSize);
-                sceneView.resizeContent(scaledSize.width, scaledSize.height, pt);
+                sceneFlick.resizeContent(scaledSize.width, scaledSize.height, pt);
                 returnToBoundsTimer.start();
             }
 
@@ -430,7 +430,7 @@ M.Page {
 
         y: root.header.height
         width: Math.min(window.width * 0.8, groupsList.maxWidth)
-        height: sceneView.height
+        height: sceneFlick.height
 
         clip: true
         interactive: root.currentPageOpened
@@ -442,7 +442,7 @@ M.Page {
     }
 
     M.EmptyView {
-        anchors.fill: sceneView
+        anchors.fill: sceneFlick
         visible: !groupsManager.hasAnyGroup
 
         mainText: "Группы отсутствуют"
