@@ -36,3 +36,7 @@ function scalePoint(point, scale) {
     point.y *= scale;
     return point;
 }
+
+function scaleSize(size, scale) {
+    return Qt.size(size.width * scale, size.height * scale);
+}

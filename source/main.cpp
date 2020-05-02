@@ -30,21 +30,16 @@
 #include <QtSvg>  //Because deployment sometimes just forgets to include this lib otherwise
 #endif
 
-// TODO: App icon is lost by some reason
-// TODO: Differen application binary on android?
-
 int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
 
     QQuickStyle::setStyle("Material");  // Important thing for styles!
 
-    // TODO: Check it on mobile!
-    if constexpr (Platform::isDesktop()) {
-        QSurfaceFormat format = QSurfaceFormat::defaultFormat();
-        format.setSamples(8);
-        QSurfaceFormat::setDefaultFormat(format);
-    }
+    // This is need for good aliasing on desktop & mobile
+    QSurfaceFormat format = QSurfaceFormat::defaultFormat();
+    format.setSamples(Platform::isDesktop() ? 8 : 4);
+    QSurfaceFormat::setDefaultFormat(format);
 
     MainWindow w;
 

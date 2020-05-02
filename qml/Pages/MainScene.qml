@@ -201,16 +201,40 @@ M.Page {
     }
 
     PinchArea {
+        property real initialWidth
+        property real initialHeight
+        property real initialScale
+
         anchors.fill: sceneFlick
 
         pinch {
-            target: sceneCanvas
             minimumScale: sceneCanvas.minScale
             maximumScale: sceneCanvas.maxScale
             minimumRotation: 0.0
             maximumRotation: 0.0
             dragAxis: Pinch.XAndYAxis
         }
+
+        onPinchStarted: {
+            initialWidth = sceneFlick.contentWidth;
+            initialHeight = sceneFlick.contentHeight;
+            initialScale = sceneCanvas.scale;
+        }
+
+        onPinchUpdated: {
+            // adjust content pos due to drag
+            sceneFlick.contentX += pinch.previousCenter.x - pinch.center.x
+            sceneFlick.contentY += pinch.previousCenter.y - pinch.center.y
+
+            // resize content
+            let pt = pinch.center;
+            pt = mapToItem(sceneFlick.contentItem, pt.x, pt.y);
+            pt = Tools.clampPoint(pt, sceneCanvas.scaledSize);
+
+            sceneCanvas.setNewScale(initialScale * pinch.scale, pt)
+        }
+
+        onPinchFinished: sceneFlick.returnToBounds()
 
         A.MouseArea {
             id: mouse
@@ -317,7 +341,8 @@ M.Page {
             readonly property real maxScale: 2.0
             readonly property real scaleStep: 0.1
 
-            readonly property size scaledSize: Qt.size(width * scale, height * scale)
+            readonly property size sceneSize: Qt.size(width, height)
+            readonly property size scaledSize: Tools.scaleSize(sceneSize, scale)
 
             transformOrigin: Item.TopLeft
 
@@ -325,11 +350,24 @@ M.Page {
             function downScale() { setScale(scale - scaleStep); }
 
             function setScale(newScale) {
-                scale = Tools.clamp(newScale, minScale, maxScale);
+                // Clamping newScale
+                newScale = Tools.clamp(newScale, minScale, maxScale);
+
+                // Getting center point
                 let pt = mouse.posMappedTo(sceneFlick.contentItem);
                 pt = Tools.clampPoint(pt, scaledSize);
-                sceneFlick.resizeContent(scaledSize.width, scaledSize.height, pt);
+
+                // Setting new scale
+                setNewScale(newScale, pt);
+
+                // Returning to bounds
                 returnToBoundsTimer.start();
+            }
+
+            function setNewScale(newScale, centerPoint) {
+                scale = newScale;
+                let newSize = Tools.scaleSize(sceneSize, newScale);
+                sceneFlick.resizeContent(newSize.width, newSize.height, centerPoint);
             }
 
             function getTermPosition(termUuid) {
