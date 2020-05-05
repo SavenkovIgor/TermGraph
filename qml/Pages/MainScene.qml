@@ -39,8 +39,7 @@ import "../Js/Colors.js" as Colors
 M.Page {
     id: root
 
-    property Drawer sideMenu
-    property bool currentPageOpened: StackView.visible
+    property bool thisPageVisible: StackView.visible
     property string lastChangedNodeName: ""
 
     signal openGroupsList()
@@ -48,7 +47,7 @@ M.Page {
     padding: 0
 
     title: "TermGraph"
-    onOpenMainMenu: sideMenu.open()
+
 
     state: scene.hasSelection ? "some" : "none"
 
@@ -378,7 +377,7 @@ M.Page {
             text: addNodeButton.action.text
             visible: {
                 let vis = groupsManager.hasAnyGroup;
-                vis = vis && currentPageOpened;
+                vis = vis && thisPageVisible;
                 vis = vis && groupsManager.isEmptyGroup(scene.currentGroup);
                 return vis;
             }
@@ -388,7 +387,7 @@ M.Page {
             text: "Добавить\nтермин"
             shortcut: "Ctrl+n"
             icon.source: IconPath.plus
-            enabled: root.currentPageOpened
+            enabled: root.thisPageVisible
             onTriggered: {
                 if (groupsManager.hasAnyGroup) {
                     root.StackView.view.push(newNodeComponent)
@@ -429,7 +428,7 @@ M.Page {
             text: "Изменить вершину"
             icon.source: IconPath.pencil
             shortcut: "Ctrl+e"
-            enabled: root.currentPageOpened
+            enabled: root.thisPageVisible
             onTriggered: {
                 if (!scene.currentNode.isNull()) {
                     root.StackView.view.push(editNodeComponent)
@@ -462,7 +461,7 @@ M.Page {
         height: sceneFlick.height
 
         clip: true
-        interactive: root.currentPageOpened
+        interactive: root.thisPageVisible
 
         Shortcut {
             sequence: "Ctrl+Left"

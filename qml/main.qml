@@ -49,7 +49,7 @@ ApplicationWindow {
         id: mainSceneComponent;
 
         P.MainScene {
-            sideMenu: appSideMenu;
+            onOpenMainMenu: appSideMenu.open()
             onOpenGroupsList: openGroupsAction.trigger()
         }
     }
