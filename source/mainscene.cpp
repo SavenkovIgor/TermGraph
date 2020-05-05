@@ -58,6 +58,8 @@ void MainScene::dropGroup()
     setSceneRect(QRectF());
 
     updateEdgeCache();
+
+    emit currentGroupChanged();
 }
 
 void MainScene::updateGroup()

@@ -374,13 +374,20 @@ M.Page {
         visible: true
 
         A.ToolTip {
-            text: addNodeButton.action.text
-            visible: {
-                let vis = groupsManager.hasAnyGroup;
-                vis = vis && thisPageVisible;
-                vis = vis && groupsManager.isEmptyGroup(scene.currentGroup);
-                return vis;
+            property bool isEmptyGroup: {
+                if (groupsManager.hasAnyGroup) {
+                    if (scene.currentGroup !== "") {
+                        return groupsManager.isEmptyGroup(scene.currentGroup)
+                    } else {
+                        return false;
+                    }
+                }
+                return false;
             }
+
+            visible: addNodeButton.visible && root.thisPageVisible && isEmptyGroup
+
+            text: addNodeButton.action.text
         }
 
         action: Action {
@@ -400,23 +407,15 @@ M.Page {
     }
 
     A.RoundButton {
-        id: showGroupListButton
-        icon.source: IconPath.spreadsheet
+        anchors { top: parent.top; right: parent.right; margins: width / 2; }
         visible: groupsManager.hasAnyGroup
 
-        anchors { top: parent.top; right: parent.right; margins: width / 2; }
-
-        onClicked: groupsList.open()
-    }
-
-    A.RoundButton {
-        id: screenShotButton
-        visible: false
-        anchors { top: showGroupListButton.bottom; right: parent.right; margins: width / 2; }
-
-        icon.source: IconPath.share
-
-        onClicked: sceneCanvas.makeScreenshot()
+        action: Action {
+            id: showGroupListAction
+            icon.source: IconPath.spreadsheet
+            enabled: root.thisPageVisible
+            onTriggered: groupsList.open()
+        }
     }
 
     A.RoundButton {
@@ -477,5 +476,15 @@ M.Page {
         detailedText: "Думаю вам стоит создать одну"
         buttonText: "Перейти в список групп"
         onClicked: root.openGroupsList()
+    }
+
+    M.EmptyView {
+        anchors.fill: sceneFlick
+        visible: groupsManager.hasAnyGroup && scene.currentGroup === ""
+
+        mainText: "Группа не выбрана"
+        detailedText: ""
+        buttonText: "Открыть список групп"
+        onClicked: showGroupListAction.trigger()
     }
 }
