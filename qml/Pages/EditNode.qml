@@ -166,8 +166,6 @@ M.Page {
             M.TagEditorArea {
                 id: termDefin
                 Layout.fillWidth: true
-                labelText: "Определение:"
-                placeholderText: "- это"
             }
 
             M.TextArea {

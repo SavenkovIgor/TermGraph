@@ -30,6 +30,10 @@ M.TextArea {
 
     property TagProcessor tagTools: TagProcessor { }
 
+    labelText: "Определение:"
+    placeholderText: "- это"
+    inputMethodHints: Qt.ImhNoAutoUppercase
+
     readonly property bool isInsideTag: {
         // Cursor can be invalid in moment of text editing
         let pos = cursorPosition;
