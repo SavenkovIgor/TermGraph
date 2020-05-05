@@ -41,7 +41,20 @@ M.Page {
 
     header: M.DefaultHeader {
 
+        RoundButton {
+            flat: true
+            action: Action {
+                text: "W"
+                onTriggered: {
+                    let request = "https://ru.wikipedia.org/w/index.php?search=";
+                    request += scene.currentNode.term
+                    Qt.openUrlExternally(request);
+                }
+            }
+        }
+
         A.ToolButton {
+            id: editNodeBtn
             action: Action {
                 text: "Изменить вершину"
                 shortcut: "Ctrl+E"
