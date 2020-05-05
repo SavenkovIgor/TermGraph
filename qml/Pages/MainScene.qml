@@ -69,7 +69,11 @@ M.Page {
     Connections {
         target: scene
         onSelectionDoubleClick: nodeInfoAction.trigger()
-        onCurrentGroupChanged: sceneFlick.moveToOrigin()
+        onCurrentGroupChanged: {
+            sceneCanvas.dropScale();
+            sceneFlick.moveToOrigin();
+        }
+
         onNodesChanged: {
             if (root.lastChangedNodeName !== "") {
                 sceneFlick.selectName(root.lastChangedNodeName)
@@ -338,6 +342,7 @@ M.Page {
 
             function upScale()   { setScale(scale + scaleStep); }
             function downScale() { setScale(scale - scaleStep); }
+            function dropScale() { setScale(1.0); }
 
             function setScale(newScale) {
                 // Clamping newScale
