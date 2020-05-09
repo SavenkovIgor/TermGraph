@@ -202,8 +202,6 @@ M.Page {
         anchors.fill: sceneFlick
 
         pinch {
-            minimumScale: sceneCanvas.minScale
-            maximumScale: sceneCanvas.maxScale
             minimumRotation: 0.0
             maximumRotation: 0.0
             dragAxis: Pinch.XAndYAxis
@@ -331,22 +329,24 @@ M.Page {
         M.NodesScene {
             id: sceneCanvas
 
-            readonly property real minScale: 0.1
-            readonly property real maxScale: 2.0
-            readonly property real scaleStep: 0.1
+            readonly property QtObject scaleController: QtObject {
+                readonly property real min: 0.125
+                readonly property real max: 2.0
+                readonly property real step: 0.1
+            }
 
             readonly property size sceneSize: Qt.size(width, height)
             readonly property size scaledSize: Tools.scaleSize(sceneSize, scale)
 
             transformOrigin: Item.TopLeft
 
-            function upScale()   { setScale(scale + scaleStep); }
-            function downScale() { setScale(scale - scaleStep); }
+            function upScale()   { setScale(scale + scaleController.step); }
+            function downScale() { setScale(scale - scaleController.step); }
             function dropScale() { setScale(1.0); }
 
             function setScale(newScale) {
                 // Clamping newScale
-                newScale = Tools.clamp(newScale, minScale, maxScale);
+                newScale = Tools.clamp(newScale, scaleController.min, scaleController.max);
 
                 // Getting center point
                 let pt = mouse.posMappedTo(sceneFlick.contentItem);
@@ -360,6 +360,9 @@ M.Page {
             }
 
             function setNewScale(newScale, centerPoint) {
+                newScale = Tools.clamp(newScale, scaleController.min, scaleController.max);
+                if (scale === newScale)
+                    return;
                 scale = newScale;
                 let newSize = Tools.scaleSize(sceneSize, newScale);
                 sceneFlick.resizeContent(newSize.width, newSize.height, centerPoint);
