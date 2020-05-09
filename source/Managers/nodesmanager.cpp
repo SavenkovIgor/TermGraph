@@ -82,7 +82,7 @@ bool NodesManager::changeNode(const QUuid&   nodeUuid,
 
     // Check for already existing node with same name
     auto alterNodeUuid = dataStorage.findNode(name, groupUuid);
-    if (alterNodeUuid != nodeUuid) {
+    if (!alterNodeUuid.isNull() && alterNodeUuid != nodeUuid) {
         NotificationManager::showWarning("Термин с таким названием уже существует в этой группе");
         return false;
     }
@@ -166,12 +166,12 @@ QJsonObject NodesManager::getNodeJson(const QUuid& uuid)
 bool NodesManager::correctGroupUuid(const QUuid& groupUuid)
 {
     if (groupUuid.isNull()) {
-        NotificationManager::showWarning("Пустой Uuid группы");
+        NotificationManager::showError("Пустой Uuid группы");
         return false;
     }
 
     if (!dataStorage.groupExist(groupUuid)) {
-        NotificationManager::showWarning("Группа " + groupUuid.toString() + " не найдена");
+        NotificationManager::showError("Группа " + groupUuid.toString() + " не найдена");
         return false;
     }
 
@@ -183,7 +183,7 @@ bool NodesManager::correctNewNodeName(const QString& name, QUuid& groupUuid)
     auto nodeUuid = dataStorage.findNode(name, groupUuid);
 
     if (!nodeUuid.isNull()) {
-        NotificationManager::showWarning("Термин с таким названием уже существует в этой группе");
+        NotificationManager::showError("Термин с таким названием уже существует в этой группе");
         return false;
     }
 
