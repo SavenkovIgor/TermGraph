@@ -21,6 +21,8 @@
 
 #include "source/Helpers/tagutils.h"
 
+#include <limits>
+
 #include "source/Helpers/intmatrix.h"
 
 bool TagUtils::isBracket(const QChar& ch)
@@ -185,7 +187,7 @@ bool TagUtils::tagLengthSuitTerm(const QString& tag, const QString& termName)
 
     auto stringSizeDiffer = std::abs(termName.size() - tag.size());
     // No need to check. Term is not suit already
-    return stringSizeDiffer < maxWordDistance;
+    return stringSizeDiffer <= maxWordDistance;
 }
 
 int TagUtils::getLevDistance(QStringView src, QStringView dst, int limit)
@@ -219,7 +221,7 @@ int TagUtils::getLevDistance(QStringView src, QStringView dst, int limit)
     int min_in_row;
 
     for (int i = 1; i <= m; ++i) {
-        min_in_row = 100000;
+        min_in_row = std::numeric_limits<int>::max();
         for (int j = 1; j <= n; ++j) {
             cost          = src[i - 1] == dst[j - 1] ? 0 : 1;
             above_cell    = matrix[i - 1][j];
@@ -229,7 +231,7 @@ int TagUtils::getLevDistance(QStringView src, QStringView dst, int limit)
             min_in_row    = std::min(min_in_row, matrix[i][j]);
         }
         if (min_in_row > limit) {
-            return 100000;
+            return std::numeric_limits<int>::max();
         }
     }
 
@@ -320,7 +322,10 @@ TagUtils::Cursor TagUtils::findWordBorder(QStringView str, TagUtils::Cursor from
 
 int TagUtils::wordsCount(const QString& string)
 {
-    return string.count(' ') + 1;
+    if (!string.isEmpty())
+        return string.simplified().count(' ') + 1;
+
+    return 0;
 }
 
 QChar TagUtils::getBracket(QStringView str, TagUtils::Cursor from, TagUtils::SearchDirection direction)
