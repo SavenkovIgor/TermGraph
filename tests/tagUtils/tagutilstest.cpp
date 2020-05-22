@@ -79,20 +79,21 @@ private slots:
         QTest::addColumn<QString>("result");
 
         // clang-format off
-        QTest::newRow("case0")  << ""         << Idxs {-1, 1} << "";
-        QTest::newRow("case1")  << ""         << Idxs {0}     << "{}";
-        QTest::newRow("case2")  << " "        << Idxs {0}     << "{} ";
-        QTest::newRow("case3")  << " "        << Idxs {1}     << " {}";
-        QTest::newRow("case4")  << "a"        << Idxs {-1, 2} << "a";
-        QTest::newRow("case5")  << "a"        << Idxs {0, 1}  << "{a}";
-        QTest::newRow("case6")  << " a "      << Idxs {1, 2}  << " {a} ";
-        QTest::newRow("case7")  << " a "      << Idxs {0}     << "{} a ";
-        QTest::newRow("case8")  << " a "      << Idxs {3}     << " a {}";
-        QTest::newRow("case9")  << " {a} "    << Idxs {2, 3}  << " {a} ";
-        QTest::newRow("case10") << " {a} "    << Idxs {1}     << " {}{a} ";
-        QTest::newRow("case11") << " {a} "    << Idxs {4}     << " {a}{} ";
-        QTest::newRow("case12") << " aa bb "  << Idxs {1}     << " {aa} bb ";
-        QTest::newRow("case13") << " aaaaa, " << Idxs {1}     << " {aaaaa}, ";
+        QTest::newRow("case0")  << ""           << Idxs {-1, 1} << "";
+        QTest::newRow("case1")  << ""           << Idxs {0}     << "{}";
+        QTest::newRow("case2")  << " "          << Idxs {0}     << "{} ";
+        QTest::newRow("case3")  << " "          << Idxs {1}     << " {}";
+        QTest::newRow("case4")  << "a"          << Idxs {-1, 2} << "a";
+        QTest::newRow("case5")  << "a"          << Idxs {0, 1}  << "{a}";
+        QTest::newRow("case6")  << " a "        << Idxs {1, 2}  << " {a} ";
+        QTest::newRow("case7")  << " a "        << Idxs {0}     << "{} a ";
+        QTest::newRow("case8")  << " a "        << Idxs {3}     << " a {}";
+        QTest::newRow("case9")  << " {a} "      << Idxs {2, 3}  << " {a} ";
+        QTest::newRow("case10") << " {a} "      << Idxs {1}     << " {}{a} ";
+        QTest::newRow("case11") << " {a} "      << Idxs {4}     << " {a}{} ";
+        QTest::newRow("case12") << " aa bb "    << Idxs {1}     << " {aa} bb ";
+        QTest::newRow("case13") << " aa   bb "  << Idxs {7}     << " aa   {bb} ";
+        QTest::newRow("case14") << " aaaaa, "   << Idxs {1}     << " {aaaaa}, ";
         // clang-format on
     }
 
