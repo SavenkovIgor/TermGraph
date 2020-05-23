@@ -75,7 +75,7 @@ Drawer {
 
             function apply() {
                 drawer.close();
-                scene.currentGroup = modelData;
+                scene.selectGroup(modelData);
             }
         }
     }

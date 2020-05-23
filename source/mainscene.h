@@ -45,11 +45,12 @@ public:
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
     Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode)  // Read only. without notify
     Q_PROPERTY(QRectF sceneRect READ sceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
-    Q_PROPERTY(QString currentGroup READ currentGroupUuid WRITE setCurrentGroup NOTIFY currentGroupChanged)
+    Q_PROPERTY(QString currentGroupUuid READ currentGroupUuid NOTIFY currentGroupChanged)
     Q_PROPERTY(QString currentGroupName READ currentGroupName NOTIFY currentGroupChanged)
     Q_PROPERTY(QQmlListProperty<PaintedTerm> nodes READ getNodes NOTIFY nodesChanged)
     Q_PROPERTY(QQmlListProperty<Edge> edges READ getEdges NOTIFY edgesChanged)
 
+    Q_INVOKABLE void selectGroup(const QString& groupUuid);
     Q_INVOKABLE void selectTerm(const QString& termUuid);
     Q_INVOKABLE void selectTerm(const QUuid& termUuid);
     Q_INVOKABLE void deleteSelectedTerm();
@@ -73,9 +74,6 @@ signals:
     void sceneRectChanged();
 
 public slots:
-    void setCurrentGroup(const QString& groupUuid);
-    void setCurrentGroup(const QUuid& groupUuid);
-
     QString getCurrNodeNameAndDefinition();
     QString getCurrNodeHierarchyDefinition();
 
@@ -89,6 +87,9 @@ private slots:
     // Groups modify reaction
     void checkGroupAddition();
     void checkGroupDeletion();
+
+private:
+    void setCurrentGroup(const QUuid& newGroupUuid);
 
 private:
     // Timers

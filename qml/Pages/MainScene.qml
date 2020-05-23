@@ -384,8 +384,8 @@ M.Page {
         A.ToolTip {
             property bool isEmptyGroup: {
                 if (groupsManager.hasAnyGroup) {
-                    if (scene.currentGroup !== "") {
-                        return groupsManager.isEmptyGroup(scene.currentGroup)
+                    if (scene.currentGroupUuid !== "") {
+                        return groupsManager.isEmptyGroup(scene.currentGroupUuid)
                     } else {
                         return false;
                     }
@@ -488,7 +488,7 @@ M.Page {
 
     M.EmptyView {
         anchors.fill: sceneFlick
-        visible: groupsManager.hasAnyGroup && scene.currentGroup === ""
+        visible: groupsManager.hasAnyGroup && scene.currentGroupUuid === ""
 
         mainText: "Группа не выбрана"
         detailedText: ""

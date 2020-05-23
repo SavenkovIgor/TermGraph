@@ -38,6 +38,14 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* 
     connect(nodesMgr, &NodesManager::nodeChanged, this, &MainScene::updateGroup);
 }
 
+void MainScene::selectGroup(const QString& groupUuid)
+{
+    auto uuid = QUuid(groupUuid);
+    assert(!uuid.isNull());
+
+    setCurrentGroup(uuid);
+}
+
 void MainScene::selectTerm(const QString& termUuid)
 {
     selectTerm(QUuid(termUuid));
@@ -65,7 +73,7 @@ void MainScene::dropGroup()
 void MainScene::updateGroup()
 {
     auto groupUuid = currentGroupUuid();
-    setCurrentGroup(groupUuid);
+    selectGroup(groupUuid);
 }
 
 void MainScene::checkGroupAddition()
@@ -83,6 +91,37 @@ void MainScene::checkGroupDeletion()
     auto groupsUuids  = groupsMgr->getAllUuidsSortedByLastEdit();
     if (!groupsUuids.contains(currentGroup))
         dropGroup();
+}
+
+void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
+{
+    assert(!newGroupUuid.isNull());
+
+    auto oldGroupUuid = QUuid(currentGroupUuid());
+    bool newGroup     = newGroupUuid != oldGroupUuid;
+
+    dropTermSelection();
+
+    // Taking groupUuid from parameter or current groupUuid
+    QUuid tmpGroupUuid = newGroup ? newGroupUuid : oldGroupUuid;
+
+    assert(!tmpGroupUuid.isNull());
+
+    auto* groupPtr = groupsMgr->createGroup(tmpGroupUuid);
+    mCurrentGroup.reset(groupPtr);
+
+    assert(mCurrentGroup);
+
+    mCurrentGroup->sceneUpdateSignal();
+    mCurrentGroup->setBasePoint(QPointF(40, 40));
+
+    updateSceneRect();
+
+    if (newGroup)
+        emit currentGroupChanged();
+
+    emit nodesChanged();
+    updateEdgeCache();
 }
 
 QQmlListProperty<PaintedTerm> MainScene::getNodes()
@@ -182,42 +221,6 @@ void MainScene::selectTerm(PaintedTerm* term, bool needRepaint)
 void MainScene::dropTermSelection(bool needRepaint)
 {
     selectTerm(nullptr, needRepaint);
-}
-
-void MainScene::setCurrentGroup(const QString& groupUuid)
-{
-    setCurrentGroup(QUuid(groupUuid));
-}
-
-void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
-{
-    assert(!newGroupUuid.isNull());
-
-    auto oldGroupUuid = QUuid(currentGroupUuid());
-    bool newGroup     = newGroupUuid != oldGroupUuid;
-
-    dropTermSelection();
-
-    // Taking groupUuid from parameter or current groupUuid
-    QUuid tmpGroupUuid = newGroup ? newGroupUuid : oldGroupUuid;
-
-    assert(!tmpGroupUuid.isNull());
-
-    auto* groupPtr = groupsMgr->createGroup(tmpGroupUuid);
-    mCurrentGroup.reset(groupPtr);
-
-    assert(mCurrentGroup);
-
-    mCurrentGroup->sceneUpdateSignal();
-    mCurrentGroup->setBasePoint(QPointF(40, 40));
-
-    updateSceneRect();
-
-    if (newGroup)
-        emit currentGroupChanged();
-
-    emit nodesChanged();
-    updateEdgeCache();
 }
 
 QString MainScene::getCurrNodeDebugInfo()

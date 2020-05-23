@@ -40,7 +40,7 @@ Control {
         const groupsUuids = groupsManager.allUuidSorted;
 
         if (groupsUuids.length !== 0) {
-            scene.currentGroup = groupsUuids[0];
+            scene.selectGroup(groupsUuids[0]);
         }
     }
 
