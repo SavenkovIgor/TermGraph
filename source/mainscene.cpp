@@ -20,6 +20,7 @@
  */
 
 #include "source/mainscene.h"
+
 #include "source/Managers/notificationmanager.h"
 
 MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* parent)
@@ -134,7 +135,7 @@ void MainScene::updateSceneRect()
     if (!mCurrentGroup)
         return;
 
-    auto baseRc = mCurrentGroup->baseRect->getRect(CoordType::scene);
+    auto baseRc = mCurrentGroup->getGroupRect();
 
     int       mV = 40;
     QMarginsF mrg(mV, mV, mV, mV);

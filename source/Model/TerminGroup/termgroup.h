@@ -33,13 +33,11 @@ class TermGroup : public QObject, public TermGroupInfo
 
 public:
     TermGroup(const GroupInfoContainer& info, QObject* parent = nullptr);
-    ~TermGroup();
+    ~TermGroup() override = default;
 
     void initNewNodes();
 
-    RectGraphicItem* baseRect;
-
-    QRectF  getGroupRect() const;
+    QRectF getGroupRect() const;
 
     UuidList searchNearest(const QString& text, int limit = 10);
     UuidList searchContains(const QString& text, int limit = 10);
@@ -77,8 +75,11 @@ private:
     void setAllWeights();
 
     // Main objects
-    void              addTreeRectsToScene();
-    RectGraphicItem*  orphansRect;
+    void addTreeRectsToScene();
 
     QSizeF getNameSize() const;
+
+private:
+    RectGraphicItem mBaseRect;
+    RectGraphicItem mOrphansRect;
 };

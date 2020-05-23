@@ -28,12 +28,10 @@
 TermGroup::TermGroup(const GroupInfoContainer& info, QObject* parent)
     : QObject(parent)
     , TermGroupInfo(info)
-{}
-
-TermGroup::~TermGroup()
+    , mBaseRect(QPoint(0, 0), QSizeF(10.0, 10.0))
+    , mOrphansRect()
 {
-    delete orphansRect;
-    delete baseRect;
+    mOrphansRect.setParentItem(&mBaseRect);
 }
 
 void TermGroup::initNewNodes()
@@ -41,11 +39,6 @@ void TermGroup::initNewNodes()
     loadEdges();
     removeCycles();
     removeExceedEdges();
-
-    baseRect = new RectGraphicItem(QPoint(0, 0), QSizeF(10.0, 10.0));
-
-    orphansRect = new RectGraphicItem();
-    orphansRect->setParentItem(baseRect);
 
     setLevels();
     initTrees();
@@ -84,7 +77,7 @@ PaintedTerm* TermGroup::getNode(const QPointF& pt) const
         }
     }
 
-    auto orphansRect = QRectF(this->orphansRect->scenePos(), this->orphansRect->getSize());
+    auto orphansRect = QRectF(this->mOrphansRect.scenePos(), this->mOrphansRect.getSize());
     if (orphansRect.contains(pt)) {
         for (auto orphan : getOrphanNodes()) {
             if (orphan->getNodeRect(CoordType::scene).contains(pt)) {
@@ -117,7 +110,7 @@ PaintedTerm* TermGroup::getNode(const QString& nodeName) const
 void TermGroup::addOrphansToParents()
 {
     for (auto node : getOrphanNodes()) {
-        node->setParentItem(orphansRect);
+        node->setParentItem(&mOrphansRect);
     }
 }
 
@@ -140,7 +133,7 @@ void TermGroup::sceneUpdateSignal()
 void TermGroup::addTreeRectsToScene()
 {
     for (auto tree : trees)
-        tree->rect->setParentItem(baseRect);
+        tree->rect->setParentItem(&mBaseRect);
 }
 
 QSizeF TermGroup::getNameSize() const
@@ -223,7 +216,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit)
 
 void TermGroup::setBasePoint(QPointF pt)
 {
-    baseRect->setPos(pt);
+    mBaseRect.setPos(pt);
 }
 
 void TermGroup::updateRectsPositions()
@@ -247,8 +240,8 @@ void TermGroup::updateRectsPositions()
 
     QSizeF orphansSize = getOrphansSize();
     // Вычисляем под несвязанные вершины
-    orphansRect->setPos(basePoint);
-    orphansRect->setSize(orphansSize);  // Применяем
+    mOrphansRect.setPos(basePoint);
+    mOrphansRect.setSize(orphansSize);  // Применяем
 }
 
 void TermGroup::updateBaseRectSize()
@@ -275,7 +268,7 @@ void TermGroup::updateBaseRectSize()
         height += orphansSize.height() + vSpacer;
     height += vSpacer;
 
-    baseRect->setSize(QSizeF(width, height));
+    mBaseRect.setSize(QSizeF(width, height));
 }
 
 void TermGroup::updateGroupFrame()
@@ -342,5 +335,5 @@ void TermGroup::setTreeCoords()
 
 QRectF TermGroup::getGroupRect() const
 {
-    return baseRect->getRect(CoordType::scene);
+    return mBaseRect.getRect(CoordType::scene);
 }
