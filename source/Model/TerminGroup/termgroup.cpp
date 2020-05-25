@@ -28,8 +28,6 @@
 TermGroup::TermGroup(const GroupInfoContainer& info, QObject* parent)
     : QObject(parent)
     , TermGroupInfo(info)
-    , mBaseRect(QPoint(0, 0), QSizeF(10.0, 10.0))
-    , mOrphansRect()
 {
     mOrphansRect.setParentItem(&mBaseRect);
 }

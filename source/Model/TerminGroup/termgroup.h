@@ -80,6 +80,6 @@ private:
     QSizeF getNameSize() const;
 
 private:
-    RectGraphicItem mBaseRect;
-    RectGraphicItem mOrphansRect;
+    RectGraphicItem mBaseRect    = RectGraphicItem(QPoint(0, 0), QSizeF(10.0, 10.0));
+    RectGraphicItem mOrphansRect = RectGraphicItem();
 };
