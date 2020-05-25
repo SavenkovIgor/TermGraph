@@ -35,8 +35,6 @@ public:
     TermGroup(const GroupInfoContainer& info, QObject* parent = nullptr);
     ~TermGroup() override = default;
 
-    void initNewNodes();
-
     QRectF getGroupRect() const;
 
     UuidList searchNearest(const QString& text, int limit = 10);
@@ -44,7 +42,6 @@ public:
 
     // Position and frame
     void setBasePoint(QPointF pt);
-    void updateGroupFrame();
 
     void loadNodes(const PaintedTerm::List& newNodes);
 
@@ -52,10 +49,10 @@ public:
     PaintedTerm* getNode(const QUuid& nodeUuid) const;
     PaintedTerm* getNode(const QString& nodeName) const;
 
-public slots:
-    void sceneUpdateSignal();
-
 private:
+    // Init method
+    void initNewNodes();
+
     // Base init
     void addOrphansToParents();
     void addEdgesToParents();

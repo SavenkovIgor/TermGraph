@@ -32,25 +32,6 @@ TermGroup::TermGroup(const GroupInfoContainer& info, QObject* parent)
     mOrphansRect.setParentItem(&mBaseRect);
 }
 
-void TermGroup::initNewNodes()
-{
-    loadEdges();
-    removeCycles();
-    removeExceedEdges();
-
-    setLevels();
-    initTrees();
-    addTreeRectsToScene();
-
-    addOrphansToParents();
-    addEdgesToParents();
-
-    setTreeCoords();
-    setOrphCoords();
-
-    setAllWeights();
-}
-
 void TermGroup::loadNodes(const PaintedTerm::List& newNodes)
 {
     clearNodesList();
@@ -105,6 +86,29 @@ PaintedTerm* TermGroup::getNode(const QString& nodeName) const
     return nullptr;
 }
 
+void TermGroup::initNewNodes()
+{
+    loadEdges();
+    removeCycles();
+    removeExceedEdges();
+
+    setLevels();
+    initTrees();
+    addTreeRectsToScene();
+
+    addOrphansToParents();
+    addEdgesToParents();
+
+    setTreeCoords();
+    setOrphCoords();
+
+    setAllWeights();
+
+    // Positioning
+    updateRectsPositions();
+    updateBaseRectSize();
+}
+
 void TermGroup::addOrphansToParents()
 {
     for (auto node : getOrphanNodes()) {
@@ -121,11 +125,6 @@ void TermGroup::addEdgesToParents()
             }
         }
     }
-}
-
-void TermGroup::sceneUpdateSignal()
-{
-    updateGroupFrame();
 }
 
 void TermGroup::addTreeRectsToScene()
@@ -267,12 +266,6 @@ void TermGroup::updateBaseRectSize()
     height += vSpacer;
 
     mBaseRect.setSize(QSizeF(width, height));
-}
-
-void TermGroup::updateGroupFrame()
-{
-    updateRectsPositions();
-    updateBaseRectSize();
 }
 
 void TermGroup::setOrphCoords(qreal maxWidth)

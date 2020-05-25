@@ -113,7 +113,6 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
 
     assert(mCurrentGroup);
 
-    mCurrentGroup->sceneUpdateSignal();
     mCurrentGroup->setBasePoint(QPointF(40, 40));
 
     updateSceneRect();
