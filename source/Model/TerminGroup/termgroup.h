@@ -33,17 +33,15 @@ class TermGroup : public QObject, public TermGroupInfo
 
 public:
     TermGroup(const GroupInfoContainer& info, QObject* parent = nullptr);
-    ~TermGroup() override = default;
+    ~TermGroup() final = default;
+
+    void loadNodes(const PaintedTerm::List& newNodes);
+    void setBasePoint(QPointF pt);
 
     QRectF getGroupRect() const;
 
-    UuidList searchNearest(const QString& text, int limit = 10);
-    UuidList searchContains(const QString& text, int limit = 10);
-
-    // Position and frame
-    void setBasePoint(QPointF pt);
-
-    void loadNodes(const PaintedTerm::List& newNodes);
+    UuidList searchNearest(const QString& text, int limit = 10) const;
+    UuidList searchContains(const QString& text, int limit = 10) const;
 
     PaintedTerm* getNode(const QPointF& pt) const;
     PaintedTerm* getNode(const QUuid& nodeUuid) const;

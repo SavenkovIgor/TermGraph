@@ -48,6 +48,74 @@ void TermGroup::loadNodes(const PaintedTerm::List& newNodes)
     initNewNodes();
 }
 
+void TermGroup::setBasePoint(QPointF pt)
+{
+    mBaseRect.setPos(pt);
+}
+
+QRectF TermGroup::getGroupRect() const
+{
+    return mBaseRect.getRect(CoordType::scene);
+}
+
+UuidList TermGroup::searchNearest(const QString& text, int limit) const
+{
+    QString                  searchText = text.toLower();
+    QList<QPair<int, QUuid>> searchResults;
+    // Taking distances
+    for (auto* node : getAllNodes()) {
+        auto lowerTerm = node->additionalInfo().lowerTerm();
+
+        // Exact match
+        if (searchText == lowerTerm) {
+            searchResults << QPair(0, node->info().uuid);
+            continue;
+        }
+
+        auto cuttedTerm = lowerTerm.left(searchText.size());  // Compare only left n characters
+
+        auto acceptableLimit = static_cast<int>(cuttedTerm.size() * 0.25);
+        auto distance        = TagUtils::getLevDistance(cuttedTerm, searchText, acceptableLimit);
+
+        if (distance <= acceptableLimit)
+            searchResults << QPair(distance, node->info().uuid);
+    }
+
+    // Sorting
+    auto order = [](const QPair<int, QUuid>& s1, const QPair<int, QUuid>& s2) { return s1.first < s2.first; };
+    std::sort(searchResults.begin(), searchResults.end(), order);
+
+    // Removing numbers
+    UuidList ret;
+    int      count = 0;
+    for (auto [dist, uuid] : searchResults) {
+        if (count >= limit)
+            break;
+
+        ret.push_back(uuid);
+
+        count++;
+    }
+
+    return ret;
+}
+
+UuidList TermGroup::searchContains(const QString& text, int limit) const
+{
+    UuidList ret;
+    auto     lowerSearch = text.toLower();
+
+    for (auto* node : getAllNodes()) {
+        if (node->additionalInfo().lowerTerm().contains(lowerSearch))
+            ret.push_back(node->info().uuid);
+
+        if (static_cast<int>(ret.size()) == limit)
+            break;
+    }
+
+    return ret;
+}
+
 PaintedTerm* TermGroup::getNode(const QPointF& pt) const
 {
     for (auto tree : trees) {
@@ -127,17 +195,6 @@ void TermGroup::addEdgesToParents()
     }
 }
 
-void TermGroup::addTreeRectsToScene()
-{
-    for (auto tree : trees)
-        tree->rect->setParentItem(&mBaseRect);
-}
-
-QSizeF TermGroup::getNameSize() const
-{
-    return Fonts::getTextMetrics(getName(), Fonts::getWeightFont());
-}
-
 qreal TermGroup::getGroupMinWidth()
 {
     qreal width = 0.0;
@@ -151,69 +208,6 @@ qreal TermGroup::getGroupMinWidth()
     width = std::max(width, orphansWidth);
 
     return width;
-}
-
-UuidList TermGroup::searchNearest(const QString& text, int limit)
-{
-    QString                  searchText = text.toLower();
-    QList<QPair<int, QUuid>> searchResults;
-    // Taking distances
-    for (auto* node : getAllNodes()) {
-        auto lowerTerm = node->additionalInfo().lowerTerm();
-
-        // Exact match
-        if (searchText == lowerTerm) {
-            searchResults << QPair(0, node->info().uuid);
-            continue;
-        }
-
-        auto cuttedTerm = lowerTerm.left(searchText.size());  // Compare only left n characters
-
-        auto acceptableLimit = static_cast<int>(cuttedTerm.size() * 0.25);
-        auto distance        = TagUtils::getLevDistance(cuttedTerm, searchText, acceptableLimit);
-
-        if (distance <= acceptableLimit)
-            searchResults << QPair(distance, node->info().uuid);
-    }
-
-    // Sorting
-    auto order = [](const QPair<int, QUuid>& s1, const QPair<int, QUuid>& s2) { return s1.first < s2.first; };
-    std::sort(searchResults.begin(), searchResults.end(), order);
-
-    // Removing numbers
-    UuidList ret;
-    int      count = 0;
-    for (auto [dist, uuid] : searchResults) {
-        if (count >= limit)
-            break;
-
-        ret.push_back(uuid);
-
-        count++;
-    }
-
-    return ret;
-}
-
-UuidList TermGroup::searchContains(const QString& text, int limit)
-{
-    UuidList ret;
-    auto     lowerSearch = text.toLower();
-
-    for (auto* node : getAllNodes()) {
-        if (node->additionalInfo().lowerTerm().contains(lowerSearch))
-            ret.push_back(node->info().uuid);
-
-        if (static_cast<int>(ret.size()) == limit)
-            break;
-    }
-
-    return ret;
-}
-
-void TermGroup::setBasePoint(QPointF pt)
-{
-    mBaseRect.setPos(pt);
 }
 
 void TermGroup::updateRectsPositions()
@@ -268,6 +262,13 @@ void TermGroup::updateBaseRectSize()
     mBaseRect.setSize(QSizeF(width, height));
 }
 
+void TermGroup::setTreeCoords()
+{
+    for (auto tree : trees) {
+        tree->setTreeNodeCoors();
+    }
+}
+
 void TermGroup::setOrphCoords(qreal maxWidth)
 {
     auto orphansList = getOrphanNodes();
@@ -317,14 +318,13 @@ void TermGroup::setAllWeights()
         node->giveWeights();
 }
 
-void TermGroup::setTreeCoords()
+void TermGroup::addTreeRectsToScene()
 {
-    for (auto tree : trees) {
-        tree->setTreeNodeCoors();
-    }
+    for (auto tree : trees)
+        tree->rect->setParentItem(&mBaseRect);
 }
 
-QRectF TermGroup::getGroupRect() const
+QSizeF TermGroup::getNameSize() const
 {
-    return mBaseRect.getRect(CoordType::scene);
+    return Fonts::getTextMetrics(getName(), Fonts::getWeightFont());
 }
