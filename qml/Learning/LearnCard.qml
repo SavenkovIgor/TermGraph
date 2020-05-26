@@ -19,10 +19,10 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.14
-import QtQuick.Controls 2.14
-import QtQuick.Layouts 1.14
-import QtQuick.Templates 2.14 as T
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+import QtQuick.Templates 2.15 as T
 
 import "../Molecules" as M
 import "../Js/Colors.js" as Colors

@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.14
+import QtQuick 2.15
 
 Rectangle {
     enum LineSide { Top = 0, Right, Bottom, Left }
