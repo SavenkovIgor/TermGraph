@@ -51,7 +51,7 @@ void TermTree::setTreeNodeCoors(QPointF leftTopPoint)
     auto centerPoint = startPoint;
 
     for (auto stack : stacks) {
-        auto stackSize = stack->getSize();
+        auto stackSize = stack->size();
         centerPoint.rx() += stackSize.width() / 2;
         stack->placeTerms(centerPoint);
         centerPoint.rx() += stackSize.width() / 2 + AppStyle::Sizes::treeLayerHorizontalSpacer;
@@ -89,7 +89,7 @@ void TermTree::addTerm(PaintedTerm* term)
 bool TermTree::hasTerm(PaintedTerm* term) const
 {
     for (auto stack : stacks) {
-        if (stack->hasTerm(term)) {
+        if (stack->hasNode(term)) {
             return true;
         }
     }
@@ -127,7 +127,7 @@ QSizeF TermTree::getTreeSize() const
     qreal height = 0.0;
 
     for (auto stack : stacks) {
-        QSizeF stackSize = stack->getSize();
+        QSizeF stackSize = stack->size();
         width += stackSize.width();
         height = std::max(height, stackSize.height());
     }
@@ -149,7 +149,7 @@ PaintedTerm::List TermTree::getAllNodesInTree() const
 {
     PaintedTerm::List ret;
     for (auto stack : stacks) {
-        ret << stack->getAllNodesInStack();
+        ret << stack->nodes();
     }
     return ret;
 }
@@ -158,8 +158,8 @@ qreal TermTree::getMaxStackHeight() const
 {
     qreal maxHeight = 0.0;
     for (auto stack : stacks) {
-        QSizeF stackSize = stack->getSize();
-        maxHeight        = std::max(maxHeight, stackSize.height());
+        auto stackSize = stack->size();
+        maxHeight      = std::max(maxHeight, stackSize.height());
     }
     return maxHeight;
 }

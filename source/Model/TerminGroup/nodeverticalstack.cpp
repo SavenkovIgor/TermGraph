@@ -33,23 +33,14 @@ QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::Lis
     return HelpStuff::getStackedSize(sizeList, Qt::Vertical);
 }
 
-NodeVerticalStack::NodeVerticalStack()
-{
-}
-
-NodeVerticalStack::~NodeVerticalStack()
-{
-    terms.clear();
-}
-
 void NodeVerticalStack::addTerm(PaintedTerm* term)
 {
-    terms << term;
+    mTerms << term;
 }
 
-bool NodeVerticalStack::hasTerm(PaintedTerm* term) const
+bool NodeVerticalStack::hasNode(PaintedTerm* term) const
 {
-    for (auto stackTerm : terms) {
+    for (auto stackTerm : mTerms) {
         if (stackTerm == term) {
             return true;
         }
@@ -57,50 +48,20 @@ bool NodeVerticalStack::hasTerm(PaintedTerm* term) const
     return false;
 }
 
-PaintedTerm::List NodeVerticalStack::getAllNodesInStack() const
+PaintedTerm::List NodeVerticalStack::nodes() const
 {
-    return terms;
+    return mTerms;
 }
 
-QSizeF NodeVerticalStack::getSize() const
+// Clearly counted value. Ignoring real node positions
+QSizeF NodeVerticalStack::size() const
 {
-    return NodeVerticalStackTools::getNodeVerticalStackedSize(terms);
-}
-
-void NodeVerticalStack::sortTerms()
-{
-    // Сначала сортируем по убыванию количества связей
-
-    PaintedTerm::List tmpList = terms;
-    int               nMax    = 0;
-
-    for (int i = 0; i < tmpList.size(); i++) {
-        nMax = i;
-        for (int j = i + 1; j < tmpList.size(); j++) {
-            if (tmpList[j]->getUpLevels() > tmpList[nMax]->getUpLevels()) {
-                nMax = j;
-            }
-        }
-        tmpList.swapItemsAt(i, nMax);
-    }
-
-    PaintedTerm::List ret;
-    // Формируем новый список так чтобы максимально нагруженные вершины были ближе к центру
-    for (int i = 0; i < tmpList.size(); i++) {
-        if (i % 2 == 0)
-            ret.push_front(tmpList[i]);
-        else
-            ret.push_back(tmpList[i]);
-    }
-
-    terms = ret;
+    return NodeVerticalStackTools::getNodeVerticalStackedSize(mTerms);
 }
 
 void NodeVerticalStack::placeTerms(QPointF centerPoint)
 {
-    //sortTerms(); //TODO: Check. maybe causing random bug
-
-    PaintedTerm::List placingTerms = this->terms;
+    PaintedTerm::List placingTerms = mTerms;
 
     if (!isRootStack()) {
         auto packs = getNodePacks(placingTerms);
@@ -128,10 +89,10 @@ void NodeVerticalStack::placeTerms(QPointF centerPoint)
     }
 }
 
-bool NodeVerticalStack::isRootStack()
+bool NodeVerticalStack::isRootStack() const
 {
-    if (!terms.isEmpty())
-        return terms.first()->isRoot();
+    if (!mTerms.isEmpty())
+        return mTerms.first()->isRoot();
 
     return false;
 }

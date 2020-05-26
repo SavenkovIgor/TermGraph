@@ -38,24 +38,24 @@ public:
     using List = QList<NodeVerticalStack*>;
     using NodePack = QPair<QPointF, PaintedTerm::List>;
 
-    NodeVerticalStack();
-    ~NodeVerticalStack();
+    NodeVerticalStack()  = default;
+    ~NodeVerticalStack() = default;
 
     void addTerm(PaintedTerm* term);
-    bool hasTerm(PaintedTerm* term) const;
-
-    PaintedTerm::List getAllNodesInStack() const;
-
-    QSizeF getSize() const;  // Clearly counted value. Ignoring real node positions
-
-    void sortTerms();
     void placeTerms(QPointF centerPoint);
 
-    bool isRootStack();
+    QSizeF size() const;
+    bool   isRootStack() const;
+
+    bool hasNode(PaintedTerm* term) const;
+
+    PaintedTerm::List nodes() const;
 
 private:
-    PaintedTerm::List terms;
     static QList<NodePack>   getNodePacks(const PaintedTerm::List& terms);
     static void              sortNodePacks(QList<NodePack>& pack);
     static PaintedTerm::List flatNodePack(const QList<NodePack>& pack);
+
+private:  // Members
+    PaintedTerm::List mTerms;
 };
