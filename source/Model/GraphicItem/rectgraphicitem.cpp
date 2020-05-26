@@ -21,39 +21,33 @@
 
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 
-RectGraphicItem::RectGraphicItem()
-    : GraphicItem()
-{}
-
 RectGraphicItem::RectGraphicItem(const QPointF& pt, const QSizeF& size)
 {
     setPos(pt);
     setSize(size);
 }
 
-RectGraphicItem::~RectGraphicItem() {}
+QSizeF RectGraphicItem::getSize() const
+{
+    return mSize;
+}
 
 void RectGraphicItem::setSize(const QSizeF& size)
 {
-    _size = size;
+    mSize = size;
 }
 
 QRectF RectGraphicItem::getRect(CoordType coord) const
 {
     switch (coord) {
     case CoordType::zeroPoint:
-        return QRectF(QPointF(), _size);
+        return QRectF(QPointF(), mSize);
     case CoordType::local:
-        return QRectF(pos(), _size);
+        return QRectF(pos(), mSize);
     case CoordType::scene:
-        return QRectF(scenePos(), _size);
+        return QRectF(scenePos(), mSize);
     }
 
     assert(false);  // must be unreachable
     return QRectF();
-}
-
-QSizeF RectGraphicItem::getSize() const
-{
-    return _size;
 }

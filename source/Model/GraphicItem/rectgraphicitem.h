@@ -30,17 +30,17 @@ class RectGraphicItem : public GraphicItem
 {
 public:
     // Constructors
-    RectGraphicItem();
+    RectGraphicItem() = default;
     explicit RectGraphicItem(const QPointF& pt, const QSizeF& getSize);
 
     // Destructor
-    ~RectGraphicItem() override;
+    ~RectGraphicItem() override = default;
 
+    QSizeF getSize() const;
     void setSize(const QSizeF& getSize);
 
     QRectF getRect(CoordType coord) const;
-    QSizeF getSize() const;
 
 private:
-    QSizeF _size;
+    QSizeF mSize;
 };

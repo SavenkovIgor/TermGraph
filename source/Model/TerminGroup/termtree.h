@@ -59,10 +59,11 @@ public:
     // Deletions
     TermTree(const TermTree&) = delete;
 
-private:
-    NodeVerticalStack::List stacks;
-
+private:    
     // Internal Info
     PaintedTerm::List getAllNodesInTree() const;
     qreal             getMaxStackHeight() const;
+
+private:  // Members
+    NodeVerticalStack::List mStacks;
 };
