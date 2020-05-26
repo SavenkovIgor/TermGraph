@@ -56,11 +56,12 @@ Drawer {
 
     Connections {
         target: Notification
-        onShowInfoQml: root.showInfo(info)
-        onShowWarningQml: root.showWarning(warning)
-        onShowErrorQml: root.showError(error)
-        onShowDebugQml: root.showDebug(debugInfo)
-        onHideNotify: root.close();
+
+        function onShowInfoQml(info)       { root.showInfo(info) }
+        function onShowWarningQml(warning) { root.showWarning(warning) }
+        function onShowErrorQml(error)     { root.showError(error) }
+        function onShowDebugQml(debugInfo) { root.showDebug(debugInfo) }
+        function onHideNotify()            { root.close() }
     }
 
     contentItem: TextArea {

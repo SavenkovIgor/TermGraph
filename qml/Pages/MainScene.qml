@@ -68,13 +68,17 @@ M.Page {
 
     Connections {
         target: scene
-        onSelectionDoubleClick: nodeInfoAction.trigger()
-        onCurrentGroupChanged: {
+
+        function onSelectionDoubleClick() {
+            nodeInfoAction.trigger()
+        }
+
+        function onCurrentGroupChanged() {
             sceneCanvas.dropScale();
             sceneFlick.moveToOrigin();
         }
 
-        onNodesChanged: {
+        function onNodesChanged() {
             if (root.lastChangedNodeName !== "") {
                 sceneFlick.selectName(root.lastChangedNodeName)
                 root.lastChangedNodeName = "";

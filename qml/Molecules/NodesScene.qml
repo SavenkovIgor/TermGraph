@@ -101,7 +101,8 @@ Control {
 
         Connections {
             target: scene
-            onEdgesChanged: {
+
+            function onEdgesChanged() {
                 edgesShape.updateEdges();
                 edgesSelectedShape.updateEdges();
             }
