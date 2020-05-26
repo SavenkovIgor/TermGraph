@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include <vector>
+
 #include <QList>
 
 #include "source/Model/Termin/paintedterm.h"
@@ -35,7 +37,7 @@ public:
 class NodeVerticalStack
 {
 public:
-    using List = QList<NodeVerticalStack*>;
+    using List     = std::vector<NodeVerticalStack>;
     using NodePack = QPair<QPointF, PaintedTerm::List>;
 
     NodeVerticalStack()  = default;

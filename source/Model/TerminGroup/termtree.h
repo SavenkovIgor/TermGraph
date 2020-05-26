@@ -35,10 +35,10 @@ public:
     using List = QList<TermTree*>;
 
     // Constructor/Destructor
-    TermTree();
-    ~TermTree();
+    TermTree()  = default;
+    ~TermTree() = default;
 
-    RectGraphicItem* rect = nullptr;
+    RectGraphicItem& rect();
 
     // Add info
     void addTerm(PaintedTerm* term);
@@ -66,4 +66,5 @@ private:
 
 private:  // Members
     NodeVerticalStack::List mStacks;
+    RectGraphicItem         mRect;
 };

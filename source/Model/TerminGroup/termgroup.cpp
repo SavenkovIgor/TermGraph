@@ -189,7 +189,7 @@ void TermGroup::addEdgesToParents()
     for (Edge* edge : getAllEdges()) {
         for (auto tree : trees) {
             if (tree->hasEdge(edge)) {
-                edge->setParentItem(tree->rect);
+                edge->setParentItem(&(tree->rect()));
             }
         }
     }
@@ -224,8 +224,8 @@ void TermGroup::updateRectsPositions()
     // Вычисляем под дерево
     for (auto tree : trees) {
         auto treeSize = tree->getTreeSize();
-        tree->rect->setPos(basePoint);
-        tree->rect->setSize(treeSize);
+        tree->rect().setPos(basePoint);
+        tree->rect().setSize(treeSize);
         basePoint.ry() += treeSize.height() + vSpacer;
     }
 
@@ -321,7 +321,7 @@ void TermGroup::setAllWeights()
 void TermGroup::addTreeRectsToScene()
 {
     for (auto tree : trees)
-        tree->rect->setParentItem(&mBaseRect);
+        tree->rect().setParentItem(&mBaseRect);
 }
 
 QSizeF TermGroup::getNameSize() const

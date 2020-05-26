@@ -23,20 +23,6 @@
 
 #include "source/Helpers/appstyle.h"
 
-TermTree::TermTree()
-{
-    rect = new RectGraphicItem();
-}
-
-TermTree::~TermTree()
-{
-    delete rect;
-
-    for (auto stack : mStacks) {
-        delete stack;
-    }
-}
-
 void TermTree::setTreeNodeCoors(QPointF leftTopPoint)
 {
     if (getAllNodesInTree().isEmpty()) {
@@ -50,10 +36,10 @@ void TermTree::setTreeNodeCoors(QPointF leftTopPoint)
 
     auto centerPoint = startPoint;
 
-    for (auto stack : mStacks) {
-        auto stackSize = stack->size();
+    for (auto& stack : mStacks) {
+        auto stackSize = stack.size();
         centerPoint.rx() += stackSize.width() / 2;
-        stack->placeTerms(centerPoint);
+        stack.placeTerms(centerPoint);
         centerPoint.rx() += stackSize.width() / 2 + AppStyle::Sizes::treeLayerHorizontalSpacer;
     }
 }
@@ -69,6 +55,11 @@ PaintedTerm* TermTree::getNodeAtPoint(const QPointF& pt) const
     return nullptr;
 }
 
+RectGraphicItem& TermTree::rect()
+{
+    return mRect;
+}
+
 void TermTree::addTerm(PaintedTerm* term)
 {
     int paintLayer = term->getPaintLevel();
@@ -79,17 +70,17 @@ void TermTree::addTerm(PaintedTerm* term)
 
     int increaseSizeCount = paintLayer - mStacks.size() + 1;
     for (int i = 0; i < increaseSizeCount; i++) {
-        mStacks.push_back(new NodeVerticalStack());
+        mStacks.push_back(NodeVerticalStack());
     }
 
-    term->setParentItem(rect);
-    mStacks[paintLayer]->addTerm(term);
+    term->setParentItem(&mRect);
+    mStacks[paintLayer].addTerm(term);
 }
 
 bool TermTree::hasTerm(PaintedTerm* term) const
 {
-    for (auto stack : mStacks) {
-        if (stack->hasNode(term)) {
+    for (const auto& stack : mStacks) {
+        if (stack.hasNode(term)) {
             return true;
         }
     }
@@ -111,10 +102,10 @@ QRectF TermTree::getTreeRect(CoordType inCoordinates) const
     case CoordType::zeroPoint:
         break;
     case CoordType::local:
-        ret = ret.translated(rect->pos());
+        ret = ret.translated(mRect.pos());
         break;
     case CoordType::scene:
-        ret = ret.translated(rect->scenePos());
+        ret = ret.translated(mRect.scenePos());
         break;
     }
 
@@ -126,10 +117,10 @@ QSizeF TermTree::getTreeSize() const
     qreal width  = 0.0;
     qreal height = 0.0;
 
-    for (auto stack : mStacks) {
-        QSizeF stackSize = stack->size();
-        width += stackSize.width();
-        height = std::max(height, stackSize.height());
+    for (const auto& stack : mStacks) {
+        auto size = stack.size();
+        width += size.width();
+        height = std::max(height, size.height());
     }
 
     if (!mStacks.empty()) {
@@ -148,18 +139,19 @@ double TermTree::square() const
 PaintedTerm::List TermTree::getAllNodesInTree() const
 {
     PaintedTerm::List ret;
-    for (auto stack : mStacks) {
-        ret << stack->nodes();
-    }
+
+    for (const auto& stack : mStacks)
+        ret << stack.nodes();
+
     return ret;
 }
 
 qreal TermTree::getMaxStackHeight() const
 {
     qreal maxHeight = 0.0;
-    for (auto stack : mStacks) {
-        auto stackSize = stack->size();
-        maxHeight      = std::max(maxHeight, stackSize.height());
-    }
+
+    for (const auto& stack : mStacks)
+        maxHeight = std::max(maxHeight, stack.size().height());
+
     return maxHeight;
 }
