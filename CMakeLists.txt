@@ -101,6 +101,8 @@ target_sources (${PROJECT_NAME}
         source/Helpers/textprocessor.h
         source/Helpers/intmatrix.cpp
         source/Helpers/intmatrix.h
+        source/Helpers/asyncgroupbuilder.cpp
+        source/Helpers/asyncgroupbuilder.h
 
         source/Managers/groupsmanager.cpp
         source/Managers/groupsmanager.h

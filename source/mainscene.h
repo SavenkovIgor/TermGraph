@@ -28,6 +28,7 @@
 #include <QQmlListProperty>
 
 #include "source/Helpers/appconfig.h"
+#include "source/Helpers/asyncgroupbuilder.h"
 #include "source/Helpers/fsworks.h"
 #include "source/Managers/groupsmanager.h"
 #include "source/Managers/nodesmanager.h"
@@ -49,6 +50,7 @@ public:
     Q_PROPERTY(QString currentGroupName READ currentGroupName NOTIFY currentGroupChanged)
     Q_PROPERTY(QQmlListProperty<PaintedTerm> nodes READ getNodes NOTIFY nodesChanged)
     Q_PROPERTY(QQmlListProperty<Edge> edges READ getEdges NOTIFY edgesChanged)
+    Q_PROPERTY(bool groupLoading READ isGroupLoading NOTIFY groupLoadingChanged)
 
     Q_INVOKABLE void selectGroup(const QString& groupUuid);
     Q_INVOKABLE void selectTerm(const QString& termUuid);
@@ -73,6 +75,8 @@ signals:
 
     void sceneRectChanged();
 
+    void groupLoadingChanged();
+
 public slots:
     QString getCurrNodeNameAndDefinition();
     QString getCurrNodeHierarchyDefinition();
@@ -87,6 +91,9 @@ private slots:
     // Groups modify reaction
     void checkGroupAddition();
     void checkGroupDeletion();
+
+    void takeBuildGroupAndShow();
+    void showNewGroup(TermGroup* newGroup);
 
 private:
     void setCurrentGroup(const QUuid& newGroupUuid);
@@ -146,7 +153,11 @@ private:
     Edge::List mCachedEdges;
     void       updateEdgeCache();
 
+    bool isGroupLoading() const;
+
 private:
     // For testing
     void createTestGroups();
+
+    AsyncGroupBuilder mGroupBuilder;
 };

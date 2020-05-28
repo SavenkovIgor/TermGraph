@@ -21,10 +21,16 @@
 
 #include "source/mainscene.h"
 
+#include <QApplication>
+#include <QThread>
+
+#include <QDebug>
+
 #include "source/Managers/notificationmanager.h"
 
 MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* parent)
     : QObject(parent)
+    , mGroupBuilder(this)
 {
     mouseMoveReactionTimer.setInterval(static_cast<int>(1000 / AppSettings::Scene::FPS));
     mouseMoveReactionTimer.setSingleShot(true);
@@ -37,6 +43,12 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* 
     assert(nodesMgr != nullptr);
     this->nodesMgr = nodesMgr;
     connect(nodesMgr, &NodesManager::nodeChanged, this, &MainScene::updateGroup);
+
+    connect(&mGroupBuilder, &AsyncGroupBuilder::finished, this, &MainScene::takeBuildGroupAndShow, Qt::QueuedConnection);
+
+    // Loading notification
+    connect(&mGroupBuilder, &QThread::started, this, &MainScene::groupLoadingChanged);
+    connect(&mGroupBuilder, &QThread::finished, this, &MainScene::groupLoadingChanged);
 }
 
 void MainScene::selectGroup(const QString& groupUuid)
@@ -94,6 +106,36 @@ void MainScene::checkGroupDeletion()
         dropGroup();
 }
 
+void MainScene::takeBuildGroupAndShow()
+{
+    auto group = mGroupBuilder.takeResult();
+    showNewGroup(group);
+}
+
+void MainScene::showNewGroup(TermGroup* newGroup)
+{
+    assert(newGroup != nullptr);
+
+    auto oldUuid = mCurrentGroup ? mCurrentGroup->uuid() : QUuid();
+    auto newUuid = newGroup->uuid();
+
+    bool differentGroups = oldUuid != newUuid;
+
+    mCurrentGroup.reset(newGroup);
+
+    assert(mCurrentGroup);
+
+    mCurrentGroup->setBasePoint(QPointF(40, 40));
+
+    updateSceneRect();
+
+    if (differentGroups)
+        emit currentGroupChanged();
+
+    emit nodesChanged();
+    updateEdgeCache();
+}
+
 void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
 {
     assert(!newGroupUuid.isNull());
@@ -108,20 +150,15 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
 
     assert(!tmpGroupUuid.isNull());
 
-    auto* groupPtr = groupsMgr->createGroup(tmpGroupUuid);
-    mCurrentGroup.reset(groupPtr);
+    if (!mGroupBuilder.isRunning()) {
+        mGroupBuilder.setAction([this, groupUuid = tmpGroupUuid]() {
+            auto* group = groupsMgr->createGroup(groupUuid);
+            group->moveToThread(this->thread());
+            return group;
+        });
 
-    assert(mCurrentGroup);
-
-    mCurrentGroup->setBasePoint(QPointF(40, 40));
-
-    updateSceneRect();
-
-    if (newGroup)
-        emit currentGroupChanged();
-
-    emit nodesChanged();
-    updateEdgeCache();
+        mGroupBuilder.start();
+    }
 }
 
 QQmlListProperty<PaintedTerm> MainScene::getNodes()
@@ -374,6 +411,11 @@ void MainScene::updateEdgeCache()
 {
     mCachedEdges = mCurrentGroup ? mCurrentGroup->edgesForPaint() : Edge::List();
     emit edgesChanged();
+}
+
+bool MainScene::isGroupLoading() const
+{
+    return mGroupBuilder.isRunning();
 }
 
 void MainScene::findClick(const QPointF& atPt)
