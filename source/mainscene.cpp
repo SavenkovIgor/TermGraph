@@ -24,8 +24,6 @@
 #include <QApplication>
 #include <QThread>
 
-#include <QDebug>
-
 #include "source/Managers/notificationmanager.h"
 
 MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* parent)

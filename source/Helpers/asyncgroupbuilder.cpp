@@ -1,6 +1,6 @@
 /*
  *  TermGraph, build graph of knowledge.
- *  Copyright © 2016-2019. Savenkov Igor. All rights reserved
+ *  Copyright © 2016-2020. Savenkov Igor. All rights reserved
  *  Contacts: dev.savenkovigor@protonmail.com
  *
  *  This file is part of TermGraph.
@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "asyncgroupbuilder.h"
+#include "source/Helpers/asyncgroupbuilder.h"
 
 AsyncGroupBuilder::AsyncGroupBuilder(QObject* parent)
     : QThread(parent)

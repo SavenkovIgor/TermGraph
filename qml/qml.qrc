@@ -59,5 +59,6 @@
         <file>Atoms/MouseArea.qml</file>
         <file>Atoms/Timer.qml</file>
         <file>Js/Tools.js</file>
+        <file>Molecules/LoadingInProcess.qml</file>
     </qresource>
 </RCC>

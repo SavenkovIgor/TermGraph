@@ -19,30 +19,37 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+import QtQuick 2.15
 
-#include <functional>
+import "../Js/Colors.js" as Colors
 
-#include <QThread>
+Rectangle {
+    id: root
 
-#include "source/Model/TerminGroup/termgroup.h"
+    color: Colors.base
 
-class AsyncGroupBuilder : public QThread
-{
-    Q_OBJECT
+    required property bool showLoading;
 
-public:
-    explicit AsyncGroupBuilder(QObject* parent = nullptr);
+    AppIcon {
+        anchors.centerIn: parent
 
-    void setAction(std::function<TermGroup*()> func);
+        width: Math.min(root.width, root.height) * 0.1
+        height: width
+    }
 
-    TermGroup* takeResult();
+    visible: scene.groupLoading
 
-protected:
-    void run() final;
+    onShowLoadingChanged: {
+        if (showLoading) {
+            timer.start(150);
+        } else {
+            timer.stop();
+            root.visible = false;
+        }
+    }
 
-private:
-    std::function<TermGroup*()> mAction;
-
-    TermGroup* mResultGroup = nullptr;
-};
+    Timer {
+        id: timer
+        onTriggered: root.visible = true
+    }
+}

@@ -480,6 +480,11 @@ M.Page {
         }
     }
 
+    M.LoadingInProcess {
+        anchors.fill: sceneFlick
+        showLoading: scene.groupLoading
+    }
+
     M.EmptyView {
         anchors.fill: sceneFlick
         visible: !groupsManager.hasAnyGroup
