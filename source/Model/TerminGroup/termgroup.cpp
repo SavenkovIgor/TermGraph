@@ -36,11 +36,8 @@ void TermGroup::loadNodes(const PaintedTerm::List& newNodes)
 {
     clearNodesList();
 
-    for (auto node : newNodes) {
+    for (auto* node : newNodes) {
         Q_ASSERT_X(node->info().groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
-
-        if (node->info().groupUuid != this->uuid())
-            continue;
 
         addNodeToList(node);
     }
@@ -63,7 +60,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
     QString                  searchText = text.toLower();
     QList<QPair<int, QUuid>> searchResults;
     // Taking distances
-    for (auto* node : getAllNodes()) {
+    for (auto* node : nodes()) {
         auto lowerTerm = node->additionalInfo().lowerTerm();
 
         // Exact match
@@ -105,7 +102,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
     UuidList ret;
     auto     lowerSearch = text.toLower();
 
-    for (auto* node : getAllNodes()) {
+    for (auto* node : nodes()) {
         if (node->additionalInfo().lowerTerm().contains(lowerSearch))
             ret.push_back(node->info().uuid);
 
@@ -138,7 +135,7 @@ PaintedTerm* TermGroup::getNode(const QPointF& pt) const
 
 PaintedTerm* TermGroup::getNode(const QUuid& nodeUuid) const
 {
-    for (auto* node : getAllNodes())
+    for (auto* node : nodes())
         if (node->info().uuid == nodeUuid)
             return node;
 
@@ -147,7 +144,7 @@ PaintedTerm* TermGroup::getNode(const QUuid& nodeUuid) const
 
 PaintedTerm* TermGroup::getNode(const QString& nodeName) const
 {
-    for (auto* node : getAllNodes())
+    for (auto* node : nodes())
         if (node->info().term == nodeName)
             return node;
 
@@ -157,6 +154,7 @@ PaintedTerm* TermGroup::getNode(const QString& nodeName) const
 void TermGroup::initNewNodes()
 {
     loadEdges();
+    setParentForNodesAndEdges();
     removeCycles();
     removeExceedEdges();
 
@@ -177,6 +175,15 @@ void TermGroup::initNewNodes()
     updateBaseRectSize();
 }
 
+void TermGroup::setParentForNodesAndEdges()
+{
+    for (auto* node : nodes())
+        node->setParent(this);
+
+    for (auto* edge : edges())
+        edge->setParent(this);
+}
+
 void TermGroup::addOrphansToParents()
 {
     for (auto node : getOrphanNodes()) {
@@ -186,7 +193,7 @@ void TermGroup::addOrphansToParents()
 
 void TermGroup::addEdgesToParents()
 {
-    for (Edge* edge : getAllEdges()) {
+    for (Edge* edge : edges()) {
         for (auto* tree : trees()) {
             if (tree->hasEdge(edge)) {
                 edge->setParentItem(&(tree->rect()));
@@ -313,7 +320,7 @@ void TermGroup::setAllWeights()
 {
     GraphTerm::resetMaxWeight();
 
-    for (auto* node : getAllNodes())
+    for (auto* node : nodes())
         node->giveWeights();
 }
 

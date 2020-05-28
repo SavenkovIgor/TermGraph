@@ -318,7 +318,7 @@ PaintedTerm* MainScene::getNodeAtPoint(const QPointF& pt) const
 
 int MainScene::termCount() const
 {
-    return mCurrentGroup ? mCurrentGroup->getAllNodes().size() : 0;
+    return mCurrentGroup ? mCurrentGroup->nodes().size() : 0;
 }
 
 PaintedTerm* MainScene::term(int index) const
@@ -326,10 +326,10 @@ PaintedTerm* MainScene::term(int index) const
     if (!mCurrentGroup)
         return nullptr;
 
-    if (index < 0 || index >= mCurrentGroup->getAllNodes().size())
+    if (index < 0 || index >= mCurrentGroup->nodes().size())
         return nullptr;
 
-    return mCurrentGroup->getAllNodes()[index];
+    return mCurrentGroup->nodes()[index];
 }
 
 int MainScene::termCount(QQmlListProperty<PaintedTerm>* list)
@@ -372,7 +372,7 @@ Edge* MainScene::edge(QQmlListProperty<Edge>* list, int i)
 
 void MainScene::updateEdgeCache()
 {
-    mCachedEdges = mCurrentGroup ? mCurrentGroup->getAllEdgesForPainting() : Edge::List();
+    mCachedEdges = mCurrentGroup ? mCurrentGroup->edgesForPaint() : Edge::List();
     emit edgesChanged();
 }
 

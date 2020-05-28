@@ -40,14 +40,13 @@ public:
     QString name() const;
 
     // Group content
-    PaintedTerm::List getAllNodes() const;
+    PaintedTerm::List nodes() const;
 
     // Edges tools
-    Edge::List getAllEdges() const;
-    Edge::List filterFromEdgesList(std::function<bool(Edge*)> condition) const;
-    Edge::List getBrokenEdges() const;
-    Edge::List getRedundantEdges() const;
-    Edge::List getAllEdgesForPainting() const;
+    Edge::List edges() const;
+    Edge::List brokenEdges() const;
+    Edge::List redundantEdges() const;
+    Edge::List edgesForPaint() const;
 
 protected:
     // Group content methods
@@ -77,10 +76,7 @@ protected:
 private:
     // Group content
     PaintedTerm::List filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const;
-    // Filters nodes from nodesList with lambda
-
-    // Edges & tools
-    Edge* addNewEdge(PaintedTerm* rootNode, PaintedTerm* leafNode);
+    Edge::List        filterFromEdgesList(std::function<bool(Edge*)> condition) const;
 
     // Edge connections search
     Edge::List                  searchAllConnections();

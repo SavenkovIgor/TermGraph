@@ -36,12 +36,6 @@ TermGroupInfo::TermGroupInfo(const GroupInfoContainer& info)
 TermGroupInfo::~TermGroupInfo()
 {
     removeTrees();
-
-    for (auto* node : getAllNodes())
-        delete node;
-
-    for (auto* edge : getAllEdges())
-        delete edge;
 }
 
 QUuid TermGroupInfo::uuid() const
@@ -54,49 +48,37 @@ QString TermGroupInfo::name() const
     return mInfo.name;
 }
 
-PaintedTerm::List TermGroupInfo::getAllNodes() const
+PaintedTerm::List TermGroupInfo::nodes() const
 {
     return mNodes;
 }
 
-Edge::List TermGroupInfo::getAllEdges() const
+Edge::List TermGroupInfo::edges() const
 {
     return mEdges;
 }
 
-Edge::List TermGroupInfo::filterFromEdgesList(std::function<bool(Edge*)> condition) const
+Edge::List TermGroupInfo::brokenEdges() const
 {
     Edge::List ret;
-    for (auto* edge : getAllEdges()) {
-        if (condition(edge)) {
-            ret << edge;
-        }
-    }
-
-    return ret;
-}
-
-Edge::List TermGroupInfo::getBrokenEdges() const
-{
-    Edge::List ret;
-    for (auto* node : getAllNodes())
+    for (auto* node : nodes())
         for (auto* edge : node->getBrokenEdges())
             ret.push_back(dynamic_cast<Edge*>(edge));
 
     return ret;
 }
 
-Edge::List TermGroupInfo::getRedundantEdges() const
+Edge::List TermGroupInfo::redundantEdges() const
 {
     Edge::List ret;
-    for (auto* node : getAllNodes())
+    for (auto* node : nodes())
         for (auto* edge : node->getRedundantEdges())
             ret.push_back(dynamic_cast<Edge*>(edge));
 
     return ret;
 }
 
-Edge::List TermGroupInfo::getAllEdgesForPainting() const
+Edge::List TermGroupInfo::edgesForPaint() const
 {
     Edge::List lst;
     auto       defaultTypeFilter  = [](Edge* e) { return !e->isSelected(); };
@@ -104,7 +86,7 @@ Edge::List TermGroupInfo::getAllEdgesForPainting() const
 
     lst << filterFromEdgesList(defaultTypeFilter);
     lst << filterFromEdgesList(selectedTypeFilter);
-    lst << getBrokenEdges();
+    lst << brokenEdges();
     return lst;
 }
 
@@ -121,17 +103,6 @@ PaintedTerm::List TermGroupInfo::getInTreeNodes() const
 PaintedTerm::List TermGroupInfo::getOrphanNodes() const
 {
     return filterFromNodesList([](PaintedTerm* node) { return node->isOrphan(); });
-}
-
-Edge* TermGroupInfo::addNewEdge(PaintedTerm* rootNode, PaintedTerm* leafNode)
-{
-    if (rootNode == leafNode)
-        return nullptr;
-
-    auto edge = new Edge(rootNode, leafNode);
-    rootNode->addEdgeRef(edge);
-    leafNode->addEdgeRef(edge);
-    return edge;
 }
 
 Edge::List TermGroupInfo::searchAllConnections()
@@ -154,8 +125,8 @@ Edge::List TermGroupInfo::searchAllConnections()
                 foundNode = getNearestNodeForTag(tag);
 
             if (foundNode) {
-                if (auto* edge = addNewEdge(foundNode, node)) {
-                    ret << edge;
+                if (foundNode != node) {  // TODO: Real case, need check
+                    ret << new Edge(foundNode, node);
                     previousTagSearchCache.insert(tag, foundNode);
                 }
             }
@@ -343,9 +314,21 @@ PaintedTerm::List TermGroupInfo::filterFromNodesList(std::function<bool(PaintedT
     return ret;
 }
 
+Edge::List TermGroupInfo::filterFromEdgesList(std::function<bool(Edge*)> condition) const
+{
+    Edge::List ret;
+    for (auto* edge : edges()) {
+        if (condition(edge)) {
+            ret << edge;
+        }
+    }
+
+    return ret;
+}
+
 void TermGroupInfo::addNodeToList(PaintedTerm* node)
 {
-    mNodes << node;
+    mNodes.push_back(node);
 }
 
 void TermGroupInfo::clearNodesList()

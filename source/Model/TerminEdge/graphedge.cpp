@@ -21,6 +21,8 @@
 
 #include "source/Model/TerminEdge/graphedge.h"
 
+#include "source/Model/Termin/graphterm.h"
+
 GraphEdge::GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf)
 {
     assert(toRoot != nullptr);
@@ -29,6 +31,9 @@ GraphEdge::GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf)
 
     this->toRoot = toRoot;
     this->toLeaf = toLeaf;
+
+    toRoot->addEdgeRef(this);
+    toLeaf->addEdgeRef(this);
 }
 
 GraphEdge::GraphEdge()
