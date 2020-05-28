@@ -37,9 +37,9 @@ void TermGroup::loadNodes(const PaintedTerm::List& newNodes)
     clearNodesList();
 
     for (auto node : newNodes) {
-        Q_ASSERT_X(node->info().groupUuid == this->getUuid(), Q_FUNC_INFO, "Node group error");
+        Q_ASSERT_X(node->info().groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
 
-        if (node->info().groupUuid != this->getUuid())
+        if (node->info().groupUuid != this->uuid())
             continue;
 
         addNodeToList(node);
@@ -118,7 +118,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
 
 PaintedTerm* TermGroup::getNode(const QPointF& pt) const
 {
-    for (auto tree : trees) {
+    for (const auto* tree : trees()) {
         if (tree->getTreeRect(CoordType::scene).contains(pt)) {
             return tree->getNodeAtPoint(pt);
         }
@@ -187,7 +187,7 @@ void TermGroup::addOrphansToParents()
 void TermGroup::addEdgesToParents()
 {
     for (Edge* edge : getAllEdges()) {
-        for (auto tree : trees) {
+        for (auto* tree : trees()) {
             if (tree->hasEdge(edge)) {
                 edge->setParentItem(&(tree->rect()));
             }
@@ -222,8 +222,8 @@ void TermGroup::updateRectsPositions()
     basePoint.ry() += nameSize.height() + vSpacer;
 
     // Вычисляем под дерево
-    for (auto tree : trees) {
-        auto treeSize = tree->getTreeSize();
+    for (auto* tree : trees()) {
+        auto treeSize = tree->baseSize();
         tree->rect().setPos(basePoint);
         tree->rect().setSize(treeSize);
         basePoint.ry() += treeSize.height() + vSpacer;
@@ -264,9 +264,8 @@ void TermGroup::updateBaseRectSize()
 
 void TermGroup::setTreeCoords()
 {
-    for (auto tree : trees) {
-        tree->setTreeNodeCoors();
-    }
+    for (auto* tree : trees())
+        tree->setTreeNodeCoords();
 }
 
 void TermGroup::setOrphCoords(qreal maxWidth)
@@ -320,11 +319,11 @@ void TermGroup::setAllWeights()
 
 void TermGroup::addTreeRectsToScene()
 {
-    for (auto tree : trees)
+    for (auto* tree : trees())
         tree->rect().setParentItem(&mBaseRect);
 }
 
 QSizeF TermGroup::getNameSize() const
 {
-    return Fonts::getTextMetrics(getName(), Fonts::getWeightFont());
+    return Fonts::getTextMetrics(name(), Fonts::getWeightFont());
 }

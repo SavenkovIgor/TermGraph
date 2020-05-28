@@ -32,7 +32,7 @@
 class TermTree
 {
 public:
-    using List = QList<TermTree*>;
+    using List = std::vector<TermTree*>;
 
     // Constructor/Destructor
     TermTree()  = default;
@@ -48,11 +48,11 @@ public:
     bool hasEdge(Edge* edge) const;
 
     QRectF getTreeRect(CoordType inCoordinates) const;
-    QSizeF getTreeSize() const;  // Clearly counted value. Ignoring real node positions
+    QSizeF baseSize() const;  // Clearly counted value. Ignoring real node positions
     double square() const;
 
     // Internal counts and preparations
-    void setTreeNodeCoors(QPointF leftTopPoint = QPointF());
+    void setTreeNodeCoords(QPointF leftTopPoint = QPointF());
 
     PaintedTerm* getNodeAtPoint(const QPointF& pt) const;
 

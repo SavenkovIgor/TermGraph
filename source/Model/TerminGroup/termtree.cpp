@@ -23,7 +23,7 @@
 
 #include "source/Helpers/appstyle.h"
 
-void TermTree::setTreeNodeCoors(QPointF leftTopPoint)
+void TermTree::setTreeNodeCoords(QPointF leftTopPoint)
 {
     if (getAllNodesInTree().isEmpty()) {
         return;
@@ -96,7 +96,7 @@ bool TermTree::hasEdge(Edge* edge) const
 
 QRectF TermTree::getTreeRect(CoordType inCoordinates) const
 {
-    QRectF ret = QRectF(QPointF(), getTreeSize());
+    QRectF ret = QRectF(QPointF(), baseSize());
 
     switch (inCoordinates) {
     case CoordType::zeroPoint:
@@ -112,7 +112,7 @@ QRectF TermTree::getTreeRect(CoordType inCoordinates) const
     return ret;
 }
 
-QSizeF TermTree::getTreeSize() const
+QSizeF TermTree::baseSize() const
 {
     qreal width  = 0.0;
     qreal height = 0.0;
@@ -132,7 +132,7 @@ QSizeF TermTree::getTreeSize() const
 
 double TermTree::square() const
 {
-    auto size = getTreeSize();
+    auto size = baseSize();
     return size.width() * size.height();
 }
 

@@ -279,12 +279,12 @@ QString MainScene::getCurrNodeHierarchyDefinition()
 
 QString MainScene::currentGroupUuid() const
 {
-    return mCurrentGroup ? mCurrentGroup->getUuid().toString() : "";
+    return mCurrentGroup ? mCurrentGroup->uuid().toString() : "";
 }
 
 QString MainScene::currentGroupName() const
 {
-    return mCurrentGroup ? mCurrentGroup->getName() : "";
+    return mCurrentGroup ? mCurrentGroup->name() : "";
 }
 
 bool MainScene::isAnyNodeSelected() const

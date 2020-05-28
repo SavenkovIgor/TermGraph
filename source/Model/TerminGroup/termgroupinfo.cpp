@@ -30,39 +30,38 @@
 
 TermGroupInfo::TermGroupInfo(const GroupInfoContainer& info)
 {
-    this->info = info;
+    mInfo = info;
 }
 
 TermGroupInfo::~TermGroupInfo()
 {
-    for (auto tree : trees)
-        delete tree;
+    removeTrees();
 
-    for (auto node : getAllNodes())
+    for (auto* node : getAllNodes())
         delete node;
 
-    for (auto edge : getAllEdges())
+    for (auto* edge : getAllEdges())
         delete edge;
 }
 
-QUuid TermGroupInfo::getUuid() const
+QUuid TermGroupInfo::uuid() const
 {
-    return info.uuid;
+    return mInfo.uuid;
 }
 
-QString TermGroupInfo::getName() const
+QString TermGroupInfo::name() const
 {
-    return info.name;
+    return mInfo.name;
 }
 
 PaintedTerm::List TermGroupInfo::getAllNodes() const
 {
-    return nodesList;
+    return mNodes;
 }
 
 Edge::List TermGroupInfo::getAllEdges() const
 {
-    return edgesList;
+    return mEdges;
 }
 
 Edge::List TermGroupInfo::filterFromEdgesList(std::function<bool(Edge*)> condition) const
@@ -143,7 +142,7 @@ Edge::List TermGroupInfo::searchAllConnections()
     QMap<QString, PaintedTerm*> previousTagSearchCache = getExactTermMatchCache();
 
     // Compare everything with everything
-    for (auto node : nodesList) {
+    for (auto* node : mNodes) {
         for (const auto& tag : node->additionalInfo().tags()) {
             PaintedTerm* foundNode = nullptr;
 
@@ -170,7 +169,7 @@ QMap<QString, PaintedTerm*> TermGroupInfo::getExactTermMatchCache()
 {
     QMap<QString, PaintedTerm*> ret;
 
-    for (auto* node : nodesList)
+    for (auto* node : mNodes)
         ret.insert(node->additionalInfo().lowerTerm(), node);
 
     return ret;
@@ -184,7 +183,7 @@ PaintedTerm* TermGroupInfo::getNearestNodeForTag(const QString& tag)
 
     opt<int> optionalResult;
 
-    for (auto node : nodesList) {
+    for (auto* node : mNodes) {
         auto termName = node->additionalInfo().lowerTerm();
 
         if (!TagUtils::tagLengthSuitTerm(tag, termName))
@@ -212,20 +211,26 @@ PaintedTerm* TermGroupInfo::getNearestNodeForTag(const QString& tag)
     return targetTerm;
 }
 
+void TermGroupInfo::removeTrees()
+{
+    qDeleteAll(mTrees);
+    mTrees.clear();
+}
+
 void TermGroupInfo::loadEdges()
 {
-    edgesList << searchAllConnections();
+    mEdges << searchAllConnections();
 }
 
 void TermGroupInfo::removeCycles()
 {
     // First find all edges to break
-    for (auto node : nodesList) {
+    for (auto* node : mNodes) {
         node->getCycleEdge();
     }
 
     Edge::List brokeList;
-    for (auto edge : edgesList) {
+    for (auto* edge : mEdges) {
         if (edge->needBroke) {
             brokeList << edge;
         }
@@ -233,19 +238,18 @@ void TermGroupInfo::removeCycles()
 
     for (auto edge : brokeList) {
         edge->brokeEdge();
-        edgesList.removeOne(edge);
+        mEdges.removeOne(edge);
     }
 }
 
 void TermGroupInfo::removeExceedEdges()
 {
     // First find all edges to break
-    for (auto node : nodesList) {
+    for (auto* node : mNodes)
         node->checkForExceedEdges();
-    }
 
     Edge::List brokeList;
-    for (auto edge : edgesList) {
+    for (auto* edge : mEdges) {
         if (edge->needCutOut) {
             brokeList << edge;
         }
@@ -253,24 +257,21 @@ void TermGroupInfo::removeExceedEdges()
 
     for (auto edge : brokeList) {
         edge->makeEdgeRedundant();
-        edgesList.removeOne(edge);
+        mEdges.removeOne(edge);
     }
 }
 
 void TermGroupInfo::setLevels()
 {
     // Set layer numbers
-    for (auto node : getRootNodes()) {
+    for (auto node : getRootNodes())
         node->setLevel(0);
-    }
 }
 
 void TermGroupInfo::initTrees()
 {
-    for (auto tree : trees) {
-        delete tree;
-    }
-    trees.clear();
+    removeTrees();
+
     unsigned int treeId = 1;
 
     auto treeNodes = getInTreeNodes();
@@ -287,32 +288,32 @@ void TermGroupInfo::initTrees()
 
     // Set all trees
     for (unsigned int treeId = 1; treeId <= treesCount; treeId++) {
-        auto tree = new TermTree();
+        auto* tree = new TermTree();
         for (auto node : treeNodes) {
             if (node->getTreeId() == treeId) {
                 tree->addTerm(node);
             }
         }
-        trees.push_back(tree);
+
+        mTrees.push_back(tree);
     }
 
     auto treeSorting = [](const TermTree* t1, const TermTree* t2) { return t1->square() > t2->square(); };
 
-    std::sort(trees.begin(), trees.end(), treeSorting);
+    std::sort(mTrees.begin(), mTrees.end(), treeSorting);
 }
 
 QSizeF TermGroupInfo::getAllTreesSize()
 {
     SizesList sizeList;
 
-    for (const auto& tree : trees)
-        sizeList.push_back(tree->getTreeSize());
+    for (const auto* tree : mTrees)
+        sizeList.push_back(tree->baseSize());
 
     auto totalSize = HelpStuff::getStackedSize(sizeList, Qt::Vertical);
 
-    if (!trees.isEmpty()) {
-        totalSize.rheight() += (trees.size() - 1) * AppStyle::Sizes::groupVerticalSpacer;
-    }
+    if (!mTrees.empty())
+        totalSize.rheight() += (mTrees.size() - 1) * AppStyle::Sizes::groupVerticalSpacer;
 
     return totalSize;
 }
@@ -326,12 +327,17 @@ QSizeF TermGroupInfo::getOrphansSize()
     return orphansRc.size();
 }
 
+TermTree::List TermGroupInfo::trees() const
+{
+    return mTrees;
+}
+
 PaintedTerm::List TermGroupInfo::filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const
 {
     PaintedTerm::List ret;
-    for (auto n : nodesList) {
-        if (filterCheck(n)) {
-            ret << n;
+    for (auto* node : mNodes) {
+        if (filterCheck(node)) {
+            ret << node;
         }
     }
     return ret;
@@ -339,10 +345,10 @@ PaintedTerm::List TermGroupInfo::filterFromNodesList(std::function<bool(PaintedT
 
 void TermGroupInfo::addNodeToList(PaintedTerm* node)
 {
-    nodesList << node;
+    mNodes << node;
 }
 
 void TermGroupInfo::clearNodesList()
 {
-    nodesList.clear();
+    mNodes.clear();
 }

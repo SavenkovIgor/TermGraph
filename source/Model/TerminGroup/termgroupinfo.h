@@ -32,13 +32,12 @@
 class TermGroupInfo
 {
 public:
-    TermGroupInfo() = delete;
     TermGroupInfo(const GroupInfoContainer& info);
     ~TermGroupInfo();
 
     // Group info
-    QUuid   getUuid() const;
-    QString getName() const;
+    QUuid   uuid() const;
+    QString name() const;
 
     // Group content
     PaintedTerm::List getAllNodes() const;
@@ -73,21 +72,15 @@ protected:
     // Orphans tools
     QSizeF getOrphansSize();
 
-    // Termgroup
-    TermTree::List trees;
+    TermTree::List trees() const;
 
 private:
-    // Group info
-    GroupInfoContainer info;
-
     // Group content
-    PaintedTerm::List nodesList;
     PaintedTerm::List filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const;
     // Filters nodes from nodesList with lambda
 
     // Edges & tools
-    Edge::List edgesList;
-    Edge*      addNewEdge(PaintedTerm* rootNode, PaintedTerm* leafNode);
+    Edge* addNewEdge(PaintedTerm* rootNode, PaintedTerm* leafNode);
 
     // Edge connections search
     Edge::List                  searchAllConnections();
@@ -95,4 +88,15 @@ private:
     PaintedTerm*                getNearestNodeForTag(const QString& tag);
 
     Edge::List suggestConnections();  // TODO: Realize!
+
+    void removeTrees();
+
+private:  // Members
+    // Group info
+    GroupInfoContainer mInfo;
+
+    PaintedTerm::List mNodes;
+    Edge::List        mEdges;
+
+    TermTree::List mTrees;
 };
