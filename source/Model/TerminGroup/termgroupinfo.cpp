@@ -21,6 +21,8 @@
 
 #include "source/Model/TerminGroup/termgroupinfo.h"
 
+#include <QThread>
+
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/globaltagcache.h"
 #include "source/Helpers/handytypes.h"
@@ -112,6 +114,9 @@ Edge::List TermGroupInfo::searchAllConnections()
     // Pre-heating of cache with exact terms match
     QMap<QString, PaintedTerm*> previousTagSearchCache = getExactTermMatchCache();
 
+    static int counter     = 0;
+    bool       stopRequest = false;
+
     // Compare everything with everything
     for (auto* node : mNodes) {
         for (const auto& tag : node->additionalInfo().tags()) {
@@ -130,7 +135,17 @@ Edge::List TermGroupInfo::searchAllConnections()
                     previousTagSearchCache.insert(tag, foundNode);
                 }
             }
+
+            counter++;
+            if (counter % 20 == 0)
+                if (buildingWasInterrupted())
+                    stopRequest = true;
+
+            if (stopRequest)
+                break;
         }
+        if (stopRequest)
+            break;
     }
 
     return ret;
@@ -186,6 +201,11 @@ void TermGroupInfo::removeTrees()
 {
     qDeleteAll(mTrees);
     mTrees.clear();
+}
+
+bool TermGroupInfo::buildingWasInterrupted()
+{
+    return QThread::currentThread()->isInterruptionRequested();
 }
 
 void TermGroupInfo::loadEdges()

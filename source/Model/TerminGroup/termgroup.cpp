@@ -155,8 +155,12 @@ void TermGroup::initNewNodes()
 {
     loadEdges();
     setParentForNodesAndEdges();
+    if (buildingWasInterrupted())
+        return;
     removeCycles();
     removeExceedEdges();
+    if (buildingWasInterrupted())
+        return;
 
     setLevels();
     initTrees();

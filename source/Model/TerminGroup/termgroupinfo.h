@@ -73,6 +73,8 @@ protected:
 
     TermTree::List trees() const;
 
+    bool buildingWasInterrupted();
+
 private:
     // Group content
     PaintedTerm::List filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const;

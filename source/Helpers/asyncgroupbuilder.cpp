@@ -32,8 +32,6 @@ void AsyncGroupBuilder::setAction(std::function<TermGroup*()> func)
 
 TermGroup* AsyncGroupBuilder::takeResult()
 {
-    assert(mResultGroup);
-
     auto* ret    = mResultGroup;
     mResultGroup = nullptr;
     return ret;

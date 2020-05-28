@@ -108,8 +108,10 @@ void MainScene::checkGroupDeletion()
 
 void MainScene::takeBuildGroupAndShow()
 {
-    auto group = mGroupBuilder.takeResult();
-    showNewGroup(group);
+    if (auto group = mGroupBuilder.takeResult()) {
+        // Can be nullptr if build thread was interrupted
+        showNewGroup(group);
+    }
 }
 
 void MainScene::showNewGroup(TermGroup* newGroup)
@@ -150,14 +152,23 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
 
     assert(!tmpGroupUuid.isNull());
 
+    if (mGroupBuilder.isRunning()) {
+        mGroupBuilder.requestInterruption();
+        this->thread()->msleep(200);
+    }
+
     if (!mGroupBuilder.isRunning()) {
-        mGroupBuilder.setAction([this, groupUuid = tmpGroupUuid]() {
+        mGroupBuilder.setAction([this, groupUuid = tmpGroupUuid]() -> TermGroup* {
             auto* group = groupsMgr->createGroup(groupUuid);
+            if (group->thread()->isInterruptionRequested())
+                return nullptr;
             group->moveToThread(this->thread());
             return group;
         });
 
         mGroupBuilder.start();
+    } else {
+        qInfo("Bad luck");
     }
 }
 
