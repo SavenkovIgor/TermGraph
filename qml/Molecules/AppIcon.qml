@@ -53,6 +53,7 @@ Item {
             width: root.width
             height: root.height
             color: root.col1
+            visible: false
         }
 
         DropShadow {
@@ -71,6 +72,7 @@ Item {
             height: parent.height * 0.866
             color: root.col2
             rotation: 30
+            visible: false
         }
 
         DropShadow {
@@ -90,6 +92,7 @@ Item {
             height: parent.height * Math.pow(0.866, 2)
             color: root.col3
             rotation: 60
+            visible: false
         }
 
         DropShadow {
@@ -109,6 +112,7 @@ Item {
             text: "Tg"
             font.pixelSize: root.height * 0.35
             color: root.colText
+            visible: false
         }
 
         DropShadow {

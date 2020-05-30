@@ -77,6 +77,7 @@ Control {
 
             color: "transparent"
             border { color: Colors.white; width: 2 }
+            visible: scene.currentGroupUuid !== ""
             radius: 10
             z: 6
 

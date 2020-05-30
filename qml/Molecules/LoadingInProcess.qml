@@ -28,28 +28,58 @@ Rectangle {
 
     color: Colors.base
 
+    readonly property int animDuration: 250
     required property bool showLoading;
-
-    AppIcon {
-        anchors.centerIn: parent
-
-        width: Math.min(root.width, root.height) * 0.1
-        height: width
-    }
-
-    visible: scene.groupLoading
 
     onShowLoadingChanged: {
         if (showLoading) {
-            timer.start(150);
+            timer.start(200);
         } else {
             timer.stop();
-            root.visible = false;
+            if (state == "visible")
+                state = "hidden"
         }
     }
 
     Timer {
         id: timer
-        onTriggered: root.visible = true
+        onTriggered: root.state = "visible"
+    }
+
+    state: "hidden"
+
+    visible: false
+    opacity: 0
+
+    states: [
+        State { name: "visible" },
+        State { name: "hidden" }
+    ]
+
+    transitions: [
+        Transition {
+            from: "*"; to: "visible";
+
+            SequentialAnimation {
+                PropertyAction { target: root; property: "opacity"; value: 0; }
+                PropertyAction { target: root; property: "visible"; value: true; }
+                OpacityAnimator { target: root; from: 0; to: 1; duration: root.animDuration; }
+            }
+        },
+
+        Transition {
+            from: "*"; to: "hidden";
+
+            SequentialAnimation {
+                OpacityAnimator { target: root; from: 1; to: 0; duration: root.animDuration; }
+                PropertyAction { target: root; property: "opacity"; value: 0; }
+                PropertyAction { target: root; property: "visible"; value: false; }
+            }
+        }
+    ]
+
+    LoadingIcon {
+        anchors.centerIn: parent
+        size: Math.min(root.width, root.height) * 0.15
     }
 }

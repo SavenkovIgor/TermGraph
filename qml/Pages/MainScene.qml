@@ -419,18 +419,6 @@ M.Page {
     }
 
     A.RoundButton {
-        anchors { top: parent.top; right: parent.right; margins: width / 2; }
-        visible: groupsManager.hasAnyGroup
-
-        action: Action {
-            id: showGroupListAction
-            icon.source: IconPath.spreadsheet
-            enabled: root.thisPageVisible
-            onTriggered: groupsList.open()
-        }
-    }
-
-    A.RoundButton {
         id: editNodeButton
         visible: false
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
@@ -464,6 +452,23 @@ M.Page {
         }
     }
 
+    M.LoadingInProcess {
+        anchors.fill: sceneFlick
+        showLoading: scene.groupLoading
+    }
+
+    A.RoundButton {
+        anchors { top: parent.top; right: parent.right; margins: width / 2; }
+        visible: groupsManager.hasAnyGroup
+
+        action: Action {
+            id: showGroupListAction
+            icon.source: IconPath.spreadsheet
+            enabled: root.thisPageVisible
+            onTriggered: groupsList.open()
+        }
+    }
+
     M.GroupsDrawer {
         id : groupsList
 
@@ -480,11 +485,6 @@ M.Page {
         }
     }
 
-    M.LoadingInProcess {
-        anchors.fill: sceneFlick
-        showLoading: scene.groupLoading
-    }
-
     M.EmptyView {
         anchors.fill: sceneFlick
         visible: !groupsManager.hasAnyGroup
@@ -497,7 +497,7 @@ M.Page {
 
     M.EmptyView {
         anchors.fill: sceneFlick
-        visible: groupsManager.hasAnyGroup && scene.currentGroupUuid === ""
+        visible: groupsManager.hasAnyGroup && scene.currentGroupUuid === "" && !scene.groupLoading
 
         mainText: "Группа не выбрана"
         detailedText: ""

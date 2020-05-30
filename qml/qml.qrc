@@ -60,5 +60,6 @@
         <file>Atoms/Timer.qml</file>
         <file>Js/Tools.js</file>
         <file>Molecules/LoadingInProcess.qml</file>
+        <file>Molecules/LoadingIcon.qml</file>
     </qresource>
 </RCC>
