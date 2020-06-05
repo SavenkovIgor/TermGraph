@@ -1,0 +1,81 @@
+{
+  "format": {
+    "separate_fn_name_with_space": true,
+    "command_case": "lower",
+    "max_prefix_chars": 10,
+    "dangle_align": "child",
+    "max_subgroups_hwrap": 2,
+    "min_prefix_chars": 4,
+    "max_pargs_hwrap": 4,
+    "max_lines_hwrap": 2,
+    "autosort": true,
+    "line_ending": "unix",
+    "line_width": 120,
+    "dangle_parens": false,
+    "tab_size": 4,
+    "always_wrap": [],
+    "separate_ctrl_name_with_space": true,
+    "max_rows_cmdline": 2,
+    "require_valid_layout": false,
+    "keyword_case": "upper",
+    "enable_sort": true,
+    "layout_passes": {}
+  },
+  "markup": {
+    "literal_comment_pattern": null,
+    "hashruler_min_length": 10,
+    "fence_pattern": "^\\s*([`~]{3}[`~]*)(.*)$",
+    "canonicalize_hashrulers": true,
+    "explicit_trailing_pattern": "#<",
+    "first_comment_is_literal": true,
+    "enable_markup": false,
+    "ruler_pattern": "^\\s*[^\\w\\s]{3}.*[^\\w\\s]{3}$",
+    "enum_char": ".",
+    "bullet_char": "*"
+  },
+  "lint": {
+    "function_pattern": "[0-9a-z_]+",
+    "argument_var_pattern": "[a-z][a-z0-9_]+",
+    "disabled_codes": [],
+    "min_statement_spacing": 1,
+    "macro_pattern": "[0-9A-Z_]+",
+    "public_var_pattern": "[A-Z][0-9A-Z_]+",
+    "max_statements": 50,
+    "max_conditionals_custom_parser": 2,
+    "global_var_pattern": "[A-Z][0-9A-Z_]+",
+    "keyword_pattern": "[A-Z][0-9A-Z_]+",
+    "max_arguments": 5,
+    "private_var_pattern": "_[0-9a-z_]+",
+    "max_localvars": 15,
+    "max_branches": 12,
+    "local_var_pattern": "[a-z][a-z0-9_]+",
+    "max_statement_spacing": 2,
+    "internal_var_pattern": "_[A-Z][0-9A-Z_]+",
+    "max_returns": 6
+  },
+  "misc": {
+    "per_command": {}
+  },
+  "parse": {
+    "additional_commands": {
+      "foo": {
+        "flags": [
+          "BAR",
+          "BAZ"
+        ],
+        "kwargs": {
+          "HEADERS": "*",
+          "DEPENDS": "*",
+          "SOURCES": "*"
+        }
+      }
+    },
+    "proptags": [],
+    "vartags": []
+  },
+  "encode": {
+    "emit_byteorder_mark": false,
+    "input_encoding": "utf-8",
+    "output_encoding": "utf-8"
+  }
+}
