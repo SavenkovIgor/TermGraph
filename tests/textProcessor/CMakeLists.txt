@@ -23,17 +23,11 @@ add_executable (${PROJECT_NAME}_text_processor_test)
 
 include_directories (${CMAKE_SOURCE_DIR})
 
-target_sources (${PROJECT_NAME}_text_processor_test
-    PRIVATE
-        ${CMAKE_SOURCE_DIR}/source/Helpers/textprocessor.cpp
-        ${CMAKE_SOURCE_DIR}/source/Helpers/textprocessor.h
+target_sources (
+    ${PROJECT_NAME}_text_processor_test
+    PRIVATE ${CMAKE_SOURCE_DIR}/source/Helpers/textprocessor.cpp ${CMAKE_SOURCE_DIR}/source/Helpers/textprocessor.h
+            textprocessortest.cpp)
 
-        textprocessortest.cpp
-)
-
-add_test (
-    NAME    ${PROJECT_NAME}_text_processor_test
-    COMMAND ${PROJECT_NAME}_text_processor_test
-)
+add_test (NAME ${PROJECT_NAME}_text_processor_test COMMAND ${PROJECT_NAME}_text_processor_test)
 
 target_link_libraries (${PROJECT_NAME}_text_processor_test PRIVATE Qt5::Test)

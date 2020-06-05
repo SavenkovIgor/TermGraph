@@ -23,19 +23,14 @@ add_executable (${PROJECT_NAME}_tag_utils_test)
 
 include_directories (${CMAKE_SOURCE_DIR})
 
-target_sources (${PROJECT_NAME}_tag_utils_test
-    PRIVATE
-        ${CMAKE_SOURCE_DIR}/source/Helpers/tagutils.cpp
-        ${CMAKE_SOURCE_DIR}/source/Helpers/tagutils.h
-        ${CMAKE_SOURCE_DIR}/source/Helpers/intmatrix.cpp
-        ${CMAKE_SOURCE_DIR}/source/Helpers/intmatrix.h
+target_sources (
+    ${PROJECT_NAME}_tag_utils_test
+    PRIVATE ${CMAKE_SOURCE_DIR}/source/Helpers/tagutils.cpp
+            ${CMAKE_SOURCE_DIR}/source/Helpers/tagutils.h
+            ${CMAKE_SOURCE_DIR}/source/Helpers/intmatrix.cpp
+            ${CMAKE_SOURCE_DIR}/source/Helpers/intmatrix.h
+            tagutilstest.cpp)
 
-        tagutilstest.cpp
-)
-
-add_test (
-    NAME    ${PROJECT_NAME}_tag_utils_test
-    COMMAND ${PROJECT_NAME}_tag_utils_test
-)
+add_test (NAME ${PROJECT_NAME}_tag_utils_test COMMAND ${PROJECT_NAME}_tag_utils_test)
 
 target_link_libraries (${PROJECT_NAME}_tag_utils_test PRIVATE Qt5::Test)
