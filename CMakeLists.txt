@@ -77,7 +77,8 @@ target_sources (
             android/res/drawable-hdpi/icon.png
             android/res/drawable-mdpi/icon.png
             android/res/drawable-ldpi/icon.png
-            .devTools/goodcheck.yml)
+            .devTools/goodcheck.yml
+            .devTools/cmakeFormat.json)
 
 # Source folder
 target_sources (
