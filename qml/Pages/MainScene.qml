@@ -46,8 +46,7 @@ M.Page {
 
     padding: 0
 
-    title: "TermGraph"
-
+    title: scene.currentGroupName !== "" ? scene.currentGroupName : "TermGraph"
 
     state: scene.hasSelection ? "some" : "none"
 
