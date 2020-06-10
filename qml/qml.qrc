@@ -61,5 +61,6 @@
         <file>Js/Tools.js</file>
         <file>Molecules/LoadingInProcess.qml</file>
         <file>Molecules/LoadingIcon.qml</file>
+        <file>Molecules/SideMenuHeader.qml</file>
     </qresource>
 </RCC>

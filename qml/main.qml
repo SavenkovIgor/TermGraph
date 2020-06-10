@@ -28,6 +28,7 @@ import QtQuick.Dialogs 1.3
 import "Learning"
 import "Js/IconPath.js" as IconPath
 import "Js/Colors.js" as Colors
+import "Js/Sizes.js" as Sizes
 import "Atoms" as A
 import "Molecules" as M
 import "Pages" as P
@@ -85,63 +86,56 @@ ApplicationWindow {
 
         dragMargin: Qt.styleHints.startDragDistance * 2
 
-        contentItem: Control {
+        contentItem: ColumnLayout {
 
-            padding: 25
+            spacing: 0
 
-            contentItem: ColumnLayout {
-
-                spacing: 10
-
-                A.SideMenuButton {
-                    id: groupMenuButton
-                    action: openGroupsAction
-                    text: action.text
-                    icon.source: action.icon.source
-                    Layout.fillWidth: true
-                }
-
-                A.SideMenuButton {
-                    text: "Изучение"
-                    icon.source: IconPath.book
-                    Layout.fillWidth: true
-                    visible: false
-                    onClicked: stackView.push(learnGroupsComponent)
-                }
-
-                A.SideMenuButton {
-                    text: "Синхронизация"
-                    icon.source: IconPath.loopCircular
-                    Layout.fillWidth: true
-                    visible: false
-                }
-
-                A.SideMenuButton {
-                    text: "Настройки"
-                    icon.source: IconPath.cog
-                    Layout.fillWidth: true
-
-                    onClicked: stackView.push(settingsComponent)
-                }
-
-                A.SideMenuButton {
-                    text: "Справка"
-                    icon.source: IconPath.questionMark
-                    Layout.fillWidth: true
-
-                    onClicked: stackView.push(helpPageComponent)
-                }
-
-                A.SideMenuButton {
-                    text: "О программе"
-                    Layout.fillWidth: true
-
-                    onClicked: stackView.push(licensePageComponent)
-                }
-
-                Item { Layout.fillHeight: true; }
+            M.SideMenuHeader {
+                Layout.fillWidth: true
+                onSettingsClicked: stackView.push(settingsComponent)
             }
+
+            A.SideMenuButton {
+                id: groupMenuButton
+                action: openGroupsAction
+                text: action.text
+                icon.source: action.icon.source
+                Layout.fillWidth: true
+            }
+
+            A.SideMenuButton {
+                text: "Изучение"
+                icon.source: IconPath.book
+                Layout.fillWidth: true
+                visible: false
+                onClicked: stackView.push(learnGroupsComponent)
+            }
+
+            A.SideMenuButton {
+                text: "Синхронизация"
+                icon.source: IconPath.loopCircular
+                Layout.fillWidth: true
+                visible: false
+            }
+
+            A.SideMenuButton {
+                text: "Справка"
+                icon.source: IconPath.questionMark
+                Layout.fillWidth: true
+
+                onClicked: stackView.push(helpPageComponent)
+            }
+
+            A.SideMenuButton {
+                text: "О программе"
+                Layout.fillWidth: true
+
+                onClicked: stackView.push(licensePageComponent)
+            }
+
+            Item { Layout.fillHeight: true; }
         }
+
     }
 
     M.NotificationDrawer {

@@ -21,52 +21,48 @@
 
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
+import "../Js/Sizes.js" as Sizes
 import "../Js/Colors.js" as Colors
 import "../Js/Fonts.js" as Fonts
-import "../Js/Sizes.js" as Sizes
+import "../Js/IconPath.js" as IconPath
+
 import "../Atoms" as A
 
-Button {
+Control {
     id: root
 
-    horizontalPadding: Sizes.baseR25
-    verticalPadding: Sizes.baseR75
-    topInset: 0
-    bottomInset: 0
+    signal settingsClicked
 
-    flat: true
-
-    property color baseColor: {
-        if (!enabled)
-            return Colors.whiteDisabled;
-
-        return highlighted ? Colors.baseLight3 : Colors.white
-    }
-
-    contentItem: Row {
-
-        spacing: icon.width / 5
-
-        A.ToolButton {
-            id: icon
-
-            width: Sizes.baseR25
-            height: Sizes.baseR25
-            icon.color: root.baseColor
-            icon.source: root.icon.source
+    contentItem: RowLayout {
+        AppIcon {
+            size: Sizes.base
+            Layout.margins: 10
         }
 
         Text {
-            id: label
-            height: icon.height
+            Layout.fillWidth: true
 
-            color: root.baseColor
-            font: Fonts.setWeight(Fonts.capitalText, Font.Thin)
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
+            font: Fonts.setWeight(Fonts.text, 30)
+            minimumPixelSize: font.pixelSize / 2
+            fontSizeMode: Text.Fit
+            elide: Text.ElideRight
+            color: Colors.white
+            horizontalAlignment: Qt.AlignLeft
+            verticalAlignment: Qt.AlignVCenter
+            text: "TermGraph"
+        }
 
-            text: root.text
+        A.ToolButton {
+            Layout.margins: 5
+            width: Sizes.baseR25
+            height: Sizes.baseR25
+            icon.color: Colors.whiteDisabled// baseLight3// highlighted ?  : Colors.white
+            icon.source: IconPath.cog
+            onClicked: root.settingsClicked()
         }
     }
+
+    background: Rectangle { color: Colors.base }
 }
