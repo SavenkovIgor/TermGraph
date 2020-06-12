@@ -26,11 +26,9 @@ import "../Js/Fonts.js" as Fonts
 
 Button {
     id: btn
-//    width: 400
     font: Fonts.text
     implicitHeight: mainObj.getUiElementSize("button") * 2.2;
 
     leftPadding: 20
     rightPadding: 20
-
 }

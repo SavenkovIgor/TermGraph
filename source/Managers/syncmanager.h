@@ -46,7 +46,6 @@ public:
     constexpr static auto contentFieldName     = "content";
 
     static bool isDataContainer(const QJsonDocument& doc);
-    //signals:
 
 public slots:
     void sendGroupByNetwork(const QString& groupUuid);

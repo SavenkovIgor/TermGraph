@@ -173,7 +173,7 @@ RecVector TblBase::toRecVector(QSqlQuery&& q)
         ret.reserve(size);
     }
 
-    for (;;) {
+    for (;;) { // BUG: multithreading & database works
         if (!q.next()) {
             break;
         }

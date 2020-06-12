@@ -70,7 +70,6 @@ M.Page {
                     M.LabelPair {
                         name: "Ip этого устройства"
                         text: networkManager.getFirstLocalIpString()
-//                        Layout.alignment: Qt.AlignVCenter
                     }
                 }
 

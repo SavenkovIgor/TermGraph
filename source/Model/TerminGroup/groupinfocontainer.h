@@ -24,8 +24,6 @@
 #include <QString>
 #include <QUuid>
 
-//enum class GroupType { freeEdges = -1, terms = 0 };
-
 struct GroupInfoContainer
 {
     using List = std::vector<GroupInfoContainer>;

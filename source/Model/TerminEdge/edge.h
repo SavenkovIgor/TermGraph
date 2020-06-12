@@ -57,7 +57,7 @@ public:
     QPointF leafPoint() const;
     QColor  getEdgeColor() const;
 
-    static List castToEdgeList(const GraphEdge::List& lst);  // TODO: Delete!!!
+    static List castToEdgeList(const GraphEdge::List& lst); // TODO: Delete!!!
 
     void brokeEdge();
     void makeEdgeRedundant();
