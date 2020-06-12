@@ -58,7 +58,7 @@ Control {
             Layout.margins: 5
             width: Sizes.baseR25
             height: Sizes.baseR25
-            icon.color: Colors.whiteDisabled// baseLight3// highlighted ?  : Colors.white
+            icon.color: Colors.whiteDisabled
             icon.source: IconPath.cog
             onClicked: root.settingsClicked()
         }
