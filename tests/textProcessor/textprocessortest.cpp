@@ -24,7 +24,7 @@
 #include <QDebug>
 
 // add necessary includes here
-#include "source/Helpers/textprocessor.h"
+#include "source/Helpers/textutils.h"
 
 class TextProcessorTest : public QObject
 {
@@ -50,7 +50,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(bool, result);
-        QVERIFY(TextProcessor().isTermWithDefinition(text) == result);
+        QVERIFY(TextUtils::isTermWithDefinition(text) == result);
     }
 
     void extractTerm_data()
@@ -70,7 +70,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(QString, result);
-        QVERIFY(TextProcessor().getTerm(text) == result);
+        QVERIFY(TextUtils::getTerm(text) == result);
     }
 
     void extractDefinition_data()
@@ -89,7 +89,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(QString, result);
-        QVERIFY(TextProcessor().getDefinition(text) == result);
+        QVERIFY(TextUtils::getDefinition(text) == result);
     }
 
     void insertNewLineInMiddle_data()
@@ -107,7 +107,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(QString, result);
-        QVERIFY(TextProcessor().insertNewLineNearMiddle(text) == result);
+        QVERIFY(TextUtils::insertNewLineNearMiddle(text) == result);
     }
 };
 

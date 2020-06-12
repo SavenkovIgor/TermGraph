@@ -25,7 +25,8 @@ include_directories (${CMAKE_SOURCE_DIR})
 
 target_sources (
     ${PROJECT_NAME}_text_processor_test
-    PRIVATE ${CMAKE_SOURCE_DIR}/source/Helpers/textprocessor.cpp ${CMAKE_SOURCE_DIR}/source/Helpers/textprocessor.h
+    PRIVATE ${CMAKE_SOURCE_DIR}/source/Helpers/textutils.cpp
+            ${CMAKE_SOURCE_DIR}/source/Helpers/textutils.h
             textprocessortest.cpp)
 
 add_test (NAME ${PROJECT_NAME}_text_processor_test COMMAND ${PROJECT_NAME}_text_processor_test)

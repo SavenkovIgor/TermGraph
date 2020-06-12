@@ -21,18 +21,18 @@
 
 #pragma once
 
-#include <QObject>
+#include <QString>
+#include <QStringList>
 
-class TextProcessor : public QObject
+class TextUtils
 {
-    Q_OBJECT
-
 public:
-    TextProcessor(QObject* parent = nullptr);
+    static bool isTermWithDefinition(const QString& def);
+    static QString getTerm(const QString& def);
+    static QString getDefinition(const QString& def);
 
-    Q_INVOKABLE bool isTermWithDefinition(const QString& def) const;
-    Q_INVOKABLE QString getTerm(const QString& def) const;
-    Q_INVOKABLE QString getDefinition(const QString& def) const;
+    static QString insertNewLineNearMiddle(const QString& str);
 
-    Q_INVOKABLE QString insertNewLineNearMiddle(const QString& str) const;
+    static int splitterIndex(const QString& str);
+    static QStringList splitters();
 };

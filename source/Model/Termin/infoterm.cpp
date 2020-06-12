@@ -26,7 +26,7 @@
 #include "source/Helpers/helpstuff.h"
 #include "source/Helpers/tagprocessor.h"
 #include "source/Helpers/tagutils.h"
-#include "source/Helpers/textprocessor.h"
+#include "source/Helpers/textutils.h"
 
 // Initialization order is important!
 InfoTerm::InfoTerm(const NodeInfoContainer& info)
@@ -86,7 +86,7 @@ QString InfoTerm::getDecoratedTerm(const QString& term)
 
         if (Fonts::getTextMetrics(ret).width() + 15 > AppStyle::Sizes::baseBlockWidth) {
             // Пытаемся ужать в 2 строки
-            ret = TextProcessor::insertNewLineNearMiddle(ret);
+            ret = TextUtils::insertNewLineNearMiddle(ret);
         }
     }
 

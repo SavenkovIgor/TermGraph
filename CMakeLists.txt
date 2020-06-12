@@ -106,6 +106,8 @@ target_sources (
             source/Helpers/tagutils.h
             source/Helpers/textprocessor.cpp
             source/Helpers/textprocessor.h
+            source/Helpers/textutils.cpp
+            source/Helpers/textutils.h
             source/Helpers/intmatrix.cpp
             source/Helpers/intmatrix.h
             source/Helpers/asyncgroupbuilder.cpp
