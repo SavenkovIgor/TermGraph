@@ -19,16 +19,18 @@
 
 find_package (Qt5Test REQUIRED)
 
-add_executable (${PROJECT_NAME}_text_processor_test)
+set (TEST_PROJECT_NAME ${PROJECT_NAME}_text_processor_test)
+
+add_executable (${TEST_PROJECT_NAME})
 
 include_directories (${CMAKE_SOURCE_DIR})
 
 target_sources (
-    ${PROJECT_NAME}_text_processor_test
+    ${TEST_PROJECT_NAME}
     PRIVATE ${CMAKE_SOURCE_DIR}/source/Helpers/textutils.cpp
             ${CMAKE_SOURCE_DIR}/source/Helpers/textutils.h
             textprocessortest.cpp)
 
-add_test (NAME ${PROJECT_NAME}_text_processor_test COMMAND ${PROJECT_NAME}_text_processor_test)
+add_test (NAME ${TEST_PROJECT_NAME} COMMAND ${TEST_PROJECT_NAME})
 
-target_link_libraries (${PROJECT_NAME}_text_processor_test PRIVATE Qt5::Test)
+target_link_libraries (${TEST_PROJECT_NAME} PRIVATE Qt5::Test)
