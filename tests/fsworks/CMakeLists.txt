@@ -17,8 +17,20 @@
 #  You should have received a copy of the GNU General Public License
 #  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
 
-enable_testing ()
+find_package (Qt5Test REQUIRED)
 
-add_subdirectory (tagUtils)
-add_subdirectory (textProcessor)
-add_subdirectory (fsworks)
+set (TEST_PROJECT_NAME ${PROJECT_NAME}_fw_works_test)
+
+add_executable (${TEST_PROJECT_NAME})
+
+include_directories (${CMAKE_SOURCE_DIR})
+
+target_sources (
+    ${TEST_PROJECT_NAME}
+    PRIVATE ${CMAKE_SOURCE_DIR}/source/Helpers/fsworks.h
+            ${CMAKE_SOURCE_DIR}/source/Helpers/fsworks.cpp
+            fsworkstest.cpp)
+
+add_test (NAME ${TEST_PROJECT_NAME} COMMAND ${TEST_PROJECT_NAME})
+
+target_link_libraries (${TEST_PROJECT_NAME} PRIVATE Qt5::Test)

@@ -21,13 +21,27 @@
 
 #include "source/Helpers/fsworks.h"
 
-#include <QApplication>
+#include <QCoreApplication>
 #include <QDir>
+
+QString FSWorks::workingDirPath() { return QDir().absolutePath(); }
 
 bool FSWorks::createPath(const QString& path)
 {
     auto dir = QDir();
     return dir.mkpath(path);
+}
+
+bool FSWorks::pathExist(const QString& path)
+{
+    auto dir = QDir(path);
+    return dir.exists();
+}
+
+bool FSWorks::deletePath(const QString& path)
+{
+    auto dir = QDir(path);
+    return dir.rmdir(path);
 }
 
 bool FSWorks::createFile(const QString& filePath)
@@ -40,15 +54,9 @@ bool FSWorks::createFile(const QString& filePath)
     return false;
 }
 
-bool FSWorks::fileExist(const QString& filePath)
-{
-    return QFile::exists(filePath);
-}
+bool FSWorks::fileExist(const QString& filePath) { return QFile::exists(filePath); }
 
-bool FSWorks::removeFile(const QString& filePath)
-{
-    return QFile::remove(filePath);
-}
+bool FSWorks::deleteFile(const QString& filePath) { return QFile::remove(filePath); }
 
 void FSWorks::saveFile(const QString& subDir, const QString& fileName, const QString& data)
 {

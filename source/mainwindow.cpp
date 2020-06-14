@@ -48,8 +48,7 @@ MainWindow::MainWindow(QObject* parent)
 
     // remind = new Reminder(scene->getAllNodes());
 
-    auto registration = []([[maybe_unused]] QQmlEngine* engine,
-                           [[maybe_unused]] QJSEngine*  scriptEngine) -> QObject* {
+    auto registration = []([[maybe_unused]] QQmlEngine* engine, [[maybe_unused]] QJSEngine* scriptEngine) -> QObject* {
         auto& notificationManager = NotificationManager::instance();
         QQmlEngine::setObjectOwnership(&notificationManager, QQmlEngine::CppOwnership);
         return &notificationManager;
@@ -85,7 +84,7 @@ QString MainWindow::screenshotFilePath(const QString& fileName)
         auto fullPath = path + "/" + fileName + ".png";
         if (FSWorks::createFile(fullPath)) {
             // If we can create such file we remove it and return path
-            FSWorks::removeFile(fullPath);
+            FSWorks::deleteFile(fullPath);
             return fullPath;
         }
     }
@@ -94,11 +93,11 @@ QString MainWindow::screenshotFilePath(const QString& fileName)
     return "";
 }
 
-int MainWindow::getUiElementSize(const QString &elementTypeName)
+int MainWindow::getUiElementSize(const QString& elementTypeName)
 {
     if (elementSizes.contains(elementTypeName)) {
         // чтобы эти значения не вставлялись. на всякий случай
-        auto screenDencity = MainWindow::screenPixelDensity();
+        auto screenDencity       = MainWindow::screenPixelDensity();
         auto screenCorrectedSize = screenDencity * elementSizes[elementTypeName];
         return static_cast<int>(screenCorrectedSize);
     }
@@ -107,15 +106,11 @@ int MainWindow::getUiElementSize(const QString &elementTypeName)
     return 0;
 }
 
-int MainWindow::dbVersion()
-{
-    return localDb.storageVersion();
-}
+int MainWindow::dbVersion() { return localDb.storageVersion(); }
 
 void MainWindow::initElemSizes()
 {
-    if constexpr (Platform::isDesktop())
-    {
+    if constexpr (Platform::isDesktop()) {
         // Screen.pixelDencity - pixel in millimeters
         elementSizes["roundButton"] = 15;
         elementSizes["text"]        = 5;
@@ -127,8 +122,7 @@ void MainWindow::initElemSizes()
         elementSizes["appHeader"]   = 9;
     }
 
-    if constexpr (Platform::isAndroid())
-    {
+    if constexpr (Platform::isAndroid()) {
         elementSizes["roundButton"] = 9;
         elementSizes["text"]        = 4;
         elementSizes["capitalText"] = 5;
