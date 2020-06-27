@@ -87,25 +87,13 @@ bool NodeTable::addNode(const NodeInfoContainer& info)
     return true;
 }
 
-void NodeTable::deleteNode(const QUuid& uuid)
-{
-    deleteByKey(uuid.toString());
-}
+void NodeTable::deleteNode(const QUuid& uuid) { deleteByKey(uuid.toString()); }
 
-const char* NodeTable::tableName() const
-{
-    return TableName::NODES;
-}
+const char* NodeTable::tableName() const { return TableName::NODES; }
 
-TColumn NodeTable::primaryKey() const
-{
-    return NodeColumn::uuid;
-}
+TColumn NodeTable::primaryKey() const { return NodeColumn::uuid; }
 
-void NodeTable::initTable()
-{
-    createTable();
-}
+void NodeTable::initTable() { createTable(); }
 
 TColumn::List NodeTable::getAllColumns() const
 {
@@ -128,10 +116,7 @@ void NodeTable::updateLastEdit(const QUuid& uuid)
     setField(NodeColumn::lastEdit, uuid.toString(), getLastEditNowString());
 }
 
-bool NodeTable::isUuidExist(const QUuid& uuid)
-{
-    return hasAnyRecord(whereUuidEqual(uuid));
-}
+bool NodeTable::isUuidExist(const QUuid& uuid) { return hasAnyRecord(whereUuidEqual(uuid)); }
 
 QUuid NodeTable::generateNewUuid()
 {
@@ -145,23 +130,17 @@ QUuid NodeTable::generateNewUuid()
     return uuid;
 }
 
-QDateTime NodeTable::getLastEditNow()
-{
-    return QDateTime::currentDateTimeUtc();
-}
+QDateTime NodeTable::getLastEditNow() { return QDateTime::currentDateTimeUtc(); }
 
-QString NodeTable::getLastEditNowString()
-{
-    return getLastEditNow().toString(Qt::ISODate);
-}
+QString NodeTable::getLastEditNowString() { return getLastEditNow().toString(Qt::ISODate); }
 
 UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
 {
     UuidList ret;
 
-    WhereCondition where;  // Take all uuids
+    WhereCondition where; // Take all uuids
 
-    if (!groupUuid.isNull())  // Take only uuids in specifig group
+    if (!groupUuid.isNull()) // Take only uuids in specifig group
         where = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
 
     auto sqlRecords = toRecVector(select(NodeColumn::uuid, where));
@@ -241,7 +220,7 @@ bool NodeTable::updateNode(const NodeInfoContainer&             info,
     if (checkLastEdit) {
         auto currentLastEdit = getLastEdit(info.uuid);
         auto newLastEdit     = info.lastEdit;
-        if (currentLastEdit > newLastEdit)  // If db version is fresher, do nothing
+        if (currentLastEdit > newLastEdit) // If db version is fresher, do nothing
             return false;
     }
 
@@ -259,9 +238,7 @@ bool NodeTable::updateNode(const NodeInfoContainer&             info,
     case DataStorageInterface::TakeFromNodeInfo:
         set.set(NodeColumn::lastEdit, info.lastEdit.toString(Qt::ISODate));
         break;
-    case DataStorageInterface::AutoGenerate:
-        set.set(NodeColumn::lastEdit, getLastEditNowString());
-        break;
+    case DataStorageInterface::AutoGenerate: set.set(NodeColumn::lastEdit, getLastEditNowString()); break;
     }
 
     updateWhere(set, whereUuidEqual(info.uuid));
@@ -274,24 +251,18 @@ NodeInfoContainer NodeTable::recordToNodeInfo(QSqlRecord& record)
     NodeInfoContainer info;
 
     info.uuid        = QUuid(record.value(NodeColumn::uuid).toString());
-    info.term        = record.value(NodeColumn::term).toString();
-    info.definition  = record.value(NodeColumn::definition).toString();
-    info.description = record.value(NodeColumn::description).toString();
-    info.examples    = record.value(NodeColumn::examples).toString();
-    info.wikiUrl     = record.value(NodeColumn::wikiUrl).toString();
-    info.wikiImage   = record.value(NodeColumn::wikiImage).toString();
+    info.term        = QueryTools::unVV(record.value(NodeColumn::term).toString());
+    info.definition  = QueryTools::unVV(record.value(NodeColumn::definition).toString());
+    info.description = QueryTools::unVV(record.value(NodeColumn::description).toString());
+    info.examples    = QueryTools::unVV(record.value(NodeColumn::examples).toString());
+    info.wikiUrl     = QueryTools::unVV(record.value(NodeColumn::wikiUrl).toString());
+    info.wikiImage   = QueryTools::unVV(record.value(NodeColumn::wikiImage).toString());
     info.groupUuid   = QUuid(record.value(NodeColumn::groupUuid).toString());
     info.lastEdit    = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
 
     return info;
 }
 
-WhereCondition NodeTable::whereUuidEqual(const QUuid& uuid)
-{
-    return primaryKeyEqual(uuid.toString());
-}
+WhereCondition NodeTable::whereUuidEqual(const QUuid& uuid) { return primaryKeyEqual(uuid.toString()); }
 
-bool NodeTable::nodeExist(const QUuid& nodeUuid)
-{
-    return isUuidExist(nodeUuid);
-}
+bool NodeTable::nodeExist(const QUuid& nodeUuid) { return isUuidExist(nodeUuid); }

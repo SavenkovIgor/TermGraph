@@ -35,6 +35,7 @@ public:
 
     UuidList getAllGroupsUuids(bool sortByLastEdit) const override;
 
+    // Add getFreeUuid for groups
     bool                     groupExist(const QUuid& groupUuid) const override;
     GroupInfoContainer       getGroup(const QUuid& groupUuid) const override;
     GroupInfoContainer::List getGroups() const override;
@@ -45,6 +46,7 @@ public:
 
     UuidList getAllNodesUuids(const QUuid& groupUuid) const override;
 
+    // Add getFreeUuid for nodes
     bool                    nodeExist(const QUuid& nodeUuid) const override;
     QUuid                   findNode(const QString& nodeName, QUuid& groupUuid) const override;
     NodeInfoContainer       getNode(const QUuid& nodeUuid) const override;

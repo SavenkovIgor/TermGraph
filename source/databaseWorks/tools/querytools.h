@@ -37,6 +37,13 @@ public:
         return ret;
     }
 
+    static QString unVV(QString str)
+    {
+        str.replace("''", "'");
+        str.replace("\"\"", "\"");
+        return str;
+    }
+
     static QStringList vv(QStringList lst)
     {
         for (QString& str : lst) {

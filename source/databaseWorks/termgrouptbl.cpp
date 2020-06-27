@@ -78,15 +78,9 @@ UuidList TermGroupTable::getAllUuids()
     return ret;
 }
 
-void TermGroupTable::deleteGroup(const QUuid& uuid)
-{
-    deleteWhere(whereUuidEqual(uuid));
-}
+void TermGroupTable::deleteGroup(const QUuid& uuid) { deleteWhere(whereUuidEqual(uuid)); }
 
-bool TermGroupTable::groupExist(const QUuid& uuid)
-{
-    return hasAnyRecord(whereUuidEqual(uuid));
-}
+bool TermGroupTable::groupExist(const QUuid& uuid) { return hasAnyRecord(whereUuidEqual(uuid)); }
 
 QUuid TermGroupTable::generateNewUuid()
 {
@@ -111,25 +105,13 @@ QUuid TermGroupTable::getUuid(const QString& groupName) const
     return QUuid(q.record().value(TermGroupColumn::uuid).toString());
 }
 
-bool TermGroupTable::groupWithNameExist(const QString& groupName)
-{
-    return !getUuid(groupName).isNull();
-}
+bool TermGroupTable::groupWithNameExist(const QString& groupName) { return !getUuid(groupName).isNull(); }
 
-const char* TermGroupTable::tableName() const
-{
-    return TableName::GROUPS;
-}
+const char* TermGroupTable::tableName() const { return TableName::GROUPS; }
 
-TColumn TermGroupTable::primaryKey() const
-{
-    return TermGroupColumn::uuid;
-}
+TColumn TermGroupTable::primaryKey() const { return TermGroupColumn::uuid; }
 
-void TermGroupTable::initTable()
-{
-    createTable();
-}
+void TermGroupTable::initTable() { createTable(); }
 
 TColumn::List TermGroupTable::getAllColumns() const
 {
@@ -168,18 +150,15 @@ GroupInfoContainer::List TermGroupTable::getGroups()
     return ret;
 }
 
-WhereCondition TermGroupTable::whereUuidEqual(const QUuid& uuid)
-{
-    return primaryKeyEqual(uuid.toString());
-}
+WhereCondition TermGroupTable::whereUuidEqual(const QUuid& uuid) { return primaryKeyEqual(uuid.toString()); }
 
 GroupInfoContainer TermGroupTable::sqlRecordToGroupInfo(const QSqlRecord& rec)
 {
     GroupInfoContainer info;
 
     info.uuid    = QUuid(rec.value(TermGroupColumn::uuid).toString());
-    info.name    = rec.value(TermGroupColumn::name).toString();
-    info.comment = rec.value(TermGroupColumn::comment).toString();
+    info.name    = QueryTools::unVV(rec.value(TermGroupColumn::name).toString());
+    info.comment = QueryTools::unVV(rec.value(TermGroupColumn::comment).toString());
 
     return info;
 }
