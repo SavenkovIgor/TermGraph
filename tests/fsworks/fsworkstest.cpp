@@ -52,14 +52,25 @@ private slots:
         auto testPath     = FSWorks::workingDirPath() + "/testPath";
         auto testFilePath = testPath + "/testFile.tst";
 
+        // Path not exiting
         QVERIFY(!FSWorks::createFile(testFilePath));
         QVERIFY(!FSWorks::fileExist(testFilePath));
+
+        // Creating path
         QVERIFY(FSWorks::createPath(testPath));
+
+        // Creating file
         QVERIFY(FSWorks::createFile(testFilePath));
         QVERIFY(FSWorks::fileExist(testFilePath));
+
+        // Deleting file
         QVERIFY(FSWorks::deleteFile(testFilePath));
+        QVERIFY(!FSWorks::deleteFile(testFilePath)); // Already deleted
         QVERIFY(!FSWorks::fileExist(testFilePath));
+
+        // Deleting path
         QVERIFY(FSWorks::deletePath(testPath));
+        QVERIFY(!FSWorks::deletePath(testPath));
     }
 };
 
