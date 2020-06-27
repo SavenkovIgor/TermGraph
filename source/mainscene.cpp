@@ -57,10 +57,7 @@ void MainScene::selectGroup(const QString& groupUuid)
     setCurrentGroup(uuid);
 }
 
-void MainScene::selectTerm(const QString& termUuid)
-{
-    selectTerm(QUuid(termUuid));
-}
+void MainScene::selectTerm(const QString& termUuid) { selectTerm(QUuid(termUuid)); }
 
 void MainScene::selectTerm(const QUuid& termUuid)
 {
@@ -227,15 +224,9 @@ QPointF MainScene::getTermPosition(const QString& termUuid) const
     return QPointF();
 }
 
-void MainScene::setMouseClick(qreal x, qreal y)
-{
-    findClick(QPointF(x, y));
-}
+void MainScene::setMouseClick(qreal x, qreal y) { findClick(QPointF(x, y)); }
 
-PaintedTerm* MainScene::getSelectedTerm() const
-{
-    return selectedTerm;
-}
+PaintedTerm* MainScene::getSelectedTerm() const { return selectedTerm; }
 
 PaintedTerm* MainScene::findTerm(const QUuid& termUuid) const
 {
@@ -264,10 +255,7 @@ void MainScene::selectTerm(PaintedTerm* term, bool needRepaint)
     }
 }
 
-void MainScene::dropTermSelection(bool needRepaint)
-{
-    selectTerm(nullptr, needRepaint);
-}
+void MainScene::dropTermSelection(bool needRepaint) { selectTerm(nullptr, needRepaint); }
 
 QString MainScene::getCurrNodeDebugInfo()
 {
@@ -323,25 +311,13 @@ QString MainScene::getCurrNodeHierarchyDefinition()
     return "";
 }
 
-QString MainScene::currentGroupUuid() const
-{
-    return mCurrentGroup ? mCurrentGroup->uuid().toString() : "";
-}
+QString MainScene::currentGroupUuid() const { return mCurrentGroup ? mCurrentGroup->uuid().toString() : ""; }
 
-QString MainScene::currentGroupName() const
-{
-    return mCurrentGroup ? mCurrentGroup->name() : "";
-}
+QString MainScene::currentGroupName() const { return mCurrentGroup ? mCurrentGroup->name() : ""; }
 
-bool MainScene::isAnyNodeSelected() const
-{
-    return getSelectedTerm() != nullptr;
-}
+bool MainScene::isAnyNodeSelected() const { return getSelectedTerm() != nullptr; }
 
-QRectF MainScene::sceneRect() const
-{
-    return mSceneRect;
-}
+QRectF MainScene::sceneRect() const { return mSceneRect; }
 
 void MainScene::setSceneRect(const QRectF& newRect)
 {
@@ -362,10 +338,7 @@ PaintedTerm* MainScene::getNodeAtPoint(const QPointF& pt) const
     return nullptr;
 }
 
-int MainScene::termCount() const
-{
-    return mCurrentGroup ? mCurrentGroup->nodes().size() : 0;
-}
+int MainScene::termCount() const { return mCurrentGroup ? mCurrentGroup->nodes().size() : 0; }
 
 PaintedTerm* MainScene::term(int index) const
 {
@@ -393,10 +366,7 @@ QQmlListProperty<Edge> MainScene::getEdges()
     return QQmlListProperty<Edge>(this, this, &MainScene::edgeCount, &MainScene::edge);
 }
 
-int MainScene::edgeCount() const
-{
-    return mCachedEdges.size();
-}
+int MainScene::edgeCount() const { return mCachedEdges.size(); }
 
 Edge* MainScene::edge(int index) const
 {
@@ -406,15 +376,9 @@ Edge* MainScene::edge(int index) const
     return mCachedEdges[index];
 }
 
-int MainScene::edgeCount(QQmlListProperty<Edge>* list)
-{
-    return reinterpret_cast<MainScene*>(list->data)->edgeCount();
-}
+int MainScene::edgeCount(QQmlListProperty<Edge>* list) { return reinterpret_cast<MainScene*>(list->data)->edgeCount(); }
 
-Edge* MainScene::edge(QQmlListProperty<Edge>* list, int i)
-{
-    return reinterpret_cast<MainScene*>(list->data)->edge(i);
-}
+Edge* MainScene::edge(QQmlListProperty<Edge>* list, int i) { return reinterpret_cast<MainScene*>(list->data)->edge(i); }
 
 void MainScene::updateEdgeCache()
 {
@@ -422,10 +386,7 @@ void MainScene::updateEdgeCache()
     emit edgesChanged();
 }
 
-bool MainScene::isGroupLoading() const
-{
-    return mGroupBuilder.isRunning();
-}
+bool MainScene::isGroupLoading() const { return mGroupBuilder.isRunning(); }
 
 void MainScene::findClick(const QPointF& atPt)
 {
@@ -438,26 +399,8 @@ void MainScene::findClick(const QPointF& atPt)
         }
     }
 
-    if (auto* node = getNodeAtPoint(atPt))  // Click in other node
+    if (auto* node = getNodeAtPoint(atPt)) // Click in other node
         selectTerm(node);
     else
         dropTermSelection(true);
-}
-
-void MainScene::createTestGroups()
-{
-    QString groupName = "TestGroup1";
-    groupsMgr->addNewGroup(groupName, "");
-
-    auto groupUuid = groupsMgr->getGroupUuid(groupName);
-
-    nodesMgr->addNewNode("1", "", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("2", "", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("3", "{1}{2}", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("4", "{1}{2}", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("5", "{1}", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("6", "{5}", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("7", "{5}", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("8", "{6}{7}", "", "", groupUuid.toString());
-    nodesMgr->addNewNode("9", "", "", "", groupUuid.toString());
 }

@@ -44,7 +44,7 @@ public:
     ~MainScene() override = default;
 
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
-    Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode)  // Read only. without notify
+    Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode) // Read only. without notify
     Q_PROPERTY(QRectF sceneRect READ sceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
     Q_PROPERTY(QString currentGroupUuid READ currentGroupUuid NOTIFY currentGroupChanged)
     Q_PROPERTY(QString currentGroupName READ currentGroupName NOTIFY currentGroupChanged)
@@ -52,10 +52,10 @@ public:
     Q_PROPERTY(QQmlListProperty<Edge> edges READ getEdges NOTIFY edgesChanged)
     Q_PROPERTY(bool groupLoading READ isGroupLoading NOTIFY groupLoadingChanged)
 
-    Q_INVOKABLE void selectGroup(const QString& groupUuid);
-    Q_INVOKABLE void selectTerm(const QString& termUuid);
-    Q_INVOKABLE void selectTerm(const QUuid& termUuid);
-    Q_INVOKABLE void deleteSelectedTerm();
+    Q_INVOKABLE void        selectGroup(const QString& groupUuid);
+    Q_INVOKABLE void        selectTerm(const QString& termUuid);
+    Q_INVOKABLE void        selectTerm(const QUuid& termUuid);
+    Q_INVOKABLE void        deleteSelectedTerm();
     Q_INVOKABLE QStringList search(const QString& text);
 
     Q_INVOKABLE QPointF getTermPosition(const QString& termUuid) const;
@@ -156,8 +156,5 @@ private:
     bool isGroupLoading() const;
 
 private:
-    // For testing
-    void createTestGroups();
-
     AsyncGroupBuilder mGroupBuilder;
 };
