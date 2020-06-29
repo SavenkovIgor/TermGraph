@@ -51,7 +51,7 @@ public:
     QUuid                   findNode(const QString& nodeName, const QUuid& groupUuid) const override;
     NodeInfoContainer       getNode(const QUuid& nodeUuid) const override;
     NodeInfoContainer::List getNodes(const QUuid& groupUuid) const override;
-    NodeInfoContainer::List getNodes(const UuidList* nodesUuids) const override;
+    NodeInfoContainer::List getNodes(const UuidList& nodesUuids) const override;
     QDateTime               getNodeLastEdit(const QUuid& nodeUuid) const override;
 
     bool addNode(const NodeInfoContainer& info) override;

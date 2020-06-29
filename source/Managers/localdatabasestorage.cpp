@@ -113,7 +113,7 @@ NodeInfoContainer::List LocalDatabaseStorage::getNodes(const QUuid& groupUuid) c
     return db.nodeTable->getAllNodesInfo(groupUuid);
 }
 
-NodeInfoContainer::List LocalDatabaseStorage::getNodes(const UuidList* nodesUuids) const { return {}; }
+NodeInfoContainer::List LocalDatabaseStorage::getNodes(const UuidList& nodesUuids) const { return {}; }
 
 QDateTime LocalDatabaseStorage::getNodeLastEdit(const QUuid& nodeUuid) const
 {

@@ -56,7 +56,7 @@ public:
     virtual QUuid                   findNode(const QString& nodeName, const QUuid& groupUuid) const = 0;
     virtual NodeInfoContainer       getNode(const QUuid& nodeUuid) const                            = 0;
     virtual NodeInfoContainer::List getNodes(const QUuid& groupUuid) const                          = 0;
-    virtual NodeInfoContainer::List getNodes(const UuidList* nodesUuids) const                      = 0;
+    virtual NodeInfoContainer::List getNodes(const UuidList& nodesUuids) const                      = 0;
     virtual QDateTime               getNodeLastEdit(const QUuid& nodeUuid) const                    = 0;
 
     virtual bool addNode(const NodeInfoContainer& info) = 0;

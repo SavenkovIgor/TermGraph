@@ -22,6 +22,7 @@
 #pragma once
 
 #include <vector>
+
 #include <QDateTime>
 #include <QString>
 #include <QUuid>
@@ -39,6 +40,38 @@ struct NodeInfoContainer
     QString   wikiImage;
     QUuid     groupUuid;
     QDateTime lastEdit;
+
+    bool isEqualTo(const NodeInfoContainer& target)
+    {
+        if (uuid != target.uuid)
+            return false;
+
+        if (term != target.term)
+            return false;
+
+        if (definition != target.definition)
+            return false;
+
+        if (description != target.description)
+            return false;
+
+        if (examples != target.examples)
+            return false;
+
+        if (wikiUrl != target.wikiUrl)
+            return false;
+
+        if (wikiImage != target.wikiImage)
+            return false;
+
+        if (groupUuid != target.groupUuid)
+            return false;
+
+        if (lastEdit != target.lastEdit)
+            return false;
+
+        return true;
+    }
 
     bool isNull() const { return uuid.isNull() && term.isEmpty(); }
 };
