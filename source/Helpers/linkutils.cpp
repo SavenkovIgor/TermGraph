@@ -19,43 +19,25 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Helpers/tagutils.h"
+#include "source/Helpers/linkutils.h"
 
 #include <limits>
 
 #include "source/Helpers/intmatrix.h"
 
-bool TagUtils::isBracket(const QChar& ch)
-{
-    return ch == leftBracket || ch == rightBracket;
-}
+bool LinkUtils::isBracket(const QChar& ch) { return ch == leftBracket || ch == rightBracket; }
 
-bool TagUtils::isLeftBracket(const QChar& ch)
-{
-    return ch == leftBracket;
-}
+bool LinkUtils::isLeftBracket(const QChar& ch) { return ch == leftBracket; }
 
-bool TagUtils::isRightBracket(const QChar& ch)
-{
-    return ch == rightBracket;
-}
+bool LinkUtils::isRightBracket(const QChar& ch) { return ch == rightBracket; }
 
-bool TagUtils::isLetterOrNumber(const QChar& ch)
-{
-    return ch.isLetterOrNumber();
-}
+bool LinkUtils::isLetterOrNumber(const QChar& ch) { return ch.isLetterOrNumber(); }
 
-bool TagUtils::isLetterOrNumberInverse(const QChar& ch)
-{
-    return !isLetterOrNumber(ch);
-}
+bool LinkUtils::isLetterOrNumberInverse(const QChar& ch) { return !isLetterOrNumber(ch); }
 
-bool TagUtils::isSpaceCharacter(const QChar& ch)
-{
-    return ch.isSpace();
-}
+bool LinkUtils::isSpaceCharacter(const QChar& ch) { return ch.isSpace(); }
 
-bool TagUtils::isPairedBrackets(QStringView str)
+bool LinkUtils::isPairedBrackets(QStringView str)
 {
     int depth = 0;
 
@@ -73,7 +55,7 @@ bool TagUtils::isPairedBrackets(QStringView str)
     return depth == 0;
 }
 
-bool TagUtils::isInsideTag(QStringView str, TagUtils::Cursor cursor)
+bool LinkUtils::isInsideTag(QStringView str, LinkUtils::Cursor cursor)
 {
     if (!isValidCursor(str, cursor))
         return false;
@@ -88,7 +70,7 @@ bool TagUtils::isInsideTag(QStringView str, TagUtils::Cursor cursor)
 /// Функция в пустой строке или строке с пробелами вернет {}
 /// Функция на границе строки обрамит крайнее слово
 /// При встрече уже обрамленного тега - ничего не сделает
-QString TagUtils::addTag(QString str, Cursor cursor)
+QString LinkUtils::addTag(QString str, Cursor cursor)
 {
     // Проверка корректности курсора
     if (!isValidCursor(str, cursor))
@@ -111,7 +93,7 @@ QString TagUtils::addTag(QString str, Cursor cursor)
     return str;
 }
 
-QString TagUtils::expandTagRight(QString str, TagUtils::Cursor cursor)
+QString LinkUtils::expandTagRight(QString str, LinkUtils::Cursor cursor)
 {
     if (!isValidCursor(str, cursor))
         return str;
@@ -147,7 +129,7 @@ QString TagUtils::expandTagRight(QString str, TagUtils::Cursor cursor)
     return str;
 }
 
-QString TagUtils::removeTag(QString str, TagUtils::Cursor cursor)
+QString LinkUtils::removeTag(QString str, LinkUtils::Cursor cursor)
 {
     // Проверка корректности курсора
     if (!isValidCursor(str, cursor))
@@ -170,7 +152,7 @@ QString TagUtils::removeTag(QString str, TagUtils::Cursor cursor)
     return str;
 }
 
-QString TagUtils::replaceTags(QString str, const QString& leftReplacer, const QString& rightReplacer)
+QString LinkUtils::replaceTags(QString str, const QString& leftReplacer, const QString& rightReplacer)
 {
     if (!isPairedBrackets(str))
         return str;
@@ -180,17 +162,17 @@ QString TagUtils::replaceTags(QString str, const QString& leftReplacer, const QS
     return str;
 }
 
-bool TagUtils::tagLengthSuitTerm(const QString& tag, const QString& termName)
+bool LinkUtils::tagLengthSuitTerm(const QString& tag, const QString& termName)
 {
     int wordsCountInTag = wordsCount(tag);
-    int maxWordDistance = 4 * wordsCountInTag;  // Magic numbers. Would be replaced further
+    int maxWordDistance = 4 * wordsCountInTag; // Magic numbers. Would be replaced further
 
     auto stringSizeDiffer = std::abs(termName.size() - tag.size());
     // No need to check. Term is not suit already
     return stringSizeDiffer <= maxWordDistance;
 }
 
-int TagUtils::getLevDistance(QStringView src, QStringView dst, int limit)
+int LinkUtils::getLevDistance(QStringView src, QStringView dst, int limit)
 {
     const int m = src.size();
     const int n = dst.size();
@@ -238,7 +220,7 @@ int TagUtils::getLevDistance(QStringView src, QStringView dst, int limit)
     return matrix[m][n];
 }
 
-opt<int> TagUtils::getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit)
+opt<int> LinkUtils::getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit)
 {
     // For developing needs
     assert(termName == termName.toLower());
@@ -252,7 +234,7 @@ opt<int> TagUtils::getDistanceBetweenTagAndTerm(const QString& tag, const QStrin
     int maxWordDistance = std::min(4 * wordsCountInTag, maxLimit);
 
     auto stringSizeDiffer = std::abs(termName.size() - tag.size());
-    if (stringSizeDiffer > maxWordDistance)  // No need to check. Term is not suit already
+    if (stringSizeDiffer > maxWordDistance) // No need to check. Term is not suit already
         return std::nullopt;
 
     auto distance = getLevDistance(termName, tag, maxWordDistance);
@@ -265,7 +247,7 @@ opt<int> TagUtils::getDistanceBetweenTagAndTerm(const QString& tag, const QStrin
     return std::nullopt;
 }
 
-QStringList TagUtils::extractTags(QStringView str)
+QStringList LinkUtils::extractTags(QStringView str)
 {
     // На данном этапе считаем, что экранировать символы тегов нельзя
     // Функция работает только с корректными тегами
@@ -286,7 +268,7 @@ QStringList TagUtils::extractTags(QStringView str)
 
     for (QChar symbol : str) {
         if (insideTag) {
-            if (symbol == rightBracket) {  // Тег кончился - заносим в список
+            if (symbol == rightBracket) { // Тег кончился - заносим в список
                 insideTag = false;
                 tags << wordBuffer.simplified();
                 wordBuffer.clear();
@@ -294,7 +276,7 @@ QStringList TagUtils::extractTags(QStringView str)
             }
             wordBuffer += symbol;
         }
-        if (symbol == leftBracket) {  // Заходим в тег
+        if (symbol == leftBracket) { // Заходим в тег
             insideTag = true;
         }
     }
@@ -304,23 +286,21 @@ QStringList TagUtils::extractTags(QStringView str)
     return tags;
 }
 
-TagUtils::Cursor TagUtils::findWordBorder(QStringView str, TagUtils::Cursor from, TagUtils::SearchDirection dir)
+LinkUtils::Cursor LinkUtils::findWordBorder(QStringView str, LinkUtils::Cursor from, LinkUtils::SearchDirection dir)
 {
     auto cursor = findCursor(str, from, dir, isLetterOrNumberInverse);
 
     if (cursor == nullCursor) {
         switch (dir) {
-        case SearchDirection::left:
-            return 0;
-        case SearchDirection::right:
-            return str.size();
+        case SearchDirection::left: return 0;
+        case SearchDirection::right: return str.size();
         }
     }
 
     return cursor;
 }
 
-int TagUtils::wordsCount(const QString& string)
+int LinkUtils::wordsCount(const QString& string)
 {
     if (!string.isEmpty())
         return string.simplified().count(' ') + 1;
@@ -328,7 +308,7 @@ int TagUtils::wordsCount(const QString& string)
     return 0;
 }
 
-QChar TagUtils::getBracket(QStringView str, TagUtils::Cursor from, TagUtils::SearchDirection direction)
+QChar LinkUtils::getBracket(QStringView str, LinkUtils::Cursor from, LinkUtils::SearchDirection direction)
 {
     auto cursor = findCursor(str, from, direction, isBracket);
 
@@ -336,16 +316,14 @@ QChar TagUtils::getBracket(QStringView str, TagUtils::Cursor from, TagUtils::Sea
         return {};
 
     switch (direction) {
-    case SearchDirection::left:
-        return str[cursor - 1];
-    case SearchDirection::right:
-        return str[cursor];
+    case SearchDirection::left: return str[cursor - 1];
+    case SearchDirection::right: return str[cursor];
     }
 
     return {};
 }
 
-int TagUtils::getBracketsDepth(QStringView str)
+int LinkUtils::getBracketsDepth(QStringView str)
 {
     if (!isPairedBrackets(str))
         return -1;
@@ -365,16 +343,16 @@ int TagUtils::getBracketsDepth(QStringView str)
     return maxDepth;
 }
 
-bool TagUtils::isValidCursor(QStringView str, TagUtils::Cursor cursor)
+bool LinkUtils::isValidCursor(QStringView str, LinkUtils::Cursor cursor)
 {
     // Cursor can be after last symbol, and it's correct
     return 0 <= cursor && cursor <= str.size();
 }
 
-TagUtils::Cursor TagUtils::findCursor(QStringView     str,
-                                      Cursor          from,
-                                      SearchDirection direction,
-                                      CharCondition   exitCondition)
+LinkUtils::Cursor LinkUtils::findCursor(QStringView     str,
+                                        Cursor          from,
+                                        SearchDirection direction,
+                                        CharCondition   exitCondition)
 {
     if (direction == SearchDirection::left) {
         return leftSearch(str, from, exitCondition);
@@ -383,7 +361,7 @@ TagUtils::Cursor TagUtils::findCursor(QStringView     str,
     }
 }
 
-TagUtils::Cursor TagUtils::leftSearch(QStringView str, Cursor cursor, CharCondition exitCondition)
+LinkUtils::Cursor LinkUtils::leftSearch(QStringView str, Cursor cursor, CharCondition exitCondition)
 {
     // Если мы у левой границы строки,
     // значит условие выхода не выполнилось - возвращаем -1
@@ -401,7 +379,7 @@ TagUtils::Cursor TagUtils::leftSearch(QStringView str, Cursor cursor, CharCondit
     }
 }
 
-TagUtils::Cursor TagUtils::rightSearch(QStringView str, Cursor cursor, CharCondition exitCondition)
+LinkUtils::Cursor LinkUtils::rightSearch(QStringView str, Cursor cursor, CharCondition exitCondition)
 {
     // Если мы у правой границы строки,
     // значит условие выхода не выполнилось - возвращаем -1

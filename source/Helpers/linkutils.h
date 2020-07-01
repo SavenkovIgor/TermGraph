@@ -18,6 +18,7 @@
  *  You should have received a copy of the GNU General Public License
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
+
 #pragma once
 
 #include <functional>
@@ -30,7 +31,7 @@
 #include "source/Helpers/handytypes.h"
 
 // Static class
-class TagUtils
+class LinkUtils
 {
 public:
     using Cursor        = int;
@@ -86,4 +87,3 @@ private:
     constexpr static auto rightBracket  = '}';
     constexpr static auto emptyBrackets = "{}";
 };
-

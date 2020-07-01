@@ -22,25 +22,25 @@
 #include <limits>
 #include <vector>
 
-#include <QtTest>
 #include <QCoreApplication>
 #include <QDebug>
+#include <QtTest>
 
 // add necessary includes here
-#include "source/Helpers/tagutils.h"
+#include "source/Helpers/linkutils.h"
 
-class TagUtilsTest : public QObject
+class LinkUtilsTest : public QObject
 {
     Q_OBJECT
 
-    using Idxs = std::vector<int>;  // Short for Indexes
+    using Idxs = std::vector<int>; // Short for Indexes
 
 public:
-    TagUtilsTest()           = default;
-    ~TagUtilsTest() override = default;
+    LinkUtilsTest()           = default;
+    ~LinkUtilsTest() override = default;
 
 private slots:
-    void inTag_data()
+    void inLink_data()
     {
         QTest::addColumn<QString>("src");
         QTest::addColumn<Idxs>("cursorPositions");
@@ -61,18 +61,18 @@ private slots:
         // clang-format on
     }
 
-    void inTag()
+    void inLink()
     {
         QFETCH(QString, src);
         QFETCH(Idxs, cursorPositions);
         QFETCH(bool, result);
 
         for (auto cursor : cursorPositions) {
-            QVERIFY2(TagUtils::isInsideTag(src, cursor) == result, failCursor(cursor));
+            QVERIFY2(LinkUtils::isInsideTag(src, cursor) == result, failCursor(cursor));
         }
     }
 
-    void addTags_data()
+    void addLink_data()
     {
         QTest::addColumn<QString>("src");
         QTest::addColumn<Idxs>("cursorPositions");
@@ -97,14 +97,14 @@ private slots:
         // clang-format on
     }
 
-    void addTags()
+    void addLink()
     {
         QFETCH(QString, src);
         QFETCH(Idxs, cursorPositions);
         QFETCH(QString, result);
 
         for (auto cursor : cursorPositions) {
-            QVERIFY2(TagUtils::addTag(src, cursor) == result, failCursor(cursor));
+            QVERIFY2(LinkUtils::addTag(src, cursor) == result, failCursor(cursor));
         }
     }
 
@@ -143,11 +143,11 @@ private slots:
         QFETCH(QString, result);
 
         for (auto cursor : cursorPositions) {
-            QVERIFY2(TagUtils::expandTagRight(src, cursor) == result, failCursor(cursor));
+            QVERIFY2(LinkUtils::expandTagRight(src, cursor) == result, failCursor(cursor));
         }
     }
 
-    void removeTags_data()
+    void removeLink_data()
     {
         QTest::addColumn<QString>("src");
         QTest::addColumn<Idxs>("cursorPositions");
@@ -168,18 +168,18 @@ private slots:
         // clang-format on
     }
 
-    void removeTags()
+    void removeLink()
     {
         QFETCH(QString, src);
         QFETCH(Idxs, cursorPositions);
         QFETCH(QString, result);
 
         for (auto cursor : cursorPositions) {
-            QVERIFY2(TagUtils::removeTag(src, cursor) == result, failCursor(cursor));
+            QVERIFY2(LinkUtils::removeTag(src, cursor) == result, failCursor(cursor));
         }
     }
 
-    void tagExtraction_data()
+    void linkExtraction_data()
     {
         QTest::addColumn<QString>("src");
         QTest::addColumn<QStringList>("tags");
@@ -200,17 +200,17 @@ private slots:
         // clang-format on
     }
 
-    void tagExtraction()
+    void linkExtraction()
     {
         QFETCH(QString, src);
         QFETCH(QStringList, tags);
 
-        QVERIFY(TagUtils::extractTags(src) == tags);
+        QVERIFY(LinkUtils::extractTags(src) == tags);
 
-        QBENCHMARK(TagUtils::extractTags(src));
+        QBENCHMARK(LinkUtils::extractTags(src));
     }
 
-    void decorateTags_data()
+    void decorateLink_data()
     {
         QTest::addColumn<QString>("src");
         QTest::addColumn<QString>("result");
@@ -222,15 +222,15 @@ private slots:
         // clang-format on
     }
 
-    void decorateTags()
+    void decorateLink()
     {
         QFETCH(QString, src);
         QFETCH(QString, result);
 
-        QVERIFY(TagUtils::replaceTags(src, "<font color=\"#6d9a28\">", "</font>") == result);
+        QVERIFY(LinkUtils::replaceTags(src, "<font color=\"#6d9a28\">", "</font>") == result);
     }
 
-    void tagLengthSuitTerm_data()
+    void linkLengthSuitTerm_data()
     {
         QTest::addColumn<QString>("word1");
         QTest::addColumn<QString>("word2");
@@ -250,14 +250,14 @@ private slots:
         // clang-format on
     }
 
-    void tagLengthSuitTerm()
+    void linkLengthSuitTerm()
     {
         QFETCH(QString, word1);
         QFETCH(QString, word2);
         QFETCH(bool, result);
 
-        QVERIFY(TagUtils::tagLengthSuitTerm(word1, word2) == result);
-        QVERIFY(TagUtils::tagLengthSuitTerm(word2, word1) == result);
+        QVERIFY(LinkUtils::tagLengthSuitTerm(word1, word2) == result);
+        QVERIFY(LinkUtils::tagLengthSuitTerm(word2, word1) == result);
     }
 
     void getLevDistance_data()
@@ -266,8 +266,6 @@ private slots:
         QTest::addColumn<QString>("word2");
         QTest::addColumn<int>("limit");
         QTest::addColumn<int>("distance");
-
-        const int max_int = std::numeric_limits<int>::max();
 
         // clang-format off
         QTest::newRow("case0") << ""                     << ""                        << 9 << 0;
@@ -288,8 +286,8 @@ private slots:
         QFETCH(int, limit);
         QFETCH(int, distance);
 
-        qDebug() << TagUtils::getLevDistance(word1, word2, limit);
-        QVERIFY(TagUtils::getLevDistance(word1, word2, limit) == distance);
+        qDebug() << LinkUtils::getLevDistance(word1, word2, limit);
+        QVERIFY(LinkUtils::getLevDistance(word1, word2, limit) == distance);
     }
 
     void wordBorder_data()
@@ -336,14 +334,14 @@ private slots:
         QFETCH(int, startFrom);
         QFETCH(int, targetPosition);
 
-        auto left  = TagUtils::SearchDirection::left;
-        auto right = TagUtils::SearchDirection::right;
+        auto left  = LinkUtils::SearchDirection::left;
+        auto right = LinkUtils::SearchDirection::right;
 
         if (dir == 1)
-            QVERIFY(TagUtils::findWordBorder(src, startFrom, right) == targetPosition);
+            QVERIFY(LinkUtils::findWordBorder(src, startFrom, right) == targetPosition);
 
         if (dir == -1)
-            QVERIFY(TagUtils::findWordBorder(src, startFrom, left) == targetPosition);
+            QVERIFY(LinkUtils::findWordBorder(src, startFrom, left) == targetPosition);
     }
 
     void wordsCount_data()
@@ -373,7 +371,7 @@ private slots:
         QFETCH(QString, src);
         QFETCH(int, count);
 
-        QVERIFY(TagUtils::wordsCount(src) == count);
+        QVERIFY(LinkUtils::wordsCount(src) == count);
     }
 
     void pairBrackets_data()
@@ -401,7 +399,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(bool, result);
-        QVERIFY(TagUtils::isPairedBrackets(text) == result);
+        QVERIFY(LinkUtils::isPairedBrackets(text) == result);
     }
 
     void nearestBracket_data()
@@ -441,15 +439,15 @@ private slots:
         QFETCH(int, startFrom);
         QFETCH(QChar, bracket);
 
-        auto left  = TagUtils::SearchDirection::left;
-        auto right = TagUtils::SearchDirection::right;
+        auto left  = LinkUtils::SearchDirection::left;
+        auto right = LinkUtils::SearchDirection::right;
 
         if (dir == 1) {
-            QVERIFY(TagUtils::getBracket(src, startFrom, right) == bracket);
+            QVERIFY(LinkUtils::getBracket(src, startFrom, right) == bracket);
         }
 
         if (dir == -1) {
-            QVERIFY(TagUtils::getBracket(src, startFrom, left) == bracket);
+            QVERIFY(LinkUtils::getBracket(src, startFrom, left) == bracket);
         }
     }
 
@@ -477,7 +475,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(int, result);
-        QVERIFY(TagUtils::getBracketsDepth(text) == result);
+        QVERIFY(LinkUtils::getBracketsDepth(text) == result);
     }
 
     void validCursor_data()
@@ -504,7 +502,7 @@ private slots:
         QFETCH(int, cursorPosition);
         QFETCH(bool, result);
 
-        QVERIFY(TagUtils::isValidCursor(src, cursorPosition) == result);
+        QVERIFY(LinkUtils::isValidCursor(src, cursorPosition) == result);
     }
 
 private:
@@ -514,6 +512,6 @@ private:
     }
 };
 
-QTEST_APPLESS_MAIN(TagUtilsTest)
+QTEST_APPLESS_MAIN(LinkUtilsTest)
 
-#include "tagutilstest.moc"
+#include "linkutilstest.moc"

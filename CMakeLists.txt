@@ -102,8 +102,8 @@ target_sources (
             source/Helpers/simplelistenserver.h
             source/Helpers/tagprocessor.cpp
             source/Helpers/tagprocessor.h
-            source/Helpers/tagutils.cpp
-            source/Helpers/tagutils.h
+            source/Helpers/linkutils.cpp
+            source/Helpers/linkutils.h
             source/Helpers/textprocessor.cpp
             source/Helpers/textprocessor.h
             source/Helpers/textutils.cpp

@@ -19,7 +19,7 @@
 
 enable_testing ()
 
-add_subdirectory (tagUtils)
+add_subdirectory (linkUtils)
 add_subdirectory (textProcessor)
 add_subdirectory (fsworks)
 add_subdirectory (dbworks)

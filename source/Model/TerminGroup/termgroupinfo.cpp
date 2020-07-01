@@ -27,38 +27,20 @@
 #include "source/Helpers/globaltagcache.h"
 #include "source/Helpers/handytypes.h"
 #include "source/Helpers/helpstuff.h"
-#include "source/Helpers/tagutils.h"
+#include "source/Helpers/linkutils.h"
 #include "source/Model/TerminGroup/groupnamecache.h"
 
-TermGroupInfo::TermGroupInfo(const GroupInfoContainer& info)
-{
-    mInfo = info;
-}
+TermGroupInfo::TermGroupInfo(const GroupInfoContainer& info) { mInfo = info; }
 
-TermGroupInfo::~TermGroupInfo()
-{
-    removeTrees();
-}
+TermGroupInfo::~TermGroupInfo() { removeTrees(); }
 
-QUuid TermGroupInfo::uuid() const
-{
-    return mInfo.uuid;
-}
+QUuid TermGroupInfo::uuid() const { return mInfo.uuid; }
 
-QString TermGroupInfo::name() const
-{
-    return mInfo.name;
-}
+QString TermGroupInfo::name() const { return mInfo.name; }
 
-PaintedTerm::List TermGroupInfo::nodes() const
-{
-    return mNodes;
-}
+PaintedTerm::List TermGroupInfo::nodes() const { return mNodes; }
 
-Edge::List TermGroupInfo::edges() const
-{
-    return mEdges;
-}
+Edge::List TermGroupInfo::edges() const { return mEdges; }
 
 Edge::List TermGroupInfo::brokenEdges() const
 {
@@ -130,7 +112,7 @@ Edge::List TermGroupInfo::searchAllConnections()
                 foundNode = getNearestNodeForTag(tag);
 
             if (foundNode) {
-                if (foundNode != node) {  // TODO: Real case, need check
+                if (foundNode != node) { // TODO: Real case, need check
                     ret << new Edge(foundNode, node);
                     previousTagSearchCache.insert(tag, foundNode);
                 }
@@ -172,19 +154,19 @@ PaintedTerm* TermGroupInfo::getNearestNodeForTag(const QString& tag)
     for (auto* node : mNodes) {
         auto termName = node->additionalInfo().lowerTerm();
 
-        if (!TagUtils::tagLengthSuitTerm(tag, termName))
+        if (!LinkUtils::tagLengthSuitTerm(tag, termName))
             continue;
 
         auto cacheMatch = GlobalTagCache::instance().get(tag, termName);
         if (cacheMatch) {
             optionalResult = cacheMatch.value();
         } else {
-            optionalResult = TagUtils::getDistanceBetweenTagAndTerm(tag, termName, minDistance);
+            optionalResult = LinkUtils::getDistanceBetweenTagAndTerm(tag, termName, minDistance);
             GlobalTagCache::instance().add(tag, termName, optionalResult);
         }
 
         if (optionalResult) {
-            if (optionalResult.value() == 0)  // Already best match, no need to count further
+            if (optionalResult.value() == 0) // Already best match, no need to count further
                 return node;
 
             if (optionalResult.value() < minDistance) {
@@ -203,15 +185,9 @@ void TermGroupInfo::removeTrees()
     mTrees.clear();
 }
 
-bool TermGroupInfo::buildingWasInterrupted()
-{
-    return QThread::currentThread()->isInterruptionRequested();
-}
+bool TermGroupInfo::buildingWasInterrupted() { return QThread::currentThread()->isInterruptionRequested(); }
 
-void TermGroupInfo::loadEdges()
-{
-    mEdges << searchAllConnections();
-}
+void TermGroupInfo::loadEdges() { mEdges << searchAllConnections(); }
 
 void TermGroupInfo::removeCycles()
 {
@@ -275,7 +251,7 @@ void TermGroupInfo::initTrees()
         }
     }
 
-    unsigned int treesCount = treeId - 1;  // last treeId increase was fictious
+    unsigned int treesCount = treeId - 1; // last treeId increase was fictious
 
     // Set all trees
     for (unsigned int treeId = 1; treeId <= treesCount; treeId++) {
@@ -318,10 +294,7 @@ QSizeF TermGroupInfo::getOrphansSize()
     return orphansRc.size();
 }
 
-TermTree::List TermGroupInfo::trees() const
-{
-    return mTrees;
-}
+TermTree::List TermGroupInfo::trees() const { return mTrees; }
 
 PaintedTerm::List TermGroupInfo::filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const
 {
@@ -346,12 +319,6 @@ Edge::List TermGroupInfo::filterFromEdgesList(std::function<bool(Edge*)> conditi
     return ret;
 }
 
-void TermGroupInfo::addNodeToList(PaintedTerm* node)
-{
-    mNodes.push_back(node);
-}
+void TermGroupInfo::addNodeToList(PaintedTerm* node) { mNodes.push_back(node); }
 
-void TermGroupInfo::clearNodesList()
-{
-    mNodes.clear();
-}
+void TermGroupInfo::clearNodesList() { mNodes.clear(); }

@@ -24,8 +24,8 @@
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/fonts.h"
 #include "source/Helpers/helpstuff.h"
+#include "source/Helpers/linkutils.h"
 #include "source/Helpers/tagprocessor.h"
-#include "source/Helpers/tagutils.h"
 #include "source/Helpers/textutils.h"
 
 // Initialization order is important!
@@ -37,35 +37,17 @@ InfoTerm::InfoTerm(const NodeInfoContainer& info)
     , mLowerTags(getLowerTags(info.definition))
 {}
 
-const NodeInfoContainer& InfoTerm::info() const
-{
-    return mInfo;
-}
+const NodeInfoContainer& InfoTerm::info() const { return mInfo; }
 
-bool InfoTerm::isNull() const
-{
-    return mInfo.isNull();
-}
+bool InfoTerm::isNull() const { return mInfo.isNull(); }
 
-QString InfoTerm::lowerTerm() const
-{
-    return mLowerTerm;
-}
+QString InfoTerm::lowerTerm() const { return mLowerTerm; }
 
-QString InfoTerm::decoratedTerm() const
-{
-    return mDecoratedTerm;
-}
+QString InfoTerm::decoratedTerm() const { return mDecoratedTerm; }
 
-QSizeF InfoTerm::decoratedTermSize() const
-{
-    return mDecoratedTermSize;
-}
+QSizeF InfoTerm::decoratedTermSize() const { return mDecoratedTermSize; }
 
-QStringList InfoTerm::tags() const
-{
-    return mLowerTags;
-}
+QStringList InfoTerm::tags() const { return mLowerTags; }
 
 QString InfoTerm::termAndDefinition(bool decorated) const
 {
@@ -107,7 +89,7 @@ QSizeF InfoTerm::getTermSize(const QString& decoratedTerm)
 
 QStringList InfoTerm::getLowerTags(const QString& definition)
 {
-    auto tags = TagUtils::extractTags(definition);
+    auto tags = LinkUtils::extractTags(definition);
 
     for (auto& tag : tags)
         tag = tag.toLower();

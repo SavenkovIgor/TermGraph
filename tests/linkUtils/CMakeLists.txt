@@ -19,7 +19,7 @@
 
 find_package (Qt5Test REQUIRED)
 
-set (TEST_PROJECT_NAME ${PROJECT_NAME}_tag_utils_test)
+set (TEST_PROJECT_NAME ${PROJECT_NAME}_link_utils_test)
 
 add_executable (${TEST_PROJECT_NAME})
 
@@ -27,11 +27,11 @@ include_directories (${CMAKE_SOURCE_DIR})
 
 target_sources (
     ${TEST_PROJECT_NAME}
-    PRIVATE ${CMAKE_SOURCE_DIR}/source/Helpers/tagutils.cpp
-            ${CMAKE_SOURCE_DIR}/source/Helpers/tagutils.h
+    PRIVATE ${CMAKE_SOURCE_DIR}/source/Helpers/linkutils.cpp
+            ${CMAKE_SOURCE_DIR}/source/Helpers/linkutils.h
             ${CMAKE_SOURCE_DIR}/source/Helpers/intmatrix.cpp
             ${CMAKE_SOURCE_DIR}/source/Helpers/intmatrix.h
-            tagutilstest.cpp)
+            linkutilstest.cpp)
 
 add_test (NAME ${TEST_PROJECT_NAME} COMMAND ${TEST_PROJECT_NAME})
 

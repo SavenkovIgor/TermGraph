@@ -45,15 +45,16 @@ public:
 
     QString termAndDefinition(bool decorated = false) const;
 
-private:
+private: // Methods
+    static QString     getDecoratedTerm(const QString& term);
+    static QSizeF      getTermSize(const QString& decoratedTerm);
+    static QStringList getLowerTags(const QString& definition);
+
+private: // Members
     const NodeInfoContainer mInfo;
 
     const QString     mLowerTerm;
     const QString     mDecoratedTerm;
     const QSizeF      mDecoratedTermSize;
     const QStringList mLowerTags;
-
-    static QString     getDecoratedTerm(const QString& term);
-    static QSizeF      getTermSize(const QString& decoratedTerm);
-    static QStringList getLowerTags(const QString& definition);
 };

@@ -23,7 +23,7 @@
 
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/fonts.h"
-#include "source/Helpers/tagutils.h"
+#include "source/Helpers/linkutils.h"
 
 TermGroup::TermGroup(const GroupInfoContainer& info, QObject* parent)
     : QObject(parent)
@@ -45,15 +45,9 @@ void TermGroup::loadNodes(const PaintedTerm::List& newNodes)
     initNewNodes();
 }
 
-void TermGroup::setBasePoint(QPointF pt)
-{
-    mBaseRect.setPos(pt);
-}
+void TermGroup::setBasePoint(QPointF pt) { mBaseRect.setPos(pt); }
 
-QRectF TermGroup::getGroupRect() const
-{
-    return mBaseRect.getRect(CoordType::scene);
-}
+QRectF TermGroup::getGroupRect() const { return mBaseRect.getRect(CoordType::scene); }
 
 UuidList TermGroup::searchNearest(const QString& text, int limit) const
 {
@@ -69,10 +63,10 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
             continue;
         }
 
-        auto cuttedTerm = lowerTerm.left(searchText.size());  // Compare only left n characters
+        auto cuttedTerm = lowerTerm.left(searchText.size()); // Compare only left n characters
 
         auto acceptableLimit = static_cast<int>(cuttedTerm.size() * 0.25);
-        auto distance        = TagUtils::getLevDistance(cuttedTerm, searchText, acceptableLimit);
+        auto distance        = LinkUtils::getLevDistance(cuttedTerm, searchText, acceptableLimit);
 
         if (distance <= acceptableLimit)
             searchResults << QPair(distance, node->info().uuid);
@@ -243,7 +237,7 @@ void TermGroup::updateRectsPositions()
     QSizeF orphansSize = getOrphansSize();
     // Вычисляем под несвязанные вершины
     mOrphansRect.setPos(basePoint);
-    mOrphansRect.setSize(orphansSize);  // Применяем
+    mOrphansRect.setSize(orphansSize); // Применяем
 }
 
 void TermGroup::updateBaseRectSize()
@@ -334,7 +328,4 @@ void TermGroup::addTreeRectsToScene()
         tree->rect().setParentItem(&mBaseRect);
 }
 
-QSizeF TermGroup::getNameSize() const
-{
-    return Fonts::getTextMetrics(name(), Fonts::getWeightFont());
-}
+QSizeF TermGroup::getNameSize() const { return Fonts::getTextMetrics(name(), Fonts::getWeightFont()); }

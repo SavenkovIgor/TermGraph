@@ -22,7 +22,7 @@
 #include "source/Helpers/tagprocessor.h"
 
 #include "source/Helpers/intmatrix.h"
-#include "source/Helpers/tagutils.h"
+#include "source/Helpers/linkutils.h"
 
 TagProcessor::TagProcessor(QObject* parent)
     : QObject(parent)
@@ -30,30 +30,21 @@ TagProcessor::TagProcessor(QObject* parent)
 
 bool TagProcessor::isValidCursor(const QString& str, int cursor)
 {
-    return TagUtils::isValidCursor(QStringView(str), cursor);
+    return LinkUtils::isValidCursor(QStringView(str), cursor);
 }
 
 bool TagProcessor::isInsideTag(const QString& str, int cursor)
 {
-    return TagUtils::isInsideTag(QStringView(str), cursor);
+    return LinkUtils::isInsideTag(QStringView(str), cursor);
 }
 
-QString TagProcessor::addTag(QString str, int cursor)
-{
-    return TagUtils::addTag(str, cursor);
-}
+QString TagProcessor::addTag(QString str, int cursor) { return LinkUtils::addTag(str, cursor); }
 
-QString TagProcessor::removeTag(QString str, int cursor)
-{
-    return TagUtils::removeTag(str, cursor);
-}
+QString TagProcessor::removeTag(QString str, int cursor) { return LinkUtils::removeTag(str, cursor); }
 
-QString TagProcessor::expandTagRight(QString str, int cursor)
-{
-    return TagUtils::expandTagRight(str, cursor);
-}
+QString TagProcessor::expandTagRight(QString str, int cursor) { return LinkUtils::expandTagRight(str, cursor); }
 
 QString TagProcessor::decorateTags(const QString& str)
 {
-    return TagUtils::replaceTags(str, "<font color=\"#6d9a28\">", "</font>");
+    return LinkUtils::replaceTags(str, "<font color=\"#6d9a28\">", "</font>");
 }
