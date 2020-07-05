@@ -29,6 +29,7 @@
 #include <QStringView>
 
 #include "source/Helpers/handytypes.h"
+#include "source/Helpers/strrange.h"
 
 // Static class
 class LinkUtils
@@ -46,8 +47,8 @@ public:
     static QString expandTagRight(QString str, Cursor cursor);
     static QString removeTag(QString str, Cursor cursor);
 
-    static QStringList extractTags(QStringView str);
-    static QString     replaceTags(QString str, const QString& leftReplacer, const QString& rightReplacer);
+    static StrRange::List extractTagRanges(QStringView str);
+    static QString        replaceTags(QString str, const QString& leftReplacer, const QString& rightReplacer);
 
     static bool tagLengthSuitTerm(const QString& tag, const QString& termName);
 
@@ -63,15 +64,18 @@ public:
     static bool isPairedBrackets(QStringView str);
 
     static QChar getBracket(QStringView str, Cursor from, SearchDirection direction);
-    static int   getBracketsDepth(QStringView str);
+    static int   getMaxBracketsDepth(QStringView str);
 
     // Cursor
     static bool isValidCursor(QStringView str, Cursor cursor);
 
     static Cursor findCursor(QStringView str, Cursor from, SearchDirection direction, CharCondition exitCondition);
+    static opt<StrRange> findBracketsPair(QStringView str, Cursor from);
 
     static Cursor leftSearch(QStringView str, Cursor cursor, CharCondition exitCondition);
     static Cursor rightSearch(QStringView str, Cursor cursor, CharCondition exitCondition);
+
+    static bool isRangeOnBrackets(QStringView str, StrRange range);
 
     // Exit conditions
     static bool isBracket(const QChar& ch);
@@ -81,9 +85,10 @@ public:
     static bool isLetterOrNumberInverse(const QChar& ch);
     static bool isSpaceCharacter(const QChar& ch);
 
+    constexpr static int  nullCursor   = -1;
+    constexpr static auto leftBracket  = '{';
+    constexpr static auto rightBracket = '}';
+
 private:
-    constexpr static int  nullCursor    = -1;
-    constexpr static auto leftBracket   = '{';
-    constexpr static auto rightBracket  = '}';
     constexpr static auto emptyBrackets = "{}";
 };

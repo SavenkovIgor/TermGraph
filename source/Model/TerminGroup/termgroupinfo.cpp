@@ -101,20 +101,20 @@ Edge::List TermGroupInfo::searchAllConnections()
 
     // Compare everything with everything
     for (auto* node : mNodes) {
-        for (const auto& tag : node->additionalInfo().tags()) {
+        for (const auto& link : node->additionalInfo().links()) {
             PaintedTerm* foundNode = nullptr;
 
             // If we have same search earlier this cycle
             if (!foundNode)
-                foundNode = previousTagSearchCache.value(tag, nullptr);
+                foundNode = previousTagSearchCache.value(link.textLower(), nullptr);
 
             if (!foundNode)
-                foundNode = getNearestNodeForTag(tag);
+                foundNode = getNearestNodeForTag(link.textLower());
 
             if (foundNode) {
                 if (foundNode != node) { // TODO: Real case, need check
                     ret << new Edge(foundNode, node);
-                    previousTagSearchCache.insert(tag, foundNode);
+                    previousTagSearchCache.insert(link.textLower(), foundNode);
                 }
             }
 

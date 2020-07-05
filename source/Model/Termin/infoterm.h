@@ -24,6 +24,7 @@
 #include <QSizeF>
 #include <QString>
 
+#include "source/Model/Termin/innerlink.h"
 #include "source/Model/Termin/nodeinfocontainer.h"
 
 // Const wrapper over NodeInfoContainer + some additional stuff
@@ -41,20 +42,20 @@ public:
     QString decoratedTerm() const;
     QSizeF  decoratedTermSize() const;
 
-    QStringList tags() const;
+    InnerLink::List links() const;
 
     QString termAndDefinition(bool decorated = false) const;
 
 private: // Methods
-    static QString     getDecoratedTerm(const QString& term);
-    static QSizeF      getTermSize(const QString& decoratedTerm);
-    static QStringList getLowerTags(const QString& definition);
+    static QString         getDecoratedTerm(const QString& term);
+    static QSizeF          getTermSize(const QString& decoratedTerm);
+    static InnerLink::List getInnerLinks(const QString& linksString);
 
 private: // Members
     const NodeInfoContainer mInfo;
 
-    const QString     mLowerTerm;
-    const QString     mDecoratedTerm;
-    const QSizeF      mDecoratedTermSize;
-    const QStringList mLowerTags;
+    const QString         mLowerTerm;
+    const QString         mDecoratedTerm;
+    const QSizeF          mDecoratedTermSize;
+    const InnerLink::List mLinks;
 };

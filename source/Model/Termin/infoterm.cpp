@@ -34,7 +34,7 @@ InfoTerm::InfoTerm(const NodeInfoContainer& info)
     , mLowerTerm(info.term.toLower())
     , mDecoratedTerm(getDecoratedTerm(info.term))
     , mDecoratedTermSize(getTermSize(mDecoratedTerm))
-    , mLowerTags(getLowerTags(info.definition))
+    , mLinks(getInnerLinks(info.definition))
 {}
 
 const NodeInfoContainer& InfoTerm::info() const { return mInfo; }
@@ -47,7 +47,7 @@ QString InfoTerm::decoratedTerm() const { return mDecoratedTerm; }
 
 QSizeF InfoTerm::decoratedTermSize() const { return mDecoratedTermSize; }
 
-QStringList InfoTerm::tags() const { return mLowerTags; }
+InnerLink::List InfoTerm::links() const { return mLinks; }
 
 QString InfoTerm::termAndDefinition(bool decorated) const
 {
@@ -87,12 +87,22 @@ QSizeF InfoTerm::getTermSize(const QString& decoratedTerm)
     return HelpStuff::getStackedSize(sizes, Qt::Vertical);
 }
 
-QStringList InfoTerm::getLowerTags(const QString& definition)
+InnerLink::List InfoTerm::getInnerLinks(const QString& linksString)
 {
-    auto tags = LinkUtils::extractTags(definition);
+    if (!LinkUtils::isPairedBrackets(linksString))
+        return {};
 
-    for (auto& tag : tags)
-        tag = tag.toLower();
+    auto depth = LinkUtils::getMaxBracketsDepth(linksString);
 
-    return tags;
+    if (depth == 0 || depth > 1)
+        return {};
+
+    auto ranges = LinkUtils::extractTagRanges(linksString);
+
+    InnerLink::List ret;
+
+    for (const auto& range : ranges)
+        ret.push_back(InnerLink(linksString, range));
+
+    return ret;
 }

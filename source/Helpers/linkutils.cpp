@@ -247,43 +247,22 @@ opt<int> LinkUtils::getDistanceBetweenTagAndTerm(const QString& tag, const QStri
     return std::nullopt;
 }
 
-QStringList LinkUtils::extractTags(QStringView str)
+StrRange::List LinkUtils::extractTagRanges(QStringView str)
 {
-    // На данном этапе считаем, что экранировать символы тегов нельзя
-    // Функция работает только с корректными тегами
-    // Если в строке непарные скобки или вложенность становится отрицательной
-    // сразу возвращаем пустой список
-    // То же самое для глубины вложенности скобок больше 1.
-    // С такими вариантами тоже не работаем
+    Cursor         from = 0;
+    StrRange::List ret;
 
-    if (!isPairedBrackets(str))
-        return {};
-
-    if (getBracketsDepth(str) != 1)
-        return {};
-
-    QStringList tags;
-    QString     wordBuffer;
-    bool        insideTag = false;
-
-    for (QChar symbol : str) {
-        if (insideTag) {
-            if (symbol == rightBracket) { // Тег кончился - заносим в список
-                insideTag = false;
-                tags << wordBuffer.simplified();
-                wordBuffer.clear();
-                continue;
-            }
-            wordBuffer += symbol;
-        }
-        if (symbol == leftBracket) { // Заходим в тег
-            insideTag = true;
+    while (true) {
+        auto optRange = findBracketsPair(str, from);
+        if (optRange) {
+            from = optRange.value().right();
+            ret.push_back(optRange.value());
+        } else {
+            break;
         }
     }
 
-    tags.removeDuplicates();
-
-    return tags;
+    return ret;
 }
 
 LinkUtils::Cursor LinkUtils::findWordBorder(QStringView str, LinkUtils::Cursor from, LinkUtils::SearchDirection dir)
@@ -323,7 +302,7 @@ QChar LinkUtils::getBracket(QStringView str, LinkUtils::Cursor from, LinkUtils::
     return {};
 }
 
-int LinkUtils::getBracketsDepth(QStringView str)
+int LinkUtils::getMaxBracketsDepth(QStringView str)
 {
     if (!isPairedBrackets(str))
         return -1;
@@ -361,6 +340,23 @@ LinkUtils::Cursor LinkUtils::findCursor(QStringView     str,
     }
 }
 
+opt<StrRange> LinkUtils::findBracketsPair(QStringView str, LinkUtils::Cursor from)
+{
+    auto leftBracket = rightSearch(str, from, &isLeftBracket);
+    if (leftBracket == nullCursor)
+        return std::nullopt;
+
+    auto rightBracket = rightSearch(str, leftBracket, &isRightBracket);
+    if (rightBracket == nullCursor)
+        return std::nullopt;
+
+    assert(leftBracket != rightBracket);
+    assert(str[leftBracket] == LinkUtils::leftBracket);
+    assert(str[rightBracket] == LinkUtils::rightBracket);
+
+    return StrRange::fromLeftRight(leftBracket, rightBracket);
+}
+
 LinkUtils::Cursor LinkUtils::leftSearch(QStringView str, Cursor cursor, CharCondition exitCondition)
 {
     // Если мы у левой границы строки,
@@ -395,4 +391,9 @@ LinkUtils::Cursor LinkUtils::rightSearch(QStringView str, Cursor cursor, CharCon
         // Иначе ищем правее
         return rightSearch(str, cursor + 1, exitCondition);
     }
+}
+
+bool LinkUtils::isRangeOnBrackets(QStringView str, StrRange range)
+{
+    return str[range.left()] == leftBracket && str[range.right()] == rightBracket;
 }

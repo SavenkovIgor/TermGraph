@@ -200,15 +200,7 @@ private slots:
         // clang-format on
     }
 
-    void linkExtraction()
-    {
-        QFETCH(QString, src);
-        QFETCH(QStringList, tags);
-
-        QVERIFY(LinkUtils::extractTags(src) == tags);
-
-        QBENCHMARK(LinkUtils::extractTags(src));
-    }
+    void linkExtraction() {}
 
     void decorateLink_data()
     {
@@ -475,7 +467,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(int, result);
-        QVERIFY(LinkUtils::getBracketsDepth(text) == result);
+        QVERIFY(LinkUtils::getMaxBracketsDepth(text) == result);
     }
 
     void validCursor_data()
