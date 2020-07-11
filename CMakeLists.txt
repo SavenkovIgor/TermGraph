@@ -114,6 +114,10 @@ target_sources (
             source/Helpers/asyncgroupbuilder.h
             source/Helpers/strrange.cpp
             source/Helpers/strrange.h
+            source/Helpers/uuid/uuidtools.cpp
+            source/Helpers/uuid/uuidtools.h
+            source/Helpers/validators/uuidvalidator.cpp
+            source/Helpers/validators/uuidvalidator.h
             source/Managers/groupsmanager.cpp
             source/Managers/groupsmanager.h
             source/Managers/jsongroupinfocontainerparser.cpp

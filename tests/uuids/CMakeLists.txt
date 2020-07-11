@@ -17,10 +17,23 @@
 #  You should have received a copy of the GNU General Public License
 #  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
 
-enable_testing ()
+find_package (Qt5Test REQUIRED)
 
-add_subdirectory (linkUtils)
-add_subdirectory (textProcessor)
-add_subdirectory (fsworks)
-add_subdirectory (dbworks)
-add_subdirectory (uuids)
+set (TEST_PROJECT_NAME ${PROJECT_NAME}_uuids_test)
+
+add_executable (${TEST_PROJECT_NAME})
+
+include_directories (${CMAKE_SOURCE_DIR})
+
+# TODO Reduce files count
+target_sources (
+    ${TEST_PROJECT_NAME}
+    PRIVATE ${CMAKE_SOURCE_DIR}/source/Helpers/uuid/uuidtools.cpp
+            ${CMAKE_SOURCE_DIR}/source/Helpers/uuid/uuidtools.h
+            ${CMAKE_SOURCE_DIR}/source/Helpers/validators/uuidvalidator.cpp
+            ${CMAKE_SOURCE_DIR}/source/Helpers/validators/uuidvalidator.h
+            uuidstest.cpp)
+
+add_test (NAME ${TEST_PROJECT_NAME} COMMAND ${TEST_PROJECT_NAME})
+
+target_link_libraries (${TEST_PROJECT_NAME} PRIVATE Qt5::Test Qt5::Sql)
