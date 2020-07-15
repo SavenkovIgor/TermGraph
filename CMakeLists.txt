@@ -118,6 +118,7 @@ target_sources (
             source/Helpers/uuid/uuidtools.h
             source/Helpers/validators/uuidvalidator.cpp
             source/Helpers/validators/uuidvalidator.h
+            source/Helpers/exclusivecall.h
             source/Managers/groupsmanager.cpp
             source/Managers/groupsmanager.h
             source/Managers/jsongroupinfocontainerparser.cpp
