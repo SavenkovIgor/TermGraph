@@ -27,6 +27,7 @@
 #include "source/Helpers/linkutils.h"
 #include "source/Helpers/tagprocessor.h"
 #include "source/Helpers/textutils.h"
+#include "source/Model/Termin/validators/linktextvalidator.h"
 
 // Initialization order is important!
 InfoTerm::InfoTerm(const NodeInfoContainer& info)
@@ -89,12 +90,7 @@ QSizeF InfoTerm::getTermSize(const QString& decoratedTerm)
 
 InnerLink::List InfoTerm::getInnerLinks(const QString& linksString)
 {
-    if (!LinkUtils::isPairedBrackets(linksString))
-        return {};
-
-    auto depth = LinkUtils::getMaxBracketsDepth(linksString);
-
-    if (depth == 0 || depth > 1)
+    if (!LinkTextValidator::isValidLinkString(linksString))
         return {};
 
     auto ranges = LinkUtils::extractTagRanges(linksString);

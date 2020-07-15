@@ -30,6 +30,7 @@
 
 #include "source/Helpers/handytypes.h"
 #include "source/Helpers/strrange.h"
+#include "source/Helpers/text/textcursor.h"
 
 // Static class
 class LinkUtils
@@ -38,7 +39,7 @@ public:
     using Cursor        = int;
     using CharCondition = std::function<bool(const QChar&)>;
 
-    enum class SearchDirection { left, right };
+    using SearchDirection = TextCursor::Direction;
 
     // Tags
     static bool isInsideTag(QStringView str, Cursor cursor);
@@ -67,13 +68,8 @@ public:
     static int   getMaxBracketsDepth(QStringView str);
 
     // Cursor
-    static bool isValidCursor(QStringView str, Cursor cursor);
-
     static Cursor findCursor(QStringView str, Cursor from, SearchDirection direction, CharCondition exitCondition);
     static opt<StrRange> findBracketsPair(QStringView str, Cursor from);
-
-    static Cursor leftSearch(QStringView str, Cursor cursor, CharCondition exitCondition);
-    static Cursor rightSearch(QStringView str, Cursor cursor, CharCondition exitCondition);
 
     static bool isRangeOnBrackets(QStringView str, StrRange range);
 

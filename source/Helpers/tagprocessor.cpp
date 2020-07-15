@@ -23,6 +23,7 @@
 
 #include "source/Helpers/intmatrix.h"
 #include "source/Helpers/linkutils.h"
+#include "source/Helpers/text/textcursor.h"
 
 TagProcessor::TagProcessor(QObject* parent)
     : QObject(parent)
@@ -30,7 +31,7 @@ TagProcessor::TagProcessor(QObject* parent)
 
 bool TagProcessor::isValidCursor(const QString& str, int cursor)
 {
-    return LinkUtils::isValidCursor(QStringView(str), cursor);
+    return TextCursor::isValidCursor(QStringView(str), cursor);
 }
 
 bool TagProcessor::isInsideTag(const QString& str, int cursor)

@@ -29,6 +29,8 @@ target_sources (
     ${TEST_PROJECT_NAME}
     PRIVATE ${CMAKE_SOURCE_DIR}/source/Helpers/linkutils.cpp
             ${CMAKE_SOURCE_DIR}/source/Helpers/linkutils.h
+            ${CMAKE_SOURCE_DIR}/source/Helpers/text/textcursor.cpp
+            ${CMAKE_SOURCE_DIR}/source/Helpers/text/textcursor.h
             ${CMAKE_SOURCE_DIR}/source/Helpers/intmatrix.cpp
             ${CMAKE_SOURCE_DIR}/source/Helpers/intmatrix.h
             ${CMAKE_SOURCE_DIR}/source/Helpers/strrange.cpp

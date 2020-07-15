@@ -57,11 +57,11 @@ bool LinkUtils::isPairedBrackets(QStringView str)
 
 bool LinkUtils::isInsideTag(QStringView str, LinkUtils::Cursor cursor)
 {
-    if (!isValidCursor(str, cursor))
+    if (!TextCursor::isValidCursor(str, cursor))
         return false;
 
-    QChar firstLeftBracket  = getBracket(str, cursor, SearchDirection::left);
-    QChar firstRightBracket = getBracket(str, cursor, SearchDirection::right);
+    QChar firstLeftBracket  = getBracket(str, cursor, SearchDirection::Left);
+    QChar firstRightBracket = getBracket(str, cursor, SearchDirection::Right);
 
     return firstLeftBracket == leftBracket && firstRightBracket == rightBracket;
 }
@@ -73,7 +73,7 @@ bool LinkUtils::isInsideTag(QStringView str, LinkUtils::Cursor cursor)
 QString LinkUtils::addTag(QString str, Cursor cursor)
 {
     // Проверка корректности курсора
-    if (!isValidCursor(str, cursor))
+    if (!TextCursor::isValidCursor(str, cursor))
         return str;
 
     // Нельзя просто так упрощать строку - индекс курсора же не меняется
@@ -83,8 +83,8 @@ QString LinkUtils::addTag(QString str, Cursor cursor)
     if (isInsideTag(str, cursor))
         return str;
 
-    int leftWordBorder  = findWordBorder(str, cursor, SearchDirection::left);
-    int rightWordBorder = findWordBorder(str, cursor, SearchDirection::right);
+    int leftWordBorder  = findWordBorder(str, cursor, SearchDirection::Left);
+    int rightWordBorder = findWordBorder(str, cursor, SearchDirection::Right);
 
     //Сначала вставляем правую, потом левую из за смещения курсора
     str.insert(rightWordBorder, rightBracket);
@@ -95,17 +95,20 @@ QString LinkUtils::addTag(QString str, Cursor cursor)
 
 QString LinkUtils::expandTagRight(QString str, LinkUtils::Cursor cursor)
 {
-    if (!isValidCursor(str, cursor))
+    if (!TextCursor::isValidCursor(str, cursor))
         return str;
 
     if (!isInsideTag(str, cursor))
         return str;
 
     // Move to right bracket
-    auto bracketPos = findCursor(str, cursor, SearchDirection::right, isBracket);
+    auto bracketPos = findCursor(str, cursor, SearchDirection::Right, isBracket);
     // Move to word
-    auto wordStartPos   = findCursor(str, bracketPos + 1, SearchDirection::right, isLetterOrNumber);
-    auto openBracketPos = findCursor(str, bracketPos + 1, SearchDirection::right, isLeftBracket);
+    auto wordStartPos = findCursor(str, bracketPos + 1, SearchDirection::Right, isLetterOrNumber);
+    if (wordStartPos == -1)
+        return str;
+
+    auto openBracketPos = findCursor(str, bracketPos + 1, SearchDirection::Right, isLeftBracket);
 
     // Protection from capturing next tag
     if (openBracketPos != nullCursor) {
@@ -114,7 +117,7 @@ QString LinkUtils::expandTagRight(QString str, LinkUtils::Cursor cursor)
         }
     }
 
-    auto wordEndPos = findCursor(str, wordStartPos, SearchDirection::right, isLetterOrNumberInverse);
+    auto wordEndPos = findCursor(str, wordStartPos, SearchDirection::Right, isLetterOrNumberInverse);
 
     if (wordStartPos != nullCursor && wordEndPos == nullCursor) {
         wordEndPos = str.size();
@@ -132,7 +135,7 @@ QString LinkUtils::expandTagRight(QString str, LinkUtils::Cursor cursor)
 QString LinkUtils::removeTag(QString str, LinkUtils::Cursor cursor)
 {
     // Проверка корректности курсора
-    if (!isValidCursor(str, cursor))
+    if (!TextCursor::isValidCursor(str, cursor))
         return str;
 
     // Нельзя просто так упрощать строку - индекс курсора же не меняется
@@ -142,8 +145,8 @@ QString LinkUtils::removeTag(QString str, LinkUtils::Cursor cursor)
     if (!isInsideTag(str, cursor))
         return str;
 
-    auto leftBracketPos  = findCursor(str, cursor, SearchDirection::left, isBracket);
-    auto rightBracketPos = findCursor(str, cursor, SearchDirection::right, isBracket);
+    auto leftBracketPos  = findCursor(str, cursor, SearchDirection::Left, isBracket);
+    auto rightBracketPos = findCursor(str, cursor, SearchDirection::Right, isBracket);
 
     //Сначала удаляем правую, потом левую из за смещения индексов
     str.remove(rightBracketPos, 1);
@@ -271,8 +274,8 @@ LinkUtils::Cursor LinkUtils::findWordBorder(QStringView str, LinkUtils::Cursor f
 
     if (cursor == nullCursor) {
         switch (dir) {
-        case SearchDirection::left: return 0;
-        case SearchDirection::right: return str.size();
+        case SearchDirection::Left: return 0;
+        case SearchDirection::Right: return str.size();
         }
     }
 
@@ -295,8 +298,8 @@ QChar LinkUtils::getBracket(QStringView str, LinkUtils::Cursor from, LinkUtils::
         return {};
 
     switch (direction) {
-    case SearchDirection::left: return str[cursor - 1];
-    case SearchDirection::right: return str[cursor];
+    case SearchDirection::Left: return str[cursor - 1];
+    case SearchDirection::Right: return str[cursor];
     }
 
     return {};
@@ -322,75 +325,38 @@ int LinkUtils::getMaxBracketsDepth(QStringView str)
     return maxDepth;
 }
 
-bool LinkUtils::isValidCursor(QStringView str, LinkUtils::Cursor cursor)
-{
-    // Cursor can be after last symbol, and it's correct
-    return 0 <= cursor && cursor <= str.size();
-}
-
 LinkUtils::Cursor LinkUtils::findCursor(QStringView     str,
                                         Cursor          from,
                                         SearchDirection direction,
                                         CharCondition   exitCondition)
 {
-    if (direction == SearchDirection::left) {
-        return leftSearch(str, from, exitCondition);
-    } else {
-        return rightSearch(str, from, exitCondition);
-    }
+    auto cursor = TextCursor(str, from);
+
+    if (cursor.move(direction, exitCondition))
+        return cursor.pos();
+
+    return nullCursor;
 }
 
 opt<StrRange> LinkUtils::findBracketsPair(QStringView str, LinkUtils::Cursor from)
 {
-    auto leftBracket = rightSearch(str, from, &isLeftBracket);
-    if (leftBracket == nullCursor)
+    auto cursor = TextCursor(str, from);
+
+    if (!cursor.moveRight(&isLeftBracket))
         return std::nullopt;
 
-    auto rightBracket = rightSearch(str, leftBracket, &isRightBracket);
-    if (rightBracket == nullCursor)
+    auto leftBracket = cursor.pos();
+
+    if (!cursor.moveRight(&isRightBracket))
         return std::nullopt;
+
+    auto rightBracket = cursor.pos();
 
     assert(leftBracket != rightBracket);
     assert(str[leftBracket] == LinkUtils::leftBracket);
     assert(str[rightBracket] == LinkUtils::rightBracket);
 
     return StrRange::fromLeftRight(leftBracket, rightBracket);
-}
-
-LinkUtils::Cursor LinkUtils::leftSearch(QStringView str, Cursor cursor, CharCondition exitCondition)
-{
-    // Если мы у левой границы строки,
-    // значит условие выхода не выполнилось - возвращаем -1
-    if (cursor <= 0 || cursor == nullCursor)
-        return nullCursor;
-
-    const QChar leftChar = str[cursor - 1];
-
-    if (exitCondition(leftChar)) {
-        // Если для символа слева условие выполняется, возвращаем эту позицию
-        return cursor;
-    } else {
-        // Иначе ищем левее
-        return leftSearch(str, cursor - 1, exitCondition);
-    }
-}
-
-LinkUtils::Cursor LinkUtils::rightSearch(QStringView str, Cursor cursor, CharCondition exitCondition)
-{
-    // Если мы у правой границы строки,
-    // значит условие выхода не выполнилось - возвращаем -1
-    if (cursor >= str.size() || cursor == nullCursor)
-        return nullCursor;
-
-    const QChar rightChar = str[cursor];
-
-    if (exitCondition(rightChar)) {
-        // Если для символа справа условие выполняется, возвращаем эту позицию
-        return cursor;
-    } else {
-        // Иначе ищем правее
-        return rightSearch(str, cursor + 1, exitCondition);
-    }
 }
 
 bool LinkUtils::isRangeOnBrackets(QStringView str, StrRange range)

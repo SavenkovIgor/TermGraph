@@ -28,6 +28,7 @@
 
 // add necessary includes here
 #include "source/Helpers/linkutils.h"
+#include "source/Helpers/text/textcursor.h"
 
 class LinkUtilsTest : public QObject
 {
@@ -326,8 +327,8 @@ private slots:
         QFETCH(int, startFrom);
         QFETCH(int, targetPosition);
 
-        auto left  = LinkUtils::SearchDirection::left;
-        auto right = LinkUtils::SearchDirection::right;
+        auto left  = LinkUtils::SearchDirection::Left;
+        auto right = LinkUtils::SearchDirection::Right;
 
         if (dir == 1)
             QVERIFY(LinkUtils::findWordBorder(src, startFrom, right) == targetPosition);
@@ -431,8 +432,8 @@ private slots:
         QFETCH(int, startFrom);
         QFETCH(QChar, bracket);
 
-        auto left  = LinkUtils::SearchDirection::left;
-        auto right = LinkUtils::SearchDirection::right;
+        auto left  = LinkUtils::SearchDirection::Left;
+        auto right = LinkUtils::SearchDirection::Right;
 
         if (dir == 1) {
             QVERIFY(LinkUtils::getBracket(src, startFrom, right) == bracket);
@@ -494,7 +495,7 @@ private slots:
         QFETCH(int, cursorPosition);
         QFETCH(bool, result);
 
-        QVERIFY(LinkUtils::isValidCursor(src, cursorPosition) == result);
+        QVERIFY(TextCursor::isValidCursor(src, cursorPosition) == result);
     }
 
 private:

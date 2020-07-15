@@ -19,19 +19,17 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "source/Model/Termin/validators/linktextvalidator.h"
 
-#include <functional>
-#include <iostream>
+#include "source/Helpers/linkutils.h"
 
-#define EXCLUSIVE_CALL(f) static auto beforeMain = ExclusiveCall([]() f);
-
-class ExclusiveCall
+bool LinkTextValidator::isValidLinkString(const QString& linkString)
 {
-public:
-    ExclusiveCall(std::function<void()> func)
-    {
-        func();
-        exit(0);
-    }
-};
+    if (!LinkUtils::isPairedBrackets(linkString))
+        return false;
+
+    if (LinkUtils::getMaxBracketsDepth(linkString) > 1)
+        return false;
+
+    return true;
+}

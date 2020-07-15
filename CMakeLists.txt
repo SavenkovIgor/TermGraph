@@ -119,6 +119,8 @@ target_sources (
             source/Helpers/validators/uuidvalidator.cpp
             source/Helpers/validators/uuidvalidator.h
             source/Helpers/exclusivecall.h
+            source/Helpers/text/textcursor.cpp
+            source/Helpers/text/textcursor.h
             source/Managers/groupsmanager.cpp
             source/Managers/groupsmanager.h
             source/Managers/jsongroupinfocontainerparser.cpp
@@ -151,6 +153,8 @@ target_sources (
             source/Model/Termin/nodeinfocontainer.h
             source/Model/Termin/paintedterm.cpp
             source/Model/Termin/paintedterm.h
+            source/Model/Termin/validators/linktextvalidator.cpp
+            source/Model/Termin/validators/linktextvalidator.h
             source/Model/TerminEdge/edge.cpp
             source/Model/TerminEdge/edge.h
             source/Model/TerminEdge/graphedge.cpp

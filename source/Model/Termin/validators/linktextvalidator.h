@@ -21,17 +21,10 @@
 
 #pragma once
 
-#include <functional>
-#include <iostream>
+#include <QString>
 
-#define EXCLUSIVE_CALL(f) static auto beforeMain = ExclusiveCall([]() f);
-
-class ExclusiveCall
+class LinkTextValidator
 {
 public:
-    ExclusiveCall(std::function<void()> func)
-    {
-        func();
-        exit(0);
-    }
+    static bool isValidLinkString(const QString& linkString);
 };
