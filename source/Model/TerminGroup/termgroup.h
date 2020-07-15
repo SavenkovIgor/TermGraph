@@ -76,6 +76,8 @@ private:
     QSizeF getNameSize() const;
 
 private:
+    qint64 groupCreationTime = 0;
+
     RectGraphicItem mBaseRect    = RectGraphicItem(QPoint(0, 0), QSizeF(10.0, 10.0));
     RectGraphicItem mOrphansRect = RectGraphicItem();
 };

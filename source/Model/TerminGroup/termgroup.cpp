@@ -21,6 +21,8 @@
 
 #include "source/Model/TerminGroup/termgroup.h"
 
+#include <QElapsedTimer>
+
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/fonts.h"
 #include "source/Helpers/linkutils.h"
@@ -147,12 +149,18 @@ PaintedTerm* TermGroup::getNode(const QString& nodeName) const
 
 void TermGroup::initNewNodes()
 {
+    QElapsedTimer t;
+    t.start();
+
     loadEdges();
     setParentForNodesAndEdges();
+
     if (buildingWasInterrupted())
         return;
+
     removeCycles();
     removeExceedEdges();
+
     if (buildingWasInterrupted())
         return;
 
@@ -171,6 +179,8 @@ void TermGroup::initNewNodes()
     // Positioning
     updateRectsPositions();
     updateBaseRectSize();
+
+    groupCreationTime = t.elapsed();
 }
 
 void TermGroup::setParentForNodesAndEdges()
