@@ -12,6 +12,20 @@
         <file>Atoms/SmallInfoText.qml</file>
         <file>Atoms/ThinLine.qml</file>
         <file>Atoms/ToolButton.qml</file>
+        <file>Atoms/Term.qml</file>
+        <file>Atoms/VerticalFlickable.qml</file>
+        <file>Atoms/ScrollIndicator.qml</file>
+        <file>Atoms/RoundedRectangle.qml</file>
+        <file>Atoms/Round.qml</file>
+        <file>Atoms/Edge.qml</file>
+        <file>Atoms/DebugFrame.qml</file>
+        <file>Atoms/MouseArea.qml</file>
+        <file>Atoms/Timer.qml</file>
+        <file>Atoms/AccentText.qml</file>
+        <file>Atoms/ToolTip.qml</file>
+        <file>Atoms/DrawerPage.qml</file>
+        <file>Atoms/TopRoundedRect.qml</file>
+        <file>Atoms/PinBar.qml</file>
         <file>Molecules/TextArea.qml</file>
         <file>Molecules/TextField.qml</file>
         <file>Molecules/LabelPair.qml</file>
@@ -22,7 +36,14 @@
         <file>Molecules/BurgerButton.qml</file>
         <file>Molecules/AppIcon.qml</file>
         <file>Molecules/NotificationDrawer.qml</file>
-        <file>main.qml</file>
+        <file>Molecules/TagEditorArea.qml</file>
+        <file>Molecules/EmptyView.qml</file>
+        <file>Molecules/NodesScene.qml</file>
+        <file>Molecules/HelpView.qml</file>
+        <file>Molecules/SearchResults.qml</file>
+        <file>Molecules/LoadingInProcess.qml</file>
+        <file>Molecules/LoadingIcon.qml</file>
+        <file>Molecules/SideMenuHeader.qml</file>
         <file>Learning/LearnGroupsList.qml</file>
         <file>Learning/LearnMode.qml</file>
         <file>Learning/LearnCard.qml</file>
@@ -30,6 +51,9 @@
         <file>Js/Colors.js</file>
         <file>Js/Debug.js</file>
         <file>Js/IconPath.js</file>
+        <file>Js/Fonts.js</file>
+        <file>Js/Sizes.js</file>
+        <file>Js/Tools.js</file>
         <file>Pages/MainScene.qml</file>
         <file>Pages/GroupsList.qml</file>
         <file>Pages/EditNode.qml</file>
@@ -39,31 +63,7 @@
         <file>Pages/License.qml</file>
         <file>Pages/AppIconsSaving.qml</file>
         <file>Pages/Help.qml</file>
-        <file>Js/Fonts.js</file>
-        <file>Molecules/TagEditorArea.qml</file>
-        <file>Molecules/EmptyView.qml</file>
-        <file>Atoms/ToolTip.qml</file>
-        <file>Js/Sizes.js</file>
-        <file>Molecules/NodesScene.qml</file>
-        <file>Atoms/Term.qml</file>
-        <file>Molecules/SearchResults.qml</file>
         <file>Pages/OnBoard.qml</file>
-        <file>Molecules/HelpView.qml</file>
-        <file>Atoms/AccentText.qml</file>
-        <file>Atoms/VerticalFlickable.qml</file>
-        <file>Atoms/ScrollIndicator.qml</file>
-        <file>Atoms/RoundedRectangle.qml</file>
-        <file>Atoms/Round.qml</file>
-        <file>Atoms/Edge.qml</file>
-        <file>Atoms/DebugFrame.qml</file>
-        <file>Atoms/MouseArea.qml</file>
-        <file>Atoms/Timer.qml</file>
-        <file>Js/Tools.js</file>
-        <file>Molecules/LoadingInProcess.qml</file>
-        <file>Molecules/LoadingIcon.qml</file>
-        <file>Molecules/SideMenuHeader.qml</file>
-        <file>Atoms/DrawerPage.qml</file>
-        <file>Atoms/TopRoundedRect.qml</file>
-        <file>Atoms/PinBar.qml</file>
+        <file>main.qml</file>
     </qresource>
 </RCC>
