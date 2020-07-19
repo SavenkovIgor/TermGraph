@@ -67,7 +67,9 @@ MainWindow::MainWindow(QObject* parent)
     qmlEngine->rootContext()->setContextProperty("nodesManager", nodesManager.get());
     qmlEngine->rootContext()->setContextProperty("textProcessor", textProcessor.get());
     qmlEngine->rootContext()->setContextProperty("syncManager", syncManager.get());
-    qmlEngine->load(QUrl("qrc:/main.qml"));
+
+    qmlEngine->addImportPath(QStringLiteral("qrc:/"));
+    qmlEngine->load(QStringLiteral("qrc:/main.qml"));
 }
 
 QString MainWindow::screenshotFilePath(const QString& fileName)

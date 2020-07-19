@@ -33,6 +33,9 @@ set (CMAKE_AUTORCC ON)
 set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set (QML_PATH ${CMAKE_CURRENT_SOURCE_DIR}/qml)
+set (QML_IMPORT_PATH "${QML_PATH}" CACHE STRING "" FORCE)
+
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
 # Check http://doc.qt.io/qt-5/deployment-android.html for more information.
 # They need to be set before the find_package(Qt5 ...) call.
