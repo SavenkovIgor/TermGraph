@@ -48,12 +48,13 @@
         <file>Learning/LearnMode.qml</file>
         <file>Learning/LearnCard.qml</file>
         <file>Learning/CardsStartScreen.qml</file>
-        <file>Js/Colors.js</file>
         <file>Js/Debug.js</file>
-        <file>Js/IconPath.js</file>
-        <file>Js/Fonts.js</file>
-        <file>Js/Sizes.js</file>
         <file>Js/Tools.js</file>
+        <file>StyleInfo/Colors.js</file>
+        <file>StyleInfo/Fonts.js</file>
+        <file>StyleInfo/IconPath.js</file>
+        <file>StyleInfo/Sizes.js</file>
+        <file>StyleInfo/qmldir</file>
         <file>Pages/MainScene.qml</file>
         <file>Pages/GroupsList.qml</file>
         <file>Pages/EditNode.qml</file>

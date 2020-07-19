@@ -24,8 +24,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 import "../Atoms" as A
-import "../Js/IconPath.js" as IconPath
-import "../Js/Colors.js" as Colors
+import StyleInfo 1.0
 
 A.PageHeader {
     id: root

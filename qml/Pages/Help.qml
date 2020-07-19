@@ -23,8 +23,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 import "../Molecules" as M
-import "../Js/Sizes.js" as Sizes
-import "../Js/Colors.js" as Colors
+import StyleInfo 1.0
 
 M.Page {
     id: root

@@ -32,9 +32,7 @@ import "../Molecules" as M
 import "../Pages" as P
 
 import "../Js/Tools.js" as Tools
-import "../Js/Fonts.js" as Fonts
-import "../Js/IconPath.js" as IconPath
-import "../Js/Colors.js" as Colors
+import StyleInfo 1.0
 
 M.Page {
     id: root

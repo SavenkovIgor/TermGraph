@@ -27,8 +27,7 @@ import Helpers 1.0
 
 import "../Atoms" as A
 import "../Molecules" as M
-import "../Js/Colors.js" as Colors
-import "../Js/IconPath.js" as IconPath
+import StyleInfo 1.0
 
 M.Page {
     id: root

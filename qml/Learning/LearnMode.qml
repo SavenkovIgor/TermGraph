@@ -26,9 +26,7 @@ import QtQuick.Dialogs 1.3
 
 import "../Atoms" as A
 import "../Molecules" as M
-import "../Js/IconPath.js" as IconPath
-import "../Js/Colors.js" as Colors
-import "../Js/Fonts.js" as Fonts
+import StyleInfo 1.0
 
 M.Page {
     title: "Режим изучения"

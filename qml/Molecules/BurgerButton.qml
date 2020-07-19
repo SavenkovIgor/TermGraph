@@ -22,7 +22,7 @@
 import QtQuick 2.15
 
 import "../Atoms" as A
-import "../Js/IconPath.js" as IconPath
+import StyleInfo 1.0
 
 A.ToolButton {
 

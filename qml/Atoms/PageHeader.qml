@@ -23,8 +23,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
-import "../Js/Colors.js" as Colors
-import "../Js/Sizes.js" as Sizes
+import StyleInfo 1.0
 
 ToolBar {
     height: Sizes.base

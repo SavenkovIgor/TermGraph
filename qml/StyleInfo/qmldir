@@ -1,0 +1,6 @@
+module StyleInfo
+
+Colors   1.0 Colors.js
+Fonts    1.0 Fonts.js
+IconPath 1.0 IconPath.js
+Sizes    1.0 Sizes.js

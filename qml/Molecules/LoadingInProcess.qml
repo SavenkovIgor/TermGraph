@@ -21,7 +21,7 @@
 
 import QtQuick 2.15
 
-import "../Js/Colors.js" as Colors
+import StyleInfo 1.0
 
 Rectangle {
     id: root

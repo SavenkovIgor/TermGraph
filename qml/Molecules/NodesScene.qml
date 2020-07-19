@@ -24,8 +24,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Shapes 1.15
 
 import "../Atoms" as A
-import "../Js/Fonts.js" as Fonts
-import "../Js/Colors.js" as Colors
+import StyleInfo 1.0
 
 import Notification 1.0
 

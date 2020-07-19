@@ -23,8 +23,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 
 import "../Atoms" as A
-import "../Js/Colors.js" as Colors
-import "../Js/Fonts.js" as Fonts
+import StyleInfo 1.0
 
 Column {
     property alias labelText: label.text

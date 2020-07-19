@@ -24,8 +24,7 @@ import QtQuick.Controls 2.15
 
 import "../Atoms" as A
 import "../Molecules" as M
-import "../Js/Colors.js" as Colors
-import "../Js/Sizes.js" as Sizes
+import StyleInfo 1.0
 
 Item {
     id: root

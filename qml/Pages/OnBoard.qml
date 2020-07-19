@@ -24,8 +24,7 @@ import QtQuick.Layouts 1.15
 
 import "../Atoms" as A
 import "../Molecules" as M
-import "../Js/IconPath.js" as IconPath
-import "../Js/Sizes.js" as Sizes
+import StyleInfo 1.0
 
 M.Page {
     id: root

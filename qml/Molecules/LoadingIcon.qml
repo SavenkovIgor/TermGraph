@@ -23,7 +23,7 @@ import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
 
-import "../Js/Colors.js" as Colors
+import StyleInfo 1.0
 import "../Atoms" as A
 
 Item {

@@ -26,9 +26,7 @@ import QtQuick.Dialogs 1.3
 //import QtQuick.Controls.Material 2.2
 
 import "Learning"
-import "Js/IconPath.js" as IconPath
-import "Js/Colors.js" as Colors
-import "Js/Sizes.js" as Sizes
+import StyleInfo 1.0
 import "Atoms" as A
 import "Molecules" as M
 import "Pages" as P

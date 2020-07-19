@@ -22,7 +22,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-import "../Js/Fonts.js" as Fonts
+import StyleInfo 1.0
 
 Button {
     id: btn
