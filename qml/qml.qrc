@@ -62,5 +62,8 @@
         <file>Molecules/LoadingInProcess.qml</file>
         <file>Molecules/LoadingIcon.qml</file>
         <file>Molecules/SideMenuHeader.qml</file>
+        <file>Atoms/DrawerPage.qml</file>
+        <file>Atoms/TopRoundedRect.qml</file>
+        <file>Atoms/PinBar.qml</file>
     </qresource>
 </RCC>
