@@ -81,6 +81,11 @@ target_sources (
             android/res/drawable-mdpi/icon.png
             android/res/drawable-ldpi/icon.png
             .devTools/goodcheck.yml
+            .devTools/asterisklicense.yml
+            .devTools/hashlicense.yml
+            .devTools/includerules.yml
+            .devTools/nodebug.yml
+            .devTools/qmlimport.yml
             .devTools/cmakeFormat.json)
 
 # Source folder

@@ -1,0 +1,15 @@
+- id: absoluteIncludePath
+  message: All includes must start from project root
+  glob:
+    - "source/**/**.h"
+    - "source/**/**.cpp"
+  pattern:
+    - /#include "(?!source)/
+
+- id: pragmaOnce
+  message: You must use pragma once in headers
+  glob:
+    - "source/**/**.h"
+  not:
+   pattern:
+     - /#pragma once/

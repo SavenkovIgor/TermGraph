@@ -1,0 +1,27 @@
+- id: importVersion.QtQuick
+  message: Invalid version of QtQuick import. Must be 2.15
+  glob:
+    - "**/**.qml"
+  pattern:
+    - /^import\s+QtQuick\s+2\.(?!15)/
+
+- id: importVersion.QtQuick.Controls
+  message: Invalid version of QtQuick.Controls import. Must be 2.15
+  glob:
+    - "**/**.qml"
+  pattern:
+    - /^import\s+QtQuick\.Controls\s+2\.(?!15)/
+
+- id: importVersion.QtQuick.Layouts
+  message: Invalid version of QtQuick.Layouts import. Must be 1.15
+  glob:
+    - "**/**.qml"
+  pattern:
+    - /^import\s+QtQuick\.Layouts\s+1\.(?!15)/
+
+- id: importVersion.QtQuick.Templates
+  message: Invalid version of QtQuick.Templates import. Must be 2.15
+  glob:
+    - "**/**.qml"
+  pattern:
+    - /^import\s+QtQuick\.Templates\s+2\.(?!15)/

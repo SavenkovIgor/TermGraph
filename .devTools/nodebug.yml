@@ -1,0 +1,15 @@
+- id: cpp.qdebugInclude
+  message: Remove QDebug
+  glob:
+    - "source/**/**.h"
+    - "source/**/**.cpp"
+  pattern:
+    - /#include <QDebug>/
+
+- id: cpp.qdebug
+  message: Remove qDebug or replace with qInfo, qWarning, qCritical or qFatal
+  glob:
+    - "source/**/**.h"
+    - "source/**/**.cpp"
+  pattern:
+    - /qDebug\(\)/
