@@ -22,8 +22,8 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-import "../Atoms" as A
-import "../Molecules" as M
+import "../../Atoms" as A
+import "../../Molecules" as M
 import StyleInfo 1.0
 
 M.Page {

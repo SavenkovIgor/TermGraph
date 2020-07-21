@@ -35,6 +35,15 @@ Button {
 
     flat: true
 
+    readonly property bool iconVisible: {
+        return display == AbstractButton.IconOnly || display == AbstractButton.TextBesideIcon
+    }
+    readonly property bool textVisible: {
+        return display == AbstractButton.TextOnly || display == AbstractButton.TextBesideIcon
+    }
+
+    display: AbstractButton.TextBesideIcon
+
     property color baseColor: {
         if (!enabled)
             return Colors.whiteDisabled;
@@ -44,20 +53,21 @@ Button {
 
     contentItem: Row {
 
-        spacing: icon.width / 5
+        spacing: buttonIcon.width / 5
 
         A.ToolButton {
-            id: icon
+            id: buttonIcon
 
             width: Sizes.baseR25
             height: Sizes.baseR25
             icon.color: root.baseColor
             icon.source: root.icon.source
+            visible: root.iconVisible
         }
 
         Text {
             id: label
-            height: icon.height
+            height: buttonIcon.height
 
             color: root.baseColor
             font: Fonts.setWeight(Fonts.capitalText, Font.Thin)
@@ -65,6 +75,7 @@ Button {
             verticalAlignment: Text.AlignVCenter
 
             text: root.text
+            visible: root.textVisible
         }
     }
 }

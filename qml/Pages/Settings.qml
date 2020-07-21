@@ -21,90 +21,55 @@
 
 import QtQuick 2.15
 import QtQuick.Controls 2.15
-import QtQuick.Layouts 1.15
 
 import "../Atoms" as A
 import "../Molecules" as M
+import "Settings" as S
+
 import StyleInfo 1.0
 
 M.Page {
+    id: root
+
     title: "Настройки"
 
-    contentItem: Column {
+    ListModel {
+        id: settingsModel
 
-        spacing: Sizes.baseR75
+        ListElement { name: "Настройки сети" }
+        ListElement { name: "База данных"    }
+        ListElement { name: "Справка"        }
+        ListElement { name: "Лицензия"       }
+    }
 
-        RowLayout {
+    Component { id: networkSettingsComponent; S.NetworkSettings { } }
+    Component { id: databaseComponent;        S.Database { } }
+    Component { id: helpPageComponent;        S.Help { } }
+    Component { id: licensePageComponent;     S.License { } }
 
-            spacing: Sizes.baseR50
-
-            GroupBox {
-
-                label: Control {
-                    padding: Sizes.baseR75
-                    bottomPadding: 0
-                    contentItem: A.AccentText { text: "Настройки сервера" }
-                }
-
-                background: Rectangle { color: "transparent"; border.color: Colors.accent; }
-                padding: Sizes.baseR75
-
-                contentItem: Column {
-                    RowLayout {
-
-                        Switch {
-                            scale: Qt.platform.os === "android" ? 2.0 : 1.0
-                            checked: false
-                            onCheckedChanged: { networkManager.synchronization = checked; }
-                        }
-
-                        Text {
-                            font: Fonts.text
-                            color: Colors.white
-                            text: networkManager.synchronizationState
-                        }
-                    }
-
-                    M.LabelPair {
-                        name: "Ip этого устройства"
-                        text: networkManager.getFirstLocalIpString()
-                    }
-                }
-
-            }
-
-        }
-
-        M.TextField {
-            labelText: "Ip получателя"
-            onTextChanged: { networkManager.setReceiverHostIp(text) }
-            Component.onCompleted: { text = networkManager.getReceiverIp() }
-            width: parent.width
-        }
-
-        M.LabelPair {
-            name: "Состояние подключения"
-            text: networkManager.connectionState
-            width: parent.width
-        }
-
-        A.SquareButton {
-            text: networkManager.isConnected ? "Отключиться" : "Подключиться"
-            onClicked:  {
-                if(networkManager.isConnected) {
-                    networkManager.disconnectFromHost()
-                } else {
-                    networkManager.connectToHost()
+    contentItem: ListView {
+        model: settingsModel
+        delegate: A.SideMenuButton {
+            width: ListView.view.width
+            text: name
+            display: AbstractButton.TextOnly
+            onClicked: {
+                const currIndex = index;
+                switch (index) {
+                case 0:
+                    root.StackView.view.push(networkSettingsComponent);
+                    break;
+                case 1:
+                    root.StackView.view.push(databaseComponent);
+                    break;
+                case 2:
+                    root.StackView.view.push(helpPageComponent);
+                    break;
+                case 3:
+                    root.StackView.view.push(licensePageComponent);
+                    break;
                 }
             }
-        }
-
-        M.LabelPair {
-            name: "Версия базы данных:"
-            text: mainObj.dbVersion()
-            width: parent.width
-
-            Component.onCompleted: { text = mainObj.dbVersion(); }
         }
     }
 }

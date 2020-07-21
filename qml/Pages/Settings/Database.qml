@@ -21,15 +21,25 @@
 
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
 
-import "../Molecules" as M
+import "../../Atoms" as A
+import "../../Molecules" as M
 import StyleInfo 1.0
 
 M.Page {
-    id: root
+    title: "База данных"
 
-    padding: 0
-    title: "Справка"
+    contentItem: Column {
 
-    contentItem: M.HelpView { }
+        spacing: Sizes.baseR75
+
+        M.LabelPair {
+            name: "Версия базы данных:"
+            text: mainObj.dbVersion()
+            width: parent.width
+
+            Component.onCompleted: { text = mainObj.dbVersion(); }
+        }
+    }
 }

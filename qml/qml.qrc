@@ -61,9 +61,11 @@
         <file>Pages/NewNode.qml</file>
         <file>Pages/Settings.qml</file>
         <file>Pages/TermView.qml</file>
-        <file>Pages/License.qml</file>
         <file>Pages/AppIconsSaving.qml</file>
-        <file>Pages/Help.qml</file>
+        <file>Pages/Settings/NetworkSettings.qml</file>
+        <file>Pages/Settings/Database.qml</file>
+        <file>Pages/Settings/License.qml</file>
+        <file>Pages/Settings/Help.qml</file>
         <file>Pages/OnBoard.qml</file>
         <file>main.qml</file>
     </qresource>

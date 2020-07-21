@@ -55,8 +55,6 @@ ApplicationWindow {
     Component { id: groupsListComponent;  P.GroupsList { } }
     Component { id: learnGroupsComponent; LearnGroupsList { } }
     Component { id: settingsComponent;    P.Settings { } }
-    Component { id: helpPageComponent;    P.Help { } }
-    Component { id: licensePageComponent; P.License { } }
     Component {
         id: onBoardComponent
         P.OnBoard { onFinished: stackView.replace(mainSceneComponent) }
@@ -114,21 +112,6 @@ ApplicationWindow {
                 icon.source: IconPath.loopCircular
                 Layout.fillWidth: true
                 visible: false
-            }
-
-            A.SideMenuButton {
-                text: "Справка"
-                icon.source: IconPath.questionMark
-                Layout.fillWidth: true
-
-                onClicked: stackView.push(helpPageComponent)
-            }
-
-            A.SideMenuButton {
-                text: "О программе"
-                Layout.fillWidth: true
-
-                onClicked: stackView.push(licensePageComponent)
             }
 
             Item { Layout.fillHeight: true; }
