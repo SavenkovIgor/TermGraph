@@ -67,56 +67,15 @@ ApplicationWindow {
         onTriggered: stackView.push(groupsListComponent)
     }
 
-    Drawer {
+    M.MainAppDrawer {
         id : appSideMenu
-        height: window.height
 
+        height: window.height
         interactive: stackView.depth === 1
 
-        onOpened: groupMenuButton.forceActiveFocus()
+        groupAction: openGroupsAction
 
-        background: Rectangle {
-            color: Colors.baseLight
-            A.RightThinLine { color: Colors.white; }
-        }
-
-        dragMargin: Qt.styleHints.startDragDistance * 2
-
-        contentItem: ColumnLayout {
-
-            spacing: 0
-
-            M.SideMenuHeader {
-                Layout.fillWidth: true
-                onSettingsClicked: stackView.push(settingsComponent)
-            }
-
-            A.SideMenuButton {
-                id: groupMenuButton
-                action: openGroupsAction
-                text: action.text
-                icon.source: action.icon.source
-                Layout.fillWidth: true
-            }
-
-            A.SideMenuButton {
-                text: "Изучение"
-                icon.source: IconPath.book
-                Layout.fillWidth: true
-                visible: false
-                onClicked: stackView.push(learnGroupsComponent)
-            }
-
-            A.SideMenuButton {
-                text: "Синхронизация"
-                icon.source: IconPath.loopCircular
-                Layout.fillWidth: true
-                visible: false
-            }
-
-            Item { Layout.fillHeight: true; }
-        }
-
+        onOpenSettings: stackView.push(settingsComponent)
     }
 
     M.NotificationDrawer {
