@@ -63,53 +63,43 @@ M.Page {
         }
     }
 
-    contentItem:  A.VerticalFlickable {
-        id: flick
+    contentItem:  A.FlickableColumn {
+        spacing: 14
 
-        contentWidth:  contentColumn.width
-        contentHeight: contentColumn.height
+        M.LabelPair {
+            name: "Dbg:"
+            text: scene.getCurrNodeDebugInfo()
+            visible: text !== ""
+        }
 
-        ColumnLayout {
-            id: contentColumn
+        M.LabelPair {
+            name: "Название:"
+            text: scene.currentNode.term
+            visible: text !== ""
+        }
 
-            spacing: 14
-            width: flick.width
+        M.LabelPair {
+            name: "Определение:"
+            text: tagTools.decorateTags(scene.getCurrNodeNameAndDefinition())
+            visible: text !== ""
+        }
 
-            M.LabelPair {
-                name: "Dbg:"
-                text: scene.getCurrNodeDebugInfo()
-                visible: text !== ""
-            }
+        M.LabelPair {
+            name: "Иерархия определений:"
+            text: scene.getCurrNodeHierarchyDefinition()
+            visible: text !== ""
+        }
 
-            M.LabelPair {
-                name: "Название:"
-                text: scene.currentNode.term
-                visible: text !== ""
-            }
+        M.LabelPair {
+            name: "Описание:"
+            text: scene.currentNode.description
+            visible: text !== ""
+        }
 
-            M.LabelPair {
-                name: "Определение:"
-                text: tagTools.decorateTags(scene.getCurrNodeNameAndDefinition())
-                visible: text !== ""
-            }
-
-            M.LabelPair {
-                name: "Иерархия определений:"
-                text: scene.getCurrNodeHierarchyDefinition()
-                visible: text !== ""
-            }
-
-            M.LabelPair {
-                name: "Описание:"
-                text: scene.currentNode.description
-                visible: text !== ""
-            }
-
-            M.LabelPair {
-                name: "Пример:"
-                text: scene.currentNode.examples
-                visible: text !== ""
-            }
+        M.LabelPair {
+            name: "Пример:"
+            text: scene.currentNode.examples
+            visible: text !== ""
         }
     }
 }

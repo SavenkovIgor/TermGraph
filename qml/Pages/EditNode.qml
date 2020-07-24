@@ -134,95 +134,84 @@ M.Page {
         onClicked: termDefin.removeTag()
     }
 
-    contentItem: A.VerticalFlickable {
-        id: flick
+    contentItem: A.FlickableColumn {
 
-        contentWidth:  contentColumn.width
-        contentHeight: contentColumn.height
+        M.LabelPair {
+            id: nodeUuidText
+            name: "Uuid термина:"
+            textObj.wrapMode: Text.NoWrap
+            textObj.minimumPixelSize: Fonts.text.pixelSize / 2
+            textObj.fontSizeMode: Text.HorizontalFit
+            Layout.fillWidth: true
+        }
 
-        ColumnLayout {
-            id: contentColumn
+        M.TextField {
+            id: termName
+            Layout.fillWidth: true
+            labelText: "Термин:"
+        }
 
-            spacing: mainObj.getUiElementSize("colSpace")
-            width: flick.width
+        M.TagEditorArea {
+            id: termDefin
+            Layout.fillWidth: true
+        }
 
-            M.LabelPair {
-                id: nodeUuidText
-                name: "Uuid термина:"
-                textObj.wrapMode: Text.NoWrap
-                textObj.minimumPixelSize: Fonts.text.pixelSize / 2
-                textObj.fontSizeMode: Text.HorizontalFit
+        M.TextArea {
+            id: termDescr
+            Layout.fillWidth: true
+            labelText : "Описание:"
+        }
+
+        M.TextArea {
+            id: termExampl
+            Layout.fillWidth: true
+            labelText: "Примеры:"
+        }
+
+        M.TextField {
+            visible: false
+            Layout.fillWidth: true
+
+            labelText: "Ссылка на Wiki статью:"
+            placeholderText: "http://"
+        }
+
+        M.TextField {
+            visible: false
+            Layout.fillWidth: true
+
+            labelText: "Ссылка на Wiki изображение:"
+            placeholderText: "http://"
+        }
+
+        // Здесь есть проблема с anchors
+        RowLayout {
+            id: currentGroupEditableRow
+
+            Layout.fillWidth: true
+            spacing: root.width * 0.025
+
+            A.AccentText { text : "Группа:" }
+
+            A.ComboBox {
+                id: nodeGroup
                 Layout.fillWidth: true
-            }
 
-            M.TextField {
-                id: termName
-                Layout.fillWidth: true
-                labelText: "Термин:"
-            }
+                model: groupsManager.allUuidSorted
 
-            M.TagEditorArea {
-                id: termDefin
-                Layout.fillWidth: true
-            }
-
-            M.TextArea {
-                id: termDescr
-                Layout.fillWidth: true
-                labelText : "Описание:"
-            }
-
-            M.TextArea {
-                id: termExampl
-                Layout.fillWidth: true
-                labelText: "Примеры:"
-            }
-
-            M.TextField {
-                visible: false
-                Layout.fillWidth: true
-
-                labelText: "Ссылка на Wiki статью:"
-                placeholderText: "http://"
-            }
-
-            M.TextField {
-                visible: false
-                Layout.fillWidth: true
-
-                labelText: "Ссылка на Wiki изображение:"
-                placeholderText: "http://"
-            }
-
-            // Здесь есть проблема с anchors
-            RowLayout {
-                id: currentGroupEditableRow
-
-                Layout.fillWidth: true
-                spacing: root.width * 0.025
-
-                A.AccentText { text : "Группа:" }
-
-                A.ComboBox {
-                    id: nodeGroup
-                    Layout.fillWidth: true
-
-                    model: groupsManager.allUuidSorted
-
-                    function selectElement(name) {
-                        let index = find(name)
-                        if (index !== -1) {
-                            currentIndex = index
-                        }
+                function selectElement(name) {
+                    let index = find(name)
+                    if (index !== -1) {
+                        currentIndex = index
                     }
                 }
             }
+        }
 
-            M.LabelPair {
-                id: lastEditText
-                Layout.fillWidth: true
-                name: "Последняя правка:"
-            }
+        M.LabelPair {
+            id: lastEditText
+            Layout.fillWidth: true
+            name: "Последняя правка:"
         }
     }
 

@@ -115,78 +115,66 @@ M.Page {
         onClicked: termDefin.removeTag()
     }
 
-    contentItem: A.VerticalFlickable {
-        id: flick
+    contentItem: A.FlickableColumn {
 
-        contentWidth:  contentColumn.width
-        contentHeight: contentColumn.height
+        RowLayout {
+            id: currentGroupFixedRow
 
-        ColumnLayout {
-            id: contentColumn
+            property string groupUuid: ""
 
-            spacing: mainObj.getUiElementSize("colSpace")
-            width: flick.width
+            spacing: 6
+            Layout.fillWidth: true
 
-            RowLayout {
-                id: currentGroupFixedRow
+            A.AccentText { text: "Группа:" }
 
-                property string groupUuid: ""
-
-                spacing: 6
+            Text {
                 Layout.fillWidth: true
+                leftPadding: 15
 
-                A.AccentText { text: "Группа:" }
+                font: Fonts.text
+                wrapMode: TextEdit.NoWrap
+                elide: Text.ElideRight
+                color: Colors.white
 
-                Text {
-                    Layout.fillWidth: true
-                    leftPadding: 15
-
-                    font: Fonts.text
-                    wrapMode: TextEdit.NoWrap
-                    elide: Text.ElideRight
-                    color: Colors.white
-
-                    text: groupsManager.getGroupName(currentGroupFixedRow.groupUuid)
-                }
+                text: groupsManager.getGroupName(currentGroupFixedRow.groupUuid)
             }
+        }
 
-            M.TextField {
-                id: termName
-                Layout.fillWidth: true
-                labelText: "Термин:"
-            }
+        M.TextField {
+            id: termName
+            Layout.fillWidth: true
+            labelText: "Термин:"
+        }
 
-            M.TagEditorArea {
-                id: termDefin
-                Layout.fillWidth: true
-            }
+        M.TagEditorArea {
+            id: termDefin
+            Layout.fillWidth: true
+        }
 
-            M.TextArea {
-                id: termDescr
-                Layout.fillWidth: true
-                labelText : "Описание:"
-            }
+        M.TextArea {
+            id: termDescr
+            Layout.fillWidth: true
+            labelText : "Описание:"
+        }
 
-            M.TextArea {
-                id: termExampl
-                Layout.fillWidth: true
-                labelText: "Примеры:"
-            }
+        M.TextArea {
+            id: termExampl
+            Layout.fillWidth: true
+            labelText: "Примеры:"
+        }
 
-            M.TextField {
-                visible: false
-                Layout.fillWidth: true
-                labelText: "Ссылка на Wiki статью:"
-                placeholderText: "http://"
-            }
+        M.TextField {
+            visible: false
+            Layout.fillWidth: true
+            labelText: "Ссылка на Wiki статью:"
+            placeholderText: "http://"
+        }
 
-            M.TextField {
-                visible: false
-                Layout.fillWidth: true
-                labelText: "Ссылка на Wiki изображение:"
-                placeholderText: "http://"
-            }
-
+        M.TextField {
+            visible: false
+            Layout.fillWidth: true
+            labelText: "Ссылка на Wiki изображение:"
+            placeholderText: "http://"
         }
     }
 

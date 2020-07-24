@@ -13,7 +13,7 @@
         <file>Atoms/ThinLine.qml</file>
         <file>Atoms/ToolButton.qml</file>
         <file>Atoms/Term.qml</file>
-        <file>Atoms/VerticalFlickable.qml</file>
+        <file>Atoms/FlickableColumn.qml</file>
         <file>Atoms/ScrollIndicator.qml</file>
         <file>Atoms/RoundedRectangle.qml</file>
         <file>Atoms/Round.qml</file>

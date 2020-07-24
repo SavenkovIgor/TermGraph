@@ -20,10 +20,26 @@
  */
 
 import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
 Flickable {
+    id: flick
+
+    default property alias contentData: contentColumn.data
+    property alias spacing: contentColumn.spacing
+
     flickableDirection: Flickable.VerticalFlick
     boundsBehavior: Flickable.DragAndOvershootBounds
 
     ScrollIndicator.vertical: ScrollIndicator { }
+
+    contentWidth:  contentColumn.width
+    contentHeight: contentColumn.height
+
+    ColumnLayout {
+        id: contentColumn
+
+        spacing: mainObj.getUiElementSize("colSpace")
+        width: flick.width
+    }
 }
