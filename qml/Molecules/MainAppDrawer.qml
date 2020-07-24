@@ -25,19 +25,22 @@ import QtQuick.Layouts 1.15
 
 import StyleInfo 1.0
 import "../Atoms" as A
+import "../Js/Tools.js" as Tools
 
 Drawer {
     id : root
 
+    required property int maxWidth
     property alias groupAction: groupMenuButton.action
+
     signal openSettings
 
     onOpened: groupMenuButton.forceActiveFocus()
 
     dragMargin: Qt.styleHints.startDragDistance * 2
+    width: Tools.clamp(implicitWidth * 1.3, implicitWidth, root.maxWidth)
 
-    contentItem: ColumnLayout {
-
+    contentItem: A.FlickableColumn {
         spacing: 0
 
         SideMenuHeader {
@@ -66,7 +69,50 @@ Drawer {
             visible: false
         }
 
-        Item { Layout.fillHeight: true; }
+        ListView {
+            id: groupListView
+
+            property real maxWidth: 0
+
+            Layout.fillWidth: true
+
+            keyNavigationEnabled: true
+            model: groupsManager.allUuidSorted
+
+            height: contentHeight
+
+            delegate: ItemDelegate {
+                id: groupLstDlgt
+
+                width: ListView.view.width
+
+                contentItem: Text {
+
+                    padding: font.pixelSize / 4
+
+                    color: Colors.white
+                    font: Fonts.setWeight(Fonts.text, Font.Thin)
+                    fontSizeMode: Text.HorizontalFit
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignLeft
+
+                    text: groupsManager.getGroupName(modelData)
+                }
+
+                background: Rectangle {
+                    color: groupLstDlgt.ListView.isCurrentItem ? "darkGray" : "transparent"
+                    A.BottomThinLine { color: Colors.white }
+                }
+
+                Keys.onReturnPressed: apply()
+                onClicked: apply()
+
+                function apply() {
+                    root.close();
+                    scene.selectGroup(modelData);
+                }
+            }
+        }
     }
 
     background: Rectangle {

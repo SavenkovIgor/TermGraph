@@ -36,6 +36,8 @@ Flickable {
     contentWidth:  contentColumn.width
     contentHeight: contentColumn.height
 
+    implicitWidth: contentColumn.implicitWidth
+
     ColumnLayout {
         id: contentColumn
 

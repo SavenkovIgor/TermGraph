@@ -29,7 +29,6 @@
         <file>Molecules/TextArea.qml</file>
         <file>Molecules/TextField.qml</file>
         <file>Molecules/LabelPair.qml</file>
-        <file>Molecules/GroupsDrawer.qml</file>
         <file>Molecules/HelpCard.qml</file>
         <file>Molecules/Page.qml</file>
         <file>Molecules/DefaultHeader.qml</file>

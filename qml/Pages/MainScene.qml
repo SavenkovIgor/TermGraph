@@ -454,34 +454,6 @@ M.Page {
         showLoading: scene.groupLoading
     }
 
-    A.RoundButton {
-        anchors { top: parent.top; right: parent.right; margins: width / 2; }
-        visible: groupsManager.hasAnyGroup
-
-        action: Action {
-            id: showGroupListAction
-            icon.source: IconPath.spreadsheet
-            enabled: root.thisPageVisible
-            onTriggered: groupsList.open()
-        }
-    }
-
-    M.GroupsDrawer {
-        id : groupsList
-
-        y: root.header.height
-        width: Math.min(window.width * 0.8, groupsList.maxWidth)
-        height: sceneFlick.height
-
-        clip: true
-        interactive: root.thisPageVisible
-
-        Shortcut {
-            sequence: "Ctrl+Left"
-            onActivated: groupsList.open()
-        }
-    }
-
     M.EmptyView {
         anchors.fill: sceneFlick
         visible: !groupsManager.hasAnyGroup
@@ -499,6 +471,6 @@ M.Page {
         mainText: "Группа не выбрана"
         detailedText: ""
         buttonText: "Открыть список групп"
-        onClicked: showGroupListAction.trigger()
+        onClicked: root.openMainMenu()
     }
 }

@@ -75,6 +75,8 @@ ApplicationWindow {
 
         groupAction: openGroupsAction
 
+        maxWidth: window.width * 0.8
+
         onOpenSettings: stackView.push(settingsComponent)
     }
 
