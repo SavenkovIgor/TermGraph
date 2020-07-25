@@ -39,7 +39,6 @@
         <file>Molecules/EmptyView.qml</file>
         <file>Molecules/NodesScene.qml</file>
         <file>Molecules/HelpView.qml</file>
-        <file>Molecules/SearchResults.qml</file>
         <file>Molecules/LoadingInProcess.qml</file>
         <file>Molecules/LoadingIcon.qml</file>
         <file>Molecules/SideMenuHeader.qml</file>

@@ -67,6 +67,7 @@ A.DrawerPage {
                 property string searchReq: searchText.displayText
 
                 model: scene.search(searchReq)
+                boundsBehavior: Flickable.StopAtBounds
 
                 delegate: ItemDelegate {
                     id: item
