@@ -43,6 +43,8 @@ Drawer {
     contentItem: A.FlickableColumn {
         spacing: 0
 
+        boundsBehavior: Flickable.StopAtBounds
+
         SideMenuHeader {
             Layout.fillWidth: true
             onSettingsClicked: root.openSettings()
@@ -80,6 +82,8 @@ Drawer {
             model: groupsManager.allUuidSorted
 
             height: contentHeight
+
+            boundsBehavior: Flickable.StopAtBounds
 
             delegate: ItemDelegate {
                 id: groupLstDlgt

@@ -189,6 +189,9 @@ QStringList MainScene::search(const QString& text)
 {
     QStringList ret;
 
+    if (text.isEmpty())
+        return ret;
+
     if (mCurrentGroup) {
         auto nearestUuids  = mCurrentGroup->searchNearest(text);
         auto containsUuids = mCurrentGroup->searchContains(text);

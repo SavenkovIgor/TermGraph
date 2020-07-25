@@ -100,99 +100,23 @@ M.Page {
         id: header
         onOpenMainMenu: root.openMainMenu()
 
-        TextField {
-            id : searchText
-            Layout.fillWidth: true
-            font: Fonts.inputText
-            selectByMouse: true
-
-            color: Colors.white
-            placeholderTextColor: Colors.whiteDisabled
-            placeholderText: "Поиск"
-
-            onTextChanged: {
-                if (text !== "")
-                    header.setSelectionWithResults();
-            }
-
-            Keys.onReturnPressed: searchResult.forceActiveFocus();
-            Keys.onDownPressed: searchResult.forceActiveFocus();
-        }
-
-        states: [
-            State {
-                name: "selection"
-                PropertyChanges { target: header; titleVisible: false; }
-                PropertyChanges { target: searchText; visible: true; }
-                StateChangeScript {
-                    script: {
-                        searchText.forceActiveFocus();
-                        searchText.text = "";
-                        searchResult.close();
-                    }
-                }
-            },
-
-            State {
-                name: "selectionWithResults"
-                PropertyChanges { target: header; titleVisible: false; }
-                PropertyChanges { target: searchText; visible: true; }
-                StateChangeScript { script: { searchResult.open(); } }
-            },
-
-            State {
-                name: "noSelection"
-                PropertyChanges { target: header; titleVisible: true; }
-                PropertyChanges { target: searchText; visible: false; }
-                StateChangeScript {
-                    script: {
-                        sceneFlick.forceActiveFocus();
-                        searchResult.close();
-                    }
-                }
-            }
-        ]
-
-        function setNoSelection() { state = "noSelection"; }
-        function setSelectionWithResults() { state = "selectionWithResults"; }
-        function setSelection() { state = "selection"; }
-
-        function switchSelection() {
-            if (state === "selection" || state === "selectionWithResults")
-                setNoSelection();
-            else
-                setSelection();
-        }
-
-        state: "noSelection"
-
         A.ToolButton {
-            id: searchBtn
-
             action: Action {
                 text: "Поиск"
                 shortcut: "Ctrl+F"
                 icon.source: IconPath.magnifyingGlass
-                onTriggered: header.switchSelection()
+                onTriggered: searchDrawer.open()
             }
         }
     }
 
-    M.SearchResults {
-        id: searchResult
+    M.SearchDrawer {
+        id: searchDrawer
 
-        x: searchText.x
-        y: 0
-        width: searchText.width
-        model: {
-            let searchRequest = searchText.text;
-            return searchRequest !== "" ? scene.search(searchRequest) : undefined;
-        }
+        width: parent.width
+        height: parent.height * 0.65
 
-        onClicked: {
-            sceneFlick.selectUuid(nodeUuid);
-            header.setNoSelection();
-        }
+        onSearchResultClicked: sceneFlick.selectUuid(nodeUuid)
     }
 
     PinchArea {
@@ -264,6 +188,11 @@ M.Page {
 
         property bool animationEnabled: false
         readonly property int moveAnimationDuration: 800
+        property size effectiveSceneSize: {
+            if (searchDrawer.visible)
+                return Qt.size(width, height - searchDrawer.height);
+            return Qt.size(width, availableHeight);
+        }
 
         A.Timer {
             interval: sceneFlick.moveAnimationDuration * 1.1
@@ -296,8 +225,8 @@ M.Page {
         }
 
         function pointToCenter(pt) {
-            pt.x -= sceneFlick.width / 2;
-            pt.y -= sceneFlick.height / 2;
+            pt.x -= effectiveSceneSize.width / 2;
+            pt.y -= effectiveSceneSize.height / 2;
             moveToPoint(pt);
         }
 

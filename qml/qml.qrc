@@ -68,5 +68,6 @@
         <file>Pages/OnBoard.qml</file>
         <file>main.qml</file>
         <file>Molecules/MainAppDrawer.qml</file>
+        <file>Molecules/SearchDrawer.qml</file>
     </qresource>
 </RCC>
