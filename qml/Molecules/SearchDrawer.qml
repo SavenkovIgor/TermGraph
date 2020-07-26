@@ -33,7 +33,10 @@ A.DrawerPage {
 
     leftPadding:  Sizes.baseR50
 
-    onAboutToShow: searchText.forceActiveFocus()
+    onAboutToShow: {
+        searchText.clear();
+        searchText.forceActiveFocus();
+    }
 
     contentItem: ColumnLayout {
 
