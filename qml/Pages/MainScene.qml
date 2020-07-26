@@ -119,6 +119,22 @@ M.Page {
         onSearchResultClicked: sceneFlick.selectUuid(nodeUuid)
     }
 
+    M.TermInfoDrawer {
+        id: termDrawer
+
+        width: parent.width
+        height: implicitHeight
+
+        onOpenInfoPage: {
+            close();
+            root.StackView.view.push(termViewComponent);
+        }
+        onEditNode: {
+            close();
+            changeNodeAction.trigger();
+        }
+    }
+
     PinchArea {
         property real initialWidth
         property real initialHeight
@@ -350,6 +366,7 @@ M.Page {
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
 
         action: Action {
+            id: changeNodeAction
             text: "Изменить вершину"
             icon.source: IconPath.pencil
             shortcut: "Ctrl+e"
@@ -373,7 +390,7 @@ M.Page {
             shortcut: "Ctrl+i"
             onTriggered: {
                 if (scene.hasSelection)
-                    root.StackView.view.push(termViewComponent)
+                    termDrawer.open();
             }
         }
     }

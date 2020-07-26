@@ -68,5 +68,6 @@
         <file>main.qml</file>
         <file>Molecules/MainAppDrawer.qml</file>
         <file>Molecules/SearchDrawer.qml</file>
+        <file>Molecules/TermInfoDrawer.qml</file>
     </qresource>
 </RCC>
