@@ -29,6 +29,7 @@ RoundButton {
 
     property real size: Sizes.base
     readonly property real iconPart: 0.46
+    property color bgColor: Colors.white
 
     implicitWidth:  root.size
     implicitHeight: root.size
@@ -38,6 +39,6 @@ RoundButton {
 
     display: AbstractButton.IconOnly
 
-    background: Round { color: Colors.white }
+    background: Round { color: root.bgColor }
 }
 

@@ -34,6 +34,7 @@ Drawer {
     topPadding:   Sizes.baseR75
     leftPadding:  Sizes.baseR75
     rightPadding: Sizes.baseR75
+    bottomPadding:   Sizes.baseR75
 
     dim: false
 

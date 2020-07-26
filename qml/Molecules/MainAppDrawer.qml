@@ -43,8 +43,6 @@ Drawer {
     contentItem: A.FlickableColumn {
         spacing: 0
 
-        boundsBehavior: Flickable.StopAtBounds
-
         SideMenuHeader {
             Layout.fillWidth: true
             onSettingsClicked: root.openSettings()

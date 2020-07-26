@@ -29,7 +29,7 @@ Flickable {
     property alias spacing: contentColumn.spacing
 
     flickableDirection: Flickable.VerticalFlick
-    boundsBehavior: Flickable.DragAndOvershootBounds
+    boundsBehavior: Flickable.StopAtBounds
 
     ScrollIndicator.vertical: ScrollIndicator { }
 
@@ -37,6 +37,7 @@ Flickable {
     contentHeight: contentColumn.height
 
     implicitWidth: contentColumn.implicitWidth
+    implicitHeight: contentColumn.implicitHeight
 
     ColumnLayout {
         id: contentColumn
