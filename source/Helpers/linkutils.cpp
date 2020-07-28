@@ -342,12 +342,12 @@ opt<StrRange> LinkUtils::findBracketsPair(QStringView str, LinkUtils::Cursor fro
 {
     auto cursor = TextCursor(str, from);
 
-    if (!cursor.moveRight(&isLeftBracket))
+    if (!cursor.moveRight(leftBracket))
         return std::nullopt;
 
     auto leftBracket = cursor.pos();
 
-    if (!cursor.moveRight(&isRightBracket))
+    if (!cursor.moveRight(rightBracket))
         return std::nullopt;
 
     auto rightBracket = cursor.pos();
