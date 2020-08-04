@@ -29,7 +29,12 @@
 class TextRange
 {
 public:
+    TextRange(QStringView view, int left, int right);
     TextRange(QStringView view, int startPos, TextCursor::Condition leftCondition, TextCursor::Condition rightCondition);
+    TextRange(QStringView               view,
+              int                       startPos,
+              TextCursor::FullCondition leftCondition,
+              TextCursor::FullCondition rightCondition);
 
     int leftPos() const;
     int rightPos() const;
@@ -37,6 +42,7 @@ public:
     bool isEmpty() const;
 
 private:
+    bool              isValid = true;
     const QStringView mString;
     TextCursor        mLeftCursor;
     TextCursor        mRightCursor;

@@ -30,6 +30,8 @@ target_sources (
     PRIVATE ${CMAKE_SOURCE_DIR}/source/Helpers/linkutils.cpp
             ${CMAKE_SOURCE_DIR}/source/Helpers/linkutils.h
             ${CMAKE_SOURCE_DIR}/source/Helpers/handytypes.h
+            ${CMAKE_SOURCE_DIR}/source/Helpers/text/chartools.cpp
+            ${CMAKE_SOURCE_DIR}/source/Helpers/text/chartools.h
             ${CMAKE_SOURCE_DIR}/source/Helpers/text/textcursor.cpp
             ${CMAKE_SOURCE_DIR}/source/Helpers/text/textcursor.h
             ${CMAKE_SOURCE_DIR}/source/Helpers/text/textrange.cpp

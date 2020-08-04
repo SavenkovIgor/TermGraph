@@ -22,6 +22,7 @@
 #include "source/Model/Termin/innerlink.h"
 
 #include "source/Helpers/linkutils.h"
+#include "source/Helpers/text/chartools.h"
 
 InnerLink::InnerLink(const QString& srcString, StrRange range)
     : mBaseString(srcString)
@@ -72,13 +73,13 @@ QString InnerLink::getLower(QStringView text) { return text.toString().toLower()
 
 opt<QUuid> InnerLink::tryGetUuid(QStringView fullLink)
 {
-    assert(fullLink[fullLink.size() - 1] == LinkUtils::rightBracket);
+    assert(fullLink[fullLink.size() - 1] == CharTools::rightBracket);
 
     auto index = fullLink.lastIndexOf('|');
     if (index != -1) {
         auto size    = fullLink.size() - 1 - index;
         auto uuidCut = fullLink.mid(index + 1, size).toString(); // Without braces
-        auto uuidStr = LinkUtils::leftBracket + uuidCut + LinkUtils::rightBracket;
+        auto uuidStr = CharTools::leftBracket + uuidCut + CharTools::rightBracket;
         auto uuid    = QUuid::fromString(uuidStr);
         if (!uuid.isNull())
             return uuid;

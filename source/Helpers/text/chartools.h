@@ -19,25 +19,19 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Helpers/uuid/uuidtools.h"
+#pragma once
 
-#include "source/Helpers/linkutils.h"
-#include "source/Helpers/text/chartools.h"
-#include "source/Helpers/validators/uuidvalidator.h"
+#include <QChar>
 
-opt<QUuid> UuidTools::createFromStringWithoutBraces(const QString &uuidString)
+class CharTools
 {
-    if (!UuidValidator::isValidUuidStringWihtoutBraces(uuidString))
-        return std::nullopt;
+public:
+    constexpr static auto leftBracket  = '{';
+    constexpr static auto rightBracket = '}';
 
-    auto innerUuidString = uuidString;
-    innerUuidString.prepend(CharTools::leftBracket);
-    innerUuidString.append(CharTools::rightBracket);
-
-    auto uuid = QUuid::fromString(innerUuidString);
-
-    if (uuid.isNull())
-        return std::nullopt;
-
-    return uuid;
-}
+    static bool isBracket(const QChar& ch);
+    static bool isLeftBracket(const QChar& ch);
+    static bool isRightBracket(const QChar& ch);
+    static bool isLetterOrNumber(const QChar& ch);
+    static bool isLetterOrNumberInverse(const QChar& ch);
+};

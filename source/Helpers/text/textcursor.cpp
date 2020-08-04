@@ -82,18 +82,6 @@ bool TextCursor::moveLeft(TextCursor::Condition whileCond) { return move(Directi
 
 bool TextCursor::moveRight(TextCursor::Condition whileCond) { return move(Direction::Right, whileCond); }
 
-bool TextCursor::moveLeft(const QChar &stopChar)
-{
-    auto cond = [stopChar](const QChar &ch) { return ch == stopChar; };
-    return move(Direction::Left, cond);
-}
-
-bool TextCursor::moveRight(const QChar &stopChar)
-{
-    auto cond = [stopChar](const QChar &ch) { return ch == stopChar; };
-    return move(Direction::Right, cond);
-}
-
 bool TextCursor::move(Direction dir, const QChar &stopChar)
 {
     auto cond = [stopChar](const QChar &ch) { return ch == stopChar; };

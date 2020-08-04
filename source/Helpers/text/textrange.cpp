@@ -21,10 +21,31 @@
 
 #include "source/Helpers/text/textrange.h"
 
+TextRange::TextRange(QStringView view, int left, int right)
+    : mString(view)
+    , mLeftCursor(view, left)
+    , mRightCursor(view, right)
+{}
+
 TextRange::TextRange(QStringView           view,
                      int                   startPos,
                      TextCursor::Condition leftCondition,
                      TextCursor::Condition rightCondition)
+    : mString(view)
+    , mLeftCursor(view, startPos)
+    , mRightCursor(view, startPos)
+{
+    if (!mLeftCursor.move(Direction::Left, leftCondition))
+        isValid = false;
+
+    if (!mRightCursor.move(Direction::Right, rightCondition))
+        isValid = false;
+}
+
+TextRange::TextRange(QStringView               view,
+                     int                       startPos,
+                     TextCursor::FullCondition leftCondition,
+                     TextCursor::FullCondition rightCondition)
     : mString(view)
     , mLeftCursor(view, startPos)
     , mRightCursor(view, startPos)

@@ -131,6 +131,8 @@ target_sources (
             source/Helpers/text/textcursor.h
             source/Helpers/text/textrange.cpp
             source/Helpers/text/textrange.h
+            source/Helpers/text/chartools.cpp
+            source/Helpers/text/chartools.h
             source/Managers/groupsmanager.cpp
             source/Managers/groupsmanager.h
             source/Managers/jsongroupinfocontainerparser.cpp

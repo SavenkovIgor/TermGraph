@@ -72,18 +72,5 @@ public:
 
     static bool isRangeOnBrackets(QStringView str, StrRange range);
 
-    // Exit conditions
-    static bool isBracket(const QChar& ch);
-    static bool isLeftBracket(const QChar& ch);
-    static bool isRightBracket(const QChar& ch);
-    static bool isLetterOrNumber(const QChar& ch);
-    static bool isLetterOrNumberInverse(const QChar& ch);
-    static bool isSpaceCharacter(const QChar& ch);
-
-    constexpr static int  nullCursor   = -1;
-    constexpr static auto leftBracket  = '{';
-    constexpr static auto rightBracket = '}';
-
-private:
-    constexpr static auto emptyBrackets = "{}";
+    constexpr static int nullCursor = -1;
 };

@@ -47,8 +47,6 @@ public:
     bool moveLeft(Condition whileCond);
     bool moveRight(Condition whileCond);
 
-    bool moveLeft(const QChar& stopChar);
-    bool moveRight(const QChar& stopChar);
     bool move(Direction dir, const QChar& stopChar);
 
     bool canMove(Direction dir) const;
