@@ -31,3 +31,5 @@ using SizesList = std::vector<QSizeF>;
 
 template<class T>
 using opt = std::optional<T>;
+
+enum class Direction { Left, Right };

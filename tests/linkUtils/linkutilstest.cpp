@@ -428,8 +428,8 @@ private slots:
         QFETCH(int, startFrom);
         QFETCH(QChar, bracket);
 
-        auto left  = LinkUtils::SearchDirection::Left;
-        auto right = LinkUtils::SearchDirection::Right;
+        auto left  = Direction::Left;
+        auto right = Direction::Right;
 
         if (dir == 1) {
             QVERIFY(LinkUtils::getBracket(src, startFrom, right) == bracket);

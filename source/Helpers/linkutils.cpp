@@ -60,8 +60,8 @@ bool LinkUtils::isInsideTag(QStringView str, LinkUtils::Cursor cursor)
     if (!TextCursor::isValidCursor(str, cursor))
         return false;
 
-    QChar firstLeftBracket  = getBracket(str, cursor, SearchDirection::Left);
-    QChar firstRightBracket = getBracket(str, cursor, SearchDirection::Right);
+    QChar firstLeftBracket  = getBracket(str, cursor, Direction::Left);
+    QChar firstRightBracket = getBracket(str, cursor, Direction::Right);
 
     return firstLeftBracket == leftBracket && firstRightBracket == rightBracket;
 }
@@ -101,13 +101,13 @@ QString LinkUtils::expandTagRight(QString str, LinkUtils::Cursor cursor)
         return str;
 
     // Move to right bracket
-    auto bracketPos = findCursor(str, cursor, SearchDirection::Right, isBracket);
+    auto bracketPos = findCursor(str, cursor, Direction::Right, isBracket);
     // Move to word
-    auto wordStartPos = findCursor(str, bracketPos + 1, SearchDirection::Right, isLetterOrNumber);
+    auto wordStartPos = findCursor(str, bracketPos + 1, Direction::Right, isLetterOrNumber);
     if (wordStartPos == -1)
         return str;
 
-    auto openBracketPos = findCursor(str, bracketPos + 1, SearchDirection::Right, isLeftBracket);
+    auto openBracketPos = findCursor(str, bracketPos + 1, Direction::Right, isLeftBracket);
 
     // Protection from capturing next tag
     if (openBracketPos != nullCursor) {
@@ -116,7 +116,7 @@ QString LinkUtils::expandTagRight(QString str, LinkUtils::Cursor cursor)
         }
     }
 
-    auto wordEndPos = findCursor(str, wordStartPos, SearchDirection::Right, isLetterOrNumberInverse);
+    auto wordEndPos = findCursor(str, wordStartPos, Direction::Right, isLetterOrNumberInverse);
 
     if (wordStartPos != nullCursor && wordEndPos == nullCursor) {
         wordEndPos = str.size();
@@ -144,8 +144,8 @@ QString LinkUtils::removeTag(QString str, LinkUtils::Cursor cursor)
     if (!isInsideTag(str, cursor))
         return str;
 
-    auto leftBracketPos  = findCursor(str, cursor, SearchDirection::Left, isBracket);
-    auto rightBracketPos = findCursor(str, cursor, SearchDirection::Right, isBracket);
+    auto leftBracketPos  = findCursor(str, cursor, Direction::Left, isBracket);
+    auto rightBracketPos = findCursor(str, cursor, Direction::Right, isBracket);
 
     //Сначала удаляем правую, потом левую из за смещения индексов
     str.remove(rightBracketPos, 1);
@@ -280,7 +280,7 @@ int LinkUtils::wordsCount(const QString& string)
     return 0;
 }
 
-QChar LinkUtils::getBracket(QStringView str, LinkUtils::Cursor from, LinkUtils::SearchDirection direction)
+QChar LinkUtils::getBracket(QStringView str, LinkUtils::Cursor from, Direction direction)
 {
     auto cursor = findCursor(str, from, direction, isBracket);
 
@@ -288,8 +288,8 @@ QChar LinkUtils::getBracket(QStringView str, LinkUtils::Cursor from, LinkUtils::
         return {};
 
     switch (direction) {
-    case SearchDirection::Left: return str[cursor - 1];
-    case SearchDirection::Right: return str[cursor];
+    case Direction::Left: return str[cursor - 1];
+    case Direction::Right: return str[cursor];
     }
 
     return {};
@@ -315,10 +315,7 @@ int LinkUtils::getMaxBracketsDepth(QStringView str)
     return maxDepth;
 }
 
-LinkUtils::Cursor LinkUtils::findCursor(QStringView     str,
-                                        Cursor          from,
-                                        SearchDirection direction,
-                                        CharCondition   exitCondition)
+LinkUtils::Cursor LinkUtils::findCursor(QStringView str, Cursor from, Direction direction, CharCondition exitCondition)
 {
     auto cursor = TextCursor(str, from);
 
@@ -332,12 +329,12 @@ opt<StrRange> LinkUtils::findBracketsPair(QStringView str, LinkUtils::Cursor fro
 {
     auto cursor = TextCursor(str, from);
 
-    if (!cursor.moveRight(leftBracket))
+    if (!cursor.move(Direction::Right, leftBracket))
         return std::nullopt;
 
     auto leftBracket = cursor.pos();
 
-    if (!cursor.moveRight(rightBracket))
+    if (!cursor.move(Direction::Right, rightBracket))
         return std::nullopt;
 
     auto rightBracket = cursor.pos();

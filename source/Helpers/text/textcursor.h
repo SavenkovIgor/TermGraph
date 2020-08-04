@@ -29,9 +29,8 @@
 class TextCursor
 {
 public:
-    using Condition = std::function<bool(const QChar&)>;
-
-    enum class Direction { Left, Right };
+    using Condition     = std::function<bool(const QChar&)>;
+    using FullCondition = std::function<bool(const opt<QChar&>, const opt<QChar&>)>;
 
     TextCursor(QStringView strView, int pos);
 
@@ -39,23 +38,23 @@ public:
     inline static bool     isValidCursor(QStringView view, int cursor) { return 0 <= cursor && cursor <= view.size(); }
     static opt<TextCursor> tryCreateCursor(QStringView view, int pos);
 
+    bool move(Direction dir);
     bool moveLeft();
     bool moveRight();
 
+    bool move(Direction dir, Condition whileCond);
     bool moveLeft(Condition whileCond);
     bool moveRight(Condition whileCond);
 
     bool moveLeft(const QChar& stopChar);
     bool moveRight(const QChar& stopChar);
-
-    bool move(Direction dir, Condition whileCond);
     bool move(Direction dir, const QChar& stopChar);
 
-    bool canMoveLeft() const;
-    bool canMoveRight() const;
+    bool canMove(Direction dir) const;
 
     int pos() const;
 
+    opt<QChar> lrChar(Direction dir) const;
     opt<QChar> left() const;
     opt<QChar> right() const;
 

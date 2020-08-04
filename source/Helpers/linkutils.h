@@ -40,8 +40,6 @@ public:
     using Cursor        = int;
     using CharCondition = std::function<bool(const QChar&)>;
 
-    using SearchDirection = TextCursor::Direction;
-
     // Tags
     static bool isInsideTag(QStringView str, Cursor cursor);
 
@@ -65,11 +63,11 @@ public:
     // Brackets
     static bool isPairedBrackets(QStringView str);
 
-    static QChar getBracket(QStringView str, Cursor from, SearchDirection direction);
+    static QChar getBracket(QStringView str, Cursor from, Direction direction);
     static int   getMaxBracketsDepth(QStringView str);
 
     // Cursor
-    static Cursor findCursor(QStringView str, Cursor from, SearchDirection direction, CharCondition exitCondition);
+    static Cursor        findCursor(QStringView str, Cursor from, Direction direction, CharCondition exitCondition);
     static opt<StrRange> findBracketsPair(QStringView str, Cursor from);
 
     static bool isRangeOnBrackets(QStringView str, StrRange range);

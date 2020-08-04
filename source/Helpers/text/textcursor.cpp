@@ -36,75 +36,51 @@ opt<TextCursor> TextCursor::tryCreateCursor(QStringView view, int pos)
     return TextCursor(view, pos);
 }
 
-bool TextCursor::moveLeft()
+bool TextCursor::move(TextCursor::Direction dir)
 {
     assert(isValidCursor());
-    if (canMoveLeft()) {
-        mPos--;
+
+    if (canMove(dir)) {
+        int offset = dir == Direction::Left ? -1 : 1;
+        mPos += offset;
         return true;
     }
     return false;
 }
 
-bool TextCursor::moveRight()
-{
-    assert(isValidCursor());
-    if (canMoveRight()) {
-        mPos++;
-        return true;
-    }
+bool TextCursor::moveLeft() { return move(Direction::Left); }
 
-    return false;
-}
+bool TextCursor::moveRight() { return move(Direction::Right); }
 
-bool TextCursor::moveLeft(TextCursor::Condition whileCond)
+bool TextCursor::move(TextCursor::Direction dir, TextCursor::Condition whileCond)
 {
     do {
-        auto character = left();
+        auto character = lrChar(dir);
         if (!character)
             return false;
 
         if (whileCond(character.value()))
             return true;
 
-    } while (moveLeft());
+    } while (move(dir));
 
     return false;
 }
 
-bool TextCursor::moveRight(TextCursor::Condition whileCond)
-{
-    do {
-        auto character = right();
-        if (!character)
-            return false;
+bool TextCursor::moveLeft(TextCursor::Condition whileCond) { return move(Direction::Left, whileCond); }
 
-        if (whileCond(character.value()))
-            return true;
-
-    } while (moveRight());
-
-    return false;
-}
+bool TextCursor::moveRight(TextCursor::Condition whileCond) { return move(Direction::Right, whileCond); }
 
 bool TextCursor::moveLeft(const QChar &stopChar)
 {
     auto cond = [stopChar](const QChar &ch) { return ch == stopChar; };
-    return moveLeft(cond);
+    return move(Direction::Left, cond);
 }
 
 bool TextCursor::moveRight(const QChar &stopChar)
 {
     auto cond = [stopChar](const QChar &ch) { return ch == stopChar; };
-    return moveRight(cond);
-}
-
-bool TextCursor::move(TextCursor::Direction dir, TextCursor::Condition whileCond)
-{
-    if (dir == Direction::Right)
-        return moveRight(whileCond);
-
-    return moveLeft(whileCond);
+    return move(Direction::Right, cond);
 }
 
 bool TextCursor::move(TextCursor::Direction dir, const QChar &stopChar)
@@ -113,26 +89,27 @@ bool TextCursor::move(TextCursor::Direction dir, const QChar &stopChar)
     return move(dir, cond);
 }
 
-bool TextCursor::canMoveLeft() const { return mPos > 0; }
-
-bool TextCursor::canMoveRight() const { return mPos < mString.size(); }
+bool TextCursor::canMove(TextCursor::Direction dir) const
+{
+    if (dir == Direction::Left)
+        return mPos > 0;
+    else
+        return mPos < mString.size();
+}
 
 int TextCursor::pos() const { return mPos; }
 
-opt<QChar> TextCursor::left() const
+opt<QChar> TextCursor::lrChar(TextCursor::Direction dir) const
 {
     assert(isValidCursor());
-    if (!canMoveLeft()) // On left border
+
+    if (!canMove(dir)) // Near border
         return std::nullopt;
 
-    return mString[mPos - 1];
+    int offset = dir == Direction::Left ? -1 : 0;
+    return mString[mPos + offset];
 }
 
-opt<QChar> TextCursor::right() const
-{
-    assert(isValidCursor());
-    if (!canMoveRight()) // On right border
-        return std::nullopt;
+opt<QChar> TextCursor::left() const { return lrChar(Direction::Left); }
 
-    return mString[mPos];
-}
+opt<QChar> TextCursor::right() const { return lrChar(Direction::Right); }
