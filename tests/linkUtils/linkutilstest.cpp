@@ -285,56 +285,52 @@ private slots:
 
     void wordBorder_data()
     {
-        QTest::addColumn<int>("dir");
         QTest::addColumn<QString>("src");
         QTest::addColumn<int>("startFrom");
-        QTest::addColumn<int>("targetPosition");
+        QTest::addColumn<int>("leftPos");
+        QTest::addColumn<int>("rightPos");
+        QTest::addColumn<bool>("isEmpty");
 
         // Предполагается что -1 - влево, 1 - вправо
         // В пустой строке поиск и в лево и вправо должен вовращать 0
         // clang-format off
-        QTest::newRow("case0")  << -1 << ""      << 0 << 0;
-        QTest::newRow("case1")  <<  1 << ""      << 0 << 0;
-        QTest::newRow("case2")  << -1 << " "     << 0 << 0;
-        QTest::newRow("case3")  <<  1 << " "     << 0 << 0;
-        QTest::newRow("case4")  << -1 << " "     << 1 << 1;
-        QTest::newRow("case5")  <<  1 << " "     << 1 << 1;
-        QTest::newRow("case6")  << -1 << " a"    << 1 << 1;
-        QTest::newRow("case7")  <<  1 << " a"    << 1 << 2;
-        QTest::newRow("case8")  << -1 << "ab"    << 0 << 0;
-        QTest::newRow("case9")  <<  1 << "ab"    << 0 << 2;
-        QTest::newRow("case10") << -1 << "ab"    << 1 << 0;
-        QTest::newRow("case11") <<  1 << "ab"    << 1 << 2;
-        QTest::newRow("case12") << -1 << "ab"    << 2 << 0;
-        QTest::newRow("case13") <<  1 << "ab"    << 2 << 2;
-        QTest::newRow("case14") << -1 << " ab "  << 0 << 0;
-        QTest::newRow("case15") <<  1 << " ab "  << 0 << 0;
-        QTest::newRow("case16") << -1 << " ab "  << 1 << 1;
-        QTest::newRow("case17") <<  1 << " ab "  << 1 << 3;
-        QTest::newRow("case18") << -1 << " ab, " << 1 << 1;
-        QTest::newRow("case19") <<  1 << " ab, " << 1 << 3;
-        QTest::newRow("case20") << -1 << " a a " << 3 << 3;
-        QTest::newRow("case21") <<  1 << " a a " << 3 << 4;
-        QTest::newRow("case22") << -1 << " a a " << 4 << 3;
-        QTest::newRow("case23") <<  1 << " a a " << 4 << 4;
+        QTest::newRow("case0")  << ""      << 0 << 0 << 0 << true;
+        QTest::newRow("case1")  << " "     << 0 << 0 << 0 << true;
+        QTest::newRow("case2")  << " "     << 1 << 1 << 1 << true;
+        QTest::newRow("case3")  << "  "    << 1 << 1 << 1 << true;
+        QTest::newRow("case4")  << " a"    << 0 << 0 << 0 << true;
+        QTest::newRow("case5")  << " a"    << 1 << 1 << 2 << false;
+        QTest::newRow("case6")  << "ab"    << 0 << 0 << 2 << false;
+        QTest::newRow("case7")  << "ab"    << 1 << 0 << 2 << false;
+        QTest::newRow("case8")  << "ab"    << 2 << 0 << 2 << false;
+        QTest::newRow("case9")  << " ab "  << 0 << 0 << 0 << true;
+        QTest::newRow("case10") << " ab "  << 1 << 1 << 3 << false;
+        QTest::newRow("case11") << " ab "  << 2 << 1 << 3 << false;
+        QTest::newRow("case12") << " ab "  << 3 << 1 << 3 << false;
+        QTest::newRow("case13") << " ab "  << 4 << 4 << 4 << true;
+        QTest::newRow("case14") << " ab, " << 1 << 1 << 3 << false;
+        QTest::newRow("case15") << " ab, " << 3 << 1 << 3 << false;
+        QTest::newRow("case16") << " ab, " << 4 << 4 << 4 << true;
+        QTest::newRow("case17") << " a a " << 1 << 1 << 2 << false;
+        QTest::newRow("case18") << " a a " << 2 << 1 << 2 << false;
+        QTest::newRow("case19") << " a a " << 3 << 3 << 4 << false;
+        QTest::newRow("case20") << " a a " << 4 << 3 << 4 << false;
         // clang-format on
     }
 
     void wordBorder()
     {
-        QFETCH(int, dir);
         QFETCH(QString, src);
         QFETCH(int, startFrom);
-        QFETCH(int, targetPosition);
+        QFETCH(int, leftPos);
+        QFETCH(int, rightPos);
+        QFETCH(bool, isEmpty);
 
-        auto left  = LinkUtils::SearchDirection::Left;
-        auto right = LinkUtils::SearchDirection::Right;
+        auto borders = LinkUtils::findWordBorders(src, startFrom);
 
-        if (dir == 1)
-            QVERIFY(LinkUtils::findWordBorder(src, startFrom, right) == targetPosition);
-
-        if (dir == -1)
-            QVERIFY(LinkUtils::findWordBorder(src, startFrom, left) == targetPosition);
+        QVERIFY(borders.leftPos() == leftPos);
+        QVERIFY(borders.rightPos() == rightPos);
+        QVERIFY(borders.isEmpty() == isEmpty);
     }
 
     void wordsCount_data()

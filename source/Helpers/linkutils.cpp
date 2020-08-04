@@ -83,12 +83,11 @@ QString LinkUtils::addTag(QString str, Cursor cursor)
     if (isInsideTag(str, cursor))
         return str;
 
-    int leftWordBorder  = findWordBorder(str, cursor, SearchDirection::Left);
-    int rightWordBorder = findWordBorder(str, cursor, SearchDirection::Right);
+    auto wordBorders = findWordBorders(str, cursor);
 
     //Сначала вставляем правую, потом левую из за смещения курсора
-    str.insert(rightWordBorder, rightBracket);
-    str.insert(leftWordBorder, leftBracket);
+    str.insert(wordBorders.rightPos(), rightBracket);
+    str.insert(wordBorders.leftPos(), leftBracket);
 
     return str;
 }
@@ -268,18 +267,9 @@ StrRange::List LinkUtils::extractTagRanges(QStringView str)
     return ret;
 }
 
-LinkUtils::Cursor LinkUtils::findWordBorder(QStringView str, LinkUtils::Cursor from, LinkUtils::SearchDirection dir)
+TextRange LinkUtils::findWordBorders(QStringView str, LinkUtils::Cursor from)
 {
-    auto cursor = findCursor(str, from, dir, isLetterOrNumberInverse);
-
-    if (cursor == nullCursor) {
-        switch (dir) {
-        case SearchDirection::Left: return 0;
-        case SearchDirection::Right: return str.size();
-        }
-    }
-
-    return cursor;
+    return TextRange(str, from, isLetterOrNumberInverse, isLetterOrNumberInverse);
 }
 
 int LinkUtils::wordsCount(const QString& string)

@@ -129,6 +129,8 @@ target_sources (
             source/Helpers/exclusivecall.h
             source/Helpers/text/textcursor.cpp
             source/Helpers/text/textcursor.h
+            source/Helpers/text/textrange.cpp
+            source/Helpers/text/textrange.h
             source/Managers/groupsmanager.cpp
             source/Managers/groupsmanager.h
             source/Managers/jsongroupinfocontainerparser.cpp

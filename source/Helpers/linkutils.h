@@ -31,6 +31,7 @@
 #include "source/Helpers/handytypes.h"
 #include "source/Helpers/strrange.h"
 #include "source/Helpers/text/textcursor.h"
+#include "source/Helpers/text/textrange.h"
 
 // Static class
 class LinkUtils
@@ -58,8 +59,8 @@ public:
     static opt<int> getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit);
 
     // Words
-    static Cursor findWordBorder(QStringView str, Cursor from, SearchDirection dir);
-    static int    wordsCount(const QString& string);
+    static TextRange findWordBorders(QStringView str, Cursor from);
+    static int       wordsCount(const QString& string);
 
     // Brackets
     static bool isPairedBrackets(QStringView str);
