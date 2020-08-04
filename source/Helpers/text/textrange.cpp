@@ -29,8 +29,8 @@ TextRange::TextRange(QStringView           view,
     , mLeftCursor(view, startPos)
     , mRightCursor(view, startPos)
 {
-    mLeftCursor.move(TextCursor::Direction::Left, leftCondition);
-    mRightCursor.move(TextCursor::Direction::Right, rightCondition);
+    mLeftCursor.move(Direction::Left, leftCondition);
+    mRightCursor.move(Direction::Right, rightCondition);
 }
 
 int TextRange::leftPos() const { return mLeftCursor.pos(); }

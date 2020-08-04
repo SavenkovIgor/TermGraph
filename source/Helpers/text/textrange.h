@@ -23,6 +23,7 @@
 
 #include <QStringView>
 
+#include "source/Helpers/handytypes.h"
 #include "source/Helpers/text/textcursor.h"
 
 class TextRange

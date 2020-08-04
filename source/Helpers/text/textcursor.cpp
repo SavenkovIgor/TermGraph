@@ -36,7 +36,7 @@ opt<TextCursor> TextCursor::tryCreateCursor(QStringView view, int pos)
     return TextCursor(view, pos);
 }
 
-bool TextCursor::move(TextCursor::Direction dir)
+bool TextCursor::move(Direction dir)
 {
     assert(isValidCursor());
 
@@ -52,7 +52,7 @@ bool TextCursor::moveLeft() { return move(Direction::Left); }
 
 bool TextCursor::moveRight() { return move(Direction::Right); }
 
-bool TextCursor::move(TextCursor::Direction dir, TextCursor::Condition whileCond)
+bool TextCursor::move(Direction dir, TextCursor::Condition whileCond)
 {
     do {
         auto character = lrChar(dir);
@@ -60,6 +60,17 @@ bool TextCursor::move(TextCursor::Direction dir, TextCursor::Condition whileCond
             return false;
 
         if (whileCond(character.value()))
+            return true;
+
+    } while (move(dir));
+
+    return false;
+}
+
+bool TextCursor::move(Direction dir, TextCursor::FullCondition fullCond)
+{
+    do {
+        if (fullCond(left(), right()))
             return true;
 
     } while (move(dir));
@@ -83,13 +94,13 @@ bool TextCursor::moveRight(const QChar &stopChar)
     return move(Direction::Right, cond);
 }
 
-bool TextCursor::move(TextCursor::Direction dir, const QChar &stopChar)
+bool TextCursor::move(Direction dir, const QChar &stopChar)
 {
     auto cond = [stopChar](const QChar &ch) { return ch == stopChar; };
     return move(dir, cond);
 }
 
-bool TextCursor::canMove(TextCursor::Direction dir) const
+bool TextCursor::canMove(Direction dir) const
 {
     if (dir == Direction::Left)
         return mPos > 0;
@@ -99,7 +110,7 @@ bool TextCursor::canMove(TextCursor::Direction dir) const
 
 int TextCursor::pos() const { return mPos; }
 
-opt<QChar> TextCursor::lrChar(TextCursor::Direction dir) const
+opt<QChar> TextCursor::lrChar(Direction dir) const
 {
     assert(isValidCursor());
 

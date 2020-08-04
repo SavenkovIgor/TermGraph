@@ -30,7 +30,7 @@ class TextCursor
 {
 public:
     using Condition     = std::function<bool(const QChar&)>;
-    using FullCondition = std::function<bool(const opt<QChar&>, const opt<QChar&>)>;
+    using FullCondition = std::function<bool(const opt<QChar>, const opt<QChar>)>;
 
     TextCursor(QStringView strView, int pos);
 
@@ -43,6 +43,7 @@ public:
     bool moveRight();
 
     bool move(Direction dir, Condition whileCond);
+    bool move(Direction dir, FullCondition fullCond);
     bool moveLeft(Condition whileCond);
     bool moveRight(Condition whileCond);
 
