@@ -21,15 +21,53 @@
 
 #include "source/Helpers/validators/linktextvalidator.h"
 
-#include "source/Helpers/linkutils.h"
+#include "source/Helpers/text/chartools.h"
 
 bool LinkTextValidator::isValidLinkString(const QString& linkString)
 {
-    if (!LinkUtils::isPairedBrackets(linkString))
+    if (!isPairedBrackets(linkString))
         return false;
 
-    if (LinkUtils::getMaxBracketsDepth(linkString) > 1)
+    if (bracketsMaxDepth(linkString) > 1)
         return false;
 
     return true;
+}
+
+bool LinkTextValidator::isPairedBrackets(QStringView str)
+{
+    int depth = 0;
+
+    for (auto sym : str) {
+        if (sym == CharTools::leftBracket) {
+            depth++;
+        } else if (sym == CharTools::rightBracket) {
+            depth--;
+        }
+
+        if (depth < 0)
+            return false;
+    }
+
+    return depth == 0;
+}
+
+int LinkTextValidator::bracketsMaxDepth(QStringView str)
+{
+    // Check before call!
+    assert(isPairedBrackets(str));
+
+    int depth    = 0;
+    int maxDepth = 0;
+
+    for (auto sym : str) {
+        if (sym == CharTools::leftBracket) {
+            depth++;
+        } else if (sym == CharTools::rightBracket) {
+            depth--;
+        }
+        maxDepth = std::max(maxDepth, depth);
+    }
+
+    return maxDepth;
 }

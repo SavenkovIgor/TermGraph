@@ -52,8 +52,7 @@ public:
 
     static bool tagLengthSuitTerm(const QString& tag, const QString& termName);
 
-    static int getLevDistance(QStringView src, QStringView dst, int limit = 100000);
-
+    static int      getLevDistance(QStringView src, QStringView dst, int limit = 100000);
     static opt<int> getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit);
 
     // Words
@@ -61,10 +60,7 @@ public:
     static int       wordsCount(const QString& string);
 
     // Brackets
-    static bool isPairedBrackets(QStringView str);
-
     static QChar getBracket(QStringView str, Cursor from, Direction direction);
-    static int   getMaxBracketsDepth(QStringView str);
 
     // Cursor
     static Cursor        findCursor(QStringView str, Cursor from, Direction direction, CharCondition exitCondition);

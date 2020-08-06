@@ -25,24 +25,7 @@
 
 #include "source/Helpers/intmatrix.h"
 #include "source/Helpers/text/chartools.h"
-
-bool LinkUtils::isPairedBrackets(QStringView str)
-{
-    int depth = 0;
-
-    for (auto sym : str) {
-        if (sym == CharTools::leftBracket) {
-            depth++;
-        } else if (sym == CharTools::rightBracket) {
-            depth--;
-        }
-
-        if (depth < 0)
-            return false;
-    }
-
-    return depth == 0;
-}
+#include "source/Helpers/validators/linktextvalidator.h"
 
 bool LinkUtils::isInsideTag(QStringView str, LinkUtils::Cursor cursor)
 {
@@ -145,7 +128,7 @@ QString LinkUtils::removeTag(QString str, LinkUtils::Cursor cursor)
 
 QString LinkUtils::replaceTags(QString str, const QString& leftReplacer, const QString& rightReplacer)
 {
-    if (!isPairedBrackets(str))
+    if (!LinkTextValidator::isPairedBrackets(str))
         return str;
 
     str.replace(CharTools::leftBracket, leftReplacer);
@@ -282,26 +265,6 @@ QChar LinkUtils::getBracket(QStringView str, LinkUtils::Cursor from, Direction d
     }
 
     return {};
-}
-
-int LinkUtils::getMaxBracketsDepth(QStringView str)
-{
-    if (!isPairedBrackets(str))
-        return -1;
-
-    int depth    = 0;
-    int maxDepth = 0;
-
-    for (auto sym : str) {
-        if (sym == CharTools::leftBracket) {
-            depth++;
-        } else if (sym == CharTools::rightBracket) {
-            depth--;
-        }
-        maxDepth = std::max(maxDepth, depth);
-    }
-
-    return maxDepth;
 }
 
 LinkUtils::Cursor LinkUtils::findCursor(QStringView str, Cursor from, Direction direction, CharCondition exitCondition)

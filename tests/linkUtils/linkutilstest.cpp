@@ -29,6 +29,7 @@
 // add necessary includes here
 #include "source/Helpers/linkutils.h"
 #include "source/Helpers/text/textcursor.h"
+#include "source/Helpers/validators/linktextvalidator.h"
 
 class LinkUtilsTest : public QObject
 {
@@ -388,7 +389,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(bool, result);
-        QVERIFY(LinkUtils::isPairedBrackets(text) == result);
+        QVERIFY(LinkTextValidator::isPairedBrackets(text) == result);
     }
 
     void nearestBracket_data()
@@ -446,17 +447,12 @@ private slots:
         QTest::addColumn<int>("result");
 
         // clang-format off
-        QTest::newRow("case0")  << "{"               << -1;
-        QTest::newRow("case1")  << "}"               << -1;
-        QTest::newRow("case2")  << "{{"              << -1;
-        QTest::newRow("case3")  << "}}"              << -1;
-        QTest::newRow("case4")  << "  "              << 0;
-        QTest::newRow("case5")  << "{}"              << 1;
-        QTest::newRow("case6")  << "aa}"             << -1;
-        QTest::newRow("case7")  << "}aa"             << -1;
-        QTest::newRow("case8")  << "{{{}}}  "        << 3;
-        QTest::newRow("case9")  << "a{a}a{a}a{a}a"   << 1;
-        QTest::newRow("case10") << "a{}  {{{}}} {}a" << 3;
+        QTest::newRow("case0") << ""                << 0;
+        QTest::newRow("case1") << "  "              << 0;
+        QTest::newRow("case2") << "{}"              << 1;
+        QTest::newRow("case3") << "{{{}}}  "        << 3;
+        QTest::newRow("case4") << "a{a}a{a}a{a}a"   << 1;
+        QTest::newRow("case5") << "a{}  {{{}}} {}a" << 3;
         // clang-format on
     }
 
@@ -464,7 +460,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(int, result);
-        QVERIFY(LinkUtils::getMaxBracketsDepth(text) == result);
+        QVERIFY(LinkTextValidator::bracketsMaxDepth(text) == result);
     }
 
     void validCursor_data()
