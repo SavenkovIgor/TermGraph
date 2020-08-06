@@ -24,7 +24,7 @@
 #include "source/Helpers/linkutils.h"
 #include "source/Helpers/text/chartools.h"
 
-InnerLink::InnerLink(const QString& srcString, StrRange range)
+InnerLink::InnerLink(const QString& srcString, TextRange range)
     : mBaseString(srcString)
     , mLink(getLink(srcString, range))
     , mLinkText(getText(mLink))
@@ -49,14 +49,14 @@ QUuid InnerLink::uuid() const
     return mUuid;
 }
 
-QStringView InnerLink::getLink(const QString& srcString, StrRange range)
+QStringView InnerLink::getLink(const QString& srcString, TextRange range)
 {
     assert(srcString.size() > 2);
-    assert(LinkUtils::isRangeOnBrackets(srcString, range));
+    assert(LinkUtils::isRangeOnLink(srcString, range));
 
     assert(range.size() >= 2);
 
-    return QStringView(srcString.midRef(range.left(), range.size()));
+    return QStringView(srcString.midRef(range.leftPos(), range.size()));
 }
 
 QStringView InnerLink::getText(QStringView fullLink)

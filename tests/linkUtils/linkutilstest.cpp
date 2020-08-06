@@ -181,6 +181,59 @@ private slots:
         }
     }
 
+    void linkCount_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<int>("result");
+
+        // clang-format off
+        QTest::newRow("case0")  << "{a}{b}{}"      << 3;
+        QTest::newRow("case1")  << "{}"            << 1;
+        QTest::newRow("case2")  << " abcd "        << 0;
+        // clang-format on
+    }
+
+    void linkCount()
+    {
+        QFETCH(QString, src);
+        QFETCH(int, result);
+
+        QVERIFY(LinkUtils::linksCount(src) == result);
+    }
+
+    void linkAt_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<int>("index");
+        QTest::addColumn<int>("start");
+        QTest::addColumn<int>("end");
+
+        // clang-format off
+        QTest::newRow("case0") << "{a}{b}{}" << 0 << 0 << 3;
+        QTest::newRow("case1") << "{a}{b}{}" << 1 << 3 << 6;
+        QTest::newRow("case2") << "{a}{b}{}" << 2 << 6 << 8;
+        QTest::newRow("case3") << " {a} {b} {} " << 0 << 1 << 4;
+        QTest::newRow("case4") << " {a} {b} {} " << 1 << 5 << 8;
+        QTest::newRow("case5") << " {a} {b} {} " << 2 << 9 << 11;
+        QTest::newRow("case6") << "{}"       << 0 << 0 << 2;
+        QTest::newRow("case7") << "{asdf}"   << 0 << 0 << 6;
+        QTest::newRow("case8") << " {   } "  << 0 << 1 << 6;
+        // clang-format on
+    }
+
+    void linkAt()
+    {
+        QFETCH(QString, src);
+        QFETCH(int, index);
+        QFETCH(int, start);
+        QFETCH(int, end);
+
+        auto range = LinkUtils::linkAt(src, index);
+
+        QVERIFY(range.leftPos() == start);
+        QVERIFY(range.rightPos() == end);
+    }
+
     void linkExtraction_data()
     {
         QTest::addColumn<QString>("src");
@@ -327,7 +380,7 @@ private slots:
         QFETCH(int, rightPos);
         QFETCH(bool, isEmpty);
 
-        auto borders = LinkUtils::findWordBorders(src, startFrom);
+        auto borders = TextRange::selectWord(src, startFrom);
 
         QVERIFY(borders.leftPos() == leftPos);
         QVERIFY(borders.rightPos() == rightPos);

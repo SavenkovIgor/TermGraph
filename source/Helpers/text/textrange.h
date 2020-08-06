@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include <vector>
+
 #include <QStringView>
 
 #include "source/Helpers/handytypes.h"
@@ -29,21 +31,24 @@
 class TextRange
 {
 public:
-    TextRange(QStringView view, int left, int right);
-    TextRange(QStringView view, int startPos, TextCursor::Condition leftCondition, TextCursor::Condition rightCondition);
-    TextRange(QStringView               view,
-              int                       startPos,
-              TextCursor::FullCondition leftCondition,
-              TextCursor::FullCondition rightCondition);
+    using List = std::vector<TextRange>;
 
     int leftPos() const;
     int rightPos() const;
+    int size() const;
 
     bool isEmpty() const;
 
-private:
-    bool              isValid = true;
+    // Static creation stuff
+    static TextRange      selectWord(QStringView str, int startPos);
+    static opt<TextRange> selectLink(QStringView str, int startPos);
+
+private: // Methods
+    TextRange(QStringView view, int left, int right);
+    TextRange(QStringView view, TextCursor left, TextCursor right);
+
+private: // Members
     const QStringView mString;
-    TextCursor        mLeftCursor;
-    TextCursor        mRightCursor;
+    const TextCursor  mLeftCursor;
+    const TextCursor  mRightCursor;
 };

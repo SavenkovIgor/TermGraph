@@ -23,7 +23,7 @@
 
 #include "source/Helpers/text/chartools.h"
 
-bool LinkTextValidator::isValidLinkString(const QString& linkString)
+bool LinkTextValidator::isValidLinkString(QStringView linkString)
 {
     if (!isPairedBrackets(linkString))
         return false;

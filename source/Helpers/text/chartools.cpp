@@ -30,3 +30,32 @@ bool CharTools::isRightBracket(const QChar &ch) { return ch == rightBracket; }
 bool CharTools::isLetterOrNumber(const QChar &ch) { return ch.isLetterOrNumber(); }
 
 bool CharTools::isLetterOrNumberInverse(const QChar &ch) { return !ch.isLetterOrNumber(); }
+
+bool CharTools::isLetterLeftAndNotLetterRight(const opt<QChar> lSym, const opt<QChar> rSym)
+{
+    if (!lSym.has_value())
+        return false;
+
+    if (isLetterOrNumber(lSym.value())) {
+        if (!rSym.has_value())
+            return true;
+        else
+            return !isLetterOrNumber(rSym.value());
+    }
+
+    return false;
+}
+
+bool CharTools::isLeftBracketOnRight([[maybe_unused]] const opt<QChar> lSym, const opt<QChar> rSym)
+{
+    if (!rSym.has_value())
+        return false;
+    return rSym.value() == leftBracket;
+}
+
+bool CharTools::isRightBracketOnLeft(const opt<QChar> lSym, [[maybe_unused]] const opt<QChar> rSym)
+{
+    if (!lSym.has_value())
+        return false;
+    return lSym.value() == rightBracket;
+}

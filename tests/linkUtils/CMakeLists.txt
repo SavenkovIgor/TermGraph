@@ -40,8 +40,6 @@ target_sources (
             ${CMAKE_SOURCE_DIR}/source/Helpers/validators/linktextvalidator.h
             ${CMAKE_SOURCE_DIR}/source/Helpers/intmatrix.cpp
             ${CMAKE_SOURCE_DIR}/source/Helpers/intmatrix.h
-            ${CMAKE_SOURCE_DIR}/source/Helpers/strrange.cpp
-            ${CMAKE_SOURCE_DIR}/source/Helpers/strrange.h
             linkutilstest.cpp)
 
 add_test (NAME ${TEST_PROJECT_NAME} COMMAND ${TEST_PROJECT_NAME})

@@ -21,41 +21,50 @@
 
 #include "source/Helpers/text/textrange.h"
 
+#include "source/Helpers/text/chartools.h"
+
+int TextRange::leftPos() const { return mLeftCursor.pos(); }
+
+int TextRange::rightPos() const { return mRightCursor.pos(); }
+
+int TextRange::size() const { return mRightCursor.pos() - mLeftCursor.pos(); }
+
+bool TextRange::isEmpty() const { return leftPos() == rightPos(); }
+
+TextRange TextRange::selectWord(QStringView str, int startPos)
+{
+    auto left  = TextCursor(str, startPos);
+    auto right = TextCursor(str, startPos);
+
+    left.moveLeft(CharTools::isLetterOrNumberInverse);
+    right.moveRight(CharTools::isLetterOrNumberInverse);
+
+    return TextRange(str, left, right);
+}
+
+opt<TextRange> TextRange::selectLink(QStringView str, int startPos)
+{
+    auto left = TextCursor(str, startPos);
+
+    if (!left.move(Direction::Left, CharTools::isLeftBracketOnRight))
+        return std::nullopt;
+
+    // Second bracket must be righter than first, so +1
+    auto right = TextCursor(str, startPos + 1);
+    if (!right.move(Direction::Right, CharTools::isRightBracketOnLeft))
+        return std::nullopt;
+
+    return TextRange(str, left, right);
+}
+
 TextRange::TextRange(QStringView view, int left, int right)
     : mString(view)
     , mLeftCursor(view, left)
     , mRightCursor(view, right)
 {}
 
-TextRange::TextRange(QStringView           view,
-                     int                   startPos,
-                     TextCursor::Condition leftCondition,
-                     TextCursor::Condition rightCondition)
+TextRange::TextRange(QStringView view, TextCursor left, TextCursor right)
     : mString(view)
-    , mLeftCursor(view, startPos)
-    , mRightCursor(view, startPos)
-{
-    if (!mLeftCursor.move(Direction::Left, leftCondition))
-        isValid = false;
-
-    if (!mRightCursor.move(Direction::Right, rightCondition))
-        isValid = false;
-}
-
-TextRange::TextRange(QStringView               view,
-                     int                       startPos,
-                     TextCursor::FullCondition leftCondition,
-                     TextCursor::FullCondition rightCondition)
-    : mString(view)
-    , mLeftCursor(view, startPos)
-    , mRightCursor(view, startPos)
-{
-    mLeftCursor.move(Direction::Left, leftCondition);
-    mRightCursor.move(Direction::Right, rightCondition);
-}
-
-int TextRange::leftPos() const { return mLeftCursor.pos(); }
-
-int TextRange::rightPos() const { return mRightCursor.pos(); }
-
-bool TextRange::isEmpty() const { return leftPos() == rightPos(); }
+    , mLeftCursor(left)
+    , mRightCursor(right)
+{}

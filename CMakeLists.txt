@@ -120,8 +120,6 @@ target_sources (
             source/Helpers/intmatrix.h
             source/Helpers/asyncgroupbuilder.cpp
             source/Helpers/asyncgroupbuilder.h
-            source/Helpers/strrange.cpp
-            source/Helpers/strrange.h
             source/Helpers/uuid/uuidtools.cpp
             source/Helpers/uuid/uuidtools.h
             source/Helpers/validators/linktextvalidator.cpp

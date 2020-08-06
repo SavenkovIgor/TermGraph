@@ -37,6 +37,7 @@ public:
     // static tools
     inline static bool     isValidCursor(QStringView view, int cursor) { return 0 <= cursor && cursor <= view.size(); }
     static opt<TextCursor> tryCreateCursor(QStringView view, int pos);
+    static opt<TextCursor> find(QStringView inString, int from, Direction dir, Condition matchCondition);
 
     bool move(Direction dir);
     bool moveLeft();

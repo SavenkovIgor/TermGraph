@@ -29,7 +29,6 @@
 #include <QStringView>
 
 #include "source/Helpers/handytypes.h"
-#include "source/Helpers/strrange.h"
 #include "source/Helpers/text/textcursor.h"
 #include "source/Helpers/text/textrange.h"
 
@@ -47,8 +46,8 @@ public:
     static QString expandTagRight(QString str, Cursor cursor);
     static QString removeTag(QString str, Cursor cursor);
 
-    static StrRange::List extractTagRanges(QStringView str);
-    static QString        replaceTags(QString str, const QString& leftReplacer, const QString& rightReplacer);
+    static TextRange::List extractLinkRanges(QStringView str);
+    static QString         replaceTags(QString str, const QString& leftReplacer, const QString& rightReplacer);
 
     static bool tagLengthSuitTerm(const QString& tag, const QString& termName);
 
@@ -56,17 +55,18 @@ public:
     static opt<int> getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit);
 
     // Words
-    static TextRange findWordBorders(QStringView str, Cursor from);
-    static int       wordsCount(const QString& string);
+    static int wordsCount(const QString& string);
 
     // Brackets
     static QChar getBracket(QStringView str, Cursor from, Direction direction);
 
     // Cursor
-    static Cursor        findCursor(QStringView str, Cursor from, Direction direction, CharCondition exitCondition);
-    static opt<StrRange> findBracketsPair(QStringView str, Cursor from);
+    static Cursor findCursor(QStringView str, Cursor from, Direction direction, CharCondition exitCondition);
 
-    static bool isRangeOnBrackets(QStringView str, StrRange range);
+    static int       linksCount(QStringView str);
+    static TextRange linkAt(QStringView str, int index);
+
+    static bool isRangeOnLink(QStringView str, TextRange range);
 
     constexpr static int nullCursor = -1;
 };

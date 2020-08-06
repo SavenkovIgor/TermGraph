@@ -36,6 +36,16 @@ opt<TextCursor> TextCursor::tryCreateCursor(QStringView view, int pos)
     return TextCursor(view, pos);
 }
 
+opt<TextCursor> TextCursor::find(QStringView inString, int from, Direction dir, Condition matchCondition)
+{
+    auto cursor = TextCursor(inString, from);
+
+    if (cursor.move(dir, matchCondition))
+        return cursor;
+
+    return std::nullopt;
+}
+
 bool TextCursor::move(Direction dir)
 {
     assert(isValidCursor());

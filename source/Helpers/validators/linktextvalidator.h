@@ -27,7 +27,7 @@
 class LinkTextValidator
 {
 public:
-    static bool isValidLinkString(const QString& linkString);
+    static bool isValidLinkString(QStringView linkString);
 
     static bool isPairedBrackets(QStringView str);
     static int  bracketsMaxDepth(QStringView str);

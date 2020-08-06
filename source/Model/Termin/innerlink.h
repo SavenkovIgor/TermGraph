@@ -27,7 +27,7 @@
 
 #include "source/Helpers/handytypes.h"
 #include "source/Helpers/linkutils.h"
-#include "source/Helpers/strrange.h"
+#include "source/Helpers/text/textrange.h"
 
 class InnerLink
 {
@@ -36,7 +36,7 @@ public:
 
     enum class Type { Unknown = 0, Text, Uuid };
 
-    InnerLink(const QString& srcString, StrRange range);
+    InnerLink(const QString& srcString, TextRange range);
 
     QStringView    fullLink() const;
     QStringView    text() const;
@@ -45,7 +45,7 @@ public:
     QUuid          uuid() const;
 
 private: //Methods
-    static QStringView getLink(const QString& srcString, StrRange range);
+    static QStringView getLink(const QString& srcString, TextRange range);
     static QStringView getText(QStringView fullLink);
     static QString     getLower(QStringView text);
 
