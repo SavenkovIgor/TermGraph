@@ -124,6 +124,8 @@ target_sources (
             source/Helpers/strrange.h
             source/Helpers/uuid/uuidtools.cpp
             source/Helpers/uuid/uuidtools.h
+            source/Helpers/validators/linktextvalidator.cpp
+            source/Helpers/validators/linktextvalidator.h
             source/Helpers/validators/uuidvalidator.cpp
             source/Helpers/validators/uuidvalidator.h
             source/Helpers/exclusivecall.h
@@ -165,8 +167,6 @@ target_sources (
             source/Model/Termin/nodeinfocontainer.h
             source/Model/Termin/paintedterm.cpp
             source/Model/Termin/paintedterm.h
-            source/Model/Termin/validators/linktextvalidator.cpp
-            source/Model/Termin/validators/linktextvalidator.h
             source/Model/TerminEdge/edge.cpp
             source/Model/TerminEdge/edge.h
             source/Model/TerminEdge/graphedge.cpp

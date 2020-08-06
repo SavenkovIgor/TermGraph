@@ -27,7 +27,7 @@
 #include "source/Helpers/linkutils.h"
 #include "source/Helpers/tagprocessor.h"
 #include "source/Helpers/textutils.h"
-#include "source/Model/Termin/validators/linktextvalidator.h"
+#include "source/Helpers/validators/linktextvalidator.h"
 
 // Initialization order is important!
 InfoTerm::InfoTerm(const NodeInfoContainer& info)

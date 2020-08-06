@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Model/Termin/validators/linktextvalidator.h"
+#include "source/Helpers/validators/linktextvalidator.h"
 
 #include "source/Helpers/linkutils.h"
 
