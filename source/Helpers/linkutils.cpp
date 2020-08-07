@@ -32,10 +32,16 @@ bool LinkUtils::isInsideTag(QStringView str, int cursor)
     if (!TextCursor::isValidCursor(str, cursor))
         return false;
 
-    QChar firstLeftBracket  = getBracket(str, cursor, Direction::Left);
-    QChar firstRightBracket = getBracket(str, cursor, Direction::Right);
+    auto firstLeftBracket  = TextCursor::find(str, cursor, Direction::Left, CharTools::isBracket);
+    auto firstRightBracket = TextCursor::find(str, cursor, Direction::Right, CharTools::isBracket);
 
-    return firstLeftBracket == CharTools::leftBracket && firstRightBracket == CharTools::rightBracket;
+    if (!firstLeftBracket.has_value() || !firstRightBracket.has_value())
+        return false;
+
+    auto maybeLeftBracket  = firstLeftBracket.value().left().value_or(QChar());
+    auto maybeRightBracket = firstRightBracket.value().right().value_or(QChar());
+
+    return maybeLeftBracket == CharTools::leftBracket && maybeRightBracket == CharTools::rightBracket;
 }
 
 /// Описание:
@@ -242,17 +248,6 @@ int LinkUtils::wordsCount(const QString& string)
         return string.simplified().count(' ') + 1;
 
     return 0;
-}
-
-QChar LinkUtils::getBracket(QStringView str, int from, Direction direction)
-{
-    auto cursor = TextCursor::find(str, from, direction, CharTools::isBracket);
-
-    if (!cursor.has_value())
-        return QChar();
-
-    auto ret = cursor.value().lrChar(direction);
-    return ret.has_value() ? ret.value() : QChar();
 }
 
 int LinkUtils::findCursor(QStringView str, int from, Direction direction, CharCondition exitCondition)

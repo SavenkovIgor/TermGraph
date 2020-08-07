@@ -56,9 +56,6 @@ public:
     // Words
     static int wordsCount(const QString& string);
 
-    // Brackets
-    static QChar getBracket(QStringView str, int from, Direction direction);
-
     // Cursor
     static int findCursor(QStringView str, int from, Direction direction, CharCondition exitCondition);
 

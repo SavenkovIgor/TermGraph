@@ -445,55 +445,6 @@ private slots:
         QVERIFY(LinkTextValidator::isPairedBrackets(text) == result);
     }
 
-    void nearestBracket_data()
-    {
-        QTest::addColumn<int>("dir");
-        QTest::addColumn<QString>("src");
-        QTest::addColumn<int>("startFrom");
-        QTest::addColumn<QChar>("bracket");
-
-        QChar leftBracket  = '{';
-        QChar rightBracket = '}';
-
-        // Предполагается что -1 - влево, 1 - вправо
-        // В пустой строке поиск и в лево и вправо должен вовращать пустой символ
-        // clang-format off
-        QTest::newRow("case0")  << -1 << ""           << 0 << QChar();
-        QTest::newRow("case1")  <<  1 << ""           << 0 << QChar();
-        QTest::newRow("case2")  << -1 << "{"          << 0 << QChar();
-        QTest::newRow("case3")  <<  1 << "{"          << 0 << leftBracket;
-        QTest::newRow("case4")  << -1 << "{"          << 1 << leftBracket;
-        QTest::newRow("case5")  <<  1 << "{"          << 1 << QChar();
-        QTest::newRow("case6")  << -1 << "}"          << 0 << QChar();
-        QTest::newRow("case7")  <<  1 << "}"          << 0 << rightBracket;
-        QTest::newRow("case8")  << -1 << "}"          << 1 << rightBracket;
-        QTest::newRow("case9")  <<  1 << "}"          << 1 << QChar();
-        QTest::newRow("case10") << -1 << " { asdf } " << 2 << leftBracket;
-        QTest::newRow("case11") <<  1 << " { asdf } " << 2 << rightBracket;
-        QTest::newRow("case12") << -1 << " } asdf { " << 2 << rightBracket;
-        QTest::newRow("case13") <<  1 << " } asdf { " << 2 << leftBracket;
-        // clang-format off
-    }
-
-    void nearestBracket()
-    {
-        QFETCH(int, dir);
-        QFETCH(QString, src);
-        QFETCH(int, startFrom);
-        QFETCH(QChar, bracket);
-
-        auto left  = Direction::Left;
-        auto right = Direction::Right;
-
-        if (dir == 1) {
-            QVERIFY(LinkUtils::getBracket(src, startFrom, right) == bracket);
-        }
-
-        if (dir == -1) {
-            QVERIFY(LinkUtils::getBracket(src, startFrom, left) == bracket);
-        }
-    }
-
     void bracketsDepth_data()
     {
         QTest::addColumn<QString>("text");
