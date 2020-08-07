@@ -27,7 +27,7 @@
 #include "source/Helpers/text/chartools.h"
 #include "source/Helpers/validators/linktextvalidator.h"
 
-bool LinkUtils::isInsideTag(QStringView str, LinkUtils::Cursor cursor)
+bool LinkUtils::isInsideTag(QStringView str, int cursor)
 {
     if (!TextCursor::isValidCursor(str, cursor))
         return false;
@@ -42,7 +42,7 @@ bool LinkUtils::isInsideTag(QStringView str, LinkUtils::Cursor cursor)
 /// Функция в пустой строке или строке с пробелами вернет {}
 /// Функция на границе строки обрамит крайнее слово
 /// При встрече уже обрамленного тега - ничего не сделает
-QString LinkUtils::addTag(QString str, Cursor cursor)
+QString LinkUtils::addTag(QString str, int cursor)
 {
     // Проверка корректности курсора
     if (!TextCursor::isValidCursor(str, cursor))
@@ -64,7 +64,7 @@ QString LinkUtils::addTag(QString str, Cursor cursor)
     return str;
 }
 
-QString LinkUtils::expandTagRight(QString str, LinkUtils::Cursor cursor)
+QString LinkUtils::expandTagRight(QString str, int cursor)
 {
     if (!TextCursor::isValidCursor(str, cursor))
         return str;
@@ -103,7 +103,7 @@ QString LinkUtils::expandTagRight(QString str, LinkUtils::Cursor cursor)
     return str;
 }
 
-QString LinkUtils::removeTag(QString str, LinkUtils::Cursor cursor)
+QString LinkUtils::removeTag(QString str, int cursor)
 {
     // Проверка корректности курсора
     if (!TextCursor::isValidCursor(str, cursor))
@@ -244,7 +244,7 @@ int LinkUtils::wordsCount(const QString& string)
     return 0;
 }
 
-QChar LinkUtils::getBracket(QStringView str, LinkUtils::Cursor from, Direction direction)
+QChar LinkUtils::getBracket(QStringView str, int from, Direction direction)
 {
     auto cursor = TextCursor::find(str, from, direction, CharTools::isBracket);
 
@@ -255,7 +255,7 @@ QChar LinkUtils::getBracket(QStringView str, LinkUtils::Cursor from, Direction d
     return ret.has_value() ? ret.value() : QChar();
 }
 
-LinkUtils::Cursor LinkUtils::findCursor(QStringView str, Cursor from, Direction direction, CharCondition exitCondition)
+int LinkUtils::findCursor(QStringView str, int from, Direction direction, CharCondition exitCondition)
 {
     auto cursor = TextCursor::find(str, from, direction, exitCondition);
     return cursor.has_value() ? cursor.value().pos() : nullCursor;

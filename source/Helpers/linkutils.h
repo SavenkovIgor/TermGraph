@@ -36,15 +36,14 @@
 class LinkUtils
 {
 public:
-    using Cursor        = int;
     using CharCondition = std::function<bool(const QChar&)>;
 
     // Tags
-    static bool isInsideTag(QStringView str, Cursor cursor);
+    static bool isInsideTag(QStringView str, int cursor);
 
-    static QString addTag(QString str, Cursor cursor);
-    static QString expandTagRight(QString str, Cursor cursor);
-    static QString removeTag(QString str, Cursor cursor);
+    static QString addTag(QString str, int cursor);
+    static QString expandTagRight(QString str, int cursor);
+    static QString removeTag(QString str, int cursor);
 
     static TextRange::List extractLinkRanges(QStringView str);
     static QString         replaceTags(QString str, const QString& leftReplacer, const QString& rightReplacer);
@@ -58,10 +57,10 @@ public:
     static int wordsCount(const QString& string);
 
     // Brackets
-    static QChar getBracket(QStringView str, Cursor from, Direction direction);
+    static QChar getBracket(QStringView str, int from, Direction direction);
 
     // Cursor
-    static Cursor findCursor(QStringView str, Cursor from, Direction direction, CharCondition exitCondition);
+    static int findCursor(QStringView str, int from, Direction direction, CharCondition exitCondition);
 
     static int       linksCount(QStringView str);
     static TextRange linkAt(QStringView str, int index);
