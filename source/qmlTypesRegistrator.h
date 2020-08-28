@@ -19,33 +19,17 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <QApplication>
-#include <QSurface>
-#include <QtQuickControls2/QQuickStyle>
+#pragma once
 
-#include "source/Helpers/platform.h"
-#include "source/mainwindow.h"
+#include <QQmlEngine>
 
-#include "source/qmlTypesRegistrator.h"
+#include "source/Model/Termin/nodegadgetwrapper.h"
 
-#ifdef Q_OS_ANDROID
-#include <QtSvg> //Because deployment sometimes just forgets to include this lib otherwise
-#endif
-
-int main(int argc, char* argv[])
+void registerUserQmlTypes()
 {
-    QApplication a(argc, argv);
-
-    registerUserQmlTypes();
-
-    QQuickStyle::setStyle("Material"); // Important thing for styles!
-
-    // This is need for good aliasing on desktop & mobile
-    QSurfaceFormat format = QSurfaceFormat::defaultFormat();
-    format.setSamples(Platform::isDesktop() ? 8 : 4);
-    QSurfaceFormat::setDefaultFormat(format);
-
-    MainWindow w;
-
-    return a.exec();
+    qmlRegisterUncreatableType<NodeGadgetWrapper>("NodeGadgetWrapper",
+                                                  1,
+                                                  0,
+                                                  "NodeGadgetWrapper",
+                                                  "Please use NodeGadgetWrapper from backend");
 }

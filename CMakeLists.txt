@@ -209,6 +209,7 @@ target_sources (
             source/databaseWorks/termgrouptbl.cpp
             source/databaseWorks/termgrouptbl.h
             source/main.cpp
+            source/qmlTypesRegistrator.h
             source/mainscene.cpp
             source/mainscene.h
             source/mainwindow.cpp
