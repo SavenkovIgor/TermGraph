@@ -7,12 +7,14 @@
         <file>chevron-right.svg</file>
         <file>code.svg</file>
         <file>cog.svg</file>
+        <file>crossOnCircle.svg</file>
         <file>folder.svg</file>
         <file>info.svg</file>
         <file>list.svg</file>
         <file>loop-circular.svg</file>
         <file>magnifying-glass.svg</file>
         <file>menu.svg</file>
+        <file>options.svg</file>
         <file>pencil.svg</file>
         <file>plus.svg</file>
         <file>question-mark.svg</file>
@@ -20,7 +22,5 @@
         <file>spreadsheet.svg</file>
         <file>trash.svg</file>
         <file>warning.svg</file>
-        <file>crossOnCircle.svg</file>
-        <file>options.svg</file>
     </qresource>
 </RCC>

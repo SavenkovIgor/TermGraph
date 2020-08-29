@@ -1,73 +1,73 @@
 <RCC>
     <qresource prefix="/">
+        <file>Atoms/AccentText.qml</file>
         <file>Atoms/BottomThinLine.qml</file>
         <file>Atoms/ComboBox.qml</file>
+        <file>Atoms/DebugFrame.qml</file>
+        <file>Atoms/DrawerPage.qml</file>
+        <file>Atoms/Edge.qml</file>
+        <file>Atoms/FlickableColumn.qml</file>
         <file>Atoms/Hex.qml</file>
+        <file>Atoms/MouseArea.qml</file>
         <file>Atoms/PageHeader.qml</file>
         <file>Atoms/PageTitleLabel.qml</file>
-        <file>Atoms/RoundButton.qml</file>
+        <file>Atoms/PinBar.qml</file>
         <file>Atoms/RightThinLine.qml</file>
-        <file>Atoms/SquareButton.qml</file>
+        <file>Atoms/Round.qml</file>
+        <file>Atoms/RoundButton.qml</file>
+        <file>Atoms/RoundedRectangle.qml</file>
+        <file>Atoms/ScrollIndicator.qml</file>
         <file>Atoms/SideMenuButton.qml</file>
         <file>Atoms/SmallInfoText.qml</file>
-        <file>Atoms/ThinLine.qml</file>
-        <file>Atoms/ToolButton.qml</file>
+        <file>Atoms/SquareButton.qml</file>
         <file>Atoms/Term.qml</file>
-        <file>Atoms/FlickableColumn.qml</file>
-        <file>Atoms/ScrollIndicator.qml</file>
-        <file>Atoms/RoundedRectangle.qml</file>
-        <file>Atoms/Round.qml</file>
-        <file>Atoms/Edge.qml</file>
-        <file>Atoms/DebugFrame.qml</file>
-        <file>Atoms/MouseArea.qml</file>
+        <file>Atoms/ThinLine.qml</file>
         <file>Atoms/Timer.qml</file>
-        <file>Atoms/AccentText.qml</file>
+        <file>Atoms/ToolButton.qml</file>
         <file>Atoms/ToolTip.qml</file>
-        <file>Atoms/DrawerPage.qml</file>
         <file>Atoms/TopRoundedRect.qml</file>
-        <file>Atoms/PinBar.qml</file>
-        <file>Molecules/TextArea.qml</file>
-        <file>Molecules/TextField.qml</file>
-        <file>Molecules/LabelPair.qml</file>
-        <file>Molecules/HelpCard.qml</file>
-        <file>Molecules/Page.qml</file>
-        <file>Molecules/DefaultHeader.qml</file>
-        <file>Molecules/BurgerButton.qml</file>
-        <file>Molecules/AppIcon.qml</file>
-        <file>Molecules/NotificationDrawer.qml</file>
-        <file>Molecules/TagEditorArea.qml</file>
-        <file>Molecules/EmptyView.qml</file>
-        <file>Molecules/NodesScene.qml</file>
-        <file>Molecules/HelpView.qml</file>
-        <file>Molecules/LoadingInProcess.qml</file>
-        <file>Molecules/LoadingIcon.qml</file>
-        <file>Molecules/SideMenuHeader.qml</file>
-        <file>Learning/LearnGroupsList.qml</file>
-        <file>Learning/LearnMode.qml</file>
-        <file>Learning/LearnCard.qml</file>
-        <file>Learning/CardsStartScreen.qml</file>
         <file>Js/Debug.js</file>
         <file>Js/Tools.js</file>
+        <file>Learning/CardsStartScreen.qml</file>
+        <file>Learning/LearnCard.qml</file>
+        <file>Learning/LearnGroupsList.qml</file>
+        <file>Learning/LearnMode.qml</file>
+        <file>Molecules/AppIcon.qml</file>
+        <file>Molecules/BurgerButton.qml</file>
+        <file>Molecules/DefaultHeader.qml</file>
+        <file>Molecules/EmptyView.qml</file>
+        <file>Molecules/HelpCard.qml</file>
+        <file>Molecules/HelpView.qml</file>
+        <file>Molecules/LabelPair.qml</file>
+        <file>Molecules/LoadingIcon.qml</file>
+        <file>Molecules/LoadingInProcess.qml</file>
+        <file>Molecules/MainAppDrawer.qml</file>
+        <file>Molecules/NodesScene.qml</file>
+        <file>Molecules/NotificationDrawer.qml</file>
+        <file>Molecules/Page.qml</file>
+        <file>Molecules/SearchDrawer.qml</file>
+        <file>Molecules/SideMenuHeader.qml</file>
+        <file>Molecules/TagEditorArea.qml</file>
+        <file>Molecules/TermInfoDrawer.qml</file>
+        <file>Molecules/TextArea.qml</file>
+        <file>Molecules/TextField.qml</file>
+        <file>Pages/AppIconsSaving.qml</file>
+        <file>Pages/EditNode.qml</file>
+        <file>Pages/GroupsList.qml</file>
+        <file>Pages/MainScene.qml</file>
+        <file>Pages/NewNode.qml</file>
+        <file>Pages/OnBoard.qml</file>
+        <file>Pages/Settings.qml</file>
+        <file>Pages/Settings/Database.qml</file>
+        <file>Pages/Settings/Help.qml</file>
+        <file>Pages/Settings/License.qml</file>
+        <file>Pages/Settings/NetworkSettings.qml</file>
+        <file>Pages/TermView.qml</file>
         <file>StyleInfo/Colors.js</file>
         <file>StyleInfo/Fonts.js</file>
         <file>StyleInfo/IconPath.js</file>
         <file>StyleInfo/Sizes.js</file>
         <file>StyleInfo/qmldir</file>
-        <file>Pages/MainScene.qml</file>
-        <file>Pages/GroupsList.qml</file>
-        <file>Pages/EditNode.qml</file>
-        <file>Pages/NewNode.qml</file>
-        <file>Pages/Settings.qml</file>
-        <file>Pages/TermView.qml</file>
-        <file>Pages/AppIconsSaving.qml</file>
-        <file>Pages/Settings/NetworkSettings.qml</file>
-        <file>Pages/Settings/Database.qml</file>
-        <file>Pages/Settings/License.qml</file>
-        <file>Pages/Settings/Help.qml</file>
-        <file>Pages/OnBoard.qml</file>
         <file>main.qml</file>
-        <file>Molecules/MainAppDrawer.qml</file>
-        <file>Molecules/SearchDrawer.qml</file>
-        <file>Molecules/TermInfoDrawer.qml</file>
     </qresource>
 </RCC>
