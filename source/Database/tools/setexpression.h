@@ -21,40 +21,19 @@
 
 #pragma once
 
-#include <QList>
-#include <QString>
+#include <QStringList>
 
-struct TColumn
+#include "source/Database/columns/tcolumn.h"
+#include "source/Database/tools/querytools.h"
+
+class SetExpression
 {
-    using List = QList<TColumn>;  // TODO: replace with vector
+public:
+    void set(const TColumn& column, const int& value);
+    void set(const TColumn& column, const QString& value);
 
-    const char* name;  // Name of column
-    const char* type;  // Type description of column
+    QString getExpression() const;
 
-    TColumn(const char* name)
-        : name(name)
-        , type("")
-    {}
-
-    constexpr TColumn(const char* name, const char* type)
-        : name(name)
-        , type(type)
-    {}
-
-    constexpr TColumn(const TColumn& col)
-        : name(col.name)
-        , type(col.type)
-    {}
-
-    operator QString() const { return QString(name); }
-
-    bool operator==(const TColumn& otherCol) const
-    {
-        QString nameSelf(name);
-        QString nameOther(otherCol.name);
-
-        QString typeSelf(type);
-        QString typeOther(otherCol.type);
-        return nameSelf == nameOther && typeSelf == typeOther;
-    }
+private:
+    QStringList expression;
 };

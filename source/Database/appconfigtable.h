@@ -21,8 +21,8 @@
 
 #pragma once
 
-#include "source/databaseWorks/dbtablenames.h"
-#include "source/databaseWorks/tblbase.h"
+#include "source/Database/dbtablenames.h"
+#include "source/Database/tblbase.h"
 
 class AppConfigColumn
 {

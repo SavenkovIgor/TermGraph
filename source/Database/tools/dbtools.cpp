@@ -19,26 +19,17 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/databaseWorks/tools/dbtools.h"
+#include "source/Database/tools/dbtools.h"
 
 #include <QSqlError>
 
-#include "source/databaseWorks/sqlqueryconstructor.h"
+#include "source/Database/sqlqueryconstructor.h"
 
-void DbTools::startTransaction(QSqlDatabase* base)
-{
-    startQuery(base, "BEGIN TRANSACTION");
-}
+void DbTools::startTransaction(QSqlDatabase* base) { startQuery(base, "BEGIN TRANSACTION"); }
 
-void DbTools::endTransaction(QSqlDatabase* base)
-{
-    startQuery(base, "END TRANSACTION");
-}
+void DbTools::endTransaction(QSqlDatabase* base) { startQuery(base, "END TRANSACTION"); }
 
-void DbTools::reduceSpace(QSqlDatabase* base)
-{
-    startQuery(base, "VACUUM");
-}
+void DbTools::reduceSpace(QSqlDatabase* base) { startQuery(base, "VACUUM"); }
 
 QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
 {

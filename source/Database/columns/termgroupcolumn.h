@@ -19,24 +19,16 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/databaseWorks/tools/insertcontainer.h"
+#pragma once
 
-InsertContainer::InsertContainer(const TColumn& column, const QString& value)
-    : columnName(column.name)
-    , value(value)
-{}
+#include "source/Database/columns/tcolumn.h"
 
-InsertContainer::InsertContainer(const TColumn& column, const int& value)
-    : columnName(column.name)
-    , value(QString::number(value))
-{}
-
-QString InsertContainer::getColumnName() const
+class TermGroupColumn
 {
-    return columnName;
-}
+public:
+    constexpr static auto uuid    = TColumn("uuid", "TEXT PRIMARY KEY NOT NULL");
+    constexpr static auto name    = TColumn("name", "TEXT UNIQUE NOT NULL");
+    constexpr static auto comment = TColumn("comment", "TEXT");
 
-QString InsertContainer::getValue() const
-{
-    return value;
-}
+    constexpr static TColumn columns[] = {uuid, name, comment};
+};

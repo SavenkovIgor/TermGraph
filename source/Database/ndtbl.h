@@ -21,12 +21,12 @@
 
 #pragma once
 
+#include "source/Database/columns/tcolumn.h"
+#include "source/Database/dbtablenames.h"
+#include "source/Database/tblbase.h"
 #include "source/Helpers/handytypes.h"
 #include "source/Managers/datastorageinterface.h"
 #include "source/Model/Termin/nodeinfocontainer.h"
-#include "source/databaseWorks/columns/tcolumn.h"
-#include "source/databaseWorks/dbtablenames.h"
-#include "source/databaseWorks/tblbase.h"
 
 class NodeTable : public TblBase
 {

@@ -19,21 +19,18 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "source/Database/tools/insertcontainer.h"
 
-#include <QStringList>
+InsertContainer::InsertContainer(const TColumn& column, const QString& value)
+    : columnName(column.name)
+    , value(value)
+{}
 
-#include "source/databaseWorks/columns/tcolumn.h"
-#include "source/databaseWorks/tools/querytools.h"
+InsertContainer::InsertContainer(const TColumn& column, const int& value)
+    : columnName(column.name)
+    , value(QString::number(value))
+{}
 
-class SetExpression
-{
-public:
-    void set(const TColumn& column, const int& value);
-    void set(const TColumn& column, const QString& value);
+QString InsertContainer::getColumnName() const { return columnName; }
 
-    QString getExpression() const;
-
-private:
-    QStringList expression;
-};
+QString InsertContainer::getValue() const { return value; }

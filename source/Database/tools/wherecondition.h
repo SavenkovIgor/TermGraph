@@ -25,8 +25,8 @@
 #include <QStringList>
 #include <QUuid>
 
-#include "source/databaseWorks/columns/tcolumn.h"
-#include "source/databaseWorks/tools/querytools.h"
+#include "source/Database/columns/tcolumn.h"
+#include "source/Database/tools/querytools.h"
 
 enum class ConditionType { And, Or };
 

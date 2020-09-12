@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include "source/databaseWorks/columns/tcolumn.h"
+#include "source/Database/columns/tcolumn.h"
 
 class NodeColumn
 {

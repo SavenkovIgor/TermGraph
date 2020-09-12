@@ -23,8 +23,8 @@
 
 #include <QMap>
 
-#include "source/databaseWorks/columns/nodecolumn.h"
-#include "source/databaseWorks/columns/termgroupcolumn.h"
+#include "source/Database/columns/nodecolumn.h"
+#include "source/Database/columns/termgroupcolumn.h"
 
 LocalDatabaseStorage::LocalDatabaseStorage(const QString& filePath)
     : DataStorageInterface()

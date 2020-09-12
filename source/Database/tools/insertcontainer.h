@@ -19,19 +19,24 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/databaseWorks/tools/setexpression.h"
+#pragma once
 
-void SetExpression::set(const TColumn& column, const int& value)
-{
-    set(column, QString::number(value));
-}
+#include <vector>
 
-void SetExpression::set(const TColumn& column, const QString& value)
-{
-    expression << QString(column) + " = " + QueryTools::vv(value);
-}
+#include "source/Database/columns/tcolumn.h"
 
-QString SetExpression::getExpression() const
+class InsertContainer
 {
-    return expression.join(QueryTools::joinParam);
-}
+public:
+    using List = std::vector<InsertContainer>;
+
+    InsertContainer(const TColumn& column, const QString& value);
+    InsertContainer(const TColumn& column, const int& value);
+
+    QString getColumnName() const;
+    QString getValue() const;
+
+private:
+    QString columnName;
+    QString value;
+};

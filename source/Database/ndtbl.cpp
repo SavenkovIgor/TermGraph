@@ -19,9 +19,9 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/databaseWorks/ndtbl.h"
+#include "source/Database/ndtbl.h"
 
-#include "source/databaseWorks/columns/nodecolumn.h"
+#include "source/Database/columns/nodecolumn.h"
 
 NodeTable::NodeTable(QSqlDatabase* base)
     : TblBase(base)

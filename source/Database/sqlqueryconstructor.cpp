@@ -19,8 +19,8 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/databaseWorks/sqlqueryconstructor.h"
-#include "source/databaseWorks/tools/querytools.h"
+#include "source/Database/sqlqueryconstructor.h"
+#include "source/Database/tools/querytools.h"
 
 QString SqlQueryConstructor::createTable(const QString& tableName, const TColumn::List& columns)
 {
@@ -49,15 +49,9 @@ QString SqlQueryConstructor::addColumn(const QString& tableName, const TColumn& 
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::dropTable(const QString& tableName)
-{
-    return "DROP TABLE " + tableName;
-}
+QString SqlQueryConstructor::dropTable(const QString& tableName) { return "DROP TABLE " + tableName; }
 
-QString SqlQueryConstructor::recordsCount(const QString& tableName)
-{
-    return "SELECT COUNT(*) FROM " + tableName;
-}
+QString SqlQueryConstructor::recordsCount(const QString& tableName) { return "SELECT COUNT(*) FROM " + tableName; }
 
 QString SqlQueryConstructor::selectQuery(const QString&        tableName,
                                          const QStringList&    columns,

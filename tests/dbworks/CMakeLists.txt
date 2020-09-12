@@ -32,26 +32,26 @@ target_sources (
             ${CMAKE_SOURCE_DIR}/source/Helpers/fsworks.cpp
             ${CMAKE_SOURCE_DIR}/source/Helpers/appconfig.h
             ${CMAKE_SOURCE_DIR}/source/Helpers/appconfig.cpp
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/appconfigtable.h
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/appconfigtable.cpp
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/database.h
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/database.cpp
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/ndtbl.h
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/ndtbl.cpp
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/sqlqueryconstructor.h
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/sqlqueryconstructor.cpp
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/tblbase.h
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/tblbase.cpp
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/termgrouptbl.h
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/termgrouptbl.cpp
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/tools/dbtools.h
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/tools/dbtools.cpp
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/tools/insertcontainer.h
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/tools/insertcontainer.cpp
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/tools/setexpression.h
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/tools/setexpression.cpp
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/tools/wherecondition.h
-            ${CMAKE_SOURCE_DIR}/source/databaseWorks/tools/wherecondition.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/appconfigtable.h
+            ${CMAKE_SOURCE_DIR}/source/Database/appconfigtable.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/database.h
+            ${CMAKE_SOURCE_DIR}/source/Database/database.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/ndtbl.h
+            ${CMAKE_SOURCE_DIR}/source/Database/ndtbl.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/sqlqueryconstructor.h
+            ${CMAKE_SOURCE_DIR}/source/Database/sqlqueryconstructor.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/tblbase.h
+            ${CMAKE_SOURCE_DIR}/source/Database/tblbase.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/termgrouptbl.h
+            ${CMAKE_SOURCE_DIR}/source/Database/termgrouptbl.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/tools/dbtools.h
+            ${CMAKE_SOURCE_DIR}/source/Database/tools/dbtools.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/tools/insertcontainer.h
+            ${CMAKE_SOURCE_DIR}/source/Database/tools/insertcontainer.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/tools/setexpression.h
+            ${CMAKE_SOURCE_DIR}/source/Database/tools/setexpression.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/tools/wherecondition.h
+            ${CMAKE_SOURCE_DIR}/source/Database/tools/wherecondition.cpp
             ${CMAKE_SOURCE_DIR}/source/Managers/notificationmanager.h
             ${CMAKE_SOURCE_DIR}/source/Managers/notificationmanager.cpp
             ${CMAKE_SOURCE_DIR}/source/Managers/datastorageinterface.h

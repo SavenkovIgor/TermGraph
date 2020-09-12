@@ -21,7 +21,7 @@
 
 #include "source/Managers/jsonnodeinfocontainerparser.h"
 
-#include "source/databaseWorks/columns/nodecolumn.h"
+#include "source/Database/columns/nodecolumn.h"
 
 NodeInfoContainer JsonNodeInfoContainerParser::fromJson(const QJsonObject& jsonObj)
 {

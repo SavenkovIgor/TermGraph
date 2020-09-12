@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/databaseWorks/appconfigtable.h"
+#include "source/Database/appconfigtable.h"
 
 void AppConfigTable::initTable()
 {
@@ -28,30 +28,15 @@ void AppConfigTable::initTable()
     setValue(dbVersionPropertyName, QString::number(dbVersion));
 }
 
-int AppConfigTable::getDbVersion()
-{
-    return value(dbVersionPropertyName, "0").toInt();
-}
+int AppConfigTable::getDbVersion() { return value(dbVersionPropertyName, "0").toInt(); }
 
-bool AppConfigTable::isDbVersionActual()
-{
-    return getDbVersion() == dbVersion;
-}
+bool AppConfigTable::isDbVersionActual() { return getDbVersion() == dbVersion; }
 
-void AppConfigTable::updateDbVersionNumber()
-{
-    setValue(dbVersionPropertyName, QString::number(dbVersion));
-}
+void AppConfigTable::updateDbVersionNumber() { setValue(dbVersionPropertyName, QString::number(dbVersion)); }
 
-const char* AppConfigTable::tableName() const
-{
-    return TableName::CONFIG;
-}
+const char* AppConfigTable::tableName() const { return TableName::CONFIG; }
 
-TColumn AppConfigTable::primaryKey() const
-{
-    return AppConfigColumn::parameter;
-}
+TColumn AppConfigTable::primaryKey() const { return AppConfigColumn::parameter; }
 
 TColumn::List AppConfigTable::getAllColumns() const
 {

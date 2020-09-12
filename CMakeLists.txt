@@ -183,31 +183,31 @@ target_sources (
             source/Model/TerminGroup/termtree.cpp
             source/Model/TerminGroup/termtree.h
             source/Model/enums.h
-            source/databaseWorks/columns/nodecolumn.h
-            source/databaseWorks/columns/tcolumn.h
-            source/databaseWorks/columns/termgroupcolumn.h
-            source/databaseWorks/tools/dbtools.cpp
-            source/databaseWorks/tools/dbtools.h
-            source/databaseWorks/tools/insertcontainer.cpp
-            source/databaseWorks/tools/insertcontainer.h
-            source/databaseWorks/tools/querytools.h
-            source/databaseWorks/tools/setexpression.cpp
-            source/databaseWorks/tools/setexpression.h
-            source/databaseWorks/tools/wherecondition.cpp
-            source/databaseWorks/tools/wherecondition.h
-            source/databaseWorks/appconfigtable.cpp
-            source/databaseWorks/appconfigtable.h
-            source/databaseWorks/database.cpp
-            source/databaseWorks/database.h
-            source/databaseWorks/dbtablenames.h
-            source/databaseWorks/ndtbl.cpp
-            source/databaseWorks/ndtbl.h
-            source/databaseWorks/sqlqueryconstructor.cpp
-            source/databaseWorks/sqlqueryconstructor.h
-            source/databaseWorks/tblbase.cpp
-            source/databaseWorks/tblbase.h
-            source/databaseWorks/termgrouptbl.cpp
-            source/databaseWorks/termgrouptbl.h
+            source/Database/columns/nodecolumn.h
+            source/Database/columns/tcolumn.h
+            source/Database/columns/termgroupcolumn.h
+            source/Database/tools/dbtools.cpp
+            source/Database/tools/dbtools.h
+            source/Database/tools/insertcontainer.cpp
+            source/Database/tools/insertcontainer.h
+            source/Database/tools/querytools.h
+            source/Database/tools/setexpression.cpp
+            source/Database/tools/setexpression.h
+            source/Database/tools/wherecondition.cpp
+            source/Database/tools/wherecondition.h
+            source/Database/appconfigtable.cpp
+            source/Database/appconfigtable.h
+            source/Database/database.cpp
+            source/Database/database.h
+            source/Database/dbtablenames.h
+            source/Database/ndtbl.cpp
+            source/Database/ndtbl.h
+            source/Database/sqlqueryconstructor.cpp
+            source/Database/sqlqueryconstructor.h
+            source/Database/tblbase.cpp
+            source/Database/tblbase.h
+            source/Database/termgrouptbl.cpp
+            source/Database/termgrouptbl.h
             source/main.cpp
             source/qmlTypesRegistrator.h
             source/mainscene.cpp

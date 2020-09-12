@@ -21,22 +21,40 @@
 
 #pragma once
 
-#include <vector>
+#include <QList>
+#include <QString>
 
-#include "source/databaseWorks/columns/tcolumn.h"
-
-class InsertContainer
+struct TColumn
 {
-public:
-    using List = std::vector<InsertContainer>;
+    using List = QList<TColumn>; // TODO: replace with vector
 
-    InsertContainer(const TColumn& column, const QString& value);
-    InsertContainer(const TColumn& column, const int& value);
+    const char* name; // Name of column
+    const char* type; // Type description of column
 
-    QString getColumnName() const;
-    QString getValue() const;
+    TColumn(const char* name)
+        : name(name)
+        , type("")
+    {}
 
-private:
-    QString columnName;
-    QString value;
+    constexpr TColumn(const char* name, const char* type)
+        : name(name)
+        , type(type)
+    {}
+
+    constexpr TColumn(const TColumn& col)
+        : name(col.name)
+        , type(col.type)
+    {}
+
+    operator QString() const { return QString(name); }
+
+    bool operator==(const TColumn& otherCol) const
+    {
+        QString nameSelf(name);
+        QString nameOther(otherCol.name);
+
+        QString typeSelf(type);
+        QString typeOther(otherCol.type);
+        return nameSelf == nameOther && typeSelf == typeOther;
+    }
 };

@@ -23,8 +23,8 @@
 
 #include <QtSql>
 
+#include "source/Database/sqlqueryconstructor.h"
 #include "source/Helpers/handytypes.h"
-#include "source/databaseWorks/sqlqueryconstructor.h"
 
 using SqCond    = QMap<QString, QString>;
 using RecVector = QVector<QSqlRecord>;

@@ -20,9 +20,9 @@
  */
 #pragma once
 
+#include "source/Database/database.h"
 #include "source/Helpers/appconfig.h"
 #include "source/Managers/datastorageinterface.h"
-#include "source/databaseWorks/database.h"
 
 class LocalDatabaseStorage : public DataStorageInterface
 {

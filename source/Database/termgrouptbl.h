@@ -21,10 +21,10 @@
 
 #pragma once
 
+#include "source/Database/columns/tcolumn.h"
+#include "source/Database/dbtablenames.h"
+#include "source/Database/tblbase.h"
 #include "source/Model/TerminGroup/groupinfocontainer.h"
-#include "source/databaseWorks/columns/tcolumn.h"
-#include "source/databaseWorks/dbtablenames.h"
-#include "source/databaseWorks/tblbase.h"
 
 class TermGroupTable : public TblBase
 {

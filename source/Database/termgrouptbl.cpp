@@ -19,9 +19,9 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/databaseWorks/termgrouptbl.h"
+#include "source/Database/termgrouptbl.h"
 
-#include "source/databaseWorks/columns/termgroupcolumn.h"
+#include "source/Database/columns/termgroupcolumn.h"
 
 bool TermGroupTable::addGroup(const GroupInfoContainer& info)
 {

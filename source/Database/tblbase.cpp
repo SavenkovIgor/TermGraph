@@ -19,9 +19,9 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/databaseWorks/tblbase.h"
+#include "source/Database/tblbase.h"
 
-#include "source/databaseWorks/tools/dbtools.h"
+#include "source/Database/tools/dbtools.h"
 
 QString TblBase::getStringField(const TColumn& column, const QString& key) const
 {
@@ -36,10 +36,7 @@ QString TblBase::getStringField(const TColumn& column, const QString& key) const
     return sel.record().value(column).toString();
 }
 
-QSqlQuery TblBase::startQuery(const QString& queryString) const
-{
-    return DbTools::startQuery(base, queryString);
-}
+QSqlQuery TblBase::startQuery(const QString& queryString) const { return DbTools::startQuery(base, queryString); }
 
 bool TblBase::hasErrors(const QString& errString) const
 {
@@ -126,10 +123,7 @@ UuidList TblBase::filterEmptyUuids(const UuidList& uuids)
     return ret;
 }
 
-void TblBase::updateWhere(const SetExpression& set, const WhereCondition& where)
-{
-    executeUpdate(set, where);
-}
+void TblBase::updateWhere(const SetExpression& set, const WhereCondition& where) { executeUpdate(set, where); }
 
 WhereCondition TblBase::primaryKeyEqual(const QString& value) const
 {

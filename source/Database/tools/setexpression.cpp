@@ -19,16 +19,13 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "source/Database/tools/setexpression.h"
 
-#include "source/databaseWorks/columns/tcolumn.h"
+void SetExpression::set(const TColumn& column, const int& value) { set(column, QString::number(value)); }
 
-class TermGroupColumn
+void SetExpression::set(const TColumn& column, const QString& value)
 {
-public:
-    constexpr static auto uuid    = TColumn("uuid", "TEXT PRIMARY KEY NOT NULL");
-    constexpr static auto name    = TColumn("name", "TEXT UNIQUE NOT NULL");
-    constexpr static auto comment = TColumn("comment", "TEXT");
+    expression << QString(column) + " = " + QueryTools::vv(value);
+}
 
-    constexpr static TColumn columns[] = {uuid, name, comment};
-};
+QString SetExpression::getExpression() const { return expression.join(QueryTools::joinParam); }

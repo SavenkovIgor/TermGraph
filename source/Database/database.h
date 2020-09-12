@@ -24,11 +24,11 @@
 #include <QObject>
 #include <QtSql>
 
+#include "source/Database/appconfigtable.h"
+#include "source/Database/ndtbl.h"
+#include "source/Database/termgrouptbl.h"
 #include "source/Helpers/appconfig.h"
 #include "source/Helpers/fsworks.h"
-#include "source/databaseWorks/appconfigtable.h"
-#include "source/databaseWorks/ndtbl.h"
-#include "source/databaseWorks/termgrouptbl.h"
 
 // TODO: Move db version here
 // TODO: JSON send version must be synced with db version

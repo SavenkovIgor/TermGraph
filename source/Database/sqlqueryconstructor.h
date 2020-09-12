@@ -23,11 +23,11 @@
 
 #include <QtCore>
 
-#include "source/databaseWorks/columns/tcolumn.h"
-#include "source/databaseWorks/tools/insertcontainer.h"
-#include "source/databaseWorks/tools/querytools.h"
-#include "source/databaseWorks/tools/setexpression.h"
-#include "source/databaseWorks/tools/wherecondition.h"
+#include "source/Database/columns/tcolumn.h"
+#include "source/Database/tools/insertcontainer.h"
+#include "source/Database/tools/querytools.h"
+#include "source/Database/tools/setexpression.h"
+#include "source/Database/tools/wherecondition.h"
 
 // Задача этого класса - формировать запросы
 // Clear static class

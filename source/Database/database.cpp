@@ -19,14 +19,14 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/databaseWorks/database.h"
+#include "source/Database/database.h"
 
 #include <QDateTime>
 #include <QString>
 #include <QUuid>
 
+#include "source/Database/tools/dbtools.h"
 #include "source/Managers/notificationmanager.h"
-#include "source/databaseWorks/tools/dbtools.h"
 
 Database::Database(const QString& filePath)
     : nodeTable(nullptr)
@@ -84,10 +84,7 @@ Database::Database(const QString& filePath)
     }
 }
 
-Database::~Database()
-{
-    delete base;
-}
+Database::~Database() { delete base; }
 
 void Database::InitAllTables()
 {
@@ -96,15 +93,9 @@ void Database::InitAllTables()
     appConfigTable->initTable();
 }
 
-int Database::currentDbVersion()
-{
-    return appConfigTable->getDbVersion();
-}
+int Database::currentDbVersion() { return appConfigTable->getDbVersion(); }
 
-bool Database::needDbUpdate()
-{
-    return !appConfigTable->isDbVersionActual();
-}
+bool Database::needDbUpdate() { return !appConfigTable->isDbVersionActual(); }
 
 void Database::makeBackupBeforeUpdate(const QString& filePath, const int& oldDbVersion)
 {
@@ -257,7 +248,4 @@ void Database::updateGroupsToSecondVersion()
     }
 }
 
-bool Database::databaseExists(const QString& dbFilePath) const
-{
-    return FSWorks::fileExist(dbFilePath);
-}
+bool Database::databaseExists(const QString& dbFilePath) const { return FSWorks::fileExist(dbFilePath); }
