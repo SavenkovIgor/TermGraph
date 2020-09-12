@@ -57,6 +57,7 @@ target_sources (
             ${CMAKE_SOURCE_DIR}/source/Managers/datastorageinterface.h
             ${CMAKE_SOURCE_DIR}/source/Managers/localdatabasestorage.h
             ${CMAKE_SOURCE_DIR}/source/Managers/localdatabasestorage.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/sqlqueries.qrc
             dbworkstest.cpp)
 
 add_test (NAME ${TEST_PROJECT_NAME} COMMAND ${TEST_PROJECT_NAME})

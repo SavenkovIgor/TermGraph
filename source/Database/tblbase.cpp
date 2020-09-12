@@ -130,18 +130,6 @@ WhereCondition TblBase::primaryKeyEqual(const QString& value) const
     return WhereCondition::columnEqual(primaryKey(), value);
 }
 
-void TblBase::deleteByKey(const QString& key)
-{
-    auto query = SqlQueryConstructor::deleteWhereQuery(tableName(), primaryKeyEqual(key));
-    startQuery(query);
-}
-
-void TblBase::deleteWhere(const WhereCondition& where)
-{
-    auto query = SqlQueryConstructor::deleteWhereQuery(tableName(), where);
-    startQuery(query);
-}
-
 bool TblBase::isColumnExist(const TColumn& column) const
 {
     for (const auto& col : getAllColumns())

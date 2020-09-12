@@ -58,9 +58,6 @@ protected:
 
     WhereCondition primaryKeyEqual(const QString& value) const;
 
-    void deleteByKey(const QString& key);
-    void deleteWhere(const WhereCondition& where);
-
     static RecVector toRecVector(QSqlQuery&& q);
 
     virtual const char*   tableName() const     = 0;

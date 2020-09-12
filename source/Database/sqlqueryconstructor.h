@@ -53,7 +53,8 @@ public:
 
     static QString updateQuery(const QString& tableName, const SetExpression& set, const WhereCondition& where);
 
-    static QString deleteWhereQuery(const QString& tableName, const WhereCondition& where);
+    static QSqlQuery deleteGroup(const QUuid& groupUuid);
+    static QSqlQuery deleteTerm(const QUuid& termUuid);
 
 private: // Methods
     static QString   loadQueryString(const QString& queryPath);

@@ -54,7 +54,7 @@ QString SqlQueryConstructor::addColumn(const QString& tableName, const TColumn& 
 
 QSqlQuery SqlQueryConstructor::dropTable(const QString& tableName)
 {
-    QSqlQuery dropTableQuery = loadQuery("qrc:/sql/queries/common/droptable.sql");
+    QSqlQuery dropTableQuery = loadQuery(":/sql/queries/common/droptable.sql");
     dropTableQuery.bindValue(":tableName", tableName);
     return dropTableQuery;
 }
@@ -131,15 +131,18 @@ QString SqlQueryConstructor::updateQuery(const QString& tableName, const SetExpr
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::deleteWhereQuery(const QString& tableName, const WhereCondition& where)
+QSqlQuery SqlQueryConstructor::deleteGroup(const QUuid& groupUuid)
 {
-    QStringList qry;
-    qry << "DELETE FROM";
-    qry << tableName;
-    qry << "WHERE";
-    qry << where.getJoinedConditions();
+    auto query = loadQuery(":/sql/queries/version2/deletegroupbyuuid.sql");
+    query.bindValue(":uuid", groupUuid.toString());
+    return query;
+}
 
-    return qry.join(" ");
+QSqlQuery SqlQueryConstructor::deleteTerm(const QUuid& termUuid)
+{
+    auto query = loadQuery(":/sql/queries/version2/deletetermbyuuid.sql");
+    query.bindValue(":uuid", termUuid.toString());
+    return query;
 }
 
 QString SqlQueryConstructor::loadQueryString(const QString& queryPath)
@@ -150,4 +153,9 @@ QString SqlQueryConstructor::loadQueryString(const QString& queryPath)
     return QString(queryFile.readAll());
 }
 
-QSqlQuery SqlQueryConstructor::loadQuery(const QString& queryPath) { return QSqlQuery(loadQueryString(queryPath)); }
+QSqlQuery SqlQueryConstructor::loadQuery(const QString& queryPath)
+{
+    QSqlQuery query;
+    query.prepare(loadQueryString(queryPath));
+    return query;
+}

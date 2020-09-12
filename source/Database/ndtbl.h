@@ -22,7 +22,6 @@
 #pragma once
 
 #include "source/Database/columns/tcolumn.h"
-#include "source/Database/dbtablenames.h"
 #include "source/Database/tblbase.h"
 #include "source/Helpers/handytypes.h"
 #include "source/Managers/datastorageinterface.h"
@@ -50,7 +49,7 @@ public:
     bool updateNode(const NodeInfoContainer&             info,
                     DataStorageInterface::LastEditSource lastEditSource,
                     bool                                 checkLastEdit = true);
-    void deleteNode(const QUuid& uuid);
+    void deleteTerm(const QUuid& termUuid);
 
     const char* tableName() const override;
     TColumn     primaryKey() const override;

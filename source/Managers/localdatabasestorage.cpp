@@ -129,4 +129,4 @@ bool LocalDatabaseStorage::updateNode(const NodeInfoContainer&             info,
     return db.nodeTable->updateNode(info, lastEditSource, checkLastEdit);
 }
 
-void LocalDatabaseStorage::deleteNode(const QUuid& nodeUuid) { return db.nodeTable->deleteNode(nodeUuid); }
+void LocalDatabaseStorage::deleteNode(const QUuid& nodeUuid) { return db.nodeTable->deleteTerm(nodeUuid); }

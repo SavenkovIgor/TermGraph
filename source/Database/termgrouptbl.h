@@ -22,7 +22,6 @@
 #pragma once
 
 #include "source/Database/columns/tcolumn.h"
-#include "source/Database/dbtablenames.h"
 #include "source/Database/tblbase.h"
 #include "source/Model/TerminGroup/groupinfocontainer.h"
 
@@ -37,7 +36,7 @@ public:
     // Add, update, delete
     bool addGroup(const GroupInfoContainer& info);
     bool updateGroup(const GroupInfoContainer& info);
-    void deleteGroup(const QUuid& uuid);
+    void deleteGroup(const QUuid& groupUuid);
 
     // Getters
     UuidList                 getAllUuids();
