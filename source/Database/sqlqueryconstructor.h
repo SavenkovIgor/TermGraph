@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include <QSqlQuery>
+#include <QString>
 #include <QtCore>
 
 #include "source/Database/columns/tcolumn.h"
@@ -35,9 +37,9 @@ class SqlQueryConstructor
 {
 public:
     // Tables
-    static QString createTable(const QString& tableName, const TColumn::List& columns);
-    static QString addColumn(const QString& tableName, const TColumn& column);
-    static QString dropTable(const QString& tableName);
+    static QString   createTable(const QString& tableName, const TColumn::List& columns);
+    static QString   addColumn(const QString& tableName, const TColumn& column);
+    static QSqlQuery dropTable(const QString& tableName);
 
     static QString recordsCount(const QString& tableName);
 
@@ -52,4 +54,8 @@ public:
     static QString updateQuery(const QString& tableName, const SetExpression& set, const WhereCondition& where);
 
     static QString deleteWhereQuery(const QString& tableName, const WhereCondition& where);
+
+private: // Methods
+    static QString   loadQueryString(const QString& queryPath);
+    static QSqlQuery loadQuery(const QString& queryPath);
 };

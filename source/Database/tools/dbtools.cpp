@@ -46,6 +46,21 @@ QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
     return ret;
 }
 
+QSqlQuery DbTools::startQuery(QSqlQuery query)
+{
+    query.exec();
+
+    Q_ASSERT_X(!query.lastError().isValid(),
+               Q_FUNC_INFO,
+               QString("Query %1\nfails with error %2")
+                   .arg(query.lastQuery())
+                   .arg(query.lastError().text())
+                   .toStdString()
+                   .c_str());
+
+    return query;
+}
+
 int DbTools::recordsCount(QSqlDatabase* base, const QString& tableName)
 {
     auto queryString = SqlQueryConstructor::recordsCount(tableName);

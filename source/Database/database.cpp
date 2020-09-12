@@ -200,7 +200,7 @@ void Database::updateNodesToSecondVersion()
 
     if (countInOld == countInNew) {
         // Dropping old table
-        DbTools::startQuery(base, SqlQueryConstructor::dropTable("termNode"));
+        DbTools::startQuery(SqlQueryConstructor::dropTable("termNode"));
     }
 }
 
@@ -244,7 +244,7 @@ void Database::updateGroupsToSecondVersion()
 
     if (countInOld == countInNew) {
         // Dropping old table
-        DbTools::startQuery(base, SqlQueryConstructor::dropTable("termGroup"));
+        DbTools::startQuery(SqlQueryConstructor::dropTable("termGroup"));
     }
 }
 

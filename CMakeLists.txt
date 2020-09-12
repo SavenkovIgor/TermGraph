@@ -73,6 +73,9 @@ target_sources (${PROJECT_NAME} PRIVATE resources/helpImages/helpImages.qrc reso
 # Qml folder
 target_sources (${PROJECT_NAME} PRIVATE qml/qml.qrc)
 
+# Sql queries
+target_sources(${PROJECT_NAME} PRIVATE source/Database/sqlqueries.qrc)
+
 # Some non compilable files
 target_sources (
     ${PROJECT_NAME}

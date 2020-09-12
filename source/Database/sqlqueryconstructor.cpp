@@ -20,6 +20,9 @@
  */
 
 #include "source/Database/sqlqueryconstructor.h"
+
+#include <QFile>
+
 #include "source/Database/tools/querytools.h"
 
 QString SqlQueryConstructor::createTable(const QString& tableName, const TColumn::List& columns)
@@ -49,7 +52,12 @@ QString SqlQueryConstructor::addColumn(const QString& tableName, const TColumn& 
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::dropTable(const QString& tableName) { return "DROP TABLE " + tableName; }
+QSqlQuery SqlQueryConstructor::dropTable(const QString& tableName)
+{
+    QSqlQuery dropTableQuery = loadQuery("qrc:/sql/queries/common/droptable.sql");
+    dropTableQuery.bindValue(":tableName", tableName);
+    return dropTableQuery;
+}
 
 QString SqlQueryConstructor::recordsCount(const QString& tableName) { return "SELECT COUNT(*) FROM " + tableName; }
 
@@ -133,3 +141,13 @@ QString SqlQueryConstructor::deleteWhereQuery(const QString& tableName, const Wh
 
     return qry.join(" ");
 }
+
+QString SqlQueryConstructor::loadQueryString(const QString& queryPath)
+{
+    QFile queryFile(queryPath);
+    auto  open = queryFile.open(QIODevice::ReadOnly);
+    assert(open);
+    return QString(queryFile.readAll());
+}
+
+QSqlQuery SqlQueryConstructor::loadQuery(const QString& queryPath) { return QSqlQuery(loadQueryString(queryPath)); }
