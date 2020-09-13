@@ -43,18 +43,6 @@ QSqlQuery SqlQueryConstructor::createTermsTable()
     return query;
 }
 
-QString SqlQueryConstructor::addColumn(const QString& tableName, const TColumn& column)
-{
-    QStringList qry;
-    qry << "ALTER TABLE";
-    qry << tableName;
-    qry << "ADD COLUMN";
-    qry << column.name;
-    qry << column.type;
-
-    return qry.join(" ");
-}
-
 QSqlQuery SqlQueryConstructor::dropTable(const QString& tableName)
 {
     QSqlQuery dropTableQuery = loadQuery(":/sql/queries/common/droptable.sql");
@@ -62,7 +50,12 @@ QSqlQuery SqlQueryConstructor::dropTable(const QString& tableName)
     return dropTableQuery;
 }
 
-QString SqlQueryConstructor::recordsCount(const QString& tableName) { return "SELECT COUNT(*) FROM " + tableName; }
+QSqlQuery SqlQueryConstructor::recordsCount(const QString& tableName)
+{
+    auto query = loadQuery(":/sql/queries/version2/recordscount.sql");
+    query.bindValue(":tableName", tableName);
+    return query;
+}
 
 QString SqlQueryConstructor::selectQuery(const QString&        tableName,
                                          const QStringList&    columns,

@@ -193,8 +193,8 @@ void Database::updateNodesToSecondVersion()
         DbTools::startQuery(base, insertQuery);
     }
 
-    auto countInOld = DbTools::recordsCount(base, "termNode");
-    auto countInNew = DbTools::recordsCount(base, "terms");
+    auto countInOld = DbTools::recordsCount("termNode");
+    auto countInNew = DbTools::recordsCount("terms");
 
     qInfo("Old count: %d new count: %d", countInOld, countInNew);
 
@@ -237,8 +237,8 @@ void Database::updateGroupsToSecondVersion()
         DbTools::startQuery(base, insertQuery);
     }
 
-    auto countInOld = DbTools::recordsCount(base, "termGroup");
-    auto countInNew = DbTools::recordsCount(base, "groups");
+    auto countInOld = DbTools::recordsCount("termGroup");
+    auto countInNew = DbTools::recordsCount("groups");
 
     qInfo("Old count: %d new count: %d", countInOld, countInNew);
 

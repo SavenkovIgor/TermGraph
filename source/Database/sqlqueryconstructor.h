@@ -41,10 +41,9 @@ public:
     static QSqlQuery createGroupsTable();
     static QSqlQuery createTermsTable();
 
-    static QString   addColumn(const QString& tableName, const TColumn& column);
     static QSqlQuery dropTable(const QString& tableName);
 
-    static QString recordsCount(const QString& tableName);
+    static QSqlQuery recordsCount(const QString& tableName);
 
     // Data
     static QString selectQuery(const QString&        tableName,

@@ -61,10 +61,10 @@ QSqlQuery DbTools::startQuery(QSqlQuery query)
     return query;
 }
 
-int DbTools::recordsCount(QSqlDatabase* base, const QString& tableName)
+int DbTools::recordsCount(const QString& tableName)
 {
-    auto queryString = SqlQueryConstructor::recordsCount(tableName);
-    auto query       = startQuery(base, queryString);
+    auto query = SqlQueryConstructor::recordsCount(tableName);
+    startQuery(query);
     query.next();
     return query.value("COUNT(*)").toInt();
 }

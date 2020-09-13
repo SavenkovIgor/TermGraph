@@ -6,5 +6,6 @@
         <file>queries/version2/createtermstable.sql</file>
         <file>queries/version2/deletegroupbyuuid.sql</file>
         <file>queries/version2/deletetermbyuuid.sql</file>
+        <file>queries/version2/recordscount.sql</file>
     </qresource>
 </RCC>
