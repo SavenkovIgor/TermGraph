@@ -123,6 +123,8 @@ UuidList TblBase::filterEmptyUuids(const UuidList& uuids)
     return ret;
 }
 
+void TblBase::startQuery(QSqlQuery query) { DbTools::startQuery(query); }
+
 void TblBase::updateWhere(const SetExpression& set, const WhereCondition& where) { executeUpdate(set, where); }
 
 WhereCondition TblBase::primaryKeyEqual(const QString& value) const

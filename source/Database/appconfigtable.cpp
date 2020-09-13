@@ -21,9 +21,12 @@
 
 #include "source/Database/appconfigtable.h"
 
+#include "source/Database/sqlqueryconstructor.h"
+
 void AppConfigTable::initTable()
 {
-    createTable();
+    auto query = SqlQueryConstructor::createAppConfigTable();
+    startQuery(query);
     // Add database version parameter
     setValue(dbVersionPropertyName, QString::number(dbVersion));
 }

@@ -40,6 +40,11 @@ QString SqlQueryConstructor::createTable(const QString& tableName, const TColumn
     return qry.join(" ");
 }
 
+QSqlQuery SqlQueryConstructor::createAppConfigTable()
+{
+    return loadQuery(":/sql/queries/version2/createappconfigtable.sql");
+}
+
 QString SqlQueryConstructor::addColumn(const QString& tableName, const TColumn& column)
 {
     QStringList qry;

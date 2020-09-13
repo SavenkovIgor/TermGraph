@@ -67,6 +67,9 @@ protected:
 
     static UuidList filterEmptyUuids(const UuidList& uuids);
 
+protected:
+    void startQuery(QSqlQuery query);
+
 private:
     QSqlDatabase* base;
     bool          isColumnExist(const TColumn& column) const;

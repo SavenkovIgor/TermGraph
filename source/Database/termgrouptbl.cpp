@@ -24,7 +24,6 @@
 #include "source/Database/columns/termgroupcolumn.h"
 #include "source/Database/dbtablenames.h"
 #include "source/Database/sqlqueryconstructor.h"
-#include "source/Database/tools/dbtools.h"
 
 bool TermGroupTable::addGroup(const GroupInfoContainer& info)
 {
@@ -84,7 +83,7 @@ UuidList TermGroupTable::getAllUuids()
 void TermGroupTable::deleteGroup(const QUuid& groupUuid)
 {
     auto query = SqlQueryConstructor::deleteGroup(groupUuid);
-    DbTools::startQuery(query);
+    startQuery(query);
 }
 
 bool TermGroupTable::groupExist(const QUuid& uuid) { return hasAnyRecord(whereUuidEqual(uuid)); }

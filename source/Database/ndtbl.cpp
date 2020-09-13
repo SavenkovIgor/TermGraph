@@ -24,7 +24,6 @@
 #include "source/Database/columns/nodecolumn.h"
 #include "source/Database/dbtablenames.h"
 #include "source/Database/sqlqueryconstructor.h"
-#include "source/Database/tools/dbtools.h"
 
 NodeTable::NodeTable(QSqlDatabase* base)
     : TblBase(base)
@@ -93,7 +92,7 @@ bool NodeTable::addNode(const NodeInfoContainer& info)
 void NodeTable::deleteTerm(const QUuid& termUuid)
 {
     auto query = SqlQueryConstructor::deleteTerm(termUuid);
-    DbTools::startQuery(query);
+    startQuery(query);
 }
 
 const char* NodeTable::tableName() const { return TableName::NODES; }

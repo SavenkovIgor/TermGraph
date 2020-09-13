@@ -37,7 +37,10 @@ class SqlQueryConstructor
 {
 public:
     // Tables
-    static QString   createTable(const QString& tableName, const TColumn::List& columns);
+    static QString createTable(const QString& tableName, const TColumn::List& columns);
+
+    static QSqlQuery createAppConfigTable();
+
     static QString   addColumn(const QString& tableName, const TColumn& column);
     static QSqlQuery dropTable(const QString& tableName);
 
