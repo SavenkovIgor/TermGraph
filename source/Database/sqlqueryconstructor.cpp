@@ -25,24 +25,22 @@
 
 #include "source/Database/tools/querytools.h"
 
-QString SqlQueryConstructor::createTable(const QString& tableName, const TColumn::List& columns)
-{
-    QStringList colsDescription;
-    for (const auto& column : columns)
-        colsDescription << QString(column.name) + " " + QString(column.type);
-
-    QStringList qry;
-
-    qry << "CREATE TABLE";
-    qry << tableName;
-    qry << "(" + colsDescription.join(QueryTools::joinParam) + ")";
-
-    return qry.join(" ");
-}
-
 QSqlQuery SqlQueryConstructor::createAppConfigTable()
 {
-    return loadQuery(":/sql/queries/version2/createappconfigtable.sql");
+    auto query = loadQuery(":/sql/queries/version2/createappconfigtable.sql");
+    return query;
+}
+
+QSqlQuery SqlQueryConstructor::createGroupsTable()
+{
+    auto query = loadQuery(":/sql/queries/version2/creategroupstable.sql");
+    return query;
+}
+
+QSqlQuery SqlQueryConstructor::createTermsTable()
+{
+    auto query = loadQuery(":/sql/queries/version2/createtermstable.sql");
+    return query;
 }
 
 QString SqlQueryConstructor::addColumn(const QString& tableName, const TColumn& column)

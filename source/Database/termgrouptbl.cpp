@@ -117,7 +117,11 @@ const char* TermGroupTable::tableName() const { return TableName::GROUPS; }
 
 TColumn TermGroupTable::primaryKey() const { return TermGroupColumn::uuid; }
 
-void TermGroupTable::initTable() { createTable(); }
+void TermGroupTable::initTable()
+{
+    auto query = SqlQueryConstructor::createGroupsTable();
+    startQuery(query);
+}
 
 TColumn::List TermGroupTable::getAllColumns() const
 {

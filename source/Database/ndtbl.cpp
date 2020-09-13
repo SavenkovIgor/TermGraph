@@ -99,7 +99,11 @@ const char* NodeTable::tableName() const { return TableName::NODES; }
 
 TColumn NodeTable::primaryKey() const { return NodeColumn::uuid; }
 
-void NodeTable::initTable() { createTable(); }
+void NodeTable::initTable()
+{
+    auto query = SqlQueryConstructor::createTermsTable();
+    startQuery(query);
+}
 
 TColumn::List NodeTable::getAllColumns() const
 {

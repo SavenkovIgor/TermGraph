@@ -36,8 +36,6 @@ public:
     virtual ~TblBase() = default;
 
 protected:
-    QSqlQuery createTable();
-
     void setField(const TColumn& column, const QString& key, const QString& val);
 
     QString getStringField(const TColumn& column, const QString& key) const;

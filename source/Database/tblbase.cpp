@@ -49,12 +49,6 @@ TblBase::TblBase(QSqlDatabase* base)
     : base(base)
 {}
 
-QSqlQuery TblBase::createTable()
-{
-    auto query = SqlQueryConstructor::createTable(tableName(), getAllColumns());
-    return startQuery(query);
-}
-
 bool TblBase::insertInto(const InsertContainer::List& values)
 {
     QSqlQuery q = executeInsert(values);

@@ -2,6 +2,8 @@
     <qresource prefix="/sql">
         <file>queries/common/droptable.sql</file>
         <file>queries/version2/createappconfigtable.sql</file>
+        <file>queries/version2/creategroupstable.sql</file>
+        <file>queries/version2/createtermstable.sql</file>
         <file>queries/version2/deletegroupbyuuid.sql</file>
         <file>queries/version2/deletetermbyuuid.sql</file>
     </qresource>
