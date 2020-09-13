@@ -127,6 +127,14 @@ QString SqlQueryConstructor::updateQuery(const QString& tableName, const SetExpr
     return qry.join(" ");
 }
 
+QSqlQuery SqlQueryConstructor::updateConfigParameter(const QString& parameter, const QString& newValue)
+{
+    auto query = loadQuery(":/sql/queries/version2/updateconfigkeyvalue.sql");
+    query.bindValue(":parameter", parameter);
+    query.bindValue(":value", newValue);
+    return query;
+}
+
 QSqlQuery SqlQueryConstructor::deleteGroup(const QUuid& groupUuid)
 {
     auto query = loadQuery(":/sql/queries/version2/deletegroupbyuuid.sql");

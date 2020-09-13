@@ -53,7 +53,8 @@ public:
     static QString selectOneQuery(const QString& tableName, const WhereCondition& where);
     static QString insertQuery(const QString& tableName, const InsertContainer::List& values);
 
-    static QString updateQuery(const QString& tableName, const SetExpression& set, const WhereCondition& where);
+    static QString   updateQuery(const QString& tableName, const SetExpression& set, const WhereCondition& where);
+    static QSqlQuery updateConfigParameter(const QString& parameter, const QString& newValue);
 
     static QSqlQuery deleteGroup(const QUuid& groupUuid);
     static QSqlQuery deleteTerm(const QUuid& termUuid);

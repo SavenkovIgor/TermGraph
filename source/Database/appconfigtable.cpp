@@ -62,13 +62,8 @@ void AppConfigTable::setValue(const QString& key, const QString& value)
 {
     if (hasKey(key)) {
         // If has key - updating
-        SetExpression set;
-        set.set(AppConfigColumn::value, value);
-
-        WhereCondition where;
-        where.equal(AppConfigColumn::parameter, key);
-
-        updateWhere(set, where);
+        auto query = SqlQueryConstructor::updateConfigParameter(key, value);
+        startQuery(query);
     } else {
         // Else adding new key
         InsertContainer::List values;

@@ -7,5 +7,6 @@
         <file>queries/version2/deletegroupbyuuid.sql</file>
         <file>queries/version2/deletetermbyuuid.sql</file>
         <file>queries/version2/recordscount.sql</file>
+        <file>queries/version2/updateconfigkeyvalue.sql</file>
     </qresource>
 </RCC>
