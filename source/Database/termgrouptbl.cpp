@@ -55,12 +55,8 @@ bool TermGroupTable::updateGroup(const GroupInfoContainer& info)
     if (!groupExist(info.uuid))
         return false;
 
-    SetExpression set;
-
-    set.set(TermGroupColumn::name, info.name);
-    set.set(TermGroupColumn::comment, info.comment);
-
-    updateWhere(set, whereUuidEqual(info.uuid));
+    auto query = SqlQueryConstructor::updateGroup(info.uuid, info.name, info.comment);
+    startQuery(query);
 
     return true;
 }

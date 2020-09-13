@@ -59,7 +59,6 @@ protected:
     TColumn::List getAllColumns() const override;
 
 private:
-    void setFieldUpdateLastEdit(const TColumn& column, const QUuid& uuid, const QString& val);
     void updateLastEdit(const QUuid& uuid);
     bool isUuidExist(const QUuid& uuid);
 

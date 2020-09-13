@@ -115,12 +115,6 @@ TColumn::List NodeTable::getAllColumns() const
     return lst;
 }
 
-void NodeTable::setFieldUpdateLastEdit(const TColumn& column, const QUuid& uuid, const QString& val)
-{
-    setField(column, uuid.toString(), val);
-    updateLastEdit(uuid);
-}
-
 void NodeTable::updateLastEdit(const QUuid& uuid)
 {
     setField(NodeColumn::lastEdit, uuid.toString(), getLastEditNowString());

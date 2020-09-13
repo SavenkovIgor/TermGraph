@@ -135,6 +135,17 @@ QSqlQuery SqlQueryConstructor::updateConfigParameter(const QString& parameter, c
     return query;
 }
 
+QSqlQuery SqlQueryConstructor::updateGroup(const QUuid&   groupUuid,
+                                           const QString& newGroupName,
+                                           const QString& newGroupComment)
+{
+    auto query = loadQuery(":/sql/queries/version2/updategroup.sql");
+    query.bindValue(":uuid", groupUuid);
+    query.bindValue(":name", newGroupName);
+    query.bindValue(":comment", newGroupComment);
+    return query;
+}
+
 QSqlQuery SqlQueryConstructor::deleteGroup(const QUuid& groupUuid)
 {
     auto query = loadQuery(":/sql/queries/version2/deletegroupbyuuid.sql");

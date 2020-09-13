@@ -55,6 +55,7 @@ public:
 
     static QString   updateQuery(const QString& tableName, const SetExpression& set, const WhereCondition& where);
     static QSqlQuery updateConfigParameter(const QString& parameter, const QString& newValue);
+    static QSqlQuery updateGroup(const QUuid& groupUuid, const QString& newGroupName, const QString& newGroupComment);
 
     static QSqlQuery deleteGroup(const QUuid& groupUuid);
     static QSqlQuery deleteTerm(const QUuid& termUuid);
