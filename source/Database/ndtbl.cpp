@@ -115,11 +115,6 @@ TColumn::List NodeTable::getAllColumns() const
     return lst;
 }
 
-void NodeTable::updateLastEdit(const QUuid& uuid)
-{
-    setField(NodeColumn::lastEdit, uuid.toString(), getLastEditNowString());
-}
-
 bool NodeTable::isUuidExist(const QUuid& uuid) { return hasAnyRecord(whereUuidEqual(uuid)); }
 
 QUuid NodeTable::generateNewUuid()
@@ -222,30 +217,19 @@ bool NodeTable::updateNode(const NodeInfoContainer&             info,
         return false;
 
     if (checkLastEdit) {
-        auto currentLastEdit = getLastEdit(info.uuid);
-        auto newLastEdit     = info.lastEdit;
+        const auto currentLastEdit = getLastEdit(info.uuid);
+        const auto newLastEdit     = info.lastEdit;
         if (currentLastEdit > newLastEdit) // If db version is fresher, do nothing
             return false;
     }
 
-    SetExpression set;
+    NodeInfoContainer nodeContainer = info;
 
-    set.set(NodeColumn::term, info.term);
-    set.set(NodeColumn::definition, info.definition);
-    set.set(NodeColumn::description, info.description);
-    set.set(NodeColumn::examples, info.examples);
-    set.set(NodeColumn::wikiUrl, info.wikiUrl);
-    set.set(NodeColumn::wikiImage, info.wikiImage);
-    set.set(NodeColumn::groupUuid, info.groupUuid.toString());
+    if (lastEditSource == DataStorageInterface::AutoGenerate)
+        nodeContainer.lastEdit = getLastEditNow();
 
-    switch (lastEditSource) {
-    case DataStorageInterface::TakeFromNodeInfo:
-        set.set(NodeColumn::lastEdit, info.lastEdit.toString(Qt::ISODate));
-        break;
-    case DataStorageInterface::AutoGenerate: set.set(NodeColumn::lastEdit, getLastEditNowString()); break;
-    }
-
-    updateWhere(set, whereUuidEqual(info.uuid));
+    auto query = SqlQueryConstructor::updateTerm(nodeContainer);
+    startQuery(query);
 
     return true;
 }

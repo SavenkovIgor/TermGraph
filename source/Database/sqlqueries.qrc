@@ -9,5 +9,6 @@
         <file>queries/version2/recordscount.sql</file>
         <file>queries/version2/updateconfigkeyvalue.sql</file>
         <file>queries/version2/updategroup.sql</file>
+        <file>queries/version2/updateterm.sql</file>
     </qresource>
 </RCC>

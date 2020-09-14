@@ -55,7 +55,7 @@ bool TermGroupTable::updateGroup(const GroupInfoContainer& info)
     if (!groupExist(info.uuid))
         return false;
 
-    auto query = SqlQueryConstructor::updateGroup(info.uuid, info.name, info.comment);
+    auto query = SqlQueryConstructor::updateGroup(info);
     startQuery(query);
 
     return true;

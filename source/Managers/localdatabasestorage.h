@@ -23,6 +23,8 @@
 #include "source/Database/database.h"
 #include "source/Helpers/appconfig.h"
 #include "source/Managers/datastorageinterface.h"
+#include "source/Model/Termin/nodeinfocontainer.h"
+#include "source/Model/TerminGroup/groupinfocontainer.h"
 
 class LocalDatabaseStorage : public DataStorageInterface
 {

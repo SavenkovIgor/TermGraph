@@ -36,8 +36,6 @@ public:
     virtual ~TblBase() = default;
 
 protected:
-    void setField(const TColumn& column, const QString& key, const QString& val);
-
     QString getStringField(const TColumn& column, const QString& key) const;
 
     QSqlQuery select(const TColumn&        column,
@@ -51,8 +49,6 @@ protected:
     bool hasAnyRecord(const WhereCondition& where) const;
 
     bool insertInto(const InsertContainer::List& values);
-
-    void updateWhere(const SetExpression& set, const WhereCondition& where);
 
     WhereCondition primaryKeyEqual(const QString& value) const;
 
@@ -77,5 +73,4 @@ private:
 
     QSqlQuery executeSelect(const QStringList& cols, const WhereCondition& where, const QString& orderBy = "") const;
     QSqlQuery executeInsert(const InsertContainer::List& values);
-    void      executeUpdate(const SetExpression& set, const WhereCondition& where);
 };

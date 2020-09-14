@@ -114,19 +114,6 @@ QString SqlQueryConstructor::insertQuery(const QString& tableName, const InsertC
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::updateQuery(const QString& tableName, const SetExpression& set, const WhereCondition& where)
-{
-    QStringList qry;
-    qry << "UPDATE";
-    qry << tableName;
-    qry << "SET";
-    qry << set.getExpression();
-    qry << "WHERE";
-    qry << where.getJoinedConditions();
-
-    return qry.join(" ");
-}
-
 QSqlQuery SqlQueryConstructor::updateConfigParameter(const QString& parameter, const QString& newValue)
 {
     auto query = loadQuery(":/sql/queries/version2/updateconfigkeyvalue.sql");
@@ -135,14 +122,29 @@ QSqlQuery SqlQueryConstructor::updateConfigParameter(const QString& parameter, c
     return query;
 }
 
-QSqlQuery SqlQueryConstructor::updateGroup(const QUuid&   groupUuid,
-                                           const QString& newGroupName,
-                                           const QString& newGroupComment)
+QSqlQuery SqlQueryConstructor::updateTerm(const NodeInfoContainer& termInfo)
+{
+    auto query = loadQuery(":/sql/queries/version2/updateterm.sql");
+
+    query.bindValue(":uuid", termInfo.uuid.toString());
+    query.bindValue(":term", termInfo.term);
+    query.bindValue(":definition", termInfo.definition);
+    query.bindValue(":description", termInfo.description);
+    query.bindValue(":examples", termInfo.examples);
+    query.bindValue(":wikiUrl", termInfo.wikiUrl);
+    query.bindValue(":wikiImage", termInfo.wikiImage);
+    query.bindValue(":groupUuid", termInfo.groupUuid.toString());
+    query.bindValue(":lastEdit", termInfo.lastEdit.toString(Qt::ISODate));
+
+    return query;
+}
+
+QSqlQuery SqlQueryConstructor::updateGroup(const GroupInfoContainer& groupInfo)
 {
     auto query = loadQuery(":/sql/queries/version2/updategroup.sql");
-    query.bindValue(":uuid", groupUuid);
-    query.bindValue(":name", newGroupName);
-    query.bindValue(":comment", newGroupComment);
+    query.bindValue(":uuid", groupInfo.uuid);
+    query.bindValue(":name", groupInfo.name);
+    query.bindValue(":comment", groupInfo.comment);
     return query;
 }
 

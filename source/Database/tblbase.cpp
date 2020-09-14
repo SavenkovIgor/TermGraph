@@ -99,12 +99,6 @@ QSqlQuery TblBase::executeInsert(const InsertContainer::List& values)
     return startQuery(query);
 }
 
-void TblBase::executeUpdate(const SetExpression& set, const WhereCondition& where)
-{
-    auto query = SqlQueryConstructor::updateQuery(tableName(), set, where);
-    startQuery(query);
-}
-
 UuidList TblBase::filterEmptyUuids(const UuidList& uuids)
 {
     UuidList ret;
@@ -119,8 +113,6 @@ UuidList TblBase::filterEmptyUuids(const UuidList& uuids)
 
 void TblBase::startQuery(QSqlQuery query) { DbTools::startQuery(query); }
 
-void TblBase::updateWhere(const SetExpression& set, const WhereCondition& where) { executeUpdate(set, where); }
-
 WhereCondition TblBase::primaryKeyEqual(const QString& value) const
 {
     return WhereCondition::columnEqual(primaryKey(), value);
@@ -133,14 +125,6 @@ bool TblBase::isColumnExist(const TColumn& column) const
             return true;
 
     return false;
-}
-
-void TblBase::setField(const TColumn& column, const QString& key, const QString& val)
-{
-    SetExpression set;
-    set.set(column, val);
-
-    updateWhere(set, primaryKeyEqual(key));
 }
 
 RecVector TblBase::toRecVector(QSqlQuery&& q)

@@ -30,6 +30,8 @@
 #include "source/Database/tools/querytools.h"
 #include "source/Database/tools/setexpression.h"
 #include "source/Database/tools/wherecondition.h"
+#include "source/Model/Termin/nodeinfocontainer.h"
+#include "source/Model/TerminGroup/groupinfocontainer.h"
 
 // Задача этого класса - формировать запросы
 // Clear static class
@@ -53,9 +55,9 @@ public:
     static QString selectOneQuery(const QString& tableName, const WhereCondition& where);
     static QString insertQuery(const QString& tableName, const InsertContainer::List& values);
 
-    static QString   updateQuery(const QString& tableName, const SetExpression& set, const WhereCondition& where);
     static QSqlQuery updateConfigParameter(const QString& parameter, const QString& newValue);
-    static QSqlQuery updateGroup(const QUuid& groupUuid, const QString& newGroupName, const QString& newGroupComment);
+    static QSqlQuery updateTerm(const NodeInfoContainer& termInfo);
+    static QSqlQuery updateGroup(const GroupInfoContainer& groupInfo);
 
     static QSqlQuery deleteGroup(const QUuid& groupUuid);
     static QSqlQuery deleteTerm(const QUuid& termUuid);
