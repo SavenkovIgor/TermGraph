@@ -194,8 +194,6 @@ target_sources (
             source/Database/tools/insertcontainer.cpp
             source/Database/tools/insertcontainer.h
             source/Database/tools/querytools.h
-            source/Database/tools/setexpression.cpp
-            source/Database/tools/setexpression.h
             source/Database/tools/wherecondition.cpp
             source/Database/tools/wherecondition.h
             source/Database/appconfigtable.cpp

@@ -28,7 +28,6 @@
 #include "source/Database/columns/tcolumn.h"
 #include "source/Database/tools/insertcontainer.h"
 #include "source/Database/tools/querytools.h"
-#include "source/Database/tools/setexpression.h"
 #include "source/Database/tools/wherecondition.h"
 #include "source/Model/Termin/nodeinfocontainer.h"
 #include "source/Model/TerminGroup/groupinfocontainer.h"

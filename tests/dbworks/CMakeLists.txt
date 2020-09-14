@@ -48,8 +48,6 @@ target_sources (
             ${CMAKE_SOURCE_DIR}/source/Database/tools/dbtools.cpp
             ${CMAKE_SOURCE_DIR}/source/Database/tools/insertcontainer.h
             ${CMAKE_SOURCE_DIR}/source/Database/tools/insertcontainer.cpp
-            ${CMAKE_SOURCE_DIR}/source/Database/tools/setexpression.h
-            ${CMAKE_SOURCE_DIR}/source/Database/tools/setexpression.cpp
             ${CMAKE_SOURCE_DIR}/source/Database/tools/wherecondition.h
             ${CMAKE_SOURCE_DIR}/source/Database/tools/wherecondition.cpp
             ${CMAKE_SOURCE_DIR}/source/Managers/notificationmanager.h
