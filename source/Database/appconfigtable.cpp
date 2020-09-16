@@ -66,12 +66,8 @@ void AppConfigTable::setValue(const QString& key, const QString& value)
         startQuery(query);
     } else {
         // Else adding new key
-        InsertContainer::List values;
-
-        values.push_back(InsertContainer(AppConfigColumn::parameter, key));
-        values.push_back(InsertContainer(AppConfigColumn::value, value));
-
-        insertInto(values);
+        auto query = SqlQueryConstructor::insertConfigParameter(key, value);
+        startQuery(query);
     }
 }
 

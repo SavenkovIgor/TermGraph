@@ -114,6 +114,14 @@ QString SqlQueryConstructor::insertQuery(const QString& tableName, const InsertC
     return qry.join(" ");
 }
 
+QSqlQuery SqlQueryConstructor::insertConfigParameter(const QString& parameter, const QString& value)
+{
+    auto query = loadQuery(":/sql/queries/version2/insertconfigkeyvalue.sql");
+    query.bindValue(":parameter", parameter);
+    query.bindValue(":value", value);
+    return query;
+}
+
 QSqlQuery SqlQueryConstructor::updateConfigParameter(const QString& parameter, const QString& newValue)
 {
     auto query = loadQuery(":/sql/queries/version2/updateconfigkeyvalue.sql");
