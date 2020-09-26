@@ -27,24 +27,19 @@
 
 bool TermGroupTable::addGroup(const GroupInfoContainer& info)
 {
-    QUuid groupUuid = info.uuid;
+    GroupInfoContainer groupInfo = info;
 
-    if (groupUuid.isNull())
-        groupUuid = generateNewUuid();
+    if (groupInfo.uuid.isNull())
+        groupInfo.uuid = generateNewUuid();
 
-    if (info.name.simplified().isEmpty())
+    if (groupInfo.name.simplified().isEmpty())
         return false;
 
-    if (groupWithNameExist(info.name))
+    if (groupWithNameExist(groupInfo.name))
         return false;
 
-    InsertContainer::List values;
-
-    values.push_back(InsertContainer(TermGroupColumn::uuid, groupUuid.toString()));
-    values.push_back(InsertContainer(TermGroupColumn::name, info.name));
-    values.push_back(InsertContainer(TermGroupColumn::comment, info.comment));
-
-    return insertInto(values);
+    auto query = SqlQueryConstructor::insertGroup(groupInfo);
+    return startQuery(query);
 }
 
 bool TermGroupTable::updateGroup(const GroupInfoContainer& info)

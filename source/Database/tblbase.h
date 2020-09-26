@@ -60,7 +60,7 @@ protected:
     static UuidList filterEmptyUuids(const UuidList& uuids);
 
 protected:
-    void startQuery(QSqlQuery query);
+    bool startQuery(QSqlQuery query);
 
 private:
     QSqlDatabase* base;

@@ -57,6 +57,7 @@ public:
     static QSqlQuery selectOneTerm(const QUuid& termUuid);
     static QString   insertQuery(const QString& tableName, const InsertContainer::List& values);
     static QSqlQuery insertConfigParameter(const QString& parameter, const QString& value);
+    static QSqlQuery insertGroup(const GroupInfoContainer& groupInfo);
 
     static QSqlQuery updateConfigParameter(const QString& parameter, const QString& newValue);
     static QSqlQuery updateTerm(const NodeInfoContainer& termInfo);

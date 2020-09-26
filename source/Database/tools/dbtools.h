@@ -37,6 +37,7 @@ public:
     // Query
     static QSqlQuery startQuery(QSqlDatabase* base, const QString& queryString);
     static QSqlQuery startQuery(QSqlQuery query);
+    static bool      startQuery2(QSqlQuery query);
 
     // Common table statistic
     static int recordsCount(const QString& tableName);

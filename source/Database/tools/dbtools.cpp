@@ -61,6 +61,19 @@ QSqlQuery DbTools::startQuery(QSqlQuery query)
     return query;
 }
 
+bool DbTools::startQuery2(QSqlQuery query)
+{
+    query.exec();
+
+    auto sqlError = query.lastError();
+    if (sqlError.isValid()) {
+        // sqlError.text();
+        return false;
+    }
+
+    return true;
+}
+
 int DbTools::recordsCount(const QString& tableName)
 {
     auto query = SqlQueryConstructor::recordsCount(tableName);

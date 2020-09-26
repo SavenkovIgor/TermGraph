@@ -128,6 +128,15 @@ QSqlQuery SqlQueryConstructor::insertConfigParameter(const QString& parameter, c
     return query;
 }
 
+QSqlQuery SqlQueryConstructor::insertGroup(const GroupInfoContainer& groupInfo)
+{
+    auto query = loadQuery(":/sql/queries/version2/insertgroup.sql");
+    query.bindValue(":uuid", groupInfo.uuid.toString());
+    query.bindValue(":name", groupInfo.name);
+    query.bindValue(":comment", groupInfo.comment);
+    return query;
+}
+
 QSqlQuery SqlQueryConstructor::updateConfigParameter(const QString& parameter, const QString& newValue)
 {
     auto query = loadQuery(":/sql/queries/version2/updateconfigkeyvalue.sql");

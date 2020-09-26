@@ -9,6 +9,7 @@
         <file>queries/version2/deletetermbyuuid.sql</file>
         <file>queries/version2/groupwithuuidcount.sql</file>
         <file>queries/version2/insertconfigkeyvalue.sql</file>
+        <file>queries/version2/insertgroup.sql</file>
         <file>queries/version2/recordscount.sql</file>
         <file>queries/version2/termwithuuidcount.sql</file>
         <file>queries/version2/updateconfigkeyvalue.sql</file>
