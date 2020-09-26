@@ -46,8 +46,6 @@ protected:
                      const WhereCondition& where   = WhereCondition(),
                      const QString&        orderBy = "") const;
 
-    bool hasAnyRecord(const WhereCondition& where) const;
-
     bool insertInto(const InsertContainer::List& values);
 
     WhereCondition primaryKeyEqual(const QString& value) const;

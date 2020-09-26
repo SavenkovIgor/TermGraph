@@ -115,7 +115,17 @@ TColumn::List NodeTable::getAllColumns() const
     return lst;
 }
 
-bool NodeTable::isUuidExist(const QUuid& uuid) { return hasAnyRecord(whereUuidEqual(uuid)); }
+bool NodeTable::isUuidExist(const QUuid& uuid)
+{
+    auto query = SqlQueryConstructor::selectOneTerm(uuid);
+    startQuery(query);
+
+    if (!query.next())
+        return false;
+
+    auto count = query.record().value("COUNT( * )").toInt();
+    return count > 0;
+}
 
 QUuid NodeTable::generateNewUuid()
 {

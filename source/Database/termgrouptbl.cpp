@@ -82,7 +82,17 @@ void TermGroupTable::deleteGroup(const QUuid& groupUuid)
     startQuery(query);
 }
 
-bool TermGroupTable::groupExist(const QUuid& uuid) { return hasAnyRecord(whereUuidEqual(uuid)); }
+bool TermGroupTable::groupExist(const QUuid& uuid)
+{
+    auto query = SqlQueryConstructor::selectOneGroup(uuid);
+    startQuery(query);
+
+    if (!query.next())
+        return false;
+
+    auto count = query.record().value("COUNT( * )").toInt();
+    return count > 0;
+}
 
 QUuid TermGroupTable::generateNewUuid()
 {

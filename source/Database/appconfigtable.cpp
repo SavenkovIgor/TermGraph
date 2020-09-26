@@ -53,9 +53,14 @@ TColumn::List AppConfigTable::getAllColumns() const
 
 bool AppConfigTable::hasKey(const QString& key)
 {
-    WhereCondition where;
-    where.equal(AppConfigColumn::parameter, key);
-    return hasAnyRecord(where);
+    auto query = SqlQueryConstructor::selectOneConfigParameter(key);
+    startQuery(query);
+
+    if (!query.next())
+        return false;
+
+    auto count = query.record().value("COUNT( * )").toInt();
+    return count > 0;
 }
 
 void AppConfigTable::setValue(const QString& key, const QString& value)

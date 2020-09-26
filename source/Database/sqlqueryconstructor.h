@@ -47,11 +47,14 @@ public:
     static QSqlQuery recordsCount(const QString& tableName);
 
     // Data
-    static QString   selectQuery(const QString&        tableName,
-                                 const QStringList&    columns,
-                                 const WhereCondition& where,
-                                 const QString&        orderBy = "");
-    static QString   selectOneQuery(const QString& tableName, const WhereCondition& where);
+    static QString selectQuery(const QString&        tableName,
+                               const QStringList&    columns,
+                               const WhereCondition& where,
+                               const QString&        orderBy = "");
+
+    static QSqlQuery selectOneConfigParameter(const QString& parameter);
+    static QSqlQuery selectOneGroup(const QUuid& groupUuid);
+    static QSqlQuery selectOneTerm(const QUuid& termUuid);
     static QString   insertQuery(const QString& tableName, const InsertContainer::List& values);
     static QSqlQuery insertConfigParameter(const QString& parameter, const QString& value);
 

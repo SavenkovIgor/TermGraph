@@ -79,19 +79,25 @@ QString SqlQueryConstructor::selectQuery(const QString&        tableName,
     return qry.join(" ");
 }
 
-QString SqlQueryConstructor::selectOneQuery(const QString& tableName, const WhereCondition& where)
+QSqlQuery SqlQueryConstructor::selectOneConfigParameter(const QString& parameter)
 {
-    QStringList qry;
-    qry << "SELECT COUNT(*) FROM";
-    qry << tableName;
-    if (where.getJoinedConditions() != "") {
-        qry << "WHERE";
-        qry << where.getJoinedConditions();
-    }
+    auto query = loadQuery(":/sql/queries/version2/configparametercount.sql");
+    query.bindValue(":parameter", parameter);
+    return query;
+}
 
-    qry << "LIMIT 1";
+QSqlQuery SqlQueryConstructor::selectOneGroup(const QUuid& groupUuid)
+{
+    auto query = loadQuery(":/sql/queries/version2/groupwithuuidcount.sql");
+    query.bindValue(":uuid", groupUuid.toString());
+    return query;
+}
 
-    return qry.join(" ");
+QSqlQuery SqlQueryConstructor::selectOneTerm(const QUuid& termUuid)
+{
+    auto query = loadQuery(":/sql/queries/version2/termwithuuidcount.sql");
+    query.bindValue(":uuid", termUuid.toString());
+    return query;
 }
 
 QString SqlQueryConstructor::insertQuery(const QString& tableName, const InsertContainer::List& values)

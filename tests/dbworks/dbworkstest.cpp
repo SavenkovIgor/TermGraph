@@ -112,6 +112,7 @@ private slots:
         auto nodesList = getNodes();
 
         for (auto& node : nodesList) {
+            QVERIFY(!mStorage->nodeExist(node.uuid));
             QVERIFY(mStorage->addNode(node));
             QVERIFY(mStorage->nodeExist(node.uuid));
             QVERIFY(mStorage->findNode(node.term, node.groupUuid) == node.uuid);
