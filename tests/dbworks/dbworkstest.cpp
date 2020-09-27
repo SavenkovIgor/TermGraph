@@ -204,7 +204,7 @@ private:
     const QString mGroupComment1 = QStringLiteral("commentText1");
     const QString mGroupComment2 = QStringLiteral("commentText2");
 
-    const QString mSpecSymbols = QStringLiteral("!@#$%^&*()-+=*/'\"\\/");
+    const QString mSpecSymbols = QStringLiteral("!@#$%^&*()-+=*:/'\"\\/");
 
     std::unique_ptr<DataStorageInterface> mStorage;
 };

@@ -137,6 +137,21 @@ QSqlQuery SqlQueryConstructor::insertGroup(const GroupInfoContainer& groupInfo)
     return query;
 }
 
+QSqlQuery SqlQueryConstructor::insertTerm(const NodeInfoContainer& termInfo)
+{
+    auto query = loadQuery(":/sql/queries/version2/insertterm.sql");
+    query.bindValue(":uuid", termInfo.uuid.toString());
+    query.bindValue(":term", termInfo.term);
+    query.bindValue(":definition", termInfo.definition);
+    query.bindValue(":description", termInfo.description);
+    query.bindValue(":examples", termInfo.examples);
+    query.bindValue(":wikiUrl", termInfo.wikiUrl);
+    query.bindValue(":wikiImage", termInfo.wikiImage);
+    query.bindValue(":groupUuid", termInfo.groupUuid.toString());
+    query.bindValue(":lastEdit", termInfo.lastEdit.toString(Qt::ISODate));
+    return query;
+}
+
 QSqlQuery SqlQueryConstructor::updateConfigParameter(const QString& parameter, const QString& newValue)
 {
     auto query = loadQuery(":/sql/queries/version2/updateconfigkeyvalue.sql");

@@ -58,35 +58,17 @@ bool NodeTable::addNode(const NodeInfoContainer& info)
     if (nodeExist(info.uuid))
         return false;
 
-    InsertContainer::List values;
-
-    QUuid nodeUuid = info.uuid;
+    NodeInfoContainer termInfo = info;
 
     // Generate new uuid if current is empty
-    if (nodeUuid.isNull()) {
-        nodeUuid = generateNewUuid();
-    }
+    if (termInfo.uuid.isNull())
+        termInfo.uuid = generateNewUuid();
 
-    values.push_back(InsertContainer(NodeColumn::uuid, nodeUuid.toString()));
-    values.push_back(InsertContainer(NodeColumn::term, info.term));
-    values.push_back(InsertContainer(NodeColumn::definition, info.definition));
-    values.push_back(InsertContainer(NodeColumn::description, info.description));
-    values.push_back(InsertContainer(NodeColumn::examples, info.examples));
-    values.push_back(InsertContainer(NodeColumn::wikiUrl, info.wikiUrl));
-    values.push_back(InsertContainer(NodeColumn::wikiImage, info.wikiImage));
-    values.push_back(InsertContainer(NodeColumn::groupUuid, info.groupUuid.toString()));
+    if (termInfo.lastEdit.isNull())
+        termInfo.lastEdit = getLastEditNow();
 
-    QDateTime lastEdit = info.lastEdit;
-
-    if (lastEdit.isNull()) {
-        lastEdit = getLastEditNow();
-    }
-
-    values.push_back(InsertContainer(NodeColumn::lastEdit, lastEdit.toString(Qt::ISODate)));
-
-    insertInto(values);
-
-    return true;
+    auto query = SqlQueryConstructor::insertTerm(termInfo);
+    return startQuery(query);
 }
 
 void NodeTable::deleteTerm(const QUuid& termUuid)
