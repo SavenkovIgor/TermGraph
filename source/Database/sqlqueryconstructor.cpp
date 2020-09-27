@@ -100,26 +100,6 @@ QSqlQuery SqlQueryConstructor::selectOneTerm(const QUuid& termUuid)
     return query;
 }
 
-QString SqlQueryConstructor::insertQuery(const QString& tableName, const InsertContainer::List& values)
-{
-    QStringList columns;
-    QStringList insertValues;
-
-    for (const auto& value : values) {
-        columns << value.getColumnName();
-        insertValues << QueryTools::vv(value.getValue());
-    }
-
-    QStringList qry;
-    qry << "INSERT INTO";
-    qry << tableName;
-    qry << "( " + columns.join(QueryTools::joinParam) + " )";
-    qry << "VALUES";
-    qry << "( " + insertValues.join(QueryTools::joinParam) + " )";
-
-    return qry.join(" ");
-}
-
 QSqlQuery SqlQueryConstructor::insertConfigParameter(const QString& parameter, const QString& value)
 {
     auto query = loadQuery(":/sql/queries/version2/insertconfigkeyvalue.sql");
@@ -200,17 +180,17 @@ QSqlQuery SqlQueryConstructor::deleteTerm(const QUuid& termUuid)
     return query;
 }
 
+QSqlQuery SqlQueryConstructor::loadQuery(const QString& queryPath)
+{
+    QSqlQuery query;
+    query.prepare(loadQueryString(queryPath));
+    return query;
+}
+
 QString SqlQueryConstructor::loadQueryString(const QString& queryPath)
 {
     QFile queryFile(queryPath);
     auto  open = queryFile.open(QIODevice::ReadOnly);
     assert(open);
     return QString(queryFile.readAll());
-}
-
-QSqlQuery SqlQueryConstructor::loadQuery(const QString& queryPath)
-{
-    QSqlQuery query;
-    query.prepare(loadQueryString(queryPath));
-    return query;
 }

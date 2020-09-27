@@ -55,7 +55,7 @@ public:
     static QSqlQuery selectOneConfigParameter(const QString& parameter);
     static QSqlQuery selectOneGroup(const QUuid& groupUuid);
     static QSqlQuery selectOneTerm(const QUuid& termUuid);
-    static QString   insertQuery(const QString& tableName, const InsertContainer::List& values);
+
     static QSqlQuery insertConfigParameter(const QString& parameter, const QString& value);
     static QSqlQuery insertGroup(const GroupInfoContainer& groupInfo);
     static QSqlQuery insertTerm(const NodeInfoContainer& termInfo);
@@ -67,7 +67,8 @@ public:
     static QSqlQuery deleteGroup(const QUuid& groupUuid);
     static QSqlQuery deleteTerm(const QUuid& termUuid);
 
-private: // Methods
-    static QString   loadQueryString(const QString& queryPath);
     static QSqlQuery loadQuery(const QString& queryPath);
+
+private: // Methods
+    static QString loadQueryString(const QString& queryPath);
 };

@@ -177,20 +177,19 @@ void Database::updateNodesToSecondVersion()
 
     // Copy data from old table to new
     while (oldNodeTable.next()) {
-        InsertContainer::List values;
+        auto insertQuery = SqlQueryConstructor::loadQuery(":/sql/queries/version2/insertterm.sql");
 
-        values.push_back(InsertContainer("uuid", oldNodeTable.value("longUID").toString()));
-        values.push_back(InsertContainer("term", oldNodeTable.value("term").toString()));
-        values.push_back(InsertContainer("definition", oldNodeTable.value("definition").toString()));
-        values.push_back(InsertContainer("description", oldNodeTable.value("description").toString()));
-        values.push_back(InsertContainer("examples", oldNodeTable.value("examples").toString()));
-        values.push_back(InsertContainer("wikiUrl", oldNodeTable.value("wikiRef").toString()));
-        values.push_back(InsertContainer("wikiImage", oldNodeTable.value("wikiImg").toString()));
-        values.push_back(InsertContainer("groupUuid", oldNodeTable.value("termGroup").toString()));
-        values.push_back(InsertContainer("lastEdit", oldNodeTable.value("lastEdit").toString()));
+        insertQuery.bindValue(":uuid", oldNodeTable.value("longUID").toString());
+        insertQuery.bindValue(":term", oldNodeTable.value("term").toString());
+        insertQuery.bindValue(":definition", oldNodeTable.value("definition").toString());
+        insertQuery.bindValue(":description", oldNodeTable.value("description").toString());
+        insertQuery.bindValue(":examples", oldNodeTable.value("examples").toString());
+        insertQuery.bindValue(":wikiUrl", oldNodeTable.value("wikiRef").toString());
+        insertQuery.bindValue(":wikiImage", oldNodeTable.value("wikiImg").toString());
+        insertQuery.bindValue(":groupUuid", oldNodeTable.value("termGroup").toString());
+        insertQuery.bindValue(":lastEdit", oldNodeTable.value("lastEdit").toString());
 
-        auto insertQuery = SqlQueryConstructor::insertQuery("terms", values);
-        DbTools::startQuery(base, insertQuery);
+        DbTools::startQuery(insertQuery);
     }
 
     auto countInOld = DbTools::recordsCount("termNode");
@@ -227,14 +226,13 @@ void Database::updateGroupsToSecondVersion()
 
     // Copy data from old table to new and drop type
     while (oldGroupsTable.next()) {
-        InsertContainer::List values;
+        auto insertQuery = SqlQueryConstructor::loadQuery(":/sql/queries/version2/insertgroup.sql");
 
-        values.push_back(InsertContainer("uuid", oldGroupsTable.value("longUID").toString()));
-        values.push_back(InsertContainer("name", oldGroupsTable.value("name").toString()));
-        values.push_back(InsertContainer("comment", oldGroupsTable.value("comment").toString()));
+        insertQuery.bindValue(":uuid", oldGroupsTable.value("longUID").toString());
+        insertQuery.bindValue(":name", oldGroupsTable.value("name").toString());
+        insertQuery.bindValue(":comment", oldGroupsTable.value("comment").toString());
 
-        auto insertQuery = SqlQueryConstructor::insertQuery("groups", values);
-        DbTools::startQuery(base, insertQuery);
+        DbTools::startQuery(insertQuery);
     }
 
     auto countInOld = DbTools::recordsCount("termGroup");

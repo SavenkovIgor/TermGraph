@@ -46,8 +46,6 @@ protected:
                      const WhereCondition& where   = WhereCondition(),
                      const QString&        orderBy = "") const;
 
-    bool insertInto(const InsertContainer::List& values);
-
     WhereCondition primaryKeyEqual(const QString& value) const;
 
     static RecVector toRecVector(QSqlQuery&& q);
@@ -70,5 +68,4 @@ private:
     bool      hasErrors(const QString& errString) const;
 
     QSqlQuery executeSelect(const QStringList& cols, const WhereCondition& where, const QString& orderBy = "") const;
-    QSqlQuery executeInsert(const InsertContainer::List& values);
 };

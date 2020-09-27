@@ -49,17 +49,6 @@ TblBase::TblBase(QSqlDatabase* base)
     : base(base)
 {}
 
-bool TblBase::insertInto(const InsertContainer::List& values)
-{
-    QSqlQuery q = executeInsert(values);
-
-    if (hasErrors(q.lastError().text())) {
-        return false;
-    }
-
-    return true;
-}
-
 QSqlQuery TblBase::select(const TColumn& column, const WhereCondition& where, const QString& orderBy) const
 {
     return select(TColumn::List() << column, where, orderBy);
@@ -78,12 +67,6 @@ QSqlQuery TblBase::select(const TColumn::List& columns, const WhereCondition& wh
 QSqlQuery TblBase::executeSelect(const QStringList& cols, const WhereCondition& where, const QString& orderBy) const
 {
     auto query = SqlQueryConstructor::selectQuery(tableName(), cols, where, orderBy);
-    return startQuery(query);
-}
-
-QSqlQuery TblBase::executeInsert(const InsertContainer::List& values)
-{
-    auto query = SqlQueryConstructor::insertQuery(tableName(), values);
     return startQuery(query);
 }
 
