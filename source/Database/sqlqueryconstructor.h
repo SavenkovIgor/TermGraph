@@ -59,6 +59,7 @@ public:
     static QSqlQuery createTermsTable();
     static QSqlQuery insertTerm(const NodeInfoContainer& termInfo);
     static QSqlQuery selectOneTerm(const QUuid& termUuid);
+    static QSqlQuery selectOneTerm(const QString& term, const QUuid& groupUuid);
     static QSqlQuery updateTerm(const NodeInfoContainer& termInfo);
     static QSqlQuery deleteTerm(const QUuid& termUuid);
 

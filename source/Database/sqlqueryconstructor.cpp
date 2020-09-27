@@ -142,6 +142,14 @@ QSqlQuery SqlQueryConstructor::selectOneTerm(const QUuid &termUuid)
     return query;
 }
 
+QSqlQuery SqlQueryConstructor::selectOneTerm(const QString &term, const QUuid &groupUuid)
+{
+    auto query = loadQuery(":/sql/queries/version2/terms/selecttermwithnameingroup.sql");
+    query.bindValue(":term", term);
+    query.bindValue(":groupUuid", groupUuid.toString());
+    return query;
+}
+
 QSqlQuery SqlQueryConstructor::updateTerm(const NodeInfoContainer &termInfo)
 {
     auto query = loadQuery(":/sql/queries/version2/terms/updateterm.sql");

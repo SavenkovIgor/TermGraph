@@ -33,14 +33,13 @@ NodeTable::NodeTable(QSqlDatabase* base)
 
 QUuid NodeTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const
 {
-    auto where = WhereCondition();
-    where.equal(NodeColumn::term, name);
-    where.equal(NodeColumn::groupUuid, groupUuid.toString());
-    auto nodesRecords = toRecVector(select(NodeColumn::uuid, where));
+    auto query = SqlQueryConstructor::selectOneTerm(name, groupUuid);
+    startQuery(query);
 
-    if (!nodesRecords.isEmpty()) {
-        return QUuid(nodesRecords.first().value(NodeColumn::uuid).toString());
-    }
+    auto nodesRecords = toRecVector(std::move(query));
+
+    if (nodesRecords.size() == 1)
+        return QUuid(nodesRecords.first().value("uuid").toString());
 
     return QUuid();
 }

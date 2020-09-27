@@ -58,7 +58,7 @@ protected:
     static UuidList filterEmptyUuids(const UuidList& uuids);
 
 protected:
-    bool startQuery(QSqlQuery query);
+    bool startQuery(QSqlQuery query) const;
 
 private:
     QSqlDatabase* base;

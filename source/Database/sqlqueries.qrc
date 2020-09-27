@@ -14,6 +14,7 @@
         <file>queries/version2/terms/createtermstable.sql</file>
         <file>queries/version2/terms/deletetermbyuuid.sql</file>
         <file>queries/version2/terms/insertterm.sql</file>
+        <file>queries/version2/terms/selecttermwithnameingroup.sql</file>
         <file>queries/version2/terms/termwithuuidcount.sql</file>
         <file>queries/version2/terms/updateterm.sql</file>
     </qresource>

@@ -82,7 +82,7 @@ UuidList TblBase::filterEmptyUuids(const UuidList& uuids)
     return ret;
 }
 
-bool TblBase::startQuery(QSqlQuery query) { return DbTools::startQuery2(query); }
+bool TblBase::startQuery(QSqlQuery query) const { return DbTools::startQuery2(query); }
 
 WhereCondition TblBase::primaryKeyEqual(const QString& value) const
 {
