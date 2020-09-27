@@ -36,7 +36,7 @@ QUuid NodeTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& group
     auto query = SqlQueryConstructor::selectOneTerm(name, groupUuid);
     startQuery(query);
 
-    auto nodesRecords = toRecVector(std::move(query));
+    auto nodesRecords = extractRecords(std::move(query));
 
     if (nodesRecords.size() == 1)
         return QUuid(nodesRecords.first().value("uuid").toString());
@@ -133,7 +133,7 @@ UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
     if (!groupUuid.isNull()) // Take only uuids in specifig group
         where = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
 
-    auto sqlRecords = toRecVector(select(NodeColumn::uuid, where));
+    auto sqlRecords = extractRecords(select(NodeColumn::uuid, where));
 
     for (auto& record : sqlRecords) {
         if (!record.contains(NodeColumn::uuid))
@@ -151,7 +151,7 @@ NodeInfoContainer NodeTable::getNode(const QUuid& uuid)
 
     NodeInfoContainer info;
 
-    auto records = toRecVector(select(getAllColumns(), whereUuidEqual(uuid)));
+    auto records = extractRecords(select(getAllColumns(), whereUuidEqual(uuid)));
 
     if (records.isEmpty())
         return info;
@@ -166,7 +166,7 @@ NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
 
     NodeInfoContainer::List ret;
     auto                    where   = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
-    auto                    records = toRecVector(select(getAllColumns(), where));
+    auto                    records = extractRecords(select(getAllColumns(), where));
 
     for (auto& record : records) {
         NodeInfoContainer info = recordToNodeInfo(record);
@@ -191,7 +191,7 @@ RecVector NodeTable::getAllLastEditRecords()
     auto columns = TColumn::List();
     columns << NodeColumn::groupUuid;
     columns << NodeColumn::lastEdit;
-    return toRecVector(select(columns));
+    return extractRecords(select(columns));
 }
 
 bool NodeTable::updateNode(const NodeInfoContainer&             info,

@@ -48,7 +48,7 @@ protected:
 
     WhereCondition primaryKeyEqual(const QString& value) const;
 
-    static RecVector toRecVector(QSqlQuery&& q);
+    static RecVector extractRecords(QSqlQuery&& q);
 
     virtual const char*   tableName() const     = 0;
     virtual TColumn       primaryKey() const    = 0;

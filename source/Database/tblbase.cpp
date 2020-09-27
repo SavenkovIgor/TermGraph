@@ -98,7 +98,7 @@ bool TblBase::isColumnExist(const TColumn& column) const
     return false;
 }
 
-RecVector TblBase::toRecVector(QSqlQuery&& q)
+RecVector TblBase::extractRecords(QSqlQuery&& q)
 {
     RecVector ret;
 
