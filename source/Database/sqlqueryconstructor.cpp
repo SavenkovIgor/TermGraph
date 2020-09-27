@@ -47,22 +47,15 @@ QString SqlQueryConstructor::selectQuery(const QString &       tableName,
     return qry.join(" ");
 }
 
-QSqlQuery SqlQueryConstructor::selectOneTerm(const QUuid &termUuid)
-{
-    auto query = loadQuery(":/sql/queries/version2/termwithuuidcount.sql");
-    query.bindValue(":uuid", termUuid.toString());
-    return query;
-}
-
 QSqlQuery SqlQueryConstructor::createAppConfigTable()
 {
-    auto query = loadQuery(":/sql/queries/version2/createappconfigtable.sql");
+    auto query = loadQuery(":/sql/queries/version2/appConfig/createappconfigtable.sql");
     return query;
 }
 
 QSqlQuery SqlQueryConstructor::insertConfigParameter(const QString &parameter, const QString &value)
 {
-    auto query = loadQuery(":/sql/queries/version2/insertconfigkeyvalue.sql");
+    auto query = loadQuery(":/sql/queries/version2/appConfig/insertconfigkeyvalue.sql");
     query.bindValue(":parameter", parameter);
     query.bindValue(":value", value);
     return query;
@@ -70,14 +63,14 @@ QSqlQuery SqlQueryConstructor::insertConfigParameter(const QString &parameter, c
 
 QSqlQuery SqlQueryConstructor::selectOneConfigParameter(const QString &parameter)
 {
-    auto query = loadQuery(":/sql/queries/version2/configparametercount.sql");
+    auto query = loadQuery(":/sql/queries/version2/appConfig/configparametercount.sql");
     query.bindValue(":parameter", parameter);
     return query;
 }
 
 QSqlQuery SqlQueryConstructor::updateConfigParameter(const QString &parameter, const QString &newValue)
 {
-    auto query = loadQuery(":/sql/queries/version2/updateconfigkeyvalue.sql");
+    auto query = loadQuery(":/sql/queries/version2/appConfig/updateconfigkeyvalue.sql");
     query.bindValue(":parameter", parameter);
     query.bindValue(":value", newValue);
     return query;
@@ -85,13 +78,13 @@ QSqlQuery SqlQueryConstructor::updateConfigParameter(const QString &parameter, c
 
 QSqlQuery SqlQueryConstructor::createGroupsTable()
 {
-    auto query = loadQuery(":/sql/queries/version2/creategroupstable.sql");
+    auto query = loadQuery(":/sql/queries/version2/groups/creategroupstable.sql");
     return query;
 }
 
 QSqlQuery SqlQueryConstructor::insertGroup(const GroupInfoContainer &groupInfo)
 {
-    auto query = loadQuery(":/sql/queries/version2/insertgroup.sql");
+    auto query = loadQuery(":/sql/queries/version2/groups/insertgroup.sql");
     query.bindValue(":uuid", groupInfo.uuid.toString());
     query.bindValue(":name", groupInfo.name);
     query.bindValue(":comment", groupInfo.comment);
@@ -100,14 +93,14 @@ QSqlQuery SqlQueryConstructor::insertGroup(const GroupInfoContainer &groupInfo)
 
 QSqlQuery SqlQueryConstructor::selectOneGroup(const QUuid &groupUuid)
 {
-    auto query = loadQuery(":/sql/queries/version2/groupwithuuidcount.sql");
+    auto query = loadQuery(":/sql/queries/version2/groups/groupwithuuidcount.sql");
     query.bindValue(":uuid", groupUuid.toString());
     return query;
 }
 
 QSqlQuery SqlQueryConstructor::updateGroup(const GroupInfoContainer &groupInfo)
 {
-    auto query = loadQuery(":/sql/queries/version2/updategroup.sql");
+    auto query = loadQuery(":/sql/queries/version2/groups/updategroup.sql");
     query.bindValue(":uuid", groupInfo.uuid);
     query.bindValue(":name", groupInfo.name);
     query.bindValue(":comment", groupInfo.comment);
@@ -116,20 +109,20 @@ QSqlQuery SqlQueryConstructor::updateGroup(const GroupInfoContainer &groupInfo)
 
 QSqlQuery SqlQueryConstructor::deleteGroup(const QUuid &groupUuid)
 {
-    auto query = loadQuery(":/sql/queries/version2/deletegroupbyuuid.sql");
+    auto query = loadQuery(":/sql/queries/version2/groups/deletegroupbyuuid.sql");
     query.bindValue(":uuid", groupUuid.toString());
     return query;
 }
 
 QSqlQuery SqlQueryConstructor::createTermsTable()
 {
-    auto query = loadQuery(":/sql/queries/version2/createtermstable.sql");
+    auto query = loadQuery(":/sql/queries/version2/terms/createtermstable.sql");
     return query;
 }
 
 QSqlQuery SqlQueryConstructor::insertTerm(const NodeInfoContainer &termInfo)
 {
-    auto query = loadQuery(":/sql/queries/version2/insertterm.sql");
+    auto query = loadQuery(":/sql/queries/version2/terms/insertterm.sql");
     query.bindValue(":uuid", termInfo.uuid.toString());
     query.bindValue(":term", termInfo.term);
     query.bindValue(":definition", termInfo.definition);
@@ -142,9 +135,16 @@ QSqlQuery SqlQueryConstructor::insertTerm(const NodeInfoContainer &termInfo)
     return query;
 }
 
+QSqlQuery SqlQueryConstructor::selectOneTerm(const QUuid &termUuid)
+{
+    auto query = loadQuery(":/sql/queries/version2/terms/termwithuuidcount.sql");
+    query.bindValue(":uuid", termUuid.toString());
+    return query;
+}
+
 QSqlQuery SqlQueryConstructor::updateTerm(const NodeInfoContainer &termInfo)
 {
-    auto query = loadQuery(":/sql/queries/version2/updateterm.sql");
+    auto query = loadQuery(":/sql/queries/version2/terms/updateterm.sql");
 
     query.bindValue(":uuid", termInfo.uuid.toString());
     query.bindValue(":term", termInfo.term);
@@ -161,7 +161,7 @@ QSqlQuery SqlQueryConstructor::updateTerm(const NodeInfoContainer &termInfo)
 
 QSqlQuery SqlQueryConstructor::deleteTerm(const QUuid &termUuid)
 {
-    auto query = loadQuery(":/sql/queries/version2/deletetermbyuuid.sql");
+    auto query = loadQuery(":/sql/queries/version2/terms/deletetermbyuuid.sql");
     query.bindValue(":uuid", termUuid.toString());
     return query;
 }
@@ -175,7 +175,7 @@ QSqlQuery SqlQueryConstructor::loadQuery(const QString &queryPath)
 
 QSqlQuery SqlQueryConstructor::recordsCount(const QString &tableName)
 {
-    auto query = loadQuery(":/sql/queries/version2/recordscount.sql");
+    auto query = loadQuery(":/sql/queries/common/recordscount.sql");
     query.bindValue(":tableName", tableName);
     return query;
 }

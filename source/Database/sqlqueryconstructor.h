@@ -42,8 +42,6 @@ public:
                                const WhereCondition& where,
                                const QString&        orderBy = "");
 
-    static QSqlQuery selectOneTerm(const QUuid& termUuid);
-
     // AppConfig table
     static QSqlQuery createAppConfigTable();
     static QSqlQuery insertConfigParameter(const QString& parameter, const QString& value);
@@ -60,6 +58,7 @@ public:
     // Terms table
     static QSqlQuery createTermsTable();
     static QSqlQuery insertTerm(const NodeInfoContainer& termInfo);
+    static QSqlQuery selectOneTerm(const QUuid& termUuid);
     static QSqlQuery updateTerm(const NodeInfoContainer& termInfo);
     static QSqlQuery deleteTerm(const QUuid& termUuid);
 

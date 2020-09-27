@@ -1,20 +1,20 @@
 <RCC>
     <qresource prefix="/sql">
         <file>queries/common/droptable.sql</file>
-        <file>queries/version2/configparametercount.sql</file>
-        <file>queries/version2/createappconfigtable.sql</file>
-        <file>queries/version2/creategroupstable.sql</file>
-        <file>queries/version2/createtermstable.sql</file>
-        <file>queries/version2/deletegroupbyuuid.sql</file>
-        <file>queries/version2/deletetermbyuuid.sql</file>
-        <file>queries/version2/groupwithuuidcount.sql</file>
-        <file>queries/version2/insertconfigkeyvalue.sql</file>
-        <file>queries/version2/insertgroup.sql</file>
-        <file>queries/version2/insertterm.sql</file>
-        <file>queries/version2/recordscount.sql</file>
-        <file>queries/version2/termwithuuidcount.sql</file>
-        <file>queries/version2/updateconfigkeyvalue.sql</file>
-        <file>queries/version2/updategroup.sql</file>
-        <file>queries/version2/updateterm.sql</file>
+        <file>queries/common/recordscount.sql</file>
+        <file>queries/version2/appConfig/configparametercount.sql</file>
+        <file>queries/version2/appConfig/createappconfigtable.sql</file>
+        <file>queries/version2/appConfig/insertconfigkeyvalue.sql</file>
+        <file>queries/version2/appConfig/updateconfigkeyvalue.sql</file>
+        <file>queries/version2/groups/creategroupstable.sql</file>
+        <file>queries/version2/groups/deletegroupbyuuid.sql</file>
+        <file>queries/version2/groups/groupwithuuidcount.sql</file>
+        <file>queries/version2/groups/insertgroup.sql</file>
+        <file>queries/version2/groups/updategroup.sql</file>
+        <file>queries/version2/terms/createtermstable.sql</file>
+        <file>queries/version2/terms/deletetermbyuuid.sql</file>
+        <file>queries/version2/terms/insertterm.sql</file>
+        <file>queries/version2/terms/termwithuuidcount.sql</file>
+        <file>queries/version2/terms/updateterm.sql</file>
     </qresource>
 </RCC>
