@@ -191,8 +191,6 @@ target_sources (
             source/Database/columns/termgroupcolumn.h
             source/Database/tools/dbtools.cpp
             source/Database/tools/dbtools.h
-            source/Database/tools/insertcontainer.cpp
-            source/Database/tools/insertcontainer.h
             source/Database/tools/querytools.h
             source/Database/tools/wherecondition.cpp
             source/Database/tools/wherecondition.h
