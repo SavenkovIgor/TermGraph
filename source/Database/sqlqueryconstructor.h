@@ -46,6 +46,7 @@ public:
     static QSqlQuery createAppConfigTable();
     static QSqlQuery insertConfigParameter(const QString& parameter, const QString& value);
     static QSqlQuery selectOneConfigParameter(const QString& parameter);
+    static QSqlQuery selectConfigParameter(const QString& parameter);
     static QSqlQuery updateConfigParameter(const QString& parameter, const QString& newValue);
 
     // Groups table

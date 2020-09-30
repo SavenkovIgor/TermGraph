@@ -68,6 +68,13 @@ QSqlQuery SqlQueryConstructor::selectOneConfigParameter(const QString &parameter
     return query;
 }
 
+QSqlQuery SqlQueryConstructor::selectConfigParameter(const QString &parameter)
+{
+    auto query = loadQuery(":/sql/queries/version2/appConfig/selectparameter.sql");
+    query.bindValue(":parameter", parameter);
+    return query;
+}
+
 QSqlQuery SqlQueryConstructor::updateConfigParameter(const QString &parameter, const QString &newValue)
 {
     auto query = loadQuery(":/sql/queries/version2/appConfig/updateconfigkeyvalue.sql");

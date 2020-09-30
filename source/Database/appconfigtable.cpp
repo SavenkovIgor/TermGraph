@@ -79,10 +79,13 @@ void AppConfigTable::setValue(const QString& key, const QString& value)
 QString AppConfigTable::value(const QString& key, const QString& defaultValue)
 {
     if (hasKey(key)) {
-        auto where = WhereCondition();
-        where.equal(AppConfigColumn::parameter, key);
-        auto recList = extractRecords(select(AppConfigColumn::value, where));
-        return recList.first().value(AppConfigColumn::value).toString();
+        auto query = SqlQueryConstructor::selectConfigParameter(key);
+        startQuery(query);
+
+        auto records = extractRecords(std::move(query));
+
+        assert(records.size() == 1);
+        return records.first().value("value").toString();
     }
 
     return defaultValue;

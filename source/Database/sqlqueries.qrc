@@ -5,6 +5,7 @@
         <file>queries/version2/appConfig/configparametercount.sql</file>
         <file>queries/version2/appConfig/createappconfigtable.sql</file>
         <file>queries/version2/appConfig/insertconfigkeyvalue.sql</file>
+        <file>queries/version2/appConfig/selectparameter.sql</file>
         <file>queries/version2/appConfig/updateconfigkeyvalue.sql</file>
         <file>queries/version2/groups/creategroupstable.sql</file>
         <file>queries/version2/groups/deletegroupbyuuid.sql</file>
