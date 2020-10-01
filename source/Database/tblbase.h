@@ -53,8 +53,6 @@ protected:
     virtual TColumn::List getAllColumns() const = 0;
     virtual void          initTable()           = 0;
 
-    static UuidList filterEmptyUuids(const UuidList& uuids);
-
 protected:
     bool startQuery(QSqlQuery query) const;
 

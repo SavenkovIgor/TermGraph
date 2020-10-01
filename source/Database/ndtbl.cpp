@@ -126,23 +126,24 @@ QString NodeTable::getLastEditNowString() { return getLastEditNow().toString(Qt:
 
 UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
 {
-    UuidList ret;
+    UuidList  ret;
+    QSqlQuery query;
 
-    WhereCondition where; // Take all uuids
+    if (groupUuid.isNull())
+        query = SqlQueryConstructor::selectAllUuids();
+    else
+        query = SqlQueryConstructor::selectAllUuids(groupUuid);
 
-    if (!groupUuid.isNull()) // Take only uuids in specifig group
-        where = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
+    startQuery(query);
 
-    auto sqlRecords = getAllRecords(select(NodeColumn::uuid, where));
+    auto sqlRecords = getAllRecords(std::move(query));
 
     for (auto& record : sqlRecords) {
-        if (!record.contains(NodeColumn::uuid))
-            continue;
-
-        ret.push_back(QUuid(record.value(NodeColumn::uuid).toString()));
+        auto uuidStr = record.value("uuid").toString();
+        ret.push_back(QUuid(uuidStr));
     }
 
-    return filterEmptyUuids(ret);
+    return ret;
 }
 
 NodeInfoContainer NodeTable::getNode(const QUuid& uuid)

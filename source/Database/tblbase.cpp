@@ -57,18 +57,6 @@ QSqlQuery TblBase::executeSelect(const QStringList& cols, const WhereCondition& 
     return startQuery(query);
 }
 
-UuidList TblBase::filterEmptyUuids(const UuidList& uuids)
-{
-    UuidList ret;
-    for (auto& uuid : uuids) {
-        if (!uuid.isNull()) {
-            ret.push_back(uuid);
-        }
-    }
-
-    return ret;
-}
-
 bool TblBase::startQuery(QSqlQuery query) const { return DbTools::startQuery2(query); }
 
 WhereCondition TblBase::primaryKeyEqual(const QString& value) const

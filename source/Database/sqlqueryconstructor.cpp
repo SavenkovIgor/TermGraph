@@ -157,6 +157,19 @@ QSqlQuery SqlQueryConstructor::selectOneTerm(const QString &term, const QUuid &g
     return query;
 }
 
+QSqlQuery SqlQueryConstructor::selectAllUuids()
+{
+    auto query = loadQuery(":/sql/queries/version2/terms/selectalluuids.sql");
+    return query;
+}
+
+QSqlQuery SqlQueryConstructor::selectAllUuids(const QUuid &groupUuid)
+{
+    auto query = loadQuery(":/sql/queries/version2/terms/selectalluuidsingroup.sql");
+    query.bindValue(":groupUuid", groupUuid.toString());
+    return query;
+}
+
 QSqlQuery SqlQueryConstructor::selectLastEdit(const QUuid &termUuid)
 {
     auto query = loadQuery(":/sql/queries/version2/terms/selectlastedit.sql");
