@@ -59,10 +59,12 @@ public:
     // Terms table
     static QSqlQuery createTermsTable();
     static QSqlQuery insertTerm(const NodeInfoContainer& termInfo);
+    static QSqlQuery selectTerm(const QUuid& termUuid);
     static QSqlQuery selectOneTerm(const QUuid& termUuid);
     static QSqlQuery selectOneTerm(const QString& term, const QUuid& groupUuid);
     static QSqlQuery selectAllUuids();
     static QSqlQuery selectAllUuids(const QUuid& groupUuid);
+    static QSqlQuery selectAllTerms(const QUuid& groupUuid);
     static QSqlQuery selectLastEdit(const QUuid& termUuid);
     static QSqlQuery selectAllLastEditAndGroupUuid();
     static QSqlQuery updateTerm(const NodeInfoContainer& termInfo);

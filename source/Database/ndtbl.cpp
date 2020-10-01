@@ -152,12 +152,10 @@ NodeInfoContainer NodeTable::getNodeInfo(const QUuid& uuid)
 
     NodeInfoContainer info;
 
-    auto records = getAllRecords(select(getAllColumns(), whereUuidEqual(uuid)));
+    auto query = SqlQueryConstructor::selectTerm(uuid);
+    startQuery(query);
 
-    if (records.isEmpty())
-        return info;
-
-    auto record = records.first();
+    auto record = getRecord(std::move(query));
     return recordToNodeInfo(record);
 }
 
@@ -166,8 +164,11 @@ NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
     assert(!groupUuid.isNull());
 
     NodeInfoContainer::List ret;
-    auto                    where   = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
-    auto                    records = getAllRecords(select(getAllColumns(), where));
+
+    auto query = SqlQueryConstructor::selectAllTerms(groupUuid);
+    startQuery(query);
+
+    auto records = getAllRecords(std::move(query));
 
     for (auto& record : records) {
         NodeInfoContainer info = recordToNodeInfo(record);
@@ -234,15 +235,15 @@ NodeInfoContainer NodeTable::recordToNodeInfo(QSqlRecord& record)
 {
     NodeInfoContainer info;
 
-    info.uuid        = QUuid(record.value(NodeColumn::uuid).toString());
-    info.term        = QueryTools::unVV(record.value(NodeColumn::term).toString());
-    info.definition  = QueryTools::unVV(record.value(NodeColumn::definition).toString());
-    info.description = QueryTools::unVV(record.value(NodeColumn::description).toString());
-    info.examples    = QueryTools::unVV(record.value(NodeColumn::examples).toString());
-    info.wikiUrl     = QueryTools::unVV(record.value(NodeColumn::wikiUrl).toString());
-    info.wikiImage   = QueryTools::unVV(record.value(NodeColumn::wikiImage).toString());
-    info.groupUuid   = QUuid(record.value(NodeColumn::groupUuid).toString());
-    info.lastEdit    = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
+    info.uuid        = QUuid(record.value("uuid").toString());
+    info.term        = record.value("term").toString();
+    info.definition  = record.value("definition").toString();
+    info.description = record.value("description").toString();
+    info.examples    = record.value("examples").toString();
+    info.wikiUrl     = record.value("wikiUrl").toString();
+    info.wikiImage   = record.value("wikiImage").toString();
+    info.groupUuid   = QUuid(record.value("groupUuid").toString());
+    info.lastEdit    = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate);
 
     return info;
 }

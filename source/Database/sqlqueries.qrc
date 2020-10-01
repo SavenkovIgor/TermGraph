@@ -19,6 +19,8 @@
         <file>queries/version2/terms/selectalluuids.sql</file>
         <file>queries/version2/terms/selectalluuidsingroup.sql</file>
         <file>queries/version2/terms/selectlastedit.sql</file>
+        <file>queries/version2/terms/selecttermbyuuid.sql</file>
+        <file>queries/version2/terms/selecttermsbygroupuuid.sql</file>
         <file>queries/version2/terms/selecttermwithnameingroup.sql</file>
         <file>queries/version2/terms/termwithuuidcount.sql</file>
         <file>queries/version2/terms/updateterm.sql</file>

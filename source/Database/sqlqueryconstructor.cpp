@@ -142,6 +142,13 @@ QSqlQuery SqlQueryConstructor::insertTerm(const NodeInfoContainer &termInfo)
     return query;
 }
 
+QSqlQuery SqlQueryConstructor::selectTerm(const QUuid &termUuid)
+{
+    auto query = loadQuery(":/sql/queries/version2/terms/selecttermbyuuid.sql");
+    query.bindValue(":uuid", termUuid.toString());
+    return query;
+}
+
 QSqlQuery SqlQueryConstructor::selectOneTerm(const QUuid &termUuid)
 {
     auto query = loadQuery(":/sql/queries/version2/terms/termwithuuidcount.sql");
@@ -166,6 +173,13 @@ QSqlQuery SqlQueryConstructor::selectAllUuids()
 QSqlQuery SqlQueryConstructor::selectAllUuids(const QUuid &groupUuid)
 {
     auto query = loadQuery(":/sql/queries/version2/terms/selectalluuidsingroup.sql");
+    query.bindValue(":groupUuid", groupUuid.toString());
+    return query;
+}
+
+QSqlQuery SqlQueryConstructor::selectAllTerms(const QUuid &groupUuid)
+{
+    auto query = loadQuery(":/sql/queries/version2/terms/selecttermsbygroupuuid.sql");
     query.bindValue(":groupUuid", groupUuid.toString());
     return query;
 }
