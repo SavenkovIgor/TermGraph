@@ -40,7 +40,7 @@ public:
     bool nodeExist(const QUuid& nodeUuid);
 
     UuidList                getAllNodesUuids(const QUuid& groupUuid = QUuid());
-    NodeInfoContainer       getNode(const QUuid& uuid);
+    NodeInfoContainer       getNodeInfo(const QUuid& uuid);
     NodeInfoContainer::List getAllNodesInfo(const QUuid& groupUuid);
 
     QDateTime getLastEdit(const QUuid& uuid);

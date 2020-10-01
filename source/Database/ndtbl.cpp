@@ -146,7 +146,7 @@ UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
     return ret;
 }
 
-NodeInfoContainer NodeTable::getNode(const QUuid& uuid)
+NodeInfoContainer NodeTable::getNodeInfo(const QUuid& uuid)
 {
     assert(!uuid.isNull());
 
@@ -194,10 +194,9 @@ QDateTime NodeTable::getLastEdit(const QUuid& uuid)
 
 RecVector NodeTable::getAllLastEditRecords()
 {
-    auto columns = TColumn::List();
-    columns << NodeColumn::groupUuid;
-    columns << NodeColumn::lastEdit;
-    return getAllRecords(select(columns));
+    auto query = SqlQueryConstructor::selectAllLastEditAndGroupUuid();
+    startQuery(query);
+    return getAllRecords(std::move(query));
 }
 
 bool NodeTable::updateNode(const NodeInfoContainer&             info,

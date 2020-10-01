@@ -45,8 +45,8 @@ UuidList LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
         groupsLastEdit.insert(uuid, QDateTime());
 
     for (const auto& record : db.nodeTable->getAllLastEditRecords()) {
-        QUuid     groupUuid = QUuid(record.value(NodeColumn::groupUuid).toString());
-        QDateTime lastEdit  = QDateTime::fromString(record.value(NodeColumn::lastEdit).toString(), Qt::ISODate);
+        QUuid     groupUuid = QUuid(record.value("groupUuid").toString());
+        QDateTime lastEdit  = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate);
 
         if (groupsLastEdit.contains(groupUuid)) {
             if (groupsLastEdit[groupUuid].isNull()) {
@@ -106,7 +106,10 @@ QUuid LocalDatabaseStorage::findNode(const QString& nodeName, const QUuid& group
     return db.nodeTable->nodeUuidForNameAndGroup(nodeName, groupUuid);
 }
 
-NodeInfoContainer LocalDatabaseStorage::getNode(const QUuid& nodeUuid) const { return db.nodeTable->getNode(nodeUuid); }
+NodeInfoContainer LocalDatabaseStorage::getNode(const QUuid& nodeUuid) const
+{
+    return db.nodeTable->getNodeInfo(nodeUuid);
+}
 
 NodeInfoContainer::List LocalDatabaseStorage::getNodes(const QUuid& groupUuid) const
 {

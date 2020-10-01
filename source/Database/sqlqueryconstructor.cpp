@@ -177,6 +177,12 @@ QSqlQuery SqlQueryConstructor::selectLastEdit(const QUuid &termUuid)
     return query;
 }
 
+QSqlQuery SqlQueryConstructor::selectAllLastEditAndGroupUuid()
+{
+    auto query = loadQuery(":/sql/queries/version2/terms/selectalllasteditandgroupuuid.sql");
+    return query;
+}
+
 QSqlQuery SqlQueryConstructor::updateTerm(const NodeInfoContainer &termInfo)
 {
     auto query = loadQuery(":/sql/queries/version2/terms/updateterm.sql");
