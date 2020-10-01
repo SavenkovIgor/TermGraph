@@ -36,7 +36,7 @@ QUuid NodeTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& group
     auto query = SqlQueryConstructor::selectOneTerm(name, groupUuid);
     startQuery(query);
 
-    auto nodesRecords = extractRecords(std::move(query));
+    auto nodesRecords = getAllRecords(std::move(query));
 
     if (nodesRecords.size() == 1)
         return QUuid(nodesRecords.first().value("uuid").toString());
@@ -133,7 +133,7 @@ UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
     if (!groupUuid.isNull()) // Take only uuids in specifig group
         where = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
 
-    auto sqlRecords = extractRecords(select(NodeColumn::uuid, where));
+    auto sqlRecords = getAllRecords(select(NodeColumn::uuid, where));
 
     for (auto& record : sqlRecords) {
         if (!record.contains(NodeColumn::uuid))
@@ -151,7 +151,7 @@ NodeInfoContainer NodeTable::getNode(const QUuid& uuid)
 
     NodeInfoContainer info;
 
-    auto records = extractRecords(select(getAllColumns(), whereUuidEqual(uuid)));
+    auto records = getAllRecords(select(getAllColumns(), whereUuidEqual(uuid)));
 
     if (records.isEmpty())
         return info;
@@ -166,7 +166,7 @@ NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
 
     NodeInfoContainer::List ret;
     auto                    where   = WhereCondition::columnEqual(NodeColumn::groupUuid, groupUuid.toString());
-    auto                    records = extractRecords(select(getAllColumns(), where));
+    auto                    records = getAllRecords(select(getAllColumns(), where));
 
     for (auto& record : records) {
         NodeInfoContainer info = recordToNodeInfo(record);
@@ -178,7 +178,12 @@ NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
 
 QDateTime NodeTable::getLastEdit(const QUuid& uuid)
 {
-    auto field = getStringField(NodeColumn::lastEdit, uuid.toString());
+    auto query = SqlQueryConstructor::selectLastEdit(uuid);
+    startQuery(query);
+
+    auto record = getRecord(std::move(query));
+
+    auto field = record.value("lastEdit").toString();
 
     if (field.isEmpty())
         return QDateTime();
@@ -191,7 +196,7 @@ RecVector NodeTable::getAllLastEditRecords()
     auto columns = TColumn::List();
     columns << NodeColumn::groupUuid;
     columns << NodeColumn::lastEdit;
-    return extractRecords(select(columns));
+    return getAllRecords(select(columns));
 }
 
 bool NodeTable::updateNode(const NodeInfoContainer&             info,

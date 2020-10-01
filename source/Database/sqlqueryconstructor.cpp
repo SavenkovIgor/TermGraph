@@ -157,6 +157,13 @@ QSqlQuery SqlQueryConstructor::selectOneTerm(const QString &term, const QUuid &g
     return query;
 }
 
+QSqlQuery SqlQueryConstructor::selectLastEdit(const QUuid &termUuid)
+{
+    auto query = loadQuery(":/sql/queries/version2/terms/selectlastedit.sql");
+    query.bindValue(":uuid", termUuid.toString());
+    return query;
+}
+
 QSqlQuery SqlQueryConstructor::updateTerm(const NodeInfoContainer &termInfo)
 {
     auto query = loadQuery(":/sql/queries/version2/terms/updateterm.sql");

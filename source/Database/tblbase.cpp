@@ -23,19 +23,6 @@
 
 #include "source/Database/tools/dbtools.h"
 
-QString TblBase::getStringField(const TColumn& column, const QString& key) const
-{
-    assert(isColumnExist(column));
-
-    QSqlQuery sel = select(column, primaryKeyEqual(key));
-
-    if (!sel.next()) {
-        return "";
-    }
-
-    return sel.record().value(column).toString();
-}
-
 QSqlQuery TblBase::startQuery(const QString& queryString) const { return DbTools::startQuery(base, queryString); }
 
 bool TblBase::hasErrors(const QString& errString) const
@@ -89,16 +76,15 @@ WhereCondition TblBase::primaryKeyEqual(const QString& value) const
     return WhereCondition::columnEqual(primaryKey(), value);
 }
 
-bool TblBase::isColumnExist(const TColumn& column) const
+QSqlRecord TblBase::getRecord(QSqlQuery&& q)
 {
-    for (const auto& col : getAllColumns())
-        if (col == column)
-            return true;
+    auto nextValid = q.next();
+    assert(nextValid);
 
-    return false;
+    return q.record();
 }
 
-RecVector TblBase::extractRecords(QSqlQuery&& q)
+RecVector TblBase::getAllRecords(QSqlQuery&& q)
 {
     RecVector ret;
 

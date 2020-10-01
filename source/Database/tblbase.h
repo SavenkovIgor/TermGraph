@@ -26,7 +26,6 @@
 #include "source/Database/sqlqueryconstructor.h"
 #include "source/Helpers/handytypes.h"
 
-using SqCond    = QMap<QString, QString>;
 using RecVector = QVector<QSqlRecord>;
 
 class TblBase
@@ -36,8 +35,6 @@ public:
     virtual ~TblBase() = default;
 
 protected:
-    QString getStringField(const TColumn& column, const QString& key) const;
-
     QSqlQuery select(const TColumn&        column,
                      const WhereCondition& where   = WhereCondition(),
                      const QString&        orderBy = "") const;
@@ -48,7 +45,8 @@ protected:
 
     WhereCondition primaryKeyEqual(const QString& value) const;
 
-    static RecVector extractRecords(QSqlQuery&& q);
+    static QSqlRecord getRecord(QSqlQuery&& q);
+    static RecVector  getAllRecords(QSqlQuery&& q);
 
     virtual const char*   tableName() const     = 0;
     virtual TColumn       primaryKey() const    = 0;
@@ -62,7 +60,6 @@ protected:
 
 private:
     QSqlDatabase* base;
-    bool          isColumnExist(const TColumn& column) const;
 
     QSqlQuery startQuery(const QString& queryString) const;
     bool      hasErrors(const QString& errString) const;

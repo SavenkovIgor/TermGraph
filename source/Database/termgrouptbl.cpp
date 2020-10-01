@@ -59,7 +59,7 @@ bool TermGroupTable::updateGroup(const GroupInfoContainer& info)
 UuidList TermGroupTable::getAllUuids()
 {
     UuidList ret;
-    auto     records = extractRecords(select(TermGroupColumn::uuid));
+    auto     records = getAllRecords(select(TermGroupColumn::uuid));
 
     for (const auto& record : records) {
         QUuid uuid(record.value(TermGroupColumn::uuid).toString());
@@ -151,7 +151,7 @@ GroupInfoContainer::List TermGroupTable::getGroups()
     GroupInfoContainer::List ret;
 
     auto sel     = select(getAllColumns());
-    auto records = extractRecords(std::move(sel));
+    auto records = getAllRecords(std::move(sel));
 
     for (auto& record : records) {
         GroupInfoContainer info = sqlRecordToGroupInfo(record);
