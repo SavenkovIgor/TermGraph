@@ -191,7 +191,7 @@ void Database::updateNodesToSecondVersion()
 
     // Copy data from old table to new
     while (oldNodeTable.next()) {
-        auto insertQuery = SqlQueryConstructor().loadQuery(":/sql/queries/version2/insertterm.sql");
+        auto insertQuery = SqlQueryBuilder().loadQuery(":/sql/queries/version2/insertterm.sql");
 
         insertQuery.bindValue(":uuid", oldNodeTable.value("longUID").toString());
         insertQuery.bindValue(":term", oldNodeTable.value("term").toString());
@@ -213,7 +213,7 @@ void Database::updateNodesToSecondVersion()
 
     if (countInOld == countInNew) {
         // Dropping old table
-        DbTools::startQuery(SqlQueryConstructor().dropTable("termNode"));
+        DbTools::startQuery(SqlQueryBuilder().dropTable("termNode"));
     }
 }
 
@@ -240,7 +240,7 @@ void Database::updateGroupsToSecondVersion()
 
     // Copy data from old table to new and drop type
     while (oldGroupsTable.next()) {
-        auto insertQuery = SqlQueryConstructor().loadQuery(":/sql/queries/version2/insertgroup.sql");
+        auto insertQuery = SqlQueryBuilder().loadQuery(":/sql/queries/version2/insertgroup.sql");
 
         insertQuery.bindValue(":uuid", oldGroupsTable.value("longUID").toString());
         insertQuery.bindValue(":name", oldGroupsTable.value("name").toString());
@@ -256,7 +256,7 @@ void Database::updateGroupsToSecondVersion()
 
     if (countInOld == countInNew) {
         // Dropping old table
-        DbTools::startQuery(SqlQueryConstructor().dropTable("termGroup"));
+        DbTools::startQuery(SqlQueryBuilder().dropTable("termGroup"));
     }
 }
 

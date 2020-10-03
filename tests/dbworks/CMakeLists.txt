@@ -38,8 +38,8 @@ target_sources (
             ${CMAKE_SOURCE_DIR}/source/Database/database.cpp
             ${CMAKE_SOURCE_DIR}/source/Database/ndtbl.h
             ${CMAKE_SOURCE_DIR}/source/Database/ndtbl.cpp
-            ${CMAKE_SOURCE_DIR}/source/Database/sqlqueryconstructor.h
-            ${CMAKE_SOURCE_DIR}/source/Database/sqlqueryconstructor.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/sqlquerybuilder.h
+            ${CMAKE_SOURCE_DIR}/source/Database/sqlquerybuilder.cpp
             ${CMAKE_SOURCE_DIR}/source/Database/tblbase.h
             ${CMAKE_SOURCE_DIR}/source/Database/tblbase.cpp
             ${CMAKE_SOURCE_DIR}/source/Database/termgrouptbl.h

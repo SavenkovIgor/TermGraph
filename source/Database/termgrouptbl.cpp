@@ -23,7 +23,7 @@
 
 #include "source/Database/columns/termgroupcolumn.h"
 #include "source/Database/dbinfo.h"
-#include "source/Database/sqlqueryconstructor.h"
+#include "source/Database/sqlquerybuilder.h"
 
 bool TermGroupTable::addGroup(const GroupInfoContainer& info)
 {
@@ -38,7 +38,7 @@ bool TermGroupTable::addGroup(const GroupInfoContainer& info)
     if (groupWithNameExist(groupInfo.name))
         return false;
 
-    auto query = SqlQueryConstructor().insertGroup(groupInfo);
+    auto query = SqlQueryBuilder().insertGroup(groupInfo);
     return startQuery(query);
 }
 
@@ -50,7 +50,7 @@ bool TermGroupTable::updateGroup(const GroupInfoContainer& info)
     if (!groupExist(info.uuid))
         return false;
 
-    auto query = SqlQueryConstructor().updateGroup(info);
+    auto query = SqlQueryBuilder().updateGroup(info);
     startQuery(query);
 
     return true;
@@ -60,7 +60,7 @@ UuidList TermGroupTable::getAllUuids()
 {
     UuidList ret;
 
-    auto query = SqlQueryConstructor().selectAllGroupUuids();
+    auto query = SqlQueryBuilder().selectAllGroupUuids();
     startQuery(query);
 
     auto records = getAllRecords(std::move(query));
@@ -76,13 +76,13 @@ UuidList TermGroupTable::getAllUuids()
 
 void TermGroupTable::deleteGroup(const QUuid& groupUuid)
 {
-    auto query = SqlQueryConstructor().deleteGroup(groupUuid);
+    auto query = SqlQueryBuilder().deleteGroup(groupUuid);
     startQuery(query);
 }
 
 bool TermGroupTable::groupExist(const QUuid& uuid)
 {
-    auto query = SqlQueryConstructor().selectOneGroup(uuid);
+    auto query = SqlQueryBuilder().selectOneGroup(uuid);
     startQuery(query);
 
     if (!query.next())
@@ -123,7 +123,7 @@ TColumn TermGroupTable::primaryKey() const { return TermGroupColumn::uuid; }
 
 void TermGroupTable::initTable()
 {
-    auto query = SqlQueryConstructor().createGroupsTable();
+    auto query = SqlQueryBuilder().createGroupsTable();
     startQuery(query);
 }
 

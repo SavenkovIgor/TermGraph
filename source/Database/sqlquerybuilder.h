@@ -34,10 +34,10 @@
 
 // Задача этого класса - формировать запросы
 // Clear static class
-class SqlQueryConstructor
+class SqlQueryBuilder
 {
 public:
-    SqlQueryConstructor(const char* const connectionName = DbConnectionName::defaultConnection);
+    SqlQueryBuilder(const char* const connectionName = DbConnectionName::defaultConnection);
 
     // Deprecation
     QString selectQuery(const QString&        tableName,

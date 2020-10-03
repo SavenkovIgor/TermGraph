@@ -23,7 +23,7 @@
 
 #include <QtSql>
 
-#include "source/Database/sqlqueryconstructor.h"
+#include "source/Database/sqlquerybuilder.h"
 #include "source/Helpers/handytypes.h"
 
 class TblBase

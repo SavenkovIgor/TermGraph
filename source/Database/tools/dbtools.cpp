@@ -23,7 +23,7 @@
 
 #include <QSqlError>
 
-#include "source/Database/sqlqueryconstructor.h"
+#include "source/Database/sqlquerybuilder.h"
 
 void DbTools::startTransaction(QSqlDatabase* base) { startQuery(base, "BEGIN TRANSACTION"); }
 
@@ -76,7 +76,7 @@ bool DbTools::startQuery2(QSqlQuery query)
 
 int DbTools::recordsCount(const QString& tableName)
 {
-    auto query = SqlQueryConstructor().recordsCount(tableName);
+    auto query = SqlQueryBuilder().recordsCount(tableName);
     startQuery(query);
     query.next();
     return query.value("COUNT(*)").toInt();

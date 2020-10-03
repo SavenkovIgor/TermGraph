@@ -201,8 +201,8 @@ target_sources (
             source/Database/dbinfo.h
             source/Database/ndtbl.cpp
             source/Database/ndtbl.h
-            source/Database/sqlqueryconstructor.cpp
-            source/Database/sqlqueryconstructor.h
+            source/Database/sqlquerybuilder.cpp
+            source/Database/sqlquerybuilder.h
             source/Database/tblbase.cpp
             source/Database/tblbase.h
             source/Database/termgrouptbl.cpp
