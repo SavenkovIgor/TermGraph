@@ -198,7 +198,7 @@ target_sources (
             source/Database/appconfigtable.h
             source/Database/database.cpp
             source/Database/database.h
-            source/Database/dbtablenames.h
+            source/Database/dbinfo.h
             source/Database/ndtbl.cpp
             source/Database/ndtbl.h
             source/Database/sqlqueryconstructor.cpp

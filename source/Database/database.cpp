@@ -25,19 +25,24 @@
 #include <QString>
 #include <QUuid>
 
+#include "source/Database/dbinfo.h"
 #include "source/Database/tools/dbtools.h"
 #include "source/Managers/notificationmanager.h"
+
+QString Database::mDbFilePath = "";
 
 Database::Database(const QString& filePath)
     : nodeTable(nullptr)
     , groupTable(nullptr)
     , appConfigTable(nullptr)
 {
+    mDbFilePath = filePath;
+
     base    = new QSqlDatabase();
-    (*base) = QSqlDatabase::addDatabase("QSQLITE");
+    (*base) = QSqlDatabase::addDatabase("QSQLITE", DbConnectionName::defaultConnection);
 
     // Check base exist
-    auto baseExists = databaseExists(filePath);
+    auto baseExists = databaseExists(mDbFilePath);
 
     if (baseExists) {
         qInfo("Base file is exists");
@@ -46,7 +51,7 @@ Database::Database(const QString& filePath)
     }
 
     // Create database if not exist earlier
-    base->setDatabaseName(filePath);
+    base->setDatabaseName(mDbFilePath);
 
     if (base->open()) {
         qInfo("Database opened");
@@ -70,7 +75,7 @@ Database::Database(const QString& filePath)
         // Close, make backup, open again, and then update base
         qInfo("Closing database");
         base->close();
-        makeBackupBeforeUpdate(filePath, oldDbVersion);
+        makeBackupBeforeUpdate(mDbFilePath, oldDbVersion);
         qInfo("Opening database");
         base->open();
         makeDbUpdate();
@@ -85,6 +90,15 @@ Database::Database(const QString& filePath)
 }
 
 Database::~Database() { delete base; }
+
+void Database::tryInitThreadDbConnection()
+{
+    if (!QSqlDatabase::contains(DbConnectionName::threadLoadingConnection)) {
+        auto db = QSqlDatabase::addDatabase("QSQLITE", DbConnectionName::threadLoadingConnection);
+        db.setDatabaseName(mDbFilePath);
+        db.open();
+    }
+}
 
 void Database::InitAllTables()
 {
@@ -177,7 +191,7 @@ void Database::updateNodesToSecondVersion()
 
     // Copy data from old table to new
     while (oldNodeTable.next()) {
-        auto insertQuery = SqlQueryConstructor::loadQuery(":/sql/queries/version2/insertterm.sql");
+        auto insertQuery = SqlQueryConstructor().loadQuery(":/sql/queries/version2/insertterm.sql");
 
         insertQuery.bindValue(":uuid", oldNodeTable.value("longUID").toString());
         insertQuery.bindValue(":term", oldNodeTable.value("term").toString());
@@ -199,7 +213,7 @@ void Database::updateNodesToSecondVersion()
 
     if (countInOld == countInNew) {
         // Dropping old table
-        DbTools::startQuery(SqlQueryConstructor::dropTable("termNode"));
+        DbTools::startQuery(SqlQueryConstructor().dropTable("termNode"));
     }
 }
 
@@ -226,7 +240,7 @@ void Database::updateGroupsToSecondVersion()
 
     // Copy data from old table to new and drop type
     while (oldGroupsTable.next()) {
-        auto insertQuery = SqlQueryConstructor::loadQuery(":/sql/queries/version2/insertgroup.sql");
+        auto insertQuery = SqlQueryConstructor().loadQuery(":/sql/queries/version2/insertgroup.sql");
 
         insertQuery.bindValue(":uuid", oldGroupsTable.value("longUID").toString());
         insertQuery.bindValue(":name", oldGroupsTable.value("name").toString());
@@ -242,7 +256,7 @@ void Database::updateGroupsToSecondVersion()
 
     if (countInOld == countInNew) {
         // Dropping old table
-        DbTools::startQuery(SqlQueryConstructor::dropTable("termGroup"));
+        DbTools::startQuery(SqlQueryConstructor().dropTable("termGroup"));
     }
 }
 

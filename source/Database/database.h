@@ -45,6 +45,8 @@ public:
     Database(const Database&) = delete;
     void operator=(const Database&) = delete;
 
+    static void tryInitThreadDbConnection();
+
 private:
     QSqlDatabase* base;
 
@@ -60,4 +62,7 @@ private:
     // Migrations
     void updateNodesToSecondVersion();
     void updateGroupsToSecondVersion();
+
+private: // Members
+    static QString mDbFilePath;
 };

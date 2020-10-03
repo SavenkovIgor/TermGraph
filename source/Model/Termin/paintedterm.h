@@ -27,7 +27,6 @@
 #include <QMap>
 #include <QObject>
 #include <QSizeF>
-#include <QSqlRecord>
 
 #include "source/Helpers/handytypes.h"
 #include "source/Model/GraphicItem/graphicitem.h"

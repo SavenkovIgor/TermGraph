@@ -23,7 +23,6 @@
 
 #include <QJsonObject>
 #include <QObject>
-#include <QSqlRecord>
 #include <QString>
 #include <QUuid>
 

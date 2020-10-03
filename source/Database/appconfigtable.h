@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include "source/Database/dbtablenames.h"
+#include "source/Database/dbinfo.h"
 #include "source/Database/tblbase.h"
 
 class AppConfigColumn

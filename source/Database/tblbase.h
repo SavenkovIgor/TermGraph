@@ -26,8 +26,6 @@
 #include "source/Database/sqlqueryconstructor.h"
 #include "source/Helpers/handytypes.h"
 
-using RecVector = QVector<QSqlRecord>;
-
 class TblBase
 {
 public:

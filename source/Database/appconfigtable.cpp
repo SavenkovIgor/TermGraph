@@ -25,7 +25,7 @@
 
 void AppConfigTable::initTable()
 {
-    auto query = SqlQueryConstructor::createAppConfigTable();
+    auto query = SqlQueryConstructor().createAppConfigTable();
     startQuery(query);
     // Add database version parameter
     setValue(dbVersionPropertyName, QString::number(dbVersion));
@@ -53,7 +53,7 @@ TColumn::List AppConfigTable::getAllColumns() const
 
 bool AppConfigTable::hasKey(const QString& key)
 {
-    auto query = SqlQueryConstructor::selectOneConfigParameter(key);
+    auto query = SqlQueryConstructor().selectOneConfigParameter(key);
     startQuery(query);
 
     if (!query.next())
@@ -67,11 +67,11 @@ void AppConfigTable::setValue(const QString& key, const QString& value)
 {
     if (hasKey(key)) {
         // If has key - updating
-        auto query = SqlQueryConstructor::updateConfigParameter(key, value);
+        auto query = SqlQueryConstructor().updateConfigParameter(key, value);
         startQuery(query);
     } else {
         // Else adding new key
-        auto query = SqlQueryConstructor::insertConfigParameter(key, value);
+        auto query = SqlQueryConstructor().insertConfigParameter(key, value);
         startQuery(query);
     }
 }
@@ -79,7 +79,7 @@ void AppConfigTable::setValue(const QString& key, const QString& value)
 QString AppConfigTable::value(const QString& key, const QString& defaultValue)
 {
     if (hasKey(key)) {
-        auto query = SqlQueryConstructor::selectConfigParameter(key);
+        auto query = SqlQueryConstructor().selectConfigParameter(key);
         startQuery(query);
 
         auto record = getRecord(std::move(query));

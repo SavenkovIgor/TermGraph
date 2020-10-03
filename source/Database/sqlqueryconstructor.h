@@ -21,11 +21,12 @@
 
 #pragma once
 
+#include <QLatin1String>
 #include <QSqlQuery>
 #include <QString>
 #include <QtCore>
 
-#include "source/Database/columns/tcolumn.h"
+#include "source/Database/dbinfo.h"
 #include "source/Database/tools/querytools.h"
 #include "source/Database/tools/wherecondition.h"
 #include "source/Model/Termin/nodeinfocontainer.h"
@@ -36,45 +37,49 @@
 class SqlQueryConstructor
 {
 public:
+    SqlQueryConstructor(const char* const connectionName = DbConnectionName::defaultConnection);
+
     // Deprecation
-    static QString selectQuery(const QString&        tableName,
-                               const QStringList&    columns,
-                               const WhereCondition& where,
-                               const QString&        orderBy = "");
+    QString selectQuery(const QString&        tableName,
+                        const QStringList&    columns,
+                        const WhereCondition& where,
+                        const QString&        orderBy = "") const;
 
     // AppConfig table
-    static QSqlQuery createAppConfigTable();
-    static QSqlQuery insertConfigParameter(const QString& parameter, const QString& value);
-    static QSqlQuery selectOneConfigParameter(const QString& parameter);
-    static QSqlQuery selectConfigParameter(const QString& parameter);
-    static QSqlQuery updateConfigParameter(const QString& parameter, const QString& newValue);
+    QSqlQuery createAppConfigTable() const;
+    QSqlQuery insertConfigParameter(const QString& parameter, const QString& value) const;
+    QSqlQuery selectOneConfigParameter(const QString& parameter) const;
+    QSqlQuery selectConfigParameter(const QString& parameter) const;
+    QSqlQuery updateConfigParameter(const QString& parameter, const QString& newValue) const;
 
     // Groups table
-    static QSqlQuery createGroupsTable();
-    static QSqlQuery insertGroup(const GroupInfoContainer& groupInfo);
-    static QSqlQuery selectOneGroup(const QUuid& groupUuid);
-    static QSqlQuery updateGroup(const GroupInfoContainer& groupInfo);
-    static QSqlQuery deleteGroup(const QUuid& groupUuid);
+    QSqlQuery createGroupsTable() const;
+    QSqlQuery insertGroup(const GroupInfoContainer& groupInfo) const;
+    QSqlQuery selectOneGroup(const QUuid& groupUuid) const;
+    QSqlQuery updateGroup(const GroupInfoContainer& groupInfo) const;
+    QSqlQuery deleteGroup(const QUuid& groupUuid) const;
 
     // Terms table
-    static QSqlQuery createTermsTable();
-    static QSqlQuery insertTerm(const NodeInfoContainer& termInfo);
-    static QSqlQuery selectTerm(const QUuid& termUuid);
-    static QSqlQuery selectOneTerm(const QUuid& termUuid);
-    static QSqlQuery selectOneTerm(const QString& term, const QUuid& groupUuid);
-    static QSqlQuery selectAllUuids();
-    static QSqlQuery selectAllUuids(const QUuid& groupUuid);
-    static QSqlQuery selectAllTerms(const QUuid& groupUuid);
-    static QSqlQuery selectLastEdit(const QUuid& termUuid);
-    static QSqlQuery selectAllLastEditAndGroupUuid();
-    static QSqlQuery updateTerm(const NodeInfoContainer& termInfo);
-    static QSqlQuery deleteTerm(const QUuid& termUuid);
+    QSqlQuery createTermsTable() const;
+    QSqlQuery insertTerm(const NodeInfoContainer& termInfo) const;
+    QSqlQuery selectTerm(const QUuid& termUuid) const;
+    QSqlQuery selectOneTerm(const QUuid& termUuid) const;
+    QSqlQuery selectOneTerm(const QString& term, const QUuid& groupUuid) const;
+    QSqlQuery selectAllUuids() const;
+    QSqlQuery selectAllUuids(const QUuid& groupUuid) const;
+    QSqlQuery selectAllTerms(const QUuid& groupUuid) const;
+    QSqlQuery selectLastEdit(const QUuid& termUuid) const;
+    QSqlQuery selectAllLastEditAndGroupUuid() const;
+    QSqlQuery updateTerm(const NodeInfoContainer& termInfo) const;
+    QSqlQuery deleteTerm(const QUuid& termUuid) const;
 
     // Common
-    static QSqlQuery loadQuery(const QString& queryPath);
-    static QSqlQuery recordsCount(const QString& tableName);
-    static QSqlQuery dropTable(const QString& tableName);
+    QSqlQuery loadQuery(const QString& queryPath) const;
+    QSqlQuery recordsCount(const QString& tableName) const;
+    QSqlQuery dropTable(const QString& tableName) const;
 
 private: // Methods
-    static QString loadQueryString(const QString& queryPath);
+    QString loadQueryString(const QString& queryPath) const;
+
+    const QLatin1String mConnectionName;
 };

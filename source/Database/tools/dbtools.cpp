@@ -76,7 +76,7 @@ bool DbTools::startQuery2(QSqlQuery query)
 
 int DbTools::recordsCount(const QString& tableName)
 {
-    auto query = SqlQueryConstructor::recordsCount(tableName);
+    auto query = SqlQueryConstructor().recordsCount(tableName);
     startQuery(query);
     query.next();
     return query.value("COUNT(*)").toInt();

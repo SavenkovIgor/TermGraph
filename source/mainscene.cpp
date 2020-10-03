@@ -24,6 +24,7 @@
 #include <QApplication>
 #include <QThread>
 
+#include "source/Database/database.h"
 #include "source/Managers/notificationmanager.h"
 
 MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* parent)
@@ -154,6 +155,7 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
 
     if (!mGroupBuilder.isRunning()) {
         mGroupBuilder.setAction([this, groupUuid = tmpGroupUuid]() -> TermGroup* {
+            Database::tryInitThreadDbConnection();
             auto* group = groupsMgr->createGroup(groupUuid);
             if (group->thread()->isInterruptionRequested())
                 return nullptr;

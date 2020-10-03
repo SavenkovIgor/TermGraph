@@ -22,7 +22,7 @@
 #include "source/Database/termgrouptbl.h"
 
 #include "source/Database/columns/termgroupcolumn.h"
-#include "source/Database/dbtablenames.h"
+#include "source/Database/dbinfo.h"
 #include "source/Database/sqlqueryconstructor.h"
 
 bool TermGroupTable::addGroup(const GroupInfoContainer& info)
@@ -38,7 +38,7 @@ bool TermGroupTable::addGroup(const GroupInfoContainer& info)
     if (groupWithNameExist(groupInfo.name))
         return false;
 
-    auto query = SqlQueryConstructor::insertGroup(groupInfo);
+    auto query = SqlQueryConstructor().insertGroup(groupInfo);
     return startQuery(query);
 }
 
@@ -50,7 +50,7 @@ bool TermGroupTable::updateGroup(const GroupInfoContainer& info)
     if (!groupExist(info.uuid))
         return false;
 
-    auto query = SqlQueryConstructor::updateGroup(info);
+    auto query = SqlQueryConstructor().updateGroup(info);
     startQuery(query);
 
     return true;
@@ -73,13 +73,13 @@ UuidList TermGroupTable::getAllUuids()
 
 void TermGroupTable::deleteGroup(const QUuid& groupUuid)
 {
-    auto query = SqlQueryConstructor::deleteGroup(groupUuid);
+    auto query = SqlQueryConstructor().deleteGroup(groupUuid);
     startQuery(query);
 }
 
 bool TermGroupTable::groupExist(const QUuid& uuid)
 {
-    auto query = SqlQueryConstructor::selectOneGroup(uuid);
+    auto query = SqlQueryConstructor().selectOneGroup(uuid);
     startQuery(query);
 
     if (!query.next())
@@ -120,7 +120,7 @@ TColumn TermGroupTable::primaryKey() const { return TermGroupColumn::uuid; }
 
 void TermGroupTable::initTable()
 {
-    auto query = SqlQueryConstructor::createGroupsTable();
+    auto query = SqlQueryConstructor().createGroupsTable();
     startQuery(query);
 }
 

@@ -53,7 +53,7 @@ QSqlQuery TblBase::select(const TColumn::List& columns, const WhereCondition& wh
 
 QSqlQuery TblBase::executeSelect(const QStringList& cols, const WhereCondition& where, const QString& orderBy) const
 {
-    auto query = SqlQueryConstructor::selectQuery(tableName(), cols, where, orderBy);
+    auto query = SqlQueryConstructor().selectQuery(tableName(), cols, where, orderBy);
     return startQuery(query);
 }
 
