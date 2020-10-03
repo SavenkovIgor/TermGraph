@@ -188,17 +188,17 @@ target_sources (
             source/Model/enums.h
             source/Database/dbtools.cpp
             source/Database/dbtools.h
-            source/Database/appconfigtable.cpp
-            source/Database/appconfigtable.h
+            source/Database/tables/appconfigtable.cpp
+            source/Database/tables/appconfigtable.h
             source/Database/database.cpp
             source/Database/database.h
             source/Database/dbinfo.h
-            source/Database/ndtbl.cpp
-            source/Database/ndtbl.h
+            source/Database/tables/ndtbl.cpp
+            source/Database/tables/ndtbl.h
             source/Database/sqlquerybuilder.cpp
             source/Database/sqlquerybuilder.h
-            source/Database/termgrouptbl.cpp
-            source/Database/termgrouptbl.h
+            source/Database/tables/termgrouptbl.cpp
+            source/Database/tables/termgrouptbl.h
             source/main.cpp
             source/qmlTypesRegistrator.h
             source/mainscene.cpp

@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Database/ndtbl.h"
+#include "source/Database/tables/ndtbl.h"
 
 #include "source/Database/dbinfo.h"
 #include "source/Database/dbtools.h"

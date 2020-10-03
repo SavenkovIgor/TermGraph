@@ -32,16 +32,16 @@ target_sources (
             ${CMAKE_SOURCE_DIR}/source/Helpers/fsworks.cpp
             ${CMAKE_SOURCE_DIR}/source/Helpers/appconfig.h
             ${CMAKE_SOURCE_DIR}/source/Helpers/appconfig.cpp
-            ${CMAKE_SOURCE_DIR}/source/Database/appconfigtable.h
-            ${CMAKE_SOURCE_DIR}/source/Database/appconfigtable.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/tables/appconfigtable.h
+            ${CMAKE_SOURCE_DIR}/source/Database/tables/appconfigtable.cpp
             ${CMAKE_SOURCE_DIR}/source/Database/database.h
             ${CMAKE_SOURCE_DIR}/source/Database/database.cpp
-            ${CMAKE_SOURCE_DIR}/source/Database/ndtbl.h
-            ${CMAKE_SOURCE_DIR}/source/Database/ndtbl.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/tables/ndtbl.h
+            ${CMAKE_SOURCE_DIR}/source/Database/tables/ndtbl.cpp
             ${CMAKE_SOURCE_DIR}/source/Database/sqlquerybuilder.h
             ${CMAKE_SOURCE_DIR}/source/Database/sqlquerybuilder.cpp
-            ${CMAKE_SOURCE_DIR}/source/Database/termgrouptbl.h
-            ${CMAKE_SOURCE_DIR}/source/Database/termgrouptbl.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/tables/termgrouptbl.h
+            ${CMAKE_SOURCE_DIR}/source/Database/tables/termgrouptbl.cpp
             ${CMAKE_SOURCE_DIR}/source/Database/dbtools.h
             ${CMAKE_SOURCE_DIR}/source/Database/dbtools.cpp
             ${CMAKE_SOURCE_DIR}/source/Managers/notificationmanager.h

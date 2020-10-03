@@ -24,9 +24,9 @@
 #include <QObject>
 #include <QtSql>
 
-#include "source/Database/appconfigtable.h"
-#include "source/Database/ndtbl.h"
-#include "source/Database/termgrouptbl.h"
+#include "source/Database/tables/appconfigtable.h"
+#include "source/Database/tables/ndtbl.h"
+#include "source/Database/tables/termgrouptbl.h"
 #include "source/Helpers/appconfig.h"
 #include "source/Helpers/fsworks.h"
 
