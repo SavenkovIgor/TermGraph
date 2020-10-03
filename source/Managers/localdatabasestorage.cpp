@@ -41,7 +41,7 @@ UuidList LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
     for (const auto& uuid : db.groupTable->getAllUuids())
         groupsLastEdit.insert(uuid, QDateTime());
 
-    for (const auto& record : db.nodeTable->getAllLastEditRecords()) {
+    for (const auto& record : db.termTable->getAllLastEditRecords()) {
         QUuid     groupUuid = QUuid(record.value("groupUuid").toString());
         QDateTime lastEdit  = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate);
 
@@ -93,40 +93,40 @@ void LocalDatabaseStorage::deleteGroup(const QUuid& groupUuid) { db.groupTable->
 
 UuidList LocalDatabaseStorage::getAllNodesUuids(const QUuid& groupUuid) const
 {
-    return db.nodeTable->getAllNodesUuids(groupUuid);
+    return db.termTable->getAllNodesUuids(groupUuid);
 }
 
-bool LocalDatabaseStorage::nodeExist(const QUuid& nodeUuid) const { return db.nodeTable->nodeExist(nodeUuid); }
+bool LocalDatabaseStorage::nodeExist(const QUuid& nodeUuid) const { return db.termTable->nodeExist(nodeUuid); }
 
 QUuid LocalDatabaseStorage::findNode(const QString& nodeName, const QUuid& groupUuid) const
 {
-    return db.nodeTable->nodeUuidForNameAndGroup(nodeName, groupUuid);
+    return db.termTable->nodeUuidForNameAndGroup(nodeName, groupUuid);
 }
 
 NodeInfoContainer LocalDatabaseStorage::getNode(const QUuid& nodeUuid) const
 {
-    return db.nodeTable->getNodeInfo(nodeUuid);
+    return db.termTable->getNodeInfo(nodeUuid);
 }
 
 NodeInfoContainer::List LocalDatabaseStorage::getNodes(const QUuid& groupUuid) const
 {
-    return db.nodeTable->getAllNodesInfo(groupUuid);
+    return db.termTable->getAllNodesInfo(groupUuid);
 }
 
 NodeInfoContainer::List LocalDatabaseStorage::getNodes(const UuidList& nodesUuids) const { return {}; }
 
 QDateTime LocalDatabaseStorage::getNodeLastEdit(const QUuid& nodeUuid) const
 {
-    return db.nodeTable->getLastEdit(nodeUuid);
+    return db.termTable->getLastEdit(nodeUuid);
 }
 
-bool LocalDatabaseStorage::addNode(const NodeInfoContainer& info) { return db.nodeTable->addNode(info); }
+bool LocalDatabaseStorage::addNode(const NodeInfoContainer& info) { return db.termTable->addNode(info); }
 
 bool LocalDatabaseStorage::updateNode(const NodeInfoContainer&             info,
                                       DataStorageInterface::LastEditSource lastEditSource,
                                       bool                                 checkLastEdit)
 {
-    return db.nodeTable->updateNode(info, lastEditSource, checkLastEdit);
+    return db.termTable->updateNode(info, lastEditSource, checkLastEdit);
 }
 
-void LocalDatabaseStorage::deleteNode(const QUuid& nodeUuid) { return db.nodeTable->deleteTerm(nodeUuid); }
+void LocalDatabaseStorage::deleteNode(const QUuid& nodeUuid) { return db.termTable->deleteTerm(nodeUuid); }

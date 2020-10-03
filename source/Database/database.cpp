@@ -33,7 +33,7 @@
 QString Database::mDbFilePath = "";
 
 Database::Database(const QString& filePath)
-    : nodeTable(nullptr)
+    : termTable(nullptr)
     , groupTable(nullptr)
     , appConfigTable(nullptr)
 {
@@ -61,7 +61,7 @@ Database::Database(const QString& filePath)
         NotificationManager::showDebug(msg);
     }
 
-    nodeTable.reset(new NodeTable());
+    termTable.reset(new TermTable());
     groupTable.reset(new TermGroupTable());
     appConfigTable.reset(new AppConfigTable());
 
@@ -82,7 +82,7 @@ Database::Database(const QString& filePath)
         makeDbUpdate();
 
         // Recreate tables after update
-        nodeTable.reset(new NodeTable());
+        termTable.reset(new TermTable());
         groupTable.reset(new TermGroupTable());
         appConfigTable.reset(new AppConfigTable());
     } else {
@@ -103,7 +103,7 @@ void Database::tryInitThreadDbConnection()
 
 void Database::InitAllTables()
 {
-    nodeTable->initTable();
+    termTable->initTable();
     groupTable->initTable();
     appConfigTable->initTable();
 }

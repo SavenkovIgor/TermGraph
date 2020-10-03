@@ -94,9 +94,25 @@ target_sources (
 # Source folder
 target_sources (
     ${PROJECT_NAME}
-    PRIVATE source/Helpers/appconfig.cpp
+    PRIVATE source/Database/database.cpp
+            source/Database/database.h
+            source/Database/dbinfo.h
+            source/Database/dbtools.cpp
+            source/Database/dbtools.h
+            source/Database/sqlquerybuilder.cpp
+            source/Database/sqlquerybuilder.h
+            source/Database/tables/appconfigtable.cpp
+            source/Database/tables/appconfigtable.h
+            source/Database/tables/termgrouptable.cpp
+            source/Database/tables/termgrouptable.h
+            source/Database/tables/termtable.cpp
+            source/Database/tables/termtable.h
+            source/Helpers/appconfig.cpp
             source/Helpers/appconfig.h
             source/Helpers/appstyle.h
+            source/Helpers/asyncgroupbuilder.cpp
+            source/Helpers/asyncgroupbuilder.h
+            source/Helpers/exclusivecall.h
             source/Helpers/fonts.cpp
             source/Helpers/fonts.h
             source/Helpers/fsworks.cpp
@@ -106,6 +122,10 @@ target_sources (
             source/Helpers/handytypes.h
             source/Helpers/helpstuff.cpp
             source/Helpers/helpstuff.h
+            source/Helpers/intmatrix.cpp
+            source/Helpers/intmatrix.h
+            source/Helpers/linkutils.cpp
+            source/Helpers/linkutils.h
             source/Helpers/multipleshottimer.cpp
             source/Helpers/multipleshottimer.h
             source/Helpers/platform.h
@@ -113,35 +133,31 @@ target_sources (
             source/Helpers/simplelistenserver.h
             source/Helpers/tagprocessor.cpp
             source/Helpers/tagprocessor.h
-            source/Helpers/linkutils.cpp
-            source/Helpers/linkutils.h
+            source/Helpers/text/chartools.cpp
+            source/Helpers/text/chartools.h
+            source/Helpers/text/textcursor.cpp
+            source/Helpers/text/textcursor.h
+            source/Helpers/text/textrange.cpp
+            source/Helpers/text/textrange.h
             source/Helpers/textprocessor.cpp
             source/Helpers/textprocessor.h
             source/Helpers/textutils.cpp
             source/Helpers/textutils.h
-            source/Helpers/intmatrix.cpp
-            source/Helpers/intmatrix.h
-            source/Helpers/asyncgroupbuilder.cpp
-            source/Helpers/asyncgroupbuilder.h
             source/Helpers/uuid/uuidtools.cpp
             source/Helpers/uuid/uuidtools.h
             source/Helpers/validators/linktextvalidator.cpp
             source/Helpers/validators/linktextvalidator.h
             source/Helpers/validators/uuidvalidator.cpp
             source/Helpers/validators/uuidvalidator.h
-            source/Helpers/exclusivecall.h
-            source/Helpers/text/textcursor.cpp
-            source/Helpers/text/textcursor.h
-            source/Helpers/text/textrange.cpp
-            source/Helpers/text/textrange.h
-            source/Helpers/text/chartools.cpp
-            source/Helpers/text/chartools.h
+            source/Managers/datastorageinterface.h
             source/Managers/groupsmanager.cpp
             source/Managers/groupsmanager.h
             source/Managers/jsongroupinfocontainerparser.cpp
             source/Managers/jsongroupinfocontainerparser.h
             source/Managers/jsonnodeinfocontainerparser.cpp
             source/Managers/jsonnodeinfocontainerparser.h
+            source/Managers/localdatabasestorage.cpp
+            source/Managers/localdatabasestorage.h
             source/Managers/networkmanager.cpp
             source/Managers/networkmanager.h
             source/Managers/nodesmanager.cpp
@@ -150,9 +166,6 @@ target_sources (
             source/Managers/notificationmanager.h
             source/Managers/syncmanager.cpp
             source/Managers/syncmanager.h
-            source/Managers/datastorageinterface.h
-            source/Managers/localdatabasestorage.cpp
-            source/Managers/localdatabasestorage.h
             source/Model/GraphicItem/graphicitem.cpp
             source/Model/GraphicItem/graphicitem.h
             source/Model/GraphicItem/rectgraphicitem.cpp
@@ -186,25 +199,12 @@ target_sources (
             source/Model/TerminGroup/termtree.cpp
             source/Model/TerminGroup/termtree.h
             source/Model/enums.h
-            source/Database/dbtools.cpp
-            source/Database/dbtools.h
-            source/Database/tables/appconfigtable.cpp
-            source/Database/tables/appconfigtable.h
-            source/Database/database.cpp
-            source/Database/database.h
-            source/Database/dbinfo.h
-            source/Database/tables/ndtbl.cpp
-            source/Database/tables/ndtbl.h
-            source/Database/sqlquerybuilder.cpp
-            source/Database/sqlquerybuilder.h
-            source/Database/tables/termgrouptbl.cpp
-            source/Database/tables/termgrouptbl.h
             source/main.cpp
-            source/qmlTypesRegistrator.h
             source/mainscene.cpp
             source/mainscene.h
             source/mainwindow.cpp
-            source/mainwindow.h)
+            source/mainwindow.h
+            source/qmlTypesRegistrator.h)
 
 target_compile_definitions (${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 

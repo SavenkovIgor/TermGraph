@@ -25,11 +25,11 @@
 #include "source/Managers/datastorageinterface.h"
 #include "source/Model/Termin/nodeinfocontainer.h"
 
-class NodeTable
+class TermTable
 {
 public:
-    NodeTable()  = default;
-    ~NodeTable() = default;
+    TermTable()  = default;
+    ~TermTable() = default;
 
     QUuid nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const;
 

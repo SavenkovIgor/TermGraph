@@ -25,8 +25,8 @@
 #include <QtSql>
 
 #include "source/Database/tables/appconfigtable.h"
-#include "source/Database/tables/ndtbl.h"
-#include "source/Database/tables/termgrouptbl.h"
+#include "source/Database/tables/termgrouptable.h"
+#include "source/Database/tables/termtable.h"
 #include "source/Helpers/appconfig.h"
 #include "source/Helpers/fsworks.h"
 
@@ -35,7 +35,7 @@
 class Database
 {
 public:
-    QScopedPointer<NodeTable>      nodeTable;
+    QScopedPointer<TermTable>      termTable;
     QScopedPointer<TermGroupTable> groupTable;
     QScopedPointer<AppConfigTable> appConfigTable;
 

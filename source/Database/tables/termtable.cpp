@@ -19,13 +19,13 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Database/tables/ndtbl.h"
+#include "source/Database/tables/termtable.h"
 
 #include "source/Database/dbinfo.h"
 #include "source/Database/dbtools.h"
 #include "source/Database/sqlquerybuilder.h"
 
-QUuid NodeTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const
+QUuid TermTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const
 {
     auto query = SqlQueryBuilder().selectOneTerm(name, groupUuid);
     DbTools::startQuery2(query);
@@ -38,7 +38,7 @@ QUuid NodeTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& group
     return QUuid();
 }
 
-bool NodeTable::addNode(const NodeInfoContainer& info)
+bool TermTable::addNode(const NodeInfoContainer& info)
 {
     assert(!info.term.simplified().isEmpty());
     assert(!nodeExist(info.uuid));
@@ -64,19 +64,19 @@ bool NodeTable::addNode(const NodeInfoContainer& info)
     return DbTools::startQuery2(query);
 }
 
-void NodeTable::deleteTerm(const QUuid& termUuid)
+void TermTable::deleteTerm(const QUuid& termUuid)
 {
     auto query = SqlQueryBuilder().deleteTerm(termUuid);
     DbTools::startQuery2(query);
 }
 
-void NodeTable::initTable()
+void TermTable::initTable()
 {
     auto query = SqlQueryBuilder().createTermsTable();
     DbTools::startQuery2(query);
 }
 
-bool NodeTable::isUuidExist(const QUuid& uuid)
+bool TermTable::isUuidExist(const QUuid& uuid)
 {
     auto query = SqlQueryBuilder().selectOneTerm(uuid);
     DbTools::startQuery2(query);
@@ -88,7 +88,7 @@ bool NodeTable::isUuidExist(const QUuid& uuid)
     return count > 0;
 }
 
-QUuid NodeTable::generateNewUuid()
+QUuid TermTable::generateNewUuid()
 {
     QUuid uuid;
     for (int i = 0; i < 1000; i++) {
@@ -100,9 +100,9 @@ QUuid NodeTable::generateNewUuid()
     return uuid;
 }
 
-QDateTime NodeTable::getLastEditNow() { return QDateTime::currentDateTimeUtc(); }
+QDateTime TermTable::getLastEditNow() { return QDateTime::currentDateTimeUtc(); }
 
-UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
+UuidList TermTable::getAllNodesUuids(const QUuid& groupUuid)
 {
     UuidList  ret;
     QSqlQuery query;
@@ -124,7 +124,7 @@ UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
     return ret;
 }
 
-NodeInfoContainer NodeTable::getNodeInfo(const QUuid& uuid)
+NodeInfoContainer TermTable::getNodeInfo(const QUuid& uuid)
 {
     assert(!uuid.isNull());
 
@@ -137,7 +137,7 @@ NodeInfoContainer NodeTable::getNodeInfo(const QUuid& uuid)
     return recordToNodeInfo(record);
 }
 
-NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
+NodeInfoContainer::List TermTable::getAllNodesInfo(const QUuid& groupUuid)
 {
     assert(!groupUuid.isNull());
 
@@ -157,7 +157,7 @@ NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
     return ret;
 }
 
-QDateTime NodeTable::getLastEdit(const QUuid& uuid)
+QDateTime TermTable::getLastEdit(const QUuid& uuid)
 {
     auto query = SqlQueryBuilder().selectLastEdit(uuid);
     DbTools::startQuery2(query);
@@ -172,14 +172,14 @@ QDateTime NodeTable::getLastEdit(const QUuid& uuid)
     return QDateTime::fromString(field, Qt::ISODate);
 }
 
-RecVector NodeTable::getAllLastEditRecords()
+RecVector TermTable::getAllLastEditRecords()
 {
     auto query = SqlQueryBuilder().selectAllLastEditAndGroupUuid();
     DbTools::startQuery2(query);
     return DbTools::getAllRecords(std::move(query));
 }
 
-bool NodeTable::updateNode(const NodeInfoContainer&             info,
+bool TermTable::updateNode(const NodeInfoContainer&             info,
                            DataStorageInterface::LastEditSource lastEditSource,
                            bool                                 checkLastEdit)
 {
@@ -210,7 +210,7 @@ bool NodeTable::updateNode(const NodeInfoContainer&             info,
     return true;
 }
 
-NodeInfoContainer NodeTable::recordToNodeInfo(QSqlRecord& record)
+NodeInfoContainer TermTable::recordToNodeInfo(QSqlRecord& record)
 {
     NodeInfoContainer info;
 
@@ -227,4 +227,4 @@ NodeInfoContainer NodeTable::recordToNodeInfo(QSqlRecord& record)
     return info;
 }
 
-bool NodeTable::nodeExist(const QUuid& nodeUuid) { return isUuidExist(nodeUuid); }
+bool TermTable::nodeExist(const QUuid& nodeUuid) { return isUuidExist(nodeUuid); }

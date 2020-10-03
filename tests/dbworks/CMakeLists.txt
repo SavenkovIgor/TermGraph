@@ -28,28 +28,29 @@ include_directories (${CMAKE_SOURCE_DIR})
 # TODO Reduce files count
 target_sources (
     ${TEST_PROJECT_NAME}
-    PRIVATE ${CMAKE_SOURCE_DIR}/source/Helpers/fsworks.h
-            ${CMAKE_SOURCE_DIR}/source/Helpers/fsworks.cpp
-            ${CMAKE_SOURCE_DIR}/source/Helpers/appconfig.h
-            ${CMAKE_SOURCE_DIR}/source/Helpers/appconfig.cpp
-            ${CMAKE_SOURCE_DIR}/source/Database/tables/appconfigtable.h
-            ${CMAKE_SOURCE_DIR}/source/Database/tables/appconfigtable.cpp
+    PRIVATE ${CMAKE_SOURCE_DIR}/source/Database/database.cpp
             ${CMAKE_SOURCE_DIR}/source/Database/database.h
-            ${CMAKE_SOURCE_DIR}/source/Database/database.cpp
-            ${CMAKE_SOURCE_DIR}/source/Database/tables/ndtbl.h
-            ${CMAKE_SOURCE_DIR}/source/Database/tables/ndtbl.cpp
-            ${CMAKE_SOURCE_DIR}/source/Database/sqlquerybuilder.h
-            ${CMAKE_SOURCE_DIR}/source/Database/sqlquerybuilder.cpp
-            ${CMAKE_SOURCE_DIR}/source/Database/tables/termgrouptbl.h
-            ${CMAKE_SOURCE_DIR}/source/Database/tables/termgrouptbl.cpp
-            ${CMAKE_SOURCE_DIR}/source/Database/dbtools.h
+            ${CMAKE_SOURCE_DIR}/source/Database/dbinfo.h
             ${CMAKE_SOURCE_DIR}/source/Database/dbtools.cpp
-            ${CMAKE_SOURCE_DIR}/source/Managers/notificationmanager.h
-            ${CMAKE_SOURCE_DIR}/source/Managers/notificationmanager.cpp
-            ${CMAKE_SOURCE_DIR}/source/Managers/datastorageinterface.h
-            ${CMAKE_SOURCE_DIR}/source/Managers/localdatabasestorage.h
-            ${CMAKE_SOURCE_DIR}/source/Managers/localdatabasestorage.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/dbtools.h
             ${CMAKE_SOURCE_DIR}/source/Database/sqlqueries.qrc
+            ${CMAKE_SOURCE_DIR}/source/Database/sqlquerybuilder.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/sqlquerybuilder.h
+            ${CMAKE_SOURCE_DIR}/source/Database/tables/appconfigtable.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/tables/appconfigtable.h
+            ${CMAKE_SOURCE_DIR}/source/Database/tables/termgrouptable.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/tables/termgrouptable.h
+            ${CMAKE_SOURCE_DIR}/source/Database/tables/termtable.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/tables/termtable.h
+            ${CMAKE_SOURCE_DIR}/source/Helpers/appconfig.cpp
+            ${CMAKE_SOURCE_DIR}/source/Helpers/appconfig.h
+            ${CMAKE_SOURCE_DIR}/source/Helpers/fsworks.cpp
+            ${CMAKE_SOURCE_DIR}/source/Helpers/fsworks.h
+            ${CMAKE_SOURCE_DIR}/source/Managers/datastorageinterface.h
+            ${CMAKE_SOURCE_DIR}/source/Managers/localdatabasestorage.cpp
+            ${CMAKE_SOURCE_DIR}/source/Managers/localdatabasestorage.h
+            ${CMAKE_SOURCE_DIR}/source/Managers/notificationmanager.cpp
+            ${CMAKE_SOURCE_DIR}/source/Managers/notificationmanager.h
             dbworkstest.cpp)
 
 add_test (NAME ${TEST_PROJECT_NAME} COMMAND ${TEST_PROJECT_NAME})
