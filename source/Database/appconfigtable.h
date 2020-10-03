@@ -41,18 +41,12 @@ public:
     {}
     ~AppConfigTable() override = default;
 
-    // TODO: Delete this later
     // This function must be called only once, when initing database
-    void initTable() override;
+    void initTable() final;
 
     int  getDbVersion();
     bool isDbVersionActual();
     void updateDbVersionNumber();
-
-protected:
-    const char*   tableName() const override;
-    TColumn       primaryKey() const override;
-    TColumn::List getAllColumns() const override;
 
 private:
     constexpr static auto dbVersionPropertyName = "dbVersion";

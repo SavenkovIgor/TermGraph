@@ -28,9 +28,7 @@
 class TermGroupTable : public TblBase
 {
 public:
-    TermGroupTable(QSqlDatabase* base)
-        : TblBase(base)
-    {}
+    TermGroupTable(QSqlDatabase* base);
     ~TermGroupTable() override = default;
 
     // Add, update, delete
@@ -49,17 +47,10 @@ public:
     bool groupExist(const QUuid& uuid);
     bool groupWithNameExist(const QString& groupName);
 
-    const char* tableName() const override;
-    TColumn     primaryKey() const override;
-    void        initTable() override;
-
-protected:
-    TColumn::List getAllColumns() const override;
+    void initTable() final;
 
 private:
     QUuid generateNewUuid();
-
-    WhereCondition whereUuidEqual(const QUuid& uuid);
 
     static GroupInfoContainer sqlRecordToGroupInfo(const QSqlRecord& rec);
 };

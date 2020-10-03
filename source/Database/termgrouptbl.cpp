@@ -25,6 +25,10 @@
 #include "source/Database/dbinfo.h"
 #include "source/Database/sqlquerybuilder.h"
 
+TermGroupTable::TermGroupTable(QSqlDatabase* base)
+    : TblBase(base)
+{}
+
 bool TermGroupTable::addGroup(const GroupInfoContainer& info)
 {
     GroupInfoContainer groupInfo = info;
@@ -119,24 +123,10 @@ QUuid TermGroupTable::getUuid(const QString& groupName) const
 
 bool TermGroupTable::groupWithNameExist(const QString& groupName) { return !getUuid(groupName).isNull(); }
 
-const char* TermGroupTable::tableName() const { return TableName::GROUPS; }
-
-TColumn TermGroupTable::primaryKey() const { return TermGroupColumn::uuid; }
-
 void TermGroupTable::initTable()
 {
     auto query = SqlQueryBuilder().createGroupsTable();
     startQuery(query);
-}
-
-TColumn::List TermGroupTable::getAllColumns() const
-{
-    TColumn::List lst;
-
-    for (const auto& column : TermGroupColumn::columns)
-        lst << column;
-
-    return lst;
 }
 
 GroupInfoContainer TermGroupTable::getGroup(const QUuid& uuid)
@@ -163,8 +153,6 @@ GroupInfoContainer::List TermGroupTable::getGroups()
 
     return ret;
 }
-
-WhereCondition TermGroupTable::whereUuidEqual(const QUuid& uuid) { return primaryKeyEqual(uuid.toString()); }
 
 GroupInfoContainer TermGroupTable::sqlRecordToGroupInfo(const QSqlRecord& rec)
 {

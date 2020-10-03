@@ -33,23 +33,10 @@ public:
     virtual ~TblBase() = default;
 
 protected:
-    QSqlQuery select(const TColumn&        column,
-                     const WhereCondition& where   = WhereCondition(),
-                     const QString&        orderBy = "") const;
-
-    QSqlQuery select(const TColumn::List&  columns,
-                     const WhereCondition& where   = WhereCondition(),
-                     const QString&        orderBy = "") const;
-
-    WhereCondition primaryKeyEqual(const QString& value) const;
-
     static QSqlRecord getRecord(QSqlQuery&& q);
     static RecVector  getAllRecords(QSqlQuery&& q);
 
-    virtual const char*   tableName() const     = 0;
-    virtual TColumn       primaryKey() const    = 0;
-    virtual TColumn::List getAllColumns() const = 0;
-    virtual void          initTable()           = 0;
+    virtual void initTable() = 0;
 
 protected:
     bool startQuery(QSqlQuery query) const;
@@ -59,6 +46,4 @@ private:
 
     QSqlQuery startQuery(const QString& queryString) const;
     bool      hasErrors(const QString& errString) const;
-
-    QSqlQuery executeSelect(const QStringList& cols, const WhereCondition& where, const QString& orderBy = "") const;
 };

@@ -36,33 +36,7 @@ TblBase::TblBase(QSqlDatabase* base)
     : base(base)
 {}
 
-QSqlQuery TblBase::select(const TColumn& column, const WhereCondition& where, const QString& orderBy) const
-{
-    return select(TColumn::List() << column, where, orderBy);
-}
-
-QSqlQuery TblBase::select(const TColumn::List& columns, const WhereCondition& where, const QString& orderBy) const
-{
-    QStringList colsNames;
-
-    for (const auto& column : columns)
-        colsNames << column.name;
-
-    return executeSelect(colsNames, where, orderBy);
-}
-
-QSqlQuery TblBase::executeSelect(const QStringList& cols, const WhereCondition& where, const QString& orderBy) const
-{
-    auto query = SqlQueryBuilder().selectQuery(tableName(), cols, where, orderBy);
-    return startQuery(query);
-}
-
 bool TblBase::startQuery(QSqlQuery query) const { return DbTools::startQuery2(query); }
-
-WhereCondition TblBase::primaryKeyEqual(const QString& value) const
-{
-    return WhereCondition::columnEqual(primaryKey(), value);
-}
 
 QSqlRecord TblBase::getRecord(QSqlQuery&& q)
 {

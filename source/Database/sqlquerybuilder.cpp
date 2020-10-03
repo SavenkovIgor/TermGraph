@@ -23,33 +23,9 @@
 
 #include <QFile>
 
-#include "source/Database/tools/querytools.h"
-
 SqlQueryBuilder::SqlQueryBuilder(const char *const connectionName)
     : mConnectionName(QLatin1String(connectionName))
 {}
-
-QString SqlQueryBuilder::selectQuery(const QString &       tableName,
-                                     const QStringList &   columns,
-                                     const WhereCondition &where,
-                                     const QString &       orderBy) const
-{
-    QStringList qry;
-    qry << "SELECT";
-    qry << columns.join(QueryTools::joinParam);
-    qry << "FROM";
-    qry << tableName;
-    if (where.getJoinedConditions() != "") {
-        qry << "WHERE";
-        qry << where.getJoinedConditions();
-    }
-    if (orderBy.simplified() != "") {
-        qry << "ORDER BY";
-        qry << orderBy;
-    }
-
-    return qry.join(" ");
-}
 
 QSqlQuery SqlQueryBuilder::createAppConfigTable() const
 {

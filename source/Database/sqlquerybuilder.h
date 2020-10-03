@@ -27,23 +27,15 @@
 #include <QtCore>
 
 #include "source/Database/dbinfo.h"
-#include "source/Database/tools/querytools.h"
 #include "source/Database/tools/wherecondition.h"
 #include "source/Model/Termin/nodeinfocontainer.h"
 #include "source/Model/TerminGroup/groupinfocontainer.h"
 
 // Задача этого класса - формировать запросы
-// Clear static class
 class SqlQueryBuilder
 {
 public:
     SqlQueryBuilder(const char* const connectionName = DbConnectionName::defaultConnection);
-
-    // Deprecation
-    QString selectQuery(const QString&        tableName,
-                        const QStringList&    columns,
-                        const WhereCondition& where,
-                        const QString&        orderBy = "") const;
 
     // AppConfig table
     QSqlQuery createAppConfigTable() const;

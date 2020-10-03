@@ -76,24 +76,10 @@ void NodeTable::deleteTerm(const QUuid& termUuid)
     startQuery(query);
 }
 
-const char* NodeTable::tableName() const { return TableName::NODES; }
-
-TColumn NodeTable::primaryKey() const { return NodeColumn::uuid; }
-
 void NodeTable::initTable()
 {
     auto query = SqlQueryBuilder().createTermsTable();
     startQuery(query);
-}
-
-TColumn::List NodeTable::getAllColumns() const
-{
-    TColumn::List lst;
-
-    for (const auto& column : NodeColumn::columns)
-        lst << column;
-
-    return lst;
 }
 
 bool NodeTable::isUuidExist(const QUuid& uuid)
@@ -248,7 +234,5 @@ NodeInfoContainer NodeTable::recordToNodeInfo(QSqlRecord& record)
 
     return info;
 }
-
-WhereCondition NodeTable::whereUuidEqual(const QUuid& uuid) { return primaryKeyEqual(uuid.toString()); }
 
 bool NodeTable::nodeExist(const QUuid& nodeUuid) { return isUuidExist(nodeUuid); }

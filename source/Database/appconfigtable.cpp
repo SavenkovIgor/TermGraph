@@ -37,20 +37,6 @@ bool AppConfigTable::isDbVersionActual() { return getDbVersion() == dbVersion; }
 
 void AppConfigTable::updateDbVersionNumber() { setValue(dbVersionPropertyName, QString::number(dbVersion)); }
 
-const char* AppConfigTable::tableName() const { return TableName::CONFIG; }
-
-TColumn AppConfigTable::primaryKey() const { return AppConfigColumn::parameter; }
-
-TColumn::List AppConfigTable::getAllColumns() const
-{
-    TColumn::List lst;
-
-    for (const auto& column : AppConfigColumn::columns)
-        lst << column;
-
-    return lst;
-}
-
 bool AppConfigTable::hasKey(const QString& key)
 {
     auto query = SqlQueryBuilder().selectOneConfigParameter(key);

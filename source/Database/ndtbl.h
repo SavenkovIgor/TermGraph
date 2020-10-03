@@ -51,12 +51,7 @@ public:
                     bool                                 checkLastEdit = true);
     void deleteTerm(const QUuid& termUuid);
 
-    const char* tableName() const override;
-    TColumn     primaryKey() const override;
-    void        initTable() override;
-
-protected:
-    TColumn::List getAllColumns() const override;
+    void initTable() final;
 
 private:
     bool isUuidExist(const QUuid& uuid);
@@ -67,6 +62,4 @@ private:
     static QString   getLastEditNowString();
 
     NodeInfoContainer recordToNodeInfo(QSqlRecord& record);
-
-    WhereCondition whereUuidEqual(const QUuid& uuid);
 };
