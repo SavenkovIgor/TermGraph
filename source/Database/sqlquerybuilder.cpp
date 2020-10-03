@@ -102,6 +102,20 @@ QSqlQuery SqlQueryBuilder::insertGroup(const GroupInfoContainer &groupInfo) cons
     return query;
 }
 
+QSqlQuery SqlQueryBuilder::selectGroup(const QUuid &groupUuid) const
+{
+    auto query = loadQuery(":/sql/queries/version2/groups/selectgroupbyuuid.sql");
+    query.bindValue(":uuid", groupUuid.toString());
+    return query;
+}
+
+QSqlQuery SqlQueryBuilder::selectGroup(const QString &groupName) const
+{
+    auto query = loadQuery(":/sql/queries/version2/groups/selectgroupbyname.sql");
+    query.bindValue(":name", groupName);
+    return query;
+}
+
 QSqlQuery SqlQueryBuilder::selectOneGroup(const QUuid &groupUuid) const
 {
     auto query = loadQuery(":/sql/queries/version2/groups/groupwithuuidcount.sql");
@@ -112,6 +126,12 @@ QSqlQuery SqlQueryBuilder::selectOneGroup(const QUuid &groupUuid) const
 QSqlQuery SqlQueryBuilder::selectAllGroupUuids()
 {
     auto query = loadQuery(":/sql/queries/version2/groups/selectalluuids.sql");
+    return query;
+}
+
+QSqlQuery SqlQueryBuilder::selectAllGroups()
+{
+    auto query = loadQuery(":/sql/queries/version2/groups/selectallgroups.sql");
     return query;
 }
 

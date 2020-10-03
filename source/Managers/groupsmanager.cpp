@@ -71,15 +71,9 @@ QUuid GroupsManager::getGroupUuid(const QString& groupName) const
     return QUuid();
 }
 
-QString GroupsManager::getLastEditString(QUuid groupUuid)
-{
-    return getLastEdit(groupUuid).toString();
-}
+QString GroupsManager::getLastEditString(QUuid groupUuid) { return getLastEdit(groupUuid).toString(); }
 
-int GroupsManager::getNodesCount(QUuid groupUuid)
-{
-    return nodesMgr->getAllNodesUuidsInGroup(groupUuid).size();
-}
+int GroupsManager::getNodesCount(QUuid groupUuid) { return nodesMgr->getAllNodesUuidsInGroup(groupUuid).size(); }
 
 QStringList GroupsManager::getGroupNames(const QList<QUuid>& groupUuids)
 {
@@ -137,7 +131,7 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
     importGroupFromJson(doc);
 }
 
-bool GroupsManager::isValidGroupJson(const QJsonDocument json)  // TODO: Rework!
+bool GroupsManager::isValidGroupJson(const QJsonDocument json) // TODO: Rework!
 {
     QJsonObject jsonGroup = json.object();
 
@@ -149,10 +143,7 @@ bool GroupsManager::isValidGroupJson(const QJsonDocument json)  // TODO: Rework!
     return false;
 }
 
-TermGroup* GroupsManager::createGroup(const QString& groupName)
-{
-    return createGroup(getGroupUuid(groupName));
-}
+TermGroup* GroupsManager::createGroup(const QString& groupName) { return createGroup(getGroupUuid(groupName)); }
 
 TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
 {
@@ -175,10 +166,7 @@ bool GroupsManager::isEmptyGroup(const QString& groupUuid)
     return getNodesCount(uuid) == 0;
 }
 
-bool GroupsManager::getHasAnyGroup() const
-{
-    return !dataStorage.getAllGroupsUuids().empty();
-}
+bool GroupsManager::getHasAnyGroup() const { return !dataStorage.getAllGroupsUuids().empty(); }
 
 QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 {
@@ -239,7 +227,7 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     QJsonArray nodes = jsonGroup.value("nodesList").toArray();
 
     // Searching for existed group
-    if (!dataStorage.groupExist(info.uuid)) {  // Group found
+    if (!dataStorage.groupExist(info.uuid)) { // Group found
         dataStorage.addGroup(info);
     } else {
         dataStorage.updateGroup(info);
@@ -256,10 +244,7 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     emit groupAdded();
 }
 
-QString GroupsManager::getExportPath() const
-{
-    return AppSettings::StdPaths::groupsJsonFolder();
-}
+QString GroupsManager::getExportPath() const { return AppSettings::StdPaths::groupsJsonFolder(); }
 
 void GroupsManager::exportGrpToJson(const QString& groupUuid)
 {
@@ -284,21 +269,22 @@ void GroupsManager::saveGroupInFolder(TermGroup* group)
 
 QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid)
 {
-    auto info      = dataStorage.getGroup(groupUuid);
-    auto groupJson = JsonGroupInfoContainerParser::toJson(info);
+    // TODO: export is temporary broken
+    //    auto info      = dataStorage.getGroup(groupUuid);
+    //    auto groupJson = JsonGroupInfoContainerParser::toJson(info);
 
-    auto nodesUuids = dataStorage.getAllNodesUuids(groupUuid);
+    //    auto nodesUuids = dataStorage.getAllNodesUuids(groupUuid);
 
-    QJsonArray nodesArray;
+    //    QJsonArray nodesArray;
 
-    for (const auto& nodeUuid : nodesUuids) {
-        auto nodeJson = nodesMgr->getNodeJson(nodeUuid);
-        nodesArray.append(nodeJson);
-    }
+    //    for (const auto& nodeUuid : nodesUuids) {
+    //        auto nodeJson = nodesMgr->getNodeJson(nodeUuid);
+    //        nodesArray.append(nodeJson);
+    //    }
 
-    groupJson.insert("nodesList", nodesArray);
+    //    groupJson.insert("nodesList", nodesArray);
 
-    return QJsonDocument(groupJson);
+    //    return QJsonDocument(groupJson);
 }
 
 void GroupsManager::updateGroupUuidNameMaps()

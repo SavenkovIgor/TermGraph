@@ -55,8 +55,11 @@ public:
     // Groups table
     QSqlQuery createGroupsTable() const;
     QSqlQuery insertGroup(const GroupInfoContainer& groupInfo) const;
+    QSqlQuery selectGroup(const QUuid& groupUuid) const;
+    QSqlQuery selectGroup(const QString& groupName) const;
     QSqlQuery selectOneGroup(const QUuid& groupUuid) const;
     QSqlQuery selectAllGroupUuids();
+    QSqlQuery selectAllGroups();
     QSqlQuery updateGroup(const GroupInfoContainer& groupInfo) const;
     QSqlQuery deleteGroup(const QUuid& groupUuid) const;
 

@@ -106,13 +106,15 @@ QUuid TermGroupTable::generateNewUuid()
 
 QUuid TermGroupTable::getUuid(const QString& groupName) const
 {
-    auto      where = WhereCondition::columnEqual(TermGroupColumn::name, groupName);
-    QSqlQuery q     = select(TermGroupColumn::uuid, where);
-    if (!q.next()) {
-        return QUuid();
-    }
+    auto query = SqlQueryBuilder().selectGroup(groupName);
+    startQuery(query);
 
-    return QUuid(q.record().value(TermGroupColumn::uuid).toString());
+    auto records = getAllRecords(std::move(query));
+
+    if (records.isEmpty())
+        return QUuid();
+
+    return QUuid(records.first().value("uuid").toString());
 }
 
 bool TermGroupTable::groupWithNameExist(const QString& groupName) { return !getUuid(groupName).isNull(); }
@@ -139,22 +141,20 @@ TColumn::List TermGroupTable::getAllColumns() const
 
 GroupInfoContainer TermGroupTable::getGroup(const QUuid& uuid)
 {
-    QSqlQuery sel = select(getAllColumns(), whereUuidEqual(uuid));
-
-    if (!sel.next())
-        return GroupInfoContainer();
-
-    auto rec = sel.record();
-
-    return sqlRecordToGroupInfo(rec);
+    auto query = SqlQueryBuilder(DbConnectionName::threadLoadingConnection).selectGroup(uuid);
+    startQuery(query);
+    auto record = getRecord(std::move(query));
+    return sqlRecordToGroupInfo(record);
 }
 
 GroupInfoContainer::List TermGroupTable::getGroups()
 {
     GroupInfoContainer::List ret;
 
-    auto sel     = select(getAllColumns());
-    auto records = getAllRecords(std::move(sel));
+    auto query = SqlQueryBuilder().selectAllGroups();
+    startQuery(query);
+
+    auto records = getAllRecords(std::move(query));
 
     for (auto& record : records) {
         GroupInfoContainer info = sqlRecordToGroupInfo(record);
@@ -170,9 +170,9 @@ GroupInfoContainer TermGroupTable::sqlRecordToGroupInfo(const QSqlRecord& rec)
 {
     GroupInfoContainer info;
 
-    info.uuid    = QUuid(rec.value(TermGroupColumn::uuid).toString());
-    info.name    = QueryTools::unVV(rec.value(TermGroupColumn::name).toString());
-    info.comment = QueryTools::unVV(rec.value(TermGroupColumn::comment).toString());
+    info.uuid    = QUuid(rec.value("uuid").toString());
+    info.name    = rec.value("name").toString();
+    info.comment = rec.value("comment").toString();
 
     return info;
 }
