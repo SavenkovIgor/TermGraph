@@ -1,0 +1,2 @@
+SELECT uuid
+  FROM groups;

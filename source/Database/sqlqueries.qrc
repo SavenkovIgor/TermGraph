@@ -11,6 +11,7 @@
         <file>queries/version2/groups/deletegroupbyuuid.sql</file>
         <file>queries/version2/groups/groupwithuuidcount.sql</file>
         <file>queries/version2/groups/insertgroup.sql</file>
+        <file>queries/version2/groups/selectalluuids.sql</file>
         <file>queries/version2/groups/updategroup.sql</file>
         <file>queries/version2/terms/createtermstable.sql</file>
         <file>queries/version2/terms/deletetermbyuuid.sql</file>

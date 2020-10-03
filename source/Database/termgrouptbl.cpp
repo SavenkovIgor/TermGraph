@@ -59,13 +59,16 @@ bool TermGroupTable::updateGroup(const GroupInfoContainer& info)
 UuidList TermGroupTable::getAllUuids()
 {
     UuidList ret;
-    auto     records = getAllRecords(select(TermGroupColumn::uuid));
+
+    auto query = SqlQueryConstructor().selectAllGroupUuids();
+    startQuery(query);
+
+    auto records = getAllRecords(std::move(query));
 
     for (const auto& record : records) {
-        QUuid uuid(record.value(TermGroupColumn::uuid).toString());
-        if (!uuid.isNull()) {
-            ret.push_back(uuid);
-        }
+        QUuid uuid(record.value("uuid").toString());
+        assert(!uuid.isNull());
+        ret.push_back(uuid);
     }
 
     return ret;

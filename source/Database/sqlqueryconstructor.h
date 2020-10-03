@@ -56,6 +56,7 @@ public:
     QSqlQuery createGroupsTable() const;
     QSqlQuery insertGroup(const GroupInfoContainer& groupInfo) const;
     QSqlQuery selectOneGroup(const QUuid& groupUuid) const;
+    QSqlQuery selectAllGroupUuids();
     QSqlQuery updateGroup(const GroupInfoContainer& groupInfo) const;
     QSqlQuery deleteGroup(const QUuid& groupUuid) const;
 
@@ -65,8 +66,8 @@ public:
     QSqlQuery selectTerm(const QUuid& termUuid) const;
     QSqlQuery selectOneTerm(const QUuid& termUuid) const;
     QSqlQuery selectOneTerm(const QString& term, const QUuid& groupUuid) const;
-    QSqlQuery selectAllUuids() const;
-    QSqlQuery selectAllUuids(const QUuid& groupUuid) const;
+    QSqlQuery selectAllTermUuids() const;
+    QSqlQuery selectAllTermUuids(const QUuid& groupUuid) const;
     QSqlQuery selectAllTerms(const QUuid& groupUuid) const;
     QSqlQuery selectLastEdit(const QUuid& termUuid) const;
     QSqlQuery selectAllLastEditAndGroupUuid() const;

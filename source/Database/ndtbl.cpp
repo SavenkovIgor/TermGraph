@@ -130,9 +130,9 @@ UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
     QSqlQuery query;
 
     if (groupUuid.isNull())
-        query = SqlQueryConstructor().selectAllUuids();
+        query = SqlQueryConstructor().selectAllTermUuids();
     else
-        query = SqlQueryConstructor().selectAllUuids(groupUuid);
+        query = SqlQueryConstructor().selectAllTermUuids(groupUuid);
 
     startQuery(query);
 
