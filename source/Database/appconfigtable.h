@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include "source/Database/columns/tcolumn.h"
 #include "source/Database/dbinfo.h"
 #include "source/Database/tblbase.h"
 

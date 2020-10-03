@@ -27,7 +27,6 @@
 #include <QtCore>
 
 #include "source/Database/dbinfo.h"
-#include "source/Database/tools/wherecondition.h"
 #include "source/Model/Termin/nodeinfocontainer.h"
 #include "source/Model/TerminGroup/groupinfocontainer.h"
 

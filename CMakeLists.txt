@@ -192,8 +192,6 @@ target_sources (
             source/Database/tools/dbtools.cpp
             source/Database/tools/dbtools.h
             source/Database/tools/querytools.h
-            source/Database/tools/wherecondition.cpp
-            source/Database/tools/wherecondition.h
             source/Database/appconfigtable.cpp
             source/Database/appconfigtable.h
             source/Database/database.cpp
