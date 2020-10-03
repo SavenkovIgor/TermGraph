@@ -21,22 +21,16 @@
 
 #include "source/Database/ndtbl.h"
 
-#include "source/Database/columns/nodecolumn.h"
 #include "source/Database/dbinfo.h"
+#include "source/Database/dbtools.h"
 #include "source/Database/sqlquerybuilder.h"
-
-NodeTable::NodeTable(QSqlDatabase* base)
-    : TblBase(base)
-{
-    assert(base != nullptr);
-}
 
 QUuid NodeTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const
 {
     auto query = SqlQueryBuilder().selectOneTerm(name, groupUuid);
-    startQuery(query);
+    DbTools::startQuery2(query);
 
-    auto nodesRecords = getAllRecords(std::move(query));
+    auto nodesRecords = DbTools::getAllRecords(std::move(query));
 
     if (nodesRecords.size() == 1)
         return QUuid(nodesRecords.first().value("uuid").toString());
@@ -67,25 +61,25 @@ bool NodeTable::addNode(const NodeInfoContainer& info)
         termInfo.lastEdit = getLastEditNow();
 
     auto query = SqlQueryBuilder().insertTerm(termInfo);
-    return startQuery(query);
+    return DbTools::startQuery2(query);
 }
 
 void NodeTable::deleteTerm(const QUuid& termUuid)
 {
     auto query = SqlQueryBuilder().deleteTerm(termUuid);
-    startQuery(query);
+    DbTools::startQuery2(query);
 }
 
 void NodeTable::initTable()
 {
     auto query = SqlQueryBuilder().createTermsTable();
-    startQuery(query);
+    DbTools::startQuery2(query);
 }
 
 bool NodeTable::isUuidExist(const QUuid& uuid)
 {
     auto query = SqlQueryBuilder().selectOneTerm(uuid);
-    startQuery(query);
+    DbTools::startQuery2(query);
 
     if (!query.next())
         return false;
@@ -108,8 +102,6 @@ QUuid NodeTable::generateNewUuid()
 
 QDateTime NodeTable::getLastEditNow() { return QDateTime::currentDateTimeUtc(); }
 
-QString NodeTable::getLastEditNowString() { return getLastEditNow().toString(Qt::ISODate); }
-
 UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
 {
     UuidList  ret;
@@ -120,9 +112,9 @@ UuidList NodeTable::getAllNodesUuids(const QUuid& groupUuid)
     else
         query = SqlQueryBuilder().selectAllTermUuids(groupUuid);
 
-    startQuery(query);
+    DbTools::startQuery2(query);
 
-    auto sqlRecords = getAllRecords(std::move(query));
+    auto sqlRecords = DbTools::getAllRecords(std::move(query));
 
     for (auto& record : sqlRecords) {
         auto uuidStr = record.value("uuid").toString();
@@ -139,9 +131,9 @@ NodeInfoContainer NodeTable::getNodeInfo(const QUuid& uuid)
     NodeInfoContainer info;
 
     auto query = SqlQueryBuilder().selectTerm(uuid);
-    startQuery(query);
+    DbTools::startQuery2(query);
 
-    auto record = getRecord(std::move(query));
+    auto record = DbTools::getRecord(std::move(query));
     return recordToNodeInfo(record);
 }
 
@@ -153,9 +145,9 @@ NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
 
     auto qBuilder = SqlQueryBuilder(DbConnectionName::threadLoadingConnection);
     auto query    = qBuilder.selectAllTerms(groupUuid);
-    startQuery(query);
+    DbTools::startQuery2(query);
 
-    auto records = getAllRecords(std::move(query));
+    auto records = DbTools::getAllRecords(std::move(query));
 
     for (auto& record : records) {
         NodeInfoContainer info = recordToNodeInfo(record);
@@ -168,9 +160,9 @@ NodeInfoContainer::List NodeTable::getAllNodesInfo(const QUuid& groupUuid)
 QDateTime NodeTable::getLastEdit(const QUuid& uuid)
 {
     auto query = SqlQueryBuilder().selectLastEdit(uuid);
-    startQuery(query);
+    DbTools::startQuery2(query);
 
-    auto record = getRecord(std::move(query));
+    auto record = DbTools::getRecord(std::move(query));
 
     auto field = record.value("lastEdit").toString();
 
@@ -183,8 +175,8 @@ QDateTime NodeTable::getLastEdit(const QUuid& uuid)
 RecVector NodeTable::getAllLastEditRecords()
 {
     auto query = SqlQueryBuilder().selectAllLastEditAndGroupUuid();
-    startQuery(query);
-    return getAllRecords(std::move(query));
+    DbTools::startQuery2(query);
+    return DbTools::getAllRecords(std::move(query));
 }
 
 bool NodeTable::updateNode(const NodeInfoContainer&             info,
@@ -213,7 +205,7 @@ bool NodeTable::updateNode(const NodeInfoContainer&             info,
         nodeContainer.lastEdit = getLastEditNow();
 
     auto query = SqlQueryBuilder().updateTerm(nodeContainer);
-    startQuery(query);
+    DbTools::startQuery2(query);
 
     return true;
 }

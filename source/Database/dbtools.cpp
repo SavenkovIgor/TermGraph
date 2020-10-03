@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Database/tools/dbtools.h"
+#include "source/Database/dbtools.h"
 
 #include <QSqlError>
 
@@ -46,21 +46,6 @@ QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
     return ret;
 }
 
-QSqlQuery DbTools::startQuery(QSqlQuery query)
-{
-    query.exec();
-
-    Q_ASSERT_X(!query.lastError().isValid(),
-               Q_FUNC_INFO,
-               QString("Query %1\nfails with error %2")
-                   .arg(query.lastQuery())
-                   .arg(query.lastError().text())
-                   .toStdString()
-                   .c_str());
-
-    return query;
-}
-
 bool DbTools::startQuery2(QSqlQuery query)
 {
     query.exec();
@@ -77,7 +62,34 @@ bool DbTools::startQuery2(QSqlQuery query)
 int DbTools::recordsCount(const QString& tableName)
 {
     auto query = SqlQueryBuilder().recordsCount(tableName);
-    startQuery(query);
+    startQuery2(query);
     query.next();
     return query.value("COUNT(*)").toInt();
+}
+
+QSqlRecord DbTools::getRecord(QSqlQuery&& q)
+{
+    auto nextValid = q.next();
+    assert(nextValid);
+
+    return q.record();
+}
+
+RecVector DbTools::getAllRecords(QSqlQuery&& q)
+{
+    RecVector ret;
+
+    if (auto size = q.size(); size > 0) {
+        ret.reserve(size);
+    }
+
+    for (;;) { // BUG: multithreading & database works
+        if (!q.next()) {
+            break;
+        }
+
+        ret << q.record();
+    }
+
+    return ret;
 }

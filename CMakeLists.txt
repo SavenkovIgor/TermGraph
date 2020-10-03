@@ -186,12 +186,8 @@ target_sources (
             source/Model/TerminGroup/termtree.cpp
             source/Model/TerminGroup/termtree.h
             source/Model/enums.h
-            source/Database/columns/nodecolumn.h
-            source/Database/columns/tcolumn.h
-            source/Database/columns/termgroupcolumn.h
-            source/Database/tools/dbtools.cpp
-            source/Database/tools/dbtools.h
-            source/Database/tools/querytools.h
+            source/Database/dbtools.cpp
+            source/Database/dbtools.h
             source/Database/appconfigtable.cpp
             source/Database/appconfigtable.h
             source/Database/database.cpp
@@ -201,8 +197,6 @@ target_sources (
             source/Database/ndtbl.h
             source/Database/sqlquerybuilder.cpp
             source/Database/sqlquerybuilder.h
-            source/Database/tblbase.cpp
-            source/Database/tblbase.h
             source/Database/termgrouptbl.cpp
             source/Database/termgrouptbl.h
             source/main.cpp

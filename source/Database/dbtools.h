@@ -21,14 +21,28 @@
 
 #pragma once
 
-#include "source/Database/columns/tcolumn.h"
+#include <QSqlDatabase>
+#include <QSqlQuery>
 
-class TermGroupColumn
+#include "source/Helpers/handytypes.h"
+
+class DbTools
 {
 public:
-    constexpr static auto uuid    = TColumn("uuid", "TEXT PRIMARY KEY NOT NULL");
-    constexpr static auto name    = TColumn("name", "TEXT UNIQUE NOT NULL");
-    constexpr static auto comment = TColumn("comment", "TEXT");
+    // Transaction
+    static void startTransaction(QSqlDatabase* base);
+    static void endTransaction(QSqlDatabase* base);
 
-    constexpr static TColumn columns[] = {uuid, name, comment};
+    // Database
+    static void reduceSpace(QSqlDatabase* base);
+
+    // Query
+    static QSqlQuery startQuery(QSqlDatabase* base, const QString& queryString);
+    static bool      startQuery2(QSqlQuery query);
+
+    // Common table statistic
+    static int recordsCount(const QString& tableName);
+
+    static QSqlRecord getRecord(QSqlQuery&& q);
+    static RecVector  getAllRecords(QSqlQuery&& q);
 };

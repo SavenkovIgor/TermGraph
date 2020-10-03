@@ -21,15 +21,14 @@
 
 #pragma once
 
-#include "source/Database/columns/tcolumn.h"
-#include "source/Database/tblbase.h"
+#include "source/Helpers/handytypes.h"
 #include "source/Model/TerminGroup/groupinfocontainer.h"
 
-class TermGroupTable : public TblBase
+class TermGroupTable
 {
 public:
-    TermGroupTable(QSqlDatabase* base);
-    ~TermGroupTable() override = default;
+    TermGroupTable()  = default;
+    ~TermGroupTable() = default;
 
     // Add, update, delete
     bool addGroup(const GroupInfoContainer& info);
@@ -47,7 +46,7 @@ public:
     bool groupExist(const QUuid& uuid);
     bool groupWithNameExist(const QString& groupName);
 
-    void initTable() final;
+    void initTable();
 
 private:
     QUuid generateNewUuid();

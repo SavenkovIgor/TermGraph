@@ -21,29 +21,16 @@
 
 #pragma once
 
-#include "source/Database/columns/tcolumn.h"
-#include "source/Database/dbinfo.h"
-#include "source/Database/tblbase.h"
+#include <QString>
 
-class AppConfigColumn
+class AppConfigTable
 {
 public:
-    constexpr static auto parameter = TColumn("parameter", "TEXT UNIQUE");
-    constexpr static auto value     = TColumn("value", "TEXT");
-
-    constexpr static TColumn columns[] = {parameter, value};
-};
-
-class AppConfigTable : public TblBase
-{
-public:
-    AppConfigTable(QSqlDatabase* base)
-        : TblBase(base)
-    {}
-    ~AppConfigTable() override = default;
+    AppConfigTable()  = default;
+    ~AppConfigTable() = default;
 
     // This function must be called only once, when initing database
-    void initTable() final;
+    void initTable();
 
     int  getDbVersion();
     bool isDbVersionActual();

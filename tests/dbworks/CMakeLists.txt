@@ -40,12 +40,10 @@ target_sources (
             ${CMAKE_SOURCE_DIR}/source/Database/ndtbl.cpp
             ${CMAKE_SOURCE_DIR}/source/Database/sqlquerybuilder.h
             ${CMAKE_SOURCE_DIR}/source/Database/sqlquerybuilder.cpp
-            ${CMAKE_SOURCE_DIR}/source/Database/tblbase.h
-            ${CMAKE_SOURCE_DIR}/source/Database/tblbase.cpp
             ${CMAKE_SOURCE_DIR}/source/Database/termgrouptbl.h
             ${CMAKE_SOURCE_DIR}/source/Database/termgrouptbl.cpp
-            ${CMAKE_SOURCE_DIR}/source/Database/tools/dbtools.h
-            ${CMAKE_SOURCE_DIR}/source/Database/tools/dbtools.cpp
+            ${CMAKE_SOURCE_DIR}/source/Database/dbtools.h
+            ${CMAKE_SOURCE_DIR}/source/Database/dbtools.cpp
             ${CMAKE_SOURCE_DIR}/source/Managers/notificationmanager.h
             ${CMAKE_SOURCE_DIR}/source/Managers/notificationmanager.cpp
             ${CMAKE_SOURCE_DIR}/source/Managers/datastorageinterface.h

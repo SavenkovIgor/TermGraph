@@ -21,26 +21,24 @@
 
 #include "source/Managers/jsonnodeinfocontainerparser.h"
 
-#include "source/Database/columns/nodecolumn.h"
-
 NodeInfoContainer JsonNodeInfoContainerParser::fromJson(const QJsonObject& jsonObj)
 {
     NodeInfoContainer info;
 
-    info.uuid = QUuid(jsonObj[NodeColumn::uuid].toString());
+    info.uuid = QUuid(jsonObj["uuid"].toString());
 
-    if (jsonObj.contains(NodeColumn::term))
-        info.term = jsonObj[NodeColumn::term].toString();
+    if (jsonObj.contains("term"))
+        info.term = jsonObj["term"].toString();
 
-    info.definition  = jsonObj[NodeColumn::definition].toString();
-    info.description = jsonObj[NodeColumn::description].toString();
-    info.examples    = jsonObj[NodeColumn::examples].toString();
-    info.wikiUrl     = jsonObj[NodeColumn::wikiUrl].toString();
-    info.wikiImage   = jsonObj[NodeColumn::wikiImage].toString();
-    info.groupUuid   = QUuid(jsonObj[NodeColumn::groupUuid].toString());
+    info.definition  = jsonObj["definition"].toString();
+    info.description = jsonObj["description"].toString();
+    info.examples    = jsonObj["examples"].toString();
+    info.wikiUrl     = jsonObj["wikiUrl"].toString();
+    info.wikiImage   = jsonObj["wikiImage"].toString();
+    info.groupUuid   = QUuid(jsonObj["groupUuid"].toString());
 
-    if (jsonObj.contains(NodeColumn::lastEdit)) {
-        info.lastEdit = QDateTime::fromString(jsonObj[NodeColumn::lastEdit].toString(), Qt::ISODate);
+    if (jsonObj.contains("lastEdit")) {
+        info.lastEdit = QDateTime::fromString(jsonObj["lastEdit"].toString(), Qt::ISODate);
     }
 
     return info;
@@ -50,15 +48,15 @@ QJsonObject JsonNodeInfoContainerParser::toJson(const NodeInfoContainer& info)
 {
     QJsonObject ret;
 
-    ret.insert(NodeColumn::uuid, QJsonValue(info.uuid.toString()));
-    ret.insert(NodeColumn::term, QJsonValue(info.term));
-    ret.insert(NodeColumn::definition, QJsonValue(info.definition));
-    ret.insert(NodeColumn::description, QJsonValue(info.description));
-    ret.insert(NodeColumn::examples, QJsonValue(info.examples));
-    ret.insert(NodeColumn::wikiUrl, QJsonValue(info.wikiUrl));
-    ret.insert(NodeColumn::wikiImage, QJsonValue(info.wikiImage));
-    ret.insert(NodeColumn::groupUuid, QJsonValue(info.groupUuid.toString()));
-    ret.insert(NodeColumn::lastEdit, QJsonValue(info.lastEdit.toString(Qt::ISODate)));
+    ret.insert("uuid", QJsonValue(info.uuid.toString()));
+    ret.insert("term", QJsonValue(info.term));
+    ret.insert("definition", QJsonValue(info.definition));
+    ret.insert("description", QJsonValue(info.description));
+    ret.insert("examples", QJsonValue(info.examples));
+    ret.insert("wikiUrl", QJsonValue(info.wikiUrl));
+    ret.insert("wikiImage", QJsonValue(info.wikiImage));
+    ret.insert("groupUuid", QJsonValue(info.groupUuid.toString()));
+    ret.insert("lastEdit", QJsonValue(info.lastEdit.toString(Qt::ISODate)));
 
     return ret;
 }

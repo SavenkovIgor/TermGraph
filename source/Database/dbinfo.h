@@ -23,14 +23,6 @@
 
 #include <QLatin1String>
 
-class TableName
-{
-public:
-    constexpr static auto NODES  = "terms";
-    constexpr static auto GROUPS = "groups";
-    constexpr static auto CONFIG = "appConfig";
-};
-
 class DbConnectionName
 {
 public:

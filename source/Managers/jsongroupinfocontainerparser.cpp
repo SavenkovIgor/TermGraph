@@ -21,15 +21,13 @@
 
 #include "source/Managers/jsongroupinfocontainerparser.h"
 
-#include "source/Database/columns/termgroupcolumn.h"
-
 GroupInfoContainer JsonGroupInfoContainerParser::fromJson(const QJsonObject& jsonObj)
 {
     GroupInfoContainer info;
 
-    info.uuid    = QUuid(jsonObj[TermGroupColumn::uuid].toString());
-    info.name    = jsonObj[TermGroupColumn::name].toString();
-    info.comment = jsonObj[TermGroupColumn::comment].toString();
+    info.uuid    = QUuid(jsonObj["uuid"].toString());
+    info.name    = jsonObj["name"].toString();
+    info.comment = jsonObj["comment"].toString();
 
     return info;
 }
@@ -38,9 +36,9 @@ QJsonObject JsonGroupInfoContainerParser::toJson(const GroupInfoContainer& info)
 {
     QJsonObject ret;
 
-    ret.insert(TermGroupColumn::uuid, QJsonValue(info.uuid.toString()));
-    ret.insert(TermGroupColumn::name, QJsonValue(info.name));
-    ret.insert(TermGroupColumn::comment, QJsonValue(info.comment));
+    ret.insert("uuid", QJsonValue(info.uuid.toString()));
+    ret.insert("name", QJsonValue(info.name));
+    ret.insert("comment", QJsonValue(info.comment));
 
     return ret;
 }

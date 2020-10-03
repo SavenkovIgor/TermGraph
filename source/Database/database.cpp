@@ -26,7 +26,8 @@
 #include <QUuid>
 
 #include "source/Database/dbinfo.h"
-#include "source/Database/tools/dbtools.h"
+#include "source/Database/dbtools.h"
+#include "source/Database/sqlquerybuilder.h"
 #include "source/Managers/notificationmanager.h"
 
 QString Database::mDbFilePath = "";
@@ -60,9 +61,9 @@ Database::Database(const QString& filePath)
         NotificationManager::showDebug(msg);
     }
 
-    nodeTable.reset(new NodeTable(base));
-    groupTable.reset(new TermGroupTable(base));
-    appConfigTable.reset(new AppConfigTable(base));
+    nodeTable.reset(new NodeTable());
+    groupTable.reset(new TermGroupTable());
+    appConfigTable.reset(new AppConfigTable());
 
     // If database just created, create all tables
     if (!baseExists) {
@@ -81,9 +82,9 @@ Database::Database(const QString& filePath)
         makeDbUpdate();
 
         // Recreate tables after update
-        nodeTable.reset(new NodeTable(base));
-        groupTable.reset(new TermGroupTable(base));
-        appConfigTable.reset(new AppConfigTable(base));
+        nodeTable.reset(new NodeTable());
+        groupTable.reset(new TermGroupTable());
+        appConfigTable.reset(new AppConfigTable());
     } else {
         qInfo("Database is already actual");
     }
@@ -203,7 +204,7 @@ void Database::updateNodesToSecondVersion()
         insertQuery.bindValue(":groupUuid", oldNodeTable.value("termGroup").toString());
         insertQuery.bindValue(":lastEdit", oldNodeTable.value("lastEdit").toString());
 
-        DbTools::startQuery(insertQuery);
+        DbTools::startQuery2(insertQuery);
     }
 
     auto countInOld = DbTools::recordsCount("termNode");
@@ -213,7 +214,7 @@ void Database::updateNodesToSecondVersion()
 
     if (countInOld == countInNew) {
         // Dropping old table
-        DbTools::startQuery(SqlQueryBuilder().dropTable("termNode"));
+        DbTools::startQuery2(SqlQueryBuilder().dropTable("termNode"));
     }
 }
 
@@ -246,7 +247,7 @@ void Database::updateGroupsToSecondVersion()
         insertQuery.bindValue(":name", oldGroupsTable.value("name").toString());
         insertQuery.bindValue(":comment", oldGroupsTable.value("comment").toString());
 
-        DbTools::startQuery(insertQuery);
+        DbTools::startQuery2(insertQuery);
     }
 
     auto countInOld = DbTools::recordsCount("termGroup");
@@ -256,7 +257,7 @@ void Database::updateGroupsToSecondVersion()
 
     if (countInOld == countInNew) {
         // Dropping old table
-        DbTools::startQuery(SqlQueryBuilder().dropTable("termGroup"));
+        DbTools::startQuery2(SqlQueryBuilder().dropTable("termGroup"));
     }
 }
 

@@ -21,13 +21,9 @@
 
 #include "source/Database/termgrouptbl.h"
 
-#include "source/Database/columns/termgroupcolumn.h"
 #include "source/Database/dbinfo.h"
+#include "source/Database/dbtools.h"
 #include "source/Database/sqlquerybuilder.h"
-
-TermGroupTable::TermGroupTable(QSqlDatabase* base)
-    : TblBase(base)
-{}
 
 bool TermGroupTable::addGroup(const GroupInfoContainer& info)
 {
@@ -43,7 +39,7 @@ bool TermGroupTable::addGroup(const GroupInfoContainer& info)
         return false;
 
     auto query = SqlQueryBuilder().insertGroup(groupInfo);
-    return startQuery(query);
+    return DbTools::startQuery2(query);
 }
 
 bool TermGroupTable::updateGroup(const GroupInfoContainer& info)
@@ -55,7 +51,7 @@ bool TermGroupTable::updateGroup(const GroupInfoContainer& info)
         return false;
 
     auto query = SqlQueryBuilder().updateGroup(info);
-    startQuery(query);
+    DbTools::startQuery2(query);
 
     return true;
 }
@@ -65,9 +61,9 @@ UuidList TermGroupTable::getAllUuids()
     UuidList ret;
 
     auto query = SqlQueryBuilder().selectAllGroupUuids();
-    startQuery(query);
+    DbTools::startQuery2(query);
 
-    auto records = getAllRecords(std::move(query));
+    auto records = DbTools::getAllRecords(std::move(query));
 
     for (const auto& record : records) {
         QUuid uuid(record.value("uuid").toString());
@@ -81,13 +77,13 @@ UuidList TermGroupTable::getAllUuids()
 void TermGroupTable::deleteGroup(const QUuid& groupUuid)
 {
     auto query = SqlQueryBuilder().deleteGroup(groupUuid);
-    startQuery(query);
+    DbTools::startQuery2(query);
 }
 
 bool TermGroupTable::groupExist(const QUuid& uuid)
 {
     auto query = SqlQueryBuilder().selectOneGroup(uuid);
-    startQuery(query);
+    DbTools::startQuery2(query);
 
     if (!query.next())
         return false;
@@ -111,9 +107,9 @@ QUuid TermGroupTable::generateNewUuid()
 QUuid TermGroupTable::getUuid(const QString& groupName) const
 {
     auto query = SqlQueryBuilder().selectGroup(groupName);
-    startQuery(query);
+    DbTools::startQuery2(query);
 
-    auto records = getAllRecords(std::move(query));
+    auto records = DbTools::getAllRecords(std::move(query));
 
     if (records.isEmpty())
         return QUuid();
@@ -126,14 +122,14 @@ bool TermGroupTable::groupWithNameExist(const QString& groupName) { return !getU
 void TermGroupTable::initTable()
 {
     auto query = SqlQueryBuilder().createGroupsTable();
-    startQuery(query);
+    DbTools::startQuery2(query);
 }
 
 GroupInfoContainer TermGroupTable::getGroup(const QUuid& uuid)
 {
     auto query = SqlQueryBuilder(DbConnectionName::threadLoadingConnection).selectGroup(uuid);
-    startQuery(query);
-    auto record = getRecord(std::move(query));
+    DbTools::startQuery2(query);
+    auto record = DbTools::getRecord(std::move(query));
     return sqlRecordToGroupInfo(record);
 }
 
@@ -142,9 +138,9 @@ GroupInfoContainer::List TermGroupTable::getGroups()
     GroupInfoContainer::List ret;
 
     auto query = SqlQueryBuilder().selectAllGroups();
-    startQuery(query);
+    DbTools::startQuery2(query);
 
-    auto records = getAllRecords(std::move(query));
+    auto records = DbTools::getAllRecords(std::move(query));
 
     for (auto& record : records) {
         GroupInfoContainer info = sqlRecordToGroupInfo(record);

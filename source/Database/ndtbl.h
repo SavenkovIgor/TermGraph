@@ -21,17 +21,15 @@
 
 #pragma once
 
-#include "source/Database/columns/tcolumn.h"
-#include "source/Database/tblbase.h"
 #include "source/Helpers/handytypes.h"
 #include "source/Managers/datastorageinterface.h"
 #include "source/Model/Termin/nodeinfocontainer.h"
 
-class NodeTable : public TblBase
+class NodeTable
 {
 public:
-    NodeTable(QSqlDatabase* base);
-    ~NodeTable() override = default;
+    NodeTable()  = default;
+    ~NodeTable() = default;
 
     QUuid nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const;
 
@@ -51,7 +49,7 @@ public:
                     bool                                 checkLastEdit = true);
     void deleteTerm(const QUuid& termUuid);
 
-    void initTable() final;
+    void initTable();
 
 private:
     bool isUuidExist(const QUuid& uuid);
@@ -59,7 +57,6 @@ private:
     QUuid generateNewUuid();
 
     static QDateTime getLastEditNow();
-    static QString   getLastEditNowString();
 
     NodeInfoContainer recordToNodeInfo(QSqlRecord& record);
 };
