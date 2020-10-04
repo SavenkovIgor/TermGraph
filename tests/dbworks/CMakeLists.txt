@@ -46,11 +46,14 @@ target_sources (
             ${CMAKE_SOURCE_DIR}/source/Helpers/appconfig.h
             ${CMAKE_SOURCE_DIR}/source/Helpers/fsworks.cpp
             ${CMAKE_SOURCE_DIR}/source/Helpers/fsworks.h
+            ${CMAKE_SOURCE_DIR}/source/Helpers/handytypes.h
             ${CMAKE_SOURCE_DIR}/source/Managers/datastorageinterface.h
             ${CMAKE_SOURCE_DIR}/source/Managers/localdatabasestorage.cpp
             ${CMAKE_SOURCE_DIR}/source/Managers/localdatabasestorage.h
             ${CMAKE_SOURCE_DIR}/source/Managers/notificationmanager.cpp
             ${CMAKE_SOURCE_DIR}/source/Managers/notificationmanager.h
+            ${CMAKE_SOURCE_DIR}/source/Model/Termin/nodeinfocontainer.h
+            ${CMAKE_SOURCE_DIR}/source/Model/TerminGroup/groupinfocontainer.h
             dbworkstest.cpp)
 
 add_test (NAME ${TEST_PROJECT_NAME} COMMAND ${TEST_PROJECT_NAME})

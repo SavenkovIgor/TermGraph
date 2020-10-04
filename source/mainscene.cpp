@@ -155,7 +155,6 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
 
     if (!mGroupBuilder.isRunning()) {
         mGroupBuilder.setAction([this, groupUuid = tmpGroupUuid]() -> TermGroup* {
-            Database::tryInitThreadDbConnection();
             auto* group = groupsMgr->createGroup(groupUuid);
             if (group->thread()->isInterruptionRequested())
                 return nullptr;

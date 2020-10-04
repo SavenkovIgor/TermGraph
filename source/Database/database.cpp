@@ -92,15 +92,6 @@ Database::Database(const QString& filePath)
 
 Database::~Database() { delete base; }
 
-void Database::tryInitThreadDbConnection()
-{
-    if (!QSqlDatabase::contains(DbConnectionName::threadLoadingConnection)) {
-        auto db = QSqlDatabase::addDatabase("QSQLITE", DbConnectionName::threadLoadingConnection);
-        db.setDatabaseName(mDbFilePath);
-        db.open();
-    }
-}
-
 void Database::InitAllTables()
 {
     termTable->initTable();

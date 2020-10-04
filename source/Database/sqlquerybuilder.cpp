@@ -23,6 +23,8 @@
 
 #include <QFile>
 
+#include "source/Database/database.h"
+
 SqlQueryBuilder::SqlQueryBuilder(const char *const connectionName)
     : mConnectionName(QLatin1String(connectionName))
 {}
@@ -229,7 +231,7 @@ QSqlQuery SqlQueryBuilder::deleteTerm(const QUuid &termUuid) const
 
 QSqlQuery SqlQueryBuilder::loadQuery(const QString &queryPath) const
 {
-    auto query = QSqlQuery(QSqlDatabase::database(mConnectionName));
+    auto query = QSqlQuery(getDbForConnection(mConnectionName));
 
     query.prepare(loadQueryString(queryPath));
     return query;
@@ -255,4 +257,15 @@ QString SqlQueryBuilder::loadQueryString(const QString &queryPath) const
     auto  open = queryFile.open(QIODevice::ReadOnly);
     assert(open);
     return QString(queryFile.readAll());
+}
+
+QSqlDatabase SqlQueryBuilder::getDbForConnection(QLatin1String connectionName) const
+{
+    if (QSqlDatabase::contains(connectionName))
+        return QSqlDatabase::database(connectionName);
+
+    auto db = QSqlDatabase::addDatabase("QSQLITE", connectionName);
+    db.setDatabaseName(Database::mDbFilePath);
+    assert(db.open());
+    return db;
 }

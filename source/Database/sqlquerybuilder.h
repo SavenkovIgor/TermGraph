@@ -76,5 +76,7 @@ public:
 private: // Methods
     QString loadQueryString(const QString& queryPath) const;
 
+    QSqlDatabase getDbForConnection(QLatin1String connectionName) const;
+
     const QLatin1String mConnectionName;
 };
