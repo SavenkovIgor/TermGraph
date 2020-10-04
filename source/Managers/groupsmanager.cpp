@@ -269,22 +269,21 @@ void GroupsManager::saveGroupInFolder(TermGroup* group)
 
 QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid)
 {
-    // TODO: export is temporary broken
-    //    auto info      = dataStorage.getGroup(groupUuid);
-    //    auto groupJson = JsonGroupInfoContainerParser::toJson(info);
+    auto info      = dataStorage.getGroup(groupUuid);
+    auto groupJson = JsonGroupInfoContainerParser::toJson(info);
 
-    //    auto nodesUuids = dataStorage.getAllNodesUuids(groupUuid);
+    auto nodesUuids = dataStorage.getAllNodesUuids(groupUuid);
 
-    //    QJsonArray nodesArray;
+    QJsonArray nodesArray;
 
-    //    for (const auto& nodeUuid : nodesUuids) {
-    //        auto nodeJson = nodesMgr->getNodeJson(nodeUuid);
-    //        nodesArray.append(nodeJson);
-    //    }
+    for (const auto& nodeUuid : nodesUuids) {
+        auto nodeJson = nodesMgr->getNodeJson(nodeUuid);
+        nodesArray.append(nodeJson);
+    }
 
-    //    groupJson.insert("nodesList", nodesArray);
+    groupJson.insert("nodesList", nodesArray);
 
-    //    return QJsonDocument(groupJson);
+    return QJsonDocument(groupJson);
 }
 
 void GroupsManager::updateGroupUuidNameMaps()

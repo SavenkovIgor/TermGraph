@@ -22,12 +22,9 @@
 #include "source/Database/sqlquerybuilder.h"
 
 #include <QFile>
+#include <QThread>
 
 #include "source/Database/database.h"
-
-SqlQueryBuilder::SqlQueryBuilder(const char *const connectionName)
-    : mConnectionName(QLatin1String(connectionName))
-{}
 
 QSqlQuery SqlQueryBuilder::createAppConfigTable() const
 {
@@ -231,7 +228,8 @@ QSqlQuery SqlQueryBuilder::deleteTerm(const QUuid &termUuid) const
 
 QSqlQuery SqlQueryBuilder::loadQuery(const QString &queryPath) const
 {
-    auto query = QSqlQuery(getDbForConnection(mConnectionName));
+    auto connName = connectionNameForCurrentThread();
+    auto query    = QSqlQuery(getDbForConnection(connName));
 
     query.prepare(loadQueryString(queryPath));
     return query;
@@ -259,7 +257,14 @@ QString SqlQueryBuilder::loadQueryString(const QString &queryPath) const
     return QString(queryFile.readAll());
 }
 
-QSqlDatabase SqlQueryBuilder::getDbForConnection(QLatin1String connectionName) const
+QLatin1String SqlQueryBuilder::connectionNameForCurrentThread()
+{
+    auto threadPtrNum = reinterpret_cast<std::uintptr_t>(QThread::currentThread());
+    auto threadStrId  = QString("connection_from_thread_0x%1").arg(threadPtrNum);
+    return QLatin1String(threadStrId.toLocal8Bit());
+}
+
+QSqlDatabase SqlQueryBuilder::getDbForConnection(QLatin1String connectionName)
 {
     if (QSqlDatabase::contains(connectionName))
         return QSqlDatabase::database(connectionName);

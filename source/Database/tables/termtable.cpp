@@ -143,8 +143,7 @@ NodeInfoContainer::List TermTable::getAllNodesInfo(const QUuid& groupUuid)
 
     NodeInfoContainer::List ret;
 
-    auto qBuilder = SqlQueryBuilder(DbConnectionName::threadLoadingConnection);
-    auto query    = qBuilder.selectAllTerms(groupUuid);
+    auto query = SqlQueryBuilder().selectAllTerms(groupUuid);
     DbTools::startQuery2(query);
 
     auto records = DbTools::getAllRecords(std::move(query));

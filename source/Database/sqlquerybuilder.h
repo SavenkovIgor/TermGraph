@@ -34,7 +34,7 @@
 class SqlQueryBuilder
 {
 public:
-    SqlQueryBuilder(const char* const connectionName = DbConnectionName::defaultConnection);
+    SqlQueryBuilder() = default;
 
     // AppConfig table
     QSqlQuery createAppConfigTable() const;
@@ -76,7 +76,6 @@ public:
 private: // Methods
     QString loadQueryString(const QString& queryPath) const;
 
-    QSqlDatabase getDbForConnection(QLatin1String connectionName) const;
-
-    const QLatin1String mConnectionName;
+    static QLatin1String connectionNameForCurrentThread();
+    static QSqlDatabase  getDbForConnection(QLatin1String connectionName);
 };

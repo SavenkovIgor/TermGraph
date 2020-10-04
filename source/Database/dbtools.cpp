@@ -83,7 +83,7 @@ RecVector DbTools::getAllRecords(QSqlQuery&& q)
         ret.reserve(size);
     }
 
-    for (;;) { // BUG: multithreading & database works
+    for (;;) {
         if (!q.next()) {
             break;
         }

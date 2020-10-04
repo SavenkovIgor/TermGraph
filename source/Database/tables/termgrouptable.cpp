@@ -127,7 +127,7 @@ void TermGroupTable::initTable()
 
 GroupInfoContainer TermGroupTable::getGroup(const QUuid& uuid)
 {
-    auto query = SqlQueryBuilder(DbConnectionName::threadLoadingConnection).selectGroup(uuid);
+    auto query = SqlQueryBuilder().selectGroup(uuid);
     DbTools::startQuery2(query);
     auto record = DbTools::getRecord(std::move(query));
     return sqlRecordToGroupInfo(record);
