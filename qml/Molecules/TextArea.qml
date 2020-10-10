@@ -20,7 +20,7 @@
  */
 
 import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick.Controls 2.15 as C
 import QtQuick.Layouts 1.15
 
 import "../Atoms" as A
@@ -42,7 +42,7 @@ Column {
 
     A.AccentText { id: label; width: parent.width; }
 
-    TextArea {
+    C.TextArea {
         id: txtArea
         color: Colors.white
         width: parent.width

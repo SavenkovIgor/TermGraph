@@ -299,6 +299,10 @@ NodeGadgetWrapper MainScene::getCurrentNode()
     return NodeGadgetWrapper();
 }
 
+TermGroup* MainScene::getCurrentGroup() const { return mCurrentGroup.get(); }
+
+bool MainScene::hasCurrentGroup() const { return !mCurrentGroup.isNull(); }
+
 QString MainScene::getCurrNodeNameAndDefinition()
 {
     if (auto* node = getSelectedTerm())
@@ -316,8 +320,6 @@ QString MainScene::getCurrNodeHierarchyDefinition()
 }
 
 QString MainScene::currentGroupUuid() const { return mCurrentGroup ? mCurrentGroup->uuid().toString() : ""; }
-
-QString MainScene::currentGroupName() const { return mCurrentGroup ? mCurrentGroup->name() : ""; }
 
 bool MainScene::isAnyNodeSelected() const { return getSelectedTerm() != nullptr; }
 

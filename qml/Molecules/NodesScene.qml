@@ -45,7 +45,7 @@ Control {
 
     function makeScreenshot() {
         grabToImage(function(result){
-            const groupName = scene.currentGroupName;
+            const groupName = scene.currentGroup.name;
             const name = mainObj.screenshotFilePath(groupName);
             if (name !== "") {
                 result.saveToFile(name);
@@ -76,7 +76,7 @@ Control {
 
             color: "transparent"
             border { color: Colors.white; width: 2 }
-            visible: scene.currentGroupUuid !== ""
+            visible: scene.hasCurrentGroup
             radius: 10
             z: 6
 
@@ -84,7 +84,7 @@ Control {
                 anchors { left: parent.left; top: parent.top; }
                 topPadding: 15
                 leftPadding: 20
-                text: scene.currentGroupName
+                text: scene.hasCurrentGroup ? scene.currentGroup.name : ""
                 color: Colors.white
                 font: Fonts.setWeight(Fonts.term, Font.DemiBold)
             }

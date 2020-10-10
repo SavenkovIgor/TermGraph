@@ -339,3 +339,5 @@ void TermGroup::addTreeRectsToScene()
 }
 
 QSizeF TermGroup::getNameSize() const { return Fonts::getTextMetrics(name(), Fonts::getWeightFont()); }
+
+QString TermGroup::qmlUuid() const { return uuid().toString(); }

@@ -23,7 +23,6 @@
 
 #include <stdlib.h>
 
-#include <QClipboard>
 #include <QObject>
 #include <QQmlListProperty>
 
@@ -43,19 +42,23 @@ public:
     MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* parent = nullptr);
     ~MainScene() override = default;
 
-    Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
-
-    Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode NOTIFY selectionChanged)
-    Q_PROPERTY(QString currNodeNameAndDefinition READ getCurrNodeNameAndDefinition NOTIFY selectionChanged)
-    Q_PROPERTY(QString currNodeHierarchyDefinition READ getCurrNodeHierarchyDefinition NOTIFY selectionChanged)
-
+    // Scene
     Q_PROPERTY(QRectF sceneRect READ sceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
-    Q_PROPERTY(QString currentGroupUuid READ currentGroupUuid NOTIFY currentGroupChanged)
-    Q_PROPERTY(QString currentGroupName READ currentGroupName NOTIFY currentGroupChanged)
-    Q_PROPERTY(QQmlListProperty<PaintedTerm> nodes READ getNodes NOTIFY nodesChanged)
-    Q_PROPERTY(QQmlListProperty<Edge> edges READ getEdges NOTIFY edgesChanged)
+
+    // Group
+    Q_PROPERTY(TermGroup* currentGroup READ getCurrentGroup NOTIFY currentGroupChanged)
+    Q_PROPERTY(bool hasCurrentGroup READ hasCurrentGroup NOTIFY currentGroupChanged)
     Q_PROPERTY(bool groupLoading READ isGroupLoading NOTIFY groupLoadingChanged)
 
+    // Node
+    Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode NOTIFY selectionChanged)
+    Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
+    Q_PROPERTY(QString currNodeNameAndDefinition READ getCurrNodeNameAndDefinition NOTIFY selectionChanged)
+    Q_PROPERTY(QString currNodeHierarchyDefinition READ getCurrNodeHierarchyDefinition NOTIFY selectionChanged)
+    Q_PROPERTY(QQmlListProperty<PaintedTerm> nodes READ getNodes NOTIFY nodesChanged)
+    Q_PROPERTY(QQmlListProperty<Edge> edges READ getEdges NOTIFY edgesChanged)
+
+    // Invokables
     Q_INVOKABLE void        selectGroup(const QString& groupUuid);
     Q_INVOKABLE void        selectTerm(const QString& termUuid);
     Q_INVOKABLE void        selectTerm(const QUuid& termUuid);
@@ -102,7 +105,7 @@ private slots:
 private:
     void setCurrentGroup(const QUuid& newGroupUuid);
 
-private:
+private: // Methods
     // Timers
     QTimer mouseMoveReactionTimer;
 
@@ -126,6 +129,8 @@ private:
 
     PaintedTerm*      findTerm(const QUuid& termUuid) const;
     NodeGadgetWrapper getCurrentNode();
+    TermGroup*        getCurrentGroup() const;
+    bool              hasCurrentGroup() const;
 
     void findClick(const QPointF& atPt);
 
@@ -135,7 +140,6 @@ private:
     QScopedPointer<TermGroup> mCurrentGroup;
 
     QString currentGroupUuid() const;
-    QString currentGroupName() const;
     void    dropGroup();
 
     // For qml nodes list property
@@ -159,6 +163,6 @@ private:
 
     bool isGroupLoading() const;
 
-private:
+private: // Members
     AsyncGroupBuilder mGroupBuilder;
 };

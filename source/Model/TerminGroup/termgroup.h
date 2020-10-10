@@ -31,6 +31,9 @@ class TermGroup : public QObject, public TermGroupInfo
 {
     Q_OBJECT
 
+    Q_PROPERTY(QString uuid READ qmlUuid CONSTANT)
+    Q_PROPERTY(QString name READ name CONSTANT)
+
 public:
     TermGroup(const GroupInfoContainer& info, QObject* parent = nullptr);
     ~TermGroup() final = default;
@@ -74,6 +77,8 @@ private:
     void addTreeRectsToScene();
 
     QSizeF getNameSize() const;
+
+    QString qmlUuid() const;
 
 private:
     qint64 groupCreationTime = 0;

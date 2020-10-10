@@ -38,6 +38,9 @@ Drawer {
 
     dim: false
 
+    implicitWidth: leftPadding + implicitContentWidth + rightPadding
+    implicitHeight: topPadding + implicitContentHeight + bottomPadding
+
     background: TopRoundedRect {
         PinBar {
             anchors {

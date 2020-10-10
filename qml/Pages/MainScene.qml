@@ -44,7 +44,7 @@ M.Page {
 
     padding: 0
 
-    title: scene.currentGroupName !== "" ? scene.currentGroupName : "TermGraph"
+    title: scene.hasCurrentGroup ? scene.currentGroup.name : "TermGraph"
 
     state: scene.hasSelection ? "some" : "none"
 
@@ -330,8 +330,8 @@ M.Page {
         A.ToolTip {
             property bool isEmptyGroup: {
                 if (groupsManager.hasAnyGroup) {
-                    if (scene.currentGroupUuid !== "") {
-                        return groupsManager.isEmptyGroup(scene.currentGroupUuid)
+                    if (scene.hasCurrentGroup) {
+                        return groupsManager.isEmptyGroup(scene.currentGroup.uuid)
                     } else {
                         return false;
                     }
@@ -412,7 +412,7 @@ M.Page {
 
     M.EmptyView {
         anchors.fill: sceneFlick
-        visible: groupsManager.hasAnyGroup && scene.currentGroupUuid === "" && !scene.groupLoading
+        visible: groupsManager.hasAnyGroup && !scene.hasCurrentGroup && !scene.groupLoading
 
         mainText: "Группа не выбрана"
         detailedText: ""

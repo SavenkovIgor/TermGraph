@@ -23,7 +23,9 @@
 
 #include <QQmlEngine>
 
+#include "source/Helpers/tagprocessor.h"
 #include "source/Model/Termin/nodegadgetwrapper.h"
+#include "source/Model/TerminGroup/termgroup.h"
 
 void registerUserQmlTypes()
 {
@@ -32,4 +34,6 @@ void registerUserQmlTypes()
                                                   0,
                                                   "NodeGadgetWrapper",
                                                   "Please use NodeGadgetWrapper from backend");
+    qmlRegisterType<TagProcessor>("Helpers", 1, 0, "TagProcessor");
+    qmlRegisterAnonymousType<TermGroup>("Helpers", 1);
 }

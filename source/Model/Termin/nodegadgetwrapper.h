@@ -43,7 +43,7 @@ public:
     NodeGadgetWrapper() = default;
     NodeGadgetWrapper(const NodeInfoContainer& info);
 
-    Q_INVOKABLE bool isNull();
+    Q_INVOKABLE bool isNull() const;
 
     // Uuid
     QString getUuid() const;

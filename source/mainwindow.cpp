@@ -25,7 +25,6 @@
 #include <QScreen>
 
 #include "source/Helpers/platform.h"
-#include "source/Helpers/tagprocessor.h"
 #include "source/Managers/notificationmanager.h"
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminEdge/edge.h"
@@ -58,7 +57,6 @@ MainWindow::MainWindow(QObject* parent)
 
     qmlRegisterAnonymousType<PaintedTerm>("Graph", 1);
     qmlRegisterAnonymousType<Edge>("Graph", 1);
-    qmlRegisterType<TagProcessor>("Helpers", 1, 0, "TagProcessor");
 
     qmlEngine->rootContext()->setContextProperty("mainObj", this);
     qmlEngine->rootContext()->setContextProperty("scene", scene.get());

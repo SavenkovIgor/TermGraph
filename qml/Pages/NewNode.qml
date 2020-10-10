@@ -52,7 +52,7 @@ M.Page {
     Shortcut { sequence: "Ctrl+Return"; onActivated: root.addNode(); }
 
     function prepareForOpen() {
-        currentGroupFixedRow.groupUuid = scene.currentGroupUuid;
+        currentGroupFixedRow.groupUuid = scene.currentGroup.uuid;
         clearText(termName);
         clearText(termDefin);
         clearText(termDescr);
