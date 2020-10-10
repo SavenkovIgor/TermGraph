@@ -28,6 +28,7 @@
 #include "source/Database/dbinfo.h"
 #include "source/Database/dbtools.h"
 #include "source/Database/sqlquerybuilder.h"
+#include "source/Helpers/fsworks.h"
 #include "source/Managers/notificationmanager.h"
 
 QString Database::mDbFilePath = "";
@@ -54,12 +55,7 @@ Database::Database(const QString& filePath)
     // Create database if not exist earlier
     base->setDatabaseName(mDbFilePath);
 
-    if (base->open()) {
-        qInfo("Database opened");
-    } else {
-        auto msg = QString("Can't open database %1").arg(base->lastError().text());
-        NotificationManager::showDebug(msg);
-    }
+    assert(base->open());
 
     termTable.reset(new TermTable());
     groupTable.reset(new TermGroupTable());

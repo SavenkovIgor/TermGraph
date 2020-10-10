@@ -74,7 +74,7 @@ target_sources (${PROJECT_NAME} PRIVATE resources/helpImages/helpImages.qrc reso
 target_sources (${PROJECT_NAME} PRIVATE qml/qml.qrc)
 
 # Sql queries
-target_sources(${PROJECT_NAME} PRIVATE source/Database/sqlqueries.qrc)
+target_sources (${PROJECT_NAME} PRIVATE source/Database/sqlqueries.qrc)
 
 # Some non compilable files
 target_sources (
@@ -113,6 +113,8 @@ target_sources (
             source/Helpers/asyncgroupbuilder.cpp
             source/Helpers/asyncgroupbuilder.h
             source/Helpers/exclusivecall.h
+            source/Helpers/firststartpreparer.cpp
+            source/Helpers/firststartpreparer.h
             source/Helpers/fonts.cpp
             source/Helpers/fonts.h
             source/Helpers/fsworks.cpp

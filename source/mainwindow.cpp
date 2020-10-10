@@ -32,6 +32,7 @@
 
 MainWindow::MainWindow(QObject* parent)
     : QObject(parent)
+    , initPreparer()
     , network(new NetworkManager())
     , textProcessor(new TextProcessor())
     , localDb()
@@ -42,7 +43,6 @@ MainWindow::MainWindow(QObject* parent)
     , qmlEngine(new QQmlApplicationEngine())
 {
     initElemSizes();
-    AppSettings::StdPaths::createDefaultFoldersIfNeed();
 
     groupsManager->updateGroupUuidNameMaps();
 

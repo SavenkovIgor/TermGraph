@@ -26,6 +26,7 @@
 #include <QQmlContext>
 
 #include "source/Helpers/appconfig.h"
+#include "source/Helpers/firststartpreparer.h"
 #include "source/Helpers/textprocessor.h"
 #include "source/Managers/localdatabasestorage.h"
 #include "source/Managers/syncmanager.h"
@@ -48,6 +49,8 @@ public slots:
 private:
     void initElemSizes();
     QMap<QString, int> elementSizes;
+
+    FirstStartPreparer initPreparer;
 
     // Independent init
     QScopedPointer<NetworkManager> network;
