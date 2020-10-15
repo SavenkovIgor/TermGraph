@@ -24,6 +24,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 import Helpers 1.0
+import NodeGadgetWrapper 1.0
 import StyleInfo 1.0
 import "../Atoms" as A
 
@@ -31,9 +32,13 @@ A.DrawerPage {
     id: root
 
     property TagProcessor tagTools: TagProcessor { }
+    property LinksHardeningManager linksManager: LinksHardeningManager { }
+
+    property var currentNode
 
     signal openInfoPage
     signal editNode
+    signal openWarningPopup
 
     topPadding:    Sizes.baseR50
     leftPadding:   Sizes.baseR50
@@ -55,9 +60,17 @@ A.DrawerPage {
         RowLayout {
             LabelPair {
                 name: "Название:"
-                text: scene.currentNode.term
+                text: currentNode ? currentNode.term : ""
                 visible: text !== ""
                 Layout.fillWidth: true
+            }
+
+            A.RoundButton {
+                bgColor: Colors.yellow
+                action: Action {
+                    icon.source: IconPath.warning
+                    onTriggered: root.openWarningPopup()
+                }
             }
 
             A.RoundButton {
@@ -86,14 +99,14 @@ A.DrawerPage {
 
         LabelPair {
             name: "Описание:"
-            text: scene.currentNode.description
+            text: currentNode ? currentNode.description : ""
             visible: text !== ""
             Layout.fillWidth: true
         }
 
         LabelPair {
             name: "Пример:"
-            text: scene.currentNode.examples
+            text: currentNode ? currentNode.examples : ""
             visible: text !== ""
             Layout.fillWidth: true
         }

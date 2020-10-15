@@ -125,13 +125,38 @@ M.Page {
         width: parent.width
         height: implicitHeight
 
+        function openWithNode(node) {
+            currentNode = node;
+            open();
+        }
+
         onOpenInfoPage: {
             close();
             root.StackView.view.push(termViewComponent);
         }
+
         onEditNode: {
             close();
             changeNodeAction.trigger();
+        }
+
+        onOpenWarningPopup: {
+            close();
+            linkHardenerDrawer.openWithNode(scene.currentNode);
+        }
+    }
+
+    M.EdgeHardeningDrawer {
+        id: linkHardenerDrawer
+
+        width: parent.width
+        height: Math.min(implicitHeight, parent.height * 0.65)
+
+        onShowTermUuid: sceneFlick.selectUuid(uuid)
+
+        function openWithNode(node) {
+            currentNode = node;
+            open();
         }
     }
 
@@ -205,9 +230,12 @@ M.Page {
         property bool animationEnabled: false
         readonly property int moveAnimationDuration: 800
         property size effectiveSceneSize: {
-            if (searchDrawer.visible)
-                return Qt.size(width, height - searchDrawer.height);
-            return Qt.size(width, availableHeight);
+            const searchHeight = searchDrawer.visible ? searchDrawer.height : 0;
+            const infoHeight = termDrawer.visible ? termDrawer.height : 0;
+            const linkHeight = linkHardenerDrawer.visible ? linkHardenerDrawer.height : 0;
+
+            const maxHeight = Math.max(searchHeight, infoHeight, linkHeight);
+            return Qt.size(width, height - maxHeight);
         }
 
         A.Timer {
@@ -390,7 +418,7 @@ M.Page {
             shortcut: "Ctrl+i"
             onTriggered: {
                 if (scene.hasSelection)
-                    termDrawer.open();
+                    termDrawer.openWithNode(scene.currentNode);
             }
         }
     }

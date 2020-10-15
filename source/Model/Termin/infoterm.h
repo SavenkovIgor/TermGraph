@@ -46,10 +46,11 @@ public:
 
     QString termAndDefinition(bool decorated = false) const;
 
-private: // Methods
-    static QString         getDecoratedTerm(const QString& term);
-    static QSizeF          getTermSize(const QString& decoratedTerm);
     static InnerLink::List getInnerLinks(const QString& linksString);
+
+private: // Methods
+    static QString getDecoratedTerm(const QString& term);
+    static QSizeF  getTermSize(const QString& decoratedTerm);
 
 private: // Members
     const NodeInfoContainer mInfo;

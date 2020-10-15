@@ -158,6 +158,8 @@ target_sources (
             source/Managers/jsongroupinfocontainerparser.h
             source/Managers/jsonnodeinfocontainerparser.cpp
             source/Managers/jsonnodeinfocontainerparser.h
+            source/Managers/linkshardeningmanager.cpp
+            source/Managers/linkshardeningmanager.h
             source/Managers/localdatabasestorage.cpp
             source/Managers/localdatabasestorage.h
             source/Managers/networkmanager.cpp

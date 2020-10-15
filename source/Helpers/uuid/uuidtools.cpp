@@ -41,3 +41,17 @@ opt<QUuid> UuidTools::createFromStringWithoutBraces(const QString &uuidString)
 
     return uuid;
 }
+
+QString UuidTools::cutBraces(const QUuid &uuid)
+{
+    auto uuidStr = uuid.toString();
+
+    assert(!uuidStr.isEmpty());
+    assert(uuidStr[0] == CharTools::leftBracket);
+    assert(uuidStr[uuidStr.length() - 1] == CharTools::rightBracket);
+
+    uuidStr.chop(1);
+    uuidStr.remove(0, 1);
+
+    return uuidStr;
+}

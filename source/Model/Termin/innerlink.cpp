@@ -23,9 +23,11 @@
 
 #include "source/Helpers/linkutils.h"
 #include "source/Helpers/text/chartools.h"
+#include "source/Helpers/uuid/uuidtools.h"
 
 InnerLink::InnerLink(const QString& srcString, TextRange range)
     : mBaseString(srcString)
+    , mRange(range)
     , mLink(getLink(srcString, range))
     , mLinkText(getText(mLink))
     , mLinkTextLower(getLower(mLinkText))
@@ -47,6 +49,14 @@ QUuid InnerLink::uuid() const
 {
     assert(hasUuid());
     return mUuid;
+}
+
+QString InnerLink::createLinkWithUuid(const QUuid& uuid) const
+{
+    auto linkText = mLinkText.toString();
+    linkText += CharTools::linkSplitter + UuidTools::cutBraces(uuid);
+    linkText = CharTools::leftBracket + linkText + CharTools::rightBracket;
+    return linkText;
 }
 
 QStringView InnerLink::getLink(const QString& srcString, TextRange range)

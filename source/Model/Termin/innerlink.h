@@ -44,6 +44,8 @@ public:
     bool           hasUuid() const;
     QUuid          uuid() const;
 
+    [[nodiscard]] QString createLinkWithUuid(const QUuid& uuid) const;
+
 private: //Methods
     static QStringView getLink(const QString& srcString, TextRange range);
     static QStringView getText(QStringView fullLink);
@@ -53,6 +55,7 @@ private: //Methods
 
 private: // Members
     const QString&    mBaseString;
+    const TextRange   mRange;
     const QStringView mLink;
     const QStringView mLinkText;
     const QString     mLinkTextLower;

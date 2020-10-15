@@ -30,4 +30,5 @@ class UuidTools
 {
 public:
     static opt<QUuid> createFromStringWithoutBraces(const QString& uuidString);
+    static QString    cutBraces(const QUuid& uuid);
 };

@@ -35,6 +35,7 @@
         <file>Molecules/AppIcon.qml</file>
         <file>Molecules/BurgerButton.qml</file>
         <file>Molecules/DefaultHeader.qml</file>
+        <file>Molecules/EdgeHardeningDrawer.qml</file>
         <file>Molecules/EmptyView.qml</file>
         <file>Molecules/HelpCard.qml</file>
         <file>Molecules/HelpView.qml</file>

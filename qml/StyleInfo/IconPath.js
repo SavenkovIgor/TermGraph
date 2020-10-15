@@ -23,6 +23,7 @@
 
 const book            = "qrc:/book.svg"
 const check           = "qrc:/check.svg"
+const chevronLeft     = "qrc:/chevron-left.svg"
 const chevronRight    = "qrc:/chevron-right.svg"
 const code            = "qrc:/code.svg"
 const cog             = "qrc:/cog.svg"

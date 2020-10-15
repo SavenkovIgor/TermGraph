@@ -24,6 +24,7 @@
 #include <QQmlEngine>
 
 #include "source/Helpers/tagprocessor.h"
+#include "source/Managers/linkshardeningmanager.h"
 #include "source/Model/Termin/nodegadgetwrapper.h"
 #include "source/Model/TerminGroup/termgroup.h"
 
@@ -34,6 +35,7 @@ void registerUserQmlTypes()
                                                   0,
                                                   "NodeGadgetWrapper",
                                                   "Please use NodeGadgetWrapper from backend");
+    qmlRegisterType<LinksHardeningManager>("Helpers", 1, 0, "LinksHardeningManager");
     qmlRegisterType<TagProcessor>("Helpers", 1, 0, "TagProcessor");
     qmlRegisterAnonymousType<TermGroup>("Helpers", 1);
 }

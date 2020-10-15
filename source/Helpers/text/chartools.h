@@ -30,6 +30,7 @@ class CharTools
 public:
     constexpr static auto leftBracket  = '{';
     constexpr static auto rightBracket = '}';
+    constexpr static auto linkSplitter = '|';
 
     static bool isBracket(const QChar& ch);
     static bool isLeftBracket(const QChar& ch);
