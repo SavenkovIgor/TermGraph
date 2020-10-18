@@ -25,14 +25,6 @@ project (
     LANGUAGES CXX)
 
 set (CMAKE_INCLUDE_CURRENT_DIR ON)
-
-set (CMAKE_AUTOUIC ON)
-set (CMAKE_AUTOMOC ON)
-set (CMAKE_AUTORCC ON)
-
-set (CMAKE_CXX_STANDARD 20)
-set (CMAKE_CXX_STANDARD_REQUIRED ON)
-
 set (QML_PATH ${CMAKE_CURRENT_SOURCE_DIR}/qml)
 set (QML_IMPORT_PATH "${QML_PATH}" CACHE STRING "" FORCE)
 
@@ -66,6 +58,13 @@ if (ANDROID)
 else ()
     add_executable (${PROJECT_NAME})
 endif ()
+
+set_target_properties (${PROJECT_NAME} PROPERTIES
+    AUTOUIC ON
+    AUTOMOC ON
+    AUTORCC ON
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON)
 
 # Resources folder
 target_sources (${PROJECT_NAME} PRIVATE resources/helpImages/helpImages.qrc resources/icons/icons.qrc)

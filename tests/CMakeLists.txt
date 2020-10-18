@@ -19,8 +19,135 @@
 
 enable_testing ()
 
-add_subdirectory (linkUtils)
-add_subdirectory (textProcessor)
-add_subdirectory (fsworks)
-add_subdirectory (dbworks)
-add_subdirectory (uuids)
+find_package (Qt5Test REQUIRED)
+
+include_directories (${CMAKE_SOURCE_DIR})
+
+# LINK_UTILS_TEST
+set (LINK_UTILS_TEST ${PROJECT_NAME}_link_utils_test)
+
+add_executable (${LINK_UTILS_TEST})
+target_link_libraries (${LINK_UTILS_TEST} PRIVATE Qt5::Test)
+add_test (NAME ${LINK_UTILS_TEST} COMMAND ${LINK_UTILS_TEST})
+set_target_properties (${LINK_UTILS_TEST} PROPERTIES
+    AUTOMOC ON
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON)
+
+target_sources (
+    ${LINK_UTILS_TEST}
+    PRIVATE ../source/Helpers/linkutils.cpp
+            ../source/Helpers/linkutils.h
+            ../source/Helpers/handytypes.h
+            ../source/Helpers/text/chartools.cpp
+            ../source/Helpers/text/chartools.h
+            ../source/Helpers/text/textcursor.cpp
+            ../source/Helpers/text/textcursor.h
+            ../source/Helpers/text/textrange.cpp
+            ../source/Helpers/text/textrange.h
+            ../source/Helpers/validators/linktextvalidator.cpp
+            ../source/Helpers/validators/linktextvalidator.h
+            ../source/Helpers/intmatrix.cpp
+            ../source/Helpers/intmatrix.h
+            linkutilstest.cpp)
+
+
+# TEXT_PROCESSOR_TEST
+set (TEXT_PROCESSOR_TEST ${PROJECT_NAME}_text_processor_test)
+
+add_executable (${TEXT_PROCESSOR_TEST})
+target_link_libraries (${TEXT_PROCESSOR_TEST} PRIVATE Qt5::Test)
+add_test (NAME ${TEXT_PROCESSOR_TEST} COMMAND ${TEXT_PROCESSOR_TEST})
+set_target_properties (${TEXT_PROCESSOR_TEST} PROPERTIES
+    AUTOMOC ON
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON)
+
+target_sources (
+    ${TEXT_PROCESSOR_TEST}
+    PRIVATE ../source/Helpers/textutils.cpp
+            ../source/Helpers/textutils.h
+            textprocessortest.cpp)
+
+
+# FS_WORKS_TEST
+set (FS_WORKS_TEST ${PROJECT_NAME}_fs_works_test)
+
+add_executable (${FS_WORKS_TEST})
+target_link_libraries (${FS_WORKS_TEST} PRIVATE Qt5::Test)
+add_test (NAME ${FS_WORKS_TEST} COMMAND ${FS_WORKS_TEST})
+set_target_properties (${FS_WORKS_TEST} PROPERTIES
+    AUTOMOC ON
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON)
+
+target_sources (
+    ${FS_WORKS_TEST}
+    PRIVATE ../source/Helpers/fsworks.h
+            ../source/Helpers/fsworks.cpp
+            fsworkstest.cpp)
+
+
+# DB_WORKS_TEST
+set (DB_WORKS_TEST ${PROJECT_NAME}_db_works_test)
+
+add_executable (${DB_WORKS_TEST})
+target_link_libraries (${DB_WORKS_TEST} PRIVATE Qt5::Test Qt5::Sql)
+add_test (NAME ${DB_WORKS_TEST} COMMAND ${DB_WORKS_TEST})
+set_target_properties (${DB_WORKS_TEST} PROPERTIES
+    AUTOMOC ON
+    AUTORCC ON
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON)
+
+# TODO Reduce files count
+target_sources (
+    ${DB_WORKS_TEST}
+    PRIVATE ../source/Database/database.cpp
+            ../source/Database/database.h
+            ../source/Database/dbinfo.h
+            ../source/Database/dbtools.cpp
+            ../source/Database/dbtools.h
+            ../source/Database/sqlqueries.qrc
+            ../source/Database/sqlquerybuilder.cpp
+            ../source/Database/sqlquerybuilder.h
+            ../source/Database/tables/appconfigtable.cpp
+            ../source/Database/tables/appconfigtable.h
+            ../source/Database/tables/termgrouptable.cpp
+            ../source/Database/tables/termgrouptable.h
+            ../source/Database/tables/termtable.cpp
+            ../source/Database/tables/termtable.h
+            ../source/Helpers/appconfig.cpp
+            ../source/Helpers/appconfig.h
+            ../source/Helpers/fsworks.cpp
+            ../source/Helpers/fsworks.h
+            ../source/Helpers/handytypes.h
+            ../source/Managers/datastorageinterface.h
+            ../source/Managers/localdatabasestorage.cpp
+            ../source/Managers/localdatabasestorage.h
+            ../source/Managers/notificationmanager.cpp
+            ../source/Managers/notificationmanager.h
+            ../source/Model/Termin/nodeinfocontainer.h
+            ../source/Model/TerminGroup/groupinfocontainer.h
+            dbworkstest.cpp)
+
+
+# UUIDS_TEST
+set (UUIDS_TEST ${PROJECT_NAME}_uuids_test)
+
+add_executable (${UUIDS_TEST})
+target_link_libraries (${UUIDS_TEST} PRIVATE Qt5::Test Qt5::Sql)
+add_test (NAME ${UUIDS_TEST} COMMAND ${UUIDS_TEST})
+set_target_properties (${UUIDS_TEST} PROPERTIES
+    AUTOMOC ON
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON)
+
+# TODO Reduce files count
+target_sources (
+    ${UUIDS_TEST}
+    PRIVATE ../source/Helpers/uuid/uuidtools.cpp
+            ../source/Helpers/uuid/uuidtools.h
+            ../source/Helpers/validators/uuidvalidator.cpp
+            ../source/Helpers/validators/uuidvalidator.h
+            uuidstest.cpp)
