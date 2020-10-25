@@ -169,3 +169,25 @@ target_sources (
             ../source/Helpers/text/textcursor.h
             ../source/Helpers/handytypes.h
             cursortest.cpp)
+
+# TEXT_SELECTOR_TEST
+set (TEXT_SELECTOR_TEST ${PROJECT_NAME}_text_selector_test)
+
+add_executable (${TEXT_SELECTOR_TEST})
+target_link_libraries (${TEXT_SELECTOR_TEST} PRIVATE Qt5::Test Qt5::Sql)
+add_test (NAME ${TEXT_SELECTOR_TEST} COMMAND ${TEXT_SELECTOR_TEST})
+set_target_properties (${TEXT_SELECTOR_TEST} PROPERTIES
+    AUTOMOC ON
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON)
+
+target_sources (
+    ${TEXT_SELECTOR_TEST}
+    PRIVATE ../source/Helpers/text/textcursor.cpp
+            ../source/Helpers/text/textcursor.h
+            ../source/Helpers/text/textsearcher.cpp
+            ../source/Helpers/text/textsearcher.h
+            ../source/Helpers/text/chartools.cpp
+            ../source/Helpers/text/chartools.h
+            ../source/Helpers/handytypes.h
+            textsearchertest.cpp)
