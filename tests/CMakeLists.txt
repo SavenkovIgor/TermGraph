@@ -151,3 +151,21 @@ target_sources (
             ../source/Helpers/validators/uuidvalidator.cpp
             ../source/Helpers/validators/uuidvalidator.h
             uuidstest.cpp)
+
+# TEXT_CURSOR_TEST
+set (TEXT_CURSOR_TEST ${PROJECT_NAME}_text_cursor_test)
+
+add_executable (${TEXT_CURSOR_TEST})
+target_link_libraries (${TEXT_CURSOR_TEST} PRIVATE Qt5::Test Qt5::Sql)
+add_test (NAME ${TEXT_CURSOR_TEST} COMMAND ${TEXT_CURSOR_TEST})
+set_target_properties (${TEXT_CURSOR_TEST} PROPERTIES
+    AUTOMOC ON
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON)
+
+target_sources (
+    ${TEXT_CURSOR_TEST}
+    PRIVATE ../source/Helpers/text/textcursor.cpp
+            ../source/Helpers/text/textcursor.h
+            ../source/Helpers/handytypes.h
+            cursortest.cpp)

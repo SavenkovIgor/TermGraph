@@ -28,7 +28,7 @@ TextCursor::TextCursor(QStringView strView, int pos)
     assert(isValidCursor(mString, pos));
 }
 
-opt<TextCursor> TextCursor::tryCreateCursor(QStringView view, int pos)
+opt<TextCursor> TextCursor::create(QStringView view, int pos)
 {
     if (!isValidCursor(view, pos))
         return std::nullopt;
@@ -57,10 +57,6 @@ bool TextCursor::move(Direction dir)
     }
     return false;
 }
-
-bool TextCursor::moveLeft() { return move(Direction::Left); }
-
-bool TextCursor::moveRight() { return move(Direction::Right); }
 
 bool TextCursor::move(Direction dir, TextCursor::Condition whileCond)
 {
@@ -122,3 +118,15 @@ opt<QChar> TextCursor::lrChar(Direction dir) const
 opt<QChar> TextCursor::left() const { return lrChar(Direction::Left); }
 
 opt<QChar> TextCursor::right() const { return lrChar(Direction::Right); }
+
+TextCursor &TextCursor::operator++(int)
+{
+    move(Direction::Right);
+    return *this;
+}
+
+TextCursor &TextCursor::operator--(int)
+{
+    move(Direction::Left);
+    return *this;
+}
