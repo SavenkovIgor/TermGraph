@@ -211,6 +211,11 @@ target_sources (
             source/mainwindow.h
             source/qmlTypesRegistrator.h)
 
+source_group (Sql REGULAR_EXPRESSION ".*\.sql")
+source_group (Cpp REGULAR_EXPRESSION "source\/.*\.(h|cpp)")
+source_group (DevTools REGULAR_EXPRESSION ".devTools\/.*")
+source_group (Qml REGULAR_EXPRESSION "qml\/")
+
 target_compile_definitions (${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
 target_link_libraries (
