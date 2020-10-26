@@ -35,15 +35,20 @@ private slots:
     {
         QString str("abc");
 
-        auto validCursor    = TextCursor::create(str, 0);
-        auto invalidCursor  = TextCursor::create(str, -1);
-        auto invalidCursor2 = TextCursor::create(str, -100);
+        auto validCursor = TextCursor::create(str);
 
         QVERIFY(validCursor.has_value());
-        QVERIFY(validCursor->pos() == 0);
+        QCOMPARE(validCursor->pos(), 0);
 
+        auto invalidCursor = TextCursor::create(str, -1);
         QVERIFY(!invalidCursor.has_value());
+
+        auto invalidCursor2 = TextCursor::create(str, -100);
         QVERIFY(!invalidCursor2.has_value());
+
+        auto stillValidCursor = TextCursor::create(QString());
+        QCOMPARE(stillValidCursor->left(), std::nullopt);
+        QCOMPARE(stillValidCursor->right(), std::nullopt);
     }
 
     void moveCursorLeft()
@@ -52,18 +57,18 @@ private slots:
 
         auto cursor = TextCursor::create(str, 1).value();
 
-        QVERIFY(cursor.left() == 'a');
-        QVERIFY(cursor.right() == 'b');
+        QCOMPARE(cursor.left(), 'a');
+        QCOMPARE(cursor.right(), 'b');
 
         cursor--;
 
-        QVERIFY(cursor.left() == std::nullopt);
-        QVERIFY(cursor.right() == 'a');
+        QCOMPARE(cursor.left(), std::nullopt);
+        QCOMPARE(cursor.right(), 'a');
 
         cursor--;
 
-        QVERIFY(cursor.left() == std::nullopt);
-        QVERIFY(cursor.right() == 'a');
+        QCOMPARE(cursor.left(), std::nullopt);
+        QCOMPARE(cursor.right(), 'a');
     }
 
     void moveCursorRight()
@@ -72,72 +77,72 @@ private slots:
 
         auto cursor = TextCursor::create(str, 2).value();
 
-        QVERIFY(cursor.left() == 'b');
-        QVERIFY(cursor.right() == 'c');
+        QCOMPARE(cursor.left(), 'b');
+        QCOMPARE(cursor.right(), 'c');
 
         cursor++;
 
-        QVERIFY(cursor.left() == 'c');
-        QVERIFY(cursor.right() == std::nullopt);
+        QCOMPARE(cursor.left(), 'c');
+        QCOMPARE(cursor.right(), std::nullopt);
 
         cursor++;
 
-        QVERIFY(cursor.left() == 'c');
-        QVERIFY(cursor.right() == std::nullopt);
+        QCOMPARE(cursor.left(), 'c');
+        QCOMPARE(cursor.right(), std::nullopt);
     }
 
     void altMove()
     {
         QString str("a");
 
-        auto cursor = TextCursor::create(str, 0).value();
+        auto cursor = TextCursor::create(str).value();
 
-        QVERIFY(cursor.left() == std::nullopt);
-        QVERIFY(cursor.right() == 'a');
+        QCOMPARE(cursor.left(), std::nullopt);
+        QCOMPARE(cursor.right(), 'a');
 
         cursor.move(Direction::Right);
 
-        QVERIFY(cursor.left() == 'a');
-        QVERIFY(cursor.right() == std::nullopt);
+        QCOMPARE(cursor.left(), 'a');
+        QCOMPARE(cursor.right(), std::nullopt);
 
         cursor.move(Direction::Left);
 
-        QVERIFY(cursor.left() == std::nullopt);
-        QVERIFY(cursor.right() == 'a');
+        QCOMPARE(cursor.left(), std::nullopt);
+        QCOMPARE(cursor.right(), 'a');
     }
 
     void emptyString()
     {
         QString str("");
-        auto    cursorOpt = TextCursor::create(str, 0);
+        auto    cursorOpt = TextCursor::create(str);
 
         QVERIFY(cursorOpt.has_value());
 
         auto cursor = cursorOpt.value();
 
-        QVERIFY(cursor.left() == std::nullopt);
-        QVERIFY(cursor.right() == std::nullopt);
+        QCOMPARE(cursor.left(), std::nullopt);
+        QCOMPARE(cursor.right(), std::nullopt);
     }
 
     void posCheck()
     {
         QString str("a");
-        auto    cursor = TextCursor::create(str, 0).value();
-        QVERIFY(cursor.pos() == 0);
+        auto    cursor = TextCursor::create(str).value();
+        QCOMPARE(cursor.pos(), 0);
         cursor++;
-        QVERIFY(cursor.pos() == 1);
+        QCOMPARE(cursor.pos(), 1);
         cursor++;
-        QVERIFY(cursor.pos() == 1);
+        QCOMPARE(cursor.pos(), 1);
         cursor--;
-        QVERIFY(cursor.pos() == 0);
+        QCOMPARE(cursor.pos(), 0);
         cursor--;
-        QVERIFY(cursor.pos() == 0);
+        QCOMPARE(cursor.pos(), 0);
     }
 
     void moveCheck()
     {
         QString str("a");
-        auto    cursor = TextCursor::create(str, 0).value();
+        auto    cursor = TextCursor::create(str).value();
         QVERIFY(!cursor.canMove(Direction::Left));
         QVERIFY(cursor.canMove(Direction::Right));
         cursor++;
