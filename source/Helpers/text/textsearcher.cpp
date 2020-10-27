@@ -21,7 +21,7 @@
 
 #include "source/Helpers/text/textsearcher.h"
 
-opt<TextCursor> TextSearcher::find(TextCursor startPos, Direction dir, TextSearcher::ShortCondition checker)
+opt<TextCursor> TextSearcher::find(TextCursor startPos, Direction dir, CharTools::ShortCondition checker)
 {
     do {
         auto character = startPos.getSymbol(dir);
@@ -37,7 +37,7 @@ opt<TextCursor> TextSearcher::find(TextCursor startPos, Direction dir, TextSearc
     return std::nullopt;
 }
 
-opt<TextCursor> TextSearcher::find(TextCursor startPos, Direction dir, TextSearcher::FullCondition checker)
+opt<TextCursor> TextSearcher::find(TextCursor startPos, Direction dir, CharTools::FullCondition checker)
 {
     do {
         if (checker(startPos.left(), startPos.right()))

@@ -20,7 +20,6 @@
  */
 
 #include "source/Helpers/text/textrange.h"
-#include "source/Helpers/text/textsearcher.h"
 
 #include "source/Helpers/text/chartools.h"
 

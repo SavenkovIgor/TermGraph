@@ -29,15 +29,13 @@
 #include <QStringView>
 
 #include "source/Helpers/handytypes.h"
-#include "source/Helpers/text/textcursor.h"
+#include "source/Helpers/text/chartools.h"
 #include "source/Helpers/text/textrange.h"
 
 // Static class
 class LinkUtils
 {
 public:
-    using CharCondition = std::function<bool(const QChar&)>;
-
     // Tags
     static bool isInsideTag(QStringView str, int cursor);
 
@@ -57,7 +55,7 @@ public:
     static int wordsCount(const QString& string);
 
     // Cursor
-    static int findCursor(QStringView str, int from, Direction direction, CharCondition exitCondition);
+    static int findCursor(QStringView str, int from, Direction direction, CharTools::ShortCondition exitCondition);
 
     static int       linksCount(QStringView str);
     static TextRange linkAt(QStringView str, int index);

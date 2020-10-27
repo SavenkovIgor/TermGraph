@@ -25,25 +25,22 @@
 #include <QtGlobal>
 
 #include "source/Helpers/handytypes.h"
+#include "source/Helpers/text/chartools.h"
 
 class TextCursor
 {
 public:
-    using Condition     = std::function<bool(const QChar&)>;
-    using FullCondition = std::function<bool(const opt<QChar>, const opt<QChar>)>;
-
     TextCursor(QStringView strView, int pos);
 
     // static tools
     inline static bool isValidCursor(QStringView view, int cursor) { return 0 <= cursor && cursor <= view.size(); }
 
     static opt<TextCursor> create(QStringView view, int pos = 0);
-    static opt<TextCursor> find(QStringView inString, int from, Direction dir, Condition matchCondition);
 
-    bool move(Direction dir, Condition whileCond);
-    bool move(Direction dir, FullCondition fullCond);
-    bool moveLeft(Condition whileCond);
-    bool moveRight(Condition whileCond);
+    bool move(Direction dir, CharTools::ShortCondition whileCond);
+    bool move(Direction dir, CharTools::FullCondition fullCond);
+    bool moveLeft(CharTools::ShortCondition whileCond);
+    bool moveRight(CharTools::ShortCondition whileCond);
 
     bool move(Direction dir, const QChar& stopChar);
 

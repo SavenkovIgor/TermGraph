@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include <functional>
+
 #include <QChar>
 
 #include "source/Helpers/handytypes.h"
@@ -28,6 +30,9 @@
 class CharTools
 {
 public:
+    using ShortCondition = std::function<bool(const QChar&)>;
+    using FullCondition  = std::function<bool(const opt<QChar>, const opt<QChar>)>;
+
     constexpr static auto leftBracket  = '{';
     constexpr static auto rightBracket = '}';
     constexpr static auto linkSplitter = '|';

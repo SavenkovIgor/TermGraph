@@ -28,8 +28,6 @@
 #include "source/Helpers/text/textcursor.h"
 #include "source/Helpers/text/textsearcher.h"
 
-// TODO: Replace regular find
-
 class SearcherTest : public QObject
 {
     Q_OBJECT
@@ -100,6 +98,23 @@ private slots:
 
         QVERIFY(res2.has_value());
         QCOMPARE(res2->pos(), 0);
+    }
+
+    void failSearch()
+    {
+        QString str(" {abc ");
+        auto    cursor = TextCursor::create(str, 2).value();
+
+        auto resultCursor = TextSearcher::find(cursor, Direction::Right, CharTools::isLeftBracket);
+
+        QVERIFY(!resultCursor.has_value());
+
+        QString str2("");
+        auto    cur2 = TextCursor::create(str2).value();
+
+        auto res2 = TextSearcher::find(cur2, Direction::Left, CharTools::isLeftBracketOnRight);
+
+        QVERIFY(!res2.has_value());
     }
 };
 

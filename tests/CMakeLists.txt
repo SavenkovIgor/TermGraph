@@ -45,6 +45,8 @@ target_sources (
             ../source/Helpers/text/textcursor.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
+            ../source/Helpers/text/textsearcher.cpp
+            ../source/Helpers/text/textsearcher.h
             ../source/Helpers/validators/linktextvalidator.cpp
             ../source/Helpers/validators/linktextvalidator.h
             ../source/Helpers/intmatrix.cpp
