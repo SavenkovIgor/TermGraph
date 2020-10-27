@@ -61,7 +61,7 @@ bool TextCursor::move(Direction dir)
 bool TextCursor::move(Direction dir, TextCursor::Condition whileCond)
 {
     do {
-        auto character = lrChar(dir);
+        auto character = getSymbol(dir);
         if (!character)
             return false;
 
@@ -104,7 +104,7 @@ bool TextCursor::canMove(Direction dir) const
 
 int TextCursor::pos() const { return mPos; }
 
-opt<QChar> TextCursor::lrChar(Direction dir) const
+opt<QChar> TextCursor::getSymbol(Direction dir) const
 {
     assert(isValidCursor());
 
@@ -115,9 +115,9 @@ opt<QChar> TextCursor::lrChar(Direction dir) const
     return mString[mPos + offset];
 }
 
-opt<QChar> TextCursor::left() const { return lrChar(Direction::Left); }
+opt<QChar> TextCursor::left() const { return getSymbol(Direction::Left); }
 
-opt<QChar> TextCursor::right() const { return lrChar(Direction::Right); }
+opt<QChar> TextCursor::right() const { return getSymbol(Direction::Right); }
 
 TextCursor &TextCursor::operator++(int)
 {

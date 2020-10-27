@@ -26,6 +26,9 @@
 
 #include "source/Helpers/text/textcursor.h"
 
+// TODO: Remove create
+// TODO: Cursor must be always valid. clamp it to valid borders
+
 class CursorTest : public QObject
 {
     Q_OBJECT
@@ -129,11 +132,11 @@ private slots:
         QString str("a");
         auto    cursor = TextCursor::create(str).value();
         QCOMPARE(cursor.pos(), 0);
-        cursor++;
+        cursor.move(Direction::Right);
         QCOMPARE(cursor.pos(), 1);
         cursor++;
         QCOMPARE(cursor.pos(), 1);
-        cursor--;
+        cursor.move(Direction::Left);
         QCOMPARE(cursor.pos(), 0);
         cursor--;
         QCOMPARE(cursor.pos(), 0);

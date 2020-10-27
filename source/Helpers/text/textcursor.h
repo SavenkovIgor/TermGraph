@@ -35,7 +35,8 @@ public:
     TextCursor(QStringView strView, int pos);
 
     // static tools
-    inline static bool     isValidCursor(QStringView view, int cursor) { return 0 <= cursor && cursor <= view.size(); }
+    inline static bool isValidCursor(QStringView view, int cursor) { return 0 <= cursor && cursor <= view.size(); }
+
     static opt<TextCursor> create(QStringView view, int pos = 0);
     static opt<TextCursor> find(QStringView inString, int from, Direction dir, Condition matchCondition);
 
@@ -46,13 +47,12 @@ public:
 
     bool move(Direction dir, const QChar& stopChar);
 
-    opt<QChar> lrChar(Direction dir) const;
-
     int pos() const;
 
     bool       canMove(Direction dir) const;
     opt<QChar> left() const;
     opt<QChar> right() const;
+    opt<QChar> getSymbol(Direction dir) const;
     bool       move(Direction dir);
 
     TextCursor& operator++(int);

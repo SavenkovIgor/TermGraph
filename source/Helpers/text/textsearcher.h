@@ -25,12 +25,16 @@
 #include <QtGlobal>
 
 #include "source/Helpers/handytypes.h"
+#include "source/Helpers/text/textcursor.h"
 
 class TextSearcher
 {
 public:
     using ShortCondition = std::function<bool(const QChar&)>;
     using FullCondition  = std::function<bool(const opt<QChar>, const opt<QChar>)>;
+
+    static opt<TextCursor> find(TextCursor startPos, Direction dir, ShortCondition checker);
+    static opt<TextCursor> find(TextCursor startPos, Direction dir, FullCondition checker);
 
 private: // Members
 };

@@ -28,6 +28,8 @@
 #include "source/Helpers/text/textcursor.h"
 #include "source/Helpers/text/textsearcher.h"
 
+// TODO: Replace regular find
+
 class SearcherTest : public QObject
 {
     Q_OBJECT
@@ -35,21 +37,70 @@ class SearcherTest : public QObject
 private slots:
     void simpleRigthSearch()
     {
-        QString    str("abc{");
-        TextCursor startCursor(str, 0);
+        QString str("abc{");
+        auto    cursor = TextCursor::create(str).value();
 
-        auto resultCursor = TextSearcher::find(startCursor, Direction::Right, CharTools::isBracket);
+        auto resultCursor = TextSearcher::find(cursor, Direction::Right, CharTools::isLeftBracket);
+
         QVERIFY(resultCursor.has_value());
-
         QCOMPARE(resultCursor->pos(), 3);
-        //        SearchCondition condition();
+
+        auto cursor2 = TextCursor::create(str, 3).value();
+
+        auto resultCursor2 = TextSearcher::find(cursor2, Direction::Right, CharTools::isLeftBracket);
+
+        QVERIFY(resultCursor2.has_value());
+        QCOMPARE(resultCursor2->pos(), 3);
     }
 
-    void simpleLeftSearch() {}
+    void simpleLeftSearch()
+    {
+        QString str("}abc{");
+        auto    cursor = TextCursor::create(str, 2).value();
 
-    void complexRightSearch() {}
+        auto resultCursor = TextSearcher::find(cursor, Direction::Left, CharTools::isRightBracket);
 
-    void complexLeftSearch() {}
+        QVERIFY(resultCursor.has_value());
+        QCOMPARE(resultCursor->pos(), 1);
+    }
+
+    void complexRightSearch()
+    {
+        QString str("abc ");
+        auto    cursor = TextCursor::create(str).value();
+
+        auto resultCursor = TextSearcher::find(cursor, Direction::Right, CharTools::isLetterLeftAndNotLetterRight);
+
+        QVERIFY(resultCursor.has_value());
+        QCOMPARE(resultCursor->pos(), 3);
+
+        QString str2("abc");
+        auto    cur2 = TextCursor::create(str2).value();
+
+        auto res2 = TextSearcher::find(cur2, Direction::Right, CharTools::isLetterLeftAndNotLetterRight);
+
+        QVERIFY(res2.has_value());
+        QCOMPARE(res2->pos(), 3);
+    }
+
+    void complexLeftSearch()
+    {
+        QString str(" {abc ");
+        auto    cursor = TextCursor::create(str, 2).value();
+
+        auto resultCursor = TextSearcher::find(cursor, Direction::Left, CharTools::isLeftBracketOnRight);
+
+        QVERIFY(resultCursor.has_value());
+        QCOMPARE(resultCursor->pos(), 1);
+
+        QString str2("{abc");
+        auto    cur2 = TextCursor::create(str2, 2).value();
+
+        auto res2 = TextSearcher::find(cur2, Direction::Left, CharTools::isLeftBracketOnRight);
+
+        QVERIFY(res2.has_value());
+        QCOMPARE(res2->pos(), 0);
+    }
 };
 
 QTEST_APPLESS_MAIN(SearcherTest)

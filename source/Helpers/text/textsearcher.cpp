@@ -20,3 +20,34 @@
  */
 
 #include "source/Helpers/text/textsearcher.h"
+
+opt<TextCursor> TextSearcher::find(TextCursor startPos, Direction dir, TextSearcher::ShortCondition checker)
+{
+    do {
+        auto character = startPos.getSymbol(dir);
+        if (!character)
+            return std::nullopt;
+
+        if (checker(character.value()))
+            return startPos;
+
+        startPos.move(dir);
+    } while (startPos.canMove(dir));
+
+    return std::nullopt;
+}
+
+opt<TextCursor> TextSearcher::find(TextCursor startPos, Direction dir, TextSearcher::FullCondition checker)
+{
+    do {
+        if (checker(startPos.left(), startPos.right()))
+            return startPos;
+
+        startPos.move(dir);
+    } while (startPos.canMove(dir));
+
+    if (checker(startPos.left(), startPos.right()))
+        return startPos;
+
+    return std::nullopt;
+}
