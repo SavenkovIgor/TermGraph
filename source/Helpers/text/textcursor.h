@@ -30,12 +30,10 @@
 class TextCursor
 {
 public:
-    TextCursor(QStringView strView, int pos);
+    TextCursor(QStringView strView, int pos = 0);
 
     // static tools
     inline static bool isValidCursor(QStringView view, int cursor) { return 0 <= cursor && cursor <= view.size(); }
-
-    static opt<TextCursor> create(QStringView view, int pos = 0);
 
     bool move(Direction dir, CharTools::ShortCondition whileCond);
     bool move(Direction dir, CharTools::FullCondition fullCond);

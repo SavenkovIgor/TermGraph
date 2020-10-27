@@ -21,19 +21,13 @@
 
 #include "source/Helpers/text/textcursor.h"
 
+#include <algorithm>
+
 TextCursor::TextCursor(QStringView strView, int pos)
-    : mPos(pos)
+    : mPos(std::clamp(pos, 0, static_cast<int>(strView.size())))
     , mString(strView)
 {
-    assert(isValidCursor(mString, pos));
-}
-
-opt<TextCursor> TextCursor::create(QStringView view, int pos)
-{
-    if (!isValidCursor(view, pos))
-        return std::nullopt;
-
-    return TextCursor(view, pos);
+    assert(mPos == pos);
 }
 
 bool TextCursor::move(Direction dir)

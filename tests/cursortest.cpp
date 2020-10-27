@@ -38,27 +38,22 @@ private slots:
     {
         QString str("abc");
 
-        auto validCursor = TextCursor::create(str);
+        auto cursor = TextCursor(str, 1);
+        QCOMPARE(cursor.pos(), 1);
+        QCOMPARE(cursor.left(), 'a');
+        QCOMPARE(cursor.right(), 'b');
 
-        QVERIFY(validCursor.has_value());
-        QCOMPARE(validCursor->pos(), 0);
-
-        auto invalidCursor = TextCursor::create(str, -1);
-        QVERIFY(!invalidCursor.has_value());
-
-        auto invalidCursor2 = TextCursor::create(str, -100);
-        QVERIFY(!invalidCursor2.has_value());
-
-        auto stillValidCursor = TextCursor::create(QString());
-        QCOMPARE(stillValidCursor->left(), std::nullopt);
-        QCOMPARE(stillValidCursor->right(), std::nullopt);
+        auto emptyCursor = TextCursor(QString());
+        QCOMPARE(emptyCursor.pos(), 0);
+        QCOMPARE(emptyCursor.left(), std::nullopt);
+        QCOMPARE(emptyCursor.right(), std::nullopt);
     }
 
     void moveCursorLeft()
     {
         QString str("abc");
 
-        auto cursor = TextCursor::create(str, 1).value();
+        auto cursor = TextCursor(str, 1);
 
         QCOMPARE(cursor.left(), 'a');
         QCOMPARE(cursor.right(), 'b');
@@ -78,7 +73,7 @@ private slots:
     {
         QString str("abc");
 
-        auto cursor = TextCursor::create(str, 2).value();
+        auto cursor = TextCursor(str, 2);
 
         QCOMPARE(cursor.left(), 'b');
         QCOMPARE(cursor.right(), 'c');
@@ -98,7 +93,7 @@ private slots:
     {
         QString str("a");
 
-        auto cursor = TextCursor::create(str).value();
+        auto cursor = TextCursor(str);
 
         QCOMPARE(cursor.left(), std::nullopt);
         QCOMPARE(cursor.right(), 'a');
@@ -117,11 +112,7 @@ private slots:
     void emptyString()
     {
         QString str("");
-        auto    cursorOpt = TextCursor::create(str);
-
-        QVERIFY(cursorOpt.has_value());
-
-        auto cursor = cursorOpt.value();
+        auto    cursor = TextCursor(str);
 
         QCOMPARE(cursor.left(), std::nullopt);
         QCOMPARE(cursor.right(), std::nullopt);
@@ -130,7 +121,7 @@ private slots:
     void posCheck()
     {
         QString str("a");
-        auto    cursor = TextCursor::create(str).value();
+        auto    cursor = TextCursor(str);
         QCOMPARE(cursor.pos(), 0);
         cursor.move(Direction::Right);
         QCOMPARE(cursor.pos(), 1);
@@ -145,7 +136,7 @@ private slots:
     void moveCheck()
     {
         QString str("a");
-        auto    cursor = TextCursor::create(str).value();
+        auto    cursor = TextCursor(str);
         QVERIFY(!cursor.canMove(Direction::Left));
         QVERIFY(cursor.canMove(Direction::Right));
         cursor++;

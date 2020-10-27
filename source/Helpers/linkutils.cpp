@@ -125,7 +125,7 @@ QString LinkUtils::removeTag(QString str, int cursor)
     if (!isInsideTag(str, cursor))
         return str;
 
-    auto textCursor   = TextCursor::create(str, cursor).value();
+    auto textCursor   = TextCursor(str, cursor);
     auto leftBracket  = TextSearcher::find(textCursor, Direction::Left, CharTools::isBracket).value();
     auto rightBracket = TextSearcher::find(textCursor, Direction::Right, CharTools::isBracket).value();
 

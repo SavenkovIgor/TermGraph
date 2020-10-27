@@ -36,14 +36,14 @@ private slots:
     void simpleRigthSearch()
     {
         QString str("abc{");
-        auto    cursor = TextCursor::create(str).value();
+        auto    cursor = TextCursor(str);
 
         auto resultCursor = TextSearcher::find(cursor, Direction::Right, CharTools::isLeftBracket);
 
         QVERIFY(resultCursor.has_value());
         QCOMPARE(resultCursor->pos(), 3);
 
-        auto cursor2 = TextCursor::create(str, 3).value();
+        auto cursor2 = TextCursor(str, 3);
 
         auto resultCursor2 = TextSearcher::find(cursor2, Direction::Right, CharTools::isLeftBracket);
 
@@ -54,7 +54,7 @@ private slots:
     void simpleLeftSearch()
     {
         QString str("}abc{");
-        auto    cursor = TextCursor::create(str, 2).value();
+        auto    cursor = TextCursor(str, 2);
 
         auto resultCursor = TextSearcher::find(cursor, Direction::Left, CharTools::isRightBracket);
 
@@ -65,7 +65,7 @@ private slots:
     void complexRightSearch()
     {
         QString str("abc ");
-        auto    cursor = TextCursor::create(str).value();
+        auto    cursor = TextCursor(str);
 
         auto resultCursor = TextSearcher::find(cursor, Direction::Right, CharTools::isLetterLeftAndNotLetterRight);
 
@@ -73,7 +73,7 @@ private slots:
         QCOMPARE(resultCursor->pos(), 3);
 
         QString str2("abc");
-        auto    cur2 = TextCursor::create(str2).value();
+        auto    cur2 = TextCursor(str2);
 
         auto res2 = TextSearcher::find(cur2, Direction::Right, CharTools::isLetterLeftAndNotLetterRight);
 
@@ -84,7 +84,7 @@ private slots:
     void complexLeftSearch()
     {
         QString str(" {abc ");
-        auto    cursor = TextCursor::create(str, 2).value();
+        auto    cursor = TextCursor(str, 2);
 
         auto resultCursor = TextSearcher::find(cursor, Direction::Left, CharTools::isLeftBracketOnRight);
 
@@ -92,7 +92,7 @@ private slots:
         QCOMPARE(resultCursor->pos(), 1);
 
         QString str2("{abc");
-        auto    cur2 = TextCursor::create(str2, 2).value();
+        auto    cur2 = TextCursor(str2, 2);
 
         auto res2 = TextSearcher::find(cur2, Direction::Left, CharTools::isLeftBracketOnRight);
 
@@ -103,14 +103,14 @@ private slots:
     void failSearch()
     {
         QString str(" {abc ");
-        auto    cursor = TextCursor::create(str, 2).value();
+        auto    cursor = TextCursor(str, 2);
 
         auto resultCursor = TextSearcher::find(cursor, Direction::Right, CharTools::isLeftBracket);
 
         QVERIFY(!resultCursor.has_value());
 
         QString str2("");
-        auto    cur2 = TextCursor::create(str2).value();
+        auto    cur2 = TextCursor(str2);
 
         auto res2 = TextSearcher::find(cur2, Direction::Left, CharTools::isLeftBracketOnRight);
 
