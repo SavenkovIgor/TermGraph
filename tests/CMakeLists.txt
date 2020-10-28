@@ -138,7 +138,7 @@ target_sources (
 set (UUIDS_TEST ${PROJECT_NAME}_uuids_test)
 
 add_executable (${UUIDS_TEST})
-target_link_libraries (${UUIDS_TEST} PRIVATE Qt5::Test Qt5::Sql)
+target_link_libraries (${UUIDS_TEST} PRIVATE Qt5::Test)
 add_test (NAME ${UUIDS_TEST} COMMAND ${UUIDS_TEST})
 set_target_properties (${UUIDS_TEST} PROPERTIES
     AUTOMOC ON
@@ -158,7 +158,7 @@ target_sources (
 set (TEXT_CURSOR_TEST ${PROJECT_NAME}_text_cursor_test)
 
 add_executable (${TEXT_CURSOR_TEST})
-target_link_libraries (${TEXT_CURSOR_TEST} PRIVATE Qt5::Test Qt5::Sql)
+target_link_libraries (${TEXT_CURSOR_TEST} PRIVATE Qt5::Test)
 add_test (NAME ${TEXT_CURSOR_TEST} COMMAND ${TEXT_CURSOR_TEST})
 set_target_properties (${TEXT_CURSOR_TEST} PROPERTIES
     AUTOMOC ON
@@ -176,7 +176,7 @@ target_sources (
 set (TEXT_SELECTOR_TEST ${PROJECT_NAME}_text_selector_test)
 
 add_executable (${TEXT_SELECTOR_TEST})
-target_link_libraries (${TEXT_SELECTOR_TEST} PRIVATE Qt5::Test Qt5::Sql)
+target_link_libraries (${TEXT_SELECTOR_TEST} PRIVATE Qt5::Test)
 add_test (NAME ${TEXT_SELECTOR_TEST} COMMAND ${TEXT_SELECTOR_TEST})
 set_target_properties (${TEXT_SELECTOR_TEST} PROPERTIES
     AUTOMOC ON
@@ -193,3 +193,27 @@ target_sources (
             ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
             textsearchertest.cpp)
+
+# TEXT_RANGE_TEST
+set (TEXT_RANGE_TEST ${PROJECT_NAME}_text_range_test)
+
+add_executable (${TEXT_RANGE_TEST})
+target_link_libraries (${TEXT_RANGE_TEST} PRIVATE Qt5::Test)
+add_test (NAME ${TEXT_RANGE_TEST} COMMAND ${TEXT_RANGE_TEST})
+set_target_properties (${TEXT_RANGE_TEST} PROPERTIES
+    AUTOMOC ON
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON)
+
+target_sources (
+    ${TEXT_RANGE_TEST}
+    PRIVATE ../source/Helpers/text/textcursor.cpp
+            ../source/Helpers/text/textcursor.h
+            ../source/Helpers/text/textrange.cpp
+            ../source/Helpers/text/textrange.h
+            ../source/Helpers/text/textsearcher.cpp
+            ../source/Helpers/text/textsearcher.h
+            ../source/Helpers/text/chartools.cpp
+            ../source/Helpers/text/chartools.h
+            ../source/Helpers/handytypes.h
+            textrangetest.cpp)

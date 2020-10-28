@@ -52,10 +52,3 @@ bool CharTools::isLeftBracketOnRight([[maybe_unused]] const opt<QChar> lSym, con
         return false;
     return rSym.value() == leftBracket;
 }
-
-bool CharTools::isRightBracketOnLeft(const opt<QChar> lSym, [[maybe_unused]] const opt<QChar> rSym)
-{
-    if (!lSym.has_value())
-        return false;
-    return lSym.value() == rightBracket;
-}

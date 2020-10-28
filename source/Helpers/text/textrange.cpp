@@ -47,18 +47,27 @@ TextRange TextRange::selectWord(QStringView str, int startPos)
 
 opt<TextRange> TextRange::selectLink(QStringView str, int startPos)
 {
-    auto left = TextSearcher::find(TextCursor(str, startPos), Direction::Left, CharTools::isLeftBracketOnRight);
-
-    if (!left)
+    if (!TextCursor::isValidCursor(str, startPos))
         return std::nullopt;
 
-    // Second bracket must be righter than first, so +1
-    auto right = TextSearcher::find(TextCursor(str, startPos + 1), Direction::Right, CharTools::isRightBracketOnLeft);
+    auto cursor = TextCursor(str, startPos);
 
-    if (!right)
+    auto nearestBracketOnLeft  = TextSearcher::find(cursor, Direction::Left, CharTools::isBracket);
+    auto nearestBracketOnRight = TextSearcher::find(cursor, Direction::Right, CharTools::isBracket);
+
+    if (!nearestBracketOnLeft || !nearestBracketOnRight)
         return std::nullopt;
 
-    return TextRange(str, left.value(), right.value());
+    auto leftBr  = nearestBracketOnLeft->left().value_or(QChar());
+    auto rightBr = nearestBracketOnRight->right().value_or(QChar());
+
+    nearestBracketOnLeft.value()--;
+    nearestBracketOnRight.value()++;
+
+    if (leftBr == CharTools::leftBracket && rightBr == CharTools::rightBracket)
+        return TextRange(str, nearestBracketOnLeft->pos(), nearestBracketOnRight->pos());
+
+    return std::nullopt;
 }
 
 TextRange::TextRange(QStringView view, int left, int right)

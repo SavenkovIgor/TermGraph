@@ -44,6 +44,5 @@ public:
     static bool isLetterOrNumberInverse(const QChar& ch);
 
     static bool isLeftBracketOnRight(const opt<QChar> lSym, const opt<QChar> rSym);
-    static bool isRightBracketOnLeft(const opt<QChar> lSym, const opt<QChar> rSym);
     static bool isLetterLeftAndNotLetterRight(const opt<QChar> lSym, const opt<QChar> rSym);
 };
