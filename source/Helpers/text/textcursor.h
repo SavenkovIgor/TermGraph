@@ -32,32 +32,21 @@ class TextCursor
 public:
     TextCursor(QStringView strView, int pos = 0);
 
-    // static tools
-    inline static bool isValidCursor(QStringView view, int cursor) { return 0 <= cursor && cursor <= view.size(); }
+    // Tools for creation safety
+    static bool isValidCursor(QStringView view, int cursor);
 
-    bool move(Direction dir, CharTools::ShortCondition whileCond);
-    bool move(Direction dir, CharTools::FullCondition fullCond);
-    bool moveLeft(CharTools::ShortCondition whileCond);
-    bool moveRight(CharTools::ShortCondition whileCond);
-
-    bool move(Direction dir, const QChar& stopChar);
-
-    int pos() const;
-
-    bool       canMove(Direction dir) const;
+    int        pos() const;
     opt<QChar> left() const;
     opt<QChar> right() const;
     opt<QChar> getSymbol(Direction dir) const;
-    bool       move(Direction dir);
+
+    bool canMove(Direction dir) const;
+    bool move(Direction dir);
 
     TextCursor& operator++(int);
     TextCursor& operator--(int);
 
-private: // Methods
-    // Cursor can be after last symbol, and it's correct
-    inline bool isValidCursor() const { return isValidCursor(mString, mPos); }
-
-private: // Members
+private:
     int mPos = 0;
 
     const QStringView mString;

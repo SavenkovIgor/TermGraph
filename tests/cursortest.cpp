@@ -26,9 +26,6 @@
 
 #include "source/Helpers/text/textcursor.h"
 
-// TODO: Remove create
-// TODO: Cursor must be always valid. clamp it to valid borders
-
 class CursorTest : public QObject
 {
     Q_OBJECT

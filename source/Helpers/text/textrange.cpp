@@ -22,6 +22,7 @@
 #include "source/Helpers/text/textrange.h"
 
 #include "source/Helpers/text/chartools.h"
+#include "source/Helpers/text/textsearcher.h"
 
 int TextRange::leftPos() const { return mLeftCursor.pos(); }
 
@@ -33,28 +34,31 @@ bool TextRange::isEmpty() const { return leftPos() == rightPos(); }
 
 TextRange TextRange::selectWord(QStringView str, int startPos)
 {
-    auto left  = TextCursor(str, startPos);
-    auto right = TextCursor(str, startPos);
+    auto cursor = TextCursor(str, startPos);
 
-    left.moveLeft(CharTools::isLetterOrNumberInverse);
-    right.moveRight(CharTools::isLetterOrNumberInverse);
+    auto leftOpt  = TextSearcher::find(cursor, Direction::Left, CharTools::isLetterOrNumberInverse);
+    auto rightOpt = TextSearcher::find(cursor, Direction::Right, CharTools::isLetterOrNumberInverse);
+
+    auto left  = leftOpt.value_or(TextCursor(str));
+    auto right = rightOpt.value_or(TextCursor(str, str.length()));
 
     return TextRange(str, left, right);
 }
 
 opt<TextRange> TextRange::selectLink(QStringView str, int startPos)
 {
-    auto left = TextCursor(str, startPos);
+    auto left = TextSearcher::find(TextCursor(str, startPos), Direction::Left, CharTools::isLeftBracketOnRight);
 
-    if (!left.move(Direction::Left, CharTools::isLeftBracketOnRight))
+    if (!left)
         return std::nullopt;
 
     // Second bracket must be righter than first, so +1
-    auto right = TextCursor(str, startPos + 1);
-    if (!right.move(Direction::Right, CharTools::isRightBracketOnLeft))
+    auto right = TextSearcher::find(TextCursor(str, startPos + 1), Direction::Right, CharTools::isRightBracketOnLeft);
+
+    if (!right)
         return std::nullopt;
 
-    return TextRange(str, left, right);
+    return TextRange(str, left.value(), right.value());
 }
 
 TextRange::TextRange(QStringView view, int left, int right)
