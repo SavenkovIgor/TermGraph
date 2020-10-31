@@ -230,8 +230,8 @@ private slots:
 
         auto range = LinkUtils::linkAt(src, index);
 
-        QVERIFY(range.leftPos() == start);
-        QVERIFY(range.rightPos() == end);
+        QVERIFY(range.left().pos() == start);
+        QVERIFY(range.right().pos() == end);
     }
 
     void linkExtraction_data()

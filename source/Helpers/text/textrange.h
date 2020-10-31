@@ -33,19 +33,13 @@ class TextRange
 public:
     using List = std::vector<TextRange>;
 
-    int leftPos() const;
-    int rightPos() const;
-    int size() const;
-
-    bool isEmpty() const;
-
-    // Static creation stuff
-    static TextRange      selectWord(QStringView str, int startPos);
-    static opt<TextRange> selectLink(QStringView str, int startPos);
-
-private: // Methods
     TextRange(QStringView view, int left, int right);
-    TextRange(QStringView view, TextCursor left, TextCursor right);
+
+    const TextCursor& left() const;
+    const TextCursor& right() const;
+
+    int  size() const;
+    bool isEmpty() const;
 
 private: // Members
     const QStringView mString;

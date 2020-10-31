@@ -66,7 +66,7 @@ QStringView InnerLink::getLink(const QString& srcString, TextRange range)
 
     assert(range.size() >= 2);
 
-    return QStringView(srcString.midRef(range.leftPos(), range.size()));
+    return QStringView(srcString.midRef(range.left().pos(), range.size()));
 }
 
 QStringView InnerLink::getText(QStringView fullLink)

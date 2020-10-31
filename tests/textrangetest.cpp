@@ -37,106 +37,25 @@ class TextRangeTest : public QObject
     Q_OBJECT
 
 private slots:
-    void wordBorder_data()
+    void textRangeInit()
     {
-        QTest::addColumn<QString>("src");
-        QTest::addColumn<int>("startFrom");
-        QTest::addColumn<int>("leftPos");
-        QTest::addColumn<int>("rightPos");
-        QTest::addColumn<bool>("isEmpty");
-        QTest::addColumn<int>("size");
+        QString   str("ab");
+        TextRange rng(str, 0, 1);
 
-        // clang-format off
-        QTest::newRow("case0")  << ""      << 0 << 0 << 0 << true  << 0;
-        QTest::newRow("case1")  << " "     << 0 << 0 << 0 << true  << 0;
-        QTest::newRow("case2")  << " "     << 1 << 1 << 1 << true  << 0;
-        QTest::newRow("case3")  << "  "    << 1 << 1 << 1 << true  << 0;
-        QTest::newRow("case4")  << " a"    << 0 << 0 << 0 << true  << 0;
-        QTest::newRow("case5")  << " a"    << 1 << 1 << 2 << false << 1;
-        QTest::newRow("case6")  << "ab"    << 0 << 0 << 2 << false << 2;
-        QTest::newRow("case7")  << "ab"    << 1 << 0 << 2 << false << 2;
-        QTest::newRow("case8")  << "ab"    << 2 << 0 << 2 << false << 2;
-        QTest::newRow("case9")  << " ab "  << 0 << 0 << 0 << true  << 0;
-        QTest::newRow("case10") << " ab "  << 1 << 1 << 3 << false << 2;
-        QTest::newRow("case11") << " ab "  << 2 << 1 << 3 << false << 2;
-        QTest::newRow("case12") << " ab "  << 3 << 1 << 3 << false << 2;
-        QTest::newRow("case13") << " ab "  << 4 << 4 << 4 << true  << 0;
-        QTest::newRow("case14") << " ab, " << 1 << 1 << 3 << false << 2;
-        QTest::newRow("case15") << " ab, " << 3 << 1 << 3 << false << 2;
-        QTest::newRow("case16") << " ab, " << 4 << 4 << 4 << true  << 0;
-        QTest::newRow("case17") << " a a " << 1 << 1 << 2 << false << 1;
-        QTest::newRow("case18") << " a a " << 2 << 1 << 2 << false << 1;
-        QTest::newRow("case19") << " a a " << 3 << 3 << 4 << false << 1;
-        QTest::newRow("case20") << " a a " << 4 << 3 << 4 << false << 1;
-        QTest::newRow("case21") << " a2a " << 4 << 1 << 4 << false << 3;
-        // clang-format on
-    }
+        QCOMPARE(rng.left().pos(), 0);
+        QCOMPARE(rng.right().pos(), 1);
+        QCOMPARE(rng.isEmpty(), false);
+        QCOMPARE(rng.size(), 1);
 
-    void wordBorder()
-    {
-        QFETCH(QString, src);
-        QFETCH(int, startFrom);
-        QFETCH(int, leftPos);
-        QFETCH(int, rightPos);
-        QFETCH(bool, isEmpty);
-        QFETCH(int, size);
+        QString   str2;
+        TextRange rng2(str2, 0, 0);
 
-        auto borders = TextRange::selectWord(src, startFrom);
-
-        QCOMPARE(borders.leftPos(), leftPos);
-        QCOMPARE(borders.rightPos(), rightPos);
-        QCOMPARE(borders.isEmpty(), isEmpty);
-        QCOMPARE(borders.size(), size);
-    }
-
-    void linkSearch_data()
-    {
-        QTest::addColumn<QString>("src");
-        QTest::addColumn<int>("startFrom");
-        QTest::addColumn<bool>("result");
-
-        QTest::addColumn<int>("leftPos");
-        QTest::addColumn<int>("rightPos");
-        QTest::addColumn<bool>("isEmpty");
-        QTest::addColumn<int>("size");
-
-        // clang-format off
-        QTest::newRow("case01") << ""                                             << 0 << false << -1 << -1 << true  << 0;
-        QTest::newRow("case02") << " "                                            << 0 << false << -1 << -1 << true  << 0;
-        QTest::newRow("case03") << "  "                                           << 1 << false << -1 << -1 << true  << 0;
-        QTest::newRow("case04") << "} {"                                          << 0 << false << -1 << -1 << true  << 0;
-        QTest::newRow("case05") << "} {"                                          << 1 << false << -1 << -1 << true  << 0;
-        QTest::newRow("case06") << "} {"                                          << 2 << false << -1 << -1 << true  << 0;
-        QTest::newRow("case07") << "} {"                                          << 3 << false << -1 << -1 << true  << 0;
-        QTest::newRow("case08") << "{} {}"                                        << 2 << false << -1 << -1 << true  << 0;
-        QTest::newRow("case09") << " {a}"                                         << 1 << false << -1 << -1 << true  << 3;
-        QTest::newRow("case10") << " { abc2 }"                                    << 2 << true  <<  1 <<  9 << false << 8;
-        QTest::newRow("case11") << " {a} {b}"                                     << 2 << true  <<  1 <<  4 << false << 3;
-        QTest::newRow("case12") << "{}ab"                                         << 1 << true  <<  0 <<  2 << false << 2;
-        QTest::newRow("case13") << " {ab|94810de3-51b8-469e-b316-00248ffa2a45}"   << 2 << true  <<  1 << 42 << false << 41;
-        QTest::newRow("case14") << " { ab |94810de3-51b8-469e-b316-00248ffa2a45}" << 2 << true  <<  1 << 44 << false << 43;
-        // clang-format on
-    }
-
-    void linkSearch()
-    {
-        QFETCH(QString, src);
-        QFETCH(int, startFrom);
-        QFETCH(bool, result);
-        QFETCH(int, leftPos);
-        QFETCH(int, rightPos);
-        QFETCH(bool, isEmpty);
-        QFETCH(int, size);
-
-        auto borders = TextRange::selectLink(src, startFrom);
-        QCOMPARE(borders.has_value(), result);
-
-        if (borders.has_value()) {
-            QCOMPARE(borders->leftPos(), leftPos);
-            QCOMPARE(borders->rightPos(), rightPos);
-            QCOMPARE(borders->isEmpty(), isEmpty);
-            QCOMPARE(borders->size(), size);
-        }
+        QCOMPARE(rng2.left().left(), std::nullopt);
+        QCOMPARE(rng2.left().right(), std::nullopt);
+        QCOMPARE(rng2.right().left(), std::nullopt);
+        QCOMPARE(rng2.right().right(), std::nullopt);
+        QCOMPARE(rng2.isEmpty(), true);
+        QCOMPARE(rng2.size(), 0);
     }
 };
 

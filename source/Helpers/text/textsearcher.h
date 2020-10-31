@@ -24,10 +24,14 @@
 #include "source/Helpers/handytypes.h"
 #include "source/Helpers/text/chartools.h"
 #include "source/Helpers/text/textcursor.h"
+#include "source/Helpers/text/textrange.h"
 
 class TextSearcher
 {
 public:
     static opt<TextCursor> find(TextCursor startPos, Direction dir, CharTools::ShortCondition checker);
     static opt<TextCursor> find(TextCursor startPos, Direction dir, CharTools::FullCondition checker);
+
+    static TextRange      selectWord(QStringView str, int startPos);
+    static opt<TextRange> selectLink(QStringView str, int startPos);
 };

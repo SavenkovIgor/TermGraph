@@ -51,3 +51,41 @@ opt<TextCursor> TextSearcher::find(TextCursor startPos, Direction dir, CharTools
 
     return std::nullopt;
 }
+
+TextRange TextSearcher::selectWord(QStringView str, int startPos)
+{
+    auto cursor = TextCursor(str, startPos);
+
+    auto leftOpt  = TextSearcher::find(cursor, Direction::Left, CharTools::isLetterOrNumberInverse);
+    auto rightOpt = TextSearcher::find(cursor, Direction::Right, CharTools::isLetterOrNumberInverse);
+
+    auto left  = leftOpt.value_or(TextCursor(str));
+    auto right = rightOpt.value_or(TextCursor(str, str.length()));
+
+    return TextRange(str, left.pos(), right.pos());
+}
+
+opt<TextRange> TextSearcher::selectLink(QStringView str, int startPos)
+{
+    if (!TextCursor::isValidCursor(str, startPos))
+        return std::nullopt;
+
+    auto cursor = TextCursor(str, startPos);
+
+    auto nearestBracketOnLeft  = TextSearcher::find(cursor, Direction::Left, CharTools::isBracket);
+    auto nearestBracketOnRight = TextSearcher::find(cursor, Direction::Right, CharTools::isBracket);
+
+    if (!nearestBracketOnLeft || !nearestBracketOnRight)
+        return std::nullopt;
+
+    auto leftBr  = nearestBracketOnLeft->left().value_or(QChar());
+    auto rightBr = nearestBracketOnRight->right().value_or(QChar());
+
+    nearestBracketOnLeft.value()--;
+    nearestBracketOnRight.value()++;
+
+    if (leftBr == CharTools::leftBracket && rightBr == CharTools::rightBracket)
+        return TextRange(str, nearestBracketOnLeft->pos(), nearestBracketOnRight->pos());
+
+    return std::nullopt;
+}

@@ -168,7 +168,7 @@ NodeGadgetWrapper LinksHardeningManager::applyReplacement()
         InnerLink  oldLink(definition, txtRange);
         const auto newLink = oldLink.createLinkWithUuid(replace.second);
 
-        const auto startIndex = txtRange.leftPos();
+        const auto startIndex = txtRange.left().pos();
         const auto linkSize   = txtRange.size();
 
         definition.remove(startIndex, linkSize);

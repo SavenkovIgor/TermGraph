@@ -64,11 +64,11 @@ QString LinkUtils::addTag(QString str, int cursor)
     if (isInsideTag(str, cursor))
         return str;
 
-    auto word = TextRange::selectWord(str, cursor);
+    auto word = TextSearcher::selectWord(str, cursor);
 
     //Сначала вставляем правую, потом левую из за смещения курсора
-    str.insert(word.rightPos(), CharTools::rightBracket);
-    str.insert(word.leftPos(), CharTools::leftBracket);
+    str.insert(word.right().pos(), CharTools::rightBracket);
+    str.insert(word.left().pos(), CharTools::leftBracket);
 
     return str;
 }
@@ -278,7 +278,7 @@ TextRange LinkUtils::linkAt(QStringView str, int index)
     for (int i = 0; i <= index; i++)
         strPos = str.indexOf(CharTools::leftBracket, strPos + 1);
 
-    auto ret = TextRange::selectLink(str, strPos + 1);
+    auto ret = TextSearcher::selectLink(str, strPos + 1);
 
     assert(ret.has_value());
 
@@ -287,5 +287,5 @@ TextRange LinkUtils::linkAt(QStringView str, int index)
 
 bool LinkUtils::isRangeOnLink(QStringView str, TextRange range)
 {
-    return str[range.leftPos()] == CharTools::leftBracket && str[range.rightPos() - 1] == CharTools::rightBracket;
+    return str[range.left().pos()] == CharTools::leftBracket && str[range.right().pos() - 1] == CharTools::rightBracket;
 }
