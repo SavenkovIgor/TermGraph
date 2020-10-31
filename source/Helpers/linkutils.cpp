@@ -278,7 +278,7 @@ TextRange LinkUtils::linkAt(QStringView str, int index)
     for (int i = 0; i <= index; i++)
         strPos = str.indexOf(CharTools::leftBracket, strPos + 1);
 
-    auto ret = TextRange::selectLink(str, strPos);
+    auto ret = TextRange::selectLink(str, strPos + 1);
 
     assert(ret.has_value());
 
