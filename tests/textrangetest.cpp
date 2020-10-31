@@ -29,9 +29,6 @@
 #include "source/Helpers/text/textrange.h"
 #include "source/Helpers/text/textsearcher.h"
 
-// TODO: Move selectLink to TextSelector
-// TODO: Move selectWord to TextSelector
-
 class TextRangeTest : public QObject
 {
     Q_OBJECT
