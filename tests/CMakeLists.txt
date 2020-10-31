@@ -24,7 +24,7 @@ find_package (Qt5Test REQUIRED)
 include_directories (${CMAKE_SOURCE_DIR})
 
 # LINK_UTILS_TEST
-set (LINK_UTILS_TEST ${PROJECT_NAME}_link_utils_test)
+set (LINK_UTILS_TEST "LinkUtilsTest")
 
 add_executable (${LINK_UTILS_TEST})
 target_link_libraries (${LINK_UTILS_TEST} PRIVATE Qt5::Test)
@@ -55,7 +55,7 @@ target_sources (
 
 
 # TEXT_PROCESSOR_TEST
-set (TEXT_PROCESSOR_TEST ${PROJECT_NAME}_text_processor_test)
+set (TEXT_PROCESSOR_TEST "TextProcessorTest")
 
 add_executable (${TEXT_PROCESSOR_TEST})
 target_link_libraries (${TEXT_PROCESSOR_TEST} PRIVATE Qt5::Test)
@@ -73,7 +73,7 @@ target_sources (
 
 
 # FS_WORKS_TEST
-set (FS_WORKS_TEST ${PROJECT_NAME}_fs_works_test)
+set (FS_WORKS_TEST "FsWorksTest")
 
 add_executable (${FS_WORKS_TEST})
 target_link_libraries (${FS_WORKS_TEST} PRIVATE Qt5::Test)
@@ -91,7 +91,7 @@ target_sources (
 
 
 # DB_WORKS_TEST
-set (DB_WORKS_TEST ${PROJECT_NAME}_db_works_test)
+set (DB_WORKS_TEST "DbWorksTest")
 
 add_executable (${DB_WORKS_TEST})
 target_link_libraries (${DB_WORKS_TEST} PRIVATE Qt5::Test Qt5::Sql)
@@ -135,7 +135,7 @@ target_sources (
 
 
 # UUIDS_TEST
-set (UUIDS_TEST ${PROJECT_NAME}_uuids_test)
+set (UUIDS_TEST "UuidsTest")
 
 add_executable (${UUIDS_TEST})
 target_link_libraries (${UUIDS_TEST} PRIVATE Qt5::Test)
@@ -155,7 +155,7 @@ target_sources (
             uuidstest.cpp)
 
 # TEXT_CURSOR_TEST
-set (TEXT_CURSOR_TEST ${PROJECT_NAME}_text_cursor_test)
+set (TEXT_CURSOR_TEST "TextCursorTest")
 
 add_executable (${TEXT_CURSOR_TEST})
 target_link_libraries (${TEXT_CURSOR_TEST} PRIVATE Qt5::Test)
@@ -173,7 +173,7 @@ target_sources (
             cursortest.cpp)
 
 # TEXT_SEARCHER_TEST
-set (TEXT_SEARCHER_TEST ${PROJECT_NAME}_text_searcher_test)
+set (TEXT_SEARCHER_TEST "TextSearcherTest")
 
 add_executable (${TEXT_SEARCHER_TEST})
 target_link_libraries (${TEXT_SEARCHER_TEST} PRIVATE Qt5::Test)
@@ -197,7 +197,7 @@ target_sources (
             textsearchertest.cpp)
 
 # TEXT_RANGE_TEST
-set (TEXT_RANGE_TEST ${PROJECT_NAME}_text_range_test)
+set (TEXT_RANGE_TEST "TextRangeTest")
 
 add_executable (${TEXT_RANGE_TEST})
 target_link_libraries (${TEXT_RANGE_TEST} PRIVATE Qt5::Test)
