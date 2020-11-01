@@ -179,8 +179,8 @@ target_sources (
             source/Model/Termin/graphterm.h
             source/Model/Termin/infoterm.cpp
             source/Model/Termin/infoterm.h
-            source/Model/Termin/innerlink.cpp
-            source/Model/Termin/innerlink.h
+            source/Model/Termin/textlink.cpp
+            source/Model/Termin/textlink.h
             source/Model/Termin/nodegadgetwrapper.cpp
             source/Model/Termin/nodegadgetwrapper.h
             source/Model/Termin/nodeinfocontainer.h

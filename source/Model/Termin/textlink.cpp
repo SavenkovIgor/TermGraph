@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Model/Termin/innerlink.h"
+#include "source/Model/Termin/textlink.h"
 
 #include "source/Helpers/linkutils.h"
 #include "source/Helpers/text/chartools.h"
