@@ -28,7 +28,11 @@ TextRange::TextRange(QStringView view, int left, int right)
     : mString(view)
     , mLeftCursor(view, left)
     , mRightCursor(view, right)
-{}
+{
+    assert(left <= right);
+    assert(left >= 0);
+    assert(right >= 0);
+}
 
 const TextCursor &TextRange::left() const { return mLeftCursor; }
 

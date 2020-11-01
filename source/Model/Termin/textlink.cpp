@@ -32,6 +32,9 @@ TextLink::TextLink(const QString& srcString, TextRange range)
     , mLinkText(getText(mLink))
     , mLinkTextLower(getLower(mLinkText))
 {
+    assert(range.left().right() == CharTools::leftBracket);
+    assert(range.right().left() == CharTools::rightBracket);
+
     auto optUuid = tryGetUuid(mLink);
     mLinkType    = optUuid.has_value() ? Type::Uuid : Type::Text;
     mUuid        = optUuid.value_or(QUuid());
@@ -62,7 +65,7 @@ QString TextLink::createLinkWithUuid(const QUuid& uuid) const
 QStringView TextLink::getLink(const QString& srcString, TextRange range)
 {
     assert(srcString.size() > 2);
-    assert(LinkUtils::isRangeOnLink(srcString, range));
+    assert(LinkUtils::isRangeOnLink(range));
 
     assert(range.size() >= 2);
 

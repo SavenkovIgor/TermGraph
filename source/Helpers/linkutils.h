@@ -60,7 +60,7 @@ public:
     static int       linksCount(QStringView str);
     static TextRange linkAt(QStringView str, int index);
 
-    static bool isRangeOnLink(QStringView str, TextRange range);
+    static bool isRangeOnLink(TextRange range);
 
     constexpr static int nullCursor = -1;
 };

@@ -285,7 +285,7 @@ TextRange LinkUtils::linkAt(QStringView str, int index)
     return ret.value();
 }
 
-bool LinkUtils::isRangeOnLink(QStringView str, TextRange range)
+bool LinkUtils::isRangeOnLink(TextRange range)
 {
-    return str[range.left().pos()] == CharTools::leftBracket && str[range.right().pos() - 1] == CharTools::rightBracket;
+    return range.left().right() == CharTools::leftBracket && range.right().left() == CharTools::rightBracket;
 }

@@ -219,3 +219,39 @@ target_sources (
             ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
             textrangetest.cpp)
+
+# TEXT_LINK_TEST
+set (TEXT_LINK_TEST "TextLinkTest")
+
+add_executable (${TEXT_LINK_TEST})
+target_link_libraries (${TEXT_LINK_TEST} PRIVATE Qt5::Test)
+add_test (NAME ${TEXT_LINK_TEST} COMMAND ${TEXT_LINK_TEST})
+set_target_properties (${TEXT_LINK_TEST} PROPERTIES
+    AUTOMOC ON
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON)
+
+target_sources (
+    ${TEXT_LINK_TEST}
+    PRIVATE ../source/Helpers/text/textcursor.cpp
+            ../source/Helpers/text/textcursor.h
+            ../source/Helpers/text/textrange.cpp
+            ../source/Helpers/text/textrange.h
+            ../source/Helpers/text/textsearcher.cpp
+            ../source/Helpers/text/textsearcher.h
+            ../source/Helpers/text/chartools.cpp
+            ../source/Helpers/text/chartools.h
+            ../source/Helpers/handytypes.h
+            ../source/Helpers/linkutils.cpp
+            ../source/Helpers/linkutils.h
+            ../source/Model/Termin/textlink.cpp
+            ../source/Model/Termin/textlink.h
+            ../source/Helpers/intmatrix.cpp
+            ../source/Helpers/intmatrix.h
+            ../source/Helpers/uuid/uuidtools.cpp
+            ../source/Helpers/uuid/uuidtools.h
+            ../source/Helpers/validators/uuidvalidator.cpp
+            ../source/Helpers/validators/uuidvalidator.h
+            ../source/Helpers/validators/linktextvalidator.cpp
+            ../source/Helpers/validators/linktextvalidator.h
+            textlinktest.cpp)
