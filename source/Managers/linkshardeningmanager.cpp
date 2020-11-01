@@ -165,7 +165,7 @@ NodeGadgetWrapper LinksHardeningManager::applyReplacement()
     for (auto &replace : replacePreparations.toStdMap()) {
         auto txtRange = LinkUtils::linkAt(definition, replace.first);
 
-        InnerLink  oldLink(definition, txtRange);
+        TextLink   oldLink(definition, txtRange);
         const auto newLink = oldLink.createLinkWithUuid(replace.second);
 
         const auto startIndex = txtRange.left().pos();
@@ -194,7 +194,7 @@ QStringView LinksHardeningManager::currentDefinition() const
     return mCurrentTerm.getDefinition();
 }
 
-InnerLink::List LinksHardeningManager::currentLinks() const
+TextLink::List LinksHardeningManager::currentLinks() const
 {
     assert(!mCurrentTerm.isNull());
     return InfoTerm::getInnerLinks(mCurrentTerm.getDefinition());
@@ -217,7 +217,7 @@ QString LinksHardeningManager::currentLinkText() const
     return links[mLinkIndex].fullLink().toString();
 }
 
-InnerLink LinksHardeningManager::currentLink() const
+TextLink LinksHardeningManager::currentLink() const
 {
     assert(!mCurrentTerm.isNull());
     assert(isValidIndex());

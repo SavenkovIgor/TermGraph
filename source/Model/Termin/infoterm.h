@@ -42,11 +42,11 @@ public:
     QString decoratedTerm() const;
     QSizeF  decoratedTermSize() const;
 
-    InnerLink::List links() const;
+    TextLink::List links() const;
 
     QString termAndDefinition(bool decorated = false) const;
 
-    static InnerLink::List getInnerLinks(const QString& linksString);
+    static TextLink::List getInnerLinks(const QString& linksString);
 
 private: // Methods
     static QString getDecoratedTerm(const QString& term);
@@ -55,8 +55,8 @@ private: // Methods
 private: // Members
     const NodeInfoContainer mInfo;
 
-    const QString         mLowerTerm;
-    const QString         mDecoratedTerm;
-    const QSizeF          mDecoratedTermSize;
-    const InnerLink::List mLinks;
+    const QString        mLowerTerm;
+    const QString        mDecoratedTerm;
+    const QSizeF         mDecoratedTermSize;
+    const TextLink::List mLinks;
 };

@@ -74,9 +74,9 @@ private slots:
     void updateNearestVariants();
 
 private: // Methods
-    QStringView     currentDefinition() const;
-    InnerLink::List currentLinks() const;
-    InnerLink       currentLink() const;
+    QStringView    currentDefinition() const;
+    TextLink::List currentLinks() const;
+    TextLink       currentLink() const;
 
     bool isValidIndex() const;
 

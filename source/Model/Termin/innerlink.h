@@ -29,14 +29,14 @@
 #include "source/Helpers/linkutils.h"
 #include "source/Helpers/text/textrange.h"
 
-class InnerLink
+class TextLink
 {
 public:
-    using List = std::vector<InnerLink>;
+    using List = std::vector<TextLink>;
 
     enum class Type { Unknown = 0, Text, Uuid };
 
-    InnerLink(const QString& srcString, TextRange range);
+    TextLink(const QString& srcString, TextRange range);
 
     QStringView    fullLink() const;
     QStringView    text() const;

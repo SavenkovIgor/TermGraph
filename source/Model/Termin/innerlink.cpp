@@ -25,7 +25,7 @@
 #include "source/Helpers/text/chartools.h"
 #include "source/Helpers/uuid/uuidtools.h"
 
-InnerLink::InnerLink(const QString& srcString, TextRange range)
+TextLink::TextLink(const QString& srcString, TextRange range)
     : mBaseString(srcString)
     , mRange(range)
     , mLink(getLink(srcString, range))
@@ -37,21 +37,21 @@ InnerLink::InnerLink(const QString& srcString, TextRange range)
     mUuid        = optUuid.value_or(QUuid());
 }
 
-QStringView InnerLink::fullLink() const { return mLink; }
+QStringView TextLink::fullLink() const { return mLink; }
 
-QStringView InnerLink::text() const { return mLinkText; }
+QStringView TextLink::text() const { return mLinkText; }
 
-const QString& InnerLink::textLower() const { return mLinkTextLower; }
+const QString& TextLink::textLower() const { return mLinkTextLower; }
 
-bool InnerLink::hasUuid() const { return mLinkType == Type::Uuid; }
+bool TextLink::hasUuid() const { return mLinkType == Type::Uuid; }
 
-QUuid InnerLink::uuid() const
+QUuid TextLink::uuid() const
 {
     assert(hasUuid());
     return mUuid;
 }
 
-QString InnerLink::createLinkWithUuid(const QUuid& uuid) const
+QString TextLink::createLinkWithUuid(const QUuid& uuid) const
 {
     auto linkText = mLinkText.toString();
     linkText += CharTools::linkSplitter + UuidTools::cutBraces(uuid);
@@ -59,7 +59,7 @@ QString InnerLink::createLinkWithUuid(const QUuid& uuid) const
     return linkText;
 }
 
-QStringView InnerLink::getLink(const QString& srcString, TextRange range)
+QStringView TextLink::getLink(const QString& srcString, TextRange range)
 {
     assert(srcString.size() > 2);
     assert(LinkUtils::isRangeOnLink(srcString, range));
@@ -69,7 +69,7 @@ QStringView InnerLink::getLink(const QString& srcString, TextRange range)
     return QStringView(srcString.midRef(range.left().pos(), range.size()));
 }
 
-QStringView InnerLink::getText(QStringView fullLink)
+QStringView TextLink::getText(QStringView fullLink)
 {
     const auto from     = 1;
     const auto splitter = fullLink.lastIndexOf('|');
@@ -79,9 +79,9 @@ QStringView InnerLink::getText(QStringView fullLink)
     return QStringView(fullLink.mid(1, size));
 }
 
-QString InnerLink::getLower(QStringView text) { return text.toString().toLower(); }
+QString TextLink::getLower(QStringView text) { return text.toString().toLower(); }
 
-opt<QUuid> InnerLink::tryGetUuid(QStringView fullLink)
+opt<QUuid> TextLink::tryGetUuid(QStringView fullLink)
 {
     assert(fullLink[fullLink.size() - 1] == CharTools::rightBracket);
 

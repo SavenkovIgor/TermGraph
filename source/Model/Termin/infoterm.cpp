@@ -48,7 +48,7 @@ QString InfoTerm::decoratedTerm() const { return mDecoratedTerm; }
 
 QSizeF InfoTerm::decoratedTermSize() const { return mDecoratedTermSize; }
 
-InnerLink::List InfoTerm::links() const { return mLinks; }
+TextLink::List InfoTerm::links() const { return mLinks; }
 
 QString InfoTerm::termAndDefinition(bool decorated) const
 {
@@ -88,17 +88,17 @@ QSizeF InfoTerm::getTermSize(const QString& decoratedTerm)
     return HelpStuff::getStackedSize(sizes, Qt::Vertical);
 }
 
-InnerLink::List InfoTerm::getInnerLinks(const QString& linksString)
+TextLink::List InfoTerm::getInnerLinks(const QString& linksString)
 {
     if (!LinkTextValidator::isValidLinkString(linksString))
         return {};
 
     auto ranges = LinkUtils::extractLinkRanges(linksString);
 
-    InnerLink::List ret;
+    TextLink::List ret;
 
     for (const auto& range : ranges)
-        ret.push_back(InnerLink(linksString, range));
+        ret.push_back(TextLink(linksString, range));
 
     return ret;
 }
