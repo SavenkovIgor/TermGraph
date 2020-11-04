@@ -30,7 +30,6 @@ class TextSearcher
 {
 public:
     static opt<TextCursor> find(TextCursor startPos, Direction dir, CharTools::ShortCondition checker);
-    static opt<TextCursor> find(TextCursor startPos, Direction dir, CharTools::FullCondition checker);
 
     static TextRange      selectWord(QStringView str, int startPos);
     static opt<TextRange> selectLink(QStringView str, int startPos);

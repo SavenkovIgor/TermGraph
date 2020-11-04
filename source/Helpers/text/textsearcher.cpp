@@ -37,27 +37,12 @@ opt<TextCursor> TextSearcher::find(TextCursor startPos, Direction dir, CharTools
     return std::nullopt;
 }
 
-opt<TextCursor> TextSearcher::find(TextCursor startPos, Direction dir, CharTools::FullCondition checker)
-{
-    do {
-        if (checker(startPos.left(), startPos.right()))
-            return startPos;
-
-        startPos.move(dir);
-    } while (startPos.canMove(dir));
-
-    if (checker(startPos.left(), startPos.right()))
-        return startPos;
-
-    return std::nullopt;
-}
-
 TextRange TextSearcher::selectWord(QStringView str, int startPos)
 {
     auto cursor = TextCursor(str, startPos);
 
-    auto leftOpt  = TextSearcher::find(cursor, Direction::Left, CharTools::isLetterOrNumberInverse);
-    auto rightOpt = TextSearcher::find(cursor, Direction::Right, CharTools::isLetterOrNumberInverse);
+    auto leftOpt  = TextSearcher::find(cursor, Direction::Left, CharTools::notLetterOrNumber);
+    auto rightOpt = TextSearcher::find(cursor, Direction::Right, CharTools::notLetterOrNumber);
 
     auto left  = leftOpt.value_or(TextCursor(str));
     auto right = rightOpt.value_or(TextCursor(str, str.length()));

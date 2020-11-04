@@ -30,19 +30,16 @@
 class CharTools
 {
 public:
-    using ShortCondition = std::function<bool(const QChar&)>;
-    using FullCondition  = std::function<bool(const opt<QChar>, const opt<QChar>)>;
+    using ShortCondition = std::function<bool(const QChar)>;
 
     constexpr static auto leftBracket  = '{';
     constexpr static auto rightBracket = '}';
     constexpr static auto linkSplitter = '|';
 
-    static bool isBracket(const QChar& ch);
-    static bool isLeftBracket(const QChar& ch);
-    static bool isRightBracket(const QChar& ch);
-    static bool isLetterOrNumber(const QChar& ch);
-    static bool isLetterOrNumberInverse(const QChar& ch);
-
-    static bool isLeftBracketOnRight(const opt<QChar> lSym, const opt<QChar> rSym);
-    static bool isLetterLeftAndNotLetterRight(const opt<QChar> lSym, const opt<QChar> rSym);
+    static inline bool any([[maybe_unused]] const QChar ch) { return true; }
+    static inline bool isBracket(const QChar ch) { return ch == leftBracket || ch == rightBracket; }
+    static inline bool isLeftBracket(const QChar ch) { return ch == leftBracket; }
+    static inline bool isRightBracket(const QChar ch) { return ch == rightBracket; }
+    static inline bool isLetterOrNumber(const QChar ch) { return ch.isLetterOrNumber(); }
+    static inline bool notLetterOrNumber(const QChar ch) { return !ch.isLetterOrNumber(); }
 };

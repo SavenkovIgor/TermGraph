@@ -39,7 +39,6 @@ target_sources (
     PRIVATE ../source/Helpers/linkutils.cpp
             ../source/Helpers/linkutils.h
             ../source/Helpers/handytypes.h
-            ../source/Helpers/text/chartools.cpp
             ../source/Helpers/text/chartools.h
             ../source/Helpers/text/textcursor.cpp
             ../source/Helpers/text/textcursor.h
@@ -169,6 +168,9 @@ target_sources (
     ${TEXT_CURSOR_TEST}
     PRIVATE ../source/Helpers/text/textcursor.cpp
             ../source/Helpers/text/textcursor.h
+            ../source/Helpers/text/checkingtextcursor.cpp
+            ../source/Helpers/text/checkingtextcursor.h
+            ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
             cursortest.cpp)
 
@@ -191,7 +193,6 @@ target_sources (
             ../source/Helpers/text/textsearcher.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
-            ../source/Helpers/text/chartools.cpp
             ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
             textsearchertest.cpp)
@@ -215,7 +216,6 @@ target_sources (
             ../source/Helpers/text/textrange.h
             ../source/Helpers/text/textsearcher.cpp
             ../source/Helpers/text/textsearcher.h
-            ../source/Helpers/text/chartools.cpp
             ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
             textrangetest.cpp)
@@ -239,7 +239,6 @@ target_sources (
             ../source/Helpers/text/textrange.h
             ../source/Helpers/text/textsearcher.cpp
             ../source/Helpers/text/textsearcher.h
-            ../source/Helpers/text/chartools.cpp
             ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
             ../source/Helpers/linkutils.cpp

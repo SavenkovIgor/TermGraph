@@ -62,44 +62,6 @@ private slots:
         QCOMPARE(resultCursor->pos(), 1);
     }
 
-    void complexRightSearch()
-    {
-        QString str("abc ");
-        auto    cursor = TextCursor(str);
-
-        auto resultCursor = TextSearcher::find(cursor, Direction::Right, CharTools::isLetterLeftAndNotLetterRight);
-
-        QVERIFY(resultCursor.has_value());
-        QCOMPARE(resultCursor->pos(), 3);
-
-        QString str2("abc");
-        auto    cur2 = TextCursor(str2);
-
-        auto res2 = TextSearcher::find(cur2, Direction::Right, CharTools::isLetterLeftAndNotLetterRight);
-
-        QVERIFY(res2.has_value());
-        QCOMPARE(res2->pos(), 3);
-    }
-
-    void complexLeftSearch()
-    {
-        QString str(" {abc ");
-        auto    cursor = TextCursor(str, 2);
-
-        auto resultCursor = TextSearcher::find(cursor, Direction::Left, CharTools::isLeftBracketOnRight);
-
-        QVERIFY(resultCursor.has_value());
-        QCOMPARE(resultCursor->pos(), 1);
-
-        QString str2("{abc");
-        auto    cur2 = TextCursor(str2, 2);
-
-        auto res2 = TextSearcher::find(cur2, Direction::Left, CharTools::isLeftBracketOnRight);
-
-        QVERIFY(res2.has_value());
-        QCOMPARE(res2->pos(), 0);
-    }
-
     void failSearch()
     {
         QString str(" {abc ");
@@ -108,13 +70,6 @@ private slots:
         auto resultCursor = TextSearcher::find(cursor, Direction::Right, CharTools::isLeftBracket);
 
         QVERIFY(!resultCursor.has_value());
-
-        QString str2("");
-        auto    cur2 = TextCursor(str2);
-
-        auto res2 = TextSearcher::find(cur2, Direction::Left, CharTools::isLeftBracketOnRight);
-
-        QVERIFY(!res2.has_value());
     }
 
     void wordBorder_data()

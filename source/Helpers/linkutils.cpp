@@ -97,7 +97,7 @@ QString LinkUtils::expandTagRight(QString str, int cursor)
         }
     }
 
-    auto wordEndPos = findCursor(str, wordStartPos, Direction::Right, CharTools::isLetterOrNumberInverse);
+    auto wordEndPos = findCursor(str, wordStartPos, Direction::Right, CharTools::notLetterOrNumber);
 
     if (wordStartPos != nullCursor && wordEndPos == nullCursor) {
         wordEndPos = str.size();

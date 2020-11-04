@@ -35,7 +35,12 @@ public:
     // Tools for creation safety
     static bool isValidCursor(QStringView view, int cursor);
 
-    int        pos() const;
+    int  pos() const;
+    bool atStart() const;
+    bool atEnd() const;
+    bool atBorder() const;
+
+    // WARNING! Can return null QChar!
     opt<QChar> left() const;
     opt<QChar> right() const;
     opt<QChar> getSymbol(Direction dir) const;

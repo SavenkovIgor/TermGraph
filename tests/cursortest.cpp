@@ -24,7 +24,11 @@
 #include <QCoreApplication>
 #include <QtTest>
 
+#include "source/Helpers/text/checkingtextcursor.h"
 #include "source/Helpers/text/textcursor.h"
+
+// TODO: replace all opt<QChar> with just QChar.isNull check
+// TODO: replace TextSearch with cursors
 
 class CursorTest : public QObject
 {
@@ -115,6 +119,32 @@ private slots:
         QCOMPARE(cursor.right(), std::nullopt);
     }
 
+    void bordersCheck()
+    {
+        QString empty("");
+        auto    cur = TextCursor(empty);
+        QCOMPARE(cur.atStart(), true);
+        QCOMPARE(cur.atEnd(), true);
+        QCOMPARE(cur.atBorder(), true);
+
+        QString str("aa");
+        auto    cur2 = TextCursor(str);
+
+        QCOMPARE(cur2.atStart(), true);
+        QCOMPARE(cur2.atEnd(), false);
+        QCOMPARE(cur2.atBorder(), true);
+
+        cur2++;
+        QCOMPARE(cur2.atStart(), false);
+        QCOMPARE(cur2.atEnd(), false);
+        QCOMPARE(cur2.atBorder(), false);
+
+        cur2++;
+        QCOMPARE(cur2.atStart(), false);
+        QCOMPARE(cur2.atEnd(), true);
+        QCOMPARE(cur2.atBorder(), true);
+    }
+
     void posCheck()
     {
         QString str("a");
@@ -139,6 +169,89 @@ private slots:
         cursor++;
         QVERIFY(cursor.canMove(Direction::Left));
         QVERIFY(!cursor.canMove(Direction::Right));
+    }
+
+    void CheckingCursor()
+    {
+        QString            str(" abc a");
+        CheckingTextCursor cursor(str, 1, CharTools::isLetterOrNumber, CharTools::notLetterOrNumber);
+
+        QCOMPARE(cursor.check(), false);
+        cursor++;
+        cursor++;
+        cursor++;
+        QCOMPARE(cursor.check(), true);
+        cursor++;
+        QCOMPARE(cursor.check(), false);
+        cursor++;
+        QCOMPARE(cursor.check(), true);
+    }
+
+    void stdCheckingCursors()
+    {
+        QString str(" abc a");
+        auto    lbCursor = CheckingTextCursor::rightWordBorder(str, 1);
+        QCOMPARE(lbCursor.check(), false);
+        lbCursor++;
+        lbCursor++;
+        lbCursor++;
+        QCOMPARE(lbCursor.check(), true);
+        lbCursor++;
+        QCOMPARE(lbCursor.check(), false);
+        lbCursor++;
+        QCOMPARE(lbCursor.check(), true);
+
+        QString str2("ac a");
+        auto    rbCursor = CheckingTextCursor::leftWordBorder(str2, 3);
+        QCOMPARE(rbCursor.check(), true);
+        rbCursor--;
+        QCOMPARE(rbCursor.check(), false);
+        rbCursor--;
+        QCOMPARE(rbCursor.check(), false);
+        rbCursor--;
+        QCOMPARE(rbCursor.check(), true);
+    }
+
+    void steppingCursor()
+    {
+        QString str(" {abc} a");
+        auto    lCursor = CheckingTextCursor::leftBracketOnRight(str);
+        QCOMPARE(lCursor.search(Direction::Right), true);
+        QCOMPARE(lCursor.pos(), 1);
+        QCOMPARE(lCursor.check(), true);
+        lCursor++;
+        QCOMPARE(lCursor.check(), false);
+
+        QCOMPARE(lCursor.search(Direction::Right), false);
+        QCOMPARE(lCursor.pos(), 8);
+        QCOMPARE(lCursor.check(), false);
+
+        auto rCursor = CheckingTextCursor::rightBracketOnLeft(str, 8);
+        QCOMPARE(rCursor.check(), false);
+        QCOMPARE(rCursor.search(Direction::Left), true);
+        QCOMPARE(rCursor.pos(), 6);
+        QCOMPARE(rCursor.check(), true);
+        rCursor--;
+        QCOMPARE(rCursor.check(), false);
+
+        QCOMPARE(rCursor.search(Direction::Left), false);
+        QCOMPARE(rCursor.pos(), 0);
+        QCOMPARE(rCursor.check(), false);
+
+        auto cursor = CheckingTextCursor::anyBracketOnRight(str);
+
+        QCOMPARE(cursor.check(), false);
+        QCOMPARE(cursor.search(Direction::Right), true);
+        QCOMPARE(cursor.pos(), 1);
+        QCOMPARE(cursor.check(), true);
+        cursor++;
+        QCOMPARE(cursor.search(Direction::Right), true);
+        QCOMPARE(cursor.pos(), 5);
+        QCOMPARE(cursor.check(), true);
+        cursor++;
+        QCOMPARE(cursor.search(Direction::Right), false);
+        QCOMPARE(cursor.pos(), 8);
+        QCOMPARE(cursor.check(), false);
     }
 };
 

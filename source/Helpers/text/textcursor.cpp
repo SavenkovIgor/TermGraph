@@ -34,6 +34,12 @@ bool TextCursor::isValidCursor(QStringView view, int cursor) { return 0 <= curso
 
 int TextCursor::pos() const { return mPos; }
 
+bool TextCursor::atStart() const { return mPos == 0; }
+
+bool TextCursor::atEnd() const { return mPos == mString.size(); }
+
+bool TextCursor::atBorder() const { return atStart() || atEnd(); }
+
 opt<QChar> TextCursor::left() const { return getSymbol(Direction::Left); }
 
 opt<QChar> TextCursor::right() const { return getSymbol(Direction::Right); }
@@ -47,13 +53,7 @@ opt<QChar> TextCursor::getSymbol(Direction dir) const
     return mString[mPos + offset];
 }
 
-bool TextCursor::canMove(Direction dir) const
-{
-    if (dir == Direction::Left)
-        return mPos > 0;
-    else
-        return mPos < mString.size();
-}
+bool TextCursor::canMove(Direction dir) const { return dir == Direction::Left ? !atStart() : !atEnd(); }
 
 bool TextCursor::move(Direction dir)
 {
