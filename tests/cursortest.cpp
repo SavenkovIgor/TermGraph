@@ -27,7 +27,6 @@
 #include "source/Helpers/text/checkingtextcursor.h"
 #include "source/Helpers/text/textcursor.h"
 
-// TODO: replace all opt<QChar> with just QChar.isNull check
 // TODO: replace TextSearch with cursors
 
 class CursorTest : public QObject
@@ -43,11 +42,13 @@ private slots:
         QCOMPARE(cursor.pos(), 1);
         QCOMPARE(cursor.left(), 'a');
         QCOMPARE(cursor.right(), 'b');
+        QCOMPARE(cursor.getSymbol(Direction::Left), 'a');
+        QCOMPARE(cursor.getSymbol(Direction::Right), 'b');
 
         auto emptyCursor = TextCursor(QString());
         QCOMPARE(emptyCursor.pos(), 0);
-        QCOMPARE(emptyCursor.left(), std::nullopt);
-        QCOMPARE(emptyCursor.right(), std::nullopt);
+        QCOMPARE(emptyCursor.left(), QChar());
+        QCOMPARE(emptyCursor.right(), QChar());
     }
 
     void moveCursorLeft()
@@ -61,12 +62,12 @@ private slots:
 
         cursor--;
 
-        QCOMPARE(cursor.left(), std::nullopt);
+        QCOMPARE(cursor.left(), QChar());
         QCOMPARE(cursor.right(), 'a');
 
         cursor--;
 
-        QCOMPARE(cursor.left(), std::nullopt);
+        QCOMPARE(cursor.left(), QChar());
         QCOMPARE(cursor.right(), 'a');
     }
 
@@ -82,12 +83,12 @@ private slots:
         cursor++;
 
         QCOMPARE(cursor.left(), 'c');
-        QCOMPARE(cursor.right(), std::nullopt);
+        QCOMPARE(cursor.right(), QChar());
 
         cursor++;
 
         QCOMPARE(cursor.left(), 'c');
-        QCOMPARE(cursor.right(), std::nullopt);
+        QCOMPARE(cursor.right(), QChar());
     }
 
     void altMove()
@@ -96,17 +97,17 @@ private slots:
 
         auto cursor = TextCursor(str);
 
-        QCOMPARE(cursor.left(), std::nullopt);
+        QCOMPARE(cursor.left(), QChar());
         QCOMPARE(cursor.right(), 'a');
 
         cursor.move(Direction::Right);
 
         QCOMPARE(cursor.left(), 'a');
-        QCOMPARE(cursor.right(), std::nullopt);
+        QCOMPARE(cursor.right(), QChar());
 
         cursor.move(Direction::Left);
 
-        QCOMPARE(cursor.left(), std::nullopt);
+        QCOMPARE(cursor.left(), QChar());
         QCOMPARE(cursor.right(), 'a');
     }
 
@@ -115,8 +116,8 @@ private slots:
         QString str("");
         auto    cursor = TextCursor(str);
 
-        QCOMPARE(cursor.left(), std::nullopt);
-        QCOMPARE(cursor.right(), std::nullopt);
+        QCOMPARE(cursor.left(), QChar());
+        QCOMPARE(cursor.right(), QChar());
     }
 
     void bordersCheck()

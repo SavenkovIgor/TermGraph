@@ -21,14 +21,16 @@
 
 #include "source/Helpers/text/textsearcher.h"
 
+#include "source/Helpers/text/checkingtextcursor.h"
+
 opt<TextCursor> TextSearcher::find(TextCursor startPos, Direction dir, CharTools::ShortCondition checker)
 {
     do {
         auto character = startPos.getSymbol(dir);
-        if (!character)
+        if (character.isNull())
             return std::nullopt;
 
-        if (checker(character.value()))
+        if (checker(character))
             return startPos;
 
         startPos.move(dir);
@@ -57,20 +59,17 @@ opt<TextRange> TextSearcher::selectLink(QStringView str, int startPos)
 
     auto cursor = TextCursor(str, startPos);
 
-    auto nearestBracketOnLeft  = TextSearcher::find(cursor, Direction::Left, CharTools::isBracket);
-    auto nearestBracketOnRight = TextSearcher::find(cursor, Direction::Right, CharTools::isBracket);
+    auto lBracket = CheckingTextCursor::anyBracketOnLeft(str, startPos);
+    auto rBracket = CheckingTextCursor::anyBracketOnRight(str, startPos);
 
-    if (!nearestBracketOnLeft || !nearestBracketOnRight)
+    if (!lBracket.search(Direction::Left) || !rBracket.search(Direction::Right))
         return std::nullopt;
 
-    auto leftBr  = nearestBracketOnLeft->left().value_or(QChar());
-    auto rightBr = nearestBracketOnRight->right().value_or(QChar());
+    lBracket--;
+    rBracket++;
 
-    nearestBracketOnLeft.value()--;
-    nearestBracketOnRight.value()++;
-
-    if (leftBr == CharTools::leftBracket && rightBr == CharTools::rightBracket)
-        return TextRange(str, nearestBracketOnLeft->pos(), nearestBracketOnRight->pos());
+    if (lBracket.right() == CharTools::leftBracket && rBracket.left() == CharTools::rightBracket)
+        return TextRange(str, lBracket.pos(), rBracket.pos());
 
     return std::nullopt;
 }

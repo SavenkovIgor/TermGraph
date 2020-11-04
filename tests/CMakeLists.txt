@@ -42,6 +42,8 @@ target_sources (
             ../source/Helpers/text/chartools.h
             ../source/Helpers/text/textcursor.cpp
             ../source/Helpers/text/textcursor.h
+            ../source/Helpers/text/checkingtextcursor.cpp
+            ../source/Helpers/text/checkingtextcursor.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
             ../source/Helpers/text/textsearcher.cpp
@@ -189,6 +191,8 @@ target_sources (
     ${TEXT_SEARCHER_TEST}
     PRIVATE ../source/Helpers/text/textcursor.cpp
             ../source/Helpers/text/textcursor.h
+            ../source/Helpers/text/checkingtextcursor.cpp
+            ../source/Helpers/text/checkingtextcursor.h
             ../source/Helpers/text/textsearcher.cpp
             ../source/Helpers/text/textsearcher.h
             ../source/Helpers/text/textrange.cpp
@@ -212,6 +216,8 @@ target_sources (
     ${TEXT_RANGE_TEST}
     PRIVATE ../source/Helpers/text/textcursor.cpp
             ../source/Helpers/text/textcursor.h
+            ../source/Helpers/text/checkingtextcursor.cpp
+            ../source/Helpers/text/checkingtextcursor.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
             ../source/Helpers/text/textsearcher.cpp
@@ -235,6 +241,8 @@ target_sources (
     ${TEXT_LINK_TEST}
     PRIVATE ../source/Helpers/text/textcursor.cpp
             ../source/Helpers/text/textcursor.h
+            ../source/Helpers/text/checkingtextcursor.cpp
+            ../source/Helpers/text/checkingtextcursor.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
             ../source/Helpers/text/textsearcher.cpp

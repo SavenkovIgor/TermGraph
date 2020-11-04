@@ -47,10 +47,10 @@ private slots:
         QString   str2;
         TextRange rng2(str2, 0, 0);
 
-        QCOMPARE(rng2.left().left(), std::nullopt);
-        QCOMPARE(rng2.left().right(), std::nullopt);
-        QCOMPARE(rng2.right().left(), std::nullopt);
-        QCOMPARE(rng2.right().right(), std::nullopt);
+        QCOMPARE(rng2.left().left(), QChar());
+        QCOMPARE(rng2.left().right(), QChar());
+        QCOMPARE(rng2.right().left(), QChar());
+        QCOMPARE(rng2.right().right(), QChar());
         QCOMPARE(rng2.isEmpty(), true);
         QCOMPARE(rng2.size(), 0);
     }

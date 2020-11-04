@@ -40,14 +40,14 @@ bool TextCursor::atEnd() const { return mPos == mString.size(); }
 
 bool TextCursor::atBorder() const { return atStart() || atEnd(); }
 
-opt<QChar> TextCursor::left() const { return getSymbol(Direction::Left); }
+QChar TextCursor::left() const { return getSymbol(Direction::Left); }
 
-opt<QChar> TextCursor::right() const { return getSymbol(Direction::Right); }
+QChar TextCursor::right() const { return getSymbol(Direction::Right); }
 
-opt<QChar> TextCursor::getSymbol(Direction dir) const
+QChar TextCursor::getSymbol(Direction dir) const
 {
     if (!canMove(dir)) // Near border
-        return std::nullopt;
+        return QChar();
 
     int offset = dir == Direction::Left ? -1 : 0;
     return mString[mPos + offset];

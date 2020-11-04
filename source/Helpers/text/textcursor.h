@@ -41,9 +41,9 @@ public:
     bool atBorder() const;
 
     // WARNING! Can return null QChar!
-    opt<QChar> left() const;
-    opt<QChar> right() const;
-    opt<QChar> getSymbol(Direction dir) const;
+    QChar left() const;
+    QChar right() const;
+    QChar getSymbol(Direction dir) const;
 
     bool canMove(Direction dir) const;
     bool move(Direction dir);

@@ -41,8 +41,8 @@ bool LinkUtils::isInsideTag(QStringView str, int cursor)
     if (!firstLeftBracket.has_value() || !firstRightBracket.has_value())
         return false;
 
-    auto leftChar  = firstLeftBracket->left().value_or(QChar());
-    auto rightChar = firstRightBracket->right().value_or(QChar());
+    auto leftChar  = firstLeftBracket->left();
+    auto rightChar = firstRightBracket->right();
 
     return leftChar == CharTools::leftBracket && rightChar == CharTools::rightBracket;
 }
