@@ -22,7 +22,7 @@
 #include "source/Helpers/text/textrange.h"
 
 #include "source/Helpers/text/chartools.h"
-#include "source/Helpers/text/textsearcher.h"
+#include "source/Helpers/text/textselector.h"
 
 TextRange::TextRange(QStringView view, int left, int right)
     : mString(view)

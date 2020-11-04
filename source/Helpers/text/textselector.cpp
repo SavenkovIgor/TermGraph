@@ -19,40 +19,27 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Helpers/text/textsearcher.h"
+#include "source/Helpers/text/textselector.h"
 
 #include "source/Helpers/text/checkingtextcursor.h"
 
-opt<TextCursor> TextSearcher::find(TextCursor startPos, Direction dir, CharTools::ShortCondition checker)
-{
-    do {
-        auto character = startPos.getSymbol(dir);
-        if (character.isNull())
-            return std::nullopt;
-
-        if (checker(character))
-            return startPos;
-
-        startPos.move(dir);
-    } while (startPos.canMove(dir));
-
-    return std::nullopt;
-}
-
-TextRange TextSearcher::selectWord(QStringView str, int startPos)
+TextRange TextSelector::selectWord(QStringView str, int startPos)
 {
     auto cursor = TextCursor(str, startPos);
 
-    auto leftOpt  = TextSearcher::find(cursor, Direction::Left, CharTools::notLetterOrNumber);
-    auto rightOpt = TextSearcher::find(cursor, Direction::Right, CharTools::notLetterOrNumber);
+    auto lWord = CheckingTextCursor::leftWordBorder(str, startPos);
+    auto rWord = CheckingTextCursor::rightWordBorder(str, startPos);
 
-    auto left  = leftOpt.value_or(TextCursor(str));
-    auto right = rightOpt.value_or(TextCursor(str, str.length()));
+    lWord.search(Direction::Left);
+    rWord.search(Direction::Right);
 
-    return TextRange(str, left.pos(), right.pos());
+    if (lWord.check() && rWord.check())
+        return TextRange(str, lWord.pos(), rWord.pos());
+
+    return TextRange(str, startPos, startPos);
 }
 
-opt<TextRange> TextSearcher::selectLink(QStringView str, int startPos)
+opt<TextRange> TextSelector::selectLink(QStringView str, int startPos)
 {
     if (!TextCursor::isValidCursor(str, startPos))
         return std::nullopt;

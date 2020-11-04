@@ -24,28 +24,12 @@
 #include <limits>
 
 #include "source/Helpers/intmatrix.h"
+#include "source/Helpers/text/checkingtextcursor.h"
 #include "source/Helpers/text/textcursor.h"
-#include "source/Helpers/text/textsearcher.h"
+#include "source/Helpers/text/textselector.h"
 #include "source/Helpers/validators/linktextvalidator.h"
 
-bool LinkUtils::isInsideTag(QStringView str, int cursor)
-{
-    if (!TextCursor::isValidCursor(str, cursor))
-        return false;
-
-    auto textCursor = TextCursor(str, cursor);
-
-    auto firstLeftBracket  = TextSearcher::find(textCursor, Direction::Left, CharTools::isBracket);
-    auto firstRightBracket = TextSearcher::find(textCursor, Direction::Right, CharTools::isBracket);
-
-    if (!firstLeftBracket.has_value() || !firstRightBracket.has_value())
-        return false;
-
-    auto leftChar  = firstLeftBracket->left();
-    auto rightChar = firstRightBracket->right();
-
-    return leftChar == CharTools::leftBracket && rightChar == CharTools::rightBracket;
-}
+bool LinkUtils::isInsideTag(QStringView str, int cursor) { return TextSelector::selectLink(str, cursor).has_value(); }
 
 /// Описание:
 /// Функция в пустой строке или строке с пробелами вернет {}
@@ -64,7 +48,7 @@ QString LinkUtils::addTag(QString str, int cursor)
     if (isInsideTag(str, cursor))
         return str;
 
-    auto word = TextSearcher::selectWord(str, cursor);
+    auto word = TextSelector::selectWord(str, cursor);
 
     //Сначала вставляем правую, потом левую из за смещения курсора
     str.insert(word.right().pos(), CharTools::rightBracket);
@@ -82,30 +66,32 @@ QString LinkUtils::expandTagRight(QString str, int cursor)
         return str;
 
     // Move to right bracket
-    auto bracketPos = findCursor(str, cursor, Direction::Right, CharTools::isBracket);
-    // Move to word
-    auto wordStartPos = findCursor(str, bracketPos + 1, Direction::Right, CharTools::isLetterOrNumber);
-    if (wordStartPos == -1)
+    auto rBracket = CheckingTextCursor::anyBracketOnRight(str, cursor);
+
+    assert(rBracket.search(Direction::Right));
+    assert(rBracket.right() == CharTools::rightBracket);
+
+    auto lWord = CheckingTextCursor::leftWordBorder(str, rBracket.pos() + 1);
+
+    if (!lWord.search(Direction::Right))
         return str;
 
-    auto openBracketPos = findCursor(str, bracketPos + 1, Direction::Right, CharTools::isLeftBracket);
+    auto lBracketMaybe = CheckingTextCursor::leftBracketOnRight(str, rBracket.pos() + 1);
+    lBracketMaybe.search(Direction::Right);
 
     // Protection from capturing next tag
-    if (openBracketPos != nullCursor) {
-        if (wordStartPos > openBracketPos) {
+    if (lBracketMaybe.check()) {
+        if (lWord.pos() > lBracketMaybe.pos()) {
             return str;
         }
     }
 
-    auto wordEndPos = findCursor(str, wordStartPos, Direction::Right, CharTools::notLetterOrNumber);
+    auto rWord = CheckingTextCursor::rightWordBorder(str, lWord.pos());
+    rWord.search(Direction::Right);
 
-    if (wordStartPos != nullCursor && wordEndPos == nullCursor) {
-        wordEndPos = str.size();
-    }
-
-    if (bracketPos != nullCursor && wordEndPos != nullCursor) {
-        str.insert(wordEndPos, CharTools::rightBracket);
-        str.remove(bracketPos, 1);
+    if (rBracket.check() && rWord.check()) {
+        str.insert(rWord.pos(), CharTools::rightBracket);
+        str.remove(rBracket.pos(), 1);
         return str;
     }
 
@@ -125,9 +111,11 @@ QString LinkUtils::removeTag(QString str, int cursor)
     if (!isInsideTag(str, cursor))
         return str;
 
-    auto textCursor   = TextCursor(str, cursor);
-    auto leftBracket  = TextSearcher::find(textCursor, Direction::Left, CharTools::isBracket).value();
-    auto rightBracket = TextSearcher::find(textCursor, Direction::Right, CharTools::isBracket).value();
+    auto leftBracket  = CheckingTextCursor::anyBracketOnLeft(str, cursor);
+    auto rightBracket = CheckingTextCursor::anyBracketOnRight(str, cursor);
+
+    leftBracket.search(Direction::Left);
+    rightBracket.search(Direction::Right);
 
     //Сначала удаляем правую, потом левую из за смещения индексов
     str.remove(rightBracket.pos(), 1);
@@ -254,12 +242,6 @@ int LinkUtils::wordsCount(const QString& string)
     return 0;
 }
 
-int LinkUtils::findCursor(QStringView str, int from, Direction direction, CharTools::ShortCondition exitCondition)
-{
-    auto cursor = TextSearcher::find(TextCursor(str, from), direction, exitCondition);
-    return cursor.has_value() ? cursor.value().pos() : nullCursor;
-}
-
 int LinkUtils::linksCount(QStringView str)
 {
     bool isValidLinks = LinkTextValidator::isValidLinkString(str);
@@ -278,7 +260,7 @@ TextRange LinkUtils::linkAt(QStringView str, int index)
     for (int i = 0; i <= index; i++)
         strPos = str.indexOf(CharTools::leftBracket, strPos + 1);
 
-    auto ret = TextSearcher::selectLink(str, strPos + 1);
+    auto ret = TextSelector::selectLink(str, strPos + 1);
 
     assert(ret.has_value());
 

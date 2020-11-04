@@ -46,8 +46,8 @@ target_sources (
             ../source/Helpers/text/checkingtextcursor.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
-            ../source/Helpers/text/textsearcher.cpp
-            ../source/Helpers/text/textsearcher.h
+            ../source/Helpers/text/textselector.cpp
+            ../source/Helpers/text/textselector.h
             ../source/Helpers/validators/linktextvalidator.cpp
             ../source/Helpers/validators/linktextvalidator.h
             ../source/Helpers/intmatrix.cpp
@@ -176,30 +176,30 @@ target_sources (
             ../source/Helpers/handytypes.h
             cursortest.cpp)
 
-# TEXT_SEARCHER_TEST
-set (TEXT_SEARCHER_TEST "TextSearcherTest")
+# TEXT_SELECTOR_TEST
+set (TEXT_SELECTOR_TEST "TextSelectorTest")
 
-add_executable (${TEXT_SEARCHER_TEST})
-target_link_libraries (${TEXT_SEARCHER_TEST} PRIVATE Qt5::Test)
-add_test (NAME ${TEXT_SEARCHER_TEST} COMMAND ${TEXT_SEARCHER_TEST})
-set_target_properties (${TEXT_SEARCHER_TEST} PROPERTIES
+add_executable (${TEXT_SELECTOR_TEST})
+target_link_libraries (${TEXT_SELECTOR_TEST} PRIVATE Qt5::Test)
+add_test (NAME ${TEXT_SELECTOR_TEST} COMMAND ${TEXT_SELECTOR_TEST})
+set_target_properties (${TEXT_SELECTOR_TEST} PROPERTIES
     AUTOMOC ON
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON)
 
 target_sources (
-    ${TEXT_SEARCHER_TEST}
+    ${TEXT_SELECTOR_TEST}
     PRIVATE ../source/Helpers/text/textcursor.cpp
             ../source/Helpers/text/textcursor.h
             ../source/Helpers/text/checkingtextcursor.cpp
             ../source/Helpers/text/checkingtextcursor.h
-            ../source/Helpers/text/textsearcher.cpp
-            ../source/Helpers/text/textsearcher.h
+            ../source/Helpers/text/textselector.cpp
+            ../source/Helpers/text/textselector.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
             ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
-            textsearchertest.cpp)
+            textselectortest.cpp)
 
 # TEXT_RANGE_TEST
 set (TEXT_RANGE_TEST "TextRangeTest")
@@ -220,8 +220,8 @@ target_sources (
             ../source/Helpers/text/checkingtextcursor.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
-            ../source/Helpers/text/textsearcher.cpp
-            ../source/Helpers/text/textsearcher.h
+            ../source/Helpers/text/textselector.cpp
+            ../source/Helpers/text/textselector.h
             ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
             textrangetest.cpp)
@@ -245,8 +245,8 @@ target_sources (
             ../source/Helpers/text/checkingtextcursor.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
-            ../source/Helpers/text/textsearcher.cpp
-            ../source/Helpers/text/textsearcher.h
+            ../source/Helpers/text/textselector.cpp
+            ../source/Helpers/text/textselector.h
             ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
             ../source/Helpers/linkutils.cpp

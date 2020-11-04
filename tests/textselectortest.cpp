@@ -26,52 +26,13 @@
 
 #include "source/Helpers/text/chartools.h"
 #include "source/Helpers/text/textcursor.h"
-#include "source/Helpers/text/textsearcher.h"
+#include "source/Helpers/text/textselector.h"
 
 class SearcherTest : public QObject
 {
     Q_OBJECT
 
 private slots:
-    void simpleRigthSearch()
-    {
-        QString str("abc{");
-        auto    cursor = TextCursor(str);
-
-        auto resultCursor = TextSearcher::find(cursor, Direction::Right, CharTools::isLeftBracket);
-
-        QVERIFY(resultCursor.has_value());
-        QCOMPARE(resultCursor->pos(), 3);
-
-        auto cursor2 = TextCursor(str, 3);
-
-        auto resultCursor2 = TextSearcher::find(cursor2, Direction::Right, CharTools::isLeftBracket);
-
-        QVERIFY(resultCursor2.has_value());
-        QCOMPARE(resultCursor2->pos(), 3);
-    }
-
-    void simpleLeftSearch()
-    {
-        QString str("}abc{");
-        auto    cursor = TextCursor(str, 2);
-
-        auto resultCursor = TextSearcher::find(cursor, Direction::Left, CharTools::isRightBracket);
-
-        QVERIFY(resultCursor.has_value());
-        QCOMPARE(resultCursor->pos(), 1);
-    }
-
-    void failSearch()
-    {
-        QString str(" {abc ");
-        auto    cursor = TextCursor(str, 2);
-
-        auto resultCursor = TextSearcher::find(cursor, Direction::Right, CharTools::isLeftBracket);
-
-        QVERIFY(!resultCursor.has_value());
-    }
-
     void wordBorder_data()
     {
         QTest::addColumn<QString>("src");
@@ -116,7 +77,7 @@ private slots:
         QFETCH(bool, isEmpty);
         QFETCH(int, size);
 
-        auto borders = TextSearcher::selectWord(src, startFrom);
+        auto borders = TextSelector::selectWord(src, startFrom);
 
         QCOMPARE(borders.left().pos(), leftPos);
         QCOMPARE(borders.right().pos(), rightPos);
@@ -163,7 +124,7 @@ private slots:
         QFETCH(bool, isEmpty);
         QFETCH(int, size);
 
-        auto borders = TextSearcher::selectLink(src, startFrom);
+        auto borders = TextSelector::selectLink(src, startFrom);
         QCOMPARE(borders.has_value(), result);
 
         if (borders.has_value()) {
@@ -177,4 +138,4 @@ private slots:
 
 QTEST_APPLESS_MAIN(SearcherTest)
 
-#include "textsearchertest.moc"
+#include "textselectortest.moc"

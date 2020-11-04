@@ -54,9 +54,7 @@ public:
     // Words
     static int wordsCount(const QString& string);
 
-    // Cursor
-    static int findCursor(QStringView str, int from, Direction direction, CharTools::ShortCondition exitCondition);
-
+    // Links
     static int       linksCount(QStringView str);
     static TextRange linkAt(QStringView str, int index);
 

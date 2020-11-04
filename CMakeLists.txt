@@ -135,8 +135,8 @@ target_sources (
             source/Helpers/tagprocessor.cpp
             source/Helpers/tagprocessor.h
             source/Helpers/text/chartools.h
-            source/Helpers/text/textsearcher.cpp
-            source/Helpers/text/textsearcher.h
+            source/Helpers/text/textselector.cpp
+            source/Helpers/text/textselector.h
             source/Helpers/text/textcursor.cpp
             source/Helpers/text/textcursor.h
             source/Helpers/text/checkingtextcursor.cpp

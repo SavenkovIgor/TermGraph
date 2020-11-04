@@ -27,7 +27,7 @@
 #include "source/Helpers/text/chartools.h"
 #include "source/Helpers/text/textcursor.h"
 #include "source/Helpers/text/textrange.h"
-#include "source/Helpers/text/textsearcher.h"
+#include "source/Helpers/text/textselector.h"
 
 class TextRangeTest : public QObject
 {

@@ -26,11 +26,9 @@
 #include "source/Helpers/text/textcursor.h"
 #include "source/Helpers/text/textrange.h"
 
-class TextSearcher
+class TextSelector
 {
 public:
-    static opt<TextCursor> find(TextCursor startPos, Direction dir, CharTools::ShortCondition checker);
-
     static TextRange      selectWord(QStringView str, int startPos);
     static opt<TextRange> selectLink(QStringView str, int startPos);
 };
