@@ -27,11 +27,8 @@ TextRange TextSelector::selectWord(QStringView str, int startPos)
 {
     auto cursor = TextCursor(str, startPos);
 
-    auto lWord = CheckingTextCursor::leftWordBorder(str, startPos);
-    auto rWord = CheckingTextCursor::rightWordBorder(str, startPos);
-
-    lWord.search(Direction::Left);
-    rWord.search(Direction::Right);
+    auto lWord = CheckingTextCursor::leftWordBorder(str, startPos, Direction::Left);
+    auto rWord = CheckingTextCursor::rightWordBorder(str, startPos, Direction::Right);
 
     if (lWord.check() && rWord.check())
         return TextRange(str, lWord.pos(), rWord.pos());
@@ -46,10 +43,10 @@ opt<TextRange> TextSelector::selectLink(QStringView str, int startPos)
 
     auto cursor = TextCursor(str, startPos);
 
-    auto lBracket = CheckingTextCursor::anyBracketOnLeft(str, startPos);
-    auto rBracket = CheckingTextCursor::anyBracketOnRight(str, startPos);
+    auto lBracket = CheckingTextCursor::anyBracketOnLeft(str, startPos, Direction::Left);
+    auto rBracket = CheckingTextCursor::anyBracketOnRight(str, startPos, Direction::Right);
 
-    if (!lBracket.search(Direction::Left) || !rBracket.search(Direction::Right))
+    if (!lBracket.check() || !rBracket.check())
         return std::nullopt;
 
     lBracket--;

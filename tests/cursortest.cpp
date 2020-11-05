@@ -27,8 +27,6 @@
 #include "source/Helpers/text/checkingtextcursor.h"
 #include "source/Helpers/text/textcursor.h"
 
-// TODO: replace TextSearch with cursors
-
 class CursorTest : public QObject
 {
     Q_OBJECT
@@ -243,6 +241,42 @@ private slots:
 
         QCOMPARE(cursor.check(), false);
         QCOMPARE(cursor.search(Direction::Right), true);
+        QCOMPARE(cursor.pos(), 1);
+        QCOMPARE(cursor.check(), true);
+        cursor++;
+        QCOMPARE(cursor.search(Direction::Right), true);
+        QCOMPARE(cursor.pos(), 5);
+        QCOMPARE(cursor.check(), true);
+        cursor++;
+        QCOMPARE(cursor.search(Direction::Right), false);
+        QCOMPARE(cursor.pos(), 8);
+        QCOMPARE(cursor.check(), false);
+    }
+
+    void autoSearchCursor()
+    {
+        QString str(" {abc} a");
+        auto    lCursor = CheckingTextCursor::leftBracketOnRight(str, 0, Direction::Right);
+        QCOMPARE(lCursor.pos(), 1);
+        QCOMPARE(lCursor.check(), true);
+        lCursor++;
+        QCOMPARE(lCursor.check(), false);
+
+        QCOMPARE(lCursor.search(Direction::Right), false);
+        QCOMPARE(lCursor.pos(), 8);
+        QCOMPARE(lCursor.check(), false);
+
+        auto rCursor = CheckingTextCursor::rightBracketOnLeft(str, 8, Direction::Left);
+        QCOMPARE(rCursor.pos(), 6);
+        QCOMPARE(rCursor.check(), true);
+        rCursor--;
+        QCOMPARE(rCursor.check(), false);
+
+        QCOMPARE(rCursor.search(Direction::Left), false);
+        QCOMPARE(rCursor.pos(), 0);
+        QCOMPARE(rCursor.check(), false);
+
+        auto cursor = CheckingTextCursor::anyBracketOnRight(str, 0, Direction::Right);
         QCOMPARE(cursor.pos(), 1);
         QCOMPARE(cursor.check(), true);
         cursor++;

@@ -66,18 +66,16 @@ QString LinkUtils::expandTagRight(QString str, int cursor)
         return str;
 
     // Move to right bracket
-    auto rBracket = CheckingTextCursor::anyBracketOnRight(str, cursor);
+    auto rBracket = CheckingTextCursor::anyBracketOnRight(str, cursor, Direction::Right);
 
-    assert(rBracket.search(Direction::Right));
     assert(rBracket.right() == CharTools::rightBracket);
 
-    auto lWord = CheckingTextCursor::leftWordBorder(str, rBracket.pos() + 1);
+    auto lWord = CheckingTextCursor::leftWordBorder(str, rBracket.pos() + 1, Direction::Right);
 
-    if (!lWord.search(Direction::Right))
+    if (!lWord.check()) // if not found
         return str;
 
-    auto lBracketMaybe = CheckingTextCursor::leftBracketOnRight(str, rBracket.pos() + 1);
-    lBracketMaybe.search(Direction::Right);
+    auto lBracketMaybe = CheckingTextCursor::leftBracketOnRight(str, rBracket.pos() + 1, Direction::Right);
 
     // Protection from capturing next tag
     if (lBracketMaybe.check()) {
@@ -86,8 +84,7 @@ QString LinkUtils::expandTagRight(QString str, int cursor)
         }
     }
 
-    auto rWord = CheckingTextCursor::rightWordBorder(str, lWord.pos());
-    rWord.search(Direction::Right);
+    auto rWord = CheckingTextCursor::rightWordBorder(str, lWord.pos(), Direction::Right);
 
     if (rBracket.check() && rWord.check()) {
         str.insert(rWord.pos(), CharTools::rightBracket);
@@ -111,11 +108,11 @@ QString LinkUtils::removeTag(QString str, int cursor)
     if (!isInsideTag(str, cursor))
         return str;
 
-    auto leftBracket  = CheckingTextCursor::anyBracketOnLeft(str, cursor);
-    auto rightBracket = CheckingTextCursor::anyBracketOnRight(str, cursor);
+    auto leftBracket  = CheckingTextCursor::anyBracketOnLeft(str, cursor, Direction::Left);
+    auto rightBracket = CheckingTextCursor::anyBracketOnRight(str, cursor, Direction::Right);
 
-    leftBracket.search(Direction::Left);
-    rightBracket.search(Direction::Right);
+    assert(leftBracket.check());
+    assert(rightBracket.check());
 
     //Сначала удаляем правую, потом левую из за смещения индексов
     str.remove(rightBracket.pos(), 1);

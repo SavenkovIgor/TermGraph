@@ -24,11 +24,15 @@
 CheckingTextCursor::CheckingTextCursor(QStringView                   strView,
                                        int                           pos,
                                        CheckingTextCursor::Condition leftChecker,
-                                       CheckingTextCursor::Condition rightChecker)
+                                       CheckingTextCursor::Condition rightChecker,
+                                       opt<Direction>                autoStartSearch)
     : TextCursor(strView, pos)
     , mLeftChecker(leftChecker)
     , mRightChecker(rightChecker)
-{}
+{
+    if (autoStartSearch.has_value())
+        search(autoStartSearch.value());
+}
 
 bool CheckingTextCursor::check() const { return mLeftChecker(left()) && mRightChecker(right()); }
 
@@ -44,32 +48,32 @@ bool CheckingTextCursor::search(Direction dir)
     return check();
 }
 
-CheckingTextCursor CheckingTextCursor::rightWordBorder(QStringView strView, int pos)
+CheckingTextCursor CheckingTextCursor::rightWordBorder(QStringView strView, int pos, opt<Direction> autoStartSearch)
 {
-    return CheckingTextCursor(strView, pos, CharTools::isLetterOrNumber, CharTools::notLetterOrNumber);
+    return CheckingTextCursor(strView, pos, CharTools::isLetterOrNumber, CharTools::notLetterOrNumber, autoStartSearch);
 }
 
-CheckingTextCursor CheckingTextCursor::leftWordBorder(QStringView strView, int pos)
+CheckingTextCursor CheckingTextCursor::leftWordBorder(QStringView strView, int pos, opt<Direction> autoStartSearch)
 {
-    return CheckingTextCursor(strView, pos, CharTools::notLetterOrNumber, CharTools::isLetterOrNumber);
+    return CheckingTextCursor(strView, pos, CharTools::notLetterOrNumber, CharTools::isLetterOrNumber, autoStartSearch);
 }
 
-CheckingTextCursor CheckingTextCursor::leftBracketOnRight(QStringView strView, int pos)
+CheckingTextCursor CheckingTextCursor::leftBracketOnRight(QStringView strView, int pos, opt<Direction> autoStartSearch)
 {
-    return CheckingTextCursor(strView, pos, CharTools::any, CharTools::isLeftBracket);
+    return CheckingTextCursor(strView, pos, CharTools::any, CharTools::isLeftBracket, autoStartSearch);
 }
 
-CheckingTextCursor CheckingTextCursor::rightBracketOnLeft(QStringView strView, int pos)
+CheckingTextCursor CheckingTextCursor::rightBracketOnLeft(QStringView strView, int pos, opt<Direction> autoStartSearch)
 {
-    return CheckingTextCursor(strView, pos, CharTools::isRightBracket, CharTools::any);
+    return CheckingTextCursor(strView, pos, CharTools::isRightBracket, CharTools::any, autoStartSearch);
 }
 
-CheckingTextCursor CheckingTextCursor::anyBracketOnRight(QStringView strView, int pos)
+CheckingTextCursor CheckingTextCursor::anyBracketOnRight(QStringView strView, int pos, opt<Direction> autoStartSearch)
 {
-    return CheckingTextCursor(strView, pos, CharTools::any, CharTools::isBracket);
+    return CheckingTextCursor(strView, pos, CharTools::any, CharTools::isBracket, autoStartSearch);
 }
 
-CheckingTextCursor CheckingTextCursor::anyBracketOnLeft(QStringView strView, int pos)
+CheckingTextCursor CheckingTextCursor::anyBracketOnLeft(QStringView strView, int pos, opt<Direction> autoStartSearch)
 {
-    return CheckingTextCursor(strView, pos, CharTools::isBracket, CharTools::any);
+    return CheckingTextCursor(strView, pos, CharTools::isBracket, CharTools::any, autoStartSearch);
 }
