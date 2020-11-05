@@ -251,8 +251,8 @@ target_sources (
             ../source/Helpers/handytypes.h
             ../source/Helpers/linkutils.cpp
             ../source/Helpers/linkutils.h
-            ../source/Model/Termin/textlink.cpp
-            ../source/Model/Termin/textlink.h
+            ../source/Helpers/text/textlink.cpp
+            ../source/Helpers/text/textlink.h
             ../source/Helpers/intmatrix.cpp
             ../source/Helpers/intmatrix.h
             ../source/Helpers/uuid/uuidtools.cpp

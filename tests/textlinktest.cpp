@@ -24,8 +24,8 @@
 #include <QCoreApplication>
 #include <QtTest>
 
+#include "source/Helpers/text/textlink.h"
 #include "source/Helpers/text/textrange.h"
-#include "source/Model/Termin/textlink.h"
 
 #include <QDebug>
 
