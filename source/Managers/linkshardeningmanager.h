@@ -25,6 +25,7 @@
 #include <QStringView>
 
 #include "source/Helpers/handytypes.h"
+#include "source/Helpers/text/linkstext.h"
 #include "source/Model/Termin/nodegadgetwrapper.h"
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminGroup/termgroup.h"

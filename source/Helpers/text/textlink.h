@@ -45,6 +45,8 @@ public:
 
     [[nodiscard]] QString createLinkWithUuid(const QUuid& uuid) const;
 
+    static opt<TextLink> selectLink(QStringView str, int startPos);
+
 private: //Methods
     static QStringView getText(QStringView fullLink);
     static QString     getLower(QStringView text);

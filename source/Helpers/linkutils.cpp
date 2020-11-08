@@ -27,10 +27,9 @@
 #include "source/Helpers/text/chartools.h"
 #include "source/Helpers/text/checkingtextcursor.h"
 #include "source/Helpers/text/textcursor.h"
-#include "source/Helpers/text/textselector.h"
 #include "source/Helpers/validators/linktextvalidator.h"
 
-bool LinkUtils::isInsideTag(QStringView str, int cursor) { return TextSelector::selectLink(str, cursor).has_value(); }
+bool LinkUtils::isInsideTag(QStringView str, int cursor) { return TextLink::selectLink(str, cursor).has_value(); }
 
 /// Описание:
 /// Функция в пустой строке или строке с пробелами вернет {}
@@ -49,7 +48,7 @@ QString LinkUtils::addTag(QString str, int cursor)
     if (isInsideTag(str, cursor))
         return str;
 
-    auto word = TextSelector::selectWord(str, cursor);
+    auto word = TextRange::selectWord(str, cursor);
 
     //Сначала вставляем правую, потом левую из за смещения курсора
     str.insert(word.right().pos(), CharTools::rightBracket);
@@ -258,7 +257,7 @@ TextLink LinkUtils::linkAt(QStringView str, int index)
     for (int i = 0; i <= index; i++)
         strPos = str.indexOf(CharTools::leftBracket, strPos + 1);
 
-    auto ret = TextSelector::selectLink(str, strPos + 1);
+    auto ret = TextLink::selectLink(str, strPos + 1);
 
     assert(ret.has_value());
 

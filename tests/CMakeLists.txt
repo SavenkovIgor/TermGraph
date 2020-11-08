@@ -50,8 +50,6 @@ target_sources (
             ../source/Helpers/text/textlink.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
-            ../source/Helpers/text/textselector.cpp
-            ../source/Helpers/text/textselector.h
             ../source/Helpers/uuid/uuidtools.cpp
             ../source/Helpers/uuid/uuidtools.h
             ../source/Helpers/validators/linktextvalidator.cpp
@@ -161,6 +159,7 @@ target_sources (
             ../source/Helpers/validators/uuidvalidator.h
             uuidstest.cpp)
 
+
 # TEXT_CURSOR_TEST
 set (TEXT_CURSOR_TEST "TextCursorTest")
 
@@ -182,40 +181,6 @@ target_sources (
             ../source/Helpers/handytypes.h
             cursortest.cpp)
 
-# TEXT_SELECTOR_TEST
-set (TEXT_SELECTOR_TEST "TextSelectorTest")
-
-add_executable (${TEXT_SELECTOR_TEST})
-target_link_libraries (${TEXT_SELECTOR_TEST} PRIVATE Qt5::Test)
-add_test (NAME ${TEXT_SELECTOR_TEST} COMMAND ${TEXT_SELECTOR_TEST})
-set_target_properties (${TEXT_SELECTOR_TEST} PROPERTIES
-    AUTOMOC ON
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON)
-
-target_sources (
-    ${TEXT_SELECTOR_TEST}
-    PRIVATE ../source/Helpers/handytypes.h
-            ../source/Helpers/text/chartools.h
-            ../source/Helpers/text/checkingtextcursor.cpp
-            ../source/Helpers/text/checkingtextcursor.h
-            ../source/Helpers/text/textcursor.cpp
-            ../source/Helpers/text/textcursor.h
-            ../source/Helpers/text/textlink.cpp
-            ../source/Helpers/text/textlink.h
-            ../source/Helpers/text/textrange.cpp
-            ../source/Helpers/text/textrange.h
-            ../source/Helpers/text/textselector.cpp
-            ../source/Helpers/text/textselector.h
-            ../source/Helpers/intmatrix.cpp
-            ../source/Helpers/intmatrix.h
-            ../source/Helpers/uuid/uuidtools.cpp
-            ../source/Helpers/uuid/uuidtools.h
-            ../source/Helpers/validators/uuidvalidator.cpp
-            ../source/Helpers/validators/uuidvalidator.h
-            ../source/Helpers/validators/linktextvalidator.cpp
-            ../source/Helpers/validators/linktextvalidator.h
-            textselectortest.cpp)
 
 # TEXT_RANGE_TEST
 set (TEXT_RANGE_TEST "TextRangeTest")
@@ -242,8 +207,6 @@ target_sources (
             ../source/Helpers/uuid/uuidtools.h
             ../source/Helpers/intmatrix.cpp
             ../source/Helpers/intmatrix.h
-            ../source/Helpers/text/textselector.cpp
-            ../source/Helpers/text/textselector.h
             ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
             ../source/Helpers/validators/uuidvalidator.cpp
@@ -251,6 +214,7 @@ target_sources (
             ../source/Helpers/validators/linktextvalidator.cpp
             ../source/Helpers/validators/linktextvalidator.h
             textrangetest.cpp)
+
 
 # TEXT_LINK_TEST
 set (TEXT_LINK_TEST "TextLinkTest")
@@ -271,8 +235,6 @@ target_sources (
             ../source/Helpers/text/checkingtextcursor.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
-            ../source/Helpers/text/textselector.cpp
-            ../source/Helpers/text/textselector.h
             ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
             ../source/Helpers/text/textlink.cpp

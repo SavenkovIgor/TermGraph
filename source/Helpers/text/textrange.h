@@ -45,6 +45,8 @@ public:
 
     QStringView rangeView() const;
 
+    static TextRange selectWord(QStringView str, int startPos);
+
 protected: // Members
     const QStringView mString;
     const TextCursor  mLeftCursor;

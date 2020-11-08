@@ -22,6 +22,7 @@
 #include "source/Helpers/text/textlink.h"
 
 #include "source/Helpers/text/chartools.h"
+#include "source/Helpers/text/checkingtextcursor.h"
 #include "source/Helpers/uuid/uuidtools.h"
 
 TextLink::TextLink(QStringView strView, int left, int right)
@@ -55,6 +56,28 @@ QString TextLink::createLinkWithUuid(const QUuid& uuid) const
     linkText += CharTools::linkSplitter + UuidTools::cutBraces(uuid);
     linkText = CharTools::leftBracket + linkText + CharTools::rightBracket;
     return linkText;
+}
+
+opt<TextLink> TextLink::selectLink(QStringView str, int startPos)
+{
+    if (!TextCursor::isValidCursor(str, startPos))
+        return std::nullopt;
+
+    auto cursor = TextCursor(str, startPos);
+
+    auto lBracket = CheckingTextCursor::anyBracketOnLeft(str, startPos, Direction::Left);
+    auto rBracket = CheckingTextCursor::anyBracketOnRight(str, startPos, Direction::Right);
+
+    if (!lBracket.check() || !rBracket.check())
+        return std::nullopt;
+
+    lBracket--;
+    rBracket++;
+
+    if (lBracket.right() == CharTools::leftBracket && rBracket.left() == CharTools::rightBracket)
+        return TextLink(str, lBracket.pos(), rBracket.pos());
+
+    return std::nullopt;
 }
 
 QStringView TextLink::getText(QStringView fullLink)

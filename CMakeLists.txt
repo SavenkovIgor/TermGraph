@@ -145,8 +145,6 @@ target_sources (
             source/Helpers/text/textlink.h
             source/Helpers/text/textrange.cpp
             source/Helpers/text/textrange.h
-            source/Helpers/text/textselector.cpp
-            source/Helpers/text/textselector.h
             source/Helpers/textprocessor.cpp
             source/Helpers/textprocessor.h
             source/Helpers/textutils.cpp

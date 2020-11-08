@@ -21,6 +21,8 @@
 
 #include "source/Helpers/text/textrange.h"
 
+#include "source/Helpers/text/checkingtextcursor.h"
+
 TextRange::TextRange(QStringView view, int left, int right)
     : mString(view)
     , mLeftCursor(view, left)
@@ -47,3 +49,16 @@ std::pair<QString, int> TextRange::cutted() const
 }
 
 QStringView TextRange::rangeView() const { return mString.mid(left().pos(), size()); }
+
+TextRange TextRange::selectWord(QStringView str, int startPos)
+{
+    auto cursor = TextCursor(str, startPos);
+
+    auto lWord = CheckingTextCursor::leftWordBorder(str, startPos, Direction::Left);
+    auto rWord = CheckingTextCursor::rightWordBorder(str, startPos, Direction::Right);
+
+    if (lWord.check() && rWord.check())
+        return TextRange(str, lWord.pos(), rWord.pos());
+
+    return TextRange(str, startPos, startPos);
+}

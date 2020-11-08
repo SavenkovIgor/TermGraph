@@ -29,19 +29,21 @@
 class LinksText
 {
 public:
-    static opt<LinksText> create(QStringView str);
+    LinksText(QStringView str);
 
-    int count() const;
+    int     count() const;
+    QString text() const;
 
     QString replaceLink(int index, QString text) const;
 
-    QString text() const;
-
-    TextLink operator[](int index) const;
+    const TextLink& operator[](int index) const;
 
 private: // Methods
-    LinksText(QStringView str);
+    static int            getCount(QStringView strView);
+    static TextLink::List extractLinks(QStringView strView);
 
 private: // Members
-    const QStringView mString;
+    const QStringView    mString;
+    const int            mCount;
+    const TextLink::List mLinks;
 };

@@ -29,7 +29,6 @@
 #include "source/Helpers/text/textrange.h"
 
 // TODO: Move some functions of linkutils to LinksText
-// TODO: TextSelector must return TextLink
 // TODO: Remove uuidValidator
 
 class TextLinkTest : public QObject
@@ -37,6 +36,56 @@ class TextLinkTest : public QObject
     Q_OBJECT
 
 private slots:
+    void linkSearch_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<int>("startFrom");
+        QTest::addColumn<bool>("result");
+
+        QTest::addColumn<int>("leftPos");
+        QTest::addColumn<int>("rightPos");
+        QTest::addColumn<bool>("isEmpty");
+        QTest::addColumn<int>("size");
+
+        // clang-format off
+        QTest::newRow("case01") << ""                                             << 0 << false << -1 << -1 << true  << 0;
+        QTest::newRow("case02") << " "                                            << 0 << false << -1 << -1 << true  << 0;
+        QTest::newRow("case03") << "  "                                           << 1 << false << -1 << -1 << true  << 0;
+        QTest::newRow("case04") << "} {"                                          << 0 << false << -1 << -1 << true  << 0;
+        QTest::newRow("case05") << "} {"                                          << 1 << false << -1 << -1 << true  << 0;
+        QTest::newRow("case06") << "} {"                                          << 2 << false << -1 << -1 << true  << 0;
+        QTest::newRow("case07") << "} {"                                          << 3 << false << -1 << -1 << true  << 0;
+        QTest::newRow("case08") << "{} {}"                                        << 2 << false << -1 << -1 << true  << 0;
+        QTest::newRow("case09") << " {a}"                                         << 1 << false << -1 << -1 << true  << 3;
+        QTest::newRow("case10") << " { abc2 }"                                    << 2 << true  <<  1 <<  9 << false << 8;
+        QTest::newRow("case11") << " {a} {b}"                                     << 2 << true  <<  1 <<  4 << false << 3;
+        QTest::newRow("case12") << "{}ab"                                         << 1 << true  <<  0 <<  2 << false << 2;
+        QTest::newRow("case13") << " {ab|94810de3-51b8-469e-b316-00248ffa2a45}"   << 2 << true  <<  1 << 42 << false << 41;
+        QTest::newRow("case14") << " { ab |94810de3-51b8-469e-b316-00248ffa2a45}" << 2 << true  <<  1 << 44 << false << 43;
+        // clang-format on
+    }
+
+    void linkSearch()
+    {
+        QFETCH(QString, src);
+        QFETCH(int, startFrom);
+        QFETCH(bool, result);
+        QFETCH(int, leftPos);
+        QFETCH(int, rightPos);
+        QFETCH(bool, isEmpty);
+        QFETCH(int, size);
+
+        auto borders = TextLink::selectLink(src, startFrom);
+        QCOMPARE(borders.has_value(), result);
+
+        if (borders.has_value()) {
+            QCOMPARE(borders->left().pos(), leftPos);
+            QCOMPARE(borders->right().pos(), rightPos);
+            QCOMPARE(borders->isEmpty(), isEmpty);
+            QCOMPARE(borders->size(), size);
+        }
+    }
+
     void textLinkWithUuid()
     {
         auto link = TextLink(linkedTextWithUuid, 5, 48);
@@ -63,32 +112,24 @@ private slots:
 
     void linksText()
     {
-        auto textOpt1 = LinksText::create(multipleLinks);
-
-        QCOMPARE(textOpt1.has_value(), true);
-
-        auto text = textOpt1.value();
+        auto text = LinksText(multipleLinks);
 
         QCOMPARE(text.count(), 3);
-        QCOMPARE(text[1].fullLink(), QString("{b}"));
-        QCOMPARE(text[1].text(), QString("b"));
+        QCOMPARE(text[1].fullLink(), QString("{bc}"));
+        QCOMPARE(text[1].text(), QString("bc"));
 
-        QCOMPARE(LinksText::create(invalidLinksText1).has_value(), false);
-        QCOMPARE(LinksText::create(invalidLinksText2).has_value(), false);
-        QCOMPARE(LinksText::create(invalidLinksText3).has_value(), false);
+        QCOMPARE(LinksText(invalidLinksText1).count(), 0);
+        QCOMPARE(LinksText(invalidLinksText2).count(), 0);
+        QCOMPARE(LinksText(invalidLinksText3).count(), 0);
     }
 
     void linksReplacement()
     {
-        auto textOpt1 = LinksText::create(multipleLinks);
+        auto lText = LinksText(multipleLinks);
 
-        QCOMPARE(textOpt1.has_value(), true);
+        auto res = lText.replaceLink(1, "{aaa}");
 
-        auto lText = textOpt1.value();
-
-        lText.replaceLink(1, "{aaa}");
-
-        QCOMPARE(lText.text(), " {abc} {aaa} {c}");
+        QCOMPARE(res, " {abc} {aaa} {c}");
     }
 
 private:
