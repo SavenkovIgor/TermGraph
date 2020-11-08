@@ -24,7 +24,6 @@
 #include <QCoreApplication>
 #include <QtTest>
 
-#include "source/Helpers/text/chartools.h"
 #include "source/Helpers/text/textcursor.h"
 #include "source/Helpers/text/textselector.h"
 

@@ -36,22 +36,28 @@ set_target_properties (${LINK_UTILS_TEST} PROPERTIES
 
 target_sources (
     ${LINK_UTILS_TEST}
-    PRIVATE ../source/Helpers/linkutils.cpp
+    PRIVATE ../source/Helpers/handytypes.h
+            ../source/Helpers/intmatrix.cpp
+            ../source/Helpers/intmatrix.h
+            ../source/Helpers/linkutils.cpp
             ../source/Helpers/linkutils.h
-            ../source/Helpers/handytypes.h
             ../source/Helpers/text/chartools.h
-            ../source/Helpers/text/textcursor.cpp
-            ../source/Helpers/text/textcursor.h
             ../source/Helpers/text/checkingtextcursor.cpp
             ../source/Helpers/text/checkingtextcursor.h
+            ../source/Helpers/text/textcursor.cpp
+            ../source/Helpers/text/textcursor.h
+            ../source/Helpers/text/textlink.cpp
+            ../source/Helpers/text/textlink.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
             ../source/Helpers/text/textselector.cpp
             ../source/Helpers/text/textselector.h
+            ../source/Helpers/uuid/uuidtools.cpp
+            ../source/Helpers/uuid/uuidtools.h
             ../source/Helpers/validators/linktextvalidator.cpp
             ../source/Helpers/validators/linktextvalidator.h
-            ../source/Helpers/intmatrix.cpp
-            ../source/Helpers/intmatrix.h
+            ../source/Helpers/validators/uuidvalidator.cpp
+            ../source/Helpers/validators/uuidvalidator.h
             linkutilstest.cpp)
 
 
@@ -189,16 +195,26 @@ set_target_properties (${TEXT_SELECTOR_TEST} PROPERTIES
 
 target_sources (
     ${TEXT_SELECTOR_TEST}
-    PRIVATE ../source/Helpers/text/textcursor.cpp
-            ../source/Helpers/text/textcursor.h
+    PRIVATE ../source/Helpers/handytypes.h
+            ../source/Helpers/text/chartools.h
             ../source/Helpers/text/checkingtextcursor.cpp
             ../source/Helpers/text/checkingtextcursor.h
-            ../source/Helpers/text/textselector.cpp
-            ../source/Helpers/text/textselector.h
+            ../source/Helpers/text/textcursor.cpp
+            ../source/Helpers/text/textcursor.h
+            ../source/Helpers/text/textlink.cpp
+            ../source/Helpers/text/textlink.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
-            ../source/Helpers/text/chartools.h
-            ../source/Helpers/handytypes.h
+            ../source/Helpers/text/textselector.cpp
+            ../source/Helpers/text/textselector.h
+            ../source/Helpers/intmatrix.cpp
+            ../source/Helpers/intmatrix.h
+            ../source/Helpers/uuid/uuidtools.cpp
+            ../source/Helpers/uuid/uuidtools.h
+            ../source/Helpers/validators/uuidvalidator.cpp
+            ../source/Helpers/validators/uuidvalidator.h
+            ../source/Helpers/validators/linktextvalidator.cpp
+            ../source/Helpers/validators/linktextvalidator.h
             textselectortest.cpp)
 
 # TEXT_RANGE_TEST
@@ -220,10 +236,20 @@ target_sources (
             ../source/Helpers/text/checkingtextcursor.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
+            ../source/Helpers/text/textlink.cpp
+            ../source/Helpers/text/textlink.h
+            ../source/Helpers/uuid/uuidtools.cpp
+            ../source/Helpers/uuid/uuidtools.h
+            ../source/Helpers/intmatrix.cpp
+            ../source/Helpers/intmatrix.h
             ../source/Helpers/text/textselector.cpp
             ../source/Helpers/text/textselector.h
             ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
+            ../source/Helpers/validators/uuidvalidator.cpp
+            ../source/Helpers/validators/uuidvalidator.h
+            ../source/Helpers/validators/linktextvalidator.cpp
+            ../source/Helpers/validators/linktextvalidator.h
             textrangetest.cpp)
 
 # TEXT_LINK_TEST
@@ -249,10 +275,10 @@ target_sources (
             ../source/Helpers/text/textselector.h
             ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
-            ../source/Helpers/linkutils.cpp
-            ../source/Helpers/linkutils.h
             ../source/Helpers/text/textlink.cpp
             ../source/Helpers/text/textlink.h
+            ../source/Helpers/text/linkstext.cpp
+            ../source/Helpers/text/linkstext.h
             ../source/Helpers/intmatrix.cpp
             ../source/Helpers/intmatrix.h
             ../source/Helpers/uuid/uuidtools.cpp

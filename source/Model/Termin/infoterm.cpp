@@ -93,12 +93,5 @@ TextLink::List InfoTerm::getInnerLinks(const QString& linksString)
     if (!LinkTextValidator::isValidLinkString(linksString))
         return {};
 
-    auto ranges = LinkUtils::extractLinkRanges(linksString);
-
-    TextLink::List ret;
-
-    for (const auto& range : ranges)
-        ret.push_back(TextLink(linksString, range));
-
-    return ret;
+    return LinkUtils::extractLinkRanges(linksString);
 }

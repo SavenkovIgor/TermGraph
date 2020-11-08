@@ -21,39 +21,27 @@
 
 #pragma once
 
-#include <QString>
 #include <QStringView>
-#include <QUuid>
 
 #include "source/Helpers/handytypes.h"
-#include "source/Helpers/text/textrange.h"
+#include "source/Helpers/text/textlink.h"
 
-class TextLink : public TextRange
+class LinksText
 {
 public:
-    using List = std::vector<TextLink>;
+    static opt<LinksText> create(QStringView str);
 
-    enum class Type { Unknown = 0, Text, Uuid };
+    int count() const;
 
-    TextLink(QStringView strView, int left, int right);
+    QString replaceLink(int index, QString text) const;
 
-    QStringView    fullLink() const;
-    QStringView    text() const;
-    const QString& textLower() const;
-    bool           hasUuid() const;
-    QUuid          uuid() const;
+    QString text() const;
 
-    [[nodiscard]] QString createLinkWithUuid(const QUuid& uuid) const;
+    TextLink operator[](int index) const;
 
-private: //Methods
-    static QStringView getText(QStringView fullLink);
-    static QString     getLower(QStringView text);
-
-    static opt<QUuid> tryGetUuid(QStringView fullLink);
+private: // Methods
+    LinksText(QStringView str);
 
 private: // Members
-    const QStringView mLinkText;
-    const QString     mLinkTextLower;
-    const Type        mLinkType = Type::Unknown;
-    const QUuid       mUuid     = QUuid();
+    const QStringView mString;
 };

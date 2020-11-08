@@ -21,26 +21,21 @@
 
 #include "source/Helpers/text/textlink.h"
 
-#include "source/Helpers/linkutils.h"
 #include "source/Helpers/text/chartools.h"
 #include "source/Helpers/uuid/uuidtools.h"
 
-TextLink::TextLink(const QString& srcString, TextRange range)
-    : mBaseString(srcString)
-    , mRange(range)
-    , mLink(getLink(srcString, range))
-    , mLinkText(getText(mLink))
+TextLink::TextLink(QStringView strView, int left, int right)
+    : TextRange(strView, left, right)
+    , mLinkText(getText(rangeView()))
     , mLinkTextLower(getLower(mLinkText))
+    , mLinkType(tryGetUuid(rangeView()).has_value() ? Type::Uuid : Type::Text)
+    , mUuid(tryGetUuid(rangeView()).value_or(QUuid()))
 {
-    assert(range.left().right() == CharTools::leftBracket);
-    assert(range.right().left() == CharTools::rightBracket);
-
-    auto optUuid = tryGetUuid(mLink);
-    mLinkType    = optUuid.has_value() ? Type::Uuid : Type::Text;
-    mUuid        = optUuid.value_or(QUuid());
+    assert(this->left().right() == CharTools::leftBracket);
+    assert(this->right().left() == CharTools::rightBracket);
 }
 
-QStringView TextLink::fullLink() const { return mLink; }
+QStringView TextLink::fullLink() const { return rangeView(); }
 
 QStringView TextLink::text() const { return mLinkText; }
 
@@ -60,16 +55,6 @@ QString TextLink::createLinkWithUuid(const QUuid& uuid) const
     linkText += CharTools::linkSplitter + UuidTools::cutBraces(uuid);
     linkText = CharTools::leftBracket + linkText + CharTools::rightBracket;
     return linkText;
-}
-
-QStringView TextLink::getLink(const QString& srcString, TextRange range)
-{
-    assert(srcString.size() > 2);
-    assert(LinkUtils::isRangeOnLink(range));
-
-    assert(range.size() >= 2);
-
-    return QStringView(srcString.midRef(range.left().pos(), range.size()));
 }
 
 QStringView TextLink::getText(QStringView fullLink)

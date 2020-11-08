@@ -24,6 +24,7 @@
 #include <limits>
 
 #include "source/Helpers/intmatrix.h"
+#include "source/Helpers/text/chartools.h"
 #include "source/Helpers/text/checkingtextcursor.h"
 #include "source/Helpers/text/textcursor.h"
 #include "source/Helpers/text/textselector.h"
@@ -216,9 +217,9 @@ opt<int> LinkUtils::getDistanceBetweenTagAndTerm(const QString& tag, const QStri
     return std::nullopt;
 }
 
-TextRange::List LinkUtils::extractLinkRanges(QStringView str)
+TextLink::List LinkUtils::extractLinkRanges(QStringView str)
 {
-    TextRange::List ret;
+    TextLink::List ret;
 
     if (!LinkTextValidator::isValidLinkString(str))
         return ret;
@@ -250,7 +251,7 @@ int LinkUtils::linksCount(QStringView str)
     return str.toString().count(CharTools::leftBracket);
 }
 
-TextRange LinkUtils::linkAt(QStringView str, int index)
+TextLink LinkUtils::linkAt(QStringView str, int index)
 {
     int strPos = -1;
 
@@ -262,9 +263,4 @@ TextRange LinkUtils::linkAt(QStringView str, int index)
     assert(ret.has_value());
 
     return ret.value();
-}
-
-bool LinkUtils::isRangeOnLink(TextRange range)
-{
-    return range.left().right() == CharTools::leftBracket && range.right().left() == CharTools::rightBracket;
 }

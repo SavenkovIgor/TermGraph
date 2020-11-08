@@ -109,6 +109,8 @@ target_sources (
             source/Helpers/appconfig.cpp
             source/Helpers/appconfig.h
             source/Helpers/appstyle.h
+            source/Helpers/text/linkstext.cpp
+            source/Helpers/text/linkstext.h
             source/Helpers/asyncgroupbuilder.cpp
             source/Helpers/asyncgroupbuilder.h
             source/Helpers/exclusivecall.h
@@ -135,14 +137,16 @@ target_sources (
             source/Helpers/tagprocessor.cpp
             source/Helpers/tagprocessor.h
             source/Helpers/text/chartools.h
-            source/Helpers/text/textselector.cpp
-            source/Helpers/text/textselector.h
-            source/Helpers/text/textcursor.cpp
-            source/Helpers/text/textcursor.h
             source/Helpers/text/checkingtextcursor.cpp
             source/Helpers/text/checkingtextcursor.h
+            source/Helpers/text/textcursor.cpp
+            source/Helpers/text/textcursor.h
+            source/Helpers/text/textlink.cpp
+            source/Helpers/text/textlink.h
             source/Helpers/text/textrange.cpp
             source/Helpers/text/textrange.h
+            source/Helpers/text/textselector.cpp
+            source/Helpers/text/textselector.h
             source/Helpers/textprocessor.cpp
             source/Helpers/textprocessor.h
             source/Helpers/textutils.cpp
@@ -180,8 +184,6 @@ target_sources (
             source/Model/Termin/graphterm.h
             source/Model/Termin/infoterm.cpp
             source/Model/Termin/infoterm.h
-            source/Model/Termin/textlink.cpp
-            source/Model/Termin/textlink.h
             source/Model/Termin/nodegadgetwrapper.cpp
             source/Model/Termin/nodegadgetwrapper.h
             source/Model/Termin/nodeinfocontainer.h

@@ -19,17 +19,22 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include "source/Helpers/text/linkstext.h"
 
-#include <QStringView>
+opt<LinksText> LinksText::create(QStringView str) { return LinksText(str); }
 
-#include "source/Helpers/handytypes.h"
-#include "source/Helpers/text/textlink.h"
-#include "source/Helpers/text/textrange.h"
+int LinksText::count() const { return 0; }
 
-class TextSelector
+QString LinksText::replaceLink(int index, QString text) const { return QString(); }
+
+QString LinksText::text() const { return QString(); }
+
+TextLink LinksText::operator[](int index) const
 {
-public:
-    static TextRange     selectWord(QStringView str, int startPos);
-    static opt<TextLink> selectLink(QStringView str, int startPos);
-};
+    QString str("{}");
+    return TextLink(str, 0, 2);
+}
+
+LinksText::LinksText(QStringView str)
+    : mString(str)
+{}

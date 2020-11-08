@@ -29,7 +29,7 @@
 #include <QStringView>
 
 #include "source/Helpers/handytypes.h"
-#include "source/Helpers/text/chartools.h"
+#include "source/Helpers/text/textlink.h"
 #include "source/Helpers/text/textrange.h"
 
 // Static class
@@ -43,8 +43,8 @@ public:
     static QString expandTagRight(QString str, int cursor);
     static QString removeTag(QString str, int cursor);
 
-    static TextRange::List extractLinkRanges(QStringView str);
-    static QString         replaceTags(QString str, const QString& leftReplacer, const QString& rightReplacer);
+    static TextLink::List extractLinkRanges(QStringView str);
+    static QString        replaceTags(QString str, const QString& leftReplacer, const QString& rightReplacer);
 
     static bool tagLengthSuitTerm(const QString& tag, const QString& termName);
 
@@ -55,10 +55,8 @@ public:
     static int wordsCount(const QString& string);
 
     // Links
-    static int       linksCount(QStringView str);
-    static TextRange linkAt(QStringView str, int index);
-
-    static bool isRangeOnLink(TextRange range);
+    static int      linksCount(QStringView str);
+    static TextLink linkAt(QStringView str, int index);
 
     constexpr static int nullCursor = -1;
 };

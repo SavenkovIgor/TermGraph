@@ -21,7 +21,9 @@
 
 #include "source/Helpers/text/textselector.h"
 
+#include "source/Helpers/text/chartools.h"
 #include "source/Helpers/text/checkingtextcursor.h"
+#include "source/Helpers/text/textcursor.h"
 
 TextRange TextSelector::selectWord(QStringView str, int startPos)
 {
@@ -36,7 +38,7 @@ TextRange TextSelector::selectWord(QStringView str, int startPos)
     return TextRange(str, startPos, startPos);
 }
 
-opt<TextRange> TextSelector::selectLink(QStringView str, int startPos)
+opt<TextLink> TextSelector::selectLink(QStringView str, int startPos)
 {
     if (!TextCursor::isValidCursor(str, startPos))
         return std::nullopt;
@@ -53,7 +55,7 @@ opt<TextRange> TextSelector::selectLink(QStringView str, int startPos)
     rBracket++;
 
     if (lBracket.right() == CharTools::leftBracket && rBracket.left() == CharTools::rightBracket)
-        return TextRange(str, lBracket.pos(), rBracket.pos());
+        return TextLink(str, lBracket.pos(), rBracket.pos());
 
     return std::nullopt;
 }

@@ -165,7 +165,7 @@ NodeGadgetWrapper LinksHardeningManager::applyReplacement()
     for (auto &replace : replacePreparations.toStdMap()) {
         auto txtRange = LinkUtils::linkAt(definition, replace.first);
 
-        TextLink   oldLink(definition, txtRange);
+        TextLink   oldLink = txtRange;
         const auto newLink = oldLink.createLinkWithUuid(replace.second);
 
         const auto startIndex = txtRange.left().pos();

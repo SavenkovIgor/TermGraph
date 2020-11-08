@@ -25,7 +25,6 @@
 #include <QtGlobal>
 
 #include "source/Helpers/handytypes.h"
-#include "source/Helpers/text/chartools.h"
 
 class TextCursor
 {
