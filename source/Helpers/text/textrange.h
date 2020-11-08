@@ -41,6 +41,9 @@ public:
     int  size() const;
     bool isEmpty() const;
 
+    // Returns string without range & cut position
+    std::pair<QString, int> cut() const;
+
 private: // Members
     const QStringView mString;
     const TextCursor  mLeftCursor;

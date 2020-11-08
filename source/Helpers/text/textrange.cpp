@@ -41,3 +41,10 @@ const TextCursor &TextRange::right() const { return mRightCursor; }
 int TextRange::size() const { return mRightCursor.pos() - mLeftCursor.pos(); }
 
 bool TextRange::isEmpty() const { return mLeftCursor.pos() == mRightCursor.pos(); }
+
+std::pair<QString, int> TextRange::cut() const
+{
+    auto ret = mString.toString();
+    ret.remove(mLeftCursor.pos(), size());
+    return {ret, mLeftCursor.pos()};
+}

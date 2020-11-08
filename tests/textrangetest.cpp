@@ -54,6 +54,14 @@ private slots:
         QCOMPARE(rng2.isEmpty(), true);
         QCOMPARE(rng2.size(), 0);
     }
+
+    void rangeCut()
+    {
+        QString   str(" abc b");
+        TextRange rng(str, 1, 4);
+
+        QCOMPARE(rng.cut(), (std::pair<QString, int>("  b", 1)));
+    }
 };
 
 QTEST_APPLESS_MAIN(TextRangeTest)
