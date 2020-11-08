@@ -114,13 +114,13 @@ private slots:
     {
         auto text = LinksText(multipleLinks);
 
-        QCOMPARE(text.count(), 3);
-        QCOMPARE(text[1].fullLink(), QString("{bc}"));
-        QCOMPARE(text[1].text(), QString("bc"));
+        QCOMPARE(text.links().size(), 3);
+        QCOMPARE(text.links()[1].fullLink(), QString("{bc}"));
+        QCOMPARE(text.links()[1].text(), QString("bc"));
 
-        QCOMPARE(LinksText(invalidLinksText1).count(), 0);
-        QCOMPARE(LinksText(invalidLinksText2).count(), 0);
-        QCOMPARE(LinksText(invalidLinksText3).count(), 0);
+        QCOMPARE(LinksText(invalidLinksText1).links().size(), 0);
+        QCOMPARE(LinksText(invalidLinksText2).links().size(), 0);
+        QCOMPARE(LinksText(invalidLinksText3).links().size(), 0);
     }
 
     void linksReplacement()

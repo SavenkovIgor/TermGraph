@@ -24,6 +24,7 @@
 #include <QSizeF>
 #include <QString>
 
+#include "source/Helpers/text/linkstext.h"
 #include "source/Helpers/text/textlink.h"
 #include "source/Model/Termin/nodeinfocontainer.h"
 
@@ -42,11 +43,9 @@ public:
     QString decoratedTerm() const;
     QSizeF  decoratedTermSize() const;
 
-    TextLink::List links() const;
+    const TextLink::List& links() const;
 
     QString termAndDefinition(bool decorated = false) const;
-
-    static TextLink::List getInnerLinks(const QString& linksString);
 
 private: // Methods
     static QString getDecoratedTerm(const QString& term);
@@ -55,8 +54,8 @@ private: // Methods
 private: // Members
     const NodeInfoContainer mInfo;
 
-    const QString        mLowerTerm;
-    const QString        mDecoratedTerm;
-    const QSizeF         mDecoratedTermSize;
-    const TextLink::List mLinks;
+    const QString   mLowerTerm;
+    const QString   mDecoratedTerm;
+    const QSizeF    mDecoratedTermSize;
+    const LinksText mLinksDefinition;
 };

@@ -26,11 +26,8 @@
 
 LinksText::LinksText(QStringView str)
     : mString(str)
-    , mCount(getCount(mString))
     , mLinks(extractLinks(mString))
 {}
-
-int LinksText::count() const { return mCount; }
 
 QString LinksText::replaceLink(int index, QString text) const
 {
@@ -41,7 +38,7 @@ QString LinksText::replaceLink(int index, QString text) const
 
 QString LinksText::text() const { return mString.toString(); }
 
-const TextLink& LinksText::operator[](int index) const { return mLinks[index]; }
+const TextLink::List& LinksText::links() const { return mLinks; }
 
 int LinksText::getCount(QStringView strView)
 {

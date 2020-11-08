@@ -181,26 +181,6 @@ private slots:
         }
     }
 
-    void linkCount_data()
-    {
-        QTest::addColumn<QString>("src");
-        QTest::addColumn<int>("result");
-
-        // clang-format off
-        QTest::newRow("case0")  << "{a}{b}{}"      << 3;
-        QTest::newRow("case1")  << "{}"            << 1;
-        QTest::newRow("case2")  << " abcd "        << 0;
-        // clang-format on
-    }
-
-    void linkCount()
-    {
-        QFETCH(QString, src);
-        QFETCH(int, result);
-
-        QVERIFY(LinkUtils::linksCount(src) == result);
-    }
-
     void linkAt_data()
     {
         QTest::addColumn<QString>("src");

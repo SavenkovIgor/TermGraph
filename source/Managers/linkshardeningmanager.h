@@ -22,6 +22,7 @@
 #pragma once
 
 #include <QAbstractListModel>
+#include <QScopedPointer>
 #include <QStringView>
 
 #include "source/Helpers/handytypes.h"
@@ -75,7 +76,6 @@ private slots:
     void updateNearestVariants();
 
 private: // Methods
-    QStringView    currentDefinition() const;
     TextLink::List currentLinks() const;
     TextLink       currentLink() const;
 
@@ -86,12 +86,15 @@ private: // Methods
 
     QString currentLinkText() const;
 
-private: // Members
-    TermGroup*        mCurrentGroup = nullptr;
-    NodeGadgetWrapper mCurrentTerm;
+    int linkCount() const;
 
-    int mLinkIndex  = -1;
-    int mLinksCount = 0;
+private: // Members
+    TermGroup*                mCurrentGroup = nullptr;
+    NodeGadgetWrapper         mCurrentTerm;
+    QString                   mCurrentDefinition;
+    QScopedPointer<LinksText> mLinksText;
+
+    int mLinkIndex = -1;
 
     QMap<int, QUuid> replacePreparations;
 

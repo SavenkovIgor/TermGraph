@@ -69,9 +69,12 @@ void LinksHardeningManager::setGroup(TermGroup *group)
 void LinksHardeningManager::setTerm(NodeGadgetWrapper termWrapper)
 {
     assert(!termWrapper.isNull());
-    mCurrentTerm = termWrapper;
-    mLinksCount  = currentLinks().size();
-    mLinkIndex   = mLinksCount >= 1 ? 0 : -1;
+    mCurrentTerm       = termWrapper;
+    mCurrentDefinition = mCurrentTerm.getDefinition();
+
+    mLinksText.reset(new LinksText(mCurrentDefinition));
+
+    mLinkIndex = linkCount() >= 1 ? 0 : -1;
     emit indexChanged();
     replacePreparations.clear();
 }
@@ -119,8 +122,6 @@ bool LinksHardeningManager::next()
 
 void LinksHardeningManager::hardenLink(QUuid uuid) { replacePreparations[mLinkIndex] = uuid; }
 
-#include <QDebug>
-
 LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariants(int limit)
 {
     if (mCurrentGroup == nullptr)
@@ -161,7 +162,8 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
 
 NodeGadgetWrapper LinksHardeningManager::applyReplacement()
 {
-    auto definition = currentDefinition().toString();
+    auto definition = mCurrentDefinition;
+
     for (auto &replace : replacePreparations.toStdMap()) {
         auto txtRange = LinkUtils::linkAt(definition, replace.first);
 
@@ -188,23 +190,19 @@ void LinksHardeningManager::updateNearestVariants()
     endResetModel();
 }
 
-QStringView LinksHardeningManager::currentDefinition() const
-{
-    assert(!mCurrentTerm.isNull());
-    return mCurrentTerm.getDefinition();
-}
-
 TextLink::List LinksHardeningManager::currentLinks() const
 {
-    assert(!mCurrentTerm.isNull());
-    return InfoTerm::getInnerLinks(mCurrentTerm.getDefinition());
+    if (mLinksText.isNull())
+        return TextLink::List();
+
+    return mLinksText->links();
 }
 
-bool LinksHardeningManager::isValidIndex() const { return 0 <= mLinkIndex && mLinkIndex < mLinksCount; }
+bool LinksHardeningManager::isValidIndex() const { return 0 <= mLinkIndex && mLinkIndex < linkCount(); }
 
-bool LinksHardeningManager::canMoveNext() const { return 0 <= mLinkIndex && mLinkIndex < mLinksCount - 1; }
+bool LinksHardeningManager::canMoveNext() const { return 0 <= mLinkIndex && mLinkIndex < linkCount() - 1; }
 
-bool LinksHardeningManager::canMovePrev() const { return 1 <= mLinkIndex && mLinkIndex < mLinksCount; }
+bool LinksHardeningManager::canMovePrev() const { return 1 <= mLinkIndex && mLinkIndex < linkCount(); }
 
 QString LinksHardeningManager::currentLinkText() const
 {
@@ -216,6 +214,8 @@ QString LinksHardeningManager::currentLinkText() const
     auto links = currentLinks();
     return links[mLinkIndex].fullLink().toString();
 }
+
+int LinksHardeningManager::linkCount() const { return !mLinksText.isNull() ? mLinksText->links().size() : 0; }
 
 TextLink LinksHardeningManager::currentLink() const
 {

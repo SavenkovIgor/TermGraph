@@ -35,7 +35,7 @@ InfoTerm::InfoTerm(const NodeInfoContainer& info)
     , mLowerTerm(info.term.toLower())
     , mDecoratedTerm(getDecoratedTerm(info.term))
     , mDecoratedTermSize(getTermSize(mDecoratedTerm))
-    , mLinks(getInnerLinks(info.definition))
+    , mLinksDefinition(info.definition)
 {}
 
 const NodeInfoContainer& InfoTerm::info() const { return mInfo; }
@@ -48,7 +48,7 @@ QString InfoTerm::decoratedTerm() const { return mDecoratedTerm; }
 
 QSizeF InfoTerm::decoratedTermSize() const { return mDecoratedTermSize; }
 
-TextLink::List InfoTerm::links() const { return mLinks; }
+const TextLink::List& InfoTerm::links() const { return mLinksDefinition.links(); }
 
 QString InfoTerm::termAndDefinition(bool decorated) const
 {
@@ -86,12 +86,4 @@ QSizeF InfoTerm::getTermSize(const QString& decoratedTerm)
         sizes.push_back(Fonts::getTextMetrics(part));
 
     return HelpStuff::getStackedSize(sizes, Qt::Vertical);
-}
-
-TextLink::List InfoTerm::getInnerLinks(const QString& linksString)
-{
-    if (!LinkTextValidator::isValidLinkString(linksString))
-        return {};
-
-    return LinkUtils::extractLinkRanges(linksString);
 }

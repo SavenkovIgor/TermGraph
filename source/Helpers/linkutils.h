@@ -43,8 +43,7 @@ public:
     static QString expandTagRight(QString str, int cursor);
     static QString removeTag(QString str, int cursor);
 
-    static TextLink::List extractLinkRanges(QStringView str);
-    static QString        replaceTags(QString str, const QString& leftReplacer, const QString& rightReplacer);
+    static QString replaceTags(QString str, const QString& leftReplacer, const QString& rightReplacer);
 
     static bool tagLengthSuitTerm(const QString& tag, const QString& termName);
 
@@ -55,7 +54,6 @@ public:
     static int wordsCount(const QString& string);
 
     // Links
-    static int      linksCount(QStringView str);
     static TextLink linkAt(QStringView str, int index);
 
     constexpr static int nullCursor = -1;

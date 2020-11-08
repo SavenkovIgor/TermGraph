@@ -30,13 +30,12 @@ class LinksText
 {
 public:
     LinksText(QStringView str);
+    LinksText(const LinksText& other) = default;
 
-    int     count() const;
-    QString text() const;
+    QString               text() const;
+    const TextLink::List& links() const;
 
     QString replaceLink(int index, QString text) const;
-
-    const TextLink& operator[](int index) const;
 
 private: // Methods
     static int            getCount(QStringView strView);
@@ -44,6 +43,5 @@ private: // Methods
 
 private: // Members
     const QStringView    mString;
-    const int            mCount;
     const TextLink::List mLinks;
 };

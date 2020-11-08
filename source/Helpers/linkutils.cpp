@@ -216,38 +216,12 @@ opt<int> LinkUtils::getDistanceBetweenTagAndTerm(const QString& tag, const QStri
     return std::nullopt;
 }
 
-TextLink::List LinkUtils::extractLinkRanges(QStringView str)
-{
-    TextLink::List ret;
-
-    if (!LinkTextValidator::isValidLinkString(str))
-        return ret;
-
-    int count = linksCount(str);
-
-    for (int i = 0; i < count; i++)
-        ret.push_back(linkAt(str, i));
-
-    return ret;
-}
-
 int LinkUtils::wordsCount(const QString& string)
 {
     if (!string.isEmpty())
         return string.simplified().count(' ') + 1;
 
     return 0;
-}
-
-int LinkUtils::linksCount(QStringView str)
-{
-    bool isValidLinks = LinkTextValidator::isValidLinkString(str);
-
-    assert(isValidLinks);
-    if (!isValidLinks)
-        return 0;
-
-    return str.toString().count(CharTools::leftBracket);
 }
 
 TextLink LinkUtils::linkAt(QStringView str, int index)
