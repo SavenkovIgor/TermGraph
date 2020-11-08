@@ -24,7 +24,6 @@
 #include <QCoreApplication>
 #include <QtTest>
 
-#include "source/Helpers/text/chartools.h"
 #include "source/Helpers/text/textcursor.h"
 #include "source/Helpers/text/textrange.h"
 #include "source/Helpers/text/textselector.h"
@@ -60,7 +59,15 @@ private slots:
         QString   str(" abc b");
         TextRange rng(str, 1, 4);
 
-        QCOMPARE(rng.cut(), (std::pair<QString, int>("  b", 1)));
+        QCOMPARE(rng.cutted(), (std::pair<QString, int>("  b", 1)));
+    }
+
+    void rangeView()
+    {
+        QString   str(" abc ab ");
+        TextRange rng(str, 3, 6);
+
+        QCOMPARE(rng.rangeView(), QString("c a"));
     }
 };
 

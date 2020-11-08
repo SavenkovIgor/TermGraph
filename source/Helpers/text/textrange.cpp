@@ -21,9 +21,6 @@
 
 #include "source/Helpers/text/textrange.h"
 
-#include "source/Helpers/text/chartools.h"
-#include "source/Helpers/text/textselector.h"
-
 TextRange::TextRange(QStringView view, int left, int right)
     : mString(view)
     , mLeftCursor(view, left)
@@ -42,9 +39,11 @@ int TextRange::size() const { return mRightCursor.pos() - mLeftCursor.pos(); }
 
 bool TextRange::isEmpty() const { return mLeftCursor.pos() == mRightCursor.pos(); }
 
-std::pair<QString, int> TextRange::cut() const
+std::pair<QString, int> TextRange::cutted() const
 {
     auto ret = mString.toString();
     ret.remove(mLeftCursor.pos(), size());
     return {ret, mLeftCursor.pos()};
 }
+
+QStringView TextRange::rangeView() const { return mString.mid(left().pos(), size()); }

@@ -25,7 +25,6 @@
 
 #include <QStringView>
 
-#include "source/Helpers/handytypes.h"
 #include "source/Helpers/text/textcursor.h"
 
 class TextRange
@@ -42,9 +41,11 @@ public:
     bool isEmpty() const;
 
     // Returns string without range & cut position
-    std::pair<QString, int> cut() const;
+    std::pair<QString, int> cutted() const;
 
-private: // Members
+    QStringView rangeView() const;
+
+protected: // Members
     const QStringView mString;
     const TextCursor  mLeftCursor;
     const TextCursor  mRightCursor;
