@@ -25,7 +25,9 @@
 #include <QtTest>
 
 #include "source/Helpers/uuid/uuidtools.h"
-#include "source/Helpers/validators/uuidvalidator.h"
+
+// TODO: Move textLink to separate folder
+// TODO: Make all paths lowercase
 
 class UuidsTest : public QObject
 {
@@ -52,7 +54,7 @@ private slots:
     {
         QFETCH(QString, uuidString);
         QFETCH(bool, result);
-        QVERIFY(UuidValidator::isValidUuidString(uuidString) == result);
+        QVERIFY(UuidTools::isValidUuidString(uuidString) == result);
     }
 
     void validatorWithoutBraces_data()
@@ -75,7 +77,7 @@ private slots:
     {
         QFETCH(QString, uuidString);
         QFETCH(bool, result);
-        QVERIFY(UuidValidator::isValidUuidStringWihtoutBraces(uuidString) == result);
+        QVERIFY(UuidTools::isValidUuidStringWihtoutBraces(uuidString) == result);
     }
 };
 

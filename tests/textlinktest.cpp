@@ -29,7 +29,6 @@
 #include "source/Helpers/text/textrange.h"
 
 // TODO: Move some functions of linkutils to LinksText
-// TODO: Remove uuidValidator
 
 class TextLinkTest : public QObject
 {

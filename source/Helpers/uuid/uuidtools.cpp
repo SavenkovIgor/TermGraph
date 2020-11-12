@@ -21,12 +21,14 @@
 
 #include "source/Helpers/uuid/uuidtools.h"
 
+#include <QRegExp>
+
 #include "source/Helpers/text/chartools.h"
-#include "source/Helpers/validators/uuidvalidator.h"
+#include "source/Helpers/uuid/uuidtools.h"
 
 opt<QUuid> UuidTools::createFromStringWithoutBraces(const QString &uuidString)
 {
-    if (!UuidValidator::isValidUuidStringWihtoutBraces(uuidString))
+    if (!UuidTools::isValidUuidStringWihtoutBraces(uuidString))
         return std::nullopt;
 
     auto innerUuidString = uuidString;
@@ -53,4 +55,16 @@ QString UuidTools::cutBraces(const QUuid &uuid)
     uuidStr.remove(0, 1);
 
     return uuidStr;
+}
+
+bool UuidTools::isValidUuidString(const QString &uuidString)
+{
+    QRegExp check(validUuidRegExp);
+    return check.exactMatch(uuidString);
+}
+
+bool UuidTools::isValidUuidStringWihtoutBraces(const QString &uuidString)
+{
+    QRegExp check(validUuidWithoutBracesRegExp);
+    return check.exactMatch(uuidString);
 }

@@ -153,8 +153,6 @@ target_sources (
             source/Helpers/uuid/uuidtools.h
             source/Helpers/validators/linktextvalidator.cpp
             source/Helpers/validators/linktextvalidator.h
-            source/Helpers/validators/uuidvalidator.cpp
-            source/Helpers/validators/uuidvalidator.h
             source/Managers/datastorageinterface.h
             source/Managers/groupsmanager.cpp
             source/Managers/groupsmanager.h
