@@ -67,7 +67,7 @@ public:
 
     SearchResultList getNearestVariants(int limit = 5);
 
-    NodeGadgetWrapper applyReplacement();
+    Q_INVOKABLE NodeGadgetWrapper applyReplacement();
 
 signals:
     void indexChanged();

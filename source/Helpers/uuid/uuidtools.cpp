@@ -21,7 +21,6 @@
 
 #include "source/Helpers/uuid/uuidtools.h"
 
-#include "source/Helpers/linkutils.h"
 #include "source/Helpers/text/chartools.h"
 #include "source/Helpers/validators/uuidvalidator.h"
 

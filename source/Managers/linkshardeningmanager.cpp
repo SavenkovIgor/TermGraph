@@ -165,16 +165,14 @@ NodeGadgetWrapper LinksHardeningManager::applyReplacement()
     auto definition = mCurrentDefinition;
 
     for (auto &replace : replacePreparations.toStdMap()) {
-        auto txtRange = LinkUtils::linkAt(definition, replace.first);
+        auto linksText = LinksText(definition);
 
-        TextLink   oldLink = txtRange;
+        TextLink oldLink          = linksText.links()[replace.first];
+        auto [cuttedLink, cutPos] = oldLink.cutted();
+
         const auto newLink = oldLink.createLinkWithUuid(replace.second);
-
-        const auto startIndex = txtRange.left().pos();
-        const auto linkSize   = txtRange.size();
-
-        definition.remove(startIndex, linkSize);
-        definition.insert(startIndex, newLink);
+        cuttedLink.insert(cutPos, newLink);
+        definition = cuttedLink;
     }
 
     auto ret = mCurrentTerm;
