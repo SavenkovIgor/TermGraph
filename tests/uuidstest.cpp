@@ -26,7 +26,6 @@
 
 #include "source/Helpers/uuid/uuidtools.h"
 
-// TODO: Move textLink to separate folder
 // TODO: Make all paths lowercase
 
 class UuidsTest : public QObject

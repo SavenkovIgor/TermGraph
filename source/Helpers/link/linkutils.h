@@ -29,7 +29,7 @@
 #include <QStringView>
 
 #include "source/Helpers/handytypes.h"
-#include "source/Helpers/text/textlink.h"
+#include "source/Helpers/link/textlink.h"
 #include "source/Helpers/text/textrange.h"
 
 // Static class

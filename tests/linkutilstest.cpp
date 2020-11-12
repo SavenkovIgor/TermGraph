@@ -27,7 +27,7 @@
 #include <QtTest>
 
 // add necessary includes here
-#include "source/Helpers/linkutils.h"
+#include "source/Helpers/link/linkutils.h"
 #include "source/Helpers/text/textcursor.h"
 #include "source/Helpers/validators/linktextvalidator.h"
 

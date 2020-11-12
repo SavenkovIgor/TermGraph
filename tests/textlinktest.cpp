@@ -24,8 +24,8 @@
 #include <QCoreApplication>
 #include <QtTest>
 
-#include "source/Helpers/text/linkstext.h"
-#include "source/Helpers/text/textlink.h"
+#include "source/Helpers/link/linkstext.h"
+#include "source/Helpers/link/textlink.h"
 #include "source/Helpers/text/textrange.h"
 
 // TODO: Move some functions of linkutils to LinksText

@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Helpers/text/linkstext.h"
+#include "source/Helpers/link/linkstext.h"
 
 #include "source/Helpers/text/chartools.h"
 #include "source/Helpers/validators/linktextvalidator.h"

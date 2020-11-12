@@ -24,7 +24,7 @@
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/fonts.h"
 #include "source/Helpers/helpstuff.h"
-#include "source/Helpers/linkutils.h"
+#include "source/Helpers/link/linkutils.h"
 #include "source/Helpers/tagprocessor.h"
 #include "source/Helpers/textutils.h"
 #include "source/Helpers/validators/linktextvalidator.h"

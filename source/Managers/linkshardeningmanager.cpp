@@ -21,7 +21,7 @@
 
 #include "source/Managers/linkshardeningmanager.h"
 
-#include "source/Helpers/linkutils.h"
+#include "source/Helpers/link/linkutils.h"
 #include "source/Model/Termin/infoterm.h"
 
 LinksHardeningManager::LinksHardeningManager(QObject *parent)

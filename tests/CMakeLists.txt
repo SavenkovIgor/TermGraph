@@ -39,15 +39,15 @@ target_sources (
     PRIVATE ../source/Helpers/handytypes.h
             ../source/Helpers/intmatrix.cpp
             ../source/Helpers/intmatrix.h
-            ../source/Helpers/linkutils.cpp
-            ../source/Helpers/linkutils.h
+            ../source/Helpers/link/linkutils.cpp
+            ../source/Helpers/link/linkutils.h
             ../source/Helpers/text/chartools.h
             ../source/Helpers/text/checkingtextcursor.cpp
             ../source/Helpers/text/checkingtextcursor.h
             ../source/Helpers/text/textcursor.cpp
             ../source/Helpers/text/textcursor.h
-            ../source/Helpers/text/textlink.cpp
-            ../source/Helpers/text/textlink.h
+            ../source/Helpers/link/textlink.cpp
+            ../source/Helpers/link/textlink.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
             ../source/Helpers/uuid/uuidtools.cpp
@@ -197,8 +197,8 @@ target_sources (
             ../source/Helpers/text/checkingtextcursor.h
             ../source/Helpers/text/textrange.cpp
             ../source/Helpers/text/textrange.h
-            ../source/Helpers/text/textlink.cpp
-            ../source/Helpers/text/textlink.h
+            ../source/Helpers/link/textlink.cpp
+            ../source/Helpers/link/textlink.h
             ../source/Helpers/uuid/uuidtools.cpp
             ../source/Helpers/uuid/uuidtools.h
             ../source/Helpers/intmatrix.cpp
@@ -231,10 +231,10 @@ target_sources (
             ../source/Helpers/text/textrange.h
             ../source/Helpers/text/chartools.h
             ../source/Helpers/handytypes.h
-            ../source/Helpers/text/textlink.cpp
-            ../source/Helpers/text/textlink.h
-            ../source/Helpers/text/linkstext.cpp
-            ../source/Helpers/text/linkstext.h
+            ../source/Helpers/link/textlink.cpp
+            ../source/Helpers/link/textlink.h
+            ../source/Helpers/link/linkstext.cpp
+            ../source/Helpers/link/linkstext.h
             ../source/Helpers/intmatrix.cpp
             ../source/Helpers/intmatrix.h
             ../source/Helpers/uuid/uuidtools.cpp

@@ -24,8 +24,8 @@
 #include <QSizeF>
 #include <QString>
 
-#include "source/Helpers/text/linkstext.h"
-#include "source/Helpers/text/textlink.h"
+#include "source/Helpers/link/linkstext.h"
+#include "source/Helpers/link/textlink.h"
 #include "source/Model/Termin/nodeinfocontainer.h"
 
 // Const wrapper over NodeInfoContainer + some additional stuff

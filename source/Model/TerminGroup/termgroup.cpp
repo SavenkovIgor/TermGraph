@@ -25,7 +25,7 @@
 
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/fonts.h"
-#include "source/Helpers/linkutils.h"
+#include "source/Helpers/link/linkutils.h"
 
 TermGroup::TermGroup(const GroupInfoContainer& info, QObject* parent)
     : QObject(parent)

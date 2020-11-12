@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Helpers/linkutils.h"
+#include "source/Helpers/link/linkutils.h"
 
 #include <limits>
 

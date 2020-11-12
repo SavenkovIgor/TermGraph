@@ -27,7 +27,7 @@
 #include "source/Helpers/globaltagcache.h"
 #include "source/Helpers/handytypes.h"
 #include "source/Helpers/helpstuff.h"
-#include "source/Helpers/linkutils.h"
+#include "source/Helpers/link/linkutils.h"
 #include "source/Model/TerminGroup/groupnamecache.h"
 
 TermGroupInfo::TermGroupInfo(const GroupInfoContainer& info) { mInfo = info; }

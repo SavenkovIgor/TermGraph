@@ -22,7 +22,7 @@
 #include "source/Helpers/tagprocessor.h"
 
 #include "source/Helpers/intmatrix.h"
-#include "source/Helpers/linkutils.h"
+#include "source/Helpers/link/linkutils.h"
 #include "source/Helpers/text/textcursor.h"
 
 TagProcessor::TagProcessor(QObject* parent)
