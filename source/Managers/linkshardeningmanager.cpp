@@ -21,6 +21,7 @@
 
 #include "source/Managers/linkshardeningmanager.h"
 
+#include "source/Helpers/link/linksdecorator.h"
 #include "source/Helpers/link/linkutils.h"
 #include "source/Model/Termin/infoterm.h"
 
@@ -202,15 +203,19 @@ bool LinksHardeningManager::canMoveNext() const { return 0 <= mLinkIndex && mLin
 
 bool LinksHardeningManager::canMovePrev() const { return 1 <= mLinkIndex && mLinkIndex < linkCount(); }
 
-QString LinksHardeningManager::currentLinkText() const
+QString LinksHardeningManager::definitionWithHighlightedLink() const
 {
-    if (!isValidIndex())
+    if (!isValidIndex() || !mLinksText)
         return "";
 
     assert(!mCurrentTerm.isNull());
 
-    auto links = currentLinks();
-    return links[mLinkIndex].fullLink().toString();
+    auto decorColor = [currentIndex = mLinkIndex](int index, [[maybe_unused]] const TextLink &link) {
+        return currentIndex == index ? QColor("#e8cb4a") : QColor("white");
+    };
+
+    auto decorator = LinksDecorator(*mLinksText, decorColor);
+    return decorator.apply(LinksDecoratorMode::Insert);
 }
 
 int LinksHardeningManager::linkCount() const { return !mLinksText.isNull() ? mLinksText->links().size() : 0; }

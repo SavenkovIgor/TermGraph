@@ -37,7 +37,7 @@ class LinksHardeningManager : public QAbstractListModel
 
     Q_PROPERTY(bool canMoveNext READ canMoveNext NOTIFY indexChanged);
     Q_PROPERTY(bool canMovePrev READ canMovePrev NOTIFY indexChanged);
-    Q_PROPERTY(QString currentLinkText READ currentLinkText NOTIFY indexChanged);
+    Q_PROPERTY(QString definitionWithHighlightedLink READ definitionWithHighlightedLink NOTIFY indexChanged);
 
 public:
     using SearchResult     = std::tuple<QUuid, QString, int>;
@@ -84,7 +84,7 @@ private: // Methods
     bool canMoveNext() const;
     bool canMovePrev() const;
 
-    QString currentLinkText() const;
+    QString definitionWithHighlightedLink() const;
 
     int linkCount() const;
 

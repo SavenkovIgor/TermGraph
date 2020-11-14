@@ -51,7 +51,11 @@ A.DrawerPage {
             TextArea {
                 Layout.fillWidth: true
                 height: 50
-                text: linksManager.currentLinkText
+
+                color: Colors.white
+
+                text: linksManager.definitionWithHighlightedLink
+                textFormat: TextArea.RichText
                 readOnly: true
             }
 
@@ -72,6 +76,8 @@ A.DrawerPage {
         }
 
         ListView { // uuid variants
+            id: lView
+
             model: linksManager
             height: 200
             Layout.fillWidth: true
@@ -79,44 +85,30 @@ A.DrawerPage {
 
             boundsBehavior: ListView.StopAtBounds
             clip: true
-            delegate: RadioButton {
-                id: delegateItem
+            delegate: ItemDelegate {
+                id: item
 
                 required property string termUuid
                 required property string termText
                 required property int termDistance
+                required property int index
+
+                contentItem: Text {
+                    color: Colors.white
+                    text: item.text
+                    verticalAlignment: Text.AlignVCenter
+                }
 
                 text: termText + "(" + termDistance + ")"
 
                 width: ListView.view.width
 
+                highlighted: ListView.isCurrentItem
+
                 onClicked: {
-                    root.showTermUuid(termUuid)
+                    lView.currentIndex = item.index;
+                    root.showTermUuid(termUuid);
                 }
-
-//                RowLayout {
-
-
-//                    Text {
-//                        Layout.fillWidth: true
-//                    }
-
-//                    A.RoundButton {
-//                        size: (Sizes.baseR25 + Sizes.base) / 2
-//                        action: Action {
-//                            icon.source: IconPath.eye
-                            //                    onTriggered:
-//                        }
-//                    }
-
-//                    A.RoundButton {
-//                        size: (Sizes.baseR25 + Sizes.base) / 2
-//                        action: Action {
-//                            icon.source: IconPath.check
-                            //                    onTriggered:
-//                        }
-//                    }
-//                }
             }
         }
     }
