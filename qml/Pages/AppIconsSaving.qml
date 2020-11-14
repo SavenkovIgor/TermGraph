@@ -22,7 +22,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-import "../Molecules" as M
+import Molecules 1.0 as M
 
 M.Page {
 

@@ -23,7 +23,7 @@ import QtQuick 2.15
 
 import Helpers 1.0
 
-import "../Molecules" as M
+import Molecules 1.0 as M
 
 M.TextArea {
     id: root

@@ -24,7 +24,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Templates 2.15 as T
 
-import "../Molecules" as M
+import Molecules 1.0 as M
 import StyleInfo 1.0
 
 M.Page {

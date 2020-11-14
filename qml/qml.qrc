@@ -55,6 +55,7 @@
         <file>Molecules/TermInfoDrawer.qml</file>
         <file>Molecules/TextArea.qml</file>
         <file>Molecules/TextField.qml</file>
+        <file>Molecules/qmldir</file>
         <file>Pages/AppIconsSaving.qml</file>
         <file>Pages/EditNode.qml</file>
         <file>Pages/GroupsList.qml</file>

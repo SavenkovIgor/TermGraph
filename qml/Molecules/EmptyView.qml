@@ -25,7 +25,7 @@ import QtQuick.Layouts 1.15
 
 import StyleInfo 1.0
 import Atoms 1.0 as A
-import "../Molecules" as M
+import Molecules 1.0 as M
 
 Control {
     id: root
