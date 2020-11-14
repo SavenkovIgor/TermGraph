@@ -29,6 +29,7 @@
 #include "source/Helpers/text/textrange.h"
 
 // TODO: Move some functions of linkutils to LinksText
+// TODO: Move linkstextvalidator to linkstext
 
 class TextLinkTest : public QObject
 {

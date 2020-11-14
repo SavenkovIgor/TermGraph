@@ -23,36 +23,30 @@
 
 #include <functional>
 
-#include <QChar>
+#include <QColor>
 #include <QString>
-#include <QStringList>
-#include <QStringView>
 
-#include "source/Helpers/handytypes.h"
+#include "source/Helpers/link/linkstext.h"
 #include "source/Helpers/link/textlink.h"
-#include "source/Helpers/text/textrange.h"
 
-// Static class
-class LinkUtils
+enum LinksDecoratorMode { Replace = 0, Insert };
+
+class LinksDecorator
 {
 public:
-    // Tags
-    static bool isInsideTag(QStringView str, int cursor);
+    using DecorCondition = std::function<QColor(int, const TextLink&)>;
 
-    static QString addTag(QString str, int cursor);
-    static QString expandTagRight(QString str, int cursor);
-    static QString removeTag(QString str, int cursor);
+    LinksDecorator(LinksText linksText, DecorCondition colorCondition);
 
-    static bool tagLengthSuitTerm(const QString& tag, const QString& termName);
+    QString apply(LinksDecoratorMode mode);
 
-    static int      getLevDistance(QStringView src, QStringView dst, int limit = 100000);
-    static opt<int> getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit);
+    static QColor defaultDecorator(int orderIndex, const TextLink& link);
+    static QColor blueDecorator(int orderIndex, const TextLink& link);
 
-    // Words
-    static int wordsCount(const QString& string);
+private: // Members
+    const LinksText      mLinksText;
+    const DecorCondition mColorCondition;
 
-    // Links
-    static TextLink linkAt(QStringView str, int index);
-
-    constexpr static int nullCursor = -1;
+    const QString mLeftReplacer  = QStringLiteral("<font color=\"%1\">");
+    const QString mRightReplacer = QStringLiteral("</font>");
 };

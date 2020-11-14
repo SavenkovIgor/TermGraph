@@ -242,3 +242,39 @@ target_sources (${TEXT_LINK_TEST}
         ../source/Helpers/validators/linktextvalidator.cpp
         ../source/Helpers/validators/linktextvalidator.h
         textlinktest.cpp)
+
+
+# LINK_DECORATOR_TEST
+set (LINK_DECORATOR_TEST "LinkDecoratorTest")
+
+add_executable (${LINK_DECORATOR_TEST})
+target_link_libraries (${LINK_DECORATOR_TEST} PRIVATE Qt5::Gui Qt5::Test)
+add_test (NAME ${LINK_DECORATOR_TEST} COMMAND ${LINK_DECORATOR_TEST})
+set_target_properties (${LINK_DECORATOR_TEST} PROPERTIES
+    AUTOMOC ON
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON)
+
+target_sources (${LINK_DECORATOR_TEST}
+    PRIVATE
+        ../source/Helpers/handytypes.h
+        ../source/Helpers/intmatrix.cpp
+        ../source/Helpers/intmatrix.h
+        ../source/Helpers/link/linksdecorator.cpp
+        ../source/Helpers/link/linksdecorator.h
+        ../source/Helpers/link/linkstext.cpp
+        ../source/Helpers/link/linkstext.h
+        ../source/Helpers/link/textlink.cpp
+        ../source/Helpers/link/textlink.h
+        ../source/Helpers/text/chartools.h
+        ../source/Helpers/text/checkingtextcursor.cpp
+        ../source/Helpers/text/checkingtextcursor.h
+        ../source/Helpers/text/textcursor.cpp
+        ../source/Helpers/text/textcursor.h
+        ../source/Helpers/text/textrange.cpp
+        ../source/Helpers/text/textrange.h
+        ../source/Helpers/uuid/uuidtools.cpp
+        ../source/Helpers/uuid/uuidtools.h
+        ../source/Helpers/validators/linktextvalidator.cpp
+        ../source/Helpers/validators/linktextvalidator.h
+        linkdecoratortest.cpp)

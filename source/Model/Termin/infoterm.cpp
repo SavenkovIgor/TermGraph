@@ -24,6 +24,7 @@
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/fonts.h"
 #include "source/Helpers/helpstuff.h"
+#include "source/Helpers/link/linksdecorator.h"
 #include "source/Helpers/link/linkutils.h"
 #include "source/Helpers/tagprocessor.h"
 #include "source/Helpers/textutils.h"
@@ -52,9 +53,11 @@ const TextLink::List& InfoTerm::links() const { return mLinksDefinition.links();
 
 QString InfoTerm::termAndDefinition(bool decorated) const
 {
+    LinksDecorator decorator(mLinksDefinition, LinksDecorator::defaultDecorator);
+
     if (decorated) {
         auto ret = "<font color=\"#00a693\">" + mInfo.term + "</font>";
-        ret += " - это " + TagProcessor::decorateTags(mInfo.definition);
+        ret += " - это " + decorator.apply(LinksDecoratorMode::Replace);
         return ret;
     }
     return mInfo.term + " - это " + mInfo.definition;

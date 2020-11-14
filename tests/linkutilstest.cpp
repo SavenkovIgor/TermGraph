@@ -237,26 +237,6 @@ private slots:
 
     void linkExtraction() {}
 
-    void decorateLink_data()
-    {
-        QTest::addColumn<QString>("src");
-        QTest::addColumn<QString>("result");
-
-        // clang-format off
-        QTest::newRow("case0") << ""         << "";
-        QTest::newRow("case1") << " asdf "   << " asdf ";
-        QTest::newRow("case2") << " {asdf} " << " <font color=\"#6d9a28\">asdf</font> ";
-        // clang-format on
-    }
-
-    void decorateLink()
-    {
-        QFETCH(QString, src);
-        QFETCH(QString, result);
-
-        QVERIFY(LinkUtils::replaceTags(src, "<font color=\"#6d9a28\">", "</font>") == result);
-    }
-
     void linkLengthSuitTerm_data()
     {
         QTest::addColumn<QString>("word1");

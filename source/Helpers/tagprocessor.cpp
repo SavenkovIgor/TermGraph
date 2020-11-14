@@ -22,6 +22,8 @@
 #include "source/Helpers/tagprocessor.h"
 
 #include "source/Helpers/intmatrix.h"
+#include "source/Helpers/link/linksdecorator.h"
+#include "source/Helpers/link/linkstext.h"
 #include "source/Helpers/link/linkutils.h"
 #include "source/Helpers/text/textcursor.h"
 
@@ -47,5 +49,7 @@ QString TagProcessor::expandTagRight(QString str, int cursor) { return LinkUtils
 
 QString TagProcessor::decorateTags(const QString& str)
 {
-    return LinkUtils::replaceTags(str, "<font color=\"#6d9a28\">", "</font>");
+    LinksText      linkText(str);
+    LinksDecorator decorator(linkText, LinksDecorator::blueDecorator);
+    return decorator.apply(LinksDecoratorMode::Replace);
 }

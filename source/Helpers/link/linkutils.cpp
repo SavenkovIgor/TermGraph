@@ -121,16 +121,6 @@ QString LinkUtils::removeTag(QString str, int cursor)
     return str;
 }
 
-QString LinkUtils::replaceTags(QString str, const QString& leftReplacer, const QString& rightReplacer)
-{
-    if (!LinkTextValidator::isPairedBrackets(str))
-        return str;
-
-    str.replace(CharTools::leftBracket, leftReplacer);
-    str.replace(CharTools::rightBracket, rightReplacer);
-    return str;
-}
-
 bool LinkUtils::tagLengthSuitTerm(const QString& tag, const QString& termName)
 {
     int wordsCountInTag = wordsCount(tag);
