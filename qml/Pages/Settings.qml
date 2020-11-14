@@ -24,7 +24,7 @@ import QtQuick.Controls 2.15
 
 import Atoms 1.0 as A
 import Molecules 1.0 as M
-import "Settings" as S
+import Pages 1.0 as P
 
 import StyleInfo 1.0
 
@@ -42,10 +42,10 @@ M.Page {
         ListElement { name: "Лицензия"       }
     }
 
-    Component { id: networkSettingsComponent; S.NetworkSettings { } }
-    Component { id: databaseComponent;        S.Database { } }
-    Component { id: helpPageComponent;        S.Help { } }
-    Component { id: licensePageComponent;     S.License { } }
+    Component { id: networkSettingsComponent; P.NetworkSettings { } }
+    Component { id: databaseComponent;        P.Database { } }
+    Component { id: helpPageComponent;        P.Help { } }
+    Component { id: licensePageComponent;     P.License { } }
 
     contentItem: ListView {
         model: settingsModel

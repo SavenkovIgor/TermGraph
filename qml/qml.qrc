@@ -68,6 +68,7 @@
         <file>Pages/Settings/License.qml</file>
         <file>Pages/Settings/NetworkSettings.qml</file>
         <file>Pages/TermView.qml</file>
+        <file>Pages/qmldir</file>
         <file>StyleInfo/Colors.js</file>
         <file>StyleInfo/Fonts.js</file>
         <file>StyleInfo/IconPath.js</file>
