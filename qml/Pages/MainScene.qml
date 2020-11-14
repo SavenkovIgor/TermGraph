@@ -31,7 +31,7 @@ import Atoms 1.0 as A
 import "../Molecules" as M
 import "../Pages" as P
 
-import "../Js/Tools.js" as Tools
+import JsTools   1.0
 import StyleInfo 1.0
 
 M.Page {

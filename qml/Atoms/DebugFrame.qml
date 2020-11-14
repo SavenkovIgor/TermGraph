@@ -21,7 +21,7 @@
 
 import QtQuick 2.15
 
-import "../Js/Debug.js" as Debug
+import JsTools 1.0
 
 Rectangle {
     anchors.fill: parent

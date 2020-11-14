@@ -27,7 +27,7 @@ import QtQuick.Dialogs 1.3
 
 import "Learning"
 import StyleInfo 1.0
-import "Atoms" as A
+import Atoms 1.0 as A
 import "Molecules" as M
 import "Pages" as P
 
