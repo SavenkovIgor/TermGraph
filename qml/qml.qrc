@@ -26,6 +26,7 @@
         <file>Atoms/ToolButton.qml</file>
         <file>Atoms/ToolTip.qml</file>
         <file>Atoms/TopRoundedRect.qml</file>
+        <file>Atoms/qmldir</file>
         <file>Js/Debug.js</file>
         <file>Js/Tools.js</file>
         <file>Learning/CardsStartScreen.qml</file>

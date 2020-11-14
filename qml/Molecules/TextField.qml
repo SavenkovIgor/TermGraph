@@ -22,7 +22,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
-import "../Atoms" as A
+import Atoms 1.0 as A
 import StyleInfo 1.0
 
 Column {

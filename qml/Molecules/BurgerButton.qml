@@ -21,7 +21,7 @@
 
 import QtQuick 2.15
 
-import "../Atoms" as A
+import Atoms 1.0 as A
 import StyleInfo 1.0
 
 A.ToolButton {

@@ -24,7 +24,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 import StyleInfo 1.0
-import "../Atoms" as A
+import Atoms 1.0 as A
 import "../Js/Tools.js" as Tools
 
 Drawer {
