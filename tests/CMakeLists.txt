@@ -34,27 +34,27 @@ set_target_properties (${LINK_UTILS_TEST} PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON)
 
-target_sources (
-    ${LINK_UTILS_TEST}
-    PRIVATE ../source/Helpers/handytypes.h
-            ../source/Helpers/intmatrix.cpp
-            ../source/Helpers/intmatrix.h
-            ../source/Helpers/link/linkutils.cpp
-            ../source/Helpers/link/linkutils.h
-            ../source/Helpers/text/chartools.h
-            ../source/Helpers/text/checkingtextcursor.cpp
-            ../source/Helpers/text/checkingtextcursor.h
-            ../source/Helpers/text/textcursor.cpp
-            ../source/Helpers/text/textcursor.h
-            ../source/Helpers/link/textlink.cpp
-            ../source/Helpers/link/textlink.h
-            ../source/Helpers/text/textrange.cpp
-            ../source/Helpers/text/textrange.h
-            ../source/Helpers/uuid/uuidtools.cpp
-            ../source/Helpers/uuid/uuidtools.h
-            ../source/Helpers/validators/linktextvalidator.cpp
-            ../source/Helpers/validators/linktextvalidator.h
-            linkutilstest.cpp)
+target_sources (${LINK_UTILS_TEST}
+    PRIVATE
+        ../source/Helpers/handytypes.h
+        ../source/Helpers/intmatrix.cpp
+        ../source/Helpers/intmatrix.h
+        ../source/Helpers/link/linkutils.cpp
+        ../source/Helpers/link/linkutils.h
+        ../source/Helpers/link/textlink.cpp
+        ../source/Helpers/link/textlink.h
+        ../source/Helpers/text/chartools.h
+        ../source/Helpers/text/checkingtextcursor.cpp
+        ../source/Helpers/text/checkingtextcursor.h
+        ../source/Helpers/text/textcursor.cpp
+        ../source/Helpers/text/textcursor.h
+        ../source/Helpers/text/textrange.cpp
+        ../source/Helpers/text/textrange.h
+        ../source/Helpers/uuid/uuidtools.cpp
+        ../source/Helpers/uuid/uuidtools.h
+        ../source/Helpers/validators/linktextvalidator.cpp
+        ../source/Helpers/validators/linktextvalidator.h
+        linkutilstest.cpp)
 
 
 # TEXT_PROCESSOR_TEST
@@ -68,11 +68,11 @@ set_target_properties (${TEXT_PROCESSOR_TEST} PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON)
 
-target_sources (
-    ${TEXT_PROCESSOR_TEST}
-    PRIVATE ../source/Helpers/textutils.cpp
-            ../source/Helpers/textutils.h
-            textprocessortest.cpp)
+target_sources (${TEXT_PROCESSOR_TEST}
+    PRIVATE
+        ../source/Helpers/textutils.cpp
+        ../source/Helpers/textutils.h
+        textprocessortest.cpp)
 
 
 # FS_WORKS_TEST
@@ -86,11 +86,11 @@ set_target_properties (${FS_WORKS_TEST} PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON)
 
-target_sources (
-    ${FS_WORKS_TEST}
-    PRIVATE ../source/Helpers/fsworks.h
-            ../source/Helpers/fsworks.cpp
-            fsworkstest.cpp)
+target_sources (${FS_WORKS_TEST}
+    PRIVATE
+        ../source/Helpers/fsworks.cpp
+        ../source/Helpers/fsworks.h
+        fsworkstest.cpp)
 
 
 # DB_WORKS_TEST
@@ -106,35 +106,35 @@ set_target_properties (${DB_WORKS_TEST} PROPERTIES
     CXX_STANDARD_REQUIRED ON)
 
 # TODO Reduce files count
-target_sources (
-    ${DB_WORKS_TEST}
-    PRIVATE ../source/Database/database.cpp
-            ../source/Database/database.h
-            ../source/Database/dbinfo.h
-            ../source/Database/dbtools.cpp
-            ../source/Database/dbtools.h
-            ../source/Database/sqlqueries.qrc
-            ../source/Database/sqlquerybuilder.cpp
-            ../source/Database/sqlquerybuilder.h
-            ../source/Database/tables/appconfigtable.cpp
-            ../source/Database/tables/appconfigtable.h
-            ../source/Database/tables/termgrouptable.cpp
-            ../source/Database/tables/termgrouptable.h
-            ../source/Database/tables/termtable.cpp
-            ../source/Database/tables/termtable.h
-            ../source/Helpers/appconfig.cpp
-            ../source/Helpers/appconfig.h
-            ../source/Helpers/fsworks.cpp
-            ../source/Helpers/fsworks.h
-            ../source/Helpers/handytypes.h
-            ../source/Managers/datastorageinterface.h
-            ../source/Managers/localdatabasestorage.cpp
-            ../source/Managers/localdatabasestorage.h
-            ../source/Managers/notificationmanager.cpp
-            ../source/Managers/notificationmanager.h
-            ../source/Model/Termin/nodeinfocontainer.h
-            ../source/Model/TerminGroup/groupinfocontainer.h
-            dbworkstest.cpp)
+target_sources (${DB_WORKS_TEST}
+    PRIVATE
+        ../source/Database/database.cpp
+        ../source/Database/database.h
+        ../source/Database/dbinfo.h
+        ../source/Database/dbtools.cpp
+        ../source/Database/dbtools.h
+        ../source/Database/sqlqueries.qrc
+        ../source/Database/sqlquerybuilder.cpp
+        ../source/Database/sqlquerybuilder.h
+        ../source/Database/tables/appconfigtable.cpp
+        ../source/Database/tables/appconfigtable.h
+        ../source/Database/tables/termgrouptable.cpp
+        ../source/Database/tables/termgrouptable.h
+        ../source/Database/tables/termtable.cpp
+        ../source/Database/tables/termtable.h
+        ../source/Helpers/appconfig.cpp
+        ../source/Helpers/appconfig.h
+        ../source/Helpers/fsworks.cpp
+        ../source/Helpers/fsworks.h
+        ../source/Helpers/handytypes.h
+        ../source/Managers/datastorageinterface.h
+        ../source/Managers/localdatabasestorage.cpp
+        ../source/Managers/localdatabasestorage.h
+        ../source/Managers/notificationmanager.cpp
+        ../source/Managers/notificationmanager.h
+        ../source/Model/Termin/nodeinfocontainer.h
+        ../source/Model/TerminGroup/groupinfocontainer.h
+        dbworkstest.cpp)
 
 
 # UUIDS_TEST
@@ -149,11 +149,11 @@ set_target_properties (${UUIDS_TEST} PROPERTIES
     CXX_STANDARD_REQUIRED ON)
 
 # TODO Reduce files count
-target_sources (
-    ${UUIDS_TEST}
-    PRIVATE ../source/Helpers/uuid/uuidtools.cpp
-            ../source/Helpers/uuid/uuidtools.h
-            uuidstest.cpp)
+target_sources (${UUIDS_TEST}
+    PRIVATE
+        ../source/Helpers/uuid/uuidtools.cpp
+        ../source/Helpers/uuid/uuidtools.h
+        uuidstest.cpp)
 
 
 # TEXT_CURSOR_TEST
@@ -167,15 +167,15 @@ set_target_properties (${TEXT_CURSOR_TEST} PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON)
 
-target_sources (
-    ${TEXT_CURSOR_TEST}
-    PRIVATE ../source/Helpers/text/textcursor.cpp
-            ../source/Helpers/text/textcursor.h
-            ../source/Helpers/text/checkingtextcursor.cpp
-            ../source/Helpers/text/checkingtextcursor.h
-            ../source/Helpers/text/chartools.h
-            ../source/Helpers/handytypes.h
-            cursortest.cpp)
+target_sources (${TEXT_CURSOR_TEST}
+    PRIVATE
+        ../source/Helpers/handytypes.h
+        ../source/Helpers/text/chartools.h
+        ../source/Helpers/text/checkingtextcursor.cpp
+        ../source/Helpers/text/checkingtextcursor.h
+        ../source/Helpers/text/textcursor.cpp
+        ../source/Helpers/text/textcursor.h
+        cursortest.cpp)
 
 
 # TEXT_RANGE_TEST
@@ -189,25 +189,25 @@ set_target_properties (${TEXT_RANGE_TEST} PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON)
 
-target_sources (
-    ${TEXT_RANGE_TEST}
-    PRIVATE ../source/Helpers/text/textcursor.cpp
-            ../source/Helpers/text/textcursor.h
-            ../source/Helpers/text/checkingtextcursor.cpp
-            ../source/Helpers/text/checkingtextcursor.h
-            ../source/Helpers/text/textrange.cpp
-            ../source/Helpers/text/textrange.h
-            ../source/Helpers/link/textlink.cpp
-            ../source/Helpers/link/textlink.h
-            ../source/Helpers/uuid/uuidtools.cpp
-            ../source/Helpers/uuid/uuidtools.h
-            ../source/Helpers/intmatrix.cpp
-            ../source/Helpers/intmatrix.h
-            ../source/Helpers/text/chartools.h
-            ../source/Helpers/handytypes.h
-            ../source/Helpers/validators/linktextvalidator.cpp
-            ../source/Helpers/validators/linktextvalidator.h
-            textrangetest.cpp)
+target_sources (${TEXT_RANGE_TEST}
+    PRIVATE
+        ../source/Helpers/handytypes.h
+        ../source/Helpers/intmatrix.cpp
+        ../source/Helpers/intmatrix.h
+        ../source/Helpers/link/textlink.cpp
+        ../source/Helpers/link/textlink.h
+        ../source/Helpers/text/chartools.h
+        ../source/Helpers/text/checkingtextcursor.cpp
+        ../source/Helpers/text/checkingtextcursor.h
+        ../source/Helpers/text/textcursor.cpp
+        ../source/Helpers/text/textcursor.h
+        ../source/Helpers/text/textrange.cpp
+        ../source/Helpers/text/textrange.h
+        ../source/Helpers/uuid/uuidtools.cpp
+        ../source/Helpers/uuid/uuidtools.h
+        ../source/Helpers/validators/linktextvalidator.cpp
+        ../source/Helpers/validators/linktextvalidator.h
+        textrangetest.cpp)
 
 
 # TEXT_LINK_TEST
@@ -221,24 +221,24 @@ set_target_properties (${TEXT_LINK_TEST} PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON)
 
-target_sources (
-    ${TEXT_LINK_TEST}
-    PRIVATE ../source/Helpers/text/textcursor.cpp
-            ../source/Helpers/text/textcursor.h
-            ../source/Helpers/text/checkingtextcursor.cpp
-            ../source/Helpers/text/checkingtextcursor.h
-            ../source/Helpers/text/textrange.cpp
-            ../source/Helpers/text/textrange.h
-            ../source/Helpers/text/chartools.h
-            ../source/Helpers/handytypes.h
-            ../source/Helpers/link/textlink.cpp
-            ../source/Helpers/link/textlink.h
-            ../source/Helpers/link/linkstext.cpp
-            ../source/Helpers/link/linkstext.h
-            ../source/Helpers/intmatrix.cpp
-            ../source/Helpers/intmatrix.h
-            ../source/Helpers/uuid/uuidtools.cpp
-            ../source/Helpers/uuid/uuidtools.h
-            ../source/Helpers/validators/linktextvalidator.cpp
-            ../source/Helpers/validators/linktextvalidator.h
-            textlinktest.cpp)
+target_sources (${TEXT_LINK_TEST}
+    PRIVATE
+        ../source/Helpers/handytypes.h
+        ../source/Helpers/intmatrix.cpp
+        ../source/Helpers/intmatrix.h
+        ../source/Helpers/link/linkstext.cpp
+        ../source/Helpers/link/linkstext.h
+        ../source/Helpers/link/textlink.cpp
+        ../source/Helpers/link/textlink.h
+        ../source/Helpers/text/chartools.h
+        ../source/Helpers/text/checkingtextcursor.cpp
+        ../source/Helpers/text/checkingtextcursor.h
+        ../source/Helpers/text/textcursor.cpp
+        ../source/Helpers/text/textcursor.h
+        ../source/Helpers/text/textrange.cpp
+        ../source/Helpers/text/textrange.h
+        ../source/Helpers/uuid/uuidtools.cpp
+        ../source/Helpers/uuid/uuidtools.h
+        ../source/Helpers/validators/linktextvalidator.cpp
+        ../source/Helpers/validators/linktextvalidator.h
+        textlinktest.cpp)
