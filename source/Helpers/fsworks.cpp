@@ -60,9 +60,7 @@ bool FSWorks::deleteFile(const QString& filePath) { return QFile::remove(filePat
 
 void FSWorks::saveFile(const QString& subDir, const QString& fileName, const QString& data)
 {
-    QByteArray arr;
-    arr.append(data);
-    saveFile(subDir, fileName, arr);
+    saveFile(subDir, fileName, data.toUtf8());
 }
 
 void FSWorks::saveFile(const QString& subDir, const QString& fileName, const QByteArray& data)

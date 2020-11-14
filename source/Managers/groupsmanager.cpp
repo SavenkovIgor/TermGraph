@@ -125,9 +125,7 @@ void GroupsManager::importGroupFromJsonFile(const QString& filename)
 
 void GroupsManager::importGroupFromJsonString(const QString& rawJson)
 {
-    QByteArray byteArr;
-    byteArr.append(rawJson);
-    QJsonDocument doc = QJsonDocument::fromJson(byteArr);
+    QJsonDocument doc = QJsonDocument::fromJson(rawJson.toUtf8());
     importGroupFromJson(doc);
 }
 
