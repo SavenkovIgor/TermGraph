@@ -34,6 +34,7 @@
         <file>Learning/LearnCard.qml</file>
         <file>Learning/LearnGroupsList.qml</file>
         <file>Learning/LearnMode.qml</file>
+        <file>Learning/qmldir</file>
         <file>Molecules/AppIcon.qml</file>
         <file>Molecules/BurgerButton.qml</file>
         <file>Molecules/DefaultHeader.qml</file>

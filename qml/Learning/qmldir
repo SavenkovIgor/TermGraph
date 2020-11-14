@@ -1,0 +1,6 @@
+module Learning
+
+CardsStartScreen 1.0 CardsStartScreen.qml
+LearnCard        1.0 LearnCard.qml
+LearnGroupsList  1.0 LearnGroupsList.qml
+LearnMode        1.0 LearnMode.qml
