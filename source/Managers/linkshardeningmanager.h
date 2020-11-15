@@ -58,8 +58,8 @@ public:
     Q_INVOKABLE void setGroup(TermGroup* group);
     Q_INVOKABLE void setTerm(NodeGadgetWrapper termWrapper);
 
-    Q_INVOKABLE bool prev();
-    Q_INVOKABLE bool next();
+    Q_INVOKABLE void prev();
+    Q_INVOKABLE void next();
 
     Q_INVOKABLE void hardenLink(QUuid uuid);
 

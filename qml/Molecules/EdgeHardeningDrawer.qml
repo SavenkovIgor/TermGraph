@@ -38,6 +38,7 @@ A.DrawerPage {
 
     property LinksHardeningManager linksManager: LinksHardeningManager { }
     property var currentNode
+    property string currentTerm: currentNode ? currentNode.term : ""
 
     signal showTermUuid(string uuid)
 
@@ -61,7 +62,7 @@ A.DrawerPage {
                 color: Colors.white
                 font: Fonts.setWeight(Fonts.capitalText, Font.DemiBold)
 
-                text: "Фиксация ссылок для термина: '" + currentNode.term + "'"
+                text: "Фиксация ссылок для термина: '" + root.currentTerm + "'"
             }
 
             A.RoundButton {
@@ -125,10 +126,9 @@ A.DrawerPage {
         ListView { // uuid variants
             id: lView
 
-            model: linksManager
-            height: 200
+            model: linksManager ? linksManager : []
+            implicitHeight: contentHeight
             Layout.fillWidth: true
-            Layout.fillHeight: true
 
             boundsBehavior: ListView.StopAtBounds
             clip: true
@@ -153,9 +153,12 @@ A.DrawerPage {
                 highlighted: ListView.isCurrentItem
 
                 onClicked: {
+                    if (!root.linksManager)
+                        return;
+
                     lView.currentIndex = item.index;
                     root.showTermUuid(termUuid);
-                    linksManager.hardenLink(termUuid);
+                    root.linksManager.hardenLink(termUuid);
                 }
             }
         }

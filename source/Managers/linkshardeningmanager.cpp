@@ -76,36 +76,31 @@ void LinksHardeningManager::setTerm(NodeGadgetWrapper termWrapper)
     mLinksText.reset(new LinksText(mCurrentDefinition));
 
     mLinkIndex = linkCount() >= 1 ? 0 : -1;
-    emit indexChanged();
     mReplacePreparations.clear();
+    emit indexChanged();
 }
 
-bool LinksHardeningManager::prev()
+void LinksHardeningManager::prev()
 {
     if (canMovePrev()) {
         mLinkIndex--;
         emit indexChanged();
-        return true;
     }
-
-    return false;
 }
 
-bool LinksHardeningManager::next()
+void LinksHardeningManager::next()
 {
     if (canMoveNext()) {
         mLinkIndex++;
         emit indexChanged();
-        return true;
     }
-
-    return false;
 }
 
 void LinksHardeningManager::hardenLink(QUuid uuid)
 {
     mReplacePreparations[mLinkIndex] = uuid;
     emit indexChanged();
+    next();
 }
 
 LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariants(int limit)
@@ -123,7 +118,7 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
         if (QUuid(mCurrentTerm.getUuid()) == term->info().uuid)
             continue;
 
-        auto distance = LinkUtils::getLevDistance(currentLink().text(), term->info().term);
+        auto distance = LinkUtils::getLevDistance(currentLink().textLower(), term->info().term.toLower());
         distances.push_back(std::pair(distance, term));
     }
 

@@ -88,6 +88,8 @@ bool Edge::isBroken() const { return mType == EdgeType::broken; }
 
 bool Edge::isRedundant() const { return mType == EdgeType::redundant; }
 
+bool Edge::isHard() const { return mType == EdgeType::terminHardLink; }
+
 QRectF Edge::edgeRect() const
 {
     QPointF pt1 = rootPoint();

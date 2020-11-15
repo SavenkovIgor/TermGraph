@@ -63,7 +63,7 @@ public:
         public:
             inline static auto standard       = QColor(Qt::black);
             inline static auto termin         = QColor(34, 91, 122);
-            inline static auto terminHardLink = QColor(255, 224, 102);
+            inline static auto terminHardLink = QColor(160, 145, 181);
             inline static auto description    = QColor(Qt::green);
             inline static auto selected       = QColor(0, 166, 147);
             inline static auto selectedAlt    = QColor(220, 76, 29);

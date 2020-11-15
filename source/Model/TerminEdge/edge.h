@@ -71,6 +71,7 @@ public:
     bool         isSelected() const;
     bool         isBroken() const;
     bool         isRedundant() const;
+    bool         isHard() const;
 
 signals:
     void selectionChanged();

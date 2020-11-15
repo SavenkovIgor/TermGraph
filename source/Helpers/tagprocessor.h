@@ -35,6 +35,7 @@ public:
 public slots:
     static bool isValidCursor(const QString& str, int cursor);
     static bool isInsideTag(const QString& str, int cursor);
+    static bool hasSoftLinks(const QString& linkedText);
 
     static QString addTag(QString str, int cursor);
     static QString expandTagRight(QString str, int cursor);

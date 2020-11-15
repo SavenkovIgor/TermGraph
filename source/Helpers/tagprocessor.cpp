@@ -41,6 +41,18 @@ bool TagProcessor::isInsideTag(const QString& str, int cursor)
     return LinkUtils::isInsideTag(QStringView(str), cursor);
 }
 
+bool TagProcessor::hasSoftLinks(const QString& linkedText)
+{
+    LinksText txt(linkedText);
+
+    for (const auto& link : txt.links()) {
+        if (!link.hasUuid())
+            return true;
+    }
+
+    return false;
+}
+
 QString TagProcessor::addTag(QString str, int cursor) { return LinkUtils::addTag(str, cursor); }
 
 QString TagProcessor::removeTag(QString str, int cursor) { return LinkUtils::removeTag(str, cursor); }

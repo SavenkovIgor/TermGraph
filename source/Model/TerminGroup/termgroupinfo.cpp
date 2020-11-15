@@ -65,12 +65,20 @@ Edge::List TermGroupInfo::redundantEdges() const
 Edge::List TermGroupInfo::edgesForPaint() const
 {
     Edge::List lst;
-    auto       defaultTypeFilter  = [](Edge* e) { return !e->isSelected(); };
-    auto       selectedTypeFilter = [](Edge* e) { return e->isSelected(); };
 
-    lst << filterFromEdgesList(defaultTypeFilter);
-    lst << filterFromEdgesList(selectedTypeFilter);
+    auto softEdgesFilter     = [](Edge* e) { return !e->isSelected() && !e->isHard(); };
+    auto hardEdgesFilter     = [](Edge* e) { return !e->isSelected() && e->isHard(); };
+    auto selectedEdgesFilter = [](Edge* e) { return e->isSelected(); };
+
+    auto softEdges     = filterFromEdgesList(softEdgesFilter);
+    auto hardEdges     = filterFromEdgesList(hardEdgesFilter);
+    auto selectedEdges = filterFromEdgesList(selectedEdgesFilter);
+
+    lst << softEdges;
+    lst << hardEdges;
+    lst << selectedEdges;
     lst << brokenEdges();
+
     return lst;
 }
 

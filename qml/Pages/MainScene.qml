@@ -51,15 +51,15 @@ M.Page {
     states: [
         State {
             name: "some"
-            PropertyChanges { target: editNodeButton;   visible: true }
-            PropertyChanges { target: nodeInfoButton;   visible: true }
-            PropertyChanges { target: addNodeButton;    visible: false }
+            PropertyChanges { target: editNodeButton; visible: true }
+            PropertyChanges { target: nodeInfoButton; visible: true }
+            PropertyChanges { target: addNodeButton;  visible: false }
         },
         State {
             name: "none"
-            PropertyChanges { target: editNodeButton;   visible: false }
-            PropertyChanges { target: nodeInfoButton;   visible: false }
-            PropertyChanges { target: addNodeButton;    visible: true }
+            PropertyChanges { target: editNodeButton; visible: false }
+            PropertyChanges { target: nodeInfoButton; visible: false }
+            PropertyChanges { target: addNodeButton;  visible: true }
         }
     ]
 

@@ -67,6 +67,7 @@ A.DrawerPage {
 
             A.RoundButton {
                 bgColor: Colors.yellow
+                visible: tagTools.hasSoftLinks(currentNode ? currentNode.definition : "")
                 action: Action {
                     icon.source: IconPath.warning
                     onTriggered: root.openWarningPopup()
