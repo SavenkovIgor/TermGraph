@@ -31,7 +31,7 @@
 
 class PaintedTerm;
 
-enum class EdgeType { standart, termin, description, broken, redundant };
+enum class EdgeType { standart, termin, terminHardLink, description, broken, redundant };
 
 enum class EdgeSelected { none, forward, backward };
 

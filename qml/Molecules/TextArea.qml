@@ -35,6 +35,7 @@ Column {
     property alias cursorPosition: txtArea.cursorPosition
     property alias inputMethodHints: txtArea.inputMethodHints
     property alias textFormat: txtArea.textFormat
+    property alias readOnly: txtArea.readOnly
 
     function takeFocus() {
         txtArea.forceActiveFocus()

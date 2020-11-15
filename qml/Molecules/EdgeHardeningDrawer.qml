@@ -29,6 +29,10 @@ import Molecules 1.0 as M
 import StyleInfo 1.0
 import Helpers 1.0
 
+// TODO: Disable apply button, when nothing changed
+// TODO: save selection when switch left|right
+// TODO: Cancel selection
+
 A.DrawerPage {
     id: root
 
@@ -44,17 +48,43 @@ A.DrawerPage {
 
     contentItem: ColumnLayout {
 
-        Text {
+        RowLayout {
             Layout.fillWidth: true
-            horizontalAlignment: Text.AlignLeft
-            padding: Sizes.baseR50
-            topPadding: Sizes.baseR75
-            bottomPadding: Sizes.baseR75
 
-            color: Colors.white
-            font: Fonts.setWeight(Fonts.capitalText, Font.DemiBold)
+            Text {
+                Layout.fillWidth: true
+                horizontalAlignment: Text.AlignLeft
+                padding: Sizes.baseR50
+                topPadding: Sizes.baseR75
+                bottomPadding: Sizes.baseR75
 
-            text: "Фиксация ссылок для термина: '" + currentNode.term + "'"
+                color: Colors.white
+                font: Fonts.setWeight(Fonts.capitalText, Font.DemiBold)
+
+                text: "Фиксация ссылок для термина: '" + currentNode.term + "'"
+            }
+
+            A.RoundButton {
+                action: Action {
+                    icon.source: IconPath.check
+                    onTriggered: {
+                        const hardenedNode = linksManager.appliedReplacement();
+
+                        let success = nodesManager.changeNode(
+                                hardenedNode.uuid,
+                                hardenedNode.term,
+                                hardenedNode.definition,
+                                hardenedNode.description,
+                                hardenedNode.examples,
+                                hardenedNode.groupUuid
+                                );
+
+                        if (success) {
+                            root.close();
+                        }
+                    }
+                }
+            }
         }
 
         RowLayout {
@@ -66,6 +96,7 @@ A.DrawerPage {
                 Layout.fillWidth: true
                 text: linksManager.definitionWithHighlightedLink
                 textFormat: TextArea.RichText
+                readOnly: true
 
                 labelText: "Определение:"
             }

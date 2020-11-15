@@ -41,25 +41,18 @@ Edge::Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type, QObject* par
 QColor Edge::getEdgeColor() const
 {
     switch (mSelected) {
-    case EdgeSelected::backward:
-        return AppStyle::Colors::Edges::selected;
-    case EdgeSelected::forward:
-        return AppStyle::Colors::Edges::selectedAlt;
-    default:
-        break;
+    case EdgeSelected::backward: return AppStyle::Colors::Edges::selected;
+    case EdgeSelected::forward: return AppStyle::Colors::Edges::selectedAlt;
+    default: break;
     }
 
     switch (mType) {
-    case EdgeType::standart:
-        return AppStyle::Colors::Edges::standard;
-    case EdgeType::termin:
-        return AppStyle::Colors::Edges::termin;
-    case EdgeType::description:
-        return AppStyle::Colors::Edges::description;
-    case EdgeType::broken:
-        return AppStyle::Colors::Edges::broken;
-    case EdgeType::redundant:
-        return AppStyle::Colors::Edges::standard;
+    case EdgeType::standart: return AppStyle::Colors::Edges::standard;
+    case EdgeType::termin: return AppStyle::Colors::Edges::termin;
+    case EdgeType::terminHardLink: return AppStyle::Colors::Edges::terminHardLink;
+    case EdgeType::description: return AppStyle::Colors::Edges::description;
+    case EdgeType::broken: return AppStyle::Colors::Edges::broken;
+    case EdgeType::redundant: return AppStyle::Colors::Edges::standard;
     }
 
     return AppStyle::Colors::Edges::standard;
@@ -87,25 +80,13 @@ void Edge::cutOutFromSides()
     getLeaf()->removeEdgeToRoots(this);
 }
 
-EdgeSelected Edge::selectedType() const
-{
-    return mSelected;
-}
+EdgeSelected Edge::selectedType() const { return mSelected; }
 
-bool Edge::isSelected() const
-{
-    return mSelected == EdgeSelected::forward || mSelected == EdgeSelected::backward;
-}
+bool Edge::isSelected() const { return mSelected == EdgeSelected::forward || mSelected == EdgeSelected::backward; }
 
-bool Edge::isBroken() const
-{
-    return mType == EdgeType::broken;
-}
+bool Edge::isBroken() const { return mType == EdgeType::broken; }
 
-bool Edge::isRedundant() const
-{
-    return mType == EdgeType::redundant;
-}
+bool Edge::isRedundant() const { return mType == EdgeType::redundant; }
 
 QRectF Edge::edgeRect() const
 {

@@ -146,7 +146,7 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
     return ret;
 }
 
-NodeGadgetWrapper LinksHardeningManager::applyReplacement()
+NodeGadgetWrapper LinksHardeningManager::appliedReplacement()
 {
     auto ret        = mCurrentTerm;
     auto definition = applyLinkUuids(mCurrentDefinition, mReplacePreparations);

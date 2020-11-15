@@ -95,6 +95,7 @@ Edge::List TermGroupInfo::searchAllConnections()
 
     // Pre-heating of cache with exact terms match
     QMap<QString, PaintedTerm*> previousTagSearchCache = getExactTermMatchCache();
+    QMap<QUuid, PaintedTerm*>   termUuids              = getTermUuidsMap();
 
     static int counter     = 0;
     bool       stopRequest = false;
@@ -103,6 +104,17 @@ Edge::List TermGroupInfo::searchAllConnections()
     for (auto* node : mNodes) {
         for (const auto& link : node->additionalInfo().links()) {
             PaintedTerm* foundNode = nullptr;
+
+            EdgeType eType = EdgeType::termin;
+
+            if (!foundNode) {
+                if (link.hasUuid()) {
+                    if (termUuids.contains(link.uuid())) {
+                        foundNode = termUuids[link.uuid()];
+                        eType     = EdgeType::terminHardLink;
+                    }
+                }
+            }
 
             // If we have same search earlier this cycle
             if (!foundNode)
@@ -113,7 +125,7 @@ Edge::List TermGroupInfo::searchAllConnections()
 
             if (foundNode) {
                 if (foundNode != node) { // TODO: Real case, need check
-                    ret << new Edge(foundNode, node);
+                    ret << new Edge(foundNode, node, eType);
                     previousTagSearchCache.insert(link.textLower(), foundNode);
                 }
             }
@@ -139,6 +151,16 @@ QMap<QString, PaintedTerm*> TermGroupInfo::getExactTermMatchCache()
 
     for (auto* node : mNodes)
         ret.insert(node->additionalInfo().lowerTerm(), node);
+
+    return ret;
+}
+
+QMap<QUuid, PaintedTerm*> TermGroupInfo::getTermUuidsMap()
+{
+    QMap<QUuid, PaintedTerm*> ret;
+
+    for (auto* node : mNodes)
+        ret.insert(node->info().uuid, node);
 
     return ret;
 }

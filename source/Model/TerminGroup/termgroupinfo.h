@@ -83,13 +83,14 @@ private:
     // Edge connections search
     Edge::List                  searchAllConnections();
     QMap<QString, PaintedTerm*> getExactTermMatchCache();
+    QMap<QUuid, PaintedTerm*>   getTermUuidsMap();
     PaintedTerm*                getNearestNodeForTag(const QString& tag);
 
-    Edge::List suggestConnections();  // TODO: Realize!
+    Edge::List suggestConnections(); // TODO: Realize!
 
     void removeTrees();
 
-private:  // Members
+private: // Members
     // Group info
     GroupInfoContainer mInfo;
 
