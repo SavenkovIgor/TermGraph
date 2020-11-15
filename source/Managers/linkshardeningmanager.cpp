@@ -77,26 +77,7 @@ void LinksHardeningManager::setTerm(NodeGadgetWrapper termWrapper)
 
     mLinkIndex = linkCount() >= 1 ? 0 : -1;
     emit indexChanged();
-    replacePreparations.clear();
-}
-
-bool LinksHardeningManager::hasLinksForHardening() const
-{
-    for (auto link : currentLinks())
-        if (!link.hasUuid())
-            return true;
-
-    return false;
-}
-
-int LinksHardeningManager::hardeningCount() const
-{
-    int count = 0;
-    for (auto link : currentLinks())
-        if (!link.hasUuid())
-            count++;
-
-    return count;
+    mReplacePreparations.clear();
 }
 
 bool LinksHardeningManager::prev()
@@ -121,7 +102,11 @@ bool LinksHardeningManager::next()
     return false;
 }
 
-void LinksHardeningManager::hardenLink(QUuid uuid) { replacePreparations[mLinkIndex] = uuid; }
+void LinksHardeningManager::hardenLink(QUuid uuid)
+{
+    mReplacePreparations[mLinkIndex] = uuid;
+    emit indexChanged();
+}
 
 LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariants(int limit)
 {
@@ -163,20 +148,8 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
 
 NodeGadgetWrapper LinksHardeningManager::applyReplacement()
 {
-    auto definition = mCurrentDefinition;
-
-    for (auto &replace : replacePreparations.toStdMap()) {
-        auto linksText = LinksText(definition);
-
-        TextLink oldLink          = linksText.links()[replace.first];
-        auto [cuttedLink, cutPos] = oldLink.cutted();
-
-        const auto newLink = oldLink.createLinkWithUuid(replace.second);
-        cuttedLink.insert(cutPos, newLink);
-        definition = cuttedLink;
-    }
-
-    auto ret = mCurrentTerm;
+    auto ret        = mCurrentTerm;
+    auto definition = applyLinkUuids(mCurrentDefinition, mReplacePreparations);
     ret.setDefinition(definition);
 
     return NodeGadgetWrapper(ret);
@@ -203,6 +176,14 @@ bool LinksHardeningManager::canMoveNext() const { return 0 <= mLinkIndex && mLin
 
 bool LinksHardeningManager::canMovePrev() const { return 1 <= mLinkIndex && mLinkIndex < linkCount(); }
 
+QString LinksHardeningManager::currentLinkText()
+{
+    if (!isValidIndex() || !mLinksText)
+        return "";
+
+    return mLinksText->links()[mLinkIndex].fullLink().toString();
+}
+
 QString LinksHardeningManager::definitionWithHighlightedLink() const
 {
     if (!isValidIndex() || !mLinksText)
@@ -210,15 +191,59 @@ QString LinksHardeningManager::definitionWithHighlightedLink() const
 
     assert(!mCurrentTerm.isNull());
 
-    auto decorColor = [currentIndex = mLinkIndex](int index, [[maybe_unused]] const TextLink &link) {
-        return currentIndex == index ? QColor("#e8cb4a") : QColor("white");
+    return appliedLinkFixationText();
+}
+
+int LinksHardeningManager::linkCount() const
+{
+    if (!mLinksText || mLinksText.isNull())
+        return 0;
+
+    return mLinksText->links().size();
+}
+
+QString LinksHardeningManager::appliedLinkFixationText() const
+{
+    if (!isValidIndex())
+        return "";
+
+    auto ret = applyLinkUuids(mCurrentDefinition, mReplacePreparations);
+
+    auto links = LinksText(ret);
+
+    auto decorColor = []([[maybe_unused]] int index, const TextLink &link) {
+        if (link.hasUuid())
+            return QColor("#90ee90");
+
+        return QColor("white");
     };
 
-    auto decorator = LinksDecorator(*mLinksText, decorColor);
+    auto bgColor = [currentIndex = mLinkIndex](int index, [[maybe_unused]] const TextLink &link) {
+        if (currentIndex == index)
+            return QColor("#6f6f6f");
+
+        return QColor("transparent");
+    };
+
+    auto decorator = LinksDecorator(links, decorColor, bgColor);
     return decorator.apply(LinksDecoratorMode::Insert);
 }
 
-int LinksHardeningManager::linkCount() const { return !mLinksText.isNull() ? mLinksText->links().size() : 0; }
+QString LinksHardeningManager::applyLinkUuids(QString stringWithLinks, QMap<int, QUuid> uuidsToApply)
+{
+    for (auto &[index, uuid] : uuidsToApply.toStdMap()) {
+        auto linksText = LinksText(stringWithLinks);
+
+        TextLink oldLink          = linksText.links()[index];
+        auto [cuttedLink, cutPos] = oldLink.cutted();
+
+        const auto newLink = oldLink.createLinkWithUuid(uuid);
+        cuttedLink.insert(cutPos, newLink);
+        stringWithLinks = cuttedLink;
+    }
+
+    return stringWithLinks;
+}
 
 TextLink LinksHardeningManager::currentLink() const
 {

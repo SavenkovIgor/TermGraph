@@ -21,9 +21,12 @@
 
 #include "source/Helpers/link/linksdecorator.h"
 
-LinksDecorator::LinksDecorator(LinksText linksText, LinksDecorator::DecorCondition colorCondition)
+LinksDecorator::LinksDecorator(LinksText                      linksText,
+                               LinksDecorator::DecorCondition colorCondition,
+                               DecorCondition                 backgroundCondition)
     : mLinksText(linksText)
     , mColorCondition(colorCondition)
+    , mBackgroundCondition(backgroundCondition)
 {}
 
 QString LinksDecorator::apply(LinksDecoratorMode mode)
@@ -37,7 +40,8 @@ QString LinksDecorator::apply(LinksDecoratorMode mode)
         int lBracketPos = link.left().pos();
 
         auto color    = mColorCondition(i, link);
-        auto colorStr = mLeftReplacer.arg(color.name(QColor::HexRgb));
+        auto back     = mBackgroundCondition(i, link);
+        auto colorStr = mLeftReplacer.arg(color.name(QColor::HexArgb)).arg(back.name(QColor::HexArgb));
 
         if (mode == LinksDecoratorMode::Insert) {
             ret.insert(rBracketPos + 1, mRightReplacer);
@@ -59,4 +63,9 @@ QColor LinksDecorator::defaultDecorator([[maybe_unused]] int orderIndex, [[maybe
 QColor LinksDecorator::blueDecorator([[maybe_unused]] int orderIndex, [[maybe_unused]] const TextLink& link)
 {
     return QColor("#6d9a28");
+}
+
+QColor LinksDecorator::defaultBackground([[maybe_unused]] int orderIndex, [[maybe_unused]] const TextLink& link)
+{
+    return QColor("transparent");
 }

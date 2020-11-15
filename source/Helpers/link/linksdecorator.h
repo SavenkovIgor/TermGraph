@@ -36,17 +36,22 @@ class LinksDecorator
 public:
     using DecorCondition = std::function<QColor(int, const TextLink&)>;
 
-    LinksDecorator(LinksText linksText, DecorCondition colorCondition);
+    LinksDecorator(LinksText      linksText,
+                   DecorCondition colorCondition,
+                   DecorCondition backgroundCondition = defaultBackground);
 
     QString apply(LinksDecoratorMode mode);
 
     static QColor defaultDecorator(int orderIndex, const TextLink& link);
     static QColor blueDecorator(int orderIndex, const TextLink& link);
 
+    static QColor defaultBackground(int orderIndex, const TextLink& link);
+
 private: // Members
     const LinksText      mLinksText;
     const DecorCondition mColorCondition;
+    const DecorCondition mBackgroundCondition;
 
-    const QString mLeftReplacer  = QStringLiteral("<font color=\"%1\">");
+    const QString mLeftReplacer  = QStringLiteral("<font color=\"%1\" style=\"background-color:%2\">");
     const QString mRightReplacer = QStringLiteral("</font>");
 };

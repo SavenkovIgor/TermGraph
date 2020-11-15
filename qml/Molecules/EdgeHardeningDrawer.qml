@@ -24,6 +24,7 @@ import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
 import Atoms 1.0 as A
+import Molecules 1.0 as M
 
 import StyleInfo 1.0
 import Helpers 1.0
@@ -43,20 +44,30 @@ A.DrawerPage {
 
     contentItem: ColumnLayout {
 
+        Text {
+            Layout.fillWidth: true
+            horizontalAlignment: Text.AlignLeft
+            padding: Sizes.baseR50
+            topPadding: Sizes.baseR75
+            bottomPadding: Sizes.baseR75
+
+            color: Colors.white
+            font: Fonts.setWeight(Fonts.capitalText, Font.DemiBold)
+
+            text: "Фиксация ссылок для термина: '" + currentNode.term + "'"
+        }
+
         RowLayout {
             id: row
 
             Layout.fillWidth: true
 
-            TextArea {
+            M.TextArea {
                 Layout.fillWidth: true
-                height: 50
-
-                color: Colors.white
-
                 text: linksManager.definitionWithHighlightedLink
                 textFormat: TextArea.RichText
-                readOnly: true
+
+                labelText: "Определение:"
             }
 
             A.RoundButton {
@@ -73,6 +84,11 @@ A.DrawerPage {
                     onTriggered: linksManager.next()
                 }
             }
+        }
+
+        A.AccentText {
+            Layout.fillWidth: true
+            text: "Термины, похожие на ссылку " + linksManager.currentLinkText
         }
 
         ListView { // uuid variants
@@ -108,6 +124,7 @@ A.DrawerPage {
                 onClicked: {
                     lView.currentIndex = item.index;
                     root.showTermUuid(termUuid);
+                    linksManager.hardenLink(termUuid);
                 }
             }
         }

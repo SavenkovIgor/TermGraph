@@ -38,6 +38,7 @@ class LinksHardeningManager : public QAbstractListModel
     Q_PROPERTY(bool canMoveNext READ canMoveNext NOTIFY indexChanged);
     Q_PROPERTY(bool canMovePrev READ canMovePrev NOTIFY indexChanged);
     Q_PROPERTY(QString definitionWithHighlightedLink READ definitionWithHighlightedLink NOTIFY indexChanged);
+    Q_PROPERTY(QString currentLinkText READ currentLinkText NOTIFY indexChanged);
 
 public:
     using SearchResult     = std::tuple<QUuid, QString, int>;
@@ -57,15 +58,12 @@ public:
     Q_INVOKABLE void setGroup(TermGroup* group);
     Q_INVOKABLE void setTerm(NodeGadgetWrapper termWrapper);
 
-    bool hasLinksForHardening() const;
-    int  hardeningCount() const;
-
     Q_INVOKABLE bool prev();
     Q_INVOKABLE bool next();
 
-    void hardenLink(QUuid uuid);
+    Q_INVOKABLE void hardenLink(QUuid uuid);
 
-    SearchResultList getNearestVariants(int limit = 5);
+    SearchResultList getNearestVariants(int limit = 4);
 
     Q_INVOKABLE NodeGadgetWrapper applyReplacement();
 
@@ -84,9 +82,14 @@ private: // Methods
     bool canMoveNext() const;
     bool canMovePrev() const;
 
+    QString currentLinkText();
     QString definitionWithHighlightedLink() const;
 
     int linkCount() const;
+
+    QString appliedLinkFixationText() const;
+
+    static QString applyLinkUuids(QString stringWithLinks, QMap<int, QUuid> uuidsToApply);
 
 private: // Members
     TermGroup*                mCurrentGroup = nullptr;
@@ -96,7 +99,7 @@ private: // Members
 
     int mLinkIndex = -1;
 
-    QMap<int, QUuid> replacePreparations;
+    QMap<int, QUuid> mReplacePreparations;
 
     SearchResultList mLastNearestVariants;
 };
