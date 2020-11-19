@@ -52,8 +52,6 @@ target_sources (${LINK_UTILS_TEST}
         ../source/Helpers/text/textrange.h
         ../source/Helpers/uuid/uuidtools.cpp
         ../source/Helpers/uuid/uuidtools.h
-        ../source/Helpers/validators/linktextvalidator.cpp
-        ../source/Helpers/validators/linktextvalidator.h
         linkutilstest.cpp)
 
 
@@ -205,8 +203,6 @@ target_sources (${TEXT_RANGE_TEST}
         ../source/Helpers/text/textrange.h
         ../source/Helpers/uuid/uuidtools.cpp
         ../source/Helpers/uuid/uuidtools.h
-        ../source/Helpers/validators/linktextvalidator.cpp
-        ../source/Helpers/validators/linktextvalidator.h
         textrangetest.cpp)
 
 
@@ -239,8 +235,6 @@ target_sources (${TEXT_LINK_TEST}
         ../source/Helpers/text/textrange.h
         ../source/Helpers/uuid/uuidtools.cpp
         ../source/Helpers/uuid/uuidtools.h
-        ../source/Helpers/validators/linktextvalidator.cpp
-        ../source/Helpers/validators/linktextvalidator.h
         textlinktest.cpp)
 
 
@@ -275,6 +269,4 @@ target_sources (${LINK_DECORATOR_TEST}
         ../source/Helpers/text/textrange.h
         ../source/Helpers/uuid/uuidtools.cpp
         ../source/Helpers/uuid/uuidtools.h
-        ../source/Helpers/validators/linktextvalidator.cpp
-        ../source/Helpers/validators/linktextvalidator.h
         linkdecoratortest.cpp)

@@ -37,6 +37,8 @@ public:
 
     QString replaceLink(int index, QString text) const;
 
+    static bool isValidLinksString(QStringView str);
+
 private: // Methods
     static int            getCount(QStringView strView);
     static TextLink::List extractLinks(QStringView strView);

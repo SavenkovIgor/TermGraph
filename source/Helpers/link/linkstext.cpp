@@ -22,7 +22,6 @@
 #include "source/Helpers/link/linkstext.h"
 
 #include "source/Helpers/text/chartools.h"
-#include "source/Helpers/validators/linktextvalidator.h"
 
 LinksText::LinksText(QStringView str)
     : mString(str)
@@ -36,13 +35,31 @@ QString LinksText::replaceLink(int index, QString text) const
     return linkCut;
 }
 
+bool LinksText::isValidLinksString(QStringView str)
+{
+    int brCount = 0;
+
+    for (auto ch : str) {
+        if (ch == CharTools::leftBracket)
+            brCount++;
+
+        if (ch == CharTools::rightBracket)
+            brCount--;
+
+        if (brCount < 0 || brCount > 1)
+            return false;
+    }
+
+    return brCount == 0;
+}
+
 QString LinksText::text() const { return mString.toString(); }
 
 const TextLink::List& LinksText::links() const { return mLinks; }
 
 int LinksText::getCount(QStringView strView)
 {
-    if (!LinkTextValidator::isValidLinkString(strView))
+    if (!isValidLinksString(strView))
         return 0;
 
     auto str = strView.toString();
@@ -53,7 +70,7 @@ TextLink::List LinksText::extractLinks(QStringView strView)
 {
     TextLink::List ret;
 
-    if (!LinkTextValidator::isValidLinkString(strView))
+    if (!isValidLinksString(strView))
         return ret;
 
     int count = getCount(strView);

@@ -29,7 +29,6 @@
 // add necessary includes here
 #include "source/Helpers/link/linkutils.h"
 #include "source/Helpers/text/textcursor.h"
-#include "source/Helpers/validators/linktextvalidator.h"
 
 class LinkUtilsTest : public QObject
 {
@@ -325,56 +324,6 @@ private slots:
         QFETCH(int, count);
 
         QVERIFY(LinkUtils::wordsCount(src) == count);
-    }
-
-    void pairBrackets_data()
-    {
-        QTest::addColumn<QString>("text");
-        QTest::addColumn<bool>("result");
-
-        // clang-format off
-        QTest::newRow("ok0") << ""                     << true;
-        QTest::newRow("ok1") << "{{}{}}"               << true;
-        QTest::newRow("ok2") << "{}{}{}{}{}{}"         << true;
-        QTest::newRow("ok3") << "{{{{{{{{{{}}}}}}}}}}" << true;
-
-        QTest::newRow("wrong0") << "{"       << false;
-        QTest::newRow("wrong1") << "}"       << false;
-        QTest::newRow("wrong2") << "}{"      << false;
-        QTest::newRow("wrong3") << "a}b{c"   << false;
-        QTest::newRow("wrong4") << "a}b}c"   << false;
-        QTest::newRow("wrong5") << "a{b{c"   << false;
-        QTest::newRow("wrong6") << "{{}{}}}" << false;
-        // clang-format on
-    }
-
-    void pairBrackets()
-    {
-        QFETCH(QString, text);
-        QFETCH(bool, result);
-        QVERIFY(LinkTextValidator::isPairedBrackets(text) == result);
-    }
-
-    void bracketsDepth_data()
-    {
-        QTest::addColumn<QString>("text");
-        QTest::addColumn<int>("result");
-
-        // clang-format off
-        QTest::newRow("case0") << ""                << 0;
-        QTest::newRow("case1") << "  "              << 0;
-        QTest::newRow("case2") << "{}"              << 1;
-        QTest::newRow("case3") << "{{{}}}  "        << 3;
-        QTest::newRow("case4") << "a{a}a{a}a{a}a"   << 1;
-        QTest::newRow("case5") << "a{}  {{{}}} {}a" << 3;
-        // clang-format on
-    }
-
-    void bracketsDepth()
-    {
-        QFETCH(QString, text);
-        QFETCH(int, result);
-        QVERIFY(LinkTextValidator::bracketsMaxDepth(text) == result);
     }
 
     void validCursor_data()

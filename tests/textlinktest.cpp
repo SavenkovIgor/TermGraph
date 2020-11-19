@@ -29,7 +29,6 @@
 #include "source/Helpers/text/textrange.h"
 
 // TODO: Move some functions of linkutils to LinksText
-// TODO: Move linkstextvalidator to linkstext
 
 class TextLinkTest : public QObject
 {
@@ -130,6 +129,37 @@ private slots:
         auto res = lText.replaceLink(1, "{aaa}");
 
         QCOMPARE(res, " {abc} {aaa} {c}");
+    }
+
+    void validLinksText_data()
+    {
+        QTest::addColumn<QString>("text");
+        QTest::addColumn<bool>("result");
+
+        // clang-format off
+        QTest::newRow("ok0") << ""                     << true;
+        QTest::newRow("ok1") << "{}"                   << true;
+        QTest::newRow("ok2") << "{}{}{}{}{}{}"         << true;
+        QTest::newRow("ok3") << "{a}{b}{c}   {},-{}{}" << true;
+
+        QTest::newRow("wrong0") << "{"                    << false;
+        QTest::newRow("wrong1") << "}"                    << false;
+        QTest::newRow("wrong2") << "}{"                   << false;
+        QTest::newRow("wrong3") << "a}b{c"                << false;
+        QTest::newRow("wrong4") << "a}b}c"                << false;
+        QTest::newRow("wrong5") << "a{b{c"                << false;
+        QTest::newRow("wrong6") << "{{}{}}"               << false;
+        QTest::newRow("wrong7") << "{{}{}}}"              << false;
+        QTest::newRow("wrong8") << "{{{{{{{{{{}}}}}}}}}}" << false;
+        // clang-format on
+    }
+
+    void validLinksText()
+    {
+        QFETCH(QString, text);
+        QFETCH(bool, result);
+
+        QVERIFY(LinksText::isValidLinksString(text) == result);
     }
 
 private:

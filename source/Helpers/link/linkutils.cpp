@@ -27,7 +27,6 @@
 #include "source/Helpers/text/chartools.h"
 #include "source/Helpers/text/checkingtextcursor.h"
 #include "source/Helpers/text/textcursor.h"
-#include "source/Helpers/validators/linktextvalidator.h"
 
 bool LinkUtils::isInsideTag(QStringView str, int cursor) { return TextLink::selectLink(str, cursor).has_value(); }
 
