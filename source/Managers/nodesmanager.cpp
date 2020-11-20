@@ -128,14 +128,11 @@ UuidList NodesManager::getAllNodesUuidsInGroup(const QUuid& groupUuid)
     return dataStorage.getAllNodesUuids(groupUuid);
 }
 
-QDateTime NodesManager::getLastEdit(QUuid nodeUuid)
-{
-    return dataStorage.getNodeLastEdit(nodeUuid);
-}
+QDateTime NodesManager::getLastEdit(QUuid nodeUuid) { return dataStorage.getNodeLastEdit(nodeUuid); }
 
 void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIfGroupNotExist)
 {
-    auto  info = JsonNodeInfoContainerParser::fromJson(nodeJson);
+    auto info = JsonNodeInfoContainerParser::fromJson(nodeJson);
 
     if (info.uuid.isNull())
         return;
@@ -157,7 +154,7 @@ void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIf
     }
 }
 
-QJsonObject NodesManager::getNodeJson(const QUuid& uuid)
+QJsonObject NodesManager::getNodeJson(const QUuid& uuid) const
 {
     auto info = dataStorage.getNode(uuid);
     return JsonNodeInfoContainerParser::toJson(info);

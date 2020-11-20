@@ -51,9 +51,9 @@ public slots:
     void sendGroupByNetwork(const QString& groupUuid);
 
 private:
-    NetworkManager* networkManager;
-    GroupsManager*  groupsManager;
-    NodesManager*   nodesManager;
+    NetworkManager*      mNetworkManager;
+    const GroupsManager* mGroupsManager;
+    const NodesManager*  mNodesManager;
 
     static QString     getContentTypeName(const ContentType& type);
     static ContentType getContentTypeByName(const QString& typeName);

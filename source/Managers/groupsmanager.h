@@ -80,7 +80,7 @@ public slots:
     void    exportGrpToJson(const QString& groupUuid);
     void    saveGroupInFolder(TermGroup* group);
 
-    QJsonDocument getGroupForExport(const QUuid& groupUuid);
+    QJsonDocument getGroupForExport(const QUuid& groupUuid) const;
 
 private:
     QStringList getAllUuidStringsSortedByLastEdit();

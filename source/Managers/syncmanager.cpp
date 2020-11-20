@@ -26,14 +26,13 @@ SyncManager::SyncManager(NetworkManager* networkManager,
                          NodesManager*   nodesManager,
                          QObject*        parent)
     : QObject(parent)
+    , mNetworkManager(networkManager)
+    , mGroupsManager(groupsManger)
+    , mNodesManager(nodesManager)
 {
-    this->networkManager = networkManager;
-    this->groupsManager  = groupsManger;
-    this->nodesManager   = nodesManager;
-
-    connect(this->networkManager,
+    connect(this->mNetworkManager,
             &NetworkManager::newSyncGroup,
-            this->groupsManager,
+            this->mGroupsManager,
             &GroupsManager::importGroupFromJsonString);
 }
 
@@ -54,17 +53,15 @@ bool SyncManager::isDataContainer(const QJsonDocument& doc)
 
 void SyncManager::sendGroupByNetwork(const QString& groupUuid)
 {
-    auto jsonDoc = groupsManager->getGroupForExport(groupUuid);
-    networkManager->sendGroup(jsonDoc);
+    auto jsonDoc = mGroupsManager->getGroupForExport(groupUuid);
+    mNetworkManager->sendGroup(jsonDoc);
 }
 
 QString SyncManager::getContentTypeName(const SyncManager::ContentType& type)
 {
     switch (type) {
-    case ContentType::groupsHashList:
-        return "groupsHashList";
-    case ContentType::undefined:
-        return "";
+    case ContentType::groupsHashList: return "groupsHashList";
+    case ContentType::undefined: return "";
     }
 
     return "";

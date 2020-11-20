@@ -265,7 +265,7 @@ void GroupsManager::saveGroupInFolder(TermGroup* group)
     }
 }
 
-QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid)
+QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
 {
     auto info      = dataStorage.getGroup(groupUuid);
     auto groupJson = JsonGroupInfoContainerParser::toJson(info);

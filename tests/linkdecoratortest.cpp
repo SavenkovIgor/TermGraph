@@ -49,16 +49,16 @@ private slots:
         auto result = decorator.apply(LinksDecoratorMode::Insert);
 
         QCOMPARE(result,
-                 "<font color=\"#ff0000\">{abc}</font> "
-                 "<font color=\"#0000ff\">{bc}</font> "
-                 "<font color=\"#ff0000\">{c}</font> ");
+                 "<font color=\"#ffff0000\" style=\"background-color:#00000000\">{abc}</font> "
+                 "<font color=\"#ff0000ff\" style=\"background-color:#00000000\">{bc}</font> "
+                 "<font color=\"#ffff0000\" style=\"background-color:#00000000\">{c}</font> ");
 
         auto result2 = decorator.apply(LinksDecoratorMode::Replace);
 
         QCOMPARE(result2,
-                 "<font color=\"#ff0000\">abc</font> "
-                 "<font color=\"#0000ff\">bc</font> "
-                 "<font color=\"#ff0000\">c</font> ");
+                 "<font color=\"#ffff0000\" style=\"background-color:#00000000\">abc</font> "
+                 "<font color=\"#ff0000ff\" style=\"background-color:#00000000\">bc</font> "
+                 "<font color=\"#ffff0000\" style=\"background-color:#00000000\">c</font> ");
     }
 
 private:
