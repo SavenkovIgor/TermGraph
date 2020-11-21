@@ -157,10 +157,10 @@ void LinksHardeningManager::updateNearestVariants()
     endResetModel();
 }
 
-TextLink::List LinksHardeningManager::currentLinks() const
+Link::List LinksHardeningManager::currentLinks() const
 {
     if (mLinksText.isNull())
-        return TextLink::List();
+        return Link::List();
 
     return mLinksText->links();
 }
@@ -206,14 +206,14 @@ QString LinksHardeningManager::appliedLinkFixationText() const
 
     auto links = LinksText(ret);
 
-    auto decorColor = []([[maybe_unused]] int index, const TextLink &link) {
+    auto decorColor = []([[maybe_unused]] int index, const Link &link) {
         if (link.hasUuid())
             return QColor("#90ee90");
 
         return QColor("white");
     };
 
-    auto bgColor = [currentIndex = mLinkIndex](int index, [[maybe_unused]] const TextLink &link) {
+    auto bgColor = [currentIndex = mLinkIndex](int index, [[maybe_unused]] const Link &link) {
         if (currentIndex == index)
             return QColor("#6f6f6f");
 
@@ -229,7 +229,7 @@ QString LinksHardeningManager::applyLinkUuids(QString stringWithLinks, QMap<int,
     for (auto &[index, uuid] : uuidsToApply.toStdMap()) {
         auto linksText = LinksText(stringWithLinks);
 
-        TextLink oldLink          = linksText.links()[index];
+        Link oldLink              = linksText.links()[index];
         auto [cuttedLink, cutPos] = oldLink.cutted();
 
         const auto newLink = oldLink.createLinkWithUuid(uuid);
@@ -240,7 +240,7 @@ QString LinksHardeningManager::applyLinkUuids(QString stringWithLinks, QMap<int,
     return stringWithLinks;
 }
 
-TextLink LinksHardeningManager::currentLink() const
+Link LinksHardeningManager::currentLink() const
 {
     assert(!mCurrentTerm.isNull());
     assert(isValidIndex());

@@ -74,8 +74,8 @@ private slots:
     void updateNearestVariants();
 
 private: // Methods
-    TextLink::List currentLinks() const;
-    TextLink       currentLink() const;
+    Link::List currentLinks() const;
+    Link       currentLink() const;
 
     bool isValidIndex() const;
 

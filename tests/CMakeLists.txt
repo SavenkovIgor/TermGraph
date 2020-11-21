@@ -41,8 +41,8 @@ target_sources (${LINK_UTILS_TEST}
         ../source/Helpers/intmatrix.h
         ../source/Helpers/link/linkutils.cpp
         ../source/Helpers/link/linkutils.h
-        ../source/Helpers/link/textlink.cpp
-        ../source/Helpers/link/textlink.h
+        ../source/Helpers/link/link.cpp
+        ../source/Helpers/link/link.h
         ../source/Helpers/text/chartools.h
         ../source/Helpers/text/checkingtextcursor.cpp
         ../source/Helpers/text/checkingtextcursor.h
@@ -192,8 +192,8 @@ target_sources (${TEXT_RANGE_TEST}
         ../source/Helpers/handytypes.h
         ../source/Helpers/intmatrix.cpp
         ../source/Helpers/intmatrix.h
-        ../source/Helpers/link/textlink.cpp
-        ../source/Helpers/link/textlink.h
+        ../source/Helpers/link/link.cpp
+        ../source/Helpers/link/link.h
         ../source/Helpers/text/chartools.h
         ../source/Helpers/text/checkingtextcursor.cpp
         ../source/Helpers/text/checkingtextcursor.h
@@ -207,7 +207,7 @@ target_sources (${TEXT_RANGE_TEST}
 
 
 # TEXT_LINK_TEST
-set (TEXT_LINK_TEST "TextLinkTest")
+set (TEXT_LINK_TEST "LinkTest")
 
 add_executable (${TEXT_LINK_TEST})
 target_link_libraries (${TEXT_LINK_TEST} PRIVATE Qt5::Test)
@@ -224,8 +224,8 @@ target_sources (${TEXT_LINK_TEST}
         ../source/Helpers/intmatrix.h
         ../source/Helpers/link/linkstext.cpp
         ../source/Helpers/link/linkstext.h
-        ../source/Helpers/link/textlink.cpp
-        ../source/Helpers/link/textlink.h
+        ../source/Helpers/link/link.cpp
+        ../source/Helpers/link/link.h
         ../source/Helpers/text/chartools.h
         ../source/Helpers/text/checkingtextcursor.cpp
         ../source/Helpers/text/checkingtextcursor.h
@@ -235,7 +235,7 @@ target_sources (${TEXT_LINK_TEST}
         ../source/Helpers/text/textrange.h
         ../source/Helpers/uuid/uuidtools.cpp
         ../source/Helpers/uuid/uuidtools.h
-        textlinktest.cpp)
+        linktest.cpp)
 
 
 # LINK_DECORATOR_TEST
@@ -258,8 +258,8 @@ target_sources (${LINK_DECORATOR_TEST}
         ../source/Helpers/link/linksdecorator.h
         ../source/Helpers/link/linkstext.cpp
         ../source/Helpers/link/linkstext.h
-        ../source/Helpers/link/textlink.cpp
-        ../source/Helpers/link/textlink.h
+        ../source/Helpers/link/link.cpp
+        ../source/Helpers/link/link.h
         ../source/Helpers/text/chartools.h
         ../source/Helpers/text/checkingtextcursor.cpp
         ../source/Helpers/text/checkingtextcursor.h

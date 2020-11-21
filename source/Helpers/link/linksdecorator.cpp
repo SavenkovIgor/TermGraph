@@ -55,17 +55,17 @@ QString LinksDecorator::apply(LinksDecoratorMode mode)
     return ret;
 }
 
-QColor LinksDecorator::defaultDecorator([[maybe_unused]] int orderIndex, [[maybe_unused]] const TextLink& link)
+QColor LinksDecorator::defaultDecorator([[maybe_unused]] int orderIndex, [[maybe_unused]] const Link& link)
 {
     return QColor("#00a693");
 }
 
-QColor LinksDecorator::blueDecorator([[maybe_unused]] int orderIndex, [[maybe_unused]] const TextLink& link)
+QColor LinksDecorator::blueDecorator([[maybe_unused]] int orderIndex, [[maybe_unused]] const Link& link)
 {
     return QColor("#6d9a28");
 }
 
-QColor LinksDecorator::defaultBackground([[maybe_unused]] int orderIndex, [[maybe_unused]] const TextLink& link)
+QColor LinksDecorator::defaultBackground([[maybe_unused]] int orderIndex, [[maybe_unused]] const Link& link)
 {
     return QColor("transparent");
 }

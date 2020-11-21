@@ -28,14 +28,14 @@
 #include "source/Helpers/handytypes.h"
 #include "source/Helpers/text/textrange.h"
 
-class TextLink : public TextRange
+class Link : public TextRange
 {
 public:
-    using List = std::vector<TextLink>;
+    using List = std::vector<Link>;
 
     enum class Type { Unknown = 0, Text, Uuid };
 
-    TextLink(QStringView strView, int left, int right);
+    Link(QStringView strView, int left, int right);
 
     QStringView    fullLink() const;
     QStringView    text() const;
@@ -45,7 +45,7 @@ public:
 
     [[nodiscard]] QString createLinkWithUuid(const QUuid& uuid) const;
 
-    static opt<TextLink> selectLink(QStringView str, int startPos);
+    static opt<Link> select(QStringView str, int startPos);
 
 private: //Methods
     static QStringView getText(QStringView fullLink);

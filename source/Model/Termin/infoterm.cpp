@@ -48,7 +48,7 @@ QString InfoTerm::decoratedTerm() const { return mDecoratedTerm; }
 
 QSizeF InfoTerm::decoratedTermSize() const { return mDecoratedTermSize; }
 
-const TextLink::List& InfoTerm::links() const { return mLinksDefinition.links(); }
+const Link::List& InfoTerm::links() const { return mLinksDefinition.links(); }
 
 QString InfoTerm::termAndDefinition(bool decorated) const
 {

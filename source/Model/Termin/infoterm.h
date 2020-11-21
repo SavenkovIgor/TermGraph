@@ -24,8 +24,8 @@
 #include <QSizeF>
 #include <QString>
 
+#include "source/Helpers/link/link.h"
 #include "source/Helpers/link/linkstext.h"
-#include "source/Helpers/link/textlink.h"
 #include "source/Model/Termin/nodeinfocontainer.h"
 
 // Const wrapper over NodeInfoContainer + some additional stuff
@@ -43,7 +43,7 @@ public:
     QString decoratedTerm() const;
     QSizeF  decoratedTermSize() const;
 
-    const TextLink::List& links() const;
+    const Link::List& links() const;
 
     QString termAndDefinition(bool decorated = false) const;
 

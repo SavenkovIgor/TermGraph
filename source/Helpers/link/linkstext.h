@@ -24,7 +24,7 @@
 #include <QStringView>
 
 #include "source/Helpers/handytypes.h"
-#include "source/Helpers/link/textlink.h"
+#include "source/Helpers/link/link.h"
 
 class LinksText
 {
@@ -32,18 +32,18 @@ public:
     LinksText(QStringView str);
     LinksText(const LinksText& other) = default;
 
-    QString               text() const;
-    const TextLink::List& links() const;
+    QString           text() const;
+    const Link::List& links() const;
 
     QString replaceLink(int index, QString text) const;
 
     static bool isValidLinksString(QStringView str);
 
 private: // Methods
-    static int            getCount(QStringView strView);
-    static TextLink::List extractLinks(QStringView strView);
+    static int        getCount(QStringView strView);
+    static Link::List extractLinks(QStringView strView);
 
 private: // Members
-    const QStringView    mString;
-    const TextLink::List mLinks;
+    const QStringView mString;
+    const Link::List  mLinks;
 };

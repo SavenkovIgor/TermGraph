@@ -28,8 +28,6 @@
 #include "source/Helpers/link/linksdecorator.h"
 #include "source/Helpers/link/linkstext.h"
 
-// TODO: TextLink -> Link
-
 class LinkDecoratorTest : public QObject
 {
     Q_OBJECT

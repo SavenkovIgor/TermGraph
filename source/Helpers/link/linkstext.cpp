@@ -55,7 +55,7 @@ bool LinksText::isValidLinksString(QStringView str)
 
 QString LinksText::text() const { return mString.toString(); }
 
-const TextLink::List& LinksText::links() const { return mLinks; }
+const Link::List& LinksText::links() const { return mLinks; }
 
 int LinksText::getCount(QStringView strView)
 {
@@ -66,9 +66,9 @@ int LinksText::getCount(QStringView strView)
     return str.count(CharTools::leftBracket);
 }
 
-TextLink::List LinksText::extractLinks(QStringView strView)
+Link::List LinksText::extractLinks(QStringView strView)
 {
-    TextLink::List ret;
+    Link::List ret;
 
     if (!isValidLinksString(strView))
         return ret;
@@ -81,7 +81,7 @@ TextLink::List LinksText::extractLinks(QStringView strView)
         for (int j = 0; j <= i; j++)
             strPos = strView.indexOf(CharTools::leftBracket, strPos + 1);
 
-        auto link = TextLink::selectLink(strView, strPos + 1);
+        auto link = Link::select(strView, strPos + 1);
 
         assert(link.has_value());
 

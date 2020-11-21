@@ -26,15 +26,15 @@
 #include <QColor>
 #include <QString>
 
+#include "source/Helpers/link/link.h"
 #include "source/Helpers/link/linkstext.h"
-#include "source/Helpers/link/textlink.h"
 
 enum LinksDecoratorMode { Replace = 0, Insert };
 
 class LinksDecorator
 {
 public:
-    using DecorCondition = std::function<QColor(int, const TextLink&)>;
+    using DecorCondition = std::function<QColor(int, const Link&)>;
 
     LinksDecorator(LinksText      linksText,
                    DecorCondition colorCondition,
@@ -42,10 +42,10 @@ public:
 
     QString apply(LinksDecoratorMode mode);
 
-    static QColor defaultDecorator(int orderIndex, const TextLink& link);
-    static QColor blueDecorator(int orderIndex, const TextLink& link);
+    static QColor defaultDecorator(int orderIndex, const Link& link);
+    static QColor blueDecorator(int orderIndex, const Link& link);
 
-    static QColor defaultBackground(int orderIndex, const TextLink& link);
+    static QColor defaultBackground(int orderIndex, const Link& link);
 
 private: // Members
     const LinksText      mLinksText;

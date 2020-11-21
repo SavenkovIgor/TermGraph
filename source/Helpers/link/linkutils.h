@@ -29,7 +29,7 @@
 #include <QStringView>
 
 #include "source/Helpers/handytypes.h"
-#include "source/Helpers/link/textlink.h"
+#include "source/Helpers/link/link.h"
 #include "source/Helpers/text/textrange.h"
 
 // Static class
@@ -52,7 +52,7 @@ public:
     static int wordsCount(const QString& string);
 
     // Links
-    static TextLink linkAt(QStringView str, int index);
+    static Link linkAt(QStringView str, int index);
 
     constexpr static int nullCursor = -1;
 };

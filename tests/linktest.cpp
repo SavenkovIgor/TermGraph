@@ -24,12 +24,13 @@
 #include <QCoreApplication>
 #include <QtTest>
 
+#include "source/Helpers/link/link.h"
 #include "source/Helpers/link/linkstext.h"
-#include "source/Helpers/link/textlink.h"
 
 // TODO: Move some functions of linkutils to LinksText
+// TODO: LinksText -> LinksString
 
-class TextLinkTest : public QObject
+class LinkTest : public QObject
 {
     Q_OBJECT
 
@@ -73,7 +74,7 @@ private slots:
         QFETCH(bool, isEmpty);
         QFETCH(int, size);
 
-        auto borders = TextLink::selectLink(src, startFrom);
+        auto borders = Link::select(src, startFrom);
         QCOMPARE(borders.has_value(), result);
 
         if (borders.has_value()) {
@@ -84,9 +85,9 @@ private slots:
         }
     }
 
-    void textLinkWithUuid()
+    void linkWithUuid()
     {
-        auto link = TextLink(linkedTextWithUuid, 5, 48);
+        auto link = Link(linkedTextWithUuid, 5, 48);
         auto res  = link.createLinkWithUuid(QUuid());
 
         QCOMPARE(res, "{Ab c|00000000-0000-0000-0000-000000000000}");
@@ -97,9 +98,9 @@ private slots:
         QCOMPARE(link.uuid(), QUuid::fromString(QString("{94810de3-51b8-469e-b316-00248ffa2a45}")));
     }
 
-    void textLinkNoUuid()
+    void linkNoUuid()
     {
-        auto link = TextLink(linkedText, 5, 11);
+        auto link = Link(linkedText, 5, 11);
 
         QCOMPARE(link.createLinkWithUuid(QUuid()), QString("{Ab c|00000000-0000-0000-0000-000000000000}"));
         QCOMPARE(link.fullLink(), QString("{Ab c}"));
@@ -170,6 +171,6 @@ private:
     const QString invalidLinksText3  = "";
 };
 
-QTEST_APPLESS_MAIN(TextLinkTest)
+QTEST_APPLESS_MAIN(LinkTest)
 
-#include "textlinktest.moc"
+#include "linktest.moc"

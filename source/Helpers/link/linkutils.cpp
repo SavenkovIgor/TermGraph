@@ -28,7 +28,7 @@
 #include "source/Helpers/text/checkingtextcursor.h"
 #include "source/Helpers/text/textcursor.h"
 
-bool LinkUtils::isInsideTag(QStringView str, int cursor) { return TextLink::selectLink(str, cursor).has_value(); }
+bool LinkUtils::isInsideTag(QStringView str, int cursor) { return Link::select(str, cursor).has_value(); }
 
 /// Описание:
 /// Функция в пустой строке или строке с пробелами вернет {}
@@ -213,14 +213,14 @@ int LinkUtils::wordsCount(const QString& string)
     return 0;
 }
 
-TextLink LinkUtils::linkAt(QStringView str, int index)
+Link LinkUtils::linkAt(QStringView str, int index)
 {
     int strPos = -1;
 
     for (int i = 0; i <= index; i++)
         strPos = str.indexOf(CharTools::leftBracket, strPos + 1);
 
-    auto ret = TextLink::selectLink(str, strPos + 1);
+    auto ret = Link::select(str, strPos + 1);
 
     assert(ret.has_value());
 

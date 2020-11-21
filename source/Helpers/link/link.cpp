@@ -19,13 +19,13 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Helpers/link/textlink.h"
+#include "source/Helpers/link/link.h"
 
 #include "source/Helpers/text/chartools.h"
 #include "source/Helpers/text/checkingtextcursor.h"
 #include "source/Helpers/uuid/uuidtools.h"
 
-TextLink::TextLink(QStringView strView, int left, int right)
+Link::Link(QStringView strView, int left, int right)
     : TextRange(strView, left, right)
     , mLinkText(getText(rangeView()))
     , mLinkTextLower(getLower(mLinkText))
@@ -36,21 +36,21 @@ TextLink::TextLink(QStringView strView, int left, int right)
     assert(this->right().left() == CharTools::rightBracket);
 }
 
-QStringView TextLink::fullLink() const { return rangeView(); }
+QStringView Link::fullLink() const { return rangeView(); }
 
-QStringView TextLink::text() const { return mLinkText; }
+QStringView Link::text() const { return mLinkText; }
 
-const QString& TextLink::textLower() const { return mLinkTextLower; }
+const QString& Link::textLower() const { return mLinkTextLower; }
 
-bool TextLink::hasUuid() const { return mLinkType == Type::Uuid; }
+bool Link::hasUuid() const { return mLinkType == Type::Uuid; }
 
-QUuid TextLink::uuid() const
+QUuid Link::uuid() const
 {
     assert(hasUuid());
     return mUuid;
 }
 
-QString TextLink::createLinkWithUuid(const QUuid& uuid) const
+QString Link::createLinkWithUuid(const QUuid& uuid) const
 {
     auto linkText = mLinkText.toString();
     linkText += CharTools::linkSplitter + UuidTools::cutBraces(uuid);
@@ -58,7 +58,7 @@ QString TextLink::createLinkWithUuid(const QUuid& uuid) const
     return linkText;
 }
 
-opt<TextLink> TextLink::selectLink(QStringView str, int startPos)
+opt<Link> Link::select(QStringView str, int startPos)
 {
     if (!TextCursor::isValidCursor(str, startPos))
         return std::nullopt;
@@ -75,12 +75,12 @@ opt<TextLink> TextLink::selectLink(QStringView str, int startPos)
     rBracket++;
 
     if (lBracket.right() == CharTools::leftBracket && rBracket.left() == CharTools::rightBracket)
-        return TextLink(str, lBracket.pos(), rBracket.pos());
+        return Link(str, lBracket.pos(), rBracket.pos());
 
     return std::nullopt;
 }
 
-QStringView TextLink::getText(QStringView fullLink)
+QStringView Link::getText(QStringView fullLink)
 {
     const auto from     = 1;
     const auto splitter = fullLink.lastIndexOf('|');
@@ -90,9 +90,9 @@ QStringView TextLink::getText(QStringView fullLink)
     return QStringView(fullLink.mid(1, size));
 }
 
-QString TextLink::getLower(QStringView text) { return text.toString().toLower(); }
+QString Link::getLower(QStringView text) { return text.toString().toLower(); }
 
-opt<QUuid> TextLink::tryGetUuid(QStringView fullLink)
+opt<QUuid> Link::tryGetUuid(QStringView fullLink)
 {
     assert(fullLink[fullLink.size() - 1] == CharTools::rightBracket);
 
