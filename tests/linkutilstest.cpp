@@ -27,9 +27,6 @@
 #include <QtTest>
 
 #include "source/Helpers/link/linkutils.h"
-#include "source/Helpers/text/textcursor.h"
-
-// TODO: Move textCursor test out of here
 
 class LinkUtilsTest : public QObject
 {
@@ -325,33 +322,6 @@ private slots:
         QFETCH(int, count);
 
         QVERIFY(LinkUtils::wordsCount(src) == count);
-    }
-
-    void validCursor_data()
-    {
-        QTest::addColumn<QString>("src");
-        QTest::addColumn<int>("cursorPosition");
-        QTest::addColumn<bool>("result");
-
-        // clang-format off
-        QTest::newRow("case0") << ""  <<  0 << true;
-        QTest::newRow("case1") << "a" <<  1 << true;
-        QTest::newRow("case2") << "a" <<  0 << true;
-
-        QTest::newRow("case0") << ""  << -1 << false;
-        QTest::newRow("case1") << ""  <<  1 << false;
-        QTest::newRow("case2") << "a" << -1 << false;
-        QTest::newRow("case3") << "a" <<  2 << false;
-        // clang-format on
-    }
-
-    void validCursor()
-    {
-        QFETCH(QString, src);
-        QFETCH(int, cursorPosition);
-        QFETCH(bool, result);
-
-        QVERIFY(TextCursor::isValidCursor(src, cursorPosition) == result);
     }
 
 private:
