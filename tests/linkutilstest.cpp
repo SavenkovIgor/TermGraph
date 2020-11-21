@@ -26,9 +26,10 @@
 #include <QDebug>
 #include <QtTest>
 
-// add necessary includes here
 #include "source/Helpers/link/linkutils.h"
 #include "source/Helpers/text/textcursor.h"
+
+// TODO: Move textCursor test out of here
 
 class LinkUtilsTest : public QObject
 {

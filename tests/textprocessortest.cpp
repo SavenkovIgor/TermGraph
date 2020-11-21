@@ -19,11 +19,10 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <QtTest>
 #include <QCoreApplication>
 #include <QDebug>
+#include <QtTest>
 
-// add necessary includes here
 #include "source/Helpers/textutils.h"
 
 class TextProcessorTest : public QObject
@@ -31,7 +30,7 @@ class TextProcessorTest : public QObject
     Q_OBJECT
 
 public:
-    TextProcessorTest() = default;
+    TextProcessorTest()           = default;
     ~TextProcessorTest() override = default;
 
 private slots:
@@ -58,12 +57,14 @@ private slots:
         QTest::addColumn<QString>("text");
         QTest::addColumn<QString>("result");
 
-        QTest::newRow("case0") << "a-b" << "a";
+        // clang-format off
+        QTest::newRow("case0") << "a-b"     << "a";
         QTest::newRow("case1") << " a - b " << "a";
-        QTest::newRow("case2") << " - b " << "";
-        QTest::newRow("case3") << " a -" << "a";
-        QTest::newRow("case4") << "asdf" << "";
-        QTest::newRow("case4") << "asdf-" << "asdf";
+        QTest::newRow("case2") << " - b "   << "";
+        QTest::newRow("case3") << " a -"    << "a";
+        QTest::newRow("case4") << "asdf"    << "";
+        QTest::newRow("case4") << "asdf-"   << "asdf";
+        // clang-format on
     }
 
     void extractTerm()
@@ -78,11 +79,13 @@ private slots:
         QTest::addColumn<QString>("text");
         QTest::addColumn<QString>("result");
 
-        QTest::newRow("case0") << "a-b" << "b";
+        // clang-format off
+        QTest::newRow("case0") << "a-b"     << "b";
         QTest::newRow("case1") << " a - b " << "b";
-        QTest::newRow("case2") << " - b " << "b";
-        QTest::newRow("case3") << " a - " << "";
-        QTest::newRow("case4") << "asdf" << "";
+        QTest::newRow("case2") << " - b "   << "b";
+        QTest::newRow("case3") << " a - "   << "";
+        QTest::newRow("case4") << "asdf"    << "";
+        // clang-format on
     }
 
     void extractDefinition()
@@ -97,10 +100,12 @@ private slots:
         QTest::addColumn<QString>("text");
         QTest::addColumn<QString>("result");
 
-        QTest::newRow("case0") << "a b" << "a\nb";
+        // clang-format off
+        QTest::newRow("case0") << "a b"   << "a\nb";
         QTest::newRow("case1") << "aaa b" << "aaa\nb";
         QTest::newRow("case2") << "a bbb" << "a\nbbb";
-        QTest::newRow("case3") << "aabb" << "aabb";
+        QTest::newRow("case3") << "aabb"  << "aabb";
+        // clang-format on
     }
 
     void insertNewLineInMiddle()

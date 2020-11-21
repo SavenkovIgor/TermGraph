@@ -22,9 +22,6 @@
 #include <QCoreApplication>
 #include <QtTest>
 
-#include <QDebug>
-
-// add necessary includes here
 #include "source/Helpers/fsworks.h"
 
 class FSWorksTest : public QObject

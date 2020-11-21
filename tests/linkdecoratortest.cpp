@@ -27,7 +27,6 @@
 
 #include "source/Helpers/link/linksdecorator.h"
 #include "source/Helpers/link/linkstext.h"
-#include "source/Helpers/link/textlink.h"
 
 // TODO: TextLink -> Link
 

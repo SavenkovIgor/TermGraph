@@ -24,7 +24,6 @@
 #include <QCoreApplication>
 #include <QtTest>
 
-#include "source/Helpers/text/textcursor.h"
 #include "source/Helpers/text/textrange.h"
 
 class TextRangeTest : public QObject
