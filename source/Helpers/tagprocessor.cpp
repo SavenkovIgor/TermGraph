@@ -37,7 +37,7 @@ bool TagProcessor::isValidCursor(const QString& str, int cursor)
     return TextCursor::isValidCursor(QStringView(str), cursor);
 }
 
-bool TagProcessor::isInsideTag(const QString& str, int cursor) { return Link::isCursorOnLink(str, cursor); }
+bool TagProcessor::isCursorOnLink(const QString& str, int cursor) { return Link::isCursorOnLink(str, cursor); }
 
 bool TagProcessor::hasSoftLinks(const QString& linkedText)
 {

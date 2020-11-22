@@ -26,7 +26,6 @@
 #include "source/Helpers/helpstuff.h"
 #include "source/Helpers/link/linksdecorator.h"
 #include "source/Helpers/link/linkutils.h"
-#include "source/Helpers/tagprocessor.h"
 #include "source/Helpers/textutils.h"
 
 // Initialization order is important!

@@ -34,23 +34,23 @@ M.TextArea {
     placeholderText: "- это"
     inputMethodHints: Qt.ImhNoAutoUppercase
 
-    readonly property bool isInsideTag: {
+    readonly property bool isCursorOnLink: {
         // Cursor can be invalid in moment of text editing
         let pos = cursorPosition;
         if (tagTools.isValidCursor(text, pos))
-            return tagTools.isInsideTag(text, pos);
+            return tagTools.isCursorOnLink(text, pos);
 
         return false;
     }
 
-    readonly property bool addTagButtonVisible: txtFocus && !isInsideTag
-    readonly property bool extendTagButtonVisible: txtFocus && isInsideTag
-    readonly property bool removeTagButtonVisible: txtFocus && isInsideTag
+    readonly property bool addTagButtonVisible: txtFocus && !isCursorOnLink
+    readonly property bool extendTagButtonVisible: txtFocus && isCursorOnLink
+    readonly property bool removeTagButtonVisible: txtFocus && isCursorOnLink
 
     function addTag() {
         let pos = cursorPosition;
 
-        if (!isInsideTag) {
+        if (!isCursorOnLink) {
             text = tagTools.addTag(text, pos);
             takeFocusAndSetCursor(pos + 1);
         } else {
@@ -60,7 +60,7 @@ M.TextArea {
 
     function expandTagRight() {
         let pos = cursorPosition;
-        if (isInsideTag) {
+        if (isCursorOnLink) {
             text = tagTools.expandTagRight(text, pos);
             takeFocusAndSetCursor(pos);
         }
@@ -68,7 +68,7 @@ M.TextArea {
 
     function removeTag() {
         let pos = cursorPosition;
-        if (isInsideTag) {
+        if (isCursorOnLink) {
             text = tagTools.removeTag(text, pos);
             takeFocusAndSetCursor(pos - 1);
         }
