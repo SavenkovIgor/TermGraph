@@ -27,7 +27,7 @@
 #include <QString>
 
 #include "source/Helpers/link/link.h"
-#include "source/Helpers/link/linkstext.h"
+#include "source/Helpers/link/linksstring.h"
 
 enum LinksDecoratorMode { Replace = 0, Insert };
 
@@ -36,7 +36,7 @@ class LinksDecorator
 public:
     using DecorCondition = std::function<QColor(int, const Link&)>;
 
-    LinksDecorator(LinksText      linksText,
+    LinksDecorator(LinksString    linksString,
                    DecorCondition colorCondition,
                    DecorCondition backgroundCondition = defaultBackground);
 
@@ -48,7 +48,7 @@ public:
     static QColor defaultBackground(int orderIndex, const Link& link);
 
 private: // Members
-    const LinksText      mLinksText;
+    const LinksString    mLinksString;
     const DecorCondition mColorCondition;
     const DecorCondition mBackgroundCondition;
 

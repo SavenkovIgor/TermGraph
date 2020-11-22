@@ -19,23 +19,23 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Helpers/link/linkstext.h"
+#include "source/Helpers/link/linksstring.h"
 
 #include "source/Helpers/text/chartools.h"
 
-LinksText::LinksText(QStringView str)
+LinksString::LinksString(QStringView str)
     : mString(str)
     , mLinks(extractLinks(mString))
 {}
 
-QString LinksText::replaceLink(int index, QString text) const
+QString LinksString::replaceLink(int index, QString text) const
 {
     auto [linkCut, pos] = mLinks[index].cutted();
     linkCut.insert(pos, text);
     return linkCut;
 }
 
-bool LinksText::isValidLinksString(QStringView str)
+bool LinksString::isValidLinksString(QStringView str)
 {
     int brCount = 0;
 
@@ -53,11 +53,11 @@ bool LinksText::isValidLinksString(QStringView str)
     return brCount == 0;
 }
 
-QString LinksText::text() const { return mString.toString(); }
+QString LinksString::text() const { return mString.toString(); }
 
-const Link::List& LinksText::links() const { return mLinks; }
+const Link::List& LinksString::links() const { return mLinks; }
 
-int LinksText::getCount(QStringView strView)
+int LinksString::getCount(QStringView strView)
 {
     if (!isValidLinksString(strView))
         return 0;
@@ -66,7 +66,7 @@ int LinksText::getCount(QStringView strView)
     return str.count(CharTools::leftBracket);
 }
 
-Link::List LinksText::extractLinks(QStringView strView)
+Link::List LinksString::extractLinks(QStringView strView)
 {
     Link::List ret;
 

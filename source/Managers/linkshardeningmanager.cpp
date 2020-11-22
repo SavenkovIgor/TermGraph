@@ -73,7 +73,7 @@ void LinksHardeningManager::setTerm(NodeGadgetWrapper termWrapper)
     mCurrentTerm       = termWrapper;
     mCurrentDefinition = mCurrentTerm.getDefinition();
 
-    mLinksText.reset(new LinksText(mCurrentDefinition));
+    mLinksString.reset(new LinksString(mCurrentDefinition));
 
     mLinkIndex = linkCount() >= 1 ? 0 : -1;
     mReplacePreparations.clear();
@@ -159,10 +159,10 @@ void LinksHardeningManager::updateNearestVariants()
 
 Link::List LinksHardeningManager::currentLinks() const
 {
-    if (mLinksText.isNull())
+    if (mLinksString.isNull())
         return Link::List();
 
-    return mLinksText->links();
+    return mLinksString->links();
 }
 
 bool LinksHardeningManager::isValidIndex() const { return 0 <= mLinkIndex && mLinkIndex < linkCount(); }
@@ -173,15 +173,15 @@ bool LinksHardeningManager::canMovePrev() const { return 1 <= mLinkIndex && mLin
 
 QString LinksHardeningManager::currentLinkText()
 {
-    if (!isValidIndex() || !mLinksText)
+    if (!isValidIndex() || !mLinksString)
         return "";
 
-    return mLinksText->links()[mLinkIndex].fullLink().toString();
+    return mLinksString->links()[mLinkIndex].fullLink().toString();
 }
 
 QString LinksHardeningManager::definitionWithHighlightedLink() const
 {
-    if (!isValidIndex() || !mLinksText)
+    if (!isValidIndex() || !mLinksString)
         return "";
 
     assert(!mCurrentTerm.isNull());
@@ -191,10 +191,10 @@ QString LinksHardeningManager::definitionWithHighlightedLink() const
 
 int LinksHardeningManager::linkCount() const
 {
-    if (!mLinksText || mLinksText.isNull())
+    if (!mLinksString || mLinksString.isNull())
         return 0;
 
-    return mLinksText->links().size();
+    return mLinksString->links().size();
 }
 
 QString LinksHardeningManager::appliedLinkFixationText() const
@@ -204,7 +204,7 @@ QString LinksHardeningManager::appliedLinkFixationText() const
 
     auto ret = applyLinkUuids(mCurrentDefinition, mReplacePreparations);
 
-    auto links = LinksText(ret);
+    auto links = LinksString(ret);
 
     auto decorColor = []([[maybe_unused]] int index, const Link &link) {
         if (link.hasUuid())
@@ -227,9 +227,9 @@ QString LinksHardeningManager::appliedLinkFixationText() const
 QString LinksHardeningManager::applyLinkUuids(QString stringWithLinks, QMap<int, QUuid> uuidsToApply)
 {
     for (auto &[index, uuid] : uuidsToApply.toStdMap()) {
-        auto linksText = LinksText(stringWithLinks);
+        auto linksString = LinksString(stringWithLinks);
 
-        Link oldLink              = linksText.links()[index];
+        Link oldLink              = linksString.links()[index];
         auto [cuttedLink, cutPos] = oldLink.cutted();
 
         const auto newLink = oldLink.createLinkWithUuid(uuid);

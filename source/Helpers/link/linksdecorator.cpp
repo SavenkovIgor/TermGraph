@@ -21,20 +21,20 @@
 
 #include "source/Helpers/link/linksdecorator.h"
 
-LinksDecorator::LinksDecorator(LinksText                      linksText,
+LinksDecorator::LinksDecorator(LinksString                    linksString,
                                LinksDecorator::DecorCondition colorCondition,
                                DecorCondition                 backgroundCondition)
-    : mLinksText(linksText)
+    : mLinksString(linksString)
     , mColorCondition(colorCondition)
     , mBackgroundCondition(backgroundCondition)
 {}
 
 QString LinksDecorator::apply(LinksDecoratorMode mode)
 {
-    auto ret = mLinksText.text();
+    auto ret = mLinksString.text();
 
-    for (int i = mLinksText.links().size() - 1; i >= 0; i--) {
-        const auto& link = mLinksText.links()[i];
+    for (int i = mLinksString.links().size() - 1; i >= 0; i--) {
+        const auto& link = mLinksString.links()[i];
 
         int rBracketPos = link.right().pos() - 1;
         int lBracketPos = link.left().pos();

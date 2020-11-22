@@ -25,7 +25,7 @@
 #include <QString>
 
 #include "source/Helpers/link/link.h"
-#include "source/Helpers/link/linkstext.h"
+#include "source/Helpers/link/linksstring.h"
 #include "source/Model/Termin/nodeinfocontainer.h"
 
 // Const wrapper over NodeInfoContainer + some additional stuff
@@ -54,8 +54,8 @@ private: // Methods
 private: // Members
     const NodeInfoContainer mInfo;
 
-    const QString   mLowerTerm;
-    const QString   mDecoratedTerm;
-    const QSizeF    mDecoratedTermSize;
-    const LinksText mLinksDefinition;
+    const QString     mLowerTerm;
+    const QString     mDecoratedTerm;
+    const QSizeF      mDecoratedTermSize;
+    const LinksString mLinksDefinition;
 };

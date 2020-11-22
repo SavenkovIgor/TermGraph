@@ -24,7 +24,7 @@
 #include "source/Helpers/intmatrix.h"
 #include "source/Helpers/link/link.h"
 #include "source/Helpers/link/linksdecorator.h"
-#include "source/Helpers/link/linkstext.h"
+#include "source/Helpers/link/linksstring.h"
 #include "source/Helpers/link/linkutils.h"
 #include "source/Helpers/text/textcursor.h"
 
@@ -41,7 +41,7 @@ bool TagProcessor::isCursorOnLink(const QString& str, int cursor) { return Link:
 
 bool TagProcessor::hasSoftLinks(const QString& linkedText)
 {
-    LinksText txt(linkedText);
+    LinksString txt(linkedText);
 
     for (const auto& link : txt.links()) {
         if (!link.hasUuid())
@@ -59,7 +59,7 @@ QString TagProcessor::expandTagRight(QString str, int cursor) { return LinkUtils
 
 QString TagProcessor::decorateTags(const QString& str)
 {
-    LinksText      linkText(str);
+    LinksString    linkText(str);
     LinksDecorator decorator(linkText, LinksDecorator::blueDecorator);
     return decorator.apply(LinksDecoratorMode::Replace);
 }

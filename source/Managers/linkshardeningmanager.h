@@ -26,7 +26,7 @@
 #include <QStringView>
 
 #include "source/Helpers/handytypes.h"
-#include "source/Helpers/link/linkstext.h"
+#include "source/Helpers/link/linksstring.h"
 #include "source/Model/Termin/nodegadgetwrapper.h"
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminGroup/termgroup.h"
@@ -92,10 +92,10 @@ private: // Methods
     static QString applyLinkUuids(QString stringWithLinks, QMap<int, QUuid> uuidsToApply);
 
 private: // Members
-    TermGroup*                mCurrentGroup = nullptr;
-    NodeGadgetWrapper         mCurrentTerm;
-    QString                   mCurrentDefinition;
-    QScopedPointer<LinksText> mLinksText;
+    TermGroup*                  mCurrentGroup = nullptr;
+    NodeGadgetWrapper           mCurrentTerm;
+    QString                     mCurrentDefinition;
+    QScopedPointer<LinksString> mLinksString;
 
     int mLinkIndex = -1;
 

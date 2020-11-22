@@ -26,7 +26,7 @@
 #include <QtTest>
 
 #include "source/Helpers/link/linksdecorator.h"
-#include "source/Helpers/link/linkstext.h"
+#include "source/Helpers/link/linksstring.h"
 
 class LinkDecoratorTest : public QObject
 {
@@ -35,7 +35,7 @@ class LinkDecoratorTest : public QObject
 private slots:
     void linkDecorate()
     {
-        LinksText links(multipleLinks);
+        LinksString links(multipleLinks);
 
         LinksDecorator decorator(links, [](auto orderNum, [[maybe_unused]] auto link) {
             if (orderNum == 1)

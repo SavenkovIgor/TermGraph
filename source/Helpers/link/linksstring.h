@@ -26,11 +26,11 @@
 #include "source/Helpers/handytypes.h"
 #include "source/Helpers/link/link.h"
 
-class LinksText
+class LinksString
 {
 public:
-    LinksText(QStringView str);
-    LinksText(const LinksText& other) = default;
+    LinksString(QStringView str);
+    LinksString(const LinksString& other) = default;
 
     QString           text() const;
     const Link::List& links() const;

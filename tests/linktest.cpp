@@ -25,10 +25,9 @@
 #include <QtTest>
 
 #include "source/Helpers/link/link.h"
-#include "source/Helpers/link/linkstext.h"
+#include "source/Helpers/link/linksstring.h"
 
-// TODO: Move some functions of linkutils to LinksText
-// TODO: LinksText -> LinksString
+// TODO: Move some functions of linkutils to LinksString
 
 class LinkTest : public QObject
 {
@@ -111,29 +110,29 @@ private slots:
         QCOMPARE(link.hasUuid(), false);
     }
 
-    void linksText()
+    void linksString()
     {
-        auto text = LinksText(multipleLinks);
+        auto text = LinksString(multipleLinks);
 
         QCOMPARE(text.links().size(), 3);
         QCOMPARE(text.links()[1].fullLink(), QString("{bc}"));
         QCOMPARE(text.links()[1].text(), QString("bc"));
 
-        QCOMPARE(LinksText(invalidLinksText1).links().size(), 0);
-        QCOMPARE(LinksText(invalidLinksText2).links().size(), 0);
-        QCOMPARE(LinksText(invalidLinksText3).links().size(), 0);
+        QCOMPARE(LinksString(invalidLinksString1).links().size(), 0);
+        QCOMPARE(LinksString(invalidLinksString2).links().size(), 0);
+        QCOMPARE(LinksString(invalidLinksString3).links().size(), 0);
     }
 
     void linksReplacement()
     {
-        auto lText = LinksText(multipleLinks);
+        auto lText = LinksString(multipleLinks);
 
         auto res = lText.replaceLink(1, "{aaa}");
 
         QCOMPARE(res, " {abc} {aaa} {c}");
     }
 
-    void validLinksText_data()
+    void validLinksString_data()
     {
         QTest::addColumn<QString>("text");
         QTest::addColumn<bool>("result");
@@ -156,12 +155,12 @@ private slots:
         // clang-format on
     }
 
-    void validLinksText()
+    void validLinksString()
     {
         QFETCH(QString, text);
         QFETCH(bool, result);
 
-        QVERIFY(LinksText::isValidLinksString(text) == result);
+        QVERIFY(LinksString::isValidLinksString(text) == result);
     }
 
     void inLink_data()
@@ -197,12 +196,12 @@ private slots:
     }
 
 private:
-    const QString linkedTextWithUuid = " abc {Ab c|94810de3-51b8-469e-b316-00248ffa2a45} abc ";
-    const QString linkedText         = " abc {Ab c} abc ";
-    const QString multipleLinks      = " {abc} {bc} {c}";
-    const QString invalidLinksText1  = "}{";
-    const QString invalidLinksText2  = "}}{{";
-    const QString invalidLinksText3  = "";
+    const QString linkedTextWithUuid  = " abc {Ab c|94810de3-51b8-469e-b316-00248ffa2a45} abc ";
+    const QString linkedText          = " abc {Ab c} abc ";
+    const QString multipleLinks       = " {abc} {bc} {c}";
+    const QString invalidLinksString1 = "}{";
+    const QString invalidLinksString2 = "}}{{";
+    const QString invalidLinksString3 = "";
 };
 
 QTEST_APPLESS_MAIN(LinkTest)

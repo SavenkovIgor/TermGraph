@@ -222,8 +222,8 @@ target_sources (${TEXT_LINK_TEST}
         ../source/Helpers/handytypes.h
         ../source/Helpers/intmatrix.cpp
         ../source/Helpers/intmatrix.h
-        ../source/Helpers/link/linkstext.cpp
-        ../source/Helpers/link/linkstext.h
+        ../source/Helpers/link/linksstring.cpp
+        ../source/Helpers/link/linksstring.h
         ../source/Helpers/link/link.cpp
         ../source/Helpers/link/link.h
         ../source/Helpers/text/chartools.h
@@ -256,8 +256,8 @@ target_sources (${LINK_DECORATOR_TEST}
         ../source/Helpers/intmatrix.h
         ../source/Helpers/link/linksdecorator.cpp
         ../source/Helpers/link/linksdecorator.h
-        ../source/Helpers/link/linkstext.cpp
-        ../source/Helpers/link/linkstext.h
+        ../source/Helpers/link/linksstring.cpp
+        ../source/Helpers/link/linksstring.h
         ../source/Helpers/link/link.cpp
         ../source/Helpers/link/link.h
         ../source/Helpers/text/chartools.h
