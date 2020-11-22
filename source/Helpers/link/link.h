@@ -47,6 +47,8 @@ public:
 
     static opt<Link> select(QStringView str, int startPos);
 
+    static bool isCursorOnLink(QStringView str, int cursorPos);
+
 private: //Methods
     static QStringView getText(QStringView fullLink);
     static QString     getLower(QStringView text);

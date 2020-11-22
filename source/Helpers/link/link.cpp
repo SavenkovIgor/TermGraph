@@ -80,6 +80,8 @@ opt<Link> Link::select(QStringView str, int startPos)
     return std::nullopt;
 }
 
+bool Link::isCursorOnLink(QStringView str, int cursorPos) { return select(str, cursorPos).has_value(); }
+
 QStringView Link::getText(QStringView fullLink)
 {
     const auto from     = 1;

@@ -39,38 +39,6 @@ public:
     ~LinkUtilsTest() override = default;
 
 private slots:
-    void inLink_data()
-    {
-        QTest::addColumn<QString>("src");
-        QTest::addColumn<Idxs>("cursorPositions");
-        QTest::addColumn<bool>("result");
-
-        // clang-format off
-        QTest::newRow("case0") << "{}"    << Idxs {1}           << true;
-        QTest::newRow("case1") << "{  }"  << Idxs {2}           << true;
-        QTest::newRow("case2") << "a{a}a" << Idxs {2, 3}        << true;
-
-        QTest::newRow("case3") << ""      << Idxs {-1, 0, 1}    << false;
-        QTest::newRow("case4") << " "     << Idxs {-1, 0, 1, 2} << false;
-        QTest::newRow("case5") << "{"     << Idxs {0, 1}        << false;
-        QTest::newRow("case6") << "}"     << Idxs {0, 1}        << false;
-        QTest::newRow("case7") << "{}"    << Idxs {-1, 0, 2, 3} << false;
-        QTest::newRow("case8") << "}{"    << Idxs {0, 1, 2}     << false;
-        QTest::newRow("case9") << "} a {" << Idxs {1}           << false;
-        // clang-format on
-    }
-
-    void inLink()
-    {
-        QFETCH(QString, src);
-        QFETCH(Idxs, cursorPositions);
-        QFETCH(bool, result);
-
-        for (auto cursor : cursorPositions) {
-            QVERIFY2(LinkUtils::isInsideTag(src, cursor) == result, failCursor(cursor));
-        }
-    }
-
     void addLink_data()
     {
         QTest::addColumn<QString>("src");
@@ -103,7 +71,7 @@ private slots:
         QFETCH(QString, result);
 
         for (auto cursor : cursorPositions) {
-            QVERIFY2(LinkUtils::addTag(src, cursor) == result, failCursor(cursor));
+            QCOMPARE(LinkUtils::addTag(src, cursor), result);
         }
     }
 
@@ -142,7 +110,7 @@ private slots:
         QFETCH(QString, result);
 
         for (auto cursor : cursorPositions) {
-            QVERIFY2(LinkUtils::expandTagRight(src, cursor) == result, failCursor(cursor));
+            QCOMPARE(LinkUtils::expandTagRight(src, cursor), result);
         }
     }
 
@@ -174,7 +142,7 @@ private slots:
         QFETCH(QString, result);
 
         for (auto cursor : cursorPositions) {
-            QVERIFY2(LinkUtils::removeTag(src, cursor) == result, failCursor(cursor));
+            QCOMPARE(LinkUtils::removeTag(src, cursor), result);
         }
     }
 
@@ -322,12 +290,6 @@ private slots:
         QFETCH(int, count);
 
         QVERIFY(LinkUtils::wordsCount(src) == count);
-    }
-
-private:
-    const char* failCursor(int cursor)
-    {
-        return QString("Fail on cursor " + QString::number(cursor)).toStdString().c_str();
     }
 };
 

@@ -28,8 +28,6 @@
 #include "source/Helpers/text/checkingtextcursor.h"
 #include "source/Helpers/text/textcursor.h"
 
-bool LinkUtils::isInsideTag(QStringView str, int cursor) { return Link::select(str, cursor).has_value(); }
-
 /// Описание:
 /// Функция в пустой строке или строке с пробелами вернет {}
 /// Функция на границе строки обрамит крайнее слово
@@ -44,7 +42,7 @@ QString LinkUtils::addTag(QString str, int cursor)
     // str = str.simplified();
 
     // Если мы уже находимся внутри тега - ничего не делаем
-    if (isInsideTag(str, cursor))
+    if (Link::isCursorOnLink(str, cursor))
         return str;
 
     auto word = TextRange::selectWord(str, cursor);
@@ -61,7 +59,7 @@ QString LinkUtils::expandTagRight(QString str, int cursor)
     if (!TextCursor::isValidCursor(str, cursor))
         return str;
 
-    if (!isInsideTag(str, cursor))
+    if (!Link::isCursorOnLink(str, cursor))
         return str;
 
     // Move to right bracket
@@ -104,7 +102,7 @@ QString LinkUtils::removeTag(QString str, int cursor)
     // str = str.simplified();
 
     // Если мы не находимся внутри тега - ничего не делаем
-    if (!isInsideTag(str, cursor))
+    if (!Link::isCursorOnLink(str, cursor))
         return str;
 
     auto leftBracket  = CheckingTextCursor::anyBracketOnLeft(str, cursor, Direction::Left);

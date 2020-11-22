@@ -34,6 +34,8 @@ class LinkTest : public QObject
 {
     Q_OBJECT
 
+    using Idxs = std::vector<int>; // Short for Indexes
+
 private slots:
     void linkSearch_data()
     {
@@ -160,6 +162,38 @@ private slots:
         QFETCH(bool, result);
 
         QVERIFY(LinksText::isValidLinksString(text) == result);
+    }
+
+    void inLink_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<Idxs>("cursorPositions");
+        QTest::addColumn<bool>("result");
+
+        // clang-format off
+        QTest::newRow("case0") << "{}"    << Idxs {1}           << true;
+        QTest::newRow("case1") << "{  }"  << Idxs {2}           << true;
+        QTest::newRow("case2") << "a{a}a" << Idxs {2, 3}        << true;
+
+        QTest::newRow("case3") << ""      << Idxs {-1, 0, 1}    << false;
+        QTest::newRow("case4") << " "     << Idxs {-1, 0, 1, 2} << false;
+        QTest::newRow("case5") << "{"     << Idxs {0, 1}        << false;
+        QTest::newRow("case6") << "}"     << Idxs {0, 1}        << false;
+        QTest::newRow("case7") << "{}"    << Idxs {-1, 0, 2, 3} << false;
+        QTest::newRow("case8") << "}{"    << Idxs {0, 1, 2}     << false;
+        QTest::newRow("case9") << "} a {" << Idxs {1}           << false;
+        // clang-format on
+    }
+
+    void inLink()
+    {
+        QFETCH(QString, src);
+        QFETCH(Idxs, cursorPositions);
+        QFETCH(bool, result);
+
+        for (auto cursor : cursorPositions) {
+            QCOMPARE(Link::isCursorOnLink(src, cursor), result);
+        }
     }
 
 private:

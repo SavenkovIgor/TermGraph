@@ -22,6 +22,7 @@
 #include "source/Helpers/tagprocessor.h"
 
 #include "source/Helpers/intmatrix.h"
+#include "source/Helpers/link/link.h"
 #include "source/Helpers/link/linksdecorator.h"
 #include "source/Helpers/link/linkstext.h"
 #include "source/Helpers/link/linkutils.h"
@@ -36,10 +37,7 @@ bool TagProcessor::isValidCursor(const QString& str, int cursor)
     return TextCursor::isValidCursor(QStringView(str), cursor);
 }
 
-bool TagProcessor::isInsideTag(const QString& str, int cursor)
-{
-    return LinkUtils::isInsideTag(QStringView(str), cursor);
-}
+bool TagProcessor::isInsideTag(const QString& str, int cursor) { return Link::isCursorOnLink(str, cursor); }
 
 bool TagProcessor::hasSoftLinks(const QString& linkedText)
 {

@@ -37,8 +37,6 @@ class LinkUtils
 {
 public:
     // Tags
-    static bool isInsideTag(QStringView str, int cursor);
-
     static QString addTag(QString str, int cursor);
     static QString expandTagRight(QString str, int cursor);
     static QString removeTag(QString str, int cursor);
