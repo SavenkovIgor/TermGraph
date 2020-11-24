@@ -37,7 +37,12 @@ public:
 
     QString replaceLink(int index, QString text) const;
 
+    // Static stuff
     static bool isValidLinksString(QStringView str);
+
+    static QString addLink(QString str, int cursor);
+    static QString expandLinkRight(QString str, int cursor);
+    static QString removeLink(QString str, int cursor);
 
 private: // Methods
     static int        getCount(QStringView strView);

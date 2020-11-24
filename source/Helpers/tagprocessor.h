@@ -37,8 +37,8 @@ public slots:
     static bool isCursorOnLink(const QString& str, int cursor);
     static bool hasSoftLinks(const QString& linkedText);
 
-    static QString addTag(QString str, int cursor);
-    static QString expandTagRight(QString str, int cursor);
-    static QString removeTag(QString str, int cursor);
+    static QString addLink(QString str, int cursor);
+    static QString expandLinkRight(QString str, int cursor);
+    static QString removeLink(QString str, int cursor);
     static QString decorateTags(const QString& str);
 };

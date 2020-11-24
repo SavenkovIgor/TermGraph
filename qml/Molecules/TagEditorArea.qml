@@ -43,33 +43,33 @@ M.TextArea {
         return false;
     }
 
-    readonly property bool addTagButtonVisible: txtFocus && !isCursorOnLink
-    readonly property bool extendTagButtonVisible: txtFocus && isCursorOnLink
-    readonly property bool removeTagButtonVisible: txtFocus && isCursorOnLink
+    readonly property bool addLinkButtonVisible: txtFocus && !isCursorOnLink
+    readonly property bool extendLinkButtonVisible: txtFocus && isCursorOnLink
+    readonly property bool removeLinkButtonVisible: txtFocus && isCursorOnLink
 
-    function addTag() {
+    function addLink() {
         let pos = cursorPosition;
 
         if (!isCursorOnLink) {
-            text = tagTools.addTag(text, pos);
+            text = tagTools.addLink(text, pos);
             takeFocusAndSetCursor(pos + 1);
         } else {
             takeFocusAndSetCursor(pos);
         }
     }
 
-    function expandTagRight() {
+    function expandLinkRight() {
         let pos = cursorPosition;
         if (isCursorOnLink) {
-            text = tagTools.expandTagRight(text, pos);
+            text = tagTools.expandLinkRight(text, pos);
             takeFocusAndSetCursor(pos);
         }
     }
 
-    function removeTag() {
+    function removeLink() {
         let pos = cursorPosition;
         if (isCursorOnLink) {
-            text = tagTools.removeTag(text, pos);
+            text = tagTools.removeLink(text, pos);
             takeFocusAndSetCursor(pos - 1);
         }
     }

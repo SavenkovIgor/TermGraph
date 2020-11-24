@@ -51,11 +51,11 @@ bool TagProcessor::hasSoftLinks(const QString& linkedText)
     return false;
 }
 
-QString TagProcessor::addTag(QString str, int cursor) { return LinkUtils::addTag(str, cursor); }
+QString TagProcessor::addLink(QString str, int cursor) { return LinksString::addLink(str, cursor); }
 
-QString TagProcessor::removeTag(QString str, int cursor) { return LinkUtils::removeTag(str, cursor); }
+QString TagProcessor::expandLinkRight(QString str, int cursor) { return LinksString::expandLinkRight(str, cursor); }
 
-QString TagProcessor::expandTagRight(QString str, int cursor) { return LinkUtils::expandTagRight(str, cursor); }
+QString TagProcessor::removeLink(QString str, int cursor) { return LinksString::removeLink(str, cursor); }
 
 QString TagProcessor::decorateTags(const QString& str)
 {

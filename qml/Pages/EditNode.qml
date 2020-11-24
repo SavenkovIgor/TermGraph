@@ -101,37 +101,37 @@ M.Page {
         }
     }
 
-    property bool someOfToolButtonsHaveFocus: addTag.focus || expandTagRight.focus || removeTag.focus
+    property bool someOfToolButtonsHaveFocus: addLink.focus || expandLinkRight.focus || removeLink.focus
 
     A.RoundButton {
-        id: addTag
+        id: addLink
         icon.source: IconPath.code
-        visible: termDefin.addTagButtonVisible || someOfToolButtonsHaveFocus
+        visible: termDefin.addLinkButtonVisible || someOfToolButtonsHaveFocus
 
-        anchors { top: parent.top; right: expandTagRight.left; margins: width / 2; }
+        anchors { top: parent.top; right: expandLinkRight.left; margins: width / 2; }
 
-        onClicked: termDefin.addTag()
+        onClicked: termDefin.addLink()
     }
 
     A.RoundButton {
-        id: expandTagRight
+        id: expandLinkRight
         icon.source: IconPath.chevronRight
-        visible: termDefin.extendTagButtonVisible || someOfToolButtonsHaveFocus
+        visible: termDefin.extendLinkButtonVisible || someOfToolButtonsHaveFocus
 
         anchors { top: parent.top; right: parent.right; margins: width / 2; }
 
-        onClicked: termDefin.expandTagRight()
+        onClicked: termDefin.expandLinkRight()
     }
 
     A.RoundButton {
-        id: removeTag
+        id: removeLink
         icon.source: IconPath.code
         icon.color: "crimson"
-        visible: termDefin.removeTagButtonVisible || someOfToolButtonsHaveFocus
+        visible: termDefin.removeLinkButtonVisible || someOfToolButtonsHaveFocus
 
-        anchors { top: parent.top; right: expandTagRight.left; margins: width / 2; }
+        anchors { top: parent.top; right: expandLinkRight.left; margins: width / 2; }
 
-        onClicked: termDefin.removeTag()
+        onClicked: termDefin.removeLink()
     }
 
     contentItem: A.FlickableColumn {

@@ -37,10 +37,6 @@ class LinkUtils
 {
 public:
     // Tags
-    static QString addTag(QString str, int cursor);
-    static QString expandTagRight(QString str, int cursor);
-    static QString removeTag(QString str, int cursor);
-
     static bool tagLengthSuitTerm(const QString& tag, const QString& termName);
 
     static int      getLevDistance(QStringView src, QStringView dst, int limit = 100000);
@@ -48,9 +44,4 @@ public:
 
     // Words
     static int wordsCount(const QString& string);
-
-    // Links
-    static Link linkAt(QStringView str, int index);
-
-    constexpr static int nullCursor = -1;
 };

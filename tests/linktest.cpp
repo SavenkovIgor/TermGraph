@@ -27,7 +27,7 @@
 #include "source/Helpers/link/link.h"
 #include "source/Helpers/link/linksstring.h"
 
-// TODO: Move some functions of linkutils to LinksString
+// TODO: Add for-each loop in linksString
 
 class LinkTest : public QObject
 {
@@ -192,6 +192,147 @@ private slots:
 
         for (auto cursor : cursorPositions) {
             QCOMPARE(Link::isCursorOnLink(src, cursor), result);
+        }
+    }
+
+    void linkAt_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<int>("index");
+        QTest::addColumn<int>("start");
+        QTest::addColumn<int>("end");
+
+        // clang-format off
+        QTest::newRow("case0") << "{a}{b}{}" << 0 << 0 << 3;
+        QTest::newRow("case1") << "{a}{b}{}" << 1 << 3 << 6;
+        QTest::newRow("case2") << "{a}{b}{}" << 2 << 6 << 8;
+        QTest::newRow("case3") << " {a} {b} {} " << 0 << 1 << 4;
+        QTest::newRow("case4") << " {a} {b} {} " << 1 << 5 << 8;
+        QTest::newRow("case5") << " {a} {b} {} " << 2 << 9 << 11;
+        QTest::newRow("case6") << "{}"       << 0 << 0 << 2;
+        QTest::newRow("case7") << "{asdf}"   << 0 << 0 << 6;
+        QTest::newRow("case8") << " {   } "  << 0 << 1 << 6;
+        // clang-format on
+    }
+
+    void linkAt()
+    {
+        QFETCH(QString, src);
+        QFETCH(int, index);
+        QFETCH(int, start);
+        QFETCH(int, end);
+
+        auto lString = LinksString(src);
+        auto range   = lString.links()[index];
+
+        QVERIFY(range.left().pos() == start);
+        QVERIFY(range.right().pos() == end);
+    }
+
+    void addLink_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<Idxs>("cursorPositions");
+        QTest::addColumn<QString>("result");
+
+        // clang-format off
+        QTest::newRow("case0")  << ""           << Idxs {-1, 1} << "";
+        QTest::newRow("case1")  << ""           << Idxs {0}     << "{}";
+        QTest::newRow("case2")  << " "          << Idxs {0}     << "{} ";
+        QTest::newRow("case3")  << " "          << Idxs {1}     << " {}";
+        QTest::newRow("case4")  << "a"          << Idxs {-1, 2} << "a";
+        QTest::newRow("case5")  << "a"          << Idxs {0, 1}  << "{a}";
+        QTest::newRow("case6")  << " a "        << Idxs {1, 2}  << " {a} ";
+        QTest::newRow("case7")  << " a "        << Idxs {0}     << "{} a ";
+        QTest::newRow("case8")  << " a "        << Idxs {3}     << " a {}";
+        QTest::newRow("case9")  << " {a} "      << Idxs {2, 3}  << " {a} ";
+        QTest::newRow("case10") << " {a} "      << Idxs {1}     << " {}{a} ";
+        QTest::newRow("case11") << " {a} "      << Idxs {4}     << " {a}{} ";
+        QTest::newRow("case12") << " aa bb "    << Idxs {1}     << " {aa} bb ";
+        QTest::newRow("case13") << " aa   bb "  << Idxs {7}     << " aa   {bb} ";
+        QTest::newRow("case14") << " aaaaa, "   << Idxs {1}     << " {aaaaa}, ";
+        // clang-format on
+    }
+
+    void addLink()
+    {
+        QFETCH(QString, src);
+        QFETCH(Idxs, cursorPositions);
+        QFETCH(QString, result);
+
+        for (auto cursor : cursorPositions) {
+            QCOMPARE(LinksString::addLink(src, cursor), result);
+        }
+    }
+
+    void extendRight_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<Idxs>("cursorPositions");
+        QTest::addColumn<QString>("result");
+
+        // clang-format off
+        QTest::newRow("case0")  << ""             << Idxs {0}                << "";
+        QTest::newRow("case1")  << " "            << Idxs {0, 1}             << " ";
+        QTest::newRow("case2")  << "a"            << Idxs {0, 1}             << "a";
+        QTest::newRow("case3")  << " a "          << Idxs {0, 1, 2, 3}       << " a ";
+        QTest::newRow("case4")  << "{a}"          << Idxs {0, 1, 2, 3}       << "{a}";
+        QTest::newRow("case5")  << " {a}"         << Idxs {2, 3}             << " {a}";
+        QTest::newRow("case6")  << "{a}a"         << Idxs {1, 2}             << "{aa}";
+        QTest::newRow("case7")  << "{a}a"         << Idxs {0, 3, 4}          << "{a}a";
+        QTest::newRow("case8")  << " a a "        << Idxs {0, 1, 2, 3, 4, 5} << " a a ";
+        QTest::newRow("case9")  << " {a} "        << Idxs {2, 3}             << " {a} ";
+        QTest::newRow("case10") << " {a}a "       << Idxs {2, 3}             << " {aa} ";
+        QTest::newRow("case11") << "{a}{a}"       << Idxs {1, 2}             << "{a}{a}";
+        QTest::newRow("case12") << " {a} a "      << Idxs {2, 3}             << " {a a} ";
+        QTest::newRow("case13") << "{a} {a}"      << Idxs {1, 2}             << "{a} {a}";
+        QTest::newRow("case14") << " aaaaa, "     << Idxs {1}                << " aaaaa, ";
+        QTest::newRow("case15") << " {a } a "     << Idxs {2, 3, 4}          << " {a  a} ";
+        QTest::newRow("case16") << " {aa} bb "    << Idxs {2}                << " {aa bb} ";
+        QTest::newRow("case17") << " {a} aaaaa, " << Idxs {2}                << " {a aaaaa}, ";
+        // clang-format on
+    }
+
+    void extendRight()
+    {
+        QFETCH(QString, src);
+        QFETCH(Idxs, cursorPositions);
+        QFETCH(QString, result);
+
+        for (auto cursor : cursorPositions) {
+            QCOMPARE(LinksString::expandLinkRight(src, cursor), result);
+        }
+    }
+
+    void removeLink_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<Idxs>("cursorPositions");
+        QTest::addColumn<QString>("result");
+
+        // clang-format off
+        QTest::newRow("case0")  << "{}"            << Idxs {0, 2}       << "{}";
+        QTest::newRow("case1")  << "{}"            << Idxs {1}          << "";
+        QTest::newRow("case2")  << " a "           << Idxs {0, 1, 2, 3} << " a ";
+        QTest::newRow("case3")  << "a{}"           << Idxs {2}          << "a";
+        QTest::newRow("case4")  << "a{}"           << Idxs {1}          << "a{}";
+        QTest::newRow("case5")  << "{}a"           << Idxs {0}          << "{}a";
+        QTest::newRow("case6")  << "{}a"           << Idxs {1}          << "a";
+        QTest::newRow("case7")  << " {} "          << Idxs {2}          << "  ";
+        QTest::newRow("case8")  << " {a } "        << Idxs {2, 3, 4}    << " a  ";
+        QTest::newRow("case9")  << " {abcd} "      << Idxs {2}          << " abcd ";
+        QTest::newRow("case10") << " {abcd abcd} " << Idxs {2}          << " abcd abcd ";
+        // clang-format on
+    }
+
+    void removeLink()
+    {
+        QFETCH(QString, src);
+        QFETCH(Idxs, cursorPositions);
+        QFETCH(QString, result);
+
+        for (auto cursor : cursorPositions) {
+            QCOMPARE(LinksString::removeLink(src, cursor), result);
         }
     }
 
