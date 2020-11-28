@@ -26,8 +26,6 @@
 
 #include "source/Helpers/uuid/uuidtools.h"
 
-// TODO: Make all paths lowercase
-
 class UuidsTest : public QObject
 {
     Q_OBJECT

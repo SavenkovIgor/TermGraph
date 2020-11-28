@@ -27,8 +27,6 @@
 #include "source/Helpers/link/link.h"
 #include "source/Helpers/link/linksstring.h"
 
-// TODO: Add for-each loop in linksString
-
 class LinkTest : public QObject
 {
     Q_OBJECT
