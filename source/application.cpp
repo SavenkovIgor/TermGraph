@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/mainwindow.h"
+#include "source/application.h"
 
 #include <QApplication>
 #include <QScreen>
@@ -29,7 +29,7 @@
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminEdge/edge.h"
 
-MainWindow::MainWindow(QObject* parent)
+Application::Application(QObject* parent)
     : QObject(parent)
     , initPreparer()
     , network(new NetworkManager())
@@ -70,7 +70,7 @@ MainWindow::MainWindow(QObject* parent)
     qmlEngine->load(QStringLiteral("qrc:/main.qml"));
 }
 
-QString MainWindow::screenshotFilePath(const QString& fileName)
+QString Application::screenshotFilePath(const QString& fileName)
 {
     assert(!fileName.isEmpty());
 
@@ -93,11 +93,11 @@ QString MainWindow::screenshotFilePath(const QString& fileName)
     return "";
 }
 
-int MainWindow::getUiElementSize(const QString& elementTypeName)
+int Application::getUiElementSize(const QString& elementTypeName)
 {
     if (elementSizes.contains(elementTypeName)) {
         // чтобы эти значения не вставлялись. на всякий случай
-        auto screenDencity       = MainWindow::screenPixelDensity();
+        auto screenDencity       = Application::screenPixelDensity();
         auto screenCorrectedSize = screenDencity * elementSizes[elementTypeName];
         return static_cast<int>(screenCorrectedSize);
     }
@@ -106,9 +106,9 @@ int MainWindow::getUiElementSize(const QString& elementTypeName)
     return 0;
 }
 
-int MainWindow::dbVersion() { return localDb.storageVersion(); }
+int Application::dbVersion() { return localDb.storageVersion(); }
 
-void MainWindow::initElemSizes()
+void Application::initElemSizes()
 {
     if constexpr (Platform::isDesktop()) {
         // Screen.pixelDencity - pixel in millimeters
@@ -134,7 +134,7 @@ void MainWindow::initElemSizes()
     }
 }
 
-qreal MainWindow::screenPixelDensity()
+qreal Application::screenPixelDensity()
 {
     const qreal inchToMillimeterRatio = 0.039370;
 

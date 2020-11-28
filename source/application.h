@@ -32,13 +32,13 @@
 #include "source/Managers/syncmanager.h"
 #include "source/mainscene.h"
 
-class MainWindow : public QObject
+class Application : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QObject *parent = nullptr);
-    ~MainWindow() = default;
+    explicit Application(QObject* parent = nullptr);
+    ~Application() = default;
 
     Q_INVOKABLE QString screenshotFilePath(const QString& fileName);
 
@@ -47,7 +47,7 @@ public slots:
     int dbVersion();
 
 private:
-    void initElemSizes();
+    void               initElemSizes();
     QMap<QString, int> elementSizes;
 
     FirstStartPreparer initPreparer;

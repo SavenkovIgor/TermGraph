@@ -24,7 +24,7 @@
 #include <QtQuickControls2/QQuickStyle>
 
 #include "source/Helpers/platform.h"
-#include "source/mainwindow.h"
+#include "source/application.h"
 
 #include "source/qmlTypesRegistrator.h"
 
@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
     format.setSamples(Platform::isDesktop() ? 8 : 4);
     QSurfaceFormat::setDefaultFormat(format);
 
-    MainWindow w;
+    Application w;
 
     return a.exec();
 }
