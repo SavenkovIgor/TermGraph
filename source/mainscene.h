@@ -66,7 +66,6 @@ public:
     Q_INVOKABLE QStringList search(const QString& text);
 
     Q_INVOKABLE QPointF getTermPosition(const QString& termUuid) const;
-    Q_INVOKABLE QString getCurrNodeDebugInfo();
 
     // Casts uuid <-> name
     Q_INVOKABLE QString termUuidToName(const QString& termUuid) const;

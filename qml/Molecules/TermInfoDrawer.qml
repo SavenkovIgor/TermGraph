@@ -50,13 +50,6 @@ A.DrawerPage {
     contentItem:  A.FlickableColumn {
         spacing: 14
 
-        LabelPair {
-            name: "Dbg:"
-            text: scene.getCurrNodeDebugInfo()
-            visible: text !== ""
-            Layout.fillWidth: true
-        }
-
         RowLayout {
             LabelPair {
                 name: "Название:"

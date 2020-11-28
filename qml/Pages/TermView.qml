@@ -67,12 +67,6 @@ M.Page {
         spacing: 14
 
         M.LabelPair {
-            name: "Dbg:"
-            text: scene.getCurrNodeDebugInfo()
-            visible: text !== ""
-        }
-
-        M.LabelPair {
             name: "Название:"
             text: scene.currentNode.term
             visible: text !== ""

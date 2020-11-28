@@ -261,21 +261,6 @@ void MainScene::selectTerm(PaintedTerm* term, bool needRepaint)
 
 void MainScene::dropTermSelection(bool needRepaint) { selectTerm(nullptr, needRepaint); }
 
-QString MainScene::getCurrNodeDebugInfo()
-{
-    return "";
-    //    TermNode* nd = getSelected();
-    //    if (nd == nullptr) {
-    //        return "";
-    //    }
-
-    //    QStringList ret;
-    //    ret << "Uuid:" << nd->getUuid().toString();
-    //    ret << nd->getDebugString();
-
-    //    return ret.join(" ");
-}
-
 QString MainScene::termUuidToName(const QString& termUuid) const
 {
     if (auto* node = findTerm(QUuid(termUuid)))
