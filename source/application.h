@@ -32,6 +32,30 @@
 #include "source/Managers/syncmanager.h"
 #include "source/mainscene.h"
 
+// -- Qt6 Migration plan --
+
+// TODO: Make some preparations before migration: Remove QVector
+// TODO: Remove CharRef
+// TODO: Explicit QUuid in syncmanager.cpp:56, mainscene.cpp:101
+// TODO: font.h replace int with QFont::Weight
+// TODO: Make Qt6Migrate branch
+// TODO: Make it at least compilable. Errors possible.
+// TODO: Register QUuid as qml type
+// TODO: Use QUuid everywhere directly instead QString
+// TODO: Replace slots with Q_INVOKABLE everywhere
+// TODO: Remove setContextProperty stuff
+// TODO: Maybe add QProperty somewhere? need think.
+// TODO: How to mix QProperty & Q_PROPERTY
+// TODO: Add My Own Dialog
+// TODO: What about import versions in qml?
+// TODO: Replace Components with component properties
+// TODO: Create GroupsModel
+// TODO: NodeGadgetWrapper to lowercase
+// TODO: What is "QQmlEngine::setContextForObject(): Object already has a QQmlContext"
+// TODO: Make StdDialog normal (icons, font..)
+// TODO: What with versioning in my qmldirs?
+// TODO: Fix tests
+
 class Application : public QObject
 {
     Q_OBJECT
