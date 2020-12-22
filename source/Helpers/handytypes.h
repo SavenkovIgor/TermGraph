@@ -26,12 +26,11 @@
 
 #include <QSizeF>
 #include <QUuid>
-#include <QVector>
 #include <QtSql/QSqlRecord>
 
-using UuidList  = std::vector<QUuid>;
-using SizesList = std::vector<QSizeF>;
-using RecVector = QVector<QSqlRecord>;
+using UuidList   = std::vector<QUuid>;
+using SizesList  = std::vector<QSizeF>;
+using RecordList = std::vector<QSqlRecord>;
 
 template<class T>
 using opt = std::optional<T>;

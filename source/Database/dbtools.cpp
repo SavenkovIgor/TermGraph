@@ -75,9 +75,9 @@ QSqlRecord DbTools::getRecord(QSqlQuery&& q)
     return q.record();
 }
 
-RecVector DbTools::getAllRecords(QSqlQuery&& q)
+RecordList DbTools::getAllRecords(QSqlQuery&& q)
 {
-    RecVector ret;
+    RecordList ret;
 
     if (auto size = q.size(); size > 0) {
         ret.reserve(size);
@@ -88,7 +88,7 @@ RecVector DbTools::getAllRecords(QSqlQuery&& q)
             break;
         }
 
-        ret << q.record();
+        ret.push_back(q.record());
     }
 
     return ret;

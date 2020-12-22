@@ -41,8 +41,8 @@ public:
     NodeInfoContainer       getNodeInfo(const QUuid& uuid);
     NodeInfoContainer::List getAllNodesInfo(const QUuid& groupUuid);
 
-    QDateTime getLastEdit(const QUuid& uuid);
-    RecVector getAllLastEditRecords();
+    QDateTime  getLastEdit(const QUuid& uuid);
+    RecordList getAllLastEditRecords();
 
     bool updateNode(const NodeInfoContainer&             info,
                     DataStorageInterface::LastEditSource lastEditSource,

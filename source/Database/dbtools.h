@@ -44,5 +44,5 @@ public:
     static int recordsCount(const QString& tableName);
 
     static QSqlRecord getRecord(QSqlQuery&& q);
-    static RecVector  getAllRecords(QSqlQuery&& q);
+    static RecordList getAllRecords(QSqlQuery&& q);
 };

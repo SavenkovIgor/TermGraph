@@ -33,7 +33,7 @@ QUuid TermTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& group
     auto nodesRecords = DbTools::getAllRecords(std::move(query));
 
     if (nodesRecords.size() == 1)
-        return QUuid(nodesRecords.first().value("uuid").toString());
+        return QUuid(nodesRecords.front().value("uuid").toString());
 
     return QUuid();
 }
@@ -171,7 +171,7 @@ QDateTime TermTable::getLastEdit(const QUuid& uuid)
     return QDateTime::fromString(field, Qt::ISODate);
 }
 
-RecVector TermTable::getAllLastEditRecords()
+RecordList TermTable::getAllLastEditRecords()
 {
     auto query = SqlQueryBuilder().selectAllLastEditAndGroupUuid();
     DbTools::startQuery2(query);

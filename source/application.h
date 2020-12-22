@@ -34,7 +34,6 @@
 
 // -- Qt6 Migration plan --
 
-// TODO: Make some preparations before migration: Remove QVector
 // TODO: Remove CharRef
 // TODO: Explicit QUuid in syncmanager.cpp:56, mainscene.cpp:101
 // TODO: font.h replace int with QFont::Weight

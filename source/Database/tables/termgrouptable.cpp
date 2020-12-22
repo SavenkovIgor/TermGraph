@@ -111,10 +111,10 @@ QUuid TermGroupTable::getUuid(const QString& groupName) const
 
     auto records = DbTools::getAllRecords(std::move(query));
 
-    if (records.isEmpty())
+    if (records.empty())
         return QUuid();
 
-    return QUuid(records.first().value("uuid").toString());
+    return QUuid(records.front().value("uuid").toString());
 }
 
 bool TermGroupTable::groupWithNameExist(const QString& groupName) { return !getUuid(groupName).isNull(); }
