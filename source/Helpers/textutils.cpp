@@ -23,7 +23,7 @@
 
 bool TextUtils::isTermWithDefinition(const QString &def)
 {
-    for (const auto& splitter : splitters()) {
+    for (const auto &splitter : splitters()) {
         if (def.contains(splitter)) {
             return true;
         }
@@ -50,7 +50,7 @@ QString TextUtils::getDefinition(const QString &def)
 
 QString TextUtils::insertNewLineNearMiddle(const QString &str)
 {
-    auto tryReplaceSpaceWithNewLine = [](QCharRef ref) {
+    auto tryReplaceSpaceWithNewLine = [](QChar ref) {
         if (ref == ' ') {
             ref = '\n';
             return true;
@@ -75,12 +75,10 @@ QString TextUtils::insertNewLineNearMiddle(const QString &str)
     return ret;
 }
 
-
-
 int TextUtils::splitterIndex(const QString &str)
 {
     int pos = -1;
-    for (const auto& splitter : splitters()) {
+    for (const auto &splitter : splitters()) {
         pos = str.indexOf(splitter);
         if (pos != -1) {
             return pos;
@@ -94,8 +92,7 @@ QStringList TextUtils::splitters()
 {
     static QStringList ret;
 
-    if (Q_UNLIKELY(ret.isEmpty()))
-    {
+    if (Q_UNLIKELY(ret.isEmpty())) {
         ret << "‐";
         ret << "-";
         ret << "-";
