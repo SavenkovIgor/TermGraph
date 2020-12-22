@@ -98,7 +98,7 @@ void MainScene::checkGroupDeletion()
     // If group was deleted, and it was current group, we must delete it too
     auto currentGroup = currentGroupUuid();
     auto groupsUuids  = groupsMgr->getAllUuidsSortedByLastEdit();
-    if (!groupsUuids.contains(currentGroup))
+    if (!groupsUuids.contains(QUuid(currentGroup)))
         dropGroup();
 }
 

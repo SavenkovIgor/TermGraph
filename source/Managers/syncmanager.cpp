@@ -53,7 +53,7 @@ bool SyncManager::isDataContainer(const QJsonDocument& doc)
 
 void SyncManager::sendGroupByNetwork(const QString& groupUuid)
 {
-    auto jsonDoc = mGroupsManager->getGroupForExport(groupUuid);
+    auto jsonDoc = mGroupsManager->getGroupForExport(QUuid(groupUuid));
     mNetworkManager->sendGroup(jsonDoc);
 }
 

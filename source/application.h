@@ -34,7 +34,6 @@
 
 // -- Qt6 Migration plan --
 
-// TODO: Explicit QUuid in syncmanager.cpp:56, mainscene.cpp:101
 // TODO: font.h replace int with QFont::Weight
 // TODO: Make Qt6Migrate branch
 // TODO: Make it at least compilable. Errors possible.
