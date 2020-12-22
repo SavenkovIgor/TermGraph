@@ -34,7 +34,7 @@
 
 // -- Qt6 Migration plan --
 
-// TODO: font.h replace int with QFont::Weight
+// TODO: Remove obviously unnecessary Dialog imports
 // TODO: Make Qt6Migrate branch
 // TODO: Make it at least compilable. Errors possible.
 // TODO: Register QUuid as qml type

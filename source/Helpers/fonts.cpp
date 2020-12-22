@@ -27,7 +27,7 @@ QFont Fonts::getFont()
     return font;
 }
 
-QFont Fonts::getWeightFont(int weight)
+QFont Fonts::getWeightFont(const QFont::Weight weight)
 {
     QFont font = getFont();
     font.setWeight(weight);

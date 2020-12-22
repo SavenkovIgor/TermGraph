@@ -29,6 +29,6 @@ class Fonts
 {
 public:
     static QFont  getFont();
-    static QFont  getWeightFont(int weight = QFont::Black);
+    static QFont  getWeightFont(const QFont::Weight weight = QFont::Black);
     static QSizeF getTextMetrics(const QString& text, const QFont& font = getFont());
 };
