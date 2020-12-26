@@ -51,7 +51,7 @@ private slots:
     {
         QFETCH(QString, uuidString);
         QFETCH(bool, result);
-        QVERIFY(UuidTools::isValidUuidString(uuidString) == result);
+        QCOMPARE(UuidTools::isValidUuidString(uuidString), result);
     }
 
     void validatorWithoutBraces_data()
@@ -74,7 +74,7 @@ private slots:
     {
         QFETCH(QString, uuidString);
         QFETCH(bool, result);
-        QVERIFY(UuidTools::isValidUuidStringWihtoutBraces(uuidString) == result);
+        QCOMPARE(UuidTools::isValidUuidStringWihtoutBraces(uuidString), result);
     }
 };
 

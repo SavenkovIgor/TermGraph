@@ -34,8 +34,6 @@
 
 // -- Qt6 Migration plan --
 
-// TODO: Make Qt6Migrate branch
-// TODO: Make it at least compilable. Errors possible.
 // TODO: Register QUuid as qml type
 // TODO: Use QUuid everywhere directly instead QString
 // TODO: Replace slots with Q_INVOKABLE everywhere

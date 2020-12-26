@@ -37,7 +37,7 @@ public:
     {
         QVERIFY(FSWorks::fileExist(sDbFileName));
 
-        QVERIFY(mStorage->storageVersion() == 2);
+        QCOMPARE(mStorage->storageVersion(), 2);
         QVERIFY(mStorage->getAllGroupsUuids().empty());
         QVERIFY(mStorage->getGroups().empty());
         QVERIFY(mStorage->getAllNodesUuids().empty());
@@ -64,16 +64,16 @@ private slots:
         // GetAllGroupsUuids test
         auto groupList = mStorage->getAllGroupsUuids();
 
-        QVERIFY(groupList.size() == 2);
+        QCOMPARE(groupList.size(), 2);
         QVERIFY(groupList[0] == withUuid.uuid || groupList[1] == withUuid.uuid);
         QVERIFY(!groupList[0].isNull());
 
         // Read group test
         auto readedWithUuid = mStorage->getGroup(withUuid.uuid);
 
-        QVERIFY(withUuid.uuid == readedWithUuid.uuid);
-        QVERIFY(withUuid.name == readedWithUuid.name);
-        QVERIFY(withUuid.comment == readedWithUuid.comment);
+        QCOMPARE(withUuid.uuid, readedWithUuid.uuid);
+        QCOMPARE(withUuid.name, readedWithUuid.name);
+        QCOMPARE(withUuid.comment, readedWithUuid.comment);
 
         // Update group test
         withUuid.name += mSpecSymbols;
@@ -83,16 +83,16 @@ private slots:
 
         readedWithUuid = mStorage->getGroup(withUuid.uuid);
 
-        QVERIFY(withUuid.uuid == readedWithUuid.uuid);
-        QVERIFY(withUuid.name == readedWithUuid.name);
-        QVERIFY(withUuid.comment == readedWithUuid.comment);
+        QCOMPARE(withUuid.uuid, readedWithUuid.uuid);
+        QCOMPARE(withUuid.name, readedWithUuid.name);
+        QCOMPARE(withUuid.comment, readedWithUuid.comment);
 
         withUuid = getGroupWithUuid();
 
         // Delete group test
         mStorage->deleteGroup(withUuid.uuid);
         groupList = mStorage->getAllGroupsUuids();
-        QVERIFY(groupList.size() == 1);
+        QCOMPARE(groupList.size(), 1);
         mStorage->deleteGroup(groupList.front());
         groupList = mStorage->getAllGroupsUuids();
         QVERIFY(groupList.empty());
@@ -115,7 +115,7 @@ private slots:
             QVERIFY(!mStorage->nodeExist(node.uuid));
             QVERIFY(mStorage->addNode(node));
             QVERIFY(mStorage->nodeExist(node.uuid));
-            QVERIFY(mStorage->findNode(node.term, node.groupUuid) == node.uuid);
+            QCOMPARE(mStorage->findNode(node.term, node.groupUuid), node.uuid);
             auto gettedNode = mStorage->getNode(node.uuid);
             node.lastEdit   = gettedNode.lastEdit; // Last edit was refreshed
             QVERIFY(gettedNode.isEqualTo(node));
@@ -124,7 +124,7 @@ private slots:
         // Checking all uuids without group
         auto allNodesUuids = mStorage->getAllNodesUuids();
 
-        QVERIFY(allNodesUuids.size() == nodesList.size());
+        QCOMPARE(allNodesUuids.size(), nodesList.size());
         for (const auto& node : nodesList) {
             auto searchResult = std::find(allNodesUuids.begin(), allNodesUuids.end(), node.uuid);
             QVERIFY(searchResult != allNodesUuids.end());
@@ -133,7 +133,7 @@ private slots:
         // Checking all uuids with group
         allNodesUuids = mStorage->getAllNodesUuids(withUuid.uuid);
 
-        QVERIFY(allNodesUuids.size() == nodesList.size());
+        QCOMPARE(allNodesUuids.size(), nodesList.size());
         for (const auto& node : nodesList) {
             auto searchResult = std::find(allNodesUuids.begin(), allNodesUuids.end(), node.uuid);
             QVERIFY(searchResult != allNodesUuids.end());

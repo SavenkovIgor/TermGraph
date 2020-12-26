@@ -158,7 +158,7 @@ private slots:
         QFETCH(QString, text);
         QFETCH(bool, result);
 
-        QVERIFY(LinksString::isValidLinksString(text) == result);
+        QCOMPARE(LinksString::isValidLinksString(text), result);
     }
 
     void inLink_data()
@@ -223,8 +223,8 @@ private slots:
         auto lString = LinksString(src);
         auto range   = lString.links()[index];
 
-        QVERIFY(range.left().pos() == start);
-        QVERIFY(range.right().pos() == end);
+        QCOMPARE(range.left().pos(), start);
+        QCOMPARE(range.right().pos(), end);
     }
 
     void addLink_data()

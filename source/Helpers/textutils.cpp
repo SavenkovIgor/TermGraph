@@ -50,7 +50,7 @@ QString TextUtils::getDefinition(const QString &def)
 
 QString TextUtils::insertNewLineNearMiddle(const QString &str)
 {
-    auto tryReplaceSpaceWithNewLine = [](QChar ref) {
+    auto tryReplaceSpaceWithNewLine = [](QChar &ref) {
         if (ref == ' ') {
             ref = '\n';
             return true;

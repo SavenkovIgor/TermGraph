@@ -329,9 +329,9 @@ PaintedTerm* MainScene::getNodeAtPoint(const QPointF& pt) const
     return nullptr;
 }
 
-int MainScene::termCount() const { return mCurrentGroup ? mCurrentGroup->nodes().size() : 0; }
+qsizetype MainScene::termCount() const { return mCurrentGroup ? mCurrentGroup->nodes().size() : 0; }
 
-PaintedTerm* MainScene::term(int index) const
+PaintedTerm* MainScene::term(qsizetype index) const
 {
     if (!mCurrentGroup)
         return nullptr;
@@ -342,12 +342,12 @@ PaintedTerm* MainScene::term(int index) const
     return mCurrentGroup->nodes()[index];
 }
 
-int MainScene::termCount(QQmlListProperty<PaintedTerm>* list)
+qsizetype MainScene::termCount(QQmlListProperty<PaintedTerm>* list)
 {
     return reinterpret_cast<MainScene*>(list->data)->termCount();
 }
 
-PaintedTerm* MainScene::term(QQmlListProperty<PaintedTerm>* list, int i)
+PaintedTerm* MainScene::term(QQmlListProperty<PaintedTerm>* list, qsizetype i)
 {
     return reinterpret_cast<MainScene*>(list->data)->term(i);
 }
@@ -357,9 +357,9 @@ QQmlListProperty<Edge> MainScene::getEdges()
     return QQmlListProperty<Edge>(this, this, &MainScene::edgeCount, &MainScene::edge);
 }
 
-int MainScene::edgeCount() const { return mCachedEdges.size(); }
+qsizetype MainScene::edgeCount() const { return mCachedEdges.size(); }
 
-Edge* MainScene::edge(int index) const
+Edge* MainScene::edge(qsizetype index) const
 {
     if (index < 0 || index >= mCachedEdges.size())
         return nullptr;
@@ -367,9 +367,15 @@ Edge* MainScene::edge(int index) const
     return mCachedEdges[index];
 }
 
-int MainScene::edgeCount(QQmlListProperty<Edge>* list) { return reinterpret_cast<MainScene*>(list->data)->edgeCount(); }
+qsizetype MainScene::edgeCount(QQmlListProperty<Edge>* list)
+{
+    return reinterpret_cast<MainScene*>(list->data)->edgeCount();
+}
 
-Edge* MainScene::edge(QQmlListProperty<Edge>* list, int i) { return reinterpret_cast<MainScene*>(list->data)->edge(i); }
+Edge* MainScene::edge(QQmlListProperty<Edge>* list, qsizetype i)
+{
+    return reinterpret_cast<MainScene*>(list->data)->edge(i);
+}
 
 void MainScene::updateEdgeCache()
 {

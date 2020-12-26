@@ -194,7 +194,7 @@ private slots:
         QFETCH(int, cursorPosition);
         QFETCH(bool, result);
 
-        QVERIFY(TextCursor::isValidCursor(src, cursorPosition) == result);
+        QCOMPARE(TextCursor::isValidCursor(src, cursorPosition), result);
     }
 
     void CheckingCursor()

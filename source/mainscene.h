@@ -144,18 +144,18 @@ private: // Methods
     // For qml nodes list property
     QQmlListProperty<PaintedTerm> getNodes();
 
-    int                 termCount() const;
-    PaintedTerm*        term(int index) const;
-    static int          termCount(QQmlListProperty<PaintedTerm>* list);
-    static PaintedTerm* term(QQmlListProperty<PaintedTerm>* list, int i);
+    qsizetype           termCount() const;
+    PaintedTerm*        term(qsizetype index) const;
+    static qsizetype    termCount(QQmlListProperty<PaintedTerm>* list);
+    static PaintedTerm* term(QQmlListProperty<PaintedTerm>* list, qsizetype i);
 
     // For qml edges list property
     QQmlListProperty<Edge> getEdges();
 
-    int          edgeCount() const;
-    Edge*        edge(int index) const;
-    static int   edgeCount(QQmlListProperty<Edge>* list);
-    static Edge* edge(QQmlListProperty<Edge>* list, int i);
+    qsizetype        edgeCount() const;
+    Edge*            edge(qsizetype index) const;
+    static qsizetype edgeCount(QQmlListProperty<Edge>* list);
+    static Edge*     edge(QQmlListProperty<Edge>* list, qsizetype i);
 
     Edge::List mCachedEdges;
     void       updateEdgeCache();

@@ -27,25 +27,16 @@ NotificationManager& NotificationManager::instance()
     return mgr;
 }
 
-void NotificationManager::showInfo(const QString& info)
-{
-    instance().addNotify(Notify(NotifyType::Info, info));
-}
+void NotificationManager::showInfo(const QString& info) { instance().addNotify(Notify(NotifyType::Info, info)); }
 
 void NotificationManager::showWarning(const QString& warning)
 {
     instance().addNotify(Notify(NotifyType::Warning, warning));
 }
 
-void NotificationManager::showError(const QString& error)
-{
-    instance().addNotify(Notify(NotifyType::Error, error));
-}
+void NotificationManager::showError(const QString& error) { instance().addNotify(Notify(NotifyType::Error, error)); }
 
-void NotificationManager::showDebug(const QString& debug)
-{
-    instance().addNotify(Notify(NotifyType::Debug, debug));
-}
+void NotificationManager::showDebug(const QString& debug) { instance().addNotify(Notify(NotifyType::Debug, debug)); }
 
 void NotificationManager::handleNotifyShow()
 {
@@ -117,23 +108,15 @@ void NotificationManager::showNotify(const NotificationManager::Notify& notify)
     const auto& [type, message] = notify;
 
     switch (type) {
-    case NotifyType::Info:
-        emit showInfoQml(message);
-        return;
-    case NotifyType::Warning:
-        emit showWarningQml(message);
-        return;
-    case NotifyType::Error:
-        emit showErrorQml(message);
-        return;
-    case NotifyType::Debug:
-        emit showDebugQml(message);
-        return;
+    case NotifyType::Info: emit showInfoQml(message); return;
+    case NotifyType::Warning: emit showWarningQml(message); return;
+    case NotifyType::Error: emit showErrorQml(message); return;
+    case NotifyType::Debug: emit showDebugQml(message); return;
     }
 }
 
 int NotificationManager::predictMessageShowTime(const QString& message)
 {
-    auto wordsCount = message.simplified().split(" ").size();
-    return std::max(wordsCount * 500, 1500);  // ~2 words in second
+    auto wordsCount = static_cast<int>(message.simplified().split(" ").size());
+    return std::max(wordsCount * 500, 1500); // ~2 words in second
 }

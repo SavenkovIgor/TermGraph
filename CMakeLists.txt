@@ -43,15 +43,7 @@ endif ()
 
 # If you want, android build correctly,
 # This line must be before targets definition
-find_package (
-    Qt5
-    COMPONENTS Core
-               Quick
-               QuickControls2
-               Sql
-               Network
-               Svg
-    REQUIRED)
+find_package (Qt6 COMPONENTS Core Qml Quick QuickControls2 Sql Network Svg REQUIRED)
 
 if (ANDROID)
     add_library (${PROJECT_NAME} SHARED)
@@ -104,12 +96,13 @@ target_compile_definitions (${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CON
 
 target_link_libraries (
     ${PROJECT_NAME}
-    PRIVATE Qt5::Core
-            Qt5::Quick
-            Qt5::QuickControls2
-            Qt5::Sql
-            Qt5::Network
-            Qt5::Svg)
+    PRIVATE Qt6::Core
+            Qt6::Quick
+            Qt6::QuickControls2
+            Qt6::Qml
+            Qt6::Sql
+            Qt6::Network
+            Qt6::Svg)
 
 if (NOT ANDROID)
     add_subdirectory (tests)

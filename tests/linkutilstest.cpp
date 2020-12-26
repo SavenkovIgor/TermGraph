@@ -88,8 +88,8 @@ private slots:
         QFETCH(QString, word2);
         QFETCH(bool, result);
 
-        QVERIFY(LinkUtils::tagLengthSuitTerm(word1, word2) == result);
-        QVERIFY(LinkUtils::tagLengthSuitTerm(word2, word1) == result);
+        QCOMPARE(LinkUtils::tagLengthSuitTerm(word1, word2), result);
+        QCOMPARE(LinkUtils::tagLengthSuitTerm(word2, word1), result);
     }
 
     void getLevDistance_data()
@@ -119,7 +119,7 @@ private slots:
         QFETCH(int, distance);
 
         qDebug() << LinkUtils::getLevDistance(word1, word2, limit);
-        QVERIFY(LinkUtils::getLevDistance(word1, word2, limit) == distance);
+        QCOMPARE(LinkUtils::getLevDistance(word1, word2, limit), distance);
     }
 
     void wordsCount_data()
@@ -149,7 +149,7 @@ private slots:
         QFETCH(QString, src);
         QFETCH(int, count);
 
-        QVERIFY(LinkUtils::wordsCount(src) == count);
+        QCOMPARE(LinkUtils::wordsCount(src), count);
     }
 };
 

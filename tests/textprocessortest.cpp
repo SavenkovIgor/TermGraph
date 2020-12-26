@@ -49,7 +49,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(bool, result);
-        QVERIFY(TextUtils::isTermWithDefinition(text) == result);
+        QCOMPARE(TextUtils::isTermWithDefinition(text), result);
     }
 
     void extractTerm_data()
@@ -71,7 +71,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(QString, result);
-        QVERIFY(TextUtils::getTerm(text) == result);
+        QCOMPARE(TextUtils::getTerm(text), result);
     }
 
     void extractDefinition_data()
@@ -92,7 +92,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(QString, result);
-        QVERIFY(TextUtils::getDefinition(text) == result);
+        QCOMPARE(TextUtils::getDefinition(text), result);
     }
 
     void insertNewLineInMiddle_data()
@@ -112,7 +112,7 @@ private slots:
     {
         QFETCH(QString, text);
         QFETCH(QString, result);
-        QVERIFY(TextUtils::insertNewLineNearMiddle(text) == result);
+        QCOMPARE(TextUtils::insertNewLineNearMiddle(text), result);
     }
 };
 

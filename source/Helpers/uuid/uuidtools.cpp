@@ -21,7 +21,7 @@
 
 #include "source/Helpers/uuid/uuidtools.h"
 
-#include <QRegExp>
+#include <QRegularExpression>
 
 #include "source/Helpers/text/chartools.h"
 #include "source/Helpers/uuid/uuidtools.h"
@@ -59,12 +59,12 @@ QString UuidTools::cutBraces(const QUuid &uuid)
 
 bool UuidTools::isValidUuidString(const QString &uuidString)
 {
-    QRegExp check(validUuidRegExp);
-    return check.exactMatch(uuidString);
+    QRegularExpression check(validUuidRegExp);
+    return check.match(uuidString).hasMatch();
 }
 
 bool UuidTools::isValidUuidStringWihtoutBraces(const QString &uuidString)
 {
-    QRegExp check(validUuidWithoutBracesRegExp);
-    return check.exactMatch(uuidString);
+    QRegularExpression check(validUuidWithoutBracesRegExp);
+    return check.match(uuidString).hasMatch();
 }

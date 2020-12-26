@@ -19,7 +19,7 @@
 
 enable_testing ()
 
-find_package (Qt5Test REQUIRED)
+find_package (Qt6Test REQUIRED)
 
 include_directories (${CMAKE_SOURCE_DIR})
 
@@ -27,7 +27,7 @@ include_directories (${CMAKE_SOURCE_DIR})
 set (LINK_UTILS_TEST "LinkUtilsTest")
 
 add_executable (${LINK_UTILS_TEST})
-target_link_libraries (${LINK_UTILS_TEST} PRIVATE Qt5::Test)
+target_link_libraries (${LINK_UTILS_TEST} PRIVATE Qt6::Test)
 add_test (NAME ${LINK_UTILS_TEST} COMMAND ${LINK_UTILS_TEST})
 set_target_properties (${LINK_UTILS_TEST} PROPERTIES
     AUTOMOC ON
@@ -59,7 +59,7 @@ target_sources (${LINK_UTILS_TEST}
 set (TEXT_PROCESSOR_TEST "TextProcessorTest")
 
 add_executable (${TEXT_PROCESSOR_TEST})
-target_link_libraries (${TEXT_PROCESSOR_TEST} PRIVATE Qt5::Test)
+target_link_libraries (${TEXT_PROCESSOR_TEST} PRIVATE Qt6::Test)
 add_test (NAME ${TEXT_PROCESSOR_TEST} COMMAND ${TEXT_PROCESSOR_TEST})
 set_target_properties (${TEXT_PROCESSOR_TEST} PROPERTIES
     AUTOMOC ON
@@ -77,7 +77,7 @@ target_sources (${TEXT_PROCESSOR_TEST}
 set (FS_WORKS_TEST "FsWorksTest")
 
 add_executable (${FS_WORKS_TEST})
-target_link_libraries (${FS_WORKS_TEST} PRIVATE Qt5::Test)
+target_link_libraries (${FS_WORKS_TEST} PRIVATE Qt6::Test)
 add_test (NAME ${FS_WORKS_TEST} COMMAND ${FS_WORKS_TEST})
 set_target_properties (${FS_WORKS_TEST} PROPERTIES
     AUTOMOC ON
@@ -95,7 +95,7 @@ target_sources (${FS_WORKS_TEST}
 set (DB_WORKS_TEST "DbWorksTest")
 
 add_executable (${DB_WORKS_TEST})
-target_link_libraries (${DB_WORKS_TEST} PRIVATE Qt5::Test Qt5::Sql)
+target_link_libraries (${DB_WORKS_TEST} PRIVATE Qt6::Test Qt6::Sql)
 add_test (NAME ${DB_WORKS_TEST} COMMAND ${DB_WORKS_TEST})
 set_target_properties (${DB_WORKS_TEST} PROPERTIES
     AUTOMOC ON
@@ -139,7 +139,7 @@ target_sources (${DB_WORKS_TEST}
 set (UUIDS_TEST "UuidsTest")
 
 add_executable (${UUIDS_TEST})
-target_link_libraries (${UUIDS_TEST} PRIVATE Qt5::Test)
+target_link_libraries (${UUIDS_TEST} PRIVATE Qt6::Test)
 add_test (NAME ${UUIDS_TEST} COMMAND ${UUIDS_TEST})
 set_target_properties (${UUIDS_TEST} PROPERTIES
     AUTOMOC ON
@@ -158,7 +158,7 @@ target_sources (${UUIDS_TEST}
 set (TEXT_CURSOR_TEST "TextCursorTest")
 
 add_executable (${TEXT_CURSOR_TEST})
-target_link_libraries (${TEXT_CURSOR_TEST} PRIVATE Qt5::Test)
+target_link_libraries (${TEXT_CURSOR_TEST} PRIVATE Qt6::Test)
 add_test (NAME ${TEXT_CURSOR_TEST} COMMAND ${TEXT_CURSOR_TEST})
 set_target_properties (${TEXT_CURSOR_TEST} PROPERTIES
     AUTOMOC ON
@@ -180,7 +180,7 @@ target_sources (${TEXT_CURSOR_TEST}
 set (TEXT_RANGE_TEST "TextRangeTest")
 
 add_executable (${TEXT_RANGE_TEST})
-target_link_libraries (${TEXT_RANGE_TEST} PRIVATE Qt5::Test)
+target_link_libraries (${TEXT_RANGE_TEST} PRIVATE Qt6::Test)
 add_test (NAME ${TEXT_RANGE_TEST} COMMAND ${TEXT_RANGE_TEST})
 set_target_properties (${TEXT_RANGE_TEST} PROPERTIES
     AUTOMOC ON
@@ -210,7 +210,7 @@ target_sources (${TEXT_RANGE_TEST}
 set (TEXT_LINK_TEST "LinkTest")
 
 add_executable (${TEXT_LINK_TEST})
-target_link_libraries (${TEXT_LINK_TEST} PRIVATE Qt5::Test)
+target_link_libraries (${TEXT_LINK_TEST} PRIVATE Qt6::Test)
 add_test (NAME ${TEXT_LINK_TEST} COMMAND ${TEXT_LINK_TEST})
 set_target_properties (${TEXT_LINK_TEST} PROPERTIES
     AUTOMOC ON
@@ -242,7 +242,7 @@ target_sources (${TEXT_LINK_TEST}
 set (LINK_DECORATOR_TEST "LinkDecoratorTest")
 
 add_executable (${LINK_DECORATOR_TEST})
-target_link_libraries (${LINK_DECORATOR_TEST} PRIVATE Qt5::Gui Qt5::Test)
+target_link_libraries (${LINK_DECORATOR_TEST} PRIVATE Qt6::Gui Qt6::Test)
 add_test (NAME ${LINK_DECORATOR_TEST} COMMAND ${LINK_DECORATOR_TEST})
 set_target_properties (${LINK_DECORATOR_TEST} PROPERTIES
     AUTOMOC ON
