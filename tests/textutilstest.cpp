@@ -25,13 +25,13 @@
 
 #include "source/Helpers/textutils.h"
 
-class TextProcessorTest : public QObject
+class TextUtilsTest : public QObject
 {
     Q_OBJECT
 
 public:
-    TextProcessorTest()           = default;
-    ~TextProcessorTest() override = default;
+    TextUtilsTest()           = default;
+    ~TextUtilsTest() override = default;
 
 private slots:
 
@@ -116,6 +116,6 @@ private slots:
     }
 };
 
-QTEST_APPLESS_MAIN(TextProcessorTest)
+QTEST_APPLESS_MAIN(TextUtilsTest)
 
-#include "textprocessortest.moc"
+#include "textutilstest.moc"

@@ -27,7 +27,6 @@
 
 #include "source/Helpers/appconfig.h"
 #include "source/Helpers/firststartpreparer.h"
-#include "source/Helpers/textprocessor.h"
 #include "source/Managers/localdatabasestorage.h"
 #include "source/Managers/syncmanager.h"
 #include "source/mainscene.h"
@@ -72,9 +71,6 @@ private:
 
     // Independent init
     QScopedPointer<NetworkManager> network;
-
-    // Helper stuff (still independent init)
-    QScopedPointer<TextProcessor> textProcessor;
 
     // Dependent init
     LocalDatabaseStorage localDb;

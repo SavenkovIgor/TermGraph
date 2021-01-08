@@ -56,7 +56,7 @@ target_sources (${LINK_UTILS_TEST}
 
 
 # TEXT_PROCESSOR_TEST
-set (TEXT_PROCESSOR_TEST "TextProcessorTest")
+set (TEXT_PROCESSOR_TEST "TextUtilsTest")
 
 add_executable (${TEXT_PROCESSOR_TEST})
 target_link_libraries (${TEXT_PROCESSOR_TEST} PRIVATE Qt6::Test)
@@ -70,7 +70,7 @@ target_sources (${TEXT_PROCESSOR_TEST}
     PRIVATE
         ../source/Helpers/textutils.cpp
         ../source/Helpers/textutils.h
-        textprocessortest.cpp)
+        textutilstest.cpp)
 
 
 # FS_WORKS_TEST

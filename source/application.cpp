@@ -33,7 +33,6 @@ Application::Application(QObject* parent)
     : QObject(parent)
     , initPreparer()
     , network(new NetworkManager())
-    , textProcessor(new TextProcessor())
     , localDb()
     , nodesManager(new NodesManager(localDb))
     , groupsManager(new GroupsManager(localDb, nodesManager.get()))
@@ -63,7 +62,6 @@ Application::Application(QObject* parent)
     qmlEngine->rootContext()->setContextProperty("networkManager", network.get());
     qmlEngine->rootContext()->setContextProperty("groupsManager", groupsManager.get());
     qmlEngine->rootContext()->setContextProperty("nodesManager", nodesManager.get());
-    qmlEngine->rootContext()->setContextProperty("textProcessor", textProcessor.get());
     qmlEngine->rootContext()->setContextProperty("syncManager", syncManager.get());
 
     qmlEngine->addImportPath(QStringLiteral("qrc:/"));
