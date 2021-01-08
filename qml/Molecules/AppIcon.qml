@@ -22,7 +22,8 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 import QtQuick.Controls 2.15
-import QtGraphicalEffects 1.15
+// NOTE: Wait for Qt6 implementation
+//import QtGraphicalEffects 1.15
 
 import StyleInfo 1.0
 import Atoms 1.0 as A
@@ -56,14 +57,15 @@ Item {
             visible: false
         }
 
-        DropShadow {
-            anchors.fill: hex1
-            source: hex1
-            verticalOffset: 4
-            horizontalOffset: 4
-            radius: 12.0
-            samples: 20
-        }
+// NOTE: Wait for Qt6 implementation
+//        DropShadow {
+//            anchors.fill: hex1
+//            source: hex1
+//            verticalOffset: 4
+//            horizontalOffset: 4
+//            radius: 12.0
+//            samples: 20
+//        }
 
         A.Hex {
             id: hex2
@@ -75,15 +77,16 @@ Item {
             visible: false
         }
 
-        DropShadow {
-            anchors.fill: hex2
-            source: hex2
-            verticalOffset: 3
-            horizontalOffset: 3
-            radius: 10.0
-            samples: 20
-            rotation: 30
-        }
+// NOTE: Wait for Qt6 implementation
+//        DropShadow {
+//            anchors.fill: hex2
+//            source: hex2
+//            verticalOffset: 3
+//            horizontalOffset: 3
+//            radius: 10.0
+//            samples: 20
+//            rotation: 30
+//        }
 
         A.Hex {
             id: hex3
@@ -95,15 +98,16 @@ Item {
             visible: false
         }
 
-        DropShadow {
-            anchors.fill: hex3
-            source: hex3
-            verticalOffset: 2
-            horizontalOffset: 2
-            radius: 8.0
-            samples: 20
-            rotation: 60
-        }
+// NOTE: Wait for Qt6 implementation
+//        DropShadow {
+//            anchors.fill: hex3
+//            source: hex3
+//            verticalOffset: 2
+//            horizontalOffset: 2
+//            radius: 8.0
+//            samples: 20
+//            rotation: 60
+//        }
 
         Text {
             id: text
@@ -115,13 +119,14 @@ Item {
             visible: false
         }
 
-        DropShadow {
-            anchors.fill: text
-            source: text
-            verticalOffset: 2
-            horizontalOffset: 2
-            radius: 8.0
-            samples: 20
-        }
+// NOTE: Wait for Qt6 implementation
+//        DropShadow {
+//            anchors.fill: text
+//            source: text
+//            verticalOffset: 2
+//            horizontalOffset: 2
+//            radius: 8.0
+//            samples: 20
+//        }
     }
 }
