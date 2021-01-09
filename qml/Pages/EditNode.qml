@@ -22,7 +22,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Dialogs 1.3
 
 import Atoms 1.0 as A
 import Molecules 1.0 as M
@@ -39,7 +38,7 @@ M.Page {
 
         A.ToolButton {
             icon.source: IconPath.trash
-            onClicked: nodeDelDialog.visible = true
+            onClicked: nodeDelDialog.open()
         }
 
         A.ToolButton {
@@ -50,16 +49,12 @@ M.Page {
 
     signal termEdited(string termName)
 
-    MessageDialog {
+    M.StdDialog {
         id: nodeDelDialog
 
-        title: "Удаление термина"
-        text:  "Удалить выделенный термин?"
+        title: "Вы уверены, что хотите удалить этот термин?"
 
-        standardButtons: StandardButton.Yes | StandardButton.No
-        icon: StandardIcon.Question
-
-        onYes: {
+        onAccepted: {
             root.StackView.view.pop();
             scene.deleteSelectedTerm();
         }
@@ -215,13 +210,9 @@ M.Page {
         }
     }
 
-    MessageDialog {
+    M.StdDialog {
         id: emptyNodeNameDelDialog
-
-        title: "Ошибка"
-        text:  "Заполните поле \"Термин\""
-
-        standardButtons: StandardButton.Ok
-        icon: StandardIcon.Warning
+        title: "Заполните поле 'Термин'"
+        standardButtons: M.StdDialog.Ok
     }
 }

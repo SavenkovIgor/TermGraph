@@ -48,6 +48,7 @@
 // TODO: Make StdDialog normal (icons, font..)
 // TODO: What with versioning in my qmldirs?
 // TODO: Fix tests
+// TODO: Move getUiElementSize to separate class (maybe singleton+properties)
 
 class Application : public QObject
 {
@@ -59,9 +60,8 @@ public:
 
     Q_INVOKABLE QString screenshotFilePath(const QString& fileName);
 
-public slots:
-    int getUiElementSize(const QString& elementTypeName);
-    int dbVersion();
+    Q_INVOKABLE int getUiElementSize(const QString& elementTypeName);
+    Q_INVOKABLE int dbVersion();
 
 private:
     void               initElemSizes();

@@ -24,22 +24,16 @@ import QtQuick.Controls 2.15
 
 import StyleInfo 1.0
 
-RoundButton {
+Dialog {
     id: root
 
-    property real size: Sizes.base
-    readonly property real iconPart: 0.46
-    property color bgColor: Colors.white
+    dim: true
 
-    implicitWidth:  root.size
-    implicitHeight: root.size
+    x: (window.width - width) / 2
+    y: (window.height / 2) - height
 
-    icon.width: implicitWidth * iconPart
-    icon.height: implicitHeight * iconPart
-    icon.color: "black"
+    palette.text: "red"
+    palette.base: "black"
 
-    display: AbstractButton.IconOnly
-
-    background: Round { color: root.bgColor }
+    standardButtons: Dialog.Yes | Dialog.No
 }
-

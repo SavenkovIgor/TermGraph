@@ -22,6 +22,7 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
+import QtQuick.Controls.Material 2.15
 
 import Learning 1.0
 import StyleInfo 1.0
@@ -35,6 +36,9 @@ ApplicationWindow {
 
     width:  1000
     height: 800
+
+    Material.theme: Material.Dark
+    Material.accent: Material.Purple
 
 //    Component.onCompleted: {
 //        showMaximized();

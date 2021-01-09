@@ -16,6 +16,7 @@ NotificationDrawer  1.0 NotificationDrawer.qml
 Page                1.0 Page.qml
 SearchDrawer        1.0 SearchDrawer.qml
 SideMenuHeader      1.0 SideMenuHeader.qml
+StdDialog           1.0 StdDialog.qml
 TagEditorArea       1.0 TagEditorArea.qml
 TermInfoDrawer      1.0 TermInfoDrawer.qml
 TextArea            1.0 TextArea.qml

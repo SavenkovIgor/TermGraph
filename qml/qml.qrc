@@ -51,6 +51,7 @@
         <file>Molecules/Page.qml</file>
         <file>Molecules/SearchDrawer.qml</file>
         <file>Molecules/SideMenuHeader.qml</file>
+        <file>Molecules/StdDialog.qml</file>
         <file>Molecules/TagEditorArea.qml</file>
         <file>Molecules/TermInfoDrawer.qml</file>
         <file>Molecules/TextArea.qml</file>

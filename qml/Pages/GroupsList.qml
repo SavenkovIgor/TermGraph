@@ -22,7 +22,6 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
-import QtQuick.Dialogs 1.3
 
 import Atoms 1.0 as A
 import Molecules 1.0 as M
@@ -43,9 +42,9 @@ M.Page {
             id: delegate
 
             property string groupUuid: modelData
-            property string groupName: groupsManager.getGroupName(modelData)
-            property string lastEdit: groupsManager.getLastEditString(modelData)
-            property int nodesCount: groupsManager.getNodesCount(modelData)
+            property string groupName: groupsManager.getGroupName(groupUuid)
+            property string lastEdit: groupsManager.getLastEditString(groupUuid)
+            property int nodesCount: groupsManager.getNodesCount(groupUuid)
 
             property real basePadding: Fonts.text.pixelSize
 
@@ -164,28 +163,22 @@ M.Page {
         onClicked: syncManager.sendGroupByNetwork(groupsList.currentItem.groupUuid)
     }
 
-    MessageDialog {
+    M.StdDialog {
         id: groupExportedDialog
 
-        title: "Группа экспортирована"
-        text:  "Группа экспортирована в папку GroupsJson"
-
-        standardButtons: StandardButton.Ok
-        icon: StandardIcon.Information
+        title:  "Группа экспортирована в папку GroupsJson"
+        standardButtons: M.StdDialog.Ok
     }
 
-    MessageDialog {
+    M.StdDialog {
         id: groupDeleteDialog
 
-        title: "Удаление группы"
-        text:  "Вы уверены, что хотите удалить эту группу?"
+        title:  "Вы уверены, что хотите удалить эту группу?"
 
-        standardButtons: StandardButton.Yes | StandardButton.No
-        icon: StandardIcon.Question
-
-        onYes: groupsManager.deleteGroup(groupsList.currentItem.groupUuid)
+        onAccepted: groupsManager.deleteGroup(groupsList.currentItem.groupUuid)
     }
 
+    // TODO: Replace with popup
     Drawer {
         id : newGroupDrawer
         width: root.width
