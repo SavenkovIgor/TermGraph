@@ -29,11 +29,11 @@ Rectangle {
     color: Colors.base
 
     readonly property int animDuration: 250
-    required property bool showLoading;
+    required property bool showLoading
 
     onShowLoadingChanged: {
         if (showLoading) {
-            timer.start(200);
+            timer.start();
         } else {
             timer.stop();
             if (state == "visible")
@@ -43,6 +43,7 @@ Rectangle {
 
     Timer {
         id: timer
+        interval: 200
         onTriggered: root.state = "visible"
     }
 

@@ -47,8 +47,7 @@ public:
 
     static bool isDataContainer(const QJsonDocument& doc);
 
-public slots:
-    void sendGroupByNetwork(const QString& groupUuid);
+    Q_INVOKABLE void sendGroupByNetwork(const QUuid groupUuid);
 
 private:
     NetworkManager*      mNetworkManager;

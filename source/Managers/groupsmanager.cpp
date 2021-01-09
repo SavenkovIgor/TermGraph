@@ -148,9 +148,11 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
     if (groupUuid.isNull())
         return nullptr;
 
-    auto       info  = dataStorage.getGroup(groupUuid);
-    TermGroup* group = new TermGroup(info);
+    auto  info  = dataStorage.getGroup(groupUuid);
+    auto* group = new TermGroup(info);
+
     group->loadNodes(nodesMgr->getAllNodesForGroup(groupUuid));
+
     return group;
 }
 

@@ -105,7 +105,7 @@ bool NodesManager::changeNode(const QUuid&   nodeUuid,
     return true;
 }
 
-void NodesManager::deleteNode(QUuid uuid)
+void NodesManager::deleteNode(const QUuid uuid)
 {
     dataStorage.deleteNode(uuid);
     emit nodeChanged();

@@ -37,35 +37,36 @@ class NodesManager : public QObject
 public:
     explicit NodesManager(DataStorageInterface& dataStorage, QObject* parent = nullptr);
 
-signals:
-    void nodeChanged();
+    UuidList getAllNodesUuidsInGroup(const QUuid& groupUuid);
 
-public slots:
-
-    bool addNewNode(const QString& name,
-                    const QString& def,
-                    const QString& descr,
-                    const QString& exam,
-                    const QString& groupUuidString,
-                    const bool&    sendChangeSignal = true);
-
-    bool changeNode(const QUuid&   nodeUuid,
-                    const QString& name,
-                    const QString& definition,
-                    const QString& description,
-                    const QString& example,
-                    const QString& groupUuidString,
-                    const bool&    sendChangeSignal = true);
-
-    void deleteNode(QUuid uuid);
-
-    UuidList          getAllNodesUuidsInGroup(const QUuid& groupUuid);
     PaintedTerm::List getAllNodesForGroup(const QUuid& groupUuid);
 
     QDateTime getLastEdit(QUuid nodeUuid);
 
-    void        importNodeFromJson(const QJsonObject& nodeJson, bool importIfGroupNotExist = false);
+    void importNodeFromJson(const QJsonObject& nodeJson, bool importIfGroupNotExist = false);
+
     QJsonObject getNodeJson(const QUuid& uuid) const;
+
+    void deleteNode(const QUuid uuid);
+
+    // Invokable part
+    Q_INVOKABLE bool addNewNode(const QString& name,
+                                const QString& def,
+                                const QString& descr,
+                                const QString& exam,
+                                const QString& groupUuidString,
+                                const bool&    sendChangeSignal = true);
+
+    Q_INVOKABLE bool changeNode(const QUuid&   nodeUuid,
+                                const QString& name,
+                                const QString& definition,
+                                const QString& description,
+                                const QString& example,
+                                const QString& groupUuidString,
+                                const bool&    sendChangeSignal = true);
+
+signals:
+    void nodeChanged();
 
 private:
     DataStorageInterface& dataStorage;

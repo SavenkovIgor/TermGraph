@@ -47,17 +47,16 @@ public:
     Q_INVOKABLE static void showError(const QString& error);
     Q_INVOKABLE static void showDebug(const QString& debug);
 
+    Q_INVOKABLE void handleNotifyShow();
+    Q_INVOKABLE void handleNotifyHide();
+    Q_INVOKABLE void handleUiInitialization();
+
 signals:
     void showInfoQml(QString info);
     void showWarningQml(QString warning);
     void showErrorQml(QString error);
     void showDebugQml(QString debugInfo);
     void hideNotify();
-
-public slots:
-    void handleNotifyShow();
-    void handleNotifyHide();
-    void handleUiInitialization();
 
 private slots:
     void checkQueue();
