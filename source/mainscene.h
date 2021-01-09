@@ -59,17 +59,16 @@ public:
     Q_PROPERTY(QQmlListProperty<Edge> edges READ getEdges NOTIFY edgesChanged)
 
     // Invokables
-    Q_INVOKABLE void        selectGroup(const QString& groupUuid);
-    Q_INVOKABLE void        selectTerm(const QString& termUuid);
-    Q_INVOKABLE void        selectTerm(const QUuid& termUuid);
+    Q_INVOKABLE void        selectGroup(const QUuid groupUuid);
+    Q_INVOKABLE void        selectTerm(const QUuid termUuid);
     Q_INVOKABLE void        deleteSelectedTerm();
     Q_INVOKABLE QStringList search(const QString& text);
 
-    Q_INVOKABLE QPointF getTermPosition(const QString& termUuid) const;
+    Q_INVOKABLE QPointF getTermPosition(const QUuid termUuid) const;
 
     // Casts uuid <-> name
-    Q_INVOKABLE QString termUuidToName(const QString& termUuid) const;
-    Q_INVOKABLE QString termNameToUuid(const QString& termName) const;
+    Q_INVOKABLE QString termUuidToName(const QUuid termUuid) const;
+    Q_INVOKABLE QUuid   termNameToUuid(const QString termName) const;
 
 signals:
     // Scene signals
@@ -138,8 +137,8 @@ private: // Methods
     // Groups fields
     QScopedPointer<TermGroup> mCurrentGroup;
 
-    QString currentGroupUuid() const;
-    void    dropGroup();
+    QUuid currentGroupUuid() const;
+    void  dropGroup();
 
     // For qml nodes list property
     QQmlListProperty<PaintedTerm> getNodes();

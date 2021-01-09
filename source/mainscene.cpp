@@ -50,19 +50,15 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* 
     connect(&mGroupBuilder, &QThread::finished, this, &MainScene::groupLoadingChanged);
 }
 
-void MainScene::selectGroup(const QString& groupUuid)
+void MainScene::selectGroup(const QUuid groupUuid)
 {
-    auto uuid = QUuid(groupUuid);
-    assert(!uuid.isNull());
-
-    setCurrentGroup(uuid);
+    assert(!groupUuid.isNull());
+    setCurrentGroup(groupUuid);
 }
 
-void MainScene::selectTerm(const QString& termUuid) { selectTerm(QUuid(termUuid)); }
-
-void MainScene::selectTerm(const QUuid& termUuid)
+void MainScene::selectTerm(const QUuid termUuid)
 {
-    if (auto* node = findTerm(QUuid(termUuid)))
+    if (auto* node = findTerm(termUuid))
         selectTerm(node);
 }
 
@@ -98,7 +94,7 @@ void MainScene::checkGroupDeletion()
     // If group was deleted, and it was current group, we must delete it too
     auto currentGroup = currentGroupUuid();
     auto groupsUuids  = groupsMgr->getAllUuidsSortedByLastEdit();
-    if (!groupsUuids.contains(QUuid(currentGroup)))
+    if (!groupsUuids.contains(currentGroup))
         dropGroup();
 }
 
@@ -138,7 +134,7 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
 {
     assert(!newGroupUuid.isNull());
 
-    auto oldGroupUuid = QUuid(currentGroupUuid());
+    auto oldGroupUuid = currentGroupUuid();
     bool newGroup     = newGroupUuid != oldGroupUuid;
 
     dropTermSelection();
@@ -220,9 +216,9 @@ void MainScene::deleteSelectedTerm()
     }
 }
 
-QPointF MainScene::getTermPosition(const QString& termUuid) const
+QPointF MainScene::getTermPosition(const QUuid termUuid) const
 {
-    if (auto* node = findTerm(QUuid(termUuid)))
+    if (auto* node = findTerm(termUuid))
         return node->getCenter(CoordType::scene);
 
     return QPointF();
@@ -261,18 +257,18 @@ void MainScene::selectTerm(PaintedTerm* term, bool needRepaint)
 
 void MainScene::dropTermSelection(bool needRepaint) { selectTerm(nullptr, needRepaint); }
 
-QString MainScene::termUuidToName(const QString& termUuid) const
+QString MainScene::termUuidToName(const QUuid termUuid) const
 {
-    if (auto* node = findTerm(QUuid(termUuid)))
+    if (auto* node = findTerm(termUuid))
         return node->info().term;
 
     return "";
 }
 
-QString MainScene::termNameToUuid(const QString& termName) const
+QUuid MainScene::termNameToUuid(const QString termName) const
 {
     auto* node = mCurrentGroup ? mCurrentGroup->getNode(termName) : nullptr;
-    return node ? node->info().uuid.toString() : "";
+    return node ? node->info().uuid : QUuid();
 }
 
 NodeGadgetWrapper MainScene::getCurrentNode()
@@ -304,7 +300,7 @@ QString MainScene::getCurrNodeHierarchyDefinition()
     return "";
 }
 
-QString MainScene::currentGroupUuid() const { return mCurrentGroup ? mCurrentGroup->uuid().toString() : ""; }
+QUuid MainScene::currentGroupUuid() const { return mCurrentGroup ? mCurrentGroup->uuid() : QUuid(); }
 
 bool MainScene::isAnyNodeSelected() const { return getSelectedTerm() != nullptr; }
 

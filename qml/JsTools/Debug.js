@@ -22,6 +22,7 @@
 .pragma library
 
 function properties(obj) {
+    print("Type: ", typeof obj)
     let propValue;
     for(let propName in obj) {
         propValue = obj[propName]
