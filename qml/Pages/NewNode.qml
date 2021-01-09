@@ -179,7 +179,7 @@ M.Page {
 
     M.StdDialog {
         id: emptyNodeNameDelDialog
-        text: "Заполните поле 'Термин'"
+        title: "Заполните поле 'Термин'"
         standardButtons: M.StdDialog.Ok
     }
 }
