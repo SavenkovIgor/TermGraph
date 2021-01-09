@@ -70,6 +70,8 @@ public:
     Q_INVOKABLE QString termUuidToName(const QUuid termUuid) const;
     Q_INVOKABLE QUuid   termNameToUuid(const QString termName) const;
 
+    Q_INVOKABLE void setMouseClick(qreal x, qreal y);
+
 signals:
     // Scene signals
     void selectionChanged();
@@ -82,14 +84,6 @@ signals:
 
     void groupLoadingChanged();
 
-public slots:
-    QString getCurrNodeNameAndDefinition();
-    QString getCurrNodeHierarchyDefinition();
-
-    bool isAnyNodeSelected() const;
-
-    void setMouseClick(qreal x, qreal y);
-
 private slots:
     void updateGroup();
 
@@ -98,10 +92,15 @@ private slots:
     void checkGroupDeletion();
 
     void takeBuildGroupAndShow();
-    void showNewGroup(TermGroup* newGroup);
 
 private:
     void setCurrentGroup(const QUuid& newGroupUuid);
+
+    QString getCurrNodeNameAndDefinition();
+    QString getCurrNodeHierarchyDefinition();
+
+    bool isAnyNodeSelected() const;
+    void showNewGroup(TermGroup* newGroup);
 
 private: // Methods
     // Timers

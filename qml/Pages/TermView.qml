@@ -74,13 +74,13 @@ M.Page {
 
         M.LabelPair {
             name: "Определение:"
-            text: tagTools.decorateTags(scene.getCurrNodeNameAndDefinition())
+            text: tagTools.decorateTags(scene.currNodeNameAndDefinition)
             visible: text !== ""
         }
 
         M.LabelPair {
             name: "Иерархия определений:"
-            text: scene.getCurrNodeHierarchyDefinition()
+            text: scene.currNodeHierarchyDefinition
             visible: text !== ""
         }
 
