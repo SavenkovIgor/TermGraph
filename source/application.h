@@ -33,7 +33,6 @@
 
 // -- Qt6 Migration plan --
 
-// TODO: Replace slots with Q_INVOKABLE everywhere
 // TODO: Remove setContextProperty stuff
 // TODO: Maybe add QProperty somewhere? need think.
 // TODO: How to mix QProperty & Q_PROPERTY
@@ -44,6 +43,7 @@
 // TODO: What is "QQmlEngine::setContextForObject(): Object already has a QQmlContext"
 // TODO: What with versioning in my qmldirs?
 // TODO: Move getUiElementSize to separate class (maybe singleton+properties)
+// TODO: Move all type registration to proper file
 
 class Application : public QObject
 {

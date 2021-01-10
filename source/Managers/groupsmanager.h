@@ -39,48 +39,44 @@ class GroupsManager : public QObject
 public:
     explicit GroupsManager(DataStorageInterface& dataStorage, NodesManager* nodesMgr, QObject* parent = nullptr);
 
-    TermGroup* createGroup(const QUuid groupUuid);
-
     Q_PROPERTY(bool hasAnyGroup READ getHasAnyGroup NOTIFY groupsListChanged)
     Q_PROPERTY(QStringList allUuidSorted READ getAllUuidStringsSortedByLastEdit NOTIFY groupsListChanged)
 
-    Q_INVOKABLE bool isEmptyGroup(const QString& groupUuid);
+    Q_INVOKABLE bool    isEmptyGroup(const QString& groupUuid);
+    Q_INVOKABLE QString getGroupName(const QUuid& groupUuid) const;
+    Q_INVOKABLE QString getLastEditString(QUuid groupUuid);
+    Q_INVOKABLE int     getNodesCount(QUuid groupUuid);
 
-signals:
-    void groupsListChanged();
-    void groupAdded();
-    void groupDeleted();
+    Q_INVOKABLE void addNewGroup(const QString& name, const QString& comment);
+    Q_INVOKABLE void deleteGroup(const QString& groupUuid);
 
-public slots:
-    bool getHasAnyGroup() const;
+    Q_INVOKABLE QString getExportPath() const;
+    Q_INVOKABLE void    exportGrpToJson(const QString& groupUuid);
+
+    TermGroup* createGroup(const QUuid groupUuid);
 
     QList<QUuid> getAllUuidsSortedByLastEdit();
-    QUuid        getLastEditedGroupUuid();
 
-    QList<TermGroup*> getAllGroups();
+    void updateGroupUuidNameMaps();
 
-    QString getGroupName(const QUuid& groupUuid) const;
-    QUuid   getGroupUuid(const QString& groupName) const;
-    void    updateGroupUuidNameMaps();
-
-    QString getLastEditString(QUuid groupUuid);
-    int     getNodesCount(QUuid groupUuid);
-
-    QStringList getGroupNames(const QList<QUuid>& groupUuids);
-
-    void addNewGroup(const QString& name, const QString& comment);
-    void deleteGroup(const QString& groupUuid);
+    QJsonDocument getGroupForExport(const QUuid& groupUuid) const;
 
     // Json
     void importGroupFromJsonFile(const QString& filename);
     void importGroupFromJsonString(const QString& rawJson);
     void importGroupFromJson(const QJsonDocument& json);
 
-    QString getExportPath() const;
-    void    exportGrpToJson(const QString& groupUuid);
-    void    saveGroupInFolder(TermGroup* group);
+signals:
+    void groupsListChanged();
+    void groupAdded();
+    void groupDeleted();
 
-    QJsonDocument getGroupForExport(const QUuid& groupUuid) const;
+private: // Methods
+    bool getHasAnyGroup() const;
+
+    QUuid getGroupUuid(const QString& groupName) const;
+
+    void saveGroupInFolder(TermGroup* group);
 
 private:
     QStringList getAllUuidStringsSortedByLastEdit();

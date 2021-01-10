@@ -36,23 +36,6 @@ GroupsManager::GroupsManager(DataStorageInterface& dataStorage, NodesManager* no
     connect(nodesMgr, &NodesManager::nodeChanged, this, &GroupsManager::groupsListChanged);
 }
 
-QList<TermGroup*> GroupsManager::getAllGroups()
-{
-    QList<TermGroup*> ret;
-    for (QUuid groupUuid : getAllUuidsSortedByLastEdit()) {
-        TermGroup* group = createGroup(groupUuid);
-
-        if (group == nullptr) {
-            auto errorMsg = QString("Cant create group with Uuid: %1").arg(groupUuid.toString());
-            NotificationManager::showDebug(errorMsg);
-            continue;
-        }
-
-        ret << group;
-    }
-    return ret;
-}
-
 QString GroupsManager::getGroupName(const QUuid& groupUuid) const
 {
     if (uuidToNames.contains(groupUuid)) {
@@ -74,15 +57,6 @@ QUuid GroupsManager::getGroupUuid(const QString& groupName) const
 QString GroupsManager::getLastEditString(QUuid groupUuid) { return getLastEdit(groupUuid).toString(); }
 
 int GroupsManager::getNodesCount(QUuid groupUuid) { return nodesMgr->getAllNodesUuidsInGroup(groupUuid).size(); }
-
-QStringList GroupsManager::getGroupNames(const QList<QUuid>& groupUuids)
-{
-    QStringList ret;
-    for (QUuid uuid : groupUuids) {
-        ret << getGroupName(uuid);
-    }
-    return ret;
-}
 
 void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 {
@@ -192,15 +166,6 @@ QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
         ret << uuid;
 
     return ret;
-}
-
-QUuid GroupsManager::getLastEditedGroupUuid()
-{
-    auto allGroupsUuids = getAllUuidsSortedByLastEdit();
-    if (!allGroupsUuids.isEmpty())
-        return allGroupsUuids.first();
-
-    return QUuid();
 }
 
 QStringList GroupsManager::getAllUuidStringsSortedByLastEdit()
