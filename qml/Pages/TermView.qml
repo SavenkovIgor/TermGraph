@@ -32,8 +32,6 @@ import StyleInfo 1.0
 M.Page {
     id: root
 
-    property TagProcessor tagTools: TagProcessor { }
-
     title: "Термин"
 
     signal editNode()
@@ -74,7 +72,7 @@ M.Page {
 
         M.LabelPair {
             name: "Определение:"
-            text: tagTools.decorateTags(scene.currNodeNameAndDefinition)
+            text: TagProcessor.decorateTags(scene.currNodeNameAndDefinition)
             visible: text !== ""
         }
 

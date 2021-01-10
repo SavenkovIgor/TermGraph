@@ -30,15 +30,20 @@ class TagProcessor : public QObject
     Q_OBJECT
 
 public:
+    static TagProcessor& instance();
+
+    TagProcessor(TagProcessor const&) = delete;
+    void operator=(TagProcessor const&) = delete;
+
+    Q_INVOKABLE static bool isValidCursor(const QString& str, int cursor);
+    Q_INVOKABLE static bool isCursorOnLink(const QString& str, int cursor);
+    Q_INVOKABLE static bool hasSoftLinks(const QString& linkedText);
+
+    Q_INVOKABLE static QString addLink(QString str, int cursor);
+    Q_INVOKABLE static QString expandLinkRight(QString str, int cursor);
+    Q_INVOKABLE static QString removeLink(QString str, int cursor);
+    Q_INVOKABLE static QString decorateTags(const QString& str);
+
+private:
     explicit TagProcessor(QObject* parent = nullptr);
-
-public slots:
-    static bool isValidCursor(const QString& str, int cursor);
-    static bool isCursorOnLink(const QString& str, int cursor);
-    static bool hasSoftLinks(const QString& linkedText);
-
-    static QString addLink(QString str, int cursor);
-    static QString expandLinkRight(QString str, int cursor);
-    static QString removeLink(QString str, int cursor);
-    static QString decorateTags(const QString& str);
 };

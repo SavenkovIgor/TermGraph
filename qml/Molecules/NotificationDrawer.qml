@@ -24,7 +24,7 @@ import QtQuick.Controls 2.15
 
 import StyleInfo 1.0
 
-import Notification 1.0
+import Helpers 1.0
 
 Drawer {
     id: root

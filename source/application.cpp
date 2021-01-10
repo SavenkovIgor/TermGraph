@@ -46,14 +46,6 @@ Application::Application(QObject* parent)
 
     // remind = new Reminder(scene->getAllNodes());
 
-    auto registration = []([[maybe_unused]] QQmlEngine* engine, [[maybe_unused]] QJSEngine* scriptEngine) -> QObject* {
-        auto& notificationManager = NotificationManager::instance();
-        QQmlEngine::setObjectOwnership(&notificationManager, QQmlEngine::CppOwnership);
-        return &notificationManager;
-    };
-
-    qmlRegisterSingletonType<NotificationManager>("Notification", 1, 0, "Notification", registration);
-
     qmlRegisterAnonymousType<PaintedTerm>("Graph", 1);
     qmlRegisterAnonymousType<Edge>("Graph", 1);
 

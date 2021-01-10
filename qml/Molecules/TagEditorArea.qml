@@ -28,8 +28,6 @@ import Molecules 1.0 as M
 M.TextArea {
     id: root
 
-    property TagProcessor tagTools: TagProcessor { }
-
     labelText: "Определение:"
     placeholderText: "- это"
     inputMethodHints: Qt.ImhNoAutoUppercase
@@ -37,8 +35,8 @@ M.TextArea {
     readonly property bool isCursorOnLink: {
         // Cursor can be invalid in moment of text editing
         let pos = cursorPosition;
-        if (tagTools.isValidCursor(text, pos))
-            return tagTools.isCursorOnLink(text, pos);
+        if (TagProcessor.isValidCursor(text, pos))
+            return TagProcessor.isCursorOnLink(text, pos);
 
         return false;
     }
@@ -51,7 +49,7 @@ M.TextArea {
         let pos = cursorPosition;
 
         if (!isCursorOnLink) {
-            text = tagTools.addLink(text, pos);
+            text = TagProcessor.addLink(text, pos);
             takeFocusAndSetCursor(pos + 1);
         } else {
             takeFocusAndSetCursor(pos);
@@ -61,7 +59,7 @@ M.TextArea {
     function expandLinkRight() {
         let pos = cursorPosition;
         if (isCursorOnLink) {
-            text = tagTools.expandLinkRight(text, pos);
+            text = TagProcessor.expandLinkRight(text, pos);
             takeFocusAndSetCursor(pos);
         }
     }
@@ -69,7 +67,7 @@ M.TextArea {
     function removeLink() {
         let pos = cursorPosition;
         if (isCursorOnLink) {
-            text = tagTools.removeLink(text, pos);
+            text = TagProcessor.removeLink(text, pos);
             takeFocusAndSetCursor(pos - 1);
         }
     }

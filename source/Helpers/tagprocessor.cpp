@@ -28,9 +28,11 @@
 #include "source/Helpers/link/linkutils.h"
 #include "source/Helpers/text/textcursor.h"
 
-TagProcessor::TagProcessor(QObject* parent)
-    : QObject(parent)
-{}
+TagProcessor& TagProcessor::instance()
+{
+    static TagProcessor mgr;
+    return mgr;
+}
 
 bool TagProcessor::isValidCursor(const QString& str, int cursor)
 {
@@ -63,3 +65,7 @@ QString TagProcessor::decorateTags(const QString& str)
     LinksDecorator decorator(linkText, LinksDecorator::blueDecorator);
     return decorator.apply(LinksDecoratorMode::Replace);
 }
+
+TagProcessor::TagProcessor(QObject* parent)
+    : QObject(parent)
+{}

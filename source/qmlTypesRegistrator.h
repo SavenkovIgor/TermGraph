@@ -21,21 +21,41 @@
 
 #pragma once
 
+#include <QJSEngine>
+#include <QObject>
 #include <QQmlEngine>
 
 #include "source/Helpers/tagprocessor.h"
 #include "source/Managers/linkshardeningmanager.h"
+#include "source/Managers/notificationmanager.h"
 #include "source/Model/Termin/nodegadgetwrapper.h"
 #include "source/Model/TerminGroup/termgroup.h"
 
+template<typename T>
+QObject* registerSingleton([[maybe_unused]] QQmlEngine* qmlEngine, [[maybe_unused]] QJSEngine* jsEngine)
+{
+    auto& singleton = T::instance();
+    QQmlEngine::setObjectOwnership(&singleton, QQmlEngine::CppOwnership);
+    return &singleton;
+}
+
 void registerUserQmlTypes()
 {
+    qmlRegisterSingletonType<NotificationManager>("Helpers",
+                                                  1,
+                                                  0,
+                                                  "Notification",
+                                                  &registerSingleton<NotificationManager>);
+
+    qmlRegisterSingletonType<TagProcessor>("Helpers", 1, 0, "TagProcessor", &registerSingleton<TagProcessor>);
+
     qmlRegisterUncreatableType<NodeGadgetWrapper>("NodeGadgetWrapper",
                                                   1,
                                                   0,
                                                   "NodeGadgetWrapper",
                                                   "Please use NodeGadgetWrapper from backend");
+
     qmlRegisterType<LinksHardeningManager>("Helpers", 1, 0, "LinksHardeningManager");
-    qmlRegisterType<TagProcessor>("Helpers", 1, 0, "TagProcessor");
+
     qmlRegisterAnonymousType<TermGroup>("Helpers", 1);
 }

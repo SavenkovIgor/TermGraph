@@ -26,7 +26,7 @@ import QtQuick.Shapes 1.15
 import Atoms 1.0 as A
 import StyleInfo 1.0
 
-import Notification 1.0
+import Helpers 1.0
 
 Control {
     id: root

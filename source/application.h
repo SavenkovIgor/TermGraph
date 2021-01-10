@@ -33,21 +33,16 @@
 
 // -- Qt6 Migration plan --
 
-// TODO: Register QUuid as qml type
-// TODO: Use QUuid everywhere directly instead QString
 // TODO: Replace slots with Q_INVOKABLE everywhere
 // TODO: Remove setContextProperty stuff
 // TODO: Maybe add QProperty somewhere? need think.
 // TODO: How to mix QProperty & Q_PROPERTY
-// TODO: Add My Own Dialog
 // TODO: What about import versions in qml?
 // TODO: Replace Components with component properties
 // TODO: Create GroupsModel
 // TODO: NodeGadgetWrapper to lowercase
 // TODO: What is "QQmlEngine::setContextForObject(): Object already has a QQmlContext"
-// TODO: Make StdDialog normal (icons, font..)
 // TODO: What with versioning in my qmldirs?
-// TODO: Fix tests
 // TODO: Move getUiElementSize to separate class (maybe singleton+properties)
 
 class Application : public QObject

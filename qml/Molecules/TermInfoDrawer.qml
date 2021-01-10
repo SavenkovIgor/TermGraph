@@ -31,7 +31,6 @@ import Atoms 1.0 as A
 A.DrawerPage {
     id: root
 
-    property TagProcessor tagTools: TagProcessor { }
     property LinksHardeningManager linksManager: LinksHardeningManager { }
 
     property var currentNode
@@ -60,7 +59,7 @@ A.DrawerPage {
 
             A.RoundButton {
                 bgColor: Colors.yellow
-                visible: tagTools.hasSoftLinks(currentNode ? currentNode.definition : "")
+                visible: TagProcessor.hasSoftLinks(currentNode ? currentNode.definition : "")
                 action: Action {
                     icon.source: IconPath.warning
                     onTriggered: root.openWarningPopup()
@@ -86,7 +85,7 @@ A.DrawerPage {
 
         LabelPair {
             name: "Определение:"
-            text: root.tagTools.decorateTags(scene.currNodeNameAndDefinition)
+            text: TagProcessor.decorateTags(scene.currNodeNameAndDefinition)
             visible: text !== ""
             Layout.fillWidth: true
         }
