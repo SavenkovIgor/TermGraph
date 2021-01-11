@@ -68,8 +68,8 @@ set_target_properties (${TEXT_PROCESSOR_TEST} PROPERTIES
 
 target_sources (${TEXT_PROCESSOR_TEST}
     PRIVATE
-        ../source/Helpers/textutils.cpp
-        ../source/Helpers/textutils.h
+        ../source/Helpers/text/textutils.cpp
+        ../source/Helpers/text/textutils.h
         textutilstest.cpp)
 
 

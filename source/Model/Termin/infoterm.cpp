@@ -26,7 +26,7 @@
 #include "source/Helpers/helpstuff.h"
 #include "source/Helpers/link/linksdecorator.h"
 #include "source/Helpers/link/linkutils.h"
-#include "source/Helpers/textutils.h"
+#include "source/Helpers/text/textutils.h"
 
 // Initialization order is important!
 InfoTerm::InfoTerm(const NodeInfoContainer& info)

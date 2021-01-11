@@ -23,7 +23,7 @@
 #include <QDebug>
 #include <QtTest>
 
-#include "source/Helpers/textutils.h"
+#include "source/Helpers/text/textutils.h"
 
 class TextUtilsTest : public QObject
 {

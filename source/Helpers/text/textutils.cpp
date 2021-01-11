@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Helpers/textutils.h"
+#include "source/Helpers/text/textutils.h"
 
 const QStringList TextUtils::mSplitters = {"‐", "-", "-", "—"};
 
