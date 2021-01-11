@@ -121,36 +121,6 @@ private slots:
         qDebug() << LinkUtils::getLevDistance(word1, word2, limit);
         QCOMPARE(LinkUtils::getLevDistance(word1, word2, limit), distance);
     }
-
-    void wordsCount_data()
-    {
-        QTest::addColumn<QString>("src");
-        QTest::addColumn<int>("count");
-
-        // Предполагается что -1 - влево, 1 - вправо
-        // В пустой строке поиск и в лево и вправо должен вовращать 0
-        // clang-format off
-        QTest::newRow("case0")  << ""                 << 0;
-        QTest::newRow("case1")  << "w"                << 1;
-        QTest::newRow("case2")  << " w "              << 1;
-        QTest::newRow("case3")  << "2"                << 1;
-        QTest::newRow("case4")  << " 2 "              << 1;
-        QTest::newRow("case5")  << "w w w"            << 3;
-        QTest::newRow("case6")  << "abcd"             << 1;
-        QTest::newRow("case7")  << " abcd "           << 1;
-        QTest::newRow("case8")  << "abcd abcd"        << 2;
-        QTest::newRow("case9")  << " abcd abcd "      << 2;
-        QTest::newRow("case10") << "   abcd  abcd   " << 2;
-        // clang-format on
-    }
-
-    void wordsCount()
-    {
-        QFETCH(QString, src);
-        QFETCH(int, count);
-
-        QCOMPARE(LinkUtils::wordsCount(src), count);
-    }
 };
 
 QTEST_APPLESS_MAIN(LinkUtilsTest)

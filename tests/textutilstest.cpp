@@ -114,6 +114,38 @@ private slots:
         QFETCH(QString, result);
         QCOMPARE(TextUtils::insertNewLineNearMiddle(text), result);
     }
+
+    void wordsCount_data()
+    {
+        QTest::addColumn<QString>("src");
+        QTest::addColumn<int>("count");
+
+        // Предполагается что -1 - влево, 1 - вправо
+        // В пустой строке поиск и в лево и вправо должен вовращать 0
+        // clang-format off
+        QTest::newRow("case0")  << ""                 << 0;
+        QTest::newRow("case1")  << " "                << 0;
+        QTest::newRow("case2")  << "     "            << 0;
+        QTest::newRow("case3")  << "w"                << 1;
+        QTest::newRow("case4")  << " w "              << 1;
+        QTest::newRow("case5")  << "2"                << 1;
+        QTest::newRow("case6")  << " 2 "              << 1;
+        QTest::newRow("case7")  << "w w w"            << 3;
+        QTest::newRow("case8")  << "abcd"             << 1;
+        QTest::newRow("case9")  << " abcd "           << 1;
+        QTest::newRow("case10") << "abcd abcd"        << 2;
+        QTest::newRow("case11") << " abcd abcd "      << 2;
+        QTest::newRow("case12") << "   abcd  abcd   " << 2;
+        // clang-format on
+    }
+
+    void wordsCount()
+    {
+        QFETCH(QString, src);
+        QFETCH(int, count);
+
+        QCOMPARE(TextUtils::wordCount(src), count);
+    }
 };
 
 QTEST_APPLESS_MAIN(TextUtilsTest)

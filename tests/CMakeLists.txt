@@ -50,6 +50,8 @@ target_sources (${LINK_UTILS_TEST}
         ../source/Helpers/text/textcursor.h
         ../source/Helpers/text/textrange.cpp
         ../source/Helpers/text/textrange.h
+        ../source/Helpers/text/textutils.cpp
+        ../source/Helpers/text/textutils.h
         ../source/Helpers/uuid/uuidtools.cpp
         ../source/Helpers/uuid/uuidtools.h
         linkutilstest.cpp)

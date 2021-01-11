@@ -89,3 +89,9 @@ int TextUtils::splitterIndex(const QString &str)
 
     return pos;
 }
+
+int TextUtils::wordCount(const QString &str)
+{
+    const QString tmp = str.simplified();
+    return !tmp.isEmpty() ? tmp.count(' ') + 1 : 0;
+}

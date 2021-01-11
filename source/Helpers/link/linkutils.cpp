@@ -27,10 +27,11 @@
 #include "source/Helpers/text/chartools.h"
 #include "source/Helpers/text/checkingtextcursor.h"
 #include "source/Helpers/text/textcursor.h"
+#include "source/Helpers/text/textutils.h"
 
 bool LinkUtils::tagLengthSuitTerm(const QString& tag, const QString& termName)
 {
-    int wordsCountInTag = wordsCount(tag);
+    int wordsCountInTag = TextUtils::wordCount(tag);
     int maxWordDistance = 4 * wordsCountInTag; // Magic numbers. Would be replaced further
 
     auto stringSizeDiffer = std::abs(termName.size() - tag.size());
@@ -96,7 +97,7 @@ opt<int> LinkUtils::getDistanceBetweenTagAndTerm(const QString& tag, const QStri
     if (termName.size() == tag.size() && termName == tag)
         return 0;
 
-    int wordsCountInTag = tag.count(' ') + 1;
+    int wordsCountInTag = TextUtils::wordCount(tag);
     int maxWordDistance = std::min(4 * wordsCountInTag, maxLimit);
 
     auto stringSizeDiffer = std::abs(termName.size() - tag.size());
@@ -111,12 +112,4 @@ opt<int> LinkUtils::getDistanceBetweenTagAndTerm(const QString& tag, const QStri
     }
 
     return std::nullopt;
-}
-
-int LinkUtils::wordsCount(const QString& string)
-{
-    if (!string.isEmpty())
-        return string.simplified().count(' ') + 1;
-
-    return 0;
 }

@@ -35,6 +35,8 @@ public:
 
     static int splitterIndex(const QString& str);
 
+    static int wordCount(const QString& str);
+
 private:
     static const QStringList mSplitters;
 };

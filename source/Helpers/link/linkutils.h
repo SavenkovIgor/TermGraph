@@ -41,7 +41,4 @@ public:
 
     static int      getLevDistance(QStringView src, QStringView dst, int limit = 100000);
     static opt<int> getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit);
-
-    // Words
-    static int wordsCount(const QString& string);
 };
