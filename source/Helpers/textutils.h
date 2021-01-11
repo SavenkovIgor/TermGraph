@@ -27,12 +27,14 @@
 class TextUtils
 {
 public:
-    static bool isTermWithDefinition(const QString& def);
+    static bool    isTermWithDefinition(const QString& def);
     static QString getTerm(const QString& def);
     static QString getDefinition(const QString& def);
 
     static QString insertNewLineNearMiddle(const QString& str);
 
     static int splitterIndex(const QString& str);
-    static QStringList splitters();
+
+private:
+    static const QStringList mSplitters;
 };
