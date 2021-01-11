@@ -29,7 +29,7 @@
 #include <QtSql/QSqlRecord>
 
 using UuidList   = std::vector<QUuid>;
-using SizesList  = std::vector<QSizeF>;
+using SizeList   = std::vector<QSizeF>;
 using RecordList = std::vector<QSqlRecord>;
 
 template<class T>

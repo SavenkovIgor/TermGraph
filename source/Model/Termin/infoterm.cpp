@@ -79,7 +79,7 @@ QString InfoTerm::getDecoratedTerm(const QString& term)
 
 QSizeF InfoTerm::getTermSize(const QString& decoratedTerm)
 {
-    SizesList sizes;
+    SizeList sizes;
 
     auto termParts = decoratedTerm.split("\n");
 

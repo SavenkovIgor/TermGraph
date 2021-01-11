@@ -42,5 +42,5 @@ public:
     static QString rectToStr(const QRect& rect);
     static QString rectToStr(const QRectF& rect);
 
-    static QSizeF getStackedSize(const SizesList& sizeList, const Qt::Orientation stackOrientation = Qt::Vertical);
+    static QSizeF getStackedSize(const SizeList& sizeList, const Qt::Orientation stackOrientation = Qt::Vertical);
 };

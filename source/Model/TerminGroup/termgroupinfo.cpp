@@ -302,7 +302,7 @@ void TermGroupInfo::initTrees()
 
 QSizeF TermGroupInfo::getAllTreesSize()
 {
-    SizesList sizeList;
+    SizeList sizeList;
 
     for (const auto* tree : mTrees)
         sizeList.push_back(tree->baseSize());

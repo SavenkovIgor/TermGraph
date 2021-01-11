@@ -25,7 +25,7 @@
 
 QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::List& nodes)
 {
-    SizesList sizeList;
+    SizeList sizeList;
 
     for (auto node : nodes)
         sizeList.push_back(node->getFrameRect(CoordType::zeroPoint).size());
@@ -33,10 +33,7 @@ QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::Lis
     return HelpStuff::getStackedSize(sizeList, Qt::Vertical);
 }
 
-void NodeVerticalStack::addTerm(PaintedTerm* term)
-{
-    mTerms << term;
-}
+void NodeVerticalStack::addTerm(PaintedTerm* term) { mTerms << term; }
 
 bool NodeVerticalStack::hasNode(PaintedTerm* term) const
 {
@@ -48,16 +45,10 @@ bool NodeVerticalStack::hasNode(PaintedTerm* term) const
     return false;
 }
 
-PaintedTerm::List NodeVerticalStack::nodes() const
-{
-    return mTerms;
-}
+PaintedTerm::List NodeVerticalStack::nodes() const { return mTerms; }
 
 // Clearly counted value. Ignoring real node positions
-QSizeF NodeVerticalStack::size() const
-{
-    return NodeVerticalStackTools::getNodeVerticalStackedSize(mTerms);
-}
+QSizeF NodeVerticalStack::size() const { return NodeVerticalStackTools::getNodeVerticalStackedSize(mTerms); }
 
 void NodeVerticalStack::placeTerms(QPointF centerPoint)
 {
