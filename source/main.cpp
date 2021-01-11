@@ -36,8 +36,6 @@ int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
 
-    registerUserQmlTypes();
-
     QQuickStyle::setStyle("Material"); // Important thing for styles!
 
     // This is need for good aliasing on desktop & mobile

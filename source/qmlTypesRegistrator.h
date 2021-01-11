@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <QCoreApplication>
 #include <QJSEngine>
 #include <QObject>
 #include <QQmlEngine>
@@ -59,3 +60,5 @@ void registerUserQmlTypes()
 
     qmlRegisterAnonymousType<TermGroup>("Helpers", 1);
 }
+
+Q_COREAPP_STARTUP_FUNCTION(registerUserQmlTypes)
