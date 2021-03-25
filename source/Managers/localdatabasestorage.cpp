@@ -59,7 +59,7 @@ UuidList LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
 
     // Forming structure with group uuids and last edit times
     for (auto& [groupUuid, lastEdit] : groupsLastEdit.toStdMap()) {
-        groupSorting.append(QPair(groupUuid, lastEdit));
+        groupSorting.append(QPair<QUuid, QDateTime>(groupUuid, lastEdit));
     }
 
     // Sorting this structure

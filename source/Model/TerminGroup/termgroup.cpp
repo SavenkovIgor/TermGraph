@@ -61,7 +61,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
 
         // Exact match
         if (searchText == lowerTerm) {
-            searchResults << QPair(0, node->info().uuid);
+            searchResults << QPair<int, QUuid>(0, node->info().uuid);
             continue;
         }
 
@@ -71,7 +71,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
         auto distance        = LinkUtils::getLevDistance(cuttedTerm, searchText, acceptableLimit);
 
         if (distance <= acceptableLimit)
-            searchResults << QPair(distance, node->info().uuid);
+            searchResults << QPair<int, QUuid>(distance, node->info().uuid);
     }
 
     // Sorting

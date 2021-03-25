@@ -27,8 +27,9 @@ import StyleInfo 1.0
 
 Text {
     // Info
-    property string description: ""
-    property string label: ""
+    // TODO: Make required, when groupsModel appear
+    /*required */property string description
+    /*required */property string label
 
     text: description + ": " + label
 
