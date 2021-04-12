@@ -19,8 +19,25 @@
 
 enable_testing ()
 
-find_package (Qt6Test REQUIRED)
+find_package (GTest REQUIRED)
 
+add_executable (termgraph_test)
+
+target_include_directories (termgraph_test
+    PRIVATE
+        "../"
+        ${GTest_INCLUDE_DIRS})
+
+target_link_libraries (termgraph_test GTest::gtest GTest::gtest_main)
+
+target_sources (termgraph_test
+    PRIVATE
+#        ../source/Helpers/text/textutils.cpp
+#        ../source/Helpers/text/textutils.h
+        textutilstest.cpp)
+
+#[[
+find_package (Qt6Test REQUIRED)
 include_directories (${CMAKE_SOURCE_DIR})
 
 # LINK_UTILS_TEST
@@ -272,3 +289,4 @@ target_sources (${LINK_DECORATOR_TEST}
         ../source/Helpers/uuid/uuidtools.cpp
         ../source/Helpers/uuid/uuidtools.h
         linkdecoratortest.cpp)
+]]

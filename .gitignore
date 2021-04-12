@@ -8,3 +8,6 @@ Makefile
 *.pro.user*
 *.qbs.user*
 *.txt.user*
+
+# Conan files
+conanfiles/*

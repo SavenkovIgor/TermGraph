@@ -24,9 +24,22 @@ project (
     VERSION 2.0.0
     LANGUAGES CXX)
 
+option (BUILD_TESTING "Build tests with project" ON)
+
+if (ANDROID)
+    set (BUILD_TESTING OFF)
+endif ()
+
 set (CMAKE_INCLUDE_CURRENT_DIR ON)
 set (QML_PATH ${CMAKE_CURRENT_SOURCE_DIR}/qml)
 set (QML_IMPORT_PATH "${QML_PATH}" CACHE STRING "" FORCE)
+
+if (NOT EXISTS "${PROJECT_SOURCE_DIR}/conanfiles/conan_paths.cmake")
+    message (FATAL_ERROR "Please start \"conan install ..\" at folder conanfiles/")
+else ()
+    include (${PROJECT_SOURCE_DIR}/conanfiles/conan_paths.cmake)
+    list (APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/conanfiles")
+endif ()
 
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
 # Check http://doc.qt.io/qt-5/deployment-android.html for more information.
@@ -104,6 +117,6 @@ target_link_libraries (
             Qt6::Network
             Qt6::Svg)
 
-if (NOT ANDROID)
+if (BUILD_TESTING)
     add_subdirectory (tests)
 endif ()
