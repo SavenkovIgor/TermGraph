@@ -33,7 +33,7 @@ public:
     static QString    cutBraces(const QUuid& uuid);
 
     static bool isValidUuidString(const QString& uuidString);
-    static bool isValidUuidStringWihtoutBraces(const QString& uuidString);
+    static bool isValidUuidStringWithoutBraces(const QString& uuidString);
 
 private:
     constexpr static auto validUuidRegExp

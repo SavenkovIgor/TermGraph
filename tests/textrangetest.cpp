@@ -19,108 +19,88 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <memory>
+#include <vector>
 
-#include <QCoreApplication>
-#include <QtTest>
+#include <gtest/gtest.h>
 
 #include "source/Helpers/text/textrange.h"
 
-class TextRangeTest : public QObject
-{
-    Q_OBJECT
+TEST (TextRangeTest, TextRangeInit) {
+    QString   str("ab");
+    TextRange rng(str, 0, 1);
 
-private slots:
-    void textRangeInit()
-    {
-        QString   str("ab");
-        TextRange rng(str, 0, 1);
+    EXPECT_EQ(rng.left().pos(), 0);
+    EXPECT_EQ(rng.right().pos(), 1);
+    EXPECT_FALSE(rng.isEmpty());
+    EXPECT_EQ(rng.size(), 1);
 
-        QCOMPARE(rng.left().pos(), 0);
-        QCOMPARE(rng.right().pos(), 1);
-        QCOMPARE(rng.isEmpty(), false);
-        QCOMPARE(rng.size(), 1);
+    QString   str2;
+    TextRange rng2(str2, 0, 0);
 
-        QString   str2;
-        TextRange rng2(str2, 0, 0);
+    EXPECT_EQ(rng2.left().left(), QChar());
+    EXPECT_EQ(rng2.left().right(), QChar());
+    EXPECT_EQ(rng2.right().left(), QChar());
+    EXPECT_EQ(rng2.right().right(), QChar());
+    EXPECT_TRUE(rng2.isEmpty());
+    EXPECT_EQ(rng2.size(), 0);
+}
 
-        QCOMPARE(rng2.left().left(), QChar());
-        QCOMPARE(rng2.left().right(), QChar());
-        QCOMPARE(rng2.right().left(), QChar());
-        QCOMPARE(rng2.right().right(), QChar());
-        QCOMPARE(rng2.isEmpty(), true);
-        QCOMPARE(rng2.size(), 0);
+TEST (TextRangeTest, RangeCut) {
+    QString   str(" abc b");
+    TextRange rng(str, 1, 4);
+
+    EXPECT_EQ(rng.cutted(), (std::pair<QString, int>("  b", 1)));
+}
+
+TEST (TextRangeTest, RangeView) {
+    QString   str(" abc ab ");
+    TextRange rng(str, 3, 6);
+
+    EXPECT_EQ(rng.rangeView(), QString("c a"));
+}
+
+TEST (TextRangeTest, WordBorder) {
+
+    struct Data {
+        const char* word;
+        const int startFrom;
+        const int leftPos;
+        const int rightPos;
+        const bool isEmpty;
+        const int size;
+    };
+
+    std::vector<Data> inputs;
+
+    inputs.push_back({.word = ""     , .startFrom = 0, .leftPos = 0, .rightPos = 0, .isEmpty = true,  .size = 0});
+    inputs.push_back({.word = " "    , .startFrom = 0, .leftPos = 0, .rightPos = 0, .isEmpty = true,  .size = 0});
+    inputs.push_back({.word = " "    , .startFrom = 1, .leftPos = 1, .rightPos = 1, .isEmpty = true,  .size = 0});
+    inputs.push_back({.word = "  "   , .startFrom = 1, .leftPos = 1, .rightPos = 1, .isEmpty = true,  .size = 0});
+    inputs.push_back({.word = " a"   , .startFrom = 0, .leftPos = 0, .rightPos = 0, .isEmpty = true,  .size = 0});
+    inputs.push_back({.word = " a"   , .startFrom = 1, .leftPos = 1, .rightPos = 2, .isEmpty = false, .size = 1});
+    inputs.push_back({.word = "ab"   , .startFrom = 0, .leftPos = 0, .rightPos = 2, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = "ab"   , .startFrom = 1, .leftPos = 0, .rightPos = 2, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = "ab"   , .startFrom = 2, .leftPos = 0, .rightPos = 2, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = " ab " , .startFrom = 0, .leftPos = 0, .rightPos = 0, .isEmpty = true , .size = 0});
+    inputs.push_back({.word = " ab " , .startFrom = 1, .leftPos = 1, .rightPos = 3, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = " ab " , .startFrom = 2, .leftPos = 1, .rightPos = 3, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = " ab " , .startFrom = 3, .leftPos = 1, .rightPos = 3, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = " ab " , .startFrom = 4, .leftPos = 4, .rightPos = 4, .isEmpty = true , .size = 0});
+    inputs.push_back({.word = " ab, ", .startFrom = 1, .leftPos = 1, .rightPos = 3, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = " ab, ", .startFrom = 3, .leftPos = 1, .rightPos = 3, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = " ab, ", .startFrom = 4, .leftPos = 4, .rightPos = 4, .isEmpty = true , .size = 0});
+    inputs.push_back({.word = " a a ", .startFrom = 1, .leftPos = 1, .rightPos = 2, .isEmpty = false, .size = 1});
+    inputs.push_back({.word = " a a ", .startFrom = 2, .leftPos = 1, .rightPos = 2, .isEmpty = false, .size = 1});
+    inputs.push_back({.word = " a a ", .startFrom = 3, .leftPos = 3, .rightPos = 4, .isEmpty = false, .size = 1});
+    inputs.push_back({.word = " a a ", .startFrom = 4, .leftPos = 3, .rightPos = 4, .isEmpty = false, .size = 1});
+    inputs.push_back({.word = " a2a ", .startFrom = 4, .leftPos = 1, .rightPos = 4, .isEmpty = false, .size = 3});
+
+    for (const auto& input : inputs) {
+        auto borders = TextRange::selectWord(QString(input.word), input.startFrom);
+
+        EXPECT_EQ(borders.left().pos(), input.leftPos);
+        EXPECT_EQ(borders.right().pos(), input.rightPos);
+        EXPECT_EQ(borders.isEmpty(), input.isEmpty);
+        EXPECT_EQ(borders.size(), input.size);
     }
-
-    void rangeCut()
-    {
-        QString   str(" abc b");
-        TextRange rng(str, 1, 4);
-
-        QCOMPARE(rng.cutted(), (std::pair<QString, int>("  b", 1)));
-    }
-
-    void rangeView()
-    {
-        QString   str(" abc ab ");
-        TextRange rng(str, 3, 6);
-
-        QCOMPARE(rng.rangeView(), QString("c a"));
-    }
-
-    void wordBorder_data()
-    {
-        QTest::addColumn<QString>("src");
-        QTest::addColumn<int>("startFrom");
-        QTest::addColumn<int>("leftPos");
-        QTest::addColumn<int>("rightPos");
-        QTest::addColumn<bool>("isEmpty");
-        QTest::addColumn<int>("size");
-
-        // clang-format off
-        QTest::newRow("case0")  << ""      << 0 << 0 << 0 << true  << 0;
-        QTest::newRow("case1")  << " "     << 0 << 0 << 0 << true  << 0;
-        QTest::newRow("case2")  << " "     << 1 << 1 << 1 << true  << 0;
-        QTest::newRow("case3")  << "  "    << 1 << 1 << 1 << true  << 0;
-        QTest::newRow("case4")  << " a"    << 0 << 0 << 0 << true  << 0;
-        QTest::newRow("case5")  << " a"    << 1 << 1 << 2 << false << 1;
-        QTest::newRow("case6")  << "ab"    << 0 << 0 << 2 << false << 2;
-        QTest::newRow("case7")  << "ab"    << 1 << 0 << 2 << false << 2;
-        QTest::newRow("case8")  << "ab"    << 2 << 0 << 2 << false << 2;
-        QTest::newRow("case9")  << " ab "  << 0 << 0 << 0 << true  << 0;
-        QTest::newRow("case10") << " ab "  << 1 << 1 << 3 << false << 2;
-        QTest::newRow("case11") << " ab "  << 2 << 1 << 3 << false << 2;
-        QTest::newRow("case12") << " ab "  << 3 << 1 << 3 << false << 2;
-        QTest::newRow("case13") << " ab "  << 4 << 4 << 4 << true  << 0;
-        QTest::newRow("case14") << " ab, " << 1 << 1 << 3 << false << 2;
-        QTest::newRow("case15") << " ab, " << 3 << 1 << 3 << false << 2;
-        QTest::newRow("case16") << " ab, " << 4 << 4 << 4 << true  << 0;
-        QTest::newRow("case17") << " a a " << 1 << 1 << 2 << false << 1;
-        QTest::newRow("case18") << " a a " << 2 << 1 << 2 << false << 1;
-        QTest::newRow("case19") << " a a " << 3 << 3 << 4 << false << 1;
-        QTest::newRow("case20") << " a a " << 4 << 3 << 4 << false << 1;
-        QTest::newRow("case21") << " a2a " << 4 << 1 << 4 << false << 3;
-        // clang-format on
-    }
-
-    void wordBorder()
-    {
-        QFETCH(QString, src);
-        QFETCH(int, startFrom);
-        QFETCH(int, leftPos);
-        QFETCH(int, rightPos);
-        QFETCH(bool, isEmpty);
-        QFETCH(int, size);
-
-        auto borders = TextRange::selectWord(src, startFrom);
-
-        QCOMPARE(borders.left().pos(), leftPos);
-        QCOMPARE(borders.right().pos(), rightPos);
-        QCOMPARE(borders.isEmpty(), isEmpty);
-        QCOMPARE(borders.size(), size);
-    }
-};
-
-QTEST_APPLESS_MAIN(TextRangeTest)
-
-#include "textrangetest.moc"
+}

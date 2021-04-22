@@ -21,144 +21,40 @@
 
 #include <memory>
 
-#include <QCoreApplication>
-#include <QtTest>
+#include <gtest/gtest.h>
 
 #include "source/Helpers/fsworks.h"
 #include "source/Managers/localdatabasestorage.h"
 
-class DBWorksTest : public QObject
+class DBWorksTest : public ::testing::Test
 {
-    Q_OBJECT
-
 public:
-    DBWorksTest()
-        : mStorage(new LocalDatabaseStorage(QString(sDbFileName)))
-    {
-        QVERIFY(FSWorks::fileExist(sDbFileName));
+    static constexpr auto sDbFileName = "testDatabase.termGraph";
+    // Group strings
+    static const QUuid   mGroupUuid1;
+    static const QString mGroupName1;
+    static const QString mGroupName2;
+    static const QString mGroupComment1;
+    static const QString mGroupComment2;
+    static const QString mSpecSymbols;
 
-        QCOMPARE(mStorage->storageVersion(), 2);
-        QVERIFY(mStorage->getAllGroupsUuids().empty());
-        QVERIFY(mStorage->getGroups().empty());
-        QVERIFY(mStorage->getAllNodesUuids().empty());
+    static std::unique_ptr<DataStorageInterface> mStorage;
+
+    static void SetUpTestCase() {
+        mStorage = std::make_unique<LocalDatabaseStorage>(QString(sDbFileName));
+
+        EXPECT_TRUE(FSWorks::fileExist(sDbFileName));
+
+        EXPECT_EQ(mStorage->storageVersion(), 2);
+        EXPECT_TRUE(mStorage->getAllGroupsUuids().empty());
+        EXPECT_TRUE(mStorage->getGroups().empty());
+        EXPECT_TRUE(mStorage->getAllNodesUuids().empty());
     }
 
-    ~DBWorksTest() { QVERIFY(FSWorks::deleteFile(sDbFileName)); }
-
-private slots:
-    void groupsTest()
-    {
-        QVERIFY(mStorage->getAllGroupsUuids().empty());
-
-        auto withUuid    = getGroupWithUuid();
-        auto withoutUuid = getGroupWithoutUuid();
-
-        QVERIFY(!mStorage->groupExist(withUuid.uuid));
-
-        // Add groups test
-        QVERIFY(mStorage->addGroup(withUuid));
-        QVERIFY(mStorage->addGroup(withoutUuid));
-
-        QVERIFY(mStorage->groupExist(withUuid.uuid));
-
-        // GetAllGroupsUuids test
-        auto groupList = mStorage->getAllGroupsUuids();
-
-        QCOMPARE(groupList.size(), 2);
-        QVERIFY(groupList[0] == withUuid.uuid || groupList[1] == withUuid.uuid);
-        QVERIFY(!groupList[0].isNull());
-
-        // Read group test
-        auto readedWithUuid = mStorage->getGroup(withUuid.uuid);
-
-        QCOMPARE(withUuid.uuid, readedWithUuid.uuid);
-        QCOMPARE(withUuid.name, readedWithUuid.name);
-        QCOMPARE(withUuid.comment, readedWithUuid.comment);
-
-        // Update group test
-        withUuid.name += mSpecSymbols;
-        withUuid.comment += mSpecSymbols;
-
-        QVERIFY(mStorage->updateGroup(withUuid));
-
-        readedWithUuid = mStorage->getGroup(withUuid.uuid);
-
-        QCOMPARE(withUuid.uuid, readedWithUuid.uuid);
-        QCOMPARE(withUuid.name, readedWithUuid.name);
-        QCOMPARE(withUuid.comment, readedWithUuid.comment);
-
-        withUuid = getGroupWithUuid();
-
-        // Delete group test
-        mStorage->deleteGroup(withUuid.uuid);
-        groupList = mStorage->getAllGroupsUuids();
-        QCOMPARE(groupList.size(), 1);
-        mStorage->deleteGroup(groupList.front());
-        groupList = mStorage->getAllGroupsUuids();
-        QVERIFY(groupList.empty());
+    static void TearDownTestCase() {
+        EXPECT_TRUE(FSWorks::deleteFile(sDbFileName));
     }
 
-    void nodesTest()
-    {
-        QVERIFY(mStorage->getAllGroupsUuids().empty());
-
-        auto withUuid = getGroupWithUuid();
-
-        QVERIFY(mStorage->addGroup(withUuid));
-        QVERIFY(mStorage->getAllNodesUuids().empty());
-
-        // Adding nodes
-
-        auto nodesList = getNodes();
-
-        for (auto& node : nodesList) {
-            QVERIFY(!mStorage->nodeExist(node.uuid));
-            QVERIFY(mStorage->addNode(node));
-            QVERIFY(mStorage->nodeExist(node.uuid));
-            QCOMPARE(mStorage->findNode(node.term, node.groupUuid), node.uuid);
-            auto gettedNode = mStorage->getNode(node.uuid);
-            node.lastEdit   = gettedNode.lastEdit; // Last edit was refreshed
-            QVERIFY(gettedNode.isEqualTo(node));
-        }
-
-        // Checking all uuids without group
-        auto allNodesUuids = mStorage->getAllNodesUuids();
-
-        QCOMPARE(allNodesUuids.size(), nodesList.size());
-        for (const auto& node : nodesList) {
-            auto searchResult = std::find(allNodesUuids.begin(), allNodesUuids.end(), node.uuid);
-            QVERIFY(searchResult != allNodesUuids.end());
-        }
-
-        // Checking all uuids with group
-        allNodesUuids = mStorage->getAllNodesUuids(withUuid.uuid);
-
-        QCOMPARE(allNodesUuids.size(), nodesList.size());
-        for (const auto& node : nodesList) {
-            auto searchResult = std::find(allNodesUuids.begin(), allNodesUuids.end(), node.uuid);
-            QVERIFY(searchResult != allNodesUuids.end());
-        }
-
-        for (auto& node : nodesList) {
-            node.term += "1";
-            node.definition += "1";
-            node.description += "1";
-            node.examples += "1";
-            node.wikiUrl += "1";
-            node.wikiImage += "1";
-
-            QVERIFY(mStorage->updateNode(node, DataStorageInterface::LastEditSource::TakeFromNodeInfo));
-
-            QVERIFY(node.isEqualTo(mStorage->getNode(node.uuid)));
-        }
-
-        for (const auto& node : nodesList)
-            mStorage->deleteNode(node.uuid);
-
-        QVERIFY(mStorage->getAllNodesUuids().empty());
-    }
-
-private:
     GroupInfoContainer getGroupWithUuid() { return GroupInfoContainer{mGroupUuid1, mGroupName1, mGroupComment1}; }
 
     GroupInfoContainer getGroupWithoutUuid() { return GroupInfoContainer{QUuid(), mGroupName2, mGroupComment2}; }
@@ -195,20 +91,124 @@ private:
 
         return ret;
     }
-
-    static constexpr auto sDbFileName = "testDatabase.termGraph";
-    // Group strings
-    const QUuid   mGroupUuid1    = QUuid::createUuid();
-    const QString mGroupName1    = QStringLiteral("TestGroup1");
-    const QString mGroupName2    = QStringLiteral("TestGroup2");
-    const QString mGroupComment1 = QStringLiteral("commentText1");
-    const QString mGroupComment2 = QStringLiteral("commentText2");
-
-    const QString mSpecSymbols = QStringLiteral("!@#$%^&*()-+=*:/'\"\\/");
-
-    std::unique_ptr<DataStorageInterface> mStorage;
 };
 
-QTEST_APPLESS_MAIN(DBWorksTest)
+const QUuid   DBWorksTest::mGroupUuid1    = QUuid::createUuid();
+const QString DBWorksTest::mGroupName1    = QStringLiteral("TestGroup1");
+const QString DBWorksTest::mGroupName2    = QStringLiteral("TestGroup2");
+const QString DBWorksTest::mGroupComment1 = QStringLiteral("commentText1");
+const QString DBWorksTest::mGroupComment2 = QStringLiteral("commentText2");
+const QString DBWorksTest::mSpecSymbols   = QStringLiteral("!@#$%^&*()-+=*:/'\"\\/");
 
-#include "dbworkstest.moc"
+std::unique_ptr<DataStorageInterface> DBWorksTest::mStorage;
+
+TEST_F (DBWorksTest, GroupsTest) {
+    EXPECT_TRUE(mStorage->getAllGroupsUuids().empty());
+
+    auto withUuid    = getGroupWithUuid();
+    auto withoutUuid = getGroupWithoutUuid();
+
+    ASSERT_FALSE(mStorage->groupExist(withUuid.uuid));
+
+    // Add groups test
+    EXPECT_TRUE(mStorage->addGroup(withUuid));
+    EXPECT_TRUE(mStorage->addGroup(withoutUuid));
+
+    EXPECT_TRUE(mStorage->groupExist(withUuid.uuid));
+
+    // GetAllGroupsUuids test
+    auto groupList = mStorage->getAllGroupsUuids();
+
+    EXPECT_EQ(groupList.size(), 2);
+    EXPECT_TRUE(groupList[0] == withUuid.uuid || groupList[1] == withUuid.uuid);
+    EXPECT_FALSE(groupList[0].isNull());
+
+    // Read group test
+    auto readedWithUuid = mStorage->getGroup(withUuid.uuid);
+
+    EXPECT_EQ(withUuid.uuid, readedWithUuid.uuid);
+    EXPECT_EQ(withUuid.name, readedWithUuid.name);
+    EXPECT_EQ(withUuid.comment, readedWithUuid.comment);
+
+    // Update group test
+    withUuid.name += mSpecSymbols;
+    withUuid.comment += mSpecSymbols;
+
+    EXPECT_TRUE(mStorage->updateGroup(withUuid));
+
+    readedWithUuid = mStorage->getGroup(withUuid.uuid);
+
+    EXPECT_EQ(withUuid.uuid, readedWithUuid.uuid);
+    EXPECT_EQ(withUuid.name, readedWithUuid.name);
+    EXPECT_EQ(withUuid.comment, readedWithUuid.comment);
+
+    withUuid = getGroupWithUuid();
+
+    // Delete group test
+    mStorage->deleteGroup(withUuid.uuid);
+    groupList = mStorage->getAllGroupsUuids();
+    EXPECT_EQ(groupList.size(), 1);
+    mStorage->deleteGroup(groupList.front());
+    groupList = mStorage->getAllGroupsUuids();
+    EXPECT_TRUE(groupList.empty());
+}
+
+TEST_F (DBWorksTest, NodesTest) {
+
+    ASSERT_TRUE(mStorage->getAllGroupsUuids().empty());
+
+    auto withUuid = getGroupWithUuid();
+
+    EXPECT_TRUE(mStorage->addGroup(withUuid));
+    EXPECT_TRUE(mStorage->getAllNodesUuids().empty());
+
+    // Adding nodes
+
+    auto nodesList = getNodes();
+
+    for (auto& node : nodesList) {
+        EXPECT_FALSE(mStorage->nodeExist(node.uuid));
+        EXPECT_TRUE(mStorage->addNode(node));
+        EXPECT_TRUE(mStorage->nodeExist(node.uuid));
+        EXPECT_EQ(mStorage->findNode(node.term, node.groupUuid), node.uuid);
+        auto gettedNode = mStorage->getNode(node.uuid);
+        node.lastEdit   = gettedNode.lastEdit; // Last edit was refreshed
+        EXPECT_TRUE(gettedNode.isEqualTo(node));
+    }
+
+    // Checking all uuids without group
+    auto allNodesUuids = mStorage->getAllNodesUuids();
+
+    EXPECT_EQ(allNodesUuids.size(), nodesList.size());
+    for (const auto& node : nodesList) {
+        auto searchResult = std::find(allNodesUuids.begin(), allNodesUuids.end(), node.uuid);
+        EXPECT_NE(searchResult, allNodesUuids.end());
+    }
+
+    // Checking all uuids with group
+    allNodesUuids = mStorage->getAllNodesUuids(withUuid.uuid);
+
+    EXPECT_EQ(allNodesUuids.size(), nodesList.size());
+    for (const auto& node : nodesList) {
+        auto searchResult = std::find(allNodesUuids.begin(), allNodesUuids.end(), node.uuid);
+        EXPECT_NE(searchResult, allNodesUuids.end());
+    }
+
+    for (auto& node : nodesList) {
+        node.term += "1";
+        node.definition += "1";
+        node.description += "1";
+        node.examples += "1";
+        node.wikiUrl += "1";
+        node.wikiImage += "1";
+
+        EXPECT_TRUE(mStorage->updateNode(node, DataStorageInterface::LastEditSource::TakeFromNodeInfo));
+
+        EXPECT_TRUE(node.isEqualTo(mStorage->getNode(node.uuid)));
+    }
+
+    for (const auto& node : nodesList)
+        mStorage->deleteNode(node.uuid);
+
+    EXPECT_TRUE(mStorage->getAllNodesUuids().empty());
+}

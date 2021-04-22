@@ -22,107 +22,59 @@
 #include <limits>
 #include <vector>
 
-#include <QCoreApplication>
-#include <QDebug>
-#include <QtTest>
+#include <gtest/gtest.h>
 
 #include "source/Helpers/link/linkutils.h"
 
-class LinkUtilsTest : public QObject
+TEST (LinkUtilsTest, LinkExtraction) {
+
+    struct Data { QString src; QStringList tags; };
+
+    std::vector<Data> data;
+
+    data.push_back({.src = "a{bc}"    , .tags = (QStringList() << "bc")      });
+    data.push_back({.src = "a{a}{b}"  , .tags = (QStringList() << "a" << "b")});
+    data.push_back({.src = "a{bc\\}"  , .tags = (QStringList() << "bc\\")    });
+    data.push_back({.src = "a{bc}{bc}", .tags = (QStringList() << "bc")      });
+    data.push_back({.src = "{{"       , .tags = QStringList()                });
+    data.push_back({.src = "}}"       , .tags = QStringList()                });
+    data.push_back({.src = "a{b"      , .tags = QStringList()                });
+    data.push_back({.src = "a{a\\"    , .tags = QStringList()                });
+    data.push_back({.src = "a{bc}}"   , .tags = QStringList()                });
+    data.push_back({.src = "\\}\\}"   , .tags = QStringList()                });
+    data.push_back({.src = "a{bc\\}}" , .tags = QStringList()                });
+
+    // TODO: Finish test
+}
+
+TEST (LinkUtilsTest, TagLengthSuitTerm) {
+    struct Data { QString word1; QString word2; bool result; };
+
+    std::vector<Data> data;
+
+    data.push_back({.word1 = ""                    , .word2 = ""                       , .result = true });
+    data.push_back({.word1 = "атом"                , .word2 = "атомов"                 , .result = true });
+    data.push_back({.word1 = "электрон"            , .word2 = "электроны"              , .result = true });
+    data.push_back({.word1 = "отрицательный заряд" , .word2 = "отрицательный заряд"    , .result = true });
+    data.push_back({.word1 = "элементарная частица", .word2 = "элементарными частицами", .result = true });
+    data.push_back({.word1 = "конформация"         , .word2 = "конформационный"        , .result = true });
+    data.push_back({.word1 = "w w"                 , .word2 = "wwwww"                  , .result = true });
+    data.push_back({.word1 = "w"                   , .word2 = "wwwwww"                 , .result = false});
+    data.push_back({.word1 = "w w"                 , .word2 = "wwwww wwwwww"           , .result = false});
+
+    for (const auto& d : data) {
+        EXPECT_EQ(LinkUtils::tagLengthSuitTerm(d.word1, d.word2), d.result);
+        EXPECT_EQ(LinkUtils::tagLengthSuitTerm(d.word2, d.word1), d.result);
+    }
+}
+
+void getLevDistance_data()
 {
-    Q_OBJECT
-
-    using Idxs = std::vector<int>; // Short for Indexes
-
-public:
-    LinkUtilsTest()           = default;
-    ~LinkUtilsTest() override = default;
-
-private slots:
-    void linkExtraction_data()
-    {
-        QTest::addColumn<QString>("src");
-        QTest::addColumn<QStringList>("tags");
-
-        // clang-format off
-        QTest::newRow("ok0")    << "a{bc}"     << (QStringList() << "bc");
-        QTest::newRow("ok1")    << "a{a}{b}"   << (QStringList() << "a" << "b");
-        QTest::newRow("ok2")    << "a{bc\\}"   << (QStringList() << "bc\\");
-        QTest::newRow("ok3")    << "a{bc}{bc}" << (QStringList() << "bc");
-
-        QTest::newRow("error0") << "{{"        << QStringList();
-        QTest::newRow("error1") << "}}"        << QStringList();
-        QTest::newRow("error2") << "a{b"       << QStringList();
-        QTest::newRow("error3") << "a{a\\"     << QStringList();
-        QTest::newRow("error4") << "a{bc}}"    << QStringList();
-        QTest::newRow("error5") << "\\}\\}"    << QStringList();
-        QTest::newRow("error6") << "a{bc\\}}"  << QStringList();
-        // clang-format on
-    }
-
-    void linkExtraction() {}
-
-    void linkLengthSuitTerm_data()
-    {
-        QTest::addColumn<QString>("word1");
-        QTest::addColumn<QString>("word2");
-        QTest::addColumn<bool>("result");
-
-        // clang-format off
-        QTest::newRow("case0") << ""                     << ""                        << true;
-        QTest::newRow("case1") << "атом"                 << "атомов"                  << true;
-        QTest::newRow("case2") << "электрон"             << "электроны"               << true;
-        QTest::newRow("case3") << "отрицательный заряд"  << "отрицательный заряд"     << true;
-        QTest::newRow("case4") << "элементарная частица" << "элементарными частицами" << true;
-        QTest::newRow("case5") << "конформация"          << "конформационный"         << true;
-        QTest::newRow("case7") << "w w"                  << "wwwww"                   << true;
-
-        QTest::newRow("case8") << "w"   << "wwwwww"       << false;
-        QTest::newRow("case9") << "w w" << "wwwww wwwwww" << false;
-        // clang-format on
-    }
-
-    void linkLengthSuitTerm()
-    {
-        QFETCH(QString, word1);
-        QFETCH(QString, word2);
-        QFETCH(bool, result);
-
-        QCOMPARE(LinkUtils::tagLengthSuitTerm(word1, word2), result);
-        QCOMPARE(LinkUtils::tagLengthSuitTerm(word2, word1), result);
-    }
-
-    void getLevDistance_data()
-    {
-        QTest::addColumn<QString>("word1");
-        QTest::addColumn<QString>("word2");
-        QTest::addColumn<int>("limit");
-        QTest::addColumn<int>("distance");
-
-        // clang-format off
-        QTest::newRow("case0") << ""                     << ""                        << 9 << 0;
-        QTest::newRow("case1") << "атом"                 << "атомов"                  << 9 << 2;
-        QTest::newRow("case2") << "электрон"             << "электроны"               << 9 << 1;
-        QTest::newRow("case3") << "отрицательный заряд"  << "отрицательный заряд"     << 9 << 0;
-        QTest::newRow("case4") << "элементарная частица" << "элементарными частицами" << 9 << 5;
-//        QTest::newRow("case5") << "элементарная частица" << "элементарными частицами" << 3 << max_int;
-        QTest::newRow("case6") << "конформация"          << "конформационный"         << 9 << 5;
-        QTest::newRow("case7") << "w w"                  << "wwwww"                   << 9 << 3;
-        // clang-format on
-    }
-
-    void getLevDistance()
-    {
-        QFETCH(QString, word1);
-        QFETCH(QString, word2);
-        QFETCH(int, limit);
-        QFETCH(int, distance);
-
-        qDebug() << LinkUtils::getLevDistance(word1, word2, limit);
-        QCOMPARE(LinkUtils::getLevDistance(word1, word2, limit), distance);
-    }
-};
-
-QTEST_APPLESS_MAIN(LinkUtilsTest)
-
-#include "linkutilstest.moc"
+    EXPECT_EQ(LinkUtils::getLevDistance(QString(""                    ), QString(""                       ), 9), 0);
+    EXPECT_EQ(LinkUtils::getLevDistance(QString("атом"                ), QString("атомов"                 ), 9), 2);
+    EXPECT_EQ(LinkUtils::getLevDistance(QString("электрон"            ), QString("электроны"              ), 9), 1);
+    EXPECT_EQ(LinkUtils::getLevDistance(QString("отрицательный заряд" ), QString("отрицательный заряд"    ), 9), 0);
+    EXPECT_EQ(LinkUtils::getLevDistance(QString("элементарная частица"), QString("элементарными частицами"), 9), 5);
+    EXPECT_EQ(LinkUtils::getLevDistance(QString("конформация")         , QString("конформационный")        , 9), 5);
+    EXPECT_EQ(LinkUtils::getLevDistance(QString("w w"         )        , QString("wwwww"           )       , 9), 3);
+}

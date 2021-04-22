@@ -19,49 +19,42 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <memory>
+#include <gtest/gtest.h>
 
 #include <QColor>
 #include <QCoreApplication>
-#include <QtTest>
 
 #include "source/Helpers/link/linksdecorator.h"
 #include "source/Helpers/link/linksstring.h"
 
-class LinkDecoratorTest : public QObject
+class LinkDecoratorTest : public ::testing::Test
 {
-    Q_OBJECT
-
-private slots:
-    void linkDecorate()
-    {
-        LinksString links(multipleLinks);
-
-        LinksDecorator decorator(links, [](auto orderNum, [[maybe_unused]] auto link) {
-            if (orderNum == 1)
-                return QColor("blue");
-            return QColor("red");
-        });
-
-        auto result = decorator.apply(LinksDecoratorMode::Insert);
-
-        QCOMPARE(result,
-                 "<font color=\"#ffff0000\" style=\"background-color:#00000000\">{abc}</font> "
-                 "<font color=\"#ff0000ff\" style=\"background-color:#00000000\">{bc}</font> "
-                 "<font color=\"#ffff0000\" style=\"background-color:#00000000\">{c}</font> ");
-
-        auto result2 = decorator.apply(LinksDecoratorMode::Replace);
-
-        QCOMPARE(result2,
-                 "<font color=\"#ffff0000\" style=\"background-color:#00000000\">abc</font> "
-                 "<font color=\"#ff0000ff\" style=\"background-color:#00000000\">bc</font> "
-                 "<font color=\"#ffff0000\" style=\"background-color:#00000000\">c</font> ");
-    }
-
-private:
+public:
     const QString multipleLinks = "{abc} {bc} {c} ";
 };
 
-QTEST_APPLESS_MAIN(LinkDecoratorTest)
+TEST_F (LinkDecoratorTest, Decorator) {
 
-#include "linkdecoratortest.moc"
+    LinksString links(multipleLinks);
+
+    LinksDecorator decorator(links, [](auto orderNum, [[maybe_unused]] auto link) {
+        if (orderNum == 1)
+            return QColor("blue");
+        return QColor("red");
+    });
+
+    auto result = decorator.apply(LinksDecoratorMode::Insert);
+
+    EXPECT_EQ(result,
+             "<font color=\"#ffff0000\" style=\"background-color:#00000000\">{abc}</font> "
+             "<font color=\"#ff0000ff\" style=\"background-color:#00000000\">{bc}</font> "
+             "<font color=\"#ffff0000\" style=\"background-color:#00000000\">{c}</font> ");
+
+    auto result2 = decorator.apply(LinksDecoratorMode::Replace);
+
+    EXPECT_EQ(result2,
+             "<font color=\"#ffff0000\" style=\"background-color:#00000000\">abc</font> "
+             "<font color=\"#ff0000ff\" style=\"background-color:#00000000\">bc</font> "
+             "<font color=\"#ffff0000\" style=\"background-color:#00000000\">c</font> ");
+}
+

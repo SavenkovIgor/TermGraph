@@ -28,7 +28,7 @@
 
 opt<QUuid> UuidTools::createFromStringWithoutBraces(const QString &uuidString)
 {
-    if (!UuidTools::isValidUuidStringWihtoutBraces(uuidString))
+    if (!UuidTools::isValidUuidStringWithoutBraces(uuidString))
         return std::nullopt;
 
     auto innerUuidString = uuidString;
@@ -63,7 +63,7 @@ bool UuidTools::isValidUuidString(const QString &uuidString)
     return check.match(uuidString).hasMatch();
 }
 
-bool UuidTools::isValidUuidStringWihtoutBraces(const QString &uuidString)
+bool UuidTools::isValidUuidStringWithoutBraces(const QString &uuidString)
 {
     QRegularExpression check(validUuidWithoutBracesRegExp);
     return check.match(uuidString).hasMatch();

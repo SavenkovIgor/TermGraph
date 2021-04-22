@@ -18,275 +18,178 @@
 #  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
 
 enable_testing ()
-
 find_package (GTest REQUIRED)
 
-add_executable (termgraph_test)
-
-target_include_directories (termgraph_test
-    PRIVATE
-        "../"
-        ${GTest_INCLUDE_DIRS})
-
-target_link_libraries (termgraph_test GTest::gtest GTest::gtest_main)
-
-target_sources (termgraph_test
-    PRIVATE
-#        ../source/Helpers/text/textutils.cpp
-#        ../source/Helpers/text/textutils.h
-        textutilstest.cpp)
-
-#[[
-find_package (Qt6Test REQUIRED)
-include_directories (${CMAKE_SOURCE_DIR})
-
-# LINK_UTILS_TEST
-set (LINK_UTILS_TEST "LinkUtilsTest")
-
-add_executable (${LINK_UTILS_TEST})
-target_link_libraries (${LINK_UTILS_TEST} PRIVATE Qt6::Test)
-add_test (NAME ${LINK_UTILS_TEST} COMMAND ${LINK_UTILS_TEST})
-set_target_properties (${LINK_UTILS_TEST} PROPERTIES
-    AUTOMOC ON
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON)
-
-target_sources (${LINK_UTILS_TEST}
-    PRIVATE
-        ../source/Helpers/handytypes.h
-        ../source/Helpers/intmatrix.cpp
-        ../source/Helpers/intmatrix.h
-        ../source/Helpers/link/linkutils.cpp
-        ../source/Helpers/link/linkutils.h
-        ../source/Helpers/link/link.cpp
-        ../source/Helpers/link/link.h
-        ../source/Helpers/text/chartools.h
-        ../source/Helpers/text/checkingtextcursor.cpp
-        ../source/Helpers/text/checkingtextcursor.h
-        ../source/Helpers/text/textcursor.cpp
-        ../source/Helpers/text/textcursor.h
-        ../source/Helpers/text/textrange.cpp
-        ../source/Helpers/text/textrange.h
-        ../source/Helpers/text/textutils.cpp
-        ../source/Helpers/text/textutils.h
-        ../source/Helpers/uuid/uuidtools.cpp
-        ../source/Helpers/uuid/uuidtools.h
-        linkutilstest.cpp)
+function (test_case_config TEST_NAME)
+    target_include_directories (${TEST_NAME} PRIVATE ${CMAKE_SOURCE_DIR} ${GTest_INCLUDE_DIRS})
+    target_link_libraries (${TEST_NAME} Qt6::Core GTest::gtest GTest::gtest_main)
+    set_target_properties (${TEST_NAME} PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
+endfunction ()
 
 
-# TEXT_PROCESSOR_TEST
-set (TEXT_PROCESSOR_TEST "TextUtilsTest")
+# TEXT_UTILS_TEST
+add_executable (TEXT_UTILS_TEST
+    ../source/Helpers/text/textutils.cpp
+    ../source/Helpers/text/textutils.h
+    textutilstest.cpp)
 
-add_executable (${TEXT_PROCESSOR_TEST})
-target_link_libraries (${TEXT_PROCESSOR_TEST} PRIVATE Qt6::Test)
-add_test (NAME ${TEXT_PROCESSOR_TEST} COMMAND ${TEXT_PROCESSOR_TEST})
-set_target_properties (${TEXT_PROCESSOR_TEST} PROPERTIES
-    AUTOMOC ON
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON)
-
-target_sources (${TEXT_PROCESSOR_TEST}
-    PRIVATE
-        ../source/Helpers/text/textutils.cpp
-        ../source/Helpers/text/textutils.h
-        textutilstest.cpp)
+test_case_config (TEXT_UTILS_TEST)
 
 
 # FS_WORKS_TEST
-set (FS_WORKS_TEST "FsWorksTest")
+add_executable (FS_WORKS_TEST
+    ../source/Helpers/fsworks.cpp
+    ../source/Helpers/fsworks.h
+    fsworkstest.cpp)
 
-add_executable (${FS_WORKS_TEST})
-target_link_libraries (${FS_WORKS_TEST} PRIVATE Qt6::Test)
-add_test (NAME ${FS_WORKS_TEST} COMMAND ${FS_WORKS_TEST})
-set_target_properties (${FS_WORKS_TEST} PROPERTIES
-    AUTOMOC ON
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON)
-
-target_sources (${FS_WORKS_TEST}
-    PRIVATE
-        ../source/Helpers/fsworks.cpp
-        ../source/Helpers/fsworks.h
-        fsworkstest.cpp)
-
-
-# DB_WORKS_TEST
-set (DB_WORKS_TEST "DbWorksTest")
-
-add_executable (${DB_WORKS_TEST})
-target_link_libraries (${DB_WORKS_TEST} PRIVATE Qt6::Test Qt6::Sql)
-add_test (NAME ${DB_WORKS_TEST} COMMAND ${DB_WORKS_TEST})
-set_target_properties (${DB_WORKS_TEST} PROPERTIES
-    AUTOMOC ON
-    AUTORCC ON
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON)
-
-# TODO Reduce files count
-target_sources (${DB_WORKS_TEST}
-    PRIVATE
-        ../source/Database/database.cpp
-        ../source/Database/database.h
-        ../source/Database/dbinfo.h
-        ../source/Database/dbtools.cpp
-        ../source/Database/dbtools.h
-        ../source/Database/sqlqueries.qrc
-        ../source/Database/sqlquerybuilder.cpp
-        ../source/Database/sqlquerybuilder.h
-        ../source/Database/tables/appconfigtable.cpp
-        ../source/Database/tables/appconfigtable.h
-        ../source/Database/tables/termgrouptable.cpp
-        ../source/Database/tables/termgrouptable.h
-        ../source/Database/tables/termtable.cpp
-        ../source/Database/tables/termtable.h
-        ../source/Helpers/appconfig.cpp
-        ../source/Helpers/appconfig.h
-        ../source/Helpers/fsworks.cpp
-        ../source/Helpers/fsworks.h
-        ../source/Helpers/handytypes.h
-        ../source/Managers/datastorageinterface.h
-        ../source/Managers/localdatabasestorage.cpp
-        ../source/Managers/localdatabasestorage.h
-        ../source/Managers/notificationmanager.cpp
-        ../source/Managers/notificationmanager.h
-        ../source/Model/Termin/nodeinfocontainer.h
-        ../source/Model/TerminGroup/groupinfocontainer.h
-        dbworkstest.cpp)
+test_case_config (FS_WORKS_TEST)
 
 
 # UUIDS_TEST
-set (UUIDS_TEST "UuidsTest")
+add_executable (UUIDS_TEST
+    ../source/Helpers/uuid/uuidtools.cpp
+    ../source/Helpers/uuid/uuidtools.h
+    uuidstest.cpp)
 
-add_executable (${UUIDS_TEST})
-target_link_libraries (${UUIDS_TEST} PRIVATE Qt6::Test)
-add_test (NAME ${UUIDS_TEST} COMMAND ${UUIDS_TEST})
-set_target_properties (${UUIDS_TEST} PROPERTIES
-    AUTOMOC ON
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON)
-
-# TODO Reduce files count
-target_sources (${UUIDS_TEST}
-    PRIVATE
-        ../source/Helpers/uuid/uuidtools.cpp
-        ../source/Helpers/uuid/uuidtools.h
-        uuidstest.cpp)
+test_case_config (UUIDS_TEST)
 
 
 # TEXT_CURSOR_TEST
-set (TEXT_CURSOR_TEST "TextCursorTest")
+add_executable (TEXT_CURSOR_TEST
+    ../source/Helpers/handytypes.h
+    ../source/Helpers/text/chartools.h
+    ../source/Helpers/text/checkingtextcursor.cpp
+    ../source/Helpers/text/checkingtextcursor.h
+    ../source/Helpers/text/textcursor.cpp
+    ../source/Helpers/text/textcursor.h
+    cursortest.cpp)
 
-add_executable (${TEXT_CURSOR_TEST})
-target_link_libraries (${TEXT_CURSOR_TEST} PRIVATE Qt6::Test)
-add_test (NAME ${TEXT_CURSOR_TEST} COMMAND ${TEXT_CURSOR_TEST})
-set_target_properties (${TEXT_CURSOR_TEST} PROPERTIES
-    AUTOMOC ON
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON)
-
-target_sources (${TEXT_CURSOR_TEST}
-    PRIVATE
-        ../source/Helpers/handytypes.h
-        ../source/Helpers/text/chartools.h
-        ../source/Helpers/text/checkingtextcursor.cpp
-        ../source/Helpers/text/checkingtextcursor.h
-        ../source/Helpers/text/textcursor.cpp
-        ../source/Helpers/text/textcursor.h
-        cursortest.cpp)
+test_case_config (TEXT_CURSOR_TEST)
 
 
 # TEXT_RANGE_TEST
-set (TEXT_RANGE_TEST "TextRangeTest")
+add_executable (TEXT_RANGE_TEST
+    ../source/Helpers/handytypes.h
+    ../source/Helpers/intmatrix.cpp
+    ../source/Helpers/intmatrix.h
+    ../source/Helpers/link/link.cpp
+    ../source/Helpers/link/link.h
+    ../source/Helpers/text/chartools.h
+    ../source/Helpers/text/checkingtextcursor.cpp
+    ../source/Helpers/text/checkingtextcursor.h
+    ../source/Helpers/text/textcursor.cpp
+    ../source/Helpers/text/textcursor.h
+    ../source/Helpers/text/textrange.cpp
+    ../source/Helpers/text/textrange.h
+    ../source/Helpers/uuid/uuidtools.cpp
+    ../source/Helpers/uuid/uuidtools.h
+    textrangetest.cpp)
 
-add_executable (${TEXT_RANGE_TEST})
-target_link_libraries (${TEXT_RANGE_TEST} PRIVATE Qt6::Test)
-add_test (NAME ${TEXT_RANGE_TEST} COMMAND ${TEXT_RANGE_TEST})
-set_target_properties (${TEXT_RANGE_TEST} PROPERTIES
-    AUTOMOC ON
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON)
-
-target_sources (${TEXT_RANGE_TEST}
-    PRIVATE
-        ../source/Helpers/handytypes.h
-        ../source/Helpers/intmatrix.cpp
-        ../source/Helpers/intmatrix.h
-        ../source/Helpers/link/link.cpp
-        ../source/Helpers/link/link.h
-        ../source/Helpers/text/chartools.h
-        ../source/Helpers/text/checkingtextcursor.cpp
-        ../source/Helpers/text/checkingtextcursor.h
-        ../source/Helpers/text/textcursor.cpp
-        ../source/Helpers/text/textcursor.h
-        ../source/Helpers/text/textrange.cpp
-        ../source/Helpers/text/textrange.h
-        ../source/Helpers/uuid/uuidtools.cpp
-        ../source/Helpers/uuid/uuidtools.h
-        textrangetest.cpp)
+test_case_config (TEXT_RANGE_TEST)
 
 
 # TEXT_LINK_TEST
-set (TEXT_LINK_TEST "LinkTest")
+add_executable (TEXT_LINK_TEST
+    ../source/Helpers/handytypes.h
+    ../source/Helpers/intmatrix.cpp
+    ../source/Helpers/intmatrix.h
+    ../source/Helpers/link/linksstring.cpp
+    ../source/Helpers/link/linksstring.h
+    ../source/Helpers/link/link.cpp
+    ../source/Helpers/link/link.h
+    ../source/Helpers/text/chartools.h
+    ../source/Helpers/text/checkingtextcursor.cpp
+    ../source/Helpers/text/checkingtextcursor.h
+    ../source/Helpers/text/textcursor.cpp
+    ../source/Helpers/text/textcursor.h
+    ../source/Helpers/text/textrange.cpp
+    ../source/Helpers/text/textrange.h
+    ../source/Helpers/uuid/uuidtools.cpp
+    ../source/Helpers/uuid/uuidtools.h
+    linktest.cpp)
 
-add_executable (${TEXT_LINK_TEST})
-target_link_libraries (${TEXT_LINK_TEST} PRIVATE Qt6::Test)
-add_test (NAME ${TEXT_LINK_TEST} COMMAND ${TEXT_LINK_TEST})
-set_target_properties (${TEXT_LINK_TEST} PROPERTIES
-    AUTOMOC ON
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON)
+test_case_config (TEXT_LINK_TEST)
 
-target_sources (${TEXT_LINK_TEST}
-    PRIVATE
-        ../source/Helpers/handytypes.h
-        ../source/Helpers/intmatrix.cpp
-        ../source/Helpers/intmatrix.h
-        ../source/Helpers/link/linksstring.cpp
-        ../source/Helpers/link/linksstring.h
-        ../source/Helpers/link/link.cpp
-        ../source/Helpers/link/link.h
-        ../source/Helpers/text/chartools.h
-        ../source/Helpers/text/checkingtextcursor.cpp
-        ../source/Helpers/text/checkingtextcursor.h
-        ../source/Helpers/text/textcursor.cpp
-        ../source/Helpers/text/textcursor.h
-        ../source/Helpers/text/textrange.cpp
-        ../source/Helpers/text/textrange.h
-        ../source/Helpers/uuid/uuidtools.cpp
-        ../source/Helpers/uuid/uuidtools.h
-        linktest.cpp)
+# LINK_UTILS_TEST
+add_executable (LINK_UTILS_TEST
+    ../source/Helpers/handytypes.h
+    ../source/Helpers/intmatrix.cpp
+    ../source/Helpers/intmatrix.h
+    ../source/Helpers/link/linkutils.cpp
+    ../source/Helpers/link/linkutils.h
+    ../source/Helpers/link/link.cpp
+    ../source/Helpers/link/link.h
+    ../source/Helpers/text/chartools.h
+    ../source/Helpers/text/checkingtextcursor.cpp
+    ../source/Helpers/text/checkingtextcursor.h
+    ../source/Helpers/text/textcursor.cpp
+    ../source/Helpers/text/textcursor.h
+    ../source/Helpers/text/textrange.cpp
+    ../source/Helpers/text/textrange.h
+    ../source/Helpers/text/textutils.cpp
+    ../source/Helpers/text/textutils.h
+    ../source/Helpers/uuid/uuidtools.cpp
+    ../source/Helpers/uuid/uuidtools.h
+    linkutilstest.cpp)
+
+test_case_config (LINK_UTILS_TEST)
 
 
 # LINK_DECORATOR_TEST
-set (LINK_DECORATOR_TEST "LinkDecoratorTest")
+add_executable (LINK_DECORATOR_TEST
+    ../source/Helpers/handytypes.h
+    ../source/Helpers/intmatrix.cpp
+    ../source/Helpers/intmatrix.h
+    ../source/Helpers/link/linksdecorator.cpp
+    ../source/Helpers/link/linksdecorator.h
+    ../source/Helpers/link/linksstring.cpp
+    ../source/Helpers/link/linksstring.h
+    ../source/Helpers/link/link.cpp
+    ../source/Helpers/link/link.h
+    ../source/Helpers/text/chartools.h
+    ../source/Helpers/text/checkingtextcursor.cpp
+    ../source/Helpers/text/checkingtextcursor.h
+    ../source/Helpers/text/textcursor.cpp
+    ../source/Helpers/text/textcursor.h
+    ../source/Helpers/text/textrange.cpp
+    ../source/Helpers/text/textrange.h
+    ../source/Helpers/uuid/uuidtools.cpp
+    ../source/Helpers/uuid/uuidtools.h
+    linkdecoratortest.cpp)
 
-add_executable (${LINK_DECORATOR_TEST})
-target_link_libraries (${LINK_DECORATOR_TEST} PRIVATE Qt6::Gui Qt6::Test)
-add_test (NAME ${LINK_DECORATOR_TEST} COMMAND ${LINK_DECORATOR_TEST})
-set_target_properties (${LINK_DECORATOR_TEST} PROPERTIES
-    AUTOMOC ON
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON)
+test_case_config (LINK_DECORATOR_TEST)
+target_link_libraries (LINK_DECORATOR_TEST Qt6::Gui)
 
-target_sources (${LINK_DECORATOR_TEST}
-    PRIVATE
-        ../source/Helpers/handytypes.h
-        ../source/Helpers/intmatrix.cpp
-        ../source/Helpers/intmatrix.h
-        ../source/Helpers/link/linksdecorator.cpp
-        ../source/Helpers/link/linksdecorator.h
-        ../source/Helpers/link/linksstring.cpp
-        ../source/Helpers/link/linksstring.h
-        ../source/Helpers/link/link.cpp
-        ../source/Helpers/link/link.h
-        ../source/Helpers/text/chartools.h
-        ../source/Helpers/text/checkingtextcursor.cpp
-        ../source/Helpers/text/checkingtextcursor.h
-        ../source/Helpers/text/textcursor.cpp
-        ../source/Helpers/text/textcursor.h
-        ../source/Helpers/text/textrange.cpp
-        ../source/Helpers/text/textrange.h
-        ../source/Helpers/uuid/uuidtools.cpp
-        ../source/Helpers/uuid/uuidtools.h
-        linkdecoratortest.cpp)
-]]
+# DB_WORKS_TEST
+add_executable (DB_WORKS_TEST
+    ../source/Database/database.cpp
+    ../source/Database/database.h
+    ../source/Database/dbinfo.h
+    ../source/Database/dbtools.cpp
+    ../source/Database/dbtools.h
+    ../source/Database/sqlqueries.qrc
+    ../source/Database/sqlquerybuilder.cpp
+    ../source/Database/sqlquerybuilder.h
+    ../source/Database/tables/appconfigtable.cpp
+    ../source/Database/tables/appconfigtable.h
+    ../source/Database/tables/termgrouptable.cpp
+    ../source/Database/tables/termgrouptable.h
+    ../source/Database/tables/termtable.cpp
+    ../source/Database/tables/termtable.h
+    ../source/Helpers/appconfig.cpp
+    ../source/Helpers/appconfig.h
+    ../source/Helpers/fsworks.cpp
+    ../source/Helpers/fsworks.h
+    ../source/Helpers/handytypes.h
+    ../source/Managers/datastorageinterface.h
+    ../source/Managers/localdatabasestorage.cpp
+    ../source/Managers/localdatabasestorage.h
+    ../source/Managers/notificationmanager.cpp
+    ../source/Managers/notificationmanager.h
+    ../source/Model/Termin/nodeinfocontainer.h
+    ../source/Model/TerminGroup/groupinfocontainer.h
+    dbworkstest.cpp)
+
+test_case_config (DB_WORKS_TEST)
+target_link_libraries (DB_WORKS_TEST Qt6::Sql)
+set_target_properties (DB_WORKS_TEST PROPERTIES AUTOMOC ON AUTORCC ON)

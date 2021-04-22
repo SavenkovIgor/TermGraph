@@ -19,58 +19,41 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <QCoreApplication>
-#include <QtTest>
+#include <gtest/gtest.h>
 
 #include "source/Helpers/fsworks.h"
 
-class FSWorksTest : public QObject
-{
-    Q_OBJECT
+TEST (FSWorks, PathWorks) {
+    auto testPath = FSWorks::workingDirPath() + "/testPath";
 
-public:
-    FSWorksTest()           = default;
-    ~FSWorksTest() override = default;
+    ASSERT_FALSE(FSWorks::pathExist(testPath));
+    ASSERT_TRUE(FSWorks::createPath(testPath));
+    ASSERT_TRUE(FSWorks::pathExist(testPath));
+    ASSERT_TRUE(FSWorks::deletePath(testPath));
+    ASSERT_FALSE(FSWorks::pathExist(testPath));
+}
 
-private slots:
-    void pathWorks()
-    {
-        auto testPath = FSWorks::workingDirPath() + "/testPath";
+TEST (FSWorks, FileWorks) {
+    auto testPath     = FSWorks::workingDirPath() + "/testPath";
+    auto testFilePath = testPath + "/testFile.tst";
 
-        QVERIFY(!FSWorks::pathExist(testPath));
-        QVERIFY(FSWorks::createPath(testPath));
-        QVERIFY(FSWorks::pathExist(testPath));
-        QVERIFY(FSWorks::deletePath(testPath));
-        QVERIFY(!FSWorks::pathExist(testPath));
-    }
+    // Path not exiting
+    ASSERT_FALSE(FSWorks::createFile(testFilePath));
+    ASSERT_FALSE(FSWorks::fileExist(testFilePath));
 
-    void fileWorks()
-    {
-        auto testPath     = FSWorks::workingDirPath() + "/testPath";
-        auto testFilePath = testPath + "/testFile.tst";
+    // Creating path
+    ASSERT_TRUE(FSWorks::createPath(testPath));
 
-        // Path not exiting
-        QVERIFY(!FSWorks::createFile(testFilePath));
-        QVERIFY(!FSWorks::fileExist(testFilePath));
+    // Creating file
+    ASSERT_TRUE(FSWorks::createFile(testFilePath));
+    ASSERT_TRUE(FSWorks::fileExist(testFilePath));
 
-        // Creating path
-        QVERIFY(FSWorks::createPath(testPath));
+    // Deleting file
+    ASSERT_TRUE(FSWorks::deleteFile(testFilePath));
+    ASSERT_FALSE(FSWorks::deleteFile(testFilePath));  // Already deleted
+    ASSERT_FALSE(FSWorks::fileExist(testFilePath));
 
-        // Creating file
-        QVERIFY(FSWorks::createFile(testFilePath));
-        QVERIFY(FSWorks::fileExist(testFilePath));
-
-        // Deleting file
-        QVERIFY(FSWorks::deleteFile(testFilePath));
-        QVERIFY(!FSWorks::deleteFile(testFilePath)); // Already deleted
-        QVERIFY(!FSWorks::fileExist(testFilePath));
-
-        // Deleting path
-        QVERIFY(FSWorks::deletePath(testPath));
-        QVERIFY(!FSWorks::deletePath(testPath));
-    }
-};
-
-QTEST_APPLESS_MAIN(FSWorksTest)
-
-#include "fsworkstest.moc"
+    // Deleting path
+    ASSERT_TRUE(FSWorks::deletePath(testPath));
+    ASSERT_FALSE(FSWorks::deletePath(testPath));
+}

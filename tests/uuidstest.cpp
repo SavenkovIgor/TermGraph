@@ -21,63 +21,28 @@
 
 #include <memory>
 
-#include <QCoreApplication>
-#include <QtTest>
+#include <gtest/gtest.h>
 
 #include "source/Helpers/uuid/uuidtools.h"
 
-class UuidsTest : public QObject
-{
-    Q_OBJECT
+TEST (UuidsTest, Validator) {
+    EXPECT_TRUE(UuidTools::isValidUuidString("{94810de3-51b8-469e-b316-00248ffa2a45}"));
+    EXPECT_TRUE(UuidTools::isValidUuidString("{94810DE3-51B8-469E-B316-00248FFA2A45}"));
 
-private slots:
-    void validatorDefault_data()
-    {
-        QTest::addColumn<QString>("uuidString");
-        QTest::addColumn<bool>("result");
+    EXPECT_FALSE(UuidTools::isValidUuidString("94810de3-51b8-469e-b316-00248ffa2a45"));
+    EXPECT_FALSE(UuidTools::isValidUuidString("94810DE3-51B8-469E-B316-00248FFA2A45"));
+    EXPECT_FALSE(UuidTools::isValidUuidString(" 999-999 "));
+    EXPECT_FALSE(UuidTools::isValidUuidString("{}"));
+    EXPECT_FALSE(UuidTools::isValidUuidString(""));
+}
 
-        // clang-format off
-        QTest::newRow("case0") << "{94810de3-51b8-469e-b316-00248ffa2a45}" << true;
-        QTest::newRow("case1") << "{94810DE3-51B8-469E-B316-00248FFA2A45}" << true;
-        QTest::newRow("case2") << "94810de3-51b8-469e-b316-00248ffa2a45" << false;
-        QTest::newRow("case3") << "94810DE3-51B8-469E-B316-00248FFA2A45" << false;
-        QTest::newRow("case4") << " 999-999 " << false;
-        QTest::newRow("case5") << "{}" << false;
-        QTest::newRow("case6") << "" << false;
-        // clang-format on
-    }
+TEST (UuidsTest, NoBracesValidator) {
+    EXPECT_TRUE(UuidTools::isValidUuidStringWithoutBraces("94810de3-51b8-469e-b316-00248ffa2a45"));
+    EXPECT_TRUE(UuidTools::isValidUuidStringWithoutBraces("94810DE3-51B8-469E-B316-00248FFA2A45"));
 
-    void validatorDefault()
-    {
-        QFETCH(QString, uuidString);
-        QFETCH(bool, result);
-        QCOMPARE(UuidTools::isValidUuidString(uuidString), result);
-    }
-
-    void validatorWithoutBraces_data()
-    {
-        QTest::addColumn<QString>("uuidString");
-        QTest::addColumn<bool>("result");
-
-        // clang-format off
-        QTest::newRow("case0") << "{94810de3-51b8-469e-b316-00248ffa2a45}" << false;
-        QTest::newRow("case1") << "{94810DE3-51B8-469E-B316-00248FFA2A45}" << false;
-        QTest::newRow("case2") << "94810de3-51b8-469e-b316-00248ffa2a45" << true;
-        QTest::newRow("case3") << "94810DE3-51B8-469E-B316-00248FFA2A45" << true;
-        QTest::newRow("case4") << " 999-999 " << false;
-        QTest::newRow("case5") << "{}" << false;
-        QTest::newRow("case6") << "" << false;
-        // clang-format on
-    }
-
-    void validatorWithoutBraces()
-    {
-        QFETCH(QString, uuidString);
-        QFETCH(bool, result);
-        QCOMPARE(UuidTools::isValidUuidStringWihtoutBraces(uuidString), result);
-    }
-};
-
-QTEST_APPLESS_MAIN(UuidsTest)
-
-#include "uuidstest.moc"
+    EXPECT_FALSE(UuidTools::isValidUuidStringWithoutBraces("{94810de3-51b8-469e-b316-00248ffa2a45}"));
+    EXPECT_FALSE(UuidTools::isValidUuidStringWithoutBraces("{94810DE3-51B8-469E-B316-00248FFA2A45}"));
+    EXPECT_FALSE(UuidTools::isValidUuidStringWithoutBraces(" 999-999 "));
+    EXPECT_FALSE(UuidTools::isValidUuidStringWithoutBraces("{}"));
+    EXPECT_FALSE(UuidTools::isValidUuidStringWithoutBraces(""));
+}

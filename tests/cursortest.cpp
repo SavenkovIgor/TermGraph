@@ -19,304 +19,268 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <memory>
-
-#include <QCoreApplication>
-#include <QtTest>
+#include <gtest/gtest.h>
 
 #include "source/Helpers/text/checkingtextcursor.h"
 #include "source/Helpers/text/textcursor.h"
 
-class CursorTest : public QObject
-{
-    Q_OBJECT
+TEST (CursorTest, InitCheck) {
+    QString str("abc");
 
-private slots:
-    void initCheck()
-    {
-        QString str("abc");
+    auto cursor = TextCursor(str, 1);
+    EXPECT_EQ(cursor.pos(), 1);
+    EXPECT_EQ(cursor.left(), 'a');
+    EXPECT_EQ(cursor.right(), 'b');
+    EXPECT_EQ(cursor.getSymbol(Direction::Left), 'a');
+    EXPECT_EQ(cursor.getSymbol(Direction::Right), 'b');
 
-        auto cursor = TextCursor(str, 1);
-        QCOMPARE(cursor.pos(), 1);
-        QCOMPARE(cursor.left(), 'a');
-        QCOMPARE(cursor.right(), 'b');
-        QCOMPARE(cursor.getSymbol(Direction::Left), 'a');
-        QCOMPARE(cursor.getSymbol(Direction::Right), 'b');
+    auto emptyCursor = TextCursor(QString());
+    EXPECT_EQ(emptyCursor.pos(), 0);
+    EXPECT_EQ(emptyCursor.left(), QChar());
+    EXPECT_EQ(emptyCursor.right(), QChar());
+}
 
-        auto emptyCursor = TextCursor(QString());
-        QCOMPARE(emptyCursor.pos(), 0);
-        QCOMPARE(emptyCursor.left(), QChar());
-        QCOMPARE(emptyCursor.right(), QChar());
-    }
+TEST (CursorTest, MoveCursorLeft) {
+    QString str("abc");
 
-    void moveCursorLeft()
-    {
-        QString str("abc");
+    auto cursor = TextCursor(str, 1);
 
-        auto cursor = TextCursor(str, 1);
+    EXPECT_EQ(cursor.left(), 'a');
+    EXPECT_EQ(cursor.right(), 'b');
 
-        QCOMPARE(cursor.left(), 'a');
-        QCOMPARE(cursor.right(), 'b');
+    cursor--;
 
-        cursor--;
+    EXPECT_EQ(cursor.left(), QChar());
+    EXPECT_EQ(cursor.right(), 'a');
 
-        QCOMPARE(cursor.left(), QChar());
-        QCOMPARE(cursor.right(), 'a');
+    cursor--;
 
-        cursor--;
+    EXPECT_EQ(cursor.left(), QChar());
+    EXPECT_EQ(cursor.right(), 'a');
+}
 
-        QCOMPARE(cursor.left(), QChar());
-        QCOMPARE(cursor.right(), 'a');
-    }
+TEST (CursorTest, MoveCursorRight) {
+    QString str("abc");
 
-    void moveCursorRight()
-    {
-        QString str("abc");
+    auto cursor = TextCursor(str, 2);
 
-        auto cursor = TextCursor(str, 2);
+    EXPECT_EQ(cursor.left(), 'b');
+    EXPECT_EQ(cursor.right(), 'c');
 
-        QCOMPARE(cursor.left(), 'b');
-        QCOMPARE(cursor.right(), 'c');
+    cursor++;
 
-        cursor++;
+    EXPECT_EQ(cursor.left(), 'c');
+    EXPECT_EQ(cursor.right(), QChar());
 
-        QCOMPARE(cursor.left(), 'c');
-        QCOMPARE(cursor.right(), QChar());
+    cursor++;
 
-        cursor++;
+    EXPECT_EQ(cursor.left(), 'c');
+    EXPECT_EQ(cursor.right(), QChar());
+}
 
-        QCOMPARE(cursor.left(), 'c');
-        QCOMPARE(cursor.right(), QChar());
-    }
+TEST (CursorTest, AltMove) {
+    QString str("a");
 
-    void altMove()
-    {
-        QString str("a");
+    auto cursor = TextCursor(str);
 
-        auto cursor = TextCursor(str);
+    EXPECT_EQ(cursor.left(), QChar());
+    EXPECT_EQ(cursor.right(), 'a');
 
-        QCOMPARE(cursor.left(), QChar());
-        QCOMPARE(cursor.right(), 'a');
+    cursor.move(Direction::Right);
 
-        cursor.move(Direction::Right);
+    EXPECT_EQ(cursor.left(), 'a');
+    EXPECT_EQ(cursor.right(), QChar());
 
-        QCOMPARE(cursor.left(), 'a');
-        QCOMPARE(cursor.right(), QChar());
+    cursor.move(Direction::Left);
 
-        cursor.move(Direction::Left);
+    EXPECT_EQ(cursor.left(), QChar());
+    EXPECT_EQ(cursor.right(), 'a');
+}
 
-        QCOMPARE(cursor.left(), QChar());
-        QCOMPARE(cursor.right(), 'a');
-    }
+TEST (CursorTest, EmptyString) {
+    QString str("");
+    auto    cursor = TextCursor(str);
 
-    void emptyString()
-    {
-        QString str("");
-        auto    cursor = TextCursor(str);
+    EXPECT_EQ(cursor.left(), QChar());
+    EXPECT_EQ(cursor.right(), QChar());
+}
 
-        QCOMPARE(cursor.left(), QChar());
-        QCOMPARE(cursor.right(), QChar());
-    }
+TEST (CursorTest, BordersCheck) {
+    QString empty("");
+    auto    cur = TextCursor(empty);
+    EXPECT_TRUE(cur.atStart());
+    EXPECT_TRUE(cur.atEnd());
+    EXPECT_TRUE(cur.atBorder());
 
-    void bordersCheck()
-    {
-        QString empty("");
-        auto    cur = TextCursor(empty);
-        QCOMPARE(cur.atStart(), true);
-        QCOMPARE(cur.atEnd(), true);
-        QCOMPARE(cur.atBorder(), true);
+    QString str("aa");
+    auto    cur2 = TextCursor(str);
 
-        QString str("aa");
-        auto    cur2 = TextCursor(str);
+    EXPECT_TRUE(cur2.atStart());
+    EXPECT_TRUE(cur2.atBorder());
+    EXPECT_FALSE(cur2.atEnd());
 
-        QCOMPARE(cur2.atStart(), true);
-        QCOMPARE(cur2.atEnd(), false);
-        QCOMPARE(cur2.atBorder(), true);
+    cur2++;
+    EXPECT_FALSE(cur2.atStart());
+    EXPECT_FALSE(cur2.atEnd());
+    EXPECT_FALSE(cur2.atBorder());
 
-        cur2++;
-        QCOMPARE(cur2.atStart(), false);
-        QCOMPARE(cur2.atEnd(), false);
-        QCOMPARE(cur2.atBorder(), false);
+    cur2++;
+    EXPECT_FALSE(cur2.atStart());
+    EXPECT_TRUE(cur2.atEnd());
+    EXPECT_TRUE(cur2.atBorder());
+}
 
-        cur2++;
-        QCOMPARE(cur2.atStart(), false);
-        QCOMPARE(cur2.atEnd(), true);
-        QCOMPARE(cur2.atBorder(), true);
-    }
+TEST (CursorTest, PosCheck) {
+    QString str("a");
+    auto    cursor = TextCursor(str);
+    EXPECT_EQ(cursor.pos(), 0);
 
-    void posCheck()
-    {
-        QString str("a");
-        auto    cursor = TextCursor(str);
-        QCOMPARE(cursor.pos(), 0);
-        cursor.move(Direction::Right);
-        QCOMPARE(cursor.pos(), 1);
-        cursor++;
-        QCOMPARE(cursor.pos(), 1);
-        cursor.move(Direction::Left);
-        QCOMPARE(cursor.pos(), 0);
-        cursor--;
-        QCOMPARE(cursor.pos(), 0);
-    }
+    cursor.move(Direction::Right);
+    EXPECT_EQ(cursor.pos(), 1);
 
-    void moveCheck()
-    {
-        QString str("a");
-        auto    cursor = TextCursor(str);
-        QVERIFY(!cursor.canMove(Direction::Left));
-        QVERIFY(cursor.canMove(Direction::Right));
-        cursor++;
-        QVERIFY(cursor.canMove(Direction::Left));
-        QVERIFY(!cursor.canMove(Direction::Right));
-    }
+    cursor++;
+    EXPECT_EQ(cursor.pos(), 1);
 
-    void validCursor_data()
-    {
-        QTest::addColumn<QString>("src");
-        QTest::addColumn<int>("cursorPosition");
-        QTest::addColumn<bool>("result");
+    cursor.move(Direction::Left);
+    EXPECT_EQ(cursor.pos(), 0);
 
-        // clang-format off
-        QTest::newRow("case0") << ""  <<  0 << true;
-        QTest::newRow("case1") << "a" <<  1 << true;
-        QTest::newRow("case2") << "a" <<  0 << true;
+    cursor--;
+    EXPECT_EQ(cursor.pos(), 0);
+}
 
-        QTest::newRow("case0") << ""  << -1 << false;
-        QTest::newRow("case1") << ""  <<  1 << false;
-        QTest::newRow("case2") << "a" << -1 << false;
-        QTest::newRow("case3") << "a" <<  2 << false;
-        // clang-format on
-    }
+TEST (CursorTest, MoveCheck) {
+    QString str("a");
+    auto    cursor = TextCursor(str);
+    EXPECT_TRUE(!cursor.canMove(Direction::Left));
+    EXPECT_TRUE(cursor.canMove(Direction::Right));
 
-    void validCursor()
-    {
-        QFETCH(QString, src);
-        QFETCH(int, cursorPosition);
-        QFETCH(bool, result);
+    cursor++;
+    EXPECT_TRUE(cursor.canMove(Direction::Left));
+    EXPECT_TRUE(!cursor.canMove(Direction::Right));
+}
 
-        QCOMPARE(TextCursor::isValidCursor(src, cursorPosition), result);
-    }
+TEST (CursorTest, ValidCursor) {
+    EXPECT_TRUE(TextCursor::isValidCursor(QString(""), 0));
+    EXPECT_TRUE(TextCursor::isValidCursor(QString("a"), 1));
+    EXPECT_TRUE(TextCursor::isValidCursor(QString("a"), 0));
 
-    void CheckingCursor()
-    {
-        QString            str(" abc a");
-        CheckingTextCursor cursor(str, 1, CharTools::isLetterOrNumber, CharTools::notLetterOrNumber);
+    EXPECT_FALSE(TextCursor::isValidCursor(QString(""), -1));
+    EXPECT_FALSE(TextCursor::isValidCursor(QString(""),  1));
+    EXPECT_FALSE(TextCursor::isValidCursor(QString("a"), -1));
+    EXPECT_FALSE(TextCursor::isValidCursor(QString("a"),  2));
+}
 
-        QCOMPARE(cursor.check(), false);
-        cursor++;
-        cursor++;
-        cursor++;
-        QCOMPARE(cursor.check(), true);
-        cursor++;
-        QCOMPARE(cursor.check(), false);
-        cursor++;
-        QCOMPARE(cursor.check(), true);
-    }
+TEST (CursorTest, CheckingCursor) {
+    QString            str(" abc a");
+    CheckingTextCursor cursor(str, 1, CharTools::isLetterOrNumber, CharTools::notLetterOrNumber);
 
-    void stdCheckingCursors()
-    {
-        QString str(" abc a");
-        auto    lbCursor = CheckingTextCursor::rightWordBorder(str, 1);
-        QCOMPARE(lbCursor.check(), false);
-        lbCursor++;
-        lbCursor++;
-        lbCursor++;
-        QCOMPARE(lbCursor.check(), true);
-        lbCursor++;
-        QCOMPARE(lbCursor.check(), false);
-        lbCursor++;
-        QCOMPARE(lbCursor.check(), true);
+    EXPECT_FALSE(cursor.check());
+    cursor++;
+    cursor++;
+    cursor++;
+    EXPECT_TRUE(cursor.check());
+    cursor++;
+    EXPECT_FALSE(cursor.check());
+    cursor++;
+    EXPECT_TRUE(cursor.check());
+}
 
-        QString str2("ac a");
-        auto    rbCursor = CheckingTextCursor::leftWordBorder(str2, 3);
-        QCOMPARE(rbCursor.check(), true);
-        rbCursor--;
-        QCOMPARE(rbCursor.check(), false);
-        rbCursor--;
-        QCOMPARE(rbCursor.check(), false);
-        rbCursor--;
-        QCOMPARE(rbCursor.check(), true);
-    }
+TEST (CursorTest, StdCheckingCursors) {
+    QString str(" abc a");
+    auto    lbCursor = CheckingTextCursor::rightWordBorder(str, 1);
+    EXPECT_FALSE(lbCursor.check());
+    lbCursor++;
+    lbCursor++;
+    lbCursor++;
+    EXPECT_TRUE(lbCursor.check());
+    lbCursor++;
+    EXPECT_FALSE(lbCursor.check());
+    lbCursor++;
+    EXPECT_TRUE(lbCursor.check());
 
-    void steppingCursor()
-    {
-        QString str(" {abc} a");
-        auto    lCursor = CheckingTextCursor::leftBracketOnRight(str);
-        QCOMPARE(lCursor.search(Direction::Right), true);
-        QCOMPARE(lCursor.pos(), 1);
-        QCOMPARE(lCursor.check(), true);
-        lCursor++;
-        QCOMPARE(lCursor.check(), false);
+    QString str2("ac a");
+    auto    rbCursor = CheckingTextCursor::leftWordBorder(str2, 3);
+    EXPECT_TRUE(rbCursor.check());
+    rbCursor--;
+    EXPECT_FALSE(rbCursor.check());
+    rbCursor--;
+    EXPECT_FALSE(rbCursor.check());
+    rbCursor--;
+    EXPECT_TRUE(rbCursor.check());
+}
 
-        QCOMPARE(lCursor.search(Direction::Right), false);
-        QCOMPARE(lCursor.pos(), 8);
-        QCOMPARE(lCursor.check(), false);
+TEST (CursorTest, SteppingCursor) {
+    QString str(" {abc} a");
+    auto    lCursor = CheckingTextCursor::leftBracketOnRight(str);
+    EXPECT_TRUE(lCursor.search(Direction::Right));
+    EXPECT_EQ(lCursor.pos(), 1);
+    EXPECT_TRUE(lCursor.check());
+    lCursor++;
+    EXPECT_FALSE(lCursor.check());
 
-        auto rCursor = CheckingTextCursor::rightBracketOnLeft(str, 8);
-        QCOMPARE(rCursor.check(), false);
-        QCOMPARE(rCursor.search(Direction::Left), true);
-        QCOMPARE(rCursor.pos(), 6);
-        QCOMPARE(rCursor.check(), true);
-        rCursor--;
-        QCOMPARE(rCursor.check(), false);
+    EXPECT_FALSE(lCursor.search(Direction::Right));
+    EXPECT_EQ(lCursor.pos(), 8);
+    EXPECT_FALSE(lCursor.check());
 
-        QCOMPARE(rCursor.search(Direction::Left), false);
-        QCOMPARE(rCursor.pos(), 0);
-        QCOMPARE(rCursor.check(), false);
+    auto rCursor = CheckingTextCursor::rightBracketOnLeft(str, 8);
+    EXPECT_FALSE(rCursor.check());
+    EXPECT_TRUE(rCursor.search(Direction::Left));
+    EXPECT_EQ(rCursor.pos(), 6);
+    EXPECT_TRUE(rCursor.check());
+    rCursor--;
+    EXPECT_FALSE(rCursor.check());
 
-        auto cursor = CheckingTextCursor::anyBracketOnRight(str);
+    EXPECT_FALSE(rCursor.search(Direction::Left));
+    EXPECT_EQ(rCursor.pos(), 0);
+    EXPECT_FALSE(rCursor.check());
 
-        QCOMPARE(cursor.check(), false);
-        QCOMPARE(cursor.search(Direction::Right), true);
-        QCOMPARE(cursor.pos(), 1);
-        QCOMPARE(cursor.check(), true);
-        cursor++;
-        QCOMPARE(cursor.search(Direction::Right), true);
-        QCOMPARE(cursor.pos(), 5);
-        QCOMPARE(cursor.check(), true);
-        cursor++;
-        QCOMPARE(cursor.search(Direction::Right), false);
-        QCOMPARE(cursor.pos(), 8);
-        QCOMPARE(cursor.check(), false);
-    }
+    auto cursor = CheckingTextCursor::anyBracketOnRight(str);
 
-    void autoSearchCursor()
-    {
-        QString str(" {abc} a");
-        auto    lCursor = CheckingTextCursor::leftBracketOnRight(str, 0, Direction::Right);
-        QCOMPARE(lCursor.pos(), 1);
-        QCOMPARE(lCursor.check(), true);
-        lCursor++;
-        QCOMPARE(lCursor.check(), false);
+    EXPECT_FALSE(cursor.check());
+    EXPECT_TRUE(cursor.search(Direction::Right));
+    EXPECT_EQ(cursor.pos(), 1);
+    EXPECT_TRUE(cursor.check());
+    cursor++;
+    EXPECT_TRUE(cursor.search(Direction::Right));
+    EXPECT_EQ(cursor.pos(), 5);
+    EXPECT_TRUE(cursor.check());
+    cursor++;
+    EXPECT_FALSE(cursor.search(Direction::Right));
+    EXPECT_EQ(cursor.pos(), 8);
+    EXPECT_FALSE(cursor.check());
+}
 
-        QCOMPARE(lCursor.search(Direction::Right), false);
-        QCOMPARE(lCursor.pos(), 8);
-        QCOMPARE(lCursor.check(), false);
+TEST (CursorTest, AutoSearchCursor) {
+    QString str(" {abc} a");
+    auto    lCursor = CheckingTextCursor::leftBracketOnRight(str, 0, Direction::Right);
+    EXPECT_EQ(lCursor.pos(), 1);
+    EXPECT_TRUE(lCursor.check());
+    lCursor++;
+    EXPECT_FALSE(lCursor.check());
 
-        auto rCursor = CheckingTextCursor::rightBracketOnLeft(str, 8, Direction::Left);
-        QCOMPARE(rCursor.pos(), 6);
-        QCOMPARE(rCursor.check(), true);
-        rCursor--;
-        QCOMPARE(rCursor.check(), false);
+    EXPECT_FALSE(lCursor.search(Direction::Right));
+    EXPECT_EQ(lCursor.pos(), 8);
+    EXPECT_FALSE(lCursor.check());
 
-        QCOMPARE(rCursor.search(Direction::Left), false);
-        QCOMPARE(rCursor.pos(), 0);
-        QCOMPARE(rCursor.check(), false);
+    auto rCursor = CheckingTextCursor::rightBracketOnLeft(str, 8, Direction::Left);
+    EXPECT_EQ(rCursor.pos(), 6);
+    EXPECT_TRUE(rCursor.check());
+    rCursor--;
+    EXPECT_FALSE(rCursor.check());
 
-        auto cursor = CheckingTextCursor::anyBracketOnRight(str, 0, Direction::Right);
-        QCOMPARE(cursor.pos(), 1);
-        QCOMPARE(cursor.check(), true);
-        cursor++;
-        QCOMPARE(cursor.search(Direction::Right), true);
-        QCOMPARE(cursor.pos(), 5);
-        QCOMPARE(cursor.check(), true);
-        cursor++;
-        QCOMPARE(cursor.search(Direction::Right), false);
-        QCOMPARE(cursor.pos(), 8);
-        QCOMPARE(cursor.check(), false);
-    }
-};
+    EXPECT_FALSE(rCursor.search(Direction::Left));
+    EXPECT_EQ(rCursor.pos(), 0);
+    EXPECT_FALSE(rCursor.check());
 
-QTEST_APPLESS_MAIN(CursorTest)
-
-#include "cursortest.moc"
+    auto cursor = CheckingTextCursor::anyBracketOnRight(str, 0, Direction::Right);
+    EXPECT_EQ(cursor.pos(), 1);
+    EXPECT_TRUE(cursor.check());
+    cursor++;
+    EXPECT_TRUE(cursor.search(Direction::Right));
+    EXPECT_EQ(cursor.pos(), 5);
+    EXPECT_TRUE(cursor.check());
+    cursor++;
+    EXPECT_FALSE(cursor.search(Direction::Right));
+    EXPECT_EQ(cursor.pos(), 8);
+    EXPECT_FALSE(cursor.check());
+}
