@@ -19,8 +19,6 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <memory>
-
 #include <gtest/gtest.h>
 
 #include "source/Helpers/uuid/uuidtools.h"

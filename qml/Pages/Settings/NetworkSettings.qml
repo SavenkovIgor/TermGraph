@@ -23,6 +23,7 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import Network 1.0
 import Atoms 1.0 as A
 import Molecules 1.0 as M
 import StyleInfo 1.0
@@ -55,19 +56,19 @@ M.Page {
                         Switch {
                             scale: Qt.platform.os === "android" ? 2.0 : 1.0
                             checked: false
-                            onCheckedChanged: { networkManager.synchronization = checked; }
+                            onCheckedChanged: { NetworkManager.synchronization = checked; }
                         }
 
                         Text {
                             font: Fonts.text
                             color: Colors.white
-                            text: networkManager.synchronizationState
+                            text: NetworkManager.synchronizationState
                         }
                     }
 
                     M.LabelPair {
                         name: "Ip этого устройства"
-                        text: networkManager.getFirstLocalIpString()
+                        text: NetworkManager.getFirstLocalIpString()
                     }
                 }
 
@@ -77,24 +78,24 @@ M.Page {
 
         M.TextField {
             labelText: "Ip получателя"
-            onTextChanged: { networkManager.setReceiverHostIp(text) }
-            Component.onCompleted: { text = networkManager.getReceiverIp() }
+            onTextChanged: { NetworkManager.setReceiverHostIp(text) }
+            Component.onCompleted: { text = NetworkManager.getReceiverIp() }
             width: parent.width
         }
 
         M.LabelPair {
             name: "Состояние подключения"
-            text: networkManager.connectionState
+            text: NetworkManager.connectionState
             width: parent.width
         }
 
         A.SquareButton {
-            text: networkManager.isConnected ? "Отключиться" : "Подключиться"
+            text: NetworkManager.isConnected ? "Отключиться" : "Подключиться"
             onClicked:  {
-                if(networkManager.isConnected) {
-                    networkManager.disconnectFromHost()
+                if(NetworkManager.isConnected) {
+                    NetworkManager.disconnectFromHost()
                 } else {
-                    networkManager.connectToHost()
+                    NetworkManager.connectToHost()
                 }
             }
         }

@@ -48,10 +48,10 @@ Application::Application(QObject* parent)
 
     qmlRegisterAnonymousType<PaintedTerm>("Graph", 1);
     qmlRegisterAnonymousType<Edge>("Graph", 1);
+    qmlRegisterSingletonInstance("Network", 1, 0, "NetworkManager", network.get());
 
     qmlEngine->rootContext()->setContextProperty("mainObj", this);
     qmlEngine->rootContext()->setContextProperty("scene", scene.get());
-    qmlEngine->rootContext()->setContextProperty("networkManager", network.get());
     qmlEngine->rootContext()->setContextProperty("groupsManager", groupsManager.get());
     qmlEngine->rootContext()->setContextProperty("nodesManager", nodesManager.get());
     qmlEngine->rootContext()->setContextProperty("syncManager", syncManager.get());
