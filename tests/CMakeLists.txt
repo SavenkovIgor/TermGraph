@@ -53,6 +53,13 @@ add_executable (UUIDS_TEST
 
 test_case_config (UUIDS_TEST)
 
+# GRAPH_TEST
+add_executable(GRAPH_TEST
+    ../source/Model/Base/node.hpp
+    graphtest.cpp)
+
+test_case_config (GRAPH_TEST)
+
 
 # TEXT_CURSOR_TEST
 add_executable (TEXT_CURSOR_TEST

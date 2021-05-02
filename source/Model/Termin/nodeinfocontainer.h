@@ -41,6 +41,7 @@ struct NodeInfoContainer
     QUuid     groupUuid;
     QDateTime lastEdit;
 
+    // TODO: Replace with operator
     bool isEqualTo(const NodeInfoContainer& target)
     {
         if (uuid != target.uuid)
