@@ -49,7 +49,7 @@ public:
         EXPECT_EQ(mStorage->storageVersion(), 2);
         EXPECT_TRUE(mStorage->getAllGroupsUuids().empty());
         EXPECT_TRUE(mStorage->getGroups().empty());
-        EXPECT_TRUE(mStorage->getAllNodesUuids().empty());
+        EXPECT_TRUE(mStorage->getAllTermsUuids().empty());
     }
 
     static void TearDownTestCase() { EXPECT_TRUE(FSWorks::deleteFile(sDbFileName)); }
@@ -160,24 +160,24 @@ TEST_F(DBWorksTest, TermsTest)
     auto withUuid = getGroupWithUuid();
 
     EXPECT_TRUE(mStorage->addGroup(withUuid));
-    EXPECT_TRUE(mStorage->getAllNodesUuids().empty());
+    EXPECT_TRUE(mStorage->getAllTermsUuids().empty());
 
     // Adding terms
 
     auto termList = getTermDataList();
 
     for (auto& term : termList) {
-        EXPECT_FALSE(mStorage->nodeExist(term.uuid));
-        EXPECT_TRUE(mStorage->addNode(term));
-        EXPECT_TRUE(mStorage->nodeExist(term.uuid));
-        EXPECT_EQ(mStorage->findNode(term.term, term.groupUuid), term.uuid);
-        auto gettedTerm = mStorage->getNode(term.uuid);
+        EXPECT_FALSE(mStorage->termExist(term.uuid));
+        EXPECT_TRUE(mStorage->addTerm(term));
+        EXPECT_TRUE(mStorage->termExist(term.uuid));
+        EXPECT_EQ(mStorage->findTerm(term.term, term.groupUuid), term.uuid);
+        auto gettedTerm = mStorage->getTerm(term.uuid);
         term.lastEdit   = gettedTerm.lastEdit; // Last edit was refreshed
         EXPECT_TRUE(gettedTerm.isEqualTo(term));
     }
 
     // Checking all uuids without group
-    auto allTermUuids = mStorage->getAllNodesUuids();
+    auto allTermUuids = mStorage->getAllTermsUuids();
 
     EXPECT_EQ(allTermUuids.size(), termList.size());
     for (const auto& term : termList) {
@@ -186,7 +186,7 @@ TEST_F(DBWorksTest, TermsTest)
     }
 
     // Checking all uuids with group
-    allTermUuids = mStorage->getAllNodesUuids(withUuid.uuid);
+    allTermUuids = mStorage->getAllTermsUuids(withUuid.uuid);
 
     EXPECT_EQ(allTermUuids.size(), termList.size());
     for (const auto& term : termList) {
@@ -202,13 +202,13 @@ TEST_F(DBWorksTest, TermsTest)
         term.wikiUrl += "1";
         term.wikiImage += "1";
 
-        EXPECT_TRUE(mStorage->updateNode(term, DataStorageInterface::LastEditSource::TakeFromNodeInfo));
+        EXPECT_TRUE(mStorage->updateTerm(term, DataStorageInterface::LastEditSource::TakeFromTermData));
 
-        EXPECT_TRUE(term.isEqualTo(mStorage->getNode(term.uuid)));
+        EXPECT_TRUE(term.isEqualTo(mStorage->getTerm(term.uuid)));
     }
 
     for (const auto& term : termList)
-        mStorage->deleteNode(term.uuid);
+        mStorage->deleteTerm(term.uuid);
 
-    EXPECT_TRUE(mStorage->getAllNodesUuids().empty());
+    EXPECT_TRUE(mStorage->getAllTermsUuids().empty());
 }

@@ -33,7 +33,7 @@
 class DataStorageInterface
 {
 public:
-    enum LastEditSource { TakeFromNodeInfo = 0, AutoGenerate };
+    enum LastEditSource { TakeFromTermData = 0, AutoGenerate };
 
     // Storage
     virtual int storageVersion() const = 0;
@@ -49,17 +49,17 @@ public:
     virtual bool updateGroup(const GroupInfoContainer& info)   = 0;
     virtual void deleteGroup(const QUuid& groupUuid)           = 0;
 
-    // Nodes
-    virtual UuidList getAllNodesUuids(const QUuid& groupUuid = QUuid()) const = 0;
+    // Terms
+    virtual UuidList getAllTermsUuids(const QUuid& groupUuid = QUuid()) const = 0;
 
-    virtual bool           nodeExist(const QUuid& nodeUuid) const                          = 0;
-    virtual QUuid          findNode(const QString& nodeName, const QUuid& groupUuid) const = 0;
-    virtual TermData       getNode(const QUuid& nodeUuid) const                            = 0;
-    virtual TermData::List getNodes(const QUuid& groupUuid) const                          = 0;
-    virtual TermData::List getNodes(const UuidList& nodesUuids) const                      = 0;
-    virtual QDateTime      getNodeLastEdit(const QUuid& nodeUuid) const                    = 0;
+    virtual bool           termExist(const QUuid& termUuid) const                          = 0;
+    virtual QUuid          findTerm(const QString& termName, const QUuid& groupUuid) const = 0;
+    virtual TermData       getTerm(const QUuid& termUuid) const                            = 0;
+    virtual TermData::List getTerms(const QUuid& groupUuid) const                          = 0;
+    virtual TermData::List getTerms(const UuidList& termsUuids) const                      = 0;
+    virtual QDateTime      getTermLastEdit(const QUuid& termUuid) const                    = 0;
 
-    virtual bool addNode(const TermData& info)                                                              = 0;
-    virtual bool updateNode(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit = true) = 0;
-    virtual void deleteNode(const QUuid& nodeUuid)                                                          = 0;
+    virtual bool addTerm(const TermData& data)                                                              = 0;
+    virtual bool updateTerm(const TermData& data, LastEditSource lastEditSource, bool checkLastEdit = true) = 0;
+    virtual void deleteTerm(const QUuid& termUuid)                                                          = 0;
 };

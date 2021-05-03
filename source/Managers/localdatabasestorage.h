@@ -35,30 +35,30 @@ public:
 public:
     int storageVersion() const override;
 
-    UuidList getAllGroupsUuids(bool sortByLastEdit) const override;
+    UuidList getAllGroupsUuids(bool sortByLastEdit) const final;
 
     // Add getFreeUuid for groups
-    bool                     groupExist(const QUuid& groupUuid) const override;
-    GroupInfoContainer       getGroup(const QUuid& groupUuid) const override;
-    GroupInfoContainer::List getGroups() const override;
+    bool                     groupExist(const QUuid& groupUuid) const final;
+    GroupInfoContainer       getGroup(const QUuid& groupUuid) const final;
+    GroupInfoContainer::List getGroups() const final;
 
-    bool addGroup(const GroupInfoContainer& groupInfo) override;
-    bool updateGroup(const GroupInfoContainer& info) override;
-    void deleteGroup(const QUuid& groupUuid) override;
+    bool addGroup(const GroupInfoContainer& groupInfo) final;
+    bool updateGroup(const GroupInfoContainer& info) final;
+    void deleteGroup(const QUuid& groupUuid) final;
 
-    UuidList getAllNodesUuids(const QUuid& groupUuid) const override;
+    UuidList getAllTermsUuids(const QUuid& groupUuid) const final;
 
     // Add getFreeUuid for nodes
-    bool           nodeExist(const QUuid& nodeUuid) const override;
-    QUuid          findNode(const QString& nodeName, const QUuid& groupUuid) const override;
-    TermData       getNode(const QUuid& nodeUuid) const override;
-    TermData::List getNodes(const QUuid& groupUuid) const override;
-    TermData::List getNodes(const UuidList& nodesUuids) const override;
-    QDateTime      getNodeLastEdit(const QUuid& nodeUuid) const override;
+    bool           termExist(const QUuid& termUuid) const final;
+    QUuid          findTerm(const QString& termName, const QUuid& groupUuid) const final;
+    TermData       getTerm(const QUuid& termUuid) const final;
+    TermData::List getTerms(const QUuid& groupUuid) const final;
+    TermData::List getTerms(const UuidList& termsUuids) const final;
+    QDateTime      getTermLastEdit(const QUuid& termUuid) const final;
 
-    bool addNode(const TermData& info) override;
-    bool updateNode(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) override;
-    void deleteNode(const QUuid& nodeUuid) override;
+    bool addTerm(const TermData& info) final;
+    bool updateTerm(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) final;
+    void deleteTerm(const QUuid& termUuid) final;
 
 private:
     Database db;

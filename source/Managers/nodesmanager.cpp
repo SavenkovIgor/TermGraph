@@ -52,7 +52,7 @@ bool NodesManager::addNewNode(const QString& name,
     info.examples    = exam;
     info.groupUuid   = groupUuid;
 
-    dataStorage.addNode(info);
+    dataStorage.addTerm(info);
 
     if (sendChangeSignal)
         emit nodeChanged();
@@ -81,7 +81,7 @@ bool NodesManager::changeNode(const QUuid&   nodeUuid,
     }
 
     // Check for already existing node with same name
-    auto alterNodeUuid = dataStorage.findNode(name, groupUuid);
+    auto alterNodeUuid = dataStorage.findTerm(name, groupUuid);
     if (!alterNodeUuid.isNull() && alterNodeUuid != nodeUuid) {
         NotificationManager::showWarning("Термин с таким названием уже существует в этой группе");
         return false;
@@ -96,7 +96,7 @@ bool NodesManager::changeNode(const QUuid&   nodeUuid,
     info.examples    = example;
     info.groupUuid   = groupUuid;
 
-    dataStorage.updateNode(info, DataStorageInterface::LastEditSource::AutoGenerate, false);
+    dataStorage.updateTerm(info, DataStorageInterface::LastEditSource::AutoGenerate, false);
 
     if (sendChangeSignal) {
         emit nodeChanged();
@@ -107,7 +107,7 @@ bool NodesManager::changeNode(const QUuid&   nodeUuid,
 
 void NodesManager::deleteNode(const QUuid uuid)
 {
-    dataStorage.deleteNode(uuid);
+    dataStorage.deleteTerm(uuid);
     emit nodeChanged();
 }
 
@@ -115,7 +115,7 @@ PaintedTerm::List NodesManager::getAllNodesForGroup(const QUuid& groupUuid)
 {
     PaintedTerm::List ret;
 
-    auto nodesInfo = dataStorage.getNodes(groupUuid);
+    auto nodesInfo = dataStorage.getTerms(groupUuid);
 
     for (const auto& info : nodesInfo)
         ret << new PaintedTerm(info);
@@ -125,10 +125,10 @@ PaintedTerm::List NodesManager::getAllNodesForGroup(const QUuid& groupUuid)
 
 UuidList NodesManager::getAllNodesUuidsInGroup(const QUuid& groupUuid)
 {
-    return dataStorage.getAllNodesUuids(groupUuid);
+    return dataStorage.getAllTermsUuids(groupUuid);
 }
 
-QDateTime NodesManager::getLastEdit(QUuid nodeUuid) { return dataStorage.getNodeLastEdit(nodeUuid); }
+QDateTime NodesManager::getLastEdit(QUuid nodeUuid) { return dataStorage.getTermLastEdit(nodeUuid); }
 
 void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIfGroupNotExist)
 {
@@ -147,16 +147,16 @@ void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIf
     }
 
     // Create
-    if (!dataStorage.nodeExist(info.uuid)) {
-        dataStorage.addNode(info);
+    if (!dataStorage.termExist(info.uuid)) {
+        dataStorage.addTerm(info);
     } else {
-        dataStorage.updateNode(info, DataStorageInterface::LastEditSource::TakeFromNodeInfo);
+        dataStorage.updateTerm(info, DataStorageInterface::LastEditSource::TakeFromTermData);
     }
 }
 
 QJsonObject NodesManager::getNodeJson(const QUuid& uuid) const
 {
-    auto info = dataStorage.getNode(uuid);
+    auto info = dataStorage.getTerm(uuid);
     return JsonTermDataParser::toJson(info);
 }
 
@@ -177,7 +177,7 @@ bool NodesManager::correctGroupUuid(const QUuid& groupUuid)
 
 bool NodesManager::correctNewNodeName(const QString& name, QUuid& groupUuid)
 {
-    auto nodeUuid = dataStorage.findNode(name, groupUuid);
+    auto nodeUuid = dataStorage.findTerm(name, groupUuid);
 
     if (!nodeUuid.isNull()) {
         NotificationManager::showError("Термин с таким названием уже существует в этой группе");

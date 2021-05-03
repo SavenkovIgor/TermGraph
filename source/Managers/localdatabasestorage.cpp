@@ -91,39 +91,39 @@ bool LocalDatabaseStorage::updateGroup(const GroupInfoContainer& info) { return 
 
 void LocalDatabaseStorage::deleteGroup(const QUuid& groupUuid) { db.groupTable->deleteGroup(groupUuid); }
 
-UuidList LocalDatabaseStorage::getAllNodesUuids(const QUuid& groupUuid) const
+UuidList LocalDatabaseStorage::getAllTermsUuids(const QUuid& groupUuid) const
 {
     return db.termTable->getAllNodesUuids(groupUuid);
 }
 
-bool LocalDatabaseStorage::nodeExist(const QUuid& nodeUuid) const { return db.termTable->nodeExist(nodeUuid); }
+bool LocalDatabaseStorage::termExist(const QUuid& nodeUuid) const { return db.termTable->nodeExist(nodeUuid); }
 
-QUuid LocalDatabaseStorage::findNode(const QString& nodeName, const QUuid& groupUuid) const
+QUuid LocalDatabaseStorage::findTerm(const QString& nodeName, const QUuid& groupUuid) const
 {
     return db.termTable->nodeUuidForNameAndGroup(nodeName, groupUuid);
 }
 
-TermData LocalDatabaseStorage::getNode(const QUuid& nodeUuid) const { return db.termTable->getNodeInfo(nodeUuid); }
+TermData LocalDatabaseStorage::getTerm(const QUuid& nodeUuid) const { return db.termTable->getNodeInfo(nodeUuid); }
 
-TermData::List LocalDatabaseStorage::getNodes(const QUuid& groupUuid) const
+TermData::List LocalDatabaseStorage::getTerms(const QUuid& groupUuid) const
 {
     return db.termTable->getAllNodesInfo(groupUuid);
 }
 
-TermData::List LocalDatabaseStorage::getNodes(const UuidList& nodesUuids) const { return {}; }
+TermData::List LocalDatabaseStorage::getTerms(const UuidList& termsUuids) const { return {}; }
 
-QDateTime LocalDatabaseStorage::getNodeLastEdit(const QUuid& nodeUuid) const
+QDateTime LocalDatabaseStorage::getTermLastEdit(const QUuid& nodeUuid) const
 {
     return db.termTable->getLastEdit(nodeUuid);
 }
 
-bool LocalDatabaseStorage::addNode(const TermData& info) { return db.termTable->addNode(info); }
+bool LocalDatabaseStorage::addTerm(const TermData& info) { return db.termTable->addNode(info); }
 
-bool LocalDatabaseStorage::updateNode(const TermData&                      info,
+bool LocalDatabaseStorage::updateTerm(const TermData&                      info,
                                       DataStorageInterface::LastEditSource lastEditSource,
                                       bool                                 checkLastEdit)
 {
     return db.termTable->updateNode(info, lastEditSource, checkLastEdit);
 }
 
-void LocalDatabaseStorage::deleteNode(const QUuid& nodeUuid) { return db.termTable->deleteTerm(nodeUuid); }
+void LocalDatabaseStorage::deleteTerm(const QUuid& nodeUuid) { return db.termTable->deleteTerm(nodeUuid); }

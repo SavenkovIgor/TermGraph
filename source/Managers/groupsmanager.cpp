@@ -237,7 +237,7 @@ QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
     auto info      = dataStorage.getGroup(groupUuid);
     auto groupJson = JsonGroupInfoContainerParser::toJson(info);
 
-    auto nodesUuids = dataStorage.getAllNodesUuids(groupUuid);
+    auto nodesUuids = dataStorage.getAllTermsUuids(groupUuid);
 
     QJsonArray nodesArray;
 
