@@ -31,7 +31,7 @@
 #include "source/Helpers/fsworks.h"
 #include "source/Managers/groupsmanager.h"
 #include "source/Managers/nodesmanager.h"
-#include "source/Model/Termin/nodegadgetwrapper.h"
+#include "source/Model/Termin/termdatawrapper.h"
 #include "source/Model/TerminGroup/termgroup.h"
 
 class MainScene : public QObject
@@ -51,7 +51,7 @@ public:
     Q_PROPERTY(bool groupLoading READ isGroupLoading NOTIFY groupLoadingChanged)
 
     // Node
-    Q_PROPERTY(NodeGadgetWrapper currentNode READ getCurrentNode NOTIFY selectionChanged)
+    Q_PROPERTY(TermDataWrapper currentNode READ getCurrentNode NOTIFY selectionChanged)
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
     Q_PROPERTY(QString currNodeNameAndDefinition READ getCurrNodeNameAndDefinition NOTIFY selectionChanged)
     Q_PROPERTY(QString currNodeHierarchyDefinition READ getCurrNodeHierarchyDefinition NOTIFY selectionChanged)
@@ -124,10 +124,10 @@ private: // Methods
     void         selectTerm(PaintedTerm* term, bool needRepaint = true);
     void         dropTermSelection(bool needRepaint = false);
 
-    PaintedTerm*      findTerm(const QUuid& termUuid) const;
-    NodeGadgetWrapper getCurrentNode();
-    TermGroup*        getCurrentGroup() const;
-    bool              hasCurrentGroup() const;
+    PaintedTerm*    findTerm(const QUuid& termUuid) const;
+    TermDataWrapper getCurrentNode();
+    TermGroup*      getCurrentGroup() const;
+    bool            hasCurrentGroup() const;
 
     void findClick(const QPointF& atPt);
 

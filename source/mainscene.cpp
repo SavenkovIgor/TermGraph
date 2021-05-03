@@ -271,13 +271,13 @@ QUuid MainScene::termNameToUuid(const QString termName) const
     return node ? node->info().uuid : QUuid();
 }
 
-NodeGadgetWrapper MainScene::getCurrentNode()
+TermDataWrapper MainScene::getCurrentNode()
 {
     if (auto* node = getSelectedTerm()) {
-        return NodeGadgetWrapper(node->info());
+        return TermDataWrapper(node->info());
     }
 
-    return NodeGadgetWrapper();
+    return TermDataWrapper();
 }
 
 TermGroup* MainScene::getCurrentGroup() const { return mCurrentGroup.get(); }

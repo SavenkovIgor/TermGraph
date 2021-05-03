@@ -40,7 +40,7 @@
 // TODO: What about import versions in qml?
 // TODO: Replace Components with component properties
 // TODO: Create GroupsModel
-// TODO: NodeGadgetWrapper to lowercase
+// TODO: TermDataWrapper to lowercase
 // TODO: What is "QQmlEngine::setContextForObject(): Object already has a QQmlContext"
 // TODO: What with versioning in my qmldirs?
 // TODO: Move getUiElementSize to separate class (maybe singleton+properties)

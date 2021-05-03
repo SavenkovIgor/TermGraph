@@ -67,7 +67,7 @@ void LinksHardeningManager::setGroup(TermGroup *group)
     mCurrentGroup = group;
 }
 
-void LinksHardeningManager::setTerm(NodeGadgetWrapper termWrapper)
+void LinksHardeningManager::setTerm(TermDataWrapper termWrapper)
 {
     assert(!termWrapper.isNull());
     mCurrentTerm       = termWrapper;
@@ -141,13 +141,13 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
     return ret;
 }
 
-NodeGadgetWrapper LinksHardeningManager::appliedReplacement()
+TermDataWrapper LinksHardeningManager::appliedReplacement()
 {
     auto ret        = mCurrentTerm;
     auto definition = applyLinkUuids(mCurrentDefinition, mReplacePreparations);
     ret.setDefinition(definition);
 
-    return NodeGadgetWrapper(ret);
+    return TermDataWrapper(ret);
 }
 
 void LinksHardeningManager::updateNearestVariants()

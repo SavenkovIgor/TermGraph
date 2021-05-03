@@ -25,7 +25,7 @@
 
 #include "source/Model/Termin/termdata.h"
 
-class NodeGadgetWrapper
+class TermDataWrapper
 {
     Q_GADGET
 
@@ -40,8 +40,8 @@ public:
     Q_PROPERTY(QString groupUuid READ getGroupUuid WRITE setGroupUuid)
     Q_PROPERTY(QString lastEdit READ getLastEdit)
 
-    NodeGadgetWrapper() = default;
-    NodeGadgetWrapper(const TermData& info);
+    TermDataWrapper() = default;
+    TermDataWrapper(const TermData& info);
 
     Q_INVOKABLE bool isNull() const;
 
@@ -84,7 +84,7 @@ public:
     TermData unwrap() const;
 
 private:
-    TermData _info;
+    TermData mInfo;
 };
 
-Q_DECLARE_METATYPE(NodeGadgetWrapper)
+Q_DECLARE_METATYPE(TermDataWrapper)

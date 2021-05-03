@@ -27,8 +27,8 @@
 
 #include "source/Helpers/handytypes.h"
 #include "source/Helpers/link/linksstring.h"
-#include "source/Model/Termin/nodegadgetwrapper.h"
 #include "source/Model/Termin/paintedterm.h"
+#include "source/Model/Termin/termdatawrapper.h"
 #include "source/Model/TerminGroup/termgroup.h"
 
 class LinksHardeningManager : public QAbstractListModel
@@ -56,7 +56,7 @@ public:
     int rowCount(const QModelIndex& parent = QModelIndex()) const final;
 
     Q_INVOKABLE void setGroup(TermGroup* group);
-    Q_INVOKABLE void setTerm(NodeGadgetWrapper termWrapper);
+    Q_INVOKABLE void setTerm(TermDataWrapper termWrapper);
 
     Q_INVOKABLE void prev();
     Q_INVOKABLE void next();
@@ -65,7 +65,7 @@ public:
 
     SearchResultList getNearestVariants(int limit = 4);
 
-    Q_INVOKABLE NodeGadgetWrapper appliedReplacement();
+    Q_INVOKABLE TermDataWrapper appliedReplacement();
 
 signals:
     void indexChanged();
@@ -93,7 +93,7 @@ private: // Methods
 
 private: // Members
     TermGroup*                  mCurrentGroup = nullptr;
-    NodeGadgetWrapper           mCurrentTerm;
+    TermDataWrapper             mCurrentTerm;
     QString                     mCurrentDefinition;
     QScopedPointer<LinksString> mLinksString;
 
