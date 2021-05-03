@@ -23,7 +23,7 @@
 #include "source/Database/database.h"
 #include "source/Helpers/appconfig.h"
 #include "source/Managers/datastorageinterface.h"
-#include "source/Model/Termin/nodeinfocontainer.h"
+#include "source/Model/Termin/termdata.h"
 #include "source/Model/TerminGroup/groupinfocontainer.h"
 
 class LocalDatabaseStorage : public DataStorageInterface
@@ -49,15 +49,15 @@ public:
     UuidList getAllNodesUuids(const QUuid& groupUuid) const override;
 
     // Add getFreeUuid for nodes
-    bool                    nodeExist(const QUuid& nodeUuid) const override;
-    QUuid                   findNode(const QString& nodeName, const QUuid& groupUuid) const override;
-    NodeInfoContainer       getNode(const QUuid& nodeUuid) const override;
-    NodeInfoContainer::List getNodes(const QUuid& groupUuid) const override;
-    NodeInfoContainer::List getNodes(const UuidList& nodesUuids) const override;
-    QDateTime               getNodeLastEdit(const QUuid& nodeUuid) const override;
+    bool           nodeExist(const QUuid& nodeUuid) const override;
+    QUuid          findNode(const QString& nodeName, const QUuid& groupUuid) const override;
+    TermData       getNode(const QUuid& nodeUuid) const override;
+    TermData::List getNodes(const QUuid& groupUuid) const override;
+    TermData::List getNodes(const UuidList& nodesUuids) const override;
+    QDateTime      getNodeLastEdit(const QUuid& nodeUuid) const override;
 
-    bool addNode(const NodeInfoContainer& info) override;
-    bool updateNode(const NodeInfoContainer& info, LastEditSource lastEditSource, bool checkLastEdit) override;
+    bool addNode(const TermData& info) override;
+    bool updateNode(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) override;
     void deleteNode(const QUuid& nodeUuid) override;
 
 private:

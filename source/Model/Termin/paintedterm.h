@@ -52,7 +52,7 @@ class PaintedTerm : public QObject, public GraphTerm, public GraphicItem
     QRectF rect() const;
 
 public:
-    PaintedTerm(const NodeInfoContainer& info, QObject* parent = nullptr);
+    PaintedTerm(const TermData& info, QObject* parent = nullptr);
     ~PaintedTerm() override = default;
 
     using List = QList<PaintedTerm*>;

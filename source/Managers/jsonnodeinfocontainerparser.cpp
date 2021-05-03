@@ -21,9 +21,9 @@
 
 #include "source/Managers/jsonnodeinfocontainerparser.h"
 
-NodeInfoContainer JsonNodeInfoContainerParser::fromJson(const QJsonObject& jsonObj)
+TermData JsonNodeInfoContainerParser::fromJson(const QJsonObject& jsonObj)
 {
-    NodeInfoContainer info;
+    TermData info;
 
     info.uuid = QUuid(jsonObj["uuid"].toString());
 
@@ -44,7 +44,7 @@ NodeInfoContainer JsonNodeInfoContainerParser::fromJson(const QJsonObject& jsonO
     return info;
 }
 
-QJsonObject JsonNodeInfoContainerParser::toJson(const NodeInfoContainer& info)
+QJsonObject JsonNodeInfoContainerParser::toJson(const TermData& info)
 {
     QJsonObject ret;
 

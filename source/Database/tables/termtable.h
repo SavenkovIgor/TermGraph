@@ -23,7 +23,7 @@
 
 #include "source/Helpers/handytypes.h"
 #include "source/Managers/datastorageinterface.h"
-#include "source/Model/Termin/nodeinfocontainer.h"
+#include "source/Model/Termin/termdata.h"
 
 class TermTable
 {
@@ -33,18 +33,18 @@ public:
 
     QUuid nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const;
 
-    bool addNode(const NodeInfoContainer& info);
+    bool addNode(const TermData& info);
 
     bool nodeExist(const QUuid& nodeUuid);
 
-    UuidList                getAllNodesUuids(const QUuid& groupUuid = QUuid());
-    NodeInfoContainer       getNodeInfo(const QUuid& uuid);
-    NodeInfoContainer::List getAllNodesInfo(const QUuid& groupUuid);
+    UuidList       getAllNodesUuids(const QUuid& groupUuid = QUuid());
+    TermData       getNodeInfo(const QUuid& uuid);
+    TermData::List getAllNodesInfo(const QUuid& groupUuid);
 
     QDateTime  getLastEdit(const QUuid& uuid);
     RecordList getAllLastEditRecords();
 
-    bool updateNode(const NodeInfoContainer&             info,
+    bool updateNode(const TermData&                      info,
                     DataStorageInterface::LastEditSource lastEditSource,
                     bool                                 checkLastEdit = true);
     void deleteTerm(const QUuid& termUuid);
@@ -58,5 +58,5 @@ private:
 
     static QDateTime getLastEditNow();
 
-    NodeInfoContainer recordToNodeInfo(QSqlRecord& record);
+    TermData recordToNodeInfo(QSqlRecord& record);
 };

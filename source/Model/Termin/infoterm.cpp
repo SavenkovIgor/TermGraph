@@ -29,7 +29,7 @@
 #include "source/Helpers/text/textutils.h"
 
 // Initialization order is important!
-InfoTerm::InfoTerm(const NodeInfoContainer& info)
+InfoTerm::InfoTerm(const TermData& info)
     : mInfo(info)
     , mLowerTerm(info.term.toLower())
     , mDecoratedTerm(getDecoratedTerm(info.term))
@@ -37,7 +37,7 @@ InfoTerm::InfoTerm(const NodeInfoContainer& info)
     , mLinksDefinition(info.definition)
 {}
 
-const NodeInfoContainer& InfoTerm::info() const { return mInfo; }
+const TermData& InfoTerm::info() const { return mInfo; }
 
 bool InfoTerm::isNull() const { return mInfo.isNull(); }
 

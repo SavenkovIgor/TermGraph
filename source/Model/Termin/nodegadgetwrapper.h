@@ -23,7 +23,7 @@
 
 #include <QObject>
 
-#include "source/Model/Termin/nodeinfocontainer.h"
+#include "source/Model/Termin/termdata.h"
 
 class NodeGadgetWrapper
 {
@@ -41,7 +41,7 @@ public:
     Q_PROPERTY(QString lastEdit READ getLastEdit)
 
     NodeGadgetWrapper() = default;
-    NodeGadgetWrapper(const NodeInfoContainer& info);
+    NodeGadgetWrapper(const TermData& info);
 
     Q_INVOKABLE bool isNull() const;
 
@@ -81,10 +81,10 @@ public:
     // Not editable...
     QString getLastEdit() const;
 
-    NodeInfoContainer unwrap() const;
+    TermData unwrap() const;
 
 private:
-    NodeInfoContainer _info;
+    TermData _info;
 };
 
 Q_DECLARE_METATYPE(NodeGadgetWrapper)

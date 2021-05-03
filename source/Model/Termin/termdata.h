@@ -27,9 +27,9 @@
 #include <QString>
 #include <QUuid>
 
-struct NodeInfoContainer
+struct TermData
 {
-    using List = std::vector<NodeInfoContainer>;
+    using List = std::vector<TermData>;
 
     QUuid     uuid;
     QString   term;
@@ -42,7 +42,7 @@ struct NodeInfoContainer
     QDateTime lastEdit;
 
     // TODO: Replace with operator
-    bool isEqualTo(const NodeInfoContainer& target)
+    bool isEqualTo(const TermData& target)
     {
         if (uuid != target.uuid)
             return false;

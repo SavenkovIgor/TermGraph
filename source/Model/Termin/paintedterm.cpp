@@ -29,7 +29,7 @@ bool PaintedTerm::someoneSelect = false;
 
 QList<Qt::Edge> PaintedTerm::sides;
 
-PaintedTerm::PaintedTerm(const NodeInfoContainer& info, QObject* parent)
+PaintedTerm::PaintedTerm(const TermData& info, QObject* parent)
     : QObject(parent)
     , GraphTerm(info)
     , GraphicItem()
@@ -43,12 +43,9 @@ PaintedTerm::PaintedTerm(const NodeInfoContainer& info, QObject* parent)
     adjustRectSizeForName();
 }
 
-QRectF PaintedTerm::rect() const
-{
-    return getNodeRect(CoordType::scene);
-}
+QRectF PaintedTerm::rect() const { return getNodeRect(CoordType::scene); }
 
-int PaintedTerm::getUpLevels([[maybe_unused]] int pLevel)  // TODO: check why plevel unused
+int PaintedTerm::getUpLevels([[maybe_unused]] int pLevel) // TODO: check why plevel unused
 {
     int ret = -1;
     for (GraphTerm* t : getLeafNodes()) {
@@ -97,17 +94,13 @@ QLineF PaintedTerm::getRectLine(Qt::Edge side)
     QRectF rc = getNodeRect(CoordType::local);
 
     switch (side) {
-    case Qt::TopEdge:
-        return QLineF(rc.topLeft(), rc.topRight());
+    case Qt::TopEdge: return QLineF(rc.topLeft(), rc.topRight());
 
-    case Qt::RightEdge:
-        return QLineF(rc.topRight(), rc.bottomRight());
+    case Qt::RightEdge: return QLineF(rc.topRight(), rc.bottomRight());
 
-    case Qt::BottomEdge:
-        return QLineF(rc.bottomLeft(), rc.bottomRight());
+    case Qt::BottomEdge: return QLineF(rc.bottomLeft(), rc.bottomRight());
 
-    case Qt::LeftEdge:
-        return QLineF(rc.topLeft(), rc.bottomLeft());
+    case Qt::LeftEdge: return QLineF(rc.topLeft(), rc.bottomLeft());
     }
     return QLineF();
 }
@@ -115,15 +108,12 @@ QLineF PaintedTerm::getRectLine(Qt::Edge side)
 QRectF PaintedTerm::getNodeRect(CoordType inCoordinates) const
 {
     switch (inCoordinates) {
-    case CoordType::zeroPoint:
-        return QRectF(QPointF(), nodeSize);
-    case CoordType::local:
-        return QRectF(pos(), nodeSize);
-    case CoordType::scene:
-        return QRectF(scenePos(), nodeSize);
+    case CoordType::zeroPoint: return QRectF(QPointF(), nodeSize);
+    case CoordType::local: return QRectF(pos(), nodeSize);
+    case CoordType::scene: return QRectF(scenePos(), nodeSize);
     }
 
-    assert(false);  // must be unreachable
+    assert(false); // must be unreachable
     return QRectF();
 }
 
@@ -134,10 +124,7 @@ QRectF PaintedTerm::getFrameRect(CoordType inCoordinates) const
     return addMarginsToRect(ret, val);
 }
 
-QPointF PaintedTerm::getCenter(CoordType inCoordinates) const
-{
-    return getNodeRect(inCoordinates).center();
-}
+QPointF PaintedTerm::getCenter(CoordType inCoordinates) const { return getNodeRect(inCoordinates).center(); }
 
 QRectF PaintedTerm::addMarginsToRect(QRectF rc, qreal mrg)
 {
@@ -145,15 +132,9 @@ QRectF PaintedTerm::addMarginsToRect(QRectF rc, qreal mrg)
     return rc.marginsAdded(mrgObj);
 }
 
-void PaintedTerm::updateCornerRadius()
-{
-    mCornerRadius = nodeSize.height() * 0.2;
-}
+void PaintedTerm::updateCornerRadius() { mCornerRadius = nodeSize.height() * 0.2; }
 
-QColor PaintedTerm::color() const
-{
-    return baseColor(getNodeType(), isSelectedAnyway());
-}
+QColor PaintedTerm::color() const { return baseColor(getNodeType(), isSelectedAnyway()); }
 
 void PaintedTerm::adjustRectSizeForName()
 {
@@ -166,31 +147,24 @@ void PaintedTerm::adjustRectSizeForName()
 QColor PaintedTerm::baseColor(NodeType type, bool selected)
 {
     switch (type) {
-    case NodeType::orphan:
-        return selected ? AppStyle::Colors::Nodes::orphanSelected : AppStyle::Colors::Nodes::orphan;
-    case NodeType::root:
-        return selected ? AppStyle::Colors::Nodes::rootSelected : AppStyle::Colors::Nodes::root;
-    case NodeType::endLeaf:
-        return selected ? AppStyle::Colors::Nodes::leafSelected : AppStyle::Colors::Nodes::leaf;
-    case NodeType::middleLeaf:
-        return selected ? AppStyle::Colors::Nodes::leafSelected : AppStyle::Colors::Nodes::leaf;
+    case NodeType::orphan: return selected ? AppStyle::Colors::Nodes::orphanSelected : AppStyle::Colors::Nodes::orphan;
+    case NodeType::root: return selected ? AppStyle::Colors::Nodes::rootSelected : AppStyle::Colors::Nodes::root;
+    case NodeType::endLeaf: return selected ? AppStyle::Colors::Nodes::leafSelected : AppStyle::Colors::Nodes::leaf;
+    case NodeType::middleLeaf: return selected ? AppStyle::Colors::Nodes::leafSelected : AppStyle::Colors::Nodes::leaf;
     }
 
-    assert(false);  // must be unreachable
+    assert(false); // must be unreachable
     return AppStyle::Colors::Nodes::orphan;
 }
 
-qreal PaintedTerm::cornerRadius() const
-{
-    return mCornerRadius;
-}
+qreal PaintedTerm::cornerRadius() const { return mCornerRadius; }
 
 void PaintedTerm::setSelection(const bool& selected)
 {
     if (mThisSelected != selected) {
         mThisSelected = selected;
 
-        someoneSelect = selected;
+        someoneSelect  = selected;
         mRelativePaint = selected;
 
         setRelatedPaintDown(selected);
@@ -200,15 +174,9 @@ void PaintedTerm::setSelection(const bool& selected)
     }
 }
 
-bool PaintedTerm::isSelectedAnyway() const
-{
-    return mThisSelected || mRelativePaint;
-}
+bool PaintedTerm::isSelectedAnyway() const { return mThisSelected || mRelativePaint; }
 
-bool PaintedTerm::isThisSelected() const
-{
-    return mThisSelected;
-}
+bool PaintedTerm::isThisSelected() const { return mThisSelected; }
 
 opt<QPointF> PaintedTerm::optimalRootsBasedPosition() const
 {
@@ -232,7 +200,4 @@ opt<QPointF> PaintedTerm::optimalRootsBasedPosition() const
     return centerPoint;
 }
 
-QString PaintedTerm::decoratedTerm() const
-{
-    return additionalInfo().decoratedTerm();
-}
+QString PaintedTerm::decoratedTerm() const { return additionalInfo().decoratedTerm(); }

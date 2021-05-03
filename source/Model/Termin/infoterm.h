@@ -26,16 +26,16 @@
 
 #include "source/Helpers/link/link.h"
 #include "source/Helpers/link/linksstring.h"
-#include "source/Model/Termin/nodeinfocontainer.h"
+#include "source/Model/Termin/termdata.h"
 
 // Const wrapper over NodeInfoContainer + some additional stuff
 class InfoTerm
 {
 public:
-    explicit InfoTerm(const NodeInfoContainer& info);
+    explicit InfoTerm(const TermData& info);
     ~InfoTerm() = default;
 
-    const NodeInfoContainer& info() const;
+    const TermData& info() const;
 
     bool isNull() const;
 
@@ -52,7 +52,7 @@ private: // Methods
     static QSizeF  getTermSize(const QString& decoratedTerm);
 
 private: // Members
-    const NodeInfoContainer mInfo;
+    const TermData mInfo;
 
     const QString     mLowerTerm;
     const QString     mDecoratedTerm;

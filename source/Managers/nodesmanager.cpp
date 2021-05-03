@@ -43,7 +43,7 @@ bool NodesManager::addNewNode(const QString& name,
     if (!correctNewNodeName(name, groupUuid))
         return false;
 
-    NodeInfoContainer info;
+    TermData info;
 
     info.uuid        = QUuid();
     info.term        = name;
@@ -87,7 +87,7 @@ bool NodesManager::changeNode(const QUuid&   nodeUuid,
         return false;
     }
 
-    NodeInfoContainer info;
+    TermData info;
 
     info.uuid        = nodeUuid;
     info.term        = name;

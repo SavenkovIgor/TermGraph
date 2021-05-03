@@ -40,7 +40,8 @@ public:
 
     static std::unique_ptr<DataStorageInterface> mStorage;
 
-    static void SetUpTestCase() {
+    static void SetUpTestCase()
+    {
         mStorage = std::make_unique<LocalDatabaseStorage>(QString(sDbFileName));
 
         EXPECT_TRUE(FSWorks::fileExist(sDbFileName));
@@ -51,17 +52,15 @@ public:
         EXPECT_TRUE(mStorage->getAllNodesUuids().empty());
     }
 
-    static void TearDownTestCase() {
-        EXPECT_TRUE(FSWorks::deleteFile(sDbFileName));
-    }
+    static void TearDownTestCase() { EXPECT_TRUE(FSWorks::deleteFile(sDbFileName)); }
 
     GroupInfoContainer getGroupWithUuid() { return GroupInfoContainer{mGroupUuid1, mGroupName1, mGroupComment1}; }
 
     GroupInfoContainer getGroupWithoutUuid() { return GroupInfoContainer{QUuid(), mGroupName2, mGroupComment2}; }
 
-    std::vector<NodeInfoContainer> getNodes()
+    TermData::List getTermDataList()
     {
-        std::vector<NodeInfoContainer> ret;
+        std::vector<TermData> ret;
 
         std::vector<std::pair<const char*, const char*>> data = {{"1", ""},
                                                                  {"2", ""},
@@ -76,17 +75,17 @@ public:
         auto group = getGroupWithUuid();
 
         for (const auto& pair : data) {
-            NodeInfoContainer node;
-            node.uuid        = QUuid::createUuid();
-            node.term        = QString(pair.first) + mSpecSymbols;
-            node.definition  = QString(pair.second) + mSpecSymbols;
-            node.description = mSpecSymbols;
-            node.examples    = mSpecSymbols;
-            node.wikiUrl     = mSpecSymbols;
-            node.wikiImage   = mSpecSymbols;
-            node.groupUuid   = group.uuid;
+            TermData term;
+            term.uuid        = QUuid::createUuid();
+            term.term        = QString(pair.first) + mSpecSymbols;
+            term.definition  = QString(pair.second) + mSpecSymbols;
+            term.description = mSpecSymbols;
+            term.examples    = mSpecSymbols;
+            term.wikiUrl     = mSpecSymbols;
+            term.wikiImage   = mSpecSymbols;
+            term.groupUuid   = group.uuid;
 
-            ret.push_back(node);
+            ret.push_back(term);
         }
 
         return ret;
@@ -102,7 +101,8 @@ const QString DBWorksTest::mSpecSymbols   = QStringLiteral("!@#$%^&*()-+=*:/'\"\
 
 std::unique_ptr<DataStorageInterface> DBWorksTest::mStorage;
 
-TEST_F (DBWorksTest, GroupsTest) {
+TEST_F(DBWorksTest, GroupsTest)
+{
     EXPECT_TRUE(mStorage->getAllGroupsUuids().empty());
 
     auto withUuid    = getGroupWithUuid();
@@ -153,8 +153,8 @@ TEST_F (DBWorksTest, GroupsTest) {
     EXPECT_TRUE(groupList.empty());
 }
 
-TEST_F (DBWorksTest, NodesTest) {
-
+TEST_F(DBWorksTest, TermsTest)
+{
     ASSERT_TRUE(mStorage->getAllGroupsUuids().empty());
 
     auto withUuid = getGroupWithUuid();
@@ -162,53 +162,53 @@ TEST_F (DBWorksTest, NodesTest) {
     EXPECT_TRUE(mStorage->addGroup(withUuid));
     EXPECT_TRUE(mStorage->getAllNodesUuids().empty());
 
-    // Adding nodes
+    // Adding terms
 
-    auto nodesList = getNodes();
+    auto termList = getTermDataList();
 
-    for (auto& node : nodesList) {
-        EXPECT_FALSE(mStorage->nodeExist(node.uuid));
-        EXPECT_TRUE(mStorage->addNode(node));
-        EXPECT_TRUE(mStorage->nodeExist(node.uuid));
-        EXPECT_EQ(mStorage->findNode(node.term, node.groupUuid), node.uuid);
-        auto gettedNode = mStorage->getNode(node.uuid);
-        node.lastEdit   = gettedNode.lastEdit; // Last edit was refreshed
-        EXPECT_TRUE(gettedNode.isEqualTo(node));
+    for (auto& term : termList) {
+        EXPECT_FALSE(mStorage->nodeExist(term.uuid));
+        EXPECT_TRUE(mStorage->addNode(term));
+        EXPECT_TRUE(mStorage->nodeExist(term.uuid));
+        EXPECT_EQ(mStorage->findNode(term.term, term.groupUuid), term.uuid);
+        auto gettedTerm = mStorage->getNode(term.uuid);
+        term.lastEdit   = gettedTerm.lastEdit; // Last edit was refreshed
+        EXPECT_TRUE(gettedTerm.isEqualTo(term));
     }
 
     // Checking all uuids without group
-    auto allNodesUuids = mStorage->getAllNodesUuids();
+    auto allTermUuids = mStorage->getAllNodesUuids();
 
-    EXPECT_EQ(allNodesUuids.size(), nodesList.size());
-    for (const auto& node : nodesList) {
-        auto searchResult = std::find(allNodesUuids.begin(), allNodesUuids.end(), node.uuid);
-        EXPECT_NE(searchResult, allNodesUuids.end());
+    EXPECT_EQ(allTermUuids.size(), termList.size());
+    for (const auto& term : termList) {
+        auto searchResult = std::find(allTermUuids.begin(), allTermUuids.end(), term.uuid);
+        EXPECT_NE(searchResult, allTermUuids.end());
     }
 
     // Checking all uuids with group
-    allNodesUuids = mStorage->getAllNodesUuids(withUuid.uuid);
+    allTermUuids = mStorage->getAllNodesUuids(withUuid.uuid);
 
-    EXPECT_EQ(allNodesUuids.size(), nodesList.size());
-    for (const auto& node : nodesList) {
-        auto searchResult = std::find(allNodesUuids.begin(), allNodesUuids.end(), node.uuid);
-        EXPECT_NE(searchResult, allNodesUuids.end());
+    EXPECT_EQ(allTermUuids.size(), termList.size());
+    for (const auto& term : termList) {
+        auto searchResult = std::find(allTermUuids.begin(), allTermUuids.end(), term.uuid);
+        EXPECT_NE(searchResult, allTermUuids.end());
     }
 
-    for (auto& node : nodesList) {
-        node.term += "1";
-        node.definition += "1";
-        node.description += "1";
-        node.examples += "1";
-        node.wikiUrl += "1";
-        node.wikiImage += "1";
+    for (auto& term : termList) {
+        term.term += "1";
+        term.definition += "1";
+        term.description += "1";
+        term.examples += "1";
+        term.wikiUrl += "1";
+        term.wikiImage += "1";
 
-        EXPECT_TRUE(mStorage->updateNode(node, DataStorageInterface::LastEditSource::TakeFromNodeInfo));
+        EXPECT_TRUE(mStorage->updateNode(term, DataStorageInterface::LastEditSource::TakeFromNodeInfo));
 
-        EXPECT_TRUE(node.isEqualTo(mStorage->getNode(node.uuid)));
+        EXPECT_TRUE(term.isEqualTo(mStorage->getNode(term.uuid)));
     }
 
-    for (const auto& node : nodesList)
-        mStorage->deleteNode(node.uuid);
+    for (const auto& term : termList)
+        mStorage->deleteNode(term.uuid);
 
     EXPECT_TRUE(mStorage->getAllNodesUuids().empty());
 }

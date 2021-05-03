@@ -23,11 +23,11 @@
 
 #include <QJsonObject>
 
-#include "source/Model/Termin/nodeinfocontainer.h"
+#include "source/Model/Termin/termdata.h"
 
 class JsonNodeInfoContainerParser
 {
 public:
-    static NodeInfoContainer fromJson(const QJsonObject& jsonObj);
-    static QJsonObject       toJson(const NodeInfoContainer& info);
+    static TermData    fromJson(const QJsonObject& jsonObj);
+    static QJsonObject toJson(const TermData& info);
 };

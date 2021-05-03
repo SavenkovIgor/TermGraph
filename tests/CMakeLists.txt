@@ -210,7 +210,7 @@ add_executable (DB_WORKS_TEST
     ../source/Managers/localdatabasestorage.h
     ../source/Managers/notificationmanager.cpp
     ../source/Managers/notificationmanager.h
-    ../source/Model/Termin/nodeinfocontainer.h
+    ../source/Model/Termin/termdata.h
     ../source/Model/TerminGroup/groupinfocontainer.h
     dbworkstest.cpp)
 

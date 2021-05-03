@@ -26,7 +26,7 @@
 #include <QUuid>
 
 #include "source/Helpers/handytypes.h"
-#include "source/Model/Termin/nodeinfocontainer.h"
+#include "source/Model/Termin/termdata.h"
 #include "source/Model/TerminGroup/groupinfocontainer.h"
 
 // Interface
@@ -52,14 +52,14 @@ public:
     // Nodes
     virtual UuidList getAllNodesUuids(const QUuid& groupUuid = QUuid()) const = 0;
 
-    virtual bool                    nodeExist(const QUuid& nodeUuid) const                          = 0;
-    virtual QUuid                   findNode(const QString& nodeName, const QUuid& groupUuid) const = 0;
-    virtual NodeInfoContainer       getNode(const QUuid& nodeUuid) const                            = 0;
-    virtual NodeInfoContainer::List getNodes(const QUuid& groupUuid) const                          = 0;
-    virtual NodeInfoContainer::List getNodes(const UuidList& nodesUuids) const                      = 0;
-    virtual QDateTime               getNodeLastEdit(const QUuid& nodeUuid) const                    = 0;
+    virtual bool           nodeExist(const QUuid& nodeUuid) const                          = 0;
+    virtual QUuid          findNode(const QString& nodeName, const QUuid& groupUuid) const = 0;
+    virtual TermData       getNode(const QUuid& nodeUuid) const                            = 0;
+    virtual TermData::List getNodes(const QUuid& groupUuid) const                          = 0;
+    virtual TermData::List getNodes(const UuidList& nodesUuids) const                      = 0;
+    virtual QDateTime      getNodeLastEdit(const QUuid& nodeUuid) const                    = 0;
 
-    virtual bool addNode(const NodeInfoContainer& info) = 0;
-    virtual bool updateNode(const NodeInfoContainer& info, LastEditSource lastEditSource, bool checkLastEdit = true) = 0;
-    virtual void deleteNode(const QUuid& nodeUuid) = 0;
+    virtual bool addNode(const TermData& info)                                                              = 0;
+    virtual bool updateNode(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit = true) = 0;
+    virtual void deleteNode(const QUuid& nodeUuid)                                                          = 0;
 };

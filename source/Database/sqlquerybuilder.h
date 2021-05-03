@@ -27,7 +27,7 @@
 #include <QtCore>
 
 #include "source/Database/dbinfo.h"
-#include "source/Model/Termin/nodeinfocontainer.h"
+#include "source/Model/Termin/termdata.h"
 #include "source/Model/TerminGroup/groupinfocontainer.h"
 
 // Задача этого класса - формировать запросы
@@ -56,7 +56,7 @@ public:
 
     // Terms table
     QSqlQuery createTermsTable() const;
-    QSqlQuery insertTerm(const NodeInfoContainer& termInfo) const;
+    QSqlQuery insertTerm(const TermData& termInfo) const;
     QSqlQuery selectTerm(const QUuid& termUuid) const;
     QSqlQuery selectOneTerm(const QUuid& termUuid) const;
     QSqlQuery selectOneTerm(const QString& term, const QUuid& groupUuid) const;
@@ -65,7 +65,7 @@ public:
     QSqlQuery selectAllTerms(const QUuid& groupUuid) const;
     QSqlQuery selectLastEdit(const QUuid& termUuid) const;
     QSqlQuery selectAllLastEditAndGroupUuid() const;
-    QSqlQuery updateTerm(const NodeInfoContainer& termInfo) const;
+    QSqlQuery updateTerm(const TermData& termInfo) const;
     QSqlQuery deleteTerm(const QUuid& termUuid) const;
 
     // Common

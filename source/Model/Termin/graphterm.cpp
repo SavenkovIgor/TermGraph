@@ -23,19 +23,13 @@
 
 int GraphTerm::mMaxWeight = 0;
 
-GraphTerm::GraphTerm(const NodeInfoContainer& info)
+GraphTerm::GraphTerm(const TermData& info)
     : mInfo(info)
 {}
 
-bool GraphTerm::isRoot() const
-{
-    return getNodeType() == NodeType::root;
-}
+bool GraphTerm::isRoot() const { return getNodeType() == NodeType::root; }
 
-bool GraphTerm::isOrphan() const
-{
-    return getNodeType() == NodeType::orphan;
-}
+bool GraphTerm::isOrphan() const { return getNodeType() == NodeType::orphan; }
 
 bool GraphTerm::isLeaf() const
 {
@@ -43,24 +37,21 @@ bool GraphTerm::isLeaf() const
     return type == NodeType::endLeaf || type == NodeType::middleLeaf;
 }
 
-bool GraphTerm::isInTree() const
-{
-    return !isOrphan();
-}
+bool GraphTerm::isInTree() const { return !isOrphan(); }
 
 NodeType GraphTerm::getNodeType() const
 {
     if (edgesToRoots.isEmpty()) {
         if (edgesToLeafs.isEmpty()) {
-            return NodeType::orphan;  // Both empty
+            return NodeType::orphan; // Both empty
         } else {
-            return NodeType::root;  // No connections down, has connections up
+            return NodeType::root; // No connections down, has connections up
         }
     } else {
         if (edgesToLeafs.isEmpty()) {
-            return NodeType::endLeaf;  // Has connections down, no connections up
+            return NodeType::endLeaf; // Has connections down, no connections up
         } else {
-            return NodeType::middleLeaf;  // Has both connections, up and down
+            return NodeType::middleLeaf; // Has both connections, up and down
         }
     }
 }
@@ -109,10 +100,7 @@ void GraphTerm::setLevel(int level)
     }
 }
 
-int GraphTerm::getPaintLevel() const
-{
-    return paintLevel;
-}
+int GraphTerm::getPaintLevel() const { return paintLevel; }
 
 void GraphTerm::getCycleEdge()
 {
@@ -147,10 +135,7 @@ void GraphTerm::setTreeId(unsigned int treeId)
     }
 }
 
-unsigned int GraphTerm::getTreeId() const
-{
-    return treeId;
-}
+unsigned int GraphTerm::getTreeId() const { return treeId; }
 
 void GraphTerm::addEdgeRef(GraphEdge* edge)
 {
@@ -185,15 +170,9 @@ GraphTerm::List GraphTerm::getLeafNodes()
     return ret;
 }
 
-GraphEdge::List GraphTerm::getEdgesToLeafs() const
-{
-    return edgesToLeafs;
-}
+GraphEdge::List GraphTerm::getEdgesToLeafs() const { return edgesToLeafs; }
 
-GraphEdge::List GraphTerm::getEdgesToRoots() const
-{
-    return edgesToRoots;
-}
+GraphEdge::List GraphTerm::getEdgesToRoots() const { return edgesToRoots; }
 
 GraphEdge::List GraphTerm::getAllConnectedEdges() const
 {
@@ -203,15 +182,9 @@ GraphEdge::List GraphTerm::getAllConnectedEdges() const
     return ret;
 }
 
-void GraphTerm::removeEdgeToLeafs(GraphEdge* edge)
-{
-    edgesToLeafs.removeOne(edge);
-}
+void GraphTerm::removeEdgeToLeafs(GraphEdge* edge) { edgesToLeafs.removeOne(edge); }
 
-void GraphTerm::removeEdgeToRoots(GraphEdge* edge)
-{
-    edgesToRoots.removeOne(edge);
-}
+void GraphTerm::removeEdgeToRoots(GraphEdge* edge) { edgesToRoots.removeOne(edge); }
 
 void GraphTerm::addBrokenEdge(GraphEdge* edge)
 {
@@ -225,15 +198,9 @@ void GraphTerm::addRedundantEdge(GraphEdge* edge)
         redundantEdges << edge;
 }
 
-GraphEdge::List GraphTerm::getBrokenEdges() const
-{
-    return brokenEdges;
-}
+GraphEdge::List GraphTerm::getBrokenEdges() const { return brokenEdges; }
 
-GraphEdge::List GraphTerm::getRedundantEdges() const
-{
-    return redundantEdges;
-}
+GraphEdge::List GraphTerm::getRedundantEdges() const { return redundantEdges; }
 
 void GraphTerm::checkForExceedEdges()
 {
@@ -258,15 +225,9 @@ void GraphTerm::giveWeights()
         edge->getOtherSide(this)->increaseWeight();
 }
 
-void GraphTerm::resetMaxWeight()
-{
-    mMaxWeight = 0;
-}
+void GraphTerm::resetMaxWeight() { mMaxWeight = 0; }
 
-int GraphTerm::weight() const
-{
-    return mSelfWeight;
-}
+int GraphTerm::weight() const { return mSelfWeight; }
 
 void GraphTerm::increaseWeight()
 {
@@ -274,20 +235,11 @@ void GraphTerm::increaseWeight()
     mMaxWeight = std::max(mMaxWeight, mSelfWeight);
 }
 
-double GraphTerm::getRelativeWeight() const
-{
-    return static_cast<double>(weight()) / mMaxWeight;
-}
+double GraphTerm::getRelativeWeight() const { return static_cast<double>(weight()) / mMaxWeight; }
 
-const InfoTerm& GraphTerm::additionalInfo() const
-{
-    return mInfo;
-}
+const InfoTerm& GraphTerm::additionalInfo() const { return mInfo; }
 
-const NodeInfoContainer& GraphTerm::info() const
-{
-    return mInfo.info();
-}
+const TermData& GraphTerm::info() const { return mInfo.info(); }
 
 bool GraphTerm::hasTermInRoots(GraphTerm* targetTerm, QList<GraphTerm*>& visitList)
 {

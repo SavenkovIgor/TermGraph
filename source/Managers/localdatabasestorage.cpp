@@ -103,26 +103,23 @@ QUuid LocalDatabaseStorage::findNode(const QString& nodeName, const QUuid& group
     return db.termTable->nodeUuidForNameAndGroup(nodeName, groupUuid);
 }
 
-NodeInfoContainer LocalDatabaseStorage::getNode(const QUuid& nodeUuid) const
-{
-    return db.termTable->getNodeInfo(nodeUuid);
-}
+TermData LocalDatabaseStorage::getNode(const QUuid& nodeUuid) const { return db.termTable->getNodeInfo(nodeUuid); }
 
-NodeInfoContainer::List LocalDatabaseStorage::getNodes(const QUuid& groupUuid) const
+TermData::List LocalDatabaseStorage::getNodes(const QUuid& groupUuid) const
 {
     return db.termTable->getAllNodesInfo(groupUuid);
 }
 
-NodeInfoContainer::List LocalDatabaseStorage::getNodes(const UuidList& nodesUuids) const { return {}; }
+TermData::List LocalDatabaseStorage::getNodes(const UuidList& nodesUuids) const { return {}; }
 
 QDateTime LocalDatabaseStorage::getNodeLastEdit(const QUuid& nodeUuid) const
 {
     return db.termTable->getLastEdit(nodeUuid);
 }
 
-bool LocalDatabaseStorage::addNode(const NodeInfoContainer& info) { return db.termTable->addNode(info); }
+bool LocalDatabaseStorage::addNode(const TermData& info) { return db.termTable->addNode(info); }
 
-bool LocalDatabaseStorage::updateNode(const NodeInfoContainer&             info,
+bool LocalDatabaseStorage::updateNode(const TermData&                      info,
                                       DataStorageInterface::LastEditSource lastEditSource,
                                       bool                                 checkLastEdit)
 {

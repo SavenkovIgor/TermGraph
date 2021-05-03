@@ -38,7 +38,7 @@ QUuid TermTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& group
     return QUuid();
 }
 
-bool TermTable::addNode(const NodeInfoContainer& info)
+bool TermTable::addNode(const TermData& info)
 {
     assert(!info.term.simplified().isEmpty());
     assert(!nodeExist(info.uuid));
@@ -51,7 +51,7 @@ bool TermTable::addNode(const NodeInfoContainer& info)
     if (nodeExist(info.uuid))
         return false;
 
-    NodeInfoContainer termInfo = info;
+    TermData termInfo = info;
 
     // Generate new uuid if current is empty
     if (termInfo.uuid.isNull())
@@ -124,11 +124,11 @@ UuidList TermTable::getAllNodesUuids(const QUuid& groupUuid)
     return ret;
 }
 
-NodeInfoContainer TermTable::getNodeInfo(const QUuid& uuid)
+TermData TermTable::getNodeInfo(const QUuid& uuid)
 {
     assert(!uuid.isNull());
 
-    NodeInfoContainer info;
+    TermData info;
 
     auto query = SqlQueryBuilder().selectTerm(uuid);
     DbTools::startQuery2(query);
@@ -137,11 +137,11 @@ NodeInfoContainer TermTable::getNodeInfo(const QUuid& uuid)
     return recordToNodeInfo(record);
 }
 
-NodeInfoContainer::List TermTable::getAllNodesInfo(const QUuid& groupUuid)
+TermData::List TermTable::getAllNodesInfo(const QUuid& groupUuid)
 {
     assert(!groupUuid.isNull());
 
-    NodeInfoContainer::List ret;
+    TermData::List ret;
 
     auto query = SqlQueryBuilder().selectAllTerms(groupUuid);
     DbTools::startQuery2(query);
@@ -149,7 +149,7 @@ NodeInfoContainer::List TermTable::getAllNodesInfo(const QUuid& groupUuid)
     auto records = DbTools::getAllRecords(std::move(query));
 
     for (auto& record : records) {
-        NodeInfoContainer info = recordToNodeInfo(record);
+        TermData info = recordToNodeInfo(record);
         ret.push_back(std::move(info));
     }
 
@@ -178,9 +178,7 @@ RecordList TermTable::getAllLastEditRecords()
     return DbTools::getAllRecords(std::move(query));
 }
 
-bool TermTable::updateNode(const NodeInfoContainer&             info,
-                           DataStorageInterface::LastEditSource lastEditSource,
-                           bool                                 checkLastEdit)
+bool TermTable::updateNode(const TermData& info, DataStorageInterface::LastEditSource lastEditSource, bool checkLastEdit)
 {
     assert(!info.uuid.isNull());
     assert(nodeExist(info.uuid));
@@ -198,7 +196,7 @@ bool TermTable::updateNode(const NodeInfoContainer&             info,
             return false;
     }
 
-    NodeInfoContainer nodeContainer = info;
+    TermData nodeContainer = info;
 
     if (lastEditSource == DataStorageInterface::AutoGenerate)
         nodeContainer.lastEdit = getLastEditNow();
@@ -209,9 +207,9 @@ bool TermTable::updateNode(const NodeInfoContainer&             info,
     return true;
 }
 
-NodeInfoContainer TermTable::recordToNodeInfo(QSqlRecord& record)
+TermData TermTable::recordToNodeInfo(QSqlRecord& record)
 {
-    NodeInfoContainer info;
+    TermData info;
 
     info.uuid        = QUuid(record.value("uuid").toString());
     info.term        = record.value("term").toString();

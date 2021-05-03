@@ -132,7 +132,7 @@ QSqlQuery SqlQueryBuilder::createTermsTable() const
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::insertTerm(const NodeInfoContainer &termInfo) const
+QSqlQuery SqlQueryBuilder::insertTerm(const TermData &termInfo) const
 {
     auto query = loadQuery(":/sql/queries/version2/terms/insertterm.sql");
     query.bindValue(":uuid", termInfo.uuid.toString());
@@ -202,7 +202,7 @@ QSqlQuery SqlQueryBuilder::selectAllLastEditAndGroupUuid() const
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::updateTerm(const NodeInfoContainer &termInfo) const
+QSqlQuery SqlQueryBuilder::updateTerm(const TermData &termInfo) const
 {
     auto query = loadQuery(":/sql/queries/version2/terms/updateterm.sql");
 

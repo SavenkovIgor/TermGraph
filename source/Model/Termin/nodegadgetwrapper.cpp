@@ -21,7 +21,7 @@
 
 #include "source/Model/Termin/nodegadgetwrapper.h"
 
-NodeGadgetWrapper::NodeGadgetWrapper(const NodeInfoContainer& info)
+NodeGadgetWrapper::NodeGadgetWrapper(const TermData& info)
     : _info(info)
 {}
 
@@ -61,4 +61,4 @@ void NodeGadgetWrapper::setGroupUuid(const QString& groupUuid) { _info.groupUuid
 
 QString NodeGadgetWrapper::getLastEdit() const { return _info.lastEdit.toString("dd MMM yyyy hh:mm:ss t"); }
 
-NodeInfoContainer NodeGadgetWrapper::unwrap() const { return _info; }
+TermData NodeGadgetWrapper::unwrap() const { return _info; }

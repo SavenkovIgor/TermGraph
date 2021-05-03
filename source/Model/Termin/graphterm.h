@@ -35,7 +35,7 @@ class GraphTerm
 public:
     using List = QList<GraphTerm*>;
 
-    GraphTerm(const NodeInfoContainer& info);
+    GraphTerm(const TermData& info);
     ~GraphTerm() = default;
 
     bool isRoot() const;
@@ -84,19 +84,19 @@ public:
     void   increaseWeight();
     double getRelativeWeight() const;
 
-    const NodeInfoContainer& info() const;
-    const InfoTerm&          additionalInfo() const;
+    const TermData& info() const;
+    const InfoTerm& additionalInfo() const;
 
 private:
-    GraphEdge::List edgesToOtherGroups;  // Пока никак не используются но будут.
-    GraphEdge::List brokenEdges;         // Пока никак не используются но будут.
+    GraphEdge::List edgesToOtherGroups; // Пока никак не используются но будут.
+    GraphEdge::List brokenEdges;        // Пока никак не используются но будут.
     GraphEdge::List redundantEdges;
 
     GraphEdge::List edgesToLeafs;
     GraphEdge::List edgesToRoots;
 
     int          paintLevel = -1;
-    unsigned int treeId     = 0;  // 0 = no value
+    unsigned int treeId     = 0; // 0 = no value
 
     int        mSelfWeight = 0;
     static int mMaxWeight;
