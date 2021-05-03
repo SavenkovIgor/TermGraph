@@ -21,7 +21,7 @@
 
 #include "source/Managers/nodesmanager.h"
 
-#include "source/Managers/jsonnodeinfocontainerparser.h"
+#include "source/Managers/jsontermdataparser.h"
 
 NodesManager::NodesManager(DataStorageInterface& dataStorage, QObject* parent)
     : QObject(parent)
@@ -132,7 +132,7 @@ QDateTime NodesManager::getLastEdit(QUuid nodeUuid) { return dataStorage.getNode
 
 void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIfGroupNotExist)
 {
-    auto info = JsonNodeInfoContainerParser::fromJson(nodeJson);
+    auto info = JsonTermDataParser::fromJson(nodeJson);
 
     if (info.uuid.isNull())
         return;
@@ -157,7 +157,7 @@ void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIf
 QJsonObject NodesManager::getNodeJson(const QUuid& uuid) const
 {
     auto info = dataStorage.getNode(uuid);
-    return JsonNodeInfoContainerParser::toJson(info);
+    return JsonTermDataParser::toJson(info);
 }
 
 bool NodesManager::correctGroupUuid(const QUuid& groupUuid)

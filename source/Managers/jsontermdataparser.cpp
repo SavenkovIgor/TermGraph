@@ -19,9 +19,9 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Managers/jsonnodeinfocontainerparser.h"
+#include "source/Managers/jsontermdataparser.h"
 
-TermData JsonNodeInfoContainerParser::fromJson(const QJsonObject& jsonObj)
+TermData JsonTermDataParser::fromJson(const QJsonObject& jsonObj)
 {
     TermData info;
 
@@ -44,7 +44,7 @@ TermData JsonNodeInfoContainerParser::fromJson(const QJsonObject& jsonObj)
     return info;
 }
 
-QJsonObject JsonNodeInfoContainerParser::toJson(const TermData& info)
+QJsonObject JsonTermDataParser::toJson(const TermData& info)
 {
     QJsonObject ret;
 

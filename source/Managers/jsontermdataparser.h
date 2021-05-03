@@ -25,7 +25,7 @@
 
 #include "source/Model/Termin/termdata.h"
 
-class JsonNodeInfoContainerParser
+class JsonTermDataParser
 {
 public:
     static TermData    fromJson(const QJsonObject& jsonObj);
