@@ -95,7 +95,7 @@ target_sources (
             .devTools/qmlimport.yml
             .devTools/cmakeFormat.json)
 
-file (GLOB_RECURSE ALL_SOURCES source/*.h source/*.cpp)
+file (GLOB_RECURSE ALL_SOURCES source/*.h source/*.hpp source/*.cpp)
 
 # Source folder
 target_sources (${PROJECT_NAME} PRIVATE ${ALL_SOURCES})

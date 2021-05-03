@@ -19,25 +19,41 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-// TODO: Try to add goodcheck to conan
-
 #pragma once
+
+#include <memory>
+#include <vector>
 
 #include "source/Model/Base/node.hpp"
 
-template<typename Data>
+template<typename NodeData, typename EdgeData>
 class Edge
 {
 public:
-    explicit Edge(Node<Data>* from, Node<Data>* to)
-        : mFrom(from)
-        , mTo(to)
+    using List = std::vector<std::shared_ptr<Edge<EdgeData, NodeData>>>;
+    using Ptr  = std::shared_ptr<Edge<EdgeData, NodeData>>;
+
+    explicit Edge(Node<NodeData>::Ptr root, Node<NodeData>::Ptr leaf, EdgeData data)
+        : mRoot(root)
+        , mLeaf(leaf)
+        , mData(data)
+    {}
+
+    static Ptr createPtr(Node<NodeData>::Ptr root, Node<NodeData>::Ptr leaf, EdgeData data = {})
     {
-        assert(from != nullptr);
-        assert(to != nullptr);
+        return std::make_shared<Edge<NodeData, EdgeData>>(root, leaf, data);
     }
 
+    Node<NodeData>::Ptr root() { return mRoot; }
+    Node<NodeData>::Ptr leaf() { return mLeaf; }
+
+    void            setData(const EdgeData& data) { mData = data; }
+    EdgeData&       data() { return mData; }
+    const EdgeData& data() const { return mData; }
+
 private:
-    Node<Data>* mFrom = nullptr;
-    Node<Data>* mTo   = nullptr;
+    Node<NodeData>::Ptr mRoot;
+    Node<NodeData>::Ptr mLeaf;
+
+    EdgeData mData;
 };

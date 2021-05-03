@@ -21,22 +21,57 @@
 
 #include <gtest/gtest.h>
 
-#include "source/Model/Base/edge.hpp"
-#include "source/Model/Base/graph.hpp"
 #include "source/Model/Base/node.hpp"
 
-TEST(GraphTest, InitEdge)
+TEST(NodeTest, PrimitiveInit)
+{
+    Node<int>  node1(12);
+    Node<bool> node2(false);
+
+    EXPECT_EQ(node1.data(), 12);
+    EXPECT_FALSE(node2.data());
+
+    node1.setData(100);
+    node2.setData(true);
+
+    EXPECT_EQ(node1.data(), 100);
+    EXPECT_TRUE(node2.data());
+}
+
+TEST(NodeTest, StructInit)
+{
+    struct TstStruct
+    {
+        int a;
+        int b;
+    };
+
+    TstStruct a{.a = 14, .b = 42};
+
+    Node<TstStruct> node1(a);
+
+    EXPECT_EQ(node1.data().a, 14);
+    EXPECT_EQ(node1.data().b, 42);
+
+    a.a = -1;
+    a.b = -2;
+
+    node1.setData(a);
+
+    EXPECT_EQ(node1.data().a, -1);
+    EXPECT_EQ(node1.data().b, -2);
+}
+
+TEST(NodeTest, ListTest)
 {
     auto n1 = Node<int>::createPtr(1);
     auto n2 = Node<int>::createPtr(2);
-    auto e1 = Edge<int, int>::createPtr(n1, n2, 0);
 
-    Node<int>::List      nList{n1, n2};
-    Edge<int, int>::List eList{e1};
+    Node<int>::List lst;
+    lst.push_back(n1);
+    lst.push_back(n2);
 
-    Graph<int, int, int, int> graph{nList, eList};
-
-    EXPECT_EQ(graph.nodeAt(0)->data(), 1);
-    EXPECT_EQ(graph.nodeAt(1)->data(), 2);
-    EXPECT_EQ(graph.edgeAt(0)->data(), 0);
+    EXPECT_EQ(lst.size(), 2);
+    EXPECT_EQ(lst[0]->data(), 1);
+    EXPECT_EQ(lst[1]->data(), 2);
 }
