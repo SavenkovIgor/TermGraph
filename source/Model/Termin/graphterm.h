@@ -85,8 +85,7 @@ public:
     void   increaseWeight();
     double getRelativeWeight() const;
 
-    const TermData&      info() const;
-    const TermDataCache& additionalInfo() const;
+    const TermDataCache& cache() const;
 
 private:
     GraphEdge::List edgesToOtherGroups; // Пока никак не используются но будут.
@@ -102,7 +101,7 @@ private:
     int        mSelfWeight = 0;
     static int mMaxWeight;
 
-    const TermDataCache mInfo;
+    const TermDataCache mDataCache;
 
     static bool hasTermInRoots(GraphTerm* term, QList<GraphTerm*>& visitList);
 

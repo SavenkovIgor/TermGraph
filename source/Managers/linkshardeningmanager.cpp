@@ -115,10 +115,10 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
 
     // Getting distances
     for (auto *term : mCurrentGroup->nodes()) {
-        if (QUuid(mCurrentTerm.getUuid()) == term->info().uuid)
+        if (QUuid(mCurrentTerm.getUuid()) == term->data().uuid)
             continue;
 
-        auto distance = LinkUtils::getLevDistance(currentLink().textLower(), term->info().term.toLower());
+        auto distance = LinkUtils::getLevDistance(currentLink().textLower(), term->data().term.toLower());
         distances.push_back(std::pair(distance, term));
     }
 
@@ -131,8 +131,8 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
 
     for (int i = 0; i < min; i++) {
         const auto &item     = distances[i];
-        const auto &uuid     = item.second->info().uuid;
-        const auto &term     = item.second->info().term;
+        const auto &uuid     = item.second->data().uuid;
+        const auto &term     = item.second->data().term;
         const auto &distance = item.first;
 
         ret.push_back({uuid, term, distance});

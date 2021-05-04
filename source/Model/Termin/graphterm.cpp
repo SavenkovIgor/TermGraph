@@ -25,7 +25,7 @@ int GraphTerm::mMaxWeight = 0;
 
 GraphTerm::GraphTerm(const TermData& info)
     : Node<TermData>(info)
-    , mInfo(info)
+    , mDataCache(info)
 {}
 
 bool GraphTerm::isRoot() const { return getNodeType() == NodeType::root; }
@@ -80,10 +80,10 @@ QString GraphTerm::getHierarchyDefinition()
     QStringList definitions;
 
     for (auto node : parentsList)
-        definitions << node->additionalInfo().termAndDefinition(true);
+        definitions << node->cache().termAndDefinition(true);
 
     // Add this definition
-    definitions << additionalInfo().termAndDefinition(true);
+    definitions << cache().termAndDefinition(true);
 
     return definitions.join("<br><br>");
 }
@@ -93,11 +93,11 @@ void GraphTerm::setLevel(int level)
     if (level > paintLevel)
         paintLevel = level;
 
-    for (auto n : getLeafNodes()) {
-        if (info().groupUuid != n->info().groupUuid) {
+    for (auto node : getLeafNodes()) {
+        if (data().groupUuid != node->data().groupUuid) {
             continue;
         }
-        n->setLevel(level + 1);
+        node->setLevel(level + 1);
     }
 }
 
@@ -238,9 +238,7 @@ void GraphTerm::increaseWeight()
 
 double GraphTerm::getRelativeWeight() const { return static_cast<double>(weight()) / mMaxWeight; }
 
-const TermDataCache& GraphTerm::additionalInfo() const { return mInfo; }
-
-const TermData& GraphTerm::info() const { return mInfo.info(); }
+const TermDataCache& GraphTerm::cache() const { return mDataCache; }
 
 bool GraphTerm::hasTermInRoots(GraphTerm* targetTerm, QList<GraphTerm*>& visitList)
 {

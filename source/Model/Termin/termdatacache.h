@@ -35,8 +35,6 @@ public:
     explicit TermDataCache(const TermData& info);
     ~TermDataCache() = default;
 
-    const TermData& info() const;
-
     QString lowerTerm() const;
     QString decoratedTerm() const;
     QSizeF  decoratedTermSize() const;
@@ -50,8 +48,8 @@ private: // Methods
     static QSizeF  getTermSize(const QString& decoratedTerm);
 
 private: // Members
-    const TermData mInfo;
-
+    const QString     mTerm;
+    const QString     mDefinition;
     const QString     mLowerTerm;
     const QString     mDecoratedTerm;
     const QSizeF      mDecoratedTermSize;

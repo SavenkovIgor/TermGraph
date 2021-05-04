@@ -30,14 +30,13 @@
 
 // Initialization order is important!
 TermDataCache::TermDataCache(const TermData& info)
-    : mInfo(info)
+    : mTerm(info.term)
+    , mDefinition(info.definition)
     , mLowerTerm(info.term.toLower())
     , mDecoratedTerm(getDecoratedTerm(info.term))
     , mDecoratedTermSize(getTermSize(mDecoratedTerm))
     , mLinksDefinition(info.definition)
 {}
-
-const TermData& TermDataCache::info() const { return mInfo; }
 
 QString TermDataCache::lowerTerm() const { return mLowerTerm; }
 
@@ -52,11 +51,11 @@ QString TermDataCache::termAndDefinition(bool decorated) const
     LinksDecorator decorator(mLinksDefinition, LinksDecorator::defaultDecorator);
 
     if (decorated) {
-        auto ret = "<font color=\"#00a693\">" + mInfo.term + "</font>";
+        auto ret = "<font color=\"#00a693\">" + mTerm + "</font>";
         ret += " - это " + decorator.apply(LinksDecoratorMode::Replace);
         return ret;
     }
-    return mInfo.term + " - это " + mInfo.definition;
+    return mTerm + " - это " + mDefinition;
 }
 
 QString TermDataCache::getDecoratedTerm(const QString& term)

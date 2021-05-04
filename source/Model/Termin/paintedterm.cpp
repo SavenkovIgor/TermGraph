@@ -138,7 +138,7 @@ QColor PaintedTerm::color() const { return baseColor(getNodeType(), isSelectedAn
 
 void PaintedTerm::adjustRectSizeForName()
 {
-    QSizeF nameSize = additionalInfo().decoratedTermSize();
+    QSizeF nameSize = cache().decoratedTermSize();
     nodeSize.setWidth(nameSize.width() + 16);
     nodeSize.setHeight(nameSize.height() + 4);
     updateCornerRadius();
@@ -200,4 +200,4 @@ opt<QPointF> PaintedTerm::optimalRootsBasedPosition() const
     return centerPoint;
 }
 
-QString PaintedTerm::decoratedTerm() const { return additionalInfo().decoratedTerm(); }
+QString PaintedTerm::decoratedTerm() const { return cache().decoratedTerm(); }

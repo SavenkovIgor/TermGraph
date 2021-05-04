@@ -39,7 +39,7 @@ void TermGroup::loadNodes(const PaintedTerm::List& newNodes)
     clearNodesList();
 
     for (auto* node : newNodes) {
-        Q_ASSERT_X(node->info().groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
+        Q_ASSERT_X(node->data().groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
 
         addNodeToList(node);
     }
@@ -57,11 +57,11 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
     QList<QPair<int, QUuid>> searchResults;
     // Taking distances
     for (auto* node : nodes()) {
-        auto lowerTerm = node->additionalInfo().lowerTerm();
+        auto lowerTerm = node->cache().lowerTerm();
 
         // Exact match
         if (searchText == lowerTerm) {
-            searchResults << QPair<int, QUuid>(0, node->info().uuid);
+            searchResults << QPair<int, QUuid>(0, node->data().uuid);
             continue;
         }
 
@@ -71,7 +71,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
         auto distance        = LinkUtils::getLevDistance(cuttedTerm, searchText, acceptableLimit);
 
         if (distance <= acceptableLimit)
-            searchResults << QPair<int, QUuid>(distance, node->info().uuid);
+            searchResults << QPair<int, QUuid>(distance, node->data().uuid);
     }
 
     // Sorting
@@ -99,8 +99,8 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
     auto     lowerSearch = text.toLower();
 
     for (auto* node : nodes()) {
-        if (node->additionalInfo().lowerTerm().contains(lowerSearch))
-            ret.push_back(node->info().uuid);
+        if (node->cache().lowerTerm().contains(lowerSearch))
+            ret.push_back(node->data().uuid);
 
         if (static_cast<int>(ret.size()) == limit)
             break;
@@ -132,7 +132,7 @@ PaintedTerm* TermGroup::getNode(const QPointF& pt) const
 PaintedTerm* TermGroup::getNode(const QUuid& nodeUuid) const
 {
     for (auto* node : nodes())
-        if (node->info().uuid == nodeUuid)
+        if (node->data().uuid == nodeUuid)
             return node;
 
     return nullptr;
@@ -141,7 +141,7 @@ PaintedTerm* TermGroup::getNode(const QUuid& nodeUuid) const
 PaintedTerm* TermGroup::getNode(const QString& nodeName) const
 {
     for (auto* node : nodes())
-        if (node->info().term == nodeName)
+        if (node->data().term == nodeName)
             return node;
 
     return nullptr;

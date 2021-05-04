@@ -110,7 +110,7 @@ Edge::List TermGroupInfo::searchAllConnections()
 
     // Compare everything with everything
     for (auto* node : mNodes) {
-        for (const auto& link : node->additionalInfo().links()) {
+        for (const auto& link : node->cache().links()) {
             PaintedTerm* foundNode = nullptr;
 
             EdgeType eType = EdgeType::termin;
@@ -158,7 +158,7 @@ QMap<QString, PaintedTerm*> TermGroupInfo::getExactTermMatchCache()
     QMap<QString, PaintedTerm*> ret;
 
     for (auto* node : mNodes)
-        ret.insert(node->additionalInfo().lowerTerm(), node);
+        ret.insert(node->cache().lowerTerm(), node);
 
     return ret;
 }
@@ -168,7 +168,7 @@ QMap<QUuid, PaintedTerm*> TermGroupInfo::getTermUuidsMap()
     QMap<QUuid, PaintedTerm*> ret;
 
     for (auto* node : mNodes)
-        ret.insert(node->info().uuid, node);
+        ret.insert(node->data().uuid, node);
 
     return ret;
 }
@@ -182,7 +182,7 @@ PaintedTerm* TermGroupInfo::getNearestNodeForTag(const QString& tag)
     opt<int> optionalResult;
 
     for (auto* node : mNodes) {
-        auto termName = node->additionalInfo().lowerTerm();
+        auto termName = node->cache().lowerTerm();
 
         if (!LinkUtils::tagLengthSuitTerm(tag, termName))
             continue;

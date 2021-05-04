@@ -212,7 +212,7 @@ void MainScene::deleteSelectedTerm()
 {
     if (auto* node = getSelectedTerm()) {
         dropTermSelection();
-        nodesMgr->deleteNode(node->info().uuid);
+        nodesMgr->deleteNode(node->data().uuid);
     }
 }
 
@@ -260,7 +260,7 @@ void MainScene::dropTermSelection(bool needRepaint) { selectTerm(nullptr, needRe
 QString MainScene::termUuidToName(const QUuid termUuid) const
 {
     if (auto* node = findTerm(termUuid))
-        return node->info().term;
+        return node->data().term;
 
     return "";
 }
@@ -268,13 +268,13 @@ QString MainScene::termUuidToName(const QUuid termUuid) const
 QUuid MainScene::termNameToUuid(const QString termName) const
 {
     auto* node = mCurrentGroup ? mCurrentGroup->getNode(termName) : nullptr;
-    return node ? node->info().uuid : QUuid();
+    return node ? node->data().uuid : QUuid();
 }
 
 TermDataWrapper MainScene::getCurrentNode()
 {
     if (auto* node = getSelectedTerm()) {
-        return TermDataWrapper(node->info());
+        return TermDataWrapper(node->data());
     }
 
     return TermDataWrapper();
@@ -287,7 +287,7 @@ bool MainScene::hasCurrentGroup() const { return !mCurrentGroup.isNull(); }
 QString MainScene::getCurrNodeNameAndDefinition()
 {
     if (auto* node = getSelectedTerm())
-        return node->additionalInfo().termAndDefinition();
+        return node->cache().termAndDefinition();
 
     return "";
 }
