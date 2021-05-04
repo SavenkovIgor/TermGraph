@@ -23,14 +23,15 @@
 
 #include <QList>
 
-#include "source/Model/Termin/infoterm.h"
+#include "source/Model/Base/node.hpp"
+#include "source/Model/Termin/termdatacache.h"
 #include "source/Model/TerminEdge/graphedge.h"
 
 enum class NodeType { orphan, root, endLeaf, middleLeaf };
 
 // This class contains all "graph" part of term
 // like edges, place in graph hierarchy and so on
-class GraphTerm
+class GraphTerm : public Node<TermData>
 {
 public:
     using List = QList<GraphTerm*>;
@@ -84,8 +85,8 @@ public:
     void   increaseWeight();
     double getRelativeWeight() const;
 
-    const TermData& info() const;
-    const InfoTerm& additionalInfo() const;
+    const TermData&      info() const;
+    const TermDataCache& additionalInfo() const;
 
 private:
     GraphEdge::List edgesToOtherGroups; // Пока никак не используются но будут.
@@ -101,7 +102,7 @@ private:
     int        mSelfWeight = 0;
     static int mMaxWeight;
 
-    const InfoTerm mInfo;
+    const TermDataCache mInfo;
 
     static bool hasTermInRoots(GraphTerm* term, QList<GraphTerm*>& visitList);
 

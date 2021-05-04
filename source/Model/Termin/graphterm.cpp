@@ -24,7 +24,8 @@
 int GraphTerm::mMaxWeight = 0;
 
 GraphTerm::GraphTerm(const TermData& info)
-    : mInfo(info)
+    : Node<TermData>(info)
+    , mInfo(info)
 {}
 
 bool GraphTerm::isRoot() const { return getNodeType() == NodeType::root; }
@@ -237,7 +238,7 @@ void GraphTerm::increaseWeight()
 
 double GraphTerm::getRelativeWeight() const { return static_cast<double>(weight()) / mMaxWeight; }
 
-const InfoTerm& GraphTerm::additionalInfo() const { return mInfo; }
+const TermDataCache& GraphTerm::additionalInfo() const { return mInfo; }
 
 const TermData& GraphTerm::info() const { return mInfo.info(); }
 

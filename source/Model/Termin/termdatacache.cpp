@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Model/Termin/infoterm.h"
+#include "source/Model/Termin/termdatacache.h"
 
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/fonts.h"
@@ -29,7 +29,7 @@
 #include "source/Helpers/text/textutils.h"
 
 // Initialization order is important!
-InfoTerm::InfoTerm(const TermData& info)
+TermDataCache::TermDataCache(const TermData& info)
     : mInfo(info)
     , mLowerTerm(info.term.toLower())
     , mDecoratedTerm(getDecoratedTerm(info.term))
@@ -37,17 +37,17 @@ InfoTerm::InfoTerm(const TermData& info)
     , mLinksDefinition(info.definition)
 {}
 
-const TermData& InfoTerm::info() const { return mInfo; }
+const TermData& TermDataCache::info() const { return mInfo; }
 
-QString InfoTerm::lowerTerm() const { return mLowerTerm; }
+QString TermDataCache::lowerTerm() const { return mLowerTerm; }
 
-QString InfoTerm::decoratedTerm() const { return mDecoratedTerm; }
+QString TermDataCache::decoratedTerm() const { return mDecoratedTerm; }
 
-QSizeF InfoTerm::decoratedTermSize() const { return mDecoratedTermSize; }
+QSizeF TermDataCache::decoratedTermSize() const { return mDecoratedTermSize; }
 
-const Link::List& InfoTerm::links() const { return mLinksDefinition.links(); }
+const Link::List& TermDataCache::links() const { return mLinksDefinition.links(); }
 
-QString InfoTerm::termAndDefinition(bool decorated) const
+QString TermDataCache::termAndDefinition(bool decorated) const
 {
     LinksDecorator decorator(mLinksDefinition, LinksDecorator::defaultDecorator);
 
@@ -59,7 +59,7 @@ QString InfoTerm::termAndDefinition(bool decorated) const
     return mInfo.term + " - это " + mInfo.definition;
 }
 
-QString InfoTerm::getDecoratedTerm(const QString& term)
+QString TermDataCache::getDecoratedTerm(const QString& term)
 {
     QString ret = term;
 
@@ -75,7 +75,7 @@ QString InfoTerm::getDecoratedTerm(const QString& term)
     return ret;
 }
 
-QSizeF InfoTerm::getTermSize(const QString& decoratedTerm)
+QSizeF TermDataCache::getTermSize(const QString& decoratedTerm)
 {
     SizeList sizes;
 

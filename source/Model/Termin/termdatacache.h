@@ -28,12 +28,12 @@
 #include "source/Helpers/link/linksstring.h"
 #include "source/Model/Termin/termdata.h"
 
-// Const wrapper over NodeInfoContainer + some additional stuff
-class InfoTerm
+// Const wrapper over TermData + some additional stuff
+class TermDataCache
 {
 public:
-    explicit InfoTerm(const TermData& info);
-    ~InfoTerm() = default;
+    explicit TermDataCache(const TermData& info);
+    ~TermDataCache() = default;
 
     const TermData& info() const;
 
