@@ -27,7 +27,7 @@
 
 #include "source/Helpers/handytypes.h"
 #include "source/Model/Termin/termdata.h"
-#include "source/Model/TerminGroup/groupinfocontainer.h"
+#include "source/Model/TerminGroup/groupdata.h"
 
 // Interface
 class DataStorageInterface
@@ -41,13 +41,13 @@ public:
     // Groups
     virtual UuidList getAllGroupsUuids(bool sortByLastEdit = false) const = 0;
 
-    virtual bool                     groupExist(const QUuid& groupUuid) const = 0;
-    virtual GroupInfoContainer       getGroup(const QUuid& groupUuid) const   = 0;
-    virtual GroupInfoContainer::List getGroups() const                        = 0;
+    virtual bool            groupExist(const QUuid& groupUuid) const = 0;
+    virtual GroupData       getGroup(const QUuid& groupUuid) const   = 0;
+    virtual GroupData::List getGroups() const                        = 0;
 
-    virtual bool addGroup(const GroupInfoContainer& groupInfo) = 0;
-    virtual bool updateGroup(const GroupInfoContainer& info)   = 0;
-    virtual void deleteGroup(const QUuid& groupUuid)           = 0;
+    virtual bool addGroup(const GroupData& groupInfo) = 0;
+    virtual bool updateGroup(const GroupData& info)   = 0;
+    virtual void deleteGroup(const QUuid& groupUuid)  = 0;
 
     // Terms
     virtual UuidList getAllTermsUuids(const QUuid& groupUuid = QUuid()) const = 0;

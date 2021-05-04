@@ -22,7 +22,7 @@
 #pragma once
 
 #include "source/Helpers/handytypes.h"
-#include "source/Model/TerminGroup/groupinfocontainer.h"
+#include "source/Model/TerminGroup/groupdata.h"
 
 class TermGroupTable
 {
@@ -31,14 +31,14 @@ public:
     ~TermGroupTable() = default;
 
     // Add, update, delete
-    bool addGroup(const GroupInfoContainer& info);
-    bool updateGroup(const GroupInfoContainer& info);
+    bool addGroup(const GroupData& info);
+    bool updateGroup(const GroupData& info);
     void deleteGroup(const QUuid& groupUuid);
 
     // Getters
-    UuidList                 getAllUuids();
-    GroupInfoContainer       getGroup(const QUuid& uuid);
-    GroupInfoContainer::List getGroups();
+    UuidList        getAllUuids();
+    GroupData       getGroup(const QUuid& uuid);
+    GroupData::List getGroups();
 
     QUuid getUuid(const QString& groupName) const;
 
@@ -51,5 +51,5 @@ public:
 private:
     QUuid generateNewUuid();
 
-    static GroupInfoContainer sqlRecordToGroupInfo(const QSqlRecord& rec);
+    static GroupData sqlRecordToGroupInfo(const QSqlRecord& rec);
 };

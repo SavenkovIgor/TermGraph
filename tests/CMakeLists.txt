@@ -211,7 +211,7 @@ add_executable (DB_WORKS_TEST
     ../source/Managers/notificationmanager.cpp
     ../source/Managers/notificationmanager.h
     ../source/Model/Termin/termdata.h
-    ../source/Model/TerminGroup/groupinfocontainer.h
+    ../source/Model/TerminGroup/groupdata.h
     dbworkstest.cpp)
 
 test_case_config (DB_WORKS_TEST)

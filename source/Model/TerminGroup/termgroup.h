@@ -35,7 +35,7 @@ class TermGroup : public QObject, public TermGroupInfo
     Q_PROPERTY(QString name READ name CONSTANT)
 
 public:
-    TermGroup(const GroupInfoContainer& info, QObject* parent = nullptr);
+    TermGroup(const GroupData& info, QObject* parent = nullptr);
     ~TermGroup() final = default;
 
     void loadNodes(const PaintedTerm::List& newNodes);

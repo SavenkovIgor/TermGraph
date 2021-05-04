@@ -23,7 +23,7 @@
 
 #include <QObject>
 
-#include "source/Model/TerminGroup/groupinfocontainer.h"
+#include "source/Model/TerminGroup/groupdata.h"
 
 class GroupGadgetWrapper
 {
@@ -35,7 +35,7 @@ public:
     Q_PROPERTY(QString comment READ getComment WRITE setComment)
 
     GroupGadgetWrapper() = default;
-    GroupGadgetWrapper(const GroupInfoContainer& info);
+    GroupGadgetWrapper(const GroupData& info);
 
     // Uuid
     QString getUuid() const;
@@ -49,10 +49,10 @@ public:
     QString getComment() const;
     void    setComment(const QString& comment);
 
-    GroupInfoContainer unwrap() const;
+    GroupData unwrap() const;
 
 private:
-    GroupInfoContainer _info;
+    GroupData _info;
 };
 
 Q_DECLARE_METATYPE(GroupGadgetWrapper)

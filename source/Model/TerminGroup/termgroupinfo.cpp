@@ -30,7 +30,7 @@
 #include "source/Helpers/link/linkutils.h"
 #include "source/Model/TerminGroup/groupnamecache.h"
 
-TermGroupInfo::TermGroupInfo(const GroupInfoContainer& info) { mInfo = info; }
+TermGroupInfo::TermGroupInfo(const GroupData& info) { mInfo = info; }
 
 TermGroupInfo::~TermGroupInfo() { removeTrees(); }
 

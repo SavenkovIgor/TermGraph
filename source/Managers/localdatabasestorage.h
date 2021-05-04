@@ -24,7 +24,7 @@
 #include "source/Helpers/appconfig.h"
 #include "source/Managers/datastorageinterface.h"
 #include "source/Model/Termin/termdata.h"
-#include "source/Model/TerminGroup/groupinfocontainer.h"
+#include "source/Model/TerminGroup/groupdata.h"
 
 class LocalDatabaseStorage : public DataStorageInterface
 {
@@ -38,12 +38,12 @@ public:
     UuidList getAllGroupsUuids(bool sortByLastEdit) const final;
 
     // Add getFreeUuid for groups
-    bool                     groupExist(const QUuid& groupUuid) const final;
-    GroupInfoContainer       getGroup(const QUuid& groupUuid) const final;
-    GroupInfoContainer::List getGroups() const final;
+    bool            groupExist(const QUuid& groupUuid) const final;
+    GroupData       getGroup(const QUuid& groupUuid) const final;
+    GroupData::List getGroups() const final;
 
-    bool addGroup(const GroupInfoContainer& groupInfo) final;
-    bool updateGroup(const GroupInfoContainer& info) final;
+    bool addGroup(const GroupData& groupInfo) final;
+    bool updateGroup(const GroupData& info) final;
     void deleteGroup(const QUuid& groupUuid) final;
 
     UuidList getAllTermsUuids(const QUuid& groupUuid) const final;

@@ -21,13 +21,16 @@
 
 #pragma once
 
-#include <QJsonObject>
+#include <vector>
 
-#include "source/Model/TerminGroup/groupinfocontainer.h"
+#include <QString>
+#include <QUuid>
 
-class JsonGroupInfoContainerParser
+struct GroupData
 {
-public:
-    static GroupInfoContainer fromJson(const QJsonObject& jsonObj);
-    static QJsonObject        toJson(const GroupInfoContainer& info);
+    using List = std::vector<GroupData>;
+
+    QUuid   uuid;
+    QString name;
+    QString comment;
 };

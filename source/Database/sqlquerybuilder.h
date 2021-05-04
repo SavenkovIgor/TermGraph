@@ -28,7 +28,7 @@
 
 #include "source/Database/dbinfo.h"
 #include "source/Model/Termin/termdata.h"
-#include "source/Model/TerminGroup/groupinfocontainer.h"
+#include "source/Model/TerminGroup/groupdata.h"
 
 // Задача этого класса - формировать запросы
 class SqlQueryBuilder
@@ -45,13 +45,13 @@ public:
 
     // Groups table
     QSqlQuery createGroupsTable() const;
-    QSqlQuery insertGroup(const GroupInfoContainer& groupInfo) const;
+    QSqlQuery insertGroup(const GroupData& groupInfo) const;
     QSqlQuery selectGroup(const QUuid& groupUuid) const;
     QSqlQuery selectGroup(const QString& groupName) const;
     QSqlQuery selectOneGroup(const QUuid& groupUuid) const;
     QSqlQuery selectAllGroupUuids();
     QSqlQuery selectAllGroups();
-    QSqlQuery updateGroup(const GroupInfoContainer& groupInfo) const;
+    QSqlQuery updateGroup(const GroupData& groupInfo) const;
     QSqlQuery deleteGroup(const QUuid& groupUuid) const;
 
     // Terms table

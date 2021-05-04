@@ -21,41 +21,20 @@
 
 #include "source/Model/TerminGroup/groupgadgetwrapper.h"
 
-GroupGadgetWrapper::GroupGadgetWrapper(const GroupInfoContainer& info)
+GroupGadgetWrapper::GroupGadgetWrapper(const GroupData& info)
     : _info(info)
 {}
 
-QString GroupGadgetWrapper::getUuid() const
-{
-    return _info.uuid.toString();
-}
+QString GroupGadgetWrapper::getUuid() const { return _info.uuid.toString(); }
 
-void GroupGadgetWrapper::setUuid(const QString& uuid)
-{
-    _info.uuid.fromString(uuid);
-}
+void GroupGadgetWrapper::setUuid(const QString& uuid) { _info.uuid.fromString(uuid); }
 
-QString GroupGadgetWrapper::getName() const
-{
-    return _info.name;
-}
+QString GroupGadgetWrapper::getName() const { return _info.name; }
 
-void GroupGadgetWrapper::setName(const QString& name)
-{
-    _info.name = name;
-}
+void GroupGadgetWrapper::setName(const QString& name) { _info.name = name; }
 
-QString GroupGadgetWrapper::getComment() const
-{
-    return _info.comment;
-}
+QString GroupGadgetWrapper::getComment() const { return _info.comment; }
 
-void GroupGadgetWrapper::setComment(const QString& comment)
-{
-    _info.comment = comment;
-}
+void GroupGadgetWrapper::setComment(const QString& comment) { _info.comment = comment; }
 
-GroupInfoContainer GroupGadgetWrapper::unwrap() const
-{
-    return _info;
-}
+GroupData GroupGadgetWrapper::unwrap() const { return _info; }

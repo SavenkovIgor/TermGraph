@@ -26,13 +26,13 @@
 #include <QUuid>
 
 #include "source/Model/Termin/paintedterm.h"
-#include "source/Model/TerminGroup/groupinfocontainer.h"
+#include "source/Model/TerminGroup/groupdata.h"
 #include "source/Model/TerminGroup/termtree.h"
 
 class TermGroupInfo
 {
 public:
-    TermGroupInfo(const GroupInfoContainer& info);
+    TermGroupInfo(const GroupData& info);
     ~TermGroupInfo();
 
     // Group info
@@ -92,7 +92,7 @@ private:
 
 private: // Members
     // Group info
-    GroupInfoContainer mInfo;
+    GroupData mInfo;
 
     PaintedTerm::List mNodes;
     Edge::List        mEdges;

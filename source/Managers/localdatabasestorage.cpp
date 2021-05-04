@@ -78,16 +78,13 @@ UuidList LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
 
 bool LocalDatabaseStorage::groupExist(const QUuid& groupUuid) const { return db.groupTable->groupExist(groupUuid); }
 
-GroupInfoContainer LocalDatabaseStorage::getGroup(const QUuid& groupUuid) const
-{
-    return db.groupTable->getGroup(groupUuid);
-}
+GroupData LocalDatabaseStorage::getGroup(const QUuid& groupUuid) const { return db.groupTable->getGroup(groupUuid); }
 
-GroupInfoContainer::List LocalDatabaseStorage::getGroups() const { return db.groupTable->getGroups(); }
+GroupData::List LocalDatabaseStorage::getGroups() const { return db.groupTable->getGroups(); }
 
-bool LocalDatabaseStorage::addGroup(const GroupInfoContainer& groupInfo) { return db.groupTable->addGroup(groupInfo); }
+bool LocalDatabaseStorage::addGroup(const GroupData& groupInfo) { return db.groupTable->addGroup(groupInfo); }
 
-bool LocalDatabaseStorage::updateGroup(const GroupInfoContainer& info) { return db.groupTable->updateGroup(info); }
+bool LocalDatabaseStorage::updateGroup(const GroupData& info) { return db.groupTable->updateGroup(info); }
 
 void LocalDatabaseStorage::deleteGroup(const QUuid& groupUuid) { db.groupTable->deleteGroup(groupUuid); }
 

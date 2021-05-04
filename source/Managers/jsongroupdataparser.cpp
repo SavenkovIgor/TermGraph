@@ -19,11 +19,11 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Managers/jsongroupinfocontainerparser.h"
+#include "source/Managers/jsongroupdataparser.h"
 
-GroupInfoContainer JsonGroupInfoContainerParser::fromJson(const QJsonObject& jsonObj)
+GroupData JsonGroupDataParser::fromJson(const QJsonObject& jsonObj)
 {
-    GroupInfoContainer info;
+    GroupData info;
 
     info.uuid    = QUuid(jsonObj["uuid"].toString());
     info.name    = jsonObj["name"].toString();
@@ -32,7 +32,7 @@ GroupInfoContainer JsonGroupInfoContainerParser::fromJson(const QJsonObject& jso
     return info;
 }
 
-QJsonObject JsonGroupInfoContainerParser::toJson(const GroupInfoContainer& info)
+QJsonObject JsonGroupDataParser::toJson(const GroupData& info)
 {
     QJsonObject ret;
 

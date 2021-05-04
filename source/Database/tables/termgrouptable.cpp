@@ -25,9 +25,9 @@
 #include "source/Database/dbtools.h"
 #include "source/Database/sqlquerybuilder.h"
 
-bool TermGroupTable::addGroup(const GroupInfoContainer& info)
+bool TermGroupTable::addGroup(const GroupData& info)
 {
-    GroupInfoContainer groupInfo = info;
+    GroupData groupInfo = info;
 
     if (groupInfo.uuid.isNull())
         groupInfo.uuid = generateNewUuid();
@@ -42,7 +42,7 @@ bool TermGroupTable::addGroup(const GroupInfoContainer& info)
     return DbTools::startQuery2(query);
 }
 
-bool TermGroupTable::updateGroup(const GroupInfoContainer& info)
+bool TermGroupTable::updateGroup(const GroupData& info)
 {
     if (info.uuid.isNull())
         return false;
@@ -125,7 +125,7 @@ void TermGroupTable::initTable()
     DbTools::startQuery2(query);
 }
 
-GroupInfoContainer TermGroupTable::getGroup(const QUuid& uuid)
+GroupData TermGroupTable::getGroup(const QUuid& uuid)
 {
     auto query = SqlQueryBuilder().selectGroup(uuid);
     DbTools::startQuery2(query);
@@ -133,9 +133,9 @@ GroupInfoContainer TermGroupTable::getGroup(const QUuid& uuid)
     return sqlRecordToGroupInfo(record);
 }
 
-GroupInfoContainer::List TermGroupTable::getGroups()
+GroupData::List TermGroupTable::getGroups()
 {
-    GroupInfoContainer::List ret;
+    GroupData::List ret;
 
     auto query = SqlQueryBuilder().selectAllGroups();
     DbTools::startQuery2(query);
@@ -143,16 +143,16 @@ GroupInfoContainer::List TermGroupTable::getGroups()
     auto records = DbTools::getAllRecords(std::move(query));
 
     for (auto& record : records) {
-        GroupInfoContainer info = sqlRecordToGroupInfo(record);
+        GroupData info = sqlRecordToGroupInfo(record);
         ret.push_back(std::move(info));
     }
 
     return ret;
 }
 
-GroupInfoContainer TermGroupTable::sqlRecordToGroupInfo(const QSqlRecord& rec)
+GroupData TermGroupTable::sqlRecordToGroupInfo(const QSqlRecord& rec)
 {
-    GroupInfoContainer info;
+    GroupData info;
 
     info.uuid    = QUuid(rec.value("uuid").toString());
     info.name    = rec.value("name").toString();

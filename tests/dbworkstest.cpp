@@ -54,9 +54,9 @@ public:
 
     static void TearDownTestCase() { EXPECT_TRUE(FSWorks::deleteFile(sDbFileName)); }
 
-    GroupInfoContainer getGroupWithUuid() { return GroupInfoContainer{mGroupUuid1, mGroupName1, mGroupComment1}; }
+    GroupData getGroupWithUuid() { return GroupData{mGroupUuid1, mGroupName1, mGroupComment1}; }
 
-    GroupInfoContainer getGroupWithoutUuid() { return GroupInfoContainer{QUuid(), mGroupName2, mGroupComment2}; }
+    GroupData getGroupWithoutUuid() { return GroupData{QUuid(), mGroupName2, mGroupComment2}; }
 
     TermData::List getTermDataList()
     {

@@ -26,7 +26,7 @@
 #include <QUrl>
 
 #include "source/Helpers/appconfig.h"
-#include "source/Managers/jsongroupinfocontainerparser.h"
+#include "source/Managers/jsongroupdataparser.h"
 
 GroupsManager::GroupsManager(DataStorageInterface& dataStorage, NodesManager* nodesMgr, QObject* parent)
     : QObject(parent)
@@ -65,7 +65,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
         return;
     }
 
-    GroupInfoContainer info;
+    GroupData info;
 
     info.name    = name;
     info.comment = comment;
@@ -184,7 +184,7 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
 
     QJsonObject jsonGroup = json.object();
 
-    auto info = JsonGroupInfoContainerParser::fromJson(jsonGroup);
+    auto info = JsonGroupDataParser::fromJson(jsonGroup);
 
     if (info.uuid.isNull())
         return;
@@ -235,7 +235,7 @@ void GroupsManager::saveGroupInFolder(TermGroup* group)
 QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
 {
     auto info      = dataStorage.getGroup(groupUuid);
-    auto groupJson = JsonGroupInfoContainerParser::toJson(info);
+    auto groupJson = JsonGroupDataParser::toJson(info);
 
     auto nodesUuids = dataStorage.getAllTermsUuids(groupUuid);
 

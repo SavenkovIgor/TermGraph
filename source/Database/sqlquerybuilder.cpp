@@ -68,7 +68,7 @@ QSqlQuery SqlQueryBuilder::createGroupsTable() const
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::insertGroup(const GroupInfoContainer &groupInfo) const
+QSqlQuery SqlQueryBuilder::insertGroup(const GroupData &groupInfo) const
 {
     auto query = loadQuery(":/sql/queries/version2/groups/insertgroup.sql");
     query.bindValue(":uuid", groupInfo.uuid.toString());
@@ -110,7 +110,7 @@ QSqlQuery SqlQueryBuilder::selectAllGroups()
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::updateGroup(const GroupInfoContainer &groupInfo) const
+QSqlQuery SqlQueryBuilder::updateGroup(const GroupData &groupInfo) const
 {
     auto query = loadQuery(":/sql/queries/version2/groups/updategroup.sql");
     query.bindValue(":uuid", groupInfo.uuid);
