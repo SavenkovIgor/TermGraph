@@ -19,23 +19,17 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <gtest/gtest.h>
+#pragma once
+
+#include <utility>
+#include <vector>
 
 #include "source/Model/Base/edge.hpp"
-#include "source/Model/Base/graph.hpp"
 #include "source/Model/Base/node.hpp"
 
-TEST(GraphTest, InitEdge)
+template<typename NodeData, typename EdgeData>
+struct GraphData
 {
-    auto n1 = Node<int>::createPtr(1);
-    auto n2 = Node<int>::createPtr(2);
-    auto e1 = Edge<int, int>::createPtr(n1, n2, 0);
-
-    auto data = GraphData<int, int>{.nodes = {n1, n2}, .edges = {e1}};
-
-    Graph<int, int, int, int> graph{data};
-
-    EXPECT_EQ(graph.nodeAt(0)->data(), 1);
-    EXPECT_EQ(graph.nodeAt(1)->data(), 2);
-    EXPECT_EQ(graph.edgeAt(0)->data(), 0);
-}
+    Node<NodeData>::List           nodes;
+    Edge<NodeData, EdgeData>::List edges;
+};

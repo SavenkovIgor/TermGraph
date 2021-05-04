@@ -25,10 +25,8 @@
 #include <vector>
 
 #include "source/Model/Base/edge.hpp"
+#include "source/Model/Base/graphdata.hpp"
 #include "source/Model/Base/node.hpp"
-
-// TODO: Replace all quotes with corner brackets in includes
-// TODO: Maybe create GraphData struct for lightweight graph data storage
 
 template<typename NodeData, typename NodeGraphContext, typename EdgeData, typename EdgeGraphContext>
 class Graph
@@ -46,12 +44,12 @@ class Graph
     };
 
 public:
-    explicit Graph(const Node<NodeData>::List& nodeList, const Edge<NodeData, EdgeData>::List& edgeList)
+    explicit Graph(const GraphData<NodeData, EdgeData>& data)
     {
-        for (const auto& node : nodeList)
+        for (const auto& node : data.nodes)
             mNodeList.push_back({.context = NodeGraphContext{}, .node = node});
 
-        for (const auto& edge : edgeList)
+        for (const auto& edge : data.edges)
             mEdgeList.push_back({.context = EdgeGraphContext{}, .edge = edge});
     }
 

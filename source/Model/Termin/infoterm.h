@@ -37,8 +37,6 @@ public:
 
     const TermData& info() const;
 
-    bool isNull() const;
-
     QString lowerTerm() const;
     QString decoratedTerm() const;
     QSizeF  decoratedTermSize() const;

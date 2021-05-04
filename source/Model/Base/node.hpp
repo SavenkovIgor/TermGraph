@@ -33,7 +33,7 @@ public:
     using List = std::vector<std::shared_ptr<Node<Data>>>;
     using Ptr  = std::shared_ptr<Node<Data>>;
 
-    explicit Node(Data data)
+    explicit Node(const Data& data)
         : mData(data)
     {}
 

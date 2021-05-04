@@ -39,8 +39,6 @@ InfoTerm::InfoTerm(const TermData& info)
 
 const TermData& InfoTerm::info() const { return mInfo; }
 
-bool InfoTerm::isNull() const { return mInfo.isNull(); }
-
 QString InfoTerm::lowerTerm() const { return mLowerTerm; }
 
 QString InfoTerm::decoratedTerm() const { return mDecoratedTerm; }
