@@ -25,7 +25,7 @@
 
 #include "source/Model/TerminGroup/groupdata.h"
 
-class GroupDataWrapper : GroupData
+class GroupDataWrapper : public GroupData
 {
     Q_GADGET
 

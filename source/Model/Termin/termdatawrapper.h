@@ -25,66 +25,34 @@
 
 #include "source/Model/Termin/termdata.h"
 
-class TermDataWrapper
+class TermDataWrapper : public TermData
 {
     Q_GADGET
 
-public:
     Q_PROPERTY(QString uuid READ getUuid WRITE setUuid)
-    Q_PROPERTY(QString term READ getTerm WRITE setTerm)
-    Q_PROPERTY(QString definition READ getDefinition WRITE setDefinition)
-    Q_PROPERTY(QString description READ getDescription WRITE setDescription)
-    Q_PROPERTY(QString examples READ getExamples WRITE setExamples)
-    Q_PROPERTY(QString wikiUrl READ getWikiUrl WRITE setWikiUrl)
-    Q_PROPERTY(QString wikiImage READ getWikiImage WRITE setWikiImage)
+    Q_PROPERTY(QString term MEMBER term)
+    Q_PROPERTY(QString definition MEMBER definition)
+    Q_PROPERTY(QString description MEMBER description)
+    Q_PROPERTY(QString examples MEMBER examples)
+    Q_PROPERTY(QString wikiUrl MEMBER wikiUrl)
+    Q_PROPERTY(QString wikiImage MEMBER wikiImage)
     Q_PROPERTY(QString groupUuid READ getGroupUuid WRITE setGroupUuid)
     Q_PROPERTY(QString lastEdit READ getLastEdit)
 
+public:
     TermDataWrapper() = default;
     TermDataWrapper(const TermData& info);
 
     Q_INVOKABLE bool isNull() const;
 
-    // Uuid
     QString getUuid() const;
     void    setUuid(const QString& uuid);
 
-    // Term
-    QString getTerm() const;
-    void    setTerm(const QString& term);
-
-    // Definition
-    QString getDefinition() const;
-    void    setDefinition(const QString& definition);
-
-    // Description
-    QString getDescription() const;
-    void    setDescription(const QString& description);
-
-    // Examples
-    QString getExamples() const;
-    void    setExamples(const QString& examples);
-
-    // WikiUrl
-    QString getWikiUrl() const;
-    void    setWikiUrl(const QString& wikiUrl);
-
-    // WikiImage
-    QString getWikiImage() const;
-    void    setWikiImage(const QString& wikiImage);
-
-    // GroupUuid
     QString getGroupUuid() const;
     void    setGroupUuid(const QString& groupUuid);
 
-    // LastEdit
     // Not editable...
     QString getLastEdit() const;
-
-    TermData unwrap() const;
-
-private:
-    TermData mInfo;
 };
 
 Q_DECLARE_METATYPE(TermDataWrapper)

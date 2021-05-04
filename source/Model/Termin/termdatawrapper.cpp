@@ -22,43 +22,17 @@
 #include "source/Model/Termin/termdatawrapper.h"
 
 TermDataWrapper::TermDataWrapper(const TermData& info)
-    : mInfo(info)
+    : TermData(info)
 {}
 
-bool TermDataWrapper::isNull() const { return mInfo.isNull(); }
+bool TermDataWrapper::isNull() const { return TermData::isNull(); }
 
-QString TermDataWrapper::getUuid() const { return mInfo.uuid.toString(); }
+QString TermDataWrapper::getUuid() const { return uuid.toString(); }
 
-void TermDataWrapper::setUuid(const QString& uuid) { mInfo.uuid = QUuid(uuid); }
+void TermDataWrapper::setUuid(const QString& uuid) { this->uuid = QUuid(uuid); }
 
-QString TermDataWrapper::getTerm() const { return mInfo.term; }
+QString TermDataWrapper::getGroupUuid() const { return groupUuid.toString(); }
 
-void TermDataWrapper::setTerm(const QString& term) { mInfo.term = term; }
+void TermDataWrapper::setGroupUuid(const QString& groupUuid) { this->groupUuid = QUuid(groupUuid); }
 
-QString TermDataWrapper::getDefinition() const { return mInfo.definition; }
-
-void TermDataWrapper::setDefinition(const QString& definition) { mInfo.definition = definition; }
-
-QString TermDataWrapper::getDescription() const { return mInfo.description; }
-
-void TermDataWrapper::setDescription(const QString& description) { mInfo.description = description; }
-
-QString TermDataWrapper::getExamples() const { return mInfo.examples; }
-
-void TermDataWrapper::setExamples(const QString& examples) { mInfo.examples = examples; }
-
-QString TermDataWrapper::getWikiUrl() const { return mInfo.wikiUrl; }
-
-void TermDataWrapper::setWikiUrl(const QString& wikiUrl) { mInfo.wikiUrl = wikiUrl; }
-
-QString TermDataWrapper::getWikiImage() const { return mInfo.wikiImage; }
-
-void TermDataWrapper::setWikiImage(const QString& wikiImage) { mInfo.wikiImage = wikiImage; }
-
-QString TermDataWrapper::getGroupUuid() const { return mInfo.groupUuid.toString(); }
-
-void TermDataWrapper::setGroupUuid(const QString& groupUuid) { mInfo.groupUuid = QUuid(groupUuid); }
-
-QString TermDataWrapper::getLastEdit() const { return mInfo.lastEdit.toString("dd MMM yyyy hh:mm:ss t"); }
-
-TermData TermDataWrapper::unwrap() const { return mInfo; }
+QString TermDataWrapper::getLastEdit() const { return lastEdit.toString("dd MMM yyyy hh:mm:ss t"); }
