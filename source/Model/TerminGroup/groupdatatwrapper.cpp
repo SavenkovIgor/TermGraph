@@ -19,22 +19,12 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Model/TerminGroup/groupgadgetwrapper.h"
+#include "source/Model/TerminGroup/groupdatatwrapper.h"
 
-GroupGadgetWrapper::GroupGadgetWrapper(const GroupData& info)
-    : _info(info)
+GroupDataWrapper::GroupDataWrapper(const GroupData& info)
+    : GroupData(info)
 {}
 
-QString GroupGadgetWrapper::getUuid() const { return _info.uuid.toString(); }
+QString GroupDataWrapper::getUuid() const { return uuid.toString(); }
 
-void GroupGadgetWrapper::setUuid(const QString& uuid) { _info.uuid.fromString(uuid); }
-
-QString GroupGadgetWrapper::getName() const { return _info.name; }
-
-void GroupGadgetWrapper::setName(const QString& name) { _info.name = name; }
-
-QString GroupGadgetWrapper::getComment() const { return _info.comment; }
-
-void GroupGadgetWrapper::setComment(const QString& comment) { _info.comment = comment; }
-
-GroupData GroupGadgetWrapper::unwrap() const { return _info; }
+void GroupDataWrapper::setUuid(const QString& uuid) { this->uuid = QUuid::fromString(uuid); }

@@ -25,34 +25,21 @@
 
 #include "source/Model/TerminGroup/groupdata.h"
 
-class GroupGadgetWrapper
+class GroupDataWrapper : GroupData
 {
     Q_GADGET
 
-public:
     Q_PROPERTY(QString uuid READ getUuid WRITE setUuid)
-    Q_PROPERTY(QString name READ getName WRITE setName)
-    Q_PROPERTY(QString comment READ getComment WRITE setComment)
+    Q_PROPERTY(QString name MEMBER name)
+    Q_PROPERTY(QString comment MEMBER comment)
 
-    GroupGadgetWrapper() = default;
-    GroupGadgetWrapper(const GroupData& info);
+public:
+    GroupDataWrapper() = default;
+    GroupDataWrapper(const GroupData& info);
 
     // Uuid
     QString getUuid() const;
     void    setUuid(const QString& uuid);
-
-    // Name
-    QString getName() const;
-    void    setName(const QString& name);
-
-    // Comment
-    QString getComment() const;
-    void    setComment(const QString& comment);
-
-    GroupData unwrap() const;
-
-private:
-    GroupData _info;
 };
 
-Q_DECLARE_METATYPE(GroupGadgetWrapper)
+Q_DECLARE_METATYPE(GroupDataWrapper)
