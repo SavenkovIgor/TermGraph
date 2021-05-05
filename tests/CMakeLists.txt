@@ -54,14 +54,14 @@ add_executable (UUIDS_TEST
 test_case_config (UUIDS_TEST)
 
 # NODE_TEST
-add_executable(NODE_TEST
+add_executable (NODE_TEST
     ../source/Model/Base/node.hpp
     nodetest.cpp)
 
 test_case_config (NODE_TEST)
 
 # EDGE_TEST
-add_executable(EDGE_TEST
+add_executable (EDGE_TEST
     ../source/Model/Base/node.hpp
     ../source/Model/Base/edge.hpp
     edgetest.cpp)
@@ -69,7 +69,7 @@ add_executable(EDGE_TEST
 test_case_config (EDGE_TEST)
 
 # GRAPH_TEST
-add_executable(GRAPH_TEST
+add_executable (GRAPH_TEST
     ../source/Model/Base/node.hpp
     ../source/Model/Base/edge.hpp
     ../source/Model/Base/graph.hpp
@@ -78,7 +78,7 @@ add_executable(GRAPH_TEST
 test_case_config (GRAPH_TEST)
 
 # GRAPHIC_ITEM_TEST
-add_executable(GRAPHIC_ITEM_TEST
+add_executable (GRAPHIC_ITEM_TEST
     ../source/Model/GraphicItem/graphicitem.h
     ../source/Model/GraphicItem/graphicitem.cpp
     graphicitemtest.cpp)
