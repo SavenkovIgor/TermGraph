@@ -302,23 +302,23 @@ void TermGroup::setOrphCoords(qreal maxWidth)
         orphansList.swapItemsAt(i, nMax);
     }
 
-    qreal x = 0, y = 0;
-    qreal maxHeightInRow = 0.0;
-    qreal groupMinWidth  = getGroupMinWidth();
-    maxWidth             = qBound(10.0, groupMinWidth, 2000.0);
+    QPointF pt(0, 0);
+    qreal   maxHeightInRow = 0.0;
+    qreal   groupMinWidth  = getGroupMinWidth();
+    maxWidth               = qBound(10.0, groupMinWidth, 2000.0);
 
     for (auto currNode : orphansList) {
         QSizeF nodeSize = currNode->getNodeRect(CoordType::zeroPoint).size();
 
-        if (x + nodeSize.width() > maxWidth) {
-            y += maxHeightInRow + AppStyle::Sizes::orphansVerticalSpacer;
+        if (pt.x() + nodeSize.width() > maxWidth) {
+            pt.ry() += maxHeightInRow + AppStyle::Sizes::orphansVerticalSpacer;
             //Переходим на следующий ряд
             maxHeightInRow = 0;
-            x              = 0;
+            pt.rx()        = 0;
         }
 
-        currNode->setPos(x, y);
-        x += nodeSize.width() + AppStyle::Sizes::orphansHorizontalSpacer;
+        currNode->setPos(pt);
+        pt.rx() += nodeSize.width() + AppStyle::Sizes::orphansHorizontalSpacer;
 
         maxHeightInRow = std::max(maxHeightInRow, nodeSize.height());
     }

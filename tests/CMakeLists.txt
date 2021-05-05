@@ -77,6 +77,14 @@ add_executable(GRAPH_TEST
 
 test_case_config (GRAPH_TEST)
 
+# GRAPHIC_ITEM_TEST
+add_executable(GRAPHIC_ITEM_TEST
+    ../source/Model/GraphicItem/graphicitem.h
+    ../source/Model/GraphicItem/graphicitem.cpp
+    graphicitemtest.cpp)
+
+test_case_config (GRAPHIC_ITEM_TEST)
+
 
 # TEXT_CURSOR_TEST
 add_executable (TEXT_CURSOR_TEST

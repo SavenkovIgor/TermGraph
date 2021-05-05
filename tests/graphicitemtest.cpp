@@ -19,18 +19,22 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <gtest/gtest.h>
+
 #include "source/Model/GraphicItem/graphicitem.h"
 
-void GraphicItem::setParentItem(GraphicItem* parent) { mParent = parent; }
-
-void GraphicItem::setPos(const QPointF& pt) { mPosition = pt; }
-
-QPointF GraphicItem::pos() const { return mPosition; }
-
-QPointF GraphicItem::scenePos() const
+TEST(GraphicItem, Position)
 {
-    if (mParent == nullptr)
-        return mPosition;
+    auto* item1 = new GraphicItem();
+    auto* item2 = new GraphicItem();
 
-    return mPosition + mParent->scenePos();
+    item1->setPos(QPointF(10, 10));
+    item2->setPos(QPointF(20, 20));
+
+    item2->setParentItem(item1);
+
+    EXPECT_EQ(item1->pos(), QPointF(10, 10));
+    EXPECT_EQ(item2->pos(), QPointF(20, 20));
+
+    EXPECT_EQ(item2->scenePos(), QPointF(30, 30));
 }
