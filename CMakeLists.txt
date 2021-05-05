@@ -57,12 +57,13 @@ else ()
     add_executable (${PROJECT_NAME})
 endif ()
 
-set_target_properties (${PROJECT_NAME} PROPERTIES
-    AUTOUIC ON
-    AUTOMOC ON
-    AUTORCC ON
-    CXX_STANDARD 20
-    CXX_STANDARD_REQUIRED ON)
+set_target_properties (${PROJECT_NAME}
+    PROPERTIES
+        AUTOUIC ON
+        AUTOMOC ON
+        AUTORCC ON
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
 
 # Resources folder
 target_sources (${PROJECT_NAME} PRIVATE resources/helpImages/helpImages.qrc resources/icons/icons.qrc)
@@ -74,23 +75,24 @@ target_sources (${PROJECT_NAME} PRIVATE qml/qml.qrc)
 target_sources (${PROJECT_NAME} PRIVATE source/Database/sqlqueries.qrc)
 
 # Some non compilable files
-target_sources (
-    ${PROJECT_NAME}
-    PRIVATE android/AndroidManifest.xml
-            android/res/drawable-hdpi/icon.png
-            android/res/drawable-mdpi/icon.png
-            android/res/drawable-ldpi/icon.png
-            .devTools/goodcheck.yml
-            .devTools/asterisklicense.yml
-            .devTools/hashlicense.yml
-            .devTools/includerules.yml
-            .devTools/nodebug.yml
-            .devTools/qmlimport.yml
-            .devTools/cmakeFormat.json)
+target_sources (${PROJECT_NAME}
+    PRIVATE
+        conanfile.py
+        android/AndroidManifest.xml
+        android/res/drawable-hdpi/icon.png
+        android/res/drawable-mdpi/icon.png
+        android/res/drawable-ldpi/icon.png
+        .devTools/goodcheck.yml
+        .devTools/asterisklicense.yml
+        .devTools/hashlicense.yml
+        .devTools/includerules.yml
+        .devTools/nodebug.yml
+        .devTools/qmlimport.yml
+        .devTools/cmakeFormat.json)
 
-file (GLOB_RECURSE ALL_SOURCES source/*.h source/*.hpp source/*.cpp)
 
 # Source folder
+file (GLOB_RECURSE ALL_SOURCES source/*.h source/*.hpp source/*.cpp)
 target_sources (${PROJECT_NAME} PRIVATE ${ALL_SOURCES})
 
 source_group (Sql REGULAR_EXPRESSION ".*\.sql")
@@ -100,15 +102,15 @@ source_group (Qml REGULAR_EXPRESSION "qml\/")
 
 target_compile_definitions (${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
-target_link_libraries (
-    ${PROJECT_NAME}
-    PRIVATE Qt6::Core
-            Qt6::Quick
-            Qt6::QuickControls2
-            Qt6::Qml
-            Qt6::Sql
-            Qt6::Network
-            Qt6::Svg)
+target_link_libraries (${PROJECT_NAME}
+    PRIVATE
+        Qt6::Core
+        Qt6::Quick
+        Qt6::QuickControls2
+        Qt6::Qml
+        Qt6::Sql
+        Qt6::Network
+        Qt6::Svg)
 
 if (BUILD_TESTING)
     add_subdirectory (tests)
