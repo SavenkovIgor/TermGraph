@@ -33,9 +33,13 @@ TEST(GraphTest, InitEdge)
 
     auto data = GraphData<int, int>{.nodes = {n1, n2}, .edges = {e1}};
 
+    auto list = GraphData<int, int>::List{{.nodes = {n1, n2}, .edges = {e1}}, {.nodes = {n2, n1}, .edges = {}}};
+
     Graph<int, int, int, int> graph{data};
 
     EXPECT_EQ(graph.nodeAt(0)->data(), 1);
     EXPECT_EQ(graph.nodeAt(1)->data(), 2);
     EXPECT_EQ(graph.edgeAt(0)->data(), 0);
+
+    EXPECT_EQ(list[1].nodes[0]->data(), 2);
 }

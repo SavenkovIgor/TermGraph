@@ -30,6 +30,8 @@
 template<typename NodeData, typename EdgeData>
 struct GraphData
 {
+    using List = std::vector<GraphData<NodeData, EdgeData>>;
+
     Node<NodeData>::List           nodes;
     Edge<NodeData, EdgeData>::List edges;
 };
