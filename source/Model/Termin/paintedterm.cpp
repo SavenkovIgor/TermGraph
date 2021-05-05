@@ -33,7 +33,10 @@ PaintedTerm::PaintedTerm(const TermData& info, QObject* parent)
     : QObject(parent)
     , GraphTerm(info)
     , GraphicItem()
+    , pNodeSize(QSizeF(40.0, 10.0))
 {
+    pCornerRadius.setBinding([this]() { return pNodeSize.value().height() * 0.2; });
+
     if (sides.isEmpty()) {
         sides << Qt::BottomEdge;
         sides << Qt::TopEdge;
@@ -108,9 +111,9 @@ QLineF PaintedTerm::getRectLine(Qt::Edge side)
 QRectF PaintedTerm::getNodeRect(CoordType inCoordinates) const
 {
     switch (inCoordinates) {
-    case CoordType::zeroPoint: return QRectF(QPointF(), nodeSize);
-    case CoordType::local: return QRectF(pos(), nodeSize);
-    case CoordType::scene: return QRectF(scenePos(), nodeSize);
+    case CoordType::zeroPoint: return QRectF(QPointF(), pNodeSize.value());
+    case CoordType::local: return QRectF(pos(), pNodeSize.value());
+    case CoordType::scene: return QRectF(scenePos(), pNodeSize.value());
     }
 
     assert(false); // must be unreachable
@@ -119,7 +122,7 @@ QRectF PaintedTerm::getNodeRect(CoordType inCoordinates) const
 
 QRectF PaintedTerm::getFrameRect(CoordType inCoordinates) const
 {
-    qreal  val = qBound(0.0, nodeSize.width() * 0.2, 8.0);
+    qreal  val = qBound(0.0, pNodeSize.value().width() * 0.2, 8.0);
     QRectF ret = getNodeRect(inCoordinates);
     return addMarginsToRect(ret, val);
 }
@@ -132,17 +135,11 @@ QRectF PaintedTerm::addMarginsToRect(QRectF rc, qreal mrg)
     return rc.marginsAdded(mrgObj);
 }
 
-void PaintedTerm::updateCornerRadius() { mCornerRadius = nodeSize.height() * 0.2; }
-
 QColor PaintedTerm::color() const { return baseColor(getNodeType(), isSelectedAnyway()); }
 
-void PaintedTerm::adjustRectSizeForName()
-{
-    QSizeF nameSize = cache().decoratedTermSize();
-    nodeSize.setWidth(nameSize.width() + 16);
-    nodeSize.setHeight(nameSize.height() + 4);
-    updateCornerRadius();
-}
+void PaintedTerm::adjustRectSizeForName() { pNodeSize.setValue(cache().decoratedTermSize() + QSizeF(16, 4)); }
+
+qreal PaintedTerm::cornerRadius() const { return pCornerRadius.value(); }
 
 QColor PaintedTerm::baseColor(NodeType type, bool selected)
 {
@@ -156,8 +153,6 @@ QColor PaintedTerm::baseColor(NodeType type, bool selected)
     assert(false); // must be unreachable
     return AppStyle::Colors::Nodes::orphan;
 }
-
-qreal PaintedTerm::cornerRadius() const { return mCornerRadius; }
 
 void PaintedTerm::setSelection(const bool& selected)
 {

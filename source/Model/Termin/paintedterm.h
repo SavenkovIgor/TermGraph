@@ -26,6 +26,7 @@
 #include <QList>
 #include <QMap>
 #include <QObject>
+#include <QProperty>
 #include <QSizeF>
 
 #include "source/Helpers/handytypes.h"
@@ -77,8 +78,6 @@ public:
 
     QPointF getCenter(CoordType inCoordinates) const;
 
-    qreal cornerRadius() const;
-
     void setSelection(const bool& selected);
     bool isSelectedAnyway() const;
     bool isThisSelected() const;
@@ -95,8 +94,12 @@ protected:
     // --- Methods ---
     void adjustRectSizeForName();
 
-private:
-    QSizeF nodeSize = QSizeF(40.0, 10.0);
+private: // Methods
+    qreal cornerRadius() const;
+
+private: // Members
+    QProperty<QSizeF> pNodeSize;
+    QProperty<qreal>  pCornerRadius;
 
     bool mThisSelected  = false;
     bool mRelativePaint = false;
@@ -107,7 +110,4 @@ private:
     // Color tools
     QColor        color() const;
     static QColor baseColor(NodeType type, bool selected);
-
-    qreal mCornerRadius = 0;
-    void  updateCornerRadius();
 };
