@@ -64,9 +64,6 @@ public:
 
     static QList<Qt::Edge> sides;
 
-    // Leveling tools
-    int getUpLevels(int pLevel = -1);
-
     // Painting tools
     void   setRelatedPaintUp(bool val);
     void   setRelatedPaintDown(bool val);

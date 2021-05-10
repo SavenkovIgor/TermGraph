@@ -48,20 +48,6 @@ PaintedTerm::PaintedTerm(const TermData& info, QObject* parent)
 
 QRectF PaintedTerm::rect() const { return getNodeRect(CoordType::scene); }
 
-int PaintedTerm::getUpLevels([[maybe_unused]] int pLevel) // TODO: check why plevel unused
-{
-    int ret = -1;
-    for (GraphTerm* t : getLeafNodes()) {
-        PaintedTerm* n = static_cast<PaintedTerm*>(t);
-        ret            = std::max(ret, n->getUpLevels());
-    }
-
-    if (ret == -1)
-        ret = getPaintLevel();
-
-    return ret;
-}
-
 void PaintedTerm::setRelatedPaintUp(bool val)
 {
     for (auto* edge : getEdgesToLeafs())

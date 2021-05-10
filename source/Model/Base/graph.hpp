@@ -47,7 +47,14 @@ private:
 public:
     explicit Graph(const GraphData<NodeData, EdgeData>& data)
         : GraphData<NodeData, EdgeData>{.nodes = data.nodes, .edges = data.edges}
-    {}
+    {
+        // Uniqueness check
+        std::set<NodePtr> nodeSet(data.nodes.begin(), data.nodes.end());
+        std::set<EdgePtr> edgeSet(data.edges.begin(), data.edges.end());
+
+        assert(nodeSet.size() == data.nodes.size());
+        assert(edgeSet.size() == data.edges.size());
+    }
 
     const NodeList& nodeList() const { return Base::nodes; }
     const EdgeList& edgeList() const { return Base::edges; }
