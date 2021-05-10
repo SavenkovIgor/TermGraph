@@ -21,6 +21,10 @@
 
 #pragma once
 
+#include <algorithm>
+#include <map>
+#include <ranges>
+#include <set>
 #include <utility>
 #include <vector>
 
@@ -28,38 +32,144 @@
 #include "source/Model/Base/graphdata.hpp"
 #include "source/Model/Base/node.hpp"
 
-template<typename NodeData, typename NodeGraphContext, typename EdgeData, typename EdgeGraphContext>
-class Graph
+template<typename NodeData, typename EdgeData>
+class Graph : private GraphData<NodeData, EdgeData>
 {
-    struct NodeWrap
-    {
-        NodeGraphContext    context;
-        Node<NodeData>::Ptr node;
-    };
+private:
+    using NodePtr  = Node<NodeData>::Ptr;
+    using NodeList = Node<NodeData>::List;
 
-    struct EdgeWrap
-    {
-        EdgeGraphContext              context;
-        Edge<NodeData, EdgeData>::Ptr edge;
-    };
+    using EdgePtr  = Edge<NodeData, EdgeData>::Ptr;
+    using EdgeList = Edge<NodeData, EdgeData>::List;
+
+    using Base = GraphData<NodeData, EdgeData>;
 
 public:
     explicit Graph(const GraphData<NodeData, EdgeData>& data)
-    {
-        for (const auto& node : data.nodes)
-            mNodeList.push_back({.context = NodeGraphContext{}, .node = node});
+        : GraphData<NodeData, EdgeData>{.nodes = data.nodes, .edges = data.edges}
+    {}
 
-        for (const auto& edge : data.edges)
-            mEdgeList.push_back({.context = EdgeGraphContext{}, .edge = edge});
+    const NodeList& nodeList() const { return Base::nodes; }
+    const EdgeList& edgeList() const { return Base::edges; }
+
+    bool contains(const NodePtr& node) const { return Base::contains(node); }
+    bool contains(const EdgePtr& edge) const { return Base::contains(edge); }
+
+    NodeList isolatedNodes() const
+    {
+        auto ret = Base::nodes;
+
+        auto removeIt = std::remove_if(ret.begin(), ret.end(), [this](auto node) {
+            auto it = std::find_if(Base::edges.begin(), Base::edges.end(), [&node](auto edge) {
+                return edge->incidentalTo(node);
+            });
+
+            return it != Base::edges.end();
+            ;
+        });
+
+        ret.erase(removeIt, ret.end());
+
+        return ret;
     }
 
-    const NodeGraphContext& nodeContextAt(std::size_t i) const { return mNodeList.at(i).context; }
-    Node<NodeData>::Ptr     nodeAt(std::size_t i) const { return mNodeList.at(i).node; }
+    NodeList connectedNodes() const
+    {
+        auto isolated = isolatedNodes();
+        auto ret      = Base::nodes;
 
-    const EdgeGraphContext&       edgeContextAt(std::size_t i) const { return mEdgeList.at(i).context; }
-    Edge<NodeData, EdgeData>::Ptr edgeAt(std::size_t i) const { return mEdgeList.at(i).edge; }
+        auto removeIt = std::remove_if(ret.begin(), ret.end(), [&isolated](auto node) {
+            auto it = std::find(isolated.begin(), isolated.end(), node);
 
-private:
-    std::vector<NodeWrap> mNodeList;
-    std::vector<EdgeWrap> mEdgeList;
+            return it != isolated.end();
+        });
+
+        ret.erase(removeIt, ret.end());
+
+        return ret;
+    }
+
+    EdgeList connectedEdges(const NodePtr& node)
+    {
+        assert(contains(node));
+
+        auto filtered = Base::edges
+            | std::ranges::views::filter([&node](auto edge) { return edge->incidentalTo(node); });
+
+        return EdgeList(filtered.begin(), filtered.end());
+    }
+
+    GraphData<NodeData, EdgeData> surrounding(const NodePtr& node)
+    {
+        assert(contains(node));
+        auto     edges = connectedEdges(node);
+        NodeList nodes(edges.size());
+
+        std::ranges::transform(edges, nodes.begin(), [&node](auto edge) { return edge->oppositeTo(node); });
+
+        return {.nodes = nodes, .edges = edges};
+    }
+
+    GraphData<NodeData, EdgeData>::List bondedSubgraphs()
+    {
+        using namespace std;
+
+        enum class State { NotVisited = 0, Planned, Visited };
+        map<NodePtr, State> nodesVisitList;
+
+        for (const auto& node : connectedNodes())
+            nodesVisitList[node] = State::NotVisited;
+
+        if (nodesVisitList.empty())
+            return {};
+
+        typename GraphData<NodeData, EdgeData>::List ret;
+
+        auto isNodePlanned = [](const auto& val) { return val.second == State::Planned; };
+        auto isNodeVisited = [](const auto& val) { return val.second == State::Visited; };
+
+        set<NodePtr> uniqueNodes;
+        set<EdgePtr> uniqueEdges;
+
+        while (!nodesVisitList.empty()) {
+            // Visit stage
+            auto nodeToVisit = ranges::find_if(nodesVisitList, isNodePlanned);
+
+            // If no any nodes in plan, take first
+            if (nodeToVisit == nodesVisitList.end())
+                nodeToVisit = nodesVisitList.begin();
+
+            auto currentNode = (*nodeToVisit).first;
+
+            nodesVisitList[currentNode] = State::Visited;
+            uniqueNodes.insert(currentNode);
+
+            auto neighbours = surrounding(currentNode);
+
+            for (const auto& neighbourNode : neighbours.nodes) {
+                if (nodesVisitList[neighbourNode] != State::Visited)
+                    nodesVisitList[neighbourNode] = State::Planned;
+            }
+
+            ranges::for_each(neighbours.edges, [&uniqueEdges](auto edge) { uniqueEdges.insert(edge); });
+
+            // Cut stage
+            auto plannedCount = ranges::count_if(nodesVisitList, isNodePlanned);
+            auto visitedCount = ranges::count_if(nodesVisitList, isNodeVisited);
+
+            if (plannedCount == 0 && visitedCount > 0) {
+                // Nodes preparations
+                ret.push_back({.nodes = NodeList(uniqueNodes.begin(), uniqueNodes.end()),
+                               .edges = EdgeList(uniqueEdges.begin(), uniqueEdges.end())});
+
+                uniqueNodes.clear();
+                uniqueEdges.clear();
+
+                // Remove visited from nodesVisitList
+                erase_if(nodesVisitList, isNodeVisited);
+            }
+        }
+
+        return ret;
+    }
 };

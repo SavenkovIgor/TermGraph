@@ -73,6 +73,7 @@ add_executable (GRAPH_TEST
     ../source/Model/Base/node.hpp
     ../source/Model/Base/edge.hpp
     ../source/Model/Base/graph.hpp
+    ../source/Model/Base/graphdata.hpp
     graphtest.cpp)
 
 test_case_config (GRAPH_TEST)
@@ -84,7 +85,6 @@ add_executable (GRAPHIC_ITEM_TEST
     graphicitemtest.cpp)
 
 test_case_config (GRAPHIC_ITEM_TEST)
-
 
 # TEXT_CURSOR_TEST
 add_executable (TEXT_CURSOR_TEST

@@ -47,6 +47,14 @@ public:
     Node<NodeData>::Ptr root() { return mRoot; }
     Node<NodeData>::Ptr leaf() { return mLeaf; }
 
+    bool incidentalTo(const Node<NodeData>::Ptr& node) const { return mRoot == node || mLeaf == node; }
+
+    Node<NodeData>::Ptr oppositeTo(const Node<NodeData>::Ptr& node) const
+    {
+        assert(incidentalTo(node));
+        return mRoot == node ? mLeaf : mRoot;
+    }
+
     void            setData(const EdgeData& data) { mData = data; }
     EdgeData&       data() { return mData; }
     const EdgeData& data() const { return mData; }
