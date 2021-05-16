@@ -26,8 +26,7 @@
 #include "source/Model/Base/node.hpp"
 #include "source/Model/Termin/termdatacache.h"
 #include "source/Model/TerminEdge/graphedge.h"
-
-enum class NodeType { orphan, root, endLeaf, middleLeaf };
+#include "source/Model/enums.h"
 
 // This class contains all "graph" part of term
 // like edges, place in graph hierarchy and so on

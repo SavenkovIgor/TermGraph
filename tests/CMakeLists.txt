@@ -78,6 +78,17 @@ add_executable (GRAPH_TEST
 
 test_case_config (GRAPH_TEST)
 
+add_executable (FOREST_TEST
+    ../source/Model/Base/node.hpp
+    ../source/Model/Base/edge.hpp
+    ../source/Model/Base/graph.hpp
+    ../source/Model/Base/graphdata.hpp
+    ../source/Model/Base/forest.hpp
+    ../source/Model/enums.h
+    foresttest.cpp)
+
+test_case_config (FOREST_TEST)
+
 # GRAPHIC_ITEM_TEST
 add_executable (GRAPHIC_ITEM_TEST
     ../source/Model/GraphicItem/graphicitem.h

@@ -33,7 +33,7 @@
 #include "source/Model/Base/node.hpp"
 
 template<typename NodeData, typename EdgeData>
-class Graph : private GraphData<NodeData, EdgeData>
+class Graph : protected GraphData<NodeData, EdgeData>
 {
 private:
     using NodePtr  = Node<NodeData>::Ptr;
@@ -72,7 +72,6 @@ public:
             });
 
             return it != Base::edges.end();
-            ;
         });
 
         ret.erase(removeIt, ret.end());

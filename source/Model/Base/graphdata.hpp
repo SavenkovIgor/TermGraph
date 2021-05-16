@@ -35,13 +35,10 @@ struct GraphData
     Node<NodeData>::List           nodes;
     Edge<NodeData, EdgeData>::List edges;
 
-    bool contains(const Node<NodeData>::Ptr& node) const
-    {
-        return std::find(nodes.begin(), nodes.end(), node) != nodes.end();
-    }
+    bool contains(const Node<NodeData>::Ptr& node) const { return std::ranges::find(nodes, node) != nodes.end(); }
 
     bool contains(const Edge<NodeData, EdgeData>::Ptr& edge) const
     {
-        return std::find(edges.begin(), edges.end(), edge) != edges.end();
+        return std::ranges::find(edges, edge) != edges.end();
     }
 };
