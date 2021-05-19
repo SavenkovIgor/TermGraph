@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include <deque>
+#include <functional>
 #include <map>
 
 #include "source/Model/Base/graph.hpp"
@@ -97,6 +99,22 @@ public:
         }
     }
 
+    void rootsVisiter(const NodePtr& node, const std::function<bool(const NodePtr& node)>& stopCondition)
+    {
+        std::deque<NodePtr> visitQueue;
+        visitQueue.push_back(node);
+        nodesVisiter(stopCondition, visitQueue, mEdgesToRoots, false);
+        assert(visitQueue.empty());
+    }
+
+    void leafsVisiter(const NodePtr& node, const std::function<bool(const NodePtr& node)>& stopCondition)
+    {
+        std::deque<NodePtr> visitQueue;
+        visitQueue.push_back(node);
+        nodesVisiter(stopCondition, visitQueue, mEdgesToLeafs, false);
+        assert(visitQueue.empty());
+    }
+
 private: // Methods
     void rebuildCache()
     {
@@ -155,6 +173,37 @@ private: // Methods
         }
 
         nodeStates[node] = NodeState::Visited;
+    }
+
+    static void nodesVisiter(const std::function<bool(const NodePtr& node)>& stopCondition,
+                             std::deque<NodePtr>&                            visitQueue,
+                             const std::map<NodePtr, EdgeList>&              edgesList,
+                             bool                                            checkCondition = true)
+    {
+        using namespace std;
+
+        if (visitQueue.empty())
+            return;
+
+        auto node = visitQueue.front();
+        visitQueue.pop_front();
+
+        if (checkCondition) {
+            if (stopCondition(node)) {
+                return;
+            }
+        }
+
+        for (const auto edge : edgesList.at(node)) {
+            auto rootNode = edge->oppositeTo(node);
+
+            bool found = ranges::find(visitQueue, rootNode) != visitQueue.end();
+
+            if (!found)
+                visitQueue.push_back(rootNode);
+        }
+
+        nodesVisiter(stopCondition, visitQueue, edgesList);
     }
 
 private: // Members

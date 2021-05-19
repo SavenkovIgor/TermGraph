@@ -19,6 +19,8 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include <set>
+
 #include <gtest/gtest.h>
 
 #include "source/Model/Base/forest.hpp"
@@ -126,4 +128,76 @@ TEST_F(ForestTest, CycleTest)
 
     EXPECT_EQ(brokenEdges.size(), 1);
     EXPECT_EQ(brokenEdges[0]->data(), 3);
+}
+
+TEST_F(ForestTest, RootVisit)
+{
+    auto f1 = Forest<int, int>(
+        {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9}});
+
+    std::set<Node<int>::Ptr> visitList;
+
+    auto visitListInserter = [&visitList](auto node) {
+        visitList.insert(node);
+        return false;
+    };
+
+    f1.rootsVisiter(n1, visitListInserter);
+    EXPECT_TRUE(visitList.empty());
+    visitList.clear();
+
+    f1.rootsVisiter(n2, visitListInserter);
+    EXPECT_TRUE(visitList.empty());
+    visitList.clear();
+
+    f1.rootsVisiter(n3, visitListInserter);
+    EXPECT_TRUE(visitList.size() == 2);
+    EXPECT_TRUE(visitList.contains(n1));
+    EXPECT_TRUE(visitList.contains(n2));
+    visitList.clear();
+
+    f1.rootsVisiter(n8, visitListInserter);
+    EXPECT_TRUE(visitList.size() == 4);
+    EXPECT_TRUE(visitList.contains(n1));
+    EXPECT_TRUE(visitList.contains(n5));
+    EXPECT_TRUE(visitList.contains(n6));
+    EXPECT_TRUE(visitList.contains(n7));
+    visitList.clear();
+}
+
+TEST_F(ForestTest, LeafVisit)
+{
+    auto f1 = Forest<int, int>(
+        {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9}});
+
+    std::set<Node<int>::Ptr> visitList;
+
+    auto visitListInserter = [&visitList](auto node) {
+        visitList.insert(node);
+        return false;
+    };
+
+    f1.leafsVisiter(n8, visitListInserter);
+    EXPECT_TRUE(visitList.empty());
+    visitList.clear();
+
+    f1.leafsVisiter(n3, visitListInserter);
+    EXPECT_TRUE(visitList.empty());
+    visitList.clear();
+
+    f1.leafsVisiter(n2, visitListInserter);
+    EXPECT_TRUE(visitList.size() == 2);
+    EXPECT_TRUE(visitList.contains(n3));
+    EXPECT_TRUE(visitList.contains(n4));
+    visitList.clear();
+
+    f1.leafsVisiter(n1, visitListInserter);
+    EXPECT_TRUE(visitList.size() == 6);
+    EXPECT_TRUE(visitList.contains(n3));
+    EXPECT_TRUE(visitList.contains(n4));
+    EXPECT_TRUE(visitList.contains(n5));
+    EXPECT_TRUE(visitList.contains(n6));
+    EXPECT_TRUE(visitList.contains(n7));
+    EXPECT_TRUE(visitList.contains(n8));
+    visitList.clear();
 }
