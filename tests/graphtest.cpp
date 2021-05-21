@@ -59,6 +59,54 @@ TEST_F(GraphTest, GraphDataInit)
     EXPECT_EQ(graph.edgeList().size(), 2);
 }
 
+TEST_F(GraphTest, GraphDataContains)
+{
+    auto data = GraphData<int, int>{.nodes = {n1, n2}, .edges = {e1}};
+
+    EXPECT_TRUE(data.contains(n1));
+    EXPECT_TRUE(data.contains(n2));
+    EXPECT_FALSE(data.contains(n3));
+
+    EXPECT_TRUE(data.contains(e1));
+    EXPECT_FALSE(data.contains(e2));
+}
+
+TEST_F(GraphTest, GraphDataFilter)
+{
+    auto data = GraphData<int, int>{.nodes = {n1, n2, n3, n4}, .edges = {e1, e2}};
+
+    auto fNodes = data.filterNodes([](auto node) { return node->data() % 2 == 0; });
+
+    EXPECT_EQ(fNodes.size(), 2);
+    EXPECT_EQ(fNodes[0]->data(), 2);
+    EXPECT_EQ(fNodes[1]->data(), 4);
+
+    auto fEdges = data.filterEdges([](auto edge) { return edge->data() % 2 == 1; });
+
+    EXPECT_EQ(fEdges.size(), 1);
+    EXPECT_EQ(fEdges[0]->data(), 1);
+}
+
+TEST_F(GraphTest, GraphDataSubtract)
+{
+    auto nodes1 = GraphData<int, int>::subtractNodeList({n1, n2, n3, n4}, {n1, n3});
+    EXPECT_EQ(nodes1.size(), 2);
+    EXPECT_EQ(nodes1[0]->data(), 2);
+    EXPECT_EQ(nodes1[1]->data(), 4);
+
+    auto nodes2 = GraphData<int, int>::subtractNodeList({n1, n2, n3, n4}, {n1, n2, n3, n4});
+    EXPECT_EQ(nodes2.size(), 0);
+
+    auto edges1 = GraphData<int, int>::subtractEdgeList({e1, e2}, {});
+    EXPECT_EQ(edges1.size(), 2);
+    EXPECT_EQ(edges1[0]->data(), 1);
+    EXPECT_EQ(edges1[1]->data(), 2);
+
+    auto edges2 = GraphData<int, int>::subtractEdgeList({e1, e2}, {e1});
+    EXPECT_EQ(edges2.size(), 1);
+    EXPECT_EQ(edges2[0]->data(), 2);
+}
+
 TEST_F(GraphTest, Contains)
 {
     auto graph = Graph<int, int>({.nodes = {n1, n2, n3}, .edges = {e1, e2}});

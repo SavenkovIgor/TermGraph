@@ -48,6 +48,9 @@ public:
     static const Edge<int, int>::Ptr e7;
     static const Edge<int, int>::Ptr e8;
     static const Edge<int, int>::Ptr e9;
+    static const Edge<int, int>::Ptr e10;
+
+    static const Forest<int, int> fullForest;
 };
 
 const Node<int>::Ptr ForestTest::n1 = Node<int>::createPtr(1);
@@ -59,59 +62,43 @@ const Node<int>::Ptr ForestTest::n6 = Node<int>::createPtr(6);
 const Node<int>::Ptr ForestTest::n7 = Node<int>::createPtr(7);
 const Node<int>::Ptr ForestTest::n8 = Node<int>::createPtr(8);
 
-const Edge<int, int>::Ptr ForestTest::e1 = Edge<int, int>::createPtr(n1, n3, 1);
-const Edge<int, int>::Ptr ForestTest::e2 = Edge<int, int>::createPtr(n1, n4, 2);
-const Edge<int, int>::Ptr ForestTest::e3 = Edge<int, int>::createPtr(n1, n5, 3);
-const Edge<int, int>::Ptr ForestTest::e4 = Edge<int, int>::createPtr(n2, n3, 4);
-const Edge<int, int>::Ptr ForestTest::e5 = Edge<int, int>::createPtr(n2, n4, 5);
-const Edge<int, int>::Ptr ForestTest::e6 = Edge<int, int>::createPtr(n5, n6, 6);
-const Edge<int, int>::Ptr ForestTest::e7 = Edge<int, int>::createPtr(n5, n7, 7);
-const Edge<int, int>::Ptr ForestTest::e8 = Edge<int, int>::createPtr(n6, n8, 8);
-const Edge<int, int>::Ptr ForestTest::e9 = Edge<int, int>::createPtr(n7, n8, 9);
+// TODO: swap nodes
+const Edge<int, int>::Ptr ForestTest::e1  = Edge<int, int>::createPtr(n1, n3, 1);
+const Edge<int, int>::Ptr ForestTest::e2  = Edge<int, int>::createPtr(n1, n4, 2);
+const Edge<int, int>::Ptr ForestTest::e3  = Edge<int, int>::createPtr(n1, n5, 3);
+const Edge<int, int>::Ptr ForestTest::e4  = Edge<int, int>::createPtr(n2, n3, 4);
+const Edge<int, int>::Ptr ForestTest::e5  = Edge<int, int>::createPtr(n2, n4, 5);
+const Edge<int, int>::Ptr ForestTest::e6  = Edge<int, int>::createPtr(n5, n6, 6);
+const Edge<int, int>::Ptr ForestTest::e7  = Edge<int, int>::createPtr(n5, n7, 7);
+const Edge<int, int>::Ptr ForestTest::e8  = Edge<int, int>::createPtr(n6, n8, 8);
+const Edge<int, int>::Ptr ForestTest::e9  = Edge<int, int>::createPtr(n7, n8, 9);
+const Edge<int, int>::Ptr ForestTest::e10 = Edge<int, int>::createPtr(n5, n8, 10);
 
-TEST_F(ForestTest, ForestInit)
-{
-    auto f1 = Forest<int, int>(
-        {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9}});
-}
+const Forest<int, int> ForestTest::fullForest = Forest<int, int>(
+    {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9}});
 
 TEST_F(ForestTest, NodeTypes)
 {
-    auto f1 = Forest<int, int>(
-        {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9}});
-
-    EXPECT_EQ(f1.nodeType(n1), NodeType::root);
-    EXPECT_EQ(f1.nodeType(n2), NodeType::root);
-    EXPECT_EQ(f1.nodeType(n3), NodeType::endLeaf);
-    EXPECT_EQ(f1.nodeType(n4), NodeType::endLeaf);
-    EXPECT_EQ(f1.nodeType(n5), NodeType::middleLeaf);
-    EXPECT_EQ(f1.nodeType(n6), NodeType::middleLeaf);
-    EXPECT_EQ(f1.nodeType(n7), NodeType::middleLeaf);
-    EXPECT_EQ(f1.nodeType(n8), NodeType::endLeaf);
+    EXPECT_EQ(fullForest.nodeType(n1), NodeType::root);
+    EXPECT_EQ(fullForest.nodeType(n2), NodeType::root);
+    EXPECT_EQ(fullForest.nodeType(n3), NodeType::endLeaf);
+    EXPECT_EQ(fullForest.nodeType(n4), NodeType::endLeaf);
+    EXPECT_EQ(fullForest.nodeType(n5), NodeType::middleLeaf);
+    EXPECT_EQ(fullForest.nodeType(n6), NodeType::middleLeaf);
+    EXPECT_EQ(fullForest.nodeType(n7), NodeType::middleLeaf);
+    EXPECT_EQ(fullForest.nodeType(n8), NodeType::endLeaf);
 }
 
 TEST_F(ForestTest, NodeTypes2)
 {
-    auto f1 = Forest<int, int>(
-        {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9}});
-
-    EXPECT_TRUE(f1.isRoot(n1));
-    EXPECT_TRUE(f1.isRoot(n2));
-    EXPECT_TRUE(f1.isLeaf(n3));
-    EXPECT_TRUE(f1.isLeaf(n4));
-    EXPECT_TRUE(f1.isLeaf(n5));
-    EXPECT_TRUE(f1.isLeaf(n6));
-    EXPECT_TRUE(f1.isLeaf(n7));
-    EXPECT_TRUE(f1.isLeaf(n8));
-
-    EXPECT_TRUE(f1.isInTree(n1));
-    EXPECT_TRUE(f1.isInTree(n2));
-    EXPECT_TRUE(f1.isInTree(n3));
-    EXPECT_TRUE(f1.isInTree(n4));
-    EXPECT_TRUE(f1.isInTree(n5));
-    EXPECT_TRUE(f1.isInTree(n6));
-    EXPECT_TRUE(f1.isInTree(n7));
-    EXPECT_TRUE(f1.isInTree(n8));
+    EXPECT_TRUE(fullForest.isRoot(n1));
+    EXPECT_TRUE(fullForest.isRoot(n2));
+    EXPECT_TRUE(fullForest.isLeaf(n3));
+    EXPECT_TRUE(fullForest.isLeaf(n4));
+    EXPECT_TRUE(fullForest.isLeaf(n5));
+    EXPECT_TRUE(fullForest.isLeaf(n6));
+    EXPECT_TRUE(fullForest.isLeaf(n7));
+    EXPECT_TRUE(fullForest.isLeaf(n8));
 }
 
 TEST_F(ForestTest, CycleTest)
@@ -132,9 +119,6 @@ TEST_F(ForestTest, CycleTest)
 
 TEST_F(ForestTest, RootVisit)
 {
-    auto f1 = Forest<int, int>(
-        {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9}});
-
     std::set<Node<int>::Ptr> visitList;
 
     auto visitListInserter = [&visitList](auto node) {
@@ -142,21 +126,21 @@ TEST_F(ForestTest, RootVisit)
         return false;
     };
 
-    f1.rootsVisiter(n1, visitListInserter);
+    fullForest.rootsVisiter(n1, visitListInserter);
     EXPECT_TRUE(visitList.empty());
     visitList.clear();
 
-    f1.rootsVisiter(n2, visitListInserter);
+    fullForest.rootsVisiter(n2, visitListInserter);
     EXPECT_TRUE(visitList.empty());
     visitList.clear();
 
-    f1.rootsVisiter(n3, visitListInserter);
+    fullForest.rootsVisiter(n3, visitListInserter);
     EXPECT_TRUE(visitList.size() == 2);
     EXPECT_TRUE(visitList.contains(n1));
     EXPECT_TRUE(visitList.contains(n2));
     visitList.clear();
 
-    f1.rootsVisiter(n8, visitListInserter);
+    fullForest.rootsVisiter(n8, visitListInserter);
     EXPECT_TRUE(visitList.size() == 4);
     EXPECT_TRUE(visitList.contains(n1));
     EXPECT_TRUE(visitList.contains(n5));
@@ -167,9 +151,6 @@ TEST_F(ForestTest, RootVisit)
 
 TEST_F(ForestTest, LeafVisit)
 {
-    auto f1 = Forest<int, int>(
-        {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9}});
-
     std::set<Node<int>::Ptr> visitList;
 
     auto visitListInserter = [&visitList](auto node) {
@@ -177,21 +158,21 @@ TEST_F(ForestTest, LeafVisit)
         return false;
     };
 
-    f1.leafsVisiter(n8, visitListInserter);
+    fullForest.leafsVisiter(n8, visitListInserter);
     EXPECT_TRUE(visitList.empty());
     visitList.clear();
 
-    f1.leafsVisiter(n3, visitListInserter);
+    fullForest.leafsVisiter(n3, visitListInserter);
     EXPECT_TRUE(visitList.empty());
     visitList.clear();
 
-    f1.leafsVisiter(n2, visitListInserter);
+    fullForest.leafsVisiter(n2, visitListInserter);
     EXPECT_TRUE(visitList.size() == 2);
     EXPECT_TRUE(visitList.contains(n3));
     EXPECT_TRUE(visitList.contains(n4));
     visitList.clear();
 
-    f1.leafsVisiter(n1, visitListInserter);
+    fullForest.leafsVisiter(n1, visitListInserter);
     EXPECT_TRUE(visitList.size() == 6);
     EXPECT_TRUE(visitList.contains(n3));
     EXPECT_TRUE(visitList.contains(n4));
@@ -200,4 +181,35 @@ TEST_F(ForestTest, LeafVisit)
     EXPECT_TRUE(visitList.contains(n7));
     EXPECT_TRUE(visitList.contains(n8));
     visitList.clear();
+}
+
+TEST_F(ForestTest, HasAncestor)
+{
+    EXPECT_TRUE(fullForest.isAncestor(n6, n1));
+    EXPECT_TRUE(fullForest.isAncestor(n4, n1));
+    EXPECT_TRUE(fullForest.isAncestor(n8, n5));
+    EXPECT_TRUE(fullForest.isAncestor(n8, n7));
+
+    EXPECT_FALSE(fullForest.isAncestor(n8, n3));
+    EXPECT_FALSE(fullForest.isAncestor(n4, n8));
+}
+
+TEST_F(ForestTest, hasFarAncestor)
+{
+    EXPECT_TRUE(fullForest.isFarAncestor(n8, n5));
+    EXPECT_TRUE(fullForest.isFarAncestor(n8, n1));
+
+    EXPECT_FALSE(fullForest.isFarAncestor(n8, n7));
+    EXPECT_FALSE(fullForest.isFarAncestor(n8, n6));
+}
+
+TEST_F(ForestTest, WasteEdges)
+{
+    const Forest<int, int> forest = Forest<int, int>(
+        {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9, e10}});
+
+    EXPECT_FALSE(forest.contains(e10));
+
+    EXPECT_TRUE(forest.hasWasteEdges());
+    EXPECT_EQ(forest.wasteEdges()[0]->data(), 10);
 }

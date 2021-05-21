@@ -29,7 +29,7 @@
 #include "source/Model/enums.h"
 
 template<typename NodeData, typename EdgeData>
-class Forest : protected Graph<NodeData, EdgeData>
+class Forest : public Graph<NodeData, EdgeData>
 {
 private:
     using NodePtr  = Node<NodeData>::Ptr;
@@ -48,34 +48,35 @@ public:
         assert(Base::isolatedNodes().empty());
         rebuildCache();
 
-        auto brokeEdges = getCycleEdges();
+        mBrokenEdges = getCycleEdges();
 
-        auto remIt = std::remove_if(BaseData::edges.begin(), BaseData::edges.end(), [&brokeEdges](auto edge) {
-            return std::ranges::find(brokeEdges, edge) != brokeEdges.end();
-        });
-
-        BaseData::edges.erase(remIt, BaseData::edges.end());
-
-        mBrokenEdges = brokeEdges;
-
-        if (!mBrokenEdges.empty())
+        if (!mBrokenEdges.empty()) {
+            BaseData::edges = BaseData::subtractEdgeList(BaseData::edges, mBrokenEdges);
             rebuildCache();
+        }
+
+        mWasteEdges = getWasteEdges();
+
+        if (!mWasteEdges.empty()) {
+            BaseData::edges = BaseData::subtractEdgeList(BaseData::edges, mWasteEdges);
+            rebuildCache();
+        }
 
         assert(getCycleEdges().empty());
     }
 
     bool isRoot(const NodePtr& node) const { return nodeType(node) == NodeType::root; }
-    bool isOrphan(const NodePtr& node) const { return nodeType(node) == NodeType::orphan; }
     bool isLeaf(const NodePtr& node) const
     {
         auto type = nodeType(node);
         return type == NodeType::endLeaf || type == NodeType::middleLeaf;
     }
 
-    bool isInTree(const NodePtr& node) const { return !isOrphan(node); }
-
     bool     hasBrokenEdges() const { return !mBrokenEdges.empty(); }
     EdgeList brokenEdges() const { return mBrokenEdges; }
+
+    bool     hasWasteEdges() const { return !mWasteEdges.empty(); }
+    EdgeList wasteEdges() const { return mWasteEdges; }
 
     NodeType nodeType(const NodePtr& node) const
     {
@@ -99,20 +100,69 @@ public:
         }
     }
 
-    void rootsVisiter(const NodePtr& node, const std::function<bool(const NodePtr& node)>& stopCondition)
+    void rootsVisiter(const NodePtr& node, const std::function<bool(const NodePtr& node)>& stopCondition) const
     {
         std::deque<NodePtr> visitQueue;
         visitQueue.push_back(node);
         nodesVisiter(stopCondition, visitQueue, mEdgesToRoots, false);
-        assert(visitQueue.empty());
     }
 
-    void leafsVisiter(const NodePtr& node, const std::function<bool(const NodePtr& node)>& stopCondition)
+    void leafsVisiter(const NodePtr& node, const std::function<bool(const NodePtr& node)>& stopCondition) const
     {
         std::deque<NodePtr> visitQueue;
         visitQueue.push_back(node);
         nodesVisiter(stopCondition, visitQueue, mEdgesToLeafs, false);
-        assert(visitQueue.empty());
+    }
+
+    NodeList roots() { return BaseData::filterNodes(isRoot); }
+
+    NodeList rootNodes(const NodePtr& node) const
+    {
+        NodeList ret;
+        std::ranges::transform(mEdgesToRoots.at(node), std::back_inserter(ret), [&node](auto edge) {
+            return edge->oppositeTo(node);
+        });
+        return ret;
+    }
+
+    bool isAncestor(const NodePtr& node, const NodePtr& expectedAncestor) const
+    {
+        bool result = false;
+        rootsVisiter(node, [&result, &expectedAncestor](auto node) {
+            if (node == expectedAncestor) {
+                result = true;
+                return true;
+            }
+            return false;
+        });
+        return result;
+    }
+
+    bool isFarAncestor(const NodePtr& node, const NodePtr& expectedFarAncestor) const
+    {
+        for (auto rootNode : rootNodes(node)) {
+            if (rootNode == expectedFarAncestor)
+                continue;
+
+            if (isAncestor(rootNode, expectedFarAncestor)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    EdgeList tooShortEdges(const NodePtr& node) const
+    {
+        EdgeList ret;
+
+        for (auto edge : mEdgesToRoots.at(node)) {
+            // If we found long path, we need mark direct path for cut out
+            if (isFarAncestor(node, edge->oppositeTo(node)))
+                ret.push_back(edge);
+        }
+
+        return ret;
     }
 
 private: // Methods
@@ -134,9 +184,23 @@ private: // Methods
         }
     }
 
+    EdgeList getWasteEdges()
+    {
+        std::set<EdgePtr> wEdges;
+        for (const auto& node : BaseData::nodes) {
+            auto edges = tooShortEdges(node);
+
+            std::ranges::for_each(edges, [&wEdges](auto edge) {
+                if (!wEdges.contains(edge))
+                    wEdges.insert(edge);
+            });
+        }
+        return {wEdges.begin(), wEdges.end()};
+    }
+
     enum class NodeState { NotVisited = 0, AtPath, Visited };
 
-    EdgeList getCycleEdges()
+    EdgeList getCycleEdges() const
     {
         EdgeList breakEdges;
 
@@ -152,11 +216,11 @@ private: // Methods
         return breakEdges;
     }
 
-    void cycleCheckVisit(const NodePtr& node, EdgeList& breakEdges, std::map<NodePtr, NodeState>& nodeStates)
+    void cycleCheckVisit(const NodePtr& node, EdgeList& breakEdges, std::map<NodePtr, NodeState>& nodeStates) const
     {
         nodeStates[node] = NodeState::AtPath;
 
-        for (auto edge : mEdgesToLeafs[node]) {
+        for (auto edge : mEdgesToLeafs.at(node)) {
             auto iter = std::ranges::find(breakEdges, edge);
             if (iter != breakEdges.end())
                 continue;
@@ -210,5 +274,6 @@ private: // Members
     std::map<NodePtr, EdgeList> mEdgesToRoots;
     std::map<NodePtr, EdgeList> mEdgesToLeafs;
 
-    EdgeList mBrokenEdges;
+    EdgeList mBrokenEdges; // From broken cycles
+    EdgeList mWasteEdges;  // Just redundant
 };

@@ -21,7 +21,8 @@
 
 #pragma once
 
-#include <utility>
+#include <functional>
+#include <ranges>
 #include <vector>
 
 #include "source/Model/Base/edge.hpp"
@@ -30,15 +31,56 @@
 template<typename NodeData, typename EdgeData>
 struct GraphData
 {
+private:
+    using NodePtr  = Node<NodeData>::Ptr;
+    using NodeList = Node<NodeData>::List;
+    using EdgePtr  = Edge<NodeData, EdgeData>::Ptr;
+    using EdgeList = Edge<NodeData, EdgeData>::List;
+
+public:
     using List = std::vector<GraphData<NodeData, EdgeData>>;
 
-    Node<NodeData>::List           nodes;
-    Edge<NodeData, EdgeData>::List edges;
+    NodeList nodes;
+    EdgeList edges;
 
-    bool contains(const Node<NodeData>::Ptr& node) const { return std::ranges::find(nodes, node) != nodes.end(); }
+    bool contains(const NodePtr& node) const { return std::ranges::find(nodes, node) != nodes.end(); }
+    bool contains(const EdgePtr& edge) const { return std::ranges::find(edges, edge) != edges.end(); }
 
-    bool contains(const Edge<NodeData, EdgeData>::Ptr& edge) const
+    NodeList filterNodes(std::function<bool(const NodePtr&)> condition) const
     {
-        return std::ranges::find(edges, edge) != edges.end();
+        auto view = nodes | std::views::filter(condition);
+        return {view.begin(), view.end()};
+    }
+
+    EdgeList filterEdges(std::function<bool(const EdgePtr&)> condition) const
+    {
+        auto view = edges | std::views::filter(condition);
+        return {view.begin(), view.end()};
+    }
+
+    static NodeList subtractNodeList(const NodeList& baseList, const NodeList& subtractor)
+    {
+        NodeList ret = baseList;
+
+        auto remIt = std::remove_if(ret.begin(), ret.end(), [&subtractor](auto node) {
+            return std::ranges::find(subtractor, node) != subtractor.end();
+        });
+
+        ret.erase(remIt, ret.end());
+
+        return ret;
+    }
+
+    static EdgeList subtractEdgeList(const EdgeList& baseList, const EdgeList& subtractor)
+    {
+        EdgeList ret = baseList;
+
+        auto remIt = std::remove_if(ret.begin(), ret.end(), [&subtractor](auto node) {
+            return std::ranges::find(subtractor, node) != subtractor.end();
+        });
+
+        ret.erase(remIt, ret.end());
+
+        return ret;
     }
 };
