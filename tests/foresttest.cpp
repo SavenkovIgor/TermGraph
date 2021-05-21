@@ -62,17 +62,15 @@ const Node<int>::Ptr ForestTest::n6 = Node<int>::createPtr(6);
 const Node<int>::Ptr ForestTest::n7 = Node<int>::createPtr(7);
 const Node<int>::Ptr ForestTest::n8 = Node<int>::createPtr(8);
 
-// TODO: swap nodes
-const Edge<int, int>::Ptr ForestTest::e1  = Edge<int, int>::createPtr(n1, n3, 1);
-const Edge<int, int>::Ptr ForestTest::e2  = Edge<int, int>::createPtr(n1, n4, 2);
-const Edge<int, int>::Ptr ForestTest::e3  = Edge<int, int>::createPtr(n1, n5, 3);
-const Edge<int, int>::Ptr ForestTest::e4  = Edge<int, int>::createPtr(n2, n3, 4);
-const Edge<int, int>::Ptr ForestTest::e5  = Edge<int, int>::createPtr(n2, n4, 5);
-const Edge<int, int>::Ptr ForestTest::e6  = Edge<int, int>::createPtr(n5, n6, 6);
-const Edge<int, int>::Ptr ForestTest::e7  = Edge<int, int>::createPtr(n5, n7, 7);
-const Edge<int, int>::Ptr ForestTest::e8  = Edge<int, int>::createPtr(n6, n8, 8);
-const Edge<int, int>::Ptr ForestTest::e9  = Edge<int, int>::createPtr(n7, n8, 9);
-const Edge<int, int>::Ptr ForestTest::e10 = Edge<int, int>::createPtr(n5, n8, 10);
+const Edge<int, int>::Ptr ForestTest::e1 = Edge<int, int>::createPtr(n1, n3, 1);
+const Edge<int, int>::Ptr ForestTest::e2 = Edge<int, int>::createPtr(n1, n4, 2);
+const Edge<int, int>::Ptr ForestTest::e3 = Edge<int, int>::createPtr(n1, n5, 3);
+const Edge<int, int>::Ptr ForestTest::e4 = Edge<int, int>::createPtr(n2, n3, 4);
+const Edge<int, int>::Ptr ForestTest::e5 = Edge<int, int>::createPtr(n2, n4, 5);
+const Edge<int, int>::Ptr ForestTest::e6 = Edge<int, int>::createPtr(n5, n6, 6);
+const Edge<int, int>::Ptr ForestTest::e7 = Edge<int, int>::createPtr(n5, n7, 7);
+const Edge<int, int>::Ptr ForestTest::e8 = Edge<int, int>::createPtr(n6, n8, 8);
+const Edge<int, int>::Ptr ForestTest::e9 = Edge<int, int>::createPtr(n7, n8, 9);
 
 const Forest<int, int> ForestTest::fullForest = Forest<int, int>(
     {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9}});
@@ -205,11 +203,23 @@ TEST_F(ForestTest, hasFarAncestor)
 
 TEST_F(ForestTest, WasteEdges)
 {
+    const auto e10 = Edge<int, int>::createPtr(n5, n8, 10);
+    const auto e11 = Edge<int, int>::createPtr(n1, n8, 11);
+    const auto e12 = Edge<int, int>::createPtr(n1, n6, 12);
+    const auto e13 = Edge<int, int>::createPtr(n1, n7, 13);
+
     const Forest<int, int> forest = Forest<int, int>(
-        {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9, e10}});
+        {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13}});
 
     EXPECT_FALSE(forest.contains(e10));
+    EXPECT_FALSE(forest.contains(e11));
+    EXPECT_FALSE(forest.contains(e12));
+    EXPECT_FALSE(forest.contains(e13));
 
     EXPECT_TRUE(forest.hasWasteEdges());
-    EXPECT_EQ(forest.wasteEdges()[0]->data(), 10);
+    EXPECT_EQ(forest.wasteEdges().size(), 4);
+    EXPECT_EQ(forest.wasteEdges()[0]->data(), 12);
+    EXPECT_EQ(forest.wasteEdges()[1]->data(), 13);
+    EXPECT_EQ(forest.wasteEdges()[2]->data(), 11);
+    EXPECT_EQ(forest.wasteEdges()[3]->data(), 10);
 }
