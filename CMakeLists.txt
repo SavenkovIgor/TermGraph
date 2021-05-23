@@ -64,6 +64,10 @@ set_target_properties (${PROJECT_NAME}
         AUTORCC ON
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
+#        QT_QML_MODULE_VERSION 1.0
+#        QT_QML_MODULE_URI     Api)
+
+# qt6_qml_type_registration(${PROJECT_NAME})
 
 # Resources folder
 target_sources (${PROJECT_NAME} PRIVATE resources/helpImages/helpImages.qrc resources/icons/icons.qrc)
