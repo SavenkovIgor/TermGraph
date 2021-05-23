@@ -27,7 +27,6 @@ import Api 1.0
 
 import Atoms 1.0 as A
 import StyleInfo 1.0
-import Helpers 1.0
 
 Control {
     id: root

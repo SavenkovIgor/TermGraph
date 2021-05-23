@@ -27,9 +27,7 @@ import Api 1.0
 
 import Atoms 1.0 as A
 import Molecules 1.0 as M
-
 import StyleInfo 1.0
-import Helpers 1.0
 
 // TODO: Disable apply button, when nothing changed
 // TODO: save selection when switch left|right

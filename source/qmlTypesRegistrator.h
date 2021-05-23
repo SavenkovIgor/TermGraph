@@ -32,33 +32,20 @@
 #include "source/Model/Termin/termdatawrapper.h"
 #include "source/Model/TerminGroup/termgroup.h"
 
-template<typename T>
-QObject* registerSingleton([[maybe_unused]] QQmlEngine* qmlEngine, [[maybe_unused]] QJSEngine* jsEngine)
-{
-    auto& singleton = T::instance();
-    QQmlEngine::setObjectOwnership(&singleton, QQmlEngine::CppOwnership);
-    return &singleton;
-}
-
 void registerUserQmlTypes()
 {
-    qmlRegisterSingletonType<NotificationManager>("Helpers",
-                                                  1,
-                                                  0,
-                                                  "Notification",
-                                                  &registerSingleton<NotificationManager>);
+    qmlRegisterSingletonInstance("Api", 1, 0, "Notification", &NotificationManager::instance());
+    qmlRegisterSingletonInstance("Api", 1, 0, "TagProcessor", &TagProcessor::instance());
 
-    qmlRegisterSingletonType<TagProcessor>("Helpers", 1, 0, "TagProcessor", &registerSingleton<TagProcessor>);
-
-    qmlRegisterUncreatableType<TermDataWrapper>("TermDataWrapper",
+    qmlRegisterUncreatableType<TermDataWrapper>("Api",
                                                 1,
                                                 0,
                                                 "TermDataWrapper",
                                                 "Please use TermDataWrapper from backend");
 
-    qmlRegisterType<LinksHardeningManager>("Helpers", 1, 0, "LinksHardeningManager");
+    qmlRegisterType<LinksHardeningManager>("Api", 1, 0, "LinksHardeningManager");
 
-    qmlRegisterAnonymousType<TermGroup>("Helpers", 1);
+    qmlRegisterAnonymousType<TermGroup>("Api", 1);
 }
 
 Q_COREAPP_STARTUP_FUNCTION(registerUserQmlTypes)

@@ -21,7 +21,7 @@
 
 import QtQuick 2.15
 
-import Helpers 1.0
+import Api 1.0
 
 import Molecules 1.0 as M
 
