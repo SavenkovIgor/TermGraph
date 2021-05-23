@@ -62,6 +62,8 @@ public:
             rebuildCache();
         }
 
+        mLevels = getLevels();
+
         assert(getCycleEdges().empty());
     }
 
@@ -114,12 +116,24 @@ public:
         nodesVisiter(stopCondition, visitQueue, mEdgesToLeafs, false);
     }
 
-    NodeList roots() { return BaseData::filterNodes(isRoot); }
+    NodeList roots() const
+    {
+        return BaseData::filterNodes([this](auto node) { return isRoot(node); });
+    }
 
     NodeList rootNodes(const NodePtr& node) const
     {
         NodeList ret;
         std::ranges::transform(mEdgesToRoots.at(node), std::back_inserter(ret), [&node](auto edge) {
+            return edge->oppositeTo(node);
+        });
+        return ret;
+    }
+
+    NodeList leafNodes(const NodePtr& node) const
+    {
+        NodeList ret;
+        std::ranges::transform(mEdgesToLeafs.at(node), std::back_inserter(ret), [&node](auto edge) {
             return edge->oppositeTo(node);
         });
         return ret;
@@ -160,6 +174,21 @@ public:
             // If we found long path, we need mark direct path for cut out
             if (isFarAncestor(node, edge->oppositeTo(node)))
                 ret.push_back(edge);
+        }
+
+        return ret;
+    }
+
+    // Leveling
+    int level(const NodePtr& node) const { return mLevels.at(node); }
+
+    NodeList nodesAtLevel(int level) const
+    {
+        NodeList ret;
+
+        for (const auto item : mLevels) {
+            if (item.second == level)
+                ret.push_back(item.first);
         }
 
         return ret;
@@ -214,6 +243,34 @@ private: // Methods
             cycleCheckVisit(node, breakEdges, nodeStates);
 
         return breakEdges;
+    }
+
+    std::map<NodePtr, int> getLevels() const
+    {
+        using namespace std;
+
+        map<NodePtr, int> ret;
+        deque<NodePtr>    visitQueue;
+        auto              rootNodes = roots();
+
+        ranges::for_each(BaseData::nodes, [&ret](auto node) { ret[node] = 0; });
+        ranges::for_each(rootNodes, [&visitQueue](auto node) { visitQueue.push_back(node); });
+
+        auto maxIterations = BaseData::nodes.size() - rootNodes.size();
+        for (int i = 0; i < maxIterations; i++) // Just steps limit
+        {
+            auto node = visitQueue.front();
+            visitQueue.pop_front();
+
+            for (const auto leaf : leafNodes(node)) {
+                ret[leaf] = max(ret[node] + 1, ret[leaf]);
+
+                if (ranges::find(visitQueue, leaf) == visitQueue.end()) // Not found
+                    visitQueue.push_back(leaf);
+            }
+        }
+
+        return ret;
     }
 
     void cycleCheckVisit(const NodePtr& node, EdgeList& breakEdges, std::map<NodePtr, NodeState>& nodeStates) const
@@ -273,6 +330,8 @@ private: // Methods
 private: // Members
     std::map<NodePtr, EdgeList> mEdgesToRoots;
     std::map<NodePtr, EdgeList> mEdgesToLeafs;
+
+    std::map<NodePtr, int> mLevels;
 
     EdgeList mBrokenEdges; // From broken cycles
     EdgeList mWasteEdges;  // Just redundant

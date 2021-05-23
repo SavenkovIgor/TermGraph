@@ -181,6 +181,36 @@ TEST_F(ForestTest, LeafVisit)
     visitList.clear();
 }
 
+TEST_F(ForestTest, RootNodes)
+{
+    auto rNodes1 = fullForest.rootNodes(n5);
+
+    EXPECT_EQ(rNodes1.size(), 1);
+    EXPECT_EQ(rNodes1[0]->data(), 1);
+
+    auto rNodes2 = fullForest.rootNodes(n8);
+
+    EXPECT_EQ(rNodes2.size(), 2);
+    EXPECT_EQ(rNodes2[0]->data(), 6);
+    EXPECT_EQ(rNodes2[1]->data(), 7);
+}
+
+TEST_F(ForestTest, LeafNodes)
+{
+    auto lNodes1 = fullForest.leafNodes(n5);
+
+    EXPECT_EQ(lNodes1.size(), 2);
+    EXPECT_EQ(lNodes1[0]->data(), 6);
+    EXPECT_EQ(lNodes1[1]->data(), 7);
+
+    auto lNodes2 = fullForest.leafNodes(n1);
+
+    EXPECT_EQ(lNodes2.size(), 3);
+    EXPECT_EQ(lNodes2[0]->data(), 3);
+    EXPECT_EQ(lNodes2[1]->data(), 4);
+    EXPECT_EQ(lNodes2[2]->data(), 5);
+}
+
 TEST_F(ForestTest, HasAncestor)
 {
     EXPECT_TRUE(fullForest.isAncestor(n6, n1));
@@ -218,8 +248,52 @@ TEST_F(ForestTest, WasteEdges)
 
     EXPECT_TRUE(forest.hasWasteEdges());
     EXPECT_EQ(forest.wasteEdges().size(), 4);
-    EXPECT_EQ(forest.wasteEdges()[0]->data(), 12);
-    EXPECT_EQ(forest.wasteEdges()[1]->data(), 13);
-    EXPECT_EQ(forest.wasteEdges()[2]->data(), 11);
+    EXPECT_EQ(forest.wasteEdges()[0]->data(), 13);
+    EXPECT_EQ(forest.wasteEdges()[1]->data(), 11);
+    EXPECT_EQ(forest.wasteEdges()[2]->data(), 12);
     EXPECT_EQ(forest.wasteEdges()[3]->data(), 10);
+}
+
+TEST_F(ForestTest, Levels)
+{
+    const auto e10 = Edge<int, int>::createPtr(n5, n8, 10);
+    const auto e11 = Edge<int, int>::createPtr(n1, n8, 11);
+    const auto e12 = Edge<int, int>::createPtr(n1, n6, 12);
+    const auto e13 = Edge<int, int>::createPtr(n1, n7, 13);
+
+    const Forest<int, int> forest = Forest<int, int>(
+        {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13}});
+
+    EXPECT_EQ(fullForest.level(n1), 0);
+    EXPECT_EQ(fullForest.level(n2), 0);
+    EXPECT_EQ(fullForest.level(n3), 1);
+    EXPECT_EQ(fullForest.level(n4), 1);
+    EXPECT_EQ(fullForest.level(n5), 1);
+    EXPECT_EQ(fullForest.level(n6), 2);
+    EXPECT_EQ(fullForest.level(n7), 2);
+    EXPECT_EQ(fullForest.level(n8), 3);
+
+    auto level0 = fullForest.nodesAtLevel(0);
+
+    EXPECT_EQ(level0.size(), 2);
+    EXPECT_EQ(level0[0]->data(), 1);
+    EXPECT_EQ(level0[1]->data(), 2);
+
+    auto level1 = fullForest.nodesAtLevel(1);
+
+    EXPECT_EQ(level1.size(), 3);
+    EXPECT_EQ(level1[0]->data(), 3);
+    EXPECT_EQ(level1[1]->data(), 4);
+    EXPECT_EQ(level1[2]->data(), 5);
+
+    auto level2 = fullForest.nodesAtLevel(2);
+
+    EXPECT_EQ(level2.size(), 2);
+    EXPECT_EQ(level2[0]->data(), 6);
+    EXPECT_EQ(level2[1]->data(), 7);
+
+    auto level3 = fullForest.nodesAtLevel(3);
+
+    EXPECT_EQ(level3.size(), 1);
+    EXPECT_EQ(level3[0]->data(), 8);
 }
