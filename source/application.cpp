@@ -48,13 +48,14 @@ Application::Application(QObject* parent)
 
     qmlRegisterAnonymousType<PaintedTerm>("Graph", 1);
     qmlRegisterAnonymousType<Edge>("Graph", 1);
+
     qmlRegisterSingletonInstance("Network", 1, 0, "NetworkManager", network.get());
 
-    qmlEngine->rootContext()->setContextProperty("mainObj", this);
-    qmlEngine->rootContext()->setContextProperty("scene", scene.get());
-    qmlEngine->rootContext()->setContextProperty("groupsManager", groupsManager.get());
-    qmlEngine->rootContext()->setContextProperty("nodesManager", nodesManager.get());
-    qmlEngine->rootContext()->setContextProperty("syncManager", syncManager.get());
+    qmlRegisterSingletonInstance("Api", 1, 0, "Application", this);
+    qmlRegisterSingletonInstance("Api", 1, 0, "Scene", scene.get());
+    qmlRegisterSingletonInstance("Api", 1, 0, "GroupsManager", groupsManager.get());
+    qmlRegisterSingletonInstance("Api", 1, 0, "NodesManager", nodesManager.get());
+    qmlRegisterSingletonInstance("Api", 1, 0, "SyncManager", syncManager.get());
 
     qmlEngine->addImportPath(QStringLiteral("qrc:/"));
     qmlEngine->load(QStringLiteral("qrc:/main.qml"));
@@ -95,8 +96,6 @@ int Application::getUiElementSize(const QString& elementTypeName)
     NotificationManager::showDebug(QString("Отсутствует размер для элемента: %1").arg(elementTypeName));
     return 0;
 }
-
-int Application::dbVersion() { return localDb.storageVersion(); }
 
 void Application::initElemSizes()
 {

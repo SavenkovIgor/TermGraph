@@ -23,6 +23,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import Api 1.0
+
 import Helpers 1.0
 import TermDataWrapper 1.0
 import StyleInfo 1.0
@@ -85,7 +87,7 @@ A.DrawerPage {
 
         LabelPair {
             name: "Определение:"
-            text: TagProcessor.decorateTags(scene.currNodeNameAndDefinition)
+            text: TagProcessor.decorateTags(Scene.currNodeNameAndDefinition)
             visible: text !== ""
             Layout.fillWidth: true
         }

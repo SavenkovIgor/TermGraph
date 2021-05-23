@@ -66,6 +66,8 @@ public:
     void importGroupFromJsonString(const QString& rawJson);
     void importGroupFromJson(const QJsonDocument& json);
 
+    Q_INVOKABLE int dbVersion();
+
 signals:
     void groupsListChanged();
     void groupAdded();

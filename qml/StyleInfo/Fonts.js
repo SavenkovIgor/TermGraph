@@ -19,11 +19,13 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-const header      = Qt.font({ pixelSize: mainObj.getUiElementSize("appHeader"), weight: 30 });
-const inputLabel  = Qt.font({ pixelSize: mainObj.getUiElementSize("inputLabel") });
-const capitalText = Qt.font({ pixelSize: mainObj.getUiElementSize("capitalText") });
-const inputText   = Qt.font({ pixelSize: mainObj.getUiElementSize("inputText") });
-const text        = Qt.font({ pixelSize: mainObj.getUiElementSize("text") });
+.import Api 1.0 as Api
+
+const header      = Qt.font({ pixelSize: Api.Application.getUiElementSize("appHeader"), weight: 30 });
+const inputLabel  = Qt.font({ pixelSize: Api.Application.getUiElementSize("inputLabel") });
+const capitalText = Qt.font({ pixelSize: Api.Application.getUiElementSize("capitalText") });
+const inputText   = Qt.font({ pixelSize: Api.Application.getUiElementSize("inputText") });
+const text        = Qt.font({ pixelSize: Api.Application.getUiElementSize("text") });
 const term        = Qt.font({ family: "Arial sans-serif", pointSize: 10 });
 
 function setWeight(font, weight) {

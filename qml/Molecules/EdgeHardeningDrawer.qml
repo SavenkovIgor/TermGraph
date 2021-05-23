@@ -23,6 +23,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import Api 1.0
+
 import Atoms 1.0 as A
 import Molecules 1.0 as M
 
@@ -43,8 +45,8 @@ A.DrawerPage {
     signal showTermUuid(string uuid)
 
     onCurrentNodeChanged: {
-        linksManager.setGroup(scene.currentGroup);
-        linksManager.setTerm(scene.currentNode);
+        linksManager.setGroup(Scene.currentGroup);
+        linksManager.setTerm(Scene.currentNode);
     }
 
     contentItem: ColumnLayout {
@@ -71,7 +73,7 @@ A.DrawerPage {
                     onTriggered: {
                         const hardenedNode = linksManager.appliedReplacement();
 
-                        let success = nodesManager.changeNode(
+                        let success = NodesManager.changeNode(
                                 hardenedNode.uuid,
                                 hardenedNode.term,
                                 hardenedNode.definition,

@@ -24,6 +24,8 @@ import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.15
 
+import Api 1.0
+
 import Helpers 1.0
 
 import Atoms 1.0 as A
@@ -43,9 +45,9 @@ M.Page {
 
     padding: 0
 
-    title: scene.hasCurrentGroup ? scene.currentGroup.name : "TermGraph"
+    title: Scene.hasCurrentGroup ? Scene.currentGroup.name : "TermGraph"
 
-    state: scene.hasSelection ? "some" : "none"
+    state: Scene.hasSelection ? "some" : "none"
 
     states: [
         State {
@@ -63,7 +65,7 @@ M.Page {
     ]
 
     Connections {
-        target: scene
+        target: Scene
 
         function onSelectionDoubleClick() {
             nodeInfoAction.trigger()
@@ -141,7 +143,7 @@ M.Page {
 
         onOpenWarningPopup: {
             close();
-            linkHardenerDrawer.openWithNode(scene.currentNode);
+            linkHardenerDrawer.openWithNode(Scene.currentNode);
         }
     }
 
@@ -200,7 +202,7 @@ M.Page {
 
             anchors.fill: parent
 
-            onClicked: scene.setMouseClick(scenePt.x, scenePt.y)
+            onClicked: Scene.setMouseClick(scenePt.x, scenePt.y)
 
             onWheel: {
                 if (wheel.modifiers & Qt.ControlModifier) {
@@ -274,7 +276,7 @@ M.Page {
         }
 
         function selectName(termName) {
-            let termUuid = scene.termNameToUuid(termName);
+            let termUuid = Scene.termNameToUuid(termName);
             if (termUuid !== "")
                 selectUuid(termUuid);
         }
@@ -284,13 +286,13 @@ M.Page {
                 return;
 
             let pt = sceneCanvas.getTermPosition(termUuid);
-            scene.selectTerm(termUuid);
+            Scene.selectTerm(termUuid);
             pointToCenter(pt);
         }
 
         function dropSelection() {
             moveToOrigin();
-            scene.selectTerm("");
+            Scene.selectTerm("");
         }
 
         Timer {
@@ -342,7 +344,7 @@ M.Page {
             }
 
             function getTermPosition(termUuid) {
-                let pt = scene.getTermPosition(termUuid);
+                let pt = Scene.getTermPosition(termUuid);
                 return Tools.scalePoint(pt, scale);
             }
         }
@@ -356,9 +358,9 @@ M.Page {
 
         A.ToolTip {
             property bool isEmptyGroup: {
-                if (groupsManager.hasAnyGroup) {
-                    if (scene.hasCurrentGroup) {
-                        return groupsManager.isEmptyGroup(scene.currentGroup.uuid)
+                if (GroupsManager.hasAnyGroup) {
+                    if (Scene.hasCurrentGroup) {
+                        return GroupsManager.isEmptyGroup(Scene.currentGroup.uuid)
                     } else {
                         return false;
                     }
@@ -377,7 +379,7 @@ M.Page {
             icon.source: IconPath.plus
             enabled: root.thisPageVisible
             onTriggered: {
-                if (groupsManager.hasAnyGroup) {
+                if (GroupsManager.hasAnyGroup) {
                     root.StackView.view.push(newNodeComponent)
                 } else {
                     Notification.showWarning("Нет групп для добавления вершин. Создайте группу!")
@@ -399,7 +401,7 @@ M.Page {
             shortcut: "Ctrl+e"
             enabled: root.thisPageVisible
             onTriggered: {
-                if (!scene.currentNode.isNull()) {
+                if (!Scene.currentNode.isNull()) {
                     root.StackView.view.push(editNodeComponent)
                 }
             }
@@ -416,20 +418,20 @@ M.Page {
             icon.source: IconPath.info
             shortcut: "Ctrl+i"
             onTriggered: {
-                if (scene.hasSelection)
-                    termDrawer.openWithNode(scene.currentNode);
+                if (Scene.hasSelection)
+                    termDrawer.openWithNode(Scene.currentNode);
             }
         }
     }
 
     M.LoadingInProcess {
         anchors.fill: sceneFlick
-        showLoading: scene.groupLoading
+        showLoading: Scene.groupLoading
     }
 
     M.EmptyView {
         anchors.fill: sceneFlick
-        visible: !groupsManager.hasAnyGroup
+        visible: !GroupsManager.hasAnyGroup
 
         mainText: "Группы отсутствуют"
         detailedText: "Думаю вам стоит создать одну"
@@ -439,7 +441,7 @@ M.Page {
 
     M.EmptyView {
         anchors.fill: sceneFlick
-        visible: groupsManager.hasAnyGroup && !scene.hasCurrentGroup && !scene.groupLoading
+        visible: GroupsManager.hasAnyGroup && !Scene.hasCurrentGroup && !Scene.groupLoading
 
         mainText: "Группа не выбрана"
         detailedText: ""

@@ -23,6 +23,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import Api 1.0
+
 import Atoms 1.0 as A
 import Molecules 1.0 as M
 import StyleInfo 1.0
@@ -56,7 +58,7 @@ M.Page {
 
         onAccepted: {
             root.StackView.view.pop();
-            scene.deleteSelectedTerm();
+            Scene.deleteSelectedTerm();
         }
     }
 
@@ -64,13 +66,13 @@ M.Page {
     Shortcut { sequence: "Ctrl+Return"; onActivated: root.applyNodeChange(); }
 
     function updateInfo() {
-        nodeUuidText.text = scene.currentNode.uuid;
-        lastEditText.text = scene.currentNode.lastEdit;
-        termName.text = scene.currentNode.term;
-        termDefin.text = scene.currentNode.definition;
-        termDescr.text = scene.currentNode.description;
-        termExampl.text = scene.currentNode.examples;
-        nodeGroup.selectElement(scene.currentNode.groupUuid);
+        nodeUuidText.text = Scene.currentNode.uuid;
+        lastEditText.text = Scene.currentNode.lastEdit;
+        termName.text = Scene.currentNode.term;
+        termDefin.text = Scene.currentNode.definition;
+        termDescr.text = Scene.currentNode.description;
+        termExampl.text = Scene.currentNode.examples;
+        nodeGroup.selectElement(Scene.currentNode.groupUuid);
         termDefin.takeFocus();
     }
 
@@ -82,7 +84,7 @@ M.Page {
 
         root.termEdited(termName.text); // Before node change. It is important
 
-        let success = nodesManager.changeNode(
+        let success = NodesManager.changeNode(
                     nodeUuidText.text,
                     termName.text,
                     termDefin.text,
@@ -192,7 +194,7 @@ M.Page {
                 id: nodeGroup
                 Layout.fillWidth: true
 
-                model: groupsManager.allUuidSorted
+                model: GroupsManager.allUuidSorted
 
                 function selectElement(name) {
                     let index = find(name)

@@ -19,11 +19,16 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
+.import Api 1.0 as Api
+
 var baseX100 = base * 2;
 var baseX75  = base * 1.75;
 var baseX50  = base * 1.5;
 var baseX25  = base * 1.25;
-var base     = mainObj.getUiElementSize("roundButton");
+var base     = Api.Application.getUiElementSize("roundButton");
 var baseR25  = base * 0.75;
 var baseR50  = base * 0.5;
 var baseR75  = base * 0.25;
+
+var button = Api.Application.getUiElementSize("button");
+var colSpace = Api.Application.getUiElementSize("colSpace");

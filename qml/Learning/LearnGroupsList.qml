@@ -23,6 +23,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import Api 1.0
+
 import Atoms 1.0 as A
 import Molecules 1.0 as M
 import StyleInfo 1.0
@@ -38,7 +40,7 @@ M.Page {
 
     contentItem: ListView {
         id: groupsList
-        model: groupsManager.allUuidSorted
+        model: GroupsManager.allUuidSorted
         keyNavigationEnabled: true
 
         highlight: Rectangle {
@@ -80,7 +82,7 @@ M.Page {
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
 
-                    text: groupsManager.getGroupName(modelData)
+                    text: GroupsManager.getGroupName(modelData)
                 }
 
                 A.SmallInfoText {
@@ -90,12 +92,12 @@ M.Page {
 
                 A.SmallInfoText {
                     description: "Last editing time"
-                    label: groupsManager.getLastEditString(modelData)
+                    label: GroupsManager.getLastEditString(modelData)
                 }
 
                 A.SmallInfoText {
                     description: "Node count"
-                    label: groupsManager.getNodesCount(modelData)
+                    label: GroupsManager.getNodesCount(modelData)
 
                     bottomPadding: grpName.font.pixelSize / 2
                 }

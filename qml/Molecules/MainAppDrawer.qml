@@ -23,6 +23,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import Api 1.0
+
 import StyleInfo 1.0
 import Atoms 1.0 as A
 import JsTools 1.0
@@ -77,7 +79,7 @@ Drawer {
             Layout.fillWidth: true
 
             keyNavigationEnabled: true
-            model: groupsManager.allUuidSorted
+            model: GroupsManager.allUuidSorted
 
             height: contentHeight
 
@@ -98,7 +100,7 @@ Drawer {
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
 
-                    text: groupsManager.getGroupName(modelData)
+                    text: GroupsManager.getGroupName(modelData)
                 }
 
                 background: Rectangle {
@@ -111,7 +113,7 @@ Drawer {
 
                 function apply() {
                     root.close();
-                    scene.selectGroup(modelData);
+                    Scene.selectGroup(modelData);
                 }
             }
         }

@@ -57,7 +57,6 @@ public:
     Q_INVOKABLE QString screenshotFilePath(const QString& fileName);
 
     Q_INVOKABLE int getUiElementSize(const QString& elementTypeName);
-    Q_INVOKABLE int dbVersion();
 
 private:
     void               initElemSizes();

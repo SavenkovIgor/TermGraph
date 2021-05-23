@@ -23,6 +23,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import Api 1.0
+
 import Atoms 1.0 as A
 import Molecules 1.0 as M
 import StyleInfo 1.0
@@ -51,7 +53,7 @@ M.Page {
     Shortcut { sequence: "Ctrl+Return"; onActivated: root.addNode(); }
 
     function prepareForOpen() {
-        currentGroupFixedRow.groupUuid = scene.currentGroup.uuid;
+        currentGroupFixedRow.groupUuid = Scene.currentGroup.uuid;
         clearText(termName);
         clearText(termDefin);
         clearText(termDescr);
@@ -69,7 +71,7 @@ M.Page {
 
         root.newTermAdded(termName.text); // Before node add. It is important
 
-        var success = nodesManager.addNewNode(
+        var success = NodesManager.addNewNode(
                     termName.text,
                     termDefin.text,
                     termDescr.text,
@@ -135,7 +137,7 @@ M.Page {
                 elide: Text.ElideRight
                 color: Colors.white
 
-                text: groupsManager.getGroupName(currentGroupFixedRow.groupUuid)
+                text: GroupsManager.getGroupName(currentGroupFixedRow.groupUuid)
             }
         }
 

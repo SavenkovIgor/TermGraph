@@ -209,6 +209,8 @@ void GroupsManager::importGroupFromJson(const QJsonDocument& json)
     emit groupAdded();
 }
 
+int GroupsManager::dbVersion() { return dataStorage.storageVersion(); }
+
 QString GroupsManager::getExportPath() const { return AppSettings::StdPaths::groupsJsonFolder(); }
 
 void GroupsManager::exportGrpToJson(const QString& groupUuid)

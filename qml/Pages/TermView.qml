@@ -23,6 +23,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import Api 1.0
+
 import Helpers 1.0
 
 import Atoms 1.0 as A
@@ -44,7 +46,7 @@ M.Page {
                 text: "W"
                 onTriggered: {
                     let request = "https://ru.wikipedia.org/w/index.php?search=";
-                    request += scene.currentNode.term
+                    request += Scene.currentNode.term
                     Qt.openUrlExternally(request);
                 }
             }
@@ -66,31 +68,31 @@ M.Page {
 
         M.LabelPair {
             name: "Название:"
-            text: scene.currentNode.term
+            text: Scene.currentNode.term
             visible: text !== ""
         }
 
         M.LabelPair {
             name: "Определение:"
-            text: TagProcessor.decorateTags(scene.currNodeNameAndDefinition)
+            text: TagProcessor.decorateTags(Scene.currNodeNameAndDefinition)
             visible: text !== ""
         }
 
         M.LabelPair {
             name: "Иерархия определений:"
-            text: scene.currNodeHierarchyDefinition
+            text: Scene.currNodeHierarchyDefinition
             visible: text !== ""
         }
 
         M.LabelPair {
             name: "Описание:"
-            text: scene.currentNode.description
+            text: Scene.currentNode.description
             visible: text !== ""
         }
 
         M.LabelPair {
             name: "Пример:"
-            text: scene.currentNode.examples
+            text: Scene.currentNode.examples
             visible: text !== ""
         }
     }

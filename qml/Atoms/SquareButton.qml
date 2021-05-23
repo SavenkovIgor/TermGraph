@@ -22,12 +22,12 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import Api 1.0
 import StyleInfo 1.0
 
 Button {
-    id: btn
     font: Fonts.text
-    implicitHeight: mainObj.getUiElementSize("button") * 2.2;
+    implicitHeight: Sizes.button * 2.2;
 
     leftPadding: 20
     rightPadding: 20

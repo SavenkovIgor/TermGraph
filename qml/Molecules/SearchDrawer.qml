@@ -23,6 +23,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import Api 1.0
+
 import StyleInfo 1.0
 import Atoms 1.0 as A
 
@@ -69,7 +71,7 @@ A.DrawerPage {
 
                 property string searchReq: searchText.displayText
 
-                model: scene.search(searchReq)
+                model: Scene.search(searchReq)
                 boundsBehavior: Flickable.StopAtBounds
 
                 delegate: ItemDelegate {
@@ -81,7 +83,7 @@ A.DrawerPage {
                     contentItem: Text {
                         topPadding: font.pixelSize / 3
                         bottomPadding: font.pixelSize / 3
-                        text: scene.termUuidToName(modelData)
+                        text: Scene.termUuidToName(modelData)
                         font: Fonts.inputText
                         color: Colors.white
                     }

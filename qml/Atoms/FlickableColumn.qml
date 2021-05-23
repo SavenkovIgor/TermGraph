@@ -22,6 +22,10 @@
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 
+import Api 1.0
+
+import StyleInfo 1.0
+
 Flickable {
     id: flick
 
@@ -42,7 +46,7 @@ Flickable {
     ColumnLayout {
         id: contentColumn
 
-        spacing: mainObj.getUiElementSize("colSpace")
+        spacing: Sizes.colSpace
         width: flick.width
     }
 }

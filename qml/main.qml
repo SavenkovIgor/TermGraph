@@ -24,6 +24,8 @@ import QtQuick.Layouts 1.15
 import QtQuick.Controls 2.15
 import QtQuick.Controls.Material 2.15
 
+import Api 1.0
+
 import Learning 1.0
 import StyleInfo 1.0
 import Atoms 1.0 as A
@@ -90,7 +92,7 @@ ApplicationWindow {
     StackView {
         id: stackView
         anchors.fill: parent
-        initialItem: groupsManager.hasAnyGroup ? mainSceneComponent : onBoardComponent
+        initialItem: GroupsManager.hasAnyGroup ? mainSceneComponent : onBoardComponent
         onCurrentItemChanged: appSideMenu.close()
 
         Keys.onBackPressed: { // Android back button

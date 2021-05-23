@@ -22,6 +22,8 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import Api 1.0
+
 import StyleInfo 1.0
 
 ComboBox {
@@ -30,7 +32,7 @@ ComboBox {
 
     contentItem: Text {
         id: contItem
-        text: groupsManager.getGroupName(control.displayText)
+        text: GroupsManager.getGroupName(control.displayText)
         font: control.font
         color: Colors.white
         padding: font.pixelSize / 1.5
@@ -66,7 +68,7 @@ ComboBox {
     delegate: ItemDelegate {
         width: control.width
         contentItem: Text {
-            text: groupsManager.getGroupName(modelData)
+            text: GroupsManager.getGroupName(modelData)
             font: control.font
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter

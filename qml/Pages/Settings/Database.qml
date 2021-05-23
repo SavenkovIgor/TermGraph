@@ -23,6 +23,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import Api 1.0
+
 import Atoms 1.0 as A
 import Molecules 1.0 as M
 import StyleInfo 1.0
@@ -36,10 +38,8 @@ M.Page {
 
         M.LabelPair {
             name: "Версия базы данных:"
-            text: mainObj.dbVersion()
+            text: GroupsManager.dbVersion()
             width: parent.width
-
-            Component.onCompleted: { text = mainObj.dbVersion(); }
         }
     }
 }

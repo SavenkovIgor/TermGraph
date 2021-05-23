@@ -23,30 +23,31 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Shapes 1.15
 
+import Api 1.0
+
 import Atoms 1.0 as A
 import StyleInfo 1.0
-
 import Helpers 1.0
 
 Control {
     id: root
 
-    height: scene.sceneRect.height
-    width: scene.sceneRect.width
+    height: Scene.sceneRect.height
+    width: Scene.sceneRect.width
 
     Component.onCompleted: {
         // Try to show first group
-        const groupsUuids = groupsManager.allUuidSorted;
+        const groupsUuids = GroupsManager.allUuidSorted;
 
         if (groupsUuids.length !== 0) {
-            scene.selectGroup(groupsUuids[0]);
+            Scene.selectGroup(groupsUuids[0]);
         }
     }
 
     function makeScreenshot() {
         grabToImage(function(result){
-            const groupName = scene.currentGroup.name;
-            const name = mainObj.screenshotFilePath(groupName);
+            const groupName = Scene.currentGroup.name;
+            const name = Application.screenshotFilePath(groupName);
             if (name !== "") {
                 result.saveToFile(name);
                 Notification.showInfo("Снимок группы создан. Путь:" + name);
@@ -76,7 +77,7 @@ Control {
 
             color: "transparent"
             border { color: Colors.white; width: 2 }
-            visible: scene.hasCurrentGroup
+            visible: Scene.hasCurrentGroup
             radius: 10
             z: 6
 
@@ -84,7 +85,7 @@ Control {
                 anchors { left: parent.left; top: parent.top; }
                 topPadding: 15
                 leftPadding: 20
-                text: scene.hasCurrentGroup ? scene.currentGroup.name : ""
+                text: Scene.hasCurrentGroup ? Scene.currentGroup.name : ""
                 color: Colors.white
                 font: Fonts.setWeight(Fonts.term, Font.DemiBold)
             }
@@ -92,7 +93,7 @@ Control {
 
         Rectangle {  // Selection background
             anchors.fill: graphFrame
-            visible: scene.hasSelection
+            visible: Scene.hasSelection
 
             z: 3
             color: "#BB000000"
@@ -100,7 +101,7 @@ Control {
         }
 
         Connections {
-            target: scene
+            target: Scene
 
             function onEdgesChanged() {
                 edgesShape.updateEdges();
@@ -130,10 +131,10 @@ Control {
 
                 let newEdges = [root.createNullEdge(edgesShape)];
 
-                const edgesCount = scene.edges.length;
+                const edgesCount = Scene.edges.length;
 
                 for (let j = 0; j < edgesCount; ++j) {
-                    const edgeLine = root.createEdge(edgesShape, scene.edges[j]);
+                    const edgeLine = root.createEdge(edgesShape, Scene.edges[j]);
 
                     newEdges.push(edgeLine);
                 }
@@ -145,7 +146,7 @@ Control {
         Shape {
             id: edgesSelectedShape
             z: 4
-            visible: scene.hasSelection
+            visible: Scene.hasSelection
 
             function updateEdges() {
                 // Delete old edges
@@ -165,11 +166,11 @@ Control {
 
                 let newEdges = [root.createNullEdge(edgesSelectedShape)];
 
-                const edgesCount = scene.edges.length;
+                const edgesCount = Scene.edges.length;
 
                 for (let j = 0; j < edgesCount; ++j) {
 
-                    const edge = scene.edges[j];
+                    const edge = Scene.edges[j];
 
                     if (!edge.isSelected)
                         continue;
@@ -184,7 +185,7 @@ Control {
         }
 
         Repeater {
-            model: scene.nodes
+            model: Scene.nodes
 
             delegate: A.Term {
                 rect: modelData.rect

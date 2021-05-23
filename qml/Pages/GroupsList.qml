@@ -23,6 +23,8 @@ import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15
 
+import Api 1.0
+
 import Atoms 1.0 as A
 import Molecules 1.0 as M
 import StyleInfo 1.0
@@ -35,16 +37,16 @@ M.Page {
 
     contentItem: ListView {
         id: groupsList
-        model: groupsManager.allUuidSorted
+        model: GroupsManager.allUuidSorted
         keyNavigationEnabled: true
 
         delegate: ItemDelegate {
             id: delegate
 
             property string groupUuid: modelData
-            property string groupName: groupsManager.getGroupName(groupUuid)
-            property string lastEdit: groupsManager.getLastEditString(groupUuid)
-            property int nodesCount: groupsManager.getNodesCount(groupUuid)
+            property string groupName: GroupsManager.getGroupName(groupUuid)
+            property string lastEdit: GroupsManager.getLastEditString(groupUuid)
+            property int nodesCount: GroupsManager.getNodesCount(groupUuid)
 
             property real basePadding: Fonts.text.pixelSize
 
@@ -103,7 +105,7 @@ M.Page {
 
     M.EmptyView {
         anchors.fill: groupsList
-        visible: !groupsManager.hasAnyGroup
+        visible: !GroupsManager.hasAnyGroup
 
         mainText: "Пусто..."
         detailedText: ""
@@ -116,7 +118,7 @@ M.Page {
 
         A.ToolTip {
             text: "Нажмите чтобы добавить группу"
-            visible: !groupsManager.hasAnyGroup
+            visible: !GroupsManager.hasAnyGroup
         }
 
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
@@ -127,7 +129,7 @@ M.Page {
     A.RoundButton {
         id: deleteGroupBtn
         icon.source: IconPath.trash
-        visible: groupsManager.hasAnyGroup
+        visible: GroupsManager.hasAnyGroup
 
         anchors { right: parent.right; bottom: addGroupBtn.top; margins: width / 2; }
 
@@ -145,8 +147,8 @@ M.Page {
         anchors.margins: width / 2;
 
         onClicked: {
-            groupsManager.exportGrpToJson(groupsList.currentItem.text)
-            var path = "Группа экспортирована в папку GroupsJson\n. Путь к папке:" + groupsManager.getExportPath()
+            GroupsManager.exportGrpToJson(groupsList.currentItem.text)
+            var path = "Группа экспортирована в папку GroupsJson\n. Путь к папке:" + GroupsManager.getExportPath()
             groupExportedDialog.text = path
             groupExportedDialog.visible = true
         }
@@ -156,11 +158,11 @@ M.Page {
     A.RoundButton {
         id: sendByNetworkButton
         icon.source: IconPath.share
-        visible: groupsManager.hasAnyGroup
+        visible: GroupsManager.hasAnyGroup
 
         anchors { right: addGroupBtn.left; bottom: parent.bottom; margins: width / 2; }
 
-        onClicked: syncManager.sendGroupByNetwork(groupsList.currentItem.groupUuid)
+        onClicked: SyncManager.sendGroupByNetwork(groupsList.currentItem.groupUuid)
     }
 
     M.StdDialog {
@@ -175,7 +177,7 @@ M.Page {
 
         title:  "Вы уверены, что хотите удалить эту группу?"
 
-        onAccepted: groupsManager.deleteGroup(groupsList.currentItem.groupUuid)
+        onAccepted: GroupsManager.deleteGroup(groupsList.currentItem.groupUuid)
     }
 
     // TODO: Replace with popup
@@ -214,7 +216,7 @@ M.Page {
                 Layout.rightMargin: newGroupName.implicitHeight * 0.5
 
                 onClicked: {
-                    groupsManager.addNewGroup(newGroupName.text, "")
+                    GroupsManager.addNewGroup(newGroupName.text, "")
                     newGroupDrawer.close()
                 }
             }
