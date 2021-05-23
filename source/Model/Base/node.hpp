@@ -30,8 +30,8 @@ template<typename Data>
 class Node
 {
 public:
-    using List = std::vector<std::shared_ptr<Node<Data>>>;
     using Ptr  = std::shared_ptr<Node<Data>>;
+    using List = std::vector<Ptr>;
 
     explicit Node(const Data& data)
         : mData(data)

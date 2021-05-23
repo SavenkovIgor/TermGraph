@@ -42,6 +42,9 @@ private:
     using BaseData = GraphData<NodeData, EdgeData>;
 
 public:
+    using Ptr  = std::shared_ptr<Forest<NodeData, EdgeData>>;
+    using List = std::vector<Ptr>;
+
     explicit Forest(const GraphData<NodeData, EdgeData>& data)
         : Graph<NodeData, EdgeData>({.nodes = data.nodes, .edges = data.edges})
     {

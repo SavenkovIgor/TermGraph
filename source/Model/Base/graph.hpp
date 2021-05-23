@@ -45,6 +45,8 @@ private:
     using Base = GraphData<NodeData, EdgeData>;
 
 public:
+    using List = std::vector<std::shared_ptr<Graph<NodeData, EdgeData>>>;
+
     explicit Graph(const GraphData<NodeData, EdgeData>& data)
         : GraphData<NodeData, EdgeData>{.nodes = data.nodes, .edges = data.edges}
     {

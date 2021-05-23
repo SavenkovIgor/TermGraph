@@ -30,8 +30,8 @@ template<typename NodeData, typename EdgeData>
 class Edge
 {
 public:
-    using List = std::vector<std::shared_ptr<Edge<EdgeData, NodeData>>>;
     using Ptr  = std::shared_ptr<Edge<EdgeData, NodeData>>;
+    using List = std::vector<Ptr>;
 
     explicit Edge(Node<NodeData>::Ptr root, Node<NodeData>::Ptr leaf, EdgeData data)
         : mRoot(root)
