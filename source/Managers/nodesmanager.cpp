@@ -111,24 +111,10 @@ void NodesManager::deleteNode(const QUuid uuid)
     emit nodeChanged();
 }
 
-PaintedTerm::List NodesManager::getAllNodesForGroup(const QUuid& groupUuid)
-{
-    PaintedTerm::List ret;
-
-    auto nodesInfo = dataStorage.getTerms(groupUuid);
-
-    for (const auto& info : nodesInfo)
-        ret << new PaintedTerm(info);
-
-    return ret;
-}
-
 UuidList NodesManager::getAllNodesUuidsInGroup(const QUuid& groupUuid)
 {
     return dataStorage.getAllTermsUuids(groupUuid);
 }
-
-QDateTime NodesManager::getLastEdit(QUuid nodeUuid) { return dataStorage.getTermLastEdit(nodeUuid); }
 
 void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIfGroupNotExist)
 {
@@ -152,12 +138,6 @@ void NodesManager::importNodeFromJson(const QJsonObject& nodeJson, bool importIf
     } else {
         dataStorage.updateTerm(info, DataStorageInterface::LastEditSource::TakeFromTermData);
     }
-}
-
-QJsonObject NodesManager::getNodeJson(const QUuid& uuid) const
-{
-    auto info = dataStorage.getTerm(uuid);
-    return JsonTermDataParser::toJson(info);
 }
 
 bool NodesManager::correctGroupUuid(const QUuid& groupUuid)

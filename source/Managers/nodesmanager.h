@@ -39,13 +39,7 @@ public:
 
     UuidList getAllNodesUuidsInGroup(const QUuid& groupUuid);
 
-    PaintedTerm::List getAllNodesForGroup(const QUuid& groupUuid);
-
-    QDateTime getLastEdit(QUuid nodeUuid);
-
     void importNodeFromJson(const QJsonObject& nodeJson, bool importIfGroupNotExist = false);
-
-    QJsonObject getNodeJson(const QUuid& uuid) const;
 
     void deleteNode(const QUuid uuid);
 

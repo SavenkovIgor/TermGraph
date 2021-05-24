@@ -35,7 +35,7 @@ enum class EdgeType { standart, termin, terminHardLink, description, broken, red
 
 enum class EdgeSelected { none, forward, backward };
 
-class Edge : public QObject, public GraphEdge, public GraphicItem
+class EdgeOld : public QObject, public GraphEdge, public GraphicItem
 {
     Q_OBJECT
 
@@ -45,11 +45,11 @@ class Edge : public QObject, public GraphEdge, public GraphicItem
     Q_PROPERTY(bool isSelected READ isSelected NOTIFY selectionChanged)
 
 public:
-    using List = QList<Edge*>;
+    using List = QList<EdgeOld*>;
 
-    explicit Edge(QObject* parent = nullptr);
-    Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin, QObject* parent = nullptr);
-    ~Edge() override = default;
+    explicit EdgeOld(QObject* parent = nullptr);
+    EdgeOld(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin, QObject* parent = nullptr);
+    ~EdgeOld() override = default;
 
     QRectF edgeRect() const;
 

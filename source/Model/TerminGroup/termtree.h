@@ -45,10 +45,10 @@ public:
 
     // TreeInfo
     bool hasTerm(PaintedTerm* term) const;
-    bool hasEdge(Edge* edge) const;
+    bool hasEdge(EdgeOld* edge) const;
 
     QRectF getTreeRect(CoordType inCoordinates) const;
-    QSizeF baseSize() const;  // Clearly counted value. Ignoring real node positions
+    QSizeF baseSize() const; // Clearly counted value. Ignoring real node positions
     double square() const;
 
     // Internal counts and preparations
@@ -59,12 +59,12 @@ public:
     // Deletions
     TermTree(const TermTree&) = delete;
 
-private:    
+private:
     // Internal Info
     PaintedTerm::List getAllNodesInTree() const;
     qreal             getMaxStackHeight() const;
 
-private:  // Members
+private: // Members
     NodeVerticalStack::List mStacks;
     RectGraphicItem         mRect;
 };

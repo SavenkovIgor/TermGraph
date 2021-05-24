@@ -24,13 +24,13 @@
 #include "source/Helpers/appstyle.h"
 #include "source/Model/Termin/paintedterm.h"
 
-Edge::Edge(QObject* parent)
+EdgeOld::EdgeOld(QObject* parent)
     : QObject(parent)
     , GraphEdge()
     , GraphicItem()
 {}
 
-Edge::Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type, QObject* parent)
+EdgeOld::EdgeOld(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type, QObject* parent)
     : QObject(parent)
     , GraphEdge(toRoot, toLeaf)
     , GraphicItem()
@@ -38,7 +38,7 @@ Edge::Edge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type, QObject* par
     mType = type;
 }
 
-QColor Edge::getEdgeColor() const
+QColor EdgeOld::getEdgeColor() const
 {
     switch (mSelected) {
     case EdgeSelected::backward: return AppStyle::Colors::Edges::selected;
@@ -58,7 +58,7 @@ QColor Edge::getEdgeColor() const
     return AppStyle::Colors::Edges::standard;
 }
 
-void Edge::brokeEdge()
+void EdgeOld::brokeEdge()
 {
     cutOutFromSides();
     getRoot()->addBrokenEdge(this);
@@ -66,7 +66,7 @@ void Edge::brokeEdge()
     mType = EdgeType::broken;
 }
 
-void Edge::makeEdgeRedundant()
+void EdgeOld::makeEdgeRedundant()
 {
     cutOutFromSides();
     getLeaf()->addRedundantEdge(this);
@@ -74,23 +74,23 @@ void Edge::makeEdgeRedundant()
     mType = EdgeType::redundant;
 }
 
-void Edge::cutOutFromSides()
+void EdgeOld::cutOutFromSides()
 {
     getRoot()->removeEdgeToLeafs(this);
     getLeaf()->removeEdgeToRoots(this);
 }
 
-EdgeSelected Edge::selectedType() const { return mSelected; }
+EdgeSelected EdgeOld::selectedType() const { return mSelected; }
 
-bool Edge::isSelected() const { return mSelected == EdgeSelected::forward || mSelected == EdgeSelected::backward; }
+bool EdgeOld::isSelected() const { return mSelected == EdgeSelected::forward || mSelected == EdgeSelected::backward; }
 
-bool Edge::isBroken() const { return mType == EdgeType::broken; }
+bool EdgeOld::isBroken() const { return mType == EdgeType::broken; }
 
-bool Edge::isRedundant() const { return mType == EdgeType::redundant; }
+bool EdgeOld::isRedundant() const { return mType == EdgeType::redundant; }
 
-bool Edge::isHard() const { return mType == EdgeType::terminHardLink; }
+bool EdgeOld::isHard() const { return mType == EdgeType::terminHardLink; }
 
-QRectF Edge::edgeRect() const
+QRectF EdgeOld::edgeRect() const
 {
     QPointF pt1 = rootPoint();
     QPointF pt2 = leafPoint();
@@ -100,28 +100,28 @@ QRectF Edge::edgeRect() const
     return rc;
 }
 
-QPointF Edge::rootPoint() const
+QPointF EdgeOld::rootPoint() const
 {
     auto paintedTerm = static_cast<PaintedTerm*>(getRoot());
     return paintedTerm->getCenter(CoordType::scene);
 }
 
-QPointF Edge::leafPoint() const
+QPointF EdgeOld::leafPoint() const
 {
     auto paintedTerm = static_cast<PaintedTerm*>(getLeaf());
     return paintedTerm->getCenter(CoordType::scene);
 }
 
-Edge::List Edge::castToEdgeList(const GraphEdge::List& lst)
+EdgeOld::List EdgeOld::castToEdgeList(const GraphEdge::List& lst)
 {
-    Edge::List edgeLst;
+    EdgeOld::List edgeLst;
     for (auto graphEdg : lst) {
-        edgeLst << dynamic_cast<Edge*>(graphEdg);
+        edgeLst << dynamic_cast<EdgeOld*>(graphEdg);
     }
     return edgeLst;
 }
 
-void Edge::setSelectedForward(bool value)
+void EdgeOld::setSelectedForward(bool value)
 {
     auto resultSelection = value ? EdgeSelected::forward : EdgeSelected::none;
     if (mSelected != resultSelection) {
@@ -130,7 +130,7 @@ void Edge::setSelectedForward(bool value)
     }
 }
 
-void Edge::setSelectedBackward(bool value)
+void EdgeOld::setSelectedBackward(bool value)
 {
     auto resultSelection = value ? EdgeSelected::backward : EdgeSelected::none;
     if (mSelected != resultSelection) {

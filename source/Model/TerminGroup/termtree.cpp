@@ -55,10 +55,7 @@ PaintedTerm* TermTree::getNodeAtPoint(const QPointF& pt) const
     return nullptr;
 }
 
-RectGraphicItem& TermTree::rect()
-{
-    return mRect;
-}
+RectGraphicItem& TermTree::rect() { return mRect; }
 
 void TermTree::addTerm(PaintedTerm* term)
 {
@@ -87,7 +84,7 @@ bool TermTree::hasTerm(PaintedTerm* term) const
     return false;
 }
 
-bool TermTree::hasEdge(Edge* edge) const
+bool TermTree::hasEdge(EdgeOld* edge) const
 {
     auto* rootTerm = static_cast<PaintedTerm*>(edge->getRoot());
     auto* leafTerm = static_cast<PaintedTerm*>(edge->getLeaf());
@@ -99,14 +96,9 @@ QRectF TermTree::getTreeRect(CoordType inCoordinates) const
     QRectF ret = QRectF(QPointF(), baseSize());
 
     switch (inCoordinates) {
-    case CoordType::zeroPoint:
-        break;
-    case CoordType::local:
-        ret = ret.translated(mRect.pos());
-        break;
-    case CoordType::scene:
-        ret = ret.translated(mRect.scenePos());
-        break;
+    case CoordType::zeroPoint: break;
+    case CoordType::local: ret = ret.translated(mRect.pos()); break;
+    case CoordType::scene: ret = ret.translated(mRect.scenePos()); break;
     }
 
     return ret;

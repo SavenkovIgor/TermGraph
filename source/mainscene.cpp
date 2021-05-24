@@ -348,14 +348,14 @@ PaintedTerm* MainScene::term(QQmlListProperty<PaintedTerm>* list, qsizetype i)
     return reinterpret_cast<MainScene*>(list->data)->term(i);
 }
 
-QQmlListProperty<Edge> MainScene::getEdges()
+QQmlListProperty<EdgeOld> MainScene::getEdges()
 {
-    return QQmlListProperty<Edge>(this, this, &MainScene::edgeCount, &MainScene::edge);
+    return QQmlListProperty<EdgeOld>(this, this, &MainScene::edgeCount, &MainScene::edge);
 }
 
 qsizetype MainScene::edgeCount() const { return mCachedEdges.size(); }
 
-Edge* MainScene::edge(qsizetype index) const
+EdgeOld* MainScene::edge(qsizetype index) const
 {
     if (index < 0 || index >= mCachedEdges.size())
         return nullptr;
@@ -363,19 +363,19 @@ Edge* MainScene::edge(qsizetype index) const
     return mCachedEdges[index];
 }
 
-qsizetype MainScene::edgeCount(QQmlListProperty<Edge>* list)
+qsizetype MainScene::edgeCount(QQmlListProperty<EdgeOld>* list)
 {
     return reinterpret_cast<MainScene*>(list->data)->edgeCount();
 }
 
-Edge* MainScene::edge(QQmlListProperty<Edge>* list, qsizetype i)
+EdgeOld* MainScene::edge(QQmlListProperty<EdgeOld>* list, qsizetype i)
 {
     return reinterpret_cast<MainScene*>(list->data)->edge(i);
 }
 
 void MainScene::updateEdgeCache()
 {
-    mCachedEdges = mCurrentGroup ? mCurrentGroup->edgesForPaint() : Edge::List();
+    mCachedEdges = mCurrentGroup ? mCurrentGroup->edgesForPaint() : EdgeOld::List();
     emit edgesChanged();
 }
 

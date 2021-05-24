@@ -51,7 +51,7 @@ QRectF PaintedTerm::rect() const { return getNodeRect(CoordType::scene); }
 void PaintedTerm::setRelatedPaintUp(bool val)
 {
     for (auto* edge : getEdgesToLeafs())
-        dynamic_cast<Edge*>(edge)->setSelectedForward(val);
+        dynamic_cast<EdgeOld*>(edge)->setSelectedForward(val);
 
     for (auto node : getLeafNodes()) {
         auto* paintNode = static_cast<PaintedTerm*>(node);
@@ -66,7 +66,7 @@ void PaintedTerm::setRelatedPaintUp(bool val)
 void PaintedTerm::setRelatedPaintDown(bool val)
 {
     for (auto* edge : getEdgesToRoots())
-        dynamic_cast<Edge*>(edge)->setSelectedBackward(val);
+        dynamic_cast<EdgeOld*>(edge)->setSelectedBackward(val);
 
     for (auto* node : getRootNodes()) {
         auto* paintNode = static_cast<PaintedTerm*>(node);

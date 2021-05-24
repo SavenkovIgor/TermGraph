@@ -27,6 +27,7 @@
 
 #include "source/Helpers/appconfig.h"
 #include "source/Managers/jsongroupdataparser.h"
+#include "source/Managers/jsontermdataparser.h"
 
 GroupsManager::GroupsManager(DataStorageInterface& dataStorage, NodesManager* nodesMgr, QObject* parent)
     : QObject(parent)
@@ -115,19 +116,20 @@ bool GroupsManager::isValidGroupJson(const QJsonDocument json) // TODO: Rework!
     return false;
 }
 
-TermGroup* GroupsManager::createGroup(const QString& groupName) { return createGroup(getGroupUuid(groupName)); }
-
 TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
 {
     if (groupUuid.isNull())
         return nullptr;
 
-    auto  info  = dataStorage.getGroup(groupUuid);
-    auto* group = new TermGroup(info);
+    auto info  = dataStorage.getGroup(groupUuid);
+    auto terms = dataStorage.getTerms(groupUuid);
 
-    group->loadNodes(nodesMgr->getAllNodesForGroup(groupUuid));
+    PaintedTerm::List sceneTerms;
 
-    return group;
+    for (const auto& term : terms)
+        sceneTerms << new PaintedTerm(term);
+
+    return new TermGroup(info, sceneTerms);
 }
 
 bool GroupsManager::isEmptyGroup(const QString& groupUuid)
@@ -146,7 +148,7 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 {
     QDateTime lastEdit;
     for (auto& nodeUuid : nodesMgr->getAllNodesUuidsInGroup(groupUuid)) {
-        QDateTime currNodeLastEdit = nodesMgr->getLastEdit(nodeUuid);
+        QDateTime currNodeLastEdit = dataStorage.getTermLastEdit(nodeUuid);
         if (lastEdit.isNull()) {
             lastEdit = currNodeLastEdit;
         } else {
@@ -244,7 +246,7 @@ QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
     QJsonArray nodesArray;
 
     for (const auto& nodeUuid : nodesUuids) {
-        auto nodeJson = nodesMgr->getNodeJson(nodeUuid);
+        auto nodeJson = JsonTermDataParser::toJson(dataStorage.getTerm(nodeUuid));
         nodesArray.append(nodeJson);
     }
 

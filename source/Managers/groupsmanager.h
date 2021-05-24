@@ -85,8 +85,6 @@ private:
 
     bool isValidGroupJson(const QJsonDocument json);
 
-    TermGroup* createGroup(const QString& groupName);
-
     QDateTime getLastEdit(QUuid groupUuid);
 
     NodesManager* nodesMgr;

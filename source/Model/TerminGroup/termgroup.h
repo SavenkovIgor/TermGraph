@@ -24,6 +24,7 @@
 #include <QObject>
 
 #include "source/Helpers/handytypes.h"
+#include "source/Model/Base/forest.hpp"
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/TerminGroup/termgroupinfo.h"
 
@@ -35,10 +36,10 @@ class TermGroup : public QObject, public TermGroupInfo
     Q_PROPERTY(QString name READ name CONSTANT)
 
 public:
-    TermGroup(const GroupData& info, QObject* parent = nullptr);
+    TermGroup(const GroupData& info, const PaintedTerm::List& newNodes, QObject* parent = nullptr);
+    TermGroup(const GroupData& info, TermData::List terms, QObject* parent = nullptr);
     ~TermGroup() final = default;
 
-    void loadNodes(const PaintedTerm::List& newNodes);
     void setBasePoint(QPointF pt);
 
     QRectF getGroupRect() const;
@@ -85,4 +86,7 @@ private:
 
     RectGraphicItem mBaseRect    = RectGraphicItem(QPoint(0, 0), QSizeF(10.0, 10.0));
     RectGraphicItem mOrphansRect = RectGraphicItem();
+
+    Forest<int, int>::List mForests;
+    Node<int>::List        mOrphans;
 };

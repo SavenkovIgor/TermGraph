@@ -47,7 +47,7 @@ Application::Application(QObject* parent)
     // remind = new Reminder(scene->getAllNodes());
 
     qmlRegisterAnonymousType<PaintedTerm>("Graph", 1);
-    qmlRegisterAnonymousType<Edge>("Graph", 1);
+    qmlRegisterAnonymousType<EdgeOld>("Graph", 1);
 
     qmlRegisterSingletonInstance("Network", 1, 0, "NetworkManager", network.get());
 
