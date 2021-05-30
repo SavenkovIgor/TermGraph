@@ -41,23 +41,11 @@ public:
 
     void importNodeFromJson(const QJsonObject& nodeJson, bool importIfGroupNotExist = false);
 
-    void deleteNode(const QUuid uuid);
-
     // Invokable part
-    Q_INVOKABLE bool addNewNode(const QString& name,
-                                const QString& def,
-                                const QString& descr,
-                                const QString& exam,
-                                const QString& groupUuidString,
-                                const bool&    sendChangeSignal = true);
+    Q_INVOKABLE bool addNewNode(const QJsonObject& object);
+    Q_INVOKABLE bool changeNode(const QJsonObject& object);
 
-    Q_INVOKABLE bool changeNode(const QUuid&   nodeUuid,
-                                const QString& name,
-                                const QString& definition,
-                                const QString& description,
-                                const QString& example,
-                                const QString& groupUuidString,
-                                const bool&    sendChangeSignal = true);
+    void deleteNode(const QUuid uuid);
 
 signals:
     void nodeChanged();

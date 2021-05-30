@@ -84,14 +84,19 @@ M.Page {
 
         root.termEdited(termName.text); // Before node change. It is important
 
-        let success = NodesManager.changeNode(
-                    nodeUuidText.text,
-                    termName.text,
-                    termDefin.text,
-                    termDescr.text,
-                    termExampl.text,
-                    nodeGroup.currentText
-                    );
+        const data = {
+            uuid: nodeUuidText.text,
+            term: termName.text,
+            definition: termDefin.text,
+            description: termDescr.text,
+            examples: termExampl.text,
+            wikiUrl: "",
+            wikiImage: "",
+            groupUuid: nodeGroup.currentText,
+            lastEdit: ""
+        };
+
+        const success = NodesManager.changeNode(data);
 
         if (success) {
             root.StackView.view.pop();

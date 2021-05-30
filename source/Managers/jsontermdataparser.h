@@ -28,6 +28,11 @@
 class JsonTermDataParser
 {
 public:
+    static bool        isValidKeysAndTypes(const QJsonObject& json);
+    static bool        isValid(const QJsonObject& json,
+                               bool               checkUuid      = true,
+                               bool               checkGroupUuid = true,
+                               bool               checkLastEdit  = true);
     static TermData    fromJson(const QJsonObject& jsonObj);
     static QJsonObject toJson(const TermData& info);
 };

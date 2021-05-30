@@ -34,8 +34,6 @@
 // -- Qt6 Migration plan --
 
 // TODO: Remove all "tag" naming
-// TODO: Remove setContextProperty stuff
-// TODO: Maybe add QProperty somewhere? need think.
 // TODO: How to mix QProperty & Q_PROPERTY
 // TODO: What about import versions in qml?
 // TODO: Replace Components with component properties

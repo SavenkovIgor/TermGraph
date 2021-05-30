@@ -71,15 +71,21 @@ M.Page {
 
         root.newTermAdded(termName.text); // Before node add. It is important
 
-        var success = NodesManager.addNewNode(
-                    termName.text,
-                    termDefin.text,
-                    termDescr.text,
-                    termExampl.text,
-                    currentGroupFixedRow.groupUuid
-                    );
+        const data = {
+            uuid: "",
+            term: termName.text,
+            definition: termDefin.text,
+            description: termDescr.text,
+            examples: termExampl.text,
+            wikiUrl: "",
+            wikiImage: "",
+            groupUuid: currentGroupFixedRow.groupUuid,
+            lastEdit: ""
+        };
 
-        if (success)
+        const result = NodesManager.addNewNode(data);
+
+        if (result)
             root.StackView.view.pop();
     }
 

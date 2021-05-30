@@ -21,6 +21,45 @@
 
 #include "source/Managers/jsontermdataparser.h"
 
+#include <ranges>
+
+bool JsonTermDataParser::isValidKeysAndTypes(const QJsonObject& json)
+{
+    auto hasKey = [&json](const auto& key) -> bool { return json.contains(key) && json[key].isString(); };
+
+    QStringList keys
+        = {"uuid", "term", "definition", "description", "examples", "wikiUrl", "wikiImage", "groupUuid", "lastEdit"};
+
+    return std::ranges::all_of(keys, hasKey);
+}
+
+bool JsonTermDataParser::isValid(const QJsonObject& json, bool checkUuid, bool checkGroupUuid, bool checkLastEdit)
+{
+    if (!isValidKeysAndTypes(json))
+        return false;
+
+    if (json["term"].toString().isEmpty())
+        return false;
+
+    if (checkUuid) {
+        if (QUuid(json["uuid"].toString()).isNull())
+            return false;
+    }
+
+    if (checkGroupUuid) {
+        if (QUuid(json["groupUuid"].toString()).isNull())
+            return false;
+    }
+
+    if (checkLastEdit) {
+        auto lastEdit = QDateTime::fromString(json["lastEdit"].toString(), Qt::ISODate);
+        if (lastEdit.isNull())
+            return false;
+    }
+
+    return true;
+}
+
 TermData JsonTermDataParser::fromJson(const QJsonObject& jsonObj)
 {
     TermData info;

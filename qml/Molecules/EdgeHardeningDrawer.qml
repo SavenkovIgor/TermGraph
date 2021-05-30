@@ -71,14 +71,19 @@ A.DrawerPage {
                     onTriggered: {
                         const hardenedNode = linksManager.appliedReplacement();
 
-                        let success = NodesManager.changeNode(
-                                hardenedNode.uuid,
-                                hardenedNode.term,
-                                hardenedNode.definition,
-                                hardenedNode.description,
-                                hardenedNode.examples,
-                                hardenedNode.groupUuid
-                                );
+                        const data = {
+                            uuid: hardenedNode.uuid,
+                            term: hardenedNode.term,
+                            definition: hardenedNode.definition,
+                            description: hardenedNode.description,
+                            examples: hardenedNode.examples,
+                            wikiUrl: "",
+                            wikiImage: "",
+                            groupUuid: hardenedNode.groupUuid,
+                            lastEdit: ""
+                        };
+
+                        const success = NodesManager.changeNode(data);
 
                         if (success) {
                             root.close();

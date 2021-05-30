@@ -28,80 +28,49 @@ NodesManager::NodesManager(DataStorageInterface& dataStorage, QObject* parent)
     , dataStorage(dataStorage)
 {}
 
-bool NodesManager::addNewNode(const QString& name,
-                              const QString& def,
-                              const QString& descr,
-                              const QString& exam,
-                              const QString& groupUuidString,
-                              const bool&    sendChangeSignal)
+bool NodesManager::addNewNode(const QJsonObject& object)
 {
-    auto groupUuid = QUuid(groupUuidString);
+    assert(JsonTermDataParser::isValidKeysAndTypes(object));
+    auto data = JsonTermDataParser::fromJson(object);
 
-    if (!correctGroupUuid(groupUuid))
+    if (!correctGroupUuid(data.groupUuid))
         return false;
 
-    if (!correctNewNodeName(name, groupUuid))
+    if (!correctNewNodeName(data.term, data.groupUuid))
         return false;
 
-    TermData info;
+    dataStorage.addTerm(data);
 
-    info.uuid        = QUuid();
-    info.term        = name;
-    info.definition  = def;
-    info.description = descr;
-    info.examples    = exam;
-    info.groupUuid   = groupUuid;
-
-    dataStorage.addTerm(info);
-
-    if (sendChangeSignal)
-        emit nodeChanged();
+    emit nodeChanged();
 
     return true;
 }
 
-bool NodesManager::changeNode(const QUuid&   nodeUuid,
-                              const QString& name,
-                              const QString& definition,
-                              const QString& description,
-                              const QString& example,
-                              const QString& groupUuidString,
-                              const bool&    sendChangeSignal)
+bool NodesManager::changeNode(const QJsonObject& object)
 {
-    auto groupUuid = QUuid(groupUuidString);
+    assert(JsonTermDataParser::isValidKeysAndTypes(object));
+    auto data = JsonTermDataParser::fromJson(object);
 
-    if (!correctGroupUuid(groupUuid))
+    if (!correctGroupUuid(data.groupUuid))
         return false;
 
-    assert(!nodeUuid.isNull());
+    assert(!data.uuid.isNull());
 
-    if (nodeUuid.isNull()) {
+    if (data.uuid.isNull()) {
         NotificationManager::showWarning("Пустой uuid термина при попытке изменения");
         return false;
     }
 
     // Check for already existing node with same name
-    auto alterNodeUuid = dataStorage.findTerm(name, groupUuid);
-    if (!alterNodeUuid.isNull() && alterNodeUuid != nodeUuid) {
+    auto alterNodeUuid = dataStorage.findTerm(data.term, data.groupUuid);
+    if (!alterNodeUuid.isNull() && alterNodeUuid != data.uuid) {
         NotificationManager::showWarning("Термин с таким названием уже существует в этой группе");
         return false;
     }
 
-    TermData info;
+    dataStorage.updateTerm(data, DataStorageInterface::LastEditSource::AutoGenerate, false);
 
-    info.uuid        = nodeUuid;
-    info.term        = name;
-    info.definition  = definition;
-    info.description = description;
-    info.examples    = example;
-    info.groupUuid   = groupUuid;
-
-    dataStorage.updateTerm(info, DataStorageInterface::LastEditSource::AutoGenerate, false);
-
-    if (sendChangeSignal) {
-        emit nodeChanged();
-    }
-
+    emit nodeChanged();
     return true;
 }
 
