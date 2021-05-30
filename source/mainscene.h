@@ -30,7 +30,6 @@
 #include "source/Helpers/asyncgroupbuilder.h"
 #include "source/Helpers/fsworks.h"
 #include "source/Managers/groupsmanager.h"
-#include "source/Managers/nodesmanager.h"
 #include "source/Model/Termin/termdatawrapper.h"
 #include "source/Model/TerminGroup/termgroup.h"
 
@@ -39,7 +38,7 @@ class MainScene : public QObject
     Q_OBJECT
 
 public:
-    MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* parent = nullptr);
+    MainScene(GroupsManager* groupsMgr, QObject* parent = nullptr);
     ~MainScene() override = default;
 
     // Scene
@@ -108,7 +107,6 @@ private: // Methods
 
     // Managers
     GroupsManager* groupsMgr;
-    NodesManager*  nodesMgr;
 
     // Scene rect
     QRectF mSceneRect = QRectF(0, 0, 100, 100);

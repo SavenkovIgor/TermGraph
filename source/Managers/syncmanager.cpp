@@ -21,14 +21,10 @@
 
 #include "source/Managers/syncmanager.h"
 
-SyncManager::SyncManager(NetworkManager* networkManager,
-                         GroupsManager*  groupsManger,
-                         NodesManager*   nodesManager,
-                         QObject*        parent)
+SyncManager::SyncManager(NetworkManager* networkManager, GroupsManager* groupsManger, QObject* parent)
     : QObject(parent)
     , mNetworkManager(networkManager)
     , mGroupsManager(groupsManger)
-    , mNodesManager(nodesManager)
 {
     connect(this->mNetworkManager,
             &NetworkManager::newSyncGroup,

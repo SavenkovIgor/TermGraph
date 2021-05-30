@@ -34,10 +34,9 @@ Application::Application(QObject* parent)
     , initPreparer()
     , network(new NetworkManager())
     , localDb()
-    , nodesManager(new NodesManager(localDb))
-    , groupsManager(new GroupsManager(localDb, nodesManager.get()))
-    , syncManager(new SyncManager(network.get(), groupsManager.get(), nodesManager.get()))
-    , scene(new MainScene(groupsManager.get(), nodesManager.get()))
+    , groupsManager(new GroupsManager(localDb))
+    , syncManager(new SyncManager(network.get(), groupsManager.get()))
+    , scene(new MainScene(groupsManager.get()))
     , qmlEngine(new QQmlApplicationEngine())
 {
     initElemSizes();
@@ -54,7 +53,6 @@ Application::Application(QObject* parent)
     qmlRegisterSingletonInstance("Api", 1, 0, "Application", this);
     qmlRegisterSingletonInstance("Api", 1, 0, "Scene", scene.get());
     qmlRegisterSingletonInstance("Api", 1, 0, "GroupsManager", groupsManager.get());
-    qmlRegisterSingletonInstance("Api", 1, 0, "NodesManager", nodesManager.get());
     qmlRegisterSingletonInstance("Api", 1, 0, "SyncManager", syncManager.get());
 
     qmlEngine->addImportPath(QStringLiteral("qrc:/"));

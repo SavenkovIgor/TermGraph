@@ -96,7 +96,7 @@ M.Page {
             lastEdit: ""
         };
 
-        const success = NodesManager.changeNode(data);
+        const success = GroupsManager.updateNode(data);
 
         if (success) {
             root.StackView.view.pop();

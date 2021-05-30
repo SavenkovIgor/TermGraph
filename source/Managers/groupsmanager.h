@@ -29,7 +29,6 @@
 
 #include "source/Helpers/fsworks.h"
 #include "source/Managers/datastorageinterface.h"
-#include "source/Managers/nodesmanager.h"
 #include "source/Managers/notificationmanager.h"
 #include "source/Model/TerminGroup/termgroup.h"
 
@@ -37,7 +36,7 @@ class GroupsManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit GroupsManager(DataStorageInterface& dataStorage, NodesManager* nodesMgr, QObject* parent = nullptr);
+    explicit GroupsManager(DataStorageInterface& dataStorage, QObject* parent = nullptr);
 
     Q_PROPERTY(bool hasAnyGroup READ getHasAnyGroup NOTIFY groupsListChanged)
     Q_PROPERTY(QStringList allUuidSorted READ getAllUuidStringsSortedByLastEdit NOTIFY groupsListChanged)
@@ -64,14 +63,21 @@ public:
     // Json
     void importGroupFromJsonFile(const QString& filename);
     void importGroupFromJsonString(const QString& rawJson);
-    void importGroupFromJson(const QJsonDocument& json);
+    void importGroup(const QJsonDocument& json);
+    void importTerm(const QJsonObject& nodeJson);
 
     Q_INVOKABLE int dbVersion();
+
+    // Nodes
+    Q_INVOKABLE bool addNode(const QJsonObject& object);
+    Q_INVOKABLE bool updateNode(const QJsonObject& object);
+    Q_INVOKABLE void deleteNode(const QUuid uuid);
 
 signals:
     void groupsListChanged();
     void groupAdded();
     void groupDeleted();
+    void nodeChanged();
 
 private: // Methods
     bool getHasAnyGroup() const;
@@ -80,14 +86,15 @@ private: // Methods
 
     void saveGroupInFolder(TermGroup* group);
 
-private:
+    bool groupExist(const QUuid& groupUuid);
+    bool termExist(const QString& term, QUuid& groupUuid);
+
+private: // Members
     QStringList getAllUuidStringsSortedByLastEdit();
 
     bool isValidGroupJson(const QJsonDocument json);
 
     QDateTime getLastEdit(QUuid groupUuid);
-
-    NodesManager* nodesMgr;
 
     DataStorageInterface& dataStorage;
 

@@ -68,7 +68,6 @@ private:
     // Dependent init
     LocalDatabaseStorage localDb;
 
-    QScopedPointer<NodesManager>          nodesManager;
     QScopedPointer<GroupsManager>         groupsManager;
     QScopedPointer<SyncManager>           syncManager;
     QScopedPointer<MainScene>             scene;

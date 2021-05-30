@@ -27,17 +27,13 @@
 
 #include "source/Managers/groupsmanager.h"
 #include "source/Managers/networkmanager.h"
-#include "source/Managers/nodesmanager.h"
 
 class SyncManager : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit SyncManager(NetworkManager* networkManager,
-                         GroupsManager*  groupsManger,
-                         NodesManager*   nodesManager,
-                         QObject*        parent = nullptr);
+    explicit SyncManager(NetworkManager* networkManager, GroupsManager* groupsManger, QObject* parent = nullptr);
 
     enum class ContentType { undefined = 0, groupsHashList };
 
@@ -52,7 +48,6 @@ public:
 private:
     NetworkManager*      mNetworkManager;
     const GroupsManager* mGroupsManager;
-    const NodesManager*  mNodesManager;
 
     static QString     getContentTypeName(const ContentType& type);
     static ContentType getContentTypeByName(const QString& typeName);

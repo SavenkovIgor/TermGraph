@@ -83,7 +83,7 @@ M.Page {
             lastEdit: ""
         };
 
-        const result = NodesManager.addNewNode(data);
+        const result = GroupsManager.addNode(data);
 
         if (result)
             root.StackView.view.pop();

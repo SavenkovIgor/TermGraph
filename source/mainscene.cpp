@@ -27,7 +27,7 @@
 #include "source/Database/database.h"
 #include "source/Managers/notificationmanager.h"
 
-MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* parent)
+MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     : QObject(parent)
     , mGroupBuilder(this)
 {
@@ -38,10 +38,7 @@ MainScene::MainScene(GroupsManager* groupsMgr, NodesManager* nodesMgr, QObject* 
     this->groupsMgr = groupsMgr;
     connect(groupsMgr, &GroupsManager::groupAdded, this, &MainScene::checkGroupAddition);
     connect(groupsMgr, &GroupsManager::groupDeleted, this, &MainScene::checkGroupDeletion);
-
-    assert(nodesMgr != nullptr);
-    this->nodesMgr = nodesMgr;
-    connect(nodesMgr, &NodesManager::nodeChanged, this, &MainScene::updateGroup);
+    connect(groupsMgr, &GroupsManager::nodeChanged, this, &MainScene::updateGroup);
 
     connect(&mGroupBuilder, &AsyncGroupBuilder::finished, this, &MainScene::takeBuildGroupAndShow, Qt::QueuedConnection);
 
@@ -212,7 +209,7 @@ void MainScene::deleteSelectedTerm()
 {
     if (auto* node = getSelectedTerm()) {
         dropTermSelection();
-        nodesMgr->deleteNode(node->data().uuid);
+        groupsMgr->deleteNode(node->data().uuid);
     }
 }
 
