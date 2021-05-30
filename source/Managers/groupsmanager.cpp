@@ -33,6 +33,8 @@ GroupsManager::GroupsManager(DataStorageInterface& dataStorage, QObject* parent)
     : QObject(parent)
     , dataStorage(dataStorage)
 {
+    connect(this, &GroupsManager::groupAdded, this, &GroupsManager::groupsListChanged);
+    connect(this, &GroupsManager::groupDeleted, this, &GroupsManager::groupsListChanged);
     connect(this, &GroupsManager::nodeChanged, this, &GroupsManager::groupsListChanged);
 }
 
@@ -72,7 +74,6 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 
     if (dataStorage.addGroup(info)) {
         updateGroupUuidNameMaps();
-        emit groupsListChanged();
         emit groupAdded();
     } else {
         NotificationManager::showError("Название группы не уникально");
@@ -83,7 +84,6 @@ void GroupsManager::deleteGroup(const QString& groupUuid)
 {
     dataStorage.deleteGroup(QUuid(groupUuid));
     updateGroupUuidNameMaps();
-    emit groupsListChanged();
     emit groupDeleted();
 }
 
@@ -206,7 +206,6 @@ void GroupsManager::importGroup(const QJsonDocument& json)
 
     updateGroupUuidNameMaps();
     NotificationManager::showInfo(info.name + " синхронизировано");
-    emit groupsListChanged();
     emit groupAdded();
 }
 
