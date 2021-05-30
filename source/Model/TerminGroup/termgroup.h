@@ -37,7 +37,6 @@ class TermGroup : public QObject, public TermGroupInfo
 
 public:
     TermGroup(const GroupData& info, const PaintedTerm::List& newNodes, QObject* parent = nullptr);
-    TermGroup(const GroupData& info, TermData::List terms, QObject* parent = nullptr);
     ~TermGroup() final = default;
 
     void setBasePoint(QPointF pt);

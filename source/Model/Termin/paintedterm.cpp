@@ -24,11 +24,6 @@
 #include "source/Helpers/appstyle.h"
 #include "source/Model/TerminEdge/edge.h"
 
-bool PaintedTerm::someoneHover  = false;
-bool PaintedTerm::someoneSelect = false;
-
-QList<Qt::Edge> PaintedTerm::sides;
-
 PaintedTerm::PaintedTerm(const TermData& info, QObject* parent)
     : QObject(parent)
     , GraphTerm(info)
@@ -37,46 +32,10 @@ PaintedTerm::PaintedTerm(const TermData& info, QObject* parent)
 {
     pCornerRadius.setBinding([this]() { return pNodeSize.value().height() * 0.2; });
 
-    if (sides.isEmpty()) {
-        sides << Qt::BottomEdge;
-        sides << Qt::TopEdge;
-        sides << Qt::RightEdge;
-        sides << Qt::LeftEdge;
-    }
     adjustRectSizeForName();
 }
 
 QRectF PaintedTerm::rect() const { return getNodeRect(CoordType::scene); }
-
-void PaintedTerm::setRelatedPaintUp(bool val)
-{
-    for (auto* edge : getEdgesToLeafs())
-        dynamic_cast<EdgeOld*>(edge)->setSelectedForward(val);
-
-    for (auto node : getLeafNodes()) {
-        auto* paintNode = static_cast<PaintedTerm*>(node);
-        if (paintNode->mRelativePaint != val) {
-            paintNode->mRelativePaint = val;
-            emit paintNode->selectionChanged();
-            paintNode->setRelatedPaintUp(val);
-        }
-    }
-}
-
-void PaintedTerm::setRelatedPaintDown(bool val)
-{
-    for (auto* edge : getEdgesToRoots())
-        dynamic_cast<EdgeOld*>(edge)->setSelectedBackward(val);
-
-    for (auto* node : getRootNodes()) {
-        auto* paintNode = static_cast<PaintedTerm*>(node);
-        if (paintNode->mRelativePaint != val) {
-            paintNode->mRelativePaint = val;
-            emit paintNode->selectionChanged();
-            paintNode->setRelatedPaintDown(val);
-        }
-    }
-}
 
 QLineF PaintedTerm::getRectLine(Qt::Edge side)
 {
@@ -127,6 +86,36 @@ void PaintedTerm::adjustRectSizeForName() { pNodeSize.setValue(cache().decorated
 
 qreal PaintedTerm::cornerRadius() const { return pCornerRadius.value(); }
 
+void PaintedTerm::setRelatedPaintUp(bool val)
+{
+    for (auto* edge : getEdgesToLeafs())
+        dynamic_cast<EdgeOld*>(edge)->setSelectedForward(val);
+
+    for (auto node : getLeafNodes()) {
+        auto* paintNode = static_cast<PaintedTerm*>(node);
+        if (paintNode->mRelativePaint != val) {
+            paintNode->mRelativePaint = val;
+            emit paintNode->selectionChanged();
+            paintNode->setRelatedPaintUp(val);
+        }
+    }
+}
+
+void PaintedTerm::setRelatedPaintDown(bool val)
+{
+    for (auto* edge : getEdgesToRoots())
+        dynamic_cast<EdgeOld*>(edge)->setSelectedBackward(val);
+
+    for (auto* node : getRootNodes()) {
+        auto* paintNode = static_cast<PaintedTerm*>(node);
+        if (paintNode->mRelativePaint != val) {
+            paintNode->mRelativePaint = val;
+            emit paintNode->selectionChanged();
+            paintNode->setRelatedPaintDown(val);
+        }
+    }
+}
+
 QColor PaintedTerm::baseColor(NodeType type, bool selected)
 {
     switch (type) {
@@ -145,7 +134,6 @@ void PaintedTerm::setSelection(const bool& selected)
     if (mThisSelected != selected) {
         mThisSelected = selected;
 
-        someoneSelect  = selected;
         mRelativePaint = selected;
 
         setRelatedPaintDown(selected);

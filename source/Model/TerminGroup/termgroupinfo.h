@@ -32,7 +32,7 @@
 class TermGroupInfo
 {
 public:
-    TermGroupInfo(const GroupData& info);
+    TermGroupInfo(const GroupData& info, const PaintedTerm::List& nodes);
     ~TermGroupInfo();
 
     // Group info
@@ -49,10 +49,6 @@ public:
     EdgeOld::List edgesForPaint() const;
 
 protected:
-    // Group content methods
-    void addNodeToList(PaintedTerm* node);
-    void clearNodesList();
-
     // Nodes tools
     PaintedTerm::List getRootNodes() const;
     PaintedTerm::List getInTreeNodes() const;

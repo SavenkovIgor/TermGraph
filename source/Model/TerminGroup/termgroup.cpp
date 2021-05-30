@@ -27,26 +27,13 @@
 #include "source/Helpers/fonts.h"
 #include "source/Helpers/link/linkutils.h"
 
-TermGroup::TermGroup(const GroupData& info, const PaintedTerm::List& newNodes, QObject* parent)
+TermGroup::TermGroup(const GroupData& info, const PaintedTerm::List& nodes, QObject* parent)
     : QObject(parent)
-    , TermGroupInfo(info)
+    , TermGroupInfo(info, nodes)
 {
     mOrphansRect.setParentItem(&mBaseRect);
 
-    for (auto* node : newNodes) {
-        Q_ASSERT_X(node->data().groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
-        addNodeToList(node);
-    }
-
     initNewNodes();
-}
-
-TermGroup::TermGroup(const GroupData& info, TermData::List terms, QObject* parent)
-    : QObject(parent)
-    , TermGroupInfo(info)
-{
-    GraphData<TermData, int> data;
-    Graph<TermData, int>     graph{data};
 }
 
 void TermGroup::setBasePoint(QPointF pt) { mBaseRect.setPos(pt); }

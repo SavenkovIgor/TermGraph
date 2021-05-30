@@ -57,16 +57,8 @@ public:
     ~PaintedTerm() override = default;
 
     using List = QList<PaintedTerm*>;
-    using Map  = QMap<QString, PaintedTerm*>;
-
-    static bool someoneHover;
-    static bool someoneSelect;
-
-    static QList<Qt::Edge> sides;
 
     // Painting tools
-    void   setRelatedPaintUp(bool val);
-    void   setRelatedPaintDown(bool val);
     QLineF getRectLine(Qt::Edge side);
 
     // NodeRect tools
@@ -93,6 +85,9 @@ protected:
 
 private: // Methods
     qreal cornerRadius() const;
+
+    void setRelatedPaintUp(bool val);
+    void setRelatedPaintDown(bool val);
 
 private: // Members
     QProperty<QSizeF> pNodeSize;

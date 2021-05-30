@@ -30,7 +30,13 @@
 #include "source/Helpers/link/linkutils.h"
 #include "source/Model/TerminGroup/groupnamecache.h"
 
-TermGroupInfo::TermGroupInfo(const GroupData& info) { mInfo = info; }
+TermGroupInfo::TermGroupInfo(const GroupData& info, const PaintedTerm::List& nodes)
+    : mInfo(info)
+    , mNodes(nodes)
+{
+    for (auto* node : nodes)
+        Q_ASSERT_X(node->data().groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
+}
 
 TermGroupInfo::~TermGroupInfo() { removeTrees(); }
 
@@ -348,7 +354,3 @@ EdgeOld::List TermGroupInfo::filterFromEdgesList(std::function<bool(EdgeOld*)> c
 
     return ret;
 }
-
-void TermGroupInfo::addNodeToList(PaintedTerm* node) { mNodes.push_back(node); }
-
-void TermGroupInfo::clearNodesList() { mNodes.clear(); }
