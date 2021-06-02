@@ -82,8 +82,8 @@ M.Page {
         }
     }
 
-    Component { id: newNodeComponent;    P.NewNode { onNewTermAdded: root.lastChangedNodeName = termName } }
-    Component { id: editNodeComponent;   P.EditNode { onTermEdited: root.lastChangedNodeName = termName } }
+    Component { id: newNodeComponent;    P.NewNode { onNewTermAdded: (termName) => { root.lastChangedNodeName = termName; } } }
+    Component { id: editNodeComponent;   P.EditNode { onTermEdited:(termName) => { root.lastChangedNodeName = termName; } } }
     Component { id: groupsListComponent; P.GroupsList { } }
     Component {
         id: termViewComponent;

@@ -38,7 +38,12 @@ TermGroupInfo::TermGroupInfo(const GroupData& info, const PaintedTerm::List& nod
         Q_ASSERT_X(node->data().groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
 }
 
-TermGroupInfo::~TermGroupInfo() { removeTrees(); }
+TermGroupInfo::~TermGroupInfo()
+{
+    removeTrees();
+    qDeleteAll(mNodes);
+    qDeleteAll(mEdges);
+}
 
 QUuid TermGroupInfo::uuid() const { return mInfo.uuid; }
 

@@ -53,7 +53,6 @@ public:
 private:
     // Init method
     void initNewNodes();
-    void setParentForNodesAndEdges();
 
     // Base init
     void addOrphansToParents();

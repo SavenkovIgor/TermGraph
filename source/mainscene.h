@@ -31,6 +31,7 @@
 #include "source/Helpers/fsworks.h"
 #include "source/Managers/groupsmanager.h"
 #include "source/Model/Termin/termdatawrapper.h"
+#include "source/Model/Termin/termsmodel.h"
 #include "source/Model/TerminGroup/termgroup.h"
 
 class MainScene : public QObject
@@ -55,6 +56,7 @@ public:
     Q_PROPERTY(QString currNodeNameAndDefinition READ getCurrNodeNameAndDefinition NOTIFY selectionChanged)
     Q_PROPERTY(QString currNodeHierarchyDefinition READ getCurrNodeHierarchyDefinition NOTIFY selectionChanged)
     Q_PROPERTY(QQmlListProperty<PaintedTerm> nodes READ getNodes NOTIFY nodesChanged)
+    Q_PROPERTY(TermsModel* terms MEMBER mTermsModel CONSTANT FINAL)
     Q_PROPERTY(QQmlListProperty<EdgeOld> edges READ getEdges NOTIFY edgesChanged)
 
     // Invokables
@@ -160,4 +162,5 @@ private: // Methods
 
 private: // Members
     AsyncGroupBuilder mGroupBuilder;
+    TermsModel*       mTermsModel = nullptr;
 };

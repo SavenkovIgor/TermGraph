@@ -23,37 +23,22 @@
 
 #include <cmath>
 
+#include <QColor>
 #include <QList>
-#include <QMap>
-#include <QObject>
 #include <QProperty>
 #include <QSizeF>
 
 #include "source/Helpers/handytypes.h"
 #include "source/Model/GraphicItem/graphicitem.h"
 #include "source/Model/Termin/graphterm.h"
-#include "source/Model/TerminEdge/edge.h"
 #include "source/Model/enums.h"
 
 // This class contains all info for paint Term somewhere
 // Has functions about paint color, positioning. This kind of stuff
-class PaintedTerm : public QObject, public GraphTerm, public GraphicItem
+class PaintedTerm : public GraphTerm, public GraphicItem
 {
-    Q_OBJECT
-
-    Q_PROPERTY(QString term READ decoratedTerm CONSTANT)
-    Q_PROPERTY(QColor color READ color NOTIFY selectionChanged)
-    Q_PROPERTY(qreal radius READ cornerRadius CONSTANT)
-    Q_PROPERTY(QRectF rect READ rect CONSTANT)
-    Q_PROPERTY(double weight READ getRelativeWeight CONSTANT)
-
-    Q_PROPERTY(bool isSelectedAnyway READ isSelectedAnyway NOTIFY selectionChanged)
-    Q_PROPERTY(bool isThisSelected READ isThisSelected NOTIFY selectionChanged)
-
-    QRectF rect() const;
-
 public:
-    PaintedTerm(const TermData& info, QObject* parent = nullptr);
+    PaintedTerm(const TermData& info);
     ~PaintedTerm() override = default;
 
     using List = QList<PaintedTerm*>;
@@ -69,23 +54,15 @@ public:
 
     void setSelection(const bool& selected);
     bool isSelectedAnyway() const;
-    bool isThisSelected() const;
 
     opt<QPointF> optimalRootsBasedPosition() const;
 
     QString decoratedTerm() const;
-
-signals:
-    void selectionChanged();
-
-protected:
-    // Geometry tools
-    // --- Methods ---
-    void adjustRectSizeForName();
+    QRectF  rect() const;
+    qreal   cornerRadius() const;
+    QColor  color() const;
 
 private: // Methods
-    qreal cornerRadius() const;
-
     void setRelatedPaintUp(bool val);
     void setRelatedPaintDown(bool val);
 
@@ -96,10 +73,6 @@ private: // Members
     bool mThisSelected  = false;
     bool mRelativePaint = false;
 
-    // Rect tools
-    static QRectF addMarginsToRect(QRectF rc, qreal mrg);
-
     // Color tools
-    QColor        color() const;
     static QColor baseColor(NodeType type, bool selected);
 };

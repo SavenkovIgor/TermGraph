@@ -24,18 +24,15 @@
 #include "source/Helpers/appstyle.h"
 #include "source/Model/TerminEdge/edge.h"
 
-PaintedTerm::PaintedTerm(const TermData& info, QObject* parent)
-    : QObject(parent)
-    , GraphTerm(info)
+PaintedTerm::PaintedTerm(const TermData& info)
+    : GraphTerm(info)
     , GraphicItem()
     , pNodeSize(QSizeF(40.0, 10.0))
 {
     pCornerRadius.setBinding([this]() { return pNodeSize.value().height() * 0.2; });
 
-    adjustRectSizeForName();
+    pNodeSize.setValue(cache().decoratedTermSize() + QSizeF(16, 4));
 }
-
-QRectF PaintedTerm::rect() const { return getNodeRect(CoordType::scene); }
 
 QLineF PaintedTerm::getRectLine(Qt::Edge side)
 {
@@ -69,20 +66,12 @@ QRectF PaintedTerm::getFrameRect(CoordType inCoordinates) const
 {
     qreal  val = qBound(0.0, pNodeSize.value().width() * 0.2, 8.0);
     QRectF ret = getNodeRect(inCoordinates);
-    return addMarginsToRect(ret, val);
+    return ret.marginsAdded({val, val, val, val});
 }
 
 QPointF PaintedTerm::getCenter(CoordType inCoordinates) const { return getNodeRect(inCoordinates).center(); }
 
-QRectF PaintedTerm::addMarginsToRect(QRectF rc, qreal mrg)
-{
-    QMarginsF mrgObj(mrg, mrg, mrg, mrg);
-    return rc.marginsAdded(mrgObj);
-}
-
 QColor PaintedTerm::color() const { return baseColor(getNodeType(), isSelectedAnyway()); }
-
-void PaintedTerm::adjustRectSizeForName() { pNodeSize.setValue(cache().decoratedTermSize() + QSizeF(16, 4)); }
 
 qreal PaintedTerm::cornerRadius() const { return pCornerRadius.value(); }
 
@@ -95,7 +84,6 @@ void PaintedTerm::setRelatedPaintUp(bool val)
         auto* paintNode = static_cast<PaintedTerm*>(node);
         if (paintNode->mRelativePaint != val) {
             paintNode->mRelativePaint = val;
-            emit paintNode->selectionChanged();
             paintNode->setRelatedPaintUp(val);
         }
     }
@@ -110,7 +98,6 @@ void PaintedTerm::setRelatedPaintDown(bool val)
         auto* paintNode = static_cast<PaintedTerm*>(node);
         if (paintNode->mRelativePaint != val) {
             paintNode->mRelativePaint = val;
-            emit paintNode->selectionChanged();
             paintNode->setRelatedPaintDown(val);
         }
     }
@@ -138,14 +125,10 @@ void PaintedTerm::setSelection(const bool& selected)
 
         setRelatedPaintDown(selected);
         setRelatedPaintUp(selected);
-
-        emit selectionChanged();
     }
 }
 
 bool PaintedTerm::isSelectedAnyway() const { return mThisSelected || mRelativePaint; }
-
-bool PaintedTerm::isThisSelected() const { return mThisSelected; }
 
 opt<QPointF> PaintedTerm::optimalRootsBasedPosition() const
 {
@@ -170,3 +153,5 @@ opt<QPointF> PaintedTerm::optimalRootsBasedPosition() const
 }
 
 QString PaintedTerm::decoratedTerm() const { return cache().decoratedTerm(); }
+
+QRectF PaintedTerm::rect() const { return getNodeRect(CoordType::scene); }

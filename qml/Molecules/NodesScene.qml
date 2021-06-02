@@ -64,7 +64,7 @@ Control {
     }
 
     function createNullEdge(parent) {
-        return createEdge(parent, { pt1: Qt.point(0, 0), pt2: Qt.point(0, 0), edgeColor: "black" });
+        return createEdge(parent, { pt1: Qt.point(0, 0), pt2: Qt.point(0, 0), color: "black" });
     }
 
     contentItem: Item {
@@ -184,15 +184,15 @@ Control {
         }
 
         Repeater {
-            model: Scene.nodes
+            model: Scene.terms
 
             delegate: A.Term {
-                rect: modelData.rect
-                radius: modelData.radius
-                color: modelData.color
-                weight: modelData.weight
-                text: modelData.term
-                z: modelData.isSelectedAnyway ? 5 : 2
+                rect: model.rect
+                radius: model.radius
+                color: model.color
+                weight: model.weight
+                text: model.term
+                z: model.isSelected ? 5 : 2
             }
         }
     }

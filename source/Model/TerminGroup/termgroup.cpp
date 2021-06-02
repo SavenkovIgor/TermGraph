@@ -142,7 +142,6 @@ void TermGroup::initNewNodes()
     t.start();
 
     loadEdges();
-    setParentForNodesAndEdges();
 
     if (buildingWasInterrupted())
         return;
@@ -170,15 +169,6 @@ void TermGroup::initNewNodes()
     updateBaseRectSize();
 
     groupCreationTime = t.elapsed();
-}
-
-void TermGroup::setParentForNodesAndEdges()
-{
-    for (auto* node : nodes())
-        node->setParent(this);
-
-    for (auto* edge : edges())
-        edge->setParent(this);
 }
 
 void TermGroup::addOrphansToParents()
