@@ -170,11 +170,6 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
     }
 }
 
-QQmlListProperty<PaintedTerm> MainScene::getNodes()
-{
-    return QQmlListProperty<PaintedTerm>(this, this, &MainScene::termCount, &MainScene::term);
-}
-
 void MainScene::updateSceneRect()
 {
     if (!mCurrentGroup)
@@ -329,29 +324,6 @@ PaintedTerm* MainScene::getNodeAtPoint(const QPointF& pt) const
         return mCurrentGroup->getNode(pt);
 
     return nullptr;
-}
-
-qsizetype MainScene::termCount() const { return mCurrentGroup ? mCurrentGroup->nodes().size() : 0; }
-
-PaintedTerm* MainScene::term(qsizetype index) const
-{
-    if (!mCurrentGroup)
-        return nullptr;
-
-    if (index < 0 || index >= mCurrentGroup->nodes().size())
-        return nullptr;
-
-    return mCurrentGroup->nodes()[index];
-}
-
-qsizetype MainScene::termCount(QQmlListProperty<PaintedTerm>* list)
-{
-    return reinterpret_cast<MainScene*>(list->data)->termCount();
-}
-
-PaintedTerm* MainScene::term(QQmlListProperty<PaintedTerm>* list, qsizetype i)
-{
-    return reinterpret_cast<MainScene*>(list->data)->term(i);
 }
 
 QQmlListProperty<EdgeOld> MainScene::getEdges()

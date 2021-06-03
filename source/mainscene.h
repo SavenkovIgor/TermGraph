@@ -55,7 +55,6 @@ public:
     Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
     Q_PROPERTY(QString currNodeNameAndDefinition READ getCurrNodeNameAndDefinition NOTIFY selectionChanged)
     Q_PROPERTY(QString currNodeHierarchyDefinition READ getCurrNodeHierarchyDefinition NOTIFY selectionChanged)
-    Q_PROPERTY(QQmlListProperty<PaintedTerm> nodes READ getNodes NOTIFY nodesChanged)
     Q_PROPERTY(TermsModel* terms MEMBER mTermsModel CONSTANT FINAL)
     Q_PROPERTY(QQmlListProperty<EdgeOld> edges READ getEdges NOTIFY edgesChanged)
 
@@ -138,14 +137,6 @@ private: // Methods
 
     QUuid currentGroupUuid() const;
     void  dropGroup();
-
-    // For qml nodes list property
-    QQmlListProperty<PaintedTerm> getNodes();
-
-    qsizetype           termCount() const;
-    PaintedTerm*        term(qsizetype index) const;
-    static qsizetype    termCount(QQmlListProperty<PaintedTerm>* list);
-    static PaintedTerm* term(QQmlListProperty<PaintedTerm>* list, qsizetype i);
 
     // For qml edges list property
     QQmlListProperty<EdgeOld> getEdges();
