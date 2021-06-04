@@ -24,7 +24,6 @@
 #include <stdlib.h>
 
 #include <QObject>
-#include <QQmlListProperty>
 
 #include "source/Helpers/appconfig.h"
 #include "source/Helpers/asyncgroupbuilder.h"
@@ -57,7 +56,7 @@ public:
     Q_PROPERTY(QString currNodeNameAndDefinition READ getCurrNodeNameAndDefinition NOTIFY selectionChanged)
     Q_PROPERTY(QString currNodeHierarchyDefinition READ getCurrNodeHierarchyDefinition NOTIFY selectionChanged)
     Q_PROPERTY(TermsModel* terms MEMBER mTermsModel CONSTANT FINAL)
-    Q_PROPERTY(QQmlListProperty<PaintedEdge> edges READ getEdges NOTIFY edgesChanged)
+    Q_PROPERTY(EdgesModel* edges MEMBER mEdgesModel CONSTANT FINAL)
 
     // Invokables
     Q_INVOKABLE void        selectGroup(const QUuid groupUuid);
@@ -121,8 +120,8 @@ private: // Methods
     PaintedTerm* selectedTerm = nullptr;
 
     PaintedTerm* getSelectedTerm() const;
-    void         selectTerm(PaintedTerm* term, bool needRepaint = true);
-    void         dropTermSelection(bool needRepaint = false);
+    void         selectTerm(PaintedTerm* term);
+    void         dropTermSelection();
 
     PaintedTerm*    findTerm(const QUuid& termUuid) const;
     TermDataWrapper getCurrentNode();
@@ -138,17 +137,6 @@ private: // Methods
 
     QUuid currentGroupUuid() const;
     void  dropGroup();
-
-    // For qml edges list property
-    QQmlListProperty<PaintedEdge> getEdges();
-
-    qsizetype        edgeCount() const;
-    PaintedEdge*         edge(qsizetype index) const;
-    static qsizetype edgeCount(QQmlListProperty<PaintedEdge>* list);
-    static PaintedEdge*  edge(QQmlListProperty<PaintedEdge>* list, qsizetype i);
-
-    PaintedEdge::List mCachedEdges;
-    void          updateEdgeCache();
 
     bool isGroupLoading() const;
 

@@ -49,7 +49,6 @@ MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     connect(&mGroupBuilder, &QThread::finished, this, &MainScene::groupLoadingChanged);
 
     connect(this, &MainScene::selectionChanged, mTermsModel, &TermsModel::updateSelection);
-    connect(this, &MainScene::edgesChanged, mEdgesModel, &EdgesModel::updateSelection);
 }
 
 void MainScene::selectGroup(const QUuid groupUuid)
@@ -75,8 +74,7 @@ void MainScene::dropGroup()
     mTermsModel->clear();
     mEdgesModel->clear();
 
-    updateEdgeCache();
-
+    emit edgesChanged();
     emit currentGroupChanged();
 }
 
@@ -137,7 +135,7 @@ void MainScene::showNewGroup(TermGroup* newGroup)
         emit currentGroupChanged();
 
     emit nodesChanged();
-    updateEdgeCache();
+    emit edgesChanged();
 }
 
 void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
@@ -238,7 +236,7 @@ PaintedTerm* MainScene::findTerm(const QUuid& termUuid) const
     return mCurrentGroup ? mCurrentGroup->getNode(termUuid) : nullptr;
 }
 
-void MainScene::selectTerm(PaintedTerm* term, bool needRepaint)
+void MainScene::selectTerm(PaintedTerm* term)
 {
     if (selectedTerm != term) {
         // Drop selection
@@ -253,14 +251,11 @@ void MainScene::selectTerm(PaintedTerm* term, bool needRepaint)
             selectedTerm->setSelection(true);
 
         emit selectionChanged();
-
-        if (needRepaint) {
-            updateEdgeCache();
-        }
+        emit edgesChanged();
     }
 }
 
-void MainScene::dropTermSelection(bool needRepaint) { selectTerm(nullptr, needRepaint); }
+void MainScene::dropTermSelection() { selectTerm(nullptr); }
 
 QString MainScene::termUuidToName(const QUuid termUuid) const
 {
@@ -330,37 +325,6 @@ PaintedTerm* MainScene::getNodeAtPoint(const QPointF& pt) const
     return nullptr;
 }
 
-QQmlListProperty<PaintedEdge> MainScene::getEdges()
-{
-    return QQmlListProperty<PaintedEdge>(this, this, &MainScene::edgeCount, &MainScene::edge);
-}
-
-qsizetype MainScene::edgeCount() const { return mCachedEdges.size(); }
-
-PaintedEdge* MainScene::edge(qsizetype index) const
-{
-    if (index < 0 || index >= mCachedEdges.size())
-        return nullptr;
-
-    return mCachedEdges[index];
-}
-
-qsizetype MainScene::edgeCount(QQmlListProperty<PaintedEdge>* list)
-{
-    return reinterpret_cast<MainScene*>(list->data)->edgeCount();
-}
-
-PaintedEdge* MainScene::edge(QQmlListProperty<PaintedEdge>* list, qsizetype i)
-{
-    return reinterpret_cast<MainScene*>(list->data)->edge(i);
-}
-
-void MainScene::updateEdgeCache()
-{
-    mCachedEdges = mCurrentGroup ? mCurrentGroup->edgesForPaint() : PaintedEdge::List();
-    emit edgesChanged();
-}
-
 bool MainScene::isGroupLoading() const { return mGroupBuilder.isRunning(); }
 
 void MainScene::findClick(const QPointF& atPt)
@@ -377,5 +341,5 @@ void MainScene::findClick(const QPointF& atPt)
     if (auto* node = getNodeAtPoint(atPt)) // Click in other node
         selectTerm(node);
     else
-        dropTermSelection(true);
+        dropTermSelection();
 }
