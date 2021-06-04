@@ -25,6 +25,7 @@
 #include "source/Managers/datastorageinterface.h"
 #include "source/Model/Termin/termdata.h"
 
+// TODO: Naming!
 class TermTable
 {
 public:

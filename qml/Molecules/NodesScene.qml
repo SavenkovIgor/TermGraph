@@ -59,12 +59,32 @@ Control {
     Component { id: edgeComponent; A.Edge { } }
 
     function createEdge(parent, edgeInfo) {
-        return edgeComponent.createObject(parent,
-                                          { pt1: edgeInfo.pt1, pt2: edgeInfo.pt2, edgeColor: edgeInfo.color });
+        return edgeComponent.createObject(parent, edgeInfo);
     }
 
     function createNullEdge(parent) {
         return createEdge(parent, { pt1: Qt.point(0, 0), pt2: Qt.point(0, 0), color: "black" });
+    }
+
+    function edgeData(index) {
+        const modelIndex = Scene.edges.index(index, 0);
+        return {
+            // Laziness...
+            pt1: Scene.edges.data(modelIndex, 0),        // Roles::Pt1
+            pt2: Scene.edges.data(modelIndex, 1),        // Roles::Pt2
+            color: Scene.edges.data(modelIndex, 2),      // Roles::Color
+            isSelected: Scene.edges.data(modelIndex, 3)  // Roles::IsSelected
+        }
+    }
+
+    function edgesData() {
+        const ret = []
+        const edgesCount = Scene.edges.rowCount();
+
+        for (let j = 0; j < edgesCount; ++j)
+            ret.push(root.edgeData(j))
+
+        return ret;
     }
 
     contentItem: Item {
@@ -74,11 +94,11 @@ Control {
             anchors.fill: parent
             anchors.margins: 35
 
-            color: "transparent"
+            color: Scene.hasSelection ? "#BB000000" : "transparent"
             border { color: Colors.white; width: 2 }
             visible: Scene.hasCurrentGroup
             radius: 10
-            z: 6
+            z: 3
 
             Text {
                 anchors { left: parent.left; top: parent.top; }
@@ -88,15 +108,6 @@ Control {
                 color: Colors.white
                 font: Fonts.setWeight(Fonts.term, Font.DemiBold)
             }
-        }
-
-        Rectangle {  // Selection background
-            anchors.fill: graphFrame
-            visible: Scene.hasSelection
-
-            z: 3
-            color: "#BB000000"
-            radius: graphFrame.radius
         }
 
         Connections {
@@ -112,33 +123,18 @@ Control {
             id: edgesShape
             z: 1
 
+            function clear() {
+                const len = data.length;
+                for (let i = 0; i < len; ++i)
+                    data[i].destroy();
+
+                data = [];
+            }
+
             function updateEdges() {
-                // Delete old edges
-                const delArrayLength = edgesShape.data.length;
-
-                for (let i = 0; i < delArrayLength; ++i)
-                    edgesShape.data[i].destroy();
-
-                // Create new edges
-
-                // Looks like a bug in shapes.
-                // If shapes data is empty, it wouldn't be redrawed
-                // It means that, if we remove all edges at once,
-                // old edges wouldn't disappear, and would be still visible
-                // So we create fake edge every time just for sure
-                // that shape redraw each time
-
-                let newEdges = [root.createNullEdge(edgesShape)];
-
-                const edgesCount = Scene.edges.length;
-
-                for (let j = 0; j < edgesCount; ++j) {
-                    const edgeLine = root.createEdge(edgesShape, Scene.edges[j]);
-
-                    newEdges.push(edgeLine);
-                }
-
-                edgesShape.data = newEdges;
+                clear();
+                const notSelected = edgesData().filter(e => !e.isSelected);
+                data = notSelected.map(e => root.createEdge(edgesShape, e));
             }
         }
 
@@ -147,39 +143,18 @@ Control {
             z: 4
             visible: Scene.hasSelection
 
+            function clear() {
+                const len = data.length;
+                for (let i = 0; i < len; ++i)
+                    data[i].destroy();
+
+                data = [];
+            }
+
             function updateEdges() {
-                // Delete old edges
-                const delArrayLength = edgesSelectedShape.data.length;
-
-                for (let i = 0; i < delArrayLength; ++i)
-                    edgesSelectedShape.data[i].destroy();
-
-                // Create new edges
-
-                // Looks like a bug in shapes.
-                // If shapes data is empty, it wouldn't be redrawed
-                // It means that, if we remove all edges at once,
-                // old edges wouldn't disappear, and would be still visible
-                // So we create fake edge every time just for sure
-                // that shape redraw each time
-
-                let newEdges = [root.createNullEdge(edgesSelectedShape)];
-
-                const edgesCount = Scene.edges.length;
-
-                for (let j = 0; j < edgesCount; ++j) {
-
-                    const edge = Scene.edges[j];
-
-                    if (!edge.isSelected)
-                        continue;
-
-                    const edgeLine = root.createEdge(edgesSelectedShape, edge);
-
-                    newEdges.push(edgeLine);
-                }
-
-                edgesSelectedShape.data = newEdges;
+                clear();
+                const selected = edgesData().filter(e => e.isSelected);
+                data = selected.map(e => root.createEdge(edgesSelectedShape, e));
             }
         }
 

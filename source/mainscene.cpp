@@ -31,6 +31,7 @@ MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     : QObject(parent)
     , mGroupBuilder(this)
     , mTermsModel(new TermsModel(this))
+    , mEdgesModel(new EdgesModel(this))
 {
     mouseMoveReactionTimer.setInterval(static_cast<int>(1000 / AppSettings::Scene::FPS));
     mouseMoveReactionTimer.setSingleShot(true);
@@ -48,6 +49,7 @@ MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     connect(&mGroupBuilder, &QThread::finished, this, &MainScene::groupLoadingChanged);
 
     connect(this, &MainScene::selectionChanged, mTermsModel, &TermsModel::updateSelection);
+    connect(this, &MainScene::edgesChanged, mEdgesModel, &EdgesModel::updateSelection);
 }
 
 void MainScene::selectGroup(const QUuid groupUuid)
@@ -71,6 +73,7 @@ void MainScene::dropGroup()
     setSceneRect(QRectF());
 
     mTermsModel->clear();
+    mEdgesModel->clear();
 
     updateEdgeCache();
 
@@ -127,6 +130,7 @@ void MainScene::showNewGroup(TermGroup* newGroup)
 
     if (mCurrentGroup) {
         mTermsModel->setTerms(mCurrentGroup->nodes());
+        mEdgesModel->setEdges(mCurrentGroup->edges());
     }
 
     if (differentGroups)

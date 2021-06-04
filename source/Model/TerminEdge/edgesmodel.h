@@ -19,30 +19,34 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.15
-import QtQuick.Shapes 1.15
+#pragma once
 
-ShapePath {
-    id: root
+#include <QAbstractListModel>
+#include <QObject>
 
-    property point pt1: Qt.point(0, 0)
-    property point pt2: Qt.point(0, 0)
-    property color color: "black"
-    property bool isSelected: false
+#include "source/Model/TerminEdge/paintededge.h"
 
-    readonly property real halfWidth: (pt2.x - pt1.x) / 2;
-    readonly property point b1: Qt.point(pt1.x + halfWidth, pt1.y)
-    readonly property point b2: Qt.point(pt2.x - halfWidth, pt2.y)
+class EdgesModel : public QAbstractListModel
+{
+    Q_OBJECT
 
-    startX: pt1.x; startY: pt1.y;
+public:
+    explicit EdgesModel(QObject* parent = nullptr);
 
-    strokeWidth: Qt.platform.os === "Android" ? 3 : 1
-    strokeColor: color
-    fillColor: "transparent"
+    enum Roles { Pt1 = 0, Pt2, Color, IsSelected };
 
-    PathCubic {
-        x: root.pt2.x; y: root.pt2.y;
-        control1X: b1.x; control1Y: b1.y;
-        control2X: b2.x; control2Y: b2.y;
-    }
-}
+    Q_ENUM(Roles);
+
+    void setEdges(PaintedEdge::List edges);
+    void clear();
+
+    QHash<int, QByteArray> roleNames() const override;
+
+    int      rowCount(const QModelIndex& parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
+
+    void updateSelection();
+
+private:
+    PaintedEdge::List mEdges;
+};

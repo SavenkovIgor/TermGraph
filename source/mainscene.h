@@ -32,6 +32,7 @@
 #include "source/Managers/groupsmanager.h"
 #include "source/Model/Termin/termdatawrapper.h"
 #include "source/Model/Termin/termsmodel.h"
+#include "source/Model/TerminEdge/edgesmodel.h"
 #include "source/Model/TerminGroup/termgroup.h"
 
 class MainScene : public QObject
@@ -154,4 +155,5 @@ private: // Methods
 private: // Members
     AsyncGroupBuilder mGroupBuilder;
     TermsModel*       mTermsModel = nullptr;
+    EdgesModel*       mEdgesModel = nullptr;
 };

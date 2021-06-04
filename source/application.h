@@ -43,6 +43,17 @@
 // TODO: What with versioning in my qmldirs?
 // TODO: Move getUiElementSize to separate class (maybe singleton+properties)
 // TODO: Move all type registration to proper file
+// TODO: Add namespace to graph
+
+// TODO: Rename folders plan
+// TODO: 1) Base -> base
+// TODO: 2) GraphicItem -> graphicitem
+// TODO: 3) Termin -> term
+// TODO: 4) TerminEdge -> edge
+// TODO: 5) TerminGroup -> group
+// TODO: 6) Managers -> managers
+// TODO: 7) Helpers -> helpers
+// TODO: 8) Database -> database
 
 class Application : public QObject
 {
