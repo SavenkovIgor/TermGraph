@@ -22,7 +22,7 @@
 #include "source/Model/Termin/paintedterm.h"
 
 #include "source/Helpers/appstyle.h"
-#include "source/Model/TerminEdge/edge.h"
+#include "source/Model/TerminEdge/paintededge.h"
 
 PaintedTerm::PaintedTerm(const TermData& info)
     : GraphTerm(info)
@@ -78,7 +78,7 @@ qreal PaintedTerm::cornerRadius() const { return pCornerRadius.value(); }
 void PaintedTerm::setRelatedPaintUp(bool val)
 {
     for (auto* edge : getEdgesToLeafs())
-        dynamic_cast<EdgeOld*>(edge)->setSelectedForward(val);
+        dynamic_cast<PaintedEdge*>(edge)->setSelectedForward(val);
 
     for (auto node : getLeafNodes()) {
         auto* paintNode = static_cast<PaintedTerm*>(node);
@@ -92,7 +92,7 @@ void PaintedTerm::setRelatedPaintUp(bool val)
 void PaintedTerm::setRelatedPaintDown(bool val)
 {
     for (auto* edge : getEdgesToRoots())
-        dynamic_cast<EdgeOld*>(edge)->setSelectedBackward(val);
+        dynamic_cast<PaintedEdge*>(edge)->setSelectedBackward(val);
 
     for (auto* node : getRootNodes()) {
         auto* paintNode = static_cast<PaintedTerm*>(node);

@@ -26,7 +26,7 @@
 #include <QList>
 
 #include "source/Model/Termin/paintedterm.h"
-#include "source/Model/TerminEdge/edge.h"
+#include "source/Model/TerminEdge/paintededge.h"
 
 class NodeVerticalStackTools
 {

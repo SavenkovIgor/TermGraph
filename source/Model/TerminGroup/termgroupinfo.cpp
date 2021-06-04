@@ -51,35 +51,35 @@ QString TermGroupInfo::name() const { return mInfo.name; }
 
 PaintedTerm::List TermGroupInfo::nodes() const { return mNodes; }
 
-EdgeOld::List TermGroupInfo::edges() const { return mEdges; }
+PaintedEdge::List TermGroupInfo::edges() const { return mEdges; }
 
-EdgeOld::List TermGroupInfo::brokenEdges() const
+PaintedEdge::List TermGroupInfo::brokenEdges() const
 {
-    EdgeOld::List ret;
+    PaintedEdge::List ret;
     for (auto* node : nodes())
         for (auto* edge : node->getBrokenEdges())
-            ret.push_back(dynamic_cast<EdgeOld*>(edge));
+            ret.push_back(dynamic_cast<PaintedEdge*>(edge));
 
     return ret;
 }
 
-EdgeOld::List TermGroupInfo::redundantEdges() const
+PaintedEdge::List TermGroupInfo::redundantEdges() const
 {
-    EdgeOld::List ret;
+    PaintedEdge::List ret;
     for (auto* node : nodes())
         for (auto* edge : node->getRedundantEdges())
-            ret.push_back(dynamic_cast<EdgeOld*>(edge));
+            ret.push_back(dynamic_cast<PaintedEdge*>(edge));
 
     return ret;
 }
 
-EdgeOld::List TermGroupInfo::edgesForPaint() const
+PaintedEdge::List TermGroupInfo::edgesForPaint() const
 {
-    EdgeOld::List lst;
+    PaintedEdge::List lst;
 
-    auto softEdgesFilter     = [](EdgeOld* e) { return !e->isSelected() && !e->isHard(); };
-    auto hardEdgesFilter     = [](EdgeOld* e) { return !e->isSelected() && e->isHard(); };
-    auto selectedEdgesFilter = [](EdgeOld* e) { return e->isSelected(); };
+    auto softEdgesFilter     = [](PaintedEdge* e) { return !e->isSelected() && !e->isHard(); };
+    auto hardEdgesFilter     = [](PaintedEdge* e) { return !e->isSelected() && e->isHard(); };
+    auto selectedEdgesFilter = [](PaintedEdge* e) { return e->isSelected(); };
 
     auto softEdges     = filterFromEdgesList(softEdgesFilter);
     auto hardEdges     = filterFromEdgesList(hardEdgesFilter);
@@ -108,9 +108,9 @@ PaintedTerm::List TermGroupInfo::getOrphanNodes() const
     return filterFromNodesList([](PaintedTerm* node) { return node->isOrphan(); });
 }
 
-EdgeOld::List TermGroupInfo::searchAllConnections()
+PaintedEdge::List TermGroupInfo::searchAllConnections()
 {
-    EdgeOld::List ret;
+    PaintedEdge::List ret;
 
     // Pre-heating of cache with exact terms match
     QMap<QString, PaintedTerm*> previousTagSearchCache = getExactTermMatchCache();
@@ -144,7 +144,7 @@ EdgeOld::List TermGroupInfo::searchAllConnections()
 
             if (foundNode) {
                 if (foundNode != node) { // TODO: Real case, need check
-                    ret << new EdgeOld(foundNode, node, eType);
+                    ret << new PaintedEdge(foundNode, node, eType);
                     previousTagSearchCache.insert(link.textLower(), foundNode);
                 }
             }
@@ -237,7 +237,7 @@ void TermGroupInfo::removeCycles()
         node->getCycleEdge();
     }
 
-    EdgeOld::List brokeList;
+    PaintedEdge::List brokeList;
     for (auto* edge : mEdges) {
         if (edge->needBroke) {
             brokeList << edge;
@@ -256,7 +256,7 @@ void TermGroupInfo::removeExceedEdges()
     for (auto* node : mNodes)
         node->checkForExceedEdges();
 
-    EdgeOld::List brokeList;
+    PaintedEdge::List brokeList;
     for (auto* edge : mEdges) {
         if (edge->needCutOut) {
             brokeList << edge;
@@ -348,9 +348,9 @@ PaintedTerm::List TermGroupInfo::filterFromNodesList(std::function<bool(PaintedT
     return ret;
 }
 
-EdgeOld::List TermGroupInfo::filterFromEdgesList(std::function<bool(EdgeOld*)> condition) const
+PaintedEdge::List TermGroupInfo::filterFromEdgesList(std::function<bool(PaintedEdge*)> condition) const
 {
-    EdgeOld::List ret;
+    PaintedEdge::List ret;
     for (auto* edge : edges()) {
         if (condition(edge)) {
             ret << edge;

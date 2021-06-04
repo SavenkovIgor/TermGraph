@@ -180,7 +180,7 @@ void TermGroup::addOrphansToParents()
 
 void TermGroup::addEdgesToParents()
 {
-    for (EdgeOld* edge : edges()) {
+    for (PaintedEdge* edge : edges()) {
         for (auto* tree : trees()) {
             if (tree->hasEdge(edge)) {
                 edge->setParentItem(&(tree->rect()));

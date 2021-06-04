@@ -43,10 +43,10 @@ public:
     PaintedTerm::List nodes() const;
 
     // Edges tools
-    EdgeOld::List edges() const;
-    EdgeOld::List brokenEdges() const;
-    EdgeOld::List redundantEdges() const;
-    EdgeOld::List edgesForPaint() const;
+    PaintedEdge::List edges() const;
+    PaintedEdge::List brokenEdges() const;
+    PaintedEdge::List redundantEdges() const;
+    PaintedEdge::List edgesForPaint() const;
 
 protected:
     // Nodes tools
@@ -74,15 +74,15 @@ protected:
 private:
     // Group content
     PaintedTerm::List filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const;
-    EdgeOld::List     filterFromEdgesList(std::function<bool(EdgeOld*)> condition) const;
+    PaintedEdge::List     filterFromEdgesList(std::function<bool(PaintedEdge*)> condition) const;
 
     // Edge connections search
-    EdgeOld::List               searchAllConnections();
+    PaintedEdge::List               searchAllConnections();
     QMap<QString, PaintedTerm*> getExactTermMatchCache();
     QMap<QUuid, PaintedTerm*>   getTermUuidsMap();
     PaintedTerm*                getNearestNodeForTag(const QString& tag);
 
-    EdgeOld::List suggestConnections(); // TODO: Realize!
+    PaintedEdge::List suggestConnections(); // TODO: Realize!
 
     void removeTrees();
 
@@ -91,7 +91,7 @@ private: // Members
     GroupData mInfo;
 
     PaintedTerm::List mNodes;
-    EdgeOld::List     mEdges;
+    PaintedEdge::List     mEdges;
 
     TermTree::List mTrees;
 };

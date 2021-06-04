@@ -27,7 +27,7 @@
 #include "source/Helpers/platform.h"
 #include "source/Managers/notificationmanager.h"
 #include "source/Model/Termin/paintedterm.h"
-#include "source/Model/TerminEdge/edge.h"
+#include "source/Model/TerminEdge/paintededge.h"
 
 Application::Application(QObject* parent)
     : QObject(parent)
@@ -46,7 +46,7 @@ Application::Application(QObject* parent)
     // remind = new Reminder(scene->getAllNodes());
 
     qmlRegisterAnonymousType<PaintedTerm>("Graph", 1);
-    qmlRegisterAnonymousType<EdgeOld>("Graph", 1);
+    qmlRegisterAnonymousType<PaintedEdge>("Graph", 1);
 
     qmlRegisterSingletonInstance("Network", 1, 0, "NetworkManager", network.get());
 

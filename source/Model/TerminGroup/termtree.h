@@ -26,7 +26,7 @@
 
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/Termin/paintedterm.h"
-#include "source/Model/TerminEdge/edge.h"
+#include "source/Model/TerminEdge/paintededge.h"
 #include "source/Model/TerminGroup/nodeverticalstack.h"
 
 class TermTree
@@ -45,7 +45,7 @@ public:
 
     // TreeInfo
     bool hasTerm(PaintedTerm* term) const;
-    bool hasEdge(EdgeOld* edge) const;
+    bool hasEdge(PaintedEdge* edge) const;
 
     QRectF getTreeRect(CoordType inCoordinates) const;
     QSizeF baseSize() const; // Clearly counted value. Ignoring real node positions

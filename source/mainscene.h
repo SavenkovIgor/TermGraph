@@ -56,7 +56,7 @@ public:
     Q_PROPERTY(QString currNodeNameAndDefinition READ getCurrNodeNameAndDefinition NOTIFY selectionChanged)
     Q_PROPERTY(QString currNodeHierarchyDefinition READ getCurrNodeHierarchyDefinition NOTIFY selectionChanged)
     Q_PROPERTY(TermsModel* terms MEMBER mTermsModel CONSTANT FINAL)
-    Q_PROPERTY(QQmlListProperty<EdgeOld> edges READ getEdges NOTIFY edgesChanged)
+    Q_PROPERTY(QQmlListProperty<PaintedEdge> edges READ getEdges NOTIFY edgesChanged)
 
     // Invokables
     Q_INVOKABLE void        selectGroup(const QUuid groupUuid);
@@ -139,14 +139,14 @@ private: // Methods
     void  dropGroup();
 
     // For qml edges list property
-    QQmlListProperty<EdgeOld> getEdges();
+    QQmlListProperty<PaintedEdge> getEdges();
 
     qsizetype        edgeCount() const;
-    EdgeOld*         edge(qsizetype index) const;
-    static qsizetype edgeCount(QQmlListProperty<EdgeOld>* list);
-    static EdgeOld*  edge(QQmlListProperty<EdgeOld>* list, qsizetype i);
+    PaintedEdge*         edge(qsizetype index) const;
+    static qsizetype edgeCount(QQmlListProperty<PaintedEdge>* list);
+    static PaintedEdge*  edge(QQmlListProperty<PaintedEdge>* list, qsizetype i);
 
-    EdgeOld::List mCachedEdges;
+    PaintedEdge::List mCachedEdges;
     void          updateEdgeCache();
 
     bool isGroupLoading() const;
