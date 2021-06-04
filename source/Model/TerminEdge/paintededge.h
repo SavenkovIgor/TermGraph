@@ -23,7 +23,6 @@
 
 #include <QColor>
 #include <QLineF>
-#include <QObject>
 #include <QPointF>
 
 #include "source/Model/GraphicItem/graphicitem.h"
@@ -35,20 +34,13 @@ enum class EdgeType { standart, termin, terminHardLink, description, broken, red
 
 enum class EdgeSelected { none, forward, backward };
 
-class PaintedEdge : public QObject, public GraphEdge, public GraphicItem
+class PaintedEdge : public GraphEdge, public GraphicItem
 {
-    Q_OBJECT
-
-    Q_PROPERTY(QPointF pt1 READ rootPoint)
-    Q_PROPERTY(QPointF pt2 READ leafPoint)
-    Q_PROPERTY(QColor color READ getEdgeColor NOTIFY selectionChanged)
-    Q_PROPERTY(bool isSelected READ isSelected NOTIFY selectionChanged)
-
 public:
     using List = QList<PaintedEdge*>;
 
-    explicit PaintedEdge(QObject* parent = nullptr);
-    PaintedEdge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin, QObject* parent = nullptr);
+    explicit PaintedEdge();
+    PaintedEdge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin);
     ~PaintedEdge() override = default;
 
     QRectF edgeRect() const;
@@ -56,8 +48,6 @@ public:
     QPointF rootPoint() const;
     QPointF leafPoint() const;
     QColor  getEdgeColor() const;
-
-    static List castToEdgeList(const GraphEdge::List& lst); // TODO: Delete!!!
 
     void brokeEdge();
     void makeEdgeRedundant();
@@ -72,9 +62,6 @@ public:
     bool         isBroken() const;
     bool         isRedundant() const;
     bool         isHard() const;
-
-signals:
-    void selectionChanged();
 
 private:
     EdgeSelected mSelected = EdgeSelected::none;

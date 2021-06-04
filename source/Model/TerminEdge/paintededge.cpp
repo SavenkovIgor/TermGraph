@@ -24,15 +24,13 @@
 #include "source/Helpers/appstyle.h"
 #include "source/Model/Termin/paintedterm.h"
 
-PaintedEdge::PaintedEdge(QObject* parent)
-    : QObject(parent)
-    , GraphEdge()
+PaintedEdge::PaintedEdge()
+    : GraphEdge()
     , GraphicItem()
 {}
 
-PaintedEdge::PaintedEdge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type, QObject* parent)
-    : QObject(parent)
-    , GraphEdge(toRoot, toLeaf)
+PaintedEdge::PaintedEdge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type)
+    : GraphEdge(toRoot, toLeaf)
     , GraphicItem()
 {
     mType = type;
@@ -112,29 +110,16 @@ QPointF PaintedEdge::leafPoint() const
     return paintedTerm->getCenter(CoordType::scene);
 }
 
-PaintedEdge::List PaintedEdge::castToEdgeList(const GraphEdge::List& lst)
-{
-    PaintedEdge::List edgeLst;
-    for (auto graphEdg : lst) {
-        edgeLst << dynamic_cast<PaintedEdge*>(graphEdg);
-    }
-    return edgeLst;
-}
-
 void PaintedEdge::setSelectedForward(bool value)
 {
     auto resultSelection = value ? EdgeSelected::forward : EdgeSelected::none;
-    if (mSelected != resultSelection) {
+    if (mSelected != resultSelection)
         mSelected = resultSelection;
-        emit selectionChanged();
-    }
 }
 
 void PaintedEdge::setSelectedBackward(bool value)
 {
     auto resultSelection = value ? EdgeSelected::backward : EdgeSelected::none;
-    if (mSelected != resultSelection) {
+    if (mSelected != resultSelection)
         mSelected = resultSelection;
-        emit selectionChanged();
-    }
 }
