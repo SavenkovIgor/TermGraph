@@ -26,21 +26,18 @@
 #include <QPointF>
 
 #include "source/Model/GraphicItem/graphicitem.h"
+#include "source/Model/TerminEdge/edgedata.h"
 #include "source/Model/TerminEdge/graphedge.h"
+#include "source/Model/enums.h"
 
 class PaintedTerm;
-
-enum class EdgeType { standart, termin, terminHardLink, description, broken, redundant };
-
-enum class EdgeSelected { none, forward, backward };
 
 class PaintedEdge : public GraphEdge, public GraphicItem
 {
 public:
     using List = QList<PaintedEdge*>;
 
-    explicit PaintedEdge();
-    PaintedEdge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin);
+    explicit PaintedEdge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin);
     ~PaintedEdge() override = default;
 
     QRectF edgeRect() const;
@@ -57,13 +54,12 @@ public:
     void setSelectedForward(bool value);
     void setSelectedBackward(bool value);
 
-    EdgeSelected selectedType() const;
-    bool         isSelected() const;
-    bool         isBroken() const;
-    bool         isRedundant() const;
-    bool         isHard() const;
+    EdgeSelection selectedType() const;
+    bool          isSelected() const;
+    bool          isBroken() const;
+    bool          isRedundant() const;
+    bool          isHard() const;
 
 private:
-    EdgeSelected mSelected = EdgeSelected::none;
-    EdgeType     mType     = EdgeType::termin;
+    EdgeData mData;
 };

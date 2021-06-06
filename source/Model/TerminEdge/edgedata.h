@@ -21,15 +21,10 @@
 
 #pragma once
 
-// For coordinate types
-enum class CoordType {
-    zeroPoint, // Rect located in zero point
-    local,     // Local coordinate system
-    scene      // Scene coordinate system
+#include "source/Model/enums.h"
+
+struct EdgeData
+{
+    EdgeSelection selectionType = EdgeSelection::none;
+    EdgeType      type          = EdgeType::termin;
 };
-
-enum class NodeType { orphan, root, endLeaf, middleLeaf };
-
-enum class EdgeType { standart, termin, terminHardLink, description, broken, redundant };
-
-enum class EdgeSelection { none, forward, backward };
