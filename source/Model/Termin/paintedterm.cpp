@@ -134,7 +134,7 @@ opt<QPointF> PaintedTerm::optimalRootsBasedPosition() const
 {
     auto edges = getEdgesToRoots();
 
-    if (edges.isEmpty())
+    if (edges.empty())
         return std::nullopt;
 
     double sumOfYCoords = 0.0;

@@ -21,14 +21,14 @@
 
 #pragma once
 
-#include <QList>
+#include <vector>
 
 class GraphTerm;
 
 class GraphEdge
 {
 public:
-    using List = QList<GraphEdge*>;
+    using List = std::vector<GraphEdge*>;
 
     GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf);
     GraphEdge();

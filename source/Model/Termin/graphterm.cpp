@@ -21,6 +21,8 @@
 
 #include "source/Model/Termin/graphterm.h"
 
+#include <ranges>
+
 int GraphTerm::mMaxWeight = 0;
 
 GraphTerm::GraphTerm(const TermData& info)
@@ -42,14 +44,14 @@ bool GraphTerm::isInTree() const { return !isOrphan(); }
 
 NodeType GraphTerm::getNodeType() const
 {
-    if (edgesToRoots.isEmpty()) {
-        if (edgesToLeafs.isEmpty()) {
+    if (edgesToRoots.empty()) {
+        if (edgesToLeafs.empty()) {
             return NodeType::orphan; // Both empty
         } else {
             return NodeType::root; // No connections down, has connections up
         }
     } else {
-        if (edgesToLeafs.isEmpty()) {
+        if (edgesToLeafs.empty()) {
             return NodeType::endLeaf; // Has connections down, no connections up
         } else {
             return NodeType::middleLeaf; // Has both connections, up and down
@@ -62,9 +64,8 @@ QString GraphTerm::getHierarchyDefinition()
     GraphTerm::List parentsList;
     fillAllParentsList(this, parentsList);
 
-    if (parentsList.isEmpty()) {
+    if (parentsList.empty())
         return "";
-    }
 
     // Sorting parents list
     for (int i = 0; i < parentsList.size(); i++) {
@@ -74,7 +75,9 @@ QString GraphTerm::getHierarchyDefinition()
                 maxIndex = j;
             }
         }
-        parentsList.swapItemsAt(i, maxIndex);
+        auto* tmp             = parentsList[i];
+        parentsList[i]        = parentsList[maxIndex];
+        parentsList[maxIndex] = tmp;
     }
 
     QStringList definitions;
@@ -142,11 +145,11 @@ void GraphTerm::addEdgeRef(GraphEdge* edge)
 {
     // We are source - connection up
     if (edge->getRoot() == this && edge->getLeaf() != this)
-        edgesToLeafs << edge;
+        edgesToLeafs.push_back(edge);
 
     // We are acceptor - connection down
     if (edge->getLeaf() == this && edge->getRoot() != this)
-        edgesToRoots << edge;
+        edgesToRoots.push_back(edge);
 }
 
 GraphTerm::List GraphTerm::getRootNodes()
@@ -154,7 +157,7 @@ GraphTerm::List GraphTerm::getRootNodes()
     GraphTerm::List ret;
 
     for (auto edge : edgesToRoots) {
-        ret << edge->getOtherSide(this);
+        ret.push_back(edge->getOtherSide(this));
     }
 
     return ret;
@@ -165,7 +168,7 @@ GraphTerm::List GraphTerm::getLeafNodes()
     GraphTerm::List ret;
 
     for (auto edge : edgesToLeafs) {
-        ret << edge->getOtherSide(this);
+        ret.push_back(edge->getOtherSide(this));
     }
 
     return ret;
@@ -178,25 +181,38 @@ GraphEdge::List GraphTerm::getEdgesToRoots() const { return edgesToRoots; }
 GraphEdge::List GraphTerm::getAllConnectedEdges() const
 {
     GraphEdge::List ret;
-    ret << edgesToRoots;
-    ret << edgesToLeafs;
+
+    for (auto e : edgesToRoots)
+        ret.push_back(e);
+
+    for (auto e : edgesToLeafs)
+        ret.push_back(e);
+
     return ret;
 }
 
-void GraphTerm::removeEdgeToLeafs(GraphEdge* edge) { edgesToLeafs.removeOne(edge); }
+void GraphTerm::removeEdgeToLeafs(GraphEdge* edge)
+{
+    auto remIt = std::ranges::remove_if(edgesToLeafs, [edge](auto e) { return edge == e; });
+    edgesToLeafs.erase(remIt.begin(), remIt.end());
+}
 
-void GraphTerm::removeEdgeToRoots(GraphEdge* edge) { edgesToRoots.removeOne(edge); }
+void GraphTerm::removeEdgeToRoots(GraphEdge* edge)
+{
+    auto remIt = std::ranges::remove_if(edgesToRoots, [edge](auto e) { return edge == e; });
+    edgesToRoots.erase(remIt.begin(), remIt.end());
+}
 
 void GraphTerm::addBrokenEdge(GraphEdge* edge)
 {
-    if (!brokenEdges.contains(edge))
-        brokenEdges << edge;
+    if (std::ranges::find(brokenEdges, edge) == brokenEdges.end())
+        brokenEdges.push_back(edge);
 }
 
 void GraphTerm::addRedundantEdge(GraphEdge* edge)
 {
-    if (!redundantEdges.contains(edge))
-        redundantEdges << edge;
+    if (std::ranges::find(redundantEdges, edge) == redundantEdges.end())
+        redundantEdges.push_back(edge);
 }
 
 GraphEdge::List GraphTerm::getBrokenEdges() const { return brokenEdges; }
@@ -278,9 +294,8 @@ GraphEdge* GraphTerm::findLongPathToNode(GraphTerm* node)
 void GraphTerm::fillAllParentsList(GraphTerm* searchNode, GraphTerm::List& lst)
 {
     for (auto node : searchNode->getRootNodes()) {
-        if (!lst.contains(node)) {
-            lst << node;
-        }
+        if (std::ranges::find(lst, node) == lst.end())
+            lst.push_back(node);
 
         fillAllParentsList(node, lst);
     }

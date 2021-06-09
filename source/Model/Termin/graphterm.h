@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <QList>
+#include <vector>
 
 #include "source/Model/Base/node.hpp"
 #include "source/Model/Termin/termdatacache.h"
@@ -33,7 +33,7 @@
 class GraphTerm : public Node<TermData>
 {
 public:
-    using List = QList<GraphTerm*>;
+    using List = std::vector<GraphTerm*>;
 
     GraphTerm(const TermData& info);
     ~GraphTerm() = default;

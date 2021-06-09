@@ -21,6 +21,8 @@
 
 #include "source/Model/TerminGroup/termgroup.h"
 
+#include <ranges>
+
 #include <QElapsedTimer>
 
 #include "source/Helpers/appstyle.h"
@@ -42,15 +44,15 @@ QRectF TermGroup::getGroupRect() const { return mBaseRect.getRect(CoordType::sce
 
 UuidList TermGroup::searchNearest(const QString& text, int limit) const
 {
-    QString                  searchText = text.toLower();
-    QList<QPair<int, QUuid>> searchResults;
+    QString                        searchText = text.toLower();
+    std::vector<QPair<int, QUuid>> searchResults;
     // Taking distances
     for (auto* node : nodes()) {
         auto lowerTerm = node->cache().lowerTerm();
 
         // Exact match
         if (searchText == lowerTerm) {
-            searchResults << QPair<int, QUuid>(0, node->data().uuid);
+            searchResults.push_back({0, node->data().uuid});
             continue;
         }
 
@@ -60,12 +62,11 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
         auto distance        = LinkUtils::getLevDistance(cuttedTerm, searchText, acceptableLimit);
 
         if (distance <= acceptableLimit)
-            searchResults << QPair<int, QUuid>(distance, node->data().uuid);
+            searchResults.push_back({distance, node->data().uuid});
     }
 
     // Sorting
-    auto order = [](const QPair<int, QUuid>& s1, const QPair<int, QUuid>& s2) { return s1.first < s2.first; };
-    std::sort(searchResults.begin(), searchResults.end(), order);
+    std::ranges::sort(searchResults, [](auto s1, auto s2) { return s1.first < s2.first; });
 
     // Removing numbers
     UuidList ret;
@@ -265,7 +266,7 @@ void TermGroup::setTreeCoords()
 void TermGroup::setOrphCoords(qreal maxWidth)
 {
     auto orphansList = getOrphanNodes();
-    if (orphansList.isEmpty()) {
+    if (orphansList.empty()) {
         return;
     }
 
@@ -278,7 +279,9 @@ void TermGroup::setOrphCoords(qreal maxWidth)
                 nMax = j;
             }
         }
-        orphansList.swapItemsAt(i, nMax);
+        auto* tmp         = orphansList[i];
+        orphansList[i]    = orphansList[nMax];
+        orphansList[nMax] = tmp;
     }
 
     QPointF pt(0, 0);

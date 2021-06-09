@@ -22,7 +22,6 @@
 #pragma once
 
 #include <stdlib.h>
-#include <QList>
 
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/Termin/paintedterm.h"

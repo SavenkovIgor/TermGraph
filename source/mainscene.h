@@ -21,8 +21,6 @@
 
 #pragma once
 
-#include <stdlib.h>
-
 #include <QObject>
 
 #include "source/Helpers/appconfig.h"

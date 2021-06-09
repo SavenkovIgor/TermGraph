@@ -21,10 +21,9 @@
 
 #pragma once
 
-#include <cmath>
+#include <vector>
 
 #include <QColor>
-#include <QList>
 #include <QProperty>
 #include <QSizeF>
 
@@ -41,7 +40,7 @@ public:
     PaintedTerm(const TermData& info);
     ~PaintedTerm() override = default;
 
-    using List = QList<PaintedTerm*>;
+    using List = std::vector<PaintedTerm*>;
 
     // Painting tools
     QLineF getRectLine(Qt::Edge side);

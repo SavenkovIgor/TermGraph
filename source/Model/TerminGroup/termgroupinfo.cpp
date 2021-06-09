@@ -85,10 +85,12 @@ PaintedEdge::List TermGroupInfo::edgesForPaint() const
     auto hardEdges     = filterFromEdgesList(hardEdgesFilter);
     auto selectedEdges = filterFromEdgesList(selectedEdgesFilter);
 
-    lst << softEdges;
-    lst << hardEdges;
-    lst << selectedEdges;
-    lst << brokenEdges();
+    auto addToList = [&lst](auto e) { lst.push_back(e); };
+
+    std::ranges::for_each(softEdges, addToList);
+    std::ranges::for_each(hardEdges, addToList);
+    std::ranges::for_each(selectedEdges, addToList);
+    std::ranges::for_each(brokenEdges(), addToList);
 
     return lst;
 }
@@ -144,7 +146,7 @@ PaintedEdge::List TermGroupInfo::searchAllConnections()
 
             if (foundNode) {
                 if (foundNode != node) { // TODO: Real case, need check
-                    ret << new PaintedEdge(foundNode, node, eType);
+                    ret.push_back(new PaintedEdge(foundNode, node, eType));
                     previousTagSearchCache.insert(link.textLower(), foundNode);
                 }
             }
@@ -228,7 +230,11 @@ void TermGroupInfo::removeTrees()
 
 bool TermGroupInfo::buildingWasInterrupted() { return QThread::currentThread()->isInterruptionRequested(); }
 
-void TermGroupInfo::loadEdges() { mEdges << searchAllConnections(); }
+void TermGroupInfo::loadEdges()
+{
+    auto connections = searchAllConnections();
+    mEdges.insert(mEdges.end(), connections.begin(), connections.end());
+}
 
 void TermGroupInfo::removeCycles()
 {
@@ -240,13 +246,14 @@ void TermGroupInfo::removeCycles()
     PaintedEdge::List brokeList;
     for (auto* edge : mEdges) {
         if (edge->needBroke) {
-            brokeList << edge;
+            brokeList.push_back(edge);
         }
     }
 
     for (auto edge : brokeList) {
         edge->brokeEdge();
-        mEdges.removeOne(edge);
+        auto remIt = std::ranges::remove_if(mEdges, [edge](auto e) { return edge == e; });
+        mEdges.erase(remIt.begin(), remIt.end());
     }
 }
 
@@ -259,13 +266,14 @@ void TermGroupInfo::removeExceedEdges()
     PaintedEdge::List brokeList;
     for (auto* edge : mEdges) {
         if (edge->needCutOut) {
-            brokeList << edge;
+            brokeList.push_back(edge);
         }
     }
 
     for (auto edge : brokeList) {
         edge->makeEdgeRedundant();
-        mEdges.removeOne(edge);
+        auto remIt = std::ranges::remove_if(mEdges, [edge](auto e) { return edge == e; });
+        mEdges.erase(remIt.begin(), remIt.end());
     }
 }
 
@@ -342,7 +350,7 @@ PaintedTerm::List TermGroupInfo::filterFromNodesList(std::function<bool(PaintedT
     PaintedTerm::List ret;
     for (auto* node : mNodes) {
         if (filterCheck(node)) {
-            ret << node;
+            ret.push_back(node);
         }
     }
     return ret;
@@ -353,7 +361,7 @@ PaintedEdge::List TermGroupInfo::filterFromEdgesList(std::function<bool(PaintedE
     PaintedEdge::List ret;
     for (auto* edge : edges()) {
         if (condition(edge)) {
-            ret << edge;
+            ret.push_back(edge);
         }
     }
 

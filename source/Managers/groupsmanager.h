@@ -28,6 +28,7 @@
 #include <QUuid>
 
 #include "source/Helpers/fsworks.h"
+#include "source/Helpers/handytypes.h"
 #include "source/Managers/datastorageinterface.h"
 #include "source/Managers/notificationmanager.h"
 #include "source/Model/TerminGroup/termgroup.h"
@@ -54,7 +55,7 @@ public:
 
     TermGroup* createGroup(const QUuid groupUuid);
 
-    QList<QUuid> getAllUuidsSortedByLastEdit();
+    UuidList getAllUuidsSortedByLastEdit();
 
     void updateGroupUuidNameMaps();
 

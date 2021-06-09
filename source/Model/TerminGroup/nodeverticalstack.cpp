@@ -33,7 +33,7 @@ QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::Lis
     return HelpStuff::getStackedSize(sizeList, Qt::Vertical);
 }
 
-void NodeVerticalStack::addTerm(PaintedTerm* term) { mTerms << term; }
+void NodeVerticalStack::addTerm(PaintedTerm* term) { mTerms.push_back(term); }
 
 bool NodeVerticalStack::hasNode(PaintedTerm* term) const
 {
@@ -82,15 +82,15 @@ void NodeVerticalStack::placeTerms(QPointF centerPoint)
 
 bool NodeVerticalStack::isRootStack() const
 {
-    if (!mTerms.isEmpty())
-        return mTerms.first()->isRoot();
+    if (!mTerms.empty())
+        return mTerms.front()->isRoot();
 
     return false;
 }
 
-QList<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::List& terms)
+std::vector<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::List& terms)
 {
-    QList<NodePack> ret;
+    std::vector<NodePack> ret;
 
     for (auto* term : terms) {
         auto rootsPositionOpt = term->optimalRootsBasedPosition();
@@ -110,7 +110,7 @@ QList<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const Painted
         }
 
         if (!inserted) {
-            auto nodes = QList<PaintedTerm*>();
+            auto nodes = std::vector<PaintedTerm*>();
             nodes.push_back(term);
             ret.push_back(NodePack(optimalPt, nodes));
         }
@@ -119,7 +119,7 @@ QList<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const Painted
     return ret;
 }
 
-void NodeVerticalStack::sortNodePacks(QList<NodeVerticalStack::NodePack>& pack)
+void NodeVerticalStack::sortNodePacks(std::vector<NodeVerticalStack::NodePack>& pack)
 {
     auto order = [](const NodeVerticalStack::NodePack& s1, const NodeVerticalStack::NodePack& s2) {
         return s1.first.y() < s2.first.y();
@@ -135,7 +135,7 @@ void NodeVerticalStack::sortNodePacks(QList<NodeVerticalStack::NodePack>& pack)
     }
 }
 
-PaintedTerm::List NodeVerticalStack::flatNodePack(const QList<NodeVerticalStack::NodePack>& pack)
+PaintedTerm::List NodeVerticalStack::flatNodePack(const std::vector<NodeVerticalStack::NodePack>& pack)
 {
     PaintedTerm::List ret;
 

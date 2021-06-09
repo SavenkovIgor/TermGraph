@@ -25,9 +25,8 @@
 
 void TermTree::setTreeNodeCoords(QPointF leftTopPoint)
 {
-    if (getAllNodesInTree().isEmpty()) {
+    if (getAllNodesInTree().empty())
         return;
-    }
 
     qreal allTreeHeight = getMaxStackHeight();
 
@@ -133,7 +132,8 @@ PaintedTerm::List TermTree::getAllNodesInTree() const
     PaintedTerm::List ret;
 
     for (const auto& stack : mStacks)
-        ret << stack.nodes();
+        for (auto node : stack.nodes())
+            ret.push_back(node);
 
     return ret;
 }

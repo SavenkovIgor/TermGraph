@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include <vector>
+
 #include <QColor>
 #include <QLineF>
 #include <QPointF>
@@ -35,7 +37,7 @@ class PaintedTerm;
 class PaintedEdge : public GraphEdge, public GraphicItem
 {
 public:
-    using List = QList<PaintedEdge*>;
+    using List = std::vector<PaintedEdge*>;
 
     explicit PaintedEdge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin);
     ~PaintedEdge() override = default;

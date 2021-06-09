@@ -23,8 +23,6 @@
 
 #include <vector>
 
-#include <QList>
-
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminEdge/paintededge.h"
 
@@ -54,10 +52,10 @@ public:
     PaintedTerm::List nodes() const;
 
 private:
-    static QList<NodePack>   getNodePacks(const PaintedTerm::List& terms);
-    static void              sortNodePacks(QList<NodePack>& pack);
-    static PaintedTerm::List flatNodePack(const QList<NodePack>& pack);
+    static std::vector<NodePack> getNodePacks(const PaintedTerm::List& terms);
+    static void                  sortNodePacks(std::vector<NodePack>& pack);
+    static PaintedTerm::List     flatNodePack(const std::vector<NodePack>& pack);
 
-private:  // Members
+private: // Members
     PaintedTerm::List mTerms;
 };

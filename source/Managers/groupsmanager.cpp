@@ -126,7 +126,7 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
     PaintedTerm::List sceneTerms;
 
     for (const auto& term : terms)
-        sceneTerms << new PaintedTerm(term);
+        sceneTerms.push_back(new PaintedTerm(term));
 
     return new TermGroup(info, sceneTerms);
 }
@@ -157,14 +157,14 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
     return lastEdit;
 }
 
-QList<QUuid> GroupsManager::getAllUuidsSortedByLastEdit()
+UuidList GroupsManager::getAllUuidsSortedByLastEdit()
 {
-    QList<QUuid> ret;
+    UuidList ret;
 
     auto groupsUuids = dataStorage.getAllGroupsUuids(true);
 
     for (const auto& uuid : groupsUuids)
-        ret << uuid;
+        ret.push_back(uuid);
 
     return ret;
 }
