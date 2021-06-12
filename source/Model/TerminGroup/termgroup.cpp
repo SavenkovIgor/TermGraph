@@ -24,18 +24,64 @@
 #include <ranges>
 
 #include <QElapsedTimer>
+#include <QThread>
 
 #include "source/Helpers/appstyle.h"
 #include "source/Helpers/fonts.h"
+#include "source/Helpers/globaltagcache.h"
+#include "source/Helpers/helpstuff.h"
 #include "source/Helpers/link/linkutils.h"
 
 TermGroup::TermGroup(const GroupData& info, const PaintedTerm::List& nodes, QObject* parent)
     : QObject(parent)
-    , TermGroupInfo(info, nodes)
+    , mInfo(info)
+    , mNodes(nodes)
 {
+    for (auto* node : nodes)
+        Q_ASSERT_X(node->data().groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
+
     mOrphansRect.setParentItem(&mBaseRect);
 
-    initNewNodes();
+    QElapsedTimer t;
+    t.start();
+
+    mEdges = searchAllConnections();
+
+    if (isThreadInterrupted())
+        return;
+
+    removeCycles();
+    removeExceedEdges();
+
+    if (isThreadInterrupted())
+        return;
+
+    setLevels();
+    initTrees();
+    addTreeRectsToScene();
+
+    addOrphansToParents();
+    addEdgesToParents();
+
+    setTreeCoords();
+    setOrphCoords();
+
+    setAllWeights();
+
+    // Positioning
+    updateRectsPositions();
+    updateBaseRectSize();
+
+    groupCreationTime = t.elapsed();
+}
+
+TermGroup::~TermGroup()
+{
+    qDeleteAll(mTrees);
+    mTrees.clear();
+
+    qDeleteAll(mNodes);
+    qDeleteAll(mEdges);
 }
 
 void TermGroup::setBasePoint(QPointF pt) { mBaseRect.setPos(pt); }
@@ -137,41 +183,6 @@ PaintedTerm* TermGroup::getNode(const QString& nodeName) const
     return nullptr;
 }
 
-void TermGroup::initNewNodes()
-{
-    QElapsedTimer t;
-    t.start();
-
-    loadEdges();
-
-    if (buildingWasInterrupted())
-        return;
-
-    removeCycles();
-    removeExceedEdges();
-
-    if (buildingWasInterrupted())
-        return;
-
-    setLevels();
-    initTrees();
-    addTreeRectsToScene();
-
-    addOrphansToParents();
-    addEdgesToParents();
-
-    setTreeCoords();
-    setOrphCoords();
-
-    setAllWeights();
-
-    // Positioning
-    updateRectsPositions();
-    updateBaseRectSize();
-
-    groupCreationTime = t.elapsed();
-}
-
 void TermGroup::addOrphansToParents()
 {
     for (auto node : getOrphanNodes()) {
@@ -241,9 +252,7 @@ void TermGroup::updateBaseRectSize()
     qreal width  = 0.0;
     qreal height = 0.0;
 
-    width = std::max(width, nameSize.width());
-    width = std::max(width, treesSize.width());
-    width = std::max(width, orphansSize.width());
+    width = std::max({width, nameSize.width(), treesSize.width(), orphansSize.width()});
     width += hSpacer * 2;
 
     height += vSpacer;
@@ -323,3 +332,312 @@ void TermGroup::addTreeRectsToScene()
 QSizeF TermGroup::getNameSize() const { return Fonts::getTextMetrics(name(), Fonts::getWeightFont()); }
 
 QString TermGroup::qmlUuid() const { return uuid().toString(); }
+
+void TermGroup::setLevels()
+{
+    // Set layer numbers
+    for (auto node : getRootNodes())
+        node->setLevel(0);
+}
+
+PaintedTerm::List TermGroup::getRootNodes() const
+{
+    return filterFromNodesList([](PaintedTerm* node) { return node->isRoot(); });
+}
+
+void TermGroup::initTrees()
+{
+    unsigned int treeId = 1;
+
+    auto treeNodes = getInTreeNodes();
+
+    // Set all tree Id's
+    for (auto node : treeNodes) {
+        if (node->getTreeId() == 0) {
+            node->setTreeId(treeId);
+            treeId++;
+        }
+    }
+
+    unsigned int treesCount = treeId - 1; // last treeId increase was fictious
+
+    // Set all trees
+    for (unsigned int treeId = 1; treeId <= treesCount; treeId++) {
+        auto* tree = new TermTree();
+        for (auto node : treeNodes) {
+            if (node->getTreeId() == treeId) {
+                tree->addTerm(node);
+            }
+        }
+
+        mTrees.push_back(tree);
+    }
+
+    auto treeSorting = [](const TermTree* t1, const TermTree* t2) { return t1->square() > t2->square(); };
+
+    std::sort(mTrees.begin(), mTrees.end(), treeSorting);
+}
+
+TermTree::List TermGroup::trees() const { return mTrees; }
+
+QSizeF TermGroup::getAllTreesSize()
+{
+    SizeList sizeList;
+
+    for (const auto* tree : mTrees)
+        sizeList.push_back(tree->baseSize());
+
+    auto totalSize = HelpStuff::getStackedSize(sizeList, Qt::Vertical);
+
+    if (!mTrees.empty())
+        totalSize.rheight() += (mTrees.size() - 1) * AppStyle::Sizes::groupVerticalSpacer;
+
+    return totalSize;
+}
+
+PaintedEdge::List TermGroup::searchAllConnections()
+{
+    PaintedEdge::List ret;
+
+    // Pre-heating of cache with exact terms match
+    QMap<QString, PaintedTerm*> previousTagSearchCache = getExactTermMatchCache();
+    QMap<QUuid, PaintedTerm*>   termUuids              = getTermUuidsMap();
+
+    static int counter     = 0;
+    bool       stopRequest = false;
+
+    // Compare everything with everything
+    for (auto* node : mNodes) {
+        for (const auto& link : node->cache().links()) {
+            PaintedTerm* foundNode = nullptr;
+
+            EdgeType eType = EdgeType::termin;
+
+            if (!foundNode) {
+                if (link.hasUuid()) {
+                    if (termUuids.contains(link.uuid())) {
+                        foundNode = termUuids[link.uuid()];
+                        eType     = EdgeType::terminHardLink;
+                    }
+                }
+            }
+
+            // If we have same search earlier this cycle
+            if (!foundNode)
+                foundNode = previousTagSearchCache.value(link.textLower(), nullptr);
+
+            if (!foundNode)
+                foundNode = getNearestNodeForTag(link.textLower());
+
+            if (foundNode) {
+                if (foundNode != node) { // TODO: Real case, need check
+                    ret.push_back(new PaintedEdge(foundNode, node, eType));
+                    previousTagSearchCache.insert(link.textLower(), foundNode);
+                }
+            }
+
+            counter++;
+            if (counter % 20 == 0)
+                if (isThreadInterrupted())
+                    stopRequest = true;
+
+            if (stopRequest)
+                break;
+        }
+        if (stopRequest)
+            break;
+    }
+
+    return ret;
+}
+
+PaintedTerm* TermGroup::getNearestNodeForTag(const QString& tag)
+{
+    PaintedTerm* targetTerm = nullptr;
+
+    int minDistance = 100000;
+
+    opt<int> optionalResult;
+
+    for (auto* node : mNodes) {
+        auto termName = node->cache().lowerTerm();
+
+        if (!LinkUtils::tagLengthSuitTerm(tag, termName))
+            continue;
+
+        auto cacheMatch = GlobalTagCache::instance().get(tag, termName);
+        if (cacheMatch) {
+            optionalResult = cacheMatch.value();
+        } else {
+            optionalResult = LinkUtils::getDistanceBetweenTagAndTerm(tag, termName, minDistance);
+            GlobalTagCache::instance().add(tag, termName, optionalResult);
+        }
+
+        if (optionalResult) {
+            if (optionalResult.value() == 0) // Already best match, no need to count further
+                return node;
+
+            if (optionalResult.value() < minDistance) {
+                minDistance = optionalResult.value();
+                targetTerm  = node;
+            }
+        }
+    }
+
+    return targetTerm;
+}
+
+void TermGroup::removeExceedEdges()
+{
+    // First find all edges to break
+    for (auto* node : mNodes)
+        node->checkForExceedEdges();
+
+    PaintedEdge::List brokeList;
+    for (auto* edge : mEdges) {
+        if (edge->needCutOut) {
+            brokeList.push_back(edge);
+        }
+    }
+
+    for (auto edge : brokeList) {
+        edge->makeEdgeRedundant();
+        auto remIt = std::ranges::remove_if(mEdges, [edge](auto e) { return edge == e; });
+        mEdges.erase(remIt.begin(), remIt.end());
+    }
+}
+
+PaintedEdge::List TermGroup::brokenEdges() const
+{
+    PaintedEdge::List ret;
+    for (auto* node : nodes())
+        for (auto* edge : node->getBrokenEdges())
+            ret.push_back(dynamic_cast<PaintedEdge*>(edge));
+
+    return ret;
+}
+
+PaintedEdge::List TermGroup::redundantEdges() const
+{
+    PaintedEdge::List ret;
+    for (auto* node : nodes())
+        for (auto* edge : node->getRedundantEdges())
+            ret.push_back(dynamic_cast<PaintedEdge*>(edge));
+
+    return ret;
+}
+
+PaintedEdge::List TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge*)> condition) const
+{
+    PaintedEdge::List ret;
+    for (auto* edge : edges()) {
+        if (condition(edge)) {
+            ret.push_back(edge);
+        }
+    }
+
+    return ret;
+}
+
+void TermGroup::removeCycles()
+{
+    // First find all edges to break
+    for (auto* node : mNodes) {
+        node->getCycleEdge();
+    }
+
+    PaintedEdge::List brokeList;
+    for (auto* edge : mEdges) {
+        if (edge->needBroke) {
+            brokeList.push_back(edge);
+        }
+    }
+
+    for (auto edge : brokeList) {
+        edge->brokeEdge();
+        auto remIt = std::ranges::remove_if(mEdges, [edge](auto e) { return edge == e; });
+        mEdges.erase(remIt.begin(), remIt.end());
+    }
+}
+
+PaintedEdge::List TermGroup::edges() const { return mEdges; }
+
+PaintedEdge::List TermGroup::edgesForPaint() const
+{
+    PaintedEdge::List lst;
+
+    auto softEdgesFilter     = [](PaintedEdge* e) { return !e->isSelected() && !e->isHard(); };
+    auto hardEdgesFilter     = [](PaintedEdge* e) { return !e->isSelected() && e->isHard(); };
+    auto selectedEdgesFilter = [](PaintedEdge* e) { return e->isSelected(); };
+
+    auto softEdges     = filterFromEdgesList(softEdgesFilter);
+    auto hardEdges     = filterFromEdgesList(hardEdgesFilter);
+    auto selectedEdges = filterFromEdgesList(selectedEdgesFilter);
+
+    auto addToList = [&lst](auto e) { lst.push_back(e); };
+
+    std::ranges::for_each(softEdges, addToList);
+    std::ranges::for_each(hardEdges, addToList);
+    std::ranges::for_each(selectedEdges, addToList);
+    std::ranges::for_each(brokenEdges(), addToList);
+
+    return lst;
+}
+
+QUuid TermGroup::uuid() const { return mInfo.uuid; }
+
+QString TermGroup::name() const { return mInfo.name; }
+
+QMap<QString, PaintedTerm*> TermGroup::getExactTermMatchCache()
+{
+    QMap<QString, PaintedTerm*> ret;
+
+    for (auto* node : mNodes)
+        ret.insert(node->cache().lowerTerm(), node);
+
+    return ret;
+}
+
+QMap<QUuid, PaintedTerm*> TermGroup::getTermUuidsMap()
+{
+    QMap<QUuid, PaintedTerm*> ret;
+
+    for (auto* node : mNodes)
+        ret.insert(node->data().uuid, node);
+
+    return ret;
+}
+
+QSizeF TermGroup::getOrphansSize()
+{
+    QRectF orphansRc;
+    for (auto node : getOrphanNodes()) {
+        orphansRc = orphansRc.united(node->getNodeRect(CoordType::scene));
+    }
+    return orphansRc.size();
+}
+
+PaintedTerm::List TermGroup::getInTreeNodes() const
+{
+    return filterFromNodesList([](PaintedTerm* node) { return node->isInTree(); });
+}
+
+PaintedTerm::List TermGroup::getOrphanNodes() const
+{
+    return filterFromNodesList([](PaintedTerm* node) { return node->isOrphan(); });
+}
+
+PaintedTerm::List TermGroup::filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const
+{
+    PaintedTerm::List ret;
+    for (auto* node : mNodes) {
+        if (filterCheck(node)) {
+            ret.push_back(node);
+        }
+    }
+    return ret;
+}
+
+PaintedTerm::List TermGroup::nodes() const { return mNodes; }
+
+bool TermGroup::isThreadInterrupted() { return QThread::currentThread()->isInterruptionRequested(); }

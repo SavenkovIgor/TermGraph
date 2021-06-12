@@ -26,9 +26,12 @@
 #include "source/Helpers/handytypes.h"
 #include "source/Model/Base/forest.hpp"
 #include "source/Model/GraphicItem/rectgraphicitem.h"
-#include "source/Model/TerminGroup/termgroupinfo.h"
+#include "source/Model/Termin/paintedterm.h"
+#include "source/Model/TerminEdge/paintededge.h"
+#include "source/Model/TerminGroup/groupdata.h"
+#include "source/Model/TerminGroup/termtree.h"
 
-class TermGroup : public QObject, public TermGroupInfo
+class TermGroup : public QObject
 {
     Q_OBJECT
 
@@ -37,7 +40,7 @@ class TermGroup : public QObject, public TermGroupInfo
 
 public:
     TermGroup(const GroupData& info, const PaintedTerm::List& newNodes, QObject* parent = nullptr);
-    ~TermGroup() final = default;
+    ~TermGroup();
 
     void setBasePoint(QPointF pt);
 
@@ -50,10 +53,13 @@ public:
     PaintedTerm* getNode(const QUuid& nodeUuid) const;
     PaintedTerm* getNode(const QString& nodeName) const;
 
-private:
-    // Init method
-    void initNewNodes();
+    PaintedTerm::List nodes() const;
+    PaintedEdge::List edgesForPaint() const;
 
+    QUuid   uuid() const;
+    QString name() const;
+
+private:
     // Base init
     void addOrphansToParents();
     void addEdgesToParents();
@@ -79,6 +85,36 @@ private:
 
     QString qmlUuid() const;
 
+    // External
+    // Trees
+    void           initTrees();
+    TermTree::List trees() const;
+    QSizeF         getAllTreesSize();
+
+    // Edges
+    PaintedEdge::List searchAllConnections();
+    PaintedEdge::List suggestConnections(); // TODO: Realize!
+
+    PaintedTerm*      getNearestNodeForTag(const QString& tag);
+    void              removeExceedEdges();
+    PaintedEdge::List brokenEdges() const;
+    PaintedEdge::List redundantEdges() const;
+    PaintedEdge::List filterFromEdgesList(std::function<bool(PaintedEdge*)> condition) const;
+    void              removeCycles();
+    PaintedEdge::List edges() const;
+
+    // Nodes
+    void                        setLevels();
+    PaintedTerm::List           getRootNodes() const;
+    QMap<QString, PaintedTerm*> getExactTermMatchCache();
+    QMap<QUuid, PaintedTerm*>   getTermUuidsMap();
+    QSizeF                      getOrphansSize();
+    PaintedTerm::List           getInTreeNodes() const;
+    PaintedTerm::List           getOrphanNodes() const;
+    PaintedTerm::List           filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const;
+
+    bool isThreadInterrupted();
+
 private:
     qint64 groupCreationTime = 0;
 
@@ -87,4 +123,11 @@ private:
 
     Forest<int, int>::List mForests;
     Node<int>::List        mOrphans;
+
+    GroupData mInfo;
+
+    PaintedTerm::List mNodes;
+    PaintedEdge::List mEdges;
+
+    TermTree::List mTrees;
 };

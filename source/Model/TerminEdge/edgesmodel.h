@@ -26,6 +26,8 @@
 
 #include "source/Model/TerminEdge/paintededge.h"
 
+// BUG: on empty groups, edges didnt hide
+
 class EdgesModel : public QAbstractListModel
 {
     Q_OBJECT

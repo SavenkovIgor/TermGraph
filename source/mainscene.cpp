@@ -130,7 +130,7 @@ void MainScene::showNewGroup(TermGroup* newGroup)
 
     if (mCurrentGroup) {
         mTermsModel->setTerms(mCurrentGroup->nodes());
-        mEdgesModel->setEdges(mCurrentGroup->edges());
+        mEdgesModel->setEdges(mCurrentGroup->edgesForPaint());
     }
 
     if (differentGroups)
