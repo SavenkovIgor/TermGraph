@@ -32,13 +32,15 @@
 #include "source/Helpers/helpstuff.h"
 #include "source/Helpers/link/linkutils.h"
 
-TermGroup::TermGroup(const GroupData& info, const PaintedTerm::List& nodes, QObject* parent)
+TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObject* parent)
     : QObject(parent)
     , mInfo(info)
-    , mNodes(nodes)
 {
-    for (auto* node : nodes)
-        Q_ASSERT_X(node->data().groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
+    for (auto node : termData)
+        Q_ASSERT_X(node.groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
+
+    for (const auto& term : termData)
+        mNodes.push_back(new PaintedTerm(term));
 
     mOrphansRect.setParentItem(&mBaseRect);
 

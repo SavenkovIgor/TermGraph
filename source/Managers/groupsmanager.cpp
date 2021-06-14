@@ -120,15 +120,10 @@ TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
     if (groupUuid.isNull())
         return nullptr;
 
-    auto info  = dataStorage.getGroup(groupUuid);
-    auto terms = dataStorage.getTerms(groupUuid);
+    auto groupData = dataStorage.getGroup(groupUuid);
+    auto termsData = dataStorage.getTerms(groupUuid);
 
-    PaintedTerm::List sceneTerms;
-
-    for (const auto& term : terms)
-        sceneTerms.push_back(new PaintedTerm(term));
-
-    return new TermGroup(info, sceneTerms);
+    return new TermGroup(groupData, termsData);
 }
 
 bool GroupsManager::isEmptyGroup(const QString& groupUuid)

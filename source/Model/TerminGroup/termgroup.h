@@ -39,7 +39,7 @@ class TermGroup : public QObject
     Q_PROPERTY(QString name READ name CONSTANT)
 
 public:
-    TermGroup(const GroupData& info, const PaintedTerm::List& newNodes, QObject* parent = nullptr);
+    TermGroup(const GroupData& info, const TermData::List& termData, QObject* parent = nullptr);
     ~TermGroup();
 
     void setBasePoint(QPointF pt);
