@@ -38,6 +38,7 @@ class PaintedEdge : public GraphEdge, public GraphicItem
 {
 public:
     using UnsafeList = std::vector<PaintedEdge*>;
+    using List       = std::vector<std::shared_ptr<PaintedEdge>>;
 
     explicit PaintedEdge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin);
     ~PaintedEdge() override = default;

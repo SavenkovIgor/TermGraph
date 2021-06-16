@@ -92,7 +92,7 @@ private:
     QSizeF         getAllTreesSize();
 
     // Edges
-    PaintedEdge::UnsafeList searchAllConnections();
+    PaintedEdge::List       searchAllConnections();
     PaintedEdge::UnsafeList suggestConnections(); // TODO: Realize!
 
     PaintedTerm*            getNearestNodeForTag(const QString& tag);
@@ -126,8 +126,11 @@ private:
 
     GroupData mInfo;
 
-    std::vector<std::shared_ptr<PaintedTerm>> mNodes;
-    PaintedEdge::UnsafeList                   mEdges;
+    PaintedTerm::List mNodes;
+    PaintedEdge::List mEdges;
+
+    PaintedEdge::List mRedundantEdges;
+    PaintedEdge::List mBrokenEdges;
 
     TermTree::List mTrees;
 };

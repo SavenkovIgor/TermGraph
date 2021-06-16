@@ -81,8 +81,6 @@ TermGroup::~TermGroup()
 {
     qDeleteAll(mTrees);
     mTrees.clear();
-
-    qDeleteAll(mEdges);
 }
 
 void TermGroup::setBasePoint(QPointF pt) { mBaseRect.setPos(pt); }
@@ -396,9 +394,9 @@ QSizeF TermGroup::getAllTreesSize()
     return totalSize;
 }
 
-PaintedEdge::UnsafeList TermGroup::searchAllConnections()
+PaintedEdge::List TermGroup::searchAllConnections()
 {
-    PaintedEdge::UnsafeList ret;
+    PaintedEdge::List ret;
 
     // Pre-heating of cache with exact terms match
     QMap<QString, PaintedTerm*> previousTagSearchCache = getExactTermMatchCache();
@@ -432,7 +430,7 @@ PaintedEdge::UnsafeList TermGroup::searchAllConnections()
 
             if (foundNode) {
                 if (foundNode != node.get()) { // TODO: Real case, need check
-                    ret.push_back(new PaintedEdge(foundNode, node.get(), eType));
+                    ret.push_back(std::make_shared<PaintedEdge>(foundNode, node.get(), eType));
                     previousTagSearchCache.insert(link.textLower(), foundNode);
                 }
             }
@@ -494,14 +492,13 @@ void TermGroup::removeExceedEdges()
     for (auto node : mNodes)
         node->checkForExceedEdges();
 
-    PaintedEdge::UnsafeList brokeList;
-    for (auto* edge : mEdges) {
+    for (auto edge : mEdges) {
         if (edge->needCutOut) {
-            brokeList.push_back(edge);
+            mRedundantEdges.push_back(edge);
         }
     }
 
-    for (auto edge : brokeList) {
+    for (auto edge : mRedundantEdges) {
         edge->makeEdgeRedundant();
         auto remIt = std::ranges::remove_if(mEdges, [edge](auto e) { return edge == e; });
         mEdges.erase(remIt.begin(), remIt.end());
@@ -511,9 +508,9 @@ void TermGroup::removeExceedEdges()
 PaintedEdge::UnsafeList TermGroup::brokenEdges() const
 {
     PaintedEdge::UnsafeList ret;
-    for (auto* node : nodes())
-        for (auto* edge : node->getBrokenEdges())
-            ret.push_back(dynamic_cast<PaintedEdge*>(edge));
+
+    for (auto edge : mBrokenEdges)
+        ret.push_back(edge.get());
 
     return ret;
 }
@@ -521,9 +518,9 @@ PaintedEdge::UnsafeList TermGroup::brokenEdges() const
 PaintedEdge::UnsafeList TermGroup::redundantEdges() const
 {
     PaintedEdge::UnsafeList ret;
-    for (auto* node : nodes())
-        for (auto* edge : node->getRedundantEdges())
-            ret.push_back(dynamic_cast<PaintedEdge*>(edge));
+
+    for (auto edge : mRedundantEdges)
+        ret.push_back(edge.get());
 
     return ret;
 }
@@ -546,21 +543,28 @@ void TermGroup::removeCycles()
     for (auto node : mNodes)
         node->getCycleEdge();
 
-    PaintedEdge::UnsafeList brokeList;
-    for (auto* edge : mEdges) {
+    for (auto edge : mEdges) {
         if (edge->needBroke) {
-            brokeList.push_back(edge);
+            mBrokenEdges.push_back(edge);
         }
     }
 
-    for (auto edge : brokeList) {
+    for (auto edge : mBrokenEdges) {
         edge->brokeEdge();
         auto remIt = std::ranges::remove_if(mEdges, [edge](auto e) { return edge == e; });
         mEdges.erase(remIt.begin(), remIt.end());
     }
 }
 
-PaintedEdge::UnsafeList TermGroup::edges() const { return mEdges; }
+PaintedEdge::UnsafeList TermGroup::edges() const
+{
+    PaintedEdge::UnsafeList ret;
+
+    for (auto edge : mEdges)
+        ret.push_back(edge.get());
+
+    return ret;
+}
 
 PaintedEdge::UnsafeList TermGroup::edgesForPaint() const
 {

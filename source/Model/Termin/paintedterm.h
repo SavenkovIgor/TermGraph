@@ -37,10 +37,11 @@
 class PaintedTerm : public GraphTerm, public GraphicItem
 {
 public:
+    using UnsafeList = std::vector<PaintedTerm*>;
+    using List       = std::vector<std::shared_ptr<PaintedTerm>>;
+
     PaintedTerm(const TermData& info);
     ~PaintedTerm() override = default;
-
-    using UnsafeList = std::vector<PaintedTerm*>;
 
     // Painting tools
     QLineF getRectLine(Qt::Edge side);
