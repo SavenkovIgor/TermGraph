@@ -29,27 +29,29 @@
 template<typename NodeData, typename EdgeData>
 class Edge
 {
+    using NodePtr = Node<NodeData>::Ptr;
+
 public:
     using Ptr  = std::shared_ptr<Edge<EdgeData, NodeData>>;
     using List = std::vector<Ptr>;
 
-    explicit Edge(Node<NodeData>::Ptr root, Node<NodeData>::Ptr leaf, EdgeData data)
+    explicit Edge(NodePtr root, NodePtr leaf, EdgeData data)
         : mRoot(root)
         , mLeaf(leaf)
         , mData(data)
     {}
 
-    static Ptr createPtr(Node<NodeData>::Ptr root, Node<NodeData>::Ptr leaf, EdgeData data = {})
+    static Ptr createPtr(NodePtr root, NodePtr leaf, EdgeData data = {})
     {
         return std::make_shared<Edge<NodeData, EdgeData>>(root, leaf, data);
     }
 
-    Node<NodeData>::Ptr root() { return mRoot; }
-    Node<NodeData>::Ptr leaf() { return mLeaf; }
+    NodePtr root() { return mRoot; }
+    NodePtr leaf() { return mLeaf; }
 
-    bool incidentalTo(const Node<NodeData>::Ptr& node) const { return mRoot == node || mLeaf == node; }
+    bool incidentalTo(const NodePtr& node) const { return mRoot == node || mLeaf == node; }
 
-    Node<NodeData>::Ptr oppositeTo(const Node<NodeData>::Ptr& node) const
+    NodePtr oppositeTo(const NodePtr& node) const
     {
         assert(incidentalTo(node));
         return mRoot == node ? mLeaf : mRoot;
@@ -60,8 +62,8 @@ public:
     const EdgeData& data() const { return mData; }
 
 private:
-    Node<NodeData>::Ptr mRoot;
-    Node<NodeData>::Ptr mLeaf;
+    NodePtr mRoot;
+    NodePtr mLeaf;
 
     EdgeData mData;
 };
