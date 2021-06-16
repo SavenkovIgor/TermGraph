@@ -129,7 +129,7 @@ void MainScene::showNewGroup(TermGroup* newGroup)
     updateSceneRect();
 
     if (mCurrentGroup) {
-        mTermsModel->setTerms(mCurrentGroup->nodes());
+        mTermsModel->setTerms(mCurrentGroup->terms());
         mEdgesModel->setEdges(mCurrentGroup->edgesForPaint());
     }
 
@@ -235,7 +235,7 @@ PaintedTerm* MainScene::getSelectedTerm() const { return selectedTerm; }
 
 PaintedTerm* MainScene::findTerm(const QUuid& termUuid) const
 {
-    return mCurrentGroup ? mCurrentGroup->getNode(termUuid) : nullptr;
+    return mCurrentGroup ? mCurrentGroup->getTerm(termUuid).get() : nullptr;
 }
 
 void MainScene::selectTerm(PaintedTerm* term)
@@ -269,7 +269,7 @@ QString MainScene::termUuidToName(const QUuid termUuid) const
 
 QUuid MainScene::termNameToUuid(const QString termName) const
 {
-    auto* node = mCurrentGroup ? mCurrentGroup->getNode(termName) : nullptr;
+    auto* node = mCurrentGroup ? mCurrentGroup->getTerm(termName).get() : nullptr;
     return node ? node->data().uuid : QUuid();
 }
 
@@ -322,7 +322,7 @@ PaintedTerm* MainScene::getNodeAtPoint(const QPointF& pt) const
         return nullptr;
 
     if (mCurrentGroup->getGroupRect().contains(pt))
-        return mCurrentGroup->getNode(pt);
+        return mCurrentGroup->getTerm(pt);
 
     return nullptr;
 }

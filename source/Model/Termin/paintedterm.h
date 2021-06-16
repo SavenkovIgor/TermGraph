@@ -37,8 +37,9 @@
 class PaintedTerm : public GraphTerm, public GraphicItem
 {
 public:
+    using Ptr        = std::shared_ptr<PaintedTerm>;
+    using List       = std::vector<Ptr>;
     using UnsafeList = std::vector<PaintedTerm*>;
-    using List       = std::vector<std::shared_ptr<PaintedTerm>>;
 
     PaintedTerm(const TermData& info);
     ~PaintedTerm() override = default;

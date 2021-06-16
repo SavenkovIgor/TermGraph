@@ -25,7 +25,7 @@ EdgesModel::EdgesModel(QObject *parent)
     : QAbstractListModel(parent)
 {}
 
-void EdgesModel::setEdges(PaintedEdge::UnsafeList edges)
+void EdgesModel::setEdges(PaintedEdge::List edges)
 {
     beginResetModel();
     mEdges = edges;

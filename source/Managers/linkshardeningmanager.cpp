@@ -114,12 +114,12 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
     std::vector<std::pair<int, PaintedTerm *>> distances;
 
     // Getting distances
-    for (auto *term : mCurrentGroup->nodes()) {
+    for (auto term : mCurrentGroup->terms()) {
         if (QUuid(mCurrentTerm.getUuid()) == term->data().uuid)
             continue;
 
         auto distance = LinkUtils::getLevDistance(currentLink().textLower(), term->data().term.toLower());
-        distances.push_back(std::pair(distance, term));
+        distances.push_back(std::pair(distance, term.get()));
     }
 
     auto sortCondition = [](auto pair1, auto pair2) { return pair1.first < pair2.first; };

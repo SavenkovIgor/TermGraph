@@ -49,12 +49,12 @@ public:
     UuidList searchNearest(const QString& text, int limit = 10) const;
     UuidList searchContains(const QString& text, int limit = 10) const;
 
-    PaintedTerm* getNode(const QPointF& pt) const;
-    PaintedTerm* getNode(const QUuid& nodeUuid) const;
-    PaintedTerm* getNode(const QString& nodeName) const;
+    PaintedTerm*     getTerm(const QPointF& pt) const;
+    PaintedTerm::Ptr getTerm(const QUuid& termUuid) const;
+    PaintedTerm::Ptr getTerm(const QString& termName) const;
 
-    PaintedTerm::UnsafeList nodes() const;
-    PaintedEdge::UnsafeList edgesForPaint() const;
+    PaintedTerm::List terms() const;
+    PaintedEdge::List edgesForPaint() const;
 
     QUuid   uuid() const;
     QString name() const;
@@ -92,24 +92,23 @@ private:
     QSizeF         getAllTreesSize();
 
     // Edges
-    PaintedEdge::List       searchAllConnections();
-    PaintedEdge::UnsafeList suggestConnections(); // TODO: Realize!
+    PaintedEdge::List searchAllConnections();
+    PaintedEdge::List suggestConnections(); // TODO: Realize!
 
-    PaintedTerm*            getNearestNodeForTag(const QString& tag);
-    void                    removeExceedEdges();
-    PaintedEdge::UnsafeList filterFromEdgesList(std::function<bool(PaintedEdge*)> condition) const;
-    void                    removeCycles();
-    PaintedEdge::UnsafeList edges() const;
+    PaintedTerm*      getNearestNodeForTag(const QString& tag);
+    void              removeExceedEdges();
+    PaintedEdge::List filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const;
+    void              removeCycles();
 
     // Nodes
     void                        setLevels();
-    PaintedTerm::UnsafeList     getRootNodes() const;
+    PaintedTerm::List           getRootNodes() const;
     QMap<QString, PaintedTerm*> getExactTermMatchCache();
     QMap<QUuid, PaintedTerm*>   getTermUuidsMap();
     QSizeF                      getOrphansSize();
-    PaintedTerm::UnsafeList     getInTreeNodes() const;
-    PaintedTerm::UnsafeList     getOrphanNodes() const;
-    PaintedTerm::UnsafeList     filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const;
+    PaintedTerm::List           getInTreeNodes() const;
+    PaintedTerm::List           getOrphanNodes() const;
+    PaintedTerm::List           filterFromNodesList(std::function<bool(PaintedTerm::Ptr)> filterCheck) const;
 
     bool isThreadInterrupted();
 
@@ -124,7 +123,7 @@ private:
 
     GroupData mInfo;
 
-    PaintedTerm::List mNodes;
+    PaintedTerm::List mTerms;
     PaintedEdge::List mEdges;
 
     PaintedEdge::List mRedundantEdges;

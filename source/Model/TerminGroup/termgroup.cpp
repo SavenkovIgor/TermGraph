@@ -21,8 +21,6 @@
 
 #include "source/Model/TerminGroup/termgroup.h"
 
-#include <ranges>
-
 #include <QElapsedTimer>
 #include <QThread>
 
@@ -45,7 +43,7 @@ TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObj
     t.start();
 
     for (const auto& term : termData)
-        mNodes.push_back(std::make_shared<PaintedTerm>(term));
+        mTerms.push_back(std::make_shared<PaintedTerm>(term));
 
     mEdges = searchAllConnections();
 
@@ -92,12 +90,12 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
     QString                        searchText = text.toLower();
     std::vector<QPair<int, QUuid>> searchResults;
     // Taking distances
-    for (auto* node : nodes()) {
-        auto lowerTerm = node->cache().lowerTerm();
+    for (auto term : mTerms) {
+        auto lowerTerm = term->cache().lowerTerm();
 
         // Exact match
         if (searchText == lowerTerm) {
-            searchResults.push_back({0, node->data().uuid});
+            searchResults.push_back({0, term->data().uuid});
             continue;
         }
 
@@ -107,7 +105,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
         auto distance        = LinkUtils::getLevDistance(cuttedTerm, searchText, acceptableLimit);
 
         if (distance <= acceptableLimit)
-            searchResults.push_back({distance, node->data().uuid});
+            searchResults.push_back({distance, term->data().uuid});
     }
 
     // Sorting
@@ -133,9 +131,9 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
     UuidList ret;
     auto     lowerSearch = text.toLower();
 
-    for (auto* node : nodes()) {
-        if (node->cache().lowerTerm().contains(lowerSearch))
-            ret.push_back(node->data().uuid);
+    for (auto term : mTerms) {
+        if (term->cache().lowerTerm().contains(lowerSearch))
+            ret.push_back(term->data().uuid);
 
         if (static_cast<int>(ret.size()) == limit)
             break;
@@ -144,7 +142,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
     return ret;
 }
 
-PaintedTerm* TermGroup::getNode(const QPointF& pt) const
+PaintedTerm* TermGroup::getTerm(const QPointF& pt) const
 {
     for (const auto* tree : trees()) {
         if (tree->getTreeRect(CoordType::scene).contains(pt)) {
@@ -156,7 +154,7 @@ PaintedTerm* TermGroup::getNode(const QPointF& pt) const
     if (orphansRect.contains(pt)) {
         for (auto orphan : getOrphanNodes()) {
             if (orphan->getNodeRect(CoordType::scene).contains(pt)) {
-                return orphan;
+                return orphan.get();
             }
         }
     }
@@ -164,20 +162,20 @@ PaintedTerm* TermGroup::getNode(const QPointF& pt) const
     return nullptr;
 }
 
-PaintedTerm* TermGroup::getNode(const QUuid& nodeUuid) const
+PaintedTerm::Ptr TermGroup::getTerm(const QUuid& termUuid) const
 {
-    for (auto* node : nodes())
-        if (node->data().uuid == nodeUuid)
-            return node;
+    for (auto term : mTerms)
+        if (term->data().uuid == termUuid)
+            return term;
 
     return nullptr;
 }
 
-PaintedTerm* TermGroup::getNode(const QString& nodeName) const
+PaintedTerm::Ptr TermGroup::getTerm(const QString& termName) const
 {
-    for (auto* node : nodes())
-        if (node->data().term == nodeName)
-            return node;
+    for (auto term : mTerms)
+        if (term->data().term == termName)
+            return term;
 
     return nullptr;
 }
@@ -191,9 +189,9 @@ void TermGroup::addOrphansToParents()
 
 void TermGroup::addEdgesToParents()
 {
-    for (PaintedEdge* edge : edges()) {
+    for (auto edge : mEdges) {
         for (auto* tree : trees()) {
-            if (tree->hasEdge(edge)) {
+            if (tree->hasEdge(edge.get())) {
                 edge->setParentItem(&(tree->rect()));
             }
         }
@@ -206,7 +204,13 @@ qreal TermGroup::getGroupMinWidth()
 
     qreal groupNameWidth = getNameSize().width();
     qreal treeWidth      = getAllTreesSize().width();
-    qreal orphansWidth   = NodeVerticalStackTools::getNodeVerticalStackedSize(getOrphanNodes()).width();
+
+    std::vector<PaintedTerm*> orphNodes;
+
+    for (auto node : getOrphanNodes())
+        orphNodes.push_back(node.get());
+
+    qreal orphansWidth = NodeVerticalStackTools::getNodeVerticalStackedSize(orphNodes).width();
 
     width = std::max(width, groupNameWidth);
     width = std::max(width, treeWidth);
@@ -287,7 +291,7 @@ void TermGroup::setOrphCoords(qreal maxWidth)
                 nMax = j;
             }
         }
-        auto* tmp         = orphansList[i];
+        auto tmp          = orphansList[i];
         orphansList[i]    = orphansList[nMax];
         orphansList[nMax] = tmp;
     }
@@ -318,8 +322,8 @@ void TermGroup::setAllWeights()
 {
     GraphTerm::resetMaxWeight();
 
-    for (auto* node : nodes())
-        node->giveWeights();
+    for (auto term : mTerms)
+        term->giveWeights();
 }
 
 void TermGroup::addTreeRectsToScene()
@@ -339,9 +343,9 @@ void TermGroup::setLevels()
         node->setLevel(0);
 }
 
-PaintedTerm::UnsafeList TermGroup::getRootNodes() const
+PaintedTerm::List TermGroup::getRootNodes() const
 {
-    return filterFromNodesList([](PaintedTerm* node) { return node->isRoot(); });
+    return filterFromNodesList([](auto node) { return node->isRoot(); });
 }
 
 void TermGroup::initTrees()
@@ -365,7 +369,7 @@ void TermGroup::initTrees()
         auto* tree = new TermTree();
         for (auto node : treeNodes) {
             if (node->getTreeId() == treeId) {
-                tree->addTerm(node);
+                tree->addTerm(node.get());
             }
         }
 
@@ -406,7 +410,7 @@ PaintedEdge::List TermGroup::searchAllConnections()
     bool       stopRequest = false;
 
     // Compare everything with everything
-    for (auto node : mNodes) {
+    for (auto node : mTerms) {
         for (const auto& link : node->cache().links()) {
             PaintedTerm* foundNode = nullptr;
 
@@ -458,7 +462,7 @@ PaintedTerm* TermGroup::getNearestNodeForTag(const QString& tag)
 
     opt<int> optionalResult;
 
-    for (auto node : mNodes) {
+    for (auto node : mTerms) {
         auto termName = node->cache().lowerTerm();
 
         if (!LinkUtils::tagLengthSuitTerm(tag, termName))
@@ -489,7 +493,7 @@ PaintedTerm* TermGroup::getNearestNodeForTag(const QString& tag)
 void TermGroup::removeExceedEdges()
 {
     // First find all edges to break
-    for (auto node : mNodes)
+    for (auto node : mTerms)
         node->checkForExceedEdges();
 
     for (auto edge : mEdges) {
@@ -505,10 +509,11 @@ void TermGroup::removeExceedEdges()
     }
 }
 
-PaintedEdge::UnsafeList TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge*)> condition) const
+PaintedEdge::List TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const
 {
-    PaintedEdge::UnsafeList ret;
-    for (auto* edge : edges()) {
+    PaintedEdge::List ret;
+
+    for (auto edge : mEdges) {
         if (condition(edge)) {
             ret.push_back(edge);
         }
@@ -520,7 +525,7 @@ PaintedEdge::UnsafeList TermGroup::filterFromEdgesList(std::function<bool(Painte
 void TermGroup::removeCycles()
 {
     // First find all edges to break
-    for (auto node : mNodes)
+    for (auto node : mTerms)
         node->getCycleEdge();
 
     for (auto edge : mEdges) {
@@ -536,23 +541,13 @@ void TermGroup::removeCycles()
     }
 }
 
-PaintedEdge::UnsafeList TermGroup::edges() const
+PaintedEdge::List TermGroup::edgesForPaint() const
 {
-    PaintedEdge::UnsafeList ret;
+    PaintedEdge::List lst;
 
-    for (auto edge : mEdges)
-        ret.push_back(edge.get());
-
-    return ret;
-}
-
-PaintedEdge::UnsafeList TermGroup::edgesForPaint() const
-{
-    PaintedEdge::UnsafeList lst;
-
-    auto softEdgesFilter     = [](PaintedEdge* e) { return !e->isSelected() && !e->isHard(); };
-    auto hardEdgesFilter     = [](PaintedEdge* e) { return !e->isSelected() && e->isHard(); };
-    auto selectedEdgesFilter = [](PaintedEdge* e) { return e->isSelected(); };
+    auto softEdgesFilter     = [](auto e) { return !e->isSelected() && !e->isHard(); };
+    auto hardEdgesFilter     = [](auto e) { return !e->isSelected() && e->isHard(); };
+    auto selectedEdgesFilter = [](auto e) { return e->isSelected(); };
 
     auto softEdges     = filterFromEdgesList(softEdgesFilter);
     auto hardEdges     = filterFromEdgesList(hardEdgesFilter);
@@ -563,7 +558,7 @@ PaintedEdge::UnsafeList TermGroup::edgesForPaint() const
     std::ranges::for_each(softEdges, addToList);
     std::ranges::for_each(hardEdges, addToList);
     std::ranges::for_each(selectedEdges, addToList);
-    std::ranges::for_each(mBrokenEdges, [&lst](auto e) { lst.push_back(e.get()); });
+    std::ranges::for_each(mBrokenEdges, addToList);
 
     return lst;
 }
@@ -576,7 +571,7 @@ QMap<QString, PaintedTerm*> TermGroup::getExactTermMatchCache()
 {
     QMap<QString, PaintedTerm*> ret;
 
-    for (auto node : mNodes)
+    for (auto node : mTerms)
         ret.insert(node->cache().lowerTerm(), node.get());
 
     return ret;
@@ -586,7 +581,7 @@ QMap<QUuid, PaintedTerm*> TermGroup::getTermUuidsMap()
 {
     QMap<QUuid, PaintedTerm*> ret;
 
-    for (auto node : mNodes)
+    for (auto node : mTerms)
         ret.insert(node->data().uuid, node.get());
 
     return ret;
@@ -601,35 +596,27 @@ QSizeF TermGroup::getOrphansSize()
     return orphansRc.size();
 }
 
-PaintedTerm::UnsafeList TermGroup::getInTreeNodes() const
+PaintedTerm::List TermGroup::getInTreeNodes() const
 {
-    return filterFromNodesList([](PaintedTerm* node) { return node->isInTree(); });
+    return filterFromNodesList([](auto node) { return node->isInTree(); });
 }
 
-PaintedTerm::UnsafeList TermGroup::getOrphanNodes() const
+PaintedTerm::List TermGroup::getOrphanNodes() const
 {
-    return filterFromNodesList([](PaintedTerm* node) { return node->isOrphan(); });
+    return filterFromNodesList([](auto node) { return node->isOrphan(); });
 }
 
-PaintedTerm::UnsafeList TermGroup::filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const
+PaintedTerm::List TermGroup::filterFromNodesList(std::function<bool(PaintedTerm::Ptr)> filterCheck) const
 {
-    PaintedTerm::UnsafeList ret;
-    for (auto node : mNodes) {
-        if (filterCheck(node.get())) {
-            ret.push_back(node.get());
+    PaintedTerm::List ret;
+    for (auto node : mTerms) {
+        if (filterCheck(node)) {
+            ret.push_back(node);
         }
     }
     return ret;
 }
 
-PaintedTerm::UnsafeList TermGroup::nodes() const
-{
-    PaintedTerm::UnsafeList ret;
-
-    for (auto node : mNodes)
-        ret.push_back(node.get());
-
-    return ret;
-}
+PaintedTerm::List TermGroup::terms() const { return mTerms; }
 
 bool TermGroup::isThreadInterrupted() { return QThread::currentThread()->isInterruptionRequested(); }
