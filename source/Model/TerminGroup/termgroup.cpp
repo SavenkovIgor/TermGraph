@@ -39,13 +39,13 @@ TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObj
     for (auto node : termData)
         Q_ASSERT_X(node.groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
 
-    for (const auto& term : termData)
-        mNodes.push_back(new PaintedTerm(term));
-
     mOrphansRect.setParentItem(&mBaseRect);
 
     QElapsedTimer t;
     t.start();
+
+    for (const auto& term : termData)
+        mNodes.push_back(std::make_shared<PaintedTerm>(term));
 
     mEdges = searchAllConnections();
 
@@ -82,7 +82,6 @@ TermGroup::~TermGroup()
     qDeleteAll(mTrees);
     mTrees.clear();
 
-    qDeleteAll(mNodes);
     qDeleteAll(mEdges);
 }
 
@@ -409,7 +408,7 @@ PaintedEdge::List TermGroup::searchAllConnections()
     bool       stopRequest = false;
 
     // Compare everything with everything
-    for (auto* node : mNodes) {
+    for (auto node : mNodes) {
         for (const auto& link : node->cache().links()) {
             PaintedTerm* foundNode = nullptr;
 
@@ -432,8 +431,8 @@ PaintedEdge::List TermGroup::searchAllConnections()
                 foundNode = getNearestNodeForTag(link.textLower());
 
             if (foundNode) {
-                if (foundNode != node) { // TODO: Real case, need check
-                    ret.push_back(new PaintedEdge(foundNode, node, eType));
+                if (foundNode != node.get()) { // TODO: Real case, need check
+                    ret.push_back(new PaintedEdge(foundNode, node.get(), eType));
                     previousTagSearchCache.insert(link.textLower(), foundNode);
                 }
             }
@@ -461,7 +460,7 @@ PaintedTerm* TermGroup::getNearestNodeForTag(const QString& tag)
 
     opt<int> optionalResult;
 
-    for (auto* node : mNodes) {
+    for (auto node : mNodes) {
         auto termName = node->cache().lowerTerm();
 
         if (!LinkUtils::tagLengthSuitTerm(tag, termName))
@@ -477,11 +476,11 @@ PaintedTerm* TermGroup::getNearestNodeForTag(const QString& tag)
 
         if (optionalResult) {
             if (optionalResult.value() == 0) // Already best match, no need to count further
-                return node;
+                return node.get();
 
             if (optionalResult.value() < minDistance) {
                 minDistance = optionalResult.value();
-                targetTerm  = node;
+                targetTerm  = node.get();
             }
         }
     }
@@ -492,7 +491,7 @@ PaintedTerm* TermGroup::getNearestNodeForTag(const QString& tag)
 void TermGroup::removeExceedEdges()
 {
     // First find all edges to break
-    for (auto* node : mNodes)
+    for (auto node : mNodes)
         node->checkForExceedEdges();
 
     PaintedEdge::List brokeList;
@@ -544,9 +543,8 @@ PaintedEdge::List TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge*
 void TermGroup::removeCycles()
 {
     // First find all edges to break
-    for (auto* node : mNodes) {
+    for (auto node : mNodes)
         node->getCycleEdge();
-    }
 
     PaintedEdge::List brokeList;
     for (auto* edge : mEdges) {
@@ -594,8 +592,8 @@ QMap<QString, PaintedTerm*> TermGroup::getExactTermMatchCache()
 {
     QMap<QString, PaintedTerm*> ret;
 
-    for (auto* node : mNodes)
-        ret.insert(node->cache().lowerTerm(), node);
+    for (auto node : mNodes)
+        ret.insert(node->cache().lowerTerm(), node.get());
 
     return ret;
 }
@@ -604,8 +602,8 @@ QMap<QUuid, PaintedTerm*> TermGroup::getTermUuidsMap()
 {
     QMap<QUuid, PaintedTerm*> ret;
 
-    for (auto* node : mNodes)
-        ret.insert(node->data().uuid, node);
+    for (auto node : mNodes)
+        ret.insert(node->data().uuid, node.get());
 
     return ret;
 }
@@ -632,14 +630,22 @@ PaintedTerm::List TermGroup::getOrphanNodes() const
 PaintedTerm::List TermGroup::filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const
 {
     PaintedTerm::List ret;
-    for (auto* node : mNodes) {
-        if (filterCheck(node)) {
-            ret.push_back(node);
+    for (auto node : mNodes) {
+        if (filterCheck(node.get())) {
+            ret.push_back(node.get());
         }
     }
     return ret;
 }
 
-PaintedTerm::List TermGroup::nodes() const { return mNodes; }
+PaintedTerm::List TermGroup::nodes() const
+{
+    PaintedTerm::List ret;
+
+    for (auto node : mNodes)
+        ret.push_back(node.get());
+
+    return ret;
+}
 
 bool TermGroup::isThreadInterrupted() { return QThread::currentThread()->isInterruptionRequested(); }

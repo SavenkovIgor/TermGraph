@@ -126,8 +126,8 @@ private:
 
     GroupData mInfo;
 
-    PaintedTerm::List mNodes;
-    PaintedEdge::List mEdges;
+    std::vector<std::shared_ptr<PaintedTerm>> mNodes;
+    PaintedEdge::List                         mEdges;
 
     TermTree::List mTrees;
 };
