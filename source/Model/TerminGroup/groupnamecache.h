@@ -29,7 +29,7 @@
 class GroupNameCache
 {
 public:
-    GroupNameCache(const PaintedTerm::List& nodes);
+    GroupNameCache(const PaintedTerm::UnsafeList& nodes);
 
     inline PaintedTerm* getIfExist(const QString& name) { return nodeMap.value(name, nullptr); }
 

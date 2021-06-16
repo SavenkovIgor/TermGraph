@@ -127,9 +127,9 @@ double TermTree::square() const
     return size.width() * size.height();
 }
 
-PaintedTerm::List TermTree::getAllNodesInTree() const
+PaintedTerm::UnsafeList TermTree::getAllNodesInTree() const
 {
-    PaintedTerm::List ret;
+    PaintedTerm::UnsafeList ret;
 
     for (const auto& stack : mStacks)
         for (auto node : stack.nodes())

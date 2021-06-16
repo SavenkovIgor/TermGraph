@@ -40,7 +40,7 @@ public:
     PaintedTerm(const TermData& info);
     ~PaintedTerm() override = default;
 
-    using List = std::vector<PaintedTerm*>;
+    using UnsafeList = std::vector<PaintedTerm*>;
 
     // Painting tools
     QLineF getRectLine(Qt::Edge side);

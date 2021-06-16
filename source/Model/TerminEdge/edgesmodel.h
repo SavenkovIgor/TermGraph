@@ -39,7 +39,7 @@ public:
 
     Q_ENUM(Roles);
 
-    void setEdges(PaintedEdge::List edges);
+    void setEdges(PaintedEdge::UnsafeList edges);
     void clear();
 
     QHash<int, QByteArray> roleNames() const override;
@@ -50,5 +50,5 @@ public:
     void updateSelection();
 
 private:
-    PaintedEdge::List mEdges;
+    PaintedEdge::UnsafeList mEdges;
 };

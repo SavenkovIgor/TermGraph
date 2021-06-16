@@ -23,7 +23,7 @@
 
 #include "source/Helpers/helpstuff.h"
 
-QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::List& nodes)
+QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::UnsafeList& nodes)
 {
     SizeList sizeList;
 
@@ -45,14 +45,14 @@ bool NodeVerticalStack::hasNode(PaintedTerm* term) const
     return false;
 }
 
-PaintedTerm::List NodeVerticalStack::nodes() const { return mTerms; }
+PaintedTerm::UnsafeList NodeVerticalStack::nodes() const { return mTerms; }
 
 // Clearly counted value. Ignoring real node positions
 QSizeF NodeVerticalStack::size() const { return NodeVerticalStackTools::getNodeVerticalStackedSize(mTerms); }
 
 void NodeVerticalStack::placeTerms(QPointF centerPoint)
 {
-    PaintedTerm::List placingTerms = mTerms;
+    PaintedTerm::UnsafeList placingTerms = mTerms;
 
     if (!isRootStack()) {
         auto packs = getNodePacks(placingTerms);
@@ -88,7 +88,7 @@ bool NodeVerticalStack::isRootStack() const
     return false;
 }
 
-std::vector<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::List& terms)
+std::vector<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::UnsafeList& terms)
 {
     std::vector<NodePack> ret;
 
@@ -135,9 +135,9 @@ void NodeVerticalStack::sortNodePacks(std::vector<NodeVerticalStack::NodePack>& 
     }
 }
 
-PaintedTerm::List NodeVerticalStack::flatNodePack(const std::vector<NodeVerticalStack::NodePack>& pack)
+PaintedTerm::UnsafeList NodeVerticalStack::flatNodePack(const std::vector<NodeVerticalStack::NodePack>& pack)
 {
-    PaintedTerm::List ret;
+    PaintedTerm::UnsafeList ret;
 
     for ([[maybe_unused]] const auto& [pt, nodes] : pack) {
         for (auto* node : nodes)

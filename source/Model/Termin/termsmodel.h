@@ -35,7 +35,7 @@ class TermsModel : public QAbstractListModel
 public:
     explicit TermsModel(QObject* parent = nullptr);
 
-    void setTerms(PaintedTerm::List terms);
+    void setTerms(PaintedTerm::UnsafeList terms);
     void clear();
 
     QHash<int, QByteArray> roleNames() const override;
@@ -46,5 +46,5 @@ public:
     void updateSelection();
 
 private:
-    PaintedTerm::List mTerms;
+    PaintedTerm::UnsafeList mTerms;
 };

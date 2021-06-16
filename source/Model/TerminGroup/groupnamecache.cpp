@@ -21,7 +21,7 @@
 
 #include "source/Model/TerminGroup/groupnamecache.h"
 
-GroupNameCache::GroupNameCache(const PaintedTerm::List& nodes)
+GroupNameCache::GroupNameCache(const PaintedTerm::UnsafeList& nodes)
 {
     for (const auto& node : nodes) {
         auto name = node->data().term.simplified();

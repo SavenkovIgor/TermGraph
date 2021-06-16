@@ -25,7 +25,7 @@ TermsModel::TermsModel(QObject *parent)
     : QAbstractListModel(parent)
 {}
 
-void TermsModel::setTerms(PaintedTerm::List terms)
+void TermsModel::setTerms(PaintedTerm::UnsafeList terms)
 {
     beginResetModel();
     mTerms = terms;

@@ -341,7 +341,7 @@ void TermGroup::setLevels()
         node->setLevel(0);
 }
 
-PaintedTerm::List TermGroup::getRootNodes() const
+PaintedTerm::UnsafeList TermGroup::getRootNodes() const
 {
     return filterFromNodesList([](PaintedTerm* node) { return node->isRoot(); });
 }
@@ -396,9 +396,9 @@ QSizeF TermGroup::getAllTreesSize()
     return totalSize;
 }
 
-PaintedEdge::List TermGroup::searchAllConnections()
+PaintedEdge::UnsafeList TermGroup::searchAllConnections()
 {
-    PaintedEdge::List ret;
+    PaintedEdge::UnsafeList ret;
 
     // Pre-heating of cache with exact terms match
     QMap<QString, PaintedTerm*> previousTagSearchCache = getExactTermMatchCache();
@@ -494,7 +494,7 @@ void TermGroup::removeExceedEdges()
     for (auto node : mNodes)
         node->checkForExceedEdges();
 
-    PaintedEdge::List brokeList;
+    PaintedEdge::UnsafeList brokeList;
     for (auto* edge : mEdges) {
         if (edge->needCutOut) {
             brokeList.push_back(edge);
@@ -508,9 +508,9 @@ void TermGroup::removeExceedEdges()
     }
 }
 
-PaintedEdge::List TermGroup::brokenEdges() const
+PaintedEdge::UnsafeList TermGroup::brokenEdges() const
 {
-    PaintedEdge::List ret;
+    PaintedEdge::UnsafeList ret;
     for (auto* node : nodes())
         for (auto* edge : node->getBrokenEdges())
             ret.push_back(dynamic_cast<PaintedEdge*>(edge));
@@ -518,9 +518,9 @@ PaintedEdge::List TermGroup::brokenEdges() const
     return ret;
 }
 
-PaintedEdge::List TermGroup::redundantEdges() const
+PaintedEdge::UnsafeList TermGroup::redundantEdges() const
 {
-    PaintedEdge::List ret;
+    PaintedEdge::UnsafeList ret;
     for (auto* node : nodes())
         for (auto* edge : node->getRedundantEdges())
             ret.push_back(dynamic_cast<PaintedEdge*>(edge));
@@ -528,9 +528,9 @@ PaintedEdge::List TermGroup::redundantEdges() const
     return ret;
 }
 
-PaintedEdge::List TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge*)> condition) const
+PaintedEdge::UnsafeList TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge*)> condition) const
 {
-    PaintedEdge::List ret;
+    PaintedEdge::UnsafeList ret;
     for (auto* edge : edges()) {
         if (condition(edge)) {
             ret.push_back(edge);
@@ -546,7 +546,7 @@ void TermGroup::removeCycles()
     for (auto node : mNodes)
         node->getCycleEdge();
 
-    PaintedEdge::List brokeList;
+    PaintedEdge::UnsafeList brokeList;
     for (auto* edge : mEdges) {
         if (edge->needBroke) {
             brokeList.push_back(edge);
@@ -560,11 +560,11 @@ void TermGroup::removeCycles()
     }
 }
 
-PaintedEdge::List TermGroup::edges() const { return mEdges; }
+PaintedEdge::UnsafeList TermGroup::edges() const { return mEdges; }
 
-PaintedEdge::List TermGroup::edgesForPaint() const
+PaintedEdge::UnsafeList TermGroup::edgesForPaint() const
 {
-    PaintedEdge::List lst;
+    PaintedEdge::UnsafeList lst;
 
     auto softEdgesFilter     = [](PaintedEdge* e) { return !e->isSelected() && !e->isHard(); };
     auto hardEdgesFilter     = [](PaintedEdge* e) { return !e->isSelected() && e->isHard(); };
@@ -617,19 +617,19 @@ QSizeF TermGroup::getOrphansSize()
     return orphansRc.size();
 }
 
-PaintedTerm::List TermGroup::getInTreeNodes() const
+PaintedTerm::UnsafeList TermGroup::getInTreeNodes() const
 {
     return filterFromNodesList([](PaintedTerm* node) { return node->isInTree(); });
 }
 
-PaintedTerm::List TermGroup::getOrphanNodes() const
+PaintedTerm::UnsafeList TermGroup::getOrphanNodes() const
 {
     return filterFromNodesList([](PaintedTerm* node) { return node->isOrphan(); });
 }
 
-PaintedTerm::List TermGroup::filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const
+PaintedTerm::UnsafeList TermGroup::filterFromNodesList(std::function<bool(PaintedTerm*)> filterCheck) const
 {
-    PaintedTerm::List ret;
+    PaintedTerm::UnsafeList ret;
     for (auto node : mNodes) {
         if (filterCheck(node.get())) {
             ret.push_back(node.get());
@@ -638,9 +638,9 @@ PaintedTerm::List TermGroup::filterFromNodesList(std::function<bool(PaintedTerm*
     return ret;
 }
 
-PaintedTerm::List TermGroup::nodes() const
+PaintedTerm::UnsafeList TermGroup::nodes() const
 {
-    PaintedTerm::List ret;
+    PaintedTerm::UnsafeList ret;
 
     for (auto node : mNodes)
         ret.push_back(node.get());

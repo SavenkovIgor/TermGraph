@@ -37,7 +37,7 @@ class PaintedTerm;
 class PaintedEdge : public GraphEdge, public GraphicItem
 {
 public:
-    using List = std::vector<PaintedEdge*>;
+    using UnsafeList = std::vector<PaintedEdge*>;
 
     explicit PaintedEdge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type = EdgeType::termin);
     ~PaintedEdge() override = default;
