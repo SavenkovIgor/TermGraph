@@ -70,10 +70,8 @@ public:
     void removeEdgeToLeafs(GraphEdge* edge);
     void removeEdgeToRoots(GraphEdge* edge);
 
-    void            addBrokenEdge(GraphEdge* edge);
-    void            addRedundantEdge(GraphEdge* edge);
-    GraphEdge::List getBrokenEdges() const;
-    GraphEdge::List getRedundantEdges() const;
+    void addBrokenEdge(GraphEdge* edge);
+    void addRedundantEdge(GraphEdge* edge);
 
     void checkForExceedEdges();
 

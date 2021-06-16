@@ -97,8 +97,6 @@ private:
 
     PaintedTerm*            getNearestNodeForTag(const QString& tag);
     void                    removeExceedEdges();
-    PaintedEdge::UnsafeList brokenEdges() const;
-    PaintedEdge::UnsafeList redundantEdges() const;
     PaintedEdge::UnsafeList filterFromEdgesList(std::function<bool(PaintedEdge*)> condition) const;
     void                    removeCycles();
     PaintedEdge::UnsafeList edges() const;

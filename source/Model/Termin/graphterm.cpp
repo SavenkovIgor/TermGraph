@@ -215,10 +215,6 @@ void GraphTerm::addRedundantEdge(GraphEdge* edge)
         redundantEdges.push_back(edge);
 }
 
-GraphEdge::List GraphTerm::getBrokenEdges() const { return brokenEdges; }
-
-GraphEdge::List GraphTerm::getRedundantEdges() const { return redundantEdges; }
-
 void GraphTerm::checkForExceedEdges()
 {
     for (auto node : getRootNodes()) {

@@ -505,26 +505,6 @@ void TermGroup::removeExceedEdges()
     }
 }
 
-PaintedEdge::UnsafeList TermGroup::brokenEdges() const
-{
-    PaintedEdge::UnsafeList ret;
-
-    for (auto edge : mBrokenEdges)
-        ret.push_back(edge.get());
-
-    return ret;
-}
-
-PaintedEdge::UnsafeList TermGroup::redundantEdges() const
-{
-    PaintedEdge::UnsafeList ret;
-
-    for (auto edge : mRedundantEdges)
-        ret.push_back(edge.get());
-
-    return ret;
-}
-
 PaintedEdge::UnsafeList TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge*)> condition) const
 {
     PaintedEdge::UnsafeList ret;
@@ -583,7 +563,7 @@ PaintedEdge::UnsafeList TermGroup::edgesForPaint() const
     std::ranges::for_each(softEdges, addToList);
     std::ranges::for_each(hardEdges, addToList);
     std::ranges::for_each(selectedEdges, addToList);
-    std::ranges::for_each(brokenEdges(), addToList);
+    std::ranges::for_each(mBrokenEdges, [&lst](auto e) { lst.push_back(e.get()); });
 
     return lst;
 }
