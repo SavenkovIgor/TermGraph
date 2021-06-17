@@ -61,9 +61,9 @@ public:
     GraphTerm::List getRootNodes();
     GraphTerm::List getLeafNodes();
 
-    GraphEdge::List getEdgesToLeafs() const;
-    GraphEdge::List getEdgesToRoots() const;
-    GraphEdge::List getAllConnectedEdges() const;
+    GraphEdge::UnsafeList getEdgesToLeafs() const;
+    GraphEdge::UnsafeList getEdgesToRoots() const;
+    GraphEdge::UnsafeList getAllConnectedEdges() const;
 
     int cycleSearchFlag = 0;
 
@@ -85,12 +85,12 @@ public:
     const TermDataCache& cache() const;
 
 private:
-    GraphEdge::List edgesToOtherGroups; // Пока никак не используются но будут.
-    GraphEdge::List brokenEdges;        // Пока никак не используются но будут.
-    GraphEdge::List redundantEdges;
+    GraphEdge::UnsafeList edgesToOtherGroups; // Пока никак не используются но будут.
+    GraphEdge::UnsafeList brokenEdges;        // Пока никак не используются но будут.
+    GraphEdge::UnsafeList redundantEdges;
 
-    GraphEdge::List edgesToLeafs;
-    GraphEdge::List edgesToRoots;
+    GraphEdge::UnsafeList edgesToLeafs;
+    GraphEdge::UnsafeList edgesToRoots;
 
     int          paintLevel = -1;
     unsigned int treeId     = 0; // 0 = no value

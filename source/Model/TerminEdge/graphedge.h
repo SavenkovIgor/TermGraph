@@ -28,7 +28,7 @@ class GraphTerm;
 class GraphEdge
 {
 public:
-    using List = std::vector<GraphEdge*>;
+    using UnsafeList = std::vector<GraphEdge*>;
 
     GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf);
     GraphEdge();

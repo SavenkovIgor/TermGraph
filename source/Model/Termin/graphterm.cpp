@@ -174,13 +174,13 @@ GraphTerm::List GraphTerm::getLeafNodes()
     return ret;
 }
 
-GraphEdge::List GraphTerm::getEdgesToLeafs() const { return edgesToLeafs; }
+GraphEdge::UnsafeList GraphTerm::getEdgesToLeafs() const { return edgesToLeafs; }
 
-GraphEdge::List GraphTerm::getEdgesToRoots() const { return edgesToRoots; }
+GraphEdge::UnsafeList GraphTerm::getEdgesToRoots() const { return edgesToRoots; }
 
-GraphEdge::List GraphTerm::getAllConnectedEdges() const
+GraphEdge::UnsafeList GraphTerm::getAllConnectedEdges() const
 {
-    GraphEdge::List ret;
+    GraphEdge::UnsafeList ret;
 
     for (auto e : edgesToRoots)
         ret.push_back(e);
