@@ -45,8 +45,6 @@ public:
     TermPtr safeRoot() const { return toRoot; }
     TermPtr safeLeaf() const { return toLeaf; }
 
-    bool       hasNode(GraphTerm* node) const;
-    bool       isSameEdge(GraphTerm* rt, GraphTerm* br) const;
     GraphTerm* getOtherSide(GraphTerm* n) const;
 
     bool needBroke  = false;

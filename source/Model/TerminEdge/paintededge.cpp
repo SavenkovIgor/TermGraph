@@ -54,7 +54,7 @@ QColor PaintedEdge::getEdgeColor() const
 void PaintedEdge::brokeEdge()
 {
     cutOutFromSides();
-    getRoot()->addBrokenEdge(this);
+    safeRoot()->addBrokenEdge(this);
 
     mData.type = EdgeType::broken;
 }
@@ -62,15 +62,15 @@ void PaintedEdge::brokeEdge()
 void PaintedEdge::makeEdgeRedundant()
 {
     cutOutFromSides();
-    getLeaf()->addRedundantEdge(this);
+    safeLeaf()->addRedundantEdge(this);
 
     mData.type = EdgeType::redundant;
 }
 
 void PaintedEdge::cutOutFromSides()
 {
-    getRoot()->removeEdgeToLeafs(this);
-    getLeaf()->removeEdgeToRoots(this);
+    safeRoot()->removeEdgeToLeafs(this);
+    safeLeaf()->removeEdgeToRoots(this);
 }
 
 EdgeSelection PaintedEdge::selectedType() const { return mData.selectionType; }

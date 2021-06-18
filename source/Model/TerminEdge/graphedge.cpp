@@ -40,22 +40,6 @@ GraphEdge::GraphEdge()
     this->toLeaf = nullptr;
 }
 
-bool GraphEdge::hasNode(GraphTerm* node) const
-{
-    if (node == toRoot.get() || node == toLeaf.get())
-        return true;
-
-    return false;
-}
-
-bool GraphEdge::isSameEdge(GraphTerm* rt, GraphTerm* br) const
-{
-    bool rOk = (toRoot.get() == rt || toRoot.get() == br);
-    bool bOk = (toLeaf.get() == rt || toLeaf.get() == br);
-
-    return rOk && bOk;
-}
-
 GraphTerm* GraphEdge::getOtherSide(GraphTerm* n) const
 {
     if (n == toRoot.get()) {
