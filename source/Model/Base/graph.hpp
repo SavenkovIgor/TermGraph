@@ -32,23 +32,23 @@
 #include "source/Model/Base/graphdata.hpp"
 #include "source/Model/Base/node.hpp"
 
-template<typename NodeData, typename EdgeData>
-class Graph : protected GraphData<NodeData, EdgeData>
+template<typename NodeT, typename EdgeT>
+class Graph : protected GraphData<NodeT, EdgeT>
 {
 private:
-    using NodePtr  = Node<NodeData>::Ptr;
-    using NodeList = Node<NodeData>::List;
+    using NodePtr  = NodeT::Ptr;
+    using NodeList = NodeT::List;
 
-    using EdgePtr  = Edge<NodeData, EdgeData>::Ptr;
-    using EdgeList = Edge<NodeData, EdgeData>::List;
+    using EdgePtr  = EdgeT::Ptr;
+    using EdgeList = EdgeT::List;
 
-    using Base = GraphData<NodeData, EdgeData>;
+    using Base = GraphData<NodeT, EdgeT>;
 
 public:
-    using List = std::vector<std::shared_ptr<Graph<NodeData, EdgeData>>>;
+    using List = std::vector<std::shared_ptr<Graph<NodeT, EdgeT>>>;
 
-    explicit Graph(const GraphData<NodeData, EdgeData>& data)
-        : GraphData<NodeData, EdgeData>{.nodes = data.nodes, .edges = data.edges}
+    explicit Graph(const GraphData<NodeT, EdgeT>& data)
+        : GraphData<NodeT, EdgeT>{.nodes = data.nodes, .edges = data.edges}
     {
         // Uniqueness check
         std::set<NodePtr> nodeSet(data.nodes.begin(), data.nodes.end());
@@ -107,7 +107,7 @@ public:
         return EdgeList(filtered.begin(), filtered.end());
     }
 
-    GraphData<NodeData, EdgeData> surrounding(const NodePtr& node)
+    GraphData<NodeT, EdgeT> surrounding(const NodePtr& node)
     {
         assert(contains(node));
         auto     edges = connectedEdges(node);
@@ -118,7 +118,7 @@ public:
         return {.nodes = nodes, .edges = edges};
     }
 
-    GraphData<NodeData, EdgeData>::List bondedSubgraphs()
+    GraphData<NodeT, EdgeT>::List bondedSubgraphs()
     {
         using namespace std;
 
@@ -131,7 +131,7 @@ public:
         if (nodesVisitList.empty())
             return {};
 
-        typename GraphData<NodeData, EdgeData>::List ret;
+        typename GraphData<NodeT, EdgeT>::List ret;
 
         auto isNodePlanned = [](const auto& val) { return val.second == State::Planned; };
         auto isNodeVisited = [](const auto& val) { return val.second == State::Visited; };

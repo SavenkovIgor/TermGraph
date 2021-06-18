@@ -27,33 +27,38 @@
 class GraphTest : public ::testing::Test
 {
 public:
-    static const Node<int>::Ptr n1;
-    static const Node<int>::Ptr n2;
-    static const Node<int>::Ptr n3;
-    static const Node<int>::Ptr n4;
-    static const Node<int>::Ptr n5;
+    using NodeT      = Node<int>;
+    using EdgeT      = Edge<NodeT, int>;
+    using GraphT     = Graph<NodeT, EdgeT>;
+    using GraphDataT = GraphData<NodeT, EdgeT>;
 
-    static const Edge<int, int>::Ptr e1;
-    static const Edge<int, int>::Ptr e2;
+    static const NodeT::Ptr n1;
+    static const NodeT::Ptr n2;
+    static const NodeT::Ptr n3;
+    static const NodeT::Ptr n4;
+    static const NodeT::Ptr n5;
+
+    static const EdgeT::Ptr e1;
+    static const EdgeT::Ptr e2;
 };
 
-const Node<int>::Ptr GraphTest::n1 = Node<int>::createPtr(1);
-const Node<int>::Ptr GraphTest::n2 = Node<int>::createPtr(2);
-const Node<int>::Ptr GraphTest::n3 = Node<int>::createPtr(3);
-const Node<int>::Ptr GraphTest::n4 = Node<int>::createPtr(4);
-const Node<int>::Ptr GraphTest::n5 = Node<int>::createPtr(5);
+const GraphTest::NodeT::Ptr GraphTest::n1 = NodeT::createPtr(1);
+const GraphTest::NodeT::Ptr GraphTest::n2 = NodeT::createPtr(2);
+const GraphTest::NodeT::Ptr GraphTest::n3 = NodeT::createPtr(3);
+const GraphTest::NodeT::Ptr GraphTest::n4 = NodeT::createPtr(4);
+const GraphTest::NodeT::Ptr GraphTest::n5 = NodeT::createPtr(5);
 
-const Edge<int, int>::Ptr GraphTest::e1 = Edge<int, int>::createPtr(n1, n1, 1);
-const Edge<int, int>::Ptr GraphTest::e2 = Edge<int, int>::createPtr(n3, n5, 2);
+const GraphTest::EdgeT::Ptr GraphTest::e1 = EdgeT::createPtr(n1, n1, 1);
+const GraphTest::EdgeT::Ptr GraphTest::e2 = EdgeT::createPtr(n3, n5, 2);
 
 TEST_F(GraphTest, GraphDataInit)
 {
-    auto list = GraphData<int, int>::List{{.nodes = {n1, n2}, .edges = {e1}}, {.nodes = {n2, n1}, .edges = {}}};
+    auto list = GraphDataT::List{{.nodes = {n1, n2}, .edges = {e1}}, {.nodes = {n2, n1}, .edges = {}}};
 
     EXPECT_EQ(list[0].edges.size(), 1);
     EXPECT_EQ(list[1].edges.size(), 0);
 
-    auto graph = Graph<int, int>({.nodes = {n1, n2, n3}, .edges = {e1, e2}});
+    auto graph = GraphT({.nodes = {n1, n2, n3}, .edges = {e1, e2}});
 
     EXPECT_EQ(graph.nodeList().size(), 3);
     EXPECT_EQ(graph.edgeList().size(), 2);
@@ -61,7 +66,7 @@ TEST_F(GraphTest, GraphDataInit)
 
 TEST_F(GraphTest, GraphDataContains)
 {
-    auto data = GraphData<int, int>{.nodes = {n1, n2}, .edges = {e1}};
+    auto data = GraphDataT{.nodes = {n1, n2}, .edges = {e1}};
 
     EXPECT_TRUE(data.contains(n1));
     EXPECT_TRUE(data.contains(n2));
@@ -73,7 +78,7 @@ TEST_F(GraphTest, GraphDataContains)
 
 TEST_F(GraphTest, GraphDataFilter)
 {
-    auto data = GraphData<int, int>{.nodes = {n1, n2, n3, n4}, .edges = {e1, e2}};
+    auto data = GraphDataT{.nodes = {n1, n2, n3, n4}, .edges = {e1, e2}};
 
     auto fNodes = data.filterNodes([](auto node) { return node->data() % 2 == 0; });
 
@@ -89,27 +94,27 @@ TEST_F(GraphTest, GraphDataFilter)
 
 TEST_F(GraphTest, GraphDataSubtract)
 {
-    auto nodes1 = GraphData<int, int>::subtractNodeList({n1, n2, n3, n4}, {n1, n3});
+    auto nodes1 = GraphDataT::subtractNodeList({n1, n2, n3, n4}, {n1, n3});
     EXPECT_EQ(nodes1.size(), 2);
     EXPECT_EQ(nodes1[0]->data(), 2);
     EXPECT_EQ(nodes1[1]->data(), 4);
 
-    auto nodes2 = GraphData<int, int>::subtractNodeList({n1, n2, n3, n4}, {n1, n2, n3, n4});
+    auto nodes2 = GraphDataT::subtractNodeList({n1, n2, n3, n4}, {n1, n2, n3, n4});
     EXPECT_EQ(nodes2.size(), 0);
 
-    auto edges1 = GraphData<int, int>::subtractEdgeList({e1, e2}, {});
+    auto edges1 = GraphDataT::subtractEdgeList({e1, e2}, {});
     EXPECT_EQ(edges1.size(), 2);
     EXPECT_EQ(edges1[0]->data(), 1);
     EXPECT_EQ(edges1[1]->data(), 2);
 
-    auto edges2 = GraphData<int, int>::subtractEdgeList({e1, e2}, {e1});
+    auto edges2 = GraphDataT::subtractEdgeList({e1, e2}, {e1});
     EXPECT_EQ(edges2.size(), 1);
     EXPECT_EQ(edges2[0]->data(), 2);
 }
 
 TEST_F(GraphTest, Contains)
 {
-    auto graph = Graph<int, int>({.nodes = {n1, n2, n3}, .edges = {e1, e2}});
+    auto graph = GraphT({.nodes = {n1, n2, n3}, .edges = {e1, e2}});
 
     EXPECT_TRUE(graph.contains(n1));
     EXPECT_TRUE(graph.contains(n2));
@@ -121,12 +126,12 @@ TEST_F(GraphTest, Contains)
     EXPECT_TRUE(graph.contains(e1));
     EXPECT_TRUE(graph.contains(e2));
 
-    EXPECT_FALSE(graph.contains(Edge<int, int>::createPtr(n1, n1, 3)));
+    EXPECT_FALSE(graph.contains(EdgeT::createPtr(n1, n1, 3)));
 }
 
 TEST_F(GraphTest, Isolated)
 {
-    auto graph = Graph<int, int>({.nodes = {n1, n2, n3, n4, n5}, .edges = {e1, e2}});
+    auto graph = GraphT({.nodes = {n1, n2, n3, n4, n5}, .edges = {e1, e2}});
 
     auto isolated = graph.isolatedNodes();
 
@@ -137,7 +142,7 @@ TEST_F(GraphTest, Isolated)
 
 TEST_F(GraphTest, NotIsolated)
 {
-    auto graph = Graph<int, int>({.nodes = {n1, n2, n3, n4, n5}, .edges = {e1, e2}});
+    auto graph = GraphT({.nodes = {n1, n2, n3, n4, n5}, .edges = {e1, e2}});
 
     auto connectedNodes = graph.connectedNodes();
 
@@ -149,9 +154,9 @@ TEST_F(GraphTest, NotIsolated)
 
 TEST_F(GraphTest, ConnectedEdges)
 {
-    auto e3 = Edge<int, int>::createPtr(n3, n4, 3);
+    auto e3 = EdgeT::createPtr(n3, n4, 3);
 
-    auto graph = Graph<int, int>({.nodes = {n1, n2, n3, n4, n5}, .edges = {e1, e2, e3}});
+    auto graph = GraphT({.nodes = {n1, n2, n3, n4, n5}, .edges = {e1, e2, e3}});
 
     auto edges1 = graph.connectedEdges(n1);
 
@@ -169,7 +174,7 @@ TEST_F(GraphTest, ConnectedEdges)
 
 TEST_F(GraphTest, Surrounding)
 {
-    auto graph = Graph<int, int>({.nodes = {n1, n2, n3, n4, n5}, .edges = {e1, e2}});
+    auto graph = GraphT({.nodes = {n1, n2, n3, n4, n5}, .edges = {e1, e2}});
 
     auto n1surr = graph.surrounding(n1);
 
@@ -200,8 +205,8 @@ TEST_F(GraphTest, Surrounding)
 
 TEST_F(GraphTest, BondedSubgraphs)
 {
-    auto e3    = Edge<int, int>::createPtr(n5, n4, 3);
-    auto graph = Graph<int, int>({.nodes = {n1, n2, n3, n4, n5}, .edges = {e1, e2, e3}});
+    auto e3    = EdgeT::createPtr(n5, n4, 3);
+    auto graph = GraphT({.nodes = {n1, n2, n3, n4, n5}, .edges = {e1, e2, e3}});
 
     auto subraphs = graph.bondedSubgraphs();
 

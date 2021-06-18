@@ -26,24 +26,24 @@
 
 #include "source/Model/Base/node.hpp"
 
-template<typename NodeData, typename EdgeData>
+template<typename NodeT, typename EdgeData>
 class Edge
 {
-    using NodePtr = Node<NodeData>::Ptr;
+    using NodePtr = std::shared_ptr<NodeT>;
 
 public:
-    using Ptr  = std::shared_ptr<Edge<EdgeData, NodeData>>;
+    using Ptr  = std::shared_ptr<Edge<NodeT, EdgeData>>;
     using List = std::vector<Ptr>;
 
     explicit Edge(NodePtr root, NodePtr leaf, EdgeData data)
-        : mRoot(root)
-        , mLeaf(leaf)
-        , mData(data)
+        : mRoot(std::move(root))
+        , mLeaf(std::move(leaf))
+        , mData(std::move(data))
     {}
 
     static Ptr createPtr(NodePtr root, NodePtr leaf, EdgeData data = {})
     {
-        return std::make_shared<Edge<NodeData, EdgeData>>(root, leaf, data);
+        return std::make_shared<Edge<NodeT, EdgeData>>(root, leaf, data);
     }
 
     NodePtr root() { return mRoot; }

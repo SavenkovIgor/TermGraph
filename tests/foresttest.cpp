@@ -30,49 +30,54 @@
 class ForestTest : public ::testing::Test
 {
 public:
-    static const Node<int>::Ptr n1;
-    static const Node<int>::Ptr n2;
-    static const Node<int>::Ptr n3;
-    static const Node<int>::Ptr n4;
-    static const Node<int>::Ptr n5;
-    static const Node<int>::Ptr n6;
-    static const Node<int>::Ptr n7;
-    static const Node<int>::Ptr n8;
+    using NodeT      = Node<int>;
+    using EdgeT      = Edge<NodeT, int>;
+    using GraphDataT = GraphData<NodeT, EdgeT>;
+    using ForestT    = Forest<NodeT, EdgeT>;
 
-    static const Edge<int, int>::Ptr e1;
-    static const Edge<int, int>::Ptr e2;
-    static const Edge<int, int>::Ptr e3;
-    static const Edge<int, int>::Ptr e4;
-    static const Edge<int, int>::Ptr e5;
-    static const Edge<int, int>::Ptr e6;
-    static const Edge<int, int>::Ptr e7;
-    static const Edge<int, int>::Ptr e8;
-    static const Edge<int, int>::Ptr e9;
-    static const Edge<int, int>::Ptr e10;
+    static const NodeT::Ptr n1;
+    static const NodeT::Ptr n2;
+    static const NodeT::Ptr n3;
+    static const NodeT::Ptr n4;
+    static const NodeT::Ptr n5;
+    static const NodeT::Ptr n6;
+    static const NodeT::Ptr n7;
+    static const NodeT::Ptr n8;
 
-    static const Forest<int, int> fullForest;
+    static const EdgeT::Ptr e1;
+    static const EdgeT::Ptr e2;
+    static const EdgeT::Ptr e3;
+    static const EdgeT::Ptr e4;
+    static const EdgeT::Ptr e5;
+    static const EdgeT::Ptr e6;
+    static const EdgeT::Ptr e7;
+    static const EdgeT::Ptr e8;
+    static const EdgeT::Ptr e9;
+    static const EdgeT::Ptr e10;
+
+    static const ForestT fullForest;
 };
 
-const Node<int>::Ptr ForestTest::n1 = Node<int>::createPtr(1);
-const Node<int>::Ptr ForestTest::n2 = Node<int>::createPtr(2);
-const Node<int>::Ptr ForestTest::n3 = Node<int>::createPtr(3);
-const Node<int>::Ptr ForestTest::n4 = Node<int>::createPtr(4);
-const Node<int>::Ptr ForestTest::n5 = Node<int>::createPtr(5);
-const Node<int>::Ptr ForestTest::n6 = Node<int>::createPtr(6);
-const Node<int>::Ptr ForestTest::n7 = Node<int>::createPtr(7);
-const Node<int>::Ptr ForestTest::n8 = Node<int>::createPtr(8);
+const ForestTest::NodeT::Ptr ForestTest::n1 = NodeT::createPtr(1);
+const ForestTest::NodeT::Ptr ForestTest::n2 = NodeT::createPtr(2);
+const ForestTest::NodeT::Ptr ForestTest::n3 = NodeT::createPtr(3);
+const ForestTest::NodeT::Ptr ForestTest::n4 = NodeT::createPtr(4);
+const ForestTest::NodeT::Ptr ForestTest::n5 = NodeT::createPtr(5);
+const ForestTest::NodeT::Ptr ForestTest::n6 = NodeT::createPtr(6);
+const ForestTest::NodeT::Ptr ForestTest::n7 = NodeT::createPtr(7);
+const ForestTest::NodeT::Ptr ForestTest::n8 = NodeT::createPtr(8);
 
-const Edge<int, int>::Ptr ForestTest::e1 = Edge<int, int>::createPtr(n1, n3, 1);
-const Edge<int, int>::Ptr ForestTest::e2 = Edge<int, int>::createPtr(n1, n4, 2);
-const Edge<int, int>::Ptr ForestTest::e3 = Edge<int, int>::createPtr(n1, n5, 3);
-const Edge<int, int>::Ptr ForestTest::e4 = Edge<int, int>::createPtr(n2, n3, 4);
-const Edge<int, int>::Ptr ForestTest::e5 = Edge<int, int>::createPtr(n2, n4, 5);
-const Edge<int, int>::Ptr ForestTest::e6 = Edge<int, int>::createPtr(n5, n6, 6);
-const Edge<int, int>::Ptr ForestTest::e7 = Edge<int, int>::createPtr(n5, n7, 7);
-const Edge<int, int>::Ptr ForestTest::e8 = Edge<int, int>::createPtr(n6, n8, 8);
-const Edge<int, int>::Ptr ForestTest::e9 = Edge<int, int>::createPtr(n7, n8, 9);
+const ForestTest::EdgeT::Ptr ForestTest::e1 = EdgeT::createPtr(n1, n3, 1);
+const ForestTest::EdgeT::Ptr ForestTest::e2 = EdgeT::createPtr(n1, n4, 2);
+const ForestTest::EdgeT::Ptr ForestTest::e3 = EdgeT::createPtr(n1, n5, 3);
+const ForestTest::EdgeT::Ptr ForestTest::e4 = EdgeT::createPtr(n2, n3, 4);
+const ForestTest::EdgeT::Ptr ForestTest::e5 = EdgeT::createPtr(n2, n4, 5);
+const ForestTest::EdgeT::Ptr ForestTest::e6 = EdgeT::createPtr(n5, n6, 6);
+const ForestTest::EdgeT::Ptr ForestTest::e7 = EdgeT::createPtr(n5, n7, 7);
+const ForestTest::EdgeT::Ptr ForestTest::e8 = EdgeT::createPtr(n6, n8, 8);
+const ForestTest::EdgeT::Ptr ForestTest::e9 = EdgeT::createPtr(n7, n8, 9);
 
-const Forest<int, int> ForestTest::fullForest = Forest<int, int>(
+const ForestTest::ForestT ForestTest::fullForest = ForestTest::ForestT(
     {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9}});
 
 TEST_F(ForestTest, NodeTypes)
@@ -101,11 +106,11 @@ TEST_F(ForestTest, NodeTypes2)
 
 TEST_F(ForestTest, CycleTest)
 {
-    auto e1 = Edge<int, int>::createPtr(n1, n2, 1);
-    auto e2 = Edge<int, int>::createPtr(n2, n3, 2);
-    auto e3 = Edge<int, int>::createPtr(n3, n1, 3);
+    auto e1 = EdgeT::createPtr(n1, n2, 1);
+    auto e2 = EdgeT::createPtr(n2, n3, 2);
+    auto e3 = EdgeT::createPtr(n3, n1, 3);
 
-    auto f1 = Forest<int, int>({.nodes = {n1, n2, n3}, .edges = {e1, e2, e3}});
+    auto f1 = ForestT({.nodes = {n1, n2, n3}, .edges = {e1, e2, e3}});
 
     EXPECT_TRUE(f1.hasBrokenEdges());
 
@@ -117,7 +122,7 @@ TEST_F(ForestTest, CycleTest)
 
 TEST_F(ForestTest, RootVisit)
 {
-    std::set<Node<int>::Ptr> visitList;
+    std::set<NodeT::Ptr> visitList;
 
     auto visitListInserter = [&visitList](auto node) {
         visitList.insert(node);
@@ -149,7 +154,7 @@ TEST_F(ForestTest, RootVisit)
 
 TEST_F(ForestTest, LeafVisit)
 {
-    std::set<Node<int>::Ptr> visitList;
+    std::set<NodeT::Ptr> visitList;
 
     auto visitListInserter = [&visitList](auto node) {
         visitList.insert(node);
@@ -233,12 +238,12 @@ TEST_F(ForestTest, hasFarAncestor)
 
 TEST_F(ForestTest, WasteEdges)
 {
-    const auto e10 = Edge<int, int>::createPtr(n5, n8, 10);
-    const auto e11 = Edge<int, int>::createPtr(n1, n8, 11);
-    const auto e12 = Edge<int, int>::createPtr(n1, n6, 12);
-    const auto e13 = Edge<int, int>::createPtr(n1, n7, 13);
+    const auto e10 = EdgeT::createPtr(n5, n8, 10);
+    const auto e11 = EdgeT::createPtr(n1, n8, 11);
+    const auto e12 = EdgeT::createPtr(n1, n6, 12);
+    const auto e13 = EdgeT::createPtr(n1, n7, 13);
 
-    const Forest<int, int> forest = Forest<int, int>(
+    const ForestT forest = ForestT(
         {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13}});
 
     EXPECT_FALSE(forest.contains(e10));
@@ -256,12 +261,12 @@ TEST_F(ForestTest, WasteEdges)
 
 TEST_F(ForestTest, Levels)
 {
-    const auto e10 = Edge<int, int>::createPtr(n5, n8, 10);
-    const auto e11 = Edge<int, int>::createPtr(n1, n8, 11);
-    const auto e12 = Edge<int, int>::createPtr(n1, n6, 12);
-    const auto e13 = Edge<int, int>::createPtr(n1, n7, 13);
+    const auto e10 = EdgeT::createPtr(n5, n8, 10);
+    const auto e11 = EdgeT::createPtr(n1, n8, 11);
+    const auto e12 = EdgeT::createPtr(n1, n6, 12);
+    const auto e13 = EdgeT::createPtr(n1, n7, 13);
 
-    const Forest<int, int> forest = Forest<int, int>(
+    const ForestT forest = ForestT(
         {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9, e10, e11, e12, e13}});
 
     EXPECT_EQ(fullForest.level(n1), 0);

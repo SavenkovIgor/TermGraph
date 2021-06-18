@@ -28,25 +28,25 @@
 #include "source/Model/Base/graph.hpp"
 #include "source/Model/enums.h"
 
-template<typename NodeData, typename EdgeData>
-class Forest : public Graph<NodeData, EdgeData>
+template<typename NodeT, typename EdgeT>
+class Forest : public Graph<NodeT, EdgeT>
 {
 private:
-    using NodePtr  = Node<NodeData>::Ptr;
-    using NodeList = Node<NodeData>::List;
+    using NodePtr  = NodeT::Ptr;
+    using NodeList = NodeT::List;
 
-    using EdgePtr  = Edge<NodeData, EdgeData>::Ptr;
-    using EdgeList = Edge<NodeData, EdgeData>::List;
+    using EdgePtr  = EdgeT::Ptr;
+    using EdgeList = EdgeT::List;
 
-    using Base     = Graph<NodeData, EdgeData>;
-    using BaseData = GraphData<NodeData, EdgeData>;
+    using Base     = Graph<NodeT, EdgeT>;
+    using BaseData = GraphData<NodeT, EdgeT>;
 
 public:
-    using Ptr  = std::shared_ptr<Forest<NodeData, EdgeData>>;
+    using Ptr  = std::shared_ptr<Forest<NodeT, EdgeT>>;
     using List = std::vector<Ptr>;
 
-    explicit Forest(const GraphData<NodeData, EdgeData>& data)
-        : Graph<NodeData, EdgeData>({.nodes = data.nodes, .edges = data.edges})
+    explicit Forest(const GraphData<NodeT, EdgeT>& data)
+        : Graph<NodeT, EdgeT>({.nodes = data.nodes, .edges = data.edges})
     {
         assert(Base::isolatedNodes().empty());
         rebuildCache();

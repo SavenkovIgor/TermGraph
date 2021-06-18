@@ -28,7 +28,7 @@ TEST(EdgeTest, InitEdge)
     auto n1 = Node<int>::createPtr(1);
     auto n2 = Node<int>::createPtr(2);
 
-    auto edge = Edge<int, int>::createPtr(n1, n2);
+    auto edge = Edge<Node<int>, int>::createPtr(n1, n2);
 
     EXPECT_EQ(edge->root()->data(), 1);
     EXPECT_EQ(edge->leaf()->data(), 2);
@@ -39,10 +39,10 @@ TEST(EdgeTest, EdgeList)
     auto n1 = Node<int>::createPtr(1);
     auto n2 = Node<int>::createPtr(2);
 
-    auto e1 = Edge<int, int>::createPtr(n1, n2);
-    auto e2 = Edge<int, int>::createPtr(n2, n1);
+    auto e1 = Edge<Node<int>, int>::createPtr(n1, n2);
+    auto e2 = Edge<Node<int>, int>::createPtr(n2, n1);
 
-    Edge<int, int>::List edgeList;
+    Edge<Node<int>, int>::List edgeList;
 
     edgeList.push_back(e1);
     edgeList.push_back(e2);
@@ -61,7 +61,7 @@ TEST(EdgeTest, Data)
     auto n1 = Node<int>::createPtr(1);
     auto n2 = Node<int>::createPtr(2);
 
-    auto edge = Edge<int, int>::createPtr(n1, n2, 15);
+    auto edge = Edge<Node<int>, int>::createPtr(n1, n2, 15);
 
     EXPECT_EQ(edge->data(), 15);
 
@@ -76,8 +76,8 @@ TEST(EdgeTest, Incidence)
     auto n2 = Node<int>::createPtr(2);
     auto n3 = Node<int>::createPtr(3);
 
-    auto e1 = Edge<int, int>::createPtr(n1, n2);
-    auto e2 = Edge<int, int>::createPtr(n2, n1);
+    auto e1 = Edge<Node<int>, int>::createPtr(n1, n2);
+    auto e2 = Edge<Node<int>, int>::createPtr(n2, n1);
 
     EXPECT_TRUE(e1->incidentalTo(n1));
     EXPECT_TRUE(e1->incidentalTo(n2));
@@ -95,8 +95,8 @@ TEST(EdgeTest, Opposite)
     auto n2 = Node<int>::createPtr(2);
     auto n3 = Node<int>::createPtr(3);
 
-    auto e1 = Edge<int, int>::createPtr(n1, n2);
-    auto e2 = Edge<int, int>::createPtr(n2, n3);
+    auto e1 = Edge<Node<int>, int>::createPtr(n1, n2);
+    auto e2 = Edge<Node<int>, int>::createPtr(n2, n3);
 
     // n1 - n2
     EXPECT_EQ(e1->oppositeTo(n1)->data(), 2);

@@ -118,9 +118,6 @@ private:
     RectGraphicItem mBaseRect    = RectGraphicItem(QPoint(0, 0), QSizeF(10.0, 10.0));
     RectGraphicItem mOrphansRect = RectGraphicItem();
 
-    Forest<int, int>::List mForests;
-    Node<int>::List        mOrphans;
-
     GroupData mInfo;
 
     PaintedTerm::List mTerms;

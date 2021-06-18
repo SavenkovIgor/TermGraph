@@ -28,17 +28,17 @@
 #include "source/Model/Base/edge.hpp"
 #include "source/Model/Base/node.hpp"
 
-template<typename NodeData, typename EdgeData>
+template<typename NodeT, typename EdgeT>
 struct GraphData
 {
 private:
-    using NodePtr  = Node<NodeData>::Ptr;
-    using NodeList = Node<NodeData>::List;
-    using EdgePtr  = Edge<NodeData, EdgeData>::Ptr;
-    using EdgeList = Edge<NodeData, EdgeData>::List;
+    using NodePtr  = NodeT::Ptr;
+    using NodeList = NodeT::List;
+    using EdgePtr  = EdgeT::Ptr;
+    using EdgeList = EdgeT::List;
 
 public:
-    using List = std::vector<GraphData<NodeData, EdgeData>>;
+    using List = std::vector<GraphData<NodeT, EdgeT>>;
 
     NodeList nodes;
     EdgeList edges;
