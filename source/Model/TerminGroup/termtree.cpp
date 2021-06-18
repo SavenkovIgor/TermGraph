@@ -43,7 +43,7 @@ void TermTree::setTreeNodeCoords(QPointF leftTopPoint)
     }
 }
 
-PaintedTerm* TermTree::getNodeAtPoint(const QPointF& pt) const
+PaintedTerm::OptPtr TermTree::getNodeAtPoint(const QPointF& pt) const
 {
     for (auto node : getAllNodesInTree()) {
         if (node->getNodeRect(CoordType::scene).contains(pt)) {
@@ -56,7 +56,7 @@ PaintedTerm* TermTree::getNodeAtPoint(const QPointF& pt) const
 
 RectGraphicItem& TermTree::rect() { return mRect; }
 
-void TermTree::addTerm(PaintedTerm* term)
+void TermTree::addTerm(PaintedTerm::Ptr term)
 {
     int paintLayer = term->getPaintLevel();
 
@@ -127,9 +127,9 @@ double TermTree::square() const
     return size.width() * size.height();
 }
 
-PaintedTerm::UnsafeList TermTree::getAllNodesInTree() const
+PaintedTerm::List TermTree::getAllNodesInTree() const
 {
-    PaintedTerm::UnsafeList ret;
+    PaintedTerm::List ret;
 
     for (const auto& stack : mStacks)
         for (auto node : stack.nodes())

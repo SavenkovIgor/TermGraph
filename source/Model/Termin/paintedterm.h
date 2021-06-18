@@ -38,6 +38,8 @@ class PaintedTerm : public GraphTerm, public GraphicItem
 {
 public:
     using Ptr        = std::shared_ptr<PaintedTerm>;
+    using UnsafePtr  = PaintedTerm*;
+    using OptPtr     = std::optional<Ptr>;
     using List       = std::vector<Ptr>;
     using UnsafeList = std::vector<PaintedTerm*>;
 

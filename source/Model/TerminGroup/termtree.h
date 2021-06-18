@@ -40,7 +40,7 @@ public:
     RectGraphicItem& rect();
 
     // Add info
-    void addTerm(PaintedTerm* term);
+    void addTerm(PaintedTerm::Ptr term);
 
     // TreeInfo
     bool hasTerm(PaintedTerm* term) const;
@@ -53,15 +53,15 @@ public:
     // Internal counts and preparations
     void setTreeNodeCoords(QPointF leftTopPoint = QPointF());
 
-    PaintedTerm* getNodeAtPoint(const QPointF& pt) const;
+    PaintedTerm::OptPtr getNodeAtPoint(const QPointF& pt) const;
 
     // Deletions
     TermTree(const TermTree&) = delete;
 
 private:
     // Internal Info
-    PaintedTerm::UnsafeList getAllNodesInTree() const;
-    qreal                   getMaxStackHeight() const;
+    PaintedTerm::List getAllNodesInTree() const;
+    qreal             getMaxStackHeight() const;
 
 private: // Members
     NodeVerticalStack::List mStacks;

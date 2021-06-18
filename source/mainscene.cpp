@@ -235,7 +235,11 @@ PaintedTerm* MainScene::getSelectedTerm() const { return selectedTerm; }
 
 PaintedTerm* MainScene::findTerm(const QUuid& termUuid) const
 {
-    return mCurrentGroup ? mCurrentGroup->getTerm(termUuid).get() : nullptr;
+    if (!mCurrentGroup)
+        return nullptr;
+
+    auto term = mCurrentGroup->getTerm(termUuid);
+    return term.has_value() ? term.value().get() : nullptr;
 }
 
 void MainScene::selectTerm(PaintedTerm* term)
@@ -269,8 +273,8 @@ QString MainScene::termUuidToName(const QUuid termUuid) const
 
 QUuid MainScene::termNameToUuid(const QString termName) const
 {
-    auto* node = mCurrentGroup ? mCurrentGroup->getTerm(termName).get() : nullptr;
-    return node ? node->data().uuid : QUuid();
+    auto node = mCurrentGroup ? mCurrentGroup->getTerm(termName) : std::nullopt;
+    return node ? node.value()->data().uuid : QUuid();
 }
 
 TermDataWrapper MainScene::getCurrentNode()
@@ -321,8 +325,10 @@ PaintedTerm* MainScene::getNodeAtPoint(const QPointF& pt) const
     if (!mCurrentGroup)
         return nullptr;
 
-    if (mCurrentGroup->getGroupRect().contains(pt))
-        return mCurrentGroup->getTerm(pt);
+    if (mCurrentGroup->getGroupRect().contains(pt)) {
+        auto term = mCurrentGroup->getTerm(pt);
+        return term.has_value() ? term.value().get() : nullptr;
+    }
 
     return nullptr;
 }

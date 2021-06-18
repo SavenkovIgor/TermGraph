@@ -21,9 +21,11 @@
 
 #include "source/Model/TerminGroup/nodeverticalstack.h"
 
+#include <ranges>
+
 #include "source/Helpers/helpstuff.h"
 
-QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::UnsafeList& nodes)
+QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::List& nodes)
 {
     SizeList sizeList;
 
@@ -33,26 +35,27 @@ QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::Uns
     return HelpStuff::getStackedSize(sizeList, Qt::Vertical);
 }
 
-void NodeVerticalStack::addTerm(PaintedTerm* term) { mTerms.push_back(term); }
+void NodeVerticalStack::addTerm(PaintedTerm::Ptr term) { mTerms.push_back(term); }
 
-bool NodeVerticalStack::hasNode(PaintedTerm* term) const
+bool NodeVerticalStack::hasNode(PaintedTerm::Ptr term) const { return std::ranges::find(mTerms, term) != mTerms.end(); }
+
+bool NodeVerticalStack::hasNode(PaintedTerm::UnsafePtr term) const
 {
-    for (auto stackTerm : mTerms) {
-        if (stackTerm == term) {
+    for (auto t : mTerms)
+        if (t.get() == term)
             return true;
-        }
-    }
+
     return false;
 }
 
-PaintedTerm::UnsafeList NodeVerticalStack::nodes() const { return mTerms; }
+PaintedTerm::List NodeVerticalStack::nodes() const { return mTerms; }
 
 // Clearly counted value. Ignoring real node positions
 QSizeF NodeVerticalStack::size() const { return NodeVerticalStackTools::getNodeVerticalStackedSize(mTerms); }
 
 void NodeVerticalStack::placeTerms(QPointF centerPoint)
 {
-    PaintedTerm::UnsafeList placingTerms = mTerms;
+    PaintedTerm::List placingTerms = mTerms;
 
     if (!isRootStack()) {
         auto packs = getNodePacks(placingTerms);
@@ -88,11 +91,11 @@ bool NodeVerticalStack::isRootStack() const
     return false;
 }
 
-std::vector<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::UnsafeList& terms)
+std::vector<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::List& terms)
 {
     std::vector<NodePack> ret;
 
-    for (auto* term : terms) {
+    for (auto term : terms) {
         auto rootsPositionOpt = term->optimalRootsBasedPosition();
         auto optimalPt        = rootsPositionOpt.value_or(term->getCenter(CoordType::scene));
 
@@ -110,7 +113,7 @@ std::vector<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const P
         }
 
         if (!inserted) {
-            auto nodes = std::vector<PaintedTerm*>();
+            auto nodes = PaintedTerm::List();
             nodes.push_back(term);
             ret.push_back(NodePack(optimalPt, nodes));
         }
@@ -126,7 +129,7 @@ void NodeVerticalStack::sortNodePacks(std::vector<NodeVerticalStack::NodePack>& 
     };
     std::sort(pack.begin(), pack.end(), order);
 
-    auto innerOrder = [](const PaintedTerm* t1, const PaintedTerm* t2) {
+    auto innerOrder = [](const PaintedTerm::Ptr t1, const PaintedTerm::Ptr t2) {
         return t1->decoratedTerm() < t2->decoratedTerm();
     };
 
@@ -135,12 +138,12 @@ void NodeVerticalStack::sortNodePacks(std::vector<NodeVerticalStack::NodePack>& 
     }
 }
 
-PaintedTerm::UnsafeList NodeVerticalStack::flatNodePack(const std::vector<NodeVerticalStack::NodePack>& pack)
+PaintedTerm::List NodeVerticalStack::flatNodePack(const std::vector<NodeVerticalStack::NodePack>& pack)
 {
-    PaintedTerm::UnsafeList ret;
+    PaintedTerm::List ret;
 
     for ([[maybe_unused]] const auto& [pt, nodes] : pack) {
-        for (auto* node : nodes)
+        for (auto node : nodes)
             ret.push_back(node);
     }
 

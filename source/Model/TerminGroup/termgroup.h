@@ -49,9 +49,9 @@ public:
     UuidList searchNearest(const QString& text, int limit = 10) const;
     UuidList searchContains(const QString& text, int limit = 10) const;
 
-    PaintedTerm*     getTerm(const QPointF& pt) const;
-    PaintedTerm::Ptr getTerm(const QUuid& termUuid) const;
-    PaintedTerm::Ptr getTerm(const QString& termName) const;
+    PaintedTerm::OptPtr getTerm(const QPointF& pt) const;
+    PaintedTerm::OptPtr getTerm(const QUuid& termUuid) const;
+    PaintedTerm::OptPtr getTerm(const QString& termName) const;
 
     PaintedTerm::List terms() const;
     PaintedEdge::List edgesForPaint() const;
@@ -95,20 +95,20 @@ private:
     PaintedEdge::List searchAllConnections();
     PaintedEdge::List suggestConnections(); // TODO: Realize!
 
-    PaintedTerm*      getNearestNodeForTag(const QString& tag);
-    void              removeExceedEdges();
-    PaintedEdge::List filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const;
-    void              removeCycles();
+    opt<PaintedTerm::Ptr> getNearestNodeForTag(const QString& tag);
+    void                  removeExceedEdges();
+    PaintedEdge::List     filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const;
+    void                  removeCycles();
 
     // Nodes
-    void                        setLevels();
-    PaintedTerm::List           getRootNodes() const;
-    QMap<QString, PaintedTerm*> getExactTermMatchCache();
-    QMap<QUuid, PaintedTerm*>   getTermUuidsMap();
-    QSizeF                      getOrphansSize();
-    PaintedTerm::List           getInTreeNodes() const;
-    PaintedTerm::List           getOrphanNodes() const;
-    PaintedTerm::List           filterFromNodesList(std::function<bool(PaintedTerm::Ptr)> filterCheck) const;
+    void                            setLevels();
+    PaintedTerm::List               getRootNodes() const;
+    QMap<QString, PaintedTerm::Ptr> getExactTermMatchCache();
+    QMap<QUuid, PaintedTerm::Ptr>   getTermUuidsMap();
+    QSizeF                          getOrphansSize();
+    PaintedTerm::List               getInTreeNodes() const;
+    PaintedTerm::List               getOrphanNodes() const;
+    PaintedTerm::List               filterFromNodesList(std::function<bool(PaintedTerm::Ptr)> filterCheck) const;
 
     bool isThreadInterrupted();
 

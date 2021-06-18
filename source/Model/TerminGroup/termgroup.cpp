@@ -142,7 +142,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
     return ret;
 }
 
-PaintedTerm* TermGroup::getTerm(const QPointF& pt) const
+PaintedTerm::OptPtr TermGroup::getTerm(const QPointF& pt) const
 {
     for (const auto* tree : trees()) {
         if (tree->getTreeRect(CoordType::scene).contains(pt)) {
@@ -154,30 +154,30 @@ PaintedTerm* TermGroup::getTerm(const QPointF& pt) const
     if (orphansRect.contains(pt)) {
         for (auto orphan : getOrphanNodes()) {
             if (orphan->getNodeRect(CoordType::scene).contains(pt)) {
-                return orphan.get();
+                return orphan;
             }
         }
     }
 
-    return nullptr;
+    return std::nullopt;
 }
 
-PaintedTerm::Ptr TermGroup::getTerm(const QUuid& termUuid) const
+PaintedTerm::OptPtr TermGroup::getTerm(const QUuid& termUuid) const
 {
     for (auto term : mTerms)
         if (term->data().uuid == termUuid)
             return term;
 
-    return nullptr;
+    return std::nullopt;
 }
 
-PaintedTerm::Ptr TermGroup::getTerm(const QString& termName) const
+PaintedTerm::OptPtr TermGroup::getTerm(const QString& termName) const
 {
     for (auto term : mTerms)
         if (term->data().term == termName)
             return term;
 
-    return nullptr;
+    return std::nullopt;
 }
 
 void TermGroup::addOrphansToParents()
@@ -205,12 +205,7 @@ qreal TermGroup::getGroupMinWidth()
     qreal groupNameWidth = getNameSize().width();
     qreal treeWidth      = getAllTreesSize().width();
 
-    std::vector<PaintedTerm*> orphNodes;
-
-    for (auto node : getOrphanNodes())
-        orphNodes.push_back(node.get());
-
-    qreal orphansWidth = NodeVerticalStackTools::getNodeVerticalStackedSize(orphNodes).width();
+    qreal orphansWidth = NodeVerticalStackTools::getNodeVerticalStackedSize(getOrphanNodes()).width();
 
     width = std::max(width, groupNameWidth);
     width = std::max(width, treeWidth);
@@ -369,7 +364,7 @@ void TermGroup::initTrees()
         auto* tree = new TermTree();
         for (auto node : treeNodes) {
             if (node->getTreeId() == treeId) {
-                tree->addTerm(node.get());
+                tree->addTerm(node);
             }
         }
 
@@ -403,8 +398,8 @@ PaintedEdge::List TermGroup::searchAllConnections()
     PaintedEdge::List ret;
 
     // Pre-heating of cache with exact terms match
-    QMap<QString, PaintedTerm*> previousTagSearchCache = getExactTermMatchCache();
-    QMap<QUuid, PaintedTerm*>   termUuids              = getTermUuidsMap();
+    QMap<QString, PaintedTerm::Ptr> previousTagSearchCache = getExactTermMatchCache();
+    QMap<QUuid, PaintedTerm::Ptr>   termUuids              = getTermUuidsMap();
 
     static int counter     = 0;
     bool       stopRequest = false;
@@ -412,7 +407,7 @@ PaintedEdge::List TermGroup::searchAllConnections()
     // Compare everything with everything
     for (auto node : mTerms) {
         for (const auto& link : node->cache().links()) {
-            PaintedTerm* foundNode = nullptr;
+            opt<PaintedTerm::Ptr> foundNode = std::nullopt;
 
             EdgeType eType = EdgeType::termin;
 
@@ -426,16 +421,16 @@ PaintedEdge::List TermGroup::searchAllConnections()
             }
 
             // If we have same search earlier this cycle
-            if (!foundNode)
-                foundNode = previousTagSearchCache.value(link.textLower(), nullptr);
+            if (!foundNode && previousTagSearchCache.contains(link.textLower()))
+                foundNode = previousTagSearchCache[link.textLower()];
 
             if (!foundNode)
                 foundNode = getNearestNodeForTag(link.textLower());
 
             if (foundNode) {
-                if (foundNode != node.get()) { // TODO: Real case, need check
-                    ret.push_back(std::make_shared<PaintedEdge>(foundNode, node.get(), eType));
-                    previousTagSearchCache.insert(link.textLower(), foundNode);
+                if (foundNode.value() != node) { // TODO: Real case, need check
+                    ret.push_back(std::make_shared<PaintedEdge>(foundNode.value(), node, eType));
+                    previousTagSearchCache.insert(link.textLower(), foundNode.value());
                 }
             }
 
@@ -454,9 +449,9 @@ PaintedEdge::List TermGroup::searchAllConnections()
     return ret;
 }
 
-PaintedTerm* TermGroup::getNearestNodeForTag(const QString& tag)
+opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag)
 {
-    PaintedTerm* targetTerm = nullptr;
+    opt<PaintedTerm::Ptr> targetTerm = std::nullopt;
 
     int minDistance = 100000;
 
@@ -478,11 +473,11 @@ PaintedTerm* TermGroup::getNearestNodeForTag(const QString& tag)
 
         if (optionalResult) {
             if (optionalResult.value() == 0) // Already best match, no need to count further
-                return node.get();
+                return node;
 
             if (optionalResult.value() < minDistance) {
                 minDistance = optionalResult.value();
-                targetTerm  = node.get();
+                targetTerm  = node;
             }
         }
     }
@@ -567,22 +562,22 @@ QUuid TermGroup::uuid() const { return mInfo.uuid; }
 
 QString TermGroup::name() const { return mInfo.name; }
 
-QMap<QString, PaintedTerm*> TermGroup::getExactTermMatchCache()
+QMap<QString, PaintedTerm::Ptr> TermGroup::getExactTermMatchCache()
 {
-    QMap<QString, PaintedTerm*> ret;
+    QMap<QString, PaintedTerm::Ptr> ret;
 
     for (auto node : mTerms)
-        ret.insert(node->cache().lowerTerm(), node.get());
+        ret.insert(node->cache().lowerTerm(), node);
 
     return ret;
 }
 
-QMap<QUuid, PaintedTerm*> TermGroup::getTermUuidsMap()
+QMap<QUuid, PaintedTerm::Ptr> TermGroup::getTermUuidsMap()
 {
-    QMap<QUuid, PaintedTerm*> ret;
+    QMap<QUuid, PaintedTerm::Ptr> ret;
 
     for (auto node : mTerms)
-        ret.insert(node->data().uuid, node.get());
+        ret.insert(node->data().uuid, node);
 
     return ret;
 }

@@ -23,10 +23,8 @@
 
 #include "source/Model/Termin/graphterm.h"
 
-GraphEdge::GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf)
+GraphEdge::GraphEdge(TermPtr toRoot, TermPtr toLeaf)
 {
-    assert(toRoot != nullptr);
-    assert(toLeaf != nullptr);
     assert(toRoot != toLeaf);
 
     this->toRoot = toRoot;
@@ -44,7 +42,7 @@ GraphEdge::GraphEdge()
 
 bool GraphEdge::hasNode(GraphTerm* node) const
 {
-    if (node == toRoot || node == toLeaf)
+    if (node == toRoot.get() || node == toLeaf.get())
         return true;
 
     return false;
@@ -52,18 +50,18 @@ bool GraphEdge::hasNode(GraphTerm* node) const
 
 bool GraphEdge::isSameEdge(GraphTerm* rt, GraphTerm* br) const
 {
-    bool rOk = (toRoot == rt || toRoot == br);
-    bool bOk = (toLeaf == rt || toLeaf == br);
+    bool rOk = (toRoot.get() == rt || toRoot.get() == br);
+    bool bOk = (toLeaf.get() == rt || toLeaf.get() == br);
 
     return rOk && bOk;
 }
 
 GraphTerm* GraphEdge::getOtherSide(GraphTerm* n) const
 {
-    if (n == toRoot) {
-        return toLeaf;
-    } else if (n == toLeaf) {
-        return toRoot;
+    if (n == toRoot.get()) {
+        return toLeaf.get();
+    } else if (n == toLeaf.get()) {
+        return toRoot.get();
     }
 
     return nullptr;

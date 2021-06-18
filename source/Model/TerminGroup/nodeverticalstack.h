@@ -29,33 +29,34 @@
 class NodeVerticalStackTools
 {
 public:
-    static QSizeF getNodeVerticalStackedSize(const PaintedTerm::UnsafeList& nodes);
+    static QSizeF getNodeVerticalStackedSize(const PaintedTerm::List& nodes);
 };
 
 class NodeVerticalStack
 {
 public:
     using List     = std::vector<NodeVerticalStack>;
-    using NodePack = QPair<QPointF, PaintedTerm::UnsafeList>;
+    using NodePack = QPair<QPointF, PaintedTerm::List>;
 
     NodeVerticalStack()  = default;
     ~NodeVerticalStack() = default;
 
-    void addTerm(PaintedTerm* term);
+    void addTerm(PaintedTerm::Ptr term);
     void placeTerms(QPointF centerPoint);
 
     QSizeF size() const;
     bool   isRootStack() const;
 
-    bool hasNode(PaintedTerm* term) const;
+    bool hasNode(PaintedTerm::Ptr term) const;
+    bool hasNode(PaintedTerm::UnsafePtr term) const;
 
-    PaintedTerm::UnsafeList nodes() const;
+    PaintedTerm::List nodes() const;
 
 private:
-    static std::vector<NodePack>   getNodePacks(const PaintedTerm::UnsafeList& terms);
-    static void                    sortNodePacks(std::vector<NodePack>& pack);
-    static PaintedTerm::UnsafeList flatNodePack(const std::vector<NodePack>& pack);
+    static std::vector<NodePack> getNodePacks(const PaintedTerm::List& terms);
+    static void                  sortNodePacks(std::vector<NodePack>& pack);
+    static PaintedTerm::List     flatNodePack(const std::vector<NodePack>& pack);
 
 private: // Members
-    PaintedTerm::UnsafeList mTerms;
+    PaintedTerm::List mTerms;
 };

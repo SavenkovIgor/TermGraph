@@ -24,7 +24,7 @@
 #include "source/Helpers/appstyle.h"
 #include "source/Model/Termin/paintedterm.h"
 
-PaintedEdge::PaintedEdge(PaintedTerm* toRoot, PaintedTerm* toLeaf, EdgeType type)
+PaintedEdge::PaintedEdge(TermPtr toRoot, TermPtr toLeaf, EdgeType type)
     : GraphEdge(toRoot, toLeaf)
     , GraphicItem()
 {

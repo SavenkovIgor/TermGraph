@@ -21,21 +21,29 @@
 
 #pragma once
 
+#include <memory>
 #include <vector>
 
 class GraphTerm;
 
 class GraphEdge
 {
+    using TermPtr = std::shared_ptr<GraphTerm>;
+
 public:
+    using Ptr        = std::shared_ptr<GraphEdge>;
+    using List       = std::vector<Ptr>;
     using UnsafeList = std::vector<GraphEdge*>;
 
-    GraphEdge(GraphTerm* toRoot, GraphTerm* toLeaf);
+    GraphEdge(TermPtr toRoot, TermPtr toLeaf);
     GraphEdge();
     virtual ~GraphEdge() = default;
 
-    GraphTerm* getRoot() const { return toRoot; }
-    GraphTerm* getLeaf() const { return toLeaf; }
+    GraphTerm* getRoot() const { return toRoot.get(); }
+    GraphTerm* getLeaf() const { return toLeaf.get(); }
+
+    TermPtr safeRoot() const { return toRoot; }
+    TermPtr safeLeaf() const { return toLeaf; }
 
     bool       hasNode(GraphTerm* node) const;
     bool       isSameEdge(GraphTerm* rt, GraphTerm* br) const;
@@ -45,6 +53,6 @@ public:
     bool needCutOut = false;
 
 private:
-    GraphTerm* toRoot;
-    GraphTerm* toLeaf;
+    TermPtr toRoot;
+    TermPtr toLeaf;
 };
