@@ -61,7 +61,7 @@ NodeType GraphTerm::getNodeType() const
 
 QString GraphTerm::getHierarchyDefinition()
 {
-    GraphTerm::List parentsList;
+    GraphTerm::UnsafeList parentsList;
     fillAllParentsList(this, parentsList);
 
     if (parentsList.empty())
@@ -152,9 +152,9 @@ void GraphTerm::addEdgeRef(GraphEdge* edge)
         edgesToRoots.push_back(edge);
 }
 
-GraphTerm::List GraphTerm::getRootNodes()
+GraphTerm::UnsafeList GraphTerm::getRootNodes()
 {
-    GraphTerm::List ret;
+    GraphTerm::UnsafeList ret;
 
     for (auto edge : edgesToRoots) {
         ret.push_back(edge->getOtherSide(this));
@@ -163,9 +163,9 @@ GraphTerm::List GraphTerm::getRootNodes()
     return ret;
 }
 
-GraphTerm::List GraphTerm::getLeafNodes()
+GraphTerm::UnsafeList GraphTerm::getLeafNodes()
 {
-    GraphTerm::List ret;
+    GraphTerm::UnsafeList ret;
 
     for (auto edge : edgesToLeafs) {
         ret.push_back(edge->getOtherSide(this));
@@ -287,7 +287,7 @@ GraphEdge* GraphTerm::findLongPathToNode(GraphTerm* node)
     return nullptr;
 }
 
-void GraphTerm::fillAllParentsList(GraphTerm* searchNode, GraphTerm::List& lst)
+void GraphTerm::fillAllParentsList(GraphTerm* searchNode, GraphTerm::UnsafeList& lst)
 {
     for (auto node : searchNode->getRootNodes()) {
         if (std::ranges::find(lst, node) == lst.end())

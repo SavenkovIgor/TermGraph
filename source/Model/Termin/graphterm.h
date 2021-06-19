@@ -33,7 +33,7 @@
 class GraphTerm : public Node<TermData>
 {
 public:
-    using List = std::vector<GraphTerm*>;
+    using UnsafeList = std::vector<GraphTerm*>;
 
     GraphTerm(const TermData& info);
     ~GraphTerm() = default;
@@ -58,8 +58,8 @@ public:
     void addEdgeRef(GraphEdge* edge);
 
     // Delete section
-    GraphTerm::List getRootNodes();
-    GraphTerm::List getLeafNodes();
+    GraphTerm::UnsafeList getRootNodes();
+    GraphTerm::UnsafeList getLeafNodes();
 
     GraphEdge::UnsafeList getEdgesToLeafs() const;
     GraphEdge::UnsafeList getEdgesToRoots() const;
@@ -104,5 +104,5 @@ private:
 
     GraphEdge* findLongPathToNode(GraphTerm* node);
 
-    void fillAllParentsList(GraphTerm* searchNode, GraphTerm::List& lst);
+    void fillAllParentsList(GraphTerm* searchNode, GraphTerm::UnsafeList& lst);
 };
