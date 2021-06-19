@@ -45,10 +45,10 @@ public:
     explicit PaintedEdge(TermPtr toRoot, TermPtr toLeaf, EdgeType type = EdgeType::termin);
     ~PaintedEdge() override = default;
 
-    QRectF edgeRect() const;
+    QRectF edgeRect();
 
-    QPointF rootPoint() const;
-    QPointF leafPoint() const;
+    QPointF rootPoint();
+    QPointF leafPoint();
     QColor  getEdgeColor() const;
 
     void brokeEdge();

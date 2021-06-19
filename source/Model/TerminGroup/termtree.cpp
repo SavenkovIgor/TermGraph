@@ -85,8 +85,8 @@ bool TermTree::hasTerm(PaintedTerm* term) const
 
 bool TermTree::hasEdge(PaintedEdge* edge) const
 {
-    auto* rootTerm = static_cast<PaintedTerm*>(edge->getRoot());
-    auto* leafTerm = static_cast<PaintedTerm*>(edge->getLeaf());
+    auto* rootTerm = static_cast<PaintedTerm*>(edge->root().get());
+    auto* leafTerm = static_cast<PaintedTerm*>(edge->leaf().get());
     return hasTerm(rootTerm) && hasTerm(leafTerm);
 }
 

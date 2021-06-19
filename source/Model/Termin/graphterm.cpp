@@ -110,13 +110,13 @@ void GraphTerm::getCycleEdge()
 {
     cycleSearchFlag = 1;
     for (auto edge : edgesToLeafs) {
-        if (edge->needBroke) {
+        if (edge->data().needBroke) {
             continue;
         }
 
-        auto leafNode = edge->getOtherSide(this);
+        auto leafNode = edge->oppositeTo(this);
         if (leafNode->cycleSearchFlag == 1) {
-            edge->needBroke = true;
+            edge->data().needBroke = true;
         } else {
             if (leafNode->cycleSearchFlag == 0) {
                 leafNode->getCycleEdge();
@@ -135,20 +135,20 @@ void GraphTerm::setTreeId(unsigned int treeId)
     }
 
     for (auto edge : getAllConnectedEdges()) {
-        edge->getOtherSide(this)->setTreeId(treeId);
+        edge->oppositeTo(this)->setTreeId(treeId);
     }
 }
 
 unsigned int GraphTerm::getTreeId() const { return treeId; }
 
-void GraphTerm::addEdgeRef(GraphEdge* edge)
+void GraphTerm::addEdgeRef(GraphEdge::Ptr edge)
 {
     // We are source - connection up
-    if (edge->getRoot() == this && edge->getLeaf() != this)
+    if (edge->root().get() == this && edge->leaf().get() != this)
         edgesToLeafs.push_back(edge);
 
     // We are acceptor - connection down
-    if (edge->getLeaf() == this && edge->getRoot() != this)
+    if (edge->leaf().get() == this && edge->root().get() != this)
         edgesToRoots.push_back(edge);
 }
 
@@ -157,7 +157,7 @@ GraphTerm::UnsafeList GraphTerm::getRootNodes()
     GraphTerm::UnsafeList ret;
 
     for (auto edge : edgesToRoots) {
-        ret.push_back(edge->getOtherSide(this));
+        ret.push_back(edge->oppositeTo(this).get());
     }
 
     return ret;
@@ -168,19 +168,19 @@ GraphTerm::UnsafeList GraphTerm::getLeafNodes()
     GraphTerm::UnsafeList ret;
 
     for (auto edge : edgesToLeafs) {
-        ret.push_back(edge->getOtherSide(this));
+        ret.push_back(edge->oppositeTo(this).get());
     }
 
     return ret;
 }
 
-GraphEdge::UnsafeList GraphTerm::getEdgesToLeafs() const { return edgesToLeafs; }
+GraphEdge::List GraphTerm::getEdgesToLeafs() const { return edgesToLeafs; }
 
-GraphEdge::UnsafeList GraphTerm::getEdgesToRoots() const { return edgesToRoots; }
+GraphEdge::List GraphTerm::getEdgesToRoots() const { return edgesToRoots; }
 
-GraphEdge::UnsafeList GraphTerm::getAllConnectedEdges() const
+GraphEdge::List GraphTerm::getAllConnectedEdges() const
 {
-    GraphEdge::UnsafeList ret;
+    GraphEdge::List ret;
 
     for (auto e : edgesToRoots)
         ret.push_back(e);
@@ -193,13 +193,13 @@ GraphEdge::UnsafeList GraphTerm::getAllConnectedEdges() const
 
 void GraphTerm::removeEdgeToLeafs(GraphEdge* edge)
 {
-    auto remIt = std::ranges::remove_if(edgesToLeafs, [edge](auto e) { return edge == e; });
+    auto remIt = std::ranges::remove_if(edgesToLeafs, [edge](auto e) { return edge == e.get(); });
     edgesToLeafs.erase(remIt.begin(), remIt.end());
 }
 
 void GraphTerm::removeEdgeToRoots(GraphEdge* edge)
 {
-    auto remIt = std::ranges::remove_if(edgesToRoots, [edge](auto e) { return edge == e; });
+    auto remIt = std::ranges::remove_if(edgesToRoots, [edge](auto e) { return edge == e.get(); });
     edgesToRoots.erase(remIt.begin(), remIt.end());
 }
 
@@ -221,8 +221,8 @@ void GraphTerm::checkForExceedEdges()
         if (findLongPathToNode(node) != nullptr) {
             // If we found long path, we need mark direct path for cut out
             for (auto edge : edgesToRoots) {
-                if (edge->getOtherSide(this) == node) {
-                    edge->needCutOut = true;
+                if (edge->oppositeTo(this).get() == node) {
+                    edge->data().needCutOut = true;
                 }
             }
         }
@@ -231,11 +231,11 @@ void GraphTerm::checkForExceedEdges()
 
 void GraphTerm::giveWeights()
 {
-    for (auto* edge : getEdgesToRoots())
-        edge->getOtherSide(this)->increaseWeight();
+    for (auto edge : getEdgesToRoots())
+        edge->oppositeTo(this)->increaseWeight();
 
     for (auto* edge : redundantEdges)
-        edge->getOtherSide(this)->increaseWeight();
+        edge->oppositeTo(this)->increaseWeight();
 }
 
 void GraphTerm::resetMaxWeight() { mMaxWeight = 0; }
@@ -272,7 +272,7 @@ bool GraphTerm::hasTermInRoots(GraphTerm* targetTerm, QList<GraphTerm*>& visitLi
 GraphEdge* GraphTerm::findLongPathToNode(GraphTerm* node)
 {
     for (auto edge : edgesToRoots) {
-        auto otherSideNode = edge->getOtherSide(this);
+        auto otherSideNode = edge->oppositeTo(this).get();
         // Ignore direct connection
         if (otherSideNode == node)
             continue;
@@ -281,7 +281,7 @@ GraphEdge* GraphTerm::findLongPathToNode(GraphTerm* node)
         visitList.push_back(otherSideNode);
 
         if (hasTermInRoots(node, visitList)) {
-            return edge;
+            return edge.get();
         }
     }
     return nullptr;

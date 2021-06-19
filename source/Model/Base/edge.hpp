@@ -50,11 +50,18 @@ public:
     NodePtr leaf() { return mLeaf; }
 
     bool incidentalTo(const NodePtr& node) const { return mRoot == node || mLeaf == node; }
+    bool incidentalTo(const NodeT* node) const { return mRoot.get() == node || mLeaf.get() == node; }
 
     NodePtr oppositeTo(const NodePtr& node) const
     {
         assert(incidentalTo(node));
         return mRoot == node ? mLeaf : mRoot;
+    }
+
+    NodePtr oppositeTo(const NodeT* node) const
+    {
+        assert(incidentalTo(node));
+        return mRoot.get() == node ? mLeaf : mRoot;
     }
 
     void            setData(const EdgeData& data) { mData = data; }

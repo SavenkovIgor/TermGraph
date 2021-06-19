@@ -77,8 +77,8 @@ qreal PaintedTerm::cornerRadius() const { return pCornerRadius.value(); }
 
 void PaintedTerm::setRelatedPaintUp(bool val)
 {
-    for (auto* edge : getEdgesToLeafs())
-        dynamic_cast<PaintedEdge*>(edge)->setSelectedForward(val);
+    for (auto edge : getEdgesToLeafs())
+        dynamic_cast<PaintedEdge*>(edge.get())->setSelectedForward(val);
 
     for (auto node : getLeafNodes()) {
         auto* paintNode = static_cast<PaintedTerm*>(node);
@@ -91,8 +91,8 @@ void PaintedTerm::setRelatedPaintUp(bool val)
 
 void PaintedTerm::setRelatedPaintDown(bool val)
 {
-    for (auto* edge : getEdgesToRoots())
-        dynamic_cast<PaintedEdge*>(edge)->setSelectedBackward(val);
+    for (auto edge : getEdgesToRoots())
+        dynamic_cast<PaintedEdge*>(edge.get())->setSelectedBackward(val);
 
     for (auto* node : getRootNodes()) {
         auto* paintNode = static_cast<PaintedTerm*>(node);
@@ -139,8 +139,8 @@ opt<QPointF> PaintedTerm::optimalRootsBasedPosition() const
 
     double sumOfYCoords = 0.0;
 
-    for (auto* edge : edges) {
-        auto* parentNode = static_cast<PaintedTerm*>(edge->getRoot());
+    for (auto edge : edges) {
+        auto* parentNode = static_cast<PaintedTerm*>(edge->root().get());
         sumOfYCoords += parentNode->getCenter(CoordType::scene).y();
     }
 

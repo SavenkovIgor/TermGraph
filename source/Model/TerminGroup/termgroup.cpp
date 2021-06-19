@@ -429,7 +429,10 @@ PaintedEdge::List TermGroup::searchAllConnections()
 
             if (foundNode) {
                 if (foundNode.value() != node) { // TODO: Real case, need check
-                    ret.push_back(std::make_shared<PaintedEdge>(foundNode.value(), node, eType));
+                    auto newEdge = std::make_shared<PaintedEdge>(foundNode.value(), node, eType);
+                    newEdge->root()->addEdgeRef(newEdge);
+                    newEdge->leaf()->addEdgeRef(newEdge);
+                    ret.push_back(newEdge);
                     previousTagSearchCache.insert(link.textLower(), foundNode.value());
                 }
             }
@@ -492,7 +495,7 @@ void TermGroup::removeExceedEdges()
         node->checkForExceedEdges();
 
     for (auto edge : mEdges) {
-        if (edge->needCutOut) {
+        if (edge->data().needCutOut) {
             mRedundantEdges.push_back(edge);
         }
     }
@@ -524,7 +527,7 @@ void TermGroup::removeCycles()
         node->getCycleEdge();
 
     for (auto edge : mEdges) {
-        if (edge->needBroke) {
+        if (edge->data().needBroke) {
             mBrokenEdges.push_back(edge);
         }
     }

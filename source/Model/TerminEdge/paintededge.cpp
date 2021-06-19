@@ -54,7 +54,7 @@ QColor PaintedEdge::getEdgeColor() const
 void PaintedEdge::brokeEdge()
 {
     cutOutFromSides();
-    safeRoot()->addBrokenEdge(this);
+    root()->addBrokenEdge(this);
 
     mData.type = EdgeType::broken;
 }
@@ -62,15 +62,15 @@ void PaintedEdge::brokeEdge()
 void PaintedEdge::makeEdgeRedundant()
 {
     cutOutFromSides();
-    safeLeaf()->addRedundantEdge(this);
+    leaf()->addRedundantEdge(this);
 
     mData.type = EdgeType::redundant;
 }
 
 void PaintedEdge::cutOutFromSides()
 {
-    safeRoot()->removeEdgeToLeafs(this);
-    safeLeaf()->removeEdgeToRoots(this);
+    root()->removeEdgeToLeafs(this);
+    leaf()->removeEdgeToRoots(this);
 }
 
 EdgeSelection PaintedEdge::selectedType() const { return mData.selectionType; }
@@ -86,7 +86,7 @@ bool PaintedEdge::isRedundant() const { return mData.type == EdgeType::redundant
 
 bool PaintedEdge::isHard() const { return mData.type == EdgeType::terminHardLink; }
 
-QRectF PaintedEdge::edgeRect() const
+QRectF PaintedEdge::edgeRect()
 {
     QPointF pt1 = rootPoint();
     QPointF pt2 = leafPoint();
@@ -96,15 +96,15 @@ QRectF PaintedEdge::edgeRect() const
     return rc;
 }
 
-QPointF PaintedEdge::rootPoint() const
+QPointF PaintedEdge::rootPoint()
 {
-    auto paintedTerm = static_cast<PaintedTerm*>(getRoot());
+    auto paintedTerm = static_cast<PaintedTerm*>(root().get());
     return paintedTerm->getCenter(CoordType::scene);
 }
 
-QPointF PaintedEdge::leafPoint() const
+QPointF PaintedEdge::leafPoint()
 {
-    auto paintedTerm = static_cast<PaintedTerm*>(getLeaf());
+    auto paintedTerm = static_cast<PaintedTerm*>(leaf().get());
     return paintedTerm->getCenter(CoordType::scene);
 }
 

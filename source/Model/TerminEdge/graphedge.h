@@ -24,9 +24,12 @@
 #include <memory>
 #include <vector>
 
+#include "source/Model/Base/edge.hpp"
+#include "source/Model/TerminEdge/edgedata.h"
+
 class GraphTerm;
 
-class GraphEdge
+class GraphEdge : public Edge<GraphTerm, EdgeData>
 {
     using TermPtr = std::shared_ptr<GraphTerm>;
 
@@ -36,21 +39,5 @@ public:
     using UnsafeList = std::vector<GraphEdge*>;
 
     GraphEdge(TermPtr toRoot, TermPtr toLeaf);
-    GraphEdge();
     virtual ~GraphEdge() = default;
-
-    GraphTerm* getRoot() const { return toRoot.get(); }
-    GraphTerm* getLeaf() const { return toLeaf.get(); }
-
-    TermPtr safeRoot() const { return toRoot; }
-    TermPtr safeLeaf() const { return toLeaf; }
-
-    GraphTerm* getOtherSide(GraphTerm* n) const;
-
-    bool needBroke  = false;
-    bool needCutOut = false;
-
-private:
-    TermPtr toRoot;
-    TermPtr toLeaf;
 };

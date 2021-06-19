@@ -24,29 +24,7 @@
 #include "source/Model/Termin/graphterm.h"
 
 GraphEdge::GraphEdge(TermPtr toRoot, TermPtr toLeaf)
+    : Edge<GraphTerm, EdgeData>(toRoot, toLeaf, EdgeData())
 {
     assert(toRoot != toLeaf);
-
-    this->toRoot = toRoot;
-    this->toLeaf = toLeaf;
-
-    toRoot->addEdgeRef(this);
-    toLeaf->addEdgeRef(this);
-}
-
-GraphEdge::GraphEdge()
-{
-    this->toRoot = nullptr;
-    this->toLeaf = nullptr;
-}
-
-GraphTerm* GraphEdge::getOtherSide(GraphTerm* n) const
-{
-    if (n == toRoot.get()) {
-        return toLeaf.get();
-    } else if (n == toLeaf.get()) {
-        return toRoot.get();
-    }
-
-    return nullptr;
 }

@@ -55,15 +55,15 @@ public:
     void         setTreeId(unsigned int treeId);
     unsigned int getTreeId() const;
 
-    void addEdgeRef(GraphEdge* edge);
+    void addEdgeRef(GraphEdge::Ptr edge);
 
     // Delete section
     GraphTerm::UnsafeList getRootNodes();
     GraphTerm::UnsafeList getLeafNodes();
 
-    GraphEdge::UnsafeList getEdgesToLeafs() const;
-    GraphEdge::UnsafeList getEdgesToRoots() const;
-    GraphEdge::UnsafeList getAllConnectedEdges() const;
+    GraphEdge::List getEdgesToLeafs() const;
+    GraphEdge::List getEdgesToRoots() const;
+    GraphEdge::List getAllConnectedEdges() const;
 
     int cycleSearchFlag = 0;
 
@@ -89,8 +89,8 @@ private:
     GraphEdge::UnsafeList brokenEdges;        // Пока никак не используются но будут.
     GraphEdge::UnsafeList redundantEdges;
 
-    GraphEdge::UnsafeList edgesToLeafs;
-    GraphEdge::UnsafeList edgesToRoots;
+    GraphEdge::List edgesToLeafs;
+    GraphEdge::List edgesToRoots;
 
     int          paintLevel = -1;
     unsigned int treeId     = 0; // 0 = no value
