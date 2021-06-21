@@ -42,10 +42,12 @@ TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObj
     QElapsedTimer t;
     t.start();
 
-    for (const auto& term : termData)
-        mTerms.push_back(std::make_shared<PaintedTerm>(term));
+    PaintedTerm::List nodes;
 
-    mEdges = searchAllConnections();
+    for (const auto& term : termData)
+        nodes.push_back(std::make_shared<PaintedTerm>(term));
+
+    mGraphData = GraphT({.nodes = nodes, .edges = searchAllConnections(nodes)});
 
     if (isThreadInterrupted())
         return;
@@ -90,7 +92,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
     QString                        searchText = text.toLower();
     std::vector<QPair<int, QUuid>> searchResults;
     // Taking distances
-    for (auto term : mTerms) {
+    for (auto term : mGraphData.nodes) {
         auto lowerTerm = term->cache().lowerTerm();
 
         // Exact match
@@ -131,7 +133,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
     UuidList ret;
     auto     lowerSearch = text.toLower();
 
-    for (auto term : mTerms) {
+    for (auto term : mGraphData.nodes) {
         if (term->cache().lowerTerm().contains(lowerSearch))
             ret.push_back(term->data().uuid);
 
@@ -164,7 +166,7 @@ PaintedTerm::OptPtr TermGroup::getTerm(const QPointF& pt) const
 
 PaintedTerm::OptPtr TermGroup::getTerm(const QUuid& termUuid) const
 {
-    for (auto term : mTerms)
+    for (auto term : mGraphData.nodes)
         if (term->data().uuid == termUuid)
             return term;
 
@@ -173,7 +175,7 @@ PaintedTerm::OptPtr TermGroup::getTerm(const QUuid& termUuid) const
 
 PaintedTerm::OptPtr TermGroup::getTerm(const QString& termName) const
 {
-    for (auto term : mTerms)
+    for (auto term : mGraphData.nodes)
         if (term->data().term == termName)
             return term;
 
@@ -189,7 +191,7 @@ void TermGroup::addOrphansToParents()
 
 void TermGroup::addEdgesToParents()
 {
-    for (auto edge : mEdges) {
+    for (auto edge : mGraphData.edges) {
         for (auto* tree : trees()) {
             if (tree->hasEdge(edge.get())) {
                 edge->setParentItem(&(tree->rect()));
@@ -317,7 +319,7 @@ void TermGroup::setAllWeights()
 {
     GraphTerm::resetMaxWeight();
 
-    for (auto term : mTerms)
+    for (auto term : mGraphData.nodes)
         term->giveWeights();
 }
 
@@ -393,7 +395,7 @@ QSizeF TermGroup::getAllTreesSize()
     return totalSize;
 }
 
-PaintedEdge::List TermGroup::searchAllConnections()
+PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms)
 {
     PaintedEdge::List ret;
 
@@ -405,7 +407,7 @@ PaintedEdge::List TermGroup::searchAllConnections()
     bool       stopRequest = false;
 
     // Compare everything with everything
-    for (auto node : mTerms) {
+    for (auto node : terms) {
         for (const auto& link : node->cache().links()) {
             opt<PaintedTerm::Ptr> foundNode = std::nullopt;
 
@@ -425,7 +427,7 @@ PaintedEdge::List TermGroup::searchAllConnections()
                 foundNode = previousTagSearchCache[link.textLower()];
 
             if (!foundNode)
-                foundNode = getNearestNodeForTag(link.textLower());
+                foundNode = getNearestNodeForTag(link.textLower(), terms);
 
             if (foundNode) {
                 if (foundNode.value() != node) { // TODO: Real case, need check
@@ -452,7 +454,7 @@ PaintedEdge::List TermGroup::searchAllConnections()
     return ret;
 }
 
-opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag)
+opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const PaintedTerm::List& terms)
 {
     opt<PaintedTerm::Ptr> targetTerm = std::nullopt;
 
@@ -460,7 +462,7 @@ opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag)
 
     opt<int> optionalResult;
 
-    for (auto node : mTerms) {
+    for (auto node : terms) {
         auto termName = node->cache().lowerTerm();
 
         if (!LinkUtils::tagLengthSuitTerm(tag, termName))
@@ -491,10 +493,10 @@ opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag)
 void TermGroup::removeExceedEdges()
 {
     // First find all edges to break
-    for (auto node : mTerms)
+    for (auto node : mGraphData.nodes)
         node->checkForExceedEdges();
 
-    for (auto edge : mEdges) {
+    for (auto edge : mGraphData.edges) {
         if (edge->data().needCutOut) {
             mRedundantEdges.push_back(edge);
         }
@@ -502,8 +504,8 @@ void TermGroup::removeExceedEdges()
 
     for (auto edge : mRedundantEdges) {
         edge->makeEdgeRedundant();
-        auto remIt = std::ranges::remove_if(mEdges, [edge](auto e) { return edge == e; });
-        mEdges.erase(remIt.begin(), remIt.end());
+        auto remIt = std::ranges::remove_if(mGraphData.edges, [edge](auto e) { return edge == e; });
+        mGraphData.edges.erase(remIt.begin(), remIt.end());
     }
 }
 
@@ -511,7 +513,7 @@ PaintedEdge::List TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge:
 {
     PaintedEdge::List ret;
 
-    for (auto edge : mEdges) {
+    for (auto edge : mGraphData.edges) {
         if (condition(edge)) {
             ret.push_back(edge);
         }
@@ -523,10 +525,10 @@ PaintedEdge::List TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge:
 void TermGroup::removeCycles()
 {
     // First find all edges to break
-    for (auto node : mTerms)
+    for (auto node : mGraphData.nodes)
         node->getCycleEdge();
 
-    for (auto edge : mEdges) {
+    for (auto edge : mGraphData.edges) {
         if (edge->data().needBroke) {
             mBrokenEdges.push_back(edge);
         }
@@ -534,8 +536,8 @@ void TermGroup::removeCycles()
 
     for (auto edge : mBrokenEdges) {
         edge->brokeEdge();
-        auto remIt = std::ranges::remove_if(mEdges, [edge](auto e) { return edge == e; });
-        mEdges.erase(remIt.begin(), remIt.end());
+        auto remIt = std::ranges::remove_if(mGraphData.edges, [edge](auto e) { return edge == e; });
+        mGraphData.edges.erase(remIt.begin(), remIt.end());
     }
 }
 
@@ -569,7 +571,7 @@ QMap<QString, PaintedTerm::Ptr> TermGroup::getExactTermMatchCache()
 {
     QMap<QString, PaintedTerm::Ptr> ret;
 
-    for (auto node : mTerms)
+    for (auto node : mGraphData.nodes)
         ret.insert(node->cache().lowerTerm(), node);
 
     return ret;
@@ -579,7 +581,7 @@ QMap<QUuid, PaintedTerm::Ptr> TermGroup::getTermUuidsMap()
 {
     QMap<QUuid, PaintedTerm::Ptr> ret;
 
-    for (auto node : mTerms)
+    for (auto node : mGraphData.nodes)
         ret.insert(node->data().uuid, node);
 
     return ret;
@@ -607,7 +609,7 @@ PaintedTerm::List TermGroup::getOrphanNodes() const
 PaintedTerm::List TermGroup::filterFromNodesList(std::function<bool(PaintedTerm::Ptr)> filterCheck) const
 {
     PaintedTerm::List ret;
-    for (auto node : mTerms) {
+    for (auto node : mGraphData.nodes) {
         if (filterCheck(node)) {
             ret.push_back(node);
         }
@@ -615,6 +617,6 @@ PaintedTerm::List TermGroup::filterFromNodesList(std::function<bool(PaintedTerm:
     return ret;
 }
 
-PaintedTerm::List TermGroup::terms() const { return mTerms; }
+PaintedTerm::List TermGroup::terms() const { return mGraphData.nodes; }
 
 bool TermGroup::isThreadInterrupted() { return QThread::currentThread()->isInterruptionRequested(); }

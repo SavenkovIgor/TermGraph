@@ -25,6 +25,7 @@
 
 #include "source/Helpers/handytypes.h"
 #include "source/Model/Base/forest.hpp"
+#include "source/Model/Base/graphdata.hpp"
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminEdge/paintededge.h"
@@ -37,6 +38,8 @@ class TermGroup : public QObject
 
     Q_PROPERTY(QString uuid READ qmlUuid CONSTANT)
     Q_PROPERTY(QString name READ name CONSTANT)
+
+    using GraphT = Graph<PaintedTerm, PaintedEdge>;
 
 public:
     TermGroup(const GroupData& info, const TermData::List& termData, QObject* parent = nullptr);
@@ -92,10 +95,10 @@ private:
     QSizeF         getAllTreesSize();
 
     // Edges
-    PaintedEdge::List searchAllConnections();
+    PaintedEdge::List searchAllConnections(const PaintedTerm::List& terms);
     PaintedEdge::List suggestConnections(); // TODO: Realize!
 
-    opt<PaintedTerm::Ptr> getNearestNodeForTag(const QString& tag);
+    opt<PaintedTerm::Ptr> getNearestNodeForTag(const QString& tag, const PaintedTerm::List& terms);
     void                  removeExceedEdges();
     PaintedEdge::List     filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const;
     void                  removeCycles();
@@ -120,11 +123,10 @@ private:
 
     GroupData mInfo;
 
-    PaintedTerm::List mTerms;
-    PaintedEdge::List mEdges;
-
     PaintedEdge::List mRedundantEdges;
     PaintedEdge::List mBrokenEdges;
 
     TermTree::List mTrees;
+
+    GraphT mGraphData = GraphT({});
 };
