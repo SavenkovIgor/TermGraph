@@ -51,18 +51,18 @@ QColor PaintedEdge::getEdgeColor() const
     return AppStyle::Colors::Edges::standard;
 }
 
-void PaintedEdge::brokeEdge()
+void PaintedEdge::brokeEdge(const Ptr &ptr)
 {
     cutOutFromSides();
-    root()->addBrokenEdge(this);
+    root()->addBrokenEdge(ptr);
 
     mData.type = EdgeType::broken;
 }
 
-void PaintedEdge::makeEdgeRedundant()
+void PaintedEdge::makeEdgeRedundant(const Ptr &ptr)
 {
     cutOutFromSides();
-    leaf()->addRedundantEdge(this);
+    leaf()->addRedundantEdge(ptr);
 
     mData.type = EdgeType::redundant;
 }
@@ -98,13 +98,13 @@ QRectF PaintedEdge::edgeRect()
 
 QPointF PaintedEdge::rootPoint()
 {
-    auto paintedTerm = static_cast<PaintedTerm*>(root().get());
+    auto paintedTerm = static_cast<PaintedTerm *>(root().get());
     return paintedTerm->getCenter(CoordType::scene);
 }
 
 QPointF PaintedEdge::leafPoint()
 {
-    auto paintedTerm = static_cast<PaintedTerm*>(leaf().get());
+    auto paintedTerm = static_cast<PaintedTerm *>(leaf().get());
     return paintedTerm->getCenter(CoordType::scene);
 }
 

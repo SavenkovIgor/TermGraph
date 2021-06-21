@@ -503,7 +503,7 @@ void TermGroup::removeExceedEdges()
     }
 
     for (auto edge : mRedundantEdges) {
-        edge->makeEdgeRedundant();
+        edge->makeEdgeRedundant(edge);
         auto remIt = std::ranges::remove_if(mGraphData.edges, [edge](auto e) { return edge == e; });
         mGraphData.edges.erase(remIt.begin(), remIt.end());
     }
@@ -535,7 +535,7 @@ void TermGroup::removeCycles()
     }
 
     for (auto edge : mBrokenEdges) {
-        edge->brokeEdge();
+        edge->brokeEdge(edge);
         auto remIt = std::ranges::remove_if(mGraphData.edges, [edge](auto e) { return edge == e; });
         mGraphData.edges.erase(remIt.begin(), remIt.end());
     }

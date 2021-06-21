@@ -51,8 +51,8 @@ public:
     QPointF leafPoint();
     QColor  getEdgeColor() const;
 
-    void brokeEdge();
-    void makeEdgeRedundant();
+    void brokeEdge(const Ptr& ptr);
+    void makeEdgeRedundant(const Ptr& ptr);
     void cutOutFromSides();
 
     // Selection

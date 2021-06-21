@@ -33,6 +33,8 @@
 class GraphTerm : public Node<TermData>
 {
 public:
+    using Ptr        = std::shared_ptr<GraphTerm>;
+    using List       = std::vector<Ptr>;
     using UnsafeList = std::vector<GraphTerm*>;
 
     GraphTerm(const TermData& info);
@@ -58,8 +60,8 @@ public:
     void addEdgeRef(GraphEdge::Ptr edge);
 
     // Delete section
-    GraphTerm::UnsafeList getRootNodes();
-    GraphTerm::UnsafeList getLeafNodes();
+    GraphTerm::List getRootNodes();
+    GraphTerm::List getLeafNodes();
 
     GraphEdge::List getEdgesToLeafs() const;
     GraphEdge::List getEdgesToRoots() const;
@@ -70,8 +72,8 @@ public:
     void removeEdgeToLeafs(GraphEdge* edge);
     void removeEdgeToRoots(GraphEdge* edge);
 
-    void addBrokenEdge(GraphEdge* edge);
-    void addRedundantEdge(GraphEdge* edge);
+    void addBrokenEdge(const GraphEdge::Ptr& edge);
+    void addRedundantEdge(const GraphEdge::Ptr& edge);
 
     void checkForExceedEdges();
 
@@ -85,9 +87,9 @@ public:
     const TermDataCache& cache() const;
 
 private:
-    GraphEdge::UnsafeList edgesToOtherGroups; // Пока никак не используются но будут.
-    GraphEdge::UnsafeList brokenEdges;        // Пока никак не используются но будут.
-    GraphEdge::UnsafeList redundantEdges;
+    GraphEdge::List edgesToOtherGroups; // Пока никак не используются но будут.
+    GraphEdge::List brokenEdges;        // Пока никак не используются но будут.
+    GraphEdge::List redundantEdges;
 
     GraphEdge::List edgesToLeafs;
     GraphEdge::List edgesToRoots;

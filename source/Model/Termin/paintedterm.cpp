@@ -81,7 +81,7 @@ void PaintedTerm::setRelatedPaintUp(bool val)
         dynamic_cast<PaintedEdge*>(edge.get())->setSelectedForward(val);
 
     for (auto node : getLeafNodes()) {
-        auto* paintNode = static_cast<PaintedTerm*>(node);
+        auto* paintNode = static_cast<PaintedTerm*>(node.get());
         if (paintNode->mRelativePaint != val) {
             paintNode->mRelativePaint = val;
             paintNode->setRelatedPaintUp(val);
@@ -94,8 +94,8 @@ void PaintedTerm::setRelatedPaintDown(bool val)
     for (auto edge : getEdgesToRoots())
         dynamic_cast<PaintedEdge*>(edge.get())->setSelectedBackward(val);
 
-    for (auto* node : getRootNodes()) {
-        auto* paintNode = static_cast<PaintedTerm*>(node);
+    for (auto node : getRootNodes()) {
+        auto* paintNode = static_cast<PaintedTerm*>(node.get());
         if (paintNode->mRelativePaint != val) {
             paintNode->mRelativePaint = val;
             paintNode->setRelatedPaintDown(val);

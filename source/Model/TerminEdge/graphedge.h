@@ -34,9 +34,8 @@ class GraphEdge : public Edge<GraphTerm, EdgeData>
     using TermPtr = std::shared_ptr<GraphTerm>;
 
 public:
-    using Ptr        = std::shared_ptr<GraphEdge>;
-    using List       = std::vector<Ptr>;
-    using UnsafeList = std::vector<GraphEdge*>;
+    using Ptr  = std::shared_ptr<GraphEdge>;
+    using List = std::vector<Ptr>;
 
     GraphEdge(TermPtr toRoot, TermPtr toLeaf);
     virtual ~GraphEdge() = default;
