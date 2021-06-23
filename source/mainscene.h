@@ -115,20 +115,20 @@ private: // Methods
     void   updateSceneRect();
 
     // Mouse interaction
-    PaintedTerm* selectedTerm = nullptr;
+    PaintedTerm::OptPtr selectedTerm = std::nullopt;
 
-    PaintedTerm* getSelectedTerm() const;
-    void         selectTerm(PaintedTerm* term);
-    void         dropTermSelection();
+    PaintedTerm::OptPtr getSelectedTerm() const;
+    void                selectTerm(PaintedTerm::OptPtr term);
+    void                dropTermSelection();
 
-    PaintedTerm*    findTerm(const QUuid& termUuid) const;
-    TermDataWrapper getCurrentNode();
-    TermGroup*      getCurrentGroup() const;
-    bool            hasCurrentGroup() const;
+    PaintedTerm::OptPtr findTerm(const QUuid& termUuid) const;
+    TermDataWrapper     getCurrentNode();
+    TermGroup*          getCurrentGroup() const;
+    bool                hasCurrentGroup() const;
 
     void findClick(const QPointF& atPt);
 
-    PaintedTerm* getNodeAtPoint(const QPointF& pt) const;
+    PaintedTerm::OptPtr getNodeAtPoint(const QPointF& pt) const;
 
     // Groups fields
     QScopedPointer<TermGroup> mCurrentGroup;

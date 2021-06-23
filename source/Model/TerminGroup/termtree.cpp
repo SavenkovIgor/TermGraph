@@ -51,7 +51,7 @@ PaintedTerm::OptPtr TermTree::getNodeAtPoint(const QPointF& pt) const
         }
     }
 
-    return nullptr;
+    return std::nullopt;
 }
 
 RectGraphicItem& TermTree::rect() { return mRect; }
