@@ -59,10 +59,10 @@ NodeType GraphTerm::getNodeType() const
     }
 }
 
-QString GraphTerm::getHierarchyDefinition()
+QString GraphTerm::getHierarchyDefinition(Ptr term)
 {
-    GraphTerm::UnsafeList parentsList;
-    fillAllParentsList(this, parentsList);
+    GraphTerm::List parentsList;
+    fillAllParentsList(term, parentsList);
 
     if (parentsList.empty())
         return "";
@@ -75,7 +75,7 @@ QString GraphTerm::getHierarchyDefinition()
                 maxIndex = j;
             }
         }
-        auto* tmp             = parentsList[i];
+        auto tmp              = parentsList[i];
         parentsList[i]        = parentsList[maxIndex];
         parentsList[maxIndex] = tmp;
     }
@@ -287,12 +287,12 @@ GraphEdge* GraphTerm::findLongPathToNode(GraphTerm* node)
     return nullptr;
 }
 
-void GraphTerm::fillAllParentsList(GraphTerm* searchNode, GraphTerm::UnsafeList& lst)
+void GraphTerm::fillAllParentsList(GraphTerm::Ptr searchNode, GraphTerm::List& lst)
 {
     for (auto node : searchNode->getRootNodes()) {
-        if (std::ranges::find(lst, node.get()) == lst.end())
-            lst.push_back(node.get());
+        if (std::ranges::find(lst, node) == lst.end())
+            lst.push_back(node);
 
-        fillAllParentsList(node.get(), lst);
+        fillAllParentsList(node, lst);
     }
 }

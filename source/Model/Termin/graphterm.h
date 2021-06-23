@@ -33,9 +33,8 @@
 class GraphTerm : public Node<TermData>
 {
 public:
-    using Ptr        = std::shared_ptr<GraphTerm>;
-    using List       = std::vector<Ptr>;
-    using UnsafeList = std::vector<GraphTerm*>;
+    using Ptr  = std::shared_ptr<GraphTerm>;
+    using List = std::vector<Ptr>;
 
     GraphTerm(const TermData& info);
     ~GraphTerm() = default;
@@ -48,7 +47,7 @@ public:
 
     NodeType getNodeType() const;
 
-    QString getHierarchyDefinition();
+    QString getHierarchyDefinition(GraphTerm::Ptr term);
 
     void setLevel(int level);
     int  getPaintLevel() const;
@@ -106,5 +105,5 @@ private:
 
     GraphEdge* findLongPathToNode(GraphTerm* node);
 
-    void fillAllParentsList(GraphTerm* searchNode, GraphTerm::UnsafeList& lst);
+    void fillAllParentsList(GraphTerm::Ptr searchNode, GraphTerm::List& lst);
 };

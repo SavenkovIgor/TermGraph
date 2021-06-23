@@ -296,7 +296,7 @@ QString MainScene::getCurrNodeNameAndDefinition()
 QString MainScene::getCurrNodeHierarchyDefinition()
 {
     if (auto node = getSelectedTerm(); node.has_value())
-        return node.value()->getHierarchyDefinition();
+        return node.value()->getHierarchyDefinition(node.value());
 
     return "";
 }
