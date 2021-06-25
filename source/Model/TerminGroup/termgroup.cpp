@@ -187,7 +187,7 @@ void TermGroup::addEdgesToParents()
 {
     for (auto edge : mGraphData.edges) {
         for (auto tree : mTrees) {
-            if (tree->hasEdge(edge.get())) {
+            if (tree->hasEdge(edge)) {
                 edge->setParentItem(&(tree->rect()));
             }
         }

@@ -87,7 +87,7 @@ bool PaintedForest::hasTerm(PaintedTerm* term) const
     return false;
 }
 
-bool PaintedForest::hasEdge(PaintedEdge* edge) const
+bool PaintedForest::hasEdge(PaintedEdge::Ptr edge) const
 {
     auto* rootTerm = static_cast<PaintedTerm*>(edge->root().get());
     auto* leafTerm = static_cast<PaintedTerm*>(edge->leaf().get());
