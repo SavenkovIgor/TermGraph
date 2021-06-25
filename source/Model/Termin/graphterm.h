@@ -40,10 +40,6 @@ public:
     ~GraphTerm() = default;
 
     bool isRoot() const;
-    bool isOrphan() const;
-    bool isLeaf() const;
-
-    bool isInTree() const;
 
     NodeType getNodeType() const;
 

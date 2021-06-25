@@ -588,15 +588,9 @@ QSizeF TermGroup::getOrphansSize()
     return orphansRc.size();
 }
 
-PaintedTerm::List TermGroup::getInTreeNodes() const
-{
-    return filterFromNodesList([](auto node) { return node->isInTree(); });
-}
+PaintedTerm::List TermGroup::getInTreeNodes() const { return mGraphData.connectedNodes(); }
 
-PaintedTerm::List TermGroup::getOrphanNodes() const
-{
-    return filterFromNodesList([](auto node) { return node->isOrphan(); });
-}
+PaintedTerm::List TermGroup::getOrphanNodes() const { return mGraphData.isolatedNodes(); }
 
 PaintedTerm::List TermGroup::filterFromNodesList(std::function<bool(PaintedTerm::Ptr)> filterCheck) const
 {

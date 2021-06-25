@@ -32,16 +32,6 @@ GraphTerm::GraphTerm(const TermData& info)
 
 bool GraphTerm::isRoot() const { return getNodeType() == NodeType::root; }
 
-bool GraphTerm::isOrphan() const { return getNodeType() == NodeType::orphan; }
-
-bool GraphTerm::isLeaf() const
-{
-    NodeType type = getNodeType();
-    return type == NodeType::endLeaf || type == NodeType::middleLeaf;
-}
-
-bool GraphTerm::isInTree() const { return !isOrphan(); }
-
 NodeType GraphTerm::getNodeType() const
 {
     if (edgesToRoots.empty()) {
