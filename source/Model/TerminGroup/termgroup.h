@@ -43,7 +43,7 @@ class TermGroup : public QObject
 
 public:
     TermGroup(const GroupData& info, const TermData::List& termData, QObject* parent = nullptr);
-    ~TermGroup();
+    ~TermGroup() = default;
 
     void setBasePoint(QPointF pt);
 
@@ -90,9 +90,8 @@ private:
 
     // External
     // Trees
-    void           initTrees();
-    TermTree::List trees() const;
-    QSizeF         getAllTreesSize();
+    void   initTrees();
+    QSizeF getAllTreesSize();
 
     // Edges
     PaintedEdge::List searchAllConnections(const PaintedTerm::List& terms);
@@ -126,7 +125,7 @@ private:
     PaintedEdge::List mRedundantEdges;
     PaintedEdge::List mBrokenEdges;
 
-    TermTree::List mTrees;
+    PaintedForest::List mTrees;
 
     GraphT mGraphData = GraphT({});
 };

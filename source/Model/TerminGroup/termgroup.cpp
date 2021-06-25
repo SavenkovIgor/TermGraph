@@ -77,12 +77,6 @@ TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObj
     groupCreationTime = t.elapsed();
 }
 
-TermGroup::~TermGroup()
-{
-    qDeleteAll(mTrees);
-    mTrees.clear();
-}
-
 void TermGroup::setBasePoint(QPointF pt) { mBaseRect.setPos(pt); }
 
 QRectF TermGroup::getGroupRect() const { return mBaseRect.getRect(CoordType::scene); }
@@ -146,7 +140,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
 
 PaintedTerm::OptPtr TermGroup::getTerm(const QPointF& pt) const
 {
-    for (const auto* tree : trees()) {
+    for (const auto tree : mTrees) {
         if (tree->getTreeRect(CoordType::scene).contains(pt)) {
             return tree->getNodeAtPoint(pt);
         }
@@ -192,7 +186,7 @@ void TermGroup::addOrphansToParents()
 void TermGroup::addEdgesToParents()
 {
     for (auto edge : mGraphData.edges) {
-        for (auto* tree : trees()) {
+        for (auto tree : mTrees) {
             if (tree->hasEdge(edge.get())) {
                 edge->setParentItem(&(tree->rect()));
             }
@@ -228,7 +222,7 @@ void TermGroup::updateRectsPositions()
     basePoint.ry() += nameSize.height() + vSpacer;
 
     // Вычисляем под дерево
-    for (auto* tree : trees()) {
+    for (auto tree : mTrees) {
         auto treeSize = tree->baseSize();
         tree->rect().setPos(basePoint);
         tree->rect().setSize(treeSize);
@@ -268,7 +262,7 @@ void TermGroup::updateBaseRectSize()
 
 void TermGroup::setTreeCoords()
 {
-    for (auto* tree : trees())
+    for (auto tree : mTrees)
         tree->setTreeNodeCoords();
 }
 
@@ -325,7 +319,7 @@ void TermGroup::setAllWeights()
 
 void TermGroup::addTreeRectsToScene()
 {
-    for (auto* tree : trees())
+    for (auto tree : mTrees)
         tree->rect().setParentItem(&mBaseRect);
 }
 
@@ -363,7 +357,7 @@ void TermGroup::initTrees()
 
     // Set all trees
     for (unsigned int treeId = 1; treeId <= treesCount; treeId++) {
-        auto* tree = new TermTree();
+        auto tree = std::make_shared<PaintedForest>();
         for (auto node : treeNodes) {
             if (node->getTreeId() == treeId) {
                 tree->addTerm(node);
@@ -373,18 +367,16 @@ void TermGroup::initTrees()
         mTrees.push_back(tree);
     }
 
-    auto treeSorting = [](const TermTree* t1, const TermTree* t2) { return t1->square() > t2->square(); };
+    auto treeSorting = [](auto t1, auto t2) { return t1->square() > t2->square(); };
 
     std::sort(mTrees.begin(), mTrees.end(), treeSorting);
 }
-
-TermTree::List TermGroup::trees() const { return mTrees; }
 
 QSizeF TermGroup::getAllTreesSize()
 {
     SizeList sizeList;
 
-    for (const auto* tree : mTrees)
+    for (const auto tree : mTrees)
         sizeList.push_back(tree->baseSize());
 
     auto totalSize = HelpStuff::getStackedSize(sizeList, Qt::Vertical);

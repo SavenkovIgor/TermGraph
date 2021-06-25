@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <cassert>
 #include <deque>
 #include <functional>
 #include <map>

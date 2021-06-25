@@ -23,7 +23,11 @@
 
 #include "source/Helpers/appstyle.h"
 
-void TermTree::setTreeNodeCoords(QPointF leftTopPoint)
+PaintedForest::PaintedForest()
+    : Forest<PaintedTerm, PEdge>({})
+{}
+
+void PaintedForest::setTreeNodeCoords(QPointF leftTopPoint)
 {
     if (getAllNodesInTree().empty())
         return;
@@ -43,7 +47,7 @@ void TermTree::setTreeNodeCoords(QPointF leftTopPoint)
     }
 }
 
-PaintedTerm::OptPtr TermTree::getNodeAtPoint(const QPointF& pt) const
+PaintedTerm::OptPtr PaintedForest::getNodeAtPoint(const QPointF& pt) const
 {
     for (auto node : getAllNodesInTree()) {
         if (node->getNodeRect(CoordType::scene).contains(pt)) {
@@ -54,9 +58,9 @@ PaintedTerm::OptPtr TermTree::getNodeAtPoint(const QPointF& pt) const
     return std::nullopt;
 }
 
-RectGraphicItem& TermTree::rect() { return mRect; }
+RectGraphicItem& PaintedForest::rect() { return mRect; }
 
-void TermTree::addTerm(PaintedTerm::Ptr term)
+void PaintedForest::addTerm(PaintedTerm::Ptr term)
 {
     int paintLayer = term->getPaintLevel();
 
@@ -73,7 +77,7 @@ void TermTree::addTerm(PaintedTerm::Ptr term)
     mStacks[paintLayer].addTerm(term);
 }
 
-bool TermTree::hasTerm(PaintedTerm* term) const
+bool PaintedForest::hasTerm(PaintedTerm* term) const
 {
     for (const auto& stack : mStacks) {
         if (stack.hasNode(term)) {
@@ -83,14 +87,14 @@ bool TermTree::hasTerm(PaintedTerm* term) const
     return false;
 }
 
-bool TermTree::hasEdge(PaintedEdge* edge) const
+bool PaintedForest::hasEdge(PaintedEdge* edge) const
 {
     auto* rootTerm = static_cast<PaintedTerm*>(edge->root().get());
     auto* leafTerm = static_cast<PaintedTerm*>(edge->leaf().get());
     return hasTerm(rootTerm) && hasTerm(leafTerm);
 }
 
-QRectF TermTree::getTreeRect(CoordType inCoordinates) const
+QRectF PaintedForest::getTreeRect(CoordType inCoordinates) const
 {
     QRectF ret = QRectF(QPointF(), baseSize());
 
@@ -103,7 +107,7 @@ QRectF TermTree::getTreeRect(CoordType inCoordinates) const
     return ret;
 }
 
-QSizeF TermTree::baseSize() const
+QSizeF PaintedForest::baseSize() const
 {
     qreal width  = 0.0;
     qreal height = 0.0;
@@ -121,13 +125,13 @@ QSizeF TermTree::baseSize() const
     return QSizeF(width, height);
 }
 
-double TermTree::square() const
+double PaintedForest::square() const
 {
     auto size = baseSize();
     return size.width() * size.height();
 }
 
-PaintedTerm::List TermTree::getAllNodesInTree() const
+PaintedTerm::List PaintedForest::getAllNodesInTree() const
 {
     PaintedTerm::List ret;
 
@@ -138,7 +142,7 @@ PaintedTerm::List TermTree::getAllNodesInTree() const
     return ret;
 }
 
-qreal TermTree::getMaxStackHeight() const
+qreal PaintedForest::getMaxStackHeight() const
 {
     qreal maxHeight = 0.0;
 

@@ -23,19 +23,22 @@
 
 #include <stdlib.h>
 
+#include "source/Model/Base/forest.hpp"
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminEdge/paintededge.h"
+#include "source/Model/TerminEdge/pedge.h"
 #include "source/Model/TerminGroup/nodeverticalstack.h"
 
-class TermTree
+class PaintedForest : public Forest<PaintedTerm, PEdge>
 {
 public:
-    using List = std::vector<TermTree*>;
+    using Ptr  = std::shared_ptr<PaintedForest>;
+    using List = std::vector<Ptr>;
 
     // Constructor/Destructor
-    TermTree()  = default;
-    ~TermTree() = default;
+    PaintedForest();
+    ~PaintedForest() = default;
 
     RectGraphicItem& rect();
 
@@ -56,7 +59,7 @@ public:
     PaintedTerm::OptPtr getNodeAtPoint(const QPointF& pt) const;
 
     // Deletions
-    TermTree(const TermTree&) = delete;
+    PaintedForest(const PaintedForest&) = delete;
 
 private:
     // Internal Info
