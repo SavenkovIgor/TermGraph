@@ -21,6 +21,8 @@
 
 #include "source/Model/TerminGroup/termgroup.h"
 
+#include <ranges>
+
 #include <QElapsedTimer>
 #include <QThread>
 
@@ -384,9 +386,7 @@ void TermGroup::initTrees()
         mTrees.push_back(tree);
     }
 
-    auto treeSorting = [](auto t1, auto t2) { return t1->square() > t2->square(); };
-
-    std::sort(mTrees.begin(), mTrees.end(), treeSorting);
+    std::ranges::sort(mTrees, [](auto t1, auto t2) { return t1->square() > t2->square(); });
 }
 
 QSizeF TermGroup::getAllTreesSize()
