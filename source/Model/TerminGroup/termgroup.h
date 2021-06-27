@@ -62,6 +62,8 @@ public:
     QUuid   uuid() const;
     QString name() const;
 
+    QString getHierarchyDefinition(PaintedTerm::Ptr term);
+
 private:
     // Base init
     void addOrphansToParents();
@@ -103,7 +105,6 @@ private:
     void                  removeCycles();
 
     // Nodes
-    void                            setLevels();
     PaintedTerm::List               getRootNodes() const;
     QMap<QString, PaintedTerm::Ptr> getExactTermMatchCache();
     QMap<QUuid, PaintedTerm::Ptr>   getTermUuidsMap();

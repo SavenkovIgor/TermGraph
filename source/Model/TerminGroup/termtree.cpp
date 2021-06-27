@@ -21,11 +21,30 @@
 
 #include "source/Model/TerminGroup/termtree.h"
 
+#include <ranges>
+
 #include "source/Helpers/appstyle.h"
 
-PaintedForest::PaintedForest()
-    : Forest<PaintedTerm, PEdge>({})
-{}
+PaintedForest::PaintedForest(const GraphData<PaintedTerm, PEdge>& data)
+    : Forest<PaintedTerm, PEdge>(data)
+{
+    for (auto term : data.nodes)
+        term->setParentItem(&mRect);
+
+    auto layersCount = 0;
+    for (auto node : data.nodes)
+        layersCount = std::max(layersCount, level(node));
+
+    for (int i = 0; i <= layersCount; i++)
+        mStacks.push_back(NodeVerticalStack());
+
+    for (auto term : data.nodes) {
+        int paintLevel = level(term);
+
+        if (0 <= paintLevel && paintLevel < mStacks.size())
+            mStacks[paintLevel].addTerm(term);
+    }
+}
 
 void PaintedForest::setTreeNodeCoords(QPointF leftTopPoint)
 {
@@ -58,24 +77,35 @@ PaintedTerm::OptPtr PaintedForest::getNodeAtPoint(const QPointF& pt) const
     return std::nullopt;
 }
 
-RectGraphicItem& PaintedForest::rect() { return mRect; }
-
-void PaintedForest::addTerm(PaintedTerm::Ptr term)
+QString PaintedForest::getHierarchyDefinition(PaintedTerm::Ptr term)
 {
-    int paintLayer = term->getPaintLevel();
+    PaintedTerm::List parentsList;
 
-    assert(paintLayer >= 0);
-    if (paintLayer < 0)
-        return;
+    rootsVisiter(term, [&parentsList](auto node) {
+        if (std::find(parentsList.begin(), parentsList.end(), node) == parentsList.end()) {
+            parentsList.push_back(node);
+        }
+        return false;
+    });
 
-    int increaseSizeCount = paintLayer - mStacks.size() + 1;
-    for (int i = 0; i < increaseSizeCount; i++) {
-        mStacks.push_back(NodeVerticalStack());
-    }
+    if (parentsList.empty())
+        return "";
 
-    term->setParentItem(&mRect);
-    mStacks[paintLayer].addTerm(term);
+    // Sorting parents list
+    std::ranges::sort(parentsList, [this](auto n1, auto n2) { return level(n1) > level(n2); });
+
+    QStringList definitions;
+
+    for (auto node : parentsList)
+        definitions << node->cache().termAndDefinition(true);
+
+    // Add this definition
+    definitions << term->cache().termAndDefinition(true);
+
+    return definitions.join("<br><br>");
 }
+
+RectGraphicItem& PaintedForest::rect() { return mRect; }
 
 bool PaintedForest::hasTerm(PaintedTerm* term) const
 {

@@ -49,53 +49,6 @@ NodeType GraphTerm::getNodeType() const
     }
 }
 
-QString GraphTerm::getHierarchyDefinition(Ptr term)
-{
-    GraphTerm::List parentsList;
-    fillAllParentsList(term, parentsList);
-
-    if (parentsList.empty())
-        return "";
-
-    // Sorting parents list
-    for (int i = 0; i < parentsList.size(); i++) {
-        int maxIndex = i;
-        for (int j = i + 1; j < parentsList.size(); j++) {
-            if (parentsList[maxIndex]->paintLevel < parentsList[j]->paintLevel) {
-                maxIndex = j;
-            }
-        }
-        auto tmp              = parentsList[i];
-        parentsList[i]        = parentsList[maxIndex];
-        parentsList[maxIndex] = tmp;
-    }
-
-    QStringList definitions;
-
-    for (auto node : parentsList)
-        definitions << node->cache().termAndDefinition(true);
-
-    // Add this definition
-    definitions << cache().termAndDefinition(true);
-
-    return definitions.join("<br><br>");
-}
-
-void GraphTerm::setLevel(int level)
-{
-    if (level > paintLevel)
-        paintLevel = level;
-
-    for (auto node : getLeafNodes()) {
-        if (data().groupUuid != node->data().groupUuid) {
-            continue;
-        }
-        node->setLevel(level + 1);
-    }
-}
-
-int GraphTerm::getPaintLevel() const { return paintLevel; }
-
 void GraphTerm::getCycleEdge()
 {
     cycleSearchFlag = 1;

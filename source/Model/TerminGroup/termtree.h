@@ -37,13 +37,10 @@ public:
     using List = std::vector<Ptr>;
 
     // Constructor/Destructor
-    PaintedForest();
+    PaintedForest(const GraphData<PaintedTerm, PEdge>& data);
     ~PaintedForest() = default;
 
     RectGraphicItem& rect();
-
-    // Add info
-    void addTerm(PaintedTerm::Ptr term);
 
     // TreeInfo
     bool hasTerm(PaintedTerm* term) const;
@@ -57,6 +54,8 @@ public:
     void setTreeNodeCoords(QPointF leftTopPoint = QPointF());
 
     PaintedTerm::OptPtr getNodeAtPoint(const QPointF& pt) const;
+
+    QString getHierarchyDefinition(PaintedTerm::Ptr term);
 
     // Deletions
     PaintedForest(const PaintedForest&) = delete;

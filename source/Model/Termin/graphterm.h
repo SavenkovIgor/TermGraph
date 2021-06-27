@@ -43,10 +43,6 @@ public:
 
     NodeType getNodeType() const;
 
-    QString getHierarchyDefinition(GraphTerm::Ptr term);
-
-    void setLevel(int level);
-    int  getPaintLevel() const;
     void getCycleEdge();
 
     void         setTreeId(unsigned int treeId);
@@ -89,8 +85,7 @@ private:
     GraphEdge::List edgesToLeafs;
     GraphEdge::List edgesToRoots;
 
-    int          paintLevel = -1;
-    unsigned int treeId     = 0; // 0 = no value
+    unsigned int treeId = 0; // 0 = no value
 
     int        mSelfWeight = 0;
     static int mMaxWeight;

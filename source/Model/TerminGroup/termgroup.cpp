@@ -58,7 +58,6 @@ TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObj
     if (isThreadInterrupted())
         return;
 
-    setLevels();
     initTrees();
     addTreeRectsToScene();
 
@@ -327,13 +326,6 @@ QSizeF TermGroup::getNameSize() const { return Fonts::getTextMetrics(name(), Fon
 
 QString TermGroup::qmlUuid() const { return uuid().toString(); }
 
-void TermGroup::setLevels()
-{
-    // Set layer numbers
-    for (auto node : getRootNodes())
-        node->setLevel(0);
-}
-
 PaintedTerm::List TermGroup::getRootNodes() const
 {
     return filterFromNodesList([](auto node) { return node->isRoot(); });
@@ -343,10 +335,10 @@ void TermGroup::initTrees()
 {
     unsigned int treeId = 1;
 
-    auto treeNodes = getInTreeNodes();
+    auto allTreeNodes = getInTreeNodes();
 
     // Set all tree Id's
-    for (auto node : treeNodes) {
+    for (auto node : allTreeNodes) {
         if (node->getTreeId() == 0) {
             node->setTreeId(treeId);
             treeId++;
@@ -357,12 +349,37 @@ void TermGroup::initTrees()
 
     // Set all trees
     for (unsigned int treeId = 1; treeId <= treesCount; treeId++) {
-        auto tree = std::make_shared<PaintedForest>();
-        for (auto node : treeNodes) {
+        PaintedTerm::List currentTreeNodes;
+        PEdge::List       currentTreeEdges;
+
+        for (auto node : allTreeNodes) {
             if (node->getTreeId() == treeId) {
-                tree->addTerm(node);
+                currentTreeNodes.push_back(node);
             }
         }
+
+        for (auto node : currentTreeNodes) {
+            for (auto edge : mGraphData.connectedEdges(node)) {
+                auto pRootTerm = std::static_pointer_cast<PaintedTerm>(edge->root());
+                auto pLeafTerm = std::static_pointer_cast<PaintedTerm>(edge->leaf());
+
+                auto result = std::find_if(currentTreeEdges.begin(),
+                                           currentTreeEdges.end(),
+                                           [pRootTerm, pLeafTerm](auto e) {
+                                               return e->root() == pRootTerm && e->leaf() == pLeafTerm;
+                                           });
+
+                if (result == currentTreeEdges.end()) {
+                    currentTreeEdges.push_back(std::make_shared<PEdge>(pRootTerm, pLeafTerm));
+                }
+            }
+        }
+
+        GraphData<PaintedTerm, PEdge> gData;
+        gData.nodes = currentTreeNodes;
+        gData.edges = currentTreeEdges;
+
+        auto tree = std::make_shared<PaintedForest>(gData);
 
         mTrees.push_back(tree);
     }
@@ -558,6 +575,16 @@ PaintedEdge::List TermGroup::edgesForPaint() const
 QUuid TermGroup::uuid() const { return mInfo.uuid; }
 
 QString TermGroup::name() const { return mInfo.name; }
+
+QString TermGroup::getHierarchyDefinition(PaintedTerm::Ptr term)
+{
+    for (auto tree : mTrees) {
+        if (tree->contains(term))
+            return tree->getHierarchyDefinition(term);
+    }
+
+    return "";
+}
 
 QMap<QString, PaintedTerm::Ptr> TermGroup::getExactTermMatchCache()
 {

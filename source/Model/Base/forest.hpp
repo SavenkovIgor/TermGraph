@@ -260,8 +260,7 @@ private: // Methods
         ranges::for_each(BaseData::nodes, [&ret](auto node) { ret[node] = 0; });
         ranges::for_each(rootNodes, [&visitQueue](auto node) { visitQueue.push_back(node); });
 
-        auto maxIterations = BaseData::nodes.size() - rootNodes.size();
-        for (int i = 0; i < maxIterations; i++) // Just steps limit
+        while (!visitQueue.empty()) // Just steps limit
         {
             auto node = visitQueue.front();
             visitQueue.pop_front();
