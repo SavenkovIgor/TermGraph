@@ -54,7 +54,8 @@ public:
 
     QPointF getCenter(CoordType inCoordinates) const;
 
-    void setSelection(const bool& selected);
+    void setSelection(bool selected);
+    void setRelativeSelection(bool relativeSelected);
     bool isSelectedAnyway() const;
 
     opt<QPointF> optimalRootsBasedPosition() const;
@@ -63,10 +64,6 @@ public:
     QRectF  rect() const;
     qreal   cornerRadius() const;
     QColor  color() const;
-
-private: // Methods
-    void setRelatedPaintUp(bool val);
-    void setRelatedPaintDown(bool val);
 
 private: // Members
     QProperty<QSizeF> pNodeSize;

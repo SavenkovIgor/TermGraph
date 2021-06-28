@@ -48,7 +48,6 @@ public:
     bool   isRootStack() const;
 
     bool hasNode(PaintedTerm::Ptr term) const;
-    bool hasNode(PaintedTerm::UnsafePtr term) const;
 
     PaintedTerm::List nodes() const;
 

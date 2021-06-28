@@ -75,34 +75,6 @@ QColor PaintedTerm::color() const { return baseColor(getNodeType(), isSelectedAn
 
 qreal PaintedTerm::cornerRadius() const { return pCornerRadius.value(); }
 
-void PaintedTerm::setRelatedPaintUp(bool val)
-{
-    for (auto edge : getEdgesToLeafs())
-        dynamic_cast<PaintedEdge*>(edge.get())->setSelectedForward(val);
-
-    for (auto node : getLeafNodes()) {
-        auto* paintNode = static_cast<PaintedTerm*>(node.get());
-        if (paintNode->mRelativePaint != val) {
-            paintNode->mRelativePaint = val;
-            paintNode->setRelatedPaintUp(val);
-        }
-    }
-}
-
-void PaintedTerm::setRelatedPaintDown(bool val)
-{
-    for (auto edge : getEdgesToRoots())
-        dynamic_cast<PaintedEdge*>(edge.get())->setSelectedBackward(val);
-
-    for (auto node : getRootNodes()) {
-        auto* paintNode = static_cast<PaintedTerm*>(node.get());
-        if (paintNode->mRelativePaint != val) {
-            paintNode->mRelativePaint = val;
-            paintNode->setRelatedPaintDown(val);
-        }
-    }
-}
-
 QColor PaintedTerm::baseColor(NodeType type, bool selected)
 {
     switch (type) {
@@ -116,17 +88,15 @@ QColor PaintedTerm::baseColor(NodeType type, bool selected)
     return AppStyle::Colors::Nodes::orphan;
 }
 
-void PaintedTerm::setSelection(const bool& selected)
+void PaintedTerm::setSelection(bool selected)
 {
     if (mThisSelected != selected) {
-        mThisSelected = selected;
-
+        mThisSelected  = selected;
         mRelativePaint = selected;
-
-        setRelatedPaintDown(selected);
-        setRelatedPaintUp(selected);
     }
 }
+
+void PaintedTerm::setRelativeSelection(bool relativeSelected) { mRelativePaint = relativeSelected; }
 
 bool PaintedTerm::isSelectedAnyway() const { return mThisSelected || mRelativePaint; }
 

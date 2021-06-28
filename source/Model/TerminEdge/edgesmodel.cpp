@@ -25,7 +25,7 @@ EdgesModel::EdgesModel(QObject *parent)
     : QAbstractListModel(parent)
 {}
 
-void EdgesModel::setEdges(PaintedEdge::List edges)
+void EdgesModel::setEdges(PEdge::List edges)
 {
     beginResetModel();
     mEdges = edges;
@@ -57,7 +57,7 @@ QVariant EdgesModel::data(const QModelIndex &index, int role) const
     switch (static_cast<Roles>(role)) {
     case Roles::Pt1: return edge->rootPoint();
     case Roles::Pt2: return edge->leafPoint();
-    case Roles::Color: return edge->getEdgeColor();
+    case Roles::Color: return edge->color();
     case Roles::IsSelected: return edge->isSelected();
     }
 

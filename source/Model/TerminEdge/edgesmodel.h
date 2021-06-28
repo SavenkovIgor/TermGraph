@@ -24,7 +24,7 @@
 #include <QAbstractListModel>
 #include <QObject>
 
-#include "source/Model/TerminEdge/paintededge.h"
+#include "source/Model/TerminEdge/pedge.h"
 
 // BUG: on empty groups, edges didnt hide
 
@@ -39,7 +39,7 @@ public:
 
     Q_ENUM(Roles);
 
-    void setEdges(PaintedEdge::List edges);
+    void setEdges(PEdge::List edges);
     void clear();
 
     QHash<int, QByteArray> roleNames() const override;
@@ -50,5 +50,5 @@ public:
     void updateSelection();
 
 private:
-    PaintedEdge::List mEdges;
+    PEdge::List mEdges;
 };

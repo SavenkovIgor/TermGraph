@@ -60,7 +60,7 @@ QVariant TermsModel::data(const QModelIndex &index, int role) const
     case Roles::Rect: return term->rect();
     case Roles::Radius: return term->cornerRadius();
     case Roles::Color: return term->color();
-    case Roles::Weight: return term->getRelativeWeight();
+    case Roles::Weight: return 0.1;
     case Roles::Term: return term->decoratedTerm();
     case Roles::IsSelected: return term->isSelectedAnyway();
     }

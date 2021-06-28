@@ -57,17 +57,18 @@ public:
     PaintedTerm::OptPtr getTerm(const QString& termName) const;
 
     PaintedTerm::List terms() const;
-    PaintedEdge::List edgesForPaint() const;
+    PEdge::List       edgesForPaint() const;
 
     QUuid   uuid() const;
     QString name() const;
 
     QString getHierarchyDefinition(PaintedTerm::Ptr term);
 
+    void selectTerm(const PaintedTerm::Ptr& term, bool selection);
+
 private:
     // Base init
     void addOrphansToParents();
-    void addEdgesToParents();
 
     // Group
     qreal getGroupMinWidth();
@@ -79,9 +80,6 @@ private:
 
     // Orphans
     void setOrphCoords(qreal maxWidth = 200.0);
-
-    // Weights
-    void setAllWeights();
 
     // Main objects
     void addTreeRectsToScene();
@@ -100,9 +98,7 @@ private:
     PaintedEdge::List suggestConnections(); // TODO: Realize!
 
     opt<PaintedTerm::Ptr> getNearestNodeForTag(const QString& tag, const PaintedTerm::List& terms);
-    void                  removeExceedEdges();
-    PaintedEdge::List     filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const;
-    void                  removeCycles();
+    PEdge::List           filterFromEdgesList(std::function<bool(PEdge::Ptr)> condition) const;
 
     // Nodes
     PaintedTerm::List               getRootNodes() const;
@@ -112,6 +108,10 @@ private:
     PaintedTerm::List               getInTreeNodes() const;
     PaintedTerm::List               getOrphanNodes() const;
     PaintedTerm::List               filterFromNodesList(std::function<bool(PaintedTerm::Ptr)> filterCheck) const;
+
+    PEdge::List allEdges() const;
+    PEdge::List allBrokenEdges() const;
+    PEdge::List allExceedEdges() const;
 
     bool isThreadInterrupted();
 
@@ -123,10 +123,7 @@ private:
 
     GroupData mInfo;
 
-    PaintedEdge::List mRedundantEdges;
-    PaintedEdge::List mBrokenEdges;
-
-    PaintedForest::List mTrees;
+    PaintedForest::List mTrees; // TODO: mForests;
 
     GraphT mGraphData = GraphT({});
 };

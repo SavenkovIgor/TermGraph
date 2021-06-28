@@ -23,8 +23,6 @@
 
 #include <ranges>
 
-int GraphTerm::mMaxWeight = 0;
-
 GraphTerm::GraphTerm(const TermData& info)
     : Node<TermData>(info)
     , mDataCache(info)
@@ -47,26 +45,6 @@ NodeType GraphTerm::getNodeType() const
             return NodeType::middleLeaf; // Has both connections, up and down
         }
     }
-}
-
-void GraphTerm::getCycleEdge()
-{
-    cycleSearchFlag = 1;
-    for (auto edge : edgesToLeafs) {
-        if (edge->data().needBroke) {
-            continue;
-        }
-
-        auto leafNode = edge->oppositeTo(this);
-        if (leafNode->cycleSearchFlag == 1) {
-            edge->data().needBroke = true;
-        } else {
-            if (leafNode->cycleSearchFlag == 0) {
-                leafNode->getCycleEdge();
-            }
-        }
-    }
-    cycleSearchFlag = 2;
 }
 
 void GraphTerm::setTreeId(unsigned int treeId)
@@ -95,32 +73,6 @@ void GraphTerm::addEdgeRef(GraphEdge::Ptr edge)
         edgesToRoots.push_back(edge);
 }
 
-GraphTerm::List GraphTerm::getRootNodes()
-{
-    GraphTerm::List ret;
-
-    for (auto edge : edgesToRoots) {
-        ret.push_back(edge->oppositeTo(this));
-    }
-
-    return ret;
-}
-
-GraphTerm::List GraphTerm::getLeafNodes()
-{
-    GraphTerm::List ret;
-
-    for (auto edge : edgesToLeafs) {
-        ret.push_back(edge->oppositeTo(this));
-    }
-
-    return ret;
-}
-
-GraphEdge::List GraphTerm::getEdgesToLeafs() const { return edgesToLeafs; }
-
-GraphEdge::List GraphTerm::getEdgesToRoots() const { return edgesToRoots; }
-
 GraphEdge::List GraphTerm::getAllConnectedEdges() const
 {
     GraphEdge::List ret;
@@ -134,108 +86,6 @@ GraphEdge::List GraphTerm::getAllConnectedEdges() const
     return ret;
 }
 
-void GraphTerm::removeEdgeToLeafs(GraphEdge* edge)
-{
-    auto remIt = std::ranges::remove_if(edgesToLeafs, [edge](auto e) { return edge == e.get(); });
-    edgesToLeafs.erase(remIt.begin(), remIt.end());
-}
-
-void GraphTerm::removeEdgeToRoots(GraphEdge* edge)
-{
-    auto remIt = std::ranges::remove_if(edgesToRoots, [edge](auto e) { return edge == e.get(); });
-    edgesToRoots.erase(remIt.begin(), remIt.end());
-}
-
-void GraphTerm::addBrokenEdge(const GraphEdge::Ptr& edge)
-{
-    if (std::ranges::find(brokenEdges, edge) == brokenEdges.end())
-        brokenEdges.push_back(edge);
-}
-
-void GraphTerm::addRedundantEdge(const GraphEdge::Ptr& edge)
-{
-    if (std::ranges::find(redundantEdges, edge) == redundantEdges.end())
-        redundantEdges.push_back(edge);
-}
-
-void GraphTerm::checkForExceedEdges()
-{
-    for (auto node : getRootNodes()) {
-        if (findLongPathToNode(node.get()) != nullptr) {
-            // If we found long path, we need mark direct path for cut out
-            for (auto edge : edgesToRoots) {
-                if (edge->oppositeTo(this) == node) {
-                    edge->data().needCutOut = true;
-                }
-            }
-        }
-    }
-}
-
-void GraphTerm::giveWeights()
-{
-    for (auto edge : getEdgesToRoots())
-        edge->oppositeTo(this)->increaseWeight();
-
-    for (auto edge : redundantEdges)
-        edge->oppositeTo(this)->increaseWeight();
-}
-
-void GraphTerm::resetMaxWeight() { mMaxWeight = 0; }
-
-int GraphTerm::weight() const { return mSelfWeight; }
-
-void GraphTerm::increaseWeight()
-{
-    mSelfWeight++;
-    mMaxWeight = std::max(mMaxWeight, mSelfWeight);
-}
-
-double GraphTerm::getRelativeWeight() const { return static_cast<double>(weight()) / mMaxWeight; }
+GraphEdge::List GraphTerm::getEdgesToRoots() const { return edgesToRoots; }
 
 const TermDataCache& GraphTerm::cache() const { return mDataCache; }
-
-bool GraphTerm::hasTermInRoots(GraphTerm* targetTerm, QList<GraphTerm*>& visitList)
-{
-    if (visitList.isEmpty())
-        return false;
-
-    auto* currentTerm = visitList.takeFirst();
-
-    if (targetTerm == currentTerm)
-        return true;
-
-    for (auto rootNode : currentTerm->getRootNodes())
-        if (!visitList.contains(rootNode.get()))
-            visitList.push_back(rootNode.get());
-
-    return hasTermInRoots(targetTerm, visitList);
-}
-
-GraphEdge* GraphTerm::findLongPathToNode(GraphTerm* node)
-{
-    for (auto edge : edgesToRoots) {
-        auto otherSideNode = edge->oppositeTo(this).get();
-        // Ignore direct connection
-        if (otherSideNode == node)
-            continue;
-
-        QList<GraphTerm*> visitList;
-        visitList.push_back(otherSideNode);
-
-        if (hasTermInRoots(node, visitList)) {
-            return edge.get();
-        }
-    }
-    return nullptr;
-}
-
-void GraphTerm::fillAllParentsList(GraphTerm::Ptr searchNode, GraphTerm::List& lst)
-{
-    for (auto node : searchNode->getRootNodes()) {
-        if (std::ranges::find(lst, node) == lst.end())
-            lst.push_back(node);
-
-        fillAllParentsList(node, lst);
-    }
-}

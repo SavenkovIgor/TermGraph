@@ -240,17 +240,20 @@ PaintedTerm::OptPtr MainScene::findTerm(const QUuid& termUuid) const
 
 void MainScene::selectTerm(PaintedTerm::OptPtr term)
 {
+    if (!mCurrentGroup)
+        return;
+
     if (selectedTerm != term) {
         // Drop selection
         if (selectedTerm.has_value())
-            selectedTerm.value()->setSelection(false);
+            mCurrentGroup->selectTerm(selectedTerm.value(), false);
 
         // Set new selection
         selectedTerm = term;
 
         // Call selection
         if (selectedTerm.has_value())
-            selectedTerm.value()->setSelection(true);
+            mCurrentGroup->selectTerm(selectedTerm.value(), true);
 
         emit selectionChanged();
         emit edgesChanged();

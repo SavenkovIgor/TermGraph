@@ -27,7 +27,4 @@ struct EdgeData
 {
     EdgeSelection selectionType = EdgeSelection::none;
     EdgeType      type          = EdgeType::termin;
-
-    bool needBroke  = false; // TODO: Delete
-    bool needCutOut = false; // TODO: Delete
 };

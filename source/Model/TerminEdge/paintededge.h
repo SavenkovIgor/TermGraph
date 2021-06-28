@@ -51,14 +51,6 @@ public:
     QPointF leafPoint();
     QColor  getEdgeColor() const;
 
-    void brokeEdge(const Ptr& ptr);
-    void makeEdgeRedundant(const Ptr& ptr);
-    void cutOutFromSides();
-
-    // Selection
-    void setSelectedForward(bool value);
-    void setSelectedBackward(bool value);
-
     EdgeSelection selectedType() const;
     bool          isSelected() const;
     bool          isBroken() const;

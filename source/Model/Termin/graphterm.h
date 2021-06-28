@@ -43,58 +43,22 @@ public:
 
     NodeType getNodeType() const;
 
-    void getCycleEdge();
-
     void         setTreeId(unsigned int treeId);
     unsigned int getTreeId() const;
 
     void addEdgeRef(GraphEdge::Ptr edge);
 
     // Delete section
-    GraphTerm::List getRootNodes();
-    GraphTerm::List getLeafNodes();
-
-    GraphEdge::List getEdgesToLeafs() const;
-    GraphEdge::List getEdgesToRoots() const;
     GraphEdge::List getAllConnectedEdges() const;
-
-    int cycleSearchFlag = 0;
-
-    void removeEdgeToLeafs(GraphEdge* edge);
-    void removeEdgeToRoots(GraphEdge* edge);
-
-    void addBrokenEdge(const GraphEdge::Ptr& edge);
-    void addRedundantEdge(const GraphEdge::Ptr& edge);
-
-    void checkForExceedEdges();
-
-    void        giveWeights();
-    static void resetMaxWeight();
-
-    int    weight() const;
-    void   increaseWeight();
-    double getRelativeWeight() const;
+    GraphEdge::List getEdgesToRoots() const;
 
     const TermDataCache& cache() const;
 
 private:
-    GraphEdge::List edgesToOtherGroups; // Пока никак не используются но будут.
-    GraphEdge::List brokenEdges;        // Пока никак не используются но будут.
-    GraphEdge::List redundantEdges;
-
     GraphEdge::List edgesToLeafs;
     GraphEdge::List edgesToRoots;
 
     unsigned int treeId = 0; // 0 = no value
 
-    int        mSelfWeight = 0;
-    static int mMaxWeight;
-
     const TermDataCache mDataCache;
-
-    static bool hasTermInRoots(GraphTerm* term, QList<GraphTerm*>& visitList);
-
-    GraphEdge* findLongPathToNode(GraphTerm* node);
-
-    void fillAllParentsList(GraphTerm::Ptr searchNode, GraphTerm::List& lst);
 };

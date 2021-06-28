@@ -31,6 +31,9 @@ PaintedForest::PaintedForest(const GraphData<PaintedTerm, PEdge>& data)
     for (auto term : data.nodes)
         term->setParentItem(&mRect);
 
+    for (auto edge : data.edges)
+        edge->setParentItem(&mRect);
+
     auto layersCount = 0;
     for (auto node : data.nodes)
         layersCount = std::max(layersCount, level(node));
@@ -105,9 +108,40 @@ QString PaintedForest::getHierarchyDefinition(PaintedTerm::Ptr term)
     return definitions.join("<br><br>");
 }
 
+void PaintedForest::selectTerm(const PaintedTerm::Ptr& term, bool selected)
+{
+    assert(hasTerm(term));
+
+    term->setSelection(selected);
+
+    rootsVisiter(
+        term,
+        [this, selected](auto node) {
+            node->setRelativeSelection(selected);
+
+            for (auto edge : edgesToRoots().at(node))
+                edge->setSelectedBackward(selected);
+
+            return false;
+        },
+        true);
+
+    leafsVisiter(
+        term,
+        [this, selected](auto node) {
+            node->setRelativeSelection(selected);
+
+            for (auto edge : edgesToLeafs().at(node))
+                edge->setSelectedForward(selected);
+
+            return false;
+        },
+        true);
+}
+
 RectGraphicItem& PaintedForest::rect() { return mRect; }
 
-bool PaintedForest::hasTerm(PaintedTerm* term) const
+bool PaintedForest::hasTerm(PaintedTerm::Ptr term) const
 {
     for (const auto& stack : mStacks) {
         if (stack.hasNode(term)) {
@@ -115,13 +149,6 @@ bool PaintedForest::hasTerm(PaintedTerm* term) const
         }
     }
     return false;
-}
-
-bool PaintedForest::hasEdge(PaintedEdge::Ptr edge) const
-{
-    auto* rootTerm = static_cast<PaintedTerm*>(edge->root().get());
-    auto* leafTerm = static_cast<PaintedTerm*>(edge->leaf().get());
-    return hasTerm(rootTerm) && hasTerm(leafTerm);
 }
 
 QRectF PaintedForest::getTreeRect(CoordType inCoordinates) const

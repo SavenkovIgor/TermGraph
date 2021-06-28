@@ -54,22 +54,22 @@ TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObj
     if (isThreadInterrupted())
         return;
 
-    removeCycles();
-    removeExceedEdges();
+    // Removing of exceed edges
 
     if (isThreadInterrupted())
         return;
 
     initTrees();
+
+    for (auto edge : allBrokenEdges())
+        edge->brokeEdge();
+
     addTreeRectsToScene();
 
     addOrphansToParents();
-    addEdgesToParents();
 
     setTreeCoords();
     setOrphCoords();
-
-    setAllWeights();
 
     // Positioning
     updateRectsPositions();
@@ -184,17 +184,6 @@ void TermGroup::addOrphansToParents()
     }
 }
 
-void TermGroup::addEdgesToParents()
-{
-    for (auto edge : mGraphData.edges) {
-        for (auto tree : mTrees) {
-            if (tree->hasEdge(edge)) {
-                edge->setParentItem(&(tree->rect()));
-            }
-        }
-    }
-}
-
 qreal TermGroup::getGroupMinWidth()
 {
     qreal width = 0.0;
@@ -263,8 +252,7 @@ void TermGroup::updateBaseRectSize()
 
 void TermGroup::setTreeCoords()
 {
-    for (auto tree : mTrees)
-        tree->setTreeNodeCoords();
+    std::ranges::for_each(mTrees, [](auto t) { t->setTreeNodeCoords(); });
 }
 
 void TermGroup::setOrphCoords(qreal maxWidth)
@@ -308,14 +296,6 @@ void TermGroup::setOrphCoords(qreal maxWidth)
 
         maxHeightInRow = std::max(maxHeightInRow, nodeSize.height());
     }
-}
-
-void TermGroup::setAllWeights()
-{
-    GraphTerm::resetMaxWeight();
-
-    for (auto term : mGraphData.nodes)
-        term->giveWeights();
 }
 
 void TermGroup::addTreeRectsToScene()
@@ -499,30 +479,11 @@ opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const 
     return targetTerm;
 }
 
-void TermGroup::removeExceedEdges()
+PEdge::List TermGroup::filterFromEdgesList(std::function<bool(PEdge::Ptr)> condition) const
 {
-    // First find all edges to break
-    for (auto node : mGraphData.nodes)
-        node->checkForExceedEdges();
+    PEdge::List ret;
 
-    for (auto edge : mGraphData.edges) {
-        if (edge->data().needCutOut) {
-            mRedundantEdges.push_back(edge);
-        }
-    }
-
-    for (auto edge : mRedundantEdges) {
-        edge->makeEdgeRedundant(edge);
-        auto remIt = std::ranges::remove_if(mGraphData.edges, [edge](auto e) { return edge == e; });
-        mGraphData.edges.erase(remIt.begin(), remIt.end());
-    }
-}
-
-PaintedEdge::List TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const
-{
-    PaintedEdge::List ret;
-
-    for (auto edge : mGraphData.edges) {
+    for (auto edge : allEdges()) {
         if (condition(edge)) {
             ret.push_back(edge);
         }
@@ -531,28 +492,9 @@ PaintedEdge::List TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge:
     return ret;
 }
 
-void TermGroup::removeCycles()
+PEdge::List TermGroup::edgesForPaint() const
 {
-    // First find all edges to break
-    for (auto node : mGraphData.nodes)
-        node->getCycleEdge();
-
-    for (auto edge : mGraphData.edges) {
-        if (edge->data().needBroke) {
-            mBrokenEdges.push_back(edge);
-        }
-    }
-
-    for (auto edge : mBrokenEdges) {
-        edge->brokeEdge(edge);
-        auto remIt = std::ranges::remove_if(mGraphData.edges, [edge](auto e) { return edge == e; });
-        mGraphData.edges.erase(remIt.begin(), remIt.end());
-    }
-}
-
-PaintedEdge::List TermGroup::edgesForPaint() const
-{
-    PaintedEdge::List lst;
+    PEdge::List lst;
 
     auto softEdgesFilter     = [](auto e) { return !e->isSelected() && !e->isHard(); };
     auto hardEdgesFilter     = [](auto e) { return !e->isSelected() && e->isHard(); };
@@ -567,7 +509,7 @@ PaintedEdge::List TermGroup::edgesForPaint() const
     std::ranges::for_each(softEdges, addToList);
     std::ranges::for_each(hardEdges, addToList);
     std::ranges::for_each(selectedEdges, addToList);
-    std::ranges::for_each(mBrokenEdges, addToList);
+    std::ranges::for_each(allBrokenEdges(), addToList);
 
     return lst;
 }
@@ -584,6 +526,13 @@ QString TermGroup::getHierarchyDefinition(PaintedTerm::Ptr term)
     }
 
     return "";
+}
+
+void TermGroup::selectTerm(const PaintedTerm::Ptr& term, bool selection)
+{
+    for (auto forest : mTrees)
+        if (forest->hasTerm(term))
+            forest->selectTerm(term, selection);
 }
 
 QMap<QString, PaintedTerm::Ptr> TermGroup::getExactTermMatchCache()
@@ -627,6 +576,43 @@ PaintedTerm::List TermGroup::filterFromNodesList(std::function<bool(PaintedTerm:
             ret.push_back(node);
         }
     }
+    return ret;
+}
+
+PEdge::List TermGroup::allEdges() const
+{
+    PEdge::List ret;
+
+    for (auto forest : mTrees) {
+        for (auto edge : forest->edgeList()) {
+            ret.push_back(edge);
+        }
+    }
+
+    return ret;
+}
+
+PEdge::List TermGroup::allBrokenEdges() const
+{
+    PEdge::List ret;
+    for (auto forest : mTrees) {
+        for (auto edge : forest->brokenEdges()) {
+            ret.push_back(edge);
+        }
+    }
+
+    return ret;
+}
+
+PEdge::List TermGroup::allExceedEdges() const
+{
+    PEdge::List ret;
+
+    for (auto forest : mTrees) {
+        for (auto edge : forest->wasteEdges())
+            ret.push_back(edge);
+    }
+
     return ret;
 }
 

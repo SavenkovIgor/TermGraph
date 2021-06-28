@@ -51,28 +51,6 @@ QColor PaintedEdge::getEdgeColor() const
     return AppStyle::Colors::Edges::standard;
 }
 
-void PaintedEdge::brokeEdge(const Ptr &ptr)
-{
-    cutOutFromSides();
-    root()->addBrokenEdge(ptr);
-
-    mData.type = EdgeType::broken;
-}
-
-void PaintedEdge::makeEdgeRedundant(const Ptr &ptr)
-{
-    cutOutFromSides();
-    leaf()->addRedundantEdge(ptr);
-
-    mData.type = EdgeType::redundant;
-}
-
-void PaintedEdge::cutOutFromSides()
-{
-    root()->removeEdgeToLeafs(this);
-    leaf()->removeEdgeToRoots(this);
-}
-
 EdgeSelection PaintedEdge::selectedType() const { return mData.selectionType; }
 
 bool PaintedEdge::isSelected() const
@@ -106,18 +84,4 @@ QPointF PaintedEdge::leafPoint()
 {
     auto paintedTerm = static_cast<PaintedTerm *>(leaf().get());
     return paintedTerm->getCenter(CoordType::scene);
-}
-
-void PaintedEdge::setSelectedForward(bool value)
-{
-    auto resultSelection = value ? EdgeSelection::forward : EdgeSelection::none;
-    if (mData.selectionType != resultSelection)
-        mData.selectionType = resultSelection;
-}
-
-void PaintedEdge::setSelectedBackward(bool value)
-{
-    auto resultSelection = value ? EdgeSelection::backward : EdgeSelection::none;
-    if (mData.selectionType != resultSelection)
-        mData.selectionType = resultSelection;
 }

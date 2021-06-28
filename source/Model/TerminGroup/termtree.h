@@ -43,8 +43,7 @@ public:
     RectGraphicItem& rect();
 
     // TreeInfo
-    bool hasTerm(PaintedTerm* term) const;
-    bool hasEdge(PaintedEdge::Ptr edge) const;
+    bool hasTerm(PaintedTerm::Ptr term) const;
 
     QRectF getTreeRect(CoordType inCoordinates) const;
     QSizeF baseSize() const; // Clearly counted value. Ignoring real node positions
@@ -56,6 +55,8 @@ public:
     PaintedTerm::OptPtr getNodeAtPoint(const QPointF& pt) const;
 
     QString getHierarchyDefinition(PaintedTerm::Ptr term);
+
+    void selectTerm(const PaintedTerm::Ptr& term, bool selected);
 
     // Deletions
     PaintedForest(const PaintedForest&) = delete;

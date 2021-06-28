@@ -39,15 +39,6 @@ void NodeVerticalStack::addTerm(PaintedTerm::Ptr term) { mTerms.push_back(term);
 
 bool NodeVerticalStack::hasNode(PaintedTerm::Ptr term) const { return std::ranges::find(mTerms, term) != mTerms.end(); }
 
-bool NodeVerticalStack::hasNode(PaintedTerm::UnsafePtr term) const
-{
-    for (auto t : mTerms)
-        if (t.get() == term)
-            return true;
-
-    return false;
-}
-
 PaintedTerm::List NodeVerticalStack::nodes() const { return mTerms; }
 
 // Clearly counted value. Ignoring real node positions
