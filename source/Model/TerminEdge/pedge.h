@@ -36,4 +36,16 @@ public:
     using List = std::vector<Ptr>;
 
     PEdge(PaintedTerm::Ptr root, PaintedTerm::Ptr leaf);
+
+    void brokeEdge();
+    void setSelectedForward(bool value);
+    void setSelectedBackward(bool value);
+
+    bool isSelected() const;
+    bool isHard() const;
+
+    QPointF rootPoint();
+    QPointF leafPoint();
+
+    QColor color() const;
 };

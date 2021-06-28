@@ -21,7 +21,64 @@
 
 #include "pedge.h"
 
+#include "source/Helpers/appstyle.h"
+
 PEdge::PEdge(PaintedTerm::Ptr root, PaintedTerm::Ptr leaf)
     : Edge<PaintedTerm, EdgeData>(root, leaf, EdgeData())
     , GraphicItem()
 {}
+
+bool PEdge::isSelected() const
+{
+    return data().selectionType == EdgeSelection::forward || data().selectionType == EdgeSelection::backward;
+}
+
+bool PEdge::isHard() const { return data().type == EdgeType::terminHardLink; }
+
+QPointF PEdge::rootPoint()
+{
+    auto paintedTerm = static_cast<PaintedTerm *>(root().get());
+    return paintedTerm->getCenter(CoordType::scene);
+}
+
+QPointF PEdge::leafPoint()
+{
+    auto paintedTerm = static_cast<PaintedTerm *>(leaf().get());
+    return paintedTerm->getCenter(CoordType::scene);
+}
+
+QColor PEdge::color() const
+{
+    switch (data().selectionType) {
+    case EdgeSelection::backward: return AppStyle::Colors::Edges::selected;
+    case EdgeSelection::forward: return AppStyle::Colors::Edges::selectedAlt;
+    default: break;
+    }
+
+    switch (data().type) {
+    case EdgeType::standart: return AppStyle::Colors::Edges::standard;
+    case EdgeType::termin: return AppStyle::Colors::Edges::termin;
+    case EdgeType::terminHardLink: return AppStyle::Colors::Edges::terminHardLink;
+    case EdgeType::description: return AppStyle::Colors::Edges::description;
+    case EdgeType::broken: return AppStyle::Colors::Edges::broken;
+    case EdgeType::redundant: return AppStyle::Colors::Edges::standard;
+    }
+
+    return AppStyle::Colors::Edges::standard;
+}
+
+void PEdge::brokeEdge() { data().type = EdgeType::broken; }
+
+void PEdge::setSelectedForward(bool value)
+{
+    auto resultSelection = value ? EdgeSelection::forward : EdgeSelection::none;
+    if (data().selectionType != resultSelection)
+        data().selectionType = resultSelection;
+}
+
+void PEdge::setSelectedBackward(bool value)
+{
+    auto resultSelection = value ? EdgeSelection::backward : EdgeSelection::none;
+    if (data().selectionType != resultSelection)
+        data().selectionType = resultSelection;
+}
