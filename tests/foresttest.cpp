@@ -133,8 +133,9 @@ TEST_F(ForestTest, RootVisit)
     EXPECT_TRUE(visitList.empty());
     visitList.clear();
 
-    fullForest.rootsVisiter(n2, visitListInserter);
-    EXPECT_TRUE(visitList.empty());
+    fullForest.rootsVisiter(n2, visitListInserter, true);
+    EXPECT_TRUE(visitList.size() == 1);
+    EXPECT_TRUE(visitList.contains(n2));
     visitList.clear();
 
     fullForest.rootsVisiter(n3, visitListInserter);
@@ -165,8 +166,9 @@ TEST_F(ForestTest, LeafVisit)
     EXPECT_TRUE(visitList.empty());
     visitList.clear();
 
-    fullForest.leafsVisiter(n3, visitListInserter);
-    EXPECT_TRUE(visitList.empty());
+    fullForest.leafsVisiter(n3, visitListInserter, true);
+    EXPECT_TRUE(visitList.size() == 1);
+    EXPECT_TRUE(visitList.contains(n3));
     visitList.clear();
 
     fullForest.leafsVisiter(n2, visitListInserter);

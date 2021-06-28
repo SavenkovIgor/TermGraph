@@ -106,18 +106,22 @@ public:
         }
     }
 
-    void rootsVisiter(const NodePtr& node, const std::function<bool(const NodePtr& node)>& stopCondition) const
+    void rootsVisiter(const NodePtr&                                  node,
+                      const std::function<bool(const NodePtr& node)>& stopCondition,
+                      bool                                            checkStartNode = false) const
     {
         std::deque<NodePtr> visitQueue;
         visitQueue.push_back(node);
-        nodesVisiter(stopCondition, visitQueue, mEdgesToRoots, false);
+        nodesVisiter(stopCondition, visitQueue, mEdgesToRoots, checkStartNode);
     }
 
-    void leafsVisiter(const NodePtr& node, const std::function<bool(const NodePtr& node)>& stopCondition) const
+    void leafsVisiter(const NodePtr&                                  node,
+                      const std::function<bool(const NodePtr& node)>& stopCondition,
+                      bool                                            checkStartNode = false) const
     {
         std::deque<NodePtr> visitQueue;
         visitQueue.push_back(node);
-        nodesVisiter(stopCondition, visitQueue, mEdgesToLeafs, false);
+        nodesVisiter(stopCondition, visitQueue, mEdgesToLeafs, checkStartNode);
     }
 
     NodeList roots() const
@@ -197,6 +201,10 @@ public:
 
         return ret;
     }
+
+protected:
+    const std::map<NodePtr, EdgeList>& edgesToRoots() { return mEdgesToRoots; }
+    const std::map<NodePtr, EdgeList>& edgesToLeafs() { return mEdgesToLeafs; }
 
 private: // Methods
     void rebuildCache()
