@@ -26,7 +26,6 @@
 #include "source/Model/Base/forest.hpp"
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/Termin/paintedterm.h"
-#include "source/Model/TerminEdge/paintededge.h"
 #include "source/Model/TerminEdge/pedge.h"
 #include "source/Model/TerminGroup/nodeverticalstack.h"
 

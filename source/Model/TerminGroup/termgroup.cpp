@@ -51,6 +51,11 @@ TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObj
 
     mGraphData = GraphT({.nodes = nodes, .edges = searchAllConnections(nodes)});
 
+    auto subgraphs = mGraphData.bondedSubgraphs();
+
+    for (auto subgraph : subgraphs)
+        mTrees.push_back(std::make_shared<PaintedForest>(subgraph));
+
     if (isThreadInterrupted())
         return;
 
@@ -58,8 +63,6 @@ TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObj
 
     if (isThreadInterrupted())
         return;
-
-    initTrees();
 
     for (auto edge : allBrokenEdges())
         edge->brokeEdge();
@@ -310,63 +313,13 @@ QString TermGroup::qmlUuid() const { return uuid().toString(); }
 
 PaintedTerm::List TermGroup::getRootNodes() const
 {
-    return filterFromNodesList([](auto node) { return node->isRoot(); });
-}
+    PaintedTerm::List ret;
 
-void TermGroup::initTrees()
-{
-    unsigned int treeId = 1;
+    for (auto forest : mTrees)
+        for (auto root : forest->roots())
+            ret.push_back(root);
 
-    auto allTreeNodes = getInTreeNodes();
-
-    // Set all tree Id's
-    for (auto node : allTreeNodes) {
-        if (node->getTreeId() == 0) {
-            node->setTreeId(treeId);
-            treeId++;
-        }
-    }
-
-    unsigned int treesCount = treeId - 1; // last treeId increase was fictious
-
-    // Set all trees
-    for (unsigned int treeId = 1; treeId <= treesCount; treeId++) {
-        PaintedTerm::List currentTreeNodes;
-        PEdge::List       currentTreeEdges;
-
-        for (auto node : allTreeNodes) {
-            if (node->getTreeId() == treeId) {
-                currentTreeNodes.push_back(node);
-            }
-        }
-
-        for (auto node : currentTreeNodes) {
-            for (auto edge : mGraphData.connectedEdges(node)) {
-                auto pRootTerm = std::static_pointer_cast<PaintedTerm>(edge->root());
-                auto pLeafTerm = std::static_pointer_cast<PaintedTerm>(edge->leaf());
-
-                auto result = std::find_if(currentTreeEdges.begin(),
-                                           currentTreeEdges.end(),
-                                           [pRootTerm, pLeafTerm](auto e) {
-                                               return e->root() == pRootTerm && e->leaf() == pLeafTerm;
-                                           });
-
-                if (result == currentTreeEdges.end()) {
-                    currentTreeEdges.push_back(std::make_shared<PEdge>(pRootTerm, pLeafTerm));
-                }
-            }
-        }
-
-        GraphData<PaintedTerm, PEdge> gData;
-        gData.nodes = currentTreeNodes;
-        gData.edges = currentTreeEdges;
-
-        auto tree = std::make_shared<PaintedForest>(gData);
-
-        mTrees.push_back(tree);
-    }
-
-    std::ranges::sort(mTrees, [](auto t1, auto t2) { return t1->square() > t2->square(); });
+    return ret;
 }
 
 QSizeF TermGroup::getAllTreesSize()
@@ -384,9 +337,9 @@ QSizeF TermGroup::getAllTreesSize()
     return totalSize;
 }
 
-PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms)
+PEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms)
 {
-    PaintedEdge::List ret;
+    PEdge::List ret;
 
     // Pre-heating of cache with exact terms match
     QMap<QString, PaintedTerm::Ptr> previousTagSearchCache = getExactTermMatchCache();
@@ -420,10 +373,7 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
 
             if (foundNode) {
                 if (foundNode.value() != node) { // TODO: Real case, need check
-                    auto newEdge = std::make_shared<PaintedEdge>(foundNode.value(), node, eType);
-                    newEdge->root()->addEdgeRef(newEdge);
-                    newEdge->leaf()->addEdgeRef(newEdge);
-                    ret.push_back(newEdge);
+                    ret.push_back(std::make_shared<PEdge>(foundNode.value(), node));
                     previousTagSearchCache.insert(link.textLower(), foundNode.value());
                 }
             }
@@ -533,6 +483,16 @@ void TermGroup::selectTerm(const PaintedTerm::Ptr& term, bool selection)
     for (auto forest : mTrees)
         if (forest->hasTerm(term))
             forest->selectTerm(term, selection);
+}
+
+NodeType TermGroup::termType(const PaintedTerm::Ptr& term) const
+{
+    for (auto forest : mTrees) {
+        if (forest->hasTerm(term))
+            return forest->nodeType(term);
+    }
+
+    return NodeType::orphan;
 }
 
 QMap<QString, PaintedTerm::Ptr> TermGroup::getExactTermMatchCache()

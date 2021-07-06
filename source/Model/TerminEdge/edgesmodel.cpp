@@ -25,14 +25,21 @@ EdgesModel::EdgesModel(QObject *parent)
     : QAbstractListModel(parent)
 {}
 
-void EdgesModel::setEdges(PEdge::List edges)
+void EdgesModel::setGroup(TermGroup::UnsafePtr group)
 {
     beginResetModel();
-    mEdges = edges;
+    mGroup = group;
+
+    if (mGroup != nullptr) {
+        mEdges = mGroup->edgesForPaint();
+    } else {
+        mEdges.clear();
+    }
+
     endResetModel();
 }
 
-void EdgesModel::clear() { setEdges({}); }
+void EdgesModel::clear() { setGroup(nullptr); }
 
 QHash<int, QByteArray> EdgesModel::roleNames() const
 {

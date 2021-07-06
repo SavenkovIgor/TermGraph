@@ -48,11 +48,9 @@ void NodeVerticalStack::placeTerms(QPointF centerPoint)
 {
     PaintedTerm::List placingTerms = mTerms;
 
-    if (!isRootStack()) {
-        auto packs = getNodePacks(placingTerms);
-        sortNodePacks(packs);
-        placingTerms = flatNodePack(packs);
-    }
+    auto packs = getNodePacks(placingTerms);
+    sortNodePacks(packs);
+    placingTerms = flatNodePack(packs);
 
     auto    stackSize = NodeVerticalStackTools::getNodeVerticalStackedSize(placingTerms);
     QPointF startPoint(centerPoint.x(), centerPoint.y() - stackSize.height() / 2);
@@ -72,14 +70,6 @@ void NodeVerticalStack::placeTerms(QPointF centerPoint)
 
         placingPoint.ry() += frameSize.height() / 2;
     }
-}
-
-bool NodeVerticalStack::isRootStack() const
-{
-    if (!mTerms.empty())
-        return mTerms.front()->isRoot();
-
-    return false;
 }
 
 std::vector<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::List& terms)

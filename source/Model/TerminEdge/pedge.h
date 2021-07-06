@@ -47,5 +47,5 @@ public:
     QPointF rootPoint();
     QPointF leafPoint();
 
-    QColor color() const;
+    QColor color() const; // TODO: Move to model or qml
 };

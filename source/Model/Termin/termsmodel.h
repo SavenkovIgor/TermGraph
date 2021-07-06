@@ -24,7 +24,7 @@
 #include <QAbstractListModel>
 #include <QObject>
 
-#include "source/Model/Termin/paintedterm.h"
+#include "source/Model/TerminGroup/termgroup.h"
 
 class TermsModel : public QAbstractListModel
 {
@@ -35,7 +35,7 @@ class TermsModel : public QAbstractListModel
 public:
     explicit TermsModel(QObject* parent = nullptr);
 
-    void setTerms(PaintedTerm::List terms);
+    void setGroup(TermGroup::UnsafePtr group);
     void clear();
 
     QHash<int, QByteArray> roleNames() const override;
@@ -45,6 +45,10 @@ public:
 
     void updateSelection();
 
-private:
-    PaintedTerm::List mTerms;
+private: // Methods
+    QColor nodeColor(NodeType type, bool selected) const;
+
+private: // Members
+    TermGroup::UnsafePtr mGroup = nullptr;
+    PaintedTerm::List    mTerms;
 };

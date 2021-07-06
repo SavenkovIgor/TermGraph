@@ -28,7 +28,6 @@
 #include "source/Model/Base/graphdata.hpp"
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/Termin/paintedterm.h"
-#include "source/Model/TerminEdge/paintededge.h"
 #include "source/Model/TerminGroup/groupdata.h"
 #include "source/Model/TerminGroup/termtree.h"
 
@@ -39,9 +38,11 @@ class TermGroup : public QObject
     Q_PROPERTY(QString uuid READ qmlUuid CONSTANT)
     Q_PROPERTY(QString name READ name CONSTANT)
 
-    using GraphT = Graph<PaintedTerm, PaintedEdge>;
+    using GraphT = Graph<PaintedTerm, PEdge>;
 
 public:
+    using UnsafePtr = TermGroup*;
+
     TermGroup(const GroupData& info, const TermData::List& termData, QObject* parent = nullptr);
     ~TermGroup() = default;
 
@@ -66,6 +67,8 @@ public:
 
     void selectTerm(const PaintedTerm::Ptr& term, bool selection);
 
+    NodeType termType(const PaintedTerm::Ptr& term) const;
+
 private:
     // Base init
     void addOrphansToParents();
@@ -89,13 +92,11 @@ private:
     QString qmlUuid() const;
 
     // External
-    // Trees
-    void   initTrees();
     QSizeF getAllTreesSize();
 
     // Edges
-    PaintedEdge::List searchAllConnections(const PaintedTerm::List& terms);
-    PaintedEdge::List suggestConnections(); // TODO: Realize!
+    PEdge::List searchAllConnections(const PaintedTerm::List& terms);
+    PEdge::List suggestConnections(); // TODO: Realize!
 
     opt<PaintedTerm::Ptr> getNearestNodeForTag(const QString& tag, const PaintedTerm::List& terms);
     PEdge::List           filterFromEdgesList(std::function<bool(PEdge::Ptr)> condition) const;

@@ -21,9 +21,6 @@
 
 #include "source/Model/Termin/paintedterm.h"
 
-#include "source/Helpers/appstyle.h"
-#include "source/Model/TerminEdge/paintededge.h"
-
 PaintedTerm::PaintedTerm(const TermData& info)
     : GraphTerm(info)
     , GraphicItem()
@@ -71,22 +68,7 @@ QRectF PaintedTerm::getFrameRect(CoordType inCoordinates) const
 
 QPointF PaintedTerm::getCenter(CoordType inCoordinates) const { return getNodeRect(inCoordinates).center(); }
 
-QColor PaintedTerm::color() const { return baseColor(getNodeType(), isSelectedAnyway()); }
-
 qreal PaintedTerm::cornerRadius() const { return pCornerRadius.value(); }
-
-QColor PaintedTerm::baseColor(NodeType type, bool selected)
-{
-    switch (type) {
-    case NodeType::orphan: return selected ? AppStyle::Colors::Nodes::orphanSelected : AppStyle::Colors::Nodes::orphan;
-    case NodeType::root: return selected ? AppStyle::Colors::Nodes::rootSelected : AppStyle::Colors::Nodes::root;
-    case NodeType::endLeaf: return selected ? AppStyle::Colors::Nodes::leafSelected : AppStyle::Colors::Nodes::leaf;
-    case NodeType::middleLeaf: return selected ? AppStyle::Colors::Nodes::leafSelected : AppStyle::Colors::Nodes::leaf;
-    }
-
-    assert(false); // must be unreachable
-    return AppStyle::Colors::Nodes::orphan;
-}
 
 void PaintedTerm::setSelection(bool selected)
 {
@@ -102,7 +84,7 @@ bool PaintedTerm::isSelectedAnyway() const { return mThisSelected || mRelativePa
 
 opt<QPointF> PaintedTerm::optimalRootsBasedPosition() const
 {
-    auto edges = getEdgesToRoots();
+    GraphEdge::List edges; // = getEdgesToRoots();
 
     if (edges.empty())
         return std::nullopt;

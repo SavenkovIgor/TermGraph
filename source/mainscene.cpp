@@ -129,8 +129,8 @@ void MainScene::showNewGroup(TermGroup* newGroup)
     updateSceneRect();
 
     if (mCurrentGroup) {
-        mTermsModel->setTerms(mCurrentGroup->terms());
-        mEdgesModel->setEdges(mCurrentGroup->edgesForPaint());
+        mTermsModel->setGroup(mCurrentGroup.get());
+        mEdgesModel->setGroup(mCurrentGroup.get());
     }
 
     if (differentGroups)

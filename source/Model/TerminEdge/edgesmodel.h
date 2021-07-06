@@ -24,7 +24,7 @@
 #include <QAbstractListModel>
 #include <QObject>
 
-#include "source/Model/TerminEdge/pedge.h"
+#include "source/Model/TerminGroup/termgroup.h"
 
 // BUG: on empty groups, edges didnt hide
 
@@ -39,7 +39,7 @@ public:
 
     Q_ENUM(Roles);
 
-    void setEdges(PEdge::List edges);
+    void setGroup(TermGroup::UnsafePtr group);
     void clear();
 
     QHash<int, QByteArray> roleNames() const override;
@@ -50,5 +50,6 @@ public:
     void updateSelection();
 
 private:
-    PEdge::List mEdges;
+    TermGroup::UnsafePtr mGroup = nullptr;
+    PEdge::List          mEdges;
 };

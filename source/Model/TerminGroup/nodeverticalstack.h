@@ -24,7 +24,6 @@
 #include <vector>
 
 #include "source/Model/Termin/paintedterm.h"
-#include "source/Model/TerminEdge/paintededge.h"
 
 class NodeVerticalStackTools
 {
@@ -45,9 +44,7 @@ public:
     void placeTerms(QPointF centerPoint);
 
     QSizeF size() const;
-    bool   isRootStack() const;
-
-    bool hasNode(PaintedTerm::Ptr term) const;
+    bool   hasNode(PaintedTerm::Ptr term) const;
 
     PaintedTerm::List nodes() const;
 

@@ -39,26 +39,8 @@ public:
     GraphTerm(const TermData& info);
     ~GraphTerm() = default;
 
-    bool isRoot() const;
-
-    NodeType getNodeType() const;
-
-    void         setTreeId(unsigned int treeId);
-    unsigned int getTreeId() const;
-
-    void addEdgeRef(GraphEdge::Ptr edge);
-
-    // Delete section
-    GraphEdge::List getAllConnectedEdges() const;
-    GraphEdge::List getEdgesToRoots() const;
-
     const TermDataCache& cache() const;
 
 private:
-    GraphEdge::List edgesToLeafs;
-    GraphEdge::List edgesToRoots;
-
-    unsigned int treeId = 0; // 0 = no value
-
     const TermDataCache mDataCache;
 };
