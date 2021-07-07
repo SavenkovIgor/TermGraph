@@ -29,13 +29,13 @@
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminEdge/edgedata.h"
 
-class PEdge : public Edge<PaintedTerm, EdgeData>, public GraphicItem
+class PaintedEdge : public Edge<PaintedTerm, EdgeData>, public GraphicItem
 {
 public:
-    using Ptr  = std::shared_ptr<PEdge>;
+    using Ptr  = std::shared_ptr<PaintedEdge>;
     using List = std::vector<Ptr>;
 
-    PEdge(PaintedTerm::Ptr root, PaintedTerm::Ptr leaf);
+    PaintedEdge(PaintedTerm::Ptr root, PaintedTerm::Ptr leaf);
 
     void brokeEdge();
     void setSelectedForward(bool value);

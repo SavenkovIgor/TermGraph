@@ -19,35 +19,35 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "pedge.h"
+#include "source/Model/TerminEdge/paintededge.h"
 
 #include "source/Helpers/appstyle.h"
 
-PEdge::PEdge(PaintedTerm::Ptr root, PaintedTerm::Ptr leaf)
+PaintedEdge::PaintedEdge(PaintedTerm::Ptr root, PaintedTerm::Ptr leaf)
     : Edge<PaintedTerm, EdgeData>(root, leaf, EdgeData())
     , GraphicItem()
 {}
 
-bool PEdge::isSelected() const
+bool PaintedEdge::isSelected() const
 {
     return data().selectionType == EdgeSelection::forward || data().selectionType == EdgeSelection::backward;
 }
 
-bool PEdge::isHard() const { return data().type == EdgeType::terminHardLink; }
+bool PaintedEdge::isHard() const { return data().type == EdgeType::terminHardLink; }
 
-QPointF PEdge::rootPoint()
+QPointF PaintedEdge::rootPoint()
 {
     auto paintedTerm = static_cast<PaintedTerm *>(root().get());
     return paintedTerm->getCenter(CoordType::scene);
 }
 
-QPointF PEdge::leafPoint()
+QPointF PaintedEdge::leafPoint()
 {
     auto paintedTerm = static_cast<PaintedTerm *>(leaf().get());
     return paintedTerm->getCenter(CoordType::scene);
 }
 
-QColor PEdge::color() const
+QColor PaintedEdge::color() const
 {
     switch (data().selectionType) {
     case EdgeSelection::backward: return AppStyle::Colors::Edges::selected;
@@ -67,16 +67,16 @@ QColor PEdge::color() const
     return AppStyle::Colors::Edges::standard;
 }
 
-void PEdge::brokeEdge() { data().type = EdgeType::broken; }
+void PaintedEdge::brokeEdge() { data().type = EdgeType::broken; }
 
-void PEdge::setSelectedForward(bool value)
+void PaintedEdge::setSelectedForward(bool value)
 {
     auto resultSelection = value ? EdgeSelection::forward : EdgeSelection::none;
     if (data().selectionType != resultSelection)
         data().selectionType = resultSelection;
 }
 
-void PEdge::setSelectedBackward(bool value)
+void PaintedEdge::setSelectedBackward(bool value)
 {
     auto resultSelection = value ? EdgeSelection::backward : EdgeSelection::none;
     if (data().selectionType != resultSelection)

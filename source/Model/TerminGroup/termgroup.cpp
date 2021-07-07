@@ -337,9 +337,9 @@ QSizeF TermGroup::getAllTreesSize()
     return totalSize;
 }
 
-PEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms)
+PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms)
 {
-    PEdge::List ret;
+    PaintedEdge::List ret;
 
     // Pre-heating of cache with exact terms match
     QMap<QString, PaintedTerm::Ptr> previousTagSearchCache = getExactTermMatchCache();
@@ -373,7 +373,7 @@ PEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms)
 
             if (foundNode) {
                 if (foundNode.value() != node) { // TODO: Real case, need check
-                    ret.push_back(std::make_shared<PEdge>(foundNode.value(), node));
+                    ret.push_back(std::make_shared<PaintedEdge>(foundNode.value(), node));
                     previousTagSearchCache.insert(link.textLower(), foundNode.value());
                 }
             }
@@ -429,9 +429,9 @@ opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const 
     return targetTerm;
 }
 
-PEdge::List TermGroup::filterFromEdgesList(std::function<bool(PEdge::Ptr)> condition) const
+PaintedEdge::List TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const
 {
-    PEdge::List ret;
+    PaintedEdge::List ret;
 
     for (auto edge : allEdges()) {
         if (condition(edge)) {
@@ -442,9 +442,9 @@ PEdge::List TermGroup::filterFromEdgesList(std::function<bool(PEdge::Ptr)> condi
     return ret;
 }
 
-PEdge::List TermGroup::edgesForPaint() const
+PaintedEdge::List TermGroup::edgesForPaint() const
 {
-    PEdge::List lst;
+    PaintedEdge::List lst;
 
     auto softEdgesFilter     = [](auto e) { return !e->isSelected() && !e->isHard(); };
     auto hardEdgesFilter     = [](auto e) { return !e->isSelected() && e->isHard(); };
@@ -539,9 +539,9 @@ PaintedTerm::List TermGroup::filterFromNodesList(std::function<bool(PaintedTerm:
     return ret;
 }
 
-PEdge::List TermGroup::allEdges() const
+PaintedEdge::List TermGroup::allEdges() const
 {
-    PEdge::List ret;
+    PaintedEdge::List ret;
 
     for (auto forest : mTrees) {
         for (auto edge : forest->edgeList()) {
@@ -552,9 +552,9 @@ PEdge::List TermGroup::allEdges() const
     return ret;
 }
 
-PEdge::List TermGroup::allBrokenEdges() const
+PaintedEdge::List TermGroup::allBrokenEdges() const
 {
-    PEdge::List ret;
+    PaintedEdge::List ret;
     for (auto forest : mTrees) {
         for (auto edge : forest->brokenEdges()) {
             ret.push_back(edge);
@@ -564,9 +564,9 @@ PEdge::List TermGroup::allBrokenEdges() const
     return ret;
 }
 
-PEdge::List TermGroup::allExceedEdges() const
+PaintedEdge::List TermGroup::allExceedEdges() const
 {
-    PEdge::List ret;
+    PaintedEdge::List ret;
 
     for (auto forest : mTrees) {
         for (auto edge : forest->wasteEdges())

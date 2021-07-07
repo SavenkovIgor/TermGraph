@@ -25,8 +25,8 @@
 
 #include "source/Helpers/appstyle.h"
 
-PaintedForest::PaintedForest(const GraphData<PaintedTerm, PEdge>& data)
-    : Forest<PaintedTerm, PEdge>(data)
+PaintedForest::PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
+    : Forest<PaintedTerm, PaintedEdge>(data)
 {
     for (auto term : data.nodes)
         term->setParentItem(&mRect);

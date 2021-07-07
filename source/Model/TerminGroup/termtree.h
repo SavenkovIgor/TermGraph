@@ -26,17 +26,17 @@
 #include "source/Model/Base/forest.hpp"
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/Termin/paintedterm.h"
-#include "source/Model/TerminEdge/pedge.h"
+#include "source/Model/TerminEdge/paintededge.h"
 #include "source/Model/TerminGroup/nodeverticalstack.h"
 
-class PaintedForest : public Forest<PaintedTerm, PEdge>
+class PaintedForest : public Forest<PaintedTerm, PaintedEdge>
 {
 public:
     using Ptr  = std::shared_ptr<PaintedForest>;
     using List = std::vector<Ptr>;
 
     // Constructor/Destructor
-    PaintedForest(const GraphData<PaintedTerm, PEdge>& data);
+    PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data);
     ~PaintedForest() = default;
 
     RectGraphicItem& rect();

@@ -38,7 +38,7 @@ class TermGroup : public QObject
     Q_PROPERTY(QString uuid READ qmlUuid CONSTANT)
     Q_PROPERTY(QString name READ name CONSTANT)
 
-    using GraphT = Graph<PaintedTerm, PEdge>;
+    using GraphT = Graph<PaintedTerm, PaintedEdge>;
 
 public:
     using UnsafePtr = TermGroup*;
@@ -58,7 +58,7 @@ public:
     PaintedTerm::OptPtr getTerm(const QString& termName) const;
 
     PaintedTerm::List terms() const;
-    PEdge::List       edgesForPaint() const;
+    PaintedEdge::List edgesForPaint() const;
 
     QUuid   uuid() const;
     QString name() const;
@@ -95,11 +95,11 @@ private:
     QSizeF getAllTreesSize();
 
     // Edges
-    PEdge::List searchAllConnections(const PaintedTerm::List& terms);
-    PEdge::List suggestConnections(); // TODO: Realize!
+    PaintedEdge::List searchAllConnections(const PaintedTerm::List& terms);
+    PaintedEdge::List suggestConnections(); // TODO: Realize!
 
     opt<PaintedTerm::Ptr> getNearestNodeForTag(const QString& tag, const PaintedTerm::List& terms);
-    PEdge::List           filterFromEdgesList(std::function<bool(PEdge::Ptr)> condition) const;
+    PaintedEdge::List     filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const;
 
     // Nodes
     PaintedTerm::List               getRootNodes() const;
@@ -110,9 +110,9 @@ private:
     PaintedTerm::List               getOrphanNodes() const;
     PaintedTerm::List               filterFromNodesList(std::function<bool(PaintedTerm::Ptr)> filterCheck) const;
 
-    PEdge::List allEdges() const;
-    PEdge::List allBrokenEdges() const;
-    PEdge::List allExceedEdges() const;
+    PaintedEdge::List allEdges() const;
+    PaintedEdge::List allBrokenEdges() const;
+    PaintedEdge::List allExceedEdges() const;
 
     bool isThreadInterrupted();
 

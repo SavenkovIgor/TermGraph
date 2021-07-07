@@ -51,5 +51,5 @@ public:
 
 private:
     TermGroup::UnsafePtr mGroup = nullptr;
-    PEdge::List          mEdges;
+    PaintedEdge::List    mEdges;
 };
