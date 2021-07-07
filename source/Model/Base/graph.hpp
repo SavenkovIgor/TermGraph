@@ -33,7 +33,7 @@
 #include "source/Model/Base/node.hpp"
 
 template<typename NodeT, typename EdgeT>
-class Graph : public GraphData<NodeT, EdgeT> // TODO: Temporary public (must be protected)
+class Graph : protected GraphData<NodeT, EdgeT>
 {
 private:
     using NodePtr  = NodeT::Ptr;

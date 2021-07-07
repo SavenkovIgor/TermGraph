@@ -90,7 +90,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
     QString                        searchText = text.toLower();
     std::vector<QPair<int, QUuid>> searchResults;
     // Taking distances
-    for (auto term : mGraphData.nodes) {
+    for (auto term : mGraphData.nodeList()) {
         auto lowerTerm = term->cache().lowerTerm();
 
         // Exact match
@@ -131,7 +131,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
     UuidList ret;
     auto     lowerSearch = text.toLower();
 
-    for (auto term : mGraphData.nodes) {
+    for (auto term : mGraphData.nodeList()) {
         if (term->cache().lowerTerm().contains(lowerSearch))
             ret.push_back(term->data().uuid);
 
@@ -164,7 +164,7 @@ PaintedTerm::OptPtr TermGroup::getTerm(const QPointF& pt) const
 
 PaintedTerm::OptPtr TermGroup::getTerm(const QUuid& termUuid) const
 {
-    for (auto term : mGraphData.nodes)
+    for (auto term : mGraphData.nodeList())
         if (term->data().uuid == termUuid)
             return term;
 
@@ -173,7 +173,7 @@ PaintedTerm::OptPtr TermGroup::getTerm(const QUuid& termUuid) const
 
 PaintedTerm::OptPtr TermGroup::getTerm(const QString& termName) const
 {
-    for (auto term : mGraphData.nodes)
+    for (auto term : mGraphData.nodeList())
         if (term->data().term == termName)
             return term;
 
@@ -499,7 +499,7 @@ QMap<QString, PaintedTerm::Ptr> TermGroup::getExactTermMatchCache()
 {
     QMap<QString, PaintedTerm::Ptr> ret;
 
-    for (auto node : mGraphData.nodes)
+    for (auto node : mGraphData.nodeList())
         ret.insert(node->cache().lowerTerm(), node);
 
     return ret;
@@ -509,7 +509,7 @@ QMap<QUuid, PaintedTerm::Ptr> TermGroup::getTermUuidsMap()
 {
     QMap<QUuid, PaintedTerm::Ptr> ret;
 
-    for (auto node : mGraphData.nodes)
+    for (auto node : mGraphData.nodeList())
         ret.insert(node->data().uuid, node);
 
     return ret;
@@ -531,7 +531,7 @@ PaintedTerm::List TermGroup::getOrphanNodes() const { return mGraphData.isolated
 PaintedTerm::List TermGroup::filterFromNodesList(std::function<bool(PaintedTerm::Ptr)> filterCheck) const
 {
     PaintedTerm::List ret;
-    for (auto node : mGraphData.nodes) {
+    for (auto node : mGraphData.nodeList()) {
         if (filterCheck(node)) {
             ret.push_back(node);
         }
@@ -576,6 +576,6 @@ PaintedEdge::List TermGroup::allExceedEdges() const
     return ret;
 }
 
-PaintedTerm::List TermGroup::terms() const { return mGraphData.nodes; }
+PaintedTerm::List TermGroup::terms() const { return mGraphData.nodeList(); }
 
 bool TermGroup::isThreadInterrupted() { return QThread::currentThread()->isInterruptionRequested(); }
