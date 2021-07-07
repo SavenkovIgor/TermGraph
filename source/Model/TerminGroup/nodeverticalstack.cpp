@@ -35,6 +35,10 @@ QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::Lis
     return HelpStuff::getStackedSize(sizeList, Qt::Vertical);
 }
 
+NodeVerticalStack::NodeVerticalStack(PaintedForest* parentForest)
+    : mParentForest(parentForest)
+{}
+
 void NodeVerticalStack::addTerm(PaintedTerm::Ptr term) { mTerms.push_back(term); }
 
 bool NodeVerticalStack::hasNode(PaintedTerm::Ptr term) const { return std::ranges::find(mTerms, term) != mTerms.end(); }
@@ -48,7 +52,7 @@ void NodeVerticalStack::placeTerms(QPointF centerPoint)
 {
     PaintedTerm::List placingTerms = mTerms;
 
-    auto packs = getNodePacks(placingTerms);
+    auto packs = getNodePacks(placingTerms, mParentForest);
     sortNodePacks(packs);
     placingTerms = flatNodePack(packs);
 
@@ -72,12 +76,13 @@ void NodeVerticalStack::placeTerms(QPointF centerPoint)
     }
 }
 
-std::vector<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::List& terms)
+std::vector<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::List& terms,
+                                                                         const PaintedForest*     forest)
 {
     std::vector<NodePack> ret;
 
     for (auto term : terms) {
-        auto rootsPositionOpt = term->optimalRootsBasedPosition();
+        auto rootsPositionOpt = forest->optimalRootsBasedPosition(term);
         auto optimalPt        = rootsPositionOpt.value_or(term->getCenter(CoordType::scene));
 
         // Selecting pack for insert

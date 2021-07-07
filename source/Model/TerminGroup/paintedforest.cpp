@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/Model/TerminGroup/termtree.h"
+#include "source/Model/TerminGroup/paintedforest.h"
 
 #include <ranges>
 
@@ -39,7 +39,7 @@ PaintedForest::PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
         layersCount = std::max(layersCount, level(node));
 
     for (int i = 0; i <= layersCount; i++)
-        mStacks.push_back(NodeVerticalStack());
+        mStacks.push_back(NodeVerticalStack(this));
 
     for (auto term : data.nodes) {
         int paintLevel = level(term);
@@ -67,6 +67,26 @@ void PaintedForest::setTreeNodeCoords(QPointF leftTopPoint)
         stack.placeTerms(centerPoint);
         centerPoint.rx() += stackSize.width() / 2 + AppStyle::Sizes::treeLayerHorizontalSpacer;
     }
+}
+
+opt<QPointF> PaintedForest::optimalRootsBasedPosition(const PaintedTerm::Ptr term) const
+{
+    auto rNodes = rootNodes(term);
+
+    if (rNodes.empty())
+        return std::nullopt;
+
+    double sumOfYCoords = 0.0;
+
+    for (auto node : rNodes)
+        sumOfYCoords += node->getCenter(CoordType::scene).y();
+
+    auto averageY = sumOfYCoords / rNodes.size();
+
+    auto centerPoint = term->getCenter(CoordType::scene);
+    centerPoint.setY(averageY);
+
+    return centerPoint;
 }
 
 PaintedTerm::OptPtr PaintedForest::getNodeAtPoint(const QPointF& pt) const

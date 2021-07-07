@@ -58,8 +58,6 @@ public:
     void setRelativeSelection(bool relativeSelected);
     bool isSelectedAnyway() const;
 
-    opt<QPointF> optimalRootsBasedPosition() const; // TODO: Move to PaintedForest
-
     QString decoratedTerm() const;
     QRectF  rect() const;
     qreal   cornerRadius() const;

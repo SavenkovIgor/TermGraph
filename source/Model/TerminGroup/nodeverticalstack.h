@@ -24,6 +24,9 @@
 #include <vector>
 
 #include "source/Model/Termin/paintedterm.h"
+#include "source/Model/TerminGroup/paintedforest.h"
+
+class PaintedForest;
 
 class NodeVerticalStackTools
 {
@@ -37,7 +40,7 @@ public:
     using List     = std::vector<NodeVerticalStack>;
     using NodePack = QPair<QPointF, PaintedTerm::List>;
 
-    NodeVerticalStack()  = default;
+    NodeVerticalStack(PaintedForest* parentForest);
     ~NodeVerticalStack() = default;
 
     void addTerm(PaintedTerm::Ptr term);
@@ -49,10 +52,11 @@ public:
     PaintedTerm::List nodes() const;
 
 private:
-    static std::vector<NodePack> getNodePacks(const PaintedTerm::List& terms);
+    static std::vector<NodePack> getNodePacks(const PaintedTerm::List& terms, const PaintedForest* forest);
     static void                  sortNodePacks(std::vector<NodePack>& pack);
     static PaintedTerm::List     flatNodePack(const std::vector<NodePack>& pack);
 
 private: // Members
-    PaintedTerm::List mTerms;
+    PaintedTerm::List    mTerms;
+    const PaintedForest* mParentForest;
 };

@@ -21,13 +21,15 @@
 
 #pragma once
 
-#include <stdlib.h>
+#include <vector>
 
 #include "source/Model/Base/forest.hpp"
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminEdge/paintededge.h"
 #include "source/Model/TerminGroup/nodeverticalstack.h"
+
+class NodeVerticalStack;
 
 class PaintedForest : public Forest<PaintedTerm, PaintedEdge>
 {
@@ -51,6 +53,8 @@ public:
     // Internal counts and preparations
     void setTreeNodeCoords(QPointF leftTopPoint = QPointF());
 
+    opt<QPointF> optimalRootsBasedPosition(const PaintedTerm::Ptr term) const;
+
     PaintedTerm::OptPtr getNodeAtPoint(const QPointF& pt) const;
 
     QString getHierarchyDefinition(PaintedTerm::Ptr term);
@@ -66,6 +70,6 @@ private:
     qreal             getMaxStackHeight() const;
 
 private: // Members
-    NodeVerticalStack::List mStacks;
-    RectGraphicItem         mRect;
+    std::vector<NodeVerticalStack> mStacks;
+    RectGraphicItem                mRect;
 };

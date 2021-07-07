@@ -29,7 +29,7 @@
 #include "source/Model/GraphicItem/rectgraphicitem.h"
 #include "source/Model/Termin/paintedterm.h"
 #include "source/Model/TerminGroup/groupdata.h"
-#include "source/Model/TerminGroup/termtree.h"
+#include "source/Model/TerminGroup/paintedforest.h"
 
 class TermGroup : public QObject
 {

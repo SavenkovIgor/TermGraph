@@ -82,28 +82,6 @@ void PaintedTerm::setRelativeSelection(bool relativeSelected) { mRelativePaint =
 
 bool PaintedTerm::isSelectedAnyway() const { return mThisSelected || mRelativePaint; }
 
-opt<QPointF> PaintedTerm::optimalRootsBasedPosition() const
-{
-    GraphEdge::List edges; // = getEdgesToRoots();
-
-    if (edges.empty())
-        return std::nullopt;
-
-    double sumOfYCoords = 0.0;
-
-    for (auto edge : edges) {
-        auto* parentNode = static_cast<PaintedTerm*>(edge->root().get());
-        sumOfYCoords += parentNode->getCenter(CoordType::scene).y();
-    }
-
-    auto averageY = sumOfYCoords / edges.size();
-
-    auto centerPoint = getCenter(CoordType::scene);
-    centerPoint.setY(averageY);
-
-    return centerPoint;
-}
-
 QString PaintedTerm::decoratedTerm() const { return cache().decoratedTerm(); }
 
 QRectF PaintedTerm::rect() const { return getNodeRect(CoordType::scene); }
