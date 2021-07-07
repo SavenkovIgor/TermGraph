@@ -41,7 +41,7 @@ void TermsModel::setGroup(TermGroup::OptPtr group)
     endResetModel();
 }
 
-void TermsModel::clear() { setGroup(nullptr); }
+void TermsModel::clear() { setGroup(std::nullopt); }
 
 QHash<int, QByteArray> TermsModel::roleNames() const
 {

@@ -39,7 +39,7 @@ void EdgesModel::setGroup(TermGroup::OptPtr group)
     endResetModel();
 }
 
-void EdgesModel::clear() { setGroup(nullptr); }
+void EdgesModel::clear() { setGroup(std::nullopt); }
 
 QHash<int, QByteArray> EdgesModel::roleNames() const
 {
