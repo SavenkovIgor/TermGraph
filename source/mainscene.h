@@ -98,7 +98,7 @@ private:
     QString getCurrNodeHierarchyDefinition();
 
     bool isAnyNodeSelected() const;
-    void showNewGroup(TermGroup* newGroup);
+    void showNewGroup(TermGroup::OptPtr newGroup);
 
 private: // Methods
     // Timers
@@ -131,7 +131,7 @@ private: // Methods
     PaintedTerm::OptPtr getNodeAtPoint(const QPointF& pt) const;
 
     // Groups fields
-    QScopedPointer<TermGroup> mCurrentGroup;
+    TermGroup::OptPtr mCurrentGroup;
 
     QUuid currentGroupUuid() const;
     void  dropGroup();

@@ -39,7 +39,7 @@ public:
 
     Q_ENUM(Roles);
 
-    void setGroup(TermGroup::UnsafePtr group);
+    void setGroup(TermGroup::OptPtr group);
     void clear();
 
     QHash<int, QByteArray> roleNames() const override;
@@ -50,6 +50,6 @@ public:
     void updateSelection();
 
 private:
-    TermGroup::UnsafePtr mGroup = nullptr;
-    PaintedEdge::List    mEdges;
+    TermGroup::OptPtr mGroup = std::nullopt;
+    PaintedEdge::List mEdges;
 };

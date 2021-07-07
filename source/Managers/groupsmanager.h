@@ -53,7 +53,7 @@ public:
     Q_INVOKABLE QString getExportPath() const;
     Q_INVOKABLE void    exportGrpToJson(const QString& groupUuid);
 
-    TermGroup* createGroup(const QUuid groupUuid);
+    TermGroup::OptPtr createGroup(const QUuid groupUuid);
 
     UuidList getAllUuidsSortedByLastEdit();
 
@@ -85,7 +85,7 @@ private: // Methods
 
     QUuid getGroupUuid(const QString& groupName) const;
 
-    void saveGroupInFolder(TermGroup* group);
+    void saveGroupInFolder(TermGroup::OptPtr group);
 
     bool groupExist(const QUuid& groupUuid);
     bool termExist(const QString& term, QUuid& groupUuid);

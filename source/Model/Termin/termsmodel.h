@@ -35,7 +35,7 @@ class TermsModel : public QAbstractListModel
 public:
     explicit TermsModel(QObject* parent = nullptr);
 
-    void setGroup(TermGroup::UnsafePtr group);
+    void setGroup(TermGroup::OptPtr group);
     void clear();
 
     QHash<int, QByteArray> roleNames() const override;
@@ -49,6 +49,6 @@ private: // Methods
     QColor nodeColor(NodeType type, bool selected) const;
 
 private: // Members
-    TermGroup::UnsafePtr mGroup = nullptr;
-    PaintedTerm::List    mTerms;
+    TermGroup::OptPtr mGroup = std::nullopt;
+    PaintedTerm::List mTerms;
 };

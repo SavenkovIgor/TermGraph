@@ -25,13 +25,13 @@ EdgesModel::EdgesModel(QObject *parent)
     : QAbstractListModel(parent)
 {}
 
-void EdgesModel::setGroup(TermGroup::UnsafePtr group)
+void EdgesModel::setGroup(TermGroup::OptPtr group)
 {
     beginResetModel();
     mGroup = group;
 
-    if (mGroup != nullptr) {
-        mEdges = mGroup->edgesForPaint();
+    if (mGroup.has_value()) {
+        mEdges = mGroup.value()->edgesForPaint();
     } else {
         mEdges.clear();
     }

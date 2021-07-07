@@ -41,7 +41,8 @@ class TermGroup : public QObject
     using GraphT = Graph<PaintedTerm, PaintedEdge>;
 
 public:
-    using UnsafePtr = TermGroup*;
+    using Ptr    = std::shared_ptr<TermGroup>;
+    using OptPtr = std::optional<Ptr>;
 
     TermGroup(const GroupData& info, const TermData::List& termData, QObject* parent = nullptr);
     ~TermGroup() = default;

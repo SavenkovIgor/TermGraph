@@ -115,15 +115,15 @@ bool GroupsManager::isValidGroupJson(const QJsonDocument json) // TODO: Rework!
     return false;
 }
 
-TermGroup* GroupsManager::createGroup(const QUuid groupUuid)
+TermGroup::OptPtr GroupsManager::createGroup(const QUuid groupUuid)
 {
     if (groupUuid.isNull())
-        return nullptr;
+        return std::nullopt;
 
     auto groupData = dataStorage.getGroup(groupUuid);
     auto termsData = dataStorage.getTerms(groupUuid);
 
-    return new TermGroup(groupData, termsData);
+    return std::make_shared<TermGroup>(groupData, termsData);
 }
 
 bool GroupsManager::isEmptyGroup(const QString& groupUuid)
@@ -288,20 +288,16 @@ QString GroupsManager::getExportPath() const { return AppSettings::StdPaths::gro
 
 void GroupsManager::exportGrpToJson(const QString& groupUuid)
 {
-    if (auto group = createGroup(QUuid(groupUuid))) {
-        saveGroupInFolder(group);
+    saveGroupInFolder(createGroup(QUuid(groupUuid)));
 
-        //            QJsonDocument document = group->getJsonDoc();
-        //            QClipboard* clipboard = qApp->clipboard();
-        //            clipboard->setText(document.toJson());
-
-        delete group;
-    }
+    // QJsonDocument document = group->getJsonDoc();
+    // QClipboard* clipboard = qApp->clipboard();
+    // clipboard->setText(document.toJson());
 }
 
-void GroupsManager::saveGroupInFolder(TermGroup* group)
+void GroupsManager::saveGroupInFolder(TermGroup::OptPtr group)
 {
-    if (group != nullptr) {
+    if (group) {
         //        QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
         //        FSWorks::saveFile(AppConfig::StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
     }

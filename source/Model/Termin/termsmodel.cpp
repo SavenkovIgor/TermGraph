@@ -27,13 +27,13 @@ TermsModel::TermsModel(QObject *parent)
     : QAbstractListModel(parent)
 {}
 
-void TermsModel::setGroup(TermGroup::UnsafePtr group)
+void TermsModel::setGroup(TermGroup::OptPtr group)
 {
     beginResetModel();
     mGroup = group;
 
-    if (mGroup != nullptr) {
-        mTerms = mGroup->terms();
+    if (mGroup.has_value()) {
+        mTerms = mGroup.value()->terms();
     } else {
         mTerms.clear();
     }
@@ -68,7 +68,7 @@ QVariant TermsModel::data(const QModelIndex &index, int role) const
     switch (static_cast<Roles>(role)) {
     case Roles::Rect: return term->rect();
     case Roles::Radius: return term->cornerRadius();
-    case Roles::Color: return nodeColor(mGroup->termType(term), term->isSelectedAnyway());
+    case Roles::Color: return nodeColor(mGroup.value()->termType(term), term->isSelectedAnyway());
     case Roles::Weight: return 0.1;
     case Roles::Term: return term->decoratedTerm();
     case Roles::IsSelected: return term->isSelectedAnyway();

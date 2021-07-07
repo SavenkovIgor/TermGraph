@@ -25,19 +25,13 @@ AsyncGroupBuilder::AsyncGroupBuilder(QObject* parent)
     : QThread(parent)
 {}
 
-void AsyncGroupBuilder::setAction(std::function<TermGroup*()> func)
-{
-    mAction = func;
-}
+void AsyncGroupBuilder::setAction(std::function<TermGroup::OptPtr()> func) { mAction = func; }
 
-TermGroup* AsyncGroupBuilder::takeResult()
+TermGroup::OptPtr AsyncGroupBuilder::takeResult()
 {
-    auto* ret    = mResultGroup;
-    mResultGroup = nullptr;
+    auto ret     = mResultGroup;
+    mResultGroup = std::nullopt;
     return ret;
 }
 
-void AsyncGroupBuilder::run()
-{
-    mResultGroup = mAction();
-}
+void AsyncGroupBuilder::run() { mResultGroup = mAction(); }

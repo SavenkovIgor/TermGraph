@@ -34,15 +34,15 @@ class AsyncGroupBuilder : public QThread
 public:
     explicit AsyncGroupBuilder(QObject* parent = nullptr);
 
-    void setAction(std::function<TermGroup*()> func);
+    void setAction(std::function<TermGroup::OptPtr()> func);
 
-    TermGroup* takeResult();
+    TermGroup::OptPtr takeResult();
 
 protected:
     void run() final;
 
 private:
-    std::function<TermGroup*()> mAction;
+    std::function<TermGroup::OptPtr()> mAction;
 
-    TermGroup* mResultGroup = nullptr;
+    TermGroup::OptPtr mResultGroup = std::nullopt;
 };
