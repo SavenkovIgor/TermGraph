@@ -46,7 +46,7 @@ public:
     // TreeInfo
     bool hasTerm(PaintedTerm::Ptr term) const;
 
-    QRectF getTreeRect(CoordType inCoordinates) const;
+    QRectF frameRect(CoordType inCoordinates) const;
     QSizeF baseSize() const; // Clearly counted value. Ignoring real node positions
     double square() const;
 

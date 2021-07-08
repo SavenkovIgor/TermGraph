@@ -171,7 +171,7 @@ bool PaintedForest::hasTerm(PaintedTerm::Ptr term) const
     return false;
 }
 
-QRectF PaintedForest::getTreeRect(CoordType inCoordinates) const
+QRectF PaintedForest::frameRect(CoordType inCoordinates) const
 {
     QRectF ret = QRectF(QPointF(), baseSize());
 

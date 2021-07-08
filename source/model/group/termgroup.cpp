@@ -54,7 +54,7 @@ TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObj
     auto subgraphs = mGraphData.bondedSubgraphs();
 
     for (auto subgraph : subgraphs)
-        mTrees.push_back(std::make_shared<PaintedForest>(subgraph));
+        mForests.push_back(std::make_shared<PaintedForest>(subgraph));
 
     if (isThreadInterrupted())
         return;
@@ -144,9 +144,9 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
 
 PaintedTerm::OptPtr TermGroup::getTerm(const QPointF& pt) const
 {
-    for (const auto tree : mTrees) {
-        if (tree->getTreeRect(CoordType::scene).contains(pt)) {
-            return tree->getNodeAtPoint(pt);
+    for (const auto forest : mForests) {
+        if (forest->frameRect(CoordType::scene).contains(pt)) {
+            return forest->getNodeAtPoint(pt);
         }
     }
 
@@ -215,11 +215,11 @@ void TermGroup::updateRectsPositions()
     basePoint.ry() += nameSize.height() + vSpacer;
 
     // Вычисляем под дерево
-    for (auto tree : mTrees) {
-        auto treeSize = tree->baseSize();
-        tree->rect().setPos(basePoint);
-        tree->rect().setSize(treeSize);
-        basePoint.ry() += treeSize.height() + vSpacer;
+    for (auto forest : mForests) {
+        auto size = forest->baseSize();
+        forest->rect().setPos(basePoint);
+        forest->rect().setSize(size);
+        basePoint.ry() += size.height() + vSpacer;
     }
 
     QSizeF orphansSize = getOrphansSize();
@@ -255,7 +255,7 @@ void TermGroup::updateBaseRectSize()
 
 void TermGroup::setTreeCoords()
 {
-    std::ranges::for_each(mTrees, [](auto t) { t->setTreeNodeCoords(); });
+    std::ranges::for_each(mForests, [](auto f) { f->setTreeNodeCoords(); });
 }
 
 void TermGroup::setOrphCoords(qreal maxWidth)
@@ -303,8 +303,8 @@ void TermGroup::setOrphCoords(qreal maxWidth)
 
 void TermGroup::addTreeRectsToScene()
 {
-    for (auto tree : mTrees)
-        tree->rect().setParentItem(&mBaseRect);
+    for (auto forest : mForests)
+        forest->rect().setParentItem(&mBaseRect);
 }
 
 QSizeF TermGroup::getNameSize() const { return Fonts::getTextMetrics(name(), Fonts::getWeightFont()); }
@@ -315,7 +315,7 @@ PaintedTerm::List TermGroup::getRootNodes() const
 {
     PaintedTerm::List ret;
 
-    for (auto forest : mTrees)
+    for (auto forest : mForests)
         for (auto root : forest->roots())
             ret.push_back(root);
 
@@ -326,13 +326,13 @@ QSizeF TermGroup::getAllTreesSize()
 {
     SizeList sizeList;
 
-    for (const auto tree : mTrees)
-        sizeList.push_back(tree->baseSize());
+    for (const auto forest : mForests)
+        sizeList.push_back(forest->baseSize());
 
     auto totalSize = HelpStuff::getStackedSize(sizeList, Qt::Vertical);
 
-    if (!mTrees.empty())
-        totalSize.rheight() += (mTrees.size() - 1) * AppStyle::Sizes::groupVerticalSpacer;
+    if (!mForests.empty())
+        totalSize.rheight() += (mForests.size() - 1) * AppStyle::Sizes::groupVerticalSpacer;
 
     return totalSize;
 }
@@ -470,9 +470,9 @@ QString TermGroup::name() const { return mInfo.name; }
 
 QString TermGroup::getHierarchyDefinition(PaintedTerm::Ptr term)
 {
-    for (auto tree : mTrees) {
-        if (tree->contains(term))
-            return tree->getHierarchyDefinition(term);
+    for (auto forest : mForests) {
+        if (forest->contains(term))
+            return forest->getHierarchyDefinition(term);
     }
 
     return "";
@@ -480,14 +480,14 @@ QString TermGroup::getHierarchyDefinition(PaintedTerm::Ptr term)
 
 void TermGroup::selectTerm(const PaintedTerm::Ptr& term, bool selection)
 {
-    for (auto forest : mTrees)
+    for (auto forest : mForests)
         if (forest->hasTerm(term))
             forest->selectTerm(term, selection);
 }
 
 NodeType TermGroup::termType(const PaintedTerm::Ptr& term) const
 {
-    for (auto forest : mTrees) {
+    for (auto forest : mForests) {
         if (forest->hasTerm(term))
             return forest->nodeType(term);
     }
@@ -543,7 +543,7 @@ PaintedEdge::List TermGroup::allEdges() const
 {
     PaintedEdge::List ret;
 
-    for (auto forest : mTrees) {
+    for (auto forest : mForests) {
         for (auto edge : forest->edgeList()) {
             ret.push_back(edge);
         }
@@ -555,7 +555,7 @@ PaintedEdge::List TermGroup::allEdges() const
 PaintedEdge::List TermGroup::allBrokenEdges() const
 {
     PaintedEdge::List ret;
-    for (auto forest : mTrees) {
+    for (auto forest : mForests) {
         for (auto edge : forest->brokenEdges()) {
             ret.push_back(edge);
         }
@@ -568,7 +568,7 @@ PaintedEdge::List TermGroup::allExceedEdges() const
 {
     PaintedEdge::List ret;
 
-    for (auto forest : mTrees) {
+    for (auto forest : mForests) {
         for (auto edge : forest->wasteEdges())
             ret.push_back(edge);
     }

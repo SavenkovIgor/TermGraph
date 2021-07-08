@@ -125,7 +125,7 @@ private:
 
     GroupData mInfo;
 
-    PaintedForest::List mTrees; // TODO: mForests;
+    PaintedForest::List mForests;
 
     GraphT mGraphData = GraphT({});
 };
