@@ -25,11 +25,11 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 
-#include "source/Helpers/appconfig.h"
-#include "source/Helpers/firststartpreparer.h"
-#include "source/Managers/localdatabasestorage.h"
-#include "source/Managers/syncmanager.h"
+#include "source/helpers/appconfig.h"
+#include "source/helpers/firststartpreparer.h"
 #include "source/mainscene.h"
+#include "source/managers/localdatabasestorage.h"
+#include "source/managers/syncmanager.h"
 
 // -- Qt6 Migration plan --
 
@@ -44,16 +44,6 @@
 // TODO: Move getUiElementSize to separate class (maybe singleton+properties)
 // TODO: Move all type registration to proper file
 // TODO: Add namespace to graph
-
-// TODO: Rename folders plan
-// TODO: 1) Base -> base
-// TODO: 2) GraphicItem -> graphicitem
-// TODO: 3) Termin -> term
-// TODO: 4) TerminEdge -> edge
-// TODO: 5) TerminGroup -> group
-// TODO: 6) Managers -> managers
-// TODO: 7) Helpers -> helpers
-// TODO: 8) Database -> database
 
 class Application : public QObject
 {

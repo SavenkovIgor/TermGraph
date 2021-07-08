@@ -21,9 +21,10 @@
 
 #include <gtest/gtest.h>
 
-#include "source/Helpers/uuid/uuidtools.h"
+#include "source/helpers/uuid/uuidtools.h"
 
-TEST (UuidsTest, Validator) {
+TEST(UuidsTest, Validator)
+{
     EXPECT_TRUE(UuidTools::isValidUuidString("{94810de3-51b8-469e-b316-00248ffa2a45}"));
     EXPECT_TRUE(UuidTools::isValidUuidString("{94810DE3-51B8-469E-B316-00248FFA2A45}"));
 
@@ -34,7 +35,8 @@ TEST (UuidsTest, Validator) {
     EXPECT_FALSE(UuidTools::isValidUuidString(""));
 }
 
-TEST (UuidsTest, NoBracesValidator) {
+TEST(UuidsTest, NoBracesValidator)
+{
     EXPECT_TRUE(UuidTools::isValidUuidStringWithoutBraces("94810de3-51b8-469e-b316-00248ffa2a45"));
     EXPECT_TRUE(UuidTools::isValidUuidStringWithoutBraces("94810DE3-51B8-469E-B316-00248FFA2A45"));
 

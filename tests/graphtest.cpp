@@ -21,8 +21,8 @@
 
 #include <gtest/gtest.h>
 
-#include "source/Model/Base/graph.hpp"
-#include "source/Model/Base/graphdata.hpp"
+#include "source/model/base/graph.hpp"
+#include "source/model/base/graphdata.hpp"
 
 class GraphTest : public ::testing::Test
 {

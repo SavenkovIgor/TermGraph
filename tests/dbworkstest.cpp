@@ -23,8 +23,8 @@
 
 #include <gtest/gtest.h>
 
-#include "source/Helpers/fsworks.h"
-#include "source/Managers/localdatabasestorage.h"
+#include "source/helpers/fsworks.h"
+#include "source/managers/localdatabasestorage.h"
 
 class DBWorksTest : public ::testing::Test
 {

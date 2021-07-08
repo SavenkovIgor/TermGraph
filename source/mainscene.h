@@ -23,14 +23,14 @@
 
 #include <QObject>
 
-#include "source/Helpers/appconfig.h"
-#include "source/Helpers/asyncgroupbuilder.h"
-#include "source/Helpers/fsworks.h"
-#include "source/Managers/groupsmanager.h"
-#include "source/Model/Termin/termdatawrapper.h"
-#include "source/Model/Termin/termsmodel.h"
-#include "source/Model/TerminEdge/edgesmodel.h"
-#include "source/Model/TerminGroup/termgroup.h"
+#include "source/helpers/appconfig.h"
+#include "source/helpers/asyncgroupbuilder.h"
+#include "source/helpers/fsworks.h"
+#include "source/managers/groupsmanager.h"
+#include "source/model/edge/edgesmodel.h"
+#include "source/model/group/termgroup.h"
+#include "source/model/term/termdatawrapper.h"
+#include "source/model/term/termsmodel.h"
 
 class MainScene : public QObject
 {

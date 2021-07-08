@@ -23,9 +23,9 @@
 
 #include <gtest/gtest.h>
 
-#include "source/Model/Base/forest.hpp"
-#include "source/Model/Base/graph.hpp"
-#include "source/Model/Base/graphdata.hpp"
+#include "source/model/base/forest.hpp"
+#include "source/model/base/graph.hpp"
+#include "source/model/base/graphdata.hpp"
 
 class ForestTest : public ::testing::Test
 {

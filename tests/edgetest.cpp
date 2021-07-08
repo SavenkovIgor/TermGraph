@@ -21,7 +21,7 @@
 
 #include <gtest/gtest.h>
 
-#include "source/Model/Base/edge.hpp"
+#include "source/model/base/edge.hpp"
 
 TEST(EdgeTest, InitEdge)
 {

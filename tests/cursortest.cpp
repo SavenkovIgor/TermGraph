@@ -21,10 +21,11 @@
 
 #include <gtest/gtest.h>
 
-#include "source/Helpers/text/checkingtextcursor.h"
-#include "source/Helpers/text/textcursor.h"
+#include "source/helpers/text/checkingtextcursor.h"
+#include "source/helpers/text/textcursor.h"
 
-TEST (CursorTest, InitCheck) {
+TEST(CursorTest, InitCheck)
+{
     QString str("abc");
 
     auto cursor = TextCursor(str, 1);
@@ -40,7 +41,8 @@ TEST (CursorTest, InitCheck) {
     EXPECT_EQ(emptyCursor.right(), QChar());
 }
 
-TEST (CursorTest, MoveCursorLeft) {
+TEST(CursorTest, MoveCursorLeft)
+{
     QString str("abc");
 
     auto cursor = TextCursor(str, 1);
@@ -59,7 +61,8 @@ TEST (CursorTest, MoveCursorLeft) {
     EXPECT_EQ(cursor.right(), 'a');
 }
 
-TEST (CursorTest, MoveCursorRight) {
+TEST(CursorTest, MoveCursorRight)
+{
     QString str("abc");
 
     auto cursor = TextCursor(str, 2);
@@ -78,7 +81,8 @@ TEST (CursorTest, MoveCursorRight) {
     EXPECT_EQ(cursor.right(), QChar());
 }
 
-TEST (CursorTest, AltMove) {
+TEST(CursorTest, AltMove)
+{
     QString str("a");
 
     auto cursor = TextCursor(str);
@@ -97,7 +101,8 @@ TEST (CursorTest, AltMove) {
     EXPECT_EQ(cursor.right(), 'a');
 }
 
-TEST (CursorTest, EmptyString) {
+TEST(CursorTest, EmptyString)
+{
     QString str("");
     auto    cursor = TextCursor(str);
 
@@ -105,7 +110,8 @@ TEST (CursorTest, EmptyString) {
     EXPECT_EQ(cursor.right(), QChar());
 }
 
-TEST (CursorTest, BordersCheck) {
+TEST(CursorTest, BordersCheck)
+{
     QString empty("");
     auto    cur = TextCursor(empty);
     EXPECT_TRUE(cur.atStart());
@@ -130,7 +136,8 @@ TEST (CursorTest, BordersCheck) {
     EXPECT_TRUE(cur2.atBorder());
 }
 
-TEST (CursorTest, PosCheck) {
+TEST(CursorTest, PosCheck)
+{
     QString str("a");
     auto    cursor = TextCursor(str);
     EXPECT_EQ(cursor.pos(), 0);
@@ -148,7 +155,8 @@ TEST (CursorTest, PosCheck) {
     EXPECT_EQ(cursor.pos(), 0);
 }
 
-TEST (CursorTest, MoveCheck) {
+TEST(CursorTest, MoveCheck)
+{
     QString str("a");
     auto    cursor = TextCursor(str);
     EXPECT_TRUE(!cursor.canMove(Direction::Left));
@@ -159,18 +167,20 @@ TEST (CursorTest, MoveCheck) {
     EXPECT_TRUE(!cursor.canMove(Direction::Right));
 }
 
-TEST (CursorTest, ValidCursor) {
+TEST(CursorTest, ValidCursor)
+{
     EXPECT_TRUE(TextCursor::isValidCursor(QString(""), 0));
     EXPECT_TRUE(TextCursor::isValidCursor(QString("a"), 1));
     EXPECT_TRUE(TextCursor::isValidCursor(QString("a"), 0));
 
     EXPECT_FALSE(TextCursor::isValidCursor(QString(""), -1));
-    EXPECT_FALSE(TextCursor::isValidCursor(QString(""),  1));
+    EXPECT_FALSE(TextCursor::isValidCursor(QString(""), 1));
     EXPECT_FALSE(TextCursor::isValidCursor(QString("a"), -1));
-    EXPECT_FALSE(TextCursor::isValidCursor(QString("a"),  2));
+    EXPECT_FALSE(TextCursor::isValidCursor(QString("a"), 2));
 }
 
-TEST (CursorTest, CheckingCursor) {
+TEST(CursorTest, CheckingCursor)
+{
     QString            str(" abc a");
     CheckingTextCursor cursor(str, 1, CharTools::isLetterOrNumber, CharTools::notLetterOrNumber);
 
@@ -185,7 +195,8 @@ TEST (CursorTest, CheckingCursor) {
     EXPECT_TRUE(cursor.check());
 }
 
-TEST (CursorTest, StdCheckingCursors) {
+TEST(CursorTest, StdCheckingCursors)
+{
     QString str(" abc a");
     auto    lbCursor = CheckingTextCursor::rightWordBorder(str, 1);
     EXPECT_FALSE(lbCursor.check());
@@ -209,7 +220,8 @@ TEST (CursorTest, StdCheckingCursors) {
     EXPECT_TRUE(rbCursor.check());
 }
 
-TEST (CursorTest, SteppingCursor) {
+TEST(CursorTest, SteppingCursor)
+{
     QString str(" {abc} a");
     auto    lCursor = CheckingTextCursor::leftBracketOnRight(str);
     EXPECT_TRUE(lCursor.search(Direction::Right));
@@ -250,7 +262,8 @@ TEST (CursorTest, SteppingCursor) {
     EXPECT_FALSE(cursor.check());
 }
 
-TEST (CursorTest, AutoSearchCursor) {
+TEST(CursorTest, AutoSearchCursor)
+{
     QString str(" {abc} a");
     auto    lCursor = CheckingTextCursor::leftBracketOnRight(str, 0, Direction::Right);
     EXPECT_EQ(lCursor.pos(), 1);

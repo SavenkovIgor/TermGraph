@@ -21,7 +21,7 @@
 
 #include <gtest/gtest.h>
 
-#include "source/Model/GraphicItem/graphicitem.h"
+#include "source/model/graphicitem/graphicitem.h"
 
 TEST(GraphicItem, Position)
 {

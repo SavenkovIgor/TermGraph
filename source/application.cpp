@@ -24,9 +24,9 @@
 #include <QApplication>
 #include <QScreen>
 
-#include "source/Helpers/platform.h"
-#include "source/Managers/notificationmanager.h"
-#include "source/Model/Termin/paintedterm.h"
+#include "source/helpers/platform.h"
+#include "source/managers/notificationmanager.h"
+#include "source/model/term/paintedterm.h"
 
 Application::Application(QObject* parent)
     : QObject(parent)

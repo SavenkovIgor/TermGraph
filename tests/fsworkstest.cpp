@@ -21,9 +21,10 @@
 
 #include <gtest/gtest.h>
 
-#include "source/Helpers/fsworks.h"
+#include "source/helpers/fsworks.h"
 
-TEST (FSWorks, PathWorks) {
+TEST(FSWorks, PathWorks)
+{
     auto testPath = FSWorks::workingDirPath() + "/testPath";
 
     ASSERT_FALSE(FSWorks::pathExist(testPath));
@@ -33,7 +34,8 @@ TEST (FSWorks, PathWorks) {
     ASSERT_FALSE(FSWorks::pathExist(testPath));
 }
 
-TEST (FSWorks, FileWorks) {
+TEST(FSWorks, FileWorks)
+{
     auto testPath     = FSWorks::workingDirPath() + "/testPath";
     auto testFilePath = testPath + "/testFile.tst";
 
@@ -50,7 +52,7 @@ TEST (FSWorks, FileWorks) {
 
     // Deleting file
     ASSERT_TRUE(FSWorks::deleteFile(testFilePath));
-    ASSERT_FALSE(FSWorks::deleteFile(testFilePath));  // Already deleted
+    ASSERT_FALSE(FSWorks::deleteFile(testFilePath)); // Already deleted
     ASSERT_FALSE(FSWorks::fileExist(testFilePath));
 
     // Deleting path

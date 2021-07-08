@@ -23,9 +23,10 @@
 
 #include <gtest/gtest.h>
 
-#include "source/Helpers/text/textrange.h"
+#include "source/helpers/text/textrange.h"
 
-TEST (TextRangeTest, TextRangeInit) {
+TEST(TextRangeTest, TextRangeInit)
+{
     QString   str("ab");
     TextRange rng(str, 0, 1);
 
@@ -45,50 +46,53 @@ TEST (TextRangeTest, TextRangeInit) {
     EXPECT_EQ(rng2.size(), 0);
 }
 
-TEST (TextRangeTest, RangeCut) {
+TEST(TextRangeTest, RangeCut)
+{
     QString   str(" abc b");
     TextRange rng(str, 1, 4);
 
     EXPECT_EQ(rng.cutted(), (std::pair<QString, int>("  b", 1)));
 }
 
-TEST (TextRangeTest, RangeView) {
+TEST(TextRangeTest, RangeView)
+{
     QString   str(" abc ab ");
     TextRange rng(str, 3, 6);
 
     EXPECT_EQ(rng.rangeView(), QString("c a"));
 }
 
-TEST (TextRangeTest, WordBorder) {
-
-    struct Data {
+TEST(TextRangeTest, WordBorder)
+{
+    struct Data
+    {
         const char* word;
-        const int startFrom;
-        const int leftPos;
-        const int rightPos;
-        const bool isEmpty;
-        const int size;
+        const int   startFrom;
+        const int   leftPos;
+        const int   rightPos;
+        const bool  isEmpty;
+        const int   size;
     };
 
     std::vector<Data> inputs;
 
-    inputs.push_back({.word = ""     , .startFrom = 0, .leftPos = 0, .rightPos = 0, .isEmpty = true,  .size = 0});
-    inputs.push_back({.word = " "    , .startFrom = 0, .leftPos = 0, .rightPos = 0, .isEmpty = true,  .size = 0});
-    inputs.push_back({.word = " "    , .startFrom = 1, .leftPos = 1, .rightPos = 1, .isEmpty = true,  .size = 0});
-    inputs.push_back({.word = "  "   , .startFrom = 1, .leftPos = 1, .rightPos = 1, .isEmpty = true,  .size = 0});
-    inputs.push_back({.word = " a"   , .startFrom = 0, .leftPos = 0, .rightPos = 0, .isEmpty = true,  .size = 0});
-    inputs.push_back({.word = " a"   , .startFrom = 1, .leftPos = 1, .rightPos = 2, .isEmpty = false, .size = 1});
-    inputs.push_back({.word = "ab"   , .startFrom = 0, .leftPos = 0, .rightPos = 2, .isEmpty = false, .size = 2});
-    inputs.push_back({.word = "ab"   , .startFrom = 1, .leftPos = 0, .rightPos = 2, .isEmpty = false, .size = 2});
-    inputs.push_back({.word = "ab"   , .startFrom = 2, .leftPos = 0, .rightPos = 2, .isEmpty = false, .size = 2});
-    inputs.push_back({.word = " ab " , .startFrom = 0, .leftPos = 0, .rightPos = 0, .isEmpty = true , .size = 0});
-    inputs.push_back({.word = " ab " , .startFrom = 1, .leftPos = 1, .rightPos = 3, .isEmpty = false, .size = 2});
-    inputs.push_back({.word = " ab " , .startFrom = 2, .leftPos = 1, .rightPos = 3, .isEmpty = false, .size = 2});
-    inputs.push_back({.word = " ab " , .startFrom = 3, .leftPos = 1, .rightPos = 3, .isEmpty = false, .size = 2});
-    inputs.push_back({.word = " ab " , .startFrom = 4, .leftPos = 4, .rightPos = 4, .isEmpty = true , .size = 0});
+    inputs.push_back({.word = "", .startFrom = 0, .leftPos = 0, .rightPos = 0, .isEmpty = true, .size = 0});
+    inputs.push_back({.word = " ", .startFrom = 0, .leftPos = 0, .rightPos = 0, .isEmpty = true, .size = 0});
+    inputs.push_back({.word = " ", .startFrom = 1, .leftPos = 1, .rightPos = 1, .isEmpty = true, .size = 0});
+    inputs.push_back({.word = "  ", .startFrom = 1, .leftPos = 1, .rightPos = 1, .isEmpty = true, .size = 0});
+    inputs.push_back({.word = " a", .startFrom = 0, .leftPos = 0, .rightPos = 0, .isEmpty = true, .size = 0});
+    inputs.push_back({.word = " a", .startFrom = 1, .leftPos = 1, .rightPos = 2, .isEmpty = false, .size = 1});
+    inputs.push_back({.word = "ab", .startFrom = 0, .leftPos = 0, .rightPos = 2, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = "ab", .startFrom = 1, .leftPos = 0, .rightPos = 2, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = "ab", .startFrom = 2, .leftPos = 0, .rightPos = 2, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = " ab ", .startFrom = 0, .leftPos = 0, .rightPos = 0, .isEmpty = true, .size = 0});
+    inputs.push_back({.word = " ab ", .startFrom = 1, .leftPos = 1, .rightPos = 3, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = " ab ", .startFrom = 2, .leftPos = 1, .rightPos = 3, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = " ab ", .startFrom = 3, .leftPos = 1, .rightPos = 3, .isEmpty = false, .size = 2});
+    inputs.push_back({.word = " ab ", .startFrom = 4, .leftPos = 4, .rightPos = 4, .isEmpty = true, .size = 0});
     inputs.push_back({.word = " ab, ", .startFrom = 1, .leftPos = 1, .rightPos = 3, .isEmpty = false, .size = 2});
     inputs.push_back({.word = " ab, ", .startFrom = 3, .leftPos = 1, .rightPos = 3, .isEmpty = false, .size = 2});
-    inputs.push_back({.word = " ab, ", .startFrom = 4, .leftPos = 4, .rightPos = 4, .isEmpty = true , .size = 0});
+    inputs.push_back({.word = " ab, ", .startFrom = 4, .leftPos = 4, .rightPos = 4, .isEmpty = true, .size = 0});
     inputs.push_back({.word = " a a ", .startFrom = 1, .leftPos = 1, .rightPos = 2, .isEmpty = false, .size = 1});
     inputs.push_back({.word = " a a ", .startFrom = 2, .leftPos = 1, .rightPos = 2, .isEmpty = false, .size = 1});
     inputs.push_back({.word = " a a ", .startFrom = 3, .leftPos = 3, .rightPos = 4, .isEmpty = false, .size = 1});

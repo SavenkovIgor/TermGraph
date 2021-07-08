@@ -23,8 +23,8 @@
 #include <QSurface>
 #include <QtQuickControls2/QQuickStyle>
 
-#include "source/Helpers/platform.h"
 #include "source/application.h"
+#include "source/helpers/platform.h"
 
 #include "source/qmlTypesRegistrator.h"
 

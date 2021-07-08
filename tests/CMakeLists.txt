@@ -29,8 +29,8 @@ endfunction ()
 
 # TEXT_UTILS_TEST
 add_executable (TEXT_UTILS_TEST
-    ../source/Helpers/text/textutils.cpp
-    ../source/Helpers/text/textutils.h
+    ../source/helpers/text/textutils.cpp
+    ../source/helpers/text/textutils.h
     textutilstest.cpp)
 
 test_case_config (TEXT_UTILS_TEST)
@@ -38,8 +38,8 @@ test_case_config (TEXT_UTILS_TEST)
 
 # FS_WORKS_TEST
 add_executable (FS_WORKS_TEST
-    ../source/Helpers/fsworks.cpp
-    ../source/Helpers/fsworks.h
+    ../source/helpers/fsworks.cpp
+    ../source/helpers/fsworks.h
     fsworkstest.cpp)
 
 test_case_config (FS_WORKS_TEST)
@@ -47,64 +47,64 @@ test_case_config (FS_WORKS_TEST)
 
 # UUIDS_TEST
 add_executable (UUIDS_TEST
-    ../source/Helpers/uuid/uuidtools.cpp
-    ../source/Helpers/uuid/uuidtools.h
+    ../source/helpers/uuid/uuidtools.cpp
+    ../source/helpers/uuid/uuidtools.h
     uuidstest.cpp)
 
 test_case_config (UUIDS_TEST)
 
 # NODE_TEST
 add_executable (NODE_TEST
-    ../source/Model/Base/node.hpp
+    ../source/model/base/node.hpp
     nodetest.cpp)
 
 test_case_config (NODE_TEST)
 
 # EDGE_TEST
 add_executable (EDGE_TEST
-    ../source/Model/Base/node.hpp
-    ../source/Model/Base/edge.hpp
+    ../source/model/base/node.hpp
+    ../source/model/base/edge.hpp
     edgetest.cpp)
 
 test_case_config (EDGE_TEST)
 
 # GRAPH_TEST
 add_executable (GRAPH_TEST
-    ../source/Model/Base/node.hpp
-    ../source/Model/Base/edge.hpp
-    ../source/Model/Base/graph.hpp
-    ../source/Model/Base/graphdata.hpp
+    ../source/model/base/node.hpp
+    ../source/model/base/edge.hpp
+    ../source/model/base/graph.hpp
+    ../source/model/base/graphdata.hpp
     graphtest.cpp)
 
 test_case_config (GRAPH_TEST)
 
 add_executable (FOREST_TEST
-    ../source/Model/Base/node.hpp
-    ../source/Model/Base/edge.hpp
-    ../source/Model/Base/graph.hpp
-    ../source/Model/Base/graphdata.hpp
-    ../source/Model/Base/forest.hpp
-    ../source/Model/enums.h
+    ../source/model/base/node.hpp
+    ../source/model/base/edge.hpp
+    ../source/model/base/graph.hpp
+    ../source/model/base/graphdata.hpp
+    ../source/model/base/forest.hpp
+    ../source/model/enums.h
     foresttest.cpp)
 
 test_case_config (FOREST_TEST)
 
 # GRAPHIC_ITEM_TEST
 add_executable (GRAPHIC_ITEM_TEST
-    ../source/Model/GraphicItem/graphicitem.h
-    ../source/Model/GraphicItem/graphicitem.cpp
+    ../source/model/graphicitem/graphicitem.h
+    ../source/model/graphicitem/graphicitem.cpp
     graphicitemtest.cpp)
 
 test_case_config (GRAPHIC_ITEM_TEST)
 
 # TEXT_CURSOR_TEST
 add_executable (TEXT_CURSOR_TEST
-    ../source/Helpers/handytypes.h
-    ../source/Helpers/text/chartools.h
-    ../source/Helpers/text/checkingtextcursor.cpp
-    ../source/Helpers/text/checkingtextcursor.h
-    ../source/Helpers/text/textcursor.cpp
-    ../source/Helpers/text/textcursor.h
+    ../source/helpers/handytypes.h
+    ../source/helpers/text/chartools.h
+    ../source/helpers/text/checkingtextcursor.cpp
+    ../source/helpers/text/checkingtextcursor.h
+    ../source/helpers/text/textcursor.cpp
+    ../source/helpers/text/textcursor.h
     cursortest.cpp)
 
 test_case_config (TEXT_CURSOR_TEST)
@@ -112,20 +112,20 @@ test_case_config (TEXT_CURSOR_TEST)
 
 # TEXT_RANGE_TEST
 add_executable (TEXT_RANGE_TEST
-    ../source/Helpers/handytypes.h
-    ../source/Helpers/intmatrix.cpp
-    ../source/Helpers/intmatrix.h
-    ../source/Helpers/link/link.cpp
-    ../source/Helpers/link/link.h
-    ../source/Helpers/text/chartools.h
-    ../source/Helpers/text/checkingtextcursor.cpp
-    ../source/Helpers/text/checkingtextcursor.h
-    ../source/Helpers/text/textcursor.cpp
-    ../source/Helpers/text/textcursor.h
-    ../source/Helpers/text/textrange.cpp
-    ../source/Helpers/text/textrange.h
-    ../source/Helpers/uuid/uuidtools.cpp
-    ../source/Helpers/uuid/uuidtools.h
+    ../source/helpers/handytypes.h
+    ../source/helpers/intmatrix.cpp
+    ../source/helpers/intmatrix.h
+    ../source/helpers/link/link.cpp
+    ../source/helpers/link/link.h
+    ../source/helpers/text/chartools.h
+    ../source/helpers/text/checkingtextcursor.cpp
+    ../source/helpers/text/checkingtextcursor.h
+    ../source/helpers/text/textcursor.cpp
+    ../source/helpers/text/textcursor.h
+    ../source/helpers/text/textrange.cpp
+    ../source/helpers/text/textrange.h
+    ../source/helpers/uuid/uuidtools.cpp
+    ../source/helpers/uuid/uuidtools.h
     textrangetest.cpp)
 
 test_case_config (TEXT_RANGE_TEST)
@@ -133,46 +133,46 @@ test_case_config (TEXT_RANGE_TEST)
 
 # TEXT_LINK_TEST
 add_executable (TEXT_LINK_TEST
-    ../source/Helpers/handytypes.h
-    ../source/Helpers/intmatrix.cpp
-    ../source/Helpers/intmatrix.h
-    ../source/Helpers/link/linksstring.cpp
-    ../source/Helpers/link/linksstring.h
-    ../source/Helpers/link/link.cpp
-    ../source/Helpers/link/link.h
-    ../source/Helpers/text/chartools.h
-    ../source/Helpers/text/checkingtextcursor.cpp
-    ../source/Helpers/text/checkingtextcursor.h
-    ../source/Helpers/text/textcursor.cpp
-    ../source/Helpers/text/textcursor.h
-    ../source/Helpers/text/textrange.cpp
-    ../source/Helpers/text/textrange.h
-    ../source/Helpers/uuid/uuidtools.cpp
-    ../source/Helpers/uuid/uuidtools.h
+    ../source/helpers/handytypes.h
+    ../source/helpers/intmatrix.cpp
+    ../source/helpers/intmatrix.h
+    ../source/helpers/link/linksstring.cpp
+    ../source/helpers/link/linksstring.h
+    ../source/helpers/link/link.cpp
+    ../source/helpers/link/link.h
+    ../source/helpers/text/chartools.h
+    ../source/helpers/text/checkingtextcursor.cpp
+    ../source/helpers/text/checkingtextcursor.h
+    ../source/helpers/text/textcursor.cpp
+    ../source/helpers/text/textcursor.h
+    ../source/helpers/text/textrange.cpp
+    ../source/helpers/text/textrange.h
+    ../source/helpers/uuid/uuidtools.cpp
+    ../source/helpers/uuid/uuidtools.h
     linktest.cpp)
 
 test_case_config (TEXT_LINK_TEST)
 
 # LINK_UTILS_TEST
 add_executable (LINK_UTILS_TEST
-    ../source/Helpers/handytypes.h
-    ../source/Helpers/intmatrix.cpp
-    ../source/Helpers/intmatrix.h
-    ../source/Helpers/link/linkutils.cpp
-    ../source/Helpers/link/linkutils.h
-    ../source/Helpers/link/link.cpp
-    ../source/Helpers/link/link.h
-    ../source/Helpers/text/chartools.h
-    ../source/Helpers/text/checkingtextcursor.cpp
-    ../source/Helpers/text/checkingtextcursor.h
-    ../source/Helpers/text/textcursor.cpp
-    ../source/Helpers/text/textcursor.h
-    ../source/Helpers/text/textrange.cpp
-    ../source/Helpers/text/textrange.h
-    ../source/Helpers/text/textutils.cpp
-    ../source/Helpers/text/textutils.h
-    ../source/Helpers/uuid/uuidtools.cpp
-    ../source/Helpers/uuid/uuidtools.h
+    ../source/helpers/handytypes.h
+    ../source/helpers/intmatrix.cpp
+    ../source/helpers/intmatrix.h
+    ../source/helpers/link/linkutils.cpp
+    ../source/helpers/link/linkutils.h
+    ../source/helpers/link/link.cpp
+    ../source/helpers/link/link.h
+    ../source/helpers/text/chartools.h
+    ../source/helpers/text/checkingtextcursor.cpp
+    ../source/helpers/text/checkingtextcursor.h
+    ../source/helpers/text/textcursor.cpp
+    ../source/helpers/text/textcursor.h
+    ../source/helpers/text/textrange.cpp
+    ../source/helpers/text/textrange.h
+    ../source/helpers/text/textutils.cpp
+    ../source/helpers/text/textutils.h
+    ../source/helpers/uuid/uuidtools.cpp
+    ../source/helpers/uuid/uuidtools.h
     linkutilstest.cpp)
 
 test_case_config (LINK_UTILS_TEST)
@@ -180,24 +180,24 @@ test_case_config (LINK_UTILS_TEST)
 
 # LINK_DECORATOR_TEST
 add_executable (LINK_DECORATOR_TEST
-    ../source/Helpers/handytypes.h
-    ../source/Helpers/intmatrix.cpp
-    ../source/Helpers/intmatrix.h
-    ../source/Helpers/link/linksdecorator.cpp
-    ../source/Helpers/link/linksdecorator.h
-    ../source/Helpers/link/linksstring.cpp
-    ../source/Helpers/link/linksstring.h
-    ../source/Helpers/link/link.cpp
-    ../source/Helpers/link/link.h
-    ../source/Helpers/text/chartools.h
-    ../source/Helpers/text/checkingtextcursor.cpp
-    ../source/Helpers/text/checkingtextcursor.h
-    ../source/Helpers/text/textcursor.cpp
-    ../source/Helpers/text/textcursor.h
-    ../source/Helpers/text/textrange.cpp
-    ../source/Helpers/text/textrange.h
-    ../source/Helpers/uuid/uuidtools.cpp
-    ../source/Helpers/uuid/uuidtools.h
+    ../source/helpers/handytypes.h
+    ../source/helpers/intmatrix.cpp
+    ../source/helpers/intmatrix.h
+    ../source/helpers/link/linksdecorator.cpp
+    ../source/helpers/link/linksdecorator.h
+    ../source/helpers/link/linksstring.cpp
+    ../source/helpers/link/linksstring.h
+    ../source/helpers/link/link.cpp
+    ../source/helpers/link/link.h
+    ../source/helpers/text/chartools.h
+    ../source/helpers/text/checkingtextcursor.cpp
+    ../source/helpers/text/checkingtextcursor.h
+    ../source/helpers/text/textcursor.cpp
+    ../source/helpers/text/textcursor.h
+    ../source/helpers/text/textrange.cpp
+    ../source/helpers/text/textrange.h
+    ../source/helpers/uuid/uuidtools.cpp
+    ../source/helpers/uuid/uuidtools.h
     linkdecoratortest.cpp)
 
 test_case_config (LINK_DECORATOR_TEST)
@@ -205,32 +205,32 @@ target_link_libraries (LINK_DECORATOR_TEST Qt6::Gui)
 
 # DB_WORKS_TEST
 add_executable (DB_WORKS_TEST
-    ../source/Database/database.cpp
-    ../source/Database/database.h
-    ../source/Database/dbinfo.h
-    ../source/Database/dbtools.cpp
-    ../source/Database/dbtools.h
-    ../source/Database/sqlqueries.qrc
-    ../source/Database/sqlquerybuilder.cpp
-    ../source/Database/sqlquerybuilder.h
-    ../source/Database/tables/appconfigtable.cpp
-    ../source/Database/tables/appconfigtable.h
-    ../source/Database/tables/termgrouptable.cpp
-    ../source/Database/tables/termgrouptable.h
-    ../source/Database/tables/termtable.cpp
-    ../source/Database/tables/termtable.h
-    ../source/Helpers/appconfig.cpp
-    ../source/Helpers/appconfig.h
-    ../source/Helpers/fsworks.cpp
-    ../source/Helpers/fsworks.h
-    ../source/Helpers/handytypes.h
-    ../source/Managers/datastorageinterface.h
-    ../source/Managers/localdatabasestorage.cpp
-    ../source/Managers/localdatabasestorage.h
-    ../source/Managers/notificationmanager.cpp
-    ../source/Managers/notificationmanager.h
-    ../source/Model/Termin/termdata.h
-    ../source/Model/TerminGroup/groupdata.h
+    ../source/database/database.cpp
+    ../source/database/database.h
+    ../source/database/dbinfo.h
+    ../source/database/dbtools.cpp
+    ../source/database/dbtools.h
+    ../source/database/sqlqueries.qrc
+    ../source/database/sqlquerybuilder.cpp
+    ../source/database/sqlquerybuilder.h
+    ../source/database/tables/appconfigtable.cpp
+    ../source/database/tables/appconfigtable.h
+    ../source/database/tables/termgrouptable.cpp
+    ../source/database/tables/termgrouptable.h
+    ../source/database/tables/termtable.cpp
+    ../source/database/tables/termtable.h
+    ../source/helpers/appconfig.cpp
+    ../source/helpers/appconfig.h
+    ../source/helpers/fsworks.cpp
+    ../source/helpers/fsworks.h
+    ../source/helpers/handytypes.h
+    ../source/managers/datastorageinterface.h
+    ../source/managers/localdatabasestorage.cpp
+    ../source/managers/localdatabasestorage.h
+    ../source/managers/notificationmanager.cpp
+    ../source/managers/notificationmanager.h
+    ../source/model/term/termdata.h
+    ../source/model/group/groupdata.h
     dbworkstest.cpp)
 
 test_case_config (DB_WORKS_TEST)

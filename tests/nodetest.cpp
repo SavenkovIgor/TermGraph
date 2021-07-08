@@ -21,7 +21,7 @@
 
 #include <gtest/gtest.h>
 
-#include "source/Model/Base/node.hpp"
+#include "source/model/base/node.hpp"
 
 TEST(NodeTest, PrimitiveInit)
 {

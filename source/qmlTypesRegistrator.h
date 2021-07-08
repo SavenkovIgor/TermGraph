@@ -26,11 +26,11 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include "source/Helpers/tagprocessor.h"
-#include "source/Managers/linkshardeningmanager.h"
-#include "source/Managers/notificationmanager.h"
-#include "source/Model/Termin/termdatawrapper.h"
-#include "source/Model/TerminGroup/termgroup.h"
+#include "source/helpers/tagprocessor.h"
+#include "source/managers/linkshardeningmanager.h"
+#include "source/managers/notificationmanager.h"
+#include "source/model/group/termgroup.h"
+#include "source/model/term/termdatawrapper.h"
 
 void registerUserQmlTypes()
 {

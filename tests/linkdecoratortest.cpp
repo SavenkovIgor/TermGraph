@@ -24,8 +24,8 @@
 #include <QColor>
 #include <QCoreApplication>
 
-#include "source/Helpers/link/linksdecorator.h"
-#include "source/Helpers/link/linksstring.h"
+#include "source/helpers/link/linksdecorator.h"
+#include "source/helpers/link/linksstring.h"
 
 class LinkDecoratorTest : public ::testing::Test
 {
@@ -33,8 +33,8 @@ public:
     const QString multipleLinks = "{abc} {bc} {c} ";
 };
 
-TEST_F (LinkDecoratorTest, Decorator) {
-
+TEST_F(LinkDecoratorTest, Decorator)
+{
     LinksString links(multipleLinks);
 
     LinksDecorator decorator(links, [](auto orderNum, [[maybe_unused]] auto link) {
@@ -46,15 +46,14 @@ TEST_F (LinkDecoratorTest, Decorator) {
     auto result = decorator.apply(LinksDecoratorMode::Insert);
 
     EXPECT_EQ(result,
-             "<font color=\"#ffff0000\" style=\"background-color:#00000000\">{abc}</font> "
-             "<font color=\"#ff0000ff\" style=\"background-color:#00000000\">{bc}</font> "
-             "<font color=\"#ffff0000\" style=\"background-color:#00000000\">{c}</font> ");
+              "<font color=\"#ffff0000\" style=\"background-color:#00000000\">{abc}</font> "
+              "<font color=\"#ff0000ff\" style=\"background-color:#00000000\">{bc}</font> "
+              "<font color=\"#ffff0000\" style=\"background-color:#00000000\">{c}</font> ");
 
     auto result2 = decorator.apply(LinksDecoratorMode::Replace);
 
     EXPECT_EQ(result2,
-             "<font color=\"#ffff0000\" style=\"background-color:#00000000\">abc</font> "
-             "<font color=\"#ff0000ff\" style=\"background-color:#00000000\">bc</font> "
-             "<font color=\"#ffff0000\" style=\"background-color:#00000000\">c</font> ");
+              "<font color=\"#ffff0000\" style=\"background-color:#00000000\">abc</font> "
+              "<font color=\"#ff0000ff\" style=\"background-color:#00000000\">bc</font> "
+              "<font color=\"#ffff0000\" style=\"background-color:#00000000\">c</font> ");
 }
-
