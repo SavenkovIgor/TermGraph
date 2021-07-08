@@ -63,7 +63,7 @@ Control {
     }
 
     function createNullEdge(parent) {
-        return createEdge(parent, { pt1: Qt.point(0, 0), pt2: Qt.point(0, 0), color: "black" });
+        return createEdge(parent, { pt1: Qt.point(0, 0), pt2: Qt.point(0, 0), color: "black", isSelected: false });
     }
 
     function edgeData(index) {
@@ -128,13 +128,15 @@ Control {
                 for (let i = 0; i < len; ++i)
                     data[i].destroy();
 
-                data = [];
+                data = createNullEdge(edgesShape);
             }
 
             function updateEdges() {
                 clear();
                 const notSelected = edgesData().filter(e => !e.isSelected);
-                data = notSelected.map(e => root.createEdge(edgesShape, e));
+
+                if (notSelected.length !== 0)
+                    data = notSelected.map(e => root.createEdge(edgesShape, e));
             }
         }
 
@@ -148,13 +150,15 @@ Control {
                 for (let i = 0; i < len; ++i)
                     data[i].destroy();
 
-                data = [];
+                data = createNullEdge(edgesSelectedShape);
             }
 
             function updateEdges() {
                 clear();
                 const selected = edgesData().filter(e => e.isSelected);
-                data = selected.map(e => root.createEdge(edgesSelectedShape, e));
+
+                if (selected.length !== 0)
+                    data = selected.map(e => root.createEdge(edgesSelectedShape, e));
             }
         }
 
