@@ -21,8 +21,6 @@
 
 #include "source/model/group/termgroup.h"
 
-#include <ranges>
-
 #include <QElapsedTimer>
 #include <QThread>
 
@@ -87,8 +85,10 @@ QRectF TermGroup::getGroupRect() const { return mBaseRect.getRect(CoordType::sce
 
 UuidList TermGroup::searchNearest(const QString& text, int limit) const
 {
-    QString                        searchText = text.toLower();
-    std::vector<QPair<int, QUuid>> searchResults;
+    using namespace std;
+
+    QString                   searchText = text.toLower();
+    vector<QPair<int, QUuid>> searchResults;
     // Taking distances
     for (auto term : mGraphData.nodeList()) {
         auto lowerTerm = term->cache().lowerTerm();
@@ -109,7 +109,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
     }
 
     // Sorting
-    std::ranges::sort(searchResults, [](auto s1, auto s2) { return s1.first < s2.first; });
+    sort(begin(searchResults), end(searchResults), [](auto s1, auto s2) { return s1.first < s2.first; });
 
     // Removing numbers
     UuidList ret;
@@ -255,7 +255,8 @@ void TermGroup::updateBaseRectSize()
 
 void TermGroup::setTreeCoords()
 {
-    std::ranges::for_each(mForests, [](auto f) { f->setTreeNodeCoords(); });
+    using namespace std;
+    for_each(begin(mForests), end(mForests), [](auto f) { f->setTreeNodeCoords(); });
 }
 
 void TermGroup::setOrphCoords(qreal maxWidth)
@@ -444,6 +445,8 @@ PaintedEdge::List TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge:
 
 PaintedEdge::List TermGroup::edgesForPaint() const
 {
+    using namespace std;
+
     PaintedEdge::List lst;
 
     auto softEdgesFilter     = [](auto e) { return !e->isSelected() && !e->isHard(); };
@@ -456,10 +459,11 @@ PaintedEdge::List TermGroup::edgesForPaint() const
 
     auto addToList = [&lst](auto e) { lst.push_back(e); };
 
-    std::ranges::for_each(softEdges, addToList);
-    std::ranges::for_each(hardEdges, addToList);
-    std::ranges::for_each(selectedEdges, addToList);
-    std::ranges::for_each(allBrokenEdges(), addToList);
+    for_each(begin(softEdges), end(softEdges), addToList);
+    for_each(begin(hardEdges), end(hardEdges), addToList);
+    for_each(begin(selectedEdges), end(selectedEdges), addToList);
+    auto brokenEdges = allBrokenEdges();
+    for_each(begin(brokenEdges), end(brokenEdges), addToList);
 
     return lst;
 }

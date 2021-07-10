@@ -25,7 +25,6 @@
 #include <QString>
 #include <QUuid>
 
-#include "source/helpers/handytypes.h"
 #include "source/model/group/groupdata.h"
 #include "source/model/term/termdata.h"
 

@@ -21,8 +21,6 @@
 
 #include "source/model/group/paintedforest.h"
 
-#include <ranges>
-
 #include "source/helpers/appstyle.h"
 
 PaintedForest::PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
@@ -102,10 +100,12 @@ PaintedTerm::OptPtr PaintedForest::getNodeAtPoint(const QPointF& pt) const
 
 QString PaintedForest::getHierarchyDefinition(PaintedTerm::Ptr term)
 {
+    using namespace std;
+
     PaintedTerm::List parentsList;
 
     rootsVisiter(term, [&parentsList](auto node) {
-        if (std::find(parentsList.begin(), parentsList.end(), node) == parentsList.end()) {
+        if (find(begin(parentsList), end(parentsList), node) == parentsList.end()) {
             parentsList.push_back(node);
         }
         return false;
@@ -115,7 +115,7 @@ QString PaintedForest::getHierarchyDefinition(PaintedTerm::Ptr term)
         return "";
 
     // Sorting parents list
-    std::ranges::sort(parentsList, [this](auto n1, auto n2) { return level(n1) > level(n2); });
+    sort(begin(parentsList), end(parentsList), [this](auto n1, auto n2) { return level(n1) > level(n2); });
 
     QStringList definitions;
 

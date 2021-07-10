@@ -21,8 +21,6 @@
 
 #include "source/model/group/nodeverticalstack.h"
 
-#include <ranges>
-
 #include "source/helpers/helpstuff.h"
 
 QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::List& nodes)
@@ -41,7 +39,11 @@ NodeVerticalStack::NodeVerticalStack(PaintedForest* parentForest)
 
 void NodeVerticalStack::addTerm(PaintedTerm::Ptr term) { mTerms.push_back(term); }
 
-bool NodeVerticalStack::hasNode(PaintedTerm::Ptr term) const { return std::ranges::find(mTerms, term) != mTerms.end(); }
+bool NodeVerticalStack::hasNode(PaintedTerm::Ptr term) const
+{
+    using namespace std;
+    return find(begin(mTerms), end(mTerms), term) != mTerms.end();
+}
 
 PaintedTerm::List NodeVerticalStack::nodes() const { return mTerms; }
 

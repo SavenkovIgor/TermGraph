@@ -22,7 +22,6 @@
 #pragma once
 
 #include <functional>
-#include <ranges>
 #include <vector>
 
 #include "source/model/base/edge.hpp"
@@ -43,8 +42,8 @@ public:
     NodeList nodes;
     EdgeList edges;
 
-    bool contains(const NodePtr& node) const { return std::ranges::find(nodes, node) != nodes.end(); }
-    bool contains(const EdgePtr& edge) const { return std::ranges::find(edges, edge) != edges.end(); }
+    bool contains(const NodePtr& node) const { return std::find(nodes.begin(), nodes.end(), node) != nodes.end(); }
+    bool contains(const EdgePtr& edge) const { return std::find(edges.begin(), edges.end(), edge) != edges.end(); }
 
     NodeList filterNodes(std::function<bool(const NodePtr&)> condition) const
     {
@@ -63,7 +62,7 @@ public:
         NodeList ret = baseList;
 
         auto remIt = std::remove_if(ret.begin(), ret.end(), [&subtractor](auto node) {
-            return std::ranges::find(subtractor, node) != subtractor.end();
+            return std::find(subtractor.begin(), subtractor.end(), node) != subtractor.end();
         });
 
         ret.erase(remIt, ret.end());
@@ -76,7 +75,7 @@ public:
         EdgeList ret = baseList;
 
         auto remIt = std::remove_if(ret.begin(), ret.end(), [&subtractor](auto node) {
-            return std::ranges::find(subtractor, node) != subtractor.end();
+            return std::find(subtractor.begin(), subtractor.end(), node) != subtractor.end();
         });
 
         ret.erase(remIt, ret.end());

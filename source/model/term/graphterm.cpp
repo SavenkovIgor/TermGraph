@@ -21,8 +21,6 @@
 
 #include "source/model/term/graphterm.h"
 
-#include <ranges>
-
 GraphTerm::GraphTerm(const TermData& info)
     : Node<TermData>(info)
     , mDataCache(info)

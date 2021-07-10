@@ -23,7 +23,6 @@
 
 #include <algorithm>
 #include <map>
-#include <ranges>
 #include <set>
 #include <utility>
 #include <vector>
@@ -101,10 +100,13 @@ public:
     {
         assert(contains(node));
 
-        auto filtered = Base::edges
-            | std::ranges::views::filter([&node](auto edge) { return edge->incidentalTo(node); });
+        EdgeList ret;
 
-        return EdgeList(filtered.begin(), filtered.end());
+        for (auto edge : Base::edges)
+            if (edge->incidentalTo(node))
+                ret.push_back(edge);
+
+        return ret;
     }
 
     GraphData<NodeT, EdgeT> surrounding(const NodePtr& node)
@@ -113,7 +115,7 @@ public:
         auto     edges = connectedEdges(node);
         NodeList nodes(edges.size());
 
-        std::ranges::transform(edges, nodes.begin(), [&node](auto edge) { return edge->oppositeTo(node); });
+        std::transform(edges.begin(), edges.end(), nodes.begin(), [&node](auto edge) { return edge->oppositeTo(node); });
 
         return {.nodes = nodes, .edges = edges};
     }
@@ -141,7 +143,7 @@ public:
 
         while (!nodesVisitList.empty()) {
             // Visit stage
-            auto nodeToVisit = ranges::find_if(nodesVisitList, isNodePlanned);
+            auto nodeToVisit = find_if(nodesVisitList.begin(), nodesVisitList.end(), isNodePlanned);
 
             // If no any nodes in plan, take first
             if (nodeToVisit == nodesVisitList.end())
@@ -159,11 +161,13 @@ public:
                     nodesVisitList[neighbourNode] = State::Planned;
             }
 
-            ranges::for_each(neighbours.edges, [&uniqueEdges](auto edge) { uniqueEdges.insert(edge); });
+            for_each(neighbours.edges.begin(), neighbours.edges.end(), [&uniqueEdges](auto edge) {
+                uniqueEdges.insert(edge);
+            });
 
             // Cut stage
-            auto plannedCount = ranges::count_if(nodesVisitList, isNodePlanned);
-            auto visitedCount = ranges::count_if(nodesVisitList, isNodeVisited);
+            auto plannedCount = count_if(nodesVisitList.begin(), nodesVisitList.end(), isNodePlanned);
+            auto visitedCount = count_if(nodesVisitList.begin(), nodesVisitList.end(), isNodeVisited);
 
             if (plannedCount == 0 && visitedCount > 0) {
                 // Nodes preparations

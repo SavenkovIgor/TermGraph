@@ -132,7 +132,8 @@ public:
     NodeList rootNodes(const NodePtr& node) const
     {
         NodeList ret;
-        std::ranges::transform(mEdgesToRoots.at(node), std::back_inserter(ret), [&node](auto edge) {
+        auto     rootEdges = mEdgesToRoots.at(node);
+        std::transform(rootEdges.begin(), rootEdges.end(), std::back_inserter(ret), [&node](auto edge) {
             return edge->oppositeTo(node);
         });
         return ret;
@@ -141,7 +142,8 @@ public:
     NodeList leafNodes(const NodePtr& node) const
     {
         NodeList ret;
-        std::ranges::transform(mEdgesToLeafs.at(node), std::back_inserter(ret), [&node](auto edge) {
+        auto     leafEdges = mEdgesToLeafs.at(node);
+        std::transform(leafEdges.begin(), leafEdges.end(), std::back_inserter(ret), [&node](auto edge) {
             return edge->oppositeTo(node);
         });
         return ret;
@@ -231,7 +233,7 @@ private: // Methods
         for (const auto& node : BaseData::nodes) {
             auto edges = tooShortEdges(node);
 
-            std::ranges::for_each(edges, [&wEdges](auto edge) {
+            std::for_each(edges.begin(), edges.end(), [&wEdges](auto edge) {
                 if (!wEdges.contains(edge))
                     wEdges.insert(edge);
             });
@@ -265,8 +267,8 @@ private: // Methods
         deque<NodePtr>    visitQueue;
         auto              rootNodes = roots();
 
-        ranges::for_each(BaseData::nodes, [&ret](auto node) { ret[node] = 0; });
-        ranges::for_each(rootNodes, [&visitQueue](auto node) { visitQueue.push_back(node); });
+        for_each(BaseData::nodes.begin(), BaseData::nodes.end(), [&ret](auto node) { ret[node] = 0; });
+        for_each(rootNodes.begin(), rootNodes.end(), [&visitQueue](auto node) { visitQueue.push_back(node); });
 
         while (!visitQueue.empty()) // Just steps limit
         {
@@ -276,7 +278,7 @@ private: // Methods
             for (const auto leaf : leafNodes(node)) {
                 ret[leaf] = max(ret[node] + 1, ret[leaf]);
 
-                if (ranges::find(visitQueue, leaf) == visitQueue.end()) // Not found
+                if (find(visitQueue.begin(), visitQueue.end(), leaf) == visitQueue.end()) // Not found
                     visitQueue.push_back(leaf);
             }
         }
@@ -289,7 +291,7 @@ private: // Methods
         nodeStates[node] = NodeState::AtPath;
 
         for (auto edge : mEdgesToLeafs.at(node)) {
-            auto iter = std::ranges::find(breakEdges, edge);
+            auto iter = std::find(breakEdges.begin(), breakEdges.end(), edge);
             if (iter != breakEdges.end())
                 continue;
 
@@ -329,7 +331,7 @@ private: // Methods
         for (const auto edge : edgesList.at(node)) {
             auto rootNode = edge->oppositeTo(node);
 
-            bool found = ranges::find(visitQueue, rootNode) != visitQueue.end();
+            bool found = find(visitQueue.begin(), visitQueue.end(), rootNode) != visitQueue.end();
 
             if (!found)
                 visitQueue.push_back(rootNode);

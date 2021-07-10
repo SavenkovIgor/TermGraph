@@ -21,16 +21,16 @@
 
 #include "source/managers/jsontermdataparser.h"
 
-#include <ranges>
-
 bool JsonTermDataParser::isValidKeysAndTypes(const QJsonObject& json)
 {
+    using namespace std;
+
     auto hasKey = [&json](const auto& key) -> bool { return json.contains(key) && json[key].isString(); };
 
     QStringList keys
         = {"uuid", "term", "definition", "description", "examples", "wikiUrl", "wikiImage", "groupUuid", "lastEdit"};
 
-    return std::ranges::all_of(keys, hasKey);
+    return all_of(begin(keys), end(keys), hasKey);
 }
 
 bool JsonTermDataParser::isValid(const QJsonObject& json, bool checkUuid, bool checkGroupUuid, bool checkLastEdit)

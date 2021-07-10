@@ -21,8 +21,6 @@
 
 #include "source/mainscene.h"
 
-#include <ranges>
-
 #include <QApplication>
 #include <QThread>
 
@@ -96,10 +94,12 @@ void MainScene::checkGroupAddition()
 
 void MainScene::checkGroupDeletion()
 {
+    using namespace std;
+
     // If group was deleted, and it was current group, we must delete it too
     auto currentGroup = currentGroupUuid();
     auto groupsUuids  = groupsMgr->getAllUuidsSortedByLastEdit();
-    if (std::ranges::find(groupsUuids, currentGroup) == groupsUuids.end())
+    if (find(begin(groupsUuids), end(groupsUuids), currentGroup) == groupsUuids.end())
         dropGroup();
 }
 
