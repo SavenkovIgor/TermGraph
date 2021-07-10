@@ -31,10 +31,10 @@ template<typename NodeT, typename EdgeT>
 struct GraphData
 {
 private:
-    using NodePtr  = NodeT::Ptr;
-    using NodeList = NodeT::List;
-    using EdgePtr  = EdgeT::Ptr;
-    using EdgeList = EdgeT::List;
+    using NodePtr  = typename NodeT::Ptr;
+    using NodeList = typename NodeT::List;
+    using EdgePtr  = typename EdgeT::Ptr;
+    using EdgeList = typename EdgeT::List;
 
 public:
     using List = std::vector<GraphData<NodeT, EdgeT>>;
@@ -47,14 +47,22 @@ public:
 
     NodeList filterNodes(std::function<bool(const NodePtr&)> condition) const
     {
-        auto view = nodes | std::views::filter(condition);
-        return {view.begin(), view.end()};
+        NodeList ret;
+        for (auto node : nodes)
+            if (condition(node))
+                ret.push_back(node);
+
+        return ret;
     }
 
     EdgeList filterEdges(std::function<bool(const EdgePtr&)> condition) const
     {
-        auto view = edges | std::views::filter(condition);
-        return {view.begin(), view.end()};
+        EdgeList ret;
+        for (auto edge : edges)
+            if (condition(edge))
+                ret.push_back(edge);
+
+        return ret;
     }
 
     static NodeList subtractNodeList(const NodeList& baseList, const NodeList& subtractor)

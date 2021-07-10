@@ -35,11 +35,11 @@ template<typename NodeT, typename EdgeT>
 class Graph : protected GraphData<NodeT, EdgeT>
 {
 private:
-    using NodePtr  = NodeT::Ptr;
-    using NodeList = NodeT::List;
+    using NodePtr  = typename NodeT::Ptr;
+    using NodeList = typename NodeT::List;
 
-    using EdgePtr  = EdgeT::Ptr;
-    using EdgeList = EdgeT::List;
+    using EdgePtr  = typename EdgeT::Ptr;
+    using EdgeList = typename EdgeT::List;
 
     using Base = GraphData<NodeT, EdgeT>;
 
@@ -120,7 +120,7 @@ public:
         return {.nodes = nodes, .edges = edges};
     }
 
-    GraphData<NodeT, EdgeT>::List bondedSubgraphs()
+    typename GraphData<NodeT, EdgeT>::List bondedSubgraphs()
     {
         using namespace std;
 
