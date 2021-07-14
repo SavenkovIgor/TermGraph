@@ -99,7 +99,6 @@ test_case_config (GRAPHIC_ITEM_TEST)
 
 # TEXT_CURSOR_TEST
 add_executable (TEXT_CURSOR_TEST
-    ../source/helpers/handytypes.h
     ../source/helpers/text/chartools.h
     ../source/helpers/text/checkingtextcursor.cpp
     ../source/helpers/text/checkingtextcursor.h
@@ -108,11 +107,10 @@ add_executable (TEXT_CURSOR_TEST
     cursortest.cpp)
 
 test_case_config (TEXT_CURSOR_TEST)
-
+target_link_libraries (TEXT_CURSOR_TEST CommonTools)
 
 # TEXT_RANGE_TEST
 add_executable (TEXT_RANGE_TEST
-    ../source/helpers/handytypes.h
     ../source/helpers/intmatrix.cpp
     ../source/helpers/intmatrix.h
     ../source/helpers/link/link.cpp
@@ -129,11 +127,11 @@ add_executable (TEXT_RANGE_TEST
     textrangetest.cpp)
 
 test_case_config (TEXT_RANGE_TEST)
+target_link_libraries (TEXT_RANGE_TEST CommonTools)
 
 
 # TEXT_LINK_TEST
 add_executable (TEXT_LINK_TEST
-    ../source/helpers/handytypes.h
     ../source/helpers/intmatrix.cpp
     ../source/helpers/intmatrix.h
     ../source/helpers/link/linksstring.cpp
@@ -152,10 +150,10 @@ add_executable (TEXT_LINK_TEST
     linktest.cpp)
 
 test_case_config (TEXT_LINK_TEST)
+target_link_libraries (TEXT_LINK_TEST CommonTools)
 
 # LINK_UTILS_TEST
 add_executable (LINK_UTILS_TEST
-    ../source/helpers/handytypes.h
     ../source/helpers/intmatrix.cpp
     ../source/helpers/intmatrix.h
     ../source/helpers/link/linkutils.cpp
@@ -176,11 +174,10 @@ add_executable (LINK_UTILS_TEST
     linkutilstest.cpp)
 
 test_case_config (LINK_UTILS_TEST)
-
+target_link_libraries (LINK_UTILS_TEST CommonTools)
 
 # LINK_DECORATOR_TEST
 add_executable (LINK_DECORATOR_TEST
-    ../source/helpers/handytypes.h
     ../source/helpers/intmatrix.cpp
     ../source/helpers/intmatrix.h
     ../source/helpers/link/linksdecorator.cpp
@@ -201,7 +198,7 @@ add_executable (LINK_DECORATOR_TEST
     linkdecoratortest.cpp)
 
 test_case_config (LINK_DECORATOR_TEST)
-target_link_libraries (LINK_DECORATOR_TEST Qt6::Gui)
+target_link_libraries (LINK_DECORATOR_TEST Qt6::Gui CommonTools)
 
 # DB_WORKS_TEST
 add_executable (DB_WORKS_TEST
@@ -223,7 +220,6 @@ add_executable (DB_WORKS_TEST
     ../source/helpers/appconfig.h
     ../source/helpers/fsworks.cpp
     ../source/helpers/fsworks.h
-    ../source/helpers/handytypes.h
     ../source/managers/localdatabasestorage.cpp
     ../source/managers/localdatabasestorage.h
     ../source/managers/notificationmanager.cpp
@@ -231,5 +227,5 @@ add_executable (DB_WORKS_TEST
     dbworkstest.cpp)
 
 test_case_config (DB_WORKS_TEST)
-target_link_libraries (DB_WORKS_TEST Qt6::Sql TermDataInterface)
+target_link_libraries (DB_WORKS_TEST Qt6::Sql CommonTools TermDataInterface)
 set_target_properties (DB_WORKS_TEST PROPERTIES AUTOMOC ON AUTORCC ON)

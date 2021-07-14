@@ -25,7 +25,8 @@
 #include <QScopedPointer>
 #include <QStringView>
 
-#include "source/helpers/handytypes.h"
+#include <libs/commontools/handytypes.h>
+
 #include "source/helpers/link/linksstring.h"
 #include "source/model/group/termgroup.h"
 #include "source/model/term/paintedterm.h"

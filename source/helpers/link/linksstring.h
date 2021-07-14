@@ -23,7 +23,8 @@
 
 #include <QStringView>
 
-#include "source/helpers/handytypes.h"
+#include <libs/commontools/handytypes.h>
+
 #include "source/helpers/link/link.h"
 
 class LinksString

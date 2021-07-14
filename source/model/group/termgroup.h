@@ -23,9 +23,9 @@
 
 #include <QObject>
 
+#include <libs/commontools/handytypes.h>
 #include <libs/datainterface/groupdata.h>
 
-#include "source/helpers/handytypes.h"
 #include "source/model/base/forest.hpp"
 #include "source/model/base/graphdata.hpp"
 #include "source/model/graphicitem/rectgraphicitem.h"

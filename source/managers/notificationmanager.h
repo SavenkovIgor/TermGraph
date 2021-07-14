@@ -26,7 +26,7 @@
 #include <QQueue>
 #include <QTimer>
 
-#include "source/helpers/handytypes.h"
+#include <libs/commontools/handytypes.h>
 
 class NotificationManager : public QObject
 {

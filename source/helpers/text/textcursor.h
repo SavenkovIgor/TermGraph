@@ -24,7 +24,7 @@
 #include <QStringView>
 #include <QtGlobal>
 
-#include "source/helpers/handytypes.h"
+#include <libs/commontools/handytypes.h>
 
 class TextCursor
 {

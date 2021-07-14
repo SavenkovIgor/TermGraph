@@ -44,6 +44,9 @@ set (QML_IMPORT_PATH "${QML_PATH}" CACHE STRING "" FORCE)
     #    endif()
 #endif ()
 
+add_subdirectory (libs/commontools)
+add_subdirectory (libs/datainterface)
+
 # If you want, android build correctly,
 # This line must be before targets definition
 find_package (Qt6 COMPONENTS Core Qml Quick QuickControls2 Sql Network Svg REQUIRED)
@@ -103,7 +106,7 @@ source_group (Qml REGULAR_EXPRESSION "qml\/")
 
 target_compile_definitions (${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
-target_link_libraries (${PROJECT_NAME} PRIVATE TermDataInterface)
+target_link_libraries (${PROJECT_NAME} PRIVATE CommonTools TermDataInterface)
 
 target_link_libraries (${PROJECT_NAME}
     PRIVATE
@@ -115,7 +118,7 @@ target_link_libraries (${PROJECT_NAME}
         Qt6::Network
         Qt6::Svg)
 
-add_subdirectory ("${PROJECT_SOURCE_DIR}/libs/datainterface")
+
 
 if (BUILD_TESTING)
     add_subdirectory (tests)

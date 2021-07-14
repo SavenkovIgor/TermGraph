@@ -24,7 +24,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 
-#include "source/helpers/handytypes.h"
+#include <libs/commontools/handytypes.h>
 
 class DbTools
 {

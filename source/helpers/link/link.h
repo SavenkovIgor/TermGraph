@@ -25,7 +25,8 @@
 #include <QStringView>
 #include <QUuid>
 
-#include "source/helpers/handytypes.h"
+#include <libs/commontools/handytypes.h>
+
 #include "source/helpers/text/textrange.h"
 
 class Link : public TextRange

@@ -28,7 +28,8 @@
 #include <QProperty>
 #include <QSizeF>
 
-#include "source/helpers/handytypes.h"
+#include <libs/commontools/handytypes.h>
+
 #include "source/model/enums.h"
 #include "source/model/graphicitem/graphicitem.h"
 #include "source/model/term/graphterm.h"
