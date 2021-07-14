@@ -22,7 +22,7 @@
 
 #include <QMap>
 
-#include <libs/commontools/handytypes.h>
+#include <handytypes.h>
 
 class GlobalTagCache
 {

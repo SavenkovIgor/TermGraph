@@ -25,7 +25,7 @@
 #include <QStringView>
 #include <QUuid>
 
-#include <libs/commontools/handytypes.h>
+#include <handytypes.h>
 
 #include "source/helpers/text/textrange.h"
 

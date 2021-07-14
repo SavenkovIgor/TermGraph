@@ -23,7 +23,7 @@
 
 #include <QObject>
 
-#include <libs/commontools/handytypes.h>
+#include <handytypes.h>
 #include <libs/datainterface/groupdata.h>
 
 #include "source/model/base/forest.hpp"

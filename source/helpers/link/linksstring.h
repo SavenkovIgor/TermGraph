@@ -23,7 +23,7 @@
 
 #include <QStringView>
 
-#include <libs/commontools/handytypes.h>
+#include <handytypes.h>
 
 #include "source/helpers/link/link.h"
 

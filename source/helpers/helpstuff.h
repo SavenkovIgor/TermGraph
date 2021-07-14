@@ -26,7 +26,7 @@
 #include <QSizeF>
 #include <QString>
 
-#include <libs/commontools/handytypes.h>
+#include <handytypes.h>
 
 class HelpStuff
 {

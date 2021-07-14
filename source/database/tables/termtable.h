@@ -21,7 +21,7 @@
 
 #pragma once
 
-#include <libs/commontools/handytypes.h>
+#include <handytypes.h>
 #include <libs/datainterface/datastorageinterface.h>
 #include <libs/datainterface/termdata.h>
 
