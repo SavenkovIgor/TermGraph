@@ -25,8 +25,8 @@
 #include <QString>
 #include <QUuid>
 
-#include <libs/datainterface/groupdata.h>
-#include <libs/datainterface/termdata.h>
+#include <groupdata.h>
+#include <termdata.h>
 
 // Interface
 class DataStorageInterface

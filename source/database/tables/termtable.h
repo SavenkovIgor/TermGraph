@@ -21,9 +21,9 @@
 
 #pragma once
 
+#include <datastorageinterface.h>
 #include <handytypes.h>
-#include <libs/datainterface/datastorageinterface.h>
-#include <libs/datainterface/termdata.h>
+#include <termdata.h>
 
 // TODO: Naming!
 class TermTable

@@ -20,9 +20,9 @@
  */
 #pragma once
 
-#include <libs/datainterface/datastorageinterface.h>
-#include <libs/datainterface/groupdata.h>
-#include <libs/datainterface/termdata.h>
+#include <datastorageinterface.h>
+#include <groupdata.h>
+#include <termdata.h>
 
 #include "source/database/database.h"
 #include "source/helpers/appconfig.h"

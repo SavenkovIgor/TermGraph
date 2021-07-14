@@ -21,8 +21,8 @@
 
 #pragma once
 
+#include <groupdata.h>
 #include <handytypes.h>
-#include <libs/datainterface/groupdata.h>
 
 class TermGroupTable
 {

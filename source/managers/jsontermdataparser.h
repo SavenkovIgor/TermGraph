@@ -23,7 +23,7 @@
 
 #include <QJsonObject>
 
-#include <libs/datainterface/termdata.h>
+#include <termdata.h>
 
 class JsonTermDataParser
 {

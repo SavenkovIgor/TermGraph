@@ -24,7 +24,7 @@
 #include <QSizeF>
 #include <QString>
 
-#include <libs/datainterface/termdata.h>
+#include <termdata.h>
 
 #include "source/helpers/link/link.h"
 #include "source/helpers/link/linksstring.h"

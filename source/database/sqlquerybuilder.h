@@ -26,8 +26,8 @@
 #include <QString>
 #include <QtCore>
 
-#include <libs/datainterface/groupdata.h>
-#include <libs/datainterface/termdata.h>
+#include <groupdata.h>
+#include <termdata.h>
 
 #include "source/database/dbinfo.h"
 

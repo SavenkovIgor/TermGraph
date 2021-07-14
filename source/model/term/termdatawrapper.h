@@ -23,7 +23,7 @@
 
 #include <QObject>
 
-#include <libs/datainterface/termdata.h>
+#include <termdata.h>
 
 class TermDataWrapper : public TermData
 {
