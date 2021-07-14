@@ -25,14 +25,16 @@
 #include <QString>
 #include <QUuid>
 
-#include "source/model/group/groupdata.h"
-#include "source/model/term/termdata.h"
+#include <libs/datainterface/groupdata.h>
+#include <libs/datainterface/termdata.h>
 
 // Interface
 class DataStorageInterface
 {
 public:
     enum LastEditSource { TakeFromTermData = 0, AutoGenerate };
+
+    using UuidList = std::vector<QUuid>;
 
     // Storage
     virtual int storageVersion() const = 0;

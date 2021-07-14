@@ -23,7 +23,7 @@
 
 #include <QJsonObject>
 
-#include "source/model/group/groupdata.h"
+#include <libs/datainterface/groupdata.h>
 
 class JsonGroupDataParser
 {

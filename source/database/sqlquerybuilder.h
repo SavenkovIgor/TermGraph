@@ -26,9 +26,10 @@
 #include <QString>
 #include <QtCore>
 
+#include <libs/datainterface/groupdata.h>
+#include <libs/datainterface/termdata.h>
+
 #include "source/database/dbinfo.h"
-#include "source/model/group/groupdata.h"
-#include "source/model/term/termdata.h"
 
 // Задача этого класса - формировать запросы
 class SqlQueryBuilder

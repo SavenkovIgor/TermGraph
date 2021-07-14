@@ -23,11 +23,12 @@
 
 #include <QObject>
 
+#include <libs/datainterface/groupdata.h>
+
 #include "source/helpers/handytypes.h"
 #include "source/model/base/forest.hpp"
 #include "source/model/base/graphdata.hpp"
 #include "source/model/graphicitem/rectgraphicitem.h"
-#include "source/model/group/groupdata.h"
 #include "source/model/group/paintedforest.h"
 #include "source/model/term/paintedterm.h"
 

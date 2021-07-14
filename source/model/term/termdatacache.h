@@ -24,9 +24,10 @@
 #include <QSizeF>
 #include <QString>
 
+#include <libs/datainterface/termdata.h>
+
 #include "source/helpers/link/link.h"
 #include "source/helpers/link/linksstring.h"
-#include "source/model/term/termdata.h"
 
 // Const wrapper over TermData + some additional stuff
 class TermDataCache

@@ -27,9 +27,10 @@
 #include <QStringList>
 #include <QUuid>
 
+#include <libs/datainterface/datastorageinterface.h>
+
 #include "source/helpers/fsworks.h"
 #include "source/helpers/handytypes.h"
-#include "source/managers/datastorageinterface.h"
 #include "source/managers/notificationmanager.h"
 #include "source/model/group/termgroup.h"
 

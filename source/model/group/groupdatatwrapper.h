@@ -23,7 +23,7 @@
 
 #include <QObject>
 
-#include "source/model/group/groupdata.h"
+#include <libs/datainterface/groupdata.h>
 
 class GroupDataWrapper : public GroupData
 {

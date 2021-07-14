@@ -19,10 +19,7 @@
 
 cmake_minimum_required (VERSION 3.16.0)
 
-project (
-    TermGraph
-    VERSION 2.0.0
-    LANGUAGES CXX)
+project (TermGraph VERSION 2.0.0 LANGUAGES CXX)
 
 option (BUILD_TESTING "Build tests with project" ON)
 
@@ -38,14 +35,14 @@ set (QML_IMPORT_PATH "${QML_PATH}" CACHE STRING "" FORCE)
 # Check http://doc.qt.io/qt-5/deployment-android.html for more information.
 # They need to be set before the find_package(Qt5 ...) call.
 
-if (ANDROID)
-    set (ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
+#if (ANDROID)
+#    set (ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
     #    if (ANDROID_ABI STREQUAL "armeabi-v7a")
     #        set(ANDROID_EXTRA_LIBS
     #            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libcrypto.so
     #            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libssl.so)
     #    endif()
-endif ()
+#endif ()
 
 # If you want, android build correctly,
 # This line must be before targets definition
@@ -106,6 +103,8 @@ source_group (Qml REGULAR_EXPRESSION "qml\/")
 
 target_compile_definitions (${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
+target_link_libraries (${PROJECT_NAME} PRIVATE TermDataInterface)
+
 target_link_libraries (${PROJECT_NAME}
     PRIVATE
         Qt6::Core
@@ -115,6 +114,8 @@ target_link_libraries (${PROJECT_NAME}
         Qt6::Sql
         Qt6::Network
         Qt6::Svg)
+
+add_subdirectory ("${PROJECT_SOURCE_DIR}/libs/datainterface")
 
 if (BUILD_TESTING)
     add_subdirectory (tests)

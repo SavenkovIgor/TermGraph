@@ -205,6 +205,9 @@ target_link_libraries (LINK_DECORATOR_TEST Qt6::Gui)
 
 # DB_WORKS_TEST
 add_executable (DB_WORKS_TEST
+    ../libs/datainterface/datastorageinterface.h
+    ../libs/datainterface/groupdata.h
+    ../libs/datainterface/termdata.h
     ../source/database/database.cpp
     ../source/database/database.h
     ../source/database/dbinfo.h
@@ -224,13 +227,10 @@ add_executable (DB_WORKS_TEST
     ../source/helpers/fsworks.cpp
     ../source/helpers/fsworks.h
     ../source/helpers/handytypes.h
-    ../source/managers/datastorageinterface.h
     ../source/managers/localdatabasestorage.cpp
     ../source/managers/localdatabasestorage.h
     ../source/managers/notificationmanager.cpp
     ../source/managers/notificationmanager.h
-    ../source/model/term/termdata.h
-    ../source/model/group/groupdata.h
     dbworkstest.cpp)
 
 test_case_config (DB_WORKS_TEST)
