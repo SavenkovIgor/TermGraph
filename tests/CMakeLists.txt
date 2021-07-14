@@ -205,9 +205,6 @@ target_link_libraries (LINK_DECORATOR_TEST Qt6::Gui)
 
 # DB_WORKS_TEST
 add_executable (DB_WORKS_TEST
-    ../libs/datainterface/datastorageinterface.h
-    ../libs/datainterface/groupdata.h
-    ../libs/datainterface/termdata.h
     ../source/database/database.cpp
     ../source/database/database.h
     ../source/database/dbinfo.h
@@ -234,5 +231,5 @@ add_executable (DB_WORKS_TEST
     dbworkstest.cpp)
 
 test_case_config (DB_WORKS_TEST)
-target_link_libraries (DB_WORKS_TEST Qt6::Sql)
+target_link_libraries (DB_WORKS_TEST Qt6::Sql TermDataInterface)
 set_target_properties (DB_WORKS_TEST PROPERTIES AUTOMOC ON AUTORCC ON)
