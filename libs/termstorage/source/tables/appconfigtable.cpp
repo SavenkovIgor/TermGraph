@@ -19,10 +19,10 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/database/tables/appconfigtable.h"
+#include "include/termstorage/appconfigtable.h"
 
-#include "source/database/dbtools.h"
-#include "source/database/sqlquerybuilder.h"
+#include "source/dbtools.h"
+#include "source/sqlquerybuilder.h"
 
 void AppConfigTable::initTable()
 {

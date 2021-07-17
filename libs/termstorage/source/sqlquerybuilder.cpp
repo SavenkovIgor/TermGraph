@@ -19,22 +19,22 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/database/sqlquerybuilder.h"
+#include "sqlquerybuilder.h"
 
 #include <QFile>
 #include <QThread>
 
-#include "source/database/database.h"
+#include "include/termstorage/database.h"
 
 QSqlQuery SqlQueryBuilder::createAppConfigTable() const
 {
-    auto query = loadQuery(":/sql/queries/version2/appConfig/createappconfigtable.sql");
+    auto query = loadQuery(":/sql/version2/appConfig/createappconfigtable.sql");
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::insertConfigParameter(const QString &parameter, const QString &value) const
 {
-    auto query = loadQuery(":/sql/queries/version2/appConfig/insertconfigkeyvalue.sql");
+    auto query = loadQuery(":/sql/version2/appConfig/insertconfigkeyvalue.sql");
     query.bindValue(":parameter", parameter);
     query.bindValue(":value", value);
     return query;
@@ -42,21 +42,21 @@ QSqlQuery SqlQueryBuilder::insertConfigParameter(const QString &parameter, const
 
 QSqlQuery SqlQueryBuilder::selectOneConfigParameter(const QString &parameter) const
 {
-    auto query = loadQuery(":/sql/queries/version2/appConfig/configparametercount.sql");
+    auto query = loadQuery(":/sql/version2/appConfig/configparametercount.sql");
     query.bindValue(":parameter", parameter);
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::selectConfigParameter(const QString &parameter) const
 {
-    auto query = loadQuery(":/sql/queries/version2/appConfig/selectparameter.sql");
+    auto query = loadQuery(":/sql/version2/appConfig/selectparameter.sql");
     query.bindValue(":parameter", parameter);
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::updateConfigParameter(const QString &parameter, const QString &newValue) const
 {
-    auto query = loadQuery(":/sql/queries/version2/appConfig/updateconfigkeyvalue.sql");
+    auto query = loadQuery(":/sql/version2/appConfig/updateconfigkeyvalue.sql");
     query.bindValue(":parameter", parameter);
     query.bindValue(":value", newValue);
     return query;
@@ -64,13 +64,13 @@ QSqlQuery SqlQueryBuilder::updateConfigParameter(const QString &parameter, const
 
 QSqlQuery SqlQueryBuilder::createGroupsTable() const
 {
-    auto query = loadQuery(":/sql/queries/version2/groups/creategroupstable.sql");
+    auto query = loadQuery(":/sql/version2/groups/creategroupstable.sql");
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::insertGroup(const GroupData &groupInfo) const
 {
-    auto query = loadQuery(":/sql/queries/version2/groups/insertgroup.sql");
+    auto query = loadQuery(":/sql/version2/groups/insertgroup.sql");
     query.bindValue(":uuid", groupInfo.uuid.toString());
     query.bindValue(":name", groupInfo.name);
     query.bindValue(":comment", groupInfo.comment);
@@ -79,40 +79,40 @@ QSqlQuery SqlQueryBuilder::insertGroup(const GroupData &groupInfo) const
 
 QSqlQuery SqlQueryBuilder::selectGroup(const QUuid &groupUuid) const
 {
-    auto query = loadQuery(":/sql/queries/version2/groups/selectgroupbyuuid.sql");
+    auto query = loadQuery(":/sql/version2/groups/selectgroupbyuuid.sql");
     query.bindValue(":uuid", groupUuid.toString());
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::selectGroup(const QString &groupName) const
 {
-    auto query = loadQuery(":/sql/queries/version2/groups/selectgroupbyname.sql");
+    auto query = loadQuery(":/sql/version2/groups/selectgroupbyname.sql");
     query.bindValue(":name", groupName);
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::selectOneGroup(const QUuid &groupUuid) const
 {
-    auto query = loadQuery(":/sql/queries/version2/groups/groupwithuuidcount.sql");
+    auto query = loadQuery(":/sql/version2/groups/groupwithuuidcount.sql");
     query.bindValue(":uuid", groupUuid.toString());
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::selectAllGroupUuids()
 {
-    auto query = loadQuery(":/sql/queries/version2/groups/selectalluuids.sql");
+    auto query = loadQuery(":/sql/version2/groups/selectalluuids.sql");
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::selectAllGroups()
 {
-    auto query = loadQuery(":/sql/queries/version2/groups/selectallgroups.sql");
+    auto query = loadQuery(":/sql/version2/groups/selectallgroups.sql");
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::updateGroup(const GroupData &groupInfo) const
 {
-    auto query = loadQuery(":/sql/queries/version2/groups/updategroup.sql");
+    auto query = loadQuery(":/sql/version2/groups/updategroup.sql");
     query.bindValue(":uuid", groupInfo.uuid);
     query.bindValue(":name", groupInfo.name);
     query.bindValue(":comment", groupInfo.comment);
@@ -121,20 +121,20 @@ QSqlQuery SqlQueryBuilder::updateGroup(const GroupData &groupInfo) const
 
 QSqlQuery SqlQueryBuilder::deleteGroup(const QUuid &groupUuid) const
 {
-    auto query = loadQuery(":/sql/queries/version2/groups/deletegroupbyuuid.sql");
+    auto query = loadQuery(":/sql/version2/groups/deletegroupbyuuid.sql");
     query.bindValue(":uuid", groupUuid.toString());
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::createTermsTable() const
 {
-    auto query = loadQuery(":/sql/queries/version2/terms/createtermstable.sql");
+    auto query = loadQuery(":/sql/version2/terms/createtermstable.sql");
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::insertTerm(const TermData &termInfo) const
 {
-    auto query = loadQuery(":/sql/queries/version2/terms/insertterm.sql");
+    auto query = loadQuery(":/sql/version2/terms/insertterm.sql");
     query.bindValue(":uuid", termInfo.uuid.toString());
     query.bindValue(":term", termInfo.term);
     query.bindValue(":definition", termInfo.definition);
@@ -149,21 +149,21 @@ QSqlQuery SqlQueryBuilder::insertTerm(const TermData &termInfo) const
 
 QSqlQuery SqlQueryBuilder::selectTerm(const QUuid &termUuid) const
 {
-    auto query = loadQuery(":/sql/queries/version2/terms/selecttermbyuuid.sql");
+    auto query = loadQuery(":/sql/version2/terms/selecttermbyuuid.sql");
     query.bindValue(":uuid", termUuid.toString());
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::selectOneTerm(const QUuid &termUuid) const
 {
-    auto query = loadQuery(":/sql/queries/version2/terms/termwithuuidcount.sql");
+    auto query = loadQuery(":/sql/version2/terms/termwithuuidcount.sql");
     query.bindValue(":uuid", termUuid.toString());
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::selectOneTerm(const QString &term, const QUuid &groupUuid) const
 {
-    auto query = loadQuery(":/sql/queries/version2/terms/selecttermwithnameingroup.sql");
+    auto query = loadQuery(":/sql/version2/terms/selecttermwithnameingroup.sql");
     query.bindValue(":term", term);
     query.bindValue(":groupUuid", groupUuid.toString());
     return query;
@@ -171,40 +171,40 @@ QSqlQuery SqlQueryBuilder::selectOneTerm(const QString &term, const QUuid &group
 
 QSqlQuery SqlQueryBuilder::selectAllTermUuids() const
 {
-    auto query = loadQuery(":/sql/queries/version2/terms/selectalluuids.sql");
+    auto query = loadQuery(":/sql/version2/terms/selectalluuids.sql");
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::selectAllTermUuids(const QUuid &groupUuid) const
 {
-    auto query = loadQuery(":/sql/queries/version2/terms/selectalluuidsingroup.sql");
+    auto query = loadQuery(":/sql/version2/terms/selectalluuidsingroup.sql");
     query.bindValue(":groupUuid", groupUuid.toString());
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::selectAllTerms(const QUuid &groupUuid) const
 {
-    auto query = loadQuery(":/sql/queries/version2/terms/selecttermsbygroupuuid.sql");
+    auto query = loadQuery(":/sql/version2/terms/selecttermsbygroupuuid.sql");
     query.bindValue(":groupUuid", groupUuid.toString());
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::selectLastEdit(const QUuid &termUuid) const
 {
-    auto query = loadQuery(":/sql/queries/version2/terms/selectlastedit.sql");
+    auto query = loadQuery(":/sql/version2/terms/selectlastedit.sql");
     query.bindValue(":uuid", termUuid.toString());
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::selectAllLastEditAndGroupUuid() const
 {
-    auto query = loadQuery(":/sql/queries/version2/terms/selectalllasteditandgroupuuid.sql");
+    auto query = loadQuery(":/sql/version2/terms/selectalllasteditandgroupuuid.sql");
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::updateTerm(const TermData &termInfo) const
 {
-    auto query = loadQuery(":/sql/queries/version2/terms/updateterm.sql");
+    auto query = loadQuery(":/sql/version2/terms/updateterm.sql");
 
     query.bindValue(":uuid", termInfo.uuid.toString());
     query.bindValue(":term", termInfo.term);
@@ -221,7 +221,7 @@ QSqlQuery SqlQueryBuilder::updateTerm(const TermData &termInfo) const
 
 QSqlQuery SqlQueryBuilder::deleteTerm(const QUuid &termUuid) const
 {
-    auto query = loadQuery(":/sql/queries/version2/terms/deletetermbyuuid.sql");
+    auto query = loadQuery(":/sql/version2/terms/deletetermbyuuid.sql");
     query.bindValue(":uuid", termUuid.toString());
     return query;
 }
@@ -237,14 +237,14 @@ QSqlQuery SqlQueryBuilder::loadQuery(const QString &queryPath) const
 
 QSqlQuery SqlQueryBuilder::recordsCount(const QString &tableName) const
 {
-    auto query = loadQuery(":/sql/queries/common/recordscount.sql");
+    auto query = loadQuery(":/sql/common/recordscount.sql");
     query.bindValue(":tableName", tableName);
     return query;
 }
 
 QSqlQuery SqlQueryBuilder::dropTable(const QString &tableName) const
 {
-    QSqlQuery dropTableQuery = loadQuery(":/sql/queries/common/droptable.sql");
+    QSqlQuery dropTableQuery = loadQuery(":/sql/common/droptable.sql");
     dropTableQuery.bindValue(":tableName", tableName);
     return dropTableQuery;
 }

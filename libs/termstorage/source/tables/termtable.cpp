@@ -19,11 +19,11 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/database/tables/termtable.h"
+#include "include/termstorage/termtable.h"
 
-#include "source/database/dbinfo.h"
-#include "source/database/dbtools.h"
-#include "source/database/sqlquerybuilder.h"
+#include "source/dbinfo.h"
+#include "source/dbtools.h"
+#include "source/sqlquerybuilder.h"
 
 QUuid TermTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const
 {

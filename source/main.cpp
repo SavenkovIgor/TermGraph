@@ -20,6 +20,7 @@
  */
 
 #include <QApplication>
+#include <QDir>
 #include <QSurface>
 #include <QtQuickControls2/QQuickStyle>
 
@@ -35,6 +36,8 @@
 int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);
+
+    Q_INIT_RESOURCE(sqlqueries);
 
     QQuickStyle::setStyle("Material"); // Important thing for styles!
 

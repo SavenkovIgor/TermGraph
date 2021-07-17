@@ -202,20 +202,6 @@ target_link_libraries (LINK_DECORATOR_TEST Qt6::Gui CommonTools)
 
 # DB_WORKS_TEST
 add_executable (DB_WORKS_TEST
-    ../source/database/database.cpp
-    ../source/database/database.h
-    ../source/database/dbinfo.h
-    ../source/database/dbtools.cpp
-    ../source/database/dbtools.h
-    ../source/database/sqlqueries.qrc
-    ../source/database/sqlquerybuilder.cpp
-    ../source/database/sqlquerybuilder.h
-    ../source/database/tables/appconfigtable.cpp
-    ../source/database/tables/appconfigtable.h
-    ../source/database/tables/termgrouptable.cpp
-    ../source/database/tables/termgrouptable.h
-    ../source/database/tables/termtable.cpp
-    ../source/database/tables/termtable.h
     ../source/helpers/appconfig.cpp
     ../source/helpers/appconfig.h
     ../source/helpers/fsworks.cpp
@@ -227,5 +213,5 @@ add_executable (DB_WORKS_TEST
     dbworkstest.cpp)
 
 test_case_config (DB_WORKS_TEST)
-target_link_libraries (DB_WORKS_TEST Qt6::Sql CommonTools TermDataInterface)
+target_link_libraries (DB_WORKS_TEST CommonTools TermDataInterface TermStorage)
 set_target_properties (DB_WORKS_TEST PROPERTIES AUTOMOC ON AUTORCC ON)

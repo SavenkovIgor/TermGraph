@@ -24,11 +24,9 @@
 #include <QObject>
 #include <QtSql>
 
-#include "source/database/tables/appconfigtable.h"
-#include "source/database/tables/termgrouptable.h"
-#include "source/database/tables/termtable.h"
-#include "source/helpers/appconfig.h"
-#include "source/helpers/fsworks.h"
+#include "appconfigtable.h"
+#include "termgrouptable.h"
+#include "termtable.h"
 
 // TODO: Move db version here
 // TODO: JSON send version must be synced with db version
@@ -39,13 +37,14 @@ public:
     QScopedPointer<TermGroupTable> groupTable;
     QScopedPointer<AppConfigTable> appConfigTable;
 
-    explicit Database(const QString& filePath = AppSettings::StdPaths::defaultDatabaseFilePath());
+    explicit Database(const QString& filePath, const QString& backupPath);
     ~Database();
 
     Database(const Database&) = delete;
     void operator=(const Database&) = delete;
 
     static QString mDbFilePath;
+    static QString mDbBackupFolder;
 
 private:
     QSqlDatabase* base;

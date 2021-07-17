@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/sql">
+        <file>common/droptable.sql</file>
+        <file>common/recordscount.sql</file>
+        <file>version2/appConfig/configparametercount.sql</file>
+        <file>version2/appConfig/createappconfigtable.sql</file>
+        <file>version2/appConfig/insertconfigkeyvalue.sql</file>
+        <file>version2/appConfig/selectparameter.sql</file>
+        <file>version2/appConfig/updateconfigkeyvalue.sql</file>
+        <file>version2/groups/creategroupstable.sql</file>
+        <file>version2/groups/deletegroupbyuuid.sql</file>
+        <file>version2/groups/groupwithuuidcount.sql</file>
+        <file>version2/groups/insertgroup.sql</file>
+        <file>version2/groups/selectallgroups.sql</file>
+        <file>version2/groups/selectalluuids.sql</file>
+        <file>version2/groups/selectgroupbyname.sql</file>
+        <file>version2/groups/selectgroupbyuuid.sql</file>
+        <file>version2/groups/updategroup.sql</file>
+        <file>version2/terms/createtermstable.sql</file>
+        <file>version2/terms/deletetermbyuuid.sql</file>
+        <file>version2/terms/insertterm.sql</file>
+        <file>version2/terms/selectalllasteditandgroupuuid.sql</file>
+        <file>version2/terms/selectalluuids.sql</file>
+        <file>version2/terms/selectalluuidsingroup.sql</file>
+        <file>version2/terms/selectlastedit.sql</file>
+        <file>version2/terms/selecttermbyuuid.sql</file>
+        <file>version2/terms/selecttermsbygroupuuid.sql</file>
+        <file>version2/terms/selecttermwithnameingroup.sql</file>
+        <file>version2/terms/termwithuuidcount.sql</file>
+        <file>version2/terms/updateterm.sql</file>
+    </qresource>
+</RCC>

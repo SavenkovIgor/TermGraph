@@ -27,6 +27,7 @@
 
 #include "source/helpers/platform.h"
 
+// TODO: File rename
 namespace AppSettings {
 
 class Network

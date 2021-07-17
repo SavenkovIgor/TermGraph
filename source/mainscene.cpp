@@ -24,7 +24,8 @@
 #include <QApplication>
 #include <QThread>
 
-#include "source/database/database.h"
+#include <termstorage/database.h>
+
 #include "source/managers/notificationmanager.h"
 
 MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)

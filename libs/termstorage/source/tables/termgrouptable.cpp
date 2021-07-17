@@ -19,11 +19,11 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/database/tables/termgrouptable.h"
+#include "include/termstorage/termgrouptable.h"
 
-#include "source/database/dbinfo.h"
-#include "source/database/dbtools.h"
-#include "source/database/sqlquerybuilder.h"
+#include "source/dbinfo.h"
+#include "source/dbtools.h"
+#include "source/sqlquerybuilder.h"
 
 bool TermGroupTable::addGroup(const GroupData& info)
 {

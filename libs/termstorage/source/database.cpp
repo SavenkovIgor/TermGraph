@@ -19,26 +19,26 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/database/database.h"
+#include "include/termstorage/database.h"
 
 #include <QDateTime>
 #include <QString>
 #include <QUuid>
 
-#include "source/database/dbinfo.h"
-#include "source/database/dbtools.h"
-#include "source/database/sqlquerybuilder.h"
-#include "source/helpers/fsworks.h"
-#include "source/managers/notificationmanager.h"
+#include "source/dbinfo.h"
+#include "source/dbtools.h"
+#include "source/sqlquerybuilder.h"
 
-QString Database::mDbFilePath = "";
+QString Database::mDbFilePath     = "";
+QString Database::mDbBackupFolder = "";
 
-Database::Database(const QString& filePath)
+Database::Database(const QString& filePath, const QString& backupPath)
     : termTable(nullptr)
     , groupTable(nullptr)
     , appConfigTable(nullptr)
 {
-    mDbFilePath = filePath;
+    mDbFilePath     = filePath;
+    mDbBackupFolder = backupPath;
 
     base    = new QSqlDatabase();
     (*base) = QSqlDatabase::addDatabase("QSQLITE", DbConnectionName::defaultConnection);
@@ -108,7 +108,7 @@ void Database::makeBackupBeforeUpdate(const QString& filePath, const int& oldDbV
     fileName += " date_" + QDateTime::currentDateTime().toString(Qt::ISODate);
     fileName += ".termGraph";
     fileName.replace(':', '_');
-    dbFile.copy(AppSettings::StdPaths::backupFolder() + "/" + fileName);
+    dbFile.copy(mDbBackupFolder + "/" + fileName);
 }
 
 void Database::makeDbUpdate()
@@ -179,7 +179,7 @@ void Database::updateNodesToSecondVersion()
 
     // Copy data from old table to new
     while (oldNodeTable.next()) {
-        auto insertQuery = SqlQueryBuilder().loadQuery(":/sql/queries/version2/insertterm.sql");
+        auto insertQuery = SqlQueryBuilder().loadQuery(":/sql/version2/insertterm.sql");
 
         insertQuery.bindValue(":uuid", oldNodeTable.value("longUID").toString());
         insertQuery.bindValue(":term", oldNodeTable.value("term").toString());
@@ -228,7 +228,7 @@ void Database::updateGroupsToSecondVersion()
 
     // Copy data from old table to new and drop type
     while (oldGroupsTable.next()) {
-        auto insertQuery = SqlQueryBuilder().loadQuery(":/sql/queries/version2/insertgroup.sql");
+        auto insertQuery = SqlQueryBuilder().loadQuery(":/sql/version2/insertgroup.sql");
 
         insertQuery.bindValue(":uuid", oldGroupsTable.value("longUID").toString());
         insertQuery.bindValue(":name", oldGroupsTable.value("name").toString());
@@ -248,4 +248,4 @@ void Database::updateGroupsToSecondVersion()
     }
 }
 
-bool Database::databaseExists(const QString& dbFilePath) const { return FSWorks::fileExist(dbFilePath); }
+bool Database::databaseExists(const QString& dbFilePath) const { return QFile::exists(dbFilePath); }

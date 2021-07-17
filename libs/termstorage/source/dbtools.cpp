@@ -19,11 +19,11 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/database/dbtools.h"
+#include "dbtools.h"
 
 #include <QSqlError>
 
-#include "source/database/sqlquerybuilder.h"
+#include "sqlquerybuilder.h"
 
 void DbTools::startTransaction(QSqlDatabase* base) { startQuery(base, "BEGIN TRANSACTION"); }
 

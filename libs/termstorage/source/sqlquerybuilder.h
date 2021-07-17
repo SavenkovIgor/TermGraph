@@ -29,7 +29,7 @@
 #include <groupdata.h>
 #include <termdata.h>
 
-#include "source/database/dbinfo.h"
+#include "source/dbinfo.h"
 
 // Задача этого класса - формировать запросы
 class SqlQueryBuilder

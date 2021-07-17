@@ -46,10 +46,11 @@ set (QML_IMPORT_PATH "${QML_PATH}" CACHE STRING "" FORCE)
 
 add_subdirectory (libs/commontools)
 add_subdirectory (libs/datainterface)
+add_subdirectory (libs/termstorage)
 
 # If you want, android build correctly,
 # This line must be before targets definition
-find_package (Qt6 COMPONENTS Core Qml Quick QuickControls2 Sql Network Svg REQUIRED)
+find_package (Qt6 COMPONENTS Core Qml Quick QuickControls2 Network Svg REQUIRED)
 
 if (ANDROID)
     add_library (${PROJECT_NAME} SHARED)
@@ -74,9 +75,6 @@ target_sources (${PROJECT_NAME} PRIVATE resources/helpImages/helpImages.qrc reso
 
 # Qml folder
 target_sources (${PROJECT_NAME} PRIVATE qml/qml.qrc)
-
-# Sql queries
-target_sources (${PROJECT_NAME} PRIVATE source/database/sqlqueries.qrc)
 
 # Some non compilable files
 target_sources (${PROJECT_NAME}
@@ -106,7 +104,7 @@ source_group (Qml REGULAR_EXPRESSION "qml\/")
 
 target_compile_definitions (${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
-target_link_libraries (${PROJECT_NAME} PRIVATE CommonTools TermDataInterface)
+target_link_libraries (${PROJECT_NAME} PRIVATE CommonTools TermDataInterface TermStorage)
 
 target_link_libraries (${PROJECT_NAME}
     PRIVATE
@@ -114,7 +112,6 @@ target_link_libraries (${PROJECT_NAME}
         Qt6::Quick
         Qt6::QuickControls2
         Qt6::Qml
-        Qt6::Sql
         Qt6::Network
         Qt6::Svg)
 
