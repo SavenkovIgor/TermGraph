@@ -1,1 +1,1 @@
-conan install -if ./conan -pr ./conan/profiles/linux ./
+conan install -if ./conan -pr ./conan/profiles/linux --build=qt ./

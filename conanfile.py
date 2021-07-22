@@ -9,7 +9,12 @@ from conans import ConanFile
 
 class TermGraphConan(ConanFile):
 
-    requires = "gtest/1.10.0"
+    requires = "qt/6.1.2", "gtest/1.10.0"
+
+    default_options = {"qt:qtdeclarative": True,
+                       "qt:qtquickcontrols2": True,
+                       "qt:qtsvg": True,
+                       "qt:qtimageformats": True}
 
     generators = "cmake_find_package", "cmake_paths"
 
