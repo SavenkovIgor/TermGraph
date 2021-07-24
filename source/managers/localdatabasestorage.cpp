@@ -23,11 +23,9 @@
 
 #include <QMap>
 
-#include "source/helpers/appconfig.h"
-
-LocalDatabaseStorage::LocalDatabaseStorage(const QString& filePath)
+LocalDatabaseStorage::LocalDatabaseStorage(const QString& filePath, const QString& backupFolderPath)
     : DataStorageInterface()
-    , db(filePath, AppSettings::StdPaths::backupFolder())
+    , db(filePath, backupFolderPath)
 {}
 
 int LocalDatabaseStorage::storageVersion() const { return db.appConfigTable->getDbVersion(); }

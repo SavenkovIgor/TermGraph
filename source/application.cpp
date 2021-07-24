@@ -24,6 +24,7 @@
 #include <QApplication>
 #include <QScreen>
 
+#include "source/helpers/appconfig.h"
 #include "source/helpers/platform.h"
 #include "source/managers/notificationmanager.h"
 #include "source/model/term/paintedterm.h"
@@ -32,7 +33,7 @@ Application::Application(QObject* parent)
     : QObject(parent)
     , initPreparer()
     , network(new NetworkManager())
-    , localDb()
+    , localDb(AppSettings::StdPaths::defaultDatabaseFilePath(), AppSettings::StdPaths::backupFolder())
     , groupsManager(new GroupsManager(localDb))
     , syncManager(new SyncManager(network.get(), groupsManager.get()))
     , scene(new MainScene(groupsManager.get()))

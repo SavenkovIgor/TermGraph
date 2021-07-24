@@ -30,11 +30,11 @@
 class LocalDatabaseStorage : public DataStorageInterface
 {
 public:
-    LocalDatabaseStorage(const QString& filePath = AppSettings::StdPaths::defaultDatabaseFilePath());
+    LocalDatabaseStorage(const QString& filePath, const QString& backupFolderPath);
 
     // DataStorageInterface interface
 public:
-    int storageVersion() const override;
+    int storageVersion() const final;
 
     UuidList getAllGroupsUuids(bool sortByLastEdit) const final;
 

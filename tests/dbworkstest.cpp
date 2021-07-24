@@ -21,6 +21,8 @@
 
 #include <memory>
 
+#include <QDir>
+
 #include <gtest/gtest.h>
 
 #include "source/helpers/fsworks.h"
@@ -42,7 +44,9 @@ public:
 
     static void SetUpTestCase()
     {
-        mStorage = std::make_unique<LocalDatabaseStorage>(QString(sDbFileName));
+        Q_INIT_RESOURCE(sqlqueries);
+
+        mStorage = std::make_unique<LocalDatabaseStorage>(QString(sDbFileName), QString(""));
 
         EXPECT_TRUE(FSWorks::fileExist(sDbFileName));
 

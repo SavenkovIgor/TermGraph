@@ -202,16 +202,11 @@ target_link_libraries (LINK_DECORATOR_TEST Qt6::Gui CommonTools)
 
 # DB_WORKS_TEST
 add_executable (DB_WORKS_TEST
-    ../source/helpers/appconfig.cpp
-    ../source/helpers/appconfig.h
     ../source/helpers/fsworks.cpp
     ../source/helpers/fsworks.h
     ../source/managers/localdatabasestorage.cpp
     ../source/managers/localdatabasestorage.h
-    ../source/managers/notificationmanager.cpp
-    ../source/managers/notificationmanager.h
     dbworkstest.cpp)
 
 test_case_config (DB_WORKS_TEST)
-target_link_libraries (DB_WORKS_TEST CommonTools TermDataInterface TermStorage)
-set_target_properties (DB_WORKS_TEST PROPERTIES AUTOMOC ON AUTORCC ON)
+target_link_libraries (DB_WORKS_TEST CommonTools TermStorage)
