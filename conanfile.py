@@ -1,24 +1,25 @@
-from conans import ConanFile
-# from conans import CMake
-
-# Please add to default profile for success compilation of TermGraph
-# conan profile update settings.compiler.libcxx=libstdc++11 default
-
-# WARNING: This file is used only for gtest delivery
+from conans import ConanFile, CMake
 
 
 class TermGraphConan(ConanFile):
 
-    requires = "qt/6.1.2", "gtest/1.10.0"
+    generators = 'cmake_find_package', 'cmake_paths'
 
-    default_options = {"qt:qtdeclarative": True,
-                       "qt:qtquickcontrols2": True,
-                       "qt:qtsvg": True,
-                       "qt:qtimageformats": True}
+    requires = 'gtest/1.10.0', 'cpprestsdk/2.10.18'
 
-    generators = "cmake_find_package", "cmake_paths"
+    options = {'with_qt': [True, False]}
 
-#    def build(self):
-#        cmake = CMake(self)
-#        cmake.configure()
-#        cmake.build()
+    default_options = {'with_qt': False,
+                       'qt:qtdeclarative': True,
+                       'qt:qtquickcontrols2': True,
+                       'qt:qtsvg': True,
+                       'qt:qtimageformats': True}
+
+    def requirements(self):
+        if self.options.with_qt:
+            self.requires('qt/6.1.2')
+
+    def build(self):
+        cmake = CMake(self)
+        cmake.configure()
+        cmake.build()
