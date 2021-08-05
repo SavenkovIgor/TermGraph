@@ -21,12 +21,15 @@
 
 #pragma once
 
+#include <optional>
 #include <vector>
 
 #include <QDateTime>
+#include <QJsonObject>
 #include <QString>
 #include <QUuid>
 
+// TODO: Check tests!
 struct TermData
 {
     using List = std::vector<TermData>;
@@ -41,38 +44,117 @@ struct TermData
     QUuid     groupUuid;
     QDateTime lastEdit;
 
-    // TODO: Replace with operator
-    bool isEqualTo(const TermData& target)
+    inline bool isNull() const { return uuid.isNull() && term.isEmpty(); }
+
+    inline bool operator==(const TermData& rhs) const
     {
-        if (uuid != target.uuid)
+        if (uuid != rhs.uuid)
             return false;
 
-        if (term != target.term)
+        if (term != rhs.term)
             return false;
 
-        if (definition != target.definition)
+        if (definition != rhs.definition)
             return false;
 
-        if (description != target.description)
+        if (description != rhs.description)
             return false;
 
-        if (examples != target.examples)
+        if (examples != rhs.examples)
             return false;
 
-        if (wikiUrl != target.wikiUrl)
+        if (wikiUrl != rhs.wikiUrl)
             return false;
 
-        if (wikiImage != target.wikiImage)
+        if (wikiImage != rhs.wikiImage)
             return false;
 
-        if (groupUuid != target.groupUuid)
+        if (groupUuid != rhs.groupUuid)
             return false;
 
-        if (lastEdit != target.lastEdit)
+        if (lastEdit != rhs.lastEdit)
             return false;
 
         return true;
     }
 
-    bool isNull() const { return uuid.isNull() && term.isEmpty(); }
+    // --- JSON ---
+    // Returns valid object or nullopt
+    static inline bool isValidJson(const QJsonObject& obj)
+    {
+        bool ret = true;
+
+        ret &= obj[uuidKey].isString();
+        ret &= !QUuid(obj[uuidKey].toString()).isNull();
+
+        ret &= obj[termKey].isString();
+        ret &= !obj[termKey].toString().isEmpty();
+
+        ret &= obj[definitionKey].isString();
+        ret &= obj[descriptionKey].isString();
+        ret &= obj[examplesKey].isString();
+        ret &= obj[wikiUrlKey].isString();
+        ret &= obj[wikiImageKey].isString();
+
+        ret &= obj[groupUuidKey].isString();
+        ret &= !QUuid(obj[groupUuidKey].toString()).isNull();
+
+        ret &= obj[lastEditKey].isString();
+        ret &= !QDateTime::fromString(obj[lastEditKey].toString(), Qt::ISODate).isNull();
+
+        return ret;
+    }
+
+    static inline std::optional<TermData> fromJson(QJsonObject obj)
+    {
+        if (!isValidJson(obj))
+            return std::nullopt;
+
+        TermData ret;
+
+        ret.uuid        = QUuid(obj[uuidKey].toString());
+        ret.term        = obj[termKey].toString();
+        ret.definition  = obj[definitionKey].toString();
+        ret.description = obj[descriptionKey].toString();
+        ret.examples    = obj[examplesKey].toString();
+        ret.wikiUrl     = obj[wikiUrlKey].toString();
+        ret.wikiImage   = obj[wikiImageKey].toString();
+        ret.groupUuid   = QUuid(obj[groupUuidKey].toString());
+        ret.lastEdit    = QDateTime::fromString(obj[lastEditKey].toString(), Qt::ISODate);
+
+        assert(!ret.isNull());
+
+        if (ret.isNull()) // Release safety
+            return std::nullopt;
+
+        return ret;
+    }
+
+    inline QJsonObject toJson() const
+    {
+        QJsonObject ret;
+
+        ret.insert(uuidKey, uuid.toString());
+        ret.insert(termKey, term);
+        ret.insert(definitionKey, definition);
+        ret.insert(descriptionKey, description);
+        ret.insert(examplesKey, examples);
+        ret.insert(wikiUrlKey, wikiUrl);
+        ret.insert(wikiImageKey, wikiImage);
+        ret.insert(groupUuidKey, groupUuid.toString());
+        ret.insert(lastEditKey, lastEdit.toString(Qt::ISODate));
+
+        return ret;
+    }
+
+private:
+    constexpr static auto uuidKey        = "uuid";
+    constexpr static auto termKey        = "term";
+    constexpr static auto definitionKey  = "definition";
+    constexpr static auto descriptionKey = "description";
+    constexpr static auto examplesKey    = "examples";
+    constexpr static auto wikiUrlKey     = "wikiUrl";
+    constexpr static auto wikiImageKey   = "wikiImage";
+    constexpr static auto groupUuidKey   = "groupUuid";
+    constexpr static auto lastEditKey    = "lastEdit";
 };

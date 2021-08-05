@@ -177,7 +177,7 @@ TEST_F(DBWorksTest, TermsTest)
         EXPECT_EQ(mStorage->findTerm(term.term, term.groupUuid), term.uuid);
         auto gettedTerm = mStorage->getTerm(term.uuid);
         term.lastEdit   = gettedTerm.lastEdit; // Last edit was refreshed
-        EXPECT_TRUE(gettedTerm.isEqualTo(term));
+        EXPECT_TRUE(gettedTerm == term);
     }
 
     // Checking all uuids without group
@@ -208,7 +208,7 @@ TEST_F(DBWorksTest, TermsTest)
 
         EXPECT_TRUE(mStorage->updateTerm(term, DataStorageInterface::LastEditSource::TakeFromTermData));
 
-        EXPECT_TRUE(term.isEqualTo(mStorage->getTerm(term.uuid)));
+        EXPECT_TRUE(term == mStorage->getTerm(term.uuid));
     }
 
     for (const auto& term : termList)

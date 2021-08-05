@@ -94,7 +94,7 @@ private: // Methods
 private: // Members
     QStringList getAllUuidStringsSortedByLastEdit();
 
-    bool isValidGroupJson(const QJsonDocument json);
+    bool isValidGroupJson(const QJsonObject json);
 
     QDateTime getLastEdit(QUuid groupUuid);
 

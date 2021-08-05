@@ -26,8 +26,6 @@
 #include <QUrl>
 
 #include "source/helpers/appconfig.h"
-#include "source/managers/jsongroupdataparser.h"
-#include "source/managers/jsontermdataparser.h"
 
 GroupsManager::GroupsManager(DataStorageInterface& dataStorage, QObject* parent)
     : QObject(parent)
@@ -103,16 +101,9 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
     importGroup(doc);
 }
 
-bool GroupsManager::isValidGroupJson(const QJsonDocument json) // TODO: Rework!
+bool GroupsManager::isValidGroupJson(const QJsonObject json)
 {
-    QJsonObject jsonGroup = json.object();
-
-    // Checking keys
-    if (jsonGroup.contains("name") && jsonGroup.value("name").isString() && jsonGroup.contains("nodesList")
-        && jsonGroup.value("nodesList").isArray()) {
-        return true;
-    }
-    return false;
+    return GroupData::isValidJson(json) && json["nodesList"].isArray();
 }
 
 TermGroup::OptPtr GroupsManager::createGroup(const QUuid groupUuid)
@@ -175,17 +166,19 @@ QStringList GroupsManager::getAllUuidStringsSortedByLastEdit()
 
 void GroupsManager::importGroup(const QJsonDocument& json)
 {
-    if (!isValidGroupJson(json))
-        return;
-
     QJsonObject jsonGroup = json.object();
 
-    auto info = JsonGroupDataParser::fromJson(jsonGroup);
-
-    if (info.uuid.isNull())
+    if (!isValidGroupJson(jsonGroup))
         return;
 
-    QJsonArray nodes = jsonGroup.value("nodesList").toArray();
+    auto optGroup = GroupData::fromJson(jsonGroup);
+
+    if (!optGroup.has_value())
+        return;
+
+    auto info = optGroup.value();
+
+    QJsonArray nodes = jsonGroup["nodesList"].toArray();
 
     // Searching for existed group
     if (!dataStorage.groupExist(info.uuid)) { // Group found
@@ -206,7 +199,10 @@ void GroupsManager::importGroup(const QJsonDocument& json)
 
 void GroupsManager::importTerm(const QJsonObject& nodeJson)
 {
-    auto info = JsonTermDataParser::fromJson(nodeJson);
+    auto optInfo = TermData::fromJson(nodeJson);
+    assert(optInfo.has_value());
+
+    auto info = optInfo.value();
 
     if (info.uuid.isNull())
         return;
@@ -226,8 +222,11 @@ int GroupsManager::dbVersion() { return dataStorage.storageVersion(); }
 
 bool GroupsManager::addNode(const QJsonObject& object)
 {
-    assert(JsonTermDataParser::isValidKeysAndTypes(object));
-    auto data = JsonTermDataParser::fromJson(object);
+    auto optData = TermData::fromJson(object);
+
+    assert(optData.has_value());
+
+    auto data = optData.value();
 
     assert(!data.groupUuid.isNull());
 
@@ -249,8 +248,11 @@ bool GroupsManager::addNode(const QJsonObject& object)
 
 bool GroupsManager::updateNode(const QJsonObject& object)
 {
-    assert(JsonTermDataParser::isValidKeysAndTypes(object));
-    auto data = JsonTermDataParser::fromJson(object);
+    auto optData = TermData::fromJson(object);
+
+    assert(optData.has_value());
+
+    auto data = optData.value();
 
     assert(!data.uuid.isNull());
     assert(!data.groupUuid.isNull());
@@ -320,14 +322,14 @@ bool GroupsManager::termExist(const QString& term, QUuid& groupUuid)
 QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
 {
     auto info      = dataStorage.getGroup(groupUuid);
-    auto groupJson = JsonGroupDataParser::toJson(info);
+    auto groupJson = info.toJson();
 
     auto nodesUuids = dataStorage.getAllTermsUuids(groupUuid);
 
     QJsonArray nodesArray;
 
     for (const auto& nodeUuid : nodesUuids) {
-        auto nodeJson = JsonTermDataParser::toJson(dataStorage.getTerm(nodeUuid));
+        auto nodeJson = dataStorage.getTerm(nodeUuid).toJson();
         nodesArray.append(nodeJson);
     }
 
