@@ -21,11 +21,13 @@ enable_testing ()
 find_package (GTest REQUIRED)
 
 function (test_case_config TEST_NAME)
-    target_include_directories (${TEST_NAME} PRIVATE ${CMAKE_SOURCE_DIR} ${GTest_INCLUDE_DIRS})
+    target_include_directories (${TEST_NAME} PRIVATE ${CMAKE_SOURCE_DIR} ${GTest_INCLUDE_DIRS} ${TermGraph_SOURCE_DIR})
     target_link_libraries (${TEST_NAME} Qt6::Core GTest::gtest GTest::gtest_main)
     set_target_properties (${TEST_NAME} PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 endfunction ()
 
+
+# TODO: Maybe rework with add_test
 
 # TEXT_UTILS_TEST
 add_executable (TEXT_UTILS_TEST
@@ -199,14 +201,3 @@ add_executable (LINK_DECORATOR_TEST
 
 test_case_config (LINK_DECORATOR_TEST)
 target_link_libraries (LINK_DECORATOR_TEST Qt6::Gui CommonTools)
-
-# DB_WORKS_TEST
-add_executable (DB_WORKS_TEST
-    ../source/helpers/fsworks.cpp
-    ../source/helpers/fsworks.h
-    ../source/managers/localdatabasestorage.cpp
-    ../source/managers/localdatabasestorage.h
-    dbworkstest.cpp)
-
-test_case_config (DB_WORKS_TEST)
-target_link_libraries (DB_WORKS_TEST CommonTools TermStorage)

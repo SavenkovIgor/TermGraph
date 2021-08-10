@@ -28,8 +28,8 @@
 #include "source/helpers/appconfig.h"
 #include "source/helpers/firststartpreparer.h"
 #include "source/mainscene.h"
-#include "source/managers/localdatabasestorage.h"
 #include "source/managers/syncmanager.h"
+#include "termstorage/localdatabasestorage.h"
 
 // -- Qt6 Migration plan --
 

@@ -21,25 +21,23 @@
 
 #pragma once
 
-#include <functional>
+#include <QString>
+#include <QUuid>
 
-#include <QChar>
+#include "../../../../../libs/commontools/handytypes.h"
 
-#include <libs/commontools/handytypes.h>
-
-class CharTools
+class UuidTools
 {
 public:
-    using ShortCondition = std::function<bool(const QChar)>;
+    static opt<QUuid> createFromStringWithoutBraces(const QString& uuidString);
+    static QString    cutBraces(const QUuid& uuid);
 
-    constexpr static auto leftBracket  = '{';
-    constexpr static auto rightBracket = '}';
-    constexpr static auto linkSplitter = '|';
+    static bool isValidUuidString(const QString& uuidString);
+    static bool isValidUuidStringWithoutBraces(const QString& uuidString);
 
-    static inline bool any([[maybe_unused]] const QChar ch) { return true; }
-    static inline bool isBracket(const QChar ch) { return ch == leftBracket || ch == rightBracket; }
-    static inline bool isLeftBracket(const QChar ch) { return ch == leftBracket; }
-    static inline bool isRightBracket(const QChar ch) { return ch == rightBracket; }
-    static inline bool isLetterOrNumber(const QChar ch) { return ch.isLetterOrNumber(); }
-    static inline bool notLetterOrNumber(const QChar ch) { return !ch.isLetterOrNumber(); }
+private:
+    constexpr static auto validUuidRegExp
+        = "^\\{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\\}$";
+    constexpr static auto validUuidWithoutBracesRegExp
+        = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
 };

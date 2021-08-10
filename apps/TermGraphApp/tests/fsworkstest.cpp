@@ -19,25 +19,32 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include <gtest/gtest.h>
 
-#include <QString>
-#include <QUuid>
+#include "source/helpers/fsworks.h"
 
-#include <libs/commontools/handytypes.h>
-
-class UuidTools
+TEST(FSWorks, FileWorks)
 {
-public:
-    static opt<QUuid> createFromStringWithoutBraces(const QString& uuidString);
-    static QString    cutBraces(const QUuid& uuid);
+    auto testPath     = FSWorks::workingDirPath() + "/testPath";
+    auto testFilePath = testPath + "/testFile.tst";
 
-    static bool isValidUuidString(const QString& uuidString);
-    static bool isValidUuidStringWithoutBraces(const QString& uuidString);
+    // Path not exiting
+    ASSERT_FALSE(FSWorks::createFile(testFilePath));
+    ASSERT_FALSE(FSWorks::fileExist(testFilePath));
 
-private:
-    constexpr static auto validUuidRegExp
-        = "^\\{[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}\\}$";
-    constexpr static auto validUuidWithoutBracesRegExp
-        = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$";
-};
+    // Creating path
+    ASSERT_TRUE(FSWorks::createPath(testPath));
+
+    // Creating file
+    ASSERT_TRUE(FSWorks::createFile(testFilePath));
+    ASSERT_TRUE(FSWorks::fileExist(testFilePath));
+
+    // Deleting file
+    ASSERT_TRUE(FSWorks::deleteFile(testFilePath));
+    ASSERT_FALSE(FSWorks::deleteFile(testFilePath)); // Already deleted
+    ASSERT_FALSE(FSWorks::fileExist(testFilePath));
+
+    // Deleting path
+    ASSERT_TRUE(FSWorks::deletePath(testPath));
+    ASSERT_FALSE(FSWorks::deletePath(testPath));
+}

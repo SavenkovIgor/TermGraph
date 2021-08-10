@@ -25,8 +25,6 @@
 #include <termdata.h>
 #include <termstorage/database.h>
 
-#include "source/helpers/appconfig.h"
-
 class LocalDatabaseStorage : public DataStorageInterface
 {
 public:

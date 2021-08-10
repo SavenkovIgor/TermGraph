@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/managers/localdatabasestorage.h"
+#include "termstorage/localdatabasestorage.h"
 
 #include <QMap>
 

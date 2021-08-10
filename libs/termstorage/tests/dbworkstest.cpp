@@ -25,8 +25,7 @@
 
 #include <gtest/gtest.h>
 
-#include "source/helpers/fsworks.h"
-#include "source/managers/localdatabasestorage.h"
+#include <termstorage/localdatabasestorage.h>
 
 class DBWorksTest : public ::testing::Test
 {
@@ -48,7 +47,8 @@ public:
 
         mStorage = std::make_unique<LocalDatabaseStorage>(QString(sDbFileName), QString(""));
 
-        EXPECT_TRUE(FSWorks::fileExist(sDbFileName));
+        QDir dir;
+        EXPECT_TRUE(dir.exists(sDbFileName));
 
         EXPECT_EQ(mStorage->storageVersion(), 2);
         EXPECT_TRUE(mStorage->getAllGroupsUuids().empty());
@@ -56,7 +56,11 @@ public:
         EXPECT_TRUE(mStorage->getAllTermsUuids().empty());
     }
 
-    static void TearDownTestCase() { EXPECT_TRUE(FSWorks::deleteFile(sDbFileName)); }
+    static void TearDownTestCase()
+    {
+        QDir dir;
+        EXPECT_TRUE(dir.remove(sDbFileName));
+    }
 
     GroupData getGroupWithUuid() { return GroupData{mGroupUuid1, mGroupName1, mGroupComment1}; }
 

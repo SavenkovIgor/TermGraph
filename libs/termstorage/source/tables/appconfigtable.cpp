@@ -19,7 +19,7 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "include/termstorage/appconfigtable.h"
+#include "termstorage/appconfigtable.h"
 
 #include "source/dbtools.h"
 #include "source/sqlquerybuilder.h"
