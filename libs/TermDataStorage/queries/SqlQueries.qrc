@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/sql">
+        <file>common/DropTable.sql</file>
+        <file>common/RecordsCount.sql</file>
+        <file>version2/appConfig/CreateTable.sql</file>
+        <file>version2/appConfig/InsertParameter.sql</file>
+        <file>version2/appConfig/SelectParameter.sql</file>
+        <file>version2/appConfig/SelectParameterCount.sql</file>
+        <file>version2/appConfig/UpdateParameter.sql</file>
+        <file>version2/groups/CreateTable.sql</file>
+        <file>version2/groups/DeleteGroup.sql</file>
+        <file>version2/groups/InsertGroup.sql</file>
+        <file>version2/groups/SelectAll.sql</file>
+        <file>version2/groups/SelectAllUuids.sql</file>
+        <file>version2/groups/SelectGroup.sql</file>
+        <file>version2/groups/SelectGroupByName.sql</file>
+        <file>version2/groups/SelectGroupCount.sql</file>
+        <file>version2/groups/UpdateGroup.sql</file>
+        <file>version2/terms/CreateTable.sql</file>
+        <file>version2/terms/DeleteTerm.sql</file>
+        <file>version2/terms/InsertTerm.sql</file>
+        <file>version2/terms/SelectAllLastEdit.sql</file>
+        <file>version2/terms/SelectAllUuids.sql</file>
+        <file>version2/terms/SelectAllUuidsInGroup.sql</file>
+        <file>version2/terms/SelectLastEdit.sql</file>
+        <file>version2/terms/SelectTerm.sql</file>
+        <file>version2/terms/SelectTermCount.sql</file>
+        <file>version2/terms/SelectTermWithNameAndGroup.sql</file>
+        <file>version2/terms/SelectTermsByGroup.sql</file>
+        <file>version2/terms/UpdateTerm.sql</file>
+    </qresource>
+</RCC>

@@ -19,16 +19,12 @@
 
 cmake_minimum_required (VERSION 3.16.0)
 
-project (TermGraphPackage VERSION 1.0.0)
+project (CommonTools VERSION 1.0.0 LANGUAGES CXX)
 
-option (BUILD_TESTING "Build tests with project" ON)
+add_library (${PROJECT_NAME} INTERFACE)
 
-if (ANDROID)
-    set (BUILD_TESTING OFF)
-endif ()
+target_include_directories (${PROJECT_NAME} INTERFACE "./include")
 
-add_subdirectory (apps/TermgraphApp)
-
-add_subdirectory (libs/CommonTools)
-add_subdirectory (libs/TermDataInterface)
-add_subdirectory (libs/TermDataStorage)
+target_sources (${PROJECT_NAME}
+    INTERFACE
+        include/CommonTools/HandyTypes.h)
