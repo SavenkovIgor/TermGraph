@@ -27,6 +27,8 @@
 
 #include <TermDataStorage/LocalDataStorage.h>
 
+// TODO: Check creation of empty database with LocalDatabaseStorage
+
 class DBWorksTest : public ::testing::Test
 {
 public:

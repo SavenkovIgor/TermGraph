@@ -19,17 +19,23 @@
 
 cmake_minimum_required (VERSION 3.16.0)
 
-project (TermGraphPackage VERSION 1.0.0)
+project (TermGraphBack VERSION 0.1.0 LANGUAGES CXX)
 
-option (BUILD_TESTING "Build tests with project" ON)
+find_package (Qt6 COMPONENTS Core REQUIRED)
+find_package (restinio REQUIRED)
 
-if (ANDROID)
-    set (BUILD_TESTING OFF)
-endif ()
+add_executable (${PROJECT_NAME})
 
-add_subdirectory (apps/TermGraphApp)
-add_subdirectory (apps/TermGraphBack)
+set_target_properties (${PROJECT_NAME}
+    PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
 
-add_subdirectory (libs/CommonTools)
-add_subdirectory (libs/TermDataInterface)
-add_subdirectory (libs/TermDataStorage)
+## Source folder
+file (GLOB_RECURSE ALL_SOURCES source/*.h source/*.hpp source/*.cpp)
+target_sources (${PROJECT_NAME} PRIVATE ${ALL_SOURCES})
+
+source_group (Cpp REGULAR_EXPRESSION "source\/.*\.(h|cpp)")
+
+target_link_libraries (${PROJECT_NAME} PRIVATE CommonTools TermDataInterface TermDataStorage)
+target_link_libraries (${PROJECT_NAME} PRIVATE Qt6::Core restinio::restinio)

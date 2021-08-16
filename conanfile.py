@@ -5,7 +5,7 @@ class TermGraphConan(ConanFile):
 
     generators = 'cmake_find_package', 'cmake_paths'
 
-    requires = 'gtest/1.10.0', 'cpprestsdk/2.10.18'
+    requires = 'gtest/1.10.0', 'restinio/0.6.13'
 
     options = {'with_qt': [True, False]}
 

@@ -71,7 +71,7 @@ public:
     Q_INVOKABLE int dbVersion();
 
     // Nodes
-    Q_INVOKABLE bool addNode(const QJsonObject& object);
+    Q_INVOKABLE bool addNode(QJsonObject object);
     Q_INVOKABLE bool updateNode(const QJsonObject& object);
     Q_INVOKABLE void deleteNode(const QUuid uuid);
 

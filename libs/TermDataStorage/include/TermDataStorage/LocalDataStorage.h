@@ -38,6 +38,8 @@ public:
 public:
     int storageVersion() const final;
 
+    QUuid getFreeUuid() const final;
+
     UuidList getAllGroupsUuids(bool sortByLastEdit) const final;
 
     // Add getFreeUuid for groups

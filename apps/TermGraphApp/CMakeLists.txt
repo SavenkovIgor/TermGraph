@@ -46,10 +46,6 @@ set (QML_IMPORT_PATH "${QML_PATH}" CACHE STRING "" FORCE)
     #    endif()
 #endif ()
 
-#add_subdirectory (${CMAKE_SOURCE_DIR}/libs/commontools)
-#add_subdirectory (${CMAKE_SOURCE_DIR}/libs/datainterface)
-#add_subdirectory (${CMAKE_SOURCE_DIR}/libs/termstorage)
-
 # If you want, android build correctly,
 # This line must be before targets definition
 find_package (Qt6 COMPONENTS Core Gui Widgets Qml Quick QuickControls2 Network Svg REQUIRED)
@@ -97,8 +93,6 @@ source_group (Sql REGULAR_EXPRESSION ".*\.sql")
 source_group (Cpp REGULAR_EXPRESSION "source\/.*\.(h|cpp)")
 source_group (DevTools REGULAR_EXPRESSION ".devTools\/.*")
 source_group (Qml REGULAR_EXPRESSION "qml\/")
-
-#message (FATAL_ERROR ${PROJECT_SOURCE_DIR})
 
 target_compile_definitions (${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 

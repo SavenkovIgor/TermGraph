@@ -21,7 +21,12 @@ enable_testing ()
 find_package (GTest REQUIRED)
 
 function (test_case_config TEST_NAME)
-    target_include_directories (${TEST_NAME} PRIVATE ${CMAKE_SOURCE_DIR} ${GTest_INCLUDE_DIRS} ${TermGraph_SOURCE_DIR})
+    target_include_directories (${TEST_NAME}
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}
+            ${CMAKE_SOURCE_DIR}
+            ${GTest_INCLUDE_DIRS}
+            ${TermGraph_SOURCE_DIR})
     target_link_libraries (${TEST_NAME} Qt6::Core GTest::gtest GTest::gtest_main)
     set_target_properties (${TEST_NAME} PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 endfunction ()

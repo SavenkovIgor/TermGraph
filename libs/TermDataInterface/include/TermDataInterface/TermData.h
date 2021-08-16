@@ -80,12 +80,14 @@ struct TermData
 
     // --- JSON ---
     // Returns valid object or nullopt
-    static inline bool isValidJson(const QJsonObject& obj)
+    static inline bool isValidJson(const QJsonObject& obj, bool checkUuid = true, bool checkLastEdit = true)
     {
         bool ret = true;
 
-        ret &= obj[uuidKey].isString();
-        ret &= !QUuid(obj[uuidKey].toString()).isNull();
+        if (checkUuid) {
+            ret &= obj[uuidKey].isString();
+            ret &= !QUuid(obj[uuidKey].toString()).isNull();
+        }
 
         ret &= obj[termKey].isString();
         ret &= !obj[termKey].toString().isEmpty();
@@ -99,15 +101,17 @@ struct TermData
         ret &= obj[groupUuidKey].isString();
         ret &= !QUuid(obj[groupUuidKey].toString()).isNull();
 
-        ret &= obj[lastEditKey].isString();
-        ret &= !QDateTime::fromString(obj[lastEditKey].toString(), Qt::ISODate).isNull();
+        if (checkLastEdit) {
+            ret &= obj[lastEditKey].isString();
+            ret &= !QDateTime::fromString(obj[lastEditKey].toString(), Qt::ISODate).isNull();
+        }
 
         return ret;
     }
 
-    static inline std::optional<TermData> fromJson(QJsonObject obj)
+    static inline std::optional<TermData> fromJson(QJsonObject obj, bool checkUuid = true, bool checkLastEdit = true)
     {
-        if (!isValidJson(obj))
+        if (!isValidJson(obj, checkUuid, checkLastEdit))
             return std::nullopt;
 
         TermData ret;
@@ -121,8 +125,6 @@ struct TermData
         ret.wikiImage   = obj[wikiImageKey].toString();
         ret.groupUuid   = QUuid(obj[groupUuidKey].toString());
         ret.lastEdit    = QDateTime::fromString(obj[lastEditKey].toString(), Qt::ISODate);
-
-        assert(!ret.isNull());
 
         if (ret.isNull()) // Release safety
             return std::nullopt;
