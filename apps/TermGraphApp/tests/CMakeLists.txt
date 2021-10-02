@@ -56,6 +56,12 @@ test_case_config (FS_WORKS_TEST)
 add_executable (UUIDS_TEST
     ../source/helpers/uuid/uuidtools.cpp
     ../source/helpers/uuid/uuidtools.h
+    ../source/model/uuid/safeuuid.cpp
+    ../source/model/uuid/safeuuid.h
+    ../source/model/uuid/groupuuid.cpp
+    ../source/model/uuid/groupuuid.h
+    ../source/model/uuid/termuuid.cpp
+    ../source/model/uuid/termuuid.h
     uuidstest.cpp)
 
 test_case_config (UUIDS_TEST)
