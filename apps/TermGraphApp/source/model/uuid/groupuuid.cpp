@@ -23,11 +23,10 @@
 
 opt<GroupUuid> GroupUuid::create(const QString &text)
 {
-    auto uuid = QUuid(text);
-    if (uuid.isNull())
-        return std::nullopt;
+    if (auto safe = SafeUuid::create(text))
+        return GroupUuid(text);
 
-    return GroupUuid(text);
+    return std::nullopt;
 }
 
 GroupUuid::GroupUuid(const QString &text)

@@ -23,11 +23,10 @@
 
 opt<TermUuid> TermUuid::create(const QString &text)
 {
-    auto uuid = QUuid(text);
-    if (uuid.isNull())
-        return std::nullopt;
+    if (auto safe = SafeUuid::create(text))
+        return TermUuid(text);
 
-    return TermUuid(text);
+    return std::nullopt;
 }
 
 TermUuid::TermUuid(const QString &text)

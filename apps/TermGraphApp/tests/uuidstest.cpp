@@ -52,26 +52,30 @@ TEST(UuidsTest, NoBracesValidator)
 
 TEST(UuidsTest, SafeTest)
 {
-    auto nullUuid = QUuid();
-    auto someUuid = QUuid::createUuid();
+    auto empty    = "";
+    auto nullUuid = QUuid().toString();
 
-    auto safe1 = SafeUuid::create(nullUuid.toString());
-    EXPECT_FALSE(safe1.has_value());
+    auto braceLess = QString("94810de3-51b8-469e-b316-00248ffa2a45");
+    auto someUuid  = QUuid::createUuid().toString();
 
-    auto safe2 = SafeUuid::create("");
-    EXPECT_FALSE(safe2.has_value());
+    // SafeUuid
+    EXPECT_FALSE(SafeUuid::create(empty).has_value());
+    EXPECT_FALSE(SafeUuid::create(nullUuid).has_value());
 
-    auto safe3 = SafeUuid::create(someUuid.toString());
-    EXPECT_TRUE(safe3.has_value());
-    EXPECT_EQ(safe3->toString(), someUuid.toString());
-    EXPECT_EQ(safe3->get(), someUuid);
+    EXPECT_TRUE(SafeUuid::create(braceLess).has_value());
+    EXPECT_TRUE(SafeUuid::create(someUuid).has_value());
 
-    auto str   = QString("94810de3-51b8-469e-b316-00248ffa2a45");
-    auto safe4 = SafeUuid::create(str);
-    EXPECT_TRUE(safe4.has_value());
-    EXPECT_EQ(safe4->toString(), "{" + str + "}");
+    // TermUuid
+    EXPECT_FALSE(TermUuid::create(empty).has_value());
+    EXPECT_FALSE(TermUuid::create(nullUuid).has_value());
 
-    // Must be compilable
-    TermUuid  termU  = TermUuid::create(str).value();
-    GroupUuid groupU = GroupUuid::create(str).value();
+    EXPECT_TRUE(TermUuid::create(braceLess).has_value());
+    EXPECT_TRUE(TermUuid::create(someUuid).has_value());
+
+    // GroupUuid
+    EXPECT_FALSE(GroupUuid::create(empty).has_value());
+    EXPECT_FALSE(GroupUuid::create(nullUuid).has_value());
+
+    EXPECT_TRUE(GroupUuid::create(braceLess).has_value());
+    EXPECT_TRUE(GroupUuid::create(someUuid).has_value());
 }

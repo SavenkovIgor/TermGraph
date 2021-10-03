@@ -23,7 +23,7 @@
 
 #include "source/model/uuid/safeuuid.h"
 
-class TermUuid final : SafeUuid
+class TermUuid final : public SafeUuid
 {
 public:
     static opt<TermUuid> create(const QString& text);
