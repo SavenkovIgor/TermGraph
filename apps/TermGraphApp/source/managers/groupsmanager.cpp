@@ -111,8 +111,8 @@ TermGroup::OptPtr GroupsManager::createGroup(const QUuid groupUuid)
     if (groupUuid.isNull())
         return std::nullopt;
 
-    auto groupData = dataStorage.getGroup(groupUuid);
-    auto termsData = dataStorage.getTerms(groupUuid);
+    auto groupData = dataStorage.getGroup(groupUuid).value();
+    auto termsData = dataStorage.getTerms(groupUuid).value();
 
     return std::make_shared<TermGroup>(groupData, termsData);
 }
@@ -133,7 +133,7 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 {
     QDateTime lastEdit;
     for (auto& nodeUuid : dataStorage.getAllTermsUuids(groupUuid)) {
-        QDateTime currNodeLastEdit = dataStorage.getTermLastEdit(nodeUuid);
+        QDateTime currNodeLastEdit = dataStorage.getTermLastEdit(nodeUuid).value();
         if (lastEdit.isNull()) {
             lastEdit = currNodeLastEdit;
         } else {
@@ -273,7 +273,7 @@ bool GroupsManager::updateNode(const QJsonObject& object)
     }
 
     // Check for already existing node with same name
-    auto alterNodeUuid = dataStorage.findTerm(data.term, data.groupUuid);
+    auto alterNodeUuid = dataStorage.findTerm(data.term, data.groupUuid).value();
     if (!alterNodeUuid.isNull() && alterNodeUuid != data.uuid) {
         NotificationManager::showWarning("Термин с таким названием уже существует в этой группе");
         return false;
@@ -321,12 +321,12 @@ bool GroupsManager::termExist(const QString& term, QUuid& groupUuid)
     assert(!term.isEmpty());
     assert(!groupUuid.isNull());
 
-    return !dataStorage.findTerm(term, groupUuid).isNull();
+    return !dataStorage.findTerm(term, groupUuid).value().isNull();
 }
 
 QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
 {
-    auto info      = dataStorage.getGroup(groupUuid);
+    auto info      = dataStorage.getGroup(groupUuid).value();
     auto groupJson = info.toJson();
 
     auto nodesUuids = dataStorage.getAllTermsUuids(groupUuid);
@@ -334,7 +334,7 @@ QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
     QJsonArray nodesArray;
 
     for (const auto& nodeUuid : nodesUuids) {
-        auto nodeJson = dataStorage.getTerm(nodeUuid).toJson();
+        auto nodeJson = dataStorage.getTerm(nodeUuid).value().toJson();
         nodesArray.append(nodeJson);
     }
 

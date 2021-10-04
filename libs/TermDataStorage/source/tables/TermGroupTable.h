@@ -22,6 +22,7 @@
 #pragma once
 
 #include <CommonTools/HandyTypes.h>
+#include <TermDataInterface/DataStorageErrors.h>
 #include <TermDataInterface/GroupData.h>
 
 class TermGroupTable
@@ -31,14 +32,15 @@ public:
     ~TermGroupTable() = default;
 
     // Add, update, delete
-    bool addGroup(const GroupData& info);
-    bool updateGroup(const GroupData& info);
-    void deleteGroup(const QUuid& groupUuid);
+    // TODO: Return object after add, update, delete
+    result<void> addGroup(const GroupData& info);
+    result<void> updateGroup(const GroupData& info);
+    result<void> deleteGroup(const QUuid& groupUuid);
 
     // Getters
-    UuidList        getAllUuids();
-    GroupData       getGroup(const QUuid& uuid);
-    GroupData::List getGroups();
+    UuidList          getAllUuids();
+    result<GroupData> getGroup(const QUuid& uuid);
+    GroupData::List   getGroups();
 
     QUuid getUuid(const QString& groupName) const;
 

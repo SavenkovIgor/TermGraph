@@ -26,6 +26,8 @@
 class TermUuid final : public SafeUuid
 {
 public:
+    using List = std::vector<TermUuid>;
+
     static opt<TermUuid> create(const QString& text);
 
 private:

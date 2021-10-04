@@ -29,4 +29,7 @@ target_sources (${PROJECT_NAME}
     INTERFACE
         include/TermDataInterface/TermData.h
         include/TermDataInterface/GroupData.h
-        include/TermDataInterface/DataStorageInterface.h)
+        include/TermDataInterface/DataStorageInterface.h
+        include/TermDataInterface/DataStorageErrors.h)
+
+target_link_libraries (${PROJECT_NAME} INTERFACE CommonTools)

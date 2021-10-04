@@ -29,6 +29,8 @@
 class SafeUuid : public QUuid
 {
 public:
+    using List = std::vector<SafeUuid>;
+
     static opt<SafeUuid> create(const QString& text);
 
     QUuid get() const;

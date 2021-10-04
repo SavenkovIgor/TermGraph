@@ -25,8 +25,14 @@
 #include "source/DbTools.h"
 #include "source/SqlQueryBuilder.h"
 
-QUuid TermTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const
+result<QUuid> TermTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& groupUuid) const
 {
+    if (groupUuid.isNull())
+        return DbErrorCodes::UuidEmpty;
+
+    if (name.simplified().isEmpty())
+        return DbErrorCodes::TermEmpty;
+
     auto query = SqlQueryBuilder().selectOneTerm(name, groupUuid);
     DbTools::startQuery2(query);
 
@@ -35,21 +41,19 @@ QUuid TermTable::nodeUuidForNameAndGroup(const QString& name, const QUuid& group
     if (nodesRecords.size() == 1)
         return QUuid(nodesRecords.front().value("uuid").toString());
 
-    return QUuid();
+    return DbErrorCodes::UuidNotExist;
 }
 
-bool TermTable::addNode(const TermData& info)
+result<void> TermTable::addNode(const TermData& info)
 {
-    assert(!info.term.simplified().isEmpty());
-    assert(!nodeExist(info.uuid));
+    if (info.uuid.isNull())
+        return DbErrorCodes::UuidEmpty;
 
-    // Создать вершину не удалось
-    if (info.term.simplified().isEmpty())
-        return false;
-
-    // This node already exist
     if (nodeExist(info.uuid))
-        return false;
+        return DbErrorCodes::UuidAlreadyExist;
+
+    if (info.term.simplified().isEmpty())
+        return DbErrorCodes::TermEmpty;
 
     TermData termInfo = info;
 
@@ -61,13 +65,23 @@ bool TermTable::addNode(const TermData& info)
         termInfo.lastEdit = getLastEditNow();
 
     auto query = SqlQueryBuilder().insertTerm(termInfo);
-    return DbTools::startQuery2(query);
+    DbTools::startQuery2(query);
+
+    return boost::outcome_v2::success();
 }
 
-void TermTable::deleteTerm(const QUuid& termUuid)
+result<void> TermTable::deleteTerm(const QUuid& termUuid)
 {
+    if (termUuid.isNull())
+        return DbErrorCodes::UuidEmpty;
+
+    if (!nodeExist(termUuid))
+        return DbErrorCodes::UuidNotExist;
+
     auto query = SqlQueryBuilder().deleteTerm(termUuid);
     DbTools::startQuery2(query);
+
+    return boost::outcome_v2::success();
 }
 
 void TermTable::initTable()
@@ -124,9 +138,13 @@ UuidList TermTable::getAllNodesUuids(const QUuid& groupUuid)
     return ret;
 }
 
-TermData TermTable::getNodeInfo(const QUuid& uuid)
+result<TermData> TermTable::getNodeInfo(const QUuid& uuid)
 {
-    assert(!uuid.isNull());
+    if (uuid.isNull())
+        return DbErrorCodes::UuidEmpty;
+
+    if (!nodeExist(uuid))
+        return DbErrorCodes::UuidNotExist;
 
     TermData info;
 
@@ -137,9 +155,10 @@ TermData TermTable::getNodeInfo(const QUuid& uuid)
     return recordToNodeInfo(record);
 }
 
-TermData::List TermTable::getAllNodesInfo(const QUuid& groupUuid)
+result<TermData::List> TermTable::getAllNodesInfo(const QUuid& groupUuid)
 {
-    assert(!groupUuid.isNull());
+    if (groupUuid.isNull())
+        return DbErrorCodes::UuidEmpty;
 
     TermData::List ret;
 
@@ -156,8 +175,14 @@ TermData::List TermTable::getAllNodesInfo(const QUuid& groupUuid)
     return ret;
 }
 
-QDateTime TermTable::getLastEdit(const QUuid& uuid)
+result<QDateTime> TermTable::getLastEdit(const QUuid& uuid)
 {
+    if (uuid.isNull())
+        return DbErrorCodes::UuidEmpty;
+
+    if (!nodeExist(uuid))
+        return DbErrorCodes::UuidNotExist;
+
     auto query = SqlQueryBuilder().selectLastEdit(uuid);
     DbTools::startQuery2(query);
 
@@ -178,22 +203,21 @@ RecordList TermTable::getAllLastEditRecords()
     return DbTools::getAllRecords(std::move(query));
 }
 
-bool TermTable::updateNode(const TermData& info, DataStorageInterface::LastEditSource lastEditSource, bool checkLastEdit)
+result<void> TermTable::updateNode(const TermData&                      info,
+                                   DataStorageInterface::LastEditSource lastEditSource,
+                                   bool                                 checkLastEdit)
 {
-    assert(!info.uuid.isNull());
-    assert(nodeExist(info.uuid));
-
     if (info.uuid.isNull())
-        return false;
+        return DbErrorCodes::UuidEmpty;
 
     if (!nodeExist(info.uuid))
-        return false;
+        return DbErrorCodes::UuidNotExist;
 
     if (checkLastEdit) {
-        const auto currentLastEdit = getLastEdit(info.uuid);
+        const auto currentLastEdit = getLastEdit(info.uuid).value();
         const auto newLastEdit     = info.lastEdit;
         if (currentLastEdit > newLastEdit) // If db version is fresher, do nothing
-            return false;
+            return DbErrorCodes::NewerTermVersionFound;
     }
 
     TermData nodeContainer = info;
@@ -204,7 +228,7 @@ bool TermTable::updateNode(const TermData& info, DataStorageInterface::LastEditS
     auto query = SqlQueryBuilder().updateTerm(nodeContainer);
     DbTools::startQuery2(query);
 
-    return true;
+    return boost::outcome_v2::success();
 }
 
 TermData TermTable::recordToNodeInfo(QSqlRecord& record)

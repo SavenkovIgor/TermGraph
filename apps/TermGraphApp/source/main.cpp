@@ -33,6 +33,8 @@
 #include <QtSvg> //Because deployment sometimes just forgets to include this lib otherwise
 #endif
 
+// TODO: Use new uuids!
+
 int main(int argc, char* argv[])
 {
     QApplication a(argc, argv);

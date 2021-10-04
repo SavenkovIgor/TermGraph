@@ -26,6 +26,8 @@
 class GroupUuid final : public SafeUuid
 {
 public:
+    using List = std::vector<GroupUuid>;
+
     static opt<GroupUuid> create(const QString& text);
 
 private:

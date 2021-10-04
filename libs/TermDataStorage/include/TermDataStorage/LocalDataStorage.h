@@ -43,27 +43,27 @@ public:
     UuidList getAllGroupsUuids(bool sortByLastEdit) const final;
 
     // Add getFreeUuid for groups
-    bool            groupExist(const QUuid& groupUuid) const final;
-    GroupData       getGroup(const QUuid& groupUuid) const final;
-    GroupData::List getGroups() const final;
+    bool              groupExist(const QUuid& groupUuid) const final;
+    result<GroupData> getGroup(const QUuid& groupUuid) const final;
+    GroupData::List   getGroups() const final;
 
-    bool addGroup(const GroupData& groupInfo) final;
-    bool updateGroup(const GroupData& info) final;
-    void deleteGroup(const QUuid& groupUuid) final;
+    result<void> addGroup(const GroupData& info) final;
+    result<void> updateGroup(const GroupData& info) final;
+    result<void> deleteGroup(const QUuid& groupUuid) final;
 
     UuidList getAllTermsUuids(const QUuid& groupUuid) const final;
 
     // Add getFreeUuid for nodes
-    bool           termExist(const QUuid& termUuid) const final;
-    QUuid          findTerm(const QString& termName, const QUuid& groupUuid) const final;
-    TermData       getTerm(const QUuid& termUuid) const final;
-    TermData::List getTerms(const QUuid& groupUuid) const final;
-    TermData::List getTerms(const UuidList& termsUuids) const final;
-    QDateTime      getTermLastEdit(const QUuid& termUuid) const final;
+    bool                   termExist(const QUuid& termUuid) const final;
+    result<QUuid>          findTerm(const QString& termName, const QUuid& groupUuid) const final;
+    result<TermData>       getTerm(const QUuid& termUuid) const final;
+    result<TermData::List> getTerms(const QUuid& groupUuid) const final;
+    result<TermData::List> getTerms(const UuidList& termsUuids) const final;
+    result<QDateTime>      getTermLastEdit(const QUuid& termUuid) const final;
 
-    bool addTerm(const TermData& info) final;
-    bool updateTerm(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) final;
-    void deleteTerm(const QUuid& termUuid) final;
+    result<void> addTerm(const TermData& info) final;
+    result<void> updateTerm(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) final;
+    result<void> deleteTerm(const QUuid& termUuid) final;
 
 private:
     StorageImpl* impl = nullptr;
