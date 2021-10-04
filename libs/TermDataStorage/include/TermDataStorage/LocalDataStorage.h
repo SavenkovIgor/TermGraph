@@ -43,27 +43,27 @@ public:
     UuidList getAllGroupsUuids(bool sortByLastEdit) const final;
 
     // Add getFreeUuid for groups
-    bool              groupExist(const QUuid& groupUuid) const final;
-    result<GroupData> getGroup(const QUuid& groupUuid) const final;
+    bool              groupExist(const GroupUuid& uuid) const final;
+    result<GroupData> getGroup(const GroupUuid& uuid) const final;
     GroupData::List   getGroups() const final;
 
     result<void> addGroup(const GroupData& info) final;
     result<void> updateGroup(const GroupData& info) final;
-    result<void> deleteGroup(const QUuid& groupUuid) final;
+    result<void> deleteGroup(const GroupUuid& uuid) final;
 
-    UuidList getAllTermsUuids(const QUuid& groupUuid) const final;
+    TermUuid::List getAllTermsUuids(opt<GroupUuid> groupUuid = std::nullopt) const final;
 
     // Add getFreeUuid for nodes
-    bool                   termExist(const QUuid& termUuid) const final;
-    result<QUuid>          findTerm(const QString& termName, const QUuid& groupUuid) const final;
-    result<TermData>       getTerm(const QUuid& termUuid) const final;
-    result<TermData::List> getTerms(const QUuid& groupUuid) const final;
+    bool                   termExist(const TermUuid& uuid) const final;
+    opt<TermUuid>          findTerm(const QString& termName, const GroupUuid& uuid) const final;
+    result<TermData>       getTerm(const TermUuid& uuid) const final;
+    result<TermData::List> getTerms(const GroupUuid& uuid) const final;
     result<TermData::List> getTerms(const UuidList& termsUuids) const final;
-    result<QDateTime>      getTermLastEdit(const QUuid& termUuid) const final;
+    result<QDateTime>      getTermLastEdit(const TermUuid& uuid) const final;
 
     result<void> addTerm(const TermData& info) final;
     result<void> updateTerm(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) final;
-    result<void> deleteTerm(const QUuid& termUuid) final;
+    result<void> deleteTerm(const TermUuid& uuid) final;
 
 private:
     StorageImpl* impl = nullptr;

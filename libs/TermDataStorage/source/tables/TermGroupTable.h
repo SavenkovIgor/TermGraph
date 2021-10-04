@@ -24,6 +24,7 @@
 #include <CommonTools/HandyTypes.h>
 #include <TermDataInterface/DataStorageErrors.h>
 #include <TermDataInterface/GroupData.h>
+#include <TermDataInterface/GroupUuid.h>
 
 class TermGroupTable
 {
@@ -35,17 +36,19 @@ public:
     // TODO: Return object after add, update, delete
     result<void> addGroup(const GroupData& info);
     result<void> updateGroup(const GroupData& info);
-    result<void> deleteGroup(const QUuid& groupUuid);
+    result<void> deleteGroup(const GroupUuid& uuid);
 
     // Getters
     UuidList          getAllUuids();
-    result<GroupData> getGroup(const QUuid& uuid);
+    result<GroupData> getGroup(const GroupUuid& uuid);
     GroupData::List   getGroups();
 
     QUuid getUuid(const QString& groupName) const;
 
     // Checkers
+    // TODO: Delete wrapper later
     bool groupExist(const QUuid& uuid);
+    bool groupExist(const GroupUuid& uuid);
     bool groupWithNameExist(const QString& groupName);
 
     void initTable();

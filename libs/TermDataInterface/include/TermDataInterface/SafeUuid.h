@@ -19,16 +19,45 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/model/uuid/termuuid.h"
+#pragma once
 
-opt<TermUuid> TermUuid::create(const QString &text)
+#include <QString>
+#include <QUuid>
+
+#include <CommonTools/HandyTypes.h>
+
+class SafeUuid : public QUuid
 {
-    if (auto safe = SafeUuid::create(text))
-        return TermUuid(text);
+public:
+    using List = std::vector<SafeUuid>;
 
-    return std::nullopt;
-}
+    inline static opt<SafeUuid> create(const QString& text)
+    {
+        auto uuid = QUuid(text);
+        if (uuid.isNull())
+            return std::nullopt;
 
-TermUuid::TermUuid(const QString &text)
-    : SafeUuid(text)
-{}
+        return SafeUuid(text);
+    }
+
+    inline static opt<SafeUuid> create(const QUuid& uuid)
+    {
+        if (uuid.isNull())
+            return std::nullopt;
+
+        return SafeUuid(uuid.toString());
+    }
+
+    inline static SafeUuid generate() { return {QUuid::createUuid().toString()}; }
+
+    inline QUuid get() const { return QUuid(toString()); }
+
+protected:
+    inline SafeUuid(const QString& text)
+        : QUuid(text)
+    {
+        assert(!isNull());
+    }
+
+    inline bool isNull() const { return false; }
+};

@@ -19,16 +19,35 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "source/model/uuid/groupuuid.h"
+#pragma once
 
-opt<GroupUuid> GroupUuid::create(const QString &text)
+#include <TermDataInterface/SafeUuid.h>
+
+class TermUuid final : public SafeUuid
 {
-    if (auto safe = SafeUuid::create(text))
-        return GroupUuid(text);
+public:
+    using List = std::vector<TermUuid>;
 
-    return std::nullopt;
-}
+    inline static opt<TermUuid> create(const QString& text)
+    {
+        if (auto safe = SafeUuid::create(text))
+            return TermUuid(text);
 
-GroupUuid::GroupUuid(const QString &text)
-    : SafeUuid(text)
-{}
+        return std::nullopt;
+    }
+
+    inline static opt<TermUuid> create(const QUuid& uuid)
+    {
+        if (auto safe = SafeUuid::create(uuid))
+            return TermUuid(uuid.toString());
+
+        return std::nullopt;
+    }
+
+    inline static TermUuid generate() { return {QUuid::createUuid().toString()}; }
+
+private:
+    inline TermUuid(const QString& text)
+        : SafeUuid(text)
+    {}
+};

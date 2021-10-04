@@ -118,7 +118,7 @@ TEST_F(DBWorksTest, GroupsTest)
     auto withUuid    = getGroupWithUuid();
     auto withoutUuid = getGroupWithoutUuid();
 
-    ASSERT_FALSE(mStorage->groupExist(withUuid.uuid));
+    ASSERT_FALSE(mStorage->groupExist(GroupUuid::create(withUuid.uuid).value()));
 
     // Add groups test
     auto brokenName = withUuid;
@@ -135,7 +135,7 @@ TEST_F(DBWorksTest, GroupsTest)
 
     EXPECT_FALSE(mStorage->addGroup(withoutUuid).has_error());
 
-    EXPECT_TRUE(mStorage->groupExist(withUuid.uuid));
+    EXPECT_TRUE(mStorage->groupExist(GroupUuid::create(withUuid.uuid).value()));
 
     // GetAllGroupsUuids test
     auto groupList = mStorage->getAllGroupsUuids();
@@ -144,10 +144,9 @@ TEST_F(DBWorksTest, GroupsTest)
     EXPECT_TRUE(groupList[0] == withUuid.uuid || groupList[1] == withUuid.uuid);
 
     // Read group test
-    EXPECT_EQ(mStorage->getGroup(QUuid()).error(), DbErrorCodes::UuidEmpty);
-    EXPECT_EQ(mStorage->getGroup(QUuid::createUuid()).error(), DbErrorCodes::UuidNotExist);
+    EXPECT_EQ(mStorage->getGroup(GroupUuid::generate()).error(), DbErrorCodes::UuidNotExist);
 
-    auto readedWithUuid = mStorage->getGroup(withUuid.uuid).value();
+    auto readedWithUuid = mStorage->getGroup(GroupUuid::create(withUuid.uuid).value()).value();
 
     EXPECT_EQ(withUuid.uuid, readedWithUuid.uuid);
     EXPECT_EQ(withUuid.name, readedWithUuid.name);
@@ -161,7 +160,7 @@ TEST_F(DBWorksTest, GroupsTest)
 
     EXPECT_TRUE(mStorage->updateGroup(withUuid));
 
-    readedWithUuid = mStorage->getGroup(withUuid.uuid).value();
+    readedWithUuid = mStorage->getGroup(*GroupUuid::create(withUuid.uuid)).value();
 
     EXPECT_EQ(withUuid.uuid, readedWithUuid.uuid);
     EXPECT_EQ(withUuid.name, readedWithUuid.name);
@@ -170,13 +169,12 @@ TEST_F(DBWorksTest, GroupsTest)
     withUuid = getGroupWithUuid();
 
     // Delete group test
-    EXPECT_EQ(mStorage->deleteGroup(QUuid()).error(), DbErrorCodes::UuidEmpty);
-    EXPECT_EQ(mStorage->deleteGroup(QUuid::createUuid()).error(), DbErrorCodes::UuidNotExist);
+    EXPECT_EQ(mStorage->deleteGroup(GroupUuid::generate()).error(), DbErrorCodes::UuidNotExist);
 
-    EXPECT_TRUE(mStorage->deleteGroup(withUuid.uuid));
+    EXPECT_TRUE(mStorage->deleteGroup(*GroupUuid::create(withUuid.uuid)));
     groupList = mStorage->getAllGroupsUuids();
     EXPECT_EQ(groupList.size(), 1);
-    EXPECT_TRUE(mStorage->deleteGroup(groupList.front()));
+    EXPECT_TRUE(mStorage->deleteGroup(*GroupUuid::create(groupList.front())));
     groupList = mStorage->getAllGroupsUuids();
     EXPECT_TRUE(groupList.empty());
 }
@@ -195,11 +193,11 @@ TEST_F(DBWorksTest, TermsTest)
     auto termList = getTermDataList();
 
     for (auto& term : termList) {
-        EXPECT_FALSE(mStorage->termExist(term.uuid));
+        EXPECT_FALSE(mStorage->termExist(TermUuid::create(term.uuid).value()));
         EXPECT_TRUE(mStorage->addTerm(term));
-        EXPECT_TRUE(mStorage->termExist(term.uuid));
-        EXPECT_EQ(mStorage->findTerm(term.term, term.groupUuid).value(), term.uuid);
-        auto gettedTerm = mStorage->getTerm(term.uuid).value();
+        EXPECT_TRUE(mStorage->termExist(TermUuid::create(term.uuid).value()));
+        EXPECT_EQ(mStorage->findTerm(term.term, *GroupUuid::create(term.groupUuid)).value(), term.uuid);
+        auto gettedTerm = mStorage->getTerm(*TermUuid::create(term.uuid)).value();
         term.lastEdit   = gettedTerm.lastEdit; // Last edit was refreshed
         EXPECT_TRUE(gettedTerm == term);
     }
@@ -214,7 +212,7 @@ TEST_F(DBWorksTest, TermsTest)
     }
 
     // Checking all uuids with group
-    allTermUuids = mStorage->getAllTermsUuids(withUuid.uuid);
+    allTermUuids = mStorage->getAllTermsUuids(*GroupUuid::create(withUuid.uuid));
 
     EXPECT_EQ(allTermUuids.size(), termList.size());
     for (const auto& term : termList) {
@@ -232,11 +230,11 @@ TEST_F(DBWorksTest, TermsTest)
 
         EXPECT_TRUE(mStorage->updateTerm(term, DataStorageInterface::LastEditSource::TakeFromTermData));
 
-        EXPECT_TRUE(term == mStorage->getTerm(term.uuid).value());
+        EXPECT_TRUE(term == mStorage->getTerm(*TermUuid::create(term.uuid)).value());
     }
 
     for (const auto& term : termList)
-        EXPECT_TRUE(mStorage->deleteTerm(term.uuid));
+        EXPECT_TRUE(mStorage->deleteTerm(*TermUuid::create(term.uuid)));
 
     EXPECT_TRUE(mStorage->getAllTermsUuids().empty());
 }

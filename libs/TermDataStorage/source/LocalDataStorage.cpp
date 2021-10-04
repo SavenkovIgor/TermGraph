@@ -46,7 +46,7 @@ QUuid LocalDatabaseStorage::getFreeUuid() const
 {
     while (true) {
         auto newUuid = QUuid::createUuid();
-        if (!termExist(newUuid) && !groupExist(newUuid))
+        if (!termExist(TermUuid::create(newUuid).value()) && !groupExist(GroupUuid::create(newUuid).value()))
             return newUuid;
     }
 }
@@ -97,14 +97,11 @@ UuidList LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
     return ret;
 }
 
-bool LocalDatabaseStorage::groupExist(const QUuid& groupUuid) const
-{
-    return impl->db.groupTable->groupExist(groupUuid);
-}
+bool LocalDatabaseStorage::groupExist(const GroupUuid& uuid) const { return impl->db.groupTable->groupExist(uuid); }
 
-result<GroupData> LocalDatabaseStorage::getGroup(const QUuid& groupUuid) const
+result<GroupData> LocalDatabaseStorage::getGroup(const GroupUuid& uuid) const
 {
-    return impl->db.groupTable->getGroup(groupUuid);
+    return impl->db.groupTable->getGroup(uuid);
 }
 
 GroupData::List LocalDatabaseStorage::getGroups() const { return impl->db.groupTable->getGroups(); }
@@ -113,43 +110,34 @@ result<void> LocalDatabaseStorage::addGroup(const GroupData& info) { return impl
 
 result<void> LocalDatabaseStorage::updateGroup(const GroupData& info) { return impl->db.groupTable->updateGroup(info); }
 
-result<void> LocalDatabaseStorage::deleteGroup(const QUuid& groupUuid)
+result<void> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid) { return impl->db.groupTable->deleteGroup(uuid); }
+
+TermUuid::List LocalDatabaseStorage::getAllTermsUuids(opt<GroupUuid> uuid) const
 {
-    return impl->db.groupTable->deleteGroup(groupUuid);
+    return impl->db.termTable->getAllNodesUuids(uuid);
 }
 
-UuidList LocalDatabaseStorage::getAllTermsUuids(const QUuid& groupUuid) const
+bool LocalDatabaseStorage::termExist(const TermUuid& uuid) const { return impl->db.termTable->nodeExist(uuid.get()); }
+
+opt<TermUuid> LocalDatabaseStorage::findTerm(const QString& nodeName, const GroupUuid& uuid) const
 {
-    return impl->db.termTable->getAllNodesUuids(groupUuid);
+    if (!impl->db.groupTable->groupExist(uuid))
+        return std::nullopt;
+
+    return impl->db.termTable->nodeUuidForNameAndGroup(nodeName, uuid);
 }
 
-bool LocalDatabaseStorage::termExist(const QUuid& nodeUuid) const { return impl->db.termTable->nodeExist(nodeUuid); }
-
-result<QUuid> LocalDatabaseStorage::findTerm(const QString& nodeName, const QUuid& groupUuid) const
+result<TermData> LocalDatabaseStorage::getTerm(const TermUuid& uuid) const
 {
-    if (groupUuid.isNull())
-        return DbErrorCodes::UuidEmpty;
+    return impl->db.termTable->getNodeInfo(uuid);
+}
 
-    if (!impl->db.groupTable->groupExist(groupUuid))
+result<TermData::List> LocalDatabaseStorage::getTerms(const GroupUuid& uuid) const
+{
+    if (!impl->db.groupTable->groupExist(uuid))
         return DbErrorCodes::UuidNotExist;
 
-    return impl->db.termTable->nodeUuidForNameAndGroup(nodeName, groupUuid);
-}
-
-result<TermData> LocalDatabaseStorage::getTerm(const QUuid& nodeUuid) const
-{
-    return impl->db.termTable->getNodeInfo(nodeUuid);
-}
-
-result<TermData::List> LocalDatabaseStorage::getTerms(const QUuid& groupUuid) const
-{
-    if (groupUuid.isNull())
-        return DbErrorCodes::UuidEmpty;
-
-    if (!impl->db.groupTable->groupExist(groupUuid))
-        return DbErrorCodes::UuidNotExist;
-
-    return impl->db.termTable->getAllNodesInfo(groupUuid);
+    return impl->db.termTable->getAllNodesInfo(uuid);
 }
 
 result<TermData::List> LocalDatabaseStorage::getTerms(const UuidList& termsUuids) const
@@ -157,9 +145,9 @@ result<TermData::List> LocalDatabaseStorage::getTerms(const UuidList& termsUuids
     return DbErrorCodes::UuidNotExist;
 }
 
-result<QDateTime> LocalDatabaseStorage::getTermLastEdit(const QUuid& nodeUuid) const
+result<QDateTime> LocalDatabaseStorage::getTermLastEdit(const TermUuid& uuid) const
 {
-    return impl->db.termTable->getLastEdit(nodeUuid);
+    return impl->db.termTable->getLastEdit(uuid);
 }
 
 result<void> LocalDatabaseStorage::addTerm(const TermData& info)
@@ -186,7 +174,4 @@ result<void> LocalDatabaseStorage::updateTerm(const TermData&                   
     return impl->db.termTable->updateNode(info, lastEditSource, checkLastEdit);
 }
 
-result<void> LocalDatabaseStorage::deleteTerm(const QUuid& nodeUuid)
-{
-    return impl->db.termTable->deleteTerm(nodeUuid);
-}
+result<void> LocalDatabaseStorage::deleteTerm(const TermUuid& uuid) { return impl->db.termTable->deleteTerm(uuid); }

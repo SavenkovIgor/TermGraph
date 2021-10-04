@@ -27,9 +27,12 @@ target_include_directories (${PROJECT_NAME} INTERFACE "./include")
 
 target_sources (${PROJECT_NAME}
     INTERFACE
-        include/TermDataInterface/TermData.h
-        include/TermDataInterface/GroupData.h
+        include/TermDataInterface/DataStorageErrors.h
         include/TermDataInterface/DataStorageInterface.h
-        include/TermDataInterface/DataStorageErrors.h)
+        include/TermDataInterface/GroupData.h
+        include/TermDataInterface/GroupUuid.h
+        include/TermDataInterface/SafeUuid.h
+        include/TermDataInterface/TermData.h
+        include/TermDataInterface/TermUuid.h)
 
 target_link_libraries (${PROJECT_NAME} INTERFACE CommonTools)

@@ -88,24 +88,26 @@ UuidList TermGroupTable::getAllUuids()
     return ret;
 }
 
-result<void> TermGroupTable::deleteGroup(const QUuid& groupUuid)
+result<void> TermGroupTable::deleteGroup(const GroupUuid& uuid)
 {
-    if (groupUuid.isNull())
-        return DbErrorCodes::UuidEmpty;
-
-    if (!groupExist(groupUuid))
+    if (!groupExist(uuid))
         return DbErrorCodes::UuidNotExist;
 
-    auto query = SqlQueryBuilder().deleteGroup(groupUuid);
+    auto query = SqlQueryBuilder().deleteGroup(uuid.get());
     DbTools::startQuery2(query);
     return boost::outcome_v2::success();
 }
 
 bool TermGroupTable::groupExist(const QUuid& uuid)
 {
-    if (uuid.isNull())
-        return false;
+    if (auto gUuid = GroupUuid::create(uuid))
+        return groupExist(*gUuid);
 
+    return false;
+}
+
+bool TermGroupTable::groupExist(const GroupUuid& uuid)
+{
     auto query = SqlQueryBuilder().selectOneGroup(uuid);
     DbTools::startQuery2(query);
 
@@ -147,11 +149,8 @@ void TermGroupTable::initTable()
     DbTools::startQuery2(query);
 }
 
-result<GroupData> TermGroupTable::getGroup(const QUuid& uuid)
+result<GroupData> TermGroupTable::getGroup(const GroupUuid& uuid)
 {
-    if (uuid.isNull())
-        return DbErrorCodes::UuidEmpty;
-
     // If group not exist
     if (!groupExist(uuid))
         return DbErrorCodes::UuidNotExist;

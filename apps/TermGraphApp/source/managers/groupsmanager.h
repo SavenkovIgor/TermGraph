@@ -88,7 +88,7 @@ private: // Methods
 
     void saveGroupInFolder(TermGroup::OptPtr group);
 
-    bool groupExist(const QUuid& groupUuid);
+    bool groupExist(const GroupUuid& uuid);
     bool termExist(const QString& term, QUuid& groupUuid);
 
 private: // Members
