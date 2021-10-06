@@ -51,7 +51,7 @@ QUuid LocalDatabaseStorage::getFreeUuid() const
     }
 }
 
-UuidList LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
+GroupUuid::List LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
 {
     if (!sortByLastEdit) // Simple variant
         return impl->db.groupTable->getAllUuids();
@@ -60,7 +60,7 @@ UuidList LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
     QMap<QUuid, QDateTime> groupsLastEdit;
 
     for (const auto& uuid : impl->db.groupTable->getAllUuids())
-        groupsLastEdit.insert(uuid, QDateTime());
+        groupsLastEdit.insert(uuid.get(), QDateTime());
 
     for (const auto& record : impl->db.termTable->getAllLastEditRecords()) {
         QUuid     groupUuid = QUuid(record.value("groupUuid").toString());
@@ -89,10 +89,11 @@ UuidList LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
     std::sort(groupSorting.begin(), groupSorting.end(), groupOrdering);
 
     // Casting back to uuids only
-    UuidList ret;
+    GroupUuid::List ret;
 
     for (const auto& group : groupSorting)
-        ret.push_back(group.first);
+        if (auto gUuid = GroupUuid::create(group.first))
+            ret.push_back(*gUuid);
 
     return ret;
 }

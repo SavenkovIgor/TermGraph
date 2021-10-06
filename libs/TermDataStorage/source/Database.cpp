@@ -23,7 +23,6 @@
 
 #include <QDateTime>
 #include <QString>
-#include <QUuid>
 
 #include "source/DbInfo.h"
 #include "source/DbTools.h"

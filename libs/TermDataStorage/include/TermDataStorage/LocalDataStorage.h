@@ -40,7 +40,7 @@ public:
 
     QUuid getFreeUuid() const final;
 
-    UuidList getAllGroupsUuids(bool sortByLastEdit) const final;
+    GroupUuid::List getAllGroupsUuids(bool sortByLastEdit) const final;
 
     // Add getFreeUuid for groups
     bool              groupExist(const GroupUuid& uuid) const final;

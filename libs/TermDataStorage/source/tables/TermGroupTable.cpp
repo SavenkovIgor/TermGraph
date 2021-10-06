@@ -70,9 +70,9 @@ result<void> TermGroupTable::updateGroup(const GroupData& info)
     return boost::outcome_v2::success();
 }
 
-UuidList TermGroupTable::getAllUuids()
+GroupUuid::List TermGroupTable::getAllUuids()
 {
-    UuidList ret;
+    GroupUuid::List ret;
 
     auto query = SqlQueryBuilder().selectAllGroupUuids();
     DbTools::startQuery2(query);
@@ -82,7 +82,8 @@ UuidList TermGroupTable::getAllUuids()
     for (const auto& record : records) {
         QUuid uuid(record.value("uuid").toString());
         assert(!uuid.isNull());
-        ret.push_back(uuid);
+        if (auto gUuid = GroupUuid::create(uuid))
+            ret.push_back(*gUuid);
     }
 
     return ret;

@@ -39,7 +39,7 @@ public:
     result<void> deleteGroup(const GroupUuid& uuid);
 
     // Getters
-    UuidList          getAllUuids();
+    GroupUuid::List   getAllUuids();
     result<GroupData> getGroup(const GroupUuid& uuid);
     GroupData::List   getGroups();
 
