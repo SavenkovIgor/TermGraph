@@ -2,6 +2,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QStandardPaths>
+#include <QString>
 
 #include <restinio/all.hpp>
 
@@ -27,7 +28,7 @@ std::string jsonObjToStr(QJsonObject obj)
     return QString(doc.toJson()).toStdString();
 }
 
-std::optional<QUuid> strToUuid(std::string param)
+std::optional<QUuid> uuidFromStr(std::string param)
 {
     auto uuidStr = QString::fromStdString(param);
 
@@ -45,6 +46,28 @@ std::optional<QUuid> strToUuid(std::string param)
     assert(!ret.isNull());
 
     return ret;
+}
+
+std::optional<GroupUuid> strToGroupUuid(std::string param)
+{
+    if (auto uuid = uuidFromStr(param)) {
+        if (auto gUuid = GroupUuid::create(*uuid)) {
+            return gUuid;
+        }
+    }
+
+    return std::nullopt;
+}
+
+std::optional<TermUuid> strToTermUuid(std::string param)
+{
+    if (auto uuid = uuidFromStr(param)) {
+        if (auto tUuid = TermUuid::create(*uuid)) {
+            return tUuid;
+        }
+    }
+
+    return std::nullopt;
 }
 
 std::optional<QJsonObject> strToJsonObj(std::string jsonStr)
@@ -65,7 +88,8 @@ std::string arrayToString(QString rootKey, QJsonArray data)
     return jsonObjToStr(obj);
 }
 
-std::string uuidListToStdString(QString rootKey, UuidList uuidList)
+template<typename UuidContainer>
+std::string uuidListToStdString(QString rootKey, UuidContainer uuidList)
 {
     QJsonArray arr;
 
@@ -83,6 +107,103 @@ std::string containerToStdString(QString rootKey, auto container)
         arr.push_back(item.toJson());
 
     return arrayToString(rootKey, arr);
+}
+
+http_status_line_t dbErrToHttpErr(std::error_code code)
+{
+    using namespace restinio;
+
+    if (code == DbErrorCodes::UuidEmpty)
+        return status_bad_request();
+
+    if (code == DbErrorCodes::UuidAlreadyExist)
+        return status_conflict();
+
+    if (code == DbErrorCodes::UuidNotExist)
+        return status_not_found();
+
+    if (code == DbErrorCodes::GroupNameEmpty)
+        return status_bad_request();
+
+    if (code == DbErrorCodes::GroupNameAlreadyExist)
+        return status_conflict();
+
+    if (code == DbErrorCodes::TermEmpty)
+        return status_bad_request();
+
+    if (code == DbErrorCodes::TermNotExist)
+        return status_not_found();
+
+    if (code == DbErrorCodes::NewerTermVersionFound)
+        return status_conflict();
+
+    return status_bad_gateway();
+}
+
+std::string dbErrDescription(std::error_code code)
+{
+    if (code == DbErrorCodes::UuidEmpty)
+        return "Uuid is empty";
+
+    if (code == DbErrorCodes::UuidAlreadyExist)
+        return "Uuid already exist";
+
+    if (code == DbErrorCodes::UuidNotExist)
+        return "Uuid not exist";
+
+    if (code == DbErrorCodes::GroupNameEmpty)
+        return "Group name empty";
+
+    if (code == DbErrorCodes::GroupNameAlreadyExist)
+        return "Group name already exist";
+
+    if (code == DbErrorCodes::TermEmpty)
+        return "Term empty";
+
+    if (code == DbErrorCodes::TermNotExist)
+        return "Term not exist";
+
+    if (code == DbErrorCodes::NewerTermVersionFound)
+        return "Newer term version found";
+
+    return "Error";
+}
+
+auto responseForDbError(auto req, std::error_code code)
+{
+    return req->create_response(dbErrToHttpErr(code)).set_body(dbErrDescription(code)).done();
+}
+
+auto successResponse(auto req, std::string body = "")
+{
+    if (body.empty())
+        return req->create_response().done();
+
+    return req->create_response().set_body(body).done();
+}
+
+auto badRequest(auto req) { return req->create_response(restinio::status_bad_request()).done(); }
+
+std::string strFromParam(auto param) { return restinio::cast_to<std::string>(param); }
+
+QString qStringFromParam(auto param) { return QString::fromStdString(strFromParam(param)); }
+
+std::optional<QUuid> uuidFromParam(auto param) { return uuidFromStr(strFromParam(param)); }
+
+opt<GroupUuid> groupUuidFromParam(auto param)
+{
+    if (auto uuid = uuidFromParam(param))
+        return GroupUuid::create(*uuid);
+
+    return std::nullopt;
+}
+
+opt<TermUuid> termUuidFromParam(auto param)
+{
+    if (auto uuid = uuidFromParam(param))
+        return TermUuid::create(*uuid);
+
+    return std::nullopt;
 }
 
 int main()
@@ -116,57 +237,68 @@ int main()
         else
             jsonStr = containerToStdString("groups", storage.getGroups());
 
-        return req->create_response().set_body(jsonStr).done();
+        return successResponse(req, jsonStr);
     });
 
     // GET /api/v1/global/groups/:uuid
     router->http_get("/api/v1/global/groups/:uuid", [&storage](auto req, auto params) {
-        if (auto uuid = strToUuid(restinio::cast_to<std::string>(params["uuid"]))) {
-            auto jsonObj = storage.getGroup(*uuid).toJson();
-            auto jsonStr = jsonObjToStr(jsonObj);
-            return req->create_response().set_body(jsonStr).done();
+        if (auto uuid = groupUuidFromParam(params["uuid"])) {
+            if (auto group = storage.getGroup(*uuid)) {
+                auto jsonObj = group.value().toJson();
+                auto jsonStr = jsonObjToStr(jsonObj);
+                return successResponse(req, jsonStr);
+            } else {
+                return responseForDbError(req, group.error());
+            }
         }
 
-        return req->create_response(restinio::status_bad_request()).done();
+        return badRequest(req);
     });
 
     // POST /api/v1/global/groups
     router->http_post("/api/v1/global/groups", [&storage](auto req, auto params) {
         if (auto jsonObj = strToJsonObj(req->body())) {
             if (auto group = GroupData::fromJson(*jsonObj)) {
-                if (storage.addGroup(*group)) {
-                    return req->create_response().done();
+                if (auto res = storage.addGroup(*group)) {
+                    return successResponse(req);
+                } else {
+                    return responseForDbError(req, res.error());
                 }
             }
         }
 
-        return req->create_response(restinio::status_bad_request()).done();
+        return badRequest(req);
     });
 
     // PUT /api/v1/global/groups/:uuid
     router->http_put("/api/v1/global/groups/:uuid", [&storage](auto req, auto params) {
-        if (auto uuid = strToUuid(restinio::cast_to<std::string>(params["uuid"]))) {
+        if (auto uuid = uuidFromParam(params["uuid"])) {
             if (auto jsonObj = strToJsonObj(req->body())) {
                 if (auto data = GroupData::fromJson(*jsonObj)) {
                     (*data).uuid = (*uuid);
-                    if (storage.updateGroup(*data)) {
-                        return req->create_response().done();
+                    if (auto res = storage.updateGroup(*data)) {
+                        return successResponse(req);
+                    } else {
+                        return responseForDbError(req, res.error());
                     }
                 }
             }
         }
 
-        return req->create_response(restinio::status_bad_request()).done();
+        return badRequest(req);
     });
 
     // DELETE /api/v1/global/groups/:uuid
     router->http_delete("/api/v1/global/groups/:uuid", [&storage](auto req, auto params) {
-        if (auto uuid = strToUuid(restinio::cast_to<std::string>(params["uuid"]))) {
-            storage.deleteGroup(*uuid);
-            return req->create_response().done();
+        if (auto uuid = groupUuidFromParam(params["uuid"])) {
+            if (auto res = storage.deleteGroup(*uuid)) {
+                return successResponse(req);
+            } else {
+                return responseForDbError(req, res.error());
+            }
         }
 
-        return req->create_response(restinio::status_bad_request()).done();
+        return badRequest(req);
     });
 
     // GET /api/v1/global/terms?group_uuid=gUuid
@@ -180,90 +312,105 @@ int main()
         bool hasGroupUuidParam = urlParams.has("group_uuid");
 
         if (hasGroupUuidParam) {
-            auto groupUuid = strToUuid(restinio::cast_to<std::string>(urlParams["group_uuid"]));
+            auto groupUuid = groupUuidFromParam(urlParams["group_uuid"]);
             if (!groupUuid.has_value())
-                return req->create_response(restinio::status_bad_request()).done();
+                return badRequest(req);
 
             if (hasNameParam) {
-                auto name = QString::fromStdString(restinio::cast_to<std::string>(urlParams["name"]));
+                auto name = qStringFromParam(urlParams["name"]);
 
                 auto nodeUuid = storage.findTerm(name, *groupUuid);
 
-                if (nodeUuid.isNull())
+                if (!nodeUuid.has_value())
                     return req->create_response(restinio::status_not_found()).done();
 
-                auto termData = storage.getTerm(nodeUuid);
-                return req->create_response().set_body(jsonObjToStr(termData.toJson())).done();
+                if (auto termData = storage.getTerm(*nodeUuid))
+                    return successResponse(req, jsonObjToStr(termData.value().toJson()));
+                else
+                    return responseForDbError(req, termData.error());
 
             } else if (uuidOnly) {
-                auto termList = storage.getTerms(*groupUuid);
+                if (auto termList = storage.getTerms(*groupUuid)) {
+                    UuidList uuids;
+                    for (const auto& term : termList.value())
+                        uuids.push_back(term.uuid);
 
-                UuidList uuids;
-                for (const auto& term : termList)
-                    uuids.push_back(term.uuid);
-
-                auto json = uuidListToStdString("uuids", uuids);
-                return req->create_response().set_body(json).done();
+                    return successResponse(req, uuidListToStdString("uuids", uuids));
+                } else {
+                    return responseForDbError(req, termList.error());
+                }
 
             } else {
-                auto termList = storage.getTerms(*groupUuid);
-                return req->create_response().set_body(containerToStdString("terms", termList)).done();
+                if (auto termList = storage.getTerms(*groupUuid))
+                    return successResponse(req, containerToStdString("terms", termList.value()));
+                else
+                    return responseForDbError(req, termList.error());
             }
         }
 
-        return req->create_response(restinio::status_bad_request()).done();
+        return badRequest(req);
     });
 
     // GET /api/v1/global/terms/:uuid
     router->http_get("/api/v1/global/terms/:uuid", [&storage](auto req, auto params) {
         auto urlParams = restinio::parse_query(req->header().query());
-        if (auto uuid = strToUuid(restinio::cast_to<std::string>(params["uuid"]))) {
+        if (auto uuid = termUuidFromParam(params["uuid"])) {
             bool lastEditOnly = urlParams.has("type") && urlParams["type"] == "last_edit";
 
-            auto term = storage.getTerm(*uuid);
-            return req->create_response().set_body(jsonObjToStr(term.toJson())).done();
+            if (auto term = storage.getTerm(*uuid)) {
+                return successResponse(req, jsonObjToStr(term.value().toJson()));
+            } else {
+                return responseForDbError(req, term.error());
+            }
         }
 
-        return req->create_response(restinio::status_bad_request()).done();
+        return badRequest(req);
     });
 
     // POST /api/v1/global/terms
     router->http_post("/api/v1/global/terms", [&storage](auto req, auto params) {
         if (auto jsonObj = strToJsonObj(req->body())) {
             if (auto term = TermData::fromJson(*jsonObj, false, false)) {
-                if (storage.addTerm(*term)) {
-                    return req->create_response().done();
+                if (auto res = storage.addTerm(*term)) {
+                    return successResponse(req);
+                } else {
+                    return responseForDbError(req, res.error());
                 }
             }
         }
 
-        return req->create_response(restinio::status_bad_request()).done();
+        return badRequest(req);
     });
 
     // PUT /api/v1/global/terms/:uuid
     router->http_put("/api/v1/global/terms/:uuid", [&storage](auto req, auto params) {
-        if (auto uuid = strToUuid(restinio::cast_to<std::string>(params["uuid"]))) {
+        if (auto uuid = uuidFromParam(params["uuid"])) {
             if (auto jsonObj = strToJsonObj(req->body())) {
                 if (auto data = TermData::fromJson(*jsonObj, false, false)) {
                     (*data).uuid = (*uuid);
-                    if (storage.updateTerm(*data, DataStorageInterface::LastEditSource::AutoGenerate, false)) {
-                        return req->create_response().done();
+                    if (auto res = storage.updateTerm(*data, DataStorageInterface::LastEditSource::AutoGenerate, false)) {
+                        return successResponse(req);
+                    } else {
+                        return responseForDbError(req, res.error());
                     }
                 }
             }
         }
 
-        return req->create_response(restinio::status_bad_request()).done();
+        return badRequest(req);
     });
 
     // DELETE /api/v1/global/terms/:uuid
     router->http_delete("/api/v1/global/terms/:uuid", [&storage](auto req, auto params) {
-        if (auto uuid = strToUuid(restinio::cast_to<std::string>(params["uuid"]))) {
-            storage.deleteTerm(*uuid);
-            return req->create_response().done();
+        if (auto uuid = termUuidFromParam(params["uuid"])) {
+            if (auto res = storage.deleteTerm(*uuid)) {
+                return successResponse(req);
+            } else {
+                return responseForDbError(req, res.error());
+            }
         }
 
-        return req->create_response(restinio::status_bad_request()).done();
+        return badRequest(req);
     });
 
     // Launching a server with custom traits.
@@ -277,8 +424,8 @@ int main()
                       .port(listenPort)
                       .request_handler(std::move(router)));
 
-    //    router->http_get(R"(/api/v1/storage_version)")
-    //    int storageVersion() const final;
+    // router->http_get(R"(/api/v1/storage_version)")
+    // int storageVersion() const final;
 
     return 0;
 }

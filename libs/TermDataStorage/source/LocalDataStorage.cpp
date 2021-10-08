@@ -141,10 +141,7 @@ result<TermData::List> LocalDatabaseStorage::getTerms(const GroupUuid& uuid) con
     return impl->db.termTable->getAllNodesInfo(uuid);
 }
 
-result<TermData::List> LocalDatabaseStorage::getTerms(const UuidList& termsUuids) const
-{
-    return DbErrorCodes::UuidNotExist;
-}
+result<TermData::List> LocalDatabaseStorage::getTerms(const UuidList& termsUuids) const { return TermData::List{}; }
 
 result<QDateTime> LocalDatabaseStorage::getTermLastEdit(const TermUuid& uuid) const
 {
