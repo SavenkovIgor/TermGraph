@@ -19,6 +19,6 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.15
+import QtQuick
 
 ThinLine { side: ThinLine.LineSide.Bottom }

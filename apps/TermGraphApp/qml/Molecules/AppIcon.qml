@@ -19,14 +19,14 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.15
-import QtQuick.Window 2.15
-import QtQuick.Controls 2.15
+import QtQuick
+import QtQuick.Window
+import QtQuick.Controls
 // NOTE: Wait for Qt6 implementation
-//import QtGraphicalEffects 1.15
+//import QtGraphicalEffects
 
-import StyleInfo 1.0
-import Atoms 1.0 as A
+import StyleInfo
+import Atoms as A
 
 Item {
     id: padding

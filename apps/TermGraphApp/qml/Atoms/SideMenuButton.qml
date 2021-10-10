@@ -19,11 +19,11 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick
+import QtQuick.Controls
 
-import StyleInfo 1.0
-import Atoms 1.0 as A
+import StyleInfo
+import Atoms as A
 
 Button {
     id: root

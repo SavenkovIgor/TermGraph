@@ -19,11 +19,11 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.15
+import QtQuick
 
-import Api 1.0
+import Api
 
-import Molecules 1.0 as M
+import Molecules as M
 
 M.TextArea {
     id: root

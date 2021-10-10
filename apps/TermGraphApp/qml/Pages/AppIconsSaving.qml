@@ -19,10 +19,10 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick
+import QtQuick.Controls
 
-import Molecules 1.0 as M
+import Molecules as M
 
 M.Page {
 

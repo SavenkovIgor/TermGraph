@@ -19,12 +19,12 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-import QtQuick 2.15
-import QtQuick.Controls 2.15
+import QtQuick
+import QtQuick.Controls
 
-import Atoms 1.0 as A
-import Molecules 1.0 as M
-import StyleInfo 1.0
+import Atoms as A
+import Molecules as M
+import StyleInfo
 
 M.Page {
     title: "Лицензия"
