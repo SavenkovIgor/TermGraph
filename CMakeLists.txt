@@ -22,6 +22,7 @@ cmake_minimum_required (VERSION 3.16.0)
 project (TermGraphPackage VERSION 1.0.0)
 
 option (BUILD_TESTING "Build tests with project" ON)
+option (BUILD_BACKEND "Build backend server" OFF)
 
 if (ANDROID)
     set (BUILD_TESTING OFF)
