@@ -23,27 +23,23 @@ project (TermDataStorage VERSION 1.0.0 LANGUAGES CXX)
 
 find_package (Qt6 COMPONENTS Core Sql REQUIRED)
 
-add_library (${PROJECT_NAME} STATIC)
+add_library (TermDataStorage STATIC)
 
-target_link_libraries (${PROJECT_NAME}
-    PRIVATE
-        CommonTools
-        Qt6::Core
-        Qt6::Sql
-    PUBLIC
-        TermDataInterface)
+target_link_libraries (TermDataStorage PRIVATE CommonTools)
+target_link_libraries (TermDataStorage PRIVATE Qt6::Core Qt6::Sql)
+target_link_libraries (TermDataStorage PUBLIC  TermDataInterface)
 
-set_target_properties (${PROJECT_NAME}
+set_target_properties (TermDataStorage
     PROPERTIES
         AUTORCC ON
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
 
-target_include_directories (${PROJECT_NAME} INTERFACE "./include")
-target_include_directories (${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
+target_include_directories (TermDataStorage INTERFACE "./include")
+target_include_directories (TermDataStorage PRIVATE ${PROJECT_SOURCE_DIR})
 
 # Sql queries
-target_sources (${PROJECT_NAME}
+target_sources (TermDataStorage
     PRIVATE
         include/TermDataStorage/LocalDataStorage.h
         queries/SqlQueries.qrc
@@ -62,19 +58,21 @@ target_sources (${PROJECT_NAME}
         source/tables/TermTable.cpp
         source/tables/TermTable.h)
 
-enable_testing ()
-find_package (GTest REQUIRED)
+if (BUILD_TESTING)
+    enable_testing ()
+    find_package (GTest REQUIRED)
 
-# DB_WORKS_TEST
-add_executable (DB_WORKS_TEST tests/DbWorksTest.cpp)
+    # DB_WORKS_TEST
+    add_executable (DB_WORKS_TEST tests/DbWorksTest.cpp)
 
-set_target_properties (DB_WORKS_TEST PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
+    set_target_properties (DB_WORKS_TEST PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 
-#target_include_directories (DB_WORKS_TEST PRIVATE ${GTest_INCLUDE_DIRS})
-target_link_libraries (DB_WORKS_TEST
-    CommonTools
-    TermDataStorage
-    Qt6::Core
-    GTest::gtest
-    GTest::gtest_main)
+    #target_include_directories (DB_WORKS_TEST PRIVATE ${GTest_INCLUDE_DIRS})
+    target_link_libraries (DB_WORKS_TEST
+        CommonTools
+        TermDataStorage
+        Qt6::Core
+        GTest::gtest
+        GTest::gtest_main)
 
+endif ()

@@ -21,11 +21,11 @@ cmake_minimum_required (VERSION 3.16.0)
 
 project (TermDataInterface VERSION 1.0.0 LANGUAGES CXX)
 
-add_library (${PROJECT_NAME} INTERFACE)
+add_library (TermDataInterface INTERFACE)
 
-target_include_directories (${PROJECT_NAME} INTERFACE "./include")
+target_include_directories (TermDataInterface INTERFACE "./include")
 
-target_sources (${PROJECT_NAME}
+target_sources (TermDataInterface
     INTERFACE
         include/TermDataInterface/DataStorageErrors.h
         include/TermDataInterface/DataStorageInterface.h
@@ -35,4 +35,4 @@ target_sources (${PROJECT_NAME}
         include/TermDataInterface/TermData.h
         include/TermDataInterface/TermUuid.h)
 
-target_link_libraries (${PROJECT_NAME} INTERFACE CommonTools)
+target_link_libraries (TermDataInterface INTERFACE CommonTools)

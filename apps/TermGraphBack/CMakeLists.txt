@@ -25,19 +25,18 @@ if (BUILD_BACKEND)
     find_package (Qt6 COMPONENTS Core REQUIRED)
     find_package (restinio REQUIRED)
 
-    add_executable (${PROJECT_NAME})
+    add_executable (TermGraphBack)
 
-    set_target_properties (${PROJECT_NAME}
+    set_target_properties (TermGraphBack
         PROPERTIES
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
 
     ## Source folder
     file (GLOB_RECURSE ALL_SOURCES source/*.h source/*.hpp source/*.cpp)
-    target_sources (${PROJECT_NAME} PRIVATE ${ALL_SOURCES})
+    target_sources (TermGraphBack PRIVATE ${ALL_SOURCES})
 
-    source_group (Cpp REGULAR_EXPRESSION "source\/.*\.(h|cpp)")
-
-    target_link_libraries (${PROJECT_NAME} PRIVATE CommonTools TermDataInterface TermDataStorage)
-    target_link_libraries (${PROJECT_NAME} PRIVATE Qt6::Core restinio::restinio)
+    target_link_libraries (TermGraphBack PRIVATE CommonTools TermDataInterface TermDataStorage)
+    target_link_libraries (TermGraphBack PRIVATE Qt6::Core)
+    target_link_libraries (TermGraphBack PRIVATE restinio::restinio)
 endif ()
