@@ -36,7 +36,6 @@
 
 // TODO: Remove all "tag" naming
 // TODO: How to mix QProperty & Q_PROPERTY
-// TODO: What about import versions in qml?
 // TODO: Replace Components with component properties
 // TODO: Create GroupsModel
 // TODO: TermDataWrapper to lowercase

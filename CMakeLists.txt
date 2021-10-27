@@ -23,7 +23,6 @@
 # TODO: Optional sql build for WebAssembly
 # TODO: Make network mode for application
 # TODO: Make Android build
-# TODO: Maybe, don't use project_name in cmake files
 
 cmake_minimum_required (VERSION 3.16.0)
 
