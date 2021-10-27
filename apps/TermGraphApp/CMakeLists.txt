@@ -17,17 +17,9 @@
 #  You should have received a copy of the GNU General Public License
 #  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
 
-# TODO: 1) Move tests to appropriate libraries
-
 cmake_minimum_required (VERSION 3.16.0)
 
 project (TermGraph VERSION 2.0.0 LANGUAGES CXX)
-
-option (BUILD_TESTING "Build tests with project" ON)
-
-if (ANDROID)
-    set (BUILD_TESTING OFF)
-endif ()
 
 #set (CMAKE_INCLUDE_CURRENT_DIR ON)
 set (QML_PATH ${PROJECT_SOURCE_DIR}/qml)
@@ -48,15 +40,15 @@ set (QML_IMPORT_PATH "${QML_PATH}" CACHE STRING "" FORCE)
 
 # If you want, android build correctly,
 # This line must be before targets definition
-find_package (Qt6 COMPONENTS Core Gui Widgets Qml Quick QuickControls2 Network Svg REQUIRED)
+find_package (Qt6 COMPONENTS Core Gui Qml Quick QuickControls2 Network Svg REQUIRED)
 
 if (ANDROID)
-    add_library (${PROJECT_NAME} SHARED)
+    add_library (TermGraph SHARED)
 else ()
-    add_executable (${PROJECT_NAME})
+    add_executable (TermGraph)
 endif ()
 
-set_target_properties (${PROJECT_NAME}
+set_target_properties (TermGraph
     PROPERTIES
         AUTOUIC ON
         AUTOMOC ON
@@ -66,43 +58,30 @@ set_target_properties (${PROJECT_NAME}
 #        QT_QML_MODULE_VERSION 1.0
 #        QT_QML_MODULE_URI     Api)
 
-# qt6_qml_type_registration(${PROJECT_NAME})
+# qt6_qml_type_registration(TermGraph)
 
-# Resources folder
-target_sources (${PROJECT_NAME} PRIVATE resources/helpImages/helpImages.qrc resources/icons/icons.qrc)
+# Resources
+source_group (Qrc REGULAR_EXPRESSION ".qrc")
+target_sources (TermGraph PRIVATE "qml/qml.qrc" "resources/helpImages/helpImages.qrc" "resources/icons/icons.qrc")
 
-# Qml folder
-target_sources (${PROJECT_NAME} PRIVATE qml/qml.qrc)
-
-# Some non compilable files
-target_sources (${PROJECT_NAME}
-    PRIVATE
-        android/AndroidManifest.xml
-        android/res/drawable-hdpi/icon.png
-        android/res/drawable-mdpi/icon.png
-        android/res/drawable-ldpi/icon.png)
-
+# Android files
+target_sources (TermGraph PRIVATE android/AndroidManifest.xml)
 
 # Source folder
 file (GLOB_RECURSE ALL_SOURCES source/*.h source/*.hpp source/*.cpp)
-target_sources (${PROJECT_NAME} PRIVATE ${ALL_SOURCES})
+target_sources (TermGraph PRIVATE ${ALL_SOURCES})
 
-target_include_directories (${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
+target_include_directories (TermGraph PRIVATE ${PROJECT_SOURCE_DIR})
 
-source_group (Sql REGULAR_EXPRESSION ".*\.sql")
-source_group (Cpp REGULAR_EXPRESSION "source\/.*\.(h|cpp)")
-source_group (DevTools REGULAR_EXPRESSION ".devTools\/.*")
-source_group (Qml REGULAR_EXPRESSION "qml\/")
 
-target_compile_definitions (${PROJECT_NAME} PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+target_compile_definitions (TermGraph PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
-target_link_libraries (${PROJECT_NAME} PRIVATE CommonTools TermDataInterface TermDataStorage)
+target_link_libraries (TermGraph PRIVATE CommonTools TermDataInterface TermDataStorage)
 
-target_link_libraries (${PROJECT_NAME}
+target_link_libraries (TermGraph
     PRIVATE
         Qt6::Core
         Qt6::Gui
-        Qt6::Widgets
         Qt6::Quick
         Qt6::QuickControls2
         Qt6::Qml

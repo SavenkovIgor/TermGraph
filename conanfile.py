@@ -17,7 +17,7 @@ class TermGraphConan(ConanFile):
 
     def requirements(self):
         if self.options.with_qt:
-            self.requires('qt/6.1.2')
+            self.requires('qt/6.2.1')
 
     def build(self):
         cmake = CMake(self)

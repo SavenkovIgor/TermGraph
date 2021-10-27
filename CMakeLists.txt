@@ -17,6 +17,14 @@
 #  You should have received a copy of the GNU General Public License
 #  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
 
+# TODO: use CMakePresets.json
+# TODO: Proper CTest integration
+# TODO: Split to qml in separate project plugins
+# TODO: Optional sql build for WebAssembly
+# TODO: Make network mode for application
+# TODO: Make Android build
+# TODO: Maybe, don't use project_name in cmake files
+
 cmake_minimum_required (VERSION 3.16.0)
 
 project (TermGraphPackage VERSION 1.0.0)
