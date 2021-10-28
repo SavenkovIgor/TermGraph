@@ -23,7 +23,6 @@
 
 #include "source/helpers/text/chartools.h"
 #include "source/helpers/text/checkingtextcursor.h"
-#include "source/helpers/uuid/uuidtools.h"
 
 Link::Link(QStringView strView, int left, int right)
     : TextRange(strView, left, right)
@@ -53,7 +52,7 @@ QUuid Link::uuid() const
 QString Link::createLinkWithUuid(const QUuid& uuid) const
 {
     auto linkText = mLinkText.toString();
-    linkText += CharTools::linkSplitter + UuidTools::cutBraces(uuid);
+    linkText += CharTools::linkSplitter + uuid.toString(QUuid::WithoutBraces);
     linkText = CharTools::leftBracket + linkText + CharTools::rightBracket;
     return linkText;
 }

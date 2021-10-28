@@ -25,7 +25,6 @@ function (test_case_config TEST_NAME)
         PRIVATE
             ${PROJECT_SOURCE_DIR}
             ${CMAKE_SOURCE_DIR}
-            ${GTest_INCLUDE_DIRS}
             ${TermGraph_SOURCE_DIR})
     target_link_libraries (${TEST_NAME} Qt6::Core GTest::gtest GTest::gtest_main)
     set_target_properties (${TEST_NAME} PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
@@ -50,23 +49,6 @@ add_executable (FS_WORKS_TEST
     fsworkstest.cpp)
 
 test_case_config (FS_WORKS_TEST)
-
-
-# UUIDS_TEST
-add_executable (UUIDS_TEST
-    ../source/helpers/uuid/uuidtools.cpp
-    ../source/helpers/uuid/uuidtools.h
-# TODO: Fix this!
-#    ../source/model/uuid/safeuuid.cpp
-#    ../source/model/uuid/safeuuid.h
-#    ../source/model/uuid/groupuuid.cpp
-#    ../source/model/uuid/groupuuid.h
-#    ../source/model/uuid/termuuid.cpp
-#    ../source/model/uuid/termuuid.h
-    uuidstest.cpp)
-
-test_case_config (UUIDS_TEST)
-target_link_libraries (UUIDS_TEST CommonTools)
 
 # NODE_TEST
 add_executable (NODE_TEST
@@ -137,8 +119,6 @@ add_executable (TEXT_RANGE_TEST
     ../source/helpers/text/textcursor.h
     ../source/helpers/text/textrange.cpp
     ../source/helpers/text/textrange.h
-    ../source/helpers/uuid/uuidtools.cpp
-    ../source/helpers/uuid/uuidtools.h
     textrangetest.cpp)
 
 test_case_config (TEXT_RANGE_TEST)
@@ -160,8 +140,6 @@ add_executable (TEXT_LINK_TEST
     ../source/helpers/text/textcursor.h
     ../source/helpers/text/textrange.cpp
     ../source/helpers/text/textrange.h
-    ../source/helpers/uuid/uuidtools.cpp
-    ../source/helpers/uuid/uuidtools.h
     linktest.cpp)
 
 test_case_config (TEXT_LINK_TEST)
@@ -184,8 +162,6 @@ add_executable (LINK_UTILS_TEST
     ../source/helpers/text/textrange.h
     ../source/helpers/text/textutils.cpp
     ../source/helpers/text/textutils.h
-    ../source/helpers/uuid/uuidtools.cpp
-    ../source/helpers/uuid/uuidtools.h
     linkutilstest.cpp)
 
 test_case_config (LINK_UTILS_TEST)
@@ -208,8 +184,6 @@ add_executable (LINK_DECORATOR_TEST
     ../source/helpers/text/textcursor.h
     ../source/helpers/text/textrange.cpp
     ../source/helpers/text/textrange.h
-    ../source/helpers/uuid/uuidtools.cpp
-    ../source/helpers/uuid/uuidtools.h
     linkdecoratortest.cpp)
 
 test_case_config (LINK_DECORATOR_TEST)

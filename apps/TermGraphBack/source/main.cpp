@@ -16,10 +16,8 @@ using namespace restinio;
 // TODO: Encoding!
 // TODO: Add getFreeUuid for groups
 // TODO: Add getFreeUuid for nodes
-// TODO: Use boost outcome::result class
 // TODO: Add standard database errors
 // TODO: Remove second version of sql executor
-// TODO: Add bool result for deletion
 // TODO: Watch about error codes
 
 std::string jsonObjToStr(QJsonObject obj)

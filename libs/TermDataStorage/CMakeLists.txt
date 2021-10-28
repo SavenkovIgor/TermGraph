@@ -62,17 +62,18 @@ if (BUILD_TESTING)
     enable_testing ()
     find_package (GTest REQUIRED)
 
-    # DB_WORKS_TEST
-    add_executable (DB_WORKS_TEST tests/DbWorksTest.cpp)
+    # TestDbWorks
+    add_executable (TestDbWorks tests/DbWorksTest.cpp)
 
-    set_target_properties (DB_WORKS_TEST PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
+    set_target_properties (TestDbWorks PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 
-    #target_include_directories (DB_WORKS_TEST PRIVATE ${GTest_INCLUDE_DIRS})
-    target_link_libraries (DB_WORKS_TEST
+    target_link_libraries (TestDbWorks
         CommonTools
         TermDataStorage
         Qt6::Core
         GTest::gtest
         GTest::gtest_main)
+
+    add_test (NAME TestDbWorks COMMAND TestDbWorks CONFIGURATIONS Debug)
 
 endif ()

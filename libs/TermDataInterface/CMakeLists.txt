@@ -17,6 +17,9 @@
 #  You should have received a copy of the GNU General Public License
 #  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
 
+# TODO: Maybe move uuids with tests to commonTools
+# TODO: Why includes missed in project tree
+
 cmake_minimum_required (VERSION 3.16.0)
 
 project (TermDataInterface VERSION 1.0.0 LANGUAGES CXX)
@@ -36,3 +39,28 @@ target_sources (TermDataInterface
         include/TermDataInterface/TermUuid.h)
 
 target_link_libraries (TermDataInterface INTERFACE CommonTools)
+
+if (BUILD_TESTING)
+    enable_testing ()
+    find_package (GTest REQUIRED)
+    find_package (Qt6 COMPONENTS Core REQUIRED)
+
+    # TestUuids
+    add_executable (TestUuids
+        include/TermDataInterface/SafeUuid.h
+        include/TermDataInterface/GroupUuid.h
+        include/TermDataInterface/TermUuid.h
+        tests/uuidstest.cpp)
+
+    set_target_properties (TestUuids PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
+
+    target_link_libraries (TestUuids
+        CommonTools
+        TermDataInterface
+        Qt6::Core
+        GTest::gtest
+        GTest::gtest_main)
+
+    add_test (NAME TestUuids COMMAND TestUuids CONFIGURATIONS Debug)
+
+endif ()
