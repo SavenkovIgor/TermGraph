@@ -21,8 +21,8 @@ cmake_minimum_required (VERSION 3.16.0)
 
 project (CommonTools VERSION 1.0.0 LANGUAGES CXX)
 
-add_library (CommonTools INTERFACE)
+add_library (CommonTools
+    INTERFACE
+        include/CommonTools/HandyTypes.h)
 
 target_include_directories (CommonTools INTERFACE "./include")
-
-target_sources (CommonTools INTERFACE include/CommonTools/HandyTypes.h)

@@ -33,49 +33,50 @@ endfunction ()
 
 # TODO: Maybe rework with add_test
 
-# TEXT_UTILS_TEST
-add_executable (TEXT_UTILS_TEST
+# TestTextUtils
+add_executable (TestTextUtils
     ../source/helpers/text/textutils.cpp
     ../source/helpers/text/textutils.h
     textutilstest.cpp)
 
-test_case_config (TEXT_UTILS_TEST)
+test_case_config (TestTextUtils)
 
 
-# FS_WORKS_TEST
-add_executable (FS_WORKS_TEST
+# TestFsWorks
+add_executable (TestFsWorks
     ../source/helpers/fsworks.cpp
     ../source/helpers/fsworks.h
     fsworkstest.cpp)
 
-test_case_config (FS_WORKS_TEST)
+test_case_config (TestFsWorks)
 
-# NODE_TEST
-add_executable (NODE_TEST
+# TestNode
+add_executable (TestNode
     ../source/model/base/node.hpp
     nodetest.cpp)
 
-test_case_config (NODE_TEST)
+test_case_config (TestNode)
 
-# EDGE_TEST
-add_executable (EDGE_TEST
+# TestEdge
+add_executable (TestEdge
     ../source/model/base/node.hpp
     ../source/model/base/edge.hpp
     edgetest.cpp)
 
-test_case_config (EDGE_TEST)
+test_case_config (TestEdge)
 
-# GRAPH_TEST
-add_executable (GRAPH_TEST
+# TestGraph
+add_executable (TestGraph
     ../source/model/base/node.hpp
     ../source/model/base/edge.hpp
     ../source/model/base/graph.hpp
     ../source/model/base/graphdata.hpp
     graphtest.cpp)
 
-test_case_config (GRAPH_TEST)
+test_case_config (TestGraph)
 
-add_executable (FOREST_TEST
+# TestForest
+add_executable (TestForest
     ../source/model/base/node.hpp
     ../source/model/base/edge.hpp
     ../source/model/base/graph.hpp
@@ -84,18 +85,18 @@ add_executable (FOREST_TEST
     ../source/model/enums.h
     foresttest.cpp)
 
-test_case_config (FOREST_TEST)
+test_case_config (TestForest)
 
-# GRAPHIC_ITEM_TEST
-add_executable (GRAPHIC_ITEM_TEST
+# TestGraphicItem
+add_executable (TestGraphicItem
     ../source/model/graphicitem/graphicitem.h
     ../source/model/graphicitem/graphicitem.cpp
     graphicitemtest.cpp)
 
-test_case_config (GRAPHIC_ITEM_TEST)
+test_case_config (TestGraphicItem)
 
-# TEXT_CURSOR_TEST
-add_executable (TEXT_CURSOR_TEST
+# TestTextCursor
+add_executable (TestTextCursor
     ../source/helpers/text/chartools.h
     ../source/helpers/text/checkingtextcursor.cpp
     ../source/helpers/text/checkingtextcursor.h
@@ -103,11 +104,11 @@ add_executable (TEXT_CURSOR_TEST
     ../source/helpers/text/textcursor.h
     cursortest.cpp)
 
-test_case_config (TEXT_CURSOR_TEST)
-target_link_libraries (TEXT_CURSOR_TEST CommonTools)
+test_case_config (TestTextCursor)
+target_link_libraries (TestTextCursor CommonTools)
 
-# TEXT_RANGE_TEST
-add_executable (TEXT_RANGE_TEST
+# TestTextRange
+add_executable (TestTextRange
     ../source/helpers/intmatrix.cpp
     ../source/helpers/intmatrix.h
     ../source/helpers/link/link.cpp
@@ -121,12 +122,12 @@ add_executable (TEXT_RANGE_TEST
     ../source/helpers/text/textrange.h
     textrangetest.cpp)
 
-test_case_config (TEXT_RANGE_TEST)
-target_link_libraries (TEXT_RANGE_TEST CommonTools)
+test_case_config (TestTextRange)
+target_link_libraries (TestTextRange CommonTools)
 
 
-# TEXT_LINK_TEST
-add_executable (TEXT_LINK_TEST
+# TestTextLink
+add_executable (TestTextLink
     ../source/helpers/intmatrix.cpp
     ../source/helpers/intmatrix.h
     ../source/helpers/link/linksstring.cpp
@@ -142,11 +143,11 @@ add_executable (TEXT_LINK_TEST
     ../source/helpers/text/textrange.h
     linktest.cpp)
 
-test_case_config (TEXT_LINK_TEST)
-target_link_libraries (TEXT_LINK_TEST CommonTools)
+test_case_config (TestTextLink)
+target_link_libraries (TestTextLink CommonTools)
 
-# LINK_UTILS_TEST
-add_executable (LINK_UTILS_TEST
+# TestLinkUtils
+add_executable (TestLinkUtils
     ../source/helpers/intmatrix.cpp
     ../source/helpers/intmatrix.h
     ../source/helpers/link/linkutils.cpp
@@ -164,11 +165,11 @@ add_executable (LINK_UTILS_TEST
     ../source/helpers/text/textutils.h
     linkutilstest.cpp)
 
-test_case_config (LINK_UTILS_TEST)
-target_link_libraries (LINK_UTILS_TEST CommonTools)
+test_case_config (TestLinkUtils)
+target_link_libraries (TestLinkUtils CommonTools)
 
-# LINK_DECORATOR_TEST
-add_executable (LINK_DECORATOR_TEST
+# TestLinkDecorator
+add_executable (TestLinkDecorator
     ../source/helpers/intmatrix.cpp
     ../source/helpers/intmatrix.h
     ../source/helpers/link/linksdecorator.cpp
@@ -186,5 +187,5 @@ add_executable (LINK_DECORATOR_TEST
     ../source/helpers/text/textrange.h
     linkdecoratortest.cpp)
 
-test_case_config (LINK_DECORATOR_TEST)
-target_link_libraries (LINK_DECORATOR_TEST Qt6::Gui CommonTools)
+test_case_config (TestLinkDecorator)
+target_link_libraries (TestLinkDecorator Qt6::Gui CommonTools)
