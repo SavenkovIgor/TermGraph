@@ -60,20 +60,10 @@ target_sources (TermDataStorage
 
 if (BUILD_TESTING)
     enable_testing ()
-    find_package (GTest REQUIRED)
 
-    # TestDbWorks
-    add_executable (TestDbWorks tests/DbWorksTest.cpp)
-
-    set_target_properties (TestDbWorks PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
-
-    target_link_libraries (TestDbWorks
-        CommonTools
-        TermDataStorage
-        Qt6::Core
-        GTest::gtest
-        GTest::gtest_main)
-
-    add_test (NAME TestDbWorks COMMAND TestDbWorks CONFIGURATIONS Debug)
+    create_test (
+        NAME      TestDbWorks
+        SOURCES   tests/DbWorksTest.cpp
+        LIBRARIES CommonTools TermDataStorage Qt6::Core)
 
 endif ()

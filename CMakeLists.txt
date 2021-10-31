@@ -18,7 +18,6 @@
 #  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
 
 # TODO: use CMakePresets.json
-# TODO: Proper CTest integration
 # TODO: Split to qml in separate project plugins
 # TODO: Optional sql build for WebAssembly
 # TODO: Make network mode for application
@@ -30,6 +29,10 @@ project (TermGraphPackage VERSION 1.0.0)
 
 option (BUILD_TESTING "Build tests with project" ON)
 option (BUILD_BACKEND "Build backend server" OFF)
+
+list (APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+
+include (TestUtils)
 
 if (ANDROID)
     set (BUILD_TESTING OFF)

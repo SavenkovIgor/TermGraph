@@ -91,5 +91,154 @@ target_link_libraries (TermGraph
 
 
 if (BUILD_TESTING)
-    add_subdirectory (tests)
+    create_test (
+        NAME      TestTextUtils
+        SOURCES
+            source/helpers/text/textutils.cpp
+            source/helpers/text/textutils.h
+            tests/textutilstest.cpp
+        LIBRARIES Qt6::Core)
+
+    create_test (
+        NAME      TestFsWorks
+        SOURCES
+            source/helpers/fsworks.cpp
+            source/helpers/fsworks.h
+            tests/fsworkstest.cpp
+        LIBRARIES Qt6::Core)
+
+    create_test (
+        NAME      TestNode
+        SOURCES
+            source/model/base/node.hpp
+            tests/nodetest.cpp
+        LIBRARIES Qt6::Core)
+
+    create_test (
+        NAME      TestEdge
+        SOURCES
+            source/model/base/node.hpp
+            source/model/base/edge.hpp
+            tests/edgetest.cpp
+        LIBRARIES Qt6::Core)
+
+    create_test (
+        NAME      TestGraph
+        SOURCES
+            source/model/base/node.hpp
+            source/model/base/edge.hpp
+            source/model/base/graph.hpp
+            source/model/base/graphdata.hpp
+            tests/graphtest.cpp
+        LIBRARIES Qt6::Core)
+
+    create_test (
+        NAME      TestForest
+        SOURCES
+            source/model/base/node.hpp
+            source/model/base/edge.hpp
+            source/model/base/graph.hpp
+            source/model/base/graphdata.hpp
+            source/model/base/forest.hpp
+            source/model/enums.h
+            tests/foresttest.cpp
+        LIBRARIES Qt6::Core)
+
+    create_test (
+        NAME      TestGraphicItem
+        SOURCES
+            source/model/graphicitem/graphicitem.h
+            source/model/graphicitem/graphicitem.cpp
+            tests/graphicitemtest.cpp
+        LIBRARIES Qt6::Core)
+
+    create_test (
+        NAME      TestTextCursor
+        SOURCES
+            source/helpers/text/chartools.h
+            source/helpers/text/checkingtextcursor.cpp
+            source/helpers/text/checkingtextcursor.h
+            source/helpers/text/textcursor.cpp
+            source/helpers/text/textcursor.h
+            tests/cursortest.cpp
+        LIBRARIES Qt6::Core CommonTools)
+
+    create_test (
+        NAME      TestTextRange
+        SOURCES
+            source/helpers/intmatrix.cpp
+            source/helpers/intmatrix.h
+            source/helpers/link/link.cpp
+            source/helpers/link/link.h
+            source/helpers/text/chartools.h
+            source/helpers/text/checkingtextcursor.cpp
+            source/helpers/text/checkingtextcursor.h
+            source/helpers/text/textcursor.cpp
+            source/helpers/text/textcursor.h
+            source/helpers/text/textrange.cpp
+            source/helpers/text/textrange.h
+            tests/textrangetest.cpp
+        LIBRARIES Qt6::Core CommonTools)
+
+    create_test (
+        NAME      TestTextLink
+        SOURCES
+            source/helpers/intmatrix.cpp
+            source/helpers/intmatrix.h
+            source/helpers/link/linksstring.cpp
+            source/helpers/link/linksstring.h
+            source/helpers/link/link.cpp
+            source/helpers/link/link.h
+            source/helpers/text/chartools.h
+            source/helpers/text/checkingtextcursor.cpp
+            source/helpers/text/checkingtextcursor.h
+            source/helpers/text/textcursor.cpp
+            source/helpers/text/textcursor.h
+            source/helpers/text/textrange.cpp
+            source/helpers/text/textrange.h
+            tests/linktest.cpp
+        LIBRARIES Qt6::Core CommonTools)
+
+    create_test (
+        NAME      TestLinkUtils
+        SOURCES
+            source/helpers/intmatrix.cpp
+            source/helpers/intmatrix.h
+            source/helpers/link/linkutils.cpp
+            source/helpers/link/linkutils.h
+            source/helpers/link/link.cpp
+            source/helpers/link/link.h
+            source/helpers/text/chartools.h
+            source/helpers/text/checkingtextcursor.cpp
+            source/helpers/text/checkingtextcursor.h
+            source/helpers/text/textcursor.cpp
+            source/helpers/text/textcursor.h
+            source/helpers/text/textrange.cpp
+            source/helpers/text/textrange.h
+            source/helpers/text/textutils.cpp
+            source/helpers/text/textutils.h
+            tests/linkutilstest.cpp
+        LIBRARIES Qt6::Core CommonTools)
+
+    create_test (
+        NAME      TestLinkDecorator
+        SOURCES
+            source/helpers/intmatrix.cpp
+            source/helpers/intmatrix.h
+            source/helpers/link/linksdecorator.cpp
+            source/helpers/link/linksdecorator.h
+            source/helpers/link/linksstring.cpp
+            source/helpers/link/linksstring.h
+            source/helpers/link/link.cpp
+            source/helpers/link/link.h
+            source/helpers/text/chartools.h
+            source/helpers/text/checkingtextcursor.cpp
+            source/helpers/text/checkingtextcursor.h
+            source/helpers/text/textcursor.cpp
+            source/helpers/text/textcursor.h
+            source/helpers/text/textrange.cpp
+            source/helpers/text/textrange.h
+            tests/linkdecoratortest.cpp
+        LIBRARIES Qt6::Core Qt6::Gui CommonTools)
+
 endif ()
