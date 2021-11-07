@@ -27,7 +27,7 @@ import Api
 
 import StyleInfo
 import Atoms as A
-import JsTools
+import Tools
 
 Drawer {
     id : root

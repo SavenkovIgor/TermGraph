@@ -23,7 +23,7 @@ project (TermGraph VERSION 2.0.0 LANGUAGES CXX)
 
 #set (CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set(QML_IMPORT_PATH ${CMAKE_CURRENT_BINARY_DIR} CACHE STRING "" FORCE)
+set (QML_IMPORT_PATH "${CMAKE_CURRENT_BINARY_DIR};${ToolsModule_BINARY_DIR}" CACHE STRING "" FORCE)
 
 # If you want, android build correctly,
 # This line must be before targets definition
@@ -33,7 +33,6 @@ qt_add_executable (TermGraph MANUAL_FINALIZATION)
 
 set_target_properties (TermGraph
     PROPERTIES
-        AUTOUIC ON
         AUTOMOC ON
         AUTORCC ON
         CXX_STANDARD 20
@@ -67,7 +66,10 @@ target_include_directories (TermGraph PRIVATE ${PROJECT_SOURCE_DIR})
 
 target_compile_definitions (TermGraph PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
+add_subdirectory (qmlModules/Tools)
+
 target_link_libraries (TermGraph PRIVATE CommonTools TermDataInterface TermDataStorage)
+target_link_libraries (TermGraph PRIVATE ToolsModuleplugin)
 
 target_link_libraries (TermGraph
     PRIVATE
@@ -78,21 +80,6 @@ target_link_libraries (TermGraph
         Qt6::Qml
         Qt6::Network
         Qt6::Svg)
-
-# JsTools module
-set_source_files_properties (
-        qml/JsTools/Debug.qml
-        qml/JsTools/Tools.qml
-    PROPERTIES
-        QT_QML_SINGLETON_TYPE TRUE)
-
-qt_add_qml_module (TermGraph
-    URI JsTools
-    VERSION 1.0
-    QML_FILES
-        qml/JsTools/Debug.qml
-        qml/JsTools/Tools.qml)
-
 
 qt_finalize_executable (TermGraph)
 

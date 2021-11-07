@@ -23,6 +23,7 @@
 #include <QDir>
 #include <QSurface>
 #include <QtQuickControls2/QQuickStyle>
+#include <QtQml/qqmlextensionplugin.h>
 
 #include "source/application.h"
 #include "source/helpers/platform.h"
@@ -34,6 +35,8 @@
 #endif
 
 // TODO: Use new uuids!
+
+Q_IMPORT_QML_PLUGIN(ToolsPlugin);
 
 int main(int argc, char* argv[])
 {

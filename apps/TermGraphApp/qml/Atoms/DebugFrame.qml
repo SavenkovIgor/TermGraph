@@ -21,7 +21,7 @@
 
 import QtQuick
 
-import JsTools
+import Tools
 
 Rectangle {
     id: debugFrame

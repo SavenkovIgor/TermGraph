@@ -30,7 +30,7 @@ import Atoms as A
 import Molecules as M
 import Pages as P
 
-import JsTools
+import Tools
 import StyleInfo
 
 M.Page {
