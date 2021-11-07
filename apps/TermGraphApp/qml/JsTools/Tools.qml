@@ -19,24 +19,28 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-.pragma library
+pragma Singleton
 
-function clamp(num, min, max) {
-    return num <= min ? min : num >= max ? max : num;
-}
+import QtQml
 
-function clampPoint(point, size) {
-    point.x = clamp(point.x, 0, size.width);
-    point.y = clamp(point.y, 0, size.height);
-    return point;
-}
+QtObject {
+    function clamp(num, min, max) {
+        return num <= min ? min : num >= max ? max : num;
+    }
 
-function scalePoint(point, scale) {
-    point.x *= scale;
-    point.y *= scale;
-    return point;
-}
+    function clampPoint(point, size) {
+        point.x = clamp(point.x, 0, size.width);
+        point.y = clamp(point.y, 0, size.height);
+        return point;
+    }
 
-function scaleSize(size, scale) {
-    return Qt.size(size.width * scale, size.height * scale);
+    function scalePoint(point, scale) {
+        point.x *= scale;
+        point.y *= scale;
+        return point;
+    }
+
+    function scaleSize(size, scale) {
+        return Qt.size(size.width * scale, size.height * scale);
+    }
 }

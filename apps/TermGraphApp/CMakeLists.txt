@@ -22,31 +22,14 @@ cmake_minimum_required (VERSION 3.16.0)
 project (TermGraph VERSION 2.0.0 LANGUAGES CXX)
 
 #set (CMAKE_INCLUDE_CURRENT_DIR ON)
-set (QML_PATH ${PROJECT_SOURCE_DIR}/qml)
-set (QML_IMPORT_PATH "${QML_PATH}" CACHE STRING "" FORCE)
 
-# QtCreator supports the following variables for Android, which are identical to qmake Android variables.
-# Check http://doc.qt.io/qt-5/deployment-android.html for more information.
-# They need to be set before the find_package(Qt5 ...) call.
-
-#if (ANDROID)
-#    set (ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    #    if (ANDROID_ABI STREQUAL "armeabi-v7a")
-    #        set(ANDROID_EXTRA_LIBS
-    #            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libcrypto.so
-    #            ${CMAKE_CURRENT_SOURCE_DIR}/path/to/libssl.so)
-    #    endif()
-#endif ()
+set(QML_IMPORT_PATH ${CMAKE_CURRENT_BINARY_DIR} CACHE STRING "" FORCE)
 
 # If you want, android build correctly,
 # This line must be before targets definition
 find_package (Qt6 COMPONENTS Core Gui Qml Quick QuickControls2 Network Svg REQUIRED)
 
-if (ANDROID)
-    add_library (TermGraph SHARED)
-else ()
-    add_executable (TermGraph)
-endif ()
+qt_add_executable (TermGraph MANUAL_FINALIZATION)
 
 set_target_properties (TermGraph
     PROPERTIES
@@ -57,6 +40,14 @@ set_target_properties (TermGraph
         CXX_STANDARD_REQUIRED ON)
 #        QT_QML_MODULE_VERSION 1.0
 #        QT_QML_MODULE_URI     Api)
+
+# Define target properties for Android with Qt 6 as:
+if (ANDROID)
+    set_target_properties (TermGraph
+        PROPERTIES QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android)
+endif ()
+
+# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
 
 # qt6_qml_type_registration(TermGraph)
 
@@ -88,6 +79,22 @@ target_link_libraries (TermGraph
         Qt6::Network
         Qt6::Svg)
 
+# JsTools module
+set_source_files_properties (
+        qml/JsTools/Debug.qml
+        qml/JsTools/Tools.qml
+    PROPERTIES
+        QT_QML_SINGLETON_TYPE TRUE)
+
+qt_add_qml_module (TermGraph
+    URI JsTools
+    VERSION 1.0
+    QML_FILES
+        qml/JsTools/Debug.qml
+        qml/JsTools/Tools.qml)
+
+
+qt_finalize_executable (TermGraph)
 
 
 if (BUILD_TESTING)

@@ -27,9 +27,6 @@
         <file>Atoms/ToolTip.qml</file>
         <file>Atoms/TopRoundedRect.qml</file>
         <file>Atoms/qmldir</file>
-        <file>JsTools/Debug.js</file>
-        <file>JsTools/Tools.js</file>
-        <file>JsTools/qmldir</file>
         <file>Learning/CardsStartScreen.qml</file>
         <file>Learning/LearnCard.qml</file>
         <file>Learning/LearnGroupsList.qml</file>
