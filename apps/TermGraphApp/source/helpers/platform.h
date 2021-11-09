@@ -28,7 +28,7 @@ class Platform
 private:
     enum class PlatformType { Linux = 0, Windows, MacOS, Android, IOS };
 
-    constexpr static PlatformType currentPlatform()
+    consteval static PlatformType currentPlatform()
     {
 #if defined(Q_OS_ANDROID)
         return PlatformType::Android;
@@ -48,20 +48,20 @@ private:
     }
 
 public:
-    constexpr static bool isDesktop()
+    consteval static bool isDesktop()
     {
         return currentPlatform() == PlatformType::Linux || currentPlatform() == PlatformType::Windows
             || currentPlatform() == PlatformType::MacOS;
     }
 
-    constexpr static bool isMobile()
+    consteval static bool isMobile()
     {
         return currentPlatform() == PlatformType::Android || currentPlatform() == PlatformType::IOS;
     }
 
-    constexpr static bool isLinux() { return currentPlatform() == PlatformType::Linux; }
-    constexpr static bool isWindows() { return currentPlatform() == PlatformType::Windows; }
-    constexpr static bool isMacOs() { return currentPlatform() == PlatformType::MacOS; }
-    constexpr static bool isAndroid() { return currentPlatform() == PlatformType::Android; }
-    constexpr static bool isIos() { return currentPlatform() == PlatformType::IOS; }
+    consteval static bool isLinux() { return currentPlatform() == PlatformType::Linux; }
+    consteval static bool isWindows() { return currentPlatform() == PlatformType::Windows; }
+    consteval static bool isMacOs() { return currentPlatform() == PlatformType::MacOS; }
+    consteval static bool isAndroid() { return currentPlatform() == PlatformType::Android; }
+    consteval static bool isIos() { return currentPlatform() == PlatformType::IOS; }
 };

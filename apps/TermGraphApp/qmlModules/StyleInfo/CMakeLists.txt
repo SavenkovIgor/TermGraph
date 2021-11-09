@@ -19,18 +19,18 @@
 
 cmake_minimum_required (VERSION 3.16.0)
 
-project (ToolsModule LANGUAGES CXX)
+project (StyleInfoModule LANGUAGES CXX)
 
-qt_add_library (ToolsModule STATIC)
+qt_add_library (StyleInfoModule STATIC)
 
-set_target_properties (ToolsModule
+set_target_properties (StyleInfoModule
     PROPERTIES
         AUTOMOC ON
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
 
-set (QML_SOURCES Debug.qml Tools.qml)
+set (QML_SOURCES Colors.qml Fonts.qml IconPath.qml Sizes.qml)
 
 set_source_files_properties (${QML_SOURCES} PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
 
-qt_add_qml_module (ToolsModule URI Tools VERSION 1.0 QML_FILES ${QML_SOURCES})
+qt_add_qml_module (StyleInfoModule URI StyleInfo VERSION 1.0 QML_FILES ${QML_SOURCES})

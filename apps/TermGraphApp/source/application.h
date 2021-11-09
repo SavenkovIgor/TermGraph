@@ -40,9 +40,6 @@
 // TODO: Create GroupsModel
 // TODO: TermDataWrapper to lowercase
 // TODO: What is "QQmlEngine::setContextForObject(): Object already has a QQmlContext"
-// TODO: What with versioning in my qmldirs?
-// TODO: Move getUiElementSize to separate class (maybe singleton+properties)
-// TODO: Move all type registration to proper file
 // TODO: Add namespace to graph
 
 class Application : public QObject
@@ -55,12 +52,7 @@ public:
 
     Q_INVOKABLE QString screenshotFilePath(const QString& fileName);
 
-    Q_INVOKABLE int getUiElementSize(const QString& elementTypeName);
-
 private:
-    void               initElemSizes();
-    QMap<QString, int> elementSizes;
-
     FirstStartPreparer initPreparer;
 
     // Independent init
@@ -73,6 +65,4 @@ private:
     QScopedPointer<SyncManager>           syncManager;
     QScopedPointer<MainScene>             scene;
     QScopedPointer<QQmlApplicationEngine> qmlEngine;
-
-    static qreal screenPixelDensity();
 };

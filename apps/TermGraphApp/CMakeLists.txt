@@ -67,9 +67,10 @@ target_include_directories (TermGraph PRIVATE ${PROJECT_SOURCE_DIR})
 target_compile_definitions (TermGraph PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
 
 add_subdirectory (qmlModules/Tools)
+add_subdirectory (qmlModules/StyleInfo)
 
 target_link_libraries (TermGraph PRIVATE CommonTools TermDataInterface TermDataStorage)
-target_link_libraries (TermGraph PRIVATE ToolsModuleplugin)
+target_link_libraries (TermGraph PRIVATE ToolsModuleplugin StyleInfoModuleplugin)
 
 target_link_libraries (TermGraph
     PRIVATE

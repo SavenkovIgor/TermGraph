@@ -67,11 +67,6 @@
         <file>Pages/Settings/NetworkSettings.qml</file>
         <file>Pages/TermView.qml</file>
         <file>Pages/qmldir</file>
-        <file>StyleInfo/Colors.js</file>
-        <file>StyleInfo/Fonts.js</file>
-        <file>StyleInfo/IconPath.js</file>
-        <file>StyleInfo/Sizes.js</file>
-        <file>StyleInfo/qmldir</file>
         <file>main.qml</file>
     </qresource>
 </RCC>

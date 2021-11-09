@@ -37,6 +37,16 @@
 // TODO: Use new uuids!
 
 Q_IMPORT_QML_PLUGIN(ToolsPlugin);
+Q_IMPORT_QML_PLUGIN(StyleInfoPlugin);
+
+void setSurfaceFormat()
+{
+    // This is need for good aliasing of term edges on qml scene
+    // for desktop & mobile
+    QSurfaceFormat format = QSurfaceFormat::defaultFormat();
+    format.setSamples(Platform::isDesktop() ? 8 : 4);
+    QSurfaceFormat::setDefaultFormat(format);
+}
 
 int main(int argc, char* argv[])
 {
@@ -46,10 +56,7 @@ int main(int argc, char* argv[])
 
     QQuickStyle::setStyle("Material"); // Important thing for styles!
 
-    // This is need for good aliasing on desktop & mobile
-    QSurfaceFormat format = QSurfaceFormat::defaultFormat();
-    format.setSamples(Platform::isDesktop() ? 8 : 4);
-    QSurfaceFormat::setDefaultFormat(format);
+    setSurfaceFormat();
 
     Application w;
 

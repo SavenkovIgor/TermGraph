@@ -39,8 +39,6 @@ Application::Application(QObject* parent)
     , scene(new MainScene(groupsManager.get()))
     , qmlEngine(new QQmlApplicationEngine())
 {
-    initElemSizes();
-
     groupsManager->updateGroupUuidNameMaps();
 
     // remind = new Reminder(scene->getAllNodes());
@@ -77,53 +75,4 @@ QString Application::screenshotFilePath(const QString& fileName)
 
     NotificationManager::showError("Директория для записи не найдена");
     return "";
-}
-
-int Application::getUiElementSize(const QString& elementTypeName)
-{
-    if (elementSizes.contains(elementTypeName)) {
-        // чтобы эти значения не вставлялись. на всякий случай
-        auto screenDencity       = Application::screenPixelDensity();
-        auto screenCorrectedSize = screenDencity * elementSizes[elementTypeName];
-        return static_cast<int>(screenCorrectedSize);
-    }
-
-    NotificationManager::showDebug(QString("Отсутствует размер для элемента: %1").arg(elementTypeName));
-    return 0;
-}
-
-void Application::initElemSizes()
-{
-    if constexpr (Platform::isDesktop()) {
-        // Screen.pixelDencity - pixel in millimeters
-        elementSizes["roundButton"] = 15;
-        elementSizes["text"]        = 5;
-        elementSizes["capitalText"] = 6;
-        elementSizes["inputLabel"]  = 7;
-        elementSizes["inputText"]   = 6;
-        elementSizes["button"]      = 5;
-        elementSizes["colSpace"]    = 4;
-        elementSizes["appHeader"]   = 9;
-    }
-
-    if constexpr (Platform::isAndroid()) {
-        elementSizes["roundButton"] = 9;
-        elementSizes["text"]        = 4;
-        elementSizes["capitalText"] = 5;
-        elementSizes["inputLabel"]  = 4;
-        elementSizes["inputText"]   = 4;
-        elementSizes["button"]      = 4;
-        elementSizes["colSpace"]    = 2;
-        elementSizes["appHeader"]   = 6;
-    }
-}
-
-qreal Application::screenPixelDensity()
-{
-    const qreal inchToMillimeterRatio = 0.039370;
-
-    auto dotsPerInch        = qApp->primaryScreen()->physicalDotsPerInch();
-    auto dontsPerMillimeter = dotsPerInch * inchToMillimeterRatio;
-
-    return dontsPerMillimeter;
 }

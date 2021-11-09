@@ -19,16 +19,18 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-.import Api 1.0 as Api
+pragma Singleton
 
-var baseX100 = base * 2;
-var baseX75  = base * 1.75;
-var baseX50  = base * 1.5;
-var baseX25  = base * 1.25;
-var base     = Api.Application.getUiElementSize("roundButton");
-var baseR25  = base * 0.75;
-var baseR50  = base * 0.5;
-var baseR75  = base * 0.25;
+import QtQml
 
-var button = Api.Application.getUiElementSize("button");
-var colSpace = Api.Application.getUiElementSize("colSpace");
+QtObject {
+    readonly property color black         : "#000000"
+    readonly property color white         : "#e8e8e8"
+    readonly property color whiteDisabled : "#9c9c9c"
+    readonly property color base          : "#332f30"
+    readonly property color baseLight     : "#4f4f4f"
+    readonly property color baseLight2    : "#464544"
+    readonly property color baseLight3    : "#6f6f6f"
+    readonly property color accent        : "#2f7ba3"
+    readonly property color yellow        : "#e5b41f"
+}

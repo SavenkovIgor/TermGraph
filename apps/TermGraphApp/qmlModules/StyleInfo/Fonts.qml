@@ -19,17 +19,20 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-.import Api 1.0 as Api
+pragma Singleton
 
-const header      = Qt.font({ pixelSize: Api.Application.getUiElementSize("appHeader"), weight: 30 });
-const inputLabel  = Qt.font({ pixelSize: Api.Application.getUiElementSize("inputLabel") });
-const capitalText = Qt.font({ pixelSize: Api.Application.getUiElementSize("capitalText") });
-const inputText   = Qt.font({ pixelSize: Api.Application.getUiElementSize("inputText") });
-const text        = Qt.font({ pixelSize: Api.Application.getUiElementSize("text") });
-const term        = Qt.font({ family: "Arial sans-serif", pointSize: 10 });
+import QtQml
 
-function setWeight(font, weight) {
-    font.weight = weight;
-    return font;
+QtObject {
+    readonly property font capitalText : Qt.font({ pixelSize: Sizes.capitalText });
+    readonly property font header      : Qt.font({ pixelSize: Sizes.appHeader, weight: 30 });
+    readonly property font inputLabel  : Qt.font({ pixelSize: Sizes.inputLabel });
+    readonly property font inputText   : Qt.font({ pixelSize: Sizes.inputText });
+    readonly property font term        : Qt.font({ family: "Arial sans-serif", pointSize: 10 });
+    readonly property font text        : Qt.font({ pixelSize: Sizes.text });
+
+    function setWeight(font, weight) {
+        font.weight = weight;
+        return font;
+    }
 }
-
