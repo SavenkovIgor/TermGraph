@@ -1,32 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>Atoms/AccentText.qml</file>
-        <file>Atoms/BottomThinLine.qml</file>
-        <file>Atoms/ComboBox.qml</file>
-        <file>Atoms/DebugFrame.qml</file>
-        <file>Atoms/DrawerPage.qml</file>
-        <file>Atoms/Edge.qml</file>
-        <file>Atoms/FlickableColumn.qml</file>
-        <file>Atoms/Hex.qml</file>
-        <file>Atoms/MouseArea.qml</file>
-        <file>Atoms/PageHeader.qml</file>
-        <file>Atoms/PageTitleLabel.qml</file>
-        <file>Atoms/PinBar.qml</file>
-        <file>Atoms/RightThinLine.qml</file>
-        <file>Atoms/Round.qml</file>
-        <file>Atoms/RoundButton.qml</file>
-        <file>Atoms/RoundedRectangle.qml</file>
-        <file>Atoms/ScrollIndicator.qml</file>
-        <file>Atoms/SideMenuButton.qml</file>
-        <file>Atoms/SmallInfoText.qml</file>
-        <file>Atoms/SquareButton.qml</file>
-        <file>Atoms/Term.qml</file>
-        <file>Atoms/ThinLine.qml</file>
-        <file>Atoms/Timer.qml</file>
-        <file>Atoms/ToolButton.qml</file>
-        <file>Atoms/ToolTip.qml</file>
-        <file>Atoms/TopRoundedRect.qml</file>
-        <file>Atoms/qmldir</file>
         <file>Learning/CardsStartScreen.qml</file>
         <file>Learning/LearnCard.qml</file>
         <file>Learning/LearnGroupsList.qml</file>

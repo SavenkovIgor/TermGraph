@@ -23,8 +23,6 @@ project (TermGraph VERSION 2.0.0 LANGUAGES CXX)
 
 #set (CMAKE_INCLUDE_CURRENT_DIR ON)
 
-set (QML_IMPORT_PATH "${CMAKE_CURRENT_BINARY_DIR};${ToolsModule_BINARY_DIR}" CACHE STRING "" FORCE)
-
 # If you want, android build correctly,
 # This line must be before targets definition
 find_package (Qt6 COMPONENTS Core Gui Qml Quick QuickControls2 Network Svg REQUIRED)
@@ -68,9 +66,17 @@ target_compile_definitions (TermGraph PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:Re
 
 add_subdirectory (qmlModules/Tools)
 add_subdirectory (qmlModules/StyleInfo)
+add_subdirectory (qmlModules/Atoms)
+
+set (QML_IMPORT_PATH
+        ${CMAKE_CURRENT_BINARY_DIR}
+        ${ToolsModule_BINARY_DIR}
+        ${StyleInfoModule_BINARY_DIR}
+        ${AtomsModule_BINARY_DIR}
+    CACHE STRING "" FORCE)
 
 target_link_libraries (TermGraph PRIVATE CommonTools TermDataInterface TermDataStorage)
-target_link_libraries (TermGraph PRIVATE ToolsModuleplugin StyleInfoModuleplugin)
+target_link_libraries (TermGraph PRIVATE ToolsModuleplugin StyleInfoModuleplugin AtomsModuleplugin)
 
 target_link_libraries (TermGraph
     PRIVATE
