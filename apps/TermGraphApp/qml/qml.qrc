@@ -5,28 +5,6 @@
         <file>Learning/LearnGroupsList.qml</file>
         <file>Learning/LearnMode.qml</file>
         <file>Learning/qmldir</file>
-        <file>Molecules/AppIcon.qml</file>
-        <file>Molecules/BurgerButton.qml</file>
-        <file>Molecules/DefaultHeader.qml</file>
-        <file>Molecules/EdgeHardeningDrawer.qml</file>
-        <file>Molecules/EmptyView.qml</file>
-        <file>Molecules/HelpCard.qml</file>
-        <file>Molecules/HelpView.qml</file>
-        <file>Molecules/LabelPair.qml</file>
-        <file>Molecules/LoadingIcon.qml</file>
-        <file>Molecules/LoadingInProcess.qml</file>
-        <file>Molecules/MainAppDrawer.qml</file>
-        <file>Molecules/NodesScene.qml</file>
-        <file>Molecules/NotificationDrawer.qml</file>
-        <file>Molecules/Page.qml</file>
-        <file>Molecules/SearchDrawer.qml</file>
-        <file>Molecules/SideMenuHeader.qml</file>
-        <file>Molecules/StdDialog.qml</file>
-        <file>Molecules/TagEditorArea.qml</file>
-        <file>Molecules/TermInfoDrawer.qml</file>
-        <file>Molecules/TextArea.qml</file>
-        <file>Molecules/TextField.qml</file>
-        <file>Molecules/qmldir</file>
         <file>Pages/AppIconsSaving.qml</file>
         <file>Pages/EditNode.qml</file>
         <file>Pages/GroupsList.qml</file>

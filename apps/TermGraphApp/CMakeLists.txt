@@ -67,16 +67,18 @@ target_compile_definitions (TermGraph PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:Re
 add_subdirectory (qmlModules/Tools)
 add_subdirectory (qmlModules/StyleInfo)
 add_subdirectory (qmlModules/Atoms)
+add_subdirectory (qmlModules/Molecules)
 
 set (QML_IMPORT_PATH
         ${CMAKE_CURRENT_BINARY_DIR}
         ${ToolsModule_BINARY_DIR}
         ${StyleInfoModule_BINARY_DIR}
         ${AtomsModule_BINARY_DIR}
+        ${MoleculesModule_BINARY_DIR}
     CACHE STRING "" FORCE)
 
 target_link_libraries (TermGraph PRIVATE CommonTools TermDataInterface TermDataStorage)
-target_link_libraries (TermGraph PRIVATE ToolsModuleplugin StyleInfoModuleplugin AtomsModuleplugin)
+target_link_libraries (TermGraph PRIVATE ToolsModuleplugin StyleInfoModuleplugin AtomsModuleplugin MoleculesModuleplugin)
 
 target_link_libraries (TermGraph
     PRIVATE
