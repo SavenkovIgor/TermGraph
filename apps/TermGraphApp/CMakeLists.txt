@@ -68,6 +68,7 @@ add_subdirectory (qmlModules/Tools)
 add_subdirectory (qmlModules/StyleInfo)
 add_subdirectory (qmlModules/Atoms)
 add_subdirectory (qmlModules/Molecules)
+add_subdirectory (qmlModules/Pages)
 
 set (QML_IMPORT_PATH
         ${CMAKE_CURRENT_BINARY_DIR}
@@ -75,10 +76,17 @@ set (QML_IMPORT_PATH
         ${StyleInfoModule_BINARY_DIR}
         ${AtomsModule_BINARY_DIR}
         ${MoleculesModule_BINARY_DIR}
+        ${PagesModule_BINARY_DIR}
     CACHE STRING "" FORCE)
 
 target_link_libraries (TermGraph PRIVATE CommonTools TermDataInterface TermDataStorage)
-target_link_libraries (TermGraph PRIVATE ToolsModuleplugin StyleInfoModuleplugin AtomsModuleplugin MoleculesModuleplugin)
+target_link_libraries (TermGraph
+    PRIVATE
+        ToolsModuleplugin
+        StyleInfoModuleplugin
+        AtomsModuleplugin
+        MoleculesModuleplugin
+        PagesModuleplugin)
 
 target_link_libraries (TermGraph
     PRIVATE

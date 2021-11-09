@@ -1,23 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>Learning/CardsStartScreen.qml</file>
-        <file>Learning/LearnCard.qml</file>
-        <file>Learning/LearnGroupsList.qml</file>
-        <file>Learning/LearnMode.qml</file>
-        <file>Learning/qmldir</file>
-        <file>Pages/AppIconsSaving.qml</file>
-        <file>Pages/EditNode.qml</file>
-        <file>Pages/GroupsList.qml</file>
-        <file>Pages/MainScene.qml</file>
-        <file>Pages/NewNode.qml</file>
-        <file>Pages/OnBoard.qml</file>
-        <file>Pages/Settings.qml</file>
-        <file>Pages/Settings/Database.qml</file>
-        <file>Pages/Settings/Help.qml</file>
-        <file>Pages/Settings/License.qml</file>
-        <file>Pages/Settings/NetworkSettings.qml</file>
-        <file>Pages/TermView.qml</file>
-        <file>Pages/qmldir</file>
         <file>main.qml</file>
     </qresource>
 </RCC>

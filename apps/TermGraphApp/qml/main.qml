@@ -26,7 +26,7 @@ import QtQuick.Controls.Material
 
 import Api
 
-import Learning
+//import Learning
 import StyleInfo
 import Atoms as A
 import Molecules as M
@@ -57,7 +57,7 @@ ApplicationWindow {
         }
     }
     Component { id: groupsListComponent;  P.GroupsList { } }
-    Component { id: learnGroupsComponent; LearnGroupsList { } }
+//    Component { id: learnGroupsComponent; LearnGroupsList { } }
     Component { id: settingsComponent;    P.Settings { } }
     Component {
         id: onBoardComponent
