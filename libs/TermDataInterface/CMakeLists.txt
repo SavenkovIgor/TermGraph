@@ -20,7 +20,7 @@
 # TODO: Maybe move uuids with tests to commonTools
 # TODO: Why includes missed in project tree
 
-cmake_minimum_required (VERSION 3.16.0)
+cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
 project (TermDataInterface VERSION 1.0.0 LANGUAGES CXX)
 

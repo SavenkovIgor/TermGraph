@@ -17,7 +17,7 @@
 #  You should have received a copy of the GNU General Public License
 #  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
 
-cmake_minimum_required (VERSION 3.16.0)
+cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
 project (CommonTools VERSION 1.0.0 LANGUAGES CXX)
 

@@ -25,10 +25,10 @@
 
 cmake_minimum_required (VERSION 3.16.0)
 
-project (TermGraphPackage VERSION 1.0.0)
+project (TermGraphPackage)
 
 option (BUILD_TESTING "Build tests with project" ON)
-option (BUILD_BACKEND "Build backend server" OFF)
+option (BUILD_BACKEND "Build backend server"     OFF)
 
 list (APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
