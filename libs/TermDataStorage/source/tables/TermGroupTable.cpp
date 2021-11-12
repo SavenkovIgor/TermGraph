@@ -45,7 +45,7 @@ result<void> TermGroupTable::addGroup(const GroupData& info)
     auto query = SqlQueryBuilder().insertGroup(groupInfo);
     DbTools::startQuery2(query);
 
-    return boost::outcome_v2::success();
+    return outcome::success();
 }
 
 result<void> TermGroupTable::updateGroup(const GroupData& info)
@@ -67,7 +67,7 @@ result<void> TermGroupTable::updateGroup(const GroupData& info)
     auto query = SqlQueryBuilder().updateGroup(info);
     DbTools::startQuery2(query);
 
-    return boost::outcome_v2::success();
+    return outcome::success();
 }
 
 GroupUuid::List TermGroupTable::getAllUuids()
@@ -96,7 +96,7 @@ result<void> TermGroupTable::deleteGroup(const GroupUuid& uuid)
 
     auto query = SqlQueryBuilder().deleteGroup(uuid.get());
     DbTools::startQuery2(query);
-    return boost::outcome_v2::success();
+    return outcome::success();
 }
 
 bool TermGroupTable::groupExist(const QUuid& uuid)

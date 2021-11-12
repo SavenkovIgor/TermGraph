@@ -68,7 +68,7 @@ result<void> TermTable::addNode(const TermData& info)
     auto query = SqlQueryBuilder().insertTerm(termInfo);
     DbTools::startQuery2(query);
 
-    return boost::outcome_v2::success();
+    return outcome::success();
 }
 
 result<void> TermTable::deleteTerm(const TermUuid& uuid)
@@ -79,7 +79,7 @@ result<void> TermTable::deleteTerm(const TermUuid& uuid)
     auto query = SqlQueryBuilder().deleteTerm(uuid.get());
     DbTools::startQuery2(query);
 
-    return boost::outcome_v2::success();
+    return outcome::success();
 }
 
 void TermTable::initTable()
@@ -218,7 +218,7 @@ result<void> TermTable::updateNode(const TermData&                      info,
     auto query = SqlQueryBuilder().updateTerm(nodeContainer);
     DbTools::startQuery2(query);
 
-    return boost::outcome_v2::success();
+    return outcome::success();
 }
 
 TermData TermTable::recordToNodeInfo(QSqlRecord& record)

@@ -21,8 +21,12 @@ cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
 project (CommonTools VERSION 1.0.0 LANGUAGES CXX)
 
+find_package (outcome REQUIRED)
+
 add_library (CommonTools
     INTERFACE
         include/CommonTools/HandyTypes.h)
 
 target_include_directories (CommonTools INTERFACE "./include")
+
+target_link_libraries (CommonTools INTERFACE outcome::outcome)

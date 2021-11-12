@@ -24,11 +24,13 @@
 #include <optional>
 #include <vector>
 
-#include <boost/outcome/std_result.hpp>
+#include <outcome.hpp>
 
 #include <QSizeF>
 #include <QUuid>
 #include <QtSql/QSqlRecord>
+
+namespace outcome = OUTCOME_V2_NAMESPACE;
 
 using UuidList   = std::vector<QUuid>;
 using SizeList   = std::vector<QSizeF>;
@@ -38,6 +40,6 @@ template<typename T>
 using opt = std::optional<T>;
 
 template<typename T>
-using result = boost::outcome_v2::std_result<T>;
+using result = outcome::std_result<T>;
 
 enum class Direction { Left, Right };
