@@ -43,19 +43,6 @@ Control {
         }
     }
 
-    function makeScreenshot() {
-        grabToImage(function(result){
-            const groupName = Scene.currentGroup.name;
-            const name = Application.screenshotFilePath(groupName);
-            if (name !== "") {
-                result.saveToFile(name);
-                Notification.showInfo("Снимок группы создан. Путь:" + name);
-            } else {
-                Notification.showInfo("Снимок не создан((");
-            }
-        });
-    }
-
     Component { id: edgeComponent; A.Edge { } }
 
     function createEdge(parent, edgeInfo) {

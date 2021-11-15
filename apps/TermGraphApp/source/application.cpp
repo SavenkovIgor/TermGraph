@@ -53,26 +53,3 @@ Application::Application(QObject* parent)
     qmlEngine->addImportPath(QStringLiteral("qrc:/"));
     qmlEngine->load(QStringLiteral("qrc:/main.qml"));
 }
-
-QString Application::screenshotFilePath(const QString& fileName)
-{
-    assert(!fileName.isEmpty());
-
-    QStringList checkPaths;
-
-    checkPaths << QStandardPaths::standardLocations(QStandardPaths::PicturesLocation);
-    checkPaths << QStandardPaths::standardLocations(QStandardPaths::DocumentsLocation);
-    checkPaths << QStandardPaths::standardLocations(QStandardPaths::DownloadLocation);
-
-    for (const auto& path : checkPaths) {
-        auto fullPath = path + "/" + fileName + ".png";
-        if (FSWorks::createFile(fullPath)) {
-            // If we can create such file we remove it and return path
-            FSWorks::deleteFile(fullPath);
-            return fullPath;
-        }
-    }
-
-    NotificationManager::showError("Директория для записи не найдена");
-    return "";
-}

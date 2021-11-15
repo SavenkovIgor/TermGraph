@@ -40,8 +40,6 @@ public:
     explicit Application(QObject* parent = nullptr);
     ~Application() = default;
 
-    Q_INVOKABLE QString screenshotFilePath(const QString& fileName);
-
 private:
     FirstStartPreparer initPreparer;
 

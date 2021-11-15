@@ -44,6 +44,7 @@
 // TODO: TermDataWrapper to lowercase
 // TODO: What is "QQmlEngine::setContextForObject(): Object already has a QQmlContext"
 // TODO: Add namespace to graph
+// TODO: Add Notifications Interface
 
 Q_IMPORT_QML_PLUGIN(ToolsPlugin);
 Q_IMPORT_QML_PLUGIN(StyleInfoPlugin);
