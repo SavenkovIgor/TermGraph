@@ -22,8 +22,11 @@
 pragma Singleton
 
 import QtQml
+import QtQuick
 
 QtObject {
+    id: root
+
     readonly property color black         : "#000000"
     readonly property color white         : "#e8e8e8"
     readonly property color whiteDisabled : "#9c9c9c"
@@ -32,5 +35,12 @@ QtObject {
     readonly property color baseLight2    : "#464544"
     readonly property color baseLight3    : "#6f6f6f"
     readonly property color accent        : "#2f7ba3"
-    readonly property color yellow        : "#e5b41f"
+    readonly property color warning       : "#e5b41f"
+
+    readonly property ColorGroup group : ColorGroup {
+        text:          root.white
+        base:          root.base
+        alternateBase: root.baseLight
+        highlight:     root.accent
+    }
 }

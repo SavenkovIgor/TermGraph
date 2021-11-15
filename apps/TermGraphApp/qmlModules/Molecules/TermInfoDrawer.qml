@@ -58,7 +58,7 @@ A.DrawerPage {
             }
 
             A.RoundButton {
-                bgColor: Colors.yellow
+                bgColor: Colors.warning
                 visible: TagProcessor.hasSoftLinks(currentNode ? currentNode.definition : "")
                 action: Action {
                     icon.source: IconPath.warning
