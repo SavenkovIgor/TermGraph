@@ -32,16 +32,6 @@
 #include "source/mainscene.h"
 #include "source/managers/syncmanager.h"
 
-// -- Qt6 Migration plan --
-
-// TODO: Remove all "tag" naming
-// TODO: How to mix QProperty & Q_PROPERTY
-// TODO: Replace Components with component properties
-// TODO: Create GroupsModel
-// TODO: TermDataWrapper to lowercase
-// TODO: What is "QQmlEngine::setContextForObject(): Object already has a QQmlContext"
-// TODO: Add namespace to graph
-
 class Application : public QObject
 {
     Q_OBJECT

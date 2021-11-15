@@ -34,7 +34,16 @@
 #include <QtSvg> //Because deployment sometimes just forgets to include this lib otherwise
 #endif
 
+// -- Qt6 Migration plan --
 // TODO: Use new uuids!
+
+// TODO: Remove all "tag" naming
+// TODO: How to mix QProperty & Q_PROPERTY
+// TODO: Replace Components with component properties
+// TODO: Create GroupsModel
+// TODO: TermDataWrapper to lowercase
+// TODO: What is "QQmlEngine::setContextForObject(): Object already has a QQmlContext"
+// TODO: Add namespace to graph
 
 Q_IMPORT_QML_PLUGIN(ToolsPlugin);
 Q_IMPORT_QML_PLUGIN(StyleInfoPlugin);
