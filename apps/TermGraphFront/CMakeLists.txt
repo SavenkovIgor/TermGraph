@@ -17,10 +17,6 @@
 #  You should have received a copy of the GNU General Public License
 #  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
 
-# TODO:
-# 1) Split to apps: TermGraphApplication, TermDataProvider, TermServer, TermFront
-# 2) Move tests to appropriate libraries
-
 #cmake_minimum_required (VERSION 3.16.0)
 
 #project (TermGraph VERSION 2.0.0 LANGUAGES CXX)

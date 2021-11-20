@@ -21,33 +21,33 @@
 
 #pragma once
 
-#include <TermDataInterface/SafeUuid.h>
+#include <CommonTools/SafeUuid.h>
 
-class TermUuid final : public SafeUuid
+class GroupUuid final : public SafeUuid
 {
 public:
-    using List = std::vector<TermUuid>;
+    using List = std::vector<GroupUuid>;
 
-    inline static opt<TermUuid> create(const QString& text)
+    inline static opt<GroupUuid> create(const QString& text)
     {
         if (auto safe = SafeUuid::create(text))
-            return TermUuid(text);
+            return GroupUuid(text);
 
         return std::nullopt;
     }
 
-    inline static opt<TermUuid> create(const QUuid& uuid)
+    inline static opt<GroupUuid> create(const QUuid& uuid)
     {
         if (auto safe = SafeUuid::create(uuid))
-            return TermUuid(uuid.toString());
+            return GroupUuid(uuid.toString());
 
         return std::nullopt;
     }
 
-    inline static TermUuid generate() { return {QUuid::createUuid().toString()}; }
+    inline static GroupUuid generate() { return {QUuid::createUuid().toString()}; }
 
 private:
-    inline TermUuid(const QString& text)
+    inline GroupUuid(const QString& text)
         : SafeUuid(text)
     {}
 };

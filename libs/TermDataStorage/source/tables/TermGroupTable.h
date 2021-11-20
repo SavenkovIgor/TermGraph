@@ -21,10 +21,10 @@
 
 #pragma once
 
+#include <CommonTools/GroupUuid.h>
 #include <CommonTools/HandyTypes.h>
 #include <TermDataInterface/DataStorageErrors.h>
 #include <TermDataInterface/GroupData.h>
-#include <TermDataInterface/GroupUuid.h>
 
 class TermGroupTable
 {

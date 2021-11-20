@@ -18,7 +18,6 @@
 #  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
 
 # TODO: use CMakePresets.json
-# TODO: Split to qml in separate project plugins
 # TODO: Optional sql build for WebAssembly
 # TODO: Make network mode for application
 # TODO: Make Android build

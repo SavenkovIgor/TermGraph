@@ -21,10 +21,9 @@
 
 #include <gtest/gtest.h>
 
-// TODO: Fix this!
-#include <TermDataInterface/SafeUuid.h>
-#include <TermDataInterface/GroupUuid.h>
-#include <TermDataInterface/TermUuid.h>
+#include <CommonTools/GroupUuid.h>
+#include <CommonTools/SafeUuid.h>
+#include <CommonTools/TermUuid.h>
 
 TEST(UuidsTest, Creation)
 {

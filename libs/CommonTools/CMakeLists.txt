@@ -25,8 +25,26 @@ find_package (outcome REQUIRED)
 
 add_library (CommonTools
     INTERFACE
-        include/CommonTools/HandyTypes.h)
+        include/CommonTools/HandyTypes.h
+        include/CommonTools/SafeUuid.h
+        include/CommonTools/TermUuid.h
+        include/CommonTools/GroupUuid.h)
 
 target_include_directories (CommonTools INTERFACE "./include")
 
 target_link_libraries (CommonTools INTERFACE outcome::outcome)
+
+if (BUILD_TESTING)
+    enable_testing ()
+    find_package (Qt6 COMPONENTS Core REQUIRED)
+
+    create_test (
+        NAME      TestUuids
+        SOURCES
+            include/CommonTools/SafeUuid.h
+            include/CommonTools/GroupUuid.h
+            include/CommonTools/TermUuid.h
+            tests/uuidstest.cpp
+        LIBRARIES CommonTools TermDataStorage Qt6::Core)
+
+endif ()
