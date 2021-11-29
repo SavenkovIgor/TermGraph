@@ -35,6 +35,9 @@ target_include_directories (CommonTools INTERFACE "./include")
 target_link_libraries (CommonTools INTERFACE outcome::outcome)
 
 if (BUILD_TESTING)
+    list (APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+    include (TestUtils)
+
     enable_testing ()
     find_package (Qt6 COMPONENTS Core REQUIRED)
 

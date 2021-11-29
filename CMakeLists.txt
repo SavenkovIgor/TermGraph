@@ -26,20 +26,38 @@ cmake_minimum_required (VERSION 3.16.0)
 
 project (TermGraphPackage)
 
-option (BUILD_TESTING "Build tests with project" ON)
-option (BUILD_BACKEND "Build backend server"     OFF)
-
 list (APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-include (TestUtils)
+# Build options
+option (BUILD_APPLICATION "Build native application" ON)
+option (BUILD_BACKEND     "Build backend server"     OFF)
+option (BUILD_FRONTEND    "Build frontend side"      OFF)
 
-if (ANDROID)
-    set (BUILD_TESTING OFF)
+option (BUILD_TESTING     "Build tests with project" OFF)
+
+
+if (BUILD_APPLICATION AND NOT ANDROID)
+    set (BUILD_TESTING ON)
+    include (TestUtils)
 endif ()
 
-add_subdirectory (apps/TermGraphApp)
-add_subdirectory (apps/TermGraphBack)
+# Applications subdirs
+if (BUILD_APPLICATION)
+    add_subdirectory (apps/TermGraphApp)
+endif ()
+
+if (BUILD_BACKEND)
+    add_subdirectory (apps/TermGraphBack)
+endif ()
+
+if (BUILD_FRONTEND)
+    add_subdirectory (apps/TermGraphFront)
+endif ()
+
 
 add_subdirectory (libs/CommonTools)
-add_subdirectory (libs/TermDataInterface)
-add_subdirectory (libs/TermDataStorage)
+
+if (BUILD_APPLICATION OR BUILD_BACKEND)
+    add_subdirectory (libs/TermDataInterface)
+    add_subdirectory (libs/TermDataStorage)
+endif ()

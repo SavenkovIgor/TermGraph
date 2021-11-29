@@ -30,6 +30,7 @@
 
 #include "source/qmlTypesRegistrator.h"
 
+// TODO: Check if it is still need
 #ifdef Q_OS_ANDROID
 #include <QtSvg> //Because deployment sometimes just forgets to include this lib otherwise
 #endif
@@ -45,6 +46,8 @@
 // TODO: What is "QQmlEngine::setContextForObject(): Object already has a QQmlContext"
 // TODO: Add namespace to graph
 // TODO: Add Notifications Interface
+// TODO: Remove get from getters. Helper regexp: \bget.*\(
+// TODO: Try to cleanup approach. All c++ objects created from qml
 
 Q_IMPORT_QML_PLUGIN(ToolsPlugin);
 Q_IMPORT_QML_PLUGIN(StyleInfoPlugin);
