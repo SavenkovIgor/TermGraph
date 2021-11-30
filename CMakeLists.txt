@@ -35,12 +35,6 @@ option (BUILD_FRONTEND    "Build frontend side"      OFF)
 
 option (BUILD_TESTING     "Build tests with project" OFF)
 
-
-if (BUILD_APPLICATION AND NOT ANDROID)
-    set (BUILD_TESTING ON)
-    include (TestUtils)
-endif ()
-
 # Applications subdirs
 if (BUILD_APPLICATION)
     add_subdirectory (apps/TermGraphApp)

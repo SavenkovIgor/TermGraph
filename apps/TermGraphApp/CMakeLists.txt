@@ -102,6 +102,7 @@ qt_finalize_executable (TermGraph)
 
 
 if (BUILD_TESTING)
+    include (TestUtils)
     create_test (
         NAME      TestTextUtils
         SOURCES
