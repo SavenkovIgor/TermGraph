@@ -17,7 +17,7 @@ class TermGraphConan(ConanFile):
                        'build_application':   True,
                        'build_backend':       False,
                        'build_frontend':      False,
-                       'build_tests':         True,
+                       'build_tests':         False,
                        'qt:qtdeclarative':    True,
                        'qt:qtquickcontrols2': True,
                        'qt:qtsvg':            True,
