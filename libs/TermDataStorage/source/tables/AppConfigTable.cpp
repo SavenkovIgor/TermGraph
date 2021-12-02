@@ -26,8 +26,7 @@
 
 void AppConfigTable::initTable()
 {
-    auto query = SqlQueryBuilder().createAppConfigTable();
-    DbTools::startQuery2(query);
+    DbTools::start(SqlQueryBuilder().createAppConfigTable());
     // Add database version parameter
     setValue(dbVersionPropertyName, QString::number(dbVersion));
 }
@@ -41,7 +40,7 @@ void AppConfigTable::updateDbVersionNumber() { setValue(dbVersionPropertyName, Q
 bool AppConfigTable::hasKey(const QString& key)
 {
     auto query = SqlQueryBuilder().selectOneConfigParameter(key);
-    DbTools::startQuery2(query);
+    DbTools::start(query);
 
     if (!query.next())
         return false;
@@ -52,23 +51,19 @@ bool AppConfigTable::hasKey(const QString& key)
 
 void AppConfigTable::setValue(const QString& key, const QString& value)
 {
-    if (hasKey(key)) {
+    if (hasKey(key))
         // If has key - updating
-        auto query = SqlQueryBuilder().updateConfigParameter(key, value);
-        DbTools::startQuery2(query);
-    } else {
+        DbTools::start(SqlQueryBuilder().updateConfigParameter(key, value));
+    else
         // Else adding new key
-        auto query = SqlQueryBuilder().insertConfigParameter(key, value);
-        DbTools::startQuery2(query);
-    }
+        DbTools::start(SqlQueryBuilder().insertConfigParameter(key, value));
 }
 
 QString AppConfigTable::value(const QString& key, const QString& defaultValue)
 {
     if (hasKey(key)) {
         auto query = SqlQueryBuilder().selectConfigParameter(key);
-        DbTools::startQuery2(query);
-
+        DbTools::start(query);
         auto record = DbTools::getRecord(std::move(query));
         return record.value("value").toString();
     }

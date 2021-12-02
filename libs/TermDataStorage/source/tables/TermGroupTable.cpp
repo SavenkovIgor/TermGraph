@@ -42,8 +42,7 @@ result<void> TermGroupTable::addGroup(const GroupData& info)
     if (groupWithNameExist(groupInfo.name))
         return DbErrorCodes::GroupNameAlreadyExist;
 
-    auto query = SqlQueryBuilder().insertGroup(groupInfo);
-    DbTools::startQuery2(query);
+    DbTools::start(SqlQueryBuilder().insertGroup(groupInfo));
 
     return outcome::success();
 }
@@ -64,8 +63,7 @@ result<void> TermGroupTable::updateGroup(const GroupData& info)
             return DbErrorCodes::GroupNameAlreadyExist;
     }
 
-    auto query = SqlQueryBuilder().updateGroup(info);
-    DbTools::startQuery2(query);
+    DbTools::start(SqlQueryBuilder().updateGroup(info));
 
     return outcome::success();
 }
@@ -75,7 +73,7 @@ GroupUuid::List TermGroupTable::getAllUuids()
     GroupUuid::List ret;
 
     auto query = SqlQueryBuilder().selectAllGroupUuids();
-    DbTools::startQuery2(query);
+    DbTools::start(query);
 
     auto records = DbTools::getAllRecords(std::move(query));
 
@@ -94,8 +92,7 @@ result<void> TermGroupTable::deleteGroup(const GroupUuid& uuid)
     if (!groupExist(uuid))
         return DbErrorCodes::UuidNotExist;
 
-    auto query = SqlQueryBuilder().deleteGroup(uuid.get());
-    DbTools::startQuery2(query);
+    DbTools::start(SqlQueryBuilder().deleteGroup(uuid.get()));
     return outcome::success();
 }
 
@@ -110,7 +107,7 @@ bool TermGroupTable::groupExist(const QUuid& uuid)
 bool TermGroupTable::groupExist(const GroupUuid& uuid)
 {
     auto query = SqlQueryBuilder().selectOneGroup(uuid);
-    DbTools::startQuery2(query);
+    DbTools::start(query);
 
     auto next_exist = query.next();
     assert(next_exist);
@@ -132,7 +129,7 @@ QUuid TermGroupTable::generateNewUuid()
 QUuid TermGroupTable::getUuid(const QString& groupName) const
 {
     auto query = SqlQueryBuilder().selectGroup(groupName);
-    DbTools::startQuery2(query);
+    DbTools::start(query);
 
     auto records = DbTools::getAllRecords(std::move(query));
 
@@ -144,11 +141,7 @@ QUuid TermGroupTable::getUuid(const QString& groupName) const
 
 bool TermGroupTable::groupWithNameExist(const QString& groupName) { return !getUuid(groupName).isNull(); }
 
-void TermGroupTable::initTable()
-{
-    auto query = SqlQueryBuilder().createGroupsTable();
-    DbTools::startQuery2(query);
-}
+void TermGroupTable::initTable() { DbTools::start(SqlQueryBuilder().createGroupsTable()); }
 
 result<GroupData> TermGroupTable::getGroup(const GroupUuid& uuid)
 {
@@ -157,7 +150,7 @@ result<GroupData> TermGroupTable::getGroup(const GroupUuid& uuid)
         return DbErrorCodes::UuidNotExist;
 
     auto query = SqlQueryBuilder().selectGroup(uuid);
-    DbTools::startQuery2(query);
+    DbTools::start(query);
     auto record = DbTools::getRecord(std::move(query));
     return sqlRecordToGroupInfo(record);
 }
@@ -167,7 +160,7 @@ GroupData::List TermGroupTable::getGroups()
     GroupData::List ret;
 
     auto query = SqlQueryBuilder().selectAllGroups();
-    DbTools::startQuery2(query);
+    DbTools::start(query);
 
     auto records = DbTools::getAllRecords(std::move(query));
 

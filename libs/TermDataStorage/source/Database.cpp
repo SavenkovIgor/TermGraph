@@ -190,7 +190,7 @@ void Database::updateNodesToSecondVersion()
         insertQuery.bindValue(":groupUuid", oldNodeTable.value("termGroup").toString());
         insertQuery.bindValue(":lastEdit", oldNodeTable.value("lastEdit").toString());
 
-        DbTools::startQuery2(insertQuery);
+        DbTools::start(insertQuery);
     }
 
     auto countInOld = DbTools::recordsCount("termNode");
@@ -200,7 +200,7 @@ void Database::updateNodesToSecondVersion()
 
     if (countInOld == countInNew) {
         // Dropping old table
-        DbTools::startQuery2(SqlQueryBuilder().dropTable("termNode"));
+        DbTools::start(SqlQueryBuilder().dropTable("termNode"));
     }
 }
 
@@ -233,7 +233,7 @@ void Database::updateGroupsToSecondVersion()
         insertQuery.bindValue(":name", oldGroupsTable.value("name").toString());
         insertQuery.bindValue(":comment", oldGroupsTable.value("comment").toString());
 
-        DbTools::startQuery2(insertQuery);
+        DbTools::start(insertQuery);
     }
 
     auto countInOld = DbTools::recordsCount("termGroup");
@@ -243,7 +243,7 @@ void Database::updateGroupsToSecondVersion()
 
     if (countInOld == countInNew) {
         // Dropping old table
-        DbTools::startQuery2(SqlQueryBuilder().dropTable("termGroup"));
+        DbTools::start(SqlQueryBuilder().dropTable("termGroup"));
     }
 }
 

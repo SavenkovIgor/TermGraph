@@ -46,23 +46,27 @@ QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
     return ret;
 }
 
-bool DbTools::startQuery2(QSqlQuery query)
+void DbTools::start(QSqlQuery& query)
 {
-    query.exec();
-
-    auto sqlError = query.lastError();
-    if (sqlError.isValid()) {
-        // sqlError.text();
-        return false;
+    if (!query.exec()) {
+        qWarning() << "QSqlQuiery error: " << query.lastError().text();
+        assert(false);
     }
+}
 
-    return true;
+void DbTools::start(QSqlQuery&& query)
+{
+    if (!query.exec()) {
+        qWarning() << "QSqlQuiery error: " << query.lastError().text();
+        assert(false);
+    }
 }
 
 int DbTools::recordsCount(const QString& tableName)
 {
     auto query = SqlQueryBuilder().recordsCount(tableName);
-    startQuery2(query);
+    start(query);
+
     query.next();
     return query.value("COUNT(*)").toInt();
 }

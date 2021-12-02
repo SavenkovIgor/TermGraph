@@ -228,6 +228,9 @@ QSqlQuery SqlQueryBuilder::deleteTerm(const QUuid &termUuid) const
 
 QSqlQuery SqlQueryBuilder::loadQuery(const QString &queryPath) const
 {
+    // Basic resource path check
+    assert(queryPath.startsWith(":/"));
+
     auto connName = connectionNameForCurrentThread();
     auto query    = QSqlQuery(getDbForConnection(connName));
 

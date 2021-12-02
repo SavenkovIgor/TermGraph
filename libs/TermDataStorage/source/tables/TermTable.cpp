@@ -31,7 +31,7 @@ opt<TermUuid> TermTable::nodeUuidForNameAndGroup(const QString& name, const Grou
         return std::nullopt;
 
     auto query = SqlQueryBuilder().selectOneTerm(name, uuid.get());
-    DbTools::startQuery2(query);
+    DbTools::start(query);
 
     auto nodesRecords = DbTools::getAllRecords(std::move(query));
 
@@ -66,7 +66,7 @@ result<void> TermTable::addNode(const TermData& info)
         termInfo.lastEdit = getLastEditNow();
 
     auto query = SqlQueryBuilder().insertTerm(termInfo);
-    DbTools::startQuery2(query);
+    DbTools::start(query);
 
     return outcome::success();
 }
@@ -76,22 +76,16 @@ result<void> TermTable::deleteTerm(const TermUuid& uuid)
     if (!nodeExist(uuid))
         return DbErrorCodes::UuidNotExist;
 
-    auto query = SqlQueryBuilder().deleteTerm(uuid.get());
-    DbTools::startQuery2(query);
-
+    DbTools::start(SqlQueryBuilder().deleteTerm(uuid.get()));
     return outcome::success();
 }
 
-void TermTable::initTable()
-{
-    auto query = SqlQueryBuilder().createTermsTable();
-    DbTools::startQuery2(query);
-}
+void TermTable::initTable() { DbTools::start(SqlQueryBuilder().createTermsTable()); }
 
 bool TermTable::isUuidExist(const QUuid& uuid)
 {
     auto query = SqlQueryBuilder().selectOneTerm(uuid);
-    DbTools::startQuery2(query);
+    DbTools::start(query);
 
     if (!query.next())
         return false;
@@ -124,7 +118,7 @@ TermUuid::List TermTable::getAllNodesUuids(opt<GroupUuid> uuid)
     else
         query = SqlQueryBuilder().selectAllTermUuids();
 
-    DbTools::startQuery2(query);
+    DbTools::start(query);
 
     auto sqlRecords = DbTools::getAllRecords(std::move(query));
 
@@ -145,7 +139,7 @@ result<TermData> TermTable::getNodeInfo(const TermUuid& uuid)
     TermData info;
 
     auto query = SqlQueryBuilder().selectTerm(uuid.get());
-    DbTools::startQuery2(query);
+    DbTools::start(query);
 
     auto record = DbTools::getRecord(std::move(query));
     return recordToNodeInfo(record);
@@ -156,7 +150,7 @@ result<TermData::List> TermTable::getAllNodesInfo(const GroupUuid& uuid)
     TermData::List ret;
 
     auto query = SqlQueryBuilder().selectAllTerms(uuid.get());
-    DbTools::startQuery2(query);
+    DbTools::start(query);
 
     auto records = DbTools::getAllRecords(std::move(query));
 
@@ -174,7 +168,7 @@ result<QDateTime> TermTable::getLastEdit(const TermUuid& uuid)
         return DbErrorCodes::UuidNotExist;
 
     auto query = SqlQueryBuilder().selectLastEdit(uuid);
-    DbTools::startQuery2(query);
+    DbTools::start(query);
 
     auto record = DbTools::getRecord(std::move(query));
 
@@ -189,7 +183,7 @@ result<QDateTime> TermTable::getLastEdit(const TermUuid& uuid)
 RecordList TermTable::getAllLastEditRecords()
 {
     auto query = SqlQueryBuilder().selectAllLastEditAndGroupUuid();
-    DbTools::startQuery2(query);
+    DbTools::start(query);
     return DbTools::getAllRecords(std::move(query));
 }
 
@@ -215,8 +209,7 @@ result<void> TermTable::updateNode(const TermData&                      info,
     if (lastEditSource == DataStorageInterface::AutoGenerate)
         nodeContainer.lastEdit = getLastEditNow();
 
-    auto query = SqlQueryBuilder().updateTerm(nodeContainer);
-    DbTools::startQuery2(query);
+    DbTools::start(SqlQueryBuilder().updateTerm(nodeContainer));
 
     return outcome::success();
 }
