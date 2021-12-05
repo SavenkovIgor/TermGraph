@@ -25,7 +25,7 @@ import QtQml
 import QtQuick
 
 QtObject {
-    readonly property bool isMobile: Qt.platform === "android" || Qt.platform === "ios"
+    readonly property bool isMobile: Qt.platform.os === "android" || Qt.platform.os === "ios"
 
     readonly property int appHeader   : (isMobile ? 6 : 9 ) * Screen.pixelDensity
     readonly property int button      : (isMobile ? 4 : 5 ) * Screen.pixelDensity
