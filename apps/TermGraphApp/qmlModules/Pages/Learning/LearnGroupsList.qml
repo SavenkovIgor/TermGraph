@@ -78,7 +78,7 @@ M.Page {
                     bottomPadding: font.pixelSize / 3
 
                     color: Colors.white
-                    font: Fonts.setWeight(Fonts.text, Font.Medium)
+                    font: Fonts.setWeight(Fonts.h4, Font.Medium)
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
 

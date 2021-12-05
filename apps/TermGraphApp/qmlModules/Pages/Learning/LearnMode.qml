@@ -68,7 +68,7 @@ M.Page {
                 horizontalAlignment: Text.AlignLeft
 
                 color: Colors.white
-                font: Fonts.setWeight(Fonts.capitalText, Font.Thin)
+                font: Fonts.setWeight(Fonts.h3, Font.Thin)
 
                 text: modelData
 

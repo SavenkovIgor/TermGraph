@@ -71,7 +71,7 @@ Drawer {
         wrapMode: TextEdit.Wrap
 
         horizontalAlignment: Text.AlignHCenter
-        font: Fonts.inputText
+        font: Fonts.h3
 
         leftPadding: Sizes.baseX2
         rightPadding: Sizes.baseX2

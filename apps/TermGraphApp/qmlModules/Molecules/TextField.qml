@@ -43,7 +43,7 @@ Column {
     TextField {
         id : txtField
         width: parent.width
-        font: Fonts.inputText
+        font: Fonts.h3
         selectByMouse: true
 
         onTextChanged: newText()

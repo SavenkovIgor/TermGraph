@@ -51,7 +51,7 @@ Control {
             id: mainText
             horizontalAlignment: Text.AlignHCenter
             color: Colors.white
-            font: Fonts.capitalText
+            font: Fonts.h3
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
         }
@@ -60,7 +60,7 @@ Control {
             id: detailedText
             horizontalAlignment: Text.AlignHCenter
             color: Colors.whiteDisabled
-            font: Fonts.text
+            font: Fonts.h4
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
         }

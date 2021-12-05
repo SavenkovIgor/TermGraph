@@ -28,7 +28,7 @@ import StyleInfo
 
 ComboBox {
     id: control
-    font: Fonts.text
+    font: Fonts.h4
 
     contentItem: Text {
         id: contItem

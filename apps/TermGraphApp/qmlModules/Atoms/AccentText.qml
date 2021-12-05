@@ -25,5 +25,5 @@ import StyleInfo
 
 Text {
     color: Colors.accent
-    font: Fonts.setWeight(Fonts.text, Font.DemiBold)
+    font: Fonts.setWeight(Fonts.h4, Font.DemiBold)
 }

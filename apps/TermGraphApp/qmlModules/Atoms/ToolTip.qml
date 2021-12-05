@@ -31,7 +31,7 @@ ToolTip {
 
     contentItem: Text {
         text: root.text
-        font: Fonts.text
+        font: Fonts.h4
         color: Colors.whiteDisabled
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

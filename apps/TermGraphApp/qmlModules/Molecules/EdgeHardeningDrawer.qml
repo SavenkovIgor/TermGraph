@@ -60,7 +60,7 @@ A.DrawerPage {
                 bottomPadding: Sizes.base
 
                 color: Colors.white
-                font: Fonts.setWeight(Fonts.capitalText, Font.DemiBold)
+                font: Fonts.setWeight(Fonts.h3, Font.DemiBold)
 
                 text: "Фиксация ссылок для термина: '" + root.currentTerm + "'"
             }

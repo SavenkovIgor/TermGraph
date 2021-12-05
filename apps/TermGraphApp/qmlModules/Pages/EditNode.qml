@@ -142,7 +142,7 @@ M.Page {
             id: nodeUuidText
             name: "Uuid термина:"
             textObj.wrapMode: Text.NoWrap
-            textObj.minimumPixelSize: Fonts.text.pixelSize / 2
+            textObj.minimumPixelSize: Fonts.h4.pixelSize / 2
             textObj.fontSizeMode: Text.HorizontalFit
             Layout.fillWidth: true
         }

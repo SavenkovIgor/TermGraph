@@ -50,7 +50,7 @@ Column {
         width: parent.width
         placeholderTextColor: Colors.whiteDisabled
 
-        font: Fonts.inputText
+        font: Fonts.h3
         wrapMode: TextEdit.WordWrap
     }
 }

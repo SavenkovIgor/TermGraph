@@ -60,7 +60,7 @@ M.Page {
                         }
 
                         Text {
-                            font: Fonts.text
+                            font: Fonts.h4
                             color: Colors.white
                             text: NetworkManager.synchronizationState
                         }

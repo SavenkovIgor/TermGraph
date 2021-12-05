@@ -26,7 +26,7 @@ import Api
 import StyleInfo
 
 Button {
-    font: Fonts.text
+    font: Fonts.h4
     implicitHeight: Sizes.baseX3;
 
     leftPadding: 20

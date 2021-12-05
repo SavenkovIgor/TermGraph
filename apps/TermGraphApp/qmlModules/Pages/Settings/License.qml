@@ -48,7 +48,7 @@ M.Page {
             horizontalAlignment: TextEdit.AlignHCenter
             readOnly: true
             color: Colors.white
-            font: Fonts.text
+            font: Fonts.h4
             wrapMode: TextEdit.Wrap
 
             background: Rectangle { color: "transparent" }

@@ -95,7 +95,7 @@ Drawer {
                     padding: font.pixelSize / 4
 
                     color: Colors.white
-                    font: Fonts.setWeight(Fonts.text, Font.Thin)
+                    font: Fonts.setWeight(Fonts.h4, Font.Thin)
                     fontSizeMode: Text.HorizontalFit
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft

@@ -138,7 +138,7 @@ M.Page {
                 Layout.fillWidth: true
                 leftPadding: 15
 
-                font: Fonts.text
+                font: Fonts.h4
                 wrapMode: TextEdit.NoWrap
                 elide: Text.ElideRight
                 color: Colors.white

@@ -70,7 +70,7 @@ Button {
             height: buttonIcon.height
 
             color: root.baseColor
-            font: Fonts.setWeight(Fonts.capitalText, Font.Thin)
+            font: Fonts.setWeight(Fonts.h3, Font.Thin)
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
 

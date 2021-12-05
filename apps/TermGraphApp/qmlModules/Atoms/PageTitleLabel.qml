@@ -24,7 +24,7 @@ import QtQuick
 import StyleInfo
 
 Text {
-    font: Fonts.header
+    font: Fonts.h1
     minimumPixelSize: font.pixelSize / 2
     fontSizeMode: Text.Fit
     elide: Text.ElideRight
