@@ -160,7 +160,7 @@ Item {
 
             A.Round {
                 id: pin
-                diameter: Sizes.baseR75 * 0.75
+                diameter: Sizes.base * 0.75
                 anchors.centerIn: parent
                 color: index === pageIndicator.currentIndex ? Colors.baseLight2 : Colors.black
             }

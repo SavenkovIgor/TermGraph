@@ -28,8 +28,8 @@ import Atoms as A
 Button {
     id: root
 
-    horizontalPadding: Sizes.baseR25
-    verticalPadding: Sizes.baseR75
+    horizontalPadding: Sizes.baseX3
+    verticalPadding: Sizes.base
     topInset: 0
     bottomInset: 0
 
@@ -58,8 +58,8 @@ Button {
         A.ToolButton {
             id: buttonIcon
 
-            width: Sizes.baseR25
-            height: Sizes.baseR25
+            width: Sizes.baseX3
+            height: Sizes.baseX3
             icon.color: root.baseColor
             icon.source: root.icon.source
             visible: root.iconVisible

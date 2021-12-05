@@ -73,7 +73,7 @@ Drawer {
         horizontalAlignment: Text.AlignHCenter
         font: Fonts.inputText
 
-        leftPadding: Sizes.baseR50
-        rightPadding: Sizes.baseR50
+        leftPadding: Sizes.baseX2
+        rightPadding: Sizes.baseX2
     }
 }

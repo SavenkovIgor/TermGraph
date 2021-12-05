@@ -34,7 +34,7 @@ M.Page {
 
     contentItem: Column {
 
-        spacing: Sizes.baseR75
+        spacing: Sizes.base
 
         M.LabelPair {
             name: "Версия базы данных:"

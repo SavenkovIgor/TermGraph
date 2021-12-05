@@ -24,12 +24,12 @@ pragma Singleton
 import QtQml
 
 QtObject {
-    readonly property font capitalText : Qt.font({ pixelSize: Sizes.capitalText });
-    readonly property font header      : Qt.font({ pixelSize: Sizes.appHeader, weight: 30 });
-    readonly property font inputLabel  : Qt.font({ pixelSize: Sizes.inputLabel });
-    readonly property font inputText   : Qt.font({ pixelSize: Sizes.inputText });
+    readonly property font header      : Qt.font({ pixelSize: 5 * Sizes.rm, weight: 30 });
+    readonly property font inputLabel  : Qt.font({ pixelSize: 4 * Sizes.rm });
+    readonly property font capitalText : Qt.font({ pixelSize: 3 * Sizes.rm });
+    readonly property font inputText   : Qt.font({ pixelSize: 3 * Sizes.rm });
     readonly property font term        : Qt.font({ family: "Arial sans-serif", pointSize: 10 });
-    readonly property font text        : Qt.font({ pixelSize: Sizes.text });
+    readonly property font text        : Qt.font({ pixelSize: 2.5 * Sizes.rm });
 
     function setWeight(font, weight) {
         font.weight = weight;

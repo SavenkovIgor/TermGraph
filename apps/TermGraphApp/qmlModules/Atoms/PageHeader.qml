@@ -26,7 +26,7 @@ import QtQuick.Layouts
 import StyleInfo
 
 ToolBar {
-    height: Sizes.base
+    height: Sizes.baseX4
     background: Rectangle { color: Colors.baseLight; }
     contentItem: RowLayout { spacing: 20; }
 }

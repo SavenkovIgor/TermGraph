@@ -33,7 +33,7 @@ A.DrawerPage {
 
     signal searchResultClicked(string nodeUuid)
 
-    leftPadding:  Sizes.baseR50
+    leftPadding:  Sizes.baseX2
 
     onAboutToShow: {
         searchText.clear();

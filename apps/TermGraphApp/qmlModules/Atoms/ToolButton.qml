@@ -27,7 +27,7 @@ import StyleInfo
 RoundButton {
     id: root
 
-    property real size: Sizes.base
+    property real size: Sizes.baseX4
     readonly property real iconPart: 0.46
 
     implicitWidth:  root.size

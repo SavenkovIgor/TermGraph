@@ -27,21 +27,17 @@ import QtQuick
 QtObject {
     readonly property bool isMobile: Qt.platform.os === "android" || Qt.platform.os === "ios"
 
-    readonly property int appHeader   : (isMobile ? 6 : 9 ) * Screen.pixelDensity
-    readonly property int button      : (isMobile ? 4 : 5 ) * Screen.pixelDensity
-    readonly property int capitalText : (isMobile ? 5 : 6 ) * Screen.pixelDensity
-    readonly property int colSpace    : (isMobile ? 2 : 4 ) * Screen.pixelDensity
-    readonly property int inputLabel  : (isMobile ? 4 : 7 ) * Screen.pixelDensity
-    readonly property int inputText   : (isMobile ? 4 : 6 ) * Screen.pixelDensity
-    readonly property int roundButton : (isMobile ? 9 : 15) * Screen.pixelDensity
-    readonly property int text        : (isMobile ? 4 : 5 ) * Screen.pixelDensity
+    readonly property real mm: Screen.pixelDensity
+    readonly property real cm: Screen.pixelDensity * 10
 
-    readonly property int base     : roundButton
-    readonly property int baseX100 : base * 2
-    readonly property int baseX75  : base * 1.75
-    readonly property int baseX50  : base * 1.5
-    readonly property int baseX25  : base * 1.25
-    readonly property int baseR25  : base * 0.75
-    readonly property int baseR50  : base * 0.5
-    readonly property int baseR75  : base * 0.25
+    // Radial millimeter
+    // Because of different user view distance for desktop monitor and mobile phone
+    // elements, that has equal linear size would differ visually.
+    // So radial millimeter helps to make ui elements feel more "equal" from user point of view
+    readonly property real rm: (isMobile ? 1 : 2) * mm
+
+    readonly property real base   : 2 * rm
+    readonly property real baseX2 : 4 * rm
+    readonly property real baseX3 : 6 * rm
+    readonly property real baseX4 : 8 * rm
 }

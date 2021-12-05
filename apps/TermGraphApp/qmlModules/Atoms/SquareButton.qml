@@ -27,7 +27,7 @@ import StyleInfo
 
 Button {
     font: Fonts.text
-    implicitHeight: Sizes.button * 2.2;
+    implicitHeight: Sizes.baseX3;
 
     leftPadding: 20
     rightPadding: 20

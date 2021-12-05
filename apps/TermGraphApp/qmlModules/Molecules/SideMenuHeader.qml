@@ -34,7 +34,7 @@ Control {
 
     contentItem: RowLayout {
         AppIcon {
-            size: Sizes.base
+            size: Sizes.baseX4
             Layout.margins: 10
         }
 
@@ -53,8 +53,8 @@ Control {
 
         A.ToolButton {
             Layout.margins: 5
-            width: Sizes.baseR25
-            height: Sizes.baseR25
+            width: Sizes.baseX3
+            height: Sizes.baseX3
             icon.color: Colors.whiteDisabled
             icon.source: IconPath.cog
             onClicked: root.settingsClicked()

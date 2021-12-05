@@ -31,15 +31,15 @@ Drawer {
 
     edge: Qt.BottomEdge
 
-    topPadding:   Sizes.baseR75
-    leftPadding:  Sizes.baseR75
-    rightPadding: Sizes.baseR75
-    bottomPadding:   Sizes.baseR75
+    topPadding:    Sizes.base
+    leftPadding:   Sizes.base
+    rightPadding:  Sizes.base
+    bottomPadding: Sizes.base
 
     dim: false
 
-    implicitWidth: leftPadding + implicitContentWidth + rightPadding
-    implicitHeight: topPadding + implicitContentHeight + bottomPadding
+    implicitWidth:  leftPadding + implicitContentWidth  + rightPadding
+    implicitHeight: topPadding  + implicitContentHeight + bottomPadding
 
     background: TopRoundedRect {
         PinBar {
