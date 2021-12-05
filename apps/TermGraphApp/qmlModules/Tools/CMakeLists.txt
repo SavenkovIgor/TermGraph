@@ -33,4 +33,4 @@ set (QML_SOURCES Debug.qml Tools.qml)
 
 set_source_files_properties (${QML_SOURCES} PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
 
-qt_add_qml_module (ToolsModule URI Tools VERSION 1.0 QML_FILES ${QML_SOURCES})
+qt_add_qml_module (ToolsModule URI Tools VERSION 1.0 QML_FILES ${QML_SOURCES} Ruler.qml)
