@@ -41,7 +41,7 @@ Control {
         Text {
             Layout.fillWidth: true
 
-            font: Fonts.setWeight(Fonts.h4, 30)
+            font: Fonts.setWeight(Fonts.h2, 30)
             minimumPixelSize: font.pixelSize / 2
             fontSizeMode: Text.Fit
             elide: Text.ElideRight
