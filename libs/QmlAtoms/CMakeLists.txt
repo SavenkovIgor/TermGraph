@@ -19,18 +19,46 @@
 
 cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
-project (StyleInfoModule LANGUAGES CXX)
+project (AtomsModule LANGUAGES CXX)
 
-qt_add_library (StyleInfoModule STATIC)
+find_package (Qt6 COMPONENTS QuickControls2 REQUIRED)
 
-set_target_properties (StyleInfoModule
+qt_add_library (AtomsModule STATIC)
+
+set_target_properties (AtomsModule
     PROPERTIES
         AUTOMOC ON
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
 
-set (QML_SOURCES Colors.qml Fonts.qml IconPath.qml Sizes.qml)
-
-set_source_files_properties (${QML_SOURCES} PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
-
-qt_add_qml_module (StyleInfoModule URI StyleInfo VERSION 1.0 QML_FILES ${QML_SOURCES})
+qt_add_qml_module (AtomsModule
+    URI Atoms
+    VERSION 1.0
+    IMPORTS StyleInfo Tools
+    QML_FILES
+        AccentText.qml
+        BottomThinLine.qml
+        ComboBox.qml
+        DebugFrame.qml
+        DrawerPage.qml
+        Edge.qml
+        FlickableColumn.qml
+        Hex.qml
+        MouseArea.qml
+        PageHeader.qml
+        PageTitleLabel.qml
+        PinBar.qml
+        RightThinLine.qml
+        Round.qml
+        RoundButton.qml
+        RoundedRectangle.qml
+        ScrollIndicator.qml
+        SideMenuButton.qml
+        SmallInfoText.qml
+        SquareButton.qml
+        Term.qml
+        ThinLine.qml
+        Timer.qml
+        ToolButton.qml
+        ToolTip.qml
+        TopRoundedRect.qml)

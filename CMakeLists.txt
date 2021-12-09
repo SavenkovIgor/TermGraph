@@ -37,6 +37,12 @@ option (BUILD_TESTING     "Build tests with project" OFF)
 
 # Applications subdirs
 if (BUILD_APPLICATION)
+    add_subdirectory (libs/QmlTools)
+    add_subdirectory (libs/QmlStyleInfo)
+    add_subdirectory (libs/QmlAtoms)
+    add_subdirectory (libs/QmlMolecules)
+    add_subdirectory (libs/QmlPages)
+
     add_subdirectory (apps/TermGraphApp)
 endif ()
 
@@ -45,6 +51,12 @@ if (BUILD_BACKEND)
 endif ()
 
 if (BUILD_FRONTEND)
+    add_subdirectory (libs/QmlTools)
+    add_subdirectory (libs/QmlStyleInfo)
+    add_subdirectory (libs/QmlAtoms)
+    add_subdirectory (libs/QmlMolecules)
+    add_subdirectory (libs/QmlPages)
+
     add_subdirectory (apps/TermGraphFront)
 endif ()
 

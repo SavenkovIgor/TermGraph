@@ -19,18 +19,33 @@
 
 cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
-project (ToolsModule LANGUAGES CXX)
+project (PagesModule LANGUAGES CXX)
 
-qt_add_library (ToolsModule STATIC)
+find_package (Qt6 COMPONENTS QuickControls2 REQUIRED)
 
-set_target_properties (ToolsModule
+qt_add_library (PagesModule STATIC)
+
+set_target_properties (PagesModule
     PROPERTIES
         AUTOMOC ON
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
 
-set (QML_SOURCES Debug.qml Tools.qml)
+qt_add_qml_module (PagesModule
+    URI Pages
+    VERSION 1.0
+    IMPORTS StyleInfo Tools Atoms Molecules
+    QML_FILES
+        AppIconsSaving.qml
+        EditNode.qml
+        GroupsList.qml
+        MainScene.qml
+        NewNode.qml
+        OnBoard.qml
+        Settings.qml
+        TermView.qml
 
-set_source_files_properties (${QML_SOURCES} PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
-
-qt_add_qml_module (ToolsModule URI Tools VERSION 1.0 QML_FILES ${QML_SOURCES} Ruler.qml)
+        Settings/Database.qml
+        Settings/Help.qml
+        Settings/License.qml
+        Settings/NetworkSettings.qml)

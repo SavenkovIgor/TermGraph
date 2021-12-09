@@ -19,39 +19,20 @@
 
 cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
-project (MoleculesModule LANGUAGES CXX)
+project (StyleInfoModule LANGUAGES CXX)
 
-qt_add_library (MoleculesModule STATIC)
+find_package (Qt6 COMPONENTS QuickControls2 REQUIRED)
 
-set_target_properties (MoleculesModule
+qt_add_library (StyleInfoModule STATIC)
+
+set_target_properties (StyleInfoModule
     PROPERTIES
         AUTOMOC ON
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
 
-qt_add_qml_module (MoleculesModule
-    URI Molecules
-    VERSION 1.0
-    IMPORTS StyleInfo Tools Atoms
-    QML_FILES
-        AppIcon.qml
-        BurgerButton.qml
-        DefaultHeader.qml
-        EdgeHardeningDrawer.qml
-        EmptyView.qml
-        HelpCard.qml
-        HelpView.qml
-        LabelPair.qml
-        LoadingIcon.qml
-        LoadingInProcess.qml
-        MainAppDrawer.qml
-        NodesScene.qml
-        NotificationDrawer.qml
-        Page.qml
-        SearchDrawer.qml
-        SideMenuHeader.qml
-        StdDialog.qml
-        TagEditorArea.qml
-        TermInfoDrawer.qml
-        TextArea.qml
-        TextField.qml)
+set (QML_SOURCES Colors.qml Fonts.qml IconPath.qml Sizes.qml)
+
+set_source_files_properties (${QML_SOURCES} PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
+
+qt_add_qml_module (StyleInfoModule URI StyleInfo VERSION 1.0 QML_FILES ${QML_SOURCES})

@@ -21,10 +21,6 @@ cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
 project (TermGraph VERSION 2.0.0 LANGUAGES CXX)
 
-#set (CMAKE_INCLUDE_CURRENT_DIR ON)
-
-# If you want, android build correctly,
-# This line must be before targets definition
 find_package (Qt6 COMPONENTS Core Gui Qml Quick QuickControls2 Network Svg REQUIRED)
 
 qt_add_executable (TermGraph MANUAL_FINALIZATION)
@@ -63,12 +59,6 @@ target_include_directories (TermGraph PRIVATE ${PROJECT_SOURCE_DIR})
 
 
 target_compile_definitions (TermGraph PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-
-add_subdirectory (qmlModules/Tools)
-add_subdirectory (qmlModules/StyleInfo)
-add_subdirectory (qmlModules/Atoms)
-add_subdirectory (qmlModules/Molecules)
-add_subdirectory (qmlModules/Pages)
 
 set (QML_IMPORT_PATH
         ${CMAKE_CURRENT_BINARY_DIR}

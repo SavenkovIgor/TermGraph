@@ -19,31 +19,41 @@
 
 cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
-project (PagesModule LANGUAGES CXX)
+project (MoleculesModule LANGUAGES CXX)
 
-qt_add_library (PagesModule STATIC)
+find_package (Qt6 COMPONENTS QuickControls2 REQUIRED)
 
-set_target_properties (PagesModule
+qt_add_library (MoleculesModule STATIC)
+
+set_target_properties (MoleculesModule
     PROPERTIES
         AUTOMOC ON
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
 
-qt_add_qml_module (PagesModule
-    URI Pages
+qt_add_qml_module (MoleculesModule
+    URI Molecules
     VERSION 1.0
-    IMPORTS StyleInfo Tools Atoms Molecules
+    IMPORTS StyleInfo Tools Atoms
     QML_FILES
-        AppIconsSaving.qml
-        EditNode.qml
-        GroupsList.qml
-        MainScene.qml
-        NewNode.qml
-        OnBoard.qml
-        Settings.qml
-        TermView.qml
-
-        Settings/Database.qml
-        Settings/Help.qml
-        Settings/License.qml
-        Settings/NetworkSettings.qml)
+        AppIcon.qml
+        BurgerButton.qml
+        DefaultHeader.qml
+        EdgeHardeningDrawer.qml
+        EmptyView.qml
+        HelpCard.qml
+        HelpView.qml
+        LabelPair.qml
+        LoadingIcon.qml
+        LoadingInProcess.qml
+        MainAppDrawer.qml
+        NodesScene.qml
+        NotificationDrawer.qml
+        Page.qml
+        SearchDrawer.qml
+        SideMenuHeader.qml
+        StdDialog.qml
+        TagEditorArea.qml
+        TermInfoDrawer.qml
+        TextArea.qml
+        TextField.qml)
