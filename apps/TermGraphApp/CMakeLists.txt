@@ -45,7 +45,6 @@ endif ()
 # qt6_qml_type_registration(TermGraph)
 
 # Resources
-source_group (Qrc REGULAR_EXPRESSION ".qrc")
 target_sources (TermGraph PRIVATE "qml/qml.qrc")
 
 # Android files
