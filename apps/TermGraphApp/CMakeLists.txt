@@ -46,7 +46,7 @@ endif ()
 
 # Resources
 source_group (Qrc REGULAR_EXPRESSION ".qrc")
-target_sources (TermGraph PRIVATE "qml/qml.qrc" "resources/helpImages/helpImages.qrc" "resources/icons/icons.qrc")
+target_sources (TermGraph PRIVATE "qml/qml.qrc")
 
 # Android files
 target_sources (TermGraph PRIVATE android/AndroidManifest.xml)
@@ -69,7 +69,13 @@ set (QML_IMPORT_PATH
         ${PagesModule_BINARY_DIR}
     CACHE STRING "" FORCE)
 
+# C++ libs
 target_link_libraries (TermGraph PRIVATE CommonTools TermDataInterface TermDataStorage)
+
+# Qrc libs
+target_link_libraries (TermGraph PRIVATE HelpImagesResource IconsResource)
+
+# Qml libs
 target_link_libraries (TermGraph
     PRIVATE
         ToolsModuleplugin
