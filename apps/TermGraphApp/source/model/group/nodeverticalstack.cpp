@@ -21,8 +21,6 @@
 
 #include "source/model/group/nodeverticalstack.h"
 
-#include "source/helpers/helpstuff.h"
-
 QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::List& nodes)
 {
     SizeList sizeList;
@@ -30,7 +28,7 @@ QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::Lis
     for (auto node : nodes)
         sizeList.push_back(node->getFrameRect(CoordType::zeroPoint).size());
 
-    return HelpStuff::getStackedSize(sizeList, Qt::Vertical);
+    return sizeList.totalStackedSize(Qt::Vertical);
 }
 
 NodeVerticalStack::NodeVerticalStack(PaintedForest* parentForest)

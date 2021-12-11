@@ -27,7 +27,6 @@
 #include "source/helpers/appstyle.h"
 #include "source/helpers/fonts.h"
 #include "source/helpers/globaltagcache.h"
-#include "source/helpers/helpstuff.h"
 #include "source/helpers/link/linkutils.h"
 
 TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObject* parent)
@@ -330,7 +329,7 @@ QSizeF TermGroup::getAllTreesSize()
     for (const auto forest : mForests)
         sizeList.push_back(forest->baseSize());
 
-    auto totalSize = HelpStuff::getStackedSize(sizeList, Qt::Vertical);
+    auto totalSize = sizeList.totalStackedSize(Qt::Vertical);
 
     if (!mForests.empty())
         totalSize.rheight() += (mForests.size() - 1) * AppStyle::Sizes::groupVerticalSpacer;

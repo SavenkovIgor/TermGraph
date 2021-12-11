@@ -23,7 +23,6 @@
 
 #include "source/helpers/appstyle.h"
 #include "source/helpers/fonts.h"
-#include "source/helpers/helpstuff.h"
 #include "source/helpers/link/linksdecorator.h"
 #include "source/helpers/link/linkutils.h"
 #include "source/helpers/text/textutils.h"
@@ -83,5 +82,5 @@ QSizeF TermDataCache::getTermSize(const QString& decoratedTerm)
     for (auto& part : termParts)
         sizes.push_back(Fonts::getTextMetrics(part));
 
-    return HelpStuff::getStackedSize(sizes, Qt::Vertical);
+    return sizes.totalStackedSize(Qt::Vertical);
 }

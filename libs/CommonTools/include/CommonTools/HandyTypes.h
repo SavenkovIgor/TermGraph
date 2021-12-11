@@ -28,12 +28,12 @@
 
 #include <QSizeF>
 #include <QUuid>
+#include <QtCore>
 #include <QtSql/QSqlRecord>
 
 namespace outcome = OUTCOME_V2_NAMESPACE;
 
 using UuidList   = std::vector<QUuid>;
-using SizeList   = std::vector<QSizeF>;
 using RecordList = std::vector<QSqlRecord>;
 
 template<typename T>
@@ -43,3 +43,28 @@ template<typename T>
 using result = outcome::std_result<T>;
 
 enum class Direction { Left, Right };
+
+class SizeList : public std::vector<QSizeF>
+{
+public:
+    // Retruns total size of stacked sizes, placed vertically or horizontally
+    QSizeF totalStackedSize(Qt::Orientation stackDirection)
+    {
+        qreal width  = 0;
+        qreal height = 0;
+
+        if (stackDirection == Qt::Vertical) {
+            for (auto& size : (*this)) {
+                width = std::max(width, size.width());
+                height += size.height();
+            }
+        } else if (stackDirection == Qt::Horizontal) {
+            for (auto& size : (*this)) {
+                width += size.width();
+                height = std::max(height, size.height());
+            }
+        }
+
+        return {width, height};
+    }
+};
