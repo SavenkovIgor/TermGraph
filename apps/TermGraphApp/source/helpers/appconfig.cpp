@@ -23,6 +23,8 @@
 
 #include <QStandardPaths>
 
+#include <CommonTools/Platform.h>
+
 #include "source/helpers/fsworks.h"
 
 using namespace AppSettings;

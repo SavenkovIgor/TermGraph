@@ -25,9 +25,9 @@
 #include <QtQml/qqmlextensionplugin.h>
 #include <QtQuickControls2/QQuickStyle>
 
-#include "source/application.h"
-#include "source/helpers/platform.h"
+#include <CommonTools/Platform.h>
 
+#include "source/application.h"
 #include "source/qmlTypesRegistrator.h"
 
 // -- Qt6 Migration plan --

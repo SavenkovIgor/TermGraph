@@ -25,8 +25,6 @@
 #include <QStringList>
 #include <QtGlobal>
 
-#include "source/helpers/platform.h"
-
 // TODO: File rename
 namespace AppSettings {
 

@@ -28,7 +28,8 @@ add_library (CommonTools
         include/CommonTools/HandyTypes.h
         include/CommonTools/SafeUuid.h
         include/CommonTools/TermUuid.h
-        include/CommonTools/GroupUuid.h)
+        include/CommonTools/GroupUuid.h
+        include/CommonTools/Platform.h)
 
 target_include_directories (CommonTools INTERFACE "./include")
 
