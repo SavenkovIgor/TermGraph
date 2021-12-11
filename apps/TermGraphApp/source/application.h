@@ -27,9 +27,9 @@
 
 #include <TermDataStorage/LocalDataStorage.h>
 
-#include "source/helpers/appconfig.h"
 #include "source/helpers/firststartpreparer.h"
 #include "source/mainscene.h"
+#include "source/managers/groupsmanager.h"
 #include "source/managers/syncmanager.h"
 
 class Application : public QObject

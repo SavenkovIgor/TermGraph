@@ -21,13 +21,6 @@
 
 #include "source/application.h"
 
-#include <QScreen>
-
-#include "source/helpers/appconfig.h"
-#include "source/helpers/platform.h"
-#include "source/managers/notificationmanager.h"
-#include "source/model/term/paintedterm.h"
-
 Application::Application(QObject* parent)
     : QObject(parent)
     , initPreparer()
@@ -40,11 +33,8 @@ Application::Application(QObject* parent)
 {
     groupsManager->updateGroupUuidNameMaps();
 
-    // remind = new Reminder(scene->getAllNodes());
-
     qmlRegisterSingletonInstance("Network", 1, 0, "NetworkManager", network.get());
 
-    qmlRegisterSingletonInstance("Api", 1, 0, "Application", this);
     qmlRegisterSingletonInstance("Api", 1, 0, "Scene", scene.get());
     qmlRegisterSingletonInstance("Api", 1, 0, "GroupsManager", groupsManager.get());
     qmlRegisterSingletonInstance("Api", 1, 0, "SyncManager", syncManager.get());
