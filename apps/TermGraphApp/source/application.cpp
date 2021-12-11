@@ -21,7 +21,6 @@
 
 #include "source/application.h"
 
-#include <QApplication>
 #include <QScreen>
 
 #include "source/helpers/appconfig.h"

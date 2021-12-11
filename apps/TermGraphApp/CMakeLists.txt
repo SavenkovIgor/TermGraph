@@ -21,7 +21,7 @@ cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
 project (TermGraph VERSION 2.0.0 LANGUAGES CXX)
 
-find_package (Qt6 COMPONENTS Core Gui Qml Quick QuickControls2 Network Svg REQUIRED)
+find_package (Qt6 COMPONENTS Core Gui Qml Quick QuickControls2 Network REQUIRED)
 
 qt_add_executable (TermGraph MANUAL_FINALIZATION)
 
@@ -91,8 +91,7 @@ target_link_libraries (TermGraph
         Qt6::Quick
         Qt6::QuickControls2
         Qt6::Qml
-        Qt6::Network
-        Qt6::Svg)
+        Qt6::Network)
 
 qt_finalize_executable (TermGraph)
 

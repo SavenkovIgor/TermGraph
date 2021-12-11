@@ -21,7 +21,6 @@
 
 #include "source/mainscene.h"
 
-#include <QApplication>
 #include <QThread>
 
 #include "source/managers/notificationmanager.h"

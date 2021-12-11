@@ -19,21 +19,16 @@
  *  along with TermGraph. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <QApplication>
 #include <QDir>
+#include <QGuiApplication>
 #include <QSurface>
-#include <QtQuickControls2/QQuickStyle>
 #include <QtQml/qqmlextensionplugin.h>
+#include <QtQuickControls2/QQuickStyle>
 
 #include "source/application.h"
 #include "source/helpers/platform.h"
 
 #include "source/qmlTypesRegistrator.h"
-
-// TODO: Check if it is still need
-#ifdef Q_OS_ANDROID
-#include <QtSvg> //Because deployment sometimes just forgets to include this lib otherwise
-#endif
 
 // -- Qt6 Migration plan --
 // TODO: Use new uuids!
@@ -66,9 +61,11 @@ void setSurfaceFormat()
 
 int main(int argc, char* argv[])
 {
-    QApplication a(argc, argv);
+    QGuiApplication a(argc, argv);
 
     Q_INIT_RESOURCE(SqlQueries);
+    Q_INIT_RESOURCE(HelpImages);
+    Q_INIT_RESOURCE(Icons);
 
     QQuickStyle::setStyle("Material"); // Important thing for styles!
 
