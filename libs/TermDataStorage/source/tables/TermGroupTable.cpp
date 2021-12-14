@@ -92,7 +92,7 @@ result<void> TermGroupTable::deleteGroup(const GroupUuid& uuid)
     if (!groupExist(uuid))
         return DbErrorCodes::UuidNotExist;
 
-    DbTools::start(SqlQueryBuilder().deleteGroup(uuid.get()));
+    DbTools::start(SqlQueryBuilder().deleteGroup(uuid));
     return outcome::success();
 }
 

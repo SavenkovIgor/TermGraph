@@ -77,10 +77,10 @@ QSqlQuery SqlQueryBuilder::insertGroup(const GroupData &groupInfo) const
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::selectGroup(const QUuid &groupUuid) const
+QSqlQuery SqlQueryBuilder::selectGroup(const GroupUuid &uuid) const
 {
     auto query = loadQuery(":/sql/version2/groups/SelectGroup.sql");
-    query.bindValue(":uuid", groupUuid.toString());
+    query.bindValue(":uuid", uuid.toString());
     return query;
 }
 
@@ -91,10 +91,10 @@ QSqlQuery SqlQueryBuilder::selectGroup(const QString &groupName) const
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::selectOneGroup(const QUuid &groupUuid) const
+QSqlQuery SqlQueryBuilder::selectOneGroup(const GroupUuid &uuid) const
 {
     auto query = loadQuery(":/sql/version2/groups/SelectGroupCount.sql");
-    query.bindValue(":uuid", groupUuid.toString());
+    query.bindValue(":uuid", uuid.toString());
     return query;
 }
 
@@ -119,10 +119,10 @@ QSqlQuery SqlQueryBuilder::updateGroup(const GroupData &groupInfo) const
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::deleteGroup(const QUuid &groupUuid) const
+QSqlQuery SqlQueryBuilder::deleteGroup(const GroupUuid &uuid) const
 {
     auto query = loadQuery(":/sql/version2/groups/DeleteGroup.sql");
-    query.bindValue(":uuid", groupUuid.toString());
+    query.bindValue(":uuid", uuid.toString());
     return query;
 }
 
@@ -147,25 +147,25 @@ QSqlQuery SqlQueryBuilder::insertTerm(const TermData &termInfo) const
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::selectTerm(const QUuid &termUuid) const
+QSqlQuery SqlQueryBuilder::selectTerm(const TermUuid &uuid) const
 {
     auto query = loadQuery(":/sql/version2/terms/SelectTerm.sql");
-    query.bindValue(":uuid", termUuid.toString());
+    query.bindValue(":uuid", uuid.toString());
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::selectOneTerm(const QUuid &termUuid) const
+QSqlQuery SqlQueryBuilder::selectOneTerm(const TermUuid &uuid) const
 {
     auto query = loadQuery(":/sql/version2/terms/SelectTermCount.sql");
-    query.bindValue(":uuid", termUuid.toString());
+    query.bindValue(":uuid", uuid.toString());
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::selectOneTerm(const QString &term, const QUuid &groupUuid) const
+QSqlQuery SqlQueryBuilder::selectOneTerm(const QString &term, const GroupUuid &uuid) const
 {
     auto query = loadQuery(":/sql/version2/terms/SelectTermWithNameAndGroup.sql");
     query.bindValue(":term", term);
-    query.bindValue(":groupUuid", groupUuid.toString());
+    query.bindValue(":groupUuid", uuid.toString());
     return query;
 }
 
@@ -175,24 +175,24 @@ QSqlQuery SqlQueryBuilder::selectAllTermUuids() const
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::selectAllTermUuids(const QUuid &groupUuid) const
+QSqlQuery SqlQueryBuilder::selectAllTermUuids(const GroupUuid &uuid) const
 {
     auto query = loadQuery(":/sql/version2/terms/SelectAllUuidsInGroup.sql");
-    query.bindValue(":groupUuid", groupUuid.toString());
+    query.bindValue(":groupUuid", uuid.toString());
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::selectAllTerms(const QUuid &groupUuid) const
+QSqlQuery SqlQueryBuilder::selectAllTerms(const GroupUuid &uuid) const
 {
     auto query = loadQuery(":/sql/version2/terms/SelectTermsByGroup.sql");
-    query.bindValue(":groupUuid", groupUuid.toString());
+    query.bindValue(":groupUuid", uuid.toString());
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::selectLastEdit(const QUuid &termUuid) const
+QSqlQuery SqlQueryBuilder::selectLastEdit(const TermUuid &uuid) const
 {
     auto query = loadQuery(":/sql/version2/terms/SelectLastEdit.sql");
-    query.bindValue(":uuid", termUuid.toString());
+    query.bindValue(":uuid", uuid.toString());
     return query;
 }
 
@@ -219,10 +219,10 @@ QSqlQuery SqlQueryBuilder::updateTerm(const TermData &termInfo) const
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::deleteTerm(const QUuid &termUuid) const
+QSqlQuery SqlQueryBuilder::deleteTerm(const TermUuid &uuid) const
 {
     auto query = loadQuery(":/sql/version2/terms/DeleteTerm.sql");
-    query.bindValue(":uuid", termUuid.toString());
+    query.bindValue(":uuid", uuid.toString());
     return query;
 }
 

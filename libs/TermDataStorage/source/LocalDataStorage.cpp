@@ -118,7 +118,7 @@ TermUuid::List LocalDatabaseStorage::getAllTermsUuids(opt<GroupUuid> uuid) const
     return impl->db.termTable->getAllNodesUuids(uuid);
 }
 
-bool LocalDatabaseStorage::termExist(const TermUuid& uuid) const { return impl->db.termTable->nodeExist(uuid.get()); }
+bool LocalDatabaseStorage::termExist(const TermUuid& uuid) const { return impl->db.termTable->nodeExist(uuid); }
 
 opt<TermUuid> LocalDatabaseStorage::findTerm(const QString& nodeName, const GroupUuid& uuid) const
 {

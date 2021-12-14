@@ -36,7 +36,7 @@ public:
 
     result<void> addNode(const TermData& info);
 
-    bool nodeExist(const QUuid& nodeUuid);
+    bool nodeExist(const TermUuid& uuid);
 
     TermUuid::List         getAllNodesUuids(opt<GroupUuid> uuid = std::nullopt);
     result<TermData>       getNodeInfo(const TermUuid& uuid);
@@ -53,9 +53,9 @@ public:
     void initTable();
 
 private:
-    bool isUuidExist(const QUuid& uuid);
+    bool isUuidExist(const TermUuid& uuid);
 
-    QUuid generateNewUuid();
+    TermUuid generateNewUuid();
 
     static QDateTime getLastEditNow();
 

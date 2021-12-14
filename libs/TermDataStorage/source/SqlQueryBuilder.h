@@ -26,6 +26,9 @@
 #include <QString>
 #include <QtCore>
 
+#include <CommonTools/GroupUuid.h>
+#include <CommonTools/TermUuid.h>
+
 #include <TermDataInterface/GroupData.h>
 #include <TermDataInterface/TermData.h>
 
@@ -47,27 +50,27 @@ public:
     // Groups table
     QSqlQuery createGroupsTable() const;
     QSqlQuery insertGroup(const GroupData& groupInfo) const;
-    QSqlQuery selectGroup(const QUuid& groupUuid) const;
+    QSqlQuery selectGroup(const GroupUuid& uuid) const;
     QSqlQuery selectGroup(const QString& groupName) const;
-    QSqlQuery selectOneGroup(const QUuid& groupUuid) const;
+    QSqlQuery selectOneGroup(const GroupUuid& uuid) const;
     QSqlQuery selectAllGroupUuids();
     QSqlQuery selectAllGroups();
     QSqlQuery updateGroup(const GroupData& groupInfo) const;
-    QSqlQuery deleteGroup(const QUuid& groupUuid) const;
+    QSqlQuery deleteGroup(const GroupUuid& uuid) const;
 
     // Terms table
     QSqlQuery createTermsTable() const;
     QSqlQuery insertTerm(const TermData& termInfo) const;
-    QSqlQuery selectTerm(const QUuid& termUuid) const;
-    QSqlQuery selectOneTerm(const QUuid& termUuid) const;
-    QSqlQuery selectOneTerm(const QString& term, const QUuid& groupUuid) const;
+    QSqlQuery selectTerm(const TermUuid& uuid) const;
+    QSqlQuery selectOneTerm(const TermUuid& uuid) const;
+    QSqlQuery selectOneTerm(const QString& term, const GroupUuid& uuid) const;
     QSqlQuery selectAllTermUuids() const;
-    QSqlQuery selectAllTermUuids(const QUuid& groupUuid) const;
-    QSqlQuery selectAllTerms(const QUuid& groupUuid) const;
-    QSqlQuery selectLastEdit(const QUuid& termUuid) const;
+    QSqlQuery selectAllTermUuids(const GroupUuid& uuid) const;
+    QSqlQuery selectAllTerms(const GroupUuid& uuid) const;
+    QSqlQuery selectLastEdit(const TermUuid& uuid) const;
     QSqlQuery selectAllLastEditAndGroupUuid() const;
     QSqlQuery updateTerm(const TermData& termInfo) const;
-    QSqlQuery deleteTerm(const QUuid& termUuid) const;
+    QSqlQuery deleteTerm(const TermUuid& uuid) const;
 
     // Common
     QSqlQuery loadQuery(const QString& queryPath) const;
