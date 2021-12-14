@@ -64,7 +64,7 @@ QString StdPaths::defaultDatabaseFilePath()
 
 QString StdPaths::userAppConfigFolder()
 {
-    auto path = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).first();
-    assert(!path.isEmpty());
-    return path;
+    auto paths = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
+    assert(!paths.empty());
+    return paths.first();
 }

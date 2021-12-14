@@ -31,9 +31,6 @@ MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     , mTermsModel(new TermsModel(this))
     , mEdgesModel(new EdgesModel(this))
 {
-    mouseMoveReactionTimer.setInterval(static_cast<int>(1000 / AppSettings::Scene::FPS));
-    mouseMoveReactionTimer.setSingleShot(true);
-
     assert(groupsMgr != nullptr);
     this->groupsMgr = groupsMgr;
     connect(groupsMgr, &GroupsManager::groupAdded, this, &MainScene::checkGroupAddition);

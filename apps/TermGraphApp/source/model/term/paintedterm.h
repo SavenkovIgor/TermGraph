@@ -69,7 +69,4 @@ private: // Members
 
     bool mThisSelected  = false;
     bool mRelativePaint = false;
-
-    // Color tools
-    static QColor baseColor(NodeType type, bool selected);
 };

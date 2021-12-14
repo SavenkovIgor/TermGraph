@@ -84,8 +84,6 @@ signals:
 private: // Methods
     bool getHasAnyGroup() const;
 
-    QUuid getGroupUuid(const QString& groupName) const;
-
     void saveGroupInFolder(TermGroup::OptPtr group);
 
     bool groupExist(const GroupUuid& uuid);
@@ -102,5 +100,4 @@ private: // Members
 
     // Cache
     QMap<QUuid, QString> uuidToNames;
-    QMap<QString, QUuid> namesToUuid;
 };

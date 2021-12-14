@@ -101,9 +101,6 @@ private:
     void showNewGroup(TermGroup::OptPtr newGroup);
 
 private: // Methods
-    // Timers
-    QTimer mouseMoveReactionTimer;
-
     // Managers
     GroupsManager* groupsMgr;
 

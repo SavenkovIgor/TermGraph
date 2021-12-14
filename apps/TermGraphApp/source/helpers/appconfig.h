@@ -34,12 +34,6 @@ public:
     constexpr static quint16 listenPort = 46377;
 };
 
-class Scene
-{
-public:
-    constexpr static int FPS = 30;
-};
-
 class StdPaths
 {
 public:

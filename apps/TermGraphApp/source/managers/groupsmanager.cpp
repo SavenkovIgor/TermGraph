@@ -36,23 +36,7 @@ GroupsManager::GroupsManager(DataStorageInterface& dataStorage, QObject* parent)
     connect(this, &GroupsManager::nodeChanged, this, &GroupsManager::groupsListChanged);
 }
 
-QString GroupsManager::getGroupName(const QUuid& groupUuid) const
-{
-    if (uuidToNames.contains(groupUuid)) {
-        return uuidToNames[groupUuid];
-    }
-
-    return "";
-}
-
-QUuid GroupsManager::getGroupUuid(const QString& groupName) const
-{
-    if (namesToUuid.contains(groupName)) {
-        return namesToUuid[groupName];
-    }
-
-    return QUuid();
-}
+QString GroupsManager::getGroupName(const QUuid& groupUuid) const { return uuidToNames.value(groupUuid); }
 
 QString GroupsManager::getLastEditString(QUuid groupUuid) { return getLastEdit(groupUuid).toString(); }
 
@@ -365,10 +349,8 @@ void GroupsManager::updateGroupUuidNameMaps()
     qInfo("List updated");
 
     uuidToNames.clear();
-    namesToUuid.clear();
 
     for (const auto& groupInfo : dataStorage.getGroups()) {
         uuidToNames.insert(groupInfo.uuid, groupInfo.name);
-        namesToUuid.insert(groupInfo.name, groupInfo.uuid);
     }
 }
