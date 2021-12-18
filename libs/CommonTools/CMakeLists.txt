@@ -29,7 +29,8 @@ add_library (CommonTools
         include/CommonTools/SafeUuid.h
         include/CommonTools/TermUuid.h
         include/CommonTools/GroupUuid.h
-        include/CommonTools/Platform.h)
+        include/CommonTools/Platform.h
+        include/CommonTools/Validator.h)
 
 target_include_directories (CommonTools INTERFACE "./include")
 
@@ -49,6 +50,13 @@ if (BUILD_TESTING)
             include/CommonTools/GroupUuid.h
             include/CommonTools/TermUuid.h
             tests/uuidstest.cpp
+        LIBRARIES CommonTools TermDataStorage Qt6::Core)
+
+    create_test (
+        NAME      TestValidator
+        SOURCES
+            include/CommonTools/Validator.h
+            tests/validatortest.cpp
         LIBRARIES CommonTools TermDataStorage Qt6::Core)
 
 endif ()
