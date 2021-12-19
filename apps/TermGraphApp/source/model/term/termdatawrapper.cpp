@@ -35,4 +35,6 @@ QString TermDataWrapper::getGroupUuid() const { return groupUuid.toString(); }
 
 void TermDataWrapper::setGroupUuid(const QString& groupUuid) { this->groupUuid = QUuid(groupUuid); }
 
-QString TermDataWrapper::getLastEdit() const { return lastEdit.toString("dd MMM yyyy hh:mm:ss t"); }
+QString TermDataWrapper::getLastEdit() const { return lastEdit.toString(Qt::ISODate); }
+
+QString TermDataWrapper::getLastEditDecorated() const { return lastEdit.toString("dd MMM yyyy hh:mm:ss t"); }

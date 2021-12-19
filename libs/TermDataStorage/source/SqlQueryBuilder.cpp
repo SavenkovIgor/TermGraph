@@ -113,7 +113,7 @@ QSqlQuery SqlQueryBuilder::selectAllGroups()
 QSqlQuery SqlQueryBuilder::updateGroup(const GroupData &groupInfo) const
 {
     auto query = loadQuery(":/sql/version2/groups/UpdateGroup.sql");
-    query.bindValue(":uuid", groupInfo.uuid);
+    query.bindValue(":uuid", groupInfo.uuid.toString());
     query.bindValue(":name", groupInfo.name);
     query.bindValue(":comment", groupInfo.comment);
     return query;

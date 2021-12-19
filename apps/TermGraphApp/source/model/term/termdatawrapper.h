@@ -37,6 +37,7 @@ class TermDataWrapper : public TermData
     Q_PROPERTY(QString wikiUrl MEMBER wikiUrl)
     Q_PROPERTY(QString wikiImage MEMBER wikiImage)
     Q_PROPERTY(QString groupUuid READ getGroupUuid WRITE setGroupUuid)
+    Q_PROPERTY(QString lastEditDecorated READ getLastEditDecorated)
     Q_PROPERTY(QString lastEdit READ getLastEdit)
 
 public:
@@ -53,6 +54,7 @@ public:
 
     // Not editable...
     QString getLastEdit() const;
+    QString getLastEditDecorated() const;
 };
 
 Q_DECLARE_METATYPE(TermDataWrapper)

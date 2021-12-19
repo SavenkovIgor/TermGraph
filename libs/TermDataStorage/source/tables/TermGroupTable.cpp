@@ -176,9 +176,9 @@ GroupData TermGroupTable::sqlRecordToGroupInfo(const QSqlRecord& rec)
 {
     GroupData info;
 
-    info.uuid    = QUuid(rec.value("uuid").toString());
-    info.name    = rec.value("name").toString();
-    info.comment = rec.value("comment").toString();
+    info.uuid    = QUuid(rec.value(GroupJsonValidator::uuidKey).toString());
+    info.name    = rec.value(GroupJsonValidator::nameKey).toString();
+    info.comment = rec.value(GroupJsonValidator::commentKey).toString();
 
     return info;
 }

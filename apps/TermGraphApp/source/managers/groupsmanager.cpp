@@ -97,11 +97,6 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
     importGroup(doc);
 }
 
-bool GroupsManager::isValidGroupJson(const QJsonObject json)
-{
-    return GroupData::isValidJson(json) && json["nodesList"].isArray();
-}
-
 TermGroup::OptPtr GroupsManager::createGroup(const QUuid groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid)) {
@@ -167,7 +162,7 @@ void GroupsManager::importGroup(const QJsonDocument& json)
 {
     QJsonObject jsonGroup = json.object();
 
-    if (!isValidGroupJson(jsonGroup))
+    if (!GroupJsonValidator::importChecks().check(jsonGroup))
         return;
 
     auto optGroup = GroupData::fromJson(jsonGroup);
@@ -198,8 +193,10 @@ void GroupsManager::importGroup(const QJsonDocument& json)
 
 void GroupsManager::importTerm(const QJsonObject& nodeJson)
 {
-    assert(TermData::isValidJson(nodeJson));
-    auto info = TermData::fromJson(nodeJson).value();
+    auto optInfo = TermData::fromJson(nodeJson, TermData::JsonCheckMode::Imort);
+    assert(optInfo.has_value());
+
+    auto info = optInfo.value();
 
     // TODO: Return error
     if (info.uuid.isNull())
@@ -221,12 +218,9 @@ int GroupsManager::dbVersion() { return dataStorage.storageVersion(); }
 
 bool GroupsManager::addNode(QJsonObject object)
 {
-    assert(TermData::isValidJson(object, false, false));
-
     object.insert("uuid", dataStorage.getFreeUuid().toString());
 
-    auto optData = TermData::fromJson(object, true, false);
-
+    auto optData = TermData::fromJson(object, TermData::JsonCheckMode::AddNode);
     assert(optData.has_value());
 
     auto data = optData.value();
@@ -252,7 +246,7 @@ bool GroupsManager::addNode(QJsonObject object)
 
 bool GroupsManager::updateNode(const QJsonObject& object)
 {
-    auto optData = TermData::fromJson(object);
+    auto optData = TermData::fromJson(object, TermData::JsonCheckMode::UpdateNode);
 
     assert(optData.has_value());
 

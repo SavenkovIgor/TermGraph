@@ -29,6 +29,8 @@
 #include <QString>
 #include <QUuid>
 
+#include <TermDataInterface/TermValidator.h>
+
 // TODO: Check tests!
 struct TermData
 {
@@ -78,53 +80,32 @@ struct TermData
         return true;
     }
 
+    enum class JsonCheckMode { Imort, AddNode, UpdateNode };
+
     // --- JSON ---
     // Returns valid object or nullopt
-    static inline bool isValidJson(const QJsonObject& obj, bool checkUuid = true, bool checkLastEdit = true)
+    static inline std::optional<TermData> fromJson(QJsonObject obj, JsonCheckMode mode)
     {
-        bool ret = true;
+        bool checkUuid     = true;
+        bool checkLastEdit = true;
 
-        if (checkUuid) {
-            ret &= obj[uuidKey].isString();
-            ret &= !QUuid(obj[uuidKey].toString()).isNull();
-        }
+        if (mode == JsonCheckMode::AddNode)
+            checkLastEdit = false;
 
-        ret &= obj[termKey].isString();
-        ret &= !obj[termKey].toString().isEmpty();
-
-        ret &= obj[definitionKey].isString();
-        ret &= obj[descriptionKey].isString();
-        ret &= obj[examplesKey].isString();
-        ret &= obj[wikiUrlKey].isString();
-        ret &= obj[wikiImageKey].isString();
-
-        ret &= obj[groupUuidKey].isString();
-        ret &= !QUuid(obj[groupUuidKey].toString()).isNull();
-
-        if (checkLastEdit) {
-            ret &= obj[lastEditKey].isString();
-            ret &= !QDateTime::fromString(obj[lastEditKey].toString(), Qt::ISODate).isNull();
-        }
-
-        return ret;
-    }
-
-    static inline std::optional<TermData> fromJson(QJsonObject obj, bool checkUuid = true, bool checkLastEdit = true)
-    {
-        if (!isValidJson(obj, checkUuid, checkLastEdit))
+        if (!TermJsonValidator(checkUuid, checkLastEdit).check(obj))
             return std::nullopt;
 
         TermData ret;
 
-        ret.uuid        = QUuid(obj[uuidKey].toString());
-        ret.term        = obj[termKey].toString();
-        ret.definition  = obj[definitionKey].toString();
-        ret.description = obj[descriptionKey].toString();
-        ret.examples    = obj[examplesKey].toString();
-        ret.wikiUrl     = obj[wikiUrlKey].toString();
-        ret.wikiImage   = obj[wikiImageKey].toString();
-        ret.groupUuid   = QUuid(obj[groupUuidKey].toString());
-        ret.lastEdit    = QDateTime::fromString(obj[lastEditKey].toString(), Qt::ISODate);
+        ret.uuid        = QUuid(obj[TermJsonValidator::uuidKey].toString());
+        ret.term        = obj[TermJsonValidator::termKey].toString();
+        ret.definition  = obj[TermJsonValidator::definitionKey].toString();
+        ret.description = obj[TermJsonValidator::descriptionKey].toString();
+        ret.examples    = obj[TermJsonValidator::examplesKey].toString();
+        ret.wikiUrl     = obj[TermJsonValidator::wikiUrlKey].toString();
+        ret.wikiImage   = obj[TermJsonValidator::wikiImageKey].toString();
+        ret.groupUuid   = QUuid(obj[TermJsonValidator::groupUuidKey].toString());
+        ret.lastEdit    = QDateTime::fromString(obj[TermJsonValidator::lastEditKey].toString(), Qt::ISODate);
 
         if (ret.isNull()) // Release safety
             return std::nullopt;
@@ -136,27 +117,16 @@ struct TermData
     {
         QJsonObject ret;
 
-        ret.insert(uuidKey, uuid.toString());
-        ret.insert(termKey, term);
-        ret.insert(definitionKey, definition);
-        ret.insert(descriptionKey, description);
-        ret.insert(examplesKey, examples);
-        ret.insert(wikiUrlKey, wikiUrl);
-        ret.insert(wikiImageKey, wikiImage);
-        ret.insert(groupUuidKey, groupUuid.toString());
-        ret.insert(lastEditKey, lastEdit.toString(Qt::ISODate));
+        ret.insert(TermJsonValidator::uuidKey, uuid.toString());
+        ret.insert(TermJsonValidator::termKey, term);
+        ret.insert(TermJsonValidator::definitionKey, definition);
+        ret.insert(TermJsonValidator::descriptionKey, description);
+        ret.insert(TermJsonValidator::examplesKey, examples);
+        ret.insert(TermJsonValidator::wikiUrlKey, wikiUrl);
+        ret.insert(TermJsonValidator::wikiImageKey, wikiImage);
+        ret.insert(TermJsonValidator::groupUuidKey, groupUuid.toString());
+        ret.insert(TermJsonValidator::lastEditKey, lastEdit.toString(Qt::ISODate));
 
         return ret;
     }
-
-private:
-    constexpr static auto uuidKey        = "uuid";
-    constexpr static auto termKey        = "term";
-    constexpr static auto definitionKey  = "definition";
-    constexpr static auto descriptionKey = "description";
-    constexpr static auto examplesKey    = "examples";
-    constexpr static auto wikiUrlKey     = "wikiUrl";
-    constexpr static auto wikiImageKey   = "wikiImage";
-    constexpr static auto groupUuidKey   = "groupUuid";
-    constexpr static auto lastEditKey    = "lastEdit";
 };

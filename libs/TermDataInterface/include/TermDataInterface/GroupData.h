@@ -29,6 +29,8 @@
 #include <QStringList>
 #include <QUuid>
 
+#include <TermDataInterface/GroupValidator.h>
+
 // TODO: Check tests!
 struct GroupData
 {
@@ -46,32 +48,16 @@ struct GroupData
     }
 
     // --- JSON ---
-    // Returns valid object or nullopt
-    static inline bool isValidJson(const QJsonObject& obj)
-    {
-        bool ret = true;
-
-        ret &= obj[uuidKey].isString();
-        ret &= !QUuid(obj[uuidKey].toString()).isNull();
-
-        ret &= obj[nameKey].isString();
-        ret &= !obj[nameKey].toString().isEmpty();
-
-        ret &= obj[commentKey].isString();
-
-        return ret;
-    }
-
     static inline std::optional<GroupData> fromJson(const QJsonObject& obj)
     {
-        if (!isValidJson(obj))
+        if (!GroupJsonValidator::defaultChecks().check(obj))
             return std::nullopt;
 
         GroupData ret;
 
-        ret.uuid    = QUuid(obj[uuidKey].toString());
-        ret.name    = obj[nameKey].toString();
-        ret.comment = obj[commentKey].toString();
+        ret.uuid    = QUuid(obj[GroupJsonValidator::uuidKey].toString());
+        ret.name    = obj[GroupJsonValidator::nameKey].toString();
+        ret.comment = obj[GroupJsonValidator::commentKey].toString();
 
         assert(!ret.isNull());
 
@@ -85,15 +71,10 @@ struct GroupData
     {
         QJsonObject ret;
 
-        ret.insert(uuidKey, uuid.toString());
-        ret.insert(nameKey, name);
-        ret.insert(commentKey, comment);
+        ret.insert(GroupJsonValidator::uuidKey, uuid.toString());
+        ret.insert(GroupJsonValidator::nameKey, name);
+        ret.insert(GroupJsonValidator::commentKey, comment);
 
         return ret;
     }
-
-private:
-    constexpr static auto uuidKey    = "uuid";
-    constexpr static auto nameKey    = "name";
-    constexpr static auto commentKey = "comment";
 };

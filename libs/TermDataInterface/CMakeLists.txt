@@ -26,7 +26,9 @@ add_library (TermDataInterface
         include/TermDataInterface/DataStorageErrors.h
         include/TermDataInterface/DataStorageInterface.h
         include/TermDataInterface/GroupData.h
-        include/TermDataInterface/TermData.h)
+        include/TermDataInterface/GroupValidator.h
+        include/TermDataInterface/TermData.h
+        include/TermDataInterface/TermValidator.h)
 
 target_include_directories (TermDataInterface INTERFACE "./include")
 

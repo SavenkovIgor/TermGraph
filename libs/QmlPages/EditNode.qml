@@ -67,7 +67,7 @@ M.Page {
 
     function updateInfo() {
         nodeUuidText.text = Scene.currentNode.uuid;
-        lastEditText.text = Scene.currentNode.lastEdit;
+        lastEditText.text = Scene.currentNode.lastEditDecorated;
         termName.text = Scene.currentNode.term;
         termDefin.text = Scene.currentNode.definition;
         termDescr.text = Scene.currentNode.description;
@@ -77,7 +77,7 @@ M.Page {
     }
 
     function applyNodeChange() {
-        if (termName.text == "") {
+        if (termName.text === "") {
             emptyNodeNameDelDialog.visible = true;
             return;
         }
@@ -93,7 +93,7 @@ M.Page {
             wikiUrl: "",
             wikiImage: "",
             groupUuid: nodeGroup.currentText,
-            lastEdit: ""
+            lastEdit: Scene.currentNode.lastEdit
         };
 
         const success = GroupsManager.updateNode(data);
