@@ -21,6 +21,8 @@
 
 #include "source/application.h"
 
+#include "source/managers/notificationmanager.h"
+
 Application::Application(QObject* parent)
     : QObject(parent)
     , initPreparer()
