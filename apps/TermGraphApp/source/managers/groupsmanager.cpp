@@ -27,9 +27,10 @@
 
 #include "source/helpers/appconfig.h"
 
-GroupsManager::GroupsManager(DataStorageInterface& dataStorage, QObject* parent)
+GroupsManager::GroupsManager(DataStorageInterface& dataStorage, NotifyInterface& notifier, QObject* parent)
     : QObject(parent)
     , dataStorage(dataStorage)
+    , notifier(notifier)
 {
     connect(this, &GroupsManager::groupAdded, this, &GroupsManager::groupsListChanged);
     connect(this, &GroupsManager::groupDeleted, this, &GroupsManager::groupsListChanged);
@@ -52,7 +53,7 @@ int GroupsManager::getNodesCount(QUuid groupUuid)
 void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 {
     if (name.simplified().isEmpty()) {
-        NotificationManager::showError("Название группы не может быть пустым");
+        notifier.showError("Название группы не может быть пустым");
         return;
     }
 
@@ -65,7 +66,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
         updateGroupUuidNameMaps();
         emit groupAdded();
     } else {
-        NotificationManager::showError("Название группы не уникально");
+        notifier.showError("Название группы не уникально");
     }
 }
 
@@ -187,7 +188,7 @@ void GroupsManager::importGroup(const QJsonDocument& json)
     }
 
     updateGroupUuidNameMaps();
-    NotificationManager::showInfo(info.name + " синхронизировано");
+    notifier.showInfo(info.name + " синхронизировано");
     emit groupAdded();
 }
 
@@ -229,12 +230,12 @@ bool GroupsManager::addNode(QJsonObject object)
     assert(!data.groupUuid.isNull());
 
     if (!groupExist(GroupUuid::create(data.groupUuid).value())) {
-        NotificationManager::showError("Группа " + data.groupUuid.toString() + " не найдена");
+        notifier.showError("Группа " + data.groupUuid.toString() + " не найдена");
         return false;
     }
 
     if (termExist(data.term, data.groupUuid)) {
-        NotificationManager::showError("Термин с таким названием уже существует в этой группе");
+        notifier.showError("Термин с таким названием уже существует в этой группе");
         return false;
     }
 
@@ -256,19 +257,19 @@ bool GroupsManager::updateNode(const QJsonObject& object)
     assert(!data.groupUuid.isNull());
 
     if (!groupExist(GroupUuid::create(data.groupUuid).value())) {
-        NotificationManager::showError("Группа " + data.groupUuid.toString() + " не найдена");
+        notifier.showError("Группа " + data.groupUuid.toString() + " не найдена");
         return false;
     }
 
     if (data.uuid.isNull()) {
-        NotificationManager::showWarning("Пустой uuid термина при попытке изменения");
+        notifier.showWarning("Пустой uuid термина при попытке изменения");
         return false;
     }
 
     // Check for already existing node with same name
     auto alterNodeUuid = dataStorage.findTerm(data.term, *GroupUuid::create(data.groupUuid));
     if (alterNodeUuid.has_value() && alterNodeUuid.value() != data.uuid) {
-        NotificationManager::showWarning("Термин с таким названием уже существует в этой группе");
+        notifier.showWarning("Термин с таким названием уже существует в этой группе");
         return false;
     }
 
@@ -340,8 +341,6 @@ QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
 
 void GroupsManager::updateGroupUuidNameMaps()
 {
-    qInfo("List updated");
-
     uuidToNames.clear();
 
     for (const auto& groupInfo : dataStorage.getGroups()) {

@@ -21,8 +21,9 @@
 
 #include "source/managers/networkmanager.h"
 
-NetworkManager::NetworkManager(QObject* parent)
+NetworkManager::NetworkManager(NotifyInterface& notifier, QObject* parent)
     : QObject(parent)
+    , notifier(notifier)
 {
     server = new SimpleListenServer(AppSettings::Network::listenPort, this);
 
@@ -97,10 +98,7 @@ void NetworkManager::outputConnectionStateChange([[maybe_unused]] QAbstractSocke
     emit newOutputConnectionState();
 }
 
-void NetworkManager::sendConnectionInfo(const QString& info)
-{
-    NotificationManager::showInfo("Подключение от: " + info);
-}
+void NetworkManager::sendConnectionInfo(const QString& info) { notifier.showInfo("Подключение от: " + info); }
 
 QString NetworkManager::getOutputSocketState()
 {

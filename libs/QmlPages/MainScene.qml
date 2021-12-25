@@ -379,9 +379,6 @@ M.Page {
             onTriggered: {
                 if (GroupsManager.hasAnyGroup) {
                     root.StackView.view.push(newNodeComponent)
-                } else {
-                    Notification.showWarning("Нет групп для добавления вершин. Создайте группу!")
-                    root.StackView.view.push(groupsListComponent)
                 }
             }
         }

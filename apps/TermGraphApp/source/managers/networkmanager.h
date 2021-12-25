@@ -26,13 +26,13 @@
 
 #include "source/helpers/appconfig.h"
 #include "source/helpers/simplelistenserver.h"
-#include "source/managers/notificationmanager.h"
+#include "source/managers/notifiyinterface.h"
 
 class NetworkManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit NetworkManager(QObject* parent = nullptr);
+    explicit NetworkManager(NotifyInterface& notifier, QObject* parent = nullptr);
 
     bool sendGroup(const QJsonDocument& doc);
 
@@ -81,4 +81,6 @@ private: // Members
     QTcpSocket* outputSocket;
 
     QString receiverIp = QStringLiteral("192.168.1.100");
+
+    NotifyInterface& notifier;
 };

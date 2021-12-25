@@ -31,14 +31,14 @@
 #include <TermDataInterface/DataStorageInterface.h>
 
 #include "source/helpers/fsworks.h"
-#include "source/managers/notificationmanager.h"
+#include "source/managers/notifiyinterface.h"
 #include "source/model/group/termgroup.h"
 
 class GroupsManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit GroupsManager(DataStorageInterface& dataStorage, QObject* parent = nullptr);
+    explicit GroupsManager(DataStorageInterface& dataStorage, NotifyInterface& notifier, QObject* parent = nullptr);
 
     Q_PROPERTY(bool hasAnyGroup READ getHasAnyGroup NOTIFY groupsListChanged)
     Q_PROPERTY(QStringList allUuidSorted READ getAllUuidStringsSortedByLastEdit NOTIFY groupsListChanged)
@@ -95,6 +95,7 @@ private: // Members
     QDateTime getLastEdit(QUuid groupUuid);
 
     DataStorageInterface& dataStorage;
+    NotifyInterface&      notifier;
 
     // Cache
     QMap<QUuid, QString> uuidToNames;

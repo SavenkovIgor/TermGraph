@@ -28,7 +28,9 @@
 
 #include <CommonTools/HandyTypes.h>
 
-class NotificationManager : public QObject
+#include "source/managers/notifiyinterface.h"
+
+class NotificationManager : public QObject, public NotifyInterface
 {
     Q_OBJECT
 
@@ -42,10 +44,10 @@ public:
     NotificationManager(NotificationManager const&) = delete;
     void operator=(NotificationManager const&) = delete;
 
-    Q_INVOKABLE static void showInfo(const QString& info);
-    Q_INVOKABLE static void showWarning(const QString& warning);
-    Q_INVOKABLE static void showError(const QString& error);
-    Q_INVOKABLE static void showDebug(const QString& debug);
+    void showInfo(const QString& info) final;
+    void showWarning(const QString& warning) final;
+    void showError(const QString& error) final;
+    void showDebug(const QString& debug) final;
 
     Q_INVOKABLE void handleNotifyShow();
     Q_INVOKABLE void handleNotifyHide();

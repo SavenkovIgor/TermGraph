@@ -27,16 +27,13 @@ NotificationManager& NotificationManager::instance()
     return mgr;
 }
 
-void NotificationManager::showInfo(const QString& info) { instance().addNotify(Notify(NotifyType::Info, info)); }
+void NotificationManager::showInfo(const QString& info) { addNotify({NotifyType::Info, info}); }
 
-void NotificationManager::showWarning(const QString& warning)
-{
-    instance().addNotify(Notify(NotifyType::Warning, warning));
-}
+void NotificationManager::showWarning(const QString& warning) { addNotify({NotifyType::Warning, warning}); }
 
-void NotificationManager::showError(const QString& error) { instance().addNotify(Notify(NotifyType::Error, error)); }
+void NotificationManager::showError(const QString& error) { addNotify({NotifyType::Error, error}); }
 
-void NotificationManager::showDebug(const QString& debug) { instance().addNotify(Notify(NotifyType::Debug, debug)); }
+void NotificationManager::showDebug(const QString& debug) { addNotify({NotifyType::Debug, debug}); }
 
 void NotificationManager::handleNotifyShow()
 {
