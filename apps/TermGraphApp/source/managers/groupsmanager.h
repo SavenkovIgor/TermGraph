@@ -37,6 +37,7 @@
 class GroupsManager : public QObject
 {
     Q_OBJECT
+
 public:
     explicit GroupsManager(DataStorageInterface& dataStorage, NotifyInterface& notifier, QObject* parent = nullptr);
 
@@ -94,7 +95,7 @@ private: // Members
 
     QDateTime getLastEdit(QUuid groupUuid);
 
-    DataStorageInterface& dataStorage;
+    DataStorageInterface& dataSource;
     NotifyInterface&      notifier;
 
     // Cache

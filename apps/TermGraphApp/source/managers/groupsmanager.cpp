@@ -27,9 +27,9 @@
 
 #include "source/helpers/appconfig.h"
 
-GroupsManager::GroupsManager(DataStorageInterface& dataStorage, NotifyInterface& notifier, QObject* parent)
+GroupsManager::GroupsManager(DataStorageInterface& dataSource, NotifyInterface& notifier, QObject* parent)
     : QObject(parent)
-    , dataStorage(dataStorage)
+    , dataSource(dataSource)
     , notifier(notifier)
 {
     connect(this, &GroupsManager::groupAdded, this, &GroupsManager::groupsListChanged);
@@ -44,7 +44,7 @@ QString GroupsManager::getLastEditString(QUuid groupUuid) { return getLastEdit(g
 int GroupsManager::getNodesCount(QUuid groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid))
-        return dataStorage.getAllTermsUuids(*uuid).size();
+        return dataSource.getAllTermsUuids(*uuid).size();
 
     Q_UNREACHABLE();
     return 0;
@@ -62,7 +62,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
     info.name    = name;
     info.comment = comment;
 
-    if (dataStorage.addGroup(info)) {
+    if (dataSource.addGroup(info)) {
         updateGroupUuidNameMaps();
         emit groupAdded();
     } else {
@@ -73,7 +73,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 void GroupsManager::deleteGroup(const QString& groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid)) {
-        if (auto delResult = dataStorage.deleteGroup(*uuid)) {
+        if (auto delResult = dataSource.deleteGroup(*uuid)) {
             updateGroupUuidNameMaps();
             emit groupDeleted();
             return;
@@ -101,8 +101,8 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
 TermGroup::OptPtr GroupsManager::createGroup(const QUuid groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid)) {
-        auto groupData = dataStorage.getGroup(*uuid).value();
-        auto termsData = dataStorage.getTerms(*uuid).value();
+        auto groupData = dataSource.getGroup(*uuid).value();
+        auto termsData = dataSource.getTerms(*uuid).value();
         return std::make_shared<TermGroup>(groupData, termsData);
     }
 
@@ -119,7 +119,7 @@ bool GroupsManager::isEmptyGroup(const QString& groupUuid)
     return getNodesCount(uuid) == 0;
 }
 
-bool GroupsManager::getHasAnyGroup() const { return !dataStorage.getAllGroupsUuids().empty(); }
+bool GroupsManager::getHasAnyGroup() const { return !dataSource.getAllGroupsUuids().empty(); }
 
 QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 {
@@ -127,8 +127,8 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
     auto uuid = GroupUuid::create(groupUuid).value();
 
     QDateTime lastEdit;
-    for (auto& nodeUuid : dataStorage.getAllTermsUuids(uuid)) {
-        QDateTime currNodeLastEdit = dataStorage.getTermLastEdit(nodeUuid).value();
+    for (auto& nodeUuid : dataSource.getAllTermsUuids(uuid)) {
+        QDateTime currNodeLastEdit = dataSource.getTermLastEdit(nodeUuid).value();
         if (lastEdit.isNull()) {
             lastEdit = currNodeLastEdit;
         } else {
@@ -142,7 +142,7 @@ UuidList GroupsManager::getAllUuidsSortedByLastEdit()
 {
     UuidList ret;
 
-    auto groupsUuids = dataStorage.getAllGroupsUuids(true);
+    auto groupsUuids = dataSource.getAllGroupsUuids(true);
 
     for (const auto& uuid : groupsUuids)
         ret.push_back(uuid);
@@ -176,10 +176,10 @@ void GroupsManager::importGroup(const QJsonDocument& json)
     QJsonArray nodes = jsonGroup["nodesList"].toArray();
 
     // Searching for existed group
-    if (!dataStorage.groupExist(GroupUuid::create(info.uuid).value())) { // Group found
-        dataStorage.addGroup(info);
+    if (!dataSource.groupExist(GroupUuid::create(info.uuid).value())) { // Group found
+        dataSource.addGroup(info);
     } else {
-        dataStorage.updateGroup(info);
+        dataSource.updateGroup(info);
     }
 
     // Importing nodes
@@ -208,18 +208,18 @@ void GroupsManager::importTerm(const QJsonObject& nodeJson)
         return;
 
     // Create
-    if (!dataStorage.termExist(TermUuid::create(info.uuid).value())) {
-        dataStorage.addTerm(info);
+    if (!dataSource.termExist(TermUuid::create(info.uuid).value())) {
+        dataSource.addTerm(info);
     } else {
-        dataStorage.updateTerm(info, DataStorageInterface::LastEditSource::TakeFromTermData);
+        dataSource.updateTerm(info, DataStorageInterface::LastEditSource::TakeFromTermData);
     }
 }
 
-int GroupsManager::dbVersion() { return dataStorage.storageVersion(); }
+int GroupsManager::dbVersion() { return dataSource.storageVersion(); }
 
 bool GroupsManager::addNode(QJsonObject object)
 {
-    object.insert("uuid", dataStorage.getFreeUuid().toString());
+    object.insert("uuid", dataSource.getFreeUuid().toString());
 
     auto optData = TermData::fromJson(object, TermData::JsonCheckMode::AddNode);
     assert(optData.has_value());
@@ -239,7 +239,7 @@ bool GroupsManager::addNode(QJsonObject object)
         return false;
     }
 
-    dataStorage.addTerm(data);
+    dataSource.addTerm(data);
 
     emit nodeChanged();
     return true;
@@ -267,13 +267,13 @@ bool GroupsManager::updateNode(const QJsonObject& object)
     }
 
     // Check for already existing node with same name
-    auto alterNodeUuid = dataStorage.findTerm(data.term, *GroupUuid::create(data.groupUuid));
+    auto alterNodeUuid = dataSource.findTerm(data.term, *GroupUuid::create(data.groupUuid));
     if (alterNodeUuid.has_value() && alterNodeUuid.value() != data.uuid) {
         notifier.showWarning("Термин с таким названием уже существует в этой группе");
         return false;
     }
 
-    dataStorage.updateTerm(data, DataStorageInterface::LastEditSource::AutoGenerate, false);
+    dataSource.updateTerm(data, DataStorageInterface::LastEditSource::AutoGenerate, false);
 
     emit nodeChanged();
     return true;
@@ -282,7 +282,7 @@ bool GroupsManager::updateNode(const QJsonObject& object)
 void GroupsManager::deleteNode(const QUuid uuid)
 {
     if (auto tUuid = TermUuid::create(uuid)) {
-        dataStorage.deleteTerm(*tUuid);
+        dataSource.deleteTerm(*tUuid);
         emit nodeChanged();
     }
 }
@@ -306,7 +306,7 @@ void GroupsManager::saveGroupInFolder(TermGroup::OptPtr group)
     }
 }
 
-bool GroupsManager::groupExist(const GroupUuid& uuid) { return dataStorage.groupExist(uuid); }
+bool GroupsManager::groupExist(const GroupUuid& uuid) { return dataSource.groupExist(uuid); }
 
 bool GroupsManager::termExist(const QString& term, QUuid& groupUuid)
 {
@@ -314,7 +314,7 @@ bool GroupsManager::termExist(const QString& term, QUuid& groupUuid)
     assert(!groupUuid.isNull());
     auto uuid = GroupUuid::create(groupUuid).value();
 
-    return dataStorage.findTerm(term, uuid).has_value();
+    return dataSource.findTerm(term, uuid).has_value();
 }
 
 QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
@@ -322,15 +322,15 @@ QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
     assert(!groupUuid.isNull());
     auto uuid = GroupUuid::create(groupUuid).value();
 
-    auto info      = dataStorage.getGroup(uuid).value();
+    auto info      = dataSource.getGroup(uuid).value();
     auto groupJson = info.toJson();
 
-    auto nodesUuids = dataStorage.getAllTermsUuids(uuid);
+    auto nodesUuids = dataSource.getAllTermsUuids(uuid);
 
     QJsonArray nodesArray;
 
     for (const auto& nodeUuid : nodesUuids) {
-        auto nodeJson = dataStorage.getTerm(nodeUuid).value().toJson();
+        auto nodeJson = dataSource.getTerm(nodeUuid).value().toJson();
         nodesArray.append(nodeJson);
     }
 
@@ -343,7 +343,7 @@ void GroupsManager::updateGroupUuidNameMaps()
 {
     uuidToNames.clear();
 
-    for (const auto& groupInfo : dataStorage.getGroups()) {
+    for (const auto& groupInfo : dataSource.getGroups()) {
         uuidToNames.insert(groupInfo.uuid, groupInfo.name);
     }
 }
