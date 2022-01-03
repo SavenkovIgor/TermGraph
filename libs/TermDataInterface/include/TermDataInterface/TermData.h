@@ -80,7 +80,7 @@ struct TermData
         return true;
     }
 
-    enum class JsonCheckMode { Imort, AddNode, UpdateNode };
+    enum class JsonCheckMode { Import, AddNode, UpdateNode };
 
     // --- JSON ---
     // Returns valid object or nullopt

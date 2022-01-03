@@ -194,7 +194,7 @@ void GroupsManager::importGroup(const QJsonDocument& json)
 
 void GroupsManager::importTerm(const QJsonObject& nodeJson)
 {
-    auto optInfo = TermData::fromJson(nodeJson, TermData::JsonCheckMode::Imort);
+    auto optInfo = TermData::fromJson(nodeJson, TermData::JsonCheckMode::Import);
     assert(optInfo.has_value());
 
     auto info = optInfo.value();

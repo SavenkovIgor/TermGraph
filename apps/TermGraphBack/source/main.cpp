@@ -368,7 +368,7 @@ int main()
     // POST /api/v1/global/terms
     router->http_post("/api/v1/global/terms", [&storage](auto req, auto params) {
         if (auto jsonObj = strToJsonObj(req->body())) {
-            if (auto term = TermData::fromJson(*jsonObj, false, false)) {
+            if (auto term = TermData::fromJson(*jsonObj, TermData::JsonCheckMode::Import)) {
                 if (auto res = storage.addTerm(*term)) {
                     return successResponse(req);
                 } else {
@@ -384,7 +384,7 @@ int main()
     router->http_put("/api/v1/global/terms/:uuid", [&storage](auto req, auto params) {
         if (auto uuid = uuidFromParam(params["uuid"])) {
             if (auto jsonObj = strToJsonObj(req->body())) {
-                if (auto data = TermData::fromJson(*jsonObj, false, false)) {
+                if (auto data = TermData::fromJson(*jsonObj, TermData::JsonCheckMode::Import)) {
                     (*data).uuid = (*uuid);
                     if (auto res = storage.updateTerm(*data, DataStorageInterface::LastEditSource::AutoGenerate, false)) {
                         return successResponse(req);
