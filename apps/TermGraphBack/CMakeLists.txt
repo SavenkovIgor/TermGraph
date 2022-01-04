@@ -37,6 +37,6 @@ if (BUILD_BACKEND)
     target_sources (TermGraphBack PRIVATE ${ALL_SOURCES})
 
     target_link_libraries (TermGraphBack PRIVATE CommonTools TermDataInterface TermDataStorage)
-    target_link_libraries (TermGraphBack PRIVATE Qt6::Core)
     target_link_libraries (TermGraphBack PRIVATE restinio::restinio)
+    target_link_libraries (TermGraphBack PRIVATE Qt6::Core)
 endif ()

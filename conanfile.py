@@ -28,7 +28,7 @@ class TermGraphConan(ConanFile):
             self.requires('qt/6.2.1')
 
         if self.options.build_backend:
-            self.requires('restinio/0.6.13')
+            self.requires('restinio/0.6.14')
 
         if self.options.build_application and self.options.build_tests:
             self.requires('gtest/1.10.0')

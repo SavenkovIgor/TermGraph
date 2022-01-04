@@ -1,4 +1,3 @@
-#include <QDebug>
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QStandardPaths>
