@@ -53,7 +53,7 @@ result<void> TermGroupTable::updateGroup(const GroupData& info)
         return DbErrorCodes::UuidEmpty;
 
     if (!groupExist(info.uuid))
-        return DbErrorCodes::UuidNotExist;
+        return DbErrorCodes::UuidNotFound;
 
     if (info.name.simplified().isEmpty())
         return DbErrorCodes::GroupNameEmpty;
@@ -90,7 +90,7 @@ GroupUuid::List TermGroupTable::getAllUuids()
 result<void> TermGroupTable::deleteGroup(const GroupUuid& uuid)
 {
     if (!groupExist(uuid))
-        return DbErrorCodes::UuidNotExist;
+        return DbErrorCodes::UuidNotFound;
 
     DbTools::start(SqlQueryBuilder().deleteGroup(uuid));
     return outcome::success();
@@ -147,7 +147,7 @@ result<GroupData> TermGroupTable::getGroup(const GroupUuid& uuid)
 {
     // If group not exist
     if (!groupExist(uuid))
-        return DbErrorCodes::UuidNotExist;
+        return DbErrorCodes::UuidNotFound;
 
     auto query = SqlQueryBuilder().selectGroup(uuid);
     DbTools::start(query);

@@ -31,14 +31,15 @@
 enum class DbErrorCodes {
     UuidEmpty = 0,
     UuidAlreadyExist,
-    UuidNotExist,
+    UuidNotFound,
 
     GroupNameEmpty,
     GroupNameAlreadyExist,
 
     TermEmpty,
-    TermNotExist,
-    NewerTermVersionFound
+    TermNotFound,
+    NewerTermVersionFound,
+    ConnectionError
 };
 
 inline const char* error_message(int code)
@@ -46,12 +47,13 @@ inline const char* error_message(int code)
     switch (static_cast<DbErrorCodes>(code)) {
     case DbErrorCodes::UuidEmpty: return "UuidEmpty";
     case DbErrorCodes::UuidAlreadyExist: return "UuidAlreadyExist";
-    case DbErrorCodes::UuidNotExist: return "UuidNotExist";
+    case DbErrorCodes::UuidNotFound: return "UuidNotExist";
     case DbErrorCodes::GroupNameEmpty: return "GroupNameEmpty";
     case DbErrorCodes::GroupNameAlreadyExist: return "GroupNameAlreadyExist";
     case DbErrorCodes::TermEmpty: return "TermEmpty";
-    case DbErrorCodes::TermNotExist: return "TermNotExist";
+    case DbErrorCodes::TermNotFound: return "TermNotFound";
     case DbErrorCodes::NewerTermVersionFound: return "NewerTermVersionFound";
+    case DbErrorCodes::ConnectionError: return "ConnectionError";
     }
     return "UnreachableMsg";
 }

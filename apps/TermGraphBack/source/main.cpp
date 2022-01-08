@@ -116,7 +116,7 @@ http_status_line_t dbErrToHttpErr(std::error_code code)
     if (code == DbErrorCodes::UuidAlreadyExist)
         return status_conflict();
 
-    if (code == DbErrorCodes::UuidNotExist)
+    if (code == DbErrorCodes::UuidNotFound)
         return status_not_found();
 
     if (code == DbErrorCodes::GroupNameEmpty)
@@ -128,11 +128,14 @@ http_status_line_t dbErrToHttpErr(std::error_code code)
     if (code == DbErrorCodes::TermEmpty)
         return status_bad_request();
 
-    if (code == DbErrorCodes::TermNotExist)
+    if (code == DbErrorCodes::TermNotFound)
         return status_not_found();
 
     if (code == DbErrorCodes::NewerTermVersionFound)
         return status_conflict();
+
+    if (code == DbErrorCodes::ConnectionError)
+        return status_not_found();
 
     return status_bad_gateway();
 }
@@ -145,8 +148,8 @@ std::string dbErrDescription(std::error_code code)
     if (code == DbErrorCodes::UuidAlreadyExist)
         return "Uuid already exist";
 
-    if (code == DbErrorCodes::UuidNotExist)
-        return "Uuid not exist";
+    if (code == DbErrorCodes::UuidNotFound)
+        return "Uuid not found";
 
     if (code == DbErrorCodes::GroupNameEmpty)
         return "Group name empty";
@@ -157,8 +160,8 @@ std::string dbErrDescription(std::error_code code)
     if (code == DbErrorCodes::TermEmpty)
         return "Term empty";
 
-    if (code == DbErrorCodes::TermNotExist)
-        return "Term not exist";
+    if (code == DbErrorCodes::TermNotFound)
+        return "Term not found";
 
     if (code == DbErrorCodes::NewerTermVersionFound)
         return "Newer term version found";

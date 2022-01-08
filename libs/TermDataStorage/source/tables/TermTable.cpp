@@ -76,7 +76,7 @@ result<void> TermTable::addNode(const TermData& info)
 result<void> TermTable::deleteTerm(const TermUuid& uuid)
 {
     if (!nodeExist(uuid))
-        return DbErrorCodes::UuidNotExist;
+        return DbErrorCodes::UuidNotFound;
 
     DbTools::start(SqlQueryBuilder().deleteTerm(uuid));
     return outcome::success();
@@ -133,7 +133,7 @@ TermUuid::List TermTable::getAllNodesUuids(opt<GroupUuid> uuid)
 result<TermData> TermTable::getNodeInfo(const TermUuid& uuid)
 {
     if (!nodeExist(uuid))
-        return DbErrorCodes::UuidNotExist;
+        return DbErrorCodes::UuidNotFound;
 
     TermData info;
 
@@ -164,7 +164,7 @@ result<TermData::List> TermTable::getAllNodesInfo(const GroupUuid& uuid)
 result<QDateTime> TermTable::getLastEdit(const TermUuid& uuid)
 {
     if (!nodeExist(uuid))
-        return DbErrorCodes::UuidNotExist;
+        return DbErrorCodes::UuidNotFound;
 
     auto query = SqlQueryBuilder().selectLastEdit(uuid);
     DbTools::start(query);
@@ -196,7 +196,7 @@ result<void> TermTable::updateNode(const TermData&                      info,
         return DbErrorCodes::UuidEmpty;
 
     if (!nodeExist(*tUuid))
-        return DbErrorCodes::UuidNotExist;
+        return DbErrorCodes::UuidNotFound;
 
     if (checkLastEdit) {
         const auto currentLastEdit = getLastEdit(*tUuid).value();

@@ -136,7 +136,7 @@ result<TermData> LocalDatabaseStorage::getTerm(const TermUuid& uuid) const
 result<TermData::List> LocalDatabaseStorage::getTerms(const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->groupExist(uuid))
-        return DbErrorCodes::UuidNotExist;
+        return DbErrorCodes::UuidNotFound;
 
     return impl->db.termTable->getAllNodesInfo(uuid);
 }
@@ -154,7 +154,7 @@ result<void> LocalDatabaseStorage::addTerm(const TermData& info)
         return DbErrorCodes::UuidEmpty;
 
     if (!impl->db.groupTable->groupExist(info.groupUuid))
-        return DbErrorCodes::UuidNotExist;
+        return DbErrorCodes::UuidNotFound;
 
     return impl->db.termTable->addNode(info);
 }
@@ -167,7 +167,7 @@ result<void> LocalDatabaseStorage::updateTerm(const TermData&                   
         return DbErrorCodes::UuidEmpty;
 
     if (!impl->db.groupTable->groupExist(info.groupUuid))
-        return DbErrorCodes::UuidNotExist;
+        return DbErrorCodes::UuidNotFound;
 
     return impl->db.termTable->updateNode(info, lastEditSource, checkLastEdit);
 }
