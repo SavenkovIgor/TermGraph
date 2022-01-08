@@ -69,7 +69,7 @@ set (QML_IMPORT_PATH
     CACHE STRING "" FORCE)
 
 # C++ libs
-target_link_libraries (TermGraph PRIVATE CommonTools TermDataInterface TermDataStorage)
+target_link_libraries (TermGraph PRIVATE CommonTools TermDataInterface TermDataStorage TermDataConnection)
 
 # Qrc libs
 target_link_libraries (TermGraph PRIVATE HelpImagesResource IconsResource)

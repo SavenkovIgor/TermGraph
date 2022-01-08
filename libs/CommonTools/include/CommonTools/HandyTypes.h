@@ -42,6 +42,9 @@ using Opt = std::optional<T>;
 template<typename T>
 using Result = outcome::std_result<T>;
 
+template<typename RetType>
+using FutureRes = QFuture<Result<RetType>>;
+
 enum class Direction { Left, Right };
 
 class SizeList : public std::vector<QSizeF>

@@ -98,6 +98,12 @@ GroupUuid::List LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) con
     return ret;
 }
 
+FutureRes<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuidsAsync(bool sortByLastEdit) const
+{
+    Q_UNIMPLEMENTED();
+    return {};
+}
+
 bool LocalDatabaseStorage::groupExist(const GroupUuid& uuid) const { return impl->db.groupTable->groupExist(uuid); }
 
 Result<GroupData> LocalDatabaseStorage::getGroup(const GroupUuid& uuid) const

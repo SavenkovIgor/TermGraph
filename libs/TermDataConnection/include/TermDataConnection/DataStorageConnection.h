@@ -21,21 +21,22 @@
 
 #pragma once
 
+#include <QJsonObject>
+#include <QNetworkAccessManager>
+
 #include <CommonTools/HandyTypes.h>
 
 #include <TermDataInterface/DataStorageInterface.h>
 #include <TermDataInterface/GroupData.h>
 #include <TermDataInterface/TermData.h>
 
-class StorageImpl;
+#include "NetworkThread.h"
 
-class LocalDatabaseStorage : public DataStorageInterface
+class DataStorageConnection : public DataStorageInterface
 {
 public:
-    LocalDatabaseStorage(const QString& filePath, const QString& backupFolderPath);
+    DataStorageConnection(QHostAddress address, quint16 port);
 
-    // DataStorageInterface interface
-public:
     int storageVersion() const final;
 
     QUuid getFreeUuid() const final;
@@ -67,5 +68,7 @@ public:
     Result<void> deleteTerm(const TermUuid& uuid) final;
 
 private:
-    StorageImpl* impl = nullptr;
+    NetworkThread netThread;
+
+    static Opt<QJsonObject> requestBodyToJsonObject(const QByteArray& data);
 };

@@ -44,6 +44,7 @@ if (BUILD_APPLICATION)
     add_subdirectory (libs/QmlPages)
     add_subdirectory (libs/QrcHelpImages)
     add_subdirectory (libs/QrcIcons)
+    add_subdirectory (libs/TermDataConnection)
 
     add_subdirectory (apps/TermGraphApp)
 endif ()
