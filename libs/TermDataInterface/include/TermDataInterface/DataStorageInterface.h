@@ -48,24 +48,24 @@ public:
     virtual GroupUuid::List getAllGroupsUuids(bool sortByLastEdit = false) const = 0;
 
     virtual bool              groupExist(const GroupUuid& uuid) const = 0;
-    virtual result<GroupData> getGroup(const GroupUuid& uuid) const   = 0;
+    virtual Result<GroupData> getGroup(const GroupUuid& uuid) const   = 0;
     virtual GroupData::List   getGroups() const                       = 0;
 
-    virtual result<void> addGroup(const GroupData& info)    = 0;
-    virtual result<void> updateGroup(const GroupData& info) = 0;
-    virtual result<void> deleteGroup(const GroupUuid& uuid) = 0;
+    virtual Result<void> addGroup(const GroupData& info)    = 0;
+    virtual Result<void> updateGroup(const GroupData& info) = 0;
+    virtual Result<void> deleteGroup(const GroupUuid& uuid) = 0;
 
     // Terms
-    virtual TermUuid::List getAllTermsUuids(opt<GroupUuid> groupUuid = std::nullopt) const = 0;
+    virtual TermUuid::List getAllTermsUuids(Opt<GroupUuid> groupUuid = std::nullopt) const = 0;
 
     virtual bool                   termExist(const TermUuid& uuid) const                          = 0;
-    virtual opt<TermUuid>          findTerm(const QString& termName, const GroupUuid& uuid) const = 0;
-    virtual result<TermData>       getTerm(const TermUuid& uuid) const                            = 0;
-    virtual result<TermData::List> getTerms(const GroupUuid& uuid) const                          = 0;
-    virtual result<TermData::List> getTerms(const UuidList& termsUuids) const                     = 0;
-    virtual result<QDateTime>      getTermLastEdit(const TermUuid& uuid) const                    = 0;
+    virtual Opt<TermUuid>          findTerm(const QString& termName, const GroupUuid& uuid) const = 0;
+    virtual Result<TermData>       getTerm(const TermUuid& uuid) const                            = 0;
+    virtual Result<TermData::List> getTerms(const GroupUuid& uuid) const                          = 0;
+    virtual Result<TermData::List> getTerms(const UuidList& termsUuids) const                     = 0;
+    virtual Result<QDateTime>      getTermLastEdit(const TermUuid& uuid) const                    = 0;
 
-    virtual result<void> addTerm(const TermData& data)                                                              = 0;
-    virtual result<void> updateTerm(const TermData& data, LastEditSource lastEditSource, bool checkLastEdit = true) = 0;
-    virtual result<void> deleteTerm(const TermUuid& uuid)                                                           = 0;
+    virtual Result<void> addTerm(const TermData& data)                                                              = 0;
+    virtual Result<void> updateTerm(const TermData& data, LastEditSource lastEditSource, bool checkLastEdit = true) = 0;
+    virtual Result<void> deleteTerm(const TermUuid& uuid)                                                           = 0;
 };

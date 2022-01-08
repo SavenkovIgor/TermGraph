@@ -190,7 +190,7 @@ QString qStringFromParam(auto param) { return QString::fromStdString(strFromPara
 
 std::optional<QUuid> uuidFromParam(auto param) { return uuidFromStr(strFromParam(param)); }
 
-opt<GroupUuid> groupUuidFromParam(auto param)
+Opt<GroupUuid> groupUuidFromParam(auto param)
 {
     if (auto uuid = uuidFromParam(param))
         return GroupUuid::create(*uuid);
@@ -198,7 +198,7 @@ opt<GroupUuid> groupUuidFromParam(auto param)
     return std::nullopt;
 }
 
-opt<TermUuid> termUuidFromParam(auto param)
+Opt<TermUuid> termUuidFromParam(auto param)
 {
     if (auto uuid = uuidFromParam(param))
         return TermUuid::create(*uuid);

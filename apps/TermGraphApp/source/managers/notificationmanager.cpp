@@ -86,7 +86,7 @@ NotificationManager::NotificationManager(QObject* parent)
     connect(&hideNotifyTimer, &QTimer::timeout, this, &NotificationManager::hideNotify);
 }
 
-opt<NotificationManager::Notify> NotificationManager::currentNotify() const
+Opt<NotificationManager::Notify> NotificationManager::currentNotify() const
 {
     if (!notificationsQueue.isEmpty())
         return notificationsQueue.head();

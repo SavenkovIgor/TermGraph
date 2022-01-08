@@ -71,7 +71,7 @@ private:
     QTimer hideNotifyTimer = QTimer(this);
 
     QQueue<Notify> notificationsQueue;
-    opt<Notify>    currentNotify() const;
+    Opt<Notify>    currentNotify() const;
 
     void addNotify(const Notify& notify);
     void showNotify(const Notify& notify);

@@ -46,7 +46,7 @@ public:
 
     [[nodiscard]] QString createLinkWithUuid(const QUuid& uuid) const;
 
-    static opt<Link> select(QStringView str, int startPos);
+    static Opt<Link> select(QStringView str, int startPos);
 
     static bool isCursorOnLink(QStringView str, int cursorPos);
 
@@ -54,7 +54,7 @@ private: //Methods
     static QStringView getText(QStringView fullLink);
     static QString     getLower(QStringView text);
 
-    static opt<QUuid> tryGetUuid(QStringView fullLink);
+    static Opt<QUuid> tryGetUuid(QStringView fullLink);
 
 private: // Members
     const QStringView mLinkText;

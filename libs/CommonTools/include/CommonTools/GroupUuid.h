@@ -28,7 +28,7 @@ class GroupUuid final : public SafeUuid
 public:
     using List = std::vector<GroupUuid>;
 
-    inline static opt<GroupUuid> create(const QString& text)
+    inline static Opt<GroupUuid> create(const QString& text)
     {
         if (auto safe = SafeUuid::create(text))
             return GroupUuid(text);
@@ -36,7 +36,7 @@ public:
         return std::nullopt;
     }
 
-    inline static opt<GroupUuid> create(const QUuid& uuid)
+    inline static Opt<GroupUuid> create(const QUuid& uuid)
     {
         if (auto safe = SafeUuid::create(uuid))
             return GroupUuid(uuid.toString());

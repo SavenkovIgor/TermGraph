@@ -27,16 +27,16 @@ GlobalTagCache& GlobalTagCache::instance()
     return mgr;
 }
 
-opt<opt<int>> GlobalTagCache::get(const QString& tag, const QString& term)
+Opt<Opt<int>> GlobalTagCache::get(const QString& tag, const QString& term)
 {
     auto tagIter = tagToTermCache.constFind(tag);
     if (tagIter != tagToTermCache.constEnd()) {
         auto termIter = tagIter.value().constFind(term);
         if (termIter != tagIter.value().constEnd())
-            return opt<opt<int>>(termIter.value());
+            return Opt<Opt<int>>(termIter.value());
     }
 
     return std::nullopt;
 }
 
-void GlobalTagCache::add(const QString& tag, const QString& term, opt<int> value) { tagToTermCache[tag][term] = value; }
+void GlobalTagCache::add(const QString& tag, const QString& term, Opt<int> value) { tagToTermCache[tag][term] = value; }

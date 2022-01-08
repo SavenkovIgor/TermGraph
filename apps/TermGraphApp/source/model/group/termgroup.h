@@ -100,7 +100,7 @@ private:
     PaintedEdge::List searchAllConnections(const PaintedTerm::List& terms);
     PaintedEdge::List suggestConnections(); // TODO: Realize!
 
-    opt<PaintedTerm::Ptr> getNearestNodeForTag(const QString& tag, const PaintedTerm::List& terms);
+    Opt<PaintedTerm::Ptr> getNearestNodeForTag(const QString& tag, const PaintedTerm::List& terms);
     PaintedEdge::List     filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const;
 
     // Nodes

@@ -31,11 +31,11 @@ public:
     GlobalTagCache(GlobalTagCache const&) = delete;
     void operator=(GlobalTagCache const&) = delete;
 
-    opt<opt<int>> get(const QString& tag, const QString& term);
-    void          add(const QString& tag, const QString& term, opt<int> value);
+    Opt<Opt<int>> get(const QString& tag, const QString& term);
+    void          add(const QString& tag, const QString& term, Opt<int> value);
 
 private:
     GlobalTagCache() = default;
 
-    QMap<QString, QMap<QString, opt<int>>> tagToTermCache;
+    QMap<QString, QMap<QString, Opt<int>>> tagToTermCache;
 };

@@ -37,10 +37,10 @@ using UuidList   = std::vector<QUuid>;
 using RecordList = std::vector<QSqlRecord>;
 
 template<typename T>
-using opt = std::optional<T>;
+using Opt = std::optional<T>;
 
 template<typename T>
-using result = outcome::std_result<T>;
+using Result = outcome::std_result<T>;
 
 enum class Direction { Left, Right };
 

@@ -25,7 +25,7 @@
 #include "source/DbTools.h"
 #include "source/SqlQueryBuilder.h"
 
-opt<TermUuid> TermTable::nodeUuidForNameAndGroup(const QString& name, const GroupUuid& uuid) const
+Opt<TermUuid> TermTable::nodeUuidForNameAndGroup(const QString& name, const GroupUuid& uuid) const
 {
     if (name.simplified().isEmpty())
         return std::nullopt;
@@ -45,7 +45,7 @@ opt<TermUuid> TermTable::nodeUuidForNameAndGroup(const QString& name, const Grou
     return std::nullopt;
 }
 
-result<void> TermTable::addNode(const TermData& info)
+Result<void> TermTable::addNode(const TermData& info)
 {
     auto tUuid = TermUuid::create(info.uuid);
 
@@ -73,7 +73,7 @@ result<void> TermTable::addNode(const TermData& info)
     return outcome::success();
 }
 
-result<void> TermTable::deleteTerm(const TermUuid& uuid)
+Result<void> TermTable::deleteTerm(const TermUuid& uuid)
 {
     if (!nodeExist(uuid))
         return DbErrorCodes::UuidNotFound;
@@ -107,7 +107,7 @@ TermUuid TermTable::generateNewUuid()
 
 QDateTime TermTable::getLastEditNow() { return QDateTime::currentDateTimeUtc(); }
 
-TermUuid::List TermTable::getAllNodesUuids(opt<GroupUuid> uuid)
+TermUuid::List TermTable::getAllNodesUuids(Opt<GroupUuid> uuid)
 {
     TermUuid::List ret;
     QSqlQuery      query;
@@ -130,7 +130,7 @@ TermUuid::List TermTable::getAllNodesUuids(opt<GroupUuid> uuid)
     return ret;
 }
 
-result<TermData> TermTable::getNodeInfo(const TermUuid& uuid)
+Result<TermData> TermTable::getNodeInfo(const TermUuid& uuid)
 {
     if (!nodeExist(uuid))
         return DbErrorCodes::UuidNotFound;
@@ -144,7 +144,7 @@ result<TermData> TermTable::getNodeInfo(const TermUuid& uuid)
     return recordToNodeInfo(record);
 }
 
-result<TermData::List> TermTable::getAllNodesInfo(const GroupUuid& uuid)
+Result<TermData::List> TermTable::getAllNodesInfo(const GroupUuid& uuid)
 {
     TermData::List ret;
 
@@ -161,7 +161,7 @@ result<TermData::List> TermTable::getAllNodesInfo(const GroupUuid& uuid)
     return ret;
 }
 
-result<QDateTime> TermTable::getLastEdit(const TermUuid& uuid)
+Result<QDateTime> TermTable::getLastEdit(const TermUuid& uuid)
 {
     if (!nodeExist(uuid))
         return DbErrorCodes::UuidNotFound;
@@ -186,7 +186,7 @@ RecordList TermTable::getAllLastEditRecords()
     return DbTools::getAllRecords(std::move(query));
 }
 
-result<void> TermTable::updateNode(const TermData&                      info,
+Result<void> TermTable::updateNode(const TermData&                      info,
                                    DataStorageInterface::LastEditSource lastEditSource,
                                    bool                                 checkLastEdit)
 {

@@ -32,23 +32,23 @@ public:
     TermTable()  = default;
     ~TermTable() = default;
 
-    opt<TermUuid> nodeUuidForNameAndGroup(const QString& name, const GroupUuid& uuid) const;
+    Opt<TermUuid> nodeUuidForNameAndGroup(const QString& name, const GroupUuid& uuid) const;
 
-    result<void> addNode(const TermData& info);
+    Result<void> addNode(const TermData& info);
 
     bool nodeExist(const TermUuid& uuid);
 
-    TermUuid::List         getAllNodesUuids(opt<GroupUuid> uuid = std::nullopt);
-    result<TermData>       getNodeInfo(const TermUuid& uuid);
-    result<TermData::List> getAllNodesInfo(const GroupUuid& uuid);
+    TermUuid::List         getAllNodesUuids(Opt<GroupUuid> uuid = std::nullopt);
+    Result<TermData>       getNodeInfo(const TermUuid& uuid);
+    Result<TermData::List> getAllNodesInfo(const GroupUuid& uuid);
 
-    result<QDateTime> getLastEdit(const TermUuid& uuid);
+    Result<QDateTime> getLastEdit(const TermUuid& uuid);
     RecordList        getAllLastEditRecords();
 
-    result<void> updateNode(const TermData&                      info,
+    Result<void> updateNode(const TermData&                      info,
                             DataStorageInterface::LastEditSource lastEditSource,
                             bool                                 checkLastEdit = true);
-    result<void> deleteTerm(const TermUuid& uuid);
+    Result<void> deleteTerm(const TermUuid& uuid);
 
     void initTable();
 

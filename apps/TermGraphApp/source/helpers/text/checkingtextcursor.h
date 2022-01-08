@@ -35,7 +35,7 @@ public:
                        int            pos,
                        Condition      leftChecker,
                        Condition      rightChecker,
-                       opt<Direction> autoStartSearch = std::nullopt);
+                       Opt<Direction> autoStartSearch = std::nullopt);
 
     bool check() const;
 
@@ -43,27 +43,27 @@ public:
 
     static CheckingTextCursor rightWordBorder(QStringView    strView,
                                               int            pos             = 0,
-                                              opt<Direction> autoStartSearch = std::nullopt);
+                                              Opt<Direction> autoStartSearch = std::nullopt);
 
     static CheckingTextCursor leftWordBorder(QStringView    strView,
                                              int            pos             = 0,
-                                             opt<Direction> autoStartSearch = std::nullopt);
+                                             Opt<Direction> autoStartSearch = std::nullopt);
 
     static CheckingTextCursor leftBracketOnRight(QStringView    strView,
                                                  int            pos             = 0,
-                                                 opt<Direction> autoStartSearch = std::nullopt);
+                                                 Opt<Direction> autoStartSearch = std::nullopt);
 
     static CheckingTextCursor rightBracketOnLeft(QStringView    strView,
                                                  int            pos             = 0,
-                                                 opt<Direction> autoStartSearch = std::nullopt);
+                                                 Opt<Direction> autoStartSearch = std::nullopt);
 
     static CheckingTextCursor anyBracketOnRight(QStringView    strView,
                                                 int            pos             = 0,
-                                                opt<Direction> autoStartSearch = std::nullopt);
+                                                Opt<Direction> autoStartSearch = std::nullopt);
 
     static CheckingTextCursor anyBracketOnLeft(QStringView    strView,
                                                int            pos             = 0,
-                                               opt<Direction> autoStartSearch = std::nullopt);
+                                               Opt<Direction> autoStartSearch = std::nullopt);
 
 private:
     const Condition mLeftChecker;

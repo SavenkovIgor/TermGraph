@@ -41,5 +41,5 @@ public:
     static bool tagLengthSuitTerm(const QString& tag, const QString& termName);
 
     static int      getLevDistance(QStringView src, QStringView dst, int limit = 100000);
-    static opt<int> getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit);
+    static Opt<int> getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit);
 };

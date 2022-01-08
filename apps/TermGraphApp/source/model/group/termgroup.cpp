@@ -351,7 +351,7 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
     // Compare everything with everything
     for (auto node : terms) {
         for (const auto& link : node->cache().links()) {
-            opt<PaintedTerm::Ptr> foundNode = std::nullopt;
+            Opt<PaintedTerm::Ptr> foundNode = std::nullopt;
 
             EdgeType eType = EdgeType::termin;
 
@@ -393,13 +393,13 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
     return ret;
 }
 
-opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const PaintedTerm::List& terms)
+Opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const PaintedTerm::List& terms)
 {
-    opt<PaintedTerm::Ptr> targetTerm = std::nullopt;
+    Opt<PaintedTerm::Ptr> targetTerm = std::nullopt;
 
     int minDistance = 100000;
 
-    opt<int> optionalResult;
+    Opt<int> optionalResult;
 
     for (auto node : terms) {
         auto termName = node->cache().lowerTerm();

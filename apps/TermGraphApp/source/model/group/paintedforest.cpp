@@ -67,7 +67,7 @@ void PaintedForest::setTreeNodeCoords(QPointF leftTopPoint)
     }
 }
 
-opt<QPointF> PaintedForest::optimalRootsBasedPosition(const PaintedTerm::Ptr term) const
+Opt<QPointF> PaintedForest::optimalRootsBasedPosition(const PaintedTerm::Ptr term) const
 {
     auto rNodes = rootNodes(term);
 

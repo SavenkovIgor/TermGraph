@@ -34,13 +34,13 @@ public:
 
     // Add, update, delete
     // TODO: Return object after add, update, delete
-    result<void> addGroup(const GroupData& info);
-    result<void> updateGroup(const GroupData& info);
-    result<void> deleteGroup(const GroupUuid& uuid);
+    Result<void> addGroup(const GroupData& info);
+    Result<void> updateGroup(const GroupData& info);
+    Result<void> deleteGroup(const GroupUuid& uuid);
 
     // Getters
     GroupUuid::List   getAllUuids();
-    result<GroupData> getGroup(const GroupUuid& uuid);
+    Result<GroupData> getGroup(const GroupUuid& uuid);
     GroupData::List   getGroups();
 
     QUuid getUuid(const QString& groupName) const;

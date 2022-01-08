@@ -25,7 +25,7 @@
 #include "source/DbTools.h"
 #include "source/SqlQueryBuilder.h"
 
-result<void> TermGroupTable::addGroup(const GroupData& info)
+Result<void> TermGroupTable::addGroup(const GroupData& info)
 {
     GroupData groupInfo = info;
 
@@ -47,7 +47,7 @@ result<void> TermGroupTable::addGroup(const GroupData& info)
     return outcome::success();
 }
 
-result<void> TermGroupTable::updateGroup(const GroupData& info)
+Result<void> TermGroupTable::updateGroup(const GroupData& info)
 {
     if (info.uuid.isNull())
         return DbErrorCodes::UuidEmpty;
@@ -87,7 +87,7 @@ GroupUuid::List TermGroupTable::getAllUuids()
     return ret;
 }
 
-result<void> TermGroupTable::deleteGroup(const GroupUuid& uuid)
+Result<void> TermGroupTable::deleteGroup(const GroupUuid& uuid)
 {
     if (!groupExist(uuid))
         return DbErrorCodes::UuidNotFound;
@@ -143,7 +143,7 @@ bool TermGroupTable::groupWithNameExist(const QString& groupName) { return !getU
 
 void TermGroupTable::initTable() { DbTools::start(SqlQueryBuilder().createGroupsTable()); }
 
-result<GroupData> TermGroupTable::getGroup(const GroupUuid& uuid)
+Result<GroupData> TermGroupTable::getGroup(const GroupUuid& uuid)
 {
     // If group not exist
     if (!groupExist(uuid))
