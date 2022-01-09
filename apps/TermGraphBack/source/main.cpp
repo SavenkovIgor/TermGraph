@@ -5,6 +5,7 @@
 
 #include <restinio/all.hpp>
 
+#include <CommonTools/JsonTools.h>
 #include <TermDataStorage/LocalDataStorage.h>
 
 #include <QDebug>
@@ -18,12 +19,6 @@ using namespace restinio;
 // TODO: Add standard database errors
 // TODO: Remove second version of sql executor
 // TODO: Watch about error codes
-
-std::string jsonObjToStr(QJsonObject obj)
-{
-    QJsonDocument doc(obj);
-    return QString(doc.toJson()).toStdString();
-}
 
 std::optional<QUuid> uuidFromStr(std::string param)
 {
@@ -67,24 +62,6 @@ std::optional<TermUuid> strToTermUuid(std::string param)
     return std::nullopt;
 }
 
-std::optional<QJsonObject> strToJsonObj(std::string jsonStr)
-{
-    auto bytes = QByteArray::fromStdString(jsonStr);
-    auto doc   = QJsonDocument::fromJson(bytes);
-
-    if (doc.isNull())
-        return std::nullopt;
-
-    return doc.object();
-}
-
-std::string arrayToString(QString rootKey, QJsonArray data)
-{
-    QJsonObject obj;
-    obj.insert(rootKey, data);
-    return jsonObjToStr(obj);
-}
-
 template<typename UuidContainer>
 std::string uuidListToStdString(QString rootKey, UuidContainer uuidList)
 {
@@ -93,7 +70,7 @@ std::string uuidListToStdString(QString rootKey, UuidContainer uuidList)
     for (auto uuid : uuidList)
         arr.push_back(uuid.toString());
 
-    return arrayToString(rootKey, arr);
+    return JsonTools::toStdString(rootKey, arr);
 }
 
 std::string containerToStdString(QString rootKey, auto container)
@@ -103,7 +80,7 @@ std::string containerToStdString(QString rootKey, auto container)
     for (auto item : container)
         arr.push_back(item.toJson());
 
-    return arrayToString(rootKey, arr);
+    return JsonTools::toStdString(rootKey, arr);
 }
 
 http_status_line_t dbErrToHttpErr(std::error_code code)
@@ -245,7 +222,7 @@ int main()
         if (auto uuid = groupUuidFromParam(params["uuid"])) {
             if (auto group = storage.getGroup(*uuid)) {
                 auto jsonObj = group.value().toJson();
-                auto jsonStr = jsonObjToStr(jsonObj);
+                auto jsonStr = JsonTools::toStdString(jsonObj);
                 return successResponse(req, jsonStr);
             } else {
                 return responseForDbError(req, group.error());
@@ -257,7 +234,7 @@ int main()
 
     // POST /api/v1/global/groups
     router->http_post("/api/v1/global/groups", [&storage](auto req, auto params) {
-        if (auto jsonObj = strToJsonObj(req->body())) {
+        if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
             if (auto group = GroupData::fromJson(*jsonObj)) {
                 if (auto res = storage.addGroup(*group)) {
                     return successResponse(req);
@@ -273,7 +250,7 @@ int main()
     // PUT /api/v1/global/groups/:uuid
     router->http_put("/api/v1/global/groups/:uuid", [&storage](auto req, auto params) {
         if (auto uuid = uuidFromParam(params["uuid"])) {
-            if (auto jsonObj = strToJsonObj(req->body())) {
+            if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
                 if (auto data = GroupData::fromJson(*jsonObj)) {
                     (*data).uuid = (*uuid);
                     if (auto res = storage.updateGroup(*data)) {
@@ -325,7 +302,7 @@ int main()
                     return req->create_response(restinio::status_not_found()).done();
 
                 if (auto termData = storage.getTerm(*nodeUuid))
-                    return successResponse(req, jsonObjToStr(termData.value().toJson()));
+                    return successResponse(req, JsonTools::toStdString(termData.value().toJson()));
                 else
                     return responseForDbError(req, termData.error());
 
@@ -358,7 +335,7 @@ int main()
             bool lastEditOnly = urlParams.has("type") && urlParams["type"] == "last_edit";
 
             if (auto term = storage.getTerm(*uuid)) {
-                return successResponse(req, jsonObjToStr(term.value().toJson()));
+                return successResponse(req, JsonTools::toStdString(term.value().toJson()));
             } else {
                 return responseForDbError(req, term.error());
             }
@@ -369,7 +346,7 @@ int main()
 
     // POST /api/v1/global/terms
     router->http_post("/api/v1/global/terms", [&storage](auto req, auto params) {
-        if (auto jsonObj = strToJsonObj(req->body())) {
+        if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
             if (auto term = TermData::fromJson(*jsonObj, TermData::JsonCheckMode::Import)) {
                 if (auto res = storage.addTerm(*term)) {
                     return successResponse(req);
@@ -385,7 +362,7 @@ int main()
     // PUT /api/v1/global/terms/:uuid
     router->http_put("/api/v1/global/terms/:uuid", [&storage](auto req, auto params) {
         if (auto uuid = uuidFromParam(params["uuid"])) {
-            if (auto jsonObj = strToJsonObj(req->body())) {
+            if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
                 if (auto data = TermData::fromJson(*jsonObj, TermData::JsonCheckMode::Import)) {
                     (*data).uuid = (*uuid);
                     if (auto res = storage.updateTerm(*data, DataStorageInterface::LastEditSource::AutoGenerate, false)) {

@@ -21,19 +21,22 @@ cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
 project (CommonTools VERSION 1.0.0 LANGUAGES CXX)
 
+find_package (Qt6 COMPONENTS Core REQUIRED)
 find_package (outcome REQUIRED)
 
 add_library (CommonTools
     INTERFACE
+        include/CommonTools/GroupUuid.h
         include/CommonTools/HandyTypes.h
+        include/CommonTools/JsonTools.h
+        include/CommonTools/Platform.h
         include/CommonTools/SafeUuid.h
         include/CommonTools/TermUuid.h
-        include/CommonTools/GroupUuid.h
-        include/CommonTools/Platform.h
         include/CommonTools/Validator.h)
 
 target_include_directories (CommonTools INTERFACE "./include")
 
+target_link_libraries (TermGraph PRIVATE Qt6::Core)
 target_link_libraries (CommonTools INTERFACE outcome::outcome)
 
 if (BUILD_TESTING)
