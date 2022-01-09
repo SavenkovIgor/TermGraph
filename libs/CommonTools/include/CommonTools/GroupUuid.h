@@ -44,10 +44,10 @@ public:
         return std::nullopt;
     }
 
-    inline static GroupUuid generate() { return {QUuid::createUuid().toString()}; }
+    inline static GroupUuid generate() { return GroupUuid(QUuid::createUuid().toString()); }
 
 private:
-    inline GroupUuid(const QString& text)
+    explicit inline GroupUuid(const QString& text)
         : SafeUuid(text)
     {}
 };

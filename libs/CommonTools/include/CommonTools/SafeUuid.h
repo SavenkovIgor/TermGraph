@@ -48,12 +48,12 @@ public:
         return SafeUuid(uuid.toString());
     }
 
-    inline static SafeUuid generate() { return {QUuid::createUuid().toString()}; }
+    inline static SafeUuid generate() { return SafeUuid(QUuid::createUuid().toString()); }
 
     inline QUuid get() const { return QUuid(toString()); }
 
 protected:
-    inline SafeUuid(const QString& text)
+    explicit inline SafeUuid(const QString& text)
         : QUuid(text)
     {
         assert(!isNull());

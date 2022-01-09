@@ -44,10 +44,10 @@ public:
         return std::nullopt;
     }
 
-    inline static TermUuid generate() { return {QUuid::createUuid().toString()}; }
+    inline static TermUuid generate() { return TermUuid(QUuid::createUuid().toString()); }
 
 private:
-    inline TermUuid(const QString& text)
+    explicit inline TermUuid(const QString& text)
         : SafeUuid(text)
     {}
 };
