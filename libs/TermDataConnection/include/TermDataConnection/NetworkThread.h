@@ -26,6 +26,7 @@ class NetworkThread : public QThread
 {
 public:
     NetworkThread();
+    ~NetworkThread();
 
     void run() final;
 

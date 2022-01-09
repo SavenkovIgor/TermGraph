@@ -29,7 +29,6 @@
 DataStorageConnection::DataStorageConnection(QHostAddress address, quint16 port)
     : DataStorageInterface()
 {
-    netThread.start();
 }
 
 int DataStorageConnection::storageVersion() const

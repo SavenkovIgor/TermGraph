@@ -23,7 +23,11 @@
 
 NetworkThread::NetworkThread()
     : QThread()
-{}
+{
+    start();
+}
+
+NetworkThread::~NetworkThread() { exit(); }
 
 void NetworkThread::run()
 {
