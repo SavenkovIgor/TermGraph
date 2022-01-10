@@ -87,12 +87,12 @@ auto responseForDbError(auto req, std::error_code code)
     return req->create_response(dbErrToHttpErr(code)).set_body(dbErrDescription(code).toStdString()).done();
 }
 
-auto successResponse(auto req, const std::string& body = "")
+auto successResponse(auto req, const QString& body = "")
 {
-    if (body.empty())
+    if (body.isEmpty())
         return req->create_response().done();
 
-    return req->create_response().set_body(body).done();
+    return req->create_response().set_body(body.toStdString()).done();
 }
 
 auto badRequest(auto req) { return req->create_response(restinio::status_bad_request()).done(); }
@@ -152,14 +152,14 @@ int main()
     router->http_get("/api/v1/global/groups", [&storage](auto req, auto params) {
         auto urlParams = restinio::parse_query(req->header().query());
 
-        std::string jsonStr;
+        QString jsonStr;
 
         bool uuidOnlyMode = urlParams.has("type") && urlParams["type"] == "uuid_only";
 
         if (uuidOnlyMode)
-            jsonStr = JsonTools::toStdString("groupUuids", storage.getAllGroupsUuids(true));
+            jsonStr = JsonTools::toQString("groupUuids", storage.getAllGroupsUuids(true));
         else
-            jsonStr = JsonTools::containerToStdString("groups", storage.getGroups());
+            jsonStr = JsonTools::containerToQString("groups", storage.getGroups());
 
         return successResponse(req, jsonStr);
     });
@@ -169,7 +169,7 @@ int main()
         if (auto uuid = groupUuidFromParam(params["uuid"])) {
             if (auto group = storage.getGroup(*uuid)) {
                 auto jsonObj = group.value().toJson();
-                auto jsonStr = JsonTools::toStdString(jsonObj);
+                auto jsonStr = JsonTools::toQString(jsonObj);
                 return successResponse(req, jsonStr);
             } else {
                 return responseForDbError(req, group.error());
@@ -249,7 +249,7 @@ int main()
                     return req->create_response(restinio::status_not_found()).done();
 
                 if (auto termData = storage.getTerm(*nodeUuid))
-                    return successResponse(req, JsonTools::toStdString(termData.value().toJson()));
+                    return successResponse(req, JsonTools::toQString(termData.value().toJson()));
                 else
                     return responseForDbError(req, termData.error());
 
@@ -259,14 +259,14 @@ int main()
                     for (const auto& term : termList.value())
                         uuids.push_back(term.uuid);
 
-                    return successResponse(req, JsonTools::toStdString("uuids", uuids));
+                    return successResponse(req, JsonTools::toQString("uuids", uuids));
                 } else {
                     return responseForDbError(req, termList.error());
                 }
 
             } else {
                 if (auto termList = storage.getTerms(*groupUuid))
-                    return successResponse(req, JsonTools::containerToStdString("terms", termList.value()));
+                    return successResponse(req, JsonTools::containerToQString("terms", termList.value()));
                 else
                     return responseForDbError(req, termList.error());
             }
@@ -282,7 +282,7 @@ int main()
             bool lastEditOnly = urlParams.has("type") && urlParams["type"] == "last_edit";
 
             if (auto term = storage.getTerm(*uuid)) {
-                return successResponse(req, JsonTools::toStdString(term.value().toJson()));
+                return successResponse(req, JsonTools::toQString(term.value().toJson()));
             } else {
                 return responseForDbError(req, term.error());
             }

@@ -32,39 +32,37 @@
 class JsonTools
 {
 public:
-    static inline QString toQString(const QJsonObject& obj)
-    {
-        QJsonDocument doc(obj);
-        return QString(doc.toJson());
-    }
+    // QJsonObject
+    static inline QString toQString(const QJsonObject& obj) { return QString(QJsonDocument(obj).toJson()); }
 
-    static inline std::string toStdString(const QJsonObject& obj) { return toQString(obj).toStdString(); }
-
-    static inline std::string toStdString(const QString& rootKey, const QJsonArray& data)
+    // RootKey + jsonArray
+    static inline QString toQString(const QString& rootKey, const QJsonArray& data)
     {
         QJsonObject obj;
         obj.insert(rootKey, data);
-        return toStdString(obj);
+        return toQString(obj);
     }
 
-    static inline std::string toStdString(const QString& rootKey, const auto& uuidList)
+    // Uuid list
+    static inline QString toQString(const QString& rootKey, const auto& uuidList)
     {
         QJsonArray arr;
 
         for (const auto& uuid : uuidList)
             arr.push_back(uuid.toString());
 
-        return toStdString(rootKey, arr);
+        return toQString(rootKey, arr);
     }
 
-    static inline std::string containerToStdString(const QString& rootKey, const auto& container)
+    // Container array
+    static inline QString containerToQString(const QString& rootKey, const auto& container)
     {
         QJsonArray arr;
 
         for (auto item : container)
             arr.push_back(item.toJson());
 
-        return toStdString(rootKey, arr);
+        return toQString(rootKey, arr);
     }
 
     static inline QString prepareUuidParameter(QString param)
