@@ -29,6 +29,7 @@ add_library (CommonTools
         include/CommonTools/GroupUuid.h
         include/CommonTools/HandyTypes.h
         include/CommonTools/JsonTools.h
+        include/CommonTools/NetworkTools.h
         include/CommonTools/Platform.h
         include/CommonTools/SafeUuid.h
         include/CommonTools/TermUuid.h

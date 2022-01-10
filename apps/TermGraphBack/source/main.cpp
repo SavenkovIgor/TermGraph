@@ -7,6 +7,7 @@
 
 #include <CommonTools/HandyTypes.h>
 #include <CommonTools/JsonTools.h>
+#include <CommonTools/NetworkTools.h>
 #include <TermDataStorage/LocalDataStorage.h>
 
 #include <QDebug>
@@ -149,7 +150,7 @@ int main()
 
     // GET /api/v1/global/groups
     // GET /api/v1/global/groups?type=uuid_only
-    router->http_get("/api/v1/global/groups", [&storage](auto req, auto params) {
+    router->http_get(NetworkTools::groupApiPath, [&storage](auto req, auto params) {
         auto urlParams = restinio::parse_query(req->header().query());
 
         QString jsonStr;
@@ -180,7 +181,7 @@ int main()
     });
 
     // POST /api/v1/global/groups
-    router->http_post("/api/v1/global/groups", [&storage](auto req, auto params) {
+    router->http_post(NetworkTools::groupApiPath, [&storage](auto req, auto params) {
         if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
             if (auto group = GroupData::fromJson(*jsonObj)) {
                 if (auto res = storage.addGroup(*group)) {
@@ -228,7 +229,7 @@ int main()
     // GET /api/v1/global/terms?group_uuid=gUuid
     // GET /api/v1/global/terms?group_uuid=gUuid&name=:name
     // GET /api/v1/global/terms?group_uuid=gUuid&type=uuid_only
-    router->http_get("/api/v1/global/terms", [&storage](auto req, auto params) {
+    router->http_get(NetworkTools::termApiPath, [&storage](auto req, auto params) {
         auto urlParams = restinio::parse_query(req->header().query());
 
         bool hasNameParam      = urlParams.has("name");
@@ -292,7 +293,7 @@ int main()
     });
 
     // POST /api/v1/global/terms
-    router->http_post("/api/v1/global/terms", [&storage](auto req, auto params) {
+    router->http_post(NetworkTools::termApiPath, [&storage](auto req, auto params) {
         if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
             if (auto term = TermData::fromJson(*jsonObj, TermData::JsonCheckMode::Import)) {
                 if (auto res = storage.addTerm(*term)) {
