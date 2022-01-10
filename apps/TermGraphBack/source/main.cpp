@@ -5,6 +5,7 @@
 
 #include <restinio/all.hpp>
 
+#include <CommonTools/HandyTypes.h>
 #include <CommonTools/JsonTools.h>
 #include <TermDataStorage/LocalDataStorage.h>
 
@@ -14,74 +15,9 @@ using namespace restinio;
 
 // TODO: Give address and port through agrument
 // TODO: Encoding!
-// TODO: Add getFreeUuid for groups
-// TODO: Add getFreeUuid for nodes
 // TODO: Add standard database errors
 // TODO: Remove second version of sql executor
 // TODO: Watch about error codes
-
-std::optional<QUuid> uuidFromStr(std::string param)
-{
-    auto uuidStr = QString::fromStdString(param);
-
-    uuidStr.replace("%7B", "");
-    uuidStr.replace("%7D", "");
-
-    uuidStr.prepend('{');
-    uuidStr.append('}');
-
-    auto ret = QUuid(uuidStr);
-
-    if (ret.isNull())
-        return std::nullopt;
-
-    assert(!ret.isNull());
-
-    return ret;
-}
-
-std::optional<GroupUuid> strToGroupUuid(std::string param)
-{
-    if (auto uuid = uuidFromStr(param)) {
-        if (auto gUuid = GroupUuid::create(*uuid)) {
-            return gUuid;
-        }
-    }
-
-    return std::nullopt;
-}
-
-std::optional<TermUuid> strToTermUuid(std::string param)
-{
-    if (auto uuid = uuidFromStr(param)) {
-        if (auto tUuid = TermUuid::create(*uuid)) {
-            return tUuid;
-        }
-    }
-
-    return std::nullopt;
-}
-
-template<typename UuidContainer>
-std::string uuidListToStdString(QString rootKey, UuidContainer uuidList)
-{
-    QJsonArray arr;
-
-    for (auto uuid : uuidList)
-        arr.push_back(uuid.toString());
-
-    return JsonTools::toStdString(rootKey, arr);
-}
-
-std::string containerToStdString(QString rootKey, auto container)
-{
-    QJsonArray arr;
-
-    for (auto item : container)
-        arr.push_back(item.toJson());
-
-    return JsonTools::toStdString(rootKey, arr);
-}
 
 http_status_line_t dbErrToHttpErr(std::error_code code)
 {
@@ -117,7 +53,7 @@ http_status_line_t dbErrToHttpErr(std::error_code code)
     return status_bad_gateway();
 }
 
-std::string dbErrDescription(std::error_code code)
+QString dbErrDescription(std::error_code code)
 {
     if (code == DbErrorCodes::UuidEmpty)
         return "Uuid is empty";
@@ -148,10 +84,10 @@ std::string dbErrDescription(std::error_code code)
 
 auto responseForDbError(auto req, std::error_code code)
 {
-    return req->create_response(dbErrToHttpErr(code)).set_body(dbErrDescription(code)).done();
+    return req->create_response(dbErrToHttpErr(code)).set_body(dbErrDescription(code).toStdString()).done();
 }
 
-auto successResponse(auto req, std::string body = "")
+auto successResponse(auto req, const std::string& body = "")
 {
     if (body.empty())
         return req->create_response().done();
@@ -161,11 +97,22 @@ auto successResponse(auto req, std::string body = "")
 
 auto badRequest(auto req) { return req->create_response(restinio::status_bad_request()).done(); }
 
-std::string strFromParam(auto param) { return restinio::cast_to<std::string>(param); }
+QString paramToQString(auto param)
+{
+    auto stdStr = restinio::cast_to<std::string>(param);
+    return QString::fromStdString(stdStr);
+}
 
-QString qStringFromParam(auto param) { return QString::fromStdString(strFromParam(param)); }
+Opt<QUuid> uuidFromParam(auto param)
+{
+    auto ret = QUuid(JsonTools::prepareUuidParameter(paramToQString(param)));
 
-std::optional<QUuid> uuidFromParam(auto param) { return uuidFromStr(strFromParam(param)); }
+    if (ret.isNull())
+        return std::nullopt;
+
+    assert(!ret.isNull());
+    return ret;
+}
 
 Opt<GroupUuid> groupUuidFromParam(auto param)
 {
@@ -210,9 +157,9 @@ int main()
         bool uuidOnlyMode = urlParams.has("type") && urlParams["type"] == "uuid_only";
 
         if (uuidOnlyMode)
-            jsonStr = uuidListToStdString("groupUuids", storage.getAllGroupsUuids(true));
+            jsonStr = JsonTools::toStdString("groupUuids", storage.getAllGroupsUuids(true));
         else
-            jsonStr = containerToStdString("groups", storage.getGroups());
+            jsonStr = JsonTools::containerToStdString("groups", storage.getGroups());
 
         return successResponse(req, jsonStr);
     });
@@ -249,7 +196,7 @@ int main()
 
     // PUT /api/v1/global/groups/:uuid
     router->http_put("/api/v1/global/groups/:uuid", [&storage](auto req, auto params) {
-        if (auto uuid = uuidFromParam(params["uuid"])) {
+        if (auto uuid = groupUuidFromParam(params["uuid"])) {
             if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
                 if (auto data = GroupData::fromJson(*jsonObj)) {
                     (*data).uuid = (*uuid);
@@ -294,7 +241,7 @@ int main()
                 return badRequest(req);
 
             if (hasNameParam) {
-                auto name = qStringFromParam(urlParams["name"]);
+                auto name = paramToQString(urlParams["name"]);
 
                 auto nodeUuid = storage.findTerm(name, *groupUuid);
 
@@ -312,14 +259,14 @@ int main()
                     for (const auto& term : termList.value())
                         uuids.push_back(term.uuid);
 
-                    return successResponse(req, uuidListToStdString("uuids", uuids));
+                    return successResponse(req, JsonTools::toStdString("uuids", uuids));
                 } else {
                     return responseForDbError(req, termList.error());
                 }
 
             } else {
                 if (auto termList = storage.getTerms(*groupUuid))
-                    return successResponse(req, containerToStdString("terms", termList.value()));
+                    return successResponse(req, JsonTools::containerToStdString("terms", termList.value()));
                 else
                     return responseForDbError(req, termList.error());
             }
@@ -361,7 +308,7 @@ int main()
 
     // PUT /api/v1/global/terms/:uuid
     router->http_put("/api/v1/global/terms/:uuid", [&storage](auto req, auto params) {
-        if (auto uuid = uuidFromParam(params["uuid"])) {
+        if (auto uuid = termUuidFromParam(params["uuid"])) {
             if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
                 if (auto data = TermData::fromJson(*jsonObj, TermData::JsonCheckMode::Import)) {
                     (*data).uuid = (*uuid);

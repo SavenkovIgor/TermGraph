@@ -67,17 +67,15 @@ public:
         return toStdString(rootKey, arr);
     }
 
-    static inline QString prepareUuidParameter(const std::string& urlParameter)
+    static inline QString prepareUuidParameter(QString param)
     {
-        auto uuidStr = QString::fromStdString(urlParameter);
+        param.remove("%7B");
+        param.remove("%7D");
 
-        uuidStr.remove("%7B");
-        uuidStr.remove("%7D");
+        param.prepend('{');
+        param.append('}');
 
-        uuidStr.prepend('{');
-        uuidStr.append('}');
-
-        return uuidStr;
+        return param;
     }
 
     static inline Opt<QJsonObject> toJsonObject(const std::string& jsonStr)
