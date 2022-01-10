@@ -346,7 +346,7 @@ int main()
 
     restinio::run(restinio::on_this_thread<my_server_traits>()
                       .address(address)
-                      .port(listenPort)
+                      .port(NetworkTools::defaultPort)
                       .request_handler(std::move(router)));
 
     // router->http_get(R"(/api/v1/storage_version)")

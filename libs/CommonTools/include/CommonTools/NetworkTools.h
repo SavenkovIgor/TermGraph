@@ -21,9 +21,13 @@
 
 #pragma once
 
+#include <QtGlobal>
+
 class NetworkTools
 {
 public:
-    constexpr auto termApiPath  = "/api/v1/global/terms";
-    constexpr auto groupApiPath = "/api/v1/global/groups";
+    constexpr static qint16 defaultPort = 26748;
+
+    constexpr static auto termApiPath  = "/api/v1/global/terms";
+    constexpr static auto groupApiPath = "/api/v1/global/groups";
 };
