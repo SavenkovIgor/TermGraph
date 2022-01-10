@@ -86,4 +86,10 @@ public:
 
         return doc.object();
     }
+
+    constexpr auto groupsKey     = "groups";
+    constexpr auto groupUuidsKey = "groupUuids";
+
+    constexpr auto termsKey     = "terms";
+    constexpr auto termUuidsKey = "termUuids"
 };

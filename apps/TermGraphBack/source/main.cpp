@@ -157,9 +157,9 @@ int main()
         bool uuidOnlyMode = urlParams.has("type") && urlParams["type"] == "uuid_only";
 
         if (uuidOnlyMode)
-            jsonStr = JsonTools::toQString("groupUuids", storage.getAllGroupsUuids(true));
+            jsonStr = JsonTools::toQString(JsonTools::groupUuidsKey, storage.getAllGroupsUuids(true));
         else
-            jsonStr = JsonTools::containerToQString("groups", storage.getGroups());
+            jsonStr = JsonTools::containerToQString(JsonTools::groupsKey, storage.getGroups());
 
         return successResponse(req, jsonStr);
     });
@@ -259,14 +259,14 @@ int main()
                     for (const auto& term : termList.value())
                         uuids.push_back(term.uuid);
 
-                    return successResponse(req, JsonTools::toQString("uuids", uuids));
+                    return successResponse(req, JsonTools::toQString(JsonTools::termUuidsKey, uuids));
                 } else {
                     return responseForDbError(req, termList.error());
                 }
 
             } else {
                 if (auto termList = storage.getTerms(*groupUuid))
-                    return successResponse(req, JsonTools::containerToQString("terms", termList.value()));
+                    return successResponse(req, JsonTools::containerToQString(JsonTools::termsKey, termList.value()));
                 else
                     return responseForDbError(req, termList.error());
             }
