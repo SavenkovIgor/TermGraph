@@ -76,15 +76,21 @@ public:
         return param;
     }
 
-    static inline Opt<QJsonObject> toJsonObject(const std::string& jsonStr)
+    static inline Opt<QJsonObject> toJsonObject(const QByteArray& jsonBytes)
     {
-        auto bytes = QByteArray::fromStdString(jsonStr);
-        auto doc   = QJsonDocument::fromJson(bytes);
+        auto doc = QJsonDocument::fromJson(jsonBytes);
 
         if (doc.isNull())
             return std::nullopt;
 
         return doc.object();
+    }
+
+    static inline Opt<QJsonObject> toJsonObject(const QString& jsonStr) { return toJsonObject(jsonStr.toUtf8()); }
+
+    static inline Opt<QJsonObject> toJsonObject(const std::string& jsonStr)
+    {
+        return toJsonObject(QString::fromStdString(jsonStr));
     }
 
     constexpr static auto groupsKey     = "groups";

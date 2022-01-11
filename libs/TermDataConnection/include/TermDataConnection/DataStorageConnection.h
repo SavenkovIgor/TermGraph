@@ -23,8 +23,11 @@
 
 #include <QJsonObject>
 #include <QNetworkAccessManager>
+#include <QNetworkReply>
 
 #include <CommonTools/HandyTypes.h>
+#include <CommonTools/JsonTools.h>
+#include <CommonTools/NetworkTools.h>
 
 #include <TermDataInterface/DataStorageInterface.h>
 #include <TermDataInterface/GroupData.h>
@@ -35,14 +38,13 @@
 class DataStorageConnection : public DataStorageInterface
 {
 public:
-    DataStorageConnection(QHostAddress address, quint16 port);
+    DataStorageConnection(QHostAddress address, quint16 port = NetworkTools::defaultPort);
 
     int storageVersion() const final;
 
     QUuid getFreeUuid() const final;
 
-    GroupUuid::List getAllGroupsUuids(bool sortByLastEdit) const final;
-    FutureRes<GroupUuid::List> getAllGroupsUuidsAsync(bool sortByLastEdit = false) const final;
+    FutureRes<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const final;
 
     // Add getFreeUuid for groups
     bool              groupExist(const GroupUuid& uuid) const final;
@@ -68,7 +70,25 @@ public:
     Result<void> deleteTerm(const TermUuid& uuid) final;
 
 private:
+    QUrl baseUrl;
+    QUrl groupUrl;
+    QUrl termUrl;
+
     NetworkThread netThread;
 
-    static Opt<QJsonObject> requestBodyToJsonObject(const QByteArray& data);
+    static GroupUuid::List toGroupUuidList(const QJsonObject& obj);
+
+    template<typename T>
+    static Result<T> parseJsonAnswer(QNetworkReply* reply, std::function<T(const QJsonObject&)> transform)
+    {
+        if (reply->error() == QNetworkReply::NoError) {
+            if (auto jsonObj = JsonTools::toJsonObject(reply->readAll())) {
+                return transform(*jsonObj);
+            } else {
+                return DbErrorCodes::JsonParseError;
+            }
+        } else {
+            return DbErrorCodes::ConnectionError;
+        }
+    }
 };

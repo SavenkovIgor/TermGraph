@@ -45,8 +45,7 @@ public:
     virtual QUuid getFreeUuid() const = 0;
 
     // Groups
-    virtual GroupUuid::List getAllGroupsUuids(bool sortByLastEdit = false) const = 0;
-    virtual FutureRes<GroupUuid::List> getAllGroupsUuidsAsync(bool sortByLastEdit = false) const = 0;
+    virtual FutureRes<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const = 0;
 
     virtual bool              groupExist(const GroupUuid& uuid) const = 0;
     virtual Result<GroupData> getGroup(const GroupUuid& uuid) const   = 0;

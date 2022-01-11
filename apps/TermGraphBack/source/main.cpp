@@ -158,7 +158,8 @@ int main()
         bool uuidOnlyMode = urlParams.has("type") && urlParams["type"] == "uuid_only";
 
         if (uuidOnlyMode)
-            jsonStr = JsonTools::toQString(JsonTools::groupUuidsKey, storage.getAllGroupsUuids(true));
+            jsonStr = JsonTools::toQString(JsonTools::groupUuidsKey,
+                                           storage.getAllGroupsUuids(true).result().value());
         else
             jsonStr = JsonTools::containerToQString(JsonTools::groupsKey, storage.getGroups());
 

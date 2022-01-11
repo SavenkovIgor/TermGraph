@@ -40,8 +40,7 @@ public:
 
     QUuid getFreeUuid() const final;
 
-    GroupUuid::List getAllGroupsUuids(bool sortByLastEdit) const final;
-    FutureRes<GroupUuid::List> getAllGroupsUuidsAsync(bool sortByLastEdit = false) const final;
+    FutureRes<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const final;
 
     // Add getFreeUuid for groups
     bool              groupExist(const GroupUuid& uuid) const final;

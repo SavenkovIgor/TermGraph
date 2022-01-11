@@ -21,7 +21,6 @@
 
 #include "include/TermDataConnection/DataStorageConnection.h"
 
-#include <QNetworkReply>
 #include <QSharedPointer>
 
 #include <QDebug>
@@ -29,6 +28,16 @@
 DataStorageConnection::DataStorageConnection(QHostAddress address, quint16 port)
     : DataStorageInterface()
 {
+    // TODO: Switch to https
+    baseUrl.setScheme("http");
+    baseUrl.setHost(address.toString());
+    baseUrl.setPort(port);
+
+    groupUrl = baseUrl;
+    groupUrl.setPath(NetworkTools::groupApiPath);
+
+    termUrl = baseUrl;
+    termUrl.setPath(NetworkTools::termApiPath);
 }
 
 int DataStorageConnection::storageVersion() const
@@ -43,35 +52,21 @@ QUuid DataStorageConnection::getFreeUuid() const
     return QUuid();
 }
 
-GroupUuid::List DataStorageConnection::getAllGroupsUuids(bool sortByLastEdit) const
-{
-    Q_UNIMPLEMENTED();
-    return {};
-}
-
-FutureRes<GroupUuid::List> DataStorageConnection::getAllGroupsUuidsAsync(bool sortByLastEdit) const
+FutureRes<GroupUuid::List> DataStorageConnection::getAllGroupsUuids(bool sortByLastEdit) const
 {
     QSharedPointer<QPromise<Result<GroupUuid::List>>> promise(new QPromise<Result<GroupUuid::List>>);
     promise->start();
 
     QMetaObject::invokeMethod(netThread.manager.get(), [this, promise]() {
-        QUrl url("http://localhost:26748/api/v1/global/groups?type=uuid_only");
+        QUrl url = groupUrl;
+        url.setQuery("type=uuid_only");
 
-        auto  request = QNetworkRequest(url);
-        auto* reply   = netThread.manager->get(request);
+        auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished)
             .then([=] {
-                if (reply->error() != QNetworkReply::NoError) {
-                    promise->addResult(DbErrorCodes::ConnectionError);
-                    qDebug() << "Connection err";
-                } else {
-                    auto jsonObj = requestBodyToJsonObject(reply->readAll());
-                    qDebug() << jsonObj.value();
-
-                    // promise->addResult(GroupUuid::List{});
-                }
-
+                auto res = parseJsonAnswer<GroupUuid::List>(reply, &DataStorageConnection::toGroupUuidList);
+                promise->addResult(res);
                 promise->finish();
             })
             .onFailed([=] {
@@ -181,12 +176,20 @@ Result<void> DataStorageConnection::deleteTerm(const TermUuid& uuid)
     return outcome::success();
 }
 
-Opt<QJsonObject> DataStorageConnection::requestBodyToJsonObject(const QByteArray& data)
+GroupUuid::List DataStorageConnection::toGroupUuidList(const QJsonObject& obj)
 {
-    auto doc = QJsonDocument::fromJson(data);
+    GroupUuid::List ret;
 
-    if (doc.isNull())
-        return std::nullopt;
+    if (!obj[JsonTools::groupUuidsKey].isArray())
+        return ret;
 
-    return doc.object();
+    for (const auto& obj : obj[JsonTools::groupUuidsKey].toArray()) {
+        if (auto groupUuid = GroupUuid::create(obj.toString())) {
+            ret.push_back(*groupUuid);
+        } else {
+            qWarning("Wrong uuid in received data");
+        }
+    }
+
+    return ret;
 }

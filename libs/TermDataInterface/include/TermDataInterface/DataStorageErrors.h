@@ -39,7 +39,8 @@ enum class DbErrorCodes {
     TermEmpty,
     TermNotFound,
     NewerTermVersionFound,
-    ConnectionError
+    ConnectionError,
+    JsonParseError
 };
 
 inline const char* error_message(int code)

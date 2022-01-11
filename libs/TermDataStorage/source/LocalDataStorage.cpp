@@ -51,10 +51,18 @@ QUuid LocalDatabaseStorage::getFreeUuid() const
     }
 }
 
-GroupUuid::List LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
+FutureRes<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
 {
-    if (!sortByLastEdit) // Simple variant
-        return impl->db.groupTable->getAllUuids();
+    QPromise<Result<GroupUuid::List>> promise;
+    promise.start();
+
+    // Simple variant
+    if (!sortByLastEdit) {
+        promise.addResult(impl->db.groupTable->getAllUuids());
+        promise.finish();
+
+        return promise.future();
+    }
 
     // Load info from groups table - need if any group is empty and has no lastEdit value
     QMap<QUuid, QDateTime> groupsLastEdit;
@@ -95,13 +103,10 @@ GroupUuid::List LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) con
         if (auto gUuid = GroupUuid::create(group.first))
             ret.push_back(*gUuid);
 
-    return ret;
-}
+    promise.addResult(ret);
+    promise.finish();
 
-FutureRes<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuidsAsync(bool sortByLastEdit) const
-{
-    Q_UNIMPLEMENTED();
-    return {};
+    return promise.future();
 }
 
 bool LocalDatabaseStorage::groupExist(const GroupUuid& uuid) const { return impl->db.groupTable->groupExist(uuid); }

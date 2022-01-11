@@ -53,7 +53,7 @@ public:
         EXPECT_TRUE(dir.exists(sDbFileName));
 
         EXPECT_EQ(mStorage->storageVersion(), 2);
-        EXPECT_TRUE(mStorage->getAllGroupsUuids().empty());
+        EXPECT_TRUE(mStorage->getAllGroupsUuids().result().value().empty());
         EXPECT_TRUE(mStorage->getGroups().empty());
         EXPECT_TRUE(mStorage->getAllTermsUuids().empty());
     }
@@ -113,7 +113,7 @@ std::unique_ptr<DataStorageInterface> DBWorksTest::mStorage;
 
 TEST_F(DBWorksTest, GroupsTest)
 {
-    EXPECT_TRUE(mStorage->getAllGroupsUuids().empty());
+    EXPECT_TRUE(mStorage->getAllGroupsUuids().result().value().empty());
 
     auto withUuid    = getGroupWithUuid();
     auto withoutUuid = getGroupWithoutUuid();
@@ -138,7 +138,7 @@ TEST_F(DBWorksTest, GroupsTest)
     EXPECT_TRUE(mStorage->groupExist(GroupUuid::create(withUuid.uuid).value()));
 
     // GetAllGroupsUuids test
-    auto groupList = mStorage->getAllGroupsUuids();
+    auto groupList = mStorage->getAllGroupsUuids().result().value();
 
     EXPECT_EQ(groupList.size(), 2);
     EXPECT_TRUE(groupList[0] == withUuid.uuid || groupList[1] == withUuid.uuid);
@@ -172,16 +172,16 @@ TEST_F(DBWorksTest, GroupsTest)
     EXPECT_EQ(mStorage->deleteGroup(GroupUuid::generate()).error(), DbErrorCodes::UuidNotExist);
 
     EXPECT_TRUE(mStorage->deleteGroup(*GroupUuid::create(withUuid.uuid)));
-    groupList = mStorage->getAllGroupsUuids();
+    groupList = mStorage->getAllGroupsUuids().result().value();
     EXPECT_EQ(groupList.size(), 1);
     EXPECT_TRUE(mStorage->deleteGroup(*GroupUuid::create(groupList.front())));
-    groupList = mStorage->getAllGroupsUuids();
+    groupList = mStorage->getAllGroupsUuids().result().value();
     EXPECT_TRUE(groupList.empty());
 }
 
 TEST_F(DBWorksTest, TermsTest)
 {
-    ASSERT_TRUE(mStorage->getAllGroupsUuids().empty());
+    ASSERT_TRUE(mStorage->getAllGroupsUuids().result().value().empty());
 
     auto withUuid = getGroupWithUuid();
 

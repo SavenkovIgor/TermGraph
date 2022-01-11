@@ -119,7 +119,11 @@ bool GroupsManager::isEmptyGroup(const QString& groupUuid)
     return getNodesCount(uuid) == 0;
 }
 
-bool GroupsManager::getHasAnyGroup() const { return !dataSource.getAllGroupsUuids().empty(); }
+bool GroupsManager::getHasAnyGroup() const
+{
+    auto groupsRes = dataSource.getAllGroupsUuids().result();
+    return groupsRes.has_value() ? (!groupsRes.value().empty()) : false;
+}
 
 QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 {
@@ -142,9 +146,15 @@ UuidList GroupsManager::getAllUuidsSortedByLastEdit()
 {
     UuidList ret;
 
-    auto groupsUuids = dataSource.getAllGroupsUuids(true);
+    auto groupsUuids = dataSource.getAllGroupsUuids(true).result();
 
-    for (const auto& uuid : groupsUuids)
+    if (!groupsUuids.has_value())
+        return {};
+
+    for (auto i : groupsUuids.value())
+        qDebug() << i;
+
+    for (const auto& uuid : groupsUuids.value())
         ret.push_back(uuid);
 
     return ret;
