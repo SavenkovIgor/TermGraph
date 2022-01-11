@@ -63,16 +63,11 @@ FutureRes<GroupUuid::List> DataStorageConnection::getAllGroupsUuids(bool sortByL
 
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
-        QtFuture::connect(reply, &QNetworkReply::finished)
-            .then([=] {
-                auto res = parseJsonAnswer<GroupUuid::List>(reply, &DataStorageConnection::toGroupUuidList);
-                promise->addResult(res);
-                promise->finish();
-            })
-            .onFailed([=] {
-                promise->addResult(DbErrorCodes::ConnectionError);
-                promise->finish();
-            });
+        QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
+            auto res = parseJsonAnswer<GroupUuid::List>(reply, &DataStorageConnection::toGroupUuidList);
+            promise->addResult(res);
+            promise->finish();
+        });
     });
 
     return promise->future();
