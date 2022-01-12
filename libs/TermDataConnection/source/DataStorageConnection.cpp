@@ -57,10 +57,10 @@ FutureRes<GroupUuid::List> DataStorageConnection::getAllGroupsUuids(bool sortByL
     QSharedPointer<QPromise<Result<GroupUuid::List>>> promise(new QPromise<Result<GroupUuid::List>>);
     promise->start();
 
-    QMetaObject::invokeMethod(netThread.manager.get(), [this, promise]() {
-        QUrl url = groupUrl;
-        url.setQuery("type=uuid_only");
+    QUrl url = groupUrl;
+    url.setQuery("type=uuid_only");
 
+    QMetaObject::invokeMethod(netThread.manager.get(), [this, promise, url]() {
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
@@ -79,10 +79,29 @@ bool DataStorageConnection::groupExist(const GroupUuid& uuid) const
     return {};
 }
 
-Result<GroupData> DataStorageConnection::getGroup(const GroupUuid& uuid) const
+FutureRes<GroupData> DataStorageConnection::getGroup(const GroupUuid& uuid) const
 {
-    Q_UNIMPLEMENTED();
-    return GroupData();
+    QSharedPointer<QPromise<Result<GroupData>>> promise(new QPromise<Result<GroupData>>);
+    promise->start();
+
+    QUrl url = groupUrl;
+    url.setPath(QString("%1/%2").arg(url.path()).arg(uuid.toString()));
+
+    QMetaObject::invokeMethod(netThread.manager.get(), [this, promise, url]() {
+        auto* reply = netThread.manager->get(QNetworkRequest(url));
+
+        QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
+            auto res = parseJsonAnswer<GroupData>(reply, [](const QJsonObject& obj) -> Result<GroupData> {
+                if (auto group = GroupData::fromJson(obj))
+                    return *group;
+                return DbErrorCodes::JsonParseError;
+            });
+            promise->addResult(res);
+            promise->finish();
+        });
+    });
+
+    return promise->future();
 }
 
 GroupData::List DataStorageConnection::getGroups() const

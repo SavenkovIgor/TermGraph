@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include <functional>
+
 #include <CommonTools/HandyTypes.h>
 
 #include <TermDataInterface/DataStorageInterface.h>
@@ -44,7 +46,7 @@ public:
 
     // Add getFreeUuid for groups
     bool              groupExist(const GroupUuid& uuid) const final;
-    Result<GroupData> getGroup(const GroupUuid& uuid) const final;
+    FutureRes<GroupData> getGroup(const GroupUuid& uuid) const final;
     GroupData::List   getGroups() const final;
 
     Result<void> addGroup(const GroupData& info) final;
@@ -67,4 +69,14 @@ public:
 
 private:
     StorageImpl* impl = nullptr;
+
+    template<typename T>
+    static QFuture<T> wrapInPromise(const std::function<T()>& func)
+    {
+        QPromise<T> promise;
+        promise.start();
+        promise.addResult(func());
+        promise.finish();
+        return promise.future();
+    }
 };

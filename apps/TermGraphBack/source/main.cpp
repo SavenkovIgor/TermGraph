@@ -169,7 +169,7 @@ int main()
     // GET /api/v1/global/groups/:uuid
     router->http_get("/api/v1/global/groups/:uuid", [&storage](auto req, auto params) {
         if (auto uuid = groupUuidFromParam(params["uuid"])) {
-            if (auto group = storage.getGroup(*uuid)) {
+            if (auto group = storage.getGroup(*uuid).result()) {
                 auto jsonObj = group.value().toJson();
                 auto jsonStr = JsonTools::toQString(jsonObj);
                 return successResponse(req, jsonStr);

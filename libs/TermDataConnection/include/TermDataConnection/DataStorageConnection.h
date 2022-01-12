@@ -48,7 +48,7 @@ public:
 
     // Add getFreeUuid for groups
     bool              groupExist(const GroupUuid& uuid) const final;
-    Result<GroupData> getGroup(const GroupUuid& uuid) const final;
+    FutureRes<GroupData> getGroup(const GroupUuid& uuid) const final;
     GroupData::List   getGroups() const final;
 
     Result<void> addGroup(const GroupData& info) final;
@@ -79,7 +79,7 @@ private:
     static GroupUuid::List toGroupUuidList(const QJsonObject& obj);
 
     template<typename T>
-    static Result<T> parseJsonAnswer(QNetworkReply* reply, std::function<T(const QJsonObject&)> transform)
+    static Result<T> parseJsonAnswer(QNetworkReply* reply, std::function<Result<T>(const QJsonObject&)> transform)
     {
         if (reply->error() == QNetworkReply::NoError) {
             if (auto jsonObj = JsonTools::toJsonObject(reply->readAll())) {

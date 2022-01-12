@@ -101,7 +101,7 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
 TermGroup::OptPtr GroupsManager::createGroup(const QUuid groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid)) {
-        auto groupData = dataSource.getGroup(*uuid).value();
+        auto groupData = dataSource.getGroup(*uuid).result().value();
         auto termsData = dataSource.getTerms(*uuid).value();
         return std::make_shared<TermGroup>(groupData, termsData);
     }
@@ -332,7 +332,7 @@ QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
     assert(!groupUuid.isNull());
     auto uuid = GroupUuid::create(groupUuid).value();
 
-    auto info      = dataSource.getGroup(uuid).value();
+    auto info      = dataSource.getGroup(uuid).result().value();
     auto groupJson = info.toJson();
 
     auto nodesUuids = dataSource.getAllTermsUuids(uuid);
