@@ -161,7 +161,7 @@ int main()
             jsonStr = JsonTools::toQString(JsonTools::groupUuidsKey,
                                            storage.getAllGroupsUuids(true).result().value());
         else
-            jsonStr = JsonTools::containerToQString(JsonTools::groupsKey, storage.getGroups());
+            jsonStr = JsonTools::containerToQString(JsonTools::groupsKey, storage.getGroups().result().value());
 
         return successResponse(req, jsonStr);
     });
