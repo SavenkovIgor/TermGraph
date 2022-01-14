@@ -353,7 +353,9 @@ void GroupsManager::updateGroupUuidNameMaps()
 {
     uuidToNames.clear();
 
-    for (const auto& groupInfo : dataSource.getGroups()) {
+    auto groups = dataSource.getGroups().result().value();
+
+    for (const auto& groupInfo : groups) {
         uuidToNames.insert(groupInfo.uuid, groupInfo.name);
     }
 }

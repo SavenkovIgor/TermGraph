@@ -104,10 +104,39 @@ FutureRes<GroupData> DataStorageConnection::getGroup(const GroupUuid& uuid) cons
     return promise->future();
 }
 
-GroupData::List DataStorageConnection::getGroups() const
+FutureRes<GroupData::List> DataStorageConnection::getGroups() const
 {
-    Q_UNIMPLEMENTED();
-    return {};
+    QSharedPointer<QPromise<Result<GroupData::List>>> promise(new QPromise<Result<GroupData::List>>);
+    promise->start();
+
+    QUrl url = groupUrl;
+
+    QMetaObject::invokeMethod(netThread.manager.get(), [this, promise, url]() {
+        auto* reply = netThread.manager->get(QNetworkRequest(url));
+
+        QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
+            auto res = parseJsonAnswer<GroupData::List>(reply, [](const QJsonObject& obj) -> Result<GroupData::List> {
+                GroupData::List ret;
+
+                if (!obj[JsonTools::groupsKey].isArray())
+                    return DbErrorCodes::JsonParseError;
+
+                for (const auto& groupJson : obj[JsonTools::groupsKey].toArray()) {
+                    if (auto groupData = GroupData::fromJson(groupJson.toObject())) {
+                        ret.push_back(*groupData);
+                    } else {
+                        qWarning("Wrong uuid in received data");
+                    }
+                }
+
+                return ret;
+            });
+            promise->addResult(res);
+            promise->finish();
+        });
+    });
+
+    return promise->future();
 }
 
 Result<void> DataStorageConnection::addGroup(const GroupData& info)

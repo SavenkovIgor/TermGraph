@@ -107,7 +107,10 @@ FutureRes<GroupData> LocalDatabaseStorage::getGroup(const GroupUuid& uuid) const
     return wrapInPromise<Result<GroupData>>([this, &uuid] { return impl->db.groupTable->getGroup(uuid); });
 }
 
-GroupData::List LocalDatabaseStorage::getGroups() const { return impl->db.groupTable->getGroups(); }
+FutureRes<GroupData::List> LocalDatabaseStorage::getGroups() const
+{
+    return wrapInPromise<Result<GroupData::List>>([this] { return impl->db.groupTable->getGroups(); });
+}
 
 Result<void> LocalDatabaseStorage::addGroup(const GroupData& info) { return impl->db.groupTable->addGroup(info); }
 

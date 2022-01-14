@@ -49,7 +49,7 @@ public:
     // Add getFreeUuid for groups
     bool              groupExist(const GroupUuid& uuid) const final;
     FutureRes<GroupData> getGroup(const GroupUuid& uuid) const final;
-    GroupData::List   getGroups() const final;
+    FutureRes<GroupData::List> getGroups() const final;
 
     Result<void> addGroup(const GroupData& info) final;
     Result<void> updateGroup(const GroupData& info) final;

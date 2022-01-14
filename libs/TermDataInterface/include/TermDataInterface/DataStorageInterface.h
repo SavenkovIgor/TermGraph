@@ -49,7 +49,7 @@ public:
 
     virtual bool              groupExist(const GroupUuid& uuid) const = 0;
     virtual FutureRes<GroupData> getGroup(const GroupUuid& uuid) const   = 0;
-    virtual GroupData::List   getGroups() const                       = 0;
+    virtual FutureRes<GroupData::List> getGroups() const                       = 0;
 
     virtual Result<void> addGroup(const GroupData& info)    = 0;
     virtual Result<void> updateGroup(const GroupData& info) = 0;
