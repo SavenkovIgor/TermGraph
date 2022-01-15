@@ -28,6 +28,8 @@ class NetworkTools
 public:
     constexpr static qint16 defaultPort = 26748;
 
-    constexpr static auto termApiPath  = "/api/v1/global/terms";
-    constexpr static auto groupApiPath = "/api/v1/global/groups";
+    constexpr static auto termApiPath      = "/api/v1/global/terms";
+    constexpr static auto termUuidApiPath  = "/api/v1/global/terms/:uuid";
+    constexpr static auto groupApiPath     = "/api/v1/global/groups";
+    constexpr static auto groupUuidApiPath = "/api/v1/global/groups/:uuid";
 };

@@ -167,7 +167,7 @@ int main()
     });
 
     // GET /api/v1/global/groups/:uuid
-    router->http_get("/api/v1/global/groups/:uuid", [&storage](auto req, auto params) {
+    router->http_get(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = groupUuidFromParam(params["uuid"])) {
             if (auto group = storage.getGroup(*uuid).result()) {
                 auto jsonObj = group.value().toJson();
@@ -197,7 +197,7 @@ int main()
     });
 
     // PUT /api/v1/global/groups/:uuid
-    router->http_put("/api/v1/global/groups/:uuid", [&storage](auto req, auto params) {
+    router->http_put(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = groupUuidFromParam(params["uuid"])) {
             if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
                 if (auto data = GroupData::fromJson(*jsonObj)) {
@@ -215,7 +215,7 @@ int main()
     });
 
     // DELETE /api/v1/global/groups/:uuid
-    router->http_delete("/api/v1/global/groups/:uuid", [&storage](auto req, auto params) {
+    router->http_delete(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = groupUuidFromParam(params["uuid"])) {
             if (auto res = storage.deleteGroup(*uuid)) {
                 return successResponse(req);
@@ -278,7 +278,7 @@ int main()
     });
 
     // GET /api/v1/global/terms/:uuid
-    router->http_get("/api/v1/global/terms/:uuid", [&storage](auto req, auto params) {
+    router->http_get(NetworkTools::termUuidApiPath, [&storage](auto req, auto params) {
         auto urlParams = restinio::parse_query(req->header().query());
         if (auto uuid = termUuidFromParam(params["uuid"])) {
             bool lastEditOnly = urlParams.has("type") && urlParams["type"] == "last_edit";
@@ -309,7 +309,7 @@ int main()
     });
 
     // PUT /api/v1/global/terms/:uuid
-    router->http_put("/api/v1/global/terms/:uuid", [&storage](auto req, auto params) {
+    router->http_put(NetworkTools::termUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = termUuidFromParam(params["uuid"])) {
             if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
                 if (auto data = TermData::fromJson(*jsonObj, TermData::JsonCheckMode::Import)) {
@@ -327,7 +327,7 @@ int main()
     });
 
     // DELETE /api/v1/global/terms/:uuid
-    router->http_delete("/api/v1/global/terms/:uuid", [&storage](auto req, auto params) {
+    router->http_delete(NetworkTools::termUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = termUuidFromParam(params["uuid"])) {
             if (auto res = storage.deleteTerm(*uuid)) {
                 return successResponse(req);
