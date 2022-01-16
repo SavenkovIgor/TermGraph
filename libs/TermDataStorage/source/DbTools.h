@@ -23,12 +23,15 @@
 
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QSqlRecord>
 
 #include <CommonTools/HandyTypes.h>
 
 class DbTools
 {
 public:
+    using RecordList = std::vector<QSqlRecord>;
+
     // Transaction
     static void startTransaction(QSqlDatabase* base);
     static void endTransaction(QSqlDatabase* base);

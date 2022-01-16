@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include <QSqlRecord>
+
 #include <CommonTools/HandyTypes.h>
 #include <TermDataInterface/DataStorageInterface.h>
 #include <TermDataInterface/TermData.h>
@@ -29,6 +31,8 @@
 class TermTable
 {
 public:
+    using RecordList = std::vector<QSqlRecord>;
+
     TermTable()  = default;
     ~TermTable() = default;
 

@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include <QSqlRecord>
+
 #include <CommonTools/GroupUuid.h>
 #include <CommonTools/HandyTypes.h>
 #include <TermDataInterface/DataStorageErrors.h>

@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <QHostAddress>
 #include <QJsonObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>

@@ -26,15 +26,14 @@
 
 #include <outcome.hpp>
 
+#include <QFuture>
 #include <QSizeF>
 #include <QUuid>
 #include <QtCore>
-#include <QtSql/QSqlRecord>
 
 namespace outcome = OUTCOME_V2_NAMESPACE;
 
 using UuidList   = std::vector<QUuid>;
-using RecordList = std::vector<QSqlRecord>;
 
 template<typename T>
 using Opt = std::optional<T>;

@@ -179,7 +179,7 @@ Result<QDateTime> TermTable::getLastEdit(const TermUuid& uuid)
     return QDateTime::fromString(field, Qt::ISODate);
 }
 
-RecordList TermTable::getAllLastEditRecords()
+TermTable::RecordList TermTable::getAllLastEditRecords()
 {
     auto query = SqlQueryBuilder().selectAllLastEditAndGroupUuid();
     DbTools::start(query);

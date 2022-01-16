@@ -79,9 +79,9 @@ QSqlRecord DbTools::getRecord(QSqlQuery&& q)
     return q.record();
 }
 
-RecordList DbTools::getAllRecords(QSqlQuery&& q)
+DbTools::RecordList DbTools::getAllRecords(QSqlQuery&& q)
 {
-    RecordList ret;
+    DbTools::RecordList ret;
 
     if (auto size = q.size(); size > 0) {
         ret.reserve(size);
