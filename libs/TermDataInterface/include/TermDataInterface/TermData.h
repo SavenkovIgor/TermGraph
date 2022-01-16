@@ -29,6 +29,7 @@
 #include <QString>
 #include <QUuid>
 
+#include <CommonTools/HandyTypes.h>
 #include <TermDataInterface/TermValidator.h>
 
 // TODO: Check tests!
@@ -84,7 +85,7 @@ struct TermData
 
     // --- JSON ---
     // Returns valid object or nullopt
-    static inline std::optional<TermData> fromJson(QJsonObject obj, JsonCheckMode mode)
+    static inline Opt<TermData> fromJson(QJsonObject obj, JsonCheckMode mode)
     {
         bool checkUuid     = true;
         bool checkLastEdit = true;
@@ -113,7 +114,7 @@ struct TermData
         return ret;
     }
 
-    inline QJsonObject toJson() const
+    operator QJsonObject()
     {
         QJsonObject ret;
 
@@ -129,4 +130,6 @@ struct TermData
 
         return ret;
     }
+
+    explicit operator QString() { return QString(QJsonDocument(static_cast<QJsonObject>(*this)).toJson()); }
 };

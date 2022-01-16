@@ -32,15 +32,12 @@
 class JsonTools
 {
 public:
-    // QJsonObject
-    static inline QString toQString(const QJsonObject& obj) { return QString(QJsonDocument(obj).toJson()); }
-
     // RootKey + jsonArray
     static inline QString toQString(const QString& rootKey, const QJsonArray& data)
     {
         QJsonObject obj;
         obj.insert(rootKey, data);
-        return toQString(obj);
+        return QString(QJsonDocument(obj).toJson());
     }
 
     // Uuid list
@@ -60,7 +57,7 @@ public:
         QJsonArray arr;
 
         for (auto item : container)
-            arr.push_back(item.toJson());
+            arr.push_back(static_cast<QJsonObject>(item));
 
         return toQString(rootKey, arr);
     }

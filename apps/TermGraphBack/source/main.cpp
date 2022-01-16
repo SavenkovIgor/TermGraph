@@ -170,9 +170,7 @@ int main()
     router->http_get(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = groupUuidFromParam(params["uuid"])) {
             if (auto group = storage.getGroup(*uuid).result()) {
-                auto jsonObj = group.value().toJson();
-                auto jsonStr = JsonTools::toQString(jsonObj);
-                return successResponse(req, jsonStr);
+                return successResponse(req, static_cast<QString>(group.value()));
             } else {
                 return responseForDbError(req, group.error());
             }
@@ -251,7 +249,7 @@ int main()
                     return req->create_response(restinio::status_not_found()).done();
 
                 if (auto termData = storage.getTerm(*nodeUuid))
-                    return successResponse(req, JsonTools::toQString(termData.value().toJson()));
+                    return successResponse(req, static_cast<QString>(termData.value()));
                 else
                     return responseForDbError(req, termData.error());
 
@@ -284,7 +282,7 @@ int main()
             bool lastEditOnly = urlParams.has("type") && urlParams["type"] == "last_edit";
 
             if (auto term = storage.getTerm(*uuid)) {
-                return successResponse(req, JsonTools::toQString(term.value().toJson()));
+                return successResponse(req, static_cast<QString>(term.value()));
             } else {
                 return responseForDbError(req, term.error());
             }

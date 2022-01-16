@@ -29,6 +29,7 @@
 #include <QStringList>
 #include <QUuid>
 
+#include <CommonTools/HandyTypes.h>
 #include <TermDataInterface/GroupValidator.h>
 
 // TODO: Check tests!
@@ -48,7 +49,7 @@ struct GroupData
     }
 
     // --- JSON ---
-    static inline std::optional<GroupData> fromJson(const QJsonObject& obj)
+    static inline Opt<GroupData> fromJson(const QJsonObject& obj)
     {
         if (!GroupJsonValidator::defaultChecks().check(obj))
             return std::nullopt;
@@ -67,7 +68,7 @@ struct GroupData
         return ret;
     }
 
-    inline QJsonObject toJson() const
+    operator QJsonObject()
     {
         QJsonObject ret;
 
@@ -77,4 +78,6 @@ struct GroupData
 
         return ret;
     }
+
+    explicit operator QString() { return QString(QJsonDocument(static_cast<QJsonObject>(*this)).toJson()); }
 };

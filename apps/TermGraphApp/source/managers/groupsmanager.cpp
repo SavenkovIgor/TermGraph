@@ -336,19 +336,18 @@ QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
     assert(!groupUuid.isNull());
     auto uuid = GroupUuid::create(groupUuid).value();
 
-    auto info      = dataSource.getGroup(uuid).result().value();
-    auto groupJson = info.toJson();
+    QJsonObject groupJson = dataSource.getGroup(uuid).result().value();
 
     auto nodesUuids = dataSource.getAllTermsUuids(uuid);
 
-    QJsonArray nodesArray;
+    QJsonArray termArray;
 
     for (const auto& nodeUuid : nodesUuids) {
-        auto nodeJson = dataSource.getTerm(nodeUuid).value().toJson();
-        nodesArray.append(nodeJson);
+        auto term = dataSource.getTerm(nodeUuid).value();
+        termArray.append(static_cast<QJsonObject>(term));
     }
 
-    groupJson.insert("nodesList", nodesArray);
+    groupJson.insert("nodesList", termArray);
 
     return QJsonDocument(groupJson);
 }
