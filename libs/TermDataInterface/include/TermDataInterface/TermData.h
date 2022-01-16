@@ -24,6 +24,7 @@
 #include <optional>
 #include <vector>
 
+#include <QByteArray>
 #include <QDateTime>
 #include <QJsonObject>
 #include <QString>
@@ -33,6 +34,7 @@
 #include <TermDataInterface/TermValidator.h>
 
 // TODO: Check tests!
+// TODO: Make class and make fields private
 struct TermData
 {
     using List = std::vector<TermData>;
@@ -85,7 +87,7 @@ struct TermData
 
     // --- JSON ---
     // Returns valid object or nullopt
-    static inline Opt<TermData> fromJson(QJsonObject obj, JsonCheckMode mode)
+    static inline Opt<TermData> create(const QJsonObject& obj, JsonCheckMode mode)
     {
         bool checkUuid     = true;
         bool checkLastEdit = true;
@@ -114,6 +116,16 @@ struct TermData
         return ret;
     }
 
+    static inline Opt<TermData> create(const QByteArray& jsonBytes, JsonCheckMode mode)
+    {
+        auto doc = QJsonDocument::fromJson(jsonBytes);
+
+        if (doc.isNull())
+            return std::nullopt;
+
+        return create(doc.object(), mode);
+    }
+
     operator QJsonObject()
     {
         QJsonObject ret;
@@ -131,5 +143,5 @@ struct TermData
         return ret;
     }
 
-    explicit operator QString() { return QString(QJsonDocument(static_cast<QJsonObject>(*this)).toJson()); }
+    explicit operator QByteArray() { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
 };

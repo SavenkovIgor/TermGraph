@@ -180,7 +180,7 @@ void GroupsManager::importGroup(const QJsonDocument& json)
     if (!GroupJsonValidator::importChecks().check(jsonGroup))
         return;
 
-    auto optGroup = GroupData::fromJson(jsonGroup);
+    auto optGroup = GroupData::create(jsonGroup);
 
     if (!optGroup.has_value())
         return;
@@ -208,7 +208,7 @@ void GroupsManager::importGroup(const QJsonDocument& json)
 
 void GroupsManager::importTerm(const QJsonObject& nodeJson)
 {
-    auto optInfo = TermData::fromJson(nodeJson, TermData::JsonCheckMode::Import);
+    auto optInfo = TermData::create(nodeJson, TermData::JsonCheckMode::Import);
     assert(optInfo.has_value());
 
     auto info = optInfo.value();
@@ -235,7 +235,7 @@ bool GroupsManager::addNode(QJsonObject object)
 {
     object.insert("uuid", dataSource.getFreeUuid().toString());
 
-    auto optData = TermData::fromJson(object, TermData::JsonCheckMode::AddNode);
+    auto optData = TermData::create(object, TermData::JsonCheckMode::AddNode);
     assert(optData.has_value());
 
     auto data = optData.value();
@@ -261,7 +261,7 @@ bool GroupsManager::addNode(QJsonObject object)
 
 bool GroupsManager::updateNode(const QJsonObject& object)
 {
-    auto optData = TermData::fromJson(object, TermData::JsonCheckMode::UpdateNode);
+    auto optData = TermData::create(object, TermData::JsonCheckMode::UpdateNode);
 
     assert(optData.has_value());
 

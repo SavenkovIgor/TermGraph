@@ -92,7 +92,7 @@ FutureRes<GroupData> DataStorageConnection::getGroup(const GroupUuid& uuid) cons
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
             auto res = parseJsonAnswer<GroupData>(reply, [](const QJsonObject& obj) -> Result<GroupData> {
-                if (auto group = GroupData::fromJson(obj))
+                if (auto group = GroupData::create(obj))
                     return *group;
                 return DbErrorCodes::JsonParseError;
             });
@@ -122,7 +122,7 @@ FutureRes<GroupData::List> DataStorageConnection::getGroups() const
                     return DbErrorCodes::JsonParseError;
 
                 for (const auto& groupJson : obj[JsonTools::groupsKey].toArray()) {
-                    if (auto groupData = GroupData::fromJson(groupJson.toObject())) {
+                    if (auto groupData = GroupData::create(groupJson.toObject())) {
                         ret.push_back(*groupData);
                     } else {
                         qWarning("Wrong uuid in received data");
@@ -204,7 +204,7 @@ FutureRes<TermData::List> DataStorageConnection::getTerms(const GroupUuid& uuid)
                 TermData::List ret;
 
                 for (const auto& termJson : termsJson.toArray()) {
-                    if (auto termData = TermData::fromJson(termJson.toObject(), TermData::JsonCheckMode::Import)) {
+                    if (auto termData = TermData::create(termJson.toObject(), TermData::JsonCheckMode::Import)) {
                         ret.push_back(*termData);
                     } else {
                         qWarning("Wrong uuid in received data");

@@ -83,13 +83,6 @@ public:
         return doc.object();
     }
 
-    static inline Opt<QJsonObject> toJsonObject(const QString& jsonStr) { return toJsonObject(jsonStr.toUtf8()); }
-
-    static inline Opt<QJsonObject> toJsonObject(const std::string& jsonStr)
-    {
-        return toJsonObject(QString::fromStdString(jsonStr));
-    }
-
     constexpr static auto groupsKey     = "groups";
     constexpr static auto groupUuidsKey = "groupUuids";
 

@@ -96,6 +96,14 @@ auto successResponse(auto req, const QString& body = "")
     return req->create_response().set_body(body.toStdString()).done();
 }
 
+auto successResponse(auto req, QByteArray body)
+{
+    if (body.isEmpty())
+        return req->create_response().done();
+
+    return req->create_response().set_body(body.toStdString()).done();
+}
+
 auto badRequest(auto req) { return req->create_response(restinio::status_bad_request()).done(); }
 
 QString paramToQString(auto param)
@@ -170,7 +178,7 @@ int main()
     router->http_get(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = groupUuidFromParam(params["uuid"])) {
             if (auto group = storage.getGroup(*uuid).result()) {
-                return successResponse(req, static_cast<QString>(group.value()));
+                return successResponse(req, static_cast<QByteArray>(group.value()));
             } else {
                 return responseForDbError(req, group.error());
             }
@@ -181,13 +189,11 @@ int main()
 
     // POST /api/v1/global/groups
     router->http_post(NetworkTools::groupApiPath, [&storage](auto req, auto params) {
-        if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
-            if (auto group = GroupData::fromJson(*jsonObj)) {
-                if (auto res = storage.addGroup(*group)) {
-                    return successResponse(req);
-                } else {
-                    return responseForDbError(req, res.error());
-                }
+        if (auto group = GroupData::create(QByteArray::fromStdString(req->body()))) {
+            if (auto res = storage.addGroup(*group)) {
+                return successResponse(req);
+            } else {
+                return responseForDbError(req, res.error());
             }
         }
 
@@ -197,14 +203,12 @@ int main()
     // PUT /api/v1/global/groups/:uuid
     router->http_put(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = groupUuidFromParam(params["uuid"])) {
-            if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
-                if (auto data = GroupData::fromJson(*jsonObj)) {
-                    (*data).uuid = (*uuid);
-                    if (auto res = storage.updateGroup(*data)) {
-                        return successResponse(req);
-                    } else {
-                        return responseForDbError(req, res.error());
-                    }
+            if (auto data = GroupData::create(QByteArray::fromStdString(req->body()))) {
+                (*data).uuid = (*uuid);
+                if (auto res = storage.updateGroup(*data)) {
+                    return successResponse(req);
+                } else {
+                    return responseForDbError(req, res.error());
                 }
             }
         }
@@ -249,7 +253,7 @@ int main()
                     return req->create_response(restinio::status_not_found()).done();
 
                 if (auto termData = storage.getTerm(*nodeUuid))
-                    return successResponse(req, static_cast<QString>(termData.value()));
+                    return successResponse(req, static_cast<QByteArray>(termData.value()));
                 else
                     return responseForDbError(req, termData.error());
 
@@ -282,7 +286,7 @@ int main()
             bool lastEditOnly = urlParams.has("type") && urlParams["type"] == "last_edit";
 
             if (auto term = storage.getTerm(*uuid)) {
-                return successResponse(req, static_cast<QString>(term.value()));
+                return successResponse(req, static_cast<QByteArray>(term.value()));
             } else {
                 return responseForDbError(req, term.error());
             }
@@ -293,13 +297,11 @@ int main()
 
     // POST /api/v1/global/terms
     router->http_post(NetworkTools::termApiPath, [&storage](auto req, auto params) {
-        if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
-            if (auto term = TermData::fromJson(*jsonObj, TermData::JsonCheckMode::Import)) {
-                if (auto res = storage.addTerm(*term)) {
-                    return successResponse(req);
-                } else {
-                    return responseForDbError(req, res.error());
-                }
+        if (auto term = TermData::create(QByteArray::fromStdString(req->body()), TermData::JsonCheckMode::Import)) {
+            if (auto res = storage.addTerm(*term)) {
+                return successResponse(req);
+            } else {
+                return responseForDbError(req, res.error());
             }
         }
 
@@ -309,14 +311,12 @@ int main()
     // PUT /api/v1/global/terms/:uuid
     router->http_put(NetworkTools::termUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = termUuidFromParam(params["uuid"])) {
-            if (auto jsonObj = JsonTools::toJsonObject(req->body())) {
-                if (auto data = TermData::fromJson(*jsonObj, TermData::JsonCheckMode::Import)) {
-                    (*data).uuid = (*uuid);
-                    if (auto res = storage.updateTerm(*data, DataStorageInterface::LastEditSource::AutoGenerate, false)) {
-                        return successResponse(req);
-                    } else {
-                        return responseForDbError(req, res.error());
-                    }
+            if (auto data = TermData::create(QByteArray::fromStdString(req->body()), TermData::JsonCheckMode::Import)) {
+                (*data).uuid = (*uuid);
+                if (auto res = storage.updateTerm(*data, DataStorageInterface::LastEditSource::AutoGenerate, false)) {
+                    return successResponse(req);
+                } else {
+                    return responseForDbError(req, res.error());
                 }
             }
         }

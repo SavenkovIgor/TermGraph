@@ -24,15 +24,16 @@
 #include <optional>
 #include <vector>
 
+#include <QByteArray>
 #include <QJsonObject>
 #include <QString>
-#include <QStringList>
 #include <QUuid>
 
 #include <CommonTools/HandyTypes.h>
 #include <TermDataInterface/GroupValidator.h>
 
 // TODO: Check tests!
+// TODO: Make class and make fields private
 struct GroupData
 {
     using List = std::vector<GroupData>;
@@ -49,7 +50,7 @@ struct GroupData
     }
 
     // --- JSON ---
-    static inline Opt<GroupData> fromJson(const QJsonObject& obj)
+    static inline Opt<GroupData> create(const QJsonObject& obj)
     {
         if (!GroupJsonValidator::defaultChecks().check(obj))
             return std::nullopt;
@@ -68,6 +69,16 @@ struct GroupData
         return ret;
     }
 
+    static inline Opt<GroupData> create(const QByteArray& jsonBytes)
+    {
+        auto doc = QJsonDocument::fromJson(jsonBytes);
+
+        if (doc.isNull())
+            return std::nullopt;
+
+        return create(doc.object());
+    }
+
     operator QJsonObject()
     {
         QJsonObject ret;
@@ -79,5 +90,5 @@ struct GroupData
         return ret;
     }
 
-    explicit operator QString() { return QString(QJsonDocument(static_cast<QJsonObject>(*this)).toJson()); }
+    explicit operator QByteArray() { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
 };
