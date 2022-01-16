@@ -101,9 +101,13 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
 TermGroup::OptPtr GroupsManager::createGroup(const QUuid groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid)) {
-        auto groupData = dataSource.getGroup(*uuid).result().value();
-        auto termsData = dataSource.getTerms(*uuid).value();
-        return std::make_shared<TermGroup>(groupData, termsData);
+        auto groupData = dataSource.getGroup(*uuid).result();
+        auto termsData = dataSource.getTerms(*uuid).result();
+
+        if (groupData.has_error() || termsData.has_error())
+            return std::nullopt;
+
+        return std::make_shared<TermGroup>(groupData.value(), termsData.value());
     }
 
     return std::nullopt;
@@ -353,9 +357,11 @@ void GroupsManager::updateGroupUuidNameMaps()
 {
     uuidToNames.clear();
 
-    auto groups = dataSource.getGroups().result().value();
+    auto groups = dataSource.getGroups().result();
 
-    for (const auto& groupInfo : groups) {
-        uuidToNames.insert(groupInfo.uuid, groupInfo.name);
+    if (groups.has_value()) {
+        for (const auto& groupInfo : groups.value()) {
+            uuidToNames.insert(groupInfo.uuid, groupInfo.name);
+        }
     }
 }

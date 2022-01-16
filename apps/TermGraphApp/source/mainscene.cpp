@@ -157,8 +157,13 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
     if (!mGroupBuilder.isRunning()) {
         mGroupBuilder.setAction([this, groupUuid = tmpGroupUuid]() -> TermGroup::OptPtr {
             auto group = groupsMgr->createGroup(groupUuid);
+
+            if (!group.has_value())
+                return std::nullopt;
+
             if (group.value()->thread()->isInterruptionRequested())
                 return std::nullopt;
+
             group.value()->moveToThread(this->thread());
             return group;
         });

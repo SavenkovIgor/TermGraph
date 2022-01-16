@@ -138,15 +138,13 @@ Result<TermData> LocalDatabaseStorage::getTerm(const TermUuid& uuid) const
     return impl->db.termTable->getNodeInfo(uuid);
 }
 
-Result<TermData::List> LocalDatabaseStorage::getTerms(const GroupUuid& uuid) const
+FutureRes<TermData::List> LocalDatabaseStorage::getTerms(const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->groupExist(uuid))
-        return DbErrorCodes::UuidNotFound;
+        return wrapInPromise<Result<TermData::List>>([] { return DbErrorCodes::UuidNotFound; });
 
-    return impl->db.termTable->getAllNodesInfo(uuid);
+    return wrapInPromise<Result<TermData::List>>([this, uuid] { return impl->db.termTable->getAllNodesInfo(uuid); });
 }
-
-Result<TermData::List> LocalDatabaseStorage::getTerms(const UuidList& termsUuids) const { return TermData::List{}; }
 
 Result<QDateTime> LocalDatabaseStorage::getTermLastEdit(const TermUuid& uuid) const
 {

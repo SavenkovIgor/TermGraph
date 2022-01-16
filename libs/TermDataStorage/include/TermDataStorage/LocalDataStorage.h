@@ -45,8 +45,8 @@ public:
     FutureRes<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const final;
 
     // Add getFreeUuid for groups
-    bool              groupExist(const GroupUuid& uuid) const final;
-    FutureRes<GroupData> getGroup(const GroupUuid& uuid) const final;
+    bool                       groupExist(const GroupUuid& uuid) const final;
+    FutureRes<GroupData>       getGroup(const GroupUuid& uuid) const final;
     FutureRes<GroupData::List> getGroups() const final;
 
     Result<void> addGroup(const GroupData& info) final;
@@ -56,12 +56,11 @@ public:
     TermUuid::List getAllTermsUuids(Opt<GroupUuid> groupUuid = std::nullopt) const final;
 
     // Add getFreeUuid for nodes
-    bool                   termExist(const TermUuid& uuid) const final;
-    Opt<TermUuid>          findTerm(const QString& termName, const GroupUuid& uuid) const final;
-    Result<TermData>       getTerm(const TermUuid& uuid) const final;
-    Result<TermData::List> getTerms(const GroupUuid& uuid) const final;
-    Result<TermData::List> getTerms(const UuidList& termsUuids) const final;
-    Result<QDateTime>      getTermLastEdit(const TermUuid& uuid) const final;
+    bool                      termExist(const TermUuid& uuid) const final;
+    Opt<TermUuid>             findTerm(const QString& termName, const GroupUuid& uuid) const final;
+    Result<TermData>          getTerm(const TermUuid& uuid) const final;
+    FutureRes<TermData::List> getTerms(const GroupUuid& uuid) const final;
+    Result<QDateTime>         getTermLastEdit(const TermUuid& uuid) const final;
 
     Result<void> addTerm(const TermData& info) final;
     Result<void> updateTerm(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) final;

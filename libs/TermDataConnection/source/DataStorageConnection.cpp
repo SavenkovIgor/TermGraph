@@ -181,16 +181,44 @@ Result<TermData> DataStorageConnection::getTerm(const TermUuid& uuid) const
     return TermData();
 }
 
-Result<TermData::List> DataStorageConnection::getTerms(const GroupUuid& uuid) const
+FutureRes<TermData::List> DataStorageConnection::getTerms(const GroupUuid& uuid) const
 {
-    Q_UNIMPLEMENTED();
-    return TermData::List();
-}
+    QSharedPointer<QPromise<Result<TermData::List>>> promise(new QPromise<Result<TermData::List>>);
+    promise->start();
 
-Result<TermData::List> DataStorageConnection::getTerms(const UuidList& termsUuids) const
-{
-    Q_UNIMPLEMENTED();
-    return TermData::List();
+    QUrl url = termUrl;
+    url.setQuery(QString("group_uuid=%1").arg(uuid.toString(QUuid::StringFormat::WithoutBraces)));
+
+    qDebug() << url;
+
+    QMetaObject::invokeMethod(netThread.manager.get(), [this, promise, url]() {
+        auto* reply = netThread.manager->get(QNetworkRequest(url));
+
+        QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
+            auto res = parseJsonAnswer<TermData::List>(reply, [](const QJsonObject& obj) -> Result<TermData::List> {
+                auto termsJson = obj[JsonTools::termsKey];
+
+                if (!termsJson.isArray())
+                    return DbErrorCodes::JsonParseError;
+
+                TermData::List ret;
+
+                for (const auto& termJson : termsJson.toArray()) {
+                    if (auto termData = TermData::fromJson(termJson.toObject(), TermData::JsonCheckMode::Import)) {
+                        ret.push_back(*termData);
+                    } else {
+                        qWarning("Wrong uuid in received data");
+                    }
+                }
+
+                return ret;
+            });
+            promise->addResult(res);
+            promise->finish();
+        });
+    });
+
+    return promise->future();
 }
 
 Result<QDateTime> DataStorageConnection::getTermLastEdit(const TermUuid& uuid) const

@@ -256,7 +256,7 @@ int main()
                     return responseForDbError(req, termData.error());
 
             } else if (uuidOnly) {
-                if (auto termList = storage.getTerms(*groupUuid)) {
+                if (auto termList = storage.getTerms(*groupUuid).result()) {
                     UuidList uuids;
                     for (const auto& term : termList.value())
                         uuids.push_back(term.uuid);
@@ -267,7 +267,7 @@ int main()
                 }
 
             } else {
-                if (auto termList = storage.getTerms(*groupUuid))
+                if (auto termList = storage.getTerms(*groupUuid).result())
                     return successResponse(req, JsonTools::containerToQString(JsonTools::termsKey, termList.value()));
                 else
                     return responseForDbError(req, termList.error());
