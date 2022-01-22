@@ -169,7 +169,7 @@ int main()
             jsonStr = JsonTools::toQString(JsonTools::groupUuidsKey,
                                            storage.getAllGroupsUuids(true).result().value());
         else
-            jsonStr = JsonTools::containerToQString(JsonTools::groupsKey, storage.getGroups().result().value());
+            jsonStr = QString(static_cast<QByteArray>(storage.getGroups().result().value()));
 
         return successResponse(req, jsonStr);
     });
@@ -270,7 +270,7 @@ int main()
 
             } else {
                 if (auto termList = storage.getTerms(*groupUuid).result())
-                    return successResponse(req, JsonTools::containerToQString(JsonTools::termsKey, termList.value()));
+                    return successResponse(req, static_cast<QByteArray>(termList.value()));
                 else
                     return responseForDbError(req, termList.error());
             }

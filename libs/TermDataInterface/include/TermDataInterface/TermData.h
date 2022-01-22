@@ -31,14 +31,13 @@
 #include <QUuid>
 
 #include <CommonTools/HandyTypes.h>
+#include <CommonTools/JsonTools.h>
 #include <TermDataInterface/TermValidator.h>
 
 // TODO: Check tests!
 // TODO: Make class and make fields private
 struct TermData
 {
-    using List = std::vector<TermData>;
-
     QUuid     uuid;
     QString   term;
     QString   definition;
@@ -144,4 +143,34 @@ struct TermData
     }
 
     explicit operator QByteArray() { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+
+    class List : public std::vector<TermData>
+    {
+    public:
+        static inline Opt<List> create(const QJsonObject& obj)
+        {
+            Q_UNIMPLEMENTED();
+            return std::nullopt;
+        }
+
+        static inline Opt<List> create(const QByteArray& jsonBytes)
+        {
+            Q_UNIMPLEMENTED();
+            return std::nullopt;
+        }
+
+        explicit operator QJsonObject()
+        {
+            QJsonArray arr;
+
+            for (auto item : *this)
+                arr.push_back(static_cast<QJsonObject>(item));
+
+            QJsonObject obj;
+            obj.insert(JsonTools::termsKey, arr);
+            return obj;
+        }
+
+        explicit operator QByteArray() { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+    };
 };

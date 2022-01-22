@@ -51,17 +51,6 @@ public:
         return toQString(rootKey, arr);
     }
 
-    // Container array
-    static inline QString containerToQString(const QString& rootKey, const auto& container)
-    {
-        QJsonArray arr;
-
-        for (auto item : container)
-            arr.push_back(static_cast<QJsonObject>(item));
-
-        return toQString(rootKey, arr);
-    }
-
     static inline QString prepareUuidParameter(QString param)
     {
         param.remove("%7B");

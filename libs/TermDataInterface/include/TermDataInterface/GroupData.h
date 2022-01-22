@@ -30,14 +30,13 @@
 #include <QUuid>
 
 #include <CommonTools/HandyTypes.h>
+#include <CommonTools/JsonTools.h>
 #include <TermDataInterface/GroupValidator.h>
 
 // TODO: Check tests!
 // TODO: Make class and make fields private
 struct GroupData
 {
-    using List = std::vector<GroupData>;
-
     QUuid   uuid;
     QString name;
     QString comment;
@@ -91,4 +90,34 @@ struct GroupData
     }
 
     explicit operator QByteArray() { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+
+    class List : public std::vector<GroupData>
+    {
+    public:
+        static inline Opt<List> create(const QJsonObject& obj)
+        {
+            Q_UNIMPLEMENTED();
+            return std::nullopt;
+        }
+
+        static inline Opt<List> create(const QByteArray& jsonBytes)
+        {
+            Q_UNIMPLEMENTED();
+            return std::nullopt;
+        }
+
+        explicit operator QJsonObject()
+        {
+            QJsonArray arr;
+
+            for (auto item : *this)
+                arr.push_back(static_cast<QJsonObject>(item));
+
+            QJsonObject obj;
+            obj.insert(JsonTools::groupsKey, arr);
+            return obj;
+        }
+
+        explicit operator QByteArray() { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+    };
 };
