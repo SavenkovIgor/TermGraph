@@ -29,25 +29,6 @@
 class JsonTools
 {
 public:
-    // RootKey + jsonArray
-    static inline QString toQString(const QString& rootKey, const QJsonArray& data)
-    {
-        QJsonObject obj;
-        obj.insert(rootKey, data);
-        return QString(QJsonDocument(obj).toJson());
-    }
-
-    // Uuid list
-    static inline QString toQString(const QString& rootKey, const auto& uuidList)
-    {
-        QJsonArray arr;
-
-        for (const auto& uuid : uuidList)
-            arr.push_back(uuid.toString());
-
-        return toQString(rootKey, arr);
-    }
-
     static inline QString prepareUuidParameter(QString param)
     {
         param.remove("%7B");

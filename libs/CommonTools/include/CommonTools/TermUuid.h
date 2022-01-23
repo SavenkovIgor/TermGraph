@@ -27,8 +27,6 @@
 class TermUuid final : public SafeUuid
 {
 public:
-    using List = std::vector<TermUuid>;
-
     inline static Opt<TermUuid> create(QString text, UuidMode mode = UuidMode::Default)
     {
         if (mode == UuidMode::Url)
@@ -49,6 +47,36 @@ public:
     }
 
     inline static TermUuid generate() { return TermUuid(QUuid::createUuid().toString()); }
+
+    class List : public std::vector<TermUuid>
+    {
+    public:
+        static inline Opt<List> create(const QJsonObject& obj)
+        {
+            Q_UNIMPLEMENTED();
+            return std::nullopt;
+        }
+
+        static inline Opt<List> create(const QByteArray& jsonBytes)
+        {
+            Q_UNIMPLEMENTED();
+            return std::nullopt;
+        }
+
+        explicit operator QJsonObject()
+        {
+            QJsonArray arr;
+
+            for (auto item : *this)
+                arr.push_back(item.toString(StringFormat::WithoutBraces));
+
+            QJsonObject obj;
+            obj.insert(JsonTools::termUuidsKey, arr);
+            return obj;
+        }
+
+        explicit operator QByteArray() { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+    };
 
 private:
     explicit inline TermUuid(const QString& text)

@@ -27,8 +27,6 @@
 class GroupUuid final : public SafeUuid
 {
 public:
-    using List = std::vector<GroupUuid>;
-
     inline static Opt<GroupUuid> create(QString text, UuidMode mode = UuidMode::Default)
     {
         if (mode == UuidMode::Url)
@@ -49,6 +47,36 @@ public:
     }
 
     inline static GroupUuid generate() { return GroupUuid(QUuid::createUuid().toString()); }
+
+    class List : public std::vector<GroupUuid>
+    {
+    public:
+        static inline Opt<List> create(const QJsonObject& obj)
+        {
+            Q_UNIMPLEMENTED();
+            return std::nullopt;
+        }
+
+        static inline Opt<List> create(const QByteArray& jsonBytes)
+        {
+            Q_UNIMPLEMENTED();
+            return std::nullopt;
+        }
+
+        explicit operator QJsonObject()
+        {
+            QJsonArray arr;
+
+            for (auto item : *this)
+                arr.push_back(item.toString(StringFormat::WithoutBraces));
+
+            QJsonObject obj;
+            obj.insert(JsonTools::groupUuidsKey, arr);
+            return obj;
+        }
+
+        explicit operator QByteArray() { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+    };
 
 private:
     explicit inline GroupUuid(const QString& text)

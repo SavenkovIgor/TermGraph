@@ -6,7 +6,6 @@
 #include <restinio/all.hpp>
 
 #include <CommonTools/HandyTypes.h>
-#include <CommonTools/JsonTools.h>
 #include <CommonTools/NetworkTools.h>
 #include <TermDataStorage/LocalDataStorage.h>
 
@@ -88,15 +87,7 @@ auto responseForDbError(auto req, std::error_code code)
     return req->create_response(dbErrToHttpErr(code)).set_body(dbErrDescription(code).toStdString()).done();
 }
 
-auto successResponse(auto req, const QString& body = "")
-{
-    if (body.isEmpty())
-        return req->create_response().done();
-
-    return req->create_response().set_body(body.toStdString()).done();
-}
-
-auto successResponse(auto req, QByteArray body)
+auto successResponse(auto req, QByteArray body = QByteArray())
 {
     if (body.isEmpty())
         return req->create_response().done();
@@ -134,17 +125,16 @@ int main()
     router->http_get(NetworkTools::groupApiPath, [&storage](auto req, auto params) {
         auto urlParams = restinio::parse_query(req->header().query());
 
-        QString jsonStr;
+        QByteArray json;
 
         bool uuidOnlyMode = urlParams.has("type") && urlParams["type"] == "uuid_only";
 
         if (uuidOnlyMode)
-            jsonStr = JsonTools::toQString(JsonTools::groupUuidsKey,
-                                           storage.getAllGroupsUuids(true).result().value());
+            json = static_cast<QByteArray>(storage.getAllGroupsUuids(true).result().value());
         else
-            jsonStr = QString(static_cast<QByteArray>(storage.getGroups().result().value()));
+            json = static_cast<QByteArray>(storage.getGroups().result().value());
 
-        return successResponse(req, jsonStr);
+        return successResponse(req, json);
     });
 
     // GET /api/v1/global/groups/:uuid
@@ -232,11 +222,12 @@ int main()
 
             } else if (uuidOnly) {
                 if (auto termList = storage.getTerms(*groupUuid).result()) {
-                    UuidList uuids;
+                    TermUuid::List uuids;
                     for (const auto& term : termList.value())
-                        uuids.push_back(term.uuid);
+                        if (auto tUuid = TermUuid::create(term.uuid))
+                            uuids.push_back(*tUuid);
 
-                    return successResponse(req, JsonTools::toQString(JsonTools::termUuidsKey, uuids));
+                    return successResponse(req, static_cast<QByteArray>(uuids));
                 } else {
                     return responseForDbError(req, termList.error());
                 }
