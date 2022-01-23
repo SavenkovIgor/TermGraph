@@ -78,7 +78,7 @@ struct GroupData
         return create(doc.object());
     }
 
-    operator QJsonObject()
+    operator QJsonObject() const
     {
         QJsonObject ret;
 
@@ -89,7 +89,7 @@ struct GroupData
         return ret;
     }
 
-    explicit operator QByteArray() { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+    explicit operator QByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
 
     class List : public std::vector<GroupData>
     {
@@ -122,7 +122,7 @@ struct GroupData
             return create(doc.object());
         }
 
-        explicit operator QJsonObject()
+        explicit operator QJsonObject() const
         {
             QJsonArray arr;
 
@@ -134,6 +134,6 @@ struct GroupData
             return obj;
         }
 
-        explicit operator QByteArray() { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+        explicit operator QByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
     };
 };
