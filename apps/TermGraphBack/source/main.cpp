@@ -112,33 +112,6 @@ QString paramToQString(auto param)
     return QString::fromStdString(stdStr);
 }
 
-Opt<QUuid> uuidFromParam(auto param)
-{
-    auto ret = QUuid(JsonTools::prepareUuidParameter(paramToQString(param)));
-
-    if (ret.isNull())
-        return std::nullopt;
-
-    assert(!ret.isNull());
-    return ret;
-}
-
-Opt<GroupUuid> groupUuidFromParam(auto param)
-{
-    if (auto uuid = uuidFromParam(param))
-        return GroupUuid::create(*uuid);
-
-    return std::nullopt;
-}
-
-Opt<TermUuid> termUuidFromParam(auto param)
-{
-    if (auto uuid = uuidFromParam(param))
-        return TermUuid::create(*uuid);
-
-    return std::nullopt;
-}
-
 int main()
 {
     Q_INIT_RESOURCE(SqlQueries);
@@ -176,7 +149,7 @@ int main()
 
     // GET /api/v1/global/groups/:uuid
     router->http_get(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
-        if (auto uuid = groupUuidFromParam(params["uuid"])) {
+        if (auto uuid = GroupUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto group = storage.getGroup(*uuid).result()) {
                 return successResponse(req, static_cast<QByteArray>(group.value()));
             } else {
@@ -202,7 +175,7 @@ int main()
 
     // PUT /api/v1/global/groups/:uuid
     router->http_put(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
-        if (auto uuid = groupUuidFromParam(params["uuid"])) {
+        if (auto uuid = GroupUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto data = GroupData::create(QByteArray::fromStdString(req->body()))) {
                 (*data).uuid = (*uuid);
                 if (auto res = storage.updateGroup(*data)) {
@@ -218,7 +191,7 @@ int main()
 
     // DELETE /api/v1/global/groups/:uuid
     router->http_delete(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
-        if (auto uuid = groupUuidFromParam(params["uuid"])) {
+        if (auto uuid = GroupUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto res = storage.deleteGroup(*uuid)) {
                 return successResponse(req);
             } else {
@@ -240,7 +213,7 @@ int main()
         bool hasGroupUuidParam = urlParams.has("group_uuid");
 
         if (hasGroupUuidParam) {
-            auto groupUuid = groupUuidFromParam(urlParams["group_uuid"]);
+            auto groupUuid = GroupUuid::create(paramToQString(urlParams["group_uuid"]), UuidMode::Url);
             if (!groupUuid.has_value())
                 return badRequest(req);
 
@@ -282,7 +255,7 @@ int main()
     // GET /api/v1/global/terms/:uuid
     router->http_get(NetworkTools::termUuidApiPath, [&storage](auto req, auto params) {
         auto urlParams = restinio::parse_query(req->header().query());
-        if (auto uuid = termUuidFromParam(params["uuid"])) {
+        if (auto uuid = TermUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             bool lastEditOnly = urlParams.has("type") && urlParams["type"] == "last_edit";
 
             if (auto term = storage.getTerm(*uuid)) {
@@ -310,7 +283,7 @@ int main()
 
     // PUT /api/v1/global/terms/:uuid
     router->http_put(NetworkTools::termUuidApiPath, [&storage](auto req, auto params) {
-        if (auto uuid = termUuidFromParam(params["uuid"])) {
+        if (auto uuid = TermUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto data = TermData::create(QByteArray::fromStdString(req->body()), TermData::JsonCheckMode::Import)) {
                 (*data).uuid = (*uuid);
                 if (auto res = storage.updateTerm(*data, DataStorageInterface::LastEditSource::AutoGenerate, false)) {
@@ -326,7 +299,7 @@ int main()
 
     // DELETE /api/v1/global/terms/:uuid
     router->http_delete(NetworkTools::termUuidApiPath, [&storage](auto req, auto params) {
-        if (auto uuid = termUuidFromParam(params["uuid"])) {
+        if (auto uuid = TermUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto res = storage.deleteTerm(*uuid)) {
                 return successResponse(req);
             } else {

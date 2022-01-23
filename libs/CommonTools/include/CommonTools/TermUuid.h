@@ -21,6 +21,7 @@
 
 #pragma once
 
+#include <CommonTools/JsonTools.h>
 #include <CommonTools/SafeUuid.h>
 
 class TermUuid final : public SafeUuid
@@ -28,8 +29,11 @@ class TermUuid final : public SafeUuid
 public:
     using List = std::vector<TermUuid>;
 
-    inline static Opt<TermUuid> create(const QString& text)
+    inline static Opt<TermUuid> create(QString text, UuidMode mode = UuidMode::Default)
     {
+        if (mode == UuidMode::Url)
+            text = JsonTools::prepareUuidParameter(text);
+
         if (auto safe = SafeUuid::create(text))
             return TermUuid(text);
 

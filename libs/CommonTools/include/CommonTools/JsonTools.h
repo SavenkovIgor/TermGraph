@@ -24,10 +24,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-#include <CommonTools/GroupUuid.h>
 #include <CommonTools/HandyTypes.h>
-#include <CommonTools/SafeUuid.h>
-#include <CommonTools/TermUuid.h>
 
 class JsonTools
 {

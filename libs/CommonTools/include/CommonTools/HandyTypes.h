@@ -46,6 +46,8 @@ using FutureRes = QFuture<Result<RetType>>;
 
 enum class Direction { Left, Right };
 
+enum class UuidMode { Default, Url };
+
 class SizeList : public std::vector<QSizeF>
 {
 public:
