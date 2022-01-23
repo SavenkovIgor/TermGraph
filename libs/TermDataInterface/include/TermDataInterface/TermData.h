@@ -149,14 +149,30 @@ struct TermData
     public:
         static inline Opt<List> create(const QJsonObject& obj)
         {
-            Q_UNIMPLEMENTED();
-            return std::nullopt;
+            List ret;
+
+            if (!obj[JsonTools::termsKey].isArray())
+                return std::nullopt;
+
+            for (const auto& termJson : obj[JsonTools::termsKey].toArray()) {
+                if (auto termData = TermData::create(termJson.toObject(), JsonCheckMode::Import)) {
+                    ret.push_back(*termData);
+                } else {
+                    qWarning("Wrong groupData in received data");
+                }
+            }
+
+            return ret;
         }
 
         static inline Opt<List> create(const QByteArray& jsonBytes)
         {
-            Q_UNIMPLEMENTED();
-            return std::nullopt;
+            auto doc = QJsonDocument::fromJson(jsonBytes);
+
+            if (doc.isNull())
+                return std::nullopt;
+
+            return create(doc.object());
         }
 
         explicit operator QJsonObject()

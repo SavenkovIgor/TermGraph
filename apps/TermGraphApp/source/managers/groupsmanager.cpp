@@ -155,9 +155,6 @@ UuidList GroupsManager::getAllUuidsSortedByLastEdit()
     if (!groupsUuids.has_value())
         return {};
 
-    for (auto i : groupsUuids.value())
-        qDebug() << i;
-
     for (const auto& uuid : groupsUuids.value())
         ret.push_back(uuid);
 

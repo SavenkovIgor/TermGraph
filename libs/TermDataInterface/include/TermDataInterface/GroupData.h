@@ -96,14 +96,30 @@ struct GroupData
     public:
         static inline Opt<List> create(const QJsonObject& obj)
         {
-            Q_UNIMPLEMENTED();
-            return std::nullopt;
+            List ret;
+
+            if (!obj[JsonTools::groupsKey].isArray())
+                return std::nullopt;
+
+            for (const auto& groupJson : obj[JsonTools::groupsKey].toArray()) {
+                if (auto groupData = GroupData::create(groupJson.toObject())) {
+                    ret.push_back(*groupData);
+                } else {
+                    qWarning("Wrong groupData in received data");
+                }
+            }
+
+            return ret;
         }
 
         static inline Opt<List> create(const QByteArray& jsonBytes)
         {
-            Q_UNIMPLEMENTED();
-            return std::nullopt;
+            auto doc = QJsonDocument::fromJson(jsonBytes);
+
+            if (doc.isNull())
+                return std::nullopt;
+
+            return create(doc.object());
         }
 
         explicit operator QJsonObject()

@@ -53,14 +53,30 @@ public:
     public:
         static inline Opt<List> create(const QJsonObject& obj)
         {
-            Q_UNIMPLEMENTED();
-            return std::nullopt;
+            List ret;
+
+            if (!obj[JsonTools::termUuidsKey].isArray())
+                return std::nullopt;
+
+            for (const auto& obj : obj[JsonTools::termUuidsKey].toArray()) {
+                if (auto uuid = TermUuid::create(obj.toString())) {
+                    ret.push_back(*uuid);
+                } else {
+                    qWarning("Wrong uuid in received data");
+                }
+            }
+
+            return ret;
         }
 
         static inline Opt<List> create(const QByteArray& jsonBytes)
         {
-            Q_UNIMPLEMENTED();
-            return std::nullopt;
+            auto doc = QJsonDocument::fromJson(jsonBytes);
+
+            if (doc.isNull())
+                return std::nullopt;
+
+            return create(doc.object());
         }
 
         explicit operator QJsonObject()

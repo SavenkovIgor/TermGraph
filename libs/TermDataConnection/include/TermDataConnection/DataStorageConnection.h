@@ -75,20 +75,4 @@ private:
     QUrl termUrl;
 
     NetworkThread netThread;
-
-    static GroupUuid::List toGroupUuidList(const QJsonObject& obj);
-
-    template<typename T>
-    static Result<T> parseJsonAnswer(QNetworkReply* reply, std::function<Result<T>(const QJsonObject&)> transform)
-    {
-        if (reply->error() == QNetworkReply::NoError) {
-            if (auto jsonObj = JsonTools::toJsonObject(reply->readAll())) {
-                return transform(*jsonObj);
-            } else {
-                return DbErrorCodes::JsonParseError;
-            }
-        } else {
-            return DbErrorCodes::ConnectionError;
-        }
-    }
 };

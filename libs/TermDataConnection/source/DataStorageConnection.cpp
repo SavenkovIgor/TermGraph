@@ -64,8 +64,16 @@ FutureRes<GroupUuid::List> DataStorageConnection::getAllGroupsUuids(bool sortByL
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            auto res = parseJsonAnswer<GroupUuid::List>(reply, &DataStorageConnection::toGroupUuidList);
-            promise->addResult(res);
+            if (reply->error() == QNetworkReply::NoError) {
+                if (auto list = GroupUuid::List::create(reply->readAll())) {
+                    promise->addResult(*list);
+                } else {
+                    promise->addResult(DbErrorCodes::JsonParseError);
+                }
+            } else {
+                promise->addResult(DbErrorCodes::ConnectionError);
+            }
+
             promise->finish();
         });
     });
@@ -91,12 +99,16 @@ FutureRes<GroupData> DataStorageConnection::getGroup(const GroupUuid& uuid) cons
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            auto res = parseJsonAnswer<GroupData>(reply, [](const QJsonObject& obj) -> Result<GroupData> {
-                if (auto group = GroupData::create(obj))
-                    return *group;
-                return DbErrorCodes::JsonParseError;
-            });
-            promise->addResult(res);
+            if (reply->error() == QNetworkReply::NoError) {
+                if (auto group = GroupData::create(reply->readAll())) {
+                    promise->addResult(*group);
+                } else {
+                    promise->addResult(DbErrorCodes::JsonParseError);
+                }
+            } else {
+                promise->addResult(DbErrorCodes::ConnectionError);
+            }
+
             promise->finish();
         });
     });
@@ -115,23 +127,16 @@ FutureRes<GroupData::List> DataStorageConnection::getGroups() const
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            auto res = parseJsonAnswer<GroupData::List>(reply, [](const QJsonObject& obj) -> Result<GroupData::List> {
-                GroupData::List ret;
-
-                if (!obj[JsonTools::groupsKey].isArray())
-                    return DbErrorCodes::JsonParseError;
-
-                for (const auto& groupJson : obj[JsonTools::groupsKey].toArray()) {
-                    if (auto groupData = GroupData::create(groupJson.toObject())) {
-                        ret.push_back(*groupData);
-                    } else {
-                        qWarning("Wrong uuid in received data");
-                    }
+            if (reply->error() == QNetworkReply::NoError) {
+                if (auto groups = GroupData::List::create(reply->readAll())) {
+                    promise->addResult(*groups);
+                } else {
+                    promise->addResult(DbErrorCodes::JsonParseError);
                 }
+            } else {
+                promise->addResult(DbErrorCodes::ConnectionError);
+            }
 
-                return ret;
-            });
-            promise->addResult(res);
             promise->finish();
         });
     });
@@ -189,31 +194,20 @@ FutureRes<TermData::List> DataStorageConnection::getTerms(const GroupUuid& uuid)
     QUrl url = termUrl;
     url.setQuery(QString("group_uuid=%1").arg(uuid.toString(QUuid::StringFormat::WithoutBraces)));
 
-    qDebug() << url;
-
     QMetaObject::invokeMethod(netThread.manager.get(), [this, promise, url]() {
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            auto res = parseJsonAnswer<TermData::List>(reply, [](const QJsonObject& obj) -> Result<TermData::List> {
-                auto termsJson = obj[JsonTools::termsKey];
-
-                if (!termsJson.isArray())
-                    return DbErrorCodes::JsonParseError;
-
-                TermData::List ret;
-
-                for (const auto& termJson : termsJson.toArray()) {
-                    if (auto termData = TermData::create(termJson.toObject(), TermData::JsonCheckMode::Import)) {
-                        ret.push_back(*termData);
-                    } else {
-                        qWarning("Wrong uuid in received data");
-                    }
+            if (reply->error() == QNetworkReply::NoError) {
+                if (auto terms = TermData::List::create(reply->readAll())) {
+                    promise->addResult(*terms);
+                } else {
+                    promise->addResult(DbErrorCodes::JsonParseError);
                 }
+            } else {
+                promise->addResult(DbErrorCodes::ConnectionError);
+            }
 
-                return ret;
-            });
-            promise->addResult(res);
             promise->finish();
         });
     });
@@ -245,22 +239,4 @@ Result<void> DataStorageConnection::deleteTerm(const TermUuid& uuid)
 {
     Q_UNIMPLEMENTED();
     return outcome::success();
-}
-
-GroupUuid::List DataStorageConnection::toGroupUuidList(const QJsonObject& obj)
-{
-    GroupUuid::List ret;
-
-    if (!obj[JsonTools::groupUuidsKey].isArray())
-        return ret;
-
-    for (const auto& obj : obj[JsonTools::groupUuidsKey].toArray()) {
-        if (auto groupUuid = GroupUuid::create(obj.toString())) {
-            ret.push_back(*groupUuid);
-        } else {
-            qWarning("Wrong uuid in received data");
-        }
-    }
-
-    return ret;
 }
