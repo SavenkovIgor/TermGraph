@@ -53,34 +53,7 @@ http_status_line_t dbErrToHttpErr(std::error_code code)
     return status_bad_gateway();
 }
 
-QString dbErrDescription(std::error_code code)
-{
-    if (code == DbErrorCodes::UuidEmpty)
-        return "Uuid is empty";
-
-    if (code == DbErrorCodes::UuidAlreadyExist)
-        return "Uuid already exist";
-
-    if (code == DbErrorCodes::UuidNotFound)
-        return "Uuid not found";
-
-    if (code == DbErrorCodes::GroupNameEmpty)
-        return "Group name empty";
-
-    if (code == DbErrorCodes::GroupNameAlreadyExist)
-        return "Group name already exist";
-
-    if (code == DbErrorCodes::TermEmpty)
-        return "Term empty";
-
-    if (code == DbErrorCodes::TermNotFound)
-        return "Term not found";
-
-    if (code == DbErrorCodes::NewerTermVersionFound)
-        return "Newer term version found";
-
-    return "Error";
-}
+QString dbErrDescription(std::error_code code) { return QString::fromStdString(code.message()); }
 
 auto responseForDbError(auto req, std::error_code code)
 {

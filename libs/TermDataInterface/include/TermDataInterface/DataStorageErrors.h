@@ -40,21 +40,59 @@ enum class DbErrorCodes {
     TermNotFound,
     NewerTermVersionFound,
     ConnectionError,
-    JsonParseError
+    JsonParseError,
+
+    UnknownError
 };
+
+inline DbErrorCodes createDbError(std::string msg)
+{
+    if (msg == "UuidEmpty")
+        return DbErrorCodes::UuidEmpty;
+
+    if (msg == "UuidAlreadyExist")
+        return DbErrorCodes::UuidAlreadyExist;
+
+    if (msg == "UuidNotFound")
+        return DbErrorCodes::UuidNotFound;
+
+    if (msg == "GroupNameEmpty")
+        return DbErrorCodes::GroupNameEmpty;
+
+    if (msg == "GroupNameAlreadyExist")
+        return DbErrorCodes::GroupNameAlreadyExist;
+
+    if (msg == "TermEmpty")
+        return DbErrorCodes::TermEmpty;
+
+    if (msg == "TermNotFound")
+        return DbErrorCodes::TermNotFound;
+
+    if (msg == "NewerTermVersionFound")
+        return DbErrorCodes::NewerTermVersionFound;
+
+    if (msg == "ConnectionError")
+        return DbErrorCodes::ConnectionError;
+
+    if (msg == "JsonParseError")
+        return DbErrorCodes::JsonParseError;
+
+    return DbErrorCodes::UnknownError;
+}
 
 inline const char* error_message(int code)
 {
     switch (static_cast<DbErrorCodes>(code)) {
     case DbErrorCodes::UuidEmpty: return "UuidEmpty";
     case DbErrorCodes::UuidAlreadyExist: return "UuidAlreadyExist";
-    case DbErrorCodes::UuidNotFound: return "UuidNotExist";
+    case DbErrorCodes::UuidNotFound: return "UuidNotFound";
     case DbErrorCodes::GroupNameEmpty: return "GroupNameEmpty";
     case DbErrorCodes::GroupNameAlreadyExist: return "GroupNameAlreadyExist";
     case DbErrorCodes::TermEmpty: return "TermEmpty";
     case DbErrorCodes::TermNotFound: return "TermNotFound";
     case DbErrorCodes::NewerTermVersionFound: return "NewerTermVersionFound";
     case DbErrorCodes::ConnectionError: return "ConnectionError";
+    case DbErrorCodes::JsonParseError: return "JsonParseError";
     }
     return "UnreachableMsg";
 }
