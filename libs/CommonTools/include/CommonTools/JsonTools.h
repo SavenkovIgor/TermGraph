@@ -40,16 +40,6 @@ public:
         return param;
     }
 
-    static inline Opt<QJsonObject> toJsonObject(const QByteArray& jsonBytes)
-    {
-        auto doc = QJsonDocument::fromJson(jsonBytes);
-
-        if (doc.isNull())
-            return std::nullopt;
-
-        return doc.object();
-    }
-
     constexpr static auto groupsKey     = "groups";
     constexpr static auto groupUuidsKey = "groupUuids";
 
