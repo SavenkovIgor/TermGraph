@@ -15,9 +15,7 @@ using namespace restinio;
 
 // TODO: Give address and port through agrument
 // TODO: Encoding!
-// TODO: Add standard database errors
 // TODO: Remove second version of sql executor
-// TODO: Watch about error codes
 
 http_status_line_t dbErrToHttpErr(std::error_code code)
 {
@@ -25,13 +23,13 @@ http_status_line_t dbErrToHttpErr(std::error_code code)
 
     // clang-format off
     switch (static_cast<DbErrorCodes>(code.value())) {
-    case DbErrorCodes::GroupUuidEmpty:        return status_bad_request();
+    case DbErrorCodes::GroupUuidInvalid:      return status_bad_request();
     case DbErrorCodes::GroupUuidAlreadyExist: return status_conflict();
     case DbErrorCodes::GroupUuidNotFound:     return status_not_found();
     case DbErrorCodes::GroupNameEmpty:        return status_bad_request();
     case DbErrorCodes::GroupNameAlreadyExist: return status_conflict();
 
-    case DbErrorCodes::TermUuidEmpty:         return status_bad_request();
+    case DbErrorCodes::TermUuidInvalid:       return status_bad_request();
     case DbErrorCodes::TermUuidAlreadyExist:  return status_conflict();
     case DbErrorCodes::TermUuidNotFound:      return status_not_found();
     case DbErrorCodes::TermEmpty:             return status_bad_request();

@@ -154,7 +154,7 @@ Result<QDateTime> LocalDatabaseStorage::getTermLastEdit(const TermUuid& uuid) co
 Result<void> LocalDatabaseStorage::addTerm(const TermData& info)
 {
     if (info.groupUuid.isNull())
-        return DbErrorCodes::GroupUuidEmpty;
+        return DbErrorCodes::GroupUuidInvalid;
 
     if (!impl->db.groupTable->groupExist(info.groupUuid))
         return DbErrorCodes::GroupUuidNotFound;
@@ -167,7 +167,7 @@ Result<void> LocalDatabaseStorage::updateTerm(const TermData&                   
                                               bool                                 checkLastEdit)
 {
     if (info.groupUuid.isNull())
-        return DbErrorCodes::GroupUuidEmpty;
+        return DbErrorCodes::GroupUuidInvalid;
 
     if (!impl->db.groupTable->groupExist(info.groupUuid))
         return DbErrorCodes::GroupUuidNotFound;

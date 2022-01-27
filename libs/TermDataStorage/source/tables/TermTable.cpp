@@ -50,7 +50,7 @@ Result<void> TermTable::addNode(const TermData& info)
     auto tUuid = TermUuid::create(info.uuid);
 
     if (!tUuid.has_value())
-        return DbErrorCodes::TermUuidEmpty;
+        return DbErrorCodes::TermUuidInvalid;
 
     if (nodeExist(*tUuid))
         return DbErrorCodes::TermUuidAlreadyExist;
@@ -193,7 +193,7 @@ Result<void> TermTable::updateNode(const TermData&                      info,
     auto tUuid = TermUuid::create(info.uuid);
 
     if (!tUuid.has_value())
-        return DbErrorCodes::TermUuidEmpty;
+        return DbErrorCodes::TermUuidInvalid;
 
     if (!nodeExist(*tUuid))
         return DbErrorCodes::TermUuidNotFound;

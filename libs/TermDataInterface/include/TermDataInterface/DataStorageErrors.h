@@ -26,14 +26,14 @@
 #include <system_error>
 
 enum class DbErrorCodes {
-    GroupUuidEmpty = 0,
+    GroupUuidInvalid = 0,
     GroupUuidAlreadyExist,
     GroupUuidNotFound,
 
     GroupNameEmpty,
     GroupNameAlreadyExist,
 
-    TermUuidEmpty,
+    TermUuidInvalid,
     TermUuidAlreadyExist,
     TermUuidNotFound,
 
@@ -50,12 +50,12 @@ enum class DbErrorCodes {
 inline DbErrorCodes createDbError(std::string msg)
 {
     // clang-format off
-    if (msg == "GroupUuidEmpty")        return DbErrorCodes::GroupUuidEmpty;
+    if (msg == "GroupUuidInvalid")      return DbErrorCodes::GroupUuidInvalid;
     if (msg == "GroupUuidAlreadyExist") return DbErrorCodes::GroupUuidAlreadyExist;
     if (msg == "GroupUuidNotFound")     return DbErrorCodes::GroupUuidNotFound;
     if (msg == "GroupNameEmpty")        return DbErrorCodes::GroupNameEmpty;
     if (msg == "GroupNameAlreadyExist") return DbErrorCodes::GroupNameAlreadyExist;
-    if (msg == "TermUuidEmpty")         return DbErrorCodes::TermUuidEmpty;
+    if (msg == "TermUuidInvalid")       return DbErrorCodes::TermUuidInvalid;
     if (msg == "TermUuidAlreadyExist")  return DbErrorCodes::TermUuidAlreadyExist;
     if (msg == "TermUuidNotFound")      return DbErrorCodes::TermUuidNotFound;
     if (msg == "TermEmpty")             return DbErrorCodes::TermEmpty;
@@ -73,13 +73,13 @@ inline const char* error_message(int code)
 {
     // clang-format off
     switch (static_cast<DbErrorCodes>(code)) {
-    case DbErrorCodes::GroupUuidEmpty:        return "GroupUuidEmpty";
+    case DbErrorCodes::GroupUuidInvalid:      return "GroupUuidInvalid";
     case DbErrorCodes::GroupUuidAlreadyExist: return "GroupUuidAlreadyExist";
     case DbErrorCodes::GroupUuidNotFound:     return "GroupUuidNotFound";
     case DbErrorCodes::GroupNameEmpty:        return "GroupNameEmpty";
     case DbErrorCodes::GroupNameAlreadyExist: return "GroupNameAlreadyExist";
 
-    case DbErrorCodes::TermUuidEmpty:         return "TermUuidEmpty";
+    case DbErrorCodes::TermUuidInvalid:       return "TermUuidInvalid";
     case DbErrorCodes::TermUuidAlreadyExist:  return "TermUuidAlreadyExist";
     case DbErrorCodes::TermUuidNotFound:      return "TermUuidNotFound";
     case DbErrorCodes::TermEmpty:             return "TermEmpty";

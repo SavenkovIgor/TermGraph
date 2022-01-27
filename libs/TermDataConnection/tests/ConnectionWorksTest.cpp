@@ -153,7 +153,7 @@
 //    EXPECT_EQ(withUuid.comment, readedWithUuid.comment);
 
 //    // Update group test
-//    EXPECT_EQ(mStorage->updateGroup(withoutUuid).error(), DbErrorCodes::GroupUuidEmpty);
+//    EXPECT_EQ(mStorage->updateGroup(withoutUuid).error(), DbErrorCodes::GroupUuidInvalid);
 
 //    withUuid.name += mSpecSymbols;
 //    withUuid.comment += mSpecSymbols;

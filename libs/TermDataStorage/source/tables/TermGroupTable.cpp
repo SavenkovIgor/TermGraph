@@ -50,7 +50,7 @@ Result<void> TermGroupTable::addGroup(const GroupData& info)
 Result<void> TermGroupTable::updateGroup(const GroupData& info)
 {
     if (info.uuid.isNull())
-        return DbErrorCodes::GroupUuidEmpty;
+        return DbErrorCodes::GroupUuidInvalid;
 
     if (!groupExist(info.uuid))
         return DbErrorCodes::GroupUuidNotFound;
