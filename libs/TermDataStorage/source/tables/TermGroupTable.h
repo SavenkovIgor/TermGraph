@@ -28,35 +28,36 @@
 #include <TermDataInterface/DataStorageErrors.h>
 #include <TermDataInterface/GroupData.h>
 
+// TODO: GroupUuid to GroupData
 class TermGroupTable
 {
 public:
     TermGroupTable()  = default;
     ~TermGroupTable() = default;
 
-    // Add, update, delete
+    // Table stuff
+    void initTable();
+
+    // Checkers
+    bool exist(const QString& groupName);
+    bool exist(const GroupUuid& uuid);
+
+    // Getters
+    GroupUuid::List   allUuids();
+    Result<GroupData> group(const GroupUuid& uuid);
+    GroupData::List   allGroups();
+
+    // Modify
     // TODO: Return object after add, update, delete
     Result<void> addGroup(const GroupData& info);
     Result<void> updateGroup(const GroupData& info);
     Result<void> deleteGroup(const GroupUuid& uuid);
 
-    // Getters
-    GroupUuid::List   getAllUuids();
-    Result<GroupData> getGroup(const GroupUuid& uuid);
-    GroupData::List   getGroups();
-
-    QUuid getUuid(const QString& groupName) const;
-
-    // Checkers
-    // TODO: Delete wrapper later
-    bool groupExist(const QUuid& uuid);
-    bool groupExist(const GroupUuid& uuid);
-    bool groupWithNameExist(const QString& groupName);
-
-    void initTable();
-
 private:
-    QUuid generateNewUuid();
+    // TODO: Delete later
+    bool groupExist(const QUuid& uuid);
 
-    static GroupData sqlRecordToGroupInfo(const QSqlRecord& rec);
+    GroupUuid generateNewUuid();
+
+    static GroupData createGroupData(const QSqlRecord& rec);
 };

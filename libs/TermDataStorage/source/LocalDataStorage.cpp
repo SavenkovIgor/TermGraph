@@ -46,13 +46,13 @@ FutureRes<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids(bool sortByLa
 {
     // Simple variant
     if (!sortByLastEdit) {
-        return wrapInPromise<Result<GroupUuid::List>>([this] { return impl->db.groupTable->getAllUuids(); });
+        return wrapInPromise<Result<GroupUuid::List>>([this] { return impl->db.groupTable->allUuids(); });
     }
 
     // Load info from groups table - need if any group is empty and has no lastEdit value
     QMap<QUuid, QDateTime> groupsLastEdit;
 
-    for (const auto& uuid : impl->db.groupTable->getAllUuids())
+    for (const auto& uuid : impl->db.groupTable->allUuids())
         groupsLastEdit.insert(uuid.get(), QDateTime());
 
     for (const auto& record : impl->db.termTable->allLastEditRecords()) {
@@ -91,16 +91,16 @@ FutureRes<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids(bool sortByLa
     return wrapInPromise<Result<GroupUuid::List>>([&ret] { return ret; });
 }
 
-bool LocalDatabaseStorage::groupExist(const GroupUuid& uuid) const { return impl->db.groupTable->groupExist(uuid); }
+bool LocalDatabaseStorage::groupExist(const GroupUuid& uuid) const { return impl->db.groupTable->exist(uuid); }
 
 FutureRes<GroupData> LocalDatabaseStorage::getGroup(const GroupUuid& uuid) const
 {
-    return wrapInPromise<Result<GroupData>>([this, &uuid] { return impl->db.groupTable->getGroup(uuid); });
+    return wrapInPromise<Result<GroupData>>([this, &uuid] { return impl->db.groupTable->group(uuid); });
 }
 
 FutureRes<GroupData::List> LocalDatabaseStorage::getGroups() const
 {
-    return wrapInPromise<Result<GroupData::List>>([this] { return impl->db.groupTable->getGroups(); });
+    return wrapInPromise<Result<GroupData::List>>([this] { return impl->db.groupTable->allGroups(); });
 }
 
 Result<void> LocalDatabaseStorage::addGroup(const GroupData& info) { return impl->db.groupTable->addGroup(info); }
@@ -118,7 +118,7 @@ bool LocalDatabaseStorage::termExist(const TermUuid& uuid) const { return impl->
 
 Opt<TermUuid> LocalDatabaseStorage::findTerm(const QString& nodeName, const GroupUuid& uuid) const
 {
-    if (!impl->db.groupTable->groupExist(uuid))
+    if (!impl->db.groupTable->exist(uuid))
         return std::nullopt;
 
     return impl->db.termTable->find(nodeName, uuid);
@@ -128,7 +128,7 @@ Result<TermData> LocalDatabaseStorage::getTerm(const TermUuid& uuid) const { ret
 
 FutureRes<TermData::List> LocalDatabaseStorage::getTerms(const GroupUuid& uuid) const
 {
-    if (!impl->db.groupTable->groupExist(uuid))
+    if (!impl->db.groupTable->exist(uuid))
         return wrapInPromise<Result<TermData::List>>([] { return DbErrorCodes::GroupUuidNotFound; });
 
     return wrapInPromise<Result<TermData::List>>([this, uuid] { return impl->db.termTable->allTerms(uuid); });
@@ -141,10 +141,11 @@ Result<QDateTime> LocalDatabaseStorage::getTermLastEdit(const TermUuid& uuid) co
 
 Result<void> LocalDatabaseStorage::addTerm(const TermData& info)
 {
-    if (info.groupUuid.isNull())
+    auto gUuid = GroupUuid::create(info.groupUuid);
+    if (!gUuid)
         return DbErrorCodes::GroupUuidInvalid;
 
-    if (!impl->db.groupTable->groupExist(info.groupUuid))
+    if (!impl->db.groupTable->exist(*gUuid))
         return DbErrorCodes::GroupUuidNotFound;
 
     return impl->db.termTable->addTerm(info);
@@ -154,10 +155,11 @@ Result<void> LocalDatabaseStorage::updateTerm(const TermData&                   
                                               DataStorageInterface::LastEditSource lastEditSource,
                                               bool                                 checkLastEdit)
 {
-    if (info.groupUuid.isNull())
+    auto gUuid = GroupUuid::create(info.groupUuid);
+    if (!gUuid)
         return DbErrorCodes::GroupUuidInvalid;
 
-    if (!impl->db.groupTable->groupExist(info.groupUuid))
+    if (!impl->db.groupTable->exist(*gUuid))
         return DbErrorCodes::GroupUuidNotFound;
 
     return impl->db.termTable->updateTerm(info, lastEditSource, checkLastEdit);
