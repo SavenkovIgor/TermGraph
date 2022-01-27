@@ -141,7 +141,7 @@ Result<TermData> LocalDatabaseStorage::getTerm(const TermUuid& uuid) const
 FutureRes<TermData::List> LocalDatabaseStorage::getTerms(const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->groupExist(uuid))
-        return wrapInPromise<Result<TermData::List>>([] { return DbErrorCodes::UuidNotFound; });
+        return wrapInPromise<Result<TermData::List>>([] { return DbErrorCodes::GroupUuidNotFound; });
 
     return wrapInPromise<Result<TermData::List>>([this, uuid] { return impl->db.termTable->getAllNodesInfo(uuid); });
 }
@@ -154,10 +154,10 @@ Result<QDateTime> LocalDatabaseStorage::getTermLastEdit(const TermUuid& uuid) co
 Result<void> LocalDatabaseStorage::addTerm(const TermData& info)
 {
     if (info.groupUuid.isNull())
-        return DbErrorCodes::UuidEmpty;
+        return DbErrorCodes::GroupUuidEmpty;
 
     if (!impl->db.groupTable->groupExist(info.groupUuid))
-        return DbErrorCodes::UuidNotFound;
+        return DbErrorCodes::GroupUuidNotFound;
 
     return impl->db.termTable->addNode(info);
 }
@@ -167,10 +167,10 @@ Result<void> LocalDatabaseStorage::updateTerm(const TermData&                   
                                               bool                                 checkLastEdit)
 {
     if (info.groupUuid.isNull())
-        return DbErrorCodes::UuidEmpty;
+        return DbErrorCodes::GroupUuidEmpty;
 
     if (!impl->db.groupTable->groupExist(info.groupUuid))
-        return DbErrorCodes::UuidNotFound;
+        return DbErrorCodes::GroupUuidNotFound;
 
     return impl->db.termTable->updateNode(info, lastEditSource, checkLastEdit);
 }

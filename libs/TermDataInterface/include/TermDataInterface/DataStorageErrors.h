@@ -25,20 +25,22 @@
 #include <string>
 #include <system_error>
 
-// TODO: split to GroupUuidEmpty, TermUuidEmpty, GroupUuidAlreadyExist, TermUuidAlreadyExist
-// TODO: split to input errors, and exist data collision errors
-
 enum class DbErrorCodes {
-    UuidEmpty = 0,
-    UuidAlreadyExist,
-    UuidNotFound,
+    GroupUuidEmpty = 0,
+    GroupUuidAlreadyExist,
+    GroupUuidNotFound,
 
     GroupNameEmpty,
     GroupNameAlreadyExist,
 
+    TermUuidEmpty,
+    TermUuidAlreadyExist,
+    TermUuidNotFound,
+
     TermEmpty,
     TermNotFound,
     NewerTermVersionFound,
+
     ConnectionError,
     JsonParseError,
 
@@ -47,53 +49,49 @@ enum class DbErrorCodes {
 
 inline DbErrorCodes createDbError(std::string msg)
 {
-    if (msg == "UuidEmpty")
-        return DbErrorCodes::UuidEmpty;
-
-    if (msg == "UuidAlreadyExist")
-        return DbErrorCodes::UuidAlreadyExist;
-
-    if (msg == "UuidNotFound")
-        return DbErrorCodes::UuidNotFound;
-
-    if (msg == "GroupNameEmpty")
-        return DbErrorCodes::GroupNameEmpty;
-
-    if (msg == "GroupNameAlreadyExist")
-        return DbErrorCodes::GroupNameAlreadyExist;
-
-    if (msg == "TermEmpty")
-        return DbErrorCodes::TermEmpty;
-
-    if (msg == "TermNotFound")
-        return DbErrorCodes::TermNotFound;
-
-    if (msg == "NewerTermVersionFound")
-        return DbErrorCodes::NewerTermVersionFound;
-
-    if (msg == "ConnectionError")
-        return DbErrorCodes::ConnectionError;
-
-    if (msg == "JsonParseError")
-        return DbErrorCodes::JsonParseError;
+    // clang-format off
+    if (msg == "GroupUuidEmpty")        return DbErrorCodes::GroupUuidEmpty;
+    if (msg == "GroupUuidAlreadyExist") return DbErrorCodes::GroupUuidAlreadyExist;
+    if (msg == "GroupUuidNotFound")     return DbErrorCodes::GroupUuidNotFound;
+    if (msg == "GroupNameEmpty")        return DbErrorCodes::GroupNameEmpty;
+    if (msg == "GroupNameAlreadyExist") return DbErrorCodes::GroupNameAlreadyExist;
+    if (msg == "TermUuidEmpty")         return DbErrorCodes::TermUuidEmpty;
+    if (msg == "TermUuidAlreadyExist")  return DbErrorCodes::TermUuidAlreadyExist;
+    if (msg == "TermUuidNotFound")      return DbErrorCodes::TermUuidNotFound;
+    if (msg == "TermEmpty")             return DbErrorCodes::TermEmpty;
+    if (msg == "TermNotFound")          return DbErrorCodes::TermNotFound;
+    if (msg == "NewerTermVersionFound") return DbErrorCodes::NewerTermVersionFound;
+    if (msg == "ConnectionError")       return DbErrorCodes::ConnectionError;
+    if (msg == "JsonParseError")        return DbErrorCodes::JsonParseError;
+    if (msg == "UnknownError")          return DbErrorCodes::UnknownError;
+    // clang-format on
 
     return DbErrorCodes::UnknownError;
 }
 
 inline const char* error_message(int code)
 {
+    // clang-format off
     switch (static_cast<DbErrorCodes>(code)) {
-    case DbErrorCodes::UuidEmpty: return "UuidEmpty";
-    case DbErrorCodes::UuidAlreadyExist: return "UuidAlreadyExist";
-    case DbErrorCodes::UuidNotFound: return "UuidNotFound";
-    case DbErrorCodes::GroupNameEmpty: return "GroupNameEmpty";
+    case DbErrorCodes::GroupUuidEmpty:        return "GroupUuidEmpty";
+    case DbErrorCodes::GroupUuidAlreadyExist: return "GroupUuidAlreadyExist";
+    case DbErrorCodes::GroupUuidNotFound:     return "GroupUuidNotFound";
+    case DbErrorCodes::GroupNameEmpty:        return "GroupNameEmpty";
     case DbErrorCodes::GroupNameAlreadyExist: return "GroupNameAlreadyExist";
-    case DbErrorCodes::TermEmpty: return "TermEmpty";
-    case DbErrorCodes::TermNotFound: return "TermNotFound";
+
+    case DbErrorCodes::TermUuidEmpty:         return "TermUuidEmpty";
+    case DbErrorCodes::TermUuidAlreadyExist:  return "TermUuidAlreadyExist";
+    case DbErrorCodes::TermUuidNotFound:      return "TermUuidNotFound";
+    case DbErrorCodes::TermEmpty:             return "TermEmpty";
+    case DbErrorCodes::TermNotFound:          return "TermNotFound";
     case DbErrorCodes::NewerTermVersionFound: return "NewerTermVersionFound";
-    case DbErrorCodes::ConnectionError: return "ConnectionError";
-    case DbErrorCodes::JsonParseError: return "JsonParseError";
+
+    case DbErrorCodes::ConnectionError:       return "ConnectionError";
+    case DbErrorCodes::JsonParseError:        return "JsonParseError";
+    case DbErrorCodes::UnknownError:          return "UnknownError";
     }
+    // clang-format off
+
     return "UnreachableMsg";
 }
 

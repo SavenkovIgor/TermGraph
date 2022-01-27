@@ -23,34 +23,26 @@ http_status_line_t dbErrToHttpErr(std::error_code code)
 {
     using namespace restinio;
 
-    if (code == DbErrorCodes::UuidEmpty)
-        return status_bad_request();
+    // clang-format off
+    switch (static_cast<DbErrorCodes>(code.value())) {
+    case DbErrorCodes::GroupUuidEmpty:        return status_bad_request();
+    case DbErrorCodes::GroupUuidAlreadyExist: return status_conflict();
+    case DbErrorCodes::GroupUuidNotFound:     return status_not_found();
+    case DbErrorCodes::GroupNameEmpty:        return status_bad_request();
+    case DbErrorCodes::GroupNameAlreadyExist: return status_conflict();
 
-    if (code == DbErrorCodes::UuidAlreadyExist)
-        return status_conflict();
+    case DbErrorCodes::TermUuidEmpty:         return status_bad_request();
+    case DbErrorCodes::TermUuidAlreadyExist:  return status_conflict();
+    case DbErrorCodes::TermUuidNotFound:      return status_not_found();
+    case DbErrorCodes::TermEmpty:             return status_bad_request();
+    case DbErrorCodes::TermNotFound:          return status_not_found();
+    case DbErrorCodes::NewerTermVersionFound: return status_conflict();
 
-    if (code == DbErrorCodes::UuidNotFound)
-        return status_not_found();
-
-    if (code == DbErrorCodes::GroupNameEmpty)
-        return status_bad_request();
-
-    if (code == DbErrorCodes::GroupNameAlreadyExist)
-        return status_conflict();
-
-    if (code == DbErrorCodes::TermEmpty)
-        return status_bad_request();
-
-    if (code == DbErrorCodes::TermNotFound)
-        return status_not_found();
-
-    if (code == DbErrorCodes::NewerTermVersionFound)
-        return status_conflict();
-
-    if (code == DbErrorCodes::ConnectionError)
-        return status_not_found();
-
-    return status_bad_gateway();
+    case DbErrorCodes::ConnectionError: return status_not_found();
+    case DbErrorCodes::JsonParseError:  return status_bad_request();
+    case DbErrorCodes::UnknownError:    return status_internal_server_error();
+    }
+    // clang-format on
 }
 
 QString dbErrDescription(std::error_code code) { return QString::fromStdString(code.message()); }

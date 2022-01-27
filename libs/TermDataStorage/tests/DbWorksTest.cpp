@@ -128,7 +128,7 @@ TEST_F(DBWorksTest, GroupsTest)
     EXPECT_FALSE(mStorage->addGroup(withUuid).has_error());
 
     // Duplicate test
-    EXPECT_EQ(mStorage->addGroup(withUuid).error(), DbErrorCodes::UuidAlreadyExist);
+    EXPECT_EQ(mStorage->addGroup(withUuid).error(), DbErrorCodes::GroupUuidAlreadyExist);
     auto sameName = withUuid;
     sameName.uuid = QUuid::createUuid();
     EXPECT_EQ(mStorage->addGroup(sameName).error(), DbErrorCodes::GroupNameAlreadyExist);
@@ -153,7 +153,7 @@ TEST_F(DBWorksTest, GroupsTest)
     EXPECT_EQ(withUuid.comment, readedWithUuid.comment);
 
     // Update group test
-    EXPECT_EQ(mStorage->updateGroup(withoutUuid).error(), DbErrorCodes::UuidEmpty);
+    EXPECT_EQ(mStorage->updateGroup(withoutUuid).error(), DbErrorCodes::GroupUuidEmpty);
 
     withUuid.name += mSpecSymbols;
     withUuid.comment += mSpecSymbols;
