@@ -150,17 +150,15 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 
 UuidList GroupsManager::getAllUuidsSortedByLastEdit()
 {
-    UuidList ret;
+    if (auto groupsUuids = dataSource.getAllGroupsUuids(true).result()) {
+        UuidList ret;
+        for (const auto& uuid : groupsUuids.value())
+            ret.push_back(uuid);
 
-    auto groupsUuids = dataSource.getAllGroupsUuids(true).result();
+        return ret;
+    }
 
-    if (!groupsUuids.has_value())
-        return {};
-
-    for (const auto& uuid : groupsUuids.value())
-        ret.push_back(uuid);
-
-    return ret;
+    return {};
 }
 
 QStringList GroupsManager::getAllUuidStringsSortedByLastEdit()
