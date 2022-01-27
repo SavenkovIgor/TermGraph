@@ -38,6 +38,7 @@ enum class DbErrorCodes {
     TermUuidNotFound,
 
     TermEmpty,
+    TermAlreadyExist,
     TermNotFound,
     NewerTermVersionFound,
 
@@ -59,6 +60,7 @@ inline DbErrorCodes createDbError(std::string msg)
     if (msg == "TermUuidAlreadyExist")  return DbErrorCodes::TermUuidAlreadyExist;
     if (msg == "TermUuidNotFound")      return DbErrorCodes::TermUuidNotFound;
     if (msg == "TermEmpty")             return DbErrorCodes::TermEmpty;
+    if (msg == "TermAlreadyExist")      return DbErrorCodes::TermAlreadyExist;
     if (msg == "TermNotFound")          return DbErrorCodes::TermNotFound;
     if (msg == "NewerTermVersionFound") return DbErrorCodes::NewerTermVersionFound;
     if (msg == "ConnectionError")       return DbErrorCodes::ConnectionError;
@@ -83,6 +85,7 @@ inline const char* error_message(int code)
     case DbErrorCodes::TermUuidAlreadyExist:  return "TermUuidAlreadyExist";
     case DbErrorCodes::TermUuidNotFound:      return "TermUuidNotFound";
     case DbErrorCodes::TermEmpty:             return "TermEmpty";
+    case DbErrorCodes::TermAlreadyExist:      return "TermAlreadyExist";
     case DbErrorCodes::TermNotFound:          return "TermNotFound";
     case DbErrorCodes::NewerTermVersionFound: return "NewerTermVersionFound";
 

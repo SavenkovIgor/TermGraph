@@ -25,6 +25,8 @@
 #include <QJsonArray>
 #include <QUrl>
 
+#include <QDebug>
+
 #include "source/helpers/appconfig.h"
 
 GroupsManager::GroupsManager(DataStorageInterface& dataSource, NotifyInterface& notifier, QObject* parent)
@@ -205,24 +207,21 @@ void GroupsManager::importGroup(const QJsonDocument& json)
 
 void GroupsManager::importTerm(const QJsonObject& nodeJson)
 {
-    auto optInfo = TermData::create(nodeJson, TermData::JsonCheckMode::Import);
-    assert(optInfo.has_value());
-
-    auto info = optInfo.value();
-
-    // TODO: Return error
-    if (info.uuid.isNull())
-        return;
-
-    // TODO: Return error
-    if (info.groupUuid.isNull())
-        return;
-
-    // Create
-    if (!dataSource.termExist(TermUuid::create(info.uuid).value())) {
-        dataSource.addTerm(info);
+    if (auto data = TermData::create(nodeJson, TermData::JsonCheckMode::Import)) {
+        auto addResult = dataSource.addTerm(*data);
+        if (!addResult) {
+            // If can't add, try to update exist term
+            if (addResult.error() == DbErrorCodes::TermUuidAlreadyExist) {
+                auto updateResult = dataSource.updateTerm(*data, DataStorageInterface::LastEditSource::TakeFromTermData);
+                if (!updateResult) {
+                    qWarning() << QString::fromStdString(updateResult.error().message());
+                }
+            } else {
+                qWarning() << QString::fromStdString(addResult.error().message());
+            }
+        }
     } else {
-        dataSource.updateTerm(info, DataStorageInterface::LastEditSource::TakeFromTermData);
+        qWarning("Can't create TermData on import");
     }
 }
 
@@ -230,35 +229,29 @@ int GroupsManager::dbVersion() { return dataSource.storageVersion(); }
 
 bool GroupsManager::addNode(QJsonObject object)
 {
-    object.insert("uuid", dataSource.getFreeUuid().toString());
+    auto data = TermData::create(object, TermData::JsonCheckMode::AddTerm);
+    assert(data.has_value());
 
-    auto optData = TermData::create(object, TermData::JsonCheckMode::AddNode);
-    assert(optData.has_value());
+    assert(!data->isNull());
+    assert(!data->groupUuid.isNull());
 
-    auto data = optData.value();
+    if (auto addResult = dataSource.addTerm(*data)) {
+        emit nodeChanged();
+        return true;
+    } else {
+        if (addResult.error() == DbErrorCodes::GroupUuidNotFound)
+            notifier.showError("Группа " + data->groupUuid.toString() + " не найдена");
 
-    assert(!data.isNull());
-    assert(!data.groupUuid.isNull());
-
-    if (!groupExist(GroupUuid::create(data.groupUuid).value())) {
-        notifier.showError("Группа " + data.groupUuid.toString() + " не найдена");
-        return false;
+        if (addResult.error() == DbErrorCodes::TermAlreadyExist)
+            notifier.showError("Термин с таким названием уже существует в этой группе");
     }
 
-    if (termExist(data.term, data.groupUuid)) {
-        notifier.showError("Термин с таким названием уже существует в этой группе");
-        return false;
-    }
-
-    dataSource.addTerm(data);
-
-    emit nodeChanged();
-    return true;
+    return false;
 }
 
 bool GroupsManager::updateNode(const QJsonObject& object)
 {
-    auto optData = TermData::create(object, TermData::JsonCheckMode::UpdateNode);
+    auto optData = TermData::create(object, TermData::JsonCheckMode::UpdateTerm);
 
     assert(optData.has_value());
 

@@ -42,15 +42,6 @@ LocalDatabaseStorage::LocalDatabaseStorage(const QString& filePath, const QStrin
 
 int LocalDatabaseStorage::storageVersion() const { return impl->db.appConfigTable->getDbVersion(); }
 
-QUuid LocalDatabaseStorage::getFreeUuid() const
-{
-    while (true) {
-        auto newUuid = QUuid::createUuid();
-        if (!termExist(TermUuid::create(newUuid).value()) && !groupExist(GroupUuid::create(newUuid).value()))
-            return newUuid;
-    }
-}
-
 FutureRes<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
 {
     // Simple variant

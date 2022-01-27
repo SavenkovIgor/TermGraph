@@ -36,15 +36,11 @@ class LocalDatabaseStorage : public DataStorageInterface
 public:
     LocalDatabaseStorage(const QString& filePath, const QString& backupFolderPath);
 
-    // DataStorageInterface interface
 public:
     int storageVersion() const final;
 
-    QUuid getFreeUuid() const final;
-
     FutureRes<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const final;
 
-    // Add getFreeUuid for groups
     bool                       groupExist(const GroupUuid& uuid) const final;
     FutureRes<GroupData>       getGroup(const GroupUuid& uuid) const final;
     FutureRes<GroupData::List> getGroups() const final;
@@ -55,7 +51,6 @@ public:
 
     TermUuid::List getAllTermsUuids(Opt<GroupUuid> groupUuid = std::nullopt) const final;
 
-    // Add getFreeUuid for nodes
     bool                      termExist(const TermUuid& uuid) const final;
     Opt<TermUuid>             findTerm(const QString& termName, const GroupUuid& uuid) const final;
     Result<TermData>          getTerm(const TermUuid& uuid) const final;

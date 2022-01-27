@@ -33,6 +33,7 @@ http_status_line_t dbErrToHttpErr(std::error_code code)
     case DbErrorCodes::TermUuidAlreadyExist:  return status_conflict();
     case DbErrorCodes::TermUuidNotFound:      return status_not_found();
     case DbErrorCodes::TermEmpty:             return status_bad_request();
+    case DbErrorCodes::TermAlreadyExist:      return status_conflict();
     case DbErrorCodes::TermNotFound:          return status_not_found();
     case DbErrorCodes::NewerTermVersionFound: return status_conflict();
 

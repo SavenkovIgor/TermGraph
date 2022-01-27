@@ -46,12 +46,6 @@ int DataStorageConnection::storageVersion() const
     return -1;
 }
 
-QUuid DataStorageConnection::getFreeUuid() const
-{
-    Q_UNIMPLEMENTED();
-    return QUuid();
-}
-
 FutureRes<GroupUuid::List> DataStorageConnection::getAllGroupsUuids(bool sortByLastEdit) const
 {
     QSharedPointer<QPromise<Result<GroupUuid::List>>> promise(new QPromise<Result<GroupUuid::List>>);

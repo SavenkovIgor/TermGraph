@@ -47,16 +47,21 @@ Opt<TermUuid> TermTable::nodeUuidForNameAndGroup(const QString& name, const Grou
 
 Result<void> TermTable::addNode(const TermData& info)
 {
-    auto tUuid = TermUuid::create(info.uuid);
+    auto tUuid = TermUuid::create(info.uuid).value_or(generateNewUuid());
 
-    if (!tUuid.has_value())
-        return DbErrorCodes::TermUuidInvalid;
-
-    if (nodeExist(*tUuid))
+    if (nodeExist(tUuid))
         return DbErrorCodes::TermUuidAlreadyExist;
 
     if (info.term.simplified().isEmpty())
         return DbErrorCodes::TermEmpty;
+
+    auto gUuid = GroupUuid::create(info.groupUuid);
+
+    if (!gUuid.has_value())
+        return DbErrorCodes::GroupUuidInvalid;
+
+    if (nodeUuidForNameAndGroup(info.term, *gUuid).has_value())
+        return DbErrorCodes::TermAlreadyExist;
 
     TermData termInfo = info;
 

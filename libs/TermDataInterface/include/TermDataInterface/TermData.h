@@ -82,7 +82,7 @@ struct TermData
         return true;
     }
 
-    enum class JsonCheckMode { Import, AddNode, UpdateNode };
+    enum class JsonCheckMode { Import, AddTerm, UpdateTerm };
 
     // --- JSON ---
     // Returns valid object or nullopt
@@ -91,8 +91,10 @@ struct TermData
         bool checkUuid     = true;
         bool checkLastEdit = true;
 
-        if (mode == JsonCheckMode::AddNode)
+        if (mode == JsonCheckMode::AddTerm) {
+            checkUuid     = false;
             checkLastEdit = false;
+        }
 
         if (!TermJsonValidator(checkUuid, checkLastEdit).check(obj))
             return std::nullopt;

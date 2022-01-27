@@ -42,8 +42,6 @@ public:
     // Storage
     virtual int storageVersion() const = 0;
 
-    virtual QUuid getFreeUuid() const = 0;
-
     // Groups
     virtual FutureRes<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const = 0;
 
