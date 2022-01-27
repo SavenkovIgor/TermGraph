@@ -27,7 +27,6 @@
 #include <TermDataInterface/DataStorageInterface.h>
 #include <TermDataInterface/TermData.h>
 
-// TODO: Naming!
 class TermTable
 {
 public:
@@ -36,32 +35,31 @@ public:
     TermTable()  = default;
     ~TermTable() = default;
 
-    Opt<TermUuid> nodeUuidForNameAndGroup(const QString& name, const GroupUuid& uuid) const;
+    // Table stuff
+    void initTable();
 
-    Result<void> addNode(const TermData& info);
+    // Read
+    bool              exist(const TermUuid& uuid);
+    Opt<TermUuid>     find(const QString& term, const GroupUuid& uuid) const;
+    Result<TermData>  term(const TermUuid& uuid);
+    Result<QDateTime> lastEdit(const TermUuid& uuid);
 
-    bool nodeExist(const TermUuid& uuid);
+    TermUuid::List         allUuids(Opt<GroupUuid> uuid = std::nullopt);
+    Result<TermData::List> allTerms(const GroupUuid& uuid);
+    RecordList             allLastEditRecords();
 
-    TermUuid::List         getAllNodesUuids(Opt<GroupUuid> uuid = std::nullopt);
-    Result<TermData>       getNodeInfo(const TermUuid& uuid);
-    Result<TermData::List> getAllNodesInfo(const GroupUuid& uuid);
-
-    Result<QDateTime> getLastEdit(const TermUuid& uuid);
-    RecordList        getAllLastEditRecords();
-
-    Result<void> updateNode(const TermData&                      info,
+    // Modify
+    Result<void> addTerm(const TermData& info);
+    Result<void> updateTerm(const TermData&                      info,
                             DataStorageInterface::LastEditSource lastEditSource,
                             bool                                 checkLastEdit = true);
     Result<void> deleteTerm(const TermUuid& uuid);
 
-    void initTable();
 
 private:
-    bool isUuidExist(const TermUuid& uuid);
-
     TermUuid generateNewUuid();
 
-    static QDateTime getLastEditNow();
+    static QDateTime now();
 
-    TermData recordToNodeInfo(QSqlRecord& record);
+    TermData createTermData(QSqlRecord& record);
 };

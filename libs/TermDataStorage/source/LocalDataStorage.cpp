@@ -55,7 +55,7 @@ FutureRes<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids(bool sortByLa
     for (const auto& uuid : impl->db.groupTable->getAllUuids())
         groupsLastEdit.insert(uuid.get(), QDateTime());
 
-    for (const auto& record : impl->db.termTable->getAllLastEditRecords()) {
+    for (const auto& record : impl->db.termTable->allLastEditRecords()) {
         QUuid     groupUuid = QUuid(record.value("groupUuid").toString());
         QDateTime lastEdit  = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate);
 
@@ -111,35 +111,32 @@ Result<void> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid) { return i
 
 TermUuid::List LocalDatabaseStorage::getAllTermsUuids(Opt<GroupUuid> uuid) const
 {
-    return impl->db.termTable->getAllNodesUuids(uuid);
+    return impl->db.termTable->allUuids(uuid);
 }
 
-bool LocalDatabaseStorage::termExist(const TermUuid& uuid) const { return impl->db.termTable->nodeExist(uuid); }
+bool LocalDatabaseStorage::termExist(const TermUuid& uuid) const { return impl->db.termTable->exist(uuid); }
 
 Opt<TermUuid> LocalDatabaseStorage::findTerm(const QString& nodeName, const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->groupExist(uuid))
         return std::nullopt;
 
-    return impl->db.termTable->nodeUuidForNameAndGroup(nodeName, uuid);
+    return impl->db.termTable->find(nodeName, uuid);
 }
 
-Result<TermData> LocalDatabaseStorage::getTerm(const TermUuid& uuid) const
-{
-    return impl->db.termTable->getNodeInfo(uuid);
-}
+Result<TermData> LocalDatabaseStorage::getTerm(const TermUuid& uuid) const { return impl->db.termTable->term(uuid); }
 
 FutureRes<TermData::List> LocalDatabaseStorage::getTerms(const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->groupExist(uuid))
         return wrapInPromise<Result<TermData::List>>([] { return DbErrorCodes::GroupUuidNotFound; });
 
-    return wrapInPromise<Result<TermData::List>>([this, uuid] { return impl->db.termTable->getAllNodesInfo(uuid); });
+    return wrapInPromise<Result<TermData::List>>([this, uuid] { return impl->db.termTable->allTerms(uuid); });
 }
 
 Result<QDateTime> LocalDatabaseStorage::getTermLastEdit(const TermUuid& uuid) const
 {
-    return impl->db.termTable->getLastEdit(uuid);
+    return impl->db.termTable->lastEdit(uuid);
 }
 
 Result<void> LocalDatabaseStorage::addTerm(const TermData& info)
@@ -150,7 +147,7 @@ Result<void> LocalDatabaseStorage::addTerm(const TermData& info)
     if (!impl->db.groupTable->groupExist(info.groupUuid))
         return DbErrorCodes::GroupUuidNotFound;
 
-    return impl->db.termTable->addNode(info);
+    return impl->db.termTable->addTerm(info);
 }
 
 Result<void> LocalDatabaseStorage::updateTerm(const TermData&                      info,
@@ -163,7 +160,7 @@ Result<void> LocalDatabaseStorage::updateTerm(const TermData&                   
     if (!impl->db.groupTable->groupExist(info.groupUuid))
         return DbErrorCodes::GroupUuidNotFound;
 
-    return impl->db.termTable->updateNode(info, lastEditSource, checkLastEdit);
+    return impl->db.termTable->updateTerm(info, lastEditSource, checkLastEdit);
 }
 
 Result<void> LocalDatabaseStorage::deleteTerm(const TermUuid& uuid) { return impl->db.termTable->deleteTerm(uuid); }
