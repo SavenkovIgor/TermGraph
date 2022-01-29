@@ -233,7 +233,6 @@ bool GroupsManager::addNode(QJsonObject object)
     assert(data.has_value());
 
     assert(!data->isNull());
-    assert(!data->groupUuid.isNull());
 
     if (auto addResult = dataSource.addTerm(*data)) {
         emit nodeChanged();
@@ -258,9 +257,8 @@ bool GroupsManager::updateNode(const QJsonObject& object)
     auto data = optData.value();
 
     assert(!data.uuid.isNull());
-    assert(!data.groupUuid.isNull());
 
-    if (!groupExist(GroupUuid::create(data.groupUuid).value())) {
+    if (!groupExist(data.groupUuid)) {
         notifier.showError("Группа " + data.groupUuid.toString() + " не найдена");
         return false;
     }
@@ -271,7 +269,7 @@ bool GroupsManager::updateNode(const QJsonObject& object)
     }
 
     // Check for already existing node with same name
-    auto alterNodeUuid = dataSource.findTerm(data.term, *GroupUuid::create(data.groupUuid));
+    auto alterNodeUuid = dataSource.findTerm(data.term, data.groupUuid);
     if (alterNodeUuid.has_value() && alterNodeUuid.value() != data.uuid) {
         notifier.showWarning("Термин с таким названием уже существует в этой группе");
         return false;

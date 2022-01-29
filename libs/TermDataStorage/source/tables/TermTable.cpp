@@ -64,8 +64,6 @@ Result<TermData> TermTable::term(const TermUuid& uuid)
     if (!exist(uuid))
         return DbErrorCodes::TermUuidNotFound;
 
-    TermData info;
-
     auto query = SqlQueryBuilder().selectTerm(uuid);
     DbTools::start(query);
 
@@ -148,12 +146,7 @@ Result<void> TermTable::addTerm(const TermData& info)
     if (info.term.simplified().isEmpty())
         return DbErrorCodes::TermEmpty;
 
-    auto gUuid = GroupUuid::create(info.groupUuid);
-
-    if (!gUuid.has_value())
-        return DbErrorCodes::GroupUuidInvalid;
-
-    if (find(info.term, *gUuid).has_value())
+    if (find(info.term, info.groupUuid))
         return DbErrorCodes::TermAlreadyExist;
 
     TermData termInfo = info;
@@ -222,17 +215,21 @@ QDateTime TermTable::now() { return QDateTime::currentDateTimeUtc(); }
 
 TermData TermTable::createTermData(QSqlRecord& record)
 {
-    TermData info;
+    auto gUuid = GroupUuid::create(record.value("groupUuid").toString());
 
-    info.uuid        = QUuid(record.value("uuid").toString());
-    info.term        = record.value("term").toString();
-    info.definition  = record.value("definition").toString();
-    info.description = record.value("description").toString();
-    info.examples    = record.value("examples").toString();
-    info.wikiUrl     = record.value("wikiUrl").toString();
-    info.wikiImage   = record.value("wikiImage").toString();
-    info.groupUuid   = QUuid(record.value("groupUuid").toString());
-    info.lastEdit    = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate);
+    assert(gUuid);
+
+    TermData info{
+        .uuid        = QUuid(record.value("uuid").toString()),
+        .term        = record.value("term").toString(),
+        .definition  = record.value("definition").toString(),
+        .description = record.value("description").toString(),
+        .examples    = record.value("examples").toString(),
+        .wikiUrl     = record.value("wikiUrl").toString(),
+        .wikiImage   = record.value("wikiImage").toString(),
+        .groupUuid   = *gUuid,
+        .lastEdit    = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate),
+    };
 
     return info;
 }

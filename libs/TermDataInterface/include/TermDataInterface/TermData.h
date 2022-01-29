@@ -30,6 +30,7 @@
 #include <QString>
 #include <QUuid>
 
+#include <CommonTools/GroupUuid.h>
 #include <CommonTools/HandyTypes.h>
 #include <CommonTools/JsonTools.h>
 #include <TermDataInterface/TermValidator.h>
@@ -45,7 +46,7 @@ struct TermData
     QString   examples;
     QString   wikiUrl;
     QString   wikiImage;
-    QUuid     groupUuid;
+    GroupUuid groupUuid;
     QDateTime lastEdit;
 
     inline bool isNull() const { return uuid.isNull() && term.isEmpty(); }
@@ -99,17 +100,22 @@ struct TermData
         if (!TermJsonValidator(checkUuid, checkLastEdit).check(obj))
             return std::nullopt;
 
-        TermData ret;
+        auto gUuid = GroupUuid::create(obj[TermJsonValidator::groupUuidKey].toString());
 
-        ret.uuid        = QUuid(obj[TermJsonValidator::uuidKey].toString());
-        ret.term        = obj[TermJsonValidator::termKey].toString();
-        ret.definition  = obj[TermJsonValidator::definitionKey].toString();
-        ret.description = obj[TermJsonValidator::descriptionKey].toString();
-        ret.examples    = obj[TermJsonValidator::examplesKey].toString();
-        ret.wikiUrl     = obj[TermJsonValidator::wikiUrlKey].toString();
-        ret.wikiImage   = obj[TermJsonValidator::wikiImageKey].toString();
-        ret.groupUuid   = QUuid(obj[TermJsonValidator::groupUuidKey].toString());
-        ret.lastEdit    = QDateTime::fromString(obj[TermJsonValidator::lastEditKey].toString(), Qt::ISODate);
+        if (!gUuid)
+            return std::nullopt;
+
+        TermData ret{
+            .uuid        = QUuid(obj[TermJsonValidator::uuidKey].toString()),
+            .term        = obj[TermJsonValidator::termKey].toString(),
+            .definition  = obj[TermJsonValidator::definitionKey].toString(),
+            .description = obj[TermJsonValidator::descriptionKey].toString(),
+            .examples    = obj[TermJsonValidator::examplesKey].toString(),
+            .wikiUrl     = obj[TermJsonValidator::wikiUrlKey].toString(),
+            .wikiImage   = obj[TermJsonValidator::wikiImageKey].toString(),
+            .groupUuid   = *gUuid,
+            .lastEdit    = QDateTime::fromString(obj[TermJsonValidator::lastEditKey].toString(), Qt::ISODate),
+        };
 
         if (ret.isNull()) // Release safety
             return std::nullopt;

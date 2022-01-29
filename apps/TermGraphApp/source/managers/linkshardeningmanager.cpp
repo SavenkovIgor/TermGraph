@@ -71,7 +71,7 @@ void LinksHardeningManager::setTerm(TermDataWrapper termWrapper)
 {
     assert(!termWrapper.isNull());
     mCurrentTerm       = termWrapper;
-    mCurrentDefinition = mCurrentTerm.definition;
+    mCurrentDefinition = mCurrentTerm.getDefinition();
 
     mLinksString.reset(new LinksString(mCurrentDefinition));
 
@@ -144,7 +144,7 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
 TermDataWrapper LinksHardeningManager::appliedReplacement()
 {
     auto ret       = mCurrentTerm;
-    ret.definition = applyLinkUuids(mCurrentDefinition, mReplacePreparations);
+    ret.setDefinition(applyLinkUuids(mCurrentDefinition, mReplacePreparations));
     return ret;
 }
 

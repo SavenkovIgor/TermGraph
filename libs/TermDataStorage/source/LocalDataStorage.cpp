@@ -141,11 +141,7 @@ Result<QDateTime> LocalDatabaseStorage::getTermLastEdit(const TermUuid& uuid) co
 
 Result<void> LocalDatabaseStorage::addTerm(const TermData& info)
 {
-    auto gUuid = GroupUuid::create(info.groupUuid);
-    if (!gUuid)
-        return DbErrorCodes::GroupUuidInvalid;
-
-    if (!impl->db.groupTable->exist(*gUuid))
+    if (!impl->db.groupTable->exist(info.groupUuid))
         return DbErrorCodes::GroupUuidNotFound;
 
     return impl->db.termTable->addTerm(info);
@@ -155,11 +151,7 @@ Result<void> LocalDatabaseStorage::updateTerm(const TermData&                   
                                               DataStorageInterface::LastEditSource lastEditSource,
                                               bool                                 checkLastEdit)
 {
-    auto gUuid = GroupUuid::create(info.groupUuid);
-    if (!gUuid)
-        return DbErrorCodes::GroupUuidInvalid;
-
-    if (!impl->db.groupTable->exist(*gUuid))
+    if (!impl->db.groupTable->exist(info.groupUuid))
         return DbErrorCodes::GroupUuidNotFound;
 
     return impl->db.termTable->updateTerm(info, lastEditSource, checkLastEdit);

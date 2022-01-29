@@ -25,36 +25,76 @@
 
 #include <TermDataInterface/TermData.h>
 
-class TermDataWrapper : public TermData
+class TermDataWrapper
 {
     Q_GADGET
 
-    Q_PROPERTY(QString uuid READ getUuid WRITE setUuid)
-    Q_PROPERTY(QString term MEMBER term)
-    Q_PROPERTY(QString definition MEMBER definition)
-    Q_PROPERTY(QString description MEMBER description)
-    Q_PROPERTY(QString examples MEMBER examples)
-    Q_PROPERTY(QString wikiUrl MEMBER wikiUrl)
-    Q_PROPERTY(QString wikiImage MEMBER wikiImage)
-    Q_PROPERTY(QString groupUuid READ getGroupUuid WRITE setGroupUuid)
+    // clang-format off
+    Q_PROPERTY(QString uuid              READ getUuid        WRITE setUuid)
+    Q_PROPERTY(QString term              READ getTerm        WRITE setTerm)
+    Q_PROPERTY(QString definition        READ getDefinition  WRITE setDefinition)
+    Q_PROPERTY(QString description       READ getDescription WRITE setDescription)
+    Q_PROPERTY(QString examples          READ getExamples    WRITE setExamples)
+    Q_PROPERTY(QString wikiUrl           READ getWikiUrl     WRITE setWikiUrl)
+    Q_PROPERTY(QString wikiImage         READ getWikiImage   WRITE setWikiImage)
+    Q_PROPERTY(QString groupUuid         READ getGroupUuid   WRITE setGroupUuid)
     Q_PROPERTY(QString lastEditDecorated READ getLastEditDecorated)
-    Q_PROPERTY(QString lastEdit READ getLastEdit)
+    Q_PROPERTY(QString lastEdit          READ getLastEdit)
+    // clang-format on
 
 public:
-    TermDataWrapper() = default;
-    TermDataWrapper(const TermData& info);
+    TermDataWrapper()
+        : mData{.uuid        = QUuid(),
+                .term        = "",
+                .definition  = "",
+                .description = "",
+                .examples    = "",
+                .wikiUrl     = "",
+                .wikiImage   = "",
+                .groupUuid   = GroupUuid::generate(),
+                .lastEdit    = QDateTime::currentDateTime()}
+    {}
+    TermDataWrapper(const TermData& info)
+        : mData(info)
+    {}
 
-    Q_INVOKABLE bool isNull() const;
+    Q_INVOKABLE inline bool isNull() const { return mData.isNull(); }
 
-    QString getUuid() const;
-    void    setUuid(const QString& uuid);
+    inline QString getUuid() const { return mData.uuid.toString(); }
+    inline void    setUuid(const QString& uuid) { mData.uuid = QUuid(uuid); }
 
-    QString getGroupUuid() const;
-    void    setGroupUuid(const QString& groupUuid);
+    inline QString getTerm() const { return mData.term; }
+    inline void    setTerm(const QString& term) { mData.term = term; }
+
+    inline QString getDefinition() const { return mData.definition; }
+    inline void    setDefinition(const QString& definition) { mData.definition = definition; }
+
+    inline QString getDescription() const { return mData.description; }
+    inline void    setDescription(const QString& description) { mData.description = description; }
+
+    inline QString getExamples() const { return mData.examples; }
+    inline void    setExamples(const QString& examples) { mData.examples = examples; }
+
+    inline QString getWikiUrl() const { return mData.wikiUrl; }
+    inline void    setWikiUrl(const QString& wikiUrl) { mData.wikiUrl = wikiUrl; }
+
+    inline QString getWikiImage() const { return mData.wikiImage; }
+    inline void    setWikiImage(const QString& wikiImage) { mData.wikiImage = wikiImage; }
+
+    inline QString getGroupUuid() const { return mData.groupUuid.toString(); }
+    inline void    setGroupUuid(const QString& groupUuid)
+    {
+        auto gUuid = GroupUuid::create(groupUuid);
+        assert(gUuid);
+        mData.groupUuid = *gUuid;
+    }
 
     // Not editable...
-    QString getLastEdit() const;
-    QString getLastEditDecorated() const;
+    inline QString getLastEdit() const { return mData.lastEdit.toString(Qt::ISODate); }
+    inline QString getLastEditDecorated() const { return mData.lastEdit.toString("dd MMM yyyy hh:mm:ss t"); }
+
+private:
+    TermData mData;
 };
 
 Q_DECLARE_METATYPE(TermDataWrapper)

@@ -177,7 +177,7 @@ Opt<TermUuid> DataStorageConnection::findTerm(const QString& nodeName, const Gro
 Result<TermData> DataStorageConnection::getTerm(const TermUuid& uuid) const
 {
     Q_UNIMPLEMENTED();
-    return TermData();
+    //    return TermData();
 }
 
 FutureRes<TermData::List> DataStorageConnection::getTerms(const GroupUuid& uuid) const

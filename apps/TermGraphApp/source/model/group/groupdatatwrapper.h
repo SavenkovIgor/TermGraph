@@ -35,11 +35,13 @@ class GroupDataWrapper : public GroupData
 
 public:
     GroupDataWrapper() = default;
-    GroupDataWrapper(const GroupData& info);
+    GroupDataWrapper(const GroupData& info)
+        : GroupData(info)
+    {}
 
     // Uuid
-    QString getUuid() const;
-    void    setUuid(const QString& uuid);
+    QString getUuid() const { return uuid ? uuid->toString() : QString(); }
+    void    setUuid(const QString& uuid) { this->uuid = GroupUuid::create(uuid); }
 };
 
 Q_DECLARE_METATYPE(GroupDataWrapper)
