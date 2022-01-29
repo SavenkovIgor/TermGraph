@@ -44,7 +44,7 @@ class TermDataWrapper
 
 public:
     TermDataWrapper()
-        : mData{.uuid        = QUuid(),
+        : mData{.uuid        = std::nullopt,
                 .term        = "",
                 .definition  = "",
                 .description = "",
@@ -60,8 +60,8 @@ public:
 
     Q_INVOKABLE inline bool isNull() const { return mData.isNull(); }
 
-    inline QString getUuid() const { return mData.uuid.toString(); }
-    inline void    setUuid(const QString& uuid) { mData.uuid = QUuid(uuid); }
+    inline QString getUuid() const { return mData.uuid ? mData.uuid->toString() : ""; }
+    inline void    setUuid(const QString& uuid) { mData.uuid = TermUuid::create(uuid); }
 
     inline QString getTerm() const { return mData.term; }
     inline void    setTerm(const QString& term) { mData.term = term; }

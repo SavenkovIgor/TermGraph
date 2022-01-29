@@ -135,7 +135,8 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
         const auto &term     = item.second->data().term;
         const auto &distance = item.first;
 
-        ret.push_back({uuid, term, distance});
+        if (uuid)
+            ret.push_back({*uuid, term, distance});
     }
 
     return ret;

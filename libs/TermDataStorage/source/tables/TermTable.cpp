@@ -138,7 +138,8 @@ TermTable::RecordList TermTable::allLastEditRecords()
 
 Result<void> TermTable::addTerm(const TermData& info)
 {
-    auto tUuid = TermUuid::create(info.uuid).value_or(generateNewUuid());
+    // Generate new uuid if current is empty
+    auto tUuid = info.uuid.value_or(generateNewUuid());
 
     if (exist(tUuid))
         return DbErrorCodes::TermUuidAlreadyExist;
@@ -151,9 +152,7 @@ Result<void> TermTable::addTerm(const TermData& info)
 
     TermData termInfo = info;
 
-    // Generate new uuid if current is empty
-    if (termInfo.uuid.isNull())
-        termInfo.uuid = generateNewUuid();
+    termInfo.uuid = tUuid;
 
     if (termInfo.lastEdit.isNull())
         termInfo.lastEdit = now();
@@ -168,16 +167,14 @@ Result<void> TermTable::updateTerm(const TermData&                      info,
                                    DataStorageInterface::LastEditSource lastEditSource,
                                    bool                                 checkLastEdit)
 {
-    auto tUuid = TermUuid::create(info.uuid);
-
-    if (!tUuid.has_value())
+    if (!info.uuid)
         return DbErrorCodes::TermUuidInvalid;
 
-    if (!exist(*tUuid))
+    if (!exist(*info.uuid))
         return DbErrorCodes::TermUuidNotFound;
 
     if (checkLastEdit) {
-        const auto currentLastEdit = lastEdit(*tUuid).value();
+        const auto currentLastEdit = lastEdit(*info.uuid).value();
         const auto newLastEdit     = info.lastEdit;
         if (currentLastEdit > newLastEdit) // If db version is fresher, do nothing
             return DbErrorCodes::NewerTermVersionFound;
@@ -220,7 +217,7 @@ TermData TermTable::createTermData(QSqlRecord& record)
     assert(gUuid);
 
     TermData info{
-        .uuid        = QUuid(record.value("uuid").toString()),
+        .uuid        = TermUuid::create(record.value("uuid").toString()),
         .term        = record.value("term").toString(),
         .definition  = record.value("definition").toString(),
         .description = record.value("description").toString(),

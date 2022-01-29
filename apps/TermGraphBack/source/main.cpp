@@ -188,8 +188,8 @@ int main()
                 if (auto termList = storage.getTerms(*groupUuid).result()) {
                     TermUuid::List uuids;
                     for (const auto& term : termList.value())
-                        if (auto tUuid = TermUuid::create(term.uuid))
-                            uuids.push_back(*tUuid);
+                        if (term.uuid)
+                            uuids.push_back(*term.uuid);
 
                     return successResponse(req, static_cast<QByteArray>(uuids));
                 } else {

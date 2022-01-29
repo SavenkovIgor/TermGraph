@@ -96,7 +96,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
 
         // Exact match
         if (searchText == lowerTerm) {
-            searchResults.push_back({0, term->data().uuid});
+            searchResults.push_back({0, term->data().uuid->get()});
             continue;
         }
 
@@ -106,7 +106,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
         auto distance        = LinkUtils::getLevDistance(cuttedTerm, searchText, acceptableLimit);
 
         if (distance <= acceptableLimit)
-            searchResults.push_back({distance, term->data().uuid});
+            searchResults.push_back({distance, term->data().uuid->get()});
     }
 
     // Sorting
@@ -134,7 +134,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
 
     for (auto term : mGraphData.nodeList()) {
         if (term->cache().lowerTerm().contains(lowerSearch))
-            ret.push_back(term->data().uuid);
+            ret.push_back(term->data().uuid->get());
 
         if (static_cast<int>(ret.size()) == limit)
             break;
@@ -515,7 +515,7 @@ QMap<QUuid, PaintedTerm::Ptr> TermGroup::getTermUuidsMap()
     QMap<QUuid, PaintedTerm::Ptr> ret;
 
     for (auto node : mGraphData.nodeList())
-        ret.insert(node->data().uuid, node);
+        ret.insert(node->data().uuid->get(), node);
 
     return ret;
 }

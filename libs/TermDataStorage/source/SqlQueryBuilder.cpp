@@ -138,8 +138,10 @@ QSqlQuery SqlQueryBuilder::createTermsTable() const
 
 QSqlQuery SqlQueryBuilder::insertTerm(const TermData &termInfo) const
 {
+    assert(termInfo.uuid);
+
     auto query = loadQuery(":/sql/version2/terms/InsertTerm.sql");
-    query.bindValue(":uuid", termInfo.uuid.toString());
+    query.bindValue(":uuid", termInfo.uuid->toString());
     query.bindValue(":term", termInfo.term);
     query.bindValue(":definition", termInfo.definition);
     query.bindValue(":description", termInfo.description);
@@ -208,9 +210,11 @@ QSqlQuery SqlQueryBuilder::selectAllLastEditAndGroupUuid() const
 
 QSqlQuery SqlQueryBuilder::updateTerm(const TermData &termInfo) const
 {
+    assert(termInfo.uuid);
+
     auto query = loadQuery(":/sql/version2/terms/UpdateTerm.sql");
 
-    query.bindValue(":uuid", termInfo.uuid.toString());
+    query.bindValue(":uuid", termInfo.uuid->toString());
     query.bindValue(":term", termInfo.term);
     query.bindValue(":definition", termInfo.definition);
     query.bindValue(":description", termInfo.description);

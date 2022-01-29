@@ -33,23 +33,24 @@
 #include <CommonTools/GroupUuid.h>
 #include <CommonTools/HandyTypes.h>
 #include <CommonTools/JsonTools.h>
+#include <CommonTools/TermUuid.h>
 #include <TermDataInterface/TermValidator.h>
 
 // TODO: Check tests!
 // TODO: Make class and make fields private
 struct TermData
 {
-    QUuid     uuid;
-    QString   term;
-    QString   definition;
-    QString   description;
-    QString   examples;
-    QString   wikiUrl;
-    QString   wikiImage;
-    GroupUuid groupUuid;
-    QDateTime lastEdit;
+    Opt<TermUuid> uuid;
+    QString       term;
+    QString       definition;
+    QString       description;
+    QString       examples;
+    QString       wikiUrl;
+    QString       wikiImage;
+    GroupUuid     groupUuid;
+    QDateTime     lastEdit;
 
-    inline bool isNull() const { return uuid.isNull() && term.isEmpty(); }
+    inline bool isNull() const { return uuid.has_value() && term.isEmpty(); }
 
     inline bool operator==(const TermData& rhs) const
     {
@@ -106,7 +107,7 @@ struct TermData
             return std::nullopt;
 
         TermData ret{
-            .uuid        = QUuid(obj[TermJsonValidator::uuidKey].toString()),
+            .uuid        = TermUuid::create(obj[TermJsonValidator::uuidKey].toString()),
             .term        = obj[TermJsonValidator::termKey].toString(),
             .definition  = obj[TermJsonValidator::definitionKey].toString(),
             .description = obj[TermJsonValidator::descriptionKey].toString(),
@@ -137,7 +138,7 @@ struct TermData
     {
         QJsonObject ret;
 
-        ret.insert(TermJsonValidator::uuidKey, uuid.toString());
+        ret.insert(TermJsonValidator::uuidKey, (uuid ? uuid->toString() : ""));
         ret.insert(TermJsonValidator::termKey, term);
         ret.insert(TermJsonValidator::definitionKey, definition);
         ret.insert(TermJsonValidator::descriptionKey, description);

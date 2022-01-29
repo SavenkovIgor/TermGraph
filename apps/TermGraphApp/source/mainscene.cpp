@@ -217,7 +217,8 @@ void MainScene::deleteSelectedTerm()
 {
     if (auto node = getSelectedTerm(); node.has_value()) {
         dropTermSelection();
-        groupsMgr->deleteNode(node.value()->data().uuid);
+        if (auto uuid = node.value()->data().uuid)
+            groupsMgr->deleteNode(*uuid);
     }
 }
 
@@ -273,7 +274,13 @@ QString MainScene::termUuidToName(const QUuid termUuid) const
 QUuid MainScene::termNameToUuid(const QString termName) const
 {
     auto node = mCurrentGroup ? mCurrentGroup.value()->getTerm(termName) : std::nullopt;
-    return node ? node.value()->data().uuid : QUuid();
+    if (!node)
+        return QUuid();
+
+    if (!((*node)->data().uuid))
+        return QUuid();
+
+    return (*node)->data().uuid->get();
 }
 
 TermDataWrapper MainScene::getCurrentNode()

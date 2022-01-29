@@ -250,32 +250,29 @@ bool GroupsManager::addNode(QJsonObject object)
 
 bool GroupsManager::updateNode(const QJsonObject& object)
 {
-    auto optData = TermData::create(object, TermData::JsonCheckMode::UpdateTerm);
+    auto data = TermData::create(object, TermData::JsonCheckMode::UpdateTerm);
 
-    assert(optData.has_value());
+    assert(data.has_value());
+    assert(data->uuid);
 
-    auto data = optData.value();
-
-    assert(!data.uuid.isNull());
-
-    if (!groupExist(data.groupUuid)) {
-        notifier.showError("Группа " + data.groupUuid.toString() + " не найдена");
+    if (!groupExist((*data).groupUuid)) {
+        notifier.showError("Группа " + (*data).groupUuid.toString() + " не найдена");
         return false;
     }
 
-    if (data.uuid.isNull()) {
+    if (!((*data).uuid)) {
         notifier.showWarning("Пустой uuid термина при попытке изменения");
         return false;
     }
 
     // Check for already existing node with same name
-    auto alterNodeUuid = dataSource.findTerm(data.term, data.groupUuid);
-    if (alterNodeUuid.has_value() && alterNodeUuid.value() != data.uuid) {
+    auto alterNodeUuid = dataSource.findTerm((*data).term, (*data).groupUuid);
+    if (alterNodeUuid.has_value() && alterNodeUuid.value() != (*data).uuid) {
         notifier.showWarning("Термин с таким названием уже существует в этой группе");
         return false;
     }
 
-    dataSource.updateTerm(data, DataStorageInterface::LastEditSource::AutoGenerate, false);
+    dataSource.updateTerm((*data), DataStorageInterface::LastEditSource::AutoGenerate, false);
 
     emit nodeChanged();
     return true;
