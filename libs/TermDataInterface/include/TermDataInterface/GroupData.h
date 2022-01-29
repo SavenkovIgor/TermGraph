@@ -29,6 +29,7 @@
 #include <QString>
 #include <QUuid>
 
+#include <CommonTools/GroupUuid.h>
 #include <CommonTools/HandyTypes.h>
 #include <CommonTools/JsonTools.h>
 #include <TermDataInterface/GroupValidator.h>
@@ -37,11 +38,11 @@
 // TODO: Make class and make fields private
 struct GroupData
 {
-    QUuid   uuid;
+    Opt<GroupUuid> uuid;
     QString name;
     QString comment;
 
-    inline bool isNull() const { return uuid.isNull() && name.isEmpty(); }
+    inline bool isNull() const { return uuid.has_value() && name.isEmpty(); }
 
     inline bool operator==(const GroupData& rhs) const
     {
@@ -56,7 +57,7 @@ struct GroupData
 
         GroupData ret;
 
-        ret.uuid    = QUuid(obj[GroupJsonValidator::uuidKey].toString());
+        ret.uuid    = GroupUuid::create(obj[GroupJsonValidator::uuidKey].toString());
         ret.name    = obj[GroupJsonValidator::nameKey].toString();
         ret.comment = obj[GroupJsonValidator::commentKey].toString();
 
@@ -82,7 +83,7 @@ struct GroupData
     {
         QJsonObject ret;
 
-        ret.insert(GroupJsonValidator::uuidKey, uuid.toString());
+        ret.insert(GroupJsonValidator::uuidKey, (uuid ? uuid->toString() : ""));
         ret.insert(GroupJsonValidator::nameKey, name);
         ret.insert(GroupJsonValidator::commentKey, comment);
 

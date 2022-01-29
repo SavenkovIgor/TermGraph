@@ -25,6 +25,6 @@ GroupDataWrapper::GroupDataWrapper(const GroupData& info)
     : GroupData(info)
 {}
 
-QString GroupDataWrapper::getUuid() const { return uuid.toString(); }
+QString GroupDataWrapper::getUuid() const { return uuid ? uuid->toString() : QString(); }
 
-void GroupDataWrapper::setUuid(const QString& uuid) { this->uuid = QUuid::fromString(uuid); }
+void GroupDataWrapper::setUuid(const QString& uuid) { this->uuid = GroupUuid::create(uuid); }

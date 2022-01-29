@@ -104,11 +104,12 @@ Result<void> TermGroupTable::addGroup(const GroupData &info)
 {
     GroupData groupInfo = info;
 
-    if (groupInfo.uuid.isNull()) {
-        groupInfo.uuid = generateNewUuid().get();
-    } else {
-        if (groupExist(groupInfo.uuid))
+    if (groupInfo.uuid) {
+        if (groupExist(*groupInfo.uuid)) {
             return DbErrorCodes::GroupUuidAlreadyExist;
+        }
+    } else {
+        groupInfo.uuid = generateNewUuid();
     }
 
     if (groupInfo.name.simplified().isEmpty())
@@ -124,10 +125,10 @@ Result<void> TermGroupTable::addGroup(const GroupData &info)
 
 Result<void> TermGroupTable::updateGroup(const GroupData &info)
 {
-    if (info.uuid.isNull())
+    if (!info.uuid)
         return DbErrorCodes::GroupUuidInvalid;
 
-    if (!groupExist(info.uuid))
+    if (!groupExist(*info.uuid))
         return DbErrorCodes::GroupUuidNotFound;
 
     if (info.name.simplified().isEmpty())
@@ -173,7 +174,7 @@ GroupData TermGroupTable::createGroupData(const QSqlRecord &rec)
 {
     GroupData info;
 
-    info.uuid    = QUuid(rec.value(GroupJsonValidator::uuidKey).toString());
+    info.uuid    = GroupUuid::create(rec.value(GroupJsonValidator::uuidKey).toString());
     info.name    = rec.value(GroupJsonValidator::nameKey).toString();
     info.comment = rec.value(GroupJsonValidator::commentKey).toString();
 

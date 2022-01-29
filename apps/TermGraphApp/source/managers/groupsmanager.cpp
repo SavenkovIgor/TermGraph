@@ -177,21 +177,23 @@ void GroupsManager::importGroup(const QJsonDocument& json)
     if (!GroupJsonValidator::importChecks().check(jsonGroup))
         return;
 
-    auto optGroup = GroupData::create(jsonGroup);
+    auto groupData = GroupData::create(jsonGroup);
 
-    if (!optGroup.has_value())
+    if (!groupData || !groupData->uuid)
         return;
 
-    auto info = optGroup.value();
+    // Searching for existed group
+    if (dataSource.groupExist(*groupData->uuid)) { // Group found
+        if (!dataSource.updateGroup(*groupData)) {
+            return;
+        }
+    } else {
+        if (!dataSource.addGroup(*groupData)) {
+            return;
+        }
+    }
 
     QJsonArray nodes = jsonGroup["nodesList"].toArray();
-
-    // Searching for existed group
-    if (!dataSource.groupExist(GroupUuid::create(info.uuid).value())) { // Group found
-        dataSource.addGroup(info);
-    } else {
-        dataSource.updateGroup(info);
-    }
 
     // Importing nodes
     for (const auto nodeValue : nodes) {
@@ -199,7 +201,7 @@ void GroupsManager::importGroup(const QJsonDocument& json)
     }
 
     updateGroupUuidNameMaps();
-    notifier.showInfo(info.name + " синхронизировано");
+    notifier.showInfo(groupData->name + " синхронизировано");
     emit groupAdded();
 }
 
@@ -348,7 +350,7 @@ void GroupsManager::updateGroupUuidNameMaps()
 
     if (groups.has_value()) {
         for (const auto& groupInfo : groups.value()) {
-            uuidToNames.insert(groupInfo.uuid, groupInfo.name);
+            uuidToNames.insert(*groupInfo.uuid, groupInfo.name);
         }
     }
 }

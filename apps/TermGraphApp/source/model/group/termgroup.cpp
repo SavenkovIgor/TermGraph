@@ -33,6 +33,8 @@ TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObj
     : QObject(parent)
     , mInfo(info)
 {
+    assert(info.uuid);
+
     for (auto node : termData)
         Q_ASSERT_X(node.groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
 
@@ -467,7 +469,7 @@ PaintedEdge::List TermGroup::edgesForPaint() const
     return lst;
 }
 
-QUuid TermGroup::uuid() const { return mInfo.uuid; }
+QUuid TermGroup::uuid() const { return mInfo.uuid->get(); }
 
 QString TermGroup::name() const { return mInfo.name; }
 
