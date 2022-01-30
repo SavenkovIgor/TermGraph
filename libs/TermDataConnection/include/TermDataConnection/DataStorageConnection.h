@@ -57,7 +57,7 @@ public:
     FutureRes<TermData>       getTerm(const TermUuid& uuid) const final;
     FutureRes<TermData>       getTerm(const QString& termName, const GroupUuid& uuid) const final;
     FutureRes<TermData::List> getTerms(const GroupUuid& uuid) const final;
-    Result<QDateTime>         getTermLastEdit(const TermUuid& uuid) const final;
+    FutureRes<QDateTime>      getTermLastEdit(const TermUuid& uuid) const final;
 
     Result<void> addTerm(const TermData& info) final;
     Result<void> updateTerm(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) final;

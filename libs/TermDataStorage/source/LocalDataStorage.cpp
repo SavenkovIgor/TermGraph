@@ -142,9 +142,9 @@ FutureRes<TermData::List> LocalDatabaseStorage::getTerms(const GroupUuid& uuid) 
     return toPromise<Result<TermData::List>>([this, uuid] { return impl->db.termTable->allTerms(uuid); });
 }
 
-Result<QDateTime> LocalDatabaseStorage::getTermLastEdit(const TermUuid& uuid) const
+FutureRes<QDateTime> LocalDatabaseStorage::getTermLastEdit(const TermUuid& uuid) const
 {
-    return impl->db.termTable->lastEdit(uuid);
+    return toPromise<Result<QDateTime>>([this, uuid] { return impl->db.termTable->lastEdit(uuid); });
 }
 
 Result<void> LocalDatabaseStorage::addTerm(const TermData& info)
