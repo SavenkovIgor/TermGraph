@@ -64,7 +64,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
     info.name    = name;
     info.comment = comment;
 
-    if (dataSource.addGroup(info)) {
+    if (dataSource.addGroup(info).result()) {
         updateGroupUuidNameMaps();
         emit groupAdded();
     } else {
@@ -188,7 +188,7 @@ void GroupsManager::importGroup(const QJsonDocument& json)
             return;
         }
     } else {
-        if (!dataSource.addGroup(*groupData)) {
+        if (!dataSource.addGroup(*groupData).result()) {
             return;
         }
     }

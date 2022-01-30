@@ -48,9 +48,9 @@ public:
     FutureRes<GroupData> getGroup(const GroupUuid& uuid) const final;
     FutureRes<GroupData::List> getGroups() const final;
 
-    Result<void> addGroup(const GroupData& info) final;
-    Result<void> updateGroup(const GroupData& info) final;
-    Result<void> deleteGroup(const GroupUuid& uuid) final;
+    FutureRes<GroupData> addGroup(const GroupData& info) final;
+    Result<void>         updateGroup(const GroupData& info) final;
+    Result<void>         deleteGroup(const GroupUuid& uuid) final;
 
     TermUuid::List getAllTermsUuids(Opt<GroupUuid> groupUuid = std::nullopt) const final;
 

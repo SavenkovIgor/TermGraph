@@ -132,11 +132,7 @@ FutureRes<GroupData::List> DataStorageConnection::getGroups() const
     return promise->future();
 }
 
-Result<void> DataStorageConnection::addGroup(const GroupData& info)
-{
-    Q_UNIMPLEMENTED();
-    return outcome::success();
-}
+FutureRes<GroupData> DataStorageConnection::addGroup(const GroupData& info) { Q_UNIMPLEMENTED(); }
 
 Result<void> DataStorageConnection::updateGroup(const GroupData& info)
 {

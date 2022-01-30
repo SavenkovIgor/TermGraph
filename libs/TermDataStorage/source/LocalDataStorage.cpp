@@ -101,7 +101,10 @@ FutureRes<GroupData::List> LocalDatabaseStorage::getGroups() const
     return wrapInPromise<Result<GroupData::List>>([this] { return impl->db.groupTable->allGroups(); });
 }
 
-Result<void> LocalDatabaseStorage::addGroup(const GroupData& info) { return impl->db.groupTable->addGroup(info); }
+FutureRes<GroupData> LocalDatabaseStorage::addGroup(const GroupData& info)
+{
+    return wrapInPromise<Result<GroupData>>([this, info] { return impl->db.groupTable->addGroup(info); });
+}
 
 Result<void> LocalDatabaseStorage::updateGroup(const GroupData& info) { return impl->db.groupTable->updateGroup(info); }
 

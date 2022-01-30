@@ -117,7 +117,7 @@ int main()
     // POST /api/v1/global/groups
     router->http_post(NetworkTools::groupApiPath, [&storage](auto req, auto params) {
         if (auto group = GroupData::create(QByteArray::fromStdString(req->body()))) {
-            if (auto res = storage.addGroup(*group)) {
+            if (auto res = storage.addGroup(*group).result()) {
                 return successResponse(req);
             } else {
                 return responseForDbError(req, res.error());

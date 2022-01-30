@@ -100,7 +100,7 @@ GroupData::List TermGroupTable::allGroups()
     return ret;
 }
 
-Result<void> TermGroupTable::addGroup(const GroupData &info)
+Result<GroupData> TermGroupTable::addGroup(const GroupData &info)
 {
     GroupData groupInfo = info;
 
@@ -120,7 +120,7 @@ Result<void> TermGroupTable::addGroup(const GroupData &info)
 
     DbTools::start(SqlQueryBuilder().insertGroup(groupInfo));
 
-    return outcome::success();
+    return groupInfo;
 }
 
 Result<void> TermGroupTable::updateGroup(const GroupData &info)

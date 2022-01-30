@@ -48,9 +48,9 @@ public:
     virtual FutureRes<GroupData>       getGroup(const GroupUuid& uuid) const   = 0;
     virtual FutureRes<GroupData::List> getGroups() const                       = 0;
 
-    virtual Result<void> addGroup(const GroupData& info)    = 0;
-    virtual Result<void> updateGroup(const GroupData& info) = 0;
-    virtual Result<void> deleteGroup(const GroupUuid& uuid) = 0;
+    virtual FutureRes<GroupData> addGroup(const GroupData& info)    = 0;
+    virtual Result<void>         updateGroup(const GroupData& info) = 0;
+    virtual Result<void>         deleteGroup(const GroupUuid& uuid) = 0;
 
     // Terms
     virtual TermUuid::List getAllTermsUuids(Opt<GroupUuid> groupUuid = std::nullopt) const = 0;
