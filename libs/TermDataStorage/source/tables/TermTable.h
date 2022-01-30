@@ -49,12 +49,11 @@ public:
     RecordList             allLastEditRecords();
 
     // Modify
-    Result<void> addTerm(const TermData& info);
-    Result<void> updateTerm(const TermData&                      info,
-                            DataStorageInterface::LastEditSource lastEditSource,
-                            bool                                 checkLastEdit = true);
-    Result<void> deleteTerm(const TermUuid& uuid);
-
+    Result<TermData> addTerm(const TermData& info);
+    Result<TermData> updateTerm(const TermData&                      info,
+                                DataStorageInterface::LastEditSource lastEditSource,
+                                bool                                 checkLastEdit = true);
+    Result<TermData> deleteTerm(const TermUuid& uuid);
 
 private:
     TermUuid generateNewUuid();

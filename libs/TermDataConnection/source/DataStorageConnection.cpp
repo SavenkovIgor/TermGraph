@@ -178,22 +178,13 @@ FutureRes<TermData::List> DataStorageConnection::getTerms(const GroupUuid& uuid)
 
 FutureRes<QDateTime> DataStorageConnection::getTermLastEdit(const TermUuid& uuid) const { Q_UNIMPLEMENTED(); }
 
-Result<void> DataStorageConnection::addTerm(const TermData& info)
+FutureRes<TermData> DataStorageConnection::addTerm(const TermData& info) { Q_UNIMPLEMENTED(); }
+
+FutureRes<TermData> DataStorageConnection::updateTerm(const TermData&                      info,
+                                                      DataStorageInterface::LastEditSource lastEditSource,
+                                                      bool                                 checkLastEdit)
 {
     Q_UNIMPLEMENTED();
-    return outcome::success();
 }
 
-Result<void> DataStorageConnection::updateTerm(const TermData&                      info,
-                                               DataStorageInterface::LastEditSource lastEditSource,
-                                               bool                                 checkLastEdit)
-{
-    Q_UNIMPLEMENTED();
-    return outcome::success();
-}
-
-Result<void> DataStorageConnection::deleteTerm(const TermUuid& uuid)
-{
-    Q_UNIMPLEMENTED();
-    return outcome::success();
-}
+FutureRes<TermData> DataStorageConnection::deleteTerm(const TermUuid& uuid) { Q_UNIMPLEMENTED(); }

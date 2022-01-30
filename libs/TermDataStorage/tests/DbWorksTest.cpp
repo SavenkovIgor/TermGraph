@@ -55,7 +55,7 @@ public:
         EXPECT_EQ(mStorage->storageVersion(), 2);
         EXPECT_TRUE(mStorage->getAllGroupsUuids().result().value().empty());
         EXPECT_TRUE(mStorage->getGroups().result().value().empty());
-        EXPECT_TRUE(mStorage->getAllTermsUuids().empty());
+        EXPECT_TRUE(mStorage->getAllTermsUuids().result().value().empty());
     }
 
     static void TearDownTestCase()
@@ -119,24 +119,24 @@ TEST_F(DBWorksTest, GroupsTest)
     auto withUuid    = getGroupWithUuid();
     auto withoutUuid = getGroupWithoutUuid();
 
-    ASSERT_FALSE(mStorage->groupExist(*withUuid.uuid));
+    ASSERT_FALSE(mStorage->getGroup(*withUuid.uuid).result().has_value());
 
     // Add groups test
     auto brokenName = withUuid;
     brokenName.name = " ";
-    EXPECT_EQ(mStorage->addGroup(brokenName).error(), DbErrorCodes::GroupNameEmpty);
+    EXPECT_EQ(mStorage->addGroup(brokenName).result().error(), DbErrorCodes::GroupNameEmpty);
 
-    EXPECT_FALSE(mStorage->addGroup(withUuid).has_error());
+    EXPECT_EQ(mStorage->addGroup(withUuid).result().value(), withUuid);
 
     // Duplicate test
-    EXPECT_EQ(mStorage->addGroup(withUuid).error(), DbErrorCodes::GroupUuidAlreadyExist);
+    EXPECT_EQ(mStorage->addGroup(withUuid).result().error(), DbErrorCodes::GroupUuidAlreadyExist);
     auto sameName = withUuid;
     sameName.uuid = GroupUuid::generate();
-    EXPECT_EQ(mStorage->addGroup(sameName).error(), DbErrorCodes::GroupNameAlreadyExist);
+    EXPECT_EQ(mStorage->addGroup(sameName).result().error(), DbErrorCodes::GroupNameAlreadyExist);
 
-    EXPECT_FALSE(mStorage->addGroup(withoutUuid).has_error());
-
-    EXPECT_TRUE(mStorage->groupExist(*withUuid.uuid));
+    auto addResult = mStorage->addGroup(withoutUuid).result();
+    EXPECT_TRUE(addResult.has_value());
+    EXPECT_EQ(mStorage->getGroup(*(addResult.value().uuid)).result(), addResult);
 
     // GetAllGroupsUuids test
     auto groupList = mStorage->getAllGroupsUuids().result().value();
@@ -149,17 +149,18 @@ TEST_F(DBWorksTest, GroupsTest)
 
     auto readedWithUuid = mStorage->getGroup(*withUuid.uuid).result().value();
 
+    EXPECT_EQ(withUuid, readedWithUuid);
     EXPECT_EQ(withUuid.uuid, readedWithUuid.uuid);
     EXPECT_EQ(withUuid.name, readedWithUuid.name);
     EXPECT_EQ(withUuid.comment, readedWithUuid.comment);
 
     // Update group test
-    EXPECT_EQ(mStorage->updateGroup(withoutUuid).error(), DbErrorCodes::GroupUuidInvalid);
+    EXPECT_EQ(mStorage->updateGroup(withoutUuid).result().error(), DbErrorCodes::GroupUuidInvalid);
 
     withUuid.name += mSpecSymbols;
     withUuid.comment += mSpecSymbols;
 
-    EXPECT_TRUE(mStorage->updateGroup(withUuid));
+    EXPECT_TRUE(mStorage->updateGroup(withUuid).result().has_value());
 
     readedWithUuid = mStorage->getGroup(*withUuid.uuid).result().value();
 
@@ -170,12 +171,12 @@ TEST_F(DBWorksTest, GroupsTest)
     withUuid = getGroupWithUuid();
 
     // Delete group test
-    EXPECT_EQ(mStorage->deleteGroup(GroupUuid::generate()).error(), DbErrorCodes::GroupUuidNotFound);
+    EXPECT_EQ(mStorage->deleteGroup(GroupUuid::generate()).result().error(), DbErrorCodes::GroupUuidNotFound);
 
-    EXPECT_TRUE(mStorage->deleteGroup(*withUuid.uuid));
+    EXPECT_TRUE(mStorage->deleteGroup(*withUuid.uuid).result().has_value());
     groupList = mStorage->getAllGroupsUuids().result().value();
     EXPECT_EQ(groupList.size(), 1);
-    EXPECT_TRUE(mStorage->deleteGroup(*GroupUuid::create(groupList.front())));
+    EXPECT_TRUE(mStorage->deleteGroup(groupList.front()).result().has_value());
     groupList = mStorage->getAllGroupsUuids().result().value();
     EXPECT_TRUE(groupList.empty());
 }
@@ -186,23 +187,24 @@ TEST_F(DBWorksTest, TermsTest)
 
     auto withUuid = getGroupWithUuid();
 
-    EXPECT_TRUE(mStorage->addGroup(withUuid));
-    EXPECT_TRUE(mStorage->getAllTermsUuids().empty());
+    EXPECT_TRUE(mStorage->addGroup(withUuid).result().has_value());
+    EXPECT_TRUE(mStorage->getAllTermsUuids().result().value().empty());
 
     // Adding terms
 
     auto termList = getTermDataList();
 
     for (auto& term : termList) {
-        EXPECT_TRUE(mStorage->addTerm(term));
-        EXPECT_EQ(mStorage->findTerm(term.term, term.groupUuid).value(), term.uuid);
-        auto gettedTerm = mStorage->getTerm(*term.uuid).value();
+        auto termRes = mStorage->addTerm(term).result();
+        EXPECT_TRUE(termRes.has_value());
+        EXPECT_EQ(mStorage->getTerm(term.term, term.groupUuid).result().value().uuid, term.uuid);
+        auto gettedTerm = mStorage->getTerm(*term.uuid).result().value();
         term.lastEdit   = gettedTerm.lastEdit; // Last edit was refreshed
         EXPECT_TRUE(gettedTerm == term);
     }
 
     // Checking all uuids without group
-    auto allTermUuids = mStorage->getAllTermsUuids();
+    auto allTermUuids = mStorage->getAllTermsUuids().result().value();
 
     EXPECT_EQ(allTermUuids.size(), termList.size());
     for (const auto& term : termList) {
@@ -211,7 +213,7 @@ TEST_F(DBWorksTest, TermsTest)
     }
 
     // Checking all uuids with group
-    allTermUuids = mStorage->getAllTermsUuids(*withUuid.uuid);
+    allTermUuids = mStorage->getAllTermsUuids(*withUuid.uuid).result().value();
 
     EXPECT_EQ(allTermUuids.size(), termList.size());
     for (const auto& term : termList) {
@@ -227,13 +229,14 @@ TEST_F(DBWorksTest, TermsTest)
         term.wikiUrl += "1";
         term.wikiImage += "1";
 
-        EXPECT_TRUE(mStorage->updateTerm(term, DataStorageInterface::LastEditSource::TakeFromTermData));
+        EXPECT_TRUE(
+            mStorage->updateTerm(term, DataStorageInterface::LastEditSource::TakeFromTermData).result().has_value());
 
-        EXPECT_TRUE(term == mStorage->getTerm(*term.uuid).value());
+        EXPECT_TRUE(term == mStorage->getTerm(*term.uuid).result().value());
     }
 
     for (const auto& term : termList)
-        EXPECT_TRUE(mStorage->deleteTerm(*term.uuid));
+        EXPECT_TRUE(mStorage->deleteTerm(*term.uuid).result().has_value());
 
-    EXPECT_TRUE(mStorage->getAllTermsUuids().empty());
+    EXPECT_TRUE(mStorage->getAllTermsUuids().result().value().empty());
 }

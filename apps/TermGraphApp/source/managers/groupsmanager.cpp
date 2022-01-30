@@ -208,11 +208,12 @@ void GroupsManager::importGroup(const QJsonDocument& json)
 void GroupsManager::importTerm(const QJsonObject& nodeJson)
 {
     if (auto data = TermData::create(nodeJson, TermData::JsonCheckMode::Import)) {
-        auto addResult = dataSource.addTerm(*data);
+        auto addResult = dataSource.addTerm(*data).result();
         if (!addResult) {
             // If can't add, try to update exist term
             if (addResult.error() == DbErrorCodes::TermUuidAlreadyExist) {
-                auto updateResult = dataSource.updateTerm(*data, DataStorageInterface::LastEditSource::TakeFromTermData);
+                auto updateResult = dataSource.updateTerm(*data, DataStorageInterface::LastEditSource::TakeFromTermData)
+                                        .result();
                 if (!updateResult) {
                     qWarning() << QString::fromStdString(updateResult.error().message());
                 }
@@ -234,7 +235,7 @@ bool GroupsManager::addNode(QJsonObject object)
 
     assert(!data->isNull());
 
-    if (auto addResult = dataSource.addTerm(*data)) {
+    if (auto addResult = dataSource.addTerm(*data).result()) {
         emit nodeChanged();
         return true;
     } else {

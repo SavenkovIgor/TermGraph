@@ -55,9 +55,9 @@ public:
     FutureRes<TermData::List> getTerms(const GroupUuid& uuid) const final;
     FutureRes<QDateTime>      getTermLastEdit(const TermUuid& uuid) const final;
 
-    Result<void> addTerm(const TermData& info) final;
-    Result<void> updateTerm(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) final;
-    Result<void> deleteTerm(const TermUuid& uuid) final;
+    FutureRes<TermData> addTerm(const TermData& info) final;
+    FutureRes<TermData> updateTerm(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) final;
+    FutureRes<TermData> deleteTerm(const TermUuid& uuid) final;
 
 private:
     StorageImpl* impl = nullptr;

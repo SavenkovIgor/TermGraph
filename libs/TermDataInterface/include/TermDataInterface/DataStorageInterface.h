@@ -60,7 +60,10 @@ public:
     virtual FutureRes<TermData::List> getTerms(const GroupUuid& uuid) const                          = 0;
     virtual FutureRes<QDateTime>      getTermLastEdit(const TermUuid& uuid) const                    = 0;
 
-    virtual Result<void> addTerm(const TermData& data)                                                              = 0;
-    virtual Result<void> updateTerm(const TermData& data, LastEditSource lastEditSource, bool checkLastEdit = true) = 0;
-    virtual Result<void> deleteTerm(const TermUuid& uuid)                                                           = 0;
+    virtual FutureRes<TermData> addTerm(const TermData& data) = 0;
+    virtual FutureRes<TermData> updateTerm(const TermData& data,
+                                           LastEditSource  lastEditSource,
+                                           bool            checkLastEdit = true)
+        = 0;
+    virtual FutureRes<TermData> deleteTerm(const TermUuid& uuid) = 0;
 };

@@ -222,8 +222,8 @@ int main()
     // POST /api/v1/global/terms
     router->http_post(NetworkTools::termApiPath, [&storage](auto req, auto params) {
         if (auto term = TermData::create(QByteArray::fromStdString(req->body()), TermData::JsonCheckMode::Import)) {
-            if (auto res = storage.addTerm(*term)) {
-                return successResponse(req);
+            if (auto res = storage.addTerm(*term).result()) {
+                return successResponse(req, static_cast<QByteArray>(res.value()));
             } else {
                 return responseForDbError(req, res.error());
             }
@@ -237,8 +237,9 @@ int main()
         if (auto uuid = TermUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto data = TermData::create(QByteArray::fromStdString(req->body()), TermData::JsonCheckMode::Import)) {
                 (*data).uuid = (*uuid);
-                if (auto res = storage.updateTerm(*data, DataStorageInterface::LastEditSource::AutoGenerate, false)) {
-                    return successResponse(req);
+                if (auto res = storage.updateTerm(*data, DataStorageInterface::LastEditSource::AutoGenerate, false)
+                                   .result()) {
+                    return successResponse(req, static_cast<QByteArray>(res.value()));
                 } else {
                     return responseForDbError(req, res.error());
                 }
@@ -251,8 +252,8 @@ int main()
     // DELETE /api/v1/global/terms/:uuid
     router->http_delete(NetworkTools::termUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = TermUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
-            if (auto res = storage.deleteTerm(*uuid)) {
-                return successResponse(req);
+            if (auto res = storage.deleteTerm(*uuid).result()) {
+                return successResponse(req, static_cast<QByteArray>(res.value()));
             } else {
                 return responseForDbError(req, res.error());
             }

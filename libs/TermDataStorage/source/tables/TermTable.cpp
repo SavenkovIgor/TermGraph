@@ -130,7 +130,7 @@ TermTable::RecordList TermTable::allLastEditRecords()
     return DbTools::getAllRecords(std::move(query));
 }
 
-Result<void> TermTable::addTerm(const TermData& info)
+Result<TermData> TermTable::addTerm(const TermData& info)
 {
     // Generate new uuid if current is empty
     auto tUuid = info.uuid.value_or(generateNewUuid());
@@ -154,12 +154,12 @@ Result<void> TermTable::addTerm(const TermData& info)
     auto query = SqlQueryBuilder().insertTerm(termInfo);
     DbTools::start(query);
 
-    return outcome::success();
+    return termInfo;
 }
 
-Result<void> TermTable::updateTerm(const TermData&                      info,
-                                   DataStorageInterface::LastEditSource lastEditSource,
-                                   bool                                 checkLastEdit)
+Result<TermData> TermTable::updateTerm(const TermData&                      info,
+                                       DataStorageInterface::LastEditSource lastEditSource,
+                                       bool                                 checkLastEdit)
 {
     if (!info.uuid)
         return DbErrorCodes::TermUuidInvalid;
@@ -181,16 +181,17 @@ Result<void> TermTable::updateTerm(const TermData&                      info,
 
     DbTools::start(SqlQueryBuilder().updateTerm(nodeContainer));
 
-    return outcome::success();
+    return nodeContainer;
 }
 
-Result<void> TermTable::deleteTerm(const TermUuid& uuid)
+Result<TermData> TermTable::deleteTerm(const TermUuid& uuid)
 {
-    if (!exist(uuid))
-        return DbErrorCodes::TermUuidNotFound;
+    if (auto termData = term(uuid)) {
+        DbTools::start(SqlQueryBuilder().deleteTerm(uuid));
+        return termData.value();
+    }
 
-    DbTools::start(SqlQueryBuilder().deleteTerm(uuid));
-    return outcome::success();
+    return DbErrorCodes::TermUuidNotFound;
 }
 
 TermUuid TermTable::generateNewUuid()

@@ -147,22 +147,27 @@ FutureRes<QDateTime> LocalDatabaseStorage::getTermLastEdit(const TermUuid& uuid)
     return toPromise<Result<QDateTime>>([this, uuid] { return impl->db.termTable->lastEdit(uuid); });
 }
 
-Result<void> LocalDatabaseStorage::addTerm(const TermData& info)
+FutureRes<TermData> LocalDatabaseStorage::addTerm(const TermData& info)
 {
     if (!impl->db.groupTable->exist(info.groupUuid))
-        return DbErrorCodes::GroupUuidNotFound;
+        return toPromise<Result<TermData>>([] { return DbErrorCodes::GroupUuidNotFound; });
 
-    return impl->db.termTable->addTerm(info);
+    return toPromise<Result<TermData>>([this, info] { return impl->db.termTable->addTerm(info); });
 }
 
-Result<void> LocalDatabaseStorage::updateTerm(const TermData&                      info,
-                                              DataStorageInterface::LastEditSource lastEditSource,
-                                              bool                                 checkLastEdit)
+FutureRes<TermData> LocalDatabaseStorage::updateTerm(const TermData&                      info,
+                                                     DataStorageInterface::LastEditSource lastEditSource,
+                                                     bool                                 checkLastEdit)
 {
     if (!impl->db.groupTable->exist(info.groupUuid))
-        return DbErrorCodes::GroupUuidNotFound;
+        return toPromise<Result<TermData>>([] { return DbErrorCodes::GroupUuidNotFound; });
 
-    return impl->db.termTable->updateTerm(info, lastEditSource, checkLastEdit);
+    return toPromise<Result<TermData>>([this, info, lastEditSource, checkLastEdit] {
+        return impl->db.termTable->updateTerm(info, lastEditSource, checkLastEdit);
+    });
 }
 
-Result<void> LocalDatabaseStorage::deleteTerm(const TermUuid& uuid) { return impl->db.termTable->deleteTerm(uuid); }
+FutureRes<TermData> LocalDatabaseStorage::deleteTerm(const TermUuid& uuid)
+{
+    return toPromise<Result<TermData>>([this, uuid] { return impl->db.termTable->deleteTerm(uuid); });
+}
