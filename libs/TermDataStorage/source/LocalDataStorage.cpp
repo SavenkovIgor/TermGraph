@@ -116,9 +116,9 @@ FutureRes<GroupData> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid)
     return wrapInPromise<Result<GroupData>>([this, uuid] { return impl->db.groupTable->deleteGroup(uuid); });
 }
 
-TermUuid::List LocalDatabaseStorage::getAllTermsUuids(Opt<GroupUuid> uuid) const
+FutureRes<TermUuid::List> LocalDatabaseStorage::getAllTermsUuids(Opt<GroupUuid> uuid) const
 {
-    return impl->db.termTable->allUuids(uuid);
+    return wrapInPromise<Result<TermUuid::List>>([this, uuid] { return impl->db.termTable->allUuids(uuid); });
 }
 
 Opt<TermUuid> LocalDatabaseStorage::findTerm(const QString& nodeName, const GroupUuid& uuid) const

@@ -46,7 +46,7 @@ QString GroupsManager::getLastEditString(QUuid groupUuid) { return getLastEdit(g
 int GroupsManager::getNodesCount(QUuid groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid))
-        return dataSource.getAllTermsUuids(*uuid).size();
+        return dataSource.getAllTermsUuids(*uuid).result().value().size();
 
     Q_UNREACHABLE();
     return 0;
@@ -137,7 +137,7 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
     auto uuid = GroupUuid::create(groupUuid).value();
 
     QDateTime lastEdit;
-    for (auto& nodeUuid : dataSource.getAllTermsUuids(uuid)) {
+    for (auto& nodeUuid : dataSource.getAllTermsUuids(uuid).result().value()) {
         QDateTime currNodeLastEdit = dataSource.getTermLastEdit(nodeUuid).value();
         if (lastEdit.isNull()) {
             lastEdit = currNodeLastEdit;
@@ -323,7 +323,7 @@ QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
 
     QJsonObject groupJson = dataSource.getGroup(uuid).result().value();
 
-    auto nodesUuids = dataSource.getAllTermsUuids(uuid);
+    auto nodesUuids = dataSource.getAllTermsUuids(uuid).result().value();
 
     QJsonArray termArray;
 

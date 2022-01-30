@@ -138,11 +138,7 @@ FutureRes<GroupData> DataStorageConnection::updateGroup(const GroupData& info) {
 
 FutureRes<GroupData> DataStorageConnection::deleteGroup(const GroupUuid& uuid) { Q_UNIMPLEMENTED(); }
 
-TermUuid::List DataStorageConnection::getAllTermsUuids(Opt<GroupUuid> uuid) const
-{
-    Q_UNIMPLEMENTED();
-    return {};
-}
+FutureRes<TermUuid::List> DataStorageConnection::getAllTermsUuids(Opt<GroupUuid> uuid) const { Q_UNIMPLEMENTED(); }
 
 Opt<TermUuid> DataStorageConnection::findTerm(const QString& nodeName, const GroupUuid& uuid) const
 {
