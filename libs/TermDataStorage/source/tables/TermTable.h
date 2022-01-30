@@ -39,9 +39,9 @@ public:
     void initTable();
 
     // Read
-    bool              exist(const TermUuid& uuid);
-    Opt<TermUuid>     find(const QString& term, const GroupUuid& uuid) const;
-    Result<TermData>  term(const TermUuid& uuid);
+    bool              exist(const TermUuid& uuid) const;
+    Result<TermData>  term(const TermUuid& uuid) const;
+    Result<TermData>  term(const QString& term, const GroupUuid& uuid) const;
     Result<QDateTime> lastEdit(const TermUuid& uuid);
 
     TermUuid::List         allUuids(Opt<GroupUuid> uuid = std::nullopt);
@@ -61,5 +61,5 @@ private:
 
     static QDateTime now();
 
-    TermData createTermData(QSqlRecord& record);
+    static TermData createTermData(const QSqlRecord& record);
 };

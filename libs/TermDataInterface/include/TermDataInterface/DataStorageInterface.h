@@ -55,8 +55,8 @@ public:
     // Terms
     virtual FutureRes<TermUuid::List> getAllTermsUuids(Opt<GroupUuid> groupUuid = std::nullopt) const = 0;
 
-    virtual Opt<TermUuid>             findTerm(const QString& termName, const GroupUuid& uuid) const = 0;
-    virtual Result<TermData>          getTerm(const TermUuid& uuid) const                            = 0;
+    virtual FutureRes<TermData>       getTerm(const TermUuid& uuid) const                            = 0;
+    virtual FutureRes<TermData>       getTerm(const QString& termName, const GroupUuid& uuid) const  = 0;
     virtual FutureRes<TermData::List> getTerms(const GroupUuid& uuid) const                          = 0;
     virtual Result<QDateTime>         getTermLastEdit(const TermUuid& uuid) const                    = 0;
 

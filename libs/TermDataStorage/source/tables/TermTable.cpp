@@ -27,7 +27,7 @@
 
 void TermTable::initTable() { DbTools::start(SqlQueryBuilder().createTermsTable()); }
 
-bool TermTable::exist(const TermUuid& uuid)
+bool TermTable::exist(const TermUuid& uuid) const
 {
     auto query = SqlQueryBuilder().selectOneTerm(uuid);
     DbTools::start(query);
@@ -39,27 +39,7 @@ bool TermTable::exist(const TermUuid& uuid)
     return count > 0;
 }
 
-Opt<TermUuid> TermTable::find(const QString& term, const GroupUuid& uuid) const
-{
-    if (term.simplified().isEmpty())
-        return std::nullopt;
-
-    auto query = SqlQueryBuilder().selectOneTerm(term, uuid);
-    DbTools::start(query);
-
-    auto nodesRecords = DbTools::getAllRecords(std::move(query));
-
-    if (nodesRecords.size() == 1) {
-        auto uuidStr = nodesRecords.front().value("uuid").toString();
-
-        if (auto uuid = TermUuid::create(uuidStr))
-            return *uuid;
-    }
-
-    return std::nullopt;
-}
-
-Result<TermData> TermTable::term(const TermUuid& uuid)
+Result<TermData> TermTable::term(const TermUuid& uuid) const
 {
     if (!exist(uuid))
         return DbErrorCodes::TermUuidNotFound;
@@ -69,6 +49,20 @@ Result<TermData> TermTable::term(const TermUuid& uuid)
 
     auto record = DbTools::getRecord(std::move(query));
     return createTermData(record);
+}
+
+Result<TermData> TermTable::term(const QString& term, const GroupUuid& uuid) const
+{
+    if (term.simplified().isEmpty())
+        return DbErrorCodes::TermEmpty;
+
+    auto query = SqlQueryBuilder().selectOneTerm(term, uuid);
+    DbTools::start(query);
+
+    if (query.next())
+        return createTermData(query.record());
+
+    return DbErrorCodes::TermUuidNotFound;
 }
 
 Result<QDateTime> TermTable::lastEdit(const TermUuid& uuid)
@@ -147,7 +141,7 @@ Result<void> TermTable::addTerm(const TermData& info)
     if (info.term.simplified().isEmpty())
         return DbErrorCodes::TermEmpty;
 
-    if (find(info.term, info.groupUuid))
+    if (term(info.term, info.groupUuid))
         return DbErrorCodes::TermAlreadyExist;
 
     TermData termInfo = info;
@@ -210,7 +204,7 @@ TermUuid TermTable::generateNewUuid()
 
 QDateTime TermTable::now() { return QDateTime::currentDateTimeUtc(); }
 
-TermData TermTable::createTermData(QSqlRecord& record)
+TermData TermTable::createTermData(const QSqlRecord& record)
 {
     auto gUuid = GroupUuid::create(record.value("groupUuid").toString());
 

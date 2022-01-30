@@ -174,15 +174,11 @@ int main()
             if (hasNameParam) {
                 auto name = paramToQString(urlParams["name"]);
 
-                auto nodeUuid = storage.findTerm(name, *groupUuid);
-
-                if (!nodeUuid.has_value())
-                    return req->create_response(restinio::status_not_found()).done();
-
-                if (auto termData = storage.getTerm(*nodeUuid))
-                    return successResponse(req, static_cast<QByteArray>(termData.value()));
-                else
-                    return responseForDbError(req, termData.error());
+                if (auto nodeData = storage.getTerm(name, *groupUuid).result()) {
+                    return successResponse(req, static_cast<QByteArray>(nodeData.value()));
+                } else {
+                    return responseForDbError(req, nodeData.error());
+                }
 
             } else if (uuidOnly) {
                 if (auto termList = storage.getTerms(*groupUuid).result()) {
@@ -213,7 +209,7 @@ int main()
         if (auto uuid = TermUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             bool lastEditOnly = urlParams.has("type") && urlParams["type"] == "last_edit";
 
-            if (auto term = storage.getTerm(*uuid)) {
+            if (auto term = storage.getTerm(*uuid).result()) {
                 return successResponse(req, static_cast<QByteArray>(term.value()));
             } else {
                 return responseForDbError(req, term.error());

@@ -266,8 +266,8 @@ bool GroupsManager::updateNode(const QJsonObject& object)
     }
 
     // Check for already existing node with same name
-    auto alterNodeUuid = dataSource.findTerm((*data).term, (*data).groupUuid);
-    if (alterNodeUuid.has_value() && alterNodeUuid.value() != (*data).uuid) {
+    auto alterNode = dataSource.getTerm((*data).term, (*data).groupUuid).result();
+    if (alterNode.has_value() && alterNode.value().uuid != (*data).uuid) {
         notifier.showWarning("Термин с таким названием уже существует в этой группе");
         return false;
     }
@@ -313,7 +313,7 @@ bool GroupsManager::termExist(const QString& term, QUuid& groupUuid)
     assert(!groupUuid.isNull());
     auto uuid = GroupUuid::create(groupUuid).value();
 
-    return dataSource.findTerm(term, uuid).has_value();
+    return dataSource.getTerm(term, uuid).result().has_value();
 }
 
 QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
@@ -328,7 +328,7 @@ QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
     QJsonArray termArray;
 
     for (const auto& nodeUuid : nodesUuids) {
-        auto term = dataSource.getTerm(nodeUuid).value();
+        auto term = dataSource.getTerm(nodeUuid).result().value();
         termArray.append(static_cast<QJsonObject>(term));
     }
 

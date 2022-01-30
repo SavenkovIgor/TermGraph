@@ -46,7 +46,7 @@ FutureRes<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids(bool sortByLa
 {
     // Simple variant
     if (!sortByLastEdit) {
-        return wrapInPromise<Result<GroupUuid::List>>([this] { return impl->db.groupTable->allUuids(); });
+        return toPromise<Result<GroupUuid::List>>([this] { return impl->db.groupTable->allUuids(); });
     }
 
     // Load info from groups table - need if any group is empty and has no lastEdit value
@@ -88,55 +88,58 @@ FutureRes<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids(bool sortByLa
         if (auto gUuid = GroupUuid::create(group.first))
             ret.push_back(*gUuid);
 
-    return wrapInPromise<Result<GroupUuid::List>>([&ret] { return ret; });
+    return toPromise<Result<GroupUuid::List>>([&ret] { return ret; });
 }
 
 FutureRes<GroupData> LocalDatabaseStorage::getGroup(const GroupUuid& uuid) const
 {
-    return wrapInPromise<Result<GroupData>>([this, &uuid] { return impl->db.groupTable->group(uuid); });
+    return toPromise<Result<GroupData>>([this, &uuid] { return impl->db.groupTable->group(uuid); });
 }
 
 FutureRes<GroupData::List> LocalDatabaseStorage::getGroups() const
 {
-    return wrapInPromise<Result<GroupData::List>>([this] { return impl->db.groupTable->allGroups(); });
+    return toPromise<Result<GroupData::List>>([this] { return impl->db.groupTable->allGroups(); });
 }
 
 FutureRes<GroupData> LocalDatabaseStorage::addGroup(const GroupData& info)
 {
-    return wrapInPromise<Result<GroupData>>([this, info] { return impl->db.groupTable->addGroup(info); });
+    return toPromise<Result<GroupData>>([this, info] { return impl->db.groupTable->addGroup(info); });
 }
 
 FutureRes<GroupData> LocalDatabaseStorage::updateGroup(const GroupData& info)
 {
-    return wrapInPromise<Result<GroupData>>([this, info] { return impl->db.groupTable->updateGroup(info); });
+    return toPromise<Result<GroupData>>([this, info] { return impl->db.groupTable->updateGroup(info); });
 }
 
 FutureRes<GroupData> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid)
 {
-    return wrapInPromise<Result<GroupData>>([this, uuid] { return impl->db.groupTable->deleteGroup(uuid); });
+    return toPromise<Result<GroupData>>([this, uuid] { return impl->db.groupTable->deleteGroup(uuid); });
 }
 
 FutureRes<TermUuid::List> LocalDatabaseStorage::getAllTermsUuids(Opt<GroupUuid> uuid) const
 {
-    return wrapInPromise<Result<TermUuid::List>>([this, uuid] { return impl->db.termTable->allUuids(uuid); });
+    return toPromise<Result<TermUuid::List>>([this, uuid] { return impl->db.termTable->allUuids(uuid); });
 }
 
-Opt<TermUuid> LocalDatabaseStorage::findTerm(const QString& nodeName, const GroupUuid& uuid) const
+FutureRes<TermData> LocalDatabaseStorage::getTerm(const QString& nodeName, const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->exist(uuid))
-        return std::nullopt;
+        return toPromise<Result<TermData>>([] { return DbErrorCodes::GroupUuidNotFound; });
 
-    return impl->db.termTable->find(nodeName, uuid);
+    return toPromise<Result<TermData>>([this, nodeName, uuid] { return impl->db.termTable->term(nodeName, uuid); });
 }
 
-Result<TermData> LocalDatabaseStorage::getTerm(const TermUuid& uuid) const { return impl->db.termTable->term(uuid); }
+FutureRes<TermData> LocalDatabaseStorage::getTerm(const TermUuid& uuid) const
+{
+    return toPromise<Result<TermData>>([this, uuid] { return impl->db.termTable->term(uuid); });
+}
 
 FutureRes<TermData::List> LocalDatabaseStorage::getTerms(const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->exist(uuid))
-        return wrapInPromise<Result<TermData::List>>([] { return DbErrorCodes::GroupUuidNotFound; });
+        return toPromise<Result<TermData::List>>([] { return DbErrorCodes::GroupUuidNotFound; });
 
-    return wrapInPromise<Result<TermData::List>>([this, uuid] { return impl->db.termTable->allTerms(uuid); });
+    return toPromise<Result<TermData::List>>([this, uuid] { return impl->db.termTable->allTerms(uuid); });
 }
 
 Result<QDateTime> LocalDatabaseStorage::getTermLastEdit(const TermUuid& uuid) const
