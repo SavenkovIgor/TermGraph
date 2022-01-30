@@ -48,10 +48,9 @@ public:
     GroupData::List   allGroups();
 
     // Modify
-    // TODO: Return object after add, update, delete
     Result<GroupData> addGroup(const GroupData& info);
     Result<GroupData> updateGroup(const GroupData& info);
-    Result<void>      deleteGroup(const GroupUuid& uuid);
+    Result<GroupData> deleteGroup(const GroupUuid& uuid);
 
 private:
     GroupUuid generateNewUuid();

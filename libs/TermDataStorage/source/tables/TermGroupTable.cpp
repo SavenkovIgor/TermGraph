@@ -144,13 +144,14 @@ Result<GroupData> TermGroupTable::updateGroup(const GroupData &info)
     return info;
 }
 
-Result<void> TermGroupTable::deleteGroup(const GroupUuid &uuid)
+Result<GroupData> TermGroupTable::deleteGroup(const GroupUuid &uuid)
 {
-    if (!exist(uuid))
-        return DbErrorCodes::GroupUuidNotFound;
+    if (auto groupData = group(uuid)) {
+        DbTools::start(SqlQueryBuilder().deleteGroup(uuid));
+        return groupData;
+    }
 
-    DbTools::start(SqlQueryBuilder().deleteGroup(uuid));
-    return outcome::success();
+    return DbErrorCodes::GroupUuidNotFound;
 }
 
 GroupUuid TermGroupTable::generateNewUuid()

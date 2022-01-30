@@ -75,7 +75,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 void GroupsManager::deleteGroup(const QString& groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid)) {
-        if (auto delResult = dataSource.deleteGroup(*uuid)) {
+        if (auto delResult = dataSource.deleteGroup(*uuid).result()) {
             updateGroupUuidNameMaps();
             emit groupDeleted();
             return;

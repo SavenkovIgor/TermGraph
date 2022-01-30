@@ -111,7 +111,10 @@ FutureRes<GroupData> LocalDatabaseStorage::updateGroup(const GroupData& info)
     return wrapInPromise<Result<GroupData>>([this, info] { return impl->db.groupTable->updateGroup(info); });
 }
 
-Result<void> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid) { return impl->db.groupTable->deleteGroup(uuid); }
+FutureRes<GroupData> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid)
+{
+    return wrapInPromise<Result<GroupData>>([this, uuid] { return impl->db.groupTable->deleteGroup(uuid); });
+}
 
 TermUuid::List LocalDatabaseStorage::getAllTermsUuids(Opt<GroupUuid> uuid) const
 {

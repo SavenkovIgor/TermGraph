@@ -117,10 +117,10 @@ int main()
     // POST /api/v1/global/groups
     router->http_post(NetworkTools::groupApiPath, [&storage](auto req, auto params) {
         if (auto group = GroupData::create(QByteArray::fromStdString(req->body()))) {
-            if (auto res = storage.addGroup(*group).result()) {
-                return successResponse(req);
+            if (auto groupData = storage.addGroup(*group).result()) {
+                return successResponse(req, static_cast<QByteArray>(groupData.value()));
             } else {
-                return responseForDbError(req, res.error());
+                return responseForDbError(req, groupData.error());
             }
         }
 
@@ -132,10 +132,10 @@ int main()
         if (auto uuid = GroupUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto data = GroupData::create(QByteArray::fromStdString(req->body()))) {
                 (*data).uuid = (*uuid);
-                if (auto res = storage.updateGroup(*data).result()) {
-                    return successResponse(req);
+                if (auto groupData = storage.updateGroup(*data).result()) {
+                    return successResponse(req, static_cast<QByteArray>(groupData.value()));
                 } else {
-                    return responseForDbError(req, res.error());
+                    return responseForDbError(req, groupData.error());
                 }
             }
         }
@@ -146,10 +146,10 @@ int main()
     // DELETE /api/v1/global/groups/:uuid
     router->http_delete(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = GroupUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
-            if (auto res = storage.deleteGroup(*uuid)) {
-                return successResponse(req);
+            if (auto groupData = storage.deleteGroup(*uuid).result()) {
+                return successResponse(req, static_cast<QByteArray>(groupData.value()));
             } else {
-                return responseForDbError(req, res.error());
+                return responseForDbError(req, groupData.error());
             }
         }
 

@@ -136,11 +136,7 @@ FutureRes<GroupData> DataStorageConnection::addGroup(const GroupData& info) { Q_
 
 FutureRes<GroupData> DataStorageConnection::updateGroup(const GroupData& info) { Q_UNIMPLEMENTED(); }
 
-Result<void> DataStorageConnection::deleteGroup(const GroupUuid& uuid)
-{
-    Q_UNIMPLEMENTED();
-    return outcome::success();
-}
+FutureRes<GroupData> DataStorageConnection::deleteGroup(const GroupUuid& uuid) { Q_UNIMPLEMENTED(); }
 
 TermUuid::List DataStorageConnection::getAllTermsUuids(Opt<GroupUuid> uuid) const
 {
