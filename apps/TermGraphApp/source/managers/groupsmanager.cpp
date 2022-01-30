@@ -183,7 +183,7 @@ void GroupsManager::importGroup(const QJsonDocument& json)
         return;
 
     // Searching for existed group
-    if (dataSource.groupExist(*groupData->uuid)) { // Group found
+    if (dataSource.getGroup(*groupData->uuid).result().has_value()) { // Group found
         if (!dataSource.updateGroup(*groupData)) {
             return;
         }
@@ -305,7 +305,7 @@ void GroupsManager::saveGroupInFolder(TermGroup::OptPtr group)
     }
 }
 
-bool GroupsManager::groupExist(const GroupUuid& uuid) { return dataSource.groupExist(uuid); }
+bool GroupsManager::groupExist(const GroupUuid& uuid) { return dataSource.getGroup(uuid).result().has_value(); }
 
 bool GroupsManager::termExist(const QString& term, QUuid& groupUuid)
 {

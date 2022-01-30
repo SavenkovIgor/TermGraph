@@ -91,8 +91,6 @@ FutureRes<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids(bool sortByLa
     return wrapInPromise<Result<GroupUuid::List>>([&ret] { return ret; });
 }
 
-bool LocalDatabaseStorage::groupExist(const GroupUuid& uuid) const { return impl->db.groupTable->exist(uuid); }
-
 FutureRes<GroupData> LocalDatabaseStorage::getGroup(const GroupUuid& uuid) const
 {
     return wrapInPromise<Result<GroupData>>([this, &uuid] { return impl->db.groupTable->group(uuid); });
@@ -113,8 +111,6 @@ TermUuid::List LocalDatabaseStorage::getAllTermsUuids(Opt<GroupUuid> uuid) const
 {
     return impl->db.termTable->allUuids(uuid);
 }
-
-bool LocalDatabaseStorage::termExist(const TermUuid& uuid) const { return impl->db.termTable->exist(uuid); }
 
 Opt<TermUuid> LocalDatabaseStorage::findTerm(const QString& nodeName, const GroupUuid& uuid) const
 {

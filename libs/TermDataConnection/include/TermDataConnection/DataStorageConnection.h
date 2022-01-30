@@ -45,7 +45,6 @@ public:
 
     FutureRes<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const final;
 
-    bool              groupExist(const GroupUuid& uuid) const final;
     FutureRes<GroupData> getGroup(const GroupUuid& uuid) const final;
     FutureRes<GroupData::List> getGroups() const final;
 
@@ -55,7 +54,6 @@ public:
 
     TermUuid::List getAllTermsUuids(Opt<GroupUuid> groupUuid = std::nullopt) const final;
 
-    bool                      termExist(const TermUuid& uuid) const final;
     Opt<TermUuid>             findTerm(const QString& termName, const GroupUuid& uuid) const final;
     Result<TermData>          getTerm(const TermUuid& uuid) const final;
     FutureRes<TermData::List> getTerms(const GroupUuid& uuid) const final;

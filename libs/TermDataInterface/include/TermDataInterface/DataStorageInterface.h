@@ -45,7 +45,6 @@ public:
     // Groups
     virtual FutureRes<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const = 0;
 
-    virtual bool                       groupExist(const GroupUuid& uuid) const = 0;
     virtual FutureRes<GroupData>       getGroup(const GroupUuid& uuid) const   = 0;
     virtual FutureRes<GroupData::List> getGroups() const                       = 0;
 
@@ -56,7 +55,6 @@ public:
     // Terms
     virtual TermUuid::List getAllTermsUuids(Opt<GroupUuid> groupUuid = std::nullopt) const = 0;
 
-    virtual bool                      termExist(const TermUuid& uuid) const                          = 0;
     virtual Opt<TermUuid>             findTerm(const QString& termName, const GroupUuid& uuid) const = 0;
     virtual Result<TermData>          getTerm(const TermUuid& uuid) const                            = 0;
     virtual FutureRes<TermData::List> getTerms(const GroupUuid& uuid) const                          = 0;

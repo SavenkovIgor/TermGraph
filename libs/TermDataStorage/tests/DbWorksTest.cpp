@@ -194,9 +194,7 @@ TEST_F(DBWorksTest, TermsTest)
     auto termList = getTermDataList();
 
     for (auto& term : termList) {
-        EXPECT_FALSE(mStorage->termExist(*term.uuid));
         EXPECT_TRUE(mStorage->addTerm(term));
-        EXPECT_TRUE(mStorage->termExist(*term.uuid));
         EXPECT_EQ(mStorage->findTerm(term.term, term.groupUuid).value(), term.uuid);
         auto gettedTerm = mStorage->getTerm(*term.uuid).value();
         term.lastEdit   = gettedTerm.lastEdit; // Last edit was refreshed

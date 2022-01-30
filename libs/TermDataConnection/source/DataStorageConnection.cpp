@@ -75,12 +75,6 @@ FutureRes<GroupUuid::List> DataStorageConnection::getAllGroupsUuids(bool sortByL
     return promise->future();
 }
 
-bool DataStorageConnection::groupExist(const GroupUuid& uuid) const
-{
-    Q_UNIMPLEMENTED();
-    return {};
-}
-
 FutureRes<GroupData> DataStorageConnection::getGroup(const GroupUuid& uuid) const
 {
     QSharedPointer<QPromise<Result<GroupData>>> promise(new QPromise<Result<GroupData>>);
@@ -157,12 +151,6 @@ Result<void> DataStorageConnection::deleteGroup(const GroupUuid& uuid)
 }
 
 TermUuid::List DataStorageConnection::getAllTermsUuids(Opt<GroupUuid> uuid) const
-{
-    Q_UNIMPLEMENTED();
-    return {};
-}
-
-bool DataStorageConnection::termExist(const TermUuid& uuid) const
 {
     Q_UNIMPLEMENTED();
     return {};

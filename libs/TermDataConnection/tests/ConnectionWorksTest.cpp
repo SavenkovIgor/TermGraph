@@ -193,9 +193,7 @@
 //    auto termList = getTermDataList();
 
 //    for (auto& term : termList) {
-//        EXPECT_FALSE(mStorage->termExist(TermUuid::create(term.uuid).value()));
 //        EXPECT_TRUE(mStorage->addTerm(term));
-//        EXPECT_TRUE(mStorage->termExist(TermUuid::create(term.uuid).value()));
 //        EXPECT_EQ(mStorage->findTerm(term.term, *GroupUuid::create(term.groupUuid)).value(), term.uuid);
 //        auto gettedTerm = mStorage->getTerm(*TermUuid::create(term.uuid)).value();
 //        term.lastEdit   = gettedTerm.lastEdit; // Last edit was refreshed
