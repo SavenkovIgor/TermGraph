@@ -54,9 +54,6 @@ public:
     Result<void> deleteGroup(const GroupUuid& uuid);
 
 private:
-    // TODO: Delete later
-    bool groupExist(const QUuid& uuid);
-
     GroupUuid generateNewUuid();
 
     static GroupData createGroupData(const QSqlRecord& rec);

@@ -105,7 +105,7 @@ Result<void> TermGroupTable::addGroup(const GroupData &info)
     GroupData groupInfo = info;
 
     if (groupInfo.uuid) {
-        if (groupExist(*groupInfo.uuid)) {
+        if (exist(*groupInfo.uuid)) {
             return DbErrorCodes::GroupUuidAlreadyExist;
         }
     } else {
@@ -128,7 +128,7 @@ Result<void> TermGroupTable::updateGroup(const GroupData &info)
     if (!info.uuid)
         return DbErrorCodes::GroupUuidInvalid;
 
-    if (!groupExist(*info.uuid))
+    if (!exist(*info.uuid))
         return DbErrorCodes::GroupUuidNotFound;
 
     if (info.name.simplified().isEmpty())
@@ -151,14 +151,6 @@ Result<void> TermGroupTable::deleteGroup(const GroupUuid &uuid)
 
     DbTools::start(SqlQueryBuilder().deleteGroup(uuid));
     return outcome::success();
-}
-
-bool TermGroupTable::groupExist(const QUuid &uuid)
-{
-    if (auto gUuid = GroupUuid::create(uuid))
-        return exist(*gUuid);
-
-    return false;
 }
 
 GroupUuid TermGroupTable::generateNewUuid()
