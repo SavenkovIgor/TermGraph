@@ -49,7 +49,7 @@ public:
     virtual FutureRes<GroupData::List> getGroups() const                       = 0;
 
     virtual FutureRes<GroupData> addGroup(const GroupData& info)    = 0;
-    virtual Result<void>         updateGroup(const GroupData& info) = 0;
+    virtual FutureRes<GroupData> updateGroup(const GroupData& info) = 0;
     virtual Result<void>         deleteGroup(const GroupUuid& uuid) = 0;
 
     // Terms

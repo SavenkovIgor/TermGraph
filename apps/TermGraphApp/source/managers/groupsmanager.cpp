@@ -184,7 +184,7 @@ void GroupsManager::importGroup(const QJsonDocument& json)
 
     // Searching for existed group
     if (dataSource.getGroup(*groupData->uuid).result().has_value()) { // Group found
-        if (!dataSource.updateGroup(*groupData)) {
+        if (!dataSource.updateGroup(*groupData).result()) {
             return;
         }
     } else {

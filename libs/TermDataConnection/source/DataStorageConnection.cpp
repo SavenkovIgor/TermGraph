@@ -134,11 +134,7 @@ FutureRes<GroupData::List> DataStorageConnection::getGroups() const
 
 FutureRes<GroupData> DataStorageConnection::addGroup(const GroupData& info) { Q_UNIMPLEMENTED(); }
 
-Result<void> DataStorageConnection::updateGroup(const GroupData& info)
-{
-    Q_UNIMPLEMENTED();
-    return outcome::success();
-}
+FutureRes<GroupData> DataStorageConnection::updateGroup(const GroupData& info) { Q_UNIMPLEMENTED(); }
 
 Result<void> DataStorageConnection::deleteGroup(const GroupUuid& uuid)
 {

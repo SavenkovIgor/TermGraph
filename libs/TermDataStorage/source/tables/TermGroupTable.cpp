@@ -123,7 +123,7 @@ Result<GroupData> TermGroupTable::addGroup(const GroupData &info)
     return groupInfo;
 }
 
-Result<void> TermGroupTable::updateGroup(const GroupData &info)
+Result<GroupData> TermGroupTable::updateGroup(const GroupData &info)
 {
     if (!info.uuid)
         return DbErrorCodes::GroupUuidInvalid;
@@ -141,7 +141,7 @@ Result<void> TermGroupTable::updateGroup(const GroupData &info)
 
     DbTools::start(SqlQueryBuilder().updateGroup(info));
 
-    return outcome::success();
+    return info;
 }
 
 Result<void> TermGroupTable::deleteGroup(const GroupUuid &uuid)

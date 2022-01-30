@@ -50,7 +50,7 @@ public:
     // Modify
     // TODO: Return object after add, update, delete
     Result<GroupData> addGroup(const GroupData& info);
-    Result<void>      updateGroup(const GroupData& info);
+    Result<GroupData> updateGroup(const GroupData& info);
     Result<void>      deleteGroup(const GroupUuid& uuid);
 
 private:
