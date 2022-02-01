@@ -322,7 +322,7 @@ FutureRes<TermData> DataStorageConnection::deleteTerm(const TermUuid& uuid)
     SharedPromise<TermData> promise(new Promise<TermData>);
     promise->start();
 
-    QUrl url = groupUrl;
+    QUrl url = termUrl;
     url.setPath(QString("%1/%2").arg(url.path()).arg(uuid.toString()));
 
     invokeOnNetThread([this, promise, url]() {
