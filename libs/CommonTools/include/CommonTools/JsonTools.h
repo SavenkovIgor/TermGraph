@@ -33,6 +33,8 @@ public:
     {
         param.remove("%7B");
         param.remove("%7D");
+        param.remove('{');
+        param.remove('}');
 
         param.prepend('{');
         param.append('}');

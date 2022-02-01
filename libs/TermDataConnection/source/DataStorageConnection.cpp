@@ -39,7 +39,17 @@ void dataToPromise(QSharedPointer<QPromise<Result<T>>>           promise,
             promise->addResult(DbErrorCodes::JsonParseError);
         }
     } else {
-        promise->addResult(DbErrorCodes::ConnectionError);
+        auto err = reply->error();
+
+        if (err == QNetworkReply::ConnectionRefusedError || err == QNetworkReply::HostNotFoundError
+            || err == QNetworkReply::TimeoutError || err == QNetworkReply::ProtocolInvalidOperationError)
+            promise->addResult(DbErrorCodes::ConnectionError);
+
+        std::string errString = reply->readAll().toStdString();
+        auto        dbError   = createDbError(errString);
+
+        qDebug() << QString::fromStdString(errString);
+        promise->addResult(dbError);
     }
 }
 

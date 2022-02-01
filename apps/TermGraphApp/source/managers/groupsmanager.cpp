@@ -137,8 +137,9 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
     auto uuid = GroupUuid::create(groupUuid).value();
 
     QDateTime lastEdit;
-    for (auto& nodeData : dataSource.getTerms(uuid).result().value()) {
-        QDateTime currNodeLastEdit = nodeData.lastEdit;
+    auto      terms = dataSource.getTerms(uuid).result().value();
+    for (auto& term : terms) {
+        QDateTime currNodeLastEdit = term.lastEdit;
         if (lastEdit.isNull()) {
             lastEdit = currNodeLastEdit;
         } else {
