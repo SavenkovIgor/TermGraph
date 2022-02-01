@@ -55,7 +55,6 @@ public:
         EXPECT_EQ(mStorage->storageVersion(), 2);
         EXPECT_TRUE(mStorage->getAllGroupsUuids().result().value().empty());
         EXPECT_TRUE(mStorage->getGroups().result().value().empty());
-        EXPECT_TRUE(mStorage->getAllTermsUuids().result().value().empty());
     }
 
     static void TearDownTestCase()
@@ -188,7 +187,6 @@ TEST_F(DBWorksTest, TermsTest)
     auto withUuid = getGroupWithUuid();
 
     EXPECT_TRUE(mStorage->addGroup(withUuid).result().has_value());
-    EXPECT_TRUE(mStorage->getAllTermsUuids().result().value().empty());
 
     // Adding terms
 
@@ -201,24 +199,6 @@ TEST_F(DBWorksTest, TermsTest)
         auto gettedTerm = mStorage->getTerm(*term.uuid).result().value();
         term.lastEdit   = gettedTerm.lastEdit; // Last edit was refreshed
         EXPECT_TRUE(gettedTerm == term);
-    }
-
-    // Checking all uuids without group
-    auto allTermUuids = mStorage->getAllTermsUuids().result().value();
-
-    EXPECT_EQ(allTermUuids.size(), termList.size());
-    for (const auto& term : termList) {
-        auto searchResult = std::find(allTermUuids.begin(), allTermUuids.end(), term.uuid);
-        EXPECT_NE(searchResult, allTermUuids.end());
-    }
-
-    // Checking all uuids with group
-    allTermUuids = mStorage->getAllTermsUuids(*withUuid.uuid).result().value();
-
-    EXPECT_EQ(allTermUuids.size(), termList.size());
-    for (const auto& term : termList) {
-        auto searchResult = std::find(allTermUuids.begin(), allTermUuids.end(), term.uuid);
-        EXPECT_NE(searchResult, allTermUuids.end());
     }
 
     for (auto& term : termList) {
@@ -238,5 +218,4 @@ TEST_F(DBWorksTest, TermsTest)
     for (const auto& term : termList)
         EXPECT_TRUE(mStorage->deleteTerm(*term.uuid).result().has_value());
 
-    EXPECT_TRUE(mStorage->getAllTermsUuids().result().value().empty());
 }

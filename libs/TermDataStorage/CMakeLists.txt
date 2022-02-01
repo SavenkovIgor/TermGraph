@@ -61,6 +61,7 @@ target_sources (TermDataStorage
 if (BUILD_TESTING)
     enable_testing ()
 
+    include (TestUtils)
     create_test (
         NAME      TestDbWorks
         SOURCES   tests/DbWorksTest.cpp
