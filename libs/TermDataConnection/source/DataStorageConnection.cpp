@@ -176,8 +176,6 @@ FutureRes<TermData::List> DataStorageConnection::getTerms(const GroupUuid& uuid)
     return promise->future();
 }
 
-FutureRes<QDateTime> DataStorageConnection::getTermLastEdit(const TermUuid& uuid) const { Q_UNIMPLEMENTED(); }
-
 FutureRes<TermData> DataStorageConnection::addTerm(const TermData& info) { Q_UNIMPLEMENTED(); }
 
 FutureRes<TermData> DataStorageConnection::updateTerm(const TermData&                      info,

@@ -58,7 +58,6 @@ public:
     virtual FutureRes<TermData>       getTerm(const TermUuid& uuid) const                            = 0;
     virtual FutureRes<TermData>       getTerm(const QString& termName, const GroupUuid& uuid) const  = 0;
     virtual FutureRes<TermData::List> getTerms(const GroupUuid& uuid) const                          = 0;
-    virtual FutureRes<QDateTime>      getTermLastEdit(const TermUuid& uuid) const                    = 0;
 
     virtual FutureRes<TermData> addTerm(const TermData& data) = 0;
     virtual FutureRes<TermData> updateTerm(const TermData& data,

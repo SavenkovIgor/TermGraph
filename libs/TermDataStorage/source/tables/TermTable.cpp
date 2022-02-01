@@ -65,24 +65,6 @@ Result<TermData> TermTable::term(const QString& term, const GroupUuid& uuid) con
     return DbErrorCodes::TermUuidNotFound;
 }
 
-Result<QDateTime> TermTable::lastEdit(const TermUuid& uuid)
-{
-    if (!exist(uuid))
-        return DbErrorCodes::TermUuidNotFound;
-
-    auto query = SqlQueryBuilder().selectLastEdit(uuid);
-    DbTools::start(query);
-
-    auto record = DbTools::getRecord(std::move(query));
-
-    auto field = record.value("lastEdit").toString();
-
-    if (field.isEmpty())
-        return QDateTime();
-
-    return QDateTime::fromString(field, Qt::ISODate);
-}
-
 TermUuid::List TermTable::allUuids(Opt<GroupUuid> uuid)
 {
     TermUuid::List ret;
@@ -204,6 +186,24 @@ TermUuid TermTable::generateNewUuid()
 }
 
 QDateTime TermTable::now() { return QDateTime::currentDateTimeUtc(); }
+
+Result<QDateTime> TermTable::lastEdit(const TermUuid& uuid)
+{
+    if (!exist(uuid))
+        return DbErrorCodes::TermUuidNotFound;
+
+    auto query = SqlQueryBuilder().selectLastEdit(uuid);
+    DbTools::start(query);
+
+    auto record = DbTools::getRecord(std::move(query));
+
+    auto field = record.value("lastEdit").toString();
+
+    if (field.isEmpty())
+        return QDateTime();
+
+    return QDateTime::fromString(field, Qt::ISODate);
+}
 
 TermData TermTable::createTermData(const QSqlRecord& record)
 {
