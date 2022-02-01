@@ -28,8 +28,7 @@
 
 QSqlQuery SqlQueryBuilder::createAppConfigTable() const
 {
-    auto query = loadQuery(":/sql/version2/appConfig/CreateTable.sql");
-    return query;
+    return loadQuery(":/sql/version2/appConfig/CreateTable.sql");
 }
 
 QSqlQuery SqlQueryBuilder::insertConfigParameter(const QString &parameter, const QString &value) const
@@ -62,11 +61,7 @@ QSqlQuery SqlQueryBuilder::updateConfigParameter(const QString &parameter, const
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::createGroupsTable() const
-{
-    auto query = loadQuery(":/sql/version2/groups/CreateTable.sql");
-    return query;
-}
+QSqlQuery SqlQueryBuilder::createGroupsTable() const { return loadQuery(":/sql/version2/groups/CreateTable.sql"); }
 
 QSqlQuery SqlQueryBuilder::insertGroup(const GroupData &groupInfo) const
 {
@@ -100,17 +95,9 @@ QSqlQuery SqlQueryBuilder::selectOneGroup(const GroupUuid &uuid) const
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::selectAllGroupUuids()
-{
-    auto query = loadQuery(":/sql/version2/groups/SelectAllUuids.sql");
-    return query;
-}
+QSqlQuery SqlQueryBuilder::selectAllGroupUuids() { return loadQuery(":/sql/version2/groups/SelectAllUuids.sql"); }
 
-QSqlQuery SqlQueryBuilder::selectAllGroups()
-{
-    auto query = loadQuery(":/sql/version2/groups/SelectAll.sql");
-    return query;
-}
+QSqlQuery SqlQueryBuilder::selectAllGroups() { return loadQuery(":/sql/version2/groups/SelectAll.sql"); }
 
 QSqlQuery SqlQueryBuilder::updateGroup(const GroupData &groupInfo) const
 {
@@ -130,11 +117,7 @@ QSqlQuery SqlQueryBuilder::deleteGroup(const GroupUuid &uuid) const
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::createTermsTable() const
-{
-    auto query = loadQuery(":/sql/version2/terms/CreateTable.sql");
-    return query;
-}
+QSqlQuery SqlQueryBuilder::createTermsTable() const { return loadQuery(":/sql/version2/terms/CreateTable.sql"); }
 
 QSqlQuery SqlQueryBuilder::insertTerm(const TermData &termInfo) const
 {
@@ -191,8 +174,7 @@ QSqlQuery SqlQueryBuilder::selectLastEdit(const TermUuid &uuid) const
 
 QSqlQuery SqlQueryBuilder::selectAllLastEditAndGroupUuid() const
 {
-    auto query = loadQuery(":/sql/version2/terms/SelectAllLastEdit.sql");
-    return query;
+    return loadQuery(":/sql/version2/terms/SelectAllLastEdit.sql");
 }
 
 QSqlQuery SqlQueryBuilder::updateTerm(const TermData &termInfo) const
