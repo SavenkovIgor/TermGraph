@@ -116,11 +116,6 @@ FutureRes<GroupData> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid)
     return toPromise<Result<GroupData>>([this, uuid] { return impl->db.groupTable->deleteGroup(uuid); });
 }
 
-FutureRes<TermUuid::List> LocalDatabaseStorage::getAllTermsUuids(Opt<GroupUuid> uuid) const
-{
-    return toPromise<Result<TermUuid::List>>([this, uuid] { return impl->db.termTable->allUuids(uuid); });
-}
-
 FutureRes<TermData> LocalDatabaseStorage::getTerm(const QString& nodeName, const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->exist(uuid))

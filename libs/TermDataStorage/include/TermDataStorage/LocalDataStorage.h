@@ -48,8 +48,6 @@ public:
     FutureRes<GroupData> updateGroup(const GroupData& info) final;
     FutureRes<GroupData> deleteGroup(const GroupUuid& uuid) final;
 
-    FutureRes<TermUuid::List> getAllTermsUuids(Opt<GroupUuid> groupUuid = std::nullopt) const final;
-
     FutureRes<TermData>       getTerm(const TermUuid& uuid) const final;
     FutureRes<TermData>       getTerm(const QString& termName, const GroupUuid& uuid) const final;
     FutureRes<TermData::List> getTerms(const GroupUuid& uuid) const final;

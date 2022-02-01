@@ -20,8 +20,6 @@
         <file>version2/terms/DeleteTerm.sql</file>
         <file>version2/terms/InsertTerm.sql</file>
         <file>version2/terms/SelectAllLastEdit.sql</file>
-        <file>version2/terms/SelectAllUuids.sql</file>
-        <file>version2/terms/SelectAllUuidsInGroup.sql</file>
         <file>version2/terms/SelectLastEdit.sql</file>
         <file>version2/terms/SelectTerm.sql</file>
         <file>version2/terms/SelectTermCount.sql</file>

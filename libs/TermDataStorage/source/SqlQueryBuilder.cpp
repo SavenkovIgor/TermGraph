@@ -175,19 +175,6 @@ QSqlQuery SqlQueryBuilder::selectOneTerm(const QString &term, const GroupUuid &u
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::selectAllTermUuids() const
-{
-    auto query = loadQuery(":/sql/version2/terms/SelectAllUuids.sql");
-    return query;
-}
-
-QSqlQuery SqlQueryBuilder::selectAllTermUuids(const GroupUuid &uuid) const
-{
-    auto query = loadQuery(":/sql/version2/terms/SelectAllUuidsInGroup.sql");
-    query.bindValue(":groupUuid", uuid.toString());
-    return query;
-}
-
 QSqlQuery SqlQueryBuilder::selectAllTerms(const GroupUuid &uuid) const
 {
     auto query = loadQuery(":/sql/version2/terms/SelectTermsByGroup.sql");

@@ -64,8 +64,6 @@ public:
     QSqlQuery selectTerm(const TermUuid& uuid) const;
     QSqlQuery selectOneTerm(const TermUuid& uuid) const;
     QSqlQuery selectOneTerm(const QString& term, const GroupUuid& uuid) const;
-    QSqlQuery selectAllTermUuids() const;
-    QSqlQuery selectAllTermUuids(const GroupUuid& uuid) const;
     QSqlQuery selectAllTerms(const GroupUuid& uuid) const;
     QSqlQuery selectLastEdit(const TermUuid& uuid) const;
     QSqlQuery selectAllLastEditAndGroupUuid() const;

@@ -65,29 +65,6 @@ Result<TermData> TermTable::term(const QString& term, const GroupUuid& uuid) con
     return DbErrorCodes::TermUuidNotFound;
 }
 
-TermUuid::List TermTable::allUuids(Opt<GroupUuid> uuid)
-{
-    TermUuid::List ret;
-    QSqlQuery      query;
-
-    if (uuid)
-        query = SqlQueryBuilder().selectAllTermUuids(*uuid);
-    else
-        query = SqlQueryBuilder().selectAllTermUuids();
-
-    DbTools::start(query);
-
-    auto sqlRecords = DbTools::getAllRecords(std::move(query));
-
-    for (auto& record : sqlRecords) {
-        auto uuidStr = record.value("uuid").toString();
-        if (auto termUuid = TermUuid::create(uuidStr))
-            ret.push_back(*termUuid);
-    }
-
-    return ret;
-}
-
 Result<TermData::List> TermTable::allTerms(const GroupUuid& uuid)
 {
     TermData::List ret;

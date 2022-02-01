@@ -43,7 +43,6 @@ public:
     Result<TermData>  term(const TermUuid& uuid) const;
     Result<TermData>  term(const QString& term, const GroupUuid& uuid) const;
 
-    TermUuid::List         allUuids(Opt<GroupUuid> uuid = std::nullopt);
     Result<TermData::List> allTerms(const GroupUuid& uuid);
     RecordList             allLastEditRecords();
 

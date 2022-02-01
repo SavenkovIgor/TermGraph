@@ -45,14 +45,12 @@ public:
 
     FutureRes<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const final;
 
-    FutureRes<GroupData> getGroup(const GroupUuid& uuid) const final;
+    FutureRes<GroupData>       getGroup(const GroupUuid& uuid) const final;
     FutureRes<GroupData::List> getGroups() const final;
 
     FutureRes<GroupData> addGroup(const GroupData& info) final;
     FutureRes<GroupData> updateGroup(const GroupData& info) final;
     FutureRes<GroupData> deleteGroup(const GroupUuid& uuid) final;
-
-    FutureRes<TermUuid::List> getAllTermsUuids(Opt<GroupUuid> groupUuid = std::nullopt) const final;
 
     FutureRes<TermData>       getTerm(const TermUuid& uuid) const final;
     FutureRes<TermData>       getTerm(const QString& termName, const GroupUuid& uuid) const final;
