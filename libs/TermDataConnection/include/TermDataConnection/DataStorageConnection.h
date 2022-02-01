@@ -61,9 +61,17 @@ public:
     FutureRes<TermData> deleteTerm(const TermUuid& uuid) final;
 
 private:
+    template<typename T>
+    using Promise = QPromise<Result<T>>;
+
+    template<typename T>
+    using SharedPromise = QSharedPointer<Promise<T>>;
+
     QUrl baseUrl;
     QUrl groupUrl;
     QUrl termUrl;
 
     NetworkThread netThread;
+
+    void invokeOnNetThread(std::function<void()> netFunc) const;
 };
