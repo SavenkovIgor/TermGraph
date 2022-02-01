@@ -45,12 +45,13 @@ target_sources (TermDataConnection
         source/DataStorageConnection.cpp
         source/NetworkThread.cpp)
 
-if (BUILD_TESTING)
-    enable_testing ()
+#if (BUILD_TESTING)
+#    enable_testing ()
 
-    create_test (
-        NAME      TestConnectionWorks
-        SOURCES   tests/ConnectionWorksTest.cpp
-        LIBRARIES CommonTools TermDataStorage Qt6::Core)
+#    include (TestUtils)
+#    create_test (
+#        NAME      TestConnectionWorks
+#        SOURCES   tests/ConnectionWorksTest.cpp
+#        LIBRARIES CommonTools TermDataConnection Qt6::Core Qt6::Network)
 
-endif ()
+#endif ()
