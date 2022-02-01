@@ -42,6 +42,8 @@ http_status_line_t dbErrToHttpErr(std::error_code code)
     case DbErrorCodes::UnknownError:    return status_internal_server_error();
     }
     // clang-format on
+
+    return status_bad_request();
 }
 
 QString dbErrDescription(std::error_code code) { return QString::fromStdString(code.message()); }
@@ -221,7 +223,7 @@ int main()
 
     // POST /api/v1/global/terms
     router->http_post(NetworkTools::termApiPath, [&storage](auto req, auto params) {
-        if (auto term = TermData::create(QByteArray::fromStdString(req->body()), TermData::JsonCheckMode::Import)) {
+        if (auto term = TermData::create(QByteArray::fromStdString(req->body()), TermData::JsonCheckMode::AddTerm)) {
             if (auto res = storage.addTerm(*term).result()) {
                 return successResponse(req, static_cast<QByteArray>(res.value()));
             } else {
@@ -235,7 +237,8 @@ int main()
     // PUT /api/v1/global/terms/:uuid
     router->http_put(NetworkTools::termUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = TermUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
-            if (auto data = TermData::create(QByteArray::fromStdString(req->body()), TermData::JsonCheckMode::Import)) {
+            if (auto data = TermData::create(QByteArray::fromStdString(req->body()),
+                                             TermData::JsonCheckMode::UpdateTerm)) {
                 (*data).uuid = (*uuid);
                 if (auto res = storage.updateTerm(*data, DataStorageInterface::LastEditSource::AutoGenerate, false)
                                    .result()) {
