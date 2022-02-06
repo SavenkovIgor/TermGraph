@@ -28,12 +28,6 @@
 // TODO: File rename
 namespace AppSettings {
 
-class Network
-{
-public:
-    constexpr static quint16 listenPort = 46377;
-};
-
 class StdPaths
 {
 public:

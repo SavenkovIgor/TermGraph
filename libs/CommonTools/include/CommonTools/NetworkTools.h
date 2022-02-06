@@ -26,7 +26,8 @@
 class NetworkTools
 {
 public:
-    constexpr static qint16 defaultPort = 26748;
+    constexpr static qint16  defaultPort   = 26748;
+    constexpr static quint16 localSyncPort = 46377;
 
     constexpr static auto termApiPath      = "/api/v1/global/terms";
     constexpr static auto termUuidApiPath  = "/api/v1/global/terms/:uuid";

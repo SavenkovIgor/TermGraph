@@ -24,7 +24,6 @@
 #include <QObject>
 #include <QtNetwork>
 
-#include "source/helpers/appconfig.h"
 #include "source/helpers/simplelistenserver.h"
 #include "source/managers/notifiyinterface.h"
 

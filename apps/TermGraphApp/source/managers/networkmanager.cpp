@@ -21,11 +21,13 @@
 
 #include "source/managers/networkmanager.h"
 
+#include <CommonTools/NetworkTools.h>
+
 NetworkManager::NetworkManager(NotifyInterface& notifier, QObject* parent)
     : QObject(parent)
     , notifier(notifier)
 {
-    server = new SimpleListenServer(AppSettings::Network::listenPort, this);
+    server = new SimpleListenServer(NetworkTools::localSyncPort, this);
 
     connect(server, &SimpleListenServer::newReceivedData, this, &NetworkManager::newInputData);
     connect(server, &SimpleListenServer::newConnectionFrom, this, &NetworkManager::sendConnectionInfo);
@@ -38,7 +40,7 @@ NetworkManager::NetworkManager(NotifyInterface& notifier, QObject* parent)
 
 void NetworkManager::connectToHost()
 {
-    outputSocket->connectToHost(receiverIp, AppSettings::Network::listenPort, QIODevice::WriteOnly);
+    outputSocket->connectToHost(receiverIp, NetworkTools::localSyncPort, QIODevice::WriteOnly);
 }
 
 void NetworkManager::disconnectFromHost() { outputSocket->disconnectFromHost(); }
