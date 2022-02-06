@@ -1,9 +1,11 @@
-from conans import ConanFile, CMake
+from conans import ConanFile
+from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
 
 
 class TermGraphConan(ConanFile):
 
-    generators = 'cmake_find_package', 'cmake_paths'
+    generators = 'CMakeToolchain', 'CMakeDeps'
+    settings = 'os', 'arch', 'compiler', 'build_type'
 
     requires = 'outcome/2.2.1'
 
@@ -32,6 +34,13 @@ class TermGraphConan(ConanFile):
 
         if self.options.build_application and self.options.build_tests:
             self.requires('gtest/1.10.0')
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.generate()
+
+        deps = CMakeDeps(self)
+        deps.generate()
 
     def build(self):
         cmake = CMake(self)
