@@ -133,9 +133,9 @@ TEST_F(DBWorksTest, GroupsTest)
     sameName.uuid = GroupUuid::generate();
     EXPECT_EQ(mStorage->addGroup(sameName).error(), DbErrorCodes::GroupNameAlreadyExist);
 
-    auto addResult = mStorage->addGroup(withoutUuid).result();
+    auto addResult = mStorage->addGroup(withoutUuid);
     EXPECT_TRUE(addResult.has_value());
-    EXPECT_EQ(mStorage->getGroup(*(addResult.value().uuid)).result(), addResult);
+    EXPECT_EQ(mStorage->getGroup(*(addResult.value().uuid)).value(), addResult.value());
 
     // GetAllGroupsUuids test
     auto groupList = mStorage->getAllGroupsUuids().value();
