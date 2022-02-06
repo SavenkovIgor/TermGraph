@@ -21,32 +21,15 @@
 
 #pragma once
 
-#include <QObject>
-#include <QQmlApplicationEngine>
-#include <QQmlContext>
+#include <memory>
 
-#include "source/helpers/firststartpreparer.h"
-#include "source/mainscene.h"
-#include "source/managers/groupsmanager.h"
-#include "source/managers/syncmanager.h"
+#include <TermDataInterface/DataStorageInterface.h>
 
-class Application : public QObject
+struct DataSourceFactory
 {
-    Q_OBJECT
+    static std::unique_ptr<DataStorageInterface> defaultSource();
 
-public:
-    explicit Application(QObject* parent = nullptr);
-    ~Application() = default;
-
-private:
-    FirstStartPreparer initPreparer;
-
-    // Independent init
-    QScopedPointer<NetworkManager> network;
-
-    // Dependent init
-    QScopedPointer<GroupsManager>         groupsManager;
-    QScopedPointer<SyncManager>           syncManager;
-    QScopedPointer<MainScene>             scene;
-    QScopedPointer<QQmlApplicationEngine> qmlEngine;
+    static std::unique_ptr<DataStorageInterface> localDb();
+    static std::unique_ptr<DataStorageInterface> server();
+    static std::unique_ptr<DataStorageInterface> wasm();
 };

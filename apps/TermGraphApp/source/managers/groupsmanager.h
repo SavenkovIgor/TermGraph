@@ -39,7 +39,9 @@ class GroupsManager : public QObject
     Q_OBJECT
 
 public:
-    explicit GroupsManager(DataStorageInterface& dataStorage, NotifyInterface& notifier, QObject* parent = nullptr);
+    explicit GroupsManager(std::unique_ptr<DataStorageInterface> dataStorage,
+                           NotifyInterface&                      notifier,
+                           QObject*                              parent = nullptr);
 
     Q_PROPERTY(bool hasAnyGroup READ getHasAnyGroup NOTIFY groupsListChanged)
     Q_PROPERTY(QStringList allUuidSorted READ getAllUuidStringsSortedByLastEdit NOTIFY groupsListChanged)
@@ -95,7 +97,7 @@ private: // Members
 
     QDateTime getLastEdit(QUuid groupUuid);
 
-    DataStorageInterface& dataSource;
+    std::unique_ptr<DataStorageInterface> dataSource;
     NotifyInterface&      notifier;
 
     // Cache

@@ -21,14 +21,14 @@
 
 #include "source/application.h"
 
+#include "source/datasourcefactory.h"
 #include "source/managers/notificationmanager.h"
 
 Application::Application(QObject* parent)
     : QObject(parent)
     , initPreparer()
     , network(new NetworkManager(NotificationManager::instance()))
-    , localDb(AppSettings::StdPaths::defaultDatabaseFilePath(), AppSettings::StdPaths::backupFolder())
-    , groupsManager(new GroupsManager(localDb, NotificationManager::instance()))
+    , groupsManager(new GroupsManager(DataSourceFactory::defaultSource(), NotificationManager::instance()))
     , syncManager(new SyncManager(network.get(), groupsManager.get()))
     , scene(new MainScene(groupsManager.get()))
     , qmlEngine(new QQmlApplicationEngine())
