@@ -42,7 +42,25 @@ template<typename T>
 using Result = outcome::std_result<T>;
 
 template<typename RetType>
-using FutureRes = QFuture<Result<RetType>>;
+//using FutureRes = QFuture<Result<RetType>>;
+// This wrapper is need for quick and transparent replace of QFuture<Result> with just Result
+class FutureRes : public QFuture<Result<RetType>>
+{
+public:
+    FutureRes(const QFuture<Result<RetType>>& base)
+        : QFuture<Result<RetType>>(std::move(base))
+    {}
+
+    RetType value() { return QFuture<Result<RetType>>::result().value(); }
+
+    operator bool() { return static_cast<bool>(QFuture<Result<RetType>>::result()); }
+
+    bool has_value() { return QFuture<Result<RetType>>::result().has_value(); }
+
+    bool has_error() { return QFuture<Result<RetType>>::result().has_error(); }
+
+    auto error() { return QFuture<Result<RetType>>::result().error(); }
+};
 
 enum class Direction { Left, Right };
 

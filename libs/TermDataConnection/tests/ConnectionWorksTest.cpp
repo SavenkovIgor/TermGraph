@@ -21,7 +21,9 @@
 
 //#include <memory>
 
+//#include <QCoreApplication>
 //#include <QDir>
+//#include <QTimer>
 
 //#include <gtest/gtest.h>
 
@@ -45,7 +47,9 @@
 
 //    static void SetUpTestCase()
 //    {
-//        mStorage = std::make_unique<DataStorageConnection>(QHostAddress(sDbFileName), 26748);
+//        mStorage = std::make_unique<DataStorageConnection>(QHostAddress(sDbFileName));
+
+//        ASSERT_FALSE(mStorage->getAllGroupsUuids().result().has_error());
 
 //        EXPECT_EQ(mStorage->storageVersion(), 2);
 //        EXPECT_TRUE(mStorage->getAllGroupsUuids().result().value().empty());
@@ -212,4 +216,19 @@
 
 //    for (const auto& term : termList)
 //        EXPECT_TRUE(mStorage->deleteTerm(*term.uuid).result().has_value());
+//}
+
+//int main(int argc, char* argv[])
+//{
+//    qDebug("appstart");
+//    QCoreApplication app{argc, argv};
+
+//    QTimer::singleShot(0, [&]() {
+//        qDebug("tstart");
+//        ::testing::InitGoogleTest(&argc, argv);
+//        auto testResult = RUN_ALL_TESTS();
+//        app.exit(testResult);
+//    });
+
+//    return app.exec();
 //}

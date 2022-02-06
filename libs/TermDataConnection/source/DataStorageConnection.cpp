@@ -67,6 +67,7 @@ void dataToPromise(QSharedPointer<QPromise<Result<T>>>              promise,
     } else {
         promise->addResult(DbErrorCodes::ConnectionError);
     }
+    assert(promise->future().isValid());
 }
 
 DataStorageConnection::DataStorageConnection(QHostAddress address, quint16 port)
