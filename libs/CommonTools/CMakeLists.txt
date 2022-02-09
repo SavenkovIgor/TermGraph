@@ -22,6 +22,11 @@ cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 project (CommonTools VERSION 1.0.0 LANGUAGES CXX)
 
 find_package (Qt6 COMPONENTS Core REQUIRED)
+
+if (ANDROID)
+    set (outcome_DIR "${CMAKE_BINARY_DIR}/conan-dependencies")
+endif ()
+
 find_package (outcome REQUIRED)
 
 add_library (CommonTools
@@ -37,7 +42,7 @@ add_library (CommonTools
 
 target_include_directories (CommonTools INTERFACE "./include")
 
-target_link_libraries (TermGraph PRIVATE Qt6::Core)
+target_link_libraries (CommonTools INTERFACE Qt6::Core)
 target_link_libraries (CommonTools INTERFACE outcome::outcome)
 
 if (BUILD_TESTING)
