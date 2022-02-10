@@ -28,6 +28,10 @@ project (TermGraphPackage)
 
 list (APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
+if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
+    set (WASM "True")
+endif ()
+
 # Build options
 option (BUILD_APPLICATION "Build native application" ON)
 option (BUILD_BACKEND     "Build backend server"     OFF)
@@ -70,5 +74,8 @@ add_subdirectory (libs/CommonTools)
 
 if (BUILD_APPLICATION OR BUILD_BACKEND)
     add_subdirectory (libs/TermDataInterface)
-    add_subdirectory (libs/TermDataStorage)
+
+    if (NOT WASM)
+        add_subdirectory (libs/TermDataStorage)
+    endif ()
 endif ()

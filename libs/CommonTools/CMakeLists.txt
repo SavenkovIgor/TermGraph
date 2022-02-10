@@ -23,7 +23,7 @@ project (CommonTools VERSION 1.0.0 LANGUAGES CXX)
 
 find_package (Qt6 COMPONENTS Core REQUIRED)
 
-if (ANDROID)
+if (ANDROID OR WASM)
     set (outcome_DIR "${CMAKE_BINARY_DIR}/conan-dependencies")
 endif ()
 
