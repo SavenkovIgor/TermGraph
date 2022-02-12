@@ -29,15 +29,9 @@ public:
     class Colors
     {
     public:
-        inline static auto transparent = QColor(0, 0, 0, 0);
-        inline static auto testColor   = QColor(0, 255, 0);
-
         class Nodes
         {
         public:
-            inline static auto border = QColor(0, 0, 0);
-            inline static auto text   = QColor(255, 255, 255);
-
             inline static auto leaf   = QColor(109, 154, 40);
             inline static auto root   = QColor(128, 41, 21);
             inline static auto orphan = QColor(18, 75, 106);
@@ -45,17 +39,6 @@ public:
             inline static auto leafSelected   = QColor(131, 195, 27);
             inline static auto rootSelected   = QColor(220, 76, 29);
             inline static auto orphanSelected = QColor(11, 119, 177);
-
-            inline static auto atLearn = QColor(245, 222, 179);
-        };
-
-        class Groups
-        {
-        public:
-            inline static auto border                    = QColor(255, 255, 255);
-            inline static auto text                      = QColor(255, 255, 255);
-            inline static auto backgroundTerms           = QColor(0, 0, 0, 0);
-            inline static auto backgroundFreeConnections = QColor(0, 0, 0, 0);
         };
 
         class Edges
