@@ -35,7 +35,7 @@ class EdgesModel : public QAbstractListModel
 public:
     explicit EdgesModel(QObject* parent = nullptr);
 
-    enum Roles { Pt1 = 0, Pt2, Color, IsSelected };
+    enum Roles { Pt1 = 0, Pt2, IsSelected, EdgeType, EdgeSelection };
 
     Q_ENUM(Roles);
 

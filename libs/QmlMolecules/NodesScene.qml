@@ -50,17 +50,18 @@ Control {
     }
 
     function createNullEdge(parent) {
-        return createEdge(parent, { pt1: Qt.point(0, 0), pt2: Qt.point(0, 0), color: "black", isSelected: false });
+        return createEdge(parent, { pt1: Qt.point(0, 0), pt2: Qt.point(0, 0), isSelected: false });
     }
 
     function edgeData(index) {
         const modelIndex = Scene.edges.index(index, 0);
         return {
             // Laziness...
-            pt1: Scene.edges.data(modelIndex, 0),        // Roles::Pt1
-            pt2: Scene.edges.data(modelIndex, 1),        // Roles::Pt2
-            color: Scene.edges.data(modelIndex, 2),      // Roles::Color
-            isSelected: Scene.edges.data(modelIndex, 3)  // Roles::IsSelected
+            pt1:           Scene.edges.data(modelIndex, 0), // Roles::Pt1
+            pt2:           Scene.edges.data(modelIndex, 1), // Roles::Pt2
+            isSelected:    Scene.edges.data(modelIndex, 2), // Roles::IsSelected
+            edgeType:      Scene.edges.data(modelIndex, 3), // Roles::EdgeType
+            edgeSelection: Scene.edges.data(modelIndex, 4)  // Roles::EdgeSelection
         }
     }
 

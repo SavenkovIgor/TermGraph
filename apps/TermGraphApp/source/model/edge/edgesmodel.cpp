@@ -45,8 +45,9 @@ QHash<int, QByteArray> EdgesModel::roleNames() const
 {
     static QHash<int, QByteArray> roles = {{Roles::Pt1, "pt1"},
                                            {Roles::Pt2, "pt2"},
-                                           {Roles::Color, "color"},
-                                           {Roles::IsSelected, "isSelected"}};
+                                           {Roles::IsSelected, "isSelected"},
+                                           {Roles::EdgeType, "edgeType"},
+                                           {Roles::EdgeSelection, "edgeSelection"}};
 
     return roles;
 }
@@ -64,15 +65,13 @@ QVariant EdgesModel::data(const QModelIndex &index, int role) const
     switch (static_cast<Roles>(role)) {
     case Roles::Pt1: return edge->rootPoint();
     case Roles::Pt2: return edge->leafPoint();
-    case Roles::Color: return edge->color();
     case Roles::IsSelected: return edge->isSelected();
+    case Roles::EdgeType: return static_cast<int>(edge->data().type);
+    case Roles::EdgeSelection: return static_cast<int>(edge->data().selectionType);
     }
 
     Q_UNREACHABLE();
     return QVariant();
 }
 
-void EdgesModel::updateSelection()
-{
-    emit dataChanged(index(0), index(mEdges.size() - 1), {Roles::Color, Roles::IsSelected});
-}
+void EdgesModel::updateSelection() { emit dataChanged(index(0), index(mEdges.size() - 1), {Roles::IsSelected}); }

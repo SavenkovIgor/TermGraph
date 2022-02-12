@@ -45,6 +45,8 @@ void registerUserQmlTypes()
                                                 "Please use TermDataWrapper from backend");
 
     qmlRegisterUncreatableType<NodeType>("Api", 1, 0, "NodeType", "Just enum");
+    qmlRegisterUncreatableType<EdgeType>("Api", 1, 0, "EdgeType", "Just enum");
+    qmlRegisterUncreatableType<EdgeSelection>("Api", 1, 0, "EdgeSelection", "Just enum");
 
     qmlRegisterType<LinksHardeningManager>("Api", 1, 0, "LinksHardeningManager");
 

@@ -30,7 +30,7 @@ enum class CoordType {
     scene      // Scene coordinate system
 };
 
-class NodeType : public QObject
+class NodeType
 {
     Q_GADGET
 
@@ -39,6 +39,19 @@ public:
     Q_ENUM(Type)
 };
 
-enum class EdgeType { standart, termin, terminHardLink, description, broken, redundant };
+class EdgeType
+{
+    Q_GADGET
 
-enum class EdgeSelection { none, forward, backward };
+public:
+    enum class Type { Standart, Termin, TerminHardLink, Description, Broken, Redundant };
+    Q_ENUM(Type)
+};
+
+class EdgeSelection
+{
+    Q_GADGET
+public:
+    enum class Type { None, Forward, Backward };
+    Q_ENUM(Type)
+};

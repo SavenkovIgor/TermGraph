@@ -25,6 +25,6 @@
 
 struct EdgeData
 {
-    EdgeSelection selectionType = EdgeSelection::none;
-    EdgeType      type          = EdgeType::termin;
+    EdgeSelection::Type selectionType = EdgeSelection::Type::None;
+    EdgeType::Type      type          = EdgeType::Type::Termin;
 };

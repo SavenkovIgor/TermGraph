@@ -29,9 +29,21 @@ QtObject {
 
     readonly property color stdTint: "#45000000"
 
-    readonly property color leafNode   : "#83c31b"
-    readonly property color rootNode   : "#dc4c1d"
-    readonly property color orphanNode : "#0b77b1"
+    readonly property QtObject term: QtObject {
+        readonly property color leafNode   : "#83c31b"
+        readonly property color rootNode   : "#dc4c1d"
+        readonly property color orphanNode : "#0b77b1"
+    }
+
+    readonly property QtObject edge: QtObject {
+        readonly property color standard       : "black"
+        readonly property color termin         : "#225b7a"
+        readonly property color terminHardLink : "#a091b5"
+        readonly property color description    : "green"
+        readonly property color selected       : "#00a693"
+        readonly property color selectedAlt    : "#dc4c1d"
+        readonly property color broken         : "red"
+    }
 
     readonly property color black         : "#000000"
     readonly property color white         : "#e8e8e8"

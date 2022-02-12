@@ -30,10 +30,11 @@ PaintedEdge::PaintedEdge(PaintedTerm::Ptr root, PaintedTerm::Ptr leaf)
 
 bool PaintedEdge::isSelected() const
 {
-    return data().selectionType == EdgeSelection::forward || data().selectionType == EdgeSelection::backward;
+    return data().selectionType == EdgeSelection::Type::Forward
+        || data().selectionType == EdgeSelection::Type::Backward;
 }
 
-bool PaintedEdge::isHard() const { return data().type == EdgeType::terminHardLink; }
+bool PaintedEdge::isHard() const { return data().type == EdgeType::Type::TerminHardLink; }
 
 QPointF PaintedEdge::rootPoint()
 {
@@ -47,38 +48,18 @@ QPointF PaintedEdge::leafPoint()
     return paintedTerm->getCenter(CoordType::scene);
 }
 
-QColor PaintedEdge::color() const
-{
-    switch (data().selectionType) {
-    case EdgeSelection::backward: return AppStyle::Colors::Edges::selected;
-    case EdgeSelection::forward: return AppStyle::Colors::Edges::selectedAlt;
-    default: break;
-    }
-
-    switch (data().type) {
-    case EdgeType::standart: return AppStyle::Colors::Edges::standard;
-    case EdgeType::termin: return AppStyle::Colors::Edges::termin;
-    case EdgeType::terminHardLink: return AppStyle::Colors::Edges::terminHardLink;
-    case EdgeType::description: return AppStyle::Colors::Edges::description;
-    case EdgeType::broken: return AppStyle::Colors::Edges::broken;
-    case EdgeType::redundant: return AppStyle::Colors::Edges::standard;
-    }
-
-    return AppStyle::Colors::Edges::standard;
-}
-
-void PaintedEdge::brokeEdge() { data().type = EdgeType::broken; }
+void PaintedEdge::brokeEdge() { data().type = EdgeType::Type::Broken; }
 
 void PaintedEdge::setSelectedForward(bool value)
 {
-    auto resultSelection = value ? EdgeSelection::forward : EdgeSelection::none;
+    auto resultSelection = value ? EdgeSelection::Type::Forward : EdgeSelection::Type::None;
     if (data().selectionType != resultSelection)
         data().selectionType = resultSelection;
 }
 
 void PaintedEdge::setSelectedBackward(bool value)
 {
-    auto resultSelection = value ? EdgeSelection::backward : EdgeSelection::none;
+    auto resultSelection = value ? EdgeSelection::Type::Backward : EdgeSelection::Type::None;
     if (data().selectionType != resultSelection)
         data().selectionType = resultSelection;
 }
