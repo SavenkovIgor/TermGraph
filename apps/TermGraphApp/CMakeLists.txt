@@ -71,9 +71,9 @@ set (QML_IMPORT_PATH
 # C++ libs
 target_link_libraries (TermGraph PRIVATE CommonTools)
 target_link_libraries (TermGraph PRIVATE TermDataInterface)
-target_link_libraries (TermGraph PRIVATE TermDataConnection)
 
 if (NOT WASM)
+    target_link_libraries (TermGraph PRIVATE TermDataConnection)
     target_link_libraries (TermGraph PRIVATE TermDataStorage)
 endif ()
 
