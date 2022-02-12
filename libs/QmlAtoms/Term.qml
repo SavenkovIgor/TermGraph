@@ -35,13 +35,11 @@ Rectangle {
     property real weight: 1
 
     color: {
-        const tint = isSelected ? "transparent" : Colors.stdTint
-
         switch (type) {
-        case NodeType.Orphan:     return Qt.tint(Colors.orphanNode, tint)
-        case NodeType.Root:       return Qt.tint(Colors.rootNode,   tint)
-        case NodeType.EndLeaf:    return Qt.tint(Colors.leafNode,   tint)
-        case NodeType.MiddleLeaf: return Qt.tint(Colors.leafNode,   tint)
+        case NodeType.Orphan:     return Qt.tint(Colors.term.orphanNode, Colors.stdTint)
+        case NodeType.Root:       return Qt.tint(Colors.term.rootNode,   Colors.stdTint)
+        case NodeType.EndLeaf:    return Qt.tint(Colors.term.leafNode,   Colors.stdTint)
+        case NodeType.MiddleLeaf: return Qt.tint(Colors.term.leafNode,   Colors.stdTint)
         }
     }
 
