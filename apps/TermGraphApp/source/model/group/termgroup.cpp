@@ -488,6 +488,9 @@ void TermGroup::selectTerm(const PaintedTerm::Ptr& term, bool selection)
     for (auto forest : mForests)
         if (forest->hasTerm(term))
             forest->selectTerm(term, selection);
+
+    for (auto& orphTerm : getOrphanNodes())
+        orphTerm->setSelection(orphTerm == term);
 }
 
 NodeType::Type TermGroup::termType(const PaintedTerm::Ptr& term) const
