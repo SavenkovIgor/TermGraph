@@ -155,7 +155,8 @@ Control {
             delegate: A.Term {
                 rect: model.rect
                 radius: model.radius
-                color: model.color
+                type: model.type
+                isSelected: model.isSelected
                 weight: model.weight
                 text: model.term
                 z: model.isSelected ? 5 : 2

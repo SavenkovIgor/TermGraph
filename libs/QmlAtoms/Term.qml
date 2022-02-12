@@ -23,12 +23,27 @@ import QtQuick
 
 import StyleInfo
 
+import Api
+
 Rectangle {
     id: root
 
+    property bool isSelected: false
+    property int type: NodeType.MiddleLeaf
     property rect rect: Qt.rect(10, 10, 50, 30)
     property alias text: termLabel.text
     property real weight: 1
+
+    color: {
+        const tint = isSelected ? "transparent" : Colors.stdTint
+
+        switch (type) {
+        case NodeType.Orphan:     return Qt.tint(Colors.orphanNode, tint)
+        case NodeType.Root:       return Qt.tint(Colors.rootNode,   tint)
+        case NodeType.EndLeaf:    return Qt.tint(Colors.leafNode,   tint)
+        case NodeType.MiddleLeaf: return Qt.tint(Colors.leafNode,   tint)
+        }
+    }
 
     x: rect.x
     y: rect.y

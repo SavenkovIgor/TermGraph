@@ -29,6 +29,7 @@
 #include "source/helpers/tagprocessor.h"
 #include "source/managers/linkshardeningmanager.h"
 #include "source/managers/notificationmanager.h"
+#include "source/model/enums.h"
 #include "source/model/group/termgroup.h"
 #include "source/model/term/termdatawrapper.h"
 
@@ -40,8 +41,10 @@ void registerUserQmlTypes()
     qmlRegisterUncreatableType<TermDataWrapper>("Api",
                                                 1,
                                                 0,
-                                                "TermDataWrapper",
+                                                "termDataWrapper",
                                                 "Please use TermDataWrapper from backend");
+
+    qmlRegisterUncreatableType<NodeType>("Api", 1, 0, "NodeType", "Just enum");
 
     qmlRegisterType<LinksHardeningManager>("Api", 1, 0, "LinksHardeningManager");
 

@@ -490,14 +490,14 @@ void TermGroup::selectTerm(const PaintedTerm::Ptr& term, bool selection)
             forest->selectTerm(term, selection);
 }
 
-NodeType TermGroup::termType(const PaintedTerm::Ptr& term) const
+NodeType::Type TermGroup::termType(const PaintedTerm::Ptr& term) const
 {
     for (auto forest : mForests) {
         if (forest->hasTerm(term))
             return forest->nodeType(term);
     }
 
-    return NodeType::orphan;
+    return NodeType::Type::Orphan;
 }
 
 QMap<QString, PaintedTerm::Ptr> TermGroup::getExactTermMatchCache()

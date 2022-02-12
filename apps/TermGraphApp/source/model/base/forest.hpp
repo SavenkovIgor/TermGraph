@@ -71,11 +71,11 @@ public:
         assert(getCycleEdges().empty());
     }
 
-    bool isRoot(const NodePtr& node) const { return nodeType(node) == NodeType::root; }
+    bool isRoot(const NodePtr& node) const { return nodeType(node) == NodeType::Type::Root; }
     bool isLeaf(const NodePtr& node) const
     {
         auto type = nodeType(node);
-        return type == NodeType::endLeaf || type == NodeType::middleLeaf;
+        return type == NodeType::Type::EndLeaf || type == NodeType::Type::MiddleLeaf;
     }
 
     bool     hasBrokenEdges() const { return !mBrokenEdges.empty(); }
@@ -84,7 +84,7 @@ public:
     bool     hasWasteEdges() const { return !mWasteEdges.empty(); }
     EdgeList wasteEdges() const { return mWasteEdges; }
 
-    NodeType nodeType(const NodePtr& node) const
+    NodeType::Type nodeType(const NodePtr& node) const
     {
         assert(Base::contains(node));
 
@@ -93,15 +93,15 @@ public:
 
         if (edgesToRoots.empty()) {
             if (edgesToLeafs.empty()) {
-                return NodeType::orphan; // Both empty
+                return NodeType::Type::Orphan; // Both empty
             } else {
-                return NodeType::root; // No connections down, has connections up
+                return NodeType::Type::Root; // No connections down, has connections up
             }
         } else {
             if (edgesToLeafs.empty()) {
-                return NodeType::endLeaf; // Has connections down, no connections up
+                return NodeType::Type::EndLeaf; // Has connections down, no connections up
             } else {
-                return NodeType::middleLeaf; // Has both connections, up and down
+                return NodeType::Type::MiddleLeaf; // Has both connections, up and down
             }
         }
     }

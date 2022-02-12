@@ -30,7 +30,7 @@ class TermsModel : public QAbstractListModel
 {
     Q_OBJECT
 
-    enum Roles { Rect = 0, Radius, Color, Weight, Term, IsSelected };
+    enum Roles { Rect = 0, Radius, Weight, Term, IsSelected, Type };
 
 public:
     explicit TermsModel(QObject* parent = nullptr);
@@ -44,9 +44,6 @@ public:
     QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const override;
 
     void updateSelection();
-
-private: // Methods
-    QColor nodeColor(NodeType type, bool selected) const;
 
 private: // Members
     TermGroup::OptPtr mGroup = std::nullopt;

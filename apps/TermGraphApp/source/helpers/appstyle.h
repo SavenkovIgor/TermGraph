@@ -29,18 +29,6 @@ public:
     class Colors
     {
     public:
-        class Nodes
-        {
-        public:
-            inline static auto leaf   = QColor(109, 154, 40);
-            inline static auto root   = QColor(128, 41, 21);
-            inline static auto orphan = QColor(18, 75, 106);
-
-            inline static auto leafSelected   = QColor(131, 195, 27);
-            inline static auto rootSelected   = QColor(220, 76, 29);
-            inline static auto orphanSelected = QColor(11, 119, 177);
-        };
-
         class Edges
         {
         public:

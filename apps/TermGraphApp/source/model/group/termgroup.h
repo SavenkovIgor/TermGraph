@@ -69,7 +69,7 @@ public:
 
     void selectTerm(const PaintedTerm::Ptr& term, bool selection);
 
-    NodeType termType(const PaintedTerm::Ptr& term) const;
+    NodeType::Type termType(const PaintedTerm::Ptr& term) const;
 
 private:
     // Base init

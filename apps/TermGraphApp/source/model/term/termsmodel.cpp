@@ -47,10 +47,10 @@ QHash<int, QByteArray> TermsModel::roleNames() const
 {
     static QHash<int, QByteArray> roles = {{Roles::Rect, "rect"},
                                            {Roles::Radius, "radius"},
-                                           {Roles::Color, "color"},
                                            {Roles::Weight, "weight"},
                                            {Roles::Term, "term"},
-                                           {Roles::IsSelected, "isSelected"}};
+                                           {Roles::IsSelected, "isSelected"},
+                                           {Roles::Type, "type"}};
 
     return roles;
 }
@@ -68,30 +68,14 @@ QVariant TermsModel::data(const QModelIndex &index, int role) const
     switch (static_cast<Roles>(role)) {
     case Roles::Rect: return term->rect();
     case Roles::Radius: return term->cornerRadius();
-    case Roles::Color: return nodeColor(mGroup.value()->termType(term), term->isSelectedAnyway());
     case Roles::Weight: return 0.1;
     case Roles::Term: return term->decoratedTerm();
     case Roles::IsSelected: return term->isSelectedAnyway();
+    case Roles::Type: return static_cast<int>(mGroup.value()->termType(term));
     }
 
     Q_UNREACHABLE();
     return QVariant();
 }
 
-void TermsModel::updateSelection()
-{
-    emit dataChanged(index(0), index(mTerms.size() - 1), {Roles::Color, Roles::IsSelected});
-}
-
-QColor TermsModel::nodeColor(NodeType type, bool selected) const
-{
-    switch (type) {
-    case NodeType::orphan: return selected ? AppStyle::Colors::Nodes::orphanSelected : AppStyle::Colors::Nodes::orphan;
-    case NodeType::root: return selected ? AppStyle::Colors::Nodes::rootSelected : AppStyle::Colors::Nodes::root;
-    case NodeType::endLeaf: return selected ? AppStyle::Colors::Nodes::leafSelected : AppStyle::Colors::Nodes::leaf;
-    case NodeType::middleLeaf: return selected ? AppStyle::Colors::Nodes::leafSelected : AppStyle::Colors::Nodes::leaf;
-    }
-
-    assert(false); // must be unreachable
-    return AppStyle::Colors::Nodes::orphan;
-}
+void TermsModel::updateSelection() { emit dataChanged(index(0), index(mTerms.size() - 1), {Roles::IsSelected}); }

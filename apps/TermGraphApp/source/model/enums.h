@@ -21,6 +21,8 @@
 
 #pragma once
 
+#include <QObject>
+
 // For coordinate types
 enum class CoordType {
     zeroPoint, // Rect located in zero point
@@ -28,7 +30,14 @@ enum class CoordType {
     scene      // Scene coordinate system
 };
 
-enum class NodeType { orphan, root, endLeaf, middleLeaf };
+class NodeType : public QObject
+{
+    Q_GADGET
+
+public:
+    enum class Type { Orphan, Root, EndLeaf, MiddleLeaf };
+    Q_ENUM(Type)
+};
 
 enum class EdgeType { standart, termin, terminHardLink, description, broken, redundant };
 

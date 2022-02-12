@@ -27,6 +27,12 @@ import QtQuick
 QtObject {
     id: root
 
+    readonly property color stdTint: "#45000000"
+
+    readonly property color leafNode   : "#83c31b"
+    readonly property color rootNode   : "#dc4c1d"
+    readonly property color orphanNode : "#0b77b1"
+
     readonly property color black         : "#000000"
     readonly property color white         : "#e8e8e8"
     readonly property color whiteDisabled : "#9c9c9c"
