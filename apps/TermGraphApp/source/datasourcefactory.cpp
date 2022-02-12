@@ -34,11 +34,11 @@
 
 std::unique_ptr<DataStorageInterface> DataSourceFactory::defaultSource()
 {
-    if constexpr (Platform::isWasm()) {
+    if (Platform::isWasm()) {
         return wasm();
     }
 
-    if constexpr (Platform::isDesktop() || Platform::isMobile()) {
+    if (Platform::isDesktop() || Platform::isMobile()) {
         return localDb();
     }
 }

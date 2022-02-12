@@ -63,4 +63,6 @@ public:
                                            bool            checkLastEdit = true)
         = 0;
     virtual FutureRes<TermData> deleteTerm(const TermUuid& uuid) = 0;
+
+    virtual ~DataStorageInterface() = default;
 };

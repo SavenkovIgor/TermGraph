@@ -33,7 +33,7 @@ void StdPaths::createDefaultFoldersIfNeed()
 {
     QStringList necessaryDirs;
 
-    if constexpr (Platform::isDesktop()) {
+    if (Platform::isDesktop()) {
         necessaryDirs << userAppConfigFolder();
         necessaryDirs << groupsJsonFolder();
         necessaryDirs << backupFolder();
@@ -51,11 +51,11 @@ QString StdPaths::defaultDatabaseFilePath()
 {
     QString dbFilePath;
 
-    if constexpr (Platform::isDesktop()) {
+    if (Platform::isDesktop()) {
         dbFilePath = userAppConfigFolder() + "/tg.termGraph";
     }
 
-    if constexpr (Platform::isAndroid()) {
+    if (Platform::isAndroid()) {
         dbFilePath = "tg.termGraph";
     }
 
