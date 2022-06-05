@@ -7,7 +7,7 @@ class TermGraphConan(ConanFile):
     generators = 'CMakeToolchain', 'CMakeDeps'
     settings = 'os', 'arch', 'compiler', 'build_type'
 
-    requires = 'outcome/2.2.1'
+    requires = 'outcome/2.2.3'
 
     options = {'with_qt':           [True, False],
                'build_application': [True, False],
