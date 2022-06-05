@@ -50,6 +50,15 @@ Q_IMPORT_QML_PLUGIN(AtomsPlugin);
 Q_IMPORT_QML_PLUGIN(MoleculesPlugin);
 Q_IMPORT_QML_PLUGIN(PagesPlugin);
 
+void initResources()
+{
+#ifndef Q_OS_WASM
+    Q_INIT_RESOURCE(SqlQueries);
+#endif
+    Q_INIT_RESOURCE(HelpImages);
+    Q_INIT_RESOURCE(Icons);
+}
+
 void setSurfaceFormat()
 {
     // This is need for good aliasing of term edges on qml scene
@@ -63,9 +72,7 @@ int main(int argc, char* argv[])
 {
     QGuiApplication a(argc, argv);
 
-    Q_INIT_RESOURCE(SqlQueries);
-    Q_INIT_RESOURCE(HelpImages);
-    Q_INIT_RESOURCE(Icons);
+    initResources();
 
     QQuickStyle::setStyle("Material"); // Important thing for styles!
 
