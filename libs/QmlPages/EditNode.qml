@@ -54,7 +54,7 @@ M.Page {
     M.StdDialog {
         id: nodeDelDialog
 
-        title: "Вы уверены, что хотите удалить этот термин?"
+        title: "Удалить этот термин?"
 
         onAccepted: {
             root.StackView.view.pop();

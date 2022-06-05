@@ -175,7 +175,7 @@ M.Page {
     M.StdDialog {
         id: groupDeleteDialog
 
-        title:  "Вы уверены, что хотите удалить эту группу?"
+        title: "Удалить этот термин?"
 
         onAccepted: GroupsManager.deleteGroup(groupsList.currentItem.groupUuid)
     }
