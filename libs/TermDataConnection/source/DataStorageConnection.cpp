@@ -28,46 +28,16 @@
 #include <QDebug>
 
 template<typename T>
-void dataToPromise(QSharedPointer<QPromise<Result<T>>>           promise,
-                   QNetworkReply*                                reply,
+Result<T> toResult(QNetworkReply*                                reply,
                    std::function<Opt<T>(const QByteArray& data)> parseFunc)
 {
-    if (reply->error() == QNetworkReply::NoError) {
-        if (auto obj = parseFunc(reply->readAll())) {
-            promise->addResult(*obj);
-        } else {
-            promise->addResult(DbErrorCodes::JsonParseError);
-        }
-    } else {
-        auto err = reply->error();
+    if (reply->error() != QNetworkReply::NoError)
+        return DbErrorCodes::ConnectionError;
 
-        if (err == QNetworkReply::ConnectionRefusedError || err == QNetworkReply::HostNotFoundError
-            || err == QNetworkReply::TimeoutError || err == QNetworkReply::ProtocolInvalidOperationError)
-            promise->addResult(DbErrorCodes::ConnectionError);
+    if (auto obj = parseFunc(reply->readAll()))
+        return *obj;
 
-        std::string errString = reply->readAll().toStdString();
-        auto        dbError   = createDbError(errString);
-
-        qDebug() << QString::fromStdString(errString);
-        promise->addResult(dbError);
-    }
-}
-
-template<typename T>
-void dataToPromise(QSharedPointer<QPromise<Result<T>>>              promise,
-                   QNetworkReply*                                   reply,
-                   std::function<Result<T>(const QByteArray& data)> parseFunc)
-{
-    if (reply->error() == QNetworkReply::NoError) {
-        if (auto result = parseFunc(reply->readAll())) {
-            promise->addResult(result.value());
-        } else {
-            promise->addResult(result.error());
-        }
-    } else {
-        promise->addResult(DbErrorCodes::ConnectionError);
-    }
-    assert(promise->future().isValid());
+    return DbErrorCodes::JsonParseError;
 }
 
 DataStorageConnection::DataStorageConnection(QHostAddress address, quint16 port)
@@ -103,7 +73,7 @@ FutureRes<GroupUuid::List> DataStorageConnection::getAllGroupsUuids(bool sortByL
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            dataToPromise<GroupUuid::List>(promise, reply, [](auto data) { return GroupUuid::List::create(data); });
+            promise->addResult(toResult<GroupUuid::List>(reply, [] (auto data) { return  GroupUuid::List::create(data); }));
             promise->finish();
         });
     });
@@ -123,7 +93,7 @@ FutureRes<GroupData> DataStorageConnection::getGroup(const GroupUuid& uuid) cons
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            dataToPromise<GroupData>(promise, reply, [](auto data) { return GroupData::create(data); });
+            promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
             promise->finish();
         });
     });
@@ -142,7 +112,7 @@ FutureRes<GroupData::List> DataStorageConnection::getGroups() const
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            dataToPromise<GroupData::List>(promise, reply, [](auto data) { return GroupData::List::create(data); });
+            promise->addResult(toResult<GroupData::List>(reply, [](auto data) { return GroupData::List::create(data); }));
             promise->finish();
         });
     });
@@ -161,7 +131,7 @@ FutureRes<GroupData> DataStorageConnection::addGroup(const GroupData& info)
         auto* reply = netThread.manager->post(QNetworkRequest(url), static_cast<QByteArray>(info));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            dataToPromise<GroupData>(promise, reply, [](auto data) { return GroupData::create(data); });
+            promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
             promise->finish();
         });
     });
@@ -181,7 +151,7 @@ FutureRes<GroupData> DataStorageConnection::updateGroup(const GroupData& info)
         auto* reply = netThread.manager->put(QNetworkRequest(url), static_cast<QByteArray>(info));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            dataToPromise<GroupData>(promise, reply, [](auto data) { return GroupData::create(data); });
+            promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
             promise->finish();
         });
     });
@@ -201,7 +171,7 @@ FutureRes<GroupData> DataStorageConnection::deleteGroup(const GroupUuid& uuid)
         auto* reply = netThread.manager->deleteResource(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            dataToPromise<GroupData>(promise, reply, [](auto data) { return GroupData::create(data); });
+            promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
             promise->finish();
         });
     });
@@ -221,9 +191,9 @@ FutureRes<TermData> DataStorageConnection::getTerm(const TermUuid& uuid) const
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            dataToPromise<TermData>(promise, reply, [](auto data) {
+            promise->addResult(toResult<TermData>(reply, [](auto data) {
                 return TermData::create(data, TermData::JsonCheckMode::Import);
-            });
+            }));
             promise->finish();
         });
     });
@@ -243,9 +213,9 @@ FutureRes<TermData> DataStorageConnection::getTerm(const QString& nodeName, cons
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            dataToPromise<TermData>(promise, reply, [](auto data) {
+            promise->addResult(toResult<TermData>(reply, [](auto data) {
                 return TermData::create(data, TermData::JsonCheckMode::Import);
-            });
+            }));
             promise->finish();
         });
     });
@@ -265,7 +235,7 @@ FutureRes<TermData::List> DataStorageConnection::getTerms(const GroupUuid& uuid)
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            dataToPromise<TermData::List>(promise, reply, [](auto data) { return TermData::List::create(data); });
+            promise->addResult(toResult<TermData::List>(reply, [](auto data) { return TermData::List::create(data); }));
             promise->finish();
         });
     });
@@ -284,9 +254,9 @@ FutureRes<TermData> DataStorageConnection::addTerm(const TermData& info)
         auto* reply = netThread.manager->post(QNetworkRequest(url), static_cast<QByteArray>(info));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            dataToPromise<TermData>(promise, reply, [](auto data) {
+            promise->addResult(toResult<TermData>(reply, [](auto data) {
                 return TermData::create(data, TermData::JsonCheckMode::Import);
-            });
+            }));
             promise->finish();
         });
     });
@@ -308,9 +278,9 @@ FutureRes<TermData> DataStorageConnection::updateTerm(const TermData&           
         auto* reply = netThread.manager->put(QNetworkRequest(url), static_cast<QByteArray>(info));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            dataToPromise<TermData>(promise, reply, [](auto data) {
+            promise->addResult(toResult<TermData>(reply, [](auto data) {
                 return TermData::create(data, TermData::JsonCheckMode::Import);
-            });
+            }));
             promise->finish();
         });
     });
@@ -330,9 +300,9 @@ FutureRes<TermData> DataStorageConnection::deleteTerm(const TermUuid& uuid)
         auto* reply = netThread.manager->deleteResource(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            dataToPromise<TermData>(promise, reply, [](auto data) {
+            promise->addResult(toResult<TermData>(reply, [](auto data) {
                 return TermData::create(data, TermData::JsonCheckMode::Import);
-            });
+            }));
             promise->finish();
         });
     });
