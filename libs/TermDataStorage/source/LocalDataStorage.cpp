@@ -25,6 +25,16 @@
 
 #include "source/Database.h"
 
+template<typename T>
+static QFuture<T> toQFuture(const std::function<T()>& func)
+{
+    QPromise<T> promise;
+    promise.start();
+    promise.addResult(func());
+    promise.finish();
+    return promise.future();
+}
+
 class StorageImpl
 {
 public:
@@ -46,7 +56,7 @@ FutureRes<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids(bool sortByLa
 {
     // Simple variant
     if (!sortByLastEdit) {
-        return toPromise<Result<GroupUuid::List>>([this] { return impl->db.groupTable->allUuids(); });
+        return toQFuture<Result<GroupUuid::List>>([this] { return impl->db.groupTable->allUuids(); });
     }
 
     // Load info from groups table - need if any group is empty and has no lastEdit value
@@ -88,61 +98,61 @@ FutureRes<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids(bool sortByLa
         if (auto gUuid = GroupUuid::create(group.first))
             ret.push_back(*gUuid);
 
-    return toPromise<Result<GroupUuid::List>>([&ret] { return ret; });
+    return toQFuture<Result<GroupUuid::List>>([&ret] { return ret; });
 }
 
 FutureRes<GroupData> LocalDatabaseStorage::getGroup(const GroupUuid& uuid) const
 {
-    return toPromise<Result<GroupData>>([this, &uuid] { return impl->db.groupTable->group(uuid); });
+    return toQFuture<Result<GroupData>>([this, &uuid] { return impl->db.groupTable->group(uuid); });
 }
 
 FutureRes<GroupData::List> LocalDatabaseStorage::getGroups() const
 {
-    return toPromise<Result<GroupData::List>>([this] { return impl->db.groupTable->allGroups(); });
+    return toQFuture<Result<GroupData::List>>([this] { return impl->db.groupTable->allGroups(); });
 }
 
 FutureRes<GroupData> LocalDatabaseStorage::addGroup(const GroupData& info)
 {
-    return toPromise<Result<GroupData>>([this, info] { return impl->db.groupTable->addGroup(info); });
+    return toQFuture<Result<GroupData>>([this, info] { return impl->db.groupTable->addGroup(info); });
 }
 
 FutureRes<GroupData> LocalDatabaseStorage::updateGroup(const GroupData& info)
 {
-    return toPromise<Result<GroupData>>([this, info] { return impl->db.groupTable->updateGroup(info); });
+    return toQFuture<Result<GroupData>>([this, info] { return impl->db.groupTable->updateGroup(info); });
 }
 
 FutureRes<GroupData> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid)
 {
-    return toPromise<Result<GroupData>>([this, uuid] { return impl->db.groupTable->deleteGroup(uuid); });
+    return toQFuture<Result<GroupData>>([this, uuid] { return impl->db.groupTable->deleteGroup(uuid); });
 }
 
 FutureRes<TermData> LocalDatabaseStorage::getTerm(const QString& nodeName, const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->exist(uuid))
-        return toPromise<Result<TermData>>([] { return DbErrorCodes::GroupUuidNotFound; });
+        return toQFuture<Result<TermData>>([] { return DbErrorCodes::GroupUuidNotFound; });
 
-    return toPromise<Result<TermData>>([this, nodeName, uuid] { return impl->db.termTable->term(nodeName, uuid); });
+    return toQFuture<Result<TermData>>([this, nodeName, uuid] { return impl->db.termTable->term(nodeName, uuid); });
 }
 
 FutureRes<TermData> LocalDatabaseStorage::getTerm(const TermUuid& uuid) const
 {
-    return toPromise<Result<TermData>>([this, uuid] { return impl->db.termTable->term(uuid); });
+    return toQFuture<Result<TermData>>([this, uuid] { return impl->db.termTable->term(uuid); });
 }
 
 FutureRes<TermData::List> LocalDatabaseStorage::getTerms(const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->exist(uuid))
-        return toPromise<Result<TermData::List>>([] { return DbErrorCodes::GroupUuidNotFound; });
+        return toQFuture<Result<TermData::List>>([] { return DbErrorCodes::GroupUuidNotFound; });
 
-    return toPromise<Result<TermData::List>>([this, uuid] { return impl->db.termTable->allTerms(uuid); });
+    return toQFuture<Result<TermData::List>>([this, uuid] { return impl->db.termTable->allTerms(uuid); });
 }
 
 FutureRes<TermData> LocalDatabaseStorage::addTerm(const TermData& info)
 {
     if (!impl->db.groupTable->exist(info.groupUuid))
-        return toPromise<Result<TermData>>([] { return DbErrorCodes::GroupUuidNotFound; });
+        return toQFuture<Result<TermData>>([] { return DbErrorCodes::GroupUuidNotFound; });
 
-    return toPromise<Result<TermData>>([this, info] { return impl->db.termTable->addTerm(info); });
+    return toQFuture<Result<TermData>>([this, info] { return impl->db.termTable->addTerm(info); });
 }
 
 FutureRes<TermData> LocalDatabaseStorage::updateTerm(const TermData&                      info,
@@ -150,14 +160,14 @@ FutureRes<TermData> LocalDatabaseStorage::updateTerm(const TermData&            
                                                      bool                                 checkLastEdit)
 {
     if (!impl->db.groupTable->exist(info.groupUuid))
-        return toPromise<Result<TermData>>([] { return DbErrorCodes::GroupUuidNotFound; });
+        return toQFuture<Result<TermData>>([] { return DbErrorCodes::GroupUuidNotFound; });
 
-    return toPromise<Result<TermData>>([this, info, lastEditSource, checkLastEdit] {
+    return toQFuture<Result<TermData>>([this, info, lastEditSource, checkLastEdit] {
         return impl->db.termTable->updateTerm(info, lastEditSource, checkLastEdit);
     });
 }
 
 FutureRes<TermData> LocalDatabaseStorage::deleteTerm(const TermUuid& uuid)
 {
-    return toPromise<Result<TermData>>([this, uuid] { return impl->db.termTable->deleteTerm(uuid); });
+    return toQFuture<Result<TermData>>([this, uuid] { return impl->db.termTable->deleteTerm(uuid); });
 }

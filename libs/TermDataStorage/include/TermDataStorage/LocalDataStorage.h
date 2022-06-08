@@ -58,14 +58,4 @@ public:
 
 private:
     StorageImpl* impl = nullptr;
-
-    template<typename T>
-    static QFuture<T> toPromise(const std::function<T()>& func)
-    {
-        QPromise<T> promise;
-        promise.start();
-        promise.addResult(func());
-        promise.finish();
-        return promise.future();
-    }
 };
