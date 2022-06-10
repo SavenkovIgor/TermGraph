@@ -43,26 +43,26 @@ public:
     virtual int storageVersion() const = 0;
 
     // Groups
-    virtual FutureRes<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const = 0;
+    virtual FutureResult<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const = 0;
 
-    virtual FutureRes<GroupData>       getGroup(const GroupUuid& uuid) const   = 0;
-    virtual FutureRes<GroupData::List> getGroups() const                       = 0;
+    virtual FutureResult<GroupData>       getGroup(const GroupUuid& uuid) const   = 0;
+    virtual FutureResult<GroupData::List> getGroups() const                       = 0;
 
-    virtual FutureRes<GroupData> addGroup(const GroupData& info)    = 0;
-    virtual FutureRes<GroupData> updateGroup(const GroupData& info) = 0;
-    virtual FutureRes<GroupData> deleteGroup(const GroupUuid& uuid) = 0;
+    virtual FutureResult<GroupData> addGroup(const GroupData& info)    = 0;
+    virtual FutureResult<GroupData> updateGroup(const GroupData& info) = 0;
+    virtual FutureResult<GroupData> deleteGroup(const GroupUuid& uuid) = 0;
 
     // Terms
-    virtual FutureRes<TermData>       getTerm(const TermUuid& uuid) const                            = 0;
-    virtual FutureRes<TermData>       getTerm(const QString& termName, const GroupUuid& uuid) const  = 0;
-    virtual FutureRes<TermData::List> getTerms(const GroupUuid& uuid) const                          = 0;
+    virtual FutureResult<TermData>       getTerm(const TermUuid& uuid) const                            = 0;
+    virtual FutureResult<TermData>       getTerm(const QString& termName, const GroupUuid& uuid) const  = 0;
+    virtual FutureResult<TermData::List> getTerms(const GroupUuid& uuid) const                          = 0;
 
-    virtual FutureRes<TermData> addTerm(const TermData& data) = 0;
-    virtual FutureRes<TermData> updateTerm(const TermData& data,
+    virtual FutureResult<TermData> addTerm(const TermData& data) = 0;
+    virtual FutureResult<TermData> updateTerm(const TermData& data,
                                            LastEditSource  lastEditSource,
                                            bool            checkLastEdit = true)
         = 0;
-    virtual FutureRes<TermData> deleteTerm(const TermUuid& uuid) = 0;
+    virtual FutureResult<TermData> deleteTerm(const TermUuid& uuid) = 0;
 
     virtual ~DataStorageInterface() = default;
 };

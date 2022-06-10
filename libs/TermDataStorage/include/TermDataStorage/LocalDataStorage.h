@@ -39,22 +39,22 @@ public:
 public:
     int storageVersion() const final;
 
-    FutureRes<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const final;
+    FutureResult<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const final;
 
-    FutureRes<GroupData>       getGroup(const GroupUuid& uuid) const final;
-    FutureRes<GroupData::List> getGroups() const final;
+    FutureResult<GroupData>       getGroup(const GroupUuid& uuid) const final;
+    FutureResult<GroupData::List> getGroups() const final;
 
-    FutureRes<GroupData> addGroup(const GroupData& info) final;
-    FutureRes<GroupData> updateGroup(const GroupData& info) final;
-    FutureRes<GroupData> deleteGroup(const GroupUuid& uuid) final;
+    FutureResult<GroupData> addGroup(const GroupData& info) final;
+    FutureResult<GroupData> updateGroup(const GroupData& info) final;
+    FutureResult<GroupData> deleteGroup(const GroupUuid& uuid) final;
 
-    FutureRes<TermData>       getTerm(const TermUuid& uuid) const final;
-    FutureRes<TermData>       getTerm(const QString& termName, const GroupUuid& uuid) const final;
-    FutureRes<TermData::List> getTerms(const GroupUuid& uuid) const final;
+    FutureResult<TermData>       getTerm(const TermUuid& uuid) const final;
+    FutureResult<TermData>       getTerm(const QString& termName, const GroupUuid& uuid) const final;
+    FutureResult<TermData::List> getTerms(const GroupUuid& uuid) const final;
 
-    FutureRes<TermData> addTerm(const TermData& info) final;
-    FutureRes<TermData> updateTerm(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) final;
-    FutureRes<TermData> deleteTerm(const TermUuid& uuid) final;
+    FutureResult<TermData> addTerm(const TermData& info) final;
+    FutureResult<TermData> updateTerm(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) final;
+    FutureResult<TermData> deleteTerm(const TermUuid& uuid) final;
 
 private:
     StorageImpl* impl = nullptr;

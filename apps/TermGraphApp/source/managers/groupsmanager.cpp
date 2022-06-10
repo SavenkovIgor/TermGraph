@@ -48,7 +48,7 @@ QString GroupsManager::getLastEditString(QUuid groupUuid) { return getLastEdit(g
 int GroupsManager::getNodesCount(QUuid groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid))
-        return dataSource->getTerms(*uuid).value().size();
+        return dataSource->getTerms(*uuid).get().value().size();
 
     Q_UNREACHABLE();
     return 0;
@@ -66,7 +66,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
     info.name    = name;
     info.comment = comment;
 
-    if (dataSource->addGroup(info)) {
+    if (dataSource->addGroup(info).get()) {
         updateGroupUuidNameMaps();
         emit groupAdded();
     } else {
@@ -77,7 +77,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 void GroupsManager::deleteGroup(const QString& groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid)) {
-        if (auto delResult = dataSource->deleteGroup(*uuid)) {
+        if (auto delResult = dataSource->deleteGroup(*uuid).get()) {
             updateGroupUuidNameMaps();
             emit groupDeleted();
             return;
@@ -105,8 +105,8 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
 TermGroup::OptPtr GroupsManager::createGroup(const QUuid groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid)) {
-        auto groupData = dataSource->getGroup(*uuid);
-        auto termsData = dataSource->getTerms(*uuid);
+        auto groupData = dataSource->getGroup(*uuid).get();
+        auto termsData = dataSource->getTerms(*uuid).get();
 
         if (groupData.has_error() || termsData.has_error())
             return std::nullopt;
@@ -129,7 +129,7 @@ bool GroupsManager::isEmptyGroup(const QString& groupUuid)
 
 bool GroupsManager::getHasAnyGroup() const
 {
-    auto groupsRes = dataSource->getAllGroupsUuids();
+    auto groupsRes = dataSource->getAllGroupsUuids().get();
     return groupsRes.has_value() ? (!groupsRes.value().empty()) : false;
 }
 
@@ -139,7 +139,7 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
     auto uuid = GroupUuid::create(groupUuid).value();
 
     QDateTime lastEdit;
-    auto      terms = dataSource->getTerms(uuid).value();
+    auto      terms = dataSource->getTerms(uuid).get().value();
     for (auto& term : terms) {
         QDateTime currNodeLastEdit = term.lastEdit;
         if (lastEdit.isNull()) {
@@ -153,7 +153,7 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 
 UuidList GroupsManager::getAllUuidsSortedByLastEdit()
 {
-    if (auto groupsUuids = dataSource->getAllGroupsUuids(true)) {
+    if (auto groupsUuids = dataSource->getAllGroupsUuids(true).get()) {
         UuidList ret;
         for (const auto& uuid : groupsUuids.value())
             ret.push_back(uuid);
@@ -186,12 +186,12 @@ void GroupsManager::importGroup(const QJsonDocument& json)
         return;
 
     // Searching for existed group
-    if (dataSource->getGroup(*groupData->uuid).has_value()) { // Group found
-        if (!dataSource->updateGroup(*groupData)) {
+    if (dataSource->getGroup(*groupData->uuid).get().has_value()) { // Group found
+        if (!dataSource->updateGroup(*groupData).get()) {
             return;
         }
     } else {
-        if (!dataSource->addGroup(*groupData)) {
+        if (!dataSource->addGroup(*groupData).get()) {
             return;
         }
     }
@@ -211,12 +211,12 @@ void GroupsManager::importGroup(const QJsonDocument& json)
 void GroupsManager::importTerm(const QJsonObject& nodeJson)
 {
     if (auto data = TermData::create(nodeJson, TermData::JsonCheckMode::Import)) {
-        auto addResult = dataSource->addTerm(*data);
+        auto addResult = dataSource->addTerm(*data).get();
         if (!addResult) {
             // If can't add, try to update exist term
             if (addResult.error() == DbErrorCodes::TermUuidAlreadyExist) {
                 auto updateResult = dataSource->updateTerm(*data,
-                                                           DataStorageInterface::LastEditSource::TakeFromTermData);
+                                                           DataStorageInterface::LastEditSource::TakeFromTermData).get();
                 if (!updateResult) {
                     qWarning() << QString::fromStdString(updateResult.error().message());
                 }
@@ -238,7 +238,7 @@ bool GroupsManager::addNode(QJsonObject object)
 
     assert(!data->isNull());
 
-    if (auto addResult = dataSource->addTerm(*data)) {
+    if (auto addResult = dataSource->addTerm(*data).get()) {
         emit nodeChanged();
         return true;
     } else {
@@ -271,7 +271,7 @@ bool GroupsManager::updateNode(const QJsonObject& object)
 
     // Check for already existing node with same name
     auto alterNode = dataSource->getTerm((*data).term, (*data).groupUuid);
-    if (alterNode.has_value() && alterNode.value().uuid != (*data).uuid) {
+    if (alterNode.get().has_value() && alterNode.get().value().uuid != (*data).uuid) {
         notifier.showWarning("Термин с таким названием уже существует в этой группе");
         return false;
     }
@@ -285,7 +285,7 @@ bool GroupsManager::updateNode(const QJsonObject& object)
 void GroupsManager::deleteNode(const QUuid uuid)
 {
     if (auto tUuid = TermUuid::create(uuid)) {
-        dataSource->deleteTerm(*tUuid);
+        auto _ = dataSource->deleteTerm(*tUuid).get();
         emit nodeChanged();
     }
 }
@@ -309,7 +309,7 @@ void GroupsManager::saveGroupInFolder(TermGroup::OptPtr group)
     }
 }
 
-bool GroupsManager::groupExist(const GroupUuid& uuid) { return dataSource->getGroup(uuid).has_value(); }
+bool GroupsManager::groupExist(const GroupUuid& uuid) { return dataSource->getGroup(uuid).get().has_value(); }
 
 bool GroupsManager::termExist(const QString& term, QUuid& groupUuid)
 {
@@ -317,7 +317,7 @@ bool GroupsManager::termExist(const QString& term, QUuid& groupUuid)
     assert(!groupUuid.isNull());
     auto uuid = GroupUuid::create(groupUuid).value();
 
-    return dataSource->getTerm(term, uuid).has_value();
+    return dataSource->getTerm(term, uuid).get().has_value();
 }
 
 QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
@@ -325,11 +325,11 @@ QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
     assert(!groupUuid.isNull());
     auto uuid = GroupUuid::create(groupUuid).value();
 
-    QJsonObject groupJson = dataSource->getGroup(uuid).value();
+    QJsonObject groupJson = dataSource->getGroup(uuid).get().value();
 
     QJsonArray termArray;
 
-    auto terms = dataSource->getTerms(uuid).value();
+    auto terms = dataSource->getTerms(uuid).get().value();
 
     for (const auto& term : terms)
         termArray.append(static_cast<QJsonObject>(term));
@@ -343,7 +343,7 @@ void GroupsManager::updateGroupUuidNameMaps()
 {
     uuidToNames.clear();
 
-    if (auto groups = dataSource->getGroups()) {
+    if (auto groups = dataSource->getGroups().get()) {
         for (const auto& groupInfo : groups.value()) {
             uuidToNames.insert(*groupInfo.uuid, groupInfo.name);
         }

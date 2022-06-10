@@ -61,10 +61,9 @@ int DataStorageConnection::storageVersion() const
     return -1;
 }
 
-FutureRes<GroupUuid::List> DataStorageConnection::getAllGroupsUuids(bool sortByLastEdit) const
+FutureResult<GroupUuid::List> DataStorageConnection::getAllGroupsUuids(bool sortByLastEdit) const
 {
-    SharedPromise<GroupUuid::List> promise(new Promise<GroupUuid::List>);
-    promise->start();
+    SSharedPromise<GroupUuid::List> promise(new SPromise<GroupUuid::List>);
 
     QUrl url = groupUrl;
     url.setQuery("type=uuid_only");
@@ -73,38 +72,34 @@ FutureRes<GroupUuid::List> DataStorageConnection::getAllGroupsUuids(bool sortByL
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            promise->addResult(toResult<GroupUuid::List>(reply, [] (auto data) { return  GroupUuid::List::create(data); }));
-            promise->finish();
+            promise->set_value(toResult<GroupUuid::List>(reply, [] (auto data) { return  GroupUuid::List::create(data); }));
         });
     });
 
-    return promise->future();
+    return promise->get_future();
 }
 
-FutureRes<GroupData> DataStorageConnection::getGroup(const GroupUuid& uuid) const
+FutureResult<GroupData> DataStorageConnection::getGroup(const GroupUuid& uuid) const
 {
-    SharedPromise<GroupData> promise(new Promise<GroupData>);
-    promise->start();
+    SSharedPromise<GroupData> promise(new SPromise<GroupData>);
 
     QUrl url = groupUrl;
-    url.setPath(QString("%1/%2").arg(url.path()).arg(uuid.toString()));
+    url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     invokeOnNetThread([this, promise, url]() {
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
-            promise->finish();
+            promise->set_value(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
         });
     });
 
-    return promise->future();
+    return promise->get_future();
 }
 
-FutureRes<GroupData::List> DataStorageConnection::getGroups() const
+FutureResult<GroupData::List> DataStorageConnection::getGroups() const
 {
-    SharedPromise<GroupData::List> promise(new Promise<GroupData::List>);
-    promise->start();
+    SSharedPromise<GroupData::List> promise(new SPromise<GroupData::List>);
 
     QUrl url = groupUrl;
 
@@ -112,18 +107,16 @@ FutureRes<GroupData::List> DataStorageConnection::getGroups() const
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            promise->addResult(toResult<GroupData::List>(reply, [](auto data) { return GroupData::List::create(data); }));
-            promise->finish();
+            promise->set_value(toResult<GroupData::List>(reply, [](auto data) { return GroupData::List::create(data); }));
         });
     });
 
-    return promise->future();
+    return promise->get_future();
 }
 
-FutureRes<GroupData> DataStorageConnection::addGroup(const GroupData& info)
+FutureResult<GroupData> DataStorageConnection::addGroup(const GroupData& info)
 {
-    SharedPromise<GroupData> promise(new Promise<GroupData>);
-    promise->start();
+    SSharedPromise<GroupData> promise(new SPromise<GroupData>);
 
     QUrl url = groupUrl;
 
@@ -131,102 +124,92 @@ FutureRes<GroupData> DataStorageConnection::addGroup(const GroupData& info)
         auto* reply = netThread.manager->post(QNetworkRequest(url), static_cast<QByteArray>(info));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
-            promise->finish();
+            promise->set_value(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
         });
     });
 
-    return promise->future();
+    return promise->get_future();
 }
 
-FutureRes<GroupData> DataStorageConnection::updateGroup(const GroupData& info)
+FutureResult<GroupData> DataStorageConnection::updateGroup(const GroupData& info)
 {
-    SharedPromise<GroupData> promise(new Promise<GroupData>);
-    promise->start();
+    SSharedPromise<GroupData> promise(new SPromise<GroupData>);
 
     QUrl url = groupUrl;
-    url.setPath(QString("%1/%2").arg(url.path()).arg(info.uuid->toString()));
+    url.setPath(QString("%1/%2").arg(url.path(), info.uuid->toString()));
 
     invokeOnNetThread([this, promise, url, info]() {
         auto* reply = netThread.manager->put(QNetworkRequest(url), static_cast<QByteArray>(info));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
-            promise->finish();
+            promise->set_value(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
         });
     });
 
-    return promise->future();
+    return promise->get_future();
 }
 
-FutureRes<GroupData> DataStorageConnection::deleteGroup(const GroupUuid& uuid)
+FutureResult<GroupData> DataStorageConnection::deleteGroup(const GroupUuid& uuid)
 {
-    SharedPromise<GroupData> promise(new Promise<GroupData>);
-    promise->start();
+    SSharedPromise<GroupData> promise(new SPromise<GroupData>);
 
     QUrl url = groupUrl;
-    url.setPath(QString("%1/%2").arg(url.path()).arg(uuid.toString()));
+    url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     invokeOnNetThread([this, promise, url]() {
         auto* reply = netThread.manager->deleteResource(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
-            promise->finish();
+            promise->set_value(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
         });
     });
 
-    return promise->future();
+    return promise->get_future();
 }
 
-FutureRes<TermData> DataStorageConnection::getTerm(const TermUuid& uuid) const
+FutureResult<TermData> DataStorageConnection::getTerm(const TermUuid& uuid) const
 {
-    SharedPromise<TermData> promise(new Promise<TermData>);
-    promise->start();
+    SSharedPromise<TermData> promise(new SPromise<TermData>);
 
     QUrl url = termUrl;
-    url.setPath(QString("%1/%2").arg(url.path()).arg(uuid.toString()));
+    url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     invokeOnNetThread([this, promise, url]() {
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            promise->addResult(toResult<TermData>(reply, [](auto data) {
+            promise->set_value(toResult<TermData>(reply, [](auto data) {
                 return TermData::create(data, TermData::JsonCheckMode::Import);
             }));
-            promise->finish();
         });
     });
 
-    return promise->future();
+    return promise->get_future();
 }
 
-FutureRes<TermData> DataStorageConnection::getTerm(const QString& nodeName, const GroupUuid& uuid) const
+FutureResult<TermData> DataStorageConnection::getTerm(const QString& nodeName, const GroupUuid& uuid) const
 {
-    SharedPromise<TermData> promise(new Promise<TermData>);
-    promise->start();
+    SSharedPromise<TermData> promise(new SPromise<TermData>);
 
     QUrl url = termUrl;
-    url.setQuery(QString("group_uuid=%1&name=%2").arg(uuid.toString()).arg(nodeName));
+    url.setQuery(QString("group_uuid=%1&name=%2").arg(uuid.toString(), nodeName));
 
     invokeOnNetThread([this, promise, url]() {
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            promise->addResult(toResult<TermData>(reply, [](auto data) {
+            promise->set_value(toResult<TermData>(reply, [](auto data) {
                 return TermData::create(data, TermData::JsonCheckMode::Import);
             }));
-            promise->finish();
         });
     });
 
-    return promise->future();
+    return promise->get_future();
 }
 
-FutureRes<TermData::List> DataStorageConnection::getTerms(const GroupUuid& uuid) const
+FutureResult<TermData::List> DataStorageConnection::getTerms(const GroupUuid& uuid) const
 {
-    SharedPromise<TermData::List> promise(new Promise<TermData::List>);
-    promise->start();
+    SSharedPromise<TermData::List> promise(new SPromise<TermData::List>);
 
     QUrl url = termUrl;
     url.setQuery(QString("group_uuid=%1").arg(uuid.toString()));
@@ -235,18 +218,16 @@ FutureRes<TermData::List> DataStorageConnection::getTerms(const GroupUuid& uuid)
         auto* reply = netThread.manager->get(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            promise->addResult(toResult<TermData::List>(reply, [](auto data) { return TermData::List::create(data); }));
-            promise->finish();
+            promise->set_value(toResult<TermData::List>(reply, [](auto data) { return TermData::List::create(data); }));
         });
     });
 
-    return promise->future();
+    return promise->get_future();
 }
 
-FutureRes<TermData> DataStorageConnection::addTerm(const TermData& info)
+FutureResult<TermData> DataStorageConnection::addTerm(const TermData& info)
 {
-    SharedPromise<TermData> promise(new Promise<TermData>);
-    promise->start();
+    SSharedPromise<TermData> promise(new SPromise<TermData>);
 
     QUrl url = termUrl;
 
@@ -254,60 +235,55 @@ FutureRes<TermData> DataStorageConnection::addTerm(const TermData& info)
         auto* reply = netThread.manager->post(QNetworkRequest(url), static_cast<QByteArray>(info));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            promise->addResult(toResult<TermData>(reply, [](auto data) {
+            promise->set_value(toResult<TermData>(reply, [](auto data) {
                 return TermData::create(data, TermData::JsonCheckMode::Import);
             }));
-            promise->finish();
         });
     });
 
-    return promise->future();
+    return promise->get_future();
 }
 
-FutureRes<TermData> DataStorageConnection::updateTerm(const TermData&                      info,
+FutureResult<TermData> DataStorageConnection::updateTerm(const TermData&                      info,
                                                       DataStorageInterface::LastEditSource lastEditSource,
                                                       bool                                 checkLastEdit)
 {
-    SharedPromise<TermData> promise(new Promise<TermData>);
-    promise->start();
+    SSharedPromise<TermData> promise(new SPromise<TermData>);
 
     QUrl url = termUrl;
-    url.setPath(QString("%1/%2").arg(url.path()).arg(info.uuid->toString()));
+    url.setPath(QString("%1/%2").arg(url.path(), info.uuid->toString()));
 
     invokeOnNetThread([this, promise, url, info]() {
         auto* reply = netThread.manager->put(QNetworkRequest(url), static_cast<QByteArray>(info));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            promise->addResult(toResult<TermData>(reply, [](auto data) {
+            promise->set_value(toResult<TermData>(reply, [](auto data) {
                 return TermData::create(data, TermData::JsonCheckMode::Import);
             }));
-            promise->finish();
         });
     });
 
-    return promise->future();
+    return promise->get_future();
 }
 
-FutureRes<TermData> DataStorageConnection::deleteTerm(const TermUuid& uuid)
+FutureResult<TermData> DataStorageConnection::deleteTerm(const TermUuid& uuid)
 {
-    SharedPromise<TermData> promise(new Promise<TermData>);
-    promise->start();
+    SSharedPromise<TermData> promise(new SPromise<TermData>);
 
     QUrl url = termUrl;
-    url.setPath(QString("%1/%2").arg(url.path()).arg(uuid.toString()));
+    url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     invokeOnNetThread([this, promise, url]() {
         auto* reply = netThread.manager->deleteResource(QNetworkRequest(url));
 
         QtFuture::connect(reply, &QNetworkReply::finished).then([=] {
-            promise->addResult(toResult<TermData>(reply, [](auto data) {
+            promise->set_value(toResult<TermData>(reply, [](auto data) {
                 return TermData::create(data, TermData::JsonCheckMode::Import);
             }));
-            promise->finish();
         });
     });
 
-    return promise->future();
+    return promise->get_future();
 }
 
 void DataStorageConnection::invokeOnNetThread(std::function<void()> netFunc) const
