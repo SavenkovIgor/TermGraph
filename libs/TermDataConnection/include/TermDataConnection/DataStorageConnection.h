@@ -22,12 +22,10 @@
 #pragma once
 
 #include <QHostAddress>
-#include <QJsonObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
 #include <CommonTools/HandyTypes.h>
-#include <CommonTools/JsonTools.h>
 #include <CommonTools/NetworkTools.h>
 
 #include <TermDataInterface/DataStorageInterface.h>
@@ -62,16 +60,10 @@ public:
 
 private:
     template<typename T>
-    using Promise = QPromise<Result<T>>;
+    using Promise = std::promise<Result<T>>;
 
     template<typename T>
     using SharedPromise = QSharedPointer<Promise<T>>;
-
-    template<typename T>
-    using SPromise = std::promise<Result<T>>;
-
-    template<typename T>
-    using SSharedPromise = QSharedPointer<SPromise<T>>;
 
     QUrl baseUrl;
     QUrl groupUrl;
@@ -79,5 +71,5 @@ private:
 
     NetworkThread netThread;
 
-    void invokeOnNetThread(std::function<void()> netFunc) const;
+    void onNetThread(std::function<void()> netFunc) const;
 };
