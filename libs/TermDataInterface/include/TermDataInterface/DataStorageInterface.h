@@ -19,8 +19,6 @@ class DataStorageInterface
 public:
     enum LastEditSource { TakeFromTermData = 0, AutoGenerate };
 
-    using UuidList = std::vector<QUuid>;
-
     // Storage
     virtual int storageVersion() const = 0;
 
