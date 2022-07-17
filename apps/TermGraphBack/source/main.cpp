@@ -95,9 +95,9 @@ int main()
         bool uuidOnlyMode = urlParams.has("type") && urlParams["type"] == "uuid_only";
 
         if (uuidOnlyMode)
-            json = static_cast<QByteArray>(storage.getAllGroupsUuids(true).value());
+            json = static_cast<QByteArray>(storage.getAllGroupsUuids(true).get().value());
         else
-            json = static_cast<QByteArray>(storage.getGroups().value());
+            json = static_cast<QByteArray>(storage.getGroups().get().value());
 
         return successResponse(req, json);
     });
@@ -105,7 +105,7 @@ int main()
     // GET /api/v1/global/groups/:uuid
     router->http_get(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = GroupUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
-            if (auto group = storage.getGroup(*uuid)) {
+            if (auto group = storage.getGroup(*uuid).get()) {
                 return successResponse(req, static_cast<QByteArray>(group.value()));
             } else {
                 return responseForDbError(req, group.error());
@@ -118,7 +118,7 @@ int main()
     // POST /api/v1/global/groups
     router->http_post(NetworkTools::groupApiPath, [&storage](auto req, auto params) {
         if (auto group = GroupData::create(QByteArray::fromStdString(req->body()))) {
-            if (auto groupData = storage.addGroup(*group)) {
+            if (auto groupData = storage.addGroup(*group).get()) {
                 return successResponse(req, static_cast<QByteArray>(groupData.value()));
             } else {
                 return responseForDbError(req, groupData.error());
@@ -133,7 +133,7 @@ int main()
         if (auto uuid = GroupUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto data = GroupData::create(QByteArray::fromStdString(req->body()))) {
                 (*data).uuid = (*uuid);
-                if (auto groupData = storage.updateGroup(*data)) {
+                if (auto groupData = storage.updateGroup(*data).get()) {
                     return successResponse(req, static_cast<QByteArray>(groupData.value()));
                 } else {
                     return responseForDbError(req, groupData.error());
@@ -147,7 +147,7 @@ int main()
     // DELETE /api/v1/global/groups/:uuid
     router->http_delete(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = GroupUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
-            if (auto groupData = storage.deleteGroup(*uuid)) {
+            if (auto groupData = storage.deleteGroup(*uuid).get()) {
                 return successResponse(req, static_cast<QByteArray>(groupData.value()));
             } else {
                 return responseForDbError(req, groupData.error());
@@ -175,14 +175,14 @@ int main()
             if (hasNameParam) {
                 auto name = paramToQString(urlParams["name"]);
 
-                if (auto nodeData = storage.getTerm(name, *groupUuid)) {
+                if (auto nodeData = storage.getTerm(name, *groupUuid).get()) {
                     return successResponse(req, static_cast<QByteArray>(nodeData.value()));
                 } else {
                     return responseForDbError(req, nodeData.error());
                 }
 
             } else if (uuidOnly) {
-                if (auto termList = storage.getTerms(*groupUuid)) {
+                if (auto termList = storage.getTerms(*groupUuid).get()) {
                     TermUuid::List uuids;
                     for (const auto& term : termList.value())
                         if (term.uuid)
@@ -194,7 +194,7 @@ int main()
                 }
 
             } else {
-                if (auto termList = storage.getTerms(*groupUuid))
+                if (auto termList = storage.getTerms(*groupUuid).get())
                     return successResponse(req, static_cast<QByteArray>(termList.value()));
                 else
                     return responseForDbError(req, termList.error());
@@ -210,7 +210,7 @@ int main()
         if (auto uuid = TermUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             bool lastEditOnly = urlParams.has("type") && urlParams["type"] == "last_edit";
 
-            if (auto term = storage.getTerm(*uuid)) {
+            if (auto term = storage.getTerm(*uuid).get()) {
                 return successResponse(req, static_cast<QByteArray>(term.value()));
             } else {
                 return responseForDbError(req, term.error());
@@ -223,7 +223,7 @@ int main()
     // POST /api/v1/global/terms
     router->http_post(NetworkTools::termApiPath, [&storage](auto req, auto params) {
         if (auto term = TermData::create(QByteArray::fromStdString(req->body()), TermData::JsonCheckMode::AddTerm)) {
-            if (auto res = storage.addTerm(*term)) {
+            if (auto res = storage.addTerm(*term).get()) {
                 return successResponse(req, static_cast<QByteArray>(res.value()));
             } else {
                 return responseForDbError(req, res.error());
@@ -239,7 +239,7 @@ int main()
             if (auto data = TermData::create(QByteArray::fromStdString(req->body()),
                                              TermData::JsonCheckMode::UpdateTerm)) {
                 (*data).uuid = (*uuid);
-                if (auto res = storage.updateTerm(*data, DataStorageInterface::LastEditSource::AutoGenerate, false)) {
+                if (auto res = storage.updateTerm(*data, DataStorageInterface::LastEditSource::AutoGenerate, false).get()) {
                     return successResponse(req, static_cast<QByteArray>(res.value()));
                 } else {
                     return responseForDbError(req, res.error());
@@ -253,7 +253,7 @@ int main()
     // DELETE /api/v1/global/terms/:uuid
     router->http_delete(NetworkTools::termUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = TermUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
-            if (auto res = storage.deleteTerm(*uuid)) {
+            if (auto res = storage.deleteTerm(*uuid).get()) {
                 return successResponse(req, static_cast<QByteArray>(res.value()));
             } else {
                 return responseForDbError(req, res.error());

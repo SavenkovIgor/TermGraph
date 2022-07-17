@@ -6,36 +6,35 @@
 #include <QHostAddress>
 
 #include <CommonTools/Platform.h>
-#include <TermDataStorage/LocalDataStorage.h>
+#include <TermDataConnection/DataStorageConnection.h>
 
-//#ifndef Q_OS_WASM
-//#include <TermDataConnection/DataStorageConnection.h>
-//#endif
+#ifndef Q_OS_WASM
+#include <TermDataStorage/LocalDataStorage.h>
+#endif
 
 #include "source/helpers/appconfig.h"
 
 std::unique_ptr<DataStorageInterface> DataSourceFactory::defaultSource()
 {
-    if (Platform::isWasm()) {
-        return wasm();
-    }
+    if (Platform::isWasm())
+        return server();
 
-    if (Platform::isDesktop() || Platform::isMobile()) {
+    if (Platform::isDesktop() || Platform::isMobile())
         return localDb();
-    }
 }
 
 std::unique_ptr<DataStorageInterface> DataSourceFactory::localDb()
 {
+#ifdef Q_OS_WASM
+    return nullptr;
+#else
     using namespace AppSettings;
     return std::make_unique<LocalDatabaseStorage>(StdPaths::defaultDatabaseFilePath(), StdPaths::backupFolder());
+#endif
 }
 
 std::unique_ptr<DataStorageInterface> DataSourceFactory::server()
 {
-    //    auto address = QHostAddress("127.0.0.1");
-    //    return std::make_unique<DataStorageConnection>(address);
-    return nullptr;
+    auto address = QHostAddress("127.0.0.1");
+    return std::make_unique<DataStorageConnection>(address);
 }
-
-std::unique_ptr<DataStorageInterface> DataSourceFactory::wasm() { return nullptr; }

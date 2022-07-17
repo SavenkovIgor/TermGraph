@@ -17,7 +17,7 @@ class TermGraphConan(ConanFile):
 
     default_options = {'with_qt':             False,
                        'build_application':   True,
-                       'build_backend':       False,
+                       'build_backend':       True,
                        'build_frontend':      False,
                        'build_tests':         False,
                        'qt:qtdeclarative':    True,

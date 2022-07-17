@@ -13,5 +13,4 @@ struct DataSourceFactory
 
     static std::unique_ptr<DataStorageInterface> localDb();
     static std::unique_ptr<DataStorageInterface> server();
-    static std::unique_ptr<DataStorageInterface> wasm();
 };
