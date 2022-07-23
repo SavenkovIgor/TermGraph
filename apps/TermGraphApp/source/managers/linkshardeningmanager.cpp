@@ -96,7 +96,7 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
     std::vector<std::pair<int, PaintedTerm *>> distances;
 
     // Getting distances
-    for (auto term : mCurrentGroup->terms()) {
+    for (const auto &term : mCurrentGroup->terms()) {
         if (QUuid(mCurrentTerm.getUuid()) == term->data().uuid)
             continue;
 

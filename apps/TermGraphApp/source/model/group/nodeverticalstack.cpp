@@ -7,7 +7,7 @@ QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::Lis
 {
     SizeList sizeList;
 
-    for (auto node : nodes)
+    for (const auto& node : nodes)
         sizeList.push_back(node->getFrameRect(CoordType::zeroPoint).size());
 
     return sizeList.totalStackedSize(Qt::Vertical);
@@ -43,7 +43,7 @@ void NodeVerticalStack::placeTerms(QPointF centerPoint)
 
     auto placingPoint = startPoint;
 
-    for (auto term : placingTerms) {
+    for (const auto& term : placingTerms) {
         auto frameSize = term->getFrameRect(CoordType::zeroPoint).size();
         auto rectSize  = term->getNodeRect(CoordType::zeroPoint).size();
         placingPoint.ry() += frameSize.height() / 2;
@@ -63,7 +63,7 @@ std::vector<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const P
 {
     std::vector<NodePack> ret;
 
-    for (auto term : terms) {
+    for (const auto& term : terms) {
         auto rootsPositionOpt = forest->optimalRootsBasedPosition(term);
         auto optimalPt        = rootsPositionOpt.value_or(term->getCenter(CoordType::scene));
 
@@ -111,7 +111,7 @@ PaintedTerm::List NodeVerticalStack::flatNodePack(const std::vector<NodeVertical
     PaintedTerm::List ret;
 
     for ([[maybe_unused]] const auto& [pt, nodes] : pack) {
-        for (auto node : nodes)
+        for (const auto& node : nodes)
             ret.push_back(node);
     }
 

@@ -17,7 +17,7 @@ TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObj
 {
     assert(info.uuid);
 
-    for (auto node : termData)
+    for (const auto& node : termData)
         Q_ASSERT_X(node.groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
 
     mOrphansRect.setParentItem(&mBaseRect);
@@ -73,7 +73,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
     QString                   searchText = text.toLower();
     vector<QPair<int, QUuid>> searchResults;
     // Taking distances
-    for (auto term : mGraphData.nodeList()) {
+    for (const auto& term : mGraphData.nodeList()) {
         auto lowerTerm = term->cache().lowerTerm();
 
         // Exact match
@@ -114,7 +114,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
     UuidList ret;
     auto     lowerSearch = text.toLower();
 
-    for (auto term : mGraphData.nodeList()) {
+    for (const auto& term : mGraphData.nodeList()) {
         if (term->cache().lowerTerm().contains(lowerSearch))
             ret.push_back(term->data().uuid->get());
 
@@ -127,7 +127,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
 
 PaintedTerm::OptPtr TermGroup::getTerm(const QPointF& pt) const
 {
-    for (const auto forest : mForests) {
+    for (const auto& forest : mForests) {
         if (forest->frameRect(CoordType::scene).contains(pt)) {
             return forest->getNodeAtPoint(pt);
         }
@@ -165,7 +165,7 @@ PaintedTerm::OptPtr TermGroup::getTerm(const QString& termName) const
 
 void TermGroup::addOrphansToParents()
 {
-    for (auto node : getOrphanNodes()) {
+    for (const auto& node : getOrphanNodes()) {
         node->setParentItem(&mOrphansRect);
     }
 }
@@ -268,7 +268,7 @@ void TermGroup::setOrphCoords(qreal maxWidth)
     qreal   groupMinWidth  = getGroupMinWidth();
     maxWidth               = qBound(10.0, groupMinWidth, 2000.0);
 
-    for (auto currNode : orphansList) {
+    for (const auto& currNode : orphansList) {
         QSizeF nodeSize = currNode->getNodeRect(CoordType::zeroPoint).size();
 
         if (pt.x() + nodeSize.width() > maxWidth) {
@@ -299,8 +299,8 @@ PaintedTerm::List TermGroup::getRootNodes() const
 {
     PaintedTerm::List ret;
 
-    for (auto forest : mForests)
-        for (auto root : forest->roots())
+    for (const auto& forest : mForests)
+        for (const auto& root : forest->roots())
             ret.push_back(root);
 
     return ret;
@@ -310,7 +310,7 @@ QSizeF TermGroup::getAllTreesSize()
 {
     SizeList sizeList;
 
-    for (const auto forest : mForests)
+    for (const auto& forest : mForests)
         sizeList.push_back(forest->baseSize());
 
     auto totalSize = sizeList.totalStackedSize(Qt::Vertical);
@@ -417,7 +417,7 @@ PaintedEdge::List TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge:
 {
     PaintedEdge::List ret;
 
-    for (auto edge : allEdges()) {
+    for (const auto& edge : allEdges()) {
         if (condition(edge)) {
             ret.push_back(edge);
         }
@@ -489,7 +489,7 @@ QMap<QString, PaintedTerm::Ptr> TermGroup::getExactTermMatchCache()
 {
     QMap<QString, PaintedTerm::Ptr> ret;
 
-    for (auto node : mGraphData.nodeList())
+    for (const auto& node : mGraphData.nodeList())
         ret.insert(node->cache().lowerTerm(), node);
 
     return ret;
@@ -499,7 +499,7 @@ QMap<QUuid, PaintedTerm::Ptr> TermGroup::getTermUuidsMap()
 {
     QMap<QUuid, PaintedTerm::Ptr> ret;
 
-    for (auto node : mGraphData.nodeList())
+    for (const auto& node : mGraphData.nodeList())
         ret.insert(node->data().uuid->get(), node);
 
     return ret;
@@ -508,7 +508,7 @@ QMap<QUuid, PaintedTerm::Ptr> TermGroup::getTermUuidsMap()
 QSizeF TermGroup::getOrphansSize()
 {
     QRectF orphansRc;
-    for (auto node : getOrphanNodes()) {
+    for (const auto& node : getOrphanNodes()) {
         orphansRc = orphansRc.united(node->getNodeRect(CoordType::scene));
     }
     return orphansRc.size();
@@ -521,7 +521,7 @@ PaintedTerm::List TermGroup::getOrphanNodes() const { return mGraphData.isolated
 PaintedTerm::List TermGroup::filterFromNodesList(std::function<bool(PaintedTerm::Ptr)> filterCheck) const
 {
     PaintedTerm::List ret;
-    for (auto node : mGraphData.nodeList()) {
+    for (const auto& node : mGraphData.nodeList()) {
         if (filterCheck(node)) {
             ret.push_back(node);
         }
@@ -533,8 +533,8 @@ PaintedEdge::List TermGroup::allEdges() const
 {
     PaintedEdge::List ret;
 
-    for (auto forest : mForests) {
-        for (auto edge : forest->edgeList()) {
+    for (const auto& forest : mForests) {
+        for (const auto& edge : forest->edgeList()) {
             ret.push_back(edge);
         }
     }
@@ -545,8 +545,8 @@ PaintedEdge::List TermGroup::allEdges() const
 PaintedEdge::List TermGroup::allBrokenEdges() const
 {
     PaintedEdge::List ret;
-    for (auto forest : mForests) {
-        for (auto edge : forest->brokenEdges()) {
+    for (const auto& forest : mForests) {
+        for (const auto& edge : forest->brokenEdges()) {
             ret.push_back(edge);
         }
     }
@@ -558,8 +558,8 @@ PaintedEdge::List TermGroup::allExceedEdges() const
 {
     PaintedEdge::List ret;
 
-    for (auto forest : mForests) {
-        for (auto edge : forest->wasteEdges())
+    for (const auto& forest : mForests) {
+        for (const auto& edge : forest->wasteEdges())
             ret.push_back(edge);
     }
 

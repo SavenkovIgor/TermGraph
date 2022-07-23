@@ -8,20 +8,20 @@
 PaintedForest::PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
     : Forest<PaintedTerm, PaintedEdge>(data)
 {
-    for (auto term : data.nodes)
+    for (const auto& term : data.nodes)
         term->setParentItem(&mRect);
 
-    for (auto edge : data.edges)
+    for (const auto& edge : data.edges)
         edge->setParentItem(&mRect);
 
     auto layersCount = 0;
-    for (auto node : data.nodes)
+    for (const auto& node : data.nodes)
         layersCount = std::max(layersCount, level(node));
 
     for (int i = 0; i <= layersCount; i++)
         mStacks.push_back(NodeVerticalStack(this));
 
-    for (auto term : data.nodes) {
+    for (const auto& term : data.nodes) {
         int paintLevel = level(term);
 
         if (0 <= paintLevel && paintLevel < mStacks.size())
@@ -58,7 +58,7 @@ Opt<QPointF> PaintedForest::optimalRootsBasedPosition(const PaintedTerm::Ptr ter
 
     double sumOfYCoords = 0.0;
 
-    for (auto node : rNodes)
+    for (const auto& node : rNodes)
         sumOfYCoords += node->getCenter(CoordType::scene).y();
 
     auto averageY = sumOfYCoords / rNodes.size();
@@ -101,7 +101,7 @@ QString PaintedForest::getHierarchyDefinition(PaintedTerm::Ptr term)
 
     QStringList definitions;
 
-    for (auto node : parentsList)
+    for (const auto& node : parentsList)
         definitions << node->cache().termAndDefinition(true);
 
     // Add this definition
@@ -195,7 +195,7 @@ PaintedTerm::List PaintedForest::getAllNodesInTree() const
     PaintedTerm::List ret;
 
     for (const auto& stack : mStacks)
-        for (auto node : stack.nodes())
+        for (const auto& node : stack.nodes())
             ret.push_back(node);
 
     return ret;

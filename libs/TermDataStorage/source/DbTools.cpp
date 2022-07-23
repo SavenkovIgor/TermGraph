@@ -23,7 +23,7 @@ QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
     Q_ASSERT_X(
         !ret.lastError().isValid(),
         Q_FUNC_INFO,
-        QString("Query %1\nfails with error %2").arg(queryString).arg(ret.lastError().text()).toStdString().c_str());
+        QString("Query %1\nfails with error %2").arg(queryString, ret.lastError().text()).toStdString().c_str());
 
     return ret;
 }

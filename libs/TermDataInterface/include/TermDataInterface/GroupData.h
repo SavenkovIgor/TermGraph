@@ -109,7 +109,7 @@ struct GroupData
         {
             QJsonArray arr;
 
-            for (auto item : *this)
+            for (const auto& item : *this)
                 arr.push_back(static_cast<QJsonObject>(item));
 
             QJsonObject obj;

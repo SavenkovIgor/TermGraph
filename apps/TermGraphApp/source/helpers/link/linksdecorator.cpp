@@ -23,7 +23,7 @@ QString LinksDecorator::apply(LinksDecoratorMode mode)
 
         auto color    = mColorCondition(i, link);
         auto back     = mBackgroundCondition(i, link);
-        auto colorStr = mLeftReplacer.arg(color.name(QColor::HexArgb)).arg(back.name(QColor::HexArgb));
+        auto colorStr = mLeftReplacer.arg(color.name(QColor::HexArgb), back.name(QColor::HexArgb));
 
         if (mode == LinksDecoratorMode::Insert) {
             ret.insert(rBracketPos + 1, mRightReplacer);
