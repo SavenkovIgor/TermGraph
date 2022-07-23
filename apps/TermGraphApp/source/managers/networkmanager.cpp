@@ -41,11 +41,13 @@ bool NetworkManager::hasConnection() { return outputSocket->state() == QAbstract
 
 QString NetworkManager::getFirstLocalIpString()
 {
+#ifndef Q_OS_WASM
     for (const QHostAddress& address : QNetworkInterface::allAddresses()) {
         if (address.protocol() == QAbstractSocket::IPv4Protocol && address != QHostAddress(QHostAddress::LocalHost)) {
             return address.toString();
         }
     }
+#endif
     return "";
 }
 
