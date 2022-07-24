@@ -42,7 +42,7 @@ public:
 
 private:
     template<typename T>
-    using Promise = std::promise<Result<T>>;
+    using Promise = QPromise<Result<T>>;
 
     template<typename T>
     using SharedPromise = QSharedPointer<Promise<T>>;
@@ -52,6 +52,4 @@ private:
     QUrl termUrl;
 
     NetworkThread netThread;
-
-    void onNetThread(std::function<void()> netFunc) const;
 };

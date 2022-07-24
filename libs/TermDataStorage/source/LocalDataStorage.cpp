@@ -7,13 +7,14 @@
 
 #include "source/Database.h"
 
-
 template<typename T>
-static std::future<T> toFuture(const std::function<T()> func)
+static QFuture<T> toFuture(const std::function<T()>& func)
 {
-    std::promise<T> promise;
-    promise.set_value(func());
-    return promise.get_future();
+    QPromise<T> promise;
+    promise.start();
+    promise.addResult(func());
+    promise.finish();
+    return promise.future();
 }
 
 class StorageImpl
@@ -37,7 +38,7 @@ FutureResult<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids(bool sortB
 {
     // Simple variant
     if (!sortByLastEdit) {
-        return toFuture<Result<GroupUuid::List>>([this] () { return impl->db.groupTable->allUuids(); });
+        return toFuture<Result<GroupUuid::List>>([this] { return impl->db.groupTable->allUuids(); });
     }
 
     // Load info from groups table - need if any group is empty and has no lastEdit value

@@ -5,10 +5,10 @@
 
 #include <optional>
 #include <vector>
-#include <future>
 
 #include <outcome.hpp>
 
+#include <QFuture>
 #include <QSizeF>
 #include <QUuid>
 #include <QtCore>
@@ -23,8 +23,8 @@ using Opt = std::optional<T>;
 template<typename T>
 using Result = outcome::std_result<T>;
 
-template<typename T>
-using FutureResult = std::future<Result<T>>;
+template<typename RetType>
+using FutureResult = QFuture<Result<RetType>>;
 
 enum class Direction { Left, Right };
 
