@@ -12,7 +12,6 @@
 #include <CommonTools/HandyTypes.h>
 #include <TermDataInterface/DataStorageInterface.h>
 
-#include "source/helpers/fsworks.h"
 #include "source/managers/notifiyinterface.h"
 #include "source/model/group/termgroup.h"
 
@@ -72,7 +71,6 @@ private: // Methods
     void saveGroupInFolder(TermGroup::OptPtr group);
 
     bool groupExist(const GroupUuid& uuid);
-    bool termExist(const QString& term, QUuid& groupUuid);
 
 private: // Members
     QStringList getAllUuidStringsSortedByLastEdit();

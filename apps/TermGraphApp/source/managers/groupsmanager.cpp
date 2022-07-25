@@ -293,15 +293,6 @@ void GroupsManager::saveGroupInFolder(TermGroup::OptPtr group)
 
 bool GroupsManager::groupExist(const GroupUuid& uuid) { return dataSource->getGroup(uuid).result().has_value(); }
 
-bool GroupsManager::termExist(const QString& term, QUuid& groupUuid)
-{
-    assert(!term.isEmpty());
-    assert(!groupUuid.isNull());
-    auto uuid = GroupUuid::create(groupUuid).value();
-
-    return dataSource->getTerm(term, uuid).result().has_value();
-}
-
 QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
 {
     assert(!groupUuid.isNull());
