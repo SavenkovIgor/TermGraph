@@ -52,6 +52,13 @@ void setSurfaceFormat()
 
 int main(int argc, char* argv[])
 {
+    qSetMessagePattern("%{if-debug}Debug%{endif}"
+                       "%{if-info}Info %{endif}"
+                       "%{if-warning}Warn %{endif}"
+                       "%{if-critical}Crit %{endif}"
+                       "%{if-fatal}Fatal%{endif}"
+                       "[%{threadid}]: %{message}");
+
     QGuiApplication a(argc, argv);
 
     initResources();
