@@ -5,8 +5,6 @@
 
 #include <QThread>
 
-#include "source/managers/notificationmanager.h"
-
 MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     : QObject(parent)
     , mGroupBuilder(this)
@@ -30,8 +28,9 @@ MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
 
 void MainScene::selectGroup(const QUuid groupUuid)
 {
-    assert(!groupUuid.isNull());
-    setCurrentGroup(groupUuid);
+    auto uuid = GroupUuid::create(groupUuid);
+    assert(uuid.has_value());
+    setCurrentGroup(*uuid);
 }
 
 void MainScene::selectTerm(const QUuid termUuid)
@@ -57,8 +56,8 @@ void MainScene::dropGroup()
 
 void MainScene::updateGroup()
 {
-    auto groupUuid = currentGroupUuid();
-    selectGroup(groupUuid);
+    if (auto uuid = currentGroupUuid())
+        selectGroup(*uuid);
 }
 
 void MainScene::checkGroupAddition()
@@ -75,8 +74,11 @@ void MainScene::checkGroupDeletion()
 
     // If group was deleted, and it was current group, we must delete it too
     auto currentGroup = currentGroupUuid();
+    if (!currentGroup)
+        return;
+
     auto groupsUuids  = groupsMgr->getAllUuidsSortedByLastEdit();
-    if (find(begin(groupsUuids), end(groupsUuids), currentGroup) == groupsUuids.end())
+    if (find(begin(groupsUuids), end(groupsUuids), *currentGroup) == groupsUuids.end())
         dropGroup();
 }
 
@@ -117,19 +119,20 @@ void MainScene::showNewGroup(TermGroup::OptPtr newGroup)
     emit edgesChanged();
 }
 
-void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
+void MainScene::setCurrentGroup(const GroupUuid& newGroupUuid)
 {
-    assert(!newGroupUuid.isNull());
-
     auto oldGroupUuid = currentGroupUuid();
     bool newGroup     = newGroupUuid != oldGroupUuid;
 
     dropTermSelection();
 
     // Taking groupUuid from parameter or current groupUuid
-    QUuid tmpGroupUuid = newGroup ? newGroupUuid : oldGroupUuid;
+    Opt<GroupUuid> tmpGroupUuid = newGroup ? newGroupUuid : oldGroupUuid;
 
-    assert(!tmpGroupUuid.isNull());
+    if (!tmpGroupUuid)
+        return;
+
+    assert(tmpGroupUuid);
 
     if (mGroupBuilder.isRunning()) {
         mGroupBuilder.requestInterruption();
@@ -137,7 +140,7 @@ void MainScene::setCurrentGroup(const QUuid& newGroupUuid)
     }
 
     if (!mGroupBuilder.isRunning()) {
-        mGroupBuilder.setAction([this, groupUuid = tmpGroupUuid]() -> TermGroup::OptPtr {
+        mGroupBuilder.setAction([this, groupUuid = *tmpGroupUuid]() -> TermGroup::OptPtr {
             auto group = groupsMgr->createGroup(groupUuid);
 
             if (!group.has_value())
@@ -296,7 +299,9 @@ QString MainScene::getCurrNodeHierarchyDefinition()
     return "";
 }
 
-QUuid MainScene::currentGroupUuid() const { return mCurrentGroup ? mCurrentGroup.value()->uuid() : QUuid(); }
+Opt<GroupUuid> MainScene::currentGroupUuid() const {
+    return mCurrentGroup ? GroupUuid::create(mCurrentGroup.value()->uuid()) : std::nullopt;
+}
 
 bool MainScene::isAnyNodeSelected() const { return getSelectedTerm().has_value(); }
 

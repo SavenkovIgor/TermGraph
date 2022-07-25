@@ -40,7 +40,7 @@ public:
 
     TermGroup::OptPtr createGroup(const QUuid groupUuid);
 
-    UuidList getAllUuidsSortedByLastEdit();
+    GroupUuid::List getAllUuidsSortedByLastEdit();
 
     void updateGroupUuidNameMaps();
 

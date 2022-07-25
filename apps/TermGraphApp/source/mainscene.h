@@ -5,9 +5,7 @@
 
 #include <QObject>
 
-#include "source/helpers/appconfig.h"
 #include "source/helpers/asyncgroupbuilder.h"
-#include "source/helpers/fsworks.h"
 #include "source/managers/groupsmanager.h"
 #include "source/model/edge/edgesmodel.h"
 #include "source/model/group/termgroup.h"
@@ -74,7 +72,7 @@ private slots:
     void takeBuildGroupAndShow();
 
 private:
-    void setCurrentGroup(const QUuid& newGroupUuid);
+    void setCurrentGroup(const GroupUuid& newGroupUuid);
 
     QString getCurrNodeNameAndDefinition();
     QString getCurrNodeHierarchyDefinition();
@@ -112,7 +110,7 @@ private: // Methods
     // Groups fields
     TermGroup::OptPtr mCurrentGroup;
 
-    QUuid currentGroupUuid() const;
+    Opt<GroupUuid> currentGroupUuid() const;
     void  dropGroup();
 
     bool isGroupLoading() const;
