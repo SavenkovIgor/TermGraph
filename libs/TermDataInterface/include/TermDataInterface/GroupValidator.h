@@ -16,36 +16,55 @@ enum class GroupJsonErrors {
     NameIsEmpty,
 
     CommentFieldMissedOrWrongType,
-    CommentNotString,
 
-    NodesFieldMissedOrWrongType
+    SizeFieldMissedOrWrongType,
+
+    LastEditFieldMissedOrWrongType,
+    InvalidLastEdit,
+
+    NodesFieldMissedOrWrongType,
+    NodesLastEditFieldMissedOrWrongType,
+    InvalidNodesLastEdit,
 };
 
 class GroupJsonValidator : public Validator<QJsonObject, GroupJsonErrors>
 {
 public:
-    constexpr static auto uuidKey    = "uuid";
-    constexpr static auto nameKey    = "name";
-    constexpr static auto commentKey = "comment";
-    constexpr static auto nodesKey   = "nodesList";
+    constexpr static auto uuidKey          = "uuid";
+    constexpr static auto nameKey          = "name";
+    constexpr static auto commentKey       = "comment";
+    constexpr static auto sizeKey          = "size";
+    constexpr static auto lastEditKey      = "lastEdit";
+
+    constexpr static auto nodesKey         = "nodesList";
+    constexpr static auto nodesLastEditKey = "nodesLastEdit";
 
     static GroupJsonValidator defaultChecks()
     {
         GroupJsonValidator ret;
-        ret.addCheck(&validUuidField, GroupJsonErrors::UuidFieldMissedOrWrongType);
-        ret.addCheck(&validUuid, GroupJsonErrors::InvalidUuid);
+        // clang-format off
+        ret.addCheck(&validUuidField,     GroupJsonErrors::UuidFieldMissedOrWrongType);
+        ret.addCheck(&validUuid,          GroupJsonErrors::InvalidUuid);
 
-        ret.addCheck(&validNameField, GroupJsonErrors::NameFieldMissedOrWrongType);
-        ret.addCheck(&nameNotEmpty, GroupJsonErrors::NameIsEmpty);
+        ret.addCheck(&validNameField,     GroupJsonErrors::NameFieldMissedOrWrongType);
+        ret.addCheck(&nameNotEmpty,       GroupJsonErrors::NameIsEmpty);
 
-        ret.addCheck(&validCommentField, GroupJsonErrors::CommentFieldMissedOrWrongType);
+        ret.addCheck(&validCommentField,  GroupJsonErrors::CommentFieldMissedOrWrongType);
+
+        ret.addCheck(&validSizeField,     GroupJsonErrors::SizeFieldMissedOrWrongType);
+
+        ret.addCheck(&validLastEditField, GroupJsonErrors::LastEditFieldMissedOrWrongType);
+        ret.addCheck(&validLastEdit,      GroupJsonErrors::InvalidLastEdit);
+        // clang-format on
         return ret;
     }
 
     static GroupJsonValidator importChecks()
     {
         auto ret = defaultChecks();
-        ret.addCheck(&validNodesArray, GroupJsonErrors::NodesFieldMissedOrWrongType);
+        ret.addCheck(&validNodesArray,         GroupJsonErrors::NodesFieldMissedOrWrongType);
+        ret.addCheck(&validNodesLastEditField, GroupJsonErrors::NodesLastEditFieldMissedOrWrongType);
+        ret.addCheck(&validNodesLastEdit,      GroupJsonErrors::InvalidNodesLastEdit);
         return ret;
     }
 
@@ -58,5 +77,12 @@ private:
 
     static bool validCommentField(const QJsonObject& obj) { return obj[commentKey].isString(); }
 
+    static bool validSizeField(const QJsonObject& obj) { return obj[sizeKey].isDouble() && obj[sizeKey].toInt(-1) != -1; }
+
+    static bool validLastEditField(const QJsonObject& obj) { return obj[lastEditKey].isString(); }
+    static bool validLastEdit(const QJsonObject& obj) { return !(QDateTime::fromString(obj[lastEditKey].toString(), Qt::ISODate).isNull()); }
+
     static bool validNodesArray(const QJsonObject& obj) { return obj[nodesKey].isArray(); }
+    static bool validNodesLastEditField(const QJsonObject& obj) { return obj[nodesLastEditKey].isString(); }
+    static bool validNodesLastEdit(const QJsonObject& obj) { return !(QDateTime::fromString(obj[nodesLastEditKey].toString(), Qt::ISODate).isNull()); }
 };

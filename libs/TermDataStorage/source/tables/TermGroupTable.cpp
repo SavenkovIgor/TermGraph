@@ -3,7 +3,6 @@
 
 #include "source/tables/TermGroupTable.h"
 
-#include "source/DbInfo.h"
 #include "source/DbTools.h"
 #include "source/SqlQueryBuilder.h"
 
@@ -152,6 +151,7 @@ GroupData TermGroupTable::createGroupData(const QSqlRecord &rec)
     info.uuid    = GroupUuid::create(rec.value(GroupJsonValidator::uuidKey).toString());
     info.name    = rec.value(GroupJsonValidator::nameKey).toString();
     info.comment = rec.value(GroupJsonValidator::commentKey).toString();
+    info.size    = rec.value(GroupJsonValidator::sizeKey).toInt();
 
     return info;
 }

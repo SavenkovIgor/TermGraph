@@ -3,7 +3,6 @@
 
 #include "source/tables/TermTable.h"
 
-#include "source/DbInfo.h"
 #include "source/DbTools.h"
 #include "source/SqlQueryBuilder.h"
 
