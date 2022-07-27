@@ -19,6 +19,8 @@ qt_add_qml_module (MoleculesModule
     URI Molecules
     VERSION 1.0
     IMPORTS StyleInfo Tools Atoms
+    RESOURCE_PREFIX "/qt/qml"
+    IMPORT_PATH ${PROJECT_BINARY_DIR}
     QML_FILES
         AppIcon.qml
         BurgerButton.qml

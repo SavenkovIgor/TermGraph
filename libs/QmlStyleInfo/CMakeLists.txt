@@ -19,4 +19,9 @@ set (QML_SOURCES Colors.qml Fonts.qml IconPath.qml Sizes.qml)
 
 set_source_files_properties (${QML_SOURCES} PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
 
-qt_add_qml_module (StyleInfoModule URI StyleInfo VERSION 1.0 QML_FILES ${QML_SOURCES})
+qt_add_qml_module (StyleInfoModule
+    URI StyleInfo
+    VERSION 1.0
+    RESOURCE_PREFIX "/qt/qml"
+    IMPORT_PATH ${PROJECT_BINARY_DIR}
+    QML_FILES ${QML_SOURCES})

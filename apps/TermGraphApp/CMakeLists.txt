@@ -40,17 +40,7 @@ target_sources (TermGraph PRIVATE ${ALL_SOURCES})
 
 target_include_directories (TermGraph PRIVATE ${PROJECT_SOURCE_DIR})
 
-
 target_compile_definitions (TermGraph PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-
-set (QML_IMPORT_PATH
-        ${CMAKE_CURRENT_BINARY_DIR}
-        ${ToolsModule_BINARY_DIR}
-        ${StyleInfoModule_BINARY_DIR}
-        ${AtomsModule_BINARY_DIR}
-        ${MoleculesModule_BINARY_DIR}
-        ${PagesModule_BINARY_DIR}
-    CACHE STRING "" FORCE)
 
 # C++ libs
 target_link_libraries (TermGraph PRIVATE CommonTools)
@@ -83,7 +73,6 @@ target_link_libraries (TermGraph
         Qt6::Network)
 
 qt_finalize_executable (TermGraph)
-
 
 if (BUILD_TESTING)
     include (TestUtils)

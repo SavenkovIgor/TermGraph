@@ -23,6 +23,7 @@ Application::Application(QObject* parent)
     qmlRegisterSingletonInstance("Api", 1, 0, "GroupsManager", groupsManager.get());
     qmlRegisterSingletonInstance("Api", 1, 0, "SyncManager", syncManager.get());
 
-    qmlEngine->addImportPath(QStringLiteral("qrc:/"));
-    qmlEngine->load(QStringLiteral("qrc:/main.qml"));
+    // TODO: On Qt 6.4 this path is imported by default so this line can be deleted
+    qmlEngine->addImportPath(QStringLiteral("qrc:/qt/qml"));
+    qmlEngine->load(QStringLiteral("qrc:/qt/qml/main.qml"));
 }

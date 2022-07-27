@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/">
+    <qresource prefix="/helpImages">
         <file>graph1.png</file>
         <file>graph2.png</file>
         <file>graph3.png</file>

@@ -19,6 +19,8 @@ qt_add_qml_module (AtomsModule
     URI Atoms
     VERSION 1.0
     IMPORTS StyleInfo Tools
+    RESOURCE_PREFIX "/qt/qml"
+    IMPORT_PATH ${PROJECT_BINARY_DIR}
     QML_FILES
         AccentText.qml
         BottomThinLine.qml

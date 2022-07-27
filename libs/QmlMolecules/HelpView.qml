@@ -43,26 +43,26 @@ Item {
         2) Добавьте в эту группу пару терминов (кнопка + на основном экране).<br/>
         Например, возьмем термины <i>\"точки\"</i> и <i>\"прямой\"</i>:<br/>
         <br/>
-        <img width=" + getWidth() + " src=\"qrc:/point.png\"> <br/>
+        <img width=" + getWidth() + " src=\"qrc:/helpImages/point.png\"> <br/>
         <br/>
-        <img width=" + getWidth() + " src=\"qrc:/line.png\"> <br/>
+        <img width=" + getWidth() + " src=\"qrc:/helpImages/line.png\"> <br/>
         <br/>
         Получится такая схема: <br/>
         <br/>
-        <img width=" + getWidth() + " src=\"qrc:/graph1.png\"> <br/>
+        <img width=" + getWidth() + " src=\"qrc:/helpImages/graph1.png\"> <br/>
         <br/>
         3) Теперь создадим связь между терминами.<br/>
         Добавим термин <i>\"Отрезок\"</i>, который мы определим через <i>\"Точку\"</i> и <i>\"Прямую\"</i>:<br/>
         <br/>
-        <img width=" + getWidth() + " src=\"qrc:/lineSegment.png\"> <br/>
+        <img width=" + getWidth() + " src=\"qrc:/helpImages/lineSegment.png\"> <br/>
         <br/>
         И еще добавим <i>\"Треугольник\"</i>, просто для красоты<br/>
         <br/>
-        <img width=" + getWidth() + " src=\"qrc:/triangle.png\"><br/>
+        <img width=" + getWidth() + " src=\"qrc:/helpImages/triangle.png\"><br/>
         <br/>
         И в результате мы получим такую схему:<br/>
         <br/>
-        <img width=" + getWidth() + " src=\"qrc:/graph3.png\"> <br/>
+        <img width=" + getWidth() + " src=\"qrc:/helpImages/graph3.png\"> <br/>
         <br/>
         В определении обязательно заключайте базовые термины в фигурные скобки {}, это позволяет приложению
         создать связь между ними в группе. Скобки можно проставить нажатием круглой белой кнопки.<br/>
