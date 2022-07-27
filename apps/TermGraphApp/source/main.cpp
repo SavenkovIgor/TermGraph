@@ -46,7 +46,7 @@ void setSurfaceFormat()
     // This is need for good aliasing of term edges on qml scene
     // for desktop & mobile
     QSurfaceFormat format = QSurfaceFormat::defaultFormat();
-    format.setSamples(Platform::isDesktop() ? 8 : 4);
+    format.setSamples(Platform::isDesktop() ? -1 : 4);
     QSurfaceFormat::setDefaultFormat(format);
 }
 
