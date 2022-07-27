@@ -35,19 +35,25 @@ private:
 public:
     consteval static bool isDesktop()
     {
-        return currentPlatform() == PlatformType::Linux || currentPlatform() == PlatformType::Windows
-            || currentPlatform() == PlatformType::MacOS;
+        return isLinux() || isWindows() || isMacOs();
     }
 
     consteval static bool isMobile()
     {
-        return currentPlatform() == PlatformType::Android || currentPlatform() == PlatformType::IOS;
+        return isAndroid() || isIos();
     }
 
-    consteval static inline bool isLinux() { return currentPlatform() == PlatformType::Linux; }
+    consteval static bool isWeb()
+    {
+        return isWasm();
+    }
+
+    // clang-format off
+    consteval static inline bool isLinux()   { return currentPlatform() == PlatformType::Linux;   }
     consteval static inline bool isWindows() { return currentPlatform() == PlatformType::Windows; }
-    consteval static inline bool isMacOs() { return currentPlatform() == PlatformType::MacOS; }
+    consteval static inline bool isMacOs()   { return currentPlatform() == PlatformType::MacOS;   }
     consteval static inline bool isAndroid() { return currentPlatform() == PlatformType::Android; }
-    consteval static inline bool isIos() { return currentPlatform() == PlatformType::IOS; }
-    consteval static inline bool isWasm() { return currentPlatform() == PlatformType::Wasm; }
+    consteval static inline bool isIos()     { return currentPlatform() == PlatformType::IOS;     }
+    consteval static inline bool isWasm()    { return currentPlatform() == PlatformType::Wasm;    }
+    // clang-format on
 };
