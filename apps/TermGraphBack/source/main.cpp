@@ -95,9 +95,9 @@ int main()
         bool uuidOnlyMode = urlParams.has("type") && urlParams["type"] == "uuid_only";
 
         if (uuidOnlyMode)
-            json = static_cast<QByteArray>(storage.getAllGroupsUuids().result().value());
+            json = static_cast<QByteArray>(storage.allGroupsUuids().result().value());
         else
-            json = static_cast<QByteArray>(storage.getGroups().result().value());
+            json = static_cast<QByteArray>(storage.groups().result().value());
 
         return successResponse(req, json);
     });
@@ -105,7 +105,7 @@ int main()
     // GET /api/v1/global/groups/:uuid
     router->http_get(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
         if (auto uuid = GroupUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
-            if (auto group = storage.getGroup(*uuid).result()) {
+            if (auto group = storage.group(*uuid).result()) {
                 return successResponse(req, static_cast<QByteArray>(group.value()));
             } else {
                 return responseForDbError(req, group.error());
@@ -175,14 +175,14 @@ int main()
             if (hasNameParam) {
                 auto name = paramToQString(urlParams["name"]);
 
-                if (auto nodeData = storage.getTerm(name, *groupUuid).result()) {
+                if (auto nodeData = storage.term(name, *groupUuid).result()) {
                     return successResponse(req, static_cast<QByteArray>(nodeData.value()));
                 } else {
                     return responseForDbError(req, nodeData.error());
                 }
 
             } else if (uuidOnly) {
-                if (auto termList = storage.getTerms(*groupUuid).result()) {
+                if (auto termList = storage.terms(*groupUuid).result()) {
                     TermUuid::List uuids;
                     for (const auto& term : termList.value())
                         if (term.uuid)
@@ -194,7 +194,7 @@ int main()
                 }
 
             } else {
-                if (auto termList = storage.getTerms(*groupUuid).result())
+                if (auto termList = storage.terms(*groupUuid).result())
                     return successResponse(req, static_cast<QByteArray>(termList.value()));
                 else
                     return responseForDbError(req, termList.error());
@@ -210,7 +210,7 @@ int main()
         if (auto uuid = TermUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             bool lastEditOnly = urlParams.has("type") && urlParams["type"] == "last_edit";
 
-            if (auto term = storage.getTerm(*uuid).result()) {
+            if (auto term = storage.term(*uuid).result()) {
                 return successResponse(req, static_cast<QByteArray>(term.value()));
             } else {
                 return responseForDbError(req, term.error());

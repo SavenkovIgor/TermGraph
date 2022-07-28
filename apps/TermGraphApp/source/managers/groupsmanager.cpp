@@ -30,7 +30,7 @@ QString GroupsManager::getLastEditString(QUuid groupUuid) { return getLastEdit(g
 int GroupsManager::getNodesCount(QUuid groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid))
-        return dataSource->getGroup(*uuid).result().value().size;
+        return dataSource->group(*uuid).result().value().size;
 
     Q_UNREACHABLE();
     return 0;
@@ -87,8 +87,8 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
 TermGroup::OptPtr GroupsManager::createGroup(const QUuid groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid)) {
-        auto groupData = dataSource->getGroup(*uuid).result();
-        auto termsData = dataSource->getTerms(*uuid).result();
+        auto groupData = dataSource->group(*uuid).result();
+        auto termsData = dataSource->terms(*uuid).result();
 
         if (groupData.has_error() || termsData.has_error())
             return std::nullopt;
@@ -111,7 +111,7 @@ bool GroupsManager::isEmptyGroup(const QString& groupUuid)
 
 bool GroupsManager::getHasAnyGroup() const
 {
-    auto groupsRes = dataSource->getGroups().result();
+    auto groupsRes = dataSource->groups().result();
     return groupsRes.has_value() ? (!groupsRes.value().empty()) : false;
 }
 
@@ -121,7 +121,7 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
     auto uuid = GroupUuid::create(groupUuid).value();
 
     QDateTime lastEdit;
-    auto      terms = dataSource->getTerms(uuid).result().value();
+    auto      terms = dataSource->terms(uuid).result().value();
     for (auto& term : terms) {
         QDateTime currNodeLastEdit = term.lastEdit;
         if (lastEdit.isNull()) {
@@ -135,7 +135,7 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 
 GroupUuid::List GroupsManager::getAllUuidsSortedByLastEdit()
 {
-    return dataSource->getAllGroupsUuids().result().value();
+    return dataSource->allGroupsUuids().result().value();
 }
 
 QStringList GroupsManager::getAllUuidStringsSortedByLastEdit()
@@ -160,7 +160,7 @@ void GroupsManager::importGroup(const QJsonDocument& json)
         return;
 
     // Searching for existed group
-    if (dataSource->getGroup(*groupData->uuid).result().has_value()) { // Group found
+    if (dataSource->group(*groupData->uuid).result().has_value()) { // Group found
         if (!dataSource->updateGroup(*groupData).result()) {
             return;
         }
@@ -244,7 +244,7 @@ bool GroupsManager::updateNode(const QJsonObject& object)
     }
 
     // Check for already existing node with same name
-    auto alterNode = dataSource->getTerm((*data).term, (*data).groupUuid);
+    auto alterNode = dataSource->term((*data).term, (*data).groupUuid);
     if (alterNode.result().has_value() && alterNode.result().value().uuid != (*data).uuid) {
         notifier.showWarning("Термин с таким названием уже существует в этой группе");
         return false;
@@ -283,18 +283,18 @@ void GroupsManager::saveGroupInFolder(TermGroup::OptPtr group)
     }
 }
 
-bool GroupsManager::groupExist(const GroupUuid& uuid) { return dataSource->getGroup(uuid).result().has_value(); }
+bool GroupsManager::groupExist(const GroupUuid& uuid) { return dataSource->group(uuid).result().has_value(); }
 
 QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
 {
     assert(!groupUuid.isNull());
     auto uuid = GroupUuid::create(groupUuid).value();
 
-    QJsonObject groupJson = dataSource->getGroup(uuid).result().value();
+    QJsonObject groupJson = dataSource->group(uuid).result().value();
 
     QJsonArray termArray;
 
-    auto terms = dataSource->getTerms(uuid).result().value();
+    auto terms = dataSource->terms(uuid).result().value();
 
     for (const auto& term : terms)
         termArray.append(static_cast<QJsonObject>(term));
@@ -308,7 +308,7 @@ void GroupsManager::updateGroupUuidNameMaps()
 {
     uuidToNames.clear();
 
-    if (auto groups = dataSource->getGroups().result()) {
+    if (auto groups = dataSource->groups().result()) {
         for (const auto& groupInfo : groups.value()) {
             uuidToNames.insert(*groupInfo.uuid, groupInfo.name);
         }

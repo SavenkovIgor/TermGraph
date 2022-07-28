@@ -43,7 +43,7 @@ int DataStorageConnection::storageVersion() const
     return -1;
 }
 
-FutureResult<GroupUuid::List> DataStorageConnection::getAllGroupsUuids() const
+FutureResult<GroupUuid::List> DataStorageConnection::allGroupsUuids() const
 {
     SharedPromise<GroupUuid::List> promise(new Promise<GroupUuid::List>);
     promise->start();
@@ -59,7 +59,7 @@ FutureResult<GroupUuid::List> DataStorageConnection::getAllGroupsUuids() const
     return promise->future();
 }
 
-FutureResult<GroupData> DataStorageConnection::getGroup(const GroupUuid& uuid) const
+FutureResult<GroupData> DataStorageConnection::group(const GroupUuid& uuid) const
 {
     SharedPromise<GroupData> promise(new Promise<GroupData>);
     promise->start();
@@ -75,7 +75,7 @@ FutureResult<GroupData> DataStorageConnection::getGroup(const GroupUuid& uuid) c
     return promise->future();
 }
 
-FutureResult<GroupData::List> DataStorageConnection::getGroups() const
+FutureResult<GroupData::List> DataStorageConnection::groups() const
 {
     SharedPromise<GroupData::List> promise(new Promise<GroupData::List>);
     promise->start();
@@ -137,7 +137,7 @@ FutureResult<GroupData> DataStorageConnection::deleteGroup(const GroupUuid& uuid
     return promise->future();
 }
 
-FutureResult<TermData> DataStorageConnection::getTerm(const TermUuid& uuid) const
+FutureResult<TermData> DataStorageConnection::term(const TermUuid& uuid) const
 {
     SharedPromise<TermData> promise(new Promise<TermData>);
     promise->start();
@@ -155,7 +155,7 @@ FutureResult<TermData> DataStorageConnection::getTerm(const TermUuid& uuid) cons
     return promise->future();
 }
 
-FutureResult<TermData> DataStorageConnection::getTerm(const QString& nodeName, const GroupUuid& uuid) const
+FutureResult<TermData> DataStorageConnection::term(const QString& nodeName, const GroupUuid& uuid) const
 {
     SharedPromise<TermData> promise(new Promise<TermData>);
     promise->start();
@@ -173,7 +173,7 @@ FutureResult<TermData> DataStorageConnection::getTerm(const QString& nodeName, c
     return promise->future();
 }
 
-FutureResult<TermData::List> DataStorageConnection::getTerms(const GroupUuid& uuid) const
+FutureResult<TermData::List> DataStorageConnection::terms(const GroupUuid& uuid) const
 {
     SharedPromise<TermData::List> promise(new Promise<TermData::List>);
     promise->start();

@@ -34,7 +34,7 @@ LocalDatabaseStorage::LocalDatabaseStorage(const QString& filePath, const QStrin
 
 int LocalDatabaseStorage::storageVersion() const { return impl->db.appConfigTable->getDbVersion(); }
 
-FutureResult<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids() const
+FutureResult<GroupUuid::List> LocalDatabaseStorage::allGroupsUuids() const
 {
     // Load info from groups table - need if any group is empty and has no lastEdit value
     QMap<QUuid, QDateTime> groupsLastEdit;
@@ -78,12 +78,12 @@ FutureResult<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids() const
     return toFuture<Result<GroupUuid::List>>([&ret] { return ret; });
 }
 
-FutureResult<GroupData> LocalDatabaseStorage::getGroup(const GroupUuid& uuid) const
+FutureResult<GroupData> LocalDatabaseStorage::group(const GroupUuid& uuid) const
 {
     return toFuture<Result<GroupData>>([this, &uuid] { return impl->db.groupTable->group(uuid); });
 }
 
-FutureResult<GroupData::List> LocalDatabaseStorage::getGroups() const
+FutureResult<GroupData::List> LocalDatabaseStorage::groups() const
 {
     return toFuture<Result<GroupData::List>>([this] { return impl->db.groupTable->allGroups(); });
 }
@@ -103,7 +103,7 @@ FutureResult<GroupData> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid)
     return toFuture<Result<GroupData>>([this, uuid] { return impl->db.groupTable->deleteGroup(uuid); });
 }
 
-FutureResult<TermData> LocalDatabaseStorage::getTerm(const QString& nodeName, const GroupUuid& uuid) const
+FutureResult<TermData> LocalDatabaseStorage::term(const QString& nodeName, const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->exist(uuid))
         return toFuture<Result<TermData>>([] { return DbErrorCodes::GroupUuidNotFound; });
@@ -111,12 +111,12 @@ FutureResult<TermData> LocalDatabaseStorage::getTerm(const QString& nodeName, co
     return toFuture<Result<TermData>>([this, nodeName, uuid] { return impl->db.termTable->term(nodeName, uuid); });
 }
 
-FutureResult<TermData> LocalDatabaseStorage::getTerm(const TermUuid& uuid) const
+FutureResult<TermData> LocalDatabaseStorage::term(const TermUuid& uuid) const
 {
     return toFuture<Result<TermData>>([this, uuid] { return impl->db.termTable->term(uuid); });
 }
 
-FutureResult<TermData::List> LocalDatabaseStorage::getTerms(const GroupUuid& uuid) const
+FutureResult<TermData::List> LocalDatabaseStorage::terms(const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->exist(uuid))
         return toFuture<Result<TermData::List>>([] { return DbErrorCodes::GroupUuidNotFound; });
