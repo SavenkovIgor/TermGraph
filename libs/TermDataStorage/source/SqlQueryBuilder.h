@@ -33,7 +33,6 @@ public:
     QSqlQuery selectGroup(const GroupUuid& uuid) const;
     QSqlQuery selectGroup(const QString& groupName) const;
     QSqlQuery selectOneGroup(const GroupUuid& uuid) const;
-    QSqlQuery selectAllGroupUuids();
     QSqlQuery selectAllGroups();
     QSqlQuery updateGroup(const GroupData& groupInfo) const;
     QSqlQuery deleteGroup(const GroupUuid& uuid) const;

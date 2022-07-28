@@ -25,7 +25,6 @@ public:
     bool exist(const GroupUuid& uuid);
 
     // Getters
-    GroupUuid::List   allUuids();
     Result<GroupData> group(const GroupUuid& uuid);
     GroupData::List   allGroups();
 

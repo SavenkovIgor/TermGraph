@@ -77,8 +77,6 @@ QSqlQuery SqlQueryBuilder::selectOneGroup(const GroupUuid &uuid) const
     return query;
 }
 
-QSqlQuery SqlQueryBuilder::selectAllGroupUuids() { return loadQuery(":/sql/version2/groups/SelectAllUuids.sql"); }
-
 QSqlQuery SqlQueryBuilder::selectAllGroups() { return loadQuery(":/sql/version2/groups/SelectAll.sql"); }
 
 QSqlQuery SqlQueryBuilder::updateGroup(const GroupData &groupInfo) const

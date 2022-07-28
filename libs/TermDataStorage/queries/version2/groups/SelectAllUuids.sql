@@ -1,2 +1,0 @@
-SELECT uuid
-  FROM groups;

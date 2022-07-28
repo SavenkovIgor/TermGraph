@@ -33,25 +33,6 @@ bool TermGroupTable::exist(const GroupUuid &uuid)
     return count > 0;
 }
 
-GroupUuid::List TermGroupTable::allUuids()
-{
-    GroupUuid::List ret;
-
-    auto query = SqlQueryBuilder().selectAllGroupUuids();
-    DbTools::start(query);
-
-    auto records = DbTools::getAllRecords(std::move(query));
-
-    for (const auto &record : records) {
-        QUuid uuid(record.value("uuid").toString());
-        assert(!uuid.isNull());
-        if (auto gUuid = GroupUuid::create(uuid))
-            ret.push_back(*gUuid);
-    }
-
-    return ret;
-}
-
 Result<GroupData> TermGroupTable::group(const GroupUuid &uuid)
 {
     // If group not exist

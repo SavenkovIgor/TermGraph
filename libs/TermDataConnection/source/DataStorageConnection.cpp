@@ -43,22 +43,6 @@ int DataStorageConnection::storageVersion() const
     return -1;
 }
 
-FutureResult<GroupUuid::List> DataStorageConnection::allGroupsUuids() const
-{
-    SharedPromise<GroupUuid::List> promise(new Promise<GroupUuid::List>);
-    promise->start();
-
-    QUrl url = groupUrl;
-    url.setQuery("type=uuid_only");
-
-    netThread.get(url, [=](auto* reply) {
-        promise->addResult(toResult<GroupUuid::List>(reply, [] (auto data) { return  GroupUuid::List::create(data); }));
-        promise->finish();
-    });
-
-    return promise->future();
-}
-
 FutureResult<GroupData> DataStorageConnection::group(const GroupUuid& uuid) const
 {
     SharedPromise<GroupData> promise(new Promise<GroupData>);

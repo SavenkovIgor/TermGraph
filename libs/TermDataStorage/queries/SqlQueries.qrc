@@ -11,7 +11,6 @@
         <file>version2/groups/DeleteGroup.sql</file>
         <file>version2/groups/InsertGroup.sql</file>
         <file>version2/groups/SelectAll.sql</file>
-        <file>version2/groups/SelectAllUuids.sql</file>
         <file>version2/groups/SelectGroup.sql</file>
         <file>version2/groups/SelectGroupByName.sql</file>
         <file>version2/groups/SelectGroupCount.sql</file>

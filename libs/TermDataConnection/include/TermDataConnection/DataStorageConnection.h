@@ -23,8 +23,6 @@ public:
 
     int storageVersion() const final;
 
-    FutureResult<GroupUuid::List> allGroupsUuids() const final;
-
     FutureResult<GroupData>       group(const GroupUuid& uuid) const final;
     FutureResult<GroupData::List> groups() const final;
 

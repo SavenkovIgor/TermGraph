@@ -34,50 +34,6 @@ LocalDatabaseStorage::LocalDatabaseStorage(const QString& filePath, const QStrin
 
 int LocalDatabaseStorage::storageVersion() const { return impl->db.appConfigTable->getDbVersion(); }
 
-FutureResult<GroupUuid::List> LocalDatabaseStorage::allGroupsUuids() const
-{
-    // Load info from groups table - need if any group is empty and has no lastEdit value
-    QMap<QUuid, QDateTime> groupsLastEdit;
-
-    for (const auto& uuid : impl->db.groupTable->allUuids())
-        groupsLastEdit.insert(uuid.get(), QDateTime());
-
-    for (const auto& record : impl->db.termTable->allLastEditRecords()) {
-        QUuid     groupUuid = QUuid(record.value("groupUuid").toString());
-        QDateTime lastEdit  = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate);
-
-        if (groupsLastEdit.contains(groupUuid)) {
-            if (groupsLastEdit[groupUuid].isNull()) {
-                groupsLastEdit[groupUuid] = lastEdit;
-            } else {
-                groupsLastEdit[groupUuid] = std::max(groupsLastEdit[groupUuid], lastEdit);
-            }
-        }
-    }
-
-    // Casting to pairs
-    QList<QPair<QUuid, QDateTime>> groupSorting;
-
-    // Forming structure with group uuids and last edit times
-    for (auto& [groupUuid, lastEdit] : groupsLastEdit.toStdMap()) {
-        groupSorting.append(QPair<QUuid, QDateTime>(groupUuid, lastEdit));
-    }
-
-    // Sorting this structure
-    auto groupOrdering = [](const auto& g1, const auto& g2) { return g1.second > g2.second; };
-
-    std::sort(groupSorting.begin(), groupSorting.end(), groupOrdering);
-
-    // Casting back to uuids only
-    GroupUuid::List ret;
-
-    for (const auto& group : groupSorting)
-        if (auto gUuid = GroupUuid::create(group.first))
-            ret.push_back(*gUuid);
-
-    return toFuture<Result<GroupUuid::List>>([&ret] { return ret; });
-}
-
 FutureResult<GroupData> LocalDatabaseStorage::group(const GroupUuid& uuid) const
 {
     return toFuture<Result<GroupData>>([this, &uuid] { return impl->db.groupTable->group(uuid); });
@@ -85,7 +41,29 @@ FutureResult<GroupData> LocalDatabaseStorage::group(const GroupUuid& uuid) const
 
 FutureResult<GroupData::List> LocalDatabaseStorage::groups() const
 {
-    return toFuture<Result<GroupData::List>>([this] { return impl->db.groupTable->allGroups(); });
+    return toFuture<Result<GroupData::List>>([this] {
+
+        auto lastEdits = nodesLastEdit();
+        auto groups = impl->db.groupTable->allGroups();
+
+        for (auto& group : groups) {
+            assert(group.uuid.has_value());
+            auto uuid = group.uuid.value();
+            auto lastEdit = lastEdits.value(uuid, QDateTime());
+
+            if (!lastEdit.isNull())
+                group.nodesLastEdit = lastEdit;
+            else
+                group.nodesLastEdit = std::nullopt;
+        }
+
+        // Sorting this structure
+        auto groupOrdering = [](const auto& g1, const auto& g2) { return g1.nodesLastEdit > g2.nodesLastEdit; };
+
+        std::sort(groups.begin(), groups.end(), groupOrdering);
+
+        return groups;
+    });
 }
 
 FutureResult<GroupData> LocalDatabaseStorage::addGroup(const GroupData& info)
@@ -147,4 +125,32 @@ FutureResult<TermData> LocalDatabaseStorage::updateTerm(const TermData&         
 FutureResult<TermData> LocalDatabaseStorage::deleteTerm(const TermUuid& uuid)
 {
     return toFuture<Result<TermData>>([this, uuid] { return impl->db.termTable->deleteTerm(uuid); });
+}
+
+QMap<GroupUuid, QDateTime> LocalDatabaseStorage::nodesLastEdit() const
+{
+    QMap<GroupUuid, QDateTime> ret;
+
+    for (const auto& group : impl->db.groupTable->allGroups()) {
+        assert(group.uuid.has_value());
+        ret.insert(group.uuid.value(), QDateTime());
+    }
+
+    for (const auto& record : impl->db.termTable->allLastEditRecords()) {
+        Opt<GroupUuid> uuid = GroupUuid::create(record.value("groupUuid").toString());
+        QDateTime  lastEdit = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate);
+
+        assert(uuid.has_value());
+        assert(!lastEdit.isNull());
+
+        if (ret.contains(*uuid)) {
+            if (ret[*uuid].isNull()) {
+                ret[*uuid] = lastEdit;
+            } else {
+                ret[*uuid] = std::max(ret[*uuid], lastEdit);
+            }
+        }
+    }
+
+    return ret;
 }
