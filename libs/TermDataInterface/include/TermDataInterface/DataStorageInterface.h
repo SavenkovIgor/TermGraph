@@ -9,7 +9,6 @@
 
 #include <CommonTools/GroupUuid.h>
 #include <CommonTools/TermUuid.h>
-#include <TermDataInterface/DataStorageErrors.h>
 #include <TermDataInterface/GroupData.h>
 #include <TermDataInterface/TermData.h>
 

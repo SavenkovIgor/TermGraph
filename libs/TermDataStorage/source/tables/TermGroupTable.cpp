@@ -37,7 +37,7 @@ Result<GroupData> TermGroupTable::group(const GroupUuid &uuid)
 {
     // If group not exist
     if (!exist(uuid))
-        return DbErrorCodes::GroupUuidNotFound;
+        return ErrorCodes::GroupUuidNotFound;
 
     auto query = SqlQueryBuilder().selectGroup(uuid);
     DbTools::start(query);
@@ -68,17 +68,17 @@ Result<GroupData> TermGroupTable::addGroup(const GroupData &info)
 
     if (groupInfo.uuid) {
         if (exist(*groupInfo.uuid)) {
-            return DbErrorCodes::GroupUuidAlreadyExist;
+            return ErrorCodes::GroupUuidAlreadyExist;
         }
     } else {
         groupInfo.uuid = generateNewUuid();
     }
 
     if (groupInfo.name.simplified().isEmpty())
-        return DbErrorCodes::GroupNameEmpty;
+        return ErrorCodes::GroupNameEmpty;
 
     if (exist(groupInfo.name))
-        return DbErrorCodes::GroupNameAlreadyExist;
+        return ErrorCodes::GroupNameAlreadyExist;
 
     DbTools::start(SqlQueryBuilder().insertGroup(groupInfo));
 
@@ -88,17 +88,17 @@ Result<GroupData> TermGroupTable::addGroup(const GroupData &info)
 Result<GroupData> TermGroupTable::updateGroup(const GroupData &info)
 {
     if (!info.uuid)
-        return DbErrorCodes::GroupUuidInvalid;
+        return ErrorCodes::GroupUuidInvalid;
 
     if (!exist(*info.uuid))
-        return DbErrorCodes::GroupUuidNotFound;
+        return ErrorCodes::GroupUuidNotFound;
 
     if (info.name.simplified().isEmpty())
-        return DbErrorCodes::GroupNameEmpty;
+        return ErrorCodes::GroupNameEmpty;
 
     for (const auto &group : allGroups()) {
         if (info.name == group.name && info.uuid != group.uuid)
-            return DbErrorCodes::GroupNameAlreadyExist;
+            return ErrorCodes::GroupNameAlreadyExist;
     }
 
     DbTools::start(SqlQueryBuilder().updateGroup(info));
@@ -113,7 +113,7 @@ Result<GroupData> TermGroupTable::deleteGroup(const GroupUuid &uuid)
         return groupData;
     }
 
-    return DbErrorCodes::GroupUuidNotFound;
+    return ErrorCodes::GroupUuidNotFound;
 }
 
 GroupUuid TermGroupTable::generateNewUuid()

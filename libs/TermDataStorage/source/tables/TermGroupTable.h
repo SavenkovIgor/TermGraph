@@ -7,7 +7,6 @@
 
 #include <CommonTools/GroupUuid.h>
 #include <CommonTools/HandyTypes.h>
-#include <TermDataInterface/DataStorageErrors.h>
 #include <TermDataInterface/GroupData.h>
 
 // TODO: GroupUuid to GroupData

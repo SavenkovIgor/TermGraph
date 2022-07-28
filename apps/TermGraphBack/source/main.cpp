@@ -22,24 +22,24 @@ http_status_line_t dbErrToHttpErr(std::error_code code)
     using namespace restinio;
 
     // clang-format off
-    switch (static_cast<DbErrorCodes>(code.value())) {
-    case DbErrorCodes::GroupUuidInvalid:      return status_bad_request();
-    case DbErrorCodes::GroupUuidAlreadyExist: return status_conflict();
-    case DbErrorCodes::GroupUuidNotFound:     return status_not_found();
-    case DbErrorCodes::GroupNameEmpty:        return status_bad_request();
-    case DbErrorCodes::GroupNameAlreadyExist: return status_conflict();
+    switch (static_cast<Errors::Code>(code.value())) {
+    case Errors::Code::GroupUuidInvalid:      return status_bad_request();
+    case Errors::Code::GroupUuidAlreadyExist: return status_conflict();
+    case Errors::Code::GroupUuidNotFound:     return status_not_found();
+    case Errors::Code::GroupNameEmpty:        return status_bad_request();
+    case Errors::Code::GroupNameAlreadyExist: return status_conflict();
 
-    case DbErrorCodes::TermUuidInvalid:       return status_bad_request();
-    case DbErrorCodes::TermUuidAlreadyExist:  return status_conflict();
-    case DbErrorCodes::TermUuidNotFound:      return status_not_found();
-    case DbErrorCodes::TermEmpty:             return status_bad_request();
-    case DbErrorCodes::TermAlreadyExist:      return status_conflict();
-    case DbErrorCodes::TermNotFound:          return status_not_found();
-    case DbErrorCodes::NewerTermVersionFound: return status_conflict();
+    case Errors::Code::TermUuidInvalid:       return status_bad_request();
+    case Errors::Code::TermUuidAlreadyExist:  return status_conflict();
+    case Errors::Code::TermUuidNotFound:      return status_not_found();
+    case Errors::Code::TermEmpty:             return status_bad_request();
+    case Errors::Code::TermAlreadyExist:      return status_conflict();
+    case Errors::Code::TermNotFound:          return status_not_found();
+    case Errors::Code::NewerTermVersionFound: return status_conflict();
 
-    case DbErrorCodes::ConnectionError: return status_not_found();
-    case DbErrorCodes::JsonParseError:  return status_bad_request();
-    case DbErrorCodes::UnknownError:    return status_internal_server_error();
+    case Errors::Code::ConnectionError: return status_not_found();
+    case Errors::Code::JsonParseError:  return status_bad_request();
+    case Errors::Code::UnknownError:    return status_internal_server_error();
     }
     // clang-format on
 

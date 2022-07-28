@@ -7,7 +7,6 @@ project (TermDataInterface VERSION 1.0.0 LANGUAGES CXX)
 
 add_library (TermDataInterface
     INTERFACE
-        include/TermDataInterface/DataStorageErrors.h
         include/TermDataInterface/DataStorageInterface.h
         include/TermDataInterface/GroupData.h
         include/TermDataInterface/GroupValidator.h

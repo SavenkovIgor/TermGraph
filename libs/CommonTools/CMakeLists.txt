@@ -17,6 +17,7 @@ add_library (CommonTools
     INTERFACE
         include/CommonTools/GroupUuid.h
         include/CommonTools/HandyTypes.h
+        include/CommonTools/Errors.h
         include/CommonTools/JsonTools.h
         include/CommonTools/NetworkTools.h
         include/CommonTools/Platform.h

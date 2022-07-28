@@ -9,27 +9,8 @@
 #include <CommonTools/TermUuid.h>
 #include <CommonTools/Validator.h>
 
-enum class TermJsonErrors {
-    UuidFieldMissedOrWrongType,
-    InvalidUuid,
 
-    TermFieldMissedOrWrongType,
-    TermIsEmpty,
-
-    DefinitionFieldMissedOrWrongType,
-    DescriptionFieldMissedOrWrongType,
-    ExamplesFieldMissedOrWrongType,
-    WikiUrlFieldMissedOrWrongType,
-    WikiImageFieldMissedOrWrongType,
-
-    GroupUuidFieldMissedOrWrongType,
-    InvalidGroupUuid,
-
-    LastEditFieldMissedOrWrongType,
-    InvalidLastEdit
-};
-
-class TermJsonValidator : public Validator<QJsonObject, TermJsonErrors>
+class TermJsonValidator : public Validator<QJsonObject, ErrorCodes>
 {
 public:
     constexpr static auto uuidKey        = "uuid";
@@ -45,25 +26,25 @@ public:
     TermJsonValidator(bool checkUuid, bool checkLastEdit)
     {
         if (checkUuid) {
-            addCheck(&validUuidField, TermJsonErrors::UuidFieldMissedOrWrongType);
-            addCheck(&validUuid, TermJsonErrors::InvalidUuid);
+            addCheck(&validUuidField, ErrorCodes::JsonUuidFieldMissedOrWrongType);
+            addCheck(&validUuid, ErrorCodes::TermUuidInvalid);
         }
 
-        addCheck(&validTermField, TermJsonErrors::TermFieldMissedOrWrongType);
-        addCheck(&termNotEmpty, TermJsonErrors::TermIsEmpty);
+        addCheck(&validTermField, ErrorCodes::JsonTermFieldMissedOrWrongType);
+        addCheck(&termNotEmpty, ErrorCodes::TermEmpty);
 
-        addCheck(&validDefinitionField, TermJsonErrors::DefinitionFieldMissedOrWrongType);
-        addCheck(&validDescriptionField, TermJsonErrors::DescriptionFieldMissedOrWrongType);
-        addCheck(&validExamplesField, TermJsonErrors::ExamplesFieldMissedOrWrongType);
-        addCheck(&validWikiUrlField, TermJsonErrors::WikiUrlFieldMissedOrWrongType);
-        addCheck(&validWikiImageField, TermJsonErrors::WikiImageFieldMissedOrWrongType);
+        addCheck(&validDefinitionField, ErrorCodes::JsonDefinitionFieldMissedOrWrongType);
+        addCheck(&validDescriptionField, ErrorCodes::JsonDescriptionFieldMissedOrWrongType);
+        addCheck(&validExamplesField, ErrorCodes::JsonExamplesFieldMissedOrWrongType);
+        addCheck(&validWikiUrlField, ErrorCodes::JsonWikiUrlFieldMissedOrWrongType);
+        addCheck(&validWikiImageField, ErrorCodes::JsonWikiImageFieldMissedOrWrongType);
 
-        addCheck(&validGroupUuidField, TermJsonErrors::GroupUuidFieldMissedOrWrongType);
-        addCheck(&validGroupUuid, TermJsonErrors::InvalidGroupUuid);
+        addCheck(&validGroupUuidField, ErrorCodes::JsonGroupUuidFieldMissedOrWrongType);
+        addCheck(&validGroupUuid, ErrorCodes::GroupUuidInvalid);
 
         if (checkLastEdit) {
-            addCheck(&validLastEditField, TermJsonErrors::LastEditFieldMissedOrWrongType);
-            addCheck(&validLastEdit, TermJsonErrors::InvalidLastEdit);
+            addCheck(&validLastEditField, ErrorCodes::JsonLastEditFieldMissedOrWrongType);
+            addCheck(&validLastEdit, ErrorCodes::LastEditInvalid);
         }
     }
 

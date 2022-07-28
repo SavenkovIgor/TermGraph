@@ -196,14 +196,14 @@ void GroupsManager::importTerm(const QJsonObject& nodeJson)
         auto addResult = dataSource->addTerm(*data).result();
         if (!addResult) {
             // If can't add, try to update exist term
-            if (addResult.error() == DbErrorCodes::TermUuidAlreadyExist) {
+            if (addResult.error() == ErrorCodes::TermUuidAlreadyExist) {
                 auto updateResult = dataSource->updateTerm(*data,
                                                            DataStorageInterface::LastEditSource::TakeFromTermData).result();
                 if (!updateResult) {
-                    qWarning() << QString::fromStdString(updateResult.error().message());
+                    qWarning() << Errors::toQString(updateResult.error().value());
                 }
             } else {
-                qWarning() << QString::fromStdString(addResult.error().message());
+                qWarning() << Errors::toQString(addResult.error().value());
             }
         }
     } else {
@@ -224,10 +224,10 @@ bool GroupsManager::addNode(QJsonObject object)
         emit nodeChanged();
         return true;
     } else {
-        if (addResult.error() == DbErrorCodes::GroupUuidNotFound)
+        if (addResult.error() == ErrorCodes::GroupUuidNotFound)
             notifier.showError("Группа " + data->groupUuid.toString() + " не найдена");
 
-        if (addResult.error() == DbErrorCodes::TermAlreadyExist)
+        if (addResult.error() == ErrorCodes::TermAlreadyExist)
             notifier.showError("Термин с таким названием уже существует в этой группе");
     }
 

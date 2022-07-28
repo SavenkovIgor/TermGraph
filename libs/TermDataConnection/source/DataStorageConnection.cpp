@@ -14,12 +14,12 @@ Result<T> toResult(QNetworkReply*                                reply,
                    std::function<Opt<T>(const QByteArray& data)> parseFunc)
 {
     if (reply->error() != QNetworkReply::NoError)
-        return DbErrorCodes::ConnectionError;
+        return ErrorCodes::ConnectionError;
 
     if (auto obj = parseFunc(reply->readAll()))
         return *obj;
 
-    return DbErrorCodes::JsonParseError;
+    return ErrorCodes::JsonParseError;
 }
 
 DataStorageConnection::DataStorageConnection(QHostAddress address, quint16 port)

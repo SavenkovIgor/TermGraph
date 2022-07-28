@@ -8,26 +8,8 @@
 #include <CommonTools/GroupUuid.h>
 #include <CommonTools/Validator.h>
 
-enum class GroupJsonErrors {
-    UuidFieldMissedOrWrongType,
-    InvalidUuid,
 
-    NameFieldMissedOrWrongType,
-    NameIsEmpty,
-
-    CommentFieldMissedOrWrongType,
-
-    SizeFieldMissedOrWrongType,
-
-    LastEditFieldMissedOrWrongType,
-    InvalidLastEdit,
-
-    NodesFieldMissedOrWrongType,
-    NodesLastEditFieldMissedOrWrongType,
-    InvalidNodesLastEdit,
-};
-
-class GroupJsonValidator : public Validator<QJsonObject, GroupJsonErrors>
+class GroupJsonValidator : public Validator<QJsonObject, ErrorCodes>
 {
 public:
     constexpr static auto uuidKey          = "uuid";
@@ -43,18 +25,18 @@ public:
     {
         GroupJsonValidator ret;
         // clang-format off
-        ret.addCheck(&validUuidField,     GroupJsonErrors::UuidFieldMissedOrWrongType);
-        ret.addCheck(&validUuid,          GroupJsonErrors::InvalidUuid);
+        ret.addCheck(&validUuidField,     ErrorCodes::JsonUuidFieldMissedOrWrongType);
+        ret.addCheck(&validUuid,          ErrorCodes::GroupUuidInvalid);
 
-        ret.addCheck(&validNameField,     GroupJsonErrors::NameFieldMissedOrWrongType);
-        ret.addCheck(&nameNotEmpty,       GroupJsonErrors::NameIsEmpty);
+        ret.addCheck(&validNameField,     ErrorCodes::JsonNameFieldMissedOrWrongType);
+        ret.addCheck(&nameNotEmpty,       ErrorCodes::GroupNameEmpty);
 
-        ret.addCheck(&validCommentField,  GroupJsonErrors::CommentFieldMissedOrWrongType);
+        ret.addCheck(&validCommentField,  ErrorCodes::JsonCommentFieldMissedOrWrongType);
 
-        ret.addCheck(&validSizeField,     GroupJsonErrors::SizeFieldMissedOrWrongType);
+        ret.addCheck(&validSizeField,     ErrorCodes::JsonSizeFieldMissedOrWrongType);
 
-        ret.addCheck(&validLastEditField, GroupJsonErrors::LastEditFieldMissedOrWrongType);
-        ret.addCheck(&validLastEdit,      GroupJsonErrors::InvalidLastEdit);
+        ret.addCheck(&validLastEditField, ErrorCodes::JsonLastEditFieldMissedOrWrongType);
+        ret.addCheck(&validLastEdit,      ErrorCodes::LastEditInvalid);
         // clang-format on
         return ret;
     }
@@ -62,9 +44,9 @@ public:
     static GroupJsonValidator importChecks()
     {
         auto ret = defaultChecks();
-        ret.addCheck(&validNodesArray,         GroupJsonErrors::NodesFieldMissedOrWrongType);
-        ret.addCheck(&validNodesLastEditField, GroupJsonErrors::NodesLastEditFieldMissedOrWrongType);
-        ret.addCheck(&validNodesLastEdit,      GroupJsonErrors::InvalidNodesLastEdit);
+        ret.addCheck(&validNodesArray,         ErrorCodes::JsonNodesFieldMissedOrWrongType);
+        ret.addCheck(&validNodesLastEditField, ErrorCodes::JsonNodesLastEditFieldMissedOrWrongType);
+        ret.addCheck(&validNodesLastEdit,      ErrorCodes::NodesLastEditInvalid);
         return ret;
     }
 

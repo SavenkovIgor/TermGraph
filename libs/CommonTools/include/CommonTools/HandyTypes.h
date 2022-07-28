@@ -13,6 +13,8 @@
 #include <QUuid>
 #include <QtCore>
 
+#include <CommonTools/Errors.h>
+
 namespace outcome = OUTCOME_V2_NAMESPACE;
 
 using UuidList   = std::vector<QUuid>;
