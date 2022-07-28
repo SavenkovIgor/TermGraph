@@ -86,18 +86,10 @@ int main()
     auto router = std::make_unique<router::express_router_t<>>();
 
     // GET /api/v1/global/groups
-    // GET /api/v1/global/groups?type=uuid_only
     router->http_get(NetworkTools::groupApiPath, [&storage](auto req, auto params) {
         auto urlParams = restinio::parse_query(req->header().query());
 
-        QByteArray json;
-
-        bool uuidOnlyMode = urlParams.has("type") && urlParams["type"] == "uuid_only";
-
-        if (uuidOnlyMode)
-            json = static_cast<QByteArray>(storage.allGroupsUuids().result().value());
-        else
-            json = static_cast<QByteArray>(storage.groups().result().value());
+        QByteArray json = static_cast<QByteArray>(storage.groups().result().value());
 
         return successResponse(req, json);
     });
@@ -159,12 +151,10 @@ int main()
 
     // GET /api/v1/global/terms?group_uuid=gUuid
     // GET /api/v1/global/terms?group_uuid=gUuid&name=:name
-    // GET /api/v1/global/terms?group_uuid=gUuid&type=uuid_only
     router->http_get(NetworkTools::termApiPath, [&storage](auto req, auto params) {
         auto urlParams = restinio::parse_query(req->header().query());
 
         bool hasNameParam      = urlParams.has("name");
-        bool uuidOnly          = urlParams.has("type") && urlParams["type"] == "uuid_only";
         bool hasGroupUuidParam = urlParams.has("group_uuid");
 
         if (hasGroupUuidParam) {
@@ -179,18 +169,6 @@ int main()
                     return successResponse(req, static_cast<QByteArray>(nodeData.value()));
                 } else {
                     return responseForDbError(req, nodeData.error());
-                }
-
-            } else if (uuidOnly) {
-                if (auto termList = storage.terms(*groupUuid).result()) {
-                    TermUuid::List uuids;
-                    for (const auto& term : termList.value())
-                        if (term.uuid)
-                            uuids.push_back(*term.uuid);
-
-                    return successResponse(req, static_cast<QByteArray>(uuids));
-                } else {
-                    return responseForDbError(req, termList.error());
                 }
 
             } else {
