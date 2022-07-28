@@ -23,7 +23,7 @@ public:
     virtual int storageVersion() const = 0;
 
     // Groups
-    virtual FutureResult<GroupUuid::List> getAllGroupsUuids(bool sortByLastEdit = false) const = 0;
+    virtual FutureResult<GroupUuid::List> getAllGroupsUuids() const = 0;
 
     virtual FutureResult<GroupData>       getGroup(const GroupUuid& uuid) const   = 0;
     virtual FutureResult<GroupData::List> getGroups() const                       = 0;

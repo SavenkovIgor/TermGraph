@@ -34,13 +34,8 @@ LocalDatabaseStorage::LocalDatabaseStorage(const QString& filePath, const QStrin
 
 int LocalDatabaseStorage::storageVersion() const { return impl->db.appConfigTable->getDbVersion(); }
 
-FutureResult<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids(bool sortByLastEdit) const
+FutureResult<GroupUuid::List> LocalDatabaseStorage::getAllGroupsUuids() const
 {
-    // Simple variant
-    if (!sortByLastEdit) {
-        return toFuture<Result<GroupUuid::List>>([this] { return impl->db.groupTable->allUuids(); });
-    }
-
     // Load info from groups table - need if any group is empty and has no lastEdit value
     QMap<QUuid, QDateTime> groupsLastEdit;
 

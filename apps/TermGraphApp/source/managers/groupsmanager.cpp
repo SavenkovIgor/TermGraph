@@ -30,7 +30,7 @@ QString GroupsManager::getLastEditString(QUuid groupUuid) { return getLastEdit(g
 int GroupsManager::getNodesCount(QUuid groupUuid)
 {
     if (auto uuid = GroupUuid::create(groupUuid))
-        return dataSource->getTerms(*uuid).result().value().size();
+        return dataSource->getGroup(*uuid).result().value().size;
 
     Q_UNREACHABLE();
     return 0;
@@ -111,7 +111,7 @@ bool GroupsManager::isEmptyGroup(const QString& groupUuid)
 
 bool GroupsManager::getHasAnyGroup() const
 {
-    auto groupsRes = dataSource->getAllGroupsUuids().result();
+    auto groupsRes = dataSource->getGroups().result();
     return groupsRes.has_value() ? (!groupsRes.value().empty()) : false;
 }
 
@@ -135,7 +135,7 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 
 GroupUuid::List GroupsManager::getAllUuidsSortedByLastEdit()
 {
-    return dataSource->getAllGroupsUuids(true).result().value();
+    return dataSource->getAllGroupsUuids().result().value();
 }
 
 QStringList GroupsManager::getAllUuidStringsSortedByLastEdit()

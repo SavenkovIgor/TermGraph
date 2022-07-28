@@ -43,7 +43,7 @@ int DataStorageConnection::storageVersion() const
     return -1;
 }
 
-FutureResult<GroupUuid::List> DataStorageConnection::getAllGroupsUuids(bool sortByLastEdit) const
+FutureResult<GroupUuid::List> DataStorageConnection::getAllGroupsUuids() const
 {
     SharedPromise<GroupUuid::List> promise(new Promise<GroupUuid::List>);
     promise->start();
