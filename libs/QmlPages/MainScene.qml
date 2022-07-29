@@ -340,7 +340,7 @@ M.Page {
             property bool isEmptyGroup: {
                 if (GroupsManager.hasAnyGroup) {
                     if (Scene.hasCurrentGroup) {
-                        return GroupsManager.isEmptyGroup(Scene.currentGroup.uuid)
+                        return GroupsManager.isEmptyGroup(Scene.currentGroup.uuid);
                     } else {
                         return false;
                     }
