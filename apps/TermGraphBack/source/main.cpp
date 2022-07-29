@@ -22,24 +22,24 @@ http_status_line_t dbErrToHttpErr(std::error_code code)
     using namespace restinio;
 
     // clang-format off
-    switch (static_cast<Errors::Code>(code.value())) {
-    case Errors::Code::GroupUuidInvalid:      return status_bad_request();
-    case Errors::Code::GroupUuidAlreadyExist: return status_conflict();
-    case Errors::Code::GroupUuidNotFound:     return status_not_found();
-    case Errors::Code::GroupNameEmpty:        return status_bad_request();
-    case Errors::Code::GroupNameAlreadyExist: return status_conflict();
+    switch (static_cast<ErrorCodes>(code.value())) {
+    case ErrorCodes::GroupUuidInvalid:      return status_bad_request();
+    case ErrorCodes::GroupUuidAlreadyExist: return status_conflict();
+    case ErrorCodes::GroupUuidNotFound:     return status_not_found();
+    case ErrorCodes::GroupNameEmpty:        return status_bad_request();
+    case ErrorCodes::GroupNameAlreadyExist: return status_conflict();
 
-    case Errors::Code::TermUuidInvalid:       return status_bad_request();
-    case Errors::Code::TermUuidAlreadyExist:  return status_conflict();
-    case Errors::Code::TermUuidNotFound:      return status_not_found();
-    case Errors::Code::TermEmpty:             return status_bad_request();
-    case Errors::Code::TermAlreadyExist:      return status_conflict();
-    case Errors::Code::TermNotFound:          return status_not_found();
-    case Errors::Code::NewerTermVersionFound: return status_conflict();
+    case ErrorCodes::TermUuidInvalid:       return status_bad_request();
+    case ErrorCodes::TermUuidAlreadyExist:  return status_conflict();
+    case ErrorCodes::TermUuidNotFound:      return status_not_found();
+    case ErrorCodes::TermEmpty:             return status_bad_request();
+    case ErrorCodes::TermAlreadyExist:      return status_conflict();
+    case ErrorCodes::TermNotFound:          return status_not_found();
+    case ErrorCodes::NewerTermVersionFound: return status_conflict();
 
-    case Errors::Code::ConnectionError: return status_not_found();
-    case Errors::Code::JsonParseError:  return status_bad_request();
-    case Errors::Code::UnknownError:    return status_internal_server_error();
+    case ErrorCodes::ConnectionError: return status_not_found();
+    case ErrorCodes::JsonParseError:  return status_bad_request();
+    case ErrorCodes::UnknownError:    return status_internal_server_error();
     }
     // clang-format on
 
