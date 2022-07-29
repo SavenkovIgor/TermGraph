@@ -21,7 +21,7 @@ public:
     constexpr static auto nodesKey         = "nodesList";
     constexpr static auto nodesLastEditKey = "nodesLastEdit";
 
-    static GroupJsonValidator defaultChecks()
+    static GroupJsonValidator defaultChecks(bool checkLastEdit = false)
     {
         GroupJsonValidator ret;
         // clang-format off
@@ -35,8 +35,10 @@ public:
 
         ret.addCheck(&validSizeField,     ErrorCodes::JsonSizeFieldMissedOrWrongType);
 
-        ret.addCheck(&validLastEditField, ErrorCodes::JsonLastEditFieldMissedOrWrongType);
-        ret.addCheck(&validLastEdit,      ErrorCodes::LastEditInvalid);
+        if (checkLastEdit) {
+            ret.addCheck(&validLastEditField, ErrorCodes::JsonLastEditFieldMissedOrWrongType);
+            ret.addCheck(&validLastEdit,      ErrorCodes::LastEditInvalid);
+        }
         // clang-format on
         return ret;
     }

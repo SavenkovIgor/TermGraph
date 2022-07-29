@@ -42,9 +42,18 @@ struct GroupData
 
         GroupData ret;
 
-        ret.uuid    = GroupUuid::create(obj[GroupJsonValidator::uuidKey].toString());
-        ret.name    = obj[GroupJsonValidator::nameKey].toString();
-        ret.comment = obj[GroupJsonValidator::commentKey].toString();
+        ret.uuid     = GroupUuid::create(obj[GroupJsonValidator::uuidKey].toString());
+        ret.name     = obj[GroupJsonValidator::nameKey].toString();
+        ret.comment  = obj[GroupJsonValidator::commentKey].toString();
+        ret.size     = obj[GroupJsonValidator::sizeKey].toInt(0);
+        ret.lastEdit = QDateTime::fromString(obj[GroupJsonValidator::lastEditKey].toString(), Qt::ISODate);
+
+        auto nodeLastEdit = QDateTime::fromString(obj[GroupJsonValidator::nodesLastEditKey].toString(), Qt::ISODate);
+        if (!nodeLastEdit.isNull())
+            ret.nodesLastEdit = nodeLastEdit;
+        else
+            ret.nodesLastEdit = std::nullopt;
+
 
         assert(!ret.isNull());
 
@@ -71,6 +80,11 @@ struct GroupData
         ret.insert(GroupJsonValidator::uuidKey, (uuid ? uuid->toString() : ""));
         ret.insert(GroupJsonValidator::nameKey, name);
         ret.insert(GroupJsonValidator::commentKey, comment);
+        ret.insert(GroupJsonValidator::sizeKey, size);
+        ret.insert(GroupJsonValidator::lastEditKey, lastEdit.toString(Qt::ISODate));
+
+        if (nodesLastEdit)
+            ret.insert(GroupJsonValidator::nodesLastEditKey, nodesLastEdit->toString(Qt::ISODate));
 
         return ret;
     }
