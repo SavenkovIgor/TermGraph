@@ -92,6 +92,7 @@ int main()
 
     // GET /api/v1/global/groups
     router->http_get(NetworkTools::groupApiPath, [&storage](auto req, auto params) {
+        //  qInfo("GET %s", NetworkTools::groupApiPath);
         auto urlParams = restinio::parse_query(req->header().query());
 
         QByteArray json = static_cast<QByteArray>(storage.groups().result().value());
@@ -101,6 +102,7 @@ int main()
 
     // GET /api/v1/global/groups/:uuid
     router->http_get(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
+        //  qInfo("GET %s", NetworkTools::groupUuidApiPath);
         if (auto uuid = GroupUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto group = storage.group(*uuid).result()) {
                 return successResponse(req, static_cast<QByteArray>(group.value()));
@@ -114,6 +116,7 @@ int main()
 
     // POST /api/v1/global/groups
     router->http_post(NetworkTools::groupApiPath, [&storage](auto req, auto params) {
+        //  qInfo("POST %s", NetworkTools::groupApiPath);
         if (auto group = GroupData::create(QByteArray::fromStdString(req->body()))) {
             if (auto groupData = storage.addGroup(*group).result()) {
                 return successResponse(req, static_cast<QByteArray>(groupData.value()));
@@ -127,6 +130,7 @@ int main()
 
     // PUT /api/v1/global/groups/:uuid
     router->http_put(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
+        //  qInfo("PUT %s", NetworkTools::groupUuidApiPath);
         if (auto uuid = GroupUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto data = GroupData::create(QByteArray::fromStdString(req->body()))) {
                 (*data).uuid = (*uuid);
@@ -143,6 +147,7 @@ int main()
 
     // DELETE /api/v1/global/groups/:uuid
     router->http_delete(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
+        //  qInfo("DELETE %s", NetworkTools::groupUuidApiPath);
         if (auto uuid = GroupUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto groupData = storage.deleteGroup(*uuid).result()) {
                 return successResponse(req, static_cast<QByteArray>(groupData.value()));
@@ -157,6 +162,7 @@ int main()
     // GET /api/v1/global/terms?group_uuid=gUuid
     // GET /api/v1/global/terms?group_uuid=gUuid&name=:name
     router->http_get(NetworkTools::termApiPath, [&storage](auto req, auto params) {
+        //  qInfo("GET %s", NetworkTools::termApiPath);
         auto urlParams = restinio::parse_query(req->header().query());
 
         bool hasNameParam      = urlParams.has("name");
@@ -189,6 +195,7 @@ int main()
 
     // GET /api/v1/global/terms/:uuid
     router->http_get(NetworkTools::termUuidApiPath, [&storage](auto req, auto params) {
+        //  qInfo("GET %s", NetworkTools::termUuidApiPath);
         auto urlParams = restinio::parse_query(req->header().query());
         if (auto uuid = TermUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             bool lastEditOnly = urlParams.has("type") && urlParams["type"] == "last_edit";
@@ -205,6 +212,7 @@ int main()
 
     // POST /api/v1/global/terms
     router->http_post(NetworkTools::termApiPath, [&storage](auto req, auto params) {
+        //  qInfo("POST %s", NetworkTools::termApiPath);
         if (auto term = TermData::create(QByteArray::fromStdString(req->body()), TermData::JsonCheckMode::AddTerm)) {
             if (auto res = storage.addTerm(*term).result()) {
                 return successResponse(req, static_cast<QByteArray>(res.value()));
@@ -218,6 +226,7 @@ int main()
 
     // PUT /api/v1/global/terms/:uuid
     router->http_put(NetworkTools::termUuidApiPath, [&storage](auto req, auto params) {
+        //  qInfo("PUT %s", NetworkTools::termUuidApiPath);
         if (auto uuid = TermUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto data = TermData::create(QByteArray::fromStdString(req->body()),
                                              TermData::JsonCheckMode::UpdateTerm)) {
@@ -235,6 +244,7 @@ int main()
 
     // DELETE /api/v1/global/terms/:uuid
     router->http_delete(NetworkTools::termUuidApiPath, [&storage](auto req, auto params) {
+        //  qInfo("DELETE %s", NetworkTools::termUuidApiPath);
         if (auto uuid = TermUuid::create(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto res = storage.deleteTerm(*uuid).result()) {
                 return successResponse(req, static_cast<QByteArray>(res.value()));
