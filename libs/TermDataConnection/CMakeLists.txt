@@ -25,9 +25,9 @@ target_include_directories (TermDataConnection PRIVATE ${PROJECT_SOURCE_DIR})
 target_sources (TermDataConnection
     PRIVATE
         include/TermDataConnection/DataStorageConnection.h
-        include/TermDataConnection/NetworkThread.h
+        include/TermDataConnection/NetWrapper.h
         source/DataStorageConnection.cpp
-        source/NetworkThread.cpp)
+        source/NetWrapper.cpp)
 
 #if (BUILD_TESTING)
 #    enable_testing ()

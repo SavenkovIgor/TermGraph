@@ -14,7 +14,7 @@
 #include <TermDataInterface/GroupData.h>
 #include <TermDataInterface/TermData.h>
 
-#include "NetworkThread.h"
+#include "NetWrapper.h"
 
 class DataStorageConnection : public DataStorageInterface
 {
@@ -49,5 +49,5 @@ private:
     QUrl groupUrl;
     QUrl termUrl;
 
-    NetworkThread netThread;
+    NetWrapper network;
 };

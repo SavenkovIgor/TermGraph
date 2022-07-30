@@ -51,7 +51,7 @@ FutureResult<GroupData> DataStorageConnection::group(const GroupUuid& uuid) cons
     QUrl url = groupUrl;
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
-    netThread.get(url, [=](auto* reply) {
+    network.get(url, [=](auto* reply) {
         promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
         promise->finish();
     });
@@ -66,7 +66,7 @@ FutureResult<GroupData::List> DataStorageConnection::groups() const
 
     QUrl url = groupUrl;
 
-    netThread.get(url, [=](auto* reply) {
+    network.get(url, [=](auto* reply) {
         promise->addResult(toResult<GroupData::List>(reply, [](auto data) { return GroupData::List::create(data); }));
         promise->finish();
     });
@@ -81,7 +81,7 @@ FutureResult<GroupData> DataStorageConnection::addGroup(const GroupData& info)
 
     QUrl url = groupUrl;
 
-    netThread.post(url, static_cast<QByteArray>(info), [=](auto* reply) {
+    network.post(url, static_cast<QByteArray>(info), [=](auto* reply) {
         promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
         promise->finish();
     });
@@ -97,7 +97,7 @@ FutureResult<GroupData> DataStorageConnection::updateGroup(const GroupData& info
     QUrl url = groupUrl;
     url.setPath(QString("%1/%2").arg(url.path(), info.uuid->toString()));
 
-    netThread.put(url, static_cast<QByteArray>(info), [=](auto* reply) {
+    network.put(url, static_cast<QByteArray>(info), [=](auto* reply) {
         promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
         promise->finish();
     });
@@ -113,7 +113,7 @@ FutureResult<GroupData> DataStorageConnection::deleteGroup(const GroupUuid& uuid
     QUrl url = groupUrl;
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
-    netThread.deleteResource(url, [=](auto* reply) {
+    network.deleteResource(url, [=](auto* reply) {
         promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
         promise->finish();
     });
@@ -129,7 +129,7 @@ FutureResult<TermData> DataStorageConnection::term(const TermUuid& uuid) const
     QUrl url = termUrl;
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
-    netThread.get(url, [=](auto* reply) {
+    network.get(url, [=](auto* reply) {
         promise->addResult(toResult<TermData>(reply, [](auto data) {
             return TermData::create(data, TermData::JsonCheckMode::Import);
         }));
@@ -147,7 +147,7 @@ FutureResult<TermData> DataStorageConnection::term(const QString& nodeName, cons
     QUrl url = termUrl;
     url.setQuery(QString("group_uuid=%1&name=%2").arg(uuid.toString(), nodeName));
 
-    netThread.get(url, [=](auto* reply){
+    network.get(url, [=](auto* reply){
         promise->addResult(toResult<TermData>(reply, [](auto data) {
             return TermData::create(data, TermData::JsonCheckMode::Import);
         }));
@@ -165,7 +165,7 @@ FutureResult<TermData::List> DataStorageConnection::terms(const GroupUuid& uuid)
     QUrl url = termUrl;
     url.setQuery(QString("group_uuid=%1").arg(uuid.toString()));
 
-    netThread.get(url, [=](auto* reply){
+    network.get(url, [=](auto* reply){
         promise->addResult(toResult<TermData::List>(reply, [](auto data) { return TermData::List::create(data); }));
         promise->finish();
     });
@@ -180,7 +180,7 @@ FutureResult<TermData> DataStorageConnection::addTerm(const TermData& info)
 
     QUrl url = termUrl;
 
-    netThread.post(url, static_cast<QByteArray>(info), [=](auto* reply) {
+    network.post(url, static_cast<QByteArray>(info), [=](auto* reply) {
         promise->addResult(toResult<TermData>(reply, [](auto data) {
             return TermData::create(data, TermData::JsonCheckMode::Import);
         }));
@@ -200,7 +200,7 @@ FutureResult<TermData> DataStorageConnection::updateTerm(const TermData&        
     QUrl url = termUrl;
     url.setPath(QString("%1/%2").arg(url.path(), info.uuid->toString()));
 
-    netThread.put(url, static_cast<QByteArray>(info), [=](auto* reply) {
+    network.put(url, static_cast<QByteArray>(info), [=](auto* reply) {
         promise->addResult(toResult<TermData>(reply, [](auto data) {
             return TermData::create(data, TermData::JsonCheckMode::Import);
         }));
@@ -218,7 +218,7 @@ FutureResult<TermData> DataStorageConnection::deleteTerm(const TermUuid& uuid)
     QUrl url = termUrl;
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
-    netThread.deleteResource(url, [=](auto* reply) {
+    network.deleteResource(url, [=](auto* reply) {
         promise->addResult(toResult<TermData>(reply, [](auto data) {
             return TermData::create(data, TermData::JsonCheckMode::Import);
         }));

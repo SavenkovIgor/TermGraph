@@ -3,25 +3,23 @@
 
 #include <functional>
 
-#include <QThread>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
 
-class NetworkThread : public QThread
+class NetWrapper
 {
 public:
     using ReplyCallback = std::function<void(QNetworkReply* reply)>;
 
-    NetworkThread();
-    ~NetworkThread();
-
-    void run() final;
+    NetWrapper() = default;
+    ~NetWrapper() = default;
 
     void get(QUrl url, ReplyCallback callback) const;
     void post(QUrl url, QByteArray data, ReplyCallback callback) const;
     void put(QUrl url, QByteArray data, ReplyCallback callback) const;
     void deleteResource(QUrl url, ReplyCallback callback) const;
 
-    QSharedPointer<QNetworkAccessManager> manager;
+private:
+    QScopedPointer<QNetworkAccessManager> manager {new QNetworkAccessManager()};
 };
