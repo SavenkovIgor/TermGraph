@@ -63,7 +63,7 @@ Drawer {
             keyNavigationEnabled: true
             model: GroupsManager.allUuidSorted
 
-            height: contentHeight
+            implicitHeight: contentHeight
 
             boundsBehavior: Flickable.StopAtBounds
 
