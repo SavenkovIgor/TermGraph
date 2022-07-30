@@ -55,10 +55,15 @@ auto responseForDbError(auto req, std::error_code code)
 
 auto successResponse(auto req, QByteArray body = QByteArray())
 {
-    if (body.isEmpty())
-        return req->create_response().done();
+    auto response = req->create_response();
 
-    return req->create_response().set_body(body.toStdString()).done();
+    // TODO: Cors too wide. Replace with exact domain.
+    response.header().add_field("Access-Control-Allow-Origin", "*");
+
+    if (!body.isEmpty())
+        response.set_body(body.toStdString());
+
+    return response.done();
 }
 
 auto badRequest(auto req) { return req->create_response(restinio::status_bad_request()).done(); }
