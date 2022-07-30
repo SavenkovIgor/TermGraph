@@ -71,12 +71,38 @@ ApplicationWindow {
         height: Math.min(implicitHeight, window.height * 0.8)
     }
 
+    Component.onCompleted: GroupsManager.init()
+
+    Connections {
+        target: GroupsManager
+
+        function onGroupListLoaded() {
+            if (GroupsManager.hasAnyGroup)
+                stackView.push(mainSceneComponent);
+            else
+                stackView.push(onBoardComponent);
+        }
+    }
+
+    // App background
+    Page {
+        anchors.fill:parent
+        visible: stackView.empty
+
+        M.LoadingIcon {
+            anchors.centerIn: parent
+            size: Math.min(parent.width, parent.height) * 0.15
+        }
+    }
+
     StackView {
         id: stackView
-        anchors.fill: parent
-        initialItem: GroupsManager.hasAnyGroup ? mainSceneComponent : onBoardComponent
-        onCurrentItemChanged: appSideMenu.close()
 
+        anchors.fill: parent
+        visible: !empty
+        initialItem: null
+
+        onCurrentItemChanged: appSideMenu.close()
         Keys.onBackPressed: { // Android back button
             event.accepted = true;
             if(depth > 1)

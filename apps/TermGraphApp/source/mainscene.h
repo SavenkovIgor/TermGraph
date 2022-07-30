@@ -71,6 +71,8 @@ private slots:
 
     void takeBuildGroupAndShow();
 
+    void createLoadedGroup();
+
 private:
     void setCurrentGroup(const GroupUuid& newGroupUuid);
 

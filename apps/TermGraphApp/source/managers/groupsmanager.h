@@ -10,8 +10,8 @@
 #include <QUuid>
 
 #include <CommonTools/HandyTypes.h>
-#include <TermDataInterface/DataStorageInterface.h>
 
+#include "source/dataprovider.h"
 #include "source/managers/notifiyinterface.h"
 #include "source/model/group/termgroup.h"
 
@@ -20,7 +20,7 @@ class GroupsManager : public QObject
     Q_OBJECT
 
 public:
-    explicit GroupsManager(std::unique_ptr<DataStorageInterface> dataStorage,
+    explicit GroupsManager(
                            NotifyInterface&                      notifier,
                            QObject*                              parent = nullptr);
 
@@ -38,11 +38,12 @@ public:
     Q_INVOKABLE QString getExportPath() const;
     Q_INVOKABLE void    exportGrpToJson(const QString& groupUuid);
 
-    TermGroup::OptPtr createGroup(const QUuid groupUuid);
+    Q_INVOKABLE void init();
+
+    void loadGroup(const GroupUuid& uuid);
+    TermGroup::OptPtr createGroup(Opt<GroupUuid> uuid = std::nullopt);
 
     GroupUuid::List getAllUuidsSortedByLastEdit();
-
-    void updateGroupUuidNameMaps();
 
     QJsonDocument getGroupForExport(const QUuid& groupUuid) const;
 
@@ -55,15 +56,27 @@ public:
     Q_INVOKABLE int dbVersion();
 
     // Nodes
-    Q_INVOKABLE bool addNode(QJsonObject object);
-    Q_INVOKABLE bool updateNode(const QJsonObject& object);
+    Q_INVOKABLE void addNode(QJsonObject object);
+    Q_INVOKABLE void updateNode(const QJsonObject& object);
     Q_INVOKABLE void deleteNode(const QUuid uuid);
 
 signals:
+    void groupListLoaded();
+    void groupLoaded();
+
     void groupsListChanged();
-    void groupAdded();
-    void groupDeleted();
-    void nodeChanged();
+    void termChanged();
+
+    void groupAdded(GroupData data);
+    void groupUpdated(GroupData data);
+    void groupDeleted(GroupUuid uuid);
+
+    void termAdded(TermData data);
+    void termUpdated(TermData data);
+    void termDeleted(TermUuid uuid);
+
+private slots:
+    void showError(int code);
 
 private: // Methods
     bool getHasAnyGroup() const;
@@ -77,9 +90,6 @@ private: // Members
 
     QDateTime getLastEdit(QUuid groupUuid);
 
-    std::unique_ptr<DataStorageInterface> dataSource;
-    NotifyInterface&      notifier;
-
-    // Cache
-    QMap<QUuid, QString> uuidToNames;
+    DataProvider provider;
+    NotifyInterface&      notifier ;
 };

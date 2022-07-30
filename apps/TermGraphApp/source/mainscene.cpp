@@ -13,9 +13,10 @@ MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
 {
     assert(groupsMgr != nullptr);
     this->groupsMgr = groupsMgr;
+    connect(groupsMgr, &GroupsManager::groupLoaded, this, &MainScene::createLoadedGroup);
     connect(groupsMgr, &GroupsManager::groupAdded, this, &MainScene::checkGroupAddition);
     connect(groupsMgr, &GroupsManager::groupDeleted, this, &MainScene::checkGroupDeletion);
-    connect(groupsMgr, &GroupsManager::nodeChanged, this, &MainScene::updateGroup);
+    connect(groupsMgr, &GroupsManager::termChanged, this, &MainScene::updateGroup);
 
     connect(&mGroupBuilder, &AsyncGroupBuilder::finished, this, &MainScene::takeBuildGroupAndShow, Qt::QueuedConnection);
 
@@ -90,6 +91,34 @@ void MainScene::takeBuildGroupAndShow()
     }
 }
 
+void MainScene::createLoadedGroup()
+{
+    if (mGroupBuilder.isRunning()) {
+        mGroupBuilder.requestInterruption();
+        this->thread()->msleep(200);
+    }
+
+    if (!mGroupBuilder.isRunning()) {
+        mGroupBuilder.setAction([this]() -> TermGroup::OptPtr {
+
+            auto group = groupsMgr->createGroup();
+
+            if (!group.has_value())
+                return std::nullopt;
+
+            if (group.value()->thread()->isInterruptionRequested())
+                return std::nullopt;
+
+            group.value()->moveToThread(this->thread());
+            return group;
+        });
+
+        mGroupBuilder.start();
+    } else {
+        qInfo("Bad luck");
+    }
+}
+
 void MainScene::showNewGroup(TermGroup::OptPtr newGroup)
 {
     assert(newGroup.has_value());
@@ -132,31 +161,7 @@ void MainScene::setCurrentGroup(const GroupUuid& newGroupUuid)
     if (!tmpGroupUuid)
         return;
 
-    assert(tmpGroupUuid);
-
-    if (mGroupBuilder.isRunning()) {
-        mGroupBuilder.requestInterruption();
-        this->thread()->msleep(200);
-    }
-
-    if (!mGroupBuilder.isRunning()) {
-        mGroupBuilder.setAction([this, groupUuid = *tmpGroupUuid]() -> TermGroup::OptPtr {
-            auto group = groupsMgr->createGroup(groupUuid);
-
-            if (!group.has_value())
-                return std::nullopt;
-
-            if (group.value()->thread()->isInterruptionRequested())
-                return std::nullopt;
-
-            group.value()->moveToThread(this->thread());
-            return group;
-        });
-
-        mGroupBuilder.start();
-    } else {
-        qInfo("Bad luck");
-    }
+    groupsMgr->loadGroup(*tmpGroupUuid);
 }
 
 void MainScene::updateSceneRect()

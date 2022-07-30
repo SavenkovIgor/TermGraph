@@ -65,10 +65,15 @@ M.Page {
             lastEdit: ""
         };
 
-        const result = GroupsManager.addNode(data);
+        GroupsManager.addNode(data);
+    }
 
-        if (result)
+    Connections {
+        target: GroupsManager
+
+        function onTermAdded() {
             root.StackView.view.pop();
+        }
     }
 
     property bool someOfToolButtonsHaveFocus: addLink.focus || expandLinkRight.focus || removeLink.focus

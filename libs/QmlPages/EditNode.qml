@@ -78,9 +78,13 @@ M.Page {
             lastEdit: Scene.currentNode.lastEdit
         };
 
-        const success = GroupsManager.updateNode(data);
+        GroupsManager.updateNode(data);
+    }
 
-        if (success) {
+    Connections {
+        target: GroupsManager
+
+        function onTermUpdated() {
             root.StackView.view.pop();
         }
     }
