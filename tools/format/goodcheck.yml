@@ -1,6 +1,4 @@
 import:
-  - asterisklicense.yml
-  - hashlicense.yml
   - includerules.yml
   - nodebug.yml
   - qmlimport.yml
