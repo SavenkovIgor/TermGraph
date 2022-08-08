@@ -19,15 +19,15 @@ class TermGraphConan(ConanFile):
                        'build_application':   True,
                        'build_backend':       True,
                        'build_frontend':      False,
-                       'build_tests':         False,
-                       'qt:qtdeclarative':    True,
-                       'qt:qtquickcontrols2': True,
-                       'qt:qtsvg':            True,
-                       'qt:qtimageformats':   True}
+                       'build_tests':         False}
 
     def requirements(self):
         if self.options.with_qt:
-            self.requires('qt/6.2.1')
+            self.requires('qtbase/6.3.1@qt/everywhere')
+            self.requires('qtdeclarative/6.3.1@qt/everywhere')
+            self.requires('qtimageformats/6.3.1@qt/everywhere')
+            self.requires('qtshadertools/6.3.1@qt/everywhere')
+            self.requires('qtsvg/6.3.1@qt/everywhere')
 
         if self.options.build_backend:
             self.requires('restinio/0.6.14')
