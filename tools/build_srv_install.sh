@@ -23,7 +23,5 @@ conan config set general.cmake_generator=Ninja &&
 
 echo "\n\n\nSet env variables"
 # Export env vars
-set -o allexport
 source .build.env
-set +o allexport
 
