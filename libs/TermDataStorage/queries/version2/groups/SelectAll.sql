@@ -3,4 +3,4 @@ SELECT G.uuid,
        G.comment,
        count(T.groupUuid) AS size
   FROM groups AS G LEFT OUTER JOIN terms AS T ON G.uuid = T.groupUuid
-GROUP BY T.groupUuid;
+GROUP BY ifnull(T.groupUuid, G.uuid);
