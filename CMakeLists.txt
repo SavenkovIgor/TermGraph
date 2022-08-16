@@ -20,7 +20,7 @@ option (BUILD_APPLICATION "Build native application" ON)
 option (BUILD_BACKEND     "Build backend server"     OFF)
 option (BUILD_FRONTEND    "Build frontend side"      OFF)
 
-option (BUILD_TESTING     "Build tests with project" OFF)
+option (BUILD_TESTING     "Build tests with project" ON)
 
 # Applications subdirs
 if (BUILD_APPLICATION)

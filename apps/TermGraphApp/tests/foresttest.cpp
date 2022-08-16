@@ -64,14 +64,14 @@ const ForestTest::ForestT ForestTest::fullForest = ForestTest::ForestT(
 
 TEST_F(ForestTest, NodeTypes)
 {
-    EXPECT_EQ(fullForest.nodeType(n1), NodeType::root);
-    EXPECT_EQ(fullForest.nodeType(n2), NodeType::root);
-    EXPECT_EQ(fullForest.nodeType(n3), NodeType::endLeaf);
-    EXPECT_EQ(fullForest.nodeType(n4), NodeType::endLeaf);
-    EXPECT_EQ(fullForest.nodeType(n5), NodeType::middleLeaf);
-    EXPECT_EQ(fullForest.nodeType(n6), NodeType::middleLeaf);
-    EXPECT_EQ(fullForest.nodeType(n7), NodeType::middleLeaf);
-    EXPECT_EQ(fullForest.nodeType(n8), NodeType::endLeaf);
+    EXPECT_EQ(fullForest.nodeType(n1), NodeType::Type::Root);
+    EXPECT_EQ(fullForest.nodeType(n2), NodeType::Type::Root);
+    EXPECT_EQ(fullForest.nodeType(n3), NodeType::Type::EndLeaf);
+    EXPECT_EQ(fullForest.nodeType(n4), NodeType::Type::EndLeaf);
+    EXPECT_EQ(fullForest.nodeType(n5), NodeType::Type::MiddleLeaf);
+    EXPECT_EQ(fullForest.nodeType(n6), NodeType::Type::MiddleLeaf);
+    EXPECT_EQ(fullForest.nodeType(n7), NodeType::Type::MiddleLeaf);
+    EXPECT_EQ(fullForest.nodeType(n8), NodeType::Type::EndLeaf);
 }
 
 TEST_F(ForestTest, NodeTypes2)

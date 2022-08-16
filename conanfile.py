@@ -15,11 +15,11 @@ class TermGraphConan(ConanFile):
                'build_frontend':    [True, False],
                'build_tests':       [True, False]}
 
-    default_options = {'with_qt':             False,
-                       'build_application':   True,
-                       'build_backend':       True,
-                       'build_frontend':      False,
-                       'build_tests':         False}
+    default_options = {'with_qt':           False,
+                       'build_application': True,
+                       'build_backend':     True,
+                       'build_frontend':    False,
+                       'build_tests':       True}
 
     def requirements(self):
         if self.options.with_qt:
@@ -39,10 +39,13 @@ class TermGraphConan(ConanFile):
 
     def generate(self):
         tc = CMakeToolchain(self)
-        tc.cache_variables["BUILD_APPLICATION"] = self.options.build_application
-        tc.cache_variables["BUILD_BACKEND"] = self.options.build_backend
-        tc.cache_variables["BUILD_FRONTEND"] = self.options.build_frontend
-        tc.cache_variables["BUILD_TESTING"] = self.options.build_tests
+
+        if self.options.with_qt:
+            tc.cache_variables["BUILD_APPLICATION"] = self.options.build_application
+            tc.cache_variables["BUILD_BACKEND"] = self.options.build_backend
+            tc.cache_variables["BUILD_FRONTEND"] = self.options.build_frontend
+            tc.cache_variables["BUILD_TESTING"] = self.options.build_tests
+
         tc.generate()
 
         deps = CMakeDeps(self)
