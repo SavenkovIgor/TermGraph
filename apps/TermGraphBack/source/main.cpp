@@ -79,7 +79,7 @@ int main()
 {
     Q_INIT_RESOURCE(SqlQueries);
 
-    std::string address    = "localhost";
+    std::string address    = "0.0.0.0";
 
     auto appName = QStringLiteral("TermGraphBack");
     auto stdPaths = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
