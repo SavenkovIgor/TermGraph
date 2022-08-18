@@ -5,6 +5,7 @@
 
 #include <QDateTime>
 #include <QString>
+#include <QDebug>
 
 #include "source/DbInfo.h"
 #include "source/DbTools.h"
@@ -36,7 +37,11 @@ Database::Database(const QString& filePath, const QString& backupPath)
     // Create database if not exist earlier
     base->setDatabaseName(mDbFilePath);
 
-    assert(base->open());
+    if (!base->open()) {
+        qCritical() << "Can't open database at" << mDbFilePath;
+        qCritical() << "with error:" << base->lastError();
+        assert(false);
+    }
 
     termTable.reset(new TermTable());
     groupTable.reset(new TermGroupTable());

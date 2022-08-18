@@ -2,6 +2,7 @@
 #include <QJsonDocument>
 #include <QStandardPaths>
 #include <QString>
+#include <QDir>
 
 #include <restinio/all.hpp>
 
@@ -80,8 +81,18 @@ int main()
 
     std::string address    = "localhost";
 
-    auto appDataPath = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation).first();
-    auto dbFilePath  = appDataPath + "/TermGraphBack/tg.termGraph";
+    auto appName = QStringLiteral("TermGraphBack");
+    auto stdPaths = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
+    assert(!stdPaths.empty());
+
+    QString appDataPath = stdPaths.first() + "/" + appName;
+
+    if (!QDir().mkpath(appDataPath)) {
+        qCritical("Can't create database folder");
+        return -1;
+    }
+
+    auto dbFilePath  = appDataPath + "/tg.termGraph";
     auto backupPath  = appDataPath + "/backup";
 
     LocalDatabaseStorage storage(dbFilePath, backupPath);
