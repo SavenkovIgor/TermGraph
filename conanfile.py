@@ -1,4 +1,4 @@
-from conans import ConanFile
+from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
 
 
@@ -19,7 +19,10 @@ class TermGraphConan(ConanFile):
                        'build_application': True,
                        'build_backend':     True,
                        'build_frontend':    False,
-                       'build_tests':       True}
+                       'build_tests':       False}
+
+    def build_requirements(self):
+        self.test_requires('gtest/1.10.0')
 
     def requirements(self):
         if self.options.with_qt:
@@ -33,9 +36,6 @@ class TermGraphConan(ConanFile):
 
         if self.options.build_backend:
             self.requires('restinio/0.6.14')
-
-        if self.options.build_application and self.options.build_tests:
-            self.requires('gtest/1.10.0')
 
     def generate(self):
         tc = CMakeToolchain(self)
