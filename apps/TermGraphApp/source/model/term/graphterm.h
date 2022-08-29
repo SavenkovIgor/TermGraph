@@ -6,9 +6,8 @@
 #include <vector>
 
 #include "source/model/base/node.hpp"
-#include "source/model/edge/graphedge.h"
-#include "source/model/enums.h"
 #include "source/model/term/termdatacache.h"
+
 
 // This class contains all "graph" part of term
 // like edges, place in graph hierarchy and so on

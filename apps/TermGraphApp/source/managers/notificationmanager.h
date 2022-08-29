@@ -10,7 +10,7 @@
 
 #include <CommonTools/HandyTypes.h>
 
-#include "source/managers/notifiyinterface.h"
+#include "source/managers/notifyinterface.h"
 
 class NotificationManager : public QObject, public NotifyInterface
 {

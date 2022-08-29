@@ -12,8 +12,6 @@
 
 #include <CommonTools/HandyTypes.h>
 
-#include "source/helpers/link/link.h"
-#include "source/helpers/text/textrange.h"
 
 // Static class
 class LinkUtils

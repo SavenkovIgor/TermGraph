@@ -3,7 +3,6 @@
 
 #include "source/model/edge/graphedge.h"
 
-#include "source/model/term/graphterm.h"
 
 GraphEdge::GraphEdge(TermPtr toRoot, TermPtr toLeaf)
     : Edge<GraphTerm, EdgeData>(toRoot, toLeaf, EdgeData())

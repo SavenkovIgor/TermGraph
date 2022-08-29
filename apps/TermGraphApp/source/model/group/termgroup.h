@@ -8,12 +8,11 @@
 #include <CommonTools/HandyTypes.h>
 #include <TermDataInterface/GroupData.h>
 
-#include "source/model/base/forest.hpp"
-#include "source/model/base/graphdata.hpp"
 #include "source/model/graphicitem/rectgraphicitem.h"
 #include "source/model/group/paintedforest.h"
 #include "source/model/term/paintedterm.h"
 #include "source/helpers/globaltagcache.h"
+
 
 class TermGroup : public QObject
 {

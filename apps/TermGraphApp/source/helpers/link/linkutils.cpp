@@ -6,9 +6,6 @@
 #include <limits>
 
 #include "source/helpers/intmatrix.h"
-#include "source/helpers/text/chartools.h"
-#include "source/helpers/text/checkingtextcursor.h"
-#include "source/helpers/text/textcursor.h"
 #include "source/helpers/text/textutils.h"
 
 bool LinkUtils::tagLengthSuitTerm(const QString& tag, const QString& termName)

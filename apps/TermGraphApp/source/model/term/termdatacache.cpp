@@ -6,8 +6,8 @@
 #include "source/helpers/appstyle.h"
 #include "source/helpers/fonts.h"
 #include "source/helpers/link/linksdecorator.h"
-#include "source/helpers/link/linkutils.h"
 #include "source/helpers/text/textutils.h"
+
 
 // Initialization order is important!
 TermDataCache::TermDataCache(const TermData& info)

@@ -7,7 +7,7 @@
 #include <QtNetwork>
 
 #include "source/helpers/simplelistenserver.h"
-#include "source/managers/notifiyinterface.h"
+#include "source/managers/notifyinterface.h"
 
 class NetworkManager : public QObject
 {

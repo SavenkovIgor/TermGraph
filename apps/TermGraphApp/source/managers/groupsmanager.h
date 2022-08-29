@@ -12,7 +12,7 @@
 #include <CommonTools/HandyTypes.h>
 
 #include "source/dataprovider.h"
-#include "source/managers/notifiyinterface.h"
+#include "source/managers/notifyinterface.h"
 #include "source/model/group/termgroup.h"
 
 class GroupsManager : public QObject

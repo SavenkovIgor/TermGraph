@@ -7,7 +7,6 @@
 
 #include <QChar>
 
-#include <CommonTools/HandyTypes.h>
 
 class CharTools
 {

@@ -11,8 +11,8 @@
 
 #include "source/helpers/link/linksstring.h"
 #include "source/model/group/termgroup.h"
-#include "source/model/term/paintedterm.h"
 #include "source/model/term/termdatawrapper.h"
+
 
 class LinksHardeningManager : public QAbstractListModel
 {

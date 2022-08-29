@@ -3,11 +3,9 @@
 
 #include "source/helpers/tagprocessor.h"
 
-#include "source/helpers/intmatrix.h"
 #include "source/helpers/link/link.h"
 #include "source/helpers/link/linksdecorator.h"
 #include "source/helpers/link/linksstring.h"
-#include "source/helpers/link/linkutils.h"
 #include "source/helpers/text/textcursor.h"
 
 TagProcessor& TagProcessor::instance()

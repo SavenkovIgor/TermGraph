@@ -8,6 +8,7 @@
 
 #include "source/model/base/edge.hpp"
 #include "source/model/edge/edgedata.h"
+#include "source/model/term/graphterm.h"
 
 class GraphTerm;
 

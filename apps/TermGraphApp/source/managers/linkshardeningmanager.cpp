@@ -5,7 +5,7 @@
 
 #include "source/helpers/link/linksdecorator.h"
 #include "source/helpers/link/linkutils.h"
-#include "source/model/term/termdatacache.h"
+
 
 LinksHardeningManager::LinksHardeningManager(QObject *parent)
     : QAbstractListModel(parent)

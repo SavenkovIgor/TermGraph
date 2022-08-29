@@ -3,7 +3,6 @@
 
 #include "source/model/term/termsmodel.h"
 
-#include "source/helpers/appstyle.h"
 
 TermsModel::TermsModel(QObject *parent)
     : QAbstractListModel(parent)
