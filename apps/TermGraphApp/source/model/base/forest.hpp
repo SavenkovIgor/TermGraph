@@ -265,6 +265,22 @@ private: // Methods
             }
         }
 
+        // Roots offset
+        int maxLevel = 0;
+
+        for (const auto&[_, level] : ret)
+            maxLevel = std::max(maxLevel, level);
+
+        for (const auto& root : rootNodes) {
+            auto leafs = leafNodes(root);
+
+            int min = maxLevel;
+            for (const auto& leaf : leafs)
+                min = std::min(ret[leaf], min);
+
+            ret[root] = std::max(min - 1, 0);
+        }
+
         return ret;
     }
 
