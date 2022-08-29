@@ -25,6 +25,7 @@ public:
     static const NodeT::Ptr n6;
     static const NodeT::Ptr n7;
     static const NodeT::Ptr n8;
+    static const NodeT::Ptr n9;
 
     static const EdgeT::Ptr e1;
     static const EdgeT::Ptr e2;
@@ -48,19 +49,21 @@ const ForestTest::NodeT::Ptr ForestTest::n5 = NodeT::createPtr(5);
 const ForestTest::NodeT::Ptr ForestTest::n6 = NodeT::createPtr(6);
 const ForestTest::NodeT::Ptr ForestTest::n7 = NodeT::createPtr(7);
 const ForestTest::NodeT::Ptr ForestTest::n8 = NodeT::createPtr(8);
+const ForestTest::NodeT::Ptr ForestTest::n9 = NodeT::createPtr(9);
 
-const ForestTest::EdgeT::Ptr ForestTest::e1 = EdgeT::createPtr(n1, n3, 1);
-const ForestTest::EdgeT::Ptr ForestTest::e2 = EdgeT::createPtr(n1, n4, 2);
-const ForestTest::EdgeT::Ptr ForestTest::e3 = EdgeT::createPtr(n1, n5, 3);
-const ForestTest::EdgeT::Ptr ForestTest::e4 = EdgeT::createPtr(n2, n3, 4);
-const ForestTest::EdgeT::Ptr ForestTest::e5 = EdgeT::createPtr(n2, n4, 5);
-const ForestTest::EdgeT::Ptr ForestTest::e6 = EdgeT::createPtr(n5, n6, 6);
-const ForestTest::EdgeT::Ptr ForestTest::e7 = EdgeT::createPtr(n5, n7, 7);
-const ForestTest::EdgeT::Ptr ForestTest::e8 = EdgeT::createPtr(n6, n8, 8);
-const ForestTest::EdgeT::Ptr ForestTest::e9 = EdgeT::createPtr(n7, n8, 9);
+const ForestTest::EdgeT::Ptr ForestTest::e1  = EdgeT::createPtr(n1, n3, 1);
+const ForestTest::EdgeT::Ptr ForestTest::e2  = EdgeT::createPtr(n1, n4, 2);
+const ForestTest::EdgeT::Ptr ForestTest::e3  = EdgeT::createPtr(n1, n5, 3);
+const ForestTest::EdgeT::Ptr ForestTest::e4  = EdgeT::createPtr(n2, n3, 4);
+const ForestTest::EdgeT::Ptr ForestTest::e5  = EdgeT::createPtr(n2, n4, 5);
+const ForestTest::EdgeT::Ptr ForestTest::e6  = EdgeT::createPtr(n5, n6, 6);
+const ForestTest::EdgeT::Ptr ForestTest::e7  = EdgeT::createPtr(n5, n7, 7);
+const ForestTest::EdgeT::Ptr ForestTest::e8  = EdgeT::createPtr(n6, n8, 8);
+const ForestTest::EdgeT::Ptr ForestTest::e9  = EdgeT::createPtr(n7, n8, 9);
+const ForestTest::EdgeT::Ptr ForestTest::e10 = EdgeT::createPtr(n9, n8, 10);
 
 const ForestTest::ForestT ForestTest::fullForest = ForestTest::ForestT(
-    {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9}});
+    {.nodes = {n1, n2, n3, n4, n5, n6, n7, n8, n9}, .edges = {e1, e2, e3, e4, e5, e6, e7, e8, e9, e10}});
 
 TEST_F(ForestTest, NodeTypes)
 {
@@ -72,6 +75,7 @@ TEST_F(ForestTest, NodeTypes)
     EXPECT_EQ(fullForest.nodeType(n6), NodeType::Type::MiddleLeaf);
     EXPECT_EQ(fullForest.nodeType(n7), NodeType::Type::MiddleLeaf);
     EXPECT_EQ(fullForest.nodeType(n8), NodeType::Type::EndLeaf);
+    EXPECT_EQ(fullForest.nodeType(n9), NodeType::Type::Root);
 }
 
 TEST_F(ForestTest, NodeTypes2)
@@ -84,6 +88,7 @@ TEST_F(ForestTest, NodeTypes2)
     EXPECT_TRUE(fullForest.isLeaf(n6));
     EXPECT_TRUE(fullForest.isLeaf(n7));
     EXPECT_TRUE(fullForest.isLeaf(n8));
+    EXPECT_TRUE(fullForest.isRoot(n9));
 }
 
 TEST_F(ForestTest, CycleTest)
@@ -127,11 +132,12 @@ TEST_F(ForestTest, RootVisit)
     visitList.clear();
 
     fullForest.rootsVisiter(n8, visitListInserter);
-    EXPECT_TRUE(visitList.size() == 4);
+    EXPECT_TRUE(visitList.size() == 5);
     EXPECT_TRUE(visitList.contains(n1));
     EXPECT_TRUE(visitList.contains(n5));
     EXPECT_TRUE(visitList.contains(n6));
     EXPECT_TRUE(visitList.contains(n7));
+    EXPECT_TRUE(visitList.contains(n9));
     visitList.clear();
 }
 
@@ -179,9 +185,10 @@ TEST_F(ForestTest, RootNodes)
 
     auto rNodes2 = fullForest.rootNodes(n8);
 
-    EXPECT_EQ(rNodes2.size(), 2);
+    EXPECT_EQ(rNodes2.size(), 3);
     EXPECT_EQ(rNodes2[0]->data(), 6);
     EXPECT_EQ(rNodes2[1]->data(), 7);
+    EXPECT_EQ(rNodes2[2]->data(), 9);
 }
 
 TEST_F(ForestTest, LeafNodes)
@@ -237,9 +244,9 @@ TEST_F(ForestTest, WasteEdges)
 
     EXPECT_TRUE(forest.hasWasteEdges());
     EXPECT_EQ(forest.wasteEdges().size(), 4);
-    EXPECT_EQ(forest.wasteEdges()[0]->data(), 11);
-    EXPECT_EQ(forest.wasteEdges()[1]->data(), 13);
-    EXPECT_EQ(forest.wasteEdges()[2]->data(), 12);
+    EXPECT_EQ(forest.wasteEdges()[0]->data(), 13);
+    EXPECT_EQ(forest.wasteEdges()[1]->data(), 12);
+    EXPECT_EQ(forest.wasteEdges()[2]->data(), 11);
     EXPECT_EQ(forest.wasteEdges()[3]->data(), 10);
 }
 
@@ -261,6 +268,7 @@ TEST_F(ForestTest, Levels)
     EXPECT_EQ(fullForest.level(n6), 2);
     EXPECT_EQ(fullForest.level(n7), 2);
     EXPECT_EQ(fullForest.level(n8), 3);
+    EXPECT_EQ(fullForest.level(n9), 2);
 
     auto level0 = fullForest.nodesAtLevel(0);
 
@@ -277,9 +285,10 @@ TEST_F(ForestTest, Levels)
 
     auto level2 = fullForest.nodesAtLevel(2);
 
-    EXPECT_EQ(level2.size(), 2);
+    EXPECT_EQ(level2.size(), 3);
     EXPECT_EQ(level2[0]->data(), 6);
     EXPECT_EQ(level2[1]->data(), 7);
+    EXPECT_EQ(level2[2]->data(), 9);
 
     auto level3 = fullForest.nodesAtLevel(3);
 
