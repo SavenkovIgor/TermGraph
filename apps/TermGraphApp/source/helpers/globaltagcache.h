@@ -7,18 +7,15 @@
 
 #include <CommonTools/HandyTypes.h>
 
+
 class GlobalTagCache
 {
 public:
-    static GlobalTagCache& instance();
-    GlobalTagCache(GlobalTagCache const&) = delete;
-    void operator=(GlobalTagCache const&) = delete;
+    GlobalTagCache() = default;
 
-    Opt<Opt<int>> get(const QString& tag, const QString& term);
+    Opt<Opt<int>> get(const QString& tag, const QString& term) const;
     void          add(const QString& tag, const QString& term, Opt<int> value);
 
 private:
-    GlobalTagCache() = default;
-
     QMap<QString, QMap<QString, Opt<int>>> tagToTermCache;
 };

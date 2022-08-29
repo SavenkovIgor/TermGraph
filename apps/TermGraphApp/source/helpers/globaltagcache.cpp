@@ -3,13 +3,8 @@
 
 #include "source/helpers/globaltagcache.h"
 
-GlobalTagCache& GlobalTagCache::instance()
-{
-    static GlobalTagCache mgr;
-    return mgr;
-}
 
-Opt<Opt<int>> GlobalTagCache::get(const QString& tag, const QString& term)
+Opt<Opt<int>> GlobalTagCache::get(const QString& tag, const QString& term) const
 {
     auto tagIter = tagToTermCache.constFind(tag);
     if (tagIter != tagToTermCache.constEnd()) {

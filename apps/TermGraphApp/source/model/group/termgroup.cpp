@@ -8,8 +8,9 @@
 
 #include "source/helpers/appstyle.h"
 #include "source/helpers/fonts.h"
-#include "source/helpers/globaltagcache.h"
 #include "source/helpers/link/linkutils.h"
+
+GlobalTagCache TermGroup::tagCache;
 
 TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObject* parent)
     : QObject(parent)
@@ -391,12 +392,12 @@ Opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const 
         if (!LinkUtils::tagLengthSuitTerm(tag, termName))
             continue;
 
-        auto cacheMatch = GlobalTagCache::instance().get(tag, termName);
+        auto cacheMatch = tagCache.get(tag, termName);
         if (cacheMatch) {
             optionalResult = cacheMatch.value();
         } else {
             optionalResult = LinkUtils::getDistanceBetweenTagAndTerm(tag, termName, minDistance);
-            GlobalTagCache::instance().add(tag, termName, optionalResult);
+            tagCache.add(tag, termName, optionalResult);
         }
 
         if (optionalResult) {

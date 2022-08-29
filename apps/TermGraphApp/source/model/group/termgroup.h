@@ -13,6 +13,7 @@
 #include "source/model/graphicitem/rectgraphicitem.h"
 #include "source/model/group/paintedforest.h"
 #include "source/model/term/paintedterm.h"
+#include "source/helpers/globaltagcache.h"
 
 class TermGroup : public QObject
 {
@@ -111,4 +112,6 @@ private:
     PaintedForest::List mForests;
 
     GraphT mGraphData = GraphT({});
+
+    static GlobalTagCache tagCache;
 };
