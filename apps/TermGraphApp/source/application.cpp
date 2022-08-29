@@ -14,8 +14,8 @@ Application::Application(QObject* parent)
     , scene(new MainScene(groupsManager.get()))
     , qmlEngine(new QQmlApplicationEngine())
 {
-    qmlRegisterSingletonInstance("Network", 1, 0, "NetworkManager", network.get());
-
+    qmlRegisterModule("Api", 1, 0);
+    qmlRegisterSingletonInstance("Api", 1, 0, "NetworkManager", network.get());
     qmlRegisterSingletonInstance("Api", 1, 0, "Scene", scene.get());
     qmlRegisterSingletonInstance("Api", 1, 0, "GroupsManager", groupsManager.get());
     qmlRegisterSingletonInstance("Api", 1, 0, "SyncManager", syncManager.get());

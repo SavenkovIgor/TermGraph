@@ -5,7 +5,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import Network
+import Api
+
 import Atoms as A
 import Molecules as M
 import StyleInfo
