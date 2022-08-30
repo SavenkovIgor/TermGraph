@@ -7,10 +7,9 @@
 #include <QStringList>
 #include <QtGlobal>
 
-// TODO: File rename
 namespace AppSettings {
 
-class StdPaths
+class Paths
 {
 public:
     static void createDefaultFoldersIfNeed();

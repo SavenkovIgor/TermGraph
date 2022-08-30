@@ -3,6 +3,6 @@
 
 #include "source/helpers/firststartpreparer.h"
 
-#include "source/helpers/appconfig.h"
+#include "source/helpers/appsettings.h"
 
-FirstStartPreparer::FirstStartPreparer() { AppSettings::StdPaths::createDefaultFoldersIfNeed(); }
+FirstStartPreparer::FirstStartPreparer() { AppSettings::Paths::createDefaultFoldersIfNeed(); }

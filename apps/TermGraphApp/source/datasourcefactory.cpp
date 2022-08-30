@@ -12,7 +12,7 @@
 #include <TermDataStorage/LocalDataStorage.h>
 #endif
 
-#include "source/helpers/appconfig.h"
+#include "source/helpers/appsettings.h"
 
 std::unique_ptr<DataStorageInterface> DataSourceFactory::defaultSource()
 {
@@ -29,7 +29,7 @@ std::unique_ptr<DataStorageInterface> DataSourceFactory::localDb()
     return nullptr;
 #else
     using namespace AppSettings;
-    return std::make_unique<LocalDatabaseStorage>(StdPaths::defaultDatabaseFilePath(), StdPaths::backupFolder());
+    return std::make_unique<LocalDatabaseStorage>(Paths::defaultDatabaseFilePath(), Paths::backupFolder());
 #endif
 }
 

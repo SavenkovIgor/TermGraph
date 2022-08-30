@@ -9,7 +9,7 @@
 
 #include <QDebug>
 
-#include "source/helpers/appconfig.h"
+#include "source/helpers/appsettings.h"
 
 GroupsManager::GroupsManager(NotifyInterface&                      notifier,
                              QObject*                              parent)
@@ -297,7 +297,7 @@ void GroupsManager::showError(int code) {
     }
 }
 
-QString GroupsManager::getExportPath() const { return AppSettings::StdPaths::groupsJsonFolder(); }
+QString GroupsManager::getExportPath() const { return AppSettings::Paths::groupsJsonFolder(); }
 
 void GroupsManager::exportGrpToJson(const QString& groupUuid)
 {
@@ -324,8 +324,8 @@ void GroupsManager::saveGroupInFolder(TermGroup::OptPtr group)
 {
     Q_UNIMPLEMENTED();
     if (group) {
-        //        QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
-        //        FSWorks::saveFile(AppConfig::StdFolderPaths::groupsJsonFolder(), fileName, group->getJsonDoc().toJson());
+        // QString fileName = group->getName() + " " + group->getUuid().toString() + ".grp";
+        // Save file
     }
 }
 

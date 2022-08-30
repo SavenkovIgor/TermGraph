@@ -85,14 +85,6 @@ if (BUILD_TESTING)
         LIBRARIES Qt6::Core)
 
     create_test (
-        NAME      TestFsWorks
-        SOURCES
-            source/helpers/fsworks.cpp
-            source/helpers/fsworks.h
-            tests/fsworkstest.cpp
-        LIBRARIES Qt6::Core)
-
-    create_test (
         NAME      TestNode
         SOURCES
             source/model/base/node.hpp
