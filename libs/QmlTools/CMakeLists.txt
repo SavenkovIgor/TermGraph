@@ -15,7 +15,7 @@ set_target_properties (ToolsModule
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
 
-set (QML_SOURCES Debug.qml Tools.qml Ruler.qml)
+set (QML_SOURCES Debug.qml Tools.qml Ruler.qml DebugFrame.qml)
 
 set_source_files_properties (Debug.qml Tools.qml PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
 

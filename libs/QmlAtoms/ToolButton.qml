@@ -23,5 +23,4 @@ RoundButton {
     display: AbstractButton.IconOnly
 
     background: Round { color: highlighted ? "#00000099" : "transparent"; }
-
 }

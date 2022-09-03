@@ -25,7 +25,6 @@ qt_add_qml_module (AtomsModule
         AccentText.qml
         BottomThinLine.qml
         ComboBox.qml
-        DebugFrame.qml
         DrawerPage.qml
         Edge.qml
         FlickableColumn.qml
