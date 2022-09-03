@@ -19,7 +19,7 @@
 class DataStorageConnection : public DataStorageInterface
 {
 public:
-    DataStorageConnection(QHostAddress address, quint16 port = NetworkTools::defaultPort);
+    DataStorageConnection(QUrl address);
 
     int storageVersion() const final;
 

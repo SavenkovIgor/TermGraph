@@ -22,13 +22,13 @@ Result<T> toResult(QNetworkReply*                                reply,
     return ErrorCodes::JsonParseError;
 }
 
-DataStorageConnection::DataStorageConnection(QHostAddress address, quint16 port)
+DataStorageConnection::DataStorageConnection(QUrl address)
     : DataStorageInterface()
 {
-    // TODO: Switch to https
-    baseUrl.setScheme("http");
-    baseUrl.setHost(address.toString());
-    baseUrl.setPort(port);
+    if (address.scheme() != "https")
+        qWarning("Not https connection!");
+
+    baseUrl = address;
 
     groupUrl = baseUrl;
     groupUrl.setPath(NetworkTools::groupApiPath);
