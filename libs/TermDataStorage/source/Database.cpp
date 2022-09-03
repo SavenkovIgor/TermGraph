@@ -69,7 +69,7 @@ Database::Database(const QString& filePath, const QString& backupPath)
         groupTable.reset(new TermGroupTable());
         appConfigTable.reset(new AppConfigTable());
     } else {
-        qInfo("Database is already actual");
+        qInfo("Database schema is up to date");
     }
 }
 
