@@ -5,6 +5,7 @@
 
 #include <QDateTime>
 #include <QString>
+#include <QFileInfo>
 #include <QDebug>
 
 #include "source/DbInfo.h"
@@ -29,9 +30,9 @@ Database::Database(const QString& filePath, const QString& backupPath)
     auto baseExists = databaseExists(mDbFilePath);
 
     if (baseExists) {
-        qInfo("Base file is exists");
+        qInfo() << "Database file found at:" << QFileInfo(mDbFilePath).absoluteFilePath();
     } else {
-        qInfo("Base file don't exist");
+        qInfo("Database file doesn't exist");
     }
 
     // Create database if not exist earlier
@@ -40,7 +41,7 @@ Database::Database(const QString& filePath, const QString& backupPath)
     if (!base->open()) {
         qCritical() << "Can't open database at" << mDbFilePath;
         qCritical() << "with error:" << base->lastError();
-        assert(false);
+        qApp->exit(-1);
     }
 
     termTable.reset(new TermTable());

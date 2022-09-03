@@ -212,8 +212,8 @@ QSqlQuery SqlQueryBuilder::dropTable(const QString &tableName) const
 QString SqlQueryBuilder::loadQueryString(const QString &queryPath) const
 {
     QFile queryFile(queryPath);
-    auto  open = queryFile.open(QIODevice::ReadOnly);
-    assert(open);
+    [[maybe_unused]] auto isOpen = queryFile.open(QIODevice::ReadOnly);
+    assert(isOpen);
     return QString(queryFile.readAll());
 }
 
@@ -231,6 +231,7 @@ QSqlDatabase SqlQueryBuilder::getDbForConnection(QLatin1String connectionName)
 
     auto db = QSqlDatabase::addDatabase("QSQLITE", connectionName);
     db.setDatabaseName(Database::mDbFilePath);
-    assert(db.open());
+    [[maybe_unused]] auto isOpen = db.open();
+    assert(isOpen);
     return db;
 }
