@@ -32,14 +32,13 @@ M.Page {
 
             property real basePadding: Fonts.h4.pixelSize
 
+            readonly property bool isCurrentItem: ListView.isCurrentItem
+
             padding: basePadding / 2
             width: ListView.view.width
 
             contentItem: Column {
-
                 Text {
-                    id: grpName
-
                     width: parent.width
                     leftPadding: delegate.basePadding
                     bottomPadding: delegate.basePadding / 3
@@ -74,7 +73,7 @@ M.Page {
             }
 
             background: Rectangle {
-                color: delegate.ListView.isCurrentItem ? Colors.baseLight2 : "transparent"
+                color: parent.isCurrentItem ? Colors.baseLight2 : "transparent"
                 A.BottomThinLine { }
             }
 
@@ -138,7 +137,6 @@ M.Page {
     */
 
     A.RoundButton {
-        id: sendByNetworkButton
         icon.source: IconPath.share
         visible: GroupsManager.hasAnyGroup
 
@@ -149,16 +147,13 @@ M.Page {
 
     M.StdDialog {
         id: groupExportedDialog
-
         title:  "Группа экспортирована в папку GroupsJson"
         standardButtons: M.StdDialog.Ok
     }
 
     M.StdDialog {
         id: groupDeleteDialog
-
         title: "Удалить этот термин?"
-
         onAccepted: GroupsManager.deleteGroup(groupsList.currentItem.groupUuid)
     }
 
@@ -180,29 +175,30 @@ M.Page {
             newGroupName.text = ""
         }
 
-        background: Rectangle { color: Colors.baseLight2 }
+        leftPadding:  Sizes.baseX3
+        rightPadding: Sizes.baseX3
+        topPadding:    Sizes.baseX2
+        bottomPadding: Sizes.baseX2
 
         contentItem: RowLayout {
 
             M.TextField {
                 id: newGroupName
                 Layout.fillWidth: true
-                Layout.margins: implicitHeight * 0.5
 
                 labelText: "Название новой группы"
             }
 
             A.RoundButton {
-                id: newGroupAddButton
                 icon.source: IconPath.check
-                Layout.rightMargin: newGroupName.implicitHeight * 0.5
-
                 onClicked: {
                     GroupsManager.addNewGroup(newGroupName.text, "")
                     newGroupDrawer.close()
                 }
             }
         }
+
+        background: Rectangle { color: Colors.baseLight2 }
     }
 }
 
