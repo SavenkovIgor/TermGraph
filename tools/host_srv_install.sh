@@ -48,8 +48,7 @@ sudo nginx -t # Check rules
 sudo systemctl restart nginx
 
 # Send frontend to server
-tar --create --file wasm.tar qtloader.js qtlogo.svg TermGraph.html TermGraph.js TermGraph.wasm TermGraph.worker.js
-scp ./wasm.tar root@146.190.31.160:/home/user
+scp -C qtloader.js qtlogo.svg TermGraph.html TermGraph.js TermGraph.wasm TermGraph.worker.js root@termgraph.app:/var/www/html
 
 # On server
 cd /var/www/html
