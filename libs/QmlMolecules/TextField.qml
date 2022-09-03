@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls as C
 
 import Atoms  as A
 import StyleInfo
@@ -22,7 +22,7 @@ Column {
 
     A.AccentText { id: label; width: parent.width; }
 
-    TextField {
+    C.TextField {
         id : txtField
         width: parent.width
         font: Fonts.h3
