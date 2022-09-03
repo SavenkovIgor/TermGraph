@@ -6,7 +6,6 @@ import QtQuick.Controls
 
 import StyleInfo
 import Atoms as A
-import Tools
 
 Button {
     id: root
