@@ -6,12 +6,13 @@ import QtQuick.Controls
 
 import StyleInfo
 import Atoms as A
+import Tools
 
 Button {
     id: root
 
-    horizontalPadding: Sizes.baseX3
-    verticalPadding: Sizes.base
+    horizontalPadding: Sizes.base
+    verticalPadding: Sizes.halfBase
     topInset: 0
     bottomInset: 0
 
@@ -34,22 +35,17 @@ Button {
     }
 
     contentItem: Row {
-
-        spacing: buttonIcon.width / 5
+        spacing: Sizes.halfBase
 
         A.ToolButton {
-            id: buttonIcon
-
-            width: Sizes.baseX3
-            height: Sizes.baseX3
+            size: Sizes.baseX3
             icon.color: root.baseColor
             icon.source: root.icon.source
             visible: root.iconVisible
         }
 
         Text {
-            id: label
-            height: buttonIcon.height
+            height: Sizes.baseX3
 
             color: root.baseColor
             font: Fonts.setWeight(Fonts.h3, Font.Thin)

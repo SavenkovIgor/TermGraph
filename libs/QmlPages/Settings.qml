@@ -15,22 +15,19 @@ M.Page {
 
     title: "Настройки"
 
-    ListModel {
-        id: settingsModel
-
-        ListElement { name: "Настройки сети" }
-        ListElement { name: "База данных"    }
-        ListElement { name: "Справка"        }
-        ListElement { name: "Лицензия"       }
-    }
-
     Component { id: networkSettingsComponent; P.NetworkSettings { } }
     Component { id: databaseComponent;        P.Database { } }
     Component { id: helpPageComponent;        P.Help { } }
     Component { id: licensePageComponent;     P.License { } }
 
     contentItem: ListView {
-        model: settingsModel
+        model: ListModel {
+            ListElement { name: "Настройки сети" }
+            ListElement { name: "База данных"    }
+            ListElement { name: "Справка"        }
+            ListElement { name: "Лицензия"       }
+        }
+
         delegate: A.SideMenuButton {
             width: ListView.view.width
             text: name
