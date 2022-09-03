@@ -50,6 +50,6 @@ sudo systemctl restart nginx
 # Send frontend to server
 scp -C qtloader.js qtlogo.svg TermGraph.html TermGraph.js TermGraph.wasm TermGraph.worker.js root@termgraph.app:/var/www/html
 
-# On server
-cd /var/www/html
-sudo tar -xvf /home/user/wasm.tar
+
+
+
