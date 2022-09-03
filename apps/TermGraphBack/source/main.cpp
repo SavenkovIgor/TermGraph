@@ -25,23 +25,44 @@ http_status_line_t dbErrToHttpErr(std::error_code code)
 
     // clang-format off
     switch (static_cast<ErrorCodes>(code.value())) {
-    case ErrorCodes::GroupUuidInvalid:      return status_bad_request();
-    case ErrorCodes::GroupUuidAlreadyExist: return status_conflict();
-    case ErrorCodes::GroupUuidNotFound:     return status_not_found();
-    case ErrorCodes::GroupNameEmpty:        return status_bad_request();
-    case ErrorCodes::GroupNameAlreadyExist: return status_conflict();
+    using enum ErrorCodes;
+    case GroupUuidInvalid:      return status_bad_request();
+    case GroupUuidAlreadyExist: return status_conflict();
+    case GroupUuidNotFound:     return status_not_found();
+    case GroupNameEmpty:        return status_bad_request();
+    case GroupNameAlreadyExist: return status_conflict();
 
-    case ErrorCodes::TermUuidInvalid:       return status_bad_request();
-    case ErrorCodes::TermUuidAlreadyExist:  return status_conflict();
-    case ErrorCodes::TermUuidNotFound:      return status_not_found();
-    case ErrorCodes::TermEmpty:             return status_bad_request();
-    case ErrorCodes::TermAlreadyExist:      return status_conflict();
-    case ErrorCodes::TermNotFound:          return status_not_found();
-    case ErrorCodes::NewerTermVersionFound: return status_conflict();
+    case TermUuidInvalid:       return status_bad_request();
+    case TermUuidAlreadyExist:  return status_conflict();
+    case TermUuidNotFound:      return status_not_found();
+    case TermEmpty:             return status_bad_request();
+    case TermAlreadyExist:      return status_conflict();
+    case TermNotFound:          return status_not_found();
+    case NewerTermVersionFound: return status_conflict();
 
-    case ErrorCodes::ConnectionError: return status_not_found();
-    case ErrorCodes::JsonParseError:  return status_bad_request();
-    case ErrorCodes::UnknownError:    return status_internal_server_error();
+    case ConnectionError: return status_not_found();
+    case JsonParseError:  return status_bad_request();
+    case UnknownError:    return status_internal_server_error();
+
+    case LastEditInvalid:
+    case NodesLastEditInvalid:
+        return status_bad_request();
+
+    case JsonNameFieldMissedOrWrongType:
+    case JsonCommentFieldMissedOrWrongType:
+    case JsonSizeFieldMissedOrWrongType:
+    case JsonNodesFieldMissedOrWrongType:
+    case JsonNodesLastEditFieldMissedOrWrongType:
+    case JsonUuidFieldMissedOrWrongType:
+    case JsonTermFieldMissedOrWrongType:
+    case JsonDefinitionFieldMissedOrWrongType:
+    case JsonDescriptionFieldMissedOrWrongType:
+    case JsonExamplesFieldMissedOrWrongType:
+    case JsonWikiUrlFieldMissedOrWrongType:
+    case JsonWikiImageFieldMissedOrWrongType:
+    case JsonGroupUuidFieldMissedOrWrongType:
+    case JsonLastEditFieldMissedOrWrongType:
+        return status_bad_request();
     }
     // clang-format on
 
