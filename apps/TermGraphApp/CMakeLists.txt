@@ -1,7 +1,7 @@
 # Copyright © 2016-2022. Savenkov Igor
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
+cmake_minimum_required (VERSION 3.22.0)
 
 project (TermGraph VERSION 2.0.0 LANGUAGES CXX)
 
