@@ -57,18 +57,18 @@ TEST(LinkToolsTest, TagLengthSuitTerm)
     data.push_back({.word1 = "w w", .word2 = "wwwww wwwwww", .result = false});
 
     for (const auto& d : data) {
-        EXPECT_EQ(LinkTools::tagLengthSuitTerm(d.word1, d.word2), d.result);
-        EXPECT_EQ(LinkTools::tagLengthSuitTerm(d.word2, d.word1), d.result);
+        EXPECT_EQ(LinkTools::linkAndTermSimilarWordDistance(d.word1, d.word2), d.result);
+        EXPECT_EQ(LinkTools::linkAndTermSimilarWordDistance(d.word2, d.word1), d.result);
     }
 }
 
 void getLevDistance_data()
 {
-    EXPECT_EQ(LinkTools::getLevDistance(QString(""), QString(""), 9), 0);
-    EXPECT_EQ(LinkTools::getLevDistance(QString("атом"), QString("атомов"), 9), 2);
-    EXPECT_EQ(LinkTools::getLevDistance(QString("электрон"), QString("электроны"), 9), 1);
-    EXPECT_EQ(LinkTools::getLevDistance(QString("отрицательный заряд"), QString("отрицательный заряд"), 9), 0);
-    EXPECT_EQ(LinkTools::getLevDistance(QString("элементарная частица"), QString("элементарными частицами"), 9), 5);
-    EXPECT_EQ(LinkTools::getLevDistance(QString("конформация"), QString("конформационный"), 9), 5);
-    EXPECT_EQ(LinkTools::getLevDistance(QString("w w"), QString("wwwww"), 9), 3);
+    EXPECT_EQ(LinkTools::levDistance(QString(""), QString(""), 9), 0);
+    EXPECT_EQ(LinkTools::levDistance(QString("атом"), QString("атомов"), 9), 2);
+    EXPECT_EQ(LinkTools::levDistance(QString("электрон"), QString("электроны"), 9), 1);
+    EXPECT_EQ(LinkTools::levDistance(QString("отрицательный заряд"), QString("отрицательный заряд"), 9), 0);
+    EXPECT_EQ(LinkTools::levDistance(QString("элементарная частица"), QString("элементарными частицами"), 9), 5);
+    EXPECT_EQ(LinkTools::levDistance(QString("конформация"), QString("конформационный"), 9), 5);
+    EXPECT_EQ(LinkTools::levDistance(QString("w w"), QString("wwwww"), 9), 3);
 }

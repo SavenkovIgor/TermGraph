@@ -8,17 +8,17 @@
 #include "source/helpers/intmatrix.h"
 #include "source/helpers/text/texttools.h"
 
-bool LinkTools::tagLengthSuitTerm(const QString& tag, const QString& termName)
+bool LinkTools::linkAndTermSimilarWordDistance(const QString& link, const QString& term)
 {
-    int wordsCountInTag = TextTools::wordCount(tag);
-    int maxWordDistance = 4 * wordsCountInTag; // Magic numbers. Would be replaced further
+    int wordsCountInLink = TextTools::wordCount(link);
+    int maxWordDistance = 4 * wordsCountInLink; // Magic numbers. Would be replaced further
 
-    auto stringSizeDiffer = std::abs(termName.size() - tag.size());
+    auto stringSizeDiffer = std::abs(term.size() - link.size());
     // No need to check. Term is not suit already
     return stringSizeDiffer <= maxWordDistance;
 }
 
-int LinkTools::getLevDistance(QStringView src, QStringView dst, int limit)
+int LinkTools::levDistance(QStringView src, QStringView dst, int limit)
 {
     const int m = src.size();
     const int n = dst.size();
@@ -66,26 +66,26 @@ int LinkTools::getLevDistance(QStringView src, QStringView dst, int limit)
     return matrix[m][n];
 }
 
-Opt<int> LinkTools::getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit)
+Opt<int> LinkTools::linkAndTermDistance(const QString& link, const QString& term, int maxLimit)
 {
     // For developing needs
-    assert(termName == termName.toLower());
-    assert(tag == tag.toLower());
+    assert(term == term.toLower());
+    assert(link == link.toLower());
 
     // Exact match
-    if (termName.size() == tag.size() && termName == tag)
+    if (term.size() == link.size() && term == link)
         return 0;
 
-    int wordsCountInTag = TextTools::wordCount(tag);
-    int maxWordDistance = std::min(4 * wordsCountInTag, maxLimit);
+    int wordsCountInLink = TextTools::wordCount(link);
+    int maxWordDistance = std::min(4 * wordsCountInLink, maxLimit);
 
-    auto stringSizeDiffer = std::abs(termName.size() - tag.size());
+    auto stringSizeDiffer = std::abs(term.size() - link.size());
     if (stringSizeDiffer > maxWordDistance) // No need to check. Term is not suit already
         return std::nullopt;
 
-    auto distance = getLevDistance(termName, tag, maxWordDistance);
+    auto distance = levDistance(term, link, maxWordDistance);
     if (distance <= maxWordDistance) {
-        if (termName.left(3) == tag.left(3)) {
+        if (term.left(3) == link.left(3)) {
             return distance;
         }
     }

@@ -17,9 +17,7 @@
 class LinkTools
 {
 public:
-    // Tags
-    static bool tagLengthSuitTerm(const QString& tag, const QString& termName);
-
-    static int      getLevDistance(QStringView src, QStringView dst, int limit = 100000);
-    static Opt<int> getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit);
+    static bool linkAndTermSimilarWordDistance(const QString& link, const QString& term);
+    static int      levDistance(QStringView src, QStringView dst, int limit = 100000);
+    static Opt<int> linkAndTermDistance(const QString& link, const QString& term, int maxLimit);
 };

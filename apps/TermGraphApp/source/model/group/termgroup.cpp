@@ -86,7 +86,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
         auto cuttedTerm = lowerTerm.left(searchText.size()); // Compare only left n characters
 
         auto acceptableLimit = static_cast<int>(cuttedTerm.size() * 0.25);
-        auto distance        = LinkTools::getLevDistance(cuttedTerm, searchText, acceptableLimit);
+        auto distance        = LinkTools::levDistance(cuttedTerm, searchText, acceptableLimit);
 
         if (distance <= acceptableLimit)
             searchResults.push_back({distance, term->data().uuid->get()});
@@ -389,14 +389,14 @@ Opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const 
     for (auto node : terms) {
         auto termName = node->cache().lowerTerm();
 
-        if (!LinkTools::tagLengthSuitTerm(tag, termName))
+        if (!LinkTools::linkAndTermSimilarWordDistance(tag, termName))
             continue;
 
         auto cacheMatch = tagCache.get(tag, termName);
         if (cacheMatch) {
             optionalResult = cacheMatch.value();
         } else {
-            optionalResult = LinkTools::getDistanceBetweenTagAndTerm(tag, termName, minDistance);
+            optionalResult = LinkTools::linkAndTermDistance(tag, termName, minDistance);
             tagCache.add(tag, termName, optionalResult);
         }
 

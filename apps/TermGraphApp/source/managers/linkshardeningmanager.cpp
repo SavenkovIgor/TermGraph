@@ -100,7 +100,7 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
         if (QUuid(mCurrentTerm.getUuid()) == term->data().uuid)
             continue;
 
-        auto distance = LinkTools::getLevDistance(currentLink().textLower(), term->data().term.toLower());
+        auto distance = LinkTools::levDistance(currentLink().textLower(), term->data().term.toLower());
         distances.push_back(std::pair(distance, term.get()));
     }
 
