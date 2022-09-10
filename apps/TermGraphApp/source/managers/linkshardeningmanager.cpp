@@ -4,7 +4,7 @@
 #include "source/managers/linkshardeningmanager.h"
 
 #include "source/helpers/link/linksdecorator.h"
-#include "source/helpers/link/linkutils.h"
+#include "source/helpers/link/linktools.h"
 
 
 LinksHardeningManager::LinksHardeningManager(QObject *parent)
@@ -100,7 +100,7 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
         if (QUuid(mCurrentTerm.getUuid()) == term->data().uuid)
             continue;
 
-        auto distance = LinkUtils::getLevDistance(currentLink().textLower(), term->data().term.toLower());
+        auto distance = LinkTools::getLevDistance(currentLink().textLower(), term->data().term.toLower());
         distances.push_back(std::pair(distance, term.get()));
     }
 

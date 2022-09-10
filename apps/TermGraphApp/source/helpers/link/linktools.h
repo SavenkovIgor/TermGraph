@@ -14,7 +14,7 @@
 
 
 // Static class
-class LinkUtils
+class LinkTools
 {
 public:
     // Tags

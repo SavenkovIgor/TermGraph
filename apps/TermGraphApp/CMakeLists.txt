@@ -177,12 +177,12 @@ if (BUILD_TESTING)
         LIBRARIES Qt6::Core CommonTools)
 
     create_test (
-        NAME      TestLinkUtils
+        NAME      TestLinkTools
         SOURCES
             source/helpers/intmatrix.cpp
             source/helpers/intmatrix.h
-            source/helpers/link/linkutils.cpp
-            source/helpers/link/linkutils.h
+            source/helpers/link/linktools.cpp
+            source/helpers/link/linktools.h
             source/helpers/link/link.cpp
             source/helpers/link/link.h
             source/helpers/text/chartools.h
@@ -194,7 +194,7 @@ if (BUILD_TESTING)
             source/helpers/text/textrange.h
             source/helpers/text/textutils.cpp
             source/helpers/text/textutils.h
-            tests/linkutilstest.cpp
+            tests/linktoolstest.cpp
         LIBRARIES Qt6::Core CommonTools)
 
     create_test (

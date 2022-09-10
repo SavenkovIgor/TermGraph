@@ -1,14 +1,14 @@
 // Copyright © 2016-2022. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/link/linkutils.h"
+#include "source/helpers/link/linktools.h"
 
 #include <limits>
 
 #include "source/helpers/intmatrix.h"
 #include "source/helpers/text/textutils.h"
 
-bool LinkUtils::tagLengthSuitTerm(const QString& tag, const QString& termName)
+bool LinkTools::tagLengthSuitTerm(const QString& tag, const QString& termName)
 {
     int wordsCountInTag = TextUtils::wordCount(tag);
     int maxWordDistance = 4 * wordsCountInTag; // Magic numbers. Would be replaced further
@@ -18,7 +18,7 @@ bool LinkUtils::tagLengthSuitTerm(const QString& tag, const QString& termName)
     return stringSizeDiffer <= maxWordDistance;
 }
 
-int LinkUtils::getLevDistance(QStringView src, QStringView dst, int limit)
+int LinkTools::getLevDistance(QStringView src, QStringView dst, int limit)
 {
     const int m = src.size();
     const int n = dst.size();
@@ -66,7 +66,7 @@ int LinkUtils::getLevDistance(QStringView src, QStringView dst, int limit)
     return matrix[m][n];
 }
 
-Opt<int> LinkUtils::getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit)
+Opt<int> LinkTools::getDistanceBetweenTagAndTerm(const QString& tag, const QString& termName, int maxLimit)
 {
     // For developing needs
     assert(termName == termName.toLower());
