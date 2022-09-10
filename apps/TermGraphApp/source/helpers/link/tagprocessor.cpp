@@ -1,7 +1,7 @@
 // Copyright © 2016-2022. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/tagprocessor.h"
+#include "source/helpers/link/tagprocessor.h"
 
 #include "source/helpers/link/link.h"
 #include "source/helpers/link/linksdecorator.h"

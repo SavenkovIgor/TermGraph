@@ -8,7 +8,7 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include "source/helpers/tagprocessor.h"
+#include "source/helpers/link/tagprocessor.h"
 #include "source/managers/linkshardeningmanager.h"
 #include "source/managers/notificationmanager.h"
 #include "source/model/enums.h"
