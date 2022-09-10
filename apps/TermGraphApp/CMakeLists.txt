@@ -75,7 +75,7 @@ target_link_libraries (TermGraph
 qt_finalize_executable (TermGraph)
 
 if (BUILD_TESTING)
-    include (TestUtils)
+    include (TestTools)
     create_test (
         NAME      TestTextTools
         SOURCES

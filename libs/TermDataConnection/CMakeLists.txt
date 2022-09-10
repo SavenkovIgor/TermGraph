@@ -32,7 +32,7 @@ target_sources (TermDataConnection
 #if (BUILD_TESTING)
 #    enable_testing ()
 
-#    include (TestUtils)
+#    include (TestTools)
 #    create_test (
 #        NAME      TestConnectionWorks
 #        SOURCES   tests/ConnectionWorksTest.cpp
