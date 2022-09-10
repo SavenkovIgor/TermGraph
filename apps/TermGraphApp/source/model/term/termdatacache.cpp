@@ -6,7 +6,7 @@
 #include "source/helpers/appstyle.h"
 #include "source/helpers/fonts.h"
 #include "source/helpers/link/linksdecorator.h"
-#include "source/helpers/text/textutils.h"
+#include "source/helpers/text/texttools.h"
 
 
 // Initialization order is important!
@@ -48,7 +48,7 @@ QString TermDataCache::getDecoratedTerm(const QString& term)
 
         if (Fonts::getTextMetrics(ret).width() + 15 > AppStyle::Sizes::baseBlockWidth) {
             // Пытаемся ужать в 2 строки
-            ret = TextUtils::insertNewLineNearMiddle(ret);
+            ret = TextTools::insertNewLineNearMiddle(ret);
         }
     }
 

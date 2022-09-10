@@ -77,11 +77,11 @@ qt_finalize_executable (TermGraph)
 if (BUILD_TESTING)
     include (TestUtils)
     create_test (
-        NAME      TestTextUtils
+        NAME      TestTextTools
         SOURCES
-            source/helpers/text/textutils.cpp
-            source/helpers/text/textutils.h
-            tests/textutilstest.cpp
+            source/helpers/text/texttools.cpp
+            source/helpers/text/texttools.h
+            tests/texttoolstest.cpp
         LIBRARIES Qt6::Core)
 
     create_test (
@@ -192,8 +192,8 @@ if (BUILD_TESTING)
             source/helpers/text/textcursor.h
             source/helpers/text/textrange.cpp
             source/helpers/text/textrange.h
-            source/helpers/text/textutils.cpp
-            source/helpers/text/textutils.h
+            source/helpers/text/texttools.cpp
+            source/helpers/text/texttools.h
             tests/linktoolstest.cpp
         LIBRARIES Qt6::Core CommonTools)
 

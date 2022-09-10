@@ -6,11 +6,11 @@
 #include <limits>
 
 #include "source/helpers/intmatrix.h"
-#include "source/helpers/text/textutils.h"
+#include "source/helpers/text/texttools.h"
 
 bool LinkTools::tagLengthSuitTerm(const QString& tag, const QString& termName)
 {
-    int wordsCountInTag = TextUtils::wordCount(tag);
+    int wordsCountInTag = TextTools::wordCount(tag);
     int maxWordDistance = 4 * wordsCountInTag; // Magic numbers. Would be replaced further
 
     auto stringSizeDiffer = std::abs(termName.size() - tag.size());
@@ -76,7 +76,7 @@ Opt<int> LinkTools::getDistanceBetweenTagAndTerm(const QString& tag, const QStri
     if (termName.size() == tag.size() && termName == tag)
         return 0;
 
-    int wordsCountInTag = TextUtils::wordCount(tag);
+    int wordsCountInTag = TextTools::wordCount(tag);
     int maxWordDistance = std::min(4 * wordsCountInTag, maxLimit);
 
     auto stringSizeDiffer = std::abs(termName.size() - tag.size());

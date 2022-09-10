@@ -6,7 +6,8 @@
 #include <QString>
 #include <QStringList>
 
-class TextUtils
+
+class TextTools
 {
 public:
     static bool    isTermWithDefinition(const QString& def);

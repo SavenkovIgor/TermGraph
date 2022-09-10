@@ -1,11 +1,11 @@
 // Copyright © 2016-2022. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/text/textutils.h"
+#include "source/helpers/text/texttools.h"
 
-const QStringList TextUtils::mSplitters = {"‐", "-", "-", "—"};
+const QStringList TextTools::mSplitters = {"‐", "-", "-", "—"};
 
-bool TextUtils::isTermWithDefinition(const QString &def)
+bool TextTools::isTermWithDefinition(const QString &def)
 {
     for (const auto &splitter : mSplitters) {
         if (def.contains(splitter)) {
@@ -16,7 +16,7 @@ bool TextUtils::isTermWithDefinition(const QString &def)
     return false;
 }
 
-QString TextUtils::getTerm(const QString &def)
+QString TextTools::getTerm(const QString &def)
 {
     if (int pos = splitterIndex(def); pos != -1) {
         return def.left(pos).simplified();
@@ -24,7 +24,7 @@ QString TextUtils::getTerm(const QString &def)
     return "";
 }
 
-QString TextUtils::getDefinition(const QString &def)
+QString TextTools::getDefinition(const QString &def)
 {
     if (int pos = splitterIndex(def); pos != -1) {
         return def.mid(pos + 1).simplified();
@@ -32,7 +32,7 @@ QString TextUtils::getDefinition(const QString &def)
     return "";
 }
 
-QString TextUtils::insertNewLineNearMiddle(const QString &str)
+QString TextTools::insertNewLineNearMiddle(const QString &str)
 {
     auto tryReplaceSpaceWithNewLine = [](QChar &ref) {
         if (ref == ' ') {
@@ -59,7 +59,7 @@ QString TextUtils::insertNewLineNearMiddle(const QString &str)
     return ret;
 }
 
-int TextUtils::splitterIndex(const QString &str)
+int TextTools::splitterIndex(const QString &str)
 {
     int pos = -1;
     for (const auto &splitter : mSplitters) {
@@ -72,7 +72,7 @@ int TextUtils::splitterIndex(const QString &str)
     return pos;
 }
 
-int TextUtils::wordCount(const QString &str)
+int TextTools::wordCount(const QString &str)
 {
     const QString tmp = str.simplified();
     return !tmp.isEmpty() ? tmp.count(' ') + 1 : 0;
