@@ -16,6 +16,7 @@ class Api : public QObject
     Q_OBJECT
 
     Q_PROPERTY(NetworkManager* network READ network CONSTANT FINAL)
+    Q_PROPERTY(SyncManager*    sync    READ sync    CONSTANT FINAL)
 
 public:
     explicit Api(QObject* parent = nullptr);
@@ -33,4 +34,5 @@ private:
     QScopedPointer<MainScene>     mScene;
 
     NetworkManager* network() const;
+    SyncManager* sync() const;
 };

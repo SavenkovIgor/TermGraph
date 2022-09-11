@@ -17,12 +17,17 @@ Api::Api(QObject* parent)
 {
     qmlRegisterModule("Api", 1, 0);
     qmlRegisterSingletonInstance("Api", 1, 0, "Api", this);
+
     qmlRegisterSingletonInstance("Api", 1, 0, "Scene", mScene.get());
     qmlRegisterSingletonInstance("Api", 1, 0, "GroupsManager", mGroupsManager.get());
-    qmlRegisterSingletonInstance("Api", 1, 0, "SyncManager", mSyncManager.get());
 }
 
 NetworkManager *Api::network() const
 {
     return mNetwork.get();
+}
+
+SyncManager *Api::sync() const
+{
+    return mSyncManager.get();
 }

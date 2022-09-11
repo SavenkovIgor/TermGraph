@@ -142,7 +142,7 @@ M.Page {
 
         anchors { right: addGroupBtn.left; bottom: parent.bottom; margins: width / 2; }
 
-        onClicked: SyncManager.sendGroupByNetwork(groupsList.currentItem.groupUuid)
+        onClicked: Api.sync.sendGroupByNetwork(groupsList.currentItem.groupUuid)
     }
 
     M.StdDialog {
