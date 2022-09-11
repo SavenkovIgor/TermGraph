@@ -40,7 +40,7 @@ M.Page {
 
         onAccepted: {
             root.StackView.view.pop();
-            Scene.deleteSelectedTerm();
+            Api.scene.deleteSelectedTerm();
         }
     }
 
@@ -48,13 +48,13 @@ M.Page {
     Shortcut { sequence: "Ctrl+Return"; onActivated: root.applyNodeChange(); }
 
     function updateInfo() {
-        nodeUuidText.text = Scene.currentNode.uuid;
-        lastEditText.text = Scene.currentNode.lastEditDecorated;
-        termName.text = Scene.currentNode.term;
-        termDefin.text = Scene.currentNode.definition;
-        termDescr.text = Scene.currentNode.description;
-        termExampl.text = Scene.currentNode.examples;
-        nodeGroup.selectElement(Scene.currentNode.groupUuid);
+        nodeUuidText.text = Api.scene.currentNode.uuid;
+        lastEditText.text = Api.scene.currentNode.lastEditDecorated;
+        termName.text = Api.scene.currentNode.term;
+        termDefin.text = Api.scene.currentNode.definition;
+        termDescr.text = Api.scene.currentNode.description;
+        termExampl.text = Api.scene.currentNode.examples;
+        nodeGroup.selectElement(Api.scene.currentNode.groupUuid);
         termDefin.takeFocus();
     }
 
@@ -75,7 +75,7 @@ M.Page {
             wikiUrl: "",
             wikiImage: "",
             groupUuid: nodeGroup.currentText,
-            lastEdit: Scene.currentNode.lastEdit
+            lastEdit: Api.scene.currentNode.lastEdit
         };
 
         Api.groups.updateNode(data);

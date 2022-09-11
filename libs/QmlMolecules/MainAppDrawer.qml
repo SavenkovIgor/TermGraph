@@ -95,7 +95,7 @@ Drawer {
 
                 function apply() {
                     root.close();
-                    Scene.selectGroup(modelData);
+                    Api.scene.selectGroup(modelData);
                 }
             }
         }

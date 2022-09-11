@@ -25,9 +25,9 @@ M.Page {
 
     padding: 0
 
-    title: Scene.hasCurrentGroup ? Scene.currentGroup.name : "TermGraph"
+    title: Api.scene.hasCurrentGroup ? Api.scene.currentGroup.name : "TermGraph"
 
-    state: Scene.hasSelection ? "some" : "none"
+    state: Api.scene.hasSelection ? "some" : "none"
 
     states: [
         State {
@@ -45,7 +45,7 @@ M.Page {
     ]
 
     Connections {
-        target: Scene
+        target: Api.scene
 
         function onSelectionDoubleClick() {
             nodeInfoAction.trigger()
@@ -123,7 +123,7 @@ M.Page {
 
         onOpenWarningPopup: {
             close();
-            linkHardenerDrawer.openWithNode(Scene.currentNode);
+            linkHardenerDrawer.openWithNode(Api.scene.currentNode);
         }
     }
 
@@ -182,7 +182,7 @@ M.Page {
 
             anchors.fill: parent
 
-            onClicked: Scene.setMouseClick(scenePt.x, scenePt.y)
+            onClicked: Api.scene.setMouseClick(scenePt.x, scenePt.y)
 
             onWheel: {
                 if (wheel.modifiers & Qt.ControlModifier) {
@@ -256,7 +256,7 @@ M.Page {
         }
 
         function selectName(termName) {
-            let termUuid = Scene.termNameToUuid(termName);
+            let termUuid = Api.scene.termNameToUuid(termName);
             if (termUuid !== "")
                 selectUuid(termUuid);
         }
@@ -266,13 +266,13 @@ M.Page {
                 return;
 
             let pt = sceneCanvas.getTermPosition(termUuid);
-            Scene.selectTerm(termUuid);
+            Api.scene.selectTerm(termUuid);
             pointToCenter(pt);
         }
 
         function dropSelection() {
             moveToOrigin();
-            Scene.selectTerm("");
+            Api.scene.selectTerm("");
         }
 
         Timer {
@@ -324,7 +324,7 @@ M.Page {
             }
 
             function getTermPosition(termUuid) {
-                let pt = Scene.getTermPosition(termUuid);
+                let pt = Api.scene.getTermPosition(termUuid);
                 return Tools.scalePoint(pt, scale);
             }
         }
@@ -339,8 +339,8 @@ M.Page {
         A.ToolTip {
             property bool isEmptyGroup: {
                 if (Api.groups.hasAnyGroup) {
-                    if (Scene.hasCurrentGroup) {
-                        return Api.groups.isEmptyGroup(Scene.currentGroup.uuid);
+                    if (Api.scene.hasCurrentGroup) {
+                        return Api.groups.isEmptyGroup(Api.scene.currentGroup.uuid);
                     } else {
                         return false;
                     }
@@ -378,7 +378,7 @@ M.Page {
             shortcut: "Ctrl+e"
             enabled: root.thisPageVisible
             onTriggered: {
-                if (!Scene.currentNode.isNull()) {
+                if (!Api.scene.currentNode.isNull()) {
                     root.StackView.view.push(editNodeComponent)
                 }
             }
@@ -395,15 +395,15 @@ M.Page {
             icon.source: Theme.icon.info
             shortcut: "Ctrl+i"
             onTriggered: {
-                if (Scene.hasSelection)
-                    termDrawer.openWithNode(Scene.currentNode);
+                if (Api.scene.hasSelection)
+                    termDrawer.openWithNode(Api.scene.currentNode);
             }
         }
     }
 
     M.LoadingInProcess {
         anchors.fill: sceneFlick
-        showLoading: Scene.groupLoading
+        showLoading: Api.scene.groupLoading
     }
 
     M.EmptyView {
@@ -418,7 +418,7 @@ M.Page {
 
     M.EmptyView {
         anchors.fill: sceneFlick
-        visible: Api.groups.hasAnyGroup && !Scene.hasCurrentGroup && !Scene.groupLoading
+        visible: Api.groups.hasAnyGroup && !Api.scene.hasCurrentGroup && !Api.scene.groupLoading
 
         mainText: "Группа не выбрана"
         detailedText: ""

@@ -25,8 +25,8 @@ A.DrawerPage {
     signal showTermUuid(string uuid)
 
     onCurrentNodeChanged: {
-        linksManager.setGroup(Scene.currentGroup);
-        linksManager.setTerm(Scene.currentNode);
+        linksManager.setGroup(Api.scene.currentGroup);
+        linksManager.setTerm(Api.scene.currentNode);
     }
 
     contentItem: ColumnLayout {

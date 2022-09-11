@@ -35,7 +35,7 @@ M.Page {
     Shortcut { sequence: "Ctrl+Return"; onActivated: root.addNode(); }
 
     function prepareForOpen() {
-        currentGroupFixedRow.groupUuid = Scene.currentGroup.uuid;
+        currentGroupFixedRow.groupUuid = Api.scene.currentGroup.uuid;
         clearText(termName);
         clearText(termDefin);
         clearText(termDescr);

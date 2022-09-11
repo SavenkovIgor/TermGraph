@@ -18,6 +18,7 @@ class Api : public QObject
     Q_PROPERTY(NetworkManager* network READ network CONSTANT FINAL)
     Q_PROPERTY(SyncManager*    sync    READ sync    CONSTANT FINAL)
     Q_PROPERTY(GroupsManager*  groups  READ groups  CONSTANT FINAL)
+    Q_PROPERTY(MainScene*      scene   READ scene   CONSTANT FINAL)
 
 public:
     explicit Api(QObject* parent = nullptr);
@@ -37,4 +38,5 @@ private:
     NetworkManager* network() const;
     SyncManager* sync() const;
     GroupsManager* groups() const;
+    MainScene* scene() const;
 };

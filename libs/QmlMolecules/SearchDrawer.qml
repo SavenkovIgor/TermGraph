@@ -53,7 +53,7 @@ A.DrawerPage {
 
                 property string searchReq: searchText.displayText
 
-                model: Scene.search(searchReq)
+                model: Api.scene.search(searchReq)
                 boundsBehavior: Flickable.StopAtBounds
 
                 delegate: ItemDelegate {
@@ -65,7 +65,7 @@ A.DrawerPage {
                     contentItem: Text {
                         topPadding: font.pixelSize / 3
                         bottomPadding: font.pixelSize / 3
-                        text: Scene.termUuidToName(modelData)
+                        text: Api.scene.termUuidToName(modelData)
                         font: Theme.font.h3
                         color: Theme.color.white
                     }

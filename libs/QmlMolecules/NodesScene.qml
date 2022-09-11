@@ -13,15 +13,15 @@ import Theme
 Control {
     id: root
 
-    height: Scene.sceneRect.height
-    width: Scene.sceneRect.width
+    height: Api.scene.sceneRect.height
+    width: Api.scene.sceneRect.width
 
     Component.onCompleted: {
         // Try to show first group
         const groupsUuids = Api.groups.allUuidSorted;
 
         if (groupsUuids.length !== 0) {
-            Scene.selectGroup(groupsUuids[0]);
+            Api.scene.selectGroup(groupsUuids[0]);
         }
     }
 
@@ -36,20 +36,20 @@ Control {
     }
 
     function edgeData(index) {
-        const modelIndex = Scene.edges.index(index, 0);
+        const modelIndex = Api.scene.edges.index(index, 0);
         return {
             // Laziness...
-            pt1:           Scene.edges.data(modelIndex, 0), // Roles::Pt1
-            pt2:           Scene.edges.data(modelIndex, 1), // Roles::Pt2
-            isSelected:    Scene.edges.data(modelIndex, 2), // Roles::IsSelected
-            edgeType:      Scene.edges.data(modelIndex, 3), // Roles::EdgeType
-            edgeSelection: Scene.edges.data(modelIndex, 4)  // Roles::EdgeSelection
+            pt1:           Api.scene.edges.data(modelIndex, 0), // Roles::Pt1
+            pt2:           Api.scene.edges.data(modelIndex, 1), // Roles::Pt2
+            isSelected:    Api.scene.edges.data(modelIndex, 2), // Roles::IsSelected
+            edgeType:      Api.scene.edges.data(modelIndex, 3), // Roles::EdgeType
+            edgeSelection: Api.scene.edges.data(modelIndex, 4)  // Roles::EdgeSelection
         }
     }
 
     function edgesData() {
         const ret = []
-        const edgesCount = Scene.edges.rowCount();
+        const edgesCount = Api.scene.edges.rowCount();
 
         for (let j = 0; j < edgesCount; ++j)
             ret.push(root.edgeData(j))
@@ -64,9 +64,9 @@ Control {
             anchors.fill: parent
             anchors.margins: 35
 
-            color: Scene.hasSelection ? "#BB000000" : "transparent"
+            color: Api.scene.hasSelection ? "#BB000000" : "transparent"
             border { color: Theme.color.white; width: 2 }
-            visible: Scene.hasCurrentGroup
+            visible: Api.scene.hasCurrentGroup
             radius: 10
             z: 3
 
@@ -74,14 +74,14 @@ Control {
                 anchors { left: parent.left; top: parent.top; }
                 topPadding: 15
                 leftPadding: 20
-                text: Scene.hasCurrentGroup ? Scene.currentGroup.name : ""
+                text: Api.scene.hasCurrentGroup ? Api.scene.currentGroup.name : ""
                 color: Theme.color.white
                 font: Theme.font.setWeight(Theme.font.term, Font.DemiBold)
             }
         }
 
         Connections {
-            target: Scene
+            target: Api.scene
 
             function onEdgesChanged() {
                 edgesShape.updateEdges();
@@ -113,7 +113,7 @@ Control {
         Shape {
             id: edgesSelectedShape
             z: 4
-            visible: Scene.hasSelection
+            visible: Api.scene.hasSelection
 
             function clear() {
                 const len = data.length;
@@ -133,7 +133,7 @@ Control {
         }
 
         Repeater {
-            model: Scene.terms
+            model: Api.scene.terms
 
             delegate: A.Term {
                 rect: model.rect

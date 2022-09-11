@@ -26,7 +26,7 @@ M.Page {
                 text: "W"
                 onTriggered: {
                     let request = "https://ru.wikipedia.org/w/index.php?search=";
-                    request += Scene.currentNode.term
+                    request += Api.scene.currentNode.term
                     Qt.openUrlExternally(request);
                 }
             }
@@ -48,31 +48,31 @@ M.Page {
 
         M.LabelPair {
             name: "Название:"
-            text: Scene.currentNode.term
+            text: Api.scene.currentNode.term
             visible: text !== ""
         }
 
         M.LabelPair {
             name: "Определение:"
-            text: LinkTools.decorate(Scene.currNodeNameAndDefinition)
+            text: LinkTools.decorate(Api.scene.currNodeNameAndDefinition)
             visible: text !== ""
         }
 
         M.LabelPair {
             name: "Иерархия определений:"
-            text: Scene.currNodeHierarchyDefinition
+            text: Api.scene.currNodeHierarchyDefinition
             visible: text !== ""
         }
 
         M.LabelPair {
             name: "Описание:"
-            text: Scene.currentNode.description
+            text: Api.scene.currentNode.description
             visible: text !== ""
         }
 
         M.LabelPair {
             name: "Пример:"
-            text: Scene.currentNode.examples
+            text: Api.scene.currentNode.examples
             visible: text !== ""
         }
     }

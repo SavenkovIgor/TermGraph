@@ -67,7 +67,7 @@ A.DrawerPage {
 
         LabelPair {
             name: "Определение:"
-            text: LinkTools.decorate(Scene.currNodeNameAndDefinition)
+            text: LinkTools.decorate(Api.scene.currNodeNameAndDefinition)
             visible: text !== ""
             Layout.fillWidth: true
         }
