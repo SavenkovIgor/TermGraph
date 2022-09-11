@@ -5,7 +5,7 @@ cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
 project (ThemeModule LANGUAGES CXX)
 
-find_package (Qt6 COMPONENTS QuickControls2 REQUIRED)
+find_package (Qt6 COMPONENTS Core QuickControls2 Svg REQUIRED)
 
 qt_add_library (ThemeModule STATIC)
 
@@ -24,4 +24,30 @@ qt_add_qml_module (ThemeModule
     VERSION 1.0
     RESOURCE_PREFIX "/qt/qml"
     IMPORT_PATH ${PROJECT_BINARY_DIR}
-    QML_FILES ${QML_SOURCES})
+    QML_FILES ${QML_SOURCES}
+    RESOURCES
+        "icon/arrow-thick-left.svg"
+        "icon/arrow-thick-right.svg"
+        "icon/book.svg"
+        "icon/check.svg"
+        "icon/chevron-left.svg"
+        "icon/chevron-right.svg"
+        "icon/code.svg"
+        "icon/cog.svg"
+        "icon/crossOnCircle.svg"
+        "icon/eye.svg"
+        "icon/folder.svg"
+        "icon/info.svg"
+        "icon/list.svg"
+        "icon/loop-circular.svg"
+        "icon/magnifying-glass.svg"
+        "icon/menu.svg"
+        "icon/options.svg"
+        "icon/pencil.svg"
+        "icon/plus.svg"
+        "icon/question-mark.svg"
+        "icon/share.svg"
+        "icon/spreadsheet.svg"
+        "icon/trash.svg"
+        "icon/warning.svg")
+

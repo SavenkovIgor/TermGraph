@@ -52,7 +52,7 @@ if (NOT WASM)
 endif ()
 
 # Qrc libs
-target_link_libraries (TermGraph PRIVATE HelpImagesResource IconsResource)
+target_link_libraries (TermGraph PRIVATE HelpImagesResource)
 
 # Qml libs
 target_link_libraries (TermGraph
