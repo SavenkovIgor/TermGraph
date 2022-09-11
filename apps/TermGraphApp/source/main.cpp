@@ -5,11 +5,12 @@
 #include <QGuiApplication>
 #include <QSurface>
 #include <QtQml/qqmlextensionplugin.h>
+#include <QQmlApplicationEngine>
 #include <QtQuickControls2/QQuickStyle>
 
 #include <CommonTools/Platform.h>
 
-#include "source/application.h"
+#include "source/api.h"
 #include "source/qmlTypesRegistrator.h"
 
 // -- Qt6 Migration plan --
@@ -66,7 +67,12 @@ int main(int argc, char* argv[])
 
     setSurfaceFormat();
 
-    Application w;
+    Api w;
+
+    QQmlApplicationEngine qmlEngine;
+    // TODO: On Qt 6.4 this path is imported by default so this line can be deleted
+    qmlEngine.addImportPath(QStringLiteral("qrc:/qt/qml"));
+    qmlEngine.load(QStringLiteral("qrc:/qt/qml/main.qml"));
 
     return a.exec();
 }
