@@ -40,7 +40,7 @@ A.DrawerPage {
             }
 
             A.RoundButton {
-                bgColor: Colors.warning
+                bgColor: Theme.color.warning
                 visible: LinkTools.hasSoftLinks(currentNode ? currentNode.definition : "")
                 action: Action {
                     icon.source: IconPath.warning
@@ -49,7 +49,7 @@ A.DrawerPage {
             }
 
             A.RoundButton {
-                bgColor: Colors.whiteDisabled
+                bgColor: Theme.color.whiteDisabled
                 action: Action {
                     icon.source: IconPath.info
                     onTriggered: root.openInfoPage()
@@ -57,7 +57,7 @@ A.DrawerPage {
             }
 
             A.RoundButton {
-                bgColor: Colors.whiteDisabled
+                bgColor: Theme.color.whiteDisabled
                 action: Action {
                     icon.source: IconPath.pencil
                     onTriggered: root.editNode()

@@ -30,7 +30,7 @@ Column {
 
         onTextChanged: newText()
 
-        color: Colors.white
-        placeholderTextColor: Colors.whiteDisabled
+        color: Theme.color.white
+        placeholderTextColor: Theme.color.whiteDisabled
     }
 }

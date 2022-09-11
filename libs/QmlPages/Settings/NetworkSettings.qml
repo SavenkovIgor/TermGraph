@@ -30,7 +30,7 @@ M.Page {
                     contentItem: A.AccentText { text: "Настройки сервера" }
                 }
 
-                background: Rectangle { color: "transparent"; border.color: Colors.accent; }
+                background: Rectangle { color: "transparent"; border.color: Theme.color.accent; }
                 padding: Sizes.base
 
                 contentItem: Column {
@@ -44,7 +44,7 @@ M.Page {
 
                         Text {
                             font: Fonts.h4
-                            color: Colors.white
+                            color: Theme.color.white
                             text: NetworkManager.synchronizationState
                         }
                     }

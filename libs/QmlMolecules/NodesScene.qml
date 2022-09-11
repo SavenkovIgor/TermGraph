@@ -65,7 +65,7 @@ Control {
             anchors.margins: 35
 
             color: Scene.hasSelection ? "#BB000000" : "transparent"
-            border { color: Colors.white; width: 2 }
+            border { color: Theme.color.white; width: 2 }
             visible: Scene.hasCurrentGroup
             radius: 10
             z: 3
@@ -75,7 +75,7 @@ Control {
                 topPadding: 15
                 leftPadding: 20
                 text: Scene.hasCurrentGroup ? Scene.currentGroup.name : ""
-                color: Colors.white
+                color: Theme.color.white
                 font: Fonts.setWeight(Fonts.term, Font.DemiBold)
             }
         }

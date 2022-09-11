@@ -9,7 +9,7 @@ import Theme
 Drawer {
     id: root
 
-    property color backgroundColor: Colors.baseLight
+    property color backgroundColor: Theme.color.baseLight
 
     edge: Qt.BottomEdge
 

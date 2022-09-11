@@ -8,7 +8,7 @@ import Theme
 Rectangle {
     id: root
 
-    color: Colors.base
+    color: Theme.color.base
 
     readonly property int animDuration: 250
     required property bool showLoading

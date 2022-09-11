@@ -18,10 +18,10 @@ Rectangle {
 
     color: {
         switch (type) {
-        case NodeType.Orphan:     return Qt.tint(Colors.term.orphanNode, Colors.stdTint)
-        case NodeType.Root:       return Qt.tint(Colors.term.rootNode,   Colors.stdTint)
-        case NodeType.EndLeaf:    return Qt.tint(Colors.term.leafNode,   Colors.stdTint)
-        case NodeType.MiddleLeaf: return Qt.tint(Colors.term.leafNode,   Colors.stdTint)
+        case NodeType.Orphan:     return Qt.tint(Theme.color.term.orphanNode, Theme.color.stdTint)
+        case NodeType.Root:       return Qt.tint(Theme.color.term.rootNode,   Theme.color.stdTint)
+        case NodeType.EndLeaf:    return Qt.tint(Theme.color.term.leafNode,   Theme.color.stdTint)
+        case NodeType.MiddleLeaf: return Qt.tint(Theme.color.term.leafNode,   Theme.color.stdTint)
         }
     }
 
@@ -30,14 +30,14 @@ Rectangle {
     width: rect.width
     height: rect.height
 
-    border { width: (1 * weight) + 1; color: Colors.black; }
+    border { width: (1 * weight) + 1; color: Theme.color.black; }
 
     Text {
         id: termLabel
         anchors { fill: parent }
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        color: Colors.white
+        color: Theme.color.white
         font: Fonts.term
     }
 }

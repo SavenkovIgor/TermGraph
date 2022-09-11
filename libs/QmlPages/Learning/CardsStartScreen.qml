@@ -13,7 +13,7 @@ T.Control {
     property real baseSize: 50
     property real minSizing: Math.min(width, height);
 
-    background: Rectangle { color: Colors.base; }
+    background: Rectangle { color: Theme.color.base; }
 
     contentItem: Rectangle {
         property real marginVal: root.minSizing * 0.05
@@ -21,7 +21,7 @@ T.Control {
         anchors { fill: parent; margins: marginVal; }
 
         radius: root.minSizing * 0.08
-        color: Colors.baseLight3
+        color: Theme.color.baseLight3
 
         Column {
             id: item

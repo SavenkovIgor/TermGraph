@@ -11,7 +11,7 @@ RoundButton {
 
     property real size: Sizes.baseX4
     readonly property real iconPart: 0.46
-    property color bgColor: Colors.white
+    property color bgColor: Theme.color.white
 
     implicitWidth:  root.size
     implicitHeight: root.size

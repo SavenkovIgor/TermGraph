@@ -76,7 +76,7 @@ Drawer {
 
                     padding: font.pixelSize / 4
 
-                    color: Colors.white
+                    color: Theme.color.white
                     font: Fonts.setWeight(Fonts.h4, Font.Thin)
                     fontSizeMode: Text.HorizontalFit
                     verticalAlignment: Text.AlignVCenter
@@ -87,7 +87,7 @@ Drawer {
 
                 background: Rectangle {
                     color: groupLstDlgt.ListView.isCurrentItem ? "darkGray" : "transparent"
-                    A.BottomThinLine { color: Colors.white }
+                    A.BottomThinLine { color: Theme.color.white }
                 }
 
                 Keys.onReturnPressed: apply()
@@ -102,7 +102,7 @@ Drawer {
     }
 
     background: Rectangle {
-        color: Colors.baseLight
-        A.RightThinLine { color: Colors.white; }
+        color: Theme.color.baseLight
+        A.RightThinLine { color: Theme.color.white; }
     }
 }

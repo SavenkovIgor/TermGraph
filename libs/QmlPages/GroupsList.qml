@@ -43,7 +43,7 @@ M.Page {
                     leftPadding: delegate.basePadding
                     bottomPadding: delegate.basePadding / 3
 
-                    color: Colors.white
+                    color: Theme.color.white
                     font: Fonts.setWeight(Fonts.h4, Font.Medium)
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
@@ -73,7 +73,7 @@ M.Page {
             }
 
             background: Rectangle {
-                color: parent.isCurrentItem ? Colors.baseLight2 : "transparent"
+                color: parent.isCurrentItem ? Theme.color.baseLight2 : "transparent"
                 A.BottomThinLine { }
             }
 
@@ -198,7 +198,7 @@ M.Page {
             }
         }
 
-        background: Rectangle { color: Colors.baseLight2 }
+        background: Rectangle { color: Theme.color.baseLight2 }
     }
 }
 

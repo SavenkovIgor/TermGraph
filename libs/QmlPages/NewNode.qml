@@ -128,7 +128,7 @@ M.Page {
                 font: Fonts.h4
                 wrapMode: TextEdit.NoWrap
                 elide: Text.ElideRight
-                color: Colors.white
+                color: Theme.color.white
 
                 text: GroupsManager.getGroupName(currentGroupFixedRow.groupUuid)
             }

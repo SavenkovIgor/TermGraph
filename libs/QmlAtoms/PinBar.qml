@@ -6,6 +6,6 @@ import QtQuick
 import Theme
 
 RoundedRectangle {
-    color: Colors.whiteDisabled
+    color: Theme.color.whiteDisabled
     height: Math.max(width * 0.025, 8)
 }

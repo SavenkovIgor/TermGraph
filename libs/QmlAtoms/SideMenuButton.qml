@@ -28,9 +28,9 @@ Button {
 
     property color baseColor: {
         if (!enabled)
-            return Colors.whiteDisabled;
+            return Theme.color.whiteDisabled;
 
-        return highlighted ? Colors.baseLight3 : Colors.white
+        return highlighted ? Theme.color.baseLight3 : Theme.color.white
     }
 
     contentItem: Row {

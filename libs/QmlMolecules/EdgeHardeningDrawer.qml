@@ -41,7 +41,7 @@ A.DrawerPage {
                 topPadding: Sizes.base
                 bottomPadding: Sizes.base
 
-                color: Colors.white
+                color: Theme.color.white
                 font: Fonts.setWeight(Fonts.h3, Font.DemiBold)
 
                 text: "Фиксация ссылок для термина: '" + root.currentTerm + "'"
@@ -128,7 +128,7 @@ A.DrawerPage {
                 required property int index
 
                 contentItem: Text {
-                    color: Colors.white
+                    color: Theme.color.white
                     text: item.text
                     verticalAlignment: Text.AlignVCenter
                 }

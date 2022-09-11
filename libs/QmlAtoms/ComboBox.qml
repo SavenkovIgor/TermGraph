@@ -16,14 +16,14 @@ ComboBox {
         id: contItem
         text: GroupsManager.getGroupName(control.displayText)
         font: control.font
-        color: Colors.white
+        color: Theme.color.white
         padding: font.pixelSize / 1.5
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
     }
 
-    background: Rectangle { color: Colors.baseLight2 }
+    background: Rectangle { color: Theme.color.baseLight2 }
 
     popup: Popup {
         y: control.height - 1
@@ -41,7 +41,7 @@ ComboBox {
         }
 
         background: Rectangle {
-            border.color: Colors.black
+            border.color: Theme.color.black
             radius: 2
         }
     }

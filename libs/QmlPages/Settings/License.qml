@@ -29,7 +29,7 @@ M.Page {
 
             horizontalAlignment: TextEdit.AlignHCenter
             readOnly: true
-            color: Colors.white
+            color: Theme.color.white
             font: Fonts.h4
             wrapMode: TextEdit.Wrap
 

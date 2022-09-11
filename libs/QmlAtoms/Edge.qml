@@ -25,21 +25,21 @@ ShapePath {
     strokeWidth: Qt.platform.os === "Android" ? 3 : 1
     strokeColor: {
         if (edgeSelection === EdgeSelection.Backward)
-            return Colors.edge.selected;
+            return Theme.color.edge.selected;
 
         if (edgeSelection === EdgeSelection.Forward)
-            return Colors.edge.selectedAlt;
+            return Theme.color.edge.selectedAlt;
 
         switch (edgeType) {
-        case EdgeType.Standart:       return Colors.edge.standard;
-        case EdgeType.Termin:         return Colors.edge.termin;
-        case EdgeType.TerminHardLink: return Colors.edge.terminHardLink;
-        case EdgeType.Description:    return Colors.edge.description;
-        case EdgeType.Broken:         return Colors.edge.broken;
-        case EdgeType.Redundant:      return Colors.edge.standard;
+        case EdgeType.Standart:       return Theme.color.edge.standard;
+        case EdgeType.Termin:         return Theme.color.edge.termin;
+        case EdgeType.TerminHardLink: return Theme.color.edge.terminHardLink;
+        case EdgeType.Description:    return Theme.color.edge.description;
+        case EdgeType.Broken:         return Theme.color.edge.broken;
+        case EdgeType.Redundant:      return Theme.color.edge.standard;
         }
 
-        return Colors.edge.standard;
+        return Theme.color.edge.standard;
     }
 
     fillColor: "transparent"

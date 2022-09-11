@@ -28,9 +28,9 @@ Column {
 
     C.TextArea {
         id: txtArea
-        color: Colors.white
+        color: Theme.color.white
         width: parent.width
-        placeholderTextColor: Colors.whiteDisabled
+        placeholderTextColor: Theme.color.whiteDisabled
 
         font: Fonts.h3
         wrapMode: TextEdit.WordWrap

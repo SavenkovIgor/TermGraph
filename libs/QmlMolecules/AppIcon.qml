@@ -26,8 +26,8 @@ Item {
         anchors.centerIn: parent
 
         property color col1: "#6d9a28"
-        property color col2: Colors.accent
-        property color col3: Colors.baseLight
+        property color col2: Theme.color.accent
+        property color col3: Theme.color.baseLight
         property color colText: "#dcdcdc"
 
         A.Hex {

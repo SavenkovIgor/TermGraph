@@ -9,6 +9,6 @@ import Theme
 
 ToolBar {
     height: Sizes.baseX4
-    background: Rectangle { color: Colors.baseLight; }
+    background: Rectangle { color: Theme.color.baseLight; }
     contentItem: RowLayout { spacing: 20; }
 }

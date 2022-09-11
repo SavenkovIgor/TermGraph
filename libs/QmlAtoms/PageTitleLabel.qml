@@ -10,7 +10,7 @@ Text {
     minimumPixelSize: font.pixelSize / 2
     fontSizeMode: Text.Fit
     elide: Text.ElideRight
-    color: Colors.white
+    color: Theme.color.white
     horizontalAlignment: Qt.AlignHCenter
     verticalAlignment: Qt.AlignVCenter
 }

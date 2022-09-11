@@ -6,6 +6,6 @@ import QtQuick
 import Theme
 
 Text {
-    color: Colors.accent
+    color: Theme.color.accent
     font: Fonts.setWeight(Fonts.h4, Font.DemiBold)
 }

@@ -32,5 +32,5 @@ Text {
     verticalAlignment:  Text.AlignVCenter
     horizontalAlignment: Text.AlignLeft
 
-    color: Colors.white
+    color: Theme.color.white
 }
