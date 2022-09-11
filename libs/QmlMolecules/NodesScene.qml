@@ -76,7 +76,7 @@ Control {
                 leftPadding: 20
                 text: Scene.hasCurrentGroup ? Scene.currentGroup.name : ""
                 color: Theme.color.white
-                font: Fonts.setWeight(Fonts.term, Font.DemiBold)
+                font: Theme.font.setWeight(Theme.font.term, Font.DemiBold)
             }
         }
 

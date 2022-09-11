@@ -50,7 +50,7 @@ M.Page {
                 horizontalAlignment: Text.AlignLeft
 
                 color: Theme.color.white
-                font: Fonts.setWeight(Fonts.h3, Font.Thin)
+                font: Theme.font.setWeight(Theme.font.h3, Font.Thin)
 
                 text: modelData
 

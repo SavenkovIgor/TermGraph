@@ -28,7 +28,7 @@ A.DrawerPage {
             TextField {
                 id : searchText
                 Layout.fillWidth: true
-                font: Fonts.h3
+                font: Theme.font.h3
                 selectByMouse: true
 
                 color: Theme.color.white
@@ -66,7 +66,7 @@ A.DrawerPage {
                         topPadding: font.pixelSize / 3
                         bottomPadding: font.pixelSize / 3
                         text: Scene.termUuidToName(modelData)
-                        font: Fonts.h3
+                        font: Theme.font.h3
                         color: Theme.color.white
                     }
 
@@ -82,7 +82,7 @@ A.DrawerPage {
 
             Text {
                 text: "Ничего не найдено"
-                font: Fonts.h3
+                font: Theme.font.h3
                 padding: font.pixelSize
                 anchors.fill: searchList
                 color: Theme.color.whiteDisabled

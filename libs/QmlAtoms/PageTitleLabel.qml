@@ -6,7 +6,7 @@ import QtQuick
 import Theme
 
 Text {
-    font: Fonts.h1
+    font: Theme.font.h1
     minimumPixelSize: font.pixelSize / 2
     fontSizeMode: Text.Fit
     elide: Text.ElideRight

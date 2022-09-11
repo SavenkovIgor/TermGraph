@@ -32,7 +32,7 @@ Column {
         width: parent.width
         placeholderTextColor: Theme.color.whiteDisabled
 
-        font: Fonts.h3
+        font: Theme.font.h3
         wrapMode: TextEdit.WordWrap
     }
 }

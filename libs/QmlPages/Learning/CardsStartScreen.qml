@@ -39,13 +39,13 @@ T.Control {
                 textFormat: TextEdit.RichText
                 text: "Карточки"
 
-                font: Fonts.h1
+                font: Theme.font.h1
                 color: "white"
             }
 
             Text {
                 topPadding: 40
-                font: Fonts.h3
+                font: Theme.font.h3
                 color: "white"
                 width: parent.width
                 wrapMode: Text.Wrap
@@ -56,7 +56,7 @@ T.Control {
 
             Button {
                 text: "Погнали"
-                font: Fonts.h3
+                font: Theme.font.h3
             }
         }
     }

@@ -10,7 +10,7 @@ import Theme
 
 ComboBox {
     id: control
-    font: Fonts.h4
+    font: Theme.font.h4
 
     contentItem: Text {
         id: contItem

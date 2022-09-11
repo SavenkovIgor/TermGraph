@@ -47,7 +47,7 @@ Button {
             height: Sizes.baseX3
 
             color: root.baseColor
-            font: Fonts.setWeight(Fonts.h3, Font.Thin)
+            font: Theme.font.setWeight(Theme.font.h3, Font.Thin)
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
 

@@ -38,6 +38,6 @@ Rectangle {
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         color: Theme.color.white
-        font: Fonts.term
+        font: Theme.font.term
     }
 }

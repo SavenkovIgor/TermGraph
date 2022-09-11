@@ -30,7 +30,7 @@ M.Page {
             horizontalAlignment: TextEdit.AlignHCenter
             readOnly: true
             color: Theme.color.white
-            font: Fonts.h4
+            font: Theme.font.h4
             wrapMode: TextEdit.Wrap
 
             background: Rectangle { color: "transparent" }

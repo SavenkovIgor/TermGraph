@@ -7,5 +7,5 @@ import Theme
 
 Text {
     color: Theme.color.accent
-    font: Fonts.setWeight(Fonts.h4, Font.DemiBold)
+    font: Theme.font.setWeight(Theme.font.h4, Font.DemiBold)
 }

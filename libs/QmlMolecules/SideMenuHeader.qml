@@ -23,7 +23,7 @@ Control {
         Text {
             Layout.fillWidth: true
 
-            font: Fonts.setWeight(Fonts.h2, 30)
+            font: Theme.font.setWeight(Theme.font.h2, 30)
             minimumPixelSize: font.pixelSize / 2
             fontSizeMode: Text.Fit
             elide: Text.ElideRight

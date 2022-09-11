@@ -30,7 +30,7 @@ M.Page {
             property string lastEdit: GroupsManager.getLastEditString(groupUuid)
             property int nodesCount: GroupsManager.getNodesCount(groupUuid)
 
-            property real basePadding: Fonts.h4.pixelSize
+            property real basePadding: Theme.font.h4.pixelSize
 
             readonly property bool isCurrentItem: ListView.isCurrentItem
 
@@ -44,7 +44,7 @@ M.Page {
                     bottomPadding: delegate.basePadding / 3
 
                     color: Theme.color.white
-                    font: Fonts.setWeight(Fonts.h4, Font.Medium)
+                    font: Theme.font.setWeight(Theme.font.h4, Font.Medium)
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
 

@@ -56,7 +56,7 @@ T.Control {
                     wrapMode: TextEdit.WordWrap
                     readOnly: true
 
-                    font: Fonts.h3
+                    font: Theme.font.h3
                     color: "white"
                 }
             }

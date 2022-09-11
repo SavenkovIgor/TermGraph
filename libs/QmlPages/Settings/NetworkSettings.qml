@@ -43,7 +43,7 @@ M.Page {
                         }
 
                         Text {
-                            font: Fonts.h4
+                            font: Theme.font.h4
                             color: Theme.color.white
                             text: NetworkManager.synchronizationState
                         }

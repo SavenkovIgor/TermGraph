@@ -33,7 +33,7 @@ Control {
             id: mainText
             horizontalAlignment: Text.AlignHCenter
             color: Theme.color.white
-            font: Fonts.h3
+            font: Theme.font.h3
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
         }
@@ -42,7 +42,7 @@ Control {
             id: detailedText
             horizontalAlignment: Text.AlignHCenter
             color: Theme.color.whiteDisabled
-            font: Fonts.h4
+            font: Theme.font.h4
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
         }

@@ -25,7 +25,7 @@ Column {
     C.TextField {
         id : txtField
         width: parent.width
-        font: Fonts.h3
+        font: Theme.font.h3
         selectByMouse: true
 
         onTextChanged: newText()

@@ -20,7 +20,7 @@ ColumnLayout {
 
     Text {
         id: textLbl
-        font: Fonts.h4
+        font: Theme.font.h4
         wrapMode: TextEdit.WordWrap
         elide: Text.ElideRight
         anchors.leftMargin: 30
