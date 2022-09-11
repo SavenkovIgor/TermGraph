@@ -181,10 +181,14 @@ if (BUILD_TESTING)
         SOURCES
             source/helpers/intmatrix.cpp
             source/helpers/intmatrix.h
-            source/helpers/link/linktools.cpp
-            source/helpers/link/linktools.h
             source/helpers/link/link.cpp
             source/helpers/link/link.h
+            source/helpers/link/linksdecorator.cpp
+            source/helpers/link/linksdecorator.h
+            source/helpers/link/linksstring.cpp
+            source/helpers/link/linksstring.h
+            source/helpers/link/linktools.cpp
+            source/helpers/link/linktools.h
             source/helpers/text/chartools.h
             source/helpers/text/checkingtextcursor.cpp
             source/helpers/text/checkingtextcursor.h
@@ -195,7 +199,7 @@ if (BUILD_TESTING)
             source/helpers/text/texttools.cpp
             source/helpers/text/texttools.h
             tests/linktoolstest.cpp
-        LIBRARIES Qt6::Core CommonTools)
+        LIBRARIES Qt6::Core Qt6::Gui CommonTools)
 
     create_test (
         NAME      TestLinkDecorator

@@ -41,7 +41,7 @@ A.DrawerPage {
 
             A.RoundButton {
                 bgColor: Colors.warning
-                visible: TagProcessor.hasSoftLinks(currentNode ? currentNode.definition : "")
+                visible: LinkTools.hasSoftLinks(currentNode ? currentNode.definition : "")
                 action: Action {
                     icon.source: IconPath.warning
                     onTriggered: root.openWarningPopup()
@@ -67,7 +67,7 @@ A.DrawerPage {
 
         LabelPair {
             name: "Определение:"
-            text: TagProcessor.decorateTags(Scene.currNodeNameAndDefinition)
+            text: LinkTools.decorate(Scene.currNodeNameAndDefinition)
             visible: text !== ""
             Layout.fillWidth: true
         }

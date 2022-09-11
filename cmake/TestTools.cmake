@@ -20,6 +20,7 @@ function (create_test)
 
     set_target_properties ("${CREATE_TEST_NAME}"
         PROPERTIES
+            AUTOMOC ON
             CXX_STANDARD 20
             CXX_STANDARD_REQUIRED ON)
 

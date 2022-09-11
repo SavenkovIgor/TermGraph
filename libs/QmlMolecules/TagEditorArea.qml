@@ -17,8 +17,8 @@ M.TextArea {
     readonly property bool isCursorOnLink: {
         // Cursor can be invalid in moment of text editing
         let pos = cursorPosition;
-        if (TagProcessor.isValidCursor(text, pos))
-            return TagProcessor.isCursorOnLink(text, pos);
+        if (LinkTools.isValidCursor(text, pos))
+            return LinkTools.isCursorOnLink(text, pos);
 
         return false;
     }
@@ -31,7 +31,7 @@ M.TextArea {
         let pos = cursorPosition;
 
         if (!isCursorOnLink) {
-            text = TagProcessor.addLink(text, pos);
+            text = LinkTools.add(text, pos);
             takeFocusAndSetCursor(pos + 1);
         } else {
             takeFocusAndSetCursor(pos);
@@ -41,7 +41,7 @@ M.TextArea {
     function expandLinkRight() {
         let pos = cursorPosition;
         if (isCursorOnLink) {
-            text = TagProcessor.expandLinkRight(text, pos);
+            text = LinkTools.expandRight(text, pos);
             takeFocusAndSetCursor(pos);
         }
     }
@@ -49,7 +49,7 @@ M.TextArea {
     function removeLink() {
         let pos = cursorPosition;
         if (isCursorOnLink) {
-            text = TagProcessor.removeLink(text, pos);
+            text = LinkTools.remove(text, pos);
             takeFocusAndSetCursor(pos - 1);
         }
     }

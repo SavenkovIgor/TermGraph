@@ -54,7 +54,7 @@ M.Page {
 
         M.LabelPair {
             name: "Определение:"
-            text: TagProcessor.decorateTags(Scene.currNodeNameAndDefinition)
+            text: LinkTools.decorate(Scene.currNodeNameAndDefinition)
             visible: text !== ""
         }
 

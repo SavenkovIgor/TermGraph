@@ -5,10 +5,56 @@
 
 #include <limits>
 
+#include "source/helpers/link/link.h"
+#include "source/helpers/link/linksdecorator.h"
+#include "source/helpers/link/linksstring.h"
+#include "source/helpers/text/textcursor.h"
 #include "source/helpers/intmatrix.h"
 #include "source/helpers/text/texttools.h"
 
-bool LinkTools::linkAndTermSimilarWordDistance(const QString& link, const QString& term)
+LinkTools& LinkTools::instance()
+{
+    static LinkTools mgr;
+    return mgr;
+}
+
+bool LinkTools::isValidCursor(const QString& str, int cursor)
+{
+    return TextCursor::isValidCursor(QStringView(str), cursor);
+}
+
+bool LinkTools::isCursorOnLink(const QString& str, int cursor) { return Link::isCursorOnLink(str, cursor); }
+
+bool LinkTools::hasSoftLinks(const QString& linkedText)
+{
+    LinksString txt(linkedText);
+
+    for (const auto& link : txt.links()) {
+        if (!link.hasUuid())
+            return true;
+    }
+
+    return false;
+}
+
+QString LinkTools::add(QString str, int cursor) { return LinksString::addLink(str, cursor); }
+
+QString LinkTools::expandRight(QString str, int cursor) { return LinksString::expandLinkRight(str, cursor); }
+
+QString LinkTools::remove(QString str, int cursor) { return LinksString::removeLink(str, cursor); }
+
+QString LinkTools::decorate(const QString& str)
+{
+    LinksString    linkText(str);
+    LinksDecorator decorator(linkText, LinksDecorator::blueDecorator);
+    return decorator.apply(LinksDecoratorMode::Replace);
+}
+
+LinkTools::LinkTools(QObject* parent)
+    : QObject(parent)
+{}
+
+bool LinkTools::linkAndTermSimilarWordDistance(const QString &link, const QString &term)
 {
     int wordsCountInLink = TextTools::wordCount(link);
     int maxWordDistance = 4 * wordsCountInLink; // Magic numbers. Would be replaced further
@@ -66,7 +112,7 @@ int LinkTools::levDistance(QStringView src, QStringView dst, int limit)
     return matrix[m][n];
 }
 
-Opt<int> LinkTools::linkAndTermDistance(const QString& link, const QString& term, int maxLimit)
+Opt<int> LinkTools::linkAndTermDistance(const QString &link, const QString &term, int maxLimit)
 {
     // For developing needs
     assert(term == term.toLower());

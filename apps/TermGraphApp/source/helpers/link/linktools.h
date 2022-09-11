@@ -3,21 +3,36 @@
 
 #pragma once
 
-#include <functional>
-
-#include <QChar>
+#include <QObject>
 #include <QString>
-#include <QStringList>
 #include <QStringView>
 
 #include <CommonTools/HandyTypes.h>
 
 
-// Static class
-class LinkTools
+class LinkTools : public QObject
 {
+    Q_OBJECT
+
 public:
+    static LinkTools& instance();
+
+    LinkTools(LinkTools const&) = delete;
+    void operator=(LinkTools const&) = delete;
+
+    Q_INVOKABLE static bool isValidCursor(const QString& str, int cursor);
+    Q_INVOKABLE static bool isCursorOnLink(const QString& str, int cursor);
+    Q_INVOKABLE static bool hasSoftLinks(const QString& linkedText);
+
+    Q_INVOKABLE static QString add(QString str, int cursor);
+    Q_INVOKABLE static QString expandRight(QString str, int cursor);
+    Q_INVOKABLE static QString remove(QString str, int cursor);
+    Q_INVOKABLE static QString decorate(const QString& str);
+
     static bool linkAndTermSimilarWordDistance(const QString& link, const QString& term);
     static int      levDistance(QStringView src, QStringView dst, int limit = 100000);
     static Opt<int> linkAndTermDistance(const QString& link, const QString& term, int maxLimit);
+
+private:
+    explicit LinkTools(QObject* parent = nullptr);
 };

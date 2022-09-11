@@ -8,7 +8,7 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include "source/helpers/link/tagprocessor.h"
+#include "source/helpers/link/linktools.h"
 #include "source/managers/linkshardeningmanager.h"
 #include "source/managers/notificationmanager.h"
 #include "source/model/enums.h"
@@ -18,7 +18,7 @@
 void registerUserQmlTypes()
 {
     qmlRegisterSingletonInstance("Api", 1, 0, "Notification", &NotificationManager::instance());
-    qmlRegisterSingletonInstance("Api", 1, 0, "TagProcessor", &TagProcessor::instance());
+    qmlRegisterSingletonInstance("Api", 1, 0, "LinkTools", &LinkTools::instance());
 
     qmlRegisterUncreatableType<TermDataWrapper>("Api",
                                                 1,
