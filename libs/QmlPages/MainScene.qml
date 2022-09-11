@@ -338,9 +338,9 @@ M.Page {
 
         A.ToolTip {
             property bool isEmptyGroup: {
-                if (GroupsManager.hasAnyGroup) {
+                if (Api.groups.hasAnyGroup) {
                     if (Scene.hasCurrentGroup) {
-                        return GroupsManager.isEmptyGroup(Scene.currentGroup.uuid);
+                        return Api.groups.isEmptyGroup(Scene.currentGroup.uuid);
                     } else {
                         return false;
                     }
@@ -359,7 +359,7 @@ M.Page {
             icon.source: Theme.icon.plus
             enabled: root.thisPageVisible
             onTriggered: {
-                if (GroupsManager.hasAnyGroup) {
+                if (Api.groups.hasAnyGroup) {
                     root.StackView.view.push(newNodeComponent)
                 }
             }
@@ -408,7 +408,7 @@ M.Page {
 
     M.EmptyView {
         anchors.fill: sceneFlick
-        visible: !GroupsManager.hasAnyGroup
+        visible: !Api.groups.hasAnyGroup
 
         mainText: "Группы отсутствуют"
         detailedText: "Думаю вам стоит создать одну"
@@ -418,7 +418,7 @@ M.Page {
 
     M.EmptyView {
         anchors.fill: sceneFlick
-        visible: GroupsManager.hasAnyGroup && !Scene.hasCurrentGroup && !Scene.groupLoading
+        visible: Api.groups.hasAnyGroup && !Scene.hasCurrentGroup && !Scene.groupLoading
 
         mainText: "Группа не выбрана"
         detailedText: ""

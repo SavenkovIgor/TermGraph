@@ -61,7 +61,7 @@ Drawer {
             Layout.fillWidth: true
 
             keyNavigationEnabled: true
-            model: GroupsManager.allUuidSorted
+            model: Api.groups.allUuidSorted
 
             implicitHeight: contentHeight
 
@@ -82,7 +82,7 @@ Drawer {
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
 
-                    text: GroupsManager.getGroupName(modelData)
+                    text: Api.groups.getGroupName(modelData)
                 }
 
                 background: Rectangle {

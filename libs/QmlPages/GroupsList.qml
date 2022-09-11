@@ -19,16 +19,16 @@ M.Page {
 
     contentItem: ListView {
         id: groupsList
-        model: GroupsManager.allUuidSorted
+        model: Api.groups.allUuidSorted
         keyNavigationEnabled: true
 
         delegate: ItemDelegate {
             id: delegate
 
             property string groupUuid: modelData
-            property string groupName: GroupsManager.getGroupName(groupUuid)
-            property string lastEdit: GroupsManager.getLastEditString(groupUuid)
-            property int nodesCount: GroupsManager.getNodesCount(groupUuid)
+            property string groupName: Api.groups.getGroupName(groupUuid)
+            property string lastEdit: Api.groups.getLastEditString(groupUuid)
+            property int nodesCount: Api.groups.getNodesCount(groupUuid)
 
             property real basePadding: Theme.font.h4.pixelSize
 
@@ -86,7 +86,7 @@ M.Page {
 
     M.EmptyView {
         anchors.fill: groupsList
-        visible: !GroupsManager.hasAnyGroup
+        visible: !Api.groups.hasAnyGroup
 
         mainText: "Пусто..."
         detailedText: ""
@@ -99,7 +99,7 @@ M.Page {
 
         A.ToolTip {
             text: "Нажмите чтобы добавить группу"
-            visible: !GroupsManager.hasAnyGroup
+            visible: !Api.groups.hasAnyGroup
         }
 
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
@@ -110,7 +110,7 @@ M.Page {
     A.RoundButton {
         id: deleteGroupBtn
         icon.source: Theme.icon.trash
-        visible: GroupsManager.hasAnyGroup
+        visible: Api.groups.hasAnyGroup
 
         anchors { right: parent.right; bottom: addGroupBtn.top; margins: width / 2; }
 
@@ -128,8 +128,8 @@ M.Page {
         anchors.margins: width / 2;
 
         onClicked: {
-            GroupsManager.exportGrpToJson(groupsList.currentItem.text)
-            var path = "Группа экспортирована в папку GroupsJson\n. Путь к папке:" + GroupsManager.getExportPath()
+            Api.groups.exportGrpToJson(groupsList.currentItem.text)
+            var path = "Группа экспортирована в папку GroupsJson\n. Путь к папке:" + Api.groups.getExportPath()
             groupExportedDialog.text = path
             groupExportedDialog.visible = true
         }
@@ -138,7 +138,7 @@ M.Page {
 
     A.RoundButton {
         icon.source: Theme.icon.share
-        visible: GroupsManager.hasAnyGroup
+        visible: Api.groups.hasAnyGroup
 
         anchors { right: addGroupBtn.left; bottom: parent.bottom; margins: width / 2; }
 
@@ -154,7 +154,7 @@ M.Page {
     M.StdDialog {
         id: groupDeleteDialog
         title: "Удалить этот термин?"
-        onAccepted: GroupsManager.deleteGroup(groupsList.currentItem.groupUuid)
+        onAccepted: Api.groups.deleteGroup(groupsList.currentItem.groupUuid)
     }
 
     // TODO: Replace with popup
@@ -192,7 +192,7 @@ M.Page {
             A.RoundButton {
                 icon.source: Theme.icon.check
                 onClicked: {
-                    GroupsManager.addNewGroup(newGroupName.text, "")
+                    Api.groups.addNewGroup(newGroupName.text, "")
                     newGroupDrawer.close()
                 }
             }

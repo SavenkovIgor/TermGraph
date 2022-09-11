@@ -65,11 +65,11 @@ M.Page {
             lastEdit: ""
         };
 
-        GroupsManager.addNode(data);
+        Api.groups.addNode(data);
     }
 
     Connections {
-        target: GroupsManager
+        target: Api.groups
 
         function onTermAdded() {
             root.StackView.view.pop();
@@ -130,7 +130,7 @@ M.Page {
                 elide: Text.ElideRight
                 color: Theme.color.white
 
-                text: GroupsManager.getGroupName(currentGroupFixedRow.groupUuid)
+                text: Api.groups.getGroupName(currentGroupFixedRow.groupUuid)
             }
         }
 

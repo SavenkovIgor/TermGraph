@@ -71,13 +71,13 @@ ApplicationWindow {
         height: Math.min(implicitHeight, window.height * 0.8)
     }
 
-    Component.onCompleted: GroupsManager.init()
+    Component.onCompleted: Api.groups.init()
 
     Connections {
-        target: GroupsManager
+        target: Api.groups
 
         function onGroupListLoaded() {
-            if (GroupsManager.hasAnyGroup)
+            if (Api.groups.hasAnyGroup)
                 stackView.push(mainSceneComponent);
             else
                 stackView.push(onBoardComponent);

@@ -78,11 +78,11 @@ M.Page {
             lastEdit: Scene.currentNode.lastEdit
         };
 
-        GroupsManager.updateNode(data);
+        Api.groups.updateNode(data);
     }
 
     Connections {
-        target: GroupsManager
+        target: Api.groups
 
         function onTermUpdated() {
             root.StackView.view.pop();
@@ -185,7 +185,7 @@ M.Page {
                 id: nodeGroup
                 Layout.fillWidth: true
 
-                model: GroupsManager.allUuidSorted
+                model: Api.groups.allUuidSorted
 
                 function selectElement(name) {
                     let index = find(name)

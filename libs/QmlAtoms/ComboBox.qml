@@ -14,7 +14,7 @@ ComboBox {
 
     contentItem: Text {
         id: contItem
-        text: GroupsManager.getGroupName(control.displayText)
+        text: Api.groups.getGroupName(control.displayText)
         font: control.font
         color: Theme.color.white
         padding: font.pixelSize / 1.5
@@ -50,7 +50,7 @@ ComboBox {
     delegate: ItemDelegate {
         width: control.width
         contentItem: Text {
-            text: GroupsManager.getGroupName(modelData)
+            text: Api.groups.getGroupName(modelData)
             font: control.font
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter

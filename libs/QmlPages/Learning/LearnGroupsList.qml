@@ -22,7 +22,7 @@ M.Page {
 
     contentItem: ListView {
         id: groupsList
-        model: GroupsManager.allUuidSorted
+        model: Api.groups.allUuidSorted
         keyNavigationEnabled: true
 
         highlight: Rectangle {
@@ -64,7 +64,7 @@ M.Page {
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
 
-                    text: GroupsManager.getGroupName(modelData)
+                    text: Api.groups.getGroupName(modelData)
                 }
 
                 A.SmallInfoText {
@@ -74,12 +74,12 @@ M.Page {
 
                 A.SmallInfoText {
                     description: "Last editing time"
-                    label: GroupsManager.getLastEditString(modelData)
+                    label: Api.groups.getLastEditString(modelData)
                 }
 
                 A.SmallInfoText {
                     description: "Node count"
-                    label: GroupsManager.getNodesCount(modelData)
+                    label: Api.groups.getNodesCount(modelData)
 
                     bottomPadding: grpName.font.pixelSize / 2
                 }

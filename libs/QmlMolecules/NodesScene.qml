@@ -18,7 +18,7 @@ Control {
 
     Component.onCompleted: {
         // Try to show first group
-        const groupsUuids = GroupsManager.allUuidSorted;
+        const groupsUuids = Api.groups.allUuidSorted;
 
         if (groupsUuids.length !== 0) {
             Scene.selectGroup(groupsUuids[0]);

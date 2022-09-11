@@ -65,7 +65,7 @@ A.DrawerPage {
                             lastEdit: ""
                         };
 
-                        const success = GroupsManager.updateNode(data);
+                        const success = Api.groups.updateNode(data);
 
                         if (success) {
                             root.close();

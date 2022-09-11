@@ -20,7 +20,7 @@ M.Page {
 
         M.LabelPair {
             name: "Версия базы данных:"
-            text: GroupsManager.dbVersion()
+            text: Api.groups.dbVersion()
             width: parent.width
         }
     }
