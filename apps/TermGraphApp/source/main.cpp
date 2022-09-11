@@ -27,11 +27,6 @@
 // TODO: Remove get from getters. Helper regexp: \bget.*\(
 // TODO: Try to cleanup approach. All c++ objects created from qml
 
-Q_IMPORT_QML_PLUGIN(ToolsPlugin);
-Q_IMPORT_QML_PLUGIN(ThemePlugin);
-Q_IMPORT_QML_PLUGIN(AtomsPlugin);
-Q_IMPORT_QML_PLUGIN(MoleculesPlugin);
-Q_IMPORT_QML_PLUGIN(PagesPlugin);
 
 void initResources()
 {
@@ -72,7 +67,7 @@ int main(int argc, char* argv[])
     QQmlApplicationEngine qmlEngine;
     // TODO: On Qt 6.4 this path is imported by default so this line can be deleted
     qmlEngine.addImportPath(QStringLiteral("qrc:/qt/qml"));
-    qmlEngine.load(QStringLiteral("qrc:/qt/qml/main.qml"));
+    qmlEngine.load(QStringLiteral("qrc:/qt/qml/Api/qml/main.qml"));
 
     return a.exec();
 }

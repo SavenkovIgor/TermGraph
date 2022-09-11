@@ -7,29 +7,20 @@ project (TermGraph VERSION 2.0.0 LANGUAGES CXX)
 
 find_package (Qt6 COMPONENTS Core Gui Qml Quick QuickControls2 Network REQUIRED)
 
+qt_standard_project_setup()
+
 qt_add_executable (TermGraph MANUAL_FINALIZATION)
 
 set_target_properties (TermGraph
     PROPERTIES
-        AUTOMOC ON
-        AUTORCC ON
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
-#        QT_QML_MODULE_VERSION 1.0
-#        QT_QML_MODULE_URI     Api)
 
 # Define target properties for Android with Qt 6 as:
 if (ANDROID)
     set_target_properties (TermGraph
         PROPERTIES QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android)
 endif ()
-
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-
-# qt6_qml_type_registration(TermGraph)
-
-# Resources
-target_sources (TermGraph PRIVATE "qml/qml.qrc")
 
 # Android files
 target_sources (TermGraph PRIVATE android/AndroidManifest.xml)
@@ -41,6 +32,15 @@ target_sources (TermGraph PRIVATE ${ALL_SOURCES})
 target_include_directories (TermGraph PRIVATE ${PROJECT_SOURCE_DIR})
 
 target_compile_definitions (TermGraph PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
+
+qt_add_qml_module (TermGraph
+    URI Api
+    VERSION 1.0
+    IMPORTS Theme Tools Atoms Molecules Pages
+    RESOURCE_PREFIX "/qt/qml"
+    IMPORT_PATH ${PROJECT_BINARY_DIR}
+    QML_FILES "qml/main.qml")
+
 
 # C++ libs
 target_link_libraries (TermGraph PRIVATE CommonTools)
