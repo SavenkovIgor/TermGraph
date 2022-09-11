@@ -15,6 +15,8 @@ class Api : public QObject
 {
     Q_OBJECT
 
+    Q_PROPERTY(NetworkManager* network READ network CONSTANT FINAL)
+
 public:
     explicit Api(QObject* parent = nullptr);
     ~Api() = default;
@@ -26,7 +28,9 @@ private:
     QScopedPointer<NetworkManager> mNetwork;
 
     // Dependent init
-    QScopedPointer<GroupsManager>         mGroupsManager;
-    QScopedPointer<SyncManager>           mSyncManager;
-    QScopedPointer<MainScene>             mScene;
+    QScopedPointer<GroupsManager> mGroupsManager;
+    QScopedPointer<SyncManager>   mSyncManager;
+    QScopedPointer<MainScene>     mScene;
+
+    NetworkManager* network() const;
 };

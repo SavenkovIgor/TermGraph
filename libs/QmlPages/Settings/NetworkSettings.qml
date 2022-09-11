@@ -39,19 +39,19 @@ M.Page {
                         Switch {
                             scale: Qt.platform.os === "android" ? 2.0 : 1.0
                             checked: false
-                            onCheckedChanged: { NetworkManager.synchronization = checked; }
+                            onCheckedChanged: { Api.network.synchronization = checked; }
                         }
 
                         Text {
                             font: Theme.font.h4
                             color: Theme.color.white
-                            text: NetworkManager.synchronizationState
+                            text: Api.network.synchronizationState
                         }
                     }
 
                     M.LabelPair {
                         name: "Ip этого устройства"
-                        text: NetworkManager.getFirstLocalIpString()
+                        text: Api.network.getFirstLocalIpString()
                     }
                 }
 
@@ -61,24 +61,24 @@ M.Page {
 
         M.TextField {
             labelText: "Ip получателя"
-            onTextChanged: { NetworkManager.setReceiverHostIp(text) }
-            Component.onCompleted: { text = NetworkManager.getReceiverIp() }
+            onTextChanged: { Api.network.setReceiverHostIp(text) }
+            Component.onCompleted: { text = Api.network.getReceiverIp() }
             width: parent.width
         }
 
         M.LabelPair {
             name: "Состояние подключения"
-            text: NetworkManager.connectionState
+            text: Api.network.connectionState
             width: parent.width
         }
 
         A.SquareButton {
-            text: NetworkManager.isConnected ? "Отключиться" : "Подключиться"
+            text: Api.network.isConnected ? "Отключиться" : "Подключиться"
             onClicked:  {
-                if(NetworkManager.isConnected) {
-                    NetworkManager.disconnectFromHost()
+                if(Api.network.isConnected) {
+                    Api.network.disconnectFromHost()
                 } else {
-                    NetworkManager.connectToHost()
+                    Api.network.connectToHost()
                 }
             }
         }
