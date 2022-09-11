@@ -11,9 +11,9 @@ class GroupDataWrapper : public GroupData
 {
     Q_GADGET
 
-    Q_PROPERTY(QString uuid READ getUuid WRITE setUuid)
-    Q_PROPERTY(QString name MEMBER name)
-    Q_PROPERTY(QString comment MEMBER comment)
+    Q_PROPERTY(QString uuid READ getUuid WRITE setUuid FINAL)
+    Q_PROPERTY(QString name MEMBER name FINAL)
+    Q_PROPERTY(QString comment MEMBER comment FINAL)
 
 public:
     GroupDataWrapper() = default;

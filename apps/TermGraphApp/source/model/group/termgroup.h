@@ -18,8 +18,8 @@ class TermGroup : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString uuid READ qmlUuid CONSTANT)
-    Q_PROPERTY(QString name READ name CONSTANT)
+    Q_PROPERTY(QString uuid READ qmlUuid CONSTANT FINAL)
+    Q_PROPERTY(QString name READ name CONSTANT FINAL)
 
     using GraphT = Graph<PaintedTerm, PaintedEdge>;
 

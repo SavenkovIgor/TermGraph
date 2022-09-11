@@ -18,10 +18,10 @@ public:
     bool sendGroup(const QJsonDocument& doc);
 
     // Properties
-    Q_PROPERTY(bool isConnected READ hasConnection NOTIFY newOutputConnectionState)
-    Q_PROPERTY(QString connectionState READ getOutputSocketState NOTIFY newOutputConnectionState)
-    Q_PROPERTY(bool synchronization READ isServerEnabled WRITE setServerEnabled NOTIFY serverStateChanged)
-    Q_PROPERTY(QString synchronizationState READ serverState NOTIFY serverStateChanged)
+    Q_PROPERTY(bool isConnected READ hasConnection NOTIFY newOutputConnectionState FINAL)
+    Q_PROPERTY(QString connectionState READ getOutputSocketState NOTIFY newOutputConnectionState FINAL)
+    Q_PROPERTY(bool synchronization READ isServerEnabled WRITE setServerEnabled NOTIFY serverStateChanged FINAL)
+    Q_PROPERTY(QString synchronizationState READ serverState NOTIFY serverStateChanged FINAL)
 
     // Invokables
     Q_INVOKABLE void    connectToHost();

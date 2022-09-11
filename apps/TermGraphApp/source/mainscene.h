@@ -21,18 +21,18 @@ public:
     ~MainScene() override = default;
 
     // Scene
-    Q_PROPERTY(QRectF sceneRect READ sceneRect WRITE setSceneRect NOTIFY sceneRectChanged)
+    Q_PROPERTY(QRectF sceneRect READ sceneRect WRITE setSceneRect NOTIFY sceneRectChanged FINAL)
 
     // Group
-    Q_PROPERTY(TermGroup* currentGroup READ getCurrentGroup NOTIFY currentGroupChanged)
-    Q_PROPERTY(bool hasCurrentGroup READ hasCurrentGroup NOTIFY currentGroupChanged)
-    Q_PROPERTY(bool groupLoading READ isGroupLoading NOTIFY groupLoadingChanged)
+    Q_PROPERTY(TermGroup* currentGroup READ getCurrentGroup NOTIFY currentGroupChanged FINAL)
+    Q_PROPERTY(bool hasCurrentGroup READ hasCurrentGroup NOTIFY currentGroupChanged FINAL)
+    Q_PROPERTY(bool groupLoading READ isGroupLoading NOTIFY groupLoadingChanged FINAL)
 
     // Node
-    Q_PROPERTY(TermDataWrapper currentNode READ getCurrentNode NOTIFY selectionChanged)
-    Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged)
-    Q_PROPERTY(QString currNodeNameAndDefinition READ getCurrNodeNameAndDefinition NOTIFY selectionChanged)
-    Q_PROPERTY(QString currNodeHierarchyDefinition READ getCurrNodeHierarchyDefinition NOTIFY selectionChanged)
+    Q_PROPERTY(TermDataWrapper currentNode READ getCurrentNode NOTIFY selectionChanged FINAL)
+    Q_PROPERTY(bool hasSelection READ isAnyNodeSelected NOTIFY selectionChanged FINAL)
+    Q_PROPERTY(QString currNodeNameAndDefinition READ getCurrNodeNameAndDefinition NOTIFY selectionChanged FINAL)
+    Q_PROPERTY(QString currNodeHierarchyDefinition READ getCurrNodeHierarchyDefinition NOTIFY selectionChanged FINAL)
     Q_PROPERTY(TermsModel* terms MEMBER mTermsModel CONSTANT FINAL)
     Q_PROPERTY(EdgesModel* edges MEMBER mEdgesModel CONSTANT FINAL)
 

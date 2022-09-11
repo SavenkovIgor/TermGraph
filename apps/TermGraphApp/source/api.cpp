@@ -15,7 +15,6 @@ Api::Api(QObject* parent)
     , mSyncManager(new SyncManager(mNetwork.get(), mGroupsManager.get()))
     , mScene(new MainScene(mGroupsManager.get()))
 {
-    qmlRegisterModule("Api", 1, 0);
     qmlRegisterSingletonInstance("Api", 1, 0, "Api", this);
 }
 

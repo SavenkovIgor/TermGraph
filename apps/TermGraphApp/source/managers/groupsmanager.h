@@ -24,8 +24,8 @@ public:
                            NotifyInterface&                      notifier,
                            QObject*                              parent = nullptr);
 
-    Q_PROPERTY(bool hasAnyGroup READ getHasAnyGroup NOTIFY groupsListChanged)
-    Q_PROPERTY(QStringList allUuidSorted READ getAllUuidStringsSortedByLastEdit NOTIFY groupsListChanged)
+    Q_PROPERTY(bool hasAnyGroup READ getHasAnyGroup NOTIFY groupsListChanged FINAL)
+    Q_PROPERTY(QStringList allUuidSorted READ getAllUuidStringsSortedByLastEdit NOTIFY groupsListChanged FINAL)
 
     Q_INVOKABLE bool    isEmptyGroup(const QString& groupUuid);
     Q_INVOKABLE QString getGroupName(const QUuid& groupUuid) const;

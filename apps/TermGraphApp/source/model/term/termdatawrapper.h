@@ -12,16 +12,16 @@ class TermDataWrapper
     Q_GADGET
 
     // clang-format off
-    Q_PROPERTY(QString uuid              READ getUuid        WRITE setUuid)
-    Q_PROPERTY(QString term              READ getTerm        WRITE setTerm)
-    Q_PROPERTY(QString definition        READ getDefinition  WRITE setDefinition)
-    Q_PROPERTY(QString description       READ getDescription WRITE setDescription)
-    Q_PROPERTY(QString examples          READ getExamples    WRITE setExamples)
-    Q_PROPERTY(QString wikiUrl           READ getWikiUrl     WRITE setWikiUrl)
-    Q_PROPERTY(QString wikiImage         READ getWikiImage   WRITE setWikiImage)
-    Q_PROPERTY(QString groupUuid         READ getGroupUuid   WRITE setGroupUuid)
-    Q_PROPERTY(QString lastEditDecorated READ getLastEditDecorated)
-    Q_PROPERTY(QString lastEdit          READ getLastEdit)
+    Q_PROPERTY(QString uuid              READ getUuid        WRITE setUuid        FINAL)
+    Q_PROPERTY(QString term              READ getTerm        WRITE setTerm        FINAL)
+    Q_PROPERTY(QString definition        READ getDefinition  WRITE setDefinition  FINAL)
+    Q_PROPERTY(QString description       READ getDescription WRITE setDescription FINAL)
+    Q_PROPERTY(QString examples          READ getExamples    WRITE setExamples    FINAL)
+    Q_PROPERTY(QString wikiUrl           READ getWikiUrl     WRITE setWikiUrl     FINAL)
+    Q_PROPERTY(QString wikiImage         READ getWikiImage   WRITE setWikiImage   FINAL)
+    Q_PROPERTY(QString groupUuid         READ getGroupUuid   WRITE setGroupUuid   FINAL)
+    Q_PROPERTY(QString lastEditDecorated READ getLastEditDecorated FINAL)
+    Q_PROPERTY(QString lastEdit          READ getLastEdit          FINAL)
     // clang-format on
 
 public:
