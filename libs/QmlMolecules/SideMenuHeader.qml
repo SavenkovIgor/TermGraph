@@ -38,7 +38,7 @@ Control {
             width: Sizes.baseX3
             height: Sizes.baseX3
             icon.color: Theme.color.whiteDisabled
-            icon.source: IconPath.cog
+            icon.source: Theme.icon.cog
             onClicked: root.settingsClicked()
         }
     }

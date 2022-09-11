@@ -95,7 +95,7 @@ M.Page {
 
     A.RoundButton {
         id: addGroupBtn
-        icon.source: IconPath.plus
+        icon.source: Theme.icon.plus
 
         A.ToolTip {
             text: "Нажмите чтобы добавить группу"
@@ -109,7 +109,7 @@ M.Page {
 
     A.RoundButton {
         id: deleteGroupBtn
-        icon.source: IconPath.trash
+        icon.source: Theme.icon.trash
         visible: GroupsManager.hasAnyGroup
 
         anchors { right: parent.right; bottom: addGroupBtn.top; margins: width / 2; }
@@ -137,7 +137,7 @@ M.Page {
     */
 
     A.RoundButton {
-        icon.source: IconPath.share
+        icon.source: Theme.icon.share
         visible: GroupsManager.hasAnyGroup
 
         anchors { right: addGroupBtn.left; bottom: parent.bottom; margins: width / 2; }
@@ -190,7 +190,7 @@ M.Page {
             }
 
             A.RoundButton {
-                icon.source: IconPath.check
+                icon.source: Theme.icon.check
                 onClicked: {
                     GroupsManager.addNewGroup(newGroupName.text, "")
                     newGroupDrawer.close()

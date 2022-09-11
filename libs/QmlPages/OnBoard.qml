@@ -18,7 +18,7 @@ M.Page {
         A.PageTitleLabel { Layout.fillWidth: true }
 
         A.ToolButton {
-            icon.source: IconPath.check
+            icon.source: Theme.icon.check
             visible: helpView.lastSlide
             onClicked: root.finished()
         }

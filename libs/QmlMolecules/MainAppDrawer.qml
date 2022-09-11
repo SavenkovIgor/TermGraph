@@ -41,14 +41,14 @@ Drawer {
 
         A.SideMenuButton {
             text: "Изучение"
-            icon.source: IconPath.book
+            icon.source: Theme.icon.book
             Layout.fillWidth: true
             visible: false
         }
 
         A.SideMenuButton {
             text: "Синхронизация"
-            icon.source: IconPath.loopCircular
+            icon.source: Theme.icon.loopCircular
             Layout.fillWidth: true
             visible: false
         }

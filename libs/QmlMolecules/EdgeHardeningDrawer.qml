@@ -49,7 +49,7 @@ A.DrawerPage {
 
             A.RoundButton {
                 action: Action {
-                    icon.source: IconPath.check
+                    icon.source: Theme.icon.check
                     onTriggered: {
                         const hardenedNode = linksManager.appliedReplacement();
 
@@ -92,14 +92,14 @@ A.DrawerPage {
             A.RoundButton {
                 enabled: linksManager.canMovePrev
                 action: Action {
-                    icon.source: IconPath.chevronLeft
+                    icon.source: Theme.icon.chevronLeft
                     onTriggered: linksManager.prev()
                 }
             }
             A.RoundButton {
                 enabled: linksManager.canMoveNext
                 action: Action {
-                    icon.source: IconPath.chevronRight
+                    icon.source: Theme.icon.chevronRight
                     onTriggered: linksManager.next()
                 }
             }

@@ -37,7 +37,7 @@ M.Page {
             action: Action {
                 text: "Изменить вершину"
                 shortcut: "Ctrl+E"
-                icon.source: IconPath.pencil
+                icon.source: Theme.icon.pencil
                 onTriggered: root.editNode()
             }
         }

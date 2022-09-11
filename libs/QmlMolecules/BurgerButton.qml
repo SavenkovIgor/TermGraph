@@ -18,11 +18,11 @@ A.ToolButton {
     icon.source: {
         switch (buttonState) {
         case BurgerButton.IconState.Burger:
-            return IconPath.menu;
+            return Theme.icon.menu;
         case BurgerButton.IconState.Back:
-            return IconPath.leftArrow;
+            return Theme.icon.leftArrow;
         }
 
-        return IconPath.menu;
+        return Theme.icon.menu;
     }
 }

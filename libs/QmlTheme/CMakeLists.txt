@@ -15,7 +15,7 @@ set_target_properties (ThemeModule
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
 
-set (QML_SOURCES IconPath.qml Sizes.qml Theme.qml)
+set (QML_SOURCES Sizes.qml Theme.qml)
 
 set_source_files_properties (${QML_SOURCES} PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
 

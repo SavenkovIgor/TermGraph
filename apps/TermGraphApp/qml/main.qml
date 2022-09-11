@@ -49,7 +49,7 @@ ApplicationWindow {
     Action {
         id: openGroupsAction
         text: "Группы"
-        icon.source: IconPath.list
+        icon.source: Theme.icon.list
         onTriggered: stackView.push(groupsListComponent)
     }
 

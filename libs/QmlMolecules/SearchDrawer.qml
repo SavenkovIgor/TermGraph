@@ -38,7 +38,7 @@ A.DrawerPage {
                 Keys.onReturnPressed: searchList.forceActiveFocus();
             }
 
-            A.ToolButton { icon.source: IconPath.magnifyingGlass }
+            A.ToolButton { icon.source: Theme.icon.magnifyingGlass }
         }
 
         Item {

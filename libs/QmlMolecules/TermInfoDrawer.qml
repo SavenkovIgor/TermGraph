@@ -43,7 +43,7 @@ A.DrawerPage {
                 bgColor: Theme.color.warning
                 visible: LinkTools.hasSoftLinks(currentNode ? currentNode.definition : "")
                 action: Action {
-                    icon.source: IconPath.warning
+                    icon.source: Theme.icon.warning
                     onTriggered: root.openWarningPopup()
                 }
             }
@@ -51,7 +51,7 @@ A.DrawerPage {
             A.RoundButton {
                 bgColor: Theme.color.whiteDisabled
                 action: Action {
-                    icon.source: IconPath.info
+                    icon.source: Theme.icon.info
                     onTriggered: root.openInfoPage()
                 }
             }
@@ -59,7 +59,7 @@ A.DrawerPage {
             A.RoundButton {
                 bgColor: Theme.color.whiteDisabled
                 action: Action {
-                    icon.source: IconPath.pencil
+                    icon.source: Theme.icon.pencil
                     onTriggered: root.editNode()
                 }
             }

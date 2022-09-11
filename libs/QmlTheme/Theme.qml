@@ -60,4 +60,31 @@ QtObject {
             return font;
         }
     }
+
+    readonly property QtObject icon: QtObject {
+        readonly property url book            : "qrc:/icon/book.svg"
+        readonly property url check           : "qrc:/icon/check.svg"
+        readonly property url chevronLeft     : "qrc:/icon/chevron-left.svg"
+        readonly property url chevronRight    : "qrc:/icon/chevron-right.svg"
+        readonly property url code            : "qrc:/icon/code.svg"
+        readonly property url cog             : "qrc:/icon/cog.svg"
+        readonly property url crossOnCircle   : "qrc:/icon/crossOnCircle.svg"
+        readonly property url eye             : "qrc:/icon/eye.svg"
+        readonly property url folder          : "qrc:/icon/folder.svg"
+        readonly property url info            : "qrc:/icon/info.svg"
+        readonly property url leftArrow       : "qrc:/icon/arrow-thick-left.svg"
+        readonly property url list            : "qrc:/icon/list.svg"
+        readonly property url loopCircular    : "qrc:/icon/loop-circular.svg"
+        readonly property url magnifyingGlass : "qrc:/icon/magnifying-glass.svg"
+        readonly property url menu            : "qrc:/icon/menu.svg"
+        readonly property url options         : "qrc:/icon/options.svg"
+        readonly property url pencil          : "qrc:/icon/pencil.svg"
+        readonly property url plus            : "qrc:/icon/plus.svg"
+        readonly property url questionMark    : "qrc:/icon/question-mark.svg"
+        readonly property url rightArrow      : "qrc:/icon/arrow-thick-right.svg"
+        readonly property url share           : "qrc:/icon/share.svg"
+        readonly property url spreadsheet     : "qrc:/icon/spreadsheet.svg"
+        readonly property url trash           : "qrc:/icon/trash.svg"
+        readonly property url warning         : "qrc:/icon/warning.svg"
+    }
 }

@@ -24,7 +24,7 @@ M.Page {
 
         A.ToolButton {
             id: checkButton
-            icon.source: IconPath.check
+            icon.source: Theme.icon.check
             onClicked: root.addNode()
         }
     }
@@ -80,7 +80,7 @@ M.Page {
 
     A.RoundButton {
         id: addLink
-        icon.source: IconPath.code
+        icon.source: Theme.icon.code
         visible: termDefin.addLinkButtonVisible || someOfToolButtonsHaveFocus
 
         anchors { top: parent.top; right: expandLinkRight.left; margins: width / 2; }
@@ -90,7 +90,7 @@ M.Page {
 
     A.RoundButton {
         id: expandLinkRight
-        icon.source: IconPath.chevronRight
+        icon.source: Theme.icon.chevronRight
         visible: termDefin.extendLinkButtonVisible || someOfToolButtonsHaveFocus
 
         anchors { top: parent.top; right: parent.right; margins: width / 2; }
@@ -100,7 +100,7 @@ M.Page {
 
     A.RoundButton {
         id: removeLink
-        icon.source: IconPath.code
+        icon.source: Theme.icon.code
         icon.color: "crimson"
         visible: termDefin.removeLinkButtonVisible || someOfToolButtonsHaveFocus
 

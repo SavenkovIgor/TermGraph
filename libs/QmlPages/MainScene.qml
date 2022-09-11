@@ -85,7 +85,7 @@ M.Page {
             action: Action {
                 text: "Поиск"
                 shortcut: "Ctrl+F"
-                icon.source: IconPath.magnifyingGlass
+                icon.source: Theme.icon.magnifyingGlass
                 onTriggered: searchDrawer.open()
             }
         }
@@ -356,7 +356,7 @@ M.Page {
         action: Action {
             text: "Добавить\nтермин"
             shortcut: "Ctrl+n"
-            icon.source: IconPath.plus
+            icon.source: Theme.icon.plus
             enabled: root.thisPageVisible
             onTriggered: {
                 if (GroupsManager.hasAnyGroup) {
@@ -374,7 +374,7 @@ M.Page {
         action: Action {
             id: changeNodeAction
             text: "Изменить вершину"
-            icon.source: IconPath.pencil
+            icon.source: Theme.icon.pencil
             shortcut: "Ctrl+e"
             enabled: root.thisPageVisible
             onTriggered: {
@@ -392,7 +392,7 @@ M.Page {
 
         action: Action {
             id: nodeInfoAction
-            icon.source: IconPath.info
+            icon.source: Theme.icon.info
             shortcut: "Ctrl+i"
             onTriggered: {
                 if (Scene.hasSelection)

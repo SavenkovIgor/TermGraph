@@ -18,7 +18,7 @@ M.Page {
     A.RoundButton {
         id: addGroupBtn
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
-        icon.source: IconPath.rightArrow
+        icon.source: Theme.icon.rightArrow
     }
 
     contentItem: ListView {
