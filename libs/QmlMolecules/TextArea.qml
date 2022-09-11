@@ -6,7 +6,7 @@ import QtQuick.Controls  as C
 import QtQuick.Layouts
 
 import Atoms as A
-import StyleInfo
+import Theme
 
 Column {
 

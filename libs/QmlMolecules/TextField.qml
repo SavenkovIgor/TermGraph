@@ -5,7 +5,7 @@ import QtQuick
 import QtQuick.Controls as C
 
 import Atoms  as A
-import StyleInfo
+import Theme
 
 Column {
     property alias labelText: label.text

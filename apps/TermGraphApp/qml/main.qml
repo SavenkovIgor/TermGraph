@@ -9,7 +9,7 @@ import QtQuick.Controls.Material
 import Api
 
 //import Learning
-import StyleInfo
+import Theme
 import Atoms as A
 import Molecules as M
 import Pages as P

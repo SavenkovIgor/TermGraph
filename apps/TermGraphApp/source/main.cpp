@@ -27,7 +27,7 @@
 // TODO: Try to cleanup approach. All c++ objects created from qml
 
 Q_IMPORT_QML_PLUGIN(ToolsPlugin);
-Q_IMPORT_QML_PLUGIN(StyleInfoPlugin);
+Q_IMPORT_QML_PLUGIN(ThemePlugin);
 Q_IMPORT_QML_PLUGIN(AtomsPlugin);
 Q_IMPORT_QML_PLUGIN(MoleculesPlugin);
 Q_IMPORT_QML_PLUGIN(PagesPlugin);

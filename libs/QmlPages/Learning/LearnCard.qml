@@ -7,7 +7,7 @@ import QtQuick.Layouts
 import QtQuick.Templates  as T
 
 import Molecules as M
-import StyleInfo
+import Theme
 
 M.Page {
     id: root

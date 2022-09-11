@@ -18,7 +18,7 @@ set_target_properties (PagesModule
 qt_add_qml_module (PagesModule
     URI Pages
     VERSION 1.0
-    IMPORTS StyleInfo Tools Atoms Molecules
+    IMPORTS Theme Tools Atoms Molecules
     RESOURCE_PREFIX "/qt/qml"
     IMPORT_PATH ${PROJECT_BINARY_DIR}
     QML_FILES

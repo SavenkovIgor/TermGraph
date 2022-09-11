@@ -5,7 +5,7 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
-import StyleInfo
+import Theme
 import Atoms as A
 import Molecules as M
 

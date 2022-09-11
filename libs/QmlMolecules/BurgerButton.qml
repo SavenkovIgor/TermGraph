@@ -4,7 +4,7 @@
 import QtQuick
 
 import Atoms as A
-import StyleInfo
+import Theme
 
 A.ToolButton {
 

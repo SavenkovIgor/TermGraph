@@ -4,7 +4,7 @@
 import QtQuick
 import QtQuick.Controls
 
-import StyleInfo
+import Theme
 
 Drawer {
     id: root

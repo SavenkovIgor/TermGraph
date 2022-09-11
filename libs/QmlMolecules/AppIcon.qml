@@ -7,7 +7,7 @@ import QtQuick.Controls
 // NOTE: Wait for Qt6 implementation
 //import QtGraphicalEffects
 
-import StyleInfo
+import Theme
 import Atoms as A
 
 Item {

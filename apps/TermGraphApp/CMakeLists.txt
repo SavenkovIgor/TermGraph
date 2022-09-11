@@ -58,7 +58,7 @@ target_link_libraries (TermGraph PRIVATE HelpImagesResource IconsResource)
 target_link_libraries (TermGraph
     PRIVATE
         ToolsModuleplugin
-        StyleInfoModuleplugin
+        ThemeModuleplugin
         AtomsModuleplugin
         MoleculesModuleplugin
         PagesModuleplugin)

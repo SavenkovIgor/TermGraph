@@ -9,7 +9,7 @@ import Api
 
 import Atoms as A
 import Molecules as M
-import StyleInfo
+import Theme
 
 // TODO: Disable apply button, when nothing changed
 // TODO: save selection when switch left|right

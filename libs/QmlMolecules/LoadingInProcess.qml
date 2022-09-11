@@ -3,7 +3,7 @@
 
 import QtQuick
 
-import StyleInfo
+import Theme
 
 Rectangle {
     id: root

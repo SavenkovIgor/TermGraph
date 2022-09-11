@@ -6,7 +6,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 import Atoms as A
-import StyleInfo
+import Theme
 
 A.PageHeader {
     id: root

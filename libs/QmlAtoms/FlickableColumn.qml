@@ -6,7 +6,7 @@ import QtQuick.Layouts
 
 import Api
 
-import StyleInfo
+import Theme
 
 Flickable {
     id: flick

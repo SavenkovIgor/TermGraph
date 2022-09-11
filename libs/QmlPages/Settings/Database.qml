@@ -9,7 +9,7 @@ import Api
 
 import Atoms as A
 import Molecules as M
-import StyleInfo
+import Theme
 
 M.Page {
     title: "База данных"

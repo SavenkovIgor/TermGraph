@@ -6,7 +6,7 @@ import QtQuick.Controls
 
 import Atoms as A
 import Molecules as M
-import StyleInfo
+import Theme
 
 M.Page {
     title: "Лицензия"

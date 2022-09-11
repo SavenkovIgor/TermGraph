@@ -5,7 +5,7 @@ import QtQuick
 import QtQuick.Controls
 
 import Molecules as M
-import StyleInfo
+import Theme
 
 M.Page {
     id: root

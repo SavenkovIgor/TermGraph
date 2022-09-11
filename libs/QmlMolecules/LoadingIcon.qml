@@ -5,7 +5,7 @@ import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
 
-import StyleInfo
+import Theme
 import Atoms as A
 
 Item {

@@ -6,6 +6,7 @@ pragma Singleton
 import QtQml
 import QtQuick
 
+// TODO: Join into one file
 QtObject {
     id: root
 

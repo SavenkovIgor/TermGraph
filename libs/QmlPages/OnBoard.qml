@@ -6,7 +6,7 @@ import QtQuick.Layouts
 
 import Atoms as A
 import Molecules as M
-import StyleInfo
+import Theme
 
 M.Page {
     id: root

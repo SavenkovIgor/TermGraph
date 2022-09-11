@@ -3,7 +3,7 @@
 
 import QtQuick
 
-import StyleInfo
+import Theme
 
 Text {
     font: Fonts.h1

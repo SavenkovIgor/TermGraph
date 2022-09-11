@@ -5,7 +5,7 @@ import QtQuick
 import QtQuick.Shapes
 
 import Api
-import StyleInfo
+import Theme
 
 ShapePath {
     id: root

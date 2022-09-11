@@ -7,7 +7,7 @@ import QtQuick.Layouts
 
 import Api
 
-import StyleInfo
+import Theme
 import Atoms as A
 
 A.DrawerPage {

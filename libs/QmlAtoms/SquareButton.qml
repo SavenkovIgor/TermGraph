@@ -5,7 +5,7 @@ import QtQuick
 import QtQuick.Controls
 
 import Api
-import StyleInfo
+import Theme
 
 Button {
     font: Fonts.h4

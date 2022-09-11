@@ -6,7 +6,7 @@ import QtQuick.Controls
 
 import Api
 
-import StyleInfo
+import Theme
 
 Drawer {
     id: root

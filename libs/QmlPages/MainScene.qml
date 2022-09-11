@@ -13,7 +13,7 @@ import Molecules as M
 import Pages as P
 
 import Tools
-import StyleInfo
+import Theme
 
 M.Page {
     id: root

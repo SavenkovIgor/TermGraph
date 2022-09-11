@@ -8,7 +8,7 @@ import QtQuick.Shapes
 import Api
 
 import Atoms as A
-import StyleInfo
+import Theme
 
 Control {
     id: root

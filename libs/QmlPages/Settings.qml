@@ -8,7 +8,7 @@ import Atoms as A
 import Molecules as M
 import Pages as P
 
-import StyleInfo
+import Theme
 
 M.Page {
     id: root
