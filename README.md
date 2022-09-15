@@ -1,87 +1,153 @@
-<!-- ![TermGraph logo](apps/TermGraphApp/resources/applicationIcons/appIcon128x128.png) 
-# TermGraph
+<!-- 
+TODO:
 
-Description | Philosophy | Key features | Installation | Build | Tests | Roadmap | Tech stack
-Description · Philosophy · Key features · Installation · Build · Tests · Roadmap · Tech stack
+0 Description
+- Update description
+
+1 Philosophy
+
+2 Key features
+- Comparison with other projects
+
+3 Installation
+
+4 Build
+- Configuration
+- Depends from Qt 6.3
+- Platforms list (Android, Wasm, Desktop)
+- Description of modules (with table)
+- Scripts for building main apps
+
+5 Tests
+- How to start them
+- CTest api
+
+6 Roadmap
+Roadmap section: https://github.com/Hexworks/zircon#readme
+
+7 Tech stack
+
+8 Screenshots
+- Make them svg
+- Add screenshots
+- Redraw app icon (golden ratio for hexagons?)
+
+9 Badges
+- https://forthebadge.com/
+- linkedin profile
+- license
+- CI
+- Tests
+
+10 Contents
+- Make proper contents links
+- Think about what must be there
+
+11 Recomendations
+- Check different github themes
+- Width 80 characters
+- Contribution guideline
+- Project page with GitHub pages?
+- Meetup speech
+- Changelog
+- Project news
+- Make fixes to my personal profile page on github 
+
+12 Add quote
+13 Main site link
+14 How to Use? Maybe wiki?
+15 Installation
+16 Built with ❤️ by ...
+17 Project structure
+18 Support
+- GitHub?
+- Patreon?
+- Other?
+
+19 Icons 
+- ✔️❌🎉⭐️🥳💠🔍
+- https://gist.github.com/rxaviers/7360908
+
+20 Info
+- Readme gives x5 to project stars
+- Talk to every community individually
+- Try to be in Trending section, but topics is also ok
+
+-->
+
+<div align="center">
+    <img 
+      width="100" 
+      alt="TermGraph" 
+      src="apps/TermGraphApp/resources/applicationIcons/appIcon128x128.png">
+    <h1>TermGraph</h1>
+</div>
+<br>
+<br>
+
+
+[Description](#⚡️-description) • 
+<!-- Philosophy •  -->
+<!-- Key features •  -->
+<!-- Installation •  -->
+<!-- Build •  -->
+<!-- Tests •  -->
+<!-- Roadmap •  -->
+<!-- Tech stack -->
+
 
 # ⚡️ Description
+TermGraph is a terms diagram builder. This app helps to arrange terms from simple <br>
+to complex and build a map of definitions. <br>
 
-TermGraph is a project that trying to implement rather simple idea:
-In many good structured areas of knowledge we often can see, that terms are build up on each other in form some kind of a tree.
-With this software you can realize this idea, and actually build that tree of terms.
+## What for?
+**Short answer:** This will help you learn something new faster and with deep understanding.
 
-# 📜 Philosophy
-# 🌿 Key features
-# 🚀 Installation
-# ⚙️ Build
-# ☕️ Tests
-# 🗺 Roadmap
-# 🧬 Tech stack
-(Cmake | Qt | QML | Conan) + version + icons -->
+**Long anser:**
+In all well-structured areas of knowledge, it is easy to see how explanations <br>
+are built up on each other. <br>
+The most basic concepts are easily accessible to any beginner. More complex <br>
+concepts require more effort and are always explained in terms of simpler ones.
 
+If you try to draw the first few "layers" of these terms, it will look like <br>
+a ladder or lasagna) If you draw them all, you will get a definition map, which <br>
+can be very useful.
 
+<img>
 
-
-<!-- github readme TODO:
-1) Update screenshots
-1.1) Make screenshots svg if possible
-2) Update description
-2.1) Add build section with description of modules and way of building
-2.2) Add dependency from qt6
-2.3) Mention that it can be build on android, wasm, desktop
-2.4) Add Git flow
-3) Add badges https://forthebadge.com/
-3.1) Master branch -> main branch
-Check different github themes
-Badge to linkedin License badge, Ci badge, tests badge
-Update application icon (golden ratio for hexagons?)
-
-Sections:
-Add application icon in title!
-Add some strange sounding quote
-Table of contents (Blog | Devices | Todo List | Smart)
-Philosofy
-Key features
-Main site link
-How to Use
-Installation
-Repo links
-Roadmap section: https://github.com/Hexworks/zircon#readme
-Features, comparison with other projects
-Configuration/Build
-Requirements
-# License badge
+### Benefits for beginners (if you don't have a map yet):
+- Its construction guaranteed learning with active memorization
+- Wikipedia wandering can become a good teacher with this approach (I have checked)
 
 
- Built with ❤️ by ...
+### Benefits for beginners (if you already have such map):
+- Understanding what to learn and in what order
+- Easier to google something
+- If you forgot the term, but remember it's connections - you can easily find it
+- You see the "big picture" of knowledge
+ 
 
-Project structure (with table of modules and usage)
-Support| GitHub | Patreon| License |Donations?
+### Benefits for the experienced:
+- Blind spots of your knowledge become visible
+- Fights the illusion of knowledge
+- The learning curve gets higher 
 
-Smiles and beautiful warning section
-Fill in topic section
-
-How to start tests
-
-✔️❌🎉⭐️🥳💠🔍
-
-https://gist.github.com/rxaviers/7360908 -->
-
-<!-- Recomendations:
-Width 80 characters
-
-contribution guideline
-Project page with GitHub pages?
-Meetup speech, changelog news
-
-Readme gives x5 to project stars
-Talk to every community individually
-Try to be in Trending section, but topics is also ok
-
-Make fixes to my personal profile page on github -->
+### Benefits for experts:
+- Assistance in the transfer of experience
+- Understanding how your expertise relates to other areas of knowledge
 
 
-# Syntax examples
+<!-- # 📜 Philosophy -->
+<!-- # 🌿 Key features -->
+<!-- # 🚀 Installation -->
+<!-- # ⚙️ Build -->
+<!-- # ☕️ Tests -->
+<!-- # 🗺 Roadmap -->
+<!-- # 🧬 Tech stack
+(Cmake | Qt | QML | Conan) + version + icons  -->
+
+
+<!-- # Syntax examples
 ## Center image
 
 <br> <br />
@@ -122,4 +188,4 @@ code example
 
 > **Note**
 
-**Option**
+**Option** -->
