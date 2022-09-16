@@ -110,27 +110,25 @@ The most basic concepts are easily accessible to any beginner. More complex <br>
 concepts require more effort and are always explained in terms of simpler ones.
 
 If you try to draw the first few "layers" of these terms, it will look like <br>
-a ladder or lasagna) If you draw them all, you will get a definition map, which <br>
+a ladder or lasagna) If you draw them all, you will get a knowledge area map, which <br>
 can be very useful.
 
 <img>
 
-### Benefits for beginners (if you don't have a map yet):
+### Benefits for beginners (if you don't have the map yet)
 - Its construction guaranteed learning with active memorization
 - Wikipedia wandering can become a good teacher with this approach (I have checked)
-
 
 ### Benefits for beginners (if you already have such map):
 - Understanding what to learn and in what order
 - Easier to google something
 - If you forgot the term, but remember it's connections - you can easily find it
 - You see the "big picture" of knowledge
- 
 
 ### Benefits for the experienced:
 - Blind spots of your knowledge become visible
 - Fights the illusion of knowledge
-- The learning curve gets higher 
+- The learning curve gets higher
 
 ### Benefits for experts:
 - Assistance in the transfer of experience
