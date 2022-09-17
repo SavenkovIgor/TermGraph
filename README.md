@@ -86,9 +86,8 @@ Roadmap section: https://github.com/Hexworks/zircon#readme
 <br>
 
 
-[Description](#⚡️-description)
+[Description](#⚡️-description) • [Key features](#🌿-key-features)
 <!-- • Philosophy-->
-<!-- • Key features-->
 <!-- • Installation-->
 <!-- • Build-->
 <!-- • Tests-->
@@ -136,7 +135,12 @@ can be very useful.
 
 
 <!-- # 📜 Philosophy -->
-<!-- # 🌿 Key features -->
+# 🌿 Key features
+- Builds on Desktop, Wasm and Android
+- Supports big maps (at least 1500 nodes)
+- Devices synchronization
+- Semi-automatic links markup
+
 <!-- # 🚀 Installation -->
 <!-- # ⚙️ Build -->
 <!-- # ☕️ Tests -->
