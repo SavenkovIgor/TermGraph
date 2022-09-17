@@ -1,7 +1,6 @@
 # Copyright © 2016-2022. Savenkov Igor
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-cmake_minimum_required (VERSION ${CMAKE_MINIMUM_REQUIRED_VERSION})
 
 project (AtomsModule LANGUAGES CXX)
 
