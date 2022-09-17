@@ -86,7 +86,7 @@ Roadmap section: https://github.com/Hexworks/zircon#readme
 <br>
 
 
-[Description](#⚡️-description) • [Key features](#🌿-key-features)
+[Description](#⚡️-description) • [Key features](#-key-features)
 <!-- • Philosophy-->
 <!-- • Installation-->
 <!-- • Build-->
