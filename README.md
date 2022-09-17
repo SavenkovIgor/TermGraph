@@ -1,9 +1,5 @@
 <!-- 
 TODO:
-
-0 Description
-- Update description
-
 1 Philosophy
 
 2 Key features
