@@ -7,6 +7,7 @@
 #include <QPair>
 #include <QQueue>
 #include <QTimer>
+#include <QQmlEngine>
 
 #include <CommonTools/HandyTypes.h>
 
@@ -15,6 +16,8 @@
 class NotificationManager : public QObject, public NotifyInterface
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_SINGLETON
 
     enum class NotifyType { Info = 0, Warning, Error, Debug };
 
@@ -22,6 +25,7 @@ class NotificationManager : public QObject, public NotifyInterface
 
 public:
     static NotificationManager& instance();
+    static NotificationManager* create(QQmlEngine *qmlEngine, QJSEngine *jsEngine);
 
     NotificationManager(NotificationManager const&) = delete;
     void operator=(NotificationManager const&) = delete;

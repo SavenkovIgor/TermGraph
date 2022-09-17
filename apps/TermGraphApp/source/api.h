@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QObject>
+#include <QQmlEngine>
 
 #include "source/helpers/firststartpreparer.h"
 #include "source/mainscene.h"
@@ -14,6 +15,8 @@
 class Api : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_SINGLETON
 
     Q_PROPERTY(NetworkManager* network READ network CONSTANT FINAL)
     Q_PROPERTY(SyncManager*    sync    READ sync    CONSTANT FINAL)

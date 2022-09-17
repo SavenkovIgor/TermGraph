@@ -1,17 +1,12 @@
 // Copyright © 2016-2022. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include <QDir>
 #include <QGuiApplication>
 #include <QSurface>
-#include <QtQml/qqmlextensionplugin.h>
 #include <QQmlApplicationEngine>
 #include <QtQuickControls2/QQuickStyle>
 
 #include <CommonTools/Platform.h>
-
-#include "source/api.h"
-#include "source/qmlTypesRegistrator.h"
 
 // -- Qt6 Migration plan --
 // TODO: Use new uuids!
@@ -26,7 +21,6 @@
 // TODO: Add Notifications Interface
 // TODO: Remove get from getters. Helper regexp: \bget.*\(
 // TODO: Try to cleanup approach. All c++ objects created from qml
-
 
 void initResources()
 {
@@ -61,8 +55,6 @@ int main(int argc, char* argv[])
     QQuickStyle::setStyle("Material"); // Important thing for styles!
 
     setSurfaceFormat();
-
-    Api w;
 
     QQmlApplicationEngine qmlEngine;
     // TODO: On Qt 6.4 this path is imported by default so this line can be deleted

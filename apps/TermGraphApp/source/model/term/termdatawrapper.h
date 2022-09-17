@@ -4,12 +4,15 @@
 #pragma once
 
 #include <QObject>
+#include <QQmlEngine>
 
 #include <TermDataInterface/TermData.h>
 
 class TermDataWrapper
 {
     Q_GADGET
+    QML_ELEMENT
+    QML_UNCREATABLE("Please use TermDataWrapper from backend")
 
     // clang-format off
     Q_PROPERTY(QString uuid              READ getUuid        WRITE setUuid        FINAL)

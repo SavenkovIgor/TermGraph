@@ -7,6 +7,7 @@
 
 #include "source/managers/notificationmanager.h"
 
+
 Api::Api(QObject* parent)
     : QObject(parent)
     , initPreparer()
@@ -15,7 +16,6 @@ Api::Api(QObject* parent)
     , mSyncManager(new SyncManager(mNetwork.get(), mGroupsManager.get()))
     , mScene(new MainScene(mGroupsManager.get()))
 {
-    qmlRegisterSingletonInstance("Api", 1, 0, "Api", this);
 }
 
 NetworkManager *Api::network() const

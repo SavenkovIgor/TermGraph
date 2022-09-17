@@ -4,6 +4,7 @@
 #pragma once
 
 #include <QObject>
+#include <QQmlEngine>
 
 // For coordinate types
 enum class CoordType {
@@ -15,6 +16,8 @@ enum class CoordType {
 class NodeType
 {
     Q_GADGET
+    QML_ELEMENT
+    QML_UNCREATABLE("Just enum")
 
 public:
     enum class Type { Orphan, Root, EndLeaf, MiddleLeaf };
@@ -24,6 +27,8 @@ public:
 class EdgeType
 {
     Q_GADGET
+    QML_ELEMENT
+    QML_UNCREATABLE("Just enum")
 
 public:
     enum class Type { Standart, Termin, TerminHardLink, Description, Broken, Redundant };
@@ -33,6 +38,9 @@ public:
 class EdgeSelection
 {
     Q_GADGET
+    QML_ELEMENT
+    QML_UNCREATABLE("Just enum")
+
 public:
     enum class Type { None, Forward, Backward };
     Q_ENUM(Type)
