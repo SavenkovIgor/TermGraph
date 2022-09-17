@@ -4,11 +4,11 @@
 # Usage example
 # create_test (NAME test SOURCES main.cpp LIBRARIES Qt6::Core)
 
-function (create_test)
-
+if (BUILD_TESTING)
     find_package (GTest REQUIRED)
+endif ()
 
-
+function (create_test)
     set (options "")
     set (oneValueArgs NAME)
     set (multiValueArgs SOURCES LIBRARIES)
