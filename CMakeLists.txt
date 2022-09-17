@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 # TODO: use CMakePresets.json
-# TODO: Make network mode for application
+# TODO: Join Qml modules to one CMakeLists file
 # TODO: Make Android build
 
 cmake_minimum_required (VERSION 3.22.0)

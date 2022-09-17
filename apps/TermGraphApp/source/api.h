@@ -11,6 +11,16 @@
 #include "source/managers/groupsmanager.h"
 #include "source/managers/syncmanager.h"
 
+// TODO: Move graph and its tests to separate library and add graph namespace
+
+// Qml todo list
+// TODO: remove version from qt_add_qml_module
+// TODO: Avoid implicit lookup in root scope (root.property)
+// TODO: Use type annotations on all qml functions (function sum(a: int, b: int): int )
+// TODO: Avoid duck typing
+// TODO: Prefer id's over properties (prefer id instead parent)
+
+// TODO: use QProperty https://doc.qt.io/qt-6/bindableproperties.html
 
 class Api : public QObject
 {

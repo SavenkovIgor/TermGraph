@@ -18,9 +18,7 @@
 // TODO: TermDataWrapper to lowercase
 // TODO: What is "QQmlEngine::setContextForObject(): Object already has a QQmlContext"
 // TODO: Add namespace to graph
-// TODO: Add Notifications Interface
 // TODO: Remove get from getters. Helper regexp: \bget.*\(
-// TODO: Try to cleanup approach. All c++ objects created from qml
 
 void initResources()
 {
