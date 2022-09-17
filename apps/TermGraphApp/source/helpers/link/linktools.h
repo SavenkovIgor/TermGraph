@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QString>
 #include <QStringView>
+#include <QQmlEngine>
 
 #include <CommonTools/HandyTypes.h>
 
@@ -13,9 +14,11 @@
 class LinkTools : public QObject
 {
     Q_OBJECT
+    QML_ELEMENT
+    QML_SINGLETON
 
 public:
-    static LinkTools& instance();
+    explicit LinkTools(QObject* parent = nullptr);
 
     LinkTools(LinkTools const&) = delete;
     void operator=(LinkTools const&) = delete;
@@ -34,5 +37,4 @@ public:
     static Opt<int> linkAndTermDistance(const QString& link, const QString& term, int maxLimit);
 
 private:
-    explicit LinkTools(QObject* parent = nullptr);
 };

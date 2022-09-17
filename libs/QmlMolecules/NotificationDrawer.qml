@@ -16,12 +16,12 @@ Drawer {
     edge: Qt.BottomEdge
     dim: false
 
-    onOpened: Notification.handleNotifyShow();
-    onClosed: Notification.handleNotifyHide();
+    onOpened: NotificationManager.handleNotifyShow();
+    onClosed: NotificationManager.handleNotifyHide();
 
     Component.onCompleted: {
         Qt.callLater(function() {
-            Notification.handleUiInitialization();
+            NotificationManager.handleUiInitialization();
         });
     }
 
@@ -36,7 +36,7 @@ Drawer {
     function showInfo(info)       { setTextAndOpen("Информация: " + info);        }
 
     Connections {
-        target: Notification
+        target: NotificationManager
 
         function onShowInfoQml(info)       { root.showInfo(info) }
         function onShowWarningQml(warning) { root.showWarning(warning) }

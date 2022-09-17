@@ -12,11 +12,9 @@
 #include "source/helpers/intmatrix.h"
 #include "source/helpers/text/texttools.h"
 
-LinkTools& LinkTools::instance()
-{
-    static LinkTools mgr;
-    return mgr;
-}
+LinkTools::LinkTools(QObject* parent)
+    : QObject(parent)
+{}
 
 bool LinkTools::isValidCursor(const QString& str, int cursor)
 {
@@ -49,10 +47,6 @@ QString LinkTools::decorate(const QString& str)
     LinksDecorator decorator(linkText, LinksDecorator::blueDecorator);
     return decorator.apply(LinksDecoratorMode::Replace);
 }
-
-LinkTools::LinkTools(QObject* parent)
-    : QObject(parent)
-{}
 
 bool LinkTools::linkAndTermSimilarWordDistance(const QString &link, const QString &term)
 {

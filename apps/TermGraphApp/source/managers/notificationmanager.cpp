@@ -9,6 +9,13 @@ NotificationManager& NotificationManager::instance()
     return mgr;
 }
 
+NotificationManager *NotificationManager::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+{
+    auto* inst = &instance();
+    qmlEngine->setObjectOwnership(inst, QQmlEngine::CppOwnership);
+    return inst;
+}
+
 void NotificationManager::showInfo(const QString& info) { addNotify({NotifyType::Info, info}); }
 
 void NotificationManager::showWarning(const QString& warning) { addNotify({NotifyType::Warning, warning}); }
