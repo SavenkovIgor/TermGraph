@@ -8,7 +8,7 @@ find_package (Qt6 COMPONENTS Core Gui Qml Quick QuickControls2 Network REQUIRED)
 
 qt_standard_project_setup()
 
-qt_add_executable (TermGraph MANUAL_FINALIZATION)
+qt_add_executable (TermGraph)
 
 set_target_properties (TermGraph
     PROPERTIES
@@ -66,12 +66,11 @@ target_link_libraries (TermGraph
     PRIVATE
         Qt6::Core
         Qt6::Gui
+        Qt6::Qml
         Qt6::Quick
         Qt6::QuickControls2
-        Qt6::Qml
         Qt6::Network)
 
-qt_finalize_executable (TermGraph)
 
 if (BUILD_TESTING)
     include (TestTools)
