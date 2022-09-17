@@ -82,9 +82,6 @@ Roadmap section: https://github.com/Hexworks/zircon#readme
       src="apps/TermGraphApp/resources/applicationIcons/appIcon128x128.png">
     <h1>TermGraph</h1>
 </div>
-<br>
-<br>
-
 
 [Description](#%EF%B8%8F-description) • [Key features](#-key-features)
 <!-- • Philosophy-->
