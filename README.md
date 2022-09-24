@@ -18,9 +18,6 @@ TODO:
 - How to start them
 - CTest api
 
-6 Roadmap
-Roadmap section: https://github.com/Hexworks/zircon#readme
-
 7 Tech stack
 
 8 Screenshots
@@ -79,14 +76,12 @@ Roadmap section: https://github.com/Hexworks/zircon#readme
     <h1>TermGraph</h1>
 </div>
 
-[Description](#%EF%B8%8F-description) • [Key features](#-key-features)
+[Description](#%EF%B8%8F-description) • [Key features](#-key-features) • [Roadmap](#-roadmap)
 <!-- • Philosophy-->
 <!-- • Installation-->
 <!-- • Build-->
 <!-- • Tests-->
-<!-- • Roadmap-->
 <!-- • Tech stack-->
-
 
 # ⚡️ Description
 TermGraph is a terms diagram builder. This app helps to arrange terms from simple <br>
@@ -137,7 +132,12 @@ can be very useful.
 <!-- # 🚀 Installation -->
 <!-- # ⚙️ Build -->
 <!-- # ☕️ Tests -->
-<!-- # 🗺 Roadmap -->
+
+# 🗺 Roadmap
+- [x] Make "hard/quick links" with uuid
+- [ ] [Fully automatic link search](https://github.com/SavenkovIgor/TermGraph/issues/5)
+- [ ] [Map layers](https://github.com/SavenkovIgor/TermGraph/issues/6)
+
 <!-- # 🧬 Tech stack
 (Cmake | Qt | QML | Conan) + version + icons  -->
 
