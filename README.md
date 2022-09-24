@@ -18,8 +18,6 @@ TODO:
 - How to start them
 - CTest api
 
-7 Tech stack
-
 8 Screenshots
 - Make them svg
 - Add screenshots
@@ -76,12 +74,12 @@ TODO:
     <h1>TermGraph</h1>
 </div>
 
-[Description](#%EF%B8%8F-description) • [Key features](#-key-features) • [Roadmap](#-roadmap)
+[Description](#%EF%B8%8F-description) • [Key features](#-key-features) • [Roadmap](#-roadmap) • [Tech stack](#-tech-stack)
 <!-- • Philosophy-->
 <!-- • Installation-->
+<!-- • Project structure-->
 <!-- • Build-->
 <!-- • Tests-->
-<!-- • Tech stack-->
 
 # ⚡️ Description
 TermGraph is a terms diagram builder. This app helps to arrange terms from simple <br>
@@ -138,9 +136,10 @@ can be very useful.
 - [ ] [Fully automatic link search](https://github.com/SavenkovIgor/TermGraph/issues/5)
 - [ ] [Map layers](https://github.com/SavenkovIgor/TermGraph/issues/6)
 
-<!-- # 🧬 Tech stack
-(Cmake | Qt | QML | Conan) + version + icons  -->
-
+# 🧬 Tech stack
+- <img src="https://cmake.org/wp-content/uploads/2019/05/cropped-cmake_512-32x32.png" width="16" height="16"> Cmake 3.22+
+- <img src="https://www.qt.io/hubfs/2016_Qt_Logo/qt_logo_green_rgb_16x16.png" width="16" height="16"> Qt 6.3 + Qml
+- <img src="https://conan.io/favicon.png" width="16" height="16"> Conan 1.51+
 
 <!-- # Syntax examples
 ## Center image
