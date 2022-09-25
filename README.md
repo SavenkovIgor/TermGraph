@@ -82,21 +82,16 @@ TODO:
 <!-- • Tests-->
 
 # ⚡️ Description
-TermGraph is a terms diagram builder. This app helps to arrange terms from simple <br>
-to complex and build a map of definitions. <br>
+TermGraph is a terms diagram builder. This app helps to arrange terms from simple to complex and build a map of definitions.
 
 ## What for?
 **Short answer:** This will help you learn something new faster and with deep understanding.
 
 **Long anser:**
-In all well-structured areas of knowledge, it is easy to see how explanations <br>
-are built up on each other. <br>
-The most basic concepts are easily accessible to any beginner. More complex <br>
-concepts require more effort and are always explained in terms of simpler ones.
+In all well-structured areas of knowledge, it is easy to see how explanations are built up on each other. <br>
+The most basic concepts are easily accessible to any beginner. More complex concepts require more effort and are always explained in terms of simpler ones.
 
-If you try to draw the first few "layers" of these terms, it will look like <br>
-a ladder or lasagna) If you draw them all, you will get a knowledge area map, which <br>
-can be very useful.
+If you try to draw the first few "layers" of these terms, it will look like a ladder or lasagna) If you draw them all, you will get a knowledge area map, which can be very useful.
 
 <img>
 
