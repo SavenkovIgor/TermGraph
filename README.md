@@ -49,14 +49,13 @@ TODO:
 14 How to Use? Maybe wiki?
 15 Installation
 16 Built with ❤️ by ...
-17 Project structure
 18 Support
 - GitHub?
 - Patreon?
 - Other?
 
 19 Icons 
-- ✔️❌🎉⭐️🥳💠🔍
+- ✔️❌🎉⭐️🥳🔍
 - https://gist.github.com/rxaviers/7360908
 
 20 Info
@@ -74,9 +73,8 @@ TODO:
     <h1>TermGraph</h1>
 </div>
 
-[Description](#%EF%B8%8F-description) • [Installation](#-installation) • [Key features](#-key-features) • [Roadmap](#-roadmap) • [Tech stack](#-tech-stack)
+[Description](#%EF%B8%8F-description) • [Key features](#-key-features) • [Installation](#-installation) • [Roadmap](#-roadmap) • [Tech stack](#-tech-stack) • [Project structure](#-project-structure)
 <!-- • Philosophy-->
-<!-- • Project structure-->
 <!-- • Build-->
 <!-- • Tests-->
 
@@ -142,6 +140,30 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - [RESTinio lib](https://github.com/Stiffstream/restinio) (for REST server)
 - [GTest lib](https://github.com/google/googletest) (tests)
 - [Outcome lib](https://github.com/ned14/outcome) (would be replaced with std::expected when available)
+
+# 💠 Project structure
+```bash
+├── apps/                
+│   ├── TermGraphApp/    # Main application. Buils for desktop, android and wasm(for now) 
+│   ├── TermGraphBack/   # Rest api data storage. For server only
+│   └── TermGraphFront/  # Reserved folder. Not used yet
+├── cmake/             # Cmake tools
+├── conanfiles/        # Additional conan files
+├── libs/                
+│   ├── CommonTools/          # Tools common for all apps
+│   ├── QmlAtoms/             # Qml atoms components     (atomic design)
+│   ├── QmlMolecules/         # Qml molecules components (atomic design)
+│   ├── QmlPages/             # Qml pages
+│   ├── QmlTheme/             # Qml theme. Colors, icons, fonts etc...
+│   ├── QmlTools/             # Some qml debugging tools
+│   ├── QrcHelpImages/        # Help images resources
+│   ├── TermDataConnection/   # Library, connecting to REST api server
+│   ├── TermDataInterface/    # Interface, describing data connection interface 
+│   └── TermDataStorage/      # Data storage sqlite library
+├── tools/             # Some useful scripts (build of server, clang fromat etc...)
+├── CMakeLists.txt     # Root cmake list
+└── conanfile.py       # conanfile for dependency description
+```
 
 <!-- # Syntax examples
 ## Center image
