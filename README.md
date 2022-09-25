@@ -123,7 +123,11 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 
 # 🚀 Installation
 <a href='https://play.google.com/store/apps/details?id=app.termgraph&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' width="160" height="60" src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
+- Desktop: build from sources on ubuntu (yet)
+- Wasm frontend and data backend: build from sources
+
 <!-- # ⚙️ Build -->
+
 <!-- # ☕️ Tests -->
 
 # 🗺 Roadmap
