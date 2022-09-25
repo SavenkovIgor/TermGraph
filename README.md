@@ -36,7 +36,7 @@ TODO:
 
 11 Recomendations
 - Check different github themes
-- Width 80 characters
+- Width 100 characters
 - Contribution guideline
 - Project page with GitHub pages?
 - Meetup speech
@@ -74,9 +74,8 @@ TODO:
     <h1>TermGraph</h1>
 </div>
 
-[Description](#%EF%B8%8F-description) • [Key features](#-key-features) • [Roadmap](#-roadmap) • [Tech stack](#-tech-stack)
+[Description](#%EF%B8%8F-description) • [Installation](#-installation) • [Key features](#-key-features) • [Roadmap](#-roadmap) • [Tech stack](#-tech-stack)
 <!-- • Philosophy-->
-<!-- • Installation-->
 <!-- • Project structure-->
 <!-- • Build-->
 <!-- • Tests-->
@@ -122,7 +121,8 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - Devices synchronization
 - Semi-automatic links markup
 
-<!-- # 🚀 Installation -->
+# 🚀 Installation
+<a href='https://play.google.com/store/apps/details?id=app.termgraph&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' width="160" height="60" src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
 <!-- # ⚙️ Build -->
 <!-- # ☕️ Tests -->
 
@@ -137,7 +137,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - <img src="https://conan.io/favicon.png" width="16" height="16"> Conan 1.51+
 - [RESTinio lib](https://github.com/Stiffstream/restinio) (for REST server)
 - [GTest lib](https://github.com/google/googletest) (tests)
-- [Outcome lib](https://github.com/ned14/outcome) (would be replaced with std::expected when available
+- [Outcome lib](https://github.com/ned14/outcome) (would be replaced with std::expected when available)
 
 <!-- # Syntax examples
 ## Center image
