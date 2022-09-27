@@ -1,17 +1,6 @@
-<!-- 
-TODO:
-1 Philosophy
-
-2 Key features
-- Comparison with other projects
-
-3 Installation
-
+<!-- TODO:
 4 Build
 - Configuration
-- Depends from Qt 6.3
-- Platforms list (Android, Wasm, Desktop)
-- Description of modules (with table)
 - Scripts for building main apps
 
 5 Tests
@@ -21,7 +10,6 @@ TODO:
 8 Screenshots
 - Make them svg
 - Add screenshots
-- Redraw app icon (golden ratio for hexagons?)
 
 9 Badges
 - https://forthebadge.com/
@@ -29,10 +17,6 @@ TODO:
 - license
 - CI
 - Tests
-
-10 Contents
-- Make proper contents links
-- Think about what must be there
 
 11 Recomendations
 - Check different github themes
@@ -44,25 +28,16 @@ TODO:
 - Project news
 - Make fixes to my personal profile page on github 
 
-12 Add quote
-13 Main site link
 14 How to Use? Maybe wiki?
-15 Installation
-16 Built with ❤️ by ...
 18 Support
 - GitHub?
 - Patreon?
 - Other?
 
-19 Icons 
-- ✔️❌🎉⭐️🥳🔍
-- https://gist.github.com/rxaviers/7360908
-
 20 Info
 - Readme gives x5 to project stars
 - Talk to every community individually
 - Try to be in Trending section, but topics is also ok
-
 -->
 
 <div align="center">
@@ -74,7 +49,6 @@ TODO:
 </div>
 
 [Description](#%EF%B8%8F-description) • [Key features](#-key-features) • [Installation](#-installation) • [Roadmap](#-roadmap) • [Tech stack](#-tech-stack) • [Project structure](#-project-structure)
-<!-- • Philosophy-->
 <!-- • Build-->
 <!-- • Tests-->
 
@@ -111,8 +85,6 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - Assistance in the transfer of experience
 - Understanding how your expertise relates to other areas of knowledge
 
-
-<!-- # 📜 Philosophy -->
 # 🌿 Key features
 - Builds on Desktop, Wasm and Android
 - Supports big maps (at least 1500 nodes)
@@ -165,20 +137,9 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 └── conanfile.py       # conanfile for dependency description
 ```
 
+### Coded with ❤️
+
 <!-- # Syntax examples
-## Center image
-
-<br> <br />
-
-<div align="center"><a href=""><img width="128" alt="Alt text" src="img/img.png"></a></div>
-
-<h1>h1</h1>
-<h2>h2</h2>
-<h3>h3</h3>
-<h4>h4</h4>
-<h5>h5</h5>
-<h6>h6</h6>
-<strong>strong</strong>
 
 <details>
   <summary>Summary</summary>
@@ -193,9 +154,6 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 ![Some more local file](./local_file.png)
 ![Img](https://link.io/file.svg "Some info")
 
-```bash
-code example 
-```
 > ItemAngle
 + ItemPlus
 - ItemMinus
