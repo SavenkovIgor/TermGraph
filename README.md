@@ -60,7 +60,8 @@
 
 <div align="center">
 
-[⚡️ Description](#%EF%B8%8F-description) • [🌿 Key features](#-key-features) • [🚀 Installation](#-installation) • [🗺 Roadmap](#-roadmap) • [🧬 Tech stack](#-tech-stack) • [⚙️ Build](#%EF%B8%8F-build) • [💠 Project structure](#-project-structure) • [☕️ Tests](#%EF%B8%8F-tests)
+[⚡️ Description](#%EF%B8%8F-description) • [🌿 Key features](#-key-features) • [🚀 Installation](#-installation) • [🗺 Roadmap](#-roadmap)<br>
+[🧬 Tech stack](#-tech-stack) • [⚙️ Build](#%EF%B8%8F-build) • [💠 Project structure](#-project-structure) • [☕️ Tests](#%EF%B8%8F-tests)
 
 </div>
 
