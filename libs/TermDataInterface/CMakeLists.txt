@@ -4,6 +4,8 @@
 
 project (TermDataInterface VERSION 1.0.0 LANGUAGES CXX)
 
+find_package (Qt6 REQUIRED COMPONENTS Core)
+
 add_library (TermDataInterface
     INTERFACE
         include/TermDataInterface/DataStorageInterface.h
@@ -15,3 +17,17 @@ add_library (TermDataInterface
 target_include_directories (TermDataInterface INTERFACE "./include")
 
 target_link_libraries (TermDataInterface INTERFACE CommonTools)
+target_link_libraries (TermDataInterface INTERFACE Qt6::Core)
+
+if (BUILD_TESTING)
+    include (TestTools)
+
+    create_test (
+        NAME    TestTermData
+        SOURCES
+            include/TermDataInterface/TermData.h
+            include/TermDataInterface/TermValidator.h
+            tests/termdatatest.cpp
+        LIBRARIES TermDataInterface CommonTools Qt6::Core)
+
+endif ()
