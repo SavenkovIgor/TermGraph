@@ -1,10 +1,8 @@
 <!-- TODO:
 4 Build
-- Configuration
 - Scripts for building main apps
 
 5 Tests
-- How to start them
 - CTest api
 
 8 Screenshots
@@ -62,9 +60,7 @@
 
 <div align="center">
 
-[⚡️ Description](#%EF%B8%8F-description) • [🌿 Key features](#-key-features) • [🚀 Installation](#-installation) • [🗺 Roadmap](#-roadmap) • [🧬 Tech stack](#-tech-stack) • [💠 Project structure](#-project-structure)
-<!-- • Build-->
-<!-- • Tests-->
+[⚡️ Description](#%EF%B8%8F-description) • [🌿 Key features](#-key-features) • [🚀 Installation](#-installation) • [🗺 Roadmap](#-roadmap) • [🧬 Tech stack](#-tech-stack) • [⚙️ Build](#%EF%B8%8F-build) • [💠 Project structure](#-project-structure) • [☕️ Tests](#%EF%B8%8F-tests)
 
 </div>
 
@@ -112,10 +108,6 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - Desktop: build from sources on ubuntu (yet)
 - Wasm frontend and data backend: build from sources
 
-<!-- # ⚙️ Build -->
-
-<!-- # ☕️ Tests -->
-
 # 🗺 Roadmap
 - [x] Make "hard/quick links" with uuid
 - [ ] [Fully automatic link search](https://github.com/SavenkovIgor/TermGraph/issues/5)
@@ -129,6 +121,14 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - [RESTinio lib](https://github.com/Stiffstream/restinio) (for REST server)
 - [GTest lib](https://github.com/google/googletest) (tests)
 - [Outcome lib](https://github.com/ned14/outcome) (would be replaced with std::expected when available)
+
+# ⚙️ Build
+Build for ubuntu:
+- Install conan [here](https://docs.conan.io/en/latest/installation.html)
+- Install Qt + Qml via [online installer](https://www.qt.io/download-qt-installer)
+- Build in QtCreator with Desktop Kit
+
+Build for ubuntu from CLI will appear later
 
 # 💠 Project structure
 ```bash
@@ -154,6 +154,10 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 └── conanfile.py       # conanfile for dependency description
 ```
 
+# ☕️ Tests
+Tests working only with desktop target. GTest library installed via conan. Start tests from QtCreator
+Tests for ubuntu from CLI with CTest will appear later.
+
 <br/>
 <br/>
 
@@ -161,29 +165,3 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 <br/>
 [![Built with ❤️](https://img.shields.io/badge/Coded%20with-%E2%9D%A4%EF%B8%8F-e36d25?style=for-the-badge)](https://github.com/SavenkovIgor/TermGraph)
 
-<!-- # Syntax examples
-
-<details>
-  <summary>Summary</summary>
-  <ol>
-    <li><a href="#-some">List 1</a></li>
-    <li><a href="#-some">List 2</a></li>
-  </ol>
-</details>
-
-[External link description](https://link.io/).
-[Local file link](LICENSE)
-![Some more local file](./local_file.png)
-![Img](https://link.io/file.svg "Some info")
-
-> ItemAngle
-+ ItemPlus
-- ItemMinus
->- ItemMinus
->+ ItemPlus
-
-> **Warning**
-
-> **Note**
-
-**Option** -->
