@@ -17,9 +17,9 @@ class TermGraphConan(ConanFile):
 
     default_options = {'with_qt':           False,
                        'build_application': True,
-                       'build_backend':     True,
+                       'build_backend':     False,
                        'build_frontend':    False,
-                       'build_tests':       False}
+                       'build_tests':       True}
 
     def build_requirements(self):
         self.test_requires('gtest/1.10.0')
@@ -35,7 +35,7 @@ class TermGraphConan(ConanFile):
                 self.requires('qtsvg/6.3.1@qt/everywhere')
 
         if self.options.build_backend:
-            self.requires('restinio/0.6.14')
+            self.requires('restinio/0.6.17')
 
     def generate(self):
         tc = CMakeToolchain(self)
