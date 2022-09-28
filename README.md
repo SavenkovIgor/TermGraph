@@ -60,8 +60,9 @@
 
 <div align="center">
 
-[⚡️ Description](#%EF%B8%8F-description) • [🌿 Key features](#-key-features) • [🚀 Installation](#-installation) • [🗺 Roadmap](#-roadmap)<br>
-[🧬 Tech stack](#-tech-stack) • [⚙️ Build](#%EF%B8%8F-build) • [💠 Project structure](#-project-structure) • [☕️ Tests](#%EF%B8%8F-tests)
+[⚡️ Description](#%EF%B8%8F-description) • [🌿 Key features](#-key-features) • [🚀 Installation](#-installation) • [🗺 Roadmap](#-roadmap) • 
+[🧬 Tech stack](#-tech-stack)<br>
+[⚙️ Build](#%EF%B8%8F-build) • [☕️ Tests](#%EF%B8%8F-tests) • [💠 Project structure](#-project-structure) • [:pushpin: Credits](#pushpin-credits) 
 
 </div>
 
@@ -98,7 +99,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - Assistance in the transfer of experience
 - Understanding how your expertise relates to other areas of knowledge
 
-# 🌿 Key features
+## 🌿 Key features
 - Builds on Desktop, Wasm and Android
 - Supports big maps (at least 1500 nodes)
 - Devices synchronization
@@ -109,12 +110,12 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - Desktop: build from sources on ubuntu (yet)
 - Wasm frontend and data backend: build from sources
 
-# 🗺 Roadmap
+## 🗺 Roadmap
 - [x] Make "hard/quick links" with uuid
 - [ ] [Fully automatic link search](https://github.com/SavenkovIgor/TermGraph/issues/5)
 - [ ] [Map layers](https://github.com/SavenkovIgor/TermGraph/issues/6)
 
-# 🧬 Tech stack
+## 🧬 Tech stack
 - <img src="https://isocpp.org/favicon.ico" width="16" height="16"> C++ 20
 - <img src="https://www.qt.io/hubfs/2016_Qt_Logo/qt_logo_green_rgb_16x16.png" width="16" height="16"> Qt 6.3 | Qml
 - <img src="https://cmake.org/wp-content/uploads/2019/05/cropped-cmake_512-32x32.png" width="16" height="16"> Cmake 3.22+
@@ -131,7 +132,11 @@ Build for ubuntu:
 
 Build for ubuntu from CLI will appear later
 
-# 💠 Project structure
+## ☕️ Tests
+Tests working only with desktop target. GTest library installed via conan. Start tests from QtCreator
+Tests for ubuntu from CLI with CTest will appear later.
+
+## 💠 Project structure
 ```bash
 ├── apps/                
 │   ├── TermGraphApp/    # Main application. Buils for desktop, android and wasm(for now) 
@@ -154,15 +159,11 @@ Build for ubuntu from CLI will appear later
 ├── CMakeLists.txt     # Root cmake list
 └── conanfile.py       # conanfile for dependency description
 ```
-
-# ☕️ Tests
-Tests working only with desktop target. GTest library installed via conan. Start tests from QtCreator
-Tests for ubuntu from CLI with CTest will appear later.
-
-<br/>
 <br/>
 
+## :pushpin: Credits
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-SavenkovIgor-555555?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=0077B5)](https://www.linkedin.com/in/savenkovigor-dev/)
+<br/>
 <br/>
 [![Built with ❤️](https://img.shields.io/badge/Coded%20with-%E2%9D%A4%EF%B8%8F-e36d25?style=for-the-badge)](https://github.com/SavenkovIgor/TermGraph)
 
