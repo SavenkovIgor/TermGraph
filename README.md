@@ -13,8 +13,6 @@
 
 9 Badges
 - https://forthebadge.com/
-- linkedin profile
-- license
 - CI
 - Tests
 
@@ -48,9 +46,26 @@
     <h1>TermGraph</h1>
 </div>
 
-[Description](#%EF%B8%8F-description) • [Key features](#-key-features) • [Installation](#-installation) • [Roadmap](#-roadmap) • [Tech stack](#-tech-stack) • [Project structure](#-project-structure)
+
+<div align="center">
+
+[![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)]()
+[![Qt](https://img.shields.io/badge/Qt-41CD52?style=for-the-badge&logo=qt&logoColor=white)]()
+[![CMake](https://img.shields.io/badge/CMake-064F8C?style=for-the-badge&logo=cmake&logoColor=white)]()
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)]()
+[![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://play.google.com/store/apps/details?id=app.termgraph&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
+[![WebAssembly](https://img.shields.io/badge/WebAssembly-654FF0?style=for-the-badge&logo=WebAssembly&logoColor=white)]()
+
+</div>
+
+<div align="center">
+
+[⚡️ Description](#%EF%B8%8F-description) • [🌿 Key features](#-key-features) • [🚀 Installation](#-installation) • [🗺 Roadmap](#-roadmap) • [🧬 Tech stack](#-tech-stack) • [💠 Project structure](#-project-structure)
 <!-- • Build-->
 <!-- • Tests-->
+
+</div>
 
 # ⚡️ Description
 TermGraph is a terms diagram builder. This app helps to arrange terms from simple to complex and build a map of definitions.
@@ -137,7 +152,12 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 └── conanfile.py       # conanfile for dependency description
 ```
 
-### Coded with ❤️
+<br/>
+<br/>
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-SavenkovIgor-555555?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=0077B5)](https://www.linkedin.com/in/savenkovigor-dev/)
+<br/>
+[![Built with ❤️](https://img.shields.io/badge/Coded%20with-%E2%9D%A4%EF%B8%8F-e36d25?style=for-the-badge)](https://github.com/SavenkovIgor/TermGraph)
 
 <!-- # Syntax examples
 
