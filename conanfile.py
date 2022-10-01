@@ -22,6 +22,7 @@ class TermGraphConan(ConanFile):
                        'build_tests':       True}
 
     def build_requirements(self):
+        if self.options.build_tests:
         self.test_requires('gtest/1.10.0')
 
     def requirements(self):

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick
+import QtQuick.Layouts   // NOTE: Don't remove. Weird import problem in submodules on wasm
 import QtQuick.Controls
 import QtQuick.Controls.Material
 
