@@ -67,7 +67,7 @@
 </div>
 
 # ⚡️ Description
-TermGraph is a terms diagram builder. This app helps to arrange terms from simple to complex and build a map of definitions.
+TermGraph is a terms diagram builder. It helps to make a hierarchical projection of a terms-space onto 2d plane and build a map of definitions. 
 
 ## What for?
 **Short answer:** This will help you learn something new faster and with deep understanding.
