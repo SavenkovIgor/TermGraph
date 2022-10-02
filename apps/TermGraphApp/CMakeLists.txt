@@ -155,6 +155,9 @@ target_link_libraries (TermGraph
 qt_add_qml_module (TermGraph
     URI Api
     VERSION 1.0
+    IMPORTS
+        QtQml QtQuick QtQuick.Controls QtQuick.Controls.Material QtQuick.Shapes QtQuick.Layouts QtQuick.Window QtQuick.Templates
+        Theme Tools Atoms Molecules Pages
     QML_FILES "qml/main.qml"
     RESOURCE_PREFIX "/qt/qml")
 

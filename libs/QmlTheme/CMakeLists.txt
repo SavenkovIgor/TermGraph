@@ -21,6 +21,7 @@ set_source_files_properties (${QML_SOURCES} PROPERTIES QT_QML_SINGLETON_TYPE TRU
 qt_add_qml_module (ThemeModule
     URI Theme
     VERSION 1.0
+    IMPORTS QtQuick
     RESOURCE_PREFIX "/qt/qml"
     IMPORT_PATH ${PROJECT_BINARY_DIR}
     QML_FILES ${QML_SOURCES}
