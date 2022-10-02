@@ -4,6 +4,7 @@
 # TODO: use CMakePresets.json
 # TODO: Join Qml modules to one CMakeLists file
 # TODO: Make Android build
+# TODO: Make big cleanup at qml imports
 
 cmake_minimum_required (VERSION 3.22.0)
 

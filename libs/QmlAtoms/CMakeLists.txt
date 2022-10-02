@@ -17,7 +17,9 @@ set_target_properties (AtomsModule
 qt_add_qml_module (AtomsModule
     URI Atoms
     VERSION 1.0
-    IMPORTS Theme Tools
+    IMPORTS
+        QtQml QtQuick QtQuick.Controls QtQuick.Controls.Material QtQuick.Shapes QtQuick.Layouts QtQuick.Window QtQuick.Templates
+        Theme Tools
     RESOURCE_PREFIX "/qt/qml"
     IMPORT_PATH ${PROJECT_BINARY_DIR}
     QML_FILES

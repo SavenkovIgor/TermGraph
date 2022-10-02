@@ -2,13 +2,13 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls as C
 
 import Api
 
 import Theme
 
-ComboBox {
+C.ComboBox {
     id: control
     font: Theme.font.h4
 
@@ -25,7 +25,7 @@ ComboBox {
 
     background: Rectangle { color: Theme.color.baseLight2 }
 
-    popup: Popup {
+    popup: C.Popup {
         y: control.height - 1
         width: control.width
         implicitHeight: contentItem.implicitHeight
@@ -37,7 +37,7 @@ ComboBox {
             model: control.popup.visible ? control.delegateModel : null
             currentIndex: control.highlightedIndex
 
-            ScrollIndicator.vertical: ScrollIndicator { }
+            ScrollIndicator.vertical: C.ScrollIndicator { }
         }
 
         background: Rectangle {
@@ -47,7 +47,7 @@ ComboBox {
     }
 
     //Item in the popup
-    delegate: ItemDelegate {
+    delegate: C.ItemDelegate {
         width: control.width
         contentItem: Text {
             text: Api.groups.getGroupName(modelData)
