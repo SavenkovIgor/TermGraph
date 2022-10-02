@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls as C
 
 import Theme
 
-RoundButton {
+C.RoundButton {
     id: root
 
     property real size: Sizes.baseX4
