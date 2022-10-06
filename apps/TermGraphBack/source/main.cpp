@@ -15,6 +15,7 @@
 using namespace restinio;
 
 // TODO: Give address and port through agrument
+// TODO: Give database file path through argument
 // TODO: Encoding!
 // TODO: Remove second version of sql executor
 

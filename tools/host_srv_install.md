@@ -1,57 +1,82 @@
-#!/bin/bash
+# Server creation description
 
-# This file is more reference, than exact script. 
-# Use as copy/paste reference
-# TODO: Make /var/www catalog available for user, not for root
+TODO: Make /var/www catalog available for user, not for root
 
-# 1. Add user
+# User configuration
+## Add user
+```bash
 adduser user
+```
 
-# 2. Add user to sudo group
+## Add user to sudo group
+```bash
 usermod -aG sudo user
+```
 
-# 3. List of available firewall rules
+## List of available firewall rules
+```bash
 ufw app List
+```
 
-# 4. Allow OpenSsh
+## Allow OpenSsh
+```bash
 ufw allow OpenSSH
+```
 
-# 5. Enable ufw
+## Enable ufw
+```bash
 ufw enable
+```
 
-# 6. Check ufw
+## Check ufw
+```bash
 ufw status
+```
 
-# 7. Connect via ssh user
+##  Connect via ssh user
+```bash
 ssh user@<ip>
+```
 
-# 8. Install nginx
+# Nginx
+## Install nginx
+```bash
 sudo apt update && sudo apt upgrade 
 sudo apt install -y nginx
 sudo reboot
+```
 
-# 9. Configure firewall for nginx
+## Configure firewall for nginx
+```bash
 sudo ufw app list
 sudo ufw allow 'Nginx Full'
+```
 
-# 10. Check nginx status
+## Check nginx status
+```bash
 systemctl status nginx
+```
 
-# Quickly apply nginx config without restart
+## Quickly apply nginx config without restart
+```bash
 sudo nginx -t # Check rules
 sudo systemctl reload nginx
+```
 
-# Restart nginx 
+## Restart nginx 
+```bash
 sudo systemctl restart nginx
-
+```
 
 # Send frontend to server
-# Exec at build folder
+## Exec at build folder
+```bash
 scp -C qtloader.js qtlogo.svg TermGraph.html TermGraph.js TermGraph.wasm TermGraph.worker.js root@termgraph.app:/var/www/html
-
+```
 
 # Frontend configuration
-# Nginx config example at /etc/nginx/sites-enabled/default
+## Nginx config example at /etc/nginx/sites-enabled/default
+```nginx
 server {
     root /var/www/html;
 
@@ -97,22 +122,42 @@ server {
 
     return 404; # managed by Certbot
 }
-
+```
 
 # Send backend to server
-# Exec at build folder
+## Exec at build folder
+```bash
 scp -C qt-unified-linux-x64-4.4.1-online.run root@termgraph.app:/home/user
 scp -C TermGraphBack user@termgraph.app:/home/user
+```
 
+## To start server you need Qt:
+## Downloading the online installer
+```bash
+wget https://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run
+chmod +x qt-unified-linux-x64-online.run
+```
+
+## Copy qt account credentials (in a bad way), because they broken in cli 
+Awful ux, honestly
+```bash
+scp ~/.local/share/Qt/qtaccount.ini root@termgraph.app:/home/user/.local/share/Qt/qtaccount.ini
+```
+
+## Start online qt installer with specific package
+```bash
+./qt-unified-linux-x64-online.run --al --ao --da in "qt.qt6.631.gcc_64" 
+```
 
 # Backend configuration
-# Systemd service file creation
+## Systemd service file creation
+```bash
 export BIN_PATH=/home/user/TermGraphBack
 chmod +x "${BIN_PATH}"
-# e.g. export SVC_NAME="my-app"
 export SVC_NAME="term-back"
+```
 
-
+```bash
 echo "
 [Unit]
 Description=${SVC_NAME}
@@ -122,20 +167,25 @@ Restart=always
 RestartSec=5
 [Install]
 " | tee /etc/systemd/system/${SVC_NAME}.service
+```
 
+```bash
 systemctl daemon-reload
+```
 
-# Start the process right now and enable it to run on reboot.
+## Start the process right now and enable it to run on reboot.
+```bash
 systemctl enable --now "${SVC_NAME}"
 systemctl status --no-pager "${SVC_NAME}"
 journalctl -fu "${SVC_NAME}"
 
 journalctl -u "${SVC_NAME}"
-
+```
 
 
 # Certbot section
 
+```
 # Start certbot first time
 sudo certbot --nginx -d termgraph.app -d www.termgraph.app
 
@@ -152,3 +202,4 @@ sudo certbot --nginx -d termgraph.app -d www.termgraph.app
 # Successfully deployed certificate for termgraph.app to /etc/nginx/sites-enabled/default
 # Successfully deployed certificate for www.termgraph.app to /etc/nginx/sites-enabled/default
 # Congratulations! You have successfully enabled HTTPS on https://termgraph.app and https://www.termgraph.app
+```
