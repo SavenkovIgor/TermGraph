@@ -14,7 +14,6 @@
 
 using namespace restinio;
 
-// TODO: https!
 // TODO: Give address and port through agrument
 // TODO: Encoding!
 // TODO: Remove second version of sql executor
@@ -80,8 +79,8 @@ auto successResponse(auto req, QByteArray body = QByteArray())
 {
     auto response = req->create_response();
 
-    // TODO: Cors too wide. Replace with exact domain.
-    response.header().add_field("Access-Control-Allow-Origin", "*");
+    // NOTE: All cors headers would be added by nginx
+    // response.header().add_field("Access-Control-Allow-Origin", "*");
 
     if (!body.isEmpty())
         response.set_body(body.toStdString());
