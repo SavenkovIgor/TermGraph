@@ -2,80 +2,80 @@
 
 TODO: Make /var/www catalog available for user, not for root
 
-# User configuration
-## Add user
+## User configuration
+### Add user
 ```bash
 adduser user
 ```
 
-## Add user to sudo group
+### Add user to sudo group
 ```bash
 usermod -aG sudo user
 ```
 
-## List of available firewall rules
+### List of available firewall rules
 ```bash
 ufw app List
 ```
 
-## Allow OpenSsh
+### Allow OpenSsh
 ```bash
 ufw allow OpenSSH
 ```
 
-## Enable ufw
+### Enable ufw
 ```bash
 ufw enable
 ```
 
-## Check ufw
+### Check ufw
 ```bash
 ufw status
 ```
 
-##  Connect via ssh user
+###  Connect via ssh user
 ```bash
 ssh user@<ip>
 ```
 
-# Nginx
-## Install nginx
+## Nginx
+### Install nginx
 ```bash
 sudo apt update && sudo apt upgrade 
 sudo apt install -y nginx
 sudo reboot
 ```
 
-## Configure firewall for nginx
+### Configure firewall for nginx
 ```bash
 sudo ufw app list
 sudo ufw allow 'Nginx Full'
 ```
 
-## Check nginx status
+### Check nginx status
 ```bash
 systemctl status nginx
 ```
 
-## Quickly apply nginx config without restart
+### Quickly apply nginx config without restart
 ```bash
 sudo nginx -t # Check rules
 sudo systemctl reload nginx
 ```
 
-## Restart nginx 
+### Restart nginx 
 ```bash
 sudo systemctl restart nginx
 ```
 
-# Send frontend to server
-## Exec at build folder
+## Send frontend to server
+### Exec at build folder
 ```bash
 scp -C qtloader.js qtlogo.svg TermGraph.html TermGraph.js TermGraph.wasm TermGraph.worker.js root@termgraph.app:/var/www/html
 ```
 
-# Frontend configuration
-## Nginx config example at /etc/nginx/sites-enabled/default
+## Frontend configuration
+### Nginx config example at /etc/nginx/sites-enabled/default
 ```nginx
 server {
     root /var/www/html;
@@ -124,33 +124,33 @@ server {
 }
 ```
 
-# Send backend to server
-## Exec at build folder
+## Send backend to server
+### Exec at build folder
 ```bash
 scp -C qt-unified-linux-x64-4.4.1-online.run root@termgraph.app:/home/user
 scp -C TermGraphBack user@termgraph.app:/home/user
 ```
 
-## To start server you need Qt:
-## Downloading the online installer
+### To start server you need Qt:
+### Downloading the online installer
 ```bash
 wget https://download.qt.io/official_releases/online_installers/qt-unified-linux-x64-online.run
 chmod +x qt-unified-linux-x64-online.run
 ```
 
-## Copy qt account credentials (in a bad way), because they broken in cli 
+### Copy qt account credentials (in a bad way), because they broken in cli 
 Awful ux, honestly
 ```bash
 scp ~/.local/share/Qt/qtaccount.ini root@termgraph.app:/home/user/.local/share/Qt/qtaccount.ini
 ```
 
-## Start online qt installer with specific package
+### Start online qt installer with specific package
 ```bash
 ./qt-unified-linux-x64-online.run --al --ao --da in "qt.qt6.631.gcc_64" 
 ```
 
-# Backend configuration
-## Systemd service file creation
+## Backend configuration
+### Systemd service file creation
 ```bash
 export BIN_PATH=/home/user/TermGraphBack
 chmod +x "${BIN_PATH}"
@@ -173,7 +173,7 @@ RestartSec=5
 systemctl daemon-reload
 ```
 
-## Start the process right now and enable it to run on reboot.
+### Start the process right now and enable it to run on reboot.
 ```bash
 systemctl enable --now "${SVC_NAME}"
 systemctl status --no-pager "${SVC_NAME}"
@@ -183,7 +183,7 @@ journalctl -u "${SVC_NAME}"
 ```
 
 
-# Certbot section
+## Certbot section
 
 ```
 # Start certbot first time
