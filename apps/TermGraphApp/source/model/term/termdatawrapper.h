@@ -11,8 +11,7 @@
 class TermDataWrapper
 {
     Q_GADGET
-    QML_ELEMENT
-    QML_UNCREATABLE("Please use TermDataWrapper from backend")
+    QML_ANONYMOUS
 
     // clang-format off
     Q_PROPERTY(QString uuid              READ getUuid        WRITE setUuid        FINAL)
@@ -81,5 +80,3 @@ public:
 private:
     TermData mData;
 };
-
-Q_DECLARE_METATYPE(TermDataWrapper)
