@@ -41,8 +41,9 @@ A.DrawerPage {
 
             A.RoundButton {
                 bgColor: Theme.color.warning
-                visible: LinkTools.hasSoftLinks(currentNode ? currentNode.definition : "")
+                visible: LinkTools.hasSoftLinks(currentNode ? currentNode.definition : "") && !Api.readonlyMode
                 action: Action {
+                    enabled: !Api.readonlyMode
                     icon.source: Theme.icon.warning
                     onTriggered: root.openWarningPopup()
                 }
@@ -57,8 +58,10 @@ A.DrawerPage {
             }
 
             A.RoundButton {
+                visible: !Api.readonlyMode
                 bgColor: Theme.color.whiteDisabled
                 action: Action {
+                    enabled: !Api.readonlyMode
                     icon.source: Theme.icon.pencil
                     onTriggered: root.editNode()
                 }

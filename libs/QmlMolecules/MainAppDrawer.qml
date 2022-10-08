@@ -37,6 +37,7 @@ Drawer {
             text: action.text
             icon.source: action.icon.source
             Layout.fillWidth: true
+            visible: !Api.readonlyMode
         }
 
         A.SideMenuButton {
