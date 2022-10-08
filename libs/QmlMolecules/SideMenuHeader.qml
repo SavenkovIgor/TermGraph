@@ -5,6 +5,8 @@ import QtQuick
 import QtQuick.Controls
 import QtQuick.Layouts
 
+import Api
+
 import Theme
 
 import Atoms as A
@@ -40,6 +42,7 @@ Control {
             icon.color: Theme.color.whiteDisabled
             icon.source: Theme.icon.cog
             onClicked: root.settingsClicked()
+            visible: !Api.readonlyMode
         }
     }
 

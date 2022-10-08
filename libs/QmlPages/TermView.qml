@@ -34,7 +34,9 @@ M.Page {
 
         A.ToolButton {
             id: editNodeBtn
+            visible: !Api.readonlyMode
             action: Action {
+                enabled: !Api.readonlyMode
                 text: "Изменить вершину"
                 shortcut: "Ctrl+E"
                 icon.source: Theme.icon.pencil

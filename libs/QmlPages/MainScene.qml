@@ -27,23 +27,6 @@ M.Page {
 
     title: Api.scene.hasCurrentGroup ? Api.scene.currentGroup.name : "TermGraph"
 
-    state: Api.scene.hasSelection ? "some" : "none"
-
-    states: [
-        State {
-            name: "some"
-            PropertyChanges { target: editNodeButton; visible: true }
-            PropertyChanges { target: nodeInfoButton; visible: true }
-            PropertyChanges { target: addNodeButton;  visible: false }
-        },
-        State {
-            name: "none"
-            PropertyChanges { target: editNodeButton; visible: false }
-            PropertyChanges { target: nodeInfoButton; visible: false }
-            PropertyChanges { target: addNodeButton;  visible: true }
-        }
-    ]
-
     Connections {
         target: Api.scene
 
@@ -332,9 +315,8 @@ M.Page {
 
     A.RoundButton {
         id: addNodeButton
-
+        visible: !Api.scene.hasSelection && !Api.readonlyMode
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
-        visible: true
 
         A.ToolTip {
             property bool isEmptyGroup: {
@@ -357,7 +339,7 @@ M.Page {
             text: "Добавить\nтермин"
             shortcut: "Ctrl+n"
             icon.source: Theme.icon.plus
-            enabled: root.thisPageVisible
+            enabled: root.thisPageVisible && !Api.readonlyMode
             onTriggered: {
                 if (Api.groups.hasAnyGroup) {
                     root.StackView.view.push(newNodeComponent)
@@ -368,7 +350,7 @@ M.Page {
 
     A.RoundButton {
         id: editNodeButton
-        visible: false
+        visible: Api.scene.hasSelection && !Api.readonlyMode
         anchors { right: parent.right; bottom: parent.bottom; margins: width / 2; }
 
         action: Action {
@@ -376,7 +358,7 @@ M.Page {
             text: "Изменить вершину"
             icon.source: Theme.icon.pencil
             shortcut: "Ctrl+e"
-            enabled: root.thisPageVisible
+            enabled: root.thisPageVisible && !Api.readonlyMode
             onTriggered: {
                 if (!Api.scene.currentNode.isNull()) {
                     root.StackView.view.push(editNodeComponent)
@@ -387,8 +369,8 @@ M.Page {
 
     A.RoundButton {
         id : nodeInfoButton
+        visible: Api.scene.hasSelection
         anchors { right: editNodeButton.left; bottom: parent.bottom; margins: width / 2; }
-        visible: false
 
         action: Action {
             id: nodeInfoAction

@@ -5,6 +5,8 @@
 
 #include <QQmlEngine>
 
+#include <CommonTools/Platform.h>
+
 #include "source/managers/notificationmanager.h"
 
 
@@ -36,4 +38,9 @@ GroupsManager *Api::groups() const
 MainScene *Api::scene() const
 {
     return mScene.get();
+}
+
+bool Api::readonlyMode()
+{
+    return Platform::isWasm();
 }

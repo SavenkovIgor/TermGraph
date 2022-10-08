@@ -33,6 +33,8 @@ class Api : public QObject
     Q_PROPERTY(GroupsManager*  groups  READ groups  CONSTANT FINAL)
     Q_PROPERTY(MainScene*      scene   READ scene   CONSTANT FINAL)
 
+    Q_PROPERTY(bool readonlyMode READ readonlyMode CONSTANT FINAL)
+
 public:
     explicit Api(QObject* parent = nullptr);
     ~Api() = default;
@@ -52,4 +54,6 @@ private:
     SyncManager* sync() const;
     GroupsManager* groups() const;
     MainScene* scene() const;
+
+    static bool readonlyMode();
 };
