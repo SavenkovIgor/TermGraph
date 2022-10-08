@@ -13,33 +13,33 @@ enum class CoordType {
     scene      // Scene coordinate system
 };
 
-class NodeType
+class NodeType : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
     QML_ELEMENT
-    QML_UNCREATABLE("Just enum")
+    QML_UNCREATABLE("")
 
 public:
     enum class Type { Orphan, Root, EndLeaf, MiddleLeaf };
     Q_ENUM(Type)
 };
 
-class EdgeType
+class EdgeType : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
     QML_ELEMENT
-    QML_UNCREATABLE("Just enum")
+    QML_UNCREATABLE("")
 
 public:
     enum class Type { Standart, Termin, TerminHardLink, Description, Broken, Redundant };
     Q_ENUM(Type)
 };
 
-class EdgeSelection
+class EdgeSelection : public QObject
 {
-    Q_GADGET
+    Q_OBJECT
     QML_ELEMENT
-    QML_UNCREATABLE("Just enum")
+    QML_UNCREATABLE("")
 
 public:
     enum class Type { None, Forward, Backward };
