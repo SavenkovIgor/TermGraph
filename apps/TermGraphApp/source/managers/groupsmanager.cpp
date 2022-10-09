@@ -206,7 +206,7 @@ void GroupsManager::importTerm(const QJsonObject& nodeJson)
 //            // If can't add, try to update exist term
 //            if (addResult.error() == DbErrorCodes::TermUuidAlreadyExist) {
 //                auto updateResult = dataSource->updateTerm(*data,
-//                                                           DataStorageInterface::LastEditSource::TakeFromTermData).get();
+//                                                           DataStorageInterface::LastEditSource::FromData).get();
 //                if (!updateResult) {
 //                    qWarning() << Errors::toQString(updateResult.error().value());
 //                }
@@ -241,7 +241,7 @@ void GroupsManager::updateNode(const QJsonObject& object)
     assert(data.has_value());
     assert(data->uuid);
 
-    provider.updateTerm((*data), DataStorageInterface::LastEditSource::AutoGenerate, false);
+    provider.updateTerm((*data), DataStorageInterface::LastEditSource::Now, false);
 }
 
 void GroupsManager::deleteNode(const QUuid uuid)

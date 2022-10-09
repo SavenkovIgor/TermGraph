@@ -32,7 +32,7 @@ public:
     Result<TermData> addTerm(const TermData& info);
     Result<TermData> updateTerm(const TermData&                      info,
                                 DataStorageInterface::LastEditSource lastEditSource,
-                                bool                                 checkLastEdit = true);
+                                bool                                 checkLastEdit);
     Result<TermData> deleteTerm(const TermUuid& uuid);
 
 private:

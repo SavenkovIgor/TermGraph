@@ -190,7 +190,7 @@ TEST_F(DBWorksTest, TermsTest)
         term.wikiUrl += "1";
         term.wikiImage += "1";
 
-        EXPECT_TRUE(mStorage->updateTerm(term, DataStorageInterface::LastEditSource::TakeFromTermData).result().has_value());
+        EXPECT_TRUE(mStorage->updateTerm(term, DataStorageInterface::LastEditSource::FromData, true).result().has_value());
 
         EXPECT_TRUE(term == mStorage->term(*term.uuid).result().value());
     }
