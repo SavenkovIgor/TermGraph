@@ -115,7 +115,9 @@ struct TermData
             if (!obj[JsonTools::termsKey].isArray())
                 return std::nullopt;
 
-            for (const auto& termJson : obj[JsonTools::termsKey].toArray()) {
+            const auto termsArray = obj[JsonTools::termsKey].toArray();
+
+            for (const auto& termJson : termsArray) {
                 if (auto termData = TermData::create(termJson.toObject(), JsonCheckMode::Import)) {
                     ret.push_back(*termData);
                 } else {
