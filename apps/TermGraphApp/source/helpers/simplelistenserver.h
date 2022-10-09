@@ -29,7 +29,7 @@ private slots:
 private:
     quint16            listenPort;
     QTcpServer*        server;
-    QList<QTcpSocket*> inputSockets;
+    std::vector<QTcpSocket*> inputSockets;
 
     static QString getSocketDescription(QTcpSocket* socket);
 };

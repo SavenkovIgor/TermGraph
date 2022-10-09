@@ -22,7 +22,7 @@ void SimpleListenServer::newConnection()
     if (server->hasPendingConnections()) {
         QTcpSocket* newSocket = server->nextPendingConnection();
         connect(newSocket, &QTcpSocket::readyRead, this, &SimpleListenServer::newInputData);
-        this->inputSockets.append(newSocket);
+        this->inputSockets.push_back(newSocket);
         emit newConnectionFrom(getSocketDescription(newSocket));
     }
 }
