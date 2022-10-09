@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include <QColor>
+#include <QtGlobal>
 
 class AppStyle
 {
