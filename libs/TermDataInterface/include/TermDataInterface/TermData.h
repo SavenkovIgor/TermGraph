@@ -34,37 +34,7 @@ struct TermData
 
     inline bool isNull() const { return uuid.has_value() && term.isEmpty(); }
 
-    inline bool operator==(const TermData& rhs) const
-    {
-        if (uuid != rhs.uuid)
-            return false;
-
-        if (term != rhs.term)
-            return false;
-
-        if (definition != rhs.definition)
-            return false;
-
-        if (description != rhs.description)
-            return false;
-
-        if (examples != rhs.examples)
-            return false;
-
-        if (wikiUrl != rhs.wikiUrl)
-            return false;
-
-        if (wikiImage != rhs.wikiImage)
-            return false;
-
-        if (groupUuid != rhs.groupUuid)
-            return false;
-
-        if (lastEdit != rhs.lastEdit)
-            return false;
-
-        return true;
-    }
+    inline bool operator==(const TermData& rhs) const = default;
 
     enum class JsonCheckMode { Import, AddTerm, UpdateTerm };
 

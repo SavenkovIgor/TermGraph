@@ -29,6 +29,10 @@ TEST(TermDataTest, ComparisonTest)
     EXPECT_NE(data1, defaultData());
 
     data1 = defaultData();
+    data1.uuid = std::nullopt;
+    EXPECT_NE(data1, defaultData());
+
+    data1 = defaultData();
     data1.term        = "Term1";
     EXPECT_NE(data1, defaultData());
 
