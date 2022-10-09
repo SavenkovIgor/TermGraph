@@ -11,8 +11,8 @@ GroupData defaultData() {
         .name          = "Group",
         .comment       = "Comment",
         .size          = 1,
-        .lastEdit      = QDateTime::currentDateTime(),
-        .nodesLastEdit = QDateTime::currentDateTime()
+        .lastEdit      = QDateTime::fromString("2022-08-23T20:01:10Z", Qt::ISODate),
+        .nodesLastEdit = QDateTime::fromString("2022-08-23T20:01:10Z", Qt::ISODate)
     };
 }
 
