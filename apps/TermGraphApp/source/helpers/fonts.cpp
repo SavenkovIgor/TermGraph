@@ -6,6 +6,7 @@
 QFont Fonts::defaultFont()
 {
     QFont font("Arial");
+    font.setPointSize(11);
     return font;
 }
 
@@ -16,7 +17,6 @@ QFont Fonts::weightFont()
     return font;
 }
 
-// TODO: Check input with newline character
 QSizeF Fonts::metrics(const QString& text, const QFont& font)
 {
     QFontMetricsF mtr = QFontMetricsF(font);
