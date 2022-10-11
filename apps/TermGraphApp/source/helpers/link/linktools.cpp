@@ -44,7 +44,7 @@ QString LinkTools::remove(QString str, int cursor) { return LinksString::removeL
 QString LinkTools::decorate(const QString& str)
 {
     LinksString    linkText(str);
-    LinksDecorator decorator(linkText, LinksDecorator::blueDecorator);
+    LinksDecorator decorator(linkText, LinksDecorator::greenDecorator);
     return decorator.apply(LinksDecoratorMode::Replace);
 }
 
