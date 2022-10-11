@@ -30,6 +30,12 @@ QString LinksDecorator::apply(LinksDecoratorMode mode)
             ret.insert(lBracketPos, colorStr);
         } else if (mode == LinksDecoratorMode::Replace) {
             ret.replace(rBracketPos, 1, mRightReplacer);
+
+            // Remove uuid section
+            if (link.hasUuid()) {
+                ret.replace(lBracketPos + 1, link.fullLink().length() - 2, link.text().toString());
+            }
+
             ret.replace(lBracketPos, 1, colorStr);
         }
     }
@@ -42,9 +48,9 @@ QColor LinksDecorator::defaultDecorator([[maybe_unused]] int orderIndex, [[maybe
     return QColor("#00a693");
 }
 
-QColor LinksDecorator::blueDecorator([[maybe_unused]] int orderIndex, [[maybe_unused]] const Link& link)
+QColor LinksDecorator::greenDecorator([[maybe_unused]] int orderIndex, const Link& link)
 {
-    return QColor("#6d9a28");
+    return link.hasUuid() ? QColor("#00a693") : QColor("#6d9a28");
 }
 
 QColor LinksDecorator::defaultBackground([[maybe_unused]] int orderIndex, [[maybe_unused]] const Link& link)
