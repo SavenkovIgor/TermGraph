@@ -19,23 +19,18 @@ public:
     explicit TermDataCache(const TermData& info);
     ~TermDataCache() = default;
 
+    QString term() const;
     QString lowerTerm() const;
-    QString decoratedTerm() const;
-    QSizeF  decoratedTermSize() const;
+    QSizeF  preferredSize() const;
 
     const Link::List& links() const;
 
     QString termAndDefinition(bool decorated = false) const;
 
-private: // Methods
-    static QString getDecoratedTerm(const QString& term);
-    static QSizeF  getTermSize(const QString& decoratedTerm);
-
 private: // Members
     const QString     mTerm;
     const QString     mDefinition;
     const QString     mLowerTerm;
-    const QString     mDecoratedTerm;
-    const QSizeF      mDecoratedTermSize;
+    const QSizeF      mTermSize;
     const LinksString mLinksDefinition;
 };

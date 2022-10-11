@@ -32,14 +32,6 @@ TEST(TextTools, GetDefinition)
     EXPECT_EQ(TextTools::getDefinition("asdf"), "");
 }
 
-TEST(TextTools, InserNewLineNearMiddle)
-{
-    EXPECT_EQ(TextTools::insertNewLineNearMiddle("a b"), "a\nb");
-    EXPECT_EQ(TextTools::insertNewLineNearMiddle("aaa b"), "aaa\nb");
-    EXPECT_EQ(TextTools::insertNewLineNearMiddle("a bbb"), "a\nbbb");
-    EXPECT_EQ(TextTools::insertNewLineNearMiddle("aabb"), "aabb");
-}
-
 TEST(TextTools, WordCount)
 {
     EXPECT_EQ(TextTools::wordCount(""), 0);

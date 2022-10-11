@@ -41,7 +41,7 @@ public:
     void setRelativeSelection(bool relativeSelected);
     bool isSelectedAnyway() const;
 
-    QString decoratedTerm() const;
+    QString term() const;
     QRectF  rect() const;
     qreal   cornerRadius() const;
 

@@ -3,6 +3,8 @@
 
 #include "source/helpers/text/texttools.h"
 
+#include "source/helpers/fonts.h"
+
 const QStringList TextTools::mSplitters = {"‐", "-", "-", "—"};
 
 bool TextTools::isTermWithDefinition(const QString &def)
@@ -32,33 +34,6 @@ QString TextTools::getDefinition(const QString &def)
     return "";
 }
 
-QString TextTools::insertNewLineNearMiddle(const QString &str)
-{
-    auto tryReplaceSpaceWithNewLine = [](QChar &ref) {
-        if (ref == ' ') {
-            ref = '\n';
-            return true;
-        }
-        return false;
-    };
-
-    QString ret         = str;
-    int     middleIndex = ret.size() / 2;
-
-    for (int i = 0; i < middleIndex; i++) {
-        int leftIndex  = qBound(0, middleIndex - i, middleIndex);
-        int rightIndex = qBound(middleIndex, middleIndex + i, ret.size() - 1);
-
-        if (tryReplaceSpaceWithNewLine(ret[leftIndex]))
-            break;
-
-        if (tryReplaceSpaceWithNewLine(ret[rightIndex]))
-            break;
-    }
-
-    return ret;
-}
-
 int TextTools::splitterIndex(const QString &str)
 {
     int pos = -1;
@@ -76,4 +51,27 @@ int TextTools::wordCount(const QString &str)
 {
     const QString tmp = str.simplified();
     return !tmp.isEmpty() ? tmp.count(' ') + 1 : 0;
+}
+
+QSizeF TextTools::preferredTextSize(const QString &text, qreal whProportion)
+{
+    const auto wCount = wordCount(text);
+    const auto lineSize = Fonts::metrics(text);
+
+    if (wCount == 1)
+        return lineSize;
+
+    // Recalculate text area, so it has proportions (3 width : 1 height)
+    const auto lineArea = lineSize.width() * lineSize.height();
+    // Formula counted from equations:
+    // area = width * height
+    // ratio = width / height
+    // =>
+    // width = ratio * sqrt(area / ratio)
+    const auto width = whProportion * qSqrt(lineArea / whProportion);
+
+    const auto baseRect = QRect(0, 0, width, 1);
+    QFontMetricsF mtr = QFontMetricsF(Fonts::defaultFont());
+
+    return mtr.boundingRect(baseRect, Qt::AlignHCenter | Qt::TextWordWrap, text).size();
 }

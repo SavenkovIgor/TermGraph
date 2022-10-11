@@ -10,7 +10,7 @@ PaintedTerm::PaintedTerm(const TermData& info)
 {
     pCornerRadius.setBinding([this]() { return pNodeSize.value().height() * 0.2; });
 
-    pNodeSize.setValue(cache().decoratedTermSize() + QSizeF(16, 4));
+    pNodeSize.setValue(cache().preferredSize() + QSizeF(16, 8));
 }
 
 QLineF PaintedTerm::getRectLine(Qt::Edge side)
@@ -64,6 +64,6 @@ void PaintedTerm::setRelativeSelection(bool relativeSelected) { mRelativePaint =
 
 bool PaintedTerm::isSelectedAnyway() const { return mThisSelected || mRelativePaint; }
 
-QString PaintedTerm::decoratedTerm() const { return cache().decoratedTerm(); }
+QString PaintedTerm::term() const { return cache().term(); }
 
 QRectF PaintedTerm::rect() const { return getNodeRect(CoordType::scene); }

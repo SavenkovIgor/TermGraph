@@ -167,10 +167,12 @@ if (BUILD_TESTING)
     create_test (
         NAME      TestTextTools
         SOURCES
+            source/helpers/fonts.cpp
+            source/helpers/fonts.h
             source/helpers/text/texttools.cpp
             source/helpers/text/texttools.h
             tests/texttoolstest.cpp
-        LIBRARIES Qt6::Core)
+        LIBRARIES Qt6::Core Qt6::Gui)
 
     create_test (
         NAME      TestNode
@@ -267,6 +269,8 @@ if (BUILD_TESTING)
     create_test (
         NAME      TestLinkTools
         SOURCES
+            source/helpers/fonts.cpp
+            source/helpers/fonts.h
             source/helpers/intmatrix.cpp
             source/helpers/intmatrix.h
             source/helpers/link/link.cpp

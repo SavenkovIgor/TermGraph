@@ -35,9 +35,11 @@ Rectangle {
     Text {
         id: termLabel
         anchors { fill: parent }
+        padding: 4
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
         color: Theme.color.white
         font: Theme.font.term
+        wrapMode: Text.Wrap
     }
 }

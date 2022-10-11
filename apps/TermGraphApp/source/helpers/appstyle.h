@@ -18,7 +18,5 @@ public:
         static constexpr qreal orphansHorizontalSpacer = 10.0;
 
         static constexpr qreal treeLayerHorizontalSpacer = 15.0;
-
-        static constexpr qreal baseBlockWidth = 40.0;
     };
 };
