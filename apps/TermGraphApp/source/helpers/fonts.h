@@ -10,7 +10,7 @@
 class Fonts
 {
 public:
-    static QFont  getFont();
-    static QFont  getWeightFont(const QFont::Weight weight = QFont::Black);
-    static QSizeF getTextMetrics(const QString& text, const QFont& font = getFont());
+    static QFont  defaultFont();
+    static QFont  weightFont();
+    static QSizeF metrics(const QString& text, const QFont& font = defaultFont());
 };

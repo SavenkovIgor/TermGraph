@@ -3,21 +3,21 @@
 
 #include "source/helpers/fonts.h"
 
-QFont Fonts::getFont()
+QFont Fonts::defaultFont()
 {
     QFont font("Arial");
     return font;
 }
 
-QFont Fonts::getWeightFont(const QFont::Weight weight)
+QFont Fonts::weightFont()
 {
-    QFont font = getFont();
-    font.setWeight(weight);
+    QFont font = defaultFont();
+    font.setWeight(QFont::Black);
     return font;
 }
 
 // TODO: Check input with newline character
-QSizeF Fonts::getTextMetrics(const QString& text, const QFont& font)
+QSizeF Fonts::metrics(const QString& text, const QFont& font)
 {
     QFontMetricsF mtr = QFontMetricsF(font);
     return mtr.boundingRect(text).size();

@@ -46,7 +46,7 @@ QString TermDataCache::getDecoratedTerm(const QString& term)
     if (ret.contains(" ")) {
         // Если имя превышает базовую ширину и содержит пробелы то пытаемся его разбить на 2
 
-        if (Fonts::getTextMetrics(ret).width() + 15 > AppStyle::Sizes::baseBlockWidth) {
+        if (Fonts::metrics(ret).width() + 15 > AppStyle::Sizes::baseBlockWidth) {
             // Пытаемся ужать в 2 строки
             ret = TextTools::insertNewLineNearMiddle(ret);
         }
@@ -62,7 +62,7 @@ QSizeF TermDataCache::getTermSize(const QString& decoratedTerm)
     auto termParts = decoratedTerm.split("\n");
 
     for (auto& part : termParts)
-        sizes.push_back(Fonts::getTextMetrics(part));
+        sizes.push_back(Fonts::metrics(part));
 
     return sizes.totalStackedSize(Qt::Vertical);
 }
