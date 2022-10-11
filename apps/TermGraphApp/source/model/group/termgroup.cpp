@@ -292,7 +292,7 @@ void TermGroup::addTreeRectsToScene()
         forest->rect().setParentItem(&mBaseRect);
 }
 
-QSizeF TermGroup::getNameSize() const { return Fonts::getTextMetrics(name(), Fonts::getWeightFont()); }
+QSizeF TermGroup::getNameSize() const { return Fonts::metrics(name(), Fonts::weightFont()); }
 
 QString TermGroup::qmlUuid() const { return uuid().toString(); }
 
