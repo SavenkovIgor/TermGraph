@@ -3,7 +3,6 @@
 
 #include "source/model/term/termdatacache.h"
 
-#include "source/helpers/link/linksdecorator.h"
 #include "source/helpers/text/texttools.h"
 
 
@@ -26,11 +25,9 @@ const Link::List& TermDataCache::links() const { return mLinksDefinition.links()
 
 QString TermDataCache::termAndDefinition(bool decorated) const
 {
-    LinksDecorator decorator(mLinksDefinition, LinksDecorator::defaultDecorator);
-
     if (decorated) {
         auto ret = "<font color=\"#00a693\">" + mTerm + "</font>";
-        ret += " - это " + decorator.apply(LinksDecoratorMode::Replace);
+        ret += " - это " + mLinksDefinition.toRichText();
         return ret;
     }
     return mTerm + " - это " + mDefinition;

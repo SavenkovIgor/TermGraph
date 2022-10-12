@@ -5,6 +5,7 @@
 
 #include "source/helpers/text/chartools.h"
 #include "source/helpers/text/checkingtextcursor.h"
+#include "source/helpers/link/linksdecorator.h"
 
 LinksString::LinksString(QStringView str)
     : mString(str)
@@ -20,6 +21,12 @@ QString LinksString::replaceLink(int index, QString text) const
     auto [linkCut, pos] = mLinks[index].cutted();
     linkCut.insert(pos, text);
     return linkCut;
+}
+
+QString LinksString::toRichText() const
+{
+    LinksDecorator decorator(*this, LinksDecorator::greenDecorator);
+    return decorator.apply(LinksDecoratorMode::Replace);
 }
 
 bool LinksString::isValidLinksString(QStringView str)

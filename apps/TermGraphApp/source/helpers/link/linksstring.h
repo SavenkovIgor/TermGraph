@@ -20,6 +20,8 @@ public:
 
     QString replaceLink(int index, QString text) const;
 
+    QString toRichText() const;
+
     // Static stuff
     static bool isValidLinksString(QStringView str);
 
