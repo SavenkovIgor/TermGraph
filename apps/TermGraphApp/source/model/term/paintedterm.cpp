@@ -8,7 +8,7 @@ PaintedTerm::PaintedTerm(const TermData& info)
     , GraphicItem()
     , pNodeSize(QSizeF(40.0, 10.0))
 {
-    pCornerRadius.setBinding([this]() { return pNodeSize.value().height() * 0.2; });
+    pCornerRadius.setBinding([this]() { return std::min(pNodeSize.value().height() * 0.15, 12.0); });
 
     pNodeSize.setValue(cache().preferredSize() + QSizeF(16, 8));
 }
