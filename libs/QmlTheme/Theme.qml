@@ -28,20 +28,22 @@ QtObject {
             readonly property color broken         : "red"
         }
 
-        readonly property color black         : "#000000"
-        readonly property color white         : "#e8e8e8"
-        readonly property color whiteDisabled : "#9c9c9c"
-        readonly property color base          : "#332f30"
-        readonly property color baseLight     : "#4f4f4f"
-        readonly property color baseLight2    : "#464544"
-        readonly property color baseLight3    : "#6f6f6f"
-        readonly property color accent        : "#2f7ba3"
-        readonly property color warning       : "#e5b41f"
+        readonly property color accent:  "#2f7ba3"
+        readonly property color warning: "#e5b41f"
+
+        readonly property color base0: "#242326"
+        readonly property color base1: "#3f3e40"
+        readonly property color base2: "#5b5a5d"
+        readonly property color base3: "#79797b"
+        readonly property color base4: "#99989a"
+        readonly property color base5: "#bababb"
+        readonly property color base6: "#dcdcdc"
+        readonly property color base7: "#ffffff"
 
         readonly property ColorGroup group : ColorGroup {
-            text:          root.color.white
-            base:          root.color.base
-            alternateBase: root.color.baseLight
+            text:          root.color.base6
+            base:          root.color.base1
+            alternateBase: root.color.base2
             highlight:     root.color.accent
         }
     }

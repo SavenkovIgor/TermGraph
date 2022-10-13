@@ -50,7 +50,7 @@ A.DrawerPage {
             }
 
             A.RoundButton {
-                bgColor: Theme.color.whiteDisabled
+                bgColor: Theme.color.base4
                 action: Action {
                     icon.source: Theme.icon.info
                     onTriggered: root.openInfoPage()
@@ -59,7 +59,7 @@ A.DrawerPage {
 
             A.RoundButton {
                 visible: !Api.readonlyMode
-                bgColor: Theme.color.whiteDisabled
+                bgColor: Theme.color.base4
                 action: Action {
                     enabled: !Api.readonlyMode
                     icon.source: Theme.icon.pencil

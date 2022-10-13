@@ -27,7 +27,7 @@ ApplicationWindow {
 //        showMaximized();
 //    }
 
-    color: Theme.color.base
+    color: Theme.color.base0
 
     Component {
         id: mainSceneComponent;

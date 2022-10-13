@@ -14,13 +14,13 @@ C.ToolTip {
     contentItem: Text {
         text: root.text
         font: Theme.font.h4
-        color: Theme.color.whiteDisabled
+        color: Theme.color.base4
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
     }
 
     background: Rectangle {
-        color: Theme.color.baseLight2
-        border.color: Theme.color.baseLight3
+        color: Theme.color.base1
+        border.color: Theme.color.base3
     }
 }

@@ -13,7 +13,7 @@ import Theme
 M.Page {
     title: "Режим изучения"
 
-    background: Rectangle { color: Theme.color.base }
+    background: Rectangle { color: Theme.color.base0 }
 
     A.RoundButton {
         id: addGroupBtn
@@ -28,7 +28,7 @@ M.Page {
 
         highlight: Rectangle {
             width: 200; height: 20
-            color: Theme.color.baseLight2
+            color: Theme.color.base1
             y: groupsList.currentItem.y;
         }
 
@@ -49,7 +49,7 @@ M.Page {
                 verticalAlignment: Text.AlignVCenter
                 horizontalAlignment: Text.AlignLeft
 
-                color: Theme.color.white
+                color: Theme.color.base7
                 font: Theme.font.setWeight(Theme.font.h3, Font.Thin)
 
                 text: modelData

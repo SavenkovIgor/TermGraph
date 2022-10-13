@@ -31,8 +31,8 @@ A.DrawerPage {
                 font: Theme.font.h3
                 selectByMouse: true
 
-                color: Theme.color.white
-                placeholderTextColor: Theme.color.whiteDisabled
+                color: Theme.color.base7
+                placeholderTextColor: Theme.color.base4
                 placeholderText: "Поиск"
 
                 Keys.onReturnPressed: searchList.forceActiveFocus();
@@ -67,11 +67,11 @@ A.DrawerPage {
                         bottomPadding: font.pixelSize / 3
                         text: Api.scene.termUuidToName(modelData)
                         font: Theme.font.h3
-                        color: Theme.color.white
+                        color: Theme.color.base7
                     }
 
                     background: Rectangle {
-                        color: Theme.color.baseLight3
+                        color: Theme.color.base3
                         visible: item.highlighted
                     }
 
@@ -85,7 +85,7 @@ A.DrawerPage {
                 font: Theme.font.h3
                 padding: font.pixelSize
                 anchors.fill: searchList
-                color: Theme.color.whiteDisabled
+                color: Theme.color.base4
                 visible: searchList.count === 0
 
                 Layout.fillHeight: true

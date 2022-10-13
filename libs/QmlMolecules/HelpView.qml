@@ -144,7 +144,7 @@ Item {
                 id: pin
                 diameter: Sizes.base * 0.75
                 anchors.centerIn: parent
-                color: index === pageIndicator.currentIndex ? Theme.color.baseLight2 : Theme.color.black
+                color: index === pageIndicator.currentIndex ? Theme.color.base3 : Theme.color.base1
             }
         }
     }
