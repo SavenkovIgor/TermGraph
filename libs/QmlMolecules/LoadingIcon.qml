@@ -18,7 +18,7 @@ Item {
 
     property color col1: "#6d9a28"
     property color col2: Theme.color.accent
-    property color col3: Theme.color.baseLight
+    property color col3: Theme.color.base2
 
     readonly property int animDuration: 1500
 

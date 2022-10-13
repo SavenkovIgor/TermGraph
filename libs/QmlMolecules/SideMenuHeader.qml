@@ -29,7 +29,7 @@ Control {
             minimumPixelSize: font.pixelSize / 2
             fontSizeMode: Text.Fit
             elide: Text.ElideRight
-            color: Theme.color.white
+            color: Theme.color.base7
             horizontalAlignment: Qt.AlignLeft
             verticalAlignment: Qt.AlignVCenter
             text: "TermGraph"
@@ -39,12 +39,12 @@ Control {
             Layout.margins: 5
             width: Sizes.baseX3
             height: Sizes.baseX3
-            icon.color: Theme.color.whiteDisabled
+            icon.color: Theme.color.base4
             icon.source: Theme.icon.cog
             onClicked: root.settingsClicked()
             visible: !Api.readonlyMode
         }
     }
 
-    background: Rectangle { color: Theme.color.base }
+    background: Rectangle { color: Theme.color.base0 }
 }

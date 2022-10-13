@@ -44,7 +44,7 @@ M.Page {
 
                         Text {
                             font: Theme.font.h4
-                            color: Theme.color.white
+                            color: Theme.color.base7
                             text: Api.network.synchronizationState
                         }
                     }

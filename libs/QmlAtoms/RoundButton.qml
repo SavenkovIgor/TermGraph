@@ -11,7 +11,7 @@ C.RoundButton {
 
     property real size: Sizes.baseX4
     readonly property real iconPart: 0.46
-    property color bgColor: Theme.color.white
+    property color bgColor: Theme.color.base6
 
     implicitWidth:  root.size
     implicitHeight: root.size

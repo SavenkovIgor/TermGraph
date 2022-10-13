@@ -21,7 +21,7 @@ Control {
 
     signal clicked()
 
-    background: Rectangle { color: Theme.color.base }
+    background: Rectangle { color: Theme.color.base0 }
 
     ColumnLayout {
         anchors.centerIn: parent
@@ -32,7 +32,7 @@ Control {
         Text {
             id: mainText
             horizontalAlignment: Text.AlignHCenter
-            color: Theme.color.white
+            color: Theme.color.base7
             font: Theme.font.h3
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
@@ -41,7 +41,7 @@ Control {
         Text {
             id: detailedText
             horizontalAlignment: Text.AlignHCenter
-            color: Theme.color.whiteDisabled
+            color: Theme.color.base4
             font: Theme.font.h4
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true

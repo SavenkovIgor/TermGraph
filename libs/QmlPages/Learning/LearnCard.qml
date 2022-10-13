@@ -20,7 +20,7 @@ M.Page {
             id: card
 
             radius: root.width * 0.02
-            color: Theme.color.baseLight3
+            color: Theme.color.base3
 
             Layout.fillHeight: true
             Layout.fillWidth: true
@@ -59,7 +59,7 @@ M.Page {
                 id: badLearn
                 text: "Button1"
 
-                background: Rectangle { color: Theme.color.baseLight3 }
+                background: Rectangle { color: Theme.color.base3 }
                 Layout.fillWidth: true
             }
 
@@ -67,7 +67,7 @@ M.Page {
                 id: wellLearn
                 text: "Button2"
 
-                background: Rectangle { color: Theme.color.baseLight3 }
+                background: Rectangle { color: Theme.color.base3 }
                 Layout.fillWidth: true
             }
 
@@ -75,7 +75,7 @@ M.Page {
                 id: excellentLearn
                 text: "Button3"
 
-                background: Rectangle { color: Theme.color.baseLight3 }
+                background: Rectangle { color: Theme.color.base3 }
                 Layout.fillWidth: true
             }
         }

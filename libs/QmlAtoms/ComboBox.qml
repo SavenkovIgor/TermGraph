@@ -16,14 +16,14 @@ C.ComboBox {
         id: contItem
         text: Api.groups.getGroupName(control.displayText)
         font: control.font
-        color: Theme.color.white
+        color: Theme.color.base7
         padding: font.pixelSize / 1.5
         horizontalAlignment: Text.AlignLeft
         verticalAlignment: Text.AlignVCenter
         elide: Text.ElideRight
     }
 
-    background: Rectangle { color: Theme.color.baseLight2 }
+    background: Rectangle { color: Theme.color.base1 }
 
     popup: C.Popup {
         y: control.height - 1
@@ -41,7 +41,8 @@ C.ComboBox {
         }
 
         background: Rectangle {
-            border.color: Theme.color.black
+            border { color: Theme.color.base1; width: 2; }
+            color: Theme.color.base0
             radius: 2
         }
     }
@@ -52,6 +53,7 @@ C.ComboBox {
         contentItem: Text {
             text: Api.groups.getGroupName(modelData)
             font: control.font
+            color: Theme.color.base7
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter
         }

@@ -128,7 +128,7 @@ M.Page {
                 font: Theme.font.h4
                 wrapMode: TextEdit.NoWrap
                 elide: Text.ElideRight
-                color: Theme.color.white
+                color: Theme.color.base7
 
                 text: Api.groups.getGroupName(currentGroupFixedRow.groupUuid)
             }

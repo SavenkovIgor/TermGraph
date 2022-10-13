@@ -27,7 +27,7 @@ M.Page {
 
         highlight: Rectangle {
             width: 200; height: 20
-            color: Theme.color.baseLight2
+            color: Theme.color.base1
             y: groupsList.currentItem.y;
         }
 
@@ -43,7 +43,7 @@ M.Page {
             states: State {
                 name: "Current"
                 when: lstDlgt.ListView.isCurrentItem
-                PropertyChanges { target: lstDlgt; color: Theme.color.baseLight2 }
+                PropertyChanges { target: lstDlgt; color: Theme.color.base1 }
             }
 
             color: "transparent"
@@ -59,7 +59,7 @@ M.Page {
                     leftPadding: font.pixelSize
                     bottomPadding: font.pixelSize / 3
 
-                    color: Theme.color.white
+                    color: Theme.color.base7
                     font: Theme.font.setWeight(Theme.font.h4, Font.Medium)
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft

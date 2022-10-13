@@ -25,7 +25,7 @@ ColumnLayout {
         elide: Text.ElideRight
         anchors.leftMargin: 30
 
-        color: Theme.color.white
+        color: Theme.color.base7
 
         Layout.fillWidth: true
     }

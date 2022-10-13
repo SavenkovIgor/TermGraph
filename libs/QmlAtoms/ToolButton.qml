@@ -18,7 +18,7 @@ RoundButton {
     icon.width: implicitWidth * iconPart
     icon.height: implicitHeight * iconPart
 
-    icon.color: Theme.color.white
+    icon.color: Theme.color.base6
 
     display: AbstractButton.IconOnly
 
