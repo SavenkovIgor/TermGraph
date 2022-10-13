@@ -20,11 +20,11 @@ QtObject {
 
         readonly property QtObject edge: QtObject {
             readonly property color standard       : "black"
-            readonly property color termin         : "#225b7a"
+            readonly property color termin         : "#00a693"
             readonly property color terminHardLink : "#a091b5"
             readonly property color description    : "green"
             readonly property color selected       : "#00a693"
-            readonly property color selectedAlt    : "#dc4c1d"
+            readonly property color selectedAlt    : "#a091b5"
             readonly property color broken         : "red"
         }
 
