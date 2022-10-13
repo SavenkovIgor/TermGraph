@@ -29,6 +29,12 @@ QString LinksString::toRichText() const
     return decorator.apply(LinksDecoratorMode::Replace);
 }
 
+QString LinksString::toPlainString() const
+{
+    LinksDecorator decorator(*this, LinksDecorator::greenDecorator);
+    return decorator.apply(LinksDecoratorMode::Cut);
+}
+
 bool LinksString::isValidLinksString(QStringView str)
 {
     int brCount = 0;

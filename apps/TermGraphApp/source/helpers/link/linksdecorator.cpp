@@ -37,6 +37,13 @@ QString LinksDecorator::apply(LinksDecoratorMode mode)
             }
 
             ret.replace(lBracketPos, 1, colorStr);
+        } else if (mode == LinksDecoratorMode::Cut) {
+            ret.remove(rBracketPos, 1);
+            // Remove uuid section
+            if (link.hasUuid()) {
+                ret.replace(lBracketPos + 1, link.fullLink().length() - 2, link.text().toString());
+            }
+            ret.remove(lBracketPos, 1);
         }
     }
 
