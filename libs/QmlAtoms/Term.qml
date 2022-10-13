@@ -30,7 +30,7 @@ Rectangle {
     width: rect.width
     height: rect.height
 
-    border { width: (1 * weight) + 1; color: Theme.color.black; }
+    border { width: (1 * weight) + 1; color: Theme.color.base0; }
 
     Text {
         id: termLabel
@@ -38,7 +38,7 @@ Rectangle {
         padding: 4
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter
-        color: Theme.color.white
+        color: Theme.color.base7
         font: Theme.font.term
         wrapMode: Text.Wrap
     }
