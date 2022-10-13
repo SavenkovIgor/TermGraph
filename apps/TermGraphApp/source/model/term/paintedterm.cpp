@@ -66,4 +66,9 @@ bool PaintedTerm::isSelectedAnyway() const { return mThisSelected || mRelativePa
 
 QString PaintedTerm::term() const { return cache().term(); }
 
+QString PaintedTerm::definition() const
+{
+    return cache().definition();
+}
+
 QRectF PaintedTerm::rect() const { return getNodeRect(CoordType::scene); }

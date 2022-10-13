@@ -9,13 +9,14 @@
 // Initialization order is important!
 TermDataCache::TermDataCache(const TermData& info)
     : mTerm(info.term)
-    , mDefinition(info.definition)
     , mLowerTerm(info.term.toLower())
     , mTermSize(TextTools::preferredTextSize(info.term))
     , mLinksDefinition(info.definition)
 {}
 
 QString TermDataCache::term() const { return mTerm; }
+
+QString TermDataCache::definition() const { return mLinksDefinition.text(); }
 
 QString TermDataCache::lowerTerm() const { return mLowerTerm; }
 
@@ -30,5 +31,5 @@ QString TermDataCache::termAndDefinition(bool decorated) const
         ret += " - это " + mLinksDefinition.toRichText();
         return ret;
     }
-    return mTerm + " - это " + mDefinition;
+    return mTerm + " - это " + mLinksDefinition.text();
 }

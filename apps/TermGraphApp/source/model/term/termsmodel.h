@@ -13,7 +13,7 @@ class TermsModel : public QAbstractListModel
 {
     Q_OBJECT
 
-    enum Roles { Rect = 0, Radius, Weight, Term, IsSelected, Type };
+    enum Roles { Rect = 0, Radius, Weight, Term, Definition, IsSelected, Type };
 
 public:
     explicit TermsModel(QObject* parent = nullptr);
