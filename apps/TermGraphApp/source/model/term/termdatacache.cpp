@@ -20,7 +20,18 @@ QString TermDataCache::definition() const { return mLinksDefinition.text(); }
 
 QString TermDataCache::lowerTerm() const { return mLowerTerm; }
 
-QSizeF TermDataCache::preferredSize() const { return mTermSize; }
+QSizeF TermDataCache::preferredSize() const {
+    if (mLinksDefinition.text().isEmpty())
+        return mTermSize;
+
+    auto defWithoutLinks = mLinksDefinition.toPlainString();
+    auto defSize = TextTools::preferredTextSize(defWithoutLinks, 5);
+
+    auto width = std::max(mTermSize.width(), defSize.width());
+    auto height = mTermSize.height() + defSize.height();
+
+    return QSizeF(width, height);
+}
 
 const Link::List& TermDataCache::links() const { return mLinksDefinition.links(); }
 

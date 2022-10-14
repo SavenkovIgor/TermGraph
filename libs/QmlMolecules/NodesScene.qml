@@ -142,6 +142,7 @@ Control {
                 isSelected: model.isSelected
                 weight: model.weight
                 text: model.term
+                definition: LinkTools.decorate(model.definition)
                 z: model.isSelected ? 5 : 2
             }
         }

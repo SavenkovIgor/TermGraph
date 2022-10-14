@@ -10,7 +10,7 @@ PaintedTerm::PaintedTerm(const TermData& info)
 {
     pCornerRadius.setBinding([this]() { return std::min(pNodeSize.value().height() * 0.15, 12.0); });
 
-    pNodeSize.setValue(cache().preferredSize() + QSizeF(16, 8));
+    pNodeSize.setValue(cache().preferredSize() + (cache().definition().isEmpty() ? QSizeF(34, 16) : QSizeF(34, 34)));
 }
 
 QLineF PaintedTerm::getRectLine(Qt::Edge side)

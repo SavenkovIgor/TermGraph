@@ -10,8 +10,6 @@ QtObject {
 
     readonly property QtObject color: QtObject {
 
-        readonly property color stdTint: "#45000000"
-
         readonly property QtObject term: QtObject {
             readonly property color leafNode   : "#83c31b"
             readonly property color rootNode   : "#dc4c1d"
