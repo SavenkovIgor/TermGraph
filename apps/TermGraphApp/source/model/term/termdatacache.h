@@ -20,6 +20,7 @@ public:
     ~TermDataCache() = default;
 
     QString term() const;
+    QString definition() const;
     QString lowerTerm() const;
     QSizeF  preferredSize() const;
 
@@ -29,7 +30,6 @@ public:
 
 private: // Members
     const QString     mTerm;
-    const QString     mDefinition;
     const QString     mLowerTerm;
     const QSizeF      mTermSize;
     const LinksString mLinksDefinition;

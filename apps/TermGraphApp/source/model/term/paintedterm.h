@@ -42,6 +42,7 @@ public:
     bool isSelectedAnyway() const;
 
     QString term() const;
+    QString definition() const;
     QRectF  rect() const;
     qreal   cornerRadius() const;
 

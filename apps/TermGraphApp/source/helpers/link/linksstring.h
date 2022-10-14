@@ -21,6 +21,7 @@ public:
     QString replaceLink(int index, QString text) const;
 
     QString toRichText() const;
+    QString toPlainString() const;
 
     // Static stuff
     static bool isValidLinksString(QStringView str);

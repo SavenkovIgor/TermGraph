@@ -11,7 +11,7 @@
 #include "source/helpers/link/link.h"
 #include "source/helpers/link/linksstring.h"
 
-enum LinksDecoratorMode { Replace = 0, Insert };
+enum LinksDecoratorMode { Replace = 0, Insert, Cut };
 
 class LinksDecorator
 {
