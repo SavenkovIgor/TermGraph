@@ -17,6 +17,7 @@ public:
     explicit DataProvider(QObject *parent = nullptr);
 
     bool isReady() const;
+    int dbVersion() const;
     Opt<GroupUuid> currentGroup() const;
     void loadGroups();
     void loadGroup(GroupUuid uuid);

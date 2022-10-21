@@ -28,6 +28,11 @@ bool DataProvider::isReady() const
     return mGroups.has_value();
 }
 
+int DataProvider::dbVersion() const
+{
+    return dataStorage->storageVersion();
+}
+
 Opt<GroupUuid> DataProvider::currentGroup() const
 {
     return mCurrentGroup;

@@ -220,9 +220,7 @@ void GroupsManager::importTerm(const QJsonObject& nodeJson)
 }
 
 int GroupsManager::dbVersion() {
-    Q_UNIMPLEMENTED();
-    return -1;
-//    return dataSource->storageVersion();
+    return provider.dbVersion();
 }
 
 void GroupsManager::addNode(QJsonObject object)
