@@ -129,10 +129,10 @@ GroupData TermGroupTable::createGroupData(const QSqlRecord &rec)
 {
     GroupData info;
 
-    info.uuid    = GroupUuid::create(rec.value(GroupJsonValidator::uuidKey).toString());
-    info.name    = rec.value(GroupJsonValidator::nameKey).toString();
-    info.comment = rec.value(GroupJsonValidator::commentKey).toString();
-    info.size    = rec.value(GroupJsonValidator::sizeKey).toInt();
+    info.uuid    = GroupUuid::create(rec.value(JsonTools::uuidKey).toString());
+    info.name    = rec.value(JsonTools::nameKey).toString();
+    info.comment = rec.value(JsonTools::commentKey).toString();
+    info.size    = rec.value(JsonTools::sizeKey).toInt();
 
     return info;
 }
