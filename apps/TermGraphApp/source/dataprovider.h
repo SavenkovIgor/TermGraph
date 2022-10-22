@@ -29,13 +29,16 @@ public:
     void updateGroup(const GroupData& info);
     void deleteGroup(const GroupUuid& uuid);
 
-    bool hasTerm(const TermUuid& uuid) const;
     const TermData::List& terms() const;
-    Opt<TermData> term(const QString& definition, GroupUuid uuid) const;
+    Opt<TermData>         term(const QString& definition, GroupUuid uuid) const;
 
     void addTerm(const TermData& data);
-    void updateTerm(const TermData& data, DataStorageInterface::LastEditSource  lastEditSource, bool checkLastEdit = true);
+    void updateTerm(const TermData&                      data,
+                    DataStorageInterface::LastEditSource lastEditSource,
+                    bool                                 checkLastEdit = true);
     void deleteTerm(const TermUuid& uuid);
+
+    void importTerm(const TermData& data);
 
 signals:
     void groupListLoaded();

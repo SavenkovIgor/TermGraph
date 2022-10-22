@@ -203,11 +203,7 @@ void GroupsManager::importGroup(QJsonObject json)
 void GroupsManager::importTerm(const QJsonObject& nodeJson)
 {
     if (auto data = TermData::create(nodeJson, TermData::JsonCheckMode::Import)) {
-        if (provider.hasTerm(data->uuid.value())) {
-            provider.updateTerm(*data, DataStorageInterface::LastEditSource::FromData);
-        } else {
-            provider.addTerm(*data);
-        }
+        provider.importTerm(*data);
     } else {
         qWarning("Can't create TermData on import");
     }

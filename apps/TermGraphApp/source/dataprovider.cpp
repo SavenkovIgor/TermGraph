@@ -99,12 +99,6 @@ void DataProvider::deleteGroup(const GroupUuid &uuid)
     });
 }
 
-bool DataProvider::hasTerm(const TermUuid &uuid) const
-{
-    auto iter = std::find_if(mTerms.begin(), mTerms.end(), [uuid](const auto& term){ return term.uuid == uuid; });
-    return iter  != mTerms.end();
-}
-
 const TermData::List &DataProvider::terms() const
 {
     assert(isReady());
@@ -155,3 +149,14 @@ void DataProvider::deleteTerm(const TermUuid &uuid)
     });
 }
 
+void DataProvider::importTerm(const TermData &data)
+{
+    assert(data.uuid);
+    dataStorage->term(*data.uuid).then([this, data](Result<TermData> result) {
+        if (result.has_value()) {
+            dataStorage->updateTerm(data, DataStorageInterface::LastEditSource::FromData, true);
+        } else {
+            dataStorage->addTerm(data);
+        }
+    });
+}
