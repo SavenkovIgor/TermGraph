@@ -6,21 +6,12 @@
 #include <QJsonObject>
 
 #include <CommonTools/GroupUuid.h>
+#include <CommonTools/JsonTools.h>
 #include <CommonTools/Validator.h>
-
 
 class GroupJsonValidator : public Validator<QJsonObject, ErrorCodes>
 {
 public:
-    constexpr static auto uuidKey          = "uuid";
-    constexpr static auto nameKey          = "name";
-    constexpr static auto commentKey       = "comment";
-    constexpr static auto sizeKey          = "size";
-    constexpr static auto lastEditKey      = "lastEdit";
-
-    constexpr static auto nodesKey         = "nodesList";
-    constexpr static auto nodesLastEditKey = "nodesLastEdit";
-
     static GroupJsonValidator defaultChecks(bool checkLastEdit = false)
     {
         GroupJsonValidator ret;
@@ -46,27 +37,42 @@ public:
     static GroupJsonValidator importChecks()
     {
         auto ret = defaultChecks();
-        ret.addCheck(&validNodesArray,         ErrorCodes::JsonNodesFieldMissedOrWrongType);
+        ret.addCheck(&validNodesArray, ErrorCodes::JsonNodesFieldMissedOrWrongType);
         ret.addCheck(&validNodesLastEditField, ErrorCodes::JsonNodesLastEditFieldMissedOrWrongType);
-        ret.addCheck(&validNodesLastEdit,      ErrorCodes::NodesLastEditInvalid);
+        ret.addCheck(&validNodesLastEdit, ErrorCodes::NodesLastEditInvalid);
         return ret;
     }
 
 private:
-    static bool validUuidField(const QJsonObject& obj) { return obj[uuidKey].isString(); }
-    static bool validUuid(const QJsonObject& obj) { return GroupUuid::create(obj[uuidKey].toString()).has_value(); }
+    static bool validUuidField(const QJsonObject& obj) { return obj[JsonTools::uuidKey].isString(); }
+    static bool validUuid(const QJsonObject& obj)
+    {
+        return GroupUuid::create(obj[JsonTools::uuidKey].toString()).has_value();
+    }
 
-    static bool validNameField(const QJsonObject& obj) { return obj[nameKey].isString(); }
-    static bool nameNotEmpty(const QJsonObject& obj) { return !(obj[nameKey].toString().isEmpty()); }
+    static bool validNameField(const QJsonObject& obj) { return obj[JsonTools::nameKey].isString(); }
+    static bool nameNotEmpty(const QJsonObject& obj) { return !(obj[JsonTools::nameKey].toString().isEmpty()); }
 
-    static bool validCommentField(const QJsonObject& obj) { return obj[commentKey].isString(); }
+    static bool validCommentField(const QJsonObject& obj) { return obj[JsonTools::commentKey].isString(); }
 
-    static bool validSizeField(const QJsonObject& obj) { return obj[sizeKey].isDouble() && obj[sizeKey].toInt(-1) != -1; }
+    static bool validSizeField(const QJsonObject& obj)
+    {
+        return obj[JsonTools::sizeKey].isDouble() && obj[JsonTools::sizeKey].toInt(-1) != -1;
+    }
 
-    static bool validLastEditField(const QJsonObject& obj) { return obj[lastEditKey].isString(); }
-    static bool validLastEdit(const QJsonObject& obj) { return !(QDateTime::fromString(obj[lastEditKey].toString(), Qt::ISODate).isNull()); }
+    static bool validLastEditField(const QJsonObject& obj) { return obj[JsonTools::lastEditKey].isString(); }
+    static bool validLastEdit(const QJsonObject& obj)
+    {
+        return !(QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate).isNull());
+    }
 
-    static bool validNodesArray(const QJsonObject& obj) { return obj[nodesKey].isArray(); }
-    static bool validNodesLastEditField(const QJsonObject& obj) { return obj[nodesLastEditKey].isString(); }
-    static bool validNodesLastEdit(const QJsonObject& obj) { return !(QDateTime::fromString(obj[nodesLastEditKey].toString(), Qt::ISODate).isNull()); }
+    static bool validNodesArray(const QJsonObject& obj)
+    {
+        return obj[JsonTools::termsKey].isArray() || obj[JsonTools::oldTermsKey].isArray();
+    }
+    static bool validNodesLastEditField(const QJsonObject& obj) { return obj[JsonTools::nodesLastEditKey].isString(); }
+    static bool validNodesLastEdit(const QJsonObject& obj)
+    {
+        return !(QDateTime::fromString(obj[JsonTools::nodesLastEditKey].toString(), Qt::ISODate).isNull());
+    }
 };

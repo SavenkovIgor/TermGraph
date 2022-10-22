@@ -5,7 +5,6 @@
 
 #include <functional>
 
-#include <CommonTools/SafeUuid.h>
 
 template<typename Object, typename Errors>
 class Validator

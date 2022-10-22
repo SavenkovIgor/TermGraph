@@ -42,13 +42,13 @@ struct GroupData
 
         GroupData ret;
 
-        ret.uuid     = GroupUuid::create(obj[GroupJsonValidator::uuidKey].toString());
-        ret.name     = obj[GroupJsonValidator::nameKey].toString();
-        ret.comment  = obj[GroupJsonValidator::commentKey].toString();
-        ret.size     = obj[GroupJsonValidator::sizeKey].toInt(0);
-        ret.lastEdit = QDateTime::fromString(obj[GroupJsonValidator::lastEditKey].toString(), Qt::ISODate);
+        ret.uuid     = GroupUuid::create(obj[JsonTools::uuidKey].toString());
+        ret.name     = obj[JsonTools::nameKey].toString();
+        ret.comment  = obj[JsonTools::commentKey].toString();
+        ret.size     = obj[JsonTools::sizeKey].toInt(0);
+        ret.lastEdit = QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate);
 
-        auto nodeLastEdit = QDateTime::fromString(obj[GroupJsonValidator::nodesLastEditKey].toString(), Qt::ISODate);
+        auto nodeLastEdit = QDateTime::fromString(obj[JsonTools::nodesLastEditKey].toString(), Qt::ISODate);
         if (!nodeLastEdit.isNull())
             ret.nodesLastEdit = nodeLastEdit;
         else
@@ -77,14 +77,14 @@ struct GroupData
     {
         QJsonObject ret;
 
-        ret.insert(GroupJsonValidator::uuidKey, (uuid ? uuid->toString() : ""));
-        ret.insert(GroupJsonValidator::nameKey, name);
-        ret.insert(GroupJsonValidator::commentKey, comment);
-        ret.insert(GroupJsonValidator::sizeKey, size);
-        ret.insert(GroupJsonValidator::lastEditKey, lastEdit.toString(Qt::ISODate));
+        ret.insert(JsonTools::uuidKey, (uuid ? uuid->toString() : ""));
+        ret.insert(JsonTools::nameKey, name);
+        ret.insert(JsonTools::commentKey, comment);
+        ret.insert(JsonTools::sizeKey, size);
+        ret.insert(JsonTools::lastEditKey, lastEdit.toString(Qt::ISODate));
 
         if (nodesLastEdit)
-            ret.insert(GroupJsonValidator::nodesLastEditKey, nodesLastEdit->toString(Qt::ISODate));
+            ret.insert(JsonTools::nodesLastEditKey, nodesLastEdit->toString(Qt::ISODate));
 
         return ret;
     }

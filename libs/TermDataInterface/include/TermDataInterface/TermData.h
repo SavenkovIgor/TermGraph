@@ -83,21 +83,21 @@ struct TermData
         if (!TermJsonValidator(checkUuid, checkLastEdit).check(obj))
             return std::nullopt;
 
-        auto gUuid = GroupUuid::create(obj[TermJsonValidator::groupUuidKey].toString());
+        auto gUuid = GroupUuid::create(obj[JsonTools::groupUuidKey].toString());
 
         if (!gUuid)
             return std::nullopt;
 
         TermData ret{
-            .uuid        = TermUuid::create(obj[TermJsonValidator::uuidKey].toString()),
-            .term        = obj[TermJsonValidator::termKey].toString(),
-            .definition  = obj[TermJsonValidator::definitionKey].toString(),
-            .description = obj[TermJsonValidator::descriptionKey].toString(),
-            .examples    = obj[TermJsonValidator::examplesKey].toString(),
-            .wikiUrl     = obj[TermJsonValidator::wikiUrlKey].toString(),
-            .wikiImage   = obj[TermJsonValidator::wikiImageKey].toString(),
+            .uuid        = TermUuid::create(obj[JsonTools::uuidKey].toString()),
+            .term        = obj[JsonTools::termKey].toString(),
+            .definition  = obj[JsonTools::definitionKey].toString(),
+            .description = obj[JsonTools::descriptionKey].toString(),
+            .examples    = obj[JsonTools::examplesKey].toString(),
+            .wikiUrl     = obj[JsonTools::wikiUrlKey].toString(),
+            .wikiImage   = obj[JsonTools::wikiImageKey].toString(),
             .groupUuid   = *gUuid,
-            .lastEdit    = QDateTime::fromString(obj[TermJsonValidator::lastEditKey].toString(), Qt::ISODate),
+            .lastEdit    = QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate),
         };
 
         if (ret.isNull()) // Release safety
@@ -120,15 +120,15 @@ struct TermData
     {
         QJsonObject ret;
 
-        ret.insert(TermJsonValidator::uuidKey, (uuid ? uuid->toString() : ""));
-        ret.insert(TermJsonValidator::termKey, term);
-        ret.insert(TermJsonValidator::definitionKey, definition);
-        ret.insert(TermJsonValidator::descriptionKey, description);
-        ret.insert(TermJsonValidator::examplesKey, examples);
-        ret.insert(TermJsonValidator::wikiUrlKey, wikiUrl);
-        ret.insert(TermJsonValidator::wikiImageKey, wikiImage);
-        ret.insert(TermJsonValidator::groupUuidKey, groupUuid.toString());
-        ret.insert(TermJsonValidator::lastEditKey, lastEdit.toString(Qt::ISODate));
+        ret.insert(JsonTools::uuidKey, (uuid ? uuid->toString() : ""));
+        ret.insert(JsonTools::termKey, term);
+        ret.insert(JsonTools::definitionKey, definition);
+        ret.insert(JsonTools::descriptionKey, description);
+        ret.insert(JsonTools::examplesKey, examples);
+        ret.insert(JsonTools::wikiUrlKey, wikiUrl);
+        ret.insert(JsonTools::wikiImageKey, wikiImage);
+        ret.insert(JsonTools::groupUuidKey, groupUuid.toString());
+        ret.insert(JsonTools::lastEditKey, lastEdit.toString(Qt::ISODate));
 
         return ret;
     }
