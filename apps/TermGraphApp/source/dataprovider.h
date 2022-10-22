@@ -29,6 +29,7 @@ public:
     void updateGroup(const GroupData& info);
     void deleteGroup(const GroupUuid& uuid);
 
+    bool hasTerm(const TermUuid& uuid) const;
     const TermData::List& terms() const;
     Opt<TermData> term(const QString& definition, GroupUuid uuid) const;
 

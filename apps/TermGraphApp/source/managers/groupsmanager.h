@@ -50,7 +50,7 @@ public:
     // Json
     void importGroupFromJsonFile(const QString& filename);
     void importGroupFromJsonString(const QString& rawJson);
-    void importGroup(const QJsonDocument& json);
+    void importGroup(QJsonObject json);
     void importTerm(const QJsonObject& nodeJson);
 
     Q_INVOKABLE int dbVersion();

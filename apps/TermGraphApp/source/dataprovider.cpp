@@ -99,6 +99,12 @@ void DataProvider::deleteGroup(const GroupUuid &uuid)
     });
 }
 
+bool DataProvider::hasTerm(const TermUuid &uuid) const
+{
+    auto iter = std::find_if(mTerms.begin(), mTerms.end(), [uuid](const auto& term){ return term.uuid == uuid; });
+    return iter  != mTerms.end();
+}
+
 const TermData::List &DataProvider::terms() const
 {
     assert(isReady());
