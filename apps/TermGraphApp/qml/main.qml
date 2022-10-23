@@ -3,6 +3,7 @@
 
 import QtQuick
 import QtQuick.Controls
+import QtQuick.Layouts  // NOTE: Need for proper plugins initialization on Android
 import QtQuick.Controls.Material
 
 import Api
