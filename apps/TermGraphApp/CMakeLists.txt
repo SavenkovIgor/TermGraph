@@ -4,7 +4,7 @@
 
 project (TermGraph VERSION 2.0.0 LANGUAGES CXX)
 
-find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network)
+find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Svg)
 
 qt_standard_project_setup()
 
@@ -126,6 +126,7 @@ target_link_libraries (TermGraph
     PRIVATE
         Qt6::Core
         Qt6::Gui
+        Qt6::Svg
         Qt6::Qml
         Qt6::Quick
         Qt6::QuickControls2
