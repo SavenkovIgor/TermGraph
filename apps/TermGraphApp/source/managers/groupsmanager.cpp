@@ -36,6 +36,8 @@ GroupsManager::GroupsManager(NotifyInterface&                      notifier,
     connect(&provider, &DataProvider::termAdded, this, &GroupsManager::termAdded);
     connect(&provider, &DataProvider::termUpdated, this, &GroupsManager::termUpdated);
     connect(&provider, &DataProvider::termDeleted, this, &GroupsManager::termDeleted);
+
+    connect(&provider, &DataProvider::exportGroupReady, this, &GroupsManager::exportGroupReady);
 }
 
 QString GroupsManager::getGroupName(const QUuid& groupUuid) const {
@@ -319,22 +321,9 @@ void GroupsManager::saveGroupInFolder(TermGroup::OptPtr group)
 
 bool GroupsManager::groupExist(const GroupUuid& uuid) { return provider.group(uuid).has_value(); }
 
-QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
+void GroupsManager::requestGroupExport(const QUuid& groupUuid)
 {
-    Q_UNIMPLEMENTED();
-//    assert(!groupUuid.isNull());
-//    auto uuid = GroupUuid::create(groupUuid).value();
-
-//    QJsonObject groupJson = dataSource->getGroup(uuid).get().value();
-
-//    QJsonArray termArray;
-
-//    auto terms = dataSource->getTerms(uuid).get().value();
-
-//    for (const auto& term : terms)
-//        termArray.append(static_cast<QJsonObject>(term));
-
-//    groupJson.insert("nodesList", termArray);
-
-//    return QJsonDocument(groupJson);
+    assert(!groupUuid.isNull());
+    auto uuid = GroupUuid::create(groupUuid).value();
+    provider.requestGroupExport(uuid);
 }

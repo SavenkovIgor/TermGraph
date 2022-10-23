@@ -15,8 +15,6 @@ class NetworkManager : public QObject
 public:
     explicit NetworkManager(NotifyInterface& notifier, QObject* parent = nullptr);
 
-    bool sendGroup(const QJsonDocument& doc);
-
     // Properties
     Q_PROPERTY(bool isConnected READ hasConnection NOTIFY newOutputConnectionState FINAL)
     Q_PROPERTY(QString connectionState READ getOutputSocketState NOTIFY newOutputConnectionState FINAL)
@@ -35,6 +33,9 @@ signals:
     void newOutputConnectionState();
 
     void serverStateChanged();
+
+public slots:
+    bool sendGroup(const QJsonDocument& doc);
 
 private slots:
     void newInputData(QHostAddress fromHost, QByteArray data);

@@ -12,6 +12,8 @@ SyncManager::SyncManager(NetworkManager* networkManager, GroupsManager* groupsMa
             &NetworkManager::newSyncGroup,
             this->mGroupsManager,
             &GroupsManager::importGroupFromJsonString);
+
+    connect(this->mGroupsManager, &GroupsManager::exportGroupReady, this->mNetworkManager, &NetworkManager::sendGroup);
 }
 
 bool SyncManager::isDataContainer(const QJsonDocument& doc)
@@ -29,11 +31,7 @@ bool SyncManager::isDataContainer(const QJsonDocument& doc)
     return hasContentType && hasVersion && hasContent;
 }
 
-void SyncManager::sendGroupByNetwork(const QUuid groupUuid)
-{
-    auto jsonDoc = mGroupsManager->getGroupForExport(groupUuid);
-    mNetworkManager->sendGroup(jsonDoc);
-}
+void SyncManager::sendGroupByNetwork(const QUuid groupUuid) { mGroupsManager->requestGroupExport(groupUuid); }
 
 QString SyncManager::getContentTypeName(const SyncManager::ContentType& type)
 {

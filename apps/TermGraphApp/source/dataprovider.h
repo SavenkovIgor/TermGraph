@@ -39,6 +39,7 @@ public:
     void deleteTerm(const TermUuid& uuid);
 
     void importTerm(const TermData& data);
+    void requestGroupExport(const GroupUuid& uuid);
 
 signals:
     void groupListLoaded();
@@ -53,6 +54,8 @@ signals:
     void termDeleted(TermUuid uuid);
 
     void showError(int errorCode);
+
+    void exportGroupReady(QJsonDocument doc);
 
 private:
     std::unique_ptr<DataStorageInterface> dataStorage;

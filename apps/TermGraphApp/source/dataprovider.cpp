@@ -160,3 +160,29 @@ void DataProvider::importTerm(const TermData &data)
         }
     });
 }
+
+void DataProvider::requestGroupExport(const GroupUuid &uuid)
+{
+    dataStorage->group(uuid).then([this](Result<GroupData> result) {
+        if (result.has_value()) {
+            auto groupData = result.value();
+            assert(groupData.uuid.has_value());
+
+            dataStorage->terms(groupData.uuid.value()).then([this, groupData](Result<TermData::List> termsFuture) {
+                if (!termsFuture.has_value())
+                    return;
+
+                auto       terms = termsFuture.value();
+                QJsonArray termArray;
+
+                for (const auto &term : terms)
+                    termArray.append(static_cast<QJsonObject>(term));
+
+                QJsonObject groupJson = static_cast<QJsonObject>(groupData);
+                groupJson.insert(JsonTools::termsKey, termArray);
+
+                emit exportGroupReady(QJsonDocument(groupJson));
+            });
+        }
+    });
+}

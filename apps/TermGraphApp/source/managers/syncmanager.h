@@ -28,8 +28,8 @@ public:
     Q_INVOKABLE void sendGroupByNetwork(const QUuid groupUuid);
 
 private:
-    NetworkManager*      mNetworkManager;
-    const GroupsManager* mGroupsManager;
+    NetworkManager* mNetworkManager;
+    GroupsManager*  mGroupsManager;
 
     static QString     getContentTypeName(const ContentType& type);
     static ContentType getContentTypeByName(const QString& typeName);
