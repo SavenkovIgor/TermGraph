@@ -5,7 +5,6 @@
 
 #include <vector>
 
-#include <QColor>
 #include <QLineF>
 #include <QProperty>
 #include <QSizeF>

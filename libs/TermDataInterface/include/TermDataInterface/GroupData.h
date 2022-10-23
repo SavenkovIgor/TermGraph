@@ -29,10 +29,7 @@ struct GroupData
 
     inline bool isNull() const { return uuid.has_value() && name.isEmpty(); }
 
-    inline bool operator==(const GroupData& rhs) const
-    {
-        return uuid == rhs.uuid && name == rhs.name && comment == rhs.comment;
-    }
+    inline bool operator==(const GroupData& rhs) const = default;
 
     // --- JSON ---
     static inline Opt<GroupData> create(const QJsonObject& obj)

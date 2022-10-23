@@ -30,4 +30,12 @@ if (BUILD_TESTING)
             tests/termdatatest.cpp
         LIBRARIES TermDataInterface CommonTools Qt6::Core)
 
+    create_test (
+        NAME    TestGroupData
+        SOURCES
+            include/TermDataInterface/GroupData.h
+            include/TermDataInterface/GroupValidator.h
+            tests/groupdatatest.cpp
+        LIBRARIES TermDataInterface CommonTools Qt6::Core)
+
 endif ()

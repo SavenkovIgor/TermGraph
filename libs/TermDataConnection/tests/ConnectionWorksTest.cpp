@@ -191,7 +191,7 @@
 //        term.wikiImage += "1";
 
 //        EXPECT_TRUE(
-//            mStorage->updateTerm(term, DataStorageInterface::LastEditSource::TakeFromTermData).result().has_value());
+//            mStorage->updateTerm(term, DataStorageInterface::LastEditSource::FromData).result().has_value());
 
 //        EXPECT_TRUE(term == mStorage->getTerm(*term.uuid).result().value());
 //    }

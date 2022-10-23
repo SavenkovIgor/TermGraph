@@ -17,6 +17,7 @@ public:
     explicit DataProvider(QObject *parent = nullptr);
 
     bool isReady() const;
+    int dbVersion() const;
     Opt<GroupUuid> currentGroup() const;
     void loadGroups();
     void loadGroup(GroupUuid uuid);
@@ -29,11 +30,16 @@ public:
     void deleteGroup(const GroupUuid& uuid);
 
     const TermData::List& terms() const;
-    Opt<TermData> term(const QString& definition, GroupUuid uuid) const;
+    Opt<TermData>         term(const QString& definition, GroupUuid uuid) const;
 
     void addTerm(const TermData& data);
-    void updateTerm(const TermData& data, DataStorageInterface::LastEditSource  lastEditSource, bool checkLastEdit = true);
+    void updateTerm(const TermData&                      data,
+                    DataStorageInterface::LastEditSource lastEditSource,
+                    bool                                 checkLastEdit = true);
     void deleteTerm(const TermUuid& uuid);
+
+    void importTerm(const TermData& data);
+    void requestGroupExport(const GroupUuid& uuid);
 
 signals:
     void groupListLoaded();
@@ -48,6 +54,8 @@ signals:
     void termDeleted(TermUuid uuid);
 
     void showError(int errorCode);
+
+    void exportGroupReady(QJsonDocument doc);
 
 private:
     std::unique_ptr<DataStorageInterface> dataStorage;

@@ -116,7 +116,7 @@ Result<TermData> TermTable::updateTerm(const TermData&                      info
 
     TermData nodeContainer = info;
 
-    if (lastEditSource == DataStorageInterface::AutoGenerate)
+    if (lastEditSource == DataStorageInterface::Now)
         nodeContainer.lastEdit = now();
 
     DbTools::start(SqlQueryBuilder().updateTerm(nodeContainer));

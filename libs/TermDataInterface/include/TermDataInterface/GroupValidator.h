@@ -36,10 +36,16 @@ public:
 
     static GroupJsonValidator importChecks()
     {
-        auto ret = defaultChecks();
+        GroupJsonValidator ret;
+        ret.addCheck(&validUuidField, ErrorCodes::JsonUuidFieldMissedOrWrongType);
+        ret.addCheck(&validUuid, ErrorCodes::GroupUuidInvalid);
+
+        ret.addCheck(&validNameField, ErrorCodes::JsonNameFieldMissedOrWrongType);
+        ret.addCheck(&nameNotEmpty, ErrorCodes::GroupNameEmpty);
+
+        ret.addCheck(&validCommentField, ErrorCodes::JsonCommentFieldMissedOrWrongType);
+
         ret.addCheck(&validNodesArray, ErrorCodes::JsonNodesFieldMissedOrWrongType);
-        ret.addCheck(&validNodesLastEditField, ErrorCodes::JsonNodesLastEditFieldMissedOrWrongType);
-        ret.addCheck(&validNodesLastEdit, ErrorCodes::NodesLastEditInvalid);
         return ret;
     }
 
@@ -66,10 +72,7 @@ private:
         return !(QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate).isNull());
     }
 
-    static bool validNodesArray(const QJsonObject& obj)
-    {
-        return obj[JsonTools::termsKey].isArray() || obj[JsonTools::oldTermsKey].isArray();
-    }
+    static bool validNodesArray(const QJsonObject& obj) { return obj[JsonTools::termsKey].isArray(); }
     static bool validNodesLastEditField(const QJsonObject& obj) { return obj[JsonTools::nodesLastEditKey].isString(); }
     static bool validNodesLastEdit(const QJsonObject& obj)
     {

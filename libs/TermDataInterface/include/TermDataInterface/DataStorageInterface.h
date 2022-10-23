@@ -16,7 +16,7 @@
 class DataStorageInterface
 {
 public:
-    enum LastEditSource { TakeFromTermData = 0, AutoGenerate };
+    enum LastEditSource { FromData = 0, Now };
 
     // Storage
     virtual int storageVersion() const = 0;
@@ -37,7 +37,7 @@ public:
     virtual FutureResult<TermData> addTerm(const TermData& data) = 0;
     virtual FutureResult<TermData> updateTerm(const TermData& data,
                                            LastEditSource  lastEditSource,
-                                           bool            checkLastEdit = true)
+                                           bool            checkLastEdit)
         = 0;
     virtual FutureResult<TermData> deleteTerm(const TermUuid& uuid) = 0;
 

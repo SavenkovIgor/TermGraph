@@ -36,6 +36,8 @@ GroupsManager::GroupsManager(NotifyInterface&                      notifier,
     connect(&provider, &DataProvider::termAdded, this, &GroupsManager::termAdded);
     connect(&provider, &DataProvider::termUpdated, this, &GroupsManager::termUpdated);
     connect(&provider, &DataProvider::termDeleted, this, &GroupsManager::termDeleted);
+
+    connect(&provider, &DataProvider::exportGroupReady, this, &GroupsManager::exportGroupReady);
 }
 
 QString GroupsManager::getGroupName(const QUuid& groupUuid) const {
@@ -99,7 +101,7 @@ void GroupsManager::importGroupFromJsonFile(const QString& filename)
 void GroupsManager::importGroupFromJsonString(const QString& rawJson)
 {
     QJsonDocument doc = QJsonDocument::fromJson(rawJson.toUtf8());
-    importGroup(doc);
+    importGroup(doc.object());
 }
 
 TermGroup::OptPtr GroupsManager::createGroup(Opt<GroupUuid> uuid)
@@ -162,67 +164,55 @@ QStringList GroupsManager::getAllUuidStringsSortedByLastEdit()
     return ret;
 }
 
-void GroupsManager::importGroup(const QJsonDocument& json)
+void GroupsManager::importGroup(QJsonObject json)
 {
-    Q_UNIMPLEMENTED();
-//    QJsonObject jsonGroup = json.object();
+    // Some import data fixes
+    // Update of termsKey if need
+    if (json.contains(JsonTools::oldTermsKey)) {
+        json.insert(JsonTools::termsKey, json[JsonTools::oldTermsKey]);
+        json.remove(JsonTools::oldTermsKey);
+    }
 
-//    if (!GroupJsonValidator::importChecks().check(jsonGroup))
-//        return;
+    // Add size field
+    if (json[JsonTools::termsKey].isArray() && !json.contains(JsonTools::sizeKey))
+        json.insert(JsonTools::sizeKey, json[JsonTools::termsKey].toArray().size());
 
-//    auto groupData = GroupData::create(jsonGroup);
+    if (!GroupJsonValidator::importChecks().check(json))
+        return;
 
-//    if (!groupData || !groupData->uuid)
-//        return;
+    auto groupData = GroupData::create(json);
 
-//    // Searching for existed group
-//    if (dataSource->getGroup(*groupData->uuid).get().has_value()) { // Group found
-//        if (!dataSource->updateGroup(*groupData).get()) {
-//            return;
-//        }
-//    } else {
-//        if (!dataSource->addGroup(*groupData).get()) {
-//            return;
-//        }
-//    }
+    if (!groupData || !groupData->uuid)
+        return;
 
-//    QJsonArray nodes = jsonGroup["nodesList"].toArray();
+    // Searching for existed group
+    if (provider.group(*groupData->uuid).has_value()) { // Group found
+        provider.updateGroup(*groupData);
+    } else {
+        provider.addGroup(*groupData);
+    }
 
-//    // Importing nodes
-//    for (const auto nodeValue : nodes) {
-//        importTerm(nodeValue.toObject());
-//    }
+    QJsonArray nodes = json[JsonTools::termsKey].toArray();
 
-//    notifier.showInfo(groupData->name + " синхронизировано");
-//    emit groupAdded();
+    // Importing nodes
+    for (const auto& node : nodes)
+        importTerm(node.toObject());
+
+    notifier.showInfo(groupData->name + " синхронизировано");
+    emit groupAdded(*groupData);
 }
 
 void GroupsManager::importTerm(const QJsonObject& nodeJson)
 {
-    Q_UNIMPLEMENTED();
-//    if (auto data = TermData::create(nodeJson, TermData::JsonCheckMode::Import)) {
-//        auto addResult = dataSource->addTerm(*data).get();
-//        if (!addResult) {
-//            // If can't add, try to update exist term
-//            if (addResult.error() == DbErrorCodes::TermUuidAlreadyExist) {
-//                auto updateResult = dataSource->updateTerm(*data,
-//                                                           DataStorageInterface::LastEditSource::TakeFromTermData).get();
-//                if (!updateResult) {
-//                    qWarning() << Errors::toQString(updateResult.error().value());
-//                }
-//            } else {
-//                qWarning() << Errors::toQString(addResult.error().value());
-//            }
-//        }
-//    } else {
-//        qWarning("Can't create TermData on import");
-//    }
+    if (auto data = TermData::create(nodeJson, TermData::JsonCheckMode::Import)) {
+        provider.importTerm(*data);
+    } else {
+        qWarning("Can't create TermData on import");
+    }
 }
 
 int GroupsManager::dbVersion() {
-    Q_UNIMPLEMENTED();
-    return -1;
-//    return dataSource->storageVersion();
+    return provider.dbVersion();
 }
 
 void GroupsManager::addNode(QJsonObject object)
@@ -241,7 +231,7 @@ void GroupsManager::updateNode(const QJsonObject& object)
     assert(data.has_value());
     assert(data->uuid);
 
-    provider.updateTerm((*data), DataStorageInterface::LastEditSource::AutoGenerate, false);
+    provider.updateTerm((*data), DataStorageInterface::LastEditSource::Now, false);
 }
 
 void GroupsManager::deleteNode(const QUuid uuid)
@@ -331,22 +321,9 @@ void GroupsManager::saveGroupInFolder(TermGroup::OptPtr group)
 
 bool GroupsManager::groupExist(const GroupUuid& uuid) { return provider.group(uuid).has_value(); }
 
-QJsonDocument GroupsManager::getGroupForExport(const QUuid& groupUuid) const
+void GroupsManager::requestGroupExport(const QUuid& groupUuid)
 {
-    Q_UNIMPLEMENTED();
-//    assert(!groupUuid.isNull());
-//    auto uuid = GroupUuid::create(groupUuid).value();
-
-//    QJsonObject groupJson = dataSource->getGroup(uuid).get().value();
-
-//    QJsonArray termArray;
-
-//    auto terms = dataSource->getTerms(uuid).get().value();
-
-//    for (const auto& term : terms)
-//        termArray.append(static_cast<QJsonObject>(term));
-
-//    groupJson.insert("nodesList", termArray);
-
-//    return QJsonDocument(groupJson);
+    assert(!groupUuid.isNull());
+    auto uuid = GroupUuid::create(groupUuid).value();
+    provider.requestGroupExport(uuid);
 }

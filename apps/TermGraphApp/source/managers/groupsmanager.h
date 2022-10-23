@@ -45,12 +45,12 @@ public:
 
     GroupUuid::List getAllUuidsSortedByLastEdit();
 
-    QJsonDocument getGroupForExport(const QUuid& groupUuid) const;
+    void requestGroupExport(const QUuid& groupUuid);
 
     // Json
     void importGroupFromJsonFile(const QString& filename);
     void importGroupFromJsonString(const QString& rawJson);
-    void importGroup(const QJsonDocument& json);
+    void importGroup(QJsonObject json);
     void importTerm(const QJsonObject& nodeJson);
 
     Q_INVOKABLE int dbVersion();
@@ -74,6 +74,8 @@ signals:
     void termAdded(TermData data);
     void termUpdated(TermData data);
     void termDeleted(TermUuid uuid);
+
+    void exportGroupReady(QJsonDocument doc);
 
 private slots:
     void showError(int code);

@@ -15,7 +15,7 @@ TermData defaultData() {
         .wikiUrl     = "Wiki",
         .wikiImage   = "WikiImg",
         .groupUuid   = GroupUuid::create("{5fdb1e7e-f47f-4c88-96d2-fd3d427d2a9d}").value(),
-        .lastEdit    = QDateTime::currentDateTime()
+        .lastEdit    = QDateTime::fromString("2022-08-23T20:01:10Z", Qt::ISODate)
     };
 }
 
@@ -26,6 +26,10 @@ TEST(TermDataTest, ComparisonTest)
 
     data1 = defaultData();
     data1.uuid = TermUuid::generate();
+    EXPECT_NE(data1, defaultData());
+
+    data1 = defaultData();
+    data1.uuid = std::nullopt;
     EXPECT_NE(data1, defaultData());
 
     data1 = defaultData();

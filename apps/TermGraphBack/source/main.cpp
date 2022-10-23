@@ -264,7 +264,7 @@ int main()
             if (auto data = TermData::create(QByteArray::fromStdString(req->body()),
                                              TermData::JsonCheckMode::UpdateTerm)) {
                 (*data).uuid = (*uuid);
-                if (auto res = storage.updateTerm(*data, DataStorageInterface::LastEditSource::AutoGenerate, false).result()) {
+                if (auto res = storage.updateTerm(*data, DataStorageInterface::LastEditSource::Now, false).result()) {
                     return successResponse(req, static_cast<QByteArray>(res.value()));
                 } else {
                     return responseForDbError(req, res.error());
