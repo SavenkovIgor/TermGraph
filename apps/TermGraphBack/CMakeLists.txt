@@ -2,7 +2,11 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
-project (TermGraphBack VERSION 0.1.0 LANGUAGES CXX)
+project (TermGraphBack
+         VERSION 0.1.0
+         DESCRIPTION "TermGraph REST Api server"
+         HOMEPAGE_URL "https://termgraph.app/"
+         LANGUAGES CXX)
 
 if (BUILD_BACKEND)
     find_package (Qt6 REQUIRED COMPONENTS Core)

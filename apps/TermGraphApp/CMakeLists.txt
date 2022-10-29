@@ -2,7 +2,11 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
-project (TermGraph VERSION 2.0.0 LANGUAGES CXX)
+project (TermGraph
+         VERSION 2.0.0
+         DESCRIPTION "Terms diagram builder. Polish your knowledge with accurate definitions."
+         HOMEPAGE_URL "https://termgraph.app/"
+         LANGUAGES CXX)
 
 find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Svg)
 
