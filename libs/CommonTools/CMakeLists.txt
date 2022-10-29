@@ -4,7 +4,7 @@
 
 project (CommonTools VERSION 1.0.0 LANGUAGES CXX)
 
-find_package (Qt6 COMPONENTS Core REQUIRED)
+find_package (Qt6 REQUIRED COMPONENTS Core)
 
 if (ANDROID OR WASM)
     set (outcome_DIR "${CMAKE_BINARY_DIR}/conan-dependencies")
@@ -34,7 +34,7 @@ if (BUILD_TESTING)
     include (TestTools)
 
     enable_testing ()
-    find_package (Qt6 COMPONENTS Core REQUIRED)
+    find_package (Qt6 REQUIRED COMPONENTS Core)
 
     create_test (
         NAME      TestUuids

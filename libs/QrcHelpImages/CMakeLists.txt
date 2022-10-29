@@ -4,7 +4,7 @@
 
 project (HelpImagesResource LANGUAGES CXX)
 
-find_package (Qt6 COMPONENTS Core REQUIRED)
+find_package (Qt6 REQUIRED COMPONENTS Core)
 
 add_library (HelpImagesResource STATIC)
 

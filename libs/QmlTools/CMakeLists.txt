@@ -4,7 +4,7 @@
 
 project (ToolsModule LANGUAGES CXX)
 
-find_package (Qt6 COMPONENTS QuickControls2 REQUIRED)
+find_package (Qt6 REQUIRED COMPONENTS QuickControls2)
 
 qt_add_library (ToolsModule STATIC)
 

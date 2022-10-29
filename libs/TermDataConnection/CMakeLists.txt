@@ -4,7 +4,7 @@
 
 project (TermDataConnection VERSION 1.0.0 LANGUAGES CXX)
 
-find_package (Qt6 COMPONENTS Core Network REQUIRED)
+find_package (Qt6 REQUIRED COMPONENTS Core Network)
 
 add_library (TermDataConnection STATIC)
 

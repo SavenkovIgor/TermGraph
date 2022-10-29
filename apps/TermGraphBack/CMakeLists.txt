@@ -5,7 +5,7 @@
 project (TermGraphBack VERSION 0.1.0 LANGUAGES CXX)
 
 if (BUILD_BACKEND)
-    find_package (Qt6 COMPONENTS Core REQUIRED)
+    find_package (Qt6 REQUIRED COMPONENTS Core)
     find_package (restinio REQUIRED)
 
     add_executable (TermGraphBack)
