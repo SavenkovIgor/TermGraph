@@ -11,13 +11,11 @@ class TermGraphConan(ConanFile):
 
     options = {'with_qt':           [True, False],
                'build_application': [True, False],
-               'build_backend':     [True, False],
                'build_frontend':    [True, False],
                'build_tests':       [True, False]}
 
     default_options = {'with_qt':           False,
                        'build_application': True,
-                       'build_backend':     False,
                        'build_frontend':    False,
                        'build_tests':       True}
 
@@ -35,15 +33,11 @@ class TermGraphConan(ConanFile):
                 self.requires('qtshadertools/6.3.1@qt/everywhere')
                 self.requires('qtsvg/6.3.1@qt/everywhere')
 
-        if self.options.build_backend:
-            self.requires('restinio/0.6.17')
-
     def generate(self):
         tc = CMakeToolchain(self)
 
         if self.options.with_qt:
             tc.cache_variables["BUILD_APPLICATION"] = self.options.build_application
-            tc.cache_variables["BUILD_BACKEND"] = self.options.build_backend
             tc.cache_variables["BUILD_FRONTEND"] = self.options.build_frontend
             tc.cache_variables["BUILD_TESTING"] = self.options.build_tests
 

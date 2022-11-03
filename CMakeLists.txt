@@ -18,7 +18,6 @@ endif ()
 
 # Build options
 option (BUILD_APPLICATION "Build native application" ON)
-option (BUILD_BACKEND     "Build backend server"     OFF)
 option (BUILD_FRONTEND    "Build frontend side"      OFF)
 
 option (BUILD_TESTING     "Build tests with project" ON)
@@ -36,10 +35,6 @@ if (BUILD_APPLICATION)
     add_subdirectory (apps/TermGraphApp)
 endif ()
 
-if (BUILD_BACKEND)
-    add_subdirectory (apps/TermGraphBack)
-endif ()
-
 if (BUILD_FRONTEND)
     add_subdirectory (libs/QmlTools)
     add_subdirectory (libs/QmlTheme)
@@ -54,7 +49,7 @@ endif ()
 
 add_subdirectory (libs/CommonTools)
 
-if (BUILD_APPLICATION OR BUILD_BACKEND)
+if (BUILD_APPLICATION)
     add_subdirectory (libs/TermDataInterface)
 
     if (NOT WASM)

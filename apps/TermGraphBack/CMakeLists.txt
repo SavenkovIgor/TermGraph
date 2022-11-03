@@ -5,29 +5,28 @@
 cmake_minimum_required (VERSION 3.22.0)
 
 project (TermGraphBack
-         VERSION 0.1.0
-         DESCRIPTION "TermGraph REST Api server"
-         HOMEPAGE_URL "https://termgraph.app/"
-         LANGUAGES CXX)
+    VERSION 0.1.0
+    DESCRIPTION "TermGraph REST Api server"
+    HOMEPAGE_URL "https://termgraph.app/"
+    LANGUAGES CXX)
 
-if (BUILD_BACKEND)
-    find_package (Qt6 REQUIRED COMPONENTS Core)
-    find_package (restinio REQUIRED)
 
-    set (MY_LIBS_ROOT "${CMAKE_SOURCE_DIR}/../../libs")
+find_package (Qt6 REQUIRED COMPONENTS Core)
+find_package (restinio REQUIRED)
 
-    add_subdirectory ("${MY_LIBS_ROOT}/CommonTools"       "${CMAKE_BINARY_DIR}/libs/CommonTools")
-    add_subdirectory ("${MY_LIBS_ROOT}/TermDataInterface" "${CMAKE_BINARY_DIR}/libs/TermDataInterface")
-    add_subdirectory ("${MY_LIBS_ROOT}/TermDataStorage"   "${CMAKE_BINARY_DIR}/libs/TermDataStorage")
+set (MY_LIBS_ROOT "${CMAKE_SOURCE_DIR}/../../libs")
 
-    add_executable (TermGraphBack "source/main.cpp")
+add_subdirectory ("${MY_LIBS_ROOT}/CommonTools"       "${CMAKE_BINARY_DIR}/libs/CommonTools")
+add_subdirectory ("${MY_LIBS_ROOT}/TermDataInterface" "${CMAKE_BINARY_DIR}/libs/TermDataInterface")
+add_subdirectory ("${MY_LIBS_ROOT}/TermDataStorage"   "${CMAKE_BINARY_DIR}/libs/TermDataStorage")
 
-    set_target_properties (TermGraphBack
-        PROPERTIES
-        CXX_STANDARD 20
-        CXX_STANDARD_REQUIRED ON)
+add_executable (TermGraphBack "source/main.cpp")
 
-    target_link_libraries (TermGraphBack PRIVATE Qt6::Core)
-    target_link_libraries (TermGraphBack PRIVATE restinio::restinio)
-    target_link_libraries (TermGraphBack PRIVATE CommonTools TermDataInterface TermDataStorage)
-endif ()
+set_target_properties (TermGraphBack
+    PROPERTIES
+    CXX_STANDARD 20
+    CXX_STANDARD_REQUIRED ON)
+
+target_link_libraries (TermGraphBack PRIVATE Qt6::Core)
+target_link_libraries (TermGraphBack PRIVATE restinio::restinio)
+target_link_libraries (TermGraphBack PRIVATE CommonTools TermDataInterface TermDataStorage)
