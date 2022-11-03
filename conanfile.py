@@ -11,12 +11,10 @@ class TermGraphConan(ConanFile):
 
     options = {'with_qt':           [True, False],
                'build_application': [True, False],
-               'build_frontend':    [True, False],
                'build_tests':       [True, False]}
 
     default_options = {'with_qt':           False,
                        'build_application': True,
-                       'build_frontend':    False,
                        'build_tests':       True}
 
     def build_requirements(self):
@@ -27,7 +25,7 @@ class TermGraphConan(ConanFile):
         if self.options.with_qt:
             self.requires('qtbase/6.3.1@qt/everywhere')
 
-            if self.options.build_application or self.options.build_frontend:
+            if self.options.build_application:
                 self.requires('qtdeclarative/6.3.1@qt/everywhere')
                 self.requires('qtimageformats/6.3.1@qt/everywhere')
                 self.requires('qtshadertools/6.3.1@qt/everywhere')
@@ -38,7 +36,6 @@ class TermGraphConan(ConanFile):
 
         if self.options.with_qt:
             tc.cache_variables["BUILD_APPLICATION"] = self.options.build_application
-            tc.cache_variables["BUILD_FRONTEND"] = self.options.build_frontend
             tc.cache_variables["BUILD_TESTING"] = self.options.build_tests
 
         tc.generate()

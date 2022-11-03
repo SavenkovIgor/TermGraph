@@ -18,8 +18,6 @@ endif ()
 
 # Build options
 option (BUILD_APPLICATION "Build native application" ON)
-option (BUILD_FRONTEND    "Build frontend side"      OFF)
-
 option (BUILD_TESTING     "Build tests with project" ON)
 
 # Applications subdirs
@@ -34,18 +32,6 @@ if (BUILD_APPLICATION)
 
     add_subdirectory (apps/TermGraphApp)
 endif ()
-
-if (BUILD_FRONTEND)
-    add_subdirectory (libs/QmlTools)
-    add_subdirectory (libs/QmlTheme)
-    add_subdirectory (libs/QmlAtoms)
-    add_subdirectory (libs/QmlMolecules)
-    add_subdirectory (libs/QmlPages)
-    add_subdirectory (libs/QrcHelpImages)
-
-    add_subdirectory (apps/TermGraphFront)
-endif ()
-
 
 add_subdirectory (libs/CommonTools)
 
