@@ -24,6 +24,9 @@ add_library (CommonTools
         include/CommonTools/TermUuid.h
         include/CommonTools/Validator.h)
 
+# Disable of std expected for outcome library
+target_compile_definitions (CommonTools INTERFACE nsel_CONFIG_SELECT_EXPECTED nsel_EXPECTED_NONSTD)
+
 target_include_directories (CommonTools INTERFACE "./include")
 
 target_link_libraries (CommonTools INTERFACE Qt6::Core)
