@@ -155,9 +155,7 @@ Tests for ubuntu from CLI with CTest will appear later.
 │   ├── TermDataConnection/   # Library, connecting to REST api server
 │   ├── TermDataInterface/    # Interface, describing data connection interface 
 │   └── TermDataStorage/      # Data storage sqlite library
-├── tools/             # Some useful scripts (build of server, clang fromat etc...)
-├── CMakeLists.txt     # Root cmake list
-└── conanfile.py       # conanfile for dependency description
+└── tools/             # Some useful scripts (build of server, clang fromat etc...)
 ```
 <br/>
 
