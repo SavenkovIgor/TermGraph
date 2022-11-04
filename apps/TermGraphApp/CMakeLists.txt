@@ -1,10 +1,47 @@
 # Copyright © 2016-2022. Savenkov Igor
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+# TODO: use CMakePresets.json
+# TODO: Join Qml modules to one CMakeLists file
+# TODO: Make Android build
+# TODO: Make big cleanup at qml imports
 
-project (TermGraph VERSION 2.0.0 LANGUAGES CXX)
+
+cmake_minimum_required (VERSION 3.22.0)
+
+project (TermGraph
+         VERSION 2.0.0
+         DESCRIPTION "Terms diagram builder. Polish your knowledge with accurate definitions."
+         HOMEPAGE_URL "https://termgraph.app/"
+         LANGUAGES CXX)
+
+list (APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../../cmake")
+
+if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
+    set (WASM "True")
+endif ()
+
+# Build options
+option (BUILD_TESTING "Build tests with project" ON)
 
 find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Svg)
+
+set (LIBS_ROOT "${CMAKE_SOURCE_DIR}/../../libs")
+
+# Applications subdirs
+add_subdirectory ("${LIBS_ROOT}/QmlTools"           "${CMAKE_BINARY_DIR}/libs/QmlTools")
+add_subdirectory ("${LIBS_ROOT}/QmlTheme"           "${CMAKE_BINARY_DIR}/libs/QmlTheme")
+add_subdirectory ("${LIBS_ROOT}/QmlAtoms"           "${CMAKE_BINARY_DIR}/libs/QmlAtoms")
+add_subdirectory ("${LIBS_ROOT}/QmlMolecules"       "${CMAKE_BINARY_DIR}/libs/QmlMolecules")
+add_subdirectory ("${LIBS_ROOT}/QmlPages"           "${CMAKE_BINARY_DIR}/libs/QmlPages")
+add_subdirectory ("${LIBS_ROOT}/QrcHelpImages"      "${CMAKE_BINARY_DIR}/libs/QrcHelpImages")
+add_subdirectory ("${LIBS_ROOT}/TermDataConnection" "${CMAKE_BINARY_DIR}/libs/TermDataConnection")
+add_subdirectory ("${LIBS_ROOT}/CommonTools"        "${CMAKE_BINARY_DIR}/libs/CommonTools")
+add_subdirectory ("${LIBS_ROOT}/TermDataInterface"  "${CMAKE_BINARY_DIR}/libs/TermDataInterface")
+
+if (NOT WASM)
+    add_subdirectory (${LIBS_ROOT}/TermDataStorage "${CMAKE_BINARY_DIR}/libs/TermDataStorage")
+endif ()
 
 qt_standard_project_setup()
 

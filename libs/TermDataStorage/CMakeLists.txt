@@ -4,7 +4,7 @@
 
 project (TermDataStorage VERSION 1.0.0 LANGUAGES CXX)
 
-find_package (Qt6 COMPONENTS Core Sql REQUIRED)
+find_package (Qt6 REQUIRED COMPONENTS Core Sql)
 
 add_library (TermDataStorage STATIC)
 

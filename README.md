@@ -137,6 +137,8 @@ Tests working only with desktop target. GTest library installed via conan. Start
 Tests for ubuntu from CLI with CTest will appear later.
 
 ## 💠 Project structure
+CMakeLists.txt files are in apps/TermGraphApp and apps/TermGraphBack folders.
+Each app has it's own conan file.
 ```bash
 ├── apps/                
 │   ├── TermGraphApp/    # Main application. Buils for desktop, android and wasm(for now) 
@@ -155,9 +157,7 @@ Tests for ubuntu from CLI with CTest will appear later.
 │   ├── TermDataConnection/   # Library, connecting to REST api server
 │   ├── TermDataInterface/    # Interface, describing data connection interface 
 │   └── TermDataStorage/      # Data storage sqlite library
-├── tools/             # Some useful scripts (build of server, clang fromat etc...)
-├── CMakeLists.txt     # Root cmake list
-└── conanfile.py       # conanfile for dependency description
+└── tools/             # Some useful scripts (build of server, clang fromat etc...)
 ```
 <br/>
 

@@ -4,7 +4,7 @@
 
 project (ThemeModule LANGUAGES CXX)
 
-find_package (Qt6 COMPONENTS Core QuickControls2 Svg REQUIRED)
+find_package (Qt6 REQUIRED COMPONENTS Core QuickControls2 Svg)
 
 qt_add_library (ThemeModule STATIC)
 
