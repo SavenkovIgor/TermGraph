@@ -6,7 +6,8 @@ arch_build=x86_64
 compiler=gcc
 compiler.version=12
 compiler.libcxx=libstdc++11
-build_type=Release
+build_type=Debug
 [options]
 [build_requires]
 [env]
+CONAN_CMAKE_TOOLCHAIN_FILE="build/dev/conan-dependencies/toolchain.cmake"
