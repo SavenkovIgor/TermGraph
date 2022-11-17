@@ -125,12 +125,12 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - [Outcome lib](https://github.com/ned14/outcome) (would be replaced with std::expected when available)
 
 # ⚙️ Build
-Build for ubuntu:
-- Install conan [here](https://docs.conan.io/en/latest/installation.html)
-- Install Qt + Qml via [online installer](https://www.qt.io/download-qt-installer)
-- Build in QtCreator with Desktop Kit
+### Requirements for ubuntu hosted build:
+- [conan](https://docs.conan.io/en/latest/installation.html)
+- [cmake](https://cmake.org/)
+- [Qt + Qml](https://www.qt.io/download-qt-installer)
 
-Build for ubuntu from CLI will appear later
+You can build application from QtCreator with Desktop Kit or build from CLI with script at `tools/build_tg_desktop.sh`
 
 ## ☕️ Tests
 Tests working only with desktop target. GTest library installed via conan. Start tests from QtCreator
