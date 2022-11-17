@@ -81,7 +81,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 <img>
 
 ### Benefits for beginners (if you don't have the map yet)
-- Its construction guaranteed learning with active memorization
+- Its construction guarantees learning with active memorization
 - Wikipedia wandering can become a good teacher with this approach (I have checked)
 
 ### Benefits for beginners (if you already have such map):
