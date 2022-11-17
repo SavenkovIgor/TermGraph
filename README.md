@@ -62,7 +62,7 @@
 
 [⚡️ Description](#%EF%B8%8F-description) • [🌿 Key features](#-key-features) • [🚀 Installation](#-installation) • [🗺 Roadmap](#-roadmap) • 
 [🧬 Tech stack](#-tech-stack)<br>
-[⚙️ Build](#%EF%B8%8F-build) • [☕️ Tests](#%EF%B8%8F-tests) • [💠 Project structure](#-project-structure) • [:pushpin: Credits](#pushpin-credits) 
+[:hammer_and_wrench: Build](#hammer_and_wrench-build) • [:alembic: Tests](#alembic-tests) • [:microscope: Project structure](#microscope-project-structure) • [:pushpin: Credits](#pushpin-credits) 
 
 </div>
 
@@ -117,14 +117,14 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 
 ## 🧬 Tech stack
 - <img src="https://isocpp.org/favicon.ico" width="16" height="16"> C++ 20
-- <img src="https://www.qt.io/hubfs/2016_Qt_Logo/qt_logo_green_rgb_16x16.png" width="16" height="16"> Qt 6.3 | Qml
+- <img src="https://www.qt.io/hubfs/2016_Qt_Logo/qt_logo_green_rgb_16x16.png" width="16" height="16"> Qt 6.4 | Qml
 - <img src="https://cmake.org/wp-content/uploads/2019/05/cropped-cmake_512-32x32.png" width="16" height="16"> Cmake 3.22+
 - <img src="https://conan.io/favicon.png" width="16" height="16"> Conan 1.51+
 - [RESTinio lib](https://github.com/Stiffstream/restinio) (for REST server)
 - [GTest lib](https://github.com/google/googletest) (tests)
 - [Outcome lib](https://github.com/ned14/outcome) (would be replaced with std::expected when available)
 
-# ⚙️ Build
+# :hammer_and_wrench: Build
 ### Requirements for ubuntu hosted build:
 - [conan](https://docs.conan.io/en/latest/installation.html)
 - [cmake](https://cmake.org/)
@@ -132,20 +132,19 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 
 You can build application from QtCreator with Desktop Kit or build from CLI with script at `tools/build_tg_desktop.sh`
 
-## ☕️ Tests
+## :alembic: Tests
 Tests working only with desktop target. GTest library installed via conan. Start tests from QtCreator
 Tests for ubuntu from CLI with CTest will appear later.
 
-## 💠 Project structure
-CMakeLists.txt files are in apps/TermGraphApp and apps/TermGraphBack folders.
+## :microscope: Project structure
+`CMakeLists.txt` files are in `apps/TermGraphApp` and `apps/TermGraphBack` folders.
 Each app has it's own conan file.
 ```bash
 ├── apps/                
 │   ├── TermGraphApp/    # Main application. Buils for desktop, android and wasm(for now) 
 │   ├── TermGraphBack/   # Rest api data storage. For server only
 │   └── TermGraphFront/  # Reserved folder. Not used yet
-├── cmake/             # Cmake tools
-├── conanfiles/        # Additional conan files
+├── cmake/               # Cmake tools
 ├── libs/                
 │   ├── CommonTools/          # Tools common for all apps
 │   ├── QmlAtoms/             # Qml atoms components     (atomic design)
