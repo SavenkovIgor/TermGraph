@@ -1,2 +1,5 @@
 build-TermGraphApp*
 build-TermGraphBack*
+
+TermGraphApp/build/
+TermGraphBack/build/
