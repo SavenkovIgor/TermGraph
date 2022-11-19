@@ -8,6 +8,8 @@
 class NotifyInterface
 {
 public:
+    virtual ~NotifyInterface() = default;
+
     virtual void showInfo(const QString& info)       = 0;
     virtual void showWarning(const QString& warning) = 0;
     virtual void showError(const QString& error)     = 0;
