@@ -34,7 +34,7 @@ QHash<int, QByteArray> EdgesModel::roleNames() const
     return roles;
 }
 
-int EdgesModel::rowCount(const QModelIndex &parent) const { return mEdges.size(); }
+int EdgesModel::rowCount([[maybe_unused]] const QModelIndex &parent) const { return mEdges.size(); }
 
 QVariant EdgesModel::data(const QModelIndex &index, int role) const
 {

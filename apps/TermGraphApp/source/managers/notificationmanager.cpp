@@ -9,7 +9,7 @@ NotificationManager& NotificationManager::instance()
     return mgr;
 }
 
-NotificationManager *NotificationManager::create(QQmlEngine *qmlEngine, QJSEngine *jsEngine)
+NotificationManager* NotificationManager::create(QQmlEngine* qmlEngine, [[maybe_unused]] QJSEngine* jsEngine)
 {
     auto* inst = &instance();
     qmlEngine->setObjectOwnership(inst, QQmlEngine::CppOwnership);
