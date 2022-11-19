@@ -338,13 +338,10 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
         for (const auto& link : node->cache().links()) {
             Opt<PaintedTerm::Ptr> foundNode = std::nullopt;
 
-            EdgeType::Type eType = EdgeType::Type::Termin;
-
             if (!foundNode) {
                 if (link.hasUuid()) {
                     if (termUuids.contains(link.uuid())) {
                         foundNode = termUuids[link.uuid()];
-                        eType     = EdgeType::Type::TerminHardLink;
                     }
                 }
             }

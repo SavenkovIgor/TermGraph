@@ -2,4 +2,6 @@ build-TermGraphApp*
 build-TermGraphBack*
 
 TermGraphApp/build/
+TermGraphApp/CMakeUserPresets.json
+
 TermGraphBack/build/

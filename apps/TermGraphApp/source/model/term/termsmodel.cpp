@@ -37,7 +37,7 @@ QHash<int, QByteArray> TermsModel::roleNames() const
     return roles;
 }
 
-int TermsModel::rowCount(const QModelIndex &parent) const { return mTerms.size(); }
+int TermsModel::rowCount([[maybe_unused]] const QModelIndex &parent) const { return mTerms.size(); }
 
 QVariant TermsModel::data(const QModelIndex &index, int role) const
 {

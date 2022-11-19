@@ -44,8 +44,6 @@ Opt<Link> Link::select(QStringView str, int startPos)
     if (!TextCursor::isValidCursor(str, startPos))
         return std::nullopt;
 
-    auto cursor = TextCursor(str, startPos);
-
     auto lBracket = CheckingTextCursor::anyBracketOnLeft(str, startPos, Direction::Left);
     auto rBracket = CheckingTextCursor::anyBracketOnRight(str, startPos, Direction::Right);
 

@@ -10,13 +10,26 @@
       "name": "default",
       "hidden": true,
       "generator": "Ninja",
+      "warnings": {
+        "dev": true,
+        "deprecated": true,
+        "uninitialized": true,
+        "unusedCli": true,
+        "systemVars": false
+      },
+      "errors": {
+        "deprecated": true
+      },
       "environment": {
+        "CONAN_PATH": "$env{HOME}/.local/bin",
         "QT_ROOT": "$env{HOME}/Qt",
         "QT_VERSION": "6.4.0",
         "QT_VERSION_ROOT": "$env{QT_ROOT}/$env{QT_VERSION}"
       },
       "cacheVariables": {
-        "CMAKE_CXX_COMPILER": "/usr/bin/g++"
+        "CMAKE_C_COMPILER": "/usr/bin/gcc",
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
+        "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wcast-qual -Wformat=2 -Wundef -Wcast-align -Wunused -Wnull-dereference -Wdouble-promotion -Wimplicit-fallthrough -Wextra-semi -Woverloaded-virtual -Wnon-virtual-dtor -Wold-style-cast"
       }
     },
     {
@@ -28,7 +41,7 @@
         "CMAKE_BUILD_TYPE": "Debug",
         "BUILD_TESTING": true,
         "CMAKE_CXX_FLAGS_INIT": "-DQT_QML_DEBUG",
-        "CMAKE_PREFIX_PATH": "$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
+        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
       }
     },
     {
@@ -39,7 +52,7 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "BUILD_TESTING": true,
-        "CMAKE_PREFIX_PATH": "$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
+        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
       }
     }
   ],
