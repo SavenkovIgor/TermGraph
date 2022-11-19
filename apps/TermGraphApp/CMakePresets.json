@@ -22,7 +22,6 @@
       },
       "environment": {
         "CONAN_PATH": "$env{HOME}/.local/bin",
-        "PATH": "$env{CONAN_PATH}:$penv{PATH}",
         "QT_ROOT": "$env{HOME}/Qt",
         "QT_VERSION": "6.4.0",
         "QT_VERSION_ROOT": "$env{QT_ROOT}/$env{QT_VERSION}"
