@@ -19,10 +19,10 @@ class LinksHardeningManager : public QAbstractListModel
     Q_OBJECT
     QML_ELEMENT
 
-    Q_PROPERTY(bool canMoveNext READ canMoveNext NOTIFY indexChanged FINAL);
-    Q_PROPERTY(bool canMovePrev READ canMovePrev NOTIFY indexChanged FINAL);
-    Q_PROPERTY(QString definitionWithHighlightedLink READ definitionWithHighlightedLink NOTIFY indexChanged FINAL);
-    Q_PROPERTY(QString currentLinkText READ currentLinkText NOTIFY indexChanged FINAL);
+    Q_PROPERTY(bool canMoveNext READ canMoveNext NOTIFY indexChanged FINAL)
+    Q_PROPERTY(bool canMovePrev READ canMovePrev NOTIFY indexChanged FINAL)
+    Q_PROPERTY(QString definitionWithHighlightedLink READ definitionWithHighlightedLink NOTIFY indexChanged FINAL)
+    Q_PROPERTY(QString currentLinkText READ currentLinkText NOTIFY indexChanged FINAL)
 
 public:
     using SearchResult     = std::tuple<QUuid, QString, int>;

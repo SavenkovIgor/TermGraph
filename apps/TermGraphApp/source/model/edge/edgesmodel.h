@@ -19,7 +19,7 @@ public:
 
     enum Roles { Pt1 = 0, Pt2, IsSelected, EdgeType, EdgeSelection };
 
-    Q_ENUM(Roles);
+    Q_ENUM(Roles)
 
     void setGroup(TermGroup::OptPtr group);
     void clear();
