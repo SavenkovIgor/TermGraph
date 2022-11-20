@@ -54,6 +54,20 @@
         "BUILD_TESTING": "ON",
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
       }
+    },
+    {
+      "name": "wasm_release",
+      "displayName": "Release WebAssembly build",
+      "inherits": "default",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "$env{HOME}/emsdk/upstream/emscripten/emcc",
+        "CMAKE_CXX_COMPILER": "$env{HOME}/emsdk/upstream/emscripten/em++",
+        "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_32_mt/lib/cmake/Qt6/qt.toolchain.cmake",
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_TESTING": "OFF",
+        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_32_mt;${sourceDir}/build/${presetName}/conan-dependencies"
+      }
     }
   ],
   "buildPresets": [
@@ -65,6 +79,11 @@
     {
       "name": "desktop_release",
       "configurePreset": "desktop_release",
+      "targets": "all"
+    },
+    {
+      "name": "wasm_release",
+      "configurePreset": "wasm_release",
       "targets": "all"
     }
   ]
