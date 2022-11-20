@@ -33,7 +33,7 @@
       }
     },
     {
-      "name": "dev_desktop",
+      "name": "desktop_dev",
       "displayName": "Developer desktop build",
       "inherits": "default",
       "binaryDir": "${sourceDir}/build/${presetName}",
@@ -45,7 +45,7 @@
       }
     },
     {
-      "name": "release_desktop",
+      "name": "desktop_release",
       "displayName": "Release desktop build",
       "inherits": "default",
       "binaryDir": "${sourceDir}/build/${presetName}",
@@ -58,13 +58,13 @@
   ],
   "buildPresets": [
     {
-      "name": "dev_desktop",
-      "configurePreset": "dev_desktop",
+      "name": "desktop_dev",
+      "configurePreset": "desktop_dev",
       "targets": "all"
     },
     {
-      "name": "release_desktop",
-      "configurePreset": "release_desktop",
+      "name": "desktop_release",
+      "configurePreset": "desktop_release",
       "targets": "all"
     }
   ]

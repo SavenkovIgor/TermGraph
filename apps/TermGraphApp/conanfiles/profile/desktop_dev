@@ -10,4 +10,4 @@ build_type=Debug
 [options]
 [build_requires]
 [env]
-CONAN_CMAKE_TOOLCHAIN_FILE="build/dev/conan-dependencies/toolchain.cmake"
+CONAN_CMAKE_TOOLCHAIN_FILE="build/desktop_dev/conan-dependencies/toolchain.cmake"
