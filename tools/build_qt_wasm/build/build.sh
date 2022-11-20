@@ -1,9 +1,9 @@
 # Exec manually!
-source "/home/user/emsdk/emsdk_env.sh"
+source "$HOME/emsdk/emsdk_env.sh"
 
 # Qt root path
 QT_ROOT=$HOME/Qt
-QT_VERSION=6.4.0
+QT_VERSION=6.4.1
 
 # cmake path
 PATH=$PATH:$QT_ROOT/Tools/CMake/bin
@@ -36,7 +36,7 @@ cd ../build
 THREAD_ARG='-feature-thread'
 
 echo "---Configure---"
-../source/configure -qt-host-path $CONFIG_HOST_PATH -platform $CONFIG_PLATFORM $THREAD_ARG -prefix $QT_ROOT/$QT_VERSION/wasm_32_mt -submodules $CONFIG_MODULES
+./configure -qt-host-path $CONFIG_HOST_PATH -platform $CONFIG_PLATFORM $THREAD_ARG -prefix $QT_ROOT/$QT_VERSION/wasm_32_mt -submodules $CONFIG_MODULES -skip 'qtwebengine'
 
 echo "---Build---"
 cmake --build . --parallel 4
