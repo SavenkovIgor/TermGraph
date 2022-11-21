@@ -44,7 +44,6 @@
     <h1>TermGraph</h1>
 </div>
 
-
 <div align="center">
 
 [![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)](https://isocpp.org/)
@@ -63,6 +62,12 @@
 [⚡️ Description](#%EF%B8%8F-description) • [🌿 Key features](#-key-features) • [🚀 Installation](#-installation) • [🗺 Roadmap](#-roadmap) • 
 [🧬 Tech stack](#-tech-stack)<br>
 [:hammer_and_wrench: Build](#hammer_and_wrench-build) • [:alembic: Tests](#alembic-tests) • [:microscope: Project structure](#microscope-project-structure) • [:pushpin: Credits](#pushpin-credits) 
+
+</div>
+
+<div align="center">
+
+[![TermGraph](https://tokei.rs/b1/github/SavenkovIgor/TermGraph)](https://github.com/SavenkovIgor/TermGraph)
 
 </div>
 
