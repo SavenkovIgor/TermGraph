@@ -67,7 +67,7 @@
 
 <div align="center">
 
-[![TermGraph](https://tokei.rs/b1/github/SavenkovIgor/TermGraph)](https://github.com/SavenkovIgor/TermGraph)
+[![](https://tokei.rs/b1/github/SavenkovIgor/TermGraph)](https://github.com/SavenkovIgor/TermGraph)
 
 </div>
 
