@@ -7,6 +7,28 @@
   },
   "configurePresets": [
     {
+      "name": "gcc_compiler",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "/usr/bin/gcc",
+        "CMAKE_CXX_COMPILER": "/usr/bin/g++"
+      }
+    },
+    {
+      "name": "emsdk_compiler",
+      "hidden": true,
+      "environment": {
+        "EMSDK": "$env{HOME}/emsdk",
+        "EM_CONFIG": "$env{EMSDK}/.emscripten",
+        "EMSDK_NODE": "$env{EMSDK}/node/14.18.2_64bit/bin/node",
+        "PATH": "$env{EMSDK}:$env{EMSDK}/upstream/emscripten:$env{EMSDK}/node/14.18.2_64bit/bin:$penv{PATH}"
+      },
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "$env{EMSDK}/upstream/emscripten/emcc",
+        "CMAKE_CXX_COMPILER": "$env{EMSDK}/upstream/emscripten/em++"
+      }
+    },
+    {
       "name": "default",
       "hidden": true,
       "generator": "Ninja",
@@ -17,9 +39,7 @@
         "unusedCli": true,
         "systemVars": false
       },
-      "errors": {
-        "deprecated": true
-      },
+      "errors": { "deprecated": true },
       "environment": {
         "CONAN_PATH": "$env{HOME}/.local/bin",
         "QT_ROOT": "$env{HOME}/Qt",
@@ -27,15 +47,13 @@
         "QT_VERSION_ROOT": "$env{QT_ROOT}/$env{QT_VERSION}"
       },
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "/usr/bin/gcc",
-        "CMAKE_CXX_COMPILER": "/usr/bin/g++",
         "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wcast-qual -Wformat=2 -Wundef -Wcast-align -Wunused -Wnull-dereference -Wdouble-promotion -Wimplicit-fallthrough -Wextra-semi -Woverloaded-virtual -Wnon-virtual-dtor -Wold-style-cast"
       }
     },
     {
-      "name": "dev_desktop",
-      "displayName": "Developer desktop build",
-      "inherits": "default",
+      "name": "desktop_dev",
+      "displayName": "Desktop dev build",
+      "inherits": ["default", "gcc_compiler"],
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
@@ -45,26 +63,43 @@
       }
     },
     {
-      "name": "release_desktop",
-      "displayName": "Release desktop build",
-      "inherits": "default",
+      "name": "desktop_release",
+      "displayName": "Desktop release build",
+      "inherits": ["default", "gcc_compiler"],
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "BUILD_TESTING": "ON",
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
       }
+    },
+    {
+      "name": "wasm_release",
+      "displayName": "WebAssembly release build",
+      "inherits": ["default", "emsdk_compiler"],
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_32_mt/lib/cmake/Qt6/qt.toolchain.cmake",
+        "CMAKE_BUILD_TYPE": "Release",
+        "BUILD_TESTING": "OFF",
+        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_32_mt;${sourceDir}/build/${presetName}/conan-dependencies"
+      }
     }
   ],
   "buildPresets": [
     {
-      "name": "dev_desktop",
-      "configurePreset": "dev_desktop",
+      "name": "desktop_dev",
+      "configurePreset": "desktop_dev",
       "targets": "all"
     },
     {
-      "name": "release_desktop",
-      "configurePreset": "release_desktop",
+      "name": "desktop_release",
+      "configurePreset": "desktop_release",
+      "targets": "all"
+    },
+    {
+      "name": "wasm_release",
+      "configurePreset": "wasm_release",
       "targets": "all"
     }
   ]

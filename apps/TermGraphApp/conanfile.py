@@ -1,5 +1,6 @@
 from conan import ConanFile
 from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
+import os
 
 
 class TermGraphConan(ConanFile):
@@ -12,8 +13,12 @@ class TermGraphConan(ConanFile):
     options = {'build_tests': [True, False]}
     default_options = {'build_tests': True}
 
+    def is_wasm(self):
+        toolchain_path = os.environ['CONAN_CMAKE_TOOLCHAIN_FILE']
+        return 'wasm' in toolchain_path.lower()
+
     def build_requirements(self):
-        if self.options.build_tests:
+        if self.options.build_tests and not self.is_wasm():
             self.test_requires('gtest/1.10.0')
 
     def generate(self):
