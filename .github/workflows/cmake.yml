@@ -18,6 +18,12 @@ jobs:
           pip install conan
 
     - uses: actions/checkout@v3
+    
+    - name: pwd
+      run: pwd
+      
+    - name: ls
+      run: ls -la
 
     - name: conan install
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
