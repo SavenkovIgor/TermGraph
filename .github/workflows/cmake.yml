@@ -19,8 +19,8 @@ jobs:
 
     - uses: actions/checkout@v3
     
-    - name: pwd
-      run: pwd
+    - name: cd 
+      run: cd apps/TermGraphApp/
       
     - name: ls
       run: ls -la
