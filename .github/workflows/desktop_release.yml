@@ -1,6 +1,8 @@
-name: Build desktop_dev
+name: Build desktop_release
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
@@ -29,14 +31,14 @@ jobs:
     - name: Conan install
       run: |
         cd apps/TermGraphApp/
-        conan install . --profile conanfiles/profile/desktop_dev --build=missing -if=build/desktop_dev/conan-dependencies
+        conan install . --profile conanfiles/profile/desktop_release --build=missing -if=build/desktop_release/conan-dependencies
       
     - name: CMake configure step
       run: |
         cd apps/TermGraphApp/
-        cmake --preset desktop_dev ./
+        cmake --preset desktop_release ./
 
     - name: Cmake build
       run: |
         cd apps/TermGraphApp/
-        cmake --build --preset desktop_dev
+        cmake --build --preset desktop_release
