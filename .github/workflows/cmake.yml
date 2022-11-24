@@ -10,10 +10,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Install build dependencies
+    - name: Install Ninja and Conan
       run: |
           sudo apt install ninja-build
-          pip install conan
+          pip install conan        
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        aqtversion: '==2.1.*'
+        version: '6.4.1'
+        host: 'linux'
+        target: 'desktop'
+        arch: 'gcc_64'
+        modules: 'qtimageformats qt5compat'
+        archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
 
     - uses: actions/checkout@v3
 
