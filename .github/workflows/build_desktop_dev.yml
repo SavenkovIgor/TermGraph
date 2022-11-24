@@ -1,0 +1,44 @@
+name: Build desktop_dev
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Ninja and Conan
+      run: |
+          sudo apt install ninja-build
+          pip install conan        
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        aqtversion: '==2.1.*'
+        version: '6.4.1'
+        host: 'linux'
+        target: 'desktop'
+        arch: 'gcc_64'
+        modules: 'qtimageformats qt5compat'
+        archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
+
+    - uses: actions/checkout@v3
+
+    - name: Conan install
+      run: |
+        cd apps/TermGraphApp/
+        conan install . --profile conanfiles/profile/desktop_dev --build=missing -if=build/desktop_dev/conan-dependencies
+      
+    - name: CMake configure step
+      run: |
+        cd apps/TermGraphApp/
+        cmake --preset desktop_dev ./
+
+    - name: Cmake build
+      run: |
+        cd apps/TermGraphApp/
+        cmake --build --preset desktop_dev
