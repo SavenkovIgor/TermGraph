@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Install packages
       run: |
-          apt install ninja-build
+          sudo apt install ninja-build
           pip install conan
 
     - uses: actions/checkout@v3
