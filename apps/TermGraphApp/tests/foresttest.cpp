@@ -244,10 +244,14 @@ TEST_F(ForestTest, WasteEdges)
 
     EXPECT_TRUE(forest.hasWasteEdges());
     EXPECT_EQ(forest.wasteEdges().size(), 4);
-    EXPECT_EQ(forest.wasteEdges()[0]->data(), 13);
-    EXPECT_EQ(forest.wasteEdges()[1]->data(), 12);
-    EXPECT_EQ(forest.wasteEdges()[2]->data(), 11);
-    EXPECT_EQ(forest.wasteEdges()[3]->data(), 10);
+
+    QSet<int> wasteIndex{10, 11, 12, 13};
+
+    for (const auto& edge : forest.wasteEdges())
+        EXPECT_TRUE(wasteIndex.remove(edge->data()));
+
+    qDebug() << wasteIndex;
+    EXPECT_TRUE(wasteIndex.empty());
 }
 
 TEST_F(ForestTest, Levels)

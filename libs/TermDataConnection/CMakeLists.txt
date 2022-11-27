@@ -28,13 +28,6 @@ target_sources (TermDataConnection
         source/DataStorageConnection.cpp
         source/NetWrapper.cpp)
 
+# TODO: Add test
 #if (BUILD_TESTING)
-#    enable_testing ()
-
-#    include (TestTools)
-#    create_test (
-#        NAME      TestConnectionWorks
-#        SOURCES   tests/ConnectionWorksTest.cpp
-#        LIBRARIES CommonTools TermDataConnection Qt6::Core Qt6::Network)
-
 #endif ()

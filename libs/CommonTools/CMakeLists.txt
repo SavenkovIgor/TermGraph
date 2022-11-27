@@ -33,26 +33,26 @@ target_link_libraries (CommonTools INTERFACE Qt6::Core)
 target_link_libraries (CommonTools INTERFACE outcome::outcome)
 
 if (BUILD_TESTING)
-    list (APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-    include (TestTools)
-
     enable_testing ()
+
     find_package (Qt6 REQUIRED COMPONENTS Core)
+    if (NOT GTest_FOUND)
+        find_package (GTest REQUIRED)
+    endif ()
 
-    create_test (
-        NAME      TestUuids
-        SOURCES
-            include/CommonTools/SafeUuid.h
-            include/CommonTools/GroupUuid.h
-            include/CommonTools/TermUuid.h
+    include (GoogleTest)
+
+    add_executable (CommonToolsTest)
+    target_sources (CommonToolsTest
+        PRIVATE
             tests/uuidstest.cpp
-        LIBRARIES CommonTools TermDataStorage Qt6::Core)
+            tests/validatortest.cpp)
 
-    create_test (
-        NAME      TestValidator
-        SOURCES
-            include/CommonTools/Validator.h
-            tests/validatortest.cpp
-        LIBRARIES CommonTools TermDataStorage Qt6::Core)
+    set_target_properties (CommonToolsTest
+        PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 
+    target_link_libraries (CommonToolsTest GTest::gtest GTest::gtest_main)
+    target_link_libraries (CommonToolsTest CommonTools Qt6::Core)
+
+    gtest_add_tests (TARGET CommonToolsTest)
 endif ()

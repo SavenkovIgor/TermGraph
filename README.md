@@ -149,7 +149,6 @@ Each app has it's own conan file.
 │   ├── TermGraphApp/    # Main application. Buils for desktop, android and wasm(for now) 
 │   ├── TermGraphBack/   # Rest api data storage. For server only
 │   └── TermGraphFront/  # Reserved folder. Not used yet
-├── cmake/               # Cmake tools
 ├── libs/                
 │   ├── CommonTools/          # Tools common for all apps
 │   ├── QmlAtoms/             # Qml atoms components     (atomic design)

@@ -5,7 +5,8 @@
 
 #include <TermDataInterface/TermData.h>
 
-TermData defaultData() {
+TermData defaultTermData()
+{
     return TermData{
         .uuid        = TermUuid::create("{8a505474-b90f-4e83-be63-e6a1e5d39b24}"),
         .term        = "Term",
@@ -21,46 +22,46 @@ TermData defaultData() {
 
 TEST(TermDataTest, ComparisonTest)
 {
-    auto data1 = defaultData();
-    EXPECT_EQ(data1, defaultData());
+    auto data1 = defaultTermData();
+    EXPECT_EQ(data1, defaultTermData());
 
-    data1 = defaultData();
+    data1      = defaultTermData();
     data1.uuid = TermUuid::generate();
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultTermData());
 
-    data1 = defaultData();
+    data1      = defaultTermData();
     data1.uuid = std::nullopt;
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultTermData());
 
-    data1 = defaultData();
+    data1             = defaultTermData();
     data1.term        = "Term1";
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultTermData());
 
-    data1 = defaultData();
+    data1             = defaultTermData();
     data1.definition  = "Definition1";
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultTermData());
 
-    data1 = defaultData();
+    data1             = defaultTermData();
     data1.description = "Description1";
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultTermData());
 
-    data1 = defaultData();
+    data1             = defaultTermData();
     data1.examples    = "Examples1";
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultTermData());
 
-    data1 = defaultData();
+    data1             = defaultTermData();
     data1.wikiUrl     = "Wiki1";
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultTermData());
 
-    data1 = defaultData();
+    data1             = defaultTermData();
     data1.wikiImage   = "WikiImg1";
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultTermData());
 
-    data1 = defaultData();
+    data1             = defaultTermData();
     data1.groupUuid   = GroupUuid::generate();
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultTermData());
 
-    data1 = defaultData();
+    data1             = defaultTermData();
     data1.lastEdit    = QDateTime::currentDateTime().addSecs(1);
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultTermData());
 }
