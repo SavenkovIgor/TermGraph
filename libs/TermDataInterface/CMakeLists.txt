@@ -34,9 +34,7 @@ if (BUILD_TESTING)
             tests/groupdatatest.cpp)
 
     set_target_properties (TermDataInterfaceTest
-        PROPERTIES
-            CXX_STANDARD 20
-            CXX_STANDARD_REQUIRED ON)
+        PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 
     target_link_libraries (TermDataInterfaceTest GTest::gtest GTest::gtest_main)
     target_link_libraries (TermDataInterfaceTest CommonTools TermDataInterface Qt6::Core)

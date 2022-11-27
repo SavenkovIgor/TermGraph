@@ -44,10 +44,19 @@ target_sources (TermDataStorage
 if (BUILD_TESTING)
     enable_testing ()
 
-    include (TestTools)
-    create_test (
-        NAME      TestDbWorks
-        SOURCES   tests/DbWorksTest.cpp
-        LIBRARIES CommonTools TermDataStorage Qt6::Core)
+    find_package (Qt6 REQUIRED COMPONENTS Core)
+    find_package (GTest REQUIRED)
 
+    include (GoogleTest)
+
+    add_executable (TermDataStorageTest)
+    target_sources (TermDataStorageTest PRIVATE tests/DbWorksTest.cpp)
+
+    set_target_properties (TermDataStorageTest
+        PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
+
+    target_link_libraries (TermDataStorageTest GTest::gtest GTest::gtest_main)
+    target_link_libraries (TermDataStorageTest CommonTools TermDataStorage Qt6::Core)
+
+    gtest_add_tests (TARGET TermDataStorageTest)
 endif ()
