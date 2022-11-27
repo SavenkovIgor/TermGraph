@@ -15,7 +15,6 @@ project (TermGraph
          HOMEPAGE_URL "https://termgraph.app/"
          LANGUAGES CXX)
 
-list (APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/../../cmake")
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
     set (WASM "True")
