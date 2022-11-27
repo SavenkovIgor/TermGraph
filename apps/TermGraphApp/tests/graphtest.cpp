@@ -3,6 +3,8 @@
 
 #include <gtest/gtest.h>
 
+#include <QSet>
+
 #include "source/model/base/graph.hpp"
 #include "source/model/base/graphdata.hpp"
 
@@ -200,10 +202,16 @@ TEST_F(GraphTest, BondedSubgraphs)
     EXPECT_EQ(subraphs[0].edges[0]->data(), 1);
 
     EXPECT_EQ(subraphs[1].nodes.size(), 3);
-    EXPECT_EQ(subraphs[1].nodes[0]->data(), 3);
-    EXPECT_EQ(subraphs[1].nodes[1]->data(), 4);
-    EXPECT_EQ(subraphs[1].nodes[2]->data(), 5);
-    EXPECT_EQ(subraphs[1].edges.size(), 2);
-    EXPECT_EQ(subraphs[1].edges[0]->data(), 2);
-    EXPECT_EQ(subraphs[1].edges[1]->data(), 3);
+
+    QSet<int> nodeSet{3, 4, 5};
+    for (const auto& node : subraphs[1].nodes)
+        EXPECT_TRUE(nodeSet.remove(node->data()));
+
+    EXPECT_TRUE(nodeSet.empty());
+
+    QSet<int> edgeSet{2, 3};
+    for (const auto& edge : subraphs[1].edges)
+        EXPECT_TRUE(edgeSet.remove(edge->data()));
+
+    EXPECT_TRUE(edgeSet.empty());
 }

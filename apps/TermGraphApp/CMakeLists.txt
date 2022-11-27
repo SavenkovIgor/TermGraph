@@ -201,114 +201,18 @@ qt_add_qml_module (TermGraph
 
 
 if (BUILD_TESTING)
-    include (TestTools)
-    create_test (
-        NAME      TestTextTools
-        SOURCES
-            source/helpers/fonts.cpp
-            source/helpers/fonts.h
-            source/helpers/text/texttools.cpp
-            source/helpers/text/texttools.h
-            tests/texttoolstest.cpp
-        LIBRARIES Qt6::Core Qt6::Gui)
+    enable_testing ()
 
-    create_test (
-        NAME      TestNode
-        SOURCES
-            source/model/base/node.hpp
-            tests/nodetest.cpp
-        LIBRARIES Qt6::Core)
+    find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml)
+    if (NOT GTest_FOUND)
+        find_package (GTest REQUIRED)
+    endif ()
 
-    create_test (
-        NAME      TestEdge
-        SOURCES
-            source/model/base/node.hpp
-            source/model/base/edge.hpp
-            tests/edgetest.cpp
-        LIBRARIES Qt6::Core)
+    include (GoogleTest)
 
-    create_test (
-        NAME      TestGraph
-        SOURCES
-            source/model/base/node.hpp
-            source/model/base/edge.hpp
-            source/model/base/graph.hpp
-            source/model/base/graphdata.hpp
-            tests/graphtest.cpp
-        LIBRARIES Qt6::Core)
-
-    create_test (
-        NAME      TestForest
-        SOURCES
-            source/model/base/node.hpp
-            source/model/base/edge.hpp
-            source/model/base/graph.hpp
-            source/model/base/graphdata.hpp
-            source/model/base/forest.hpp
-            source/model/enums.h
-            tests/foresttest.cpp
-        LIBRARIES Qt6::Core Qt6::Qml)
-
-    create_test (
-        NAME      TestGraphicItem
-        SOURCES
-            source/model/graphicitem/graphicitem.h
-            source/model/graphicitem/graphicitem.cpp
-            tests/graphicitemtest.cpp
-        LIBRARIES Qt6::Core)
-
-    create_test (
-        NAME      TestTextCursor
-        SOURCES
-            source/helpers/text/chartools.h
-            source/helpers/text/checkingtextcursor.cpp
-            source/helpers/text/checkingtextcursor.h
-            source/helpers/text/textcursor.cpp
-            source/helpers/text/textcursor.h
-            tests/cursortest.cpp
-        LIBRARIES Qt6::Core CommonTools)
-
-    create_test (
-        NAME      TestTextRange
-        SOURCES
-            source/helpers/intmatrix.cpp
-            source/helpers/intmatrix.h
-            source/helpers/link/link.cpp
-            source/helpers/link/link.h
-            source/helpers/text/chartools.h
-            source/helpers/text/checkingtextcursor.cpp
-            source/helpers/text/checkingtextcursor.h
-            source/helpers/text/textcursor.cpp
-            source/helpers/text/textcursor.h
-            source/helpers/text/textrange.cpp
-            source/helpers/text/textrange.h
-            tests/textrangetest.cpp
-        LIBRARIES Qt6::Core CommonTools)
-
-    create_test (
-        NAME      TestTextLink
-        SOURCES
-            source/helpers/intmatrix.cpp
-            source/helpers/intmatrix.h
-            source/helpers/link/link.cpp
-            source/helpers/link/link.h
-            source/helpers/link/linksdecorator.cpp
-            source/helpers/link/linksdecorator.h
-            source/helpers/link/linksstring.cpp
-            source/helpers/link/linksstring.h
-            source/helpers/text/chartools.h
-            source/helpers/text/checkingtextcursor.cpp
-            source/helpers/text/checkingtextcursor.h
-            source/helpers/text/textcursor.cpp
-            source/helpers/text/textcursor.h
-            source/helpers/text/textrange.cpp
-            source/helpers/text/textrange.h
-            tests/linktest.cpp
-        LIBRARIES Qt6::Core Qt6::Gui CommonTools)
-
-    create_test (
-        NAME      TestLinkTools
-        SOURCES
+    add_executable (TermGraphTest)
+    target_sources (TermGraphTest
+        PRIVATE
             source/helpers/fonts.cpp
             source/helpers/fonts.h
             source/helpers/intmatrix.cpp
@@ -330,28 +234,34 @@ if (BUILD_TESTING)
             source/helpers/text/textrange.h
             source/helpers/text/texttools.cpp
             source/helpers/text/texttools.h
-            tests/linktoolstest.cpp
-        LIBRARIES Qt6::Core Qt6::Gui Qt6::Qml CommonTools)
-
-    create_test (
-        NAME      TestLinkDecorator
-        SOURCES
-            source/helpers/intmatrix.cpp
-            source/helpers/intmatrix.h
-            source/helpers/link/linksdecorator.cpp
-            source/helpers/link/linksdecorator.h
-            source/helpers/link/linksstring.cpp
-            source/helpers/link/linksstring.h
-            source/helpers/link/link.cpp
-            source/helpers/link/link.h
-            source/helpers/text/chartools.h
-            source/helpers/text/checkingtextcursor.cpp
-            source/helpers/text/checkingtextcursor.h
-            source/helpers/text/textcursor.cpp
-            source/helpers/text/textcursor.h
-            source/helpers/text/textrange.cpp
-            source/helpers/text/textrange.h
+            source/model/base/edge.hpp
+            source/model/base/forest.hpp
+            source/model/base/graph.hpp
+            source/model/base/graphdata.hpp
+            source/model/base/node.hpp
+            source/model/enums.h
+            source/model/graphicitem/graphicitem.cpp
+            source/model/graphicitem/graphicitem.h
+            tests/cursortest.cpp
+            tests/edgetest.cpp
+            tests/foresttest.cpp
+            tests/graphicitemtest.cpp
+            tests/graphtest.cpp
             tests/linkdecoratortest.cpp
-        LIBRARIES Qt6::Core Qt6::Gui CommonTools)
+            tests/linktest.cpp
+            tests/linktoolstest.cpp
+            tests/nodetest.cpp
+            tests/textrangetest.cpp
+            tests/texttoolstest.cpp
+        )
 
+    set_target_properties (TermGraphTest
+        PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
+
+    target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
+    target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)
+    target_link_libraries (TermGraphTest Qt6::Core Qt6::Gui Qt6::Qml)
+    target_link_libraries (TermGraphTest CommonTools)
+
+    gtest_add_tests (TARGET TermGraphTest)
 endif ()
