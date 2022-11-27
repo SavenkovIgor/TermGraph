@@ -20,22 +20,26 @@ target_link_libraries (TermDataInterface INTERFACE CommonTools)
 target_link_libraries (TermDataInterface INTERFACE Qt6::Core)
 
 if (BUILD_TESTING)
-    include (TestTools)
+    enable_testing ()
 
-    create_test (
-        NAME    TestTermData
-        SOURCES
-            include/TermDataInterface/TermData.h
-            include/TermDataInterface/TermValidator.h
+    find_package (Qt6 REQUIRED COMPONENTS Core)
+    find_package (GTest REQUIRED)
+
+    include (GoogleTest)
+
+    add_executable (TermDataInterfaceTest)
+    target_sources (TermDataInterfaceTest
+        PRIVATE
             tests/termdatatest.cpp
-        LIBRARIES TermDataInterface CommonTools Qt6::Core)
+            tests/groupdatatest.cpp)
 
-    create_test (
-        NAME    TestGroupData
-        SOURCES
-            include/TermDataInterface/GroupData.h
-            include/TermDataInterface/GroupValidator.h
-            tests/groupdatatest.cpp
-        LIBRARIES TermDataInterface CommonTools Qt6::Core)
+    set_target_properties (TermDataInterfaceTest
+        PROPERTIES
+            CXX_STANDARD 20
+            CXX_STANDARD_REQUIRED ON)
 
+    target_link_libraries (TermDataInterfaceTest GTest::gtest GTest::gtest_main)
+    target_link_libraries (TermDataInterfaceTest CommonTools TermDataInterface Qt6::Core)
+
+    gtest_add_tests (TARGET TermDataInterfaceTest)
 endif ()

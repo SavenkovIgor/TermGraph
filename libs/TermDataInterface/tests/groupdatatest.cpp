@@ -5,7 +5,8 @@
 
 #include <TermDataInterface/GroupData.h>
 
-GroupData defaultData() {
+GroupData defaultGroupData()
+{
     return GroupData{
         .uuid          = GroupUuid::create("{8a505474-b90f-4e83-be63-e6a1e5d39b24}"),
         .name          = "Group",
@@ -18,38 +19,38 @@ GroupData defaultData() {
 
 TEST(GroupDataTest, ComparisonTest)
 {
-    auto data1 = defaultData();
-    EXPECT_EQ(data1, defaultData());
+    auto data1 = defaultGroupData();
+    EXPECT_EQ(data1, defaultGroupData());
 
-    data1 = defaultData();
+    data1      = defaultGroupData();
     data1.uuid = GroupUuid::generate();
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultGroupData());
 
-    data1 = defaultData();
+    data1      = defaultGroupData();
     data1.uuid = std::nullopt;
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultGroupData());
 
-    data1 = defaultData();
+    data1             = defaultGroupData();
     data1.name        = "Group1";
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultGroupData());
 
-    data1 = defaultData();
+    data1          = defaultGroupData();
     data1.comment  = "Comment1";
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultGroupData());
 
-    data1 = defaultData();
+    data1      = defaultGroupData();
     data1.size = 10;
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultGroupData());
 
-    data1 = defaultData();
+    data1             = defaultGroupData();
     data1.lastEdit    = QDateTime::currentDateTime().addSecs(1);
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultGroupData());
 
-    data1 = defaultData();
+    data1                  = defaultGroupData();
     data1.nodesLastEdit    = QDateTime::currentDateTime().addSecs(1);
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultGroupData());
 
-    data1 = defaultData();
+    data1                  = defaultGroupData();
     data1.nodesLastEdit    = std::nullopt;
-    EXPECT_NE(data1, defaultData());
+    EXPECT_NE(data1, defaultGroupData());
 }
