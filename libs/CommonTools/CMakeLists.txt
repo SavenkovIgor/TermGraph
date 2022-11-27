@@ -36,7 +36,9 @@ if (BUILD_TESTING)
     enable_testing ()
 
     find_package (Qt6 REQUIRED COMPONENTS Core)
-    find_package (GTest REQUIRED)
+    if (NOT GTest_FOUND)
+        find_package (GTest REQUIRED)
+    endif ()
 
     include (GoogleTest)
 
