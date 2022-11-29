@@ -12,15 +12,8 @@ jobs:
       run: |
           sudo apt install ninja-build
           pip install conan     
-          
-    - name: Qt cache
-      id: qt_cache_desktop_dev
-      uses: actions/cache@v3
-      with:
-          path: ~/Qt
 
-    - if: ${{ steps.qt_cache_desktop_dev.outputs.cache-hit != 'true' }}
-      name: Install Qt
+    - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
         aqtversion: '==2.1.*'
@@ -30,6 +23,7 @@ jobs:
         arch: 'gcc_64'
         modules: 'qtimageformats qt5compat'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
+        cache: true
 
     - uses: actions/checkout@v3
 
