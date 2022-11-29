@@ -67,7 +67,8 @@
 
 <div align="center">
 
-[![](https://tokei.rs/b1/github/SavenkovIgor/TermGraph)](https://github.com/SavenkovIgor/TermGraph)
+![](https://github.com/SavenkovIgor/TermGraph/actions/workflows/desktop_release.yml/badge.svg)
+<!--[![](https://tokei.rs/b1/github/SavenkovIgor/TermGraph)](https://github.com/SavenkovIgor/TermGraph)-->
 
 </div>
 
