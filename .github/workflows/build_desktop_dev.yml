@@ -11,7 +11,7 @@ jobs:
     - name: Install Ninja and Conan
       run: |
           sudo apt install ninja-build
-          pip install conan     
+          pip install conan
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
