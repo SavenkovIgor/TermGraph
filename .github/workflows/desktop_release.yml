@@ -10,10 +10,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Install Ninja and Conan
-      run: |
-          sudo apt install ninja-build
-          pip install conan        
+    - name: Install Ninja
+      run: sudo apt install ninja-build
+
+    - name: Install Conan
+      run: pip install conan     
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
