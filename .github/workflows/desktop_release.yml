@@ -25,6 +25,7 @@ jobs:
         arch: 'gcc_64'
         modules: 'qtimageformats qt5compat'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
+        cache: true
 
     - uses: actions/checkout@v3
 
