@@ -1,18 +1,12 @@
 <!-- TODO:
-4 Build
-- Scripts for building main apps
-
-5 Tests
-- CTest api
-
 8 Screenshots
 - Make them svg
 - Add screenshots
 
 9 Badges
 - https://forthebadge.com/
-- CI
-- Tests
+- Code quality
+- Code coverage
 
 11 Recomendations
 - Check different github themes
@@ -22,7 +16,7 @@
 - Meetup speech
 - Changelog
 - Project news
-- Make fixes to my personal profile page on github 
+- Make fixes to my personal profile page on github
 
 14 How to Use? Maybe wiki?
 18 Support
@@ -31,7 +25,6 @@
 - Other?
 
 20 Info
-- Readme gives x5 to project stars
 - Talk to every community individually
 - Try to be in Trending section, but topics is also ok
 -->
@@ -59,16 +52,16 @@
 
 <div align="center">
 
-[⚡️ Description](#%EF%B8%8F-description) • [🌿 Key features](#-key-features) • [🚀 Installation](#-installation) • [🗺 Roadmap](#-roadmap) • 
-[🧬 Tech stack](#-tech-stack)<br>
-[:hammer_and_wrench: Build](#hammer_and_wrench-build) • [:alembic: Tests](#alembic-tests) • [:microscope: Project structure](#microscope-project-structure) • [:pushpin: Credits](#pushpin-credits) 
+![](https://github.com/SavenkovIgor/TermGraph/actions/workflows/desktop_release.yml/badge.svg)
+<!--[![](https://tokei.rs/b1/github/SavenkovIgor/TermGraph)](https://github.com/SavenkovIgor/TermGraph)-->
 
 </div>
 
 <div align="center">
 
-![](https://github.com/SavenkovIgor/TermGraph/actions/workflows/desktop_release.yml/badge.svg)
-<!--[![](https://tokei.rs/b1/github/SavenkovIgor/TermGraph)](https://github.com/SavenkovIgor/TermGraph)-->
+[⚡️ Description](#%EF%B8%8F-description) • [🌿 Key features](#-key-features) • [🚀 Installation](#-installation) • [🗺 Roadmap](#-roadmap) • 
+[🧬 Tech stack](#-tech-stack)<br>
+[:hammer_and_wrench: Build](#hammer_and_wrench-build) • [:alembic: Tests](#alembic-tests) • [:microscope: Project structure](#microscope-project-structure) • [:pushpin: Credits](#pushpin-credits) 
 
 </div>
 
