@@ -8,10 +8,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Install Ninja and Conan
-      run: |
-          sudo apt install ninja-build
-          pip install conan        
+    - uses: actions/checkout@v3
+    
+    - name: Install Ninja
+      run: sudo apt install ninja-build
+      
+    - name: Install Conan package manager
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        cache: 'pip'
+        cache-dependency-path: 'pip_requirements.txt'
+    - run: pip install -r pip_requirements.txt
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
@@ -23,14 +31,13 @@ jobs:
         arch: 'gcc_64'
         modules: 'qtimageformats qt5compat'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
+        cache: true
 
-    - uses: actions/checkout@v3
-
-    - name: Conan install
+    - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/TermGraphApp
       run: conan install . --profile conanfiles/profile/desktop_dev --build=missing -if=build/desktop_dev/conan-dependencies
       
-    - name: CMake configure step
+    - name: CMake configure
       working-directory: ${{github.workspace}}/apps/TermGraphApp
       run: cmake --preset desktop_dev ./
 
@@ -38,6 +45,6 @@ jobs:
       working-directory: ${{github.workspace}}/apps/TermGraphApp
       run: cmake --build --preset desktop_dev
         
-    - name: Test
+    - name: CTest
       working-directory: ${{github.workspace}}/apps/TermGraphApp/build/desktop_dev
       run: ctest ./
