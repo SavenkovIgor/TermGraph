@@ -135,8 +135,8 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 
 # :hammer_and_wrench: Build
 ### Requirements for ubuntu hosted build:
-- [conan](https://docs.conan.io/en/latest/installation.html)
-- [cmake](https://cmake.org/)
+- [Conan](https://docs.conan.io/en/latest/installation.html)
+- [Cmake](https://cmake.org/) + Ninja
 - [Qt + Qml](https://www.qt.io/download-qt-installer)
 
 You can build main application `apps/TermGraphApp` with QtCreator, using CMake Presets (which QtCreator more or less understands).<br/>
