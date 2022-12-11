@@ -102,5 +102,15 @@
       "configurePreset": "wasm_release",
       "targets": "all"
     }
+  ],
+  "testPresets": [
+    {
+      "name": "desktop_dev",
+      "configurePreset": "desktop_dev"
+    },
+    {
+      "name": "desktop_release",
+      "configurePreset": "desktop_release"
+    }
   ]
 }
