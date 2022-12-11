@@ -48,5 +48,5 @@ jobs:
       run: cmake --build --preset desktop_release
 
     - name: CTest
-      working-directory: ${{github.workspace}}/apps/TermGraphApp/build/desktop_release
-      run: ctest ./
+      working-directory: ${{github.workspace}}/apps/TermGraphApp
+      run: ctest --preset desktop_release
