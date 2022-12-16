@@ -1,6 +1,8 @@
 name: Build wasm_release
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
