@@ -41,13 +41,12 @@ jobs:
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
         
-    - name: ls
-      working-directory: ${{github.workspace}}
-      run: ls -la
-      
-    - name: where
-      working-directory: ${{github.workspace}}
-      run: which ninja && echo "---" && where ninja
+    - name: Check wasm
+      run: em++ --version
+        
+    - name: Build multithread Qt wasm
+      working-directory: ${{github.workspace}}/tools/build_qt_wasm/build
+      run: build.sh
 
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/TermGraphApp
