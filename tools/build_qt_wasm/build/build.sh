@@ -35,7 +35,6 @@ variable_exist QT_VERSION "6.4.1"
 # If fails here, exec emscripten evn script manually!
 # source "$HOME/emsdk/emsdk_env.sh"
 variable_exist EMSDK      "~/emsdk"
-variable_exist EM_CONFIG  "~/emsdk/.emscripten"
 variable_exist EMSDK_NODE "~/emsdk/node/14.18.2_64bit/bin/node"
 
 QT_VERSION_PATH=$QT_ROOT/$QT_VERSION
@@ -43,7 +42,6 @@ QT_VERSION_PATH=$QT_ROOT/$QT_VERSION
 folder_exist QT_ROOT
 folder_exist QT_VERSION_PATH
 folder_exist EMSDK
-file_exist EM_CONFIG
 file_exist EMSDK_NODE
 
 CONFIG_PLATFORM=wasm-emscripten
