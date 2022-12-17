@@ -40,6 +40,14 @@ jobs:
         modules: 'qtimageformats qt5compat'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
+        
+    - name: ls
+      working-directory: ${{github.workspace}}
+      run: ls -la
+      
+    - name: where
+      working-directory: ${{github.workspace}}
+      run: which ninja && echo "---" && where ninja
 
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/TermGraphApp
