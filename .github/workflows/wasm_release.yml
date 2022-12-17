@@ -28,6 +28,9 @@ jobs:
       with:
         version: 3.1.14
         actions-cache-folder: 'emsdk-cache'
+        
+    - name: Wasm version
+      run: em++ --version
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
@@ -41,12 +44,9 @@ jobs:
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
         
-    - name: Check wasm
-      run: em++ --version
-        
     - name: Build multithread Qt wasm
       working-directory: ${{github.workspace}}/tools/build_qt_wasm/build
-      run: build.sh
+      run: ./build.sh
 
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/TermGraphApp
