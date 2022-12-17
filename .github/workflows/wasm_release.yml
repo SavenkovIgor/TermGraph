@@ -50,7 +50,7 @@ jobs:
         
     - name: Build multithread Qt wasm
       working-directory: ${{github.workspace}}/tools/build_qt_wasm/build
-      run: ./build.sh
+      run: echo $Qt6_DIR && ./build.sh
 
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/TermGraphApp
