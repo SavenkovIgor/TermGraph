@@ -5,6 +5,10 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+    
+env:
+  QT_ROOT: ~/Qt
+  QT_VERSION: 6.4.1
 
 jobs:
   build:
@@ -36,7 +40,7 @@ jobs:
       uses: jurplel/install-qt-action@v3
       with:
         aqtversion: '==2.1.*'
-        version: '6.4.1'
+        version: '$QT_VERSION'
         host: 'linux'
         target: 'desktop'
         arch: 'gcc_64'
