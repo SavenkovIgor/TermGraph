@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
     
 env:
-  QT_ROOT: ~/Qt
+  QT_ROOT: ${{github.workspace}}/Qt
   QT_VERSION: 6.4.1
 
 jobs:
