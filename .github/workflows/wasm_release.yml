@@ -40,7 +40,7 @@ jobs:
       uses: jurplel/install-qt-action@v3
       with:
         aqtversion: '==2.1.*'
-        version: '$QT_VERSION'
+        version: $QT_VERSION
         host: 'linux'
         target: 'desktop'
         arch: 'gcc_64'
