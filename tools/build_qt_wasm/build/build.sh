@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Try to capture QT_ROOT from Qt6_DIR
+if [[ -z "$Qt6_DIR" ]]; then
+    printf "Qt6_DIR not defined\n";
+else
+    QT_ROOT=$Qt6_DIR
+fi
+
 variable_exist() {
   local varname=$1
   local example_msg=$2
