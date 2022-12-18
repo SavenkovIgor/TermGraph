@@ -47,6 +47,9 @@ jobs:
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
         
+    - name: Move env variables
+      run: export QT_ROOT=$Qt6_DIR
+        
     - name: Build multithread Qt wasm
       working-directory: ${{github.workspace}}/tools/build_qt_wasm/build
       run: ./build.sh
