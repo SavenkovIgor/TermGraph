@@ -50,17 +50,17 @@ jobs:
         
     - name: Build multithread Qt wasm
       working-directory: ${{github.workspace}}/tools/build_qt_wasm/build
-      run: echo $Qt6_DIR && ./build.sh
+      run: ./build.sh
 
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: conan install . --profile conanfiles/profile/wasm_release --build=missing -if=build/wasm_release/conan-dependencies
+      run: conan install . --profile conanfiles/profile/wasm_release --build=missing -if=build/ci_wasm_release/conan-dependencies
       
     - name: CMake configure
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: cmake --preset wasm_release ./
+      run: cmake --preset ci_wasm_release ./
 
     - name: Cmake build
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: cmake --build --preset wasm_release
+      run: cmake --build --preset ci_wasm_release
       
