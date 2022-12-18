@@ -45,7 +45,7 @@ jobs:
         target: 'desktop'
         arch: 'gcc_64'
         modules: 'qtimageformats qt5compat'
-        archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
+        archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu qtshadertools'
         cache: true
         
     - name: Build multithread Qt wasm
