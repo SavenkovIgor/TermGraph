@@ -87,30 +87,12 @@
     }
   ],
   "buildPresets": [
-    {
-      "name": "desktop_dev",
-      "configurePreset": "desktop_dev",
-      "targets": "all"
-    },
-    {
-      "name": "desktop_release",
-      "configurePreset": "desktop_release",
-      "targets": "all"
-    },
-    {
-      "name": "wasm_release",
-      "configurePreset": "wasm_release",
-      "targets": "all"
-    }
+    { "name": "desktop_dev",     "configurePreset": "desktop_dev",     "targets": "all" },
+    { "name": "desktop_release", "configurePreset": "desktop_release", "targets": "all" },
+    { "name": "wasm_release",    "configurePreset": "wasm_release",    "targets": "all" }
   ],
   "testPresets": [
-    {
-      "name": "desktop_dev",
-      "configurePreset": "desktop_dev"
-    },
-    {
-      "name": "desktop_release",
-      "configurePreset": "desktop_release"
-    }
+    { "name": "desktop_dev",     "configurePreset": "desktop_dev" },
+    { "name": "desktop_release", "configurePreset": "desktop_release" }
   ]
 }
