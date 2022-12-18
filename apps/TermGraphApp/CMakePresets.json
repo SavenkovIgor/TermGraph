@@ -41,7 +41,7 @@
       "name": "ci_qt_env",
       "hidden": true,
       "environment": {
-        "QT_ROOT": "$penv{QT_ROOT}",
+        "QT_ROOT": "$penv{Qt6_DIR}",
         "QT_VERSION": "$penv{QT_VERSION}",
         "QT_VERSION_ROOT": "$env{QT_ROOT}/$env{QT_VERSION}"
       }
