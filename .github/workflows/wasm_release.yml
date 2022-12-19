@@ -41,7 +41,7 @@ jobs:
       with:
         aqtversion: '==2.1.*'
         version: ${{ env.QT_VERSION }}
-        dir: ${{ env.QT_ROOT }}
+        dir: ${{ github.workspace }}
         host: 'linux'
         target: 'desktop'
         arch: 'gcc_64'
