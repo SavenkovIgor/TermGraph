@@ -8,6 +8,7 @@ on:
     
 env:
   QT_VERSION: 6.4.1
+  QT_ROOT: ${{ github.workspace }}/Qt
 
 jobs:
   build:
@@ -40,6 +41,7 @@ jobs:
       with:
         aqtversion: '==2.1.*'
         version: ${{ env.QT_VERSION }}
+        dir: ${{ env.QT_ROOT }}
         host: 'linux'
         target: 'desktop'
         arch: 'gcc_64'
