@@ -1,0 +1,72 @@
+name: Build wasm_release
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+env:
+  QT_VERSION: 6.4.1
+  QT_ROOT: ${{ github.workspace }}/Qt
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Install Ninja
+      run: sudo apt install ninja-build
+      
+    - name: Install Conan package manager
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        cache: 'pip'
+        cache-dependency-path: 'pip_requirements.txt'
+    - run: pip install -r pip_requirements.txt
+    
+    - name: Install Wasm
+      uses: mymindstorm/setup-emsdk@v11
+      with:
+        version: 3.1.14
+        actions-cache-folder: 'emsdk-cache'
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        aqtversion: '==2.1.*'
+        version: ${{ env.QT_VERSION }}
+        dir: ${{ github.workspace }}
+        host: 'linux'
+        target: 'desktop'
+        arch: 'gcc_64'
+        modules: 'qtimageformats qt5compat qtshadertools'
+        archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
+        cache: true
+
+    - name: Cache Multithread qt wasm
+      id: cache-mt-wasm
+      uses: actions/cache@v3
+      with:
+        key: wasm_32_mt
+        path: ${{ github.workspace }}/Qt/${{ env.QT_VERSION }}/wasm_32_mt
+        
+    - if: ${{ steps.cache-mt-wasm.outputs.cache-hit != 'true' }}
+      name: Build multithread Qt wasm
+      working-directory: ${{github.workspace}}/tools/build_qt_wasm/build
+      run: ./build.sh
+
+    - name: Conan install dependencies
+      working-directory: ${{github.workspace}}/apps/TermGraphApp
+      run: conan install . --profile conanfiles/profile/wasm_release --build=missing -if=build/ci_wasm_release/conan-dependencies
+      
+    - name: CMake configure
+      working-directory: ${{github.workspace}}/apps/TermGraphApp
+      run: cmake --preset ci_wasm_release ./
+
+    - name: Cmake build
+      working-directory: ${{github.workspace}}/apps/TermGraphApp
+      run: cmake --build --preset ci_wasm_release
+      

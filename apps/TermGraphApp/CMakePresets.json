@@ -15,7 +15,7 @@
       }
     },
     {
-      "name": "emsdk_compiler",
+      "name": "local_emsdk_env",
       "hidden": true,
       "environment": {
         "EMSDK": "$env{HOME}/emsdk",
@@ -29,6 +29,47 @@
       }
     },
     {
+      "name": "ci_emsdk_env",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "$penv{EMSDK}/upstream/emscripten/emcc",
+        "CMAKE_CXX_COMPILER": "$penv{EMSDK}/upstream/emscripten/em++"
+      }
+    },
+    {
+      "name": "local_qt_env",
+      "hidden": true,
+      "environment": {
+        "QT_ROOT": "$env{HOME}/Qt",
+        "QT_VERSION": "6.4.1",
+        "QT_VERSION_ROOT": "$env{QT_ROOT}/$env{QT_VERSION}"
+      }
+    },
+    {
+      "name": "ci_qt_env",
+      "hidden": true,
+      "environment": {
+        "QT_ROOT": "$penv{QT_ROOT}",
+        "QT_VERSION": "$penv{QT_VERSION}",
+        "QT_VERSION_ROOT": "$env{QT_ROOT}/$env{QT_VERSION}"
+      }
+    },
+    { 
+      "name": "release_build",
+      "hidden": true,
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    },
+    {
+      "name": "debug_build",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_FLAGS_INIT": "-DQT_QML_DEBUG"
+      }
+    },
+    { "name": "test_on",  "hidden": true, "cacheVariables": { "BUILD_TESTING": "ON" } },
+    { "name": "test_off", "hidden": true, "cacheVariables": { "BUILD_TESTING": "OFF" } },
+    {
       "name": "default",
       "hidden": true,
       "generator": "Ninja",
@@ -40,12 +81,7 @@
         "systemVars": false
       },
       "errors": { "deprecated": true },
-      "environment": {
-        "CONAN_PATH": "$env{HOME}/.local/bin",
-        "QT_ROOT": "$env{HOME}/Qt",
-        "QT_VERSION": "6.4.1",
-        "QT_VERSION_ROOT": "$env{QT_ROOT}/$env{QT_VERSION}"
-      },
+      "environment": { "CONAN_PATH": "$env{HOME}/.local/bin" },
       "cacheVariables": {
         "CMAKE_CXX_FLAGS": "-Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wcast-qual -Wformat=2 -Wundef -Wcast-align -Wunused -Wnull-dereference -Wdouble-promotion -Wimplicit-fallthrough -Wextra-semi -Woverloaded-virtual -Wnon-virtual-dtor -Wold-style-cast"
       }
@@ -53,64 +89,50 @@
     {
       "name": "desktop_dev",
       "displayName": "Desktop dev build",
-      "inherits": ["default", "gcc_compiler"],
+      "inherits": ["default", "local_qt_env", "gcc_compiler", "debug_build", "test_on"],
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "BUILD_TESTING": "ON",
-        "CMAKE_CXX_FLAGS_INIT": "-DQT_QML_DEBUG",
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
       }
     },
     {
       "name": "desktop_release",
       "displayName": "Desktop release build",
-      "inherits": ["default", "gcc_compiler"],
+      "inherits": ["default", "local_qt_env", "gcc_compiler", "release_build", "test_on"],
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "BUILD_TESTING": "ON",
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
       }
     },
     {
       "name": "wasm_release",
       "displayName": "WebAssembly release build",
-      "inherits": ["default", "emsdk_compiler"],
+      "inherits": ["default", "local_qt_env", "local_emsdk_env", "release_build", "test_off"],
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_32_mt/lib/cmake/Qt6/qt.toolchain.cmake",
-        "CMAKE_BUILD_TYPE": "Release",
-        "BUILD_TESTING": "OFF",
+        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_32_mt;${sourceDir}/build/${presetName}/conan-dependencies"
+      }
+    },
+    {
+      "name": "ci_wasm_release",
+      "displayName": "Ci WebAssembly release build",
+      "inherits": ["default", "ci_qt_env", "ci_emsdk_env", "release_build", "test_off"],
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_32_mt/lib/cmake/Qt6/qt.toolchain.cmake",
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_32_mt;${sourceDir}/build/${presetName}/conan-dependencies"
       }
     }
   ],
   "buildPresets": [
-    {
-      "name": "desktop_dev",
-      "configurePreset": "desktop_dev",
-      "targets": "all"
-    },
-    {
-      "name": "desktop_release",
-      "configurePreset": "desktop_release",
-      "targets": "all"
-    },
-    {
-      "name": "wasm_release",
-      "configurePreset": "wasm_release",
-      "targets": "all"
-    }
+    { "name": "desktop_dev",     "configurePreset": "desktop_dev",     "targets": "all" },
+    { "name": "desktop_release", "configurePreset": "desktop_release", "targets": "all" },
+    { "name": "wasm_release",    "configurePreset": "wasm_release",    "targets": "all" },
+    { "name": "ci_wasm_release", "configurePreset": "ci_wasm_release", "targets": "all" }
   ],
   "testPresets": [
-    {
-      "name": "desktop_dev",
-      "configurePreset": "desktop_dev"
-    },
-    {
-      "name": "desktop_release",
-      "configurePreset": "desktop_release"
-    }
+    { "name": "desktop_dev",     "configurePreset": "desktop_dev" },
+    { "name": "desktop_release", "configurePreset": "desktop_release" }
   ]
 }
