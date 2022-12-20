@@ -15,7 +15,7 @@
       }
     },
     {
-      "name": "emsdk_compiler",
+      "name": "local_emsdk_env",
       "hidden": true,
       "environment": {
         "EMSDK": "$env{HOME}/emsdk",
@@ -26,6 +26,14 @@
       "cacheVariables": {
         "CMAKE_C_COMPILER": "$env{EMSDK}/upstream/emscripten/emcc",
         "CMAKE_CXX_COMPILER": "$env{EMSDK}/upstream/emscripten/em++"
+      }
+    },
+    {
+      "name": "ci_emsdk_env",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "$penv{EMSDK}/upstream/emscripten/emcc",
+        "CMAKE_CXX_COMPILER": "$penv{EMSDK}/upstream/emscripten/em++"
       }
     },
     {
@@ -99,7 +107,7 @@
     {
       "name": "wasm_release",
       "displayName": "WebAssembly release build",
-      "inherits": ["default", "local_qt_env", "emsdk_compiler", "release_build", "test_off"],
+      "inherits": ["default", "local_qt_env", "local_emsdk_env", "release_build", "test_off"],
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_32_mt/lib/cmake/Qt6/qt.toolchain.cmake",
@@ -109,7 +117,7 @@
     {
       "name": "ci_wasm_release",
       "displayName": "Ci WebAssembly release build",
-      "inherits": ["default", "ci_qt_env", "emsdk_compiler", "release_build", "test_off"],
+      "inherits": ["default", "ci_qt_env", "ci_emsdk_env", "release_build", "test_off"],
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_32_mt/lib/cmake/Qt6/qt.toolchain.cmake",
