@@ -38,10 +38,6 @@ jobs:
       
     - name: Verify
       run: emcc -v
-      
-    - name: Folder contents
-      working-directory: /home/runner/emsdk/
-      run: ls -la
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
