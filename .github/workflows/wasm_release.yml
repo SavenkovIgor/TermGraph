@@ -54,7 +54,7 @@ jobs:
       run: ./build.sh
       
     - name: Folder contents
-      working-directory: ${{github.workspace}}/Qt/6.4.1/wasm_32_mt/lib/cmake/Qt6/
+      working-directory: /home/runner/emsdk/
       run: ls -la
 
     - name: Conan install dependencies
