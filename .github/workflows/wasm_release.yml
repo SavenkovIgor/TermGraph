@@ -32,12 +32,6 @@ jobs:
       with:
         version: 3.1.14
         actions-cache-folder: 'emsdk-cache'
-        
-    - name: Wasm version
-      run: em++ --version
-      
-    - name: Verify
-      run: emcc -v
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
