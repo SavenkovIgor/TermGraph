@@ -35,6 +35,9 @@ jobs:
         
     - name: Wasm version
       run: em++ --version
+      
+    - name: Verify
+      run: emcc -v
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
