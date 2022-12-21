@@ -4,6 +4,11 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  QT_VERSION: 6.4.1
+  QT_ROOT: ${{ github.workspace }}/Qt
+  BUILD_PROFILE: desktop_dev
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,26 +30,27 @@ jobs:
       uses: jurplel/install-qt-action@v3
       with:
         aqtversion: '==2.1.*'
-        version: '6.4.1'
+        version: ${{ env.QT_VERSION }}
+        dir: ${{ github.workspace }}
         host: 'linux'
         target: 'desktop'
         arch: 'gcc_64'
-        modules: 'qtimageformats qt5compat'
+        modules: 'qtimageformats qt5compat qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
 
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: conan install . --profile conanfiles/profile/desktop_dev --build=missing -if=build/desktop_dev/conan-dependencies
+      run: conan install . --profile conanfiles/profile/${{ BUILD_PROFILE }} --build=missing -if=build/${{ BUILD_PROFILE }}/conan-dependencies
       
     - name: CMake configure
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: cmake --preset desktop_dev ./
+      run: cmake --preset ${{ BUILD_PROFILE }} ./
 
     - name: Cmake build
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: cmake --build --preset desktop_dev
+      run: cmake --build --preset ${{ BUILD_PROFILE }}
         
     - name: CTest
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: ctest --preset desktop_dev
+      run: ctest --preset ${{ BUILD_PROFILE }}
