@@ -10,6 +10,7 @@ env:
 
 jobs:
   build:
+    timeout-minutes: 120
     strategy:
       matrix:
         build_profile: [desktop_dev, desktop_release]
