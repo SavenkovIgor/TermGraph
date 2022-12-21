@@ -18,7 +18,7 @@ jobs:
         build_profile: [desktop_dev, desktop_release]
 
     concurrency:
-      group: ${{ github.ref }}
+      group: ${{ github.ref }}-${{ github.workflow }}
       cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
     runs-on: ubuntu-latest
