@@ -1,4 +1,4 @@
-name: Build desktop_dev
+name: Build desktop
 
 on:
   pull_request:
@@ -7,10 +7,13 @@ on:
 env:
   QT_VERSION: 6.4.1
   QT_ROOT: ${{ github.workspace }}/Qt
-  BUILD_PROFILE: desktop_dev
 
 jobs:
   build:
+    strategy:
+      matrix:
+        build_profile: [desktop_dev, desktop_release]
+
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -41,16 +44,16 @@ jobs:
 
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: conan install . --profile conanfiles/profile/${{ env.BUILD_PROFILE }} --build=missing -if=build/${{ env.BUILD_PROFILE }}/conan-dependencies
+      run: conan install . --profile conanfiles/profile/${{ matrix.build_profile }} --build=missing -if=build/${{ matrix.build_profile }}/conan-dependencies
 
     - name: CMake configure
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: cmake --preset ${{ env.BUILD_PROFILE }} ./
+      run: cmake --preset ${{ matrix.build_profile }} ./
 
     - name: Cmake build
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: cmake --build --preset ${{ env.BUILD_PROFILE }}
+      run: cmake --build --preset ${{ matrix.build_profile }}
 
     - name: CTest
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: ctest --preset ${{ env.BUILD_PROFILE }}
+      run: ctest --preset ${{ matrix.build_profile }}
