@@ -6,12 +6,17 @@ on:
   pull_request:
     branches: [ "main" ]
 
+env:
+  QT_VERSION: 6.4.1
+  QT_ROOT: ${{ github.workspace }}/Qt
+  BUILD_PROFILE: desktop_release
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Install Ninja
       run: sudo apt install ninja-build
 
@@ -27,26 +32,27 @@ jobs:
       uses: jurplel/install-qt-action@v3
       with:
         aqtversion: '==2.1.*'
-        version: '6.4.1'
+        version: ${{ env.QT_VERSION }}
+        dir: ${{ github.workspace }}
         host: 'linux'
         target: 'desktop'
         arch: 'gcc_64'
-        modules: 'qtimageformats qt5compat'
+        modules: 'qtimageformats qt5compat qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
 
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: conan install . --profile conanfiles/profile/desktop_release --build=missing -if=build/desktop_release/conan-dependencies
-      
+      run: conan install . --profile conanfiles/profile/${{ env.BUILD_PROFILE }} --build=missing -if=build/${{ env.BUILD_PROFILE }}/conan-dependencies
+
     - name: CMake configure
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: cmake --preset desktop_release ./
+      run: cmake --preset ${{ env.BUILD_PROFILE }} ./
 
     - name: Cmake build
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: cmake --build --preset desktop_release
+      run: cmake --build --preset ${{ env.BUILD_PROFILE }}
 
     - name: CTest
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: ctest --preset desktop_release
+      run: ctest --preset ${{ env.BUILD_PROFILE }}

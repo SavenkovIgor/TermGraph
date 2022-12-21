@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Install Ninja
       run: sudo apt install ninja-build
-      
+
     - name: Install Conan package manager
       uses: actions/setup-python@v4
       with:
@@ -42,7 +42,7 @@ jobs:
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/TermGraphApp
       run: conan install . --profile conanfiles/profile/${{ env.BUILD_PROFILE }} --build=missing -if=build/${{ env.BUILD_PROFILE }}/conan-dependencies
-      
+
     - name: CMake configure
       working-directory: ${{github.workspace}}/apps/TermGraphApp
       run: cmake --preset ${{ env.BUILD_PROFILE }} ./
@@ -50,7 +50,7 @@ jobs:
     - name: Cmake build
       working-directory: ${{github.workspace}}/apps/TermGraphApp
       run: cmake --build --preset ${{ env.BUILD_PROFILE }}
-        
+
     - name: CTest
       working-directory: ${{github.workspace}}/apps/TermGraphApp
       run: ctest --preset ${{ env.BUILD_PROFILE }}
