@@ -1,24 +1,34 @@
-name: Build wasm_release
+name: Build desktop and wasm
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
-    
+
 env:
   QT_VERSION: 6.4.1
+  WASM_VERSION: 3.1.14
   QT_ROOT: ${{ github.workspace }}/Qt
 
 jobs:
   build:
+    timeout-minutes: 120
+    strategy:
+      matrix:
+        build_profile: [desktop_dev, desktop_release, wasm_release]
+
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.build_profile }}
+      cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Install Ninja
       run: sudo apt install ninja-build
-      
+
     - name: Install Conan package manager
       uses: actions/setup-python@v4
       with:
@@ -26,11 +36,12 @@ jobs:
         cache: 'pip'
         cache-dependency-path: 'pip_requirements.txt'
     - run: pip install -r pip_requirements.txt
-    
-    - name: Install Wasm
+
+    - if: ${{ matrix.build_profile == 'wasm_release' }}
+      name: Install Wasm
       uses: mymindstorm/setup-emsdk@v11
       with:
-        version: 3.1.14
+        version: ${{ env.WASM_VERSION }}
         actions-cache-folder: 'emsdk-cache'
 
     - name: Install Qt
@@ -46,27 +57,32 @@ jobs:
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
 
-    - name: Cache Multithread qt wasm
+    - if: ${{ matrix.build_profile == 'wasm_release' }}
+      name: Cache Multithread qt wasm
       id: cache-mt-wasm
       uses: actions/cache@v3
       with:
         key: wasm_32_mt
         path: ${{ github.workspace }}/Qt/${{ env.QT_VERSION }}/wasm_32_mt
-        
-    - if: ${{ steps.cache-mt-wasm.outputs.cache-hit != 'true' }}
+
+    - if: ${{ matrix.build_profile == 'wasm_release' && steps.cache-mt-wasm.outputs.cache-hit != 'true' }}
       name: Build multithread Qt wasm
       working-directory: ${{github.workspace}}/tools/build_qt_wasm/build
       run: ./build.sh
 
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: conan install . --profile conanfiles/profile/wasm_release --build=missing -if=build/ci_wasm_release/conan-dependencies
-      
+      run: conan install . --profile conanfiles/profile/${{ matrix.build_profile }} --build=missing -if=build/${{ matrix.build_profile }}/conan-dependencies
+
     - name: CMake configure
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: cmake --preset ci_wasm_release ./
+      run: cmake --preset ${{ matrix.build_profile }} ./
 
     - name: Cmake build
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: cmake --build --preset ci_wasm_release
-      
+      run: cmake --build --preset ${{ matrix.build_profile }}
+
+    - if: ${{ matrix.build_profile != 'wasm_release' }}
+      name: CTest
+      working-directory: ${{github.workspace}}/apps/TermGraphApp
+      run: ctest --preset ${{ matrix.build_profile }}
