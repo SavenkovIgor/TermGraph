@@ -105,7 +105,7 @@
       }
     },
     {
-      "name": "wasm_release",
+      "name": "local_wasm_release",
       "displayName": "WebAssembly release build",
       "inherits": ["default", "local_qt_env", "local_emsdk_env", "release_build", "test_off"],
       "binaryDir": "${sourceDir}/build/${presetName}",
@@ -115,7 +115,7 @@
       }
     },
     {
-      "name": "ci_wasm_release",
+      "name": "wasm_release",
       "displayName": "Ci WebAssembly release build",
       "inherits": ["default", "ci_qt_env", "ci_emsdk_env", "release_build", "test_off"],
       "binaryDir": "${sourceDir}/build/${presetName}",
@@ -126,10 +126,10 @@
     }
   ],
   "buildPresets": [
-    { "name": "desktop_dev",     "configurePreset": "desktop_dev",     "targets": "all" },
-    { "name": "desktop_release", "configurePreset": "desktop_release", "targets": "all" },
-    { "name": "wasm_release",    "configurePreset": "wasm_release",    "targets": "all" },
-    { "name": "ci_wasm_release", "configurePreset": "ci_wasm_release", "targets": "all" }
+    { "name": "desktop_dev",        "configurePreset": "desktop_dev",        "targets": "all" },
+    { "name": "desktop_release",    "configurePreset": "desktop_release",    "targets": "all" },
+    { "name": "local_wasm_release", "configurePreset": "local_wasm_release", "targets": "all" },
+    { "name": "wasm_release",       "configurePreset": "wasm_release",       "targets": "all" }
   ],
   "testPresets": [
     { "name": "desktop_dev",     "configurePreset": "desktop_dev" },
