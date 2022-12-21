@@ -41,16 +41,16 @@ jobs:
 
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: conan install . --profile conanfiles/profile/${{ BUILD_PROFILE }} --build=missing -if=build/${{ BUILD_PROFILE }}/conan-dependencies
+      run: conan install . --profile conanfiles/profile/${{ env.BUILD_PROFILE }} --build=missing -if=build/${{ env.BUILD_PROFILE }}/conan-dependencies
       
     - name: CMake configure
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: cmake --preset ${{ BUILD_PROFILE }} ./
+      run: cmake --preset ${{ env.BUILD_PROFILE }} ./
 
     - name: Cmake build
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: cmake --build --preset ${{ BUILD_PROFILE }}
+      run: cmake --build --preset ${{ env.BUILD_PROFILE }}
         
     - name: CTest
       working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: ctest --preset ${{ BUILD_PROFILE }}
+      run: ctest --preset ${{ env.BUILD_PROFILE }}
