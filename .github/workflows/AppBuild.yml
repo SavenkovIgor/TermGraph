@@ -1,4 +1,4 @@
-name: Build app desktop and wasm
+name: Build app
 
 on:
   push:
