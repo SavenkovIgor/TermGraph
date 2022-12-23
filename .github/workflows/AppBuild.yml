@@ -1,4 +1,4 @@
-name: Build desktop and wasm
+name: Build app
 
 on:
   push:
@@ -19,7 +19,7 @@ jobs:
         build_profile: [desktop_dev, desktop_release, wasm_release]
 
     concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}-${{ matrix.build_profile }}
+      group: AppBuild-${{ github.workflow }}-${{ github.ref }}-${{ matrix.build_profile }}
       cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
     runs-on: ubuntu-latest
