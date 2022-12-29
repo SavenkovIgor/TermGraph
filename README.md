@@ -53,8 +53,7 @@
 
 <div align="center">
 
-![](https://github.com/SavenkovIgor/TermGraph/actions/workflows/desktop_release.yml/badge.svg)
-<!--[![](https://tokei.rs/b1/github/SavenkovIgor/TermGraph)](https://github.com/SavenkovIgor/TermGraph)-->
+[![](https://tokei.rs/b1/github/SavenkovIgor/TermGraph)](https://github.com/SavenkovIgor/TermGraph)
 
 </div>
 
@@ -135,6 +134,8 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 
 
 # :hammer_and_wrench: Build
+[![Build app](https://github.com/SavenkovIgor/TermGraph/actions/workflows/AppBuild.yml/badge.svg)](https://github.com/SavenkovIgor/TermGraph/actions/workflows/AppBuild.yml)
+[![Build backend](https://github.com/SavenkovIgor/TermGraph/actions/workflows/BackendBuild.yml/badge.svg)](https://github.com/SavenkovIgor/TermGraph/actions/workflows/BackendBuild.yml)
 ### Requirements for ubuntu hosted build:
 - [Conan](https://docs.conan.io/en/latest/installation.html)
 - [Cmake](https://cmake.org/) + Ninja
