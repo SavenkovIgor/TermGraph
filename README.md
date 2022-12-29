@@ -47,6 +47,7 @@
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)]()
 [![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://play.google.com/store/apps/details?id=app.termgraph&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
 [![WebAssembly](https://img.shields.io/badge/WASM-654FF0?style=for-the-badge&logo=WebAssembly&logoColor=white)](https://emscripten.org/index.html)
+[![GitHub Actions](https://img.shields.io/badge/githubactions-%232671E5.svg?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/SavenkovIgor/TermGraph/actions)
 
 </div>
 
