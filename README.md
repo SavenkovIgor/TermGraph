@@ -53,15 +53,6 @@
 
 <div align="center">
 
-<a href="https://project-types.github.io/#toy">
-  <img src="https://img.shields.io/badge/project%20type-toy-blue" alt="Toy Badge"/>
-</a>
-[![](https://tokei.rs/b1/github/SavenkovIgor/TermGraph)](https://github.com/SavenkovIgor/TermGraph)
-
-</div>
-
-<div align="center">
-
 [Description](#%EF%B8%8F-description) • [Key features](#-key-features) • [Installation](#-installation) • [Roadmap](#-roadmap) • 
 [Tech stack](#-tech-stack)<br>
 [Build](#hammer_and_wrench-build) • [Tests](#alembic-tests) • [Project structure](#microscope-project-structure) • [Credits](#pushpin-credits) 
