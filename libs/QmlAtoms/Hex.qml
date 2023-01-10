@@ -9,16 +9,13 @@ Shape {
     width: 100
     height: width
     anchors.centerIn: parent
-    antialiasing: true
-    smooth: true
 
     property alias color: shp.fillColor
     property alias borderColor: shp.strokeColor
 
     ShapePath {
         id: shp
-        fillColor: "black"
-        strokeColor: Qt.darker(shp.fillColor)
+        strokeColor: Qt.darker(shp.fillColor, 1.15)
 
         readonly property point center: Qt.point(hex.width / 2, hex.height / 2)
         readonly property real radius: hex.width / 2
