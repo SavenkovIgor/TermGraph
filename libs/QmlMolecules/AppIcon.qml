@@ -4,8 +4,7 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
-// NOTE: Wait for Qt6 implementation
-//import QtGraphicalEffects
+import Qt5Compat.GraphicalEffects
 
 import Theme
 import Atoms as A
@@ -21,75 +20,63 @@ Item {
     Item {
         id: root
 
-        width: padding.size * 0.95
+        width:  padding.size * 0.95
         height: padding.size * 0.95
         anchors.centerIn: parent
 
-        property color col1: "#6d9a28"
-        property color col2: Theme.color.accent
-        property color col3: Theme.color.base2
-        property color colText: "#dcdcdc"
+        readonly property color col1: Theme.color.term.orphanNode
+        readonly property color col2: Theme.color.term.leafNode
+        readonly property color col3: Theme.color.base1
+        readonly property color colText: Theme.color.base7
+        readonly property bool shadows: true
+
+        component Shadow: DropShadow {
+            verticalOffset: horizontalOffset / 2
+            samples: radius * 2 + 1
+        }
 
         A.Hex {
             id: hex1
             anchors.centerIn: parent
-            width: root.width
-            height: root.height
+            width:  parent.width
+            height: parent.height
             color: root.col1
-            visible: false
-        }
 
-// NOTE: Wait for Qt6 implementation
-//        DropShadow {
-//            anchors.fill: hex1
-//            source: hex1
-//            verticalOffset: 4
-//            horizontalOffset: 4
-//            radius: 12.0
-//            samples: 20
-//        }
+            layer.enabled: root.shadows
+            layer.effect: Shadow {
+                radius: hex1.width / 12
+                horizontalOffset: hex1.width / 30
+            }
+        }
 
         A.Hex {
             id: hex2
             anchors.centerIn: parent
-            width: parent.width * 0.866
-            height: parent.height * 0.866
+            width:  parent.width  * 0.86
+            height: parent.height * 0.86
             color: root.col2
             rotation: 30
-            visible: false
-        }
 
-// NOTE: Wait for Qt6 implementation
-//        DropShadow {
-//            anchors.fill: hex2
-//            source: hex2
-//            verticalOffset: 3
-//            horizontalOffset: 3
-//            radius: 10.0
-//            samples: 20
-//            rotation: 30
-//        }
+            layer.enabled: root.shadows
+            layer.effect: Shadow {
+                radius: hex1.width / 12
+                horizontalOffset: hex2.width / 30
+            }
+        }
 
         A.Hex {
             id: hex3
             anchors.centerIn: parent
-            width: parent.width * Math.pow(0.866, 2)
-            height: parent.height * Math.pow(0.866, 2)
+            width:  parent.width  * Math.pow(0.86, 2)
+            height: parent.height * Math.pow(0.86, 2)
             color: root.col3
-            rotation: 60
-            visible: false
-        }
 
-// NOTE: Wait for Qt6 implementation
-//        DropShadow {
-//            anchors.fill: hex3
-//            source: hex3
-//            verticalOffset: 2
-//            horizontalOffset: 2
-//            radius: 8.0
-//            samples: 20
-//            rotation: 60
-//        }
+            layer.enabled: root.shadows
+            layer.effect: Shadow {
+                radius: hex1.width / 12
+                horizontalOffset: hex3.width / 30
+            }
+        }
 
         Text {
             id: text
@@ -98,17 +85,12 @@ Item {
             text: "Tg"
             font.pixelSize: root.height * 0.35
             color: root.colText
-            visible: false
-        }
 
-// NOTE: Wait for Qt6 implementation
-//        DropShadow {
-//            anchors.fill: text
-//            source: text
-//            verticalOffset: 2
-//            horizontalOffset: 2
-//            radius: 8.0
-//            samples: 20
-//        }
+            layer.enabled: root.shadows
+            layer.effect: Shadow {
+                horizontalOffset: text.font.pixelSize / 12
+                radius: text.font.pixelSize / 12
+            }
+        }
     }
 }
