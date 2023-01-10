@@ -4,6 +4,7 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
+import Qt5Compat.GraphicalEffects
 
 import Theme
 import Atoms as A
@@ -16,9 +17,9 @@ Item {
     width: size
     height: size
 
-    property color col1: "#6d9a28"
-    property color col2: Theme.color.accent
-    property color col3: Theme.color.base2
+    property color col1: Theme.color.term.orphanNode
+    property color col2: Theme.color.term.leafNode
+    property color col3: Theme.color.base1
 
     readonly property int animDuration: 1500
 
@@ -41,7 +42,7 @@ Item {
             to: direction === RotationAnimation.Clockwise ? 60 : -60
             duration: root.animDuration
             direction: randomDirection()
-            easing.type: Easing.InOutBack
+            easing.type: Easing.InOutCubic
 
             function coin() { return Math.random() > 0.5; }
 
@@ -55,6 +56,12 @@ Item {
         }
     }
 
+    component Shadow: DropShadow {
+        horizontalOffset: 0
+        verticalOffset: 0
+        samples: radius * 2 + 1
+    }
+
     A.Hex {
         id: hex1
         anchors.centerIn: parent
@@ -62,16 +69,26 @@ Item {
         height: root.height
         color: root.col1
 
+        layer.enabled: true
+        layer.effect: Shadow {
+            radius: Math.ceil(hex1.width / 12)
+        }
+
         InfiniteRandomRotation { target: hex1 }
     }
 
     A.Hex {
         id: hex2
         anchors.centerIn: parent
-        width: parent.width * 0.866
-        height: parent.height * 0.866
+        width: parent.width * 0.85
+        height: parent.height * 0.85
         color: root.col2
         rotation: 30
+
+        layer.enabled: true
+        layer.effect: Shadow {
+            radius: Math.ceil(hex1.width / 12)
+        }
 
         InfiniteRandomRotation { target: hex2 }
     }
@@ -79,10 +96,15 @@ Item {
     A.Hex {
         id: hex3
         anchors.centerIn: parent
-        width: parent.width * Math.pow(0.866, 2)
-        height: parent.height * Math.pow(0.866, 2)
+        width: parent.width * Math.pow(0.85, 2)
+        height: parent.height * Math.pow(0.85, 2)
         color: root.col3
         rotation: 60
+
+        layer.enabled: true
+        layer.effect: Shadow {
+            radius: Math.ceil(hex1.width / 12)
+        }
 
         InfiniteRandomRotation { target: hex3 }
     }
