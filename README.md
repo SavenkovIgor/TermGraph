@@ -67,7 +67,7 @@ classDef stdN fill:#1f5f5f,stroke-width:0px;
 Node("<b><i>Node</i></b></br>some point in space"):::stdN
 Edge("<b><i>Edge</i></b></br>line, connecting two {nodes}"):::stdN
 Arc("<b><i>Arc</i></b></br>{edge}, that has a direction"):::stdN
-Graph("fa:fa-diagram-project <b><i>Graph</i></b></br>set of {nodes} and {edges}, associated with them"):::stdN
+Graph("fa:fa-diagram-project <b><i>Graph</i></b></br>set of {nodes} and associated with them {edges}"):::stdN
  
 Edge --> Node
 Arc --> Edge
