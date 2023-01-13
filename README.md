@@ -60,7 +60,20 @@
 
 # ⚡️ Description
 TermGraph is a terms diagram builder. It helps to make a hierarchical projection of a terms-space onto 2d plane and build a map of definitions. 
-
+Like this, but bigger:
+```mermaid
+graph RL
+classDef stdN fill:#1f5f5f,stroke-width:0px;
+Node("<b><i>Node</i></b></br>some point in space"):::stdN
+Edge("<b><i>Edge</i></b></br>line, connecting two {nodes}"):::stdN
+Arc("<b><i>Arc</i></b></br>{edge}, that has a direction"):::stdN
+Graph("fa:fa-diagram-project <b><i>Graph</i></b></br>set of {nodes} and {edges}, associated with them"):::stdN
+ 
+Edge --> Node
+Arc --> Edge
+Graph -.-> Node
+Graph --> Edge
+```
 
 ## What for?
 **Short answer:** This will help you learn something new faster and with deep understanding.
@@ -171,4 +184,3 @@ Each app has it's own conan file.
 <br/>
 <br/>
 [![Built with ❤️](https://img.shields.io/badge/Coded%20with-%E2%9D%A4%EF%B8%8F-e36d25?style=for-the-badge)](https://github.com/SavenkovIgor/TermGraph)
-
