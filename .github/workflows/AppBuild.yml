@@ -94,11 +94,16 @@ jobs:
     # fix this section to it works only on push to main, not on pull_requests to main
     - if: ${{ matrix.build_profile == 'wasm_release' }}
       name: Upload artifact
-      uses: actions/upload-pages-artifact@v1
+      uses: actions/upload-pages-artifact@v1.0.7
       with:
         name: wasm_release
         path: ${{github.workspace}}/apps/TermGraphApp/build/wasm_release
 
     - if: ${{ matrix.build_profile == 'wasm_release' }}
+      environment:
+        name: github-pages
+        url: ${{ steps.deployment.outputs.page_url }}
+
+      id: deployment
       name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v1
+      uses: actions/deploy-pages@v1.2.3
