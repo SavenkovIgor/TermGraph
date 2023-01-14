@@ -14,7 +14,7 @@ env:
 jobs:
   build:
     permissions:
-      idToken: write
+      id-token: write
       pages: write
     timeout-minutes: 120
     strategy:
