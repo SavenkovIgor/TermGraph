@@ -14,9 +14,6 @@ env:
 
 jobs:
   build:
-    permissions:
-      id-token: write
-      pages: write
     timeout-minutes: 120
     strategy:
       matrix:
@@ -99,11 +96,17 @@ jobs:
         name: wasm_release
         path: ${{github.workspace}}/apps/TermGraphApp/build/wasm_release
 
-    - if: ${{ matrix.build_profile == 'wasm_release' }}
-      environment:
-        name: github-pages
-        url: ${{ steps.deployment.outputs.page_url }}
-
+  deploy:
+    needs: build
+    permissions:
+      id-token: write
+      pages: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+    # - if: ${{ matrix.build_profile == 'wasm_release' }}
       id: deployment
       name: Deploy to GitHub Pages
       uses: actions/deploy-pages@v1.2.3
