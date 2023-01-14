@@ -106,7 +106,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-    # - if: ${{ matrix.build_profile == 'wasm_release' }}
-    - uses: actions/deploy-pages@v1.2.3
+    - if: ${{ github.event.push.branches  == [ "main" ] }}
+      uses: actions/deploy-pages@v1.2.3
       id: deployment
       name: Deploy to GitHub Pages
