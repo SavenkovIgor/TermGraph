@@ -1,4 +1,4 @@
-name: Build app
+name: Build app and deploy wasm to github pages
 
 on:
   push:
@@ -86,3 +86,18 @@ jobs:
       name: CTest
       working-directory: ${{github.workspace}}/apps/TermGraphApp
       run: ctest --preset ${{ matrix.build_profile }}
+
+    # fix this section to it works only on push to main, not on pull_requests to main
+    - if: ${{ matrix.build_profile == 'wasm_release' }}
+      name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        name: wasm_release
+        path: ${{github.workspace}}/apps/TermGraphApp/build/wasm_release
+
+    - if: ${{ matrix.build_profile == 'wasm_release' }}
+      name: Deploy to GitHub Pages
+      uses: actions/deploy-pages@v1
+      with:
+        pages_dir: ${{github.workspace}}/apps/TermGraphApp/build/wasm_release
+        token: ${{ secrets.GITHUB_TOKEN }}
