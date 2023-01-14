@@ -10,6 +10,7 @@ env:
   QT_VERSION: 6.4.1
   WASM_VERSION: 3.1.14
   QT_ROOT: ${{ github.workspace }}/Qt
+  ACTIONS_STEP_DEBUG: ${{ secrets.ACTIONS_STEP_DEBUG }}
 
 jobs:
   build:
