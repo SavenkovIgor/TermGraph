@@ -100,6 +100,3 @@ jobs:
     - if: ${{ matrix.build_profile == 'wasm_release' }}
       name: Deploy to GitHub Pages
       uses: actions/deploy-pages@v1
-      with:
-        pages_dir: ${{github.workspace}}/apps/TermGraphApp/build/wasm_release
-        token: ${{ secrets.GITHUB_TOKEN }}
