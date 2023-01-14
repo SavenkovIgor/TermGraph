@@ -107,6 +107,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     # - if: ${{ matrix.build_profile == 'wasm_release' }}
+    - uses: actions/deploy-pages@v1.2.3
       id: deployment
       name: Deploy to GitHub Pages
-      uses: actions/deploy-pages@v1.2.3
