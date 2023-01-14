@@ -106,7 +106,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-    - if: ${{ github.event.push.branches  == [ "main" ] }}
+    - if: ${{ github.event_name == 'push' }}
       uses: actions/deploy-pages@v1.2.3
       id: deployment
       name: Deploy to GitHub Pages
