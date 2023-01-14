@@ -1,9 +1,7 @@
-name: Application build 
+name: Frontend build, deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
     branches: [ "main" ]
 
 env:
@@ -16,7 +14,7 @@ jobs:
     timeout-minutes: 120
     strategy:
       matrix:
-        build_profile: [desktop_dev, desktop_release, wasm_release]
+        build_profile: [wasm_release]
 
     concurrency:
       group: AppBuild-${{ github.workflow }}-${{ github.ref }}-${{ matrix.build_profile }}
@@ -37,8 +35,7 @@ jobs:
         cache-dependency-path: 'pip_requirements.txt'
     - run: pip install -r pip_requirements.txt
 
-    - if: ${{ matrix.build_profile == 'wasm_release' }}
-      name: Install Wasm
+    - name: Install Wasm
       uses: mymindstorm/setup-emsdk@v11
       with:
         version: ${{ env.WASM_VERSION }}
@@ -57,15 +54,14 @@ jobs:
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
 
-    - if: ${{ matrix.build_profile == 'wasm_release' }}
-      name: Cache Multithread qt wasm
+    - name: Cache Multithread qt wasm
       id: cache-mt-wasm
       uses: actions/cache@v3
       with:
         key: wasm_32_mt
         path: ${{ github.workspace }}/Qt/${{ env.QT_VERSION }}/wasm_32_mt
 
-    - if: ${{ matrix.build_profile == 'wasm_release' && steps.cache-mt-wasm.outputs.cache-hit != 'true' }}
+    - if: ${{ steps.cache-mt-wasm.outputs.cache-hit != 'true' }}
       name: Build multithread Qt wasm
       working-directory: ${{github.workspace}}/tools/build_qt_wasm/build
       run: ./build.sh
@@ -82,7 +78,25 @@ jobs:
       working-directory: ${{github.workspace}}/apps/TermGraphApp
       run: cmake --build --preset ${{ matrix.build_profile }}
 
-    - if: ${{ matrix.build_profile != 'wasm_release' }}
-      name: CTest
-      working-directory: ${{github.workspace}}/apps/TermGraphApp
-      run: ctest --preset ${{ matrix.build_profile }}
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        name: wasm_release
+        path: ${{github.workspace}}/apps/TermGraphApp/build/wasm_release
+
+  deploy:
+    needs: build
+
+    permissions:
+      id-token: write
+      pages: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v1
