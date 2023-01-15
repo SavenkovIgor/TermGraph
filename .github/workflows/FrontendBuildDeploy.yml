@@ -80,7 +80,14 @@ jobs:
 
     - name: Make deploy folder
       working-directory: ${{github.workspace}}/apps/TermGraphApp/build/wasm_release
-      run: mkdir deploy && cp qtloader.js qtlogo.svg TermGraph.js TermGraph.wasm TermGraph.worker.js deploy/ && cp TermGraph.html deploy/index.html
+      run: |
+        mkdir deploy
+        cp qtloader.js         deploy/
+        cp qtlogo.svg          deploy/
+        cp TermGraph.js        deploy/
+        cp TermGraph.wasm      deploy/
+        cp TermGraph.worker.js deploy/
+        cp TermGraph.html      deploy/index.html
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
