@@ -79,10 +79,14 @@ jobs:
       working-directory: ${{github.workspace}}/apps/TermGraphApp
       run: cmake --build --preset ${{ matrix.build_profile }}
 
+    - name: Make deploy folder
+      working-directory: ${{github.workspace}}/apps/TermGraphApp/build/wasm_release
+      run: mkdir deploy && cp qtloader.js qtlogo.svg TermGraph.js TermGraph.wasm TermGraph.worker.js deploy/ && cp TermGraph.html deploy/index.html
+
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
-        path: ${{github.workspace}}/apps/TermGraphApp/build/wasm_release
+        path: ${{github.workspace}}/apps/TermGraphApp/build/wasm_release/deploy
 
   deploy:
     needs: build
