@@ -1,7 +1,6 @@
 # Copyright © 2016-2022. Savenkov Igor
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-# TODO: use CMakePresets.json
 # TODO: Join Qml modules to one CMakeLists file
 # TODO: Make Android build
 # TODO: Make big cleanup at qml imports
