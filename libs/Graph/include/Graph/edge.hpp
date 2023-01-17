@@ -8,6 +8,8 @@
 
 #include "source/model/base/node.hpp"
 
+namespace graph {
+
 template<typename NodeT, typename EdgeData>
 class Edge
 {
@@ -56,3 +58,5 @@ private:
 
     EdgeData mData;
 };
+
+}

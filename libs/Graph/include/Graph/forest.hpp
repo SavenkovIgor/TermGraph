@@ -11,6 +11,8 @@
 #include "source/model/base/graph.hpp"
 #include "source/model/enums.h"
 
+namespace graph {
+
 template<typename NodeT, typename EdgeT>
 class Forest : public Graph<NodeT, EdgeT>
 {
@@ -347,3 +349,5 @@ private: // Members
     EdgeList mBrokenEdges; // From broken cycles
     EdgeList mWasteEdges;  // Just redundant
 };
+
+}

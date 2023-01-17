@@ -6,6 +6,8 @@
 #include <memory>
 #include <vector>
 
+namespace graph {
+
 template<typename Data>
 class Node
 {
@@ -26,3 +28,5 @@ public:
 private:
     Data mData;
 };
+
+} // namespace graph

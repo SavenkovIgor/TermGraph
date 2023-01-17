@@ -35,6 +35,7 @@ add_subdirectory ("${LIBS_ROOT}/QmlPages"           "${CMAKE_BINARY_DIR}/libs/Qm
 add_subdirectory ("${LIBS_ROOT}/QrcHelpImages"      "${CMAKE_BINARY_DIR}/libs/QrcHelpImages")
 add_subdirectory ("${LIBS_ROOT}/TermDataConnection" "${CMAKE_BINARY_DIR}/libs/TermDataConnection")
 add_subdirectory ("${LIBS_ROOT}/CommonTools"        "${CMAKE_BINARY_DIR}/libs/CommonTools")
+add_subdirectory ("${LIBS_ROOT}/Graph"              "${CMAKE_BINARY_DIR}/libs/Graph")
 add_subdirectory ("${LIBS_ROOT}/TermDataInterface"  "${CMAKE_BINARY_DIR}/libs/TermDataInterface")
 
 if (NOT WASM)
@@ -98,11 +99,6 @@ qt_add_executable (TermGraph
     "source/managers/notifyinterface.h"
     "source/managers/syncmanager.cpp"
     "source/managers/syncmanager.h"
-    "source/model/base/edge.hpp"
-    "source/model/base/forest.hpp"
-    "source/model/base/graph.hpp"
-    "source/model/base/graphdata.hpp"
-    "source/model/base/node.hpp"
     "source/model/edge/edgedata.h"
     "source/model/edge/edgesmodel.cpp"
     "source/model/edge/edgesmodel.h"
@@ -169,6 +165,7 @@ target_link_libraries (TermGraph
 
 # C++ libs
 target_link_libraries (TermGraph PRIVATE CommonTools)
+target_link_libraries (TermGraph PRIVATE Graph)
 target_link_libraries (TermGraph PRIVATE TermDataInterface)
 target_link_libraries (TermGraph PRIVATE TermDataConnection)
 

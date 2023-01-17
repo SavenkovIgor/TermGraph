@@ -9,6 +9,8 @@
 #include "source/model/base/edge.hpp"
 #include "source/model/base/node.hpp"
 
+namespace graph {
+
 template<typename NodeT, typename EdgeT>
 struct GraphData
 {
@@ -73,3 +75,5 @@ public:
         return ret;
     }
 };
+
+} // namespace graph

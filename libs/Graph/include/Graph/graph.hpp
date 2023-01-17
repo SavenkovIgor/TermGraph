@@ -13,6 +13,8 @@
 #include "source/model/base/graphdata.hpp"
 #include "source/model/base/node.hpp"
 
+namespace graph {
+
 template<typename NodeT, typename EdgeT>
 class Graph : protected GraphData<NodeT, EdgeT>
 {
@@ -167,3 +169,5 @@ public:
         return ret;
     }
 };
+
+} // namespace graph
