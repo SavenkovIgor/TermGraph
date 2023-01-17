@@ -6,11 +6,11 @@ project (Graph VERSION 1.0.0 LANGUAGES CXX)
 
 add_library (Graph
     INTERFACE
-        include/Graph/edge.hpp
-        include/Graph/forest.hpp
-        include/Graph/graph.hpp
-        include/Graph/graphdata.hpp
-        include/Graph/node.hpp)
+        include/Graph/Edge.hpp
+        include/Graph/Forest.hpp
+        include/Graph/Graph.hpp
+        include/Graph/GraphData.hpp
+        include/Graph/Node.hpp)
 
 target_include_directories (Graph INTERFACE "./include")
 

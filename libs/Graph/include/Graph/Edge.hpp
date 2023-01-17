@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 
-#include "source/model/base/node.hpp"
+#include <Graph/Node.hpp>
 
 namespace graph {
 

@@ -229,23 +229,14 @@ if (BUILD_TESTING)
             source/helpers/text/textrange.h
             source/helpers/text/texttools.cpp
             source/helpers/text/texttools.h
-            source/model/base/edge.hpp
-            source/model/base/forest.hpp
-            source/model/base/graph.hpp
-            source/model/base/graphdata.hpp
-            source/model/base/node.hpp
             source/model/enums.h
             source/model/graphicitem/graphicitem.cpp
             source/model/graphicitem/graphicitem.h
             tests/cursortest.cpp
-            tests/edgetest.cpp
-            tests/foresttest.cpp
             tests/graphicitemtest.cpp
-            tests/graphtest.cpp
             tests/linkdecoratortest.cpp
             tests/linktest.cpp
             tests/linktoolstest.cpp
-            tests/nodetest.cpp
             tests/textrangetest.cpp
             tests/texttoolstest.cpp
         )
@@ -256,7 +247,7 @@ if (BUILD_TESTING)
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
     target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)
     target_link_libraries (TermGraphTest Qt6::Core Qt6::Gui Qt6::Qml)
-    target_link_libraries (TermGraphTest CommonTools)
+    target_link_libraries (TermGraphTest CommonTools Graph)
 
     gtest_add_tests (TARGET TermGraphTest)
 endif ()

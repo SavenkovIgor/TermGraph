@@ -9,9 +9,9 @@
 #include <utility>
 #include <vector>
 
-#include "source/model/base/edge.hpp"
-#include "source/model/base/graphdata.hpp"
-#include "source/model/base/node.hpp"
+#include <Graph/Edge.hpp>
+#include <Graph/GraphData.hpp>
+#include <Graph/Node.hpp>
 
 namespace graph {
 

@@ -5,7 +5,7 @@
 
 #include <vector>
 
-#include "source/model/base/forest.hpp"
+#include <Graph/Forest.hpp>
 #include "source/model/edge/paintededge.h"
 #include "source/model/graphicitem/rectgraphicitem.h"
 #include "source/model/group/nodeverticalstack.h"
@@ -13,7 +13,7 @@
 
 class NodeVerticalStack;
 
-class PaintedForest : public Forest<PaintedTerm, PaintedEdge>
+class PaintedForest : public graph::Forest<PaintedTerm, PaintedEdge>
 {
 public:
     using Ptr  = std::shared_ptr<PaintedForest>;

@@ -477,7 +477,7 @@ NodeType::Type TermGroup::termType(const PaintedTerm::Ptr& term) const
 {
     for (const auto& forest : mForests) {
         if (forest->hasTerm(term))
-            return forest->nodeType(term);
+            return NodeType::fromTermType(forest->nodeType(term));
     }
 
     return NodeType::Type::Orphan;

@@ -3,7 +3,9 @@
 
 #include <gtest/gtest.h>
 
-#include "source/model/base/edge.hpp"
+#include <Graph/Edge.hpp>
+
+using namespace graph;
 
 TEST(EdgeTest, InitEdge)
 {

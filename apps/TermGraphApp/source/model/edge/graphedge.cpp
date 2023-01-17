@@ -5,7 +5,7 @@
 
 
 GraphEdge::GraphEdge(TermPtr toRoot, TermPtr toLeaf)
-    : Edge<GraphTerm, EdgeData>(toRoot, toLeaf, EdgeData())
+    : graph::Edge<GraphTerm, EdgeData>(toRoot, toLeaf, EdgeData())
 {
     assert(toRoot != toLeaf);
 }

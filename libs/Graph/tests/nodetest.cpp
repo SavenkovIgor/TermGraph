@@ -3,7 +3,9 @@
 
 #include <gtest/gtest.h>
 
-#include "source/model/base/node.hpp"
+#include <Graph/Node.hpp>
+
+using namespace graph;
 
 TEST(NodeTest, PrimitiveInit)
 {
