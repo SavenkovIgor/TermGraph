@@ -9,9 +9,11 @@
 #include <utility>
 #include <vector>
 
-#include "source/model/base/edge.hpp"
-#include "source/model/base/graphdata.hpp"
-#include "source/model/base/node.hpp"
+#include <Graph/Edge.hpp>
+#include <Graph/GraphData.hpp>
+#include <Graph/Node.hpp>
+
+namespace graph {
 
 template<typename NodeT, typename EdgeT>
 class Graph : protected GraphData<NodeT, EdgeT>
@@ -167,3 +169,5 @@ public:
         return ret;
     }
 };
+
+} // namespace graph

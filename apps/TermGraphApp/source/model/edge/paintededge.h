@@ -6,12 +6,12 @@
 #include <memory>
 #include <vector>
 
-#include "source/model/base/edge.hpp"
+#include <Graph/Edge.hpp>
 #include "source/model/edge/edgedata.h"
 #include "source/model/graphicitem/graphicitem.h"
 #include "source/model/term/paintedterm.h"
 
-class PaintedEdge : public Edge<PaintedTerm, EdgeData>, public GraphicItem
+class PaintedEdge : public graph::Edge<PaintedTerm, EdgeData>, public GraphicItem
 {
 public:
     using Ptr  = std::shared_ptr<PaintedEdge>;

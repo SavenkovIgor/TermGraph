@@ -5,13 +5,13 @@
 
 #include <vector>
 
-#include "source/model/base/node.hpp"
+#include <Graph/Node.hpp>
 #include "source/model/term/termdatacache.h"
 
 
 // This class contains all "graph" part of term
 // like edges, place in graph hierarchy and so on
-class GraphTerm : public Node<TermData>
+class GraphTerm : public graph::Node<TermData>
 {
 public:
     using Ptr  = std::shared_ptr<GraphTerm>;

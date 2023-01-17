@@ -1,13 +1,15 @@
 // Copyright © 2016-2022. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include <set>
+#include <QSet>
 
 #include <gtest/gtest.h>
 
-#include "source/model/base/forest.hpp"
-#include "source/model/base/graph.hpp"
-#include "source/model/base/graphdata.hpp"
+#include <Graph/Forest.hpp>
+#include <Graph/Graph.hpp>
+#include <Graph/GraphData.hpp>
+
+using namespace graph;
 
 class ForestTest : public ::testing::Test
 {
@@ -67,15 +69,15 @@ const ForestTest::ForestT ForestTest::fullForest = ForestTest::ForestT(
 
 TEST_F(ForestTest, NodeTypes)
 {
-    EXPECT_EQ(fullForest.nodeType(n1), NodeType::Type::Root);
-    EXPECT_EQ(fullForest.nodeType(n2), NodeType::Type::Root);
-    EXPECT_EQ(fullForest.nodeType(n3), NodeType::Type::EndLeaf);
-    EXPECT_EQ(fullForest.nodeType(n4), NodeType::Type::EndLeaf);
-    EXPECT_EQ(fullForest.nodeType(n5), NodeType::Type::MiddleLeaf);
-    EXPECT_EQ(fullForest.nodeType(n6), NodeType::Type::MiddleLeaf);
-    EXPECT_EQ(fullForest.nodeType(n7), NodeType::Type::MiddleLeaf);
-    EXPECT_EQ(fullForest.nodeType(n8), NodeType::Type::EndLeaf);
-    EXPECT_EQ(fullForest.nodeType(n9), NodeType::Type::Root);
+    EXPECT_EQ(fullForest.nodeType(n1), NodeType::Root);
+    EXPECT_EQ(fullForest.nodeType(n2), NodeType::Root);
+    EXPECT_EQ(fullForest.nodeType(n3), NodeType::EndLeaf);
+    EXPECT_EQ(fullForest.nodeType(n4), NodeType::EndLeaf);
+    EXPECT_EQ(fullForest.nodeType(n5), NodeType::MiddleLeaf);
+    EXPECT_EQ(fullForest.nodeType(n6), NodeType::MiddleLeaf);
+    EXPECT_EQ(fullForest.nodeType(n7), NodeType::MiddleLeaf);
+    EXPECT_EQ(fullForest.nodeType(n8), NodeType::EndLeaf);
+    EXPECT_EQ(fullForest.nodeType(n9), NodeType::Root);
 }
 
 TEST_F(ForestTest, NodeTypes2)
@@ -250,7 +252,7 @@ TEST_F(ForestTest, WasteEdges)
     for (const auto& edge : forest.wasteEdges())
         EXPECT_TRUE(wasteIndex.remove(edge->data()));
 
-    qDebug() << wasteIndex;
+    
     EXPECT_TRUE(wasteIndex.empty());
 }
 

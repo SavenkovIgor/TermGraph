@@ -8,8 +8,11 @@
 #include <functional>
 #include <map>
 
-#include "source/model/base/graph.hpp"
-#include "source/model/enums.h"
+#include <Graph/Graph.hpp>
+
+namespace graph {
+
+enum class NodeType { Orphan, Root, EndLeaf, MiddleLeaf };
 
 template<typename NodeT, typename EdgeT>
 class Forest : public Graph<NodeT, EdgeT>
@@ -53,11 +56,11 @@ public:
         assert(getCycleEdges().empty());
     }
 
-    bool isRoot(const NodePtr& node) const { return nodeType(node) == NodeType::Type::Root; }
+    bool isRoot(const NodePtr& node) const { return nodeType(node) == NodeType::Root; }
     bool isLeaf(const NodePtr& node) const
     {
         auto type = nodeType(node);
-        return type == NodeType::Type::EndLeaf || type == NodeType::Type::MiddleLeaf;
+        return type == NodeType::EndLeaf || type == NodeType::MiddleLeaf;
     }
 
     bool     hasBrokenEdges() const { return !mBrokenEdges.empty(); }
@@ -66,7 +69,7 @@ public:
     bool     hasWasteEdges() const { return !mWasteEdges.empty(); }
     EdgeList wasteEdges() const { return mWasteEdges; }
 
-    NodeType::Type nodeType(const NodePtr& node) const
+    NodeType nodeType(const NodePtr& node) const
     {
         assert(Base::contains(node));
 
@@ -75,15 +78,15 @@ public:
 
         if (edgesToRoots.empty()) {
             if (edgesToLeafs.empty()) {
-                return NodeType::Type::Orphan; // Both empty
+                return NodeType::Orphan; // Both empty
             } else {
-                return NodeType::Type::Root; // No connections down, has connections up
+                return NodeType::Root; // No connections down, has connections up
             }
         } else {
             if (edgesToLeafs.empty()) {
-                return NodeType::Type::EndLeaf; // Has connections down, no connections up
+                return NodeType::EndLeaf; // Has connections down, no connections up
             } else {
-                return NodeType::Type::MiddleLeaf; // Has both connections, up and down
+                return NodeType::MiddleLeaf; // Has both connections, up and down
             }
         }
     }
@@ -178,9 +181,9 @@ public:
     {
         NodeList ret;
 
-        for (const auto item : mLevels) {
-            if (item.second == level)
-                ret.push_back(item.first);
+        for (const auto& [item, itemLevel] : mLevels) {
+            if (itemLevel == level)
+                ret.push_back(item);
         }
 
         return ret;
@@ -257,7 +260,7 @@ private: // Methods
             auto node = visitQueue.front();
             visitQueue.pop_front();
 
-            for (const auto leaf : leafNodes(node)) {
+            for (const auto& leaf : leafNodes(node)) {
                 ret[leaf] = max(ret[node] + 1, ret[leaf]);
 
                 if (find(visitQueue.begin(), visitQueue.end(), leaf) == visitQueue.end()) // Not found
@@ -326,7 +329,7 @@ private: // Methods
             }
         }
 
-        for (const auto edge : edgesList.at(node)) {
+        for (const auto& edge : edgesList.at(node)) {
             auto rootNode = edge->oppositeTo(node);
 
             bool found = find(visitQueue.begin(), visitQueue.end(), rootNode) != visitQueue.end();
@@ -347,3 +350,5 @@ private: // Members
     EdgeList mBrokenEdges; // From broken cycles
     EdgeList mWasteEdges;  // Just redundant
 };
+
+}

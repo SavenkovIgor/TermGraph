@@ -6,7 +6,9 @@
 #include <memory>
 #include <vector>
 
-#include "source/model/base/node.hpp"
+#include <Graph/Node.hpp>
+
+namespace graph {
 
 template<typename NodeT, typename EdgeData>
 class Edge
@@ -56,3 +58,5 @@ private:
 
     EdgeData mData;
 };
+
+}

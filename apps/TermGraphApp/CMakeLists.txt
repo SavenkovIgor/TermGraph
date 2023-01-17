@@ -35,6 +35,7 @@ add_subdirectory ("${LIBS_ROOT}/QmlPages"           "${CMAKE_BINARY_DIR}/libs/Qm
 add_subdirectory ("${LIBS_ROOT}/QrcHelpImages"      "${CMAKE_BINARY_DIR}/libs/QrcHelpImages")
 add_subdirectory ("${LIBS_ROOT}/TermDataConnection" "${CMAKE_BINARY_DIR}/libs/TermDataConnection")
 add_subdirectory ("${LIBS_ROOT}/CommonTools"        "${CMAKE_BINARY_DIR}/libs/CommonTools")
+add_subdirectory ("${LIBS_ROOT}/Graph"              "${CMAKE_BINARY_DIR}/libs/Graph")
 add_subdirectory ("${LIBS_ROOT}/TermDataInterface"  "${CMAKE_BINARY_DIR}/libs/TermDataInterface")
 
 if (NOT WASM)
@@ -98,11 +99,6 @@ qt_add_executable (TermGraph
     "source/managers/notifyinterface.h"
     "source/managers/syncmanager.cpp"
     "source/managers/syncmanager.h"
-    "source/model/base/edge.hpp"
-    "source/model/base/forest.hpp"
-    "source/model/base/graph.hpp"
-    "source/model/base/graphdata.hpp"
-    "source/model/base/node.hpp"
     "source/model/edge/edgedata.h"
     "source/model/edge/edgesmodel.cpp"
     "source/model/edge/edgesmodel.h"
@@ -169,6 +165,7 @@ target_link_libraries (TermGraph
 
 # C++ libs
 target_link_libraries (TermGraph PRIVATE CommonTools)
+target_link_libraries (TermGraph PRIVATE Graph)
 target_link_libraries (TermGraph PRIVATE TermDataInterface)
 target_link_libraries (TermGraph PRIVATE TermDataConnection)
 
@@ -232,23 +229,14 @@ if (BUILD_TESTING)
             source/helpers/text/textrange.h
             source/helpers/text/texttools.cpp
             source/helpers/text/texttools.h
-            source/model/base/edge.hpp
-            source/model/base/forest.hpp
-            source/model/base/graph.hpp
-            source/model/base/graphdata.hpp
-            source/model/base/node.hpp
             source/model/enums.h
             source/model/graphicitem/graphicitem.cpp
             source/model/graphicitem/graphicitem.h
             tests/cursortest.cpp
-            tests/edgetest.cpp
-            tests/foresttest.cpp
             tests/graphicitemtest.cpp
-            tests/graphtest.cpp
             tests/linkdecoratortest.cpp
             tests/linktest.cpp
             tests/linktoolstest.cpp
-            tests/nodetest.cpp
             tests/textrangetest.cpp
             tests/texttoolstest.cpp
         )
@@ -259,7 +247,7 @@ if (BUILD_TESTING)
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
     target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)
     target_link_libraries (TermGraphTest Qt6::Core Qt6::Gui Qt6::Qml)
-    target_link_libraries (TermGraphTest CommonTools)
+    target_link_libraries (TermGraphTest CommonTools Graph)
 
     gtest_add_tests (TARGET TermGraphTest)
 endif ()

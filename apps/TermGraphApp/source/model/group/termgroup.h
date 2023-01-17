@@ -21,7 +21,7 @@ class TermGroup : public QObject
     Q_PROPERTY(QString uuid READ qmlUuid CONSTANT FINAL)
     Q_PROPERTY(QString name READ name CONSTANT FINAL)
 
-    using GraphT = Graph<PaintedTerm, PaintedEdge>;
+    using GraphT = graph::Graph<PaintedTerm, PaintedEdge>;
 
 public:
     using Ptr    = std::shared_ptr<TermGroup>;

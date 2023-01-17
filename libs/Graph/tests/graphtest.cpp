@@ -5,8 +5,10 @@
 
 #include <QSet>
 
-#include "source/model/base/graph.hpp"
-#include "source/model/base/graphdata.hpp"
+#include <Graph/Graph.hpp>
+#include <Graph/GraphData.hpp>
+
+using namespace graph;
 
 class GraphTest : public ::testing::Test
 {

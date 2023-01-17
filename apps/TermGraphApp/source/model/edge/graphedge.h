@@ -6,13 +6,13 @@
 #include <memory>
 #include <vector>
 
-#include "source/model/base/edge.hpp"
+#include <Graph/Edge.hpp>
 #include "source/model/edge/edgedata.h"
 #include "source/model/term/graphterm.h"
 
 class GraphTerm;
 
-class GraphEdge : public Edge<GraphTerm, EdgeData>
+class GraphEdge : public graph::Edge<GraphTerm, EdgeData>
 {
     using TermPtr = std::shared_ptr<GraphTerm>;
 
