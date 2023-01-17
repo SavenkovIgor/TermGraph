@@ -166,6 +166,7 @@ Each app has it's own conan file.
 │   └── TermGraphFront/  # Reserved folder. Not used yet
 ├── libs/                
 │   ├── CommonTools/          # Tools common for all apps
+│   ├── Graph/                # Graph header-only library
 │   ├── QmlAtoms/             # Qml atoms components     (atomic design)
 │   ├── QmlMolecules/         # Qml molecules components (atomic design)
 │   ├── QmlPages/             # Qml pages
