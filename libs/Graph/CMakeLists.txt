@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
-project (Graph VERSION 1.0.0 LANGUAGES CXX)
+project (Graph LANGUAGES CXX)
 
 add_library (Graph
     INTERFACE

@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
-project (CommonTools VERSION 1.0.0 LANGUAGES CXX)
+project (CommonTools LANGUAGES CXX)
 
 find_package (Qt6 REQUIRED COMPONENTS Core)
 
