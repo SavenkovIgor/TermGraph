@@ -37,6 +37,7 @@ add_subdirectory ("${LIBS_ROOT}/TermDataConnection" "${CMAKE_BINARY_DIR}/libs/Te
 add_subdirectory ("${LIBS_ROOT}/CommonTools"        "${CMAKE_BINARY_DIR}/libs/CommonTools")
 add_subdirectory ("${LIBS_ROOT}/Graph"              "${CMAKE_BINARY_DIR}/libs/Graph")
 add_subdirectory ("${LIBS_ROOT}/TermDataInterface"  "${CMAKE_BINARY_DIR}/libs/TermDataInterface")
+add_subdirectory ("${LIBS_ROOT}/Text"               "${CMAKE_BINARY_DIR}/libs/Text")
 
 if (NOT WASM)
     add_subdirectory (${LIBS_ROOT}/TermDataStorage "${CMAKE_BINARY_DIR}/libs/TermDataStorage")
@@ -60,8 +61,6 @@ qt_add_executable (TermGraph
     "source/helpers/exclusivecall.h"
     "source/helpers/firststartpreparer.cpp"
     "source/helpers/firststartpreparer.h"
-    "source/helpers/fonts.cpp"
-    "source/helpers/fonts.h"
     "source/helpers/globaltagcache.cpp"
     "source/helpers/globaltagcache.h"
     "source/helpers/intmatrix.cpp"
@@ -76,15 +75,6 @@ qt_add_executable (TermGraph
     "source/helpers/link/linktools.h"
     "source/helpers/simplelistenserver.cpp"
     "source/helpers/simplelistenserver.h"
-    "source/helpers/text/chartools.h"
-    "source/helpers/text/checkingtextcursor.cpp"
-    "source/helpers/text/checkingtextcursor.h"
-    "source/helpers/text/textcursor.cpp"
-    "source/helpers/text/textcursor.h"
-    "source/helpers/text/textrange.cpp"
-    "source/helpers/text/textrange.h"
-    "source/helpers/text/texttools.cpp"
-    "source/helpers/text/texttools.h"
     "source/main.cpp"
     "source/mainscene.cpp"
     "source/mainscene.h"
@@ -166,6 +156,7 @@ target_link_libraries (TermGraph
 # C++ libs
 target_link_libraries (TermGraph PRIVATE CommonTools)
 target_link_libraries (TermGraph PRIVATE Graph)
+target_link_libraries (TermGraph PRIVATE Text)
 target_link_libraries (TermGraph PRIVATE TermDataInterface)
 target_link_libraries (TermGraph PRIVATE TermDataConnection)
 
@@ -208,8 +199,6 @@ if (BUILD_TESTING)
     add_executable (TermGraphTest)
     target_sources (TermGraphTest
         PRIVATE
-            source/helpers/fonts.cpp
-            source/helpers/fonts.h
             source/helpers/intmatrix.cpp
             source/helpers/intmatrix.h
             source/helpers/link/link.cpp
@@ -220,25 +209,13 @@ if (BUILD_TESTING)
             source/helpers/link/linksstring.h
             source/helpers/link/linktools.cpp
             source/helpers/link/linktools.h
-            source/helpers/text/chartools.h
-            source/helpers/text/checkingtextcursor.cpp
-            source/helpers/text/checkingtextcursor.h
-            source/helpers/text/textcursor.cpp
-            source/helpers/text/textcursor.h
-            source/helpers/text/textrange.cpp
-            source/helpers/text/textrange.h
-            source/helpers/text/texttools.cpp
-            source/helpers/text/texttools.h
             source/model/enums.h
             source/model/graphicitem/graphicitem.cpp
             source/model/graphicitem/graphicitem.h
-            tests/cursortest.cpp
             tests/graphicitemtest.cpp
             tests/linkdecoratortest.cpp
             tests/linktest.cpp
             tests/linktoolstest.cpp
-            tests/textrangetest.cpp
-            tests/texttoolstest.cpp
         )
 
     set_target_properties (TermGraphTest
@@ -247,7 +224,7 @@ if (BUILD_TESTING)
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
     target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)
     target_link_libraries (TermGraphTest Qt6::Core Qt6::Gui Qt6::Qml)
-    target_link_libraries (TermGraphTest CommonTools Graph)
+    target_link_libraries (TermGraphTest CommonTools Graph Text)
 
     gtest_add_tests (TARGET TermGraphTest)
 endif ()

@@ -5,12 +5,13 @@
 
 #include <limits>
 
+#include <Text/TextCursor.h>
+#include <Text/TextTools.h>
+
 #include "source/helpers/link/link.h"
 #include "source/helpers/link/linksdecorator.h"
 #include "source/helpers/link/linksstring.h"
-#include "source/helpers/text/textcursor.h"
 #include "source/helpers/intmatrix.h"
-#include "source/helpers/text/texttools.h"
 
 LinkTools::LinkTools(QObject* parent)
     : QObject(parent)

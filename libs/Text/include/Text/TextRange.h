@@ -7,7 +7,7 @@
 
 #include <QStringView>
 
-#include "source/helpers/text/textcursor.h"
+#include "TextCursor.h"
 
 class TextRange
 {

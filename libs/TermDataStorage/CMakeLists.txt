@@ -23,8 +23,9 @@ target_include_directories (TermDataStorage PRIVATE ${PROJECT_SOURCE_DIR})
 
 # Sql queries
 target_sources (TermDataStorage
-    PRIVATE
+    INTERFACE
         include/TermDataStorage/LocalDataStorage.h
+    PRIVATE
         queries/SqlQueries.qrc
         source/Database.cpp
         source/Database.h

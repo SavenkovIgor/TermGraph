@@ -6,8 +6,9 @@
 #include <QElapsedTimer>
 #include <QThread>
 
+#include <Text/Fonts.h>
+
 #include "source/helpers/appstyle.h"
-#include "source/helpers/fonts.h"
 #include "source/helpers/link/linktools.h"
 
 GlobalTagCache TermGroup::tagCache;
