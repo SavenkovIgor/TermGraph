@@ -3,7 +3,7 @@
 
 #include "source/model/term/termdatacache.h"
 
-#include "source/helpers/text/texttools.h"
+#include <Text/TextTools.h>
 
 
 // Initialization order is important!

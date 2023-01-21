@@ -1,7 +1,7 @@
 // Copyright © 2016-2022. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/fonts.h"
+#include "include/Text/Fonts.h"
 
 QFont Fonts::defaultFont()
 {

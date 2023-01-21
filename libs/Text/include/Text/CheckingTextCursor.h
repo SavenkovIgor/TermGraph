@@ -5,8 +5,8 @@
 
 #include <QStringView>
 
-#include "source/helpers/text/chartools.h"
-#include "source/helpers/text/textcursor.h"
+#include "CharTools.h"
+#include "TextCursor.h"
 
 class CheckingTextCursor : public TextCursor
 {

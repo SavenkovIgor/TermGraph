@@ -1,9 +1,9 @@
 // Copyright © 2016-2022. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/text/textrange.h"
+#include "include/Text/TextRange.h"
 
-#include "source/helpers/text/checkingtextcursor.h"
+#include "include/Text/CheckingTextCursor.h"
 
 TextRange::TextRange(QStringView view, int left, int right)
     : mString(view)

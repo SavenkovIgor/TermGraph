@@ -1,9 +1,9 @@
 // Copyright © 2016-2022. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/text/texttools.h"
+#include "include/Text/TextTools.h"
 
-#include "source/helpers/fonts.h"
+#include "include/Text/Fonts.h"
 
 const QStringList TextTools::mSplitters = {"‐", "-", "-", "—"};
 

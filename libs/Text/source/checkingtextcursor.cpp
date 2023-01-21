@@ -1,7 +1,7 @@
 // Copyright © 2016-2022. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/text/checkingtextcursor.h"
+#include "include/Text/CheckingTextCursor.h"
 
 CheckingTextCursor::CheckingTextCursor(QStringView                   strView,
                                        int                           pos,

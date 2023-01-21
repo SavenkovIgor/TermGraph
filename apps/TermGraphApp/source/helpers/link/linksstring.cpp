@@ -3,8 +3,9 @@
 
 #include "source/helpers/link/linksstring.h"
 
-#include "source/helpers/text/chartools.h"
-#include "source/helpers/text/checkingtextcursor.h"
+#include <Text/CharTools.h>
+#include <Text/CheckingTextCursor.h>
+
 #include "source/helpers/link/linksdecorator.h"
 
 LinksString::LinksString(QStringView str)
