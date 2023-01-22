@@ -62,7 +62,7 @@ jobs:
       id: cache-mt-wasm
       uses: actions/cache@v3
       with:
-        key: wasm_32_mt
+        key: ${{ env.QT_VERSION }}-wasm_32_mt
         path: ${{ github.workspace }}/Qt/${{ env.QT_VERSION }}/wasm_32_mt
 
     - if: ${{ matrix.build_profile == 'wasm_release' && steps.cache-mt-wasm.outputs.cache-hit != 'true' }}
