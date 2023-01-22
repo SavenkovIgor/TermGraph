@@ -11,7 +11,6 @@
 #include "source/managers/groupsmanager.h"
 #include "source/managers/syncmanager.h"
 
-// TODO: Move graph and its tests to separate library and add graph namespace
 
 // Qml todo list
 // TODO: remove version from qt_add_qml_module

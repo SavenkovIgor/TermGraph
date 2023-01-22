@@ -14,11 +14,11 @@ project (TermGraphBack
 find_package (Qt6 REQUIRED COMPONENTS Core)
 find_package (restinio REQUIRED)
 
-set (MY_LIBS_ROOT "${CMAKE_SOURCE_DIR}/../../libs")
+set (MY_LIBS_ROOT "${CMAKE_SOURCE_DIR}/../../lib")
 
-add_subdirectory ("${MY_LIBS_ROOT}/CommonTools"       "${CMAKE_BINARY_DIR}/libs/CommonTools")
-add_subdirectory ("${MY_LIBS_ROOT}/TermDataInterface" "${CMAKE_BINARY_DIR}/libs/TermDataInterface")
-add_subdirectory ("${MY_LIBS_ROOT}/TermDataStorage"   "${CMAKE_BINARY_DIR}/libs/TermDataStorage")
+add_subdirectory ("${MY_LIBS_ROOT}/CommonTools"       "${CMAKE_BINARY_DIR}/lib/CommonTools")
+add_subdirectory ("${MY_LIBS_ROOT}/TermDataInterface" "${CMAKE_BINARY_DIR}/lib/TermDataInterface")
+add_subdirectory ("${MY_LIBS_ROOT}/TermDataStorage"   "${CMAKE_BINARY_DIR}/lib/TermDataStorage")
 
 add_executable (TermGraphBack "source/main.cpp")
 

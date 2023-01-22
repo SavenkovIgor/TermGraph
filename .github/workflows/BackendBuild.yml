@@ -50,13 +50,13 @@ jobs:
         cache: true
 
     - name: Conan install dependencies
-      working-directory: ${{github.workspace}}/apps/TermGraphBack
+      working-directory: ${{github.workspace}}/apps/Backend
       run: conan install . --profile conanfiles/profile/${{ matrix.build_profile }} --build=missing -if=build/${{ matrix.build_profile }}/conan-dependencies
 
     - name: CMake configure
-      working-directory: ${{github.workspace}}/apps/TermGraphBack
+      working-directory: ${{github.workspace}}/apps/Backend
       run: cmake --preset ${{ matrix.build_profile }} ./
 
     - name: Cmake build
-      working-directory: ${{github.workspace}}/apps/TermGraphBack
+      working-directory: ${{github.workspace}}/apps/Backend
       run: cmake --build --preset ${{ matrix.build_profile }}

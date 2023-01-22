@@ -1,6 +1,6 @@
 source ~/emsdk/emsdk_env.sh
 
-cd ../apps/TermGraphApp
+cd ../apps/Application
 
 echo "\n\n---CONAN INSTALL STARTED---\n" &&
 conan install . --profile conanfiles/profile/wasm_release --build=missing -if=build/wasm_release/conan-dependencies &&

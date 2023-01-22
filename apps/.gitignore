@@ -1,7 +1,7 @@
-build-TermGraphApp*
-build-TermGraphBack*
+build-Application*
+build-Backend*
 
-TermGraphApp/build/
-TermGraphApp/CMakeUserPresets.json
+Application/build/
+Application/CMakeUserPresets.json
 
-TermGraphBack/build/
+Backend/build/

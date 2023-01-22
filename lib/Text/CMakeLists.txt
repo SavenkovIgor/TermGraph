@@ -48,9 +48,9 @@ if (BUILD_TESTING)
     add_executable (TextTest)
     target_sources (TextTest
                         PRIVATE
-                            tests/cursortest.cpp
-                            tests/textrangetest.cpp
-                            tests/texttoolstest.cpp)
+                            test/cursortest.cpp
+                            test/textrangetest.cpp
+                            test/texttoolstest.cpp)
 
     set_target_properties (TextTest
         PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)

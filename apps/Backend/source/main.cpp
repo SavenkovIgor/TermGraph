@@ -103,7 +103,7 @@ int main()
 
     std::string address    = "0.0.0.0";
 
-    auto appName = QStringLiteral("TermGraphBack");
+    auto appName = QStringLiteral("Backend");
     auto stdPaths = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
     assert(!stdPaths.empty());
 

@@ -24,23 +24,23 @@ option (BUILD_TESTING "Build tests with project" ON)
 
 find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Svg)
 
-set (LIBS_ROOT "${CMAKE_SOURCE_DIR}/../../libs")
+set (LIBS_ROOT "${CMAKE_SOURCE_DIR}/../../lib")
 
 # Applications subdirs
-add_subdirectory ("${LIBS_ROOT}/QmlTools"           "${CMAKE_BINARY_DIR}/libs/QmlTools")
-add_subdirectory ("${LIBS_ROOT}/QmlTheme"           "${CMAKE_BINARY_DIR}/libs/QmlTheme")
-add_subdirectory ("${LIBS_ROOT}/QmlAtoms"           "${CMAKE_BINARY_DIR}/libs/QmlAtoms")
-add_subdirectory ("${LIBS_ROOT}/QmlMolecules"       "${CMAKE_BINARY_DIR}/libs/QmlMolecules")
-add_subdirectory ("${LIBS_ROOT}/QmlPages"           "${CMAKE_BINARY_DIR}/libs/QmlPages")
-add_subdirectory ("${LIBS_ROOT}/QrcHelpImages"      "${CMAKE_BINARY_DIR}/libs/QrcHelpImages")
-add_subdirectory ("${LIBS_ROOT}/TermDataConnection" "${CMAKE_BINARY_DIR}/libs/TermDataConnection")
-add_subdirectory ("${LIBS_ROOT}/CommonTools"        "${CMAKE_BINARY_DIR}/libs/CommonTools")
-add_subdirectory ("${LIBS_ROOT}/Graph"              "${CMAKE_BINARY_DIR}/libs/Graph")
-add_subdirectory ("${LIBS_ROOT}/TermDataInterface"  "${CMAKE_BINARY_DIR}/libs/TermDataInterface")
-add_subdirectory ("${LIBS_ROOT}/Text"               "${CMAKE_BINARY_DIR}/libs/Text")
+add_subdirectory ("${LIBS_ROOT}/QmlTools"           "${CMAKE_BINARY_DIR}/lib/QmlTools")
+add_subdirectory ("${LIBS_ROOT}/QmlTheme"           "${CMAKE_BINARY_DIR}/lib/QmlTheme")
+add_subdirectory ("${LIBS_ROOT}/QmlAtoms"           "${CMAKE_BINARY_DIR}/lib/QmlAtoms")
+add_subdirectory ("${LIBS_ROOT}/QmlMolecules"       "${CMAKE_BINARY_DIR}/lib/QmlMolecules")
+add_subdirectory ("${LIBS_ROOT}/QmlPages"           "${CMAKE_BINARY_DIR}/lib/QmlPages")
+add_subdirectory ("${LIBS_ROOT}/QrcHelpImages"      "${CMAKE_BINARY_DIR}/lib/QrcHelpImages")
+add_subdirectory ("${LIBS_ROOT}/TermDataConnection" "${CMAKE_BINARY_DIR}/lib/TermDataConnection")
+add_subdirectory ("${LIBS_ROOT}/CommonTools"        "${CMAKE_BINARY_DIR}/lib/CommonTools")
+add_subdirectory ("${LIBS_ROOT}/Graph"              "${CMAKE_BINARY_DIR}/lib/Graph")
+add_subdirectory ("${LIBS_ROOT}/TermDataInterface"  "${CMAKE_BINARY_DIR}/lib/TermDataInterface")
+add_subdirectory ("${LIBS_ROOT}/Text"               "${CMAKE_BINARY_DIR}/lib/Text")
 
 if (NOT WASM)
-    add_subdirectory (${LIBS_ROOT}/TermDataStorage "${CMAKE_BINARY_DIR}/libs/TermDataStorage")
+    add_subdirectory (${LIBS_ROOT}/TermDataStorage "${CMAKE_BINARY_DIR}/lib/TermDataStorage")
 endif ()
 
 qt_standard_project_setup()
@@ -212,10 +212,10 @@ if (BUILD_TESTING)
             source/model/enums.h
             source/model/graphicitem/graphicitem.cpp
             source/model/graphicitem/graphicitem.h
-            tests/graphicitemtest.cpp
-            tests/linkdecoratortest.cpp
-            tests/linktest.cpp
-            tests/linktoolstest.cpp
+            test/graphicitemtest.cpp
+            test/linkdecoratortest.cpp
+            test/linktest.cpp
+            test/linktoolstest.cpp
         )
 
     set_target_properties (TermGraphTest
