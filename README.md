@@ -9,8 +9,6 @@
 - Code coverage
 
 11 Recomendations
-- Check different github themes
-- Width 100 characters
 - Contribution guideline
 - Project page with GitHub pages?
 - Meetup speech
@@ -33,7 +31,7 @@
     <a href="https://termgraph.app/"><img 
       width="100" 
       alt="TermGraph" 
-      src="apps/TermGraphApp/resources/applicationIcons/appIcon128x128.png"></a>
+      src="apps/Application/resources/applicationIcons/appIcon128x128.png"></a>
     <h1>TermGraph</h1>
 </div>
 
@@ -147,36 +145,37 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - [Cmake](https://cmake.org/) + Ninja
 - [Qt + Qml](https://www.qt.io/download-qt-installer)
 
-You can build main application `apps/TermGraphApp` with QtCreator, using CMake Presets (which QtCreator more or less understands).<br/>
+You can build main application `apps/Application` with QtCreator, using CMake Presets (which QtCreator more or less understands).<br/>
 Also you can build it with console script: `tools/build_tg_desktop_release.sh`.
 
 
 ## :alembic: Tests
 Tests working only with desktop target. GTest library installed via conan.<br/>
-You can start tests from QtCreator or just run `ctest ./` in build folder at `apps/TermGraphApp/build/desktop_(dev|release)`
+You can start tests from QtCreator or just run `ctest ./` in build folder at `apps/Application/build/desktop_(dev|release)`
 
 
 ## :microscope: Project structure
-`CMakeLists.txt` files are in `apps/TermGraphApp` and `apps/TermGraphBack` folders.
+`CMakeLists.txt` files are in `apps/Application` and `apps/Backend` folders.
 Each app has it's own conan file.
 ```bash
 ├── apps/                
-│   ├── TermGraphApp/    # Main application. Buils for desktop, android and wasm(for now) 
-│   ├── TermGraphBack/   # Rest api data storage. For server only
-│   └── TermGraphFront/  # Reserved folder. Not used yet
-├── libs/                
-│   ├── CommonTools/          # Tools common for all apps
-│   ├── Graph/                # Graph header-only library
-│   ├── QmlAtoms/             # Qml atoms components     (atomic design)
-│   ├── QmlMolecules/         # Qml molecules components (atomic design)
-│   ├── QmlPages/             # Qml pages
-│   ├── QmlTheme/             # Qml theme. Colors, icons, fonts etc...
-│   ├── QmlTools/             # Some qml debugging tools
-│   ├── QrcHelpImages/        # Help images resources
-│   ├── TermDataConnection/   # Library, connecting to REST api server
-│   ├── TermDataInterface/    # Interface, describing data connection interface 
-│   └── TermDataStorage/      # Data storage sqlite library
-└── tools/             # Some useful scripts (build of server, clang fromat etc...)
+│   ├── Application/         # Application. Buils for desktop, android and wasm(for now) 
+│   ├── Backend/             # Rest api data storage. For server only
+│   └── Frontend/            # Reserved folder. Not used yet
+├── lib/                
+│   ├── CommonTools/         # Tools common for all apps
+│   ├── Graph/               # Graph header-only library
+│   ├── QmlAtoms/            # Qml atoms components     (atomic design)
+│   ├── QmlMolecules/        # Qml molecules components (atomic design)
+│   ├── QmlPages/            # Qml pages
+│   ├── QmlTheme/            # Qml theme. Colors, icons, fonts etc...
+│   ├── QmlTools/            # Some qml debugging tools
+│   ├── QrcHelpImages/       # Help images resources
+│   ├── TermDataConnection/  # Library, connecting to REST api server
+│   ├── TermDataInterface/   # Interface, describing data connection interface 
+│   ├── TermDataStorage/     # Data storage sqlite library
+│   └── Text                 # Text processing library
+└── tools/                   # Some useful scripts (build of server, clang fromat etc...)
 ```
 <br/>
 

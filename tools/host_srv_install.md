@@ -128,7 +128,7 @@ server {
 ### Exec at build folder
 ```bash
 scp -C qt-unified-linux-x64-4.4.1-online.run root@termgraph.app:/home/user
-scp -C TermGraphBack user@termgraph.app:/home/user
+scp -C Backend user@termgraph.app:/home/user
 ```
 
 ### To start server you need Qt:
@@ -152,7 +152,7 @@ scp ~/.local/share/Qt/qtaccount.ini root@termgraph.app:/home/user/.local/share/Q
 ## Backend configuration
 ### Systemd service file creation
 ```bash
-export BIN_PATH=/home/user/TermGraphBack
+export BIN_PATH=/home/user/Backend
 chmod +x "${BIN_PATH}"
 export SVC_NAME="term-back"
 ```
