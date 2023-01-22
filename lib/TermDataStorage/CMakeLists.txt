@@ -53,7 +53,7 @@ if (BUILD_TESTING)
     include (GoogleTest)
 
     add_executable (TermDataStorageTest)
-    target_sources (TermDataStorageTest PRIVATE tests/DbWorksTest.cpp)
+    target_sources (TermDataStorageTest PRIVATE test/DbWorksTest.cpp)
 
     set_target_properties (TermDataStorageTest
         PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)

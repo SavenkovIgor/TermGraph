@@ -32,8 +32,8 @@ if (BUILD_TESTING)
     add_executable (TermDataInterfaceTest)
     target_sources (TermDataInterfaceTest
         PRIVATE
-            tests/termdatatest.cpp
-            tests/groupdatatest.cpp)
+            test/termdatatest.cpp
+            test/groupdatatest.cpp)
 
     set_target_properties (TermDataInterfaceTest
         PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)

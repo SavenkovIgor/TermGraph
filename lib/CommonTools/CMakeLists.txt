@@ -45,8 +45,8 @@ if (BUILD_TESTING)
     add_executable (CommonToolsTest)
     target_sources (CommonToolsTest
         PRIVATE
-            tests/uuidstest.cpp
-            tests/validatortest.cpp)
+            test/uuidstest.cpp
+            test/validatortest.cpp)
 
     set_target_properties (CommonToolsTest
         PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)

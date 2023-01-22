@@ -212,10 +212,10 @@ if (BUILD_TESTING)
             source/model/enums.h
             source/model/graphicitem/graphicitem.cpp
             source/model/graphicitem/graphicitem.h
-            tests/graphicitemtest.cpp
-            tests/linkdecoratortest.cpp
-            tests/linktest.cpp
-            tests/linktoolstest.cpp
+            test/graphicitemtest.cpp
+            test/linkdecoratortest.cpp
+            test/linktest.cpp
+            test/linktoolstest.cpp
         )
 
     set_target_properties (TermGraphTest

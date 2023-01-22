@@ -28,10 +28,10 @@ if (BUILD_TESTING)
     add_executable (GraphTest)
     target_sources (GraphTest
         PRIVATE
-            tests/edgetest.cpp
-            tests/foresttest.cpp
-            tests/graphtest.cpp
-            tests/nodetest.cpp)
+            test/edgetest.cpp
+            test/foresttest.cpp
+            test/graphtest.cpp
+            test/nodetest.cpp)
 
     set_target_properties (GraphTest
         PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
