@@ -27,9 +27,9 @@
     #    endif()
 #endif ()
 
-#add_subdirectory (${CMAKE_SOURCE_DIR}/libs/commontools)
-#add_subdirectory (${CMAKE_SOURCE_DIR}/libs/datainterface)
-#add_subdirectory (${CMAKE_SOURCE_DIR}/libs/termstorage)
+#add_subdirectory (${CMAKE_SOURCE_DIR}/lib/commontools)
+#add_subdirectory (${CMAKE_SOURCE_DIR}/lib/datainterface)
+#add_subdirectory (${CMAKE_SOURCE_DIR}/lib/termstorage)
 
 # If you want, android build correctly,
 # This line must be before targets definition
