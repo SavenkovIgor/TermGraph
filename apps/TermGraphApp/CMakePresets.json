@@ -41,7 +41,7 @@
       "hidden": true,
       "environment": {
         "QT_ROOT": "$env{HOME}/Qt",
-        "QT_VERSION": "6.4.1",
+        "QT_VERSION": "6.4.2",
         "QT_VERSION_ROOT": "$env{QT_ROOT}/$env{QT_VERSION}"
       }
     },
