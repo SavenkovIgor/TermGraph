@@ -30,7 +30,7 @@ file_exist() {
 }
 
 variable_exist QT_ROOT    "~/Qt"
-variable_exist QT_VERSION "6.4.1"
+variable_exist QT_VERSION "6.4.2"
 
 # If fails here, exec emscripten evn script manually!
 # source "$HOME/emsdk/emsdk_env.sh"
