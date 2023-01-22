@@ -1,4 +1,4 @@
-cd ../apps/TermGraphApp
+cd ../apps/Application
 
 echo "\n\n---CONAN INSTALL STARTED---\n" &&
 conan install . --profile conanfiles/profile/desktop_release --build=missing -if=build/desktop_release/conan-dependencies &&
