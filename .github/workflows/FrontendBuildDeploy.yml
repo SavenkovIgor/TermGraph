@@ -58,13 +58,13 @@ jobs:
       id: cache-mt-wasm
       uses: actions/cache@v3
       with:
-        key: wasm_32_mt
+        key: ${{ env.QT_VERSION }}-wasm_32_mt
         path: ${{ github.workspace }}/Qt/${{ env.QT_VERSION }}/wasm_32_mt
 
     - if: ${{ steps.cache-mt-wasm.outputs.cache-hit != 'true' }}
       name: Build multithread Qt wasm
       working-directory: ${{github.workspace}}/tools/build_qt_wasm/build
-      run: ./build.sh
+      run: ./build.py
 
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/TermGraphApp
