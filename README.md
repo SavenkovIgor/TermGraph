@@ -146,7 +146,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - [Qt + Qml](https://www.qt.io/download-qt-installer)
 
 You can build main application `apps/Application` with QtCreator, using CMake Presets (which QtCreator more or less understands).<br/>
-Also you can build it with console script: `tools/build_tg_desktop_release.sh`.
+Also you can build it with console script: `try tools/build_tg.py --help`.
 
 
 ## :alembic: Tests
