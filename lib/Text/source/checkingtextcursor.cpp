@@ -9,8 +9,8 @@ CheckingTextCursor::CheckingTextCursor(QStringView                   strView,
                                        CheckingTextCursor::Condition rightChecker,
                                        Opt<Direction>                autoStartSearch)
     : TextCursor(strView, pos)
-    , mLeftChecker(leftChecker)
-    , mRightChecker(rightChecker)
+    , mLeftChecker(std::move(leftChecker))
+    , mRightChecker(std::move(rightChecker))
 {
     if (autoStartSearch.has_value()) {
         search(autoStartSearch.value());
