@@ -191,16 +191,16 @@ QString LinksHardeningManager::appliedLinkFixationText() const
 
     auto decorColor = []([[maybe_unused]] int index, const Link &link) {
         if (link.hasUuid())
-            return QColor("#90ee90");
+            return QColor::fromString("#90ee90");
 
-        return QColor("white");
+        return QColor::fromString("white");
     };
 
     auto bgColor = [currentIndex = mLinkIndex](int index, [[maybe_unused]] const Link &link) {
         if (currentIndex == index)
-            return QColor("#6f6f6f");
+            return QColor::fromString("#6f6f6f");
 
-        return QColor("transparent");
+        return QColor::fromString("transparent");
     };
 
     auto decorator = LinksDecorator(links, decorColor, bgColor);

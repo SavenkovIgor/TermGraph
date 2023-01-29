@@ -54,15 +54,15 @@ QString LinksDecorator::apply(LinksDecoratorMode mode)
 
 QColor LinksDecorator::defaultDecorator([[maybe_unused]] int orderIndex, [[maybe_unused]] const Link& link)
 {
-    return QColor("#00a693");
+    return QColor::fromString("#00a693");
 }
 
 QColor LinksDecorator::greenDecorator([[maybe_unused]] int orderIndex, const Link& link)
 {
-    return link.hasUuid() ? QColor("#ffcf87") : QColor("#c1fc9d");
+    return link.hasUuid() ? QColor::fromString("#ffcf87") : QColor::fromString("#c1fc9d");
 }
 
 QColor LinksDecorator::defaultBackground([[maybe_unused]] int orderIndex, [[maybe_unused]] const Link& link)
 {
-    return QColor("transparent");
+    return QColor::fromString("transparent");
 }
