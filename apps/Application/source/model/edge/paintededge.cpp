@@ -6,7 +6,6 @@
 
 PaintedEdge::PaintedEdge(PaintedTerm::Ptr root, PaintedTerm::Ptr leaf)
     : Edge<PaintedTerm, EdgeData>(root, leaf, EdgeData())
-    , GraphicItem()
 {}
 
 bool PaintedEdge::isSelected() const

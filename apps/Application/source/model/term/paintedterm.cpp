@@ -5,7 +5,6 @@
 
 PaintedTerm::PaintedTerm(const TermData& info)
     : GraphTerm(info)
-    , GraphicItem()
     , pNodeSize(QSizeF(40.0, 10.0))
 {
     pCornerRadius.setBinding([this]() { return std::min(pNodeSize.value().height() * 0.15, 12.0); });
