@@ -3,6 +3,8 @@
 
 #include "source/managers/linkshardeningmanager.h"
 
+#include <CommonTools/HandyTypes.h>
+
 #include "source/helpers/link/linksdecorator.h"
 #include "source/helpers/link/linktools.h"
 
@@ -25,7 +27,7 @@ QVariant LinksHardeningManager::data(const QModelIndex &index, int role) const
 {
     auto row = index.row();
 
-    if (row < 0 || row >= static_cast<int>(mLastNearestVariants.size()))
+    if (row < 0 || row >= asInt(mLastNearestVariants.size()))
         return {};
 
     const auto &data = mLastNearestVariants[row];
@@ -107,7 +109,7 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
     auto sortCondition = [](auto pair1, auto pair2) { return pair1.first < pair2.first; };
     std::sort(distances.begin(), distances.end(), sortCondition);
 
-    auto min = std::min(limit, static_cast<int>(distances.size()));
+    auto min = std::min(limit, asInt(distances.size()));
 
     SearchResultList ret;
 

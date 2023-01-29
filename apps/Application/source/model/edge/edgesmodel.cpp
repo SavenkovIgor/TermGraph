@@ -3,6 +3,8 @@
 
 #include "source/model/edge/edgesmodel.h"
 
+#include <CommonTools/HandyTypes.h>
+
 EdgesModel::EdgesModel(QObject *parent)
     : QAbstractListModel(parent)
 {}
@@ -48,8 +50,8 @@ QVariant EdgesModel::data(const QModelIndex &index, int role) const
     case Roles::Pt1: return edge->rootPoint();
     case Roles::Pt2: return edge->leafPoint();
     case Roles::IsSelected: return edge->isSelected();
-    case Roles::EdgeType: return static_cast<int>(edge->data().type);
-    case Roles::EdgeSelection: return static_cast<int>(edge->data().selectionType);
+    case Roles::EdgeType: return asInt(edge->data().type);
+    case Roles::EdgeSelection: return asInt(edge->data().selectionType);
     }
 
     Q_UNREACHABLE();

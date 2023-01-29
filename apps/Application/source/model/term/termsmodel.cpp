@@ -3,6 +3,7 @@
 
 #include "source/model/term/termsmodel.h"
 
+#include <CommonTools/HandyTypes.h>
 
 TermsModel::TermsModel(QObject *parent)
     : QAbstractListModel(parent)
@@ -54,7 +55,7 @@ QVariant TermsModel::data(const QModelIndex &index, int role) const
     case Roles::Term: return term->term();
     case Roles::Definition: return term->definition();
     case Roles::IsSelected: return term->isSelectedAnyway();
-    case Roles::Type: return static_cast<int>(mGroup.value()->termType(term));
+    case Roles::Type: return asInt(mGroup.value()->termType(term));
     }
 
     Q_UNREACHABLE();

@@ -9,7 +9,6 @@
 
 #include <QString>
 
-
 enum ErrorCodes {
     GroupUuidInvalid = 0,
     GroupUuidAlreadyExist,

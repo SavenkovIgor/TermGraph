@@ -3,6 +3,8 @@
 
 #include "source/helpers/link/linksdecorator.h"
 
+#include <CommonTools/HandyTypes.h>
+
 LinksDecorator::LinksDecorator(LinksString                    linksString,
                                LinksDecorator::DecorCondition colorCondition,
                                DecorCondition                 backgroundCondition)
@@ -21,8 +23,8 @@ QString LinksDecorator::apply(LinksDecoratorMode mode)
         int rBracketPos = link.right().pos() - 1;
         int lBracketPos = link.left().pos();
 
-        auto color    = mColorCondition(i, link);
-        auto back     = mBackgroundCondition(i, link);
+        auto color    = mColorCondition(asInt(i), link);
+        auto back     = mBackgroundCondition(asInt(i), link);
         auto colorStr = mLeftReplacer.arg(color.name(QColor::HexArgb), back.name(QColor::HexArgb));
 
         if (mode == LinksDecoratorMode::Insert) {

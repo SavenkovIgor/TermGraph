@@ -5,8 +5,10 @@
 
 #include <algorithm>
 
+#include <CommonTools/HandyTypes.h>
+
 TextCursor::TextCursor(QStringView strView, int pos)
-    : mPos(std::clamp(pos, 0, static_cast<int>(strView.size())))
+    : mPos(std::clamp(pos, 0, asInt(strView.size())))
     , mString(strView)
 {
     assert(mPos == pos);

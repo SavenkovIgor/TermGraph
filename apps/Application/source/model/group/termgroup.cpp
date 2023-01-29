@@ -6,6 +6,7 @@
 #include <QElapsedTimer>
 #include <QThread>
 
+#include <CommonTools/HandyTypes.h>
 #include <Text/Fonts.h>
 
 #include "source/helpers/appstyle.h"
@@ -86,7 +87,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
 
         auto cuttedTerm = lowerTerm.left(searchText.size()); // Compare only left n characters
 
-        auto acceptableLimit = static_cast<int>(cuttedTerm.size() * 0.25);
+        auto acceptableLimit = asInt(cuttedTerm.size() * 0.25);
         auto distance        = LinkTools::levDistance(cuttedTerm, searchText, acceptableLimit);
 
         if (distance <= acceptableLimit)
@@ -120,7 +121,7 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
         if (term->cache().lowerTerm().contains(lowerSearch))
             ret.push_back(term->data().uuid->get());
 
-        if (static_cast<int>(ret.size()) == limit)
+        if (asInt(ret.size()) == limit)
             break;
     }
 
