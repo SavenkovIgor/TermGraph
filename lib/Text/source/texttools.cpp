@@ -38,7 +38,7 @@ int TextTools::splitterIndex(const QString &str)
 {
     int pos = -1;
     for (const auto &splitter : mSplitters) {
-        pos = str.indexOf(splitter);
+        pos = static_cast<int>(str.indexOf(splitter));
         if (pos != -1) {
             return pos;
         }
@@ -50,7 +50,7 @@ int TextTools::splitterIndex(const QString &str)
 int TextTools::wordCount(const QString &str)
 {
     const QString tmp = str.simplified();
-    return !tmp.isEmpty() ? tmp.count(' ') + 1 : 0;
+    return !tmp.isEmpty() ? static_cast<int>(tmp.count(' ')) + 1 : 0;
 }
 
 QSizeF TextTools::preferredTextSize(const QString &text, qreal whProportion)
@@ -68,7 +68,7 @@ QSizeF TextTools::preferredTextSize(const QString &text, qreal whProportion)
     // ratio = width / height
     // =>
     // width = ratio * sqrt(area / ratio)
-    const auto width = whProportion * qSqrt(lineArea / whProportion);
+    const int width = static_cast<int>(whProportion * qSqrt(lineArea / whProportion));
 
     const auto baseRect = QRect(0, 0, width, 1);
     QFontMetricsF mtr = QFontMetricsF(Fonts::defaultFont());
