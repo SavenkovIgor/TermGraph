@@ -13,11 +13,13 @@ template<typename T>
 Result<T> toResult(QNetworkReply*                                reply,
                    std::function<Opt<T>(const QByteArray& data)> parseFunc)
 {
-    if (reply->error() != QNetworkReply::NoError)
+    if (reply->error() != QNetworkReply::NoError) {
         return ErrorCodes::ConnectionError;
+    }
 
-    if (auto obj = parseFunc(reply->readAll()))
+    if (auto obj = parseFunc(reply->readAll())) {
         return *obj;
+    }
 
     return ErrorCodes::JsonParseError;
 }
@@ -25,8 +27,9 @@ Result<T> toResult(QNetworkReply*                                reply,
 DataStorageConnection::DataStorageConnection(QUrl address)
     : DataStorageInterface()
 {
-    if (address.scheme() != "https")
+    if (address.scheme() != "https") {
         qWarning("Not https connection!");
+    }
 
     baseUrl = address;
 

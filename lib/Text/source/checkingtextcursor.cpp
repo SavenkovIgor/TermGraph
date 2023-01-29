@@ -12,8 +12,9 @@ CheckingTextCursor::CheckingTextCursor(QStringView                   strView,
     , mLeftChecker(leftChecker)
     , mRightChecker(rightChecker)
 {
-    if (autoStartSearch.has_value())
+    if (autoStartSearch.has_value()) {
         search(autoStartSearch.value());
+    }
 }
 
 bool CheckingTextCursor::check() const { return mLeftChecker(left()) && mRightChecker(right()); }
@@ -21,8 +22,9 @@ bool CheckingTextCursor::check() const { return mLeftChecker(left()) && mRightCh
 bool CheckingTextCursor::search(Direction dir)
 {
     do {
-        if (check())
+        if (check()) {
             return true;
+        }
 
         move(dir);
     } while (canMove(dir));

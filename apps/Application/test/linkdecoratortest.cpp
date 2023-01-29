@@ -20,8 +20,9 @@ TEST_F(LinkDecoratorTest, Decorator)
     LinksString links(multipleLinks);
 
     LinksDecorator decorator(links, [](auto orderNum, [[maybe_unused]] auto link) {
-        if (orderNum == 1)
+        if (orderNum == 1) {
             return QColor::fromString("blue");
+        }
         return QColor::fromString("red");
     });
 

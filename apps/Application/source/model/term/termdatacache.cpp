@@ -21,8 +21,9 @@ QString TermDataCache::definition() const { return mLinksDefinition.text(); }
 QString TermDataCache::lowerTerm() const { return mLowerTerm; }
 
 QSizeF TermDataCache::preferredSize() const {
-    if (mLinksDefinition.text().isEmpty())
+    if (mLinksDefinition.text().isEmpty()) {
         return mTermSize;
+    }
 
     auto defWithoutLinks = mLinksDefinition.toPlainString();
     auto defSize = TextTools::preferredTextSize(defWithoutLinks, 5);

@@ -11,8 +11,9 @@ QPointF GraphicItem::pos() const { return mPosition; }
 
 QPointF GraphicItem::scenePos() const
 {
-    if (mParent == nullptr)
+    if (mParent == nullptr) {
         return mPosition;
+    }
 
     return mPosition + mParent->scenePos();
 }

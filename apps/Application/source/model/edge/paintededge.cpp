@@ -34,13 +34,15 @@ void PaintedEdge::brokeEdge() { data().type = EdgeType::Type::Broken; }
 void PaintedEdge::setSelectedForward(bool value)
 {
     auto resultSelection = value ? EdgeSelection::Type::Forward : EdgeSelection::Type::None;
-    if (data().selectionType != resultSelection)
+    if (data().selectionType != resultSelection) {
         data().selectionType = resultSelection;
+    }
 }
 
 void PaintedEdge::setSelectedBackward(bool value)
 {
     auto resultSelection = value ? EdgeSelection::Type::Backward : EdgeSelection::Type::None;
-    if (data().selectionType != resultSelection)
+    if (data().selectionType != resultSelection) {
         data().selectionType = resultSelection;
+    }
 }

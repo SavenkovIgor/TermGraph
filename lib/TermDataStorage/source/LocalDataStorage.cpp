@@ -51,10 +51,11 @@ FutureResult<GroupData::List> LocalDatabaseStorage::groups() const
             auto uuid = group.uuid.value();
             auto lastEdit = lastEdits.value(uuid, QDateTime());
 
-            if (!lastEdit.isNull())
+            if (!lastEdit.isNull()) {
                 group.nodesLastEdit = lastEdit;
-            else
+            } else {
                 group.nodesLastEdit = std::nullopt;
+            }
         }
 
         // Sorting this structure
@@ -83,8 +84,9 @@ FutureResult<GroupData> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid)
 
 FutureResult<TermData> LocalDatabaseStorage::term(const QString& nodeName, const GroupUuid& uuid) const
 {
-    if (!impl->db.groupTable->exist(uuid))
+    if (!impl->db.groupTable->exist(uuid)) {
         return toFuture<Result<TermData>>([] { return ErrorCodes::GroupUuidNotFound; });
+    }
 
     return toFuture<Result<TermData>>([this, nodeName, uuid] { return impl->db.termTable->term(nodeName, uuid); });
 }
@@ -96,16 +98,18 @@ FutureResult<TermData> LocalDatabaseStorage::term(const TermUuid& uuid) const
 
 FutureResult<TermData::List> LocalDatabaseStorage::terms(const GroupUuid& uuid) const
 {
-    if (!impl->db.groupTable->exist(uuid))
+    if (!impl->db.groupTable->exist(uuid)) {
         return toFuture<Result<TermData::List>>([] { return ErrorCodes::GroupUuidNotFound; });
+    }
 
     return toFuture<Result<TermData::List>>([this, uuid] { return impl->db.termTable->allTerms(uuid); });
 }
 
 FutureResult<TermData> LocalDatabaseStorage::addTerm(const TermData& info)
 {
-    if (!impl->db.groupTable->exist(info.groupUuid))
+    if (!impl->db.groupTable->exist(info.groupUuid)) {
         return toFuture<Result<TermData>>([] { return ErrorCodes::GroupUuidNotFound; });
+    }
 
     return toFuture<Result<TermData>>([this, info] { return impl->db.termTable->addTerm(info); });
 }
@@ -114,8 +118,9 @@ FutureResult<TermData> LocalDatabaseStorage::updateTerm(const TermData&         
                                                      DataStorageInterface::LastEditSource lastEditSource,
                                                      bool                                 checkLastEdit)
 {
-    if (!impl->db.groupTable->exist(info.groupUuid))
+    if (!impl->db.groupTable->exist(info.groupUuid)) {
         return toFuture<Result<TermData>>([] { return ErrorCodes::GroupUuidNotFound; });
+    }
 
     return toFuture<Result<TermData>>([this, info, lastEditSource, checkLastEdit] {
         return impl->db.termTable->updateTerm(info, lastEditSource, checkLastEdit);

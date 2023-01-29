@@ -22,8 +22,9 @@ void Paths::createDefaultFoldersIfNeed()
 
     auto dir = QDir();
 
-    for (const auto& path : necessaryDirs)
+    for (const auto& path : necessaryDirs) {
         dir.mkpath(path);
+    }
 }
 
 QString Paths::backupFolder() { return userAppConfigFolder() + "/MigrationBackup"; }
@@ -32,11 +33,13 @@ QString Paths::groupsJsonFolder() { return userAppConfigFolder() + "/GroupsJson"
 
 QString Paths::defaultDatabaseFilePath()
 {
-    if (Platform::isDesktop())
+    if (Platform::isDesktop()) {
         return userAppConfigFolder() + "/tg.termGraph";
+    }
 
-    if (Platform::isAndroid())
+    if (Platform::isAndroid()) {
         return "tg.termGraph";
+    }
 
     return {};
 }

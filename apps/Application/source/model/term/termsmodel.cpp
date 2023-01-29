@@ -43,8 +43,9 @@ int TermsModel::rowCount([[maybe_unused]] const QModelIndex &parent) const { ret
 QVariant TermsModel::data(const QModelIndex &index, int role) const
 {
     int row = index.row();
-    if (row >= asInt(mTerms.size()) || row < 0)
+    if (row >= asInt(mTerms.size()) || row < 0) {
         return QVariant();
+    }
 
     auto term = mTerms[PaintedTerm::asListSize(row)];
 

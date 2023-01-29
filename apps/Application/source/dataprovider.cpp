@@ -16,8 +16,9 @@ void DataProvider::loadGroups()
     dataStorage->groups().then([this](Result<GroupData::List> result){
         if (result.has_value()) {
             mGroups = result.value();
-            if (!mGroups->empty() && mGroups->front().uuid.has_value())
+            if (!mGroups->empty() && mGroups->front().uuid.has_value()) {
                 loadGroup(mGroups->front().uuid.value());
+            }
             emit groupListLoaded();
         }
     });
@@ -109,8 +110,9 @@ Opt<TermData> DataProvider::term(const QString &definition, GroupUuid uuid) cons
 {
     assert(uuid == mCurrentGroup);
     for (const auto& term : mTerms) {
-        if (term.definition == definition)
+        if (term.definition == definition) {
             return term;
+        }
     }
 
     return std::nullopt;
@@ -169,14 +171,16 @@ void DataProvider::requestGroupExport(const GroupUuid &uuid)
             assert(groupData.uuid.has_value());
 
             dataStorage->terms(groupData.uuid.value()).then([this, groupData](Result<TermData::List> termsFuture) {
-                if (!termsFuture.has_value())
+                if (!termsFuture.has_value()) {
                     return;
+                }
 
                 auto       terms = termsFuture.value();
                 QJsonArray termArray;
 
-                for (const auto &term : terms)
+                for (const auto &term : terms) {
                     termArray.append(static_cast<QJsonObject>(term));
+                }
 
                 QJsonObject groupJson = static_cast<QJsonObject>(groupData);
                 groupJson.insert(JsonTools::termsKey, termArray);

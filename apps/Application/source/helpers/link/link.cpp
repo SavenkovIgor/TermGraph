@@ -41,20 +41,23 @@ QString Link::createLinkWithUuid(const QUuid& uuid) const
 
 Opt<Link> Link::select(QStringView str, int startPos)
 {
-    if (!TextCursor::isValidCursor(str, startPos))
+    if (!TextCursor::isValidCursor(str, startPos)) {
         return std::nullopt;
+    }
 
     auto lBracket = CheckingTextCursor::anyBracketOnLeft(str, startPos, Direction::Left);
     auto rBracket = CheckingTextCursor::anyBracketOnRight(str, startPos, Direction::Right);
 
-    if (!lBracket.check() || !rBracket.check())
+    if (!lBracket.check() || !rBracket.check()) {
         return std::nullopt;
+    }
 
     lBracket--;
     rBracket++;
 
-    if (lBracket.right() == CharTools::leftBracket && rBracket.left() == CharTools::rightBracket)
+    if (lBracket.right() == CharTools::leftBracket && rBracket.left() == CharTools::rightBracket) {
         return Link(str, lBracket.pos(), rBracket.pos());
+    }
 
     return std::nullopt;
 }
@@ -83,8 +86,9 @@ Opt<QUuid> Link::tryGetUuid(QStringView fullLink)
         auto uuidCut = fullLink.mid(index + 1, size).toString(); // Without braces
         auto uuidStr = CharTools::leftBracket + uuidCut + CharTools::rightBracket;
         auto uuid    = QUuid::fromString(uuidStr);
-        if (!uuid.isNull())
+        if (!uuid.isNull()) {
             return uuid;
+        }
     }
 
     return std::nullopt;

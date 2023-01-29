@@ -226,8 +226,9 @@ QLatin1String SqlQueryBuilder::connectionNameForCurrentThread()
 
 QSqlDatabase SqlQueryBuilder::getDbForConnection(QLatin1String connectionName)
 {
-    if (QSqlDatabase::contains(connectionName))
+    if (QSqlDatabase::contains(connectionName)) {
         return QSqlDatabase::database(connectionName);
+    }
 
     auto db = QSqlDatabase::addDatabase("QSQLITE", connectionName);
     db.setDatabaseName(Database::mDbFilePath);

@@ -27,8 +27,9 @@ QVariant LinksHardeningManager::data(const QModelIndex &index, int role) const
 {
     auto row = index.row();
 
-    if (row < 0 || row >= asInt(mLastNearestVariants.size()))
+    if (row < 0 || row >= asInt(mLastNearestVariants.size())) {
         return {};
+    }
 
     const auto &data = mLastNearestVariants[static_cast<SearchResultList::size_type>(row)];
     switch (role) {
@@ -89,18 +90,21 @@ void LinksHardeningManager::hardenLink(QUuid uuid)
 
 LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariants(int limit)
 {
-    if (mCurrentGroup == nullptr)
+    if (mCurrentGroup == nullptr) {
         return {};
+    }
 
-    if (mCurrentTerm.isNull())
+    if (mCurrentTerm.isNull()) {
         return {};
+    }
 
     std::vector<std::pair<int, PaintedTerm *>> distances;
 
     // Getting distances
     for (const auto &term : mCurrentGroup->terms()) {
-        if (QUuid(mCurrentTerm.getUuid()) == term->data().uuid)
+        if (QUuid(mCurrentTerm.getUuid()) == term->data().uuid) {
             continue;
+        }
 
         auto distance = LinkTools::levDistance(currentLink().textLower(), term->data().term.toLower());
         distances.push_back(std::pair(distance, term.get()));
@@ -119,8 +123,9 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
         const auto &term     = item.second->data().term;
         const auto &distance = item.first;
 
-        if (uuid)
+        if (uuid) {
             ret.push_back({*uuid, term, distance});
+        }
     }
 
     return ret;
@@ -142,8 +147,9 @@ void LinksHardeningManager::updateNearestVariants()
 
 Link::List LinksHardeningManager::currentLinks() const
 {
-    if (mLinksString.isNull())
+    if (mLinksString.isNull()) {
         return Link::List();
+    }
 
     return mLinksString->links();
 }
@@ -156,16 +162,18 @@ bool LinksHardeningManager::canMovePrev() const { return 1 <= mLinkIndex && mLin
 
 QString LinksHardeningManager::currentLinkText()
 {
-    if (!isValidIndex() || !mLinksString)
+    if (!isValidIndex() || !mLinksString) {
         return "";
+    }
 
     return mLinksString->links()[Link::asListSize(mLinkIndex)].fullLink().toString();
 }
 
 QString LinksHardeningManager::definitionWithHighlightedLink() const
 {
-    if (!isValidIndex() || !mLinksString)
+    if (!isValidIndex() || !mLinksString) {
         return "";
+    }
 
     assert(!mCurrentTerm.isNull());
 
@@ -174,31 +182,35 @@ QString LinksHardeningManager::definitionWithHighlightedLink() const
 
 int LinksHardeningManager::linkCount() const
 {
-    if (!mLinksString || mLinksString.isNull())
+    if (!mLinksString || mLinksString.isNull()) {
         return 0;
+    }
 
     return asInt(mLinksString->links().size());
 }
 
 QString LinksHardeningManager::appliedLinkFixationText() const
 {
-    if (!isValidIndex())
+    if (!isValidIndex()) {
         return "";
+    }
 
     auto ret = applyLinkUuids(mCurrentDefinition, mReplacePreparations);
 
     auto links = LinksString(ret);
 
     auto decorColor = []([[maybe_unused]] int index, const Link &link) {
-        if (link.hasUuid())
+        if (link.hasUuid()) {
             return QColor::fromString("#90ee90");
+        }
 
         return QColor::fromString("white");
     };
 
     auto bgColor = [currentIndex = mLinkIndex](int index, [[maybe_unused]] const Link &link) {
-        if (currentIndex == index)
+        if (currentIndex == index) {
             return QColor::fromString("#6f6f6f");
+        }
 
         return QColor::fromString("transparent");
     };

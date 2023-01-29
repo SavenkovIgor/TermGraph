@@ -206,14 +206,16 @@ TEST_F(GraphTest, BondedSubgraphs)
     EXPECT_EQ(subraphs[1].nodes.size(), 3);
 
     QSet<int> nodeSet{3, 4, 5};
-    for (const auto& node : subraphs[1].nodes)
+    for (const auto& node : subraphs[1].nodes) {
         EXPECT_TRUE(nodeSet.remove(node->data()));
+    }
 
     EXPECT_TRUE(nodeSet.empty());
 
     QSet<int> edgeSet{2, 3};
-    for (const auto& edge : subraphs[1].edges)
+    for (const auto& edge : subraphs[1].edges) {
         EXPECT_TRUE(edgeSet.remove(edge->data()));
+    }
 
     EXPECT_TRUE(edgeSet.empty());
 }

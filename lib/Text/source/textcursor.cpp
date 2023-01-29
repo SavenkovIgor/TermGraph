@@ -30,8 +30,9 @@ QChar TextCursor::right() const { return getSymbol(Direction::Right); }
 
 QChar TextCursor::getSymbol(Direction dir) const
 {
-    if (!canMove(dir)) // Near border
+    if (!canMove(dir)) { // Near border
         return QChar();
+    }
 
     int offset = dir == Direction::Left ? -1 : 0;
     return mString[mPos + offset];

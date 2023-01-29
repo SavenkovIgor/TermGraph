@@ -65,12 +65,14 @@ DbTools::RecordList DbTools::getAllRecords(QSqlQuery&& q)
 {
     DbTools::RecordList ret;
 
-    if (auto size = q.size(); size > 0)
+    if (auto size = q.size(); size > 0) {
         ret.reserve(static_cast<DbTools::RecordList::size_type>(size));
+    }
 
     for (;;) {
-        if (!q.next())
+        if (!q.next()) {
             break;
+        }
 
         ret.push_back(q.record());
     }

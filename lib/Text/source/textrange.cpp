@@ -37,8 +37,9 @@ TextRange TextRange::selectWord(QStringView str, int startPos)
     auto lWord = CheckingTextCursor::leftWordBorder(str, startPos, Direction::Left);
     auto rWord = CheckingTextCursor::rightWordBorder(str, startPos, Direction::Right);
 
-    if (lWord.check() && rWord.check())
+    if (lWord.check() && rWord.check()) {
         return TextRange(str, lWord.pos(), rWord.pos());
+    }
 
     return TextRange(str, startPos, startPos);
 }

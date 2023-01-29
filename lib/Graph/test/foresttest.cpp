@@ -249,10 +249,10 @@ TEST_F(ForestTest, WasteEdges)
 
     QSet<int> wasteIndex{10, 11, 12, 13};
 
-    for (const auto& edge : forest.wasteEdges())
+    for (const auto& edge : forest.wasteEdges()) {
         EXPECT_TRUE(wasteIndex.remove(edge->data()));
+    }
 
-    
     EXPECT_TRUE(wasteIndex.empty());
 }
 

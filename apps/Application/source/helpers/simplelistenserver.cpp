@@ -30,8 +30,9 @@ void SimpleListenServer::newConnection()
 void SimpleListenServer::newInputData()
 {
     auto* inputSocket = dynamic_cast<QTcpSocket*>(sender());
-    if (inputSocket == nullptr)
+    if (inputSocket == nullptr) {
         return;
+    }
     QHostAddress senderAddress = inputSocket->peerAddress();
     QByteArray   data          = inputSocket->readAll();
     emit         newReceivedData(senderAddress, data);

@@ -59,8 +59,9 @@ QSizeF TextTools::preferredTextSize(const QString &text, qreal whProportion)
     const auto wCount = wordCount(text);
     const auto lineSize = Fonts::metrics(text);
 
-    if (wCount == 1)
+    if (wCount == 1) {
         return lineSize;
+    }
 
     // Recalculate text area, so it has proportions (3 width : 1 height)
     const auto lineArea = lineSize.width() * lineSize.height();
