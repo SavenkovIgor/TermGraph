@@ -56,8 +56,11 @@ bool LinkTools::linkAndTermSimilarWordDistance(const QString &link, const QStrin
 
 int LinkTools::levDistance(QStringView src, QStringView dst, int limit)
 {
-    const auto m = src.size();
-    const auto n = dst.size();
+    auto asULong     = [](auto num) { return static_cast<ulong>(num); };
+    auto asQSizeType = [](auto num) { return static_cast<qsizetype>(num); };
+
+    const auto m = asULong(src.size());
+    const auto n = asULong(dst.size());
 
     if (m == 0)
         return asInt(n);
@@ -70,24 +73,24 @@ int LinkTools::levDistance(QStringView src, QStringView dst, int limit)
 
     auto& matrix = matrixContainer.matrix;
 
-    for (int i = 0; i <= m; ++i) {
-        matrix[i][0] = i;
+    for (ulong i = 0; i <= m; i++) {
+        matrix[i][0] = asInt(i);
     }
 
-    for (int i = 0; i <= n; ++i) {
-        matrix[0][i] = i;
+    for (ulong i = 0; i <= n; i++) {
+        matrix[0][i] = asInt(i);
     }
 
-    int above_cell;
-    int left_cell;
-    int diagonal_cell;
-    int cost;
-    int min_in_row;
+    int cost          = 0;
+    int above_cell    = 0;
+    int left_cell     = 0;
+    int diagonal_cell = 0;
+    int min_in_row    = 0;
 
-    for (int i = 1; i <= m; ++i) {
+    for (ulong i = 1; i <= m; i++) {
         min_in_row = std::numeric_limits<int>::max();
-        for (int j = 1; j <= n; ++j) {
-            cost          = src[i - 1] == dst[j - 1] ? 0 : 1;
+        for (ulong j = 1; j <= n; j++) {
+            cost          = src[asQSizeType(i - 1)] == dst[asQSizeType(j - 1)] ? 0 : 1;
             above_cell    = matrix[i - 1][j];
             left_cell     = matrix[i][j - 1];
             diagonal_cell = matrix[i - 1][j - 1];
