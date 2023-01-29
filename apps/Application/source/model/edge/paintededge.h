@@ -16,6 +16,7 @@ class PaintedEdge : public graph::Edge<PaintedTerm, EdgeData>, public GraphicIte
 public:
     using Ptr  = std::shared_ptr<PaintedEdge>;
     using List = std::vector<Ptr>;
+    static inline auto asListSize = [](auto num) -> List::size_type { return static_cast<List::size_type>(num); };
 
     PaintedEdge(PaintedTerm::Ptr root, PaintedTerm::Ptr leaf);
 

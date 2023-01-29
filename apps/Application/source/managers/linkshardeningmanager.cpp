@@ -109,11 +109,11 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
     auto sortCondition = [](auto pair1, auto pair2) { return pair1.first < pair2.first; };
     std::sort(distances.begin(), distances.end(), sortCondition);
 
-    auto min = std::min(limit, asInt(distances.size()));
+    auto min = static_cast<decltype(distances)::size_type>(std::min(limit, asInt(distances.size())));
 
     SearchResultList ret;
 
-    for (int i = 0; i < min; i++) {
+    for (decltype(distances)::size_type i = 0; i < min; i++) {
         const auto &item     = distances[i];
         const auto &uuid     = item.second->data().uuid;
         const auto &term     = item.second->data().term;
@@ -159,7 +159,7 @@ QString LinksHardeningManager::currentLinkText()
     if (!isValidIndex() || !mLinksString)
         return "";
 
-    return mLinksString->links()[mLinkIndex].fullLink().toString();
+    return mLinksString->links()[Link::asListSize(mLinkIndex)].fullLink().toString();
 }
 
 QString LinksHardeningManager::definitionWithHighlightedLink() const
@@ -227,5 +227,5 @@ Link LinksHardeningManager::currentLink() const
 {
     assert(!mCurrentTerm.isNull());
     assert(isValidIndex());
-    return currentLinks()[mLinkIndex];
+    return currentLinks()[Link::asListSize(mLinkIndex)];
 }

@@ -36,15 +36,15 @@ QHash<int, QByteArray> EdgesModel::roleNames() const
     return roles;
 }
 
-int EdgesModel::rowCount([[maybe_unused]] const QModelIndex &parent) const { return mEdges.size(); }
+int EdgesModel::rowCount([[maybe_unused]] const QModelIndex &parent) const { return asInt(mEdges.size()); }
 
 QVariant EdgesModel::data(const QModelIndex &index, int role) const
 {
     int row = index.row();
-    if (row >= mEdges.size() || row < 0)
+    if (row >= asInt(mEdges.size()) || row < 0)
         return QVariant();
 
-    auto edge = mEdges[row];
+    auto edge = mEdges[PaintedEdge::asListSize(row)];
 
     switch (static_cast<Roles>(role)) {
     case Roles::Pt1: return edge->rootPoint();
@@ -58,4 +58,4 @@ QVariant EdgesModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-void EdgesModel::updateSelection() { emit dataChanged(index(0), index(mEdges.size() - 1), {Roles::IsSelected}); }
+void EdgesModel::updateSelection() { emit dataChanged(index(0), index(asInt(mEdges.size()) - 1), {Roles::IsSelected}); }

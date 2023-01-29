@@ -38,15 +38,15 @@ QHash<int, QByteArray> TermsModel::roleNames() const
     return roles;
 }
 
-int TermsModel::rowCount([[maybe_unused]] const QModelIndex &parent) const { return mTerms.size(); }
+int TermsModel::rowCount([[maybe_unused]] const QModelIndex &parent) const { return asInt(mTerms.size()); }
 
 QVariant TermsModel::data(const QModelIndex &index, int role) const
 {
     int row = index.row();
-    if (row >= mTerms.size() || row < 0)
+    if (row >= asInt(mTerms.size()) || row < 0)
         return QVariant();
 
-    auto term = mTerms[row];
+    auto term = mTerms[PaintedTerm::asListSize(row)];
 
     switch (static_cast<Roles>(role)) {
     case Roles::Rect: return term->rect();
@@ -62,4 +62,4 @@ QVariant TermsModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-void TermsModel::updateSelection() { emit dataChanged(index(0), index(mTerms.size() - 1), {Roles::IsSelected}); }
+void TermsModel::updateSelection() { emit dataChanged(index(0), index(asInt(mTerms.size()) - 1), {Roles::IsSelected}); }

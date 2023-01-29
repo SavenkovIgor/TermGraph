@@ -247,14 +247,15 @@ void TermGroup::setTreeCoords()
 
 void TermGroup::setOrphCoords(qreal maxWidth)
 {
+    using list_size  = PaintedTerm::List::size_type;
     auto orphansList = getOrphanNodes();
     if (orphansList.empty()) {
         return;
     }
 
-    for (int i = 0; i < orphansList.size(); i++) {
-        int nMax = i;
-        for (int j = i + 1; j < orphansList.size(); j++) {
+    for (list_size i = 0; i < orphansList.size(); i++) {
+        list_size nMax = i;
+        for (list_size j = i + 1; j < orphansList.size(); j++) {
             qreal currentWidth = orphansList[j]->getFrameRect(CoordType::zeroPoint).size().width();
             qreal maxWidth     = orphansList[nMax]->getFrameRect(CoordType::zeroPoint).size().width();
             if (currentWidth < maxWidth) {
@@ -319,7 +320,7 @@ QSizeF TermGroup::getAllTreesSize()
     auto totalSize = sizeList.totalStackedSize(Qt::Vertical);
 
     if (!mForests.empty())
-        totalSize.rheight() += (mForests.size() - 1) * AppStyle::Sizes::groupVerticalSpacer;
+        totalSize.rheight() += (asInt(mForests.size()) - 1) * AppStyle::Sizes::groupVerticalSpacer;
 
     return totalSize;
 }
