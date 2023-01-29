@@ -232,7 +232,7 @@ QPointF MainScene::getTermPosition(const QUuid termUuid) const
         return node.value()->getCenter(CoordType::scene);
     }
 
-    return QPointF();
+    return {};
 }
 
 void MainScene::setMouseClick(qreal x, qreal y) { findClick(QPointF(x, y)); }
@@ -284,11 +284,11 @@ QUuid MainScene::termNameToUuid(const QString termName) const
 {
     auto node = mCurrentGroup ? mCurrentGroup.value()->getTerm(termName) : std::nullopt;
     if (!node) {
-        return QUuid();
+        return {};
     }
 
     if (!((*node)->data().uuid)) {
-        return QUuid();
+        return {};
     }
 
     return (*node)->data().uuid->get();
@@ -300,7 +300,7 @@ TermDataWrapper MainScene::getCurrentNode()
         return TermDataWrapper(node.value()->data());
     }
 
-    return TermDataWrapper();
+    return {};
 }
 
 TermGroup* MainScene::getCurrentGroup() const { return mCurrentGroup.value().get(); }

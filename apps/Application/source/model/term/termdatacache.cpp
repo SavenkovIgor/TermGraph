@@ -31,7 +31,7 @@ QSizeF TermDataCache::preferredSize() const {
     auto width = std::max(mTermSize.width(), defSize.width());
     auto height = mTermSize.height() + defSize.height();
 
-    return QSizeF(width, height);
+    return {width, height};
 }
 
 const Link::List& TermDataCache::links() const { return mLinksDefinition.links(); }

@@ -148,7 +148,7 @@ void LinksHardeningManager::updateNearestVariants()
 Link::List LinksHardeningManager::currentLinks() const
 {
     if (mLinksString.isNull()) {
-        return Link::List();
+        return {};
     }
 
     return mLinksString->links();

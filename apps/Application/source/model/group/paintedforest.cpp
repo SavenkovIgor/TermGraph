@@ -195,7 +195,7 @@ QSizeF PaintedForest::baseSize() const
         width += (asInt(mStacks.size()) - 1) * AppStyle::Sizes::treeLayerHorizontalSpacer;
     }
 
-    return QSizeF(width, height);
+    return {width, height};
 }
 
 double PaintedForest::square() const

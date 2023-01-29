@@ -42,7 +42,7 @@ QVariant EdgesModel::data(const QModelIndex &index, int role) const
 {
     int row = index.row();
     if (row >= asInt(mEdges.size()) || row < 0) {
-        return QVariant();
+        return {};
     }
 
     auto edge = mEdges[PaintedEdge::asListSize(row)];
@@ -56,7 +56,7 @@ QVariant EdgesModel::data(const QModelIndex &index, int role) const
     }
 
     Q_UNREACHABLE();
-    return QVariant();
+    return {};
 }
 
 void EdgesModel::updateSelection() { emit dataChanged(index(0), index(asInt(mEdges.size()) - 1), {Roles::IsSelected}); }
