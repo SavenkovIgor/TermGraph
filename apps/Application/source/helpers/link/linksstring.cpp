@@ -19,7 +19,8 @@ const Link::List &LinksString::links() const { return mLinks; }
 
 QString LinksString::replaceLink(int index, QString text) const
 {
-    auto [linkCut, pos] = mLinks[index].cutted();
+    auto sizeIndex      = static_cast<Link::List::size_type>(index);
+    auto [linkCut, pos] = mLinks[sizeIndex].cutted();
     linkCut.insert(pos, text);
     return linkCut;
 }
@@ -150,7 +151,7 @@ int LinksString::getCount(QStringView strView)
         return 0;
 
     auto str = strView.toString();
-    return str.count(CharTools::leftBracket);
+    return asInt(str.count(CharTools::leftBracket));
 }
 
 Link::List LinksString::extractLinks(QStringView strView)
@@ -166,7 +167,7 @@ Link::List LinksString::extractLinks(QStringView strView)
         int strPos = -1;
 
         for (int j = 0; j <= i; j++)
-            strPos = strView.indexOf(CharTools::leftBracket, strPos + 1);
+            strPos = asInt(strView.indexOf(CharTools::leftBracket, strPos + 1));
 
         auto link = Link::select(strView, strPos + 1);
 

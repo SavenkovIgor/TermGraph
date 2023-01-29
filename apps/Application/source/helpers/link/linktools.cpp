@@ -56,14 +56,14 @@ bool LinkTools::linkAndTermSimilarWordDistance(const QString &link, const QStrin
 
 int LinkTools::levDistance(QStringView src, QStringView dst, int limit)
 {
-    const int m = src.size();
-    const int n = dst.size();
+    const auto m = src.size();
+    const auto n = dst.size();
 
     if (m == 0)
-        return n;
+        return asInt(n);
 
     if (n == 0)
-        return m;
+        return asInt(m);
 
     static IntMatrix matrixContainer;
     matrixContainer.checkSize(n + 1, m + 1);
