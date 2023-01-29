@@ -3,6 +3,8 @@
 
 #include "source/managers/notificationmanager.h"
 
+#include <CommonTools/HandyTypes.h>
+
 NotificationManager& NotificationManager::instance()
 {
     static NotificationManager mgr;
@@ -103,6 +105,6 @@ void NotificationManager::showNotify(const NotificationManager::Notify& notify)
 
 int NotificationManager::predictMessageShowTime(const QString& message)
 {
-    auto wordsCount = static_cast<int>(message.simplified().split(" ").size());
+    auto wordsCount = asInt(message.simplified().split(" ").size());
     return std::max(wordsCount * 500, 1500); // ~2 words in second
 }

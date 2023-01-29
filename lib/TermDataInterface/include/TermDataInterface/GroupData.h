@@ -23,9 +23,10 @@ struct GroupData
     Opt<GroupUuid> uuid;
     QString name;
     QString comment;
-    int size = 0;
-    QDateTime lastEdit;
-    Opt<QDateTime> nodesLastEdit;
+
+    int            size          = 0;
+    QDateTime      lastEdit      = QDateTime();
+    Opt<QDateTime> nodesLastEdit = std::nullopt;
 
     inline bool isNull() const { return uuid.has_value() && name.isEmpty(); }
 

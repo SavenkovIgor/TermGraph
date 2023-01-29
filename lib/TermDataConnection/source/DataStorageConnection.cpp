@@ -190,9 +190,10 @@ FutureResult<TermData> DataStorageConnection::addTerm(const TermData& info)
     return promise->future();
 }
 
-FutureResult<TermData> DataStorageConnection::updateTerm(const TermData&                      info,
-                                                      DataStorageInterface::LastEditSource lastEditSource,
-                                                      bool                                 checkLastEdit)
+FutureResult<TermData> DataStorageConnection::updateTerm(
+    const TermData&                                       info,
+    [[maybe_unused]] DataStorageInterface::LastEditSource lastEditSource,
+    [[maybe_unused]] bool                                 checkLastEdit)
 {
     SharedPromise<TermData> promise(new Promise<TermData>);
     promise->start();

@@ -21,8 +21,8 @@ TEST_F(LinkDecoratorTest, Decorator)
 
     LinksDecorator decorator(links, [](auto orderNum, [[maybe_unused]] auto link) {
         if (orderNum == 1)
-            return QColor("blue");
-        return QColor("red");
+            return QColor::fromString("blue");
+        return QColor::fromString("red");
     });
 
     auto result = decorator.apply(LinksDecoratorMode::Insert);

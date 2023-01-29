@@ -23,6 +23,7 @@ public:
     using Ptr    = std::shared_ptr<PaintedTerm>;
     using OptPtr = std::optional<Ptr>;
     using List   = std::vector<Ptr>;
+    static inline auto asListSize = [](auto num) { return static_cast<List::size_type>(num); };
 
     PaintedTerm(const TermData& info);
     ~PaintedTerm() override = default;

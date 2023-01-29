@@ -3,6 +3,8 @@
 
 #include "source/helpers/link/linksdecorator.h"
 
+#include <CommonTools/HandyTypes.h>
+
 LinksDecorator::LinksDecorator(LinksString                    linksString,
                                LinksDecorator::DecorCondition colorCondition,
                                DecorCondition                 backgroundCondition)
@@ -15,14 +17,16 @@ QString LinksDecorator::apply(LinksDecoratorMode mode)
 {
     auto ret = mLinksString.text();
 
-    for (int i = mLinksString.links().size() - 1; i >= 0; i--) {
-        const auto& link = mLinksString.links()[i];
+    const auto& links = mLinksString.links();
+
+    for (int i = asInt(links.size()) - 1; i >= 0; i--) {
+        const auto& link = links[Link::asListSize(i)];
 
         int rBracketPos = link.right().pos() - 1;
         int lBracketPos = link.left().pos();
 
-        auto color    = mColorCondition(i, link);
-        auto back     = mBackgroundCondition(i, link);
+        auto color    = mColorCondition(asInt(i), link);
+        auto back     = mBackgroundCondition(asInt(i), link);
         auto colorStr = mLeftReplacer.arg(color.name(QColor::HexArgb), back.name(QColor::HexArgb));
 
         if (mode == LinksDecoratorMode::Insert) {
@@ -52,15 +56,15 @@ QString LinksDecorator::apply(LinksDecoratorMode mode)
 
 QColor LinksDecorator::defaultDecorator([[maybe_unused]] int orderIndex, [[maybe_unused]] const Link& link)
 {
-    return QColor("#00a693");
+    return QColor::fromString("#00a693");
 }
 
 QColor LinksDecorator::greenDecorator([[maybe_unused]] int orderIndex, const Link& link)
 {
-    return link.hasUuid() ? QColor("#ffcf87") : QColor("#c1fc9d");
+    return link.hasUuid() ? QColor::fromString("#ffcf87") : QColor::fromString("#c1fc9d");
 }
 
 QColor LinksDecorator::defaultBackground([[maybe_unused]] int orderIndex, [[maybe_unused]] const Link& link)
 {
-    return QColor("transparent");
+    return QColor::fromString("transparent");
 }

@@ -81,6 +81,7 @@ private: // Members
     QString                     mCurrentDefinition;
     QScopedPointer<LinksString> mLinksString;
 
+    // TODO: Make size type
     int mLinkIndex = -1;
 
     QMap<int, QUuid> mReplacePreparations;

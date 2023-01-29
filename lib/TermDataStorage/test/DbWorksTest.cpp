@@ -44,9 +44,12 @@ public:
         EXPECT_TRUE(dir.remove(sDbFileName));
     }
 
-    GroupData groupWithUuid() { return GroupData{mGroupUuid1, mGroupName1, mGroupComment1}; }
+    GroupData groupWithUuid() { return GroupData{.uuid = mGroupUuid1, .name = mGroupName1, .comment = mGroupComment1}; }
 
-    GroupData groupWithoutUuid() { return GroupData{std::nullopt, mGroupName2, mGroupComment2}; }
+    GroupData groupWithoutUuid()
+    {
+        return GroupData{.uuid = std::nullopt, .name = mGroupName2, .comment = mGroupComment2};
+    }
 
     TermData::List termDataList()
     {
@@ -65,16 +68,15 @@ public:
         auto group = groupWithUuid();
 
         for (const auto& pair : data) {
-            TermData term{
-                .uuid        = TermUuid::generate(),
-                .term        = QString(pair.first) + mSpecSymbols,
-                .definition  = QString(pair.second) + mSpecSymbols,
-                .description = mSpecSymbols,
-                .examples    = mSpecSymbols,
-                .wikiUrl     = mSpecSymbols,
-                .wikiImage   = mSpecSymbols,
-                .groupUuid   = *group.uuid,
-            };
+            TermData term{.uuid        = TermUuid::generate(),
+                          .term        = QString(pair.first) + mSpecSymbols,
+                          .definition  = QString(pair.second) + mSpecSymbols,
+                          .description = mSpecSymbols,
+                          .examples    = mSpecSymbols,
+                          .wikiUrl     = mSpecSymbols,
+                          .wikiImage   = mSpecSymbols,
+                          .groupUuid   = *group.uuid,
+                          .lastEdit    = QDateTime()};
 
             ret.push_back(term);
         }

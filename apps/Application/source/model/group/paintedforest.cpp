@@ -8,6 +8,8 @@
 PaintedForest::PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
     : Forest<PaintedTerm, PaintedEdge>(data)
 {
+    auto asListSize = [](auto num) { return static_cast<std::vector<NodeVerticalStack>::size_type>(num); };
+
     for (const auto& term : data.nodes)
         term->setParentItem(&mRect);
 
@@ -24,8 +26,8 @@ PaintedForest::PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
     for (const auto& term : data.nodes) {
         int paintLevel = level(term);
 
-        if (0 <= paintLevel && paintLevel < mStacks.size())
-            mStacks[paintLevel].addTerm(term);
+        if (0 <= paintLevel && paintLevel < asInt(mStacks.size()))
+            mStacks[asListSize(paintLevel)].addTerm(term);
     }
 }
 
@@ -61,7 +63,7 @@ Opt<QPointF> PaintedForest::optimalRootsBasedPosition(const PaintedTerm::Ptr ter
     for (const auto& node : rNodes)
         sumOfYCoords += node->getCenter(CoordType::scene).y();
 
-    auto averageY = sumOfYCoords / rNodes.size();
+    auto averageY = sumOfYCoords / asInt(rNodes.size());
 
     auto centerPoint = term->getCenter(CoordType::scene);
     centerPoint.setY(averageY);
@@ -178,7 +180,7 @@ QSizeF PaintedForest::baseSize() const
     }
 
     if (!mStacks.empty()) {
-        width += (mStacks.size() - 1) * AppStyle::Sizes::treeLayerHorizontalSpacer;
+        width += (asInt(mStacks.size()) - 1) * AppStyle::Sizes::treeLayerHorizontalSpacer;
     }
 
     return QSizeF(width, height);

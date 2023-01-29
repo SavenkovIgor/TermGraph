@@ -3,6 +3,8 @@
 
 #include "source/managers/linkshardeningmanager.h"
 
+#include <CommonTools/HandyTypes.h>
+
 #include "source/helpers/link/linksdecorator.h"
 #include "source/helpers/link/linktools.h"
 
@@ -25,10 +27,10 @@ QVariant LinksHardeningManager::data(const QModelIndex &index, int role) const
 {
     auto row = index.row();
 
-    if (row < 0 || row >= static_cast<int>(mLastNearestVariants.size()))
+    if (row < 0 || row >= asInt(mLastNearestVariants.size()))
         return {};
 
-    const auto &data = mLastNearestVariants[row];
+    const auto &data = mLastNearestVariants[static_cast<SearchResultList::size_type>(row)];
     switch (role) {
     case Role::Uuid: return std::get<0>(data).toString();
     case Role::Text: return std::get<1>(data);
@@ -40,7 +42,7 @@ QVariant LinksHardeningManager::data(const QModelIndex &index, int role) const
 
 int LinksHardeningManager::rowCount([[maybe_unused]] const QModelIndex &parent) const
 {
-    return mLastNearestVariants.size();
+    return asInt(mLastNearestVariants.size());
 }
 
 void LinksHardeningManager::setGroup(TermGroup *group)
@@ -107,11 +109,11 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
     auto sortCondition = [](auto pair1, auto pair2) { return pair1.first < pair2.first; };
     std::sort(distances.begin(), distances.end(), sortCondition);
 
-    auto min = std::min(limit, static_cast<int>(distances.size()));
+    auto min = static_cast<decltype(distances)::size_type>(std::min(limit, asInt(distances.size())));
 
     SearchResultList ret;
 
-    for (int i = 0; i < min; i++) {
+    for (decltype(distances)::size_type i = 0; i < min; i++) {
         const auto &item     = distances[i];
         const auto &uuid     = item.second->data().uuid;
         const auto &term     = item.second->data().term;
@@ -157,7 +159,7 @@ QString LinksHardeningManager::currentLinkText()
     if (!isValidIndex() || !mLinksString)
         return "";
 
-    return mLinksString->links()[mLinkIndex].fullLink().toString();
+    return mLinksString->links()[Link::asListSize(mLinkIndex)].fullLink().toString();
 }
 
 QString LinksHardeningManager::definitionWithHighlightedLink() const
@@ -175,7 +177,7 @@ int LinksHardeningManager::linkCount() const
     if (!mLinksString || mLinksString.isNull())
         return 0;
 
-    return mLinksString->links().size();
+    return asInt(mLinksString->links().size());
 }
 
 QString LinksHardeningManager::appliedLinkFixationText() const
@@ -189,16 +191,16 @@ QString LinksHardeningManager::appliedLinkFixationText() const
 
     auto decorColor = []([[maybe_unused]] int index, const Link &link) {
         if (link.hasUuid())
-            return QColor("#90ee90");
+            return QColor::fromString("#90ee90");
 
-        return QColor("white");
+        return QColor::fromString("white");
     };
 
     auto bgColor = [currentIndex = mLinkIndex](int index, [[maybe_unused]] const Link &link) {
         if (currentIndex == index)
-            return QColor("#6f6f6f");
+            return QColor::fromString("#6f6f6f");
 
-        return QColor("transparent");
+        return QColor::fromString("transparent");
     };
 
     auto decorator = LinksDecorator(links, decorColor, bgColor);
@@ -210,7 +212,7 @@ QString LinksHardeningManager::applyLinkUuids(QString stringWithLinks, QMap<int,
     for (auto &[index, uuid] : uuidsToApply.toStdMap()) {
         auto linksString = LinksString(stringWithLinks);
 
-        Link oldLink              = linksString.links()[index];
+        Link oldLink              = linksString.links()[Link::asListSize(index)];
         auto [cuttedLink, cutPos] = oldLink.cutted();
 
         const auto newLink = oldLink.createLinkWithUuid(uuid);
@@ -225,5 +227,5 @@ Link LinksHardeningManager::currentLink() const
 {
     assert(!mCurrentTerm.isNull());
     assert(isValidIndex());
-    return currentLinks()[mLinkIndex];
+    return currentLinks()[Link::asListSize(mLinkIndex)];
 }
