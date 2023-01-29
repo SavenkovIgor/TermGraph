@@ -30,7 +30,7 @@ QVariant LinksHardeningManager::data(const QModelIndex &index, int role) const
     if (row < 0 || row >= asInt(mLastNearestVariants.size()))
         return {};
 
-    const auto &data = mLastNearestVariants[row];
+    const auto &data = mLastNearestVariants[static_cast<SearchResultList::size_type>(row)];
     switch (role) {
     case Role::Uuid: return std::get<0>(data).toString();
     case Role::Text: return std::get<1>(data);
@@ -42,7 +42,7 @@ QVariant LinksHardeningManager::data(const QModelIndex &index, int role) const
 
 int LinksHardeningManager::rowCount([[maybe_unused]] const QModelIndex &parent) const
 {
-    return mLastNearestVariants.size();
+    return asInt(mLastNearestVariants.size());
 }
 
 void LinksHardeningManager::setGroup(TermGroup *group)
@@ -177,7 +177,7 @@ int LinksHardeningManager::linkCount() const
     if (!mLinksString || mLinksString.isNull())
         return 0;
 
-    return mLinksString->links().size();
+    return asInt(mLinksString->links().size());
 }
 
 QString LinksHardeningManager::appliedLinkFixationText() const
@@ -212,7 +212,7 @@ QString LinksHardeningManager::applyLinkUuids(QString stringWithLinks, QMap<int,
     for (auto &[index, uuid] : uuidsToApply.toStdMap()) {
         auto linksString = LinksString(stringWithLinks);
 
-        Link oldLink              = linksString.links()[index];
+        Link oldLink              = linksString.links()[Link::asListSize(index)];
         auto [cuttedLink, cutPos] = oldLink.cutted();
 
         const auto newLink = oldLink.createLinkWithUuid(uuid);

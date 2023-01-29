@@ -15,6 +15,7 @@ class Link : public TextRange
 {
 public:
     using List = std::vector<Link>;
+    static inline auto asListSize = [](auto num) -> List::size_type { return static_cast<List::size_type>(num); };
 
     enum class Type { Unknown = 0, Text, Uuid };
 

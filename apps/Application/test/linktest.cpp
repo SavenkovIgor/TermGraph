@@ -195,7 +195,7 @@ TEST_F(LinkTest, LinkAt)
 
     for (const auto& d : data) {
         auto lString = LinksString(d.src);
-        auto range   = lString.links()[d.index];
+        auto range   = lString.links()[static_cast<ulong>(d.index)];
 
         EXPECT_EQ(range.left().pos(), d.start);
         EXPECT_EQ(range.right().pos(), d.end);

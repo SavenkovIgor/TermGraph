@@ -19,10 +19,8 @@ QString LinksDecorator::apply(LinksDecoratorMode mode)
 
     const auto& links = mLinksString.links();
 
-    auto asSize = [](int size) -> Link::List::size_type { return static_cast<Link::List::size_type>(size); };
-
     for (int i = asInt(links.size()) - 1; i >= 0; i--) {
-        const auto& link = links[asSize(i)];
+        const auto& link = links[Link::asListSize(i)];
 
         int rBracketPos = link.right().pos() - 1;
         int lBracketPos = link.left().pos();

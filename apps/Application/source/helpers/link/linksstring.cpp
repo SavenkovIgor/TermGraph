@@ -19,7 +19,7 @@ const Link::List &LinksString::links() const { return mLinks; }
 
 QString LinksString::replaceLink(int index, QString text) const
 {
-    auto sizeIndex      = static_cast<Link::List::size_type>(index);
+    auto sizeIndex      = Link::asListSize(index);
     auto [linkCut, pos] = mLinks[sizeIndex].cutted();
     linkCut.insert(pos, text);
     return linkCut;

@@ -87,7 +87,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
 
         auto cuttedTerm = lowerTerm.left(searchText.size()); // Compare only left n characters
 
-        auto acceptableLimit = asInt(cuttedTerm.size() * 0.25);
+        auto acceptableLimit = asInt(asInt(cuttedTerm.size()) * 0.25);
         auto distance        = LinkTools::levDistance(cuttedTerm, searchText, acceptableLimit);
 
         if (distance <= acceptableLimit)
