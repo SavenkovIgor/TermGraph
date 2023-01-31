@@ -44,8 +44,8 @@ def build_app(preset_name: str):
     cmake_build(preset_name)
 
 def test_app(preset_name: str):
-    print('---CMAKE TEST STARTED---')
     if preset_name != 'wasm_release':
+        print('---CMAKE TEST STARTED---')
         os.system(f'cmake --build --preset {preset_name} --target test')
 
 def main():
