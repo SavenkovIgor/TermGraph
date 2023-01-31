@@ -24,8 +24,9 @@ bool AppConfigTable::hasKey(const QString& key)
     auto query = SqlQueryBuilder().selectOneConfigParameter(key);
     DbTools::start(query);
 
-    if (!query.next())
+    if (!query.next()) {
         return false;
+    }
 
     auto count = query.record().value("COUNT( * )").toInt();
     return count > 0;
@@ -33,12 +34,13 @@ bool AppConfigTable::hasKey(const QString& key)
 
 void AppConfigTable::setValue(const QString& key, const QString& value)
 {
-    if (hasKey(key))
+    if (hasKey(key)) {
         // If has key - updating
         DbTools::start(SqlQueryBuilder().updateConfigParameter(key, value));
-    else
+    } else {
         // Else adding new key
         DbTools::start(SqlQueryBuilder().insertConfigParameter(key, value));
+    }
 }
 
 QString AppConfigTable::value(const QString& key, const QString& defaultValue)

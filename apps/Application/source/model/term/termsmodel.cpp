@@ -43,8 +43,9 @@ int TermsModel::rowCount([[maybe_unused]] const QModelIndex &parent) const { ret
 QVariant TermsModel::data(const QModelIndex &index, int role) const
 {
     int row = index.row();
-    if (row >= asInt(mTerms.size()) || row < 0)
-        return QVariant();
+    if (row >= asInt(mTerms.size()) || row < 0) {
+        return {};
+    }
 
     auto term = mTerms[PaintedTerm::asListSize(row)];
 
@@ -59,7 +60,7 @@ QVariant TermsModel::data(const QModelIndex &index, int role) const
     }
 
     Q_UNREACHABLE();
-    return QVariant();
+    return {};
 }
 
 void TermsModel::updateSelection() { emit dataChanged(index(0), index(asInt(mTerms.size()) - 1), {Roles::IsSelected}); }

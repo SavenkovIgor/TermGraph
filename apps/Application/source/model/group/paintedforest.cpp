@@ -10,31 +10,37 @@ PaintedForest::PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
 {
     auto asListSize = [](auto num) { return static_cast<std::vector<NodeVerticalStack>::size_type>(num); };
 
-    for (const auto& term : data.nodes)
+    for (const auto& term : data.nodes) {
         term->setParentItem(&mRect);
+    }
 
-    for (const auto& edge : data.edges)
+    for (const auto& edge : data.edges) {
         edge->setParentItem(&mRect);
+    }
 
     auto layersCount = 0;
-    for (const auto& node : data.nodes)
+    for (const auto& node : data.nodes) {
         layersCount = std::max(layersCount, level(node));
+    }
 
-    for (int i = 0; i <= layersCount; i++)
+    for (int i = 0; i <= layersCount; i++) {
         mStacks.push_back(NodeVerticalStack(this));
+    }
 
     for (const auto& term : data.nodes) {
         int paintLevel = level(term);
 
-        if (0 <= paintLevel && paintLevel < asInt(mStacks.size()))
+        if (0 <= paintLevel && paintLevel < asInt(mStacks.size())) {
             mStacks[asListSize(paintLevel)].addTerm(term);
+        }
     }
 }
 
 void PaintedForest::setTreeNodeCoords(QPointF leftTopPoint)
 {
-    if (getAllNodesInTree().empty())
+    if (getAllNodesInTree().empty()) {
         return;
+    }
 
     qreal allTreeHeight = getMaxStackHeight();
 
@@ -55,13 +61,15 @@ Opt<QPointF> PaintedForest::optimalRootsBasedPosition(const PaintedTerm::Ptr ter
 {
     auto rNodes = rootNodes(term);
 
-    if (rNodes.empty())
+    if (rNodes.empty()) {
         return std::nullopt;
+    }
 
     double sumOfYCoords = 0.0;
 
-    for (const auto& node : rNodes)
+    for (const auto& node : rNodes) {
         sumOfYCoords += node->getCenter(CoordType::scene).y();
+    }
 
     auto averageY = sumOfYCoords / asInt(rNodes.size());
 
@@ -95,16 +103,18 @@ QString PaintedForest::getHierarchyDefinition(PaintedTerm::Ptr term)
         return false;
     });
 
-    if (parentsList.empty())
+    if (parentsList.empty()) {
         return "";
+    }
 
     // Sorting parents list
     sort(begin(parentsList), end(parentsList), [this](auto n1, auto n2) { return level(n1) > level(n2); });
 
     QStringList definitions;
 
-    for (const auto& node : parentsList)
+    for (const auto& node : parentsList) {
         definitions << node->cache().termAndDefinition(true);
+    }
 
     // Add this definition
     definitions << term->cache().termAndDefinition(true);
@@ -123,8 +133,9 @@ void PaintedForest::selectTerm(const PaintedTerm::Ptr& term, bool selected)
         [this, selected](auto node) {
             node->setRelativeSelection(selected);
 
-            for (auto edge : edgesToRoots().at(node))
+            for (auto edge : edgesToRoots().at(node)) {
                 edge->setSelectedBackward(selected);
+            }
 
             return false;
         },
@@ -135,8 +146,9 @@ void PaintedForest::selectTerm(const PaintedTerm::Ptr& term, bool selected)
         [this, selected](auto node) {
             node->setRelativeSelection(selected);
 
-            for (auto edge : edgesToLeafs().at(node))
+            for (auto edge : edgesToLeafs().at(node)) {
                 edge->setSelectedForward(selected);
+            }
 
             return false;
         },
@@ -183,7 +195,7 @@ QSizeF PaintedForest::baseSize() const
         width += (asInt(mStacks.size()) - 1) * AppStyle::Sizes::treeLayerHorizontalSpacer;
     }
 
-    return QSizeF(width, height);
+    return {width, height};
 }
 
 double PaintedForest::square() const
@@ -196,9 +208,11 @@ PaintedTerm::List PaintedForest::getAllNodesInTree() const
 {
     PaintedTerm::List ret;
 
-    for (const auto& stack : mStacks)
-        for (const auto& node : stack.nodes())
+    for (const auto& stack : mStacks) {
+        for (const auto& node : stack.nodes()) {
             ret.push_back(node);
+        }
+    }
 
     return ret;
 }
@@ -207,8 +221,9 @@ qreal PaintedForest::getMaxStackHeight() const
 {
     qreal maxHeight = 0.0;
 
-    for (const auto& stack : mStacks)
+    for (const auto& stack : mStacks) {
         maxHeight = std::max(maxHeight, stack.size().height());
+    }
 
     return maxHeight;
 }

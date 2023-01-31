@@ -20,8 +20,9 @@ TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObj
 {
     assert(info.uuid);
 
-    for (const auto& node : termData)
+    for (const auto& node : termData) {
         Q_ASSERT_X(node.groupUuid == this->uuid(), Q_FUNC_INFO, "Node group error");
+    }
 
     mOrphansRect.setParentItem(&mBaseRect);
 
@@ -30,26 +31,31 @@ TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObj
 
     PaintedTerm::List nodes;
 
-    for (const auto& term : termData)
+    for (const auto& term : termData) {
         nodes.push_back(std::make_shared<PaintedTerm>(term));
+    }
 
     mGraphData = GraphT({.nodes = nodes, .edges = searchAllConnections(nodes)});
 
     auto subgraphs = mGraphData.bondedSubgraphs();
 
-    for (auto subgraph : subgraphs)
+    for (auto subgraph : subgraphs) {
         mForests.push_back(std::make_shared<PaintedForest>(subgraph));
+    }
 
-    if (isThreadInterrupted())
+    if (isThreadInterrupted()) {
         return;
+    }
 
     // Removing of exceed edges
 
-    if (isThreadInterrupted())
+    if (isThreadInterrupted()) {
         return;
+    }
 
-    for (auto edge : allBrokenEdges())
+    for (auto edge : allBrokenEdges()) {
         edge->brokeEdge();
+    }
 
     addTreeRectsToScene();
 
@@ -90,8 +96,9 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
         auto acceptableLimit = asInt(asInt(cuttedTerm.size()) * 0.25);
         auto distance        = LinkTools::levDistance(cuttedTerm, searchText, acceptableLimit);
 
-        if (distance <= acceptableLimit)
+        if (distance <= acceptableLimit) {
             searchResults.push_back({distance, term->data().uuid->get()});
+        }
     }
 
     // Sorting
@@ -101,8 +108,9 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
     UuidList ret;
     int      count = 0;
     for (auto [dist, uuid] : searchResults) {
-        if (count >= limit)
+        if (count >= limit) {
             break;
+        }
 
         ret.push_back(uuid);
 
@@ -118,11 +126,13 @@ UuidList TermGroup::searchContains(const QString& text, int limit) const
     auto     lowerSearch = text.toLower();
 
     for (const auto& term : mGraphData.nodeList()) {
-        if (term->cache().lowerTerm().contains(lowerSearch))
+        if (term->cache().lowerTerm().contains(lowerSearch)) {
             ret.push_back(term->data().uuid->get());
+        }
 
-        if (asInt(ret.size()) == limit)
+        if (asInt(ret.size()) == limit) {
             break;
+        }
     }
 
     return ret;
@@ -150,18 +160,22 @@ PaintedTerm::OptPtr TermGroup::getTerm(const QPointF& pt) const
 
 PaintedTerm::OptPtr TermGroup::getTerm(const QUuid& termUuid) const
 {
-    for (auto term : mGraphData.nodeList())
-        if (term->data().uuid == termUuid)
+    for (auto term : mGraphData.nodeList()) {
+        if (term->data().uuid == termUuid) {
             return term;
+        }
+    }
 
     return std::nullopt;
 }
 
 PaintedTerm::OptPtr TermGroup::getTerm(const QString& termName) const
 {
-    for (auto term : mGraphData.nodeList())
-        if (term->data().term == termName)
+    for (auto term : mGraphData.nodeList()) {
+        if (term->data().term == termName) {
             return term;
+        }
+    }
 
     return std::nullopt;
 }
@@ -230,10 +244,12 @@ void TermGroup::updateBaseRectSize()
 
     height += vSpacer;
     height += nameSize.height();
-    if (treesSize.height() > 0)
+    if (treesSize.height() > 0) {
         height += treesSize.height() + vSpacer;
-    if (orphansSize.height() > 0)
+    }
+    if (orphansSize.height() > 0) {
         height += orphansSize.height() + vSpacer;
+    }
     height += vSpacer;
 
     mBaseRect.setSize(QSizeF(width, height));
@@ -291,8 +307,9 @@ void TermGroup::setOrphCoords(qreal maxWidth)
 
 void TermGroup::addTreeRectsToScene()
 {
-    for (auto forest : mForests)
+    for (auto forest : mForests) {
         forest->rect().setParentItem(&mBaseRect);
+    }
 }
 
 QSizeF TermGroup::getNameSize() const { return Fonts::metrics(name(), Fonts::weightFont()); }
@@ -303,9 +320,11 @@ PaintedTerm::List TermGroup::getRootNodes() const
 {
     PaintedTerm::List ret;
 
-    for (const auto& forest : mForests)
-        for (const auto& root : forest->roots())
+    for (const auto& forest : mForests) {
+        for (const auto& root : forest->roots()) {
             ret.push_back(root);
+        }
+    }
 
     return ret;
 }
@@ -314,13 +333,15 @@ QSizeF TermGroup::getAllTreesSize()
 {
     SizeList sizeList;
 
-    for (const auto& forest : mForests)
+    for (const auto& forest : mForests) {
         sizeList.push_back(forest->baseSize());
+    }
 
     auto totalSize = sizeList.totalStackedSize(Qt::Vertical);
 
-    if (!mForests.empty())
+    if (!mForests.empty()) {
         totalSize.rheight() += (asInt(mForests.size()) - 1) * AppStyle::Sizes::groupVerticalSpacer;
+    }
 
     return totalSize;
 }
@@ -350,11 +371,13 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
             }
 
             // If we have same search earlier this cycle
-            if (!foundNode && previousTagSearchCache.contains(link.textLower()))
+            if (!foundNode && previousTagSearchCache.contains(link.textLower())) {
                 foundNode = previousTagSearchCache[link.textLower()];
+            }
 
-            if (!foundNode)
+            if (!foundNode) {
                 foundNode = getNearestNodeForTag(link.textLower(), terms);
+            }
 
             if (foundNode) {
                 if (foundNode.value() != node) { // TODO: Real case, need check
@@ -364,15 +387,19 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
             }
 
             counter++;
-            if (counter % 20 == 0)
-                if (isThreadInterrupted())
+            if (counter % 20 == 0) {
+                if (isThreadInterrupted()) {
                     stopRequest = true;
+                }
+            }
 
-            if (stopRequest)
+            if (stopRequest) {
                 break;
+            }
         }
-        if (stopRequest)
+        if (stopRequest) {
             break;
+        }
     }
 
     return ret;
@@ -389,8 +416,9 @@ Opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const 
     for (auto node : terms) {
         auto termName = node->cache().lowerTerm();
 
-        if (!LinkTools::linkAndTermSimilarWordDistance(tag, termName))
+        if (!LinkTools::linkAndTermSimilarWordDistance(tag, termName)) {
             continue;
+        }
 
         auto cacheMatch = tagCache.get(tag, termName);
         if (cacheMatch) {
@@ -401,8 +429,9 @@ Opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const 
         }
 
         if (optionalResult) {
-            if (optionalResult.value() == 0) // Already best match, no need to count further
+            if (optionalResult.value() == 0) { // Already best match, no need to count further
                 return node;
+            }
 
             if (optionalResult.value() < minDistance) {
                 minDistance = optionalResult.value();
@@ -459,8 +488,9 @@ QString TermGroup::name() const { return mInfo.name; }
 QString TermGroup::getHierarchyDefinition(PaintedTerm::Ptr term)
 {
     for (auto forest : mForests) {
-        if (forest->contains(term))
+        if (forest->contains(term)) {
             return forest->getHierarchyDefinition(term);
+        }
     }
 
     return "";
@@ -468,19 +498,23 @@ QString TermGroup::getHierarchyDefinition(PaintedTerm::Ptr term)
 
 void TermGroup::selectTerm(const PaintedTerm::Ptr& term, bool selection)
 {
-    for (auto forest : mForests)
-        if (forest->hasTerm(term))
+    for (auto forest : mForests) {
+        if (forest->hasTerm(term)) {
             forest->selectTerm(term, selection);
+        }
+    }
 
-    for (auto& orphTerm : getOrphanNodes())
+    for (auto& orphTerm : getOrphanNodes()) {
         orphTerm->setSelection(orphTerm == term);
+    }
 }
 
 NodeType::Type TermGroup::termType(const PaintedTerm::Ptr& term) const
 {
     for (const auto& forest : mForests) {
-        if (forest->hasTerm(term))
+        if (forest->hasTerm(term)) {
             return NodeType::fromTermType(forest->nodeType(term));
+        }
     }
 
     return NodeType::Type::Orphan;
@@ -490,8 +524,9 @@ QMap<QString, PaintedTerm::Ptr> TermGroup::getExactTermMatchCache()
 {
     QMap<QString, PaintedTerm::Ptr> ret;
 
-    for (const auto& node : mGraphData.nodeList())
+    for (const auto& node : mGraphData.nodeList()) {
         ret.insert(node->cache().lowerTerm(), node);
+    }
 
     return ret;
 }
@@ -500,8 +535,9 @@ QMap<QUuid, PaintedTerm::Ptr> TermGroup::getTermUuidsMap()
 {
     QMap<QUuid, PaintedTerm::Ptr> ret;
 
-    for (const auto& node : mGraphData.nodeList())
+    for (const auto& node : mGraphData.nodeList()) {
         ret.insert(node->data().uuid->get(), node);
+    }
 
     return ret;
 }
@@ -560,8 +596,9 @@ PaintedEdge::List TermGroup::allExceedEdges() const
     PaintedEdge::List ret;
 
     for (const auto& forest : mForests) {
-        for (const auto& edge : forest->wasteEdges())
+        for (const auto& edge : forest->wasteEdges()) {
             ret.push_back(edge);
+        }
     }
 
     return ret;

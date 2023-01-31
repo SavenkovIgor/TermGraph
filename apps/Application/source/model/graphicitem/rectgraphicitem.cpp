@@ -22,5 +22,5 @@ QRectF RectGraphicItem::getRect(CoordType coord) const
     }
 
     assert(false); // must be unreachable
-    return QRectF();
+    return {};
 }

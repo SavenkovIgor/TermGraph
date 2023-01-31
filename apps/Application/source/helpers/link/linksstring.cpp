@@ -42,14 +42,17 @@ bool LinksString::isValidLinksString(QStringView str)
     int brCount = 0;
 
     for (auto ch : str) {
-        if (ch == CharTools::leftBracket)
+        if (ch == CharTools::leftBracket) {
             brCount++;
+        }
 
-        if (ch == CharTools::rightBracket)
+        if (ch == CharTools::rightBracket) {
             brCount--;
+        }
 
-        if (brCount < 0 || brCount > 1)
+        if (brCount < 0 || brCount > 1) {
             return false;
+        }
     }
 
     return brCount == 0;
@@ -62,15 +65,17 @@ bool LinksString::isValidLinksString(QStringView str)
 QString LinksString::addLink(QString str, int cursor)
 {
     // Проверка корректности курсора
-    if (!TextCursor::isValidCursor(str, cursor))
+    if (!TextCursor::isValidCursor(str, cursor)) {
         return str;
+    }
 
     // Нельзя просто так упрощать строку - индекс курсора же не меняется
     // str = str.simplified();
 
     // Если мы уже находимся внутри тега - ничего не делаем
-    if (Link::isCursorOnLink(str, cursor))
+    if (Link::isCursorOnLink(str, cursor)) {
         return str;
+    }
 
     auto word = TextRange::selectWord(str, cursor);
 
@@ -83,11 +88,13 @@ QString LinksString::addLink(QString str, int cursor)
 
 QString LinksString::expandLinkRight(QString str, int cursor)
 {
-    if (!TextCursor::isValidCursor(str, cursor))
+    if (!TextCursor::isValidCursor(str, cursor)) {
         return str;
+    }
 
-    if (!Link::isCursorOnLink(str, cursor))
+    if (!Link::isCursorOnLink(str, cursor)) {
         return str;
+    }
 
     // Move to right bracket
     auto rBracket = CheckingTextCursor::anyBracketOnRight(str, cursor, Direction::Right);
@@ -96,8 +103,9 @@ QString LinksString::expandLinkRight(QString str, int cursor)
 
     auto lWord = CheckingTextCursor::leftWordBorder(str, rBracket.pos() + 1, Direction::Right);
 
-    if (!lWord.check()) // if not found
+    if (!lWord.check()) { // if not found
         return str;
+    }
 
     auto lBracketMaybe = CheckingTextCursor::leftBracketOnRight(str, rBracket.pos() + 1, Direction::Right);
 
@@ -122,15 +130,17 @@ QString LinksString::expandLinkRight(QString str, int cursor)
 QString LinksString::removeLink(QString str, int cursor)
 {
     // Проверка корректности курсора
-    if (!TextCursor::isValidCursor(str, cursor))
+    if (!TextCursor::isValidCursor(str, cursor)) {
         return str;
+    }
 
     // Нельзя просто так упрощать строку - индекс курсора же не меняется
     // str = str.simplified();
 
     // Если мы не находимся внутри тега - ничего не делаем
-    if (!Link::isCursorOnLink(str, cursor))
+    if (!Link::isCursorOnLink(str, cursor)) {
         return str;
+    }
 
     auto leftBracket  = CheckingTextCursor::anyBracketOnLeft(str, cursor, Direction::Left);
     auto rightBracket = CheckingTextCursor::anyBracketOnRight(str, cursor, Direction::Right);
@@ -147,8 +157,9 @@ QString LinksString::removeLink(QString str, int cursor)
 
 int LinksString::getCount(QStringView strView)
 {
-    if (!isValidLinksString(strView))
+    if (!isValidLinksString(strView)) {
         return 0;
+    }
 
     auto str = strView.toString();
     return asInt(str.count(CharTools::leftBracket));
@@ -158,16 +169,18 @@ Link::List LinksString::extractLinks(QStringView strView)
 {
     Link::List ret;
 
-    if (!isValidLinksString(strView))
+    if (!isValidLinksString(strView)) {
         return ret;
+    }
 
     int count = getCount(strView);
 
     for (int i = 0; i < count; i++) {
         int strPos = -1;
 
-        for (int j = 0; j <= i; j++)
+        for (int j = 0; j <= i; j++) {
             strPos = asInt(strView.indexOf(CharTools::leftBracket, strPos + 1));
+        }
 
         auto link = Link::select(strView, strPos + 1);
 

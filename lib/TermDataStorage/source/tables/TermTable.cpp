@@ -13,8 +13,9 @@ bool TermTable::exist(const TermUuid& uuid) const
     auto query = SqlQueryBuilder().selectOneTerm(uuid);
     DbTools::start(query);
 
-    if (!query.next())
+    if (!query.next()) {
         return false;
+    }
 
     auto count = query.record().value("COUNT( * )").toInt();
     return count > 0;
@@ -22,8 +23,9 @@ bool TermTable::exist(const TermUuid& uuid) const
 
 Result<TermData> TermTable::term(const TermUuid& uuid) const
 {
-    if (!exist(uuid))
+    if (!exist(uuid)) {
         return ErrorCodes::TermUuidNotFound;
+    }
 
     auto query = SqlQueryBuilder().selectTerm(uuid);
     DbTools::start(query);
@@ -34,14 +36,16 @@ Result<TermData> TermTable::term(const TermUuid& uuid) const
 
 Result<TermData> TermTable::term(const QString& term, const GroupUuid& uuid) const
 {
-    if (term.simplified().isEmpty())
+    if (term.simplified().isEmpty()) {
         return ErrorCodes::TermEmpty;
+    }
 
     auto query = SqlQueryBuilder().selectOneTerm(term, uuid);
     DbTools::start(query);
 
-    if (query.next())
+    if (query.next()) {
         return createTermData(query.record());
+    }
 
     return ErrorCodes::TermUuidNotFound;
 }
@@ -75,21 +79,25 @@ Result<TermData> TermTable::addTerm(const TermData& info)
     // Generate new uuid if current is empty
     auto tUuid = info.uuid.value_or(generateNewUuid());
 
-    if (exist(tUuid))
+    if (exist(tUuid)) {
         return ErrorCodes::TermUuidAlreadyExist;
+    }
 
-    if (info.term.simplified().isEmpty())
+    if (info.term.simplified().isEmpty()) {
         return ErrorCodes::TermEmpty;
+    }
 
-    if (term(info.term, info.groupUuid))
+    if (term(info.term, info.groupUuid)) {
         return ErrorCodes::TermAlreadyExist;
+    }
 
     TermData termInfo = info;
 
     termInfo.uuid = tUuid;
 
-    if (termInfo.lastEdit.isNull())
+    if (termInfo.lastEdit.isNull()) {
         termInfo.lastEdit = now();
+    }
 
     auto query = SqlQueryBuilder().insertTerm(termInfo);
     DbTools::start(query);
@@ -101,23 +109,27 @@ Result<TermData> TermTable::updateTerm(const TermData&                      info
                                        DataStorageInterface::LastEditSource lastEditSource,
                                        bool                                 checkLastEdit)
 {
-    if (!info.uuid)
+    if (!info.uuid) {
         return ErrorCodes::TermUuidInvalid;
+    }
 
-    if (!exist(*info.uuid))
+    if (!exist(*info.uuid)) {
         return ErrorCodes::TermUuidNotFound;
+    }
 
     if (checkLastEdit) {
         const auto currentLastEdit = lastEdit(*info.uuid).value();
         const auto newLastEdit     = info.lastEdit;
-        if (currentLastEdit > newLastEdit) // If db version is fresher, do nothing
+        if (currentLastEdit > newLastEdit) { // If db version is fresher, do nothing
             return ErrorCodes::NewerTermVersionFound;
+        }
     }
 
     TermData nodeContainer = info;
 
-    if (lastEditSource == DataStorageInterface::Now)
+    if (lastEditSource == DataStorageInterface::Now) {
         nodeContainer.lastEdit = now();
+    }
 
     DbTools::start(SqlQueryBuilder().updateTerm(nodeContainer));
 
@@ -138,8 +150,9 @@ TermUuid TermTable::generateNewUuid()
 {
     for (;;) {
         auto uuid = TermUuid::generate();
-        if (!exist(uuid))
+        if (!exist(uuid)) {
             return uuid;
+        }
     }
 }
 
@@ -147,8 +160,9 @@ QDateTime TermTable::now() { return QDateTime::currentDateTimeUtc(); }
 
 Result<QDateTime> TermTable::lastEdit(const TermUuid& uuid)
 {
-    if (!exist(uuid))
+    if (!exist(uuid)) {
         return ErrorCodes::TermUuidNotFound;
+    }
 
     auto query = SqlQueryBuilder().selectLastEdit(uuid);
     DbTools::start(query);
@@ -157,8 +171,9 @@ Result<QDateTime> TermTable::lastEdit(const TermUuid& uuid)
 
     auto field = record.value("lastEdit").toString();
 
-    if (field.isEmpty())
+    if (field.isEmpty()) {
         return QDateTime();
+    }
 
     return QDateTime::fromString(field, Qt::ISODate);
 }

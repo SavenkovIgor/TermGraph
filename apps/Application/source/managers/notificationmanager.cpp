@@ -30,13 +30,15 @@ void NotificationManager::handleNotifyShow()
 {
     auto notify = currentNotify();
 
-    if (!notify)
+    if (!notify) {
         return;
+    }
 
     const auto& [type, message] = notify.value();
 
-    if (type == NotifyType::Debug)
+    if (type == NotifyType::Debug) {
         return;
+    }
 
     auto notifyShowTime = predictMessageShowTime(message);
     hideNotifyTimer.start(notifyShowTime);
@@ -47,8 +49,9 @@ void NotificationManager::handleNotifyHide()
     // User can close notify drawer manually, while timer is still active
     hideNotifyTimer.stop();
 
-    if (!notificationsQueue.isEmpty())
+    if (!notificationsQueue.isEmpty()) {
         notificationsQueue.dequeue();
+    }
 
     checkQueue();
 }
@@ -61,13 +64,15 @@ void NotificationManager::handleUiInitialization()
 
 void NotificationManager::checkQueue()
 {
-    if (!uiInitialized)
+    if (!uiInitialized) {
         return;
+    }
 
     auto notify = currentNotify();
 
-    if (notify)
+    if (notify) {
         showNotify(notify.value());
+    }
 }
 
 NotificationManager::NotificationManager(QObject* parent)
@@ -79,8 +84,9 @@ NotificationManager::NotificationManager(QObject* parent)
 
 Opt<NotificationManager::Notify> NotificationManager::currentNotify() const
 {
-    if (!notificationsQueue.isEmpty())
+    if (!notificationsQueue.isEmpty()) {
         return notificationsQueue.head();
+    }
 
     return std::nullopt;
 }

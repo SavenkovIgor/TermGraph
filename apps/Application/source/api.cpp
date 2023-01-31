@@ -12,7 +12,6 @@
 
 Api::Api(QObject* parent)
     : QObject(parent)
-    , initPreparer()
     , mNetwork(new NetworkManager(NotificationManager::instance()))
     , mGroupsManager(new GroupsManager(NotificationManager::instance()))
     , mSyncManager(new SyncManager(mNetwork.get(), mGroupsManager.get()))

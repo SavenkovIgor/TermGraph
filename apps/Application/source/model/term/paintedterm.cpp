@@ -5,7 +5,6 @@
 
 PaintedTerm::PaintedTerm(const TermData& info)
     : GraphTerm(info)
-    , GraphicItem()
     , pNodeSize(QSizeF(40.0, 10.0))
 {
     pCornerRadius.setBinding([this]() { return std::min(pNodeSize.value().height() * 0.15, 12.0); });
@@ -26,7 +25,7 @@ QLineF PaintedTerm::getRectLine(Qt::Edge side)
 
     case Qt::LeftEdge: return QLineF(rc.topLeft(), rc.bottomLeft());
     }
-    return QLineF();
+    return {};
 }
 
 QRectF PaintedTerm::getNodeRect(CoordType inCoordinates) const
@@ -38,7 +37,7 @@ QRectF PaintedTerm::getNodeRect(CoordType inCoordinates) const
     }
 
     assert(false); // must be unreachable
-    return QRectF();
+    return {};
 }
 
 QRectF PaintedTerm::getFrameRect(CoordType inCoordinates) const

@@ -36,8 +36,9 @@ void MainScene::selectGroup(const QUuid groupUuid)
 
 void MainScene::selectTerm(const QUuid termUuid)
 {
-    if (auto node = findTerm(termUuid); node.has_value())
+    if (auto node = findTerm(termUuid); node.has_value()) {
         selectTerm(node.value());
+    }
 }
 
 void MainScene::dropGroup()
@@ -57,16 +58,18 @@ void MainScene::dropGroup()
 
 void MainScene::updateGroup()
 {
-    if (auto uuid = currentGroupUuid())
+    if (auto uuid = currentGroupUuid()) {
         selectGroup(*uuid);
+    }
 }
 
 void MainScene::checkGroupAddition()
 {
     // If group was added and we have no groups before, we must switch to it
     auto groupsUuids = groupsMgr->getAllUuidsSortedByLastEdit();
-    if (groupsUuids.size() == 1)
+    if (groupsUuids.size() == 1) {
         setCurrentGroup(groupsUuids.front());
+    }
 }
 
 void MainScene::checkGroupDeletion()
@@ -75,12 +78,14 @@ void MainScene::checkGroupDeletion()
 
     // If group was deleted, and it was current group, we must delete it too
     auto currentGroup = currentGroupUuid();
-    if (!currentGroup)
+    if (!currentGroup) {
         return;
+    }
 
     auto groupsUuids  = groupsMgr->getAllUuidsSortedByLastEdit();
-    if (find(begin(groupsUuids), end(groupsUuids), *currentGroup) == groupsUuids.end())
+    if (find(begin(groupsUuids), end(groupsUuids), *currentGroup) == groupsUuids.end()) {
         dropGroup();
+    }
 }
 
 void MainScene::takeBuildGroupAndShow()
@@ -103,11 +108,13 @@ void MainScene::createLoadedGroup()
 
             auto group = groupsMgr->createGroup();
 
-            if (!group.has_value())
+            if (!group.has_value()) {
                 return std::nullopt;
+            }
 
-            if (group.value()->thread()->isInterruptionRequested())
+            if (group.value()->thread()->isInterruptionRequested()) {
                 return std::nullopt;
+            }
 
             group.value()->moveToThread(this->thread());
             return group;
@@ -141,8 +148,9 @@ void MainScene::showNewGroup(TermGroup::OptPtr newGroup)
         mEdgesModel->setGroup(mCurrentGroup);
     }
 
-    if (differentGroups)
+    if (differentGroups) {
         emit currentGroupChanged();
+    }
 
     emit nodesChanged();
     emit edgesChanged();
@@ -158,16 +166,18 @@ void MainScene::setCurrentGroup(const GroupUuid& newGroupUuid)
     // Taking groupUuid from parameter or current groupUuid
     Opt<GroupUuid> tmpGroupUuid = newGroup ? newGroupUuid : oldGroupUuid;
 
-    if (!tmpGroupUuid)
+    if (!tmpGroupUuid) {
         return;
+    }
 
     groupsMgr->loadGroup(*tmpGroupUuid);
 }
 
 void MainScene::updateSceneRect()
 {
-    if (!mCurrentGroup)
+    if (!mCurrentGroup) {
         return;
+    }
 
     auto baseRc = mCurrentGroup.value()->getGroupRect();
 
@@ -181,20 +191,23 @@ QStringList MainScene::search(const QString& text)
 {
     QStringList ret;
 
-    if (text.isEmpty())
+    if (text.isEmpty()) {
         return ret;
+    }
 
     if (mCurrentGroup) {
         auto nearestUuids  = mCurrentGroup.value()->searchNearest(text);
         auto containsUuids = mCurrentGroup.value()->searchContains(text);
 
-        for (auto uuid : nearestUuids)
+        for (auto uuid : nearestUuids) {
             ret << uuid.toString();
+        }
 
         for (auto uuid : containsUuids) {
             auto insertVal = uuid.toString();
-            if (!ret.contains(insertVal))
+            if (!ret.contains(insertVal)) {
                 ret << insertVal;
+            }
         }
 
         ret = ret.mid(0, 7);
@@ -207,17 +220,19 @@ void MainScene::deleteSelectedTerm()
 {
     if (auto node = getSelectedTerm(); node.has_value()) {
         dropTermSelection();
-        if (auto uuid = node.value()->data().uuid)
+        if (auto uuid = node.value()->data().uuid) {
             groupsMgr->deleteNode(*uuid);
+        }
     }
 }
 
 QPointF MainScene::getTermPosition(const QUuid termUuid) const
 {
-    if (auto node = findTerm(termUuid); node.has_value())
+    if (auto node = findTerm(termUuid); node.has_value()) {
         return node.value()->getCenter(CoordType::scene);
+    }
 
-    return QPointF();
+    return {};
 }
 
 void MainScene::setMouseClick(qreal x, qreal y) { findClick(QPointF(x, y)); }
@@ -231,20 +246,23 @@ PaintedTerm::OptPtr MainScene::findTerm(const QUuid& termUuid) const
 
 void MainScene::selectTerm(PaintedTerm::OptPtr term)
 {
-    if (!mCurrentGroup)
+    if (!mCurrentGroup) {
         return;
+    }
 
     if (selectedTerm != term) {
         // Drop selection
-        if (selectedTerm.has_value())
+        if (selectedTerm.has_value()) {
             mCurrentGroup.value()->selectTerm(selectedTerm.value(), false);
+        }
 
         // Set new selection
         selectedTerm = term;
 
         // Call selection
-        if (selectedTerm.has_value())
+        if (selectedTerm.has_value()) {
             mCurrentGroup.value()->selectTerm(selectedTerm.value(), true);
+        }
 
         emit selectionChanged();
         emit edgesChanged();
@@ -255,8 +273,9 @@ void MainScene::dropTermSelection() { selectTerm(std::nullopt); }
 
 QString MainScene::termUuidToName(const QUuid termUuid) const
 {
-    if (auto node = findTerm(termUuid); node.has_value())
+    if (auto node = findTerm(termUuid); node.has_value()) {
         return node.value()->data().term;
+    }
 
     return "";
 }
@@ -264,21 +283,24 @@ QString MainScene::termUuidToName(const QUuid termUuid) const
 QUuid MainScene::termNameToUuid(const QString termName) const
 {
     auto node = mCurrentGroup ? mCurrentGroup.value()->getTerm(termName) : std::nullopt;
-    if (!node)
-        return QUuid();
+    if (!node) {
+        return {};
+    }
 
-    if (!((*node)->data().uuid))
-        return QUuid();
+    if (!((*node)->data().uuid)) {
+        return {};
+    }
 
     return (*node)->data().uuid->get();
 }
 
 TermDataWrapper MainScene::getCurrentNode()
 {
-    if (auto node = getSelectedTerm(); node.has_value())
+    if (auto node = getSelectedTerm(); node.has_value()) {
         return TermDataWrapper(node.value()->data());
+    }
 
-    return TermDataWrapper();
+    return {};
 }
 
 TermGroup* MainScene::getCurrentGroup() const { return mCurrentGroup.value().get(); }
@@ -287,19 +309,22 @@ bool MainScene::hasCurrentGroup() const { return mCurrentGroup.has_value(); }
 
 QString MainScene::getCurrNodeNameAndDefinition()
 {
-    if (auto node = getSelectedTerm(); node.has_value())
+    if (auto node = getSelectedTerm(); node.has_value()) {
         return node.value()->cache().termAndDefinition();
+    }
 
     return "";
 }
 
 QString MainScene::getCurrNodeHierarchyDefinition()
 {
-    if (!mCurrentGroup)
+    if (!mCurrentGroup) {
         return "";
+    }
 
-    if (auto node = getSelectedTerm(); node.has_value())
+    if (auto node = getSelectedTerm(); node.has_value()) {
         return mCurrentGroup.value()->getHierarchyDefinition(node.value());
+    }
 
     return "";
 }
@@ -322,11 +347,13 @@ void MainScene::setSceneRect(const QRectF& newRect)
 
 PaintedTerm::OptPtr MainScene::getNodeAtPoint(const QPointF& pt) const
 {
-    if (!mCurrentGroup)
+    if (!mCurrentGroup) {
         return std::nullopt;
+    }
 
-    if (mCurrentGroup.value()->getGroupRect().contains(pt))
+    if (mCurrentGroup.value()->getGroupRect().contains(pt)) {
         return mCurrentGroup.value()->getTerm(pt);
+    }
 
     return std::nullopt;
 }
@@ -344,8 +371,9 @@ void MainScene::findClick(const QPointF& atPt)
         }
     }
 
-    if (auto node = getNodeAtPoint(atPt); node.has_value()) // Click in other node
+    if (auto node = getNodeAtPoint(atPt); node.has_value()) { // Click in other node
         selectTerm(node);
-    else
+    } else {
         dropTermSelection();
+    }
 }

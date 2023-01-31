@@ -9,8 +9,8 @@ LinksDecorator::LinksDecorator(LinksString                    linksString,
                                LinksDecorator::DecorCondition colorCondition,
                                DecorCondition                 backgroundCondition)
     : mLinksString(linksString)
-    , mColorCondition(colorCondition)
-    , mBackgroundCondition(backgroundCondition)
+    , mColorCondition(std::move(colorCondition))
+    , mBackgroundCondition(std::move(backgroundCondition))
 {}
 
 QString LinksDecorator::apply(LinksDecoratorMode mode)

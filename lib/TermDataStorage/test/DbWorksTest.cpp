@@ -197,6 +197,7 @@ TEST_F(DBWorksTest, TermsTest)
         EXPECT_TRUE(term == mStorage->term(*term.uuid).result().value());
     }
 
-    for (const auto& term : termList)
+    for (const auto& term : termList) {
         EXPECT_TRUE(mStorage->deleteTerm(*term.uuid).result().has_value());
+    }
 }

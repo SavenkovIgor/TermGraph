@@ -7,8 +7,9 @@ QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::Lis
 {
     SizeList sizeList;
 
-    for (const auto& node : nodes)
+    for (const auto& node : nodes) {
         sizeList.push_back(node->getFrameRect(CoordType::zeroPoint).size());
+    }
 
     return sizeList.totalStackedSize(Qt::Vertical);
 }
@@ -111,8 +112,9 @@ PaintedTerm::List NodeVerticalStack::flatNodePack(const std::vector<NodeVertical
     PaintedTerm::List ret;
 
     for ([[maybe_unused]] const auto& [pt, nodes] : pack) {
-        for (const auto& node : nodes)
+        for (const auto& node : nodes) {
             ret.push_back(node);
+        }
     }
 
     return ret;

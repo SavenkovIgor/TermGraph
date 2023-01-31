@@ -29,8 +29,9 @@ bool LinkTools::hasSoftLinks(const QString& linkedText)
     LinksString txt(linkedText);
 
     for (const auto& link : txt.links()) {
-        if (!link.hasUuid())
+        if (!link.hasUuid()) {
             return true;
+        }
     }
 
     return false;
@@ -62,11 +63,13 @@ int LinkTools::levDistance(QStringView src, QStringView dst, int limit)
     const auto m = asULong(src.size());
     const auto n = asULong(dst.size());
 
-    if (m == 0)
+    if (m == 0) {
         return asInt(n);
+    }
 
-    if (n == 0)
+    if (n == 0) {
         return asInt(m);
+    }
 
     static IntMatrix matrixContainer;
     matrixContainer.checkSize(n + 1, m + 1);
@@ -112,15 +115,17 @@ Opt<int> LinkTools::linkAndTermDistance(const QString &link, const QString &term
     assert(link == link.toLower());
 
     // Exact match
-    if (term.size() == link.size() && term == link)
+    if (term.size() == link.size() && term == link) {
         return 0;
+    }
 
     int wordsCountInLink = TextTools::wordCount(link);
     int maxWordDistance = std::min(4 * wordsCountInLink, maxLimit);
 
     auto stringSizeDiffer = std::abs(term.size() - link.size());
-    if (stringSizeDiffer > maxWordDistance) // No need to check. Term is not suit already
+    if (stringSizeDiffer > maxWordDistance) { // No need to check. Term is not suit already
         return std::nullopt;
+    }
 
     auto distance = levDistance(term, link, maxWordDistance);
     if (distance <= maxWordDistance) {

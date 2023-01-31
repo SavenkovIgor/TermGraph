@@ -9,8 +9,9 @@ Opt<Opt<int>> GlobalTagCache::get(const QString& tag, const QString& term) const
     auto tagIter = tagToTermCache.constFind(tag);
     if (tagIter != tagToTermCache.constEnd()) {
         auto termIter = tagIter.value().constFind(term);
-        if (termIter != tagIter.value().constEnd())
+        if (termIter != tagIter.value().constEnd()) {
             return Opt<Opt<int>>(termIter.value());
+        }
     }
 
     return std::nullopt;

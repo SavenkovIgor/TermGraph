@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
                        "%{if-fatal}Fatal%{endif}"
                        "[%{threadid}]: %{message}");
 
-    QGuiApplication a(argc, argv);
+    QGuiApplication app(argc, argv);
 
     initResources();
 
@@ -59,5 +59,5 @@ int main(int argc, char* argv[])
     qmlEngine.addImportPath(QStringLiteral("qrc:/qt/qml"));
     qmlEngine.load(QStringLiteral("qrc:/qt/qml/Api/qml/main.qml"));
 
-    return a.exec();
+    return app.exec();
 }

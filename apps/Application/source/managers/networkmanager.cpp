@@ -29,8 +29,9 @@ void NetworkManager::disconnectFromHost() { outputSocket->disconnectFromHost(); 
 
 void NetworkManager::setReceiverHostIp(const QString& ip)
 {
-    if (!isValidHostAddress(ip))
+    if (!isValidHostAddress(ip)) {
         return;
+    }
 
     receiverIp = ip;
 }
@@ -67,8 +68,9 @@ void NetworkManager::newInputData([[maybe_unused]] QHostAddress fromHost, QByteA
 
 bool NetworkManager::sendGroup(const QJsonDocument& doc)
 {
-    if (!isValidHostAddress(receiverIp))
+    if (!isValidHostAddress(receiverIp)) {
         return false;
+    }
 
     if (outputSocket->state() == QAbstractSocket::ConnectedState) {
         outputSocket->write(doc.toJson());
@@ -88,8 +90,9 @@ void NetworkManager::sendConnectionInfo(const QString& info) { notifier.showInfo
 
 QString NetworkManager::getOutputSocketState()
 {
-    if (outputSocket == nullptr)
+    if (outputSocket == nullptr) {
         return "";
+    }
 
     return getSocketStateDescription(outputSocket->state());
 }
@@ -122,8 +125,9 @@ void NetworkManager::setServerEnabled(bool enabled)
         }
     } else {
         if (enabled) {
-            if (server->startListen())
+            if (server->startListen()) {
                 emit serverStateChanged();
+            }
         }
     }
 }

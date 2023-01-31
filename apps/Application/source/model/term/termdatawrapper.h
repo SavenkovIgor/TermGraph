@@ -38,8 +38,8 @@ public:
                 .groupUuid   = GroupUuid::generate(),
                 .lastEdit    = QDateTime::currentDateTime()}
     {}
-    TermDataWrapper(const TermData& info)
-        : mData(info)
+    TermDataWrapper(TermData info)
+        : mData(std::move(info))
     {}
 
     Q_INVOKABLE inline bool isNull() const { return mData.isNull(); }

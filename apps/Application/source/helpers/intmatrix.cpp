@@ -19,16 +19,18 @@ std::vector<std::vector<int>> IntMatrix::createMatrix(IntMatrix::sizeT width, In
 {
     std::vector<std::vector<int>> mtr(height);
 
-    for (auto& row : mtr)
+    for (auto& row : mtr) {
         row.resize(width);
+    }
 
     return mtr;
 }
 
 void IntMatrix::clearMatrix(std::vector<std::vector<int>>& matrix)
 {
-    for (auto& row : matrix)
+    for (auto& row : matrix) {
         row.clear();
+    }
 
     matrix.clear();
 }

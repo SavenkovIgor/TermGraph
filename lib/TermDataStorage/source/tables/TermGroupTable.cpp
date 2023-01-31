@@ -15,8 +15,9 @@ bool TermGroupTable::exist(const QString &groupName)
 
     auto records = DbTools::getAllRecords(std::move(query));
 
-    if (records.empty())
+    if (records.empty()) {
         return false;
+    }
 
     return GroupUuid::create(records.front().value("uuid").toString()).has_value();
 }
@@ -36,8 +37,9 @@ bool TermGroupTable::exist(const GroupUuid &uuid)
 Result<GroupData> TermGroupTable::group(const GroupUuid &uuid)
 {
     // If group not exist
-    if (!exist(uuid))
+    if (!exist(uuid)) {
         return ErrorCodes::GroupUuidNotFound;
+    }
 
     auto query = SqlQueryBuilder().selectGroup(uuid);
     DbTools::start(query);
@@ -74,11 +76,13 @@ Result<GroupData> TermGroupTable::addGroup(const GroupData &info)
         groupInfo.uuid = generateNewUuid();
     }
 
-    if (groupInfo.name.simplified().isEmpty())
+    if (groupInfo.name.simplified().isEmpty()) {
         return ErrorCodes::GroupNameEmpty;
+    }
 
-    if (exist(groupInfo.name))
+    if (exist(groupInfo.name)) {
         return ErrorCodes::GroupNameAlreadyExist;
+    }
 
     DbTools::start(SqlQueryBuilder().insertGroup(groupInfo));
 
@@ -87,18 +91,22 @@ Result<GroupData> TermGroupTable::addGroup(const GroupData &info)
 
 Result<GroupData> TermGroupTable::updateGroup(const GroupData &info)
 {
-    if (!info.uuid)
+    if (!info.uuid) {
         return ErrorCodes::GroupUuidInvalid;
+    }
 
-    if (!exist(*info.uuid))
+    if (!exist(*info.uuid)) {
         return ErrorCodes::GroupUuidNotFound;
+    }
 
-    if (info.name.simplified().isEmpty())
+    if (info.name.simplified().isEmpty()) {
         return ErrorCodes::GroupNameEmpty;
+    }
 
     for (const auto &group : allGroups()) {
-        if (info.name == group.name && info.uuid != group.uuid)
+        if (info.name == group.name && info.uuid != group.uuid) {
             return ErrorCodes::GroupNameAlreadyExist;
+        }
     }
 
     DbTools::start(SqlQueryBuilder().updateGroup(info));
@@ -120,8 +128,9 @@ GroupUuid TermGroupTable::generateNewUuid()
 {
     while (true) {
         auto uuid = GroupUuid::generate();
-        if (!exist(uuid))
+        if (!exist(uuid)) {
             return uuid;
+        }
     }
 }
 
