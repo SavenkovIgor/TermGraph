@@ -185,6 +185,21 @@ qt_add_qml_module (TermGraph
     QML_FILES "qml/main.qml"
     RESOURCE_PREFIX "/qt/qml")
 
+if (WASM)
+    # Copy of app icon
+    add_custom_command (
+        TARGET TermGraph POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/resources/applicationIcons/appIcon256x256.png" "${CMAKE_BINARY_DIR}/"
+    )
+
+    # Copy of initial html page
+    add_custom_command (
+        TARGET TermGraph POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/resources/${PROJECT_NAME}.html" "${CMAKE_BINARY_DIR}/"
+    )
+
+endif ()
+
 
 if (BUILD_TESTING)
     enable_testing ()
