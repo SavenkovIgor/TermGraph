@@ -82,8 +82,8 @@ jobs:
       working-directory: ${{github.workspace}}/apps/Application/build/wasm_release
       run: |
         mkdir deploy
+        cp appIcon256x256.png  deploy/
         cp qtloader.js         deploy/
-        cp qtlogo.svg          deploy/
         cp TermGraph.js        deploy/
         cp TermGraph.wasm      deploy/
         cp TermGraph.worker.js deploy/
