@@ -13,6 +13,11 @@ Item {
     id: padding
 
     property int size: 200
+    property bool dropShadow: true
+    property alias hex1Visible: hex1.visible
+    property alias hex2Visible: hex2.visible
+    property alias hex3Visible: hex3.visible
+    property alias textVisible: text.visible
 
     width: size
     height: size
@@ -28,7 +33,6 @@ Item {
         readonly property color col2: Theme.color.term.leafNode
         readonly property color col3: Theme.color.base1
         readonly property color colText: Theme.color.base7
-        readonly property bool shadows: true
 
         component Shadow: DropShadow {
             verticalOffset: horizontalOffset / 2
@@ -42,7 +46,7 @@ Item {
             height: parent.height
             color: root.col1
 
-            layer.enabled: root.shadows
+            layer.enabled: padding.dropShadow
             layer.effect: Shadow {
                 radius: hex1.width / 12
                 horizontalOffset: hex1.width / 30
@@ -57,7 +61,7 @@ Item {
             color: root.col2
             rotation: 30
 
-            layer.enabled: root.shadows
+            layer.enabled: padding.dropShadow
             layer.effect: Shadow {
                 radius: hex1.width / 12
                 horizontalOffset: hex2.width / 30
@@ -86,7 +90,7 @@ Item {
             font.pixelSize: root.height * 0.35
             color: root.colText
 
-            layer.enabled: root.shadows
+            layer.enabled: padding.dropShadow
             layer.effect: Shadow {
                 horizontalOffset: text.font.pixelSize / 12
                 radius: text.font.pixelSize / 12

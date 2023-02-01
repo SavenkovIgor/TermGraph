@@ -197,7 +197,6 @@ if (WASM)
         TARGET TermGraph POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/resources/${PROJECT_NAME}.html" "${CMAKE_BINARY_DIR}/"
     )
-
 endif ()
 
 
