@@ -189,7 +189,7 @@ if (WASM)
     # Copy of app icon
     add_custom_command (
         TARGET TermGraph POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/resources/applicationIcons/appIcon256x256.png" "${CMAKE_BINARY_DIR}/"
+        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/resources/applicationIcons/no_text_icon256x256.png" "${CMAKE_BINARY_DIR}/"
     )
 
     # Copy of initial html page
@@ -197,7 +197,6 @@ if (WASM)
         TARGET TermGraph POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/resources/${PROJECT_NAME}.html" "${CMAKE_BINARY_DIR}/"
     )
-
 endif ()
 
 
