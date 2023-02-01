@@ -82,6 +82,7 @@ jobs:
       working-directory: ${{github.workspace}}/apps/Application/build/wasm_release
       run: |
         mkdir deploy
+        cp coi-serviceworker.js    deploy/
         cp no_text_icon256x256.png deploy/
         cp qtloader.js             deploy/
         cp TermGraph.js            deploy/
