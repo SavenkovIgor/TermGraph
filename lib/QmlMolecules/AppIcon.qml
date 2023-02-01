@@ -75,7 +75,7 @@ Item {
             height: parent.height * Math.pow(0.86, 2)
             color: root.col3
 
-            layer.enabled: root.shadows
+            layer.enabled: padding.dropShadow
             layer.effect: Shadow {
                 radius: hex1.width / 12
                 horizontalOffset: hex3.width / 30
