@@ -28,9 +28,9 @@
 -->
 
 <div align="center">
-    <a href="https://termgraph.app/"><img 
-      width="100" 
-      alt="TermGraph" 
+    <a href="https://termgraph.app/"><img
+      width="100"
+      alt="TermGraph"
       src="apps/Application/resources/applicationIcons/appIcon128x128.png"></a>
     <h1>TermGraph</h1>
 </div>
@@ -50,14 +50,14 @@
 
 <div align="center">
 
-[Description](#%EF%B8%8F-description) • [Key features](#-key-features) • [Installation](#-installation) • [Roadmap](#-roadmap) • 
+[Description](#%EF%B8%8F-description) • [Key features](#-key-features) • [Installation](#-installation) • [Roadmap](#-roadmap) •
 [Tech stack](#-tech-stack)<br>
-[Build](#hammer_and_wrench-build) • [Tests](#alembic-tests) • [Project structure](#microscope-project-structure) • [Credits](#pushpin-credits) 
+[Build](#hammer_and_wrench-build) • [Tests](#alembic-tests) • [Project structure](#microscope-project-structure) • [Credits](#pushpin-credits)
 
 </div>
 
 # ⚡️ Description
-TermGraph is a terms diagram builder. It helps to make a hierarchical projection of a terms-space onto 2d plane and build a map of definitions. 
+TermGraph is a terms diagram builder. It helps to make a hierarchical projection of a terms-space onto 2d plane and build a map of definitions.
 Like this, but bigger:
 ```mermaid
 graph RL
@@ -66,7 +66,7 @@ Node("<b><i>Node</i></b></br>some point in space"):::stdN
 Edge("<b><i>Edge</i></b></br>line, connecting two {nodes}"):::stdN
 Arc("<b><i>Arc</i></b></br>{edge}, that has a direction"):::stdN
 Graph("fa:fa-diagram-project <b><i>Graph</i></b></br>set of {nodes} and associated with them {edges}"):::stdN
- 
+
 Edge --> Node
 Arc --> Edge
 Graph -.-> Node
@@ -173,10 +173,10 @@ Each app has it's own conan file.
 │   ├── QmlTools/            # Some qml debugging tools
 │   ├── QrcHelpImages/       # Help images resources
 │   ├── TermDataConnection/  # Library, connecting to REST api server
-│   ├── TermDataInterface/   # Interface, describing data connection interface 
+│   ├── TermDataInterface/   # Interface, describing data connection interface
 │   ├── TermDataStorage/     # Data storage sqlite library
 │   └── Text                 # Text processing library
-└── tools/                   # Some useful scripts (build of server, clang fromat etc...)
+└── tools/                   # Some useful scripts (build of multithread wasm, clang fromat etc...)
 ```
 <br/>
 
