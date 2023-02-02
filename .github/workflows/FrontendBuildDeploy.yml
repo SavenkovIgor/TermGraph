@@ -78,18 +78,6 @@ jobs:
       working-directory: ${{github.workspace}}/apps/Application
       run: cmake --build --preset ${{ matrix.build_profile }}
 
-    - name: Make deploy folder
-      working-directory: ${{github.workspace}}/apps/Application/build/wasm_release
-      run: |
-        mkdir deploy
-        cp coi-serviceworker.js    deploy/
-        cp no_text_icon256x256.png deploy/
-        cp qtloader.js             deploy/
-        cp TermGraph.js            deploy/
-        cp TermGraph.wasm          deploy/
-        cp TermGraph.worker.js     deploy/
-        cp TermGraph.html          deploy/index.html
-
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
