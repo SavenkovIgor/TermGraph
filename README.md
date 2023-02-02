@@ -158,11 +158,12 @@ You can start tests from QtCreator or just run `ctest ./` in build folder at `ap
 `CMakeLists.txt` files are in `apps/Application` and `apps/Backend` folders.
 Each app has it's own conan file.
 ```bash
-├── apps/                
-│   ├── Application/         # Application. Buils for desktop, android and wasm(for now) 
+├── apps/
+│   ├── Application/         # Application. Buils for desktop, android and wasm(for now)
 │   ├── Backend/             # Rest api data storage. For server only
 │   └── Frontend/            # Reserved folder. Not used yet
-├── lib/                
+├── doc/                     # Documents
+├── lib/
 │   ├── CommonTools/         # Tools common for all apps
 │   ├── Graph/               # Graph header-only library
 │   ├── QmlAtoms/            # Qml atoms components     (atomic design)
