@@ -186,23 +186,35 @@ qt_add_qml_module (TermGraph
     RESOURCE_PREFIX "/qt/qml")
 
 if (WASM)
-    # Copy of app icon
-    add_custom_command (
-        TARGET TermGraph POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/resources/applicationIcons/no_text_icon256x256.png" "${CMAKE_BINARY_DIR}/"
-    )
+    # Creating deploy folder
+    add_custom_command(TARGET TermGraph POST_BUILD
+                       COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/deploy")
 
-    # Copy of initial html page
-    add_custom_command (
-        TARGET TermGraph POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/resources/${PROJECT_NAME}.html" "${CMAKE_BINARY_DIR}/"
-    )
+    # Copy of static resources
+    set (STATIC_WASM_RESOURCES)
+    list (APPEND STATIC_WASM_RESOURCES "resources/applicationIcons/no_text_icon256x256.png")
+    list (APPEND STATIC_WASM_RESOURCES "resources/index.html")
+    list (APPEND STATIC_WASM_RESOURCES "resources/coi-serviceworker.js")
 
-    # Copy cors script
-    add_custom_command (
-        TARGET TermGraph POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/resources/coi-serviceworker.js" "${CMAKE_BINARY_DIR}/"
-    )
+    foreach (WASM_RESOURCE ${STATIC_WASM_RESOURCES})
+        add_custom_command (TARGET TermGraph
+                            POST_BUILD COMMAND ${CMAKE_COMMAND} -E
+                            copy "${CMAKE_SOURCE_DIR}/${WASM_RESOURCE}" "${CMAKE_BINARY_DIR}/deploy/")
+    endforeach ()
+
+    # Copy of build artefacts
+    set (BUILD_ARTEFACTS)
+    list (APPEND BUILD_ARTEFACTS "qtloader.js")
+    list (APPEND BUILD_ARTEFACTS "TermGraph.js")
+    list (APPEND BUILD_ARTEFACTS "TermGraph.wasm")
+    list (APPEND BUILD_ARTEFACTS "TermGraph.worker.js")
+
+    foreach (BUILD_ARTEFACT ${BUILD_ARTEFACTS})
+        add_custom_command (TARGET TermGraph
+                            POST_BUILD COMMAND ${CMAKE_COMMAND} -E
+                            copy "${CMAKE_BINARY_DIR}/${BUILD_ARTEFACT}" "${CMAKE_BINARY_DIR}/deploy/")
+    endforeach ()
+
 endif ()
 
 
