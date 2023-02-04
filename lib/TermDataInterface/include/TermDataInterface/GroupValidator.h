@@ -34,7 +34,7 @@ public:
         return ret;
     }
 
-    static GroupJsonValidator importChecks()
+    static GroupJsonValidator fullChecks()
     {
         GroupJsonValidator ret;
         ret.addCheck(&validUuidField, ErrorCodes::JsonUuidFieldMissedOrWrongType);

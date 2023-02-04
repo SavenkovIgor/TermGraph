@@ -183,7 +183,7 @@ void GroupsManager::importGroup(QJsonObject json)
         json.insert(JsonTools::sizeKey, json[JsonTools::termsKey].toArray().size());
     }
 
-    if (!GroupJsonValidator::importChecks().check(json)) {
+    if (!GroupJsonValidator::fullChecks().check(json)) {
         return;
     }
 

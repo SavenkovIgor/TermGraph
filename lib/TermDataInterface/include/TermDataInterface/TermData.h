@@ -115,13 +115,18 @@ struct TermData
             if (!obj[JsonTools::termsKey].isArray())
                 return std::nullopt;
 
-            const auto termsArray = obj[JsonTools::termsKey].toArray();
+            return from(obj[JsonTools::termsKey].toArray());
+        }
 
-            for (const auto& termJson : termsArray) {
+        static inline List from(const QJsonArray& json)
+        {
+            List ret;
+
+            for (const auto& termJson : json) {
                 if (auto termData = TermData::from(termJson.toObject(), JsonCheckMode::Import)) {
                     ret.push_back(*termData);
                 } else {
-                    qWarning("Wrong groupInfo in received data");
+                    qWarning("Wrong termData json array");
                 }
             }
 
@@ -140,14 +145,19 @@ struct TermData
 
         explicit operator QJsonObject() const
         {
+            QJsonObject obj;
+            obj.insert(JsonTools::termsKey, static_cast<QJsonArray>(*this));
+            return obj;
+        }
+
+        explicit operator QJsonArray() const
+        {
             QJsonArray arr;
 
             for (const auto& item : *this)
                 arr.push_back(static_cast<QJsonObject>(item));
 
-            QJsonObject obj;
-            obj.insert(JsonTools::termsKey, arr);
-            return obj;
+            return arr;
         }
 
         explicit operator QByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
