@@ -24,6 +24,9 @@ def assert_path_exist(path: Path, comment: str):
     print(f'Error: path not exist {comment} {path}')
     exit(1)
 
+def assert_system_call(command: str):
+  if os.system(command) != 0:
+    exit(1)
 
 class QtFolders:
     qt_root = Path('')
@@ -62,7 +65,7 @@ def configure_environment(for_wasm: bool = False):
     assert_path_exist(Path(os.environ['QT_ROOT']), 'from variable QT_ROOT')
 
     if for_wasm:
-        os.system(f'source {os.path.expanduser("~/emsdk/emsdk_env.sh")}')
+        assert_system_call(f'source {os.path.expanduser("~/emsdk/emsdk_env.sh")}')
 
         assert_variable_exist('EMSDK', '~/emsdk')
         assert_variable_exist('EMSDK_NODE', '~/emsdk/node/14.18.2_64bit/bin/node')
@@ -84,25 +87,25 @@ def build_multithread_wasm():
 
     print('---Cloning---')
 
-    os.system('git clone git://code.qt.io/qt/qt5.git ./qt_src')
+    assert_system_call('git clone git://code.qt.io/qt/qt5.git ./qt_src')
     os.chdir('./qt_src')
 
     print('---Checkout---')
-    os.system(f'git checkout v{qt_sdk.version()}')
+    assert_system_call(f'git checkout v{qt_sdk.version()}')
 
     print('---Init-repository---')
-    os.system('perl init-repository')
+    assert_system_call('perl init-repository')
 
     THREAD_ARG = '-feature-thread'
 
     print('---Configure---')
     os.system('rm -rf qtwebengine')
 
-    os.system(f"./configure -qt-host-path {CONFIG_HOST_PATH} -platform {CONFIG_PLATFORM} {THREAD_ARG} -prefix {qt_sdk.version_dir()}/wasm_32_mt -submodules {CONFIG_MODULES} -skip 'qtwebengine'")
+    assert_system_call(f"./configure -qt-host-path {CONFIG_HOST_PATH} -platform {CONFIG_PLATFORM} {THREAD_ARG} -prefix {qt_sdk.version_dir()}/wasm_32_mt -submodules {CONFIG_MODULES} -skip 'qtwebengine'")
 
     print('---Build---')
-    os.system('cmake --build . --parallel')
-    os.system('cmake --install .')
+    assert_system_call('cmake --build . --parallel')
+    assert_system_call('cmake --install .')
 
 
 def delete_cmake_user_presets():
@@ -112,18 +115,18 @@ def delete_cmake_user_presets():
 
 def build_app(preset_name: str):
     print('---CONAN INSTALL STARTED---')
-    os.system(f'conan install . --profile conanfiles/profile/{preset_name} --build=missing -if=build/{preset_name}/conan-dependencies')
+    assert_system_call(f'conan install . --profile conanfiles/profile/{preset_name} --build=missing -if=build/{preset_name}/conan-dependencies')
 
     print('---CMAKE CONFIGURE STARTED---')
-    os.system(f'cmake --preset {preset_name} ./')
+    assert_system_call(f'cmake --preset {preset_name} ./')
 
     print('---CMAKE BUILD STARTED---')
-    os.system(f'cmake --build --preset {preset_name}')
+    assert_system_call(f'cmake --build --preset {preset_name}')
 
 
 def test_app(preset_name: str):
     print('---CMAKE TEST STARTED---')
-    os.system(f'cmake --build --preset {preset_name} --target test')
+    assert_system_call(f'ctest --preset {preset_name}')
 
 
 def main():
