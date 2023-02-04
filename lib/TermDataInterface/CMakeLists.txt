@@ -33,7 +33,7 @@ if (BUILD_TESTING)
     target_sources (TermDataInterfaceTest
         PRIVATE
             test/termdatatest.cpp
-            test/groupdatatest.cpp)
+            test/groupsummarytest.cpp)
 
     set_target_properties (TermDataInterfaceTest
         PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)

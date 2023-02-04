@@ -167,10 +167,10 @@ void DataProvider::requestGroupExport(const GroupUuid &uuid)
 {
     dataStorage->group(uuid).then([this](Result<GroupSummary> result) {
         if (result.has_value()) {
-            auto groupData = result.value();
-            assert(groupData.uuid.has_value());
+            auto groupInfo = result.value();
+            assert(groupInfo.uuid.has_value());
 
-            dataStorage->terms(groupData.uuid.value()).then([this, groupData](Result<TermData::List> termsFuture) {
+            dataStorage->terms(groupInfo.uuid.value()).then([this, groupInfo](Result<TermData::List> termsFuture) {
                 if (!termsFuture.has_value()) {
                     return;
                 }
@@ -182,7 +182,7 @@ void DataProvider::requestGroupExport(const GroupUuid &uuid)
                     termArray.append(static_cast<QJsonObject>(term));
                 }
 
-                QJsonObject groupJson = static_cast<QJsonObject>(groupData);
+                QJsonObject groupJson = static_cast<QJsonObject>(groupInfo);
                 groupJson.insert(JsonTools::termsKey, termArray);
 
                 emit exportGroupReady(QJsonDocument(groupJson));

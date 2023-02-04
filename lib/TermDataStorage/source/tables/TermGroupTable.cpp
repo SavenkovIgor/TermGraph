@@ -44,7 +44,7 @@ Result<GroupSummary> TermGroupTable::group(const GroupUuid &uuid)
     auto query = SqlQueryBuilder().selectGroup(uuid);
     DbTools::start(query);
     auto record = DbTools::getRecord(std::move(query));
-    return createGroupData(record);
+    return createGroupSummary(record);
 }
 
 GroupSummary::List TermGroupTable::allGroups()
@@ -57,7 +57,7 @@ GroupSummary::List TermGroupTable::allGroups()
     auto records = DbTools::getAllRecords(std::move(query));
 
     for (auto &record : records) {
-        GroupSummary info = createGroupData(record);
+        GroupSummary info = createGroupSummary(record);
         ret.push_back(std::move(info));
     }
 
@@ -116,9 +116,9 @@ Result<GroupSummary> TermGroupTable::updateGroup(const GroupSummary &info)
 
 Result<GroupSummary> TermGroupTable::deleteGroup(const GroupUuid &uuid)
 {
-    if (auto groupData = group(uuid)) {
+    if (auto groupInfo = group(uuid)) {
         DbTools::start(SqlQueryBuilder().deleteGroup(uuid));
-        return groupData;
+        return groupInfo;
     }
 
     return ErrorCodes::GroupUuidNotFound;
@@ -134,7 +134,7 @@ GroupUuid TermGroupTable::generateNewUuid()
     }
 }
 
-GroupSummary TermGroupTable::createGroupData(const QSqlRecord &rec)
+GroupSummary TermGroupTable::createGroupSummary(const QSqlRecord &rec)
 {
     GroupSummary info;
 

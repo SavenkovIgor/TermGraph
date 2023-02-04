@@ -100,10 +100,10 @@ struct GroupSummary
                 return std::nullopt;
 
             for (const auto& groupJson : obj[JsonTools::groupsKey].toArray()) {
-                if (auto groupData = GroupSummary::from(groupJson.toObject())) {
-                    ret.push_back(*groupData);
+                if (auto groupInfo = GroupSummary::from(groupJson.toObject())) {
+                    ret.push_back(*groupInfo);
                 } else {
-                    qWarning("Wrong groupData in received data");
+                    qWarning("Wrong groupInfo in received data");
                 }
             }
 

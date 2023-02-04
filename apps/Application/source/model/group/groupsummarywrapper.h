@@ -7,7 +7,7 @@
 
 #include <TermDataInterface/GroupSummary.h>
 
-class GroupDataWrapper : public GroupSummary
+class GroupSummaryWrapper : public GroupSummary
 {
     Q_GADGET
 
@@ -16,8 +16,8 @@ class GroupDataWrapper : public GroupSummary
     Q_PROPERTY(QString comment MEMBER comment FINAL)
 
 public:
-    GroupDataWrapper() = default;
-    GroupDataWrapper(const GroupSummary& info)
+    GroupSummaryWrapper() = default;
+    GroupSummaryWrapper(const GroupSummary& info)
         : GroupSummary(info)
     {}
 
@@ -26,4 +26,4 @@ public:
     void    setUuid(const QString& uuid) { this->uuid = GroupUuid::from(uuid); }
 };
 
-Q_DECLARE_METATYPE(GroupDataWrapper)
+Q_DECLARE_METATYPE(GroupSummaryWrapper)

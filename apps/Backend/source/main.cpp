@@ -151,10 +151,10 @@ int main()
     router->http_post(NetworkTools::groupApiPath, [&storage](auto req, auto params) {
         //  qInfo("POST %s", NetworkTools::groupApiPath);
         if (auto group = GroupSummary::from(QByteArray::fromStdString(req->body()))) {
-            if (auto groupData = storage.addGroup(*group).result()) {
-                return successResponse(req, static_cast<QByteArray>(groupData.value()));
+            if (auto groupInfo = storage.addGroup(*group).result()) {
+                return successResponse(req, static_cast<QByteArray>(groupInfo.value()));
             } else {
-                return responseForDbError(req, groupData.error());
+                return responseForDbError(req, groupInfo.error());
             }
         }
 
@@ -167,10 +167,10 @@ int main()
         if (auto uuid = GroupUuid::from(paramToQString(params["uuid"]), UuidMode::Url)) {
             if (auto data = GroupSummary::from(QByteArray::fromStdString(req->body()))) {
                 (*data).uuid = (*uuid);
-                if (auto groupData = storage.updateGroup(*data).result()) {
-                    return successResponse(req, static_cast<QByteArray>(groupData.value()));
+                if (auto groupInfo = storage.updateGroup(*data).result()) {
+                    return successResponse(req, static_cast<QByteArray>(groupInfo.value()));
                 } else {
-                    return responseForDbError(req, groupData.error());
+                    return responseForDbError(req, groupInfo.error());
                 }
             }
         }
@@ -182,10 +182,10 @@ int main()
     router->http_delete(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
         //  qInfo("DELETE %s", NetworkTools::groupUuidApiPath);
         if (auto uuid = GroupUuid::from(paramToQString(params["uuid"]), UuidMode::Url)) {
-            if (auto groupData = storage.deleteGroup(*uuid).result()) {
-                return successResponse(req, static_cast<QByteArray>(groupData.value()));
+            if (auto groupInfo = storage.deleteGroup(*uuid).result()) {
+                return successResponse(req, static_cast<QByteArray>(groupInfo.value()));
             } else {
-                return responseForDbError(req, groupData.error());
+                return responseForDbError(req, groupInfo.error());
             }
         }
 

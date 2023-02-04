@@ -101,7 +101,7 @@ qt_add_executable (TermGraph
     "source/model/graphicitem/graphicitem.h"
     "source/model/graphicitem/rectgraphicitem.cpp"
     "source/model/graphicitem/rectgraphicitem.h"
-    "source/model/group/groupdatatwrapper.h"
+    "source/model/group/groupsummarywrapper.h"
     "source/model/group/nodeverticalstack.cpp"
     "source/model/group/nodeverticalstack.h"
     "source/model/group/paintedforest.cpp"

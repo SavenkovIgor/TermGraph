@@ -34,5 +34,5 @@ public:
 private:
     GroupUuid generateNewUuid();
 
-    static GroupSummary createGroupData(const QSqlRecord& rec);
+    static GroupSummary createGroupSummary(const QSqlRecord& rec);
 };

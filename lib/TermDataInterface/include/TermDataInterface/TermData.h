@@ -121,7 +121,7 @@ struct TermData
                 if (auto termData = TermData::from(termJson.toObject(), JsonCheckMode::Import)) {
                     ret.push_back(*termData);
                 } else {
-                    qWarning("Wrong groupData in received data");
+                    qWarning("Wrong groupInfo in received data");
                 }
             }
 
