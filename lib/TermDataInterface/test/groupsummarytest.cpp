@@ -17,7 +17,7 @@ GroupSummary defaultGroupData()
     };
 }
 
-TEST(GroupDataTest, ComparisonTest)
+TEST(GroupSummaryTest, ComparisonTest)
 {
     auto data1 = defaultGroupData();
     EXPECT_EQ(data1, defaultGroupData());
