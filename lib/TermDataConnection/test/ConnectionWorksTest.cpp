@@ -44,9 +44,9 @@
 //        EXPECT_TRUE(dir.remove(sDbFileName));
 //    }
 
-//    GroupData getGroupWithUuid() { return GroupData{mGroupUuid1, mGroupName1, mGroupComment1}; }
+//    GroupSummary getGroupWithUuid() { return GroupSummary{mGroupUuid1, mGroupName1, mGroupComment1}; }
 
-//    GroupData getGroupWithoutUuid() { return GroupData{std::nullopt, mGroupName2, mGroupComment2}; }
+//    GroupSummary getGroupWithoutUuid() { return GroupSummary{std::nullopt, mGroupName2, mGroupComment2}; }
 
 //    TermData::List getTermDataList()
 //    {

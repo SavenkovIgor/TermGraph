@@ -3,11 +3,11 @@
 
 #include <gtest/gtest.h>
 
-#include <TermDataInterface/GroupData.h>
+#include <TermDataInterface/GroupSummary.h>
 
-GroupData defaultGroupData()
+GroupSummary defaultGroupData()
 {
-    return GroupData{
+    return GroupSummary{
         .uuid          = GroupUuid::from("{8a505474-b90f-4e83-be63-e6a1e5d39b24}"),
         .name          = "Group",
         .comment       = "Comment",

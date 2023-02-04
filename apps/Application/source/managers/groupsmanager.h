@@ -67,8 +67,8 @@ signals:
     void groupsListChanged();
     void termChanged();
 
-    void groupAdded(GroupData data);
-    void groupUpdated(GroupData data);
+    void groupAdded(GroupSummary data);
+    void groupUpdated(GroupSummary data);
     void groupDeleted(GroupUuid uuid);
 
     void termAdded(TermData data);

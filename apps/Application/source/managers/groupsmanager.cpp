@@ -73,7 +73,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
         return;
     }
 
-    GroupData info;
+    GroupSummary info;
 
     info.name    = name;
     info.comment = comment;
@@ -107,7 +107,7 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
 
 TermGroup::OptPtr GroupsManager::createGroup(Opt<GroupUuid> uuid)
 {
-    Opt<GroupData> groupData;
+    Opt<GroupSummary> groupData;
     if (uuid) {
         groupData = provider.group(*uuid);
     } else if (auto loadedUuid = provider.currentGroup()) {
@@ -187,7 +187,7 @@ void GroupsManager::importGroup(QJsonObject json)
         return;
     }
 
-    auto groupData = GroupData::from(json);
+    auto groupData = GroupSummary::from(json);
 
     if (!groupData || !groupData->uuid) {
         return;

@@ -11,7 +11,7 @@
 #include <CommonTools/NetworkTools.h>
 
 #include <TermDataInterface/DataStorageInterface.h>
-#include <TermDataInterface/GroupData.h>
+#include <TermDataInterface/GroupSummary.h>
 #include <TermDataInterface/TermData.h>
 
 #include "NetWrapper.h"
@@ -23,12 +23,12 @@ public:
 
     int storageVersion() const final;
 
-    FutureResult<GroupData>       group(const GroupUuid& uuid) const final;
-    FutureResult<GroupData::List> groups() const final;
+    FutureResult<GroupSummary>       group(const GroupUuid& uuid) const final;
+    FutureResult<GroupSummary::List> groups() const final;
 
-    FutureResult<GroupData> addGroup(const GroupData& info) final;
-    FutureResult<GroupData> updateGroup(const GroupData& info) final;
-    FutureResult<GroupData> deleteGroup(const GroupUuid& uuid) final;
+    FutureResult<GroupSummary> addGroup(const GroupSummary& info) final;
+    FutureResult<GroupSummary> updateGroup(const GroupSummary& info) final;
+    FutureResult<GroupSummary> deleteGroup(const GroupUuid& uuid) final;
 
     FutureResult<TermData>       term(const TermUuid& uuid) const final;
     FutureResult<TermData>       term(const QString& termName, const GroupUuid& uuid) const final;

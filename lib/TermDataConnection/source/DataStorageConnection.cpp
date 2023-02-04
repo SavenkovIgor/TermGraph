@@ -46,78 +46,78 @@ int DataStorageConnection::storageVersion() const
     return -1;
 }
 
-FutureResult<GroupData> DataStorageConnection::group(const GroupUuid& uuid) const
+FutureResult<GroupSummary> DataStorageConnection::group(const GroupUuid& uuid) const
 {
-    SharedPromise<GroupData> promise(new Promise<GroupData>);
+    SharedPromise<GroupSummary> promise(new Promise<GroupSummary>);
     promise->start();
 
     QUrl url = groupUrl;
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     network.get(url, [=](auto* reply) {
-        promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::from(data); }));
+        promise->addResult(toResult<GroupSummary>(reply, [](auto data) { return GroupSummary::from(data); }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<GroupData::List> DataStorageConnection::groups() const
+FutureResult<GroupSummary::List> DataStorageConnection::groups() const
 {
-    SharedPromise<GroupData::List> promise(new Promise<GroupData::List>);
+    SharedPromise<GroupSummary::List> promise(new Promise<GroupSummary::List>);
     promise->start();
 
     QUrl url = groupUrl;
 
     network.get(url, [=](auto* reply) {
-        promise->addResult(toResult<GroupData::List>(reply, [](auto data) { return GroupData::List::from(data); }));
+        promise->addResult(toResult<GroupSummary::List>(reply, [](auto data) { return GroupSummary::List::from(data); }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<GroupData> DataStorageConnection::addGroup(const GroupData& info)
+FutureResult<GroupSummary> DataStorageConnection::addGroup(const GroupSummary& info)
 {
-    SharedPromise<GroupData> promise(new Promise<GroupData>);
+    SharedPromise<GroupSummary> promise(new Promise<GroupSummary>);
     promise->start();
 
     QUrl url = groupUrl;
 
     network.post(url, static_cast<QByteArray>(info), [=](auto* reply) {
-        promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::from(data); }));
+        promise->addResult(toResult<GroupSummary>(reply, [](auto data) { return GroupSummary::from(data); }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<GroupData> DataStorageConnection::updateGroup(const GroupData& info)
+FutureResult<GroupSummary> DataStorageConnection::updateGroup(const GroupSummary& info)
 {
-    SharedPromise<GroupData> promise(new Promise<GroupData>);
+    SharedPromise<GroupSummary> promise(new Promise<GroupSummary>);
     promise->start();
 
     QUrl url = groupUrl;
     url.setPath(QString("%1/%2").arg(url.path(), info.uuid->toString()));
 
     network.put(url, static_cast<QByteArray>(info), [=](auto* reply) {
-        promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::from(data); }));
+        promise->addResult(toResult<GroupSummary>(reply, [](auto data) { return GroupSummary::from(data); }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<GroupData> DataStorageConnection::deleteGroup(const GroupUuid& uuid)
+FutureResult<GroupSummary> DataStorageConnection::deleteGroup(const GroupUuid& uuid)
 {
-    SharedPromise<GroupData> promise(new Promise<GroupData>);
+    SharedPromise<GroupSummary> promise(new Promise<GroupSummary>);
     promise->start();
 
     QUrl url = groupUrl;
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     network.deleteResource(url, [=](auto* reply) {
-        promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::from(data); }));
+        promise->addResult(toResult<GroupSummary>(reply, [](auto data) { return GroupSummary::from(data); }));
         promise->finish();
     });
 

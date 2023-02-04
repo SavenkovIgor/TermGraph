@@ -9,7 +9,7 @@ find_package (Qt6 REQUIRED COMPONENTS Core)
 add_library (TermDataInterface
     INTERFACE
         include/TermDataInterface/DataStorageInterface.h
-        include/TermDataInterface/GroupData.h
+        include/TermDataInterface/GroupSummary.h
         include/TermDataInterface/GroupValidator.h
         include/TermDataInterface/TermData.h
         include/TermDataInterface/TermValidator.h)

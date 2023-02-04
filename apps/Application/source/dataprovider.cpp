@@ -13,7 +13,7 @@ DataProvider::DataProvider(QObject *parent)
 
 void DataProvider::loadGroups()
 {
-    dataStorage->groups().then([this](Result<GroupData::List> result){
+    dataStorage->groups().then([this](Result<GroupSummary::List> result){
         if (result.has_value()) {
             mGroups = result.value();
             if (!mGroups->empty() && mGroups->front().uuid.has_value()) {
@@ -50,13 +50,13 @@ void DataProvider::loadGroup(GroupUuid uuid)
     });
 }
 
-const GroupData::List &DataProvider::groups() const
+const GroupSummary::List &DataProvider::groups() const
 {
-    static GroupData::List dummyEmptyGroups;
+    static GroupSummary::List dummyEmptyGroups;
     return mGroups ? mGroups.value() : dummyEmptyGroups;
 }
 
-Opt<GroupData> DataProvider::group(GroupUuid uuid) const
+Opt<GroupSummary> DataProvider::group(GroupUuid uuid) const
 {
     assert(isReady());
     for (const auto& group : mGroups.value()) {
@@ -67,9 +67,9 @@ Opt<GroupData> DataProvider::group(GroupUuid uuid) const
     return std::nullopt;
 }
 
-void DataProvider::addGroup(const GroupData &info)
+void DataProvider::addGroup(const GroupSummary &info)
 {
-    dataStorage->addGroup(info).then([this](Result<GroupData> result){
+    dataStorage->addGroup(info).then([this](Result<GroupSummary> result){
         if (result.has_value()) {
             emit groupAdded(result.value());
         } else {
@@ -78,9 +78,9 @@ void DataProvider::addGroup(const GroupData &info)
     });
 }
 
-void DataProvider::updateGroup(const GroupData &info)
+void DataProvider::updateGroup(const GroupSummary &info)
 {
-    dataStorage->updateGroup(info).then([this](Result<GroupData> result) {
+    dataStorage->updateGroup(info).then([this](Result<GroupSummary> result) {
         if (result.has_value()) {
             emit groupUpdated(result.value());
         } else {
@@ -91,7 +91,7 @@ void DataProvider::updateGroup(const GroupData &info)
 
 void DataProvider::deleteGroup(const GroupUuid &uuid)
 {
-    dataStorage->deleteGroup(uuid).then([this](Result<GroupData> result){
+    dataStorage->deleteGroup(uuid).then([this](Result<GroupSummary> result){
         if (result.has_value()) {
             emit groupDeleted(result.value().uuid.value());
         } else {
@@ -165,7 +165,7 @@ void DataProvider::importTerm(const TermData &data)
 
 void DataProvider::requestGroupExport(const GroupUuid &uuid)
 {
-    dataStorage->group(uuid).then([this](Result<GroupData> result) {
+    dataStorage->group(uuid).then([this](Result<GroupSummary> result) {
         if (result.has_value()) {
             auto groupData = result.value();
             assert(groupData.uuid.has_value());

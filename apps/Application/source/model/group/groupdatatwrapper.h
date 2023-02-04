@@ -5,9 +5,9 @@
 
 #include <QObject>
 
-#include <TermDataInterface/GroupData.h>
+#include <TermDataInterface/GroupSummary.h>
 
-class GroupDataWrapper : public GroupData
+class GroupDataWrapper : public GroupSummary
 {
     Q_GADGET
 
@@ -17,8 +17,8 @@ class GroupDataWrapper : public GroupData
 
 public:
     GroupDataWrapper() = default;
-    GroupDataWrapper(const GroupData& info)
-        : GroupData(info)
+    GroupDataWrapper(const GroupSummary& info)
+        : GroupSummary(info)
     {}
 
     // Uuid

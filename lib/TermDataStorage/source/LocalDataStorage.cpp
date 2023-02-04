@@ -34,14 +34,14 @@ LocalDatabaseStorage::LocalDatabaseStorage(const QString& filePath, const QStrin
 
 int LocalDatabaseStorage::storageVersion() const { return impl->db.appConfigTable->getDbVersion(); }
 
-FutureResult<GroupData> LocalDatabaseStorage::group(const GroupUuid& uuid) const
+FutureResult<GroupSummary> LocalDatabaseStorage::group(const GroupUuid& uuid) const
 {
-    return toFuture<Result<GroupData>>([this, &uuid] { return impl->db.groupTable->group(uuid); });
+    return toFuture<Result<GroupSummary>>([this, &uuid] { return impl->db.groupTable->group(uuid); });
 }
 
-FutureResult<GroupData::List> LocalDatabaseStorage::groups() const
+FutureResult<GroupSummary::List> LocalDatabaseStorage::groups() const
 {
-    return toFuture<Result<GroupData::List>>([this] {
+    return toFuture<Result<GroupSummary::List>>([this] {
 
         auto lastEdits = nodesLastEdit();
         auto groups = impl->db.groupTable->allGroups();
@@ -67,19 +67,19 @@ FutureResult<GroupData::List> LocalDatabaseStorage::groups() const
     });
 }
 
-FutureResult<GroupData> LocalDatabaseStorage::addGroup(const GroupData& info)
+FutureResult<GroupSummary> LocalDatabaseStorage::addGroup(const GroupSummary& info)
 {
-    return toFuture<Result<GroupData>>([this, info] { return impl->db.groupTable->addGroup(info); });
+    return toFuture<Result<GroupSummary>>([this, info] { return impl->db.groupTable->addGroup(info); });
 }
 
-FutureResult<GroupData> LocalDatabaseStorage::updateGroup(const GroupData& info)
+FutureResult<GroupSummary> LocalDatabaseStorage::updateGroup(const GroupSummary& info)
 {
-    return toFuture<Result<GroupData>>([this, info] { return impl->db.groupTable->updateGroup(info); });
+    return toFuture<Result<GroupSummary>>([this, info] { return impl->db.groupTable->updateGroup(info); });
 }
 
-FutureResult<GroupData> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid)
+FutureResult<GroupSummary> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid)
 {
-    return toFuture<Result<GroupData>>([this, uuid] { return impl->db.groupTable->deleteGroup(uuid); });
+    return toFuture<Result<GroupSummary>>([this, uuid] { return impl->db.groupTable->deleteGroup(uuid); });
 }
 
 FutureResult<TermData> LocalDatabaseStorage::term(const QString& nodeName, const GroupUuid& uuid) const

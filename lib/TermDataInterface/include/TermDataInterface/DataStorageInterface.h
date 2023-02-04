@@ -9,7 +9,7 @@
 
 #include <CommonTools/GroupUuid.h>
 #include <CommonTools/TermUuid.h>
-#include <TermDataInterface/GroupData.h>
+#include <TermDataInterface/GroupSummary.h>
 #include <TermDataInterface/TermData.h>
 
 // Interface
@@ -22,12 +22,12 @@ public:
     virtual int storageVersion() const = 0;
 
     // Groups
-    virtual FutureResult<GroupData>       group(const GroupUuid& uuid) const = 0;
-    virtual FutureResult<GroupData::List> groups() const                     = 0;
+    virtual FutureResult<GroupSummary>       group(const GroupUuid& uuid) const = 0;
+    virtual FutureResult<GroupSummary::List> groups() const                     = 0;
 
-    virtual FutureResult<GroupData> addGroup(const GroupData& info)    = 0;
-    virtual FutureResult<GroupData> updateGroup(const GroupData& info) = 0;
-    virtual FutureResult<GroupData> deleteGroup(const GroupUuid& uuid) = 0;
+    virtual FutureResult<GroupSummary> addGroup(const GroupSummary& info)    = 0;
+    virtual FutureResult<GroupSummary> updateGroup(const GroupSummary& info) = 0;
+    virtual FutureResult<GroupSummary> deleteGroup(const GroupUuid& uuid) = 0;
 
     // Terms
     virtual FutureResult<TermData>       term(const TermUuid& uuid) const                           = 0;

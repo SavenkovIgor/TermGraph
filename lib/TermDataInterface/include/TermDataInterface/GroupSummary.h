@@ -18,7 +18,7 @@
 
 // TODO: Check tests!
 // TODO: Make class and make fields private
-struct GroupData
+struct GroupSummary
 {
     Opt<GroupUuid> uuid;
     QString name;
@@ -30,15 +30,15 @@ struct GroupData
 
     inline bool isNull() const { return uuid.has_value() && name.isEmpty(); }
 
-    inline bool operator==(const GroupData& rhs) const = default;
+    inline bool operator==(const GroupSummary& rhs) const = default;
 
     // --- JSON ---
-    static inline Opt<GroupData> from(const QJsonObject& obj)
+    static inline Opt<GroupSummary> from(const QJsonObject& obj)
     {
         if (!GroupJsonValidator::defaultChecks().check(obj))
             return std::nullopt;
 
-        GroupData ret;
+        GroupSummary ret;
 
         ret.uuid     = GroupUuid::from(obj[JsonTools::uuidKey].toString());
         ret.name     = obj[JsonTools::nameKey].toString();
@@ -61,7 +61,7 @@ struct GroupData
         return ret;
     }
 
-    static inline Opt<GroupData> from(const QByteArray& jsonBytes)
+    static inline Opt<GroupSummary> from(const QByteArray& jsonBytes)
     {
         auto doc = QJsonDocument::fromJson(jsonBytes);
 
@@ -89,7 +89,7 @@ struct GroupData
 
     explicit operator QByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
 
-    class List : public std::vector<GroupData>
+    class List : public std::vector<GroupSummary>
     {
     public:
         static inline Opt<List> from(const QJsonObject& obj)
@@ -100,7 +100,7 @@ struct GroupData
                 return std::nullopt;
 
             for (const auto& groupJson : obj[JsonTools::groupsKey].toArray()) {
-                if (auto groupData = GroupData::from(groupJson.toObject())) {
+                if (auto groupData = GroupSummary::from(groupJson.toObject())) {
                     ret.push_back(*groupData);
                 } else {
                     qWarning("Wrong groupData in received data");

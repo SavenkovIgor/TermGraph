@@ -44,11 +44,11 @@ public:
         EXPECT_TRUE(dir.remove(sDbFileName));
     }
 
-    GroupData groupWithUuid() { return GroupData{.uuid = mGroupUuid1, .name = mGroupName1, .comment = mGroupComment1}; }
+    GroupSummary groupWithUuid() { return GroupSummary{.uuid = mGroupUuid1, .name = mGroupName1, .comment = mGroupComment1}; }
 
-    GroupData groupWithoutUuid()
+    GroupSummary groupWithoutUuid()
     {
-        return GroupData{.uuid = std::nullopt, .name = mGroupName2, .comment = mGroupComment2};
+        return GroupSummary{.uuid = std::nullopt, .name = mGroupName2, .comment = mGroupComment2};
     }
 
     TermData::List termDataList()

@@ -150,7 +150,7 @@ int main()
     // POST /api/v1/global/groups
     router->http_post(NetworkTools::groupApiPath, [&storage](auto req, auto params) {
         //  qInfo("POST %s", NetworkTools::groupApiPath);
-        if (auto group = GroupData::from(QByteArray::fromStdString(req->body()))) {
+        if (auto group = GroupSummary::from(QByteArray::fromStdString(req->body()))) {
             if (auto groupData = storage.addGroup(*group).result()) {
                 return successResponse(req, static_cast<QByteArray>(groupData.value()));
             } else {
@@ -165,7 +165,7 @@ int main()
     router->http_put(NetworkTools::groupUuidApiPath, [&storage](auto req, auto params) {
         //  qInfo("PUT %s", NetworkTools::groupUuidApiPath);
         if (auto uuid = GroupUuid::from(paramToQString(params["uuid"]), UuidMode::Url)) {
-            if (auto data = GroupData::from(QByteArray::fromStdString(req->body()))) {
+            if (auto data = GroupSummary::from(QByteArray::fromStdString(req->body()))) {
                 (*data).uuid = (*uuid);
                 if (auto groupData = storage.updateGroup(*data).result()) {
                     return successResponse(req, static_cast<QByteArray>(groupData.value()));
