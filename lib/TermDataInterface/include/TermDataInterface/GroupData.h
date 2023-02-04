@@ -33,14 +33,14 @@ struct GroupData
     inline bool operator==(const GroupData& rhs) const = default;
 
     // --- JSON ---
-    static inline Opt<GroupData> create(const QJsonObject& obj)
+    static inline Opt<GroupData> from(const QJsonObject& obj)
     {
         if (!GroupJsonValidator::defaultChecks().check(obj))
             return std::nullopt;
 
         GroupData ret;
 
-        ret.uuid     = GroupUuid::create(obj[JsonTools::uuidKey].toString());
+        ret.uuid     = GroupUuid::from(obj[JsonTools::uuidKey].toString());
         ret.name     = obj[JsonTools::nameKey].toString();
         ret.comment  = obj[JsonTools::commentKey].toString();
         ret.size     = obj[JsonTools::sizeKey].toInt(0);
@@ -61,14 +61,14 @@ struct GroupData
         return ret;
     }
 
-    static inline Opt<GroupData> create(const QByteArray& jsonBytes)
+    static inline Opt<GroupData> from(const QByteArray& jsonBytes)
     {
         auto doc = QJsonDocument::fromJson(jsonBytes);
 
         if (doc.isNull())
             return std::nullopt;
 
-        return create(doc.object());
+        return from(doc.object());
     }
 
     operator QJsonObject() const
@@ -92,7 +92,7 @@ struct GroupData
     class List : public std::vector<GroupData>
     {
     public:
-        static inline Opt<List> create(const QJsonObject& obj)
+        static inline Opt<List> from(const QJsonObject& obj)
         {
             List ret;
 
@@ -100,7 +100,7 @@ struct GroupData
                 return std::nullopt;
 
             for (const auto& groupJson : obj[JsonTools::groupsKey].toArray()) {
-                if (auto groupData = GroupData::create(groupJson.toObject())) {
+                if (auto groupData = GroupData::from(groupJson.toObject())) {
                     ret.push_back(*groupData);
                 } else {
                     qWarning("Wrong groupData in received data");
@@ -110,14 +110,14 @@ struct GroupData
             return ret;
         }
 
-        static inline Opt<List> create(const QByteArray& jsonBytes)
+        static inline Opt<List> from(const QByteArray& jsonBytes)
         {
             auto doc = QJsonDocument::fromJson(jsonBytes);
 
             if (doc.isNull())
                 return std::nullopt;
 
-            return create(doc.object());
+            return from(doc.object());
         }
 
         explicit operator QJsonObject() const

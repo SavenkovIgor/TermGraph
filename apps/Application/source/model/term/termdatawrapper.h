@@ -45,7 +45,7 @@ public:
     Q_INVOKABLE inline bool isNull() const { return mData.isNull(); }
 
     inline QString getUuid() const { return mData.uuid ? mData.uuid->toString() : ""; }
-    inline void    setUuid(const QString& uuid) { mData.uuid = TermUuid::create(uuid); }
+    inline void    setUuid(const QString& uuid) { mData.uuid = TermUuid::from(uuid); }
 
     inline QString getTerm() const { return mData.term; }
     inline void    setTerm(const QString& term) { mData.term = term; }
@@ -68,7 +68,7 @@ public:
     inline QString getGroupUuid() const { return mData.groupUuid.toString(); }
     inline void    setGroupUuid(const QString& groupUuid)
     {
-        auto gUuid = GroupUuid::create(groupUuid);
+        auto gUuid = GroupUuid::from(groupUuid);
         assert(gUuid);
         mData.groupUuid = *gUuid;
     }

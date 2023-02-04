@@ -55,7 +55,7 @@ FutureResult<GroupData> DataStorageConnection::group(const GroupUuid& uuid) cons
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     network.get(url, [=](auto* reply) {
-        promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
+        promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::from(data); }));
         promise->finish();
     });
 
@@ -70,7 +70,7 @@ FutureResult<GroupData::List> DataStorageConnection::groups() const
     QUrl url = groupUrl;
 
     network.get(url, [=](auto* reply) {
-        promise->addResult(toResult<GroupData::List>(reply, [](auto data) { return GroupData::List::create(data); }));
+        promise->addResult(toResult<GroupData::List>(reply, [](auto data) { return GroupData::List::from(data); }));
         promise->finish();
     });
 
@@ -85,7 +85,7 @@ FutureResult<GroupData> DataStorageConnection::addGroup(const GroupData& info)
     QUrl url = groupUrl;
 
     network.post(url, static_cast<QByteArray>(info), [=](auto* reply) {
-        promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
+        promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::from(data); }));
         promise->finish();
     });
 
@@ -101,7 +101,7 @@ FutureResult<GroupData> DataStorageConnection::updateGroup(const GroupData& info
     url.setPath(QString("%1/%2").arg(url.path(), info.uuid->toString()));
 
     network.put(url, static_cast<QByteArray>(info), [=](auto* reply) {
-        promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
+        promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::from(data); }));
         promise->finish();
     });
 
@@ -117,7 +117,7 @@ FutureResult<GroupData> DataStorageConnection::deleteGroup(const GroupUuid& uuid
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     network.deleteResource(url, [=](auto* reply) {
-        promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::create(data); }));
+        promise->addResult(toResult<GroupData>(reply, [](auto data) { return GroupData::from(data); }));
         promise->finish();
     });
 
@@ -134,7 +134,7 @@ FutureResult<TermData> DataStorageConnection::term(const TermUuid& uuid) const
 
     network.get(url, [=](auto* reply) {
         promise->addResult(toResult<TermData>(reply, [](auto data) {
-            return TermData::create(data, TermData::JsonCheckMode::Import);
+            return TermData::from(data, TermData::JsonCheckMode::Import);
         }));
         promise->finish();
     });
@@ -152,7 +152,7 @@ FutureResult<TermData> DataStorageConnection::term(const QString& nodeName, cons
 
     network.get(url, [=](auto* reply){
         promise->addResult(toResult<TermData>(reply, [](auto data) {
-            return TermData::create(data, TermData::JsonCheckMode::Import);
+            return TermData::from(data, TermData::JsonCheckMode::Import);
         }));
         promise->finish();
     });
@@ -169,7 +169,7 @@ FutureResult<TermData::List> DataStorageConnection::terms(const GroupUuid& uuid)
     url.setQuery(QString("group_uuid=%1").arg(uuid.toString()));
 
     network.get(url, [=](auto* reply){
-        promise->addResult(toResult<TermData::List>(reply, [](auto data) { return TermData::List::create(data); }));
+        promise->addResult(toResult<TermData::List>(reply, [](auto data) { return TermData::List::from(data); }));
         promise->finish();
     });
 
@@ -185,7 +185,7 @@ FutureResult<TermData> DataStorageConnection::addTerm(const TermData& info)
 
     network.post(url, static_cast<QByteArray>(info), [=](auto* reply) {
         promise->addResult(toResult<TermData>(reply, [](auto data) {
-            return TermData::create(data, TermData::JsonCheckMode::Import);
+            return TermData::from(data, TermData::JsonCheckMode::Import);
         }));
         promise->finish();
     });
@@ -206,7 +206,7 @@ FutureResult<TermData> DataStorageConnection::updateTerm(
 
     network.put(url, static_cast<QByteArray>(info), [=](auto* reply) {
         promise->addResult(toResult<TermData>(reply, [](auto data) {
-            return TermData::create(data, TermData::JsonCheckMode::Import);
+            return TermData::from(data, TermData::JsonCheckMode::Import);
         }));
         promise->finish();
     });
@@ -224,7 +224,7 @@ FutureResult<TermData> DataStorageConnection::deleteTerm(const TermUuid& uuid)
 
     network.deleteResource(url, [=](auto* reply) {
         promise->addResult(toResult<TermData>(reply, [](auto data) {
-            return TermData::create(data, TermData::JsonCheckMode::Import);
+            return TermData::from(data, TermData::JsonCheckMode::Import);
         }));
         promise->finish();
     });

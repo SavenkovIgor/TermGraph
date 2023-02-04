@@ -9,20 +9,20 @@
 class TermUuid final : public SafeUuid
 {
 public:
-    inline static Opt<TermUuid> create(QString text, UuidMode mode = UuidMode::Default)
+    inline static Opt<TermUuid> from(QString text, UuidMode mode = UuidMode::Default)
     {
         if (mode == UuidMode::Url)
             text = JsonTools::prepareUuidParameter(text);
 
-        if (auto safe = SafeUuid::create(text))
+        if (auto safe = SafeUuid::from(text))
             return TermUuid(text);
 
         return std::nullopt;
     }
 
-    inline static Opt<TermUuid> create(const QUuid& uuid)
+    inline static Opt<TermUuid> from(const QUuid& uuid)
     {
-        if (auto safe = SafeUuid::create(uuid))
+        if (auto safe = SafeUuid::from(uuid))
             return TermUuid(uuid.toString());
 
         return std::nullopt;
@@ -33,7 +33,7 @@ public:
     class List : public std::vector<TermUuid>
     {
     public:
-        static inline Opt<List> create(const QJsonObject& obj)
+        static inline Opt<List> from(const QJsonObject& obj)
         {
             List ret;
 
@@ -41,7 +41,7 @@ public:
                 return std::nullopt;
 
             for (const auto& obj : obj[JsonTools::termUuidsKey].toArray()) {
-                if (auto uuid = TermUuid::create(obj.toString())) {
+                if (auto uuid = TermUuid::from(obj.toString())) {
                     ret.push_back(*uuid);
                 } else {
                     qWarning("Wrong uuid in received data");
@@ -51,14 +51,14 @@ public:
             return ret;
         }
 
-        static inline Opt<List> create(const QByteArray& jsonBytes)
+        static inline Opt<List> from(const QByteArray& jsonBytes)
         {
             auto doc = QJsonDocument::fromJson(jsonBytes);
 
             if (doc.isNull())
                 return std::nullopt;
 
-            return create(doc.object());
+            return from(doc.object());
         }
 
         explicit operator QJsonObject() const

@@ -42,7 +42,7 @@ private:
     static bool validUuidField(const QJsonObject& obj) { return obj[JsonTools::uuidKey].isString(); }
     static bool validUuid(const QJsonObject& obj)
     {
-        return TermUuid::create(obj[JsonTools::uuidKey].toString()).has_value();
+        return TermUuid::from(obj[JsonTools::uuidKey].toString()).has_value();
     }
 
     static bool validTermField(const QJsonObject& obj) { return obj[JsonTools::termKey].isString(); }
@@ -57,7 +57,7 @@ private:
     static bool validGroupUuidField(const QJsonObject& obj) { return obj[JsonTools::groupUuidKey].isString(); }
     static bool validGroupUuid(const QJsonObject& obj)
     {
-        return GroupUuid::create(obj[JsonTools::groupUuidKey].toString()).has_value();
+        return GroupUuid::from(obj[JsonTools::groupUuidKey].toString()).has_value();
     }
 
     static bool validLastEditField(const QJsonObject& obj) { return obj[JsonTools::lastEditKey].isString(); }

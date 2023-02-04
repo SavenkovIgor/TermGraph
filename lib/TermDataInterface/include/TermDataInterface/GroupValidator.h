@@ -53,7 +53,7 @@ private:
     static bool validUuidField(const QJsonObject& obj) { return obj[JsonTools::uuidKey].isString(); }
     static bool validUuid(const QJsonObject& obj)
     {
-        return GroupUuid::create(obj[JsonTools::uuidKey].toString()).has_value();
+        return GroupUuid::from(obj[JsonTools::uuidKey].toString()).has_value();
     }
 
     static bool validNameField(const QJsonObject& obj) { return obj[JsonTools::nameKey].isString(); }
