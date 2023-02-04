@@ -16,7 +16,6 @@
 #include <CommonTools/JsonTools.h>
 #include <TermDataInterface/GroupValidator.h>
 
-// TODO: Check tests!
 // TODO: Make class and make fields private
 struct GroupSummary
 {
