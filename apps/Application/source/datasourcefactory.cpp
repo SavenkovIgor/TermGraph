@@ -16,13 +16,15 @@
 
 std::unique_ptr<DataStorageInterface> DataSourceFactory::defaultSource()
 {
-    if (Platform::isWasm()) {
+    if constexpr  (Platform::isWasm()) {
         return server();
     }
 
-    if (Platform::isDesktop() || Platform::isMobile()) {
+    if constexpr (Platform::isDesktop() || Platform::isMobile()) {
         return localDb();
     }
+
+    Q_UNREACHABLE();
 }
 
 std::unique_ptr<DataStorageInterface> DataSourceFactory::localDb()

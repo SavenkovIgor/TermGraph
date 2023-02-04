@@ -186,35 +186,30 @@ qt_add_qml_module (TermGraph
     RESOURCE_PREFIX "/qt/qml")
 
 if (WASM)
+    set (DEPLOY_DIR "${CMAKE_BINARY_DIR}/deploy/")
+
     # Creating deploy folder
-    add_custom_command(TARGET TermGraph POST_BUILD
-                       COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/deploy")
+    add_custom_command(TARGET TermGraph
+                       POST_BUILD COMMAND ${CMAKE_COMMAND} -E
+                       make_directory "${DEPLOY_DIR}")
 
     # Copy of static resources
-    set (STATIC_WASM_RESOURCES)
-    list (APPEND STATIC_WASM_RESOURCES "resources/applicationIcons/no_text_icon256x256.png")
-    list (APPEND STATIC_WASM_RESOURCES "resources/index.html")
-    list (APPEND STATIC_WASM_RESOURCES "resources/coi-serviceworker.js")
-
-    foreach (WASM_RESOURCE ${STATIC_WASM_RESOURCES})
-        add_custom_command (TARGET TermGraph
-                            POST_BUILD COMMAND ${CMAKE_COMMAND} -E
-                            copy "${CMAKE_SOURCE_DIR}/${WASM_RESOURCE}" "${CMAKE_BINARY_DIR}/deploy/")
-    endforeach ()
+    set (WASM_RESOURCES)
+    list (APPEND WASM_RESOURCES "${CMAKE_SOURCE_DIR}/resources/applicationIcons/no_text_icon256x256.png")
+    list (APPEND WASM_RESOURCES "${CMAKE_SOURCE_DIR}/resources/index.html")
+    list (APPEND WASM_RESOURCES "${CMAKE_SOURCE_DIR}/resources/coi-serviceworker.js")
 
     # Copy of build artefacts
-    set (BUILD_ARTEFACTS)
-    list (APPEND BUILD_ARTEFACTS "qtloader.js")
-    list (APPEND BUILD_ARTEFACTS "TermGraph.js")
-    list (APPEND BUILD_ARTEFACTS "TermGraph.wasm")
-    list (APPEND BUILD_ARTEFACTS "TermGraph.worker.js")
+    list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/qtloader.js")
+    list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/TermGraph.js")
+    list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/TermGraph.wasm")
+    list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/TermGraph.worker.js")
 
-    foreach (BUILD_ARTEFACT ${BUILD_ARTEFACTS})
+    foreach (WASM_RESOURCE ${WASM_RESOURCES})
         add_custom_command (TARGET TermGraph
                             POST_BUILD COMMAND ${CMAKE_COMMAND} -E
-                            copy "${CMAKE_BINARY_DIR}/${BUILD_ARTEFACT}" "${CMAKE_BINARY_DIR}/deploy/")
+                            copy "${WASM_RESOURCE}" "${DEPLOY_DIR}")
     endforeach ()
-
 endif ()
 
 
