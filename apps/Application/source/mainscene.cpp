@@ -29,7 +29,7 @@ MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
 
 void MainScene::selectGroup(const QUuid groupUuid)
 {
-    auto uuid = GroupUuid::create(groupUuid);
+    auto uuid = GroupUuid::from(groupUuid);
     assert(uuid.has_value());
     setCurrentGroup(*uuid);
 }
@@ -330,7 +330,7 @@ QString MainScene::getCurrNodeHierarchyDefinition()
 }
 
 Opt<GroupUuid> MainScene::currentGroupUuid() const {
-    return mCurrentGroup ? GroupUuid::create(mCurrentGroup.value()->uuid()) : std::nullopt;
+    return mCurrentGroup ? GroupUuid::from(mCurrentGroup.value()->uuid()) : std::nullopt;
 }
 
 bool MainScene::isAnyNodeSelected() const { return getSelectedTerm().has_value(); }

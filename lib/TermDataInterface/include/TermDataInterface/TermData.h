@@ -40,7 +40,7 @@ struct TermData
 
     // --- JSON ---
     // Returns valid object or nullopt
-    static inline Opt<TermData> create(const QJsonObject& obj, JsonCheckMode mode)
+    static inline Opt<TermData> from(const QJsonObject& obj, JsonCheckMode mode)
     {
         bool checkUuid     = true;
         bool checkLastEdit = true;
@@ -53,13 +53,13 @@ struct TermData
         if (!TermJsonValidator(checkUuid, checkLastEdit).check(obj))
             return std::nullopt;
 
-        auto gUuid = GroupUuid::create(obj[JsonTools::groupUuidKey].toString());
+        auto gUuid = GroupUuid::from(obj[JsonTools::groupUuidKey].toString());
 
         if (!gUuid)
             return std::nullopt;
 
         TermData ret{
-            .uuid        = TermUuid::create(obj[JsonTools::uuidKey].toString()),
+            .uuid        = TermUuid::from(obj[JsonTools::uuidKey].toString()),
             .term        = obj[JsonTools::termKey].toString(),
             .definition  = obj[JsonTools::definitionKey].toString(),
             .description = obj[JsonTools::descriptionKey].toString(),
@@ -76,14 +76,14 @@ struct TermData
         return ret;
     }
 
-    static inline Opt<TermData> create(const QByteArray& jsonBytes, JsonCheckMode mode)
+    static inline Opt<TermData> from(const QByteArray& jsonBytes, JsonCheckMode mode)
     {
         auto doc = QJsonDocument::fromJson(jsonBytes);
 
         if (doc.isNull())
             return std::nullopt;
 
-        return create(doc.object(), mode);
+        return from(doc.object(), mode);
     }
 
     operator QJsonObject() const
@@ -108,7 +108,7 @@ struct TermData
     class List : public std::vector<TermData>
     {
     public:
-        static inline Opt<List> create(const QJsonObject& obj)
+        static inline Opt<List> from(const QJsonObject& obj)
         {
             List ret;
 
@@ -118,7 +118,7 @@ struct TermData
             const auto termsArray = obj[JsonTools::termsKey].toArray();
 
             for (const auto& termJson : termsArray) {
-                if (auto termData = TermData::create(termJson.toObject(), JsonCheckMode::Import)) {
+                if (auto termData = TermData::from(termJson.toObject(), JsonCheckMode::Import)) {
                     ret.push_back(*termData);
                 } else {
                     qWarning("Wrong groupData in received data");
@@ -128,14 +128,14 @@ struct TermData
             return ret;
         }
 
-        static inline Opt<List> create(const QByteArray& jsonBytes)
+        static inline Opt<List> from(const QByteArray& jsonBytes)
         {
             auto doc = QJsonDocument::fromJson(jsonBytes);
 
             if (doc.isNull())
                 return std::nullopt;
 
-            return create(doc.object());
+            return from(doc.object());
         }
 
         explicit operator QJsonObject() const

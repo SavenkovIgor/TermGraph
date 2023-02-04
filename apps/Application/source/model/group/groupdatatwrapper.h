@@ -23,7 +23,7 @@ public:
 
     // Uuid
     QString getUuid() const { return uuid ? uuid->toString() : QString(); }
-    void    setUuid(const QString& uuid) { this->uuid = GroupUuid::create(uuid); }
+    void    setUuid(const QString& uuid) { this->uuid = GroupUuid::from(uuid); }
 };
 
 Q_DECLARE_METATYPE(GroupDataWrapper)

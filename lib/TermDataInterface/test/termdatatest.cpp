@@ -8,14 +8,14 @@
 TermData defaultTermData()
 {
     return TermData{
-        .uuid        = TermUuid::create("{8a505474-b90f-4e83-be63-e6a1e5d39b24}"),
+        .uuid        = TermUuid::from("{8a505474-b90f-4e83-be63-e6a1e5d39b24}"),
         .term        = "Term",
         .definition  = "Definition",
         .description = "Description",
         .examples    = "Examples",
         .wikiUrl     = "Wiki",
         .wikiImage   = "WikiImg",
-        .groupUuid   = GroupUuid::create("{5fdb1e7e-f47f-4c88-96d2-fd3d427d2a9d}").value(),
+        .groupUuid   = GroupUuid::from("{5fdb1e7e-f47f-4c88-96d2-fd3d427d2a9d}").value(),
         .lastEdit    = QDateTime::fromString("2022-08-23T20:01:10Z", Qt::ISODate)
     };
 }

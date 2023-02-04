@@ -180,12 +180,12 @@ Result<QDateTime> TermTable::lastEdit(const TermUuid& uuid)
 
 TermData TermTable::createTermData(const QSqlRecord& record)
 {
-    auto gUuid = GroupUuid::create(record.value("groupUuid").toString());
+    auto gUuid = GroupUuid::from(record.value("groupUuid").toString());
 
     assert(gUuid);
 
     TermData info{
-        .uuid        = TermUuid::create(record.value("uuid").toString()),
+        .uuid        = TermUuid::from(record.value("uuid").toString()),
         .term        = record.value("term").toString(),
         .definition  = record.value("definition").toString(),
         .description = record.value("description").toString(),

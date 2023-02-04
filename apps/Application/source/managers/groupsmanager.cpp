@@ -41,7 +41,7 @@ GroupsManager::GroupsManager(NotifyInterface&                      notifier,
 }
 
 QString GroupsManager::getGroupName(const QUuid& groupUuid) const {
-    if (auto gUuid = GroupUuid::create(groupUuid)) {
+    if (auto gUuid = GroupUuid::from(groupUuid)) {
         for (const auto& groupData : provider.groups()) {
             if (groupData.uuid == gUuid) {
                 return groupData.name;
@@ -56,7 +56,7 @@ QString GroupsManager::getLastEditString(QUuid groupUuid) { return getLastEdit(g
 
 int GroupsManager::getNodesCount(QUuid groupUuid)
 {
-    if (auto uuid = GroupUuid::create(groupUuid)) {
+    if (auto uuid = GroupUuid::from(groupUuid)) {
         if (auto group = provider.group(*uuid)) {
             return group->size;
         }
@@ -84,7 +84,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
 void GroupsManager::deleteGroup(const QString& groupUuid)
 {
     assert(provider.isReady());
-    if (auto uuid = GroupUuid::create(groupUuid)) {
+    if (auto uuid = GroupUuid::from(groupUuid)) {
         provider.deleteGroup(*uuid);
     }
 }
@@ -139,7 +139,7 @@ bool GroupsManager::getHasAnyGroup() const
 
 QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
 {
-    auto uuid = GroupUuid::create(groupUuid);
+    auto uuid = GroupUuid::from(groupUuid);
     assert(uuid.has_value());
 
     auto groupData = provider.group(*uuid);
@@ -187,7 +187,7 @@ void GroupsManager::importGroup(QJsonObject json)
         return;
     }
 
-    auto groupData = GroupData::create(json);
+    auto groupData = GroupData::from(json);
 
     if (!groupData || !groupData->uuid) {
         return;
@@ -213,7 +213,7 @@ void GroupsManager::importGroup(QJsonObject json)
 
 void GroupsManager::importTerm(const QJsonObject& nodeJson)
 {
-    if (auto data = TermData::create(nodeJson, TermData::JsonCheckMode::Import)) {
+    if (auto data = TermData::from(nodeJson, TermData::JsonCheckMode::Import)) {
         provider.importTerm(*data);
     } else {
         qWarning("Can't create TermData on import");
@@ -226,7 +226,7 @@ int GroupsManager::dbVersion() {
 
 void GroupsManager::addNode(QJsonObject object)
 {
-    auto data = TermData::create(object, TermData::JsonCheckMode::AddTerm);
+    auto data = TermData::from(object, TermData::JsonCheckMode::AddTerm);
     assert(data.has_value());
     assert(!data->isNull());
 
@@ -235,7 +235,7 @@ void GroupsManager::addNode(QJsonObject object)
 
 void GroupsManager::updateNode(const QJsonObject& object)
 {
-    auto data = TermData::create(object, TermData::JsonCheckMode::UpdateTerm);
+    auto data = TermData::from(object, TermData::JsonCheckMode::UpdateTerm);
 
     assert(data.has_value());
     assert(data->uuid);
@@ -245,7 +245,7 @@ void GroupsManager::updateNode(const QJsonObject& object)
 
 void GroupsManager::deleteNode(const QUuid uuid)
 {
-    if (auto tUuid = TermUuid::create(uuid)) {
+    if (auto tUuid = TermUuid::from(uuid)) {
         provider.deleteTerm(*tUuid);
     }
 }
@@ -302,7 +302,7 @@ QString GroupsManager::getExportPath() const { return AppSettings::Paths::groups
 void GroupsManager::exportGrpToJson(const QString& groupUuid)
 {
     Q_UNIMPLEMENTED();
-    if (auto uuid = GroupUuid::create(groupUuid)) {
+    if (auto uuid = GroupUuid::from(groupUuid)) {
         saveGroupInFolder(createGroup(*uuid));
     }
 
@@ -335,6 +335,6 @@ bool GroupsManager::groupExist(const GroupUuid& uuid) { return provider.group(uu
 void GroupsManager::requestGroupExport(const QUuid& groupUuid)
 {
     assert(!groupUuid.isNull());
-    auto uuid = GroupUuid::create(groupUuid).value();
+    auto uuid = GroupUuid::from(groupUuid).value();
     provider.requestGroupExport(uuid);
 }

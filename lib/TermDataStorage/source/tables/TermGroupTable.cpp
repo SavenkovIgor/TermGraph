@@ -19,7 +19,7 @@ bool TermGroupTable::exist(const QString &groupName)
         return false;
     }
 
-    return GroupUuid::create(records.front().value("uuid").toString()).has_value();
+    return GroupUuid::from(records.front().value("uuid").toString()).has_value();
 }
 
 bool TermGroupTable::exist(const GroupUuid &uuid)
@@ -138,7 +138,7 @@ GroupData TermGroupTable::createGroupData(const QSqlRecord &rec)
 {
     GroupData info;
 
-    info.uuid    = GroupUuid::create(rec.value(JsonTools::uuidKey).toString());
+    info.uuid    = GroupUuid::from(rec.value(JsonTools::uuidKey).toString());
     info.name    = rec.value(JsonTools::nameKey).toString();
     info.comment = rec.value(JsonTools::commentKey).toString();
     info.size    = rec.value(JsonTools::sizeKey).toInt();

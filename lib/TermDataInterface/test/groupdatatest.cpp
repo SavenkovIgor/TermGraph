@@ -8,7 +8,7 @@
 GroupData defaultGroupData()
 {
     return GroupData{
-        .uuid          = GroupUuid::create("{8a505474-b90f-4e83-be63-e6a1e5d39b24}"),
+        .uuid          = GroupUuid::from("{8a505474-b90f-4e83-be63-e6a1e5d39b24}"),
         .name          = "Group",
         .comment       = "Comment",
         .size          = 1,
