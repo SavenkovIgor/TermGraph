@@ -5,7 +5,7 @@
 
 #include <TermDataInterface/GroupSummary.h>
 
-GroupSummary defaultGroupData()
+GroupSummary defaultGroupSummary()
 {
     return GroupSummary{
         .uuid          = GroupUuid::from("{8a505474-b90f-4e83-be63-e6a1e5d39b24}"),
@@ -19,38 +19,38 @@ GroupSummary defaultGroupData()
 
 TEST(GroupSummaryTest, ComparisonTest)
 {
-    auto data1 = defaultGroupData();
-    EXPECT_EQ(data1, defaultGroupData());
+    auto data1 = defaultGroupSummary();
+    EXPECT_EQ(data1, defaultGroupSummary());
 
-    data1      = defaultGroupData();
+    data1      = defaultGroupSummary();
     data1.uuid = GroupUuid::generate();
-    EXPECT_NE(data1, defaultGroupData());
+    EXPECT_NE(data1, defaultGroupSummary());
 
-    data1      = defaultGroupData();
+    data1      = defaultGroupSummary();
     data1.uuid = std::nullopt;
-    EXPECT_NE(data1, defaultGroupData());
+    EXPECT_NE(data1, defaultGroupSummary());
 
-    data1             = defaultGroupData();
+    data1             = defaultGroupSummary();
     data1.name        = "Group1";
-    EXPECT_NE(data1, defaultGroupData());
+    EXPECT_NE(data1, defaultGroupSummary());
 
-    data1          = defaultGroupData();
+    data1          = defaultGroupSummary();
     data1.comment  = "Comment1";
-    EXPECT_NE(data1, defaultGroupData());
+    EXPECT_NE(data1, defaultGroupSummary());
 
-    data1      = defaultGroupData();
+    data1      = defaultGroupSummary();
     data1.size = 10;
-    EXPECT_NE(data1, defaultGroupData());
+    EXPECT_NE(data1, defaultGroupSummary());
 
-    data1             = defaultGroupData();
+    data1             = defaultGroupSummary();
     data1.lastEdit    = QDateTime::currentDateTime().addSecs(1);
-    EXPECT_NE(data1, defaultGroupData());
+    EXPECT_NE(data1, defaultGroupSummary());
 
-    data1                  = defaultGroupData();
+    data1                  = defaultGroupSummary();
     data1.nodesLastEdit    = QDateTime::currentDateTime().addSecs(1);
-    EXPECT_NE(data1, defaultGroupData());
+    EXPECT_NE(data1, defaultGroupSummary());
 
-    data1                  = defaultGroupData();
+    data1                  = defaultGroupSummary();
     data1.nodesLastEdit    = std::nullopt;
-    EXPECT_NE(data1, defaultGroupData());
+    EXPECT_NE(data1, defaultGroupSummary());
 }
