@@ -24,6 +24,19 @@ public:
         return param;
     }
 
+    static inline QJsonObject updateKey(QJsonObject json, const QString& oldKey, const QString& newKey)
+    {
+        if (json.contains(oldKey) && !json.contains(newKey)) {
+            json.insert(newKey, json[oldKey]);
+        }
+
+        if (json.contains(oldKey)) {
+            json.remove(oldKey);
+        }
+
+        return json;
+    }
+
     // Container keys
     constexpr static auto groupUuidsKey    = "groupUuids";
     constexpr static auto groupsKey        = "groups";
