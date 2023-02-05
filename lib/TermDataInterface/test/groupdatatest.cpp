@@ -26,7 +26,7 @@ GroupData defaultGroupData()
     auto term = someTermData();
     auto data = GroupData();
 
-    data.uuid          = GroupUuid::from("{8a505474-b90f-4e83-be63-e6a1e5d39b24}"),
+    data.uuid          = GroupUuid::from("{5fdb1e7e-f47f-4c88-96d2-fd3d427d2a9d}"),
     data.name          = "Group",
     data.comment       = "Comment",
     data.size          = 1,
@@ -87,6 +87,9 @@ TEST(GroupDataTest, SerializationTest)
 {
     auto data1 = defaultGroupData();
     auto data2 = GroupData::from(static_cast<QJsonObject>(data1));
+
+
+    qInfo() << static_cast<QJsonObject>(data1);
 
     EXPECT_EQ(data1, data2);
 

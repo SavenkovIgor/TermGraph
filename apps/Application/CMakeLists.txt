@@ -21,21 +21,23 @@ endif ()
 
 # Build options
 option (BUILD_TESTING "Build tests with project" ON)
+option (STATIC_STORAGE "Build with static storage" ON)
 
 find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Svg)
 
 set (LIBS_ROOT "${CMAKE_SOURCE_DIR}/../../lib")
 
 # Applications subdirs
-add_subdirectory ("${LIBS_ROOT}/QmlTools"           "${CMAKE_BINARY_DIR}/lib/QmlTools")
-add_subdirectory ("${LIBS_ROOT}/QmlTheme"           "${CMAKE_BINARY_DIR}/lib/QmlTheme")
+add_subdirectory ("${LIBS_ROOT}/CommonTools"        "${CMAKE_BINARY_DIR}/lib/CommonTools")
+add_subdirectory ("${LIBS_ROOT}/Graph"              "${CMAKE_BINARY_DIR}/lib/Graph")
 add_subdirectory ("${LIBS_ROOT}/QmlAtoms"           "${CMAKE_BINARY_DIR}/lib/QmlAtoms")
 add_subdirectory ("${LIBS_ROOT}/QmlMolecules"       "${CMAKE_BINARY_DIR}/lib/QmlMolecules")
 add_subdirectory ("${LIBS_ROOT}/QmlPages"           "${CMAKE_BINARY_DIR}/lib/QmlPages")
+add_subdirectory ("${LIBS_ROOT}/QmlTheme"           "${CMAKE_BINARY_DIR}/lib/QmlTheme")
+add_subdirectory ("${LIBS_ROOT}/QmlTools"           "${CMAKE_BINARY_DIR}/lib/QmlTools")
 add_subdirectory ("${LIBS_ROOT}/QrcHelpImages"      "${CMAKE_BINARY_DIR}/lib/QrcHelpImages")
+add_subdirectory ("${LIBS_ROOT}/StaticDataStorage"  "${CMAKE_BINARY_DIR}/lib/StaticDataStorage")
 add_subdirectory ("${LIBS_ROOT}/TermDataConnection" "${CMAKE_BINARY_DIR}/lib/TermDataConnection")
-add_subdirectory ("${LIBS_ROOT}/CommonTools"        "${CMAKE_BINARY_DIR}/lib/CommonTools")
-add_subdirectory ("${LIBS_ROOT}/Graph"              "${CMAKE_BINARY_DIR}/lib/Graph")
 add_subdirectory ("${LIBS_ROOT}/TermDataInterface"  "${CMAKE_BINARY_DIR}/lib/TermDataInterface")
 add_subdirectory ("${LIBS_ROOT}/Text"               "${CMAKE_BINARY_DIR}/lib/Text")
 
@@ -159,6 +161,7 @@ target_link_libraries (TermGraph PRIVATE Graph)
 target_link_libraries (TermGraph PRIVATE Text)
 target_link_libraries (TermGraph PRIVATE TermDataInterface)
 target_link_libraries (TermGraph PRIVATE TermDataConnection)
+target_link_libraries (TermGraph PRIVATE StaticDataStorage)
 
 if (NOT WASM)
     target_link_libraries (TermGraph PRIVATE TermDataStorage)

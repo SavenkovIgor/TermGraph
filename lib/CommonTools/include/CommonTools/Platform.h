@@ -48,6 +48,15 @@ public:
         return isWasm();
     }
 
+    consteval static bool isStaticDataStorage()
+    {
+        #ifdef STATIC_STORAGE
+            return true;
+        #else
+            return false;
+        #endif
+    }
+
     // clang-format off
     consteval static inline bool isLinux()   { return currentPlatform() == PlatformType::Linux;   }
     consteval static inline bool isWindows() { return currentPlatform() == PlatformType::Windows; }

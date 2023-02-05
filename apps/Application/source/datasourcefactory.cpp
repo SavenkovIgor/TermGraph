@@ -7,6 +7,7 @@
 
 #include <CommonTools/Platform.h>
 #include <CommonTools/NetworkTools.h>
+#include <StaticDataStorage/StaticDataStorage.h>
 #include <TermDataConnection/DataStorageConnection.h>
 
 #ifndef Q_OS_WASM
@@ -17,7 +18,11 @@
 std::unique_ptr<DataStorageInterface> DataSourceFactory::defaultSource()
 {
     if constexpr  (Platform::isWasm()) {
-        return server();
+        if constexpr (Platform::isStaticDataStorage()) {
+            return std::make_unique<StaticDataStorage>();
+        } else {
+            return server();
+        }
     }
 
     if constexpr (Platform::isDesktop() || Platform::isMobile()) {

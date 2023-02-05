@@ -14,7 +14,57 @@
 
 struct GroupData: public GroupSummary
 {
+    using List = std::vector<GroupData>;
+
     TermData::List terms;
+
+    inline Opt<QDateTime> termsLastEdit() const {
+        if (terms.empty()) {
+            return std::nullopt;
+        }
+
+        static TermData::List::size_type lastCountedSize = 0;
+        static QDateTime lastCountedLastEdit;
+
+        if (terms.size() == lastCountedSize) {
+            return lastCountedLastEdit;
+        }
+
+        QDateTime ret = terms.front().lastEdit;
+
+        for (const auto& term : terms) {
+            if (term.lastEdit > ret) {
+                ret = term.lastEdit;
+            }
+        }
+
+        lastCountedSize = terms.size();
+        lastCountedLastEdit = ret;
+
+        return ret;
+    }
+
+    inline QMap<TermUuid, TermData> termsMap() const {
+        QMap<TermUuid, TermData> ret;
+
+        for (const auto& term : terms) {
+            if (term.uuid) {
+                ret.insert(term.uuid.value(), term);
+            }
+        }
+
+        return ret;
+    }
+
+    inline Opt<TermData> term(const QString& termName) const {
+        for (const auto& termData : terms) {
+            if (termData.term == termName) {
+                return termData;
+            }
+        }
+
+        return std::nullopt;
+    }
 
     inline bool operator==(const GroupData& rhs) const = default;
 
