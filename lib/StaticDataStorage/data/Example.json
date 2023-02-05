@@ -1,0 +1,21 @@
+{
+    "comment": "Comment",
+    "lastEdit": "2022-08-23T20:01:10Z",
+    "name": "Group",
+    "nodesLastEdit": "2022-08-23T20:01:10Z",
+    "size": 1,
+    "terms": [
+        {
+            "definition": "Definition",
+            "description": "Description",
+            "examples": "Examples",
+            "groupUuid": "{5fdb1e7e-f47f-4c88-96d2-fd3d427d2a9d}",
+            "lastEdit": "2022-08-23T20:01:10Z",
+            "term": "Term",
+            "uuid": "{8a505474-b90f-4e83-be63-e6a1e5d39b24}",
+            "wikiImage": "WikiImg",
+            "wikiUrl": "Wiki"
+        }
+    ],
+    "uuid": "{5fdb1e7e-f47f-4c88-96d2-fd3d427d2a9d}"
+}

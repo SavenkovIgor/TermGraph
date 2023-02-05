@@ -45,7 +45,7 @@ QSqlQuery SqlQueryBuilder::updateConfigParameter(const QString &parameter, const
 
 QSqlQuery SqlQueryBuilder::createGroupsTable() const { return loadQuery(":/sql/version2/groups/CreateTable.sql"); }
 
-QSqlQuery SqlQueryBuilder::insertGroup(const GroupData &groupInfo) const
+QSqlQuery SqlQueryBuilder::insertGroup(const GroupSummary &groupInfo) const
 {
     assert(groupInfo.uuid);
 
@@ -79,7 +79,7 @@ QSqlQuery SqlQueryBuilder::selectOneGroup(const GroupUuid &uuid) const
 
 QSqlQuery SqlQueryBuilder::selectAllGroups() { return loadQuery(":/sql/version2/groups/SelectAll.sql"); }
 
-QSqlQuery SqlQueryBuilder::updateGroup(const GroupData &groupInfo) const
+QSqlQuery SqlQueryBuilder::updateGroup(const GroupSummary &groupInfo) const
 {
     assert(groupInfo.uuid);
 

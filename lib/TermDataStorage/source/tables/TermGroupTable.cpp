@@ -34,7 +34,7 @@ bool TermGroupTable::exist(const GroupUuid &uuid)
     return count > 0;
 }
 
-Result<GroupData> TermGroupTable::group(const GroupUuid &uuid)
+Result<GroupSummary> TermGroupTable::group(const GroupUuid &uuid)
 {
     // If group not exist
     if (!exist(uuid)) {
@@ -44,12 +44,12 @@ Result<GroupData> TermGroupTable::group(const GroupUuid &uuid)
     auto query = SqlQueryBuilder().selectGroup(uuid);
     DbTools::start(query);
     auto record = DbTools::getRecord(std::move(query));
-    return createGroupData(record);
+    return createGroupSummary(record);
 }
 
-GroupData::List TermGroupTable::allGroups()
+GroupSummary::List TermGroupTable::allGroups()
 {
-    GroupData::List ret;
+    GroupSummary::List ret;
 
     auto query = SqlQueryBuilder().selectAllGroups();
     DbTools::start(query);
@@ -57,16 +57,16 @@ GroupData::List TermGroupTable::allGroups()
     auto records = DbTools::getAllRecords(std::move(query));
 
     for (auto &record : records) {
-        GroupData info = createGroupData(record);
+        GroupSummary info = createGroupSummary(record);
         ret.push_back(std::move(info));
     }
 
     return ret;
 }
 
-Result<GroupData> TermGroupTable::addGroup(const GroupData &info)
+Result<GroupSummary> TermGroupTable::addGroup(const GroupSummary &info)
 {
-    GroupData groupInfo = info;
+    GroupSummary groupInfo = info;
 
     if (groupInfo.uuid) {
         if (exist(*groupInfo.uuid)) {
@@ -89,7 +89,7 @@ Result<GroupData> TermGroupTable::addGroup(const GroupData &info)
     return groupInfo;
 }
 
-Result<GroupData> TermGroupTable::updateGroup(const GroupData &info)
+Result<GroupSummary> TermGroupTable::updateGroup(const GroupSummary &info)
 {
     if (!info.uuid) {
         return ErrorCodes::GroupUuidInvalid;
@@ -114,11 +114,11 @@ Result<GroupData> TermGroupTable::updateGroup(const GroupData &info)
     return info;
 }
 
-Result<GroupData> TermGroupTable::deleteGroup(const GroupUuid &uuid)
+Result<GroupSummary> TermGroupTable::deleteGroup(const GroupUuid &uuid)
 {
-    if (auto groupData = group(uuid)) {
+    if (auto groupInfo = group(uuid)) {
         DbTools::start(SqlQueryBuilder().deleteGroup(uuid));
-        return groupData;
+        return groupInfo;
     }
 
     return ErrorCodes::GroupUuidNotFound;
@@ -134,9 +134,9 @@ GroupUuid TermGroupTable::generateNewUuid()
     }
 }
 
-GroupData TermGroupTable::createGroupData(const QSqlRecord &rec)
+GroupSummary TermGroupTable::createGroupSummary(const QSqlRecord &rec)
 {
-    GroupData info;
+    GroupSummary info;
 
     info.uuid    = GroupUuid::from(rec.value(JsonTools::uuidKey).toString());
     info.name    = rec.value(JsonTools::nameKey).toString();

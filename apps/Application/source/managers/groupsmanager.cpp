@@ -42,9 +42,9 @@ GroupsManager::GroupsManager(NotifyInterface&                      notifier,
 
 QString GroupsManager::getGroupName(const QUuid& groupUuid) const {
     if (auto gUuid = GroupUuid::from(groupUuid)) {
-        for (const auto& groupData : provider.groups()) {
-            if (groupData.uuid == gUuid) {
-                return groupData.name;
+        for (const auto& group : provider.groups()) {
+            if (group.uuid == gUuid) {
+                return group.name;
             }
         }
     }
@@ -73,7 +73,7 @@ void GroupsManager::addNewGroup(const QString& name, const QString& comment)
         return;
     }
 
-    GroupData info;
+    GroupSummary info;
 
     info.name    = name;
     info.comment = comment;
@@ -107,20 +107,20 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
 
 TermGroup::OptPtr GroupsManager::createGroup(Opt<GroupUuid> uuid)
 {
-    Opt<GroupData> groupData;
+    Opt<GroupSummary> groupInfo;
     if (uuid) {
-        groupData = provider.group(*uuid);
+        groupInfo = provider.group(*uuid);
     } else if (auto loadedUuid = provider.currentGroup()) {
-        groupData = provider.group(*loadedUuid);
+        groupInfo = provider.group(*loadedUuid);
     } else {
         Q_UNREACHABLE();
         return nullptr;
     }
 
     auto termsData = provider.terms();
-    assert(groupData);
+    assert(groupInfo);
 
-    return std::make_shared<TermGroup>(*groupData, termsData);
+    return std::make_shared<TermGroup>(*groupInfo, termsData);
 }
 
 bool GroupsManager::isEmptyGroup(const QString& groupUuid) {
@@ -142,9 +142,9 @@ QDateTime GroupsManager::getLastEdit(QUuid groupUuid)
     auto uuid = GroupUuid::from(groupUuid);
     assert(uuid.has_value());
 
-    auto groupData = provider.group(*uuid);
+    auto groupInfo = provider.group(*uuid);
 
-    return groupData ? groupData->lastEdit : QDateTime();
+    return groupInfo ? groupInfo->lastEdit : QDateTime();
 }
 
 GroupUuid::List GroupsManager::getAllUuidsSortedByLastEdit()
@@ -183,21 +183,21 @@ void GroupsManager::importGroup(QJsonObject json)
         json.insert(JsonTools::sizeKey, json[JsonTools::termsKey].toArray().size());
     }
 
-    if (!GroupJsonValidator::importChecks().check(json)) {
+    if (!GroupJsonValidator::fullChecks().check(json)) {
         return;
     }
 
-    auto groupData = GroupData::from(json);
+    auto groupInfo = GroupSummary::from(json);
 
-    if (!groupData || !groupData->uuid) {
+    if (!groupInfo || !groupInfo->uuid) {
         return;
     }
 
     // Searching for existed group
-    if (provider.group(*groupData->uuid).has_value()) { // Group found
-        provider.updateGroup(*groupData);
+    if (provider.group(*groupInfo->uuid).has_value()) { // Group found
+        provider.updateGroup(*groupInfo);
     } else {
-        provider.addGroup(*groupData);
+        provider.addGroup(*groupInfo);
     }
 
     QJsonArray nodes = json[JsonTools::termsKey].toArray();
@@ -207,8 +207,8 @@ void GroupsManager::importGroup(QJsonObject json)
         importTerm(node.toObject());
     }
 
-    notifier.showInfo(groupData->name + " синхронизировано");
-    emit groupAdded(*groupData);
+    notifier.showInfo(groupInfo->name + " синхронизировано");
+    emit groupAdded(*groupInfo);
 }
 
 void GroupsManager::importTerm(const QJsonObject& nodeJson)

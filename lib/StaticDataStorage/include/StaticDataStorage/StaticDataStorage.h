@@ -3,23 +3,21 @@
 
 #pragma once
 
-#include <QHostAddress>
-#include <QNetworkAccessManager>
-#include <QNetworkReply>
+#include <memory>
+#include <functional>
 
 #include <CommonTools/HandyTypes.h>
-#include <CommonTools/NetworkTools.h>
 
 #include <TermDataInterface/DataStorageInterface.h>
 #include <TermDataInterface/GroupSummary.h>
 #include <TermDataInterface/TermData.h>
 
-#include "NetWrapper.h"
+class StaticStorageImpl;
 
-class DataStorageConnection : public DataStorageInterface
+class StaticDataStorage : public DataStorageInterface
 {
 public:
-    DataStorageConnection(QUrl address);
+    StaticDataStorage();
 
     int storageVersion() const final;
 
@@ -39,15 +37,7 @@ public:
     FutureResult<TermData> deleteTerm(const TermUuid& uuid) final;
 
 private:
-    template<typename T>
-    using Promise = QPromise<Result<T>>;
+    StaticStorageImpl* impl = nullptr;
 
-    template<typename T>
-    using SharedPromise = QSharedPointer<Promise<T>>;
-
-    QUrl baseUrl;
-    QUrl groupUrl;
-    QUrl termUrl;
-
-    NetWrapper network;
+    QMap<GroupUuid, QDateTime> termsLastEdit() const;
 };

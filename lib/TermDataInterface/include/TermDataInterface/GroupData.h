@@ -6,57 +6,105 @@
 #include <optional>
 #include <vector>
 
-#include <QByteArray>
-#include <QJsonObject>
-#include <QString>
-#include <QUuid>
+#include <QDateTime>
 
-#include <CommonTools/GroupUuid.h>
 #include <CommonTools/HandyTypes.h>
-#include <CommonTools/JsonTools.h>
-#include <TermDataInterface/GroupValidator.h>
+#include <TermDataInterface/TermData.h>
+#include <TermDataInterface/GroupSummary.h>
 
-// TODO: Check tests!
-// TODO: Make class and make fields private
-struct GroupData
+struct GroupData: public GroupSummary
 {
-    Opt<GroupUuid> uuid;
-    QString name;
-    QString comment;
+    using List = std::vector<GroupData>;
 
-    int            size          = 0;
-    QDateTime      lastEdit      = QDateTime();
-    Opt<QDateTime> nodesLastEdit = std::nullopt;
+    TermData::List terms;
 
-    inline bool isNull() const { return uuid.has_value() && name.isEmpty(); }
+    inline Opt<QDateTime> termsLastEdit() const {
+        if (terms.empty()) {
+            return std::nullopt;
+        }
+
+        static TermData::List::size_type lastCountedSize = 0;
+        static QDateTime lastCountedLastEdit;
+
+        if (terms.size() == lastCountedSize) {
+            return lastCountedLastEdit;
+        }
+
+        QDateTime ret = terms.front().lastEdit;
+
+        for (const auto& term : terms) {
+            if (term.lastEdit > ret) {
+                ret = term.lastEdit;
+            }
+        }
+
+        lastCountedSize = terms.size();
+        lastCountedLastEdit = ret;
+
+        return ret;
+    }
+
+    inline QMap<TermUuid, TermData> termsMap() const {
+        QMap<TermUuid, TermData> ret;
+
+        for (const auto& term : terms) {
+            if (term.uuid) {
+                ret.insert(term.uuid.value(), term);
+            }
+        }
+
+        return ret;
+    }
+
+    inline Opt<TermData> term(const QString& termName) const {
+        for (const auto& termData : terms) {
+            if (termData.term == termName) {
+                return termData;
+            }
+        }
+
+        return std::nullopt;
+    }
 
     inline bool operator==(const GroupData& rhs) const = default;
 
     // --- JSON ---
-    static inline Opt<GroupData> from(const QJsonObject& obj)
+    static inline Opt<GroupData> from(QJsonObject json)
     {
-        if (!GroupJsonValidator::defaultChecks().check(obj))
+        // Some import data fixes
+        // Update of termsKey if need
+        json = JsonTools::updateKey(json, JsonTools::oldTermsKey, JsonTools::termsKey);
+
+        if (!GroupJsonValidator::fullChecks().check(json)) {
             return std::nullopt;
+        }
 
         GroupData ret;
 
-        ret.uuid     = GroupUuid::from(obj[JsonTools::uuidKey].toString());
-        ret.name     = obj[JsonTools::nameKey].toString();
-        ret.comment  = obj[JsonTools::commentKey].toString();
-        ret.size     = obj[JsonTools::sizeKey].toInt(0);
-        ret.lastEdit = QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate);
+        ret.uuid     = GroupUuid::from(json[JsonTools::uuidKey].toString());
+        ret.name     = json[JsonTools::nameKey].toString();
+        ret.comment  = json[JsonTools::commentKey].toString();
+        ret.size     = asInt(json[JsonTools::termsKey].toArray().size());
+        ret.lastEdit = QDateTime::fromString(json[JsonTools::lastEditKey].toString(), Qt::ISODate);
+        ret.terms    = TermData::List::from(json[JsonTools::termsKey].toArray());
 
-        auto nodeLastEdit = QDateTime::fromString(obj[JsonTools::nodesLastEditKey].toString(), Qt::ISODate);
-        if (!nodeLastEdit.isNull())
-            ret.nodesLastEdit = nodeLastEdit;
-        else
+        ret.nodesLastEdit = QDateTime::fromString(json[JsonTools::nodesLastEditKey].toString(), Qt::ISODate);
+
+        if (ret.nodesLastEdit->isNull()) {
+            QDateTime lastEdit;
+
+            for (const auto& term : ret.terms) {
+                if (term.lastEdit > lastEdit) {
+                    lastEdit = term.lastEdit;
+                }
+            }
+
+            ret.nodesLastEdit = lastEdit;
+        }
+
+        if (ret.nodesLastEdit->isNull()) {
             ret.nodesLastEdit = std::nullopt;
-
-
-        assert(!ret.isNull());
-
-        if (ret.isNull()) // Release safety
-            return std::nullopt;
+        }
 
         return ret;
     }
@@ -84,54 +132,10 @@ struct GroupData
         if (nodesLastEdit)
             ret.insert(JsonTools::nodesLastEditKey, nodesLastEdit->toString(Qt::ISODate));
 
+        ret.insert(JsonTools::termsKey, static_cast<QJsonArray>(terms));
+
         return ret;
     }
 
     explicit operator QByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
-
-    class List : public std::vector<GroupData>
-    {
-    public:
-        static inline Opt<List> from(const QJsonObject& obj)
-        {
-            List ret;
-
-            if (!obj[JsonTools::groupsKey].isArray())
-                return std::nullopt;
-
-            for (const auto& groupJson : obj[JsonTools::groupsKey].toArray()) {
-                if (auto groupData = GroupData::from(groupJson.toObject())) {
-                    ret.push_back(*groupData);
-                } else {
-                    qWarning("Wrong groupData in received data");
-                }
-            }
-
-            return ret;
-        }
-
-        static inline Opt<List> from(const QByteArray& jsonBytes)
-        {
-            auto doc = QJsonDocument::fromJson(jsonBytes);
-
-            if (doc.isNull())
-                return std::nullopt;
-
-            return from(doc.object());
-        }
-
-        explicit operator QJsonObject() const
-        {
-            QJsonArray arr;
-
-            for (const auto& item : *this)
-                arr.push_back(static_cast<QJsonObject>(item));
-
-            QJsonObject obj;
-            obj.insert(JsonTools::groupsKey, arr);
-            return obj;
-        }
-
-        explicit operator QByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
-    };
 };

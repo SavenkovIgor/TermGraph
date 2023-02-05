@@ -7,9 +7,8 @@
 
 #include <CommonTools/GroupUuid.h>
 #include <CommonTools/HandyTypes.h>
-#include <TermDataInterface/GroupData.h>
+#include <TermDataInterface/GroupSummary.h>
 
-// TODO: GroupUuid to GroupData
 class TermGroupTable
 {
 public:
@@ -24,16 +23,16 @@ public:
     bool exist(const GroupUuid& uuid);
 
     // Getters
-    Result<GroupData> group(const GroupUuid& uuid);
-    GroupData::List   allGroups();
+    Result<GroupSummary> group(const GroupUuid& uuid);
+    GroupSummary::List   allGroups();
 
     // Modify
-    Result<GroupData> addGroup(const GroupData& info);
-    Result<GroupData> updateGroup(const GroupData& info);
-    Result<GroupData> deleteGroup(const GroupUuid& uuid);
+    Result<GroupSummary> addGroup(const GroupSummary& info);
+    Result<GroupSummary> updateGroup(const GroupSummary& info);
+    Result<GroupSummary> deleteGroup(const GroupUuid& uuid);
 
 private:
     GroupUuid generateNewUuid();
 
-    static GroupData createGroupData(const QSqlRecord& rec);
+    static GroupSummary createGroupSummary(const QSqlRecord& rec);
 };

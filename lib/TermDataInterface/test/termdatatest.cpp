@@ -20,6 +20,21 @@ TermData defaultTermData()
     };
 }
 
+TermData::List defaultTermDataList()
+{
+    auto data1 = defaultTermData();
+    auto data2 = defaultTermData();
+    auto data3 = defaultTermData();
+
+    auto ret = TermData::List();
+
+    ret.push_back(data1);
+    ret.push_back(data2);
+    ret.push_back(data3);
+
+    return ret;
+}
+
 TEST(TermDataTest, ComparisonTest)
 {
     auto data1 = defaultTermData();
@@ -64,4 +79,65 @@ TEST(TermDataTest, ComparisonTest)
     data1             = defaultTermData();
     data1.lastEdit    = QDateTime::currentDateTime().addSecs(1);
     EXPECT_NE(data1, defaultTermData());
+}
+
+TEST(TermDataTest, IsNullTest)
+{
+    auto data1 = defaultTermData();
+    EXPECT_FALSE(data1.isNull());
+
+    data1      = defaultTermData();
+    data1.term = "";
+    EXPECT_TRUE(data1.isNull());
+}
+
+TEST(TermDataTest, JsonTest)
+{
+    auto data1 = defaultTermData();
+    auto json  = static_cast<QJsonObject>(data1);
+    auto data2 = TermData::from(json, TermData::JsonCheckMode::Import);
+
+    EXPECT_TRUE(data2.has_value());
+    EXPECT_EQ(data1, data2.value());
+}
+
+TEST(TermDataTest, JsonListTest)
+{
+    auto data1 = defaultTermDataList();
+    auto jsonArray = static_cast<QJsonArray>(data1);
+    auto data2 = TermData::List::from(jsonArray);
+
+    EXPECT_EQ(data1.size(), data2.size());
+    EXPECT_EQ(data1, data2);
+}
+
+TEST(TermDataTest, JsonListEmptyTest)
+{
+    auto data1 = TermData::List{};
+    auto jsonArray = static_cast<QJsonArray>(data1);
+    auto data2 = TermData::List::from(jsonArray);
+
+    EXPECT_EQ(data1.size(), 0);
+    EXPECT_EQ(data1.size(), data2.size());
+    EXPECT_EQ(data1, data2);
+    EXPECT_TRUE(data2.empty());
+}
+
+TEST(TermDataTest, JsonListInvalidTest)
+{
+    auto jsonArray = QJsonArray{};
+    auto data2 = TermData::List::from(jsonArray);
+
+    EXPECT_TRUE(data2.empty());
+}
+
+TEST(TermDataTest, JsonListObjectTest)
+{
+    auto data1 = defaultTermDataList();
+
+    auto jsonObj = static_cast<QJsonObject>(data1);
+    auto data2 = TermData::List::from(jsonObj);
+
+    EXPECT_TRUE(data2.has_value());
+    EXPECT_EQ(data1, data2.value());
 }

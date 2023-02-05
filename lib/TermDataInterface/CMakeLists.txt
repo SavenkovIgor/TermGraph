@@ -9,6 +9,7 @@ find_package (Qt6 REQUIRED COMPONENTS Core)
 add_library (TermDataInterface
     INTERFACE
         include/TermDataInterface/DataStorageInterface.h
+        include/TermDataInterface/GroupSummary.h
         include/TermDataInterface/GroupData.h
         include/TermDataInterface/GroupValidator.h
         include/TermDataInterface/TermData.h
@@ -33,6 +34,7 @@ if (BUILD_TESTING)
     target_sources (TermDataInterfaceTest
         PRIVATE
             test/termdatatest.cpp
+            test/groupsummarytest.cpp
             test/groupdatatest.cpp)
 
     set_target_properties (TermDataInterfaceTest

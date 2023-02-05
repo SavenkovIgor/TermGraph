@@ -6,7 +6,7 @@
 #include <QObject>
 
 #include <TermDataInterface/DataStorageInterface.h>
-#include <TermDataInterface/GroupData.h>
+#include <TermDataInterface/GroupSummary.h>
 #include <TermDataInterface/TermData.h>
 
 class DataProvider : public QObject
@@ -22,11 +22,11 @@ public:
     void loadGroups();
     void loadGroup(GroupUuid uuid);
 
-    const GroupData::List& groups() const;
-    Opt<GroupData> group(GroupUuid uuid) const;
+    const GroupSummary::List& groups() const;
+    Opt<GroupSummary> group(GroupUuid uuid) const;
 
-    void addGroup(const GroupData& info);
-    void updateGroup(const GroupData& info);
+    void addGroup(const GroupSummary& info);
+    void updateGroup(const GroupSummary& info);
     void deleteGroup(const GroupUuid& uuid);
 
     const TermData::List& terms() const;
@@ -45,8 +45,8 @@ signals:
     void groupListLoaded();
     void groupLoaded();
 
-    void groupAdded(GroupData data);
-    void groupUpdated(GroupData data);
+    void groupAdded(GroupSummary data);
+    void groupUpdated(GroupSummary data);
     void groupDeleted(GroupUuid uuid);
 
     void termAdded(TermData data);
@@ -61,6 +61,6 @@ private:
     std::unique_ptr<DataStorageInterface> dataStorage;
 
     Opt<GroupUuid> mCurrentGroup;
-    Opt<GroupData::List> mGroups;
+    Opt<GroupSummary::List> mGroups;
     TermData::List mTerms;
 };

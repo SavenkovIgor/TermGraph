@@ -11,7 +11,7 @@
 #include <CommonTools/GroupUuid.h>
 #include <CommonTools/TermUuid.h>
 
-#include <TermDataInterface/GroupData.h>
+#include <TermDataInterface/GroupSummary.h>
 #include <TermDataInterface/TermData.h>
 
 // Задача этого класса - формировать запросы
@@ -29,12 +29,12 @@ public:
 
     // Groups table
     QSqlQuery createGroupsTable() const;
-    QSqlQuery insertGroup(const GroupData& groupInfo) const;
+    QSqlQuery insertGroup(const GroupSummary& groupInfo) const;
     QSqlQuery selectGroup(const GroupUuid& uuid) const;
     QSqlQuery selectGroup(const QString& groupName) const;
     QSqlQuery selectOneGroup(const GroupUuid& uuid) const;
     QSqlQuery selectAllGroups();
-    QSqlQuery updateGroup(const GroupData& groupInfo) const;
+    QSqlQuery updateGroup(const GroupSummary& groupInfo) const;
     QSqlQuery deleteGroup(const GroupUuid& uuid) const;
 
     // Terms table

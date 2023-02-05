@@ -14,7 +14,7 @@
 
 GlobalTagCache TermGroup::tagCache;
 
-TermGroup::TermGroup(const GroupData& info, const TermData::List& termData, QObject* parent)
+TermGroup::TermGroup(const GroupSummary& info, const TermData::List& termData, QObject* parent)
     : QObject(parent)
     , mInfo(info)
 {

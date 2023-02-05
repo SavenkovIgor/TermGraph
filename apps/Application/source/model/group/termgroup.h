@@ -6,7 +6,7 @@
 #include <QObject>
 
 #include <CommonTools/HandyTypes.h>
-#include <TermDataInterface/GroupData.h>
+#include <TermDataInterface/GroupSummary.h>
 
 #include "source/model/graphicitem/rectgraphicitem.h"
 #include "source/model/group/paintedforest.h"
@@ -27,7 +27,7 @@ public:
     using Ptr    = std::shared_ptr<TermGroup>;
     using OptPtr = std::optional<Ptr>;
 
-    TermGroup(const GroupData& info, const TermData::List& termData, QObject* parent = nullptr);
+    TermGroup(const GroupSummary& info, const TermData::List& termData, QObject* parent = nullptr);
     ~TermGroup() = default;
 
     void setBasePoint(QPointF pt);
@@ -106,7 +106,7 @@ private:
     RectGraphicItem mBaseRect    = RectGraphicItem(QPoint(0, 0), QSizeF(10.0, 10.0));
     RectGraphicItem mOrphansRect = RectGraphicItem();
 
-    GroupData mInfo;
+    GroupSummary mInfo;
 
     PaintedForest::List mForests;
 
