@@ -25,9 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-
-    - name: Install Ninja
-      run: sudo apt install ninja-build
+    - uses: lukka/get-cmake@latest
 
     - name: Install Conan package manager
       uses: actions/setup-python@v4
