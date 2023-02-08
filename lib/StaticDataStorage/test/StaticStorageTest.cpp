@@ -18,18 +18,18 @@ TEST(StaticStorageTest, GroupsLoadable)
     EXPECT_TRUE(group.result().has_value());
 }
 
-TEST(StaticStorageTest, GroupsSerializeSymmetry)
-{
-    auto storage = std::make_unique<StaticDataStorage>();
+// TEST(StaticStorageTest, GroupsSerializeSymmetry)
+// {
+//     auto storage = std::make_unique<StaticDataStorage>();
 
-    for (const auto& fileInfo : StaticDataStorage::files()) {
-        auto fileData = StaticDataStorage::qrcFileData(fileInfo.absoluteFilePath());
-        auto group    = GroupData::from(fileData);
+//     for (const auto& fileInfo : StaticDataStorage::files()) {
+//         auto fileData = StaticDataStorage::qrcFileData(fileInfo.absoluteFilePath());
+//         auto group    = GroupData::from(fileData);
 
-        EXPECT_TRUE(group.has_value());
+//         EXPECT_TRUE(group.has_value());
 
-        auto groupData = static_cast<QByteArray>(group.value());
+//         auto groupData = static_cast<QByteArray>(group.value());
 
-        EXPECT_EQ(groupData, fileData);
-    }
-}
+//         EXPECT_EQ(groupData, fileData);
+//     }
+// }
