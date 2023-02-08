@@ -7,6 +7,7 @@
 #include <functional>
 
 #include <QMap>
+#include <QFileInfoList>
 
 #include <CommonTools/HandyTypes.h>
 
@@ -20,6 +21,9 @@ class StaticDataStorage : public DataStorageInterface
 {
 public:
     StaticDataStorage();
+
+    static QFileInfoList files();
+    static QByteArray    qrcFileData(const QString& filePath);
 
     int storageVersion() const final;
 

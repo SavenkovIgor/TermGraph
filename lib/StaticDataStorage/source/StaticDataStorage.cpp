@@ -20,22 +20,33 @@ StaticDataStorage::StaticDataStorage()
     : DataStorageInterface()
 {
     // Take all files from data folder with extension .json
-        QDir dataDir(dataFolderPath);
-        auto files = dataDir.entryInfoList(QStringList() << "*.json", QDir::Files);
+    for (const auto& fileInfo : files()) {
 
-        for (const auto& fileInfo : files) {
+        auto fileData = qrcFileData(fileInfo.absoluteFilePath());
 
-            QFile file(fileInfo.absoluteFilePath());
-            file.open(QIODevice::ReadOnly);
-            auto fileData = file.readAll();
+        auto group = GroupData::from(fileData);
 
-            auto group = GroupData::from(fileData);
-
-            if (group) {
-                assert(group->uuid.has_value());
-                mGroups.insert(group->uuid.value(), group.value());
-            }
+        if (group) {
+            assert(group->uuid.has_value());
+            mGroups.insert(group->uuid.value(), group.value());
         }
+    }
+}
+
+QFileInfoList StaticDataStorage::files()
+{
+    QDir dataDir(dataFolderPath);
+    auto formats = QStringList() << "*.json";
+    return dataDir.entryInfoList(formats, QDir::Files);
+}
+
+QByteArray StaticDataStorage::qrcFileData(const QString& filePath)
+{
+    QFile file(filePath);
+    assert(file.exists());
+    auto result = file.open(QIODevice::ReadOnly);
+    assert(result);
+    return file.readAll();
 }
 
 int StaticDataStorage::storageVersion() const { return 1; }
