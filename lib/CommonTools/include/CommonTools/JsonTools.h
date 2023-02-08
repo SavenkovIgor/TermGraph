@@ -37,6 +37,25 @@ public:
         return json;
     }
 
+    static inline QJsonObject addIfNotEmpty(QJsonObject json, const QString& key, const QJsonValue& value)
+    {
+        if (value.isString() && value.toString().isEmpty()) {
+            return json;
+        }
+
+        if (value.isArray() && value.toArray().isEmpty()) {
+            return json;
+        }
+
+        if (value.isObject() && value.toObject().isEmpty()) {
+            return json;
+        }
+
+        json.insert(key, value);
+
+        return json;
+    }
+
     // Container keys
     constexpr static auto groupUuidsKey    = "groupUuids";
     constexpr static auto groupsKey        = "groups";

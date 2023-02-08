@@ -21,11 +21,7 @@
 
 void initResources()
 {
-#ifndef Q_OS_WASM
-    Q_INIT_RESOURCE(SqlQueries);
-#endif
     Q_INIT_RESOURCE(HelpImages);
-    Q_INIT_RESOURCE(StaticData);
 }
 
 void setSurfaceFormat()

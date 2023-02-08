@@ -98,3 +98,33 @@ TEST(GroupDataTest, SerializationTest)
 
     EXPECT_EQ(data1, data2);
 }
+
+TEST(GroupDataTest, MinimalSerialization)
+{
+    // auto json = R"({
+    //     "name": "Group",
+    //     "terms": [
+    //         { "term": "Term1", "definition": "" },
+    //         { "term": "Term2", "definition": "{Term1}" },
+    //         { "term": "Term3", "definition": "{Term1}" },
+    //     ]
+    // })";
+
+    // auto optData1 = GroupData::from(QJsonDocument::fromJson(json).object());
+
+    // EXPECT_TRUE(optData1.has_value());
+
+    // auto data1 = optData1.value();
+
+    // EXPECT_EQ(data1.name, "Group");
+    // EXPECT_EQ(data1.terms.size(), 3);
+
+    // EXPECT_EQ(data1.terms[0].term, "Term1");
+    // EXPECT_EQ(data1.terms[0].definition, "");
+
+    // EXPECT_EQ(data1.terms[1].term, "Term2");
+    // EXPECT_EQ(data1.terms[1].definition, "{Term1}");
+
+    // EXPECT_EQ(data1.terms[2].term, "Term3");
+    // EXPECT_EQ(data1.terms[2].definition, "{Term1}");
+}

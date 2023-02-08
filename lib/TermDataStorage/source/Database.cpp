@@ -20,6 +20,8 @@ Database::Database(const QString& filePath, const QString& backupPath)
     , groupTable(nullptr)
     , appConfigTable(nullptr)
 {
+    Q_INIT_RESOURCE(SqlQueries);
+
     mDbFilePath     = filePath;
     mDbBackupFolder = backupPath;
 

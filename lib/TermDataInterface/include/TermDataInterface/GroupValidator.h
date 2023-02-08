@@ -49,6 +49,19 @@ public:
         return ret;
     }
 
+    static GroupJsonValidator staticDataChecks()
+    {
+        GroupJsonValidator ret;
+        ret.addCheck(&validUuidField, ErrorCodes::JsonUuidFieldMissedOrWrongType);
+        ret.addCheck(&validUuid, ErrorCodes::GroupUuidInvalid);
+
+        ret.addCheck(&validNameField, ErrorCodes::JsonNameFieldMissedOrWrongType);
+        ret.addCheck(&nameNotEmpty, ErrorCodes::GroupNameEmpty);
+
+        ret.addCheck(&validNodesArray, ErrorCodes::JsonNodesFieldMissedOrWrongType);
+        return ret;
+    }
+
 private:
     static bool validUuidField(const QJsonObject& obj) { return obj[JsonTools::uuidKey].isString(); }
     static bool validUuid(const QJsonObject& obj)
