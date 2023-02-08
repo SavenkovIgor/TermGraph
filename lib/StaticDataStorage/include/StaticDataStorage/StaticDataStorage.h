@@ -6,13 +6,15 @@
 #include <memory>
 #include <functional>
 
+#include <QMap>
+
 #include <CommonTools/HandyTypes.h>
 
 #include <TermDataInterface/DataStorageInterface.h>
 #include <TermDataInterface/GroupSummary.h>
 #include <TermDataInterface/TermData.h>
+#include <TermDataInterface/GroupData.h>
 
-class StaticStorageImpl;
 
 class StaticDataStorage : public DataStorageInterface
 {
@@ -37,7 +39,8 @@ public:
     FutureResult<TermData> deleteTerm(const TermUuid& uuid) final;
 
 private:
-    StaticStorageImpl* impl = nullptr;
+    constexpr static auto dataFolderPath = ":/data/";
+    QMap<GroupUuid, GroupData> mGroups;
 
     QMap<GroupUuid, QDateTime> termsLastEdit() const;
 };

@@ -4,8 +4,7 @@
 #include "include/StaticDataStorage/StaticDataStorage.h"
 
 #include <QMap>
-
-#include <TermDataInterface/GroupData.h>
+#include <QDir>
 
 template<typename T>
 static QFuture<T> toFuture(const std::function<T()>& func)
@@ -17,12 +16,10 @@ static QFuture<T> toFuture(const std::function<T()>& func)
     return promise.future();
 }
 
-class StaticStorageImpl
+StaticDataStorage::StaticDataStorage()
+    : DataStorageInterface()
 {
-public:
-    StaticStorageImpl()
-    {
-        // Take all files from data folder with extension .json
+    // Take all files from data folder with extension .json
         QDir dataDir(dataFolderPath);
         auto files = dataDir.entryInfoList(QStringList() << "*.json", QDir::Files);
 
@@ -39,23 +36,13 @@ public:
                 mGroups.insert(group->uuid.value(), group.value());
             }
         }
-    }
-
-    constexpr static auto dataFolderPath = ":/data/";
-    QMap<GroupUuid, GroupData> mGroups;
-};
-
-StaticDataStorage::StaticDataStorage()
-    : DataStorageInterface()
-    , impl(new StaticStorageImpl())
-{
 }
 
 int StaticDataStorage::storageVersion() const { return 1; }
 
 FutureResult<GroupSummary> StaticDataStorage::group(const GroupUuid& uuid) const
 {
-    return toFuture<Result<GroupSummary>>([this, &uuid] () { return impl->mGroups.value(uuid); });
+    return toFuture<Result<GroupSummary>>([this, &uuid] () { return mGroups.value(uuid); });
 }
 
 FutureResult<GroupSummary::List> StaticDataStorage::groups() const
@@ -63,7 +50,7 @@ FutureResult<GroupSummary::List> StaticDataStorage::groups() const
     return toFuture<Result<GroupSummary::List>>([this] () -> GroupSummary::List {
 
         auto lastEdits = termsLastEdit();
-        auto groups = impl->mGroups.values();
+        auto groups = mGroups.values();
 
         // Sorting this structure
         auto groupOrdering = [&lastEdits](const auto& g1, const auto& g2) {
@@ -102,12 +89,12 @@ FutureResult<GroupSummary> StaticDataStorage::deleteGroup([[maybe_unused]]const 
 
 FutureResult<TermData> StaticDataStorage::term(const QString& nodeName, const GroupUuid& uuid) const
 {
-    if (!impl->mGroups.contains(uuid)) {
+    if (!mGroups.contains(uuid)) {
         return toFuture<Result<TermData>>([] { return ErrorCodes::GroupUuidNotFound; });
     }
 
     return toFuture<Result<TermData>>([this, nodeName, uuid] () -> Result<TermData> {
-        auto term = impl->mGroups.value(uuid).term(nodeName);
+        auto term = mGroups.value(uuid).term(nodeName);
         if (!term) {
             return ErrorCodes::TermNotFound;
         }
@@ -124,16 +111,16 @@ FutureResult<TermData> StaticDataStorage::term([[maybe_unused]] const TermUuid& 
 
 FutureResult<TermData::List> StaticDataStorage::terms(const GroupUuid& uuid) const
 {
-    if (!impl->mGroups.contains(uuid)) {
+    if (!mGroups.contains(uuid)) {
         return toFuture<Result<TermData::List>>([] { return ErrorCodes::GroupUuidNotFound; });
     }
 
     return toFuture<Result<TermData::List>>([this, uuid] () -> Result<TermData::List> {
-        if (!impl->mGroups.contains(uuid)) {
+        if (!mGroups.contains(uuid)) {
             return ErrorCodes::GroupUuidNotFound;
         }
 
-        return impl->mGroups.value(uuid).terms;
+        return mGroups.value(uuid).terms;
     });
 }
 
@@ -161,7 +148,7 @@ QMap<GroupUuid, QDateTime> StaticDataStorage::termsLastEdit() const
 {
     QMap<GroupUuid, QDateTime> ret;
 
-    for (const auto& group : impl->mGroups) {
+    for (const auto& group : mGroups) {
         assert(group.uuid.has_value());
         ret.insert(group.uuid.value(), group.termsLastEdit().value_or(QDateTime()));
     }
