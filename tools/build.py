@@ -126,7 +126,7 @@ def build_app(preset_name: str):
 
 def test_app(preset_name: str):
     print('---CMAKE TEST STARTED---')
-    assert_system_call(f'ctest --preset {preset_name}')
+    assert_system_call(f'ctest --preset {preset_name} --output-on-failure')
 
 
 def main():
