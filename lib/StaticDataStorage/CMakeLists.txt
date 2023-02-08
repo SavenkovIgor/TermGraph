@@ -46,7 +46,7 @@ if (BUILD_TESTING)
         PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 
     target_link_libraries (StaticDataStorageTest GTest::gtest GTest::gtest_main)
-    target_link_libraries (StaticDataStorageTest CommonTools TermDataStorage Qt6::Core)
+    target_link_libraries (StaticDataStorageTest CommonTools StaticDataStorage Qt6::Core)
 
     gtest_add_tests (TARGET StaticDataStorageTest)
 endif ()
