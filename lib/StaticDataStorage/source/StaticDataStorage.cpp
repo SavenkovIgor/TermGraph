@@ -19,6 +19,8 @@ static QFuture<T> toFuture(const std::function<T()>& func)
 StaticDataStorage::StaticDataStorage()
     : DataStorageInterface()
 {
+    Q_INIT_RESOURCE(StaticData);
+
     // Take all files from data folder with extension .json
     for (const auto& fileInfo : files()) {
 

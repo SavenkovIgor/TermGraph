@@ -17,7 +17,7 @@
 
 std::unique_ptr<DataStorageInterface> DataSourceFactory::defaultSource()
 {
-    if constexpr  (Platform::isWasm()) {
+    if constexpr (Platform::isWasm()) {
         if constexpr (Platform::isStaticDataStorage()) {
             return std::make_unique<StaticDataStorage>();
         } else {
