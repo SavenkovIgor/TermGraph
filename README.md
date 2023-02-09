@@ -135,6 +135,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - [RESTinio lib](https://github.com/Stiffstream/restinio) (for REST server)
 - [GTest lib](https://github.com/google/googletest) (tests)
 - [Outcome lib](https://github.com/ned14/outcome) (would be replaced with std::expected when available)
+- [coi-serviceworker library](https://github.com/gzuidhof/coi-serviceworker) (sets proper [CORS](https://developer.mozilla.org/ru/docs/Web/HTTP/CORS) headers, for wasm build)
 
 
 # :hammer_and_wrench: Build
