@@ -28,7 +28,7 @@
 -->
 
 <div align="center">
-    <a href="https://termgraph.app/"><img
+    <a href="https://savenkovigor.github.io/TermGraph/"><img
       width="100"
       alt="TermGraph"
       src="apps/Application/resources/applicationIcons/appIcon128x128.png"></a>
