@@ -2,48 +2,47 @@
     "lastEdit": "2022-08-23T20:01:10Z",
     "name": "Global",
     "nodesLastEdit": "2022-08-23T20:01:10Z",
-    "size": 1,
     "terms": [
         {
-            "term": "Reality",
             "definition": "the objectively existing world in the broadest sense",
             "description": "",
             "examples": "",
             "groupUuid": "{5fdb1e56-f47f-4c88-96d2-fd3d427d2a9d}",
             "lastEdit": "2022-08-23T20:01:10Z",
+            "term": "Reality",
             "uuid": "{8a505474-b90f-4e83-be63-e6a1e5d39b24}",
             "wikiImage": "",
             "wikiUrl": ""
         },
         {
-            "term": "Elementary particle",
             "definition": "a particle that is not composed of other particles",
             "description": "",
             "examples": "",
             "groupUuid": "{5fdb1e56-f47f-4c88-96d2-fd3d427d2a9d}",
             "lastEdit": "2022-08-23T20:01:10Z",
+            "term": "Elementary particle",
             "uuid": "{8a505474-b90f-4e83-be63-e679d5d39b24}",
             "wikiImage": "",
             "wikiUrl": ""
         },
         {
-            "term": "Quark",
             "definition": "undividible {elementary particle}, known at the moment",
             "description": "",
             "examples": "",
             "groupUuid": "{5fdb1e56-f47f-4c88-96d2-fd3d427d2a9d}",
             "lastEdit": "2022-08-23T20:01:10Z",
+            "term": "Quark",
             "uuid": "{8a505474-b90f-4e93-be63-e679d5d39b24}",
             "wikiImage": "",
             "wikiUrl": ""
         },
         {
-            "term": "Matter",
             "definition": "any substance in {reality} that has {mass} and {volume}",
             "description": "",
             "examples": "",
             "groupUuid": "{5fdb1e56-f47f-4c88-96d2-fd3d427d2a9d}",
             "lastEdit": "2022-08-23T20:01:10Z",
+            "term": "Matter",
             "uuid": "{8a505474-b90f-4483-be63-e679d5d39b24}",
             "wikiImage": "",
             "wikiUrl": ""

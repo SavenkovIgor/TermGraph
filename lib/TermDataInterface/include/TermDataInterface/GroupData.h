@@ -84,7 +84,6 @@ struct GroupData: public GroupSummary
         ret.uuid     = GroupUuid::from(json[JsonTools::uuidKey].toString());
         ret.name     = json[JsonTools::nameKey].toString();
         ret.comment  = json[JsonTools::commentKey].toString("");
-        ret.size     = asInt(json[JsonTools::termsKey].toArray().size());
         ret.lastEdit = QDateTime::fromString(json[JsonTools::lastEditKey].toString(), Qt::ISODate);
         ret.terms    = TermData::List::from(json[JsonTools::termsKey].toArray());
 
@@ -126,7 +125,6 @@ struct GroupData: public GroupSummary
         ret.insert(JsonTools::uuidKey, (uuid ? uuid->toString() : ""));
         ret.insert(JsonTools::nameKey, name);
         ret = JsonTools::addIfNotEmpty(ret, JsonTools::commentKey, comment);
-        ret.insert(JsonTools::sizeKey, size);
         ret.insert(JsonTools::lastEditKey, lastEdit.toString(Qt::ISODate));
 
         if (nodesLastEdit)

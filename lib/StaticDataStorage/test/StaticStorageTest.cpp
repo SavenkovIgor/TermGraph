@@ -1,11 +1,9 @@
 // Copyright © 2016-2022. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-// #include <memory>
-
-// #include <QDir>
-
 #include <gtest/gtest.h>
+
+#include <QDebug>
 
 #include <StaticDataStorage/StaticDataStorage.h>
 
@@ -18,18 +16,35 @@ TEST(StaticStorageTest, GroupsLoadable)
     EXPECT_TRUE(group.result().has_value());
 }
 
-// TEST(StaticStorageTest, GroupsSerializeSymmetry)
-// {
-//     auto storage = std::make_unique<StaticDataStorage>();
+TEST(StaticStorageTest, GroupsSerializeSymmetry)
+{
+    auto storage = std::make_unique<StaticDataStorage>();
 
-//     for (const auto& fileInfo : StaticDataStorage::files()) {
-//         auto fileData = StaticDataStorage::qrcFileData(fileInfo.absoluteFilePath());
-//         auto group    = GroupData::from(fileData);
+    auto allFiles = StaticDataStorage::files();
+    QFileInfoList filteredFiles;
 
-//         EXPECT_TRUE(group.has_value());
+    QStringList filters;
+    filters << "Global.json";
 
-//         auto groupData = static_cast<QByteArray>(group.value());
+    for (const auto& fileInfo : allFiles) {
+        if (filters.contains(fileInfo.fileName())) {
+            filteredFiles << fileInfo;
+        }
+    }
 
-//         EXPECT_EQ(groupData, fileData);
-//     }
-// }
+    for (const auto& fileInfo : filteredFiles) {
+        auto fileData = StaticDataStorage::qrcFileData(fileInfo.absoluteFilePath());
+        auto group    = GroupData::from(fileData);
+
+        EXPECT_TRUE(group.has_value());
+
+        auto groupData = static_cast<QByteArray>(group.value());
+
+        EXPECT_EQ(groupData, fileData);
+
+        if (groupData != fileData) {
+            qInfo() << "Raw file data:" << fileData;
+            qInfo() << "Expected data:" << groupData;
+        }
+    }
+}
