@@ -28,7 +28,7 @@
 -->
 
 <div align="center">
-    <a href="https://termgraph.app/"><img
+    <a href="https://savenkovigor.github.io/TermGraph/"><img
       width="100"
       alt="TermGraph"
       src="apps/Application/resources/applicationIcons/appIcon128x128.png"></a>
@@ -135,6 +135,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - [RESTinio lib](https://github.com/Stiffstream/restinio) (for REST server)
 - [GTest lib](https://github.com/google/googletest) (tests)
 - [Outcome lib](https://github.com/ned14/outcome) (would be replaced with std::expected when available)
+- [coi-serviceworker library](https://github.com/gzuidhof/coi-serviceworker) (sets proper [CORS](https://developer.mozilla.org/ru/docs/Web/HTTP/CORS) headers, for wasm build)
 
 
 # :hammer_and_wrench: Build
