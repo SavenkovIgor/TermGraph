@@ -24,14 +24,13 @@ TermData someTermData()
 StaticGroupData defaultGroupData()
 {
     auto term = someTermData();
-    auto data = StaticGroupData();
+    StaticGroupData data;
 
     data.uuid          = GroupUuid::from("{5fdb1e7e-f47f-4c88-96d2-fd3d427d2a9d}"),
     data.name          = "Group",
     data.comment       = "Comment",
     data.size          = 0,
     data.lastEdit      = QDateTime::fromString("2022-08-23T20:01:10Z", Qt::ISODate),
-    data.nodesLastEdit = QDateTime::fromString("2022-08-23T20:01:10Z", Qt::ISODate),
     data.terms.push_back(term);
 
     return data;
@@ -64,14 +63,6 @@ TEST(StaticGroupDataTest, ComparisonTest)
 
     data1             = defaultGroupData();
     data1.lastEdit    = QDateTime::currentDateTime().addSecs(1);
-    EXPECT_NE(data1, defaultGroupData());
-
-    data1                  = defaultGroupData();
-    data1.nodesLastEdit    = QDateTime::currentDateTime().addSecs(1);
-    EXPECT_NE(data1, defaultGroupData());
-
-    data1                  = defaultGroupData();
-    data1.nodesLastEdit    = std::nullopt;
     EXPECT_NE(data1, defaultGroupData());
 
     data1                  = defaultGroupData();
