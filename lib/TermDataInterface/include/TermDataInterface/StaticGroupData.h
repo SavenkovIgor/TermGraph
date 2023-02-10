@@ -87,24 +87,6 @@ struct StaticGroupData : public GroupSummary
         ret.lastEdit = QDateTime::fromString(json[JsonTools::lastEditKey].toString(), Qt::ISODate);
         ret.terms    = TermData::List::from(json[JsonTools::termsKey].toArray());
 
-        ret.nodesLastEdit = QDateTime::fromString(json[JsonTools::nodesLastEditKey].toString(), Qt::ISODate);
-
-        if (ret.nodesLastEdit->isNull()) {
-            QDateTime lastEdit;
-
-            for (const auto& term : ret.terms) {
-                if (term.lastEdit > lastEdit) {
-                    lastEdit = term.lastEdit;
-                }
-            }
-
-            ret.nodesLastEdit = lastEdit;
-        }
-
-        if (ret.nodesLastEdit->isNull()) {
-            ret.nodesLastEdit = std::nullopt;
-        }
-
         return ret;
     }
 
@@ -126,9 +108,6 @@ struct StaticGroupData : public GroupSummary
         ret.insert(JsonTools::nameKey, name);
         ret = JsonTools::addIfNotEmpty(ret, JsonTools::commentKey, comment);
         ret.insert(JsonTools::lastEditKey, lastEdit.toString(Qt::ISODate));
-
-        if (nodesLastEdit)
-            ret.insert(JsonTools::nodesLastEditKey, nodesLastEdit->toString(Qt::ISODate));
 
         ret.insert(JsonTools::termsKey, static_cast<QJsonArray>(terms));
 
