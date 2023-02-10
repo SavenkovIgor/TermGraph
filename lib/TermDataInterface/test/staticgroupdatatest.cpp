@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include <TermDataInterface/GroupData.h>
+#include <TermDataInterface/StaticGroupData.h>
 
 
 TermData someTermData()
@@ -21,10 +21,10 @@ TermData someTermData()
     };
 }
 
-GroupData defaultGroupData()
+StaticGroupData defaultGroupData()
 {
     auto term = someTermData();
-    auto data = GroupData();
+    auto data = StaticGroupData();
 
     data.uuid          = GroupUuid::from("{5fdb1e7e-f47f-4c88-96d2-fd3d427d2a9d}"),
     data.name          = "Group",
@@ -37,7 +37,7 @@ GroupData defaultGroupData()
     return data;
 }
 
-TEST(GroupDataTest, ComparisonTest)
+TEST(StaticGroupDataTest, ComparisonTest)
 {
     auto data1 = defaultGroupData();
     EXPECT_EQ(data1, defaultGroupData());
@@ -83,10 +83,10 @@ TEST(GroupDataTest, ComparisonTest)
     EXPECT_NE(data1, defaultGroupData());
 }
 
-TEST(GroupDataTest, SerializationTest)
+TEST(StaticGroupDataTest, SerializationTest)
 {
     auto data1 = defaultGroupData();
-    auto data2 = GroupData::from(static_cast<QJsonObject>(data1));
+    auto data2 = StaticGroupData::from(static_cast<QJsonObject>(data1));
 
 
     qInfo() << static_cast<QJsonObject>(data1);
@@ -94,12 +94,12 @@ TEST(GroupDataTest, SerializationTest)
     EXPECT_EQ(data1, data2);
 
     data1 = defaultGroupData();
-    data2 = GroupData::from(static_cast<QByteArray>(data1));
+    data2 = StaticGroupData::from(static_cast<QByteArray>(data1));
 
     EXPECT_EQ(data1, data2);
 }
 
-TEST(GroupDataTest, MinimalSerialization)
+TEST(StaticGroupDataTest, MinimalSerialization)
 {
     // auto json = R"({
     //     "name": "Group",
@@ -110,7 +110,7 @@ TEST(GroupDataTest, MinimalSerialization)
     //     ]
     // })";
 
-    // auto optData1 = GroupData::from(QJsonDocument::fromJson(json).object());
+    // auto optData1 = StaticGroupData::from(QJsonDocument::fromJson(json).object());
 
     // EXPECT_TRUE(optData1.has_value());
 
