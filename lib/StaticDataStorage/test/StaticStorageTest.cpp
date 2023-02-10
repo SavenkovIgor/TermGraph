@@ -20,26 +20,20 @@ TEST(StaticStorageTest, GroupsSerializeSymmetry)
 {
     auto storage = std::make_unique<StaticDataStorage>();
 
-    auto allFiles = StaticDataStorage::files();
-    QFileInfoList filteredFiles;
-
-    QStringList filters;
-    filters << "Global.json";
-
-    for (const auto& fileInfo : allFiles) {
-        if (filters.contains(fileInfo.fileName())) {
-            filteredFiles << fileInfo;
-        }
-    }
-
-    for (const auto& fileInfo : filteredFiles) {
+    for (const auto& fileInfo : StaticDataStorage::files()) {
         auto fileData = StaticDataStorage::qrcFileData(fileInfo.absoluteFilePath());
+
+        EXPECT_TRUE(fileData.isValidUtf8());
+
         auto group    = StaticGroupData::from(fileData);
 
         EXPECT_TRUE(group.has_value());
 
         auto castedJson = static_cast<QByteArray>(group.value());
 
+        EXPECT_TRUE(castedJson.isValidUtf8());
+
+        EXPECT_EQ(castedJson.size(), fileData.size());
         EXPECT_EQ(castedJson, fileData);
 
         if (castedJson != fileData) {
