@@ -26,7 +26,7 @@ StaticDataStorage::StaticDataStorage()
 
         auto fileData = qrcFileData(fileInfo.absoluteFilePath());
 
-        auto group = GroupData::from(fileData);
+        auto group = StaticGroupData::from(fileData);
 
         if (group) {
             assert(group->uuid.has_value());

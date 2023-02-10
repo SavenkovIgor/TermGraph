@@ -12,9 +12,9 @@
 #include <TermDataInterface/TermData.h>
 #include <TermDataInterface/GroupSummary.h>
 
-struct GroupData: public GroupSummary
+struct StaticGroupData : public GroupSummary
 {
-    using List = std::vector<GroupData>;
+    using List = std::vector<StaticGroupData>;
 
     TermData::List terms;
 
@@ -66,10 +66,10 @@ struct GroupData: public GroupSummary
         return std::nullopt;
     }
 
-    inline bool operator==(const GroupData& rhs) const = default;
+    inline bool operator==(const StaticGroupData& rhs) const = default;
 
     // --- JSON ---
-    static inline Opt<GroupData> from(QJsonObject json)
+    static inline Opt<StaticGroupData> from(QJsonObject json)
     {
         // Some import data fixes
         // Update of termsKey if need
@@ -79,7 +79,7 @@ struct GroupData: public GroupSummary
             return std::nullopt;
         }
 
-        GroupData ret;
+        StaticGroupData ret;
 
         ret.uuid     = GroupUuid::from(json[JsonTools::uuidKey].toString());
         ret.name     = json[JsonTools::nameKey].toString();
@@ -108,7 +108,7 @@ struct GroupData: public GroupSummary
         return ret;
     }
 
-    static inline Opt<GroupData> from(const QByteArray& jsonBytes)
+    static inline Opt<StaticGroupData> from(const QByteArray& jsonBytes)
     {
         auto doc = QJsonDocument::fromJson(jsonBytes);
 

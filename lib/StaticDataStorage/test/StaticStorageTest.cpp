@@ -34,17 +34,17 @@ TEST(StaticStorageTest, GroupsSerializeSymmetry)
 
     for (const auto& fileInfo : filteredFiles) {
         auto fileData = StaticDataStorage::qrcFileData(fileInfo.absoluteFilePath());
-        auto group    = GroupData::from(fileData);
+        auto group    = StaticGroupData::from(fileData);
 
         EXPECT_TRUE(group.has_value());
 
-        auto groupData = static_cast<QByteArray>(group.value());
+        auto castedJson = static_cast<QByteArray>(group.value());
 
-        EXPECT_EQ(groupData, fileData);
+        EXPECT_EQ(castedJson, fileData);
 
-        if (groupData != fileData) {
+        if (castedJson != fileData) {
             qInfo() << "Raw file data:" << fileData;
-            qInfo() << "Expected data:" << groupData;
+            qInfo() << "Expected data:" << castedJson;
         }
     }
 }

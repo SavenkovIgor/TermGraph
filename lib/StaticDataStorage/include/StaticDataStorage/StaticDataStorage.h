@@ -14,7 +14,7 @@
 #include <TermDataInterface/DataStorageInterface.h>
 #include <TermDataInterface/GroupSummary.h>
 #include <TermDataInterface/TermData.h>
-#include <TermDataInterface/GroupData.h>
+#include <TermDataInterface/StaticGroupData.h>
 
 
 class StaticDataStorage : public DataStorageInterface
@@ -44,7 +44,7 @@ public:
 
 private:
     constexpr static auto dataFolderPath = ":/data/";
-    QMap<GroupUuid, GroupData> mGroups;
+    QMap<GroupUuid, StaticGroupData> mGroups;
 
     QMap<GroupUuid, QDateTime> termsLastEdit() const;
 };
