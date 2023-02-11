@@ -31,6 +31,8 @@ public:
 
     ErrorList lastErrors() const { return mLastErrors; }
 
+    void clear() { mCheckList.clear(); }
+
 protected:
     // This class is only for nesting
     Validator() = default;

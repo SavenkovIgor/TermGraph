@@ -3,1675 +3,1072 @@
     "terms": [
         {
             "definition": "1 {байтный} {регистр}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "AH",
-            "uuid": "{9fd83c7f-abb7-4d2b-86d4-24492b7df13b}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{9fd83c7f-abb7-4d2b-86d4-24492b7df13b}"
         },
         {
             "definition": "1 {байтный} {регистр}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "AL",
-            "uuid": "{0acb168a-05f6-4ec2-8b17-efa5a14009a9}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{0acb168a-05f6-4ec2-8b17-efa5a14009a9}"
         },
         {
             "definition": "8 {бит}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "Байт",
-            "uuid": "{dc534ee4-3d76-4332-8b4f-b33017e78c8f}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{dc534ee4-3d76-4332-8b4f-b33017e78c8f}"
         },
         {
             "definition": "Устройство для записи, хранения и считывания N-ого количества {бит}. Обычно размерность кратна {байту}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "Регистр",
-            "uuid": "{126e52dd-aad6-4f62-b50b-3abadec10ce4}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{126e52dd-aad6-4f62-b50b-3abadec10ce4}"
         },
         {
             "definition": " 16 {битный} {регистр}. Состоит из {AH} и {AL}. Регистр аккумулятор",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "AX",
-            "uuid": "{1aca8882-f861-4c6f-8775-51641ab53c10}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{1aca8882-f861-4c6f-8775-51641ab53c10}"
         },
         {
             "definition": "1 {байтный} {регистр}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "BH",
-            "uuid": "{82f67972-fdb7-47f1-a98f-3b4dc19d7043}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{82f67972-fdb7-47f1-a98f-3b4dc19d7043}"
         },
         {
             "definition": "1 {байтный} {регистр}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "BL",
-            "uuid": "{22620e4a-3c86-45f6-b098-ffc3a1cee15c}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{22620e4a-3c86-45f6-b098-ffc3a1cee15c}"
         },
         {
             "definition": "16 {байтный} {регистр}. Состоит из {BH} и {BL}. Регистр базы",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "BX",
-            "uuid": "{889bf680-7c99-4346-bc0e-66bea22c1a3c}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{889bf680-7c99-4346-bc0e-66bea22c1a3c}"
         },
         {
             "definition": "часть {регистра} счётчика. Размер 1 {байт}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "CH",
-            "uuid": "{e62ad0ea-4a2a-4d3d-bd4d-709318e383ed}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{e62ad0ea-4a2a-4d3d-bd4d-709318e383ed}"
         },
         {
             "definition": "часть {регистра} счётчика. Размер 1 {байт}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "CL",
-            "uuid": "{e8b636b1-e936-4386-b40b-d4e658f54012}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{e8b636b1-e936-4386-b40b-d4e658f54012}"
         },
         {
             "definition": " {регистр} счётчика длинной 2 {байта}. Состоит из {регистров} {CH} и {CL}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "CX",
-            "uuid": "{8f27332b-9798-46c3-9818-f6447c6fb67a}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{8f27332b-9798-46c3-9818-f6447c6fb67a}"
         },
         {
             "definition": "Часть {регистра} данных. Размер 1 {байт}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "DL",
-            "uuid": "{d36c9cb1-60c4-4594-9d8b-ba324035fae9}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{d36c9cb1-60c4-4594-9d8b-ba324035fae9}"
         },
         {
             "definition": "16 битный регистр данных. Состоит из {DH}  и {DL}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "DX",
-            "uuid": "{38ce720f-69d5-4297-a21b-d11a50fed094}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{38ce720f-69d5-4297-a21b-d11a50fed094}"
         },
         {
             "definition": "часть {регистра} данных. Размер 1 {байт}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "DH",
-            "uuid": "{584a0ea7-9d00-4679-a325-c8a648003095}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{584a0ea7-9d00-4679-a325-c8a648003095}"
         },
         {
             "definition": "32 {битный} {регистр}. Содержит в себе {AX}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "EAX",
-            "uuid": "{b29fc4f2-5ff4-4bb4-8293-0a7d9e6d94f9}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b29fc4f2-5ff4-4bb4-8293-0a7d9e6d94f9}"
         },
         {
             "definition": "32х битный регистр. Частично перекрывает {BX}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "EBX",
-            "uuid": "{4e8f6d49-b2af-4b20-a838-b6497600b725}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{4e8f6d49-b2af-4b20-a838-b6497600b725}"
         },
         {
             "definition": "Чтобы ассемблер мог отличить 16ое число, начинающееся с буквы, от обычной метки или имени переменной, перед таким числом нужно ставить 0",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "0 префикс для 16h",
-            "uuid": "{d958df2b-6285-4b2a-9ea5-8c4d9ad0917c}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{d958df2b-6285-4b2a-9ea5-8c4d9ad0917c}"
         },
         {
             "definition": "{регистр}, обычно содержащий индекс источника данных",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "SI",
-            "uuid": "{fbf1e4fe-8389-435b-8f18-c0f8c2b46d5d}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{fbf1e4fe-8389-435b-8f18-c0f8c2b46d5d}"
         },
         {
             "definition": "{регистр}, обычно содержащий Индекс приемника",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "DI",
-            "uuid": "{8d6599c2-d0f2-4d5b-a74c-a596870eda66}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{8d6599c2-d0f2-4d5b-a74c-a596870eda66}"
         },
         {
             "definition": "{Регистр} для работы со {стеком}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "bp",
-            "uuid": "{91978edc-f8e4-4668-8e04-ac1e9eb96d54}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{91978edc-f8e4-4668-8e04-ac1e9eb96d54}"
         },
         {
             "definition": "{Регистр} содержащий адрес вершины {стека}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "SP",
-            "uuid": "{2d6a1c92-c36f-4af4-b32e-152a20004a03}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{2d6a1c92-c36f-4af4-b32e-152a20004a03}"
         },
         {
             "definition": "{Абстрактный тип данных}. Который представляет из себя {очередь}, организованную по принципу {LIFO}. В аппаратной архитектуре, целый {сегмент} может быть выделен под стек",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "Стек",
-            "uuid": "{b3b382d4-9f0d-40b1-b184-022f8e45b010}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b3b382d4-9f0d-40b1-b184-022f8e45b010}"
         },
         {
             "definition": "Code segment. {Сегментный регистр} кода",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "CS",
-            "uuid": "{7924d475-bd61-491b-8ebc-1399ecaae609}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{7924d475-bd61-491b-8ebc-1399ecaae609}"
         },
         {
             "definition": "Data segment. {сегментный регистр} данных",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "DS",
-            "uuid": "{cd6dd3ba-f81b-4769-855f-8592a474edfe}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{cd6dd3ba-f81b-4769-855f-8592a474edfe}"
         },
         {
             "definition": "Дополнительный {сегментный регистр}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "ES",
-            "uuid": "{94183662-8308-4ccd-b316-84c6a36f775c}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{94183662-8308-4ccd-b316-84c6a36f775c}"
         },
         {
             "definition": "Stack segment. {Сегментный регистр} {стека}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "SS",
-            "uuid": "{85a2fb0d-97c8-483e-9e29-a351b23a873d}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{85a2fb0d-97c8-483e-9e29-a351b23a873d}"
         },
         {
             "definition": "{Арифметическая инструкция}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "add",
-            "uuid": "{cd1be933-9bf0-4876-a0b7-a21410259987}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{cd1be933-9bf0-4876-a0b7-a21410259987}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "sub",
-            "uuid": "{ae891144-ea12-4078-bcc1-3ecab448bc64}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{ae891144-ea12-4078-bcc1-3ecab448bc64}"
         },
         {
             "definition": "{арифметическая инструкция}. Увеличивает число на 1",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "inc",
-            "uuid": "{9b00bd34-2d64-497a-a846-7905e03996cb}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{9b00bd34-2d64-497a-a846-7905e03996cb}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "dec",
-            "uuid": "{34554ba7-7f7d-4dcb-bd7d-14f233849178}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{34554ba7-7f7d-4dcb-bd7d-14f233849178}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "Команда-приемник-источник",
-            "uuid": "{6455d4ea-0859-4288-b323-030d31644a54}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{6455d4ea-0859-4288-b323-030d31644a54}"
         },
         {
             "definition": "Небольшой, отдельно адресуемый участок памяти, идущий подряд, фиксированного размера",
             "description": "Загрузка чисел напрямую в сегментные регистры запрещена",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "Сегмент",
-            "uuid": "{a2d01660-f22e-417d-a08a-397e65d2fcbd}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{a2d01660-f22e-417d-a08a-397e65d2fcbd}"
         },
         {
             "definition": "Команда ассемблеру для установки смещения внутри сегмента памяти.",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "org 100h",
-            "uuid": "{5dc2b8a5-38cf-4b3a-8034-dffed29a922b}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{5dc2b8a5-38cf-4b3a-8034-dffed29a922b}"
         },
         {
             "definition": "{Инструкция}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "Арифметическая инструкции",
-            "uuid": "{4b33b2b9-af90-4d8e-bccf-d98600752987}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{4b33b2b9-af90-4d8e-bccf-d98600752987}"
         },
         {
             "definition": "instruction pointer {регистр}, содержащий {адрес} {инструкции}, которая будет выполнена следующей",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "IP",
-            "uuid": "{5d01234c-c4aa-4be3-af72-61e93f28126d}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{5d01234c-c4aa-4be3-af72-61e93f28126d}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "В реальном режиме для адресации используется сегмент и смещение",
-            "uuid": "{45016367-27e0-419f-a4c8-15f61be8ba1c}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{45016367-27e0-419f-a4c8-15f61be8ba1c}"
         },
         {
             "definition": "{Инструкция перехода} которая используется для вызова функции. Кладет в {стек} адрес возврата",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "call",
-            "uuid": "{e0d1deb7-a8fd-4827-802b-54179caaa573}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{e0d1deb7-a8fd-4827-802b-54179caaa573}"
         },
         {
             "definition": "достает из {стека} только {смещение} для возврата; процедура должна находиться в том же {сегменте}, из которого ее вызывают",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "ret",
-            "uuid": "{85fa659e-bbfb-4fc0-bc21-808519db7326}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{85fa659e-bbfb-4fc0-bc21-808519db7326}"
         },
         {
             "definition": "{Инструкция работы со стеком}, которая копирует переменную в {стек} и увеличивает {sp}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:48Z",
             "term": "push",
-            "uuid": "{1717f3c1-f8a6-4e43-a8bf-c47e912c9c7e}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{1717f3c1-f8a6-4e43-a8bf-c47e912c9c7e}"
         },
         {
             "definition": "{Инструкция работы со стеком}. Копирует значение из {стека} и кладет в переданную переменную, автоматически увеличивая {sp}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "pop",
-            "uuid": "{95d9b939-f2be-481e-a49b-ca5cfe730583}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{95d9b939-f2be-481e-a49b-ca5cfe730583}"
         },
         {
             "definition": "Операция запрета {прерывания}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "cli",
-            "uuid": "{a0058c06-a35e-435b-98e5-b3bcce32e47e}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{a0058c06-a35e-435b-98e5-b3bcce32e47e}"
         },
         {
             "definition": "Операция разрешения {прерываний}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "sti",
-            "uuid": "{b553ba2e-d097-4c29-a3f2-c1994e78e7fc}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b553ba2e-d097-4c29-a3f2-c1994e78e7fc}"
         },
         {
             "definition": "Своего рода процедура, не имеющая имени но имеющая личный номер",
             "description": "Некоторые номера прерываний зарезервированы в BIOS",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Прерывание",
-            "uuid": "{b42510a6-f81a-4d66-8ebc-27ae1ad60c9b}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b42510a6-f81a-4d66-8ebc-27ae1ad60c9b}"
         },
         {
             "definition": "Нет операнда. {Инструкция}, которая ничего не делает",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "nop",
-            "uuid": "{f6522de8-0b5d-4106-a67a-b3799c6016d2}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{f6522de8-0b5d-4106-a67a-b3799c6016d2}"
         },
         {
             "definition": "Сравнение",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "cmp",
-            "uuid": "{85c3c5d1-de18-4aca-b408-5c6f906aec4d}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{85c3c5d1-de18-4aca-b408-5c6f906aec4d}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "В одинарных кавычках можно вставлять символ и он сам скастуется в ASCII",
-            "uuid": "{4b99fa96-f4be-48ec-b625-592766f4f843}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{4b99fa96-f4be-48ec-b625-592766f4f843}"
         },
         {
             "definition": "{Инструкция условного перехода} если {флаг нуля}  установлен",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "jz",
-            "uuid": "{b446ae7e-9d78-4e43-aa01-37f5597b8484}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b446ae7e-9d78-4e43-aa01-37f5597b8484}"
         },
         {
             "definition": "{Регистр} процессора содержащий {флаги} описывающие его текущее состояние",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Регистр флагов",
-            "uuid": "{5dd5add0-34f1-4f2d-9320-80958a4f85a0}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{5dd5add0-34f1-4f2d-9320-80958a4f85a0}"
         },
         {
             "definition": "{Флаг} в {регистре флагов}. Устанавливается в 1 если предыдущая {команда сравнения} была верной.",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Флаг нуля",
-            "uuid": "{859dc320-76af-43d1-8dbb-d7188dc1a88e}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{859dc320-76af-43d1-8dbb-d7188dc1a88e}"
         },
         {
             "definition": "Команда идентичная {jz}. При ассемблировании будет заменена jz",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "je",
-            "uuid": "{95d13bca-74b3-487b-a4aa-917e3044cfa3}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{95d13bca-74b3-487b-a4aa-917e3044cfa3}"
         },
         {
             "definition": "{Инструкция перехода}, в которой переход происходит только при выполнении определенного условия",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Инструкция условного перехода",
-            "uuid": "{b6b8f885-6ac5-4fd9-bbda-eba58172b536}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b6b8f885-6ac5-4fd9-bbda-eba58172b536}"
         },
         {
             "definition": "Инструкция, изменяющая то, какая {инструкция} будет выполнена следующей, путем модификации регистра {ip}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Инструкция перехода",
-            "uuid": "{f47e0377-c1c5-4ca7-8e94-f3001e12a326}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{f47e0377-c1c5-4ca7-8e94-f3001e12a326}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Инструкция безусловного перехода",
-            "uuid": "{e517f9a4-39a7-4b6d-af55-c63ca972bba9}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{e517f9a4-39a7-4b6d-af55-c63ca972bba9}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "jmp",
-            "uuid": "{24e307e4-dcfc-4c5c-8a83-5d730c425164}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{24e307e4-dcfc-4c5c-8a83-5d730c425164}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Расширенный ASCII код",
-            "uuid": "{596208a3-3279-4863-a29c-eb116dfdadab}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{596208a3-3279-4863-a29c-eb116dfdadab}"
         },
         {
             "definition": "1 битный {флаг} в {регистре флагов} который,  равен 1 если в результате арифметической операции произошло переполнение. carry flag. Cf",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Флаг переноса",
-            "uuid": "{64691df0-0a9c-497f-b55a-b33d22756e3a}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{64691df0-0a9c-497f-b55a-b33d22756e3a}"
         },
         {
             "definition": "Команда {условного перехода} если {флаг переноса} установлен.",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "jc",
-            "uuid": "{35c1fcfb-2869-4fd2-9e22-2b2b5dc07c65}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{35c1fcfb-2869-4fd2-9e22-2b2b5dc07c65}"
         },
         {
             "definition": "{Инструкция условного перехода} если {флаг переноса} не установлен",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "jnc",
-            "uuid": "{480ef9a8-9791-4e14-800b-250d4e2c82bc}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{480ef9a8-9791-4e14-800b-250d4e2c82bc}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "dw",
-            "uuid": "{98a1be58-2991-4fd4-8f46-1c2885f9bffb}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{98a1be58-2991-4fd4-8f46-1c2885f9bffb}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Есть нуль символ",
-            "uuid": "{30f3ad13-ca25-4784-b028-3b4443f38c9d}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{30f3ad13-ca25-4784-b028-3b4443f38c9d}"
         },
         {
             "definition": "один или несколько {бит} памяти, характеризующие состояние какого либо объекта",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Флаг",
-            "uuid": "{0cc17e75-2bbb-4d91-9bb0-eae9b1664c83}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{0cc17e75-2bbb-4d91-9bb0-eae9b1664c83}"
         },
         {
             "definition": "Один разряд двоичного кода. Может быть только в 2х взаимоисключающих состояниях: 0 или 1. Минимальная единица информации.",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Бит",
-            "uuid": "{0cb843e8-486d-4f0b-b4b3-c68eaa98f1d3}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{0cb843e8-486d-4f0b-b4b3-c68eaa98f1d3}"
         },
         {
             "definition": "Программа которая постоянно находится в памяти. Часто является обработчиком прерывания",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Резидентная программа",
-            "uuid": "{aed15b05-a51f-4120-abe9-b3c4d4ba210e}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{aed15b05-a51f-4120-abe9-b3c4d4ba210e}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Перехват прерываний",
-            "uuid": "{d7185819-099b-44d0-9e9d-7f905f98b68f}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{d7185819-099b-44d0-9e9d-7f905f98b68f}"
         },
         {
             "definition": "{прерывания}, которые вызывает непосредственно программа при помощи команды int (отсюда и название — программные), например, для того чтобы получить код клавиши, которую нажмет пользователь (mov ah,0/int 16h), или вывести некоторую строку на экран (mov ah,9/int 21h)",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Программные прерывания",
-            "uuid": "{ae76992f-406c-4d2f-8009-038d30195644}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{ae76992f-406c-4d2f-8009-038d30195644}"
         },
         {
             "definition": "{прерывания}, которые вызываются самостоятельно процессором (аппаратурой компьютера) при возникновении каких-либо событий. При этом процессор прекращает выполнение текущей программы, сохраняет в стеке регистры ss, sp и флаги, вызывает соответствующее прерывание, а затем восстанавливает сохраненные регистры и продолжает выполнение текущей программы",
-            "description": "",
             "examples": "При нажатии и отпускании какой-либо клавиши пользователем вызывается прерывание ПЗУ 09h. Или прерывание таймера (также ПЗУ) 1Ch, вызываемое автоматически примерно 18,2 раза в секунду",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Аппаратные прывания",
-            "uuid": "{2b2a66e5-25de-4e86-9782-cfa9f3223f3c}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{2b2a66e5-25de-4e86-9782-cfa9f3223f3c}"
         },
         {
             "definition": "аналог инструкции {push} для {регистра флагов}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "pushf",
-            "uuid": "{0d443270-a16e-4528-8f5c-5ee938efb0b9}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{0d443270-a16e-4528-8f5c-5ee938efb0b9}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "dword",
-            "uuid": "{702a929c-eb82-4d6b-9eef-abdf0d962b0e}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{702a929c-eb82-4d6b-9eef-abdf0d962b0e}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "ptr",
-            "uuid": "{84381051-c22b-46cc-ac6d-cfdfc1300b9f}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{84381051-c22b-46cc-ac6d-cfdfc1300b9f}"
         },
         {
             "definition": "достает из {стека} {сегмент}, {смещение} и {регистр флагов}. Используется для выхода из {прерываний}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "iret",
-            "uuid": "{14af3088-e20d-401f-9309-ade554c63066}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{14af3088-e20d-401f-9309-ade554c63066}"
         },
         {
             "definition": "аналог {инструкции} {pop} для {регистра флагов}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "popf",
-            "uuid": "{01ef667c-71c5-4289-8145-e567529e34d2}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{01ef667c-71c5-4289-8145-e567529e34d2}"
         },
         {
             "definition": "{Инструкция} обмена {регистров}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "xchg",
-            "uuid": "{51429a4f-ad45-4c08-9cbe-efabc890d603}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{51429a4f-ad45-4c08-9cbe-efabc890d603}"
         },
         {
             "definition": "Группа {инструкций}. загружает в {регистр} {ax}/{al} значение по адресу [{ds}:{si}] и автоматически увеличивает {si} на 1 или 2",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "lods",
-            "uuid": "{4c25fac8-b981-45d1-8546-5c0fdf1e04a9}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{4c25fac8-b981-45d1-8546-5c0fdf1e04a9}"
         },
         {
             "definition": "Вариант инструкции {lods} для 1 {байта}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "lodsb",
-            "uuid": "{4f429ae1-52d6-4f0a-b3fa-46eb8d4abd31}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{4f429ae1-52d6-4f0a-b3fa-46eb8d4abd31}"
         },
         {
             "definition": "Вариант {инструкции} {lods} для 2 {байт}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "lodsw",
-            "uuid": "{4df0d808-52c0-4add-94dc-98cb6fb01989}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{4df0d808-52c0-4add-94dc-98cb6fb01989}"
         },
         {
             "definition": "{Регистр} указывающий на начало {сегмента}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "Сегментный регистр",
-            "uuid": "{2dff8d27-4fb8-463a-8760-d95b4bee81a0}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{2dff8d27-4fb8-463a-8760-d95b4bee81a0}"
         },
         {
             "definition": "Заносит число из {al} в {es}:{di}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "stos",
-            "uuid": "{4fddb787-07e8-4cdd-93d6-4cd8ae0c73da}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{4fddb787-07e8-4cdd-93d6-4cd8ae0c73da}"
         },
         {
             "definition": "{Инструкция} префикс. Повторит следующую за ней инструкцию столько раз, сколько указано в {cx}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "rep",
-            "uuid": "{30711fb5-5230-4b8a-9a1a-a41d9ae52e16}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{30711fb5-5230-4b8a-9a1a-a41d9ae52e16}"
         },
         {
             "definition": "{Логическая инструкция} {исключающее или}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "xor",
-            "uuid": "{7efa9c59-a6f3-4c76-bd91-6e82781c1e1c}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{7efa9c59-a6f3-4c76-bd91-6e82781c1e1c}"
         },
         {
             "definition": "Инструкция для работы с массивами данных, которая копирует данные из {ds}:{si} в {es}:{di} в количестве, указанном в регистре {cx}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:49Z",
             "term": "movs",
-            "uuid": "{c027f621-8bf3-4d08-9a0a-72144e745384}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{c027f621-8bf3-4d08-9a0a-72144e745384}"
         },
         {
             "definition": "Соглашение по структуре и способу расположения кода и данных в {сегментах} памяти",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Модель памяти",
-            "uuid": "{b51a1219-047b-4f5c-90d4-76d0ee5e7087}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b51a1219-047b-4f5c-90d4-76d0ee5e7087}"
         },
         {
             "definition": "{Модель памяти} где код, данные и {стек} располагаются в одном {сегменте}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Tiny",
-            "uuid": "{97e232d0-6301-4af8-a759-312290779cae}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{97e232d0-6301-4af8-a759-312290779cae}"
         },
         {
             "definition": "{Модель памяти} где код размещается в одном сегменте, а данные и {стек} в другом",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Small",
-            "uuid": "{3cf14758-135a-4833-89aa-a52aae9e4bb6}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{3cf14758-135a-4833-89aa-a52aae9e4bb6}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Счётчик",
-            "uuid": "{8fc669a3-247e-4f79-b54b-33dc5548117b}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{8fc669a3-247e-4f79-b54b-33dc5548117b}"
         },
         {
             "definition": "{Модель памяти} где код располагается в одном сегменте, а данные в другом (возможно нескольких)",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Compact",
-            "uuid": "{0c9d9738-1d6c-45b2-a429-924efce4e4b7}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{0c9d9738-1d6c-45b2-a429-924efce4e4b7}"
         },
         {
             "definition": "{Модель памяти} в которой код в нескольких сегментах, а данные в одном",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Medium",
-            "uuid": "{b41d3eea-a62e-4c8e-98d2-410c21cc19a7}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b41d3eea-a62e-4c8e-98d2-410c21cc19a7}"
         },
         {
             "definition": "{Модель памяти} в которой и код и данные занимают несколько сегментов",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Large",
-            "uuid": "{99a96d7b-5a1f-45cb-a605-ee17458601d5}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{99a96d7b-5a1f-45cb-a605-ee17458601d5}"
         },
         {
             "definition": "{Модель памяти} которая может содержать несколько {сегментов} кода и насколько сегментов данных",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Huge",
-            "uuid": "{8d8e8d09-9189-464a-8238-dd47817f9534}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{8d8e8d09-9189-464a-8238-dd47817f9534}"
         },
         {
             "definition": "{Модель памяти} в которой код, данные и стек находятся в одном сегменте, но используется 32х битная адресация",
             "description": "Один сегмент может иметь размер до 4х гигабайт",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Flat",
-            "uuid": "{867955c4-12ba-40f0-b781-f7f036bdb99b}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{867955c4-12ba-40f0-b781-f7f036bdb99b}"
         },
         {
             "definition": "{Инструкция работы со стеком}, которая кладет в {стек} {регистры} в следующем порядке: {ax}, {cx}, {dx}, {bx}, {sp}, {bp}, {si} и {di}. Автоматически меняет {sp}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "pusha",
-            "uuid": "{31bacd3f-069f-44c0-8939-b6b5d5c7d6d5}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{31bacd3f-069f-44c0-8939-b6b5d5c7d6d5}"
         },
         {
             "definition": "{Инструкция работы со стеком}, которая кладет в {стек} {регистры} в следующем порядке: {di}, {si}, {bp}, {sp}, {bx}, {dx}, {cx} и {ax} Автоматически меняет {sp}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "popa",
-            "uuid": "{1e94b3c2-7b14-410a-8c13-cac13b48efce}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{1e94b3c2-7b14-410a-8c13-cac13b48efce}"
         },
         {
             "definition": "{Инструкция} совершающая манипуляции с сегментом {стека} (указанном в {ss}) модифицируя {sp}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Инструкция работы со стеком",
-            "uuid": "{c725ccf5-6e55-4eba-988a-daf0083f117b}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{c725ccf5-6e55-4eba-988a-daf0083f117b}"
         },
         {
             "definition": "{Операция}, которая сдвигает {биты} в числе на определенное количество шагов",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Битовый сдвиг",
-            "uuid": "{a7f68513-7b32-4627-846a-e1c5307dde15}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{a7f68513-7b32-4627-846a-e1c5307dde15}"
         },
         {
             "definition": "{Инструкция} {битового сдвига} влево",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "shl",
-            "uuid": "{4dc49b77-e013-4d74-a4a1-eb51894ee48b}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{4dc49b77-e013-4d74-a4a1-eb51894ee48b}"
         },
         {
             "definition": "{Инструкция} {битового сдвига} вправо",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "shr",
-            "uuid": "{72fa35a5-e9ef-4f44-a93f-530155d5898c}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{72fa35a5-e9ef-4f44-a93f-530155d5898c}"
         },
         {
             "definition": "{Арифметическая инструкция} умножения, которая умножает переданный {регистр} на al и оставляет результат в al",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "mul",
-            "uuid": "{caedd762-4649-48ee-b739-6e9dcd583bb3}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{caedd762-4649-48ee-b739-6e9dcd583bb3}"
         },
         {
             "definition": "Команда дальнего перехода",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "jmp dword ptr",
-            "uuid": "{8c7a2bf9-66ca-4e1b-bfd8-6e4f03f827e2}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{8c7a2bf9-66ca-4e1b-bfd8-6e4f03f827e2}"
         },
         {
             "definition": "достает из {стека} {сегмент} и {смещение}. {процедура} может находиться в любом {сегменте}, независимо от того, откуда ее вызывают",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "retf",
-            "uuid": "{d0d470f3-ef25-4e99-9611-06ecae94f7ca}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{d0d470f3-ef25-4e99-9611-06ecae94f7ca}"
         },
         {
             "definition": "{Логическая инструкция}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "and",
-            "uuid": "{95badb4b-6e75-47ac-aae5-5ea0db0da187}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{95badb4b-6e75-47ac-aae5-5ea0db0da187}"
         },
         {
             "definition": "{Логическая инструкция}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "or",
-            "uuid": "{d9fb6b6c-e7fc-4679-ba7d-c61ef826c0e1}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{d9fb6b6c-e7fc-4679-ba7d-c61ef826c0e1}"
         },
         {
             "definition": "{Инструкция}, выполняющая булевы логические операции",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Логическая инструкция",
-            "uuid": "{e13f2b1e-71b6-4470-a324-fb8b30dd731a}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{e13f2b1e-71b6-4470-a324-fb8b30dd731a}"
         },
         {
             "definition": "Аналогично команде {ret}, но в дополнение достает из стека n байт",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "ret n",
-            "uuid": "{a6e184db-eab9-47bd-8488-7e32b9f4e27e}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{a6e184db-eab9-47bd-8488-7e32b9f4e27e}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "equ",
-            "uuid": "{2504207d-7ee1-4509-9a11-f85c8d440dd5}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{2504207d-7ee1-4509-9a11-f85c8d440dd5}"
         },
         {
             "definition": "{Инструкция} выполняет поиск в массиве первого байта. При этом {es}:{di} содержит адрес строки, {cx} длина строки, а {al} искомый символ. В результате {di} будет указывать на символ",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "scas",
-            "uuid": "{63660bbf-8b15-4a4f-8a06-1ac0819f86c5}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{63660bbf-8b15-4a4f-8a06-1ac0819f86c5}"
         },
         {
             "definition": "Repeat if not equal",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "repne",
-            "uuid": "{1712ed92-2c22-4e76-a558-6a2b666c4de9}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{1712ed92-2c22-4e76-a558-6a2b666c4de9}"
         },
         {
             "definition": "Repeat if equal",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "repe",
-            "uuid": "{bd56c509-317d-46d2-95f0-1bda77d330c4}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{bd56c509-317d-46d2-95f0-1bda77d330c4}"
         },
         {
             "definition": "prefix segment program",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "psp",
-            "uuid": "{2979e926-0ed7-4a58-a932-0dcdaf2c374e}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{2979e926-0ed7-4a58-a932-0dcdaf2c374e}"
         },
         {
             "definition": "Инструкция, проверяющая значение отдельных {бит} в переменой. Если бит равен 1 то {флаг нуля} будет сброшен",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "test",
-            "uuid": "{729c3260-da51-4a2a-83f7-77badefd3242}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{729c3260-da51-4a2a-83f7-77badefd3242}"
         },
         {
             "definition": "{Флаг} в {регистре флагов} который содержит 1 если в результате последней операции в значении было четное число {значащих разрядов}, иначе 0",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Флаг четности",
-            "uuid": "{f940b488-75f0-421a-954c-1939a92475bf}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{f940b488-75f0-421a-954c-1939a92475bf}"
         },
         {
             "definition": "{Флаг} в {регистре флагов}, Контролирует перенос из 3-го бита данных. Полезен при операциях над упакованными десятичными цифрами",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Флаг внешнего переноса",
-            "uuid": "{2502728f-5255-4cb7-90fe-42bcda883c47}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{2502728f-5255-4cb7-90fe-42bcda883c47}"
         },
         {
             "definition": "{Флаг} в {регистре флагов}. Равен 1 если в результате операции получено отрицательное число",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Флаг знака",
-            "uuid": "{4867fed9-f93a-4859-8288-2a5ed2d9276a}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{4867fed9-f93a-4859-8288-2a5ed2d9276a}"
         },
         {
             "definition": "{флаг} в {регистре флагов}. Равен 1, если программа выполняется по шагам, с передачей управления после каждой выполненной команды {прерыванию} с вектором 1",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Флаг трассировки",
-            "uuid": "{e413c2af-2d85-4b5c-9108-3b939666a7cf}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{e413c2af-2d85-4b5c-9108-3b939666a7cf}"
         },
         {
             "definition": "{Флаг} в {регистре флагов}. Содержит 1 если разрешена обработка {прерываний}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Флаг прерываний",
-            "uuid": "{fac4dbdf-4727-4791-b07a-0db49bc56576}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{fac4dbdf-4727-4791-b07a-0db49bc56576}"
         },
         {
             "definition": "{Флаг} в {регистре флагов}. Управляет направлением передачи \nданных: если он содержит 0, то после каждой {индексной операции} \nсодержимое {индексных регистров} увеличивается на 1, в противном случае — уменьшается на 1.",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Флаг направления",
-            "uuid": "{a75ac8ab-6a94-44b3-ab18-c24a9d7fb5f0}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{a75ac8ab-6a94-44b3-ab18-c24a9d7fb5f0}"
         },
         {
             "definition": "{Флаг} в {регистре флагов}. Равен 1, если в результате операции получено число, выходящее за {разрядную сетку} процессора, т. е. число, превышающее максимальный размер {регистра} или {переменной}.",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "Флаг переполнения",
-            "uuid": "{1b2880ef-bf31-4c89-bee4-503a47336172}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{1b2880ef-bf31-4c89-bee4-503a47336172}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "PSP",
-            "uuid": "{9b5b5baf-1e8b-43c4-991c-3ef27452e460}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{9b5b5baf-1e8b-43c4-991c-3ef27452e460}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "DTA",
-            "uuid": "{1aaafaed-611d-4db3-8cc9-6c8163ed1dbb}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{1aaafaed-611d-4db3-8cc9-6c8163ed1dbb}"
         },
         {
             "definition": "jump if below",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "jb",
-            "uuid": "{7cc26bff-df25-4f90-a400-7f3fdd2d9283}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{7cc26bff-df25-4f90-a400-7f3fdd2d9283}"
         },
         {
             "definition": "jump if below or equal. {Инструкция условного перехода}. Переход выполняется если установлен {флаг переноса} или {флаг нуля}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "jbe",
-            "uuid": "{af8f6d15-b894-4fcd-85c4-5ec5c9f38e17}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{af8f6d15-b894-4fcd-85c4-5ec5c9f38e17}"
         },
         {
             "definition": "jump if not below",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "jnb",
-            "uuid": "{15f3d18d-ad86-4222-bee8-297191c13da1}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{15f3d18d-ad86-4222-bee8-297191c13da1}"
         },
         {
             "definition": "jump if above",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:50Z",
             "term": "ja",
-            "uuid": "{af717bfc-fb7c-4253-be6d-a4416d8b7e5a}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{af717bfc-fb7c-4253-be6d-a4416d8b7e5a}"
         },
         {
             "definition": "jump if above or equal",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "jae",
-            "uuid": "{f244c5f8-2753-430b-9f99-dcf1d7b3e033}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{f244c5f8-2753-430b-9f99-dcf1d7b3e033}"
         },
         {
             "definition": "jump if not above",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "jna",
-            "uuid": "{7db8a1f8-f360-4eba-a9de-85653489393a}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{7db8a1f8-f360-4eba-a9de-85653489393a}"
         },
         {
             "definition": "Инструкция, устанавливающая {флаг переноса}. set carry flag",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "stc",
-            "uuid": "{8fbb56f5-990e-43af-8914-83d61bb9953a}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{8fbb56f5-990e-43af-8914-83d61bb9953a}"
         },
         {
             "definition": "Инструкция, которая сбрасывает {флаг переноса}. Clear carry flag",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "clc",
-            "uuid": "{30d55495-8d2b-401d-9347-875d811e498b}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{30d55495-8d2b-401d-9347-875d811e498b}"
         },
         {
             "definition": "Инструкция устанавливающая {флаг направления}. Set destination flag",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "std",
-            "uuid": "{bb0544f8-427a-4c5b-8111-a1f498da80cf}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{bb0544f8-427a-4c5b-8111-a1f498da80cf}"
         },
         {
             "definition": "Инструкция, сбрасывающая {флаг направления}. Clear destination flag",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "cld",
-            "uuid": "{f83f1329-5b38-4083-9a52-b55edc3fd90c}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{f83f1329-5b38-4083-9a52-b55edc3fd90c}"
         },
         {
             "definition": "Floating point unit, часть {процессора}, выполняющая операции с плавающей точкой",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "FPU",
-            "uuid": "{67ae4323-cc7b-4849-93e9-77f85f77ece2}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{67ae4323-cc7b-4849-93e9-77f85f77ece2}"
         },
         {
             "definition": "8 {регистров} {сопроцессора}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "st(0)-st(7)",
-            "uuid": "{d1e6bad3-e668-4041-874a-0e4cae1df319}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{d1e6bad3-e668-4041-874a-0e4cae1df319}"
         },
         {
             "definition": "{Инструкция} инициализации {сопроцессора}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "finit",
-            "uuid": "{3be7210d-d61d-4e0f-802b-15b5f85cabac}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{3be7210d-d61d-4e0f-802b-15b5f85cabac}"
         },
         {
             "definition": "{Инструкция} {FPU} integer load",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "fild",
-            "uuid": "{45d31970-1a1b-4f99-b7ac-0d13c3df3ff3}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{45d31970-1a1b-4f99-b7ac-0d13c3df3ff3}"
         },
         {
             "definition": "Одна отдельная, {атомарная} операция {процессора}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "Инструкция",
-            "uuid": "{86161664-3501-47ca-83a7-05095d1737ec}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{86161664-3501-47ca-83a7-05095d1737ec}"
         },
         {
             "definition": "{FPU} {инструкция} сложения {сопроцессора}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "fadd",
-            "uuid": "{b76bf7f5-1d92-4089-a226-d134b379656f}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b76bf7f5-1d92-4089-a226-d134b379656f}"
         },
         {
             "definition": "{FPU} integer store. Сохранение целого числа из {сопроцессора} из регистра {st 0}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "fist",
-            "uuid": "{3874b3f7-0d20-472a-b1b4-7c6f12131198}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{3874b3f7-0d20-472a-b1b4-7c6f12131198}"
         },
         {
             "definition": "Инструкция {fist} с дополнительным удалением значения из {st 0} fpu integer store and pop",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "fistp",
-            "uuid": "{67472bfa-f3c3-4383-af1f-be05a2d8ce51}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{67472bfa-f3c3-4383-af1f-be05a2d8ce51}"
         },
         {
             "definition": "Exec parameter block",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "EPB",
-            "uuid": "{d6275eec-2b49-4e79-b67f-19a0627037b6}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{d6275eec-2b49-4e79-b67f-19a0627037b6}"
         },
         {
             "definition": "",
             "description": "Программа-ассемблер (MASM, TASM, WASM, NASM и пр.) создает объектный \nфайл с расширением OBJ. Данный файл является переходным между ассемблер-\nным файлом (ASM) и программой (COM/EXE). ",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "OBJ",
-            "uuid": "{b1de45e8-616f-4dfb-80f0-36412029bee9}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b1de45e8-616f-4dfb-80f0-36412029bee9}"
         },
         {
             "definition": "64 {битный} {регистр}. Содержит а себе {EAX}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "RAX",
-            "uuid": "{d2db6e48-7fbe-4ff5-88d6-aa35b944e9a7}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{d2db6e48-7fbe-4ff5-88d6-aa35b944e9a7}"
         },
         {
             "definition": "{CX}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "ECX",
-            "uuid": "{812ac21b-37d4-4860-8e34-faa3ba684cad}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{812ac21b-37d4-4860-8e34-faa3ba684cad}"
         },
         {
             "definition": "{DX}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "EDX",
-            "uuid": "{cb21ad92-948d-4fbe-9970-2717315e0d8d}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{cb21ad92-948d-4fbe-9970-2717315e0d8d}"
         },
         {
             "definition": "Интегральная схема, выполняющая логические и математические операции",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "Процессор",
-            "uuid": "{04dfa612-995e-43a2-ae1e-b6e3e869de3d}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{04dfa612-995e-43a2-ae1e-b6e3e869de3d}"
         },
         {
             "definition": "Расширенный {регистр} {SP}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "ESP",
-            "uuid": "{fdebfdaf-c933-4f08-8019-d321fd860296}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{fdebfdaf-c933-4f08-8019-d321fd860296}"
         },
         {
             "definition": "Расширенный {регистр} {BP}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "EBP",
-            "uuid": "{6fe3c9b3-02af-48a2-8137-dc7c1bf11cc2}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{6fe3c9b3-02af-48a2-8137-dc7c1bf11cc2}"
         },
         {
             "definition": "Расширенный {регистр} {SI}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "ESI",
-            "uuid": "{e65c9215-1298-45f6-bca6-a63f553b8436}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{e65c9215-1298-45f6-bca6-a63f553b8436}"
         },
         {
             "definition": "Расширенный {регистр} {DI}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "EDI",
-            "uuid": "{e1efa40c-c130-42eb-9324-8c9622c7f31c}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{e1efa40c-c130-42eb-9324-8c9622c7f31c}"
         },
         {
             "definition": "Расширенная версия регистра {IP}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "EIP",
-            "uuid": "{479c4771-44a7-473b-bc3c-109339201412}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{479c4771-44a7-473b-bc3c-109339201412}"
         },
         {
             "definition": "Расширенный {регистр флагов}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "EFLAGS",
-            "uuid": "{b36953cd-03a6-47c1-8771-0c2eb72753f9}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b36953cd-03a6-47c1-8771-0c2eb72753f9}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "Debug info format",
-            "uuid": "{b962cf37-13de-4989-bb6c-9aa42fe167ab}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b962cf37-13de-4989-bb6c-9aa42fe167ab}"
         },
         {
             "definition": "{Debug info format}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "stabs",
-            "uuid": "{cf2b10c3-3eae-49c7-8fa2-dec27f5ff410}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{cf2b10c3-3eae-49c7-8fa2-dec27f5ff410}"
         },
         {
             "definition": "{Debug info format}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "COFF",
-            "uuid": "{5b28dc7b-332c-4a92-9436-9e07f1cce94f}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{5b28dc7b-332c-4a92-9436-9e07f1cce94f}"
         },
         {
             "definition": "{Debug info format}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "XCOFF",
-            "uuid": "{0f26388b-5ad7-4c58-9db5-cef056c02b43}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{0f26388b-5ad7-4c58-9db5-cef056c02b43}"
         },
         {
             "definition": "{Debug info format}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{fe922718-01f4-452c-8937-176939329399}",
             "lastEdit": "2019-06-23T17:51:51Z",
             "term": "DWARF",
-            "uuid": "{0704872a-d3a7-4a8b-a10c-586524b9cb7f}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{0704872a-d3a7-4a8b-a10c-586524b9cb7f}"
         }
     ]
 }

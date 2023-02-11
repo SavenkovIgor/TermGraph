@@ -3,267 +3,171 @@
     "terms": [
         {
             "definition": "Класс {стабильных часов}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-10-08T22:53:53Z",
             "term": "std::chrono::steady_clock",
-            "uuid": "{bfa628c5-f78b-44f7-88bb-df002f802aef}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{bfa628c5-f78b-44f7-88bb-df002f802aef}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-10-13T18:23:29Z",
             "term": "Модель памяти",
-            "uuid": "{85437fd1-47d8-4c92-a76f-1e6370434a43}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{85437fd1-47d8-4c92-a76f-1e6370434a43}"
         },
         {
             "definition": "Combination of location in memory, type and {lifetime}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2019-11-21T16:17:42Z",
             "term": "Object",
-            "uuid": "{dce8a63d-2f65-4c3c-b06d-c20dd405a330}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{dce8a63d-2f65-4c3c-b06d-c20dd405a330}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2019-11-21T16:17:33Z",
             "term": "Lifetime",
-            "uuid": "{83bc33c8-727f-4e90-a4eb-dd9d78bfa261}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{83bc33c8-727f-4e90-a4eb-dd9d78bfa261}"
         },
         {
             "definition": "{многопоточные инструменты} {future} + {promise} + callable + exception-safe",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-10-08T22:55:41Z",
             "term": "packaged_task",
-            "uuid": "{430ecaba-94ac-4465-895d-c830457d41bf}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{430ecaba-94ac-4465-895d-c830457d41bf}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2020-01-21T13:43:34Z",
             "term": "std",
-            "uuid": "{e3c19269-e1af-4a68-96d4-53f18f899a04}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{e3c19269-e1af-4a68-96d4-53f18f899a04}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T22:07:24Z",
             "term": "Variable",
-            "uuid": "{e3927b4e-d8d5-4e3b-b2ff-c4296f90e745}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{e3927b4e-d8d5-4e3b-b2ff-c4296f90e745}"
         },
         {
             "definition": "named area on a {data storage} used to store some amount of data",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T23:04:07Z",
             "term": "File",
-            "uuid": "{b701cd01-0bcf-478d-b014-80755cbb37c6}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b701cd01-0bcf-478d-b014-80755cbb37c6}"
         },
         {
             "definition": "most basic {data type}. It can only be in 2 different states. For convenience, they are denoted as 1 and 0 or true and false",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T22:26:40Z",
             "term": "Bit",
-            "uuid": "{cc414068-e898-4427-be27-27d1a9abbefc}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{cc414068-e898-4427-be27-27d1a9abbefc}"
         },
         {
             "definition": "{data type} consisting of several {bits}, usually 8 {bits}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T22:28:49Z",
             "term": "Byte",
-            "uuid": "{47ed2588-d9e5-41d2-aa51-627a16845735}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{47ed2588-d9e5-41d2-aa51-627a16845735}"
         },
         {
             "definition": "abstract knowledge about something, regardless of the form of presentation",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T22:13:52Z",
             "term": "Information",
-            "uuid": "{d91a79a4-7276-4756-8881-bf2ec9fcc495}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{d91a79a4-7276-4756-8881-bf2ec9fcc495}"
         },
         {
             "definition": "{information} presented in a formalized/structured form suitable for transmission or processing",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T22:16:29Z",
             "term": "Data",
-            "uuid": "{f0b94cad-bce2-498b-ba4d-5cf22ab15448}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{f0b94cad-bce2-498b-ba4d-5cf22ab15448}"
         },
         {
             "definition": "a set of {data} conventions that defines the set of valid values for data and the operations allowed on it",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T22:18:39Z",
             "term": "Data type",
-            "uuid": "{b687f5e9-929a-42aa-b1a4-600166bfc69c}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b687f5e9-929a-42aa-b1a4-600166bfc69c}"
         },
         {
             "definition": "potentially any material object that can store some amount of {data} unchanged for some amount of time",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T22:49:27Z",
             "term": "Data storage",
-            "uuid": "{964d153f-722d-45cb-a690-e737bbbffc4c}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{964d153f-722d-45cb-a690-e737bbbffc4c}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T23:06:09Z",
             "term": "Program",
-            "uuid": "{c0cef57f-577e-461c-a50d-e85219b35f5c}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{c0cef57f-577e-461c-a50d-e85219b35f5c}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T23:06:31Z",
             "term": "Operating system",
-            "uuid": "{9e6c0bb6-14d5-42b4-98bc-f76c0ab7374a}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{9e6c0bb6-14d5-42b4-98bc-f76c0ab7374a}"
         },
         {
             "definition": "system, that organizes {files} to make efficient use of space and maintains the validity of {file names} on {data storage}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T23:13:41Z",
             "term": "File system",
-            "uuid": "{ec601eca-ae60-4b23-a04a-e43864bd1dc4}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{ec601eca-ae60-4b23-a04a-e43864bd1dc4}"
         },
         {
             "definition": "unique {string} identifier of {file} on specific {data storage}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T23:09:15Z",
             "term": "File name",
-            "uuid": "{79c4cdc3-c316-492e-a077-10751852dbca}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{79c4cdc3-c316-492e-a077-10751852dbca}"
         },
         {
             "definition": "{file}, containing {code} on some {programming language}",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T23:17:08Z",
             "term": "Source code",
-            "uuid": "{1b68a722-7f61-4109-adc2-29219f62b7ac}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{1b68a722-7f61-4109-adc2-29219f62b7ac}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T23:17:35Z",
             "term": "String",
-            "uuid": "{f1eccf58-eedd-4156-a62f-9ff4ac79c5b9}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{f1eccf58-eedd-4156-a62f-9ff4ac79c5b9}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T23:17:44Z",
             "term": "char",
-            "uuid": "{b2efb01c-e3bc-4d29-894e-f70a46ee2daf}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{b2efb01c-e3bc-4d29-894e-f70a46ee2daf}"
         },
         {
             "definition": "{data type} that contains some symbol or grapheme in natural language",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T23:21:22Z",
             "term": "Character",
-            "uuid": "{33877e22-a56e-4616-b904-7d6e3489cb06}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{33877e22-a56e-4616-b904-7d6e3489cb06}"
         },
         {
             "definition": "method of data ",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-08-23T23:25:10Z",
             "term": "Data structure",
-            "uuid": "{7564d741-9360-403d-85a2-d21c9b55a90b}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{7564d741-9360-403d-85a2-d21c9b55a90b}"
         },
         {
             "definition": "",
-            "description": "",
-            "examples": "",
             "groupUuid": "{299003bd-a32e-48cf-9aac-88cac0ffc750}",
             "lastEdit": "2022-10-13T11:27:04Z",
             "term": "1",
-            "uuid": "{7b95b0cb-ec21-4398-8548-9155c028beb6}",
-            "wikiImage": "",
-            "wikiUrl": ""
+            "uuid": "{7b95b0cb-ec21-4398-8548-9155c028beb6}"
         }
     ]
 }

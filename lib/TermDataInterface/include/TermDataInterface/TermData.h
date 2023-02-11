@@ -36,7 +36,7 @@ struct TermData
 
     inline bool operator==(const TermData& rhs) const = default;
 
-    enum class JsonCheckMode { Import, AddTerm, UpdateTerm };
+    enum class JsonCheckMode { Import, AddTerm, UpdateTerm, Minimal };
 
     // --- JSON ---
     // Returns valid object or nullopt
@@ -50,7 +50,13 @@ struct TermData
             checkLastEdit = false;
         }
 
-        if (!TermJsonValidator(checkUuid, checkLastEdit).check(obj))
+        auto validator = TermJsonValidator(checkUuid, checkLastEdit);
+
+        if (mode == JsonCheckMode::Minimal) {
+            validator = TermJsonValidator::minimalStaticDataChecks();
+        }
+
+        if (!validator.check(obj))
             return std::nullopt;
 
         auto gUuid = GroupUuid::from(obj[JsonTools::groupUuidKey].toString());
@@ -62,10 +68,10 @@ struct TermData
             .uuid        = TermUuid::from(obj[JsonTools::uuidKey].toString()),
             .term        = obj[JsonTools::termKey].toString(),
             .definition  = obj[JsonTools::definitionKey].toString(),
-            .description = obj[JsonTools::descriptionKey].toString(),
-            .examples    = obj[JsonTools::examplesKey].toString(),
-            .wikiUrl     = obj[JsonTools::wikiUrlKey].toString(),
-            .wikiImage   = obj[JsonTools::wikiImageKey].toString(),
+            .description = obj[JsonTools::descriptionKey].toString(""),
+            .examples    = obj[JsonTools::examplesKey].toString(""),
+            .wikiUrl     = obj[JsonTools::wikiUrlKey].toString(""),
+            .wikiImage   = obj[JsonTools::wikiImageKey].toString(""),
             .groupUuid   = *gUuid,
             .lastEdit    = QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate),
         };
@@ -93,10 +99,12 @@ struct TermData
         ret.insert(JsonTools::uuidKey, (uuid ? uuid->toString() : ""));
         ret.insert(JsonTools::termKey, term);
         ret.insert(JsonTools::definitionKey, definition);
-        ret.insert(JsonTools::descriptionKey, description);
-        ret.insert(JsonTools::examplesKey, examples);
-        ret.insert(JsonTools::wikiUrlKey, wikiUrl);
-        ret.insert(JsonTools::wikiImageKey, wikiImage);
+
+        ret = JsonTools::addIfNotEmpty(ret, JsonTools::descriptionKey, description);
+        ret = JsonTools::addIfNotEmpty(ret, JsonTools::examplesKey, examples);
+        ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiUrlKey, wikiUrl);
+        ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiImageKey, wikiImage);
+
         ret.insert(JsonTools::groupUuidKey, groupUuid.toString());
         ret.insert(JsonTools::lastEditKey, lastEdit.toString(Qt::ISODate));
 
@@ -118,12 +126,12 @@ struct TermData
             return from(obj[JsonTools::termsKey].toArray());
         }
 
-        static inline List from(const QJsonArray& json)
+        static inline List from(const QJsonArray& json, JsonCheckMode mode = JsonCheckMode::Import)
         {
             List ret;
 
             for (const auto& termJson : json) {
-                if (auto termData = TermData::from(termJson.toObject(), JsonCheckMode::Import)) {
+                if (auto termData = TermData::from(termJson.toObject(), mode)) {
                     ret.push_back(*termData);
                 } else {
                     qWarning("Wrong termData json array");
