@@ -52,9 +52,6 @@ public:
     static GroupJsonValidator staticDataChecks()
     {
         GroupJsonValidator ret;
-        ret.addCheck(&validUuidField, ErrorCodes::JsonUuidFieldMissedOrWrongType);
-        ret.addCheck(&validUuid, ErrorCodes::GroupUuidInvalid);
-
         ret.addCheck(&validNameField, ErrorCodes::JsonNameFieldMissedOrWrongType);
         ret.addCheck(&nameNotEmpty, ErrorCodes::GroupNameEmpty);
 

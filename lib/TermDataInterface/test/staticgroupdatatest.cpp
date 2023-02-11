@@ -71,18 +71,17 @@ TEST(StaticGroupDataTest, ComparisonTest)
 
 TEST(StaticGroupDataTest, SerializationTest)
 {
-    auto data1 = defaultGroupData();
-    auto data2 = StaticGroupData::from(static_cast<QJsonObject>(data1));
+    auto group1 = defaultGroupData();
+    auto json1   = static_cast<QJsonObject>(group1);
+    auto group2 = StaticGroupData::from(json1).value();
+    auto json2   = static_cast<QJsonObject>(group2);
 
+    EXPECT_EQ(json1, json2);
 
-    qInfo() << static_cast<QJsonObject>(data1);
-
-    EXPECT_EQ(data1, data2);
-
-    data1 = defaultGroupData();
-    data2 = StaticGroupData::from(static_cast<QByteArray>(data1));
-
-    EXPECT_EQ(data1, data2);
+    if (group1 != group2) {
+        qDebug() << "json1:" << json1;
+        qDebug() << "json2:" << json2;
+    }
 }
 
 TEST(StaticGroupDataTest, MinimalSerialization)

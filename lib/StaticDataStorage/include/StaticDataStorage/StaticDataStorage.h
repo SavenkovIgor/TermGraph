@@ -24,6 +24,7 @@ public:
 
     static QFileInfoList files();
     static QByteArray    qrcFileData(const QString& filePath);
+    static StaticGroupData prepareForInternalUse(StaticGroupData data);
 
     int storageVersion() const final;
 

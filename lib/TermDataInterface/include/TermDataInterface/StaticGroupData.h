@@ -81,7 +81,11 @@ struct StaticGroupData : public GroupSummary
 
         StaticGroupData ret;
 
-        ret.uuid     = GroupUuid::from(json[JsonTools::uuidKey].toString());
+        if (json.contains(JsonTools::uuidKey)) {
+            ret.uuid = GroupUuid::from(json[JsonTools::uuidKey].toString());
+        } else {
+            ret.uuid = std::nullopt;
+        }
         ret.name     = json[JsonTools::nameKey].toString();
         ret.comment  = json[JsonTools::commentKey].toString("");
         ret.terms    = TermData::List::from(json[JsonTools::termsKey].toArray());
@@ -103,7 +107,9 @@ struct StaticGroupData : public GroupSummary
     {
         QJsonObject ret;
 
-        ret.insert(JsonTools::uuidKey, (uuid ? uuid->toString() : ""));
+        if (uuid) {
+            ret.insert(JsonTools::uuidKey, uuid->toString());
+        }
         ret.insert(JsonTools::nameKey, name);
         ret = JsonTools::addIfNotEmpty(ret, JsonTools::commentKey, comment);
 
