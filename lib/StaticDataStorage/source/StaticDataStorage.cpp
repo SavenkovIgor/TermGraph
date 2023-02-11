@@ -29,8 +29,8 @@ StaticDataStorage::StaticDataStorage()
         auto group = StaticGroupData::from(fileData);
 
         if (group) {
-            assert(group->uuid.has_value());
-            mGroups.insert(group->uuid.value(), group.value());
+            auto preparedGroup = prepareForInternalUse(group.value());
+            mGroups.insert(preparedGroup.uuid.value(), preparedGroup);
         }
     }
 }
@@ -49,6 +49,15 @@ QByteArray StaticDataStorage::qrcFileData(const QString& filePath)
     auto result = file.open(QIODevice::ReadOnly);
     assert(result);
     return file.readAll();
+}
+
+StaticGroupData StaticDataStorage::prepareForInternalUse(StaticGroupData data)
+{
+    if (!data.uuid.has_value()) {
+        data.uuid = GroupUuid::generate();
+    }
+
+    return data;
 }
 
 int StaticDataStorage::storageVersion() const { return 1; }

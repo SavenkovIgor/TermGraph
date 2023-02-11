@@ -25,9 +25,12 @@ TEST(StaticStorageTest, GroupsSerializeSymmetry)
 
         EXPECT_TRUE(fileData.isValidUtf8());
 
-        auto group    = StaticGroupData::from(fileData);
+        auto group = StaticGroupData::from(fileData);
 
         EXPECT_TRUE(group.has_value());
+        if (!group.has_value()) {
+            qInfo() << "File path:" << fileInfo.absoluteFilePath();
+        }
 
         auto castedJson = static_cast<QByteArray>(group.value());
 
