@@ -30,7 +30,6 @@ StaticGroupData defaultGroupData()
     data.name          = "Group",
     data.comment       = "Comment",
     data.size          = 0,
-    data.lastEdit      = QDateTime::fromString("2022-08-23T20:01:10Z", Qt::ISODate),
     data.terms.push_back(term);
 
     return data;
@@ -59,10 +58,6 @@ TEST(StaticGroupDataTest, ComparisonTest)
 
     data1      = defaultGroupData();
     data1.size = 10;
-    EXPECT_NE(data1, defaultGroupData());
-
-    data1             = defaultGroupData();
-    data1.lastEdit    = QDateTime::currentDateTime().addSecs(1);
     EXPECT_NE(data1, defaultGroupData());
 
     data1                  = defaultGroupData();

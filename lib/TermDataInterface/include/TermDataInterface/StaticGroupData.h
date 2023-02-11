@@ -84,7 +84,6 @@ struct StaticGroupData : public GroupSummary
         ret.uuid     = GroupUuid::from(json[JsonTools::uuidKey].toString());
         ret.name     = json[JsonTools::nameKey].toString();
         ret.comment  = json[JsonTools::commentKey].toString("");
-        ret.lastEdit = QDateTime::fromString(json[JsonTools::lastEditKey].toString(), Qt::ISODate);
         ret.terms    = TermData::List::from(json[JsonTools::termsKey].toArray());
 
         return ret;
@@ -107,7 +106,6 @@ struct StaticGroupData : public GroupSummary
         ret.insert(JsonTools::uuidKey, (uuid ? uuid->toString() : ""));
         ret.insert(JsonTools::nameKey, name);
         ret = JsonTools::addIfNotEmpty(ret, JsonTools::commentKey, comment);
-        ret.insert(JsonTools::lastEditKey, lastEdit.toString(Qt::ISODate));
 
         ret.insert(JsonTools::termsKey, static_cast<QJsonArray>(terms));
 
