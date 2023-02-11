@@ -13,7 +13,7 @@
 class TermJsonValidator : public Validator<QJsonObject, ErrorCodes>
 {
 public:
-    TermJsonValidator(bool checkUuid, bool checkLastEdit)
+    TermJsonValidator(bool checkUuid = true, bool checkLastEdit = true)
     {
         if (checkUuid) {
             addCheck(&validUuidField, ErrorCodes::JsonUuidFieldMissedOrWrongType);
@@ -36,6 +36,20 @@ public:
             addCheck(&validLastEditField, ErrorCodes::JsonLastEditFieldMissedOrWrongType);
             addCheck(&validLastEdit, ErrorCodes::LastEditInvalid);
         }
+    }
+
+    static TermJsonValidator minimalStaticDataChecks()
+    {
+        TermJsonValidator ret;
+
+        ret.clear();
+
+        ret.addCheck(&validTermField, ErrorCodes::JsonTermFieldMissedOrWrongType);
+        ret.addCheck(&termNotEmpty, ErrorCodes::TermEmpty);
+
+        ret.addCheck(&validDefinitionField, ErrorCodes::JsonDefinitionFieldMissedOrWrongType);
+
+        return ret;
     }
 
 private:

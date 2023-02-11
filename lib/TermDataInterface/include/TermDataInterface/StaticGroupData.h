@@ -88,7 +88,7 @@ struct StaticGroupData : public GroupSummary
         }
         ret.name     = json[JsonTools::nameKey].toString();
         ret.comment  = json[JsonTools::commentKey].toString("");
-        ret.terms    = TermData::List::from(json[JsonTools::termsKey].toArray());
+        ret.terms    = TermData::List::from(json[JsonTools::termsKey].toArray(), TermData::JsonCheckMode::Minimal);
 
         return ret;
     }
