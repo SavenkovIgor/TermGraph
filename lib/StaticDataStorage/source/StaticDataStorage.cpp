@@ -57,8 +57,11 @@ StaticGroupData StaticDataStorage::prepareForInternalUse(StaticGroupData data)
         data.uuid = GroupUuid::generate();
     }
 
+    auto lastEdit = QDateTime::currentDateTime();
+
     for (auto& term : data.terms) {
         term.groupUuid = data.uuid.value();
+        term.lastEdit = lastEdit;
     }
 
     return data;

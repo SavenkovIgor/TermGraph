@@ -70,6 +70,13 @@ struct TermData
         if (!gUuid)
             return std::nullopt;
 
+        QDateTime lastEdit;
+
+        if (obj.contains(JsonTools::lastEditKey))
+        {
+            lastEdit = QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate);
+        }
+
         TermData ret{
             .uuid        = TermUuid::from(obj[JsonTools::uuidKey].toString()),
             .term        = obj[JsonTools::termKey].toString(),
@@ -79,7 +86,7 @@ struct TermData
             .wikiUrl     = obj[JsonTools::wikiUrlKey].toString(""),
             .wikiImage   = obj[JsonTools::wikiImageKey].toString(""),
             .groupUuid   = *gUuid,
-            .lastEdit    = QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate),
+            .lastEdit    = lastEdit,
         };
 
         if (ret.isNull()) // Release safety
@@ -129,8 +136,6 @@ struct TermData
         ret = JsonTools::addIfNotEmpty(ret, JsonTools::examplesKey, data.examples);
         ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiUrlKey, data.wikiUrl);
         ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiImageKey, data.wikiImage);
-
-        ret.insert(JsonTools::lastEditKey, data.lastEdit.toString(Qt::ISODate));
 
         return ret;
     }
