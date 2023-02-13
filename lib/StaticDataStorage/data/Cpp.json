@@ -3,123 +3,99 @@
     "terms": [
         {
             "definition": "Класс {стабильных часов}",
-            "term": "std::chrono::steady_clock",
-            "uuid": "{bfa628c5-f78b-44f7-88bb-df002f802aef}"
+            "term": "std::chrono::steady_clock"
         },
         {
             "definition": "",
-            "term": "Модель памяти",
-            "uuid": "{85437fd1-47d8-4c92-a76f-1e6370434a43}"
+            "term": "Модель памяти"
         },
         {
             "definition": "Combination of location in memory, type and {lifetime}",
-            "term": "Object",
-            "uuid": "{dce8a63d-2f65-4c3c-b06d-c20dd405a330}"
+            "term": "Object"
         },
         {
             "definition": "",
-            "term": "Lifetime",
-            "uuid": "{83bc33c8-727f-4e90-a4eb-dd9d78bfa261}"
+            "term": "Lifetime"
         },
         {
             "definition": "{многопоточные инструменты} {future} + {promise} + callable + exception-safe",
-            "term": "packaged_task",
-            "uuid": "{430ecaba-94ac-4465-895d-c830457d41bf}"
+            "term": "packaged_task"
         },
         {
             "definition": "",
-            "term": "std",
-            "uuid": "{e3c19269-e1af-4a68-96d4-53f18f899a04}"
+            "term": "std"
         },
         {
             "definition": "",
-            "term": "Variable",
-            "uuid": "{e3927b4e-d8d5-4e3b-b2ff-c4296f90e745}"
+            "term": "Variable"
         },
         {
             "definition": "named area on a {data storage} used to store some amount of data",
-            "term": "File",
-            "uuid": "{b701cd01-0bcf-478d-b014-80755cbb37c6}"
+            "term": "File"
         },
         {
             "definition": "most basic {data type}. It can only be in 2 different states. For convenience, they are denoted as 1 and 0 or true and false",
-            "term": "Bit",
-            "uuid": "{cc414068-e898-4427-be27-27d1a9abbefc}"
+            "term": "Bit"
         },
         {
             "definition": "{data type} consisting of several {bits}, usually 8 {bits}",
-            "term": "Byte",
-            "uuid": "{47ed2588-d9e5-41d2-aa51-627a16845735}"
+            "term": "Byte"
         },
         {
             "definition": "abstract knowledge about something, regardless of the form of presentation",
-            "term": "Information",
-            "uuid": "{d91a79a4-7276-4756-8881-bf2ec9fcc495}"
+            "term": "Information"
         },
         {
             "definition": "{information} presented in a formalized/structured form suitable for transmission or processing",
-            "term": "Data",
-            "uuid": "{f0b94cad-bce2-498b-ba4d-5cf22ab15448}"
+            "term": "Data"
         },
         {
             "definition": "a set of {data} conventions that defines the set of valid values for data and the operations allowed on it",
-            "term": "Data type",
-            "uuid": "{b687f5e9-929a-42aa-b1a4-600166bfc69c}"
+            "term": "Data type"
         },
         {
             "definition": "potentially any material object that can store some amount of {data} unchanged for some amount of time",
-            "term": "Data storage",
-            "uuid": "{964d153f-722d-45cb-a690-e737bbbffc4c}"
+            "term": "Data storage"
         },
         {
             "definition": "",
-            "term": "Program",
-            "uuid": "{c0cef57f-577e-461c-a50d-e85219b35f5c}"
+            "term": "Program"
         },
         {
             "definition": "",
-            "term": "Operating system",
-            "uuid": "{9e6c0bb6-14d5-42b4-98bc-f76c0ab7374a}"
+            "term": "Operating system"
         },
         {
             "definition": "system, that organizes {files} to make efficient use of space and maintains the validity of {file names} on {data storage}",
-            "term": "File system",
-            "uuid": "{ec601eca-ae60-4b23-a04a-e43864bd1dc4}"
+            "term": "File system"
         },
         {
             "definition": "unique {string} identifier of {file} on specific {data storage}",
-            "term": "File name",
-            "uuid": "{79c4cdc3-c316-492e-a077-10751852dbca}"
+            "term": "File name"
         },
         {
             "definition": "{file}, containing {code} on some {programming language}",
-            "term": "Source code",
-            "uuid": "{1b68a722-7f61-4109-adc2-29219f62b7ac}"
+            "term": "Source code"
         },
         {
             "definition": "",
-            "term": "String",
-            "uuid": "{f1eccf58-eedd-4156-a62f-9ff4ac79c5b9}"
+            "term": "String"
         },
         {
             "definition": "",
-            "term": "char",
-            "uuid": "{b2efb01c-e3bc-4d29-894e-f70a46ee2daf}"
+            "term": "char"
         },
         {
             "definition": "{data type} that contains some symbol or grapheme in natural language",
-            "term": "Character",
-            "uuid": "{33877e22-a56e-4616-b904-7d6e3489cb06}"
+            "term": "Character"
         },
         {
             "definition": "method of data ",
-            "term": "Data structure",
-            "uuid": "{7564d741-9360-403d-85a2-d21c9b55a90b}"
+            "term": "Data structure"
         },
         {
             "definition": "",
-            "term": "1",
-            "uuid": "{7b95b0cb-ec21-4398-8548-9155c028beb6}"
+            "term": "1"
         }
     ]
 }
