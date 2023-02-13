@@ -57,6 +57,10 @@ StaticGroupData StaticDataStorage::prepareForInternalUse(StaticGroupData data)
         data.uuid = GroupUuid::generate();
     }
 
+    for (auto& term : data.terms) {
+        term.groupUuid = data.uuid.value();
+    }
+
     return data;
 }
 
