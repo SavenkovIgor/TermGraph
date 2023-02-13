@@ -77,8 +77,15 @@ struct TermData
             lastEdit = QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate);
         }
 
+        Opt<TermUuid> uuid;
+
+        if (obj.contains(JsonTools::uuidKey))
+        {
+            uuid = TermUuid::from(obj[JsonTools::uuidKey].toString());
+        }
+
         TermData ret{
-            .uuid        = TermUuid::from(obj[JsonTools::uuidKey].toString()),
+            .uuid        = uuid,
             .term        = obj[JsonTools::termKey].toString(),
             .definition  = obj[JsonTools::definitionKey].toString(),
             .description = obj[JsonTools::descriptionKey].toString(""),
@@ -128,7 +135,6 @@ struct TermData
     {
         QJsonObject ret;
 
-        ret.insert(JsonTools::uuidKey, (data.uuid ? data.uuid->toString() : ""));
         ret.insert(JsonTools::termKey, data.term);
         ret.insert(JsonTools::definitionKey, data.definition);
 

@@ -3,23 +3,19 @@
     "terms": [
         {
             "definition": "the objectively existing world in the broadest sense",
-            "term": "Reality",
-            "uuid": "{8a505474-b90f-4e83-be63-e6a1e5d39b24}"
+            "term": "Reality"
         },
         {
             "definition": "a particle that is not composed of other particles",
-            "term": "Elementary particle",
-            "uuid": "{8a505474-b90f-4e83-be63-e679d5d39b24}"
+            "term": "Elementary particle"
         },
         {
             "definition": "undividible {elementary particle}, known at the moment",
-            "term": "Quark",
-            "uuid": "{8a505474-b90f-4e93-be63-e679d5d39b24}"
+            "term": "Quark"
         },
         {
             "definition": "any substance in {reality} that has {mass} and {volume}",
-            "term": "Matter",
-            "uuid": "{8a505474-b90f-4483-be63-e679d5d39b24}"
+            "term": "Matter"
         }
     ]
 }
