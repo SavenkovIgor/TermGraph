@@ -88,7 +88,9 @@ struct StaticGroupData : public GroupSummary
         }
         ret.name     = json[JsonTools::nameKey].toString();
         ret.comment  = json[JsonTools::commentKey].toString("");
-        ret.terms    = TermData::List::from(json[JsonTools::termsKey].toArray(), TermData::JsonCheckMode::Minimal);
+
+        auto jsonTerms = json[JsonTools::termsKey].toArray();
+        ret.terms    = TermData::List::from(jsonTerms, TermData::JsonCheckMode::Minimal);
 
         return ret;
     }
@@ -113,7 +115,13 @@ struct StaticGroupData : public GroupSummary
         ret.insert(JsonTools::nameKey, name);
         ret = JsonTools::addIfNotEmpty(ret, JsonTools::commentKey, comment);
 
-        ret.insert(JsonTools::termsKey, static_cast<QJsonArray>(terms));
+        QJsonArray jsonterms;
+
+        for (const auto& term : terms) {
+            jsonterms.append(TermData::toMinimalJsonObject(term));
+        }
+
+        ret.insert(JsonTools::termsKey, jsonterms);
 
         return ret;
     }

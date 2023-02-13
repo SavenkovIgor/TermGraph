@@ -59,7 +59,13 @@ struct TermData
         if (!validator.check(obj))
             return std::nullopt;
 
-        auto gUuid = GroupUuid::from(obj[JsonTools::groupUuidKey].toString());
+        Opt<GroupUuid> gUuid;
+
+        if (mode == JsonCheckMode::Minimal) {
+            gUuid = GroupUuid::generate();
+        } else {
+            gUuid = GroupUuid::from(obj[JsonTools::groupUuidKey].toString());
+        }
 
         if (!gUuid)
             return std::nullopt;
@@ -107,6 +113,24 @@ struct TermData
 
         ret.insert(JsonTools::groupUuidKey, groupUuid.toString());
         ret.insert(JsonTools::lastEditKey, lastEdit.toString(Qt::ISODate));
+
+        return ret;
+    }
+
+    static inline QJsonObject toMinimalJsonObject(const TermData& data)
+    {
+        QJsonObject ret;
+
+        ret.insert(JsonTools::uuidKey, (data.uuid ? data.uuid->toString() : ""));
+        ret.insert(JsonTools::termKey, data.term);
+        ret.insert(JsonTools::definitionKey, data.definition);
+
+        ret = JsonTools::addIfNotEmpty(ret, JsonTools::descriptionKey, data.description);
+        ret = JsonTools::addIfNotEmpty(ret, JsonTools::examplesKey, data.examples);
+        ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiUrlKey, data.wikiUrl);
+        ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiImageKey, data.wikiImage);
+
+        ret.insert(JsonTools::lastEditKey, data.lastEdit.toString(Qt::ISODate));
 
         return ret;
     }

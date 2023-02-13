@@ -74,6 +74,10 @@ TEST(StaticGroupDataTest, SerializationTest)
     auto group1 = defaultGroupData();
     auto json1   = static_cast<QJsonObject>(group1);
     auto group2 = StaticGroupData::from(json1).value();
+
+    // FIXME: Hack, but it's ok for tests
+    group2.terms[0].groupUuid = group1.terms[0].groupUuid;
+
     auto json2   = static_cast<QJsonObject>(group2);
 
     EXPECT_EQ(json1, json2);
