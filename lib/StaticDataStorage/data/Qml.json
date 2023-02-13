@@ -3,385 +3,321 @@
     "terms": [
         {
             "definition": "{QObject}",
-            "lastEdit": "2020-01-16T16:56:23Z",
             "term": "QtObject",
             "uuid": "{9a621918-9f54-4be7-9bf3-77763e4b3f87}"
         },
         {
             "definition": "{QQuickItem}",
-            "lastEdit": "2021-04-26T17:14:35Z",
             "term": "Item",
             "uuid": "{04b88a48-43a3-4166-9935-3b840c665c59}"
         },
         {
             "definition": "{Item}",
-            "lastEdit": "2019-08-07T14:34:35Z",
             "term": "Image",
             "uuid": "{39899d6f-32c0-4f66-912d-ad319fe80cec}"
         },
         {
             "definition": "{Item}",
-            "lastEdit": "2019-08-07T14:35:00Z",
             "term": "Rectangle",
             "uuid": "{43a7f475-5392-4a03-b196-d83a3a6c7894}"
         },
         {
             "definition": "{Item}",
-            "lastEdit": "2019-08-07T14:35:28Z",
             "term": "Control",
             "uuid": "{086f1014-bf62-4b8e-8fb6-02b5407f5751}"
         },
         {
             "definition": "{Control}",
-            "lastEdit": "2019-08-07T14:35:42Z",
             "term": "Pane",
             "uuid": "{b89dec23-0cff-40a2-bcff-54b7109fd3e4}"
         },
         {
             "definition": "{Pane}",
-            "lastEdit": "2019-08-07T14:35:54Z",
             "term": "Page",
             "uuid": "{5186f086-817b-464b-8d5a-dc833875b587}"
         },
         {
             "definition": "{Pane}",
-            "lastEdit": "2019-08-07T14:36:28Z",
             "term": "ScrollView",
             "uuid": "{e55d2f90-138a-4c5e-bfd7-7397c706dc6a}"
         },
         {
             "definition": "{Item}",
-            "lastEdit": "2019-08-07T14:37:10Z",
             "term": "RowLayout",
             "uuid": "{0718bb86-62dc-4d1b-a24f-2b2a4a8f8ff1}"
         },
         {
             "definition": "{Item}",
-            "lastEdit": "2019-08-07T14:51:46Z",
             "term": "Text",
             "uuid": "{3433dfc4-a61e-4721-b0f1-04e859af455c}"
         },
         {
             "definition": "{Text}",
-            "lastEdit": "2019-08-07T14:52:01Z",
             "term": "Label",
             "uuid": "{1c967f33-a386-4dee-97ca-4719549833de}"
         },
         {
             "definition": "{AbstractButton}",
-            "lastEdit": "2019-08-07T14:55:17Z",
             "term": "Button",
             "uuid": "{f16a94a6-dacb-4805-b116-03870e13fd76}"
         },
         {
             "definition": "{Control}",
-            "lastEdit": "2019-08-07T14:55:35Z",
             "term": "AbstractButton",
             "uuid": "{60bbd619-3bf5-4823-b42b-972265dfbd10}"
         },
         {
             "definition": "{Popup}",
-            "lastEdit": "2019-08-07T14:56:36Z",
             "term": "Dialog",
             "uuid": "{f91e9783-03fa-4077-8a60-ab3a19bceb0e}"
         },
         {
             "definition": "{QtObject}",
-            "lastEdit": "2019-08-07T14:56:53Z",
             "term": "Popup",
             "uuid": "{df2a12f2-2c74-4f03-9c6a-ae362f91f3e0}"
         },
         {
             "definition": "{Window}",
-            "lastEdit": "2019-08-07T14:57:35Z",
             "term": "ApplicationWindow",
             "uuid": "{32ea7031-72d3-41b6-8740-a0107cfd2779}"
         },
         {
             "definition": "{QQuickWindow}",
-            "lastEdit": "2019-08-07T14:58:14Z",
             "term": "Window",
             "uuid": "{3ba906f8-8029-47bf-9ac3-a6fc87c2efbb}"
         },
         {
             "definition": "{QWindow}",
-            "lastEdit": "2020-01-16T16:59:15Z",
             "term": "QQuickWindow",
             "uuid": "{e052de82-cb2d-4ff7-af7d-299bda4a7154}"
         },
         {
             "definition": "{Item}",
-            "lastEdit": "2019-08-07T14:59:05Z",
             "term": "Canvas",
             "uuid": "{b9922e6a-6c0f-4118-9574-994de495ac21}"
         },
         {
             "definition": "{Item}",
-            "lastEdit": "2019-08-07T15:00:24Z",
             "term": "Loader",
             "uuid": "{221cfb57-bdbc-44d1-acb5-11f362c6f72b}"
         },
         {
             "definition": "{Item}",
-            "lastEdit": "2019-08-07T15:00:45Z",
             "term": "Repeater",
             "uuid": "{9c3b26a1-842a-41ac-b6a6-e5cd2ca0afdb}"
         },
         {
             "definition": "{QQmlComponent}",
-            "lastEdit": "2019-08-07T15:02:56Z",
             "term": "Component",
             "uuid": "{93aa9dcb-4958-4600-85b3-5f782b440aed}"
         },
         {
             "definition": "",
-            "lastEdit": "2019-08-07T15:02:49Z",
             "term": "QQmlComponent",
             "uuid": "{d908eb33-cd27-446d-96ce-db3a304a5287}"
         },
         {
             "definition": "{Flickable}",
-            "lastEdit": "2019-08-07T15:56:17Z",
             "term": "TableView",
             "uuid": "{ac81c7d0-4026-479d-857a-d856d612fdd8}"
         },
         {
             "definition": "{Item}",
-            "lastEdit": "2019-08-07T15:56:30Z",
             "term": "Flickable",
             "uuid": "{3d9b21ff-672b-4b1a-9769-0049dad211fb}"
         },
         {
             "definition": "",
-            "lastEdit": "2019-08-07T16:10:44Z",
             "term": "Scale",
             "uuid": "{d29251fa-2980-40d2-8eeb-56c7f1c94987}"
         },
         {
             "definition": "{Animator}",
-            "lastEdit": "2019-08-07T16:11:22Z",
             "term": "ScaleAnimator",
             "uuid": "{b8072b5a-0e74-4ba3-9506-72c54958b858}"
         },
         {
             "definition": "{Animation}",
-            "lastEdit": "2019-08-07T16:11:37Z",
             "term": "Animator",
             "uuid": "{1213fbc8-8b7a-4d4b-99a6-5a08efdf4e7c}"
         },
         {
             "definition": "",
-            "lastEdit": "2019-08-07T16:11:46Z",
             "term": "Animation",
             "uuid": "{c188a6cf-d3fd-4edd-8c57-6c7d02a85d45}"
         },
         {
             "definition": "{Animation}",
-            "lastEdit": "2019-08-07T16:12:17Z",
             "term": "AnchorAnimation",
             "uuid": "{8b1888e2-ddb4-49b2-8a4a-4469adaa2d8d}"
         },
         {
             "definition": "{QtObject}",
-            "lastEdit": "2019-08-07T16:13:05Z",
             "term": "Action",
             "uuid": "{fef1be3a-2738-482a-99dc-2225c37deb55}"
         },
         {
             "definition": "",
-            "lastEdit": "2019-08-08T09:42:31Z",
             "term": "WaylandCompositor",
             "uuid": "{8094fe69-87a0-49f3-b043-ccce69d4f2ab}"
         },
         {
             "definition": "",
-            "lastEdit": "2019-08-08T09:48:58Z",
             "term": "WaylandOutput",
             "uuid": "{833107d8-9c7f-4cf2-b7e7-43f3b5936edf}"
         },
         {
             "definition": "{Popup}",
-            "lastEdit": "2019-08-08T11:01:18Z",
             "term": "Drawer",
             "uuid": "{adeb461e-7b12-4bbb-9c9e-3af7758945a8}"
         },
         {
             "definition": "{Item}",
-            "lastEdit": "2019-10-17T13:42:39Z",
             "term": "TextInput",
             "uuid": "{0f9a0a3b-7104-44f6-91a7-c5c9d9fe18a5}"
         },
         {
             "definition": "{TextInput}",
-            "lastEdit": "2019-10-17T13:43:07Z",
             "term": "TextField",
             "uuid": "{2de10e6a-da04-4f80-ab13-094a8db5d151}"
         },
         {
             "definition": "{Item}",
-            "lastEdit": "2019-10-17T13:44:04Z",
             "term": "TextEdit",
             "uuid": "{b0d1d21d-2b8b-4250-a431-0476cd8bc32c}"
         },
         {
             "definition": "{TextEdit}",
-            "lastEdit": "2019-10-17T13:44:24Z",
             "term": "TextArea",
             "uuid": "{d64d7079-2250-4d9a-80b8-62e8f3f705da}"
         },
         {
             "definition": "{Popup}",
-            "lastEdit": "2019-10-18T15:06:19Z",
             "term": "ToolTip",
             "uuid": "{1ad97314-0b9b-4ea1-b355-6e5028aa76f2}"
         },
         {
             "definition": "{QQmlEngine}",
-            "lastEdit": "2019-11-12T14:44:05Z",
             "term": "QQmlApplicationEngine",
             "uuid": "{d56f57ea-97c5-40d0-a86e-722360c07130}"
         },
         {
             "definition": "{QJSEngine}",
-            "lastEdit": "2019-11-12T14:44:37Z",
             "term": "QQmlEngine",
             "uuid": "{df2b6228-7113-4c95-b15f-8b7f9b914a16}"
         },
         {
             "definition": "{QObject}",
-            "lastEdit": "2020-01-16T16:57:11Z",
             "term": "QJSEngine",
             "uuid": "{a6006abc-1131-408f-b3cf-88a053451b38}"
         },
         {
             "definition": "{QGuiApplication}",
-            "lastEdit": "2020-01-16T16:33:41Z",
             "term": "QApplication",
             "uuid": "{e9e18ce8-6aea-4f9a-b2c8-07522a03f628}"
         },
         {
             "definition": "{QCoreApplication}",
-            "lastEdit": "2020-01-16T16:31:45Z",
             "term": "QGuiApplication",
             "uuid": "{e91cd7e7-0a80-445b-8a9c-e446d08bc695}"
         },
         {
             "definition": "{QObject}",
-            "lastEdit": "2020-01-16T16:56:48Z",
             "term": "QCoreApplication",
             "uuid": "{730716a7-6cbb-4bc0-9b7c-76a761dc8b1d}"
         },
         {
             "definition": "",
-            "lastEdit": "2020-01-16T16:56:14Z",
             "term": "QObject",
             "uuid": "{dfeff8d0-c06b-4d99-ae65-c46aa2e6f36e}"
         },
         {
             "definition": "{QObject} {QSurface}",
-            "lastEdit": "2020-01-16T17:00:07Z",
             "term": "QWindow",
             "uuid": "{bd8d0234-41ce-4401-a4eb-56432c2e4eae}"
         },
         {
             "definition": "",
-            "lastEdit": "2020-01-16T17:00:32Z",
             "term": "QSurface",
             "uuid": "{986d6334-3f34-4d2d-914f-c787d5ae0b79}"
         },
         {
             "definition": "",
-            "lastEdit": "2020-02-04T16:08:09Z",
             "term": "qmldir",
             "uuid": "{b81da9b7-a285-402f-88b5-e30e7826cd22}"
         },
         {
             "definition": "{MultiPointHandler}",
-            "lastEdit": "2021-04-26T17:09:58Z",
             "term": "PinchHandler",
             "uuid": "{41b86c34-f676-424e-be46-941c048979a4}"
         },
         {
             "definition": "{PointerDeviceHandler}",
-            "lastEdit": "2021-04-26T17:10:25Z",
             "term": "MultiPointHandler",
             "uuid": "{da3b935a-1daa-4ee5-b4f2-c6c0f9d8c72f}"
         },
         {
             "definition": "{PointerHandler}",
-            "lastEdit": "2021-04-26T17:10:55Z",
             "term": "PointerDeviceHandler",
             "uuid": "{fb1903ad-5a32-4afc-a11b-343b094d197c}"
         },
         {
             "definition": "{QObject}",
-            "lastEdit": "2021-04-30T16:09:31Z",
             "term": "PointerHandler",
             "uuid": "{bb49545c-55d1-4541-9a6c-8443c7634e4d}"
         },
         {
             "definition": "{QObject}",
-            "lastEdit": "2021-04-26T17:14:47Z",
             "term": "QQuickItem",
             "uuid": "{02e274ca-4ee3-4b04-95a9-f04a9dd2c3ae}"
         },
         {
             "definition": "{PointerDeviceHandler}",
-            "lastEdit": "2021-04-26T17:16:16Z",
             "term": "SinglePointHandler",
             "uuid": "{7a3ae35c-6799-4d20-9cee-4d018278b855}"
         },
         {
             "definition": "{SinglePointHandler}",
-            "lastEdit": "2021-04-26T17:16:58Z",
             "term": "HoverHandler",
             "uuid": "{fa761b70-6727-464a-a382-1f48c632c300}"
         },
         {
             "definition": "{SinglePointHandler}",
-            "lastEdit": "2021-04-26T17:17:20Z",
             "term": "PointHandler",
             "uuid": "{9c8440c6-22e5-4c54-8cf8-814e0adaf7f6}"
         },
         {
             "definition": "{SinglePointHandler}",
-            "lastEdit": "2021-04-26T17:17:39Z",
             "term": "TapHandler",
             "uuid": "{12584c12-c1c0-4abc-8f75-8a738c313c04}"
         },
         {
             "definition": "{SinglePointHandler}",
-            "lastEdit": "2021-04-26T17:17:58Z",
             "term": "WheelHandler",
             "uuid": "{e050d2ce-135d-46a3-964f-f3d8e5b13d39}"
         },
         {
             "definition": "{MultiPointHandler}",
-            "lastEdit": "2021-04-26T17:19:04Z",
             "term": "DragHandler",
             "uuid": "{789af5ee-24db-48e8-ab4b-99064732df6b}"
         },
         {
             "definition": "{QObject}",
-            "lastEdit": "2021-04-30T16:06:38Z",
             "term": "QQuickPointerEvent",
             "uuid": "{4eef3b29-9dec-476c-95a1-d168d5c6482c}"
         },
         {
             "definition": "{QQuickPointerEvent}",
-            "lastEdit": "2021-04-30T16:07:25Z",
             "term": "QQuickSinglePointEvent",
             "uuid": "{53b3a5cd-a299-45aa-877f-4e2bc8440921}"
         },
         {
             "definition": "{QQuickSinglePointEvent}",
-            "lastEdit": "2021-04-30T16:08:20Z",
             "term": "QQuickPointerMouseEvent",
             "uuid": "{153df9b0-d063-4c37-bf4d-dfe394250d29}"
         },
         {
             "definition": "",
-            "lastEdit": "2021-12-05T19:50:10Z",
             "term": "1",
             "uuid": "{5fc62729-da38-401c-96b5-ed7bffc6ab4a}"
         }
