@@ -96,6 +96,10 @@
         {
             "definition": "change of {existing} {entity} or {system} that has specific point in {spacetime}",
             "term": "Event"
+        },
+        {
+            "definition": "influence by which one {event}, process, state, or object (a cause) contributes to the production of another event, process, state, or object (an effect) where the cause is partly responsible for the effect, and the effect is partly dependent on the cause.",
+            "term": "Causality"
         }
     ]
 }
