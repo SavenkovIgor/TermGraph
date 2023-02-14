@@ -26,12 +26,32 @@
             "term": "Property"
         },
         {
+            "definition": "act of assigning some {number} or {category} to {property}, with some fixed procedure",
+            "term": "Measurement"
+        },
+        {
+            "definition": "{number} or {category} calculated as a result of {measurement} of some {property}",
+            "term": "Property value"
+        },
+        {
+            "definition": "some fixed {set} of {properties} and {property values}, describing specific {entity}",
+            "term": "State"
+        },
+        {
             "definition": "ability of an {entity} to interact with {reality}",
             "term": "Existence"
         },
         {
+            "definition": "{property} of {existing} {entity}, which is possible to {measure}",
+            "term": "Physical property"
+        },
+        {
             "definition": "group of any {entities}",
             "term": "Set"
+        },
+        {
+            "definition": "{set} of interacting {entities}",
+            "term": "System"
         },
         {
             "definition": "{ordered} {set} of {entities}",
@@ -42,11 +62,11 @@
             "term": "Time"
         },
         {
-            "definition": "{set} of independent {properties} need for description of {entity}, или количество степеней свободы системы. ",
+            "definition": "{set} of independent {properties} need to describe an {entity}, or {system}",
             "term": "Dimension"
         },
         {
-            "definition": "three-dimentional extent of {reality} in which {existing} {entities} have relative position and direction continuous {sequence} of occuring {existence} and changes in {reality}",
+            "definition": "three-{dimentional} extent of {reality} in which {entities} {exist} and take some place",
             "term": "Space"
         }
     ]
