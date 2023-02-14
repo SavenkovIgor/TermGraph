@@ -66,12 +66,20 @@
             "term": "Time"
         },
         {
-            "definition": "{set} of independent {properties} need to describe an {entity}, or {system}",
-            "term": "Dimension"
+            "definition": "some extent in which {entities} can take some different places",
+            "term": "Dimention"
         },
         {
-            "definition": "three-{dimentional} extent of {reality} in which {entities} {exist} and take some place",
+            "definition": "not empty {set} of independent {dimentions}",
             "term": "Space"
+        },
+        {
+            "definition": "{set} of {propery values}, describing unique place in {space}",
+            "term": "Position"
+        },
+        {
+            "definition": "{entity}, that can be described with it's {position} only",
+            "term": "Point"
         }
     ]
 }
