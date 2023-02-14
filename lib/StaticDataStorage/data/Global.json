@@ -67,10 +67,10 @@
         },
         {
             "definition": "some extent in which {entities} can take some different places",
-            "term": "Dimention"
+            "term": "Dimension"
         },
         {
-            "definition": "not empty {set} of independent {dimentions}",
+            "definition": "not empty {set} of independent {dimensions}",
             "term": "Space"
         },
         {
@@ -80,6 +80,22 @@
         {
             "definition": "{entity}, that can be described with it's {position} only",
             "term": "Point"
+        },
+        {
+            "definition": "{set} of interacting {entities}, that behaves similar to {existing} {system}",
+            "term": "Model"
+        },
+        {
+            "definition": "{space} having three {dimensions}",
+            "term": "Three dimensional space"
+        },
+        {
+            "definition": "{model} that combines the {three dimensional space} and one {dimension} of {time} into a single four-dimensional {space}",
+            "term": "Spacetime"
+        },
+        {
+            "definition": "change of {existing} {entity} or {system} that has specific point in {spacetime}",
+            "term": "Event"
         }
     ]
 }
