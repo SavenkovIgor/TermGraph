@@ -2,7 +2,11 @@
     "name": "Global",
     "terms": [
         {
-            "definition": "the objectively existing world in the broadest sense",
+            "definition": "term that is not using any of previously-defined terms",
+            "term": "Primitive notion"
+        },
+        {
+            "definition": "the objectively existing world in the broadest sense. {Primitive notion}",
             "term": "Reality"
         },
         {
@@ -18,7 +22,7 @@
             "term": "Matter"
         },
         {
-            "definition": "something that can be seen as separate from any other objects",
+            "definition": "something that can be seen as separate from any other objects. {Primitive notion}",
             "term": "Entity"
         },
         {
