@@ -16,6 +16,18 @@
         {
             "definition": "any substance in {reality} that has {mass} and {volume}",
             "term": "Matter"
+        },
+        {
+            "definition": "something that can be seen as separate from any other objects",
+            "term": "Entity"
+        },
+        {
+            "definition": "a common characteristic that does not exist by itself, but the possession of which can be attributed to many different {entities}",
+            "term": "Property"
+        },
+        {
+            "definition": "ability of an {entity} to interact with {reality}",
+            "term": "Existence"
         }
     ]
 }
