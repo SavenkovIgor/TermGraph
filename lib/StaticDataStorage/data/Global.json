@@ -6,7 +6,7 @@
             "term": "Reality"
         },
         {
-            "definition": "a particle that is not composed of other particles",
+            "definition": "a {particle} that is not composed of other {particles}",
             "term": "Elementary particle"
         },
         {
@@ -28,6 +28,26 @@
         {
             "definition": "ability of an {entity} to interact with {reality}",
             "term": "Existence"
+        },
+        {
+            "definition": "group of any {entities}",
+            "term": "Set"
+        },
+        {
+            "definition": "{ordered} {set} of {entities}",
+            "term": "Sequence"
+        },
+        {
+            "definition": "continuous {sequence} of {existence} and changes occuring in {reality}",
+            "term": "Time"
+        },
+        {
+            "definition": "{set} of independent {properties} need for description of {entity}, или количество степеней свободы системы. ",
+            "term": "Dimension"
+        },
+        {
+            "definition": "three-dimentional extent of {reality} in which {existing} {entities} have relative position and direction continuous {sequence} of occuring {existence} and changes in {reality}",
+            "term": "Space"
         }
     ]
 }
