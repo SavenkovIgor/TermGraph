@@ -54,7 +54,7 @@
             "term": "Set"
         },
         {
-            "definition": "{set} of interacting {entities}",
+            "definition": "{set} of interacting {existing} {entities}",
             "term": "System"
         },
         {
