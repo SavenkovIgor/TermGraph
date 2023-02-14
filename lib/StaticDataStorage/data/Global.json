@@ -2,11 +2,15 @@
     "name": "Global",
     "terms": [
         {
-            "definition": "the objectively existing world in the broadest sense",
+            "definition": "term that is not using any of previously-defined terms",
+            "term": "Primitive notion"
+        },
+        {
+            "definition": "the objectively existing world in the broadest sense. {Primitive notion}",
             "term": "Reality"
         },
         {
-            "definition": "a particle that is not composed of other particles",
+            "definition": "a {particle} that is not composed of other {particles}",
             "term": "Elementary particle"
         },
         {
@@ -16,6 +20,86 @@
         {
             "definition": "any substance in {reality} that has {mass} and {volume}",
             "term": "Matter"
+        },
+        {
+            "definition": "something that can be seen as separate from any other objects. {Primitive notion}",
+            "term": "Entity"
+        },
+        {
+            "definition": "a common characteristic that does not exist by itself, but the possession of which can be attributed to many different {entities}",
+            "term": "Property"
+        },
+        {
+            "definition": "act of assigning some {number} or {category} to {property}, with some fixed procedure",
+            "term": "Measurement"
+        },
+        {
+            "definition": "{number} or {category} calculated as a result of {measurement} of some {property}",
+            "term": "Property value"
+        },
+        {
+            "definition": "some fixed {set} of {properties} and {property values}, describing specific {entity}",
+            "term": "State"
+        },
+        {
+            "definition": "ability of an {entity} to interact with {reality}",
+            "term": "Existence"
+        },
+        {
+            "definition": "{property} of {existing} {entity}, which is possible to {measure}",
+            "term": "Physical property"
+        },
+        {
+            "definition": "group of any {entities}",
+            "term": "Set"
+        },
+        {
+            "definition": "{set} of interacting {existing} {entities}",
+            "term": "System"
+        },
+        {
+            "definition": "{ordered} {set} of {entities}",
+            "term": "Sequence"
+        },
+        {
+            "definition": "continuous {sequence} of {existence} and changes occuring in {reality}",
+            "term": "Time"
+        },
+        {
+            "definition": "some extent in which {entities} can take some different places",
+            "term": "Dimension"
+        },
+        {
+            "definition": "not empty {set} of independent {dimensions}",
+            "term": "Space"
+        },
+        {
+            "definition": "{set} of {propery values}, describing unique place in {space}",
+            "term": "Position"
+        },
+        {
+            "definition": "{entity}, that can be described with it's {position} only",
+            "term": "Point"
+        },
+        {
+            "definition": "{set} of interacting {entities}, that behaves similar to {existing} {system}",
+            "term": "Model"
+        },
+        {
+            "definition": "{space} having three {dimensions}",
+            "term": "Three dimensional space"
+        },
+        {
+            "definition": "{model} that combines the {three dimensional space} and one {dimension} of {time} into a single four-dimensional {space}",
+            "term": "Spacetime"
+        },
+        {
+            "definition": "change of {existing} {entity} or {system} that has specific point in {spacetime}",
+            "term": "Event"
+        },
+        {
+            "definition": "influence by which one {event}, process, state, or object (a cause) contributes to the production of another event, process, state, or object (an effect) where the cause is partly responsible for the effect, and the effect is partly dependent on the cause.",
+            "term": "Causality"
         }
     ]
 }
