@@ -10,10 +10,6 @@
             "term": "Reality"
         },
         {
-            "definition": "a {particle} that is not composed of other {particles}",
-            "term": "Elementary particle"
-        },
-        {
             "definition": "undividible {elementary particle}, known at the moment",
             "term": "Quark"
         },
@@ -46,7 +42,11 @@
             "term": "Existence"
         },
         {
-            "definition": "{property} of {existing} {entity}, which is possible to {measure}",
+            "definition": "{existing} {entity}",
+            "term": "Physical object"
+        },
+        {
+            "definition": "{property} of {physical object}, which is possible to {measure}",
             "term": "Physical property"
         },
         {
@@ -54,7 +54,7 @@
             "term": "Set"
         },
         {
-            "definition": "{set} of interacting {existing} {entities}",
+            "definition": "{set} of interacting {physical objecs}",
             "term": "System"
         },
         {
@@ -74,8 +74,24 @@
             "term": "Space"
         },
         {
+            "definition": "part of {space} occupied by some {physical object}",
+            "term": "Volume"
+        },
+        {
+            "definition": "simple {physical object} with {measurable} {coordinates} and maybe {volume}, and other {properties}",
+            "term": "Particle"
+        },
+        {
+            "definition": "a {particle} that is not composed of other {particles}",
+            "term": "Elementary particle"
+        },
+        {
             "definition": "{set} of {propery values}, describing unique place in {space}",
             "term": "Position"
+        },
+        {
+            "definition": "{position}",
+            "term": "Coordinate"
         },
         {
             "definition": "{entity}, that can be described with it's {position} only",
@@ -94,11 +110,15 @@
             "term": "Spacetime"
         },
         {
-            "definition": "change of {existing} {entity} or {system} that has specific point in {spacetime}",
+            "definition": "change of {physical object} or {system} that has specific point in {spacetime}",
             "term": "Event"
         },
         {
-            "definition": "influence by which one {event}, process, state, or object (a cause) contributes to the production of another event, process, state, or object (an effect) where the cause is partly responsible for the effect, and the effect is partly dependent on the cause.",
+            "definition": "series of {measurable} changes over {time} that occur in {system}",
+            "term": "Process"
+        },
+        {
+            "definition": "influence by which one {event}, {process}, {state}, or {entity} (a cause) contributes to the production of another {event}, {process}, {state}, or {entity} (an effect) where the cause is partly responsible for the effect, and the effect is partly dependent on the cause",
             "term": "Causality"
         }
     ]
