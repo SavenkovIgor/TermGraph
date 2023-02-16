@@ -4,7 +4,7 @@ import os, argparse
 from pathlib import Path
 
 def repository_root() -> Path:
-    return Path(__file__).parent.parent
+    return Path(__file__).parent
 
 def set_env_var_if_missed(env_var_name: str, default_value: str):
     if env_var_name not in os.environ:

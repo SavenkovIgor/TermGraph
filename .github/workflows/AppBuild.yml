@@ -25,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Install latest cmake and ninja
       uses: lukka/get-cmake@latest
 
@@ -62,8 +62,7 @@ jobs:
 
     - if: ${{ matrix.build_profile == 'wasm_release' && steps.cache-mt-wasm.outputs.cache-hit != 'true' }}
       name: Build multithread Qt wasm
-      working-directory: ${{github.workspace}}/tools
-      run: ./build.py --wasm-multithread
+      run: ./project.py --wasm-multithread
 
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/Application
