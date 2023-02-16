@@ -13,14 +13,32 @@ DataProvider::DataProvider(QObject *parent)
 
 void DataProvider::loadGroups()
 {
-    dataStorage->groups().then([this](Result<GroupSummary::List> result){
-        if (result.has_value()) {
-            mGroups = result.value();
-            if (!mGroups->empty() && mGroups->front().uuid.has_value()) {
-                loadGroup(mGroups->front().uuid.value());
-            }
-            emit groupListLoaded();
+    dataStorage->groups().then([this](Result<GroupSummary::List> result) {
+
+        if (!result.has_value()) {
+            emit showError(result.error().value());
+            return;
         }
+
+        auto groups = result.value();
+
+        // Find global group
+        auto globalGroup = std::find_if(groups.begin(), groups.end(), [](const auto& group) {
+            return group.name == "Global";
+        });
+
+        if (globalGroup != groups.end()) {
+            // Move global group to the front
+            std::iter_swap(globalGroup, groups.begin());
+        }
+
+        mGroups = groups;
+
+        if (!mGroups->empty() && mGroups->front().uuid.has_value()) {
+            loadGroup(mGroups->front().uuid.value());
+        }
+
+        emit groupListLoaded();
     });
 }
 
