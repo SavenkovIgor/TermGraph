@@ -1,0 +1,11 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build from script",
+			"type": "shell",
+			"command": "tools/build.py desktop_dev",
+			"problemMatcher": "$msCompile"
+		},
+	]
+}
