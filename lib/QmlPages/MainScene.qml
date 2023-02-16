@@ -168,16 +168,12 @@ M.Page {
             onClicked: Api.scene.setMouseClick(scenePt.x, scenePt.y)
 
             onWheel: {
-                if (wheel.modifiers & Qt.ControlModifier) {
-                    if (wheel.angleDelta.y > 0)
-                        sceneCanvas.upScale();
-                    else
-                        sceneCanvas.downScale();
+                if (wheel.angleDelta.y > 0)
+                    sceneCanvas.upScale();
+                else
+                    sceneCanvas.downScale();
 
-                    wheel.accepted = true;
-                } else {
-                    wheel.accepted = false;
-                }
+                wheel.accepted = true;
             }
         }
     }
