@@ -8,6 +8,18 @@
 			"problemMatcher": "$msCompile"
 		},
 		{
+			"label": "Run from script",
+			"type": "shell",
+			"command": "./project.py --run",
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Test from script",
+			"type": "shell",
+			"command": "./project.py --test",
+			"problemMatcher": "$msCompile"
+		},
+		{
 			"label": "Clear",
 			"type": "shell",
 			"command": "./project.py --clear",
