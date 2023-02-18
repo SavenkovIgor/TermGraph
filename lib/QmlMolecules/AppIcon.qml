@@ -13,7 +13,7 @@ Item {
     id: padding
 
     property int size: 200
-    property bool dropShadow: true
+    property bool dropShadow: false
     property alias hex1Visible: hex1.visible
     property alias hex2Visible: hex2.visible
     property alias hex3Visible: hex3.visible

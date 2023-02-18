@@ -17,6 +17,7 @@ Item {
     width: size
     height: size
 
+    property bool dropShadow: false
     property color col1: Theme.color.term.orphanNode
     property color col2: Theme.color.term.leafNode
     property color col3: Theme.color.base1
@@ -69,7 +70,7 @@ Item {
         height: root.height
         color: root.col1
 
-        layer.enabled: true
+        layer.enabled: root.dropShadow
         layer.effect: Shadow {
             radius: Math.ceil(hex1.width / 12)
         }
@@ -85,7 +86,7 @@ Item {
         color: root.col2
         rotation: 30
 
-        layer.enabled: true
+        layer.enabled: root.dropShadow
         layer.effect: Shadow {
             radius: Math.ceil(hex1.width / 12)
         }
@@ -101,7 +102,7 @@ Item {
         color: root.col3
         rotation: 60
 
-        layer.enabled: true
+        layer.enabled: root.dropShadow
         layer.effect: Shadow {
             radius: Math.ceil(hex1.width / 12)
         }
