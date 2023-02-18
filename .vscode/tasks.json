@@ -4,13 +4,13 @@
 		{
 			"label": "Build from script",
 			"type": "shell",
-			"command": "tools/build.py desktop_dev",
+			"command": "./project.py --build",
 			"problemMatcher": "$msCompile"
 		},
 		{
 			"label": "Clear",
 			"type": "shell",
-			"command": "tools/build.py --clear",
+			"command": "./project.py --clear",
 			"problemMatcher": "$msCompile"
 		}
 	]
