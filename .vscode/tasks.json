@@ -4,7 +4,7 @@
 		{
 			"label": "Build from script",
 			"type": "shell",
-			"command": "./project.py desktop_dev",
+			"command": "./project.py --build",
 			"problemMatcher": "$msCompile"
 		},
 		{

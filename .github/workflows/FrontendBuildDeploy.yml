@@ -59,7 +59,7 @@ jobs:
     - if: ${{ steps.cache-mt-wasm.outputs.cache-hit != 'true' }}
       name: Build multithread Qt wasm
       working-directory: ${{github.workspace}}/tools
-      run: ./project.py --wasm-multithread
+      run: ./project.py --build QtWasmMultithread
 
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/Application

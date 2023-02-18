@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
 
-import os, argparse
+import os
+import sys
+import subprocess
+import argparse
 from pathlib import Path
+
 
 def repository_root() -> Path:
     return Path(__file__).parent
+
 
 def set_env_var_if_missed(env_var_name: str, default_value: str):
     if env_var_name not in os.environ:
@@ -13,20 +18,28 @@ def set_env_var_if_missed(env_var_name: str, default_value: str):
 
 
 def assert_variable_exist(varname: str, example_msg: str):
-  if not varname in os.environ:
-    print(f'Error: variable not defined {varname}')
-    print(f'Can be defined as: {example_msg}')
-    exit(1)
+    if not varname in os.environ:
+        print(f'Error: variable not defined {varname}')
+        print(f'Can be defined as: {example_msg}')
+        exit(1)
 
 
 def assert_path_exist(path: Path, comment: str):
-  if not path.exists():
-    print(f'Error: path not exist {comment} {path}')
-    exit(1)
+    if not path.exists():
+        print(f'Error: path not exist {comment} {path}')
+        exit(1)
+
 
 def assert_system_call(command: str):
-  if os.system(command) != 0:
-    exit(1)
+    if subprocess.call(command, shell=True, executable='/bin/bash') != 0:
+        exit(1)
+
+
+def delete_if_exist(path: Path):
+    if path.exists():
+        print(f'Delete {path}')
+        assert_system_call(f'rm -rf {path}')
+
 
 class QtFolders:
     qt_root = Path('')
@@ -80,9 +93,9 @@ def build_multithread_wasm():
 
     qt_sdk = QtFolders.default()
 
-    CONFIG_PLATFORM  = 'wasm-emscripten'
+    CONFIG_PLATFORM = 'wasm-emscripten'
     CONFIG_HOST_PATH = qt_sdk.toolchain_gcc_64()
-    CONFIG_MODULES   = 'qtbase,qtsvg,qtimageformats,qtshadertools,qtdeclarative,qt5compat'
+    CONFIG_MODULES = 'qtbase,qtsvg,qtimageformats,qtshadertools,qtdeclarative,qt5compat'
     THREAD_ARG = '-feature-thread'
 
     print('---Cloning---')
@@ -99,66 +112,162 @@ def build_multithread_wasm():
     THREAD_ARG = '-feature-thread'
 
     print('---Configure---')
-    os.system('rm -rf qtwebengine')
+    assert_system_call('rm -rf qtwebengine')
 
-    assert_system_call(f"./configure -qt-host-path {CONFIG_HOST_PATH} -platform {CONFIG_PLATFORM} {THREAD_ARG} -prefix {qt_sdk.version_dir()}/wasm_32_mt -submodules {CONFIG_MODULES} -skip 'qtwebengine'")
+    assert_system_call(
+        f"./configure -qt-host-path {CONFIG_HOST_PATH} -platform {CONFIG_PLATFORM} {THREAD_ARG} -prefix {qt_sdk.version_dir()}/wasm_32_mt -submodules {CONFIG_MODULES} -skip 'qtwebengine'")
 
     print('---Build---')
     assert_system_call('cmake --build . --parallel')
     assert_system_call('cmake --install .')
 
 
-def delete_cmake_user_presets():
-    if os.path.exists('CMakeUserPresets.json'):
-        os.remove('CMakeUserPresets.json')
+class Project:
+    def __init__(self, name: str, run_name: str, path: Path, available_presets: list[str]):
+        self.name = name
+        self.path = path
+        self.run_name = run_name
+        assert_path_exist(path, 'from project path')
+        self.available_presets = available_presets
+
+    def project_dir(self) -> Path:
+        return self.path
+
+    def build_dir(self, preset_name: str) -> Path:
+        return self.path / f'build/{preset_name}'
+
+    def delete_cmake_user_presets(self):
+        delete_if_exist(self.project_dir() / 'CMakeUserPresets.json')
+
+    def check_preset(self, preset_name: str):
+        if not preset_name in self.available_presets:
+            print(f'Preset {preset_name} not found in {self.name}')
+            exit(1)
+
+    def prepare(self, preset_name: str):
+        self.check_preset(preset_name)
+        os.chdir(self.path)
+
+    def install(self, preset_name: str):
+        self.prepare(preset_name)
+        print(f'---INSTALL {self.name} with preset {preset_name}---')
+        assert_system_call(
+            f'conan install . --profile conanfiles/profile/{preset_name} --build=missing -if={self.build_dir(preset_name)}/conan-dependencies')
+
+    def configure(self, preset_name: str):
+        self.prepare(preset_name)
+        print(f'---CONFIGURE {self.name} with preset {preset_name}---')
+        self.delete_cmake_user_presets()
+        assert_system_call(f'cmake --preset {preset_name} ./')
+
+    def build(self, preset_name: str):
+        self.prepare(preset_name)
+
+        self.install(preset_name)
+        self.configure(preset_name)
+
+        print(f'---BUILD {self.name} with preset {preset_name}---')
+        assert_system_call(f'cmake --build --preset {preset_name}')
+
+    def test(self, preset_name: str):
+        self.prepare(preset_name)
+        print(f'---TEST {self.name} with preset {preset_name}---')
+        assert_system_call(f'ctest --preset {preset_name} --output-on-failure')
+
+    def run(self, preset_name: str):
+        self.prepare(preset_name)
+        print(f'---RUN {self.name} with preset {preset_name}---')
+        assert_system_call(f'./build/{preset_name}/{self.run_name}')
+
+    def pack(self, preset_name: str):
+        print('---CMAKE PACKAGE STARTED---')
+        print('Not implemented yet')
+
+    def clear(self, clear_conan: bool = False):
+        os.chdir(self.path)
+        print(f'---CLEAR {self.name}---')
+        delete_if_exist(self.path / 'build')
+        if clear_conan:
+            assert_system_call('conan remove -f "*"')
 
 
-def build_app(preset_name: str):
-    print('---CONAN INSTALL STARTED---')
-    assert_system_call(f'conan install . --profile conanfiles/profile/{preset_name} --build=missing -if=build/{preset_name}/conan-dependencies')
-
-    print('---CMAKE CONFIGURE STARTED---')
-    assert_system_call(f'cmake --preset {preset_name} ./')
-
-    print('---CMAKE BUILD STARTED---')
-    assert_system_call(f'cmake --build --preset {preset_name}')
-
-
-def test_app(preset_name: str):
-    print('---CMAKE TEST STARTED---')
-    assert_system_call(f'ctest --preset {preset_name} --output-on-failure')
-
-
+# Should be possible to run:
+# ./project.py --target-list # List all targets
+# ./project.py --install   [Application (default) | Backend] [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --configure [Application (default) | Backend] [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --build     [Application (default) | Backend | QtWasmMultithread] [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --run       [Application (default) | Backend] [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --test      [Application (default) | Backend] [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --pack      [Application (default) | Backend] [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --clear     [Application (default) | Backend]
+# ./project.py --clear-all [Application (default) | Backend]
 def main():
-    parser = argparse.ArgumentParser(description='Build application with CMake preset')
-    group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('--clear', help='Clean build directory', action='store_true')
-    group.add_argument('--wasm-multithread', help='Build multithread wasm', action='store_true')
-    group.add_argument('preset_name',
-                        type=str,
-                        help='CMake preset name',
-                        nargs='?',
-                        choices=['desktop_release', 'desktop_dev', 'wasm_release'])
+    parser = argparse.ArgumentParser(description='Project build script')
+
+    parser.add_argument('--target-list', action='store_true', help='List all targets')
+    parser.add_argument('--install',     action='store_true', help='Install dependencies')
+    parser.add_argument('--configure',   action='store_true', help='Configure project')
+    parser.add_argument('--build',       action='store_true', help='Build project')
+    parser.add_argument('--test',        action='store_true', help='Test project')
+    parser.add_argument('--run',         action='store_true', help='Run project')
+    parser.add_argument('--pack',        action='store_true', help='Pack project')
+    parser.add_argument('--clear',       action='store_true', help='Clear project')
+    parser.add_argument('--clear-all',   action='store_true', help='Clear project and conan cache')
+
+    parser.add_argument('target',   type=str, help='Target to build', choices=[
+                        'Application', 'Backend', 'QtWasmMultithread'],    default='Application', nargs='?')
+    parser.add_argument('--preset', type=str, help='Preset to use',
+                        choices=['desktop_dev', 'desktop_release', 'wasm_release'], default='desktop_release')
+
     args = parser.parse_args()
 
-    if args.wasm_multithread:
+    if args.target_list:
+        print('Available targets: Application, Backend, QtWasmMultithread')
+        return
+
+    if args.target == 'QtWasmMultithread':
+
+        if not args.build:
+            print('QtWasmMultithread can only be built')
+
         build_multithread_wasm()
+        return
 
-    elif args.clear:
-        os.chdir(repository_root() / 'apps/Application')
+    configure_environment()
 
-        delete_cmake_user_presets()
-        os.system('rm -rf ./build')
+    app = Project('Application', 'TermGraph', repository_root() / 'apps/Application',
+                  ['desktop_dev', 'desktop_release', 'wasm_release'])
+    back = Project('Backend', 'TermGraphBack', repository_root() / 'apps/Backend', ['desktop_release'])
 
-    else:
-        os.chdir(repository_root() / 'apps/Application')
+    target_dict = {
+        'Application': app,
+        'Backend': back
+    }
 
-        configure_environment(args.preset_name == 'wasm_release')
-        delete_cmake_user_presets()
-        build_app(args.preset_name)
+    if args.install:
+        target_dict[args.target].install(args.preset)
 
-        if args.preset_name != 'wasm_release':
-            test_app(args.preset_name)
+    if args.configure:
+        target_dict[args.target].configure(args.preset)
+
+    if args.build:
+        target_dict[args.target].build(args.preset)
+
+    if args.test:
+        target_dict[args.target].test(args.preset)
+
+    if args.run:
+        target_dict[args.target].run(args.preset)
+
+    if args.pack:
+        target_dict[args.target].pack(args.preset)
+
+    if args.clear:
+        target_dict[args.target].clear()
+
+    if args.clear_all:
+        target_dict[args.target].clear(clear_conan=True)
+
 
 if __name__ == '__main__':
     main()
