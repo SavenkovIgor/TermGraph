@@ -24,6 +24,10 @@ def assert_variable_exist(varname: str, example_msg: str):
         exit(1)
 
 
+def is_valid_env_path(varname: str) -> bool:
+    return varname in os.environ and Path(os.environ[varname]).exists()
+
+
 def assert_path_exist(path: Path, comment: str):
     if not path.exists():
         print(f'Error: path not exist {comment} {path}')
@@ -78,7 +82,11 @@ def configure_environment(for_wasm: bool = False):
     assert_path_exist(Path(os.environ['QT_ROOT']), 'from variable QT_ROOT')
 
     if for_wasm:
-        assert_system_call(f'source {os.path.expanduser("~/emsdk/emsdk_env.sh")}')
+        has_emsdk = is_valid_env_path('EMSDK')
+        has_emsdk_node = is_valid_env_path('EMSDK_NODE')
+
+        if not has_emsdk or not has_emsdk_node:
+            assert_system_call(f'source {os.path.expanduser("~/emsdk/emsdk_env.sh")}')
 
         assert_variable_exist('EMSDK', '~/emsdk')
         assert_variable_exist('EMSDK_NODE', '~/emsdk/node/14.18.2_64bit/bin/node')
