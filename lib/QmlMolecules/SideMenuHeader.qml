@@ -20,6 +20,7 @@ Control {
         AppIcon {
             size: Sizes.baseX4
             Layout.margins: 10
+            textVisible: false
         }
 
         Text {
