@@ -30,7 +30,11 @@
             "term": "Measurement"
         },
         {
-            "definition": "{number} or {category} calculated as a result of {measurement} of some {property}",
+            "definition": "some {number} or {category} that has meaning in specific context",
+            "term": "Value"
+        },
+        {
+            "definition": "{value} or {category} received as a result of {measurement} or {calculation} of some {property}",
             "term": "Property value"
         },
         {
@@ -46,12 +50,24 @@
             "term": "Physical object"
         },
         {
+            "definition": "{entity} that does not {exist} by itself, but is the result of a generalization of other {entities}",
+            "term": "Abstract entity"
+        },
+        {
+            "definition": "{set}, all {entities} of which fit some predefined rule",
+            "term": "Category"
+        },
+        {
             "definition": "{property} of {physical object}, which is possible to {measure}",
             "term": "Physical property"
         },
         {
             "definition": "group of any {entities}",
             "term": "Set"
+        },
+        {
+            "definition": "{set}, all {entities} of which are contained in another {set}",
+            "term": "Subset"
         },
         {
             "definition": "{set} of interacting {physical objecs}",
