@@ -24,7 +24,7 @@ void DataProvider::loadGroups()
 
         // Find global group
         auto globalGroup = std::find_if(groups.begin(), groups.end(), [](const auto& group) {
-            return group.name == "Biochemistry";
+            return group.name == "Global";
         });
 
         if (globalGroup != groups.end()) {
