@@ -276,7 +276,7 @@ M.Page {
 
             function upScale()   { setScale(scale + scaleController.step); }
             function downScale() { setScale(scale - scaleController.step); }
-            function dropScale() { setScale(1.0); }
+            function dropScale() { scaleToFitInCanvasWidth(); }
 
             function setScale(newScale) {
                 // Clamping newScale
@@ -305,6 +305,12 @@ M.Page {
             function getTermPosition(termUuid) {
                 let pt = Api.scene.getTermPosition(termUuid);
                 return Tools.scalePoint(pt, scale);
+            }
+
+            function scaleToFitInCanvasWidth() {
+                let newScale = sceneFlick.effectiveSceneSize.width / sceneSize.width;
+                print(newScale)
+                setNewScale(newScale, Qt.point(width / 2, height / 2));
             }
         }
     }
