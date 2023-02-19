@@ -110,11 +110,11 @@
             "term": "Coordinate"
         },
         {
-            "definition": "{entity}, that can be described with it's {position} only",
+            "definition": "{abstract entity}, that can be described with it's {position} only",
             "term": "Point"
         },
         {
-            "definition": "{set} of interacting {entities}, that behaves similar to {existing} {system}",
+            "definition": "{set} of interacting {abstract entities}, that behaves similar to some {system}",
             "term": "Model"
         },
         {
