@@ -34,6 +34,18 @@
             "term": "Value"
         },
         {
+            "definition": "well defined and not changing {value} or {abstract item}",
+            "term": "Constant"
+        },
+        {
+            "definition": "strict rule that for each {entity} from some {set} X assigns exactly one {entity} from some {set} Y",
+            "term": "Function"
+        },
+        {
+            "definition": "{function} of a {system} of the dependent variables, the {value} of which remains {constant} along each trajectory of the {system}",
+            "term": "Conserved quantity"
+        },
+        {
             "definition": "{value} or {category} received as a result of {measurement} or {calculation} of some {property}",
             "term": "Property value"
         },
