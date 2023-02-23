@@ -10,15 +10,11 @@ class TermGraphConan(ConanFile):
 
     requires = 'outcome/2.2.3'
 
-    options = {'build_tests': [True, False]}
-    default_options = {'build_tests': True}
-
     def is_wasm(self):
-        toolchain_path = os.environ['CONAN_CMAKE_TOOLCHAIN_FILE']
-        return 'wasm' in toolchain_path.lower()
+        return self.settings.os == 'Emscripten'
 
     def build_requirements(self):
-        if self.options.build_tests and not self.is_wasm():
+        if not self.is_wasm():
             self.test_requires('gtest/1.10.0')
 
     def generate(self):
