@@ -24,12 +24,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Install latest cmake and ninja
       uses: lukka/get-cmake@latest
 
     - name: Install Conan package manager
       uses: turtlebrowser/get-conan@main
+      with:
+        version: 1.59.0
 
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
