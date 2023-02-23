@@ -29,6 +29,8 @@ jobs:
 
     - name: Install Conan package manager
       uses: turtlebrowser/get-conan@main
+      with:
+        version: 1.59.0
 
     - name: Install Wasm
       uses: mymindstorm/setup-emsdk@v11

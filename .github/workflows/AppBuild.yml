@@ -31,6 +31,8 @@ jobs:
 
     - name: Install Conan package manager
       uses: turtlebrowser/get-conan@main
+      with:
+        version: 1.59.0
 
     - if: ${{ matrix.build_profile == 'wasm_release' }}
       name: Install Wasm
