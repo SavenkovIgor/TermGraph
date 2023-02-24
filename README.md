@@ -131,7 +131,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - <img src="https://isocpp.org/favicon.ico" width="16" height="16"> C++ 20
 - <img src="https://www.qt.io/hubfs/2016_Qt_Logo/qt_logo_green_rgb_16x16.png" width="16" height="16"> Qt 6.4 | Qml
 - <img src="https://cmake.org/wp-content/uploads/2019/05/cropped-cmake_512-32x32.png" width="16" height="16"> Cmake 3.22+
-- <img src="https://conan.io/favicon.png" width="16" height="16"> Conan 1.51+
+- <img src="https://conan.io/favicon.png" width="16" height="16"> Conan 1.59.0
 - [RESTinio lib](https://github.com/Stiffstream/restinio) (for REST server)
 - [GTest lib](https://github.com/google/googletest) (tests)
 - [Outcome lib](https://github.com/ned14/outcome) (would be replaced with std::expected when available)
@@ -147,7 +147,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - [Qt + Qml](https://www.qt.io/download-qt-installer)
 
 You can build main application `apps/Application` with QtCreator, using CMake Presets (which QtCreator more or less understands).<br/>
-Also you can build it with console script: `try tools/build_tg.py --help`.
+Also you can build it with console script. Try `./project.py --build && ./project.py --run` at repository root. It would build and run desktop version
 
 
 ## :alembic: Tests

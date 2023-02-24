@@ -7,7 +7,3 @@ compiler=gcc
 compiler.version=12
 compiler.libcxx=libstdc++11
 build_type=Debug
-[options]
-[build_requires]
-[env]
-CONAN_CMAKE_TOOLCHAIN_FILE="build/desktop_dev/conan-dependencies/toolchain.cmake"
