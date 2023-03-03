@@ -1,0 +1,13 @@
+name: Prepares build environment. Install cmake, ninja, conan, qt. 
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install Conan package manager
+      uses: turtlebrowser/get-conan@main
+      with:
+        version: 1.59.0
