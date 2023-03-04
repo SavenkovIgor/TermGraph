@@ -29,7 +29,7 @@ jobs:
     - name: Install latest cmake and ninja
       uses: lukka/get-cmake@latest
 
-    - uses: ./.github/workflows/action
+    - uses: ./.github/workflows/
 
     - if: ${{ matrix.build_profile == 'wasm_release' }}
       name: Install Wasm
