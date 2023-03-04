@@ -28,19 +28,6 @@ jobs:
     - name: Install cmake, ninja, conan, qt.
       uses: ./.github/workflows/build_prepare
 
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v3
-      with:
-        aqtversion: '==2.1.*'
-        version: ${{ env.QT_VERSION }}
-        dir: ${{ github.workspace }}
-        host: 'linux'
-        target: 'desktop'
-        arch: 'gcc_64'
-        modules: 'qtimageformats qt5compat qtshadertools'
-        archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
-        cache: true
-
     - name: Conan install dependencies
       working-directory: ${{github.workspace}}/apps/Backend
       run: conan install . --profile conanfiles/profile/${{ matrix.build_profile }} --build=missing -if=build/${{ matrix.build_profile }}/conan-dependencies

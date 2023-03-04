@@ -1,5 +1,12 @@
 name: "Install cmake, ninja, conan, qt."
 
+inputs:
+  qt-version:
+    default: 6.4.2
+
+  conan-version:
+    default: 1.59.0
+
 runs:
   using: "composite"
   steps:
@@ -9,4 +16,17 @@ runs:
     - name: Install Conan package manager
       uses: turtlebrowser/get-conan@main
       with:
-        version: 1.59.0
+        version: ${{ inputs.conan-version }}
+
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v3
+      with:
+        aqtversion: '==2.1.*'
+        version: ${{ inputs.qt-version }}
+        dir: ${{ github.workspace }}
+        host: 'linux'
+        target: 'desktop'
+        arch: 'gcc_64'
+        modules: 'qtimageformats qt5compat qtshadertools'
+        archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
+        cache: true

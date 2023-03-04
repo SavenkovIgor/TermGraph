@@ -33,19 +33,6 @@ jobs:
         version: ${{ env.WASM_VERSION }}
         actions-cache-folder: 'emsdk-cache'
 
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v3
-      with:
-        aqtversion: '==2.1.*'
-        version: ${{ env.QT_VERSION }}
-        dir: ${{ github.workspace }}
-        host: 'linux'
-        target: 'desktop'
-        arch: 'gcc_64'
-        modules: 'qtimageformats qt5compat qtshadertools'
-        archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
-        cache: true
-
     - name: Cache Multithread qt wasm
       id: cache-mt-wasm
       uses: actions/cache@v3
