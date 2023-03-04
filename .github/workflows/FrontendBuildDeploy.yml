@@ -27,10 +27,8 @@ jobs:
     - name: Install latest cmake and ninja
       uses: lukka/get-cmake@latest
 
-    - name: Install Conan package manager
-      uses: turtlebrowser/get-conan@main
-      with:
-        version: 1.59.0
+    - name: Install cmake, ninja, conan, qt.
+      uses: ./.github/workflows/build_prepare
 
     - name: Install Wasm
       uses: mymindstorm/setup-emsdk@v11
