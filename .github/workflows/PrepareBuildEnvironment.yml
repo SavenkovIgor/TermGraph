@@ -1,11 +1,9 @@
-name: Prepares build environment. Install cmake, ninja, conan, qt. 
+name: "prepare_build_env"
+description: "Prepares build environment. Install cmake, ninja, conan, qt."
 
-on:
-  workflow_call:
-
-jobs:
-  install_conan:
-    steps:
+runs:
+  using: "composite"
+  steps:
     - name: Install Conan package manager
       uses: turtlebrowser/get-conan@main
       with:
