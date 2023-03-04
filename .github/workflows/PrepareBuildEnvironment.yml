@@ -4,8 +4,7 @@ on:
   workflow_call:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  install_conan:
     steps:
     - name: Install Conan package manager
       uses: turtlebrowser/get-conan@main
