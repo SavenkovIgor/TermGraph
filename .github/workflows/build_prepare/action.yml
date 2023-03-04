@@ -21,12 +21,8 @@ runs:
     - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
-        aqtversion: '==2.1.*'
         version: ${{ inputs.qt-version }}
         dir: ${{ github.workspace }}
-        host: 'linux'
-        target: 'desktop'
-        arch: 'gcc_64'
         modules: 'qtimageformats qt5compat qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
