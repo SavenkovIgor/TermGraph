@@ -7,6 +7,12 @@ inputs:
   conan-version:
     default: 1.59.0
 
+  install-emsdk:
+    default: false
+
+  emsdk-version:
+    default: 3.1.14
+
 runs:
   using: "composite"
   steps:
@@ -26,3 +32,10 @@ runs:
         modules: 'qtimageformats qt5compat qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
+
+    - if: ${{ inputs.install-emsdk }}
+      name: Install Emsdk
+      uses: mymindstorm/setup-emsdk@v11
+      with:
+        version: ${{ inputs.emsdk-version }}
+        actions-cache-folder: 'emsdk-cache'
