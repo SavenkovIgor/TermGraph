@@ -27,7 +27,7 @@ class Api : public QObject
     QML_ELEMENT
     QML_SINGLETON
 
-    Q_PROPERTY(NetworkManager* network READ network CONSTANT FINAL)
+    Q_PROPERTY(NetworkManager* net     READ network CONSTANT FINAL)
     Q_PROPERTY(SyncManager*    sync    READ sync    CONSTANT FINAL)
     Q_PROPERTY(GroupsManager*  groups  READ groups  CONSTANT FINAL)
     Q_PROPERTY(MainScene*      scene   READ scene   CONSTANT FINAL)

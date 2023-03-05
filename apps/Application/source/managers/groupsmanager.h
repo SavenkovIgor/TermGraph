@@ -29,6 +29,7 @@ public:
 
     Q_INVOKABLE bool    isEmptyGroup(const QString& groupUuid);
     Q_INVOKABLE QString getGroupName(const QUuid& groupUuid) const;
+    Q_INVOKABLE QString getGroupUuid(const QString& groupName);
     Q_INVOKABLE QString getLastEditString(QUuid groupUuid);
     Q_INVOKABLE int     getNodesCount(QUuid groupUuid);
 

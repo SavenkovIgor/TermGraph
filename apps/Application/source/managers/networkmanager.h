@@ -20,6 +20,7 @@ public:
     Q_PROPERTY(QString connectionState READ getOutputSocketState NOTIFY newOutputConnectionState FINAL)
     Q_PROPERTY(bool synchronization READ isServerEnabled WRITE setServerEnabled NOTIFY serverStateChanged FINAL)
     Q_PROPERTY(QString synchronizationState READ serverState NOTIFY serverStateChanged FINAL)
+    Q_PROPERTY(QUrl currentUrl READ currentUrl NOTIFY newUrl FINAL)
 
     // Invokables
     Q_INVOKABLE void    connectToHost();
@@ -31,6 +32,7 @@ public:
 signals:
     void newSyncGroup(QString groupJsonRaw);
     void newOutputConnectionState();
+    void newUrl();
 
     void serverStateChanged();
 
@@ -52,6 +54,7 @@ private: // Methods
     bool    isServerEnabled() const;
     void    setServerEnabled(bool enabled);
     QString serverState() const;
+    QUrl    currentUrl() const;
 
     bool hasConnection();
 
