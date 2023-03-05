@@ -26,7 +26,7 @@
             "term": "Property"
         },
         {
-            "definition": "act of assigning some {number} or {category} to {property}, with some well-defined, reproducible procedure",
+            "definition": "act of {comparison} of some {property} with property {etalon} and assigning some {property value} as result",
             "term": "Measurement"
         },
         {
@@ -70,8 +70,8 @@
             "term": "Category"
         },
         {
-            "definition": "{property} of {physical object}, which is possible to {measure}",
-            "term": "Physical property"
+            "definition": "{property} of {physical object} or {system}, which is possible to {measure}",
+            "term": "Physical quantity"
         },
         {
             "definition": "group of any {entities}",
@@ -90,7 +90,7 @@
             "term": "Reversibility"
         },
         {
-            "definition": "possibility of a {system} or {model} return to previous {state}",
+            "definition": "impossibility of {system} or {model} to return to previous {state} or impossibility of {property} to return to previous {property value}",
             "term": "Irreversibility"
         },
         {
@@ -150,12 +150,28 @@
             "term": "Event"
         },
         {
-            "definition": "series of {measurable} changes over {time} that occur in {system}",
+            "definition": "series of {events} that happened to the {system} during a {time interval}",
             "term": "Process"
         },
         {
             "definition": "influence by which one {event}, {process}, {state}, or {entity} (a cause) contributes to the production of another {event}, {process}, {state}, or {entity} (an effect) where the cause is partly responsible for the effect, and the effect is partly dependent on the cause",
             "term": "Causality"
+        },
+        {
+            "definition": "an {physical object} with {conserved quantity}, or {system} with {conserved quantity}, or experiment that helps to receive some {constant}, which can be used as way to compare all other {property values} with it",
+            "term": "Etalon"
+        },
+        {
+            "definition": "{set} of {points}, that contains all possible {points} between start {point} and end {point}",
+            "term": "Interval"
+        },
+        {
+            "definition": "{point} on {time} {dimension}",
+            "term": "Time point"
+        },
+        {
+            "definition": "{interval} on {time} {dimension}",
+            "term": "Time interval"
         }
     ]
 }
