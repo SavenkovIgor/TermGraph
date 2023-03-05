@@ -86,11 +86,19 @@
             "term": "System"
         },
         {
+            "definition": "ability of a {system} or {model} to return to a previous {state}, or the ability of {property} to return to a previous {property value}",
+            "term": "Reversibility"
+        },
+        {
+            "definition": "possibility of a {system} or {model} return to previous {state}",
+            "term": "Irreversibility"
+        },
+        {
             "definition": "{ordered} {set} of {entities}",
             "term": "Sequence"
         },
         {
-            "definition": "continuous {sequence} of {existence} and changes occuring in {reality}",
+            "definition": "{irreversible}, one directional {sequence} of changes occuring in {reality}",
             "term": "Time"
         },
         {
