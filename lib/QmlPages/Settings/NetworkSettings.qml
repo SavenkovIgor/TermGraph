@@ -39,19 +39,19 @@ M.Page {
                         Switch {
                             scale: Qt.platform.os === "android" ? 2.0 : 1.0
                             checked: false
-                            onCheckedChanged: { Api.network.synchronization = checked; }
+                            onCheckedChanged: { Api.net.synchronization = checked; }
                         }
 
                         Text {
                             font: Theme.font.h4
                             color: Theme.color.base7
-                            text: Api.network.synchronizationState
+                            text: Api.net.synchronizationState
                         }
                     }
 
                     M.LabelPair {
                         name: "Ip этого устройства"
-                        text: Api.network.getFirstLocalIpString()
+                        text: Api.net.getFirstLocalIpString()
                     }
                 }
 
@@ -61,24 +61,24 @@ M.Page {
 
         M.TextField {
             labelText: "Ip получателя"
-            onTextChanged: { Api.network.setReceiverHostIp(text) }
-            Component.onCompleted: { text = Api.network.getReceiverIp() }
+            onTextChanged: { Api.net.setReceiverHostIp(text) }
+            Component.onCompleted: { text = Api.net.getReceiverIp() }
             width: parent.width
         }
 
         M.LabelPair {
             name: "Состояние подключения"
-            text: Api.network.connectionState
+            text: Api.net.connectionState
             width: parent.width
         }
 
         A.SquareButton {
-            text: Api.network.isConnected ? "Отключиться" : "Подключиться"
+            text: Api.net.isConnected ? "Отключиться" : "Подключиться"
             onClicked:  {
-                if(Api.network.isConnected) {
-                    Api.network.disconnectFromHost()
+                if(Api.net.isConnected) {
+                    Api.net.disconnectFromHost()
                 } else {
-                    Api.network.connectToHost()
+                    Api.net.connectToHost()
                 }
             }
         }
