@@ -52,6 +52,18 @@ QString GroupsManager::getGroupName(const QUuid& groupUuid) const {
     return {};
 }
 
+QString GroupsManager::getGroupUuid(const QString& groupName)
+{
+    for (const auto& group : provider.groups()) {
+        if (group.name == groupName) {
+            if (group.uuid.has_value())
+                return group.uuid.value().toString();
+        }
+    }
+
+    return "";
+}
+
 QString GroupsManager::getLastEditString(QUuid groupUuid) { return getLastEdit(groupUuid).toString(); }
 
 int GroupsManager::getNodesCount(QUuid groupUuid)

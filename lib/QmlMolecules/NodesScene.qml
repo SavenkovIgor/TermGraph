@@ -21,8 +21,23 @@ Control {
         const groupsUuids = Api.groups.allUuidSorted;
 
         if (groupsUuids.length !== 0) {
-            Api.scene.selectGroup(groupsUuids[0]);
+            const urlGroupName = groupNameFromUrl(Api.net.currentUrl);
+
+            let uuid = Api.groups.getGroupUuid(urlGroupName);
+
+            if (!uuid)
+                uuid = Api.groups.getGroupUuid("Global");
+
+            if (!uuid)
+                uuid = groupsUuids[0];
+
+            Api.scene.selectGroup(uuid);
         }
+    }
+
+    function groupNameFromUrl(url) {
+        const params = new URL(url).searchParams;
+        return params.get("group");
     }
 
     Component { id: edgeComponent; A.Edge { } }

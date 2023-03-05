@@ -5,6 +5,10 @@
 
 #include <CommonTools/NetworkTools.h>
 
+#ifdef Q_OS_WASM
+#include <emscripten/val.h>
+#endif
+
 NetworkManager::NetworkManager(NotifyInterface& notifier, QObject* parent)
     : QObject(parent)
     , notifier(notifier)
@@ -133,3 +137,14 @@ void NetworkManager::setServerEnabled(bool enabled)
 }
 
 QString NetworkManager::serverState() const { return isServerEnabled() ? "Ожидание соединения" : "Выключен"; }
+
+QUrl NetworkManager::currentUrl() const {
+
+#ifdef Q_OS_WASM
+    auto location = emscripten::val::global("location");
+    auto urlString = QString::fromStdString(location["href"].as<std::string>());
+    return QUrl(urlString);
+#endif
+
+    return QUrl();
+}
