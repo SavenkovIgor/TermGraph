@@ -150,7 +150,7 @@
             "term": "Event"
         },
         {
-            "definition": "series of {events} that happened to the {system} during a {time interval}",
+            "definition": "{sequence} of {events} that happened to the {system} during a {time interval}",
             "term": "Process"
         },
         {
@@ -172,6 +172,10 @@
         {
             "definition": "{interval} on {time} {dimension}",
             "term": "Time interval"
+        },
+        {
+            "definition": "{process} of {position} change",
+            "term": "Motion"
         }
     ]
 }
