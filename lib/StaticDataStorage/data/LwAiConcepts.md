@@ -1,0 +1,127 @@
+AIXI - AIXI is a mathematical formalism for a hypothetical (super)intelligence, developed by Marcus Hutter (2005, 2007). AIXI is not computable, and so does not serve as a design for a real-world AI, but is considered a valuable theoretical illustration with both positive and negative aspects (things AIXI would be able to do and things it arguably couldn't do).
+
+Coherent Extrapolated Volition - It’s meant as an argument that it would not be sufficient to explicitly program what we think our desires and motivations are into an AI, instead, we should find a way to program it in a way that it would act in our best interests – what we want it to do and not what we tell it to.
+
+Complexity of Value - Complexity of value is the thesis that human values have high Kolmogorov complexity; that our preferences, the things we care about, cannot be summed by a few simple rules, or compressed.
+
+Fragility of value - is the thesis that losing even a small part of the rules that make up our values could lead to results that most of us would now consider as unacceptable (just like dialing nine out of ten phone digits correctly does not connect you to a person 90% similar to your friend). For example, all of our values except novelty might yield a future full of individuals replaying only one optimal experience through all eternity.
+
+Corrigibility - A corrigible agent is one that doesn't interfere with what we would intuitively see as attempts to 'correct' the agent, or 'correct' our mistakes in building it; and permits these 'corrections' despite the apparent instrumentally convergent reasoning saying otherwise.
+
+Deceptive Alignment - Deceptive Alignment is when an AI which is not actually aligned temporarily acts aligned in order to deceive its creators or its training process. It presumably does this to avoid being shut down or retrained and to gain access to the power that the creators would give an aligned AI.
+
+Decision Theory - Decision theory is the study of principles and algorithms for making correct decisions—that is, decisions that allow an agent to achieve better outcomes with respect to its goals. Every action at least implicitly represents a decision under uncertainty: in a state of partial knowledge, something has to be done, even if that something turns out to be nothing (call it "the null action"). Even if you don't know how you make decisions, decisions do get made, and so there has to be some underlying mechanism. What is it? And how can it be done better? Decision theory has the answers.
+
+Embedded Agency - Embedded Agency is the problem that an understanding of the theory of rational agents must account for the fact that the agents we create (and we ourselves) are inside the world or universe we are trying to affect, and not separated from it. This is in contrast with much current basic theory of AI or Rationality (such as Solomonoff induction or Bayesianism) which implicitly supposes a separation between the agent and the-things-the-agent-has-beliefs about. In other words, agents in this universe do not have Cartesian or dualistic boundaries like much of philosophy assumes, and are instead reductionist, that is agents are made up of non-agent parts like bits and atoms.
+
+Fixed Point Theorems - Fixed Point Theorems are very general theorems in mathematics that show for a given function f and input x that f(x)=x. We say that the input x is a fixed point for the function f.
+
+Goodhart's Law - Goodhart's Law states that when a proxy for some value becomes the target of optimization pressure, the proxy will cease to be a good proxy. One form of Goodhart is demonstrated by the Soviet story of a factory graded on how many shoes they produced (a good proxy for productivity) – they soon began producing a higher number of tiny shoes. Useless, but the numbers look good.
+
+Regressional Goodhart - When selecting for a proxy measure, you select not only for the true goal, but also for the difference between the proxy and the goal.
+
+Causal Goodhart - When there is a non-causal correlation between the proxy and the goal, intervening on the proxy may fail to intervene on the goal.
+
+Extremal Goodhart - Worlds in which the proxy takes an extreme value may be very different from the ordinary worlds in which the correlation between the proxy and the goal was observed.
+
+Adversarial Goodhart - When you optimize for a proxy, you provide an incentive for adversaries to correlate their goal with your proxy, thus destroying the correlation with your goal.
+
+Goal-Directedness - Goal-directedness is the property of some system to be aiming at some goal. It is in need of formalization, but might prove important in deciding which kind of AI to try to align. A goal may be defined as a world-state that an agent tries to achieve. Goal-directed agents may generate internal representations of desired end states, compare them against their internal representation of the current state of the world, and formulate plans for navigating from the latter to the former.
+
+Gradient Hacking - Gradient Hacking describes a scenario where a mesa-optimizer in an AI system acts in a way that intentionally manipulates the way that gradient descent updates it, likely to preserve its own mesa-objective in future iterations of the AI.
+
+Mesa-Optimization - Mesa-Optimization is the situation that occurs when a learned model (such as a neural network) is itself an optimizer. In this situation, a base optimizer creates a second optimizer, called a mesa-optimizer. The primary reference work for this concept is Hubinger et al.'s "Risks from Learned Optimization in Advanced Machine Learning Systems".
+
+Multipolar Scenarios - A multipolar scenario is one where no single AI or agent takes over the world.
+
+Myopia - Myopia means short-sighted, particularly with respect to planning -- neglecting long-term consequences in favor of the short term. The extreme case, in which only immediate rewards are considered, is of particular interest. We can think of a myopic agent as one that only considers how best to answer the single question that you give to it rather than considering any sort of long-term consequences. Such an agent might have a number of desirable safety properties, such as a lack of instrumental incentives.
+
+Convergent instrumental strategies
+
+Newcomb's Problem - Newcomb's Problem is a thought experiment in decision theory exploring problems posed by having other agents in the environment who can predict your actions.
+
+Optimization - An optimization process is any kind of process that systematically comes up with solutions that are better than the solution used before. More technically, this kind of process moves the world into a specific and unexpected set of states by searching through a large search space, hitting small and low probability targets. When this process is gradually guided by some agent into some specific state, through searching specific targets, we can say it prefers that state.
+
+Orthogonality Thesis - The Orthogonality Thesis states that an agent can have any combination of intelligence level and final goal, that is, its Utility Functions(128) and General Intelligence(94) can vary independently of each other. This is in contrast to the belief that, because of their intelligence, AIs will all converge to a common goal.
+
+Outer Alignment - Outer Alignment in the context of machine learning is the property where the specified loss function is aligned with the intended goal of its designers. This is an intuitive notion, in part because human intentions are themselves not well-understood. This is what is typically discussed as the 'value alignment' problem. It is contrasted with inner alignment, which discusses if an optimizer is the production of an outer aligned system, then whether that optimizer is itself aligned.
+
+A Squiggle Maximizer is a hypothetical artificial intelligence whose utility function values something that humans would consider almost worthless, like maximizing the number of paperclip-shaped-molecular-squiggles in the universe. The squiggle maximizer is the canonical thought experiment showing how an artificial general intelligence, even one designed competently and without malice, could ultimately destroy humanity. 
+
+Power Seeking (AI) - Power Seeking is a property that agents might have, where they attempt to gain more general ability to control their environment. It's particularly relevant to AIs, and related to Instrumental Convergence.
+
+Recursive Self-Improvement - Recursive self-improvement refers to the property of making improvements on one's own ability of making self-improvements. It is an approach to Artificial General Intelligence that allows a system to make adjustments to its own functionality resulting in improved performance. The system could then feedback on itself with each cycle reaching ever higher levels of intelligence resulting in either a hard or soft AI takeoff.
+
+Simulator Theory - Simulator theory in the context of AI refers to an ontology or frame for understanding the working of large generative models, such as the GPT series from OpenAI. Broadly it views these models as simulating a learned distribution with various degrees of fidelity, which in the case of language models trained on a large corpus of text is the mechanics underlying our world.
+
+Sharp Left Turn - A Sharp Left Turn is a scenario where, as an AI trains, its capabilities generalize across many domains while the alignment properties that held at earlier stages fail to generalize to the new domains.
+
+Solomonoff Induction - Solomonoff induction is an inference system defined by Ray Solomonoff that will learn to correctly predict any computable sequence with only the absolute minimum amount of data. This system, in a certain sense, is the perfect universal prediction algorithm. 
+
+Superintelligence - An intellect that is much smarter than the best human brains in practically every field, including scientific creativity, general wisdom and social skills.
+
+Symbol Grounding
+
+Transformative AI - Transformative AI is "[...] AI that precipitates a transition comparable to (or more significant than) the agricultural or industrial revolution."[1] The concept refers to the large effects of AI systems on our well-being, the global economy, state power, international security, etc. and not to specific capabilities that AI might have (unlike the related terms Superintelligent AI and Artificial General Intelligence).
+
+Artificial General Intelligence - An Artificial general intelligence, or AGI, is a machine capable of behaving intelligently over many domains. The term can be taken as a contrast to narrow AI, systems that do things that would be considered intelligent if a human were doing them, but that lack the sort of general, flexible learning ability that would let them tackle entirely new domains. Though modern computers have drastically more ability to calculate than humans, this does not mean that they are generally intelligent, as they have little ability to invent new problem-solving techniques, and their abilities are targeted in narrow domains.
+
+Treacherous Turn - A Treacherous Turn is a hypothetical event where an advanced AI system which has been pretending to be aligned due to its relative weakness turns on humanity once it achieves sufficient power that it can pursue its true objective without risk.
+
+Utility Functions - A utility function assigns numerical values ("utilities") to outcomes, in such a way that outcomes with higher utilities are always preferred to outcomes with lower utilities.
+
+Whole Brain Emulation - Whole Brain Emulation or WBE is a proposed technique which involves transferring the information contained within a brain onto a computing substrate. The brain can then be simulated, creating a machine intelligence. The concept is often discussed in context of scanning the brain of a person, known as Mind Uploading.
+
+Agent Foundations - 
+
+AI Boxing (Containment) - AI Boxing is attempts, experiments, or proposals to isolate ("box") a powerful AI (~AGI) where it can't interact with the world at large, save for limited communication with its human liaison. It is often proposed that so long as the AI is physically isolated and restricted, or "boxed", it will be harmless even if it is an unfriendly artificial intelligence (UAI).
+
+Conservatism (AI)
+
+Debate (AI safety technique) - Debate is a proposed technique for allowing human evaluators to get correct and helpful answers from experts, even if the evaluator is not themselves an expert or able to fully verify the answers.[1] The technique was suggested as part of an approach to build advanced AI systems that are aligned with human values, and to safely apply machine learning techniques to problems that have high stakes, but are not well-defined (such as advancing science or increase a company's revenue)
+
+Eliciting Latent Knowledge (ELK) - Eliciting Latent Knowledge is an open problem in AI safety.
+
+Suppose we train a model to predict what the future will look like according to cameras and other sensors. We then use planning algorithms to find a sequence of actions that lead to predicted futures that look good to us.
+
+But some action sequences could tamper with the cameras so they show happy humans regardless of what’s really happening. More generally, some futures look great on camera but are actually catastrophically bad.
+
+In these cases, the prediction model "knows" facts (like "the camera was tampered with") that are not visible on camera but would change our evaluation of the predicted future if we learned them. How can we train this model to report its latent knowledge of off-screen events?
+
+Factored Cognition - Factored cognition is an approach to artificial intelligence where sophisticated learning and reasoning is broken down (or factored) into many small and mostly independent tasks
+
+Iterated Amplification - Iterated Amplification is an approach to AI alignment, spearheaded by Paul Christiano. In this setup, we build powerful, aligned ML systems through a process of initially building weak aligned AIs, and recursively using each new AI to build a slightly smarter and still aligned AI.
+
+Humans Consulting HCH - Humans Consulting HCH (HCH) is a recursive acronym describing a setup where humans can consult simulations of themselves to help answer questions. It is a concept used in discussion of the iterated amplification proposal to solve the alignment problem.
+
+It was first described by Paul Christiano in his post Humans Consulting HCH:
+
+Consider a human Hugh who has access to a question-answering machine. Suppose the machine answers question Q by perfectly imitating how Hugh would answer question Q, if Hugh had access to the question-answering machine.
+
+That is, Hugh is able to consult a copy of Hugh, who is able to consult a copy of Hugh, who is able to consult a copy of Hugh…
+
+Let’s call this process HCH, for “Humans Consulting HCH.”
+
+Impact Regularization - Impact regularizers penalize an AI for affecting us too much. To reduce the risk posed by a powerful AI, you might want to make it try accomplish its goals with as little impact on the world as possible. You reward the AI for crossing a room; to maximize time-discounted total reward, the optimal policy makes a huge mess as it sprints to the other side.
+
+Inverse Reinforcement Learning
+
+Mild Optimization - Mild optimization is an approach for mitigating Goodhart's law in AI alignment. Instead of maximizing a fixed objective, the hope is that the agent pursues the goal in a "milder" fashion.
+
+Oracle AI - An Oracle AI is a regularly proposed solution to the problem of developing Friendly AI. It is conceptualized as a super-intelligent system which is designed for only answering questions, and has no ability to act in the world. The name was first suggested by Nick Bostrom.
+
+Reward Functions
+
+RLHF - Reinforcement Learning from Human Feedback (RLHF) is a machine learning technique where the model's training signal uses human evaluations of the model's outputs, rather than labeled data or a ground truth reward signal.
+
+Shard Theory - Shard theory is an alignment research program, about the relationship between training variables and learned values in trained Reinforcement Learning (RL) agents. It is thus an approach to progressively fleshing out a mechanistic account of human values, learned values in RL agents, and (to a lesser extent) the learned algorithms in ML generally.
+
+Tool AI - A tool AI is a type of Artificial Intelligence that is built to be used as a tool by the creators, rather than being an agent with its own action and goal-seeking behavior. Generally meant to refer to AGI, tool AI is a proposed method for gaining some of the benefits of the intelligence while avoiding the dangers of having it act autonomously. It was coined by Holden Karnofsky, co-founder of GiveWell, in a critique of the Singularity Institute. Karnofsky proposed that, while he agreed that agent-based AGI was dangerous, it was an unnecessary path of development. His example of tool AI behavior was Google Maps, which uses complex algorithms and data to plot a route, but presents these results to the user instead of driving the user itself.
+
+Interpretability (ML & AI) - Transparency and interpretability is the ability for the decision processes and inner workings of AI and machine learning systems to be understood by humans or other outside observers.
+
+Present-day machine learning systems are typically not very transparent or interpretable. You can use a model's output, but the model can't tell you why it made that output. This makes it hard to determine the cause of biases in ML models.
+
+Tripwire - In AI safety, a tripwire is a mechanism designed to detect signs of misalignment in an advanced artificial intelligence and shut it down automatically.
+
+Value Learning - Value learning is a proposed method for incorporating human values in an AGI. It involves the creation of an artificial learner whose actions consider many possible set of values and preferences, weighed by their likelihood. Value learning could prevent an AGI of having goals detrimental to human values, hence helping in the creation of Friendly AI.

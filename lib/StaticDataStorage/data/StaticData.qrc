@@ -6,6 +6,7 @@
         <file>Global.json</file>
         <file>GraphTheory.json</file>
         <file>InformationTechnologies.json</file>
+        <file>LW concepts.json</file>
         <file>Qml.json</file>
         <file>Rationality.json</file>
     </qresource>
