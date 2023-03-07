@@ -264,6 +264,22 @@
         {
             "definition": "refers to the study of how an agent should choose its actions within an environment in order to maximize some kind of reward. Strongly inspired by the work developed in behavioral psychology it is essentially a trial and error approach to find the best strategy.",
             "term": "Reinforcement Learning"
+        },
+        {
+            "definition": "the study of creating intelligence in algorithms",
+            "term": "Artificial Intelligence"
+        },
+        {
+            "definition": "{Artificial Intelligence}",
+            "term": "AI"
+        },
+        {
+            "definition": "the task of ensuring powerful {AI} system are aligned with human {values} and interests, to avoid existential threats to humanity",
+            "term": "AI Alignment"
+        },
+        {
+            "definition": "the concern about {AI Alignment}, that a powerful enough AI, if not designed and implemented with sufficient understanding, would {optimize} something unintended by its creators and pose an existential threat to the future of humanity.",
+            "term": "AI alignment problem"
         }
     ]
 }
