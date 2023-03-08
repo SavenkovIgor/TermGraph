@@ -10,10 +10,7 @@
 
 11 Recomendations
 - Contribution guideline
-- Project page with GitHub pages?
 - Meetup speech
-- Changelog
-- Project news
 - Make fixes to my personal profile page on github
 
 14 How to Use? Maybe wiki?
@@ -160,8 +157,7 @@ You can start tests from QtCreator or just run `ctest ./` in build folder at `ap
 
 ```bash
 ├── apps/
-│   ├── Application/         # Application. Buils for desktop, android and wasm(for now)
-│   └── Frontend/            # Reserved folder. Not used yet
+│   └── Application/         # Application. Buils for desktop, android and wasm(for now)
 ├── doc/                     # Documents
 ├── lib/
 │   ├── CommonTools/         # Tools common for all apps
