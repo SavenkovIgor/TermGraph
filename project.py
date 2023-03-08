@@ -201,14 +201,14 @@ class Project:
 
 # Should be possible to run:
 # ./project.py --target-list # List all targets
-# ./project.py --install   [Application (default) | Backend] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --configure [Application (default) | Backend] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --build     [Application (default) | Backend | QtWasmMultithread] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --run       [Application (default) | Backend] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --test      [Application (default) | Backend] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --pack      [Application (default) | Backend] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --clear     [Application (default) | Backend]
-# ./project.py --clear-all [Application (default) | Backend]
+# ./project.py --install   [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --configure [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --build     [Application (default) | QtWasmMultithread] [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --run       [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --test      [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --pack      [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --clear     [Application (default) ]
+# ./project.py --clear-all [Application (default) ]
 def main():
     parser = argparse.ArgumentParser(description='Project build script')
 
@@ -223,14 +223,14 @@ def main():
     parser.add_argument('--clear-all',   action='store_true', help='Clear project and conan cache')
 
     parser.add_argument('target',   type=str, help='Target to build', choices=[
-                        'Application', 'Backend', 'QtWasmMultithread'],    default='Application', nargs='?')
+                        'Application', 'QtWasmMultithread'], default='Application', nargs='?')
     parser.add_argument('--preset', type=str, help='Preset to use',
                         choices=['desktop_dev', 'desktop_release', 'wasm_release'], default='desktop_release')
 
     args = parser.parse_args()
 
     if args.target_list:
-        print('Available targets: Application, Backend, QtWasmMultithread')
+        print('Available targets: Application, QtWasmMultithread')
         return
 
     if args.target == 'QtWasmMultithread':
@@ -245,11 +245,9 @@ def main():
 
     app = Project('Application', 'TermGraph', repository_root() / 'apps/Application',
                   ['desktop_dev', 'desktop_release', 'wasm_release'])
-    back = Project('Backend', 'TermGraphBack', repository_root() / 'apps/Backend', ['desktop_release'])
 
     target_dict = {
-        'Application': app,
-        'Backend': back
+        'Application': app
     }
 
     if args.install:
