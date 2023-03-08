@@ -129,7 +129,6 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - <img src="https://www.qt.io/hubfs/2016_Qt_Logo/qt_logo_green_rgb_16x16.png" width="16" height="16"> Qt 6.4 | Qml
 - <img src="https://cmake.org/wp-content/uploads/2019/05/cropped-cmake_512-32x32.png" width="16" height="16"> Cmake 3.22+
 - <img src="https://conan.io/favicon.png" width="16" height="16"> Conan 1.59.0
-- [RESTinio lib](https://github.com/Stiffstream/restinio) (for REST server)
 - [GTest lib](https://github.com/google/googletest) (tests)
 - [Outcome lib](https://github.com/ned14/outcome) (would be replaced with std::expected when available)
 - [coi-serviceworker library](https://github.com/gzuidhof/coi-serviceworker) (sets proper [CORS](https://developer.mozilla.org/ru/docs/Web/HTTP/CORS) headers, for wasm build)
@@ -143,21 +142,23 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - [Cmake](https://cmake.org/) + Ninja
 - [Qt + Qml](https://www.qt.io/download-qt-installer)
 
-You can build main application `apps/Application` with QtCreator, using CMake Presets (which QtCreator more or less understands).<br/>
-Also you can build it with console script. Try `./project.py --build && ./project.py --run` at repository root. It would build and run desktop version
-
+You can build project with QtCreator, using CMake Presets (which QtCreator more or less understands).<br/>
+Also you can build it with python script at repository root. <br/>
+Try `./project.py --install --build --run`, it would build and run desktop version
 
 ## :alembic: Tests
-Tests working only with desktop target. GTest library installed via conan.<br/>
-You can start tests from QtCreator or just run `ctest ./` in build folder at `apps/Application/build/desktop_(dev|release)`
+Tests working only with desktop target. GTest library installed via conan, only for desktop target.<br/>
+You can start tests from:
+- QtCreator <b>or</b>
+- run `ctest ./` in build folder at `build/desktop_(dev|release)` <b>or</b>
+- run `./project.py --test` at repository root
 
 
 ## :microscope: Project structure
-`CMakeLists.txt` files are in `apps/Application` folder.
-
 ```bash
-├── apps/
-│   └── Application/         # Application. Buils for desktop, android and wasm(for now)
+├── .github/workflows/       # Github actions
+├── android/                 # Android build
+├── conanfiles/              # Conan profiles, and generated stuff
 ├── doc/                     # Documents
 ├── lib/
 │   ├── CommonTools/         # Tools common for all apps
@@ -168,11 +169,20 @@ You can start tests from QtCreator or just run `ctest ./` in build folder at `ap
 │   ├── QmlTheme/            # Qml theme. Colors, icons, fonts etc...
 │   ├── QmlTools/            # Some qml debugging tools
 │   ├── QrcHelpImages/       # Help images resources
+│   ├── StaticDataStorage/   # Static data storage library. Qrc with terms info
 │   ├── TermDataConnection/  # Library, connecting to REST api server
 │   ├── TermDataInterface/   # Interface, describing data connection interface
 │   ├── TermDataStorage/     # Data storage sqlite library
 │   └── Text                 # Text processing library
-└── tools/                   # Some useful scripts (build of multithread wasm, clang fromat etc...)
+├── qml/                     # main.qml file
+├── resources/               # Resources: app icons, main html wrapper etc...
+├── source/                  # Main source code
+├── tests/                   # Tests
+├── tools/                   # Some side stuff, need from time to time
+├── CMakelists.txt           # Main CMake file
+├── CMakePresets.json        # CMake presets
+├── conanfile.txt            # Conan dependencies (outcome, gtest)
+└── project.py               # Python script for building and running project
 ```
 <br/>
 
