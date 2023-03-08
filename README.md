@@ -28,7 +28,7 @@
     <a href="https://savenkovigor.github.io/TermGraph/"><img
       width="100"
       alt="TermGraph"
-      src="apps/Application/resources/applicationIcons/appIcon128x128.png"></a>
+      src="resources/applicationIcons/appIcon128x128.png"></a>
     <h1>TermGraph</h1>
 </div>
 
@@ -161,7 +161,7 @@ You can start tests from:
 ├── conanfiles/              # Conan profiles, and generated stuff
 ├── doc/                     # Documents
 ├── lib/
-│   ├── CommonTools/         # Tools common for all apps
+│   ├── CommonTools/         # Some common tools for possible reuse
 │   ├── Graph/               # Graph header-only library
 │   ├── QmlAtoms/            # Qml atoms components     (atomic design)
 │   ├── QmlMolecules/        # Qml molecules components (atomic design)

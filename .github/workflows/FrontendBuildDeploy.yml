@@ -40,21 +40,18 @@ jobs:
       run: ./project.py --build QtWasmMultithread
 
     - name: Conan install dependencies
-      working-directory: ${{github.workspace}}/apps/Application
       run: conan install . --profile conanfiles/profile/${{ matrix.build_profile }} --build=missing -if=build/${{ matrix.build_profile }}/conan-dependencies
 
     - name: CMake configure
-      working-directory: ${{github.workspace}}/apps/Application
       run: cmake --preset ${{ matrix.build_profile }} ./
 
     - name: Cmake build
-      working-directory: ${{github.workspace}}/apps/Application
       run: cmake --build --preset ${{ matrix.build_profile }}
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
       with:
-        path: ${{github.workspace}}/apps/Application/build/wasm_release/deploy
+        path: ${{github.workspace}}/build/wasm_release/deploy
 
   deploy:
     needs: build

@@ -243,36 +243,32 @@ def main():
 
     configure_environment()
 
-    app = Project('Application', 'TermGraph', repository_root() / 'apps/Application',
+    app = Project('Application', 'TermGraph', repository_root(),
                   ['desktop_dev', 'desktop_release', 'wasm_release'])
 
-    target_dict = {
-        'Application': app
-    }
-
     if args.install:
-        target_dict[args.target].install(args.preset)
+        app.install(args.preset)
 
     if args.configure:
-        target_dict[args.target].configure(args.preset)
+        app.configure(args.preset)
 
     if args.build:
-        target_dict[args.target].build(args.preset)
+        app.build(args.preset)
 
     if args.test:
-        target_dict[args.target].test(args.preset)
+        app.test(args.preset)
 
     if args.run:
-        target_dict[args.target].run(args.preset)
+        app.run(args.preset)
 
     if args.pack:
-        target_dict[args.target].pack(args.preset)
+        app.pack(args.preset)
 
     if args.clear:
-        target_dict[args.target].clear()
+        app.clear()
 
     if args.clear_all:
-        target_dict[args.target].clear(clear_conan=True)
+        app.clear(clear_conan=True)
 
 
 if __name__ == '__main__':
