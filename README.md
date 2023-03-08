@@ -118,7 +118,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 # 🚀 Installation
 <a href='https://play.google.com/store/apps/details?id=app.termgraph&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' width="160" height="60" src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
 - Desktop: build from sources on ubuntu (yet)
-- Wasm frontend and data backend: build from sources
+- Wasm: build from sources or available [here](https://termgraph.app)
 
 
 ## 🗺 Roadmap
@@ -140,7 +140,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 
 # :hammer_and_wrench: Build
 [![Build app](https://github.com/SavenkovIgor/TermGraph/actions/workflows/AppBuild.yml/badge.svg)](https://github.com/SavenkovIgor/TermGraph/actions/workflows/AppBuild.yml)
-[![Build backend](https://github.com/SavenkovIgor/TermGraph/actions/workflows/BackendBuild.yml/badge.svg)](https://github.com/SavenkovIgor/TermGraph/actions/workflows/BackendBuild.yml)
+
 ### Requirements for ubuntu hosted build:
 - [Conan](https://docs.conan.io/en/latest/installation.html)
 - [Cmake](https://cmake.org/) + Ninja
@@ -156,12 +156,11 @@ You can start tests from QtCreator or just run `ctest ./` in build folder at `ap
 
 
 ## :microscope: Project structure
-`CMakeLists.txt` files are in `apps/Application` and `apps/Backend` folders.
-Each app has it's own conan file.
+`CMakeLists.txt` files are in `apps/Application` folder.
+
 ```bash
 ├── apps/
 │   ├── Application/         # Application. Buils for desktop, android and wasm(for now)
-│   ├── Backend/             # Rest api data storage. For server only
 │   └── Frontend/            # Reserved folder. Not used yet
 ├── doc/                     # Documents
 ├── lib/

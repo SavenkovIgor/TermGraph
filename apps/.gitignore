@@ -1,7 +1,5 @@
 build-Application*
-build-Backend*
 
 Application/build/
 Application/CMakeUserPresets.json
 
-Backend/build/
