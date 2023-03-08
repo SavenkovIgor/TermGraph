@@ -1,8 +1,8 @@
 app/*
 build/*
-source/build/*
 .qmake.stash
 Makefile
+CMakeUserPresets.json
 
 # Qt user files
 *.pro.user*
