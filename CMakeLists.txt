@@ -25,7 +25,7 @@ option (STATIC_STORAGE "Build with static storage" ON)
 
 find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Svg)
 
-set (LIBS_ROOT "${CMAKE_SOURCE_DIR}/../../lib")
+set (LIBS_ROOT "${CMAKE_SOURCE_DIR}/lib")
 
 # Applications subdirs
 add_subdirectory ("${LIBS_ROOT}/CommonTools"        "${CMAKE_BINARY_DIR}/lib/CommonTools")
