@@ -258,15 +258,15 @@
             "term": "Computing Overhang"
         },
         {
-            "definition": "is the debate on whether regulation could be used to reduce the risks of Unfriendly AI, and what forms of regulation would be appropriate.",
+            "definition": "is the {debate} on whether regulation could be used to reduce the risks of Unfriendly AI, and what forms of regulation would be appropriate.",
             "term": "Regulation and AI Risk"
         },
         {
-            "definition": "refers to the study of how an agent should choose its actions within an environment in order to maximize some kind of reward. Strongly inspired by the work developed in behavioral psychology it is essentially a trial and error approach to find the best strategy.",
+            "definition": "refers to the {study} of how an {agent} should choose its actions within an environment in order to maximize some kind of reward. Strongly inspired by the work developed in behavioral psychology it is essentially a trial and error approach to find the best strategy.",
             "term": "Reinforcement Learning"
         },
         {
-            "definition": "the study of creating intelligence in algorithms",
+            "definition": "the {study} of creating intelligence in algorithms",
             "term": "Artificial Intelligence"
         },
         {
@@ -280,6 +280,22 @@
         {
             "definition": "the concern about {AI Alignment}, that a powerful enough AI, if not designed and implemented with sufficient understanding, would {optimize} something unintended by its creators and pose an existential threat to the future of humanity.",
             "term": "AI alignment problem"
+        },
+        {
+            "definition": "",
+            "term": "Values"
+        },
+        {
+            "definition": "",
+            "term": "Debate"
+        },
+        {
+            "definition": "",
+            "term": "Study"
+        },
+        {
+            "definition": "",
+            "term": "Agent"
         }
     ]
 }
