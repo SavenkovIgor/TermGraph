@@ -199,30 +199,30 @@
         },
         {
             "definition": "",
-            "term": "Reward Functions"
+            "term": "Reward function"
         },
         {
             "definition": "is a machine learning technique where the model's training signal uses human evaluations of the model's outputs, rather than labeled data or a ground truth reward signal.",
             "term": "Reinforcement Learning from Human Feedback (RLHF)"
         },
         {
-            "definition": "is an alignment research program, about the relationship between training variables and learned values in trained Reinforcement Learning (RL) agents. It is thus an approach to progressively fleshing out a mechanistic account of human values, learned values in RL agents, and (to a lesser extent) the learned algorithms in ML generally.",
+            "definition": "is an {alignment} research program, about the relationship between training variables and learned {values} in trained Reinforcement Learning (RL) agents. It is thus an approach to progressively fleshing out a mechanistic account of human values, learned values in RL agents, and (to a lesser extent) the learned algorithms in ML generally.",
             "term": "Shard Theory"
         },
         {
-            "definition": "a type of Artificial Intelligence that is built to be used as a tool by the creators, rather than being an agent with its own action and goal-seeking behavior. Generally meant to refer to AGI, tool AI is a proposed method for gaining some of the benefits of the intelligence while avoiding the dangers of having it act autonomously. It was coined by Holden Karnofsky, co-founder of GiveWell, in a critique of the Singularity Institute. Karnofsky proposed that, while he agreed that agent-based AGI was dangerous, it was an unnecessary path of development. His example of tool AI behavior was Google Maps, which uses complex algorithms and data to plot a route, but presents these results to the user instead of driving the user itself.",
+            "definition": "a type of {AI} that is built to be used as a tool by the creators, rather than being an {agent} with its own action and goal-seeking behavior. Generally meant to refer to AGI, tool AI is a proposed method for gaining some of the benefits of the intelligence while avoiding the dangers of having it act autonomously. It was coined by Holden Karnofsky, co-founder of GiveWell, in a critique of the Singularity Institute. Karnofsky proposed that, while he agreed that agent-based AGI was dangerous, it was an unnecessary path of development. His example of tool AI behavior was Google Maps, which uses complex algorithms and data to plot a route, but presents these results to the user instead of driving the user itself.",
             "term": "Tool AI"
         },
         {
-            "definition": "is the ability for the decision processes and inner workings of AI and machine learning systems to be understood by humans or other outside observers. Present-day machine learning systems are typically not very transparent or interpretable. You can use a model's output, but the model can't tell you why it made that output. This makes it hard to determine the cause of biases in ML models.",
-            "term": "Transparency & Interpretability (ML & AI)"
+            "definition": "is the ability for the decision processes and inner workings of {AI} and machine learning systems to be understood by humans or other outside observers. Present-day machine learning systems are typically not very transparent or interpretable. You can use a model's output, but the model can't tell you why it made that output. This makes it hard to determine the cause of biases in ML models.",
+            "term": "Transparency & Interpretability"
         },
         {
-            "definition": "is a mechanism in AI Safety designed to detect signs of misalignment in an advanced artificial intelligence and shut it down automatically.",
+            "definition": "is a mechanism in {AI Safety} designed to detect signs of {misalignment} in an advanced {AI} and shut it down automatically.",
             "term": "Tripwire"
         },
         {
-            "definition": "is a proposed method for incorporating human values in an AGI. It involves the creation of an artificial learner whose actions consider many possible set of values and preferences, weighed by their likelihood. Value learning could prevent an AGI of having goals detrimental to human values, hence helping in the creation of Friendly AI.",
+            "definition": "is a proposed method for incorporating human {values} in an {AGI}. It involves the creation of an artificial learner whose actions consider many possible set of values and preferences, weighed by their likelihood. Value learning could prevent an AGI of having goals detrimental to human values, hence helping in the creation of Friendly AI.",
             "term": "Value Learning"
         },
         {
@@ -230,39 +230,39 @@
             "term": "AI Alignment Fieldbuilding"
         },
         {
-            "definition": "asks how we can ensure society benefits at large from increasingly powerful AI systems. While solving technical AI alignment is a necessary step towards this goal, it is by no means sufficient. Governance includes policy, economics, sociology, law, and many other fields.",
+            "definition": "asks how we can ensure society benefits at large from increasingly powerful {AI} systems. While solving technical {AI alignment} is a necessary step towards this goal, it is by no means sufficient. Governance includes policy, economics, sociology, law, and many other fields.",
             "term": "AI Governance"
         },
         {
-            "definition": "AI which is highly capable of persuading people might have significant effects on humanity.",
+            "definition": "{AI} which is highly capable of persuading people might have significant effects on humanity.",
             "term": "AI Persuasion"
         },
         {
-            "definition": "AI Risk is analysis of the risks associated with building powerful AI systems.",
+            "definition": "{AI} Risk is analysis of the risks associated with building powerful {AI} systems.",
             "term": "AI Risk"
         },
         {
-            "definition": "are proposed paths to an existential win via aligned AI. They are (so far) high level overviews and won't contain all the details, but present at least a sketch of what a full solution might look like. They can be contrasted with threat models, which are stories about how AI might lead to major problems.",
+            "definition": "are proposed {scenario} to an existential win via {aligned AI}. They are (so far) high level overviews and won't contain all the details, but present at least a sketch of what a full solution might look like. They can be contrasted with {threat models}, which are stories about how {AI} might lead to major problems.",
             "term": "AI Success Models"
         },
         {
-            "definition": "refers to the process of an Artificial General Intelligence going from a certain threshold of capability (often discussed as \"human-level\") to being super-intelligent and capable enough to control the fate of civilization. There has been much debate about whether AI takeoff is more likely to be slow vs fast, i.e., \"soft\" vs \"hard\".",
+            "definition": "refers to the process of an {AGI} going from a certain threshold of capability (often discussed as \"human-level\") to being super-intelligent and capable enough to control the fate of civilization. There has been much debate about whether AI takeoff is more likely to be slow vs fast, i.e., \"soft\" vs \"hard\".",
             "term": "AI Takeoff"
         },
         {
-            "definition": "is the discussion of how long until various major milestones in AI progress are achieved, whether it's the timeline until a human-level AI is developed, the timeline until certain benchmarks are defeated, the timeline until we can simulate a mouse-level intelligence, or something else.",
+            "definition": "is the discussion of how long until various major milestones in {AI} progress are achieved, whether it's the timeline until a human-level {AI} is developed, the timeline until certain benchmarks are defeated, the timeline until we can simulate a mouse-level intelligence, or something else.",
             "term": "AI Timelines"
         },
         {
-            "definition": "refers to a situation where new algorithms can exploit existing computing power far more efficiently than before. This can happen if previously used algorithms have been suboptimal. In the context of Artificial General Intelligence, this signifies a situation where it becomes possible to create AGIs that can be run using only a small fraction of the easily available hardware resources. This could lead to an intelligence explosion, or to a massive increase in the number of AGIs, as they could be easily copied to run on countless computers. This could make AGIs much more powerful than before, and present an existential risk.",
+            "definition": "{scenario} where new algorithms can exploit existing computing power far more efficiently than before. This can happen if previously used algorithms have been suboptimal. In the context of {AGI}, this signifies a situation where it becomes possible to create AGIs that can be run using only a small fraction of the easily available hardware resources. This could lead to an intelligence explosion, or to a massive increase in the number of AGIs, as they could be easily copied to run on countless computers. This could make AGIs much more powerful than before, and present an existential risk.",
             "term": "Computing Overhang"
         },
         {
-            "definition": "is the {debate} on whether regulation could be used to reduce the risks of Unfriendly AI, and what forms of regulation would be appropriate.",
+            "definition": "is the {debate} on whether regulation could be used to reduce the risks of {Unfriendly AI}, and what forms of regulation would be appropriate.",
             "term": "Regulation and AI Risk"
         },
         {
-            "definition": "refers to the {study} of how an {agent} should choose its actions within an environment in order to maximize some kind of reward. Strongly inspired by the work developed in behavioral psychology it is essentially a trial and error approach to find the best strategy.",
+            "definition": "refers to the {study} of how an {agent} should choose its actions within an environment in order to maximize some {reward function}. Strongly inspired by the work developed in behavioral psychology it is essentially a trial and error approach to find the best strategy.",
             "term": "Reinforcement Learning"
         },
         {
@@ -296,6 +296,18 @@
         {
             "definition": "",
             "term": "Agent"
+        },
+        {
+            "definition": "",
+            "term": "Friendly AI"
+        },
+        {
+            "definition": "",
+            "term": "Unfriendly AI"
+        },
+        {
+            "definition": "",
+            "term": "Scenario"
         }
     ]
 }
