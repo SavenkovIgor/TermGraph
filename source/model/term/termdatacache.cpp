@@ -40,10 +40,10 @@ QString TermDataCache::termAndDefinition(bool decorated) const
 {
     if (decorated) {
         auto ret = "<font color=\"#00a693\">" + mTerm + "</font>";
-        ret += " - это " + mLinksDefinition.toRichText();
+        ret += " - " + mLinksDefinition.toRichText();
         return ret;
     }
-    return mTerm + " - это " + mLinksDefinition.text();
+    return mTerm + " - " + mLinksDefinition.text();
 }
 
 bool TermDataCache::isSynonym() const {
