@@ -45,3 +45,12 @@ QString TermDataCache::termAndDefinition(bool decorated) const
     }
     return mTerm + " - это " + mLinksDefinition.text();
 }
+
+bool TermDataCache::isSynonym() const {
+    if (mLinksDefinition.links().size() != 1) {
+        return false;
+    }
+
+    auto withoutLinks = mLinksDefinition.replaceLink(0, "");
+    return withoutLinks.simplified().isEmpty();
+}

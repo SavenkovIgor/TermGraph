@@ -28,6 +28,8 @@ public:
 
     QString termAndDefinition(bool decorated = false) const;
 
+    bool isSynonym() const;
+
 private: // Members
     const QString     mTerm;
     const QString     mLowerTerm;
