@@ -36,7 +36,12 @@ Control {
     }
 
     function groupNameFromUrl(url) {
-        return url ? URL(url).searchParams.get("group") : "";
+        if (url) {
+            const urlCasted = new URL(url);
+            return urlCasted.searchParams.get("group");
+        }
+
+        return "";
     }
 
     Component { id: edgeComponent; A.Edge { } }
