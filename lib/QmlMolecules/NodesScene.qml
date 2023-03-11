@@ -21,7 +21,7 @@ Control {
         const groupsUuids = Api.groups.allUuidSorted;
 
         if (groupsUuids.length !== 0) {
-            const urlGroupName = groupNameFromUrl(Api.net.currentUrl);
+            const urlGroupName = groupNameFromUrl(Api.net.currentUrl.toString());
 
             let uuid = Api.groups.getGroupUuid(urlGroupName);
 
@@ -36,8 +36,7 @@ Control {
     }
 
     function groupNameFromUrl(url) {
-        const params = new URL(url).searchParams;
-        return params.get("group");
+        return url ? URL(url).searchParams.get("group") : "";
     }
 
     Component { id: edgeComponent; A.Edge { } }

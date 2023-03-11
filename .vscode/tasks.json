@@ -24,6 +24,12 @@
 			"type": "shell",
 			"command": "./project.py --clear",
 			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "Build and run",
+			"type": "shell",
+			"command": "./project.py --build --run",
+			"problemMatcher": "$msCompile"
 		}
 	]
 }
