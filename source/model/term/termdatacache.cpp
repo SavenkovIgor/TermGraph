@@ -8,13 +8,13 @@
 
 // Initialization order is important!
 TermDataCache::TermDataCache(const TermData& info)
-    : mTerm(info.term)
+    : mTerms{info.term}
     , mLowerTerm(info.term.toLower())
     , mTermSize(TextTools::preferredTextSize(info.term))
     , mLinksDefinition(info.definition)
-{}
-
-QString TermDataCache::term() const { return mTerm; }
+{
+    assert(!mTerms.empty());
+}
 
 QString TermDataCache::definition() const { return mLinksDefinition.text(); }
 
@@ -39,11 +39,11 @@ const Link::List& TermDataCache::links() const { return mLinksDefinition.links()
 QString TermDataCache::termAndDefinition(bool decorated) const
 {
     if (decorated) {
-        auto ret = "<font color=\"#00a693\">" + mTerm + "</font>";
+        auto ret = "<font color=\"#00a693\">" + term() + "</font>";
         ret += " - " + mLinksDefinition.toRichText();
         return ret;
     }
-    return mTerm + " - " + mLinksDefinition.text();
+    return term() + " - " + mLinksDefinition.text();
 }
 
 bool TermDataCache::isSynonym() const {

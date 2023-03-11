@@ -19,7 +19,7 @@ public:
     explicit TermDataCache(const TermData& info);
     ~TermDataCache() = default;
 
-    QString term() const;
+    inline QString term() const { return mTerms.front(); }
     QString definition() const;
     QString lowerTerm() const;
     QSizeF  preferredSize() const;
@@ -31,8 +31,8 @@ public:
     bool isSynonym() const;
 
 private: // Members
-    const QString     mTerm;
-    const QString     mLowerTerm;
-    const QSizeF      mTermSize;
-    const LinksString mLinksDefinition;
+    const std::vector<QString> mTerms;
+    const QString              mLowerTerm;
+    const QSizeF               mTermSize;
+    const LinksString          mLinksDefinition;
 };
