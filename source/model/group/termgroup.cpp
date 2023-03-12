@@ -376,7 +376,7 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
             }
 
             if (!foundNode) {
-                foundNode = getNearestNodeForTag(link.textLower(), terms);
+                foundNode = findLinkTarget(link.textLower(), terms);
             }
 
             if (foundNode) {
@@ -405,7 +405,7 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
     return ret;
 }
 
-Opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const PaintedTerm::List& terms)
+Opt<PaintedTerm::Ptr> TermGroup::findLinkTarget(const QString& link, const PaintedTerm::List& terms)
 {
     Opt<PaintedTerm::Ptr> targetTerm = std::nullopt;
 
@@ -416,16 +416,16 @@ Opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const 
     for (auto node : terms) {
         auto termName = node->cache().lowerTerm();
 
-        if (!LinkTools::linkAndTermSimilarWordDistance(tag, termName)) {
+        if (!LinkTools::linkAndTermSimilarWordDistance(link, termName)) {
             continue;
         }
 
-        auto cacheMatch = linkCache.get(tag, termName);
+        auto cacheMatch = linkCache.get(link, termName);
         if (cacheMatch) {
             optionalResult = cacheMatch.value();
         } else {
-            optionalResult = LinkTools::linkAndTermDistance(tag, termName, minDistance);
-            linkCache.add(tag, termName, optionalResult);
+            optionalResult = LinkTools::linkAndTermDistance(link, termName, minDistance);
+            linkCache.add(link, termName, optionalResult);
         }
 
         if (optionalResult) {
