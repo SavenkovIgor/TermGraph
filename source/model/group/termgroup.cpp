@@ -351,8 +351,8 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
     PaintedEdge::List ret;
 
     // Pre-heating of cache with exact terms match
-    QMap<QString, PaintedTerm::Ptr> previousTagSearchCache = getExactTermMatchCache();
-    QMap<QUuid, PaintedTerm::Ptr>   termUuids              = getTermUuidsMap();
+    auto exactMatchCache = createExactLinkMatchCacheFor(terms);
+    auto termUuids       = getTermUuidsMap();
 
     static int counter     = 0;
     bool       stopRequest = false;
@@ -371,8 +371,8 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
             }
 
             // If we have same search earlier this cycle
-            if (!foundNode && previousTagSearchCache.contains(link.textLower())) {
-                foundNode = previousTagSearchCache[link.textLower()];
+            if (!foundNode && exactMatchCache.contains(link.textLower())) {
+                foundNode = exactMatchCache[link.textLower()];
             }
 
             if (!foundNode) {
@@ -382,7 +382,7 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
             if (foundNode) {
                 if (foundNode.value() != node) { // TODO: Real case, need check
                     ret.push_back(std::make_shared<PaintedEdge>(foundNode.value(), node));
-                    previousTagSearchCache.insert(link.textLower(), foundNode.value());
+                    exactMatchCache.insert(link.textLower(), foundNode.value());
                 }
             }
 
@@ -520,12 +520,12 @@ NodeType::Type TermGroup::termType(const PaintedTerm::Ptr& term) const
     return NodeType::Type::Orphan;
 }
 
-QMap<QString, PaintedTerm::Ptr> TermGroup::getExactTermMatchCache()
+QMap<QString, PaintedTerm::Ptr> TermGroup::createExactLinkMatchCacheFor(const PaintedTerm::List& terms)
 {
     QMap<QString, PaintedTerm::Ptr> ret;
 
-    for (const auto& node : mGraphData.nodeList()) {
-        ret.insert(node->cache().lowerTerm(), node);
+    for (const auto& term : terms) {
+        ret.insert(term->cache().lowerTerm(), term);
     }
 
     return ret;

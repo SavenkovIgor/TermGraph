@@ -87,7 +87,7 @@ private:
 
     // Nodes
     PaintedTerm::List               getRootNodes() const;
-    QMap<QString, PaintedTerm::Ptr> getExactTermMatchCache();
+    QMap<QString, PaintedTerm::Ptr> createExactLinkMatchCacheFor(const PaintedTerm::List& terms);
     QMap<QUuid, PaintedTerm::Ptr>   getTermUuidsMap();
     QSizeF                          getOrphansSize();
     PaintedTerm::List               getInTreeNodes() const;
