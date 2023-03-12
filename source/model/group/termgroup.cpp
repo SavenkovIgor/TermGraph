@@ -352,7 +352,7 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
 
     // Pre-heating of cache with exact terms match
     auto exactMatchCache = createExactLinkMatchCacheFor(terms);
-    auto termUuids       = getTermUuidsMap();
+    auto termUuids       = createUuidCacheFor(terms);
 
     static int counter     = 0;
     bool       stopRequest = false;
@@ -531,11 +531,11 @@ QMap<QString, PaintedTerm::Ptr> TermGroup::createExactLinkMatchCacheFor(const Pa
     return ret;
 }
 
-QMap<QUuid, PaintedTerm::Ptr> TermGroup::getTermUuidsMap()
+QMap<QUuid, PaintedTerm::Ptr> TermGroup::createUuidCacheFor(const PaintedTerm::List& terms)
 {
     QMap<QUuid, PaintedTerm::Ptr> ret;
 
-    for (const auto& node : mGraphData.nodeList()) {
+    for (const auto& node : terms) {
         ret.insert(node->data().uuid->get(), node);
     }
 
