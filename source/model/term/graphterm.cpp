@@ -9,3 +9,5 @@ GraphTerm::GraphTerm(const TermData& info)
 {}
 
 const TermDataCache& GraphTerm::cache() const { return mDataCache; }
+
+void GraphTerm::addSynonym(const QString& synonym) { mDataCache.addSynonym(synonym); }

@@ -16,6 +16,22 @@ TermDataCache::TermDataCache(const TermData& info)
     assert(!mTerms.empty());
 }
 
+void TermDataCache::addSynonym(const QString& synonym)
+{
+    mTerms.push_back(synonym);
+}
+
+bool TermDataCache::isSynonym() const {
+    if (mLinksDefinition.links().size() != 1) {
+        return false;
+    }
+
+    auto withoutLinks = mLinksDefinition.replaceLink(0, "");
+    return withoutLinks.simplified().isEmpty();
+}
+
+bool TermDataCache::hasSynonyms() const { return mTerms.size() > 1; }
+
 QString TermDataCache::definition() const { return mLinksDefinition.text(); }
 
 QString TermDataCache::lowerTerm() const { return mLowerTerm; }
@@ -44,13 +60,4 @@ QString TermDataCache::termAndDefinition(bool decorated) const
         return ret;
     }
     return term() + " - " + mLinksDefinition.text();
-}
-
-bool TermDataCache::isSynonym() const {
-    if (mLinksDefinition.links().size() != 1) {
-        return false;
-    }
-
-    auto withoutLinks = mLinksDefinition.replaceLink(0, "");
-    return withoutLinks.simplified().isEmpty();
 }

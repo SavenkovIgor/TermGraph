@@ -22,6 +22,8 @@ public:
 
     const TermDataCache& cache() const;
 
+    void addSynonym(const QString& synonym);
+
 private:
-    const TermDataCache mDataCache;
+    TermDataCache mDataCache;
 };
