@@ -12,7 +12,7 @@
 #include "source/helpers/appstyle.h"
 #include "source/helpers/link/linktools.h"
 
-GlobalTagCache TermGroup::tagCache;
+LinkTermDistanceCache TermGroup::linkCache;
 
 TermGroup::TermGroup(const GroupSummary& info, const TermData::List& termData, QObject* parent)
     : QObject(parent)
@@ -420,12 +420,12 @@ Opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const 
             continue;
         }
 
-        auto cacheMatch = tagCache.get(tag, termName);
+        auto cacheMatch = linkCache.get(tag, termName);
         if (cacheMatch) {
             optionalResult = cacheMatch.value();
         } else {
             optionalResult = LinkTools::linkAndTermDistance(tag, termName, minDistance);
-            tagCache.add(tag, termName, optionalResult);
+            linkCache.add(tag, termName, optionalResult);
         }
 
         if (optionalResult) {

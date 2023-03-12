@@ -11,7 +11,7 @@
 #include "source/model/graphicitem/rectgraphicitem.h"
 #include "source/model/group/paintedforest.h"
 #include "source/model/term/paintedterm.h"
-#include "source/helpers/globaltagcache.h"
+#include "source/helpers/linktermdistancecache.h"
 
 
 class TermGroup : public QObject
@@ -112,5 +112,5 @@ private:
 
     GraphT mGraphData = GraphT({});
 
-    static GlobalTagCache tagCache;
+    static LinkTermDistanceCache linkCache;
 };
