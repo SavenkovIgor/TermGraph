@@ -28,16 +28,17 @@ public:
     bool hasSynonyms() const;
 
     QString definition() const;
-    QString lowerTerm() const;
+    inline QString lowerTerm() const { return mLowerTerms.front(); }
+    inline const std::vector<QString>& lowerTermAndSynonyms() const { return mLowerTerms; }
     QSizeF  preferredSize() const;
 
     const Link::List& links() const;
 
     QString termAndDefinition(bool decorated = false) const;
 
-private: // Members
+private:
     std::vector<QString> mTerms;
-    const QString        mLowerTerm;
+    std::vector<QString> mLowerTerms;
     const QSizeF         mTermSize;
     const LinksString    mLinksDefinition;
 };

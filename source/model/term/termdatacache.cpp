@@ -9,7 +9,7 @@
 // Initialization order is important!
 TermDataCache::TermDataCache(const TermData& info)
     : mTerms{info.term}
-    , mLowerTerm(info.term.toLower())
+    , mLowerTerms{info.term.toLower()}
     , mTermSize(TextTools::preferredTextSize(info.term))
     , mLinksDefinition(info.definition)
 {
@@ -19,6 +19,7 @@ TermDataCache::TermDataCache(const TermData& info)
 void TermDataCache::addSynonym(const QString& synonym)
 {
     mTerms.push_back(synonym);
+    mLowerTerms.push_back(synonym.toLower());
 }
 
 bool TermDataCache::isSynonym() const {
@@ -33,8 +34,6 @@ bool TermDataCache::isSynonym() const {
 bool TermDataCache::hasSynonyms() const { return mTerms.size() > 1; }
 
 QString TermDataCache::definition() const { return mLinksDefinition.text(); }
-
-QString TermDataCache::lowerTerm() const { return mLowerTerm; }
 
 QSizeF TermDataCache::preferredSize() const {
     if (mLinksDefinition.text().isEmpty()) {
