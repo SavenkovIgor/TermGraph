@@ -70,6 +70,10 @@
             "term": "Category"
         },
         {
+            "definition": "{set} of consistent rules that groups {entities} into some (often {mutually exclusive}) {categories}",
+            "term": "Categoryzation"
+        },
+        {
             "definition": "{property} of {physical object} or {system}, which is possible to {measure}",
             "term": "Physical quantity"
         },
@@ -176,6 +180,10 @@
         {
             "definition": "{process} of {position} change",
             "term": "Motion"
+        },
+        {
+            "definition": "{categorization} of {elementary particles} into 3 {sets} based on their {mass} and {quantum numbers}",
+            "term": "Particle generations"
         }
     ]
 }
