@@ -77,9 +77,13 @@ public:
     // Term keys
     constexpr static auto termKey        = "term";
     constexpr static auto definitionKey  = "definition";
+    constexpr static auto termDefKey     = "termDef";
     constexpr static auto descriptionKey = "description";
     constexpr static auto examplesKey    = "examples";
     constexpr static auto wikiUrlKey     = "wikiUrl";
     constexpr static auto wikiImageKey   = "wikiImage";
     constexpr static auto groupUuidKey   = "groupUuid";
+
+    // Other stuff
+    constexpr static auto termDefSeparator = " - ";
 };

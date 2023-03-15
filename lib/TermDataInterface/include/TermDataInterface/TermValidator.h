@@ -44,10 +44,7 @@ public:
 
         ret.clear();
 
-        ret.addCheck(&validTermField, ErrorCodes::JsonTermFieldMissedOrWrongType);
-        ret.addCheck(&termNotEmpty, ErrorCodes::TermEmpty);
-
-        ret.addCheck(&validDefinitionField, ErrorCodes::JsonDefinitionFieldMissedOrWrongType);
+        ret.addCheck(&validTermDefFields, ErrorCodes::JsonTermDefFieldWrongContentOrType);
 
         return ret;
     }
@@ -63,6 +60,26 @@ private:
     static bool termNotEmpty(const QJsonObject& obj) { return !(obj[JsonTools::termKey].toString().isEmpty()); }
 
     static bool validDefinitionField(const QJsonObject& obj) { return obj[JsonTools::definitionKey].isString(); }
+    static bool validTermDefFields(const QJsonObject& obj)
+    {
+        auto termDefString = obj[JsonTools::termDefKey].toString();
+
+        if (!termDefString.contains(JsonTools::termDefSeparator)) {
+            return false;
+        }
+
+        auto termDefSplit = termDefString.split(JsonTools::termDefSeparator, Qt::KeepEmptyParts);
+
+        if (termDefSplit.size() != 2) {
+            return false;
+        }
+
+        if (termDefSplit[0].isEmpty()) {
+            return false;
+        }
+
+        return true;
+    }
     static bool validDescriptionField(const QJsonObject& obj) { return obj[JsonTools::descriptionKey].isString(); }
     static bool validExamplesField(const QJsonObject& obj) { return obj[JsonTools::examplesKey].isString(); }
     static bool validWikiUrlField(const QJsonObject& obj) { return obj[JsonTools::wikiUrlKey].isString(); }
