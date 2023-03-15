@@ -84,10 +84,26 @@ struct TermData
             uuid = TermUuid::from(obj[JsonTools::uuidKey].toString());
         }
 
+        QString term;
+        QString definition;
+
+        if (mode == JsonCheckMode::Minimal) {
+            auto termDef = obj[JsonTools::termDefKey].toString();
+
+            auto split = termDef.split(JsonTools::termDefSeparator, Qt::KeepEmptyParts);
+            assert(split.size() == 2);
+
+            term       = split[0];
+            definition = split[1];
+        } else {
+            term       = obj[JsonTools::termKey].toString();
+            definition = obj[JsonTools::definitionKey].toString();
+        }
+
         TermData ret{
             .uuid        = uuid,
-            .term        = obj[JsonTools::termKey].toString(),
-            .definition  = obj[JsonTools::definitionKey].toString(),
+            .term        = term,
+            .definition  = definition,
             .description = obj[JsonTools::descriptionKey].toString(""),
             .examples    = obj[JsonTools::examplesKey].toString(""),
             .wikiUrl     = obj[JsonTools::wikiUrlKey].toString(""),
@@ -135,8 +151,9 @@ struct TermData
     {
         QJsonObject ret;
 
-        ret.insert(JsonTools::termKey, data.term);
-        ret.insert(JsonTools::definitionKey, data.definition);
+        auto termDef = data.term + JsonTools::termDefSeparator + data.definition;
+
+        ret.insert(JsonTools::termDefKey, termDef);
 
         ret = JsonTools::addIfNotEmpty(ret, JsonTools::descriptionKey, data.description);
         ret = JsonTools::addIfNotEmpty(ret, JsonTools::examplesKey, data.examples);

@@ -2,260 +2,196 @@
     "name": "Qml",
     "terms": [
         {
-            "definition": "{QObject}",
-            "term": "QtObject"
+            "termDef": "QtObject - {QObject}"
         },
         {
-            "definition": "{QQuickItem}",
-            "term": "Item"
+            "termDef": "Item - {QQuickItem}"
         },
         {
-            "definition": "{Item}",
-            "term": "Image"
+            "termDef": "Image - {Item}"
         },
         {
-            "definition": "{Item}",
-            "term": "Rectangle"
+            "termDef": "Rectangle - {Item}"
         },
         {
-            "definition": "{Item}",
-            "term": "Control"
+            "termDef": "Control - {Item}"
         },
         {
-            "definition": "{Control}",
-            "term": "Pane"
+            "termDef": "Pane - {Control}"
         },
         {
-            "definition": "{Pane}",
-            "term": "Page"
+            "termDef": "Page - {Pane}"
         },
         {
-            "definition": "{Pane}",
-            "term": "ScrollView"
+            "termDef": "ScrollView - {Pane}"
         },
         {
-            "definition": "{Item}",
-            "term": "RowLayout"
+            "termDef": "RowLayout - {Item}"
         },
         {
-            "definition": "{Item}",
-            "term": "Text"
+            "termDef": "Text - {Item}"
         },
         {
-            "definition": "{Text}",
-            "term": "Label"
+            "termDef": "Label - {Text}"
         },
         {
-            "definition": "{AbstractButton}",
-            "term": "Button"
+            "termDef": "Button - {AbstractButton}"
         },
         {
-            "definition": "{Control}",
-            "term": "AbstractButton"
+            "termDef": "AbstractButton - {Control}"
         },
         {
-            "definition": "{Popup}",
-            "term": "Dialog"
+            "termDef": "Dialog - {Popup}"
         },
         {
-            "definition": "{QtObject}",
-            "term": "Popup"
+            "termDef": "Popup - {QtObject}"
         },
         {
-            "definition": "{Window}",
-            "term": "ApplicationWindow"
+            "termDef": "ApplicationWindow - {Window}"
         },
         {
-            "definition": "{QQuickWindow}",
-            "term": "Window"
+            "termDef": "Window - {QQuickWindow}"
         },
         {
-            "definition": "{QWindow}",
-            "term": "QQuickWindow"
+            "termDef": "QQuickWindow - {QWindow}"
         },
         {
-            "definition": "{Item}",
-            "term": "Canvas"
+            "termDef": "Canvas - {Item}"
         },
         {
-            "definition": "{Item}",
-            "term": "Loader"
+            "termDef": "Loader - {Item}"
         },
         {
-            "definition": "{Item}",
-            "term": "Repeater"
+            "termDef": "Repeater - {Item}"
         },
         {
-            "definition": "{QQmlComponent}",
-            "term": "Component"
+            "termDef": "Component - {QQmlComponent}"
         },
         {
-            "definition": "",
-            "term": "QQmlComponent"
+            "termDef": "QQmlComponent - "
         },
         {
-            "definition": "{Flickable}",
-            "term": "TableView"
+            "termDef": "TableView - {Flickable}"
         },
         {
-            "definition": "{Item}",
-            "term": "Flickable"
+            "termDef": "Flickable - {Item}"
         },
         {
-            "definition": "",
-            "term": "Scale"
+            "termDef": "Scale - "
         },
         {
-            "definition": "{Animator}",
-            "term": "ScaleAnimator"
+            "termDef": "ScaleAnimator - {Animator}"
         },
         {
-            "definition": "{Animation}",
-            "term": "Animator"
+            "termDef": "Animator - {Animation}"
         },
         {
-            "definition": "",
-            "term": "Animation"
+            "termDef": "Animation - "
         },
         {
-            "definition": "{Animation}",
-            "term": "AnchorAnimation"
+            "termDef": "AnchorAnimation - {Animation}"
         },
         {
-            "definition": "{QtObject}",
-            "term": "Action"
+            "termDef": "Action - {QtObject}"
         },
         {
-            "definition": "",
-            "term": "WaylandCompositor"
+            "termDef": "WaylandCompositor - "
         },
         {
-            "definition": "",
-            "term": "WaylandOutput"
+            "termDef": "WaylandOutput - "
         },
         {
-            "definition": "{Popup}",
-            "term": "Drawer"
+            "termDef": "Drawer - {Popup}"
         },
         {
-            "definition": "{Item}",
-            "term": "TextInput"
+            "termDef": "TextInput - {Item}"
         },
         {
-            "definition": "{TextInput}",
-            "term": "TextField"
+            "termDef": "TextField - {TextInput}"
         },
         {
-            "definition": "{Item}",
-            "term": "TextEdit"
+            "termDef": "TextEdit - {Item}"
         },
         {
-            "definition": "{TextEdit}",
-            "term": "TextArea"
+            "termDef": "TextArea - {TextEdit}"
         },
         {
-            "definition": "{Popup}",
-            "term": "ToolTip"
+            "termDef": "ToolTip - {Popup}"
         },
         {
-            "definition": "{QQmlEngine}",
-            "term": "QQmlApplicationEngine"
+            "termDef": "QQmlApplicationEngine - {QQmlEngine}"
         },
         {
-            "definition": "{QJSEngine}",
-            "term": "QQmlEngine"
+            "termDef": "QQmlEngine - {QJSEngine}"
         },
         {
-            "definition": "{QObject}",
-            "term": "QJSEngine"
+            "termDef": "QJSEngine - {QObject}"
         },
         {
-            "definition": "{QGuiApplication}",
-            "term": "QApplication"
+            "termDef": "QApplication - {QGuiApplication}"
         },
         {
-            "definition": "{QCoreApplication}",
-            "term": "QGuiApplication"
+            "termDef": "QGuiApplication - {QCoreApplication}"
         },
         {
-            "definition": "{QObject}",
-            "term": "QCoreApplication"
+            "termDef": "QCoreApplication - {QObject}"
         },
         {
-            "definition": "",
-            "term": "QObject"
+            "termDef": "QObject - "
         },
         {
-            "definition": "{QObject} {QSurface}",
-            "term": "QWindow"
+            "termDef": "QWindow - {QObject} {QSurface}"
         },
         {
-            "definition": "",
-            "term": "QSurface"
+            "termDef": "QSurface - "
         },
         {
-            "definition": "",
-            "term": "qmldir"
+            "termDef": "qmldir - "
         },
         {
-            "definition": "{MultiPointHandler}",
-            "term": "PinchHandler"
+            "termDef": "PinchHandler - {MultiPointHandler}"
         },
         {
-            "definition": "{PointerDeviceHandler}",
-            "term": "MultiPointHandler"
+            "termDef": "MultiPointHandler - {PointerDeviceHandler}"
         },
         {
-            "definition": "{PointerHandler}",
-            "term": "PointerDeviceHandler"
+            "termDef": "PointerDeviceHandler - {PointerHandler}"
         },
         {
-            "definition": "{QObject}",
-            "term": "PointerHandler"
+            "termDef": "PointerHandler - {QObject}"
         },
         {
-            "definition": "{QObject}",
-            "term": "QQuickItem"
+            "termDef": "QQuickItem - {QObject}"
         },
         {
-            "definition": "{PointerDeviceHandler}",
-            "term": "SinglePointHandler"
+            "termDef": "SinglePointHandler - {PointerDeviceHandler}"
         },
         {
-            "definition": "{SinglePointHandler}",
-            "term": "HoverHandler"
+            "termDef": "HoverHandler - {SinglePointHandler}"
         },
         {
-            "definition": "{SinglePointHandler}",
-            "term": "PointHandler"
+            "termDef": "PointHandler - {SinglePointHandler}"
         },
         {
-            "definition": "{SinglePointHandler}",
-            "term": "TapHandler"
+            "termDef": "TapHandler - {SinglePointHandler}"
         },
         {
-            "definition": "{SinglePointHandler}",
-            "term": "WheelHandler"
+            "termDef": "WheelHandler - {SinglePointHandler}"
         },
         {
-            "definition": "{MultiPointHandler}",
-            "term": "DragHandler"
+            "termDef": "DragHandler - {MultiPointHandler}"
         },
         {
-            "definition": "{QObject}",
-            "term": "QQuickPointerEvent"
+            "termDef": "QQuickPointerEvent - {QObject}"
         },
         {
-            "definition": "{QQuickPointerEvent}",
-            "term": "QQuickSinglePointEvent"
+            "termDef": "QQuickSinglePointEvent - {QQuickPointerEvent}"
         },
         {
-            "definition": "{QQuickSinglePointEvent}",
-            "term": "QQuickPointerMouseEvent"
+            "termDef": "QQuickPointerMouseEvent - {QQuickSinglePointEvent}"
         },
         {
-            "definition": "",
-            "term": "1"
+            "termDef": "1 - "
         }
     ]
 }

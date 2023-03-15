@@ -49,6 +49,7 @@ enum ErrorCodes {
     JsonTermFieldMissedOrWrongType,
 
     JsonDefinitionFieldMissedOrWrongType,
+    JsonTermDefFieldWrongContentOrType,
     JsonDescriptionFieldMissedOrWrongType,
     JsonExamplesFieldMissedOrWrongType,
     JsonWikiUrlFieldMissedOrWrongType,
