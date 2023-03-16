@@ -90,6 +90,7 @@ inline const char* toChar(ErrorCodes code) {
         case ErrorCodes::JsonUuidFieldMissedOrWrongType:          return "JsonUuidFieldMissedOrWrongType";
         case ErrorCodes::JsonTermFieldMissedOrWrongType:          return "JsonTermFieldMissedOrWrongType";
         case ErrorCodes::JsonDefinitionFieldMissedOrWrongType:    return "JsonDefinitionFieldMissedOrWrongType";
+        case ErrorCodes::JsonTermDefFieldWrongContentOrType:      return "JsonTermDefFieldWrongContentOrType";
         case ErrorCodes::JsonDescriptionFieldMissedOrWrongType:   return "JsonDescriptionFieldMissedOrWrongType";
         case ErrorCodes::JsonExamplesFieldMissedOrWrongType:      return "JsonExamplesFieldMissedOrWrongType";
         case ErrorCodes::JsonWikiUrlFieldMissedOrWrongType:       return "JsonWikiUrlFieldMissedOrWrongType";
@@ -134,6 +135,7 @@ inline ErrorCodes fromChar(const char* enumName) {
     if (msg == "JsonUuidFieldMissedOrWrongType")          return ErrorCodes::JsonUuidFieldMissedOrWrongType;
     if (msg == "JsonTermFieldMissedOrWrongType")          return ErrorCodes::JsonTermFieldMissedOrWrongType;
     if (msg == "JsonDefinitionFieldMissedOrWrongType")    return ErrorCodes::JsonDefinitionFieldMissedOrWrongType;
+    if (msg == "JsonTermDefFieldWrongContentOrType")      return ErrorCodes::JsonTermDefFieldWrongContentOrType;
     if (msg == "JsonDescriptionFieldMissedOrWrongType")   return ErrorCodes::JsonDescriptionFieldMissedOrWrongType;
     if (msg == "JsonExamplesFieldMissedOrWrongType")      return ErrorCodes::JsonExamplesFieldMissedOrWrongType;
     if (msg == "JsonWikiUrlFieldMissedOrWrongType")       return ErrorCodes::JsonWikiUrlFieldMissedOrWrongType;
