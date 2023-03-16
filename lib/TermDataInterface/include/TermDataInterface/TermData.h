@@ -40,71 +40,29 @@ struct TermData
     enum class JsonCheckMode { Import, AddTerm, UpdateTerm, Minimal };
 
     // --- JSON ---
-    // Returns valid object or nullopt
     static Opt<TermData> from(const QJsonObject& obj, JsonCheckMode mode);
     static Opt<TermData> from(const QByteArray& jsonBytes, JsonCheckMode mode);
 
     QJsonObject toQJsonObject() const;
     QJsonObject toMinimalQJsonObject() const;
+    QByteArray  toQByteArray() const;
 
     explicit operator QJsonObject() const { return toQJsonObject(); }
-    explicit operator QByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+    explicit operator QByteArray() const { return toQByteArray(); }
 
     class List : public std::vector<TermData>
     {
     public:
-        static inline Opt<List> from(const QJsonObject& obj)
-        {
-            List ret;
+        static Opt<List> from(const QJsonObject& obj);
+        static List      from(const QJsonArray& json, JsonCheckMode mode = JsonCheckMode::Import);
+        static Opt<List> from(const QByteArray& jsonBytes);
 
-            if (!obj[JsonTools::termsKey].isArray())
-                return std::nullopt;
+        QJsonObject toQJsonObject() const;
+        QJsonArray  toQJsonArray() const;
+        QByteArray  toQByteArray() const;
 
-            return from(obj[JsonTools::termsKey].toArray());
-        }
-
-        static inline List from(const QJsonArray& json, JsonCheckMode mode = JsonCheckMode::Import)
-        {
-            List ret;
-
-            for (const auto& termJson : json) {
-                if (auto termData = TermData::from(termJson.toObject(), mode)) {
-                    ret.push_back(*termData);
-                } else {
-                    qWarning("Wrong termData json array");
-                }
-            }
-
-            return ret;
-        }
-
-        static inline Opt<List> from(const QByteArray& jsonBytes)
-        {
-            auto doc = QJsonDocument::fromJson(jsonBytes);
-
-            if (doc.isNull())
-                return std::nullopt;
-
-            return from(doc.object());
-        }
-
-        explicit operator QJsonObject() const
-        {
-            QJsonObject obj;
-            obj.insert(JsonTools::termsKey, static_cast<QJsonArray>(*this));
-            return obj;
-        }
-
-        explicit operator QJsonArray() const
-        {
-            QJsonArray arr;
-
-            for (const auto& item : *this)
-                arr.push_back(static_cast<QJsonObject>(item));
-
-            return arr;
-        }
-
-        explicit operator QByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+        explicit operator QJsonObject() const { return toQJsonObject(); }
+        explicit operator QJsonArray() const { return toQJsonArray(); }
+        explicit operator QByteArray() const { return toQByteArray(); }
     };
 };

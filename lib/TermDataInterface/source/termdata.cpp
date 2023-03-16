@@ -123,3 +123,59 @@ QJsonObject TermData::toMinimalQJsonObject() const
 
     return ret;
 }
+
+QByteArray TermData::toQByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+
+Opt<TermData::List> TermData::List::from(const QJsonObject& obj)
+{
+    TermData::List ret;
+
+    if (!obj[JsonTools::termsKey].isArray())
+        return std::nullopt;
+
+    return from(obj[JsonTools::termsKey].toArray());
+}
+
+TermData::List TermData::List::from(const QJsonArray& json, TermData::JsonCheckMode mode)
+{
+    TermData::List ret;
+
+    for (const auto& termJson : json) {
+        if (auto termData = TermData::from(termJson.toObject(), mode)) {
+            ret.push_back(*termData);
+        } else {
+            qWarning("Wrong termData json array");
+        }
+    }
+
+    return ret;
+}
+
+Opt<TermData::List> TermData::List::from(const QByteArray& jsonBytes)
+{
+    auto doc = QJsonDocument::fromJson(jsonBytes);
+
+    if (doc.isNull())
+        return std::nullopt;
+
+    return from(doc.object());
+}
+
+QJsonObject TermData::List::toQJsonObject() const
+{
+    QJsonObject obj;
+    obj.insert(JsonTools::termsKey, static_cast<QJsonArray>(*this));
+    return obj;
+}
+
+QJsonArray TermData::List::toQJsonArray() const
+{
+    QJsonArray arr;
+
+    for (const auto& item : *this)
+        arr.push_back(static_cast<QJsonObject>(item));
+
+    return arr;
+}
+
+QByteArray TermData::List::toQByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
