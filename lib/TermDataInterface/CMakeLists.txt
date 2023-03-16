@@ -6,19 +6,31 @@ project (TermDataInterface LANGUAGES CXX)
 
 find_package (Qt6 REQUIRED COMPONENTS Core)
 
-add_library (TermDataInterface
+add_library (TermDataInterface STATIC)
+
+target_link_libraries (TermDataInterface PUBLIC CommonTools)
+target_link_libraries (TermDataInterface PUBLIC Qt6::Core)
+
+set_target_properties (TermDataInterface
+    PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
+
+target_include_directories (TermDataInterface INTERFACE "./include")
+target_include_directories (TermDataInterface PRIVATE ${PROJECT_SOURCE_DIR})
+
+target_sources (TermDataInterface
     INTERFACE
         include/TermDataInterface/DataStorageInterface.h
         include/TermDataInterface/GroupSummary.h
         include/TermDataInterface/StaticGroupData.h
         include/TermDataInterface/GroupValidator.h
         include/TermDataInterface/TermData.h
-        include/TermDataInterface/TermValidator.h)
-
-target_include_directories (TermDataInterface INTERFACE "./include")
-
-target_link_libraries (TermDataInterface INTERFACE CommonTools)
-target_link_libraries (TermDataInterface INTERFACE Qt6::Core)
+        include/TermDataInterface/TermValidator.h
+    PRIVATE
+        source/groupsummary.cpp
+        source/staticgroupdata.cpp
+        source/termdata.cpp)
 
 if (BUILD_TESTING)
     enable_testing ()
