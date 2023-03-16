@@ -118,7 +118,7 @@ struct StaticGroupData : public GroupSummary
         QJsonArray jsonterms;
 
         for (const auto& term : terms) {
-            jsonterms.append(TermData::toMinimalJsonObject(term));
+            jsonterms.append(term.toMinimalQJsonObject());
         }
 
         ret.insert(JsonTools::termsKey, jsonterms);
