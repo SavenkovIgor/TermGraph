@@ -28,6 +28,8 @@ target_sources (TermDataInterface
         include/TermDataInterface/TermData.h
         include/TermDataInterface/TermValidator.h
     PRIVATE
+        source/groupsummary.cpp
+        source/staticgroupdata.cpp
         source/termdata.cpp)
 
 if (BUILD_TESTING)

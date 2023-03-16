@@ -14,7 +14,8 @@
 #include <CommonTools/GroupUuid.h>
 #include <CommonTools/HandyTypes.h>
 #include <CommonTools/JsonTools.h>
-#include <TermDataInterface/GroupValidator.h>
+
+#include "GroupValidator.h"
 
 // TODO: Make class and make fields private
 struct GroupSummary
