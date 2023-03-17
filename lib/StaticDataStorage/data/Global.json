@@ -95,12 +95,6 @@
             "termDef": "Elementary particle - a {particle} that is not composed of other {particles}"
         },
         {
-            "termDef": "Position - {set} of {propery values}, describing unique place in {space}"
-        },
-        {
-            "termDef": "Coordinate - {position}"
-        },
-        {
             "termDef": "Point - {abstract entity}, that can be described with it's {position} only"
         },
         {
@@ -138,6 +132,48 @@
         },
         {
             "termDef": "Particle generations - {categorization} of {elementary particles} into 3 {sets} based on their {mass} and {quantum numbers}"
+        },
+        {
+            "termDef": "Empty set - a {set} with no {entities}"
+        },
+        {
+            "termDef": "Pair - a {set} with two {entities}"
+        },
+        {
+            "termDef": "Relation - exact rule, describing a connection between two or more {entities}"
+        },
+        {
+            "termDef": "Origin - {point}, all {coordinates} of which are equal to zero"
+        },
+        {
+            "termDef": "Line - infinitely long one-{dimensional} {entity} with no width, depth, or curvature."
+        },
+        {
+            "termDef": "Ray - part of a {line} that has a start {point} and all {points} on one side of the start {point}"
+        },
+        {
+            "termDef": "Axis - a {line} along one of the {dimensions} with a {origin} and a {set} of periodic numbered {points} on it"
+        },
+        {
+            "termDef": "Direction - a specific name for a {ray}, started from {origin} and oriented along {axis}"
+        },
+        {
+            "termDef": "Line segment - part of a {line}, limited by two {points} on the {line}"
+        },
+        {
+            "termDef": "Coordinate - {property value} that describes unique place in {dimension}"
+        },
+        {
+            "termDef": "Position - a {set} of {coordinates} describing unique place in {space}"
+        },
+        {
+            "termDef": "Orientation - a {relation}, describing the rotation of one {entity} relative to another"
+        },
+        {
+            "termDef": "Vector - a {line segment} with information about {orientation} relative to {origin}"
+        },
+        {
+            "termDef": "Force - a {vector} describing interaction between {entities} or {physical objects} that causes a change in {motion}"
         }
     ]
 }
