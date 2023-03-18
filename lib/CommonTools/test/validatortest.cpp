@@ -19,14 +19,20 @@ public:
     {
         PointValidator ret;
         // Error codes are just for example
-        ret.addCheck(&PointValidator::isSmall, ErrorCodes::TermEmpty);
-        ret.addCheck(&PointValidator::isPositive, ErrorCodes::GroupNameEmpty);
+        ret.addCheck(&PointValidator::isSmall);
+        ret.addCheck(&PointValidator::isPositive);
         return ret;
     }
 
 private:
-    static bool isSmall(const Point& pt) { return pt.x < 100 && pt.y < 100; }
-    static bool isPositive(const Point& pt) { return pt.x > 0 && pt.y > 0; }
+    static CheckResult isSmall(const Point& pt)
+    {
+        return checkOrError(pt.x < 100 && pt.y < 100, ErrorCodes::TermEmpty);
+    }
+    static CheckResult isPositive(const Point& pt)
+    {
+        return checkOrError(pt.x > 0 && pt.y > 0, ErrorCodes::GroupNameEmpty);
+    }
 };
 
 TEST(ValidatorTest, Creation)
