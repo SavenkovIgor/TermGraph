@@ -5,15 +5,18 @@
 
 #include <functional>
 
+#include <CommonTools/Errors.h>
+#include <CommonTools/HandyTypes.h>
 
-template<typename Object, typename Errors>
+
+template<typename Object>
 class Validator
 {
 public:
     using Condition = std::function<bool(const Object&)>;
-    using ErrorList = std::vector<Errors>;
+    using ErrorList = std::vector<ErrorCodes>;
 
-    void addCheck(Condition condition, Errors error) { mCheckList.push_back({condition, error}); }
+    void addCheck(Condition condition, ErrorCodes error) { mCheckList.push_back({condition, error}); }
 
     bool check(const Object& obj)
     {
@@ -41,7 +44,7 @@ private:
     struct CheckItem
     {
         Condition   condition;
-        Errors      error;
+        ErrorCodes      error;
     };
 
     std::vector<CheckItem> mCheckList;

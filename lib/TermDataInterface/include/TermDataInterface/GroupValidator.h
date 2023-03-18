@@ -9,7 +9,7 @@
 #include <CommonTools/JsonTools.h>
 #include <CommonTools/Validator.h>
 
-class GroupJsonValidator : public Validator<QJsonObject, ErrorCodes>
+class GroupJsonValidator : public Validator<QJsonObject>
 {
 public:
     static GroupJsonValidator defaultChecks(bool checkLastEdit = false)

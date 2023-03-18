@@ -10,7 +10,7 @@
 #include <CommonTools/TermUuid.h>
 #include <CommonTools/Validator.h>
 
-class TermJsonValidator : public Validator<QJsonObject, ErrorCodes>
+class TermJsonValidator : public Validator<QJsonObject>
 {
 public:
     TermJsonValidator(bool checkUuid = true, bool checkLastEdit = true)
