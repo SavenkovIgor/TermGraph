@@ -5,11 +5,14 @@
 
 PaintedTerm::PaintedTerm(const TermData& info)
     : GraphTerm(info)
-    , pNodeSize(QSizeF(40.0, 10.0))
 {
     pCornerRadius.setBinding([this]() { return std::min(pNodeSize.value().height() * 0.15, 12.0); });
 
-    pNodeSize.setValue(cache().preferredSize() + (cache().definition().isEmpty() ? QSizeF(34, 16) : QSizeF(34, 34)));
+    pNodeSize.setBinding([this]() -> QSizeF {
+        auto prefSize = cache().preferredSize.value();
+        auto offsets  = cache().definition().isEmpty() ? QSizeF(34, 16) : QSizeF(34, 34);
+        return prefSize + offsets;
+    });
 }
 
 QLineF PaintedTerm::getRectLine(Qt::Edge side)
@@ -18,11 +21,8 @@ QLineF PaintedTerm::getRectLine(Qt::Edge side)
 
     switch (side) {
     case Qt::TopEdge: return QLineF(rc.topLeft(), rc.topRight());
-
     case Qt::RightEdge: return QLineF(rc.topRight(), rc.bottomRight());
-
     case Qt::BottomEdge: return QLineF(rc.bottomLeft(), rc.bottomRight());
-
     case Qt::LeftEdge: return QLineF(rc.topLeft(), rc.bottomLeft());
     }
     return {};
@@ -65,9 +65,6 @@ bool PaintedTerm::isSelectedAnyway() const { return mThisSelected || mRelativePa
 
 QString PaintedTerm::term() const { return cache().term(); }
 
-QString PaintedTerm::definition() const
-{
-    return cache().definition();
-}
+QString PaintedTerm::definition() const { return cache().definition(); }
 
 QRectF PaintedTerm::rect() const { return getNodeRect(CoordType::scene); }

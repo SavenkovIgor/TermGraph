@@ -8,18 +8,53 @@
 
 // Initialization order is important!
 TermDataCache::TermDataCache(const TermData& info)
-    : mTerms{info.term}
-    , mLowerTerms{info.term.toLower()}
-    , mTermSize(TextTools::preferredTextSize(info.term))
+    : mTerms{QStringList() << info.term}
     , mLinksDefinition(info.definition)
 {
-    assert(!mTerms.empty());
+    assert(!mTerms.value().empty());
+
+    mLowerTerms.setBinding([this]() {
+        QStringList ret;
+        for (const auto& termOrSym : mTerms.value()) {
+            ret.push_back(termOrSym.toLower());
+        }
+        return ret;
+    });
+
+    preferredSize.setBinding([this]() -> QSizeF {
+        int spacing = 8;
+        auto terms = mTerms.value();
+
+        QSizeF termsSize;
+
+        // If term has synonyms, it must be one line
+        int whProportion = hasSynonyms() ? 10000 : 5;
+
+        for (const auto& term : terms) {
+            auto termSize = TextTools::preferredTextSize(term, whProportion);
+            termsSize.setWidth(std::max(termsSize.width(), termSize.width()));
+            termsSize.setHeight(termsSize.height() + termSize.height() + spacing);
+        }
+
+        if (mLinksDefinition.text().isEmpty()) {
+            return termsSize;
+        }
+
+        auto defWithoutLinks = mLinksDefinition.toPlainString();
+        auto defSize         = TextTools::preferredTextSize(defWithoutLinks, 5);
+
+        auto width  = std::max(termsSize.width(), defSize.width());
+        auto height = termsSize.height() + defSize.height();
+
+        return {width, height};
+    });
 }
 
 void TermDataCache::addSynonym(const QString& synonym)
 {
-    mTerms.push_back(synonym);
-    mLowerTerms.push_back(synonym.toLower());
+    auto currentVal = mTerms.value();
+    currentVal.push_back(synonym);
+    mTerms.setValue(currentVal);
 }
 
 bool TermDataCache::isSynonym() const {
@@ -31,23 +66,9 @@ bool TermDataCache::isSynonym() const {
     return withoutLinks.simplified().isEmpty();
 }
 
-bool TermDataCache::hasSynonyms() const { return mTerms.size() > 1; }
+bool TermDataCache::hasSynonyms() const { return mTerms.value().size() > 1; }
 
 QString TermDataCache::definition() const { return mLinksDefinition.text(); }
-
-QSizeF TermDataCache::preferredSize() const {
-    if (mLinksDefinition.text().isEmpty()) {
-        return mTermSize;
-    }
-
-    auto defWithoutLinks = mLinksDefinition.toPlainString();
-    auto defSize = TextTools::preferredTextSize(defWithoutLinks, 5);
-
-    auto width = std::max(mTermSize.width(), defSize.width());
-    auto height = mTermSize.height() + defSize.height();
-
-    return {width, height};
-}
 
 const Link::List& TermDataCache::links() const { return mLinksDefinition.links(); }
 

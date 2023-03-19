@@ -19,8 +19,8 @@ public:
     explicit TermDataCache(const TermData& info);
     ~TermDataCache() = default;
 
-    inline QString term() const { return mTerms.front(); }
-    inline const std::vector<QString>& termAndSynonyms() const { return mTerms; }
+    inline QString     term() const { return mTerms.value().first(); }
+    inline QStringList termAndSynonyms() const { return mTerms.value(); }
 
     // Synonyms are terms with one link to another term
     void addSynonym(const QString& synonym);
@@ -28,17 +28,17 @@ public:
     bool hasSynonyms() const;
 
     QString definition() const;
-    inline QString lowerTerm() const { return mLowerTerms.front(); }
-    inline const std::vector<QString>& lowerTermAndSynonyms() const { return mLowerTerms; }
-    QSizeF  preferredSize() const;
+    inline QString     lowerTerm() const { return mLowerTerms.value().first(); }
+    inline QStringList lowerTermAndSynonyms() const { return mLowerTerms.value(); }
 
     const Link::List& links() const;
 
     QString termAndDefinition(bool decorated = false) const;
 
+    QProperty<QSizeF> preferredSize;
+
 private:
-    std::vector<QString> mTerms;
-    std::vector<QString> mLowerTerms;
-    const QSizeF         mTermSize;
-    const LinksString    mLinksDefinition;
+    QProperty<QStringList> mTerms;
+    QProperty<QStringList> mLowerTerms;
+    const LinksString      mLinksDefinition;
 };

@@ -31,6 +31,7 @@ QHash<int, QByteArray> TermsModel::roleNames() const
                                            {Roles::Radius, "radius"},
                                            {Roles::Weight, "weight"},
                                            {Roles::Term, "term"},
+                                           {Roles::TermAndSynonyms, "termAndSynonyms"},
                                            {Roles::Definition, "definition"},
                                            {Roles::IsSelected, "isSelected"},
                                            {Roles::Type, "type"}};
@@ -54,6 +55,7 @@ QVariant TermsModel::data(const QModelIndex &index, int role) const
     case Roles::Radius: return term->cornerRadius();
     case Roles::Weight: return 0.1;
     case Roles::Term: return term->term();
+    case Roles::TermAndSynonyms: return term->cache().termAndSynonyms();
     case Roles::Definition: return term->definition();
     case Roles::IsSelected: return term->isSelectedAnyway();
     case Roles::Type: return asInt(mGroup.value()->termType(term));

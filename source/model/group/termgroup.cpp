@@ -31,8 +31,49 @@ TermGroup::TermGroup(const GroupSummary& info, const TermData::List& termData, Q
 
     PaintedTerm::List nodes;
 
+    // Creating nodes
     for (const auto& term : termData) {
         nodes.push_back(std::make_shared<PaintedTerm>(term));
+    }
+
+    // Collapsing synonyms
+    auto synonymCount = [](const auto& terms) {
+        using namespace std;
+        return count_if(begin(terms), end(terms), [](const auto& term) { return term->cache().isSynonym(); });
+    };
+
+    for (;;) {
+        auto startCount = synonymCount(nodes);
+
+        auto exactMatchCache = createExactLinkMatchCacheFor(nodes);
+
+        for (const auto& node : nodes) {
+            if (!node->cache().isSynonym()) {
+                continue;
+            }
+
+            auto synonymTo = node->cache().links().front().text().toString();
+            synonymTo      = synonymTo.toLower();
+
+            if (exactMatchCache.contains(synonymTo)) {
+                auto synonymParent = exactMatchCache[synonymTo];
+
+                for (const auto& term : node->cache().termAndSynonyms()) {
+                    synonymParent->addSynonym(term);
+                }
+
+                // Removing this node
+                nodes.erase(std::remove(nodes.begin(), nodes.end(), node), nodes.end());
+                break;
+            }
+        }
+
+        auto endCount = synonymCount(nodes);
+
+        // We make this step until no synonyms left
+        if (startCount == endCount) {
+            break;
+        }
     }
 
     mGraphData = GraphT({.nodes = nodes, .edges = searchAllConnections(nodes)});
@@ -69,6 +110,7 @@ TermGroup::TermGroup(const GroupSummary& info, const TermData::List& termData, Q
     updateBaseRectSize();
 
     groupCreationTime = t.elapsed();
+    qInfo() << "Group creation time:" << groupCreationTime << "ms";
 }
 
 void TermGroup::setBasePoint(QPointF pt) { mBaseRect.setPos(pt); }
@@ -211,10 +253,10 @@ void TermGroup::updateRectsPositions()
 
     auto nameSize = getNameSize();
 
-    // Устанавливаем базовую точку имени
+    // Setting name base point
     basePoint.ry() += nameSize.height() + vSpacer;
 
-    // Вычисляем под дерево
+    // Tree calculations
     for (auto forest : mForests) {
         auto size = forest->baseSize();
         forest->rect().setPos(basePoint);
@@ -223,9 +265,10 @@ void TermGroup::updateRectsPositions()
     }
 
     QSizeF orphansSize = getOrphansSize();
-    // Вычисляем под несвязанные вершины
+
+    // Orphans calculations
     mOrphansRect.setPos(basePoint);
-    mOrphansRect.setSize(orphansSize); // Применяем
+    mOrphansRect.setSize(orphansSize);
 }
 
 void TermGroup::updateBaseRectSize()
@@ -525,7 +568,11 @@ QMap<QString, PaintedTerm::Ptr> TermGroup::createExactLinkMatchCacheFor(const Pa
     QMap<QString, PaintedTerm::Ptr> ret;
 
     for (const auto& term : terms) {
-        ret.insert(term->cache().lowerTerm(), term);
+        auto lowerTerms = term->cache().lowerTermAndSynonyms();
+
+        for (const auto& termOrSynonym : lowerTerms) {
+            ret.insert(termOrSynonym, term);
+        }
     }
 
     return ret;
