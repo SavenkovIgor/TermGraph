@@ -51,11 +51,10 @@ Opt<TermData> TermData::from(const QJsonObject& obj, JsonCheckMode mode)
     if (mode == JsonCheckMode::Minimal) {
         auto termDef = obj[JsonTools::termDefKey].toString();
 
-        auto split = termDef.split(JsonTools::termDefSeparator, Qt::KeepEmptyParts);
-        assert(split.size() == 2);
+        auto indexOfSeparator = termDef.indexOf(JsonTools::termDefSeparator);
 
-        term       = split[0];
-        definition = split[1];
+        term = termDef.left(indexOfSeparator);
+        definition = termDef.mid(indexOfSeparator + QString(JsonTools::termDefSeparator).size());
     } else {
         term       = obj[JsonTools::termKey].toString();
         definition = obj[JsonTools::definitionKey].toString();
