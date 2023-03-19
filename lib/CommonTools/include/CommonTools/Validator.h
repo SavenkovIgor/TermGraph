@@ -5,31 +5,41 @@
 
 #include <functional>
 
+#include <CommonTools/Errors.h>
+#include <CommonTools/HandyTypes.h>
 
-template<typename Object, typename Errors>
+template<typename Object>
 class Validator
 {
 public:
-    using Condition = std::function<bool(const Object&)>;
-    using ErrorList = std::vector<Errors>;
+    // if return value is empty, then check is passed
+    // else check is failed and error code is returned
+    using CheckResult = Opt<ErrorCodes>;
+    using Condition   = std::function<CheckResult(const Object&)>;
+    using ErrorList   = std::vector<ErrorCodes>;
 
-    void addCheck(Condition condition, Errors error) { mCheckList.push_back({condition, error}); }
+    void addCheck(Condition condition) { mCheckList.push_back(condition); }
 
     bool check(const Object& obj)
     {
         bool ret = true;
         mLastErrors.clear();
 
-        for (const auto& item : mCheckList) {
-            if (!item.condition(obj)) {
+        for (const auto& checkCondition : mCheckList) {
+            if (auto error = checkCondition(obj)) {
                 ret = false;
-                mLastErrors.push_back(item.error);
+                mLastErrors.push_back(*error);
             }
         }
         return ret;
     }
 
     ErrorList lastErrors() const { return mLastErrors; }
+
+    static CheckResult checkOrError(bool condition, ErrorCodes error)
+    {
+        return condition ? std::nullopt : CheckResult(error);
+    }
 
     void clear() { mCheckList.clear(); }
 
@@ -38,12 +48,6 @@ protected:
     Validator() = default;
 
 private:
-    struct CheckItem
-    {
-        Condition   condition;
-        Errors      error;
-    };
-
-    std::vector<CheckItem> mCheckList;
+    std::vector<Condition> mCheckList;
     ErrorList              mLastErrors;
 };

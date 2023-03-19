@@ -12,22 +12,27 @@ struct Point
     int y;
 };
 
-enum class PointErrors { NotSmall, NotPositive };
-
-class PointValidator : public Validator<Point, PointErrors>
+class PointValidator : public Validator<Point>
 {
 public:
     static PointValidator smallPointValidator()
     {
         PointValidator ret;
-        ret.addCheck(&PointValidator::isSmall, PointErrors::NotSmall);
-        ret.addCheck(&PointValidator::isPositive, PointErrors::NotPositive);
+        // Error codes are just for example
+        ret.addCheck(&PointValidator::isSmall);
+        ret.addCheck(&PointValidator::isPositive);
         return ret;
     }
 
 private:
-    static bool isSmall(const Point& pt) { return pt.x < 100 && pt.y < 100; }
-    static bool isPositive(const Point& pt) { return pt.x > 0 && pt.y > 0; }
+    static CheckResult isSmall(const Point& pt)
+    {
+        return checkOrError(pt.x < 100 && pt.y < 100, ErrorCodes::TermEmpty);
+    }
+    static CheckResult isPositive(const Point& pt)
+    {
+        return checkOrError(pt.x > 0 && pt.y > 0, ErrorCodes::GroupNameEmpty);
+    }
 };
 
 TEST(ValidatorTest, Creation)
@@ -44,11 +49,11 @@ TEST(ValidatorTest, Creation)
     EXPECT_FALSE(v.check(badPt1));
     auto errors1 = v.lastErrors();
     ASSERT_EQ(errors1.size(), 1);
-    EXPECT_TRUE(errors1[0] == PointErrors::NotPositive);
+    EXPECT_TRUE(errors1[0] == ErrorCodes::GroupNameEmpty);
 
     EXPECT_FALSE(v.check(badPt2));
     auto errors2 = v.lastErrors();
     ASSERT_EQ(errors2.size(), 2);
-    EXPECT_TRUE(errors2[0] == PointErrors::NotSmall);
-    EXPECT_TRUE(errors2[1] == PointErrors::NotPositive);
+    EXPECT_TRUE(errors2[0] == ErrorCodes::TermEmpty);
+    EXPECT_TRUE(errors2[1] == ErrorCodes::GroupNameEmpty);
 }
