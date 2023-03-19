@@ -12,25 +12,33 @@
 #include "source/helpers/link/linksstring.h"
 
 
-// Const wrapper over TermData + some additional stuff
+// Mostly const wrapper over TermData + some additional stuff
 class TermDataCache
 {
 public:
     explicit TermDataCache(const TermData& info);
     ~TermDataCache() = default;
 
-    QString term() const;
+    inline QString     term() const { return mTerms.value().first(); }
+    inline QStringList termAndSynonyms() const { return mTerms.value(); }
+
+    // Synonyms are terms with one link to another term
+    void addSynonym(const QString& synonym);
+    bool isSynonym() const;
+    bool hasSynonyms() const;
+
     QString definition() const;
-    QString lowerTerm() const;
-    QSizeF  preferredSize() const;
+    inline QString     lowerTerm() const { return mLowerTerms.value().first(); }
+    inline QStringList lowerTermAndSynonyms() const { return mLowerTerms.value(); }
 
     const Link::List& links() const;
 
     QString termAndDefinition(bool decorated = false) const;
 
-private: // Members
-    const QString     mTerm;
-    const QString     mLowerTerm;
-    const QSizeF      mTermSize;
-    const LinksString mLinksDefinition;
+    QProperty<QSizeF> preferredSize;
+
+private:
+    QProperty<QStringList> mTerms;
+    QProperty<QStringList> mLowerTerms;
+    const LinksString      mLinksDefinition;
 };

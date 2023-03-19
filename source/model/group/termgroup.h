@@ -11,7 +11,7 @@
 #include "source/model/graphicitem/rectgraphicitem.h"
 #include "source/model/group/paintedforest.h"
 #include "source/model/term/paintedterm.h"
-#include "source/helpers/globaltagcache.h"
+#include "source/helpers/linktermdistancecache.h"
 
 
 class TermGroup : public QObject
@@ -82,13 +82,13 @@ private:
     PaintedEdge::List searchAllConnections(const PaintedTerm::List& terms);
     PaintedEdge::List suggestConnections(); // TODO: Realize!
 
-    Opt<PaintedTerm::Ptr> getNearestNodeForTag(const QString& tag, const PaintedTerm::List& terms);
+    Opt<PaintedTerm::Ptr> findLinkTarget(const QString& link, const PaintedTerm::List& terms);
     PaintedEdge::List     filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const;
 
     // Nodes
     PaintedTerm::List               getRootNodes() const;
-    QMap<QString, PaintedTerm::Ptr> getExactTermMatchCache();
-    QMap<QUuid, PaintedTerm::Ptr>   getTermUuidsMap();
+    QMap<QString, PaintedTerm::Ptr> createExactLinkMatchCacheFor(const PaintedTerm::List& terms);
+    QMap<QUuid, PaintedTerm::Ptr>   createUuidCacheFor(const PaintedTerm::List& terms);
     QSizeF                          getOrphansSize();
     PaintedTerm::List               getInTreeNodes() const;
     PaintedTerm::List               getOrphanNodes() const;
@@ -112,5 +112,5 @@ private:
 
     GraphT mGraphData = GraphT({});
 
-    static GlobalTagCache tagCache;
+    static LinkTermDistanceCache linkCache;
 };

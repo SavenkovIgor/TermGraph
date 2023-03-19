@@ -12,7 +12,7 @@
 #include "source/helpers/appstyle.h"
 #include "source/helpers/link/linktools.h"
 
-GlobalTagCache TermGroup::tagCache;
+LinkTermDistanceCache TermGroup::linkCache;
 
 TermGroup::TermGroup(const GroupSummary& info, const TermData::List& termData, QObject* parent)
     : QObject(parent)
@@ -31,8 +31,49 @@ TermGroup::TermGroup(const GroupSummary& info, const TermData::List& termData, Q
 
     PaintedTerm::List nodes;
 
+    // Creating nodes
     for (const auto& term : termData) {
         nodes.push_back(std::make_shared<PaintedTerm>(term));
+    }
+
+    // Collapsing synonyms
+    auto synonymCount = [](const auto& terms) {
+        using namespace std;
+        return count_if(begin(terms), end(terms), [](const auto& term) { return term->cache().isSynonym(); });
+    };
+
+    for (;;) {
+        auto startCount = synonymCount(nodes);
+
+        auto exactMatchCache = createExactLinkMatchCacheFor(nodes);
+
+        for (const auto& node : nodes) {
+            if (!node->cache().isSynonym()) {
+                continue;
+            }
+
+            auto synonymTo = node->cache().links().front().text().toString();
+            synonymTo      = synonymTo.toLower();
+
+            if (exactMatchCache.contains(synonymTo)) {
+                auto synonymParent = exactMatchCache[synonymTo];
+
+                for (const auto& term : node->cache().termAndSynonyms()) {
+                    synonymParent->addSynonym(term);
+                }
+
+                // Removing this node
+                nodes.erase(std::remove(nodes.begin(), nodes.end(), node), nodes.end());
+                break;
+            }
+        }
+
+        auto endCount = synonymCount(nodes);
+
+        // We make this step until no synonyms left
+        if (startCount == endCount) {
+            break;
+        }
     }
 
     mGraphData = GraphT({.nodes = nodes, .edges = searchAllConnections(nodes)});
@@ -69,6 +110,7 @@ TermGroup::TermGroup(const GroupSummary& info, const TermData::List& termData, Q
     updateBaseRectSize();
 
     groupCreationTime = t.elapsed();
+    qInfo() << "Group creation time:" << groupCreationTime << "ms";
 }
 
 void TermGroup::setBasePoint(QPointF pt) { mBaseRect.setPos(pt); }
@@ -211,10 +253,10 @@ void TermGroup::updateRectsPositions()
 
     auto nameSize = getNameSize();
 
-    // Устанавливаем базовую точку имени
+    // Setting name base point
     basePoint.ry() += nameSize.height() + vSpacer;
 
-    // Вычисляем под дерево
+    // Tree calculations
     for (auto forest : mForests) {
         auto size = forest->baseSize();
         forest->rect().setPos(basePoint);
@@ -223,9 +265,10 @@ void TermGroup::updateRectsPositions()
     }
 
     QSizeF orphansSize = getOrphansSize();
-    // Вычисляем под несвязанные вершины
+
+    // Orphans calculations
     mOrphansRect.setPos(basePoint);
-    mOrphansRect.setSize(orphansSize); // Применяем
+    mOrphansRect.setSize(orphansSize);
 }
 
 void TermGroup::updateBaseRectSize()
@@ -351,8 +394,8 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
     PaintedEdge::List ret;
 
     // Pre-heating of cache with exact terms match
-    QMap<QString, PaintedTerm::Ptr> previousTagSearchCache = getExactTermMatchCache();
-    QMap<QUuid, PaintedTerm::Ptr>   termUuids              = getTermUuidsMap();
+    auto exactMatchCache = createExactLinkMatchCacheFor(terms);
+    auto termUuids       = createUuidCacheFor(terms);
 
     static int counter     = 0;
     bool       stopRequest = false;
@@ -371,18 +414,18 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
             }
 
             // If we have same search earlier this cycle
-            if (!foundNode && previousTagSearchCache.contains(link.textLower())) {
-                foundNode = previousTagSearchCache[link.textLower()];
+            if (!foundNode && exactMatchCache.contains(link.textLower())) {
+                foundNode = exactMatchCache[link.textLower()];
             }
 
             if (!foundNode) {
-                foundNode = getNearestNodeForTag(link.textLower(), terms);
+                foundNode = findLinkTarget(link.textLower(), terms);
             }
 
             if (foundNode) {
                 if (foundNode.value() != node) { // TODO: Real case, need check
                     ret.push_back(std::make_shared<PaintedEdge>(foundNode.value(), node));
-                    previousTagSearchCache.insert(link.textLower(), foundNode.value());
+                    exactMatchCache.insert(link.textLower(), foundNode.value());
                 }
             }
 
@@ -405,7 +448,7 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
     return ret;
 }
 
-Opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const PaintedTerm::List& terms)
+Opt<PaintedTerm::Ptr> TermGroup::findLinkTarget(const QString& link, const PaintedTerm::List& terms)
 {
     Opt<PaintedTerm::Ptr> targetTerm = std::nullopt;
 
@@ -416,16 +459,16 @@ Opt<PaintedTerm::Ptr> TermGroup::getNearestNodeForTag(const QString& tag, const 
     for (auto node : terms) {
         auto termName = node->cache().lowerTerm();
 
-        if (!LinkTools::linkAndTermSimilarWordDistance(tag, termName)) {
+        if (!LinkTools::linkAndTermSimilarWordDistance(link, termName)) {
             continue;
         }
 
-        auto cacheMatch = tagCache.get(tag, termName);
+        auto cacheMatch = linkCache.get(link, termName);
         if (cacheMatch) {
             optionalResult = cacheMatch.value();
         } else {
-            optionalResult = LinkTools::linkAndTermDistance(tag, termName, minDistance);
-            tagCache.add(tag, termName, optionalResult);
+            optionalResult = LinkTools::linkAndTermDistance(link, termName, minDistance);
+            linkCache.add(link, termName, optionalResult);
         }
 
         if (optionalResult) {
@@ -520,22 +563,26 @@ NodeType::Type TermGroup::termType(const PaintedTerm::Ptr& term) const
     return NodeType::Type::Orphan;
 }
 
-QMap<QString, PaintedTerm::Ptr> TermGroup::getExactTermMatchCache()
+QMap<QString, PaintedTerm::Ptr> TermGroup::createExactLinkMatchCacheFor(const PaintedTerm::List& terms)
 {
     QMap<QString, PaintedTerm::Ptr> ret;
 
-    for (const auto& node : mGraphData.nodeList()) {
-        ret.insert(node->cache().lowerTerm(), node);
+    for (const auto& term : terms) {
+        auto lowerTerms = term->cache().lowerTermAndSynonyms();
+
+        for (const auto& termOrSynonym : lowerTerms) {
+            ret.insert(termOrSynonym, term);
+        }
     }
 
     return ret;
 }
 
-QMap<QUuid, PaintedTerm::Ptr> TermGroup::getTermUuidsMap()
+QMap<QUuid, PaintedTerm::Ptr> TermGroup::createUuidCacheFor(const PaintedTerm::List& terms)
 {
     QMap<QUuid, PaintedTerm::Ptr> ret;
 
-    for (const auto& node : mGraphData.nodeList()) {
+    for (const auto& node : terms) {
         ret.insert(node->data().uuid->get(), node);
     }
 

@@ -160,7 +160,7 @@ Control {
                 type: model.type
                 isSelected: model.isSelected
                 weight: model.weight
-                text: model.term
+                termAndSynonyms: model.termAndSynonyms
                 definition: LinkTools.decorate(model.definition)
                 z: model.isSelected ? 5 : 2
             }
