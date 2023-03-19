@@ -87,9 +87,6 @@ private:
 
         auto termDefSplit = termDefString.split(JsonTools::termDefSeparator, Qt::KeepEmptyParts);
 
-        if (termDefSplit.size() != 2)
-            return ErrorCodes::JsonTermDefFieldWrongContentOrType;
-
         if (termDefSplit[0].isEmpty())
             return ErrorCodes::JsonTermDefFieldWrongContentOrType;
 
