@@ -11,7 +11,7 @@ bool TextTools::isTermAndDefinition(const QString &termDef) { return termDef.con
 
 QPair<QString, QString> TextTools::splitTermAndDefinition(const QString &termDef)
 {
-    assert(isTermAndDefinition(def));
+    assert(isTermAndDefinition(termDef));
 
     auto indexOfSeparator = termDef.indexOf(JsonTools::termDefSeparator);
 
