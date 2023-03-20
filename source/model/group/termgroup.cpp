@@ -36,45 +36,7 @@ TermGroup::TermGroup(const GroupSummary& info, const TermData::List& termData, Q
         nodes.push_back(std::make_shared<PaintedTerm>(term));
     }
 
-    // Collapsing synonyms
-    auto synonymCount = [](const auto& terms) {
-        using namespace std;
-        return count_if(begin(terms), end(terms), [](const auto& term) { return term->cache().isSynonym(); });
-    };
-
-    for (;;) {
-        auto startCount = synonymCount(nodes);
-
-        auto exactMatchCache = createExactLinkMatchCacheFor(nodes);
-
-        for (const auto& node : nodes) {
-            if (!node->cache().isSynonym()) {
-                continue;
-            }
-
-            auto synonymTo = node->cache().links().front().text().toString();
-            synonymTo      = synonymTo.toLower();
-
-            if (exactMatchCache.contains(synonymTo)) {
-                auto synonymParent = exactMatchCache[synonymTo];
-
-                for (const auto& term : node->cache().termAndSynonyms()) {
-                    synonymParent->addSynonym(term);
-                }
-
-                // Removing this node
-                nodes.erase(std::remove(nodes.begin(), nodes.end(), node), nodes.end());
-                break;
-            }
-        }
-
-        auto endCount = synonymCount(nodes);
-
-        // We make this step until no synonyms left
-        if (startCount == endCount) {
-            break;
-        }
-    }
+    nodes = collapseSynonyms(nodes);
 
     mGraphData = GraphT({.nodes = nodes, .edges = searchAllConnections(nodes)});
 
@@ -346,6 +308,50 @@ void TermGroup::setOrphCoords(qreal maxWidth)
 
         maxHeightInRow = std::max(maxHeightInRow, nodeSize.height());
     }
+}
+
+PaintedTerm::List TermGroup::collapseSynonyms(PaintedTerm::List nodes)
+{
+    auto synonymCount = [](const auto& terms) {
+        using namespace std;
+        return count_if(begin(terms), end(terms), [](const auto& term) { return term->cache().isSynonym(); });
+    };
+
+    for (;;) {
+        auto startCount = synonymCount(nodes);
+
+        auto exactMatchCache = createExactLinkMatchCacheFor(nodes);
+
+        for (const auto& node : nodes) {
+            if (!node->cache().isSynonym()) {
+                continue;
+            }
+
+            auto synonymTo = node->cache().links().front().text().toString();
+            synonymTo      = synonymTo.toLower();
+
+            if (exactMatchCache.contains(synonymTo)) {
+                auto synonymParent = exactMatchCache[synonymTo];
+
+                for (const auto& term : node->cache().termAndSynonyms()) {
+                    synonymParent->addSynonym(term);
+                }
+
+                // Removing this node
+                nodes.erase(std::remove(nodes.begin(), nodes.end(), node), nodes.end());
+                break;
+            }
+        }
+
+        auto endCount = synonymCount(nodes);
+
+        // We make this step until no synonyms left
+        if (startCount == endCount) {
+            break;
+        }
+    }
+
+    return nodes;
 }
 
 void TermGroup::addTreeRectsToScene()

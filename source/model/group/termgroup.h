@@ -68,6 +68,8 @@ private:
     // Orphans
     void setOrphCoords(qreal maxWidth = 200.0);
 
+    PaintedTerm::List collapseSynonyms(PaintedTerm::List terms);
+
     // Main objects
     void addTreeRectsToScene();
 
