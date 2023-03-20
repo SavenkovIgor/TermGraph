@@ -3,24 +3,17 @@
 
 #pragma once
 
+#include <QSizeF>
 #include <QString>
 #include <QStringList>
-#include <QSizeF>
-
 
 class TextTools
 {
 public:
-    static bool    isTermWithDefinition(const QString& def);
-    static QString getTerm(const QString& def);
-    static QString getDefinition(const QString& def);
-
-    static int splitterIndex(const QString& str);
+    static bool                    isTermWithDefinition(const QString& termDef);
+    static QPair<QString, QString> splitTermAndDefinition(const QString& termDef);
 
     static int wordCount(const QString& str);
 
     static QSizeF preferredTextSize(const QString& text, qreal whProportion = 3);
-
-private:
-    static const QStringList mSplitters;
 };
