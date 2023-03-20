@@ -3,6 +3,8 @@
 
 #include "source/model/term/termdatacache.h"
 
+#include <CommonTools/JsonTools.h>
+
 #include <Text/TextTools.h>
 
 
@@ -76,8 +78,9 @@ QString TermDataCache::termAndDefinition(bool decorated) const
 {
     if (decorated) {
         auto ret = "<font color=\"#00a693\">" + term() + "</font>";
-        ret += " - " + mLinksDefinition.toRichText();
+        ret += JsonTools::termDefSeparator;
+        ret += mLinksDefinition.toRichText();
         return ret;
     }
-    return term() + " - " + mLinksDefinition.text();
+    return term() + JsonTools::termDefSeparator + mLinksDefinition.text();
 }
