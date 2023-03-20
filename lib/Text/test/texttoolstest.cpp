@@ -5,19 +5,19 @@
 
 #include <Text/TextTools.h>
 
-TEST(TextTools, IsTermWithDefinition)
+TEST(TextTools, isTermAndDefinition)
 {
-    EXPECT_EQ(TextTools::isTermWithDefinition("a - b"), true);
-    EXPECT_EQ(TextTools::isTermWithDefinition("a - b - c"), true);
-    EXPECT_EQ(TextTools::isTermWithDefinition("a-b - c"), true);
-    EXPECT_EQ(TextTools::isTermWithDefinition("a - b-c"), true);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a - b"), true);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a - b - c"), true);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a-b - c"), true);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a - b-c"), true);
 
-    EXPECT_EQ(TextTools::isTermWithDefinition("a-b -c"), false);
-    EXPECT_EQ(TextTools::isTermWithDefinition("a-b-c"), false);
-    EXPECT_EQ(TextTools::isTermWithDefinition("a-b"), false);
-    EXPECT_EQ(TextTools::isTermWithDefinition("a-b"), false);
-    EXPECT_EQ(TextTools::isTermWithDefinition("ab"), false);
-    EXPECT_EQ(TextTools::isTermWithDefinition(""), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a-b -c"), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a-b-c"), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a-b"), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a-b"), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition("ab"), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition(""), false);
 }
 
 TEST(TextTools, ExtractTermAndDefinition)

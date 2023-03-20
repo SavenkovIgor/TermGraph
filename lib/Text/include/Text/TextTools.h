@@ -10,7 +10,7 @@
 class TextTools
 {
 public:
-    static bool                    isTermWithDefinition(const QString& termDef);
+    static bool                    isTermAndDefinition(const QString& termDef);
     static QPair<QString, QString> splitTermAndDefinition(const QString& termDef);
     static QString                 joinTermDef(const QString& term, const QString& definition);
 

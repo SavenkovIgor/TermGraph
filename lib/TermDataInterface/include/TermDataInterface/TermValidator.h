@@ -84,7 +84,7 @@ private:
     {
         auto termDefString = obj[JsonTools::termDefKey].toString();
 
-        if (!TextTools::isTermWithDefinition(termDefString))
+        if (!TextTools::isTermAndDefinition(termDefString))
             return ErrorCodes::JsonTermDefFieldWrongContentOrType;
 
         auto [term, _] = TextTools::splitTermAndDefinition(termDefString);

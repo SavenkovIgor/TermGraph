@@ -7,11 +7,11 @@
 #include <CommonTools/HandyTypes.h>
 #include <CommonTools/JsonTools.h>
 
-bool TextTools::isTermWithDefinition(const QString &termDef) { return termDef.contains(JsonTools::termDefSeparator); }
+bool TextTools::isTermAndDefinition(const QString &termDef) { return termDef.contains(JsonTools::termDefSeparator); }
 
 QPair<QString, QString> TextTools::splitTermAndDefinition(const QString &termDef)
 {
-    assert(isTermWithDefinition(def));
+    assert(isTermAndDefinition(def));
 
     auto indexOfSeparator = termDef.indexOf(JsonTools::termDefSeparator);
 
