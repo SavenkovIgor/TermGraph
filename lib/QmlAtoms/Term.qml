@@ -85,9 +85,11 @@ Rectangle {
                 bottomPadding: 4
                 text: modelData
 
-                ThinLine {
+                Rectangle {
                     visible: parent.underline
-                    side: ThinLine.Bottom
+                    anchors.bottom: parent.bottom
+                    height: 1
+                    width: parent.width
                 }
             }
         }
