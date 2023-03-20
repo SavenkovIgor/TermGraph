@@ -27,6 +27,9 @@ TEST(TextTools, ExtractTermAndDefinition)
     EXPECT_EQ(TextTools::splitTermAndDefinition("a - b - c"), ans("a", "b - c"));
     EXPECT_EQ(TextTools::splitTermAndDefinition("a-b - c"), ans("a-b", "c"));
     EXPECT_EQ(TextTools::splitTermAndDefinition("a - b-c"), ans("a", "b-c"));
+    EXPECT_EQ(TextTools::splitTermAndDefinition(" - "), ans("", ""));
+    EXPECT_EQ(TextTools::splitTermAndDefinition("a - "), ans("a", ""));
+    EXPECT_EQ(TextTools::splitTermAndDefinition(" - b"), ans("", "b"));
 }
 
 TEST(TextTools, WordCount)
