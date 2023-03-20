@@ -3,6 +3,8 @@
 
 #include "include/TermDataInterface/TermData.h"
 
+#include <Text/TextTools.h>
+
 Opt<TermData> TermData::from(const QJsonObject& obj, JsonCheckMode mode)
 {
     bool checkUuid     = true;
@@ -51,10 +53,10 @@ Opt<TermData> TermData::from(const QJsonObject& obj, JsonCheckMode mode)
     if (mode == JsonCheckMode::Minimal) {
         auto termDef = obj[JsonTools::termDefKey].toString();
 
-        auto indexOfSeparator = termDef.indexOf(JsonTools::termDefSeparator);
+        auto res = TextTools::splitTermAndDefinition(termDef);
 
-        term = termDef.left(indexOfSeparator);
-        definition = termDef.mid(indexOfSeparator + QString(JsonTools::termDefSeparator).size());
+        term       = res.first;
+        definition = res.second;
     } else {
         term       = obj[JsonTools::termKey].toString();
         definition = obj[JsonTools::definitionKey].toString();
@@ -111,7 +113,7 @@ QJsonObject TermData::toMinimalQJsonObject() const
 {
     QJsonObject ret;
 
-    auto termDef = term + JsonTools::termDefSeparator + definition;
+    auto termDef = TextTools::joinTermDef(term, definition);
 
     ret.insert(JsonTools::termDefKey, termDef);
 

@@ -54,11 +54,6 @@ QString LinksDecorator::apply(LinksDecoratorMode mode)
     return ret;
 }
 
-QColor LinksDecorator::defaultDecorator([[maybe_unused]] int orderIndex, [[maybe_unused]] const Link& link)
-{
-    return QColor::fromString("#00a693");
-}
-
 QColor LinksDecorator::greenDecorator([[maybe_unused]] int orderIndex, const Link& link)
 {
     return link.hasUuid() ? QColor::fromString("#ffcf87") : QColor::fromString("#c1fc9d");

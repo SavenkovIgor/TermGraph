@@ -5,47 +5,25 @@
 
 #include "include/Text/Fonts.h"
 #include <CommonTools/HandyTypes.h>
+#include <CommonTools/JsonTools.h>
 
-const QStringList TextTools::mSplitters = {"‐", "-", "-", "—"};
+bool TextTools::isTermAndDefinition(const QString &termDef) { return termDef.contains(JsonTools::termDefSeparator); }
 
-bool TextTools::isTermWithDefinition(const QString &def)
+QPair<QString, QString> TextTools::splitTermAndDefinition(const QString &termDef)
 {
-    for (const auto &splitter : mSplitters) {
-        if (def.contains(splitter)) {
-            return true;
-        }
-    }
+    assert(isTermAndDefinition(termDef));
 
-    return false;
+    auto indexOfSeparator = termDef.indexOf(JsonTools::termDefSeparator);
+
+    auto term       = termDef.left(indexOfSeparator);
+    auto definition = termDef.mid(indexOfSeparator + QString(JsonTools::termDefSeparator).size());
+
+    return {term, definition};
 }
 
-QString TextTools::getTerm(const QString &def)
+QString TextTools::joinTermDef(const QString &term, const QString &definition)
 {
-    if (int pos = splitterIndex(def); pos != -1) {
-        return def.left(pos).simplified();
-    }
-    return "";
-}
-
-QString TextTools::getDefinition(const QString &def)
-{
-    if (int pos = splitterIndex(def); pos != -1) {
-        return def.mid(pos + 1).simplified();
-    }
-    return "";
-}
-
-int TextTools::splitterIndex(const QString &str)
-{
-    int pos = -1;
-    for (const auto &splitter : mSplitters) {
-        pos = asInt(str.indexOf(splitter));
-        if (pos != -1) {
-            return pos;
-        }
-    }
-
-    return pos;
+    return term + JsonTools::termDefSeparator + definition;
 }
 
 int TextTools::wordCount(const QString &str)
@@ -56,7 +34,7 @@ int TextTools::wordCount(const QString &str)
 
 QSizeF TextTools::preferredTextSize(const QString &text, qreal whProportion)
 {
-    const auto wCount = wordCount(text);
+    const auto wCount   = wordCount(text);
     const auto lineSize = Fonts::metrics(text);
 
     if (wCount == 1) {
@@ -72,8 +50,8 @@ QSizeF TextTools::preferredTextSize(const QString &text, qreal whProportion)
     // width = ratio * sqrt(area / ratio)
     const int width = asInt(whProportion * qSqrt(lineArea / whProportion));
 
-    const auto baseRect = QRect(0, 0, width, 1);
-    QFontMetricsF mtr = QFontMetricsF(Fonts::defaultFont());
+    const auto    baseRect = QRect(0, 0, width, 1);
+    QFontMetricsF mtr      = QFontMetricsF(Fonts::defaultFont());
 
     return mtr.boundingRect(baseRect, Qt::AlignHCenter | Qt::TextWordWrap, text).size();
 }

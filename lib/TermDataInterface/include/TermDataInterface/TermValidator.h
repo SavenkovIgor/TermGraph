@@ -10,6 +10,8 @@
 #include <CommonTools/TermUuid.h>
 #include <CommonTools/Validator.h>
 
+#include <Text/TextTools.h>
+
 class TermJsonValidator : public Validator<QJsonObject>
 {
 public:
@@ -82,12 +84,12 @@ private:
     {
         auto termDefString = obj[JsonTools::termDefKey].toString();
 
-        if (!termDefString.contains(JsonTools::termDefSeparator))
+        if (!TextTools::isTermAndDefinition(termDefString))
             return ErrorCodes::JsonTermDefFieldWrongContentOrType;
 
-        auto termDefSplit = termDefString.split(JsonTools::termDefSeparator, Qt::KeepEmptyParts);
+        auto [term, _] = TextTools::splitTermAndDefinition(termDefString);
 
-        if (termDefSplit[0].isEmpty())
+        if (term.isEmpty())
             return ErrorCodes::JsonTermDefFieldWrongContentOrType;
 
         return std::nullopt;

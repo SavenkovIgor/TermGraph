@@ -8,7 +8,7 @@ find_package (Qt6 REQUIRED COMPONENTS Core)
 
 add_library (TermDataInterface STATIC)
 
-target_link_libraries (TermDataInterface PUBLIC CommonTools)
+target_link_libraries (TermDataInterface PUBLIC CommonTools Text)
 target_link_libraries (TermDataInterface PUBLIC Qt6::Core)
 
 set_target_properties (TermDataInterface
@@ -53,7 +53,7 @@ if (BUILD_TESTING)
         PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 
     target_link_libraries (TermDataInterfaceTest GTest::gtest GTest::gtest_main)
-    target_link_libraries (TermDataInterfaceTest CommonTools TermDataInterface Qt6::Core)
+    target_link_libraries (TermDataInterfaceTest CommonTools Text TermDataInterface Qt6::Core)
 
     gtest_add_tests (TARGET TermDataInterfaceTest)
 endif ()

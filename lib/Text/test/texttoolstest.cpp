@@ -5,31 +5,39 @@
 
 #include <Text/TextTools.h>
 
-TEST(TextTools, WithDefinition)
+TEST(TextTools, isTermAndDefinition)
 {
-    EXPECT_EQ(TextTools::isTermWithDefinition("a-b"), true);
-    EXPECT_EQ(TextTools::isTermWithDefinition("ab"), false);
-    EXPECT_EQ(TextTools::isTermWithDefinition(""), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a - b"), true);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a - b - c"), true);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a-b - c"), true);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a - b-c"), true);
+
+    EXPECT_EQ(TextTools::isTermAndDefinition("a-b -c"), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a-b-c"), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a-b"), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition("a-b"), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition("ab"), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition(""), false);
 }
 
-TEST(TextTools, ExtractTerm)
+TEST(TextTools, ExtractTermAndDefinition)
 {
-    EXPECT_EQ(TextTools::getTerm("a-b"), "a");
-    EXPECT_EQ(TextTools::getTerm("a-b"), "a");
-    EXPECT_EQ(TextTools::getTerm(" a - b "), "a");
-    EXPECT_EQ(TextTools::getTerm(" - b "), "");
-    EXPECT_EQ(TextTools::getTerm(" a -"), "a");
-    EXPECT_EQ(TextTools::getTerm("asdf"), "");
-    EXPECT_EQ(TextTools::getTerm("asdf-"), "asdf");
+    using ans = QPair<QString, QString>;
+    EXPECT_EQ(TextTools::splitTermAndDefinition("a - b"), ans("a", "b"));
+    EXPECT_EQ(TextTools::splitTermAndDefinition("a - b - c"), ans("a", "b - c"));
+    EXPECT_EQ(TextTools::splitTermAndDefinition("a-b - c"), ans("a-b", "c"));
+    EXPECT_EQ(TextTools::splitTermAndDefinition("a - b-c"), ans("a", "b-c"));
+    EXPECT_EQ(TextTools::splitTermAndDefinition(" - "), ans("", ""));
+    EXPECT_EQ(TextTools::splitTermAndDefinition("a - "), ans("a", ""));
+    EXPECT_EQ(TextTools::splitTermAndDefinition(" - b"), ans("", "b"));
 }
 
-TEST(TextTools, GetDefinition)
+TEST(TextTools, JoinTermDef)
 {
-    EXPECT_EQ(TextTools::getDefinition("a-b"), "b");
-    EXPECT_EQ(TextTools::getDefinition(" a - b "), "b");
-    EXPECT_EQ(TextTools::getDefinition(" - b "), "b");
-    EXPECT_EQ(TextTools::getDefinition(" a - "), "");
-    EXPECT_EQ(TextTools::getDefinition("asdf"), "");
+    EXPECT_EQ(TextTools::joinTermDef("a", "b"), "a - b");
+    EXPECT_EQ(TextTools::joinTermDef("a", ""), "a - ");
+    EXPECT_EQ(TextTools::joinTermDef("", "b"), " - b");
+    EXPECT_EQ(TextTools::joinTermDef("", ""), " - ");
 }
 
 TEST(TextTools, WordCount)
