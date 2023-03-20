@@ -77,10 +77,10 @@ const Link::List& TermDataCache::links() const { return mLinksDefinition.links()
 QString TermDataCache::termAndDefinition(bool decorated) const
 {
     if (decorated) {
-        auto ret = "<font color=\"#00a693\">" + term() + "</font>";
-        ret += JsonTools::termDefSeparator;
-        ret += mLinksDefinition.toRichText();
-        return ret;
+        auto term = "<font color=\"#00a693\">" + this->term() + "</font>";
+        auto def  = mLinksDefinition.toRichText();
+
+        return TextTools::joinTermDef(term, def);
     }
-    return term() + JsonTools::termDefSeparator + mLinksDefinition.text();
+    return TextTools::joinTermDef(term(), mLinksDefinition.text());
 }

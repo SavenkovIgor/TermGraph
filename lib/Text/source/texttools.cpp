@@ -21,6 +21,11 @@ QPair<QString, QString> TextTools::splitTermAndDefinition(const QString &termDef
     return {term, definition};
 }
 
+QString TextTools::joinTermDef(const QString &term, const QString &definition)
+{
+    return term + JsonTools::termDefSeparator + definition;
+}
+
 int TextTools::wordCount(const QString &str)
 {
     const QString tmp = str.simplified();

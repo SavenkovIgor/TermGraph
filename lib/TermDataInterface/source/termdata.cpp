@@ -113,7 +113,7 @@ QJsonObject TermData::toMinimalQJsonObject() const
 {
     QJsonObject ret;
 
-    auto termDef = term + JsonTools::termDefSeparator + definition;
+    auto termDef = TextTools::joinTermDef(term, definition);
 
     ret.insert(JsonTools::termDefKey, termDef);
 
