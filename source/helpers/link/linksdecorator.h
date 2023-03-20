@@ -24,7 +24,6 @@ public:
 
     QString apply(LinksDecoratorMode mode);
 
-    static QColor defaultDecorator(int orderIndex, const Link& link);
     static QColor greenDecorator(int orderIndex, const Link& link);
 
     static QColor defaultBackground(int orderIndex, const Link& link);
