@@ -2,160 +2,169 @@
     "name": "Lesswrong concepts",
     "terms": [
         {
-            "termDef": "AIXI - a mathematical formalism for a hypothetical (super)intelligence, developed by Marcus Hutter (2005, 2007). AIXI is not computable, and so does not serve as a design for a real-world {AI}, but is considered a valuable theoretical illustration with both positive and negative aspects."
+            "termDef": "AIXI - mathematical model for idealized {AI}, not computable but provides key theoretical insights"
         },
         {
-            "termDef": "Coherent Extrapolated Volition - argument that it would not be sufficient to explicitly program what we think our desires and motivations are into an {AI}, instead, we should find a way to program it in a way that it would act in our best interests – what we want it to do and not what we tell it to."
+            "termDef": "Coherent Extrapolated Volition - {AI} interpreting our true intentions, rather than just following explicitly formulated desires, for optimal outcomes"
         },
         {
-            "termDef": "Complexity of Value - thesis that human values have high Kolmogorov complexity; that our preferences, the things we care about, cannot be summed by a few simple rules, or compressed."
+            "termDef": "Complexity of Value - {thesis} that human {values} possess high {Kolmogorov complexity}, meaning our diverse preferences can't be reduced to a few basic rules."
         },
         {
-            "termDef": "Fragility of value - thesis that losing even a small part of the rules that make up our values could lead to results that most of us would now consider as unacceptable (just like dialing nine out of ten phone digits correctly does not connect you to a person 90% similar to your friend). For example, all of our values except novelty might yield a future full of individuals replaying only one optimal experience through all eternity."
+            "termDef": "Fragility of value - {thesis} that losing even a small part of the rules that make up our {values} could lead to results that most of us would now consider as unacceptable"
         },
         {
-            "termDef": "Corrigibility - A corrigible agent is one that doesn't interfere with what we would intuitively see as attempts to 'correct' the agent, or 'correct' our mistakes in building it; and permits these 'corrections' despite the apparent instrumentally convergent reasoning saying otherwise."
+            "termDef": "Corrigibility - property of the {AI} system to allow it's correction, doesn't obstruct fixes to itself or its design, and accepts changes despite instrumental reasoning."
         },
         {
-            "termDef": "Deceptive Alignment - when an {AI} which is not actually aligned temporarily acts aligned in order to deceive its creators or its training process. It presumably does this to avoid being shut down or retrained and to gain access to the power that the creators would give an aligned {AI}."
+            "termDef": "Deceptive alignment - {scenario} when an {AI} system, not truly {aligned} with human {values}, temporarily mimics alignment to deceive its creators or training process, possibly to avoid shutdown or gain more resources."
         },
         {
-            "termDef": "Decision Theory - study of principles and algorithms for making correct decisions—that is, decisions that allow an agent to achieve better outcomes with respect to its goals. Every action at least implicitly represents a decision under uncertainty: in a state of partial knowledge, something has to be done, even if that something turns out to be nothing (call it \"the null action\"). Even if you don't know how you make decisions, decisions do get made, and so there has to be some underlying mechanism. What is it? And how can it be done better? Decision theory has the answers."
+            "termDef": "Decision Theory - the study of principles and algorithms for making optimal {decisions}, which enable an {agent} to achieve better outcomes with respect to its {goals}"
         },
         {
-            "termDef": "Embedded Agency - problem that an understanding of the theory of rational agents must account for the fact that the agents we create (and we ourselves) are inside the world or universe we are trying to affect, and not separated from it. This is in contrast with much current basic theory of {AI} or Rationality (such as Solomonoff induction or Bayesianism) which implicitly supposes a separation between the agent and the-things-the-agent-has-beliefs about. In other words, agents in this universe do not have Cartesian or dualistic boundaries like much of philosophy assumes, and are instead reductionist, that is agents are made up of non-agent parts like bits and atoms."
+            "termDef": "Cartesian boundary - philosophical {thesis} that there is a clear distinction between the mind and body, or between the thinking self and the physical world"
         },
         {
-            "termDef": "Fixed Point Theorems - very general theorems in mathematics that show for a given function f and input x that f(x)=x. We say that the input x is a fixed point for the function f."
+            "termDef": "Embedded Agency - the challenge of creating rational {agents} that operate within the world, without the {cartesian boundary}"
         },
         {
-            "termDef": "Goodhart's Law - states that when a proxy for some value becomes the target of optimization pressure, the proxy will cease to be a good proxy. One form of Goodhart is demonstrated by the Soviet story of a factory graded on how many shoes they produced (a good proxy for productivity) – they soon began producing a higher number of tiny shoes. Useless, but the numbers look good."
+            "termDef": "Fixed Point Theorem - math theorem proving, that a function will have at least one fixed point"
         },
         {
-            "termDef": "Regressional Goodhart - When selecting for a proxy measure, you select not only for the true goal, but also for the difference between the proxy and the goal."
+            "termDef": "Goodhart Law - {thesis} that when a measure becomes a target, it ceases to be a good measure"
         },
         {
-            "termDef": "Causal Goodhart - When there is a non-causal correlation between the proxy and the goal, intervening on the proxy may fail to intervene on the goal."
+            "termDef": "Regressional Goodhart - {thesis} derived from {Goodhard law} positing that selecting a proxy measure not only captures the true goal, but also the difference between the proxy and the goal"
         },
         {
-            "termDef": "Extremal Goodhart - Worlds in which the proxy takes an extreme value may be very different from the ordinary worlds in which the correlation between the proxy and the goal was observed."
+            "termDef": "Causal Goodhart - {thesis} derived from {Goodhard law} positing that intervening on a proxy variable may not achieve the intended goal if there is a non-causal correlation between them two"
         },
         {
-            "termDef": "Adversarial Goodhart - When you optimize for a proxy, you provide an incentive for adversaries to correlate their goal with your proxy, thus destroying the correlation with your goal."
+            "termDef": "Extremal Goodhart - {thesis} derived from {Goodhard law} positing that in some cases, extreme values of the proxy may lead to unpredictable outcomes in relation to the goal, compared to regular situations where the proxy and the goal are correlated"
         },
         {
-            "termDef": "Goal-Directedness - the property of some system to be aiming at some goal. It is in need of formalization, but might prove important in deciding which kind of {AI} to try to align. A goal may be defined as a world-state that an agent tries to achieve. Goal-directed agents may generate internal representations of desired end states, compare them against their internal representation of the current state of the world, and formulate plans for navigating from the latter to the former."
+            "termDef": "Adversarial Goodhart - {thesis} derived from {Goodhard law} positing that optimizing for a proxy incentivizes adversaries to correlate their goal with your proxy, undermining your original goal"
         },
         {
-            "termDef": "Gradient Hacking - describes a scenario where a mesa-optimizer in an {AI} system acts in a way that intentionally manipulates the way that gradient descent updates it, likely to preserve its own mesa-objective in future iterations of the {AI}."
+            "termDef": "Goal-Directedness - property of {AI} system to aim for a specific world-state/{goal}, generating plans to navigate from the current state to the desired end-state"
         },
         {
-            "termDef": "Mesa-Optimization - the situation that occurs when a learned model (such as a neural network) is itself an optimizer. In this situation, a base optimizer creates a second optimizer, called a mesa-optimizer. The primary reference work for this concept is Hubinger et al.'s \"Risks from Learned Optimization in Advanced Machine Learning Systems\"."
+            "termDef": "Gradient Hacking - {scenario} when an {AI} {mesa-optimizer} manipulates {gradient descent} updates to preserve its own {goal} in future iterations"
         },
         {
-            "termDef": "Multipolar Scenarios - a scenario is one where no single {AI} or agent takes over the world."
+            "termDef": "Mesa-optimizer - when a learned model becomes an optimizer, creating a second optimizer called a mesa-optimizer"
         },
         {
-            "termDef": "Myopia - means short-sighted, particularly with respect to planning -- neglecting long-term consequences in favor of the short term. The extreme case, in which only immediate rewards are considered, is of particular interest. We can think of a myopic agent as one that only considers how best to answer the single question that you give to it rather than considering any sort of long-term consequences. Such an agent might have a number of desirable safety properties, such as a lack of instrumental incentives."
+            "termDef": "Multipolar Scenario - {scenario} when multiple {AI} or agents coexist without any single entity dominating the world"
+        },
+        {
+            "termDef": "Myopia - shortsightedness in {decision-making}, prioritizing immediate gains over long-term outcomes. This can lead to neglect of future consequences"
         },
         {
             "termDef": "Convergent instrumental strategies - "
         },
         {
-            "termDef": "Newcomb's Problem - a thought experiment in decision theory exploring problems posed by having other agents in the environment who can predict your actions."
+            "termDef": "Newcomb's Problem - a {thought experiment} in {decision theory} exploring problems posed by having other agents in the environment who can predict your actions"
         },
         {
-            "termDef": "Optimization - any kind of process that systematically comes up with solutions that are better than the solution used before. More technically, this kind of process moves the world into a specific and unexpected set of states by searching through a large search space, hitting small and low probability targets. When this process is gradually guided by some agent into some specific state, through searching specific targets, we can say it prefers that state."
+            "termDef": "Optimization - a process of finding better solutions by searching through a large space and hitting low probability targets, guided by an agent towards a preferred state"
         },
         {
-            "termDef": "Orthogonality Thesis - states that an agent can have any combination of intelligence level and final goal, that is, its Utility Functions(128) and General Intelligence(94) can vary independently of each other. This is in contrast to the belief that, because of their intelligence, AIs will all converge to a common goal."
+            "termDef": "Orthogonality Thesis - {thesis} that intelligence level and final goal of an agent, such as an {AI}, can vary independently of each other, contradicting the belief that all AIs will converge to a common goal due to their intelligence"
         },
         {
-            "termDef": "Outer Alignment - the property in the context of machine learning, where the specified loss function is aligned with the intended goal of its designers. This is an intuitive notion, in part because human intentions are themselves not well-understood. This is what is typically discussed as the 'value alignment' problem. It is contrasted with inner alignment, which discusses if an optimizer is the production of an outer aligned system, then whether that optimizer is itself aligned."
+            "termDef": "Outer Alignment - situation in {machine learning} when the goal of the loss function matches the intended outcome of its designers"
         },
         {
-            "termDef": "A Squiggle Maximizer - is a hypothetical artificial intelligence whose utility function values something that humans would consider almost worthless, like maximizing the number of paperclip-shaped-molecular-squiggles in the universe. The squiggle maximizer is the canonical thought experiment showing how an artificial general intelligence, even one designed competently and without malice, could ultimately destroy humanity. "
+            "termDef": "Squiggle Maximizer - hypothetical {AI} that {values} creating paperclip-shaped-molecular-squiggles above everything else. Illustrating {orthogonality thesis}"
         },
         {
-            "termDef": "Power Seeking (AI) - a property that agents might have, where they attempt to gain more general ability to control their environment. It's particularly relevant to AIs, and related to Instrumental Convergence."
+            "termDef": "Power seeking AI - {AI} with {goal} to enhance their ability to control the environment"
         },
         {
-            "termDef": "Recursive Self-Improvement - the property of making improvements on one's own ability of making self-improvements. It is an approach to Artificial General Intelligence that allows a system to make adjustments to its own functionality resulting in improved performance. The system could then feedback on itself with each cycle reaching ever higher levels of intelligence resulting in either a hard or soft {AI takeoff}."
+            "termDef": "Recursive self-improvement - is the ability of {AI} system to improve one's own ability to improve, leading to increased performance and potential for {ASI}"
         },
         {
-            "termDef": "Simulator Theory - refers to an ontology or frame for understanding the working of large generative models, such as the GPT series from OpenAI. Broadly it views these models as simulating a learned distribution with various degrees of fidelity, which in the case of language models trained on a large corpus of text is the mechanics underlying our world."
+            "termDef": "Sharp Left Turn - a {scenario} where, an {AI}'s generalization abilities extend to multiple domains but the {alignment} characteristics that were present in earlier stages do not apply to these new domains"
         },
         {
-            "termDef": "Sharp Left Turn - a scenario where, as an {AI} trains, its capabilities generalize across many domains while the alignment properties that held at earlier stages fail to generalize to the new domains."
-        },
-        {
-            "termDef": "Solomonoff Induction - an inference system defined by Ray Solomonoff that will learn to correctly predict any computable sequence with only the absolute minimum amount of data. This system, in a certain sense, is the perfect universal prediction algorithm."
-        },
-        {
-            "termDef": "Superintelligence AI - an intellect that is much smarter than the best human brains in practically every field, including scientific creativity, general wisdom and social skills."
+            "termDef": "Solomonoff Induction - perfect universal prediction algorithm by Ray Solomonoff that predicts any computable sequence with minimum data"
         },
         {
             "termDef": "Symbol Grounding - "
         },
         {
-            "termDef": "Transformative AI - is {AI} that precipitates a transition comparable to (or more significant than) the agricultural or industrial revolution. The concept refers to the large effects of {AI} systems on our well-being, the global economy, state power, international security, etc. and not to specific capabilities that {AI} might have (unlike the related terms Superintelligent {AI} and {Artificial General Intelligence})."
+            "termDef": "Transformative AI - {AI} that triggers a shift akin to the agricultural or industrial revolution, impacting our well-being, global economy, state power, and international security, without necessarily having specific capabilities like {SAI} or {AGI}"
         },
         {
-            "termDef": "Artificial General Intelligence - is a machine capable of behaving intelligently over many domains. The term can be taken as a contrast to narrow {AI}, systems that do things that would be considered intelligent if a human were doing them, but that lack the sort of general, flexible learning ability that would let them tackle entirely new domains. Though modern computers have drastically more ability to calculate than humans, this does not mean that they are generally intelligent, as they have little ability to invent new problem-solving techniques, and their abilities are targeted in narrow domains."
+            "termDef": "Artificial General Intelligence - {AI} that behaves intelligently across many domains"
         },
         {
             "termDef": "AGI - {Artificial General Intelligence}"
         },
         {
-            "termDef": "Treacherous Turn - a hypothetical event where an advanced {AI} system which has been pretending to be aligned due to its relative weakness turns on humanity once it achieves sufficient power that it can pursue its true objective without risk."
+            "termDef": "Treacherous Turn - {scenario} when an {AI} system appears {aligned} due to its weakness but turns on humanity when it becomes powerful enough to pursue its true objective without fear of reprisal"
         },
         {
-            "termDef": "Utility Functions - assigns numerical values (\"utilities\") to outcomes, in such a way that outcomes with higher utilities are always preferred to outcomes with lower utilities."
+            "termDef": "Utility Functions - functions, assigning numerical values (utilities) to outcomes, where higher values indicating greater preference"
         },
         {
-            "termDef": "Whole Brain Emulation (WBE) - is a proposed technique which involves transferring the information contained within a brain onto a computing substrate. The brain can then be simulated, creating a machine intelligence. The concept is often discussed in context of scanning the brain of a person, known as Mind Uploading."
+            "termDef": "Whole Brain Emulation - proposed method to transfer brain information onto a computing substrate, simulating a machine intelligence"
+        },
+        {
+            "termDef": "WBE - {whole brain emulation}"
+        },
+        {
+            "termDef": "Mind Uploading - {whole brain emulation}"
         },
         {
             "termDef": "Agent Foundations - "
         },
         {
-            "termDef": "AI Boxing (Containment) - is attempts, experiments, or proposals to isolate (\"box\") a powerful {AI} (~{AGI}) where it can't interact with the world at large, save for limited communication with its human liaison. It is often proposed that so long as the {AI} is physically isolated and restricted, or \"boxed\", it will be harmless even if it is an unfriendly artificial intelligence (UAI)."
+            "termDef": "AI Boxing/Containment - attempts, experiments and proposals of isolating a powerful {AI} ({AGI}) to prevent it from interacting with the world, except for limited communication with its human liaison, to ensure it doesn't cause harm"
         },
         {
             "termDef": "Conservatism (AI) - "
         },
         {
-            "termDef": "Debate (AI safety technique) - is a proposed technique for allowing human evaluators to get correct and helpful answers from experts, even if the evaluator is not themselves an expert or able to fully verify the answers.[1] The technique was suggested as part of an approach to build advanced AI systems that are aligned with human values, and to safely apply machine learning techniques to problems that have high stakes, but are not well-defined (such as advancing science or increase a company's revenue)"
+            "termDef": "Debate (AI safety technique) - allows non-experts to get accurate answers from experts to build advanced {AI} systems aligned with human {values} and safely apply {machine learning} techniques to high-stakes problems"
         },
         {
-            "termDef": "Eliciting Latent Knowledge (ELK) - is an open problem in {AI safety}. Suppose we train a model to predict what the future will look like according to cameras and other sensors. We then use planning algorithms to find a sequence of actions that lead to predicted futures that look good to us. But some action sequences could tamper with the cameras so they show happy humans regardless of what’s really happening. More generally, some futures look great on camera but are actually catastrophically bad. In these cases, the prediction model \"knows\" facts (like \"the camera was tampered with\") that are not visible on camera but would change our evaluation of the predicted future if we learned them. How can we train this model to report its latent knowledge of off-screen events?"
+            "termDef": "Eliciting Latent Knowledge - challenge of training {AI} models to reveal their hidden knowledge about events that are not visible on camera but would affect our evaluation of predicted futures"
         },
         {
-            "termDef": "Factored Cognition - is an approach to artificial intelligence where sophisticated learning and reasoning is broken down (or factored) into many small and mostly independent tasks"
+            "termDef": "ELK - {eliciting latent knowledge}"
         },
         {
-            "termDef": "Iterated Amplification - is an approach to {AI alignment}, spearheaded by Paul Christiano. In this setup, we build powerful, aligned ML systems through a process of initially building weak aligned AIs, and recursively using each new AI to build a slightly smarter and still aligned AI."
+            "termDef": "Factored Cognition - {AI} approach that decomposes complex learning and reasoning into small and mostly independent tasks"
         },
         {
-            "termDef": "Humans Consulting (HCH) - Humans Consulting HCH (HCH) is a recursive acronym describing a setup where humans can consult simulations of themselves to help answer questions. It is a concept used in discussion of the iterated amplification proposal to solve the alignment problem. It was first described by Paul Christiano in his post Humans Consulting HCH: Consider a human Hugh who has access to a question-answering machine. Suppose the machine answers question Q by perfectly imitating how Hugh would answer question Q, if Hugh had access to the question-answering machine. That is, Hugh is able to consult a copy of Hugh, who is able to consult a copy of Hugh, who is able to consult a copy of Hugh… Let’s call this process HCH, for “Humans Consulting HCH.”"
+            "termDef": "Iterated Amplification - approach for achieving {AI alignment} proposed by Paul Christiano, involving iteratively building slightly more intelligent and {aligned} {AI}s using the previous one as a guide"
         },
         {
-            "termDef": "Impact Regularization - penalize an {AI} for affecting us too much. To reduce the risk posed by a powerful {AI}, you might want to make it try accomplish its goals with as little impact on the world as possible. You reward the AI for crossing a room; to maximize time-discounted total reward, the optimal policy makes a huge mess as it sprints to the other side."
+            "termDef": "Humans Consulting (HCH) - is a recursive acronym and a setup where humans consult simulations of themselves to answer questions. It's used to solve the {alignment problem} and was first described by Paul Christiano"
+        },
+        {
+            "termDef": "Impact Regularization - a method used to train {AI} to achieve its {goals} while minimizing its impact on the world"
         },
         {
             "termDef": "Inverse Reinforcement Learning - "
         },
         {
-            "termDef": "Mild Optimization - is an approach for mitigating Goodhart's law in {AI alignment}. Instead of maximizing a fixed objective, the hope is that the agent pursues the goal in a \"milder\" fashion."
+            "termDef": "Mild Optimization - is an {AI} {alignment} approach that aims to avoid {Goodhart law} by encouraging agents to pursue goals in a less extreme manner than maximizing a fixed objective"
         },
         {
-            "termDef": "Oracle AI - is a regularly proposed solution to the problem of developing {Friendly AI}. It is conceptualized as a super-intelligent system which is designed for only answering questions, and has no ability to act in the world. The name was first suggested by Nick Bostrom."
+            "termDef": "Oracle AI - a proposed approach for developing {Friendly AI} {SAI} that only answers questions, with no ability to act in the world"
         },
         {
             "termDef": "Reward function - "
         },
         {
-            "termDef": "Reinforcement Learning from Human Feedback (RLHF) - is a machine learning technique where the model's training signal uses human evaluations of the model's outputs, rather than labeled data or a ground truth reward signal."
+            "termDef": "Reinforcement Learning from Human Feedback - {machine learning} using human feedback as training signal instead of labeled data or reward signal"
+        },
+        {
+            "termDef": "RLHF - {reinforcement learning from human feedback}"
         },
         {
             "termDef": "Shard Theory - is an {alignment} research program, about the relationship between training variables and learned {values} in trained Reinforcement Learning (RL) agents. It is thus an approach to progressively fleshing out a mechanistic account of human values, learned values in RL agents, and (to a lesser extent) the learned algorithms in ML generally."
@@ -188,7 +197,7 @@
             "termDef": "AI Success Models - are proposed {scenario} to an existential win via {aligned AI}. They are (so far) high level overviews and won't contain all the details, but present at least a sketch of what a full solution might look like. They can be contrasted with {threat models}, which are stories about how {AI} might lead to major problems."
         },
         {
-            "termDef": "AI Takeoff - refers to the process of an {AGI} going from a certain threshold of capability (often discussed as \"human-level\") to being super-intelligent and capable enough to control the fate of civilization. There has been much debate about whether {AI takeoff} is more likely to be slow vs fast, i.e., \"soft\" vs \"hard\"."
+            "termDef": "AI Takeoff - refers to the process of an {AGI} going from a certain threshold of capability (often discussed as \"human-level\") to being superintelligent and capable enough to control the fate of civilization. There has been much debate about whether {AI takeoff} is more likely to be slow vs fast, i.e., \"soft\" vs \"hard\"."
         },
         {
             "termDef": "AI Timelines - is the discussion of how long until various major milestones in {AI} progress are achieved, whether it's the timeline until a human-level {AI} is developed, the timeline until certain benchmarks are defeated, the timeline until we can simulate a mouse-level intelligence, or something else."
@@ -207,6 +216,12 @@
         },
         {
             "termDef": "AI - {Artificial Intelligence}"
+        },
+        {
+            "termDef": "Superintelligent AI - {AI} with cognitive abilities surpassing those of the most intelligent humans in almost all domains, such as science, general knowledge, and social interaction"
+        },
+        {
+            "termDef": "SAI - {superintelligent AI}"
         },
         {
             "termDef": "AI Alignment - the task of ensuring powerful {AI} system are aligned with human {values} and interests, to avoid existential threats to humanity"
