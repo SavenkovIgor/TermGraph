@@ -35,7 +35,7 @@ runs:
 
     - if: ${{ inputs.install-emsdk }}
       name: Install Emsdk
-      uses: mymindstorm/setup-emsdk@v11
+      uses: mymindstorm/setup-emsdk@v12
       with:
         version: ${{ inputs.emsdk-version }}
         actions-cache-folder: 'emsdk-cache'
