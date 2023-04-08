@@ -56,7 +56,7 @@ A.DrawerPage {
                 model: Api.scene.search(searchReq)
                 boundsBehavior: Flickable.StopAtBounds
 
-                delegate: ItemDelegate {
+                delegate: C.ItemDelegate {
                     id: item
                     width: ListView.view.width
 
