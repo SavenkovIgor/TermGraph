@@ -6,10 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-env:
-  QT_VERSION: 6.4.2
-  QT_ROOT: ${{ github.workspace }}/Qt
-
 jobs:
   build:
     timeout-minutes: 120

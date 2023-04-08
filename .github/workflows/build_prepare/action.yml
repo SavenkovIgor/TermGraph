@@ -13,6 +13,10 @@ inputs:
   emsdk-version:
     default: 3.1.14
 
+env:
+  QT_VERSION: ${{ inputs.qt-version }}
+  QT_ROOT: ${{ github.workspace }}/Qt
+
 runs:
   using: "composite"
   steps:
