@@ -87,8 +87,8 @@
       "inherits": ["default", "qt_env", "emsdk_compiler", "release_build", "test_off"],
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_32_mt/lib/cmake/Qt6/qt.toolchain.cmake",
-        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_32_mt;${sourceDir}/build/${presetName}/conan-dependencies"
+        "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_multithread/lib/cmake/Qt6/qt.toolchain.cmake",
+        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_multithread;${sourceDir}/build/${presetName}/conan-dependencies"
       }
     }
   ],

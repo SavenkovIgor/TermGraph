@@ -25,11 +25,12 @@ runs:
       with:
         version: ${{ inputs.conan-version }}
 
-    - name: Install Qt
+    - name: Install Qt gcc_64
       uses: jurplel/install-qt-action@v3
       with:
         version: ${{ inputs.qt-version }}
         dir: ${{ github.workspace }}
+        arch: 'gcc_64'
         modules: 'qtimageformats qt5compat qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
@@ -40,3 +41,14 @@ runs:
       with:
         version: ${{ inputs.emsdk-version }}
         no-cache: true
+
+    - if: ${{ inputs.install-emsdk }}
+      name: Install Qt wasm multithread
+      uses: jurplel/install-qt-action@v3
+      with:
+        version: ${{ inputs.qt-version }}
+        dir: ${{ github.workspace }}
+        arch: 'wasm_multithread'
+        modules: 'qtimageformats qt5compat qtshadertools'
+        archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
+        cache: true

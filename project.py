@@ -123,7 +123,7 @@ def build_multithread_wasm():
     assert_system_call('rm -rf qtwebengine')
 
     assert_system_call(
-        f"./configure -qt-host-path {CONFIG_HOST_PATH} -platform {CONFIG_PLATFORM} {THREAD_ARG} -prefix {qt_sdk.version_dir()}/wasm_32_mt -submodules {CONFIG_MODULES} -skip 'qtwebengine'")
+        f"./configure -qt-host-path {CONFIG_HOST_PATH} -platform {CONFIG_PLATFORM} {THREAD_ARG} -prefix {qt_sdk.version_dir()}/wasm_multithread -submodules {CONFIG_MODULES} -skip 'qtwebengine'")
 
     print('---Build---')
     assert_system_call('cmake --build . --parallel')
