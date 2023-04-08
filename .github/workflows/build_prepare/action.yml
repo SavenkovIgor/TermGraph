@@ -14,6 +14,12 @@ inputs:
   emsdk-version:
     type: string
 
+  aqtversion:
+    default: ==3.1.5
+
+  py7zrversion:
+    default: ==0.20.2
+
 runs:
   using: "composite"
   steps:
@@ -28,7 +34,8 @@ runs:
     - name: Install Qt gcc_64
       uses: jurplel/install-qt-action@v3
       with:
-        aqtversion: ==3.1.5
+        aqtversion: ${{ inputs.aqtversion }}
+        py7zrversion: ${{ inputs.py7zrversion }}
         version: ${{ inputs.qt-version }}
         dir: ${{ github.workspace }}
         arch: 'gcc_64'
@@ -47,7 +54,8 @@ runs:
       name: Install Qt wasm multithread
       uses: jurplel/install-qt-action@v3
       with:
-        aqtversion: ==3.1.5
+        aqtversion: ${{ inputs.aqtversion }}
+        py7zrversion: ${{ inputs.py7zrversion }}
         version: ${{ inputs.qt-version }}
         dir: ${{ github.workspace }}
         arch: 'wasm_multithread'
