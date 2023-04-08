@@ -28,6 +28,7 @@ runs:
     - name: Install Qt gcc_64
       uses: jurplel/install-qt-action@v3
       with:
+        aqtversion: ==3.1.5
         version: ${{ inputs.qt-version }}
         dir: ${{ github.workspace }}
         arch: 'gcc_64'
@@ -46,6 +47,7 @@ runs:
       name: Install Qt wasm multithread
       uses: jurplel/install-qt-action@v3
       with:
+        aqtversion: ==3.1.5
         version: ${{ inputs.qt-version }}
         dir: ${{ github.workspace }}
         arch: 'wasm_multithread'
