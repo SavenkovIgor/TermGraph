@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls as C
 import QtQuick.Layouts
 
 import Api
@@ -25,7 +25,7 @@ A.DrawerPage {
     contentItem: ColumnLayout {
 
         RowLayout {
-            TextField {
+            C.TextField {
                 id : searchText
                 Layout.fillWidth: true
                 font: Theme.font.h3
