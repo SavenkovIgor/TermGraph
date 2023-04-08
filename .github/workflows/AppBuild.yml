@@ -26,7 +26,6 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Install cmake, ninja, conan, qt.
-      id: build_env
       uses: ./.github/workflows/build_prepare
       with:
         qt-version: ${{ env.QT_VERSION }}
