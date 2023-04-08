@@ -8,17 +8,11 @@ inputs:
   conan-version:
     default: 1.59.0
 
-  install-wasm-deps:
+  install-emsdk:
     default: false
 
   emsdk-version:
-    type: string
-
-  aqtversion:
-    default: ==3.1.5
-
-  py7zrversion:
-    default: ==0.20.2
+    default: 3.1.14
 
 runs:
   using: "composite"
@@ -31,34 +25,18 @@ runs:
       with:
         version: ${{ inputs.conan-version }}
 
-    - name: Install Qt gcc_64
+    - name: Install Qt
       uses: jurplel/install-qt-action@v3
       with:
-        aqtversion: ${{ inputs.aqtversion }}
-        py7zrversion: ${{ inputs.py7zrversion }}
         version: ${{ inputs.qt-version }}
         dir: ${{ github.workspace }}
-        arch: 'gcc_64'
         modules: 'qtimageformats qt5compat qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
 
-    - if: ${{ inputs.install-wasm-deps }}
+    - if: ${{ inputs.install-emsdk }}
       name: Install Emsdk
       uses: mymindstorm/setup-emsdk@v12
       with:
         version: ${{ inputs.emsdk-version }}
         no-cache: true
-
-    - if: ${{ inputs.install-wasm-deps }}
-      name: Install Qt wasm multithread
-      uses: jurplel/install-qt-action@v3
-      with:
-        aqtversion: ${{ inputs.aqtversion }}
-        py7zrversion: ${{ inputs.py7zrversion }}
-        version: ${{ inputs.qt-version }}
-        dir: ${{ github.workspace }}
-        arch: 'wasm_multithread'
-        modules: 'qtimageformats qt5compat qtshadertools'
-        archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
-        cache: true

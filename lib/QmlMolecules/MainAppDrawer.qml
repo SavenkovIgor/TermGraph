@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick
-import QtQuick.Controls as C
+import QtQuick.Controls
 import QtQuick.Layouts
 
 import Api
@@ -11,7 +11,7 @@ import Theme
 import Atoms as A
 import Tools
 
-C.Drawer {
+Drawer {
     id : root
 
     required property int maxWidth
@@ -68,7 +68,7 @@ C.Drawer {
 
             boundsBehavior: Flickable.StopAtBounds
 
-            delegate: C.ItemDelegate {
+            delegate: ItemDelegate {
                 id: groupLstDlgt
 
                 width: ListView.view.width

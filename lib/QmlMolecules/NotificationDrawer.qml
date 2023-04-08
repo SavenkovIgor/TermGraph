@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick
-import QtQuick.Controls as C
+import QtQuick.Controls
 
 import Api
 
@@ -45,7 +45,7 @@ Drawer {
         function onHideNotify()            { root.close() }
     }
 
-    contentItem: C.TextArea {
+    contentItem: TextArea {
         id: infoLabel
 
         text: ""
