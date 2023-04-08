@@ -75,7 +75,7 @@ class QtFolders:
 
 def configure_environment(for_wasm: bool = False):
     set_env_var_if_missed('QT_ROOT', os.path.expanduser('~/Qt'))
-    set_env_var_if_missed('QT_VERSION', 'It must be in format x.y.z')
+    set_env_var_if_missed('QT_VERSION', '6.5.0')
 
     assert_variable_exist('QT_VERSION', 'x.y.z')
     assert_variable_exist('QT_ROOT', '~/Qt')
@@ -123,7 +123,7 @@ def build_multithread_wasm():
     assert_system_call('rm -rf qtwebengine')
 
     assert_system_call(
-        f"./configure -qt-host-path {CONFIG_HOST_PATH} -platform {CONFIG_PLATFORM} {THREAD_ARG} -prefix {qt_sdk.version_dir()}/wasm_32_mt -submodules {CONFIG_MODULES} -skip 'qtwebengine'")
+        f"./configure -qt-host-path {CONFIG_HOST_PATH} -platform {CONFIG_PLATFORM} {THREAD_ARG} -prefix {qt_sdk.version_dir()}/wasm_multithread -submodules {CONFIG_MODULES} -skip 'qtwebengine'")
 
     print('---Build---')
     assert_system_call('cmake --build . --parallel')

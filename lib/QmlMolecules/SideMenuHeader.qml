@@ -6,15 +6,16 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 import Api
-
 import Theme
-
 import Atoms as A
 
 Control {
     id: root
 
     signal settingsClicked
+
+    implicitWidth: leftPadding + implicitContentWidth + rightPadding
+    implicitHeight: topPadding + implicitContentHeight + bottomPadding
 
     contentItem: RowLayout {
         AppIcon {
