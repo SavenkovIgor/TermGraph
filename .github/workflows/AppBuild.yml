@@ -30,7 +30,7 @@ jobs:
       uses: ./.github/workflows/build_prepare
       with:
         qt-version: ${{ env.QT_VERSION }}
-        install-emsdk: ${{ matrix.build_profile == 'wasm_release' }}
+        install-wasm-deps: ${{ matrix.build_profile == 'wasm_release' }}
         emsdk-version: ${{ env.EMSDK_VERSION }}
 
 

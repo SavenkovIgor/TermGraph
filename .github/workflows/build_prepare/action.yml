@@ -8,7 +8,7 @@ inputs:
   conan-version:
     default: 1.59.0
 
-  install-emsdk:
+  install-wasm-deps:
     default: false
 
   emsdk-version:
@@ -43,14 +43,14 @@ runs:
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
 
-    - if: ${{ inputs.install-emsdk }}
+    - if: ${{ inputs.install-wasm-deps }}
       name: Install Emsdk
       uses: mymindstorm/setup-emsdk@v12
       with:
         version: ${{ inputs.emsdk-version }}
         no-cache: true
 
-    - if: ${{ inputs.install-emsdk }}
+    - if: ${{ inputs.install-wasm-deps }}
       name: Install Qt wasm multithread
       uses: jurplel/install-qt-action@v3
       with:

@@ -28,7 +28,7 @@ jobs:
       uses: ./.github/workflows/build_prepare
       with:
         qt-version: ${{ env.QT_VERSION }}
-        install-emsdk: true
+        install-wasm-deps: true
         emsdk-version: ${{ env.EMSDK_VERSION }}
 
 
