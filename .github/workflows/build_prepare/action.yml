@@ -3,23 +3,16 @@ name: "Install cmake, ninja, conan, qt."
 inputs:
   qt-version:
     type: string
-    default: 6.4.2
+    required: true
 
   conan-version:
-    type: string
     default: 1.59.0
 
   install-emsdk:
     default: false
 
   emsdk-version:
-    type: string
     default: 3.1.14
-
-outputs:
-  qt-version:
-    value: ${{ inputs.qt-version }}
-    type: string
 
 runs:
   using: "composite"

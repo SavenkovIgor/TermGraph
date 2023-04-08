@@ -7,6 +7,7 @@ on:
     branches: [ "main" ]
 
 env:
+  QT_VERSION: 6.4.2
   QT_ROOT: ${{ github.workspace }}/Qt
 
 jobs:
@@ -28,41 +29,30 @@ jobs:
       id: build_env
       uses: ./.github/workflows/build_prepare
       with:
+        qt-version: ${{ env.QT_VERSION }}
         install-emsdk: ${{ matrix.build_profile == 'wasm_release' }}
 
     - if: ${{ matrix.build_profile == 'wasm_release' }}
       name: Cache Multithread qt wasm
       id: cache-mt-wasm
       uses: actions/cache@v3
-      env:
-        QT_VERSION: ${{ steps.build_env.outputs.qt_version }}
       with:
         key: ${{ env.QT_VERSION }}-wasm_32_mt
         path: ${{ github.workspace }}/Qt/${{ env.QT_VERSION }}/wasm_32_mt
 
     - if: ${{ matrix.build_profile == 'wasm_release' && steps.cache-mt-wasm.outputs.cache-hit != 'true' }}
       name: Build multithread Qt wasm
-      env:
-        QT_VERSION: ${{ steps.build_env.outputs.qt_version }}
       run: ./project.py --build QtWasmMultithread
 
     - name: Conan install dependencies
-      env:
-        QT_VERSION: ${{ steps.build_env.outputs.qt_version }}
       run: conan install . --profile conanfiles/profile/${{ matrix.build_profile }} --build=missing -if=build/${{ matrix.build_profile }}/conan-dependencies
 
     - name: CMake configure
-      env:
-        QT_VERSION: ${{ steps.build_env.outputs.qt_version }}
       run: cmake --preset ${{ matrix.build_profile }} ./
 
     - name: Cmake build
-      env:
-        QT_VERSION: ${{ steps.build_env.outputs.qt_version }}
       run: cmake --build --preset ${{ matrix.build_profile }}
 
     - if: ${{ matrix.build_profile != 'wasm_release' }}
       name: CTest
-      env:
-        QT_VERSION: ${{ steps.build_env.outputs.qt_version }}
       run: ctest --preset ${{ matrix.build_profile }}
