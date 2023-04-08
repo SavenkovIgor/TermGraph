@@ -13,8 +13,9 @@ inputs:
   emsdk-version:
     default: 3.1.14
 
-env:
-  QT_VERSION: 6.4.2
+outputs:
+  qt-version:
+    value: ${{ inputs.qt-version }}
 
 runs:
   using: "composite"
