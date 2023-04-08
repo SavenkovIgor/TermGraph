@@ -75,7 +75,7 @@ class QtFolders:
 
 def configure_environment(for_wasm: bool = False):
     set_env_var_if_missed('QT_ROOT', os.path.expanduser('~/Qt'))
-    set_env_var_if_missed('QT_VERSION', 'It must be in format x.y.z')
+    set_env_var_if_missed('QT_VERSION', '6.5.0')
 
     assert_variable_exist('QT_VERSION', 'x.y.z')
     assert_variable_exist('QT_ROOT', '~/Qt')
