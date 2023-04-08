@@ -12,7 +12,7 @@ inputs:
     default: false
 
   emsdk-version:
-    default: 3.1.14
+    type: string
 
 runs:
   using: "composite"

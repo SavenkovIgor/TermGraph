@@ -5,6 +5,7 @@ on:
     branches: [ "main" ]
 
 env:
+  EMSDK_VERSION: 3.1.14
   QT_VERSION: 6.4.2
   QT_ROOT: ${{ github.workspace }}/Qt
 
@@ -28,6 +29,7 @@ jobs:
       with:
         qt-version: ${{ env.QT_VERSION }}
         install-emsdk: true
+        emsdk-version: ${{ env.EMSDK_VERSION }}
 
     - name: Cache Multithread qt wasm
       id: cache-mt-wasm
