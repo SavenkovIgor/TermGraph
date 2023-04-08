@@ -28,6 +28,7 @@ jobs:
     - name: Install cmake, ninja, conan, qt.
       uses: ./.github/workflows/build_prepare
       with:
+        qt-version: ${{ env.QT_VERSION }}
         install-emsdk: ${{ matrix.build_profile == 'wasm_release' }}
 
     - if: ${{ matrix.build_profile == 'wasm_release' }}

@@ -2,7 +2,8 @@ name: "Install cmake, ninja, conan, qt."
 
 inputs:
   qt-version:
-    default: 6.4.2
+    type: string
+    required: true
 
   conan-version:
     default: 1.59.0
