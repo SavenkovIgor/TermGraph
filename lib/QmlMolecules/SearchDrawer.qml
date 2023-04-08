@@ -2,7 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick
-import QtQuick.Controls as C
+import QtQuick.Controls
 import QtQuick.Layouts
 
 import Api
@@ -25,7 +25,7 @@ A.DrawerPage {
     contentItem: ColumnLayout {
 
         RowLayout {
-            C.TextField {
+            TextField {
                 id : searchText
                 Layout.fillWidth: true
                 font: Theme.font.h3
@@ -56,7 +56,7 @@ A.DrawerPage {
                 model: Api.scene.search(searchReq)
                 boundsBehavior: Flickable.StopAtBounds
 
-                delegate: C.ItemDelegate {
+                delegate: ItemDelegate {
                     id: item
                     width: ListView.view.width
 
