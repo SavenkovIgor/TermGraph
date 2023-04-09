@@ -17,10 +17,10 @@ def set_env_var_if_missed(env_var_name: str, default_value: str):
         print(f'Env.variable {env_var_name} not found. Set to {default_value}')
 
 
-def assert_variable_exist(varname: str, example_msg: str):
+def assert_variable_exist(varname: str, example: str):
     if not varname in os.environ:
         print(f'Error: variable not defined {varname}')
-        print(f'Can be defined as: {example_msg}')
+        print(f'Can be defined as: {example}')
         exit(1)
 
 
@@ -28,9 +28,10 @@ def is_valid_env_path(varname: str) -> bool:
     return varname in os.environ and Path(os.environ[varname]).exists()
 
 
-def assert_path_exist(path: Path, comment: str):
+def assert_path_exist(path: Path, error: str):
     if not path.exists():
-        print(f'Error: path not exist {comment} {path}')
+        print(f'Error: path not exist {path}')
+        print({error})
         exit(1)
 
 
@@ -44,6 +45,11 @@ def delete_if_exist(path: Path):
         print(f'Delete {path}')
         assert_system_call(f'rm -rf {path}')
 
+def env_qt_version() -> str:
+    return os.environ['QT_VERSION']
+
+def env_qt_root() -> Path:
+    return Path(os.environ['QT_ROOT'])
 
 class QtFolders:
     qt_root = Path('')
@@ -51,7 +57,7 @@ class QtFolders:
 
     @classmethod
     def default(cls):
-        return cls(Path(os.environ['QT_ROOT']), os.environ['QT_VERSION'])
+        return cls(env_qt_root(), env_qt_version())
 
     def __init__(self, qt_root: Path, qt_version: str):
         self.qt_root = qt_root
@@ -74,12 +80,12 @@ class QtFolders:
 
 
 def configure_environment(for_wasm: bool = False):
-    set_env_var_if_missed('QT_ROOT', os.path.expanduser('~/Qt'))
-    set_env_var_if_missed('QT_VERSION', 'It must be in format x.y.z')
+    set_env_var_if_missed('QT_ROOT',    default_value=os.path.expanduser('~/Qt'))
+    set_env_var_if_missed('QT_VERSION', default_value='6.4.2')
 
-    assert_variable_exist('QT_VERSION', 'x.y.z')
-    assert_variable_exist('QT_ROOT', '~/Qt')
-    assert_path_exist(Path(os.environ['QT_ROOT']), 'from variable QT_ROOT')
+    assert_variable_exist('QT_VERSION', example='x.y.z')
+    assert_variable_exist('QT_ROOT',    example='~/Qt')
+    assert_path_exist(env_qt_root(), error='Path from QT_ROOT env.variable')
 
     if for_wasm:
         has_emsdk = is_valid_env_path('EMSDK')
@@ -88,10 +94,10 @@ def configure_environment(for_wasm: bool = False):
         if not has_emsdk or not has_emsdk_node:
             assert_system_call(f'source {os.path.expanduser("~/emsdk/emsdk_env.sh")}')
 
-        assert_variable_exist('EMSDK', '~/emsdk')
-        assert_variable_exist('EMSDK_NODE', '~/emsdk/node/14.18.2_64bit/bin/node')
-        assert_path_exist(Path(os.environ['EMSDK']), 'from variable EMSDK')
-        assert_path_exist(Path(os.environ['EMSDK_NODE']), 'from variable EMSDK_NODE')
+        assert_variable_exist('EMSDK',      example='~/emsdk')
+        assert_variable_exist('EMSDK_NODE', example='~/emsdk/node/14.18.2_64bit/bin/node')
+        assert_path_exist(Path(os.environ['EMSDK']),      error='Path from EMSDK env.variable')
+        assert_path_exist(Path(os.environ['EMSDK_NODE']), error='Path from EMSDK_NODE env.variable')
 
 
 def build_multithread_wasm():
@@ -174,7 +180,7 @@ class Project:
         self.install(preset_name)
         self.configure(preset_name)
 
-        print(f'---BUILD {self.name} with preset {preset_name}---')
+        print(f'---BUILD {self.name} preset: {preset_name}, Qt: {env_qt_version()}---')
         assert_system_call(f'cmake --build --preset {preset_name}')
 
     def test(self, preset_name: str):

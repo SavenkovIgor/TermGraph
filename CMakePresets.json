@@ -15,21 +15,7 @@
       }
     },
     {
-      "name": "local_emsdk_env",
-      "hidden": true,
-      "environment": {
-        "EMSDK": "$env{HOME}/emsdk",
-        "EM_CONFIG": "$env{EMSDK}/.emscripten",
-        "EMSDK_NODE": "$env{EMSDK}/node/14.18.2_64bit/bin/node",
-        "PATH": "$env{EMSDK}:$env{EMSDK}/upstream/emscripten:$env{EMSDK}/node/14.18.2_64bit/bin:$penv{PATH}"
-      },
-      "cacheVariables": {
-        "CMAKE_C_COMPILER": "$env{EMSDK}/upstream/emscripten/emcc",
-        "CMAKE_CXX_COMPILER": "$env{EMSDK}/upstream/emscripten/em++"
-      }
-    },
-    {
-      "name": "ci_emsdk_env",
+      "name": "emsdk_compiler",
       "hidden": true,
       "cacheVariables": {
         "CMAKE_C_COMPILER": "$penv{EMSDK}/upstream/emscripten/emcc",
@@ -37,16 +23,7 @@
       }
     },
     {
-      "name": "local_qt_env",
-      "hidden": true,
-      "environment": {
-        "QT_ROOT": "$env{HOME}/Qt",
-        "QT_VERSION": "6.4.2",
-        "QT_VERSION_ROOT": "$env{QT_ROOT}/$env{QT_VERSION}"
-      }
-    },
-    {
-      "name": "ci_qt_env",
+      "name": "qt_env",
       "hidden": true,
       "environment": {
         "QT_ROOT": "$penv{QT_ROOT}",
@@ -54,7 +31,7 @@
         "QT_VERSION_ROOT": "$env{QT_ROOT}/$env{QT_VERSION}"
       }
     },
-    { 
+    {
       "name": "release_build",
       "hidden": true,
       "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
@@ -89,7 +66,7 @@
     {
       "name": "desktop_dev",
       "displayName": "Desktop dev build",
-      "inherits": ["default", "local_qt_env", "gcc_compiler", "debug_build", "test_on"],
+      "inherits": ["default", "qt_env", "gcc_compiler", "debug_build", "test_on"],
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
@@ -98,28 +75,19 @@
     {
       "name": "desktop_release",
       "displayName": "Desktop release build",
-      "inherits": ["default", "local_qt_env", "gcc_compiler", "release_build", "test_on"],
+      "inherits": ["default", "qt_env", "gcc_compiler", "release_build", "test_on"],
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
       }
     },
     {
-      "name": "local_wasm_release",
-      "displayName": "WebAssembly release build",
-      "inherits": ["default", "local_qt_env", "local_emsdk_env", "release_build", "test_off"],
-      "binaryDir": "${sourceDir}/build/${presetName}",
-      "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_32_mt/lib/cmake/Qt6/qt.toolchain.cmake",
-        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_32_mt;${sourceDir}/build/${presetName}/conan-dependencies"
-      }
-    },
-    {
       "name": "wasm_release",
-      "displayName": "Ci WebAssembly release build",
-      "inherits": ["default", "ci_qt_env", "ci_emsdk_env", "release_build", "test_off"],
+      "displayName": "WebAssembly release build",
+      "inherits": ["default", "qt_env", "emsdk_compiler", "release_build", "test_off"],
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
+        "QT_HOST_PATH": "$env{QT_VERSION_ROOT}/gcc_64",
         "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_32_mt/lib/cmake/Qt6/qt.toolchain.cmake",
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_32_mt;${sourceDir}/build/${presetName}/conan-dependencies"
       }
@@ -128,7 +96,6 @@
   "buildPresets": [
     { "name": "desktop_dev",        "configurePreset": "desktop_dev",        "targets": "all" },
     { "name": "desktop_release",    "configurePreset": "desktop_release",    "targets": "all" },
-    { "name": "local_wasm_release", "configurePreset": "local_wasm_release", "targets": "all" },
     { "name": "wasm_release",       "configurePreset": "wasm_release",       "targets": "all" }
   ],
   "testPresets": [
