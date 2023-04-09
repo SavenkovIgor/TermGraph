@@ -5,6 +5,15 @@
 
 #include <Text/TextTools.h>
 
+TermData TermData::createGhost(const QString& term, GroupUuid groupUuid)
+{
+    return TermData({
+        .uuid      = TermUuid::generate(),
+        .term      = term,
+        .groupUuid = groupUuid
+    });
+}
+
 Opt<TermData> TermData::from(const QJsonObject& obj, JsonCheckMode mode)
 {
     bool checkUuid     = true;

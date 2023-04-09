@@ -37,6 +37,7 @@ Rectangle {
             case NodeType.Root:       return Theme.color.term.rootNode;
             case NodeType.EndLeaf:    return Theme.color.term.leafNode;
             case NodeType.MiddleLeaf: return Theme.color.term.leafNode;
+            case NodeType.Ghost:      return Theme.color.term.ghostNode;
             }
         }
     }

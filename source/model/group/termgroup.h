@@ -80,8 +80,14 @@ private:
     // External
     QSizeF getAllTreesSize();
 
+    struct SearchConnectionResult
+    {
+        PaintedTerm::List ghostTerms;
+        PaintedEdge::List edges;
+    };
+
     // Edges
-    PaintedEdge::List searchAllConnections(const PaintedTerm::List& terms);
+    SearchConnectionResult searchAllConnections(const PaintedTerm::List& terms);
     PaintedEdge::List suggestConnections(); // TODO: Realize!
 
     Opt<PaintedTerm::Ptr> findLinkTarget(const QString& link, const PaintedTerm::List& terms);

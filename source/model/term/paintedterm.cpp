@@ -51,6 +51,10 @@ QPointF PaintedTerm::getCenter(CoordType inCoordinates) const { return getNodeRe
 
 qreal PaintedTerm::cornerRadius() const { return pCornerRadius.value(); }
 
+bool PaintedTerm::isGhost() const { return mIsGhost; }
+
+void PaintedTerm::setGhost(bool ghost) { mIsGhost = ghost; }
+
 void PaintedTerm::setSelection(bool selected)
 {
     if (mThisSelected != selected) {

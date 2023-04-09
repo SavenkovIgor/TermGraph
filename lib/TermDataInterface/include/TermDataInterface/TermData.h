@@ -39,6 +39,8 @@ struct TermData
 
     enum class JsonCheckMode { Import, AddTerm, UpdateTerm, Minimal };
 
+    static TermData createGhost(const QString& term, GroupUuid groupUuid);
+
     // --- JSON ---
     static Opt<TermData> from(const QJsonObject& obj, JsonCheckMode mode);
     static Opt<TermData> from(const QByteArray& jsonBytes, JsonCheckMode mode);

@@ -46,10 +46,15 @@ public:
     QRectF  rect() const;
     qreal   cornerRadius() const;
 
+    bool isGhost() const;
+    void setGhost(bool ghost);
+
 private: // Members
     QProperty<QSizeF> pNodeSize;
     QProperty<qreal>  pCornerRadius;
 
     bool mThisSelected  = false;
     bool mRelativePaint = false;
+
+    bool mIsGhost = false;
 };
