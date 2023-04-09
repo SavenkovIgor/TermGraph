@@ -149,7 +149,7 @@
             "termDef": "Impact Regularization - a method used to train {AI} to achieve its {goals} while minimizing its impact on the world"
         },
         {
-            "termDef": "Inverse Reinforcement Learning - "
+            "termDef": "Inverse Reinforcement Learning - {machine learning} technique that infers the {reward function} from the {agent's} behavior"
         },
         {
             "termDef": "Mild Optimization - is an {AI} {alignment} approach that aims to avoid {Goodhart law} by encouraging agents to pursue goals in a less extreme manner than maximizing a fixed objective"
@@ -158,7 +158,7 @@
             "termDef": "Oracle AI - a proposed approach for developing {Friendly AI} {SAI} that only answers questions, with no ability to act in the world"
         },
         {
-            "termDef": "Reward function - "
+            "termDef": "Reward function - a function that maps states or actions to a numeric value, indicating how good the action is"
         },
         {
             "termDef": "Reinforcement Learning from Human Feedback - {machine learning} using human feedback as training signal instead of labeled data or reward signal"
@@ -167,49 +167,52 @@
             "termDef": "RLHF - {reinforcement learning from human feedback}"
         },
         {
-            "termDef": "Shard Theory - is an {alignment} research program, about the relationship between training variables and learned {values} in trained Reinforcement Learning (RL) agents. It is thus an approach to progressively fleshing out a mechanistic account of human values, learned values in RL agents, and (to a lesser extent) the learned algorithms in ML generally."
+            "termDef": "Shard Theory - is an {alignment} research program, about the relationship between training variables and learned {values} in trained Reinforcement Learning (RL) agents"
         },
         {
-            "termDef": "Tool AI - a type of {AI} that is built to be used as a tool by the creators, rather than being an {agent} with its own action and goal-seeking behavior. Generally meant to refer to {AGI}, tool AI is a proposed method for gaining some of the benefits of the intelligence while avoiding the dangers of having it act autonomously. It was coined by Holden Karnofsky, co-founder of GiveWell, in a critique of the Singularity Institute. Karnofsky proposed that, while he agreed that agent-based {AGI} was dangerous, it was an unnecessary path of development. His example of tool AI behavior was Google Maps, which uses complex algorithms and data to plot a route, but presents these results to the user instead of driving the user itself."
+            "termDef": "Tool AI - {AI} built as a tool by creators, not an agent with autonomous behavior. Proposed way to gain benefits of intelligence without autonomous dangers"
         },
         {
-            "termDef": "Transparency & Interpretability - is the ability for the decision processes and inner workings of {AI} and machine learning systems to be understood by humans or other outside observers. Present-day machine learning systems are typically not very transparent or interpretable. You can use a model's output, but the model can't tell you why it made that output. This makes it hard to determine the cause of biases in ML models."
+            "termDef": "Transparency - is the ability for the decision processes and inner workings of {AI} and {machine learning} systems to be understood by humans or other outside observers"
         },
         {
-            "termDef": "Tripwire - is a mechanism in {AI Safety} designed to detect signs of {misalignment} in an advanced {AI} and shut it down automatically."
+            "termDef": "Interpretability - {transparency}"
         },
         {
-            "termDef": "Value Learning - is a proposed method for incorporating human {values} in an {AGI}. It involves the creation of an artificial learner whose actions consider many possible set of values and preferences, weighed by their likelihood. Value learning could prevent an {AGI} of having goals detrimental to human values, hence helping in the creation of Friendly AI."
+            "termDef": "Tripwire - {AI Safety} mechanism that auto-detects {misalignment} in powerful {AI} and shuts it down"
+        },
+        {
+            "termDef": "Value Learning - is a proposed method for incorporating human {values} in an {AGI}. It involves the creation of an artificial learner whose actions consider many possible set of values and preferences, weighed by their likelihood. Value learning could prevent an {AGI} of having goals detrimental to human values, hence helping in the creation of Friendly AI"
         },
         {
             "termDef": "AI Alignment Fieldbuilding - is the effort to improve the alignment ecosystem. Some priorities include introducing new people to the importance of AI risk, on-boarding them by connecting them with key resources and ideas, educating them on existing literature and methods for generating new and valuable research, supporting people who are contributing, and maintaining and improving the funding systems."
         },
         {
-            "termDef": "AI Governance - asks how we can ensure society benefits at large from increasingly powerful {AI} systems. While solving technical {AI alignment} is a necessary step towards this goal, it is by no means sufficient. Governance includes policy, economics, sociology, law, and many other fields."
+            "termDef": "AI Governance - ensuring that society benefits from powerful AI systems by addressing technical AI alignment and implementing policies from various fields such as economics, sociology, and law"
         },
         {
-            "termDef": "AI Persuasion - {AI} which is highly capable of persuading people might have significant effects on humanity."
+            "termDef": "AI Persuasion - {AI} which is highly capable of persuading people might have significant effects on humanity"
         },
         {
-            "termDef": "AI Risk - {AI} Risk is analysis of the risks associated with building powerful {AI} systems."
+            "termDef": "AI Risk - is analysis of the risks associated with building powerful {AI} systems"
         },
         {
-            "termDef": "AI Success Models - are proposed {scenario} to an existential win via {aligned AI}. They are (so far) high level overviews and won't contain all the details, but present at least a sketch of what a full solution might look like. They can be contrasted with {threat models}, which are stories about how {AI} might lead to major problems."
+            "termDef": "AI Success Models - proposed pathways to achieve existential success through aligned AI. They provide high-level overviews of a potential solution, in contrast to threat models which outline potential problems AI may cause"
         },
         {
-            "termDef": "AI Takeoff - refers to the process of an {AGI} going from a certain threshold of capability (often discussed as \"human-level\") to being superintelligent and capable enough to control the fate of civilization. There has been much debate about whether {AI takeoff} is more likely to be slow vs fast, i.e., \"soft\" vs \"hard\"."
+            "termDef": "AI Takeoff - {scenario} when an {AGI} reaches human-level intelligence and quickly surpasses it, becoming {SAI} and potentially able to control the fate of civilization. Debate centers around whether this takeoff will be slow or fast"
         },
         {
-            "termDef": "AI Timelines - is the discussion of how long until various major milestones in {AI} progress are achieved, whether it's the timeline until a human-level {AI} is developed, the timeline until certain benchmarks are defeated, the timeline until we can simulate a mouse-level intelligence, or something else."
+            "termDef": "AI Timelines - discussion of when major milestones in {AI} progress will be achieved, such as human-level AI development, benchmark achievements, or mouse-level intelligence simulation"
         },
         {
-            "termDef": "Computing Overhang - {scenario} where new algorithms can exploit existing computing power far more efficiently than before. This can happen if previously used algorithms have been suboptimal. In the context of {AGI}, this signifies a situation where it becomes possible to create AGIs that can be run using only a small fraction of the easily available hardware resources. This could lead to an intelligence explosion, or to a massive increase in the number of {AGI}s, as they could be easily copied to run on countless computers. This could make {AGI}s much more powerful than before, and present an existential risk."
+            "termDef": "Computing Overhang - {scenario} where new algorithms can exploit existing computing power far more efficiently than before"
         },
         {
-            "termDef": "Regulation and AI Risk - is the {debate} on whether regulation could be used to reduce the risks of {Unfriendly AI}, and what forms of regulation would be appropriate."
+            "termDef": "Regulation and AI Risk - is the {debate} on whether regulation could be used to reduce the risks of {Unfriendly AI}, and what forms of regulation would be appropriate"
         },
         {
-            "termDef": "Reinforcement Learning - refers to the {study} of how an {agent} should choose its actions within an environment in order to maximize some {reward function}. Strongly inspired by the work developed in behavioral psychology it is essentially a trial and error approach to find the best strategy."
+            "termDef": "Reinforcement Learning - refers to the {study} of how an {agent} should choose its actions within an environment in order to maximize some {reward function}"
         },
         {
             "termDef": "Artificial Intelligence - the {study} of creating intelligence in algorithms"
@@ -227,28 +230,34 @@
             "termDef": "AI Alignment - the task of ensuring powerful {AI} system are aligned with human {values} and interests, to avoid existential threats to humanity"
         },
         {
-            "termDef": "AI alignment problem - the concern about {AI Alignment}, that a powerful enough {AI}, if not designed and implemented with sufficient understanding, would {optimize} something unintended by its creators and pose an existential threat to the future of humanity."
+            "termDef": "AI alignment problem - the risk that a powerful {AI} may {optimize} something unintended, posing an existential threat to humanity due to insufficient understanding during design and implementation"
         },
         {
-            "termDef": "Values - "
+            "termDef": "Values - a set of principles that humans consider important and worth pursuing in their lives or society as a whole"
         },
         {
-            "termDef": "Debate - "
+            "termDef": "Debate - a discussion of a topic, often with opposing viewpoints"
         },
         {
-            "termDef": "Study - "
+            "termDef": "Study - a systematic investigation of a topic"
         },
         {
-            "termDef": "Agent - "
+            "termDef": "Agent - a system that perceives its environment and takes actions that maximize its {reward function}"
         },
         {
-            "termDef": "Friendly AI - "
+            "termDef": "Friendly AI - {AI} that is properly {aligned} with human {values} and interests"
         },
         {
-            "termDef": "Unfriendly AI - "
+            "termDef": "Unfriendly AI - {AI} that is not properly {aligned} with human {values} or interests"
         },
         {
-            "termDef": "Scenario - "
+            "termDef": "Scenario - a description of a possible future, often with a focus on the impact of a particular technology"
+        },
+        {
+            "termDef": "Alignment - {AI alignment}"
+        },
+        {
+            "termDef": "Machine learning - a branch of {AI} that focuses on the development of algorithms that can learn from data"
         }
     ]
 }
