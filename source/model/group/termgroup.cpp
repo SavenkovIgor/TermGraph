@@ -38,7 +38,10 @@ TermGroup::TermGroup(const GroupSummary& info, const TermData::List& termData, Q
 
     nodes = collapseSynonyms(nodes);
 
-    mGraphData = GraphT({.nodes = nodes, .edges = searchAllConnections(nodes)});
+    auto [ghostNodes, edges] = searchAllConnections(nodes);
+    // Adding ghost nodes
+    nodes.insert(nodes.end(), ghostNodes.begin(), ghostNodes.end());
+    mGraphData = GraphT({.nodes = nodes, .edges = edges});
 
     auto subgraphs = mGraphData.bondedSubgraphs();
 
@@ -395,9 +398,9 @@ QSizeF TermGroup::getAllTreesSize()
     return totalSize;
 }
 
-PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms)
+TermGroup::SearchConnectionResult TermGroup::searchAllConnections(const PaintedTerm::List& terms)
 {
-    PaintedEdge::List ret;
+    SearchConnectionResult ret;
 
     // Pre-heating of cache with exact terms match
     auto exactMatchCache = createExactLinkMatchCacheFor(terms);
@@ -428,11 +431,26 @@ PaintedEdge::List TermGroup::searchAllConnections(const PaintedTerm::List& terms
                 foundNode = findLinkTarget(link.textLower(), terms);
             }
 
+            if (!foundNode) {
+                foundNode = findLinkTarget(link.textLower(), ret.ghostTerms);
+            }
+
             if (foundNode) {
                 if (foundNode.value() != node) { // TODO: Real case, need check
-                    ret.push_back(std::make_shared<PaintedEdge>(foundNode.value(), node));
+                    ret.edges.push_back(std::make_shared<PaintedEdge>(foundNode.value(), node));
                     exactMatchCache.insert(link.textLower(), foundNode.value());
                 }
+            } else {
+                auto term = link.text().toString();
+                term[0]   = term[0].toUpper();
+
+                assert(mInfo.uuid.has_value());
+                auto ghostData = TermData::createGhost(term, mInfo.uuid.value());
+                auto ghostTerm = std::make_shared<PaintedTerm>(ghostData);
+                ghostTerm->setGhost(true);
+                ret.ghostTerms.push_back(ghostTerm);
+                auto ghostEdge = std::make_shared<PaintedEdge>(ghostTerm, node);
+                ret.edges.push_back(ghostEdge);
             }
 
             counter++;
@@ -562,7 +580,11 @@ NodeType::Type TermGroup::termType(const PaintedTerm::Ptr& term) const
 {
     for (const auto& forest : mForests) {
         if (forest->hasTerm(term)) {
-            return NodeType::fromTermType(forest->nodeType(term));
+            if (term->isGhost()) {
+                return NodeType::Type::Ghost;
+            } else {
+                return NodeType::fromTermType(forest->nodeType(term));
+            }
         }
     }
 

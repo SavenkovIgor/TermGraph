@@ -14,6 +14,7 @@ QtObject {
             readonly property color leafNode   : "#1f5f5f"
             readonly property color rootNode   : "#711e1d"
             readonly property color orphanNode : "#3a586f"
+            readonly property color ghostNode  : "#79797b"
         }
 
         readonly property QtObject edge: QtObject {

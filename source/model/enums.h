@@ -22,7 +22,7 @@ class NodeType : public QObject
     QML_UNCREATABLE("")
 
 public:
-    enum class Type { Orphan, Root, EndLeaf, MiddleLeaf };
+    enum class Type { Orphan, Root, EndLeaf, MiddleLeaf, Ghost };
     Q_ENUM(Type)
 
     static Type fromTermType(graph::NodeType type)
