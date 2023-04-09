@@ -8,11 +8,17 @@ inputs:
   conan-version:
     default: 1.59.0
 
-  install-emsdk:
+  install-wasm-deps:
     default: false
 
   emsdk-version:
-    default: 3.1.14
+    type: string
+
+  aqtversion:
+    default: ==3.1.5
+
+  py7zrversion:
+    default: ==0.20.2
 
 runs:
   using: "composite"
@@ -25,16 +31,19 @@ runs:
       with:
         version: ${{ inputs.conan-version }}
 
-    - name: Install Qt
+    - name: Install Qt gcc_64
       uses: jurplel/install-qt-action@v3
       with:
+        aqtversion: ${{ inputs.aqtversion }}
+        py7zrversion: ${{ inputs.py7zrversion }}
         version: ${{ inputs.qt-version }}
         dir: ${{ github.workspace }}
+        arch: 'gcc_64'
         modules: 'qtimageformats qt5compat qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
 
-    - if: ${{ inputs.install-emsdk }}
+    - if: ${{ inputs.install-wasm-deps }}
       name: Install Emsdk
       uses: mymindstorm/setup-emsdk@v12
       with:
