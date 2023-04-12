@@ -83,7 +83,7 @@
             "termDef": "Power seeking AI - {AI} with {goal} to enhance their ability to control the environment"
         },
         {
-            "termDef": "Recursive self-improvement - is the ability of {AI} system to improve one's own ability to improve, leading to increased performance and potential for {ASI}"
+            "termDef": "Recursive self-improvement - is the ability of {AI} system to improve one's own ability to improve, leading to increased performance and potential for {SAI}"
         },
         {
             "termDef": "Sharp Left Turn - a {scenario} where, an {AI}'s generalization abilities extend to multiple domains but the {alignment} characteristics that were present in earlier stages do not apply to these new domains"
@@ -107,7 +107,7 @@
             "termDef": "Treacherous Turn - {scenario} when an {AI} system appears {aligned} due to its weakness but turns on humanity when it becomes powerful enough to pursue its true objective without fear of reprisal"
         },
         {
-            "termDef": "Utility Functions - functions, assigning numerical values (utilities) to outcomes, where higher values indicating greater preference"
+            "termDef": "Utility function - {reward function}"
         },
         {
             "termDef": "Whole Brain Emulation - proposed method to transfer brain information onto a computing substrate, simulating a machine intelligence"
@@ -158,7 +158,7 @@
             "termDef": "Oracle AI - a proposed approach for developing {Friendly AI} {SAI} that only answers questions, with no ability to act in the world"
         },
         {
-            "termDef": "Reward function - a function that maps states or actions to a numeric value, indicating how good the action is"
+            "termDef": "Reward function - function, assigning numerical values (utilities) to outcomes, where higher values indicating greater preference"
         },
         {
             "termDef": "Reinforcement Learning from Human Feedback - {machine learning} using human feedback as training signal instead of labeled data or reward signal"
@@ -258,6 +258,9 @@
         },
         {
             "termDef": "Machine learning - a branch of {AI} that focuses on the development of algorithms that can learn from data"
+        },
+        {
+            "termDef": "Thesis - hypothesis, especially one too vague to be formally stated or verified but useful as a working convention"
         }
     ]
 }
