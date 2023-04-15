@@ -13,7 +13,7 @@ TEST(StaticStorageTest, GroupsLoadable)
 
     auto group = storage->groups();
 
-    EXPECT_TRUE(group.result().has_value());
+    ASSERT_TRUE(group.result().has_value());
 }
 
 TEST(StaticStorageTest, GroupsSerializeSymmetry)
@@ -23,13 +23,13 @@ TEST(StaticStorageTest, GroupsSerializeSymmetry)
     for (const auto& fileInfo : StaticDataStorage::files()) {
         auto fileData = StaticDataStorage::qrcFileData(fileInfo.absoluteFilePath());
 
-        EXPECT_TRUE(fileData.isValidUtf8());
+        ASSERT_TRUE(fileData.isValidUtf8());
 
         auto group = StaticGroupData::from(fileData);
 
-        EXPECT_TRUE(group.has_value());
+        ASSERT_TRUE(group.has_value());
         if (!group.has_value()) {
-            qInfo() << "File path:" << fileInfo.absoluteFilePath();
+            qWarning() << "Can't parse file:" << fileInfo.absoluteFilePath();
         }
 
         auto castedJson = static_cast<QByteArray>(group.value());
@@ -42,6 +42,48 @@ TEST(StaticStorageTest, GroupsSerializeSymmetry)
         if (castedJson != fileData) {
             qInfo() << "Raw file data:" << fileData;
             qInfo() << "Expected data:" << castedJson;
+        }
+    }
+}
+
+TEST(StaticStorageTest, DefinitionSimplified)
+{
+    auto storage = std::make_unique<StaticDataStorage>();
+
+    for (const auto& fileInfo : StaticDataStorage::files()) {
+        auto fileData = StaticDataStorage::qrcFileData(fileInfo.absoluteFilePath());
+
+        ASSERT_TRUE(fileData.isValidUtf8());
+
+        auto group = StaticGroupData::from(fileData);
+
+        ASSERT_TRUE(group.has_value());
+        if (!group.has_value()) {
+            qWarning() << "Can't parse file:" << fileInfo.absoluteFilePath();
+        }
+
+        auto firstChar = [](const QString& str) {
+            return str.isEmpty() ? QChar() : str[0];
+        };
+
+        for (const auto& term : group.value().terms) {
+            if (term.definition.isEmpty()) {
+                continue;
+            }
+
+            auto definition = term.definition;
+            if (definition != definition.simplified()) {
+                qWarning() << "Definition is not simplified:" << definition;
+            }
+
+            auto firstCharOfDefinition = firstChar(definition);
+            if (firstCharOfDefinition.isUpper()) {
+                qWarning() << "Definition starts with uppercase:" << term.definition;
+            }
+
+            if (definition.endsWith('.')) {
+                qWarning() << "Definition ends with dot:" << term.definition;
+            }
         }
     }
 }
