@@ -41,7 +41,7 @@
             "termDef": "State - some fixed {set} of {properties} and {property values}, describing specific {entity}"
         },
         {
-            "termDef": "Existence - ability of an {entity} to interact with {reality}"
+            "termDef": "Existence - {property} of an {entity} to interact with {reality}"
         },
         {
             "termDef": "Physical object - {existing} {entity}"
