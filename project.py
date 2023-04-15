@@ -186,7 +186,7 @@ class Project:
     def test(self, preset_name: str):
         self.prepare(preset_name)
         print(f'---TEST {self.name} with preset {preset_name}---')
-        assert_system_call(f'ctest --preset {preset_name} --output-on-failure')
+        assert_system_call(f'ctest --preset {preset_name} --output-on-failure --verbose')
 
     def run(self, preset_name: str):
         self.prepare(preset_name)
