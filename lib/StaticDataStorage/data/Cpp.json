@@ -2,13 +2,13 @@
     "name": "С++",
     "terms": [
         {
-            "termDef": "std::chrono::steady_clock - Класс {стабильных часов}"
+            "termDef": "std::chrono::steady_clock - класс {стабильных часов}"
         },
         {
             "termDef": "Модель памяти - "
         },
         {
-            "termDef": "Object - Combination of location in memory, type and {lifetime}"
+            "termDef": "Object - combination of location in memory, type and {lifetime}"
         },
         {
             "termDef": "Lifetime - "
@@ -68,7 +68,7 @@
             "termDef": "Character - {data type} that contains some symbol or grapheme in natural language"
         },
         {
-            "termDef": "Data structure - method of data "
+            "termDef": "Data structure - method of data"
         },
         {
             "termDef": "1 - "

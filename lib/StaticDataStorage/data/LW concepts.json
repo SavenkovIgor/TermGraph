@@ -8,16 +8,16 @@
             "termDef": "Coherent Extrapolated Volition - {AI} interpreting our true intentions, rather than just following explicitly formulated desires, for optimal outcomes"
         },
         {
-            "termDef": "Complexity of Value - {thesis} that human {values} possess high {Kolmogorov complexity}, meaning our diverse preferences can't be reduced to a few basic rules."
+            "termDef": "Complexity of Value - {thesis} that human {values} possess high {Kolmogorov complexity}, meaning our diverse preferences can't be reduced to a few basic rules"
         },
         {
             "termDef": "Fragility of value - {thesis} that losing even a small part of the rules that make up our {values} could lead to results that most of us would now consider as unacceptable"
         },
         {
-            "termDef": "Corrigibility - property of the {AI} system to allow it's correction, doesn't obstruct fixes to itself or its design, and accepts changes despite instrumental reasoning."
+            "termDef": "Corrigibility - property of the {AI} system to allow it's correction, doesn't obstruct fixes to itself or its design, and accepts changes despite instrumental reasoning"
         },
         {
-            "termDef": "Deceptive alignment - {scenario} when an {AI} system, not truly {aligned} with human {values}, temporarily mimics alignment to deceive its creators or training process, possibly to avoid shutdown or gain more resources."
+            "termDef": "Deceptive alignment - {scenario} when an {AI} system, not truly {aligned} with human {values}, temporarily mimics alignment to deceive its creators or training process, possibly to avoid shutdown or gain more resources"
         },
         {
             "termDef": "Decision Theory - the study of principles and algorithms for making optimal {decisions}, which enable an {agent} to achieve better outcomes with respect to its {goals}"
@@ -185,7 +185,7 @@
             "termDef": "Value Learning - is a proposed method for incorporating human {values} in an {AGI}. It involves the creation of an artificial learner whose actions consider many possible set of values and preferences, weighed by their likelihood. Value learning could prevent an {AGI} of having goals detrimental to human values, hence helping in the creation of Friendly AI"
         },
         {
-            "termDef": "AI Alignment Fieldbuilding - is the effort to improve the alignment ecosystem. Some priorities include introducing new people to the importance of AI risk, on-boarding them by connecting them with key resources and ideas, educating them on existing literature and methods for generating new and valuable research, supporting people who are contributing, and maintaining and improving the funding systems."
+            "termDef": "AI Alignment Fieldbuilding - is the effort to improve the alignment ecosystem. Some priorities include introducing new people to the importance of AI risk, on-boarding them by connecting them with key resources and ideas, educating them on existing literature and methods for generating new and valuable research, supporting people who are contributing, and maintaining and improving the funding systems"
         },
         {
             "termDef": "AI Governance - ensuring that society benefits from powerful AI systems by addressing technical AI alignment and implementing policies from various fields such as economics, sociology, and law"
