@@ -71,6 +71,10 @@ TEST(StaticStorageTest, DefinitionSimplified)
                 continue;
             }
 
+            if (term.term != term.term.simplified()) {
+                qWarning() << "Term is not simplified:" << term.term;
+            }
+
             auto definition = term.definition;
             if (definition != definition.simplified()) {
                 qWarning() << "Definition is not simplified:" << definition;
