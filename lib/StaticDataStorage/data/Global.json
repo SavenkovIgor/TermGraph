@@ -146,7 +146,7 @@
             "termDef": "Origin - {point}, all {coordinates} of which are equal to zero"
         },
         {
-            "termDef": "Line - infinitely long one-{dimensional} {entity} with no width, depth, or curvature."
+            "termDef": "Line - infinitely long one-{dimensional} {entity} with no width, depth, or curvature"
         },
         {
             "termDef": "Ray - part of a {line} that has a start {point} and all {points} on one side of the start {point}"
