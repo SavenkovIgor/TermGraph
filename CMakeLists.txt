@@ -58,8 +58,6 @@ qt_add_executable (TermGraph
     "source/helpers/appsettings.cpp"
     "source/helpers/appsettings.h"
     "source/helpers/appstyle.h"
-    "source/helpers/asyncgroupbuilder.cpp"
-    "source/helpers/asyncgroupbuilder.h"
     "source/helpers/exclusivecall.h"
     "source/helpers/firststartpreparer.cpp"
     "source/helpers/firststartpreparer.h"

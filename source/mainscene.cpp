@@ -7,7 +7,6 @@
 
 MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     : QObject(parent)
-    , mGroupBuilder(this)
     , mTermsModel(new TermsModel(this))
     , mEdgesModel(new EdgesModel(this))
 {
@@ -18,8 +17,9 @@ MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     connect(groupsMgr, &GroupsManager::groupDeleted, this, &MainScene::checkGroupDeletion);
     connect(groupsMgr, &GroupsManager::termChanged, this, &MainScene::updateGroup);
 
-    connect(&mGroupBuilder, &AsyncGroupBuilder::finished, this, &MainScene::takeBuildGroupAndShow, Qt::QueuedConnection);
     connect(this, &MainScene::selectionChanged, mTermsModel, &TermsModel::updateSelection);
+
+    connect(this, &MainScene::newGroupCreated, this, &MainScene::showNewGroup, Qt::QueuedConnection);
 }
 
 void MainScene::selectGroup(const QUuid groupUuid)
@@ -83,48 +83,35 @@ void MainScene::checkGroupDeletion()
     }
 }
 
-void MainScene::takeBuildGroupAndShow()
-{
-    setGroupLoading(false);
-    if (auto group = mGroupBuilder.takeResult()) {
-        // Can be nullptr if build thread was interrupted
-        showNewGroup(group);
-    }
-}
-
 void MainScene::createLoadedGroup()
 {
-    if (mGroupBuilder.isRunning()) {
-        mGroupBuilder.requestInterruption();
-        this->thread()->msleep(200);
-    }
+    static QThread* mGroupBuilder = nullptr;
 
-    if (!mGroupBuilder.isRunning()) {
-        mGroupBuilder.setAction([this]() -> TermGroup::OptPtr {
+    auto buildGroupCallback = [this]() {
+        auto group = groupsMgr->createGroup();
 
-            auto group = groupsMgr->createGroup();
+        if (!group.has_value()) {
+            return;
+        }
 
-            if (!group.has_value()) {
-                return std::nullopt;
-            }
+        group.value()->moveToThread(this->thread());
+        emit newGroupCreated(group);
+    };
 
-            if (group.value()->thread()->isInterruptionRequested()) {
-                return std::nullopt;
-            }
+    delete mGroupBuilder;
+    mGroupBuilder = QThread::create(std::move(buildGroupCallback));
 
-            group.value()->moveToThread(this->thread());
-            return group;
-        });
-
+    if (!mGroupBuilder->isRunning()) {
         setGroupLoading(true);
-        mGroupBuilder.start();
+        mGroupBuilder->start();
     } else {
-        qInfo("Bad luck");
+        qInfo("Group is still loading");
     }
 }
 
 void MainScene::showNewGroup(TermGroup::OptPtr newGroup)
 {
+    setGroupLoading(false);
     assert(newGroup.has_value());
 
     auto oldUuid = mCurrentGroup ? mCurrentGroup.value()->uuid() : QUuid();
