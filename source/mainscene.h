@@ -116,9 +116,11 @@ private: // Methods
     void  dropGroup();
 
     bool isGroupLoading() const;
+    void setGroupLoading(bool loading);
 
 private: // Members
     AsyncGroupBuilder mGroupBuilder;
+    bool              mGroupLoading = false;
     TermsModel*       mTermsModel = nullptr;
     EdgesModel*       mEdgesModel = nullptr;
 };

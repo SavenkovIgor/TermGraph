@@ -19,11 +19,6 @@ MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     connect(groupsMgr, &GroupsManager::termChanged, this, &MainScene::updateGroup);
 
     connect(&mGroupBuilder, &AsyncGroupBuilder::finished, this, &MainScene::takeBuildGroupAndShow, Qt::QueuedConnection);
-
-    // Loading notification
-    connect(&mGroupBuilder, &QThread::started, this, &MainScene::groupLoadingChanged);
-    connect(&mGroupBuilder, &QThread::finished, this, &MainScene::groupLoadingChanged);
-
     connect(this, &MainScene::selectionChanged, mTermsModel, &TermsModel::updateSelection);
 }
 
@@ -90,6 +85,7 @@ void MainScene::checkGroupDeletion()
 
 void MainScene::takeBuildGroupAndShow()
 {
+    setGroupLoading(false);
     if (auto group = mGroupBuilder.takeResult()) {
         // Can be nullptr if build thread was interrupted
         showNewGroup(group);
@@ -120,6 +116,7 @@ void MainScene::createLoadedGroup()
             return group;
         });
 
+        setGroupLoading(true);
         mGroupBuilder.start();
     } else {
         qInfo("Bad luck");
@@ -358,7 +355,15 @@ PaintedTerm::OptPtr MainScene::getNodeAtPoint(const QPointF& pt) const
     return std::nullopt;
 }
 
-bool MainScene::isGroupLoading() const { return mGroupBuilder.isRunning(); }
+bool MainScene::isGroupLoading() const { return mGroupLoading; }
+
+void MainScene::setGroupLoading(bool groupLoading)
+{
+    if (mGroupLoading != groupLoading) {
+        mGroupLoading = groupLoading;
+        emit groupLoadingChanged();
+    }
+}
 
 void MainScene::findClick(const QPointF& atPt)
 {
