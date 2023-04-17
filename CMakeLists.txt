@@ -37,12 +37,12 @@ add_subdirectory ("${LIBS_ROOT}/QmlTheme"           "${CMAKE_BINARY_DIR}/lib/Qml
 add_subdirectory ("${LIBS_ROOT}/QmlTools"           "${CMAKE_BINARY_DIR}/lib/QmlTools")
 add_subdirectory ("${LIBS_ROOT}/QrcHelpImages"      "${CMAKE_BINARY_DIR}/lib/QrcHelpImages")
 add_subdirectory ("${LIBS_ROOT}/StaticDataStorage"  "${CMAKE_BINARY_DIR}/lib/StaticDataStorage")
-add_subdirectory ("${LIBS_ROOT}/TermDataConnection" "${CMAKE_BINARY_DIR}/lib/TermDataConnection")
 add_subdirectory ("${LIBS_ROOT}/TermDataInterface"  "${CMAKE_BINARY_DIR}/lib/TermDataInterface")
 add_subdirectory ("${LIBS_ROOT}/Text"               "${CMAKE_BINARY_DIR}/lib/Text")
 
 if (NOT WASM)
-    add_subdirectory (${LIBS_ROOT}/TermDataStorage "${CMAKE_BINARY_DIR}/lib/TermDataStorage")
+    add_subdirectory ("${LIBS_ROOT}/TermDataConnection" "${CMAKE_BINARY_DIR}/lib/TermDataConnection")
+    add_subdirectory ("${LIBS_ROOT}/TermDataStorage"    "${CMAKE_BINARY_DIR}/lib/TermDataStorage")
 endif ()
 
 qt_standard_project_setup()
@@ -160,10 +160,10 @@ target_link_libraries (TermGraph PRIVATE CommonTools)
 target_link_libraries (TermGraph PRIVATE Graph)
 target_link_libraries (TermGraph PRIVATE Text)
 target_link_libraries (TermGraph PRIVATE TermDataInterface)
-target_link_libraries (TermGraph PRIVATE TermDataConnection)
 target_link_libraries (TermGraph PRIVATE StaticDataStorage)
 
 if (NOT WASM)
+    target_link_libraries (TermGraph PRIVATE TermDataConnection)
     target_link_libraries (TermGraph PRIVATE TermDataStorage)
 endif ()
 
