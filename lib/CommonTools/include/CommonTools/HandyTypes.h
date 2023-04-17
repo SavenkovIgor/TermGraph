@@ -58,3 +58,13 @@ public:
 };
 
 inline auto asInt(auto num) -> int { return static_cast<int>(num); }
+
+template<typename T>
+static QFuture<T> toFuture(const std::function<T()>& func)
+{
+    QPromise<T> promise;
+    promise.start();
+    promise.addResult(func());
+    promise.finish();
+    return promise.future();
+}

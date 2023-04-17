@@ -7,16 +7,6 @@
 
 #include "source/Database.h"
 
-template<typename T>
-static QFuture<T> toFuture(const std::function<T()>& func)
-{
-    QPromise<T> promise;
-    promise.start();
-    promise.addResult(func());
-    promise.finish();
-    return promise.future();
-}
-
 class StorageImpl
 {
 public:
