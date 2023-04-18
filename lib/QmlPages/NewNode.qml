@@ -140,7 +140,7 @@ M.Page {
             labelText: "Термин:"
         }
 
-        M.TagEditorArea {
+        M.LinkEditorArea {
             id: termDefin
             Layout.fillWidth: true
         }

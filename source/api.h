@@ -13,7 +13,6 @@
 
 
 // Qml todo list
-// TODO: remove version from qt_add_qml_module
 // TODO: Avoid implicit lookup in root scope (root.property)
 // TODO: Use type annotations on all qml functions (function sum(a: int, b: int): int )
 // TODO: Avoid duck typing

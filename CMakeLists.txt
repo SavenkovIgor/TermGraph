@@ -1,10 +1,6 @@
 # Copyright © 2016-2023. Savenkov Igor
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-# TODO: Join Qml modules to one CMakeLists file
-# TODO: Make Android build
-# TODO: Make big cleanup at qml imports
-
 
 cmake_minimum_required (VERSION 3.22.0)
 
@@ -45,7 +41,7 @@ if (NOT WASM)
     add_subdirectory ("${LIBS_ROOT}/TermDataStorage"    "${CMAKE_BINARY_DIR}/lib/TermDataStorage")
 endif ()
 
-qt_standard_project_setup()
+qt_standard_project_setup(REQUIRES 6.5)
 
 qt_add_executable (TermGraph
     "android/AndroidManifest.xml"
@@ -179,12 +175,10 @@ target_link_libraries (TermGraph
 
 qt_add_qml_module (TermGraph
     URI Api
-    VERSION 1.0
     IMPORTS
         QtQml QtQuick QtQuick.Controls QtQuick.Controls.Material QtQuick.Shapes QtQuick.Layouts QtQuick.Window QtQuick.Templates
         Theme Tools Atoms Molecules Pages
-    QML_FILES "qml/main.qml"
-    RESOURCE_PREFIX "/qt/qml")
+    QML_FILES "qml/Main.qml")
 
 if (WASM)
     set (DEPLOY_DIR "${CMAKE_BINARY_DIR}/deploy/")

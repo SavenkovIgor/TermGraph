@@ -109,7 +109,7 @@ QString LinksString::expandLinkRight(QString str, int cursor)
 
     auto lBracketMaybe = CheckingTextCursor::leftBracketOnRight(str, rBracket.pos() + 1, Direction::Right);
 
-    // Protection from capturing next tag
+    // Protection from capturing next link
     if (lBracketMaybe.check()) {
         if (lWord.pos() > lBracketMaybe.pos()) {
             return str;

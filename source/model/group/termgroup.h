@@ -88,7 +88,6 @@ private:
 
     // Edges
     SearchConnectionResult searchAllConnections(const PaintedTerm::List& terms);
-    PaintedEdge::List suggestConnections(); // TODO: Realize!
 
     Opt<PaintedTerm::Ptr> findLinkTarget(const QString& link, const PaintedTerm::List& terms);
     PaintedEdge::List     filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const;
