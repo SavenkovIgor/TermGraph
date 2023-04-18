@@ -183,6 +183,7 @@ qt_add_qml_module (TermGraph
 if (WASM)
     set (DEPLOY_DIR "${CMAKE_BINARY_DIR}/deploy/")
     set (SINGLE_THREAD True)
+    set (DEV_DEPLOY True)
 
     # Creating deploy folder
     add_custom_command(TARGET TermGraph
@@ -212,6 +213,16 @@ if (WASM)
                             POST_BUILD COMMAND ${CMAKE_COMMAND} -E
                             copy "${WASM_RESOURCE}" "${DEPLOY_DIR}")
     endforeach ()
+
+
+    if (DEV_DEPLOY)
+        add_custom_command (TARGET TermGraph
+                            POST_BUILD COMMAND ${CMAKE_COMMAND} -E
+                            copy "${CMAKE_SOURCE_DIR}/resources/index.html" "${CMAKE_BINARY_DIR}/TermGraph.html")
+        add_custom_command (TARGET TermGraph
+                            POST_BUILD COMMAND ${CMAKE_COMMAND} -E
+                            copy "${CMAKE_SOURCE_DIR}/resources/applicationIcons/no_text_icon256x256.png" "${CMAKE_BINARY_DIR}/no_text_icon256x256.png")
+    endif ()
 endif ()
 
 

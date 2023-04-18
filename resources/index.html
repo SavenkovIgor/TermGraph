@@ -14,45 +14,42 @@
     <title>TermGraph</title>
     <style>
       /* Make the html body cover the entire (visual) viewport with no scroll bars. */
-      html, body { padding: 0; margin: 0; overflow:hidden; height: 100% }
+      html, body { padding: 0; margin: 0; overflow: hidden; height: 100% }
+      #screen { width: 100%; height: 100%; }
+
       /* Make body background black */
       body { background-color: #242326; }
-      /* Make the canvas cover the entire body */
-      canvas { height:100%; width:100%; }
       /* Make the spinner rotate */
       @keyframes spin {
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
       }
-      strong {
-        color: #dcdcdc;
-        font-size: 18px;
-      }
+      strong { color: #dcdcdc; font-size: 18px; }
     </style>
   </head>
   <body onload="init()">
     <figure style="overflow:visible;" id="qtspinner">
       <center style="margin-top:10.5em; line-height:250%">
-        <!-- This image is slowly rotating -->
-        <img src="no_text_icon256x256.png" style="animation: spin 30s linear infinite; transform-origin: center; display:block;" width="256" height="256"/>
-        <br/>
-        <strong>Please wait for ~20 seconds while we load the information for you.</strong>
-        </br>
-        <strong>Thank you for your patience and understanding</strong>
+          <!-- This image is slowly rotating -->
+          <img src="no_text_icon256x256.png" style="animation: spin 30s linear infinite; transform-origin: center; display:block;" width="256" height="256"/>
+          <br/>
+          <strong>Please wait for ~20 seconds while we load the information for you.</strong>
+          </br>
+          <strong>Thank you for your patience and understanding</strong>
         <div id="qtstatus"></div>
         <noscript>JavaScript is disabled. Please enable JavaScript to use this application.</noscript>
       </center>
     </figure>
-    <canvas id="qtcanvas"></canvas>
+    <div id="screen"></div>
 
     <script type='text/javascript'>
         let qtLoader = undefined;
         function init() {
           var spinner = document.querySelector('#qtspinner');
-          var canvas = document.querySelector('#qtcanvas');
+          var canvas = document.querySelector('#screen');
           var status = document.querySelector('#qtstatus')
 
-          qtLoader = QtLoader({
+          qtLoader = new QtLoader({
               canvasElements : [canvas],
               showLoader: function(loaderStatus) {
                   spinner.style.display = 'block';
