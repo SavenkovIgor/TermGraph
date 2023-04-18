@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
     // TODO: On Qt 6.5 this path is imported by default so this line can be deleted
     // On Cmake side: remove versions from module registration, and make import path auto
     qmlEngine.addImportPath(QStringLiteral("qrc:/qt/qml"));
-    qmlEngine.load(QStringLiteral("qrc:/qt/qml/Api/qml/main.qml"));
+    qmlEngine.load(QStringLiteral("qrc:/qt/qml/Api/qml/Main.qml"));
 
     return app.exec();
 }

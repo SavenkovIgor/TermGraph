@@ -174,7 +174,7 @@ You can start tests from:
 │   ├── TermDataInterface/   # Interface, describing data connection interface
 │   ├── TermDataStorage/     # Data storage sqlite library
 │   └── Text                 # Text processing library
-├── qml/                     # main.qml file
+├── qml/                     # Main.qml file
 ├── resources/               # Resources: app icons, main html wrapper etc...
 ├── source/                  # Main source code
 ├── tests/                   # Tests

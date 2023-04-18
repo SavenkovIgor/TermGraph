@@ -183,7 +183,7 @@ qt_add_qml_module (TermGraph
     IMPORTS
         QtQml QtQuick QtQuick.Controls QtQuick.Controls.Material QtQuick.Shapes QtQuick.Layouts QtQuick.Window QtQuick.Templates
         Theme Tools Atoms Molecules Pages
-    QML_FILES "qml/main.qml"
+    QML_FILES "qml/Main.qml"
     RESOURCE_PREFIX "/qt/qml")
 
 if (WASM)
