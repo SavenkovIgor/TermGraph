@@ -8,7 +8,10 @@
 
 #include <outcome.hpp>
 
+#ifndef Q_OS_WASM
 #include <QFuture>
+#endif
+
 #include <QSizeF>
 #include <QUuid>
 #include <QtCore>
@@ -25,8 +28,51 @@ using Opt = std::optional<T>;
 template<typename T>
 using Result = outcome::std_result<T>;
 
+#ifdef Q_OS_WASM
+// Wrapper, that supports "then" call
+template<typename T>
+class FutureWrapper
+{
+public:
+    FutureWrapper() = default;
+
+    FutureWrapper(T&& value)
+        : mValue(std::move(value))
+    {
+    }
+
+    auto then(const std::function<void(T)>& func) -> void
+    {
+        func(std::move(mValue));
+    }
+
+private:
+    T mValue;
+};
+
+template<typename RetType>
+using FutureResult = FutureWrapper<Result<RetType>>;
+
+template<typename T>
+static FutureWrapper<T> toFuture(const std::function<T()>& func)
+{
+    return FutureWrapper<T>(std::move(func()));
+}
+
+#else
 template<typename RetType>
 using FutureResult = QFuture<Result<RetType>>;
+
+template<typename T>
+static QFuture<T> toFuture(const std::function<T()>& func)
+{
+   QPromise<T> promise;
+   promise.start();
+   promise.addResult(func());
+   promise.finish();
+   return promise.future();
+}
+#endif
 
 enum class Direction { Left, Right };
 

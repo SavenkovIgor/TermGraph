@@ -8,11 +8,11 @@
 #include <CommonTools/Platform.h>
 #include <CommonTools/NetworkTools.h>
 #include <StaticDataStorage/StaticDataStorage.h>
-#include <TermDataConnection/DataStorageConnection.h>
 
 #ifndef Q_OS_WASM
-#include <TermDataStorage/LocalDataStorage.h>
 #include "source/helpers/appsettings.h"
+#include <TermDataConnection/DataStorageConnection.h>
+#include <TermDataStorage/LocalDataStorage.h>
 #endif
 
 std::unique_ptr<DataStorageInterface> DataSourceFactory::defaultSource()
@@ -46,6 +46,10 @@ std::unique_ptr<DataStorageInterface> DataSourceFactory::server()
 {
 //    auto address = QUrl("http://127.0.0.1");
 //    address.setPort(NetworkTools::defaultPort);
+#ifdef Q_OS_WASM
+    return nullptr;
+#else
     auto address = QUrl("https://termgraph.app");
     return std::make_unique<DataStorageConnection>(address);
+#endif
 }

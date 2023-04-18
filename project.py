@@ -45,38 +45,13 @@ def delete_if_exist(path: Path):
         print(f'Delete {path}')
         assert_system_call(f'rm -rf {path}')
 
+
 def env_qt_version() -> str:
     return os.environ['QT_VERSION']
 
+
 def env_qt_root() -> Path:
     return Path(os.environ['QT_ROOT'])
-
-class QtFolders:
-    qt_root = Path('')
-    qt_version = ''
-
-    @classmethod
-    def default(cls):
-        return cls(env_qt_root(), env_qt_version())
-
-    def __init__(self, qt_root: Path, qt_version: str):
-        self.qt_root = qt_root
-        self.qt_version = qt_version
-
-    def root(self) -> Path:
-        return self.qt_root
-
-    def version(self) -> str:
-        return self.qt_version
-
-    def version_dir(self) -> Path:
-        return self.root() / self.qt_version
-
-    def source(self) -> Path:
-        return self.version_dir() / 'Src'
-
-    def toolchain_gcc_64(self) -> Path:
-        return self.version_dir() / 'gcc_64'
 
 
 def configure_environment(for_wasm: bool = False):
@@ -98,42 +73,6 @@ def configure_environment(for_wasm: bool = False):
         assert_variable_exist('EMSDK_NODE', example='~/emsdk/node/14.18.2_64bit/bin/node')
         assert_path_exist(Path(os.environ['EMSDK']),      error='Path from EMSDK env.variable')
         assert_path_exist(Path(os.environ['EMSDK_NODE']), error='Path from EMSDK_NODE env.variable')
-
-
-def build_multithread_wasm():
-    print('---Build multithread wasm---')
-
-    configure_environment(for_wasm=True)
-
-    qt_sdk = QtFolders.default()
-
-    CONFIG_PLATFORM = 'wasm-emscripten'
-    CONFIG_HOST_PATH = qt_sdk.toolchain_gcc_64()
-    CONFIG_MODULES = 'qtbase,qtsvg,qtimageformats,qtshadertools,qtdeclarative,qt5compat'
-    THREAD_ARG = '-feature-thread'
-
-    print('---Cloning---')
-
-    assert_system_call('git clone git://code.qt.io/qt/qt5.git ./qt_src')
-    os.chdir('./qt_src')
-
-    print('---Checkout---')
-    assert_system_call(f'git checkout v{qt_sdk.version()}')
-
-    print('---Init-repository---')
-    assert_system_call('perl init-repository')
-
-    THREAD_ARG = '-feature-thread'
-
-    print('---Configure---')
-    assert_system_call('rm -rf qtwebengine')
-
-    assert_system_call(
-        f"./configure -qt-host-path {CONFIG_HOST_PATH} -platform {CONFIG_PLATFORM} {THREAD_ARG} -prefix {qt_sdk.version_dir()}/wasm_32_mt -submodules {CONFIG_MODULES} -skip 'qtwebengine'")
-
-    print('---Build---')
-    assert_system_call('cmake --build . --parallel')
-    assert_system_call('cmake --install .')
 
 
 class Project:
@@ -206,19 +145,17 @@ class Project:
 
 
 # Should be possible to run:
-# ./project.py --target-list # List all targets
-# ./project.py --install   [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --configure [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --build     [Application (default) | QtWasmMultithread] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --run       [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --test      [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --pack      [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --clear     [Application (default) ]
-# ./project.py --clear-all [Application (default) ]
+# ./project.py --install   [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --configure [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --build     [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --run       [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --test      [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --pack      [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --clear
+# ./project.py --clear-all
 def main():
     parser = argparse.ArgumentParser(description='Project build script')
 
-    parser.add_argument('--target-list', action='store_true', help='List all targets')
     parser.add_argument('--install',     action='store_true', help='Install dependencies')
     parser.add_argument('--configure',   action='store_true', help='Configure project')
     parser.add_argument('--build',       action='store_true', help='Build project')
@@ -228,24 +165,10 @@ def main():
     parser.add_argument('--clear',       action='store_true', help='Clear project')
     parser.add_argument('--clear-all',   action='store_true', help='Clear project and conan cache')
 
-    parser.add_argument('target',   type=str, help='Target to build', choices=[
-                        'Application', 'QtWasmMultithread'], default='Application', nargs='?')
     parser.add_argument('--preset', type=str, help='Preset to use',
                         choices=['desktop_dev', 'desktop_release', 'wasm_release'], default='desktop_release')
 
     args = parser.parse_args()
-
-    if args.target_list:
-        print('Available targets: Application, QtWasmMultithread')
-        return
-
-    if args.target == 'QtWasmMultithread':
-
-        if not args.build:
-            print('QtWasmMultithread can only be built')
-
-        build_multithread_wasm()
-        return
 
     configure_environment()
 

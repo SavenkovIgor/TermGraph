@@ -37,12 +37,12 @@ add_subdirectory ("${LIBS_ROOT}/QmlTheme"           "${CMAKE_BINARY_DIR}/lib/Qml
 add_subdirectory ("${LIBS_ROOT}/QmlTools"           "${CMAKE_BINARY_DIR}/lib/QmlTools")
 add_subdirectory ("${LIBS_ROOT}/QrcHelpImages"      "${CMAKE_BINARY_DIR}/lib/QrcHelpImages")
 add_subdirectory ("${LIBS_ROOT}/StaticDataStorage"  "${CMAKE_BINARY_DIR}/lib/StaticDataStorage")
-add_subdirectory ("${LIBS_ROOT}/TermDataConnection" "${CMAKE_BINARY_DIR}/lib/TermDataConnection")
 add_subdirectory ("${LIBS_ROOT}/TermDataInterface"  "${CMAKE_BINARY_DIR}/lib/TermDataInterface")
 add_subdirectory ("${LIBS_ROOT}/Text"               "${CMAKE_BINARY_DIR}/lib/Text")
 
 if (NOT WASM)
-    add_subdirectory (${LIBS_ROOT}/TermDataStorage "${CMAKE_BINARY_DIR}/lib/TermDataStorage")
+    add_subdirectory ("${LIBS_ROOT}/TermDataConnection" "${CMAKE_BINARY_DIR}/lib/TermDataConnection")
+    add_subdirectory ("${LIBS_ROOT}/TermDataStorage"    "${CMAKE_BINARY_DIR}/lib/TermDataStorage")
 endif ()
 
 qt_standard_project_setup()
@@ -58,8 +58,6 @@ qt_add_executable (TermGraph
     "source/helpers/appsettings.cpp"
     "source/helpers/appsettings.h"
     "source/helpers/appstyle.h"
-    "source/helpers/asyncgroupbuilder.cpp"
-    "source/helpers/asyncgroupbuilder.h"
     "source/helpers/exclusivecall.h"
     "source/helpers/firststartpreparer.cpp"
     "source/helpers/firststartpreparer.h"
@@ -160,10 +158,10 @@ target_link_libraries (TermGraph PRIVATE CommonTools)
 target_link_libraries (TermGraph PRIVATE Graph)
 target_link_libraries (TermGraph PRIVATE Text)
 target_link_libraries (TermGraph PRIVATE TermDataInterface)
-target_link_libraries (TermGraph PRIVATE TermDataConnection)
 target_link_libraries (TermGraph PRIVATE StaticDataStorage)
 
 if (NOT WASM)
+    target_link_libraries (TermGraph PRIVATE TermDataConnection)
     target_link_libraries (TermGraph PRIVATE TermDataStorage)
 endif ()
 
@@ -190,6 +188,7 @@ qt_add_qml_module (TermGraph
 
 if (WASM)
     set (DEPLOY_DIR "${CMAKE_BINARY_DIR}/deploy/")
+    set (SINGLE_THREAD True)
 
     # Creating deploy folder
     add_custom_command(TARGET TermGraph
@@ -200,13 +199,19 @@ if (WASM)
     set (WASM_RESOURCES)
     list (APPEND WASM_RESOURCES "${CMAKE_SOURCE_DIR}/resources/applicationIcons/no_text_icon256x256.png")
     list (APPEND WASM_RESOURCES "${CMAKE_SOURCE_DIR}/resources/index.html")
-    list (APPEND WASM_RESOURCES "${CMAKE_SOURCE_DIR}/resources/coi-serviceworker.js")
+
+    if (NOT SINGLE_THREAD)
+        list (APPEND WASM_RESOURCES "${CMAKE_SOURCE_DIR}/resources/coi-serviceworker.js")
+    endif ()
 
     # Copy of build artefacts
     list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/qtloader.js")
     list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/TermGraph.js")
     list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/TermGraph.wasm")
-    list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/TermGraph.worker.js")
+
+    if (NOT SINGLE_THREAD)
+        list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/TermGraph.worker.js")
+    endif ()
 
     foreach (WASM_RESOURCE ${WASM_RESOURCES})
         add_custom_command (TARGET TermGraph

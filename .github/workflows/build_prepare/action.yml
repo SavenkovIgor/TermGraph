@@ -49,3 +49,17 @@ runs:
       with:
         version: ${{ inputs.emsdk-version }}
         no-cache: true
+
+    - if: ${{ inputs.install-wasm-deps }}
+      name: Install Qt wasm multithread
+      uses: jurplel/install-qt-action@v3
+      with:
+        aqtversion: ${{ inputs.aqtversion }}
+        py7zrversion: ${{ inputs.py7zrversion }}
+        version: ${{ inputs.qt-version }}
+        dir: ${{ github.workspace }}
+        arch: 'wasm_32'
+        # arch: 'wasm_singlethread' For 6.5.0 version
+        modules: 'qtimageformats qt5compat qtshadertools'
+        archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
+        cache: true

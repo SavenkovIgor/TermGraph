@@ -3,11 +3,12 @@
 
 #include "source/mainscene.h"
 
+#ifndef Q_OS_WASM
 #include <QThread>
+#endif
 
 MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     : QObject(parent)
-    , mGroupBuilder(this)
     , mTermsModel(new TermsModel(this))
     , mEdgesModel(new EdgesModel(this))
 {
@@ -18,13 +19,9 @@ MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     connect(groupsMgr, &GroupsManager::groupDeleted, this, &MainScene::checkGroupDeletion);
     connect(groupsMgr, &GroupsManager::termChanged, this, &MainScene::updateGroup);
 
-    connect(&mGroupBuilder, &AsyncGroupBuilder::finished, this, &MainScene::takeBuildGroupAndShow, Qt::QueuedConnection);
-
-    // Loading notification
-    connect(&mGroupBuilder, &QThread::started, this, &MainScene::groupLoadingChanged);
-    connect(&mGroupBuilder, &QThread::finished, this, &MainScene::groupLoadingChanged);
-
     connect(this, &MainScene::selectionChanged, mTermsModel, &TermsModel::updateSelection);
+
+    connect(this, &MainScene::newGroupCreated, this, &MainScene::showNewGroup, Qt::QueuedConnection);
 }
 
 void MainScene::selectGroup(const QUuid groupUuid)
@@ -82,52 +79,45 @@ void MainScene::checkGroupDeletion()
         return;
     }
 
-    auto groupsUuids  = groupsMgr->getAllUuidsSortedByLastEdit();
+    auto groupsUuids = groupsMgr->getAllUuidsSortedByLastEdit();
     if (find(begin(groupsUuids), end(groupsUuids), *currentGroup) == groupsUuids.end()) {
         dropGroup();
     }
 }
 
-void MainScene::takeBuildGroupAndShow()
-{
-    if (auto group = mGroupBuilder.takeResult()) {
-        // Can be nullptr if build thread was interrupted
-        showNewGroup(group);
-    }
-}
-
 void MainScene::createLoadedGroup()
 {
-    if (mGroupBuilder.isRunning()) {
-        mGroupBuilder.requestInterruption();
-        this->thread()->msleep(200);
-    }
+    auto buildGroupCallback = [this]() {
+        auto group = groupsMgr->createGroup();
 
-    if (!mGroupBuilder.isRunning()) {
-        mGroupBuilder.setAction([this]() -> TermGroup::OptPtr {
+        if (!group.has_value()) {
+            return;
+        }
 
-            auto group = groupsMgr->createGroup();
+        group.value()->moveToThread(this->thread());
+        emit newGroupCreated(group);
+    };
 
-            if (!group.has_value()) {
-                return std::nullopt;
-            }
+#ifdef Q_OS_WASM
+    setGroupLoading(true);
+    buildGroupCallback();
+#else
+    static QThread* mGroupBuilder = nullptr;
+    delete mGroupBuilder;
+    mGroupBuilder = QThread::create(std::move(buildGroupCallback));
 
-            if (group.value()->thread()->isInterruptionRequested()) {
-                return std::nullopt;
-            }
-
-            group.value()->moveToThread(this->thread());
-            return group;
-        });
-
-        mGroupBuilder.start();
+    if (!mGroupBuilder->isRunning()) {
+        setGroupLoading(true);
+        mGroupBuilder->start();
     } else {
-        qInfo("Bad luck");
+        qInfo("Group is still loading");
     }
+#endif
 }
 
 void MainScene::showNewGroup(TermGroup::OptPtr newGroup)
 {
+    setGroupLoading(false);
     assert(newGroup.has_value());
 
     auto oldUuid = mCurrentGroup ? mCurrentGroup.value()->uuid() : QUuid();
@@ -329,7 +319,8 @@ QString MainScene::getCurrNodeHierarchyDefinition()
     return "";
 }
 
-Opt<GroupUuid> MainScene::currentGroupUuid() const {
+Opt<GroupUuid> MainScene::currentGroupUuid() const
+{
     return mCurrentGroup ? GroupUuid::from(mCurrentGroup.value()->uuid()) : std::nullopt;
 }
 
@@ -358,7 +349,15 @@ PaintedTerm::OptPtr MainScene::getNodeAtPoint(const QPointF& pt) const
     return std::nullopt;
 }
 
-bool MainScene::isGroupLoading() const { return mGroupBuilder.isRunning(); }
+bool MainScene::isGroupLoading() const { return mGroupLoading; }
+
+void MainScene::setGroupLoading(bool groupLoading)
+{
+    if (mGroupLoading != groupLoading) {
+        mGroupLoading = groupLoading;
+        emit groupLoadingChanged();
+    }
+}
 
 void MainScene::findClick(const QPointF& atPt)
 {

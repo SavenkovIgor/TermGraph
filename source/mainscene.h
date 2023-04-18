@@ -5,7 +5,6 @@
 
 #include <QObject>
 
-#include "source/helpers/asyncgroupbuilder.h"
 #include "source/managers/groupsmanager.h"
 #include "source/model/edge/edgesmodel.h"
 #include "source/model/group/termgroup.h"
@@ -61,6 +60,7 @@ signals:
     void sceneRectChanged();
 
     void groupLoadingChanged();
+    void newGroupCreated(TermGroup::OptPtr group);
 
 private slots:
     void updateGroup();
@@ -69,9 +69,8 @@ private slots:
     void checkGroupAddition();
     void checkGroupDeletion();
 
-    void takeBuildGroupAndShow();
-
     void createLoadedGroup();
+    void showNewGroup(TermGroup::OptPtr newGroup);
 
 private:
     void setCurrentGroup(const GroupUuid& newGroupUuid);
@@ -80,7 +79,6 @@ private:
     QString getCurrNodeHierarchyDefinition();
 
     bool isAnyNodeSelected() const;
-    void showNewGroup(TermGroup::OptPtr newGroup);
 
 private: // Methods
     // Managers
@@ -116,9 +114,10 @@ private: // Methods
     void  dropGroup();
 
     bool isGroupLoading() const;
+    void setGroupLoading(bool loading);
 
 private: // Members
-    AsyncGroupBuilder mGroupBuilder;
-    TermsModel*       mTermsModel = nullptr;
-    EdgesModel*       mEdgesModel = nullptr;
+    bool        mGroupLoading = false;
+    TermsModel* mTermsModel   = nullptr;
+    EdgesModel* mEdgesModel   = nullptr;
 };
