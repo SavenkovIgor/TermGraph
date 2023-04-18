@@ -1,10 +1,9 @@
 import subprocess
 
 # Should be possible to run:
-# ./project.py --target-list # List all targets
 # ./project.py --install   [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --configure [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --build     [Application (default) | QtWasmMultithread] [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --build     [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --run       [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --test      [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --pack      [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
@@ -22,31 +21,26 @@ def assert_system_call(command: str):
 
 def test_project_script():
     assert_system_call('./project.py --help')
-    assert_system_call('./project.py --target-list')
 
-    assert_system_call('./project.py --install Application')
-    assert_system_call('./project.py --install Application --preset desktop_dev')
-    assert_system_call('./project.py --install Application --preset wasm_release')
     assert_system_call('./project.py --install')
+    assert_system_call('./project.py --install --preset desktop_dev')
+    assert_system_call('./project.py --install --preset wasm_release')
 
-    assert_system_call('./project.py --configure Application --preset desktop_dev')
+    assert_system_call('./project.py --configure --preset desktop_dev')
     assert_system_call('./project.py --configure')
 
-    assert_system_call('./project.py --build Application --preset=desktop_dev')
-    # assert_system_call('./project.py --build QtWasmMultithread')
+    assert_system_call('./project.py --build --preset=desktop_dev')
     assert_system_call('./project.py --build')
 
-    assert_system_call('./project.py --test Application --preset=desktop_dev')
+    assert_system_call('./project.py --test --preset=desktop_dev')
     assert_system_call('./project.py --test')
 
     assert_system_call('./project.py --run')
 
-    assert_system_call('./project.py --pack Application --preset=desktop_dev')
+    assert_system_call('./project.py --pack --preset=desktop_dev')
     assert_system_call('./project.py --pack')
 
-    assert_system_call('./project.py --clear Application')
     assert_system_call('./project.py --clear')
-    assert_system_call('./project.py --clear-all Application')
     assert_system_call('./project.py --clear-all')
 
 
