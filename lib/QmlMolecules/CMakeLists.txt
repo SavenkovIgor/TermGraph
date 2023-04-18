@@ -6,6 +6,8 @@ project (MoleculesModule LANGUAGES CXX)
 
 find_package (Qt6 REQUIRED COMPONENTS QuickControls2)
 
+qt_standard_project_setup(REQUIRES 6.5)
+
 qt_add_library (MoleculesModule STATIC)
 
 set_target_properties (MoleculesModule
@@ -16,11 +18,9 @@ set_target_properties (MoleculesModule
 
 qt_add_qml_module (MoleculesModule
     URI Molecules
-    VERSION 1.0
     IMPORTS
         QtQml QtQuick QtQuick.Controls QtQuick.Controls.Material QtQuick.Shapes QtQuick.Layouts QtQuick.Window QtQuick.Templates
         Theme Tools Atoms
-    RESOURCE_PREFIX "/qt/qml"
     IMPORT_PATH ${PROJECT_BINARY_DIR}
     QML_FILES
         AppIcon.qml

@@ -6,6 +6,8 @@ project (ToolsModule LANGUAGES CXX)
 
 find_package (Qt6 REQUIRED COMPONENTS QuickControls2)
 
+qt_standard_project_setup(REQUIRES 6.5)
+
 qt_add_library (ToolsModule STATIC)
 
 set_target_properties (ToolsModule
@@ -20,8 +22,6 @@ set_source_files_properties (Debug.qml Tools.qml PROPERTIES QT_QML_SINGLETON_TYP
 
 qt_add_qml_module (ToolsModule
     URI Tools
-    VERSION 1.0
     IMPORTS QtQml QtQuick
-    RESOURCE_PREFIX "/qt/qml"
     IMPORT_PATH ${PROJECT_BINARY_DIR}
     QML_FILES ${QML_SOURCES})

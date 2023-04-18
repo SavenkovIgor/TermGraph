@@ -50,11 +50,8 @@ int main(int argc, char* argv[])
 
     setSurfaceFormat();
 
-    QQmlApplicationEngine qmlEngine;
-    // TODO: On Qt 6.5 this path is imported by default so this line can be deleted
-    // On Cmake side: remove versions from module registration, and make import path auto
-    qmlEngine.addImportPath(QStringLiteral("qrc:/qt/qml"));
-    qmlEngine.load(QStringLiteral("qrc:/qt/qml/Api/qml/Main.qml"));
+    QQmlApplicationEngine engine;
+    engine.loadFromModule("Api", "Main");
 
     return app.exec();
 }
