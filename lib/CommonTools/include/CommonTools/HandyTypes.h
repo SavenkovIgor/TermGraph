@@ -28,20 +28,7 @@ using Opt = std::optional<T>;
 template<typename T>
 using Result = outcome::std_result<T>;
 
-#ifndef Q_OS_WASM
-template<typename RetType>
-using FutureResult = QFuture<Result<RetType>>;
-
-template<typename T>
-static QFuture<T> toFuture(const std::function<T()>& func)
-{
-   QPromise<T> promise;
-   promise.start();
-   promise.addResult(func());
-   promise.finish();
-   return promise.future();
-}
-#else
+#ifdef Q_OS_WASM
 // Wrapper, that supports "then" call
 template<typename T>
 class FutureWrapper
@@ -70,6 +57,20 @@ template<typename T>
 static FutureWrapper<T> toFuture(const std::function<T()>& func)
 {
     return FutureWrapper<T>(std::move(func()));
+}
+
+#else
+template<typename RetType>
+using FutureResult = QFuture<Result<RetType>>;
+
+template<typename T>
+static QFuture<T> toFuture(const std::function<T()>& func)
+{
+   QPromise<T> promise;
+   promise.start();
+   promise.addResult(func());
+   promise.finish();
+   return promise.future();
 }
 #endif
 
