@@ -56,7 +56,7 @@ def env_qt_root() -> Path:
 
 def configure_environment(for_wasm: bool = False):
     set_env_var_if_missed('QT_ROOT',    default_value=os.path.expanduser('~/Qt'))
-    set_env_var_if_missed('QT_VERSION', default_value='6.4.2')
+    set_env_var_if_missed('QT_VERSION', default_value='6.5.0')
 
     assert_variable_exist('QT_VERSION', example='x.y.z')
     assert_variable_exist('QT_ROOT',    example='~/Qt')

@@ -58,8 +58,7 @@ runs:
         py7zrversion: ${{ inputs.py7zrversion }}
         version: ${{ inputs.qt-version }}
         dir: ${{ github.workspace }}
-        arch: 'wasm_32'
-        # arch: 'wasm_singlethread' For 6.5.0 version
+        arch: 'wasm_singlethread'
         modules: 'qtimageformats qt5compat qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
