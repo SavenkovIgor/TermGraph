@@ -100,7 +100,6 @@ void MainScene::createLoadedGroup()
 
 #ifdef Q_OS_WASM
     setGroupLoading(true);
-    qApp->processEvents();
     buildGroupCallback();
 #else
     static QThread* mGroupBuilder = nullptr;
