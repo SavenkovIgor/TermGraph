@@ -214,7 +214,6 @@ if (WASM)
                             copy "${WASM_RESOURCE}" "${DEPLOY_DIR}")
     endforeach ()
 
-
     if (DEV_DEPLOY)
         add_custom_command (TARGET TermGraph
                             POST_BUILD COMMAND ${CMAKE_COMMAND} -E
