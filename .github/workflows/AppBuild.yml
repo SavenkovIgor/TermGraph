@@ -33,17 +33,6 @@ jobs:
         install-wasm-deps: ${{ matrix.build_profile == 'wasm_release' }}
         emsdk-version: ${{ env.EMSDK_VERSION }}
 
-    - if: ${{ matrix.build_profile == 'wasm_release' }}
-      name: Cache Multithread qt wasm
-      id: cache-mt-wasm
-      uses: actions/cache@v3
-      with:
-        key: ${{ env.QT_VERSION }}-wasm_32_mt
-        path: ${{ github.workspace }}/Qt/${{ env.QT_VERSION }}/wasm_32_mt
-
-    - if: ${{ matrix.build_profile == 'wasm_release' && steps.cache-mt-wasm.outputs.cache-hit != 'true' }}
-      name: Build multithread Qt wasm
-      run: ./project.py --build QtWasmMultithread
 
     - name: Conan install dependencies
       run: conan install . --profile conanfiles/profile/${{ matrix.build_profile }} --build=missing -if=build/${{ matrix.build_profile }}/conan-dependencies
