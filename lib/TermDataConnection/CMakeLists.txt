@@ -27,7 +27,3 @@ target_sources (TermDataConnection
         include/TermDataConnection/NetWrapper.h
         source/DataStorageConnection.cpp
         source/NetWrapper.cpp)
-
-# TODO: Add test
-#if (BUILD_TESTING)
-#endif ()

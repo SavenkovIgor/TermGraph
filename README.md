@@ -1,29 +1,3 @@
-<!-- TODO:
-8 Screenshots
-- Make them svg
-- Add screenshots
-
-9 Badges
-- https://forthebadge.com/
-- Code quality
-- Code coverage
-
-11 Recomendations
-- Contribution guideline
-- Meetup speech
-- Make fixes to my personal profile page on github
-
-14 How to Use? Maybe wiki?
-18 Support
-- GitHub?
-- Patreon?
-- Other?
-
-20 Info
-- Talk to every community individually
-- Try to be in Trending section, but topics is also ok
--->
-
 <div align="center">
     <a href="https://savenkovigor.github.io/TermGraph/"><img
       width="100"

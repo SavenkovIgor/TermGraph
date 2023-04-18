@@ -54,7 +54,7 @@ M.Page {
 
                 text: modelData
 
-                MouseArea{ anchors.fill: parent }  // TODO: Make action here
+                MouseArea { anchors.fill: parent }  // TODO: Make action here
             }
         }
     }

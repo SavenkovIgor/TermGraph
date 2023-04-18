@@ -1,10 +1,6 @@
 # Copyright © 2016-2023. Savenkov Igor
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-# TODO: Join Qml modules to one CMakeLists file
-# TODO: Make Android build
-# TODO: Make big cleanup at qml imports
-
 
 cmake_minimum_required (VERSION 3.22.0)
 
