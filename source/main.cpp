@@ -11,7 +11,6 @@
 // -- Qt6 Migration plan --
 // TODO: Use new uuids!
 
-// TODO: Remove all "tag" naming
 // TODO: How to mix QProperty & Q_PROPERTY
 // TODO: Replace Components with component properties
 // TODO: Create GroupsModel

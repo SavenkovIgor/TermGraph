@@ -13,29 +13,29 @@ TEST(LinkToolsTest, LinkExtraction)
     struct Data
     {
         QString     src;
-        QStringList tags;
+        QStringList links;
     };
 
     std::vector<Data> data;
 
-    data.push_back({.src = "a{bc}", .tags = (QStringList() << "bc")});
-    data.push_back({.src  = "a{a}{b}",
-                    .tags = (QStringList() << "a"
-                                           << "b")});
-    data.push_back({.src = "a{bc\\}", .tags = (QStringList() << "bc\\")});
-    data.push_back({.src = "a{bc}{bc}", .tags = (QStringList() << "bc")});
-    data.push_back({.src = "{{", .tags = QStringList()});
-    data.push_back({.src = "}}", .tags = QStringList()});
-    data.push_back({.src = "a{b", .tags = QStringList()});
-    data.push_back({.src = "a{a\\", .tags = QStringList()});
-    data.push_back({.src = "a{bc}}", .tags = QStringList()});
-    data.push_back({.src = "\\}\\}", .tags = QStringList()});
-    data.push_back({.src = "a{bc\\}}", .tags = QStringList()});
+    data.push_back({.src = "a{bc}", .links = (QStringList() << "bc")});
+    data.push_back({.src   = "a{a}{b}",
+                    .links = (QStringList() << "a"
+                                            << "b")});
+    data.push_back({.src = "a{bc\\}", .links = (QStringList() << "bc\\")});
+    data.push_back({.src = "a{bc}{bc}", .links = (QStringList() << "bc")});
+    data.push_back({.src = "{{", .links = QStringList()});
+    data.push_back({.src = "}}", .links = QStringList()});
+    data.push_back({.src = "a{b", .links = QStringList()});
+    data.push_back({.src = "a{a\\", .links = QStringList()});
+    data.push_back({.src = "a{bc}}", .links = QStringList()});
+    data.push_back({.src = "\\}\\}", .links = QStringList()});
+    data.push_back({.src = "a{bc\\}}", .links = QStringList()});
 
     // TODO: Finish test
 }
 
-TEST(LinkToolsTest, TagLengthSuitTerm)
+TEST(LinkToolsTest, LinkLengthSuitTerm)
 {
     struct Data
     {

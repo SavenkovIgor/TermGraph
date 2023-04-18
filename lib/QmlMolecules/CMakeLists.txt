@@ -40,7 +40,7 @@ qt_add_qml_module (MoleculesModule
         SearchDrawer.qml
         SideMenuHeader.qml
         StdDialog.qml
-        TagEditorArea.qml
+        LinkEditorArea.qml
         TermInfoDrawer.qml
         TextArea.qml
         TextField.qml)
