@@ -88,8 +88,8 @@
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "QT_HOST_PATH": "$env{QT_VERSION_ROOT}/gcc_64",
-        "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_32/lib/cmake/Qt6/qt.toolchain.cmake",
-        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_32;${sourceDir}/build/${presetName}/conan-dependencies"
+        "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_singlethread/lib/cmake/Qt6/qt.toolchain.cmake",
+        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_singlethread;${sourceDir}/build/${presetName}/conan-dependencies"
       }
     }
   ],
