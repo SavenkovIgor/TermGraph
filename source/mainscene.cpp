@@ -3,7 +3,9 @@
 
 #include "source/mainscene.h"
 
+#ifndef Q_OS_WASM
 #include <QThread>
+#endif
 
 MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     : QObject(parent)
@@ -77,7 +79,7 @@ void MainScene::checkGroupDeletion()
         return;
     }
 
-    auto groupsUuids  = groupsMgr->getAllUuidsSortedByLastEdit();
+    auto groupsUuids = groupsMgr->getAllUuidsSortedByLastEdit();
     if (find(begin(groupsUuids), end(groupsUuids), *currentGroup) == groupsUuids.end()) {
         dropGroup();
     }
@@ -85,8 +87,6 @@ void MainScene::checkGroupDeletion()
 
 void MainScene::createLoadedGroup()
 {
-    static QThread* mGroupBuilder = nullptr;
-
     auto buildGroupCallback = [this]() {
         auto group = groupsMgr->createGroup();
 
@@ -98,6 +98,12 @@ void MainScene::createLoadedGroup()
         emit newGroupCreated(group);
     };
 
+#ifdef Q_OS_WASM
+    setGroupLoading(true);
+    qApp->processEvents();
+    buildGroupCallback();
+#else
+    static QThread* mGroupBuilder = nullptr;
     delete mGroupBuilder;
     mGroupBuilder = QThread::create(std::move(buildGroupCallback));
 
@@ -107,6 +113,7 @@ void MainScene::createLoadedGroup()
     } else {
         qInfo("Group is still loading");
     }
+#endif
 }
 
 void MainScene::showNewGroup(TermGroup::OptPtr newGroup)
@@ -313,7 +320,8 @@ QString MainScene::getCurrNodeHierarchyDefinition()
     return "";
 }
 
-Opt<GroupUuid> MainScene::currentGroupUuid() const {
+Opt<GroupUuid> MainScene::currentGroupUuid() const
+{
     return mCurrentGroup ? GroupUuid::from(mCurrentGroup.value()->uuid()) : std::nullopt;
 }
 

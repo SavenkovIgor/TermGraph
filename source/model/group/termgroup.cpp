@@ -54,11 +54,6 @@ TermGroup::TermGroup(const GroupSummary& info, const TermData::List& termData, Q
     }
 
     // Removing of exceed edges
-
-    if (isThreadInterrupted()) {
-        return;
-    }
-
     for (auto edge : allBrokenEdges()) {
         edge->brokeEdge();
     }
@@ -407,7 +402,6 @@ TermGroup::SearchConnectionResult TermGroup::searchAllConnections(const PaintedT
     auto termUuids       = createUuidCacheFor(terms);
 
     static int counter     = 0;
-    bool       stopRequest = false;
 
     // Compare everything with everything
     for (auto node : terms) {
@@ -456,16 +450,9 @@ TermGroup::SearchConnectionResult TermGroup::searchAllConnections(const PaintedT
             counter++;
             if (counter % 20 == 0) {
                 if (isThreadInterrupted()) {
-                    stopRequest = true;
+                    return ret;
                 }
             }
-
-            if (stopRequest) {
-                break;
-            }
-        }
-        if (stopRequest) {
-            break;
         }
     }
 
