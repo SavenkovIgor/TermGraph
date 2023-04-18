@@ -15,8 +15,6 @@
 // TODO: How to mix QProperty & Q_PROPERTY
 // TODO: Replace Components with component properties
 // TODO: Create GroupsModel
-// TODO: What is "QQmlEngine::setContextForObject(): Object already has a QQmlContext"
-// TODO: Add namespace to graph
 // TODO: Remove get from getters. Helper regexp: \bget.*\(
 
 void initResources()
