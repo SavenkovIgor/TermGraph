@@ -38,13 +38,6 @@ QtObject {
         readonly property color base5: "#bababb"
         readonly property color base6: "#dcdcdc"
         readonly property color base7: "#ffffff"
-
-        readonly property ColorGroup group : ColorGroup {
-            text:          root.color.base6
-            base:          root.color.base1
-            alternateBase: root.color.base2
-            highlight:     root.color.accent
-        }
     }
 
     readonly property QtObject font: QtObject {
