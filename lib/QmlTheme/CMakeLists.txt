@@ -49,5 +49,16 @@ qt_add_qml_module (ThemeModule
         "icon/share.svg"
         "icon/spreadsheet.svg"
         "icon/trash.svg"
-        "icon/warning.svg")
+        "icon/warning.svg"
+        "category/philosophy.svg"
+        "category/math.svg"
+        "category/physics.svg"
+        "category/chemistry.svg"
+        "category/biology.svg"
+        "category/medicine.svg"
+        "category/neuroscience.svg"
+        "category/sociology.svg"
+        "category/art.svg"
+        "category/computerscience.svg"
+        "category/economics.svg")
 
