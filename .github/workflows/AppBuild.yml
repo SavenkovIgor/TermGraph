@@ -32,7 +32,9 @@ jobs:
         qt-version: ${{ env.QT_VERSION }}
         install-wasm-deps: ${{ matrix.build_profile == 'wasm_release' }}
         emsdk-version: ${{ env.EMSDK_VERSION }}
-
+        
+    - name: Check emcc
+      run: emcc -v
 
     - name: Conan install dependencies
       run: conan install . --profile conanfiles/profile/${{ matrix.build_profile }} --build=missing -if=build/${{ matrix.build_profile }}/conan-dependencies
