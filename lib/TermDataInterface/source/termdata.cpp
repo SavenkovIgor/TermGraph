@@ -72,15 +72,16 @@ Opt<TermData> TermData::from(const QJsonObject& obj, JsonCheckMode mode)
     }
 
     TermData ret{
-        .uuid        = uuid,
-        .term        = term,
-        .definition  = definition,
-        .description = obj[JsonTools::descriptionKey].toString(""),
-        .examples    = obj[JsonTools::examplesKey].toString(""),
-        .wikiUrl     = obj[JsonTools::wikiUrlKey].toString(""),
-        .wikiImage   = obj[JsonTools::wikiImageKey].toString(""),
-        .groupUuid   = *gUuid,
-        .lastEdit    = lastEdit,
+        .uuid          = uuid,
+        .term          = term,
+        .definition    = definition,
+        .description   = obj[JsonTools::descriptionKey].toString(""),
+        .examples      = obj[JsonTools::examplesKey].toString(""),
+        .wikiUrl       = obj[JsonTools::wikiUrlKey].toString(""),
+        .wikiImage     = obj[JsonTools::wikiImageKey].toString(""),
+        .knowledgeArea = obj[JsonTools::knowledgeAreaKey].toString(""),
+        .groupUuid     = *gUuid,
+        .lastEdit      = lastEdit,
     };
 
     if (ret.isNull()) // Release safety
@@ -111,6 +112,7 @@ QJsonObject TermData::toQJsonObject() const
     ret = JsonTools::addIfNotEmpty(ret, JsonTools::examplesKey, examples);
     ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiUrlKey, wikiUrl);
     ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiImageKey, wikiImage);
+    ret = JsonTools::addIfNotEmpty(ret, JsonTools::knowledgeAreaKey, knowledgeArea);
 
     ret.insert(JsonTools::groupUuidKey, groupUuid.toString());
     ret.insert(JsonTools::lastEditKey, lastEdit.toString(Qt::ISODate));
@@ -130,6 +132,7 @@ QJsonObject TermData::toMinimalQJsonObject() const
     ret = JsonTools::addIfNotEmpty(ret, JsonTools::examplesKey, examples);
     ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiUrlKey, wikiUrl);
     ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiImageKey, wikiImage);
+    ret = JsonTools::addIfNotEmpty(ret, JsonTools::knowledgeAreaKey, knowledgeArea);
 
     return ret;
 }

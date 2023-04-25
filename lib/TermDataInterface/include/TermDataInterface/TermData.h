@@ -30,6 +30,7 @@ struct TermData
     QString       examples;
     QString       wikiUrl;
     QString       wikiImage;
+    QString       knowledgeArea;
     GroupUuid     groupUuid;
     QDateTime     lastEdit;
 
