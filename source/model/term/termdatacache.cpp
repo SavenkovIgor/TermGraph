@@ -12,6 +12,7 @@
 TermDataCache::TermDataCache(const TermData& info)
     : mTerms{QStringList() << info.term}
     , mLinksDefinition(info.definition)
+    , mArea(KnowledgeArea::from(info.knowledgeArea))
 {
     assert(!mTerms.value().empty());
 
@@ -36,6 +37,10 @@ TermDataCache::TermDataCache(const TermData& info)
             auto termSize = TextTools::preferredTextSize(term, whProportion);
             termsSize.setWidth(std::max(termsSize.width(), termSize.width()));
             termsSize.setHeight(termsSize.height() + termSize.height() + spacing);
+        }
+
+        if (mArea != KnowledgeArea::Type::None) {
+            termsSize += QSizeF(16, 0);
         }
 
         if (mLinksDefinition.text().isEmpty()) {
@@ -84,3 +89,5 @@ QString TermDataCache::termAndDefinition(bool decorated) const
     }
     return TextTools::joinTermDef(term(), mLinksDefinition.text());
 }
+
+KnowledgeArea::Type TermDataCache::area() const { return mArea; }

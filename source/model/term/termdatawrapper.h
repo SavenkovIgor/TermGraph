@@ -28,15 +28,16 @@ class TermDataWrapper
 
 public:
     TermDataWrapper()
-        : mData{.uuid        = std::nullopt,
-                .term        = "",
-                .definition  = "",
-                .description = "",
-                .examples    = "",
-                .wikiUrl     = "",
-                .wikiImage   = "",
-                .groupUuid   = GroupUuid::generate(),
-                .lastEdit    = QDateTime::currentDateTime()}
+        : mData{.uuid          = std::nullopt,
+                .term          = "",
+                .definition    = "",
+                .description   = "",
+                .examples      = "",
+                .wikiUrl       = "",
+                .wikiImage     = "",
+                .knowledgeArea = "",
+                .groupUuid     = GroupUuid::generate(),
+                .lastEdit      = QDateTime::currentDateTime()}
     {}
     TermDataWrapper(TermData info)
         : mData(std::move(info))

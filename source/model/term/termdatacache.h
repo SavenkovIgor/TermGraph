@@ -8,6 +8,7 @@
 
 #include <TermDataInterface/TermData.h>
 
+#include "source/model/enums.h"
 #include "source/helpers/link/link.h"
 #include "source/helpers/link/linksstring.h"
 
@@ -35,10 +36,13 @@ public:
 
     QString termAndDefinition(bool decorated = false) const;
 
+    KnowledgeArea::Type area() const;
+
     QProperty<QSizeF> preferredSize;
 
 private:
-    QProperty<QStringList> mTerms;
-    QProperty<QStringList> mLowerTerms;
-    const LinksString      mLinksDefinition;
+    QProperty<QStringList>    mTerms;
+    QProperty<QStringList>    mLowerTerms;
+    const LinksString         mLinksDefinition;
+    const KnowledgeArea::Type mArea;
 };

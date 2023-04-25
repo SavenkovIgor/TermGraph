@@ -5,6 +5,8 @@ pragma Singleton
 
 import QtQuick
 
+import Api
+
 QtObject {
     id: root
 
@@ -38,13 +40,6 @@ QtObject {
         readonly property color base5: "#bababb"
         readonly property color base6: "#dcdcdc"
         readonly property color base7: "#ffffff"
-
-        readonly property ColorGroup group : ColorGroup {
-            text:          root.color.base6
-            base:          root.color.base1
-            alternateBase: root.color.base2
-            highlight:     root.color.accent
-        }
     }
 
     readonly property QtObject font: QtObject {
@@ -86,5 +81,36 @@ QtObject {
         readonly property url spreadsheet     : "qrc:/qt/qml/Theme/icon/spreadsheet.svg"
         readonly property url trash           : "qrc:/qt/qml/Theme/icon/trash.svg"
         readonly property url warning         : "qrc:/qt/qml/Theme/icon/warning.svg"
+    }
+
+    readonly property QtObject area: QtObject {
+        readonly property url art             : "qrc:/qt/qml/Theme/area/art.svg"
+        readonly property url biology         : "qrc:/qt/qml/Theme/area/biology.svg"
+        readonly property url chemistry       : "qrc:/qt/qml/Theme/area/chemistry.svg"
+        readonly property url computerScience : "qrc:/qt/qml/Theme/area/computer-science.svg"
+        readonly property url economics       : "qrc:/qt/qml/Theme/area/economics.svg"
+        readonly property url math            : "qrc:/qt/qml/Theme/area/math.svg"
+        readonly property url medicine        : "qrc:/qt/qml/Theme/area/medicine.svg"
+        readonly property url neuroscience    : "qrc:/qt/qml/Theme/area/neuroscience.svg"
+        readonly property url philosophy      : "qrc:/qt/qml/Theme/area/philosophy.svg"
+        readonly property url physics         : "qrc:/qt/qml/Theme/area/physics.svg"
+        readonly property url sociology       : "qrc:/qt/qml/Theme/area/sociology.svg"
+    }
+
+    function areaIcon(type: Int): url {
+        switch (type) {
+        case KnowledgeArea.Philosophy:      return Theme.area.philosophy;
+        case KnowledgeArea.Math:            return Theme.area.math;
+        case KnowledgeArea.Physics:         return Theme.area.physics;
+        case KnowledgeArea.Chemistry:       return Theme.area.chemistry;
+        case KnowledgeArea.Biology:         return Theme.area.biology;
+        case KnowledgeArea.Medicine:        return Theme.area.medicine;
+        case KnowledgeArea.Neuroscience:    return Theme.area.neuroscience;
+        case KnowledgeArea.Sociology:       return Theme.area.sociology;
+        case KnowledgeArea.Art:             return Theme.area.art;
+        case KnowledgeArea.ComputerScience: return Theme.area.computerScience;
+        case KnowledgeArea.Economics:       return Theme.area.economics;
+        }
+        return "";
     }
 }

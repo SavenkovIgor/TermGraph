@@ -158,6 +158,7 @@ Control {
                 rect: model.rect
                 radius: model.radius
                 type: model.type
+                area: model.area
                 isSelected: model.isSelected
                 weight: model.weight
                 termAndSynonyms: model.termAndSynonyms

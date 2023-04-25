@@ -34,7 +34,8 @@ QHash<int, QByteArray> TermsModel::roleNames() const
                                            {Roles::TermAndSynonyms, "termAndSynonyms"},
                                            {Roles::Definition, "definition"},
                                            {Roles::IsSelected, "isSelected"},
-                                           {Roles::Type, "type"}};
+                                           {Roles::Type, "type"},
+                                           {Roles::Area, "area"}};
 
     return roles;
 }
@@ -59,6 +60,7 @@ QVariant TermsModel::data(const QModelIndex &index, int role) const
     case Roles::Definition: return term->definition();
     case Roles::IsSelected: return term->isSelectedAnyway();
     case Roles::Type: return asInt(mGroup.value()->termType(term));
+    case Roles::Area: return asInt(term->cache().area());
     }
 
     Q_UNREACHABLE();

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 import QtQuick
+import QtQuick.Effects
 
 import Theme
 
@@ -12,6 +13,7 @@ Rectangle {
 
     property bool isSelected: false
     property int type: NodeType.MiddleLeaf
+    property int area: KnowledgeArea.None
     property rect rect: Qt.rect(10, 10, 50, 30)
     property var termAndSynonyms: []
     property bool hasSynonyms: termAndSynonyms.length > 1
@@ -20,6 +22,7 @@ Rectangle {
     property bool hasDefinition: definition !== ""
 
     readonly property color textColor: Theme.color.base7
+    readonly property bool hasArea: area !== KnowledgeArea.None
 
     color: Theme.color.base1
 
@@ -53,12 +56,27 @@ Rectangle {
     }
 
     TermText {
-         id: termLabel
-         visible: !root.hasSynonyms
-         anchors { left: parent.left; right: parent.right; top: parent.top; bottom: root.hasDefinition ? undefined : parent.bottom }
-         topPadding: 8
-         bottomPadding: 8
-         text: root.termAndSynonyms[0]
+        id: termLabel
+        visible: !root.hasSynonyms
+        anchors { left: parent.left; right: parent.right; top: parent.top; bottom: root.hasDefinition ? undefined : parent.bottom }
+        rightPadding: root.hasArea ? 32 : 16
+        topPadding: 8
+        bottomPadding: 8
+        text: root.termAndSynonyms[0]
+
+        Image {
+            id: areaIcon
+            visible: root.hasArea
+            width: 16
+            height: 16
+            anchors { right: parent.right; rightMargin: 8; verticalCenter: parent.verticalCenter; }
+            source: Theme.areaIcon(root.area)
+            layer.enabled: false
+            layer.effect: MultiEffect {
+                colorizationColor: "white"
+                colorization: 1.0
+            }
+        }
     }
 
     Column {
