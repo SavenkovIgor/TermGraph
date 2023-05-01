@@ -1,0 +1,6 @@
+.env
+venv/
+
+chat_term/
+
+.ipynb_checkpoints
