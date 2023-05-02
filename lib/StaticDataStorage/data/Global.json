@@ -276,6 +276,18 @@
         {
             "area": "phys",
             "termDef": "Energy - scalar physical quantity, which is a single {measure} of various forms of {motion} and interaction of {matter}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Entropy - a {measure} of the {number} of possible {states} of a system that are consistent with its macroscopic {properties}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Information - the {correlation} between the {state} of an information storage and an external {physical object} or {system}, representing a meaningful {relation}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Symmetry - {system} {property} that remains unchanged after a certain {transformation}"
         }
     ]
 }
