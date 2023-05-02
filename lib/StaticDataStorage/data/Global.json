@@ -272,6 +272,10 @@
         {
             "area": "phys",
             "termDef": "Quantum number - a {conserved quantity} of a {particle}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Energy - scalar physical quantity, which is a single {measure} of various forms of {motion} and interaction of {matter}"
         }
     ]
 }
