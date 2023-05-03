@@ -276,6 +276,42 @@
         {
             "area": "phys",
             "termDef": "Energy - scalar physical quantity, which is a single {measure} of various forms of {motion} and interaction of {matter}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Entropy - a {measure} of the {number} of possible {states} of a system that are consistent with its macroscopic {properties}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Information - the {correlation} between the {state} of an information storage and an external {physical object} or {system}, representing a meaningful {relation}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Symmetry - {system} {property} that remains unchanged after a certain {transformation}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Up quark - kind of {quark} with a positive +2/3 {elementary charge} and a {mass} of approximately 2.2 MeV/c^2"
+        },
+        {
+            "area": "phys",
+            "termDef": "Fundamental interaction - {interactions} that can not be reduced to more basic interactions"
+        },
+        {
+            "area": "phys",
+            "termDef": "Fundamental force - {fundamental interaction}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Electromagnetism - {fundamental force} that is responsible for electric and magnetic phenomena"
+        },
+        {
+            "area": "phys",
+            "termDef": "Electrico-magnetic field - {field} of {electromagnetic} force"
+        },
+        {
+            "area": "phys",
+            "termDef": "Electric charge - {property} of {matter} that describes it's interaction with {electro-magnetic field}"
         }
     ]
 }
