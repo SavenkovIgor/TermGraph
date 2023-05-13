@@ -312,6 +312,10 @@
         {
             "area": "phys",
             "termDef": "Electric charge - {property} of {matter} that describes it's interaction with {electro-magnetic field}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Wave - a propagating in {space} disturbance of one or more {quantities}"
         }
     ]
 }
