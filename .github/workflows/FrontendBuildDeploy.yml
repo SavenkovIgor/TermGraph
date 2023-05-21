@@ -27,7 +27,7 @@ jobs:
     - name: Update diagram
       uses: githubocto/repo-visualizer@main
       with:
-        output_file: "images/project_diagram.svg"
+        output_file: "doc/project_diagram.svg"
 
     - name: Install cmake, ninja, conan, qt.
       uses: ./.github/workflows/build_prepare
