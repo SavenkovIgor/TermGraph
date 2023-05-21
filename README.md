@@ -159,8 +159,7 @@ You can start tests from:
 └── project.py               # Python script for building and running project
 ```
 <br/>
-[Project diagram](doc/project_diagram.svg)
-<br/>
+
 ## :pushpin: Credits
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-SavenkovIgor-555555?style=for-the-badge&logo=linkedin&logoColor=white&labelColor=0077B5)](https://www.linkedin.com/in/savenkovigor-dev/)
 <br/>
