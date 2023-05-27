@@ -33,6 +33,8 @@ jobs:
         install-wasm-deps: ${{ matrix.build_profile == 'wasm_release' }}
         emsdk-version: ${{ env.EMSDK_VERSION }}
 
+    - name: Create default Conan profile
+      run: conan profile detect
 
     - name: Conan install dependencies
       run: conan install . --profile conanfiles/profile/${{ matrix.build_profile }} --build=missing -of=build/${{ matrix.build_profile }}/conan-dependencies
