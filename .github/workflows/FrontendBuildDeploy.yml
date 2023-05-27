@@ -35,13 +35,13 @@ jobs:
       run: conan profile detect
 
     - name: Conan install dependencies
-      run: conan install . --profile conanfiles/profile/${{ matrix.build_profile }} --build=missing -of=build/${{ matrix.build_profile }}/conan-dependencies
+      run: ./project.py --install --preset ${{ matrix.build_profile }}
 
     - name: CMake configure
-      run: cmake --preset ${{ matrix.build_profile }} ./
+      run: ./project.py --configure --preset ${{ matrix.build_profile }}
 
     - name: Cmake build
-      run: cmake --build --preset ${{ matrix.build_profile }}
+      run: ./project.py --build --preset ${{ matrix.build_profile }}
 
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v1
