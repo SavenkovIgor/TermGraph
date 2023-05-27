@@ -33,7 +33,7 @@ jobs:
 
 
     - name: Conan install dependencies
-      run: conan install . --profile conanfiles/profile/${{ matrix.build_profile }} --build=missing -if=build/${{ matrix.build_profile }}/conan-dependencies
+      run: conan install . --profile conanfiles/profile/${{ matrix.build_profile }} --build=missing -of=build/${{ matrix.build_profile }}/conan-dependencies
 
     - name: CMake configure
       run: cmake --preset ${{ matrix.build_profile }} ./
