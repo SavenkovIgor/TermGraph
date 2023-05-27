@@ -19,13 +19,6 @@ class TermGraphConan(ConanFile):
         if not self.is_wasm():
             self.test_requires('gtest/1.10.0')
 
-    def generate(self):
-        tc = CMakeToolchain(self)
-        tc.generate()
-
-        deps = CMakeDeps(self)
-        deps.generate()
-
     def build(self):
         cmake = CMake(self)
         cmake.configure()

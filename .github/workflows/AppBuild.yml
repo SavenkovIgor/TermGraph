@@ -33,16 +33,18 @@ jobs:
         install-wasm-deps: ${{ matrix.build_profile == 'wasm_release' }}
         emsdk-version: ${{ env.EMSDK_VERSION }}
 
+    - name: Create default Conan profile
+      run: conan profile detect
 
     - name: Conan install dependencies
-      run: conan install . --profile conanfiles/profile/${{ matrix.build_profile }} --build=missing -if=build/${{ matrix.build_profile }}/conan-dependencies
+      run: ./project.py --install --preset ${{ matrix.build_profile }}
 
     - name: CMake configure
-      run: cmake --preset ${{ matrix.build_profile }} ./
+      run: ./project.py --configure --preset ${{ matrix.build_profile }}
 
     - name: Cmake build
-      run: cmake --build --preset ${{ matrix.build_profile }}
+      run: ./project.py --build --preset ${{ matrix.build_profile }}
 
     - if: ${{ matrix.build_profile != 'wasm_release' }}
       name: CTest
-      run: ctest --preset ${{ matrix.build_profile }} --output-on-failure --verbose
+      run: ./project.py --test --preset ${{ matrix.build_profile }}

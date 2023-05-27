@@ -6,7 +6,7 @@ inputs:
     required: true
 
   conan-version:
-    default: 1.59.0
+    default: 2.0.6
 
   install-wasm-deps:
     default: false
