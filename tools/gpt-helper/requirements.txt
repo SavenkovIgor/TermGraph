@@ -4,3 +4,4 @@ openai
 python-dotenv
 wikipedia
 nltk
+guidance
