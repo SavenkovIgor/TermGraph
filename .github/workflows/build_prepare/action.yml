@@ -31,6 +31,9 @@ runs:
       with:
         version: ${{ inputs.conan-version }}
 
+    - name: Create default Conan profile
+      run: conan profile detect
+
     - name: Install Qt gcc_64
       uses: jurplel/install-qt-action@v3
       with:
