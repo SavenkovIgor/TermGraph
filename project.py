@@ -105,7 +105,7 @@ class Project:
         self.prepare(preset_name)
         print(f'---INSTALL {self.name} with preset {preset_name}---')
         assert_system_call(
-            f'conan install . --profile conanfiles/profile/{preset_name} --build=missing -if={self.build_dir(preset_name)}/conan-dependencies')
+            f'conan install . --profile conanfiles/profile/{preset_name} --build=missing -of={self.build_dir(preset_name)}/conan-dependencies')
 
     def configure(self, preset_name: str):
         self.prepare(preset_name)
@@ -141,7 +141,7 @@ class Project:
         print(f'---CLEAR {self.name}---')
         delete_if_exist(self.path / 'build')
         if clear_conan:
-            assert_system_call('conan remove -f "*"')
+            assert_system_call('conan remove -c "*"')
 
 
 # Should be possible to run:
