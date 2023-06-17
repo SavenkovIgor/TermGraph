@@ -10,6 +10,9 @@ env:
   EMSDK_VERSION: 3.1.25
   QT_VERSION: 6.5.0
   QT_ROOT: ${{ github.workspace }}/Qt
+  CONAN_VERSION: 2.0.6
+  AQT_VERSION: ==3.1.5
+  PY7ZR_VERSION: ==0.20.2
 
 jobs:
   build:
@@ -46,11 +49,11 @@ jobs:
       run: ./project.py --build --preset ${{ matrix.build_profile }}
 
     - name: CTest
-      if: ${{ matrix.build_profile != 'wasm_release' }}
+      if: matrix.build_profile != 'wasm_release'
       run: ./project.py --test --preset ${{ matrix.build_profile }}
 
     - name: Upload artifact
-      if: ${{ matrix.build_profile == 'wasm_release' }}
+      if: matrix.build_profile == 'wasm_release' && github.ref == 'refs/heads/main' && github.event_name == 'push'
       uses: actions/upload-pages-artifact@v1
       with:
         path: ${{github.workspace}}/build/wasm_release/deploy
