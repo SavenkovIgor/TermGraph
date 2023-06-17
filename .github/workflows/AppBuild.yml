@@ -1,4 +1,4 @@
-name: Application build
+name: Frontend build, and deploy to GitHub Pages
 
 on:
   push:
@@ -45,6 +45,30 @@ jobs:
     - name: Cmake build
       run: ./project.py --build --preset ${{ matrix.build_profile }}
 
-    - if: ${{ matrix.build_profile != 'wasm_release' }}
-      name: CTest
+    - name: CTest
+      if: ${{ matrix.build_profile != 'wasm_release' }}
       run: ./project.py --test --preset ${{ matrix.build_profile }}
+
+    - name: Upload artifact
+      if: ${{ matrix.build_profile == 'wasm_release' }}
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: ${{github.workspace}}/build/wasm_release/deploy
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    permissions:
+      id-token: write
+      pages: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v1
