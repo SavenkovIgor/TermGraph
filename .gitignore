@@ -9,3 +9,7 @@ CMakeUserPresets.json
 *.pro.user*
 *.qbs.user*
 *.txt.user*
+
+rust-cxx/build/
+rust-cxx/rust/target
+rust-cxx/rust/Cargo.lock

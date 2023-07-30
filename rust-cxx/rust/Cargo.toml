@@ -1,0 +1,15 @@
+[package]
+name = "qml-minimal"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+cxx = "1.0.95"
+cxx-qt = "0.5"
+cxx-qt-lib = "0.5"
+
+[build-dependencies]
+cxx-qt-build = "0.5"
