@@ -11,6 +11,7 @@ project (TermGraph
          LANGUAGES CXX)
 
 # Cppfront section
+# TODO: Switch to https://github.com/modern-cmake/cppfront
 find_package (cppfront REQUIRED)
 set (cppfront_CMD "${cppfront_PACKAGE_FOLDER_RELEASE}/bin/cppfront")
 
