@@ -4,6 +4,7 @@
         "openai"
     ],
     "cSpell.ignoreWords": [
+        "levelname",
         "dotenv",
         "Lemmatizer",
         "lemmatize",

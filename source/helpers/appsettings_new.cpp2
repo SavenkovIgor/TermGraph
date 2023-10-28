@@ -1,0 +1,4 @@
+
+tgSettings: type = {
+    tgName: () -> std::string = "tg.termGraph";
+}

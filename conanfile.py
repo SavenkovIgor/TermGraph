@@ -8,7 +8,7 @@ class TermGraphConan(ConanFile):
     generators = 'CMakeToolchain', 'CMakeDeps'
     settings = 'os', 'arch', 'compiler', 'build_type'
 
-    # requires = ''
+    requires = 'cppfront/cci.20231017'
 
     def is_wasm(self):
         isEmscripten = self.settings.os == 'Emscripten'
