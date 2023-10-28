@@ -3,5 +3,8 @@
         "dotenv",
         "gtest",
         "openai"
+    ],
+    "cSpell.ignoreWords": [
+        "levelname"
     ]
 }
