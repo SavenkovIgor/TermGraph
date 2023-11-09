@@ -152,6 +152,7 @@ def main():
     parser.add_argument('--pack',        action='store_true', help='Pack project')
     parser.add_argument('--clear',       action='store_true', help='Clear project')
     parser.add_argument('--clear-all',   action='store_true', help='Clear project and conan cache')
+    parser.add_argument('--rebuild',     action='store_true', help='Rebuild project (clear, configure, build)')
 
     parser.add_argument('--preset', type=str, help='Preset to use',
                         choices=['desktop_dev', 'desktop_release', 'wasm_release'], default='desktop_release')
@@ -186,6 +187,13 @@ def main():
 
     if args.clear_all:
         app.clear(clear_conan=True)
+
+    if args.rebuild:
+        app.clear()
+        app.install(args.preset)
+        app.configure(args.preset)
+        app.build(args.preset)
+        app.run(args.preset)
 
 
 if __name__ == '__main__':
