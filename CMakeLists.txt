@@ -155,6 +155,8 @@ target_sources (TermGraph
         "source/Text/TextTools.h"
 )
 
+target_sources (TermGraph PUBLIC FILE_SET CXX_MODULES FILES "source/main.cpp")
+
 if (NOT WASM)
     target_sources (TermGraph PRIVATE "resources/HelpImages/HelpImages.qrc")
 endif ()
