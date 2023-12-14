@@ -6,13 +6,10 @@
 #include <optional>
 #include <vector>
 
-#ifndef Q_OS_WASM
-#include <QFuture>
-#endif
-
 #include <QSizeF>
 #include <QUuid>
 #include <QtCore>
+#include <QtGlobal>
 
 #include "source/commonTools/Errors.h"
 
@@ -34,48 +31,6 @@ public:
     ErrorCodes error() const { return std::get<ErrorCodes>(*this); }
 };
 
-#ifdef Q_OS_WASM
-// Wrapper, that supports "then" call
-template<typename T>
-class FutureWrapper
-{
-public:
-    FutureWrapper() = default;
-
-    FutureWrapper(T&& value)
-        : mValue(std::move(value))
-    {}
-
-    auto then(const std::function<void(T)>& func) -> void { func(std::move(mValue)); }
-
-private:
-    T mValue;
-};
-
-template<typename RetType>
-using FutureResult = FutureWrapper<Result<RetType>>;
-
-template<typename T>
-static FutureWrapper<T> toFuture(const std::function<T()>& func)
-{
-    return FutureWrapper<T>(std::move(func()));
-}
-
-#else
-template<typename RetType>
-using FutureResult = QFuture<Result<RetType>>;
-
-template<typename T>
-static QFuture<T> toFuture(const std::function<T()>& func)
-{
-    QPromise<T> promise;
-    promise.start();
-    promise.addResult(func());
-    promise.finish();
-    return promise.future();
-}
-#endif
-
 enum class Direction { Left, Right };
 
 enum class UuidMode { Default, Url };
@@ -83,7 +38,7 @@ enum class UuidMode { Default, Url };
 class SizeList : public std::vector<QSizeF>
 {
 public:
-    // Retruns total size of stacked sizes, placed vertically or horizontally
+    // Returns total size of stacked sizes, placed vertically or horizontally
     QSizeF totalStackedSize(Qt::Orientation stackDirection)
     {
         qreal width  = 0;
