@@ -6,8 +6,6 @@ import subprocess
 import argparse
 from pathlib import Path
 
-# TODO: Rename assert_system_call with run
-# TODO: Replace asserts with real asserts
 
 def repository_root() -> Path:
     return Path(__file__).parent
@@ -19,25 +17,11 @@ def set_env_var_if_missed(env_var_name: str, default_value: str):
         print(f'Env.variable {env_var_name} not found. Set to {default_value}')
 
 
-def assert_variable_exist(varname: str, example: str):
-    if not varname in os.environ:
-        print(f'Error: variable not defined {varname}')
-        print(f'Can be defined as: {example}')
-        exit(1)
-
-
 def is_valid_env_path(varname: str) -> bool:
     return varname in os.environ and Path(os.environ[varname]).exists()
 
 
-def assert_path_exist(path: Path, error: str):
-    if not path.exists():
-        print(f'Error: path not exist {path}')
-        print({error})
-        exit(1)
-
-
-def assert_system_call(command: str):
+def run(command: str):
     if subprocess.call(command, shell=True, executable='/bin/bash') != 0:
         exit(1)
 
@@ -45,7 +29,7 @@ def assert_system_call(command: str):
 def delete_if_exist(path: Path):
     if path.exists():
         print(f'Delete {path}')
-        assert_system_call(f'rm -rf {path}')
+        run(f'rm -rf {path}')
 
 
 def env_qt_version() -> str:
@@ -60,21 +44,21 @@ def configure_environment(for_wasm: bool = False):
     set_env_var_if_missed('QT_ROOT',    default_value=os.path.expanduser('~/Qt'))
     set_env_var_if_missed('QT_VERSION', default_value='6.6.1')
 
-    assert_variable_exist('QT_VERSION', example='x.y.z')
-    assert_variable_exist('QT_ROOT',    example='~/Qt')
-    assert_path_exist(env_qt_root(), error='Path from QT_ROOT env.variable')
+    assert 'QT_VERSION' in os.environ, 'Error: QT_VERSION is not defined. Can be defined as: x.y.z'
+    assert 'QT_ROOT'    in os.environ, 'Error: QT_ROOT is not defined. Can be defined as: ~/Qt'
+    assert env_qt_root().exists(),     'Error: Path from QT_ROOT env.variable not exist'
 
     if for_wasm:
         has_emsdk = is_valid_env_path('EMSDK')
         has_emsdk_node = is_valid_env_path('EMSDK_NODE')
 
         if not has_emsdk or not has_emsdk_node:
-            assert_system_call(f'source {os.path.expanduser("~/emsdk/emsdk_env.sh")}')
+            run(f'source {os.path.expanduser("~/emsdk/emsdk_env.sh")}')
 
-        assert_variable_exist('EMSDK',      example='~/emsdk')
-        assert_variable_exist('EMSDK_NODE', example='~/emsdk/node/14.18.2_64bit/bin/node')
-        assert_path_exist(Path(os.environ['EMSDK']),      error='Path from EMSDK env.variable')
-        assert_path_exist(Path(os.environ['EMSDK_NODE']), error='Path from EMSDK_NODE env.variable')
+        assert 'EMSDK'      in os.environ, 'Error: EMSDK is not defined. Can be defined as: ~/emsdk'
+        assert 'EMSDK_NODE' in os.environ, 'Error: EMSDK_NODE is not defined. Can be defined as: ~/emsdk/node/14.18.2_64bit/bin/node'
+        assert Path(os.environ['EMSDK']).exists(),      'Error: path from EMSDK env.variable not exist'
+        assert Path(os.environ['EMSDK_NODE']).exists(), 'Error: path from EMSDK_NODE env.variable not exist'
 
 
 class Project:
@@ -82,7 +66,7 @@ class Project:
         self.name = name
         self.path = path
         self.run_name = run_name
-        assert_path_exist(path, 'from project path')
+        assert path.exists(), f'Error: path not exist {path}'
         self.available_presets = available_presets
 
     def project_dir(self) -> Path:
@@ -106,14 +90,16 @@ class Project:
     def install(self, preset_name: str):
         self.prepare(preset_name)
         print(f'---INSTALL {self.name} with preset {preset_name}---')
-        assert_system_call(
-            f'conan install . --profile conanfiles/profile/{preset_name} --build=missing -of={self.build_dir(preset_name)}/conan-dependencies')
+        args = [f'--profile=conanfiles/profile/{preset_name}']
+        args += ['--build=missing']
+        args += [f'-of={self.build_dir(preset_name)}/conan-dependencies']
+        run(f'conan install . {" ".join(args)}')
 
     def configure(self, preset_name: str):
         self.prepare(preset_name)
         print(f'---CONFIGURE {self.name} with preset {preset_name}---')
         self.delete_cmake_user_presets()
-        assert_system_call(f'cmake --preset {preset_name} ./')
+        run(f'cmake --preset {preset_name} ./')
 
     def build(self, preset_name: str):
         self.prepare(preset_name)
@@ -122,17 +108,17 @@ class Project:
         self.configure(preset_name)
 
         print(f'---BUILD {self.name} preset: {preset_name}, Qt: {env_qt_version()}---')
-        assert_system_call(f'cmake --build --preset {preset_name}')
+        run(f'cmake --build --preset {preset_name}')
 
     def test(self, preset_name: str):
         self.prepare(preset_name)
         print(f'---TEST {self.name} with preset {preset_name}---')
-        assert_system_call(f'ctest --preset {preset_name} --output-on-failure --verbose')
+        run(f'ctest --preset {preset_name} --output-on-failure --verbose')
 
     def run(self, preset_name: str):
         self.prepare(preset_name)
         print(f'---RUN {self.name} with preset {preset_name}---')
-        assert_system_call(f'./build/{preset_name}/{self.run_name}')
+        run(f'./build/{preset_name}/{self.run_name}')
 
     def pack(self, preset_name: str):
         print('---CMAKE PACKAGE STARTED---')
@@ -143,7 +129,7 @@ class Project:
         print(f'---CLEAR {self.name}---')
         delete_if_exist(self.path / 'build')
         if clear_conan:
-            assert_system_call('conan remove -c "*"')
+            run('conan remove -c "*"')
 
 
 # Should be possible to run:
