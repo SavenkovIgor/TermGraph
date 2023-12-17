@@ -7,12 +7,12 @@ on:
     branches: [ "main" ]
 
 env:
-  EMSDK_VERSION: 3.1.25
-  QT_VERSION: 6.5.0
+  EMSDK_VERSION: 3.1.37
+  QT_VERSION: 6.6.1
   QT_ROOT: ${{ github.workspace }}/Qt
-  CONAN_VERSION: 2.0.6
-  AQT_VERSION: ==3.1.5
-  PY7ZR_VERSION: ==0.20.2
+  CONAN_VERSION: 2.0.14
+  # AQT_VERSION: ==3.1.11
+  # PY7ZR_VERSION: ==0.20.2
 
 jobs:
   build:
@@ -40,8 +40,8 @@ jobs:
     - name: Install Qt gcc_64
       uses: jurplel/install-qt-action@v3
       with:
-        aqtversion: ${{ env.AQT_VERSION }}
-        py7zrversion: ${{ env.PY7ZR_VERSION }}
+        # aqtversion: ${{ env.AQT_VERSION }}
+        # py7zrversion: ${{ env.PY7ZR_VERSION }}
         version: ${{ env.QT_VERSION }}
         dir: ${{ github.workspace }}
         arch: 'gcc_64'
@@ -60,8 +60,8 @@ jobs:
       if: matrix.build_profile == 'wasm_release'
       uses: jurplel/install-qt-action@v3
       with:
-        aqtversion: ${{ env.AQT_VERSION }}
-        py7zrversion: ${{ env.PY7ZR_VERSION }}
+        # aqtversion: ${{ env.AQT_VERSION }}
+        # py7zrversion: ${{ env.PY7ZR_VERSION }}
         version: ${{ env.QT_VERSION }}
         dir: ${{ github.workspace }}
         arch: 'wasm_singlethread'

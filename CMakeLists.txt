@@ -41,7 +41,7 @@ if (NOT WASM)
     add_subdirectory ("${LIBS_ROOT}/TermDataStorage"    "${CMAKE_BINARY_DIR}/lib/TermDataStorage")
 endif ()
 
-qt_standard_project_setup(REQUIRES 6.5)
+qt_standard_project_setup(REQUIRES 6.6)
 
 qt_add_executable (TermGraph
     "android/AndroidManifest.xml"
