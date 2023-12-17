@@ -15,6 +15,14 @@
       }
     },
     {
+      "name": "clang_17_compiler",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "/usr/bin/clang-17",
+        "CMAKE_CXX_COMPILER": "/usr/bin/clang++-17"
+      }
+    },
+    {
       "name": "emsdk_compiler",
       "hidden": true,
       "cacheVariables": {
