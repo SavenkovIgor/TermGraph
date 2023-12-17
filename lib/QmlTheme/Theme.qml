@@ -97,7 +97,7 @@ QtObject {
         readonly property url sociology       : "qrc:/qt/qml/Theme/area/sociology.svg"
     }
 
-    function areaIcon(type: Int): url {
+    function areaIcon(type: int): url {
         switch (type) {
         case KnowledgeArea.Philosophy:      return Theme.area.philosophy;
         case KnowledgeArea.Math:            return Theme.area.math;
