@@ -2,8 +2,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
-project (CommonTools LANGUAGES CXX)
-
 find_package (Qt6 REQUIRED COMPONENTS Core)
 
 if (ANDROID OR WASM)
@@ -12,7 +10,9 @@ endif ()
 
 find_package (outcome REQUIRED)
 
-add_library (CommonTools
+add_library (CommonTools INTERFACE)
+
+target_sources (CommonTools
     INTERFACE
         include/CommonTools/GroupUuid.h
         include/CommonTools/HandyTypes.h
@@ -31,7 +31,7 @@ if (STATIC_STORAGE)
     target_compile_definitions (CommonTools INTERFACE STATIC_STORAGE)
 endif ()
 
-target_include_directories (CommonTools INTERFACE "./include")
+target_include_directories (CommonTools INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 target_link_libraries (CommonTools INTERFACE Qt6::Core)
 target_link_libraries (CommonTools INTERFACE outcome::outcome)
