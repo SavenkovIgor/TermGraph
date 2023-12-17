@@ -6,6 +6,8 @@ import subprocess
 import argparse
 from pathlib import Path
 
+# TODO: Rename assert_system_call with run
+# TODO: Replace asserts with real asserts
 
 def repository_root() -> Path:
     return Path(__file__).parent
