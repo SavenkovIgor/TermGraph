@@ -2,7 +2,7 @@
   "version": 3,
   "cmakeMinimumRequired": {
     "major": 3,
-    "minor": 22,
+    "minor": 28,
     "patch": 0
   },
   "configurePresets": [
@@ -12,6 +12,14 @@
       "cacheVariables": {
         "CMAKE_C_COMPILER": "/usr/bin/gcc",
         "CMAKE_CXX_COMPILER": "/usr/bin/g++"
+      }
+    },
+    {
+      "name": "clang_17_compiler",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "/usr/bin/clang-17",
+        "CMAKE_CXX_COMPILER": "/usr/bin/clang++-17"
       }
     },
     {
@@ -66,7 +74,7 @@
     {
       "name": "desktop_dev",
       "displayName": "Desktop dev build",
-      "inherits": ["default", "qt_env", "gcc_compiler", "debug_build", "test_on"],
+      "inherits": ["default", "qt_env", "clang_17_compiler", "debug_build", "test_on"],
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
@@ -75,7 +83,7 @@
     {
       "name": "desktop_release",
       "displayName": "Desktop release build",
-      "inherits": ["default", "qt_env", "gcc_compiler", "release_build", "test_on"],
+      "inherits": ["default", "qt_env", "clang_17_compiler", "release_build", "test_on"],
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
