@@ -60,8 +60,7 @@ enum ErrorCodes {
 
 namespace Errors {
 
-inline const char* toChar(ErrorCodes code)
-{
+inline QString toQString(ErrorCodes code) {
     // clang-format off
     switch(code) {
         case ErrorCodes::GroupUuidInvalid:                        return "GroupUuidInvalid";
@@ -102,7 +101,6 @@ inline const char* toChar(ErrorCodes code)
     return "UnknownError";
 }
 
-inline QString toQString(ErrorCodes code) { return {toChar(code)}; }
 inline QString toQString(int code) { return toQString(static_cast<ErrorCodes>(code)); }
 
 inline ErrorCodes fromChar(const char* enumName)
@@ -153,4 +151,4 @@ inline ErrorCodes fromQString(QString enumName)
     return fromChar(str.c_str());
 }
 
-} // namespace Errors
+}
