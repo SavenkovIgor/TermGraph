@@ -16,7 +16,7 @@ void DataProvider::loadGroups()
     dataStorage->groups().then([this](Result<GroupSummary::List> result) {
 
         if (!result.has_value()) {
-            emit showError(result.error().value());
+            emit showError(static_cast<int>(result.error()));
             return;
         }
 
@@ -91,7 +91,7 @@ void DataProvider::addGroup(const GroupSummary &info)
         if (result.has_value()) {
             emit groupAdded(result.value());
         } else {
-            emit showError(result.error().value());
+            emit showError(static_cast<int>(result.error()));
         }
     });
 }
@@ -102,7 +102,7 @@ void DataProvider::updateGroup(const GroupSummary &info)
         if (result.has_value()) {
             emit groupUpdated(result.value());
         } else {
-            emit showError(result.error().value());
+            emit showError(static_cast<int>(result.error()));
         }
     });
 }
@@ -113,7 +113,7 @@ void DataProvider::deleteGroup(const GroupUuid &uuid)
         if (result.has_value()) {
             emit groupDeleted(result.value().uuid.value());
         } else {
-            emit showError(result.error().value());
+            emit showError(static_cast<int>(result.error()));
         }
     });
 }
@@ -142,7 +142,7 @@ void DataProvider::addTerm(const TermData &data)
         if (result) {
             emit termAdded(result.value());
         } else {
-            emit showError(result.error().value());
+            emit showError(static_cast<int>(result.error()));
         }
     });
 }
@@ -153,7 +153,7 @@ void DataProvider::updateTerm(const TermData &data, DataStorageInterface::LastEd
         if (result) {
             emit termUpdated(result.value());
         } else {
-            emit showError(result.error().value());
+            emit showError(static_cast<int>(result.error()));
         }
     });
 }
@@ -164,7 +164,7 @@ void DataProvider::deleteTerm(const TermUuid &uuid)
         if (result) {
             emit termDeleted(result.value().uuid.value());
         } else {
-            emit showError(result.error().value());
+            emit showError(static_cast<int>(result.error()));
         }
     });
 }
