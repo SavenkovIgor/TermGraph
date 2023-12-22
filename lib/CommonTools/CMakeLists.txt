@@ -4,12 +4,6 @@
 
 find_package (Qt6 REQUIRED COMPONENTS Core)
 
-if (ANDROID OR WASM)
-    set (outcome_DIR "${CMAKE_BINARY_DIR}/conan-dependencies")
-endif ()
-
-find_package (outcome REQUIRED)
-
 add_library (CommonTools INTERFACE)
 
 target_sources (CommonTools
@@ -24,9 +18,6 @@ target_sources (CommonTools
         include/CommonTools/TermUuid.h
         include/CommonTools/Validator.h)
 
-# Disable of std expected for outcome library
-target_compile_definitions (CommonTools INTERFACE nsel_CONFIG_SELECT_EXPECTED nsel_EXPECTED_NONSTD)
-
 if (STATIC_STORAGE)
     target_compile_definitions (CommonTools INTERFACE STATIC_STORAGE)
 endif ()
@@ -34,7 +25,6 @@ endif ()
 target_include_directories (CommonTools INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
 target_link_libraries (CommonTools INTERFACE Qt6::Core)
-target_link_libraries (CommonTools INTERFACE outcome::outcome)
 
 if (BUILD_TESTING)
     enable_testing ()

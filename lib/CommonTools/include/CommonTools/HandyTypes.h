@@ -6,8 +6,6 @@
 #include <optional>
 #include <vector>
 
-#include <outcome.hpp>
-
 #ifndef Q_OS_WASM
 #include <QFuture>
 #endif
@@ -18,15 +16,23 @@
 
 #include <CommonTools/Errors.h>
 
-namespace outcome = OUTCOME_V2_NAMESPACE;
-
 using UuidList   = std::vector<QUuid>;
 
 template<typename T>
 using Opt = std::optional<T>;
 
 template<typename T>
-using Result = outcome::std_result<T>;
+class Result : public std::variant<T, ErrorCodes>
+{
+public:
+    using std::variant<T, ErrorCodes>::variant;
+
+    operator bool() const { return !std::holds_alternative<ErrorCodes>(*this); }
+    bool has_value() const { return !std::holds_alternative<ErrorCodes>(*this); }
+
+    T value() const { return std::get<T>(*this); }
+    ErrorCodes error() const { return std::get<ErrorCodes>(*this); }
+};
 
 #ifdef Q_OS_WASM
 // Wrapper, that supports "then" call
