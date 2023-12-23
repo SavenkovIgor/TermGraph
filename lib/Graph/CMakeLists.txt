@@ -33,9 +33,6 @@ if (BUILD_TESTING)
             test/graphtest.cpp
             test/nodetest.cpp)
 
-    set_target_properties (GraphTest
-        PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
-
     target_link_libraries (GraphTest GTest::gtest GTest::gtest_main)
     target_link_libraries (GraphTest Graph Qt6::Core)
 

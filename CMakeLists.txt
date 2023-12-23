@@ -10,6 +10,8 @@ project (TermGraph
          HOMEPAGE_URL "https://termgraph.app/"
          LANGUAGES CXX)
 
+set (CMAKE_CXX_STANDARD 20)
+set (CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
     set (WASM "True")
@@ -112,11 +114,6 @@ qt_add_executable (TermGraph
     "source/model/term/termsmodel.cpp"
     "source/model/term/termsmodel.h"
 )
-
-set_target_properties (TermGraph
-    PROPERTIES
-        CXX_STANDARD 20
-        CXX_STANDARD_REQUIRED ON)
 
 # Define target properties for Android with Qt 6 as:
 if (ANDROID)
@@ -254,9 +251,6 @@ if (BUILD_TESTING)
             test/linktest.cpp
             test/linktoolstest.cpp
         )
-
-    set_target_properties (TermGraphTest
-        PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
     target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)

@@ -12,11 +12,7 @@ target_link_libraries (StaticDataStorage PUBLIC Qt6::Core)
 target_link_libraries (StaticDataStorage PUBLIC CommonTools)
 target_link_libraries (StaticDataStorage PUBLIC TermDataInterface)
 
-set_target_properties (StaticDataStorage
-    PROPERTIES
-        AUTORCC ON
-        CXX_STANDARD 20
-        CXX_STANDARD_REQUIRED ON)
+set_target_properties (StaticDataStorage PROPERTIES AUTORCC ON)
 
 target_include_directories (StaticDataStorage INTERFACE "./include")
 target_include_directories (StaticDataStorage PRIVATE ${PROJECT_SOURCE_DIR})
@@ -41,9 +37,6 @@ if (BUILD_TESTING)
 
     add_executable (StaticDataStorageTest)
     target_sources (StaticDataStorageTest PRIVATE test/StaticStorageTest.cpp)
-
-    set_target_properties (StaticDataStorageTest
-        PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 
     target_link_libraries (StaticDataStorageTest GTest::gtest GTest::gtest_main)
     target_link_libraries (StaticDataStorageTest StaticDataStorage)

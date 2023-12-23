@@ -10,11 +10,7 @@ qt_standard_project_setup(REQUIRES 6.6)
 
 qt_add_library (ToolsModule STATIC)
 
-set_target_properties (ToolsModule
-    PROPERTIES
-        AUTOMOC ON
-        CXX_STANDARD 20
-        CXX_STANDARD_REQUIRED ON)
+set_target_properties (ToolsModule PROPERTIES AUTOMOC ON)
 
 set (QML_SOURCES Debug.qml Tools.qml Ruler.qml DebugFrame.qml)
 

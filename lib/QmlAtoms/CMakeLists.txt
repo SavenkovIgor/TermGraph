@@ -10,11 +10,7 @@ qt_standard_project_setup(REQUIRES 6.6)
 
 qt_add_library (AtomsModule STATIC)
 
-set_target_properties (AtomsModule
-    PROPERTIES
-        AUTOMOC ON
-        CXX_STANDARD 20
-        CXX_STANDARD_REQUIRED ON)
+set_target_properties (AtomsModule PROPERTIES AUTOMOC ON)
 
 qt_add_qml_module (AtomsModule
     URI Atoms
