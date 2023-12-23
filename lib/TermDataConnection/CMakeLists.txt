@@ -15,7 +15,6 @@ target_link_libraries (TermDataConnection PUBLIC  TermDataInterface)
 target_include_directories (TermDataConnection INTERFACE "./include")
 target_include_directories (TermDataConnection PRIVATE ${PROJECT_SOURCE_DIR})
 
-# Sql queries
 target_sources (TermDataConnection
     PRIVATE
         include/TermDataConnection/DataStorageConnection.h

@@ -17,7 +17,6 @@ set_target_properties (StaticDataStorage PROPERTIES AUTORCC ON)
 target_include_directories (StaticDataStorage INTERFACE "./include")
 target_include_directories (StaticDataStorage PRIVATE ${PROJECT_SOURCE_DIR})
 
-# Sql queries
 target_sources (StaticDataStorage
     INTERFACE
         include/StaticDataStorage/StaticDataStorage.h
