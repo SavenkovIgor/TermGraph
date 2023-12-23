@@ -14,7 +14,6 @@ target_link_libraries (Text PRIVATE CommonTools)
 target_include_directories (Text INTERFACE "./include")
 target_include_directories (Text PRIVATE ${PROJECT_SOURCE_DIR})
 
-# Sql queries
 target_sources (Text
     INTERFACE
         include/Text/CharTools.h

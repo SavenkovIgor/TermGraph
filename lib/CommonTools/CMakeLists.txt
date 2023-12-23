@@ -5,7 +5,6 @@
 find_package (Qt6 REQUIRED COMPONENTS Core)
 
 add_library (CommonTools INTERFACE)
-
 target_sources (CommonTools
     INTERFACE
         include/CommonTools/GroupUuid.h

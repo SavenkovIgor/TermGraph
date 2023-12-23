@@ -17,7 +17,6 @@ set_target_properties (TermDataStorage PROPERTIES AUTORCC ON)
 target_include_directories (TermDataStorage INTERFACE "./include")
 target_include_directories (TermDataStorage PRIVATE ${PROJECT_SOURCE_DIR})
 
-# Sql queries
 target_sources (TermDataStorage
     INTERFACE
         include/TermDataStorage/LocalDataStorage.h

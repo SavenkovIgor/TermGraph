@@ -8,7 +8,7 @@ find_package (Qt6 REQUIRED COMPONENTS Core QuickControls2 Svg)
 
 qt_standard_project_setup(REQUIRES 6.6)
 
-qt_add_library (ThemeModule STATIC)
+add_library (ThemeModule STATIC)
 
 set_target_properties (ThemeModule PROPERTIES AUTOMOC ON)
 

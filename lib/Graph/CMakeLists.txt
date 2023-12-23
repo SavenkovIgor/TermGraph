@@ -4,7 +4,8 @@
 
 project (Graph LANGUAGES CXX)
 
-add_library (Graph
+add_library (Graph INTERFACE)
+target_sources (Graph
     INTERFACE
         include/Graph/Edge.hpp
         include/Graph/Forest.hpp

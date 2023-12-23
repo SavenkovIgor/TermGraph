@@ -8,7 +8,7 @@ find_package (Qt6 REQUIRED COMPONENTS QuickControls2)
 
 qt_standard_project_setup(REQUIRES 6.6)
 
-qt_add_library (ToolsModule STATIC)
+add_library (ToolsModule STATIC)
 
 set_target_properties (ToolsModule PROPERTIES AUTOMOC ON)
 
