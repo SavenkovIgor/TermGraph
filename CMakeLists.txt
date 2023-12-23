@@ -43,7 +43,7 @@ endif ()
 
 qt_standard_project_setup(REQUIRES 6.6)
 
-add_executable (TermGraph)
+qt_add_executable (TermGraph)
 target_sources (TermGraph
     PRIVATE
     "android/AndroidManifest.xml"
