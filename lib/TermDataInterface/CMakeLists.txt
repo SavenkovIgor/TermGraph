@@ -11,11 +11,6 @@ add_library (TermDataInterface STATIC)
 target_link_libraries (TermDataInterface PUBLIC CommonTools Text)
 target_link_libraries (TermDataInterface PUBLIC Qt6::Core)
 
-set_target_properties (TermDataInterface
-    PROPERTIES
-        CXX_STANDARD 20
-        CXX_STANDARD_REQUIRED ON)
-
 target_include_directories (TermDataInterface INTERFACE "./include")
 target_include_directories (TermDataInterface PRIVATE ${PROJECT_SOURCE_DIR})
 
@@ -48,9 +43,6 @@ if (BUILD_TESTING)
             test/termdatatest.cpp
             test/groupsummarytest.cpp
             test/staticgroupdatatest.cpp)
-
-    set_target_properties (TermDataInterfaceTest
-        PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 
     target_link_libraries (TermDataInterfaceTest GTest::gtest GTest::gtest_main)
     target_link_libraries (TermDataInterfaceTest CommonTools Text TermDataInterface Qt6::Core)

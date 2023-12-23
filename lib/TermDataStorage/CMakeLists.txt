@@ -12,11 +12,7 @@ target_link_libraries (TermDataStorage PRIVATE CommonTools)
 target_link_libraries (TermDataStorage PRIVATE Qt6::Core Qt6::Sql)
 target_link_libraries (TermDataStorage PUBLIC  TermDataInterface)
 
-set_target_properties (TermDataStorage
-    PROPERTIES
-        AUTORCC ON
-        CXX_STANDARD 20
-        CXX_STANDARD_REQUIRED ON)
+set_target_properties (TermDataStorage PROPERTIES AUTORCC ON)
 
 target_include_directories (TermDataStorage INTERFACE "./include")
 target_include_directories (TermDataStorage PRIVATE ${PROJECT_SOURCE_DIR})
@@ -54,9 +50,6 @@ if (BUILD_TESTING)
 
     add_executable (TermDataStorageTest)
     target_sources (TermDataStorageTest PRIVATE test/DbWorksTest.cpp)
-
-    set_target_properties (TermDataStorageTest
-        PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 
     target_link_libraries (TermDataStorageTest GTest::gtest GTest::gtest_main)
     target_link_libraries (TermDataStorageTest CommonTools TermDataStorage Qt6::Core)

@@ -10,11 +10,7 @@ qt_standard_project_setup(REQUIRES 6.6)
 
 qt_add_library (PagesModule STATIC)
 
-set_target_properties (PagesModule
-    PROPERTIES
-        AUTOMOC ON
-        CXX_STANDARD 20
-        CXX_STANDARD_REQUIRED ON)
+set_target_properties (PagesModule PROPERTIES AUTOMOC ON)
 
 qt_add_qml_module (PagesModule
     URI Pages

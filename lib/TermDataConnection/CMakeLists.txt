@@ -12,11 +12,6 @@ target_link_libraries (TermDataConnection PRIVATE CommonTools)
 target_link_libraries (TermDataConnection PRIVATE Qt6::Core Qt6::Network)
 target_link_libraries (TermDataConnection PUBLIC  TermDataInterface)
 
-set_target_properties (TermDataConnection
-    PROPERTIES
-        CXX_STANDARD 20
-        CXX_STANDARD_REQUIRED ON)
-
 target_include_directories (TermDataConnection INTERFACE "./include")
 target_include_directories (TermDataConnection PRIVATE ${PROJECT_SOURCE_DIR})
 

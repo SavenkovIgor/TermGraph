@@ -42,9 +42,6 @@ if (BUILD_TESTING)
             test/uuidstest.cpp
             test/validatortest.cpp)
 
-    set_target_properties (CommonToolsTest
-        PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
-
     target_link_libraries (CommonToolsTest GTest::gtest GTest::gtest_main)
     target_link_libraries (CommonToolsTest CommonTools Qt6::Core)
 

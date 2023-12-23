@@ -11,11 +11,6 @@ add_library (Text STATIC)
 target_link_libraries (Text PRIVATE Qt6::Core Qt6::Gui)
 target_link_libraries (Text PRIVATE CommonTools)
 
-set_target_properties (Text
-    PROPERTIES
-        CXX_STANDARD 20
-        CXX_STANDARD_REQUIRED ON)
-
 target_include_directories (Text INTERFACE "./include")
 target_include_directories (Text PRIVATE ${PROJECT_SOURCE_DIR})
 
@@ -51,9 +46,6 @@ if (BUILD_TESTING)
                             test/cursortest.cpp
                             test/textrangetest.cpp
                             test/texttoolstest.cpp)
-
-    set_target_properties (TextTest
-        PROPERTIES CXX_STANDARD 20 CXX_STANDARD_REQUIRED ON)
 
     target_link_libraries (TextTest GTest::gtest GTest::gtest_main)
     target_link_libraries (TextTest Qt6::Core Qt6::Gui)

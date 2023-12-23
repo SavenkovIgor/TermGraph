@@ -10,11 +10,7 @@ qt_standard_project_setup(REQUIRES 6.6)
 
 qt_add_library (ThemeModule STATIC)
 
-set_target_properties (ThemeModule
-    PROPERTIES
-        AUTOMOC ON
-        CXX_STANDARD 20
-        CXX_STANDARD_REQUIRED ON)
+set_target_properties (ThemeModule PROPERTIES AUTOMOC ON)
 
 set (QML_SOURCES Sizes.qml Theme.qml)
 
