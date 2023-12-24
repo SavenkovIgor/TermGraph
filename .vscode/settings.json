@@ -15,5 +15,9 @@
         {
             "file": ".vscode/copilot-review-instructions.md",
         }
-    ]
+    ],
+    "files.associations": {
+        "*.json5": "jsonc",
+        "*.cppm": "cpp"
+    }
 }
