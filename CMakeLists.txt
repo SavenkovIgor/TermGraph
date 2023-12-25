@@ -12,6 +12,7 @@ project (TermGraph
 
 set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_CXX_SCAN_FOR_MODULES ON)
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
     set (WASM "True")
@@ -25,6 +26,7 @@ find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network 
 
 # Applications subdirs
 add_subdirectory ("lib/CommonTools")
+add_subdirectory ("lib/CommonToolsModule")
 add_subdirectory ("lib/Graph")
 add_subdirectory ("lib/QmlAtoms")
 add_subdirectory ("lib/QmlMolecules")
@@ -148,6 +150,7 @@ target_link_libraries (TermGraph
 
 # C++ libs
 target_link_libraries (TermGraph PRIVATE CommonTools)
+target_link_libraries (TermGraph PRIVATE CommonToolsModule)
 target_link_libraries (TermGraph PRIVATE Graph)
 target_link_libraries (TermGraph PRIVATE Text)
 target_link_libraries (TermGraph PRIVATE TermDataInterface)
