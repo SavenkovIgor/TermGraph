@@ -30,6 +30,7 @@ add_subdirectory ("qml/Molecules")
 add_subdirectory ("qml/Pages")
 
 add_subdirectory ("lib/CommonTools")
+add_subdirectory ("lib/CommonToolsModule")
 add_subdirectory ("lib/Graph")
 add_subdirectory ("lib/StaticDataStorage")
 add_subdirectory ("lib/TermDataInterface")
@@ -156,6 +157,7 @@ target_link_libraries (TermGraph
 
 # C++ libs
 target_link_libraries (TermGraph PRIVATE CommonTools)
+target_link_libraries (TermGraph PRIVATE CommonToolsModule)
 target_link_libraries (TermGraph PRIVATE Graph)
 target_link_libraries (TermGraph PRIVATE Text)
 target_link_libraries (TermGraph PRIVATE TermDataInterface)

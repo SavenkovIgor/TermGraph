@@ -23,6 +23,13 @@ target_sources (CommonTools
         include/CommonTools/TermUuid.h
         include/CommonTools/Validator.h)
 
+# target_sources (CommonTools
+    # PUBLIC
+    # FILE_SET CXX_MODULES
+    # FILES
+        # source/CommonTools/Errors.cpp
+# )
+
 if (STATIC_STORAGE)
     target_compile_definitions (CommonTools INTERFACE STATIC_STORAGE)
 endif ()
