@@ -12,7 +12,7 @@ export module CommonTools.TermUuid;
 import CommonTools.JsonTools;
 import CommonTools.SafeUuid;
 
-export {
+export namespace mod {
 
 class TermUuid final : public SafeUuid
 {

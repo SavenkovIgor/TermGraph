@@ -10,6 +10,8 @@ import CommonTools.SafeUuid;
 import CommonTools.GroupUuid;
 import CommonTools.TermUuid;
 
+using namespace mod;
+
 TEST(UuidsTest, Creation)
 {
     EXPECT_FALSE(SafeUuid::from("").has_value());

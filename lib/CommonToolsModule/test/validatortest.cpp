@@ -5,6 +5,8 @@
 
 import CommonTools.Validator;
 
+using namespace mod;
+
 struct Point
 {
     int x;

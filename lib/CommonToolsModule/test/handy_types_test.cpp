@@ -5,6 +5,8 @@
 
 import CommonTools.HandyTypes;
 
+using namespace mod;
+
 TEST(HandyTypesTest, Result)
 {
     Result<int> r = 1;

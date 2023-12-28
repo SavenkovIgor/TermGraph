@@ -8,7 +8,7 @@ module;
 
 export module CommonTools.Errors;
 
-export {
+export namespace mod {
 
 enum ErrorCodes {
     GroupUuidInvalid = 0,
@@ -154,4 +154,4 @@ ErrorCodes fromQString(QString enumName) {
 
 }
 
-}
+} // namespace mod
