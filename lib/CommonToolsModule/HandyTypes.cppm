@@ -20,7 +20,7 @@ export module CommonTools.HandyTypes;
 
 export import CommonTools.Errors;
 
-export {
+export namespace mod {
 
 using UuidList   = std::vector<QUuid>;
 

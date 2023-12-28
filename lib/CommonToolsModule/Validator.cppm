@@ -12,7 +12,7 @@ export module CommonTools.Validator;
 export import CommonTools.Errors;
 import CommonTools.HandyTypes;
 
-export {
+export namespace mod {
 
 template<typename Object>
 class Validator

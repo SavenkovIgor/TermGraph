@@ -10,7 +10,7 @@ module;
 
 export module CommonTools.JsonTools;
 
-export {
+export namespace mod {
 
 class JsonTools
 {

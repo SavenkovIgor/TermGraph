@@ -7,7 +7,7 @@ module;
 
 export module CommonTools.Platform;
 
-export {
+export namespace mod {
 
 class Platform
 {

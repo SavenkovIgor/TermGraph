@@ -12,7 +12,7 @@ export module CommonTools.GroupUuid;
 import CommonTools.JsonTools;
 import CommonTools.SafeUuid;
 
-export {
+export namespace mod {
 
 class GroupUuid final : public SafeUuid
 {
