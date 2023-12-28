@@ -7,7 +7,7 @@ module;
 
 export module CommonTools.NetworkTools;
 
-export {
+export namespace mod {
 
 class NetworkTools
 {

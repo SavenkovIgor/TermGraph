@@ -11,7 +11,7 @@ export module CommonTools.SafeUuid;
 
 export import CommonTools.HandyTypes;
 
-export {
+export namespace mod {
 
 class SafeUuid : public QUuid
 {
