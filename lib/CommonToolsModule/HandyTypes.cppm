@@ -6,6 +6,8 @@ module;
 #include <optional>
 #include <vector>
 
+#include <QtSystemDetection>
+
 #ifndef Q_OS_WASM
 #include <QFuture>
 #endif
