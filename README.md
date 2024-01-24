@@ -150,7 +150,6 @@ You can start tests from:
 │   ├── QmlMolecules/        # Qml molecules components (atomic design)
 │   ├── QmlPages/            # Qml pages
 │   ├── QmlTheme/            # Qml theme. Colors, icons, fonts etc...
-│   ├── QmlTools/            # Some qml debugging tools
 │   ├── QrcHelpImages/       # Help images resources
 │   ├── StaticDataStorage/   # Static data storage library. Qrc with terms info
 │   ├── TermDataConnection/  # Library, connecting to REST api server
@@ -158,6 +157,7 @@ You can start tests from:
 │   ├── TermDataStorage/     # Data storage sqlite library
 │   └── Text                 # Text processing library
 ├── qml/                     # Main.qml file
+│   ├── Tools/               # Some qml debugging tools
 ├── resources/               # Resources: app icons, main html wrapper etc...
 ├── source/                  # Main source code
 ├── tests/                   # Tests
