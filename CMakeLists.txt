@@ -27,13 +27,13 @@ qt_standard_project_setup(REQUIRES 6.6)
 
 # Applications subdirs
 add_subdirectory ("qml/Tools")
+add_subdirectory ("qml/Theme")
 
 add_subdirectory ("lib/CommonTools")
 add_subdirectory ("lib/Graph")
 add_subdirectory ("lib/QmlAtoms")
 add_subdirectory ("lib/QmlMolecules")
 add_subdirectory ("lib/QmlPages")
-add_subdirectory ("lib/QmlTheme")
 add_subdirectory ("lib/QrcHelpImages")
 add_subdirectory ("lib/StaticDataStorage")
 add_subdirectory ("lib/TermDataInterface")
