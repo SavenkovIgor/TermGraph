@@ -20,7 +20,7 @@ C.RoundButton {
     icon.height: implicitHeight * iconPart
     icon.color: "black"
 
-    display: AbstractButton.IconOnly
+    display: C.AbstractButton.IconOnly
 
     background: Round { color: root.bgColor }
 }
