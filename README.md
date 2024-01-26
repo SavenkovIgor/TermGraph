@@ -146,7 +146,6 @@ You can start tests from:
 ├── lib/
 │   ├── CommonTools/         # Some common tools for possible reuse
 │   ├── Graph/               # Graph header-only library
-│   ├── QmlPages/            # Qml pages
 │   ├── QrcHelpImages/       # Help images resources
 │   ├── StaticDataStorage/   # Static data storage library. Qrc with terms info
 │   ├── TermDataConnection/  # Library, connecting to REST api server
@@ -156,6 +155,7 @@ You can start tests from:
 ├── qml/                     # Main.qml file
 │   ├── Atoms/               # Qml atoms components     (atomic design)
 │   ├── Molecules/           # Qml molecules components (atomic design)
+│   ├── Pages/               # Qml pages
 │   ├── Theme/               # Qml theme. Colors, icons, fonts etc...
 │   ├── Tools/               # Some qml debugging tools
 ├── resources/               # Resources: app icons, main html wrapper etc...
