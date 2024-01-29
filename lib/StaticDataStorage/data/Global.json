@@ -295,6 +295,26 @@
         },
         {
             "area": "phys",
+            "termDef": "Down quark - kind of {quark} with a negative -1/3 {elementary charge} and a {mass} of approximately 4.7 MeV/c^2"
+        },
+        {
+            "area": "phys",
+            "termDef": "Strange quark - kind of {quark} with a negative -1/3 {elementary charge} and a {mass} of approximately 96 MeV/c^2"
+        },
+        {
+            "area": "phys",
+            "termDef": "Charm quark - kind of {quark} with a positive +2/3 {elementary charge} and a {mass} of approximately 1.275 GeV/c^2"
+        },
+        {
+            "area": "phys",
+            "termDef": "Top quark - kind of {quark} with a positive +2/3 {elementary charge} and a {mass} of approximately 172.76 GeV/c^2"
+        },
+        {
+            "area": "phys",
+            "termDef": "Bottom quark - kind of {quark} with a negative -1/3 {elementary charge} and a {mass} of approximately 4.18 GeV/c^2"
+        },
+        {
+            "area": "phys",
             "termDef": "Fundamental interaction - {interactions} that can not be reduced to more basic interactions"
         },
         {
@@ -312,6 +332,10 @@
         {
             "area": "phys",
             "termDef": "Electric charge - {property} of {matter} that describes it's interaction with {electro-magnetic field}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Elementary charge - {constant} that describes the minimum whole {electric charge} of {matter}. Equal to 1.602×10−19 C"
         }
     ]
 }
