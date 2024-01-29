@@ -332,6 +332,10 @@
         {
             "area": "phys",
             "termDef": "Electric charge - {property} of {matter} that describes it's interaction with {electro-magnetic field}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Elementary charge - {constant} that describes the minimum whole {electric charge} of {matter}. Equal to 1.602×10−19 C"
         }
     ]
 }
