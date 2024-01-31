@@ -336,6 +336,14 @@
         {
             "area": "phys",
             "termDef": "Elementary charge - {constant} that describes the minimum whole {electric charge} of {matter}. Equal to 1.602×10−19 C"
+        },
+        {
+            "area": "math",
+            "termDef": "Number - {abstract entity} that describes {quantity}"
+        },
+        {
+            "area": "math",
+            "termDef": "Corellation - a {measure} of how changes in one {property} are associated with changes in another {property} or set of {properties}."
         }
     ]
 }
