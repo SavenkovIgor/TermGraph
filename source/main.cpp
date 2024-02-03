@@ -16,11 +16,6 @@
 // TODO: Create GroupsModel
 // TODO: Remove get from getters. Helper regexp: \bget.*\(
 
-void initResources()
-{
-    Q_INIT_RESOURCE(HelpImages);
-}
-
 void setSurfaceFormat()
 {
     // This is need for good aliasing of term edges on qml scene
@@ -40,8 +35,6 @@ int main(int argc, char* argv[])
                        "[%{threadid}]: %{message}");
 
     QGuiApplication app(argc, argv);
-
-    initResources();
 
     QQuickStyle::setStyle("Material"); // Important thing for styles!
 

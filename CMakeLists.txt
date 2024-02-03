@@ -34,7 +34,6 @@ add_subdirectory ("qml/Pages")
 
 add_subdirectory ("lib/CommonTools")
 add_subdirectory ("lib/Graph")
-add_subdirectory ("lib/QrcHelpImages")
 add_subdirectory ("lib/StaticDataStorage")
 add_subdirectory ("lib/TermDataInterface")
 add_subdirectory ("lib/Text")
@@ -118,6 +117,11 @@ target_sources (TermGraph
     "source/model/term/termsmodel.h"
 )
 
+if (NOT WASM)
+    set_target_properties (TermGraph PROPERTIES AUTORCC ON)
+    target_sources (TermGraph PRIVATE "resources/HelpImages/HelpImages.qrc")
+endif ()
+
 # Define target properties for Android with Qt 6 as:
 if (ANDROID)
     set_target_properties (TermGraph
@@ -158,9 +162,6 @@ if (NOT WASM)
     target_link_libraries (TermGraph PRIVATE TermDataConnection)
     target_link_libraries (TermGraph PRIVATE TermDataStorage)
 endif ()
-
-# Qrc libs
-target_link_libraries (TermGraph PRIVATE HelpImagesResource)
 
 # Qml libs
 target_link_libraries (TermGraph
