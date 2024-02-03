@@ -15,7 +15,7 @@
         },
         {
             "area": "phys",
-            "termDef": "Quark - undividible {elementary particle}, known at the moment"
+            "termDef": "Quark - indivisible {elementary particle}, known at the moment"
         },
         {
             "area": "phys",
@@ -79,7 +79,7 @@
         },
         {
             "area": "math",
-            "termDef": "Categoryzation - {set} of consistent {rules} that groups {entities} into some (often {mutually exclusive}) {categories}"
+            "termDef": "Categorization - {set} of consistent {rules} that groups {entities} into some (often {mutually exclusive}) {categories}"
         },
         {
             "area": "phys",
@@ -95,7 +95,7 @@
         },
         {
             "area": "phys",
-            "termDef": "System - {set} of interacting {physical objecs}"
+            "termDef": "System - {set} of interacting {physical objects}"
         },
         {
             "area": "phys",
@@ -111,7 +111,7 @@
         },
         {
             "area": "phys",
-            "termDef": "Time - {irreversible}, one directional {sequence} of changes occuring in {reality}"
+            "termDef": "Time - {irreversible}, one directional {sequence} of changes occurring in {reality}"
         },
         {
             "area": "phys",
@@ -327,7 +327,7 @@
         },
         {
             "area": "phys",
-            "termDef": "Electrico-magnetic field - {field} of {electromagnetic} force"
+            "termDef": "Electro-magnetic field - {field} of {electromagnetic} force"
         },
         {
             "area": "phys",
@@ -343,7 +343,7 @@
         },
         {
             "area": "math",
-            "termDef": "Corellation - a {measure} of how changes in one {property} are associated with changes in another {property} or set of {properties}."
+            "termDef": "Correlation - a {measure} of how changes in one {property} are associated with changes in another {property} or set of {properties}."
         }
     ]
 }
