@@ -108,7 +108,6 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - <img src="https://cmake.org/wp-content/uploads/2019/05/cropped-cmake_512-32x32.png" width="16" height="16"> Cmake 3.22+
 - <img src="https://conan.io/favicon.png" width="16" height="16"> Conan 2
 - [GTest lib](https://github.com/google/googletest) (tests)
-- [coi-serviceworker library](https://github.com/gzuidhof/coi-serviceworker) (sets proper [CORS](https://developer.mozilla.org/ru/docs/Web/HTTP/CORS) headers, for wasm build)
 
 # :hammer_and_wrench: Build
 

@@ -180,7 +180,6 @@ qt_add_qml_module (TermGraph
 
 if (WASM)
     set (DEPLOY_DIR "${CMAKE_BINARY_DIR}/deploy/")
-    set (SINGLE_THREAD True)
     set (DEV_DEPLOY True)
 
     # Creating deploy folder
@@ -193,18 +192,10 @@ if (WASM)
     list (APPEND WASM_RESOURCES "${CMAKE_SOURCE_DIR}/resources/applicationIcons/no_text_icon256x256.png")
     list (APPEND WASM_RESOURCES "${CMAKE_SOURCE_DIR}/resources/index.html")
 
-    if (NOT SINGLE_THREAD)
-        list (APPEND WASM_RESOURCES "${CMAKE_SOURCE_DIR}/resources/coi-serviceworker.js")
-    endif ()
-
     # Copy of build artefacts
     list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/qtloader.js")
     list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/TermGraph.js")
     list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/TermGraph.wasm")
-
-    if (NOT SINGLE_THREAD)
-        list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/TermGraph.worker.js")
-    endif ()
 
     foreach (WASM_RESOURCE ${WASM_RESOURCES})
         add_custom_command (TARGET TermGraph
