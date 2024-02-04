@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
-cmake_minimum_required (VERSION 3.22.0)
+cmake_minimum_required (VERSION 3.28.0)
 
 project (TermGraph
          VERSION 2.0.0
@@ -12,6 +12,13 @@ project (TermGraph
 
 set (CMAKE_CXX_STANDARD 20)
 set (CMAKE_CXX_STANDARD_REQUIRED ON)
+set (CMAKE_CXX_SCAN_FOR_MODULES ON)
+
+set(CMAKE_THREAD_LIBS_INIT "-lpthread")
+set(CMAKE_HAVE_THREADS_LIBRARY 1)
+set(CMAKE_USE_WIN32_THREADS_INIT 0)
+set(CMAKE_USE_PTHREADS_INIT 1)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
     set (WASM "True")
@@ -33,6 +40,7 @@ add_subdirectory ("qml/Molecules")
 add_subdirectory ("qml/Pages")
 
 add_subdirectory ("lib/CommonTools")
+add_subdirectory ("lib/CommonToolsModule")
 add_subdirectory ("lib/Graph")
 add_subdirectory ("lib/StaticDataStorage")
 add_subdirectory ("lib/TermDataInterface")
@@ -153,6 +161,7 @@ target_link_libraries (TermGraph
 
 # C++ libs
 target_link_libraries (TermGraph PRIVATE CommonTools)
+target_link_libraries (TermGraph PRIVATE CommonToolsModule)
 target_link_libraries (TermGraph PRIVATE Graph)
 target_link_libraries (TermGraph PRIVATE Text)
 target_link_libraries (TermGraph PRIVATE TermDataInterface)
