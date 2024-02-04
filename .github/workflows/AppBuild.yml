@@ -27,7 +27,7 @@ jobs:
 
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout
 
     - name: Install latest cmake and ninja
       uses: lukka/get-cmake@latest
@@ -87,7 +87,7 @@ jobs:
 
     - name: Upload artifact
       if: matrix.build_profile == 'wasm_release' && github.ref == 'refs/heads/main' && github.event_name == 'push'
-      uses: actions/upload-pages-artifact@v1
+      uses: actions/upload-pages-artifact
       with:
         path: ${{github.workspace}}/build/wasm_release/deploy
 
@@ -107,4 +107,4 @@ jobs:
     steps:
     - name: Deploy to GitHub Pages
       id: deployment
-      uses: actions/deploy-pages@v1
+      uses: actions/deploy-pages
