@@ -2,8 +2,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
-project (TermDataInterface LANGUAGES CXX)
-
 find_package (Qt6 REQUIRED COMPONENTS Core)
 
 add_library (TermDataInterface STATIC)
@@ -12,7 +10,7 @@ target_link_libraries (TermDataInterface PUBLIC CommonTools Text)
 target_link_libraries (TermDataInterface PUBLIC Qt6::Core)
 
 target_include_directories (TermDataInterface INTERFACE "./include")
-target_include_directories (TermDataInterface PRIVATE ${PROJECT_SOURCE_DIR})
+target_include_directories (TermDataInterface PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_sources (TermDataInterface
     INTERFACE

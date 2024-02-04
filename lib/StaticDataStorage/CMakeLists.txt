@@ -2,8 +2,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
-project (StaticDataStorage LANGUAGES CXX)
-
 find_package (Qt6 REQUIRED COMPONENTS Core)
 
 add_library (StaticDataStorage STATIC)
@@ -15,7 +13,7 @@ target_link_libraries (StaticDataStorage PUBLIC TermDataInterface)
 set_target_properties (StaticDataStorage PROPERTIES AUTORCC ON)
 
 target_include_directories (StaticDataStorage INTERFACE "./include")
-target_include_directories (StaticDataStorage PRIVATE ${PROJECT_SOURCE_DIR})
+target_include_directories (StaticDataStorage PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_sources (StaticDataStorage
     INTERFACE
