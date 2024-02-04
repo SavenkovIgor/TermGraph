@@ -2,8 +2,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
-project (TermDataStorage LANGUAGES CXX)
-
 find_package (Qt6 REQUIRED COMPONENTS Core Sql)
 
 add_library (TermDataStorage STATIC)
@@ -15,7 +13,7 @@ target_link_libraries (TermDataStorage PUBLIC  TermDataInterface)
 set_target_properties (TermDataStorage PROPERTIES AUTORCC ON)
 
 target_include_directories (TermDataStorage INTERFACE "./include")
-target_include_directories (TermDataStorage PRIVATE ${PROJECT_SOURCE_DIR})
+target_include_directories (TermDataStorage PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_sources (TermDataStorage
     INTERFACE

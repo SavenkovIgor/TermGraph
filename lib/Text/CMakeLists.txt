@@ -2,8 +2,6 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
-project (Text LANGUAGES CXX)
-
 find_package (Qt6 REQUIRED COMPONENTS Core Gui)
 
 add_library (Text STATIC)
@@ -12,7 +10,7 @@ target_link_libraries (Text PRIVATE Qt6::Core Qt6::Gui)
 target_link_libraries (Text PRIVATE CommonTools)
 
 target_include_directories (Text INTERFACE "./include")
-target_include_directories (Text PRIVATE ${PROJECT_SOURCE_DIR})
+target_include_directories (Text PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
 target_sources (Text
     INTERFACE
