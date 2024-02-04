@@ -5,6 +5,12 @@
 find_package (Qt6 REQUIRED COMPONENTS Core)
 
 add_library (CommonTools INTERFACE)
+
+set_target_properties (CommonTools
+    PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
+
 target_sources (CommonTools
     INTERFACE
         include/CommonTools/GroupUuid.h
@@ -36,6 +42,10 @@ if (BUILD_TESTING)
     include (GoogleTest)
 
     add_executable (CommonToolsTest)
+    set_target_properties (CommonToolsTest
+    PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
     target_sources (CommonToolsTest
         PRIVATE
             test/uuidstest.cpp

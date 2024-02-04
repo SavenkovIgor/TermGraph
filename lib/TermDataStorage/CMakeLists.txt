@@ -6,6 +6,11 @@ find_package (Qt6 REQUIRED COMPONENTS Core Sql)
 
 add_library (TermDataStorage STATIC)
 
+set_target_properties (TermDataStorage
+    PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
+
 target_link_libraries (TermDataStorage PRIVATE CommonTools)
 target_link_libraries (TermDataStorage PRIVATE Qt6::Core Qt6::Sql)
 target_link_libraries (TermDataStorage PUBLIC  TermDataInterface)
@@ -46,6 +51,11 @@ if (BUILD_TESTING)
     include (GoogleTest)
 
     add_executable (TermDataStorageTest)
+    set_target_properties (TermDataStorageTest
+    PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
+
     target_sources (TermDataStorageTest PRIVATE test/DbWorksTest.cpp)
 
     target_link_libraries (TermDataStorageTest GTest::gtest GTest::gtest_main)
