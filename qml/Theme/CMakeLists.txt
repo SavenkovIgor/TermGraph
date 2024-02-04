@@ -4,7 +4,11 @@
 
 add_library (ThemeModule STATIC)
 
-set_target_properties (ThemeModule PROPERTIES AUTOMOC ON)
+set_target_properties (ThemeModule
+    PROPERTIES
+        AUTOMOC ON
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
 
 set (QML_SOURCES
     Sizes.qml

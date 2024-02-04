@@ -4,7 +4,11 @@
 
 add_library (PagesModule STATIC)
 
-set_target_properties (PagesModule PROPERTIES AUTOMOC ON)
+set_target_properties (PagesModule
+    PROPERTIES
+        AUTOMOC ON
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
 
 qt_add_qml_module (PagesModule
     URI Pages

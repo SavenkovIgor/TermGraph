@@ -3,6 +3,10 @@
 
 
 add_library (Graph INTERFACE)
+set_target_properties (Graph
+    PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
 target_sources (Graph
     INTERFACE
         include/Graph/Edge.hpp
@@ -25,6 +29,10 @@ if (BUILD_TESTING)
     include (GoogleTest)
 
     add_executable (GraphTest)
+    set_target_properties (GraphTest
+    PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
     target_sources (GraphTest
         PRIVATE
             test/edgetest.cpp

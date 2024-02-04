@@ -4,7 +4,11 @@
 
 add_library (MoleculesModule STATIC)
 
-set_target_properties (MoleculesModule PROPERTIES AUTOMOC ON)
+set_target_properties (MoleculesModule
+    PROPERTIES
+        AUTOMOC ON
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
 
 qt_add_qml_module (MoleculesModule
     URI Molecules

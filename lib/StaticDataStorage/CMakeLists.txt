@@ -6,6 +6,11 @@ find_package (Qt6 REQUIRED COMPONENTS Core)
 
 add_library (StaticDataStorage STATIC)
 
+set_target_properties (StaticDataStorage
+    PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
+
 target_link_libraries (StaticDataStorage PUBLIC Qt6::Core)
 target_link_libraries (StaticDataStorage PUBLIC CommonTools)
 target_link_libraries (StaticDataStorage PUBLIC TermDataInterface)
@@ -33,6 +38,10 @@ if (BUILD_TESTING)
     include (GoogleTest)
 
     add_executable (StaticDataStorageTest)
+    set_target_properties (StaticDataStorageTest
+    PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
     target_sources (StaticDataStorageTest PRIVATE test/StaticStorageTest.cpp)
 
     target_link_libraries (StaticDataStorageTest GTest::gtest GTest::gtest_main)

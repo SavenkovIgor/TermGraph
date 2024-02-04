@@ -4,7 +4,11 @@
 
 add_library (AtomsModule STATIC)
 
-set_target_properties (AtomsModule PROPERTIES AUTOMOC ON)
+set_target_properties (AtomsModule
+    PROPERTIES
+        AUTOMOC ON
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
 
 qt_add_qml_module (AtomsModule
     URI Atoms

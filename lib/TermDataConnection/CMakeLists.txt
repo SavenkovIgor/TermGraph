@@ -6,6 +6,11 @@ find_package (Qt6 REQUIRED COMPONENTS Core Network)
 
 add_library (TermDataConnection STATIC)
 
+set_target_properties (TermDataConnection
+    PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
+
 target_link_libraries (TermDataConnection PRIVATE CommonTools)
 target_link_libraries (TermDataConnection PRIVATE Qt6::Core Qt6::Network)
 target_link_libraries (TermDataConnection PUBLIC  TermDataInterface)

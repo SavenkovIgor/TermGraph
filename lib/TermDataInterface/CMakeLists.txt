@@ -6,6 +6,11 @@ find_package (Qt6 REQUIRED COMPONENTS Core)
 
 add_library (TermDataInterface STATIC)
 
+set_target_properties (TermDataInterface
+    PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
+
 target_link_libraries (TermDataInterface PUBLIC CommonTools Text)
 target_link_libraries (TermDataInterface PUBLIC Qt6::Core)
 
@@ -36,6 +41,12 @@ if (BUILD_TESTING)
     include (GoogleTest)
 
     add_executable (TermDataInterfaceTest)
+
+    set_target_properties (TermDataInterfaceTest
+    PROPERTIES
+        CXX_STANDARD 20
+        CXX_STANDARD_REQUIRED ON)
+
     target_sources (TermDataInterfaceTest
         PRIVATE
             test/termdatatest.cpp
