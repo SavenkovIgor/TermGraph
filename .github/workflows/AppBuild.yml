@@ -34,6 +34,9 @@ jobs:
       with:
         clang-format-version: 16
 
+    - name: Install clang-tidy for modules deps search
+      run: sudo apt install clang-tidy
+
     - name: Install latest cmake and ninja
       uses: lukka/get-cmake@latest
 
