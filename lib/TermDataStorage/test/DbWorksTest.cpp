@@ -71,15 +71,16 @@ public:
         auto group = groupWithUuid();
 
         for (const auto& pair : data) {
-            TermData term{.uuid        = TermUuid::generate(),
-                          .term        = QString(pair.first) + mSpecSymbols,
-                          .definition  = QString(pair.second) + mSpecSymbols,
-                          .description = mSpecSymbols,
-                          .examples    = mSpecSymbols,
-                          .wikiUrl     = mSpecSymbols,
-                          .wikiImage   = mSpecSymbols,
-                          .groupUuid   = *group.uuid,
-                          .lastEdit    = QDateTime()};
+            TermData term{.uuid          = TermUuid::generate(),
+                          .term          = QString(pair.first) + mSpecSymbols,
+                          .definition    = QString(pair.second) + mSpecSymbols,
+                          .description   = mSpecSymbols,
+                          .examples      = mSpecSymbols,
+                          .wikiUrl       = mSpecSymbols,
+                          .wikiImage     = mSpecSymbols,
+                          .knowledgeArea = "",
+                          .groupUuid     = *group.uuid,
+                          .lastEdit      = QDateTime()};
 
             ret.push_back(term);
         }

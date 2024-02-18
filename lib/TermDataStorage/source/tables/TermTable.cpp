@@ -185,15 +185,16 @@ TermData TermTable::createTermData(const QSqlRecord& record)
     assert(gUuid);
 
     TermData info{
-        .uuid        = TermUuid::from(record.value("uuid").toString()),
-        .term        = record.value("term").toString(),
-        .definition  = record.value("definition").toString(),
-        .description = record.value("description").toString(),
-        .examples    = record.value("examples").toString(),
-        .wikiUrl     = record.value("wikiUrl").toString(),
-        .wikiImage   = record.value("wikiImage").toString(),
-        .groupUuid   = *gUuid,
-        .lastEdit    = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate),
+        .uuid          = TermUuid::from(record.value("uuid").toString()),
+        .term          = record.value("term").toString(),
+        .definition    = record.value("definition").toString(),
+        .description   = record.value("description").toString(),
+        .examples      = record.value("examples").toString(),
+        .wikiUrl       = record.value("wikiUrl").toString(),
+        .wikiImage     = record.value("wikiImage").toString(),
+        .knowledgeArea = "",
+        .groupUuid     = *gUuid,
+        .lastEdit      = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate),
     };
 
     return info;

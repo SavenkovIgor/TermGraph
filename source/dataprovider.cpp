@@ -113,7 +113,7 @@ const TermData::List &DataProvider::terms() const
     return mTerms;
 }
 
-Opt<TermData> DataProvider::term(const QString &definition, GroupUuid uuid) const
+Opt<TermData> DataProvider::term(const QString &definition, [[maybe_unused]] GroupUuid uuid) const
 {
     assert(uuid == mCurrentGroup);
     for (const auto &term : mTerms) {

@@ -18,7 +18,8 @@ QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
     assert(base != nullptr);
     assert(!queryString.simplified().isEmpty());
 
-    QSqlQuery ret = base->exec(queryString);
+    auto ret = QSqlQuery(queryString, *base);
+    ret.exec();
 
     Q_ASSERT_X(!ret.lastError().isValid(),
                Q_FUNC_INFO,
@@ -54,7 +55,7 @@ int DbTools::recordsCount(const QString& tableName)
 
 QSqlRecord DbTools::getRecord(QSqlQuery&& q)
 {
-    auto nextValid = q.next();
+    [[maybe_unused]] auto nextValid = q.next();
     assert(nextValid);
 
     return q.record();

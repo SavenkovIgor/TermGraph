@@ -27,7 +27,7 @@ bool TermGroupTable::exist(const GroupUuid &uuid)
     auto query = SqlQueryBuilder().selectOneGroup(uuid);
     DbTools::start(query);
 
-    auto next_exist = query.next();
+    [[maybe_unused]] auto next_exist = query.next();
     assert(next_exist);
 
     auto count = query.record().value("COUNT( * )").toInt();
