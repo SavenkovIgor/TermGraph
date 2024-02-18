@@ -7,7 +7,6 @@
 
 #include <CommonTools/Platform.h>
 
-
 using namespace AppSettings;
 
 void Paths::createDefaultFoldersIfNeed()

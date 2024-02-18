@@ -8,10 +8,10 @@
 #include <Text/TextCursor.h>
 #include <Text/TextTools.h>
 
+#include "source/helpers/intmatrix.h"
 #include "source/helpers/link/link.h"
 #include "source/helpers/link/linksdecorator.h"
 #include "source/helpers/link/linksstring.h"
-#include "source/helpers/intmatrix.h"
 
 LinkTools::LinkTools(QObject* parent)
     : QObject(parent)
@@ -45,10 +45,10 @@ QString LinkTools::remove(QString str, int cursor) { return LinksString::removeL
 
 QString LinkTools::decorate(const QString& str) { return LinksString(str).toRichText(); }
 
-bool LinkTools::linkAndTermSimilarWordDistance(const QString &link, const QString &term)
+bool LinkTools::linkAndTermSimilarWordDistance(const QString& link, const QString& term)
 {
     int wordsCountInLink = TextTools::wordCount(link);
-    int maxWordDistance = 4 * wordsCountInLink; // Magic numbers. Would be replaced further
+    int maxWordDistance  = 4 * wordsCountInLink; // Magic numbers. Would be replaced further
 
     auto stringSizeDiffer = std::abs(term.size() - link.size());
     // No need to check. Term is not suit already
@@ -108,7 +108,7 @@ int LinkTools::levDistance(QStringView src, QStringView dst, int limit)
     return matrix[m][n];
 }
 
-Opt<int> LinkTools::linkAndTermDistance(const QString &link, const QString &term, int maxLimit)
+Opt<int> LinkTools::linkAndTermDistance(const QString& link, const QString& term, int maxLimit)
 {
     // For developing needs
     assert(term == term.toLower());
@@ -120,7 +120,7 @@ Opt<int> LinkTools::linkAndTermDistance(const QString &link, const QString &term
     }
 
     int wordsCountInLink = TextTools::wordCount(link);
-    int maxWordDistance = std::min(4 * wordsCountInLink, maxLimit);
+    int maxWordDistance  = std::min(4 * wordsCountInLink, maxLimit);
 
     auto stringSizeDiffer = std::abs(term.size() - link.size());
     if (stringSizeDiffer > maxWordDistance) { // No need to check. Term is not suit already

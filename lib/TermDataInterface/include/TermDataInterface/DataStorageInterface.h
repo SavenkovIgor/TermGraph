@@ -27,7 +27,7 @@ public:
 
     virtual FutureResult<GroupSummary> addGroup(const GroupSummary& info)    = 0;
     virtual FutureResult<GroupSummary> updateGroup(const GroupSummary& info) = 0;
-    virtual FutureResult<GroupSummary> deleteGroup(const GroupUuid& uuid) = 0;
+    virtual FutureResult<GroupSummary> deleteGroup(const GroupUuid& uuid)    = 0;
 
     // Terms
     virtual FutureResult<TermData>       term(const TermUuid& uuid) const                           = 0;
@@ -35,9 +35,7 @@ public:
     virtual FutureResult<TermData::List> terms(const GroupUuid& uuid) const                         = 0;
 
     virtual FutureResult<TermData> addTerm(const TermData& data) = 0;
-    virtual FutureResult<TermData> updateTerm(const TermData& data,
-                                           LastEditSource  lastEditSource,
-                                           bool            checkLastEdit)
+    virtual FutureResult<TermData> updateTerm(const TermData& data, LastEditSource lastEditSource, bool checkLastEdit)
         = 0;
     virtual FutureResult<TermData> deleteTerm(const TermUuid& uuid) = 0;
 

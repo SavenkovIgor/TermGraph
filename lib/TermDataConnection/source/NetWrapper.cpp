@@ -3,7 +3,6 @@
 
 #include "include/TermDataConnection/NetWrapper.h"
 
-
 void NetWrapper::get(QUrl url, ReplyCallback callback) const
 {
     auto* reply = manager->get(QNetworkRequest(url));

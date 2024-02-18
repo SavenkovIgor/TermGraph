@@ -21,9 +21,9 @@ public:
     void initTable();
 
     // Read
-    bool              exist(const TermUuid& uuid) const;
-    Result<TermData>  term(const TermUuid& uuid) const;
-    Result<TermData>  term(const QString& term, const GroupUuid& uuid) const;
+    bool             exist(const TermUuid& uuid) const;
+    Result<TermData> term(const TermUuid& uuid) const;
+    Result<TermData> term(const QString& term, const GroupUuid& uuid) const;
 
     Result<TermData::List> allTerms(const GroupUuid& uuid);
     RecordList             allLastEditRecords();
@@ -38,7 +38,7 @@ public:
 private:
     TermUuid generateNewUuid();
 
-    static QDateTime now();
+    static QDateTime  now();
     Result<QDateTime> lastEdit(const TermUuid& uuid);
 
     static TermData createTermData(const QSqlRecord& record);

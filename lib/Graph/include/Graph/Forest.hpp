@@ -78,15 +78,19 @@ public:
 
         if (edgesToRoots.empty()) {
             if (edgesToLeafs.empty()) {
-                return NodeType::Orphan; // Both empty
+                // Both empty
+                return NodeType::Orphan;
             } else {
-                return NodeType::Root; // No connections down, has connections up
+                // No connections down, has connections up
+                return NodeType::Root;
             }
         } else {
             if (edgesToLeafs.empty()) {
-                return NodeType::EndLeaf; // Has connections down, no connections up
+                // Has connections down, no connections up
+                return NodeType::EndLeaf;
             } else {
-                return NodeType::MiddleLeaf; // Has both connections, up and down
+                // Has both connections, up and down
+                return NodeType::MiddleLeaf;
             }
         }
     }
@@ -271,7 +275,7 @@ private: // Methods
         // Roots offset
         int maxLevel = 0;
 
-        for (const auto&[_, level] : ret)
+        for (const auto& [_, level] : ret)
             maxLevel = std::max(maxLevel, level);
 
         for (const auto& root : rootNodes) {
@@ -351,4 +355,4 @@ private: // Members
     EdgeList mWasteEdges;  // Just redundant
 };
 
-}
+} // namespace graph

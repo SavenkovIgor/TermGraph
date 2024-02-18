@@ -8,7 +8,6 @@
 #include "source/helpers/link/linksdecorator.h"
 #include "source/helpers/link/linktools.h"
 
-
 LinksHardeningManager::LinksHardeningManager(QObject *parent)
     : QAbstractListModel(parent)
 {
@@ -133,7 +132,7 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
 
 TermDataWrapper LinksHardeningManager::appliedReplacement()
 {
-    auto ret       = mCurrentTerm;
+    auto ret = mCurrentTerm;
     ret.setDefinition(applyLinkUuids(mCurrentDefinition, mReplacePreparations));
     return ret;
 }

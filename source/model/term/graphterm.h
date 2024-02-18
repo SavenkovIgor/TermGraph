@@ -6,8 +6,8 @@
 #include <vector>
 
 #include <Graph/Node.hpp>
-#include "source/model/term/termdatacache.h"
 
+#include "source/model/term/termdatacache.h"
 
 // This class contains all "graph" part of term
 // like edges, place in graph hierarchy and so on

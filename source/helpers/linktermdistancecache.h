@@ -7,7 +7,6 @@
 
 #include <CommonTools/HandyTypes.h>
 
-
 class LinkTermDistanceCache
 {
 public:

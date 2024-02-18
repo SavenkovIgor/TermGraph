@@ -111,7 +111,7 @@ private: // Methods
     TermGroup::OptPtr mCurrentGroup;
 
     Opt<GroupUuid> currentGroupUuid() const;
-    void  dropGroup();
+    void           dropGroup();
 
     bool isGroupLoading() const;
     void setGroupLoading(bool loading);

@@ -16,7 +16,7 @@
 
 #include <CommonTools/Errors.h>
 
-using UuidList   = std::vector<QUuid>;
+using UuidList = std::vector<QUuid>;
 
 template<typename T>
 using Opt = std::optional<T>;
@@ -30,7 +30,7 @@ public:
     operator bool() const { return !std::holds_alternative<ErrorCodes>(*this); }
     bool has_value() const { return !std::holds_alternative<ErrorCodes>(*this); }
 
-    T value() const { return std::get<T>(*this); }
+    T          value() const { return std::get<T>(*this); }
     ErrorCodes error() const { return std::get<ErrorCodes>(*this); }
 };
 
@@ -44,13 +44,9 @@ public:
 
     FutureWrapper(T&& value)
         : mValue(std::move(value))
-    {
-    }
+    {}
 
-    auto then(const std::function<void(T)>& func) -> void
-    {
-        func(std::move(mValue));
-    }
+    auto then(const std::function<void(T)>& func) -> void { func(std::move(mValue)); }
 
 private:
     T mValue;
@@ -72,11 +68,11 @@ using FutureResult = QFuture<Result<RetType>>;
 template<typename T>
 static QFuture<T> toFuture(const std::function<T()>& func)
 {
-   QPromise<T> promise;
-   promise.start();
-   promise.addResult(func());
-   promise.finish();
-   return promise.future();
+    QPromise<T> promise;
+    promise.start();
+    promise.addResult(func());
+    promise.finish();
+    return promise.future();
 }
 #endif
 

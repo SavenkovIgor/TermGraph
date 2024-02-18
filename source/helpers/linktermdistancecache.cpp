@@ -3,7 +3,6 @@
 
 #include "source/helpers/linktermdistancecache.h"
 
-
 Opt<Opt<int>> LinkTermDistanceCache::get(const QString& link, const QString& term) const
 {
     auto linkIter = linkToTermCache.constFind(link);
@@ -17,4 +16,7 @@ Opt<Opt<int>> LinkTermDistanceCache::get(const QString& link, const QString& ter
     return std::nullopt;
 }
 
-void LinkTermDistanceCache::add(const QString& link, const QString& term, Opt<int> value) { linkToTermCache[link][term] = value; }
+void LinkTermDistanceCache::add(const QString& link, const QString& term, Opt<int> value)
+{
+    linkToTermCache[link][term] = value;
+}

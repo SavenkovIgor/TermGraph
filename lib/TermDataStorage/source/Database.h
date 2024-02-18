@@ -22,7 +22,7 @@ public:
     explicit Database(const QString& filePath, const QString& backupPath);
     ~Database();
 
-    Database(const Database&) = delete;
+    Database(const Database&)       = delete;
     void operator=(const Database&) = delete;
 
     static QString mDbFilePath;

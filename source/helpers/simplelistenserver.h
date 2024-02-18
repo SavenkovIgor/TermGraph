@@ -27,8 +27,8 @@ private slots:
     void newInputData();
 
 private:
-    quint16            listenPort;
-    QTcpServer*        server;
+    quint16                  listenPort;
+    QTcpServer*              server;
     std::vector<QTcpSocket*> inputSockets;
 
     static QString getSocketDescription(QTcpSocket* socket);

@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <Graph/Forest.hpp>
+
 #include "source/model/edge/paintededge.h"
 #include "source/model/graphicitem/rectgraphicitem.h"
 #include "source/model/group/nodeverticalstack.h"

@@ -3,27 +3,26 @@
 
 #pragma once
 
-#include <memory>
 #include <functional>
+#include <memory>
 
-#include <QMap>
 #include <QFileInfoList>
+#include <QMap>
 
 #include <CommonTools/HandyTypes.h>
 
 #include <TermDataInterface/DataStorageInterface.h>
 #include <TermDataInterface/GroupSummary.h>
-#include <TermDataInterface/TermData.h>
 #include <TermDataInterface/StaticGroupData.h>
-
+#include <TermDataInterface/TermData.h>
 
 class StaticDataStorage : public DataStorageInterface
 {
 public:
     StaticDataStorage();
 
-    static QFileInfoList files();
-    static QByteArray    qrcFileData(const QString& filePath);
+    static QFileInfoList   files();
+    static QByteArray      qrcFileData(const QString& filePath);
     static StaticGroupData prepareForInternalUse(StaticGroupData data);
 
     int storageVersion() const final;
@@ -44,7 +43,7 @@ public:
     FutureResult<TermData> deleteTerm(const TermUuid& uuid) final;
 
 private:
-    constexpr static auto dataFolderPath = ":/data/";
+    constexpr static auto            dataFolderPath = ":/data/";
     QMap<GroupUuid, StaticGroupData> mGroups;
 
     QMap<GroupUuid, QDateTime> termsLastEdit() const;

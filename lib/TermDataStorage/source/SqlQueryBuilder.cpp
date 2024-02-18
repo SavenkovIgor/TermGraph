@@ -211,7 +211,7 @@ QSqlQuery SqlQueryBuilder::dropTable(const QString &tableName) const
 
 QString SqlQueryBuilder::loadQueryString(const QString &queryPath) const
 {
-    QFile queryFile(queryPath);
+    QFile                 queryFile(queryPath);
     [[maybe_unused]] auto isOpen = queryFile.open(QIODevice::ReadOnly);
     assert(isOpen);
     return QString(queryFile.readAll());

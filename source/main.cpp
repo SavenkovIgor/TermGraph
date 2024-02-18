@@ -2,8 +2,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include <QGuiApplication>
-#include <QSurface>
 #include <QQmlApplicationEngine>
+#include <QSurface>
 #include <QtQuickControls2/QQuickStyle>
 
 #include <CommonTools/Platform.h>

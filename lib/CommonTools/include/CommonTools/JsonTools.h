@@ -57,16 +57,16 @@ public:
     }
 
     // Container keys
-    constexpr static auto groupUuidsKey    = "groupUuids";
-    constexpr static auto groupsKey        = "groups";
+    constexpr static auto groupUuidsKey = "groupUuids";
+    constexpr static auto groupsKey     = "groups";
 
-    constexpr static auto termUuidsKey   = "termUuids";
-    constexpr static auto termsKey       = "terms";
-    constexpr static auto oldTermsKey    = "nodesList";
+    constexpr static auto termUuidsKey = "termUuids";
+    constexpr static auto termsKey     = "terms";
+    constexpr static auto oldTermsKey  = "nodesList";
 
     // Common keys
-    constexpr static auto uuidKey          = "uuid";
-    constexpr static auto lastEditKey      = "lastEdit";
+    constexpr static auto uuidKey     = "uuid";
+    constexpr static auto lastEditKey = "lastEdit";
 
     // Group keys
     constexpr static auto nameKey          = "name";

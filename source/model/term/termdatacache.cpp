@@ -7,7 +7,6 @@
 
 #include <Text/TextTools.h>
 
-
 // Initialization order is important!
 TermDataCache::TermDataCache(const TermData& info)
     : mTerms{QStringList() << info.term}
@@ -25,8 +24,8 @@ TermDataCache::TermDataCache(const TermData& info)
     });
 
     preferredSize.setBinding([this]() -> QSizeF {
-        int spacing = 8;
-        auto terms = mTerms.value();
+        int  spacing = 8;
+        auto terms   = mTerms.value();
 
         QSizeF termsSize;
 
@@ -64,7 +63,8 @@ void TermDataCache::addSynonym(const QString& synonym)
     mTerms.setValue(currentVal);
 }
 
-bool TermDataCache::isSynonym() const {
+bool TermDataCache::isSynonym() const
+{
     if (mLinksDefinition.links().size() != 1) {
         return false;
     }

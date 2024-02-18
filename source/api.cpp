@@ -9,37 +9,20 @@
 
 #include "source/managers/notificationmanager.h"
 
-
-Api::Api(QObject* parent)
+Api::Api(QObject *parent)
     : QObject(parent)
     , mNetwork(new NetworkManager(NotificationManager::instance()))
     , mGroupsManager(new GroupsManager(NotificationManager::instance()))
     , mSyncManager(new SyncManager(mNetwork.get(), mGroupsManager.get()))
     , mScene(new MainScene(mGroupsManager.get()))
-{
-}
+{}
 
-NetworkManager *Api::network() const
-{
-    return mNetwork.get();
-}
+NetworkManager *Api::network() const { return mNetwork.get(); }
 
-SyncManager *Api::sync() const
-{
-    return mSyncManager.get();
-}
+SyncManager *Api::sync() const { return mSyncManager.get(); }
 
-GroupsManager *Api::groups() const
-{
-    return mGroupsManager.get();
-}
+GroupsManager *Api::groups() const { return mGroupsManager.get(); }
 
-MainScene *Api::scene() const
-{
-    return mScene.get();
-}
+MainScene *Api::scene() const { return mScene.get(); }
 
-bool Api::readonlyMode()
-{
-    return Platform::isWasm();
-}
+bool Api::readonlyMode() { return Platform::isWasm(); }

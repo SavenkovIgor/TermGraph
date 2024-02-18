@@ -20,9 +20,7 @@ class GroupsManager : public QObject
     Q_OBJECT
 
 public:
-    explicit GroupsManager(
-                           NotifyInterface&                      notifier,
-                           QObject*                              parent = nullptr);
+    explicit GroupsManager(NotifyInterface& notifier, QObject* parent = nullptr);
 
     Q_PROPERTY(bool hasAnyGroup READ getHasAnyGroup NOTIFY groupsListChanged FINAL)
     Q_PROPERTY(QStringList allUuidSorted READ getAllUuidStringsSortedByLastEdit NOTIFY groupsListChanged FINAL)
@@ -41,7 +39,7 @@ public:
 
     Q_INVOKABLE void init();
 
-    void loadGroup(const GroupUuid& uuid);
+    void              loadGroup(const GroupUuid& uuid);
     TermGroup::OptPtr createGroup(Opt<GroupUuid> uuid = std::nullopt);
 
     GroupUuid::List getAllUuidsSortedByLastEdit();
@@ -93,6 +91,6 @@ private: // Members
 
     QDateTime getLastEdit(QUuid groupUuid);
 
-    DataProvider provider;
-    NotifyInterface&      notifier ;
+    DataProvider     provider;
+    NotifyInterface& notifier;
 };

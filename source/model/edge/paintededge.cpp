@@ -3,7 +3,6 @@
 
 #include "source/model/edge/paintededge.h"
 
-
 PaintedEdge::PaintedEdge(PaintedTerm::Ptr root, PaintedTerm::Ptr leaf)
     : Edge<PaintedTerm, EdgeData>(root, leaf, EdgeData())
 {}

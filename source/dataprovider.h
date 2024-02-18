@@ -14,16 +14,16 @@ class DataProvider : public QObject
     Q_OBJECT
 
 public:
-    explicit DataProvider(QObject *parent = nullptr);
+    explicit DataProvider(QObject* parent = nullptr);
 
-    bool isReady() const;
-    int dbVersion() const;
+    bool           isReady() const;
+    int            dbVersion() const;
     Opt<GroupUuid> currentGroup() const;
-    void loadGroups();
-    void loadGroup(GroupUuid uuid);
+    void           loadGroups();
+    void           loadGroup(GroupUuid uuid);
 
     const GroupSummary::List& groups() const;
-    Opt<GroupSummary> group(GroupUuid uuid) const;
+    Opt<GroupSummary>         group(GroupUuid uuid) const;
 
     void addGroup(const GroupSummary& info);
     void updateGroup(const GroupSummary& info);
@@ -60,7 +60,7 @@ signals:
 private:
     std::unique_ptr<DataStorageInterface> dataStorage;
 
-    Opt<GroupUuid> mCurrentGroup;
+    Opt<GroupUuid>          mCurrentGroup;
     Opt<GroupSummary::List> mGroups;
-    TermData::List mTerms;
+    TermData::List          mTerms;
 };

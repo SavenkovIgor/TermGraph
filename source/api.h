@@ -11,7 +11,6 @@
 #include "source/managers/groupsmanager.h"
 #include "source/managers/syncmanager.h"
 
-
 // Qml todo list
 // TODO: Avoid implicit lookup in root scope (root.property)
 // TODO: Use type annotations on all qml functions (function sum(a: int, b: int): int )
@@ -26,10 +25,12 @@ class Api : public QObject
     QML_ELEMENT
     QML_SINGLETON
 
-    Q_PROPERTY(NetworkManager* net     READ network CONSTANT FINAL)
-    Q_PROPERTY(SyncManager*    sync    READ sync    CONSTANT FINAL)
-    Q_PROPERTY(GroupsManager*  groups  READ groups  CONSTANT FINAL)
-    Q_PROPERTY(MainScene*      scene   READ scene   CONSTANT FINAL)
+    // clang-format off
+    Q_PROPERTY(NetworkManager* net    READ network CONSTANT FINAL)
+    Q_PROPERTY(SyncManager*    sync   READ sync    CONSTANT FINAL)
+    Q_PROPERTY(GroupsManager*  groups READ groups  CONSTANT FINAL)
+    Q_PROPERTY(MainScene*      scene  READ scene   CONSTANT FINAL)
+    // clang-format on
 
     Q_PROPERTY(bool readonlyMode READ readonlyMode CONSTANT FINAL)
 
@@ -49,9 +50,9 @@ private:
     QScopedPointer<MainScene>     mScene;
 
     NetworkManager* network() const;
-    SyncManager* sync() const;
-    GroupsManager* groups() const;
-    MainScene* scene() const;
+    SyncManager*    sync() const;
+    GroupsManager*  groups() const;
+    MainScene*      scene() const;
 
     static bool readonlyMode();
 };
