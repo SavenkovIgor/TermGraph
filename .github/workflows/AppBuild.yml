@@ -29,6 +29,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Run clang-format style check
+      uses: jidicula/clang-format-action@v4
+
     - name: Install latest cmake and ninja
       uses: lukka/get-cmake@latest
 
