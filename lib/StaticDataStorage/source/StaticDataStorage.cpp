@@ -67,7 +67,7 @@ FutureResult<GroupSummary> StaticDataStorage::group(const GroupUuid& uuid) const
 FutureResult<GroupSummary::List> StaticDataStorage::groups() const
 {
     return toFuture<Result<GroupSummary::List>>([this]() -> GroupSummary::List {
-        auto groups    = mGroups.values();
+        auto groups = mGroups.values();
 
         // Sorting this structure
         auto groupOrdering = [](const auto& g1, const auto& g2) { return g1.termsLastEdit() > g2.termsLastEdit(); };
