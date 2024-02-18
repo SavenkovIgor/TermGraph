@@ -78,6 +78,7 @@ public:
                           .examples    = mSpecSymbols,
                           .wikiUrl     = mSpecSymbols,
                           .wikiImage   = mSpecSymbols,
+                          .knowledgeArea = "",
                           .groupUuid   = *group.uuid,
                           .lastEdit    = QDateTime()};
 

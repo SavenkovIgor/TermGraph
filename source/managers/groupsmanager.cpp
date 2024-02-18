@@ -289,6 +289,7 @@ void GroupsManager::showError(int code)
     case JsonNodesLastEditFieldMissedOrWrongType:
     case JsonUuidFieldMissedOrWrongType:
     case JsonTermFieldMissedOrWrongType:
+    case JsonTermDefFieldWrongContentOrType:
     case JsonDefinitionFieldMissedOrWrongType:
     case JsonDescriptionFieldMissedOrWrongType:
     case JsonExamplesFieldMissedOrWrongType:
