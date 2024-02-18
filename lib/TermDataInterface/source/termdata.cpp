@@ -8,17 +8,17 @@
 TermData TermData::createGhost(const QString& term, GroupUuid groupUuid)
 {
     return TermData({
-        .uuid = TermUuid::generate(),
-        .term = term,
-        .definition = "",
-        .description = "",
-        .examples = "",
-        .wikiUrl = "",
-        .wikiImage = "",
+        .uuid          = TermUuid::generate(),
+        .term          = term,
+        .definition    = "",
+        .description   = "",
+        .examples      = "",
+        .wikiUrl       = "",
+        .wikiImage     = "",
         .knowledgeArea = "",
-        .groupUuid = groupUuid,
-        .lastEdit = QDateTime::currentDateTime(),
-        });
+        .groupUuid     = groupUuid,
+        .lastEdit      = QDateTime::currentDateTime(),
+    });
 }
 
 Opt<TermData> TermData::from(const QJsonObject& obj, JsonCheckMode mode)
