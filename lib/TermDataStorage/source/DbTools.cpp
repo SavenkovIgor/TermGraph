@@ -54,7 +54,7 @@ int DbTools::recordsCount(const QString& tableName)
 
 QSqlRecord DbTools::getRecord(QSqlQuery&& q)
 {
-    auto nextValid = q.next();
+    [[maybe_unused]] auto nextValid = q.next();
     assert(nextValid);
 
     return q.record();

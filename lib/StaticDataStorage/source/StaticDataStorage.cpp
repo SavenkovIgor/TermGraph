@@ -35,7 +35,7 @@ QByteArray StaticDataStorage::qrcFileData(const QString& filePath)
 {
     QFile file(filePath);
     assert(file.exists());
-    auto result = file.open(QIODevice::ReadOnly);
+    [[maybe_unused]] auto result = file.open(QIODevice::ReadOnly);
     assert(result);
     return file.readAll();
 }
