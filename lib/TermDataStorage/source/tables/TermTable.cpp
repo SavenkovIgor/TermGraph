@@ -192,6 +192,7 @@ TermData TermTable::createTermData(const QSqlRecord& record)
         .examples    = record.value("examples").toString(),
         .wikiUrl     = record.value("wikiUrl").toString(),
         .wikiImage   = record.value("wikiImage").toString(),
+        .knowledgeArea = "",
         .groupUuid   = *gUuid,
         .lastEdit    = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate),
     };

@@ -14,6 +14,7 @@ TermData defaultTermData()
                     .examples    = "Examples",
                     .wikiUrl     = "Wiki",
                     .wikiImage   = "WikiImg",
+                    .knowledgeArea = "",
                     .groupUuid   = GroupUuid::from("{5fdb1e7e-f47f-4c88-96d2-fd3d427d2a9d}").value(),
                     .lastEdit    = QDateTime::fromString("2022-08-23T20:01:10Z", Qt::ISODate)};
 }
