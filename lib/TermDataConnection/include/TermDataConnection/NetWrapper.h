@@ -6,13 +6,12 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
-
 class NetWrapper
 {
 public:
     using ReplyCallback = std::function<void(QNetworkReply* reply)>;
 
-    NetWrapper() = default;
+    NetWrapper()  = default;
     ~NetWrapper() = default;
 
     void get(QUrl url, ReplyCallback callback) const;
@@ -21,5 +20,5 @@ public:
     void deleteResource(QUrl url, ReplyCallback callback) const;
 
 private:
-    QScopedPointer<QNetworkAccessManager> manager {new QNetworkAccessManager()};
+    QScopedPointer<QNetworkAccessManager> manager{new QNetworkAccessManager()};
 };

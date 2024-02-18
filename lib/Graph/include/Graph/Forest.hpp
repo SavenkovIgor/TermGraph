@@ -271,7 +271,7 @@ private: // Methods
         // Roots offset
         int maxLevel = 0;
 
-        for (const auto&[_, level] : ret)
+        for (const auto& [_, level] : ret)
             maxLevel = std::max(maxLevel, level);
 
         for (const auto& root : rootNodes) {
@@ -351,4 +351,4 @@ private: // Members
     EdgeList mWasteEdges;  // Just redundant
 };
 
-}
+} // namespace graph

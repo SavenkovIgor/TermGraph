@@ -8,7 +8,6 @@
 
 #include "source/model/group/termgroup.h"
 
-
 class TermsModel : public QAbstractListModel
 {
     Q_OBJECT

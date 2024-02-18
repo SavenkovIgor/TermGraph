@@ -7,7 +7,6 @@
 
 #include <QChar>
 
-
 class CharTools
 {
 public:

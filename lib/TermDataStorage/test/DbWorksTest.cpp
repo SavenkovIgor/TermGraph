@@ -44,7 +44,10 @@ public:
         EXPECT_TRUE(dir.remove(sDbFileName));
     }
 
-    GroupSummary groupWithUuid() { return GroupSummary{.uuid = mGroupUuid1, .name = mGroupName1, .comment = mGroupComment1}; }
+    GroupSummary groupWithUuid()
+    {
+        return GroupSummary{.uuid = mGroupUuid1, .name = mGroupName1, .comment = mGroupComment1};
+    }
 
     GroupSummary groupWithoutUuid()
     {
@@ -192,7 +195,8 @@ TEST_F(DBWorksTest, TermsTest)
         term.wikiUrl += "1";
         term.wikiImage += "1";
 
-        EXPECT_TRUE(mStorage->updateTerm(term, DataStorageInterface::LastEditSource::FromData, true).result().has_value());
+        EXPECT_TRUE(
+            mStorage->updateTerm(term, DataStorageInterface::LastEditSource::FromData, true).result().has_value());
 
         EXPECT_TRUE(term == mStorage->term(*term.uuid).result().value());
     }

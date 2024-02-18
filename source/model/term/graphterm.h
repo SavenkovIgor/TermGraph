@@ -6,6 +6,7 @@
 #include <vector>
 
 #include <Graph/Node.hpp>
+
 #include "source/model/term/termdatacache.h"
 
 

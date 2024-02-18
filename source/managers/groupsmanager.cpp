@@ -11,8 +11,7 @@
 
 #include "source/helpers/appsettings.h"
 
-GroupsManager::GroupsManager(NotifyInterface&                      notifier,
-                             QObject*                              parent)
+GroupsManager::GroupsManager(NotifyInterface& notifier, QObject* parent)
     : QObject(parent)
     , notifier(notifier)
 {
@@ -40,7 +39,8 @@ GroupsManager::GroupsManager(NotifyInterface&                      notifier,
     connect(&provider, &DataProvider::exportGroupReady, this, &GroupsManager::exportGroupReady);
 }
 
-QString GroupsManager::getGroupName(const QUuid& groupUuid) const {
+QString GroupsManager::getGroupName(const QUuid& groupUuid) const
+{
     if (auto gUuid = GroupUuid::from(groupUuid)) {
         for (const auto& group : provider.groups()) {
             if (group.uuid == gUuid) {
@@ -135,7 +135,8 @@ TermGroup::OptPtr GroupsManager::createGroup(Opt<GroupUuid> uuid)
     return std::make_shared<TermGroup>(*groupInfo, termsData);
 }
 
-bool GroupsManager::isEmptyGroup(const QString& groupUuid) {
+bool GroupsManager::isEmptyGroup(const QString& groupUuid)
+{
     assert(provider.isReady());
     return getNodesCount(QUuid(groupUuid)) == 0;
 }
@@ -232,9 +233,7 @@ void GroupsManager::importTerm(const QJsonObject& nodeJson)
     }
 }
 
-int GroupsManager::dbVersion() {
-    return provider.dbVersion();
-}
+int GroupsManager::dbVersion() { return provider.dbVersion(); }
 
 void GroupsManager::addNode(QJsonObject object)
 {
@@ -262,21 +261,14 @@ void GroupsManager::deleteNode(const QUuid uuid)
     }
 }
 
-void GroupsManager::showError(int code) {
+void GroupsManager::showError(int code)
+{
     auto eCode = static_cast<ErrorCodes>(code);
     switch (eCode) {
-    case GroupUuidNotFound:
-        notifier.showError("Группа не найдена");
-        break;
-    case GroupNameAlreadyExist:
-        notifier.showError("Название группы не уникально");
-        break;
-    case TermUuidInvalid:
-        notifier.showWarning("Пустой uuid термина при попытке изменения");
-        break;
-    case TermAlreadyExist:
-        notifier.showError("Термин с таким названием уже существует в этой группе");
-        break;
+    case GroupUuidNotFound: notifier.showError("Группа не найдена"); break;
+    case GroupNameAlreadyExist: notifier.showError("Название группы не уникально"); break;
+    case TermUuidInvalid: notifier.showWarning("Пустой uuid термина при попытке изменения"); break;
+    case TermAlreadyExist: notifier.showError("Термин с таким названием уже существует в этой группе"); break;
     case GroupUuidInvalid:
     case GroupUuidAlreadyExist:
     case GroupNameEmpty:
@@ -303,9 +295,7 @@ void GroupsManager::showError(int code) {
     case JsonWikiUrlFieldMissedOrWrongType:
     case JsonWikiImageFieldMissedOrWrongType:
     case JsonGroupUuidFieldMissedOrWrongType:
-    case JsonLastEditFieldMissedOrWrongType:
-        notifier.showError(Errors::toQString(eCode));
-        break;
+    case JsonLastEditFieldMissedOrWrongType: notifier.showError(Errors::toQString(eCode)); break;
     }
 }
 
@@ -323,15 +313,9 @@ void GroupsManager::exportGrpToJson(const QString& groupUuid)
     // clipboard->setText(document.toJson());
 }
 
-void GroupsManager::init()
-{
-    provider.loadGroups();
-}
+void GroupsManager::init() { provider.loadGroups(); }
 
-void GroupsManager::loadGroup(const GroupUuid& uuid)
-{
-    provider.loadGroup(uuid);
-}
+void GroupsManager::loadGroup(const GroupUuid& uuid) { provider.loadGroup(uuid); }
 
 void GroupsManager::saveGroupInFolder(TermGroup::OptPtr group)
 {

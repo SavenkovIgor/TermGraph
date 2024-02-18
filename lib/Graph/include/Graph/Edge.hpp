@@ -59,4 +59,4 @@ private:
     EdgeData mData;
 };
 
-}
+} // namespace graph

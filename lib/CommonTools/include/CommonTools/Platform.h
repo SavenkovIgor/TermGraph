@@ -33,28 +33,19 @@ private:
     }
 
 public:
-    consteval static bool isDesktop()
-    {
-        return isLinux() || isWindows() || isMacOs();
-    }
+    consteval static bool isDesktop() { return isLinux() || isWindows() || isMacOs(); }
 
-    consteval static bool isMobile()
-    {
-        return isAndroid() || isIos();
-    }
+    consteval static bool isMobile() { return isAndroid() || isIos(); }
 
-    consteval static bool isWeb()
-    {
-        return isWasm();
-    }
+    consteval static bool isWeb() { return isWasm(); }
 
     consteval static bool isStaticDataStorage()
     {
-        #ifdef STATIC_STORAGE
-            return true;
-        #else
-            return false;
-        #endif
+#ifdef STATIC_STORAGE
+        return true;
+#else
+        return false;
+#endif
     }
 
     // clang-format off

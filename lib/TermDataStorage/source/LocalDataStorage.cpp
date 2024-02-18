@@ -32,13 +32,12 @@ FutureResult<GroupSummary> LocalDatabaseStorage::group(const GroupUuid& uuid) co
 FutureResult<GroupSummary::List> LocalDatabaseStorage::groups() const
 {
     return toFuture<Result<GroupSummary::List>>([this] {
-
         auto lastEdits = nodesLastEdit();
-        auto groups = impl->db.groupTable->allGroups();
+        auto groups    = impl->db.groupTable->allGroups();
 
         for (auto& group : groups) {
             assert(group.uuid.has_value());
-            auto uuid = group.uuid.value();
+            auto uuid     = group.uuid.value();
             auto lastEdit = lastEdits.value(uuid, QDateTime());
 
             if (!lastEdit.isNull()) {
@@ -105,8 +104,8 @@ FutureResult<TermData> LocalDatabaseStorage::addTerm(const TermData& info)
 }
 
 FutureResult<TermData> LocalDatabaseStorage::updateTerm(const TermData&                      info,
-                                                     DataStorageInterface::LastEditSource lastEditSource,
-                                                     bool                                 checkLastEdit)
+                                                        DataStorageInterface::LastEditSource lastEditSource,
+                                                        bool                                 checkLastEdit)
 {
     if (!impl->db.groupTable->exist(info.groupUuid)) {
         return toFuture<Result<TermData>>([] { return ErrorCodes::GroupUuidNotFound; });
@@ -132,8 +131,8 @@ QMap<GroupUuid, QDateTime> LocalDatabaseStorage::nodesLastEdit() const
     }
 
     for (const auto& record : impl->db.termTable->allLastEditRecords()) {
-        Opt<GroupUuid> uuid = GroupUuid::from(record.value("groupUuid").toString());
-        QDateTime  lastEdit = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate);
+        Opt<GroupUuid> uuid     = GroupUuid::from(record.value("groupUuid").toString());
+        QDateTime      lastEdit = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate);
 
         assert(uuid.has_value());
         assert(!lastEdit.isNull());

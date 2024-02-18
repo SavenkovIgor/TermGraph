@@ -98,9 +98,7 @@ void NodeVerticalStack::sortNodePacks(std::vector<NodeVerticalStack::NodePack>& 
     };
     std::sort(pack.begin(), pack.end(), order);
 
-    auto innerOrder = [](const PaintedTerm::Ptr t1, const PaintedTerm::Ptr t2) {
-        return t1->term() < t2->term();
-    };
+    auto innerOrder = [](const PaintedTerm::Ptr t1, const PaintedTerm::Ptr t2) { return t1->term() < t2->term(); };
 
     for ([[maybe_unused]] auto& [pt, nodes] : pack) {
         std::sort(nodes.begin(), nodes.end(), innerOrder);

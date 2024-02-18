@@ -13,7 +13,6 @@
 #include "source/model/group/termgroup.h"
 #include "source/model/term/termdatawrapper.h"
 
-
 class LinksHardeningManager : public QAbstractListModel
 {
     Q_OBJECT

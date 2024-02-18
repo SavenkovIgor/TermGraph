@@ -7,6 +7,7 @@
 #include <vector>
 
 #include <Graph/Edge.hpp>
+
 #include "source/model/edge/edgedata.h"
 #include "source/model/term/graphterm.h"
 

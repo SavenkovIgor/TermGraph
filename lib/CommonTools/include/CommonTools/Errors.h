@@ -62,7 +62,8 @@ enum ErrorCodes {
 
 namespace Errors {
 
-inline const char* toChar(ErrorCodes code) {
+inline const char* toChar(ErrorCodes code)
+{
     // clang-format off
     switch(code) {
         case ErrorCodes::GroupUuidInvalid:                        return "GroupUuidInvalid";
@@ -106,7 +107,8 @@ inline const char* toChar(ErrorCodes code) {
 inline QString toQString(ErrorCodes code) { return {toChar(code)}; }
 inline QString toQString(int code) { return toQString(static_cast<ErrorCodes>(code)); }
 
-inline ErrorCodes fromChar(const char* enumName) {
+inline ErrorCodes fromChar(const char* enumName)
+{
     std::string msg(enumName);
 
     // clang-format off
@@ -147,17 +149,15 @@ inline ErrorCodes fromChar(const char* enumName) {
     return ErrorCodes::UnknownError;
 }
 
-inline ErrorCodes fromQString(QString enumName) {
+inline ErrorCodes fromQString(QString enumName)
+{
     auto str = enumName.toStdString();
     return fromChar(str.c_str());
 }
 
-}
+} // namespace Errors
 
-inline const char* error_message(int code)
-{
-    return Errors::toChar(static_cast<ErrorCodes>(code));
-}
+inline const char* error_message(int code) { return Errors::toChar(static_cast<ErrorCodes>(code)); }
 
 namespace detail {
 class DbErrorCodes_category : public std::error_category

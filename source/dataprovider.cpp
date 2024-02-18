@@ -6,15 +6,13 @@
 #include "source/datasourcefactory.h"
 
 DataProvider::DataProvider(QObject *parent)
-    : QObject{parent},
-    dataStorage{DataSourceFactory::defaultSource()}
-{
-}
+    : QObject{parent}
+    , dataStorage{DataSourceFactory::defaultSource()}
+{}
 
 void DataProvider::loadGroups()
 {
     dataStorage->groups().then([this](Result<GroupSummary::List> result) {
-
         if (!result.has_value()) {
             emit showError(static_cast<int>(result.error()));
             return;
@@ -23,7 +21,7 @@ void DataProvider::loadGroups()
         auto groups = result.value();
 
         // Find global group
-        auto globalGroup = std::find_if(groups.begin(), groups.end(), [](const auto& group) {
+        auto globalGroup = std::find_if(groups.begin(), groups.end(), [](const auto &group) {
             return group.name == "Global";
         });
 
@@ -42,27 +40,18 @@ void DataProvider::loadGroups()
     });
 }
 
-bool DataProvider::isReady() const
-{
-    return mGroups.has_value();
-}
+bool DataProvider::isReady() const { return mGroups.has_value(); }
 
-int DataProvider::dbVersion() const
-{
-    return dataStorage->storageVersion();
-}
+int DataProvider::dbVersion() const { return dataStorage->storageVersion(); }
 
-Opt<GroupUuid> DataProvider::currentGroup() const
-{
-    return mCurrentGroup;
-}
+Opt<GroupUuid> DataProvider::currentGroup() const { return mCurrentGroup; }
 
 void DataProvider::loadGroup(GroupUuid uuid)
 {
-    dataStorage->terms(uuid).then([this, uuid](Result<TermData::List> result){
+    dataStorage->terms(uuid).then([this, uuid](Result<TermData::List> result) {
         if (result.has_value()) {
             mCurrentGroup = uuid;
-            mTerms = result.value();
+            mTerms        = result.value();
             emit groupLoaded();
         }
     });
@@ -77,7 +66,7 @@ const GroupSummary::List &DataProvider::groups() const
 Opt<GroupSummary> DataProvider::group(GroupUuid uuid) const
 {
     assert(isReady());
-    for (const auto& group : mGroups.value()) {
+    for (const auto &group : mGroups.value()) {
         if (group.uuid == uuid) {
             return group;
         }
@@ -87,7 +76,7 @@ Opt<GroupSummary> DataProvider::group(GroupUuid uuid) const
 
 void DataProvider::addGroup(const GroupSummary &info)
 {
-    dataStorage->addGroup(info).then([this](Result<GroupSummary> result){
+    dataStorage->addGroup(info).then([this](Result<GroupSummary> result) {
         if (result.has_value()) {
             emit groupAdded(result.value());
         } else {
@@ -109,7 +98,7 @@ void DataProvider::updateGroup(const GroupSummary &info)
 
 void DataProvider::deleteGroup(const GroupUuid &uuid)
 {
-    dataStorage->deleteGroup(uuid).then([this](Result<GroupSummary> result){
+    dataStorage->deleteGroup(uuid).then([this](Result<GroupSummary> result) {
         if (result.has_value()) {
             emit groupDeleted(result.value().uuid.value());
         } else {
@@ -127,7 +116,7 @@ const TermData::List &DataProvider::terms() const
 Opt<TermData> DataProvider::term(const QString &definition, GroupUuid uuid) const
 {
     assert(uuid == mCurrentGroup);
-    for (const auto& term : mTerms) {
+    for (const auto &term : mTerms) {
         if (term.definition == definition) {
             return term;
         }
@@ -138,7 +127,7 @@ Opt<TermData> DataProvider::term(const QString &definition, GroupUuid uuid) cons
 
 void DataProvider::addTerm(const TermData &data)
 {
-    dataStorage->addTerm(data).then([this](Result<TermData> result){
+    dataStorage->addTerm(data).then([this](Result<TermData> result) {
         if (result) {
             emit termAdded(result.value());
         } else {
@@ -147,9 +136,11 @@ void DataProvider::addTerm(const TermData &data)
     });
 }
 
-void DataProvider::updateTerm(const TermData &data, DataStorageInterface::LastEditSource lastEditSource, bool checkLastEdit)
+void DataProvider::updateTerm(const TermData                      &data,
+                              DataStorageInterface::LastEditSource lastEditSource,
+                              bool                                 checkLastEdit)
 {
-    dataStorage->updateTerm(data, lastEditSource, checkLastEdit).then([this](Result<TermData> result){
+    dataStorage->updateTerm(data, lastEditSource, checkLastEdit).then([this](Result<TermData> result) {
         if (result) {
             emit termUpdated(result.value());
         } else {
@@ -160,7 +151,7 @@ void DataProvider::updateTerm(const TermData &data, DataStorageInterface::LastEd
 
 void DataProvider::deleteTerm(const TermUuid &uuid)
 {
-    dataStorage->deleteTerm(uuid).then([this](Result<TermData> result){
+    dataStorage->deleteTerm(uuid).then([this](Result<TermData> result) {
         if (result) {
             emit termDeleted(result.value().uuid.value());
         } else {

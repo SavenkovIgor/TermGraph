@@ -8,10 +8,8 @@
 #include <QObject>
 #include <QSharedPointer>
 
-
 template<typename T>
-Result<T> toResult(QNetworkReply*                                reply,
-                   std::function<Opt<T>(const QByteArray& data)> parseFunc)
+Result<T> toResult(QNetworkReply* reply, std::function<Opt<T>(const QByteArray& data)> parseFunc)
 {
     if (reply->error() != QNetworkReply::NoError) {
         return ErrorCodes::ConnectionError;
@@ -70,7 +68,8 @@ FutureResult<GroupSummary::List> DataStorageConnection::groups() const
     QUrl url = groupUrl;
 
     network.get(url, [=](auto* reply) {
-        promise->addResult(toResult<GroupSummary::List>(reply, [](auto data) { return GroupSummary::List::from(data); }));
+        promise->addResult(
+            toResult<GroupSummary::List>(reply, [](auto data) { return GroupSummary::List::from(data); }));
         promise->finish();
     });
 
@@ -133,9 +132,8 @@ FutureResult<TermData> DataStorageConnection::term(const TermUuid& uuid) const
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     network.get(url, [=](auto* reply) {
-        promise->addResult(toResult<TermData>(reply, [](auto data) {
-            return TermData::from(data, TermData::JsonCheckMode::Import);
-        }));
+        promise->addResult(
+            toResult<TermData>(reply, [](auto data) { return TermData::from(data, TermData::JsonCheckMode::Import); }));
         promise->finish();
     });
 
@@ -150,10 +148,9 @@ FutureResult<TermData> DataStorageConnection::term(const QString& nodeName, cons
     QUrl url = termUrl;
     url.setQuery(QString("group_uuid=%1&name=%2").arg(uuid.toString(), nodeName));
 
-    network.get(url, [=](auto* reply){
-        promise->addResult(toResult<TermData>(reply, [](auto data) {
-            return TermData::from(data, TermData::JsonCheckMode::Import);
-        }));
+    network.get(url, [=](auto* reply) {
+        promise->addResult(
+            toResult<TermData>(reply, [](auto data) { return TermData::from(data, TermData::JsonCheckMode::Import); }));
         promise->finish();
     });
 
@@ -168,7 +165,7 @@ FutureResult<TermData::List> DataStorageConnection::terms(const GroupUuid& uuid)
     QUrl url = termUrl;
     url.setQuery(QString("group_uuid=%1").arg(uuid.toString()));
 
-    network.get(url, [=](auto* reply){
+    network.get(url, [=](auto* reply) {
         promise->addResult(toResult<TermData::List>(reply, [](auto data) { return TermData::List::from(data); }));
         promise->finish();
     });
@@ -184,9 +181,8 @@ FutureResult<TermData> DataStorageConnection::addTerm(const TermData& info)
     QUrl url = termUrl;
 
     network.post(url, static_cast<QByteArray>(info), [=](auto* reply) {
-        promise->addResult(toResult<TermData>(reply, [](auto data) {
-            return TermData::from(data, TermData::JsonCheckMode::Import);
-        }));
+        promise->addResult(
+            toResult<TermData>(reply, [](auto data) { return TermData::from(data, TermData::JsonCheckMode::Import); }));
         promise->finish();
     });
 
@@ -205,9 +201,8 @@ FutureResult<TermData> DataStorageConnection::updateTerm(
     url.setPath(QString("%1/%2").arg(url.path(), info.uuid->toString()));
 
     network.put(url, static_cast<QByteArray>(info), [=](auto* reply) {
-        promise->addResult(toResult<TermData>(reply, [](auto data) {
-            return TermData::from(data, TermData::JsonCheckMode::Import);
-        }));
+        promise->addResult(
+            toResult<TermData>(reply, [](auto data) { return TermData::from(data, TermData::JsonCheckMode::Import); }));
         promise->finish();
     });
 
@@ -223,9 +218,8 @@ FutureResult<TermData> DataStorageConnection::deleteTerm(const TermUuid& uuid)
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     network.deleteResource(url, [=](auto* reply) {
-        promise->addResult(toResult<TermData>(reply, [](auto data) {
-            return TermData::from(data, TermData::JsonCheckMode::Import);
-        }));
+        promise->addResult(
+            toResult<TermData>(reply, [](auto data) { return TermData::from(data, TermData::JsonCheckMode::Import); }));
         promise->finish();
     });
 

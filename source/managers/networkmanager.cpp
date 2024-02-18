@@ -138,10 +138,10 @@ void NetworkManager::setServerEnabled(bool enabled)
 
 QString NetworkManager::serverState() const { return isServerEnabled() ? "Ожидание соединения" : "Выключен"; }
 
-QUrl NetworkManager::currentUrl() const {
-
+QUrl NetworkManager::currentUrl() const
+{
 #ifdef Q_OS_WASM
-    auto location = emscripten::val::global("location");
+    auto location  = emscripten::val::global("location");
     auto urlString = QString::fromStdString(location["href"].as<std::string>());
     return QUrl(urlString);
 #endif

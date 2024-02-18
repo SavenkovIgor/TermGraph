@@ -4,9 +4,9 @@
 #include "source/Database.h"
 
 #include <QDateTime>
-#include <QString>
-#include <QFileInfo>
 #include <QDebug>
+#include <QFileInfo>
+#include <QString>
 
 #include "source/DbInfo.h"
 #include "source/DbTools.h"

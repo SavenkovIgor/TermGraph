@@ -8,11 +8,10 @@
 #include <CommonTools/HandyTypes.h>
 #include <TermDataInterface/GroupSummary.h>
 
+#include "source/helpers/linktermdistancecache.h"
 #include "source/model/graphicitem/rectgraphicitem.h"
 #include "source/model/group/paintedforest.h"
 #include "source/model/term/paintedterm.h"
-#include "source/helpers/linktermdistancecache.h"
-
 
 class TermGroup : public QObject
 {

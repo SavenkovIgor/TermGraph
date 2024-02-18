@@ -8,10 +8,9 @@
 
 #include <TermDataInterface/TermData.h>
 
-#include "source/model/enums.h"
 #include "source/helpers/link/link.h"
 #include "source/helpers/link/linksstring.h"
-
+#include "source/model/enums.h"
 
 // Mostly const wrapper over TermData + some additional stuff
 class TermDataCache
@@ -28,7 +27,7 @@ public:
     bool isSynonym() const;
     bool hasSynonyms() const;
 
-    QString definition() const;
+    QString            definition() const;
     inline QString     lowerTerm() const { return mLowerTerms.value().first(); }
     inline QStringList lowerTermAndSynonyms() const { return mLowerTerms.value(); }
 

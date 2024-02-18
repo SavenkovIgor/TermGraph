@@ -62,9 +62,7 @@ TEST(StaticStorageTest, DefinitionSimplified)
             qWarning() << "Can't parse file:" << fileInfo.absoluteFilePath();
         }
 
-        auto firstChar = [](const QString& str) {
-            return str.isEmpty() ? QChar() : str[0];
-        };
+        auto firstChar = [](const QString& str) { return str.isEmpty() ? QChar() : str[0]; };
 
         for (const auto& term : group.value().terms) {
             if (term.definition.isEmpty()) {

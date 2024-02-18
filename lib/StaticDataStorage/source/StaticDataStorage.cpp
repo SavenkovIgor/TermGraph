@@ -3,8 +3,8 @@
 
 #include "include/StaticDataStorage/StaticDataStorage.h"
 
-#include <QMap>
 #include <QDir>
+#include <QMap>
 
 StaticDataStorage::StaticDataStorage()
     : DataStorageInterface()
@@ -13,7 +13,6 @@ StaticDataStorage::StaticDataStorage()
 
     // Take all files from data folder with extension .json
     for (const auto& fileInfo : files()) {
-
         auto fileData = qrcFileData(fileInfo.absoluteFilePath());
 
         auto group = StaticGroupData::from(fileData);
@@ -50,9 +49,9 @@ StaticGroupData StaticDataStorage::prepareForInternalUse(StaticGroupData data)
     auto lastEdit = QDateTime::currentDateTime();
 
     for (auto& term : data.terms) {
-        term.uuid = TermUuid::generate();
+        term.uuid      = TermUuid::generate();
         term.groupUuid = data.uuid.value();
-        term.lastEdit = lastEdit;
+        term.lastEdit  = lastEdit;
     }
 
     return data;
@@ -62,15 +61,14 @@ int StaticDataStorage::storageVersion() const { return 1; }
 
 FutureResult<GroupSummary> StaticDataStorage::group(const GroupUuid& uuid) const
 {
-    return toFuture<Result<GroupSummary>>([this, &uuid] () { return mGroups.value(uuid); });
+    return toFuture<Result<GroupSummary>>([this, &uuid]() { return mGroups.value(uuid); });
 }
 
 FutureResult<GroupSummary::List> StaticDataStorage::groups() const
 {
-    return toFuture<Result<GroupSummary::List>>([this] () -> GroupSummary::List {
-
+    return toFuture<Result<GroupSummary::List>>([this]() -> GroupSummary::List {
         auto lastEdits = termsLastEdit();
-        auto groups = mGroups.values();
+        auto groups    = mGroups.values();
 
         // Sorting this structure
         auto groupOrdering = [&lastEdits](const auto& g1, const auto& g2) {
@@ -95,13 +93,13 @@ FutureResult<GroupSummary> StaticDataStorage::addGroup([[maybe_unused]] const Gr
     return toFuture<Result<GroupSummary>>([] { return ErrorCodes::UnknownError; });
 }
 
-FutureResult<GroupSummary> StaticDataStorage::updateGroup([[maybe_unused]]const GroupSummary& info)
+FutureResult<GroupSummary> StaticDataStorage::updateGroup([[maybe_unused]] const GroupSummary& info)
 {
     qWarning("Not implemented");
     return toFuture<Result<GroupSummary>>([] { return ErrorCodes::UnknownError; });
 }
 
-FutureResult<GroupSummary> StaticDataStorage::deleteGroup([[maybe_unused]]const GroupUuid& uuid)
+FutureResult<GroupSummary> StaticDataStorage::deleteGroup([[maybe_unused]] const GroupUuid& uuid)
 {
     qWarning("Not implemented");
     return toFuture<Result<GroupSummary>>([] { return ErrorCodes::UnknownError; });
@@ -113,7 +111,7 @@ FutureResult<TermData> StaticDataStorage::term(const QString& nodeName, const Gr
         return toFuture<Result<TermData>>([] { return ErrorCodes::GroupUuidNotFound; });
     }
 
-    return toFuture<Result<TermData>>([this, nodeName, uuid] () -> Result<TermData> {
+    return toFuture<Result<TermData>>([this, nodeName, uuid]() -> Result<TermData> {
         auto term = mGroups.value(uuid).term(nodeName);
         if (!term) {
             return ErrorCodes::TermNotFound;
@@ -135,7 +133,7 @@ FutureResult<TermData::List> StaticDataStorage::terms(const GroupUuid& uuid) con
         return toFuture<Result<TermData::List>>([] { return ErrorCodes::GroupUuidNotFound; });
     }
 
-    return toFuture<Result<TermData::List>>([this, uuid] () -> Result<TermData::List> {
+    return toFuture<Result<TermData::List>>([this, uuid]() -> Result<TermData::List> {
         if (!mGroups.contains(uuid)) {
             return ErrorCodes::GroupUuidNotFound;
         }
@@ -150,9 +148,9 @@ FutureResult<TermData> StaticDataStorage::addTerm([[maybe_unused]] const TermDat
     return toFuture<Result<TermData>>([] { return ErrorCodes::UnknownError; });
 }
 
-FutureResult<TermData> StaticDataStorage::updateTerm([[maybe_unused]] const TermData&                      info,
+FutureResult<TermData> StaticDataStorage::updateTerm([[maybe_unused]] const TermData& info,
                                                      [[maybe_unused]] DataStorageInterface::LastEditSource lastEditSource,
-                                                     [[maybe_unused]] bool                                 checkLastEdit)
+                                                     [[maybe_unused]] bool checkLastEdit)
 {
     qWarning("Not implemented");
     return toFuture<Result<TermData>>([] { return ErrorCodes::UnknownError; });

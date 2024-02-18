@@ -401,7 +401,7 @@ TermGroup::SearchConnectionResult TermGroup::searchAllConnections(const PaintedT
     auto exactMatchCache = createExactLinkMatchCacheFor(terms);
     auto termUuids       = createUuidCacheFor(terms);
 
-    static int counter     = 0;
+    static int counter = 0;
 
     // Compare everything with everything
     for (auto node : terms) {
