@@ -344,6 +344,14 @@
         {
             "area": "math",
             "termDef": "Correlation - a {measure} of how changes in one {property} are associated with changes in another {property} or set of {properties}."
+        },
+        {
+            "area": "phys",
+            "termDef": "Scalar quantity - {physical quantity} that is expressed only by {value} and {unit}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Scalar - {scalar quantity}"
         }
     ]
 }
