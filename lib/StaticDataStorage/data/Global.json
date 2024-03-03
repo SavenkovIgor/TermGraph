@@ -352,6 +352,26 @@
         {
             "area": "phys",
             "termDef": "Scalar - {scalar quantity}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Positive charge - {electric charge} with a positive numerical value"
+        },
+        {
+            "area": "phys",
+            "termDef": "Negative charge - {electric charge} with a negative numerical value"
+        },
+        {
+            "area": "phys",
+            "termDef": "Neutron - heavy {elementary particle}, having no {electric charge} and consisting of two {down quarks} and one {up quark}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Proton - heavy {elementary particle}, having {positive charge} and consisting of two {up quarks} and one {down quark}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Electron - light {elementary particle}, having {negative charge}"
         }
     ]
 }
