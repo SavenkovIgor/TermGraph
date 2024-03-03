@@ -34,6 +34,9 @@ jobs:
       with:
         clang-format-version: 16
 
+    - name: Update apt
+      run: sudo apt update
+
     - name: Install clang-tools-17 for modules deps search
       run: sudo apt install clang-tools-17
 
