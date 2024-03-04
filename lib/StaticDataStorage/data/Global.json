@@ -372,6 +372,30 @@
         {
             "area": "phys",
             "termDef": "Electron - light {elementary particle}, having {negative charge}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Nucleon - general name for {protons} and {neutrons}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Atom - stable {system} of {electrons} and {nucleons}"
+        },
+        {
+            "area": "phys",
+            "termDef": "Atomic nucleus - a {positively charged}, compact {system} of {nucleons} in the center of an {atom}, bound by {strong interaction}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Ion - {atom}, in which the total number of {electrons} is not equal to the number of {protons}, and as a result it acquires an {electric charge}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Cation - {ion} with a {positive charge}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Anion - {ion} with a {negative charge}"
         }
     ]
 }
