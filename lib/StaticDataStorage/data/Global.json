@@ -26,6 +26,10 @@
             "termDef": "Property - a common characteristic that does not exist by itself, but the possession of which can be attributed to many different {entities}"
         },
         {
+            "area": "phys",
+            "termDef": "Quantized property - {property} that can take only certain {values}"
+        },
+        {
             "area": "phil",
             "termDef": "Rule - is a universal principle governing or describing the interaction, changes or {properties} of some {entities}"
         },
@@ -396,6 +400,10 @@
         {
             "area": "chem",
             "termDef": "Anion - {ion} with a {negative charge}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Energy level - {quantized property} of an {atom}, that defines the {energy} an {electron} can have"
         }
     ]
 }
