@@ -2,15 +2,13 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
-cmake_minimum_required (VERSION 3.25)
+cmake_minimum_required (VERSION 3.22.0)
 
 project (TermGraph
          VERSION 2.0.0
          DESCRIPTION "Terms diagram builder. Polish your knowledge with accurate definitions."
          HOMEPAGE_URL "https://termgraph.app/"
          LANGUAGES CXX)
-
-# set (CMAKE_CXX_SCAN_FOR_MODULES False)
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
     set (WASM "True")
