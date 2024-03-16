@@ -34,6 +34,15 @@ jobs:
       with:
         clang-format-version: 16
 
+    # - name: Update apt
+    #   run: |
+    #     wget https://apt.llvm.org/llvm.sh
+    #     chmod +x llvm.sh
+    #     sudo ./llvm.sh 17 all
+
+    # - name: Install clang-tools-17 for modules deps search
+      # run: sudo apt install clang-tools-17
+
     - name: Install latest cmake and ninja
       uses: lukka/get-cmake@latest
 
