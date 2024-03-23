@@ -3,10 +3,14 @@
 
 #include "source/managers/linkshardeningmanager.h"
 
+#include <ranges>
+
 #include <CommonTools/HandyTypes.h>
 
 #include "source/helpers/link/linksdecorator.h"
 #include "source/helpers/link/linktools.h"
+
+namespace rng = std::ranges;
 
 LinksHardeningManager::LinksHardeningManager(QObject *parent)
     : QAbstractListModel(parent)
@@ -109,8 +113,7 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
         distances.push_back(std::pair(distance, term.get()));
     }
 
-    auto sortCondition = [](auto pair1, auto pair2) { return pair1.first < pair2.first; };
-    std::sort(distances.begin(), distances.end(), sortCondition);
+    rng::sort(distances, [](auto pair1, auto pair2) { return pair1.first < pair2.first; });
 
     auto min = static_cast<decltype(distances)::size_type>(std::min(limit, asInt(distances.size())));
 

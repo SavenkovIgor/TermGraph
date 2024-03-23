@@ -40,8 +40,8 @@ public:
         std::set<NodePtr> nodeSet(data.nodes.begin(), data.nodes.end());
         std::set<EdgePtr> edgeSet(data.edges.begin(), data.edges.end());
 
-        assert(rng::size(nodeSet) == rng::size(data.nodes));
-        assert(rng::size(edgeSet) == rng::size(data.edges));
+        assert(nodeSet.size() == data.nodes.size());
+        assert(edgeSet.size() == data.edges.size());
     }
 
     const NodeList& nodeList() const { return Base::nodes; }
@@ -55,9 +55,7 @@ public:
         auto ret = Base::nodes;
 
         auto removeIt = std::remove_if(ret.begin(), ret.end(), [this](auto node) {
-            auto it = std::find_if(Base::edges.begin(), Base::edges.end(), [&node](auto edge) {
-                return edge->incidentalTo(node);
-            });
+            auto it = rng::find_if(Base::edges, [&node](auto edge) { return edge->incidentalTo(node); });
 
             return it != Base::edges.end();
         });
@@ -73,9 +71,7 @@ public:
         auto ret      = Base::nodes;
 
         auto removeIt = std::remove_if(ret.begin(), ret.end(), [&isolated](auto node) {
-            auto it = std::find(isolated.begin(), isolated.end(), node);
-
-            return it != isolated.end();
+            return rng::find(isolated, node) != isolated.end();
         });
 
         ret.erase(removeIt, ret.end());
@@ -109,10 +105,8 @@ public:
 
     typename GraphData<NodeT, EdgeT>::List bondedSubgraphs()
     {
-        using namespace std;
-
         enum class State { NotVisited = 0, Planned, Visited };
-        map<NodePtr, State> nodesVisitList;
+        std::map<NodePtr, State> nodesVisitList;
 
         for (const auto& node : connectedNodes())
             nodesVisitList[node] = State::NotVisited;
@@ -125,12 +119,12 @@ public:
         auto isNodePlanned = [](const auto& val) { return val.second == State::Planned; };
         auto isNodeVisited = [](const auto& val) { return val.second == State::Visited; };
 
-        set<NodePtr> uniqueNodes;
-        set<EdgePtr> uniqueEdges;
+        std::set<NodePtr> uniqueNodes;
+        std::set<EdgePtr> uniqueEdges;
 
         while (!nodesVisitList.empty()) {
             // Visit stage
-            auto nodeToVisit = find_if(nodesVisitList.begin(), nodesVisitList.end(), isNodePlanned);
+            auto nodeToVisit = std::find_if(nodesVisitList.begin(), nodesVisitList.end(), isNodePlanned);
 
             // If no any nodes in plan, take first
             if (nodeToVisit == nodesVisitList.end())
@@ -148,13 +142,11 @@ public:
                     nodesVisitList[neighbourNode] = State::Planned;
             }
 
-            for_each(neighbours.edges.begin(), neighbours.edges.end(), [&uniqueEdges](auto edge) {
-                uniqueEdges.insert(edge);
-            });
+            rng::for_each(neighbours.edges, [&uniqueEdges](auto edge) { uniqueEdges.insert(edge); });
 
             // Cut stage
-            auto plannedCount = count_if(nodesVisitList.begin(), nodesVisitList.end(), isNodePlanned);
-            auto visitedCount = count_if(nodesVisitList.begin(), nodesVisitList.end(), isNodeVisited);
+            auto plannedCount = rng::count_if(nodesVisitList, isNodePlanned);
+            auto visitedCount = rng::count_if(nodesVisitList, isNodeVisited);
 
             if (plannedCount == 0 && visitedCount > 0) {
                 // Nodes preparations
@@ -165,7 +157,7 @@ public:
                 uniqueEdges.clear();
 
                 // Remove visited from nodesVisitList
-                erase_if(nodesVisitList, isNodeVisited);
+                std::erase_if(nodesVisitList, isNodeVisited);
             }
         }
 

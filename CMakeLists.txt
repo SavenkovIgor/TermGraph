@@ -12,6 +12,11 @@ project (TermGraph
 
 set (CMAKE_CXX_SCAN_FOR_MODULES False)
 
+# Enable ranges support for emscripten
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    add_compile_options(-fexperimental-library)
+endif()
+
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
     set (WASM "True")
 endif ()

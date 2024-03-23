@@ -3,6 +3,8 @@
 
 #include "source/model/group/termgroup.h"
 
+#include <ranges>
+
 #include <QElapsedTimer>
 #include <QThread>
 
@@ -11,6 +13,8 @@
 
 #include "source/helpers/appstyle.h"
 #include "source/helpers/link/linktools.h"
+
+namespace rng = std::ranges;
 
 LinkTermDistanceCache TermGroup::linkCache;
 
@@ -79,10 +83,8 @@ QRectF TermGroup::getGroupRect() const { return mBaseRect.getRect(CoordType::sce
 
 UuidList TermGroup::searchNearest(const QString& text, int limit) const
 {
-    using namespace std;
-
-    QString                   searchText = text.toLower();
-    vector<QPair<int, QUuid>> searchResults;
+    QString                        searchText = text.toLower();
+    std::vector<QPair<int, QUuid>> searchResults;
     // Taking distances
     for (const auto& term : mGraphData.nodeList()) {
         auto lowerTerm = term->cache().lowerTerm();
@@ -104,7 +106,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
     }
 
     // Sorting
-    sort(begin(searchResults), end(searchResults), [](auto s1, auto s2) { return s1.first < s2.first; });
+    rng::sort(searchResults, [](auto s1, auto s2) { return s1.first < s2.first; });
 
     // Removing numbers
     UuidList ret;
@@ -260,8 +262,7 @@ void TermGroup::updateBaseRectSize()
 
 void TermGroup::setTreeCoords()
 {
-    using namespace std;
-    for_each(begin(mForests), end(mForests), [](auto f) { f->setTreeNodeCoords(); });
+    rng::for_each(mForests, [](auto f) { f->setTreeNodeCoords(); });
 }
 
 void TermGroup::setOrphCoords(qreal maxWidth)
@@ -311,8 +312,7 @@ void TermGroup::setOrphCoords(qreal maxWidth)
 PaintedTerm::List TermGroup::collapseSynonyms(PaintedTerm::List nodes)
 {
     auto synonymCount = [](const auto& terms) {
-        using namespace std;
-        return count_if(begin(terms), end(terms), [](const auto& term) { return term->cache().isSynonym(); });
+        return rng::count_if(terms, [](const auto& term) { return term->cache().isSynonym(); });
     };
 
     for (;;) {
@@ -512,8 +512,6 @@ PaintedEdge::List TermGroup::filterFromEdgesList(std::function<bool(PaintedEdge:
 
 PaintedEdge::List TermGroup::edgesForPaint() const
 {
-    using namespace std;
-
     PaintedEdge::List lst;
 
     auto softEdgesFilter     = [](auto e) { return !e->isSelected() && !e->isHard(); };

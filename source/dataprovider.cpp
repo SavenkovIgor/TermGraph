@@ -3,7 +3,11 @@
 
 #include "dataprovider.h"
 
+#include <ranges>
+
 #include "source/datasourcefactory.h"
+
+namespace rng = std::ranges;
 
 DataProvider::DataProvider(QObject *parent)
     : QObject{parent}

@@ -3,8 +3,12 @@
 
 #include "include/StaticDataStorage/StaticDataStorage.h"
 
+#include <ranges>
+
 #include <QDir>
 #include <QMap>
+
+namespace rng = std::ranges;
 
 StaticDataStorage::StaticDataStorage()
     : DataStorageInterface()
@@ -70,8 +74,7 @@ FutureResult<GroupSummary::List> StaticDataStorage::groups() const
         auto groups = mGroups.values();
 
         // Sorting this structure
-        auto groupOrdering = [](const auto& g1, const auto& g2) { return g1.termsLastEdit() > g2.termsLastEdit(); };
-        std::sort(groups.begin(), groups.end(), groupOrdering);
+        rng::sort(groups, [](const auto& g1, const auto& g2) { return g1.termsLastEdit() > g2.termsLastEdit(); });
 
         GroupSummary::List result;
 
