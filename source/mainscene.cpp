@@ -71,8 +71,6 @@ void MainScene::checkGroupAddition()
 
 void MainScene::checkGroupDeletion()
 {
-    using namespace std;
-
     // If group was deleted, and it was current group, we must delete it too
     auto currentGroup = currentGroupUuid();
     if (!currentGroup) {
@@ -80,7 +78,7 @@ void MainScene::checkGroupDeletion()
     }
 
     auto groupsUuids = groupsMgr->getAllUuidsSortedByLastEdit();
-    if (find(begin(groupsUuids), end(groupsUuids), *currentGroup) == groupsUuids.end()) {
+    if (std::find(std::begin(groupsUuids), std::end(groupsUuids), *currentGroup) == groupsUuids.end()) {
         dropGroup();
     }
 }

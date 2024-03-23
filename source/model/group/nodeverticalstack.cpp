@@ -22,8 +22,7 @@ void NodeVerticalStack::addTerm(PaintedTerm::Ptr term) { mTerms.push_back(term);
 
 bool NodeVerticalStack::hasNode(PaintedTerm::Ptr term) const
 {
-    using namespace std;
-    return find(begin(mTerms), end(mTerms), term) != mTerms.end();
+    return std::find(std::begin(mTerms), std::end(mTerms), term) != mTerms.end();
 }
 
 PaintedTerm::List NodeVerticalStack::nodes() const { return mTerms; }

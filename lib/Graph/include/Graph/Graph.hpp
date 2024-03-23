@@ -109,10 +109,8 @@ public:
 
     typename GraphData<NodeT, EdgeT>::List bondedSubgraphs()
     {
-        using namespace std;
-
         enum class State { NotVisited = 0, Planned, Visited };
-        map<NodePtr, State> nodesVisitList;
+        std::map<NodePtr, State> nodesVisitList;
 
         for (const auto& node : connectedNodes())
             nodesVisitList[node] = State::NotVisited;
@@ -125,12 +123,12 @@ public:
         auto isNodePlanned = [](const auto& val) { return val.second == State::Planned; };
         auto isNodeVisited = [](const auto& val) { return val.second == State::Visited; };
 
-        set<NodePtr> uniqueNodes;
-        set<EdgePtr> uniqueEdges;
+        std::set<NodePtr> uniqueNodes;
+        std::set<EdgePtr> uniqueEdges;
 
         while (!nodesVisitList.empty()) {
             // Visit stage
-            auto nodeToVisit = find_if(nodesVisitList.begin(), nodesVisitList.end(), isNodePlanned);
+            auto nodeToVisit = std::find_if(nodesVisitList.begin(), nodesVisitList.end(), isNodePlanned);
 
             // If no any nodes in plan, take first
             if (nodeToVisit == nodesVisitList.end())
@@ -148,13 +146,13 @@ public:
                     nodesVisitList[neighbourNode] = State::Planned;
             }
 
-            for_each(neighbours.edges.begin(), neighbours.edges.end(), [&uniqueEdges](auto edge) {
+            std::for_each(neighbours.edges.begin(), neighbours.edges.end(), [&uniqueEdges](auto edge) {
                 uniqueEdges.insert(edge);
             });
 
             // Cut stage
-            auto plannedCount = count_if(nodesVisitList.begin(), nodesVisitList.end(), isNodePlanned);
-            auto visitedCount = count_if(nodesVisitList.begin(), nodesVisitList.end(), isNodeVisited);
+            auto plannedCount = std::count_if(nodesVisitList.begin(), nodesVisitList.end(), isNodePlanned);
+            auto visitedCount = std::count_if(nodesVisitList.begin(), nodesVisitList.end(), isNodeVisited);
 
             if (plannedCount == 0 && visitedCount > 0) {
                 // Nodes preparations
@@ -165,7 +163,7 @@ public:
                 uniqueEdges.clear();
 
                 // Remove visited from nodesVisitList
-                erase_if(nodesVisitList, isNodeVisited);
+                std::erase_if(nodesVisitList, isNodeVisited);
             }
         }
 

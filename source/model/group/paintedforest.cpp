@@ -92,12 +92,10 @@ PaintedTerm::OptPtr PaintedForest::getNodeAtPoint(const QPointF& pt) const
 
 QString PaintedForest::getHierarchyDefinition(PaintedTerm::Ptr term)
 {
-    using namespace std;
-
     PaintedTerm::List parentsList;
 
     rootsVisiter(term, [&parentsList](auto node) {
-        if (find(begin(parentsList), end(parentsList), node) == parentsList.end()) {
+        if (std::find(std::begin(parentsList), std::end(parentsList), node) == parentsList.end()) {
             parentsList.push_back(node);
         }
         return false;
@@ -108,7 +106,9 @@ QString PaintedForest::getHierarchyDefinition(PaintedTerm::Ptr term)
     }
 
     // Sorting parents list
-    sort(begin(parentsList), end(parentsList), [this](auto n1, auto n2) { return level(n1) > level(n2); });
+    std::sort(std::begin(parentsList), std::end(parentsList), [this](auto n1, auto n2) {
+        return level(n1) > level(n2);
+    });
 
     QStringList definitions;
 
