@@ -8,10 +8,13 @@
 #include <set>
 #include <utility>
 #include <vector>
+#include <ranges>
 
 #include <Graph/Edge.hpp>
 #include <Graph/GraphData.hpp>
 #include <Graph/Node.hpp>
+
+namespace rng = std::ranges;
 
 namespace graph {
 
@@ -37,8 +40,8 @@ public:
         std::set<NodePtr> nodeSet(data.nodes.begin(), data.nodes.end());
         std::set<EdgePtr> edgeSet(data.edges.begin(), data.edges.end());
 
-        assert(nodeSet.size() == data.nodes.size());
-        assert(edgeSet.size() == data.edges.size());
+        assert(rng::size(nodeSet) == rng::size(data.nodes));
+        assert(rng::size(edgeSet) == rng::size(data.edges));
     }
 
     const NodeList& nodeList() const { return Base::nodes; }
