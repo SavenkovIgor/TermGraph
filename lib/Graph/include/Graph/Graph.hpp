@@ -5,10 +5,10 @@
 
 #include <algorithm>
 #include <map>
+#include <ranges>
 #include <set>
 #include <utility>
 #include <vector>
-#include <ranges>
 
 #include <Graph/Edge.hpp>
 #include <Graph/GraphData.hpp>
