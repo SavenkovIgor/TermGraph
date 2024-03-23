@@ -40,8 +40,8 @@ public:
         std::set<NodePtr> nodeSet(data.nodes.begin(), data.nodes.end());
         std::set<EdgePtr> edgeSet(data.edges.begin(), data.edges.end());
 
-        assert(rng::size(nodeSet) == rng::size(data.nodes));
-        assert(rng::size(edgeSet) == rng::size(data.edges));
+        assert(nodeSet.size() == data.nodes.size());
+        assert(edgeSet.size() == data.edges.size());
     }
 
     const NodeList& nodeList() const { return Base::nodes; }
@@ -55,9 +55,7 @@ public:
         auto ret = Base::nodes;
 
         auto removeIt = std::remove_if(ret.begin(), ret.end(), [this](auto node) {
-            auto it = std::find_if(Base::edges.begin(), Base::edges.end(), [&node](auto edge) {
-                return edge->incidentalTo(node);
-            });
+            auto it = rng::find_if(Base::edges, [&node](auto edge) { return edge->incidentalTo(node); });
 
             return it != Base::edges.end();
         });
@@ -73,9 +71,7 @@ public:
         auto ret      = Base::nodes;
 
         auto removeIt = std::remove_if(ret.begin(), ret.end(), [&isolated](auto node) {
-            auto it = std::find(isolated.begin(), isolated.end(), node);
-
-            return it != isolated.end();
+            return rng::find(isolated, node) != isolated.end();
         });
 
         ret.erase(removeIt, ret.end());
@@ -146,13 +142,11 @@ public:
                     nodesVisitList[neighbourNode] = State::Planned;
             }
 
-            std::for_each(neighbours.edges.begin(), neighbours.edges.end(), [&uniqueEdges](auto edge) {
-                uniqueEdges.insert(edge);
-            });
+            rng::for_each(neighbours.edges, [&uniqueEdges](auto edge) { uniqueEdges.insert(edge); });
 
             // Cut stage
-            auto plannedCount = std::count_if(nodesVisitList.begin(), nodesVisitList.end(), isNodePlanned);
-            auto visitedCount = std::count_if(nodesVisitList.begin(), nodesVisitList.end(), isNodeVisited);
+            auto plannedCount = rng::count_if(nodesVisitList, isNodePlanned);
+            auto visitedCount = rng::count_if(nodesVisitList, isNodeVisited);
 
             if (plannedCount == 0 && visitedCount > 0) {
                 // Nodes preparations

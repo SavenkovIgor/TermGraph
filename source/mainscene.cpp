@@ -78,7 +78,7 @@ void MainScene::checkGroupDeletion()
     }
 
     auto groupsUuids = groupsMgr->getAllUuidsSortedByLastEdit();
-    if (std::find(std::begin(groupsUuids), std::end(groupsUuids), *currentGroup) == groupsUuids.end()) {
+    if (rng::find(groupsUuids, *currentGroup) == groupsUuids.end()) {
         dropGroup();
     }
 }

@@ -7,8 +7,11 @@
 #include <deque>
 #include <functional>
 #include <map>
+#include <ranges>
 
 #include <Graph/Graph.hpp>
+
+namespace rng = std::ranges;
 
 namespace graph {
 
@@ -222,7 +225,7 @@ private: // Methods
         for (const auto& node : BaseData::nodes) {
             auto edges = tooShortEdges(node);
 
-            std::for_each(edges.begin(), edges.end(), [&wEdges](auto edge) {
+            rng::for_each(edges, [&wEdges](auto edge) {
                 if (!wEdges.contains(edge))
                     wEdges.insert(edge);
             });
@@ -254,8 +257,8 @@ private: // Methods
         std::deque<NodePtr>    visitQueue;
         auto                   rootNodes = roots();
 
-        std::for_each(BaseData::nodes.begin(), BaseData::nodes.end(), [&ret](auto node) { ret[node] = 0; });
-        std::for_each(rootNodes.begin(), rootNodes.end(), [&visitQueue](auto node) { visitQueue.push_back(node); });
+        rng::for_each(BaseData::nodes, [&ret](auto node) { ret[node] = 0; });
+        rng::for_each(rootNodes, [&visitQueue](auto node) { visitQueue.push_back(node); });
 
         while (!visitQueue.empty()) // Just steps limit
         {
@@ -265,7 +268,7 @@ private: // Methods
             for (const auto& leaf : leafNodes(node)) {
                 ret[leaf] = std::max(ret[node] + 1, ret[leaf]);
 
-                if (std::find(visitQueue.begin(), visitQueue.end(), leaf) == visitQueue.end()) // Not found
+                if (rng::find(visitQueue, leaf) == visitQueue.end()) // Not found
                     visitQueue.push_back(leaf);
             }
         }
@@ -294,7 +297,7 @@ private: // Methods
         nodeStates[node] = NodeState::AtPath;
 
         for (auto edge : mEdgesToLeafs.at(node)) {
-            auto iter = std::find(breakEdges.begin(), breakEdges.end(), edge);
+            auto iter = rng::find(breakEdges, edge);
             if (iter != breakEdges.end())
                 continue;
 
@@ -332,7 +335,7 @@ private: // Methods
         for (const auto& edge : edgesList.at(node)) {
             auto rootNode = edge->oppositeTo(node);
 
-            bool found = std::find(visitQueue.begin(), visitQueue.end(), rootNode) != visitQueue.end();
+            bool found = rng::find(visitQueue, rootNode) != visitQueue.end();
 
             if (!found)
                 visitQueue.push_back(rootNode);

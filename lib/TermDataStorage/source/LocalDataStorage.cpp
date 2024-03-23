@@ -3,9 +3,13 @@
 
 #include "include/TermDataStorage/LocalDataStorage.h"
 
+#include <ranges>
+
 #include <QMap>
 
 #include "source/Database.h"
+
+namespace rng = std::ranges;
 
 class StorageImpl
 {
@@ -48,9 +52,7 @@ FutureResult<GroupSummary::List> LocalDatabaseStorage::groups() const
         }
 
         // Sorting this structure
-        auto groupOrdering = [](const auto& g1, const auto& g2) { return g1.nodesLastEdit > g2.nodesLastEdit; };
-
-        std::sort(groups.begin(), groups.end(), groupOrdering);
+        rng::sort(groups, [](const auto& g1, const auto& g2) { return g1.nodesLastEdit > g2.nodesLastEdit; });
 
         return groups;
     });

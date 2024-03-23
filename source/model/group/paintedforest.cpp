@@ -3,7 +3,11 @@
 
 #include "source/model/group/paintedforest.h"
 
+#include <ranges>
+
 #include "source/helpers/appstyle.h"
+
+namespace rng = std::ranges;
 
 PaintedForest::PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
     : Forest<PaintedTerm, PaintedEdge>(data)
@@ -95,7 +99,7 @@ QString PaintedForest::getHierarchyDefinition(PaintedTerm::Ptr term)
     PaintedTerm::List parentsList;
 
     rootsVisiter(term, [&parentsList](auto node) {
-        if (std::find(std::begin(parentsList), std::end(parentsList), node) == parentsList.end()) {
+        if (rng::find(parentsList, node) == parentsList.end()) {
             parentsList.push_back(node);
         }
         return false;
@@ -106,9 +110,7 @@ QString PaintedForest::getHierarchyDefinition(PaintedTerm::Ptr term)
     }
 
     // Sorting parents list
-    std::sort(std::begin(parentsList), std::end(parentsList), [this](auto n1, auto n2) {
-        return level(n1) > level(n2);
-    });
+    rng::sort(parentsList, [this](auto n1, auto n2) { return level(n1) > level(n2); });
 
     QStringList definitions;
 

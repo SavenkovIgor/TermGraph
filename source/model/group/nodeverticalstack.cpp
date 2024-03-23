@@ -3,6 +3,10 @@
 
 #include "source/model/group/nodeverticalstack.h"
 
+#include <ranges>
+
+namespace rng = std::ranges;
+
 QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::List& nodes)
 {
     SizeList sizeList;
@@ -20,10 +24,7 @@ NodeVerticalStack::NodeVerticalStack(PaintedForest* parentForest)
 
 void NodeVerticalStack::addTerm(PaintedTerm::Ptr term) { mTerms.push_back(term); }
 
-bool NodeVerticalStack::hasNode(PaintedTerm::Ptr term) const
-{
-    return std::find(std::begin(mTerms), std::end(mTerms), term) != mTerms.end();
-}
+bool NodeVerticalStack::hasNode(PaintedTerm::Ptr term) const { return rng::find(mTerms, term) != mTerms.end(); }
 
 PaintedTerm::List NodeVerticalStack::nodes() const { return mTerms; }
 
@@ -92,15 +93,10 @@ std::vector<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const P
 
 void NodeVerticalStack::sortNodePacks(std::vector<NodeVerticalStack::NodePack>& pack)
 {
-    auto order = [](const NodeVerticalStack::NodePack& s1, const NodeVerticalStack::NodePack& s2) {
-        return s1.first.y() < s2.first.y();
-    };
-    std::sort(pack.begin(), pack.end(), order);
+    rng::sort(pack, [](const auto& s1, const auto& s2) { return s1.first.y() < s2.first.y(); });
 
-    auto innerOrder = [](const PaintedTerm::Ptr t1, const PaintedTerm::Ptr t2) { return t1->term() < t2->term(); };
-
-    for ([[maybe_unused]] auto& [pt, nodes] : pack) {
-        std::sort(nodes.begin(), nodes.end(), innerOrder);
+    for (auto& [_, nodes] : pack) {
+        rng::sort(nodes, [](const auto t1, const auto t2) { return t1->term() < t2->term(); });
     }
 }
 

@@ -3,6 +3,8 @@
 
 #include "source/model/group/termgroup.h"
 
+#include <ranges>
+
 #include <QElapsedTimer>
 #include <QThread>
 
@@ -11,6 +13,8 @@
 
 #include "source/helpers/appstyle.h"
 #include "source/helpers/link/linktools.h"
+
+namespace rng = std::ranges;
 
 LinkTermDistanceCache TermGroup::linkCache;
 
@@ -102,7 +106,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
     }
 
     // Sorting
-    std::sort(std::begin(searchResults), std::end(searchResults), [](auto s1, auto s2) { return s1.first < s2.first; });
+    rng::sort(searchResults, [](auto s1, auto s2) { return s1.first < s2.first; });
 
     // Removing numbers
     UuidList ret;
@@ -258,7 +262,7 @@ void TermGroup::updateBaseRectSize()
 
 void TermGroup::setTreeCoords()
 {
-    std::for_each(std::begin(mForests), std::end(mForests), [](auto f) { f->setTreeNodeCoords(); });
+    rng::for_each(mForests, [](auto f) { f->setTreeNodeCoords(); });
 }
 
 void TermGroup::setOrphCoords(qreal maxWidth)
@@ -308,9 +312,7 @@ void TermGroup::setOrphCoords(qreal maxWidth)
 PaintedTerm::List TermGroup::collapseSynonyms(PaintedTerm::List nodes)
 {
     auto synonymCount = [](const auto& terms) {
-        return std::count_if(std::begin(terms), std::end(terms), [](const auto& term) {
-            return term->cache().isSynonym();
-        });
+        return rng::count_if(terms, [](const auto& term) { return term->cache().isSynonym(); });
     };
 
     for (;;) {

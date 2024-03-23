@@ -4,10 +4,13 @@
 #pragma once
 
 #include <functional>
+#include <ranges>
 #include <vector>
 
 #include <Graph/Edge.hpp>
 #include <Graph/Node.hpp>
+
+namespace rng = std::ranges;
 
 namespace graph {
 
@@ -26,8 +29,8 @@ public:
     NodeList nodes;
     EdgeList edges;
 
-    bool contains(const NodePtr& node) const { return std::find(nodes.begin(), nodes.end(), node) != nodes.end(); }
-    bool contains(const EdgePtr& edge) const { return std::find(edges.begin(), edges.end(), edge) != edges.end(); }
+    bool contains(const NodePtr& node) const { return rng::find(nodes, node) != nodes.end(); }
+    bool contains(const EdgePtr& edge) const { return rng::find(edges, edge) != edges.end(); }
 
     NodeList filterNodes(std::function<bool(const NodePtr&)> condition) const
     {
@@ -54,7 +57,7 @@ public:
         NodeList ret = baseList;
 
         auto remIt = std::remove_if(ret.begin(), ret.end(), [&subtractor](auto node) {
-            return std::find(subtractor.begin(), subtractor.end(), node) != subtractor.end();
+            return rng::find(subtractor, node) != subtractor.end();
         });
 
         ret.erase(remIt, ret.end());
@@ -67,7 +70,7 @@ public:
         EdgeList ret = baseList;
 
         auto remIt = std::remove_if(ret.begin(), ret.end(), [&subtractor](auto node) {
-            return std::find(subtractor.begin(), subtractor.end(), node) != subtractor.end();
+            return rng::find(subtractor, node) != subtractor.end();
         });
 
         ret.erase(remIt, ret.end());
