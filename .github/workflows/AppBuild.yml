@@ -29,8 +29,14 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    # - name: Install Clang 17.0
+      # run: sudo apt update && sudo apt install -y clang-17
+
     - name: Install Clang 17.0
-      run: sudo apt update && sudo apt install -y clang-17
+      run: |
+        wget https://apt.llvm.org/llvm.sh
+        chmod +x llvm.sh
+        sudo ./llvm.sh 17 all
 
     - name: Run clang-format style check
       uses: jidicula/clang-format-action@v4.11.0
