@@ -32,7 +32,7 @@ jobs:
     - name: Install Clang 17.0.1
       uses: KyleMayes/install-llvm-action@v1.9.0
       with:
-        version: "17.0.1"
+        version: "17.0"
 
     - name: Run clang-format style check
       uses: jidicula/clang-format-action@v4.11.0
