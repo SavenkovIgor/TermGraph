@@ -7,6 +7,7 @@ on:
     branches: [ "main" ]
 
 env:
+  CLANG_VERSION: 17
   EMSDK_VERSION: 3.1.37
   QT_VERSION: 6.6.1
   QT_ROOT: ${{ github.workspace }}/Qt
@@ -29,14 +30,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # - name: Install Clang 17.0
-      # run: sudo apt update && sudo apt install -y clang-17
-
-    - name: Install Clang 17.0
+    - name: Install Clang
       run: |
         wget https://apt.llvm.org/llvm.sh
         chmod +x llvm.sh
-        sudo ./llvm.sh 17 all
+        sudo ./llvm.sh ${{ env.CLANG_VERSION }} all
 
     - name: Run clang-format style check
       uses: jidicula/clang-format-action@v4.11.0
