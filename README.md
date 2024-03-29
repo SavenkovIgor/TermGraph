@@ -160,7 +160,7 @@ You can start tests from:
 ├── source/                  # Main source code
 ├── tests/                   # Tests
 ├── tools/                   # Some side stuff, need from time to time
-├── CMakelists.txt           # Main CMake file
+├── CMakeLists.txt           # Main CMake file
 ├── CMakePresets.json        # CMake presets
 ├── conanfile.txt            # Conan dependencies (gtest)
 └── project.py               # Python script for building and running project
