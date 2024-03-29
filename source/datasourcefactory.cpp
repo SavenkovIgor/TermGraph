@@ -10,8 +10,9 @@
 #include <StaticDataStorage/StaticDataStorage.h>
 
 #ifndef Q_OS_WASM
+#include "source/TermDataConnection/DataStorageConnection.h"
 #include "source/helpers/appsettings.h"
-#include <TermDataConnection/DataStorageConnection.h>
+
 #include <TermDataStorage/LocalDataStorage.h>
 #endif
 
