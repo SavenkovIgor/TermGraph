@@ -43,7 +43,6 @@ add_subdirectory ("lib/TermDataInterface")
 add_subdirectory ("lib/Text")
 
 if (NOT WASM)
-    add_subdirectory ("lib/TermDataConnection")
     add_subdirectory ("lib/TermDataStorage")
 endif ()
 
@@ -169,7 +168,13 @@ target_link_libraries (TermGraph PRIVATE TermDataInterface)
 target_link_libraries (TermGraph PRIVATE StaticDataStorage)
 
 if (NOT WASM)
-    target_link_libraries (TermGraph PRIVATE TermDataConnection)
+    target_sources (TermGraph
+        PRIVATE
+        "source/TermDataConnection/DataStorageConnection.h"
+        "source/TermDataConnection/NetWrapper.h"
+        "source/TermDataConnection/DataStorageConnection.cpp"
+        "source/TermDataConnection/NetWrapper.cpp"
+    )
     target_link_libraries (TermGraph PRIVATE TermDataStorage)
 endif ()
 

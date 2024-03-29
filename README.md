@@ -147,7 +147,6 @@ You can start tests from:
 │   ├── Graph/               # Graph header-only library
 │   ├── QrcHelpImages/       # Help images resources
 │   ├── StaticDataStorage/   # Static data storage library. Qrc with terms info
-│   ├── TermDataConnection/  # Library, connecting to REST api server
 │   ├── TermDataInterface/   # Interface, describing data connection interface
 │   ├── TermDataStorage/     # Data storage sqlite library
 │   └── Text                 # Text processing library

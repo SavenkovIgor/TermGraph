@@ -1,7 +1,7 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "include/TermDataConnection/NetWrapper.h"
+#include "source/TermDataConnection/NetWrapper.h"
 
 void NetWrapper::get(QUrl url, ReplyCallback callback) const
 {
