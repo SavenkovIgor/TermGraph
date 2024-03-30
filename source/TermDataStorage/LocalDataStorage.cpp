@@ -1,13 +1,13 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "include/TermDataStorage/LocalDataStorage.h"
+#include "source/TermDataStorage/LocalDataStorage.h"
 
 #include <ranges>
 
 #include <QMap>
 
-#include "source/Database.h"
+#include "source/TermDataStorage/Database.h"
 
 namespace rng = std::ranges;
 

@@ -42,10 +42,6 @@ add_subdirectory ("lib/StaticDataStorage")
 add_subdirectory ("lib/TermDataInterface")
 add_subdirectory ("lib/Text")
 
-if (NOT WASM)
-    add_subdirectory ("lib/TermDataStorage")
-endif ()
-
 qt_add_executable (TermGraph)
 
 set_target_properties (TermGraph
@@ -55,75 +51,75 @@ set_target_properties (TermGraph
 
 target_sources (TermGraph
     PRIVATE
-    "android/AndroidManifest.xml"
-    "source/api.cpp"
-    "source/api.h"
-    "source/dataprovider.cpp"
-    "source/dataprovider.h"
-    "source/datasourcefactory.cpp"
-    "source/datasourcefactory.h"
-    "source/helpers/appsettings.cpp"
-    "source/helpers/appsettings.h"
-    "source/helpers/appstyle.h"
-    "source/helpers/exclusivecall.h"
-    "source/helpers/firststartpreparer.cpp"
-    "source/helpers/firststartpreparer.h"
-    "source/helpers/linktermdistancecache.cpp"
-    "source/helpers/linktermdistancecache.h"
-    "source/helpers/intmatrix.cpp"
-    "source/helpers/intmatrix.h"
-    "source/helpers/link/link.cpp"
-    "source/helpers/link/link.h"
-    "source/helpers/link/linksdecorator.cpp"
-    "source/helpers/link/linksdecorator.h"
-    "source/helpers/link/linksstring.cpp"
-    "source/helpers/link/linksstring.h"
-    "source/helpers/link/linktools.cpp"
-    "source/helpers/link/linktools.h"
-    "source/helpers/simplelistenserver.cpp"
-    "source/helpers/simplelistenserver.h"
-    "source/main.cpp"
-    "source/mainscene.cpp"
-    "source/mainscene.h"
-    "source/managers/groupsmanager.cpp"
-    "source/managers/groupsmanager.h"
-    "source/managers/linkshardeningmanager.cpp"
-    "source/managers/linkshardeningmanager.h"
-    "source/managers/networkmanager.cpp"
-    "source/managers/networkmanager.h"
-    "source/managers/notificationmanager.cpp"
-    "source/managers/notificationmanager.h"
-    "source/managers/notifyinterface.h"
-    "source/managers/syncmanager.cpp"
-    "source/managers/syncmanager.h"
-    "source/model/edge/edgedata.h"
-    "source/model/edge/edgesmodel.cpp"
-    "source/model/edge/edgesmodel.h"
-    "source/model/edge/graphedge.cpp"
-    "source/model/edge/graphedge.h"
-    "source/model/edge/paintededge.cpp"
-    "source/model/edge/paintededge.h"
-    "source/model/enums.h"
-    "source/model/graphicitem/graphicitem.cpp"
-    "source/model/graphicitem/graphicitem.h"
-    "source/model/graphicitem/rectgraphicitem.cpp"
-    "source/model/graphicitem/rectgraphicitem.h"
-    "source/model/group/groupsummarywrapper.h"
-    "source/model/group/nodeverticalstack.cpp"
-    "source/model/group/nodeverticalstack.h"
-    "source/model/group/paintedforest.cpp"
-    "source/model/group/paintedforest.h"
-    "source/model/group/termgroup.cpp"
-    "source/model/group/termgroup.h"
-    "source/model/term/graphterm.cpp"
-    "source/model/term/graphterm.h"
-    "source/model/term/paintedterm.cpp"
-    "source/model/term/paintedterm.h"
-    "source/model/term/termdatacache.cpp"
-    "source/model/term/termdatacache.h"
-    "source/model/term/termdatawrapper.h"
-    "source/model/term/termsmodel.cpp"
-    "source/model/term/termsmodel.h"
+        "android/AndroidManifest.xml"
+        "source/api.cpp"
+        "source/api.h"
+        "source/dataprovider.cpp"
+        "source/dataprovider.h"
+        "source/datasourcefactory.cpp"
+        "source/datasourcefactory.h"
+        "source/helpers/appsettings.cpp"
+        "source/helpers/appsettings.h"
+        "source/helpers/appstyle.h"
+        "source/helpers/exclusivecall.h"
+        "source/helpers/firststartpreparer.cpp"
+        "source/helpers/firststartpreparer.h"
+        "source/helpers/intmatrix.cpp"
+        "source/helpers/intmatrix.h"
+        "source/helpers/link/link.cpp"
+        "source/helpers/link/link.h"
+        "source/helpers/link/linksdecorator.cpp"
+        "source/helpers/link/linksdecorator.h"
+        "source/helpers/link/linksstring.cpp"
+        "source/helpers/link/linksstring.h"
+        "source/helpers/link/linktools.cpp"
+        "source/helpers/link/linktools.h"
+        "source/helpers/linktermdistancecache.cpp"
+        "source/helpers/linktermdistancecache.h"
+        "source/helpers/simplelistenserver.cpp"
+        "source/helpers/simplelistenserver.h"
+        "source/main.cpp"
+        "source/mainscene.cpp"
+        "source/mainscene.h"
+        "source/managers/groupsmanager.cpp"
+        "source/managers/groupsmanager.h"
+        "source/managers/linkshardeningmanager.cpp"
+        "source/managers/linkshardeningmanager.h"
+        "source/managers/networkmanager.cpp"
+        "source/managers/networkmanager.h"
+        "source/managers/notificationmanager.cpp"
+        "source/managers/notificationmanager.h"
+        "source/managers/notifyinterface.h"
+        "source/managers/syncmanager.cpp"
+        "source/managers/syncmanager.h"
+        "source/model/edge/edgedata.h"
+        "source/model/edge/edgesmodel.cpp"
+        "source/model/edge/edgesmodel.h"
+        "source/model/edge/graphedge.cpp"
+        "source/model/edge/graphedge.h"
+        "source/model/edge/paintededge.cpp"
+        "source/model/edge/paintededge.h"
+        "source/model/enums.h"
+        "source/model/graphicitem/graphicitem.cpp"
+        "source/model/graphicitem/graphicitem.h"
+        "source/model/graphicitem/rectgraphicitem.cpp"
+        "source/model/graphicitem/rectgraphicitem.h"
+        "source/model/group/groupsummarywrapper.h"
+        "source/model/group/nodeverticalstack.cpp"
+        "source/model/group/nodeverticalstack.h"
+        "source/model/group/paintedforest.cpp"
+        "source/model/group/paintedforest.h"
+        "source/model/group/termgroup.cpp"
+        "source/model/group/termgroup.h"
+        "source/model/term/graphterm.cpp"
+        "source/model/term/graphterm.h"
+        "source/model/term/paintedterm.cpp"
+        "source/model/term/paintedterm.h"
+        "source/model/term/termdatacache.cpp"
+        "source/model/term/termdatacache.h"
+        "source/model/term/termdatawrapper.h"
+        "source/model/term/termsmodel.cpp"
+        "source/model/term/termsmodel.h"
 )
 
 if (NOT WASM)
@@ -170,12 +166,34 @@ target_link_libraries (TermGraph PRIVATE StaticDataStorage)
 if (NOT WASM)
     target_sources (TermGraph
         PRIVATE
-        "source/TermDataConnection/DataStorageConnection.h"
-        "source/TermDataConnection/NetWrapper.h"
-        "source/TermDataConnection/DataStorageConnection.cpp"
-        "source/TermDataConnection/NetWrapper.cpp"
+            "source/TermDataConnection/DataStorageConnection.cpp"
+            "source/TermDataConnection/DataStorageConnection.h"
+            "source/TermDataConnection/NetWrapper.cpp"
+            "source/TermDataConnection/NetWrapper.h"
     )
-    target_link_libraries (TermGraph PRIVATE TermDataStorage)
+
+    find_package (Qt6 REQUIRED COMPONENTS Sql)
+    target_link_libraries (TermGraph PRIVATE Qt6::Sql)
+
+    target_sources (TermGraph
+        PRIVATE
+            "source/TermDataStorage/Database.cpp"
+            "source/TermDataStorage/Database.h"
+            "source/TermDataStorage/DbInfo.h"
+            "source/TermDataStorage/DbTools.cpp"
+            "source/TermDataStorage/DbTools.h"
+            "source/TermDataStorage/LocalDataStorage.cpp"
+            "source/TermDataStorage/LocalDataStorage.h"
+            "source/TermDataStorage/queries/SqlQueries.qrc"
+            "source/TermDataStorage/SqlQueryBuilder.cpp"
+            "source/TermDataStorage/SqlQueryBuilder.h"
+            "source/TermDataStorage/tables/AppConfigTable.cpp"
+            "source/TermDataStorage/tables/AppConfigTable.h"
+            "source/TermDataStorage/tables/TermGroupTable.cpp"
+            "source/TermDataStorage/tables/TermGroupTable.h"
+            "source/TermDataStorage/tables/TermTable.cpp"
+            "source/TermDataStorage/tables/TermTable.h"
+    )
 endif ()
 
 # Qml libs
@@ -233,7 +251,7 @@ endif ()
 if (BUILD_TESTING)
     enable_testing ()
 
-    find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml)
+    find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml Sql)
     if (NOT GTest_FOUND)
         find_package (GTest REQUIRED)
     endif ()
@@ -247,31 +265,57 @@ if (BUILD_TESTING)
             CXX_STANDARD 20
             CXX_STANDARD_REQUIRED ON)
 
+    # Application sources
     target_sources (TermGraphTest
         PRIVATE
-            source/helpers/intmatrix.cpp
-            source/helpers/intmatrix.h
-            source/helpers/link/link.cpp
-            source/helpers/link/link.h
-            source/helpers/link/linksdecorator.cpp
-            source/helpers/link/linksdecorator.h
-            source/helpers/link/linksstring.cpp
-            source/helpers/link/linksstring.h
-            source/helpers/link/linktools.cpp
-            source/helpers/link/linktools.h
-            source/model/enums.h
-            source/model/graphicitem/graphicitem.cpp
-            source/model/graphicitem/graphicitem.h
-            test/graphicitemtest.cpp
-            test/linkdecoratortest.cpp
-            test/linktest.cpp
-            test/linktoolstest.cpp
+            "source/helpers/intmatrix.cpp"
+            "source/helpers/intmatrix.h"
+            "source/helpers/link/link.cpp"
+            "source/helpers/link/link.h"
+            "source/helpers/link/linksdecorator.cpp"
+            "source/helpers/link/linksdecorator.h"
+            "source/helpers/link/linksstring.cpp"
+            "source/helpers/link/linksstring.h"
+            "source/helpers/link/linktools.cpp"
+            "source/helpers/link/linktools.h"
+            "source/model/enums.h"
+            "source/model/graphicitem/graphicitem.cpp"
+            "source/model/graphicitem/graphicitem.h"
+            "source/TermDataStorage/Database.cpp"
+            "source/TermDataStorage/Database.h"
+            "source/TermDataStorage/DbInfo.h"
+            "source/TermDataStorage/DbTools.cpp"
+            "source/TermDataStorage/DbTools.h"
+            "source/TermDataStorage/LocalDataStorage.cpp"
+            "source/TermDataStorage/LocalDataStorage.h"
+            "source/TermDataStorage/queries/SqlQueries.qrc"
+            "source/TermDataStorage/SqlQueryBuilder.cpp"
+            "source/TermDataStorage/SqlQueryBuilder.h"
+            "source/TermDataStorage/tables/AppConfigTable.cpp"
+            "source/TermDataStorage/tables/AppConfigTable.h"
+            "source/TermDataStorage/tables/TermGroupTable.cpp"
+            "source/TermDataStorage/tables/TermGroupTable.h"
+            "source/TermDataStorage/tables/TermTable.cpp"
+            "source/TermDataStorage/tables/TermTable.h"
+    )
+
+    # Test sources
+    target_sources (TermGraphTest
+        PRIVATE
+            "test/DbWorksTest.cpp"
+            "test/graphicitemtest.cpp"
+            "test/linkdecoratortest.cpp"
+            "test/linktest.cpp"
+            "test/linktoolstest.cpp"
         )
 
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
     target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)
-    target_link_libraries (TermGraphTest Qt6::Core Qt6::Gui Qt6::Qml)
+    target_link_libraries (TermGraphTest Qt6::Core Qt6::Gui Qt6::Qml Qt6::Sql)
     target_link_libraries (TermGraphTest CommonTools Graph Text)
+    target_link_libraries (TermGraphTest TermDataInterface)
+
+    set_target_properties (TermGraphTest PROPERTIES AUTORCC ON)
 
     gtest_add_tests (TARGET TermGraphTest)
 endif ()

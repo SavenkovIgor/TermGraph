@@ -1,16 +1,16 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/Database.h"
+#include "source/TermDataStorage/Database.h"
 
 #include <QDateTime>
 #include <QDebug>
 #include <QFileInfo>
 #include <QString>
 
-#include "source/DbInfo.h"
-#include "source/DbTools.h"
-#include "source/SqlQueryBuilder.h"
+#include "source/TermDataStorage/DbInfo.h"
+#include "source/TermDataStorage/DbTools.h"
+#include "source/TermDataStorage/SqlQueryBuilder.h"
 
 QString Database::mDbFilePath     = "";
 QString Database::mDbBackupFolder = "";

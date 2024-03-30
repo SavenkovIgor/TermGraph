@@ -1,10 +1,10 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/tables/TermGroupTable.h"
+#include "source/TermDataStorage/tables/TermGroupTable.h"
 
-#include "source/DbTools.h"
-#include "source/SqlQueryBuilder.h"
+#include "source/TermDataStorage/DbTools.h"
+#include "source/TermDataStorage/SqlQueryBuilder.h"
 
 void TermGroupTable::initTable() { DbTools::start(SqlQueryBuilder().createGroupsTable()); }
 

@@ -1,12 +1,12 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/SqlQueryBuilder.h"
+#include "source/TermDataStorage/SqlQueryBuilder.h"
 
 #include <QFile>
 #include <QThread>
 
-#include "source/Database.h"
+#include "source/TermDataStorage/Database.h"
 
 QSqlQuery SqlQueryBuilder::createAppConfigTable() const
 {
