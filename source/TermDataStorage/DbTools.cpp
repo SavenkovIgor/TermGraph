@@ -1,11 +1,11 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/DbTools.h"
+#include "source/TermDataStorage/DbTools.h"
 
 #include <QSqlError>
 
-#include "source/SqlQueryBuilder.h"
+#include "source/TermDataStorage/SqlQueryBuilder.h"
 
 void DbTools::startTransaction(QSqlDatabase* base) { startQuery(base, "BEGIN TRANSACTION"); }
 
