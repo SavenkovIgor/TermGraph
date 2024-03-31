@@ -7,7 +7,7 @@
 #include <QQmlEngine>
 
 #include "source/helpers/firststartpreparer.h"
-#include "source/mainscene.h"
+#include "source/MainScene.h"
 #include "source/managers/groupsmanager.h"
 #include "source/managers/syncmanager.h"
 
