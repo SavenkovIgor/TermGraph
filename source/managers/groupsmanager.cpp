@@ -9,7 +9,7 @@
 
 #include <QDebug>
 
-#include "source/helpers/appsettings.h"
+#include "source/helpers/AppSettings.h"
 
 GroupsManager::GroupsManager(NotifyInterface& notifier, QObject* parent)
     : QObject(parent)

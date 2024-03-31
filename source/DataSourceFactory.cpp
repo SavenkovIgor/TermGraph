@@ -11,7 +11,7 @@
 
 #ifndef Q_OS_WASM
 #include "source/TermDataConnection/DataStorageConnection.h"
-#include "source/helpers/appsettings.h"
+#include "source/helpers/AppSettings.h"
 
 #include <TermDataStorage/LocalDataStorage.h>
 #endif
