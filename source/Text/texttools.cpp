@@ -1,9 +1,9 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "include/Text/TextTools.h"
+#include "source/Text/TextTools.h"
 
-#include "include/Text/Fonts.h"
+#include "source/Text/Fonts.h"
 #include <CommonTools/HandyTypes.h>
 #include <CommonTools/JsonTools.h>
 

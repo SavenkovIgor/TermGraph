@@ -3,8 +3,8 @@
 
 #include <gtest/gtest.h>
 
-#include <Text/CheckingTextCursor.h>
-#include <Text/TextCursor.h>
+#include <source/Text/CheckingTextCursor.h>
+#include <source/Text/TextCursor.h>
 
 TEST(CursorTest, InitCheck)
 {

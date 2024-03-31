@@ -38,7 +38,6 @@ add_subdirectory ("qml/Pages")
 
 add_subdirectory ("lib/CommonTools")
 add_subdirectory ("lib/Graph")
-add_subdirectory ("lib/Text")
 
 qt_add_executable (TermGraph)
 
@@ -132,6 +131,17 @@ target_sources (TermGraph
         "source/TermDataInterface/termdata.cpp"
         "source/TermDataInterface/TermData.h"
         "source/TermDataInterface/TermValidator.h"
+        "source/Text/CharTools.h"
+        "source/Text/checkingtextcursor.cpp"
+        "source/Text/CheckingTextCursor.h"
+        "source/Text/fonts.cpp"
+        "source/Text/Fonts.h"
+        "source/Text/textcursor.cpp"
+        "source/Text/TextCursor.h"
+        "source/Text/textrange.cpp"
+        "source/Text/TextRange.h"
+        "source/Text/texttools.cpp"
+        "source/Text/TextTools.h"
 )
 
 if (NOT WASM)
@@ -170,7 +180,6 @@ target_link_libraries (TermGraph
 # C++ libs
 target_link_libraries (TermGraph PRIVATE CommonTools)
 target_link_libraries (TermGraph PRIVATE Graph)
-target_link_libraries (TermGraph PRIVATE Text)
 
 if (NOT WASM)
     target_sources (TermGraph
@@ -318,6 +327,17 @@ if (BUILD_TESTING)
             "source/TermDataInterface/termdata.cpp"
             "source/TermDataInterface/TermData.h"
             "source/TermDataInterface/TermValidator.h"
+            "source/Text/CharTools.h"
+            "source/Text/checkingtextcursor.cpp"
+            "source/Text/CheckingTextCursor.h"
+            "source/Text/fonts.cpp"
+            "source/Text/Fonts.h"
+            "source/Text/textcursor.cpp"
+            "source/Text/TextCursor.h"
+            "source/Text/textrange.cpp"
+            "source/Text/TextRange.h"
+            "source/Text/texttools.cpp"
+            "source/Text/TextTools.h"
     )
 
     # Test sources
@@ -332,12 +352,15 @@ if (BUILD_TESTING)
             "test/termdatatest.cpp"
             "test/groupsummarytest.cpp"
             "test/staticgroupdatatest.cpp"
+            "test/cursortest.cpp"
+            "test/textrangetest.cpp"
+            "test/texttoolstest.cpp"
         )
 
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
     target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)
     target_link_libraries (TermGraphTest Qt6::Core Qt6::Gui Qt6::Qml Qt6::Sql)
-    target_link_libraries (TermGraphTest CommonTools Graph Text)
+    target_link_libraries (TermGraphTest CommonTools Graph)
 
     set_target_properties (TermGraphTest PROPERTIES AUTORCC ON)
 
