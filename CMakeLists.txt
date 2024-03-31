@@ -37,7 +37,6 @@ add_subdirectory ("qml/Molecules")
 add_subdirectory ("qml/Pages")
 
 add_subdirectory ("lib/CommonTools")
-add_subdirectory ("lib/Graph")
 
 qt_add_executable (TermGraph)
 
@@ -57,6 +56,11 @@ target_sources (TermGraph
         "source/dataprovider.h"
         "source/datasourcefactory.cpp"
         "source/datasourcefactory.h"
+        "source/Graph/Edge.hpp"
+        "source/Graph/Forest.hpp"
+        "source/Graph/Graph.hpp"
+        "source/Graph/GraphData.hpp"
+        "source/Graph/Node.hpp"
         "source/helpers/appsettings.cpp"
         "source/helpers/appsettings.h"
         "source/helpers/appstyle.h"
@@ -179,7 +183,6 @@ target_link_libraries (TermGraph
 
 # C++ libs
 target_link_libraries (TermGraph PRIVATE CommonTools)
-target_link_libraries (TermGraph PRIVATE Graph)
 
 if (NOT WASM)
     target_sources (TermGraph
@@ -286,6 +289,11 @@ if (BUILD_TESTING)
     # Application sources
     target_sources (TermGraphTest
         PRIVATE
+            "source/Graph/Edge.hpp"
+            "source/Graph/Forest.hpp"
+            "source/Graph/Graph.hpp"
+            "source/Graph/GraphData.hpp"
+            "source/Graph/Node.hpp"
             "source/helpers/intmatrix.cpp"
             "source/helpers/intmatrix.h"
             "source/helpers/link/link.cpp"
@@ -302,6 +310,15 @@ if (BUILD_TESTING)
             "source/StaticDataStorage/data/StaticData.qrc"
             "source/StaticDataStorage/StaticDataStorage.cpp"
             "source/StaticDataStorage/StaticDataStorage.h"
+            "source/TermDataInterface/DataStorageInterface.h"
+            "source/TermDataInterface/groupsummary.cpp"
+            "source/TermDataInterface/GroupSummary.h"
+            "source/TermDataInterface/GroupValidator.h"
+            "source/TermDataInterface/staticgroupdata.cpp"
+            "source/TermDataInterface/StaticGroupData.h"
+            "source/TermDataInterface/termdata.cpp"
+            "source/TermDataInterface/TermData.h"
+            "source/TermDataInterface/TermValidator.h"
             "source/TermDataStorage/Database.cpp"
             "source/TermDataStorage/Database.h"
             "source/TermDataStorage/DbInfo.h"
@@ -318,15 +335,6 @@ if (BUILD_TESTING)
             "source/TermDataStorage/tables/TermGroupTable.h"
             "source/TermDataStorage/tables/TermTable.cpp"
             "source/TermDataStorage/tables/TermTable.h"
-            "source/TermDataInterface/DataStorageInterface.h"
-            "source/TermDataInterface/groupsummary.cpp"
-            "source/TermDataInterface/GroupSummary.h"
-            "source/TermDataInterface/GroupValidator.h"
-            "source/TermDataInterface/staticgroupdata.cpp"
-            "source/TermDataInterface/StaticGroupData.h"
-            "source/TermDataInterface/termdata.cpp"
-            "source/TermDataInterface/TermData.h"
-            "source/TermDataInterface/TermValidator.h"
             "source/Text/CharTools.h"
             "source/Text/checkingtextcursor.cpp"
             "source/Text/CheckingTextCursor.h"
@@ -343,16 +351,20 @@ if (BUILD_TESTING)
     # Test sources
     target_sources (TermGraphTest
         PRIVATE
+            "test/cursortest.cpp"
             "test/DbWorksTest.cpp"
+            "test/edgetest.cpp"
+            "test/foresttest.cpp"
             "test/graphicitemtest.cpp"
+            "test/graphtest.cpp"
+            "test/groupsummarytest.cpp"
             "test/linkdecoratortest.cpp"
             "test/linktest.cpp"
             "test/linktoolstest.cpp"
+            "test/nodetest.cpp"
+            "test/staticgroupdatatest.cpp"
             "test/StaticStorageTest.cpp"
             "test/termdatatest.cpp"
-            "test/groupsummarytest.cpp"
-            "test/staticgroupdatatest.cpp"
-            "test/cursortest.cpp"
             "test/textrangetest.cpp"
             "test/texttoolstest.cpp"
         )
@@ -360,7 +372,7 @@ if (BUILD_TESTING)
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
     target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)
     target_link_libraries (TermGraphTest Qt6::Core Qt6::Gui Qt6::Qml Qt6::Sql)
-    target_link_libraries (TermGraphTest CommonTools Graph)
+    target_link_libraries (TermGraphTest CommonTools)
 
     set_target_properties (TermGraphTest PROPERTIES AUTORCC ON)
 

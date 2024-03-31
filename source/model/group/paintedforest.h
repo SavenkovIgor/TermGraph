@@ -5,7 +5,7 @@
 
 #include <vector>
 
-#include <Graph/Forest.hpp>
+#include <source/Graph/Forest.hpp>
 
 #include "source/model/edge/paintededge.h"
 #include "source/model/graphicitem/rectgraphicitem.h"
