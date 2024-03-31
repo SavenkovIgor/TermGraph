@@ -9,7 +9,7 @@
 #include <source/Text/TextTools.h>
 
 #include "source/helpers/intmatrix.h"
-#include "source/helpers/link/link.h"
+#include "source/helpers/link/Link.h"
 #include "source/helpers/link/linksdecorator.h"
 #include "source/helpers/link/linksstring.h"
 

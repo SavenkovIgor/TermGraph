@@ -8,7 +8,7 @@
 
 #include <TermDataInterface/TermData.h>
 
-#include "source/helpers/link/link.h"
+#include "source/helpers/link/Link.h"
 #include "source/helpers/link/linksstring.h"
 #include "source/model/enums.h"
 

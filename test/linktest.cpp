@@ -5,7 +5,7 @@
 
 #include <gtest/gtest.h>
 
-#include "source/helpers/link/link.h"
+#include "source/helpers/link/Link.h"
 #include "source/helpers/link/linksstring.h"
 
 class LinkTest : public ::testing::Test
