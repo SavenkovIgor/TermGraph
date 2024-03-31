@@ -9,7 +9,7 @@
 
 #include "source/CommonTools/HandyTypes.h"
 
-#include "source/helpers/link/linksstring.h"
+#include "source/helpers/link/LinksString.h"
 #include "source/model/group/termgroup.h"
 #include "source/model/term/termdatawrapper.h"
 

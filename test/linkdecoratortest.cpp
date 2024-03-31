@@ -7,7 +7,7 @@
 #include <QCoreApplication>
 
 #include "source/helpers/link/LinksDecorator.h"
-#include "source/helpers/link/linksstring.h"
+#include "source/helpers/link/LinksString.h"
 
 class LinkDecoratorTest : public ::testing::Test
 {

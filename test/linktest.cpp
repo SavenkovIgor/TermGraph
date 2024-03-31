@@ -6,7 +6,7 @@
 #include <gtest/gtest.h>
 
 #include "source/helpers/link/Link.h"
-#include "source/helpers/link/linksstring.h"
+#include "source/helpers/link/LinksString.h"
 
 class LinkTest : public ::testing::Test
 {

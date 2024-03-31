@@ -9,7 +9,7 @@
 #include <QString>
 
 #include "source/helpers/link/Link.h"
-#include "source/helpers/link/linksstring.h"
+#include "source/helpers/link/LinksString.h"
 
 enum LinksDecoratorMode { Replace = 0, Insert, Cut };
 
