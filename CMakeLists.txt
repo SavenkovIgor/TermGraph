@@ -48,6 +48,8 @@ set_target_properties (TermGraph
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
 
+set_target_properties (TermGraph PROPERTIES AUTORCC ON)
+
 target_sources (TermGraph
     PRIVATE
         "android/AndroidManifest.xml"
@@ -125,7 +127,6 @@ target_sources (TermGraph
 )
 
 if (NOT WASM)
-    set_target_properties (TermGraph PROPERTIES AUTORCC ON)
     target_sources (TermGraph PRIVATE "resources/HelpImages/HelpImages.qrc")
 endif ()
 
