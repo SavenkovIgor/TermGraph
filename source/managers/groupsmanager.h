@@ -11,7 +11,7 @@
 
 #include "source/CommonTools/HandyTypes.h"
 
-#include "source/dataprovider.h"
+#include "source/DataProvider.h"
 #include "source/managers/notifyinterface.h"
 #include "source/model/group/termgroup.h"
 
