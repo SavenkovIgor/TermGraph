@@ -3,7 +3,7 @@
 
 #include "source/TermDataInterface/TermData.h"
 
-#include <Text/TextTools.h>
+#include <source/Text/TextTools.h>
 
 TermData TermData::createGhost(const QString& term, GroupUuid groupUuid)
 {

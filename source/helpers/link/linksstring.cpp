@@ -3,8 +3,8 @@
 
 #include "source/helpers/link/linksstring.h"
 
-#include <Text/CharTools.h>
-#include <Text/CheckingTextCursor.h>
+#include <source/Text/CharTools.h>
+#include <source/Text/CheckingTextCursor.h>
 
 #include "source/helpers/link/linksdecorator.h"
 

@@ -5,7 +5,7 @@
 
 #include <CommonTools/JsonTools.h>
 
-#include <Text/TextTools.h>
+#include <source/Text/TextTools.h>
 
 // Initialization order is important!
 TermDataCache::TermDataCache(const TermData& info)
