@@ -7,7 +7,7 @@
 
 #include "source/CommonTools/HandyTypes.h"
 
-#include "source/helpers/link/linksdecorator.h"
+#include "source/helpers/link/LinksDecorator.h"
 #include "source/helpers/link/linktools.h"
 
 namespace rng = std::ranges;

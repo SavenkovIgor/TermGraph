@@ -10,7 +10,7 @@
 
 #include "source/helpers/intmatrix.h"
 #include "source/helpers/link/Link.h"
-#include "source/helpers/link/linksdecorator.h"
+#include "source/helpers/link/LinksDecorator.h"
 #include "source/helpers/link/linksstring.h"
 
 LinkTools::LinkTools(QObject* parent)

@@ -6,7 +6,7 @@
 #include <source/Text/CharTools.h>
 #include <source/Text/CheckingTextCursor.h>
 
-#include "source/helpers/link/linksdecorator.h"
+#include "source/helpers/link/LinksDecorator.h"
 
 LinksString::LinksString(QStringView str)
     : mString(str)
