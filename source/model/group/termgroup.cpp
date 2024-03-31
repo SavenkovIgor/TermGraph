@@ -8,7 +8,7 @@
 #include <QElapsedTimer>
 #include <QThread>
 
-#include <CommonTools/HandyTypes.h>
+#include <source/CommonTools/HandyTypes.h>
 #include <Text/Fonts.h>
 
 #include "source/helpers/appstyle.h"

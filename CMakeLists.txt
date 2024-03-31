@@ -36,8 +36,6 @@ add_subdirectory ("qml/Atoms")
 add_subdirectory ("qml/Molecules")
 add_subdirectory ("qml/Pages")
 
-add_subdirectory ("lib/CommonTools")
-
 qt_add_executable (TermGraph)
 
 set_target_properties (TermGraph
@@ -52,6 +50,15 @@ target_sources (TermGraph
         "android/AndroidManifest.xml"
         "source/api.cpp"
         "source/api.h"
+        "source/CommonTools/Errors.h"
+        "source/CommonTools/GroupUuid.h"
+        "source/CommonTools/HandyTypes.h"
+        "source/CommonTools/JsonTools.h"
+        "source/CommonTools/NetworkTools.h"
+        "source/CommonTools/Platform.h"
+        "source/CommonTools/SafeUuid.h"
+        "source/CommonTools/TermUuid.h"
+        "source/CommonTools/Validator.h"
         "source/dataprovider.cpp"
         "source/dataprovider.h"
         "source/datasourcefactory.cpp"
@@ -181,9 +188,6 @@ target_link_libraries (TermGraph
         Qt6::QuickControls2
         Qt6::Network)
 
-# C++ libs
-target_link_libraries (TermGraph PRIVATE CommonTools)
-
 if (NOT WASM)
     target_sources (TermGraph
         PRIVATE
@@ -289,6 +293,15 @@ if (BUILD_TESTING)
     # Application sources
     target_sources (TermGraphTest
         PRIVATE
+            "source/CommonTools/Errors.h"
+            "source/CommonTools/GroupUuid.h"
+            "source/CommonTools/HandyTypes.h"
+            "source/CommonTools/JsonTools.h"
+            "source/CommonTools/NetworkTools.h"
+            "source/CommonTools/Platform.h"
+            "source/CommonTools/SafeUuid.h"
+            "source/CommonTools/TermUuid.h"
+            "source/CommonTools/Validator.h"
             "source/Graph/Edge.hpp"
             "source/Graph/Forest.hpp"
             "source/Graph/Graph.hpp"
@@ -367,12 +380,13 @@ if (BUILD_TESTING)
             "test/termdatatest.cpp"
             "test/textrangetest.cpp"
             "test/texttoolstest.cpp"
+            "test/uuidstest.cpp"
+            "test/validatortest.cpp"
         )
 
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
     target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)
     target_link_libraries (TermGraphTest Qt6::Core Qt6::Gui Qt6::Qml Qt6::Sql)
-    target_link_libraries (TermGraphTest CommonTools)
 
     set_target_properties (TermGraphTest PROPERTIES AUTORCC ON)
 

@@ -5,7 +5,7 @@
 
 #include <algorithm>
 
-#include <CommonTools/HandyTypes.h>
+#include <source/CommonTools/HandyTypes.h>
 
 TextCursor::TextCursor(QStringView strView, int pos)
     : mPos(std::clamp(pos, 0, asInt(strView.size())))

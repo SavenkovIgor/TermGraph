@@ -5,7 +5,7 @@
 
 #include <QMap>
 
-#include <CommonTools/HandyTypes.h>
+#include <source/CommonTools/HandyTypes.h>
 
 class LinkTermDistanceCache
 {

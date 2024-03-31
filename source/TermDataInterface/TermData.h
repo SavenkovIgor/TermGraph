@@ -12,10 +12,10 @@
 #include <QString>
 #include <QUuid>
 
-#include <CommonTools/GroupUuid.h>
-#include <CommonTools/HandyTypes.h>
-#include <CommonTools/JsonTools.h>
-#include <CommonTools/TermUuid.h>
+#include <source/CommonTools/GroupUuid.h>
+#include <source/CommonTools/HandyTypes.h>
+#include <source/CommonTools/JsonTools.h>
+#include <source/CommonTools/TermUuid.h>
 
 #include "TermValidator.h"
 
