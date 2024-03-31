@@ -12,7 +12,7 @@
 #include <Text/Fonts.h>
 
 #include "source/helpers/appstyle.h"
-#include "source/helpers/link/linktools.h"
+#include "source/helpers/link/LinkTools.h"
 
 namespace rng = std::ranges;
 
