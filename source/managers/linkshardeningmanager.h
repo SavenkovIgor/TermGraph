@@ -7,7 +7,7 @@
 #include <QScopedPointer>
 #include <QStringView>
 
-#include <CommonTools/HandyTypes.h>
+#include <source/CommonTools/HandyTypes.h>
 
 #include "source/helpers/link/linksstring.h"
 #include "source/model/group/termgroup.h"

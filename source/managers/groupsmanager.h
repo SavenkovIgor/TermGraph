@@ -9,7 +9,7 @@
 #include <QStringList>
 #include <QUuid>
 
-#include <CommonTools/HandyTypes.h>
+#include <source/CommonTools/HandyTypes.h>
 
 #include "source/dataprovider.h"
 #include "source/managers/notifyinterface.h"
