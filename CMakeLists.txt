@@ -48,8 +48,8 @@ set_target_properties (TermGraph PROPERTIES AUTORCC ON)
 target_sources (TermGraph
     PRIVATE
         "android/AndroidManifest.xml"
-        "source/api.cpp"
-        "source/api.h"
+        "source/Api.cpp"
+        "source/Api.h"
         "source/CommonTools/Errors.h"
         "source/CommonTools/GroupUuid.h"
         "source/CommonTools/HandyTypes.h"
@@ -387,6 +387,8 @@ if (BUILD_TESTING)
             "test/uuidstest.cpp"
             "test/validatortest.cpp"
         )
+
+    target_include_directories (TermGraphTest PRIVATE "${PROJECT_SOURCE_DIR}/source/")
 
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
     target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)
