@@ -11,8 +11,8 @@
 #include <CommonTools/GroupUuid.h>
 #include <CommonTools/TermUuid.h>
 
-#include <TermDataInterface/GroupSummary.h>
-#include <TermDataInterface/TermData.h>
+#include <source/TermDataInterface/GroupSummary.h>
+#include <source/TermDataInterface/TermData.h>
 
 // Задача этого класса - формировать запросы
 class SqlQueryBuilder

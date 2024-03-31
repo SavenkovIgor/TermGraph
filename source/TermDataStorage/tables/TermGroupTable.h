@@ -7,7 +7,7 @@
 
 #include <CommonTools/GroupUuid.h>
 #include <CommonTools/HandyTypes.h>
-#include <TermDataInterface/GroupSummary.h>
+#include <source/TermDataInterface/GroupSummary.h>
 
 class TermGroupTable
 {

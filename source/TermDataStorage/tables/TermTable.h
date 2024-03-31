@@ -6,8 +6,8 @@
 #include <QSqlRecord>
 
 #include <CommonTools/HandyTypes.h>
-#include <TermDataInterface/DataStorageInterface.h>
-#include <TermDataInterface/TermData.h>
+#include <source/TermDataInterface/DataStorageInterface.h>
+#include <source/TermDataInterface/TermData.h>
 
 class TermTable
 {

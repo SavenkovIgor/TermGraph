@@ -7,9 +7,9 @@
 
 #include <CommonTools/HandyTypes.h>
 
-#include <TermDataInterface/DataStorageInterface.h>
-#include <TermDataInterface/GroupSummary.h>
-#include <TermDataInterface/TermData.h>
+#include <source/TermDataInterface/DataStorageInterface.h>
+#include <source/TermDataInterface/GroupSummary.h>
+#include <source/TermDataInterface/TermData.h>
 
 class StorageImpl;
 
