@@ -8,7 +8,7 @@
 
 #include <QDateTime>
 
-#include <source/CommonTools/HandyTypes.h>
+#include <CommonTools/HandyTypes.h>
 
 #include "GroupSummary.h"
 #include "TermData.h"

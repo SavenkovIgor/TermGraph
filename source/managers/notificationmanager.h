@@ -9,7 +9,7 @@
 #include <QQueue>
 #include <QTimer>
 
-#include <source/CommonTools/HandyTypes.h>
+#include <CommonTools/HandyTypes.h>
 
 #include "source/managers/notifyinterface.h"
 

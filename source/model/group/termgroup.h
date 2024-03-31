@@ -5,7 +5,7 @@
 
 #include <QObject>
 
-#include <source/CommonTools/HandyTypes.h>
+#include <CommonTools/HandyTypes.h>
 #include <TermDataInterface/GroupSummary.h>
 
 #include "source/helpers/linktermdistancecache.h"

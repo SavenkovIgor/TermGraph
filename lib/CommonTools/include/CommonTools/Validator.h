@@ -5,8 +5,8 @@
 
 #include <functional>
 
-#include <source/CommonTools/Errors.h>
-#include <source/CommonTools/HandyTypes.h>
+#include <CommonTools/Errors.h>
+#include <CommonTools/HandyTypes.h>
 
 template<typename Object>
 class Validator
