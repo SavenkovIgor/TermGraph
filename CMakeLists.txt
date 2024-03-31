@@ -38,7 +38,6 @@ add_subdirectory ("qml/Pages")
 
 add_subdirectory ("lib/CommonTools")
 add_subdirectory ("lib/Graph")
-add_subdirectory ("lib/StaticDataStorage")
 add_subdirectory ("lib/TermDataInterface")
 add_subdirectory ("lib/Text")
 
@@ -48,6 +47,8 @@ set_target_properties (TermGraph
     PROPERTIES
         CXX_STANDARD 20
         CXX_STANDARD_REQUIRED ON)
+
+set_target_properties (TermGraph PROPERTIES AUTORCC ON)
 
 target_sources (TermGraph
     PRIVATE
@@ -120,10 +121,12 @@ target_sources (TermGraph
         "source/model/term/termdatawrapper.h"
         "source/model/term/termsmodel.cpp"
         "source/model/term/termsmodel.h"
+        "source/StaticDataStorage/data/StaticData.qrc"
+        "source/StaticDataStorage/StaticDataStorage.cpp"
+        "source/StaticDataStorage/StaticDataStorage.h"
 )
 
 if (NOT WASM)
-    set_target_properties (TermGraph PROPERTIES AUTORCC ON)
     target_sources (TermGraph PRIVATE "resources/HelpImages/HelpImages.qrc")
 endif ()
 
@@ -161,7 +164,6 @@ target_link_libraries (TermGraph PRIVATE CommonTools)
 target_link_libraries (TermGraph PRIVATE Graph)
 target_link_libraries (TermGraph PRIVATE Text)
 target_link_libraries (TermGraph PRIVATE TermDataInterface)
-target_link_libraries (TermGraph PRIVATE StaticDataStorage)
 
 if (NOT WASM)
     target_sources (TermGraph
@@ -281,6 +283,9 @@ if (BUILD_TESTING)
             "source/model/enums.h"
             "source/model/graphicitem/graphicitem.cpp"
             "source/model/graphicitem/graphicitem.h"
+            "source/StaticDataStorage/data/StaticData.qrc"
+            "source/StaticDataStorage/StaticDataStorage.cpp"
+            "source/StaticDataStorage/StaticDataStorage.h"
             "source/TermDataStorage/Database.cpp"
             "source/TermDataStorage/Database.h"
             "source/TermDataStorage/DbInfo.h"
@@ -307,6 +312,7 @@ if (BUILD_TESTING)
             "test/linkdecoratortest.cpp"
             "test/linktest.cpp"
             "test/linktoolstest.cpp"
+            "test/StaticStorageTest.cpp"
         )
 
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
