@@ -3,7 +3,9 @@
 
 #pragma once
 
+#include <iostream>
 #include <string>
+#include <system_error>
 
 #include <QString>
 
@@ -154,3 +156,40 @@ inline ErrorCodes fromQString(QString enumName)
 }
 
 } // namespace Errors
+
+inline const char* error_message(int code) { return Errors::toChar(static_cast<ErrorCodes>(code)); }
+
+namespace detail {
+class DbErrorCodes_category : public std::error_category
+{
+public:
+    DbErrorCodes_category() {}
+
+    const char* name() const noexcept final { return "DataError"; }
+
+    std::string message(int code) const final { return error_message(code); }
+
+    const static error_category& get()
+    {
+        const static DbErrorCodes_category c;
+        return c;
+    }
+};
+} // namespace detail
+
+extern inline const detail::DbErrorCodes_category& DbErrorCodes_category()
+{
+    static detail::DbErrorCodes_category c;
+    return c;
+}
+
+inline std::error_code make_error_code(ErrorCodes code)
+{
+    return {static_cast<int>(code), detail::DbErrorCodes_category::get()};
+}
+
+namespace std {
+template<>
+struct is_error_code_enum<ErrorCodes> : true_type
+{};
+} // namespace std
