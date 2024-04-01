@@ -151,7 +151,7 @@ You can start tests from:
 ├── resources/               # Resources: app icons, main html wrapper etc...
 ├── source/                  # Main source code
 │   ├── commonTools/         # Some common tools with wide reuse
-│   ├── Graph/               # Graph headers
+│   ├── graph/               # Graph headers
 │   ├── QrcHelpImages/       # Help images resources
 │   ├── StaticDataStorage/   # Static data storage. Qrc with terms info
 │   ├── TermDataInterface/   # Interface, describing data connection interface

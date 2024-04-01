@@ -10,9 +10,9 @@
 #include <utility>
 #include <vector>
 
-#include "source/Graph/Edge.hpp"
-#include "source/Graph/GraphData.hpp"
-#include "source/Graph/Node.hpp"
+#include "source/graph/Edge.hpp"
+#include "source/graph/GraphData.hpp"
+#include "source/graph/Node.hpp"
 
 namespace rng = std::ranges;
 
