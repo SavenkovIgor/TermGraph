@@ -42,7 +42,9 @@ qt_add_executable (TermGraph)
 set_target_properties (TermGraph
     PROPERTIES
         CXX_STANDARD 20
-        CXX_STANDARD_REQUIRED ON)
+        CXX_STANDARD_REQUIRED ON
+        CXX_SCAN_FOR_MODULES TRUE
+)
 
 set_target_properties (TermGraph PROPERTIES AUTORCC ON)
 
@@ -153,18 +155,12 @@ target_sources (TermGraph
         "source/Text/TextTools.h"
 )
 
-target_include_directories (TermGraph PRIVATE "${PROJECT_SOURCE_DIR}/source/")
-
 # List of sources containing modules
 target_sources (TermGraph
     PUBLIC FILE_SET CXX_MODULES FILES
         "source/main.cpp"
         "source/Text/Fonts.cppm"
 )
-
-# List of sources using modules
-set_source_files_properties ("source/model/group/termgroup.cpp" PROPERTIES CXX_SCAN_FOR_MODULES TRUE)
-set_source_files_properties ("source/Text/texttools.cpp" PROPERTIES CXX_SCAN_FOR_MODULES TRUE)
 
 # Add platform-specific sources
 if (WASM)
@@ -313,7 +309,9 @@ if (BUILD_TESTING)
     set_target_properties (TermGraphTest
         PROPERTIES
             CXX_STANDARD 20
-            CXX_STANDARD_REQUIRED ON)
+            CXX_STANDARD_REQUIRED ON
+            CXX_SCAN_FOR_MODULES TRUE
+    )
 
     # Application sources
     target_sources (TermGraphTest
@@ -412,12 +410,6 @@ if (BUILD_TESTING)
             "test/uuidstest.cpp"
             "test/validatortest.cpp"
         )
-
-    target_include_directories (TermGraphTest PRIVATE "${PROJECT_SOURCE_DIR}/source/")
-
-    # List of sources using modules
-    set_source_files_properties ("source/model/group/termgroup.cpp" PROPERTIES CXX_SCAN_FOR_MODULES TRUE)
-    set_source_files_properties ("source/Text/texttools.cpp" PROPERTIES CXX_SCAN_FOR_MODULES TRUE)
 
     # Add platform-specific sources
     if (WASM)
