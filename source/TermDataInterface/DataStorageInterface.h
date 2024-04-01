@@ -7,6 +7,8 @@
 #include <QString>
 #include <QUuid>
 
+#include <PlatformTypes.h>
+
 #include "source/TermDataInterface/GroupSummary.h"
 #include "source/TermDataInterface/TermData.h"
 #include "source/commonTools/GroupUuid.h"

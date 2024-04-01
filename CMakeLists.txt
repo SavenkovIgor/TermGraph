@@ -15,6 +15,7 @@ set (CMAKE_CXX_SCAN_FOR_MODULES False)
 # Enable ranges support for emscripten
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     add_compile_options(-fexperimental-library)
+    add_compile_options(-fmodules)
 endif()
 
 if (${CMAKE_SYSTEM_NAME} STREQUAL "Emscripten")
@@ -88,7 +89,6 @@ target_sources (TermGraph
         "source/helpers/linktermdistancecache.h"
         "source/helpers/simplelistenserver.cpp"
         "source/helpers/simplelistenserver.h"
-        "source/main.cpp"
         "source/MainScene.cpp"
         "source/MainScene.h"
         "source/managers/groupsmanager.cpp"
@@ -145,8 +145,6 @@ target_sources (TermGraph
         "source/Text/CharTools.h"
         "source/Text/checkingtextcursor.cpp"
         "source/Text/CheckingTextCursor.h"
-        "source/Text/fonts.cpp"
-        "source/Text/Fonts.h"
         "source/Text/textcursor.cpp"
         "source/Text/TextCursor.h"
         "source/Text/textrange.cpp"
@@ -154,6 +152,28 @@ target_sources (TermGraph
         "source/Text/texttools.cpp"
         "source/Text/TextTools.h"
 )
+
+target_include_directories (TermGraph PRIVATE "${PROJECT_SOURCE_DIR}/source/")
+
+# List of sources containing modules
+target_sources (TermGraph
+    PUBLIC FILE_SET CXX_MODULES FILES
+        "source/main.cpp"
+        "source/Text/Fonts.cppm"
+)
+
+# List of sources using modules
+set_source_files_properties ("source/model/group/termgroup.cpp" PROPERTIES CXX_SCAN_FOR_MODULES TRUE)
+set_source_files_properties ("source/Text/texttools.cpp" PROPERTIES CXX_SCAN_FOR_MODULES TRUE)
+
+# Add platform-specific sources
+if (WASM)
+    target_include_directories (TermGraph PRIVATE "${PROJECT_SOURCE_DIR}/source/CommonTools/wasm/")
+    target_sources (TermGraph PRIVATE "source/CommonTools/wasm/PlatformTypes.h")
+else ()
+    target_include_directories (TermGraph PRIVATE "${PROJECT_SOURCE_DIR}/source/CommonTools/desktop/")
+    target_sources (TermGraph PRIVATE "source/CommonTools/desktop/PlatformTypes.h")
+endif ()
 
 if (NOT WASM)
     target_sources (TermGraph PRIVATE "resources/HelpImages/HelpImages.qrc")
@@ -172,7 +192,8 @@ target_include_directories (
         "${PROJECT_SOURCE_DIR}/source/managers/"
         "${PROJECT_SOURCE_DIR}/source/model/"
         "${PROJECT_SOURCE_DIR}/source/model/group/"
-        "${PROJECT_SOURCE_DIR}/source/model/term/")
+        "${PROJECT_SOURCE_DIR}/source/model/term/"
+)
 
 if (STATIC_STORAGE)
     target_compile_definitions (TermGraph PRIVATE STATIC_STORAGE)
@@ -355,8 +376,6 @@ if (BUILD_TESTING)
             "source/Text/CharTools.h"
             "source/Text/checkingtextcursor.cpp"
             "source/Text/CheckingTextCursor.h"
-            "source/Text/fonts.cpp"
-            "source/Text/Fonts.h"
             "source/Text/textcursor.cpp"
             "source/Text/TextCursor.h"
             "source/Text/textrange.cpp"
@@ -364,6 +383,12 @@ if (BUILD_TESTING)
             "source/Text/texttools.cpp"
             "source/Text/TextTools.h"
     )
+
+    # List of sources containing modules
+    target_sources (TermGraphTest
+        PUBLIC FILE_SET CXX_MODULES FILES
+            "source/Text/Fonts.cppm"
+        )
 
     # Test sources
     target_sources (TermGraphTest
@@ -389,6 +414,19 @@ if (BUILD_TESTING)
         )
 
     target_include_directories (TermGraphTest PRIVATE "${PROJECT_SOURCE_DIR}/source/")
+
+    # List of sources using modules
+    set_source_files_properties ("source/model/group/termgroup.cpp" PROPERTIES CXX_SCAN_FOR_MODULES TRUE)
+    set_source_files_properties ("source/Text/texttools.cpp" PROPERTIES CXX_SCAN_FOR_MODULES TRUE)
+
+    # Add platform-specific sources
+    if (WASM)
+        target_include_directories (TermGraphTest PRIVATE "${PROJECT_SOURCE_DIR}/source/CommonTools/wasm/")
+        target_sources (TermGraphTest PRIVATE "source/CommonTools/wasm/PlatformTypes.h")
+    else ()
+        target_include_directories (TermGraphTest PRIVATE "${PROJECT_SOURCE_DIR}/source/CommonTools/desktop/")
+        target_sources (TermGraphTest PRIVATE "source/CommonTools/desktop/PlatformTypes.h")
+    endif ()
 
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
     target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)

@@ -3,9 +3,12 @@
 
 #include "source/Text/TextTools.h"
 
-#include "source/Text/Fonts.h"
+#include <QFontMetricsF>
+
 #include "source/commonTools/HandyTypes.h"
 #include "source/commonTools/JsonTools.h"
+
+import TextModule.Fonts;
 
 bool TextTools::isTermAndDefinition(const QString &termDef) { return termDef.contains(JsonTools::termDefSeparator); }
 
