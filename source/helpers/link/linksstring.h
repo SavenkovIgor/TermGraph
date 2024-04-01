@@ -5,7 +5,7 @@
 
 #include <QStringView>
 
-#include <source/CommonTools/HandyTypes.h>
+#include <CommonTools/HandyTypes.h>
 
 #include "source/helpers/link/link.h"
 

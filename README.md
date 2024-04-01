@@ -142,6 +142,14 @@ You can start tests from:
 ├── android/                 # Android build
 ├── conanfiles/              # Conan profiles, and generated stuff
 ├── doc/                     # Documents
+├── lib/
+│   ├── CommonTools/         # Some common tools for possible reuse
+│   ├── Graph/               # Graph header-only library
+│   ├── QrcHelpImages/       # Help images resources
+│   ├── StaticDataStorage/   # Static data storage library. Qrc with terms info
+│   ├── TermDataInterface/   # Interface, describing data connection interface
+│   ├── TermDataStorage/     # Data storage sqlite library
+│   └── Text                 # Text processing library
 ├── qml/                     # Main.qml file
 │   ├── Atoms/               # Qml atoms components     (atomic design)
 │   ├── Molecules/           # Qml molecules components (atomic design)
@@ -150,13 +158,6 @@ You can start tests from:
 │   ├── Tools/               # Some qml debugging tools
 ├── resources/               # Resources: app icons, main html wrapper etc...
 ├── source/                  # Main source code
-│   ├── CommonTools/         # Some common tools with wide reuse
-│   ├── Graph/               # Graph headers
-│   ├── QrcHelpImages/       # Help images resources
-│   ├── StaticDataStorage/   # Static data storage. Qrc with terms info
-│   ├── TermDataInterface/   # Interface, describing data connection interface
-│   ├── TermDataStorage/     # Data storage sqlite
-│   └── Text                 # Text processing
 ├── tests/                   # Tests
 ├── tools/                   # Some side stuff, need from time to time
 ├── CMakeLists.txt           # Main CMake file

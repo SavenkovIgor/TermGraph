@@ -9,7 +9,7 @@
 #include <QProperty>
 #include <QSizeF>
 
-#include <source/CommonTools/HandyTypes.h>
+#include <CommonTools/HandyTypes.h>
 
 #include "source/model/enums.h"
 #include "source/model/graphicitem/graphicitem.h"

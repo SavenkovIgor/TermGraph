@@ -5,8 +5,8 @@
 
 #include <QSqlRecord>
 
-#include <source/CommonTools/GroupUuid.h>
-#include <source/CommonTools/HandyTypes.h>
+#include <CommonTools/GroupUuid.h>
+#include <CommonTools/HandyTypes.h>
 #include <source/TermDataInterface/GroupSummary.h>
 
 class TermGroupTable

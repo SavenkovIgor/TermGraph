@@ -5,7 +5,7 @@
 
 #include <QQmlEngine>
 
-#include <source/CommonTools/Platform.h>
+#include <CommonTools/Platform.h>
 
 #include "source/managers/notificationmanager.h"
 

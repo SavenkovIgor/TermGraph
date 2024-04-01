@@ -3,7 +3,7 @@
 
 #include "source/model/term/termdatacache.h"
 
-#include <source/CommonTools/JsonTools.h>
+#include <CommonTools/JsonTools.h>
 
 #include <source/Text/TextTools.h>
 
