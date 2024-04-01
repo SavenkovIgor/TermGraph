@@ -14,7 +14,7 @@
 #include <QUuid>
 #include <QtCore>
 
-#include <CommonTools/Errors.h>
+#include "source/CommonTools/Errors.h"
 
 using UuidList = std::vector<QUuid>;
 

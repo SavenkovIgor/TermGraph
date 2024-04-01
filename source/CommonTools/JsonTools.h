@@ -6,7 +6,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-#include <CommonTools/HandyTypes.h>
+#include "source/CommonTools/HandyTypes.h"
 
 class JsonTools
 {

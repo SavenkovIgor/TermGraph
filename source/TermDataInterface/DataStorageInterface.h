@@ -7,8 +7,8 @@
 #include <QString>
 #include <QUuid>
 
-#include <CommonTools/GroupUuid.h>
-#include <CommonTools/TermUuid.h>
+#include "source/CommonTools/GroupUuid.h"
+#include "source/CommonTools/TermUuid.h"
 #include <source/TermDataInterface/GroupSummary.h>
 #include <source/TermDataInterface/TermData.h>
 

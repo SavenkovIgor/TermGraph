@@ -3,9 +3,9 @@
 
 #include "source/Text/TextTools.h"
 
+#include "source/CommonTools/HandyTypes.h"
+#include "source/CommonTools/JsonTools.h"
 #include "source/Text/Fonts.h"
-#include <CommonTools/HandyTypes.h>
-#include <CommonTools/JsonTools.h>
 
 bool TextTools::isTermAndDefinition(const QString &termDef) { return termDef.contains(JsonTools::termDefSeparator); }
 

@@ -5,8 +5,8 @@
 
 #include <QHostAddress>
 
-#include <CommonTools/NetworkTools.h>
-#include <CommonTools/Platform.h>
+#include "source/CommonTools/NetworkTools.h"
+#include "source/CommonTools/Platform.h"
 #include <StaticDataStorage/StaticDataStorage.h>
 
 #ifndef Q_OS_WASM

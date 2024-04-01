@@ -9,7 +9,7 @@
 #include <QFileInfoList>
 #include <QMap>
 
-#include <CommonTools/HandyTypes.h>
+#include "source/CommonTools/HandyTypes.h"
 
 #include <source/TermDataInterface/DataStorageInterface.h>
 #include <source/TermDataInterface/GroupSummary.h>

@@ -7,7 +7,7 @@
 #include <QStringView>
 #include <QUuid>
 
-#include <CommonTools/HandyTypes.h>
+#include "source/CommonTools/HandyTypes.h"
 
 #include <source/Text/TextRange.h>
 

@@ -8,7 +8,7 @@
 #include <QString>
 #include <QStringView>
 
-#include <CommonTools/HandyTypes.h>
+#include "source/CommonTools/HandyTypes.h"
 
 class LinkTools : public QObject
 {

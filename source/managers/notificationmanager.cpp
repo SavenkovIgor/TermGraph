@@ -3,7 +3,7 @@
 
 #include "source/managers/notificationmanager.h"
 
-#include <CommonTools/HandyTypes.h>
+#include "source/CommonTools/HandyTypes.h"
 
 NotificationManager& NotificationManager::instance()
 {
