@@ -155,8 +155,6 @@ target_sources (TermGraph
         "source/Text/TextTools.h"
 )
 
-target_include_directories (TermGraph PRIVATE "${PROJECT_SOURCE_DIR}/source/")
-
 # List of sources containing modules
 target_sources (TermGraph
     PUBLIC FILE_SET CXX_MODULES FILES
@@ -412,8 +410,6 @@ if (BUILD_TESTING)
             "test/uuidstest.cpp"
             "test/validatortest.cpp"
         )
-
-    target_include_directories (TermGraphTest PRIVATE "${PROJECT_SOURCE_DIR}/source/")
 
     # Add platform-specific sources
     if (WASM)
