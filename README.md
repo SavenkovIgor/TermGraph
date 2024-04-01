@@ -153,7 +153,7 @@ You can start tests from:
 │   ├── commonTools/         # Some common tools with wide reuse
 │   ├── graph/               # Graph headers
 │   ├── QrcHelpImages/       # Help images resources
-│   ├── StaticDataStorage/   # Static data storage. Qrc with terms info
+│   ├── staticDataStorage/   # Static data storage. Qrc with terms info
 │   ├── TermDataInterface/   # Interface, describing data connection interface
 │   ├── TermDataStorage/     # Data storage sqlite
 │   └── Text                 # Text processing

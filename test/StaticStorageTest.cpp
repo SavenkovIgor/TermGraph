@@ -5,7 +5,7 @@
 
 #include <QDebug>
 
-#include "source/StaticDataStorage/StaticDataStorage.h"
+#include "source/staticDataStorage/StaticDataStorage.h"
 
 TEST(StaticStorageTest, GroupsLoadable)
 {
