@@ -5,8 +5,8 @@
 
 #include <limits>
 
-#include <source/Text/TextCursor.h>
-#include <source/Text/TextTools.h>
+#include "source/Text/TextCursor.h"
+#include "source/Text/TextTools.h"
 
 #include "source/helpers/intmatrix.h"
 #include "source/helpers/link/Link.h"

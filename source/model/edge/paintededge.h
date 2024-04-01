@@ -6,7 +6,7 @@
 #include <memory>
 #include <vector>
 
-#include <source/Graph/Edge.hpp>
+#include "source/Graph/Edge.hpp"
 
 #include "source/model/edge/edgedata.h"
 #include "source/model/graphicitem/graphicitem.h"

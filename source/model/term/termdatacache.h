@@ -6,7 +6,7 @@
 #include <QSizeF>
 #include <QString>
 
-#include <TermDataInterface/TermData.h>
+#include "source/TermDataInterface/TermData.h"
 
 #include "source/helpers/link/Link.h"
 #include "source/helpers/link/LinksString.h"

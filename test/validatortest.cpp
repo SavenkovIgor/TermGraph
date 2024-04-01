@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 
 #include "source/CommonTools/HandyTypes.h"
-#include <source/CommonTools/Validator.h>
+#include "source/CommonTools/Validator.h"
 
 struct Point
 {

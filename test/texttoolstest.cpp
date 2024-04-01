@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include <source/Text/TextTools.h>
+#include "source/Text/TextTools.h"
 
 TEST(TextTools, isTermAndDefinition)
 {

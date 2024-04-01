@@ -11,10 +11,10 @@
 
 #include "source/CommonTools/HandyTypes.h"
 
-#include <source/TermDataInterface/DataStorageInterface.h>
-#include <source/TermDataInterface/GroupSummary.h>
-#include <source/TermDataInterface/StaticGroupData.h>
-#include <source/TermDataInterface/TermData.h>
+#include "source/TermDataInterface/DataStorageInterface.h"
+#include "source/TermDataInterface/GroupSummary.h"
+#include "source/TermDataInterface/StaticGroupData.h"
+#include "source/TermDataInterface/TermData.h"
 
 class StaticDataStorage : public DataStorageInterface
 {

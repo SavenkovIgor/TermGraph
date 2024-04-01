@@ -5,7 +5,7 @@
 
 #include <QObject>
 
-#include <TermDataInterface/GroupSummary.h>
+#include "source/TermDataInterface/GroupSummary.h"
 
 class GroupSummaryWrapper : public GroupSummary
 {

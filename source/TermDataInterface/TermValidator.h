@@ -10,7 +10,7 @@
 #include "source/CommonTools/TermUuid.h"
 #include "source/CommonTools/Validator.h"
 
-#include <source/Text/TextTools.h>
+#include "source/Text/TextTools.h"
 
 class TermJsonValidator : public Validator<QJsonObject>
 {

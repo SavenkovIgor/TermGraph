@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include <source/TermDataInterface/TermData.h>
+#include "source/TermDataInterface/TermData.h"
 
 TermData defaultTermData()
 {

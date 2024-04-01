@@ -9,7 +9,7 @@
 
 #include "source/CommonTools/HandyTypes.h"
 
-#include <source/Text/TextRange.h>
+#include "source/Text/TextRange.h"
 
 class Link : public TextRange
 {

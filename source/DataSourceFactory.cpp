@@ -5,15 +5,15 @@
 
 #include <QHostAddress>
 
+#include "source/StaticDataStorage/StaticDataStorage.h"
 #include "source/CommonTools/NetworkTools.h"
 #include "source/CommonTools/Platform.h"
-#include <StaticDataStorage/StaticDataStorage.h>
 
 #ifndef Q_OS_WASM
 #include "source/TermDataConnection/DataStorageConnection.h"
 #include "source/helpers/AppSettings.h"
 
-#include <TermDataStorage/LocalDataStorage.h>
+#include "source/TermDataStorage/LocalDataStorage.h"
 #endif
 
 std::unique_ptr<DataStorageInterface> DataSourceFactory::defaultSource()
