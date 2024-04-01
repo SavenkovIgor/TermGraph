@@ -10,7 +10,11 @@ project (TermGraph
          HOMEPAGE_URL "https://termgraph.app/"
          LANGUAGES CXX)
 
+# Disable module scanning globally (Qt has conflicts with it)
 set (CMAKE_CXX_SCAN_FOR_MODULES False)
+
+# Enable clang-tidy
+set (CMAKE_CXX_CLANG_TIDY clang-tidy -checks=-*,cppcoreguidelines-*)
 
 # Enable ranges support for emscripten
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
