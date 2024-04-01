@@ -5,7 +5,7 @@
 
 #include <functional>
 
-#include "source/CommonTools/HandyTypes.h"
+#include "source/commonTools/HandyTypes.h"
 
 #include "source/TermDataInterface/DataStorageInterface.h"
 #include "source/TermDataInterface/GroupSummary.h"

@@ -7,8 +7,8 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
-#include "source/CommonTools/HandyTypes.h"
-#include "source/CommonTools/NetworkTools.h"
+#include "source/commonTools/HandyTypes.h"
+#include "source/commonTools/NetworkTools.h"
 
 #include "source/TermDataInterface/DataStorageInterface.h"
 #include "source/TermDataInterface/GroupSummary.h"

@@ -3,8 +3,8 @@
 
 #pragma once
 
-#include "source/CommonTools/JsonTools.h"
-#include "source/CommonTools/SafeUuid.h"
+#include "source/commonTools/JsonTools.h"
+#include "source/commonTools/SafeUuid.h"
 
 class GroupUuid final : public SafeUuid
 {

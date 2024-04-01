@@ -5,10 +5,10 @@
 
 #include <QJsonObject>
 
-#include "source/CommonTools/GroupUuid.h"
-#include "source/CommonTools/JsonTools.h"
-#include "source/CommonTools/TermUuid.h"
-#include "source/CommonTools/Validator.h"
+#include "source/commonTools/GroupUuid.h"
+#include "source/commonTools/JsonTools.h"
+#include "source/commonTools/TermUuid.h"
+#include "source/commonTools/Validator.h"
 
 #include "source/Text/TextTools.h"
 

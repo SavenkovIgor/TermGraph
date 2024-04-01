@@ -150,7 +150,7 @@ You can start tests from:
 │   ├── Tools/               # Some qml debugging tools
 ├── resources/               # Resources: app icons, main html wrapper etc...
 ├── source/                  # Main source code
-│   ├── CommonTools/         # Some common tools with wide reuse
+│   ├── commonTools/         # Some common tools with wide reuse
 │   ├── Graph/               # Graph headers
 │   ├── QrcHelpImages/       # Help images resources
 │   ├── StaticDataStorage/   # Static data storage. Qrc with terms info
