@@ -7,12 +7,12 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
-#include "source/CommonTools/HandyTypes.h"
-#include "source/CommonTools/NetworkTools.h"
+#include "source/commonTools/HandyTypes.h"
+#include "source/commonTools/NetworkTools.h"
 
-#include <TermDataInterface/DataStorageInterface.h>
-#include <TermDataInterface/GroupSummary.h>
-#include <TermDataInterface/TermData.h>
+#include "source/TermDataInterface/DataStorageInterface.h"
+#include "source/TermDataInterface/GroupSummary.h"
+#include "source/TermDataInterface/TermData.h"
 
 #include "NetWrapper.h"
 

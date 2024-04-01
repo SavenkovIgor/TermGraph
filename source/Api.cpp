@@ -1,11 +1,11 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/api.h"
+#include "source/Api.h"
 
 #include <QQmlEngine>
 
-#include "source/CommonTools/Platform.h"
+#include "source/commonTools/Platform.h"
 
 #include "source/managers/notificationmanager.h"
 

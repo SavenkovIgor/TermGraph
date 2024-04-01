@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include <source/TermDataStorage/LocalDataStorage.h>
+#include "source/TermDataStorage/LocalDataStorage.h"
 
 // TODO: Check creation of empty database with LocalDatabaseStorage
 

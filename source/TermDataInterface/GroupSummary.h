@@ -11,9 +11,9 @@
 #include <QString>
 #include <QUuid>
 
-#include "source/CommonTools/GroupUuid.h"
-#include "source/CommonTools/HandyTypes.h"
-#include "source/CommonTools/JsonTools.h"
+#include "source/commonTools/GroupUuid.h"
+#include "source/commonTools/HandyTypes.h"
+#include "source/commonTools/JsonTools.h"
 
 #include "GroupValidator.h"
 

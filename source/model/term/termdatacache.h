@@ -6,10 +6,10 @@
 #include <QSizeF>
 #include <QString>
 
-#include <TermDataInterface/TermData.h>
+#include "source/TermDataInterface/TermData.h"
 
-#include "source/helpers/link/link.h"
-#include "source/helpers/link/linksstring.h"
+#include "source/helpers/link/Link.h"
+#include "source/helpers/link/LinksString.h"
 #include "source/model/enums.h"
 
 // Mostly const wrapper over TermData + some additional stuff

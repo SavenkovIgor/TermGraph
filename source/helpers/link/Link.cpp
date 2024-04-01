@@ -1,10 +1,10 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/link/link.h"
+#include "source/helpers/link/Link.h"
 
-#include <source/Text/CharTools.h>
-#include <source/Text/CheckingTextCursor.h>
+#include "source/Text/CharTools.h"
+#include "source/Text/CheckingTextCursor.h"
 
 Link::Link(QStringView strView, int left, int right)
     : TextRange(strView, left, right)

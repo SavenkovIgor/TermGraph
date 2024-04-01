@@ -1,19 +1,19 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "datasourcefactory.h"
+#include "source/DataSourceFactory.h"
 
 #include <QHostAddress>
 
-#include "source/CommonTools/NetworkTools.h"
-#include "source/CommonTools/Platform.h"
-#include <StaticDataStorage/StaticDataStorage.h>
+#include "source/commonTools/NetworkTools.h"
+#include "source/commonTools/Platform.h"
+#include "source/staticDataStorage/StaticDataStorage.h"
 
 #ifndef Q_OS_WASM
 #include "source/TermDataConnection/DataStorageConnection.h"
-#include "source/helpers/appsettings.h"
+#include "source/helpers/AppSettings.h"
 
-#include <TermDataStorage/LocalDataStorage.h>
+#include "source/TermDataStorage/LocalDataStorage.h"
 #endif
 
 std::unique_ptr<DataStorageInterface> DataSourceFactory::defaultSource()

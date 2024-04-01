@@ -1,17 +1,17 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/link/linktools.h"
+#include "source/helpers/link/LinkTools.h"
 
 #include <limits>
 
-#include <source/Text/TextCursor.h>
-#include <source/Text/TextTools.h>
+#include "source/Text/TextCursor.h"
+#include "source/Text/TextTools.h"
 
 #include "source/helpers/intmatrix.h"
-#include "source/helpers/link/link.h"
-#include "source/helpers/link/linksdecorator.h"
-#include "source/helpers/link/linksstring.h"
+#include "source/helpers/link/Link.h"
+#include "source/helpers/link/LinksDecorator.h"
+#include "source/helpers/link/LinksString.h"
 
 LinkTools::LinkTools(QObject* parent)
     : QObject(parent)

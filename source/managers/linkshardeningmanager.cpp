@@ -5,10 +5,10 @@
 
 #include <ranges>
 
-#include "source/CommonTools/HandyTypes.h"
+#include "source/commonTools/HandyTypes.h"
 
-#include "source/helpers/link/linksdecorator.h"
-#include "source/helpers/link/linktools.h"
+#include "source/helpers/link/LinkTools.h"
+#include "source/helpers/link/LinksDecorator.h"
 
 namespace rng = std::ranges;
 

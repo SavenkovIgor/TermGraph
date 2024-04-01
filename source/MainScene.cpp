@@ -1,7 +1,7 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/mainscene.h"
+#include "source/MainScene.h"
 
 #ifndef Q_OS_WASM
 #include <QThread>

@@ -3,8 +3,8 @@
 
 #include <gtest/gtest.h>
 
-#include "source/CommonTools/HandyTypes.h"
-#include <source/CommonTools/Validator.h>
+#include "source/commonTools/HandyTypes.h"
+#include "source/commonTools/Validator.h"
 
 struct Point
 {

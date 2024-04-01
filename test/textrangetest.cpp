@@ -5,7 +5,7 @@
 
 #include <gtest/gtest.h>
 
-#include <source/Text/TextRange.h>
+#include "source/Text/TextRange.h"
 
 TEST(TextRangeTest, TextRangeInit)
 {

@@ -6,7 +6,7 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include <TermDataInterface/TermData.h>
+#include "source/TermDataInterface/TermData.h"
 
 class TermDataWrapper
 {

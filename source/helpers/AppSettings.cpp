@@ -1,11 +1,11 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/appsettings.h"
+#include "source/helpers/AppSettings.h"
 
 #include <QStandardPaths>
 
-#include "source/CommonTools/Platform.h"
+#include "source/commonTools/Platform.h"
 
 using namespace AppSettings;
 

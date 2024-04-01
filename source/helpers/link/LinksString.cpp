@@ -1,12 +1,12 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/link/linksstring.h"
+#include "source/helpers/link/LinksString.h"
 
-#include <source/Text/CharTools.h>
-#include <source/Text/CheckingTextCursor.h>
+#include "source/Text/CharTools.h"
+#include "source/Text/CheckingTextCursor.h"
 
-#include "source/helpers/link/linksdecorator.h"
+#include "source/helpers/link/LinksDecorator.h"
 
 LinksString::LinksString(QStringView str)
     : mString(str)

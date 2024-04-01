@@ -1,11 +1,11 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "dataprovider.h"
+#include "source/DataProvider.h"
 
 #include <ranges>
 
-#include "source/datasourcefactory.h"
+#include "source/DataSourceFactory.h"
 
 namespace rng = std::ranges;
 

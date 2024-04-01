@@ -6,7 +6,7 @@
 
 #include <gtest/gtest.h>
 
-#include "source/helpers/link/linktools.h"
+#include "source/helpers/link/LinkTools.h"
 
 TEST(LinkToolsTest, LinkExtraction)
 {

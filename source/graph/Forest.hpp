@@ -9,7 +9,7 @@
 #include <map>
 #include <ranges>
 
-#include <source/Graph/Graph.hpp>
+#include "source/graph/Graph.hpp"
 
 namespace rng = std::ranges;
 

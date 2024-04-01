@@ -6,7 +6,7 @@
 #include <QString>
 #include <QUuid>
 
-#include "source/CommonTools/HandyTypes.h"
+#include "source/commonTools/HandyTypes.h"
 
 class SafeUuid : public QUuid
 {
