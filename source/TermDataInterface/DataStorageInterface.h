@@ -7,10 +7,10 @@
 #include <QString>
 #include <QUuid>
 
-#include "source/commonTools/GroupUuid.h"
-#include "source/commonTools/TermUuid.h"
 #include "source/TermDataInterface/GroupSummary.h"
 #include "source/TermDataInterface/TermData.h"
+#include "source/commonTools/GroupUuid.h"
+#include "source/commonTools/TermUuid.h"
 
 // Interface
 class DataStorageInterface

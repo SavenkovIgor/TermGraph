@@ -5,9 +5,9 @@
 
 #include <QSqlRecord>
 
+#include "source/TermDataInterface/GroupSummary.h"
 #include "source/commonTools/GroupUuid.h"
 #include "source/commonTools/HandyTypes.h"
-#include "source/TermDataInterface/GroupSummary.h"
 
 class TermGroupTable
 {

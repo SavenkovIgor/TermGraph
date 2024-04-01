@@ -5,9 +5,9 @@
 
 #include <QHostAddress>
 
-#include "source/staticDataStorage/StaticDataStorage.h"
 #include "source/commonTools/NetworkTools.h"
 #include "source/commonTools/Platform.h"
+#include "source/staticDataStorage/StaticDataStorage.h"
 
 #ifndef Q_OS_WASM
 #include "source/TermDataConnection/DataStorageConnection.h"
