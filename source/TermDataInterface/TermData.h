@@ -15,7 +15,6 @@
 #include "source/commonTools/HandyTypes.h"
 #include "source/commonTools/TermUuid.h"
 
-
 // TODO: Check tests!
 // TODO: Make class and make fields private
 struct TermData

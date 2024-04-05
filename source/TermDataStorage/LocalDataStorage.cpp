@@ -3,7 +3,6 @@
 
 #include "source/TermDataStorage/LocalDataStorage.h"
 
-
 #include <QMap>
 
 #include "source/TermDataStorage/Database.h"

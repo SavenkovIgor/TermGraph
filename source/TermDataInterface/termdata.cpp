@@ -3,8 +3,8 @@
 
 #include "source/TermDataInterface/TermData.h"
 
-#include "source/Text/TextTools.h"
 #include "source/TermDataInterface/TermValidator.h"
+#include "source/Text/TextTools.h"
 
 TermData TermData::createGhost(const QString& term, GroupUuid groupUuid)
 {

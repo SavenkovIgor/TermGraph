@@ -3,7 +3,6 @@
 
 #include "source/managers/notificationmanager.h"
 
-
 NotificationManager& NotificationManager::instance()
 {
     static NotificationManager mgr;
