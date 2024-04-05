@@ -4,7 +4,6 @@
 #pragma once
 
 #include <functional>
-#include <iostream>
 
 #define EXCLUSIVE_CALL(f) static auto beforeMain = ExclusiveCall([]() f);
 

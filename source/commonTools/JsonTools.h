@@ -5,8 +5,7 @@
 
 #include <QJsonDocument>
 #include <QJsonObject>
-
-#include "source/commonTools/HandyTypes.h"
+#include <QJsonArray>
 
 class JsonTools
 {

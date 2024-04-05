@@ -8,7 +8,7 @@
 
 #include "source/model/group/termgroup.h"
 
-// BUG: on empty groups, edges didnt hide
+// BUG: on empty groups, edges didn't hide
 
 class EdgesModel : public QAbstractListModel
 {

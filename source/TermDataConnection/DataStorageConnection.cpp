@@ -8,6 +8,8 @@
 #include <QObject>
 #include <QSharedPointer>
 
+#include "source/commonTools/NetworkTools.h"
+
 template<typename T>
 Result<T> toResult(QNetworkReply* reply, std::function<Opt<T>(const QByteArray& data)> parseFunc)
 {

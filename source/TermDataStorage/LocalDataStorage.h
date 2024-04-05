@@ -3,10 +3,6 @@
 
 #pragma once
 
-#include <functional>
-
-#include "source/commonTools/HandyTypes.h"
-
 #include "source/TermDataInterface/DataStorageInterface.h"
 #include "source/TermDataInterface/GroupSummary.h"
 #include "source/TermDataInterface/TermData.h"

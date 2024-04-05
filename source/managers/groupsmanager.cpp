@@ -9,6 +9,7 @@
 
 #include <QDebug>
 
+#include "source/TermDataInterface/GroupValidator.h"
 #include "source/helpers/AppSettings.h"
 
 GroupsManager::GroupsManager(NotifyInterface& notifier, QObject* parent)

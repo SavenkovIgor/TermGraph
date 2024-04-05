@@ -3,6 +3,8 @@
 
 #include "source/TermDataInterface/StaticGroupData.h"
 
+#include "source/TermDataInterface/GroupValidator.h"
+
 Opt<QDateTime> StaticGroupData::termsLastEdit() const
 {
     if (terms.empty()) {

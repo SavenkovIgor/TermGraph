@@ -3,8 +3,6 @@
 
 #include "source/staticDataStorage/StaticDataStorage.h"
 
-#include <ranges>
-
 #include <QDir>
 #include <QMap>
 

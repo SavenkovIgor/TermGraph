@@ -3,7 +3,6 @@
 
 #include <gtest/gtest.h>
 
-#include "source/commonTools/HandyTypes.h"
 #include "source/commonTools/Validator.h"
 
 struct Point

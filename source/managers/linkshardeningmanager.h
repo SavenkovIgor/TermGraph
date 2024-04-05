@@ -7,8 +7,6 @@
 #include <QScopedPointer>
 #include <QStringView>
 
-#include "source/commonTools/HandyTypes.h"
-
 #include "source/helpers/link/LinksString.h"
 #include "source/model/group/termgroup.h"
 #include "source/model/term/termdatawrapper.h"

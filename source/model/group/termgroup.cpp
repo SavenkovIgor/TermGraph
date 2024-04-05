@@ -3,8 +3,6 @@
 
 #include "source/model/group/termgroup.h"
 
-#include <ranges>
-
 #include <QElapsedTimer>
 #include <QThread>
 

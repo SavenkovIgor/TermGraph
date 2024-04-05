@@ -3,8 +3,6 @@
 
 #include "source/model/term/termdatacache.h"
 
-#include "source/commonTools/JsonTools.h"
-
 #include "source/Text/TextTools.h"
 
 // Initialization order is important!
