@@ -3,6 +3,8 @@
 
 #include "source/TermDataInterface/GroupSummary.h"
 
+#include "source/TermDataInterface/GroupValidator.h"
+
 Opt<GroupSummary> GroupSummary::from(const QJsonObject& obj)
 {
     if (!GroupJsonValidator::defaultChecks().check(obj))

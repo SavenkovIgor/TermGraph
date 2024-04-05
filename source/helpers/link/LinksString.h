@@ -5,8 +5,6 @@
 
 #include <QStringView>
 
-#include "source/commonTools/HandyTypes.h"
-
 #include "source/helpers/link/Link.h"
 
 class LinksString

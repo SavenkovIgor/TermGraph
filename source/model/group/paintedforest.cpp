@@ -3,8 +3,6 @@
 
 #include "source/model/group/paintedforest.h"
 
-#include <ranges>
-
 #include "source/helpers/appstyle.h"
 
 namespace rng = std::ranges;

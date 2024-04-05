@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <optional>
 #include <vector>
 
 #include <QByteArray>
@@ -14,10 +13,7 @@
 
 #include "source/commonTools/GroupUuid.h"
 #include "source/commonTools/HandyTypes.h"
-#include "source/commonTools/JsonTools.h"
 #include "source/commonTools/TermUuid.h"
-
-#include "TermValidator.h"
 
 // TODO: Check tests!
 // TODO: Make class and make fields private

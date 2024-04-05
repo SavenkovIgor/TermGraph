@@ -5,7 +5,6 @@
 
 #include <QHostAddress>
 
-#include "source/commonTools/NetworkTools.h"
 #include "source/commonTools/Platform.h"
 #include "source/staticDataStorage/StaticDataStorage.h"
 

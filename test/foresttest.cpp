@@ -6,7 +6,6 @@
 #include <gtest/gtest.h>
 
 #include "source/graph/Forest.hpp"
-#include "source/graph/Graph.hpp"
 #include "source/graph/GraphData.hpp"
 
 using namespace graph;

@@ -14,7 +14,7 @@
 #include "source/TermDataInterface/GroupSummary.h"
 #include "source/TermDataInterface/TermData.h"
 
-// Задача этого класса - формировать запросы
+// This class is responsible for building queries
 class SqlQueryBuilder
 {
 public:

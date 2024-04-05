@@ -9,8 +9,6 @@
 #include <QProperty>
 #include <QSizeF>
 
-#include "source/commonTools/HandyTypes.h"
-
 #include "source/model/enums.h"
 #include "source/model/graphicitem/graphicitem.h"
 #include "source/model/term/graphterm.h"

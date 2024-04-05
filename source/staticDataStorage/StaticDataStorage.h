@@ -3,13 +3,8 @@
 
 #pragma once
 
-#include <functional>
-#include <memory>
-
 #include <QFileInfoList>
 #include <QMap>
-
-#include "source/commonTools/HandyTypes.h"
 
 #include "source/TermDataInterface/DataStorageInterface.h"
 #include "source/TermDataInterface/GroupSummary.h"

@@ -3,8 +3,6 @@
 
 #include "source/managers/notificationmanager.h"
 
-#include "source/commonTools/HandyTypes.h"
-
 NotificationManager& NotificationManager::instance()
 {
     static NotificationManager mgr;

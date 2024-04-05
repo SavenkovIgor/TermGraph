@@ -11,7 +11,7 @@ public:
     AppConfigTable()  = default;
     ~AppConfigTable() = default;
 
-    // This function must be called only once, when initing database
+    // This function must be called only once, when initting database
     void initTable();
 
     int  getDbVersion();

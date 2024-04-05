@@ -10,6 +10,7 @@ project (TermGraph
          HOMEPAGE_URL "https://termgraph.app/"
          LANGUAGES CXX)
 
+set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set (CMAKE_CXX_SCAN_FOR_MODULES False)
 
 # Enable ranges support for emscripten

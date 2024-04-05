@@ -3,10 +3,9 @@
 
 #pragma once
 
+#include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
-
-#include "source/commonTools/HandyTypes.h"
 
 class JsonTools
 {

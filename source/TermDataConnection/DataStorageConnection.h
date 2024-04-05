@@ -8,7 +8,6 @@
 #include <QNetworkReply>
 
 #include "source/commonTools/HandyTypes.h"
-#include "source/commonTools/NetworkTools.h"
 
 #include "source/TermDataInterface/DataStorageInterface.h"
 #include "source/TermDataInterface/GroupSummary.h"

@@ -7,8 +7,6 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 
-#include "source/commonTools/HandyTypes.h"
-
 class DbTools
 {
 public:
