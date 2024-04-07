@@ -6,8 +6,6 @@
 #include <QElapsedTimer>
 #include <QThread>
 
-#include "source/commonTools/HandyTypes.h"
-
 #include "source/helpers/appstyle.h"
 #include "source/helpers/link/LinkTools.h"
 
@@ -405,7 +403,7 @@ TermGroup::SearchConnectionResult TermGroup::searchAllConnections(const PaintedT
     // Compare everything with everything
     for (auto node : terms) {
         for (const auto& link : node->cache().links()) {
-            Opt<PaintedTerm::Ptr> foundNode = std::nullopt;
+            std::optional<PaintedTerm::Ptr> foundNode = std::nullopt;
 
             if (!foundNode) {
                 if (link.hasUuid()) {
@@ -458,13 +456,13 @@ TermGroup::SearchConnectionResult TermGroup::searchAllConnections(const PaintedT
     return ret;
 }
 
-Opt<PaintedTerm::Ptr> TermGroup::findLinkTarget(const QString& link, const PaintedTerm::List& terms)
+std::optional<PaintedTerm::Ptr> TermGroup::findLinkTarget(const QString& link, const PaintedTerm::List& terms)
 {
-    Opt<PaintedTerm::Ptr> targetTerm = std::nullopt;
+    std::optional<PaintedTerm::Ptr> targetTerm = std::nullopt;
 
     int minDistance = 100000;
 
-    Opt<int> optionalResult;
+    std::optional<int> optionalResult;
 
     for (auto node : terms) {
         auto termName = node->cache().lowerTerm();

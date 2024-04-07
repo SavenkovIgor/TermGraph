@@ -16,21 +16,21 @@ class DataProvider : public QObject
 public:
     explicit DataProvider(QObject* parent = nullptr);
 
-    bool           isReady() const;
-    int            dbVersion() const;
-    Opt<GroupUuid> currentGroup() const;
-    void           loadGroups();
-    void           loadGroup(GroupUuid uuid);
+    bool                     isReady() const;
+    int                      dbVersion() const;
+    std::optional<GroupUuid> currentGroup() const;
+    void                     loadGroups();
+    void                     loadGroup(GroupUuid uuid);
 
-    const GroupSummary::List& groups() const;
-    Opt<GroupSummary>         group(GroupUuid uuid) const;
+    const GroupSummary::List&   groups() const;
+    std::optional<GroupSummary> group(GroupUuid uuid) const;
 
     void addGroup(const GroupSummary& info);
     void updateGroup(const GroupSummary& info);
     void deleteGroup(const GroupUuid& uuid);
 
-    const TermData::List& terms() const;
-    Opt<TermData>         term(const QString& definition, GroupUuid uuid) const;
+    const TermData::List&   terms() const;
+    std::optional<TermData> term(const QString& definition, GroupUuid uuid) const;
 
     void addTerm(const TermData& data);
     void updateTerm(const TermData&                      data,
@@ -60,7 +60,7 @@ signals:
 private:
     std::unique_ptr<DataStorageInterface> dataStorage;
 
-    Opt<GroupUuid>          mCurrentGroup;
-    Opt<GroupSummary::List> mGroups;
-    TermData::List          mTerms;
+    std::optional<GroupUuid>          mCurrentGroup;
+    std::optional<GroupSummary::List> mGroups;
+    TermData::List                    mTerms;
 };

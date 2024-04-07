@@ -12,23 +12,22 @@
 #include <QUuid>
 
 #include "source/commonTools/GroupUuid.h"
-#include "source/commonTools/HandyTypes.h"
 #include "source/commonTools/TermUuid.h"
 
 // TODO: Check tests!
 // TODO: Make class and make fields private
 struct TermData
 {
-    Opt<TermUuid> uuid;
-    QString       term;
-    QString       definition;
-    QString       description;
-    QString       examples;
-    QString       wikiUrl;
-    QString       wikiImage;
-    QString       knowledgeArea;
-    GroupUuid     groupUuid;
-    QDateTime     lastEdit;
+    std::optional<TermUuid> uuid;
+    QString                 term;
+    QString                 definition;
+    QString                 description;
+    QString                 examples;
+    QString                 wikiUrl;
+    QString                 wikiImage;
+    QString                 knowledgeArea;
+    GroupUuid               groupUuid;
+    QDateTime               lastEdit;
 
     inline bool isNull() const { return uuid.has_value() && term.isEmpty(); }
 
@@ -39,8 +38,8 @@ struct TermData
     static TermData createGhost(const QString& term, GroupUuid groupUuid);
 
     // --- JSON ---
-    static Opt<TermData> from(const QJsonObject& obj, JsonCheckMode mode);
-    static Opt<TermData> from(const QByteArray& jsonBytes, JsonCheckMode mode);
+    static std::optional<TermData> from(const QJsonObject& obj, JsonCheckMode mode);
+    static std::optional<TermData> from(const QByteArray& jsonBytes, JsonCheckMode mode);
 
     QJsonObject toQJsonObject() const;
     QJsonObject toMinimalQJsonObject() const;
@@ -52,9 +51,9 @@ struct TermData
     class List : public std::vector<TermData>
     {
     public:
-        static Opt<List> from(const QJsonObject& obj);
-        static List      from(const QJsonArray& json, JsonCheckMode mode = JsonCheckMode::Import);
-        static Opt<List> from(const QByteArray& jsonBytes);
+        static std::optional<List> from(const QJsonObject& obj);
+        static List                from(const QJsonArray& json, JsonCheckMode mode = JsonCheckMode::Import);
+        static std::optional<List> from(const QByteArray& jsonBytes);
 
         QJsonObject toQJsonObject() const;
         QJsonArray  toQJsonArray() const;

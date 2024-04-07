@@ -8,8 +8,6 @@
 #include <QString>
 #include <QStringView>
 
-#include "source/commonTools/HandyTypes.h"
-
 class LinkTools : public QObject
 {
     Q_OBJECT
@@ -31,9 +29,9 @@ public:
     Q_INVOKABLE static QString remove(QString str, int cursor);
     Q_INVOKABLE static QString decorate(const QString& str);
 
-    static bool     linkAndTermSimilarWordDistance(const QString& link, const QString& term);
-    static int      levDistance(QStringView src, QStringView dst, int limit = 100000);
-    static Opt<int> linkAndTermDistance(const QString& link, const QString& term, int maxLimit);
+    static bool               linkAndTermSimilarWordDistance(const QString& link, const QString& term);
+    static int                levDistance(QStringView src, QStringView dst, int limit = 100000);
+    static std::optional<int> linkAndTermDistance(const QString& link, const QString& term, int maxLimit);
 
 private:
 };

@@ -7,10 +7,8 @@
 
 #include <QDateTime>
 
-#include "source/commonTools/HandyTypes.h"
-
-#include "GroupSummary.h"
-#include "TermData.h"
+#include "source/TermDataInterface/GroupSummary.h"
+#include "source/TermDataInterface/TermData.h"
 
 struct StaticGroupData : public GroupSummary
 {
@@ -18,17 +16,17 @@ struct StaticGroupData : public GroupSummary
 
     TermData::List terms;
 
-    Opt<QDateTime> termsLastEdit() const;
+    std::optional<QDateTime> termsLastEdit() const;
 
     QMap<TermUuid, TermData> termsMap() const;
 
-    Opt<TermData> term(const QString& termName) const;
+    std::optional<TermData> term(const QString& termName) const;
 
     inline bool operator==(const StaticGroupData& rhs) const = default;
 
     // --- JSON ---
-    static Opt<StaticGroupData> from(QJsonObject json);
-    static Opt<StaticGroupData> from(const QByteArray& jsonBytes);
+    static std::optional<StaticGroupData> from(QJsonObject json);
+    static std::optional<StaticGroupData> from(const QByteArray& jsonBytes);
 
     QJsonObject toQJsonObject() const;
 

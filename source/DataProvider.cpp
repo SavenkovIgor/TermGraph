@@ -44,7 +44,7 @@ bool DataProvider::isReady() const { return mGroups.has_value(); }
 
 int DataProvider::dbVersion() const { return dataStorage->storageVersion(); }
 
-Opt<GroupUuid> DataProvider::currentGroup() const { return mCurrentGroup; }
+std::optional<GroupUuid> DataProvider::currentGroup() const { return mCurrentGroup; }
 
 void DataProvider::loadGroup(GroupUuid uuid)
 {
@@ -63,7 +63,7 @@ const GroupSummary::List &DataProvider::groups() const
     return mGroups ? mGroups.value() : dummyEmptyGroups;
 }
 
-Opt<GroupSummary> DataProvider::group(GroupUuid uuid) const
+std::optional<GroupSummary> DataProvider::group(GroupUuid uuid) const
 {
     assert(isReady());
     for (const auto &group : mGroups.value()) {
@@ -113,7 +113,7 @@ const TermData::List &DataProvider::terms() const
     return mTerms;
 }
 
-Opt<TermData> DataProvider::term(const QString &definition, [[maybe_unused]] GroupUuid uuid) const
+std::optional<TermData> DataProvider::term(const QString &definition, [[maybe_unused]] GroupUuid uuid) const
 {
     assert(uuid == mCurrentGroup);
     for (const auto &term : mTerms) {

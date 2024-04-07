@@ -39,7 +39,7 @@ QString Link::createLinkWithUuid(const QUuid& uuid) const
     return linkText;
 }
 
-Opt<Link> Link::select(QStringView str, int startPos)
+std::optional<Link> Link::select(QStringView str, int startPos)
 {
     if (!TextCursor::isValidCursor(str, startPos)) {
         return std::nullopt;
@@ -76,7 +76,7 @@ QStringView Link::getText(QStringView fullLink)
 
 QString Link::getLower(QStringView text) { return text.toString().toLower(); }
 
-Opt<QUuid> Link::tryGetUuid(QStringView fullLink)
+std::optional<QUuid> Link::tryGetUuid(QStringView fullLink)
 {
     assert(fullLink[fullLink.size() - 1] == CharTools::rightBracket);
 

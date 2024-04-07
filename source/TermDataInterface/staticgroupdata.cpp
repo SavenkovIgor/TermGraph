@@ -5,7 +5,7 @@
 
 #include "source/TermDataInterface/GroupValidator.h"
 
-Opt<QDateTime> StaticGroupData::termsLastEdit() const
+std::optional<QDateTime> StaticGroupData::termsLastEdit() const
 {
     if (terms.empty()) {
         return std::nullopt;
@@ -45,7 +45,7 @@ QMap<TermUuid, TermData> StaticGroupData::termsMap() const
     return ret;
 }
 
-Opt<TermData> StaticGroupData::term(const QString& termName) const
+std::optional<TermData> StaticGroupData::term(const QString& termName) const
 {
     for (const auto& termData : terms) {
         if (termData.term == termName) {
@@ -56,7 +56,7 @@ Opt<TermData> StaticGroupData::term(const QString& termName) const
     return std::nullopt;
 }
 
-Opt<StaticGroupData> StaticGroupData::from(QJsonObject json)
+std::optional<StaticGroupData> StaticGroupData::from(QJsonObject json)
 {
     // Some import data fixes
     // Update of termsKey if need
@@ -82,7 +82,7 @@ Opt<StaticGroupData> StaticGroupData::from(QJsonObject json)
     return ret;
 }
 
-Opt<StaticGroupData> StaticGroupData::from(const QByteArray& jsonBytes)
+std::optional<StaticGroupData> StaticGroupData::from(const QByteArray& jsonBytes)
 {
     auto doc = QJsonDocument::fromJson(jsonBytes);
 

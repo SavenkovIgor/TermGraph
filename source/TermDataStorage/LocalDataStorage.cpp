@@ -131,8 +131,8 @@ QMap<GroupUuid, QDateTime> LocalDatabaseStorage::nodesLastEdit() const
     }
 
     for (const auto& record : impl->db.termTable->allLastEditRecords()) {
-        Opt<GroupUuid> uuid     = GroupUuid::from(record.value("groupUuid").toString());
-        QDateTime      lastEdit = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate);
+        std::optional<GroupUuid> uuid     = GroupUuid::from(record.value("groupUuid").toString());
+        QDateTime                lastEdit = QDateTime::fromString(record.value("lastEdit").toString(), Qt::ISODate);
 
         assert(uuid.has_value());
         assert(!lastEdit.isNull());

@@ -9,8 +9,6 @@
 #include <QQueue>
 #include <QTimer>
 
-#include "source/commonTools/HandyTypes.h"
-
 #include "source/managers/notifyinterface.h"
 
 class NotificationManager : public QObject, public NotifyInterface
@@ -56,8 +54,8 @@ private:
 
     QTimer hideNotifyTimer = QTimer(this);
 
-    QQueue<Notify> notificationsQueue;
-    Opt<Notify>    currentNotify() const;
+    QQueue<Notify>        notificationsQueue;
+    std::optional<Notify> currentNotify() const;
 
     void addNotify(const Notify& notify);
     void showNotify(const Notify& notify);

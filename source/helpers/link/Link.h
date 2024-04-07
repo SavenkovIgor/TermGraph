@@ -7,8 +7,6 @@
 #include <QStringView>
 #include <QUuid>
 
-#include "source/commonTools/HandyTypes.h"
-
 #include "source/Text/TextRange.h"
 
 class Link : public TextRange
@@ -29,7 +27,7 @@ public:
 
     [[nodiscard]] QString createLinkWithUuid(const QUuid& uuid) const;
 
-    static Opt<Link> select(QStringView str, int startPos);
+    static std::optional<Link> select(QStringView str, int startPos);
 
     static bool isCursorOnLink(QStringView str, int cursorPos);
 
@@ -37,7 +35,7 @@ private: //Methods
     static QStringView getText(QStringView fullLink);
     static QString     getLower(QStringView text);
 
-    static Opt<QUuid> tryGetUuid(QStringView fullLink);
+    static std::optional<QUuid> tryGetUuid(QStringView fullLink);
 
 private: // Members
     const QStringView mLinkText;

@@ -3,13 +3,14 @@
 
 #pragma once
 
+#include "source/commonTools/HandyTypes.h"
 #include "source/commonTools/JsonTools.h"
 #include "source/commonTools/SafeUuid.h"
 
 class TermUuid final : public SafeUuid
 {
 public:
-    inline static Opt<TermUuid> from(QString text, UuidMode mode = UuidMode::Default)
+    inline static std::optional<TermUuid> from(QString text, UuidMode mode = UuidMode::Default)
     {
         if (mode == UuidMode::Url)
             text = JsonTools::prepareUuidParameter(text);
@@ -20,7 +21,7 @@ public:
         return std::nullopt;
     }
 
-    inline static Opt<TermUuid> from(const QUuid& uuid)
+    inline static std::optional<TermUuid> from(const QUuid& uuid)
     {
         if (auto safe = SafeUuid::from(uuid))
             return TermUuid(uuid.toString());
@@ -33,7 +34,7 @@ public:
     class List : public std::vector<TermUuid>
     {
     public:
-        static inline Opt<List> from(const QJsonObject& obj)
+        static inline std::optional<List> from(const QJsonObject& obj)
         {
             List ret;
 
@@ -51,7 +52,7 @@ public:
             return ret;
         }
 
-        static inline Opt<List> from(const QByteArray& jsonBytes)
+        static inline std::optional<List> from(const QByteArray& jsonBytes)
         {
             auto doc = QJsonDocument::fromJson(jsonBytes);
 
