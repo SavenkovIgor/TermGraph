@@ -29,8 +29,8 @@ public:
     Q_INVOKABLE static QString remove(QString str, int cursor);
     Q_INVOKABLE static QString decorate(const QString& str);
 
-    static bool     linkAndTermSimilarWordDistance(const QString& link, const QString& term);
-    static int      levDistance(QStringView src, QStringView dst, int limit = 100000);
+    static bool               linkAndTermSimilarWordDistance(const QString& link, const QString& term);
+    static int                levDistance(QStringView src, QStringView dst, int limit = 100000);
     static std::optional<int> linkAndTermDistance(const QString& link, const QString& term, int maxLimit);
 
 private:

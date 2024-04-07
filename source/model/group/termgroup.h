@@ -89,7 +89,7 @@ private:
     SearchConnectionResult searchAllConnections(const PaintedTerm::List& terms);
 
     std::optional<PaintedTerm::Ptr> findLinkTarget(const QString& link, const PaintedTerm::List& terms);
-    PaintedEdge::List     filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const;
+    PaintedEdge::List               filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const;
 
     // Nodes
     PaintedTerm::List               getRootNodes() const;

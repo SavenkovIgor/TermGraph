@@ -16,20 +16,20 @@ class DataProvider : public QObject
 public:
     explicit DataProvider(QObject* parent = nullptr);
 
-    bool           isReady() const;
-    int            dbVersion() const;
+    bool                     isReady() const;
+    int                      dbVersion() const;
     std::optional<GroupUuid> currentGroup() const;
-    void           loadGroups();
-    void           loadGroup(GroupUuid uuid);
+    void                     loadGroups();
+    void                     loadGroup(GroupUuid uuid);
 
-    const GroupSummary::List& groups() const;
+    const GroupSummary::List&   groups() const;
     std::optional<GroupSummary> group(GroupUuid uuid) const;
 
     void addGroup(const GroupSummary& info);
     void updateGroup(const GroupSummary& info);
     void deleteGroup(const GroupUuid& uuid);
 
-    const TermData::List& terms() const;
+    const TermData::List&   terms() const;
     std::optional<TermData> term(const QString& definition, GroupUuid uuid) const;
 
     void addTerm(const TermData& data);
@@ -62,5 +62,5 @@ private:
 
     std::optional<GroupUuid>          mCurrentGroup;
     std::optional<GroupSummary::List> mGroups;
-    TermData::List          mTerms;
+    TermData::List                    mTerms;
 };

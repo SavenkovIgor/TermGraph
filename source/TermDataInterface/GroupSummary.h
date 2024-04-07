@@ -17,11 +17,11 @@
 struct GroupSummary
 {
     std::optional<GroupUuid> uuid;
-    QString        name;
-    QString        comment;
+    QString                  name;
+    QString                  comment;
 
-    int            size          = 0;
-    QDateTime      lastEdit      = QDateTime();
+    int                      size          = 0;
+    QDateTime                lastEdit      = QDateTime();
     std::optional<QDateTime> nodesLastEdit = std::nullopt;
 
     inline bool isNull() const { return uuid.has_value() && name.isEmpty(); }
