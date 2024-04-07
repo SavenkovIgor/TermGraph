@@ -152,7 +152,7 @@ void MainScene::setCurrentGroup(const GroupUuid& newGroupUuid)
     dropTermSelection();
 
     // Taking groupUuid from parameter or current groupUuid
-    Opt<GroupUuid> tmpGroupUuid = newGroup ? newGroupUuid : oldGroupUuid;
+    std::optional<GroupUuid> tmpGroupUuid = newGroup ? newGroupUuid : oldGroupUuid;
 
     if (!tmpGroupUuid) {
         return;
@@ -317,7 +317,7 @@ QString MainScene::getCurrNodeHierarchyDefinition()
     return "";
 }
 
-Opt<GroupUuid> MainScene::currentGroupUuid() const
+std::optional<GroupUuid> MainScene::currentGroupUuid() const
 {
     return mCurrentGroup ? GroupUuid::from(mCurrentGroup.value()->uuid()) : std::nullopt;
 }

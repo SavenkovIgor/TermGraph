@@ -36,7 +36,7 @@ public:
     // Internal counts and preparations
     void setTreeNodeCoords(QPointF leftTopPoint = QPointF());
 
-    Opt<QPointF> optimalRootsBasedPosition(const PaintedTerm::Ptr term) const;
+    std::optional<QPointF> optimalRootsBasedPosition(const PaintedTerm::Ptr term) const;
 
     PaintedTerm::OptPtr getNodeAtPoint(const QPointF& pt) const;
 

@@ -5,7 +5,7 @@
 
 #include "source/TermDataInterface/GroupValidator.h"
 
-Opt<GroupSummary> GroupSummary::from(const QJsonObject& obj)
+std::optional<GroupSummary> GroupSummary::from(const QJsonObject& obj)
 {
     if (!GroupJsonValidator::defaultChecks().check(obj))
         return std::nullopt;
@@ -32,7 +32,7 @@ Opt<GroupSummary> GroupSummary::from(const QJsonObject& obj)
     return ret;
 }
 
-Opt<GroupSummary> GroupSummary::from(const QByteArray& jsonBytes)
+std::optional<GroupSummary> GroupSummary::from(const QByteArray& jsonBytes)
 {
     auto doc = QJsonDocument::fromJson(jsonBytes);
 
@@ -58,7 +58,7 @@ QJsonObject GroupSummary::toQJsonObject() const
     return ret;
 }
 
-Opt<GroupSummary::List> GroupSummary::List::from(const QJsonObject& obj)
+std::optional<GroupSummary::List> GroupSummary::List::from(const QJsonObject& obj)
 {
     List ret;
 
@@ -76,7 +76,7 @@ Opt<GroupSummary::List> GroupSummary::List::from(const QJsonObject& obj)
     return ret;
 }
 
-Opt<GroupSummary::List> GroupSummary::List::from(const QByteArray& jsonBytes)
+std::optional<GroupSummary::List> GroupSummary::List::from(const QByteArray& jsonBytes)
 {
     auto doc = QJsonDocument::fromJson(jsonBytes);
 

@@ -118,9 +118,9 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
     importGroup(doc.object());
 }
 
-TermGroup::OptPtr GroupsManager::createGroup(Opt<GroupUuid> uuid)
+TermGroup::OptPtr GroupsManager::createGroup(std::optional<GroupUuid> uuid)
 {
-    Opt<GroupSummary> groupInfo;
+    std::optional<GroupSummary> groupInfo;
     if (uuid) {
         groupInfo = provider.group(*uuid);
     } else if (auto loadedUuid = provider.currentGroup()) {

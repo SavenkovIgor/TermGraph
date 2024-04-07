@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include <optional>
 #include <vector>
 
 #include <QSizeF>
@@ -14,9 +13,6 @@
 #include "source/commonTools/Errors.h"
 
 using UuidList = std::vector<QUuid>;
-
-template<typename T>
-using Opt = std::optional<T>;
 
 template<typename T>
 class Result : public std::variant<T, ErrorCodes>

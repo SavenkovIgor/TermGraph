@@ -22,7 +22,7 @@ TermData TermData::createGhost(const QString& term, GroupUuid groupUuid)
     });
 }
 
-Opt<TermData> TermData::from(const QJsonObject& obj, JsonCheckMode mode)
+std::optional<TermData> TermData::from(const QJsonObject& obj, JsonCheckMode mode)
 {
     bool checkUuid     = true;
     bool checkLastEdit = true;
@@ -41,7 +41,7 @@ Opt<TermData> TermData::from(const QJsonObject& obj, JsonCheckMode mode)
     if (!validator.check(obj))
         return std::nullopt;
 
-    Opt<GroupUuid> gUuid;
+    std::optional<GroupUuid> gUuid;
 
     if (mode == JsonCheckMode::Minimal) {
         gUuid = GroupUuid::generate();
@@ -58,7 +58,7 @@ Opt<TermData> TermData::from(const QJsonObject& obj, JsonCheckMode mode)
         lastEdit = QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate);
     }
 
-    Opt<TermUuid> uuid;
+    std::optional<TermUuid> uuid;
 
     if (obj.contains(JsonTools::uuidKey)) {
         uuid = TermUuid::from(obj[JsonTools::uuidKey].toString());
@@ -98,7 +98,7 @@ Opt<TermData> TermData::from(const QJsonObject& obj, JsonCheckMode mode)
     return ret;
 }
 
-Opt<TermData> TermData::from(const QByteArray& jsonBytes, JsonCheckMode mode)
+std::optional<TermData> TermData::from(const QByteArray& jsonBytes, JsonCheckMode mode)
 {
     auto doc = QJsonDocument::fromJson(jsonBytes);
 
@@ -147,7 +147,7 @@ QJsonObject TermData::toMinimalQJsonObject() const
 
 QByteArray TermData::toQByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
 
-Opt<TermData::List> TermData::List::from(const QJsonObject& obj)
+std::optional<TermData::List> TermData::List::from(const QJsonObject& obj)
 {
     TermData::List ret;
 
@@ -172,7 +172,7 @@ TermData::List TermData::List::from(const QJsonArray& json, TermData::JsonCheckM
     return ret;
 }
 
-Opt<TermData::List> TermData::List::from(const QByteArray& jsonBytes)
+std::optional<TermData::List> TermData::List::from(const QByteArray& jsonBytes)
 {
     auto doc = QJsonDocument::fromJson(jsonBytes);
 

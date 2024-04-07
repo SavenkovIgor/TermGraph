@@ -13,39 +13,39 @@ class CheckingTextCursor : public TextCursor
 public:
     using Condition = CharTools::ShortCondition;
 
-    CheckingTextCursor(QStringView    strView,
-                       int            pos,
-                       Condition      leftChecker,
-                       Condition      rightChecker,
-                       Opt<Direction> autoStartSearch = std::nullopt);
+    CheckingTextCursor(QStringView              strView,
+                       int                      pos,
+                       Condition                leftChecker,
+                       Condition                rightChecker,
+                       std::optional<Direction> autoStartSearch = std::nullopt);
 
     bool check() const;
 
     bool search(Direction dir);
 
-    static CheckingTextCursor rightWordBorder(QStringView    strView,
-                                              int            pos             = 0,
-                                              Opt<Direction> autoStartSearch = std::nullopt);
+    static CheckingTextCursor rightWordBorder(QStringView              strView,
+                                              int                      pos             = 0,
+                                              std::optional<Direction> autoStartSearch = std::nullopt);
 
-    static CheckingTextCursor leftWordBorder(QStringView    strView,
-                                             int            pos             = 0,
-                                             Opt<Direction> autoStartSearch = std::nullopt);
+    static CheckingTextCursor leftWordBorder(QStringView              strView,
+                                             int                      pos             = 0,
+                                             std::optional<Direction> autoStartSearch = std::nullopt);
 
-    static CheckingTextCursor leftBracketOnRight(QStringView    strView,
-                                                 int            pos             = 0,
-                                                 Opt<Direction> autoStartSearch = std::nullopt);
+    static CheckingTextCursor leftBracketOnRight(QStringView              strView,
+                                                 int                      pos             = 0,
+                                                 std::optional<Direction> autoStartSearch = std::nullopt);
 
-    static CheckingTextCursor rightBracketOnLeft(QStringView    strView,
-                                                 int            pos             = 0,
-                                                 Opt<Direction> autoStartSearch = std::nullopt);
+    static CheckingTextCursor rightBracketOnLeft(QStringView              strView,
+                                                 int                      pos             = 0,
+                                                 std::optional<Direction> autoStartSearch = std::nullopt);
 
-    static CheckingTextCursor anyBracketOnRight(QStringView    strView,
-                                                int            pos             = 0,
-                                                Opt<Direction> autoStartSearch = std::nullopt);
+    static CheckingTextCursor anyBracketOnRight(QStringView              strView,
+                                                int                      pos             = 0,
+                                                std::optional<Direction> autoStartSearch = std::nullopt);
 
-    static CheckingTextCursor anyBracketOnLeft(QStringView    strView,
-                                               int            pos             = 0,
-                                               Opt<Direction> autoStartSearch = std::nullopt);
+    static CheckingTextCursor anyBracketOnLeft(QStringView              strView,
+                                               int                      pos             = 0,
+                                               std::optional<Direction> autoStartSearch = std::nullopt);
 
 private:
     const Condition mLeftChecker;

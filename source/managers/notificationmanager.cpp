@@ -3,6 +3,8 @@
 
 #include "source/managers/notificationmanager.h"
 
+#include "source/commonTools/HandyTypes.h"
+
 NotificationManager& NotificationManager::instance()
 {
     static NotificationManager mgr;
@@ -80,7 +82,7 @@ NotificationManager::NotificationManager(QObject* parent)
     connect(&hideNotifyTimer, &QTimer::timeout, this, &NotificationManager::hideNotify);
 }
 
-Opt<NotificationManager::Notify> NotificationManager::currentNotify() const
+std::optional<NotificationManager::Notify> NotificationManager::currentNotify() const
 {
     if (!notificationsQueue.isEmpty()) {
         return notificationsQueue.head();

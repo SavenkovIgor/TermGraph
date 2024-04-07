@@ -12,26 +12,25 @@
 #include <QUuid>
 
 #include "source/commonTools/GroupUuid.h"
-#include "source/commonTools/HandyTypes.h"
 
 // TODO: Make class and make fields private
 struct GroupSummary
 {
-    Opt<GroupUuid> uuid;
+    std::optional<GroupUuid> uuid;
     QString        name;
     QString        comment;
 
     int            size          = 0;
     QDateTime      lastEdit      = QDateTime();
-    Opt<QDateTime> nodesLastEdit = std::nullopt;
+    std::optional<QDateTime> nodesLastEdit = std::nullopt;
 
     inline bool isNull() const { return uuid.has_value() && name.isEmpty(); }
 
     inline bool operator==(const GroupSummary& rhs) const = default;
 
     // --- JSON ---
-    static Opt<GroupSummary> from(const QJsonObject& obj);
-    static Opt<GroupSummary> from(const QByteArray& jsonBytes);
+    static std::optional<GroupSummary> from(const QJsonObject& obj);
+    static std::optional<GroupSummary> from(const QByteArray& jsonBytes);
 
     QJsonObject toQJsonObject() const;
 
@@ -41,8 +40,8 @@ struct GroupSummary
     class List : public std::vector<GroupSummary>
     {
     public:
-        static Opt<List> from(const QJsonObject& obj);
-        static Opt<List> from(const QByteArray& jsonBytes);
+        static std::optional<List> from(const QJsonObject& obj);
+        static std::optional<List> from(const QByteArray& jsonBytes);
 
         QJsonObject toQJsonObject() const;
 

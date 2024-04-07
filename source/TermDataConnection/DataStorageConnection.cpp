@@ -11,7 +11,7 @@
 #include "source/commonTools/NetworkTools.h"
 
 template<typename T>
-Result<T> toResult(QNetworkReply* reply, std::function<Opt<T>(const QByteArray& data)> parseFunc)
+Result<T> toResult(QNetworkReply* reply, std::function<std::optional<T>(const QByteArray& data)> parseFunc)
 {
     if (reply->error() != QNetworkReply::NoError) {
         return ErrorCodes::ConnectionError;

@@ -9,8 +9,6 @@
 #include <QStringList>
 #include <QUuid>
 
-#include "source/commonTools/HandyTypes.h"
-
 #include "source/DataProvider.h"
 #include "source/managers/notifyinterface.h"
 #include "source/model/group/termgroup.h"
@@ -40,7 +38,7 @@ public:
     Q_INVOKABLE void init();
 
     void              loadGroup(const GroupUuid& uuid);
-    TermGroup::OptPtr createGroup(Opt<GroupUuid> uuid = std::nullopt);
+    TermGroup::OptPtr createGroup(std::optional<GroupUuid> uuid = std::nullopt);
 
     GroupUuid::List getAllUuidsSortedByLastEdit();
 

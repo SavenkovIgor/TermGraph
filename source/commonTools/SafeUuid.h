@@ -6,14 +6,12 @@
 #include <QString>
 #include <QUuid>
 
-#include "source/commonTools/HandyTypes.h"
-
 class SafeUuid : public QUuid
 {
 public:
     using List = std::vector<SafeUuid>;
 
-    inline static Opt<SafeUuid> from(const QString& text)
+    inline static std::optional<SafeUuid> from(const QString& text)
     {
         auto uuid = QUuid(text);
         if (uuid.isNull())
@@ -22,7 +20,7 @@ public:
         return SafeUuid(text);
     }
 
-    inline static Opt<SafeUuid> from(const QUuid& uuid)
+    inline static std::optional<SafeUuid> from(const QUuid& uuid)
     {
         if (uuid.isNull())
             return std::nullopt;

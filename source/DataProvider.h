@@ -18,19 +18,19 @@ public:
 
     bool           isReady() const;
     int            dbVersion() const;
-    Opt<GroupUuid> currentGroup() const;
+    std::optional<GroupUuid> currentGroup() const;
     void           loadGroups();
     void           loadGroup(GroupUuid uuid);
 
     const GroupSummary::List& groups() const;
-    Opt<GroupSummary>         group(GroupUuid uuid) const;
+    std::optional<GroupSummary> group(GroupUuid uuid) const;
 
     void addGroup(const GroupSummary& info);
     void updateGroup(const GroupSummary& info);
     void deleteGroup(const GroupUuid& uuid);
 
     const TermData::List& terms() const;
-    Opt<TermData>         term(const QString& definition, GroupUuid uuid) const;
+    std::optional<TermData> term(const QString& definition, GroupUuid uuid) const;
 
     void addTerm(const TermData& data);
     void updateTerm(const TermData&                      data,
@@ -60,7 +60,7 @@ signals:
 private:
     std::unique_ptr<DataStorageInterface> dataStorage;
 
-    Opt<GroupUuid>          mCurrentGroup;
-    Opt<GroupSummary::List> mGroups;
+    std::optional<GroupUuid>          mCurrentGroup;
+    std::optional<GroupSummary::List> mGroups;
     TermData::List          mTerms;
 };

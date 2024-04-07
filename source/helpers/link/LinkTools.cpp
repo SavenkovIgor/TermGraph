@@ -107,7 +107,7 @@ int LinkTools::levDistance(QStringView src, QStringView dst, int limit)
     return matrix[m][n];
 }
 
-Opt<int> LinkTools::linkAndTermDistance(const QString& link, const QString& term, int maxLimit)
+std::optional<int> LinkTools::linkAndTermDistance(const QString& link, const QString& term, int maxLimit)
 {
     // For developing needs
     assert(term == term.toLower());

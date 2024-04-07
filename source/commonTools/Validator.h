@@ -6,7 +6,6 @@
 #include <functional>
 
 #include "source/commonTools/Errors.h"
-#include "source/commonTools/HandyTypes.h"
 
 template<typename Object>
 class Validator
@@ -14,7 +13,7 @@ class Validator
 public:
     // if return value is empty, then check is passed
     // else check is failed and error code is returned
-    using CheckResult = Opt<ErrorCodes>;
+    using CheckResult = std::optional<ErrorCodes>;
     using Condition   = std::function<CheckResult(const Object&)>;
     using ErrorList   = std::vector<ErrorCodes>;
 
