@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 
 import os
-import sys
 import subprocess
 import argparse
 from pathlib import Path
@@ -10,55 +9,26 @@ from pathlib import Path
 def repository_root() -> Path:
     return Path(__file__).parent
 
-
-def set_env_var_if_missed(env_var_name: str, default_value: str):
-    if env_var_name not in os.environ:
-        os.environ[env_var_name] = default_value
-        print(f'Env.variable {env_var_name} not found. Set to {default_value}')
-
-
-def is_valid_env_path(varname: str) -> bool:
-    return varname in os.environ and Path(os.environ[varname]).exists()
-
-
 def run(command: str):
     if subprocess.call(command, shell=True, executable='/bin/bash') != 0:
         exit(1)
-
 
 def delete_if_exist(path: Path):
     if path.exists():
         print(f'Delete {path}')
         run(f'rm -rf {path}')
 
-
 def env_qt_version() -> str:
     return os.environ['QT_VERSION']
 
-
-def env_qt_root() -> Path:
-    return Path(os.environ['QT_ROOT'])
-
-
 def configure_environment(for_wasm: bool = False):
-    set_env_var_if_missed('QT_ROOT',    default_value=os.path.expanduser('~/Qt'))
-    set_env_var_if_missed('QT_VERSION', default_value='6.6.1')
-
-    assert 'QT_VERSION' in os.environ, 'Error: QT_VERSION is not defined. Can be defined as: x.y.z'
-    assert 'QT_ROOT'    in os.environ, 'Error: QT_ROOT is not defined. Can be defined as: ~/Qt'
-    assert env_qt_root().exists(),     'Error: Path from QT_ROOT env.variable not exist'
+    os.environ.setdefault('QT_ROOT', os.path.expanduser('~/Qt'))
+    os.environ.setdefault('QT_VERSION', '6.6.1')
+    assert Path(os.environ['QT_ROOT']).exists(), 'Error: path at QT_ROOT env.variable not exist'
 
     if for_wasm:
-        has_emsdk = is_valid_env_path('EMSDK')
-        has_emsdk_node = is_valid_env_path('EMSDK_NODE')
-
-        if not has_emsdk or not has_emsdk_node:
-            run(f'source {os.path.expanduser("~/emsdk/emsdk_env.sh")}')
-
-        assert 'EMSDK'      in os.environ, 'Error: EMSDK is not defined. Can be defined as: ~/emsdk'
-        assert 'EMSDK_NODE' in os.environ, 'Error: EMSDK_NODE is not defined. Can be defined as: ~/emsdk/node/14.18.2_64bit/bin/node'
-        assert Path(os.environ['EMSDK']).exists(),      'Error: path from EMSDK env.variable not exist'
-        assert Path(os.environ['EMSDK_NODE']).exists(), 'Error: path from EMSDK_NODE env.variable not exist'
+        assert 'EMSDK' in os.environ, 'Error: EMSDK is not defined. Call source ~/emsdk/emsdk_env.sh or similar'
+        assert Path(os.environ['EMSDK']).exists(), 'Error: path at EMSDK env.variable not exist'
 
 
 class Project:
