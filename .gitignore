@@ -9,3 +9,6 @@ CMakeUserPresets.json
 *.pro.user*
 *.qbs.user*
 *.txt.user*
+
+# Python venv
+.venv/*
