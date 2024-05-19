@@ -84,7 +84,6 @@ jobs:
     - name: Print dependencies versions
       run: |
         echo "::notice file=,line=1,col=1::Clang version: $(clang --version | head -n 1)"
-        echo "::notice file=,line=1,col=1::emSDK version: $(emcc --version | head -n 1)"
         echo "::notice file=,line=1,col=1::Conan version: $(conan --version)"
         echo "::notice file=,line=1,col=1::CMake version: $(cmake --version | head -n 1)"
 
