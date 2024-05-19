@@ -103,7 +103,7 @@ jobs:
       with:
         name: CTest Results
         path: build/${{ matrix.build_profile }}/ctest.xml
-        reporter: jest-junit
+        reporter: java-junit
 
     - name: Upload artifact
       if: matrix.build_profile == 'wasm_release' && github.ref == 'refs/heads/main' && github.event_name == 'push'
