@@ -98,7 +98,7 @@ jobs:
       run: ./project.py --test --preset ${{ matrix.build_profile }}
 
     - name: Test Report
-      if: success() || failure()
+      if: matrix.build_profile != 'wasm_release' && (success() || failure())
       uses: dorny/test-reporter@v1
       with:
         name: CTest Results
