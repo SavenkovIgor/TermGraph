@@ -97,6 +97,14 @@ jobs:
       if: matrix.build_profile != 'wasm_release'
       run: ./project.py --test --preset ${{ matrix.build_profile }}
 
+    - name: Test Report
+      if: success() || failure()
+      uses: dorny/test-reporter@v1
+      with:
+        name: CTest Results
+        path: build/${{ matrix.build_profile }}/ctest.xml
+        reporter: junit
+
     - name: Upload artifact
       if: matrix.build_profile == 'wasm_release' && github.ref == 'refs/heads/main' && github.event_name == 'push'
       uses: actions/upload-pages-artifact@v3
