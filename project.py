@@ -4,7 +4,7 @@ import os
 import subprocess
 import argparse
 from pathlib import Path
-
+from typing import List
 
 def repository_root() -> Path:
     return Path(__file__).parent
@@ -83,7 +83,12 @@ class Project:
     def test(self, preset_name: str):
         self.prepare(preset_name)
         print(f'---TEST {self.name} with preset {preset_name}---')
-        run(f'ctest --preset {preset_name} --output-on-failure --verbose')
+        args: List[str] = []
+        args.append(f'--preset {preset_name}')
+        args.append('--output-on-failure')
+        args.append('--verbose')
+        args.append('--output-junit ctest.xml')
+        run(f'ctest {" ".join(args)}')
 
     def run(self, preset_name: str):
         self.prepare(preset_name)

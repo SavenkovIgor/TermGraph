@@ -1,35 +1,35 @@
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "Build from script",
-			"type": "shell",
-			"command": "./project.py --build",
-			"problemMatcher": "$msCompile"
-		},
-		{
-			"label": "Run from script",
-			"type": "shell",
-			"command": "./project.py --run",
-			"problemMatcher": "$msCompile"
-		},
-		{
-			"label": "Test from script",
-			"type": "shell",
-			"command": "./project.py --test",
-			"problemMatcher": "$msCompile"
-		},
-		{
-			"label": "Clear",
-			"type": "shell",
-			"command": "./project.py --clear",
-			"problemMatcher": "$msCompile"
-		},
-		{
-			"label": "Build and run",
-			"type": "shell",
-			"command": "./project.py --build --run",
-			"problemMatcher": "$msCompile"
-		}
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build from script",
+            "type": "shell",
+            "command": "./project.py --build",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Run from script",
+            "type": "shell",
+            "command": "./project.py --run",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Test from script",
+            "type": "shell",
+            "command": "./project.py --test",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Clear",
+            "type": "shell",
+            "command": "./project.py --clear",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Build and run",
+            "type": "shell",
+            "command": "./project.py --build --run",
+            "problemMatcher": "$msCompile"
+        }
+    ]
 }
