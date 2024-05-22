@@ -50,7 +50,7 @@ jobs:
         version: ${{ env.CONAN_VERSION }}
 
     - name: Install Qt gcc_64
-      uses: jurplel/install-qt-action@v3
+      uses: jurplel/install-qt-action@v4
       with:
         aqtversion: ${{ env.AQT_VERSION }}
         py7zrversion: ${{ env.PY7ZR_VERSION }}
@@ -70,7 +70,7 @@ jobs:
 
     - name: Install Qt wasm multithread
       if: matrix.build_profile == 'wasm_release'
-      uses: jurplel/install-qt-action@v3
+      uses: jurplel/install-qt-action@v4
       with:
         aqtversion: ${{ env.AQT_VERSION }}
         py7zrversion: ${{ env.PY7ZR_VERSION }}
