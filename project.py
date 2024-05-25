@@ -1,10 +1,18 @@
 #!/usr/bin/env python3
 
+import argparse
+import logging
 import os
 import subprocess
-import argparse
 from pathlib import Path
-from typing import List
+from typing import List, Dict, Any
+
+log_config: Dict[str, Any] = {
+    'level': 'INFO',
+    'format': '%(levelname)s: %(message)s',
+}
+
+logging.basicConfig(**log_config)
 
 def repository_root() -> Path:
     return Path(__file__).parent
@@ -15,7 +23,7 @@ def run(command: str):
 
 def delete_if_exist(path: Path):
     if path.exists():
-        print(f'Delete {path}')
+        logging.info(f"Delete {path}")
         run(f'rm -rf {path}')
 
 def env_qt_version() -> str:
@@ -50,7 +58,7 @@ class Project:
 
     def check_preset(self, preset_name: str):
         if not preset_name in self.available_presets:
-            print(f'Preset {preset_name} not found in {self.name}')
+            logging.error(f'Preset {preset_name} not found in {self.name}')
             exit(1)
 
     def prepare(self, preset_name: str):
@@ -59,7 +67,7 @@ class Project:
 
     def install(self, preset_name: str):
         self.prepare(preset_name)
-        print(f'---INSTALL {self.name} with preset {preset_name}---')
+        logging.info(f'---INSTALL {self.name} with preset {preset_name}---')
         args = [f'--profile=conanfiles/profile/{preset_name}']
         args += ['--build=missing']
         args += [f'-of={self.build_dir(preset_name)}/conan-dependencies']
@@ -67,7 +75,7 @@ class Project:
 
     def configure(self, preset_name: str):
         self.prepare(preset_name)
-        print(f'---CONFIGURE {self.name} with preset {preset_name}---')
+        logging.info(f'---CONFIGURE {self.name} with preset {preset_name}---')
         self.delete_cmake_user_presets()
         run(f'cmake --preset {preset_name} ./')
 
@@ -77,12 +85,12 @@ class Project:
         self.install(preset_name)
         self.configure(preset_name)
 
-        print(f'---BUILD {self.name} preset: {preset_name}, Qt: {env_qt_version()}---')
+        logging.info(f'---BUILD {self.name} preset: {preset_name}, Qt: {env_qt_version()}---')
         run(f'cmake --build --preset {preset_name}')
 
     def test(self, preset_name: str):
         self.prepare(preset_name)
-        print(f'---TEST {self.name} with preset {preset_name}---')
+        logging.info(f'---TEST {self.name} with preset {preset_name}---')
         args: List[str] = []
         args.append(f'--preset {preset_name}')
         args.append('--output-on-failure')
@@ -92,16 +100,16 @@ class Project:
 
     def run(self, preset_name: str):
         self.prepare(preset_name)
-        print(f'---RUN {self.name} with preset {preset_name}---')
+        logging.info(f'---RUN {self.name} with preset {preset_name}---')
         run(f'./build/{preset_name}/{self.run_name}')
 
     def pack(self, preset_name: str):
-        print('---CMAKE PACKAGE STARTED---')
-        print('Not implemented yet')
+        logging.info(f'---CMAKE PACKAGE STARTED---')
+        logging.error('Not implemented yet')
 
     def clear(self, clear_conan: bool = False):
         os.chdir(self.path)
-        print(f'---CLEAR {self.name}---')
+        logging.info(f'---CLEAR {self.name}---')
         delete_if_exist(self.path / 'build')
         if clear_conan:
             run('conan remove -c "*"')
