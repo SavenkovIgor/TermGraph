@@ -9,7 +9,7 @@ on:
 env:
   CLANG_VERSION: 17
   EMSDK_VERSION: 3.1.37
-  QT_VERSION: 6.6.1
+  QT_VERSION: 6.6.3
   QT_ROOT: ${{ github.workspace }}/Qt
   CONAN_VERSION: 2.5.0
   AQT_VERSION: ==3.1.11
