@@ -31,7 +31,7 @@ def env_qt_version() -> str:
 
 def configure_environment(for_wasm: bool = False):
     os.environ.setdefault('QT_ROOT', os.path.expanduser('~/Qt'))
-    os.environ.setdefault('QT_VERSION', '6.6.1')
+    os.environ.setdefault("QT_VERSION", "6.6.3")
     assert Path(os.environ['QT_ROOT']).exists(), 'Error: path at QT_ROOT env.variable not exist'
 
     if for_wasm:
