@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/data">
         <file>Asm.json</file>
-        <file>Biochemistry.json</file>
         <file>Cpp.json</file>
         <file>Global.json</file>
         <file>GraphTheory.json</file>

@@ -3,6 +3,9 @@
 
 #include "source/TermDataInterface/TermData.h"
 
+#include <set>
+
+
 #include "source/TermDataInterface/TermValidator.h"
 #include "source/Text/TextTools.h"
 
@@ -165,7 +168,17 @@ TermData::List TermData::List::from(const QJsonArray& json, TermData::JsonCheckM
         if (auto termData = TermData::from(termJson.toObject(), mode)) {
             ret.push_back(*termData);
         } else {
-            qWarning("Wrong termData json array");
+            qWarning() << "Wrong termData json array: " << termJson;
+        }
+    }
+
+    // Check for duplicates and print warning
+    std::set<QString> terms;
+    for (const auto& term : ret) {
+        if (terms.find(term.term) != terms.end()) {
+            qWarning() << "Duplicate term: " << term.term;
+        } else {
+            terms.insert(term.term);
         }
     }
 
