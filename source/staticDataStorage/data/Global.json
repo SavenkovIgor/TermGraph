@@ -2635,7 +2635,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Functional Group - a structural fragment of {an organic compound}, (a certain group of connected {atoms}) that determines its {chemical properties}."
+            "termDef": "Functional Group - a structural fragment of an {organic compound}, (a certain group of connected {atoms}) that determines its {chemical properties}."
         },
         {
             "area": "chem",
@@ -2759,7 +2759,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Hybridization - a hypothetical process of mixing different types of {orbitals} of {an atom}"
+            "termDef": "Hybridization - a hypothetical process of mixing different types of {orbitals} of an {atom}"
         },
         {
             "area": "chem",
@@ -4499,11 +4499,11 @@
         },
         {
             "area": "chem",
-            "termDef": "Male - a form of {an organism} that produces {spermatozoa}."
+            "termDef": "Male - a form of an {organism} that produces {spermatozoa}."
         },
         {
             "area": "chem",
-            "termDef": "Female - a form of {an organism} that produces {ova}"
+            "termDef": "Female - a form of an {organism} that produces {ova}"
         },
         {
             "area": "chem",
@@ -4687,7 +4687,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Sex - a set of characteristics of {an organism} that allows the {organism} to be classified as {female} or {male}."
+            "termDef": "Sex - a set of characteristics of an {organism} that allows the {organism} to be classified as {female} or {male}."
         },
         {
             "area": "chem",
