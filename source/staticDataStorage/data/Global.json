@@ -2595,7 +2595,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Molecule - {An electrically neutral} particle formed from two or more {atoms} connected by a set of {covalent bonds}."
+            "termDef": "Molecule - an {electrically neutral} particle formed from two or more {atoms} connected by a set of {covalent bonds}."
         },
         {
             "area": "chem",
@@ -2987,7 +2987,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Aldehydes - a class {of organic compounds} that contains {an aldehyde group}"
+            "termDef": "Aldehydes - a class {of organic compounds} that contains an {aldehyde group}"
         },
         {
             "area": "chem",
@@ -3591,7 +3591,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Dibasic Acid - {An acid} capable of donating 2 {protons}"
+            "termDef": "Dibasic Acid - an {acid} capable of donating 2 {protons}"
         },
         {
             "area": "chem",
@@ -4427,7 +4427,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Amide - a class {of substances} containing {an amide group}"
+            "termDef": "Amide - a class {of substances} containing an {amide group}"
         },
         {
             "area": "chem",
@@ -4727,7 +4727,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Electronegativity - a fundamental chemical property of {an atom}, a quantitative characteristic of the ability of {an atom} in a {molecule} to attract shared {electron pairs} towards itself, that is, the ability of {atoms} to pull {electrons} from other {atoms}."
+            "termDef": "Electronegativity - a fundamental chemical property of an {atom}, a quantitative characteristic of the ability of an {atom} in a {molecule} to attract shared {electron pairs} towards itself, that is, the ability of {atoms} to pull {electrons} from other {atoms}."
         },
         {
             "area": "chem",
@@ -4819,7 +4819,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Oxidation - the process of obtaining {electrons} from {a donor} by {an acceptor}"
+            "termDef": "Oxidation - the process of obtaining {electrons} from {a donor} by an {acceptor}"
         },
         {
             "area": "chem",
