@@ -2091,7 +2091,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Garlic - {perennial plant}, {herbaceous plant}; {species} of {the genus} {Allium} of {the family} {Amaryllidaceae} ({Amaryllidaceae}) {subfamily} {Allioideae}"
+            "termDef": "Garlic - {perennial plant}, {herbaceous plant}; {species} of the {genus} {Allium} of the {family} {Amaryllidaceae} ({Amaryllidaceae}) {subfamily} {Allioideae}"
         },
         {
             "area": "chem",
@@ -2231,7 +2231,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Homocysteine - a non {proteinogenic amino acid} with the formula HSCH2CH2CH(NH2)CO2H. {Homolog} of {the amino acid} {cysteine}"
+            "termDef": "Homocysteine - a non {proteinogenic amino acid} with the formula HSCH2CH2CH(NH2)CO2H. {Homolog} of the {amino acid} {cysteine}"
         },
         {
             "area": "chem",
@@ -2339,7 +2339,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Agonist - {ligand} of {the receptor} that, upon interaction with the {receptor}, alters its state, resulting in a biological response."
+            "termDef": "Agonist - {ligand} of the {receptor} that, upon interaction with the {receptor}, alters its state, resulting in a biological response."
         },
         {
             "area": "chem",
@@ -2571,7 +2571,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Charge Number - the number of {protons} in {the atomic nucleus}"
+            "termDef": "Charge Number - the number of {protons} in the {atomic nucleus}"
         },
         {
             "area": "chem",
@@ -2719,7 +2719,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Active Bioavailability - {Bioavailability}, at which {the organism} must expend {energy} to obtain {the substance}"
+            "termDef": "Active Bioavailability - {Bioavailability}, at which the {organism} must expend {energy} to obtain the {substance}"
         },
         {
             "area": "chem",
@@ -2931,7 +2931,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Peptide Bond - a type of {amide bond} that arises from the interaction of {the amino group} of one {amino acid} with {the carboxyl group} of another {amino acid}"
+            "termDef": "Peptide Bond - a type of {amide bond} that arises from the interaction of the {amino group} of one {amino acid} with the {carboxyl group} of another {amino acid}"
         },
         {
             "area": "chem",
@@ -3271,7 +3271,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Acid Residue - {Anion} of {the acid}, from which {hydrogen} has already been removed"
+            "termDef": "Acid Residue - {Anion} of the {acid}, from which {hydrogen} has already been removed"
         },
         {
             "area": "chem",
@@ -3295,7 +3295,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Nucleoid - an irregularly shaped region in {the cytoplasm} of {a prokaryotic cell}, where {genomic DNA} and associated {proteins} are located."
+            "termDef": "Nucleoid - an irregularly shaped region in the {cytoplasm} of {a prokaryotic cell}, where {genomic DNA} and associated {proteins} are located."
         },
         {
             "area": "chem",
@@ -3327,7 +3327,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Messenger RNA - {RNA} that contains information about {the primary structure of proteins}"
+            "termDef": "Messenger RNA - {RNA} that contains information about the {primary structure of proteins}"
         },
         {
             "area": "chem",
@@ -3351,7 +3351,7 @@
         },
         {
             "area": "chem",
-            "termDef": "RNA polymerase - {enzyme} that catalyzes {the biosynthesis} of {RNA} {molecules}"
+            "termDef": "RNA polymerase - {enzyme} that catalyzes the {biosynthesis} of {RNA} {molecules}"
         },
         {
             "area": "chem",
@@ -3367,11 +3367,11 @@
         },
         {
             "area": "chem",
-            "termDef": "Membrane Organelle - {Organelle}, separated from the rest of the {cytoplasm} of {the} {cell} by a bilayer, {compartment}."
+            "termDef": "Membrane Organelle - {Organelle}, separated from the rest of the {cytoplasm} of the {cell} by a bilayer, {compartment}."
         },
         {
             "area": "chem",
-            "termDef": "Chromosome - {nucleoprotein} structures in {the cell nucleus} of {eukaryotic cells}, in which a large part of {genomic DNA} is concentrated."
+            "termDef": "Chromosome - {nucleoprotein} structures in the {cell nucleus} of {eukaryotic cells}, in which a large part of {genomic DNA} is concentrated."
         },
         {
             "area": "chem",
@@ -3555,7 +3555,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Cell Wall - a shell of {the cell} located outside the {plasma membrane} and performing structural, protective, and transport functions."
+            "termDef": "Cell Wall - a shell of the {cell} located outside the {plasma membrane} and performing structural, protective, and transport functions."
         },
         {
             "area": "chem",
@@ -3623,7 +3623,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Body - the entire physical shell of {the organism}"
+            "termDef": "Body - the entire physical shell of the {organism}"
         },
         {
             "area": "chem",
@@ -3791,7 +3791,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Intracellular Transport - the process of transferring various {substances} within {the cell}"
+            "termDef": "Intracellular Transport - the process of transferring various {substances} within the {cell}"
         },
         {
             "area": "chem",
@@ -3863,7 +3863,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Histones - a broad class of {proteins} of {the cell nucleus}, performing two main functions: they are involved in {packaging DNA} in the {cell nucleus} and in {epigenetic regulation} of processes such as {transcription}, {replication}, and {repair}."
+            "termDef": "Histones - a broad class of {proteins} of the {cell nucleus}, performing two main functions: they are involved in {packaging DNA} in the {cell nucleus} and in {epigenetic regulation} of processes such as {transcription}, {replication}, and {repair}."
         },
         {
             "area": "chem",
@@ -3963,7 +3963,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Mobile Genetic Elements - sequences {DNA} that can move within {the genome}"
+            "termDef": "Mobile Genetic Elements - sequences {DNA} that can move within the {genome}"
         },
         {
             "area": "chem",
@@ -4063,7 +4063,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Metabolome - {The pool of metabolites}"
+            "termDef": "Metabolome - the {pool of metabolites}"
         },
         {
             "area": "chem",
@@ -4099,7 +4099,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Mutation - a stable change in {the genome}"
+            "termDef": "Mutation - a stable change in the {genome}"
         },
         {
             "area": "chem",
@@ -4107,7 +4107,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Spliceosome - a structure within {the cell nucleus} composed of {RNA} and {proteins} that performs {splicing} of {mRNA} {transcripts}. It consists of 5 {snRNA}."
+            "termDef": "Spliceosome - a structure within the {cell nucleus} composed of {RNA} and {proteins} that performs {splicing} of {mRNA} {transcripts}. It consists of 5 {snRNA}."
         },
         {
             "area": "chem",
@@ -4291,7 +4291,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Water-Electrolyte Exchange - a set of processes of consumption {water} and {salts}, their absorption, distribution, and excretion from {the organism}."
+            "termDef": "Water-Electrolyte Exchange - a set of processes of consumption {water} and {salts}, their absorption, distribution, and excretion from the {organism}."
         },
         {
             "area": "chem",
@@ -4311,7 +4311,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Autophagy - a natural mechanism of {the cell} that dismantles unnecessary or dysfunctional components within {the cell}."
+            "termDef": "Autophagy - a natural mechanism of the {cell} that dismantles unnecessary or dysfunctional components within the {cell}."
         },
         {
             "area": "chem",
@@ -4519,7 +4519,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Biological Species - a group of {organisms} with common morphophysiological, biochemical, and behavioral traits, capable of mutual interbreeding, which produces fertile offspring over generations, regularly distributed within a specific range and similarly changing under the influence of factors of {the external environment}."
+            "termDef": "Biological Species - a group of {organisms} with common morphophysiological, biochemical, and behavioral traits, capable of mutual interbreeding, which produces fertile offspring over generations, regularly distributed within a specific range and similarly changing under the influence of factors of the {external environment}."
         },
         {
             "area": "chem",
@@ -4535,7 +4535,7 @@
         },
         {
             "area": "chem",
-            "termDef": "External Electron Shell - outer {electron shell} of {the atom}"
+            "termDef": "External Electron Shell - outer {electron shell} of the {atom}"
         },
         {
             "area": "chem",
@@ -4579,7 +4579,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Sorption - the absorption {by a solid body} or {liquid} of various {substances} from {the environment}"
+            "termDef": "Sorption - the absorption {by a solid body} or {liquid} of various {substances} from the {environment}"
         },
         {
             "area": "chem",
@@ -4595,7 +4595,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Metabolon - a set of {enzymes} that catalyze sequential stages of {a metabolic pathway} and structural elements of the cell. The metabolon includes not only a complex of {enzymes} performing a specific metabolic function but also a supporting site of the cellular structure (site of {the membrane}, {cytoskeleton}, etc.) on which the complex {is adsorbed}."
+            "termDef": "Metabolon - a set of {enzymes} that catalyze sequential stages of {a metabolic pathway} and structural elements of the cell. The metabolon includes not only a complex of {enzymes} performing a specific metabolic function but also a supporting site of the cellular structure (site of the {membrane}, {cytoskeleton}, etc.) on which the complex {is adsorbed}."
         },
         {
             "area": "chem",
@@ -4687,7 +4687,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Sex - a set of characteristics of {an organism} that allows {the organism} to be classified as {female} or {male}."
+            "termDef": "Sex - a set of characteristics of {an organism} that allows the {organism} to be classified as {female} or {male}."
         },
         {
             "area": "chem",
@@ -4743,7 +4743,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Donor Center - {Donor} part of {the} {molecule} of {the} {ligand}"
+            "termDef": "Donor Center - {Donor} part of the {molecule} of the {ligand}"
         },
         {
             "area": "chem",
@@ -4915,7 +4915,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Resting Potential - {Transmembrane Potential} of {the cell} in the normal or resting state"
+            "termDef": "Resting Potential - {Transmembrane Potential} of the {cell} in the normal or resting state"
         },
         {
             "area": "chem",
