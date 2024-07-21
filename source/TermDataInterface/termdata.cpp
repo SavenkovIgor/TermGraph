@@ -5,7 +5,6 @@
 
 #include <set>
 
-
 #include "source/TermDataInterface/TermValidator.h"
 #include "source/Text/TextTools.h"
 
