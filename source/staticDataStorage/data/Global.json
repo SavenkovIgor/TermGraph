@@ -2531,7 +2531,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Purine - {A heterocyclic compound} consisting of fused rings {pyrimidine} and {imidazole}"
+            "termDef": "Purine - a {heterocyclic compound} consisting of fused rings {pyrimidine} and {imidazole}"
         },
         {
             "area": "chem",
@@ -2547,7 +2547,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Heteroatom - in organic chemistry, it is any {atom} of {a compound} that is not a {carbon} {atom} or a {hydrogen} {atom}."
+            "termDef": "Heteroatom - in organic chemistry, it is any {atom} of a {compound} that is not a {carbon} {atom} or a {hydrogen} {atom}."
         },
         {
             "area": "chem",
@@ -2623,7 +2623,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Molecular Mass - mass of {a molecule}, expressed in {atomic mass units}"
+            "termDef": "Molecular Mass - mass of a {molecule}, expressed in {atomic mass units}"
         },
         {
             "area": "chem",
@@ -3031,7 +3031,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Chemical Compound - {A chemical substance} consisting of {chemically bonded} {atoms} of two or more {chemical elements}"
+            "termDef": "Chemical Compound - a {chemical substance} consisting of {chemically bonded} {atoms} of two or more {chemical elements}"
         },
         {
             "area": "chem",
@@ -3095,7 +3095,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Catalyst - {A substance} that accelerates {a chemical reaction} but is not consumed in the process."
+            "termDef": "Catalyst - a {substance} that accelerates a {chemical reaction} but is not consumed in the process."
         },
         {
             "area": "chem",
@@ -3131,7 +3131,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Hydrophilic Compound - {A substance} that is {hydrophilic}."
+            "termDef": "Hydrophilic Compound - a {substance} that is {hydrophilic}."
         },
         {
             "area": "chem",
@@ -3295,7 +3295,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Nucleoid - an irregularly shaped region in the {cytoplasm} of {a prokaryotic cell}, where {genomic DNA} and associated {proteins} are located."
+            "termDef": "Nucleoid - an irregularly shaped region in the {cytoplasm} of a {prokaryotic cell}, where {genomic DNA} and associated {proteins} are located."
         },
         {
             "area": "chem",
@@ -3615,7 +3615,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Blood - the primary internal {liquid} medium of {a multicellular organism}"
+            "termDef": "Blood - the primary internal {liquid} medium of a {multicellular organism}"
         },
         {
             "area": "chem",
@@ -3635,7 +3635,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Solvent - {A substance} capable of {dissolving} solid, liquid, or gaseous substances without chemically altering them."
+            "termDef": "Solvent - a {substance} capable of {dissolving} solid, liquid, or gaseous substances without chemically altering them."
         },
         {
             "area": "chem",
@@ -3647,7 +3647,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Chemical Formula - a conventional designation of {a chemical compound}, possibly indicating composition and structure, using {symbols of chemical elements}, numerical and auxiliary signs (brackets, dashes, etc.)"
+            "termDef": "Chemical Formula - a conventional designation of a {chemical compound}, possibly indicating composition and structure, using {symbols of chemical elements}, numerical and auxiliary signs (brackets, dashes, etc.)"
         },
         {
             "area": "chem",
@@ -3719,7 +3719,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Chemical Energy - the potential of {a substance} to transform in a {chemical reaction} or to transform other {substances}."
+            "termDef": "Chemical Energy - the potential of a {substance} to transform in a {chemical reaction} or to transform other {substances}."
         },
         {
             "area": "chem",
@@ -3763,7 +3763,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Choline - {a compound} of {trimethylamine} and {ethanol}"
+            "termDef": "Choline - a {compound} of {trimethylamine} and {ethanol}"
         },
         {
             "area": "chem",
@@ -4115,11 +4115,11 @@
         },
         {
             "area": "chem",
-            "termDef": "Chromophore - unsaturated groups {atoms} that determine the color of {a chemical compound}. At the same time, they absorb electromagnetic radiation regardless of the presence of color."
+            "termDef": "Chromophore - unsaturated groups {atoms} that determine the color of a {chemical compound}. At the same time, they absorb electromagnetic radiation regardless of the presence of color."
         },
         {
             "area": "chem",
-            "termDef": "Chirality - the property of {a molecule} not to coincide in space with its mirror image."
+            "termDef": "Chirality - the property of a {molecule} not to coincide in space with its mirror image."
         },
         {
             "area": "chem",
@@ -4227,7 +4227,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Chiral Axis - an axis in {a molecule}, relative to which {chirality} arises."
+            "termDef": "Chiral Axis - an axis in a {molecule}, relative to which {chirality} arises."
         },
         {
             "area": "chem",
@@ -4595,7 +4595,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Metabolon - a set of {enzymes} that catalyze sequential stages of {a metabolic pathway} and structural elements of the cell. The metabolon includes not only a complex of {enzymes} performing a specific metabolic function but also a supporting site of the cellular structure (site of the {membrane}, {cytoskeleton}, etc.) on which the complex {is adsorbed}."
+            "termDef": "Metabolon - a set of {enzymes} that catalyze sequential stages of a {metabolic pathway} and structural elements of the cell. The metabolon includes not only a complex of {enzymes} performing a specific metabolic function but also a supporting site of the cellular structure (site of the {membrane}, {cytoskeleton}, etc.) on which the complex {is adsorbed}."
         },
         {
             "area": "chem",
@@ -4635,7 +4635,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Native Conformation - {conformation} of {a protein}, in which it is capable of performing its function"
+            "termDef": "Native Conformation - {conformation} of a {protein}, in which it is capable of performing its function"
         },
         {
             "area": "chem",
@@ -4675,7 +4675,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Precursor - {a substance} that participates in a {chemical reaction} leading to the formation of the target {substance}. the same as {reagent}"
+            "termDef": "Precursor - a {substance} that participates in a {chemical reaction} leading to the formation of the target {substance}. the same as {reagent}"
         },
         {
             "area": "chem",
@@ -4819,7 +4819,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Oxidation - the process of obtaining {electrons} from {a donor} by an {acceptor}"
+            "termDef": "Oxidation - the process of obtaining {electrons} from a {donor} by an {acceptor}"
         },
         {
             "area": "chem",
@@ -4827,7 +4827,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Immune System - {a system of organs} that exists in {vertebrate animals} and unites {organs} and {tissues} that protect the {organism} from {diseases} by identifying and destroying {tumor cells} and {pathogens}."
+            "termDef": "Immune System - a {system of organs} that exists in {vertebrate animals} and unites {organs} and {tissues} that protect the {organism} from {diseases} by identifying and destroying {tumor cells} and {pathogens}."
         },
         {
             "area": "chem",
@@ -4899,7 +4899,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Electric Dipole Moment - {a vector quantity} that characterizes, along with the total {charge}, the electric properties of a system of {charged particles}."
+            "termDef": "Electric Dipole Moment - a {vector quantity} that characterizes, along with the total {charge}, the electric properties of a system of {charged particles}."
         },
         {
             "area": "chem",
@@ -5187,11 +5187,11 @@
         },
         {
             "area": "chem",
-            "termDef": "Alpha/Beta - {a type of protein structure} in which {alpha helices} and {beta sheets} are dispersed throughout the sequence or alternate."
+            "termDef": "Alpha/Beta - a {type of protein structure} in which {alpha helices} and {beta sheets} are dispersed throughout the sequence or alternate."
         },
         {
             "area": "chem",
-            "termDef": "Alpha + Beta - {a type of protein structure}, in which {alpha helices} and {beta sheets} are separated or grouped together."
+            "termDef": "Alpha + Beta - a {type of protein structure}, in which {alpha helices} and {beta sheets} are separated or grouped together."
         },
         {
             "area": "chem",
@@ -5251,7 +5251,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Fold Classification Based on Structure Structure Alignment Proteins - {A tool for working with protein databases}"
+            "termDef": "Fold Classification Based on Structure Structure Alignment Proteins - a {tool for working with protein databases}"
         },
         {
             "area": "chem",
@@ -5655,7 +5655,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Trimethylamine - {a chemical compound} consisting of {a nitrogen atom} and 3 {methyl groups}"
+            "termDef": "Trimethylamine - a {chemical compound} consisting of a {nitrogen atom} and 3 {methyl groups}"
         },
         {
             "area": "chem",
