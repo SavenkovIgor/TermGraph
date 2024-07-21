@@ -3323,7 +3323,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Biosynthesis - the process of {synthesis} {organic compounds} {by} {living} {organisms}"
+            "termDef": "Biosynthesis - the process of {synthesis} {organic compounds} by {living} {organisms}"
         },
         {
             "area": "chem",
@@ -3675,7 +3675,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Hydrolysis - {solvolysis} {by water}. It is a {decomposition reaction} in which a {substance} interacts with {water}, resulting in the {decomposition} of this {substance} and {water} with the formation of new {compounds}."
+            "termDef": "Hydrolysis - {solvolysis} by {water}. It is a {decomposition reaction} in which a {substance} interacts with {water}, resulting in the {decomposition} of this {substance} and {water} with the formation of new {compounds}."
         },
         {
             "area": "chem",
@@ -3935,7 +3935,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Dose - the amount of a single or daily intake {substance} {by the organism}"
+            "termDef": "Dose - the amount of a single or daily intake {substance} by {the organism}"
         },
         {
             "area": "chem",
@@ -4579,7 +4579,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Sorption - the absorption {by a solid body} or {liquid} of various {substances} from the {environment}"
+            "termDef": "Sorption - the absorption by {a solid body} or {liquid} of various {substances} from the {environment}"
         },
         {
             "area": "chem",
