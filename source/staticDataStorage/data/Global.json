@@ -2091,7 +2091,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Garlic - {perennial plant}, {herbaceous plant}; {species} {of} {the genus} {Allium} {of the family} {Amaryllidaceae} ({Amaryllidaceae}) {subfamily} {Allioideae}"
+            "termDef": "Garlic - {perennial plant}, {herbaceous plant}; {species} of {the genus} {Allium} of {the family} {Amaryllidaceae} ({Amaryllidaceae}) {subfamily} {Allioideae}"
         },
         {
             "area": "chem",
@@ -2231,7 +2231,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Homocysteine - a non {proteinogenic amino acid} with the formula HSCH2CH2CH(NH2)CO2H. {Homolog} {of the amino acid} {cysteine}"
+            "termDef": "Homocysteine - a non {proteinogenic amino acid} with the formula HSCH2CH2CH(NH2)CO2H. {Homolog} of {the amino acid} {cysteine}"
         },
         {
             "area": "chem",
@@ -2315,7 +2315,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Phthalates - {salt} {of phthalic acid}"
+            "termDef": "Phthalates - {salt} of {phthalic acid}"
         },
         {
             "area": "chem",
@@ -2339,7 +2339,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Agonist - {ligand} {of the receptor} that, upon interaction with the {receptor}, alters its state, resulting in a biological response."
+            "termDef": "Agonist - {ligand} of {the receptor} that, upon interaction with the {receptor}, alters its state, resulting in a biological response."
         },
         {
             "area": "chem",
@@ -2387,7 +2387,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Protease - a class {of enzymes}, subclass {of hydrolases}, that cleave {peptide bonds} between {amino acids} in {proteins}."
+            "termDef": "Protease - a class of {enzymes}, subclass of {hydrolases}, that cleave {peptide bonds} between {amino acids} in {proteins}."
         },
         {
             "area": "chem",
@@ -2495,7 +2495,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Retinal - {Aldehyde} {of retinol}"
+            "termDef": "Retinal - {Aldehyde} of {retinol}"
         },
         {
             "area": "chem",
@@ -2547,7 +2547,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Heteroatom - in organic chemistry, it is any {atom} {of a compound} that is not a {carbon} {atom} or a {hydrogen} {atom}."
+            "termDef": "Heteroatom - in organic chemistry, it is any {atom} of {a compound} that is not a {carbon} {atom} or a {hydrogen} {atom}."
         },
         {
             "area": "chem",
@@ -2591,7 +2591,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Chemical Bond - interaction {of atoms} that forms a stable connection between them. It is determined by the interaction of charged particles contained in the {atom}."
+            "termDef": "Chemical Bond - interaction of {atoms} that forms a stable connection between them. It is determined by the interaction of charged particles contained in the {atom}."
         },
         {
             "area": "chem",
@@ -2623,7 +2623,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Molecular Mass - mass {of a molecule}, expressed in {atomic mass units}"
+            "termDef": "Molecular Mass - mass of {a molecule}, expressed in {atomic mass units}"
         },
         {
             "area": "chem",
@@ -2635,7 +2635,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Functional Group - a structural fragment {of an organic compound}, (a certain group of connected {atoms}) that determines its {chemical properties}."
+            "termDef": "Functional Group - a structural fragment of {an organic compound}, (a certain group of connected {atoms}) that determines its {chemical properties}."
         },
         {
             "area": "chem",
@@ -2651,7 +2651,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Chemical Properties - properties {of substances} manifested during the process of {chemical reaction}"
+            "termDef": "Chemical Properties - properties of {substances} manifested during the process of {chemical reaction}"
         },
         {
             "area": "chem",
@@ -2759,7 +2759,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Hybridization - a hypothetical process of mixing different types of {orbitals} {of an atom}"
+            "termDef": "Hybridization - a hypothetical process of mixing different types of {orbitals} of {an atom}"
         },
         {
             "area": "chem",
@@ -2803,7 +2803,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Elastin - {fibrillar protein} {of connective tissue}, possessing {elasticity}"
+            "termDef": "Elastin - {fibrillar protein} of {connective tissue}, possessing {elasticity}"
         },
         {
             "area": "chem",
@@ -2899,7 +2899,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Triazines - a subgroup {azin} with three {atoms} {of nitrogen}"
+            "termDef": "Triazines - a subgroup {azin} with three {atoms} of {nitrogen}"
         },
         {
             "area": "chem",
@@ -2907,7 +2907,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Amino Acid - a group {of organic compounds} in {which} the {molecule} simultaneously contains {carboxyl groups} and {amino groups}"
+            "termDef": "Amino Acid - a group of {organic compounds} in {which} the {molecule} simultaneously contains {carboxyl groups} and {amino groups}"
         },
         {
             "area": "chem",
@@ -2931,11 +2931,11 @@
         },
         {
             "area": "chem",
-            "termDef": "Peptide Bond - a type {of amide bond} that arises from the interaction of {the amino group} of one {amino acid} with {the carboxyl group} of another {amino acid}"
+            "termDef": "Peptide Bond - a type of {amide bond} that arises from the interaction of {the amino group} of one {amino acid} with {the carboxyl group} of another {amino acid}"
         },
         {
             "area": "chem",
-            "termDef": "Hydrocarbon Radical - a group {of atoms} connected to a {functional group} of a molecule. Usually, during {chemical reactions}, the radical transfers from one compound to another without alteration."
+            "termDef": "Hydrocarbon Radical - a group of {atoms} connected to a {functional group} of a molecule. Usually, during {chemical reactions}, the radical transfers from one compound to another without alteration."
         },
         {
             "area": "chem",
@@ -2987,7 +2987,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Aldehydes - a class {of organic compounds} that contains an {aldehyde group}"
+            "termDef": "Aldehydes - a class of {organic compounds} that contains an {aldehyde group}"
         },
         {
             "area": "chem",
@@ -3011,7 +3011,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Pentoses - {Monosaccharides} that contain 5 {atoms} {of carbon}"
+            "termDef": "Pentoses - {Monosaccharides} that contain 5 {atoms} of {carbon}"
         },
         {
             "area": "chem",
@@ -3055,7 +3055,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Phosphoric Esters - {Complex Esters} {of Orthophosphoric Acid}"
+            "termDef": "Phosphoric Esters - {Complex Esters} of {Orthophosphoric Acid}"
         },
         {
             "area": "chem",
@@ -3075,7 +3075,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Methyl Group - {Functional group} containing 1 {atom} {of carbon}, 3 {atoms} {of hydrogen} and 1 {hydrocarbon radical}"
+            "termDef": "Methyl Group - {Functional group} containing 1 {atom} of {carbon}, 3 {atoms} of {hydrogen} and 1 {hydrocarbon radical}"
         },
         {
             "area": "chem",
@@ -3123,7 +3123,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Phenol - {Organic compound} {of benzene} and 1 {hydroxyl group}"
+            "termDef": "Phenol - {Organic compound} of {benzene} and 1 {hydroxyl group}"
         },
         {
             "area": "chem",
@@ -3147,7 +3147,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Catenane - a class {of chemical compounds} consisting of two or more {cyclic compounds} linked topologically, without the formation of {covalent bonds} directly."
+            "termDef": "Catenane - a class of {chemical compounds} consisting of two or more {cyclic compounds} linked topologically, without the formation of {covalent bonds} directly."
         },
         {
             "area": "chem",
@@ -3155,7 +3155,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Donor-Acceptor Interaction - transfer {of electrons} between {molecules} {of donor} and {acceptor} without the formation of {chemical bond} between them (exchange mechanism); or the transfer of an unshared {electron pair} from {donor} to {acceptor}, leading to the formation of a {chemical bond} (donor-acceptor mechanism)"
+            "termDef": "Donor-Acceptor Interaction - transfer of {electrons} between {molecules} of {donor} and {acceptor} without the formation of {chemical bond} between them (exchange mechanism); or the transfer of an unshared {electron pair} from {donor} to {acceptor}, leading to the formation of a {chemical bond} (donor-acceptor mechanism)"
         },
         {
             "area": "chem",
@@ -3219,7 +3219,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Enantiomers - a pair {of stereoisomers} that are mirror images of each other."
+            "termDef": "Enantiomers - a pair of {stereoisomers} that are mirror images of each other."
         },
         {
             "area": "chem",
@@ -3271,7 +3271,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Acid Residue - {Anion} {of the acid}, from which {hydrogen} has already been removed"
+            "termDef": "Acid Residue - {Anion} of {the acid}, from which {hydrogen} has already been removed"
         },
         {
             "area": "chem",
@@ -3279,7 +3279,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Metal - a group {of chemical elements} that possess characteristic properties: high thermal conductivity, high electrical conductivity, positive temperature coefficient of resistance, high plasticity, malleability, luster."
+            "termDef": "Metal - a group of {chemical elements} that possess characteristic properties: high thermal conductivity, high electrical conductivity, positive temperature coefficient of resistance, high plasticity, malleability, luster."
         },
         {
             "area": "chem",
@@ -3295,7 +3295,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Nucleoid - an irregularly shaped region in {the cytoplasm} {of a prokaryotic cell}, where {genomic DNA} and associated {proteins} are located."
+            "termDef": "Nucleoid - an irregularly shaped region in {the cytoplasm} of {a prokaryotic cell}, where {genomic DNA} and associated {proteins} are located."
         },
         {
             "area": "chem",
@@ -3367,7 +3367,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Membrane Organelle - {Organelle}, separated from the rest of the {cytoplasm} {of the} {cell} by a bilayer, {compartment}."
+            "termDef": "Membrane Organelle - {Organelle}, separated from the rest of the {cytoplasm} of {the} {cell} by a bilayer, {compartment}."
         },
         {
             "area": "chem",
@@ -3375,7 +3375,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Chromosomal Rearrangement - a type {of mutations} that alter the structure of {chromosomes}."
+            "termDef": "Chromosomal Rearrangement - a type of {mutations} that alter the structure of {chromosomes}."
         },
         {
             "area": "chem",
@@ -3399,7 +3399,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Fatty Acid - a compound {of carboxylic acid} and {aliphatic compound} with a long chain."
+            "termDef": "Fatty Acid - a compound of {carboxylic acid} and {aliphatic compound} with a long chain."
         },
         {
             "area": "chem",
@@ -3479,7 +3479,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Carbon Dioxide - a substance with 1 {atom} {of carbon} and 2 {atoms} {of oxygen}"
+            "termDef": "Carbon Dioxide - a substance with 1 {atom} of {carbon} and 2 {atoms} of {oxygen}"
         },
         {
             "area": "chem",
@@ -3499,7 +3499,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Glucosamine - {amino sugar} {of glucose}"
+            "termDef": "Glucosamine - {amino sugar} of {glucose}"
         },
         {
             "area": "chem",
@@ -3555,7 +3555,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Cell Wall - a shell {of the cell} located outside the {plasma membrane} and performing structural, protective, and transport functions."
+            "termDef": "Cell Wall - a shell of {the cell} located outside the {plasma membrane} and performing structural, protective, and transport functions."
         },
         {
             "area": "chem",
@@ -3587,7 +3587,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Unicellular Organism - a class {of organisms} consisting of 1 {cell}, usually {microorganisms}."
+            "termDef": "Unicellular Organism - a class of {organisms} consisting of 1 {cell}, usually {microorganisms}."
         },
         {
             "area": "chem",
@@ -3615,7 +3615,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Blood - the primary internal {liquid} medium {of a multicellular organism}"
+            "termDef": "Blood - the primary internal {liquid} medium of {a multicellular organism}"
         },
         {
             "area": "chem",
@@ -3623,7 +3623,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Body - the entire physical shell {of the organism}"
+            "termDef": "Body - the entire physical shell of {the organism}"
         },
         {
             "area": "chem",
@@ -3643,11 +3643,11 @@
         },
         {
             "area": "chem",
-            "termDef": "Chemical Element Symbols - a conventional designation {of chemical elements}"
+            "termDef": "Chemical Element Symbols - a conventional designation of {chemical elements}"
         },
         {
             "area": "chem",
-            "termDef": "Chemical Formula - a conventional designation {of a chemical compound}, possibly indicating composition and structure, using {symbols of chemical elements}, numerical and auxiliary signs (brackets, dashes, etc.)"
+            "termDef": "Chemical Formula - a conventional designation of {a chemical compound}, possibly indicating composition and structure, using {symbols of chemical elements}, numerical and auxiliary signs (brackets, dashes, etc.)"
         },
         {
             "area": "chem",
@@ -3719,7 +3719,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Chemical Energy - the potential {of a substance} to transform in a {chemical reaction} or to transform other {substances}."
+            "termDef": "Chemical Energy - the potential of {a substance} to transform in a {chemical reaction} or to transform other {substances}."
         },
         {
             "area": "chem",
@@ -3763,7 +3763,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Choline - {a compound} {of trimethylamine} and {ethanol}"
+            "termDef": "Choline - {a compound} of {trimethylamine} and {ethanol}"
         },
         {
             "area": "chem",
@@ -3771,7 +3771,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Oleate - {Salt} {of oleic acid}"
+            "termDef": "Oleate - {Salt} of {oleic acid}"
         },
         {
             "area": "chem",
@@ -3863,7 +3863,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Histones - a broad class of {proteins} {of the cell nucleus}, performing two main functions: they are involved in {packaging DNA} in the {cell nucleus} and in {epigenetic regulation} of processes such as {transcription}, {replication}, and {repair}."
+            "termDef": "Histones - a broad class of {proteins} of {the cell nucleus}, performing two main functions: they are involved in {packaging DNA} in the {cell nucleus} and in {epigenetic regulation} of processes such as {transcription}, {replication}, and {repair}."
         },
         {
             "area": "chem",
@@ -3939,7 +3939,7 @@
         },
         {
             "area": "chem",
-            "termDef": "International Unit - a unit of measurement {of substance dose}, based on its {biological activity}."
+            "termDef": "International Unit - a unit of measurement of {substance dose}, based on its {biological activity}."
         },
         {
             "area": "chem",
@@ -3951,11 +3951,11 @@
         },
         {
             "area": "chem",
-            "termDef": "Oleamide - {amide} {of oleic acid}"
+            "termDef": "Oleamide - {amide} of {oleic acid}"
         },
         {
             "area": "chem",
-            "termDef": "Peptide Chain - a set {of amino acids} linked by {peptide bonds} in a chain."
+            "termDef": "Peptide Chain - a set of {amino acids} linked by {peptide bonds} in a chain."
         },
         {
             "area": "chem",
@@ -4023,7 +4023,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Disulfide Group - {Functional group} with 2 {atoms} {of sulfur} connected by a {single bond} and 2 {hydrocarbon radicals}"
+            "termDef": "Disulfide Group - {Functional group} with 2 {atoms} of {sulfur} connected by a {single bond} and 2 {hydrocarbon radicals}"
         },
         {
             "area": "chem",
@@ -4031,7 +4031,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Phosphoryl Group - {Functional group}, containing one {atom} {of phosphorus}, 3 {atoms} {of oxygen}, one {atom} {of hydrogen}"
+            "termDef": "Phosphoryl Group - {Functional group}, containing one {atom} of {phosphorus}, 3 {atoms} of {oxygen}, one {atom} of {hydrogen}"
         },
         {
             "area": "chem",
@@ -4091,7 +4091,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Phosphate - {Salt} {of phosphoric acid}"
+            "termDef": "Phosphate - {Salt} of {phosphoric acid}"
         },
         {
             "area": "chem",
@@ -4115,7 +4115,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Chromophore - unsaturated groups {atoms} that determine the color {of a chemical compound}. At the same time, they absorb electromagnetic radiation regardless of the presence of color."
+            "termDef": "Chromophore - unsaturated groups {atoms} that determine the color of {a chemical compound}. At the same time, they absorb electromagnetic radiation regardless of the presence of color."
         },
         {
             "area": "chem",
@@ -4127,7 +4127,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Diene - a class {of hydrocarbons} containing two {double bonds} {carbon}-{carbon}"
+            "termDef": "Diene - a class of {hydrocarbons} containing two {double bonds} {carbon}-{carbon}"
         },
         {
             "area": "chem",
@@ -4135,7 +4135,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Terpene - a class {of hydrocarbons}, with a general formula (C5H8)n, with a {carbon skeleton}, formally being a derivative {of isoprene}"
+            "termDef": "Terpene - a class of {hydrocarbons}, with a general formula (C5H8)n, with a {carbon skeleton}, formally being a derivative of {isoprene}"
         },
         {
             "area": "chem",
@@ -4303,7 +4303,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Thyroid Hormone - a class {of hormones} that are derivatives of {tyrosine} and {iodine}"
+            "termDef": "Thyroid Hormone - a class of {hormones} that are derivatives of {tyrosine} and {iodine}"
         },
         {
             "area": "chem",
@@ -4311,7 +4311,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Autophagy - a natural mechanism {of the cell} that dismantles unnecessary or dysfunctional components within {the cell}."
+            "termDef": "Autophagy - a natural mechanism of {the cell} that dismantles unnecessary or dysfunctional components within {the cell}."
         },
         {
             "area": "chem",
@@ -4379,7 +4379,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Small Nuclear RNAs - a class {RNA} that are found in the {nucleus} {of eukaryotic cells}"
+            "termDef": "Small Nuclear RNAs - a class {RNA} that are found in the {nucleus} of {eukaryotic cells}"
         },
         {
             "area": "chem",
@@ -4427,7 +4427,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Amide - a class {of substances} containing an {amide group}"
+            "termDef": "Amide - a class of {substances} containing an {amide group}"
         },
         {
             "area": "chem",
@@ -4499,11 +4499,11 @@
         },
         {
             "area": "chem",
-            "termDef": "Male - a form {of an organism} that produces {spermatozoa}."
+            "termDef": "Male - a form of {an organism} that produces {spermatozoa}."
         },
         {
             "area": "chem",
-            "termDef": "Female - a form {of an organism} that produces {ova}"
+            "termDef": "Female - a form of {an organism} that produces {ova}"
         },
         {
             "area": "chem",
@@ -4515,11 +4515,11 @@
         },
         {
             "area": "chem",
-            "termDef": "Cell Line - a group {of cells}, usually similar in functions, cultivated under controlled conditions {in vitro}, from one or several {cells}"
+            "termDef": "Cell Line - a group of {cells}, usually similar in functions, cultivated under controlled conditions {in vitro}, from one or several {cells}"
         },
         {
             "area": "chem",
-            "termDef": "Biological Species - a group {of organisms} with common morphophysiological, biochemical, and behavioral traits, capable of mutual interbreeding, which produces fertile offspring over generations, regularly distributed within a specific range and similarly changing under the influence of factors {of the external environment}."
+            "termDef": "Biological Species - a group of {organisms} with common morphophysiological, biochemical, and behavioral traits, capable of mutual interbreeding, which produces fertile offspring over generations, regularly distributed within a specific range and similarly changing under the influence of factors of {the external environment}."
         },
         {
             "area": "chem",
@@ -4535,7 +4535,7 @@
         },
         {
             "area": "chem",
-            "termDef": "External Electron Shell - outer {electron shell} {of the atom}"
+            "termDef": "External Electron Shell - outer {electron shell} of {the atom}"
         },
         {
             "area": "chem",
@@ -4551,7 +4551,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Prometaphase - stage {of mitosis}"
+            "termDef": "Prometaphase - stage of {mitosis}"
         },
         {
             "area": "chem",
@@ -4563,7 +4563,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Aggregate State of Matter - the state {of matter} that depends on the corresponding combination of {temperature} and {pressure}. The change of the aggregate state may be accompanied by a discontinuous change in {free energy}, {entropy}, {density}, and other physical quantities."
+            "termDef": "Aggregate State of Matter - the state of {matter} that depends on the corresponding combination of {temperature} and {pressure}. The change of the aggregate state may be accompanied by a discontinuous change in {free energy}, {entropy}, {density}, and other physical quantities."
         },
         {
             "area": "chem",
@@ -4595,7 +4595,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Metabolon - a set {of enzymes} that catalyze sequential stages {of a metabolic pathway} and structural elements of the cell. The metabolon includes not only a complex {of enzymes} performing a specific metabolic function but also a supporting site of the cellular structure (site {of the membrane}, {cytoskeleton}, etc.) on which the complex {is adsorbed}."
+            "termDef": "Metabolon - a set of {enzymes} that catalyze sequential stages of {a metabolic pathway} and structural elements of the cell. The metabolon includes not only a complex of {enzymes} performing a specific metabolic function but also a supporting site of the cellular structure (site of {the membrane}, {cytoskeleton}, etc.) on which the complex {is adsorbed}."
         },
         {
             "area": "chem",
@@ -4635,7 +4635,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Native Conformation - {conformation} {of a protein}, in which it is capable of performing its function"
+            "termDef": "Native Conformation - {conformation} of {a protein}, in which it is capable of performing its function"
         },
         {
             "area": "chem",
@@ -4687,7 +4687,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Sex - a set of characteristics {of an organism} that allows {the organism} to be classified as {female} or {male}."
+            "termDef": "Sex - a set of characteristics of {an organism} that allows {the organism} to be classified as {female} or {male}."
         },
         {
             "area": "chem",
@@ -4699,7 +4699,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Gram Method - a method {of staining microorganisms} for research that allows the differentiation of bacteria based on the biochemical properties of their {cell wall}."
+            "termDef": "Gram Method - a method of {staining microorganisms} for research that allows the differentiation of bacteria based on the biochemical properties of their {cell wall}."
         },
         {
             "area": "chem",
@@ -4707,7 +4707,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Aniline - {Molecule} {of benzene}, with an attached {amino group}"
+            "termDef": "Aniline - {Molecule} of {benzene}, with an attached {amino group}"
         },
         {
             "area": "chem",
@@ -4743,7 +4743,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Donor Center - {Donor} part {of the} {molecule} {of the} {ligand}"
+            "termDef": "Donor Center - {Donor} part of {the} {molecule} of {the} {ligand}"
         },
         {
             "area": "chem",
@@ -4771,7 +4771,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Herbaceous Plants - {type} {of higher plants}. have {leaves} and {stems} that die back at the end of the {growing season} to the surface of the {soil}."
+            "termDef": "Herbaceous Plants - {type} of {higher plants}. have {leaves} and {stems} that die back at the end of the {growing season} to the surface of the {soil}."
         },
         {
             "area": "chem",
@@ -4807,7 +4807,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Nicotinamide - {amide} {of nicotinic acid}"
+            "termDef": "Nicotinamide - {amide} of {nicotinic acid}"
         },
         {
             "area": "chem",
@@ -4915,7 +4915,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Resting Potential - {Transmembrane Potential} {of the cell} in the normal or resting state"
+            "termDef": "Resting Potential - {Transmembrane Potential} of {the cell} in the normal or resting state"
         },
         {
             "area": "chem",
@@ -5203,7 +5203,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Protein Family - a group {of proteins} in which a clear evolutionary relationship is traced."
+            "termDef": "Protein Family - a group of {proteins} in which a clear evolutionary relationship is traced."
         },
         {
             "area": "chem",
@@ -5271,7 +5271,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Renaturation - the process that is opposite to {denaturation} {of protein}"
+            "termDef": "Renaturation - the process that is opposite to {denaturation} of {protein}"
         },
         {
             "area": "chem",
@@ -5343,7 +5343,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Deoxyhemoglobin - variant {conformation} {of hemoglobin}"
+            "termDef": "Deoxyhemoglobin - variant {conformation} of {hemoglobin}"
         },
         {
             "area": "chem",
@@ -5363,7 +5363,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Oxidoreductase - a class {of enzymes}, {catalyzing} {oxidation-reduction reactions}"
+            "termDef": "Oxidoreductase - a class of {enzymes}, {catalyzing} {oxidation-reduction reactions}"
         },
         {
             "area": "chem",
@@ -5483,7 +5483,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Acetate - {salt} and {ester} {of acetic acid}"
+            "termDef": "Acetate - {salt} and {ester} of {acetic acid}"
         },
         {
             "area": "chem",
@@ -5543,7 +5543,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Adenosine Monophosphate - {ester} {of phosphoric acid} and {adenosine}"
+            "termDef": "Adenosine Monophosphate - {ester} of {phosphoric acid} and {adenosine}"
         },
         {
             "area": "chem",
@@ -5555,7 +5555,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Lactic Acid - {monobasic acid} {carboxylic acid} with three {atoms} {of carbon}, containing a {hydroxyl group}"
+            "termDef": "Lactic Acid - {monobasic acid} {carboxylic acid} with three {atoms} of {carbon}, containing a {hydroxyl group}"
         },
         {
             "area": "chem",
@@ -5571,7 +5571,7 @@
         },
         {
             "area": "chem",
-            "termDef": "N-Acetylglucosamine - N-{acetyl} derivative {of glucosamine}"
+            "termDef": "N-Acetylglucosamine - N-{acetyl} derivative of {glucosamine}"
         },
         {
             "area": "chem",
