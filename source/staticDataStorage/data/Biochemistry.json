@@ -2,37 +2,37 @@
     "name": "Biochemistry",
     "terms": [
         {
-            "termDef": "Протопласт - "
+            "termDef": "Protoplast - "
         },
         {
-            "termDef": "Осветитель - "
+            "termDef": "Illuminator - "
         },
         {
-            "termDef": "Фазово-контрастный метод - "
+            "termDef": "Phase-contrast method - "
         },
         {
-            "termDef": "Метод светового поля - "
+            "termDef": "Light Field Method - "
         },
         {
-            "termDef": "Метод темного поля - "
+            "termDef": "Dark Field Method - "
         },
         {
-            "termDef": "Поляризационная микроскопия - "
+            "termDef": "Polarization Microscopy - "
         },
         {
-            "termDef": "Интерференционная микроскопия - "
+            "termDef": "Interferometric Microscopy - "
         },
         {
-            "termDef": "Люминесцентная микроскопия - "
+            "termDef": "Fluorescence Microscopy - "
         },
         {
             "termDef": "Fractionation Method - {analysis method}"
         },
         {
-            "termDef": "Метод радиоавтографии - "
+            "termDef": "Radiography Method - "
         },
         {
-            "termDef": "Сканирующая электронная микроскопия - "
+            "termDef": "Scanning Electron Microscopy - "
         },
         {
             "termDef": "Vacuole - {compartment}."
@@ -44,19 +44,19 @@
             "termDef": "Plant Cell - {eukaryotic cell}."
         },
         {
-            "termDef": "Животная клетка - "
+            "termDef": "Animal Cell - "
         },
         {
-            "termDef": "Кариоплазма - "
+            "termDef": "Karyoplasm - "
         },
         {
-            "termDef": "Универсальная мембрана - "
+            "termDef": "Universal Membrane - "
         },
         {
-            "termDef": "Гликокаликс - "
+            "termDef": "Glycocalyx - "
         },
         {
-            "termDef": "Поверхностные белки - "
+            "termDef": "Surface Proteins - "
         },
         {
             "termDef": "Golgi Complex - {membrane organelle} of {eukaryotic cell} designed for the secretion of substances from the {cell}."
@@ -65,73 +65,73 @@
             "termDef": "Lysis - dissolution of {cells} and their {systems}, including {microorganisms}, under the influence of various agents, such as {enzymes}, {bacteriolysins}, {bacteriophages}, and {antibiotics}."
         },
         {
-            "termDef": "Первичные лизосомы - "
+            "termDef": "Primary Lysosomes - "
         },
         {
-            "termDef": "Вторичные лизосомы - "
+            "termDef": "Secondary Lysosomes - "
         },
         {
-            "termDef": "Остаточные тельца - "
+            "termDef": "Residual Bodies - "
         },
         {
-            "termDef": "Аутофагосомы - "
+            "termDef": "Autophagosomes - "
         },
         {
-            "termDef": "Цикл Кребса - "
+            "termDef": "Krebs Cycle - "
         },
         {
-            "termDef": "Электронно-транспортная сеть - "
+            "termDef": "Electron Transport Chain - "
         },
         {
             "termDef": "ATP Synthesis - {synthesis} of {ATP}."
         },
         {
-            "termDef": "Хлоропласты - "
+            "termDef": "Chloroplasts - "
         },
         {
-            "termDef": "Хромопласты - "
+            "termDef": "Chromoplasts - "
         },
         {
-            "termDef": "Лейкопласты - "
+            "termDef": "Leucoplasts - "
         },
         {
             "termDef": "Vacuole - {compartment}."
         },
         {
-            "termDef": "Первичная клеточная стенка - "
+            "termDef": "Primary Cell Wall -"
         },
         {
-            "termDef": "Вторичная клеточная стенка - "
+            "termDef": "Secondary Cell Wall - "
         },
         {
-            "termDef": "Апопласт - "
+            "termDef": "Apoplast - "
         },
         {
-            "termDef": "Симпласт - "
+            "termDef": "Symplast - "
         },
         {
-            "termDef": "Центросфера - "
+            "termDef": "Centrosphere - "
         },
         {
             "termDef": "Polyribosome - several {ribosomes} simultaneously {translating} a single {mRNA} molecule."
         },
         {
-            "termDef": "Центральная ось - "
+            "termDef": "Central Axis - "
         },
         {
-            "termDef": "Диффузия - "
+            "termDef": "Diffusion - "
         },
         {
-            "termDef": "Пармеазы - "
+            "termDef": "Parmeases - "
         },
         {
-            "termDef": "Дыхательная цепь - "
+            "termDef": "Electron Transport Chain - "
         },
         {
             "termDef": "ATP Synthase - {adenosine triphosphatase}."
         },
         {
-            "termDef": "Метаболический цикл - "
+            "termDef": "Metabolic Cycle - "
         },
         {
             "termDef": "Catabolism - a part of {metabolism} that occurs with the release of {energy}."
@@ -140,37 +140,37 @@
             "termDef": "Energy Metabolism - {catabolism} and {anabolism}."
         },
         {
-            "termDef": "Пластический обмен - "
+            "termDef": "Plastic Metabolism - "
         },
         {
-            "termDef": "Деформация ядра - "
+            "termDef": "Nuclear Deformation - "
         },
         {
-            "termDef": "Кариомеры - "
+            "termDef": "Karyomers - "
         },
         {
-            "termDef": "Многоядерность - "
+            "termDef": "Multicore - "
         },
         {
-            "termDef": "Безъядерность - "
+            "termDef": "Nuclear-Free Status - "
         },
         {
-            "termDef": "Ядерные включения - "
+            "termDef": "Nuclear Inclusions - "
         },
         {
-            "termDef": "Гиперплазия - "
+            "termDef": "Hyperplasia - "
         },
         {
-            "termDef": "Атрофия - "
+            "termDef": "Atrophy - "
         },
         {
             "termDef": "Autolysis - self-dissolution of dead {cells} and {tissues} under the action of their own {hydrolytic enzymes}, which degrade structural {molecules}."
         },
         {
-            "termDef": "Клеточный атипизм - "
+            "termDef": "Cellular Atypism - "
         },
         {
-            "termDef": "Дистрофия - "
+            "termDef": "Dystrophy - "
         },
         {
             "termDef": "Apoptosis - a regulated process of programmed {cell} {death}, resulting in the breakdown of the {cell} into individual components enclosed by the {plasma membrane}."
@@ -188,58 +188,58 @@
             "termDef": "Karyotype - the set of characteristics of the complete set of {chromosomes} specific to the {cells} of a given {biological species}, {organism}, or {cell line}."
         },
         {
-            "termDef": "Хроматиды - "
+            "termDef": "Chromatids - "
         },
         {
-            "termDef": "Центромера - "
+            "termDef": "Centromere - "
         },
         {
-            "termDef": "Кинетохор - "
+            "termDef": "Kinetochore - "
         },
         {
             "termDef": "Telomere - the terminal segment of {chromosomes}."
         },
         {
-            "termDef": "Метацентрические хромосомы - "
+            "termDef": "Metacentric Chromosomes - "
         },
         {
-            "termDef": "Субметацентрические хромосомы - "
+            "termDef": "Submetacentric Chromosomes - "
         },
         {
-            "termDef": "Акроцентрические хромосомы - "
+            "termDef": "Acrocentric Chromosomes -"
         },
         {
-            "termDef": "Изохромосомы - "
+            "termDef": "Isochromosomes - "
         },
         {
-            "termDef": "Гетерохроматин - "
+            "termDef": "Heterochromatin - "
         },
         {
-            "termDef": "Эухроматин - "
+            "termDef": "Euchromatin - "
         },
         {
-            "termDef": "Политенные хромосомы - "
+            "termDef": "Polytene Chromosomes - "
         },
         {
-            "termDef": "Хромосомы типа ламповых щеток - "
+            "termDef": "Brush-type Chromosomes - "
         },
         {
-            "termDef": "В-хромосомы - "
+            "termDef": "B-chromosomes - "
         },
         {
             "termDef": "Cell Cycle - the period of existence of a {cell} from the moment of its formation by {cell division} from the mother cell to its own division or complete disappearance."
         },
         {
-            "termDef": "Пресинтетический период - "
+            "termDef": "Presynthetic Period - "
         },
         {
-            "termDef": "Синтетический период - "
+            "termDef": "Synthetic Period - "
         },
         {
-            "termDef": "Постсинтетический период - "
+            "termDef": "Post-synthetic period - "
         },
         {
-            "termDef": "Интерфаза - "
+            "termDef": "Interphase - "
         },
         {
             "termDef": "Prophase - the stage of {mitosis}."
@@ -257,259 +257,259 @@
             "termDef": "Cytokinesis - the division of the body of an {eukaryotic cell} during the process of {cell division}."
         },
         {
-            "termDef": "Эндомитоз - "
+            "termDef": "Endomitosis - "
         },
         {
-            "termDef": "К-митоз - "
+            "termDef": "K-mitosis - "
         },
         {
             "termDef": "Amitosis - simple {cell} {nucleus} division into two (without {spindle apparatus} and uniform distribution of {chromosomes})."
         },
         {
-            "termDef": "Редукционное деление - "
+            "termDef": "Reduction Division - "
         },
         {
-            "termDef": "Эквационное деление - "
+            "termDef": "Equational Division - "
         },
         {
-            "termDef": "Синапсис гомологов - "
+            "termDef": "Homologous Synapsis - "
         },
         {
-            "termDef": "Кроссинговер - "
+            "termDef": "Crossover - "
         },
         {
             "termDef": "Homologous Chromosomes - a pair of {chromosomes} with the same set of {genes} and similar {morphology} in the {karyotype} of a {diploid} {organism}."
         },
         {
-            "termDef": "Негомологичные хромосомы - "
+            "termDef": "Non-homologous chromosomes - "
         },
         {
-            "termDef": "Гомеологичные хромосомы - "
+            "termDef": "Homologous Chromosomes - "
         },
         {
-            "termDef": "Униваленты - "
+            "termDef": "Univalents - "
         },
         {
-            "termDef": "Биваленты - "
+            "termDef": "Bivalents - "
         },
         {
-            "termDef": "Триваленты - "
+            "termDef": "Trivalent - "
         },
         {
-            "termDef": "Квадриваленты - "
+            "termDef": "Quadrivalents - "
         },
         {
-            "termDef": "Анеуплоидия - "
+            "termDef": "Aneuploidy - "
         },
         {
-            "termDef": "Тетрады - "
+            "termDef": "Tetrads - "
         },
         {
-            "termDef": "Триады - "
+            "termDef": "Triads - "
         },
         {
-            "termDef": "Автополиплоиды - "
+            "termDef": "Autopolyploids - "
         },
         {
-            "termDef": "Аллополиплоиды - "
+            "termDef": "Allopolyploids - "
         },
         {
-            "termDef": "Анеуплоиды - "
+            "termDef": "Aneuploidies - "
         },
         {
-            "termDef": "Моносомик - "
+            "termDef": "Monosomic - "
         },
         {
-            "termDef": "Нулисомик - "
+            "termDef": "Nullisomic - "
         },
         {
-            "termDef": "Трисомик - "
+            "termDef": "Trisomic - "
         },
         {
-            "termDef": "Тетрасомик - "
+            "termDef": "Tetrasomic - "
         },
         {
-            "termDef": "Трисомик двойной - "
+            "termDef": "Trisomic Double - "
         },
         {
-            "termDef": "Основное число хромосом - "
+            "termDef": "Fundamental Number of Chromosomes - "
         },
         {
             "termDef": "Haploidy - the presence of a single {haploid} set of {chromosomes}."
         },
         {
-            "termDef": "Соматическое число хромосом - "
+            "termDef": "Somatic chromosome number - "
         },
         {
-            "termDef": "Колхицин - "
+            "termDef": "Colchicine - "
         },
         {
-            "termDef": "Колцемид - "
+            "termDef": "Colcemid - "
         },
         {
-            "termDef": "Аценафтен - "
+            "termDef": "Acenaphthene - "
         },
         {
-            "termDef": "Хромосомные мутации - "
+            "termDef": "Chromosomal Mutations - "
         },
         {
-            "termDef": "Хроматидные мутации - "
+            "termDef": "Chromatid Mutations - "
         },
         {
-            "termDef": "Нехватки - "
+            "termDef": "Shortages - "
         },
         {
             "termDef": "Deletion - a type of {chromosomal rearrangement} in which a segment of a {chromosome} is lost."
         },
         {
-            "termDef": "Дефишенсии - "
+            "termDef": "Deficiencies - "
         },
         {
-            "termDef": "Дупликации - "
+            "termDef": "Duplications - "
         },
         {
-            "termDef": "Амплификации - "
+            "termDef": "Amplifications - "
         },
         {
             "termDef": "Inversion - a {chromosomal rearrangement} in which a segment of {genes} is reversed in orientation."
         },
         {
-            "termDef": "Парацентрическая инверсия - "
+            "termDef": "Paracentric Inversion - "
         },
         {
-            "termDef": "Перицентрическая инверсия - "
+            "termDef": "Pericentric Inversion - "
         },
         {
             "termDef": "Translocation - a type of {mutation} in which a segment of a {chromosome} is transferred to a {non-homologous chromosome}."
         },
         {
-            "termDef": "Транспозиция - "
+            "termDef": "Transposition - "
         },
         {
-            "termDef": "Археспорий - "
+            "termDef": "Archesporium - "
         },
         {
-            "termDef": "Микроспороциты - "
+            "termDef": "Microsporocytes - "
         },
         {
             "termDef": "Tapetum - a layer of the {vascular tunic} of the {eye} in {vertebrates}."
         },
         {
-            "termDef": "Микроспорогенез - "
+            "termDef": "Microsporogenesis - "
         },
         {
-            "termDef": "Микрогаметогенез - "
+            "termDef": "Microgametogenesis - "
         },
         {
-            "termDef": "Одноядерное пыльцевое зерно - "
+            "termDef": "Monocellular Pollen Grain -"
         },
         {
-            "termDef": "Двухъядерное пыльцевое зерно - "
+            "termDef": "Bicellular Pollen Grain - "
         },
         {
-            "termDef": "Трехъядерное пыльцевое зерно - "
+            "termDef": "Tri-nucleate pollen grain - "
         },
         {
-            "termDef": "Сукцессивный тип образования тетрад - "
+            "termDef": "Successive Type of Notebook Formation - "
         },
         {
-            "termDef": "Симультанный тип образования тетрад - "
+            "termDef": "Simultaneous Type of Notebook Formation - "
         },
         {
-            "termDef": "Промежуточный тип образования тетрад - "
+            "termDef": "Intermediate Type of Notebooks - "
         },
         {
-            "termDef": "Фертильные пыльцевые зерна - "
+            "termDef": "Fertile Pollen Grains - "
         },
         {
-            "termDef": "Стерильные пыльцевые зерна - "
+            "termDef": "Sterile Pollen Grains - "
         },
         {
-            "termDef": "Семяпочка - "
+            "termDef": "Seedling - "
         },
         {
-            "termDef": "Микропиле - "
+            "termDef": "Micropyle - "
         },
         {
-            "termDef": "Интегументы - "
+            "termDef": "Integuments - "
         },
         {
-            "termDef": "Халаза - "
+            "termDef": "Chalaza - "
         },
         {
-            "termDef": "Зародышевый мешок - "
+            "termDef": "Germinal Sac - "
         },
         {
-            "termDef": "Спорогенная ткань - "
+            "termDef": "Sporogenous Tissue - "
         },
         {
-            "termDef": "Макроспорогенез - "
+            "termDef": "Macrosparogenesis - "
         },
         {
-            "termDef": "Макрогематогенез - "
+            "termDef": "Macrogematogenesis - "
         },
         {
-            "termDef": "Односпорический зародышевый мешок - "
+            "termDef": "Monosporic Embryo Sac -"
         },
         {
-            "termDef": "Биспорический зародышевый мешок - "
+            "termDef": "Bispore embryonic sac - "
         },
         {
-            "termDef": "Тетраспорический зародышевый мешок - "
+            "termDef": "Tetrasporic Embryo Sac - "
         },
         {
-            "termDef": "Сперматогенез - "
+            "termDef": "Spermatogenesis - "
         },
         {
             "termDef": "Oogenesis - {gametogenesis} of the female {germ cell}."
         },
         {
-            "termDef": "Сперматоциты - "
+            "termDef": "Spermatocytes - "
         },
         {
             "termDef": "Oocyte - the female {gamete} involved in {reproduction}."
         },
         {
-            "termDef": "Сперматиды - "
+            "termDef": "Spermatids - "
         },
         {
-            "termDef": "Полярные тельца - "
+            "termDef": "Polar Bodies - "
         },
         {
             "termDef": "Reduction Bodies - {polar bodies}."
         },
         {
-            "termDef": "Спермиогенез - "
+            "termDef": "Spermiogenesis - "
         },
         {
             "termDef": "Autosomes - {chromosomes} that are identical in {males} and {females} of the same {species}."
         },
         {
-            "termDef": "Яйцевая оболочка - "
+            "termDef": "Egg Shell - "
         },
         {
-            "termDef": "Кортикальные гранулы - "
+            "termDef": "Cortical Granules - "
         },
         {
-            "termDef": "Олигодендроглия - "
+            "termDef": "Oligodendroglia - "
         },
         {
             "termDef": "Mitotoxins - {toxins} produced by {mold fungi}."
         },
         {
-            "termDef": "Вода зоны отчуждения - "
+            "termDef": "Exclusion Zone Water - "
         },
         {
-            "termDef": "Цитокины - "
+            "termDef": "Cytokines - "
         },
         {
-            "termDef": "Биофотоны и митохондрии - "
+            "termDef": "Biophotons and Mitochondria - "
         },
         {
-            "termDef": "Вазоактивный интестинальный полипептид - "
+            "termDef": "Vasoactive Intestinal Peptide - "
         },
         {
-            "termDef": "Эйкозаноиды - "
+            "termDef": "Eicosanoids - "
         },
         {
             "termDef": "Cell - the structural and functional elementary unit of the structure and {vital activity} of all organisms. It is characterized by its own {genome}, {metabolism}, and {homeostasis}."
@@ -518,7 +518,7 @@
             "termDef": "Cytoplasm - the semi-fluid content of the {cell}, its internal environment, excluding the nucleus and vacuole, bounded by the {plasma membrane}."
         },
         {
-            "termDef": "Мацерация тканей - "
+            "termDef": "Maceration of tissues - "
         },
         {
             "termDef": "Tissue - a collection of {cells} and {extracellular matrix} united by common origin, structure, and functions performed."
@@ -560,16 +560,16 @@
             "termDef": "Freeze-Fracture Method - {analysis method}."
         },
         {
-            "termDef": "Методы анализа - "
+            "termDef": "Methods of Analysis - "
         },
         {
-            "termDef": "Микроскопия - "
+            "termDef": "Microscopy - "
         },
         {
             "termDef": "Centrifugation - {analysis method}."
         },
         {
-            "termDef": "Способ разрушения клетки - "
+            "termDef": "Cell Destruction Method - "
         },
         {
             "termDef": "Mechanically - {method of cell disruption}."
@@ -599,7 +599,7 @@
             "termDef": "Condenser - a part of the {optical system of the microscope} that focuses the beam of light onto the specimen."
         },
         {
-            "termDef": "Гистологический препарат - "
+            "termDef": "Histological Preparation - "
         },
         {
             "termDef": "Endocytosis - the process of capturing material by the {cell} from the external environment."
@@ -614,7 +614,7 @@
             "termDef": "Film - a type of {histological specimen}."
         },
         {
-            "termDef": "Гистологический краситель - "
+            "termDef": "Histological Stain - "
         },
         {
             "termDef": "Acidic Stain - {histological stain}."
@@ -629,7 +629,7 @@
             "termDef": "Symplasts - cells united by a single {plasma membrane} that contain more than one {nucleus}."
         },
         {
-            "termDef": "Синцитий - "
+            "termDef": "Syncytium - "
         },
         {
             "termDef": "Bilayer - a double molecular layer formed by {polar molecules} of {lipids} in an {aqueous} environment."
@@ -677,7 +677,7 @@
             "termDef": "Types of Mobility of Bilayer Components - a classification of the movement variants of components in the {bilayer}."
         },
         {
-            "termDef": "Толщина плазмолеммы 8-11 нм - "
+            "termDef": "Plasmalemma thickness 8-11 nm - "
         },
         {
             "termDef": "Cytoskeleton - the cellular framework composed of {microtubules}, located in the {cytoplasm} of a living {cell}. A {permanent structure} whose functions include maintaining and adapting the shape of the {cell} to external influences, {exocytosis} and {endocytosis}, facilitating the movement of the {cell} as a whole, active {intracellular transport}, and {cell division}."
@@ -686,7 +686,7 @@
             "termDef": "Extracellular Matrix - the substance located between {cells}."
         },
         {
-            "termDef": "Адгезивные белки - "
+            "termDef": "Adhesive Proteins - "
         },
         {
             "termDef": "Ionotropic Receptor - {receptor}."
@@ -722,7 +722,7 @@
             "termDef": "Immunoglobulins - {proteins} that provide {adhesive junction}."
         },
         {
-            "termDef": "Эндотелиоциты - "
+            "termDef": "Endothelial Cells - "
         },
         {
             "termDef": "Endocytosis - the process of capturing material by the {cell} from the external environment."
@@ -791,7 +791,7 @@
             "termDef": "Recycling - {transcytosis}."
         },
         {
-            "termDef": "Клатрин - "
+            "termDef": "Clathrin - "
         },
         {
             "termDef": "Simple Type Contacts - a type of {intercellular junctions}."
@@ -827,10 +827,10 @@
             "termDef": "Gap Junctions - {gap junction}."
         },
         {
-            "termDef": "Филамент - "
+            "termDef": "Filament - "
         },
         {
-            "termDef": "Десмоглеин - "
+            "termDef": "Desmoglein - "
         },
         {
             "termDef": "Desmoplakin - a {protein} that makes up {desmosomes}."
@@ -842,7 +842,7 @@
             "termDef": "Integrin - {adhesive glycoprotein}."
         },
         {
-            "termDef": "Адгезивный гликопротеин - "
+            "termDef": "Adhesive Glycoprotein - "
         },
         {
             "termDef": "Vinculin - {protein}."
@@ -851,13 +851,13 @@
             "termDef": "Connexon - a paired {integral protein} involved in the formation of a {gap junction}."
         },
         {
-            "termDef": "Апикальная поверхность - "
+            "termDef": "Apical Surface - "
         },
         {
-            "termDef": "Микроворсинки - "
+            "termDef": "Microvilli - "
         },
         {
-            "termDef": "Оксифильная каемка - "
+            "termDef": "Oxyphilic Rim - "
         },
         {
             "termDef": "Axoneme - a structure within a {flagellum} that aids in its movement. A derivative of {microtubules}."
@@ -911,7 +911,7 @@
             "termDef": "Endogenous Inclusions - {inclusions}."
         },
         {
-            "termDef": "Гемосидерин - "
+            "termDef": "Hemosiderin - "
         },
         {
             "termDef": "Glycogen - a {polysaccharide} formed from {glucose} residues."
@@ -923,7 +923,7 @@
             "termDef": "Nucleolus - a {compartment} within the {nucleus}, present in all {eukaryotic cells} without exception. It is a complex of {proteins} and {nucleoproteins} that forms around regions of {DNA} containing {rRNA} genes. The primary function of the nucleolus is the formation of {ribosomes}."
         },
         {
-            "termDef": "Ядерная оболочка - "
+            "termDef": "Nuclear Envelope - "
         },
         {
             "termDef": "Vacuolar System - a system that includes all {membrane organelles}."
@@ -962,10 +962,10 @@
             "termDef": "Myofilaments - {contractile organelles}."
         },
         {
-            "termDef": "Органеллы цитоскелета - "
+            "termDef": "Cytoskeletal Organelles - "
         },
         {
-            "termDef": "Соматическая клетка - "
+            "termDef": "Somatic Cell - "
         },
         {
             "termDef": "Cytoskeletal Elements - {organelles}."
@@ -977,7 +977,7 @@
             "termDef": "Microtubules - hollow tubes within the {cell} made of the {protein} tubulin."
         },
         {
-            "termDef": "Радиальная ориентация - "
+            "termDef": "Radial Orientation - "
         },
         {
             "termDef": "Cytoskeleton of Microvilli - a derivative structure formed from numerous {microfilaments}."
@@ -992,7 +992,7 @@
             "termDef": "Cell Center - {universal organelle}."
         },
         {
-            "termDef": "Ресничка - "
+            "termDef": "Cilium - "
         },
         {
             "termDef": "Flagellum - a surface structure present in many {prokaryotic cells} and {eukaryotic cells} that serves for their movement in a {liquid medium} or across the surface of {solid bodies}."
@@ -1010,7 +1010,7 @@
             "termDef": "Export Protein - {proteins} that will be transported outside the {cell} after {synthesis}."
         },
         {
-            "termDef": "Сигнальная последовательность - "
+            "termDef": "Signal Sequence - "
         },
         {
             "termDef": "Translation - the process of {synthesis} of {protein} from {amino acids} based on {mRNA}."
@@ -1031,16 +1031,16 @@
             "termDef": "Protein Folding - the process of folding the {peptide chain} of a {protein} into its {native conformation}."
         },
         {
-            "termDef": "Гликопротеин - "
+            "termDef": "Glycoprotein - "
         },
         {
             "termDef": "Oligosaccharide Chain - {oligosaccharide}."
         },
         {
-            "termDef": "Долихолфосфат - "
+            "termDef": "Dolichol phosphate - "
         },
         {
-            "termDef": "Базофилия цитоплазмы - "
+            "termDef": "Basophilia of the Cytoplasm - "
         },
         {
             "termDef": "rRNA - {ribosomal RNA}."
@@ -1052,34 +1052,34 @@
             "termDef": "Proximal Side of the Dictyosome - the side of the {dictyosome} facing the {endoplasmic reticulum}."
         },
         {
-            "termDef": "Полипотентные стволовые клетки - "
+            "termDef": "Multipotent Stem Cells - "
         },
         {
-            "termDef": "Глиальные клетки - "
+            "termDef": "Glial Cells - "
         },
         {
-            "termDef": "Нейропластичность - "
+            "termDef": "Neuroplasticity - "
         },
         {
-            "termDef": "Веретенообразные клетки - "
+            "termDef": "Spindle-shaped Cells - "
         },
         {
-            "termDef": "Базальный дендрит - "
+            "termDef": "Basal Dendrite - "
         },
         {
             "termDef": "Docosahexaenoic Acid - an {essential fatty acid} of the {omega-3} class."
         },
         {
-            "termDef": "Аэробная нагрузка - "
+            "termDef": "Aerobic Load - "
         },
         {
             "termDef": "Chyme - the {liquid} or semi-liquid content of the {stomach} or {intestine}, consisting of partially digested {food}, {gastric juice}, {intestinal juice}, {secretions} from glands, {bile}, {shed} {epithelial cells}, and {microorganisms}."
         },
         {
-            "termDef": "Лактобациллы - "
+            "termDef": "Lactobacilli - "
         },
         {
-            "termDef": "Бифидобактерии - "
+            "termDef": "Bifidobacteria - "
         },
         {
             "termDef": "Agar-Agar - a {nutrient medium} for {bacteria}, a mixture of {polysaccharides} agarose and agarpectin."
@@ -1088,70 +1088,70 @@
             "termDef": "E. Coli - a species of {gram-negative bacteria}."
         },
         {
-            "termDef": "Периплазма - "
+            "termDef": "Periplasm - "
         },
         {
-            "termDef": "Сидерофоры - "
+            "termDef": "Siderophores - "
         },
         {
-            "termDef": "Пермеаза - "
+            "termDef": "Permease - "
         },
         {
             "termDef": "Operon - a functional unit of {genome} in {prokaryotes}, consisting of {cistrons} that code for proteins working together or sequentially and are grouped under one (or several) {promoters}."
         },
         {
-            "termDef": "Транспозоны - "
+            "termDef": "Transposons - "
         },
         {
-            "termDef": "Коагулянт - "
+            "termDef": "Coagulant - "
         },
         {
-            "termDef": "Гиподинамия - "
+            "termDef": "Hypodynamia - "
         },
         {
-            "termDef": "Мозжечек - "
+            "termDef": "Cerebellum - "
         },
         {
-            "termDef": "Лобная доля мозга - "
+            "termDef": "Frontal Lobe"
         },
         {
-            "termDef": "Затылочная доля мозга - "
+            "termDef": "Occipital Lobe"
         },
         {
-            "termDef": "Височная доля мозга - "
+            "termDef": "Temporal Lobe of the Brain - "
         },
         {
-            "termDef": "Сублингвально - "
+            "termDef": "Sublingually - "
         },
         {
-            "termDef": "Легочная гипертензия - "
+            "termDef": "Pulmonary Hypertension - "
         },
         {
-            "termDef": "Артериальное давление - "
+            "termDef": "Arterial Pressure - "
         },
         {
-            "termDef": "Метаболический синдром - "
+            "termDef": "Metabolic Syndrome - "
         },
         {
-            "termDef": "коллатеральных коронарных сосудов - "
+            "termDef": "Collateral Coronary Vessels - "
         },
         {
-            "termDef": "Атеросклероз периферических артерий (АПА) - "
+            "termDef": "Peripheral Artery Atherosclerosis (PAA) - "
         },
         {
-            "termDef": "перистальтика - "
+            "termDef": "Peristalsis - "
         },
         {
-            "termDef": "Шишковидная железа - "
+            "termDef": "Pineal Gland - "
         },
         {
-            "termDef": "Глутамат - "
+            "termDef": "Glutamate - "
         },
         {
-            "termDef": "Ионотропные - "
+            "termDef": "Ionotropic - "
         },
         {
-            "termDef": "Метаботропные - "
+            "termDef": "Metabotropic - "
         },
         {
             "termDef": "Androgens - the name of a group of {steroid} {sex hormones}"
@@ -1160,28 +1160,28 @@
             "termDef": "Glycation - a reaction between {carbohydrates} ({glucose}, {fructose}, etc.) and free {amino groups} of {proteins}, {lipids}, and {nucleic acids} in a living organism, occurring without the participation of {enzymes}. A specific case of {Maillard reaction}."
         },
         {
-            "termDef": "Метилирование - "
+            "termDef": "Methylation - "
         },
         {
             "termDef": "Synapse - {Contact of a communicative type}"
         },
         {
-            "termDef": "Дендрит - "
+            "termDef": "Dendrite - "
         },
         {
-            "termDef": "Дендритный шипик - "
+            "termDef": "Dendritic Spine - "
         },
         {
-            "termDef": "Сома (тело нейрона) - "
+            "termDef": "Soma (neuron body) - "
         },
         {
             "termDef": "Axon - a process of {neuron} through which {nerve impulses} travel from the cell body to the innervated {organs} and other {nerve cells}."
         },
         {
-            "termDef": "Дофамин - "
+            "termDef": "Dopamine - "
         },
         {
-            "termDef": "Дофаминовый рецентор D2 - "
+            "termDef": "Dopamine Receptor D2 -"
         },
         {
             "termDef": "Eicosapentaenoic Acid - {polyunsaturated fatty acid} of the {omega-3} class"
@@ -1190,16 +1190,16 @@
             "termDef": "Omega 3 - a family of {polyunsaturated fatty acids} that have a {double bond} at the omega-3 position, that is, after the third {atom} of {carbon}, counting from the fatty acid."
         },
         {
-            "termDef": "Гликемический индекс - "
+            "termDef": "Glycemic Index - "
         },
         {
-            "termDef": "Винпоцетин - "
+            "termDef": "Vinpocetine - "
         },
         {
             "termDef": "Phosphatidylserine - {glycerophospholipid}, a derivative of {phosphatidic acid}, in which the {hydrogen} {atom} is replaced by a {serine} residue."
         },
         {
-            "termDef": "Ацетил L карнитин - "
+            "termDef": "Acetyl L-Carnitine - "
         },
         {
             "termDef": "Ginkgo Biloba - {gymnosperm relict plant}, often referred to as a living fossil"
@@ -1208,7 +1208,7 @@
             "termDef": "Phosphatidylcholine - {glycerophospholipid} that contains {choline}"
         },
         {
-            "termDef": "S-аденозилметионин - "
+            "termDef": "S-adenosylmethionine"
         },
         {
             "termDef": "GABA - {Gamma-aminobutyric acid}"
@@ -1220,13 +1220,13 @@
             "termDef": "Cholesterol - {Organic substance}, {carbon skeleton} {sterane}"
         },
         {
-            "termDef": "Липопротеин низкой плотности - "
+            "termDef": "Low-Density Lipoprotein - "
         },
         {
             "termDef": "Sex Hormones - {hormones} that ensure the formation of {sex} characteristics in {organisms}."
         },
         {
-            "termDef": "Липопротеин высокой плотности - "
+            "termDef": "High-Density Lipoprotein"
         },
         {
             "termDef": "Rna Interference - process of {silencing} a {gene} at the stages of {transcription}, {translation}, {deadenylation}, or degradation of {mRNA} using small {RNA} molecules."
@@ -1235,28 +1235,28 @@
             "termDef": "Triglycerides - {Fats}."
         },
         {
-            "termDef": "Фитостеролы - "
+            "termDef": "Phytosterols - "
         },
         {
-            "termDef": "Поликосанол - "
+            "termDef": "Policosanol - "
         },
         {
-            "termDef": "Витамин E - "
+            "termDef": "Vitamin E - "
         },
         {
             "termDef": "Coenzyme - {Cofactor}."
         },
         {
-            "termDef": "Коэнзим Q10 - "
+            "termDef": "Coenzyme Q10 - "
         },
         {
-            "termDef": "Убихинол - "
+            "termDef": "Ubiquinol - "
         },
         {
             "termDef": "Magnesium - {chemical element} with an {atomic number} of 12."
         },
         {
-            "termDef": "L аргинин - "
+            "termDef": "L-Arginine -"
         },
         {
             "termDef": "Peptide - group of {organic compounds} whose {molecules} are composed of 2-49 residues of {amino acids} linked by {peptide bonds}."
@@ -1268,10 +1268,10 @@
             "termDef": "Amylase - {Enzyme}"
         },
         {
-            "termDef": "крахмалистые углеводы - "
+            "termDef": "starch carbohydrates - "
         },
         {
-            "termDef": "простые сахара (глюкозу и мальтозу) - "
+            "termDef": "Simple Sugars (Glucose and Maltose) - "
         },
         {
             "termDef": "Enzyme - a group of {molecules} {proteins} or {RNA} that are {catalysts}"
@@ -1280,25 +1280,25 @@
             "termDef": "Pepsin - {protease} formed from its precursor {pepsinogen}, produced by the chief {cells} of the {gastric mucosa}, and performs the cleavage of {proteins} {in food} into {peptides}."
         },
         {
-            "termDef": "Внутренний фактор - "
+            "termDef": "Internal Factor - "
         },
         {
-            "termDef": "Витамин B12 - "
+            "termDef": "Vitamin B12"
         },
         {
             "termDef": "Starch - a mixture of {polysaccharides} {amylose} and {amylopectin}. {Monomer} - {alpha glucose}"
         },
         {
-            "termDef": "Клетчатка - "
+            "termDef": "Fiber - "
         },
         {
             "termDef": "Escherichia Coli - {E.Coli}"
         },
         {
-            "termDef": "фруктоолигосахариды - "
+            "termDef": "fructooligosaccharides - "
         },
         {
-            "termDef": "биофлавоноиды - "
+            "termDef": "bioflavonoids - "
         },
         {
             "termDef": "Garlic - {perennial plant}, {herbaceous plant}; {species} {of} {the genus} {Allium} {of the family} {Amaryllidaceae} ({Amaryllidaceae}) {subfamily} {Allioideae}"
@@ -1307,13 +1307,13 @@
             "termDef": "Aloe Vera - {herbaceous plant}, {succulent}"
         },
         {
-            "termDef": "Химотрипсин - "
+            "termDef": "Chymotrypsin - "
         },
         {
-            "termDef": "альдостерон - "
+            "termDef": "Aldosterone - "
         },
         {
-            "termDef": "холецистокинин - "
+            "termDef": "cholecystokinin - "
         },
         {
             "termDef": "Cortisol - {glucocorticoid}"
@@ -1337,7 +1337,7 @@
             "termDef": "Testosterone - {hormone}"
         },
         {
-            "termDef": "Т3 (трийодтиронин) - "
+            "termDef": "T3 (triiodothyronine) - "
         },
         {
             "termDef": "Thyroxine - {thyroid hormone}"
@@ -1346,10 +1346,10 @@
             "termDef": "Hormone - {Biologically active} {substance} that enters the {blood}, binds to the receptors of {target cells}, and regulates {metabolism}."
         },
         {
-            "termDef": "биоидентичные гормоны - "
+            "termDef": "Bioidentical Hormones - "
         },
         {
-            "termDef": "наттокиназы - "
+            "termDef": "Nattokinases - "
         },
         {
             "termDef": "Amylose - {polysaccharide}, formed by linear or slightly branched chains of {alpha-glucose} residues, connected by {glycosidic bonds} between the 1st and 4th {carbon} atoms: α-(1→4)"
@@ -1361,7 +1361,7 @@
             "termDef": "Protein - {organic substance} consisting of residues of 50+ {amino acids} linked in a chain by {peptide bonds}"
         },
         {
-            "termDef": "Эстрадиол - "
+            "termDef": "Estradiol - "
         },
         {
             "termDef": "TSH - {Thyroid-stimulating hormone}"
@@ -1370,7 +1370,7 @@
             "termDef": "Dhea - {Dehydroepiandrosterone}"
         },
         {
-            "termDef": "Простагландины - "
+            "termDef": "Prostaglandins - "
         },
         {
             "termDef": "Omega 6 - a family of {polyunsaturated fatty acids} that have a {double bond} in the omega-6 position, that is, between the sixth and seventh {atoms} of {carbon}, counting from the carboxylic acid."
@@ -1379,40 +1379,40 @@
             "termDef": "Soybean Oil - {liquid oil} {vegetable oil}, obtained from {seeds} {soybeans}"
         },
         {
-            "termDef": "Подсолнечное масло - "
+            "termDef": "Sunflower Oil - "
         },
         {
-            "termDef": "Простагландин - "
+            "termDef": "Prostaglandin - "
         },
         {
-            "termDef": "Простой крахмал - "
+            "termDef": "Starch - "
         },
         {
-            "termDef": "Арахидоновая кислота - "
+            "termDef": "Arachidonic Acid - "
         },
         {
             "termDef": "Fish Oil - {Animal fat}, extracted from {fish}"
         },
         {
-            "termDef": "простагландина Е3 - "
+            "termDef": "Prostaglandin E3 - "
         },
         {
             "termDef": "EPA - {eicosapentaenoic acid}"
         },
         {
-            "termDef": "докозагексаеновой кислоты (ДГК) - "
+            "termDef": "docosahexaenoic acid (DHA) - "
         },
         {
-            "termDef": "Куркумин - "
+            "termDef": "Curcumin - "
         },
         {
-            "termDef": "коэнзим Q10 - "
+            "termDef": "coenzyme Q10"
         },
         {
             "termDef": "Homocysteine - a non {proteinogenic amino acid} with the formula HSCH2CH2CH(NH2)CO2H. {Homolog} {of the amino acid} {cysteine}"
         },
         {
-            "termDef": "Фолиевая кислота - "
+            "termDef": "Folic Acid - "
         },
         {
             "termDef": "Trimethylglycine - a derivative of {glycine} with 3 {methyl groups}. It is an important product in {chemical reactions} of {methylation}, acting as a donor of {methyl groups}."
@@ -1421,16 +1421,16 @@
             "termDef": "Methionine - {proteinogenic amino acid}"
         },
         {
-            "termDef": "ОНП (однонуклеотидный полиморфизм - "
+            "termDef": "SNP (single nucleotide polymorphism -"
         },
         {
-            "termDef": "простагландины - "
+            "termDef": "Prostaglandins - "
         },
         {
             "termDef": "Oleic Acid - C18H34O2 — {monounsaturated fatty acid}"
         },
         {
-            "termDef": "трансжирные кислоты - "
+            "termDef": "trans fatty acids - "
         },
         {
             "termDef": "Hydrogenation - {hydrogenation}"
@@ -1445,40 +1445,40 @@
             "termDef": "ONA - optimal {consumption norm}"
         },
         {
-            "termDef": "трансресвератрол - "
+            "termDef": "trans-resveratrol"
         },
         {
-            "termDef": "Ацетил-L-карнитин - "
+            "termDef": "Acetyl-L-carnitine - "
         },
         {
-            "termDef": "Ацетил-глутатион - "
+            "termDef": "Acetyl-glutathione - "
         },
         {
-            "termDef": "Ацетил-глутатион\r - "
+            "termDef": "Acetyl-glutathione"
         },
         {
-            "termDef": "миметики дельта-рецепторов, активируемых пролифератором пероксисом - "
+            "termDef": "Delta-receptor mimetics activated by peroxisome proliferator -"
         },
         {
-            "termDef": "Эндорфины - "
+            "termDef": "Endorphins - "
         },
         {
-            "termDef": "лайкра - "
+            "termDef": "lycra - "
         },
         {
             "termDef": "Chelate - claw-like {complex compound} formed by the interaction of {metal} {ions} with {polydentate} {ligands}"
         },
         {
-            "termDef": "Глутатион - "
+            "termDef": "Glutathione - "
         },
         {
-            "termDef": "Хераты - "
+            "termDef": "Heterotrophs - "
         },
         {
             "termDef": "Benzene - a six-membered {carbocyclic compound} with {aromatic bond}"
         },
         {
-            "termDef": "Парабены - "
+            "termDef": "Parabens - "
         },
         {
             "termDef": "Phthalates - {salt} {of phthalic acid}"
@@ -1493,7 +1493,7 @@
             "termDef": "Xylenes - {Organic compounds} consisting of {benzene} and 2 {methyl groups}"
         },
         {
-            "termDef": "Жизненный цикл нейромедиатора - "
+            "termDef": "Neurotransmitter life cycle - "
         },
         {
             "termDef": "Receptor - {molecule} on the surface of {cell membrane}, {membrane organelles} or dissolved in {cytoplasm}. Specifically reacts by changing its {conformation} to the binding of a {molecule} of a certain {chemical substance} that transmits an external {regulatory signal} and, in turn, transmits this signal into the {cell} or {organelle}."
@@ -1520,19 +1520,19 @@
             "termDef": "Ribosome - the most important non-membrane {granular organelle}, serving for {biosynthesis} of {protein} from {amino acids}, based on genetic information provided by {mRNA}, performs {translation}."
         },
         {
-            "termDef": "Блокатор - "
+            "termDef": "Blocker - "
         },
         {
-            "termDef": "Рекомбиназа - "
+            "termDef": "Recombinase - "
         },
         {
             "termDef": "Gene - a segment of {DNA} (in some viruses - a segment of {RNA}) that specifies the sequence of a {protein} or functional {RNA}."
         },
         {
-            "termDef": "Индуктор - "
+            "termDef": "Inductor - "
         },
         {
-            "termDef": "Цитохром - "
+            "termDef": "Cytochrome - "
         },
         {
             "termDef": "Protease - a class {of enzymes}, subclass {of hydrolases}, that cleave {peptide bonds} between {amino acids} in {proteins}."
@@ -1541,10 +1541,10 @@
             "termDef": "Plasmid - a small, circular {molecule} {DNA}, physically distinct from {genomic DNA} and capable of autonomous {replication}."
         },
         {
-            "termDef": "Аминоацил-тРНК-синтетаза - "
+            "termDef": "Aminoacyl-tRNA-synthetase - "
         },
         {
-            "termDef": "Транспозон - "
+            "termDef": "Transposon - "
         },
         {
             "termDef": "Transposase - {enzyme} that links {single-stranded DNA} and integrates it into {genomic DNA}"
@@ -1574,7 +1574,7 @@
             "termDef": "Anthocyanins - a class of water-soluble pigments that belong to the flavonoid group, which are responsible for the red, purple, and blue colors in many fruits and vegetables, and have been studied for their potential health benefits, including their role in {gerontology}."
         },
         {
-            "termDef": "Геронтология - "
+            "termDef": "Gerontology - "
         },
         {
             "termDef": "Telomerase - {Gerontology}"
@@ -1583,28 +1583,28 @@
             "termDef": "Metabolic Pathway - a sequence of {chemical reactions} that allows a {cell} to convert {substances} obtained from the {external environment} into {substances} required for its {vital activity}."
         },
         {
-            "termDef": "Транспорт - "
+            "termDef": "Transport - "
         },
         {
-            "termDef": "Абсорбция - "
+            "termDef": "Absorption - "
         },
         {
             "termDef": "Biological Activity - the property of {substances} to exhibit activity towards {tissues} of the {organism} at low {concentrations}."
         },
         {
-            "termDef": "Дискретная реакция на хим вещество - "
+            "termDef": "Discrete Reaction to Chemical Substance - "
         },
         {
             "termDef": "Mortality - a measure reflecting what part of the {population} {dies} as a result of exposure to a {toxin}."
         },
         {
-            "termDef": "Пробит анализ - "
+            "termDef": "Breakthrough Analysis - "
         },
         {
-            "termDef": "Полулетальная доза - "
+            "termDef": "Lethal Dose Half (LD50) - "
         },
         {
-            "termDef": "Полулетальная концентрация - "
+            "termDef": "Lethal concentration - "
         },
         {
             "termDef": "Threshold Concentration - concentration at which the probability of negative impact is low and is considered acceptable."
@@ -1613,28 +1613,28 @@
             "termDef": "Vitamin A - a mixture of components, {carotenoids}"
         },
         {
-            "termDef": "Ретинол - "
+            "termDef": "Retinol - "
         },
         {
             "termDef": "Retinal - {Aldehyde} {of retinol}"
         },
         {
-            "termDef": "Каротиноиды - "
+            "termDef": "Carotenoids - "
         },
         {
-            "termDef": "17 бета эстрадиол - "
+            "termDef": "17 beta estradiol - "
         },
         {
             "termDef": "Water Solubility - the ability of {substances} {to dissolve} in {water}"
         },
         {
-            "termDef": "Жирорастворимые вещества - "
+            "termDef": "Fat-soluble substances - "
         },
         {
             "termDef": "Adenosine Triphosphate - a compound of {adenosine} and 3 residues of {phosphoric acid}"
         },
         {
-            "termDef": "А-киназа - "
+            "termDef": "A-kinase - "
         },
         {
             "termDef": "Cyclic adenosine monophosphate - a derivative of {adenosine monophosphoric acid}"
@@ -1673,13 +1673,13 @@
             "termDef": "Atom - a stable system of {electrons} and {nucleons}"
         },
         {
-            "termDef": "Электрон - "
+            "termDef": "Electron -"
         },
         {
-            "termDef": "Протон - "
+            "termDef": "Proton - "
         },
         {
-            "termDef": "Нейтрон - "
+            "termDef": "Neutron - "
         },
         {
             "termDef": "Nucleon - a general term for {protons} and {neutrons}"
@@ -1691,13 +1691,13 @@
             "termDef": "Charge Number - the number of {protons} in {the atomic nucleus}"
         },
         {
-            "termDef": "Глобулы - "
+            "termDef": "Globules - "
         },
         {
-            "termDef": "Эмульгирование - "
+            "termDef": "Emulsification - "
         },
         {
-            "termDef": "Мицеллы - "
+            "termDef": "Micelles - "
         },
         {
             "termDef": "Chemical Element - a set of {atoms} with the same {atomic number} and an arbitrary number of {neutrons}"
@@ -1721,13 +1721,13 @@
             "termDef": "Atomic Mass Unit - a unit of mass used for the masses of {molecules}, {atoms}, {atomic nuclei}, and {elementary particles}. It is defined as 1/12 of the mass of the {carbon} C12 atom."
         },
         {
-            "termDef": "Ион - "
+            "termDef": "Ion - "
         },
         {
-            "termDef": "Катион - "
+            "termDef": "Cation - "
         },
         {
-            "termDef": "Анион - "
+            "termDef": "Anion - "
         },
         {
             "termDef": "Ionic Bonding - a strong {chemical bond} that arises from the electrostatic attraction between {anions} and {cations}"
@@ -1781,19 +1781,19 @@
             "termDef": "Cysteine - {proteinogenic amino acid}"
         },
         {
-            "termDef": "Металлотионеин - "
+            "termDef": "Metallothionein - "
         },
         {
             "termDef": "Conjugation - unidirectional transfer of a part of {genome} during direct contact between two {bacteria}"
         },
         {
-            "termDef": "Монооксигенирование - "
+            "termDef": "Monooxygenation - "
         },
         {
-            "termDef": "Ацетаминофен - "
+            "termDef": "Acetaminophen - "
         },
         {
-            "termDef": "Хинонимины - "
+            "termDef": "Chinonimins - "
         },
         {
             "termDef": "Bioavailability - the ability of {substance} to enter the {blood} of {organism}. Measured in percentage."
@@ -1814,7 +1814,7 @@
             "termDef": "Bioconcentration - the process of increasing {concentration}, accumulation of {substance} in {organism}, compared to {concentration} in {environment}"
         },
         {
-            "termDef": "Биоаккумуляция - "
+            "termDef": "Bioaccumulation - "
         },
         {
             "termDef": "Phosphorus - {Chemical element} with {atomic number} 15"
@@ -1844,10 +1844,10 @@
             "termDef": "Cytotoxin - {substance} that initiates the process of {necrosis} in a {cell}"
         },
         {
-            "termDef": "Гемотоксины - "
+            "termDef": "Hemotoxins - "
         },
         {
-            "termDef": "Нейротоксины - "
+            "termDef": "Neurotoxins - "
         },
         {
             "termDef": "Ligand - {atom}, {ion} or {molecule} that is bound to another {atom} ({acceptor}) through {donor-acceptor interaction}"
@@ -1859,13 +1859,13 @@
             "termDef": "Metabolism - {substance exchange}"
         },
         {
-            "termDef": "Пестициды - "
+            "termDef": "Pesticides - "
         },
         {
             "termDef": "Proliferation - growth of {tissue} {organism} through {cell division}"
         },
         {
-            "termDef": "Альбумин - "
+            "termDef": "Albumin"
         },
         {
             "termDef": "Keratin - a family of {fibrous proteins} that possess {mechanical strength}."
@@ -1877,10 +1877,10 @@
             "termDef": "Casein - {complex protein} ({phosphoprotein}), formed from the precursor of casein - {caseinogen} during the coagulation of {milk}."
         },
         {
-            "termDef": "Фиброин - "
+            "termDef": "Fibroin - "
         },
         {
-            "termDef": "Спидроин - "
+            "termDef": "Speedroin - "
         },
         {
             "termDef": "Antibody - a type of {protein} in {blood plasma}, synthesized by {plasma cells} in the {organism} of {warm-blooded animals} in response to the introduction of {antigens}."
@@ -1889,28 +1889,28 @@
             "termDef": "Ion Channel - {Translocase}"
         },
         {
-            "termDef": "Транскрипционный фактор - "
+            "termDef": "Transcription Factor - "
         },
         {
-            "termDef": "Нейротоксин - "
+            "termDef": "Neurotoxin - "
         },
         {
-            "termDef": "Миоглобин - "
+            "termDef": "Myoglobin - "
         },
         {
             "termDef": "Hemoglobin - {transport protein} from the family of {globins}"
         },
         {
-            "termDef": "Метод эмпирических силовых полей - "
+            "termDef": "Method of Empirical Force Fields - "
         },
         {
-            "termDef": "Биоинформатика - "
+            "termDef": "Bioinformatics - "
         },
         {
-            "termDef": "Моделирование на основе гомологии - "
+            "termDef": "Homology-Based Modeling - "
         },
         {
-            "termDef": "Молекулярный докинг - "
+            "termDef": "Molecular Docking - "
         },
         {
             "termDef": "Monomer - one link in {polymer}"
@@ -2054,7 +2054,7 @@
             "termDef": "Orthophosphoric Acid - {Inorganic acid} that contains 3 {atoms} of {hydrogen}, 1 {atom} of {phosphorus}, and 4 {atoms} of {oxygen}."
         },
         {
-            "termDef": "Complex Esters - {Функциональная группа} с {кислородом} и {углеродом}, формула R(C=O)OR. Производное {карбоновой группы} с {водородным} атомом, замененным на {углеводородный радикал}."
+            "termDef": "Complex Esters - {Functional group} with {oxygen} and {carbon}, formula R(C=O)OR. A derivative of {carboxylic group} with a {hydrogen} atom replaced by a {hydrocarbon radical}."
         },
         {
             "termDef": "Simple Ethers - {Functional group} with {oxygen} connecting 2 {hydrocarbon radicals}. Formula R-O-R"
@@ -2120,10 +2120,10 @@
             "termDef": "Hydrophilic Compound - {A substance} that is {hydrophilic}."
         },
         {
-            "termDef": "Клатраты - "
+            "termDef": "Clathrates - "
         },
         {
-            "termDef": "Ротаксан - "
+            "termDef": "Rotaxan - "
         },
         {
             "termDef": "Crown Ethers - {heterocyclic compounds} that contain more than 11 {atoms} in their cycles, of which at least four are {heteroatoms}, which are interconnected by {ethylene} bridges."
@@ -2132,7 +2132,7 @@
             "termDef": "Catenane - a class {of chemical compounds} consisting of two or more {cyclic compounds} linked topologically, without the formation of {covalent bonds} directly."
         },
         {
-            "termDef": "Цеолиты - "
+            "termDef": "Zeolites - "
         },
         {
             "termDef": "Donor-Acceptor Interaction - transfer {of electrons} between {molecules} {of donor} and {acceptor} without the formation of {chemical bond} between them (exchange mechanism); or the transfer of an unshared {electron pair} from {donor} to {acceptor}, leading to the formation of a {chemical bond} (donor-acceptor mechanism)"
@@ -2174,7 +2174,7 @@
             "termDef": "Adenosine - {Nucleoside}, consisting of {adenine} and {ribose}"
         },
         {
-            "termDef": "Окислительное фосфорилирование - "
+            "termDef": "Oxidative Phosphorylation - "
         },
         {
             "termDef": "Conformation - the spatial arrangement of {atoms} in a {molecule} of a specific configuration, determined by rotation around one or more single {sigma bonds}."
@@ -2189,13 +2189,13 @@
             "termDef": "Small Molecules - {Molecules} with a {molecular weight} less than 900 {atomic mass units}"
         },
         {
-            "termDef": "Сайт связывания - "
+            "termDef": "Linking Site - "
         },
         {
             "termDef": "Epitope - part of {molecule} {antigen} that is recognized by the {immune system} ({antibodies}, {B-lymphocytes}, {T-lymphocytes})."
         },
         {
-            "termDef": "Сиртуины - "
+            "termDef": "Sirtuins - "
         },
         {
             "termDef": "Nicotinamide adenine dinucleotide - {coenzyme}, present in all living {cells}. Consists of two {nucleotides} linked by their {phosphate} groups. One nucleotide is {adenine}, the other is {nicotinamide}."
@@ -2204,7 +2204,7 @@
             "termDef": "Enzyme - {Ferment}"
         },
         {
-            "termDef": "Витамин D - "
+            "termDef": "Vitamin D - "
         },
         {
             "termDef": "Inhibitor - {Substances} that can suppress or slow down the course of physiological or physicochemical processes (usually processes involving {enzymes})"
@@ -2213,7 +2213,7 @@
             "termDef": "Ganciclovir - {Senolytic}"
         },
         {
-            "termDef": "Сенолитик - "
+            "termDef": "Senolytic - "
         },
         {
             "termDef": "Dasatinib - {Senolytic}"
@@ -2372,10 +2372,10 @@
             "termDef": "Facultative Anaerobes - {Anaerobes} that can live in the presence of {oxygen}"
         },
         {
-            "termDef": "Паренхима - "
+            "termDef": "Parenchyma - "
         },
         {
-            "termDef": "Строма - "
+            "termDef": "Stroma - "
         },
         {
             "termDef": "Inorganic Compound - {Molecule}, which does not contain {carbon}"
@@ -2417,10 +2417,10 @@
             "termDef": "Gram-Negative Bacteria - {Bacteria} that do not stain according to the {Gram method}"
         },
         {
-            "termDef": "Цианобактерии - "
+            "termDef": "Cyanobacteria - "
         },
         {
-            "termDef": "Эубактерии - "
+            "termDef": "Eubacteria - "
         },
         {
             "termDef": "Archaea - {unicellular organisms} that lack {cell nuclei} and {membrane-bound organelles}"
@@ -2441,34 +2441,34 @@
             "termDef": "Rough Endoplasmic Reticulum - {Endoplasmic Reticulum}"
         },
         {
-            "termDef": "Хлоропласт - "
+            "termDef": "Chloroplast - "
         },
         {
-            "termDef": "Тилакоиды - "
+            "termDef": "Thylakoids - "
         },
         {
             "termDef": "Cell Wall - a shell {of the cell} located outside the {plasma membrane} and performing structural, protective, and transport functions."
         },
         {
-            "termDef": "Осмотический шок - "
+            "termDef": "Osmotic Shock - "
         },
         {
-            "termDef": "Плазмодесма - "
+            "termDef": "Plasmodesma - "
         },
         {
-            "termDef": "Глиоксисома - "
+            "termDef": "Glyoxysome - "
         },
         {
-            "termDef": "Дифференциальное центрифугирование - "
+            "termDef": "Differential Centrifugation - "
         },
         {
-            "termDef": "Гомогенат ткани - "
+            "termDef": "Homogenate of tissue - "
         },
         {
-            "termDef": "Микросома - "
+            "termDef": "Microsome - "
         },
         {
-            "termDef": "Изопикническое центрфугирование - "
+            "termDef": "Isopycnic Centrifugation - "
         },
         {
             "termDef": "Microorganisms - {Organisms} that are too small for direct observation."
@@ -2489,10 +2489,10 @@
             "termDef": "Organic Substances - {Simple Substances} and {Chemical Compounds} containing {Carbon}"
         },
         {
-            "termDef": "Клеточный клон - "
+            "termDef": "Cell Clone - "
         },
         {
-            "termDef": "Клеточная конкуренция - "
+            "termDef": "Cellular Competition - "
         },
         {
             "termDef": "Xanthine - {base} {purine}"
@@ -2546,16 +2546,16 @@
             "termDef": "Hydrolysis - {solvolysis} {by water}. It is a {decomposition reaction} in which a {substance} interacts with {water}, resulting in the {decomposition} of this {substance} and {water} with the formation of new {compounds}."
         },
         {
-            "termDef": "Диссоциация - "
+            "termDef": "Dissociation - "
         },
         {
-            "termDef": "Фракционирование - "
+            "termDef": "Fractionation - "
         },
         {
             "termDef": "Isopycnic Centrifugation - {centrifugation} in a {sucrose} gradient"
         },
         {
-            "termDef": "Миксобактерия - "
+            "termDef": "Myxobacterium - "
         },
         {
             "termDef": "Bacterium - {Prokaryotic} {microorganism}"
@@ -2567,10 +2567,10 @@
             "termDef": "Hydrolase - is a class of {enzymes} that catalyzes {hydrolysis} of {covalent bonds}."
         },
         {
-            "termDef": "Актиновые волокна - "
+            "termDef": "Actin Filaments - "
         },
         {
-            "termDef": "Фибриллы - "
+            "termDef": "Fibrils - "
         },
         {
             "termDef": "Motor Proteins - a class of {proteins} capable of moving, or more precisely, converting {chemical energy} into {mechanical work}"
@@ -2582,19 +2582,19 @@
             "termDef": "Mitosis - {Vegetative division}"
         },
         {
-            "termDef": "Внутриклеточный сигнал - "
+            "termDef": "Intracellular Signal - "
         },
         {
-            "termDef": "Внеклеточный сигнал - "
+            "termDef": "Extracellular Signal - "
         },
         {
             "termDef": "Alanine - {proteinogenic amino acid}, 2-aminopropanoic acid"
         },
         {
-            "termDef": "Эритроцит - "
+            "termDef": "Erythrocyte - "
         },
         {
-            "termDef": "Глобула - "
+            "termDef": "Globule - "
         },
         {
             "termDef": "Serine - {proteinogenic amino acid}"
@@ -2621,19 +2621,19 @@
             "termDef": "Hydrogen Bond - {chemical bond}"
         },
         {
-            "termDef": "Ионные взаимодействия - "
+            "termDef": "Ionic Interactions - "
         },
         {
-            "termDef": "Гидрофобные взаимодействия - "
+            "termDef": "Hydrophobic Interactions - "
         },
         {
-            "termDef": "Ван-дер-ваальсовы взаимодействия - "
+            "termDef": "Van der Waals Interactions - "
         },
         {
             "termDef": "Intracellular Transport - the process of transferring various {substances} within {the cell}"
         },
         {
-            "termDef": "Полиферментный комплекс - "
+            "termDef": "Polyferment Complex - "
         },
         {
             "termDef": "Active Site - is a specific part of {molecule} {enzyme}, determining its specificity and catalytic activity."
@@ -2657,16 +2657,16 @@
             "termDef": "Holoprotein - {Protein} with an attached {prosthetic group}"
         },
         {
-            "termDef": "Эксайтотоксичность - "
+            "termDef": "Excitotoxicity - "
         },
         {
-            "termDef": "Бета амилоид - "
+            "termDef": "Beta Amyloid - "
         },
         {
             "termDef": "Tau Protein - {MAP}. {Alternative splicing} of the {MAPT} gene produces six known {protein isoforms} in the {human} {organism}. The {protein} is commonly found in {neurons} of the {CNS}, and rarely in other locations, however, it is weakly {expressed} in {astrocytes} and {oligodendrocytes} of the {CNS}."
         },
         {
-            "termDef": "Синаптический гомеостаз - "
+            "termDef": "Synaptic Homeostasis - "
         },
         {
             "termDef": "LilrB2 - "
@@ -2675,10 +2675,10 @@
             "termDef": "Oligomer - {Polymer} with a small number of {monomers}"
         },
         {
-            "termDef": "Кофилин - "
+            "termDef": "Cofilin - "
         },
         {
-            "termDef": "Гиперемия - "
+            "termDef": "Hyperemia - "
         },
         {
             "termDef": "Affinity - the ability of some {molecules} to bind with other {molecules} and thereby form a new complex object."
@@ -2699,16 +2699,16 @@
             "termDef": "Nucleosome - is a structural part of {chromosome}, formed by the joint {packaging of DNA} with {histones} {H2A}, {H2B}, {H3}, and {H4}."
         },
         {
-            "termDef": "H2A - {Гистон}"
+            "termDef": "H2A - {Histone}"
         },
         {
-            "termDef": "H2B - {Гистон}"
+            "termDef": "H2B - {Histone}"
         },
         {
-            "termDef": "H3 - {Гистон}"
+            "termDef": "H3 - {Histone}"
         },
         {
-            "termDef": "H4 - {Гистон}"
+            "termDef": "H4 - {Histone}"
         },
         {
             "termDef": "Nucleofilament - thread {nucleosomes}"
@@ -2723,22 +2723,22 @@
             "termDef": "Multimeric Complex - a group consisting of two or more associated {polypeptide chains}"
         },
         {
-            "termDef": "Протонный насос - "
+            "termDef": "Proton Pump - "
         },
         {
-            "termDef": "Аквапорин 4 - "
+            "termDef": "Aquaporin 4 - "
         },
         {
-            "termDef": "Астроцит - "
+            "termDef": "Astrocyte - "
         },
         {
-            "termDef": "Нейрон - "
+            "termDef": "Neuron - "
         },
         {
-            "termDef": "Пространство Вирхова-Робена - "
+            "termDef": "Virkhov-Robens Space - "
         },
         {
-            "termDef": "Глимфатическая система - "
+            "termDef": "Glymphatic System - "
         },
         {
             "termDef": "Dose - the amount of a single or daily intake {substance} {by the organism}"
@@ -2750,7 +2750,7 @@
             "termDef": "ME - {International Unit}"
         },
         {
-            "termDef": "Интерлейкин 6 - "
+            "termDef": "Interleukin 6 - "
         },
         {
             "termDef": "Oleamide - {amide} {of oleic acid}"
@@ -2759,7 +2759,7 @@
             "termDef": "Peptide Chain - a set {of amino acids} linked by {peptide bonds} in a chain."
         },
         {
-            "termDef": "Экзокринная железа - "
+            "termDef": "Exocrine Gland - "
         },
         {
             "termDef": "Mobile Genetic Elements - sequences {DNA} that can move within {the genome}"
@@ -2786,7 +2786,7 @@
             "termDef": "Acetyl Group - {Functional Group}"
         },
         {
-            "termDef": "Ангидридная группа - "
+            "termDef": "Anhydride Group - "
         },
         {
             "termDef": "Amido Group - {Amide Group}"
@@ -2819,7 +2819,7 @@
             "termDef": "Phosphoanhydride Group - {Phosphoryl Group}, in which {hydrogen} is {replaced} by another {phosphoryl group}"
         },
         {
-            "termDef": "Днк-вирус - "
+            "termDef": "Dna-virus - "
         },
         {
             "termDef": "RNA virus - {Virus}, {genome} of which consists of {RNA}"
@@ -2993,10 +2993,10 @@
             "termDef": "Isolated System - {system} that does not exchange with the {environment} either {matter} or {energy}"
         },
         {
-            "termDef": "Окружающая среда - "
+            "termDef": "Environment - "
         },
         {
-            "termDef": "Энергия - "
+            "termDef": "Energy - "
         },
         {
             "termDef": "Closed System - {system} that exchanges only {energy} with the {surrounding environment}, but not {matter}"
@@ -3005,7 +3005,7 @@
             "termDef": "Open System - {system} in which there is an exchange with {environment} and {matter}, and {energy}."
         },
         {
-            "termDef": "Энтропия - "
+            "termDef": "Entropy - "
         },
         {
             "termDef": "Corticosteroids - a general collective term for a subclass of {steroid hormones} produced exclusively by the {adrenal cortex}."
@@ -3035,31 +3035,31 @@
             "termDef": "Autophagy - a natural mechanism {of the cell} that dismantles unnecessary or dysfunctional components within {the cell}."
         },
         {
-            "termDef": "R-петля - "
+            "termDef": "R-loop - "
         },
         {
-            "termDef": "Цитидин-деаминаза - "
+            "termDef": "Cytidine deaminase - "
         },
         {
-            "termDef": "РНКаза H - "
+            "termDef": "RNase H -"
         },
         {
-            "termDef": "Геликаза - "
+            "termDef": "Helicase - "
         },
         {
-            "termDef": "Сенатаксин - "
+            "termDef": "Senataxin - "
         },
         {
-            "termDef": "Топоизомер - "
+            "termDef": "Topoisomer"
         },
         {
-            "termDef": "Суперспирализация - "
+            "termDef": "Supercoiling - "
         },
         {
             "termDef": "Primary Transcript - {RNA}, formed immediately after {transcription}, before further modifications."
         },
         {
-            "termDef": "Предел Хейфлика - "
+            "termDef": "Hayflick Limit - "
         },
         {
             "termDef": "RNA Processing - a set of transformations occurring with {RNA} after {transcription}."
@@ -3101,13 +3101,13 @@
             "termDef": "Sucrose - {disaccharide}, consists of {glucose} and {fructose}"
         },
         {
-            "termDef": "Свободная энергия Гиббса - "
+            "termDef": "Gibbs Free Energy - "
         },
         {
             "termDef": "Enthalpy - a characteristic that reflects the number and type of {chemical bonds} in the {system}."
         },
         {
-            "termDef": "Абсолютная температура - "
+            "termDef": "Absolute Temperature - "
         },
         {
             "termDef": "Exergonic Reactions - are {chemical reactions} that occur without the influx of {energy} into the {system} from the {surroundings}."
@@ -3116,7 +3116,7 @@
             "termDef": "Endergonic Reactions - are {chemical reactions} that occur with the influx of {energy} into the {system} from the {surrounding environment}."
         },
         {
-            "termDef": "Материя - "
+            "termDef": "Matter - "
         },
         {
             "termDef": "Signaling Molecule - {Molecule} that {is synthesized} to transmit {signal} within {cell} or between {cells}"
@@ -3161,7 +3161,7 @@
             "termDef": "Lyophobicity - a characteristic of the ability of {substances} to repel or not interact with {molecules} of {liquid}."
         },
         {
-            "termDef": "Пангеном - "
+            "termDef": "Pangenome - "
         },
         {
             "termDef": "Transcriptome - the totality of all {transcripts}, {synthesized} by a single {cell} or group of {cells}, including {mRNA} and {non-coding RNAs}"
@@ -3170,7 +3170,7 @@
             "termDef": "Proteostasis - {Protein} {homeostasis}"
         },
         {
-            "termDef": "Кластерин - "
+            "termDef": "Clusterin - "
         },
         {
             "termDef": "Oogamy - a type of {sexual process} in which sharply differing {gametes} fuse — a large immobile female {gamete} with a small, usually motile, male {gamete}."
@@ -3203,7 +3203,7 @@
             "termDef": "Cell Line - {Line of Cells}"
         },
         {
-            "termDef": "In vitro - технология выполнения экспериментов, когда опыты проводятся «в пробирке» — вне живого {организма}"
+            "termDef": "In vitro - a technology for conducting experiments where tests are performed \"in a test tube\" - outside of a living {organism}"
         },
         {
             "termDef": "Transcript - {RNA}, formed as a result of {transcription}"
@@ -3242,7 +3242,7 @@
             "termDef": "Liquid - one of the {states of matter}. characterized by the ability to change {shape} without changing {volume}."
         },
         {
-            "termDef": "Плотность - "
+            "termDef": "Density - "
         },
         {
             "termDef": "Sorption - the absorption {by a solid body} or {liquid} of various {substances} from {the environment}"
@@ -3266,7 +3266,7 @@
             "termDef": "Heat - a quantitative measure of the mobility of {atoms}"
         },
         {
-            "termDef": "NADH - {Никотинамидадениндинуклеотид}"
+            "termDef": "NADH - {Nicotinamide adenine dinucleotide}"
         },
         {
             "termDef": "NADPH - "
@@ -3275,13 +3275,13 @@
             "termDef": "Cytidine Triphosphate - {cytosine} {nucleotide}, containing three {phosphate residues}, {precursor} in {RNA} {synthesis}"
         },
         {
-            "termDef": "Уридинтрифосфат - "
+            "termDef": "Uridine triphosphate"
         },
         {
-            "termDef": "Гуанозинтрифосфат - "
+            "termDef": "Guanosine triphosphate - "
         },
         {
-            "termDef": "Обратная связь - "
+            "termDef": "Feedback - "
         },
         {
             "termDef": "Chaperone - {protein} that interacts with partially or incorrectly folded {protein} and facilitates proper {protein folding}."
@@ -3290,7 +3290,7 @@
             "termDef": "Native Conformation - {conformation} {of a protein}, in which it is capable of performing its function"
         },
         {
-            "termDef": "Гексокиназа - "
+            "termDef": "Hexokinase - "
         },
         {
             "termDef": "Substrate - {Reagent} for {Enzyme}"
@@ -3311,7 +3311,7 @@
             "termDef": "Species - {Biological species}"
         },
         {
-            "termDef": "Аннотированный геном - "
+            "termDef": "Annotated Genome - "
         },
         {
             "termDef": "Organ - groups of {tissues} with similar functions"
@@ -3419,10 +3419,10 @@
             "termDef": "Nicotinamide - {amide} {of nicotinic acid}"
         },
         {
-            "termDef": "NAD+ NADox - {Окисленный} {NADH}"
+            "termDef": "NAD+ NADox - {Oxidized} {NADH}"
         },
         {
-            "termDef": "NADred - {Восстановленный} {NADH}"
+            "termDef": "NADred - {Reduced} {NADH}"
         },
         {
             "termDef": "Oxidation - the process of obtaining {electrons} from {a donor} by {an acceptor}"
@@ -3455,22 +3455,22 @@
             "termDef": "Microtubule-Associated Proteins - {proteins} that bind to the subunits of {microtubules} in {cells} of various types and perform multiple functions, including {stabilization of microtubules} and {destabilization of microtubules}, directing {microtubules} to specific locations within the cell, linking {microtubules} together, and mediating interactions of {microtubules} with other cellular {proteins}."
         },
         {
-            "termDef": "MAP - {Белки, ассоциированные с микротрубочками}"
+            "termDef": "MAP - {Microtubule-associated proteins}"
         },
         {
-            "termDef": "Константа равновесия - "
+            "termDef": "Equilibrium Constant - "
         },
         {
-            "termDef": "Титрование - "
+            "termDef": "Titration - "
         },
         {
             "termDef": "Polar Molecule - {molecule} that possesses {electric dipole moment}"
         },
         {
-            "termDef": "Заряд - "
+            "termDef": "Charge - "
         },
         {
-            "termDef": "Диполь - "
+            "termDef": "Dipole - "
         },
         {
             "termDef": "Cistron - a segment {DNA} responsible for the {synthesis} of a specific {protein}"
@@ -3482,13 +3482,13 @@
             "termDef": "Infection - contamination of living {organisms} {microorganisms}"
         },
         {
-            "termDef": "Энергетический уровень - "
+            "termDef": "Energy Level - "
         },
         {
             "termDef": "Electric Dipole Moment - {a vector quantity} that characterizes, along with the total {charge}, the electric properties of a system of {charged particles}."
         },
         {
-            "termDef": "Поле - "
+            "termDef": "Field - "
         },
         {
             "termDef": "Post-translational Modification - chemical modification resulting in the formation of {covalent bonds} with {protein} after its {synthesis} on the {ribosome}"
@@ -3503,7 +3503,7 @@
             "termDef": "Membrane - {bilayer}"
         },
         {
-            "termDef": "Липидный рафт - "
+            "termDef": "Lipid Raft - "
         },
         {
             "termDef": "Fibrillar Proteins - {proteins} that perform the {structural function of proteins} and have an elongated filamentous structure, in which the ratio of the long axis of the {molecule} to the short axis ranges from 80 to 150."
@@ -3512,31 +3512,31 @@
             "termDef": "Organoid - {Organelle}"
         },
         {
-            "termDef": "Осмотическое давление - "
+            "termDef": "Osmotic Pressure - "
         },
         {
-            "termDef": "Осмос - "
+            "termDef": "Osmosis - "
         },
         {
-            "termDef": "Аквапорин - "
+            "termDef": "Aquaporin - "
         },
         {
-            "termDef": "Осмолярность - "
+            "termDef": "Osmolarity - "
         },
         {
-            "termDef": "Изотонический раствор - "
+            "termDef": "Isotonic Solution - "
         },
         {
-            "termDef": "Гипертонический раствор - "
+            "termDef": "Hypertonic Solution - "
         },
         {
-            "termDef": "Гипотонический раствор - "
+            "termDef": "Hypotonic Solution - "
         },
         {
-            "termDef": "Осмотический лизис - "
+            "termDef": "Osmotic Lysis - "
         },
         {
-            "termDef": "Интерстициальная жидкость - "
+            "termDef": "Interstitial Fluid - "
         },
         {
             "termDef": "Palmitic Acid - the most common in nature {monobasic acid} {saturated fatty acid}"
@@ -3545,49 +3545,49 @@
             "termDef": "Monobasic Acid - {Acid} capable of donating 1 {proton}"
         },
         {
-            "termDef": "Тургорное давление - "
+            "termDef": "Turgor Pressure - "
         },
         {
-            "termDef": "Ион гидроксония - "
+            "termDef": "Hydronium Ion - "
         },
         {
-            "termDef": "Ионное произведение воды - "
+            "termDef": "Ion Product of Water -"
         },
         {
-            "termDef": "Ацидоз - "
+            "termDef": "Acidosis - "
         },
         {
-            "termDef": "Алкалоз - "
+            "termDef": "Alkalosis - "
         },
         {
-            "termDef": "Реакция конденсации - "
+            "termDef": "Condensation Reaction - "
         },
         {
-            "termDef": "Буфер - "
+            "termDef": "Buffer - "
         },
         {
             "termDef": "Ampholyte - {Amphoteric} {electrolyte}"
         },
         {
-            "termDef": "Нуклеофил - "
+            "termDef": "Nucleophile - "
         },
         {
-            "termDef": "N-конец - одна из сторон {пептидной цепи}, заканчивающаяся {азотом}"
+            "termDef": "N-terminus - one of the sides {peptide chain}, ending with {nitrogen}"
         },
         {
-            "termDef": "C-конец - одна из сторон {пептидной цепи}, заканчивающаяся {карбоксильной группой}"
+            "termDef": "C-terminus - one of the sides {peptide chain}, ending with {carboxyl group}"
         },
         {
-            "termDef": "Дипептид - "
+            "termDef": "Dipeptide - "
         },
         {
-            "termDef": "Трипептид - "
+            "termDef": "Tripeptide - "
         },
         {
-            "termDef": "Тетрапептид - "
+            "termDef": "Tetrapeptide - "
         },
         {
-            "termDef": "Пентапептид - "
+            "termDef": "Pentapeptide - "
         },
         {
             "termDef": "Oxytocin - {Hormone}"
@@ -3599,13 +3599,13 @@
             "termDef": "Thyrotropin - {Hormone}"
         },
         {
-            "termDef": "Мультисубъединичный белок - "
+            "termDef": "Multisubunit Protein - "
         },
         {
-            "termDef": "Олигомерный белок - "
+            "termDef": "Oligomeric Protein - "
         },
         {
-            "termDef": "Протомеры - "
+            "termDef": "Protomers - "
         },
         {
             "termDef": "Metalloproteins - {Protein} with {prosthetic group} {metal}"
@@ -3614,7 +3614,7 @@
             "termDef": "Phosphoprotein - {Protein} with {prosthetic group} {phosphate}"
         },
         {
-            "termDef": "Флавиновые нуклеотиды - "
+            "termDef": "Flavin Nucleotides - "
         },
         {
             "termDef": "Flavoproteins - {Protein} with {prosthetic group} {flavin nucleotides}"
@@ -3623,7 +3623,7 @@
             "termDef": "Primary Structure of Protein - {primary structure of the molecule} {protein}"
         },
         {
-            "termDef": "Высаливание белков - "
+            "termDef": "Precipitation of Proteins - "
         },
         {
             "termDef": "Rough Extract - {Solution}, obtained from disrupted {cells}"
@@ -3632,25 +3632,25 @@
             "termDef": "Dialysis of Proteins - a procedure in which {proteins} are separated from other {substances} in a {solution} due to their large size."
         },
         {
-            "termDef": "Колоночная хроматография - "
+            "termDef": "Column Chromatography - "
         },
         {
-            "termDef": "Электрофорез - "
+            "termDef": "Electrophoresis - "
         },
         {
-            "termDef": "Изоэлектрическая точка - "
+            "termDef": "Isoelectric Point - "
         },
         {
-            "termDef": "Изоэлектрофокусирование - "
+            "termDef": "Isoelectrofocusing - "
         },
         {
-            "termDef": "Убиквитин - "
+            "termDef": "Ubiquitin - "
         },
         {
-            "termDef": "Нативный белок - "
+            "termDef": "Native Protein - "
         },
         {
-            "termDef": "Сольватная оболочка - "
+            "termDef": "Solvation Shell - "
         },
         {
             "termDef": "Regular Secondary Structure of Protein - {Secondary Structure of Protein}"
@@ -3665,10 +3665,10 @@
             "termDef": "Beta Layer - {secondary structure of a protein}, in which several {peptide chains} are folded into pleated sheets"
         },
         {
-            "termDef": "Бета поворот - "
+            "termDef": "Beta Turn - "
         },
         {
-            "termDef": "Ангстрем - "
+            "termDef": "Angstrom - "
         },
         {
             "termDef": "Hem - a complex {iron} and {protoporphyrin}"
@@ -3677,22 +3677,22 @@
             "termDef": "Iron - {Chemical element} with {atomic number} 26"
         },
         {
-            "termDef": "Супервторичная структура белка - "
+            "termDef": "Supersecondary Structure of Protein - "
         },
         {
-            "termDef": "Белковый мотив - "
+            "termDef": "Protein Motif - "
         },
         {
-            "termDef": "B-a-b петля - "
+            "termDef": "B-a-b loop - "
         },
         {
-            "termDef": "B-бочонок - "
+            "termDef": "B-barrel - "
         },
         {
             "termDef": "Domain - a part of {polypeptide chain} that is stable regardless of the rest of the chain or can move relative to the whole {protein} as an independent unit."
         },
         {
-            "termDef": "Вид белковой структуры - "
+            "termDef": "Type of Protein Structure - "
         },
         {
             "termDef": "Fully Alpha - {type of protein structure}"
@@ -3722,19 +3722,19 @@
             "termDef": "Protein Database - database {proteins}"
         },
         {
-            "termDef": "Structural classification of proteins - {База данных белков}"
+            "termDef": "Structural Classification of Proteins - {Protein Database}"
         },
         {
             "termDef": "SCOP - {Structural classification of proteins}"
         },
         {
-            "termDef": "Protein data bank - {база данных белков}"
+            "termDef": "Protein Data Bank - {protein database}"
         },
         {
             "termDef": "PDB - {protein data bank}"
         },
         {
-            "termDef": "Class, architecture, topology and homologues superfamily - {база данных белков}"
+            "termDef": "Class, architecture, topology and homologues superfamily - {protein database}"
         },
         {
             "termDef": "CATH - {Class, architecture, topology and homologues superfamily}"
@@ -3743,22 +3743,22 @@
             "termDef": "Protein Database Tool - a tool for working with {protein database}"
         },
         {
-            "termDef": "Vector alignment search tool - {Инструмент для работы с базой данных белков}"
+            "termDef": "Vector Alignment Search Tool - {Tool for working with protein databases}"
         },
         {
             "termDef": "VAST - {Vector alignment search tool}"
         },
         {
-            "termDef": "Fold classification based on structure structure alignment proteins - {Инструмент для работы с базой данных белков}"
+            "termDef": "Fold Classification Based on Structure Structure Alignment Proteins - {A tool for working with protein databases}"
         },
         {
             "termDef": "FSSP - {Fold classification based on structure structure alignment proteins}"
         },
         {
-            "termDef": "Мультимер - "
+            "termDef": "Multimer - "
         },
         {
-            "termDef": "VIPER - база вирусологии"
+            "termDef": "VIPER - virus information and pathogenicity database"
         },
         {
             "termDef": "Denaturation - disruption of {native conformation} of {protein}, leading to loss of {protein function}"
@@ -3767,19 +3767,19 @@
             "termDef": "Renaturation - the process that is opposite to {denaturation} {of protein}"
         },
         {
-            "termDef": "Critical Assessment of structural prediction - соревонования по предсказанию {фолдинга белка}"
+            "termDef": "Critical Assessment of Structural Prediction - competitions on predicting {protein folding}"
         },
         {
             "termDef": "CASP - {Critical Assessment of structural prediction}"
         },
         {
-            "termDef": "Молекулярные шапероны - "
+            "termDef": "Molecular Chaperones - "
         },
         {
-            "termDef": "Heat shock proteins - {белки теплового шока}, препятствующие {денатурации} {белков} или {фолдингу} {экспортных белков}"
+            "termDef": "Heat Shock Proteins - {heat shock proteins}, preventing {denaturation} of {proteins} or {folding} of {exported proteins}"
         },
         {
-            "termDef": "Hsp70 - {Heat shock proteins} с {молекулярной массой} 70000"
+            "termDef": "Hsp70 - {Heat shock proteins} with {molecular weight} 70000"
         },
         {
             "termDef": "Heat Shock Protein - {protein}, synthesized in response to {heat shock} and preventing {denaturation} of other {proteins}."
@@ -3791,7 +3791,7 @@
             "termDef": "Chaperonins - {multimeric protein complexes} that facilitate {protein folding}"
         },
         {
-            "termDef": "Амилоидные волокна - "
+            "termDef": "Amyloid Fibers - "
         },
         {
             "termDef": "Binding Center - a site on a {molecule} {protein} that is suitable for a {ligand} in terms of size, shape, {charge}, and {hydrophilicity}."
@@ -3803,7 +3803,7 @@
             "termDef": "Catalytic Center - {active center}"
         },
         {
-            "termDef": "Протопорфирин - "
+            "termDef": "Protoporphyrin - "
         },
         {
             "termDef": "Globins - a family of {proteins} that have 8 {alpha helices} and are capable of reversibly binding to {oxygen}."
@@ -3854,34 +3854,34 @@
             "termDef": "Transaminase - {aminotransferase}"
         },
         {
-            "termDef": "Метилтрансфераза - "
+            "termDef": "Methyltransferase - "
         },
         {
-            "termDef": "Эпигенетика - "
+            "termDef": "Epigenetics - "
         },
         {
-            "termDef": "Внутриклеточный мусор - "
+            "termDef": "Intracellular debris - "
         },
         {
-            "termDef": "Липофусцин - "
+            "termDef": "Lipofuscin - "
         },
         {
-            "termDef": "Бета-галактозидаза - "
+            "termDef": "Beta-galactosidase - "
         },
         {
-            "termDef": "Сенесцентно ассоциированный секреторный фенотип - "
+            "termDef": "Senescence-associated secretory phenotype - "
         },
         {
-            "termDef": "Фактор роста - "
+            "termDef": "Growth Factor - "
         },
         {
-            "termDef": "Металлопротеазы - "
+            "termDef": "Metalloproteinases - "
         },
         {
-            "termDef": "Провоспалительные белки - "
+            "termDef": "Pro-inflammatory Proteins - "
         },
         {
-            "termDef": "Протеогликаны - "
+            "termDef": "Proteoglycans - "
         },
         {
             "termDef": "Hyaluronic Acid - {proteoglycan}"
@@ -3896,19 +3896,19 @@
             "termDef": "Heparan Sulfate - {proteoglycan}"
         },
         {
-            "termDef": "Фосфат кальция - "
+            "termDef": "Calcium Phosphate - "
         },
         {
-            "termDef": "Д-пантенол - "
+            "termDef": "D-Panthenol"
         },
         {
-            "termDef": "Лактобактерия - "
+            "termDef": "Lactobacillus - "
         },
         {
-            "termDef": "Firmicutes - {лактобактерия}"
+            "termDef": "Firmicutes - {lactobacillus}"
         },
         {
-            "termDef": "Бифидобактерия - "
+            "termDef": "Bifidobacterium - "
         },
         {
             "termDef": "Bacteroidetes - "
@@ -3926,46 +3926,46 @@
             "termDef": "Acetate - {salt} and {ester} {of acetic acid}"
         },
         {
-            "termDef": "Пропионат - "
+            "termDef": "Propionate - "
         },
         {
-            "termDef": "Бутират - "
+            "termDef": "Butyrate - "
         },
         {
-            "termDef": "Ноадреналин - "
+            "termDef": "Norepinephrine - "
         },
         {
-            "termDef": "Серотонин - "
+            "termDef": "Serotonin - "
         },
         {
-            "termDef": "Нейромедиатор - "
+            "termDef": "Neurotransmitter - "
         },
         {
-            "termDef": "Бензодиазепин - "
+            "termDef": "Benzodiazepine - "
         },
         {
-            "termDef": "Макрофаг - "
+            "termDef": "Macrophage - "
         },
         {
-            "termDef": "Гранулоцит - "
+            "termDef": "Granulocyte - "
         },
         {
-            "termDef": "Базофил - "
+            "termDef": "Basophil - "
         },
         {
-            "termDef": "Нейтрофил - "
+            "termDef": "Neutrophil - "
         },
         {
-            "termDef": "Эозинофил - "
+            "termDef": "Eosinophil - "
         },
         {
-            "termDef": "Тимус - "
+            "termDef": "Thymus - "
         },
         {
-            "termDef": "Главный комплекс гистосовместимости - "
+            "termDef": "Major Histocompatibility Complex - "
         },
         {
-            "termDef": "Анергия - "
+            "termDef": "Anergy - "
         },
         {
             "termDef": "Adenosine Monophosphate - {ester} {of phosphoric acid} and {adenosine}"
@@ -3989,7 +3989,7 @@
             "termDef": "Acetylcholine - {choline}, in which the {hydroxyl group} is replaced by {acetate}"
         },
         {
-            "termDef": "N-Ацетилглюкозамин - N-{ацетил} производное {глюкозамина}"
+            "termDef": "N-Acetylglucosamine - N-{acetyl} derivative {of glucosamine}"
         },
         {
             "termDef": "Aminosugars - derivatives of {carbohydrates} formed by the substitution of one or more {hydroxyl groups} with an {amino group}"
@@ -4001,25 +4001,25 @@
             "termDef": "Acetylation - {chemical reaction} of the addition of {acetate}"
         },
         {
-            "termDef": "N-Ацетилмурамовая кислота - {простой эфир} {N-ацетилглюкозамина} и {молочной кислоты}"
+            "termDef": "N-Acetylmuramic Acid - {simple ether} {N-acetylglucosamine} and {lactic acid}"
         },
         {
-            "termDef": "Супероксиддисмутаза - "
+            "termDef": "Superoxide Dismutase - "
         },
         {
-            "termDef": "Каталаза - "
+            "termDef": "Catalase - "
         },
         {
-            "termDef": "Тихоходка - "
+            "termDef": "Tardigrade - "
         },
         {
-            "termDef": "Ангидробиоз - "
+            "termDef": "Anhydrobiosis - "
         },
         {
-            "termDef": "Трегалоза - "
+            "termDef": "Trehalose - "
         },
         {
-            "termDef": "Делетериом - "
+            "termDef": "Deterium - "
         },
         {
             "termDef": "GWAS - "
@@ -4043,7 +4043,7 @@
             "termDef": "Gene Knockdown - a technique that allows for the reduction of {expression} of one or several {genes} by altering the corresponding sequence of {nucleotides}, or by using a short {oligonucleotide} that is {complementary} to the corresponding {mRNA} molecule."
         },
         {
-            "termDef": "Argonaute белки - группа {белков}, которые являются каталитическими компонентами белкового комплекса, обеспечивающего {сайленсинг} {генов} по механизму {РНК-интерференции}"
+            "termDef": "Argonaute Proteins - a group of {proteins} that are catalytic components of a protein complex that provides {gene} {silencing} through the {RNA interference} mechanism."
         },
         {
             "termDef": "Nuclease - a type of {enzyme} that {hydrolyzes} the {phosphodiester} bond between the subunits of {nucleic acids}."
@@ -4073,13 +4073,13 @@
             "termDef": "Phosphoric Acids - a group of {acids} that contain {phosphorus}"
         },
         {
-            "termDef": "Концентрация - "
+            "termDef": "Concentration - "
         },
         {
             "termDef": "Complement System - a complex of protective {proteins}, constantly present in {blood}"
         },
         {
-            "termDef": "Веретено деления - "
+            "termDef": "Spindle of Division - "
         },
         {
             "termDef": "Potassium - {chemical element} with {atomic number} 19"
