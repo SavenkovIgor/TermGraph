@@ -4419,7 +4419,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Signaling Molecule - {Molecule} that {is synthesized} to transmit {signal} within {cell} or between {cells}"
+            "termDef": "Signaling Molecule - {Molecule} that is {synthesized} to transmit {signal} within {cell} or between {cells}"
         },
         {
             "area": "chem",
@@ -4595,7 +4595,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Metabolon - a set of {enzymes} that catalyze sequential stages of a {metabolic pathway} and structural elements of the cell. The metabolon includes not only a complex of {enzymes} performing a specific metabolic function but also a supporting site of the cellular structure (site of the {membrane}, {cytoskeleton}, etc.) on which the complex {is adsorbed}"
+            "termDef": "Metabolon - a set of {enzymes} that catalyze sequential stages of a {metabolic pathway} and structural elements of the cell. The metabolon includes not only a complex of {enzymes} performing a specific metabolic function but also a supporting site of the cellular structure (site of the {membrane}, {cytoskeleton}, etc.) on which the complex is {adsorbed}"
         },
         {
             "area": "chem",
