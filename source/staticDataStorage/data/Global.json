@@ -404,6 +404,5306 @@
         {
             "area": "chem",
             "termDef": "Energy level - {quantized property} of an {atom}, that defines the {energy} an {electron} can have"
+        },
+        {
+            "area": "chem",
+            "termDef": "Protoplast - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Illuminator - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Phase-contrast method - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Light Field Method - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Dark Field Method - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Polarization Microscopy - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Interferometric Microscopy - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Fluorescence Microscopy - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Fractionation Method - {analysis method}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Radiography Method - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Vacuole - {compartment}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Eukaryotes - {organisms} composed of {eukaryotic cells}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Plant Cell - {eukaryotic cell}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Animal Cell - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Karyoplasm - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Universal Membrane - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Glycocalyx - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Surface Proteins - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Golgi Complex - {membrane organelle} of {eukaryotic cell} designed for the secretion of substances from the {cell}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Lysis - dissolution of {cells} and their {systems}, including {microorganisms}, under the influence of various agents, such as {enzymes}, {bacteriolysins}, {bacteriophages}, and {antibiotics}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Primary Lysosomes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Secondary Lysosomes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Residual Bodies - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Autophagosomes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Krebs Cycle - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Electron Transport Chain - "
+        },
+        {
+            "area": "chem",
+            "termDef": "ATP Synthesis - {synthesis} of {ATP}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Chloroplasts - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Chromoplasts - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Leucoplasts - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Primary Cell Wall - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Secondary Cell Wall - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Apoplast - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Symplast - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Centrosphere - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Polyribosome - several {ribosomes} simultaneously {translating} a single {mRNA} molecule."
+        },
+        {
+            "area": "chem",
+            "termDef": "Central Axis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Diffusion - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Parmeases - "
+        },
+        {
+            "area": "chem",
+            "termDef": "ATP Synthase - {adenosine triphosphatase}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Metabolic Cycle - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Catabolism - a part of {metabolism} that occurs with the release of {energy}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Energy Metabolism - {catabolism} and {anabolism}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Plastic Metabolism - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Nuclear Deformation - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Karyomers - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Multicore - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Nuclear-Free Status - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Nuclear Inclusions - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Hyperplasia - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Atrophy - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Autolysis - self-dissolution of dead {cells} and {tissues} under the action of their own {hydrolytic enzymes}, which degrade structural {molecules}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cellular Atypism - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Dystrophy - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Apoptosis - a regulated process of programmed {cell} {death}, resulting in the breakdown of the {cell} into individual components enclosed by the {plasma membrane}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Necrosis - a pathological process characterized by local {death} of {tissue} in a living {organism} due to some form of damage."
+        },
+        {
+            "area": "chem",
+            "termDef": "Nucleoplasm - the semi-fluid content of the {nucleus}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Chromatin - {nucleoprotein} that forms the basis of {chromosomes}. It consists of {DNA}, {RNA}, and {proteins} (primarily {histones})."
+        },
+        {
+            "area": "chem",
+            "termDef": "Karyotype - the set of characteristics of the complete set of {chromosomes} specific to the {cells} of a given {biological species}, {organism}, or {cell line}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Chromatids - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Centromere - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Kinetochore - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Telomere - the terminal segment of {chromosomes}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Metacentric Chromosomes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Submetacentric Chromosomes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Acrocentric Chromosomes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Isochromosomes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Heterochromatin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Euchromatin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Polytene Chromosomes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Brush-type Chromosomes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "B-chromosomes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cell Cycle - the period of existence of a {cell} from the moment of its formation by {cell division} from the mother cell to its own division or complete disappearance."
+        },
+        {
+            "area": "chem",
+            "termDef": "Presynthetic Period - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Synthetic Period - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Post-synthetic period - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Interphase - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Prophase - the stage of {mitosis}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Metaphase - the stage of {mitosis}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Anaphase - the stage of {mitosis}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Telophase - the stage of {mitosis}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cytokinesis - the division of the body of an {eukaryotic cell} during the process of {cell division}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Endomitosis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "K-mitosis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Amitosis - simple {cell} {nucleus} division into two (without {spindle apparatus} and uniform distribution of {chromosomes})."
+        },
+        {
+            "area": "chem",
+            "termDef": "Reduction Division - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Equational Division - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Homologous Synapsis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Crossover - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Homologous Chromosomes - a pair of {chromosomes} with the same set of {genes} and similar {morphology} in the {karyotype} of a {diploid} {organism}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Non-homologous chromosomes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Univalents - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Bivalents - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Trivalent - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Quadrivalents - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Aneuploidy - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Tetrads - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Triads - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Autopolyploids - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Allopolyploids - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Aneuploidies - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Monosomic - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Nullisomic - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Trisomic - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Tetrasomic - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Trisomic Double - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Fundamental Number of Chromosomes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Haploidy - the presence of a single {haploid} set of {chromosomes}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Somatic chromosome number - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Colchicine - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Colcemid - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Acenaphthene - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Chromosomal Mutations - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Chromatid Mutations - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Shortages - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Deletion - a type of {chromosomal rearrangement} in which a segment of a {chromosome} is lost."
+        },
+        {
+            "area": "chem",
+            "termDef": "Deficiencies - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Duplications - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Amplifications - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Inversion - a {chromosomal rearrangement} in which a segment of {genes} is reversed in orientation."
+        },
+        {
+            "area": "chem",
+            "termDef": "Paracentric Inversion - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Pericentric Inversion - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Translocation - a type of {mutation} in which a segment of a {chromosome} is transferred to a {non-homologous chromosome}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Transposition - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Archesporium - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Microsporocytes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Tapetum - a layer of the {vascular tunic} of the {eye} in {vertebrates}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Microsporogenesis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Microgametogenesis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Monocellular Pollen Grain - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Bicellular Pollen Grain - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Tri-nucleate pollen grain - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Successive Type of Notebook Formation - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Simultaneous Type of Notebook Formation - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Intermediate Type of Notebooks - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Fertile Pollen Grains - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Sterile Pollen Grains - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Seedling - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Micropyle - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Integuments - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Chalaza - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Germinal Sac - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Sporogenous Tissue - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Macrosparogenesis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Macrogematogenesis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Monosporic Embryo Sac - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Bispore embryonic sac - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Tetrasporic Embryo Sac - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Spermatogenesis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Oogenesis - {gametogenesis} of the female {germ cell}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Spermatocytes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Oocyte - the female {gamete} involved in {reproduction}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Spermatids - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Polar Bodies - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Reduction Bodies - {polar bodies}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Spermiogenesis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Autosomes - {chromosomes} that are identical in {males} and {females} of the same {species}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Egg Shell - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cortical Granules - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Oligodendroglia - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Mitotoxins - {toxins} produced by {mold fungi}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Exclusion Zone Water - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cytokines - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Biophotons and Mitochondria - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Vasoactive Intestinal Peptide - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Eicosanoids - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cell - the structural and functional elementary unit of the structure and {vital activity} of all organisms. It is characterized by its own {genome}, {metabolism}, and {homeostasis}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cytoplasm - the semi-fluid content of the {cell}, its internal environment, excluding the nucleus and vacuole, bounded by the {plasma membrane}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Maceration of tissues - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Tissue - a collection of {cells} and {extracellular matrix} united by common origin, structure, and functions performed."
+        },
+        {
+            "area": "chem",
+            "termDef": "Protoplasm - {cytoplasm} and {nucleus}. The term is considered outdated."
+        },
+        {
+            "area": "chem",
+            "termDef": "Apochromatic Objective - a type of {objective}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Immersion Objective - a type of {objective}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Phase-Contrast - a type of {microscopy}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Interference - a type of {microscopy}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Bright Field - a type of {microscopy}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Dark Field - a type of {microscopy}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Polarization - a type of {microscopy}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Fluorescence - a type of {microscopy}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Electron Microscopy - a type of {microscopy}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Scanning Electron Microscopy - a type of {microscopy}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Freeze-Fracture Method - {analysis method}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Methods of Analysis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Microscopy - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Centrifugation - {analysis method}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cell Destruction Method - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Mechanically - {method of cell disruption}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Chemically - {method of cell disruption}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Ultrasonically - {method of cell disruption}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Microscope - an instrument for performing {microscopy}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Optical System of the Microscope - a part of the {microscope}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Objective - a part of the {optical system of the microscope}. A system of lenses directed at the object of study."
+        },
+        {
+            "area": "chem",
+            "termDef": "Ocular - a part of the {optical system of the microscope}. Located on the side of the observer."
+        },
+        {
+            "area": "chem",
+            "termDef": "Diaphragm - a part of the {optical system of the microscope} that restricts the flow of light."
+        },
+        {
+            "area": "chem",
+            "termDef": "Condenser - a part of the {optical system of the microscope} that focuses the beam of light onto the specimen."
+        },
+        {
+            "area": "chem",
+            "termDef": "Histological Preparation - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Endocytosis - the process of capturing material by the {cell} from the external environment."
+        },
+        {
+            "area": "chem",
+            "termDef": "Oligosaccharide - {biopolymers} containing no more than 10 {monosaccharides}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Imprint - a type of {histological specimen}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Film - a type of {histological specimen}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Histological Stain - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Acidic Stain - {histological stain}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cell Membrane - an elastic molecular structure composed of {proteins} and {lipids} in the form of a {bilayer}, surrounding the {cell}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Plasmalemma - {cell membrane}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Symplasts - cells united by a single {plasma membrane} that contain more than one {nucleus}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Syncytium - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Bilayer - a double molecular layer formed by {polar molecules} of {lipids} in an {aqueous} environment."
+        },
+        {
+            "area": "chem",
+            "termDef": "Amphiphilicity - the property of {molecules} of substances that possess both {lyophilic} and {lyophobic} characteristics simultaneously."
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydrophobicity - {lyophobicity} to {water}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydrophilicity - {lyophilicity} to {water}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Sphingolipids - {lipids}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Glycolipids - {lipids}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Steroid - a {substance} with high {biological activity} and a {carbon skeleton} of {gonane}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Integral Proteins - {proteins} that are embedded throughout the {bilayer}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Peripheral Proteins - {proteins} that are embedded only in one of the layers of the {bilayer}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Glycoproteins - {proteins} with a {prosthetic group} of {sugars}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Lateral Mobility - {type of mobility of bilayer components}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Rotation of Membrane Proteins - {type of mobility of bilayer components}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Types of Mobility of Bilayer Components - a classification of the movement variants of components in the {bilayer}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Plasmalemma thickness 8-11 nm - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cytoskeleton - the cellular framework composed of {microtubules}, located in the {cytoplasm} of a living {cell}. A {permanent structure} whose functions include maintaining and adapting the shape of the {cell} to external influences, {exocytosis} and {endocytosis}, facilitating the movement of the {cell} as a whole, active {intracellular transport}, and {cell division}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Extracellular Matrix - the substance located between {cells}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Adhesive Proteins - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Ionotropic Receptor - {receptor}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Metabotropic Receptor - {receptor}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Globular Protein - a {protein} in which the {polypeptide chains} are tightly folded into globules (compact spherical {tertiary structures})."
+        },
+        {
+            "area": "chem",
+            "termDef": "Microfilaments - threads composed of {actin} that permeate the {hyaloplasm}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Adhesive Junction - {intercellular contacts} associated with {microfilaments} that provide integrity and mechanical strength to {tissue}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Intercellular Junction - a molecular complex that provides connection between adjacent {cells} or between a cell and the {extracellular matrix} (ECM)."
+        },
+        {
+            "area": "chem",
+            "termDef": "Integrins - {proteins} that provide {adhesive junction}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Selectins - {proteins} that provide {adhesive junction}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cadherins - {proteins} that provide {adhesive junction}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Immunoglobulins - {proteins} that provide {adhesive junction}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Endothelial Cells - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Exocytosis - the process of releasing internal material from the {cell} into the external environment."
+        },
+        {
+            "area": "chem",
+            "termDef": "Transmembrane Potential - the difference in {electrical potentials} present on the inner and outer sides of the {membrane}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Na+ Pump - {Na+ channel}."
+        },
+        {
+            "area": "chem",
+            "termDef": "K+ Pump - {K+ channel}."
+        },
+        {
+            "area": "chem",
+            "termDef": "K+ Channel - {potassium} {translocase}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Na+, K+ Pump - {protein}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Na+ Channel - {sodium} {translocase}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Transmembrane Transport - the transfer of a substance across the {cell membrane}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Molecular Transport - {transmembrane transport}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Multimolecular Transport - {transmembrane transport}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Diffusion Transport - a variant of {molecular transport} across the {bilayer}, occurring via {diffusion} without the involvement of any specialized mechanisms."
+        },
+        {
+            "area": "chem",
+            "termDef": "Translocase - an {enzyme} that facilitates {facilitated diffusion} of {ions} or {molecules} across {membranes} or their separation within {membranes}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Facilitated Diffusion - {molecular transport} across the {bilayer} with the assistance of {proteins}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Active Transport - a variant of {molecular transport} utilizing a specialized transport system. It most often requires energy for its operation in the form of {ATP}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Pinocytosis - {endocytosis} of liquid components."
+        },
+        {
+            "area": "chem",
+            "termDef": "Phagocytosis - {endocytosis} of solid components."
+        },
+        {
+            "area": "chem",
+            "termDef": "Receptor-Mediated Endocytosis - {endocytosis} in which {membrane} {receptors} bind to {molecules} of the substance being absorbed, or to {molecules} present on the surface of the {phagocytosed} object — {ligands}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Secretion - {exocytosis} of liquid components."
+        },
+        {
+            "area": "chem",
+            "termDef": "Excretion - {exocytosis} of solid components."
+        },
+        {
+            "area": "chem",
+            "termDef": "Transcytosis - the intermediate transport of substances across a cell. It combines {endocytosis} and {exocytosis}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Recycling - {transcytosis}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Clathrin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Simple Type Contacts - a type of {intercellular junctions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Interdigitation - a type of {intercellular junctions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Adherens Type Contacts - a type of {intercellular junctions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Desmosome - {adherens type contact}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Adhesive Belt - {adherens type contact}. It is a contact that encircles the cell. Composed of {vinculin}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Tight Junctions - a type of {intercellular junctions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Tight Junction - {tight contact}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Gap Junction - a type of {intercellular junctions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Gap Junctions - {communication type contact}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Nexus - {gap junction}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Filament - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Desmoglein - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Desmoplakin - a {protein} that makes up {desmosomes}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cadherin - {adhesive glycoprotein}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Integrin - {adhesive glycoprotein}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Adhesive Glycoprotein - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Vinculin - {protein}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Connexon - a paired {integral protein} involved in the formation of a {gap junction}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Apical Surface - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Microvilli - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Oxyphilic Rim - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Axoneme - a structure within a {flagellum} that aids in its movement. A derivative of {microtubules}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Hyaloplasm - a component of the {cytoplasm}. An unstructured {aqueous solution} of various substances within the cell."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cytosol - {hyaloplasm}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Universal Organelles - {organelles} that are found in almost all {cells}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Specialized Organelles - a type of {organelles} that are present only in the {cells} of a specific type and facilitate the execution of their specialized functions."
+        },
+        {
+            "area": "chem",
+            "termDef": "Non-Membrane Organelles - {organelles} that are not separated by a membrane from the {hyaloplasm}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Inclusions - non-essential components of the cell's {cytoplasm}. They arise and disappear depending on the state of the cell and the organism."
+        },
+        {
+            "area": "chem",
+            "termDef": "Reserve Inclusions - {inclusions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Trophic Inclusions - {reserve inclusions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Transport Inclusions - {inclusions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Secretory Inclusions - {transport inclusions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Light-Protective Inclusions - {inclusions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Ballast Inclusions - {inclusions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Pigment Inclusions - {inclusions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Non-Pigment Inclusions - {inclusions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Exogenous Inclusions - {inclusions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Endogenous Inclusions - {inclusions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Hemosiderin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Glycogen - a {polysaccharide} formed from {glucose} residues."
+        },
+        {
+            "area": "chem",
+            "termDef": "Nucleus - a compartment of the {cell} surrounded by two membranes, containing {genomic DNA}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Nucleolus - a {compartment} within the {nucleus}, present in all {eukaryotic cells} without exception. It is a complex of {proteins} and {nucleoproteins} that forms around regions of {DNA} containing {rRNA} genes. The primary function of the nucleolus is the formation of {ribosomes}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Nuclear Envelope - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Vacuolar System - a system that includes all {membrane organelles}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Endoplasmic Reticulum - a part of the {vacuolar system}. A collection of flat {membrane cisternae}, {vacuoles}, and tubules."
+        },
+        {
+            "area": "chem",
+            "termDef": "Endosome - a part of the {endoplasmic reticulum}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Lysosome - a part of the {endoplasmic reticulum}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Mitochondrion - {organelle}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Crista - an invagination of the {cell membrane}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Granular Organelles - {non-membrane organelles}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Fibrillar Organelles - {non-membrane organelles}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Contractile Organelles - {fibrillar organelles}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Myofibrils - {contractile organelles}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Myofilaments - {contractile organelles}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cytoskeletal Organelles - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Somatic Cell - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cytoskeletal Elements - {organelles}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Intermediate Filaments - thicker threads than {microfilaments} that permeate the {hyaloplasm}. Their protein composition varies in cells of different {tissues}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Microtubules - hollow tubes within the {cell} made of the {protein} tubulin."
+        },
+        {
+            "area": "chem",
+            "termDef": "Radial Orientation - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cytoskeleton of Microvilli - a derivative structure formed from numerous {microfilaments}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Centriole - a hollow cylinder formed by {microtubules}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Diplosome - a pair of {centrioles}. It is part of the {cell center}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cell Center - {universal organelle}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cilium - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Flagellum - a surface structure present in many {prokaryotic cells} and {eukaryotic cells} that serves for their movement in a {liquid medium} or across the surface of {solid bodies}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Granular Endoplasmic Reticulum - {endoplasmic reticulum} that is covered with {ribosomes} on the side of the {hyaloplasm}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Agranular Endoplasmic Reticulum - {endoplasmic reticulum}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Compartment - a principle postulating that {chemical reactions} in the {cell} are localized in specific sections, separated from each other by a {bilayer}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Export Protein - {proteins} that will be transported outside the {cell} after {synthesis}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Signal Sequence - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Translation - the process of {synthesis} of {protein} from {amino acids} based on {mRNA}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Free Ribosome - a {ribosome} not associated with the {granular endoplasmic reticulum}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Membrane-Bound Ribosome - {ribosome}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Docking Protein - {protein}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Protein Folding - the process of folding the {peptide chain} of a {protein} into its {native conformation}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Glycoprotein - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Oligosaccharide Chain - {oligosaccharide}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Dolichol phosphate - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Basophilia of the Cytoplasm - "
+        },
+        {
+            "area": "chem",
+            "termDef": "rRNA - {ribosomal RNA}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Dictyosome - a collection of 5-10 flat membrane cisternae lying parallel to each other. It is part of the {Golgi complex}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Proximal Side of the Dictyosome - the side of the {dictyosome} facing the {endoplasmic reticulum}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Multipotent Stem Cells - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Glial Cells - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Neuroplasticity - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Spindle-shaped Cells - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Basal Dendrite - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Docosahexaenoic Acid - an {essential fatty acid} of the {omega-3} class."
+        },
+        {
+            "area": "chem",
+            "termDef": "Aerobic Load - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Chyme - the {liquid} or semi-liquid content of the {stomach} or {intestine}, consisting of partially digested {food}, {gastric juice}, {intestinal juice}, {secretions} from glands, {bile}, {shed} {epithelial cells}, and {microorganisms}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Lactobacilli - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Bifidobacteria - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Agar-Agar - a {nutrient medium} for {bacteria}, a mixture of {polysaccharides} agarose and agarpectin."
+        },
+        {
+            "area": "chem",
+            "termDef": "E. Coli - a species of {gram-negative bacteria}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Periplasm - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Siderophores - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Permease - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Operon - a functional unit of {genome} in {prokaryotes}, consisting of {cistrons} that code for proteins working together or sequentially and are grouped under one (or several) {promoters}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Transposons - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Coagulant - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Hypodynamia - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cerebellum - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Frontal Lobe - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Occipital Lobe - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Temporal Lobe of the Brain - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Sublingually - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Pulmonary Hypertension - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Arterial Pressure - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Metabolic Syndrome - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Collateral Coronary Vessels - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Peripheral Artery Atherosclerosis (PAA) - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Peristalsis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Pineal Gland - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Glutamate - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Ionotropic - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Metabotropic - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Androgens - the name of a group of {steroid} {sex hormones}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Glycation - a reaction between {carbohydrates} ({glucose}, {fructose}, etc.) and free {amino groups} of {proteins}, {lipids}, and {nucleic acids} in a living organism, occurring without the participation of {enzymes}. A specific case of {Maillard reaction}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Methylation - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Synapse - {Contact of a communicative type}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Dendrite - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Dendritic Spine - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Soma (neuron body) - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Axon - a process of {neuron} through which {nerve impulses} travel from the cell body to the innervated {organs} and other {nerve cells}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Dopamine - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Dopamine Receptor D2 - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Eicosapentaenoic Acid - {polyunsaturated fatty acid} of the {omega-3} class"
+        },
+        {
+            "area": "chem",
+            "termDef": "Omega 3 - a family of {polyunsaturated fatty acids} that have a {double bond} at the omega-3 position, that is, after the third {atom} of {carbon}, counting from the fatty acid."
+        },
+        {
+            "area": "chem",
+            "termDef": "Glycemic Index - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Vinpocetine - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Phosphatidylserine - {glycerophospholipid}, a derivative of {phosphatidic acid}, in which the {hydrogen} {atom} is replaced by a {serine} residue."
+        },
+        {
+            "area": "chem",
+            "termDef": "Acetyl L-Carnitine - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Ginkgo Biloba - {gymnosperm relict plant}, often referred to as a living fossil"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phosphatidylcholine - {glycerophospholipid} that contains {choline}"
+        },
+        {
+            "area": "chem",
+            "termDef": "S-adenosylmethionine - "
+        },
+        {
+            "area": "chem",
+            "termDef": "GABA - {Gamma-aminobutyric acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Melatonin - {Hormone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Cholesterol - {Organic substance}, {carbon skeleton} {sterane}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Low-Density Lipoprotein - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Sex Hormones - {hormones} that ensure the formation of {sex} characteristics in {organisms}."
+        },
+        {
+            "area": "chem",
+            "termDef": "High-Density Lipoprotein - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Rna Interference - process of {silencing} a {gene} at the stages of {transcription}, {translation}, {deadenylation}, or degradation of {mRNA} using small {RNA} molecules."
+        },
+        {
+            "area": "chem",
+            "termDef": "Triglycerides - {Fats}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Phytosterols - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Policosanol - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Vitamin E - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Coenzyme Q10 - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Ubiquinol - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Magnesium - {chemical element} with an {atomic number} of 12."
+        },
+        {
+            "area": "chem",
+            "termDef": "L-Arginine - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Peptide - group of {organic compounds} whose {molecules} are composed of 2-49 residues of {amino acids} linked by {peptide bonds}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Lipoprotein - {Protein} with a {lipid} {prosthetic group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Amylase - {Enzyme}"
+        },
+        {
+            "area": "chem",
+            "termDef": "starch carbohydrates - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Simple Sugars (Glucose and Maltose) - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Enzyme - a group of {molecules} {proteins} or {RNA} that are {catalysts}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Pepsin - {protease} formed from its precursor {pepsinogen}, produced by the chief {cells} of the {gastric mucosa}, and performs the cleavage of {proteins} {in food} into {peptides}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Internal Factor - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Vitamin B12 - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Starch - a mixture of {polysaccharides} {amylose} and {amylopectin}. {Monomer} - {alpha glucose}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Fiber - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Escherichia Coli - {E.Coli}"
+        },
+        {
+            "area": "chem",
+            "termDef": "fructooligosaccharides - "
+        },
+        {
+            "area": "chem",
+            "termDef": "bioflavonoids - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Garlic - {perennial plant}, {herbaceous plant}; {species} {of} {the genus} {Allium} {of the family} {Amaryllidaceae} ({Amaryllidaceae}) {subfamily} {Allioideae}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Aloe Vera - {herbaceous plant}, {succulent}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chymotrypsin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Aldosterone - "
+        },
+        {
+            "area": "chem",
+            "termDef": "cholecystokinin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cortisol - {glucocorticoid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Insulin - {peptide} {hormone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Dehydroepiandrosterone - {Steroid hormone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Growth Hormone - {peptide} {hormone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Estrogen - a general collective term for a subclass of {steroid hormones}, {female sex hormones}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Progesterone - {hormone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Testosterone - {hormone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "T3 (triiodothyronine) - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Thyroxine - {thyroid hormone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hormone - {Biologically active} {substance} that enters the {blood}, binds to the receptors of {target cells}, and regulates {metabolism}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Bioidentical Hormones - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Nattokinases - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Amylose - {polysaccharide}, formed by linear or slightly branched chains of {alpha-glucose} residues, connected by {glycosidic bonds} between the 1st and 4th {carbon} atoms: α-(1→4)"
+        },
+        {
+            "area": "chem",
+            "termDef": "Oligosaccharides - {Carbohydrates} that contain from 2 to 10 {monosaccharide} residues."
+        },
+        {
+            "area": "chem",
+            "termDef": "Protein - {organic substance} consisting of residues of 50+ {amino acids} linked in a chain by {peptide bonds}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Estradiol - "
+        },
+        {
+            "area": "chem",
+            "termDef": "TSH - {Thyroid-stimulating hormone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Dhea - {Dehydroepiandrosterone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Prostaglandins - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Omega 6 - a family of {polyunsaturated fatty acids} that have a {double bond} in the omega-6 position, that is, between the sixth and seventh {atoms} of {carbon}, counting from the carboxylic acid."
+        },
+        {
+            "area": "chem",
+            "termDef": "Soybean Oil - {liquid oil} {vegetable oil}, obtained from {seeds} {soybeans}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Sunflower Oil - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Prostaglandin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Arachidonic Acid - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Fish Oil - {Animal fat}, extracted from {fish}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Prostaglandin E3 - "
+        },
+        {
+            "area": "chem",
+            "termDef": "EPA - {eicosapentaenoic acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "docosahexaenoic acid (DHA) - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Curcumin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "coenzyme Q10 - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Homocysteine - a non {proteinogenic amino acid} with the formula HSCH2CH2CH(NH2)CO2H. {Homolog} {of the amino acid} {cysteine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Folic Acid - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Trimethylglycine - a derivative of {glycine} with 3 {methyl groups}. It is an important product in {chemical reactions} of {methylation}, acting as a donor of {methyl groups}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Methionine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "SNP (single nucleotide polymorphism - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Oleic Acid - C18H34O2 — {monounsaturated fatty acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "trans fatty acids - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Free Radical - {atoms} or {molecules} that contain one or more {unpaired electrons} in the {outer electron shell}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Cofactor - a non {protein} (and not derived from {amino acids}) component, associated with a {protein} by {intermolecular interactions}, that plays an important role in the {biological activity} of the corresponding {protein}."
+        },
+        {
+            "area": "chem",
+            "termDef": "ONA - optimal {consumption norm}"
+        },
+        {
+            "area": "chem",
+            "termDef": "trans-resveratrol - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Acetyl-L-carnitine - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Acetyl-glutathione - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Delta-receptor mimetics activated by peroxisome proliferator - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Endorphins - "
+        },
+        {
+            "area": "chem",
+            "termDef": "lycra - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Chelate - claw-like {complex compound} formed by the interaction of {metal} {ions} with {polydentate} {ligands}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Glutathione - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Heterotrophs - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Benzene - a six-membered {carbocyclic compound} with {aromatic bond}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Parabens - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Phthalates - {salt} {of phthalic acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Styrene - a derivative of {benzene} and {propylene}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Toluene - {Benzene} with one {methyl group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Xylenes - {Organic compounds} consisting of {benzene} and 2 {methyl groups}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Neurotransmitter life cycle - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Receptor - {molecule} on the surface of {cell membrane}, {membrane organelles} or dissolved in {cytoplasm}. Specifically reacts by changing its {conformation} to the binding of a {molecule} of a certain {chemical substance} that transmits an external {regulatory signal} and, in turn, transmits this signal into the {cell} or {organelle}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Agonist - {ligand} {of the receptor} that, upon interaction with the {receptor}, alters its state, resulting in a biological response."
+        },
+        {
+            "area": "chem",
+            "termDef": "Secondary Messenger - {cellular} {signaling molecule}, released in response to stimulation of a {receptor}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Promoter - a sequence of {nucleotides} on {DNA} recognized by {RNA polymerase} as a starting point for the initiation of {transcription}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Stop Codon - {codon}, meaning the termination of {translation}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Operator - a sequence of {nucleotides} in {DNA} that regulates the activity of a {gene}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Repressor - {protein} that {inhibits} {gene expression} by binding to a region of {DNA} or {RNA}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Ribosome - the most important non-membrane {granular organelle}, serving for {biosynthesis} of {protein} from {amino acids}, based on genetic information provided by {mRNA}, performs {translation}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Blocker - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Recombinase - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Gene - a segment of {DNA} (in some viruses - a segment of {RNA}) that specifies the sequence of a {protein} or functional {RNA}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Inductor - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cytochrome - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Protease - a class {of enzymes}, subclass {of hydrolases}, that cleave {peptide bonds} between {amino acids} in {proteins}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Plasmid - a small, circular {molecule} {DNA}, physically distinct from {genomic DNA} and capable of autonomous {replication}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Aminoacyl-tRNA-synthetase - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Transposon - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Transposase - {enzyme} that links {single-stranded DNA} and integrates it into {genomic DNA}"
+        },
+        {
+            "area": "chem",
+            "termDef": "TOR - {Target of rapamicin}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Autophagy Activator - {Substance} that promotes {autophagy} in {cell}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Caffeine - {Xanthine} with 3 {methyl groups}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Resveratrol - {Autophagy activator}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Metformin - {Autophagy activator}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Alpha-ketoglutarate - {Autophagy activator}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Rapamycin - {Autophagy activator}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Anthocyanins - a class of water-soluble pigments that belong to the flavonoid group, which are responsible for the red, purple, and blue colors in many fruits and vegetables, and have been studied for their potential health benefits, including their role in {gerontology}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Gerontology - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Telomerase - {Gerontology}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Metabolic Pathway - a sequence of {chemical reactions} that allows a {cell} to convert {substances} obtained from the {external environment} into {substances} required for its {vital activity}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Transport - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Absorption - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Biological Activity - the property of {substances} to exhibit activity towards {tissues} of the {organism} at low {concentrations}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Discrete Reaction to Chemical Substance - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Mortality - a measure reflecting what part of the {population} {dies} as a result of exposure to a {toxin}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Breakthrough Analysis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Lethal Dose Half (LD50) - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Lethal concentration - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Threshold Concentration - concentration at which the probability of negative impact is low and is considered acceptable."
+        },
+        {
+            "area": "chem",
+            "termDef": "Vitamin A - a mixture of components, {carotenoids}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Retinol - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Retinal - {Aldehyde} {of retinol}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Carotenoids - "
+        },
+        {
+            "area": "chem",
+            "termDef": "17 beta estradiol - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Water Solubility - the ability of {substances} {to dissolve} in {water}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Fat-soluble substances - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Adenosine Triphosphate - a compound of {adenosine} and 3 residues of {phosphoric acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "A-kinase - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cyclic adenosine monophosphate - a derivative of {adenosine monophosphoric acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Nitrogenous Bases - {Heterocyclic Compounds}. Derivatives of {Pyrimidine} or {Purine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Purine - {A heterocyclic compound} consisting of fused rings {pyrimidine} and {imidazole}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Heterocyclic Compounds - {Cyclic compounds} that contain {atoms} of elements other than {carbon} in addition to {carbon}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Carbon - {Chemical element} with {atomic number} 6"
+        },
+        {
+            "area": "chem",
+            "termDef": "Carbocyclic Compounds - {Cyclic Compound}, {simple substance}, consisting of {carbon}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Heteroatom - in organic chemistry, it is any {atom} {of a compound} that is not a {carbon} {atom} or a {hydrogen} {atom}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Dehydrogenation - {Chemical reaction} of the removal of {hydrogen} from the {molecule} of an {organic compound}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydrogen - {Chemical element} with {atomic number} 1"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydrogenation - {Chemical reaction} of the addition of {hydrogen} to {organic compound}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chemical Reaction - the transformation of one or several initial {chemical substances} into other substances, during which {atomic nuclei} do not change, while there is a redistribution of {electrons} and {atomic nuclei}, resulting in the formation of new {molecules}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Atomic Nucleus - a positively charged, compact group {nucleons} at the center of an {atom} bound by {strong interaction}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Charge Number - the number of {protons} in {the atomic nucleus}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Globules - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Emulsification - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Micelles - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Chemical Element - a set of {atoms} with the same {atomic number} and an arbitrary number of {neutrons}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chemical Bond - interaction {of atoms} that forms a stable connection between them. It is determined by the interaction of charged particles contained in the {atom}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Molecule - {An electrically neutral} particle formed from two or more {atoms} connected by a set of {covalent bonds}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Covalent Bond - {Chemical bond} formed by the overlap (sharing) of a pair of {valence electrons} ({electron clouds}). Involves one {electron pair}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Organic Compound - {Molecule}, that contains {carbon}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydrocarbons - {Molecules} that consist of {atoms} of {carbon} and {hydrogen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Atomic Mass Unit - a unit of mass used for the masses of {molecules}, {atoms}, {atomic nuclei}, and {elementary particles}. It is defined as 1/12 of the mass of the {carbon} C12 atom."
+        },
+        {
+            "area": "chem",
+            "termDef": "Ionic Bonding - a strong {chemical bond} that arises from the electrostatic attraction between {anions} and {cations}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Nucleic Acid - {Biopolymer}, formed from residues of {nucleotides}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Molecular Mass - mass {of a molecule}, expressed in {atomic mass units}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Polymer - a molecule with a high {molecular weight}, consisting of many repeating, predominantly identical links-{molecules}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Biopolymers - a class of {polymers} that occur naturally in their natural form and are components of living organisms."
+        },
+        {
+            "area": "chem",
+            "termDef": "Functional Group - a structural fragment {of an organic compound}, (a certain group of connected {atoms}) that determines its {chemical properties}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Substance - a set of identical {molecules}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Simple Substance - {Substance} consisting of {atoms} of one {chemical element}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Complex Substance - {Substance} consisting of {atoms} of two or more {chemical elements}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chemical Properties - properties {of substances} manifested during the process of {chemical reaction}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Oxygen - {Chemical element} with {atomic number} 8"
+        },
+        {
+            "area": "chem",
+            "termDef": "Electron Pair - a bound state of two interacting {electrons}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Double Bond - {Covalent Bond} between two {atoms} through two shared {electron pairs}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Carbonyl Group - {Functional group} in which {oxygen} and {carbon} are present with a {double bond} between them and two {hydrocarbon radicals}. General formula RCOR'"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydroxyl Group - {Functional group} consisting of connected {covalent bond} {atoms} {oxygen} and {hydrogen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Carbohydrates - a group of {organic compounds} that contain a {carbonyl group} and several {hydroxyl groups}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Cysteine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Metallothionein - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Conjugation - unidirectional transfer of a part of {genome} during direct contact between two {bacteria}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Monooxygenation - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Acetaminophen - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Chinonimins - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Bioavailability - the ability of {substance} to enter the {blood} of {organism}. Measured in percentage."
+        },
+        {
+            "area": "chem",
+            "termDef": "Bioconcentration Factor - the ratio of the concentration of {substance} in the organism to the concentration in water"
+        },
+        {
+            "area": "chem",
+            "termDef": "Water - {Substance} consisting of two {atoms} of {hydrogen} and one {atom} of {oxygen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Passive Bioavailability - {Bioavailability}, at which {organism} does not expend energy to obtain {substance} from {external environment}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Active Bioavailability - {Bioavailability}, at which {the organism} must expend {energy} to obtain {the substance}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Bioconcentration - the process of increasing {concentration}, accumulation of {substance} in {organism}, compared to {concentration} in {environment}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Bioaccumulation - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Phosphorus - {Chemical element} with {atomic number} 15"
+        },
+        {
+            "area": "chem",
+            "termDef": "Carboxyl Group - {Functional group} with the composition COOH. Combines {hydroxyl group} and {carbonyl group}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Orbital - a wave function that describes the motion of a specific {electron} in an {atom} obtained by solving the Schrödinger equation for the given atom; characterized by the principal n, azimuthal l, and magnetic m - quantum numbers."
+        },
+        {
+            "area": "chem",
+            "termDef": "S-Orbital - {Orbital} sharp"
+        },
+        {
+            "area": "chem",
+            "termDef": "P-Orbital - {Orbital} principal"
+        },
+        {
+            "area": "chem",
+            "termDef": "D-Orbital - {Orbital} diffuse"
+        },
+        {
+            "area": "chem",
+            "termDef": "F-Orbital - {Orbital} fundamental"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hybridization - a hypothetical process of mixing different types of {orbitals} {of an atom}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Cytotoxin - {substance} that initiates the process of {necrosis} in a {cell}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hemotoxins - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Neurotoxins - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Ligand - {atom}, {ion} or {molecule} that is bound to another {atom} ({acceptor}) through {donor-acceptor interaction}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Anabolism - part of {metabolism} that occurs with the absorption of {energy}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Metabolism - {substance exchange}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Pesticides - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Proliferation - growth of {tissue} {organism} through {cell division}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Albumin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Keratin - a family of {fibrous proteins} that possess {mechanical strength}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Elastin - {fibrillar protein} {of connective tissue}, possessing {elasticity}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Casein - {complex protein} ({phosphoprotein}), formed from the precursor of casein - {caseinogen} during the coagulation of {milk}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Fibroin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Speedroin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Antibody - a type of {protein} in {blood plasma}, synthesized by {plasma cells} in the {organism} of {warm-blooded animals} in response to the introduction of {antigens}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Ion Channel - {Translocase}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Transcription Factor - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Neurotoxin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Myoglobin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Hemoglobin - {transport protein} from the family of {globins}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Method of Empirical Force Fields - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Bioinformatics - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Homology-Based Modeling - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Molecular Docking - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Monomer - one link in {polymer}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Heteropolymer - {Polymer} that consists of different types of {monomers}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Carboxylic Acid - {Organic compound}, {molecules} of which contain one or more {carboxyl groups}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Azines - {Heterocyclic compounds} that contain in a six-membered ring at least 2 {heteroatoms}, at least one of which is {nitrogen}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Nitrogen - {Chemical element} with {atomic number} 7"
+        },
+        {
+            "area": "chem",
+            "termDef": "Triple Bond - {covalent bond} between two {atoms} through three shared bonding {electron pairs}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Unsaturated Bond - {Double Bond} or {Triple Bond}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Aromatic Bond - a special property of {cyclic compounds} with {unsaturated bond}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Pyridine - a six-membered {heterocyclic compound} with one {heteroatom} {nitrogen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Diazines - a subgroup of {azin} with two {nitrogen} {atoms}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Triazines - a subgroup {azin} with three {atoms} {of nitrogen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Amino Group - {Functional group} containing one {atom} {nitrogen} and two {atoms} {hydrogen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Amino Acid - a group {of organic compounds} in {which} the {molecule} simultaneously contains {carboxyl groups} and {amino groups}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Pyridazine - 1,2 {diazine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Pyrimidine - 1,3 {diazine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Pyrazine - 1,4 {diazine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Tetrazines - a subgroup of {azin} with 4 {nitrogen} {atoms}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Amide Group - a derivative of oxygen-containing acids (either carboxylic or mineral), in which in the {carboxyl group} the {hydroxyl group} of the acid residue is replaced by an {amino group}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Peptide Bond - a type {of amide bond} that arises from the interaction of {the amino group} of one {amino acid} with {the carboxyl group} of another {amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydrocarbon Radical - a group {of atoms} connected to a {functional group} of a molecule. Usually, during {chemical reactions}, the radical transfers from one compound to another without alteration."
+        },
+        {
+            "area": "chem",
+            "termDef": "Alpha Amino Acid - {Amino Acid} in which the {hydrocarbon radical} is connected to the first {carbon atom} after the {carboxyl group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Simple Protein - {protein} that is composed of residues of {alpha amino acids} and upon {hydrolysis} breaks down only into {amino acids}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Azoles - five-membered {heterocyclic compounds} that contain at least two {heteroatoms} in the ring, one of which is a {nitrogen} {atom}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Imidazole - {azole} with two atoms of {nitrogen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Adenine - {Nitrogenous base}, amino derivative of {purine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Uracil - {Nitrogenous base}, a derivative of {pyrimidine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Sigma Bond - {covalent bond} formed by the overlap of {electron clouds} \"along the axial line\" connecting {atomic nuclei}. Characterized by axial symmetry."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cytosine - {Nitrogenous base}, a derivative of {pyrimidine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Guanine - {nitrogenous base}, an amino derivative of {purine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Thymine - {Nitrogenous base}, a derivative of {pyrimidine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Ribose - {Monosaccharide} from the group of {pentoses}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Aldehyde Group - {Functional group} that contains a {carbonyl group} in which a {carbon atom} is bonded to a {hydrogen} and a {hydrocarbon radical}. General formula R-CHO"
+        },
+        {
+            "area": "chem",
+            "termDef": "Aldehydes - a class {of organic compounds} that contains {an aldehyde group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Ketone - {Carbonyl group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Monosaccharides - {Carbohydrates}, contain {hydroxyl groups} and {aldehyde group} or {ketone group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Disaccharides - {Oligosaccharides}, consisting of two residues of {monosaccharides}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hexoses - {Monosaccharides} that contain 6 {atoms} of {carbon}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Glucose - a six-atom hydroxyaldehyde {hexose}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Pentoses - {Monosaccharides} that contain 5 {atoms} {of carbon}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Alcohols - a group of {organic compounds} containing 1 or more {hydroxyl groups} bonded to a saturated {carbon} {atom}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Deoxyribose - {Carbohydrate}, contains 5 atoms of {carbon} and an {aldehyde group} in its linear structure, a derivative of {ribose}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Nucleosides - {Glycosylamines} that contain an {nitrogenous base} linked to {ribose} or {deoxyribose}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Acid - {substance} capable of donating {cation} {hydrogen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chemical Compound - {A chemical substance} consisting of {chemically bonded} {atoms} of two or more {chemical elements}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Inorganic Substances - {Simple Substances} and {Chemical Compounds} that do not contain {Carbon}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Inorganic Acids - {Inorganic substances} that have the properties of {acids}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Orthophosphoric Acid - {Inorganic acid} that contains 3 {atoms} of {hydrogen}, 1 {atom} of {phosphorus}, and 4 {atoms} of {oxygen}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Complex Esters - {Functional group} with {oxygen} and {carbon}, formula R(C=O)OR. A derivative of {carboxylic group} with a {hydrogen} atom replaced by a {hydrocarbon radical}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Simple Ethers - {Functional group} with {oxygen} connecting 2 {hydrocarbon radicals}. Formula R-O-R"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phosphoric Esters - {Complex Esters} {of Orthophosphoric Acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Nucleotides - a group of {organic compounds}, {phosphate esters} of {nucleosides}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Deoxyribonucleic Acid - {Biopolymer}, consisting of 2 sequences of {complementary} {nucleotides}. A variety of {nucleic acids}. The structure includes {adenine}, {guanine}, {thymine}, {cytosine}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Ribonucleic Acid - {Biopolymer}, consisting of {nucleotides}. Belongs to the group of {nucleic acids}. In its structure, {adenine}, {guanine}, {cytosine}, {uracil} are present."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cyclic Compound - {Chemical compound} in which 3 or more connected {atoms} form a ring."
+        },
+        {
+            "area": "chem",
+            "termDef": "Methyl Group - {Functional group} containing 1 {atom} {of carbon}, 3 {atoms} {of hydrogen} and 1 {hydrocarbon radical}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Isomerism - a phenomenon consisting in the existence of {chemical compounds} - isomers, - identical in atomic composition and {molecular mass}, but differing in the arrangement of atoms in space."
+        },
+        {
+            "area": "chem",
+            "termDef": "Polysaccharides - {Biopolymers} containing 10+ {monosaccharides}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Glycols - a group of {organic compounds} that contain 2 {hydroxyl groups} in the {molecule}."
+        },
+        {
+            "area": "chem",
+            "termDef": "BDNF - {Brain-Derived Neurotrophic Factor}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Catalyst - {A substance} that accelerates {a chemical reaction} but is not consumed in the process."
+        },
+        {
+            "area": "chem",
+            "termDef": "Ribozymes - a group of {enzymes} {RNA}-type"
+        },
+        {
+            "area": "chem",
+            "termDef": "Trisaccharides - {Oligosaccharides}, consisting of 3 residues of {monosaccharides}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Acyclic Monosaccharide - {Monosaccharide}, not being a {cyclic compound}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Cyclic Monosaccharide - {Monosaccharide}, which is a {cyclic compound}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Lipids - a broad group of natural {organic compounds}, including {fats} and fat-like substances."
+        },
+        {
+            "area": "chem",
+            "termDef": "Maillard Reaction - {chemical reaction} between {amino acids} and {carbohydrates} that occurs upon heating"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phenol - {Organic compound} {of benzene} and 1 {hydroxyl group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydrophobic Compound - {Substance}, which is {hydrophobic}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydrophilic Compound - {A substance} that is {hydrophilic}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Clathrates - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Rotaxan - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Crown Ethers - {heterocyclic compounds} that contain more than 11 {atoms} in their cycles, of which at least four are {heteroatoms}, which are interconnected by {ethylene} bridges."
+        },
+        {
+            "area": "chem",
+            "termDef": "Catenane - a class {of chemical compounds} consisting of two or more {cyclic compounds} linked topologically, without the formation of {covalent bonds} directly."
+        },
+        {
+            "area": "chem",
+            "termDef": "Zeolites - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Donor-Acceptor Interaction - transfer {of electrons} between {molecules} {of donor} and {acceptor} without the formation of {chemical bond} between them (exchange mechanism); or the transfer of an unshared {electron pair} from {donor} to {acceptor}, leading to the formation of a {chemical bond} (donor-acceptor mechanism)"
+        },
+        {
+            "area": "chem",
+            "termDef": "Fats - {organic substances}, products of {esterification} of {carboxylic acids} and {glycerol}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Esterification - {chemical reaction} of formation of {complex esters} upon interaction of {carboxylic acids} and {alcohols}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Methane - the simplest {alkane} with the formula CH4"
+        },
+        {
+            "area": "chem",
+            "termDef": "Acyclic Compound - {chemical compound}, that does not contain rings in its structure"
+        },
+        {
+            "area": "chem",
+            "termDef": "Actin - {Globular protein}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Homologous Series - a series of {chemical compounds} that have a similar structural type, differing from each other only by a specific number of repeating structural units."
+        },
+        {
+            "area": "chem",
+            "termDef": "Alkanes - {saturated hydrocarbons}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Polyatomic Alcohol - {Alcohols} that contain more than one {hydroxyl group} in their structure."
+        },
+        {
+            "area": "chem",
+            "termDef": "Ethane - {alkane} with the formula C2H6"
+        },
+        {
+            "area": "chem",
+            "termDef": "Propane - {alkane} with the formula C3H8"
+        },
+        {
+            "area": "chem",
+            "termDef": "Glycerin - {Polyatomic alcohol} with 3 {hydroxyl groups} and a carbon skeleton of {propane}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Adenosine - {Nucleoside}, consisting of {adenine} and {ribose}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Oxidative Phosphorylation - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Conformation - the spatial arrangement of {atoms} in a {molecule} of a specific configuration, determined by rotation around one or more single {sigma bonds}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Stereoisomers - a variant of {isomerism} that has the same bonding scheme between {atoms}, but differs in {conformation} or the geometric arrangement of the bonded groups in space."
+        },
+        {
+            "area": "chem",
+            "termDef": "Enantiomers - a pair {of stereoisomers} that are mirror images of each other."
+        },
+        {
+            "area": "chem",
+            "termDef": "Small Molecules - {Molecules} with a {molecular weight} less than 900 {atomic mass units}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Linking Site - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Epitope - part of {molecule} {antigen} that is recognized by the {immune system} ({antibodies}, {B-lymphocytes}, {T-lymphocytes})."
+        },
+        {
+            "area": "chem",
+            "termDef": "Sirtuins - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Nicotinamide adenine dinucleotide - {coenzyme}, present in all living {cells}. Consists of two {nucleotides} linked by their {phosphate} groups. One nucleotide is {adenine}, the other is {nicotinamide}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Vitamin D - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Inhibitor - {Substances} that can suppress or slow down the course of physiological or physicochemical processes (usually processes involving {enzymes})"
+        },
+        {
+            "area": "chem",
+            "termDef": "Ganciclovir - {Senolytic}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Senolytic - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Dasatinib - {Senolytic}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Cardiac Glycosides - {Senolytic}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Quercetin - {Senolytic}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Acid Residue - {Anion} {of the acid}, from which {hydrogen} has already been removed"
+        },
+        {
+            "area": "chem",
+            "termDef": "Salts - substances consisting of {cations} {metals} and {anions} {acid residues}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Metal - a group {of chemical elements} that possess characteristic properties: high thermal conductivity, high electrical conductivity, positive temperature coefficient of resistance, high plasticity, malleability, luster."
+        },
+        {
+            "area": "chem",
+            "termDef": "Base - {Chemical compound} that can form a {covalent bond} with a {hydrogen cation}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phthalic Acid - {Dicarboxylic acid}, {carboxyl groups} of which are connected to {benzene}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Ether - {Simple Ethers} and {Complex Ethers}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Nucleoid - an irregularly shaped region in {the cytoplasm} {of a prokaryotic cell}, where {genomic DNA} and associated {proteins} are located."
+        },
+        {
+            "area": "chem",
+            "termDef": "DNA - {Deoxyribonucleic acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "RNA - {Ribonucleic acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Genomic DNA - {DNA}, which is a part of {genome}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Genome - the totality of {genes} of an organism. The genomes of the overwhelming majority of life forms are composed of {DNA}, however, some viruses have genomes made of {RNA}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Nucleoprotein - a complex {nucleic acids} with {proteins}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chemical Synthesis - in a narrow sense, it is the process of creating or constructing complex {molecules} from simpler ones. In organic synthesis, the {product} of a {chemical reaction} may be a simpler substance than one of the starting compounds."
+        },
+        {
+            "area": "chem",
+            "termDef": "Biosynthesis - the process of {synthesis} {organic compounds} {by} {living} {organisms}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Messenger RNA - {RNA} that contains information about {the primary structure of proteins}"
+        },
+        {
+            "area": "chem",
+            "termDef": "mRNA - {messenger RNA}"
+        },
+        {
+            "area": "chem",
+            "termDef": "ATP - {Adenosine triphosphate}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Synthesis - in a narrow sense, the process of constructing complex {molecules} from simpler ones. In organic synthesis, the product of a {chemical reaction} may be a simpler {substance} than one of the starting compounds."
+        },
+        {
+            "area": "chem",
+            "termDef": "Organelle - a type of permanent components {cell}, vital for its existence. They are located in the internal part of the {cell}, {cytoplasm}, and usually have fixed functions."
+        },
+        {
+            "area": "chem",
+            "termDef": "Homeostasis - self-regulation, the ability of an open {system} to maintain the constancy of its internal state through coordinated {chemical reactions} aimed at sustaining {dynamic equilibrium}."
+        },
+        {
+            "area": "chem",
+            "termDef": "RNA polymerase - {enzyme} that catalyzes {the biosynthesis} of {RNA} {molecules}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Transcription - the process of {synthesis} of {RNA} based on {DNA}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Ribosomal RNA - several {molecules} {RNA} that form the core of {ribosomes}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Eukaryotic Cell - {Cell}, having {nucleus}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Membrane Organelle - {Organelle}, separated from the rest of the {cytoplasm} {of the} {cell} by a bilayer, {compartment}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Chromosome - {nucleoprotein} structures in {the cell nucleus} of {eukaryotic cells}, in which a large part of {genomic DNA} is concentrated."
+        },
+        {
+            "area": "chem",
+            "termDef": "Chromosomal Rearrangement - a type {of mutations} that alter the structure of {chromosomes}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Tubulin - {Protein}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Duplication - {Chromosomal rearrangement}, in which there is a doubling of a segment of {chromosome}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Triplet - a combination of 3 sequentially arranged {nucleotides} in a {nucleic acid} molecule."
+        },
+        {
+            "area": "chem",
+            "termDef": "Codon - {triplet} in {DNA} or {RNA}, usually encoding the inclusion of one {amino acid}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Aliphatic Compounds - compounds that do not contain {aromatic bonds}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Fatty Acid - a compound {of carboxylic acid} and {aliphatic compound} with a long chain."
+        },
+        {
+            "area": "chem",
+            "termDef": "Saturated Fatty Acids - {Fatty acids} that contain only {single bonds} between {carbon} {atoms}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Unsaturated Fatty Acids - {fatty acids} that have one or more {unsaturated bonds}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Monounsaturated Fatty Acids - {Unsaturated Fatty Acids} that contain one {unsaturated bond}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Polyunsaturated Fatty Acids - {Unsaturated Fatty Acids} that contain more than one {double bond}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Proteasome - {multimeric protein complex} that degrades unnecessary or defective {proteins} through {proteolysis} into short {peptides} (4—25 {amino acid} residues)"
+        },
+        {
+            "area": "chem",
+            "termDef": "Organism - a living body that possesses {metabolism} and consists of 1 or multiple {cells}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phototrophs - {organisms}, whose primary source of {energy} is {sunlight}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chemotrophs - {organisms} whose primary source of {energy} is {chemical compounds}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Anaerobes - {organisms} that obtain {energy} in the absence of {oxygen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Life Activity - a set of processes occurring to maintain life. It is characterized by {metabolism} and {homeostasis}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Death - irreversible cessation of {vital functions}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Obligate Anaerobes - {anaerobes}, {dying} in the presence of {molecular} {oxygen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Facultative Anaerobes - {Anaerobes} that can live in the presence of {oxygen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Parenchyma - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Stroma - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Inorganic Compound - {Molecule}, which does not contain {carbon}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Lithotrophs - {Chemotrophs} that obtain energy from {inorganic compounds}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Organotrophs - {Chemotrophs}, obtaining energy from {organic compounds}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Autotrophs - {Organisms} that obtain {carbon} from {carbon dioxide}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Carbon Dioxide - a substance with 1 {atom} {of carbon} and 2 {atoms} {of oxygen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Heterotroph - {Organism}, obtaining {carbon} from {organic substances}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Homopolymer - {Polymer} that consists of a single type of {monomer}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Pili - filamentous {protein} structures located on the surface of {cells} of many {bacteria}. They are involved in {conjugation}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Peptidoglycan - {heteropolymer} {N-acetylglucosamine} and {N-acetylmuramic acid}, cross-linked through lactate residues of {N-acetylmuramic acid} by short {peptide chains}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Glucosamine - {amino sugar} {of glucose}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Replication - the process of creating two daughter molecules {DNA} based on a parent molecule {DNA}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Gram-positive Bacteria - {Bacteria} that are stained using the {Gram method}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Gram-Negative Bacteria - {Bacteria} that do not stain according to the {Gram method}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Cyanobacteria - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Eubacteria - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Archaea - {unicellular organisms} that lack {cell nuclei} and {membrane-bound organelles}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Peroxide - {complex substances} in which {atoms} of {oxygen} are connected by {covalent bonds} to each other."
+        },
+        {
+            "area": "chem",
+            "termDef": "Peroxisome - part of {endoplasmic reticulum}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Vesicle - relatively small intracellular {compartments} in which nutrient {substances} are stored or transported."
+        },
+        {
+            "area": "chem",
+            "termDef": "Smooth Endoplasmic Reticulum - {Endoplasmic Reticulum}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Rough Endoplasmic Reticulum - {Endoplasmic Reticulum}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chloroplast - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Thylakoids - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cell Wall - a shell {of the cell} located outside the {plasma membrane} and performing structural, protective, and transport functions."
+        },
+        {
+            "area": "chem",
+            "termDef": "Osmotic Shock - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Plasmodesma - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Glyoxysome - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Differential Centrifugation - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Homogenate of tissue - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Microsome - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Microorganisms - {Organisms} that are too small for direct observation."
+        },
+        {
+            "area": "chem",
+            "termDef": "Unicellular Organism - a class {of organisms} consisting of 1 {cell}, usually {microorganisms}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Dibasic Acid - {An acid} capable of donating 2 {protons}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Dicarboxylic Acid - {Dibasic Carboxylic Acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Organic Substances - {Simple Substances} and {Chemical Compounds} containing {Carbon}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Cell Clone - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cellular Competition - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Xanthine - {base} {purine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Blood - the primary internal {liquid} medium {of a multicellular organism}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Multicellular Organism - {Organism}, {body} of which contains more than 1 {cell}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Body - the entire physical shell {of the organism}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Target Cell - {cell}, capable of specifically responding to a certain {biologically active} {substance}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Endocrine Gland - {gland} and {paraganglia}, synthesizing {hormones} that are released into {blood capillaries} ({venous capillaries}) or {lymphatic capillaries}. Do not have {excretory ducts}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Solvent - {A substance} capable of {dissolving} solid, liquid, or gaseous substances without chemically altering them."
+        },
+        {
+            "area": "chem",
+            "termDef": "Homogeneous System - a uniform {system}, {chemical composition} and physical properties of which are the same in all parts or change continuously."
+        },
+        {
+            "area": "chem",
+            "termDef": "Chemical Element Symbols - a conventional designation {of chemical elements}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chemical Formula - a conventional designation {of a chemical compound}, possibly indicating composition and structure, using {symbols of chemical elements}, numerical and auxiliary signs (brackets, dashes, etc.)"
+        },
+        {
+            "area": "chem",
+            "termDef": "Solution - {homogeneous system} that consists of {molecules} of two or more types, where the proportion of particles of each type can vary continuously within certain limits."
+        },
+        {
+            "area": "chem",
+            "termDef": "Reagent - initial {substance} participating in {chemical reaction}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Product - the final {substance} formed as a result of a {chemical reaction}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Exchange Reaction - {chemical reaction} between two {compounds}, during which an exchange occurs between both {reactants}, {reaction groups}, or {ions}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Decomposition Reactions - {chemical reactions} in which two or more simpler {substances} are formed from one more complex {substance}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Solvolysis - {Exchange reaction} or {decomposition reaction} occurring between {dissolved substance} and {solvent}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydrolysis - {solvolysis} {by water}. It is a {decomposition reaction} in which a {substance} interacts with {water}, resulting in the {decomposition} of this {substance} and {water} with the formation of new {compounds}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Dissociation - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Fractionation - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Isopycnic Centrifugation - {centrifugation} in a {sucrose} gradient"
+        },
+        {
+            "area": "chem",
+            "termDef": "Myxobacterium - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Bacterium - {Prokaryotic} {microorganism}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydrolytic Enzyme - {Hydrolase}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydrolase - is a class of {enzymes} that catalyzes {hydrolysis} of {covalent bonds}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Actin Filaments - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Fibrils - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Motor Proteins - a class of {proteins} capable of moving, or more precisely, converting {chemical energy} into {mechanical work}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chemical Energy - the potential {of a substance} to transform in a {chemical reaction} or to transform other {substances}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Mitosis - {Vegetative division}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Intracellular Signal - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Extracellular Signal - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Alanine - {proteinogenic amino acid}, 2-aminopropanoic acid"
+        },
+        {
+            "area": "chem",
+            "termDef": "Erythrocyte - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Globule - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Serine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Aspartate - {Amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Tyrosine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Histidine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Choline - {a compound} {of trimethylamine} and {ethanol}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Palmitate - {chemical compound} of any {substance} with {palmitic acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Oleate - {Salt} {of oleic acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydrogen Bond - {chemical bond}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Ionic Interactions - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydrophobic Interactions - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Van der Waals Interactions - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Intracellular Transport - the process of transferring various {substances} within {the cell}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Polyferment Complex - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Active Site - is a specific part of {molecule} {enzyme}, determining its specificity and catalytic activity."
+        },
+        {
+            "area": "chem",
+            "termDef": "Prosthetic Group - a non {protein} (and not derived from {amino acids}) component, {covalently bonded} to a {protein}, which plays an important role in the {biological activity} of the corresponding {protein}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Coenzyme - {small molecule} of non-{protein} nature, specifically binding to corresponding {proteins} called {apoferrments}, and playing the role of {active site} or {prosthetic group} of the {enzyme} {molecule}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Apoenzyme - {Protein} part of the {enzyme} preparation"
+        },
+        {
+            "area": "chem",
+            "termDef": "Holoferrment - a complex of {cofactor} and {apoferrment} forming a complete, {biologically active} molecule of {enzyme}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Apoprotein - {Protein} without {prosthetic group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Holoprotein - {Protein} with an attached {prosthetic group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Excitotoxicity - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Beta Amyloid - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Tau Protein - {MAP}. {Alternative splicing} of the {MAPT} gene produces six known {protein isoforms} in the {human} {organism}. The {protein} is commonly found in {neurons} of the {CNS}, and rarely in other locations, however, it is weakly {expressed} in {astrocytes} and {oligodendrocytes} of the {CNS}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Synaptic Homeostasis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "LilrB2 - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Oligomer - {Polymer} with a small number of {monomers}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Cofilin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Hyperemia - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Affinity - the ability of some {molecules} to bind with other {molecules} and thereby form a new complex object."
+        },
+        {
+            "area": "chem",
+            "termDef": "Histones - a broad class of {proteins} {of the cell nucleus}, performing two main functions: they are involved in {packaging DNA} in the {cell nucleus} and in {epigenetic regulation} of processes such as {transcription}, {replication}, and {repair}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Repair - a function of {cells} that consists of the ability to correct chemical damage and breaks in {molecules} {DNA}"
+        },
+        {
+            "area": "chem",
+            "termDef": "DNA Packaging - the process of compaction of {DNA} into {chromosomes}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Nucleosome - is a structural part of {chromosome}, formed by the joint {packaging of DNA} with {histones} {H2A}, {H2B}, {H3}, and {H4}."
+        },
+        {
+            "area": "chem",
+            "termDef": "H2A - {Histone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "H2B - {Histone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "H3 - {Histone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "H4 - {Histone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Nucleofilament - thread {nucleosomes}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Proteolysis - the process catalyzed by {proteases}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Polypeptide Chain - a set of {peptide chains}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Multimeric Complex - a group consisting of two or more associated {polypeptide chains}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Proton Pump - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Aquaporin 4 - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Astrocyte - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Neuron - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Virkhov-Robens Space - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Glymphatic System - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Dose - the amount of a single or daily intake {substance} {by the organism}"
+        },
+        {
+            "area": "chem",
+            "termDef": "International Unit - a unit of measurement {of substance dose}, based on its {biological activity}."
+        },
+        {
+            "area": "chem",
+            "termDef": "ME - {International Unit}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Interleukin 6 - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Oleamide - {amide} {of oleic acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Peptide Chain - a set {of amino acids} linked by {peptide bonds} in a chain."
+        },
+        {
+            "area": "chem",
+            "termDef": "Exocrine Gland - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Mobile Genetic Elements - sequences {DNA} that can move within {the genome}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Isomerase - {enzyme}, {catalyzing} structural transformations of {isomers}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Racemization - transformation of {optically active substance} or {mixture}, where only one {enantiomer} is present, into a {mixture} containing more than one {enantiomer}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Ethyl Group - {Functional group}, containing {ethane}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phenyl Group - {Functional group} that contains {benzene}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Enol Group - {Functional Group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Ester Group - {Functional group}, containing {complex ester}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Acetyl Group - {Functional Group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Anhydride Group - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Amido Group - {Amide Group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Imine Group - {Functional group} that contains {nitrogen} {atom} and {hydrogen} connected to a {carbon} {atom} by a {double bond}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Guandinium Group - {Functional Group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Imidazole Group - {Functional group} that contains {imidazole} and 1 {hydrocarbon radical}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Sulfhydryl Group - {Functional group} that contains {atom} {sulfur} and {hydrogen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Mercaptogroup - {Sulfhydryl group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Disulfide Group - {Functional group} with 2 {atoms} {of sulfur} connected by a {single bond} and 2 {hydrocarbon radicals}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Thioether Group - {Carbonyl Group}, connected to {Atom} {Sulfur} and to {Hydrocarbon Radical}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phosphoryl Group - {Functional group}, containing one {atom} {of phosphorus}, 3 {atoms} {of oxygen}, one {atom} {of hydrogen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phosphoanhydride Group - {Phosphoryl Group}, in which {hydrogen} is {replaced} by another {phosphoryl group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Dna-virus - "
+        },
+        {
+            "area": "chem",
+            "termDef": "RNA virus - {Virus}, {genome} of which consists of {RNA}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Virus - acellular {infection} that reproduces only within {cells}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Schiff Base - {Imine group}, in which {hydrogen} is {replaced} by a {hydrocarbon radical}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Sulfur - {Chemical element} with {atomic number} 16"
+        },
+        {
+            "area": "chem",
+            "termDef": "Metabolite Pool - the complete set of {small molecules} in a specific {cell}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Metabolome - {The pool of metabolites}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Macromolecule - {molecule} with {molecular mass} greater than 5000"
+        },
+        {
+            "area": "chem",
+            "termDef": "Amphotericity - the ability of certain {substances} and {chemical compounds} to exhibit properties of both {acids} and {bases}, depending on the conditions."
+        },
+        {
+            "area": "chem",
+            "termDef": "Proteinogenic Amino Acid - a group of {alpha amino acids} encoded in the {genetic code} and used in the synthesis of {protein}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Genetic Code - a set of rules according to which during {translation} a specific {codon} is matched to a specific {amino acid}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Adenosine Diphosphate - a compound {adenosine} and 2 residues {phosphoric acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "ADP - {Adenosine diphosphate}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phosphate - {Salt} {of phosphoric acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Adenosine Triphosphate Synthase - a group of {enzymes} belonging to the class of {translocases}, synthesizing {ATP} from {ADP} and inorganic {phosphates}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Mutation - a stable change in {the genome}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Mutagenesis - the process of occurrence of {mutations}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Spliceosome - a structure within {the cell nucleus} composed of {RNA} and {proteins} that performs {splicing} of {mRNA} {transcripts}. It consists of 5 {snRNA}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Coloring of SRK - a scheme of color designation {atoms} of various {chemical elements} in {molecules}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chromophore - unsaturated groups {atoms} that determine the color {of a chemical compound}. At the same time, they absorb electromagnetic radiation regardless of the presence of color."
+        },
+        {
+            "area": "chem",
+            "termDef": "Chirality - the property of {a molecule} not to coincide in space with its mirror image."
+        },
+        {
+            "area": "chem",
+            "termDef": "Chiral Center - a point in {molecule} that gives rise to {chirality}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Diene - a class {of hydrocarbons} containing two {double bonds} {carbon}-{carbon}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Isoprene - 2-methylbuta-1,3-diene {diene}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Terpene - a class {of hydrocarbons}, with a general formula (C5H8)n, with a {carbon skeleton}, formally being a derivative {of isoprene}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Structural Formula - a type of {chemical formula} that graphically describes the arrangement and order of {chemical bonds} {atoms} in a {molecule}, expressed in a plane (2D formulas) or in three-dimensional space (3D formulas)."
+        },
+        {
+            "area": "chem",
+            "termDef": "Carbon Skeleton - {Skeletal Formula}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Skeletal Formula - a compact representation of the {structural formula} of an {organic compound}, in which the {atoms} of {carbon} and their bonds are reduced to a set of broken lines, where the angles represent the {atoms} of {carbon}, and the lines indicate the type of {chemical bond} between them. {Hydrogen} atoms bonded to {carbon} are typically not displayed."
+        },
+        {
+            "area": "chem",
+            "termDef": "Aspartic Acid - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Arginine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Valine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Threonine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Glutamic Acid - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Leucine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Lysine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Isoleucine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Asparagine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Glycine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Tryptophan - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phenylalanine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Glutamine - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Proline - {proteinogenic amino acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Gamma-Aminobutyric Acid - a simple {amino acid} with a {carbon skeleton} of {butane}. 4-Aminobutyric Acid"
+        },
+        {
+            "area": "chem",
+            "termDef": "Thyroid-Stimulating Hormone - {Thyrotropin}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Butane - {Linear alkane} with the formula C4H10"
+        },
+        {
+            "area": "chem",
+            "termDef": "Linear Alkane - {Alkane}, with a {structural formula} resembling a straight line"
+        },
+        {
+            "area": "chem",
+            "termDef": "Pentane - {Linear alkane} with the formula C5H12"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chiral Axis - an axis in {a molecule}, relative to which {chirality} arises."
+        },
+        {
+            "area": "chem",
+            "termDef": "Diastereomers - pairs of {stereoisomers} that are not mirror images of each other."
+        },
+        {
+            "area": "chem",
+            "termDef": "Complementarity - mutual correspondence of {molecules} {biopolymers} or their fragments, ensuring the formation of bonds between spatially complementary fragments of {molecules} or their structural fragments due to {supramolecular interactions}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Metallic Bonding - {Chemical Bonding}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Van der Waals Bond - {chemical bond}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Two-Electron Three-Center Bond - {chemical bond}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Sterane - {carbocyclic compound}, {saturated hydrocarbon}, {tetracyclic compound}, containing 3 six-membered rings and 1 five-membered ring."
+        },
+        {
+            "area": "chem",
+            "termDef": "Gonan - {Steran}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Steroid Hormone - {hormone} {steroid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Isolated System - {system} that does not exchange with the {environment} either {matter} or {energy}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Environment - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Closed System - {system} that exchanges only {energy} with the {surrounding environment}, but not {matter}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Open System - {system} in which there is an exchange with {environment} and {matter}, and {energy}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Corticosteroids - a general collective term for a subclass of {steroid hormones} produced exclusively by the {adrenal cortex}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Glucocorticoids - {corticosteroids}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Mineralocorticoids - {corticosteroids}, whose common property is a stronger and more selective action on {water-salt metabolism}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Water-Electrolyte Exchange - a set of processes of consumption {water} and {salts}, their absorption, distribution, and excretion from {the organism}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Atomic Number - {Charge Number}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Iodine - {Chemical element} with {atomic number} 53"
+        },
+        {
+            "area": "chem",
+            "termDef": "Thyroid Hormone - a class {of hormones} that are derivatives of {tyrosine} and {iodine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "T4 - {Thyroxine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Autophagy - a natural mechanism {of the cell} that dismantles unnecessary or dysfunctional components within {the cell}."
+        },
+        {
+            "area": "chem",
+            "termDef": "R-loop - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cytidine deaminase - "
+        },
+        {
+            "area": "chem",
+            "termDef": "RNase H - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Helicase - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Senataxin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Topoisomer - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Supercoiling - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Primary Transcript - {RNA}, formed immediately after {transcription}, before further modifications."
+        },
+        {
+            "area": "chem",
+            "termDef": "Hayflick Limit - "
+        },
+        {
+            "area": "chem",
+            "termDef": "RNA Processing - a set of transformations occurring with {RNA} after {transcription}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Intron - a segment of {DNA} that is absent in {mature RNA} after {transcription} and {RNA processing}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Exon - a segment of {DNA} that remains in the {mature RNA} after {transcription} and {RNA processing}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Mature RNA - {RNA}, formed as a result of all stages of {RNA processing}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Splicing - the process of excising from {primary transcript} segments corresponding to {introns} and joining the sequences retained in {mature RNA}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Signaling Cascade - {Signaling Pathway}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Cell Division - the process of forming two or more daughter {cells} from a parent {cell}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Small Nuclear RNAs - a class {RNA} that are found in the {nucleus} {of eukaryotic cells}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Alpha Glucose - {Glucose}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Sugars - low-molecular {carbohydrates}: {monosaccharides}, {disaccharides}, {oligosaccharides}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Fructose - a six-carbon hydroxyaldehyde {hexose}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Sucrose - {disaccharide}, consists of {glucose} and {fructose}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Gibbs Free Energy - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Enthalpy - a characteristic that reflects the number and type of {chemical bonds} in the {system}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Absolute Temperature - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Exergonic Reactions - are {chemical reactions} that occur without the influx of {energy} into the {system} from the {surroundings}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Endergonic Reactions - are {chemical reactions} that occur with the influx of {energy} into the {system} from the {surrounding environment}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Signaling Molecule - {Molecule} that {is synthesized} to transmit {signal} within {cell} or between {cells}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Antagonist - {ligand} that blocks, reduces, or prevents the physiological effects induced by the binding of {agonist} to {receptor}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Amide - a class {of substances} containing {an amide group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Vegetative Division - {cell division} {eukaryotes} in which each daughter {cell} is genetically identical to the parent cell."
+        },
+        {
+            "area": "chem",
+            "termDef": "Reproductive Division - {cell division} in which the number of {chromosomes} in the daughter cell is reduced by half to produce {gametes}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Meiosis - {reproductive division}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Gamete - a reproductive {cell} that has a {haploid set of chromosomes} and participates in {sexual reproduction}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Ploidy - the number of identical sets of {chromosomes} present in the {cell nucleus} or in the {nuclei} of a {multicellular organism}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Germ Cell - {Gamete}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Poison - {substance} that leads, in certain {doses}, small relative to body mass, to the disruption of {vital activity} of the {organism}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Gametogenesis - the process of formation of {gametes}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Intermolecular Interaction - interaction between {molecules} and/or {atoms} that does not lead to the formation of {covalent bonds}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Lyophilicity - a characteristic of the ability of {substances} to attract {molecules} of {liquid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Lyophobicity - a characteristic of the ability of {substances} to repel or not interact with {molecules} of {liquid}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Pangenome - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Transcriptome - the totality of all {transcripts}, {synthesized} by a single {cell} or group of {cells}, including {mRNA} and {non-coding RNAs}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Proteostasis - {Protein} {homeostasis}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Clusterin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Oogamy - a type of {sexual process} in which sharply differing {gametes} fuse — a large immobile female {gamete} with a small, usually motile, male {gamete}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Spermatozoon - male {gamete} in organisms reproducing by {oogamy} {organisms}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Male - a form {of an organism} that produces {spermatozoa}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Female - a form {of an organism} that produces {ova}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Sex Chromosomes - {chromosomes} that differ between {males} and {females} of the same {species}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Gonosomes - {Sex chromosomes}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Cell Line - a group {of cells}, usually similar in functions, cultivated under controlled conditions {in vitro}, from one or several {cells}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Biological Species - a group {of organisms} with common morphophysiological, biochemical, and behavioral traits, capable of mutual interbreeding, which produces fertile offspring over generations, regularly distributed within a specific range and similarly changing under the influence of factors {of the external environment}."
+        },
+        {
+            "area": "chem",
+            "termDef": "In vitro - a technology for conducting experiments where tests are performed \"in a test tube\" - outside of a living {organism}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Transcript - {RNA}, formed as a result of {transcription}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Non-coding RNAs - {RNAs} that are not {translated} into {proteins}"
+        },
+        {
+            "area": "chem",
+            "termDef": "External Electron Shell - outer {electron shell} {of the atom}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Unpaired Electron - {Electron} not included in {electron pair}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Electronic Shell - the region of space with the highest probability of finding {electrons} that have the same value of {principal quantum number} n and, consequently, are located at similar {energy levels}. The number of {electrons} in each {electronic shell} cannot exceed a certain maximum value."
+        },
+        {
+            "area": "chem",
+            "termDef": "Valence Electron - {electron} that is located on the {outer electron shell} of an {atom}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Prometaphase - stage {of mitosis}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Betaine - {Trimethylglycine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Gene Expression - the process by which hereditary information from a {gene} is transformed into a functional product — {RNA} or {protein}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Aggregate State of Matter - the state {of matter} that depends on the corresponding combination of {temperature} and {pressure}. The change of the aggregate state may be accompanied by a discontinuous change in {free energy}, {entropy}, {density}, and other physical quantities."
+        },
+        {
+            "area": "chem",
+            "termDef": "Solid Body - one of the {states of matter}, characterized by stability of shape and the nature of {thermal motion} of {atoms}, which perform small oscillations around equilibrium positions."
+        },
+        {
+            "area": "chem",
+            "termDef": "Liquid - one of the {states of matter}. characterized by the ability to change {shape} without changing {volume}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Density - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Sorption - the absorption {by a solid body} or {liquid} of various {substances} from {the environment}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Sorbate - {substance} absorbed as a result of {sorption}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Sorbent - {solid body} or {liquid} that absorbs {substance} as a result of {sorption}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Particle Concentration - {physical quantity}, equal to the ratio of the number of {particles} to the {volume} in which they are located."
+        },
+        {
+            "area": "chem",
+            "termDef": "Metabolon - a set {of enzymes} that catalyze sequential stages {of a metabolic pathway} and structural elements of the cell. The metabolon includes not only a complex {of enzymes} performing a specific metabolic function but also a supporting site of the cellular structure (site {of the membrane}, {cytoskeleton}, etc.) on which the complex {is adsorbed}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Exothermic Reaction - {chemical reaction}, accompanied by the release of {heat}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Heat - a quantitative measure of the mobility of {atoms}"
+        },
+        {
+            "area": "chem",
+            "termDef": "NADH - {Nicotinamide adenine dinucleotide}"
+        },
+        {
+            "area": "chem",
+            "termDef": "NADPH - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cytidine Triphosphate - {cytosine} {nucleotide}, containing three {phosphate residues}, {precursor} in {RNA} {synthesis}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Uridine triphosphate - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Guanosine triphosphate - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Feedback - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Chaperone - {protein} that interacts with partially or incorrectly folded {protein} and facilitates proper {protein folding}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Native Conformation - {conformation} {of a protein}, in which it is capable of performing its function"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hexokinase - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Substrate - {Reagent} for {Enzyme}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Homologs - {substances} with a similar {structural formula} and, consequently, similar {properties}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Paralogs - two {homologous genes} found in a single {species}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Homologous Genes - {Genes} that correspond to {homologous proteins}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Orthologs - two {homologous genes} found in different {species}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Species - {Biological species}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Annotated Genome - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Organ - groups of {tissues} with similar functions"
+        },
+        {
+            "area": "chem",
+            "termDef": "Precursor - {a substance} that participates in a {chemical reaction} leading to the formation of the target {substance}. the same as {reagent}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Predecessor - {Precursor}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Gonadosteroids - {Sex hormones}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Sex - a set of characteristics {of an organism} that allows {the organism} to be classified as {female} or {male}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Antigen - any {substance} that the {organism} considers foreign or potentially harmful."
+        },
+        {
+            "area": "chem",
+            "termDef": "Blood Plasma - {Liquid} part of {blood}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Gram Method - a method {of staining microorganisms} for research that allows the differentiation of bacteria based on the biochemical properties of their {cell wall}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Staining of Microorganisms - a set of methods and techniques for studying the external and internal structure of {microorganisms}, a method of microbiological technique that allows distinguishing {species} of {microorganisms}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Aniline - {Molecule} {of benzene}, with an attached {amino group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Aniline Dyes - {organic compounds} formed by {oxidation} of {aniline} or its {salts}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Complex Compounds - {compounds} that are formed as a result of the attachment of neutral {molecules} or other {ions} to a given {ion}, called {ligands}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Coordination Compounds - {complex compounds}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Complexing Agent - {ion}, present in {complex compound}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Electronegativity - a fundamental chemical property of {an atom}, a quantitative characteristic of the ability of {an atom} in a {molecule} to attract shared {electron pairs} towards itself, that is, the ability of {atoms} to pull {electrons} from other {atoms}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Donor - {atom} less {electronegative} {chemical element}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Acceptor - {atom} of a more {electronegative} {chemical element}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Dentate - the number of {donor} {atoms} in a {ligand}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Donor Center - {Donor} part {of the} {molecule} {of the} {ligand}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Polydentate - the property of a {molecule} to have more than one {donor center}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Food - {Substance} necessary for {organism} to maintain {metabolism} as a source of {energy} or building material."
+        },
+        {
+            "area": "chem",
+            "termDef": "Consumption Norm - the amount of consumption in {food} of various {substances} by the {organism} per day, necessary for maintaining normal {metabolism}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Nutrient Medium - a single-component or multi-component {substrate} used for the cultivation of {microorganisms} or {cell cultures} of {organisms}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cell Culture - separate {cells} (or a single {cell}) grown under controlled conditions."
+        },
+        {
+            "area": "chem",
+            "termDef": "Succulent - {plant} having specialized {tissues} for storing {water}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Herbaceous Plants - {type} {of higher plants}. have {leaves} and {stems} that die back at the end of the {growing season} to the surface of the {soil}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Unbranched Hydrocarbons - {hydrocarbons} with a chain without cycles, in {molecules} of which there are {double bonds} or {triple bonds} between {carbon} {atoms}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Limit Hydrocarbons - {acyclic compounds}, {hydrocarbons} of linear or branched structure, containing only {sigma bonds} and forming a {homologous series} with the general formula CnH2n+2"
+        },
+        {
+            "area": "chem",
+            "termDef": "Alkenes - {unsaturated hydrocarbons} containing one {double bond} between {carbon} {atoms}, forming a {homologous series} with the general formula CnH2n"
+        },
+        {
+            "area": "chem",
+            "termDef": "Ethylene - the simplest {alkene}, formula C2H4"
+        },
+        {
+            "area": "chem",
+            "termDef": "Ethene - {Ethylene}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Propylene - {Alkene} with 3 {atoms} of {carbon}. Formula C3H6"
+        },
+        {
+            "area": "chem",
+            "termDef": "Propene - {Propylene}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Nicotinic Acid - a compound of {pyridine} and {carboxyl group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Nicotinamide - {amide} {of nicotinic acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "NAD+ NADox - {Oxidized} {NADH}"
+        },
+        {
+            "area": "chem",
+            "termDef": "NADred - {Reduced} {NADH}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Oxidation - the process of obtaining {electrons} from {a donor} by {an acceptor}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Restoration - the process of transferring {electrons} from the {donor} to the {acceptor}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Immune System - {a system of organs} that exists in {vertebrate animals} and unites {organs} and {tissues} that protect the {organism} from {diseases} by identifying and destroying {tumor cells} and {pathogens}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Brain-Derived Neurotrophic Factor - {Neurotrophin}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Neurotrophin - a group of {proteins} that support the viability of {neurons}, stimulate their development and activity."
+        },
+        {
+            "area": "chem",
+            "termDef": "Animal Fat - {fats} extracted from {connective tissues}, as well as {milk} and {eggs}, {vertebrate animals}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Signaling Pathway - a sequence of {molecules} through which {information} is transmitted from a {cellular receptor} inside the {cell}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Cellular Receptor - {receptor}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Target of rapamicin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Microtubule-Associated Proteins - {proteins} that bind to the subunits of {microtubules} in {cells} of various types and perform multiple functions, including {stabilization of microtubules} and {destabilization of microtubules}, directing {microtubules} to specific locations within the cell, linking {microtubules} together, and mediating interactions of {microtubules} with other cellular {proteins}."
+        },
+        {
+            "area": "chem",
+            "termDef": "MAP - {Microtubule-associated proteins}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Equilibrium Constant - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Titration - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Polar Molecule - {molecule} that possesses {electric dipole moment}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Charge - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Dipole - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Cistron - a segment {DNA} responsible for the {synthesis} of a specific {protein}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Diploidy - the presence of two {haploid} sets of {chromosomes}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Infection - contamination of living {organisms} {microorganisms}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Energy Level - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Electric Dipole Moment - {a vector quantity} that characterizes, along with the total {charge}, the electric properties of a system of {charged particles}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Field - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Post-translational Modification - chemical modification resulting in the formation of {covalent bonds} with {protein} after its {synthesis} on the {ribosome}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phosphoproteins - {complex proteins} that contain covalently bound residues of {phosphoric acid} as a {prosthetic group}, which are attached to the {protein} as a result of {post-translational modification}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Resting Potential - {Transmembrane Potential} {of the cell} in the normal or resting state"
+        },
+        {
+            "area": "chem",
+            "termDef": "Membrane - {bilayer}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Lipid Raft - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Fibrillar Proteins - {proteins} that perform the {structural function of proteins} and have an elongated filamentous structure, in which the ratio of the long axis of the {molecule} to the short axis ranges from 80 to 150."
+        },
+        {
+            "area": "chem",
+            "termDef": "Organoid - {Organelle}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Osmotic Pressure - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Osmosis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Aquaporin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Osmolarity - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Isotonic Solution - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Hypertonic Solution - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Hypotonic Solution - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Osmotic Lysis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Interstitial Fluid - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Palmitic Acid - the most common in nature {monobasic acid} {saturated fatty acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Monobasic Acid - {Acid} capable of donating 1 {proton}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Turgor Pressure - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Hydronium Ion - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Ion Product of Water - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Acidosis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Alkalosis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Condensation Reaction - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Buffer - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Ampholyte - {Amphoteric} {electrolyte}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Nucleophile - "
+        },
+        {
+            "area": "chem",
+            "termDef": "N-terminus - one of the sides {peptide chain}, ending with {nitrogen}"
+        },
+        {
+            "area": "chem",
+            "termDef": "C-terminus - one of the sides {peptide chain}, ending with {carboxyl group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Dipeptide - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Tripeptide - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Tetrapeptide - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Pentapeptide - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Oxytocin - {Hormone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Tyroliberin - {Hormone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Thyrotropin - {Hormone}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Multisubunit Protein - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Oligomeric Protein - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Protomers - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Metalloproteins - {Protein} with {prosthetic group} {metal}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phosphoprotein - {Protein} with {prosthetic group} {phosphate}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Flavin Nucleotides - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Flavoproteins - {Protein} with {prosthetic group} {flavin nucleotides}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Primary Structure of Protein - {primary structure of the molecule} {protein}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Precipitation of Proteins - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Rough Extract - {Solution}, obtained from disrupted {cells}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Dialysis of Proteins - a procedure in which {proteins} are separated from other {substances} in a {solution} due to their large size."
+        },
+        {
+            "area": "chem",
+            "termDef": "Column Chromatography - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Electrophoresis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Isoelectric Point - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Isoelectrofocusing - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Ubiquitin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Native Protein - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Solvation Shell - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Regular Secondary Structure of Protein - {Secondary Structure of Protein}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Secondary Structure of Protein - {secondary structure} of the {protein} molecule"
+        },
+        {
+            "area": "chem",
+            "termDef": "Alpha Helix - a typical element of {secondary structure of proteins}, which has the shape of a right-handed helical line and in which each {amino group} (-NH) in the backbone forms a {hydrogen bond} with the {carbonyl group} (-C=O) of the {amino acid} that is located 4 {amino acids} earlier."
+        },
+        {
+            "area": "chem",
+            "termDef": "Beta Layer - {secondary structure of a protein}, in which several {peptide chains} are folded into pleated sheets"
+        },
+        {
+            "area": "chem",
+            "termDef": "Beta Turn - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Angstrom - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Hem - a complex {iron} and {protoporphyrin}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Iron - {Chemical element} with {atomic number} 26"
+        },
+        {
+            "area": "chem",
+            "termDef": "Supersecondary Structure of Protein - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Protein Motif - "
+        },
+        {
+            "area": "chem",
+            "termDef": "B-a-b loop - "
+        },
+        {
+            "area": "chem",
+            "termDef": "B-barrel - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Domain - a part of {polypeptide chain} that is stable regardless of the rest of the chain or can move relative to the whole {protein} as an independent unit."
+        },
+        {
+            "area": "chem",
+            "termDef": "Type of Protein Structure - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Fully Alpha - {type of protein structure}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Fully Beta - {type of protein structure}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Alpha/Beta - {a type of protein structure} in which {alpha helices} and {beta sheets} are dispersed throughout the sequence or alternate."
+        },
+        {
+            "area": "chem",
+            "termDef": "Alpha + Beta - {a type of protein structure}, in which {alpha helices} and {beta sheets} are separated or grouped together."
+        },
+        {
+            "area": "chem",
+            "termDef": "Primary Structure of a Molecule - an exact designation of the atomic structure and arrangement of {chemical bonds} between {atoms} including {stereoisomerism}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Secondary Structure - {conformation} of the main chain {macromolecule} considering the nearest links"
+        },
+        {
+            "area": "chem",
+            "termDef": "Protein Family - a group {of proteins} in which a clear evolutionary relationship is traced."
+        },
+        {
+            "area": "chem",
+            "termDef": "Superfamily of Proteins - {protein families} that have little similarity in {primary structure of proteins}, but contain identical spatial structural {motifs of proteins} or functionally related {proteins}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Protein Database - database {proteins}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Structural Classification of Proteins - {Protein Database}"
+        },
+        {
+            "area": "chem",
+            "termDef": "SCOP - {Structural classification of proteins}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Protein Data Bank - {protein database}"
+        },
+        {
+            "area": "chem",
+            "termDef": "PDB - {protein data bank}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Class, architecture, topology and homologues superfamily - {protein database}"
+        },
+        {
+            "area": "chem",
+            "termDef": "CATH - {Class, architecture, topology and homologues superfamily}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Protein Database Tool - a tool for working with {protein database}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Vector Alignment Search Tool - {Tool for working with protein databases}"
+        },
+        {
+            "area": "chem",
+            "termDef": "VAST - {Vector alignment search tool}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Fold Classification Based on Structure Structure Alignment Proteins - {A tool for working with protein databases}"
+        },
+        {
+            "area": "chem",
+            "termDef": "FSSP - {Fold classification based on structure structure alignment proteins}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Multimer - "
+        },
+        {
+            "area": "chem",
+            "termDef": "VIPER - virus information and pathogenicity database"
+        },
+        {
+            "area": "chem",
+            "termDef": "Denaturation - disruption of {native conformation} of {protein}, leading to loss of {protein function}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Renaturation - the process that is opposite to {denaturation} {of protein}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Critical Assessment of Structural Prediction - competitions on predicting {protein folding}"
+        },
+        {
+            "area": "chem",
+            "termDef": "CASP - {Critical Assessment of structural prediction}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Molecular Chaperones - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Heat Shock Proteins - {heat shock proteins}, preventing {denaturation} of {proteins} or {folding} of {exported proteins}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Hsp70 - {Heat shock proteins} with {molecular weight} 70000"
+        },
+        {
+            "area": "chem",
+            "termDef": "Heat Shock Protein - {protein}, synthesized in response to {heat shock} and preventing {denaturation} of other {proteins}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Hsp40 - {Heat shock proteins}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chaperonins - {multimeric protein complexes} that facilitate {protein folding}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Amyloid Fibers - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Binding Center - a site on a {molecule} {protein} that is suitable for a {ligand} in terms of size, shape, {charge}, and {hydrophilicity}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Induced Fit - changes {conformation} in {protein} caused by interaction with {ligand}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Catalytic Center - {active center}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Protoporphyrin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Globins - a family of {proteins} that have 8 {alpha helices} and are capable of reversibly binding to {oxygen}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Essential Fatty Acid - {polyunsaturated fatty acid} that plays a significant role in {metabolism} of {animals} and {humans}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Salt Bridge - a variant of {chemical bond}, a combination of {electrostatic interaction} and {hydrogen bond}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Pi-stacking - a variant of chemical bonding in which two {aromatic bonds} are stacked on top of each other."
+        },
+        {
+            "area": "chem",
+            "termDef": "Deoxyhemoglobin - variant {conformation} {of hemoglobin}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Transport Protein - a collective term for a large group of {proteins} that perform the function of transporting various {ligands} both across the {cell membrane} or within the {cell} (in {unicellular organisms}), as well as between different {cells} of a {multicellular organism}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Protein Function - a variant of how {protein} affects the chemical {system}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Catalytic Function of Protein - {function of protein}, consisting of {catalysis} {chemical reactions}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Catalysis - the process of accelerating {chemical reaction} under the influence of {catalyst}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Oxidoreductase - a class {of enzymes}, {catalyzing} {oxidation-reduction reactions}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Transferases - a class of {enzymes} that {catalyze} the transfer of {functional groups} from one {molecule} to another."
+        },
+        {
+            "area": "chem",
+            "termDef": "Lyases - a class of {enzymes} that catalyze {non-hydrolytic} and {non-oxidative} cleavage reactions of various {chemical bonds}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Ligases - a class of {enzymes} that catalyze the formation of {chemical bonds} between substrates through the {hydrolysis} of the diphosphate bond of {ATP} or a similar {triphosphate}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Structural Protein Function - {protein function} that provides shape and rigidity to {cells}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Aminotransferase - {transferase}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Transaminase - {aminotransferase}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Methyltransferase - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Epigenetics - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Intracellular debris - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Lipofuscin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Beta-galactosidase - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Senescence-associated secretory phenotype - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Growth Factor - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Metalloproteinases - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Pro-inflammatory Proteins - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Proteoglycans - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Hyaluronic Acid - {proteoglycan}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Chondroitin Sulfate - {proteoglycan}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Dermatan sulfate - {proteoglycan}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Heparan Sulfate - {proteoglycan}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Calcium Phosphate - "
+        },
+        {
+            "area": "chem",
+            "termDef": "D-Panthenol - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Lactobacillus - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Firmicutes - {lactobacillus}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Bifidobacterium - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Bacteroidetes - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Actinobacteria - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Verrucomicrobia - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Proteobacteria - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Acetate - {salt} and {ester} {of acetic acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Propionate - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Butyrate - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Norepinephrine - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Serotonin - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Neurotransmitter - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Benzodiazepine - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Macrophage - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Granulocyte - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Basophil - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Neutrophil - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Eosinophil - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Thymus - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Major Histocompatibility Complex - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Anergy - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Adenosine Monophosphate - {ester} {of phosphoric acid} and {adenosine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "AMP - {adenosine monophosphate}"
+        },
+        {
+            "area": "chem",
+            "termDef": "cAMP - {cyclic adenosine monophosphate}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Lactic Acid - {monobasic acid} {carboxylic acid} with three {atoms} {of carbon}, containing a {hydroxyl group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phospholipids - complex {lipids}, {complex esters} of polyatomic {alcohols} and higher {fatty acids}. They contain a residue of {phosphoric acid} and an additional group of {atoms} of various chemical nature connected to it."
+        },
+        {
+            "area": "chem",
+            "termDef": "Glycerophospholipids - {phospholipids} that contain a residue of {glycerol}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Acetylcholine - {choline}, in which the {hydroxyl group} is replaced by {acetate}"
+        },
+        {
+            "area": "chem",
+            "termDef": "N-Acetylglucosamine - N-{acetyl} derivative {of glucosamine}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Aminosugars - derivatives of {carbohydrates} formed by the substitution of one or more {hydroxyl groups} with an {amino group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Acetic Acid - {monobasic carboxylic acid} ch3cooh, with {carbon skeleton} {ethane}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Acetylation - {chemical reaction} of the addition of {acetate}"
+        },
+        {
+            "area": "chem",
+            "termDef": "N-Acetylmuramic Acid - {simple ether} {N-acetylglucosamine} and {lactic acid}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Superoxide Dismutase - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Catalase - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Tardigrade - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Anhydrobiosis - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Trehalose - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Deterium - "
+        },
+        {
+            "area": "chem",
+            "termDef": "GWAS - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Silencing - is a general term describing the {epigenetic} process of regulating {genes}. In this case, the {nucleotide} sequence is not altered, but rather the {gene expression} is halted."
+        },
+        {
+            "area": "chem",
+            "termDef": "Oligonucleotide - a short fragment {DNA} or {RNA}, obtained either by {chemical synthesis} or by {degradation} of longer {polynucleotides}."
+        },
+        {
+            "area": "chem",
+            "termDef": "DNA Probe - {oligonucleotide}, labeled in some way and used for {hybridization} with a specific region of a {DNA} {molecule}. It allows for the identification of {complementary} {nucleotide sequences}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Primer - {oligonucleotide}, complementary to a segment of {DNA} or {RNA}. Serves as a template for the {synthesis} of a {complementary} strand using {DNA polymerase}."
+        },
+        {
+            "area": "chem",
+            "termDef": "DNA Polymerase - {enzyme} that performs {biosynthesis} of {DNA} {molecules}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Gene Knockdown - a technique that allows for the reduction of {expression} of one or several {genes} by altering the corresponding sequence of {nucleotides}, or by using a short {oligonucleotide} that is {complementary} to the corresponding {mRNA} molecule."
+        },
+        {
+            "area": "chem",
+            "termDef": "Argonaute Proteins - a group of {proteins} that are catalytic components of a protein complex that provides {gene} {silencing} through the {RNA interference} mechanism."
+        },
+        {
+            "area": "chem",
+            "termDef": "Nuclease - a type of {enzyme} that {hydrolyzes} the {phosphodiester} bond between the subunits of {nucleic acids}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Endonuclease - {nuclease} that cleaves {phosphodiester} bonds in the middle of a {polynucleotide chain}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Trimethylamine - {a chemical compound} consisting of {a nitrogen atom} and 3 {methyl groups}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Monohydric Alcohol - is a {alcohol} that contains one {hydroxyl group}."
+        },
+        {
+            "area": "chem",
+            "termDef": "Ethanol - {monohydric alcohol} based on {ethane}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Monobasic Carboxylic Acid - {carboxylic acid} that contains 1 {carboxyl group}"
+        },
+        {
+            "area": "chem",
+            "termDef": "HDL - {High-Density Lipoprotein}"
+        },
+        {
+            "area": "chem",
+            "termDef": "LDL - {Low-Density Lipoprotein}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Phosphoric Acids - a group of {acids} that contain {phosphorus}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Concentration - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Complement System - a complex of protective {proteins}, constantly present in {blood}"
+        },
+        {
+            "area": "chem",
+            "termDef": "Spindle of Division - "
+        },
+        {
+            "area": "chem",
+            "termDef": "Potassium - {chemical element} with {atomic number} 19"
+        },
+        {
+            "area": "chem",
+            "termDef": "Sodium - {chemical element} with {atomic number} 11"
+        },
+        {
+            "area": "chem",
+            "termDef": "Toxin - {poison} of biological origin"
         }
     ]
 }
