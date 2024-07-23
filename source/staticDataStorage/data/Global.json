@@ -2563,7 +2563,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Chemical Reaction - the transformation of one or several initial {chemical substances} into other substances, during which {atomic nuclei} do not change, while there is a redistribution of {electrons} and {atomic nuclei}, resulting in the formation of new {molecules}"
+            "termDef": "Chemical Reaction - the transformation of one or several initial {substances} into other {substances}, during which {atomic nuclei} do not change, while there is a redistribution of {electrons} and {atomic nuclei}, resulting in the formation of new {molecules}"
         },
         {
             "area": "chem",
