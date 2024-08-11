@@ -2,3 +2,4 @@ jupyter
 jupytext
 openai
 python-dotenv
+nltk
