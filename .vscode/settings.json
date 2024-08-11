@@ -1,7 +1,14 @@
 {
     "cSpell.words": [
-        "dotenv",
         "gtest",
         "openai"
+    ],
+    "cSpell.ignoreWords": [
+        "dotenv",
+        "Lemmatizer",
+        "lemmatize",
+        "lemmatized",
+        "punkt",
+        "wordnet"
     ]
 }

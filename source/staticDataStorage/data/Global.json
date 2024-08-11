@@ -4207,7 +4207,7 @@
         },
         {
             "area": "chem",
-            "termDef": "Gamma-Aminobutyric Acid - a simple {amino acid} with a {carbon skeleton} of {butane}. 4-Aminobutyric Acid"
+            "termDef": "Gamma-Aminobutyric Acid - a simple {amino acid} with a {carbon skeleton} of {butane}. 4-Aminobutyric {Acid}"
         },
         {
             "area": "chem",
