@@ -1,34 +1,46 @@
 {
     "version": "2.0.0",
+    "inputs": [
+        {
+            "id": "preset",
+            "type": "pickString",
+            "description": "Select the preset:",
+            "options": [
+                "desktop_dev",
+                "desktop_release",
+                "wasm_release"
+            ]
+        }
+    ],
     "tasks": [
         {
-            "label": "Build from script",
+            "label": "Build",
             "type": "shell",
-            "command": "./project.py --build",
+            "command": "source .venv/bin/activate && ./project.py --build --preset ${input:preset}",
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "Run from script",
+            "label": "Run",
             "type": "shell",
-            "command": "./project.py --run",
+            "command": "source .venv/bin/activate && ./project.py --run --preset ${input:preset}",
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "Test from script",
+            "label": "Test",
             "type": "shell",
-            "command": "./project.py --test",
+            "command": "source .venv/bin/activate && ./project.py --test --preset ${input:preset}",
             "problemMatcher": "$msCompile"
         },
         {
             "label": "Clear",
             "type": "shell",
-            "command": "./project.py --clear",
+            "command": "source .venv/bin/activate && ./project.py --clear",
             "problemMatcher": "$msCompile"
         },
         {
-            "label": "Build and run",
-            "type": "shell",
-            "command": "./project.py --build --run",
+            "label": "Build and Run",
+            "dependsOn": ["Build", "Run"],
+            "dependsOrder": "sequence",
             "problemMatcher": "$msCompile"
         }
     ]
