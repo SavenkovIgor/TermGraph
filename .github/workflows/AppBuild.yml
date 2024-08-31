@@ -37,6 +37,9 @@ jobs:
         sudo ./llvm.sh ${{ env.CLANG_VERSION }} all
         sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-18 100
 
+    - name: Install Clang-tools
+      run: sudo apt install -y clang-tools-18
+
     - name: Run clang-format style check
       uses: jidicula/clang-format-action@v4.13.0
       with:
