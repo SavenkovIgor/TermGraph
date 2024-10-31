@@ -10,7 +10,7 @@
 #include <QtCore>
 #include <QtGlobal>
 
-#include "source/commonTools/Errors.h"
+#include "source/CommonTools/Errors.h"
 
 using UuidList = std::vector<QUuid>;
 

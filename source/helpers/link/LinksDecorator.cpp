@@ -3,7 +3,7 @@
 
 #include "source/helpers/link/LinksDecorator.h"
 
-#include "source/commonTools/HandyTypes.h"
+#include "source/CommonTools/HandyTypes.h"
 
 LinksDecorator::LinksDecorator(LinksString                    linksString,
                                LinksDecorator::DecorCondition colorCondition,

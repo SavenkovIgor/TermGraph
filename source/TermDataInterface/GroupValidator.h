@@ -5,10 +5,10 @@
 
 #include <QJsonObject>
 
-#include "source/commonTools/Errors.h"
-#include "source/commonTools/GroupUuid.h"
-#include "source/commonTools/JsonTools.h"
-#include "source/commonTools/Validator.h"
+#include "source/CommonTools/Errors.h"
+#include "source/CommonTools/GroupUuid.h"
+#include "source/CommonTools/JsonTools.h"
+#include "source/CommonTools/Validator.h"
 
 class GroupJsonValidator : public Validator<QJsonObject>
 {

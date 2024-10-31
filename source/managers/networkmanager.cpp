@@ -3,7 +3,7 @@
 
 #include "source/managers/networkmanager.h"
 
-#include "source/commonTools/NetworkTools.h"
+#include "source/CommonTools/NetworkTools.h"
 
 #ifdef Q_OS_WASM
 #include <emscripten/val.h>

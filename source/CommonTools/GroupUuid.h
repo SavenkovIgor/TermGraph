@@ -3,9 +3,9 @@
 
 #pragma once
 
-#include "source/commonTools/HandyTypes.h"
-#include "source/commonTools/JsonTools.h"
-#include "source/commonTools/SafeUuid.h"
+#include "source/CommonTools/HandyTypes.h"
+#include "source/CommonTools/JsonTools.h"
+#include "source/CommonTools/SafeUuid.h"
 
 class GroupUuid final : public SafeUuid
 {

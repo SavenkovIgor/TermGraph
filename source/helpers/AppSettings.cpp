@@ -5,7 +5,7 @@
 
 #include <QStandardPaths>
 
-#include "source/commonTools/Platform.h"
+#include "source/CommonTools/Platform.h"
 
 using namespace AppSettings;
 

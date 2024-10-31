@@ -5,7 +5,7 @@
 
 #include <ranges>
 
-#include "source/commonTools/HandyTypes.h"
+#include "source/CommonTools/HandyTypes.h"
 
 #include "source/helpers/link/LinkTools.h"
 #include "source/helpers/link/LinksDecorator.h"

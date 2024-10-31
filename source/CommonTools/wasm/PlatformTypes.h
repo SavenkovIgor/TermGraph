@@ -6,7 +6,7 @@
 #include <functional>
 #include <utility>
 
-#include "source/commonTools/HandyTypes.h"
+#include "source/CommonTools/HandyTypes.h"
 
 // Wrapper, that supports "then" call
 template<typename T>
