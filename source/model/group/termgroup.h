@@ -5,8 +5,8 @@
 
 #include <QObject>
 
-#include "source/TermDataInterface/GroupSummary.h"
 #include "source/CommonTools/HandyTypes.h"
+#include "source/TermDataInterface/GroupSummary.h"
 
 #include "source/helpers/linktermdistancecache.h"
 #include "source/model/graphicitem/rectgraphicitem.h"
