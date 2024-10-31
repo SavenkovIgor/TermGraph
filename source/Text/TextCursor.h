@@ -6,7 +6,7 @@
 #include <QStringView>
 #include <QtGlobal>
 
-#include "source/commonTools/HandyTypes.h"
+#include "source/CommonTools/HandyTypes.h"
 
 class TextCursor
 {

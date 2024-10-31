@@ -7,7 +7,7 @@
 
 #include "source/TermDataInterface/DataStorageInterface.h"
 #include "source/TermDataInterface/TermData.h"
-#include "source/commonTools/HandyTypes.h"
+#include "source/CommonTools/HandyTypes.h"
 
 class TermTable
 {

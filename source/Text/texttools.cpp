@@ -5,8 +5,8 @@
 
 #include <QFontMetricsF>
 
-#include "source/commonTools/HandyTypes.h"
-#include "source/commonTools/JsonTools.h"
+#include "source/CommonTools/HandyTypes.h"
+#include "source/CommonTools/JsonTools.h"
 
 import TextModule.Fonts;
 

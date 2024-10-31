@@ -3,7 +3,7 @@
 
 #include "source/model/edge/edgesmodel.h"
 
-#include "source/commonTools/HandyTypes.h"
+#include "source/CommonTools/HandyTypes.h"
 
 EdgesModel::EdgesModel(QObject *parent)
     : QAbstractListModel(parent)

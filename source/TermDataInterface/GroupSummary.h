@@ -11,7 +11,7 @@
 #include <QString>
 #include <QUuid>
 
-#include "source/commonTools/GroupUuid.h"
+#include "source/CommonTools/GroupUuid.h"
 
 // TODO: Make class and make fields private
 struct GroupSummary
