@@ -39,7 +39,10 @@
         },
         {
             "label": "Build and Run",
-            "dependsOn": ["Build", "Run"],
+            "dependsOn": [
+                "Build",
+                "Run"
+            ],
             "dependsOrder": "sequence",
             "problemMatcher": "$msCompile"
         },
@@ -47,7 +50,13 @@
             "label": "Run HTTP Server",
             "type": "shell",
             "command": "${command:python.interpreterPath}",
-            "args": [ "-m", "http.server", "--directory", "build/wasm_release", "8000" ],
+            "args": [
+                "-m",
+                "http.server",
+                "--directory",
+                "build/wasm_release",
+                "8000"
+            ],
             "isBackground": true,
             "problemMatcher": []
         },
@@ -55,7 +64,9 @@
             "label": "Open Browser",
             "type": "shell",
             "command": "firefox",
-            "args": [ "http://localhost:8000/TermGraph.html" ],
+            "args": [
+                "http://localhost:8000/TermGraph.html"
+            ],
             "problemMatcher": []
         }
     ]
