@@ -10,5 +10,10 @@
         "lemmatized",
         "punkt",
         "wordnet"
+    ],
+    "github.copilot.chat.reviewSelection.instructions": [
+        {
+            "file": ".vscode/copilot-review-instructions.md",
+        }
     ]
 }
