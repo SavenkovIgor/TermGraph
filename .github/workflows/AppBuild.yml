@@ -37,7 +37,7 @@ jobs:
         sudo ./llvm.sh ${{ env.CLANG_VERSION }} all
 
     - name: Run clang-format style check
-      uses: jidicula/clang-format-action@v4.13.0
+      uses: jidicula/clang-format-action@v4.14.0
       with:
         clang-format-version: 16
 
