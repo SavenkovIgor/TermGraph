@@ -1,0 +1,14 @@
+{
+  "name": "TermGraph Dev Container",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "eamodio.gitlens",
+        "ms-vscode.cmake-tools"
+      ]
+    }
+  }
+}
