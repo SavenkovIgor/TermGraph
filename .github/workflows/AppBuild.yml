@@ -12,7 +12,7 @@ env:
   QT_VERSION: 6.6.3
   QT_ROOT: ${{ github.workspace }}/Qt
   CONAN_VERSION: 2.5.0
-  AQT_VERSION: ==3.1.11
+  AQT_VERSION: ==3.2.0
   PY7ZR_VERSION: ==0.20.2
 
 jobs:
