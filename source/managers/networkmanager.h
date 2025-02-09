@@ -9,6 +9,8 @@
 #include "source/helpers/simplelistenserver.h"
 #include "source/managers/notifyinterface.h"
 
+using namespace Qt::Literals::StringLiterals;
+
 class NetworkManager : public QObject
 {
     Q_OBJECT
@@ -65,7 +67,7 @@ private: // Members
     QTcpSocket* inputSocket;
     QTcpSocket* outputSocket;
 
-    QString receiverIp = QStringLiteral("192.168.1.100");
+    QString receiverIp = u"192.168.1.100"_s;
 
     NotifyInterface& notifier;
 };
