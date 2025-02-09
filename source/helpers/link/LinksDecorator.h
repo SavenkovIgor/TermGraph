@@ -11,6 +11,8 @@
 #include "source/helpers/link/Link.h"
 #include "source/helpers/link/LinksString.h"
 
+using namespace Qt::Literals::StringLiterals;
+
 enum LinksDecoratorMode { Replace = 0, Insert, Cut };
 
 class LinksDecorator
@@ -33,6 +35,6 @@ private: // Members
     const DecorCondition mColorCondition;
     const DecorCondition mBackgroundCondition;
 
-    const QString mLeftReplacer  = QStringLiteral("<font color=\"%1\" style=\"background-color:%2\">");
-    const QString mRightReplacer = QStringLiteral("</font>");
+    const QString mLeftReplacer  = u"<font color=\"%1\" style=\"background-color:%2\">"_s;
+    const QString mRightReplacer = u"</font>"_s;
 };

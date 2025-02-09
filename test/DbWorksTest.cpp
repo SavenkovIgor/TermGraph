@@ -9,6 +9,8 @@
 
 #include "source/TermDataStorage/LocalDataStorage.h"
 
+using namespace Qt::Literals::StringLiterals;
+
 // TODO: Check creation of empty database with LocalDatabaseStorage
 
 class DBWorksTest : public ::testing::Test
@@ -90,11 +92,11 @@ public:
 };
 
 const GroupUuid DBWorksTest::mGroupUuid1    = GroupUuid::generate();
-const QString   DBWorksTest::mGroupName1    = QStringLiteral("TestGroup1");
-const QString   DBWorksTest::mGroupName2    = QStringLiteral("TestGroup2");
-const QString   DBWorksTest::mGroupComment1 = QStringLiteral("commentText1");
-const QString   DBWorksTest::mGroupComment2 = QStringLiteral("commentText2");
-const QString   DBWorksTest::mSpecSymbols   = QStringLiteral("!@#$%^&*()-+=*:/'\"\\/");
+const QString   DBWorksTest::mGroupName1    = u"TestGroup1"_s;
+const QString   DBWorksTest::mGroupName2    = u"TestGroup2"_s;
+const QString   DBWorksTest::mGroupComment1 = u"commentText1"_s;
+const QString   DBWorksTest::mGroupComment2 = u"commentText2"_s;
+const QString   DBWorksTest::mSpecSymbols   = u"!@#$%^&*()-+=*:/'\"\\/"_s;
 
 std::unique_ptr<DataStorageInterface> DBWorksTest::mStorage;
 
