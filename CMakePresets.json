@@ -47,6 +47,13 @@
     { "name": "test_on",  "hidden": true, "cacheVariables": { "BUILD_TESTING": "ON" } },
     { "name": "test_off", "hidden": true, "cacheVariables": { "BUILD_TESTING": "OFF" } },
     {
+      "name": "desktop_platform",
+      "hidden": true,
+      "cacheVariables": {
+        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
+      }
+    },
+    {
       "name": "default",
       "hidden": true,
       "generator": "Ninja",
@@ -66,20 +73,14 @@
     {
       "name": "desktop_dev",
       "displayName": "Desktop dev build",
-      "inherits": ["default", "qt_env", "clang_compiler", "debug_build", "test_on"],
-      "binaryDir": "${sourceDir}/build/${presetName}",
-      "cacheVariables": {
-        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
-      }
+      "inherits": ["default", "qt_env", "clang_compiler", "desktop_platform", "debug_build", "test_on"],
+      "binaryDir": "${sourceDir}/build/${presetName}"
     },
     {
       "name": "desktop_release",
       "displayName": "Desktop release build",
-      "inherits": ["default", "qt_env", "clang_compiler", "release_build", "test_on"],
-      "binaryDir": "${sourceDir}/build/${presetName}",
-      "cacheVariables": {
-        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies"
-      }
+      "inherits": ["default", "qt_env", "clang_compiler", "desktop_platform", "release_build", "test_on"],
+      "binaryDir": "${sourceDir}/build/${presetName}"
     },
     {
       "name": "wasm_release",
