@@ -1,0 +1,7 @@
+[settings]
+os=Emscripten
+arch=x86_64
+compiler=clang
+compiler.version=15
+compiler.libcxx=libc++
+build_type=Debug
