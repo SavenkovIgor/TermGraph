@@ -54,6 +54,15 @@
       }
     },
     {
+      "name": "wasm_platform",
+      "hidden": true,
+      "cacheVariables": {
+        "QT_HOST_PATH": "$env{QT_VERSION_ROOT}/gcc_64",
+        "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_singlethread/lib/cmake/Qt6/qt.toolchain.cmake",
+        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_singlethread;${sourceDir}/build/${presetName}/conan-dependencies"
+      }
+    },
+    {
       "name": "default",
       "hidden": true,
       "generator": "Ninja",
@@ -85,13 +94,8 @@
     {
       "name": "wasm_release",
       "displayName": "WebAssembly release build",
-      "inherits": ["default", "qt_env", "emsdk_compiler", "release_build", "test_off"],
-      "binaryDir": "${sourceDir}/build/${presetName}",
-      "cacheVariables": {
-        "QT_HOST_PATH": "$env{QT_VERSION_ROOT}/gcc_64",
-        "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_singlethread/lib/cmake/Qt6/qt.toolchain.cmake",
-        "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_singlethread;${sourceDir}/build/${presetName}/conan-dependencies"
-      }
+      "inherits": ["default", "qt_env", "emsdk_compiler", "wasm_platform", "release_build", "test_off"],
+      "binaryDir": "${sourceDir}/build/${presetName}"
     }
   ],
   "buildPresets": [
