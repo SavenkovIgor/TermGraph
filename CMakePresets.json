@@ -92,6 +92,12 @@
       "binaryDir": "${sourceDir}/build/${presetName}"
     },
     {
+      "name": "wasm_dev",
+      "displayName": "WebAssembly dev build",
+      "inherits": ["default", "qt_env", "emsdk_compiler", "wasm_platform", "debug_build", "test_off"],
+      "binaryDir": "${sourceDir}/build/${presetName}"
+    },
+    {
       "name": "wasm_release",
       "displayName": "WebAssembly release build",
       "inherits": ["default", "qt_env", "emsdk_compiler", "wasm_platform", "release_build", "test_off"],
@@ -101,6 +107,7 @@
   "buildPresets": [
     { "name": "desktop_dev",        "configurePreset": "desktop_dev",        "targets": "all" },
     { "name": "desktop_release",    "configurePreset": "desktop_release",    "targets": "all" },
+    { "name": "wasm_dev",           "configurePreset": "wasm_dev",           "targets": "all" },
     { "name": "wasm_release",       "configurePreset": "wasm_release",       "targets": "all" }
   ],
   "testPresets": [

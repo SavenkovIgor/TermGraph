@@ -8,6 +8,7 @@
             "options": [
                 "desktop_dev",
                 "desktop_release",
+                "wasm_dev",
                 "wasm_release"
             ]
         }

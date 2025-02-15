@@ -127,6 +127,8 @@ class Project:
 def main():
     parser = argparse.ArgumentParser(description='Project build script')
 
+    presets = ['desktop_dev', 'desktop_release', 'wasm_dev', 'wasm_release']
+
     parser.add_argument('--install',     action='store_true', help='Install dependencies')
     parser.add_argument('--configure',   action='store_true', help='Configure project')
     parser.add_argument('--build',       action='store_true', help='Build project')
@@ -137,15 +139,13 @@ def main():
     parser.add_argument('--clear-all',   action='store_true', help='Clear project and conan cache')
     parser.add_argument('--rebuild',     action='store_true', help='Rebuild project (clear, configure, build)')
 
-    parser.add_argument('--preset', type=str, help='Preset to use',
-                        choices=['desktop_dev', 'desktop_release', 'wasm_release'], default='desktop_release')
+    parser.add_argument('--preset', type=str, help='Preset to use', choices=presets, default='desktop_release')
 
     args = parser.parse_args()
 
     configure_environment()
 
-    app = Project('Application', 'TermGraph', repository_root(),
-                  ['desktop_dev', 'desktop_release', 'wasm_release'])
+    app = Project('Application', 'TermGraph', repository_root(), presets)
 
     if args.install:
         app.install(args.preset)
