@@ -14,17 +14,17 @@ ENV QT_VERSION=6.6.3
 ENV CONAN_VERSION=2.12.1
 ENV AQT_VERSION==3.2.0
 
-RUN apt update && apt upgrade -y && \
+RUN apt update && apt upgrade -y              && \
     apt install -y software-properties-common && \
-    apt install -y libgl1-mesa-dev && \
-    apt install -y libxkbcommon-dev && \
-    apt install -y libfontconfig1 && \
+    apt install -y libgl1-mesa-dev            && \
+    apt install -y libxkbcommon-dev           && \
+    apt install -y libfontconfig1              && \
     apt install -y libfreetype6
 
-RUN cd /home/vscode && \
+RUN cd /home/vscode                   && \
     wget https://apt.llvm.org/llvm.sh && \
-    chmod +x llvm.sh && \
-    ./llvm.sh ${CLANG_VERSION} all && \
+    chmod +x llvm.sh                  && \
+    ./llvm.sh ${CLANG_VERSION} all    && \
     rm llvm.sh
 
 RUN apt install -y clang-format-${CLANG_VERSION}
@@ -33,8 +33,8 @@ RUN apt install -y clang-format-${CLANG_VERSION}
 RUN apt install -y python3-pip python3-venv
 
 # Create and activate virtual environment, install packages locally
-RUN python3 -m venv $WORKSPACE_ROOT/.venv && \
-    $VENV_BIN/python -m pip install --upgrade pip && \
+RUN python3 -m venv $WORKSPACE_ROOT/.venv                                    && \
+    $VENV_BIN/python -m pip install --upgrade pip                            && \
     $VENV_BIN/pip install conan==${CONAN_VERSION} aqtinstall==${AQT_VERSION}
 
 # Install Qt gcc_64
@@ -49,9 +49,9 @@ RUN $VENV_BIN/aqt install-qt -O ${QT_ROOT} linux desktop ${QT_VERSION} wasm_sing
 
 # Install emscripten
 RUN git clone https://github.com/emscripten-core/emsdk.git ${EMSDK_ROOT} && \
-    cd ${EMSDK_ROOT} && \
-    ./emsdk install ${EMSDK_VERSION} && \
-    ./emsdk activate ${EMSDK_VERSION} && \
+    cd ${EMSDK_ROOT}                                                     && \
+    ./emsdk install ${EMSDK_VERSION}                                     && \
+    ./emsdk activate ${EMSDK_VERSION}                                    && \
     echo "source ${EMSDK_ROOT}/emsdk_env.sh" >> /home/vscode/.bashrc
 
 # Cmake installation
@@ -82,8 +82,8 @@ RUN apt update && apt install -y cmake && \
 
 # Install the latest Ninja manually
 RUN wget https://github.com/ninja-build/ninja/releases/download/v1.11.1/ninja-linux.zip && \
-    unzip ninja-linux.zip -d /usr/bin/ && \
-    rm ninja-linux.zip && \
+    unzip ninja-linux.zip -d /usr/bin/                                                  && \
+    rm ninja-linux.zip                                                                  && \
     chmod +x /usr/bin/ninja
 
 RUN echo 'if [ -f $VENV_BIN/activate ]; then \
