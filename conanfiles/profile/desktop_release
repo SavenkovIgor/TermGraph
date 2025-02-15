@@ -1,11 +1,11 @@
 [buildenv]
-CC=clang-17
-CXX=clang++-17
+CC=clang-18
+CXX=clang++-18
 
 [settings]
 os=Linux
 arch=x86_64
 compiler=clang
-compiler.version=17
+compiler.version=18
 compiler.libcxx=libstdc++11
 build_type=Release

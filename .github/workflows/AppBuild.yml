@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 env:
-  CLANG_VERSION: 17
+  CLANG_VERSION: 18
   EMSDK_VERSION: 3.1.37
   QT_VERSION: 6.6.3
   QT_ROOT: ${{ github.workspace }}/Qt
@@ -35,6 +35,10 @@ jobs:
         wget https://apt.llvm.org/llvm.sh
         chmod +x llvm.sh
         sudo ./llvm.sh ${{ env.CLANG_VERSION }} all
+        sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-${{ env.CLANG_VERSION }} 100
+
+    - name: Install Clang-tools
+      run: sudo apt install -y clang-tools-${{ env.CLANG_VERSION }}
 
     - name: Run clang-format style check
       uses: jidicula/clang-format-action@v4.14.0
