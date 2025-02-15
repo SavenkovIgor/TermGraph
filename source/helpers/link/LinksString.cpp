@@ -8,6 +8,8 @@
 
 #include "source/helpers/link/LinksDecorator.h"
 
+import CommonTools.HandyTypes;
+
 LinksString::LinksString(QStringView str)
     : mString(str)
     , mLinks(extractLinks(mString))

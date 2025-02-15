@@ -5,6 +5,8 @@
 
 #include "source/helpers/appstyle.h"
 
+import CommonTools.HandyTypes;
+
 namespace rng = std::ranges;
 
 PaintedForest::PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
