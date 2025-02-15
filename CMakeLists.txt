@@ -163,7 +163,7 @@ target_sources (TermGraph
 target_sources (TermGraph
     PUBLIC FILE_SET CXX_MODULES FILES
         "source/main.cpp"
-        "source/Text/Fonts.cppm"
+        "source/Text/Fonts.cpp"
 )
 
 # Add platform-specific sources
@@ -389,7 +389,7 @@ if (BUILD_TESTING)
     # List of sources containing modules
     target_sources (TermGraphTest
         PUBLIC FILE_SET CXX_MODULES FILES
-            "source/Text/Fonts.cppm"
+            "source/Text/Fonts.cpp"
         )
 
     # Test sources
