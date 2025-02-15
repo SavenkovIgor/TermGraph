@@ -17,25 +17,25 @@
         {
             "label": "Build",
             "type": "shell",
-            "command": "source ~/emsdk/emsdk_env.sh && source .venv/bin/activate && ./project.py --build --preset ${input:preset}",
+            "command": "./project.py --build --preset ${input:preset}",
             "problemMatcher": "$msCompile"
         },
         {
             "label": "Run",
             "type": "shell",
-            "command": "source ~/emsdk/emsdk_env.sh && source .venv/bin/activate && ./project.py --run --preset ${input:preset}",
+            "command": "./project.py --run --preset ${input:preset}",
             "problemMatcher": "$msCompile"
         },
         {
             "label": "Test",
             "type": "shell",
-            "command": "source ~/emsdk/emsdk_env.sh && source .venv/bin/activate && ./project.py --test --preset ${input:preset}",
+            "command": "./project.py --test --preset ${input:preset}",
             "problemMatcher": "$msCompile"
         },
         {
             "label": "Clear",
             "type": "shell",
-            "command": "source .venv/bin/activate && ./project.py --clear",
+            "command": "./project.py --clear",
             "problemMatcher": "$msCompile"
         },
         {
@@ -55,7 +55,7 @@
                 "-m",
                 "http.server",
                 "--directory",
-                "build/wasm_release",
+                "build/wasm_dev",
                 "8000"
             ],
             "isBackground": true,
