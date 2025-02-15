@@ -5,6 +5,8 @@
 
 #include <ranges>
 
+import CommonTools.HandyTypes;
+
 namespace rng = std::ranges;
 
 QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::List& nodes)
