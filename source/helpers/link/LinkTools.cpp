@@ -12,6 +12,8 @@
 #include "source/helpers/link/Link.h"
 #include "source/helpers/link/LinksString.h"
 
+import CommonTools.HandyTypes;
+
 LinkTools::LinkTools(QObject* parent)
     : QObject(parent)
 {}

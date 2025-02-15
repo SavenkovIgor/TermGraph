@@ -55,5 +55,3 @@ public:
         return {width, height};
     }
 };
-
-inline auto asInt(auto num) -> int { return static_cast<int>(num); }

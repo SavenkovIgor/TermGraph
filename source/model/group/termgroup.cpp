@@ -9,6 +9,8 @@
 #include "source/helpers/appstyle.h"
 #include "source/helpers/link/LinkTools.h"
 
+import CommonTools.HandyTypes;
+
 namespace rng = std::ranges;
 
 import TextModule.Fonts;

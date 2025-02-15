@@ -5,10 +5,10 @@
 
 #include <QFontMetricsF>
 
-#include "source/CommonTools/HandyTypes.h"
 #include "source/CommonTools/JsonTools.h"
 
 import TextModule.Fonts;
+import CommonTools.HandyTypes;
 
 bool TextTools::isTermAndDefinition(const QString &termDef) { return termDef.contains(JsonTools::termDefSeparator); }
 

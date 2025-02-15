@@ -3,7 +3,7 @@
 
 #include "source/model/term/termsmodel.h"
 
-#include "source/CommonTools/HandyTypes.h"
+import CommonTools.HandyTypes;
 
 TermsModel::TermsModel(QObject *parent)
     : QAbstractListModel(parent)
