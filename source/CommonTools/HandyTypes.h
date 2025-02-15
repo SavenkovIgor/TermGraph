@@ -3,9 +3,6 @@
 
 #pragma once
 
-#include <vector>
-
-#include <QSizeF>
 #include <QUuid>
 #include <QtCore>
 #include <QtGlobal>
@@ -30,28 +27,3 @@ public:
 enum class Direction { Left, Right };
 
 enum class UuidMode { Default, Url };
-
-class SizeList : public std::vector<QSizeF>
-{
-public:
-    // Returns total size of stacked sizes, placed vertically or horizontally
-    QSizeF totalStackedSize(Qt::Orientation stackDirection)
-    {
-        qreal width  = 0;
-        qreal height = 0;
-
-        if (stackDirection == Qt::Vertical) {
-            for (auto& size : (*this)) {
-                width = std::max(width, size.width());
-                height += size.height();
-            }
-        } else if (stackDirection == Qt::Horizontal) {
-            for (auto& size : (*this)) {
-                width += size.width();
-                height = std::max(height, size.height());
-            }
-        }
-
-        return {width, height};
-    }
-};
