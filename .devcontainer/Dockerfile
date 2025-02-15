@@ -8,7 +8,7 @@ ENV QT_ROOT=${WORKSPACE_ROOT}/Qt
 ENV EMSDK_ROOT=${WORKSPACE_ROOT}/emsdk
 
 # Version env variables
-ENV CLANG_VERSION=17
+ENV CLANG_VERSION=18
 ENV EMSDK_VERSION=3.1.37
 ENV QT_VERSION=6.6.3
 ENV CONAN_VERSION=2.12.1
@@ -27,7 +27,8 @@ RUN cd /home/vscode                   && \
     ./llvm.sh ${CLANG_VERSION} all    && \
     rm llvm.sh
 
-RUN apt install -y clang-format-${CLANG_VERSION}
+RUN apt install -y clang-format-${CLANG_VERSION} && \
+    apt install -y clang-tools-${CLANG_VERSION}
 
 # Install pip and venv
 RUN apt install -y python3-pip python3-venv

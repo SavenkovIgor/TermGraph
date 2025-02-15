@@ -11,8 +11,7 @@ class TermGraphConan(ConanFile):
     # requires = ''
 
     def is_wasm(self):
-        isEmscripten = self.settings.os == 'Emscripten'
-        return isEmscripten
+        return self.settings.os == 'Emscripten'
 
     def build_requirements(self):
         if not self.is_wasm():
