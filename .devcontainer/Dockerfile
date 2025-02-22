@@ -10,7 +10,7 @@ ENV EMSDK_ROOT=${WORKSPACE_ROOT}/emsdk
 # Version env variables
 ENV CLANG_VERSION=18
 ENV EMSDK_VERSION=3.1.37
-ENV QT_VERSION=6.6.3
+ENV QT_VERSION=6.7.3
 ENV CONAN_VERSION=2.12.1
 ENV AQT_VERSION==3.2.0
 
@@ -39,13 +39,13 @@ RUN python3 -m venv $WORKSPACE_ROOT/.venv                                    && 
     $VENV_BIN/pip install conan==${CONAN_VERSION} aqtinstall==${AQT_VERSION}
 
 # Install Qt gcc_64
-RUN $VENV_BIN/aqt install-qt -O ${QT_ROOT} linux desktop ${QT_VERSION} gcc_64 \
-    -m qtimageformats qt5compat qtshadertools \
+RUN $VENV_BIN/aqt install-qt -O ${QT_ROOT} linux desktop ${QT_VERSION} linux_gcc_64 \
+    --modules qtimageformats qt5compat qtshadertools \
     --archives qttranslations qttools qtsvg qtdeclarative qtbase icu
 
 # Install Qt wasm multithread
-RUN $VENV_BIN/aqt install-qt -O ${QT_ROOT} linux desktop ${QT_VERSION} wasm_singlethread \
-    -m qtimageformats qt5compat qtshadertools \
+RUN $VENV_BIN/aqt install-qt -O ${QT_ROOT} all_os wasm ${QT_VERSION} wasm_singlethread \
+    --modules qtimageformats qt5compat qtshadertools \
     --archives qttranslations qttools qtsvg qtdeclarative qtbase icu
 
 # Install emscripten

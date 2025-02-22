@@ -9,7 +9,7 @@ on:
 env:
   CLANG_VERSION: 18
   EMSDK_VERSION: 3.1.37
-  QT_VERSION: 6.6.3
+  QT_VERSION: 6.7.3
   QT_ROOT: ${{ github.workspace }}/Qt
   CONAN_VERSION: 2.12.1
   AQT_VERSION: ==3.2.0
@@ -60,7 +60,7 @@ jobs:
         py7zrversion: ${{ env.PY7ZR_VERSION }}
         version: ${{ env.QT_VERSION }}
         dir: ${{ github.workspace }}
-        arch: 'gcc_64'
+        arch: 'linux_gcc_64'
         modules: 'qtimageformats qt5compat qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
