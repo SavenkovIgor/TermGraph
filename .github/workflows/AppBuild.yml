@@ -76,7 +76,7 @@ jobs:
 
     - name: Install Qt wasm multithread
       if: matrix.build_profile == 'wasm_release'
-      uses: jurplel/install-qt-action@v4
+      uses: timangus/install-qt-action
       with:
         aqtversion: ${{ env.AQT_VERSION }}
         py7zrversion: ${{ env.PY7ZR_VERSION }}
