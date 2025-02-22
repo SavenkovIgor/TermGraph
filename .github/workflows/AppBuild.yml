@@ -60,6 +60,8 @@ jobs:
         py7zrversion: ${{ env.PY7ZR_VERSION }}
         version: ${{ env.QT_VERSION }}
         dir: ${{ github.workspace }}
+        host: 'linux'
+        target: 'desktop'
         arch: 'linux_gcc_64'
         modules: 'qtimageformats qt5compat qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
@@ -80,6 +82,8 @@ jobs:
         py7zrversion: ${{ env.PY7ZR_VERSION }}
         version: ${{ env.QT_VERSION }}
         dir: ${{ github.workspace }}
+        host: 'all_os'
+        target: 'wasm'
         arch: 'wasm_singlethread'
         modules: 'qtimageformats qt5compat qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
