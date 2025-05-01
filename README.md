@@ -20,7 +20,7 @@
 
 <div align="center">
 
-[Description](#%EF%B8%8F-description) • [Key features](#-key-features) • [Installation](#-installation) • [Roadmap](#-roadmap) •
+[Description](#%EF%B8%8F-description) • [Key features](#-key-features) • [SetUp](#-setup) • [Roadmap](#-roadmap) •
 [Tech stack](#-tech-stack)
 
 [Build](#hammer_and_wrench-build) • [Tests](#alembic-tests) • [Project structure](#microscope-project-structure) • [Credits](#pushpin-credits)
