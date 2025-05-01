@@ -14,7 +14,6 @@
 [![Conan](https://img.shields.io/badge/Conan-6699cb?style=for-the-badge&logo=conan&logoColor=white)](https://conan.io/)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)]()
-[![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)](https://play.google.com/store/apps/details?id=app.termgraph&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
 [![WebAssembly](https://img.shields.io/badge/WASM-654FF0?style=for-the-badge&logo=WebAssembly&logoColor=white)](https://emscripten.org/index.html)
 
 </div>
@@ -83,14 +82,12 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 
 ## 🌿 Key features
 
-- Builds on Desktop, Wasm and Android
+- Builds on Desktop and Wasm
 - Supports big maps (at least 1500 nodes)
 - Devices synchronization
 - Semi-automatic links markup
 
-# 🚀 Installation
-
-<a href='https://play.google.com/store/apps/details?id=app.termgraph&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' width="160" height="60" src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png'/></a>
+# 🚀 SetUp
 
 - Desktop: build from sources on ubuntu (yet)
 - Wasm: build from sources or available [here](https://termgraph.app)
@@ -139,7 +136,6 @@ You can start tests from:
 
 ```bash
 ├── .github/workflows/       # Github actions
-├── android/                 # Android build
 ├── conanfiles/              # Conan profiles, and generated stuff
 ├── doc/                     # Documents
 ├── qml/                     # Main.qml file
