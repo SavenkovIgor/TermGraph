@@ -54,7 +54,6 @@ set_target_properties (TermGraph PROPERTIES AUTORCC ON)
 
 target_sources (TermGraph
     PRIVATE
-        "android/AndroidManifest.xml"
         "source/Api.cpp"
         "source/Api.h"
         "source/CommonTools/Errors.h"
@@ -180,12 +179,6 @@ endif ()
 
 if (NOT WASM)
     target_sources (TermGraph PRIVATE "resources/HelpImages/HelpImages.qrc")
-endif ()
-
-# Define target properties for Android with Qt 6 as:
-if (ANDROID)
-    set_target_properties (TermGraph
-        PROPERTIES QT_ANDROID_PACKAGE_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/android)
 endif ()
 
 target_include_directories (
