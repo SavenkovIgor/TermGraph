@@ -7,11 +7,11 @@ on:
     branches: [ "main" ]
 
 env:
-  CLANG_VERSION: 18
+  CLANG_VERSION: 20
   EMSDK_VERSION: 3.1.37
   QT_VERSION: 6.6.3
   QT_ROOT: ${{ github.workspace }}/Qt
-  CONAN_VERSION: 2.12.1
+  CONAN_VERSION: 2.16.1
   AQT_VERSION: ==3.2.0
   PY7ZR_VERSION: ==0.20.2
 
