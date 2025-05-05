@@ -13,9 +13,6 @@ project (TermGraph
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set (CMAKE_CXX_SCAN_FOR_MODULES False)
 
-# Small hack to fix rpath for devcontainer builds
-set (CMAKE_BUILD_RPATH "/home/user/Qt/6.6.3/gcc_64/lib")
-
 # Enable ranges support for emscripten
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     add_compile_options(-fexperimental-library)
