@@ -39,7 +39,7 @@ RUN python3 -m venv $WORKSPACE_ROOT/.venv                                    && 
     $VENV_BIN/pip install conan==${CONAN_VERSION} aqtinstall==${AQT_VERSION}
 
 # Install Qt gcc_64
-ENV QT_VERSION=6.7.3
+ENV QT_VERSION=6.8.3
 
 RUN $VENV_BIN/aqt install-qt -O ${QT_ROOT} linux desktop ${QT_VERSION} linux_gcc_64 \
     --modules qtimageformats qt5compat qtshadertools \
@@ -51,7 +51,7 @@ RUN $VENV_BIN/aqt install-qt -O ${QT_ROOT} all_os wasm ${QT_VERSION} wasm_single
     --archives qttranslations qttools qtsvg qtdeclarative qtbase icu
 
 # Install emscripten
-ENV EMSDK_VERSION=3.1.50
+ENV EMSDK_VERSION=3.1.56
 
 RUN git clone https://github.com/emscripten-core/emsdk.git ${EMSDK_ROOT} && \
     cd ${EMSDK_ROOT}                                                     && \
