@@ -7,12 +7,17 @@ ENV VENV_BIN=${WORKSPACE_ROOT}/.venv/bin
 ENV QT_ROOT=${WORKSPACE_ROOT}/Qt
 ENV EMSDK_ROOT=${WORKSPACE_ROOT}/emsdk
 
-RUN apt update && apt upgrade -y              && \
+RUN apt update                                && \
+    # Qt dependencies
     apt install -y software-properties-common && \
     apt install -y libgl1-mesa-dev            && \
     apt install -y libxkbcommon-dev           && \
     apt install -y libfontconfig1             && \
-    apt install -y libfreetype6
+    apt install -y libfreetype6               && \
+    # python dependencies
+    apt install -y python3-pip python3-venv   && \
+    # Cmake & Ninja dependencies
+    apt install -y ca-certificates gpg wget unzip
 
 ENV CLANG_VERSION=20
 
@@ -24,9 +29,6 @@ RUN cd /home/vscode                   && \
 
 RUN apt install -y clang-format-${CLANG_VERSION} && \
     apt install -y clang-tools-${CLANG_VERSION}
-
-# Install pip and venv
-RUN apt install -y python3-pip python3-venv
 
 # Create and activate virtual environment, install packages locally
 ENV CONAN_VERSION=2.16.1
@@ -56,10 +58,6 @@ RUN git clone https://github.com/emscripten-core/emsdk.git ${EMSDK_ROOT} && \
     ./emsdk install ${EMSDK_VERSION}                                     && \
     ./emsdk activate ${EMSDK_VERSION}                                    && \
     echo "source ${EMSDK_ROOT}/emsdk_env.sh" >> /home/vscode/.bashrc
-
-# Cmake installation
-# 1. Install prerequisites
-RUN apt install -y --no-install-recommends ca-certificates gpg wget
 
 # 2. Manually add the Kitware signing key if not already provided by the kitware-archive-keyring package.
 #    (The official instructions suggest checking for a file in /usr/share/doc/kitware-archive-keyring/)
