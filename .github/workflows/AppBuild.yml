@@ -8,8 +8,8 @@ on:
 
 env:
   CLANG_VERSION: 20
-  EMSDK_VERSION: 3.1.37
-  QT_VERSION: 6.6.3
+  EMSDK_VERSION: 3.1.50
+  QT_VERSION: 6.7.3
   QT_ROOT: ${{ github.workspace }}/Qt
   CONAN_VERSION: 2.16.1
   AQT_VERSION: ==3.2.0
@@ -60,7 +60,9 @@ jobs:
         py7zrversion: ${{ env.PY7ZR_VERSION }}
         version: ${{ env.QT_VERSION }}
         dir: ${{ github.workspace }}
-        arch: 'gcc_64'
+        host: 'linux'
+        target: 'desktop'
+        arch: 'linux_gcc_64'
         modules: 'qtimageformats qt5compat qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
@@ -80,6 +82,8 @@ jobs:
         py7zrversion: ${{ env.PY7ZR_VERSION }}
         version: ${{ env.QT_VERSION }}
         dir: ${{ github.workspace }}
+        host: 'all_os'
+        target: 'wasm'
         arch: 'wasm_singlethread'
         modules: 'qtimageformats qt5compat qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
