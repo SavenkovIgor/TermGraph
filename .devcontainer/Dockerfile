@@ -40,12 +40,12 @@ RUN python3 -m venv $WORKSPACE_ROOT/.venv                                    && 
 ENV QT_VERSION=6.6.3
 
 RUN $VENV_BIN/aqt install-qt -O ${QT_ROOT} linux desktop ${QT_VERSION} gcc_64 \
-    -m qtimageformats qt5compat qtshadertools \
+    --modules qtimageformats qt5compat qtshadertools \
     --archives qttranslations qttools qtsvg qtdeclarative qtbase icu
 
 # Install Qt wasm multithread
 RUN $VENV_BIN/aqt install-qt -O ${QT_ROOT} linux desktop ${QT_VERSION} wasm_singlethread \
-    -m qtimageformats qt5compat qtshadertools \
+    --modules qtimageformats qt5compat qtshadertools \
     --archives qttranslations qttools qtsvg qtdeclarative qtbase icu
 
 # Install emscripten
