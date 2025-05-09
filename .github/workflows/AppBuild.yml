@@ -36,6 +36,7 @@ jobs:
         chmod +x llvm.sh
         sudo ./llvm.sh ${{ env.CLANG_VERSION }} all
         sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-${{ env.CLANG_VERSION }} 100
+        sudo ln -s /usr/lib/llvm-${{ env.CLANG_VERSION }}/bin/clang-scan-deps /usr/bin/clang-scan-deps
 
     - name: Install Clang-tools
       run: sudo apt install -y clang-tools-${{ env.CLANG_VERSION }}
