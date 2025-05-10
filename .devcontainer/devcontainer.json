@@ -3,6 +3,8 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
+  "forwardPorts": [8000],
+  "appPort": ["8000:8000"],
   "customizations": {
     "vscode": {
       "extensions": [
