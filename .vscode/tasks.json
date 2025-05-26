@@ -11,6 +11,15 @@
                 "wasm_dev",
                 "wasm_release"
             ]
+        },
+        {
+            "id": "wasmPreset",
+            "type": "pickString",
+            "description": "Select the WASM preset:",
+            "options": [
+                "wasm_dev",
+                "wasm_release"
+            ]
         }
     ],
     "tasks": [
@@ -57,7 +66,7 @@
                 "--bind",
                 "0.0.0.0",
                 "--directory",
-                "build/wasm_dev",
+                "build/${input:wasmPreset}",
                 "8000"
             ],
             "isBackground": true,
