@@ -91,6 +91,7 @@
 
                 const instance = await qtLoad({
                     qt: {
+                        containerElements: [screen],
                         onLoaded: () => showUi(screen),
                         onExit: exitData => {
                             status.innerHTML = 'Application exit';
@@ -100,8 +101,10 @@
                                 exitData.text !== undefined ? ` (${exitData.text})` : '';
                             showUi(spinner);
                         },
-                        entryFunction: window.createQtAppInstance,
-                        containerElements: [screen],
+                        entryFunction: (config) => {
+                            config['locateFile'] = (path, scriptDirectory) => scriptDirectory + path;
+                            return TermGraph_entry(config);
+                        },
                     }
                 });
             } catch (e) {
