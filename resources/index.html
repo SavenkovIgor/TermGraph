@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en-us">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="icon" type="image/png" href="no_text_icon256x256.png">
@@ -8,43 +9,71 @@
     <!--Set visual viewport size for mobile devices to the device size,
         witch results in a scale of 1 and a 1:1 mapping between CSS pixels
         and Qt device independent pixels. -->
-    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=0"/>
+    <meta name="viewport" content="width=device-width, height=device-height, user-scalable=0" />
 
     <title>TermGraph</title>
     <style>
-      /* Make the html body cover the entire (visual) viewport with no scroll bars. */
-      html, body { padding: 0; margin: 0; overflow: hidden; height: 100% }
-      #screen { width: 100%; height: 100%; }
+        /* Make the html body cover the entire (visual) viewport with no scroll bars. */
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            overflow: hidden;
+            height: 100%
+        }
 
-      /* Make body background black */
-      body { background-color: #242326; }
-      /* Make the spinner rotate */
-      @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
-      strong { color: #dcdcdc; font-size: 18px; }
-      #qtstatus { color: #dcdcdc; font-size: 14px; }
+        #screen {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Make body background black */
+        body {
+            background-color: #242326;
+        }
+
+        /* Make the spinner rotate */
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        strong {
+            color: #dcdcdc;
+            font-size: 18px;
+        }
+
+        #qtstatus {
+            color: #dcdcdc;
+            font-size: 14px;
+        }
     </style>
-  </head>
-  <body onload="init()">
+</head>
+
+<body onload="init()">
     <figure style="overflow:visible;" id="qtspinner">
-      <center style="margin-top:10.5em; line-height:250%">
-        <!-- This image is slowly rotating -->
-        <img src="no_text_icon256x256.png" style="animation: spin 30s linear infinite; transform-origin: center; display:block;" width="256" height="256"/>
-        <br/>
-        <strong>Please wait for ~20 seconds while we load the information for you.</strong>
-        </br>
-        <strong>Thank you for your patience and understanding</strong>
-        <div id="qtstatus"></div>
-        <noscript>JavaScript is disabled. Please enable JavaScript to use this application.</noscript>
-      </center>
+        <center style="margin-top:10.5em; line-height:250%">
+            <!-- This image is slowly rotating -->
+            <img src="no_text_icon256x256.png"
+                style="animation: spin 30s linear infinite; transform-origin: center; display:block;" width="256"
+                height="256" />
+            <br />
+            <strong>Please wait for ~20 seconds while we load the information for you.</strong>
+            </br>
+            <strong>Thank you for your patience and understanding</strong>
+            <div id="qtstatus"></div>
+            <noscript>JavaScript is disabled. Please enable JavaScript to use this application.</noscript>
+        </center>
     </figure>
     <div id="screen"></div>
 
     <script type="text/javascript">
-        async function init()
-        {
+        async function init() {
             const spinner = document.querySelector('#qtspinner');
             const screen = document.querySelector('#screen');
             const status = document.querySelector('#qtstatus');
@@ -63,8 +92,7 @@
                 const instance = await qtLoad({
                     qt: {
                         onLoaded: () => showUi(screen),
-                        onExit: exitData =>
-                        {
+                        onExit: exitData => {
                             status.innerHTML = 'Application exit';
                             status.innerHTML +=
                                 exitData.code !== undefined ? ` with code ${exitData.code}` : '';
@@ -74,7 +102,6 @@
                         },
                         entryFunction: window.createQtAppInstance,
                         containerElements: [screen],
-
                     }
                 });
             } catch (e) {
@@ -85,5 +112,6 @@
     </script>
     <script src="TermGraph.js"></script>
     <script type="text/javascript" src="qtloader.js"></script>
-  </body>
+</body>
+
 </html>
