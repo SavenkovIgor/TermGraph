@@ -256,10 +256,10 @@ qt_add_qml_module (TermGraph
     QML_FILES "qml/Main.qml")
 
 if (WASM)
-    set (DEPLOY_DIR "${CMAKE_BINARY_DIR}/deploy/")
+    set (DEPLOY_DIR "${CMAKE_BINARY_DIR}/dist/")
     set (DEV_DEPLOY True)
 
-    # Creating deploy folder
+    # Creating dist folder
     add_custom_command(TARGET TermGraph
                        POST_BUILD COMMAND ${CMAKE_COMMAND} -E
                        make_directory "${DEPLOY_DIR}")
