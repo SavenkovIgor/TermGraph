@@ -75,9 +75,9 @@
         {
             "label": "Open Browser",
             "type": "shell",
-            "command": "firefox",
+            "command": "$BROWSER",
             "args": [
-                "http://localhost:8000/TermGraph.html"
+                "http://localhost:8000/"
             ],
             "problemMatcher": []
         }
