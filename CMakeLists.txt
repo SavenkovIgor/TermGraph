@@ -42,7 +42,7 @@ qt_add_executable (TermGraph)
 
 set_target_properties (TermGraph
     PROPERTIES
-        CXX_STANDARD 20
+        CXX_STANDARD 23
         CXX_STANDARD_REQUIRED ON
         CXX_SCAN_FOR_MODULES TRUE
 )
@@ -288,7 +288,7 @@ if (BUILD_TESTING)
 
     set_target_properties (TermGraphTest
         PROPERTIES
-            CXX_STANDARD 20
+            CXX_STANDARD 23
             CXX_STANDARD_REQUIRED ON
             CXX_SCAN_FOR_MODULES TRUE
     )
