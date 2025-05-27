@@ -20,6 +20,14 @@
                 "wasm_dev",
                 "wasm_release"
             ]
+        },
+        {
+            "id": "preview",
+            "type": "command",
+            "command": "simpleBrowser.show",
+            "args": [
+                "http://localhost:8000"
+            ]
         }
     ],
     "tasks": [
@@ -27,18 +35,33 @@
             "label": "Build",
             "type": "shell",
             "command": "./project.py --build --preset ${input:preset}",
+            "icon": {
+                "id": "tools"
+            },
             "problemMatcher": "$msCompile"
         },
         {
             "label": "Run",
             "type": "shell",
             "command": "./project.py --run --preset ${input:preset}",
+            "icon": {
+                "id": "play"
+            },
             "problemMatcher": "$msCompile"
         },
         {
             "label": "Test",
             "type": "shell",
             "command": "./project.py --test --preset ${input:preset}",
+            "icon": {
+                "id": "beaker"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "CMake Install",
+            "type": "shell",
+            "command": "./project.py --cmake-install --preset ${input:preset}",
             "problemMatcher": "$msCompile"
         },
         {
@@ -51,9 +74,26 @@
             "label": "Build and Run",
             "dependsOn": [
                 "Build",
+                "CMake Install",
                 "Run"
             ],
             "dependsOrder": "sequence",
+            "icon": {
+                "id": "run-all"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Build, Install and Test",
+            "dependsOn": [
+                "Build",
+                "CMake Install",
+                "Test"
+            ],
+            "dependsOrder": "sequence",
+            "icon": {
+                "id": "tasklist"
+            },
             "problemMatcher": "$msCompile"
         },
         {
@@ -70,15 +110,23 @@
                 "8000"
             ],
             "isBackground": true,
+            "icon": {
+                "id": "server"
+            },
             "problemMatcher": []
         },
         {
             "label": "Open Browser",
+            "detail": "Open the browser to view the application",
             "type": "shell",
-            "command": "firefox",
-            "args": [
-                "http://localhost:8000/TermGraph.html"
-            ],
+            "command": "echo ${input:preview}",
+            "presentation": {
+                "reveal": "silent",
+                "focus": false
+            },
+            "icon": {
+                "id": "globe"
+            },
             "problemMatcher": []
         }
     ]
