@@ -20,6 +20,14 @@
                 "wasm_dev",
                 "wasm_release"
             ]
+        },
+        {
+            "id": "preview",
+            "type": "command",
+            "command": "simpleBrowser.show",
+            "args": [
+                "http://localhost:8000"
+            ]
         }
     ],
     "tasks": [
@@ -91,11 +99,16 @@
         },
         {
             "label": "Open Browser",
+            "detail": "Open the browser to view the application",
             "type": "shell",
-            "command": "$BROWSER",
-            "args": [
-                "http://localhost:8000/"
-            ],
+            "command": "echo ${input:preview}",
+            "presentation": {
+                "reveal": "silent",
+                "focus": false
+            },
+            "icon": {
+                "id": "globe"
+            },
             "problemMatcher": []
         }
     ]
