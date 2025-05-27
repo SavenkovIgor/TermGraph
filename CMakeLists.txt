@@ -256,29 +256,21 @@ qt_add_qml_module (TermGraph
     QML_FILES "qml/Main.qml")
 
 if (WASM)
-    set (DEPLOY_DIR "${CMAKE_BINARY_DIR}/dist/")
-    set (DEV_DEPLOY True)
+    # The install folder is inside the build directory
+    set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/dist")
 
-    # Creating dist folder
-    add_custom_command(TARGET TermGraph
-                       POST_BUILD COMMAND ${CMAKE_COMMAND} -E
-                       make_directory "${DEPLOY_DIR}")
+    # Install static resources
+    install (FILES
+        "${CMAKE_SOURCE_DIR}/resources/applicationIcons/no_text_icon256x256.png"
+        "${CMAKE_SOURCE_DIR}/resources/index.html"
+        DESTINATION ".")
 
-    # Copy of static resources
-    set (WASM_RESOURCES)
-    list (APPEND WASM_RESOURCES "${CMAKE_SOURCE_DIR}/resources/applicationIcons/no_text_icon256x256.png")
-    list (APPEND WASM_RESOURCES "${CMAKE_SOURCE_DIR}/resources/index.html")
-
-    # Copy of build artefacts
-    list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/qtloader.js")
-    list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/TermGraph.js")
-    list (APPEND WASM_RESOURCES "${CMAKE_BINARY_DIR}/TermGraph.wasm")
-
-    foreach (WASM_RESOURCE ${WASM_RESOURCES})
-        add_custom_command (TARGET TermGraph
-                            POST_BUILD COMMAND ${CMAKE_COMMAND} -E
-                            copy "${WASM_RESOURCE}" "${DEPLOY_DIR}")
-    endforeach ()
+    # Install WASM build artifacts (these are generated during build)
+    install (FILES
+        "${CMAKE_BINARY_DIR}/qtloader.js"
+        "${CMAKE_BINARY_DIR}/TermGraph.js"
+        "${CMAKE_BINARY_DIR}/TermGraph.wasm"
+        DESTINATION ".")
 endif ()
 
 

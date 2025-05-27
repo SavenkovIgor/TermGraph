@@ -42,6 +42,12 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "CMake Install",
+            "type": "shell",
+            "command": "./project.py --cmake-install --preset ${input:preset}",
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "Clear",
             "type": "shell",
             "command": "./project.py --clear",
@@ -51,7 +57,18 @@
             "label": "Build and Run",
             "dependsOn": [
                 "Build",
+                "CMake Install",
                 "Run"
+            ],
+            "dependsOrder": "sequence",
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "Build, Install and Test",
+            "dependsOn": [
+                "Build",
+                "CMake Install",
+                "Test"
             ],
             "dependsOrder": "sequence",
             "problemMatcher": "$msCompile"

@@ -100,13 +100,16 @@ jobs:
       run: conan profile detect
 
     - name: Conan install dependencies
-      run: ./project.py --install --preset ${{ matrix.build_profile }}
+      run: ./project.py --deps-install --preset ${{ matrix.build_profile }}
 
     - name: CMake configure
       run: ./project.py --configure --preset ${{ matrix.build_profile }}
 
     - name: Cmake build
       run: ./project.py --build --preset ${{ matrix.build_profile }}
+
+    - name: CMake install
+      run: ./project.py --cmake-install --preset ${{ matrix.build_profile }}
 
     - name: CTest
       if: matrix.build_profile != 'wasm_release'
