@@ -1,11 +1,14 @@
 // Copyright © 2016-2023. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#pragma once
+module;
 
-#include <string>
-
+#include <string> // NOTE: this is need only due to weird ODR violation
 #include <QString>
+
+export module CommonTools.Errors;
+
+export namespace mod {
 
 enum ErrorCodes {
     GroupUuidInvalid = 0,
@@ -60,7 +63,7 @@ enum ErrorCodes {
 
 namespace Errors {
 
-inline QString toQString(ErrorCodes code) {
+QString toQString(ErrorCodes code) {
     // clang-format off
     switch(code) {
         case ErrorCodes::GroupUuidInvalid:                        return "GroupUuidInvalid";
@@ -101,11 +104,10 @@ inline QString toQString(ErrorCodes code) {
     return "UnknownError";
 }
 
-inline QString toQString(int code) { return toQString(static_cast<ErrorCodes>(code)); }
+QString toQString(int code) { return toQString(static_cast<ErrorCodes>(code)); }
 
-inline ErrorCodes fromChar(const char* enumName)
-{
-    std::string msg(enumName);
+ErrorCodes fromChar(const char* enumName) {
+    QString msg(enumName);
 
     // clang-format off
     if (msg == "GroupUuidInvalid")                        return ErrorCodes::GroupUuidInvalid;
@@ -145,10 +147,11 @@ inline ErrorCodes fromChar(const char* enumName)
     return ErrorCodes::UnknownError;
 }
 
-inline ErrorCodes fromQString(QString enumName)
-{
+ErrorCodes fromQString(QString enumName) {
     auto str = enumName.toStdString();
     return fromChar(str.c_str());
 }
 
 }
+
+} // namespace mod
