@@ -35,18 +35,27 @@
             "label": "Build",
             "type": "shell",
             "command": "./project.py --build --preset ${input:preset}",
+            "icon": {
+                "id": "tools"
+            },
             "problemMatcher": "$msCompile"
         },
         {
             "label": "Run",
             "type": "shell",
             "command": "./project.py --run --preset ${input:preset}",
+            "icon": {
+                "id": "play"
+            },
             "problemMatcher": "$msCompile"
         },
         {
             "label": "Test",
             "type": "shell",
             "command": "./project.py --test --preset ${input:preset}",
+            "icon": {
+                "id": "beaker"
+            },
             "problemMatcher": "$msCompile"
         },
         {
@@ -69,6 +78,9 @@
                 "Run"
             ],
             "dependsOrder": "sequence",
+            "icon": {
+                "id": "run-all"
+            },
             "problemMatcher": "$msCompile"
         },
         {
@@ -79,6 +91,9 @@
                 "Test"
             ],
             "dependsOrder": "sequence",
+            "icon": {
+                "id": "tasklist"
+            },
             "problemMatcher": "$msCompile"
         },
         {
@@ -95,6 +110,9 @@
                 "8000"
             ],
             "isBackground": true,
+            "icon": {
+                "id": "server"
+            },
             "problemMatcher": []
         },
         {
