@@ -7,7 +7,7 @@ add_library (ThemeModule STATIC)
 set_target_properties (ThemeModule
     PROPERTIES
         AUTOMOC ON
-        CXX_STANDARD 20
+        CXX_STANDARD 23
         CXX_STANDARD_REQUIRED ON)
 
 set (QML_SOURCES
@@ -61,4 +61,3 @@ qt_add_qml_module (ThemeModule
         "icon/trash.svg"
         "icon/warning.svg"
 )
-
