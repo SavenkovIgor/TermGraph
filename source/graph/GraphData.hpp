@@ -6,6 +6,7 @@
 #include <functional>
 #include <ranges>
 #include <vector>
+#include <algorithm>
 
 #include "source/graph/Edge.hpp"
 #include "source/graph/Node.hpp"
