@@ -1,8 +1,8 @@
 {
-  "version": 3,
+  "version": 6,
   "cmakeMinimumRequired": {
     "major": 3,
-    "minor": 28,
+    "minor": 29,
     "patch": 0
   },
   "configurePresets": [
@@ -114,5 +114,35 @@
   "testPresets": [
     { "name": "desktop_dev",     "configurePreset": "desktop_dev" },
     { "name": "desktop_release", "configurePreset": "desktop_release" }
+  ],
+  "workflowPresets": [
+    {
+      "name": "desktop_dev",
+      "steps": [
+        { "type": "configure", "name": "desktop_dev" },
+        { "type": "build", "name": "desktop_dev" }
+      ]
+    },
+    {
+      "name": "desktop_release",
+      "steps": [
+        { "type": "configure", "name": "desktop_release" },
+        { "type": "build", "name": "desktop_release" }
+      ]
+    },
+    {
+      "name": "wasm_dev",
+      "steps": [
+        { "type": "configure", "name": "wasm_dev" },
+        { "type": "build", "name": "wasm_dev" }
+      ]
+    },
+    {
+      "name": "wasm_release",
+      "steps": [
+        { "type": "configure", "name": "wasm_release" },
+        { "type": "build", "name": "wasm_release" }
+      ]
+    }
   ]
 }
