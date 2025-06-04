@@ -1,5 +1,7 @@
 app/*
 build/*
+# CMake install results
+dist/
 TermGraph/*
 .qmake.stash
 Makefile

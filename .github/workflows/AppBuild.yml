@@ -127,7 +127,7 @@ jobs:
       if: matrix.build_profile == 'wasm_release' && github.ref == 'refs/heads/main' && github.event_name == 'push'
       uses: actions/upload-pages-artifact@v3
       with:
-        path: ${{github.workspace}}/build/wasm_release/dist
+        path: ${{github.workspace}}/dist/wasm_release
 
   deploy:
     needs: build

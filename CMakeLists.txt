@@ -256,8 +256,9 @@ qt_add_qml_module (TermGraph
     QML_FILES "qml/Main.qml")
 
 if (WASM)
-    # The install folder is inside the build directory
-    set (CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/dist")
+    # The install folder is inside the project root and depends on build preset
+    get_filename_component(_build_preset "${CMAKE_BINARY_DIR}" NAME)
+    set (CMAKE_INSTALL_PREFIX "${CMAKE_SOURCE_DIR}/dist/${_build_preset}")
 
     # Install static resources
     install (FILES
