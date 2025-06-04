@@ -1,0 +1,7 @@
+[buildenv]
+CC=clang-20
+CXX=clang++-20
+
+[settings]
+compiler=clang
+compiler.version=20
