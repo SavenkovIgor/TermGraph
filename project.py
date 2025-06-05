@@ -53,8 +53,6 @@ class Project:
     def build_dir(self, preset_name: str) -> Path:
         return self.path / f'build/{preset_name}'
 
-    def delete_cmake_user_presets(self):
-        delete_if_exist(self.project_dir() / 'CMakeUserPresets.json')
 
     def check_preset(self, preset_name: str):
         if not preset_name in self.available_presets:
@@ -81,7 +79,6 @@ class Project:
     def configure(self, preset_name: str):
         self.prepare(preset_name)
         logging.info(f'---CONFIGURE {self.name} with preset {preset_name}---')
-        self.delete_cmake_user_presets()
         run(f'cmake --preset {preset_name} ./')
 
     def build(self, preset_name: str):
