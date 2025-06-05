@@ -102,9 +102,6 @@ jobs:
     - name: Conan install dependencies
       run: ./project.py --deps-install --preset ${{ matrix.build_profile }}
 
-    - name: CMake configure
-      run: ./project.py --configure --preset ${{ matrix.build_profile }}
-
     - name: Cmake build
       run: ./project.py --build --preset ${{ matrix.build_profile }}
 
