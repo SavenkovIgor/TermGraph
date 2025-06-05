@@ -33,6 +33,7 @@
     "tasks": [
         {
             "label": "Build",
+            "detail": "Build the project using the selected preset",
             "type": "shell",
             "command": "./project.py --build --preset ${input:preset}",
             "icon": {
@@ -42,6 +43,7 @@
         },
         {
             "label": "Run",
+            "detail": "Run the project using the selected preset",
             "type": "shell",
             "command": "./project.py --run --preset ${input:preset}",
             "icon": {
@@ -51,6 +53,7 @@
         },
         {
             "label": "Test",
+            "detail": "Test the project using the selected preset",
             "type": "shell",
             "command": "./project.py --test --preset ${input:preset}",
             "icon": {
@@ -60,18 +63,24 @@
         },
         {
             "label": "CMake Install",
+            "detail": "Run CMake install (make sense only for WASM presets)",
             "type": "shell",
             "command": "./project.py --cmake-install --preset ${input:preset}",
             "problemMatcher": "$msCompile"
         },
         {
             "label": "Clear",
+            "detail": "Clear the build directory",
             "type": "shell",
             "command": "./project.py --clear",
+            "icon": {
+                "id": "trash"
+            },
             "problemMatcher": "$msCompile"
         },
         {
             "label": "Build and Run",
+            "detail": "Build and run the project using the selected preset",
             "dependsOn": [
                 "Build",
                 "CMake Install",
@@ -80,19 +89,6 @@
             "dependsOrder": "sequence",
             "icon": {
                 "id": "run-all"
-            },
-            "problemMatcher": "$msCompile"
-        },
-        {
-            "label": "Build, Install and Test",
-            "dependsOn": [
-                "Build",
-                "CMake Install",
-                "Test"
-            ],
-            "dependsOrder": "sequence",
-            "icon": {
-                "id": "tasklist"
             },
             "problemMatcher": "$msCompile"
         },
