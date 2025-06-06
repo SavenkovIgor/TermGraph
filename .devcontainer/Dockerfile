@@ -57,8 +57,35 @@ RUN cd /home/vscode                   && \
     ./llvm.sh ${CLANG_VERSION} all    && \
     rm llvm.sh
 
-RUN apt install -y clang-format-${CLANG_VERSION} && \
-    apt install -y clang-tools-${CLANG_VERSION}
+RUN update-alternatives \
+    --verbose \
+    --install /usr/bin/clang                    clang                    /usr/bin/clang-${CLANG_VERSION} 100                \
+    --slave   /usr/bin/clang++                  clang++                  /usr/bin/clang++-${CLANG_VERSION}                  \
+    --slave   /usr/bin/clang-apply-replacements clang-apply-replacements /usr/bin/clang-apply-replacements-${CLANG_VERSION} \
+    --slave   /usr/bin/clang-change-namespace   clang-change-namespace   /usr/bin/clang-change-namespace-${CLANG_VERSION}   \
+    --slave   /usr/bin/clang-check              clang-check              /usr/bin/clang-check-${CLANG_VERSION}              \
+    --slave   /usr/bin/clang-cl                 clang-cl                 /usr/bin/clang-cl-${CLANG_VERSION}                 \
+    --slave   /usr/bin/clang-cpp                clang-cpp                /usr/bin/clang-cpp-${CLANG_VERSION}                \
+    --slave   /usr/bin/clangd                   clangd                   /usr/bin/clangd-${CLANG_VERSION}                   \
+    --slave   /usr/bin/clang-doc                clang-doc                /usr/bin/clang-doc-${CLANG_VERSION}                \
+    --slave   /usr/bin/clang-extdef-mapping     clang-extdef-mapping     /usr/bin/clang-extdef-mapping-${CLANG_VERSION}     \
+    --slave   /usr/bin/clang-format             clang-format             /usr/bin/clang-format-${CLANG_VERSION}             \
+    --slave   /usr/bin/clang-include-cleaner    clang-include-cleaner    /usr/bin/clang-include-cleaner-${CLANG_VERSION}    \
+    --slave   /usr/bin/clang-include-fixer      clang-include-fixer      /usr/bin/clang-include-fixer-${CLANG_VERSION}      \
+    --slave   /usr/bin/clang-installapi         clang-installapi         /usr/bin/clang-installapi-${CLANG_VERSION}         \
+    --slave   /usr/bin/clang-linker-wrapper     clang-linker-wrapper     /usr/bin/clang-linker-wrapper-${CLANG_VERSION}     \
+    --slave   /usr/bin/clang-move               clang-move               /usr/bin/clang-move-${CLANG_VERSION}               \
+    --slave   /usr/bin/clang-nvlink-wrapper     clang-nvlink-wrapper     /usr/bin/clang-nvlink-wrapper-${CLANG_VERSION}     \
+    --slave   /usr/bin/clang-offload-bundler    clang-offload-bundler    /usr/bin/clang-offload-bundler-${CLANG_VERSION}    \
+    --slave   /usr/bin/clang-offload-packager   clang-offload-packager   /usr/bin/clang-offload-packager-${CLANG_VERSION}   \
+    --slave   /usr/bin/clang-query              clang-query              /usr/bin/clang-query-${CLANG_VERSION}              \
+    --slave   /usr/bin/clang-refactor           clang-refactor           /usr/bin/clang-refactor-${CLANG_VERSION}           \
+    --slave   /usr/bin/clang-reorder-fields     clang-reorder-fields     /usr/bin/clang-reorder-fields-${CLANG_VERSION}     \
+    --slave   /usr/bin/clang-repl               clang-repl               /usr/bin/clang-repl-${CLANG_VERSION}               \
+    --slave   /usr/bin/clang-scan-deps          clang-scan-deps          /usr/bin/clang-scan-deps-${CLANG_VERSION}          \
+    --slave   /usr/bin/clang-sycl-linker        clang-sycl-linker        /usr/bin/clang-sycl-linker-${CLANG_VERSION}        \
+    --slave   /usr/bin/clang-tblgen             clang-tblgen             /usr/bin/clang-tblgen-${CLANG_VERSION}             \
+    --slave   /usr/bin/clang-tidy               clang-tidy               /usr/bin/clang-tidy-${CLANG_VERSION}
 
 # Create and activate virtual environment, install packages locally
 ENV CONAN_VERSION=2.16.1
