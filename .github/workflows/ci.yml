@@ -1,4 +1,4 @@
-name: Frontend build, and deploy to GitHub Pages
+name: CI
 
 on:
   push:
