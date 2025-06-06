@@ -39,10 +39,7 @@
     {
       "name": "debug_build",
       "hidden": true,
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_CXX_FLAGS_INIT": "-DQT_QML_DEBUG"
-      }
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
     },
     { "name": "test_on",  "hidden": true, "cacheVariables": { "BUILD_TESTING": "ON" } },
     { "name": "test_off", "hidden": true, "cacheVariables": { "BUILD_TESTING": "OFF" } },
