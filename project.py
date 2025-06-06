@@ -4,6 +4,7 @@ import argparse
 import logging
 import os
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -110,35 +111,7 @@ class Project:
         if clear_conan:
             run('conan remove -c "*"')
 
-
-# Should be possible to run:
-# ./project.py --deps-install  [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --build         [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --cmake-install [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --run           [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --test          [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --pack          [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --clear
-# ./project.py --clear-all
-def main():
-    parser = argparse.ArgumentParser(description='Project build script')
-
-    presets = ['desktop_dev', 'desktop_release', 'wasm_dev', 'wasm_release']
-
-    parser.add_argument('--deps-install',  action='store_true', help='Install dependencies')
-    parser.add_argument('--build',         action='store_true', help='Build project')
-    parser.add_argument('--cmake-install', action='store_true', help='Install project (cmake install)')
-    parser.add_argument('--test',          action='store_true', help='Test project')
-    parser.add_argument('--run',           action='store_true', help='Run project')
-    parser.add_argument('--pack',          action='store_true', help='Pack project')
-    parser.add_argument('--clear',         action='store_true', help='Clear project')
-    parser.add_argument('--clear-all',     action='store_true', help='Clear project and conan cache')
-    parser.add_argument('--rebuild',       action='store_true', help='Rebuild project (clear, configure, build)')
-
-    parser.add_argument('--preset', type=str, help='Preset to use', choices=presets, default='desktop_release')
-
-    args = parser.parse_args()
-
+def main(args: argparse.Namespace):
     configure_environment()
 
     app = Project('Application', 'TermGraph', repository_root(), presets)
@@ -174,5 +147,31 @@ def main():
         app.run(args.preset)
 
 
+# Should be possible to run:
+# ./project.py --deps-install  [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --build         [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --cmake-install [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --run           [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --test          [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --pack          [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --clear
+# ./project.py --clear-all
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description='Project build script')
+
+    presets = ['desktop_dev', 'desktop_release', 'wasm_dev', 'wasm_release']
+
+    parser.add_argument('--deps-install',  action='store_true', help='Install dependencies')
+    parser.add_argument('--build',         action='store_true', help='Build project')
+    parser.add_argument('--cmake-install', action='store_true', help='Install project (cmake install)')
+    parser.add_argument('--test',          action='store_true', help='Test project')
+    parser.add_argument('--run',           action='store_true', help='Run project')
+    parser.add_argument('--pack',          action='store_true', help='Pack project')
+    parser.add_argument('--clear',         action='store_true', help='Clear project')
+    parser.add_argument('--clear-all',     action='store_true', help='Clear project and conan cache')
+    parser.add_argument('--rebuild',       action='store_true', help='Rebuild project (clear, configure, build)')
+
+    parser.add_argument('--preset', type=str, help='Preset to use', choices=presets, default='desktop_release')
+
+    args = parser.parse_args()
+    sys.exit(main(args))
