@@ -17,7 +17,6 @@
         "xaver.clang-format",
         "usernamehw.errorlens",
         "github.vscode-github-actions",
-        "github.copilot-workspace",
         "ms-python.isort",
         "AykutSarac.jsoncrack-vscode",
         "bierner.markdown-mermaid",
@@ -26,10 +25,6 @@
         "medo64.render-crlf",
         "spmeesseman.vscode-taskexplorer",
         "Gruntfuggly.todo-tree",
-        "ms-vscode.vscode-copilot-vision",
-        "ms-vscode.vscode-commander",
-        "ms-vscode.copilot-mermaid-diagram",
-        "ms-vscode.vscode-websearchforcopilot",
         "hediet.debug-visualizer",
         "ms-azuretools.vscode-docker",
         "savenkovigor.QmlSandboxExtension"
