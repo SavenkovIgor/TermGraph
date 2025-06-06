@@ -19,24 +19,14 @@ RUN apt update                                && \
     # Cmake & Ninja dependencies
     apt install -y ca-certificates gpg wget unzip
 
-ENV CLANG_VERSION=20
-
-RUN cd /home/vscode                   && \
-    wget https://apt.llvm.org/llvm.sh && \
-    chmod +x llvm.sh                  && \
-    ./llvm.sh ${CLANG_VERSION} all    && \
-    rm llvm.sh
-
-RUN apt install -y clang-format-${CLANG_VERSION} && \
-    apt install -y clang-tools-${CLANG_VERSION}
-
 # Create and activate virtual environment, install packages locally
-ENV CONAN_VERSION=2.16.1
-ENV AQT_VERSION==3.2.1
+ENV AQT_VERSION=3.2.1
+COPY aqt.ini ${WORKSPACE_ROOT}/aqt.ini
+ENV AQT_CONFIG=${WORKSPACE_ROOT}/aqt.ini
 
 RUN python3 -m venv $WORKSPACE_ROOT/.venv                                    && \
     $VENV_BIN/python -m pip install --upgrade pip                            && \
-    $VENV_BIN/pip install conan==${CONAN_VERSION} aqtinstall==${AQT_VERSION}
+    $VENV_BIN/pip install aqtinstall==${AQT_VERSION}
 
 # Install Qt gcc_64
 ENV QT_VERSION=6.8.3
@@ -58,6 +48,51 @@ RUN git clone https://github.com/emscripten-core/emsdk.git ${EMSDK_ROOT} && \
     ./emsdk install ${EMSDK_VERSION}                                     && \
     ./emsdk activate ${EMSDK_VERSION}                                    && \
     echo "source ${EMSDK_ROOT}/emsdk_env.sh" >> /home/vscode/.bashrc
+
+ENV CLANG_VERSION=20
+
+RUN cd /home/vscode                   && \
+    wget https://apt.llvm.org/llvm.sh && \
+    chmod +x llvm.sh                  && \
+    ./llvm.sh ${CLANG_VERSION} all    && \
+    rm llvm.sh
+
+RUN update-alternatives \
+    --verbose \
+    --install /usr/bin/clang                    clang                    /usr/bin/clang-${CLANG_VERSION} 100                \
+    --slave   /usr/bin/clang++                  clang++                  /usr/bin/clang++-${CLANG_VERSION}                  \
+    --slave   /usr/bin/clang-apply-replacements clang-apply-replacements /usr/bin/clang-apply-replacements-${CLANG_VERSION} \
+    --slave   /usr/bin/clang-change-namespace   clang-change-namespace   /usr/bin/clang-change-namespace-${CLANG_VERSION}   \
+    --slave   /usr/bin/clang-check              clang-check              /usr/bin/clang-check-${CLANG_VERSION}              \
+    --slave   /usr/bin/clang-cl                 clang-cl                 /usr/bin/clang-cl-${CLANG_VERSION}                 \
+    --slave   /usr/bin/clang-cpp                clang-cpp                /usr/bin/clang-cpp-${CLANG_VERSION}                \
+    --slave   /usr/bin/clangd                   clangd                   /usr/bin/clangd-${CLANG_VERSION}                   \
+    --slave   /usr/bin/clang-doc                clang-doc                /usr/bin/clang-doc-${CLANG_VERSION}                \
+    --slave   /usr/bin/clang-extdef-mapping     clang-extdef-mapping     /usr/bin/clang-extdef-mapping-${CLANG_VERSION}     \
+    --slave   /usr/bin/clang-format             clang-format             /usr/bin/clang-format-${CLANG_VERSION}             \
+    --slave   /usr/bin/clang-include-cleaner    clang-include-cleaner    /usr/bin/clang-include-cleaner-${CLANG_VERSION}    \
+    --slave   /usr/bin/clang-include-fixer      clang-include-fixer      /usr/bin/clang-include-fixer-${CLANG_VERSION}      \
+    --slave   /usr/bin/clang-installapi         clang-installapi         /usr/bin/clang-installapi-${CLANG_VERSION}         \
+    --slave   /usr/bin/clang-linker-wrapper     clang-linker-wrapper     /usr/bin/clang-linker-wrapper-${CLANG_VERSION}     \
+    --slave   /usr/bin/clang-move               clang-move               /usr/bin/clang-move-${CLANG_VERSION}               \
+    --slave   /usr/bin/clang-nvlink-wrapper     clang-nvlink-wrapper     /usr/bin/clang-nvlink-wrapper-${CLANG_VERSION}     \
+    --slave   /usr/bin/clang-offload-bundler    clang-offload-bundler    /usr/bin/clang-offload-bundler-${CLANG_VERSION}    \
+    --slave   /usr/bin/clang-offload-packager   clang-offload-packager   /usr/bin/clang-offload-packager-${CLANG_VERSION}   \
+    --slave   /usr/bin/clang-query              clang-query              /usr/bin/clang-query-${CLANG_VERSION}              \
+    --slave   /usr/bin/clang-refactor           clang-refactor           /usr/bin/clang-refactor-${CLANG_VERSION}           \
+    --slave   /usr/bin/clang-reorder-fields     clang-reorder-fields     /usr/bin/clang-reorder-fields-${CLANG_VERSION}     \
+    --slave   /usr/bin/clang-repl               clang-repl               /usr/bin/clang-repl-${CLANG_VERSION}               \
+    --slave   /usr/bin/clang-scan-deps          clang-scan-deps          /usr/bin/clang-scan-deps-${CLANG_VERSION}          \
+    --slave   /usr/bin/clang-sycl-linker        clang-sycl-linker        /usr/bin/clang-sycl-linker-${CLANG_VERSION}        \
+    --slave   /usr/bin/clang-tblgen             clang-tblgen             /usr/bin/clang-tblgen-${CLANG_VERSION}             \
+    --slave   /usr/bin/clang-tidy               clang-tidy               /usr/bin/clang-tidy-${CLANG_VERSION}
+
+# Create and activate virtual environment, install packages locally
+ENV CONAN_VERSION=2.16.1
+
+RUN python3 -m venv $WORKSPACE_ROOT/.venv                                    && \
+    $VENV_BIN/python -m pip install --upgrade pip                            && \
+    $VENV_BIN/pip install conan==${CONAN_VERSION}
 
 # 2. Manually add the Kitware signing key if not already provided by the kitware-archive-keyring package.
 #    (The official instructions suggest checking for a file in /usr/share/doc/kitware-archive-keyring/)
