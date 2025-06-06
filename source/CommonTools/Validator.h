@@ -13,9 +13,9 @@ class Validator
 public:
     // if return value is empty, then check is passed
     // else check is failed and error code is returned
-    using CheckResult = std::optional<ErrorCodes>;
+    using CheckResult = std::optional<ErrorCode>;
     using Condition   = std::function<CheckResult(const Object&)>;
-    using ErrorList   = std::vector<ErrorCodes>;
+    using ErrorList   = std::vector<ErrorCode>;
 
     void addCheck(Condition condition) { mCheckList.push_back(condition); }
 
@@ -35,7 +35,7 @@ public:
 
     ErrorList lastErrors() const { return mLastErrors; }
 
-    static CheckResult checkOrError(bool condition, ErrorCodes error)
+    static CheckResult checkOrError(bool condition, ErrorCode error)
     {
         return condition ? std::nullopt : CheckResult(error);
     }

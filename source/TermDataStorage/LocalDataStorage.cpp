@@ -74,7 +74,7 @@ FutureResult<GroupSummary> LocalDatabaseStorage::deleteGroup(const GroupUuid& uu
 FutureResult<TermData> LocalDatabaseStorage::term(const QString& nodeName, const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->exist(uuid)) {
-        return toFuture<Result<TermData>>([] { return ErrorCodes::GroupUuidNotFound; });
+        return toFuture<Result<TermData>>([] { return ErrorCode::GroupUuidNotFound; });
     }
 
     return toFuture<Result<TermData>>([this, nodeName, uuid] { return impl->db.termTable->term(nodeName, uuid); });
@@ -88,7 +88,7 @@ FutureResult<TermData> LocalDatabaseStorage::term(const TermUuid& uuid) const
 FutureResult<TermData::List> LocalDatabaseStorage::terms(const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->exist(uuid)) {
-        return toFuture<Result<TermData::List>>([] { return ErrorCodes::GroupUuidNotFound; });
+        return toFuture<Result<TermData::List>>([] { return ErrorCode::GroupUuidNotFound; });
     }
 
     return toFuture<Result<TermData::List>>([this, uuid] { return impl->db.termTable->allTerms(uuid); });
@@ -97,7 +97,7 @@ FutureResult<TermData::List> LocalDatabaseStorage::terms(const GroupUuid& uuid) 
 FutureResult<TermData> LocalDatabaseStorage::addTerm(const TermData& info)
 {
     if (!impl->db.groupTable->exist(info.groupUuid)) {
-        return toFuture<Result<TermData>>([] { return ErrorCodes::GroupUuidNotFound; });
+        return toFuture<Result<TermData>>([] { return ErrorCode::GroupUuidNotFound; });
     }
 
     return toFuture<Result<TermData>>([this, info] { return impl->db.termTable->addTerm(info); });
@@ -108,7 +108,7 @@ FutureResult<TermData> LocalDatabaseStorage::updateTerm(const TermData&         
                                                         bool                                 checkLastEdit)
 {
     if (!impl->db.groupTable->exist(info.groupUuid)) {
-        return toFuture<Result<TermData>>([] { return ErrorCodes::GroupUuidNotFound; });
+        return toFuture<Result<TermData>>([] { return ErrorCode::GroupUuidNotFound; });
     }
 
     return toFuture<Result<TermData>>([this, info, lastEditSource, checkLastEdit] {

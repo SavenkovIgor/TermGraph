@@ -38,7 +38,7 @@ Result<GroupSummary> TermGroupTable::group(const GroupUuid &uuid)
 {
     // If group not exist
     if (!exist(uuid)) {
-        return ErrorCodes::GroupUuidNotFound;
+        return ErrorCode::GroupUuidNotFound;
     }
 
     auto query = SqlQueryBuilder().selectGroup(uuid);
@@ -70,18 +70,18 @@ Result<GroupSummary> TermGroupTable::addGroup(const GroupSummary &info)
 
     if (groupInfo.uuid) {
         if (exist(*groupInfo.uuid)) {
-            return ErrorCodes::GroupUuidAlreadyExist;
+            return ErrorCode::GroupUuidAlreadyExist;
         }
     } else {
         groupInfo.uuid = generateNewUuid();
     }
 
     if (groupInfo.name.simplified().isEmpty()) {
-        return ErrorCodes::GroupNameEmpty;
+        return ErrorCode::GroupNameEmpty;
     }
 
     if (exist(groupInfo.name)) {
-        return ErrorCodes::GroupNameAlreadyExist;
+        return ErrorCode::GroupNameAlreadyExist;
     }
 
     DbTools::start(SqlQueryBuilder().insertGroup(groupInfo));
@@ -92,20 +92,20 @@ Result<GroupSummary> TermGroupTable::addGroup(const GroupSummary &info)
 Result<GroupSummary> TermGroupTable::updateGroup(const GroupSummary &info)
 {
     if (!info.uuid) {
-        return ErrorCodes::GroupUuidInvalid;
+        return ErrorCode::GroupUuidInvalid;
     }
 
     if (!exist(*info.uuid)) {
-        return ErrorCodes::GroupUuidNotFound;
+        return ErrorCode::GroupUuidNotFound;
     }
 
     if (info.name.simplified().isEmpty()) {
-        return ErrorCodes::GroupNameEmpty;
+        return ErrorCode::GroupNameEmpty;
     }
 
     for (const auto &group : allGroups()) {
         if (info.name == group.name && info.uuid != group.uuid) {
-            return ErrorCodes::GroupNameAlreadyExist;
+            return ErrorCode::GroupNameAlreadyExist;
         }
     }
 
@@ -121,7 +121,7 @@ Result<GroupSummary> TermGroupTable::deleteGroup(const GroupUuid &uuid)
         return groupInfo;
     }
 
-    return ErrorCodes::GroupUuidNotFound;
+    return ErrorCode::GroupUuidNotFound;
 }
 
 GroupUuid TermGroupTable::generateNewUuid()

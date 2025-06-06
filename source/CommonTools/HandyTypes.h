@@ -12,16 +12,16 @@
 using UuidList = std::vector<QUuid>;
 
 template<typename T>
-class Result : public std::variant<T, ErrorCodes>
+class Result : public std::variant<T, ErrorCode>
 {
 public:
-    using std::variant<T, ErrorCodes>::variant;
+    using std::variant<T, ErrorCode>::variant;
 
-    operator bool() const { return !std::holds_alternative<ErrorCodes>(*this); }
-    bool has_value() const { return !std::holds_alternative<ErrorCodes>(*this); }
+    operator bool() const { return !std::holds_alternative<ErrorCode>(*this); }
+    bool has_value() const { return !std::holds_alternative<ErrorCode>(*this); }
 
     T          value() const { return std::get<T>(*this); }
-    ErrorCodes error() const { return std::get<ErrorCodes>(*this); }
+    ErrorCode error() const { return std::get<ErrorCode>(*this); }
 };
 
 enum class Direction { Left, Right };

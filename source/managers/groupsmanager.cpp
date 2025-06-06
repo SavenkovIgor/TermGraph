@@ -264,7 +264,7 @@ void GroupsManager::deleteNode(const QUuid uuid)
 
 void GroupsManager::showError(int code)
 {
-    auto eCode = static_cast<ErrorCodes>(code);
+    auto eCode = static_cast<ErrorCode>(code);
     switch (eCode) {
     case GroupUuidNotFound: notifier.showError("Группа не найдена"); break;
     case GroupNameAlreadyExist: notifier.showError("Название группы не уникально"); break;

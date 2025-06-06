@@ -54,10 +54,10 @@ private:
         const auto& field = obj[JsonTools::uuidKey];
 
         if (!field.isString())
-            return ErrorCodes::JsonUuidFieldMissedOrWrongType;
+            return ErrorCode::JsonUuidFieldMissedOrWrongType;
 
         if (auto uuid = TermUuid::from(field.toString()); !uuid.has_value())
-            return ErrorCodes::TermUuidInvalid;
+            return ErrorCode::TermUuidInvalid;
 
         return std::nullopt;
     }
@@ -67,17 +67,17 @@ private:
         const auto& field = obj[JsonTools::termKey];
 
         if (!field.isString())
-            return ErrorCodes::JsonTermFieldMissedOrWrongType;
+            return ErrorCode::JsonTermFieldMissedOrWrongType;
 
         if (field.toString().isEmpty())
-            return ErrorCodes::TermEmpty;
+            return ErrorCode::TermEmpty;
 
         return std::nullopt;
     }
 
     static CheckResult validDefinition(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::definitionKey].isString(), ErrorCodes::JsonDefinitionFieldMissedOrWrongType);
+        return checkOrError(obj[JsonTools::definitionKey].isString(), ErrorCode::JsonDefinitionFieldMissedOrWrongType);
     }
 
     static CheckResult validTermDef(const QJsonObject& obj)
@@ -85,12 +85,12 @@ private:
         auto termDefString = obj[JsonTools::termDefKey].toString();
 
         if (!TextTools::isTermAndDefinition(termDefString))
-            return ErrorCodes::JsonTermDefFieldWrongContentOrType;
+            return ErrorCode::JsonTermDefFieldWrongContentOrType;
 
         auto [term, _] = TextTools::splitTermAndDefinition(termDefString);
 
         if (term.isEmpty())
-            return ErrorCodes::JsonTermDefFieldWrongContentOrType;
+            return ErrorCode::JsonTermDefFieldWrongContentOrType;
 
         return std::nullopt;
     }
@@ -98,22 +98,22 @@ private:
     static CheckResult validDescription(const QJsonObject& obj)
     {
         return checkOrError(obj[JsonTools::descriptionKey].isString(),
-                            ErrorCodes::JsonDescriptionFieldMissedOrWrongType);
+                            ErrorCode::JsonDescriptionFieldMissedOrWrongType);
     }
 
     static CheckResult validExamples(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::examplesKey].isString(), ErrorCodes::JsonExamplesFieldMissedOrWrongType);
+        return checkOrError(obj[JsonTools::examplesKey].isString(), ErrorCode::JsonExamplesFieldMissedOrWrongType);
     }
 
     static CheckResult validWikiUrl(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::wikiUrlKey].isString(), ErrorCodes::JsonWikiUrlFieldMissedOrWrongType);
+        return checkOrError(obj[JsonTools::wikiUrlKey].isString(), ErrorCode::JsonWikiUrlFieldMissedOrWrongType);
     }
 
     static CheckResult validWikiImage(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::wikiImageKey].isString(), ErrorCodes::JsonWikiImageFieldMissedOrWrongType);
+        return checkOrError(obj[JsonTools::wikiImageKey].isString(), ErrorCode::JsonWikiImageFieldMissedOrWrongType);
     }
 
     static CheckResult validGroupUuid(const QJsonObject& obj)
@@ -121,22 +121,22 @@ private:
         const auto& field = obj[JsonTools::groupUuidKey];
 
         if (!field.isString())
-            return ErrorCodes::JsonGroupUuidFieldMissedOrWrongType;
+            return ErrorCode::JsonGroupUuidFieldMissedOrWrongType;
 
         if (auto uuid = GroupUuid::from(field.toString()); !uuid.has_value())
-            return ErrorCodes::GroupUuidInvalid;
+            return ErrorCode::GroupUuidInvalid;
 
         return std::nullopt;
     }
 
     static CheckResult validLastEditField(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::lastEditKey].isString(), ErrorCodes::JsonLastEditFieldMissedOrWrongType);
+        return checkOrError(obj[JsonTools::lastEditKey].isString(), ErrorCode::JsonLastEditFieldMissedOrWrongType);
     }
 
     static CheckResult validLastEdit(const QJsonObject& obj)
     {
         return checkOrError(!QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate).isNull(),
-                            ErrorCodes::LastEditInvalid);
+                            ErrorCode::LastEditInvalid);
     }
 };

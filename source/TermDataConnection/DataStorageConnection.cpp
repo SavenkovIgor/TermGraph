@@ -14,14 +14,14 @@ template<typename T>
 Result<T> toResult(QNetworkReply* reply, std::function<std::optional<T>(const QByteArray& data)> parseFunc)
 {
     if (reply->error() != QNetworkReply::NoError) {
-        return ErrorCodes::ConnectionError;
+        return ErrorCode::ConnectionError;
     }
 
     if (auto obj = parseFunc(reply->readAll())) {
         return *obj;
     }
 
-    return ErrorCodes::JsonParseError;
+    return ErrorCode::JsonParseError;
 }
 
 DataStorageConnection::DataStorageConnection(QUrl address)
