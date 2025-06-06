@@ -39,6 +39,9 @@
             "icon": {
                 "id": "tools"
             },
+            "presentation": {
+                "clear": true
+            },
             "problemMatcher": "$msCompile"
         },
         {
