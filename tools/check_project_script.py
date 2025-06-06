@@ -2,7 +2,6 @@ import subprocess
 
 # Should be possible to run:
 # ./project.py --deps-install [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --configure    [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --build        [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --cmake-install [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --run          [Application (default) ] [--preset desktop_release (default) | desktop_dev | wasm_release]
@@ -26,9 +25,6 @@ def test_project_script():
     assert_system_call('./project.py --deps-install')
     assert_system_call('./project.py --deps-install --preset desktop_dev')
     assert_system_call('./project.py --deps-install --preset wasm_release')
-
-    assert_system_call('./project.py --configure --preset desktop_dev')
-    assert_system_call('./project.py --configure')
 
     assert_system_call('./project.py --build --preset=desktop_dev')
     assert_system_call('./project.py --build')

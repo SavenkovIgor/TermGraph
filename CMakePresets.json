@@ -1,8 +1,8 @@
 {
-  "version": 6,
+  "version": 10,
   "cmakeMinimumRequired": {
-    "major": 3,
-    "minor": 29,
+    "major": 4,
+    "minor": 0,
     "patch": 0
   },
   "configurePresets": [
@@ -31,16 +31,8 @@
         "QT_VERSION_ROOT": "$env{QT_ROOT}/$env{QT_VERSION}"
       }
     },
-    {
-      "name": "release_build",
-      "hidden": true,
-      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
-    },
-    {
-      "name": "debug_build",
-      "hidden": true,
-      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
-    },
+    { "name": "release_build", "hidden": true, "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" } },
+    { "name": "debug_build",   "hidden": true, "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" } },
     { "name": "test_on",  "hidden": true, "cacheVariables": { "BUILD_TESTING": "ON" } },
     { "name": "test_off", "hidden": true, "cacheVariables": { "BUILD_TESTING": "OFF" } },
     {

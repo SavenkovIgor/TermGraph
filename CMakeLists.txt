@@ -2,7 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 
-cmake_minimum_required (VERSION 3.29)
+cmake_minimum_required (VERSION 4.0)
 
 project (TermGraph
          VERSION 2.0.0

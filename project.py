@@ -4,6 +4,7 @@ import argparse
 import logging
 import os
 import subprocess
+import sys
 from pathlib import Path
 from typing import Any, Dict, List
 
@@ -40,7 +41,7 @@ def configure_environment(for_wasm: bool = False):
 
 
 class Project:
-    def __init__(self, name: str, run_name: str, path: Path, available_presets: list[str]):
+    def __init__(self, name: str, run_name: str, path: Path, available_presets: List[str]):
         self.name = name
         self.path = path
         self.run_name = run_name
@@ -76,19 +77,13 @@ class Project:
         logging.info(f'---CMAKE INSTALL {self.name} with preset {preset_name}---')
         run(f'cmake --install {self.build_dir(preset_name)}')
 
-    def configure(self, preset_name: str):
-        self.prepare(preset_name)
-        logging.info(f'---CONFIGURE {self.name} with preset {preset_name}---')
-        run(f'cmake --preset {preset_name} ./')
-
     def build(self, preset_name: str):
         self.prepare(preset_name)
 
         self.deps_install(preset_name)
-        self.configure(preset_name)
 
         logging.info(f'---BUILD {self.name} preset: {preset_name}, Qt: {env_qt_version()}---')
-        run(f'cmake --build --preset {preset_name}')
+        run(f'cmake --workflow --preset {preset_name}')
 
     def test(self, preset_name: str):
         self.prepare(preset_name)
@@ -116,46 +111,13 @@ class Project:
         if clear_conan:
             run('conan remove -c "*"')
 
-
-# Should be possible to run:
-# ./project.py --deps-install  [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --configure     [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --build         [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --cmake-install [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --run           [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --test          [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --pack          [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --clear
-# ./project.py --clear-all
-def main():
-    parser = argparse.ArgumentParser(description='Project build script')
-
-    presets = ['desktop_dev', 'desktop_release', 'wasm_dev', 'wasm_release']
-
-    parser.add_argument('--deps-install',  action='store_true', help='Install dependencies')
-    parser.add_argument('--configure',     action='store_true', help='Configure project')
-    parser.add_argument('--build',         action='store_true', help='Build project')
-    parser.add_argument('--cmake-install', action='store_true', help='Install project (cmake install)')
-    parser.add_argument('--test',          action='store_true', help='Test project')
-    parser.add_argument('--run',           action='store_true', help='Run project')
-    parser.add_argument('--pack',          action='store_true', help='Pack project')
-    parser.add_argument('--clear',         action='store_true', help='Clear project')
-    parser.add_argument('--clear-all',     action='store_true', help='Clear project and conan cache')
-    parser.add_argument('--rebuild',       action='store_true', help='Rebuild project (clear, configure, build)')
-
-    parser.add_argument('--preset', type=str, help='Preset to use', choices=presets, default='desktop_release')
-
-    args = parser.parse_args()
-
+def main(args: argparse.Namespace):
     configure_environment()
 
     app = Project('Application', 'TermGraph', repository_root(), presets)
 
     if args.deps_install:
         app.deps_install(args.preset)
-
-    if args.configure:
-        app.configure(args.preset)
 
     if args.build:
         app.build(args.preset)
@@ -181,10 +143,35 @@ def main():
     if args.rebuild:
         app.clear()
         app.deps_install(args.preset)
-        app.configure(args.preset)
         app.build(args.preset)
         app.run(args.preset)
 
 
+# Should be possible to run:
+# ./project.py --deps-install  [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --build         [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --cmake-install [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --run           [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --test          [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --pack          [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --clear
+# ./project.py --clear-all
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description='Project build script')
+
+    presets = ['desktop_dev', 'desktop_release', 'wasm_dev', 'wasm_release']
+
+    parser.add_argument('--deps-install',  action='store_true', help='Install dependencies')
+    parser.add_argument('--build',         action='store_true', help='Build project')
+    parser.add_argument('--cmake-install', action='store_true', help='Install project (cmake install)')
+    parser.add_argument('--test',          action='store_true', help='Test project')
+    parser.add_argument('--run',           action='store_true', help='Run project')
+    parser.add_argument('--pack',          action='store_true', help='Pack project')
+    parser.add_argument('--clear',         action='store_true', help='Clear project')
+    parser.add_argument('--clear-all',     action='store_true', help='Clear project and conan cache')
+    parser.add_argument('--rebuild',       action='store_true', help='Rebuild project (clear, configure, build)')
+
+    parser.add_argument('--preset', type=str, help='Preset to use', choices=presets, default='desktop_release')
+
+    args = parser.parse_args()
+    sys.exit(main(args))

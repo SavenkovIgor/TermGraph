@@ -5,7 +5,7 @@ import os
 
 class TermGraphConan(ConanFile):
 
-    generators = 'CMakeToolchain', 'CMakeDeps'
+    generators = 'CMakeDeps'
     settings = 'os', 'arch', 'compiler', 'build_type'
 
     # requires = ''
@@ -21,3 +21,8 @@ class TermGraphConan(ConanFile):
         cmake = CMake(self)
         cmake.configure()
         cmake.build()
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.user_presets_path = False  # Disable user presets generation
+        tc.generate()
