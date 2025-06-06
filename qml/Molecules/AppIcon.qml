@@ -4,7 +4,7 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects
 
 import Theme
 import Atoms as A
@@ -34,9 +34,10 @@ Item {
         readonly property color col3: Theme.color.base1
         readonly property color colText: Theme.color.base7
 
-        component Shadow: DropShadow {
-            verticalOffset: horizontalOffset / 2
-            samples: radius * 2 + 1
+        component Shadow: MultiEffect {
+            shadowEnabled: true
+            shadowVerticalOffset: shadowHorizontalOffset / 2
+            shadowScale: 1.2
         }
 
         A.Hex {
@@ -48,8 +49,7 @@ Item {
 
             layer.enabled: padding.dropShadow
             layer.effect: Shadow {
-                radius: hex1.width / 12
-                horizontalOffset: hex1.width / 30
+                shadowHorizontalOffset: hex1.width / 30
             }
         }
 
@@ -63,8 +63,7 @@ Item {
 
             layer.enabled: padding.dropShadow
             layer.effect: Shadow {
-                radius: hex1.width / 12
-                horizontalOffset: hex2.width / 30
+                shadowHorizontalOffset: hex2.width / 30
             }
         }
 
@@ -77,8 +76,7 @@ Item {
 
             layer.enabled: padding.dropShadow
             layer.effect: Shadow {
-                radius: hex1.width / 12
-                horizontalOffset: hex3.width / 30
+                shadowHorizontalOffset: hex3.width / 30
             }
         }
 
@@ -92,8 +90,7 @@ Item {
 
             layer.enabled: padding.dropShadow
             layer.effect: Shadow {
-                horizontalOffset: text.font.pixelSize / 12
-                radius: text.font.pixelSize / 12
+                shadowHorizontalOffset: text.font.pixelSize / 12
             }
         }
     }
