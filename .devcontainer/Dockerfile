@@ -19,24 +19,14 @@ RUN apt update                                && \
     # Cmake & Ninja dependencies
     apt install -y ca-certificates gpg wget unzip
 
-ENV CLANG_VERSION=20
-
-RUN cd /home/vscode                   && \
-    wget https://apt.llvm.org/llvm.sh && \
-    chmod +x llvm.sh                  && \
-    ./llvm.sh ${CLANG_VERSION} all    && \
-    rm llvm.sh
-
-RUN apt install -y clang-format-${CLANG_VERSION} && \
-    apt install -y clang-tools-${CLANG_VERSION}
-
 # Create and activate virtual environment, install packages locally
-ENV CONAN_VERSION=2.16.1
 ENV AQT_VERSION=3.2.1
+COPY aqt.ini ${WORKSPACE_ROOT}/aqt.ini
+ENV AQT_CONFIG=${WORKSPACE_ROOT}/aqt.ini
 
 RUN python3 -m venv $WORKSPACE_ROOT/.venv                                    && \
     $VENV_BIN/python -m pip install --upgrade pip                            && \
-    $VENV_BIN/pip install conan==${CONAN_VERSION} aqtinstall==${AQT_VERSION}
+    $VENV_BIN/pip install aqtinstall==${AQT_VERSION}
 
 # Install Qt gcc_64
 ENV QT_VERSION=6.8.3
@@ -58,6 +48,24 @@ RUN git clone https://github.com/emscripten-core/emsdk.git ${EMSDK_ROOT} && \
     ./emsdk install ${EMSDK_VERSION}                                     && \
     ./emsdk activate ${EMSDK_VERSION}                                    && \
     echo "source ${EMSDK_ROOT}/emsdk_env.sh" >> /home/vscode/.bashrc
+
+ENV CLANG_VERSION=20
+
+RUN cd /home/vscode                   && \
+    wget https://apt.llvm.org/llvm.sh && \
+    chmod +x llvm.sh                  && \
+    ./llvm.sh ${CLANG_VERSION} all    && \
+    rm llvm.sh
+
+RUN apt install -y clang-format-${CLANG_VERSION} && \
+    apt install -y clang-tools-${CLANG_VERSION}
+
+# Create and activate virtual environment, install packages locally
+ENV CONAN_VERSION=2.16.1
+
+RUN python3 -m venv $WORKSPACE_ROOT/.venv                                    && \
+    $VENV_BIN/python -m pip install --upgrade pip                            && \
+    $VENV_BIN/pip install conan==${CONAN_VERSION}
 
 # 2. Manually add the Kitware signing key if not already provided by the kitware-archive-keyring package.
 #    (The official instructions suggest checking for a file in /usr/share/doc/kitware-archive-keyring/)
