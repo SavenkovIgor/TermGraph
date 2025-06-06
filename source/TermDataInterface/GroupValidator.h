@@ -51,12 +51,12 @@ private:
         const auto& field = obj[JsonTools::uuidKey];
 
         if (!field.isString())
-            return ErrorCode::JsonUuidFieldMissedOrWrongType;
+            return std::unexpected(ErrorCode::JsonUuidFieldMissedOrWrongType);
 
         if (auto uuid = GroupUuid::from(field.toString()); !uuid.has_value())
-            return ErrorCode::GroupUuidInvalid;
+            return std::unexpected(ErrorCode::GroupUuidInvalid);
 
-        return std::nullopt;
+        return {};
     }
 
     static CheckResult validName(const QJsonObject& obj)
@@ -64,12 +64,12 @@ private:
         const auto& field = obj[JsonTools::nameKey];
 
         if (!field.isString())
-            return ErrorCode::JsonNameFieldMissedOrWrongType;
+            return std::unexpected(ErrorCode::JsonNameFieldMissedOrWrongType);
 
         if (field.toString().isEmpty())
-            return ErrorCode::GroupNameEmpty;
+            return std::unexpected(ErrorCode::GroupNameEmpty);
 
-        return std::nullopt;
+        return {};
     }
 
     static CheckResult validComment(const QJsonObject& obj)
@@ -88,12 +88,12 @@ private:
         const auto& field = obj[JsonTools::lastEditKey];
 
         if (!field.isString())
-            return ErrorCode::JsonLastEditFieldMissedOrWrongType;
+            return std::unexpected(ErrorCode::JsonLastEditFieldMissedOrWrongType);
 
         if (auto dt = QDateTime::fromString(field.toString(), Qt::ISODate); dt.isNull())
-            return ErrorCode::LastEditInvalid;
+            return std::unexpected(ErrorCode::LastEditInvalid);
 
-        return std::nullopt;
+        return {};
     }
 
     static CheckResult validNodesArray(const QJsonObject& obj)
@@ -106,11 +106,11 @@ private:
         const auto& field = obj[JsonTools::nodesLastEditKey];
 
         if (!field.isString())
-            return ErrorCode::JsonNodesLastEditFieldMissedOrWrongType;
+            return std::unexpected(ErrorCode::JsonNodesLastEditFieldMissedOrWrongType);
 
         if (auto dt = QDateTime::fromString(field.toString(), Qt::ISODate); dt.isNull())
-            return ErrorCode::NodesLastEditInvalid;
+            return std::unexpected(ErrorCode::NodesLastEditInvalid);
 
-        return std::nullopt;
+        return {};
     }
 };

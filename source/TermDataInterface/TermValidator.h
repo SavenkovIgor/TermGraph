@@ -54,12 +54,12 @@ private:
         const auto& field = obj[JsonTools::uuidKey];
 
         if (!field.isString())
-            return ErrorCode::JsonUuidFieldMissedOrWrongType;
+            return std::unexpected(ErrorCode::JsonUuidFieldMissedOrWrongType);
 
         if (auto uuid = TermUuid::from(field.toString()); !uuid.has_value())
-            return ErrorCode::TermUuidInvalid;
+            return std::unexpected(ErrorCode::TermUuidInvalid);
 
-        return std::nullopt;
+        return {};
     }
 
     static CheckResult validTerm(const QJsonObject& obj)
@@ -67,12 +67,12 @@ private:
         const auto& field = obj[JsonTools::termKey];
 
         if (!field.isString())
-            return ErrorCode::JsonTermFieldMissedOrWrongType;
+            return std::unexpected(ErrorCode::JsonTermFieldMissedOrWrongType);
 
         if (field.toString().isEmpty())
-            return ErrorCode::TermEmpty;
+            return std::unexpected(ErrorCode::TermEmpty);
 
-        return std::nullopt;
+        return {};
     }
 
     static CheckResult validDefinition(const QJsonObject& obj)
@@ -85,14 +85,14 @@ private:
         auto termDefString = obj[JsonTools::termDefKey].toString();
 
         if (!TextTools::isTermAndDefinition(termDefString))
-            return ErrorCode::JsonTermDefFieldWrongContentOrType;
+            return std::unexpected(ErrorCode::JsonTermDefFieldWrongContentOrType);
 
         auto [term, _] = TextTools::splitTermAndDefinition(termDefString);
 
         if (term.isEmpty())
-            return ErrorCode::JsonTermDefFieldWrongContentOrType;
+            return std::unexpected(ErrorCode::JsonTermDefFieldWrongContentOrType);
 
-        return std::nullopt;
+        return {};
     }
 
     static CheckResult validDescription(const QJsonObject& obj)
@@ -121,12 +121,12 @@ private:
         const auto& field = obj[JsonTools::groupUuidKey];
 
         if (!field.isString())
-            return ErrorCode::JsonGroupUuidFieldMissedOrWrongType;
+            return std::unexpected(ErrorCode::JsonGroupUuidFieldMissedOrWrongType);
 
         if (auto uuid = GroupUuid::from(field.toString()); !uuid.has_value())
-            return ErrorCode::GroupUuidInvalid;
+            return std::unexpected(ErrorCode::GroupUuidInvalid);
 
-        return std::nullopt;
+        return {};
     }
 
     static CheckResult validLastEditField(const QJsonObject& obj)

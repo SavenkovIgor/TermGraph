@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include <expected>
 #include <functional>
 
 #include "source/CommonTools/Errors.h"
@@ -13,7 +14,7 @@ class Validator
 public:
     // if return value is empty, then check is passed
     // else check is failed and error code is returned
-    using CheckResult = std::optional<ErrorCode>;
+    using CheckResult = std::expected<void, ErrorCode>;
     using Condition   = std::function<CheckResult(const Object&)>;
     using ErrorList   = std::vector<ErrorCode>;
 
@@ -25,9 +26,9 @@ public:
         mLastErrors.clear();
 
         for (const auto& checkCondition : mCheckList) {
-            if (auto error = checkCondition(obj)) {
+            if (auto res = checkCondition(obj); !res.has_value()) {
                 ret = false;
-                mLastErrors.push_back(*error);
+                mLastErrors.push_back(res.error());
             }
         }
         return ret;
@@ -37,7 +38,7 @@ public:
 
     static CheckResult checkOrError(bool condition, ErrorCode error)
     {
-        return condition ? std::nullopt : CheckResult(error);
+        return condition ? std::expected<void, ErrorCode>{} : std::unexpected(error);
     }
 
     void clear() { mCheckList.clear(); }
