@@ -64,7 +64,7 @@ jobs:
         host: 'linux'
         target: 'desktop'
         arch: 'linux_gcc_64'
-        modules: 'qtimageformats qt5compat qtshadertools'
+        modules: 'qtimageformats qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
 
@@ -86,7 +86,7 @@ jobs:
         host: 'all_os'
         target: 'wasm'
         arch: 'wasm_singlethread'
-        modules: 'qtimageformats qt5compat qtshadertools'
+        modules: 'qtimageformats qtshadertools'
         archives: 'qttranslations qttools qtsvg qtdeclarative qtbase icu'
         cache: true
 

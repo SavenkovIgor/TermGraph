@@ -4,7 +4,7 @@
 import QtQuick
 import QtQuick.Window
 import QtQuick.Controls
-import Qt5Compat.GraphicalEffects
+import QtQuick.Effects
 
 import Theme
 import Atoms as A
@@ -57,10 +57,10 @@ Item {
         }
     }
 
-    component Shadow: DropShadow {
-        horizontalOffset: 0
-        verticalOffset: 0
-        samples: radius * 2 + 1
+    component Shadow: MultiEffect {
+        shadowEnabled: true
+        shadowVerticalOffset: shadowHorizontalOffset / 2
+        shadowScale: 1.2
     }
 
     A.Hex {
@@ -72,7 +72,7 @@ Item {
 
         layer.enabled: root.dropShadow
         layer.effect: Shadow {
-            radius: Math.ceil(hex1.width / 12)
+            shadowScale: Math.ceil(hex1.width / 12)
         }
 
         InfiniteRandomRotation { target: hex1 }
@@ -88,7 +88,7 @@ Item {
 
         layer.enabled: root.dropShadow
         layer.effect: Shadow {
-            radius: Math.ceil(hex1.width / 12)
+            shadowScale: Math.ceil(hex1.width / 12)
         }
 
         InfiniteRandomRotation { target: hex2 }
@@ -104,7 +104,7 @@ Item {
 
         layer.enabled: root.dropShadow
         layer.effect: Shadow {
-            radius: Math.ceil(hex1.width / 12)
+            shadowScale: Math.ceil(hex1.width / 12)
         }
 
         InfiniteRandomRotation { target: hex3 }
