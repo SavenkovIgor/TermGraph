@@ -32,7 +32,7 @@ RUN apt install -y clang-format-${CLANG_VERSION} && \
 
 # Create and activate virtual environment, install packages locally
 ENV CONAN_VERSION=2.16.1
-ENV AQT_VERSION==3.2.1
+ENV AQT_VERSION=3.2.1
 
 RUN python3 -m venv $WORKSPACE_ROOT/.venv                                    && \
     $VENV_BIN/python -m pip install --upgrade pip                            && \
