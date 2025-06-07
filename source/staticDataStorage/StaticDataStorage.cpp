@@ -61,14 +61,14 @@ StaticGroupData StaticDataStorage::prepareForInternalUse(StaticGroupData data)
 
 int StaticDataStorage::storageVersion() const { return 1; }
 
-FutureResult<GroupSummary> StaticDataStorage::group(const GroupUuid& uuid) const
+FutureExpected<GroupSummary> StaticDataStorage::group(const GroupUuid& uuid) const
 {
-    return toFuture<Result<GroupSummary>>([this, &uuid]() { return mGroups.value(uuid); });
+    return toFuture<Expected<GroupSummary>>([this, &uuid]() { return mGroups.value(uuid); });
 }
 
-FutureResult<GroupSummary::List> StaticDataStorage::groups() const
+FutureExpected<GroupSummary::List> StaticDataStorage::groups() const
 {
-    return toFuture<Result<GroupSummary::List>>([this]() -> GroupSummary::List {
+    return toFuture<Expected<GroupSummary::List>>([this]() -> GroupSummary::List {
         auto groups = mGroups.values();
 
         // Sorting this structure
@@ -84,79 +84,80 @@ FutureResult<GroupSummary::List> StaticDataStorage::groups() const
     });
 }
 
-FutureResult<GroupSummary> StaticDataStorage::addGroup([[maybe_unused]] const GroupSummary& info)
+FutureExpected<GroupSummary> StaticDataStorage::addGroup([[maybe_unused]] const GroupSummary& info)
 {
     qWarning("Not implemented");
-    return toFuture<Result<GroupSummary>>([] { return ErrorCode::UnknownError; });
+    return toFuture<Expected<GroupSummary>>([] { return std::unexpected(ErrorCode::UnknownError); });
 }
 
-FutureResult<GroupSummary> StaticDataStorage::updateGroup([[maybe_unused]] const GroupSummary& info)
+FutureExpected<GroupSummary> StaticDataStorage::updateGroup([[maybe_unused]] const GroupSummary& info)
 {
     qWarning("Not implemented");
-    return toFuture<Result<GroupSummary>>([] { return ErrorCode::UnknownError; });
+    return toFuture<Expected<GroupSummary>>([] { return std::unexpected(ErrorCode::UnknownError); });
 }
 
-FutureResult<GroupSummary> StaticDataStorage::deleteGroup([[maybe_unused]] const GroupUuid& uuid)
+FutureExpected<GroupSummary> StaticDataStorage::deleteGroup([[maybe_unused]] const GroupUuid& uuid)
 {
     qWarning("Not implemented");
-    return toFuture<Result<GroupSummary>>([] { return ErrorCode::UnknownError; });
+    return toFuture<Expected<GroupSummary>>([] { return std::unexpected(ErrorCode::UnknownError); });
 }
 
-FutureResult<TermData> StaticDataStorage::term(const QString& nodeName, const GroupUuid& uuid) const
+FutureExpected<TermData> StaticDataStorage::term(const QString& nodeName, const GroupUuid& uuid) const
 {
     if (!mGroups.contains(uuid)) {
-        return toFuture<Result<TermData>>([] { return ErrorCode::GroupUuidNotFound; });
+        return toFuture<Expected<TermData>>([] { return std::unexpected(ErrorCode::GroupUuidNotFound); });
     }
 
-    return toFuture<Result<TermData>>([this, nodeName, uuid]() -> Result<TermData> {
+    return toFuture<Expected<TermData>>([this, nodeName, uuid]() -> Expected<TermData> {
         auto term = mGroups.value(uuid).term(nodeName);
         if (!term) {
-            return ErrorCode::TermNotFound;
+            return std::unexpected(ErrorCode::TermNotFound);
         }
 
         return term.value();
     });
 }
 
-FutureResult<TermData> StaticDataStorage::term([[maybe_unused]] const TermUuid& uuid) const
+FutureExpected<TermData> StaticDataStorage::term([[maybe_unused]] const TermUuid& uuid) const
 {
     qWarning("Not implemented");
-    return toFuture<Result<TermData>>([] { return ErrorCode::UnknownError; });
+    return toFuture<Expected<TermData>>([] { return std::unexpected(ErrorCode::UnknownError); });
 }
 
-FutureResult<TermData::List> StaticDataStorage::terms(const GroupUuid& uuid) const
+FutureExpected<TermData::List> StaticDataStorage::terms(const GroupUuid& uuid) const
 {
     if (!mGroups.contains(uuid)) {
-        return toFuture<Result<TermData::List>>([] { return ErrorCode::GroupUuidNotFound; });
+        return toFuture<Expected<TermData::List>>([] { return std::unexpected(ErrorCode::GroupUuidNotFound); });
     }
 
-    return toFuture<Result<TermData::List>>([this, uuid]() -> Result<TermData::List> {
+    return toFuture<Expected<TermData::List>>([this, uuid]() -> Expected<TermData::List> {
         if (!mGroups.contains(uuid)) {
-            return ErrorCode::GroupUuidNotFound;
+            return std::unexpected(ErrorCode::GroupUuidNotFound);
         }
 
         return mGroups.value(uuid).terms;
     });
 }
 
-FutureResult<TermData> StaticDataStorage::addTerm([[maybe_unused]] const TermData& info)
+FutureExpected<TermData> StaticDataStorage::addTerm([[maybe_unused]] const TermData& info)
 {
     qWarning("Not implemented");
-    return toFuture<Result<TermData>>([] { return ErrorCode::UnknownError; });
+    return toFuture<Expected<TermData>>([] { return std::unexpected(ErrorCode::UnknownError); });
 }
 
-FutureResult<TermData> StaticDataStorage::updateTerm([[maybe_unused]] const TermData& info,
-                                                     [[maybe_unused]] DataStorageInterface::LastEditSource lastEditSource,
-                                                     [[maybe_unused]] bool checkLastEdit)
+FutureExpected<TermData> StaticDataStorage::updateTerm(
+    [[maybe_unused]] const TermData&                      info,
+    [[maybe_unused]] DataStorageInterface::LastEditSource lastEditSource,
+    [[maybe_unused]] bool                                 checkLastEdit)
 {
     qWarning("Not implemented");
-    return toFuture<Result<TermData>>([] { return ErrorCode::UnknownError; });
+    return toFuture<Expected<TermData>>([] { return std::unexpected(ErrorCode::UnknownError); });
 }
 
-FutureResult<TermData> StaticDataStorage::deleteTerm([[maybe_unused]] const TermUuid& uuid)
+FutureExpected<TermData> StaticDataStorage::deleteTerm([[maybe_unused]] const TermUuid& uuid)
 {
     qWarning("Not implemented");
-    return toFuture<Result<TermData>>([] { return ErrorCode::UnknownError; });
+    return toFuture<Expected<TermData>>([] { return std::unexpected(ErrorCode::UnknownError); });
 }
 
 QMap<GroupUuid, QDateTime> StaticDataStorage::termsLastEdit() const

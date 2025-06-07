@@ -12,7 +12,7 @@ DataProvider::DataProvider(QObject *parent)
 
 void DataProvider::loadGroups()
 {
-    dataStorage->groups().then([this](Result<GroupSummary::List> result) {
+    dataStorage->groups().then([this](Expected<GroupSummary::List> result) {
         if (!result.has_value()) {
             emit showError(static_cast<int>(result.error()));
             return;
@@ -48,7 +48,7 @@ std::optional<GroupUuid> DataProvider::currentGroup() const { return mCurrentGro
 
 void DataProvider::loadGroup(GroupUuid uuid)
 {
-    dataStorage->terms(uuid).then([this, uuid](Result<TermData::List> result) {
+    dataStorage->terms(uuid).then([this, uuid](Expected<TermData::List> result) {
         if (result.has_value()) {
             mCurrentGroup = uuid;
             mTerms        = result.value();
@@ -76,7 +76,7 @@ std::optional<GroupSummary> DataProvider::group(GroupUuid uuid) const
 
 void DataProvider::addGroup(const GroupSummary &info)
 {
-    dataStorage->addGroup(info).then([this](Result<GroupSummary> result) {
+    dataStorage->addGroup(info).then([this](Expected<GroupSummary> result) {
         if (result.has_value()) {
             emit groupAdded(result.value());
         } else {
@@ -87,7 +87,7 @@ void DataProvider::addGroup(const GroupSummary &info)
 
 void DataProvider::updateGroup(const GroupSummary &info)
 {
-    dataStorage->updateGroup(info).then([this](Result<GroupSummary> result) {
+    dataStorage->updateGroup(info).then([this](Expected<GroupSummary> result) {
         if (result.has_value()) {
             emit groupUpdated(result.value());
         } else {
@@ -98,7 +98,7 @@ void DataProvider::updateGroup(const GroupSummary &info)
 
 void DataProvider::deleteGroup(const GroupUuid &uuid)
 {
-    dataStorage->deleteGroup(uuid).then([this](Result<GroupSummary> result) {
+    dataStorage->deleteGroup(uuid).then([this](Expected<GroupSummary> result) {
         if (result.has_value()) {
             emit groupDeleted(result.value().uuid.value());
         } else {
@@ -127,7 +127,7 @@ std::optional<TermData> DataProvider::term(const QString &definition, [[maybe_un
 
 void DataProvider::addTerm(const TermData &data)
 {
-    dataStorage->addTerm(data).then([this](Result<TermData> result) {
+    dataStorage->addTerm(data).then([this](Expected<TermData> result) {
         if (result) {
             emit termAdded(result.value());
         } else {
@@ -140,7 +140,7 @@ void DataProvider::updateTerm(const TermData                      &data,
                               DataStorageInterface::LastEditSource lastEditSource,
                               bool                                 checkLastEdit)
 {
-    dataStorage->updateTerm(data, lastEditSource, checkLastEdit).then([this](Result<TermData> result) {
+    dataStorage->updateTerm(data, lastEditSource, checkLastEdit).then([this](Expected<TermData> result) {
         if (result) {
             emit termUpdated(result.value());
         } else {
@@ -151,7 +151,7 @@ void DataProvider::updateTerm(const TermData                      &data,
 
 void DataProvider::deleteTerm(const TermUuid &uuid)
 {
-    dataStorage->deleteTerm(uuid).then([this](Result<TermData> result) {
+    dataStorage->deleteTerm(uuid).then([this](Expected<TermData> result) {
         if (result) {
             emit termDeleted(result.value().uuid.value());
         } else {
@@ -163,7 +163,7 @@ void DataProvider::deleteTerm(const TermUuid &uuid)
 void DataProvider::importTerm(const TermData &data)
 {
     assert(data.uuid);
-    dataStorage->term(*data.uuid).then([this, data](Result<TermData> result) {
+    dataStorage->term(*data.uuid).then([this, data](Expected<TermData> result) {
         if (result.has_value()) {
             dataStorage->updateTerm(data, DataStorageInterface::LastEditSource::FromData, true);
         } else {
@@ -174,12 +174,12 @@ void DataProvider::importTerm(const TermData &data)
 
 void DataProvider::requestGroupExport(const GroupUuid &uuid)
 {
-    dataStorage->group(uuid).then([this](Result<GroupSummary> result) {
+    dataStorage->group(uuid).then([this](Expected<GroupSummary> result) {
         if (result.has_value()) {
             auto groupInfo = result.value();
             assert(groupInfo.uuid.has_value());
 
-            dataStorage->terms(groupInfo.uuid.value()).then([this, groupInfo](Result<TermData::List> termsFuture) {
+            dataStorage->terms(groupInfo.uuid.value()).then([this, groupInfo](Expected<TermData::List> termsFuture) {
                 if (!termsFuture.has_value()) {
                     return;
                 }
