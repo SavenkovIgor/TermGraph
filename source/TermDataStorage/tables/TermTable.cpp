@@ -21,10 +21,10 @@ bool TermTable::exist(const TermUuid& uuid) const
     return count > 0;
 }
 
-Result<TermData> TermTable::term(const TermUuid& uuid) const
+Expected<TermData> TermTable::term(const TermUuid& uuid) const
 {
     if (!exist(uuid)) {
-        return ErrorCode::TermUuidNotFound;
+        return std::unexpected(ErrorCode::TermUuidNotFound);
     }
 
     auto query = SqlQueryBuilder().selectTerm(uuid);
@@ -34,10 +34,10 @@ Result<TermData> TermTable::term(const TermUuid& uuid) const
     return createTermData(record);
 }
 
-Result<TermData> TermTable::term(const QString& term, const GroupUuid& uuid) const
+Expected<TermData> TermTable::term(const QString& term, const GroupUuid& uuid) const
 {
     if (term.simplified().isEmpty()) {
-        return ErrorCode::TermEmpty;
+        return std::unexpected(ErrorCode::TermEmpty);
     }
 
     auto query = SqlQueryBuilder().selectOneTerm(term, uuid);
@@ -47,10 +47,10 @@ Result<TermData> TermTable::term(const QString& term, const GroupUuid& uuid) con
         return createTermData(query.record());
     }
 
-    return ErrorCode::TermUuidNotFound;
+    return std::unexpected(ErrorCode::TermUuidNotFound);
 }
 
-Result<TermData::List> TermTable::allTerms(const GroupUuid& uuid)
+Expected<TermData::List> TermTable::allTerms(const GroupUuid& uuid)
 {
     TermData::List ret;
 
@@ -74,21 +74,21 @@ TermTable::RecordList TermTable::allLastEditRecords()
     return DbTools::getAllRecords(std::move(query));
 }
 
-Result<TermData> TermTable::addTerm(const TermData& info)
+Expected<TermData> TermTable::addTerm(const TermData& info)
 {
     // Generate new uuid if current is empty
     auto tUuid = info.uuid.value_or(generateNewUuid());
 
     if (exist(tUuid)) {
-        return ErrorCode::TermUuidAlreadyExist;
+        return std::unexpected(ErrorCode::TermUuidAlreadyExist);
     }
 
     if (info.term.simplified().isEmpty()) {
-        return ErrorCode::TermEmpty;
+        return std::unexpected(ErrorCode::TermEmpty);
     }
 
     if (term(info.term, info.groupUuid)) {
-        return ErrorCode::TermAlreadyExist;
+        return std::unexpected(ErrorCode::TermAlreadyExist);
     }
 
     TermData termInfo = info;
@@ -105,23 +105,23 @@ Result<TermData> TermTable::addTerm(const TermData& info)
     return termInfo;
 }
 
-Result<TermData> TermTable::updateTerm(const TermData&                      info,
-                                       DataStorageInterface::LastEditSource lastEditSource,
-                                       bool                                 checkLastEdit)
+Expected<TermData> TermTable::updateTerm(const TermData&                      info,
+                                         DataStorageInterface::LastEditSource lastEditSource,
+                                         bool                                 checkLastEdit)
 {
     if (!info.uuid) {
-        return ErrorCode::TermUuidInvalid;
+        return std::unexpected(ErrorCode::TermUuidInvalid);
     }
 
     if (!exist(*info.uuid)) {
-        return ErrorCode::TermUuidNotFound;
+        return std::unexpected(ErrorCode::TermUuidNotFound);
     }
 
     if (checkLastEdit) {
         const auto currentLastEdit = lastEdit(*info.uuid).value();
         const auto newLastEdit     = info.lastEdit;
         if (currentLastEdit > newLastEdit) { // If db version is fresher, do nothing
-            return ErrorCode::NewerTermVersionFound;
+            return std::unexpected(ErrorCode::NewerTermVersionFound);
         }
     }
 
@@ -136,14 +136,14 @@ Result<TermData> TermTable::updateTerm(const TermData&                      info
     return nodeContainer;
 }
 
-Result<TermData> TermTable::deleteTerm(const TermUuid& uuid)
+Expected<TermData> TermTable::deleteTerm(const TermUuid& uuid)
 {
     if (auto termData = term(uuid)) {
         DbTools::start(SqlQueryBuilder().deleteTerm(uuid));
         return termData.value();
     }
 
-    return ErrorCode::TermUuidNotFound;
+    return std::unexpected(ErrorCode::TermUuidNotFound);
 }
 
 TermUuid TermTable::generateNewUuid()
@@ -158,10 +158,10 @@ TermUuid TermTable::generateNewUuid()
 
 QDateTime TermTable::now() { return QDateTime::currentDateTimeUtc(); }
 
-Result<QDateTime> TermTable::lastEdit(const TermUuid& uuid)
+Expected<QDateTime> TermTable::lastEdit(const TermUuid& uuid)
 {
     if (!exist(uuid)) {
-        return ErrorCode::TermUuidNotFound;
+        return std::unexpected(ErrorCode::TermUuidNotFound);
     }
 
     auto query = SqlQueryBuilder().selectLastEdit(uuid);

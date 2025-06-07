@@ -89,12 +89,18 @@ FutureResult<TermData> LocalDatabaseStorage::term(const QString& nodeName, const
         return toFuture<Result<TermData>>([] { return ErrorCode::GroupUuidNotFound; });
     }
 
-    return toFuture<Result<TermData>>([this, nodeName, uuid] { return impl->db.termTable->term(nodeName, uuid); });
+    return toFuture<Result<TermData>>([this, nodeName, uuid] {
+        auto res = impl->db.termTable->term(nodeName, uuid);
+        return res ? *res : Result<TermData>(res.error());
+    });
 }
 
 FutureResult<TermData> LocalDatabaseStorage::term(const TermUuid& uuid) const
 {
-    return toFuture<Result<TermData>>([this, uuid] { return impl->db.termTable->term(uuid); });
+    return toFuture<Result<TermData>>([this, uuid] {
+        auto res = impl->db.termTable->term(uuid);
+        return res ? *res : Result<TermData>(res.error());
+    });
 }
 
 FutureResult<TermData::List> LocalDatabaseStorage::terms(const GroupUuid& uuid) const
@@ -103,7 +109,10 @@ FutureResult<TermData::List> LocalDatabaseStorage::terms(const GroupUuid& uuid) 
         return toFuture<Result<TermData::List>>([] { return ErrorCode::GroupUuidNotFound; });
     }
 
-    return toFuture<Result<TermData::List>>([this, uuid] { return impl->db.termTable->allTerms(uuid); });
+    return toFuture<Result<TermData::List>>([this, uuid] {
+        auto res = impl->db.termTable->allTerms(uuid);
+        return res ? *res : Result<TermData::List>(res.error());
+    });
 }
 
 FutureResult<TermData> LocalDatabaseStorage::addTerm(const TermData& info)
@@ -112,7 +121,10 @@ FutureResult<TermData> LocalDatabaseStorage::addTerm(const TermData& info)
         return toFuture<Result<TermData>>([] { return ErrorCode::GroupUuidNotFound; });
     }
 
-    return toFuture<Result<TermData>>([this, info] { return impl->db.termTable->addTerm(info); });
+    return toFuture<Result<TermData>>([this, info] {
+        auto res = impl->db.termTable->addTerm(info);
+        return res ? *res : Result<TermData>(res.error());
+    });
 }
 
 FutureResult<TermData> LocalDatabaseStorage::updateTerm(const TermData&                      info,
@@ -124,13 +136,17 @@ FutureResult<TermData> LocalDatabaseStorage::updateTerm(const TermData&         
     }
 
     return toFuture<Result<TermData>>([this, info, lastEditSource, checkLastEdit] {
-        return impl->db.termTable->updateTerm(info, lastEditSource, checkLastEdit);
+        auto res = impl->db.termTable->updateTerm(info, lastEditSource, checkLastEdit);
+        return res ? *res : Result<TermData>(res.error());
     });
 }
 
 FutureResult<TermData> LocalDatabaseStorage::deleteTerm(const TermUuid& uuid)
 {
-    return toFuture<Result<TermData>>([this, uuid] { return impl->db.termTable->deleteTerm(uuid); });
+    return toFuture<Result<TermData>>([this, uuid] {
+        auto res = impl->db.termTable->deleteTerm(uuid);
+        return res ? *res : Result<TermData>(res.error());
+    });
 }
 
 QMap<GroupUuid, QDateTime> LocalDatabaseStorage::nodesLastEdit() const
