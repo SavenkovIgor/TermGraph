@@ -11,7 +11,7 @@
 #include "source/CommonTools/HandyTypes.h"
 
 template<typename RetType>
-using FutureResult = QFuture<Result<RetType>>;
+using FutureExpected = QFuture<Expected<RetType>>;
 
 template<typename T>
 static QFuture<T> toFuture(const std::function<T()>& func)

@@ -23,13 +23,13 @@ public:
     bool exist(const GroupUuid& uuid);
 
     // Getters
-    Result<GroupSummary> group(const GroupUuid& uuid);
-    GroupSummary::List   allGroups();
+    Expected<GroupSummary> group(const GroupUuid& uuid);
+    GroupSummary::List allGroups();
 
     // Modify
-    Result<GroupSummary> addGroup(const GroupSummary& info);
-    Result<GroupSummary> updateGroup(const GroupSummary& info);
-    Result<GroupSummary> deleteGroup(const GroupUuid& uuid);
+    Expected<GroupSummary> addGroup(const GroupSummary& info);
+    Expected<GroupSummary> updateGroup(const GroupSummary& info);
+    Expected<GroupSummary> deleteGroup(const GroupUuid& uuid);
 
 private:
     GroupUuid generateNewUuid();

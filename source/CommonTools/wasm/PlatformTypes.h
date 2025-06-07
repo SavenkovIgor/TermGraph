@@ -26,7 +26,7 @@ private:
 };
 
 template<typename RetType>
-using FutureResult = FutureWrapper<Result<RetType>>;
+using FutureExpected = FutureWrapper<Expected<RetType>>;
 
 template<typename T>
 static FutureWrapper<T> toFuture(const std::function<T()>& func)

@@ -11,17 +11,17 @@
 #include "source/CommonTools/NetworkTools.h"
 
 template<typename T>
-Result<T> toResult(QNetworkReply* reply, std::function<std::optional<T>(const QByteArray& data)> parseFunc)
+Expected<T> toExpected(QNetworkReply* reply, std::function<std::optional<T>(const QByteArray& data)> parseFunc)
 {
     if (reply->error() != QNetworkReply::NoError) {
-        return ErrorCodes::ConnectionError;
+        return std::unexpected(ErrorCode::ConnectionError);
     }
 
     if (auto obj = parseFunc(reply->readAll())) {
         return *obj;
     }
 
-    return ErrorCodes::JsonParseError;
+    return std::unexpected(ErrorCode::JsonParseError);
 }
 
 DataStorageConnection::DataStorageConnection(QUrl address)
@@ -46,7 +46,7 @@ int DataStorageConnection::storageVersion() const
     return -1;
 }
 
-FutureResult<GroupSummary> DataStorageConnection::group(const GroupUuid& uuid) const
+FutureExpected<GroupSummary> DataStorageConnection::group(const GroupUuid& uuid) const
 {
     SharedPromise<GroupSummary> promise(new Promise<GroupSummary>);
     promise->start();
@@ -55,14 +55,14 @@ FutureResult<GroupSummary> DataStorageConnection::group(const GroupUuid& uuid) c
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     network.get(url, [=](auto* reply) {
-        promise->addResult(toResult<GroupSummary>(reply, [](auto data) { return GroupSummary::from(data); }));
+        promise->addResult(toExpected<GroupSummary>(reply, [](auto data) { return GroupSummary::from(data); }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<GroupSummary::List> DataStorageConnection::groups() const
+FutureExpected<GroupSummary::List> DataStorageConnection::groups() const
 {
     SharedPromise<GroupSummary::List> promise(new Promise<GroupSummary::List>);
     promise->start();
@@ -71,14 +71,14 @@ FutureResult<GroupSummary::List> DataStorageConnection::groups() const
 
     network.get(url, [=](auto* reply) {
         promise->addResult(
-            toResult<GroupSummary::List>(reply, [](auto data) { return GroupSummary::List::from(data); }));
+            toExpected<GroupSummary::List>(reply, [](auto data) { return GroupSummary::List::from(data); }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<GroupSummary> DataStorageConnection::addGroup(const GroupSummary& info)
+FutureExpected<GroupSummary> DataStorageConnection::addGroup(const GroupSummary& info)
 {
     SharedPromise<GroupSummary> promise(new Promise<GroupSummary>);
     promise->start();
@@ -86,14 +86,14 @@ FutureResult<GroupSummary> DataStorageConnection::addGroup(const GroupSummary& i
     QUrl url = groupUrl;
 
     network.post(url, static_cast<QByteArray>(info), [=](auto* reply) {
-        promise->addResult(toResult<GroupSummary>(reply, [](auto data) { return GroupSummary::from(data); }));
+        promise->addResult(toExpected<GroupSummary>(reply, [](auto data) { return GroupSummary::from(data); }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<GroupSummary> DataStorageConnection::updateGroup(const GroupSummary& info)
+FutureExpected<GroupSummary> DataStorageConnection::updateGroup(const GroupSummary& info)
 {
     SharedPromise<GroupSummary> promise(new Promise<GroupSummary>);
     promise->start();
@@ -102,14 +102,14 @@ FutureResult<GroupSummary> DataStorageConnection::updateGroup(const GroupSummary
     url.setPath(QString("%1/%2").arg(url.path(), info.uuid->toString()));
 
     network.put(url, static_cast<QByteArray>(info), [=](auto* reply) {
-        promise->addResult(toResult<GroupSummary>(reply, [](auto data) { return GroupSummary::from(data); }));
+        promise->addResult(toExpected<GroupSummary>(reply, [](auto data) { return GroupSummary::from(data); }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<GroupSummary> DataStorageConnection::deleteGroup(const GroupUuid& uuid)
+FutureExpected<GroupSummary> DataStorageConnection::deleteGroup(const GroupUuid& uuid)
 {
     SharedPromise<GroupSummary> promise(new Promise<GroupSummary>);
     promise->start();
@@ -118,14 +118,14 @@ FutureResult<GroupSummary> DataStorageConnection::deleteGroup(const GroupUuid& u
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     network.deleteResource(url, [=](auto* reply) {
-        promise->addResult(toResult<GroupSummary>(reply, [](auto data) { return GroupSummary::from(data); }));
+        promise->addResult(toExpected<GroupSummary>(reply, [](auto data) { return GroupSummary::from(data); }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<TermData> DataStorageConnection::term(const TermUuid& uuid) const
+FutureExpected<TermData> DataStorageConnection::term(const TermUuid& uuid) const
 {
     SharedPromise<TermData> promise(new Promise<TermData>);
     promise->start();
@@ -134,15 +134,16 @@ FutureResult<TermData> DataStorageConnection::term(const TermUuid& uuid) const
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     network.get(url, [=](auto* reply) {
-        promise->addResult(
-            toResult<TermData>(reply, [](auto data) { return TermData::from(data, TermData::JsonCheckMode::Import); }));
+        promise->addResult(toExpected<TermData>(reply, [](auto data) {
+            return TermData::from(data, TermData::JsonCheckMode::Import);
+        }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<TermData> DataStorageConnection::term(const QString& nodeName, const GroupUuid& uuid) const
+FutureExpected<TermData> DataStorageConnection::term(const QString& nodeName, const GroupUuid& uuid) const
 {
     SharedPromise<TermData> promise(new Promise<TermData>);
     promise->start();
@@ -151,15 +152,16 @@ FutureResult<TermData> DataStorageConnection::term(const QString& nodeName, cons
     url.setQuery(QString("group_uuid=%1&name=%2").arg(uuid.toString(), nodeName));
 
     network.get(url, [=](auto* reply) {
-        promise->addResult(
-            toResult<TermData>(reply, [](auto data) { return TermData::from(data, TermData::JsonCheckMode::Import); }));
+        promise->addResult(toExpected<TermData>(reply, [](auto data) {
+            return TermData::from(data, TermData::JsonCheckMode::Import);
+        }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<TermData::List> DataStorageConnection::terms(const GroupUuid& uuid) const
+FutureExpected<TermData::List> DataStorageConnection::terms(const GroupUuid& uuid) const
 {
     SharedPromise<TermData::List> promise(new Promise<TermData::List>);
     promise->start();
@@ -168,14 +170,14 @@ FutureResult<TermData::List> DataStorageConnection::terms(const GroupUuid& uuid)
     url.setQuery(QString("group_uuid=%1").arg(uuid.toString()));
 
     network.get(url, [=](auto* reply) {
-        promise->addResult(toResult<TermData::List>(reply, [](auto data) { return TermData::List::from(data); }));
+        promise->addResult(toExpected<TermData::List>(reply, [](auto data) { return TermData::List::from(data); }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<TermData> DataStorageConnection::addTerm(const TermData& info)
+FutureExpected<TermData> DataStorageConnection::addTerm(const TermData& info)
 {
     SharedPromise<TermData> promise(new Promise<TermData>);
     promise->start();
@@ -183,15 +185,16 @@ FutureResult<TermData> DataStorageConnection::addTerm(const TermData& info)
     QUrl url = termUrl;
 
     network.post(url, static_cast<QByteArray>(info), [=](auto* reply) {
-        promise->addResult(
-            toResult<TermData>(reply, [](auto data) { return TermData::from(data, TermData::JsonCheckMode::Import); }));
+        promise->addResult(toExpected<TermData>(reply, [](auto data) {
+            return TermData::from(data, TermData::JsonCheckMode::Import);
+        }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<TermData> DataStorageConnection::updateTerm(
+FutureExpected<TermData> DataStorageConnection::updateTerm(
     const TermData&                                       info,
     [[maybe_unused]] DataStorageInterface::LastEditSource lastEditSource,
     [[maybe_unused]] bool                                 checkLastEdit)
@@ -203,15 +206,16 @@ FutureResult<TermData> DataStorageConnection::updateTerm(
     url.setPath(QString("%1/%2").arg(url.path(), info.uuid->toString()));
 
     network.put(url, static_cast<QByteArray>(info), [=](auto* reply) {
-        promise->addResult(
-            toResult<TermData>(reply, [](auto data) { return TermData::from(data, TermData::JsonCheckMode::Import); }));
+        promise->addResult(toExpected<TermData>(reply, [](auto data) {
+            return TermData::from(data, TermData::JsonCheckMode::Import);
+        }));
         promise->finish();
     });
 
     return promise->future();
 }
 
-FutureResult<TermData> DataStorageConnection::deleteTerm(const TermUuid& uuid)
+FutureExpected<TermData> DataStorageConnection::deleteTerm(const TermUuid& uuid)
 {
     SharedPromise<TermData> promise(new Promise<TermData>);
     promise->start();
@@ -220,8 +224,9 @@ FutureResult<TermData> DataStorageConnection::deleteTerm(const TermUuid& uuid)
     url.setPath(QString("%1/%2").arg(url.path(), uuid.toString()));
 
     network.deleteResource(url, [=](auto* reply) {
-        promise->addResult(
-            toResult<TermData>(reply, [](auto data) { return TermData::from(data, TermData::JsonCheckMode::Import); }));
+        promise->addResult(toExpected<TermData>(reply, [](auto data) {
+            return TermData::from(data, TermData::JsonCheckMode::Import);
+        }));
         promise->finish();
     });
 
