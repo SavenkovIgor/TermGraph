@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <expected>
+
 #include <QUuid>
 #include <QtCore>
 #include <QtGlobal>
@@ -10,6 +12,9 @@
 #include "source/CommonTools/Errors.h"
 
 using UuidList = std::vector<QUuid>;
+
+template<typename T>
+using Expected = std::expected<T, ErrorCode>;
 
 template<typename T>
 class Result : public std::variant<T, ErrorCode>

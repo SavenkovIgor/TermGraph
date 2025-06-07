@@ -28,7 +28,10 @@ int LocalDatabaseStorage::storageVersion() const { return impl->db.appConfigTabl
 
 FutureResult<GroupSummary> LocalDatabaseStorage::group(const GroupUuid& uuid) const
 {
-    return toFuture<Result<GroupSummary>>([this, &uuid] { return impl->db.groupTable->group(uuid); });
+    return toFuture<Result<GroupSummary>>([this, &uuid] {
+        auto res = impl->db.groupTable->group(uuid);
+        return res ? *res : Result<GroupSummary>(res.error());
+    });
 }
 
 FutureResult<GroupSummary::List> LocalDatabaseStorage::groups() const
@@ -58,17 +61,26 @@ FutureResult<GroupSummary::List> LocalDatabaseStorage::groups() const
 
 FutureResult<GroupSummary> LocalDatabaseStorage::addGroup(const GroupSummary& info)
 {
-    return toFuture<Result<GroupSummary>>([this, info] { return impl->db.groupTable->addGroup(info); });
+    return toFuture<Result<GroupSummary>>([this, info] {
+        auto res = impl->db.groupTable->addGroup(info);
+        return res ? *res : Result<GroupSummary>(res.error());
+    });
 }
 
 FutureResult<GroupSummary> LocalDatabaseStorage::updateGroup(const GroupSummary& info)
 {
-    return toFuture<Result<GroupSummary>>([this, info] { return impl->db.groupTable->updateGroup(info); });
+    return toFuture<Result<GroupSummary>>([this, info] {
+        auto res = impl->db.groupTable->updateGroup(info);
+        return res ? *res : Result<GroupSummary>(res.error());
+    });
 }
 
 FutureResult<GroupSummary> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid)
 {
-    return toFuture<Result<GroupSummary>>([this, uuid] { return impl->db.groupTable->deleteGroup(uuid); });
+    return toFuture<Result<GroupSummary>>([this, uuid] {
+        auto res = impl->db.groupTable->deleteGroup(uuid);
+        return res ? *res : Result<GroupSummary>(res.error());
+    });
 }
 
 FutureResult<TermData> LocalDatabaseStorage::term(const QString& nodeName, const GroupUuid& uuid) const
