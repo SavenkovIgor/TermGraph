@@ -91,6 +91,8 @@ target_sources (TermGraph
         "source/helpers/linktermdistancecache.h"
         "source/helpers/simplelistenserver.cpp"
         "source/helpers/simplelistenserver.h"
+        "source/helpers/wiki/WikiUrlChecker.cpp"
+        "source/helpers/wiki/WikiUrlChecker.h"
         "source/MainScene.cpp"
         "source/MainScene.h"
         "source/managers/groupsmanager.cpp"
@@ -320,6 +322,8 @@ if (BUILD_TESTING)
             "source/helpers/link/LinksString.h"
             "source/helpers/link/LinkTools.cpp"
             "source/helpers/link/LinkTools.h"
+            "source/helpers/wiki/WikiUrlChecker.cpp"
+            "source/helpers/wiki/WikiUrlChecker.h"
             "source/model/enums.h"
             "source/model/graphicitem/graphicitem.cpp"
             "source/model/graphicitem/graphicitem.h"
@@ -391,6 +395,7 @@ if (BUILD_TESTING)
             "test/textrangetest.cpp"
             "test/texttoolstest.cpp"
             "test/uuidstest.cpp"
+            "test/wikiurlcheckertest.cpp"
             "test/validatortest.cpp"
         )
 
