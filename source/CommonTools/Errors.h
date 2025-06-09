@@ -7,7 +7,7 @@
 
 #include <QString>
 
-enum ErrorCodes {
+enum ErrorCode {
     GroupUuidInvalid = 0,
     GroupUuidAlreadyExist,
     GroupUuidNotFound,
@@ -60,94 +60,94 @@ enum ErrorCodes {
 
 namespace Errors {
 
-inline const char* toChar(ErrorCodes code)
+inline const char* toChar(ErrorCode code)
 {
     // clang-format off
     switch(code) {
-        case ErrorCodes::GroupUuidInvalid:                        return "GroupUuidInvalid";
-        case ErrorCodes::GroupUuidAlreadyExist:                   return "GroupUuidAlreadyExist";
-        case ErrorCodes::GroupUuidNotFound:                       return "GroupUuidNotFound";
-        case ErrorCodes::GroupNameEmpty:                          return "GroupNameEmpty";
-        case ErrorCodes::GroupNameAlreadyExist:                   return "GroupNameAlreadyExist";
-        case ErrorCodes::TermUuidInvalid:                         return "TermUuidInvalid";
-        case ErrorCodes::TermUuidAlreadyExist:                    return "TermUuidAlreadyExist";
-        case ErrorCodes::TermUuidNotFound:                        return "TermUuidNotFound";
-        case ErrorCodes::TermEmpty:                               return "TermEmpty";
-        case ErrorCodes::TermAlreadyExist:                        return "TermAlreadyExist";
-        case ErrorCodes::TermNotFound:                            return "TermNotFound";
-        case ErrorCodes::LastEditInvalid:                         return "LastEditInvalid";
-        case ErrorCodes::NewerTermVersionFound:                   return "NewerTermVersionFound";
-        case ErrorCodes::NodesLastEditInvalid:                    return "NodesLastEditInvalid";
-        case ErrorCodes::ConnectionError:                         return "ConnectionError";
-        case ErrorCodes::UnknownError:                            return "UnknownError";
-        case ErrorCodes::JsonParseError:                          return "JsonParseError";
-        case ErrorCodes::JsonNameFieldMissedOrWrongType:          return "JsonNameFieldMissedOrWrongType";
-        case ErrorCodes::JsonCommentFieldMissedOrWrongType:       return "JsonCommentFieldMissedOrWrongType";
-        case ErrorCodes::JsonSizeFieldMissedOrWrongType:          return "JsonSizeFieldMissedOrWrongType";
-        case ErrorCodes::JsonNodesFieldMissedOrWrongType:         return "JsonNodesFieldMissedOrWrongType";
-        case ErrorCodes::JsonNodesLastEditFieldMissedOrWrongType: return "JsonNodesLastEditFieldMissedOrWrongType";
-        case ErrorCodes::JsonUuidFieldMissedOrWrongType:          return "JsonUuidFieldMissedOrWrongType";
-        case ErrorCodes::JsonTermFieldMissedOrWrongType:          return "JsonTermFieldMissedOrWrongType";
-        case ErrorCodes::JsonDefinitionFieldMissedOrWrongType:    return "JsonDefinitionFieldMissedOrWrongType";
-        case ErrorCodes::JsonTermDefFieldWrongContentOrType:      return "JsonTermDefFieldWrongContentOrType";
-        case ErrorCodes::JsonDescriptionFieldMissedOrWrongType:   return "JsonDescriptionFieldMissedOrWrongType";
-        case ErrorCodes::JsonExamplesFieldMissedOrWrongType:      return "JsonExamplesFieldMissedOrWrongType";
-        case ErrorCodes::JsonWikiUrlFieldMissedOrWrongType:       return "JsonWikiUrlFieldMissedOrWrongType";
-        case ErrorCodes::JsonWikiImageFieldMissedOrWrongType:     return "JsonWikiImageFieldMissedOrWrongType";
-        case ErrorCodes::JsonGroupUuidFieldMissedOrWrongType:     return "JsonGroupUuidFieldMissedOrWrongType";
-        case ErrorCodes::JsonLastEditFieldMissedOrWrongType:      return "JsonLastEditFieldMissedOrWrongType";
+        case ErrorCode::GroupUuidInvalid:                        return "GroupUuidInvalid";
+        case ErrorCode::GroupUuidAlreadyExist:                   return "GroupUuidAlreadyExist";
+        case ErrorCode::GroupUuidNotFound:                       return "GroupUuidNotFound";
+        case ErrorCode::GroupNameEmpty:                          return "GroupNameEmpty";
+        case ErrorCode::GroupNameAlreadyExist:                   return "GroupNameAlreadyExist";
+        case ErrorCode::TermUuidInvalid:                         return "TermUuidInvalid";
+        case ErrorCode::TermUuidAlreadyExist:                    return "TermUuidAlreadyExist";
+        case ErrorCode::TermUuidNotFound:                        return "TermUuidNotFound";
+        case ErrorCode::TermEmpty:                               return "TermEmpty";
+        case ErrorCode::TermAlreadyExist:                        return "TermAlreadyExist";
+        case ErrorCode::TermNotFound:                            return "TermNotFound";
+        case ErrorCode::LastEditInvalid:                         return "LastEditInvalid";
+        case ErrorCode::NewerTermVersionFound:                   return "NewerTermVersionFound";
+        case ErrorCode::NodesLastEditInvalid:                    return "NodesLastEditInvalid";
+        case ErrorCode::ConnectionError:                         return "ConnectionError";
+        case ErrorCode::UnknownError:                            return "UnknownError";
+        case ErrorCode::JsonParseError:                          return "JsonParseError";
+        case ErrorCode::JsonNameFieldMissedOrWrongType:          return "JsonNameFieldMissedOrWrongType";
+        case ErrorCode::JsonCommentFieldMissedOrWrongType:       return "JsonCommentFieldMissedOrWrongType";
+        case ErrorCode::JsonSizeFieldMissedOrWrongType:          return "JsonSizeFieldMissedOrWrongType";
+        case ErrorCode::JsonNodesFieldMissedOrWrongType:         return "JsonNodesFieldMissedOrWrongType";
+        case ErrorCode::JsonNodesLastEditFieldMissedOrWrongType: return "JsonNodesLastEditFieldMissedOrWrongType";
+        case ErrorCode::JsonUuidFieldMissedOrWrongType:          return "JsonUuidFieldMissedOrWrongType";
+        case ErrorCode::JsonTermFieldMissedOrWrongType:          return "JsonTermFieldMissedOrWrongType";
+        case ErrorCode::JsonDefinitionFieldMissedOrWrongType:    return "JsonDefinitionFieldMissedOrWrongType";
+        case ErrorCode::JsonTermDefFieldWrongContentOrType:      return "JsonTermDefFieldWrongContentOrType";
+        case ErrorCode::JsonDescriptionFieldMissedOrWrongType:   return "JsonDescriptionFieldMissedOrWrongType";
+        case ErrorCode::JsonExamplesFieldMissedOrWrongType:      return "JsonExamplesFieldMissedOrWrongType";
+        case ErrorCode::JsonWikiUrlFieldMissedOrWrongType:       return "JsonWikiUrlFieldMissedOrWrongType";
+        case ErrorCode::JsonWikiImageFieldMissedOrWrongType:     return "JsonWikiImageFieldMissedOrWrongType";
+        case ErrorCode::JsonGroupUuidFieldMissedOrWrongType:     return "JsonGroupUuidFieldMissedOrWrongType";
+        case ErrorCode::JsonLastEditFieldMissedOrWrongType:      return "JsonLastEditFieldMissedOrWrongType";
     }
     // clang-format on
 
     return "UnknownError";
 }
 
-inline QString toQString(ErrorCodes code) { return {toChar(code)}; }
-inline QString toQString(int code) { return toQString(static_cast<ErrorCodes>(code)); }
+inline QString toQString(ErrorCode code) { return {toChar(code)}; }
+inline QString toQString(int code) { return toQString(static_cast<ErrorCode>(code)); }
 
-inline ErrorCodes fromChar(const char* enumName)
+inline ErrorCode fromChar(const char* enumName)
 {
     std::string msg(enumName);
 
     // clang-format off
-    if (msg == "GroupUuidInvalid")                        return ErrorCodes::GroupUuidInvalid;
-    if (msg == "GroupUuidAlreadyExist")                   return ErrorCodes::GroupUuidAlreadyExist;
-    if (msg == "GroupUuidNotFound")                       return ErrorCodes::GroupUuidNotFound;
-    if (msg == "GroupNameEmpty")                          return ErrorCodes::GroupNameEmpty;
-    if (msg == "GroupNameAlreadyExist")                   return ErrorCodes::GroupNameAlreadyExist;
-    if (msg == "TermUuidInvalid")                         return ErrorCodes::TermUuidInvalid;
-    if (msg == "TermUuidAlreadyExist")                    return ErrorCodes::TermUuidAlreadyExist;
-    if (msg == "TermUuidNotFound")                        return ErrorCodes::TermUuidNotFound;
-    if (msg == "TermEmpty")                               return ErrorCodes::TermEmpty;
-    if (msg == "TermAlreadyExist")                        return ErrorCodes::TermAlreadyExist;
-    if (msg == "TermNotFound")                            return ErrorCodes::TermNotFound;
-    if (msg == "LastEditInvalid")                         return ErrorCodes::LastEditInvalid;
-    if (msg == "NewerTermVersionFound")                   return ErrorCodes::NewerTermVersionFound;
-    if (msg == "NodesLastEditInvalid")                    return ErrorCodes::NodesLastEditInvalid;
-    if (msg == "ConnectionError")                         return ErrorCodes::ConnectionError;
-    if (msg == "UnknownError")                            return ErrorCodes::UnknownError;
-    if (msg == "JsonParseError")                          return ErrorCodes::JsonParseError;
-    if (msg == "JsonNameFieldMissedOrWrongType")          return ErrorCodes::JsonNameFieldMissedOrWrongType;
-    if (msg == "JsonCommentFieldMissedOrWrongType")       return ErrorCodes::JsonCommentFieldMissedOrWrongType;
-    if (msg == "JsonSizeFieldMissedOrWrongType")          return ErrorCodes::JsonSizeFieldMissedOrWrongType;
-    if (msg == "JsonNodesFieldMissedOrWrongType")         return ErrorCodes::JsonNodesFieldMissedOrWrongType;
-    if (msg == "JsonNodesLastEditFieldMissedOrWrongType") return ErrorCodes::JsonNodesLastEditFieldMissedOrWrongType;
-    if (msg == "JsonUuidFieldMissedOrWrongType")          return ErrorCodes::JsonUuidFieldMissedOrWrongType;
-    if (msg == "JsonTermFieldMissedOrWrongType")          return ErrorCodes::JsonTermFieldMissedOrWrongType;
-    if (msg == "JsonDefinitionFieldMissedOrWrongType")    return ErrorCodes::JsonDefinitionFieldMissedOrWrongType;
-    if (msg == "JsonTermDefFieldWrongContentOrType")      return ErrorCodes::JsonTermDefFieldWrongContentOrType;
-    if (msg == "JsonDescriptionFieldMissedOrWrongType")   return ErrorCodes::JsonDescriptionFieldMissedOrWrongType;
-    if (msg == "JsonExamplesFieldMissedOrWrongType")      return ErrorCodes::JsonExamplesFieldMissedOrWrongType;
-    if (msg == "JsonWikiUrlFieldMissedOrWrongType")       return ErrorCodes::JsonWikiUrlFieldMissedOrWrongType;
-    if (msg == "JsonWikiImageFieldMissedOrWrongType")     return ErrorCodes::JsonWikiImageFieldMissedOrWrongType;
-    if (msg == "JsonGroupUuidFieldMissedOrWrongType")     return ErrorCodes::JsonGroupUuidFieldMissedOrWrongType;
-    if (msg == "JsonLastEditFieldMissedOrWrongType")      return ErrorCodes::JsonLastEditFieldMissedOrWrongType;
+    if (msg == "GroupUuidInvalid")                        return ErrorCode::GroupUuidInvalid;
+    if (msg == "GroupUuidAlreadyExist")                   return ErrorCode::GroupUuidAlreadyExist;
+    if (msg == "GroupUuidNotFound")                       return ErrorCode::GroupUuidNotFound;
+    if (msg == "GroupNameEmpty")                          return ErrorCode::GroupNameEmpty;
+    if (msg == "GroupNameAlreadyExist")                   return ErrorCode::GroupNameAlreadyExist;
+    if (msg == "TermUuidInvalid")                         return ErrorCode::TermUuidInvalid;
+    if (msg == "TermUuidAlreadyExist")                    return ErrorCode::TermUuidAlreadyExist;
+    if (msg == "TermUuidNotFound")                        return ErrorCode::TermUuidNotFound;
+    if (msg == "TermEmpty")                               return ErrorCode::TermEmpty;
+    if (msg == "TermAlreadyExist")                        return ErrorCode::TermAlreadyExist;
+    if (msg == "TermNotFound")                            return ErrorCode::TermNotFound;
+    if (msg == "LastEditInvalid")                         return ErrorCode::LastEditInvalid;
+    if (msg == "NewerTermVersionFound")                   return ErrorCode::NewerTermVersionFound;
+    if (msg == "NodesLastEditInvalid")                    return ErrorCode::NodesLastEditInvalid;
+    if (msg == "ConnectionError")                         return ErrorCode::ConnectionError;
+    if (msg == "UnknownError")                            return ErrorCode::UnknownError;
+    if (msg == "JsonParseError")                          return ErrorCode::JsonParseError;
+    if (msg == "JsonNameFieldMissedOrWrongType")          return ErrorCode::JsonNameFieldMissedOrWrongType;
+    if (msg == "JsonCommentFieldMissedOrWrongType")       return ErrorCode::JsonCommentFieldMissedOrWrongType;
+    if (msg == "JsonSizeFieldMissedOrWrongType")          return ErrorCode::JsonSizeFieldMissedOrWrongType;
+    if (msg == "JsonNodesFieldMissedOrWrongType")         return ErrorCode::JsonNodesFieldMissedOrWrongType;
+    if (msg == "JsonNodesLastEditFieldMissedOrWrongType") return ErrorCode::JsonNodesLastEditFieldMissedOrWrongType;
+    if (msg == "JsonUuidFieldMissedOrWrongType")          return ErrorCode::JsonUuidFieldMissedOrWrongType;
+    if (msg == "JsonTermFieldMissedOrWrongType")          return ErrorCode::JsonTermFieldMissedOrWrongType;
+    if (msg == "JsonDefinitionFieldMissedOrWrongType")    return ErrorCode::JsonDefinitionFieldMissedOrWrongType;
+    if (msg == "JsonTermDefFieldWrongContentOrType")      return ErrorCode::JsonTermDefFieldWrongContentOrType;
+    if (msg == "JsonDescriptionFieldMissedOrWrongType")   return ErrorCode::JsonDescriptionFieldMissedOrWrongType;
+    if (msg == "JsonExamplesFieldMissedOrWrongType")      return ErrorCode::JsonExamplesFieldMissedOrWrongType;
+    if (msg == "JsonWikiUrlFieldMissedOrWrongType")       return ErrorCode::JsonWikiUrlFieldMissedOrWrongType;
+    if (msg == "JsonWikiImageFieldMissedOrWrongType")     return ErrorCode::JsonWikiImageFieldMissedOrWrongType;
+    if (msg == "JsonGroupUuidFieldMissedOrWrongType")     return ErrorCode::JsonGroupUuidFieldMissedOrWrongType;
+    if (msg == "JsonLastEditFieldMissedOrWrongType")      return ErrorCode::JsonLastEditFieldMissedOrWrongType;
     // clang-format on
 
-    return ErrorCodes::UnknownError;
+    return ErrorCode::UnknownError;
 }
 
-inline ErrorCodes fromQString(QString enumName)
+inline ErrorCode fromQString(QString enumName)
 {
     auto str = enumName.toStdString();
     return fromChar(str.c_str());

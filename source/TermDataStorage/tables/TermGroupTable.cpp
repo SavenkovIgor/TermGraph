@@ -34,11 +34,11 @@ bool TermGroupTable::exist(const GroupUuid &uuid)
     return count > 0;
 }
 
-Result<GroupSummary> TermGroupTable::group(const GroupUuid &uuid)
+Expected<GroupSummary> TermGroupTable::group(const GroupUuid &uuid)
 {
     // If group not exist
     if (!exist(uuid)) {
-        return ErrorCodes::GroupUuidNotFound;
+        return std::unexpected(ErrorCode::GroupUuidNotFound);
     }
 
     auto query = SqlQueryBuilder().selectGroup(uuid);
@@ -64,24 +64,24 @@ GroupSummary::List TermGroupTable::allGroups()
     return ret;
 }
 
-Result<GroupSummary> TermGroupTable::addGroup(const GroupSummary &info)
+Expected<GroupSummary> TermGroupTable::addGroup(const GroupSummary &info)
 {
     GroupSummary groupInfo = info;
 
     if (groupInfo.uuid) {
         if (exist(*groupInfo.uuid)) {
-            return ErrorCodes::GroupUuidAlreadyExist;
+            return std::unexpected(ErrorCode::GroupUuidAlreadyExist);
         }
     } else {
         groupInfo.uuid = generateNewUuid();
     }
 
     if (groupInfo.name.simplified().isEmpty()) {
-        return ErrorCodes::GroupNameEmpty;
+        return std::unexpected(ErrorCode::GroupNameEmpty);
     }
 
     if (exist(groupInfo.name)) {
-        return ErrorCodes::GroupNameAlreadyExist;
+        return std::unexpected(ErrorCode::GroupNameAlreadyExist);
     }
 
     DbTools::start(SqlQueryBuilder().insertGroup(groupInfo));
@@ -89,23 +89,23 @@ Result<GroupSummary> TermGroupTable::addGroup(const GroupSummary &info)
     return groupInfo;
 }
 
-Result<GroupSummary> TermGroupTable::updateGroup(const GroupSummary &info)
+Expected<GroupSummary> TermGroupTable::updateGroup(const GroupSummary &info)
 {
     if (!info.uuid) {
-        return ErrorCodes::GroupUuidInvalid;
+        return std::unexpected(ErrorCode::GroupUuidInvalid);
     }
 
     if (!exist(*info.uuid)) {
-        return ErrorCodes::GroupUuidNotFound;
+        return std::unexpected(ErrorCode::GroupUuidNotFound);
     }
 
     if (info.name.simplified().isEmpty()) {
-        return ErrorCodes::GroupNameEmpty;
+        return std::unexpected(ErrorCode::GroupNameEmpty);
     }
 
     for (const auto &group : allGroups()) {
         if (info.name == group.name && info.uuid != group.uuid) {
-            return ErrorCodes::GroupNameAlreadyExist;
+            return std::unexpected(ErrorCode::GroupNameAlreadyExist);
         }
     }
 
@@ -114,14 +114,14 @@ Result<GroupSummary> TermGroupTable::updateGroup(const GroupSummary &info)
     return info;
 }
 
-Result<GroupSummary> TermGroupTable::deleteGroup(const GroupUuid &uuid)
+Expected<GroupSummary> TermGroupTable::deleteGroup(const GroupUuid &uuid)
 {
     if (auto groupInfo = group(uuid)) {
         DbTools::start(SqlQueryBuilder().deleteGroup(uuid));
         return groupInfo;
     }
 
-    return ErrorCodes::GroupUuidNotFound;
+    return std::unexpected(ErrorCode::GroupUuidNotFound);
 }
 
 GroupUuid TermGroupTable::generateNewUuid()

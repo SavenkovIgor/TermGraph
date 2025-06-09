@@ -24,13 +24,10 @@ public:
     }
 
 private:
-    static CheckResult isSmall(const Point& pt)
-    {
-        return checkOrError(pt.x < 100 && pt.y < 100, ErrorCodes::TermEmpty);
-    }
+    static CheckResult isSmall(const Point& pt) { return checkOrError(pt.x < 100 && pt.y < 100, ErrorCode::TermEmpty); }
     static CheckResult isPositive(const Point& pt)
     {
-        return checkOrError(pt.x > 0 && pt.y > 0, ErrorCodes::GroupNameEmpty);
+        return checkOrError(pt.x > 0 && pt.y > 0, ErrorCode::GroupNameEmpty);
     }
 };
 
@@ -48,11 +45,11 @@ TEST(ValidatorTest, Creation)
     EXPECT_FALSE(v.check(badPt1));
     auto errors1 = v.lastErrors();
     ASSERT_EQ(errors1.size(), 1);
-    EXPECT_TRUE(errors1[0] == ErrorCodes::GroupNameEmpty);
+    EXPECT_TRUE(errors1[0] == ErrorCode::GroupNameEmpty);
 
     EXPECT_FALSE(v.check(badPt2));
     auto errors2 = v.lastErrors();
     ASSERT_EQ(errors2.size(), 2);
-    EXPECT_TRUE(errors2[0] == ErrorCodes::TermEmpty);
-    EXPECT_TRUE(errors2[1] == ErrorCodes::GroupNameEmpty);
+    EXPECT_TRUE(errors2[0] == ErrorCode::TermEmpty);
+    EXPECT_TRUE(errors2[1] == ErrorCode::GroupNameEmpty);
 }

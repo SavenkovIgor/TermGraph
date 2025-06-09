@@ -21,25 +21,25 @@ public:
     void initTable();
 
     // Read
-    bool             exist(const TermUuid& uuid) const;
-    Result<TermData> term(const TermUuid& uuid) const;
-    Result<TermData> term(const QString& term, const GroupUuid& uuid) const;
+    bool               exist(const TermUuid& uuid) const;
+    Expected<TermData> term(const TermUuid& uuid) const;
+    Expected<TermData> term(const QString& term, const GroupUuid& uuid) const;
 
-    Result<TermData::List> allTerms(const GroupUuid& uuid);
-    RecordList             allLastEditRecords();
+    Expected<TermData::List> allTerms(const GroupUuid& uuid);
+    RecordList               allLastEditRecords();
 
     // Modify
-    Result<TermData> addTerm(const TermData& info);
-    Result<TermData> updateTerm(const TermData&                      info,
-                                DataStorageInterface::LastEditSource lastEditSource,
-                                bool                                 checkLastEdit);
-    Result<TermData> deleteTerm(const TermUuid& uuid);
+    Expected<TermData> addTerm(const TermData& info);
+    Expected<TermData> updateTerm(const TermData&                      info,
+                                  DataStorageInterface::LastEditSource lastEditSource,
+                                  bool                                 checkLastEdit);
+    Expected<TermData> deleteTerm(const TermUuid& uuid);
 
 private:
     TermUuid generateNewUuid();
 
-    static QDateTime  now();
-    Result<QDateTime> lastEdit(const TermUuid& uuid);
+    static QDateTime    now();
+    Expected<QDateTime> lastEdit(const TermUuid& uuid);
 
     static TermData createTermData(const QSqlRecord& record);
 };

@@ -112,15 +112,15 @@ TEST_F(DBWorksTest, GroupsTest)
     // Add groups test
     auto brokenName = withUuid;
     brokenName.name = " ";
-    EXPECT_EQ(mStorage->addGroup(brokenName).result().error(), ErrorCodes::GroupNameEmpty);
+    EXPECT_EQ(mStorage->addGroup(brokenName).result().error(), ErrorCode::GroupNameEmpty);
 
     EXPECT_EQ(mStorage->addGroup(withUuid).result().value(), withUuid);
 
     // Duplicate test
-    EXPECT_EQ(mStorage->addGroup(withUuid).result().error(), ErrorCodes::GroupUuidAlreadyExist);
+    EXPECT_EQ(mStorage->addGroup(withUuid).result().error(), ErrorCode::GroupUuidAlreadyExist);
     auto sameName = withUuid;
     sameName.uuid = GroupUuid::generate();
-    EXPECT_EQ(mStorage->addGroup(sameName).result().error(), ErrorCodes::GroupNameAlreadyExist);
+    EXPECT_EQ(mStorage->addGroup(sameName).result().error(), ErrorCode::GroupNameAlreadyExist);
 
     auto addResult = mStorage->addGroup(withoutUuid).result();
     EXPECT_TRUE(addResult.has_value());
@@ -133,7 +133,7 @@ TEST_F(DBWorksTest, GroupsTest)
     EXPECT_TRUE(groupList[0].uuid == withUuid.uuid || groupList[1].uuid == withUuid.uuid);
 
     // Read group test
-    EXPECT_EQ(mStorage->group(GroupUuid::generate()).result().error(), ErrorCodes::GroupUuidNotFound);
+    EXPECT_EQ(mStorage->group(GroupUuid::generate()).result().error(), ErrorCode::GroupUuidNotFound);
 
     auto readedWithUuid = mStorage->group(*withUuid.uuid).result().value();
 
@@ -143,7 +143,7 @@ TEST_F(DBWorksTest, GroupsTest)
     EXPECT_EQ(withUuid.comment, readedWithUuid.comment);
 
     // Update group test
-    EXPECT_EQ(mStorage->updateGroup(withoutUuid).result().error(), ErrorCodes::GroupUuidInvalid);
+    EXPECT_EQ(mStorage->updateGroup(withoutUuid).result().error(), ErrorCode::GroupUuidInvalid);
 
     withUuid.name += mSpecSymbols;
     withUuid.comment += mSpecSymbols;
@@ -159,7 +159,7 @@ TEST_F(DBWorksTest, GroupsTest)
     withUuid = groupWithUuid();
 
     // Delete group test
-    EXPECT_EQ(mStorage->deleteGroup(GroupUuid::generate()).result().error(), ErrorCodes::GroupUuidNotFound);
+    EXPECT_EQ(mStorage->deleteGroup(GroupUuid::generate()).result().error(), ErrorCode::GroupUuidNotFound);
 
     EXPECT_TRUE(mStorage->deleteGroup(*withUuid.uuid).result().has_value());
     groupList = mStorage->groups().result().value();

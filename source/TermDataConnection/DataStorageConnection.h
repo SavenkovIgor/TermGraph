@@ -22,24 +22,24 @@ public:
 
     int storageVersion() const final;
 
-    FutureResult<GroupSummary>       group(const GroupUuid& uuid) const final;
-    FutureResult<GroupSummary::List> groups() const final;
+    FutureExpected<GroupSummary>       group(const GroupUuid& uuid) const final;
+    FutureExpected<GroupSummary::List> groups() const final;
 
-    FutureResult<GroupSummary> addGroup(const GroupSummary& info) final;
-    FutureResult<GroupSummary> updateGroup(const GroupSummary& info) final;
-    FutureResult<GroupSummary> deleteGroup(const GroupUuid& uuid) final;
+    FutureExpected<GroupSummary> addGroup(const GroupSummary& info) final;
+    FutureExpected<GroupSummary> updateGroup(const GroupSummary& info) final;
+    FutureExpected<GroupSummary> deleteGroup(const GroupUuid& uuid) final;
 
-    FutureResult<TermData>       term(const TermUuid& uuid) const final;
-    FutureResult<TermData>       term(const QString& termName, const GroupUuid& uuid) const final;
-    FutureResult<TermData::List> terms(const GroupUuid& uuid) const final;
+    FutureExpected<TermData>       term(const TermUuid& uuid) const final;
+    FutureExpected<TermData>       term(const QString& termName, const GroupUuid& uuid) const final;
+    FutureExpected<TermData::List> terms(const GroupUuid& uuid) const final;
 
-    FutureResult<TermData> addTerm(const TermData& info) final;
-    FutureResult<TermData> updateTerm(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) final;
-    FutureResult<TermData> deleteTerm(const TermUuid& uuid) final;
+    FutureExpected<TermData> addTerm(const TermData& info) final;
+    FutureExpected<TermData> updateTerm(const TermData& info, LastEditSource lastEditSource, bool checkLastEdit) final;
+    FutureExpected<TermData> deleteTerm(const TermUuid& uuid) final;
 
 private:
     template<typename T>
-    using Promise = QPromise<Result<T>>;
+    using Promise = QPromise<Expected<T>>;
 
     template<typename T>
     using SharedPromise = QSharedPointer<Promise<T>>;

@@ -26,14 +26,14 @@ LocalDatabaseStorage::LocalDatabaseStorage(const QString& filePath, const QStrin
 
 int LocalDatabaseStorage::storageVersion() const { return impl->db.appConfigTable->getDbVersion(); }
 
-FutureResult<GroupSummary> LocalDatabaseStorage::group(const GroupUuid& uuid) const
+FutureExpected<GroupSummary> LocalDatabaseStorage::group(const GroupUuid& uuid) const
 {
-    return toFuture<Result<GroupSummary>>([this, &uuid] { return impl->db.groupTable->group(uuid); });
+    return toFuture<Expected<GroupSummary>>([this, &uuid] { return impl->db.groupTable->group(uuid); });
 }
 
-FutureResult<GroupSummary::List> LocalDatabaseStorage::groups() const
+FutureExpected<GroupSummary::List> LocalDatabaseStorage::groups() const
 {
-    return toFuture<Result<GroupSummary::List>>([this] {
+    return toFuture<Expected<GroupSummary::List>>([this] {
         auto lastEdits = nodesLastEdit();
         auto groups    = impl->db.groupTable->allGroups();
 
@@ -56,69 +56,69 @@ FutureResult<GroupSummary::List> LocalDatabaseStorage::groups() const
     });
 }
 
-FutureResult<GroupSummary> LocalDatabaseStorage::addGroup(const GroupSummary& info)
+FutureExpected<GroupSummary> LocalDatabaseStorage::addGroup(const GroupSummary& info)
 {
-    return toFuture<Result<GroupSummary>>([this, info] { return impl->db.groupTable->addGroup(info); });
+    return toFuture<Expected<GroupSummary>>([this, info] { return impl->db.groupTable->addGroup(info); });
 }
 
-FutureResult<GroupSummary> LocalDatabaseStorage::updateGroup(const GroupSummary& info)
+FutureExpected<GroupSummary> LocalDatabaseStorage::updateGroup(const GroupSummary& info)
 {
-    return toFuture<Result<GroupSummary>>([this, info] { return impl->db.groupTable->updateGroup(info); });
+    return toFuture<Expected<GroupSummary>>([this, info] { return impl->db.groupTable->updateGroup(info); });
 }
 
-FutureResult<GroupSummary> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid)
+FutureExpected<GroupSummary> LocalDatabaseStorage::deleteGroup(const GroupUuid& uuid)
 {
-    return toFuture<Result<GroupSummary>>([this, uuid] { return impl->db.groupTable->deleteGroup(uuid); });
+    return toFuture<Expected<GroupSummary>>([this, uuid] { return impl->db.groupTable->deleteGroup(uuid); });
 }
 
-FutureResult<TermData> LocalDatabaseStorage::term(const QString& nodeName, const GroupUuid& uuid) const
+FutureExpected<TermData> LocalDatabaseStorage::term(const QString& nodeName, const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->exist(uuid)) {
-        return toFuture<Result<TermData>>([] { return ErrorCodes::GroupUuidNotFound; });
+        return toFuture<Expected<TermData>>([] { return std::unexpected(ErrorCode::GroupUuidNotFound); });
     }
 
-    return toFuture<Result<TermData>>([this, nodeName, uuid] { return impl->db.termTable->term(nodeName, uuid); });
+    return toFuture<Expected<TermData>>([this, nodeName, uuid] { return impl->db.termTable->term(nodeName, uuid); });
 }
 
-FutureResult<TermData> LocalDatabaseStorage::term(const TermUuid& uuid) const
+FutureExpected<TermData> LocalDatabaseStorage::term(const TermUuid& uuid) const
 {
-    return toFuture<Result<TermData>>([this, uuid] { return impl->db.termTable->term(uuid); });
+    return toFuture<Expected<TermData>>([this, uuid] { return impl->db.termTable->term(uuid); });
 }
 
-FutureResult<TermData::List> LocalDatabaseStorage::terms(const GroupUuid& uuid) const
+FutureExpected<TermData::List> LocalDatabaseStorage::terms(const GroupUuid& uuid) const
 {
     if (!impl->db.groupTable->exist(uuid)) {
-        return toFuture<Result<TermData::List>>([] { return ErrorCodes::GroupUuidNotFound; });
+        return toFuture<Expected<TermData::List>>([] { return std::unexpected(ErrorCode::GroupUuidNotFound); });
     }
 
-    return toFuture<Result<TermData::List>>([this, uuid] { return impl->db.termTable->allTerms(uuid); });
+    return toFuture<Expected<TermData::List>>([this, uuid] { return impl->db.termTable->allTerms(uuid); });
 }
 
-FutureResult<TermData> LocalDatabaseStorage::addTerm(const TermData& info)
+FutureExpected<TermData> LocalDatabaseStorage::addTerm(const TermData& info)
 {
     if (!impl->db.groupTable->exist(info.groupUuid)) {
-        return toFuture<Result<TermData>>([] { return ErrorCodes::GroupUuidNotFound; });
+        return toFuture<Expected<TermData>>([] { return std::unexpected(ErrorCode::GroupUuidNotFound); });
     }
 
-    return toFuture<Result<TermData>>([this, info] { return impl->db.termTable->addTerm(info); });
+    return toFuture<Expected<TermData>>([this, info] { return impl->db.termTable->addTerm(info); });
 }
 
-FutureResult<TermData> LocalDatabaseStorage::updateTerm(const TermData&                      info,
-                                                        DataStorageInterface::LastEditSource lastEditSource,
-                                                        bool                                 checkLastEdit)
+FutureExpected<TermData> LocalDatabaseStorage::updateTerm(const TermData&                      info,
+                                                          DataStorageInterface::LastEditSource lastEditSource,
+                                                          bool                                 checkLastEdit)
 {
     if (!impl->db.groupTable->exist(info.groupUuid)) {
-        return toFuture<Result<TermData>>([] { return ErrorCodes::GroupUuidNotFound; });
+        return toFuture<Expected<TermData>>([] { return std::unexpected(ErrorCode::GroupUuidNotFound); });
     }
 
-    return toFuture<Result<TermData>>([this, info, lastEditSource, checkLastEdit] {
+    return toFuture<Expected<TermData>>([this, info, lastEditSource, checkLastEdit] {
         return impl->db.termTable->updateTerm(info, lastEditSource, checkLastEdit);
     });
 }
 
-FutureResult<TermData> LocalDatabaseStorage::deleteTerm(const TermUuid& uuid)
+FutureExpected<TermData> LocalDatabaseStorage::deleteTerm(const TermUuid& uuid)
 {
-    return toFuture<Result<TermData>>([this, uuid] { return impl->db.termTable->deleteTerm(uuid); });
+    return toFuture<Expected<TermData>>([this, uuid] { return impl->db.termTable->deleteTerm(uuid); });
 }
 
 QMap<GroupUuid, QDateTime> LocalDatabaseStorage::nodesLastEdit() const
