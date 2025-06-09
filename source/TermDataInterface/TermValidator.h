@@ -97,8 +97,7 @@ private:
 
     static CheckResult validDescription(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::descriptionKey].isString(),
-                            ErrorCode::JsonDescriptionFieldMissedOrWrongType);
+        return checkOrError(obj[JsonTools::descriptionKey].isString(), ErrorCode::JsonDescriptionFieldMissedOrWrongType);
     }
 
     static CheckResult validExamples(const QJsonObject& obj)

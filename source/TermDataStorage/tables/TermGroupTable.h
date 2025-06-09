@@ -24,7 +24,7 @@ public:
 
     // Getters
     Expected<GroupSummary> group(const GroupUuid& uuid);
-    GroupSummary::List allGroups();
+    GroupSummary::List     allGroups();
 
     // Modify
     Expected<GroupSummary> addGroup(const GroupSummary& info);
