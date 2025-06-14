@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QObject>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QObject>
 #include <QString>
 
 #include <expected>

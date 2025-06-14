@@ -31,7 +31,9 @@ void WikiUrlChecker::onFinished()
 
     Result result;
 
-    if (reply->error() != QNetworkReply::NoError) {
+    if (reply->error() == QNetworkReply::ContentNotFoundError) {
+        result = false;
+    } else if (reply->error() != QNetworkReply::NoError) {
         result = std::unexpected(reply->errorString().toStdString());
     } else {
         int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
