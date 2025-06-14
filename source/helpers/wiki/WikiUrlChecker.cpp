@@ -7,7 +7,7 @@ WikiUrlChecker::WikiUrlChecker(QObject* parent)
     : QObject(parent)
 {}
 
-void WikiUrlChecker::check(const QString& term, Callback callback)
+void WikiUrlChecker::checkPageExist(const QString& term, Callback callback)
 {
     if (mReply) {
         // Instead of silent failure, immediately invoke the callback with an error

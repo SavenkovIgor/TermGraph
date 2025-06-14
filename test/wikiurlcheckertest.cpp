@@ -11,7 +11,7 @@ TEST(WikiUrlCheckerTest, ExistingPage)
     QCoreApplication app(argc, argv);
     QEventLoop       loop;
     WikiUrlChecker   checker;
-    checker.check("Quark", [&](WikiUrlChecker::Result result) {
+    checker.checkPageExist("Quark", [&](WikiUrlChecker::Result result) {
         ASSERT_TRUE(result.has_value()) << result.error();
         EXPECT_TRUE(result.value());
         loop.quit();
@@ -26,7 +26,7 @@ TEST(WikiUrlCheckerTest, MissingPage)
     QCoreApplication app(argc, argv);
     QEventLoop       loop;
     WikiUrlChecker   checker;
-    checker.check("ThisPageShouldNotExist12345", [&](WikiUrlChecker::Result result) {
+    checker.checkPageExist("ThisPageShouldNotExist12345", [&](WikiUrlChecker::Result result) {
         ASSERT_TRUE(result.has_value()) << result.error();
         EXPECT_FALSE(result.value());
         loop.quit();
