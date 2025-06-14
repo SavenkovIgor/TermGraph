@@ -18,6 +18,7 @@ public:
     using Callback = std::function<void(Result)>;
 
     explicit WikiUrlChecker(QObject* parent = nullptr);
+    ~WikiUrlChecker() override;
 
     void checkPageExist(const QString& term, Callback callback);
     bool isBusy() const;

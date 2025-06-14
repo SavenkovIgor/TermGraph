@@ -7,6 +7,21 @@ WikiUrlChecker::WikiUrlChecker(QObject* parent)
     : QObject(parent)
 {}
 
+WikiUrlChecker::~WikiUrlChecker()
+{
+    if (mReply) {
+        // Disconnect signals to avoid calling onFinished after destruction
+        disconnect(mReply, nullptr, this, nullptr);
+        mReply->abort();
+        mReply->deleteLater();
+        mReply = nullptr;
+        // Notify the callback that the operation was aborted due to destruction
+        if (mCallback) {
+            mCallback(std::unexpected("WikiUrlChecker destroyed before operation completed."));
+        }
+    }
+}
+
 void WikiUrlChecker::checkPageExist(const QString& term, Callback callback)
 {
     if (mReply) {
