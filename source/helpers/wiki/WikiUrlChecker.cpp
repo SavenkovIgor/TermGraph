@@ -10,7 +10,11 @@ WikiUrlChecker::WikiUrlChecker(QObject* parent)
 void WikiUrlChecker::check(const QString& term, Callback callback)
 {
     if (mReply) {
-        return; // busy
+        // Instead of silent failure, immediately invoke the callback with an error
+        if (callback) {
+            callback(std::unexpected("WikiUrlChecker is busy: another check is already in progress."));
+        }
+        return;
     }
 
     mCallback = std::move(callback);
@@ -45,4 +49,9 @@ void WikiUrlChecker::onFinished()
     if (mCallback) {
         mCallback(std::move(result));
     }
+}
+
+bool WikiUrlChecker::isBusy() const
+{
+    return mReply != nullptr;
 }

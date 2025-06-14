@@ -20,6 +20,7 @@ public:
     explicit WikiUrlChecker(QObject* parent = nullptr);
 
     void check(const QString& term, Callback callback);
+    bool isBusy() const;
 
 private slots:
     void onFinished();
