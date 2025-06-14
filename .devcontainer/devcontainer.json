@@ -8,26 +8,27 @@
   "customizations": {
     "vscode": {
       "extensions": [
-        "eamodio.gitlens",
-        "ms-vscode.cmake-tools",
-        "ms-vscode.cpptools-extension-pack",
-        "ms-python.python",
-        "ms-python.black-formatter",
-        "qwtel.sqlite-viewer",
-        "xaver.clang-format",
-        "usernamehw.errorlens",
-        "github.vscode-github-actions",
-        "ms-python.isort",
         "AykutSarac.jsoncrack-vscode",
         "bierner.markdown-mermaid",
         "DavidAnson.vscode-markdownlint",
-        "theqtcompany.qt-cpp-pack",
-        "medo64.render-crlf",
-        "spmeesseman.vscode-taskexplorer",
+        "eamodio.gitlens",
+        "github.vscode-github-actions",
         "Gruntfuggly.todo-tree",
         "hediet.debug-visualizer",
+        "matepek.vscode-catch2-test-adapter",
+        "medo64.render-crlf",
         "ms-azuretools.vscode-docker",
-        "savenkovigor.QmlSandboxExtension"
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-python.python",
+        "ms-vscode.cmake-tools",
+        "ms-vscode.cpptools-extension-pack",
+        "qwtel.sqlite-viewer",
+        "savenkovigor.QmlSandboxExtension",
+        "spmeesseman.vscode-taskexplorer",
+        "theqtcompany.qt-cpp-pack",
+        "usernamehw.errorlens",
+        "xaver.clang-format"
       ]
     }
   }
