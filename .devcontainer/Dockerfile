@@ -122,6 +122,9 @@ RUN wget https://github.com/ninja-build/ninja/releases/download/v1.11.1/ninja-li
     rm ninja-linux.zip                                                                  && \
     chmod +x /usr/bin/ninja
 
+# Install GDB for debugging support
+RUN apt update && apt install -y gdb
+
 RUN echo 'if [ -f $VENV_BIN/activate ]; then \
             source $VENV_BIN/activate; \
           fi' >> /home/vscode/.bashrc
