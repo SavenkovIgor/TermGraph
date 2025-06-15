@@ -48,15 +48,14 @@ void WikiUrlChecker::processQueue()
 
 void WikiUrlChecker::onFinished()
 {
-    auto* reply = mCurrentRequest->reply;
+    auto*       reply = mCurrentRequest->reply;
     CheckResult result;
 
     if (reply->error() == QNetworkReply::ContentNotFoundError) {
         result = false;
     } else if (reply->error() != QNetworkReply::NoError) {
-        result = std::unexpected("Failed to check Wikipedia page '" +
-                                mCurrentRequest->term.toStdString() +
-                                "': " + reply->errorString().toStdString());
+        result = std::unexpected("Failed to check Wikipedia page '" + mCurrentRequest->term.toStdString()
+                                 + "': " + reply->errorString().toStdString());
     } else {
         int status = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
         result     = (status == 200);
@@ -91,10 +90,7 @@ void WikiUrlChecker::stopTimerIfNeeded()
     }
 }
 
-size_t WikiUrlChecker::queueSize() const
-{
-    return mQueue.size();
-}
+size_t WikiUrlChecker::queueSize() const { return mQueue.size(); }
 
 void WikiUrlChecker::addToQueue(const QString& term, Callback&& callback)
 {
