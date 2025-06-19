@@ -3,93 +3,93 @@
     "terms": [
         {
             "area": "phil",
-            "wikiUrl": "auto",
-            "termDef": "Primitive notion - term that is not using any of previously-defined terms"
+            "termDef": "Primitive notion - term that is not using any of previously-defined terms",
+            "wikiUrl": "auto"
         },
         {
             "area": "phys",
-            "wikiUrl": "auto",
-            "termDef": "Reality - the objectively existing world in the broadest sense. {Primitive notion}"
+            "termDef": "Reality - the objectively existing world in the broadest sense. {Primitive notion}",
+            "wikiUrl": "auto"
         },
         {
             "area": "phil",
-            "wikiUrl": "auto",
-            "termDef": "Entity - something that can be seen as separate from any other objects. {Primitive notion}"
+            "termDef": "Entity - something that can be seen as separate from any other objects. {Primitive notion}",
+            "wikiUrl": "auto"
         },
         {
             "area": "phys",
-            "wikiUrl": "auto",
-            "termDef": "Quark - indivisible {elementary particle}, known at the moment"
+            "termDef": "Quark - indivisible {elementary particle}, known at the moment",
+            "wikiUrl": "auto"
         },
         {
             "area": "phys",
-            "wikiUrl": "auto",
-            "termDef": "Matter - any substance in {reality} that has {mass} and {volume}"
+            "termDef": "Matter - any substance in {reality} that has {mass} and {volume}",
+            "wikiUrl": "auto"
         },
         {
             "area": "phil",
-            "wikiUrl": "auto",
-            "termDef": "Property - a common characteristic that does not exist by itself, but the possession of which can be attributed to many different {entities}"
+            "termDef": "Property - a common characteristic that does not exist by itself, but the possession of which can be attributed to many different {entities}",
+            "wikiUrl": "auto"
         },
         {
             "area": "phys",
-            "wikiUrl": "auto",
-            "termDef": "Quantized property - {property} that can take only certain {values}"
+            "termDef": "Quantized property - {property} that can take only certain {values}",
+            "wikiUrl": "auto"
         },
         {
             "area": "phil",
-            "wikiUrl": "auto",
-            "termDef": "Rule - is a universal principle governing or describing the interaction, changes or {properties} of some {entities}"
+            "termDef": "Rule - is a universal principle governing or describing the interaction, changes or {properties} of some {entities}",
+            "wikiUrl": "auto"
         },
         {
             "area": "phys",
-            "wikiUrl": "auto",
-            "termDef": "Measurement - act of {comparison} of some {property} with property {etalon}"
+            "termDef": "Measurement - act of {comparison} of some {property} with property {etalon}",
+            "wikiUrl": "auto"
         },
         {
             "area": "math",
-            "wikiUrl": "auto",
-            "termDef": "Value - some {number} or {category} that has meaning in specific context"
+            "termDef": "Value - some {number} or {category} that has meaning in specific context",
+            "wikiUrl": "auto"
         },
         {
             "area": "math",
-            "wikiUrl": "auto",
-            "termDef": "Constant - well defined and not changing {value} or {abstract item}"
+            "termDef": "Constant - well defined and not changing {value} or {abstract item}",
+            "wikiUrl": "auto"
         },
         {
             "area": "math",
-            "wikiUrl": "auto",
-            "termDef": "Function - strict {rule} that for each {entity} from some {set} X assigns exactly one {entity} from some {set} Y"
+            "termDef": "Function - strict {rule} that for each {entity} from some {set} X assigns exactly one {entity} from some {set} Y",
+            "wikiUrl": "auto"
         },
         {
             "area": "phys",
-            "wikiUrl": "auto",
-            "termDef": "Conserved quantity - {property value} of some {entity} or {system} that remains {constant}"
+            "termDef": "Conserved quantity - {property value} of some {entity} or {system} that remains {constant}",
+            "wikiUrl": "auto"
         },
         {
             "area": "math",
-            "wikiUrl": "auto",
-            "termDef": "Property value - {value} that describes the degree of some {property}"
+            "termDef": "Property value - {value} that describes the degree of some {property}",
+            "wikiUrl": "auto"
         },
         {
             "area": "phys",
-            "wikiUrl": "auto",
-            "termDef": "State - some fixed {set} of {properties} and {property values}, describing specific {entity}"
+            "termDef": "State - some fixed {set} of {properties} and {property values}, describing specific {entity}",
+            "wikiUrl": "auto"
         },
         {
             "area": "math",
-            "wikiUrl": "auto",
-            "termDef": "Transformation - change of some {property} of some {entity} according to some {rule}"
+            "termDef": "Transformation - change of some {property} of some {entity} according to some {rule}",
+            "wikiUrl": "auto"
         },
         {
             "area": "phys",
-            "wikiUrl": "auto",
-            "termDef": "Existence - {property} of an {entity} to interact with {reality}"
+            "termDef": "Existence - {property} of an {entity} to interact with {reality}",
+            "wikiUrl": "auto"
         },
         {
             "area": "phys",
-            "wikiUrl": "auto",
-            "termDef": "Physical object - {existing} {entity}"
+            "termDef": "Physical object - {existing} {entity}",
+            "wikiUrl": "auto"
         },
         {
             "area": "phil",
