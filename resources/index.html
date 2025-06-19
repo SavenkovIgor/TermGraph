@@ -32,15 +32,67 @@
             background-color: #242326;
         }
 
-        /* Make the spinner rotate */
-        @keyframes spin {
-            from {
-                transform: rotate(0deg);
-            }
+        /* Make the spinners rotate */
+        @keyframes spin-cw {
+            from { transform: rotate(0deg); }
+            to   { transform: rotate(360deg); }
+        }
 
-            to {
-                transform: rotate(360deg);
-            }
+        @keyframes spin-ccw {
+            from { transform: rotate(30deg); }
+            to   { transform: rotate(-330deg); }
+        }
+
+        /* Hexagon icon styles */
+        .app-icon {
+            position: relative;
+            width: 256px;
+            height: 256px;
+            margin: 0 auto;
+        }
+
+        .hex-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            filter: drop-shadow(-3px 6px 8px rgba(0, 0, 0, 0.9));
+        }
+
+        .hex-wrapper1 {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hex-wrapper2 {
+            width: 86%;
+            height: 86%;
+        }
+
+        .hex-wrapper3 {
+            width: 74%; /* 86% of 86% ≈ 74% */
+            height: 74%;
+        }
+
+        .hex {
+            width: 100%;
+            height: 100%;
+            clip-path: polygon(25% 6.75%, 75% 6.75%, 100% 50%, 75% 93.25%, 25% 93.25%, 0% 50%);
+        }
+
+        .hex1 {
+            background-color: #3a586f; /* orphanNode color */
+            animation: spin-cw 24s linear infinite; /* Slow speed */
+        }
+
+        .hex2 {
+            background-color: #1f5f5f; /* leafNode color */
+            animation: spin-ccw 16s linear infinite; /* Medium speed, counterclockwise */
+        }
+
+        .hex3 {
+            background-color: #3f3e40; /* base1 color */
+            animation: spin-cw 12s linear infinite; /* Fast speed */
         }
 
         strong {
@@ -58,10 +110,18 @@
 <body onload="init()">
     <figure style="overflow:visible;" id="qtspinner">
         <center style="margin-top:10.5em; line-height:250%">
-            <!-- This image is slowly rotating -->
-            <img src="no_text_icon256x256.png"
-                style="animation: spin 30s linear infinite; transform-origin: center; display:block;" width="256"
-                height="256" />
+            <!-- Hexagonal app icon recreated in HTML/CSS -->
+            <div class="app-icon">
+                <div class="hex-wrapper hex-wrapper1">
+                    <div class="hex hex1"></div>
+                </div>
+                <div class="hex-wrapper hex-wrapper2">
+                    <div class="hex hex2"></div>
+                </div>
+                <div class="hex-wrapper hex-wrapper3">
+                    <div class="hex hex3"></div>
+                </div>
+            </div>
             <br />
             <strong>Please wait for ~20 seconds while we load the information for you.</strong>
             </br>
