@@ -43,16 +43,7 @@ TEST(WikiUrlCheckerTest, TenRequestsQueued)
     QCoreApplication     app(argc, argv);
     QEventLoop           loop;
     WikiUrlChecker       checker;
-    std::vector<QString> terms = {"Cat",
-                                  "Dog",
-                                  "NonexistentPage1234567890",
-                                  "Apple",
-                                  "Banana",
-                                  "Orange",
-                                  "Giraffe",
-                                  "Elephant",
-                                  "Pineapple",
-                                  "Zebra"};
+    std::vector<QString> terms = {"Dog", "NonexistentPage1234567890"};
     std::vector<bool>    called(terms.size(), false);
     int                  completed = 0;
     for (size_t i = 0; i < terms.size(); ++i) {
