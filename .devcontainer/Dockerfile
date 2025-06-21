@@ -3,7 +3,6 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu-24.04
 # Path env variables
 ENV WORKSPACE_ROOT=/workspaces
 ENV WORKSPACE=${WORKSPACE_ROOT}/TermGraph
-ENV VENV_BIN=${WORKSPACE_ROOT}/.venv/bin
 ENV QT_ROOT=${WORKSPACE_ROOT}/Qt
 ENV EMSDK_ROOT=${WORKSPACE_ROOT}/emsdk
 
@@ -16,27 +15,27 @@ RUN apt update                                && \
     apt install -y libfreetype6               && \
     # python dependencies
     apt install -y python3-pip python3-venv   && \
-    # Cmake & Ninja dependencies
-    apt install -y ca-certificates gpg wget unzip
+    # Cmake, Ninja and uv dependencies
+    apt install -y ca-certificates gpg wget unzip curl
 
-# Create and activate virtual environment, install packages locally
+# uv installation
+ENV UV_INSTALL_DIR=/usr/local/bin
+ADD https://astral.sh/uv/install.sh /uv-installer.sh
+RUN sh /uv-installer.sh && rm /uv-installer.sh
+
+# Configure qt and aqt installations
+ENV QT_VERSION=6.8.3
 ENV AQT_VERSION=3.2.1
 COPY aqt.ini ${WORKSPACE_ROOT}/aqt.ini
 ENV AQT_CONFIG=${WORKSPACE_ROOT}/aqt.ini
 
-RUN python3 -m venv $WORKSPACE_ROOT/.venv                                    && \
-    $VENV_BIN/python -m pip install --upgrade pip                            && \
-    $VENV_BIN/pip install aqtinstall==${AQT_VERSION}
-
 # Install Qt gcc_64
-ENV QT_VERSION=6.8.3
-
-RUN $VENV_BIN/aqt install-qt -O ${QT_ROOT} linux desktop ${QT_VERSION} linux_gcc_64 \
+RUN uvx --from aqtinstall@$AQT_VERSION aqt install-qt -O ${QT_ROOT} linux desktop ${QT_VERSION} linux_gcc_64 \
     --modules qtimageformats qtshadertools \
     --archives qttranslations qttools qtsvg qtdeclarative qtbase icu
 
 # Install Qt wasm multithread
-RUN $VENV_BIN/aqt install-qt -O ${QT_ROOT} all_os wasm ${QT_VERSION} wasm_singlethread \
+RUN uvx --from aqtinstall@$AQT_VERSION aqt install-qt -O ${QT_ROOT} all_os wasm ${QT_VERSION} wasm_singlethread \
     --modules qtimageformats qtshadertools \
     --archives qttranslations qttools qtsvg qtdeclarative qtbase icu
 
@@ -87,12 +86,13 @@ RUN update-alternatives \
     --slave   /usr/bin/clang-tblgen             clang-tblgen             /usr/bin/clang-tblgen-${CLANG_VERSION}             \
     --slave   /usr/bin/clang-tidy               clang-tidy               /usr/bin/clang-tidy-${CLANG_VERSION}
 
-# Create and activate virtual environment, install packages locally
+# Installing conan with uv tool
+# We are switching user because we want the conan installation
+# to be available for the vscode user
 ENV CONAN_VERSION=2.16.1
-
-RUN python3 -m venv $WORKSPACE_ROOT/.venv                                    && \
-    $VENV_BIN/python -m pip install --upgrade pip                            && \
-    $VENV_BIN/pip install conan==${CONAN_VERSION}
+USER vscode
+RUN uv tool install conan@${CONAN_VERSION}
+USER root
 
 # 2. Manually add the Kitware signing key if not already provided by the kitware-archive-keyring package.
 #    (The official instructions suggest checking for a file in /usr/share/doc/kitware-archive-keyring/)
@@ -124,7 +124,3 @@ RUN wget https://github.com/ninja-build/ninja/releases/download/v1.11.1/ninja-li
 
 # Install GDB for debugging support
 RUN apt update && apt install -y gdb
-
-RUN echo 'if [ -f $VENV_BIN/activate ]; then \
-            source $VENV_BIN/activate; \
-          fi' >> /home/vscode/.bashrc
