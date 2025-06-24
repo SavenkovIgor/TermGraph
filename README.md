@@ -145,11 +145,12 @@ You can start tests from:
 │   ├── Theme/               # Qml theme. Colors, icons, fonts etc...
 │   ├── Tools/               # Some qml debugging tools
 ├── resources/               # Resources: app icons, main html wrapper etc...
+├── data/                    # Static JSON data and Data.qrc resource
 ├── source/                  # Main source code
 │   ├── CommonTools/         # Some common tools with wide reuse
 │   ├── graph/               # Graph headers
 │   ├── QrcHelpImages/       # Help images resources
-│   ├── staticDataStorage/   # Static data storage. Qrc with terms info
+│   ├── staticDataStorage/   # Static data storage implementation
 │   ├── TermDataInterface/   # Interface, describing data connection interface
 │   ├── TermDataStorage/     # Data storage sqlite
 │   └── Text                 # Text processing
