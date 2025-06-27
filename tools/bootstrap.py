@@ -7,6 +7,8 @@ from shutil import which
 
 from env_validator import ToolsValidator
 
+REQUIRED_CMAKE_VERSION = (4, 0, 0)
+
 
 CLANG_VERSION = "20"
 CONAN_VERSION = "2.16.1"
@@ -37,13 +39,33 @@ def ensure_conan() -> None:
 
 
 def ensure_cmake() -> None:
-    if which("cmake") is None:
-        ensure_apt("cmake")
+    def parse_version(output: str):
+        version_str = output.split()[2]
+        return tuple(int(v) for v in version_str.split("."))
+
+    current = None
+    if which("cmake") is not None:
+        try:
+            out = subprocess.check_output(["cmake", "--version"], text=True)
+            current = parse_version(out.splitlines()[0])
+        except Exception:
+            current = None
+
+    if current is None or current < REQUIRED_CMAKE_VERSION:
+        ensure_snap()
+        run("snap install cmake --classic")
 
 
 def ensure_ninja() -> None:
     if which("ninja") is None:
         ensure_apt("ninja-build")
+
+
+def ensure_snap() -> None:
+    if which("snap") is None:
+        ensure_apt("snapd")
+        run("snap install core")
+        run("snap refresh core")
 
 
 def ensure_clang() -> None:
