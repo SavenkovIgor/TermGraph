@@ -42,6 +42,7 @@ jobs:
       run: sudo apt install -y clang-tools-${{ env.CLANG_VERSION }}
 
     - name: Run clang-format style check
+      if: matrix.build_profile == 'desktop_dev'
       uses: jidicula/clang-format-action@v4.15.0
       with:
         clang-format-version: 16
@@ -73,7 +74,6 @@ jobs:
       uses: mymindstorm/setup-emsdk@v14
       with:
         version: ${{ env.EMSDK_VERSION }}
-        no-cache: true
 
     - name: Install Qt wasm multithread
       if: matrix.build_profile == 'wasm_release'
