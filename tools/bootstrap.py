@@ -6,6 +6,7 @@ from pathlib import Path
 from shutil import which
 
 from env_validator import ToolsValidator
+from typing import List
 
 REQUIRED_CMAKE_VERSION = (4, 0, 0)
 
@@ -19,9 +20,27 @@ def run(cmd: str) -> None:
     subprocess.check_call(cmd, shell=True)
 
 
+
+class Apt:
+    """Simple wrapper around apt commands."""
+
+    def update(self) -> None:
+        run("apt update")
+
+    def install(self, packages: List[str]) -> None:
+        pkg_str = " ".join(packages)
+        run(f"apt install -y {pkg_str}")
+
+    def remove(self, packages: List[str]) -> None:
+        pkg_str = " ".join(packages)
+        run(f"apt remove -y {pkg_str}")
+
+
+apt = Apt()
+
 def ensure_apt(pkg: str) -> None:
-    run("apt-get update")
-    run(f"apt-get install -y {pkg}")
+    apt.update()
+    apt.install([pkg])
 
 
 def ensure_pip(pkg: str) -> None:
@@ -38,34 +57,23 @@ def ensure_conan() -> None:
         ensure_pip(f"conan=={CONAN_VERSION}")
 
 
+def install_cmake_from_kitware() -> None:
+    apt.remove(["cmake"])
+    apt.update()
+    apt.install(["wget", "gpg", "ca-certificates"])
+    run("wget -O - https://apt.kitware.com/kitware-archive.sh | bash")
+    apt.update()
+    apt.install(["cmake"])
+
+
 def ensure_cmake() -> None:
-    def parse_version(output: str):
-        version_str = output.split()[2]
-        return tuple(int(v) for v in version_str.split("."))
-
-    current = None
-    if which("cmake") is not None:
-        try:
-            out = subprocess.check_output(["cmake", "--version"], text=True)
-            current = parse_version(out.splitlines()[0])
-        except Exception:
-            current = None
-
-    if current is None or current < REQUIRED_CMAKE_VERSION:
-        ensure_snap()
-        run("snap install cmake --classic")
+    """Always install the latest CMake from the Kitware repository."""
+    install_cmake_from_kitware()
 
 
 def ensure_ninja() -> None:
     if which("ninja") is None:
         ensure_apt("ninja-build")
-
-
-def ensure_snap() -> None:
-    if which("snap") is None:
-        ensure_apt("snapd")
-        run("snap install core")
-        run("snap refresh core")
 
 
 def ensure_clang() -> None:
