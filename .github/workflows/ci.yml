@@ -15,6 +15,7 @@ env:
   AQT_VERSION: ==3.2.0
   PY7ZR_VERSION: ==0.20.2
   CCACHE_DIR: ${{ github.workspace }}/.ccache
+  CCACHE_DEPEND: 1
   CCACHE_MAXSIZE: 500M
   CCACHE_BASEDIR: ${{ github.workspace }}
   CMAKE_C_COMPILER_LAUNCHER: ccache
