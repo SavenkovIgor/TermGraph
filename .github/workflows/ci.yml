@@ -14,6 +14,12 @@ env:
   CONAN_VERSION: 2.16.1
   AQT_VERSION: ==3.2.0
   PY7ZR_VERSION: ==0.20.2
+  CCACHE_DIR: ${{ github.workspace }}/.ccache
+  CCACHE_DEPEND: 1
+  CCACHE_MAXSIZE: 500M
+  CCACHE_BASEDIR: ${{ github.workspace }}
+  CMAKE_C_COMPILER_LAUNCHER: ccache
+  CMAKE_CXX_COMPILER_LAUNCHER: ccache
 
 jobs:
   build:
@@ -40,6 +46,13 @@ jobs:
 
     - name: Install Clang-tools
       run: sudo apt install -y clang-tools-${{ env.CLANG_VERSION }}
+
+    - name: Setup ccache
+      uses: hendrikmuhs/ccache-action@v1
+      with:
+        key: ${{ runner.os }}-${{ matrix.build_profile }}-ccache
+        create-symlink: true
+        verbose: 1
 
     - name: Run clang-format style check
       if: matrix.build_profile == 'wasm_release'
