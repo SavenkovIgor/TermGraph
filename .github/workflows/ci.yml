@@ -51,6 +51,7 @@ jobs:
       with:
         key: ${{ runner.os }}-${{ matrix.build_profile }}-ccache
         create-symlink: true
+        verbose: 1
 
     - name: Run clang-format style check
       if: matrix.build_profile == 'wasm_release'
@@ -115,9 +116,6 @@ jobs:
 
     - name: Cmake build
       run: ./project.py --build --preset ${{ matrix.build_profile }}
-
-    - name: Show ccache statistics
-      run: ccache -s
 
     - name: CMake install
       run: ./project.py --cmake-install --preset ${{ matrix.build_profile }}
