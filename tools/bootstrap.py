@@ -13,6 +13,8 @@ REQUIRED_CMAKE_VERSION = (4, 0, 0)
 
 CLANG_VERSION = "20"
 CONAN_VERSION = "2.16.1"
+QT_VERSION = "6.8.3"
+AQT_VERSION = "3.2.1"
 
 
 def run(cmd: str) -> None:
@@ -54,7 +56,8 @@ def ensure_git() -> None:
 
 def ensure_conan() -> None:
     if which("conan") is None:
-        ensure_pip(f"conan=={CONAN_VERSION}")
+        # Follow Dockerfile: use uv tool to install a specific conan version
+        run(f"uv tool install conan@{CONAN_VERSION}")
 
 
 def install_cmake_from_kitware() -> None:
@@ -77,27 +80,28 @@ def ensure_ninja() -> None:
 
 
 def ensure_clang() -> None:
-    if which("clang-20") is None and which("clang") is None:
-        run("wget -q https://apt.llvm.org/llvm.sh")
+    if which(f"clang-{CLANG_VERSION}") is None:
+        run("wget https://apt.llvm.org/llvm.sh")
         run("chmod +x llvm.sh")
         run(f"./llvm.sh {CLANG_VERSION} all")
         Path("llvm.sh").unlink()
+        run(
+            "update-alternatives --install /usr/bin/clang clang /usr/bin/clang-"
+            f"{CLANG_VERSION} 100 --slave /usr/bin/clang++ clang++ /usr/bin/clang++-{CLANG_VERSION}"
+        )
 
 
 def ensure_qt() -> None:
-    qt_root = os.environ.setdefault("QT_ROOT", "/usr/lib/x86_64-linux-gnu")
-    if not Path(qt_root).exists():
-        ensure_apt("qt6-base-dev")
-    qt_version_root = Path(qt_root) / "qt6"
-    gcc_path = qt_version_root / "gcc_64"
-    if not gcc_path.exists():
-        gcc_path.mkdir(parents=True, exist_ok=True)
-        (gcc_path / "bin").symlink_to(Path("../../../qt6"))
-        (gcc_path / "libexec").symlink_to(Path("../../../qt6"))
-        (gcc_path / "lib").symlink_to(Path("../../.."))
-        (gcc_path / "plugins").symlink_to(Path("../plugins"))
-        (gcc_path / "qml").symlink_to(Path("../qml"))
-        (gcc_path / "mkspecs").symlink_to(Path("../mkspecs"))
+    os.environ.setdefault("QT_VERSION", QT_VERSION)
+    qt_root = Path(os.environ.setdefault("QT_ROOT", "/workspaces/Qt"))
+    if not qt_root.exists():
+        qt_root.mkdir(parents=True, exist_ok=True)
+        run(
+            "uvx --from aqtinstall@" + AQT_VERSION +
+            f" aqt install-qt -O {qt_root} linux desktop {QT_VERSION} linux_gcc_64 "
+            "--modules qtimageformats qtshadertools "
+            "--archives qttranslations qttools qtsvg qtdeclarative qtbase icu"
+        )
 
 
 
