@@ -16,6 +16,7 @@ env:
   PY7ZR_VERSION: ==0.20.2
   CCACHE_DIR: ${{ github.workspace }}/.ccache
   CCACHE_MAXSIZE: 500M
+  CCACHE_BASEDIR: ${{ github.workspace }}
   CMAKE_C_COMPILER_LAUNCHER: ccache
   CMAKE_CXX_COMPILER_LAUNCHER: ccache
 
@@ -49,6 +50,7 @@ jobs:
       uses: hendrikmuhs/ccache-action@v1
       with:
         key: ${{ runner.os }}-${{ matrix.build_profile }}-ccache
+        create-symlink: true
 
     - name: Run clang-format style check
       if: matrix.build_profile == 'wasm_release'
@@ -114,15 +116,15 @@ jobs:
     - name: Cmake build
       run: ./project.py --build --preset ${{ matrix.build_profile }}
 
+    - name: Show ccache statistics
+      run: ccache -s
+
     - name: CMake install
       run: ./project.py --cmake-install --preset ${{ matrix.build_profile }}
 
     - name: CTest
       if: matrix.build_profile != 'wasm_release'
       run: ./project.py --test --preset ${{ matrix.build_profile }}
-
-    - name: Show ccache statistics
-      run: ccache -s
 
     # - name: Test Report
     #   if: matrix.build_profile != 'wasm_release' && (success() || failure())
