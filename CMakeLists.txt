@@ -27,6 +27,8 @@ endif ()
 option (BUILD_TESTING "Build tests with project" ON)
 option (STATIC_STORAGE "Build with static storage" ON)
 
+set(QT_QML_GENERATE_QMLLS_INI ON)
+
 find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Svg)
 
 qt_standard_project_setup(REQUIRES 6.8)

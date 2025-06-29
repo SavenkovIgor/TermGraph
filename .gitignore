@@ -12,3 +12,6 @@ CMakeUserPresets.json
 
 # Python venv
 .venv/*
+
+# QML Language Server config files
+**/.qmlls.ini
