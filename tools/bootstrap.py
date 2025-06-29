@@ -16,6 +16,22 @@ CONAN_VERSION = "2.16.1"
 QT_VERSION = "6.8.3"
 AQT_VERSION = "3.2.1"
 
+# Base packages mirroring Dockerfile
+BASE_PACKAGES = [
+    "software-properties-common",
+    "libgl1-mesa-dev",
+    "libxkbcommon-dev",
+    "libfontconfig1",
+    "libfreetype6",
+    "python3-pip",
+    "python3-venv",
+    "ca-certificates",
+    "gpg",
+    "wget",
+    "unzip",
+    "curl",
+]
+
 
 def run(cmd: str) -> None:
     print(f"Running: {cmd}")
@@ -49,6 +65,17 @@ def ensure_pip(pkg: str) -> None:
     run(f"pip install {pkg}")
 
 
+def ensure_uv() -> None:
+    if which("uv") is None:
+        run("curl -fsSL https://astral.sh/uv/install.sh -o /tmp/uv.sh")
+        run("sh /tmp/uv.sh")
+        Path("/tmp/uv.sh").unlink()
+
+
+def ensure_base_packages() -> None:
+    apt.update()
+    apt.install(BASE_PACKAGES)
+
 def ensure_git() -> None:
     if which("git") is None:
         ensure_apt("git")
@@ -76,7 +103,10 @@ def ensure_cmake() -> None:
 
 def ensure_ninja() -> None:
     if which("ninja") is None:
-        ensure_apt("ninja-build")
+        run("wget https://github.com/ninja-build/ninja/releases/download/v1.11.1/ninja-linux.zip")
+        run("unzip ninja-linux.zip -d /usr/bin/")
+        Path("ninja-linux.zip").unlink()
+        run("chmod +x /usr/bin/ninja")
 
 
 def ensure_clang() -> None:
@@ -91,6 +121,11 @@ def ensure_clang() -> None:
         )
 
 
+def ensure_gdb() -> None:
+    if which("gdb") is None:
+        ensure_apt("gdb")
+
+
 def ensure_qt() -> None:
     os.environ.setdefault("QT_VERSION", QT_VERSION)
     qt_root = Path(os.environ.setdefault("QT_ROOT", "/workspaces/Qt"))
@@ -102,17 +137,32 @@ def ensure_qt() -> None:
             "--modules qtimageformats qtshadertools "
             "--archives qttranslations qttools qtsvg qtdeclarative qtbase icu"
         )
+    persist_env_vars({"QT_ROOT": str(qt_root), "QT_VERSION": QT_VERSION})
+
+
+def persist_env_vars(vars: dict) -> None:
+    bashrc = Path.home() / ".bashrc"
+    bashrc.touch(exist_ok=True)
+    lines = bashrc.read_text().splitlines()
+    for key, value in vars.items():
+        export_line = f"export {key}={value}"
+        if export_line not in lines:
+            lines.append(export_line)
+    bashrc.write_text("\n".join(lines) + "\n")
 
 
 
 
 def main() -> None:
     try:
+        ensure_base_packages()
+        ensure_uv()
         ensure_git()
         ensure_conan()
         ensure_cmake()
         ensure_ninja()
         ensure_clang()
+        ensure_gdb()
         ensure_qt()
 
         ToolsValidator().check_all()
