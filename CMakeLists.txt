@@ -53,6 +53,7 @@ set_target_properties (TermGraph PROPERTIES AUTORCC ON)
 
 target_sources (TermGraph
     PRIVATE
+        "data/Data.qrc"
         "source/Api.cpp"
         "source/Api.h"
         "source/CommonTools/Errors.h"
@@ -136,7 +137,6 @@ target_sources (TermGraph
         "source/model/term/termdatawrapper.h"
         "source/model/term/termsmodel.cpp"
         "source/model/term/termsmodel.h"
-        "source/staticDataStorage/data/StaticData.qrc"
         "source/staticDataStorage/StaticDataStorage.cpp"
         "source/staticDataStorage/StaticDataStorage.h"
         "source/TermDataInterface/DataStorageInterface.h"
@@ -329,7 +329,7 @@ if (BUILD_TESTING)
             "source/model/enums.h"
             "source/model/graphicitem/graphicitem.cpp"
             "source/model/graphicitem/graphicitem.h"
-            "source/staticDataStorage/data/StaticData.qrc"
+            "data/Data.qrc"
             "source/staticDataStorage/StaticDataStorage.cpp"
             "source/staticDataStorage/StaticDataStorage.h"
             "source/TermDataInterface/DataStorageInterface.h"

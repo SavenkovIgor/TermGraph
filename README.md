@@ -138,6 +138,7 @@ You can start tests from:
 ├── .github/workflows/       # Github actions
 ├── conanfiles/              # Conan profiles, and generated stuff
 ├── doc/                     # Documents
+├── data/                    # Folder with static data
 ├── qml/                     # Main.qml file
 │   ├── Atoms/               # Qml atoms components     (atomic design)
 │   ├── Molecules/           # Qml molecules components (atomic design)
@@ -149,7 +150,7 @@ You can start tests from:
 │   ├── CommonTools/         # Some common tools with wide reuse
 │   ├── graph/               # Graph headers
 │   ├── QrcHelpImages/       # Help images resources
-│   ├── staticDataStorage/   # Static data storage. Qrc with terms info
+│   ├── staticDataStorage/   # Static data storage class
 │   ├── TermDataInterface/   # Interface, describing data connection interface
 │   ├── TermDataStorage/     # Data storage sqlite
 │   └── Text                 # Text processing
