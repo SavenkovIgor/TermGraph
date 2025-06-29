@@ -94,26 +94,10 @@ USER vscode
 RUN uv tool install conan@${CONAN_VERSION}
 USER root
 
-# 2. Manually add the Kitware signing key if not already provided by the kitware-archive-keyring package.
-#    (The official instructions suggest checking for a file in /usr/share/doc/kitware-archive-keyring/)
-RUN test -f /usr/share/doc/kitware-archive-keyring/copyright || \
-    wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | \
-    gpg --dearmor -o /usr/share/keyrings/kitware-archive-keyring.gpg
-
-# 3. Add the Kitware APT repository using the signed-by option.
-RUN echo 'deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] https://apt.kitware.com/ubuntu/ jammy main' \
-    > /etc/apt/sources.list.d/kitware.list
-
-# 4. Update package lists and install the kitware-archive-keyring package.
-#    (This step ensures that the keyring stays up to date; if the key wasn't installed via the package,
-#     the instructions require removing the manually obtained key to avoid conflicts.)
-RUN apt update && apt install -y kitware-archive-keyring && \
-    test -f /usr/share/doc/kitware-archive-keyring/copyright || \
-    rm /usr/share/keyrings/kitware-archive-keyring.gpg && \
-    rm -rf /var/lib/apt/lists/*
-
-# 5. Finally, install the latest CMake and Ninja from the Kitware repository.
-RUN apt update && apt install -y cmake && \
+# Install the latest CMake using Kitware's helper script
+RUN wget -O - https://apt.kitware.com/kitware-archive.sh | bash && \
+    apt update && \
+    apt install -y cmake && \
     rm -rf /var/lib/apt/lists/*
 
 # Install the latest Ninja manually
