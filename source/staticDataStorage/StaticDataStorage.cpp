@@ -11,7 +11,7 @@ namespace rng = std::ranges;
 StaticDataStorage::StaticDataStorage()
     : DataStorageInterface()
 {
-    Q_INIT_RESOURCE(StaticData);
+    Q_INIT_RESOURCE(Data);
 
     // Take all files from data folder with extension .json
     for (const auto& fileInfo : files()) {
