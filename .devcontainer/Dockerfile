@@ -95,10 +95,7 @@ RUN uv tool install conan@${CONAN_VERSION}
 USER root
 
 # Install the latest CMake using Kitware's helper script
-RUN apt remove -y cmake && \
-    apt update && \
-    apt install -y wget gpg ca-certificates && \
-    wget -O - https://apt.kitware.com/kitware-archive.sh | bash && \
+RUN wget -O - https://apt.kitware.com/kitware-archive.sh | bash && \
     apt update && \
     apt install -y cmake && \
     rm -rf /var/lib/apt/lists/*
