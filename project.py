@@ -18,6 +18,15 @@ logging.basicConfig(**log_config)
 def repository_root() -> Path:
     return Path(__file__).parent
 
+def init_submodules():
+    """Initialize and update git submodules"""
+    root = repository_root()
+    os.chdir(root)
+
+    logging.info('---INITIALIZING GIT SUBMODULES---')
+    run('git submodule update --init --recursive')
+    logging.info('Git submodules initialized successfully')
+
 def run(command: str):
     if subprocess.call(command, shell=True, executable='/bin/bash') != 0:
         exit(1)
@@ -114,6 +123,9 @@ class Project:
 def main(args: argparse.Namespace):
     configure_environment()
 
+    # Initialize submodules first
+    init_submodules()
+
     app = Project('Application', 'TermGraph', repository_root(), presets)
 
     if args.deps_install:
@@ -140,6 +152,9 @@ def main(args: argparse.Namespace):
     if args.clear_all:
         app.clear(clear_conan=True)
 
+    if args.init_submodules:
+        init_submodules()
+
     if args.rebuild:
         app.clear()
         app.deps_install(args.preset)
@@ -148,14 +163,15 @@ def main(args: argparse.Namespace):
 
 
 # Should be possible to run:
-# ./project.py --deps-install  [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --build         [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --cmake-install [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --run           [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --test          [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --pack          [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --deps-install     [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --build            [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --cmake-install    [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --run              [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --test             [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --pack             [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --clear
 # ./project.py --clear-all
+# ./project.py --init-submodules
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Project build script')
 
@@ -169,6 +185,7 @@ if __name__ == '__main__':
     parser.add_argument('--pack',          action='store_true', help='Pack project')
     parser.add_argument('--clear',         action='store_true', help='Clear project')
     parser.add_argument('--clear-all',     action='store_true', help='Clear project and conan cache')
+    parser.add_argument('--init-submodules', action='store_true', help='Initialize git submodules')
     parser.add_argument('--rebuild',       action='store_true', help='Rebuild project (clear, configure, build)')
 
     parser.add_argument('--preset', type=str, help='Preset to use', choices=presets, default='desktop_release')
