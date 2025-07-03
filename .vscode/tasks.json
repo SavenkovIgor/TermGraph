@@ -68,7 +68,8 @@
             "label": "CMake Install",
             "detail": "Run CMake install (make sense only for WASM presets)",
             "type": "shell",
-            "command": "./project.py --cmake-install --preset ${input:preset}"
+            "command": "./project.py --cmake-install --preset ${input:wasmPreset}",
+            "dependsOn": [ "Build" ]
         },
         {
             "label": "Clear",
@@ -107,6 +108,7 @@
                 "8000"
             ],
             "isBackground": true,
+            "dependsOn": [ "CMake Install" ],
             "icon": {
                 "id": "server"
             },
