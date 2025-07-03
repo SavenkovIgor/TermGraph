@@ -21,6 +21,7 @@ qt_add_qml_module (AtomsModule
         DrawerPage.qml
         Edge.qml
         FlickableColumn.qml
+        FpsCounter.qml
         Hex.qml
         MouseArea.qml
         PageHeader.qml
