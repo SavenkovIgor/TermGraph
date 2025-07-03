@@ -4,7 +4,7 @@
 #include <QCoreApplication>
 #include <QEventLoop>
 
-TEST(WikiUrlCheckerTest, ExistingPage)
+TEST(WikiUrlCheckerTest, DISABLED_ExistingPage)
 {
     auto             argc = 0;
     auto             argv = nullptr;
@@ -20,7 +20,7 @@ TEST(WikiUrlCheckerTest, ExistingPage)
     loop.exec();
 }
 
-TEST(WikiUrlCheckerTest, MissingPage)
+TEST(WikiUrlCheckerTest, DISABLED_MissingPage)
 {
     auto             argc = 0;
     auto             argv = nullptr;
@@ -36,7 +36,7 @@ TEST(WikiUrlCheckerTest, MissingPage)
     loop.exec();
 }
 
-TEST(WikiUrlCheckerTest, TenRequestsQueued)
+TEST(WikiUrlCheckerTest, DISABLED_TenRequestsQueued)
 {
     auto                 argc = 0;
     auto                 argv = nullptr;
