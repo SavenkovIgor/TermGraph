@@ -184,15 +184,16 @@ if (NOT WASM)
     target_sources (TermGraph PRIVATE "resources/HelpImages/HelpImages.qrc")
 endif ()
 
-target_include_directories (TermGraph PRIVATE
-    "${PROJECT_SOURCE_DIR}"
-    "${PROJECT_SOURCE_DIR}/source/"
-    "${PROJECT_SOURCE_DIR}/source/helpers/link/"
-    "${PROJECT_SOURCE_DIR}/source/helpers/stemming/"
-    "${PROJECT_SOURCE_DIR}/source/managers/"
-    "${PROJECT_SOURCE_DIR}/source/model/"
-    "${PROJECT_SOURCE_DIR}/source/model/group/"
-    "${PROJECT_SOURCE_DIR}/source/model/term/")
+target_include_directories (
+    TermGraph PRIVATE
+        "${PROJECT_SOURCE_DIR}"
+        "${PROJECT_SOURCE_DIR}/source/"
+        "${PROJECT_SOURCE_DIR}/source/helpers/link/"
+        "${PROJECT_SOURCE_DIR}/source/helpers/stemming/"
+        "${PROJECT_SOURCE_DIR}/source/managers/"
+        "${PROJECT_SOURCE_DIR}/source/model/"
+        "${PROJECT_SOURCE_DIR}/source/model/group/"
+        "${PROJECT_SOURCE_DIR}/source/model/term/")
 
 target_include_directories (TermGraph SYSTEM PRIVATE
     "${PROJECT_SOURCE_DIR}/third_party/stemming/src")
