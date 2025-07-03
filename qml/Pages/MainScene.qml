@@ -315,6 +315,17 @@ M.Page {
         }
     }
 
+    A.FpsCounter {
+        id: fpsCounter
+        visible: false // Set to true to show FPS counter
+        anchors {
+            left: parent.left
+            verticalCenter: parent.verticalCenter
+            leftMargin: 10
+        }
+        z: 1000 // Ensure it's on top
+    }
+
     A.RoundButton {
         id: addNodeButton
         visible: !Api.scene.hasSelection && !Api.readonlyMode
