@@ -96,6 +96,8 @@ target_sources (TermGraph
         "source/helpers/simplelistenserver.h"
         "source/helpers/wiki/WikiUrlChecker.cpp"
         "source/helpers/wiki/WikiUrlChecker.h"
+        "source/helpers/stemming/Stemmer.cpp"
+        "source/helpers/stemming/Stemmer.h"
         "source/MainScene.cpp"
         "source/MainScene.h"
         "source/managers/groupsmanager.cpp"
@@ -182,15 +184,18 @@ if (NOT WASM)
     target_sources (TermGraph PRIVATE "resources/HelpImages/HelpImages.qrc")
 endif ()
 
-target_include_directories (
-    TermGraph PRIVATE
-        "${PROJECT_SOURCE_DIR}/source/"
-        "${PROJECT_SOURCE_DIR}/source/helpers/link/"
-        "${PROJECT_SOURCE_DIR}/source/managers/"
-        "${PROJECT_SOURCE_DIR}/source/model/"
-        "${PROJECT_SOURCE_DIR}/source/model/group/"
-        "${PROJECT_SOURCE_DIR}/source/model/term/"
-)
+target_include_directories (TermGraph PRIVATE
+    "${PROJECT_SOURCE_DIR}"
+    "${PROJECT_SOURCE_DIR}/source/"
+    "${PROJECT_SOURCE_DIR}/source/helpers/link/"
+    "${PROJECT_SOURCE_DIR}/source/helpers/stemming/"
+    "${PROJECT_SOURCE_DIR}/source/managers/"
+    "${PROJECT_SOURCE_DIR}/source/model/"
+    "${PROJECT_SOURCE_DIR}/source/model/group/"
+    "${PROJECT_SOURCE_DIR}/source/model/term/")
+
+target_include_directories (TermGraph SYSTEM PRIVATE
+    "${PROJECT_SOURCE_DIR}/third_party/stemming/src")
 
 if (STATIC_STORAGE)
     target_compile_definitions (TermGraph PRIVATE STATIC_STORAGE)
@@ -326,6 +331,8 @@ if (BUILD_TESTING)
             "source/helpers/link/LinkTools.h"
             "source/helpers/wiki/WikiUrlChecker.cpp"
             "source/helpers/wiki/WikiUrlChecker.h"
+            "source/helpers/stemming/Stemmer.cpp"
+            "source/helpers/stemming/Stemmer.h"
             "source/model/enums.h"
             "source/model/graphicitem/graphicitem.cpp"
             "source/model/graphicitem/graphicitem.h"
@@ -398,6 +405,7 @@ if (BUILD_TESTING)
             "test/texttoolstest.cpp"
             "test/uuidstest.cpp"
             "test/wikiurlcheckertest.cpp"
+            "test/stemmingtest.cpp"
             "test/validatortest.cpp"
         )
 
@@ -411,6 +419,8 @@ if (BUILD_TESTING)
     endif ()
 
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
+    target_include_directories (TermGraphTest SYSTEM PRIVATE
+        "${PROJECT_SOURCE_DIR}/third_party/stemming/src")
     target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)
     target_link_libraries (TermGraphTest Qt6::Core Qt6::Gui Qt6::Qml Qt6::Sql)
 

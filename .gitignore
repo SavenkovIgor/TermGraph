@@ -15,3 +15,5 @@ CMakeUserPresets.json
 
 # QML Language Server config files
 **/.qmlls.ini
+aqtinstall.log
+tools/__pycache__/
