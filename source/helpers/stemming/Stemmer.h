@@ -8,7 +8,7 @@ enum class StemmingLanguage { English, Russian };
 class Stemmer
 {
 public:
-    virtual ~Stemmer() = default;
+    virtual ~Stemmer()                              = default;
     virtual QString stem(const QString& word) const = 0;
 };
 

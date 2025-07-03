@@ -1,5 +1,6 @@
-#include <gtest/gtest.h>
 #include "source/helpers/stemming/Stemmer.h"
+
+#include <gtest/gtest.h>
 
 TEST(Stemmer, Russian)
 {
