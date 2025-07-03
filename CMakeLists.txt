@@ -193,7 +193,8 @@ target_include_directories (
         "${PROJECT_SOURCE_DIR}/source/managers/"
         "${PROJECT_SOURCE_DIR}/source/model/"
         "${PROJECT_SOURCE_DIR}/source/model/group/"
-        "${PROJECT_SOURCE_DIR}/source/model/term/")
+        "${PROJECT_SOURCE_DIR}/source/model/term/"
+)
 
 target_include_directories (TermGraph SYSTEM PRIVATE
     "${PROJECT_SOURCE_DIR}/third_party/stemming/src")
