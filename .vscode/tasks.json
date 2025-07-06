@@ -14,15 +14,6 @@
             ]
         },
         {
-            "id": "wasmPreset",
-            "type": "pickString",
-            "description": "Select the WASM preset:",
-            "options": [
-                "wasm_dev",
-                "wasm_release"
-            ]
-        },
-        {
             "id": "preview",
             "type": "command",
             "command": "simpleBrowser.show",
@@ -68,7 +59,7 @@
             "label": "CMake Install",
             "detail": "Run CMake install (make sense only for WASM presets)",
             "type": "shell",
-            "command": "./project.py --cmake-install --preset ${input:wasmPreset}",
+            "command": "./project.py --cmake-install --preset ${input:preset}",
             "dependsOn": [ "Build" ]
         },
         {
@@ -104,7 +95,7 @@
                 "--bind",
                 "0.0.0.0",
                 "--directory",
-                "build/${input:wasmPreset}/dist",
+                "build/${input:preset}/dist",
                 "8000"
             ],
             "isBackground": true,
