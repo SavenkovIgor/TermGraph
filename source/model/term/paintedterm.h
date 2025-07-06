@@ -27,9 +27,6 @@ public:
     PaintedTerm(const TermData& info);
     ~PaintedTerm() override = default;
 
-    // Painting tools
-    QLineF getRectLine(Qt::Edge side);
-
     // NodeRect tools
     QRectF getNodeRect(CoordType inCoordinates) const;
     QRectF getFrameRect(CoordType inCoordinates) const;

@@ -15,19 +15,6 @@ PaintedTerm::PaintedTerm(const TermData& info)
     });
 }
 
-QLineF PaintedTerm::getRectLine(Qt::Edge side)
-{
-    QRectF rc = getNodeRect(CoordType::local);
-
-    switch (side) {
-    case Qt::TopEdge: return QLineF(rc.topLeft(), rc.topRight());
-    case Qt::RightEdge: return QLineF(rc.topRight(), rc.bottomRight());
-    case Qt::BottomEdge: return QLineF(rc.bottomLeft(), rc.bottomRight());
-    case Qt::LeftEdge: return QLineF(rc.topLeft(), rc.bottomLeft());
-    }
-    return {};
-}
-
 QRectF PaintedTerm::getNodeRect(CoordType inCoordinates) const
 {
     switch (inCoordinates) {
