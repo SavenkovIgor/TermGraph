@@ -3,10 +3,10 @@
 
 module;
 
+#include <QFontMetricsF>
 #include <QSizeF>
 #include <QString>
 #include <QStringView>
-#include <QFontMetricsF>
 
 #include "source/CommonTools/JsonTools.h"
 
@@ -18,9 +18,7 @@ import CommonTools.HandyTypes;
 export class TextTools
 {
 public:
-    static bool                    isTermAndDefinition(QStringView termDef) {
-        return termDef.contains(JsonTools::termDefSeparatorSv);
-    }
+    static bool isTermAndDefinition(QStringView termDef) { return termDef.contains(JsonTools::termDefSeparatorSv); }
 
     static QPair<QString, QString> splitTermAndDefinition(QStringView termDef)
     {
@@ -34,7 +32,7 @@ public:
         return {term.toString(), definition.toString()};
     }
 
-    static QString                 joinTermDef(QStringView term, QStringView definition)
+    static QString joinTermDef(QStringView term, QStringView definition)
     {
         auto ret = term.toString();
         ret += JsonTools::termDefSeparator;
@@ -47,7 +45,6 @@ public:
         const QString tmp = str.toString().simplified();
         return !tmp.isEmpty() ? asInt(tmp.count(' ')) + 1 : 0;
     }
-
 
     static QSizeF preferredTextSize(const QString& text, qreal whProportion = 3)
     {
