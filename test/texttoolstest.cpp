@@ -23,13 +23,13 @@ TEST(TextTools, isTermAndDefinition)
 TEST(TextTools, ExtractTermAndDefinition)
 {
     using ans = QPair<QString, QString>;
-    EXPECT_EQ(TextTools::splitTermAndDefinition("a - b"), ans("a", "b"));
-    EXPECT_EQ(TextTools::splitTermAndDefinition("a - b - c"), ans("a", "b - c"));
-    EXPECT_EQ(TextTools::splitTermAndDefinition("a-b - c"), ans("a-b", "c"));
-    EXPECT_EQ(TextTools::splitTermAndDefinition("a - b-c"), ans("a", "b-c"));
-    EXPECT_EQ(TextTools::splitTermAndDefinition(" - "), ans("", ""));
-    EXPECT_EQ(TextTools::splitTermAndDefinition("a - "), ans("a", ""));
-    EXPECT_EQ(TextTools::splitTermAndDefinition(" - b"), ans("", "b"));
+    EXPECT_EQ(TextTools::splitTermAndDefinition({u"a - b"}), ans(u"a", u"b"));
+    EXPECT_EQ(TextTools::splitTermAndDefinition({u"a - b - c"}), ans(u"a", u"b - c"));
+    EXPECT_EQ(TextTools::splitTermAndDefinition({u"a-b - c"}), ans(u"a-b", u"c"));
+    EXPECT_EQ(TextTools::splitTermAndDefinition({u"a - b-c"}), ans(u"a", u"b-c"));
+    EXPECT_EQ(TextTools::splitTermAndDefinition({u" - "}), ans(u"", u""));
+    EXPECT_EQ(TextTools::splitTermAndDefinition({u"a - "}), ans(u"a", u""));
+    EXPECT_EQ(TextTools::splitTermAndDefinition({u" - b"}), ans(u"", u"b"));
 }
 
 TEST(TextTools, JoinTermDef)

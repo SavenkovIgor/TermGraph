@@ -14,16 +14,16 @@ bool TextTools::isTermAndDefinition(QStringView termDef) {
     return termDef.contains(JsonTools::termDefSeparatorSv);
 }
 
-QPair<QString, QString> TextTools::splitTermAndDefinition(const QString &termDef)
+QPair<QString, QString> TextTools::splitTermAndDefinition(QStringView termDef)
 {
     assert(isTermAndDefinition(termDef));
 
-    auto indexOfSeparator = termDef.indexOf(JsonTools::termDefSeparator);
+    auto indexOfSeparator = termDef.indexOf(JsonTools::termDefSeparatorSv);
 
-    auto term       = termDef.left(indexOfSeparator);
-    auto definition = termDef.mid(indexOfSeparator + QString(JsonTools::termDefSeparator).size());
+    auto term       = termDef.first(indexOfSeparator);
+    auto definition = termDef.sliced(indexOfSeparator + JsonTools::termDefSeparatorSv.size());
 
-    return {term, definition};
+    return {term.toString(), definition.toString()};
 }
 
 QString TextTools::joinTermDef(const QString &term, const QString &definition)

@@ -11,7 +11,7 @@ class TextTools
 {
 public:
     static bool                    isTermAndDefinition(QStringView termDef);
-    static QPair<QString, QString> splitTermAndDefinition(const QString& termDef);
+    static QPair<QString, QString> splitTermAndDefinition(QStringView termDef);
     static QString                 joinTermDef(const QString& term, const QString& definition);
 
     static int wordCount(const QString& str);
