@@ -34,10 +34,10 @@ TEST(TextTools, ExtractTermAndDefinition)
 
 TEST(TextTools, JoinTermDef)
 {
-    EXPECT_EQ(TextTools::joinTermDef("a", "b"), "a - b");
-    EXPECT_EQ(TextTools::joinTermDef("a", ""), "a - ");
-    EXPECT_EQ(TextTools::joinTermDef("", "b"), " - b");
-    EXPECT_EQ(TextTools::joinTermDef("", ""), " - ");
+    EXPECT_EQ(TextTools::joinTermDef({u"a"}, {u"b"}), u"a - b");
+    EXPECT_EQ(TextTools::joinTermDef({u"a"}, {u""}), u"a - ");
+    EXPECT_EQ(TextTools::joinTermDef({u""}, {u"b"}), u" - b");
+    EXPECT_EQ(TextTools::joinTermDef({u""}, {u""}), u" - ");
 }
 
 TEST(TextTools, WordCount)
