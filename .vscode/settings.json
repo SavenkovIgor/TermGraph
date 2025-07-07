@@ -16,5 +16,15 @@
             "file": ".vscode/copilot-review-instructions.md",
         }
     ],
-    "workbench.externalBrowser": "firefox"
+    "workbench.externalBrowser": "firefox",
+    "C_Cpp.default.compileCommands": "${workspaceFolder}/build/desktop_dev/compile_commands.json",
+    "C_Cpp.default.cppStandard": "c++23",
+    "C_Cpp.default.intelliSenseMode": "linux-clang-x64",
+    "C_Cpp.default.compilerPath": "/usr/bin/clang++-20",
+    "C_Cpp.errorSquiggles": "enabled",
+    "clangd.arguments": [
+        "--compile-commands-dir=${workspaceFolder}/build/desktop_dev",
+        "--clang-tidy",
+        "--header-insertion=iwyu"
+    ]
 }
