@@ -35,5 +35,3 @@ public:
         return {width, height};
     }
 };
-
-export namespace mod {} // namespace mod

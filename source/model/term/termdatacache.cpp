@@ -3,7 +3,7 @@
 
 #include "source/model/term/termdatacache.h"
 
-#include "source/Text/TextTools.h"
+import TextModule.TextTools;
 
 // Initialization order is important!
 TermDataCache::TermDataCache(const TermData& info)

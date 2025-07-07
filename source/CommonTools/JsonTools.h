@@ -6,6 +6,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QStringView>
 
 class JsonTools
 {
@@ -85,5 +86,6 @@ public:
     constexpr static auto groupUuidKey     = "groupUuid";
 
     // Other stuff
-    constexpr static auto termDefSeparator = " - ";
+    constexpr static auto termDefSeparator   = " - ";
+    constexpr static auto termDefSeparatorSv = QStringView(u" - ");
 };
