@@ -3,7 +3,10 @@
 
 #include <gtest/gtest.h>
 
-#include "source/Text/TextTools.h"
+#include <QPair>
+#include <QString>
+
+import TextModule.TextTools;
 
 TEST(TextTools, isTermAndDefinition)
 {

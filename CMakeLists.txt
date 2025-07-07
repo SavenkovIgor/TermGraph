@@ -158,8 +158,6 @@ target_sources (TermGraph
         "source/Text/TextCursor.h"
         "source/Text/textrange.cpp"
         "source/Text/TextRange.h"
-        "source/Text/texttools.cpp"
-        "source/Text/TextTools.h"
 )
 
 # List of sources containing modules
@@ -167,9 +165,10 @@ target_sources (TermGraph
     PUBLIC
     FILE_SET CXX_MODULES
     FILES
+        "source/CommonTools/HandyTypesModule.cpp"
         "source/main.cpp"
         "source/Text/Fonts.cpp"
-        "source/CommonTools/HandyTypesModule.cpp"
+        "source/Text/TextTools.cpp"
 )
 
 # Add platform-specific sources
@@ -375,8 +374,6 @@ if (BUILD_TESTING)
             "source/Text/TextCursor.h"
             "source/Text/textrange.cpp"
             "source/Text/TextRange.h"
-            "source/Text/texttools.cpp"
-            "source/Text/TextTools.h"
     )
 
     # List of sources containing modules
@@ -384,8 +381,9 @@ if (BUILD_TESTING)
         PUBLIC
         FILE_SET CXX_MODULES
         FILES
-            "source/Text/Fonts.cpp"
             "source/CommonTools/HandyTypesModule.cpp"
+            "source/Text/Fonts.cpp"
+            "source/Text/TextTools.cpp"
         )
 
     # Test sources

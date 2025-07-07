@@ -8,7 +8,8 @@
 #include "source/CommonTools/GroupUuid.h"
 #include "source/CommonTools/JsonTools.h"
 #include "source/CommonTools/TermUuid.h"
-#include "source/Text/TextTools.h"
+
+import TextModule.TextTools;
 
 TermJsonValidator::TermJsonValidator(bool checkUuid, bool checkLastEdit)
 {

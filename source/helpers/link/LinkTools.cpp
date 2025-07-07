@@ -6,13 +6,13 @@
 #include <limits>
 
 #include "source/Text/TextCursor.h"
-#include "source/Text/TextTools.h"
 
 #include "source/helpers/intmatrix.h"
 #include "source/helpers/link/Link.h"
 #include "source/helpers/link/LinksString.h"
 
 import CommonTools.HandyTypes;
+import TextModule.TextTools;
 
 LinkTools::LinkTools(QObject* parent)
     : QObject(parent)

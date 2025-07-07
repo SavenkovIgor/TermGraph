@@ -6,7 +6,8 @@
 #include <set>
 
 #include "source/TermDataInterface/TermValidator.h"
-#include "source/Text/TextTools.h"
+
+import TextModule.TextTools;
 
 TermData TermData::createGhost(const QString& term, GroupUuid groupUuid)
 {
