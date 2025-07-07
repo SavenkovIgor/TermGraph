@@ -14,7 +14,7 @@ public:
     static QPair<QString, QString> splitTermAndDefinition(QStringView termDef);
     static QString                 joinTermDef(QStringView term, QStringView definition);
 
-    static int wordCount(const QString& str);
+    static int wordCount(QStringView str);
 
     static QSizeF preferredTextSize(const QString& text, qreal whProportion = 3);
 };

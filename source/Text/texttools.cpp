@@ -34,9 +34,9 @@ QString TextTools::joinTermDef(QStringView term, QStringView definition)
     return ret;
 }
 
-int TextTools::wordCount(const QString &str)
+int TextTools::wordCount(QStringView str)
 {
-    const QString tmp = str.simplified();
+    const QString tmp = str.toString().simplified();
     return !tmp.isEmpty() ? asInt(tmp.count(' ')) + 1 : 0;
 }
 
