@@ -10,7 +10,9 @@
 import TextModule.Fonts;
 import CommonTools.HandyTypes;
 
-bool TextTools::isTermAndDefinition(const QString &termDef) { return termDef.contains(JsonTools::termDefSeparator); }
+bool TextTools::isTermAndDefinition(QStringView termDef) {
+    return termDef.contains(JsonTools::termDefSeparatorSv);
+}
 
 QPair<QString, QString> TextTools::splitTermAndDefinition(const QString &termDef)
 {

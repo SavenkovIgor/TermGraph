@@ -5,12 +5,12 @@
 
 #include <QSizeF>
 #include <QString>
-#include <QStringList>
+#include <QStringView>
 
 class TextTools
 {
 public:
-    static bool                    isTermAndDefinition(const QString& termDef);
+    static bool                    isTermAndDefinition(QStringView termDef);
     static QPair<QString, QString> splitTermAndDefinition(const QString& termDef);
     static QString                 joinTermDef(const QString& term, const QString& definition);
 

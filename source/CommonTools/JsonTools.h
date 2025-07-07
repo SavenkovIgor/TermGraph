@@ -6,6 +6,7 @@
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QStringView>
 
 class JsonTools
 {
@@ -86,4 +87,5 @@ public:
 
     // Other stuff
     constexpr static auto termDefSeparator = " - ";
+    constexpr static auto termDefSeparatorSv = QStringView(u" - ");
 };

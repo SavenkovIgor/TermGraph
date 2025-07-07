@@ -7,17 +7,17 @@
 
 TEST(TextTools, isTermAndDefinition)
 {
-    EXPECT_EQ(TextTools::isTermAndDefinition("a - b"), true);
-    EXPECT_EQ(TextTools::isTermAndDefinition("a - b - c"), true);
-    EXPECT_EQ(TextTools::isTermAndDefinition("a-b - c"), true);
-    EXPECT_EQ(TextTools::isTermAndDefinition("a - b-c"), true);
+    EXPECT_EQ(TextTools::isTermAndDefinition({u"a - b"}), true);
+    EXPECT_EQ(TextTools::isTermAndDefinition({u"a - b - c"}), true);
+    EXPECT_EQ(TextTools::isTermAndDefinition({u"a-b - c"}), true);
+    EXPECT_EQ(TextTools::isTermAndDefinition({u"a - b-c"}), true);
 
-    EXPECT_EQ(TextTools::isTermAndDefinition("a-b -c"), false);
-    EXPECT_EQ(TextTools::isTermAndDefinition("a-b-c"), false);
-    EXPECT_EQ(TextTools::isTermAndDefinition("a-b"), false);
-    EXPECT_EQ(TextTools::isTermAndDefinition("a-b"), false);
-    EXPECT_EQ(TextTools::isTermAndDefinition("ab"), false);
-    EXPECT_EQ(TextTools::isTermAndDefinition(""), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition({u"a-b -c"}), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition({u"a-b-c"}), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition({u"a-b"}), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition({u"a-b"}), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition({u"ab"}), false);
+    EXPECT_EQ(TextTools::isTermAndDefinition({u""}), false);
 }
 
 TEST(TextTools, ExtractTermAndDefinition)
