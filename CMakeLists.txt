@@ -3,6 +3,8 @@
 
 
 cmake_minimum_required (VERSION 4.0)
+set (CMAKE_EXPERIMENTAL_CXX_MODULE_CMAKE_API 2)
+set (CMAKE_EXPERIMENTAL_CXX_MODULE_DYNDEP ON)
 
 project (TermGraph
          VERSION 2.0.0
@@ -430,3 +432,5 @@ if (BUILD_TESTING)
 
     gtest_add_tests (TARGET TermGraphTest)
 endif ()
+
+add_subdirectory(examples/static_module)
