@@ -3,11 +3,11 @@
 
 #include "source/managers/networkmanager.h"
 
-#include "source/CommonTools/NetworkTools.h"
-
 #ifdef Q_OS_WASM
 #include <emscripten/val.h>
 #endif
+
+import CommonTools.NetworkTools;
 
 NetworkManager::NetworkManager(NotifyInterface& notifier, QObject* parent)
     : QObject(parent)

@@ -1,11 +1,13 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#pragma once
+module;
 
 #include <QtGlobal>
 
-class NetworkTools
+export module CommonTools.NetworkTools;
+
+export class NetworkTools
 {
 public:
     constexpr static qint16  defaultPort   = 26748;
