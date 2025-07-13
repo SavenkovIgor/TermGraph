@@ -5,7 +5,10 @@
 
 #include <gtest/gtest.h>
 
-#include "source/helpers/link/LinkTools.h"
+#include <QString>
+#include <QStringList>
+
+import link.LinkTools;
 
 TEST(LinkToolsTest, LinkExtraction)
 {

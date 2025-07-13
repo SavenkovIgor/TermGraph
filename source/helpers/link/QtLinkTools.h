@@ -8,17 +8,17 @@
 #include <QString>
 #include <QStringView>
 
-class LinkTools : public QObject
+class QtLinkTools : public QObject
 {
     Q_OBJECT
-    QML_ELEMENT
+    QML_NAMED_ELEMENT(LinkTools)
     QML_SINGLETON
 
 public:
-    explicit LinkTools(QObject* parent = nullptr);
+    explicit QtLinkTools(QObject* parent = nullptr);
 
-    LinkTools(LinkTools const&)      = delete;
-    void operator=(LinkTools const&) = delete;
+    QtLinkTools(QtLinkTools const&)    = delete;
+    void operator=(QtLinkTools const&) = delete;
 
     Q_INVOKABLE static bool isValidCursor(const QString& str, int cursor);
     Q_INVOKABLE static bool isCursorOnLink(const QString& str, int cursor);
@@ -28,10 +28,4 @@ public:
     Q_INVOKABLE static QString expandRight(QString str, int cursor);
     Q_INVOKABLE static QString remove(QString str, int cursor);
     Q_INVOKABLE static QString decorate(const QString& str);
-
-    static bool               linkAndTermSimilarWordDistance(const QString& link, const QString& term);
-    static int                levDistance(QStringView src, QStringView dst, int limit = 100000);
-    static std::optional<int> linkAndTermDistance(const QString& link, const QString& term, int maxLimit);
-
-private:
 };
