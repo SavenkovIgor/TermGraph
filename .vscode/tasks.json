@@ -35,6 +35,7 @@
                 "revealProblems": "onProblem",
                 "clear": true
             },
+            "group": "build",
             "problemMatcher": "$gcc"
         },
         {
@@ -53,7 +54,8 @@
             "command": "./project.py --test --preset ${input:preset}",
             "icon": {
                 "id": "beaker"
-            }
+            },
+            "group": "test",
         },
         {
             "label": "CMake Install",
