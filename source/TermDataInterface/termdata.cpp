@@ -5,10 +5,9 @@
 
 #include <set>
 
-#include "source/TermDataInterface/TermValidator.h"
-
 import CommonTools.JsonTools;
 import TextModule.TextTools;
+import CommonTools.TermJsonValidator;
 
 TermData TermData::createGhost(const QString& term, GroupUuid groupUuid)
 {

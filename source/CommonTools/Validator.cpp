@@ -1,14 +1,16 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#pragma once
+module;
 
 #include <expected>
 #include <functional>
 
 #include "source/CommonTools/Errors.h"
 
-template<typename Object>
+export module CommonTools.Validator;
+
+export template<typename Object>
 class Validator
 {
 public:
