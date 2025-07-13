@@ -4,81 +4,25 @@
 #pragma once
 
 #include "source/CommonTools/HandyTypes.h"
-#include "source/CommonTools/JsonTools.h"
 #include "source/CommonTools/SafeUuid.h"
 
 class GroupUuid final : public SafeUuid
 {
 public:
-    inline static std::optional<GroupUuid> from(QString text, UuidMode mode = UuidMode::Default)
-    {
-        if (mode == UuidMode::Url)
-            text = JsonTools::prepareUuidParameter(text);
-
-        if (auto safe = SafeUuid::from(text))
-            return GroupUuid(text);
-
-        return std::nullopt;
-    }
-
-    inline static std::optional<GroupUuid> from(const QUuid& uuid)
-    {
-        if (auto safe = SafeUuid::from(uuid))
-            return GroupUuid(uuid.toString());
-
-        return std::nullopt;
-    }
-
-    inline static GroupUuid generate() { return GroupUuid(QUuid::createUuid().toString()); }
+    static std::optional<GroupUuid> from(QString text, UuidMode mode = UuidMode::Default);
+    static std::optional<GroupUuid> from(const QUuid& uuid);
+    static GroupUuid                generate();
 
     class List : public std::vector<GroupUuid>
     {
     public:
-        static inline std::optional<List> from(const QJsonObject& obj)
-        {
-            List ret;
+        static std::optional<List> from(const QJsonObject& obj);
+        static std::optional<List> from(const QByteArray& jsonBytes);
 
-            if (!obj[JsonTools::groupUuidsKey].isArray())
-                return std::nullopt;
-
-            for (const auto& obj : obj[JsonTools::groupUuidsKey].toArray()) {
-                if (auto uuid = GroupUuid::from(obj.toString())) {
-                    ret.push_back(*uuid);
-                } else {
-                    qWarning("Wrong uuid in received data");
-                }
-            }
-
-            return ret;
-        }
-
-        static inline std::optional<List> from(const QByteArray& jsonBytes)
-        {
-            auto doc = QJsonDocument::fromJson(jsonBytes);
-
-            if (doc.isNull())
-                return std::nullopt;
-
-            return from(doc.object());
-        }
-
-        explicit operator QJsonObject() const
-        {
-            QJsonArray arr;
-
-            for (auto item : *this)
-                arr.push_back(item.toString(StringFormat::WithoutBraces));
-
-            QJsonObject obj;
-            obj.insert(JsonTools::groupUuidsKey, arr);
-            return obj;
-        }
-
-        explicit operator QByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+        explicit operator QJsonObject() const;
+        explicit operator QByteArray() const;
     };
 
 private:
-    explicit inline GroupUuid(const QString& text)
-        : SafeUuid(text)
-    {}
+    explicit GroupUuid(const QString& text);
 };

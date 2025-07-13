@@ -4,81 +4,25 @@
 #pragma once
 
 #include "source/CommonTools/HandyTypes.h"
-#include "source/CommonTools/JsonTools.h"
 #include "source/CommonTools/SafeUuid.h"
 
 class TermUuid final : public SafeUuid
 {
 public:
-    inline static std::optional<TermUuid> from(QString text, UuidMode mode = UuidMode::Default)
-    {
-        if (mode == UuidMode::Url)
-            text = JsonTools::prepareUuidParameter(text);
-
-        if (auto safe = SafeUuid::from(text))
-            return TermUuid(text);
-
-        return std::nullopt;
-    }
-
-    inline static std::optional<TermUuid> from(const QUuid& uuid)
-    {
-        if (auto safe = SafeUuid::from(uuid))
-            return TermUuid(uuid.toString());
-
-        return std::nullopt;
-    }
-
-    inline static TermUuid generate() { return TermUuid(QUuid::createUuid().toString()); }
+    static std::optional<TermUuid> from(QString text, UuidMode mode = UuidMode::Default);
+    static std::optional<TermUuid> from(const QUuid& uuid);
+    static TermUuid                generate();
 
     class List : public std::vector<TermUuid>
     {
     public:
-        static inline std::optional<List> from(const QJsonObject& obj)
-        {
-            List ret;
+        static std::optional<List> from(const QJsonObject& obj);
+        static std::optional<List> from(const QByteArray& jsonBytes);
 
-            if (!obj[JsonTools::termUuidsKey].isArray())
-                return std::nullopt;
-
-            for (const auto& obj : obj[JsonTools::termUuidsKey].toArray()) {
-                if (auto uuid = TermUuid::from(obj.toString())) {
-                    ret.push_back(*uuid);
-                } else {
-                    qWarning("Wrong uuid in received data");
-                }
-            }
-
-            return ret;
-        }
-
-        static inline std::optional<List> from(const QByteArray& jsonBytes)
-        {
-            auto doc = QJsonDocument::fromJson(jsonBytes);
-
-            if (doc.isNull())
-                return std::nullopt;
-
-            return from(doc.object());
-        }
-
-        explicit operator QJsonObject() const
-        {
-            QJsonArray arr;
-
-            for (auto item : *this)
-                arr.push_back(item.toString(StringFormat::WithoutBraces));
-
-            QJsonObject obj;
-            obj.insert(JsonTools::termUuidsKey, arr);
-            return obj;
-        }
-
-        explicit operator QByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+        explicit operator QJsonObject() const;
+        explicit operator QByteArray() const;
     };
 
 private:
-    explicit inline TermUuid(const QString& text)
-        : SafeUuid(text)
-    {}
+    explicit TermUuid(const QString& text);
 };
