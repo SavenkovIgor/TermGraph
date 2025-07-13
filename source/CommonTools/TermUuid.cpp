@@ -8,7 +8,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-#include "source/CommonTools/JsonTools.h"
+import CommonTools.JsonTools;
 
 std::optional<TermUuid> TermUuid::from(QString text, UuidMode mode)
 {

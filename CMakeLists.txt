@@ -60,7 +60,6 @@ target_sources (TermGraph
         "source/CommonTools/GroupUuid.cpp"
         "source/CommonTools/GroupUuid.h"
         "source/CommonTools/HandyTypes.h"
-        "source/CommonTools/JsonTools.h"
         "source/CommonTools/Platform.h"
         "source/CommonTools/SafeUuid.h"
         "source/CommonTools/TermUuid.cpp"
@@ -168,6 +167,7 @@ target_sources (TermGraph
     FILE_SET CXX_MODULES
     FILES
         "source/CommonTools/HandyTypesModule.cpp"
+        "source/CommonTools/JsonTools.cpp"
         "source/CommonTools/NetworkTools.cpp"
         "source/main.cpp"
         "source/Text/Fonts.cpp"
@@ -314,7 +314,6 @@ if (BUILD_TESTING)
             "source/CommonTools/GroupUuid.cpp"
             "source/CommonTools/GroupUuid.h"
             "source/CommonTools/HandyTypes.h"
-            "source/CommonTools/JsonTools.h"
             "source/CommonTools/Platform.h"
             "source/CommonTools/SafeUuid.h"
             "source/CommonTools/TermUuid.cpp"
@@ -387,6 +386,7 @@ if (BUILD_TESTING)
         FILE_SET CXX_MODULES
         FILES
             "source/CommonTools/HandyTypesModule.cpp"
+            "source/CommonTools/JsonTools.cpp"
             "source/CommonTools/NetworkTools.cpp"
             "source/Text/Fonts.cpp"
             "source/Text/TextTools.cpp"

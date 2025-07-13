@@ -6,10 +6,10 @@
 #include <QDateTime>
 
 #include "source/CommonTools/GroupUuid.h"
-#include "source/CommonTools/JsonTools.h"
 #include "source/CommonTools/TermUuid.h"
 
 import TextModule.TextTools;
+import CommonTools.JsonTools;
 
 TermJsonValidator::TermJsonValidator(bool checkUuid, bool checkLastEdit)
 {

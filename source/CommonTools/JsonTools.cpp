@@ -1,17 +1,19 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#pragma once
+module;
 
 #include <QJsonArray>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QStringView>
 
-class JsonTools
+export module CommonTools.JsonTools;
+
+export class JsonTools
 {
 public:
-    static inline QString prepareUuidParameter(QString param)
+    static QString prepareUuidParameter(QString param)
     {
         param.remove("%7B");
         param.remove("%7D");
@@ -24,7 +26,7 @@ public:
         return param;
     }
 
-    static inline QJsonObject updateKey(QJsonObject json, const QString& oldKey, const QString& newKey)
+    static QJsonObject updateKey(QJsonObject json, const QString& oldKey, const QString& newKey)
     {
         if (json.contains(oldKey) && !json.contains(newKey)) {
             json.insert(newKey, json[oldKey]);
@@ -37,7 +39,7 @@ public:
         return json;
     }
 
-    static inline QJsonObject addIfNotEmpty(QJsonObject json, const QString& key, const QJsonValue& value)
+    static QJsonObject addIfNotEmpty(QJsonObject json, const QString& key, const QJsonValue& value)
     {
         if (value.isString() && value.toString().isEmpty()) {
             return json;

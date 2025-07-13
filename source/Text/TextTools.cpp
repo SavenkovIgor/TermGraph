@@ -8,10 +8,9 @@ module;
 #include <QString>
 #include <QStringView>
 
-#include "source/CommonTools/JsonTools.h"
-
 export module TextModule.TextTools;
 
+import CommonTools.JsonTools;
 import TextModule.Fonts;
 import CommonTools.HandyTypes;
 
