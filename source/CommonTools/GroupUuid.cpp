@@ -3,10 +3,10 @@
 
 #include "source/CommonTools/GroupUuid.h"
 
-#include <QJsonDocument>
-#include <QJsonArray>
-#include <QJsonObject>
 #include <QByteArray>
+#include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 #include "source/CommonTools/JsonTools.h"
 
@@ -29,10 +29,7 @@ std::optional<GroupUuid> GroupUuid::from(const QUuid& uuid)
     return std::nullopt;
 }
 
-GroupUuid GroupUuid::generate()
-{
-    return GroupUuid(QUuid::createUuid().toString());
-}
+GroupUuid GroupUuid::generate() { return GroupUuid(QUuid::createUuid().toString()); }
 
 std::optional<GroupUuid::List> GroupUuid::List::from(const QJsonObject& obj)
 {
@@ -74,10 +71,7 @@ GroupUuid::List::operator QJsonObject() const
     return obj;
 }
 
-GroupUuid::List::operator QByteArray() const
-{
-    return QJsonDocument(static_cast<QJsonObject>(*this)).toJson();
-}
+GroupUuid::List::operator QByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
 
 GroupUuid::GroupUuid(const QString& text)
     : SafeUuid(text)

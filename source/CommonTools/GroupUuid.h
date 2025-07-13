@@ -18,8 +18,9 @@ public:
     public:
         static std::optional<List> from(const QJsonObject& obj);
         static std::optional<List> from(const QByteArray& jsonBytes);
-        explicit                   operator QJsonObject() const;
-        explicit                   operator QByteArray() const;
+
+        explicit operator QJsonObject() const;
+        explicit operator QByteArray() const;
     };
 
 private:
