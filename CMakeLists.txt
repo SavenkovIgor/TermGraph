@@ -57,6 +57,7 @@ target_sources (TermGraph
         "source/Api.cpp"
         "source/Api.h"
         "source/CommonTools/Errors.h"
+        "source/CommonTools/GroupUuid.cpp"
         "source/CommonTools/GroupUuid.h"
         "source/CommonTools/HandyTypes.h"
         "source/CommonTools/JsonTools.h"
@@ -308,6 +309,7 @@ if (BUILD_TESTING)
     target_sources (TermGraphTest
         PRIVATE
             "source/CommonTools/Errors.h"
+            "source/CommonTools/GroupUuid.cpp"
             "source/CommonTools/GroupUuid.h"
             "source/CommonTools/HandyTypes.h"
             "source/CommonTools/JsonTools.h"
