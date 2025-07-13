@@ -11,8 +11,6 @@
 
 #include "source/CommonTools/Errors.h"
 
-using UuidList = std::vector<QUuid>;
-
 template<typename T>
 using Expected = std::expected<T, ErrorCode>;
 

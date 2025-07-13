@@ -80,7 +80,7 @@ void TermGroup::setBasePoint(QPointF pt) { mBaseRect.setPos(pt); }
 
 QRectF TermGroup::getGroupRect() const { return mBaseRect.getRect(CoordType::scene); }
 
-UuidList TermGroup::searchNearest(const QString& text, int limit) const
+std::vector<QUuid> TermGroup::searchNearest(const QString& text, int limit) const
 {
     QString                        searchText = text.toLower();
     std::vector<QPair<int, QUuid>> searchResults;
@@ -108,7 +108,7 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
     rng::sort(searchResults, [](auto s1, auto s2) { return s1.first < s2.first; });
 
     // Removing numbers
-    UuidList ret;
+    std::vector<QUuid> ret;
     int      count = 0;
     for (auto [dist, uuid] : searchResults) {
         if (count >= limit) {
@@ -123,9 +123,9 @@ UuidList TermGroup::searchNearest(const QString& text, int limit) const
     return ret;
 }
 
-UuidList TermGroup::searchContains(const QString& text, int limit) const
+std::vector<QUuid> TermGroup::searchContains(const QString& text, int limit) const
 {
-    UuidList ret;
+    std::vector<QUuid> ret;
     auto     lowerSearch = text.toLower();
 
     for (const auto& term : mGraphData.nodeList()) {

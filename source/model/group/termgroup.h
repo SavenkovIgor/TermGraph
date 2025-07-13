@@ -33,8 +33,8 @@ public:
 
     QRectF getGroupRect() const;
 
-    UuidList searchNearest(const QString& text, int limit = 10) const;
-    UuidList searchContains(const QString& text, int limit = 10) const;
+    std::vector<QUuid> searchNearest(const QString& text, int limit = 10) const;
+    std::vector<QUuid> searchContains(const QString& text, int limit = 10) const;
 
     PaintedTerm::OptPtr getTerm(const QPointF& pt) const;
     PaintedTerm::OptPtr getTerm(const QUuid& termUuid) const;
