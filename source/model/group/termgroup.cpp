@@ -7,9 +7,9 @@
 #include <QThread>
 
 #include "source/helpers/appstyle.h"
-#include "source/helpers/link/LinkTools.h"
 
 import CommonTools.HandyTypes;
+import link.LinkTools;
 
 namespace rng = std::ranges;
 
