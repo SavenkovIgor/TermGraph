@@ -14,10 +14,6 @@
 import CommonTools.HandyTypes;
 import TextModule.TextTools;
 
-LinkTools::LinkTools(QObject* parent)
-    : QObject(parent)
-{}
-
 bool LinkTools::isValidCursor(const QString& str, int cursor)
 {
     return TextCursor::isValidCursor(QStringView(str), cursor);
