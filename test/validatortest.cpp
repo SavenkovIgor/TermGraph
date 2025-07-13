@@ -3,7 +3,9 @@
 
 #include <gtest/gtest.h>
 
-#include "source/CommonTools/Validator.h"
+#include "source/CommonTools/Errors.h"
+
+import CommonTools.Validator;
 
 struct Point
 {

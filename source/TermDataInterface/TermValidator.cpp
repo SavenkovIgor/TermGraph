@@ -1,135 +1,144 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "TermValidator.h"
+module;
 
 #include <QDateTime>
+#include <QJsonObject>
 
 #include "source/CommonTools/GroupUuid.h"
 #include "source/CommonTools/TermUuid.h"
 
+export module CommonTools.TermJsonValidator;
+
+import CommonTools.Validator;
 import TextModule.TextTools;
 import CommonTools.JsonTools;
 
-TermJsonValidator::TermJsonValidator(bool checkUuid, bool checkLastEdit)
+export class TermJsonValidator : public Validator<QJsonObject>
 {
-    if (checkUuid) {
-        addCheck(&validUuid);
+public:
+    TermJsonValidator(bool checkUuid = true, bool checkLastEdit = true)
+    {
+        if (checkUuid) {
+            addCheck(&validUuid);
+        }
+
+        addCheck(&validTerm);
+
+        addCheck(&validDefinition);
+        addCheck(&validDescription);
+        addCheck(&validExamples);
+        addCheck(&validWikiUrl);
+        addCheck(&validWikiImage);
+
+        addCheck(&validGroupUuid);
+
+        if (checkLastEdit) {
+            addCheck(&validLastEditField);
+            addCheck(&validLastEdit);
+        }
     }
 
-    addCheck(&validTerm);
+    static TermJsonValidator minimalStaticDataChecks()
+    {
+        TermJsonValidator ret;
 
-    addCheck(&validDefinition);
-    addCheck(&validDescription);
-    addCheck(&validExamples);
-    addCheck(&validWikiUrl);
-    addCheck(&validWikiImage);
+        ret.clear();
 
-    addCheck(&validGroupUuid);
+        ret.addCheck(&validTermDef);
 
-    if (checkLastEdit) {
-        addCheck(&validLastEditField);
-        addCheck(&validLastEdit);
+        return ret;
     }
-}
 
-TermJsonValidator TermJsonValidator::minimalStaticDataChecks()
-{
-    TermJsonValidator ret;
+private:
+    static CheckResult validUuid(const QJsonObject& obj)
+    {
+        const auto& field = obj[JsonTools::uuidKey];
 
-    ret.clear();
+        if (!field.isString())
+            return std::unexpected(ErrorCode::JsonUuidFieldMissedOrWrongType);
 
-    ret.addCheck(&validTermDef);
+        if (auto uuid = TermUuid::from(field.toString()); !uuid.has_value())
+            return std::unexpected(ErrorCode::TermUuidInvalid);
 
-    return ret;
-}
+        return {};
+    }
 
-TermJsonValidator::CheckResult TermJsonValidator::validUuid(const QJsonObject& obj)
-{
-    const auto& field = obj[JsonTools::uuidKey];
+    static CheckResult validTerm(const QJsonObject& obj)
+    {
+        const auto& field = obj[JsonTools::termKey];
 
-    if (!field.isString())
-        return std::unexpected(ErrorCode::JsonUuidFieldMissedOrWrongType);
+        if (!field.isString())
+            return std::unexpected(ErrorCode::JsonTermFieldMissedOrWrongType);
 
-    if (auto uuid = TermUuid::from(field.toString()); !uuid.has_value())
-        return std::unexpected(ErrorCode::TermUuidInvalid);
+        if (field.toString().isEmpty())
+            return std::unexpected(ErrorCode::TermEmpty);
 
-    return {};
-}
+        return {};
+    }
 
-TermJsonValidator::CheckResult TermJsonValidator::validTerm(const QJsonObject& obj)
-{
-    const auto& field = obj[JsonTools::termKey];
+    static CheckResult validDefinition(const QJsonObject& obj)
+    {
+        return checkOrError(obj[JsonTools::definitionKey].isString(), ErrorCode::JsonDefinitionFieldMissedOrWrongType);
+    }
 
-    if (!field.isString())
-        return std::unexpected(ErrorCode::JsonTermFieldMissedOrWrongType);
+    static CheckResult validTermDef(const QJsonObject& obj)
+    {
+        auto termDefString = obj[JsonTools::termDefKey].toString();
 
-    if (field.toString().isEmpty())
-        return std::unexpected(ErrorCode::TermEmpty);
+        if (!TextTools::isTermAndDefinition(termDefString))
+            return std::unexpected(ErrorCode::JsonTermDefFieldWrongContentOrType);
 
-    return {};
-}
+        auto [term, _] = TextTools::splitTermAndDefinition(termDefString);
 
-TermJsonValidator::CheckResult TermJsonValidator::validDefinition(const QJsonObject& obj)
-{
-    return checkOrError(obj[JsonTools::definitionKey].isString(), ErrorCode::JsonDefinitionFieldMissedOrWrongType);
-}
+        if (term.isEmpty())
+            return std::unexpected(ErrorCode::JsonTermDefFieldWrongContentOrType);
 
-TermJsonValidator::CheckResult TermJsonValidator::validTermDef(const QJsonObject& obj)
-{
-    auto termDefString = obj[JsonTools::termDefKey].toString();
+        return {};
+    }
 
-    if (!TextTools::isTermAndDefinition(termDefString))
-        return std::unexpected(ErrorCode::JsonTermDefFieldWrongContentOrType);
+    static CheckResult validDescription(const QJsonObject& obj)
+    {
+        return checkOrError(obj[JsonTools::descriptionKey].isString(), ErrorCode::JsonDescriptionFieldMissedOrWrongType);
+    }
 
-    auto [term, _] = TextTools::splitTermAndDefinition(termDefString);
+    static CheckResult validExamples(const QJsonObject& obj)
+    {
+        return checkOrError(obj[JsonTools::examplesKey].isString(), ErrorCode::JsonExamplesFieldMissedOrWrongType);
+    }
 
-    if (term.isEmpty())
-        return std::unexpected(ErrorCode::JsonTermDefFieldWrongContentOrType);
+    static CheckResult validWikiUrl(const QJsonObject& obj)
+    {
+        return checkOrError(obj[JsonTools::wikiUrlKey].isString(), ErrorCode::JsonWikiUrlFieldMissedOrWrongType);
+    }
 
-    return {};
-}
+    static CheckResult validWikiImage(const QJsonObject& obj)
+    {
+        return checkOrError(obj[JsonTools::wikiImageKey].isString(), ErrorCode::JsonWikiImageFieldMissedOrWrongType);
+    }
 
-TermJsonValidator::CheckResult TermJsonValidator::validDescription(const QJsonObject& obj)
-{
-    return checkOrError(obj[JsonTools::descriptionKey].isString(), ErrorCode::JsonDescriptionFieldMissedOrWrongType);
-}
+    static CheckResult validGroupUuid(const QJsonObject& obj)
+    {
+        const auto& field = obj[JsonTools::groupUuidKey];
 
-TermJsonValidator::CheckResult TermJsonValidator::validExamples(const QJsonObject& obj)
-{
-    return checkOrError(obj[JsonTools::examplesKey].isString(), ErrorCode::JsonExamplesFieldMissedOrWrongType);
-}
+        if (!field.isString())
+            return std::unexpected(ErrorCode::JsonGroupUuidFieldMissedOrWrongType);
 
-TermJsonValidator::CheckResult TermJsonValidator::validWikiUrl(const QJsonObject& obj)
-{
-    return checkOrError(obj[JsonTools::wikiUrlKey].isString(), ErrorCode::JsonWikiUrlFieldMissedOrWrongType);
-}
+        if (auto uuid = GroupUuid::from(field.toString()); !uuid.has_value())
+            return std::unexpected(ErrorCode::GroupUuidInvalid);
 
-TermJsonValidator::CheckResult TermJsonValidator::validWikiImage(const QJsonObject& obj)
-{
-    return checkOrError(obj[JsonTools::wikiImageKey].isString(), ErrorCode::JsonWikiImageFieldMissedOrWrongType);
-}
+        return {};
+    }
 
-TermJsonValidator::CheckResult TermJsonValidator::validGroupUuid(const QJsonObject& obj)
-{
-    const auto& field = obj[JsonTools::groupUuidKey];
+    static CheckResult validLastEditField(const QJsonObject& obj)
+    {
+        return checkOrError(obj[JsonTools::lastEditKey].isString(), ErrorCode::JsonLastEditFieldMissedOrWrongType);
+    }
 
-    if (!field.isString())
-        return std::unexpected(ErrorCode::JsonGroupUuidFieldMissedOrWrongType);
-
-    if (auto uuid = GroupUuid::from(field.toString()); !uuid.has_value())
-        return std::unexpected(ErrorCode::GroupUuidInvalid);
-
-    return {};
-}
-
-TermJsonValidator::CheckResult TermJsonValidator::validLastEditField(const QJsonObject& obj)
-{
-    return checkOrError(obj[JsonTools::lastEditKey].isString(), ErrorCode::JsonLastEditFieldMissedOrWrongType);
-}
-
-TermJsonValidator::CheckResult TermJsonValidator::validLastEdit(const QJsonObject& obj)
-{
-    return checkOrError(!QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate).isNull(),
-                        ErrorCode::LastEditInvalid);
-}
+    static CheckResult validLastEdit(const QJsonObject& obj)
+    {
+        return checkOrError(!QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate).isNull(),
+                            ErrorCode::LastEditInvalid);
+    }
+};
