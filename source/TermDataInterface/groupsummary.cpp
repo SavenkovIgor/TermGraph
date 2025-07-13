@@ -3,8 +3,9 @@
 
 #include "source/TermDataInterface/GroupSummary.h"
 
-#include "source/CommonTools/JsonTools.h"
 #include "source/TermDataInterface/GroupValidator.h"
+
+import CommonTools.JsonTools;
 
 std::optional<GroupSummary> GroupSummary::from(const QJsonObject& obj)
 {

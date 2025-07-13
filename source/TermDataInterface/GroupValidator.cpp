@@ -7,7 +7,8 @@
 
 #include "source/CommonTools/Errors.h"
 #include "source/CommonTools/GroupUuid.h"
-#include "source/CommonTools/JsonTools.h"
+
+import CommonTools.JsonTools;
 
 GroupJsonValidator GroupJsonValidator::defaultChecks(bool checkLastEdit)
 {

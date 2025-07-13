@@ -3,8 +3,9 @@
 
 #include "source/DataProvider.h"
 
-#include "source/CommonTools/JsonTools.h"
 #include "source/DataSourceFactory.h"
+
+import CommonTools.JsonTools;
 
 DataProvider::DataProvider(QObject *parent)
     : QObject{parent}

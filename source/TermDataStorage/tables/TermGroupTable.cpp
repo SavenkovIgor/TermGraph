@@ -3,9 +3,10 @@
 
 #include "source/TermDataStorage/tables/TermGroupTable.h"
 
-#include "source/CommonTools/JsonTools.h"
 #include "source/TermDataStorage/DbTools.h"
 #include "source/TermDataStorage/SqlQueryBuilder.h"
+
+import CommonTools.JsonTools;
 
 void TermGroupTable::initTable() { DbTools::start(SqlQueryBuilder().createGroupsTable()); }
 

@@ -3,8 +3,9 @@
 
 #include "source/TermDataInterface/StaticGroupData.h"
 
-#include "source/CommonTools/JsonTools.h"
 #include "source/TermDataInterface/GroupValidator.h"
+
+import CommonTools.JsonTools;
 
 std::optional<QDateTime> StaticGroupData::termsLastEdit() const
 {
