@@ -8,7 +8,7 @@
 #include <QObject>
 #include <QSharedPointer>
 
-#include "source/CommonTools/NetworkTools.h"
+import CommonTools.NetworkTools;
 
 template<typename T>
 Expected<T> toExpected(QNetworkReply* reply, std::function<std::optional<T>(const QByteArray& data)> parseFunc)
