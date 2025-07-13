@@ -109,7 +109,7 @@ std::vector<QUuid> TermGroup::searchNearest(const QString& text, int limit) cons
 
     // Removing numbers
     std::vector<QUuid> ret;
-    int      count = 0;
+    int                count = 0;
     for (auto [dist, uuid] : searchResults) {
         if (count >= limit) {
             break;
@@ -126,7 +126,7 @@ std::vector<QUuid> TermGroup::searchNearest(const QString& text, int limit) cons
 std::vector<QUuid> TermGroup::searchContains(const QString& text, int limit) const
 {
     std::vector<QUuid> ret;
-    auto     lowerSearch = text.toLower();
+    auto               lowerSearch = text.toLower();
 
     for (const auto& term : mGraphData.nodeList()) {
         if (term->cache().lowerTerm().contains(lowerSearch)) {
