@@ -9,6 +9,7 @@
 
 #include <QDebug>
 
+#include "source/CommonTools/JsonTools.h"
 #include "source/TermDataInterface/GroupValidator.h"
 #include "source/helpers/AppSettings.h"
 
