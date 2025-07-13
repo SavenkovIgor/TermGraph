@@ -3,8 +3,8 @@
 
 module;
 
-#include <QJsonObject>
 #include <QDateTime>
+#include <QJsonObject>
 
 #include "source/CommonTools/Errors.h"
 #include "source/CommonTools/GroupUuid.h"
