@@ -5,6 +5,7 @@
 
 #include <set>
 
+#include "source/CommonTools/JsonTools.h"
 #include "source/TermDataInterface/TermValidator.h"
 
 import TextModule.TextTools;
