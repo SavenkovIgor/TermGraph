@@ -49,7 +49,7 @@ int LinksHardeningManager::rowCount([[maybe_unused]] const QModelIndex &parent) 
     return asInt(mLastNearestVariants.size());
 }
 
-void LinksHardeningManager::setGroup(TermGroup *group)
+void LinksHardeningManager::setGroup(QtTermGroup *group)
 {
     assert(group != nullptr);
     mCurrentGroup = group;

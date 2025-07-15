@@ -9,7 +9,7 @@ TermsModel::TermsModel(QObject *parent)
     : QAbstractListModel(parent)
 {}
 
-void TermsModel::setGroup(TermGroup::OptPtr group)
+void TermsModel::setGroup(QtTermGroup::OptPtr group)
 {
     beginResetModel();
     mGroup = group;

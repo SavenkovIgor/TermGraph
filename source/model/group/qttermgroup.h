@@ -13,7 +13,7 @@
 #include "source/model/group/paintedforest.h"
 #include "source/model/term/paintedterm.h"
 
-class TermGroup : public QObject
+class QtTermGroup : public QObject
 {
     Q_OBJECT
 
@@ -23,11 +23,11 @@ class TermGroup : public QObject
     using GraphT = graph::Graph<PaintedTerm, PaintedEdge>;
 
 public:
-    using Ptr    = std::shared_ptr<TermGroup>;
+    using Ptr    = std::shared_ptr<QtTermGroup>;
     using OptPtr = std::optional<Ptr>;
 
-    TermGroup(const GroupSummary& info, const TermData::List& termData, QObject* parent = nullptr);
-    ~TermGroup() = default;
+    QtTermGroup(const GroupSummary& info, const TermData::List& termData, QObject* parent = nullptr);
+    ~QtTermGroup() = default;
 
     void setBasePoint(QPointF pt);
 

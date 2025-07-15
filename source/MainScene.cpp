@@ -113,7 +113,7 @@ void MainScene::createLoadedGroup()
 #endif
 }
 
-void MainScene::showNewGroup(TermGroup::OptPtr newGroup)
+void MainScene::showNewGroup(QtTermGroup::OptPtr newGroup)
 {
     setGroupLoading(false);
     assert(newGroup.has_value());
@@ -291,7 +291,7 @@ TermDataWrapper MainScene::getCurrentNode()
     return {};
 }
 
-TermGroup* MainScene::getCurrentGroup() const { return mCurrentGroup.value().get(); }
+QtTermGroup* MainScene::getCurrentGroup() const { return mCurrentGroup.value().get(); }
 
 bool MainScene::hasCurrentGroup() const { return mCurrentGroup.has_value(); }
 

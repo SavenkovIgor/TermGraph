@@ -6,7 +6,7 @@
 #include <QAbstractListModel>
 #include <QObject>
 
-#include "source/model/group/termgroup.h"
+#include "source/model/group/qttermgroup.h"
 
 class TermsModel : public QAbstractListModel
 {
@@ -17,7 +17,7 @@ class TermsModel : public QAbstractListModel
 public:
     explicit TermsModel(QObject* parent = nullptr);
 
-    void setGroup(TermGroup::OptPtr group);
+    void setGroup(QtTermGroup::OptPtr group);
     void clear();
 
     QHash<int, QByteArray> roleNames() const override;
@@ -28,6 +28,6 @@ public:
     void updateSelection();
 
 private: // Members
-    TermGroup::OptPtr mGroup = std::nullopt;
+    QtTermGroup::OptPtr mGroup = std::nullopt;
     PaintedTerm::List mTerms;
 };
