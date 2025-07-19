@@ -14,10 +14,11 @@ module;
 
 export module TermGroup;
 
+import AppStyle;
 import CommonTools.HandyTypes;
 import link.LinkTools;
+import NodeVerticalStackTools;
 import TextModule.Fonts;
-import AppStyle;
 
 namespace rng = std::ranges;
 

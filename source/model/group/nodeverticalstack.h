@@ -10,11 +10,7 @@
 
 class PaintedForest;
 
-class NodeVerticalStackTools
-{
-public:
-    static QSizeF getNodeVerticalStackedSize(const PaintedTerm::List& nodes);
-};
+
 
 class NodeVerticalStack
 {

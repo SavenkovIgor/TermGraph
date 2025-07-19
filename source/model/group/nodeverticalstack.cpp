@@ -6,19 +6,10 @@
 #include <ranges>
 
 import CommonTools.HandyTypes;
+import NodeVerticalStackTools;
 
 namespace rng = std::ranges;
 
-QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::List& nodes)
-{
-    SizeList sizeList;
-
-    for (const auto& node : nodes) {
-        sizeList.push_back(node->getFrameRect(CoordType::zeroPoint).size());
-    }
-
-    return sizeList.totalStackedSize(Qt::Vertical);
-}
 
 NodeVerticalStack::NodeVerticalStack(PaintedForest* parentForest)
     : mParentForest(parentForest)

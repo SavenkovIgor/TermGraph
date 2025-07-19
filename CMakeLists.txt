@@ -164,14 +164,15 @@ target_sources (TermGraph
         "source/CommonTools/JsonTools.cpp"
         "source/CommonTools/NetworkTools.cpp"
         "source/CommonTools/Validator.cpp"
+        "source/helpers/appstyle.cpp"
         "source/helpers/link/LinkTools.cpp"
         "source/main.cpp"
+        "source/model/group/nodeverticalstacktools.cpp"
         "source/model/group/termgroup.cpp"
         "source/TermDataInterface/GroupValidator.cpp"
         "source/TermDataInterface/TermValidator.cpp"
         "source/Text/Fonts.cpp"
         "source/Text/TextTools.cpp"
-        "source/helpers/appstyle.cpp"
 )
 
 # Add platform-specific sources
