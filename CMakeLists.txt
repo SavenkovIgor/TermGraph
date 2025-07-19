@@ -129,6 +129,8 @@ target_sources (TermGraph
         "source/model/group/paintedforest.h"
         "source/model/group/qttermgroup.cpp"
         "source/model/group/qttermgroup.h"
+        "source/model/group/termgroup.cpp"
+        "source/model/group/termgroup.h"
         "source/model/term/graphterm.cpp"
         "source/model/term/graphterm.h"
         "source/model/term/paintedterm.cpp"

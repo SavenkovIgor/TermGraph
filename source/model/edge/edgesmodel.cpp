@@ -3,13 +3,15 @@
 
 #include "source/model/edge/edgesmodel.h"
 
+#include "source/model/group/termgroup.h"
+
 import CommonTools.HandyTypes;
 
 EdgesModel::EdgesModel(QObject *parent)
     : QAbstractListModel(parent)
 {}
 
-void EdgesModel::setGroup(QtTermGroup::OptPtr group)
+void EdgesModel::setGroup(TermGroup::OptPtr group)
 {
     beginResetModel();
     mGroup = group;

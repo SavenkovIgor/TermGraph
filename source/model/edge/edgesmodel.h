@@ -6,9 +6,11 @@
 #include <QAbstractListModel>
 #include <QObject>
 
-#include "source/model/group/qttermgroup.h"
-
 // BUG: on empty groups, edges didn't hide
+
+#include "source/model/edge/paintededge.h"
+
+class TermGroup;
 
 class EdgesModel : public QAbstractListModel
 {
@@ -21,7 +23,7 @@ public:
 
     Q_ENUM(Roles)
 
-    void setGroup(QtTermGroup::OptPtr group);
+    void setGroup(std::optional<std::shared_ptr<TermGroup>> group);
     void clear();
 
     QHash<int, QByteArray> roleNames() const override;
@@ -32,6 +34,6 @@ public:
     void updateSelection();
 
 private:
-    QtTermGroup::OptPtr mGroup = std::nullopt;
+    std::optional<std::shared_ptr<TermGroup>> mGroup = std::nullopt;
     PaintedEdge::List mEdges;
 };

@@ -10,6 +10,7 @@
 #include <QDebug>
 
 #include "source/helpers/AppSettings.h"
+#include "source/model/group/termgroup.h"
 
 import CommonTools.JsonTools;
 import TermDataInterface.GroupValidator;
@@ -120,7 +121,7 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
     importGroup(doc.object());
 }
 
-QtTermGroup::OptPtr GroupsManager::createGroup(std::optional<GroupUuid> uuid)
+TermGroup::OptPtr GroupsManager::createGroup(std::optional<GroupUuid> uuid)
 {
     std::optional<GroupSummary> groupInfo;
     if (uuid) {
@@ -135,7 +136,7 @@ QtTermGroup::OptPtr GroupsManager::createGroup(std::optional<GroupUuid> uuid)
     auto termsData = provider.terms();
     assert(groupInfo);
 
-    return std::make_shared<QtTermGroup>(*groupInfo, termsData);
+    return std::make_shared<TermGroup>(*groupInfo, termsData);
 }
 
 bool GroupsManager::isEmptyGroup(const QString& groupUuid)
@@ -321,7 +322,7 @@ void GroupsManager::init() { provider.loadGroups(); }
 
 void GroupsManager::loadGroup(const GroupUuid& uuid) { provider.loadGroup(uuid); }
 
-void GroupsManager::saveGroupInFolder(QtTermGroup::OptPtr group)
+void GroupsManager::saveGroupInFolder(TermGroup::OptPtr group)
 {
     Q_UNIMPLEMENTED();
     if (group) {

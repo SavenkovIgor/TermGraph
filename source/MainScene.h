@@ -8,8 +8,11 @@
 #include "source/managers/groupsmanager.h"
 #include "source/model/edge/edgesmodel.h"
 #include "source/model/group/qttermgroup.h"
+#include "source/model/term/paintedterm.h"
 #include "source/model/term/termdatawrapper.h"
 #include "source/model/term/termsmodel.h"
+
+class TermGroup;
 
 class MainScene : public QObject
 {
@@ -60,7 +63,6 @@ signals:
     void sceneRectChanged();
 
     void groupLoadingChanged();
-    void newGroupCreated(QtTermGroup::OptPtr group);
 
 private slots:
     void updateGroup();
@@ -70,10 +72,10 @@ private slots:
     void checkGroupDeletion();
 
     void createLoadedGroup();
-    void showNewGroup(QtTermGroup::OptPtr newGroup);
 
 private:
     void setCurrentGroup(const GroupUuid& newGroupUuid);
+    void showNewGroup(std::optional<std::shared_ptr<TermGroup>> newGroup);
 
     QString getCurrNodeNameAndDefinition();
     QString getCurrNodeHierarchyDefinition();
@@ -108,7 +110,8 @@ private: // Methods
     PaintedTerm::OptPtr getNodeAtPoint(const QPointF& pt) const;
 
     // Groups fields
-    QtTermGroup::OptPtr mCurrentGroup;
+    std::optional<std::shared_ptr<QtTermGroup>> mCurrentQtGroup;
+    std::optional<std::shared_ptr<TermGroup>>   mCurrentGroup;
 
     std::optional<GroupUuid> currentGroupUuid() const;
     void                     dropGroup();

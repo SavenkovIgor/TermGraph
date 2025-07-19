@@ -11,6 +11,8 @@
 #include "source/model/group/qttermgroup.h"
 #include "source/model/term/termdatawrapper.h"
 
+class TermGroup;
+
 class LinksHardeningManager : public QAbstractListModel
 {
     Q_OBJECT
@@ -73,7 +75,7 @@ private: // Methods
     static QString applyLinkUuids(QString stringWithLinks, QMap<int, QUuid> uuidsToApply);
 
 private: // Members
-    QtTermGroup*                mCurrentGroup = nullptr;
+    std::shared_ptr<TermGroup>  mCurrentGroup = nullptr;
     TermDataWrapper             mCurrentTerm;
     QString                     mCurrentDefinition;
     QScopedPointer<LinksString> mLinksString;

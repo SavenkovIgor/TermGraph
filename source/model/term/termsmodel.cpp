@@ -3,13 +3,15 @@
 
 #include "source/model/term/termsmodel.h"
 
+#include "source/model/group/termgroup.h"
+
 import CommonTools.HandyTypes;
 
 TermsModel::TermsModel(QObject *parent)
     : QAbstractListModel(parent)
 {}
 
-void TermsModel::setGroup(QtTermGroup::OptPtr group)
+void TermsModel::setGroup(TermGroup::OptPtr group)
 {
     beginResetModel();
     mGroup = group;
