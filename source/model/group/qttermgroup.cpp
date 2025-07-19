@@ -8,8 +8,7 @@ import TermGroup;
 QtTermGroup::QtTermGroup(const TermGroup::Ptr termGroup, QObject* parent)
     : QObject(parent)
     , mTermGroup(termGroup)
-{
-}
+{}
 
 QString QtTermGroup::qmlUuid() const { return mTermGroup->uuid().toString(); }
 

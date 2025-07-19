@@ -35,5 +35,5 @@ public:
 
 private:
     std::optional<std::shared_ptr<TermGroup>> mGroup = std::nullopt;
-    PaintedEdge::List mEdges;
+    PaintedEdge::List                         mEdges;
 };

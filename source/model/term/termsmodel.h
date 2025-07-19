@@ -31,5 +31,5 @@ public:
 
 private: // Members
     std::optional<std::shared_ptr<TermGroup>> mGroup = std::nullopt;
-    PaintedTerm::List mTerms;
+    PaintedTerm::List                         mTerms;
 };

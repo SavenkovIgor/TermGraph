@@ -42,7 +42,7 @@ void MainScene::dropGroup()
 {
     dropTermSelection();
 
-    mCurrentGroup = std::nullopt;
+    mCurrentGroup   = std::nullopt;
     mCurrentQtGroup = std::nullopt;
 
     setSceneRect(QRectF());
@@ -124,10 +124,10 @@ void MainScene::showNewGroup(TermGroup::OptPtr newGroup)
     bool differentGroups = oldUuid != newUuid;
 
     if (newGroup.has_value()) {
-        mCurrentGroup = newGroup.value();
+        mCurrentGroup   = newGroup.value();
         mCurrentQtGroup = std::make_shared<QtTermGroup>(mCurrentGroup.value());
     } else {
-        mCurrentGroup = std::nullopt;
+        mCurrentGroup   = std::nullopt;
         mCurrentQtGroup = std::nullopt;
     }
 
