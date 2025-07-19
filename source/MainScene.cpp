@@ -7,7 +7,7 @@
 #include <QThread>
 #endif
 
-#include "source/model/group/termgroup.h"
+import TermGroup;
 
 MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     : QObject(parent)

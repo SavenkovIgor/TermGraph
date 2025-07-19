@@ -7,10 +7,10 @@
 
 #include "source/helpers/link/LinksDecorator.h"
 #include "source/model/term/paintedterm.h"
-#include "source/model/group/termgroup.h"
 
 import CommonTools.HandyTypes;
 import link.LinkTools;
+import TermGroup;
 
 namespace rng = std::ranges;
 

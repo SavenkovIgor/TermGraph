@@ -3,9 +3,8 @@
 
 #include "source/model/edge/edgesmodel.h"
 
-#include "source/model/group/termgroup.h"
-
 import CommonTools.HandyTypes;
+import TermGroup;
 
 EdgesModel::EdgesModel(QObject *parent)
     : QAbstractListModel(parent)

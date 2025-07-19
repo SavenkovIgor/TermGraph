@@ -10,10 +10,10 @@
 #include <QDebug>
 
 #include "source/helpers/AppSettings.h"
-#include "source/model/group/termgroup.h"
 
 import CommonTools.JsonTools;
 import TermDataInterface.GroupValidator;
+import TermGroup;
 
 GroupsManager::GroupsManager(NotifyInterface& notifier, QObject* parent)
     : QObject(parent)

@@ -3,8 +3,7 @@
 
 #include "source/model/term/termsmodel.h"
 
-#include "source/model/group/termgroup.h"
-
+import TermGroup;
 import CommonTools.HandyTypes;
 
 TermsModel::TermsModel(QObject *parent)

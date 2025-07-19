@@ -3,7 +3,7 @@
 
 #include "source/model/group/qttermgroup.h"
 
-#include "source/model/group/termgroup.h"
+import TermGroup;
 
 QtTermGroup::QtTermGroup(const TermGroup::Ptr termGroup, QObject* parent)
     : QObject(parent)
