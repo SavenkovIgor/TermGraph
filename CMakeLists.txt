@@ -75,7 +75,6 @@ target_sources (TermGraph
         "source/graph/Node.hpp"
         "source/helpers/AppSettings.cpp"
         "source/helpers/AppSettings.h"
-        "source/helpers/appstyle.h"
         "source/helpers/exclusivecall.h"
         "source/helpers/firststartpreparer.cpp"
         "source/helpers/firststartpreparer.h"
@@ -172,6 +171,7 @@ target_sources (TermGraph
         "source/TermDataInterface/TermValidator.cpp"
         "source/Text/Fonts.cpp"
         "source/Text/TextTools.cpp"
+        "source/helpers/appstyle.cpp"
 )
 
 # Add platform-specific sources

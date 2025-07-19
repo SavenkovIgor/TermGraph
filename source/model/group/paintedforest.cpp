@@ -3,9 +3,8 @@
 
 #include "source/model/group/paintedforest.h"
 
-#include "source/helpers/appstyle.h"
-
 import CommonTools.HandyTypes;
+import AppStyle;
 
 namespace rng = std::ranges;
 
