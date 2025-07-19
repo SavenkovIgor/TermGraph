@@ -7,7 +7,6 @@ module;
 #include <QThread>
 
 #include "source/TermDataInterface/GroupSummary.h"
-#include "source/helpers/appstyle.h"
 #include "source/helpers/linktermdistancecache.h"
 #include "source/model/graphicitem/rectgraphicitem.h"
 #include "source/model/group/paintedforest.h"
@@ -18,6 +17,7 @@ export module TermGroup;
 import CommonTools.HandyTypes;
 import link.LinkTools;
 import TextModule.Fonts;
+import AppStyle;
 
 namespace rng = std::ranges;
 
