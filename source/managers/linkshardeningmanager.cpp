@@ -6,9 +6,11 @@
 #include <ranges>
 
 #include "source/helpers/link/LinksDecorator.h"
+#include "source/model/term/paintedterm.h"
 
 import CommonTools.HandyTypes;
 import link.LinkTools;
+import TermGroup;
 
 namespace rng = std::ranges;
 
@@ -49,10 +51,10 @@ int LinksHardeningManager::rowCount([[maybe_unused]] const QModelIndex &parent) 
     return asInt(mLastNearestVariants.size());
 }
 
-void LinksHardeningManager::setGroup(TermGroup *group)
+void LinksHardeningManager::setGroup(QtTermGroup *group)
 {
     assert(group != nullptr);
-    mCurrentGroup = group;
+    mCurrentGroup = group->termGroup();
 }
 
 void LinksHardeningManager::setTerm(TermDataWrapper termWrapper)

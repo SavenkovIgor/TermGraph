@@ -7,6 +7,8 @@
 #include <QThread>
 #endif
 
+import TermGroup;
+
 MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     : QObject(parent)
     , mTermsModel(new TermsModel(this))
@@ -20,8 +22,6 @@ MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     connect(groupsMgr, &GroupsManager::termChanged, this, &MainScene::updateGroup);
 
     connect(this, &MainScene::selectionChanged, mTermsModel, &TermsModel::updateSelection);
-
-    connect(this, &MainScene::newGroupCreated, this, &MainScene::showNewGroup, Qt::QueuedConnection);
 }
 
 void MainScene::selectGroup(const QUuid groupUuid)
@@ -42,7 +42,8 @@ void MainScene::dropGroup()
 {
     dropTermSelection();
 
-    mCurrentGroup = std::nullopt;
+    mCurrentGroup   = std::nullopt;
+    mCurrentQtGroup = std::nullopt;
 
     setSceneRect(QRectF());
 
@@ -92,8 +93,7 @@ void MainScene::createLoadedGroup()
             return;
         }
 
-        group.value()->moveToThread(this->thread());
-        emit newGroupCreated(group);
+        showNewGroup(group.value());
     };
 
 #ifdef Q_OS_WASM
@@ -123,9 +123,16 @@ void MainScene::showNewGroup(TermGroup::OptPtr newGroup)
 
     bool differentGroups = oldUuid != newUuid;
 
-    mCurrentGroup = newGroup;
+    if (newGroup.has_value()) {
+        mCurrentGroup   = newGroup.value();
+        mCurrentQtGroup = std::make_shared<QtTermGroup>(mCurrentGroup.value());
+    } else {
+        mCurrentGroup   = std::nullopt;
+        mCurrentQtGroup = std::nullopt;
+    }
 
     assert(mCurrentGroup.has_value());
+    assert(mCurrentQtGroup.has_value());
 
     mCurrentGroup.value()->setBasePoint(QPointF(40, 40));
 
@@ -291,7 +298,7 @@ TermDataWrapper MainScene::getCurrentNode()
     return {};
 }
 
-TermGroup* MainScene::getCurrentGroup() const { return mCurrentGroup.value().get(); }
+QtTermGroup* MainScene::getCurrentGroup() const { return mCurrentQtGroup.value().get(); }
 
 bool MainScene::hasCurrentGroup() const { return mCurrentGroup.has_value(); }
 

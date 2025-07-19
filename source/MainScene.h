@@ -7,9 +7,12 @@
 
 #include "source/managers/groupsmanager.h"
 #include "source/model/edge/edgesmodel.h"
-#include "source/model/group/termgroup.h"
+#include "source/model/group/qttermgroup.h"
+#include "source/model/term/paintedterm.h"
 #include "source/model/term/termdatawrapper.h"
 #include "source/model/term/termsmodel.h"
+
+class TermGroup;
 
 class MainScene : public QObject
 {
@@ -23,7 +26,7 @@ public:
     Q_PROPERTY(QRectF sceneRect READ sceneRect WRITE setSceneRect NOTIFY sceneRectChanged FINAL)
 
     // Group
-    Q_PROPERTY(TermGroup* currentGroup READ getCurrentGroup NOTIFY currentGroupChanged FINAL)
+    Q_PROPERTY(QtTermGroup* currentGroup READ getCurrentGroup NOTIFY currentGroupChanged FINAL)
     Q_PROPERTY(bool hasCurrentGroup READ hasCurrentGroup NOTIFY currentGroupChanged FINAL)
     Q_PROPERTY(bool groupLoading READ isGroupLoading NOTIFY groupLoadingChanged FINAL)
 
@@ -60,7 +63,6 @@ signals:
     void sceneRectChanged();
 
     void groupLoadingChanged();
-    void newGroupCreated(TermGroup::OptPtr group);
 
 private slots:
     void updateGroup();
@@ -70,10 +72,10 @@ private slots:
     void checkGroupDeletion();
 
     void createLoadedGroup();
-    void showNewGroup(TermGroup::OptPtr newGroup);
 
 private:
     void setCurrentGroup(const GroupUuid& newGroupUuid);
+    void showNewGroup(std::optional<std::shared_ptr<TermGroup>> newGroup);
 
     QString getCurrNodeNameAndDefinition();
     QString getCurrNodeHierarchyDefinition();
@@ -100,7 +102,7 @@ private: // Methods
 
     PaintedTerm::OptPtr findTerm(const QUuid& termUuid) const;
     TermDataWrapper     getCurrentNode();
-    TermGroup*          getCurrentGroup() const;
+    QtTermGroup*        getCurrentGroup() const;
     bool                hasCurrentGroup() const;
 
     void findClick(const QPointF& atPt);
@@ -108,7 +110,8 @@ private: // Methods
     PaintedTerm::OptPtr getNodeAtPoint(const QPointF& pt) const;
 
     // Groups fields
-    TermGroup::OptPtr mCurrentGroup;
+    std::optional<std::shared_ptr<QtTermGroup>> mCurrentQtGroup;
+    std::optional<std::shared_ptr<TermGroup>>   mCurrentGroup;
 
     std::optional<GroupUuid> currentGroupUuid() const;
     void                     dropGroup();

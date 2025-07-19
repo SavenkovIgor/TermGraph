@@ -4,6 +4,7 @@
 #include "source/model/edge/edgesmodel.h"
 
 import CommonTools.HandyTypes;
+import TermGroup;
 
 EdgesModel::EdgesModel(QObject *parent)
     : QAbstractListModel(parent)

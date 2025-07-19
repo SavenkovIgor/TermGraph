@@ -13,6 +13,7 @@
 
 import CommonTools.JsonTools;
 import TermDataInterface.GroupValidator;
+import TermGroup;
 
 GroupsManager::GroupsManager(NotifyInterface& notifier, QObject* parent)
     : QObject(parent)

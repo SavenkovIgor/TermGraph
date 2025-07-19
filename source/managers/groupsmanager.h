@@ -11,7 +11,8 @@
 
 #include "source/DataProvider.h"
 #include "source/managers/notifyinterface.h"
-#include "source/model/group/termgroup.h"
+
+class TermGroup;
 
 class GroupsManager : public QObject
 {
@@ -37,8 +38,8 @@ public:
 
     Q_INVOKABLE void init();
 
-    void              loadGroup(const GroupUuid& uuid);
-    TermGroup::OptPtr createGroup(std::optional<GroupUuid> uuid = std::nullopt);
+    void                                      loadGroup(const GroupUuid& uuid);
+    std::optional<std::shared_ptr<TermGroup>> createGroup(std::optional<GroupUuid> uuid = std::nullopt);
 
     GroupUuid::List getAllUuidsSortedByLastEdit();
 
@@ -80,7 +81,7 @@ private slots:
 private: // Methods
     bool getHasAnyGroup() const;
 
-    void saveGroupInFolder(TermGroup::OptPtr group);
+    void saveGroupInFolder(std::optional<std::shared_ptr<TermGroup>> group);
 
     bool groupExist(const GroupUuid& uuid);
 

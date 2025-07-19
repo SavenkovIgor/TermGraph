@@ -8,8 +8,10 @@
 #include <QStringView>
 
 #include "source/helpers/link/LinksString.h"
-#include "source/model/group/termgroup.h"
+#include "source/model/group/qttermgroup.h"
 #include "source/model/term/termdatawrapper.h"
+
+class TermGroup;
 
 class LinksHardeningManager : public QAbstractListModel
 {
@@ -36,7 +38,7 @@ public:
 
     int rowCount(const QModelIndex& parent = QModelIndex()) const final;
 
-    Q_INVOKABLE void setGroup(TermGroup* group);
+    Q_INVOKABLE void setGroup(QtTermGroup* group);
     Q_INVOKABLE void setTerm(TermDataWrapper termWrapper);
 
     Q_INVOKABLE void prev();
@@ -73,7 +75,7 @@ private: // Methods
     static QString applyLinkUuids(QString stringWithLinks, QMap<int, QUuid> uuidsToApply);
 
 private: // Members
-    TermGroup*                  mCurrentGroup = nullptr;
+    std::shared_ptr<TermGroup>  mCurrentGroup = nullptr;
     TermDataWrapper             mCurrentTerm;
     QString                     mCurrentDefinition;
     QScopedPointer<LinksString> mLinksString;

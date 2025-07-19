@@ -5,6 +5,8 @@
 
 #include <QtGlobal>
 
+// TODO: Modularize
+
 class AppStyle
 {
 public:
