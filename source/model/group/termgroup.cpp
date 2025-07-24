@@ -8,8 +8,8 @@ module;
 
 #include "source/TermDataInterface/GroupSummary.h"
 #include "source/helpers/linktermdistancecache.h"
+#include "source/model/edge/paintededge.h"
 #include "source/model/graphicitem/rectgraphicitem.h"
-#include "source/model/group/paintedforest.h"
 #include "source/model/term/paintedterm.h"
 
 export module TermGroup;
@@ -19,6 +19,7 @@ import CommonTools.HandyTypes;
 import link.LinkTools;
 import NodeVerticalStackTools;
 import TextModule.Fonts;
+import PaintedForest;
 
 namespace rng = std::ranges;
 
