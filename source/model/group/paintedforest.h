@@ -14,7 +14,7 @@
 
 class NodeVerticalStack;
 
-class PaintedForest : public graph::Forest<PaintedTerm, PaintedEdge>
+class PaintedForest : public graph::Forest<PaintedTerm, PaintedEdge>, public TermPositioner
 {
 public:
     using Ptr  = std::shared_ptr<PaintedForest>;
@@ -22,7 +22,7 @@ public:
 
     // Constructor/Destructor
     PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data);
-    ~PaintedForest() = default;
+    ~PaintedForest() override = default;
 
     RectGraphicItem& rect();
 
@@ -32,6 +32,9 @@ public:
     QRectF frameRect(CoordType inCoordinates) const;
     QSizeF baseSize() const; // Clearly counted value. Ignoring real node positions
     double square() const;
+
+    // Implementation of TermPositioner
+    std::optional<QPointF> preferredPositionFor(PaintedTerm::Ptr term) const override;
 
     // Internal counts and preparations
     void setTreeNodeCoords(QPointF leftTopPoint = QPointF());

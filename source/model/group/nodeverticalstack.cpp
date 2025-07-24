@@ -10,9 +10,8 @@ import NodeVerticalStackTools;
 
 namespace rng = std::ranges;
 
-
-NodeVerticalStack::NodeVerticalStack(PaintedForest* parentForest)
-    : mParentForest(parentForest)
+NodeVerticalStack::NodeVerticalStack(TermPositioner* termPositioner)
+    : mTermPositioner(termPositioner)
 {}
 
 void NodeVerticalStack::addTerm(PaintedTerm::Ptr term) { mTerms.push_back(term); }
@@ -28,7 +27,7 @@ void NodeVerticalStack::placeTerms(QPointF centerPoint)
 {
     PaintedTerm::List placingTerms = mTerms;
 
-    auto packs = getNodePacks(placingTerms, mParentForest);
+    auto packs = getNodePacks(placingTerms, mTermPositioner);
     sortNodePacks(packs);
     placingTerms = flatNodePack(packs);
 
@@ -53,12 +52,12 @@ void NodeVerticalStack::placeTerms(QPointF centerPoint)
 }
 
 std::vector<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::List& terms,
-                                                                         const PaintedForest*     forest)
+                                                                         const TermPositioner*    termPositioner)
 {
     std::vector<NodePack> ret;
 
     for (const auto& term : terms) {
-        auto rootsPositionOpt = forest->optimalRootsBasedPosition(term);
+        auto rootsPositionOpt = termPositioner->preferredPositionFor(term);
         auto optimalPt        = rootsPositionOpt.value_or(term->getCenter(CoordType::scene));
 
         // Selecting pack for insert

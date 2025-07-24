@@ -205,6 +205,11 @@ double PaintedForest::square() const
     return size.width() * size.height();
 }
 
+std::optional<QPointF> PaintedForest::preferredPositionFor(PaintedTerm::Ptr term) const
+{
+    return optimalRootsBasedPosition(term);
+}
+
 PaintedTerm::List PaintedForest::getAllNodesInTree() const
 {
     PaintedTerm::List ret;
