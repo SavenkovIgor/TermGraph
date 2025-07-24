@@ -5,15 +5,8 @@
 
 #include <vector>
 
+#include "source/model/group/termpositioner.h"
 #include "source/model/term/paintedterm.h"
-
-class TermPositioner
-{
-public:
-    virtual ~TermPositioner() = default;
-
-    virtual std::optional<QPointF> preferredPositionFor(PaintedTerm::Ptr term) const = 0;
-};
 
 class NodeVerticalStack
 {
