@@ -6,7 +6,7 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include "source/graph/Forest.hpp"
+#include "source/graph/NodeType.hpp"
 
 // For coordinate types
 enum class CoordType {

@@ -10,12 +10,11 @@
 #include <ranges>
 
 #include "source/graph/Graph.hpp"
+#include "source/graph/NodeType.hpp"
 
 namespace rng = std::ranges;
 
 namespace graph {
-
-enum class NodeType { Orphan, Root, EndLeaf, MiddleLeaf };
 
 template<typename NodeT, typename EdgeT>
 class Forest : public Graph<NodeT, EdgeT>
