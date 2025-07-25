@@ -7,14 +7,14 @@ module;
 
 #include "source/graph/Forest.hpp"
 
-#include "source/model/edge/paintededge.h"
 #include "source/model/term/paintedterm.h"
 
 import AppStyle;
 import CommonTools.HandyTypes;
 import NodeVerticalStack;
-import TermGroup.TermPositioner;
+import PaintedEdge;
 import RectGraphicItem;
+import TermGroup.TermPositioner;
 
 export module PaintedForest;
 
