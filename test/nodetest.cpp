@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "source/graph/Node.hpp"
+import Graph.Node;
 
 using namespace graph;
 

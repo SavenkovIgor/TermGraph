@@ -5,11 +5,11 @@ module;
 
 #include <vector>
 
-#include "source/graph/Node.hpp"
-
 #include "source/model/term/termdatacache.h"
 
 export module GraphTerm;
+
+import Graph.Node;
 
 // This class contains all "graph" part of term
 // like edges, place in graph hierarchy and so on

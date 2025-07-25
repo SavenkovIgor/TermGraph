@@ -6,11 +6,11 @@
 #include <gtest/gtest.h>
 
 #include "source/graph/NodeType.hpp"
-#include "source/graph/Node.hpp"
 
 import Graph.Edge;
 import Graph.Forest;
 import Graph.GraphData;
+import Graph.Node;
 
 using namespace graph;
 

@@ -5,11 +5,10 @@
 
 #include <QSet>
 
-#include "source/graph/Node.hpp"
-
 import Graph.Edge;
 import Graph.Graph;
 import Graph.GraphData;
+import Graph.Node;
 
 using namespace graph;
 

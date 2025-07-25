@@ -7,9 +7,9 @@ module;
 #include <memory>
 #include <vector>
 
-#include "source/graph/Node.hpp"
-
 export module Graph.Edge;
+
+import Graph.Node;
 
 export namespace graph {
 
