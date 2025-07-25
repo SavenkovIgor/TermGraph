@@ -3,9 +3,8 @@
 
 #include "source/helpers/link/Link.h"
 
-#include "source/Text/CharTools.h"
-
 import Text.CheckingTextCursor;
+import Text.CharTools;
 
 Link::Link(QStringView strView, int left, int right)
     : TextRange(strView, left, right)
