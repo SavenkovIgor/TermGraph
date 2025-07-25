@@ -5,6 +5,7 @@
 
 import TermGroup;
 import CommonTools.HandyTypes;
+import PaintedTerm;
 
 TermsModel::TermsModel(QObject *parent)
     : QAbstractListModel(parent)

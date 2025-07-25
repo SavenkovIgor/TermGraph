@@ -3,7 +3,7 @@
 
 #include "source/Text/TextRange.h"
 
-#include "source/Text/CheckingTextCursor.h"
+import Text.CheckingTextCursor;
 
 TextRange::TextRange(QStringView view, int left, int right)
     : mString(view)

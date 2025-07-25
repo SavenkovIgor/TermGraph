@@ -5,11 +5,10 @@
 
 #include <ranges>
 
-#include "source/helpers/link/LinksDecorator.h"
-#include "source/model/term/paintedterm.h"
-
 import CommonTools.HandyTypes;
 import link.LinkTools;
+import LinksDecorator;
+import PaintedTerm;
 import TermGroup;
 
 namespace rng = std::ranges;

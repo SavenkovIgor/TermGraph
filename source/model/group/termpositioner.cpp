@@ -7,9 +7,9 @@ module;
 
 #include <QPointF>
 
-#include "source/model/term/paintedterm.h"
-
 export module TermGroup.TermPositioner;
+
+import PaintedTerm;
 
 export class TermPositioner
 {

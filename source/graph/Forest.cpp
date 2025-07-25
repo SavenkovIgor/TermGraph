@@ -1,21 +1,27 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#pragma once
+module;
 
+#include <algorithm>
 #include <cassert>
 #include <deque>
 #include <functional>
 #include <map>
+#include <memory>
 #include <ranges>
+#include <set>
 
-#include "source/graph/Graph.hpp"
+#include "source/graph/NodeType.hpp"
+
+export module Graph.Forest;
+
+import Graph.Graph;
+import Graph.GraphData;
 
 namespace rng = std::ranges;
 
-namespace graph {
-
-enum class NodeType { Orphan, Root, EndLeaf, MiddleLeaf };
+export namespace graph {
 
 template<typename NodeT, typename EdgeT>
 class Forest : public Graph<NodeT, EdgeT>

@@ -1,22 +1,26 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#pragma once
+module;
 
 #include <algorithm>
+#include <cassert>
 #include <map>
+#include <memory>
 #include <ranges>
 #include <set>
 #include <utility>
 #include <vector>
 
-#include "source/graph/Edge.hpp"
-#include "source/graph/GraphData.hpp"
-#include "source/graph/Node.hpp"
+export module Graph.Graph;
+
+import Graph.Edge;
+import Graph.GraphData;
+import Graph.Node;
 
 namespace rng = std::ranges;
 
-namespace graph {
+export namespace graph {
 
 template<typename NodeT, typename EdgeT>
 class Graph : protected GraphData<NodeT, EdgeT>

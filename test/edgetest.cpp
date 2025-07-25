@@ -3,7 +3,8 @@
 
 #include <gtest/gtest.h>
 
-#include "source/graph/Edge.hpp"
+import Graph.Edge;
+import Graph.Node;
 
 using namespace graph;
 

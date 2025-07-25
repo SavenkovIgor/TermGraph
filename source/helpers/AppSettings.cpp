@@ -1,51 +1,61 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/AppSettings.h"
+module;
 
+#include <QDir>
 #include <QStandardPaths>
+#include <QStringList>
+#include <QtGlobal>
 
 #include "source/CommonTools/Platform.h"
 
-using namespace AppSettings;
+export module AppSettings;
 
-void Paths::createDefaultFoldersIfNeed()
+export namespace AppSettings {
+
+class Paths
 {
-    QStringList necessaryDirs;
+public:
+    static void createDefaultFoldersIfNeed()
+    {
+        QStringList necessaryDirs;
 
-    if (Platform::isDesktop()) {
-        necessaryDirs << userAppConfigFolder();
-        necessaryDirs << groupsJsonFolder();
-        necessaryDirs << backupFolder();
+        if (Platform::isDesktop()) {
+            necessaryDirs << userAppConfigFolder();
+            necessaryDirs << groupsJsonFolder();
+            necessaryDirs << backupFolder();
+        }
+
+        auto dir = QDir();
+
+        for (const auto& path : necessaryDirs) {
+            dir.mkpath(path);
+        }
     }
 
-    auto dir = QDir();
+    static QString backupFolder() { return userAppConfigFolder() + "/MigrationBackup"; }
+    static QString groupsJsonFolder() { return userAppConfigFolder() + "/GroupsJson"; }
+    static QString defaultDatabaseFilePath()
+    {
+        if (Platform::isDesktop()) {
+            return userAppConfigFolder() + "/tg.termGraph";
+        }
 
-    for (const auto& path : necessaryDirs) {
-        dir.mkpath(path);
-    }
-}
+        if (Platform::isAndroid()) {
+            return "tg.termGraph";
+        }
 
-QString Paths::backupFolder() { return userAppConfigFolder() + "/MigrationBackup"; }
-
-QString Paths::groupsJsonFolder() { return userAppConfigFolder() + "/GroupsJson"; }
-
-QString Paths::defaultDatabaseFilePath()
-{
-    if (Platform::isDesktop()) {
-        return userAppConfigFolder() + "/tg.termGraph";
+        return {};
     }
 
-    if (Platform::isAndroid()) {
-        return "tg.termGraph";
+private:
+    static QString userAppConfigFolder()
+    {
+        auto paths = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
+        assert(!paths.empty());
+        return paths.first();
     }
+};
 
-    return {};
-}
-
-QString Paths::userAppConfigFolder()
-{
-    auto paths = QStandardPaths::standardLocations(QStandardPaths::AppDataLocation);
-    assert(!paths.empty());
-    return paths.first();
-}
+} // namespace AppSettings

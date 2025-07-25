@@ -5,18 +5,20 @@ module;
 
 #include <vector>
 
-#include "source/graph/Forest.hpp"
+#include <QRectF>
 
-#include "source/model/edge/paintededge.h"
-#include "source/model/graphicitem/rectgraphicitem.h"
-#include "source/model/term/paintedterm.h"
+#include "source/model/enums.h"
+
+export module PaintedForest;
 
 import AppStyle;
 import CommonTools.HandyTypes;
+import Graph.Forest;
 import NodeVerticalStack;
+import PaintedEdge;
+import PaintedTerm;
+import RectGraphicItem;
 import TermGroup.TermPositioner;
-
-export module PaintedForest;
 
 namespace rng = std::ranges;
 

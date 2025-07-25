@@ -3,12 +3,10 @@
 
 #include "source/helpers/link/LinksString.h"
 
-#include "source/Text/CharTools.h"
-#include "source/Text/CheckingTextCursor.h"
-
-#include "source/helpers/link/LinksDecorator.h"
-
 import CommonTools.HandyTypes;
+import LinksDecorator;
+import Text.CharTools;
+import Text.CheckingTextCursor;
 
 LinksString::LinksString(QStringView str)
     : mString(str)

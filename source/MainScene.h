@@ -8,15 +8,19 @@
 #include "source/managers/groupsmanager.h"
 #include "source/model/edge/edgesmodel.h"
 #include "source/model/group/qttermgroup.h"
-#include "source/model/term/paintedterm.h"
 #include "source/model/term/termdatawrapper.h"
 #include "source/model/term/termsmodel.h"
 
 class TermGroup;
+class PaintedTerm;
 
 class MainScene : public QObject
 {
     Q_OBJECT
+
+    // TODO: Move to handy types
+    template<class T>
+    using OptPtr = std::optional<std::shared_ptr<T>>;
 
 public:
     MainScene(GroupsManager* groupsMgr, QObject* parent = nullptr);
@@ -75,7 +79,7 @@ private slots:
 
 private:
     void setCurrentGroup(const GroupUuid& newGroupUuid);
-    void showNewGroup(std::optional<std::shared_ptr<TermGroup>> newGroup);
+    void showNewGroup(OptPtr<TermGroup> newGroup);
 
     QString getCurrNodeNameAndDefinition();
     QString getCurrNodeHierarchyDefinition();
@@ -94,24 +98,24 @@ private: // Methods
     void   updateSceneRect();
 
     // Mouse interaction
-    PaintedTerm::OptPtr selectedTerm = std::nullopt;
+    OptPtr<PaintedTerm> selectedTerm = std::nullopt;
 
-    PaintedTerm::OptPtr getSelectedTerm() const;
-    void                selectTerm(PaintedTerm::OptPtr term);
+    OptPtr<PaintedTerm> getSelectedTerm() const;
+    void                selectTerm(OptPtr<PaintedTerm> term);
     void                dropTermSelection();
 
-    PaintedTerm::OptPtr findTerm(const QUuid& termUuid) const;
+    OptPtr<PaintedTerm> findTerm(const QUuid& termUuid) const;
     TermDataWrapper     getCurrentNode();
     QtTermGroup*        getCurrentGroup() const;
     bool                hasCurrentGroup() const;
 
     void findClick(const QPointF& atPt);
 
-    PaintedTerm::OptPtr getNodeAtPoint(const QPointF& pt) const;
+    OptPtr<PaintedTerm> getNodeAtPoint(const QPointF& pt) const;
 
     // Groups fields
-    std::optional<std::shared_ptr<QtTermGroup>> mCurrentQtGroup;
-    std::optional<std::shared_ptr<TermGroup>>   mCurrentGroup;
+    OptPtr<QtTermGroup> mCurrentQtGroup = std::nullopt;
+    OptPtr<TermGroup>   mCurrentGroup   = std::nullopt;
 
     std::optional<GroupUuid> currentGroupUuid() const;
     void                     dropGroup();

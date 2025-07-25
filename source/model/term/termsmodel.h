@@ -6,9 +6,8 @@
 #include <QAbstractListModel>
 #include <QObject>
 
-#include "source/model/term/paintedterm.h"
-
 class TermGroup;
+class PaintedTerm;
 
 class TermsModel : public QAbstractListModel
 {
@@ -31,5 +30,5 @@ public:
 
 private: // Members
     std::optional<std::shared_ptr<TermGroup>> mGroup = std::nullopt;
-    PaintedTerm::List                         mTerms;
+    std::vector<std::shared_ptr<PaintedTerm>> mTerms;
 };

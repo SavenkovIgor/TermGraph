@@ -3,11 +3,11 @@ module;
 #include <QSizeF>
 
 #include "source/model/enums.h"
-#include "source/model/term/paintedterm.h"
 
 export module NodeVerticalStackTools;
 
 import CommonTools.HandyTypes;
+import PaintedTerm;
 
 export class NodeVerticalStackTools
 {
