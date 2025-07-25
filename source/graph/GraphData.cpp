@@ -3,6 +3,7 @@
 
 module;
 
+#include <algorithm>
 #include <functional>
 #include <ranges>
 #include <vector>
