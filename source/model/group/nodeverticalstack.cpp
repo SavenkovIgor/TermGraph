@@ -1,116 +1,125 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/model/group/nodeverticalstack.h"
+module;
 
 #include <ranges>
+#include <vector>
+
+#include "source/model/group/termpositioner.h"
+#include "source/model/term/paintedterm.h"
+
+export module NodeVerticalStack;
 
 import CommonTools.HandyTypes;
+import NodeVerticalStackTools;
 
 namespace rng = std::ranges;
 
-QSizeF NodeVerticalStackTools::getNodeVerticalStackedSize(const PaintedTerm::List& nodes)
+export class NodeVerticalStack
 {
-    SizeList sizeList;
+public:
+    using List     = std::vector<NodeVerticalStack>;
+    using NodePack = QPair<QPointF, PaintedTerm::List>;
 
-    for (const auto& node : nodes) {
-        sizeList.push_back(node->getFrameRect(CoordType::zeroPoint).size());
+    NodeVerticalStack(TermPositioner* termPositioner)
+        : mTermPositioner(termPositioner)
+    {}
+
+    ~NodeVerticalStack() = default;
+
+    void addTerm(PaintedTerm::Ptr term) { mTerms.push_back(term); }
+
+    void placeTerms(QPointF centerPoint)
+    {
+        PaintedTerm::List placingTerms = mTerms;
+
+        auto packs = getNodePacks(placingTerms, mTermPositioner);
+        sortNodePacks(packs);
+        placingTerms = flatNodePack(packs);
+
+        auto    stackSize = NodeVerticalStackTools::getNodeVerticalStackedSize(placingTerms);
+        QPointF startPoint(centerPoint.x(), centerPoint.y() - stackSize.height() / 2);
+
+        auto placingPoint = startPoint;
+
+        for (const auto& term : placingTerms) {
+            auto frameSize = term->getFrameRect(CoordType::zeroPoint).size();
+            auto rectSize  = term->getNodeRect(CoordType::zeroPoint).size();
+            placingPoint.ry() += frameSize.height() / 2;
+
+            QPointF leftTopPt;
+            leftTopPt.setX(placingPoint.x() - rectSize.width() / 2);
+            leftTopPt.setY(placingPoint.y() - rectSize.height() / 2);
+
+            term->setPos(leftTopPt);
+
+            placingPoint.ry() += frameSize.height() / 2;
+        }
     }
 
-    return sizeList.totalStackedSize(Qt::Vertical);
-}
+    // Clearly counted value. Ignoring real node positions
+    QSizeF size() const { return NodeVerticalStackTools::getNodeVerticalStackedSize(mTerms); }
 
-NodeVerticalStack::NodeVerticalStack(PaintedForest* parentForest)
-    : mParentForest(parentForest)
-{}
+    bool hasNode(PaintedTerm::Ptr term) const { return rng::find(mTerms, term) != mTerms.end(); }
 
-void NodeVerticalStack::addTerm(PaintedTerm::Ptr term) { mTerms.push_back(term); }
+    PaintedTerm::List nodes() const { return mTerms; }
 
-bool NodeVerticalStack::hasNode(PaintedTerm::Ptr term) const { return rng::find(mTerms, term) != mTerms.end(); }
+private:
+    static std::vector<NodePack> getNodePacks(const PaintedTerm::List& terms, const TermPositioner* termPositioner)
+    {
+        std::vector<NodePack> ret;
 
-PaintedTerm::List NodeVerticalStack::nodes() const { return mTerms; }
+        for (const auto& term : terms) {
+            auto rootsPositionOpt = termPositioner->preferredPositionFor(term);
+            auto optimalPt        = rootsPositionOpt.value_or(term->getCenter(CoordType::scene));
 
-// Clearly counted value. Ignoring real node positions
-QSizeF NodeVerticalStack::size() const { return NodeVerticalStackTools::getNodeVerticalStackedSize(mTerms); }
+            // Selecting pack for insert
+            bool inserted = false;
 
-void NodeVerticalStack::placeTerms(QPointF centerPoint)
-{
-    PaintedTerm::List placingTerms = mTerms;
+            for (auto& [point, nodes] : ret) {
+                bool equalX = std::abs(point.x() - optimalPt.x()) < 0.1;
+                bool equalY = std::abs(point.y() - optimalPt.y()) < 0.1;
+                if (equalX && equalY) {
+                    nodes.push_back(term);
+                    inserted = true;
+                    break;
+                }
+            }
 
-    auto packs = getNodePacks(placingTerms, mParentForest);
-    sortNodePacks(packs);
-    placingTerms = flatNodePack(packs);
-
-    auto    stackSize = NodeVerticalStackTools::getNodeVerticalStackedSize(placingTerms);
-    QPointF startPoint(centerPoint.x(), centerPoint.y() - stackSize.height() / 2);
-
-    auto placingPoint = startPoint;
-
-    for (const auto& term : placingTerms) {
-        auto frameSize = term->getFrameRect(CoordType::zeroPoint).size();
-        auto rectSize  = term->getNodeRect(CoordType::zeroPoint).size();
-        placingPoint.ry() += frameSize.height() / 2;
-
-        QPointF leftTopPt;
-        leftTopPt.setX(placingPoint.x() - rectSize.width() / 2);
-        leftTopPt.setY(placingPoint.y() - rectSize.height() / 2);
-
-        term->setPos(leftTopPt);
-
-        placingPoint.ry() += frameSize.height() / 2;
-    }
-}
-
-std::vector<NodeVerticalStack::NodePack> NodeVerticalStack::getNodePacks(const PaintedTerm::List& terms,
-                                                                         const PaintedForest*     forest)
-{
-    std::vector<NodePack> ret;
-
-    for (const auto& term : terms) {
-        auto rootsPositionOpt = forest->optimalRootsBasedPosition(term);
-        auto optimalPt        = rootsPositionOpt.value_or(term->getCenter(CoordType::scene));
-
-        // Selecting pack for insert
-        bool inserted = false;
-
-        for (auto& [point, nodes] : ret) {
-            bool equalX = std::abs(point.x() - optimalPt.x()) < 0.1;
-            bool equalY = std::abs(point.y() - optimalPt.y()) < 0.1;
-            if (equalX && equalY) {
+            if (!inserted) {
+                auto nodes = PaintedTerm::List();
                 nodes.push_back(term);
-                inserted = true;
-                break;
+                ret.push_back(NodePack(optimalPt, nodes));
             }
         }
 
-        if (!inserted) {
-            auto nodes = PaintedTerm::List();
-            nodes.push_back(term);
-            ret.push_back(NodePack(optimalPt, nodes));
+        return ret;
+    }
+
+    static void sortNodePacks(std::vector<NodePack>& pack)
+    {
+        rng::sort(pack, [](const auto& s1, const auto& s2) { return s1.first.y() < s2.first.y(); });
+
+        for (auto& [_, nodes] : pack) {
+            rng::sort(nodes, [](const auto t1, const auto t2) { return t1->term() < t2->term(); });
         }
     }
 
-    return ret;
-}
+    static PaintedTerm::List flatNodePack(const std::vector<NodePack>& pack)
+    {
+        PaintedTerm::List ret;
 
-void NodeVerticalStack::sortNodePacks(std::vector<NodeVerticalStack::NodePack>& pack)
-{
-    rng::sort(pack, [](const auto& s1, const auto& s2) { return s1.first.y() < s2.first.y(); });
-
-    for (auto& [_, nodes] : pack) {
-        rng::sort(nodes, [](const auto t1, const auto t2) { return t1->term() < t2->term(); });
-    }
-}
-
-PaintedTerm::List NodeVerticalStack::flatNodePack(const std::vector<NodeVerticalStack::NodePack>& pack)
-{
-    PaintedTerm::List ret;
-
-    for ([[maybe_unused]] const auto& [pt, nodes] : pack) {
-        for (const auto& node : nodes) {
-            ret.push_back(node);
+        for ([[maybe_unused]] const auto& [pt, nodes] : pack) {
+            for (const auto& node : nodes) {
+                ret.push_back(node);
+            }
         }
+
+        return ret;
     }
 
-    return ret;
-}
+private: // Members
+    PaintedTerm::List     mTerms;
+    const TermPositioner* mTermPositioner = nullptr;
+};

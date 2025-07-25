@@ -1,230 +1,269 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/model/group/paintedforest.h"
+module;
 
-import CommonTools.HandyTypes;
+#include <vector>
+
+#include "source/graph/Forest.hpp"
+
+#include "source/model/edge/paintededge.h"
+#include "source/model/graphicitem/rectgraphicitem.h"
+#include "source/model/group/termpositioner.h"
+#include "source/model/term/paintedterm.h"
+
 import AppStyle;
+import CommonTools.HandyTypes;
+import NodeVerticalStack;
+
+export module PaintedForest;
 
 namespace rng = std::ranges;
 
-PaintedForest::PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
-    : Forest<PaintedTerm, PaintedEdge>(data)
+export class PaintedForest : public graph::Forest<PaintedTerm, PaintedEdge>, public TermPositioner
 {
-    auto asListSize = [](auto num) { return static_cast<std::vector<NodeVerticalStack>::size_type>(num); };
+public:
+    using Ptr  = std::shared_ptr<PaintedForest>;
+    using List = std::vector<Ptr>;
 
-    for (const auto& term : data.nodes) {
-        term->setParentItem(&mRect);
-    }
+    // Constructor/Destructor
+    PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
+        : Forest<PaintedTerm, PaintedEdge>(data)
+    {
+        auto asListSize = [](auto num) { return static_cast<std::vector<NodeVerticalStack>::size_type>(num); };
 
-    for (const auto& edge : data.edges) {
-        edge->setParentItem(&mRect);
-    }
+        for (const auto& term : data.nodes) {
+            term->setParentItem(&mRect);
+        }
 
-    auto layersCount = 0;
-    for (const auto& node : data.nodes) {
-        layersCount = std::max(layersCount, level(node));
-    }
+        for (const auto& edge : data.edges) {
+            edge->setParentItem(&mRect);
+        }
 
-    for (int i = 0; i <= layersCount; i++) {
-        mStacks.push_back(NodeVerticalStack(this));
-    }
+        auto layersCount = 0;
+        for (const auto& node : data.nodes) {
+            layersCount = std::max(layersCount, level(node));
+        }
 
-    for (const auto& term : data.nodes) {
-        int paintLevel = level(term);
+        for (int i = 0; i <= layersCount; i++) {
+            mStacks.push_back(NodeVerticalStack(this));
+        }
 
-        if (0 <= paintLevel && paintLevel < asInt(mStacks.size())) {
-            mStacks[asListSize(paintLevel)].addTerm(term);
+        for (const auto& term : data.nodes) {
+            int paintLevel = level(term);
+
+            if (0 <= paintLevel && paintLevel < asInt(mStacks.size())) {
+                mStacks[asListSize(paintLevel)].addTerm(term);
+            }
         }
     }
-}
+    ~PaintedForest() override = default;
 
-void PaintedForest::setTreeNodeCoords(QPointF leftTopPoint)
-{
-    if (getAllNodesInTree().empty()) {
-        return;
+    RectGraphicItem& rect() { return mRect; }
+
+    // TreeInfo
+    bool hasTerm(PaintedTerm::Ptr term) const
+    {
+        for (const auto& stack : mStacks) {
+            if (stack.hasNode(term)) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    qreal allTreeHeight = getMaxStackHeight();
+    QRectF frameRect(CoordType inCoordinates) const
+    {
+        QRectF ret = QRectF(QPointF(), baseSize());
 
-    auto startPoint = leftTopPoint;
-    startPoint.ry() += allTreeHeight / 2;
+        switch (inCoordinates) {
+        case CoordType::zeroPoint: break;
+        case CoordType::local: ret = ret.translated(mRect.pos()); break;
+        case CoordType::scene: ret = ret.translated(mRect.scenePos()); break;
+        }
 
-    auto centerPoint = startPoint;
-
-    for (auto& stack : mStacks) {
-        auto stackSize = stack.size();
-        centerPoint.rx() += stackSize.width() / 2;
-        stack.placeTerms(centerPoint);
-        centerPoint.rx() += stackSize.width() / 2 + AppStyle::Sizes::treeLayerHorizontalSpacer;
+        return ret;
     }
-}
 
-std::optional<QPointF> PaintedForest::optimalRootsBasedPosition(const PaintedTerm::Ptr term) const
-{
-    auto rNodes = rootNodes(term);
+    // Clearly counted value. Ignoring real node positions
+    QSizeF baseSize() const
+    {
+        qreal width  = 0.0;
+        qreal height = 0.0;
 
-    if (rNodes.empty()) {
+        for (const auto& stack : mStacks) {
+            auto size = stack.size();
+            width += size.width();
+            height = std::max(height, size.height());
+        }
+
+        if (!mStacks.empty()) {
+            width += (asInt(mStacks.size()) - 1) * AppStyle::Sizes::treeLayerHorizontalSpacer;
+        }
+
+        return {width, height};
+    }
+
+    double square() const
+    {
+        auto size = baseSize();
+        return size.width() * size.height();
+    }
+
+    // Implementation of TermPositioner
+    std::optional<QPointF> preferredPositionFor(PaintedTerm::Ptr term) const override
+    {
+        return optimalRootsBasedPosition(term);
+    }
+
+    // Internal counts and preparations
+    void setTreeNodeCoords(QPointF leftTopPoint = QPointF())
+    {
+        if (getAllNodesInTree().empty()) {
+            return;
+        }
+
+        qreal allTreeHeight = getMaxStackHeight();
+
+        auto startPoint = leftTopPoint;
+        startPoint.ry() += allTreeHeight / 2;
+
+        auto centerPoint = startPoint;
+
+        for (auto& stack : mStacks) {
+            auto stackSize = stack.size();
+            centerPoint.rx() += stackSize.width() / 2;
+            stack.placeTerms(centerPoint);
+            centerPoint.rx() += stackSize.width() / 2 + AppStyle::Sizes::treeLayerHorizontalSpacer;
+        }
+    }
+
+    std::optional<QPointF> optimalRootsBasedPosition(const PaintedTerm::Ptr term) const
+    {
+        auto rNodes = rootNodes(term);
+
+        if (rNodes.empty()) {
+            return std::nullopt;
+        }
+
+        double sumOfYCoords = 0.0;
+
+        for (const auto& node : rNodes) {
+            sumOfYCoords += node->getCenter(CoordType::scene).y();
+        }
+
+        auto averageY = sumOfYCoords / asInt(rNodes.size());
+
+        auto centerPoint = term->getCenter(CoordType::scene);
+        centerPoint.setY(averageY);
+
+        return centerPoint;
+    }
+
+    PaintedTerm::OptPtr getNodeAtPoint(const QPointF& pt) const
+    {
+        for (auto node : getAllNodesInTree()) {
+            if (node->getNodeRect(CoordType::scene).contains(pt)) {
+                return node;
+            }
+        }
+
         return std::nullopt;
     }
 
-    double sumOfYCoords = 0.0;
+    QString getHierarchyDefinition(PaintedTerm::Ptr term)
+    {
+        PaintedTerm::List parentsList;
 
-    for (const auto& node : rNodes) {
-        sumOfYCoords += node->getCenter(CoordType::scene).y();
-    }
-
-    auto averageY = sumOfYCoords / asInt(rNodes.size());
-
-    auto centerPoint = term->getCenter(CoordType::scene);
-    centerPoint.setY(averageY);
-
-    return centerPoint;
-}
-
-PaintedTerm::OptPtr PaintedForest::getNodeAtPoint(const QPointF& pt) const
-{
-    for (auto node : getAllNodesInTree()) {
-        if (node->getNodeRect(CoordType::scene).contains(pt)) {
-            return node;
-        }
-    }
-
-    return std::nullopt;
-}
-
-QString PaintedForest::getHierarchyDefinition(PaintedTerm::Ptr term)
-{
-    PaintedTerm::List parentsList;
-
-    rootsVisiter(term, [&parentsList](auto node) {
-        if (rng::find(parentsList, node) == parentsList.end()) {
-            parentsList.push_back(node);
-        }
-        return false;
-    });
-
-    if (parentsList.empty()) {
-        return "";
-    }
-
-    // Sorting parents list
-    rng::sort(parentsList, [this](auto n1, auto n2) { return level(n1) > level(n2); });
-
-    QStringList definitions;
-
-    for (const auto& node : parentsList) {
-        definitions << node->cache().termAndDefinition(true);
-    }
-
-    // Add this definition
-    definitions << term->cache().termAndDefinition(true);
-
-    return definitions.join("<br><br>");
-}
-
-void PaintedForest::selectTerm(const PaintedTerm::Ptr& term, bool selected)
-{
-    assert(hasTerm(term));
-
-    term->setSelection(selected);
-
-    rootsVisiter(
-        term,
-        [this, selected](auto node) {
-            node->setRelativeSelection(selected);
-
-            for (auto edge : edgesToRoots().at(node)) {
-                edge->setSelectedBackward(selected);
+        rootsVisiter(term, [&parentsList](auto node) {
+            if (rng::find(parentsList, node) == parentsList.end()) {
+                parentsList.push_back(node);
             }
-
             return false;
-        },
-        true);
+        });
 
-    leafsVisiter(
-        term,
-        [this, selected](auto node) {
-            node->setRelativeSelection(selected);
+        if (parentsList.empty()) {
+            return "";
+        }
 
-            for (auto edge : edgesToLeafs().at(node)) {
-                edge->setSelectedForward(selected);
+        // Sorting parents list
+        rng::sort(parentsList, [this](auto n1, auto n2) { return level(n1) > level(n2); });
+
+        QStringList definitions;
+
+        for (const auto& node : parentsList) {
+            definitions << node->cache().termAndDefinition(true);
+        }
+
+        // Add this definition
+        definitions << term->cache().termAndDefinition(true);
+
+        return definitions.join("<br><br>");
+    }
+
+    void selectTerm(const PaintedTerm::Ptr& term, bool selected)
+    {
+        assert(hasTerm(term));
+
+        term->setSelection(selected);
+
+        rootsVisiter(
+            term,
+            [this, selected](auto node) {
+                node->setRelativeSelection(selected);
+
+                for (auto edge : edgesToRoots().at(node)) {
+                    edge->setSelectedBackward(selected);
+                }
+
+                return false;
+            },
+            true);
+
+        leafsVisiter(
+            term,
+            [this, selected](auto node) {
+                node->setRelativeSelection(selected);
+
+                for (auto edge : edgesToLeafs().at(node)) {
+                    edge->setSelectedForward(selected);
+                }
+
+                return false;
+            },
+            true);
+    }
+
+    // Deletions
+    PaintedForest(const PaintedForest&) = delete;
+
+private:
+    // Internal Info
+    PaintedTerm::List getAllNodesInTree() const
+    {
+        PaintedTerm::List ret;
+
+        for (const auto& stack : mStacks) {
+            for (const auto& node : stack.nodes()) {
+                ret.push_back(node);
             }
-
-            return false;
-        },
-        true);
-}
-
-RectGraphicItem& PaintedForest::rect() { return mRect; }
-
-bool PaintedForest::hasTerm(PaintedTerm::Ptr term) const
-{
-    for (const auto& stack : mStacks) {
-        if (stack.hasNode(term)) {
-            return true;
         }
-    }
-    return false;
-}
 
-QRectF PaintedForest::frameRect(CoordType inCoordinates) const
-{
-    QRectF ret = QRectF(QPointF(), baseSize());
-
-    switch (inCoordinates) {
-    case CoordType::zeroPoint: break;
-    case CoordType::local: ret = ret.translated(mRect.pos()); break;
-    case CoordType::scene: ret = ret.translated(mRect.scenePos()); break;
+        return ret;
     }
 
-    return ret;
-}
+    qreal getMaxStackHeight() const
+    {
+        qreal maxHeight = 0.0;
 
-QSizeF PaintedForest::baseSize() const
-{
-    qreal width  = 0.0;
-    qreal height = 0.0;
-
-    for (const auto& stack : mStacks) {
-        auto size = stack.size();
-        width += size.width();
-        height = std::max(height, size.height());
-    }
-
-    if (!mStacks.empty()) {
-        width += (asInt(mStacks.size()) - 1) * AppStyle::Sizes::treeLayerHorizontalSpacer;
-    }
-
-    return {width, height};
-}
-
-double PaintedForest::square() const
-{
-    auto size = baseSize();
-    return size.width() * size.height();
-}
-
-PaintedTerm::List PaintedForest::getAllNodesInTree() const
-{
-    PaintedTerm::List ret;
-
-    for (const auto& stack : mStacks) {
-        for (const auto& node : stack.nodes()) {
-            ret.push_back(node);
+        for (const auto& stack : mStacks) {
+            maxHeight = std::max(maxHeight, stack.size().height());
         }
+
+        return maxHeight;
     }
 
-    return ret;
-}
-
-qreal PaintedForest::getMaxStackHeight() const
-{
-    qreal maxHeight = 0.0;
-
-    for (const auto& stack : mStacks) {
-        maxHeight = std::max(maxHeight, stack.size().height());
-    }
-
-    return maxHeight;
-}
+private: // Members
+    std::vector<NodeVerticalStack> mStacks;
+    RectGraphicItem                mRect;
+};
