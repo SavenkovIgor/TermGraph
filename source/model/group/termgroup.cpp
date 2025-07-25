@@ -7,8 +7,10 @@ module;
 #include <QThread>
 
 #include "source/TermDataInterface/GroupSummary.h"
+#include "source/TermDataInterface/TermData.h"
+#include "source/graph/Graph.hpp"
 #include "source/helpers/linktermdistancecache.h"
-#include "source/model/term/paintedterm.h"
+#include "source/model/enums.h"
 
 export module TermGroup;
 
@@ -18,6 +20,7 @@ import link.LinkTools;
 import NodeVerticalStackTools;
 import PaintedEdge;
 import PaintedForest;
+import PaintedTerm;
 import RectGraphicItem;
 import TextModule.Fonts;
 

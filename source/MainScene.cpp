@@ -7,9 +7,12 @@
 #include <QThread>
 #endif
 
-#include "source/model/term/paintedterm.h"
+#include "source/model/enums.h"
 
+import PaintedTerm;
 import TermGroup;
+
+namespace rng = std::ranges;
 
 MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
     : QObject(parent)

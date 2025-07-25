@@ -10,9 +10,10 @@ module;
 
 #include "source/model/edge/edgedata.h"
 #include "source/model/graphicitem/graphicitem.h"
-#include "source/model/term/paintedterm.h"
 
 export module PaintedEdge;
+
+import PaintedTerm;
 
 export class PaintedEdge : public graph::Edge<PaintedTerm, EdgeData>, public GraphicItem
 {

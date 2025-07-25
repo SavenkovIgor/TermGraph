@@ -3,10 +3,9 @@
 
 #include "source/model/term/termsmodel.h"
 
-#include "source/model/term/paintedterm.h"
-
 import TermGroup;
 import CommonTools.HandyTypes;
+import PaintedTerm;
 
 TermsModel::TermsModel(QObject *parent)
     : QAbstractListModel(parent)

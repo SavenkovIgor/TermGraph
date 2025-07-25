@@ -6,12 +6,16 @@ module;
 #include <ranges>
 #include <vector>
 
-#include "source/model/term/paintedterm.h"
+#include <QPair>
+#include <QPointF>
+
+#include "source/model/enums.h"
 
 export module NodeVerticalStack;
 
 import CommonTools.HandyTypes;
 import NodeVerticalStackTools;
+import PaintedTerm;
 import TermGroup.TermPositioner;
 
 namespace rng = std::ranges;

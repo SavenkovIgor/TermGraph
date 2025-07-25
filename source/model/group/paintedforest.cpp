@@ -5,14 +5,16 @@ module;
 
 #include <vector>
 
-#include "source/graph/Forest.hpp"
+#include <QRectF>
 
-#include "source/model/term/paintedterm.h"
+#include "source/graph/Forest.hpp"
+#include "source/model/enums.h"
 
 import AppStyle;
 import CommonTools.HandyTypes;
 import NodeVerticalStack;
 import PaintedEdge;
+import PaintedTerm;
 import RectGraphicItem;
 import TermGroup.TermPositioner;
 
