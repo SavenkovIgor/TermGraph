@@ -8,15 +8,16 @@ module;
 #include <deque>
 #include <functional>
 #include <map>
+#include <memory>
 #include <ranges>
 #include <set>
 
-#include "source/graph/GraphData.hpp"
 #include "source/graph/NodeType.hpp"
 
 export module Graph.Forest;
 
 import Graph.Graph;
+import Graph.GraphData;
 
 namespace rng = std::ranges;
 

@@ -1,7 +1,7 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#pragma once
+module;
 
 #include <functional>
 #include <ranges>
@@ -10,9 +10,11 @@
 #include "source/graph/Edge.hpp"
 #include "source/graph/Node.hpp"
 
+export module Graph.GraphData;
+
 namespace rng = std::ranges;
 
-namespace graph {
+export namespace graph {
 
 template<typename NodeT, typename EdgeT>
 struct GraphData

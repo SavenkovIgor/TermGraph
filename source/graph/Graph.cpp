@@ -11,10 +11,11 @@ module;
 #include <vector>
 
 #include "source/graph/Edge.hpp"
-#include "source/graph/GraphData.hpp"
 #include "source/graph/Node.hpp"
 
 export module Graph.Graph;
+
+import Graph.GraphData;
 
 namespace rng = std::ranges;
 
