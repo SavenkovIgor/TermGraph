@@ -1,7 +1,7 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#pragma once
+module;
 
 #include <cassert>
 #include <deque>
@@ -12,9 +12,11 @@
 #include "source/graph/Graph.hpp"
 #include "source/graph/NodeType.hpp"
 
+export module Graph.Forest;
+
 namespace rng = std::ranges;
 
-namespace graph {
+export namespace graph {
 
 template<typename NodeT, typename EdgeT>
 class Forest : public Graph<NodeT, EdgeT>

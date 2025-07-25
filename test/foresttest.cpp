@@ -5,8 +5,10 @@
 
 #include <gtest/gtest.h>
 
-#include "source/graph/Forest.hpp"
 #include "source/graph/GraphData.hpp"
+#include "source/graph/NodeType.hpp"
+
+import Graph.Forest;
 
 using namespace graph;
 
