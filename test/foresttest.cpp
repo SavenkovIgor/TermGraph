@@ -7,8 +7,8 @@
 
 #include "source/graph/NodeType.hpp"
 #include "source/graph/Node.hpp"
-#include "source/graph/Edge.hpp"
 
+import Graph.Edge;
 import Graph.Forest;
 import Graph.GraphData;
 

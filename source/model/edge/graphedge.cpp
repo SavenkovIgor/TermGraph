@@ -6,11 +6,12 @@ module;
 #include <memory>
 #include <vector>
 
-#include "source/graph/Edge.hpp"
 #include "source/model/edge/edgedata.h"
 #include "source/model/term/graphterm.h"
 
 export module GraphEdge;
+
+import Graph.Edge;
 
 export class GraphEdge : public graph::Edge<GraphTerm, EdgeData>
 {

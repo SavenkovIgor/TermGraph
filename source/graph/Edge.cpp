@@ -1,7 +1,7 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#pragma once
+module;
 
 #include <cassert>
 #include <memory>
@@ -9,7 +9,9 @@
 
 #include "source/graph/Node.hpp"
 
-namespace graph {
+export module Graph.Edge;
+
+export namespace graph {
 
 template<typename NodeT, typename EdgeData>
 class Edge

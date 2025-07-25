@@ -4,17 +4,18 @@
 module;
 
 #include <algorithm>
+#include <cassert>
 #include <map>
 #include <ranges>
 #include <set>
 #include <utility>
 #include <vector>
 
-#include "source/graph/Edge.hpp"
 #include "source/graph/Node.hpp"
 
 export module Graph.Graph;
 
+import Graph.Edge;
 import Graph.GraphData;
 
 namespace rng = std::ranges;
