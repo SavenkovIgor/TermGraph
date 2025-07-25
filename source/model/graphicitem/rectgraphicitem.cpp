@@ -25,7 +25,7 @@ public:
 
     QSizeF getSize() const { return mSize; }
 
-    void   setSize(const QSizeF& size) { mSize = size; }
+    void setSize(const QSizeF& size) { mSize = size; }
 
     QRectF getRect(CoordType coord) const
     {
