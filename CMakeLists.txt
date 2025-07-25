@@ -127,8 +127,6 @@ target_sources (TermGraph
         "source/TermDataInterface/termdata.cpp"
         "source/TermDataInterface/TermData.h"
         "source/Text/CharTools.h"
-        "source/Text/checkingtextcursor.cpp"
-        "source/Text/CheckingTextCursor.h"
         "source/Text/textcursor.cpp"
         "source/Text/TextCursor.h"
         "source/Text/textrange.cpp"
@@ -165,6 +163,7 @@ target_sources (TermGraph
         "source/model/term/termdatacache.cpp"
         "source/TermDataInterface/GroupValidator.cpp"
         "source/TermDataInterface/TermValidator.cpp"
+        "source/Text/checkingtextcursor.cpp"
         "source/Text/Fonts.cpp"
         "source/Text/TextTools.cpp"
 )
@@ -358,8 +357,6 @@ if (BUILD_TESTING)
             "source/TermDataStorage/tables/TermTable.cpp"
             "source/TermDataStorage/tables/TermTable.h"
             "source/Text/CharTools.h"
-            "source/Text/checkingtextcursor.cpp"
-            "source/Text/CheckingTextCursor.h"
             "source/Text/textcursor.cpp"
             "source/Text/TextCursor.h"
             "source/Text/textrange.cpp"
@@ -383,6 +380,7 @@ if (BUILD_TESTING)
             "source/helpers/link/LinkTools.cpp"
             "source/TermDataInterface/GroupValidator.cpp"
             "source/TermDataInterface/TermValidator.cpp"
+            "source/Text/checkingtextcursor.cpp"
             "source/Text/Fonts.cpp"
             "source/Text/TextTools.cpp"
         )
