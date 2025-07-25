@@ -5,10 +5,11 @@ module;
 
 #include <vector>
 
-#include "source/model/term/termdatacache.h"
+#include "source/TermDataInterface/TermData.h"
 
 export module GraphTerm;
 
+import TermDataCache;
 import Graph.Node;
 
 // This class contains all "graph" part of term
