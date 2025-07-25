@@ -9,11 +9,13 @@ module;
 #include <QProperty>
 #include <QSizeF>
 
+#include "source/TermDataInterface/TermData.h"
 #include "source/model/enums.h"
 #include "source/model/graphicitem/graphicitem.h"
-#include "source/model/term/graphterm.h"
 
 export module PaintedTerm;
+
+import GraphTerm;
 
 // This class contains all info for paint Term somewhere
 // Has functions about paint color, positioning. This kind of stuff
