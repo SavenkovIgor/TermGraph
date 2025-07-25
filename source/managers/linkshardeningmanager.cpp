@@ -5,10 +5,9 @@
 
 #include <ranges>
 
-#include "source/helpers/link/LinksDecorator.h"
-
 import CommonTools.HandyTypes;
 import link.LinkTools;
+import LinksDecorator;
 import PaintedTerm;
 import TermGroup;
 

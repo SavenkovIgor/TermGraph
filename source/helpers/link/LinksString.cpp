@@ -3,9 +3,8 @@
 
 #include "source/helpers/link/LinksString.h"
 
-#include "source/helpers/link/LinksDecorator.h"
-
 import CommonTools.HandyTypes;
+import LinksDecorator;
 import Text.CharTools;
 import Text.CheckingTextCursor;
 
