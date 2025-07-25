@@ -9,12 +9,12 @@ module;
 
 #include "source/model/edge/paintededge.h"
 #include "source/model/graphicitem/rectgraphicitem.h"
-#include "source/model/group/nodeverticalstack.h"
 #include "source/model/group/termpositioner.h"
 #include "source/model/term/paintedterm.h"
 
-import CommonTools.HandyTypes;
 import AppStyle;
+import CommonTools.HandyTypes;
+import NodeVerticalStack;
 
 export module PaintedForest;
 
