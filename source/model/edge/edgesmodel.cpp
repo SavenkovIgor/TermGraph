@@ -3,6 +3,8 @@
 
 #include "source/model/edge/edgesmodel.h"
 
+#include "source/model/edge/paintededge.h"
+
 import CommonTools.HandyTypes;
 import TermGroup;
 

@@ -8,9 +8,8 @@
 
 // BUG: on empty groups, edges didn't hide
 
-#include "source/model/edge/paintededge.h"
-
 class TermGroup;
+class PaintedEdge;
 
 class EdgesModel : public QAbstractListModel
 {
@@ -35,5 +34,5 @@ public:
 
 private:
     std::optional<std::shared_ptr<TermGroup>> mGroup = std::nullopt;
-    PaintedEdge::List                         mEdges;
+    std::vector<std::shared_ptr<PaintedEdge>> mEdges;
 };
