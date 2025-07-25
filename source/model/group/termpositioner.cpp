@@ -1,7 +1,7 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#pragma once
+module;
 
 #include <optional>
 
@@ -9,7 +9,9 @@
 
 #include "source/model/term/paintedterm.h"
 
-class TermPositioner
+export module TermGroup.TermPositioner;
+
+export class TermPositioner
 {
 public:
     virtual ~TermPositioner() = default;
