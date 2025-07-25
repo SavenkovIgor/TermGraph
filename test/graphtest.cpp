@@ -5,8 +5,9 @@
 
 #include <QSet>
 
-#include "source/graph/Graph.hpp"
 #include "source/graph/GraphData.hpp"
+
+import Graph.Graph;
 
 using namespace graph;
 

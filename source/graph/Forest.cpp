@@ -3,16 +3,20 @@
 
 module;
 
+#include <algorithm>
 #include <cassert>
 #include <deque>
 #include <functional>
 #include <map>
 #include <ranges>
+#include <set>
 
-#include "source/graph/Graph.hpp"
+#include "source/graph/GraphData.hpp"
 #include "source/graph/NodeType.hpp"
 
 export module Graph.Forest;
+
+import Graph.Graph;
 
 namespace rng = std::ranges;
 

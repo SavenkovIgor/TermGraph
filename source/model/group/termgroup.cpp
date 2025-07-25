@@ -8,7 +8,6 @@ module;
 
 #include "source/TermDataInterface/GroupSummary.h"
 #include "source/TermDataInterface/TermData.h"
-#include "source/graph/Graph.hpp"
 #include "source/helpers/linktermdistancecache.h"
 #include "source/model/enums.h"
 
@@ -16,6 +15,7 @@ export module TermGroup;
 
 import AppStyle;
 import CommonTools.HandyTypes;
+import Graph.Graph;
 import link.LinkTools;
 import NodeVerticalStackTools;
 import PaintedEdge;
