@@ -9,8 +9,7 @@
 
 #include <QDebug>
 
-#include "source/helpers/AppSettings.h"
-
+import AppSettings;
 import CommonTools.JsonTools;
 import TermDataInterface.GroupValidator;
 import TermGroup;

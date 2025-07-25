@@ -14,12 +14,13 @@ module;
 
 #ifndef Q_OS_WASM
 #include "source/TermDataConnection/DataStorageConnection.h"
-#include "source/helpers/AppSettings.h"
 
 #include "source/TermDataStorage/LocalDataStorage.h"
 #endif
 
 export module DataSourceFactory;
+
+import AppSettings;
 
 export struct DataSourceFactory
 {
