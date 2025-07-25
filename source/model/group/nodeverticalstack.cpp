@@ -6,13 +6,13 @@ module;
 #include <ranges>
 #include <vector>
 
-#include "source/model/group/termpositioner.h"
 #include "source/model/term/paintedterm.h"
 
 export module NodeVerticalStack;
 
 import CommonTools.HandyTypes;
 import NodeVerticalStackTools;
+import TermGroup.TermPositioner;
 
 namespace rng = std::ranges;
 
