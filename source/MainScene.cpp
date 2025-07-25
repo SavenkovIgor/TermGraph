@@ -7,6 +7,8 @@
 #include <QThread>
 #endif
 
+#include "source/model/term/paintedterm.h"
+
 import TermGroup;
 
 MainScene::MainScene(GroupsManager* groupsMgr, QObject* parent)
