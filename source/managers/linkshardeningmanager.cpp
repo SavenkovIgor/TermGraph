@@ -98,11 +98,13 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
         return {};
     }
 
-    if (mCurrentTerm.isNull()) {
+    if (mCurrentTerm.isNull() || !isValidIndex() || !mLinksString) {
         return {};
     }
 
     std::vector<std::pair<int, PaintedTerm *>> distances;
+
+    Link::List currentLinks = mLinksString->links();
 
     // Getting distances
     for (const auto &term : mCurrentGroup->terms()) {
@@ -110,7 +112,9 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
             continue;
         }
 
-        auto distance = LinkTools::levDistance(currentLink().textLower(), term->data().term.toLower());
+        auto currentLink = currentLinks[Link::asListSize(mLinkIndex)];
+
+        auto distance = LinkTools::levDistance(currentLink.textLower(), term->data().term.toLower());
         distances.push_back(std::pair(distance, term.get()));
     }
 
@@ -146,15 +150,6 @@ void LinksHardeningManager::updateNearestVariants()
     beginResetModel();
     mLastNearestVariants = getNearestVariants();
     endResetModel();
-}
-
-Link::List LinksHardeningManager::currentLinks() const
-{
-    if (!mLinksString) {
-        return {};
-    }
-
-    return mLinksString->links();
 }
 
 bool LinksHardeningManager::isValidIndex() const { return 0 <= mLinkIndex && mLinkIndex < linkCount(); }
@@ -236,11 +231,4 @@ QString LinksHardeningManager::applyLinkUuids(QString stringWithLinks, QMap<int,
     }
 
     return stringWithLinks;
-}
-
-Link LinksHardeningManager::currentLink() const
-{
-    assert(!mCurrentTerm.isNull());
-    assert(isValidIndex());
-    return currentLinks()[Link::asListSize(mLinkIndex)];
 }

@@ -58,9 +58,6 @@ private slots:
     void updateNearestVariants();
 
 private: // Methods
-    Link::List currentLinks() const;
-    Link       currentLink() const;
-
     bool isValidIndex() const;
 
     bool canMoveNext() const;
