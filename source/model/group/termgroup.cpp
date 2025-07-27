@@ -16,7 +16,7 @@ export module TermGroup;
 import AppStyle;
 import CommonTools.HandyTypes;
 import Graph;
-import link.LinkTools;
+import Link.LinkTools;
 import NodeVerticalStackTools;
 import PaintedEdge;
 import PaintedForest;

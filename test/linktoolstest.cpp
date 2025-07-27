@@ -8,7 +8,7 @@
 #include <QString>
 #include <QStringList>
 
-import link.LinkTools;
+import Link.LinkTools;
 
 TEST(LinkToolsTest, LinkExtraction)
 {

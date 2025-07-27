@@ -9,7 +9,7 @@
 
 import CommonTools.HandyTypes;
 import Link.LinksString;
-import link.LinkTools;
+import Link.LinkTools;
 import LinksDecorator;
 import PaintedTerm;
 import TermGroup;

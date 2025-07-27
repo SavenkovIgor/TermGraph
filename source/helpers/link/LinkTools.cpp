@@ -12,7 +12,7 @@ module;
 #include "source/Text/TextCursor.h"
 #include "source/helpers/link/Link.h"
 
-export module link.LinkTools;
+export module Link.LinkTools;
 
 import CommonTools.HandyTypes;
 import Helpers.IntMatrix;

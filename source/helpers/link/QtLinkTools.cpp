@@ -3,7 +3,7 @@
 
 #include "source/helpers/link/QtLinkTools.h"
 
-import link.LinkTools;
+import Link.LinkTools;
 
 QtLinkTools::QtLinkTools(QObject* parent)
     : QObject(parent)
