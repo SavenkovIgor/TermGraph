@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include <QObject>
 #include <QQmlEngine>
 
@@ -42,12 +44,12 @@ private:
     FirstStartPreparer initPreparer;
 
     // Independent init
-    QScopedPointer<NetworkManager> mNetwork;
+    std::unique_ptr<NetworkManager> mNetwork;
 
     // Dependent init
-    QScopedPointer<GroupsManager> mGroupsManager;
-    QScopedPointer<SyncManager>   mSyncManager;
-    QScopedPointer<MainScene>     mScene;
+    std::unique_ptr<GroupsManager> mGroupsManager;
+    std::unique_ptr<SyncManager>   mSyncManager;
+    std::unique_ptr<MainScene>     mScene;
 
     NetworkManager* network() const;
     SyncManager*    sync() const;

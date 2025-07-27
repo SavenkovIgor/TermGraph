@@ -62,7 +62,7 @@ void LinksHardeningManager::setTerm(TermDataWrapper termWrapper)
     mCurrentTerm       = termWrapper;
     mCurrentDefinition = mCurrentTerm.getDefinition();
 
-    mLinksString.reset(new LinksString(mCurrentDefinition));
+    mLinksString = std::make_unique<LinksString>(mCurrentDefinition);
 
     mLinkIndex = linkCount() >= 1 ? 0 : -1;
     mReplacePreparations.clear();
@@ -150,7 +150,7 @@ void LinksHardeningManager::updateNearestVariants()
 
 Link::List LinksHardeningManager::currentLinks() const
 {
-    if (mLinksString.isNull()) {
+    if (!mLinksString) {
         return {};
     }
 
@@ -185,7 +185,7 @@ QString LinksHardeningManager::definitionWithHighlightedLink() const
 
 int LinksHardeningManager::linkCount() const
 {
-    if (!mLinksString || mLinksString.isNull()) {
+    if (!mLinksString) {
         return 0;
     }
 

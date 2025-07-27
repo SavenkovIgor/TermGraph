@@ -3,8 +3,9 @@
 
 #pragma once
 
+#include <memory>
+
 #include <QAbstractListModel>
-#include <QScopedPointer>
 #include <QStringView>
 
 #include "source/helpers/link/LinksString.h"
@@ -75,10 +76,10 @@ private: // Methods
     static QString applyLinkUuids(QString stringWithLinks, QMap<int, QUuid> uuidsToApply);
 
 private: // Members
-    std::shared_ptr<TermGroup>  mCurrentGroup = nullptr;
-    TermDataWrapper             mCurrentTerm;
-    QString                     mCurrentDefinition;
-    QScopedPointer<LinksString> mLinksString;
+    std::shared_ptr<TermGroup>   mCurrentGroup = nullptr;
+    TermDataWrapper              mCurrentTerm;
+    QString                      mCurrentDefinition;
+    std::unique_ptr<LinksString> mLinksString;
 
     // TODO: Make size type
     int mLinkIndex = -1;
