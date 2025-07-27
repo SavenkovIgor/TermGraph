@@ -11,7 +11,7 @@ module;
 
 export module PaintedEdge;
 
-import Graph.Edge;
+import Graph;
 import PaintedTerm;
 
 export class PaintedEdge : public graph::Edge<PaintedTerm, EdgeData>, public GraphicItem

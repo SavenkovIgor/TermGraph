@@ -3,15 +3,16 @@
 
 #pragma once
 
+#include <memory>
+
 #include <QAbstractListModel>
-#include <QScopedPointer>
 #include <QStringView>
 
-#include "source/helpers/link/LinksString.h"
 #include "source/model/group/qttermgroup.h"
 #include "source/model/term/termdatawrapper.h"
 
 class TermGroup;
+class LinksString;
 
 class LinksHardeningManager : public QAbstractListModel
 {
@@ -28,6 +29,7 @@ public:
     using SearchResultList = std::vector<SearchResult>;
 
     explicit LinksHardeningManager(QObject* parent = nullptr);
+    ~LinksHardeningManager() override;
 
     enum Role { Uuid = Qt::UserRole, Text, Distance };
 
@@ -57,9 +59,6 @@ private slots:
     void updateNearestVariants();
 
 private: // Methods
-    Link::List currentLinks() const;
-    Link       currentLink() const;
-
     bool isValidIndex() const;
 
     bool canMoveNext() const;
@@ -75,10 +74,10 @@ private: // Methods
     static QString applyLinkUuids(QString stringWithLinks, QMap<int, QUuid> uuidsToApply);
 
 private: // Members
-    std::shared_ptr<TermGroup>  mCurrentGroup = nullptr;
-    TermDataWrapper             mCurrentTerm;
-    QString                     mCurrentDefinition;
-    QScopedPointer<LinksString> mLinksString;
+    std::shared_ptr<TermGroup>   mCurrentGroup = nullptr;
+    TermDataWrapper              mCurrentTerm;
+    QString                      mCurrentDefinition;
+    std::unique_ptr<LinksString> mLinksString;
 
     // TODO: Make size type
     int mLinkIndex = -1;

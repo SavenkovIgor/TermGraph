@@ -3,6 +3,10 @@
 
 #include "source/TermDataConnection/NetWrapper.h"
 
+NetWrapper::NetWrapper()
+    : manager(std::make_unique<QNetworkAccessManager>())
+{}
+
 void NetWrapper::get(QUrl url, ReplyCallback callback) const
 {
     auto* reply = manager->get(QNetworkRequest(url));

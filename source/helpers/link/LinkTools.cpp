@@ -10,13 +10,14 @@ module;
 #include <QStringView>
 
 #include "source/Text/TextCursor.h"
-#include "source/helpers/link/Link.h"
-#include "source/helpers/link/LinksString.h"
 
-export module link.LinkTools;
+export module Link.LinkTools;
 
 import CommonTools.HandyTypes;
 import Helpers.IntMatrix;
+import Link.Link;
+import Link.LinksString;
+import Link.LinksDecorator;
 import TextModule.TextTools;
 
 export class LinkTools
@@ -48,7 +49,11 @@ public:
 
     static QString remove(QString str, int cursor) { return LinksString::removeLink(str, cursor); }
 
-    static QString decorate(const QString& str) { return LinksString(str).toRichText(); }
+    static QString decorate(const QString& str)
+    {
+        auto linksString = LinksString(str);
+        return LinksDecorator::toRichText(linksString);
+    }
 
     static bool linkAndTermSimilarWordDistance(const QString& link, const QString& term)
     {

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #include <functional>
+#include <memory>
 
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
@@ -11,7 +12,7 @@ class NetWrapper
 public:
     using ReplyCallback = std::function<void(QNetworkReply* reply)>;
 
-    NetWrapper()  = default;
+    NetWrapper();
     ~NetWrapper() = default;
 
     void get(QUrl url, ReplyCallback callback) const;
@@ -20,5 +21,5 @@ public:
     void deleteResource(QUrl url, ReplyCallback callback) const;
 
 private:
-    QScopedPointer<QNetworkAccessManager> manager{new QNetworkAccessManager()};
+    std::unique_ptr<QNetworkAccessManager> manager = nullptr;
 };

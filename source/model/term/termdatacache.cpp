@@ -8,12 +8,11 @@ module;
 
 #include "source/TermDataInterface/TermData.h"
 
-#include "source/helpers/link/Link.h"
-#include "source/helpers/link/LinksString.h"
 #include "source/model/enums.h"
 
 export module TermDataCache;
 
+import Link;
 import TextModule.TextTools;
 
 // Mostly const wrapper over TermData + some additional stuff
@@ -59,7 +58,7 @@ public:
                 return termsSize;
             }
 
-            auto defWithoutLinks = mLinksDefinition.toPlainString();
+            auto defWithoutLinks = LinksDecorator::toPlainString(mLinksDefinition);
             auto defSize         = TextTools::preferredTextSize(defWithoutLinks, 5);
 
             auto width  = std::max(termsSize.width(), defSize.width());
@@ -104,7 +103,7 @@ public:
     {
         if (decorated) {
             auto term = "<font color=\"#00a693\">" + this->term() + "</font>";
-            auto def  = mLinksDefinition.toRichText();
+            auto def  = LinksDecorator::toRichText(mLinksDefinition);
 
             return TextTools::joinTermDef(term, def);
         }

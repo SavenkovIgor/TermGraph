@@ -3,6 +3,8 @@
 
 #pragma once
 
+#include <memory>
+
 #include <QObject>
 #include <QtSql>
 
@@ -15,9 +17,9 @@
 class Database
 {
 public:
-    QScopedPointer<TermTable>      termTable;
-    QScopedPointer<TermGroupTable> groupTable;
-    QScopedPointer<AppConfigTable> appConfigTable;
+    std::unique_ptr<TermTable>      termTable;
+    std::unique_ptr<TermGroupTable> groupTable;
+    std::unique_ptr<AppConfigTable> appConfigTable;
 
     explicit Database(const QString& filePath, const QString& backupPath);
     ~Database();

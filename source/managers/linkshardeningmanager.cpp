@@ -6,8 +6,7 @@
 #include <ranges>
 
 import CommonTools.HandyTypes;
-import link.LinkTools;
-import LinksDecorator;
+import Link;
 import PaintedTerm;
 import TermGroup;
 
@@ -18,6 +17,8 @@ LinksHardeningManager::LinksHardeningManager(QObject *parent)
 {
     connect(this, &LinksHardeningManager::indexChanged, this, &LinksHardeningManager::updateNearestVariants);
 }
+
+LinksHardeningManager::~LinksHardeningManager() = default;
 
 QHash<int, QByteArray> LinksHardeningManager::roleNames() const
 {
@@ -62,7 +63,7 @@ void LinksHardeningManager::setTerm(TermDataWrapper termWrapper)
     mCurrentTerm       = termWrapper;
     mCurrentDefinition = mCurrentTerm.getDefinition();
 
-    mLinksString.reset(new LinksString(mCurrentDefinition));
+    mLinksString = std::make_unique<LinksString>(mCurrentDefinition);
 
     mLinkIndex = linkCount() >= 1 ? 0 : -1;
     mReplacePreparations.clear();
@@ -98,11 +99,13 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
         return {};
     }
 
-    if (mCurrentTerm.isNull()) {
+    if (mCurrentTerm.isNull() || !isValidIndex() || !mLinksString) {
         return {};
     }
 
     std::vector<std::pair<int, PaintedTerm *>> distances;
+
+    Link::List currentLinks = mLinksString->links();
 
     // Getting distances
     for (const auto &term : mCurrentGroup->terms()) {
@@ -110,7 +113,9 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
             continue;
         }
 
-        auto distance = LinkTools::levDistance(currentLink().textLower(), term->data().term.toLower());
+        auto currentLink = currentLinks[Link::asListSize(mLinkIndex)];
+
+        auto distance = LinkTools::levDistance(currentLink.textLower(), term->data().term.toLower());
         distances.push_back(std::pair(distance, term.get()));
     }
 
@@ -148,15 +153,6 @@ void LinksHardeningManager::updateNearestVariants()
     endResetModel();
 }
 
-Link::List LinksHardeningManager::currentLinks() const
-{
-    if (mLinksString.isNull()) {
-        return {};
-    }
-
-    return mLinksString->links();
-}
-
 bool LinksHardeningManager::isValidIndex() const { return 0 <= mLinkIndex && mLinkIndex < linkCount(); }
 
 bool LinksHardeningManager::canMoveNext() const { return 0 <= mLinkIndex && mLinkIndex < linkCount() - 1; }
@@ -185,7 +181,7 @@ QString LinksHardeningManager::definitionWithHighlightedLink() const
 
 int LinksHardeningManager::linkCount() const
 {
-    if (!mLinksString || mLinksString.isNull()) {
+    if (!mLinksString) {
         return 0;
     }
 
@@ -236,11 +232,4 @@ QString LinksHardeningManager::applyLinkUuids(QString stringWithLinks, QMap<int,
     }
 
     return stringWithLinks;
-}
-
-Link LinksHardeningManager::currentLink() const
-{
-    assert(!mCurrentTerm.isNull());
-    assert(isValidIndex());
-    return currentLinks()[Link::asListSize(mLinkIndex)];
 }

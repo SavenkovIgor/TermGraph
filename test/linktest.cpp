@@ -3,10 +3,13 @@
 
 #include <vector>
 
+#include <QString>
+#include <QUuid>
+
 #include <gtest/gtest.h>
 
-#include "source/helpers/link/Link.h"
-#include "source/helpers/link/LinksString.h"
+import Link.Link;
+import Link.LinksString;
 
 class LinkTest : public ::testing::Test
 {

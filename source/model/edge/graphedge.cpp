@@ -10,7 +10,7 @@ module;
 
 export module GraphEdge;
 
-import Graph.Edge;
+import Graph;
 import GraphTerm;
 
 export class GraphEdge : public graph::Edge<GraphTerm, EdgeData>
