@@ -17,6 +17,7 @@ export module link.LinkTools;
 
 import CommonTools.HandyTypes;
 import Helpers.IntMatrix;
+import LinksDecorator;
 import TextModule.TextTools;
 
 export class LinkTools
@@ -48,7 +49,10 @@ public:
 
     static QString remove(QString str, int cursor) { return LinksString::removeLink(str, cursor); }
 
-    static QString decorate(const QString& str) { return LinksString(str).toRichText(); }
+    static QString decorate(const QString& str) {
+        auto linksString = LinksString(str);
+        return LinksDecorator::toRichText(linksString);
+    }
 
     static bool linkAndTermSimilarWordDistance(const QString& link, const QString& term)
     {

@@ -4,7 +4,6 @@
 #include "source/helpers/link/LinksString.h"
 
 import CommonTools.HandyTypes;
-import LinksDecorator;
 import Text.CharTools;
 import Text.CheckingTextCursor;
 
@@ -23,18 +22,6 @@ QString LinksString::replaceLink(int index, QString text) const
     auto [linkCut, pos] = mLinks[sizeIndex].cutted();
     linkCut.insert(pos, text);
     return linkCut;
-}
-
-QString LinksString::toRichText() const
-{
-    LinksDecorator decorator(*this, LinksDecorator::greenDecorator);
-    return decorator.apply(LinksDecoratorMode::Replace);
-}
-
-QString LinksString::toPlainString() const
-{
-    LinksDecorator decorator(*this, LinksDecorator::greenDecorator);
-    return decorator.apply(LinksDecoratorMode::Cut);
 }
 
 bool LinksString::isValidLinksString(QStringView str)

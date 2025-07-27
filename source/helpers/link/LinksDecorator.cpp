@@ -19,6 +19,7 @@ using namespace Qt::Literals::StringLiterals;
 
 export enum LinksDecoratorMode { Replace = 0, Insert, Cut };
 
+// TODO: Rework this class. After a couple of reworks it became messy and unefficient
 export class LinksDecorator
 {
 public:
@@ -81,6 +82,18 @@ public:
     static QColor defaultBackground([[maybe_unused]] int orderIndex, [[maybe_unused]] const Link& link)
     {
         return QColor::fromString("transparent");
+    }
+
+    static QString toRichText(const LinksString& linksString)
+    {
+        LinksDecorator decorator(linksString, LinksDecorator::greenDecorator);
+        return decorator.apply(LinksDecoratorMode::Replace);
+    }
+
+    static QString toPlainString(const LinksString& linksString)
+    {
+        LinksDecorator decorator(linksString, LinksDecorator::greenDecorator);
+        return decorator.apply(LinksDecoratorMode::Cut);
     }
 
 private: // Members
