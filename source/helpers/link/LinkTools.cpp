@@ -10,15 +10,15 @@ module;
 #include <QStringView>
 
 #include "source/Text/TextCursor.h"
-#include "source/helpers/link/Link.h"
 
 export module Link.LinkTools;
 
 import CommonTools.HandyTypes;
 import Helpers.IntMatrix;
+import Link.Link;
+import Link.LinksString;
 import LinksDecorator;
 import TextModule.TextTools;
-import Link.LinksString;
 
 export class LinkTools
 {

@@ -8,11 +8,10 @@ module;
 #include <QColor>
 #include <QString>
 
-#include "source/helpers/link/Link.h"
-
 export module LinksDecorator;
 
 import CommonTools.HandyTypes;
+import Link.Link;
 import Link.LinksString;
 
 using namespace Qt::Literals::StringLiterals;

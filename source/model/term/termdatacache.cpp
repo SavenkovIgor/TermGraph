@@ -8,14 +8,14 @@ module;
 
 #include "source/TermDataInterface/TermData.h"
 
-#include "source/helpers/link/Link.h"
 #include "source/model/enums.h"
 
 export module TermDataCache;
 
-import TextModule.TextTools;
-import LinksDecorator;
+import Link.Link;
 import Link.LinksString;
+import LinksDecorator;
+import TextModule.TextTools;
 
 // Mostly const wrapper over TermData + some additional stuff
 export class TermDataCache

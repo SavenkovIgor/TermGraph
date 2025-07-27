@@ -1,95 +1,115 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/link/Link.h"
+module;
+
+#include <QString>
+#include <QStringView>
+#include <QUuid>
+
+#include "source/Text/TextRange.h"
+
+export module Link.Link;
 
 import Text.CheckingTextCursor;
 import Text.CharTools;
 
-Link::Link(QStringView strView, int left, int right)
-    : TextRange(strView, left, right)
-    , mLinkText(getText(rangeView()))
-    , mLinkTextLower(getLower(mLinkText))
-    , mLinkType(tryGetUuid(rangeView()).has_value() ? Type::Uuid : Type::Text)
-    , mUuid(tryGetUuid(rangeView()).value_or(QUuid()))
+export class Link : public TextRange
 {
-    assert(this->left().right() == CharTools::leftBracket);
-    assert(this->right().left() == CharTools::rightBracket);
-}
+public:
+    using List                    = std::vector<Link>;
+    static inline auto asListSize = [](auto num) -> List::size_type { return static_cast<List::size_type>(num); };
 
-QStringView Link::fullLink() const { return rangeView(); }
+    enum class Type { Unknown = 0, Text, Uuid };
 
-QStringView Link::text() const { return mLinkText; }
-
-const QString& Link::textLower() const { return mLinkTextLower; }
-
-bool Link::hasUuid() const { return mLinkType == Type::Uuid; }
-
-QUuid Link::uuid() const
-{
-    assert(hasUuid());
-    return mUuid;
-}
-
-QString Link::createLinkWithUuid(const QUuid& uuid) const
-{
-    auto linkText = mLinkText.toString();
-    linkText += CharTools::linkSplitter + uuid.toString(QUuid::WithoutBraces);
-    linkText = CharTools::leftBracket + linkText + CharTools::rightBracket;
-    return linkText;
-}
-
-std::optional<Link> Link::select(QStringView str, int startPos)
-{
-    if (!TextCursor::isValidCursor(str, startPos)) {
-        return std::nullopt;
+    Link(QStringView strView, int left, int right)
+        : TextRange(strView, left, right)
+        , mLinkText(getText(rangeView()))
+        , mLinkTextLower(getLower(mLinkText))
+        , mLinkType(tryGetUuid(rangeView()).has_value() ? Type::Uuid : Type::Text)
+        , mUuid(tryGetUuid(rangeView()).value_or(QUuid()))
+    {
+        assert(this->left().right() == CharTools::leftBracket);
+        assert(this->right().left() == CharTools::rightBracket);
     }
 
-    auto lBracket = CheckingTextCursor::anyBracketOnLeft(str, startPos, Direction::Left);
-    auto rBracket = CheckingTextCursor::anyBracketOnRight(str, startPos, Direction::Right);
-
-    if (!lBracket.check() || !rBracket.check()) {
-        return std::nullopt;
+    QStringView    fullLink() const { return rangeView(); }
+    QStringView    text() const { return mLinkText; }
+    const QString& textLower() const { return mLinkTextLower; }
+    bool           hasUuid() const { return mLinkType == Type::Uuid; }
+    QUuid          uuid() const
+    {
+        assert(hasUuid());
+        return mUuid;
     }
 
-    lBracket--;
-    rBracket++;
-
-    if (lBracket.right() == CharTools::leftBracket && rBracket.left() == CharTools::rightBracket) {
-        return Link(str, lBracket.pos(), rBracket.pos());
+    [[nodiscard]] QString createLinkWithUuid(const QUuid& uuid) const
+    {
+        auto linkText = mLinkText.toString();
+        linkText += CharTools::linkSplitter + uuid.toString(QUuid::WithoutBraces);
+        linkText = CharTools::leftBracket + linkText + CharTools::rightBracket;
+        return linkText;
     }
 
-    return std::nullopt;
-}
-
-bool Link::isCursorOnLink(QStringView str, int cursorPos) { return select(str, cursorPos).has_value(); }
-
-QStringView Link::getText(QStringView fullLink)
-{
-    const auto from     = 1;
-    const auto splitter = fullLink.lastIndexOf('|');
-    const auto to       = splitter == -1 ? fullLink.size() - 2 : splitter - 1;
-    const auto size     = to - from + 1;
-
-    return QStringView(fullLink.mid(1, size));
-}
-
-QString Link::getLower(QStringView text) { return text.toString().toLower(); }
-
-std::optional<QUuid> Link::tryGetUuid(QStringView fullLink)
-{
-    assert(fullLink[fullLink.size() - 1] == CharTools::rightBracket);
-
-    auto index = fullLink.lastIndexOf('|');
-    if (index != -1) {
-        auto size    = fullLink.size() - 1 - index;
-        auto uuidCut = fullLink.mid(index + 1, size).toString(); // Without braces
-        auto uuidStr = CharTools::leftBracket + uuidCut + CharTools::rightBracket;
-        auto uuid    = QUuid::fromString(uuidStr);
-        if (!uuid.isNull()) {
-            return uuid;
+    static std::optional<Link> select(QStringView str, int startPos)
+    {
+        if (!TextCursor::isValidCursor(str, startPos)) {
+            return std::nullopt;
         }
+
+        auto lBracket = CheckingTextCursor::anyBracketOnLeft(str, startPos, Direction::Left);
+        auto rBracket = CheckingTextCursor::anyBracketOnRight(str, startPos, Direction::Right);
+
+        if (!lBracket.check() || !rBracket.check()) {
+            return std::nullopt;
+        }
+
+        lBracket--;
+        rBracket++;
+
+        if (lBracket.right() == CharTools::leftBracket && rBracket.left() == CharTools::rightBracket) {
+            return Link(str, lBracket.pos(), rBracket.pos());
+        }
+
+        return std::nullopt;
     }
 
-    return std::nullopt;
-}
+    static bool isCursorOnLink(QStringView str, int cursorPos) { return select(str, cursorPos).has_value(); }
+
+private: //Methods
+    static QStringView getText(QStringView fullLink)
+    {
+        const auto from     = 1;
+        const auto splitter = fullLink.lastIndexOf('|');
+        const auto to       = splitter == -1 ? fullLink.size() - 2 : splitter - 1;
+        const auto size     = to - from + 1;
+
+        return QStringView(fullLink.mid(1, size));
+    }
+
+    static QString getLower(QStringView text) { return text.toString().toLower(); }
+
+    static std::optional<QUuid> tryGetUuid(QStringView fullLink)
+    {
+        assert(fullLink[fullLink.size() - 1] == CharTools::rightBracket);
+
+        auto index = fullLink.lastIndexOf('|');
+        if (index != -1) {
+            auto size    = fullLink.size() - 1 - index;
+            auto uuidCut = fullLink.mid(index + 1, size).toString(); // Without braces
+            auto uuidStr = CharTools::leftBracket + uuidCut + CharTools::rightBracket;
+            auto uuid    = QUuid::fromString(uuidStr);
+            if (!uuid.isNull()) {
+                return uuid;
+            }
+        }
+
+        return std::nullopt;
+    }
+
+private: // Members
+    const QStringView mLinkText;
+    const QString     mLinkTextLower;
+    const Type        mLinkType = Type::Unknown;
+    const QUuid       mUuid     = QUuid();
+};
