@@ -6,7 +6,7 @@
 #include <QColor>
 #include <QCoreApplication>
 
-import LinksDecorator;
+import Link.LinksDecorator;
 import Link.LinksString;
 
 class LinkDecoratorTest : public ::testing::Test

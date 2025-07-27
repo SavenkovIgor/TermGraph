@@ -17,7 +17,7 @@ import CommonTools.HandyTypes;
 import Helpers.IntMatrix;
 import Link.Link;
 import Link.LinksString;
-import LinksDecorator;
+import Link.LinksDecorator;
 import TextModule.TextTools;
 
 export class LinkTools

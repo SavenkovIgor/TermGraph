@@ -8,7 +8,7 @@ module;
 #include <QColor>
 #include <QString>
 
-export module LinksDecorator;
+export module Link.LinksDecorator;
 
 import CommonTools.HandyTypes;
 import Link.Link;
