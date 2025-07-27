@@ -11,7 +11,6 @@ module;
 
 #include "source/Text/TextCursor.h"
 #include "source/helpers/link/Link.h"
-#include "source/helpers/link/LinksString.h"
 
 export module link.LinkTools;
 
@@ -19,6 +18,7 @@ import CommonTools.HandyTypes;
 import Helpers.IntMatrix;
 import LinksDecorator;
 import TextModule.TextTools;
+import Link.LinksString;
 
 export class LinkTools
 {

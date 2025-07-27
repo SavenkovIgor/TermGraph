@@ -9,11 +9,11 @@ module;
 #include <QString>
 
 #include "source/helpers/link/Link.h"
-#include "source/helpers/link/LinksString.h"
 
 export module LinksDecorator;
 
 import CommonTools.HandyTypes;
+import Link.LinksString;
 
 using namespace Qt::Literals::StringLiterals;
 

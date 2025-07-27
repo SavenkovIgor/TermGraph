@@ -6,9 +6,9 @@
 #include <ranges>
 
 #include "source/helpers/link/Link.h"
-#include "source/helpers/link/LinksString.h"
 
 import CommonTools.HandyTypes;
+import Link.LinksString;
 import link.LinkTools;
 import LinksDecorator;
 import PaintedTerm;
