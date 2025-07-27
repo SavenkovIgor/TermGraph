@@ -12,9 +12,7 @@ module;
 
 export module TermDataCache;
 
-import Link.Link;
-import Link.LinksString;
-import Link.LinksDecorator;
+import Link;
 import TextModule.TextTools;
 
 // Mostly const wrapper over TermData + some additional stuff

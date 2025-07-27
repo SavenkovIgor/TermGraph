@@ -6,10 +6,7 @@
 #include <ranges>
 
 import CommonTools.HandyTypes;
-import Link.Link;
-import Link.LinksString;
-import Link.LinkTools;
-import Link.LinksDecorator;
+import Link;
 import PaintedTerm;
 import TermGroup;
 

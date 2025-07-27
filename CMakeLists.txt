@@ -138,6 +138,7 @@ target_sources (TermGraph
         "source/helpers/appstyle.cpp"
         "source/helpers/intmatrix.cpp"
         "source/helpers/link/Link.cpp"
+        "source/helpers/link/LinkModule.cpp"
         "source/helpers/link/LinksDecorator.cpp"
         "source/helpers/link/LinksString.cpp"
         "source/helpers/link/LinkTools.cpp"
