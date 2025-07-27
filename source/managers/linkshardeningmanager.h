@@ -8,11 +8,11 @@
 #include <QAbstractListModel>
 #include <QStringView>
 
-#include "source/helpers/link/LinksString.h"
 #include "source/model/group/qttermgroup.h"
 #include "source/model/term/termdatawrapper.h"
 
 class TermGroup;
+class LinksString;
 
 class LinksHardeningManager : public QAbstractListModel
 {
@@ -29,6 +29,7 @@ public:
     using SearchResultList = std::vector<SearchResult>;
 
     explicit LinksHardeningManager(QObject* parent = nullptr);
+    ~LinksHardeningManager() override;
 
     enum Role { Uuid = Qt::UserRole, Text, Distance };
 

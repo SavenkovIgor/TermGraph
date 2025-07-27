@@ -5,6 +5,9 @@
 
 #include <ranges>
 
+#include "source/helpers/link/Link.h"
+#include "source/helpers/link/LinksString.h"
+
 import CommonTools.HandyTypes;
 import link.LinkTools;
 import LinksDecorator;
@@ -18,6 +21,8 @@ LinksHardeningManager::LinksHardeningManager(QObject *parent)
 {
     connect(this, &LinksHardeningManager::indexChanged, this, &LinksHardeningManager::updateNearestVariants);
 }
+
+LinksHardeningManager::~LinksHardeningManager() = default;
 
 QHash<int, QByteArray> LinksHardeningManager::roleNames() const
 {
