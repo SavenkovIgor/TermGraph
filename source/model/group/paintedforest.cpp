@@ -13,7 +13,7 @@ export module PaintedForest;
 
 import AppStyle;
 import CommonTools.HandyTypes;
-import Graph.Forest;
+import Graph;
 import NodeVerticalStack;
 import PaintedEdge;
 import PaintedTerm;

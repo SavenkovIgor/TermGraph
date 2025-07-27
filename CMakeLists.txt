@@ -139,6 +139,7 @@ target_sources (TermGraph
         "source/graph/Graph.cpp"
         "source/graph/GraphData.cpp"
         "source/graph/Node.cpp"
+        "source/graph/GraphModule.cpp"
         "source/helpers/AppSettings.cpp"
         "source/helpers/appstyle.cpp"
         "source/helpers/intmatrix.cpp"

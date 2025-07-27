@@ -10,7 +10,7 @@ module;
 export module GraphTerm;
 
 import TermDataCache;
-import Graph.Node;
+import Graph;
 
 // This class contains all "graph" part of term
 // like edges, place in graph hierarchy and so on
