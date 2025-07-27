@@ -46,8 +46,8 @@ Database::Database(const QString& filePath, const QString& backupPath)
         qApp->exit(-1);
     }
 
-    termTable = std::make_unique<TermTable>();
-    groupTable = std::make_unique<TermGroupTable>();
+    termTable      = std::make_unique<TermTable>();
+    groupTable     = std::make_unique<TermGroupTable>();
     appConfigTable = std::make_unique<AppConfigTable>();
 
     // If database just created, create all tables
@@ -67,8 +67,8 @@ Database::Database(const QString& filePath, const QString& backupPath)
         makeDbUpdate();
 
         // Recreate tables after update
-        termTable = std::make_unique<TermTable>();
-        groupTable = std::make_unique<TermGroupTable>();
+        termTable      = std::make_unique<TermTable>();
+        groupTable     = std::make_unique<TermGroupTable>();
         appConfigTable = std::make_unique<AppConfigTable>();
     } else {
         qInfo("Database schema is up to date");

@@ -49,7 +49,8 @@ public:
 
     static QString remove(QString str, int cursor) { return LinksString::removeLink(str, cursor); }
 
-    static QString decorate(const QString& str) {
+    static QString decorate(const QString& str)
+    {
         auto linksString = LinksString(str);
         return LinksDecorator::toRichText(linksString);
     }
