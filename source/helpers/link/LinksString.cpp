@@ -6,7 +6,6 @@ module;
 #include <QStringView>
 
 #include "source/Text/TextCursor.h"
-#include "source/Text/TextRange.h"
 
 export module Link.LinksString;
 
@@ -14,6 +13,7 @@ import CommonTools.HandyTypes;
 import Link.Link;
 import Text.CharTools;
 import Text.CheckingTextCursor;
+import Text.TextRange;
 
 export class LinksString
 {

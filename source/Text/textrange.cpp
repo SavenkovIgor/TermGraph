@@ -1,45 +1,63 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/Text/TextRange.h"
+module;
+
+#include <vector>
+
+#include <QStringView>
+
+#include "TextCursor.h"
+
+export module Text.TextRange;
 
 import Text.CheckingTextCursor;
 
-TextRange::TextRange(QStringView view, int left, int right)
-    : mString(view)
-    , mLeftCursor(view, left)
-    , mRightCursor(view, right)
+export class TextRange
 {
-    assert(left <= right);
-    assert(left >= 0);
-    assert(right >= 0);
-}
+public:
+    using List = std::vector<TextRange>;
 
-const TextCursor &TextRange::left() const { return mLeftCursor; }
-
-const TextCursor &TextRange::right() const { return mRightCursor; }
-
-int TextRange::size() const { return mRightCursor.pos() - mLeftCursor.pos(); }
-
-bool TextRange::isEmpty() const { return mLeftCursor.pos() == mRightCursor.pos(); }
-
-std::pair<QString, int> TextRange::cutted() const
-{
-    auto ret = mString.toString();
-    ret.remove(mLeftCursor.pos(), size());
-    return {ret, mLeftCursor.pos()};
-}
-
-QStringView TextRange::rangeView() const { return mString.mid(left().pos(), size()); }
-
-TextRange TextRange::selectWord(QStringView str, int startPos)
-{
-    auto lWord = CheckingTextCursor::leftWordBorder(str, startPos, Direction::Left);
-    auto rWord = CheckingTextCursor::rightWordBorder(str, startPos, Direction::Right);
-
-    if (lWord.check() && rWord.check()) {
-        return {str, lWord.pos(), rWord.pos()};
+    TextRange(QStringView view, int left, int right)
+        : mString(view)
+        , mLeftCursor(view, left)
+        , mRightCursor(view, right)
+    {
+        assert(left <= right);
+        assert(left >= 0);
+        assert(right >= 0);
     }
 
-    return {str, startPos, startPos};
-}
+    const TextCursor& left() const { return mLeftCursor; }
+    const TextCursor& right() const { return mRightCursor; }
+
+    int  size() const { return mRightCursor.pos() - mLeftCursor.pos(); }
+    bool isEmpty() const { return mLeftCursor.pos() == mRightCursor.pos(); }
+
+    // Returns string without range & cut position
+    std::pair<QString, int> cutted() const
+    {
+        auto ret = mString.toString();
+        ret.remove(mLeftCursor.pos(), size());
+        return {ret, mLeftCursor.pos()};
+    }
+
+    QStringView rangeView() const { return mString.mid(left().pos(), size()); }
+
+    static TextRange selectWord(QStringView str, int startPos)
+    {
+        auto lWord = CheckingTextCursor::leftWordBorder(str, startPos, Direction::Left);
+        auto rWord = CheckingTextCursor::rightWordBorder(str, startPos, Direction::Right);
+
+        if (lWord.check() && rWord.check()) {
+            return {str, lWord.pos(), rWord.pos()};
+        }
+
+        return {str, startPos, startPos};
+    }
+
+protected: // Members
+    const QStringView mString;
+    const TextCursor  mLeftCursor;
+    const TextCursor  mRightCursor;
+};

@@ -7,12 +7,13 @@ module;
 #include <QStringView>
 #include <QUuid>
 
-#include "source/Text/TextRange.h"
+#include "source/Text/TextCursor.h"
 
 export module Link.Link;
 
-import Text.CheckingTextCursor;
 import Text.CharTools;
+import Text.CheckingTextCursor;
+import Text.TextRange;
 
 export class Link : public TextRange
 {
