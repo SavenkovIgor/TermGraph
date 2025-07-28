@@ -3,9 +3,9 @@
 
 module;
 
+#include <QProperty>
 #include <QSizeF>
 #include <QString>
-#include <QProperty>
 
 #include "source/TermDataInterface/TermData.h"
 

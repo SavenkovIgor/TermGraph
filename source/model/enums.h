@@ -51,7 +51,7 @@ public:
     };
     Q_ENUM(Type)
 
-    static Type from(const QString& str);
+    static Type    from(const QString& str);
     static QString toString(Type type);
 };
 
