@@ -3,9 +3,12 @@
 
 module;
 
+#include <expected>
+
 #include <QDateTime>
 #include <QJsonObject>
 
+#include "source/CommonTools/Errors.h"
 #include "source/CommonTools/GroupUuid.h"
 #include "source/CommonTools/TermUuid.h"
 

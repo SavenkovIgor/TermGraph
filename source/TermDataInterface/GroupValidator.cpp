@@ -3,6 +3,8 @@
 
 module;
 
+#include <expected>
+
 #include <QDateTime>
 #include <QJsonObject>
 

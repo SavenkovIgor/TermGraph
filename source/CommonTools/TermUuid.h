@@ -3,7 +3,8 @@
 
 #pragma once
 
-#include "source/CommonTools/HandyTypes.h"
+#include <QJsonObject>
+
 #include "source/CommonTools/SafeUuid.h"
 
 class TermUuid final : public SafeUuid

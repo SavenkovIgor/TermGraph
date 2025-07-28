@@ -13,5 +13,3 @@
 
 template<typename T>
 using Expected = std::expected<T, ErrorCode>;
-
-enum class UuidMode { Default, Url };

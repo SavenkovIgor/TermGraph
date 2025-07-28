@@ -7,6 +7,7 @@
 #include <vector>
 
 #include <QByteArray>
+#include <QJsonDocument>
 #include <QJsonObject>
 #include <QString>
 #include <QUuid>

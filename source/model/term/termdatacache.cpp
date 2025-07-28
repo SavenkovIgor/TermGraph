@@ -5,6 +5,7 @@ module;
 
 #include <QSizeF>
 #include <QString>
+#include <QProperty>
 
 #include "source/TermDataInterface/TermData.h"
 
