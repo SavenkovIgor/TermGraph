@@ -3,10 +3,11 @@
 
 #include <vector>
 
+#include <QString>
+
 #include <gtest/gtest.h>
 
-#include "source/Text/TextCursor.h"
-
+import Text.TextCursor;
 import Text.TextRange;
 
 TEST(TextRangeTest, TextRangeInit)

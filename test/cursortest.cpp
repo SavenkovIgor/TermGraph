@@ -1,12 +1,13 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include <gtest/gtest.h>
+#include <QString>
 
-#include "source/Text/TextCursor.h"
+#include <gtest/gtest.h>
 
 import Text.CharTools;
 import Text.CheckingTextCursor;
+import Text.TextCursor;
 
 TEST(CursorTest, InitCheck)
 {

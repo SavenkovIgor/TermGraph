@@ -7,11 +7,10 @@ module;
 
 #include <QStringView>
 
-#include "TextCursor.h"
-
 export module Text.TextRange;
 
 import Text.CheckingTextCursor;
+import Text.TextCursor;
 
 export class TextRange
 {

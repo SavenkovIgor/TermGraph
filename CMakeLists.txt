@@ -112,8 +112,6 @@ target_sources (TermGraph
         "source/TermDataInterface/StaticGroupData.h"
         "source/TermDataInterface/termdata.cpp"
         "source/TermDataInterface/TermData.h"
-        "source/Text/textcursor.cpp"
-        "source/Text/TextCursor.h"
 )
 
 # List of sources containing modules
@@ -158,6 +156,7 @@ target_sources (TermGraph
         "source/Text/CharTools.cpp"
         "source/Text/checkingtextcursor.cpp"
         "source/Text/Fonts.cpp"
+        "source/Text/textcursor.cpp"
         "source/Text/textrange.cpp"
         "source/Text/TextTools.cpp"
 )
@@ -342,8 +341,6 @@ if (BUILD_TESTING)
             "source/TermDataStorage/tables/TermGroupTable.h"
             "source/TermDataStorage/tables/TermTable.cpp"
             "source/TermDataStorage/tables/TermTable.h"
-            "source/Text/textcursor.cpp"
-            "source/Text/TextCursor.h"
     )
 
     # List of sources containing modules
@@ -370,6 +367,7 @@ if (BUILD_TESTING)
             "source/Text/CharTools.cpp"
             "source/Text/checkingtextcursor.cpp"
             "source/Text/Fonts.cpp"
+            "source/Text/textcursor.cpp"
             "source/Text/textrange.cpp"
             "source/Text/TextTools.cpp"
         )
