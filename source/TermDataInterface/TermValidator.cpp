@@ -11,9 +11,9 @@ module;
 
 export module CommonTools.TermJsonValidator;
 
-import CommonTools.Validator;
-import TextModule.TextTools;
 import CommonTools.JsonTools;
+import CommonTools.Validator;
+import Text;
 
 export class TermJsonValidator : public Validator<QJsonObject>
 {

@@ -22,7 +22,7 @@ import PaintedEdge;
 import PaintedForest;
 import PaintedTerm;
 import RectGraphicItem;
-import TextModule.Fonts;
+import Text;
 
 namespace rng = std::ranges;
 

@@ -9,10 +9,7 @@ export module Link.LinksString;
 
 import CommonTools.HandyTypes;
 import Link.Link;
-import Text.CharTools;
-import Text.CheckingTextCursor;
-import Text.TextCursor;
-import Text.TextRange;
+import Text;
 
 export class LinksString
 {

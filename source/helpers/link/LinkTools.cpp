@@ -16,8 +16,7 @@ import Helpers.IntMatrix;
 import Link.Link;
 import Link.LinksDecorator;
 import Link.LinksString;
-import Text.TextCursor;
-import TextModule.TextTools;
+import Text;
 
 export class LinkTools
 {

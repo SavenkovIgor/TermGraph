@@ -154,10 +154,11 @@ target_sources (TermGraph
         "source/TermDataInterface/GroupValidator.cpp"
         "source/TermDataInterface/TermValidator.cpp"
         "source/Text/CharTools.cpp"
-        "source/Text/checkingtextcursor.cpp"
+        "source/Text/CheckingTextCursor.cpp"
         "source/Text/Fonts.cpp"
-        "source/Text/textcursor.cpp"
-        "source/Text/textrange.cpp"
+        "source/Text/TextCursor.cpp"
+        "source/Text/TextModule.cpp"
+        "source/Text/TextRange.cpp"
         "source/Text/TextTools.cpp"
 )
 
@@ -365,10 +366,11 @@ if (BUILD_TESTING)
             "source/TermDataInterface/GroupValidator.cpp"
             "source/TermDataInterface/TermValidator.cpp"
             "source/Text/CharTools.cpp"
-            "source/Text/checkingtextcursor.cpp"
+            "source/Text/CheckingTextCursor.cpp"
             "source/Text/Fonts.cpp"
-            "source/Text/textcursor.cpp"
-            "source/Text/textrange.cpp"
+            "source/Text/TextCursor.cpp"
+            "source/Text/TextModule.cpp"
+            "source/Text/TextRange.cpp"
             "source/Text/TextTools.cpp"
         )
 

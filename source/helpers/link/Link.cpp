@@ -9,10 +9,7 @@ module;
 
 export module Link.Link;
 
-import Text.CharTools;
-import Text.CheckingTextCursor;
-import Text.TextCursor;
-import Text.TextRange;
+import Text;
 
 export class Link : public TextRange
 {
