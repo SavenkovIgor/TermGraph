@@ -6,6 +6,8 @@
 #include <QString>
 #include <QUuid>
 
+enum class UuidMode { Default, Url };
+
 class SafeUuid : public QUuid
 {
 public:

@@ -6,7 +6,7 @@
 #include <set>
 
 import CommonTools.JsonTools;
-import TextModule.TextTools;
+import Text;
 import CommonTools.TermJsonValidator;
 
 TermData TermData::createGhost(const QString& term, GroupUuid groupUuid)

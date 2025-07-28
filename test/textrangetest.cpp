@@ -3,9 +3,12 @@
 
 #include <vector>
 
+#include <QString>
+
 #include <gtest/gtest.h>
 
-#include "source/Text/TextRange.h"
+import Text.TextCursor;
+import Text.TextRange;
 
 TEST(TextRangeTest, TextRangeInit)
 {

@@ -9,16 +9,14 @@ module;
 #include <QString>
 #include <QStringView>
 
-#include "source/Text/TextCursor.h"
-
 export module Link.LinkTools;
 
 import CommonTools.HandyTypes;
 import Helpers.IntMatrix;
 import Link.Link;
-import Link.LinksString;
 import Link.LinksDecorator;
-import TextModule.TextTools;
+import Link.LinksString;
+import Text;
 
 export class LinkTools
 {

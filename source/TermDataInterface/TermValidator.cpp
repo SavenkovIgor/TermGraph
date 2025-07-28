@@ -3,17 +3,20 @@
 
 module;
 
+#include <expected>
+
 #include <QDateTime>
 #include <QJsonObject>
 
+#include "source/CommonTools/Errors.h"
 #include "source/CommonTools/GroupUuid.h"
 #include "source/CommonTools/TermUuid.h"
 
 export module CommonTools.TermJsonValidator;
 
-import CommonTools.Validator;
-import TextModule.TextTools;
 import CommonTools.JsonTools;
+import CommonTools.Validator;
+import Text;
 
 export class TermJsonValidator : public Validator<QJsonObject>
 {

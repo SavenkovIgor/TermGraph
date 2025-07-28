@@ -94,6 +94,7 @@ target_sources (TermGraph
         "source/model/edge/edgedata.h"
         "source/model/edge/edgesmodel.cpp"
         "source/model/edge/edgesmodel.h"
+        "source/model/enums.cpp"
         "source/model/enums.h"
         "source/model/graphicitem/graphicitem.cpp"
         "source/model/graphicitem/graphicitem.h"
@@ -112,10 +113,6 @@ target_sources (TermGraph
         "source/TermDataInterface/StaticGroupData.h"
         "source/TermDataInterface/termdata.cpp"
         "source/TermDataInterface/TermData.h"
-        "source/Text/textcursor.cpp"
-        "source/Text/TextCursor.h"
-        "source/Text/textrange.cpp"
-        "source/Text/TextRange.h"
 )
 
 # List of sources containing modules
@@ -158,8 +155,11 @@ target_sources (TermGraph
         "source/TermDataInterface/GroupValidator.cpp"
         "source/TermDataInterface/TermValidator.cpp"
         "source/Text/CharTools.cpp"
-        "source/Text/checkingtextcursor.cpp"
+        "source/Text/CheckingTextCursor.cpp"
         "source/Text/Fonts.cpp"
+        "source/Text/TextCursor.cpp"
+        "source/Text/TextModule.cpp"
+        "source/Text/TextRange.cpp"
         "source/Text/TextTools.cpp"
 )
 
@@ -315,6 +315,7 @@ if (BUILD_TESTING)
             "source/helpers/stemming/Stemmer.h"
             "source/helpers/wiki/WikiUrlChecker.cpp"
             "source/helpers/wiki/WikiUrlChecker.h"
+            "source/model/enums.cpp"
             "source/model/enums.h"
             "source/model/graphicitem/graphicitem.cpp"
             "source/model/graphicitem/graphicitem.h"
@@ -343,10 +344,6 @@ if (BUILD_TESTING)
             "source/TermDataStorage/tables/TermGroupTable.h"
             "source/TermDataStorage/tables/TermTable.cpp"
             "source/TermDataStorage/tables/TermTable.h"
-            "source/Text/textcursor.cpp"
-            "source/Text/TextCursor.h"
-            "source/Text/textrange.cpp"
-            "source/Text/TextRange.h"
     )
 
     # List of sources containing modules
@@ -371,8 +368,11 @@ if (BUILD_TESTING)
             "source/TermDataInterface/GroupValidator.cpp"
             "source/TermDataInterface/TermValidator.cpp"
             "source/Text/CharTools.cpp"
-            "source/Text/checkingtextcursor.cpp"
+            "source/Text/CheckingTextCursor.cpp"
             "source/Text/Fonts.cpp"
+            "source/Text/TextCursor.cpp"
+            "source/Text/TextModule.cpp"
+            "source/Text/TextRange.cpp"
             "source/Text/TextTools.cpp"
         )
 

@@ -13,7 +13,3 @@
 
 template<typename T>
 using Expected = std::expected<T, ErrorCode>;
-
-enum class Direction { Left, Right };
-
-enum class UuidMode { Default, Url };

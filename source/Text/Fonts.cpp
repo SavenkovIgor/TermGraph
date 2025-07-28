@@ -7,7 +7,7 @@ module;
 #include <QFontMetricsF>
 #include <QSizeF>
 
-export module TextModule.Fonts;
+export module Text.Fonts;
 
 export class Fonts
 {

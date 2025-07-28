@@ -6,7 +6,7 @@
 #include <QPair>
 #include <QString>
 
-import TextModule.TextTools;
+import Text.TextTools;
 
 TEST(TextTools, isTermAndDefinition)
 {

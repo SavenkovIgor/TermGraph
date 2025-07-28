@@ -3,6 +3,7 @@
 
 module;
 
+#include <QProperty>
 #include <QSizeF>
 #include <QString>
 
@@ -13,7 +14,7 @@ module;
 export module TermDataCache;
 
 import Link;
-import TextModule.TextTools;
+import Text;
 
 // Mostly const wrapper over TermData + some additional stuff
 export class TermDataCache
