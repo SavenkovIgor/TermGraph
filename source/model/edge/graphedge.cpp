@@ -7,10 +7,9 @@ module;
 #include <memory>
 #include <vector>
 
-#include "source/model/edge/edgedata.h"
-
 export module GraphEdge;
 
+import EdgeData;
 import Graph;
 import GraphTerm;
 

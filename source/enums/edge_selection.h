@@ -5,7 +5,8 @@
 
 // export module Enums.EdgeSelection;
 
-// Should be synced with QmlEdgeSelection
+// TODO: Merge back with QmlEdgeSelection when Qt learn to work with modules
+// Until then keep this enums in sync
 enum class EdgeSelection {
     None,
     Forward,

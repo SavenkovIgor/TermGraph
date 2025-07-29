@@ -8,11 +8,11 @@ module;
 
 #include "source/enums/edge_selection.h"
 #include "source/enums/edge_type.h"
-#include "source/model/edge/edgedata.h"
 #include "source/model/graphicitem/graphicitem.h"
 
 export module PaintedEdge;
 
+import EdgeData;
 import Enums.CoordType;
 import Graph;
 import PaintedTerm;
