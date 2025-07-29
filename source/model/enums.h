@@ -7,8 +7,6 @@
 #include <QQmlEngine>
 
 #include "source/graph/NodeType.hpp"
-#include "source/model/coord_type.h"
-
 
 class NodeType : public QObject
 {

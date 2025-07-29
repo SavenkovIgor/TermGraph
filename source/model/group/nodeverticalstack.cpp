@@ -8,6 +8,7 @@ module;
 
 #include <QPair>
 #include <QPointF>
+#include <QSizeF>
 
 #include "source/model/coord_type.h"
 
