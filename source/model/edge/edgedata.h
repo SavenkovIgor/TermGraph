@@ -3,11 +3,11 @@
 
 #pragma once
 
-#include "source/enums/edge_selection.h"
+#include "source/enums/qml_edge_selection.h"
 #include "source/model/enums.h"
 
 struct EdgeData
 {
-    EdgeSelection::Type selectionType = EdgeSelection::Type::None;
-    EdgeType::Type      type          = EdgeType::Type::Termin;
+    QmlEdgeSelection::Type selectionType = QmlEdgeSelection::Type::None;
+    EdgeType::Type         type          = EdgeType::Type::Termin;
 };

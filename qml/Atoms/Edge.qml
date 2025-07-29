@@ -14,7 +14,7 @@ ShapePath {
     property point pt2: Qt.point(0, 0)
     property bool isSelected: false
     property int edgeType: EdgeType.Standart
-    property int edgeSelection: EdgeSelection.None
+    property int edgeSelection: QmlEdgeSelection.None
 
     readonly property real halfWidth: (pt2.x - pt1.x) / 2;
     readonly property point b1: Qt.point(pt1.x + halfWidth, pt1.y)
@@ -24,10 +24,10 @@ ShapePath {
 
     strokeWidth: Qt.platform.os === "Android" ? 3 : 1
     strokeColor: {
-        if (edgeSelection === EdgeSelection.Backward)
+        if (edgeSelection === QmlEdgeSelection.Backward)
             return Theme.color.edge.selected;
 
-        if (edgeSelection === EdgeSelection.Forward)
+        if (edgeSelection === QmlEdgeSelection.Forward)
             return Theme.color.edge.selectedAlt;
 
         switch (edgeType) {
