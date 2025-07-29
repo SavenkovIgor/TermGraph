@@ -66,6 +66,7 @@ target_sources (TermGraph
         "source/CommonTools/TermUuid.h"
         "source/DataProvider.cpp"
         "source/DataProvider.h"
+        "source/enums/edge_selection.h"
         "source/graph/NodeType.hpp"
         "source/helpers/exclusivecall.h"
         "source/helpers/firststartpreparer.cpp"
@@ -181,6 +182,7 @@ target_include_directories (
     TermGraph PRIVATE
         "${PROJECT_SOURCE_DIR}"
         "${PROJECT_SOURCE_DIR}/source/"
+        "${PROJECT_SOURCE_DIR}/source/enums/"
         "${PROJECT_SOURCE_DIR}/source/helpers/link/"
         "${PROJECT_SOURCE_DIR}/source/helpers/stemming/"
         "${PROJECT_SOURCE_DIR}/source/managers/"
@@ -309,6 +311,7 @@ if (BUILD_TESTING)
             "source/CommonTools/SafeUuid.h"
             "source/CommonTools/TermUuid.cpp"
             "source/CommonTools/TermUuid.h"
+            "source/enums/edge_selection.h"
             "source/graph/NodeType.hpp"
             "source/helpers/link/QtLinkTools.cpp"
             "source/helpers/link/QtLinkTools.h"

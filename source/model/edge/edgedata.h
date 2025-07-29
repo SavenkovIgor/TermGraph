@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "source/enums/edge_selection.h"
 #include "source/model/enums.h"
 
 struct EdgeData

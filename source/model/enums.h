@@ -58,14 +58,3 @@ public:
     enum class Type { Standart, Termin, TerminHardLink, Description, Broken, Redundant };
     Q_ENUM(Type)
 };
-
-class EdgeSelection : public QObject
-{
-    Q_OBJECT
-    QML_ELEMENT
-    QML_UNCREATABLE("")
-
-public:
-    enum class Type { None, Forward, Backward };
-    Q_ENUM(Type)
-};
