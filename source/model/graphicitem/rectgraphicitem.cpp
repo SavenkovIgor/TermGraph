@@ -5,10 +5,11 @@ module;
 
 #include <QSizeF>
 
-#include "source/enums/coord_type.h"
 #include "source/model/graphicitem/graphicitem.h"
 
 export module RectGraphicItem;
+
+import Enums.CoordType;
 
 export class RectGraphicItem : public GraphicItem
 {

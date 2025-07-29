@@ -7,12 +7,11 @@ module;
 
 #include <QRectF>
 
-#include "source/enums/coord_type.h"
-
 export module PaintedForest;
 
 import AppStyle;
 import CommonTools.HandyTypes;
+import Enums.CoordType;
 import Graph;
 import NodeVerticalStack;
 import PaintedEdge;

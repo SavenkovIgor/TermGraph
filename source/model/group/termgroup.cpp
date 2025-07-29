@@ -8,13 +8,13 @@ module;
 
 #include "source/TermDataInterface/GroupSummary.h"
 #include "source/TermDataInterface/TermData.h"
-#include "source/enums/coord_type.h"
 #include "source/model/enums.h"
 
 export module TermGroup;
 
 import AppStyle;
 import CommonTools.HandyTypes;
+import Enums.CoordType;
 import Graph;
 import Link;
 import LinkTermDistanceCache;

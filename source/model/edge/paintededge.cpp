@@ -6,12 +6,12 @@ module;
 #include <memory>
 #include <vector>
 
-#include "source/enums/coord_type.h"
 #include "source/model/edge/edgedata.h"
 #include "source/model/graphicitem/graphicitem.h"
 
 export module PaintedEdge;
 
+import Enums.CoordType;
 import Graph;
 import PaintedTerm;
 
