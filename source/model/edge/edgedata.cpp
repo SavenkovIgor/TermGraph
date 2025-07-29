@@ -4,9 +4,10 @@
 module;
 
 #include "source/enums/edge_selection.h"
-#include "source/enums/edge_type.h"
 
 export module EdgeData;
+
+import Enums.EdgeType;
 
 export struct EdgeData
 {
