@@ -6,7 +6,7 @@ module;
 #include <memory>
 #include <vector>
 
-#include "source/model/coord_type.h"
+#include "source/enums/coord_type.h"
 #include "source/model/edge/edgedata.h"
 #include "source/model/graphicitem/graphicitem.h"
 

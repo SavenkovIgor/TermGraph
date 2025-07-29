@@ -2,7 +2,7 @@ module;
 
 #include <QSizeF>
 
-#include "source/model/coord_type.h"
+#include "source/enums/coord_type.h"
 
 export module NodeVerticalStackTools;
 
