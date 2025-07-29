@@ -6,13 +6,13 @@ module;
 #include <memory>
 #include <vector>
 
-#include "source/enums/edge_selection.h"
 #include "source/model/graphicitem/graphicitem.h"
 
 export module PaintedEdge;
 
 import EdgeData;
 import Enums.CoordType;
+import Enums.EdgeSelection;
 import Enums.EdgeType;
 import Graph;
 import PaintedTerm;
