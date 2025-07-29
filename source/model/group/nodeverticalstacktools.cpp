@@ -2,11 +2,10 @@ module;
 
 #include <QSizeF>
 
-#include "source/model/coord_type.h"
-
 export module NodeVerticalStackTools;
 
 import CommonTools.HandyTypes;
+import Enums.CoordType;
 import PaintedTerm;
 
 export class NodeVerticalStackTools

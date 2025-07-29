@@ -10,11 +10,10 @@ module;
 #include <QPointF>
 #include <QSizeF>
 
-#include "source/model/coord_type.h"
-
 export module NodeVerticalStack;
 
 import CommonTools.HandyTypes;
+import Enums.CoordType;
 import NodeVerticalStackTools;
 import PaintedTerm;
 import TermGroup.TermPositioner;

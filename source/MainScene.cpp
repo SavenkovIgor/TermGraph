@@ -7,8 +7,7 @@
 #include <QThread>
 #endif
 
-#include "source/model/coord_type.h"
-
+import Enums.CoordType;
 import PaintedTerm;
 import TermGroup;
 

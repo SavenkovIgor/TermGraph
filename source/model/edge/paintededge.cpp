@@ -6,13 +6,16 @@ module;
 #include <memory>
 #include <vector>
 
-#include "source/model/coord_type.h"
-#include "source/model/edge/edgedata.h"
-#include "source/model/graphicitem/graphicitem.h"
+#include <QPointF>
 
 export module PaintedEdge;
 
+import EdgeData;
+import Enums.CoordType;
+import Enums.EdgeSelection;
+import Enums.EdgeType;
 import Graph;
+import GraphicItem;
 import PaintedTerm;
 
 export class PaintedEdge : public graph::Edge<PaintedTerm, EdgeData>, public GraphicItem
@@ -27,11 +30,11 @@ public:
         : Edge<PaintedTerm, EdgeData>(root, leaf, EdgeData())
     {}
 
-    void brokeEdge() { data().type = EdgeType::Type::Broken; }
+    void brokeEdge() { data().type = EdgeType::Broken; }
 
     void setSelectedForward(bool value)
     {
-        auto resultSelection = value ? EdgeSelection::Type::Forward : EdgeSelection::Type::None;
+        auto resultSelection = value ? EdgeSelection::Forward : EdgeSelection::None;
         if (data().selectionType != resultSelection) {
             data().selectionType = resultSelection;
         }
@@ -39,7 +42,7 @@ public:
 
     void setSelectedBackward(bool value)
     {
-        auto resultSelection = value ? EdgeSelection::Type::Backward : EdgeSelection::Type::None;
+        auto resultSelection = value ? EdgeSelection::Backward : EdgeSelection::None;
         if (data().selectionType != resultSelection) {
             data().selectionType = resultSelection;
         }
@@ -47,11 +50,10 @@ public:
 
     bool isSelected() const
     {
-        return data().selectionType == EdgeSelection::Type::Forward
-            || data().selectionType == EdgeSelection::Type::Backward;
+        return data().selectionType == EdgeSelection::Forward || data().selectionType == EdgeSelection::Backward;
     }
 
-    bool isHard() const { return data().type == EdgeType::Type::TerminHardLink; }
+    bool isHard() const { return data().type == EdgeType::TerminHardLink; }
 
     QPointF rootPoint()
     {
