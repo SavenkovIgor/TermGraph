@@ -5,7 +5,7 @@ module;
 
 #include <QSizeF>
 
-#include "source/model/enums.h"
+#include "source/model/coord_type.h"
 #include "source/model/graphicitem/graphicitem.h"
 
 export module RectGraphicItem;

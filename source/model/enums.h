@@ -7,13 +7,8 @@
 #include <QQmlEngine>
 
 #include "source/graph/NodeType.hpp"
+#include "source/model/coord_type.h"
 
-// For coordinate types
-enum class CoordType {
-    zeroPoint, // Rect located in zero point
-    local,     // Local coordinate system
-    scene      // Scene coordinate system
-};
 
 class NodeType : public QObject
 {

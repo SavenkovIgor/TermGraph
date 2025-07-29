@@ -9,6 +9,7 @@ module;
 #include "source/TermDataInterface/GroupSummary.h"
 #include "source/TermDataInterface/TermData.h"
 #include "source/model/enums.h"
+#include "source/model/coord_type.h"
 
 export module TermGroup;
 

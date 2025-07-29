@@ -9,7 +9,7 @@ module;
 #include <QPair>
 #include <QPointF>
 
-#include "source/model/enums.h"
+#include "source/model/coord_type.h"
 
 export module NodeVerticalStack;
 
