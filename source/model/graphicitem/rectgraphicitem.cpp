@@ -3,13 +3,14 @@
 
 module;
 
+#include <QPointF>
+#include <QRectF>
 #include <QSizeF>
-
-#include "source/model/graphicitem/graphicitem.h"
 
 export module RectGraphicItem;
 
 import Enums.CoordType;
+import GraphicItem;
 
 export class RectGraphicItem : public GraphicItem
 {

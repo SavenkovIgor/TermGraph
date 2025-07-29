@@ -6,7 +6,7 @@ module;
 #include <memory>
 #include <vector>
 
-#include "source/model/graphicitem/graphicitem.h"
+#include <QPointF>
 
 export module PaintedEdge;
 
@@ -15,6 +15,7 @@ import Enums.CoordType;
 import Enums.EdgeSelection;
 import Enums.EdgeType;
 import Graph;
+import GraphicItem;
 import PaintedTerm;
 
 export class PaintedEdge : public graph::Edge<PaintedTerm, EdgeData>, public GraphicItem

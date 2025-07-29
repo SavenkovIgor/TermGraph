@@ -10,11 +10,11 @@ module;
 #include <QSizeF>
 
 #include "source/TermDataInterface/TermData.h"
-#include "source/model/graphicitem/graphicitem.h"
 
 export module PaintedTerm;
 
 import Enums.CoordType;
+import GraphicItem;
 import GraphTerm;
 
 // This class contains all info for paint Term somewhere
