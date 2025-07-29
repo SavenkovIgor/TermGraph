@@ -6,6 +6,7 @@
 #include <QObject>
 #include <QQmlEngine>
 
+// Should be synced with EdgeSelection
 class QmlEdgeSelection : public QObject
 {
     Q_OBJECT

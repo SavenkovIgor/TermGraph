@@ -6,7 +6,7 @@ module;
 #include <memory>
 #include <vector>
 
-#include "source/enums/qml_edge_selection.h"
+#include "source/enums/edge_selection.h"
 #include "source/model/edge/edgedata.h"
 #include "source/model/graphicitem/graphicitem.h"
 
@@ -32,7 +32,7 @@ public:
 
     void setSelectedForward(bool value)
     {
-        auto resultSelection = value ? QmlEdgeSelection::Type::Forward : QmlEdgeSelection::Type::None;
+        auto resultSelection = value ? EdgeSelection::Forward : EdgeSelection::None;
         if (data().selectionType != resultSelection) {
             data().selectionType = resultSelection;
         }
@@ -40,7 +40,7 @@ public:
 
     void setSelectedBackward(bool value)
     {
-        auto resultSelection = value ? QmlEdgeSelection::Type::Backward : QmlEdgeSelection::Type::None;
+        auto resultSelection = value ? EdgeSelection::Backward : EdgeSelection::None;
         if (data().selectionType != resultSelection) {
             data().selectionType = resultSelection;
         }
@@ -48,8 +48,7 @@ public:
 
     bool isSelected() const
     {
-        return data().selectionType == QmlEdgeSelection::Type::Forward
-            || data().selectionType == QmlEdgeSelection::Type::Backward;
+        return data().selectionType == EdgeSelection::Forward || data().selectionType == EdgeSelection::Backward;
     }
 
     bool isHard() const { return data().type == EdgeType::Type::TerminHardLink; }
