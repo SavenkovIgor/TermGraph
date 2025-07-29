@@ -6,7 +6,7 @@
 #include <QObject>
 #include <QQmlEngine>
 
-class EdgeType : public QObject
+class QmlEdgeType : public QObject
 {
     Q_OBJECT
     QML_ELEMENT

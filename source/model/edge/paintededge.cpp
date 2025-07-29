@@ -7,7 +7,7 @@ module;
 #include <vector>
 
 #include "source/enums/edge_selection.h"
-#include "source/enums/edge_type.h"
+#include "source/enums/qml_edge_type.h"
 #include "source/model/edge/edgedata.h"
 #include "source/model/graphicitem/graphicitem.h"
 
@@ -29,7 +29,7 @@ public:
         : Edge<PaintedTerm, EdgeData>(root, leaf, EdgeData())
     {}
 
-    void brokeEdge() { data().type = EdgeType::Type::Broken; }
+    void brokeEdge() { data().type = QmlEdgeType::Type::Broken; }
 
     void setSelectedForward(bool value)
     {
@@ -52,7 +52,7 @@ public:
         return data().selectionType == EdgeSelection::Forward || data().selectionType == EdgeSelection::Backward;
     }
 
-    bool isHard() const { return data().type == EdgeType::Type::TerminHardLink; }
+    bool isHard() const { return data().type == QmlEdgeType::Type::TerminHardLink; }
 
     QPointF rootPoint()
     {

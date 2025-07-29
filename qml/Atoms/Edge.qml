@@ -13,7 +13,7 @@ ShapePath {
     property point pt1: Qt.point(0, 0)
     property point pt2: Qt.point(0, 0)
     property bool isSelected: false
-    property int edgeType: EdgeType.Standart
+    property int edgeType: QmlEdgeType.Standart
     property int edgeSelection: QmlEdgeSelection.None
 
     readonly property real halfWidth: (pt2.x - pt1.x) / 2;
@@ -31,12 +31,12 @@ ShapePath {
             return Theme.color.edge.selectedAlt;
 
         switch (edgeType) {
-        case EdgeType.Standart:       return Theme.color.edge.standard;
-        case EdgeType.Termin:         return Theme.color.edge.termin;
-        case EdgeType.TerminHardLink: return Theme.color.edge.terminHardLink;
-        case EdgeType.Description:    return Theme.color.edge.description;
-        case EdgeType.Broken:         return Theme.color.edge.broken;
-        case EdgeType.Redundant:      return Theme.color.edge.standard;
+        case QmlEdgeType.Standart:       return Theme.color.edge.standard;
+        case QmlEdgeType.Termin:         return Theme.color.edge.termin;
+        case QmlEdgeType.TerminHardLink: return Theme.color.edge.terminHardLink;
+        case QmlEdgeType.Description:    return Theme.color.edge.description;
+        case QmlEdgeType.Broken:         return Theme.color.edge.broken;
+        case QmlEdgeType.Redundant:      return Theme.color.edge.standard;
         }
 
         return Theme.color.edge.standard;
