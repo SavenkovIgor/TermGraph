@@ -7,7 +7,7 @@ module;
 
 #include <QRectF>
 
-#include "source/model/enums.h"
+#include "source/model/coord_type.h"
 
 export module PaintedForest;
 
