@@ -4,7 +4,7 @@
 #pragma once
 
 #include "source/enums/edge_selection.h"
-#include "source/model/enums.h"
+#include "source/enums/edge_type.h"
 
 struct EdgeData
 {

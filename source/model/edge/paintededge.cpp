@@ -7,6 +7,7 @@ module;
 #include <vector>
 
 #include "source/enums/edge_selection.h"
+#include "source/enums/edge_type.h"
 #include "source/model/edge/edgedata.h"
 #include "source/model/graphicitem/graphicitem.h"
 

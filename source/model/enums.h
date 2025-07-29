@@ -47,14 +47,3 @@ public:
     static Type    from(const QString& str);
     static QString toString(Type type);
 };
-
-class EdgeType : public QObject
-{
-    Q_OBJECT
-    QML_ELEMENT
-    QML_UNCREATABLE("")
-
-public:
-    enum class Type { Standart, Termin, TerminHardLink, Description, Broken, Redundant };
-    Q_ENUM(Type)
-};
