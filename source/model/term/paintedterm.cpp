@@ -17,21 +17,23 @@ import Enums.CoordType;
 import GraphicItem;
 import GraphTerm;
 
+using namespace std;
+
 // This class contains all info for paint Term somewhere
 // Has functions about paint color, positioning. This kind of stuff
 export class PaintedTerm : public GraphTerm, public GraphicItem
 {
 public:
-    using Ptr    = std::shared_ptr<PaintedTerm>;
-    using OptPtr = std::optional<Ptr>;
-    using List   = std::vector<Ptr>;
+    using Ptr    = shared_ptr<PaintedTerm>;
+    using OptPtr = optional<Ptr>;
+    using List   = vector<Ptr>;
 
     static inline auto asListSize = [](auto num) { return static_cast<List::size_type>(num); };
 
     PaintedTerm(const TermData& info)
         : GraphTerm(info)
     {
-        pCornerRadius.setBinding([this]() { return std::min(pNodeSize.value().height() * 0.15, 12.0); });
+        pCornerRadius.setBinding([this]() { return min(pNodeSize.value().height() * 0.15, 12.0); });
 
         pNodeSize.setBinding([this]() -> QSizeF {
             auto prefSize = cache().preferredSize.value();

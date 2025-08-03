@@ -11,10 +11,12 @@ export module TermGroup.TermPositioner;
 
 import PaintedTerm;
 
+using namespace std;
+
 export class TermPositioner
 {
 public:
     virtual ~TermPositioner() = default;
 
-    virtual std::optional<QPointF> preferredPositionFor(PaintedTerm::Ptr term) const = 0;
+    virtual optional<QPointF> preferredPositionFor(PaintedTerm::Ptr term) const = 0;
 };

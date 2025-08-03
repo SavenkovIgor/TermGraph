@@ -12,6 +12,8 @@ export module Text.TextRange;
 import Text.CheckingTextCursor;
 import Text.TextCursor;
 
+using namespace std;
+
 export class TextRange
 {
 public:
@@ -32,7 +34,7 @@ public:
     bool isEmpty() const { return mLeftCursor.pos() == mRightCursor.pos(); }
 
     // Returns string without range & cut position
-    std::pair<QString, int> cutted() const
+    pair<QString, int> cutted() const
     {
         auto ret = mString.toString();
         ret.remove(mLeftCursor.pos(), size());

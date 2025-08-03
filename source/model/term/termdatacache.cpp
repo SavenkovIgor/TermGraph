@@ -18,6 +18,8 @@ export module TermDataCache;
 import Link;
 import Text;
 
+using namespace std;
+
 // Mostly const wrapper over TermData + some additional stuff
 export class TermDataCache
 {
@@ -49,7 +51,7 @@ public:
 
             for (const auto& term : terms) {
                 auto termSize = TextTools::preferredTextSize(term, whProportion);
-                termsSize.setWidth(std::max(termsSize.width(), termSize.width()));
+                termsSize.setWidth(max(termsSize.width(), termSize.width()));
                 termsSize.setHeight(termsSize.height() + termSize.height() + spacing);
             }
 
@@ -64,7 +66,7 @@ public:
             auto defWithoutLinks = LinksDecorator::toPlainString(mLinksDefinition);
             auto defSize         = TextTools::preferredTextSize(defWithoutLinks, 5);
 
-            auto width  = std::max(termsSize.width(), defSize.width());
+            auto width  = max(termsSize.width(), defSize.width());
             auto height = termsSize.height() + defSize.height();
 
             return {width, height};
@@ -100,7 +102,7 @@ public:
     inline QString     lowerTerm() const { return mLowerTerms.value().first(); }
     inline QStringList lowerTermAndSynonyms() const { return mLowerTerms.value(); }
 
-    const std::vector<Link>& links() const { return mLinksDefinition.links(); }
+    const vector<Link>& links() const { return mLinksDefinition.links(); }
 
     QString termAndDefinition(bool decorated = false) const
     {

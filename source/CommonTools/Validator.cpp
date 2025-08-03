@@ -10,15 +10,17 @@ module;
 
 export module CommonTools.Validator;
 
+using namespace std;
+
 export template<typename Object>
 class Validator
 {
 public:
     // if return value is empty, then check is passed
     // else check is failed and error code is returned
-    using CheckResult = std::expected<void, ErrorCode>;
-    using Condition   = std::function<CheckResult(const Object&)>;
-    using ErrorList   = std::vector<ErrorCode>;
+    using CheckResult = expected<void, ErrorCode>;
+    using Condition   = function<CheckResult(const Object&)>;
+    using ErrorList   = vector<ErrorCode>;
 
     void addCheck(Condition condition) { mCheckList.push_back(condition); }
 
@@ -40,7 +42,7 @@ public:
 
     static CheckResult checkOrError(bool condition, ErrorCode error)
     {
-        return condition ? std::expected<void, ErrorCode>{} : std::unexpected(error);
+        return condition ? expected<void, ErrorCode>{} : unexpected(error);
     }
 
     void clear() { mCheckList.clear(); }
@@ -50,6 +52,6 @@ protected:
     Validator() = default;
 
 private:
-    std::vector<Condition> mCheckList;
-    ErrorList              mLastErrors;
+    vector<Condition> mCheckList;
+    ErrorList         mLastErrors;
 };

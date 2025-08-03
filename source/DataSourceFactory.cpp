@@ -22,13 +22,15 @@ export module DataSourceFactory;
 
 import AppSettings;
 
+using namespace std;
+
 export struct DataSourceFactory
 {
-    static std::unique_ptr<DataStorageInterface> defaultSource()
+    static unique_ptr<DataStorageInterface> defaultSource()
     {
         if constexpr (Platform::isWasm()) {
             if constexpr (Platform::isStaticDataStorage()) {
-                return std::make_unique<StaticDataStorage>();
+                return make_unique<StaticDataStorage>();
             } else {
                 return server();
             }
@@ -41,17 +43,17 @@ export struct DataSourceFactory
         Q_UNREACHABLE();
     }
 
-    static std::unique_ptr<DataStorageInterface> localDb()
+    static unique_ptr<DataStorageInterface> localDb()
     {
 #ifdef Q_OS_WASM
         return nullptr;
 #else
         using namespace AppSettings;
-        return std::make_unique<LocalDatabaseStorage>(Paths::defaultDatabaseFilePath(), Paths::backupFolder());
+        return make_unique<LocalDatabaseStorage>(Paths::defaultDatabaseFilePath(), Paths::backupFolder());
 #endif
     }
 
-    static std::unique_ptr<DataStorageInterface> server()
+    static unique_ptr<DataStorageInterface> server()
     {
 //    auto address = QUrl("http://127.0.0.1");
 //    address.setPort(NetworkTools::defaultPort);
@@ -59,7 +61,7 @@ export struct DataSourceFactory
         return nullptr;
 #else
         auto address = QUrl("https://termgraph.app");
-        return std::make_unique<DataStorageConnection>(address);
+        return make_unique<DataStorageConnection>(address);
 #endif
     }
 };

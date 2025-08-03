@@ -13,6 +13,8 @@ import CommonTools.HandyTypes;
 import Link.Link;
 import Text;
 
+using namespace std;
+
 export class LinksString
 {
 public:
@@ -23,8 +25,8 @@ public:
 
     LinksString(const LinksString& other) = default;
 
-    QString                  text() const { return mString.toString(); }
-    const std::vector<Link>& links() const { return mLinks; }
+    QString             text() const { return mString.toString(); }
+    const vector<Link>& links() const { return mLinks; }
 
     QString replaceLink(int index, QString text) const
     {
@@ -164,9 +166,9 @@ private: // Methods
         return asInt(str.count(CharTools::leftBracket));
     }
 
-    static std::vector<Link> extractLinks(QStringView strView)
+    static vector<Link> extractLinks(QStringView strView)
     {
-        std::vector<Link> ret;
+        vector<Link> ret;
 
         if (!isValidLinksString(strView)) {
             return ret;
@@ -192,6 +194,6 @@ private: // Methods
     }
 
 private: // Members
-    const QStringView       mString;
-    const std::vector<Link> mLinks;
+    const QStringView  mString;
+    const vector<Link> mLinks;
 };

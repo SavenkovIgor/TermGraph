@@ -13,6 +13,7 @@ export module Graph.GraphData;
 import Graph.Node;
 import Graph.Edge;
 
+using namespace std;
 namespace rng = std::ranges;
 
 export namespace graph {
@@ -27,7 +28,7 @@ private:
     using EdgeList = typename EdgeT::List;
 
 public:
-    using List = std::vector<GraphData<NodeT, EdgeT>>;
+    using List = vector<GraphData<NodeT, EdgeT>>;
 
     NodeList nodes;
     EdgeList edges;
@@ -35,7 +36,7 @@ public:
     bool contains(const NodePtr& node) const { return rng::find(nodes, node) != nodes.end(); }
     bool contains(const EdgePtr& edge) const { return rng::find(edges, edge) != edges.end(); }
 
-    NodeList filterNodes(std::function<bool(const NodePtr&)> condition) const
+    NodeList filterNodes(function<bool(const NodePtr&)> condition) const
     {
         NodeList ret;
         for (auto node : nodes)
@@ -45,7 +46,7 @@ public:
         return ret;
     }
 
-    EdgeList filterEdges(std::function<bool(const EdgePtr&)> condition) const
+    EdgeList filterEdges(function<bool(const EdgePtr&)> condition) const
     {
         EdgeList ret;
         for (auto edge : edges)
@@ -59,7 +60,7 @@ public:
     {
         NodeList ret = baseList;
 
-        auto remIt = std::remove_if(ret.begin(), ret.end(), [&subtractor](auto node) {
+        auto remIt = remove_if(ret.begin(), ret.end(), [&subtractor](auto node) {
             return rng::find(subtractor, node) != subtractor.end();
         });
 
@@ -72,7 +73,7 @@ public:
     {
         EdgeList ret = baseList;
 
-        auto remIt = std::remove_if(ret.begin(), ret.end(), [&subtractor](auto node) {
+        auto remIt = remove_if(ret.begin(), ret.end(), [&subtractor](auto node) {
             return rng::find(subtractor, node) != subtractor.end();
         });
 

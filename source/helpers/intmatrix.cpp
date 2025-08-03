@@ -7,19 +7,21 @@ module;
 
 export module Helpers.IntMatrix;
 
+using namespace std;
+
 export struct IntMatrix
 {
-    using sizeT = std::vector<int>::size_type;
+    using sizeT = vector<int>::size_type;
 
     IntMatrix();
 
-    std::vector<std::vector<int>> matrix;
+    vector<vector<int>> matrix;
 
     void checkSize(sizeT width, sizeT height);
 
-    static std::vector<std::vector<int>> createMatrix(sizeT width, sizeT height);
+    static vector<vector<int>> createMatrix(sizeT width, sizeT height);
 
-    static void clearMatrix(std::vector<std::vector<int>>& matrix);
+    static void clearMatrix(vector<vector<int>>& matrix);
 
 private:
     sizeT height = 1;
@@ -38,9 +40,9 @@ void IntMatrix::checkSize(sizeT width, sizeT height)
     }
 }
 
-std::vector<std::vector<int>> IntMatrix::createMatrix(IntMatrix::sizeT width, IntMatrix::sizeT height)
+vector<vector<int>> IntMatrix::createMatrix(IntMatrix::sizeT width, IntMatrix::sizeT height)
 {
-    std::vector<std::vector<int>> mtr(height);
+    vector<vector<int>> mtr(height);
 
     for (auto& row : mtr) {
         row.resize(width);
@@ -49,7 +51,7 @@ std::vector<std::vector<int>> IntMatrix::createMatrix(IntMatrix::sizeT width, In
     return mtr;
 }
 
-void IntMatrix::clearMatrix(std::vector<std::vector<int>>& matrix)
+void IntMatrix::clearMatrix(vector<vector<int>>& matrix)
 {
     for (auto& row : matrix) {
         row.clear();

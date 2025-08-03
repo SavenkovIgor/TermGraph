@@ -8,20 +8,22 @@ module;
 
 export module Graph.Node;
 
+using namespace std;
+
 export namespace graph {
 
 template<typename Data>
 class Node
 {
 public:
-    using Ptr  = std::shared_ptr<Node<Data>>;
-    using List = std::vector<Ptr>;
+    using Ptr  = shared_ptr<Node<Data>>;
+    using List = vector<Ptr>;
 
     explicit Node(const Data& data)
         : mData(data)
     {}
 
-    static Ptr createPtr(Data data) { return std::make_shared<Node<Data>>(data); }
+    static Ptr createPtr(Data data) { return make_shared<Node<Data>>(data); }
 
     void        setData(const Data& data) { mData = data; }
     Data&       data() { return mData; }

@@ -9,10 +9,12 @@ module;
 
 export module Text.CharTools;
 
+using namespace std;
+
 export class CharTools
 {
 public:
-    using ShortCondition = std::function<bool(const QChar)>;
+    using ShortCondition = function<bool(const QChar)>;
 
     constexpr static auto leftBracket  = '{';
     constexpr static auto rightBracket = '}';
