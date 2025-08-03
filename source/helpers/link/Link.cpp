@@ -15,7 +15,9 @@ export class Link : public TextRange
 {
 public:
     // TODO: Remove later. Sign of bad typing approach
-    static inline auto asListSize = [](auto num) -> std::vector<Link>::size_type { return static_cast<std::vector<Link>::size_type>(num); };
+    static inline auto asListSize = [](auto num) -> std::vector<Link>::size_type {
+        return static_cast<std::vector<Link>::size_type>(num);
+    };
 
     enum class Type { Unknown = 0, Text, Uuid };
 

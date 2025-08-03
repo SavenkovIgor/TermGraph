@@ -192,6 +192,6 @@ private: // Methods
     }
 
 private: // Members
-    const QStringView mString;
+    const QStringView       mString;
     const std::vector<Link> mLinks;
 };
