@@ -32,9 +32,6 @@ export class TermGroup
     using GraphT = graph::Graph<PaintedTerm, PaintedEdge>;
 
 public:
-    using Ptr    = std::shared_ptr<TermGroup>;
-    using OptPtr = std::optional<Ptr>;
-
     TermGroup(const GroupSummary& info, const TermData::List& termData)
         : mInfo(info)
     {

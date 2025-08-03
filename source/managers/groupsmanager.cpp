@@ -120,7 +120,7 @@ void GroupsManager::importGroupFromJsonString(const QString& rawJson)
     importGroup(doc.object());
 }
 
-TermGroup::OptPtr GroupsManager::createGroup(std::optional<GroupUuid> uuid)
+std::optional<std::shared_ptr<TermGroup>> GroupsManager::createGroup(std::optional<GroupUuid> uuid)
 {
     std::optional<GroupSummary> groupInfo;
     if (uuid) {
@@ -321,7 +321,7 @@ void GroupsManager::init() { provider.loadGroups(); }
 
 void GroupsManager::loadGroup(const GroupUuid& uuid) { provider.loadGroup(uuid); }
 
-void GroupsManager::saveGroupInFolder(TermGroup::OptPtr group)
+void GroupsManager::saveGroupInFolder(std::optional<std::shared_ptr<TermGroup>> group)
 {
     Q_UNIMPLEMENTED();
     if (group) {

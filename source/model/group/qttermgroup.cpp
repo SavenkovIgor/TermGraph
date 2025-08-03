@@ -5,7 +5,7 @@
 
 import TermGroup;
 
-QtTermGroup::QtTermGroup(const TermGroup::Ptr termGroup, QObject* parent)
+QtTermGroup::QtTermGroup(const std::shared_ptr<TermGroup> termGroup, QObject* parent)
     : QObject(parent)
     , mTermGroup(termGroup)
 {}
