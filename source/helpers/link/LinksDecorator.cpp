@@ -14,6 +14,7 @@ import CommonTools.HandyTypes;
 import Link.Link;
 import Link.LinksString;
 
+using namespace std;
 using namespace Qt::Literals::StringLiterals;
 
 export enum LinksDecoratorMode { Replace = 0, Insert, Cut };
@@ -22,7 +23,7 @@ export enum LinksDecoratorMode { Replace = 0, Insert, Cut };
 export class LinksDecorator
 {
 public:
-    using DecorCondition = std::function<QColor(int, const Link&)>;
+    using DecorCondition = function<QColor(int, const Link&)>;
 
     LinksDecorator(LinksString    linksString,
                    DecorCondition colorCondition,
