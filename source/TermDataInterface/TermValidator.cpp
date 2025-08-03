@@ -14,7 +14,7 @@ module;
 
 export module CommonTools.TermJsonValidator;
 
-import CommonTools.JsonTools;
+import CommonTools.JsonKeys;
 import CommonTools.Validator;
 import Text;
 
@@ -59,7 +59,7 @@ public:
 private:
     static CheckResult validUuid(const QJsonObject& obj)
     {
-        const auto& field = obj[JsonTools::uuidKey];
+        const auto& field = obj[jsonKeys::uuidKey];
 
         if (!field.isString())
             return unexpected(ErrorCode::JsonUuidFieldMissedOrWrongType);
@@ -72,7 +72,7 @@ private:
 
     static CheckResult validTerm(const QJsonObject& obj)
     {
-        const auto& field = obj[JsonTools::termKey];
+        const auto& field = obj[jsonKeys::termKey];
 
         if (!field.isString())
             return unexpected(ErrorCode::JsonTermFieldMissedOrWrongType);
@@ -85,12 +85,12 @@ private:
 
     static CheckResult validDefinition(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::definitionKey].isString(), ErrorCode::JsonDefinitionFieldMissedOrWrongType);
+        return checkOrError(obj[jsonKeys::definitionKey].isString(), ErrorCode::JsonDefinitionFieldMissedOrWrongType);
     }
 
     static CheckResult validTermDef(const QJsonObject& obj)
     {
-        auto termDefString = obj[JsonTools::termDefKey].toString();
+        auto termDefString = obj[jsonKeys::termDefKey].toString();
 
         if (!TextTools::isTermAndDefinition(termDefString))
             return unexpected(ErrorCode::JsonTermDefFieldWrongContentOrType);
@@ -105,27 +105,27 @@ private:
 
     static CheckResult validDescription(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::descriptionKey].isString(), ErrorCode::JsonDescriptionFieldMissedOrWrongType);
+        return checkOrError(obj[jsonKeys::descriptionKey].isString(), ErrorCode::JsonDescriptionFieldMissedOrWrongType);
     }
 
     static CheckResult validExamples(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::examplesKey].isString(), ErrorCode::JsonExamplesFieldMissedOrWrongType);
+        return checkOrError(obj[jsonKeys::examplesKey].isString(), ErrorCode::JsonExamplesFieldMissedOrWrongType);
     }
 
     static CheckResult validWikiUrl(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::wikiUrlKey].isString(), ErrorCode::JsonWikiUrlFieldMissedOrWrongType);
+        return checkOrError(obj[jsonKeys::wikiUrlKey].isString(), ErrorCode::JsonWikiUrlFieldMissedOrWrongType);
     }
 
     static CheckResult validWikiImage(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::wikiImageKey].isString(), ErrorCode::JsonWikiImageFieldMissedOrWrongType);
+        return checkOrError(obj[jsonKeys::wikiImageKey].isString(), ErrorCode::JsonWikiImageFieldMissedOrWrongType);
     }
 
     static CheckResult validGroupUuid(const QJsonObject& obj)
     {
-        const auto& field = obj[JsonTools::groupUuidKey];
+        const auto& field = obj[jsonKeys::groupUuidKey];
 
         if (!field.isString())
             return unexpected(ErrorCode::JsonGroupUuidFieldMissedOrWrongType);
@@ -138,12 +138,12 @@ private:
 
     static CheckResult validLastEditField(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::lastEditKey].isString(), ErrorCode::JsonLastEditFieldMissedOrWrongType);
+        return checkOrError(obj[jsonKeys::lastEditKey].isString(), ErrorCode::JsonLastEditFieldMissedOrWrongType);
     }
 
     static CheckResult validLastEdit(const QJsonObject& obj)
     {
-        return checkOrError(!QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate).isNull(),
+        return checkOrError(!QDateTime::fromString(obj[jsonKeys::lastEditKey].toString(), Qt::ISODate).isNull(),
                             ErrorCode::LastEditInvalid);
     }
 };
