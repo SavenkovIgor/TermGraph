@@ -193,7 +193,7 @@ void DataProvider::requestGroupExport(const GroupUuid &uuid)
                 }
 
                 QJsonObject groupJson = static_cast<QJsonObject>(groupInfo);
-                groupJson.insert(JsonTools::termsKey, termArray);
+                groupJson.insert(jsonTools::termsKey, termArray);
 
                 emit exportGroupReady(QJsonDocument(groupJson));
             });

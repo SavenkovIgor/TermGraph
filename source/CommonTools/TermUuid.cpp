@@ -13,7 +13,7 @@ import CommonTools.JsonTools;
 std::optional<TermUuid> TermUuid::from(QString text, UuidMode mode)
 {
     if (mode == UuidMode::Url)
-        text = JsonTools::prepareUuidParameter(text);
+        text = jsonTools::prepareUuidParameter(text);
 
     if (auto safe = SafeUuid::from(text))
         return TermUuid(text);
@@ -35,10 +35,10 @@ std::optional<TermUuid::List> TermUuid::List::from(const QJsonObject& obj)
 {
     List ret;
 
-    if (!obj[JsonTools::termUuidsKey].isArray())
+    if (!obj[jsonTools::termUuidsKey].isArray())
         return std::nullopt;
 
-    for (const auto& obj : obj[JsonTools::termUuidsKey].toArray()) {
+    for (const auto& obj : obj[jsonTools::termUuidsKey].toArray()) {
         if (auto uuid = TermUuid::from(obj.toString())) {
             ret.push_back(*uuid);
         } else {
@@ -67,7 +67,7 @@ TermUuid::List::operator QJsonObject() const
         arr.push_back(item.toString(StringFormat::WithoutBraces));
 
     QJsonObject obj;
-    obj.insert(JsonTools::termUuidsKey, arr);
+    obj.insert(jsonTools::termUuidsKey, arr);
     return obj;
 }
 

@@ -13,13 +13,13 @@ std::optional<GroupSummary> GroupSummary::from(const QJsonObject& obj)
 
     GroupSummary ret;
 
-    ret.uuid     = GroupUuid::from(obj[JsonTools::uuidKey].toString());
-    ret.name     = obj[JsonTools::nameKey].toString();
-    ret.comment  = obj[JsonTools::commentKey].toString();
-    ret.size     = obj[JsonTools::sizeKey].toInt(0);
-    ret.lastEdit = QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate);
+    ret.uuid     = GroupUuid::from(obj[jsonTools::uuidKey].toString());
+    ret.name     = obj[jsonTools::nameKey].toString();
+    ret.comment  = obj[jsonTools::commentKey].toString();
+    ret.size     = obj[jsonTools::sizeKey].toInt(0);
+    ret.lastEdit = QDateTime::fromString(obj[jsonTools::lastEditKey].toString(), Qt::ISODate);
 
-    auto nodeLastEdit = QDateTime::fromString(obj[JsonTools::nodesLastEditKey].toString(), Qt::ISODate);
+    auto nodeLastEdit = QDateTime::fromString(obj[jsonTools::nodesLastEditKey].toString(), Qt::ISODate);
     if (!nodeLastEdit.isNull())
         ret.nodesLastEdit = nodeLastEdit;
     else
@@ -47,14 +47,14 @@ QJsonObject GroupSummary::toQJsonObject() const
 {
     QJsonObject ret;
 
-    ret.insert(JsonTools::uuidKey, (uuid ? uuid->toString() : ""));
-    ret.insert(JsonTools::nameKey, name);
-    ret.insert(JsonTools::commentKey, comment);
-    ret.insert(JsonTools::sizeKey, size);
-    ret.insert(JsonTools::lastEditKey, lastEdit.toString(Qt::ISODate));
+    ret.insert(jsonTools::uuidKey, (uuid ? uuid->toString() : ""));
+    ret.insert(jsonTools::nameKey, name);
+    ret.insert(jsonTools::commentKey, comment);
+    ret.insert(jsonTools::sizeKey, size);
+    ret.insert(jsonTools::lastEditKey, lastEdit.toString(Qt::ISODate));
 
     if (nodesLastEdit)
-        ret.insert(JsonTools::nodesLastEditKey, nodesLastEdit->toString(Qt::ISODate));
+        ret.insert(jsonTools::nodesLastEditKey, nodesLastEdit->toString(Qt::ISODate));
 
     return ret;
 }
@@ -63,10 +63,10 @@ std::optional<GroupSummary::List> GroupSummary::List::from(const QJsonObject& ob
 {
     List ret;
 
-    if (!obj[JsonTools::groupsKey].isArray())
+    if (!obj[jsonTools::groupsKey].isArray())
         return std::nullopt;
 
-    for (const auto& groupJson : obj[JsonTools::groupsKey].toArray()) {
+    for (const auto& groupJson : obj[jsonTools::groupsKey].toArray()) {
         if (auto groupInfo = GroupSummary::from(groupJson.toObject())) {
             ret.push_back(*groupInfo);
         } else {
@@ -95,6 +95,6 @@ QJsonObject GroupSummary::List::toQJsonObject() const
         arr.push_back(static_cast<QJsonObject>(item));
 
     QJsonObject obj;
-    obj.insert(JsonTools::groupsKey, arr);
+    obj.insert(jsonTools::groupsKey, arr);
     return obj;
 }

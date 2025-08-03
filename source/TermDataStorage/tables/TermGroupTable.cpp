@@ -140,10 +140,10 @@ GroupSummary TermGroupTable::createGroupSummary(const QSqlRecord &rec)
 {
     GroupSummary info;
 
-    info.uuid    = GroupUuid::from(rec.value(JsonTools::uuidKey).toString());
-    info.name    = rec.value(JsonTools::nameKey).toString();
-    info.comment = rec.value(JsonTools::commentKey).toString();
-    info.size    = rec.value(JsonTools::sizeKey).toInt();
+    info.uuid    = GroupUuid::from(rec.value(jsonTools::uuidKey).toString());
+    info.name    = rec.value(jsonTools::nameKey).toString();
+    info.comment = rec.value(jsonTools::commentKey).toString();
+    info.size    = rec.value(jsonTools::sizeKey).toInt();
 
     return info;
 }

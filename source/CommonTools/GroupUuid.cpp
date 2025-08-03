@@ -13,7 +13,7 @@ import CommonTools.JsonTools;
 std::optional<GroupUuid> GroupUuid::from(QString text, UuidMode mode)
 {
     if (mode == UuidMode::Url)
-        text = JsonTools::prepareUuidParameter(text);
+        text = jsonTools::prepareUuidParameter(text);
 
     if (auto safe = SafeUuid::from(text))
         return GroupUuid(text);
@@ -35,10 +35,10 @@ std::optional<GroupUuid::List> GroupUuid::List::from(const QJsonObject& obj)
 {
     List ret;
 
-    if (!obj[JsonTools::groupUuidsKey].isArray())
+    if (!obj[jsonTools::groupUuidsKey].isArray())
         return std::nullopt;
 
-    for (const auto& obj : obj[JsonTools::groupUuidsKey].toArray()) {
+    for (const auto& obj : obj[jsonTools::groupUuidsKey].toArray()) {
         if (auto uuid = GroupUuid::from(obj.toString())) {
             ret.push_back(*uuid);
         } else {
@@ -67,7 +67,7 @@ GroupUuid::List::operator QJsonObject() const
         arr.push_back(item.toString(StringFormat::WithoutBraces));
 
     QJsonObject obj;
-    obj.insert(JsonTools::groupUuidsKey, arr);
+    obj.insert(jsonTools::groupUuidsKey, arr);
     return obj;
 }
 

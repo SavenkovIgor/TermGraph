@@ -55,7 +55,7 @@ public:
 private:
     static CheckResult validUuid(const QJsonObject& obj)
     {
-        const auto& field = obj[JsonTools::uuidKey];
+        const auto& field = obj[jsonTools::uuidKey];
 
         if (!field.isString())
             return unexpected(ErrorCode::JsonUuidFieldMissedOrWrongType);
@@ -68,7 +68,7 @@ private:
 
     static CheckResult validName(const QJsonObject& obj)
     {
-        const auto& field = obj[JsonTools::nameKey];
+        const auto& field = obj[jsonTools::nameKey];
 
         if (!field.isString())
             return unexpected(ErrorCode::JsonNameFieldMissedOrWrongType);
@@ -81,18 +81,18 @@ private:
 
     static CheckResult validComment(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::commentKey].isString(), ErrorCode::JsonCommentFieldMissedOrWrongType);
+        return checkOrError(obj[jsonTools::commentKey].isString(), ErrorCode::JsonCommentFieldMissedOrWrongType);
     }
 
     static CheckResult validSizeField(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::sizeKey].isDouble() && obj[JsonTools::sizeKey].toInt(-1) != -1,
+        return checkOrError(obj[jsonTools::sizeKey].isDouble() && obj[jsonTools::sizeKey].toInt(-1) != -1,
                             ErrorCode::JsonSizeFieldMissedOrWrongType);
     }
 
     static CheckResult validLastEdit(const QJsonObject& obj)
     {
-        const auto& field = obj[JsonTools::lastEditKey];
+        const auto& field = obj[jsonTools::lastEditKey];
 
         if (!field.isString())
             return unexpected(ErrorCode::JsonLastEditFieldMissedOrWrongType);
@@ -105,12 +105,12 @@ private:
 
     static CheckResult validNodesArray(const QJsonObject& obj)
     {
-        return checkOrError(obj[JsonTools::termsKey].isArray(), ErrorCode::JsonNodesFieldMissedOrWrongType);
+        return checkOrError(obj[jsonTools::termsKey].isArray(), ErrorCode::JsonNodesFieldMissedOrWrongType);
     }
 
     static CheckResult validNodesLastEdit(const QJsonObject& obj)
     {
-        const auto& field = obj[JsonTools::nodesLastEditKey];
+        const auto& field = obj[jsonTools::nodesLastEditKey];
 
         if (!field.isString())
             return unexpected(ErrorCode::JsonNodesLastEditFieldMissedOrWrongType);

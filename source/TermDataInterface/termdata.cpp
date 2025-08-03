@@ -49,7 +49,7 @@ std::optional<TermData> TermData::from(const QJsonObject& obj, JsonCheckMode mod
     if (mode == JsonCheckMode::Minimal) {
         gUuid = GroupUuid::generate();
     } else {
-        gUuid = GroupUuid::from(obj[JsonTools::groupUuidKey].toString());
+        gUuid = GroupUuid::from(obj[jsonTools::groupUuidKey].toString());
     }
 
     if (!gUuid)
@@ -57,40 +57,40 @@ std::optional<TermData> TermData::from(const QJsonObject& obj, JsonCheckMode mod
 
     QDateTime lastEdit;
 
-    if (obj.contains(JsonTools::lastEditKey)) {
-        lastEdit = QDateTime::fromString(obj[JsonTools::lastEditKey].toString(), Qt::ISODate);
+    if (obj.contains(jsonTools::lastEditKey)) {
+        lastEdit = QDateTime::fromString(obj[jsonTools::lastEditKey].toString(), Qt::ISODate);
     }
 
     std::optional<TermUuid> uuid;
 
-    if (obj.contains(JsonTools::uuidKey)) {
-        uuid = TermUuid::from(obj[JsonTools::uuidKey].toString());
+    if (obj.contains(jsonTools::uuidKey)) {
+        uuid = TermUuid::from(obj[jsonTools::uuidKey].toString());
     }
 
     QString term;
     QString definition;
 
     if (mode == JsonCheckMode::Minimal) {
-        auto termDef = obj[JsonTools::termDefKey].toString();
+        auto termDef = obj[jsonTools::termDefKey].toString();
 
         auto res = TextTools::splitTermAndDefinition(termDef);
 
         term       = res.first;
         definition = res.second;
     } else {
-        term       = obj[JsonTools::termKey].toString();
-        definition = obj[JsonTools::definitionKey].toString();
+        term       = obj[jsonTools::termKey].toString();
+        definition = obj[jsonTools::definitionKey].toString();
     }
 
     TermData ret{
         .uuid          = uuid,
         .term          = term,
         .definition    = definition,
-        .description   = obj[JsonTools::descriptionKey].toString(""),
-        .examples      = obj[JsonTools::examplesKey].toString(""),
-        .wikiUrl       = obj[JsonTools::wikiUrlKey].toString(""),
-        .wikiImage     = obj[JsonTools::wikiImageKey].toString(""),
-        .knowledgeArea = obj[JsonTools::knowledgeAreaKey].toString(""),
+        .description   = obj[jsonTools::descriptionKey].toString(""),
+        .examples      = obj[jsonTools::examplesKey].toString(""),
+        .wikiUrl       = obj[jsonTools::wikiUrlKey].toString(""),
+        .wikiImage     = obj[jsonTools::wikiImageKey].toString(""),
+        .knowledgeArea = obj[jsonTools::knowledgeAreaKey].toString(""),
         .groupUuid     = *gUuid,
         .lastEdit      = lastEdit,
     };
@@ -115,18 +115,18 @@ QJsonObject TermData::toQJsonObject() const
 {
     QJsonObject ret;
 
-    ret.insert(JsonTools::uuidKey, (uuid ? uuid->toString() : ""));
-    ret.insert(JsonTools::termKey, term);
-    ret.insert(JsonTools::definitionKey, definition);
+    ret.insert(jsonTools::uuidKey, (uuid ? uuid->toString() : ""));
+    ret.insert(jsonTools::termKey, term);
+    ret.insert(jsonTools::definitionKey, definition);
 
-    ret = JsonTools::addIfNotEmpty(ret, JsonTools::descriptionKey, description);
-    ret = JsonTools::addIfNotEmpty(ret, JsonTools::examplesKey, examples);
-    ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiUrlKey, wikiUrl);
-    ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiImageKey, wikiImage);
-    ret = JsonTools::addIfNotEmpty(ret, JsonTools::knowledgeAreaKey, knowledgeArea);
+    ret = jsonTools::addIfNotEmpty(ret, jsonTools::descriptionKey, description);
+    ret = jsonTools::addIfNotEmpty(ret, jsonTools::examplesKey, examples);
+    ret = jsonTools::addIfNotEmpty(ret, jsonTools::wikiUrlKey, wikiUrl);
+    ret = jsonTools::addIfNotEmpty(ret, jsonTools::wikiImageKey, wikiImage);
+    ret = jsonTools::addIfNotEmpty(ret, jsonTools::knowledgeAreaKey, knowledgeArea);
 
-    ret.insert(JsonTools::groupUuidKey, groupUuid.toString());
-    ret.insert(JsonTools::lastEditKey, lastEdit.toString(Qt::ISODate));
+    ret.insert(jsonTools::groupUuidKey, groupUuid.toString());
+    ret.insert(jsonTools::lastEditKey, lastEdit.toString(Qt::ISODate));
 
     return ret;
 }
@@ -137,13 +137,13 @@ QJsonObject TermData::toMinimalQJsonObject() const
 
     auto termDef = TextTools::joinTermDef(term, definition);
 
-    ret.insert(JsonTools::termDefKey, termDef);
+    ret.insert(jsonTools::termDefKey, termDef);
 
-    ret = JsonTools::addIfNotEmpty(ret, JsonTools::descriptionKey, description);
-    ret = JsonTools::addIfNotEmpty(ret, JsonTools::examplesKey, examples);
-    ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiUrlKey, wikiUrl);
-    ret = JsonTools::addIfNotEmpty(ret, JsonTools::wikiImageKey, wikiImage);
-    ret = JsonTools::addIfNotEmpty(ret, JsonTools::knowledgeAreaKey, knowledgeArea);
+    ret = jsonTools::addIfNotEmpty(ret, jsonTools::descriptionKey, description);
+    ret = jsonTools::addIfNotEmpty(ret, jsonTools::examplesKey, examples);
+    ret = jsonTools::addIfNotEmpty(ret, jsonTools::wikiUrlKey, wikiUrl);
+    ret = jsonTools::addIfNotEmpty(ret, jsonTools::wikiImageKey, wikiImage);
+    ret = jsonTools::addIfNotEmpty(ret, jsonTools::knowledgeAreaKey, knowledgeArea);
 
     return ret;
 }
@@ -154,10 +154,10 @@ std::optional<TermData::List> TermData::List::from(const QJsonObject& obj)
 {
     TermData::List ret;
 
-    if (!obj[JsonTools::termsKey].isArray())
+    if (!obj[jsonTools::termsKey].isArray())
         return std::nullopt;
 
-    return from(obj[JsonTools::termsKey].toArray());
+    return from(obj[jsonTools::termsKey].toArray());
 }
 
 TermData::List TermData::List::from(const QJsonArray& json, TermData::JsonCheckMode mode)
@@ -198,7 +198,7 @@ std::optional<TermData::List> TermData::List::from(const QByteArray& jsonBytes)
 QJsonObject TermData::List::toQJsonObject() const
 {
     QJsonObject obj;
-    obj.insert(JsonTools::termsKey, static_cast<QJsonArray>(*this));
+    obj.insert(jsonTools::termsKey, static_cast<QJsonArray>(*this));
     return obj;
 }
 

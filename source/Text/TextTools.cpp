@@ -17,16 +17,16 @@ import CommonTools.HandyTypes;
 export class TextTools
 {
 public:
-    static bool isTermAndDefinition(QStringView termDef) { return termDef.contains(JsonTools::termDefSeparatorSv); }
+    static bool isTermAndDefinition(QStringView termDef) { return termDef.contains(jsonTools::termDefSeparatorSv); }
 
     static QPair<QString, QString> splitTermAndDefinition(QStringView termDef)
     {
         assert(isTermAndDefinition(termDef));
 
-        auto indexOfSeparator = termDef.indexOf(JsonTools::termDefSeparatorSv);
+        auto indexOfSeparator = termDef.indexOf(jsonTools::termDefSeparatorSv);
 
         auto term       = termDef.first(indexOfSeparator);
-        auto definition = termDef.sliced(indexOfSeparator + JsonTools::termDefSeparatorSv.size());
+        auto definition = termDef.sliced(indexOfSeparator + jsonTools::termDefSeparatorSv.size());
 
         return {term.toString(), definition.toString()};
     }
@@ -34,7 +34,7 @@ public:
     static QString joinTermDef(QStringView term, QStringView definition)
     {
         auto ret = term.toString();
-        ret += JsonTools::termDefSeparator;
+        ret += jsonTools::termDefSeparator;
         ret += definition;
         return ret;
     }

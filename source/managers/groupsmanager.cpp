@@ -189,14 +189,14 @@ void GroupsManager::importGroup(QJsonObject json)
 {
     // Some import data fixes
     // Update of termsKey if need
-    if (json.contains(JsonTools::oldTermsKey)) {
-        json.insert(JsonTools::termsKey, json[JsonTools::oldTermsKey]);
-        json.remove(JsonTools::oldTermsKey);
+    if (json.contains(jsonTools::oldTermsKey)) {
+        json.insert(jsonTools::termsKey, json[jsonTools::oldTermsKey]);
+        json.remove(jsonTools::oldTermsKey);
     }
 
     // Add size field
-    if (json[JsonTools::termsKey].isArray() && !json.contains(JsonTools::sizeKey)) {
-        json.insert(JsonTools::sizeKey, json[JsonTools::termsKey].toArray().size());
+    if (json[jsonTools::termsKey].isArray() && !json.contains(jsonTools::sizeKey)) {
+        json.insert(jsonTools::sizeKey, json[jsonTools::termsKey].toArray().size());
     }
 
     if (!GroupJsonValidator::fullChecks().check(json)) {
@@ -216,7 +216,7 @@ void GroupsManager::importGroup(QJsonObject json)
         provider.addGroup(*groupInfo);
     }
 
-    QJsonArray nodes = json[JsonTools::termsKey].toArray();
+    QJsonArray nodes = json[jsonTools::termsKey].toArray();
 
     // Importing nodes
     for (const auto& node : nodes) {

@@ -61,7 +61,7 @@ std::optional<StaticGroupData> StaticGroupData::from(QJsonObject json)
 {
     // Some import data fixes
     // Update of termsKey if need
-    json = JsonTools::updateKey(json, JsonTools::oldTermsKey, JsonTools::termsKey);
+    json = jsonTools::updateKey(json, jsonTools::oldTermsKey, jsonTools::termsKey);
 
     if (!GroupJsonValidator::staticDataChecks().check(json)) {
         return std::nullopt;
@@ -69,15 +69,15 @@ std::optional<StaticGroupData> StaticGroupData::from(QJsonObject json)
 
     StaticGroupData ret;
 
-    if (json.contains(JsonTools::uuidKey)) {
-        ret.uuid = GroupUuid::from(json[JsonTools::uuidKey].toString());
+    if (json.contains(jsonTools::uuidKey)) {
+        ret.uuid = GroupUuid::from(json[jsonTools::uuidKey].toString());
     } else {
         ret.uuid = std::nullopt;
     }
-    ret.name    = json[JsonTools::nameKey].toString();
-    ret.comment = json[JsonTools::commentKey].toString("");
+    ret.name    = json[jsonTools::nameKey].toString();
+    ret.comment = json[jsonTools::commentKey].toString("");
 
-    auto jsonTerms = json[JsonTools::termsKey].toArray();
+    auto jsonTerms = json[jsonTools::termsKey].toArray();
     ret.terms      = TermData::List::from(jsonTerms, TermData::JsonCheckMode::Minimal);
 
     return ret;
@@ -98,10 +98,10 @@ QJsonObject StaticGroupData::toQJsonObject() const
     QJsonObject ret;
 
     if (uuid) {
-        ret.insert(JsonTools::uuidKey, uuid->toString());
+        ret.insert(jsonTools::uuidKey, uuid->toString());
     }
-    ret.insert(JsonTools::nameKey, name);
-    ret = JsonTools::addIfNotEmpty(ret, JsonTools::commentKey, comment);
+    ret.insert(jsonTools::nameKey, name);
+    ret = jsonTools::addIfNotEmpty(ret, jsonTools::commentKey, comment);
 
     QJsonArray jsonterms;
 
@@ -109,7 +109,7 @@ QJsonObject StaticGroupData::toQJsonObject() const
         jsonterms.append(term.toMinimalQJsonObject());
     }
 
-    ret.insert(JsonTools::termsKey, jsonterms);
+    ret.insert(jsonTools::termsKey, jsonterms);
 
     return ret;
 }
