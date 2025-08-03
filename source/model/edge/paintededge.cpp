@@ -18,11 +18,13 @@ import Graph;
 import GraphicItem;
 import PaintedTerm;
 
+using namespace std;
+
 export class PaintedEdge : public graph::Edge<PaintedTerm, EdgeData>, public GraphicItem
 {
 public:
-    using Ptr  = std::shared_ptr<PaintedEdge>;
-    using List = std::vector<Ptr>;
+    using Ptr  = shared_ptr<PaintedEdge>;
+    using List = vector<Ptr>;
 
     static inline auto asListSize = [](auto num) -> List::size_type { return static_cast<List::size_type>(num); };
 
