@@ -18,6 +18,8 @@ import CommonTools.JsonTools;
 import CommonTools.Validator;
 import Text;
 
+using namespace std;
+
 export class TermJsonValidator : public Validator<QJsonObject>
 {
 public:
@@ -60,10 +62,10 @@ private:
         const auto& field = obj[JsonTools::uuidKey];
 
         if (!field.isString())
-            return std::unexpected(ErrorCode::JsonUuidFieldMissedOrWrongType);
+            return unexpected(ErrorCode::JsonUuidFieldMissedOrWrongType);
 
         if (auto uuid = TermUuid::from(field.toString()); !uuid.has_value())
-            return std::unexpected(ErrorCode::TermUuidInvalid);
+            return unexpected(ErrorCode::TermUuidInvalid);
 
         return {};
     }
@@ -73,10 +75,10 @@ private:
         const auto& field = obj[JsonTools::termKey];
 
         if (!field.isString())
-            return std::unexpected(ErrorCode::JsonTermFieldMissedOrWrongType);
+            return unexpected(ErrorCode::JsonTermFieldMissedOrWrongType);
 
         if (field.toString().isEmpty())
-            return std::unexpected(ErrorCode::TermEmpty);
+            return unexpected(ErrorCode::TermEmpty);
 
         return {};
     }
@@ -91,12 +93,12 @@ private:
         auto termDefString = obj[JsonTools::termDefKey].toString();
 
         if (!TextTools::isTermAndDefinition(termDefString))
-            return std::unexpected(ErrorCode::JsonTermDefFieldWrongContentOrType);
+            return unexpected(ErrorCode::JsonTermDefFieldWrongContentOrType);
 
         auto [term, _] = TextTools::splitTermAndDefinition(termDefString);
 
         if (term.isEmpty())
-            return std::unexpected(ErrorCode::JsonTermDefFieldWrongContentOrType);
+            return unexpected(ErrorCode::JsonTermDefFieldWrongContentOrType);
 
         return {};
     }
@@ -126,10 +128,10 @@ private:
         const auto& field = obj[JsonTools::groupUuidKey];
 
         if (!field.isString())
-            return std::unexpected(ErrorCode::JsonGroupUuidFieldMissedOrWrongType);
+            return unexpected(ErrorCode::JsonGroupUuidFieldMissedOrWrongType);
 
         if (auto uuid = GroupUuid::from(field.toString()); !uuid.has_value())
-            return std::unexpected(ErrorCode::GroupUuidInvalid);
+            return unexpected(ErrorCode::GroupUuidInvalid);
 
         return {};
     }
