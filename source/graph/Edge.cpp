@@ -11,16 +11,18 @@ export module Graph.Edge;
 
 import Graph.Node;
 
+using namespace std;
+
 export namespace graph {
 
 template<typename NodeT, typename EdgeData>
 class Edge
 {
-    using NodePtr = std::shared_ptr<NodeT>;
+    using NodePtr = shared_ptr<NodeT>;
 
 public:
-    using Ptr  = std::shared_ptr<Edge<NodeT, EdgeData>>;
-    using List = std::vector<Ptr>;
+    using Ptr  = shared_ptr<Edge<NodeT, EdgeData>>;
+    using List = vector<Ptr>;
 
     explicit Edge(NodePtr root, NodePtr leaf, EdgeData data)
         : mRoot(std::move(root))
@@ -30,7 +32,7 @@ public:
 
     static Ptr createPtr(NodePtr root, NodePtr leaf, EdgeData data = {})
     {
-        return std::make_shared<Edge<NodeT, EdgeData>>(root, leaf, data);
+        return make_shared<Edge<NodeT, EdgeData>>(root, leaf, data);
     }
 
     NodePtr root() { return mRoot; }
