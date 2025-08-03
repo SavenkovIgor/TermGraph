@@ -27,11 +27,8 @@ template<typename NodeT, typename EdgeT>
 class Forest : public Graph<NodeT, EdgeT>
 {
 private:
-    using NodePtr  = typename NodeT::Ptr;
-    using NodeList = typename NodeT::List;
-
-    using EdgePtr  = typename EdgeT::Ptr;
-    using EdgeList = typename EdgeT::List;
+    using NodePtr = typename NodeT::Ptr;
+    using EdgePtr = typename EdgeT::Ptr;
 
     using Base     = Graph<NodeT, EdgeT>;
     using BaseData = GraphData<NodeT, EdgeT>;
@@ -69,11 +66,11 @@ public:
         return type == NodeType::EndLeaf || type == NodeType::MiddleLeaf;
     }
 
-    bool     hasBrokenEdges() const { return !mBrokenEdges.empty(); }
-    EdgeList brokenEdges() const { return mBrokenEdges; }
+    bool        hasBrokenEdges() const { return !mBrokenEdges.empty(); }
+    EdgeT::List brokenEdges() const { return mBrokenEdges; }
 
-    bool     hasWasteEdges() const { return !mWasteEdges.empty(); }
-    EdgeList wasteEdges() const { return mWasteEdges; }
+    bool        hasWasteEdges() const { return !mWasteEdges.empty(); }
+    EdgeT::List wasteEdges() const { return mWasteEdges; }
 
     NodeType nodeType(const NodePtr& node) const
     {
@@ -119,25 +116,25 @@ public:
         nodesVisiter(stopCondition, visitQueue, mEdgesToLeafs, checkStartNode);
     }
 
-    NodeList roots() const
+    NodeT::List roots() const
     {
         return BaseData::filterNodes([this](auto node) { return isRoot(node); });
     }
 
-    NodeList rootNodes(const NodePtr& node) const
+    NodeT::List rootNodes(const NodePtr& node) const
     {
-        NodeList ret;
-        auto     rootEdges = mEdgesToRoots.at(node);
+        typename NodeT::List ret;
+        auto                 rootEdges = mEdgesToRoots.at(node);
         std::transform(rootEdges.begin(), rootEdges.end(), std::back_inserter(ret), [&node](auto edge) {
             return edge->oppositeTo(node);
         });
         return ret;
     }
 
-    NodeList leafNodes(const NodePtr& node) const
+    NodeT::List leafNodes(const NodePtr& node) const
     {
-        NodeList ret;
-        auto     leafEdges = mEdgesToLeafs.at(node);
+        typename NodeT::List ret;
+        auto                 leafEdges = mEdgesToLeafs.at(node);
         std::transform(leafEdges.begin(), leafEdges.end(), std::back_inserter(ret), [&node](auto edge) {
             return edge->oppositeTo(node);
         });
@@ -171,9 +168,9 @@ public:
         return false;
     }
 
-    EdgeList tooShortEdges(const NodePtr& node) const
+    EdgeT::List tooShortEdges(const NodePtr& node) const
     {
-        EdgeList ret;
+        typename EdgeT::List ret;
 
         for (auto edge : mEdgesToRoots.at(node)) {
             // If we found long path, we need mark direct path for cut out
@@ -187,9 +184,9 @@ public:
     // Leveling
     int level(const NodePtr& node) const { return mLevels.at(node); }
 
-    NodeList nodesAtLevel(int level) const
+    NodeT::List nodesAtLevel(int level) const
     {
-        NodeList ret;
+        typename NodeT::List ret;
 
         for (const auto& [item, itemLevel] : mLevels) {
             if (itemLevel == level)
@@ -200,8 +197,8 @@ public:
     }
 
 protected:
-    const std::map<NodePtr, EdgeList>& edgesToRoots() { return mEdgesToRoots; }
-    const std::map<NodePtr, EdgeList>& edgesToLeafs() { return mEdgesToLeafs; }
+    const std::map<NodePtr, typename EdgeT::List>& edgesToRoots() { return mEdgesToRoots; }
+    const std::map<NodePtr, typename EdgeT::List>& edgesToLeafs() { return mEdgesToLeafs; }
 
 private: // Methods
     void rebuildCache()
@@ -222,7 +219,7 @@ private: // Methods
         }
     }
 
-    EdgeList getWasteEdges()
+    EdgeT::List getWasteEdges()
     {
         std::set<EdgePtr> wEdges;
         for (const auto& node : BaseData::nodes) {
@@ -238,9 +235,9 @@ private: // Methods
 
     enum class NodeState { NotVisited = 0, AtPath, Visited };
 
-    EdgeList getCycleEdges() const
+    typename EdgeT::List getCycleEdges() const
     {
-        EdgeList breakEdges;
+        typename EdgeT::List breakEdges;
 
         std::map<NodePtr, NodeState> nodeStates;
 
@@ -295,7 +292,7 @@ private: // Methods
         return ret;
     }
 
-    void cycleCheckVisit(const NodePtr& node, EdgeList& breakEdges, std::map<NodePtr, NodeState>& nodeStates) const
+    void cycleCheckVisit(const NodePtr& node, EdgeT::List& breakEdges, std::map<NodePtr, NodeState>& nodeStates) const
     {
         nodeStates[node] = NodeState::AtPath;
 
@@ -320,7 +317,7 @@ private: // Methods
 
     static void nodesVisiter(const std::function<bool(const NodePtr& node)>& stopCondition,
                              std::deque<NodePtr>&                            visitQueue,
-                             const std::map<NodePtr, EdgeList>&              edgesList,
+                             const std::map<NodePtr, typename EdgeT::List>&  edgesList,
                              bool                                            checkCondition = true)
     {
         if (visitQueue.empty())
@@ -348,13 +345,13 @@ private: // Methods
     }
 
 private: // Members
-    std::map<NodePtr, EdgeList> mEdgesToRoots;
-    std::map<NodePtr, EdgeList> mEdgesToLeafs;
+    std::map<NodePtr, typename EdgeT::List> mEdgesToRoots;
+    std::map<NodePtr, typename EdgeT::List> mEdgesToLeafs;
 
     std::map<NodePtr, int> mLevels;
 
-    EdgeList mBrokenEdges; // From broken cycles
-    EdgeList mWasteEdges;  // Just redundant
+    typename EdgeT::List mBrokenEdges; // From broken cycles
+    typename EdgeT::List mWasteEdges;  // Just redundant
 };
 
 } // namespace graph
