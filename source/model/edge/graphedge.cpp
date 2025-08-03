@@ -13,13 +13,15 @@ import EdgeData;
 import Graph;
 import GraphTerm;
 
+using namespace std;
+
 export class GraphEdge : public graph::Edge<GraphTerm, EdgeData>
 {
-    using TermPtr = std::shared_ptr<GraphTerm>;
+    using TermPtr = shared_ptr<GraphTerm>;
 
 public:
-    using Ptr  = std::shared_ptr<GraphEdge>;
-    using List = std::vector<Ptr>;
+    using Ptr  = shared_ptr<GraphEdge>;
+    using List = vector<Ptr>;
 
     GraphEdge(TermPtr toRoot, TermPtr toLeaf)
         : graph::Edge<GraphTerm, EdgeData>(toRoot, toLeaf, EdgeData())
