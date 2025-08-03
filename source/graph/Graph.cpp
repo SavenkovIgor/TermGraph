@@ -18,7 +18,8 @@ import Graph.Edge;
 import Graph.GraphData;
 import Graph.Node;
 
-namespace rng = std::ranges;
+using namespace std;
+namespace rng = ranges;
 
 export namespace graph {
 
@@ -35,14 +36,14 @@ private:
     using Base = GraphData<NodeT, EdgeT>;
 
 public:
-    using List = std::vector<std::shared_ptr<Graph<NodeT, EdgeT>>>;
+    using List = vector<shared_ptr<Graph<NodeT, EdgeT>>>;
 
     explicit Graph(const GraphData<NodeT, EdgeT>& data)
         : GraphData<NodeT, EdgeT>{.nodes = data.nodes, .edges = data.edges}
     {
         // Uniqueness check
-        std::set<NodePtr> nodeSet(data.nodes.begin(), data.nodes.end());
-        std::set<EdgePtr> edgeSet(data.edges.begin(), data.edges.end());
+        set<NodePtr> nodeSet(data.nodes.begin(), data.nodes.end());
+        set<EdgePtr> edgeSet(data.edges.begin(), data.edges.end());
 
         assert(nodeSet.size() == data.nodes.size());
         assert(edgeSet.size() == data.edges.size());
@@ -58,7 +59,7 @@ public:
     {
         auto ret = Base::nodes;
 
-        auto removeIt = std::remove_if(ret.begin(), ret.end(), [this](auto node) {
+        auto removeIt = remove_if(ret.begin(), ret.end(), [this](auto node) {
             auto it = rng::find_if(Base::edges, [&node](auto edge) { return edge->incidentalTo(node); });
 
             return it != Base::edges.end();
@@ -74,7 +75,7 @@ public:
         auto isolated = isolatedNodes();
         auto ret      = Base::nodes;
 
-        auto removeIt = std::remove_if(ret.begin(), ret.end(), [&isolated](auto node) {
+        auto removeIt = remove_if(ret.begin(), ret.end(), [&isolated](auto node) {
             return rng::find(isolated, node) != isolated.end();
         });
 
@@ -102,7 +103,7 @@ public:
         auto     edges = connectedEdges(node);
         NodeList nodes(edges.size());
 
-        std::transform(edges.begin(), edges.end(), nodes.begin(), [&node](auto edge) { return edge->oppositeTo(node); });
+        transform(edges.begin(), edges.end(), nodes.begin(), [&node](auto edge) { return edge->oppositeTo(node); });
 
         return {.nodes = nodes, .edges = edges};
     }
@@ -110,7 +111,7 @@ public:
     typename GraphData<NodeT, EdgeT>::List bondedSubgraphs()
     {
         enum class State { NotVisited = 0, Planned, Visited };
-        std::map<NodePtr, State> nodesVisitList;
+        map<NodePtr, State> nodesVisitList;
 
         for (const auto& node : connectedNodes())
             nodesVisitList[node] = State::NotVisited;
@@ -123,12 +124,12 @@ public:
         auto isNodePlanned = [](const auto& val) { return val.second == State::Planned; };
         auto isNodeVisited = [](const auto& val) { return val.second == State::Visited; };
 
-        std::set<NodePtr> uniqueNodes;
-        std::set<EdgePtr> uniqueEdges;
+        set<NodePtr> uniqueNodes;
+        set<EdgePtr> uniqueEdges;
 
         while (!nodesVisitList.empty()) {
             // Visit stage
-            auto nodeToVisit = std::find_if(nodesVisitList.begin(), nodesVisitList.end(), isNodePlanned);
+            auto nodeToVisit = find_if(nodesVisitList.begin(), nodesVisitList.end(), isNodePlanned);
 
             // If no any nodes in plan, take first
             if (nodeToVisit == nodesVisitList.end())
@@ -161,7 +162,7 @@ public:
                 uniqueEdges.clear();
 
                 // Remove visited from nodesVisitList
-                std::erase_if(nodesVisitList, isNodeVisited);
+                erase_if(nodesVisitList, isNodeVisited);
             }
         }
 
