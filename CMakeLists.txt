@@ -120,6 +120,7 @@ target_sources (TermGraph
     FILE_SET CXX_MODULES
     FILES
         "source/CommonTools/HandyTypesModule.cpp"
+        "source/CommonTools/JsonKeys.cpp"
         "source/CommonTools/JsonTools.cpp"
         "source/CommonTools/NetworkTools.cpp"
         "source/CommonTools/Validator.cpp"
@@ -357,6 +358,7 @@ if (BUILD_TESTING)
         FILE_SET CXX_MODULES
         FILES
             "source/CommonTools/HandyTypesModule.cpp"
+            "source/CommonTools/JsonKeys.cpp"
             "source/CommonTools/JsonTools.cpp"
             "source/CommonTools/NetworkTools.cpp"
             "source/CommonTools/Validator.cpp"

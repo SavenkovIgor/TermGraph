@@ -3,7 +3,9 @@
 
 #include "source/TermDataInterface/GroupSummary.h"
 
-import CommonTools.JsonTools;
+#include <QJsonArray>
+
+import CommonTools.JsonKeys;
 import TermDataInterface.GroupValidator;
 
 std::optional<GroupSummary> GroupSummary::from(const QJsonObject& obj)
@@ -13,13 +15,13 @@ std::optional<GroupSummary> GroupSummary::from(const QJsonObject& obj)
 
     GroupSummary ret;
 
-    ret.uuid     = GroupUuid::from(obj[jsonTools::uuidKey].toString());
-    ret.name     = obj[jsonTools::nameKey].toString();
-    ret.comment  = obj[jsonTools::commentKey].toString();
-    ret.size     = obj[jsonTools::sizeKey].toInt(0);
-    ret.lastEdit = QDateTime::fromString(obj[jsonTools::lastEditKey].toString(), Qt::ISODate);
+    ret.uuid     = GroupUuid::from(obj[jsonKeys::uuidKey].toString());
+    ret.name     = obj[jsonKeys::nameKey].toString();
+    ret.comment  = obj[jsonKeys::commentKey].toString();
+    ret.size     = obj[jsonKeys::sizeKey].toInt(0);
+    ret.lastEdit = QDateTime::fromString(obj[jsonKeys::lastEditKey].toString(), Qt::ISODate);
 
-    auto nodeLastEdit = QDateTime::fromString(obj[jsonTools::nodesLastEditKey].toString(), Qt::ISODate);
+    auto nodeLastEdit = QDateTime::fromString(obj[jsonKeys::nodesLastEditKey].toString(), Qt::ISODate);
     if (!nodeLastEdit.isNull())
         ret.nodesLastEdit = nodeLastEdit;
     else
@@ -47,14 +49,14 @@ QJsonObject GroupSummary::toQJsonObject() const
 {
     QJsonObject ret;
 
-    ret.insert(jsonTools::uuidKey, (uuid ? uuid->toString() : ""));
-    ret.insert(jsonTools::nameKey, name);
-    ret.insert(jsonTools::commentKey, comment);
-    ret.insert(jsonTools::sizeKey, size);
-    ret.insert(jsonTools::lastEditKey, lastEdit.toString(Qt::ISODate));
+    ret.insert(jsonKeys::uuidKey, (uuid ? uuid->toString() : ""));
+    ret.insert(jsonKeys::nameKey, name);
+    ret.insert(jsonKeys::commentKey, comment);
+    ret.insert(jsonKeys::sizeKey, size);
+    ret.insert(jsonKeys::lastEditKey, lastEdit.toString(Qt::ISODate));
 
     if (nodesLastEdit)
-        ret.insert(jsonTools::nodesLastEditKey, nodesLastEdit->toString(Qt::ISODate));
+        ret.insert(jsonKeys::nodesLastEditKey, nodesLastEdit->toString(Qt::ISODate));
 
     return ret;
 }
@@ -63,10 +65,10 @@ std::optional<GroupSummary::List> GroupSummary::List::from(const QJsonObject& ob
 {
     List ret;
 
-    if (!obj[jsonTools::groupsKey].isArray())
+    if (!obj[jsonKeys::groupsKey].isArray())
         return std::nullopt;
 
-    for (const auto& groupJson : obj[jsonTools::groupsKey].toArray()) {
+    for (const auto& groupJson : obj[jsonKeys::groupsKey].toArray()) {
         if (auto groupInfo = GroupSummary::from(groupJson.toObject())) {
             ret.push_back(*groupInfo);
         } else {
@@ -95,6 +97,6 @@ QJsonObject GroupSummary::List::toQJsonObject() const
         arr.push_back(static_cast<QJsonObject>(item));
 
     QJsonObject obj;
-    obj.insert(jsonTools::groupsKey, arr);
+    obj.insert(jsonKeys::groupsKey, arr);
     return obj;
 }

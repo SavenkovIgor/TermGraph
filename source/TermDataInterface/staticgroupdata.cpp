@@ -3,6 +3,7 @@
 
 #include "source/TermDataInterface/StaticGroupData.h"
 
+import CommonTools.JsonKeys;
 import CommonTools.JsonTools;
 import TermDataInterface.GroupValidator;
 
@@ -61,7 +62,7 @@ std::optional<StaticGroupData> StaticGroupData::from(QJsonObject json)
 {
     // Some import data fixes
     // Update of termsKey if need
-    json = jsonTools::updateKey(json, jsonTools::oldTermsKey, jsonTools::termsKey);
+    json = jsonTools::updateKey(json, jsonKeys::oldTermsKey, jsonKeys::termsKey);
 
     if (!GroupJsonValidator::staticDataChecks().check(json)) {
         return std::nullopt;
@@ -69,15 +70,15 @@ std::optional<StaticGroupData> StaticGroupData::from(QJsonObject json)
 
     StaticGroupData ret;
 
-    if (json.contains(jsonTools::uuidKey)) {
-        ret.uuid = GroupUuid::from(json[jsonTools::uuidKey].toString());
+    if (json.contains(jsonKeys::uuidKey)) {
+        ret.uuid = GroupUuid::from(json[jsonKeys::uuidKey].toString());
     } else {
         ret.uuid = std::nullopt;
     }
-    ret.name    = json[jsonTools::nameKey].toString();
-    ret.comment = json[jsonTools::commentKey].toString("");
+    ret.name    = json[jsonKeys::nameKey].toString();
+    ret.comment = json[jsonKeys::commentKey].toString("");
 
-    auto jsonTerms = json[jsonTools::termsKey].toArray();
+    auto jsonTerms = json[jsonKeys::termsKey].toArray();
     ret.terms      = TermData::List::from(jsonTerms, TermData::JsonCheckMode::Minimal);
 
     return ret;
@@ -98,10 +99,10 @@ QJsonObject StaticGroupData::toQJsonObject() const
     QJsonObject ret;
 
     if (uuid) {
-        ret.insert(jsonTools::uuidKey, uuid->toString());
+        ret.insert(jsonKeys::uuidKey, uuid->toString());
     }
-    ret.insert(jsonTools::nameKey, name);
-    ret = jsonTools::addIfNotEmpty(ret, jsonTools::commentKey, comment);
+    ret.insert(jsonKeys::nameKey, name);
+    ret = jsonTools::addIfNotEmpty(ret, jsonKeys::commentKey, comment);
 
     QJsonArray jsonterms;
 
@@ -109,7 +110,7 @@ QJsonObject StaticGroupData::toQJsonObject() const
         jsonterms.append(term.toMinimalQJsonObject());
     }
 
-    ret.insert(jsonTools::termsKey, jsonterms);
+    ret.insert(jsonKeys::termsKey, jsonterms);
 
     return ret;
 }

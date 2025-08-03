@@ -3,7 +3,7 @@
 
 #include "source/DataProvider.h"
 
-import CommonTools.JsonTools;
+import CommonTools.JsonKeys;
 import DataSourceFactory;
 
 DataProvider::DataProvider(QObject *parent)
@@ -193,7 +193,7 @@ void DataProvider::requestGroupExport(const GroupUuid &uuid)
                 }
 
                 QJsonObject groupJson = static_cast<QJsonObject>(groupInfo);
-                groupJson.insert(jsonTools::termsKey, termArray);
+                groupJson.insert(jsonKeys::termsKey, termArray);
 
                 emit exportGroupReady(QJsonDocument(groupJson));
             });

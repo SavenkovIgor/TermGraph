@@ -6,7 +6,7 @@
 #include "source/TermDataStorage/DbTools.h"
 #include "source/TermDataStorage/SqlQueryBuilder.h"
 
-import CommonTools.JsonTools;
+import CommonTools.JsonKeys;
 
 void TermGroupTable::initTable() { DbTools::start(SqlQueryBuilder().createGroupsTable()); }
 
@@ -140,10 +140,10 @@ GroupSummary TermGroupTable::createGroupSummary(const QSqlRecord &rec)
 {
     GroupSummary info;
 
-    info.uuid    = GroupUuid::from(rec.value(jsonTools::uuidKey).toString());
-    info.name    = rec.value(jsonTools::nameKey).toString();
-    info.comment = rec.value(jsonTools::commentKey).toString();
-    info.size    = rec.value(jsonTools::sizeKey).toInt();
+    info.uuid    = GroupUuid::from(rec.value(jsonKeys::uuidKey).toString());
+    info.name    = rec.value(jsonKeys::nameKey).toString();
+    info.comment = rec.value(jsonKeys::commentKey).toString();
+    info.size    = rec.value(jsonKeys::sizeKey).toInt();
 
     return info;
 }

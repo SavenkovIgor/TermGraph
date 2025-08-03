@@ -10,23 +10,23 @@ module;
 
 export module Text.TextTools;
 
-import CommonTools.JsonTools;
-import Text.Fonts;
 import CommonTools.HandyTypes;
+import CommonTools.JsonKeys;
+import Text.Fonts;
 
 export class TextTools
 {
 public:
-    static bool isTermAndDefinition(QStringView termDef) { return termDef.contains(jsonTools::termDefSeparatorSv); }
+    static bool isTermAndDefinition(QStringView termDef) { return termDef.contains(jsonKeys::termDefSeparatorSv); }
 
     static QPair<QString, QString> splitTermAndDefinition(QStringView termDef)
     {
         assert(isTermAndDefinition(termDef));
 
-        auto indexOfSeparator = termDef.indexOf(jsonTools::termDefSeparatorSv);
+        auto indexOfSeparator = termDef.indexOf(jsonKeys::termDefSeparatorSv);
 
         auto term       = termDef.first(indexOfSeparator);
-        auto definition = termDef.sliced(indexOfSeparator + jsonTools::termDefSeparatorSv.size());
+        auto definition = termDef.sliced(indexOfSeparator + jsonKeys::termDefSeparatorSv.size());
 
         return {term.toString(), definition.toString()};
     }
@@ -34,7 +34,7 @@ public:
     static QString joinTermDef(QStringView term, QStringView definition)
     {
         auto ret = term.toString();
-        ret += jsonTools::termDefSeparator;
+        ret += jsonKeys::termDefSeparator;
         ret += definition;
         return ret;
     }

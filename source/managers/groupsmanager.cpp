@@ -10,7 +10,7 @@
 #include <QDebug>
 
 import AppSettings;
-import CommonTools.JsonTools;
+import CommonTools.JsonKeys;
 import TermDataInterface.GroupValidator;
 import TermGroup;
 
@@ -189,14 +189,14 @@ void GroupsManager::importGroup(QJsonObject json)
 {
     // Some import data fixes
     // Update of termsKey if need
-    if (json.contains(jsonTools::oldTermsKey)) {
-        json.insert(jsonTools::termsKey, json[jsonTools::oldTermsKey]);
-        json.remove(jsonTools::oldTermsKey);
+    if (json.contains(jsonKeys::oldTermsKey)) {
+        json.insert(jsonKeys::termsKey, json[jsonKeys::oldTermsKey]);
+        json.remove(jsonKeys::oldTermsKey);
     }
 
     // Add size field
-    if (json[jsonTools::termsKey].isArray() && !json.contains(jsonTools::sizeKey)) {
-        json.insert(jsonTools::sizeKey, json[jsonTools::termsKey].toArray().size());
+    if (json[jsonKeys::termsKey].isArray() && !json.contains(jsonKeys::sizeKey)) {
+        json.insert(jsonKeys::sizeKey, json[jsonKeys::termsKey].toArray().size());
     }
 
     if (!GroupJsonValidator::fullChecks().check(json)) {
@@ -216,7 +216,7 @@ void GroupsManager::importGroup(QJsonObject json)
         provider.addGroup(*groupInfo);
     }
 
-    QJsonArray nodes = json[jsonTools::termsKey].toArray();
+    QJsonArray nodes = json[jsonKeys::termsKey].toArray();
 
     // Importing nodes
     for (const auto& node : nodes) {

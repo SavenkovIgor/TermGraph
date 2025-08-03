@@ -13,8 +13,8 @@ module;
 
 export module TermDataInterface.GroupValidator;
 
+import CommonTools.JsonKeys;
 import CommonTools.Validator;
-import CommonTools.JsonTools;
 
 using namespace std;
 
@@ -55,7 +55,7 @@ public:
 private:
     static CheckResult validUuid(const QJsonObject& obj)
     {
-        const auto& field = obj[jsonTools::uuidKey];
+        const auto& field = obj[jsonKeys::uuidKey];
 
         if (!field.isString())
             return unexpected(ErrorCode::JsonUuidFieldMissedOrWrongType);
@@ -68,7 +68,7 @@ private:
 
     static CheckResult validName(const QJsonObject& obj)
     {
-        const auto& field = obj[jsonTools::nameKey];
+        const auto& field = obj[jsonKeys::nameKey];
 
         if (!field.isString())
             return unexpected(ErrorCode::JsonNameFieldMissedOrWrongType);
@@ -81,18 +81,18 @@ private:
 
     static CheckResult validComment(const QJsonObject& obj)
     {
-        return checkOrError(obj[jsonTools::commentKey].isString(), ErrorCode::JsonCommentFieldMissedOrWrongType);
+        return checkOrError(obj[jsonKeys::commentKey].isString(), ErrorCode::JsonCommentFieldMissedOrWrongType);
     }
 
     static CheckResult validSizeField(const QJsonObject& obj)
     {
-        return checkOrError(obj[jsonTools::sizeKey].isDouble() && obj[jsonTools::sizeKey].toInt(-1) != -1,
+        return checkOrError(obj[jsonKeys::sizeKey].isDouble() && obj[jsonKeys::sizeKey].toInt(-1) != -1,
                             ErrorCode::JsonSizeFieldMissedOrWrongType);
     }
 
     static CheckResult validLastEdit(const QJsonObject& obj)
     {
-        const auto& field = obj[jsonTools::lastEditKey];
+        const auto& field = obj[jsonKeys::lastEditKey];
 
         if (!field.isString())
             return unexpected(ErrorCode::JsonLastEditFieldMissedOrWrongType);
@@ -105,12 +105,12 @@ private:
 
     static CheckResult validNodesArray(const QJsonObject& obj)
     {
-        return checkOrError(obj[jsonTools::termsKey].isArray(), ErrorCode::JsonNodesFieldMissedOrWrongType);
+        return checkOrError(obj[jsonKeys::termsKey].isArray(), ErrorCode::JsonNodesFieldMissedOrWrongType);
     }
 
     static CheckResult validNodesLastEdit(const QJsonObject& obj)
     {
-        const auto& field = obj[jsonTools::nodesLastEditKey];
+        const auto& field = obj[jsonKeys::nodesLastEditKey];
 
         if (!field.isString())
             return unexpected(ErrorCode::JsonNodesLastEditFieldMissedOrWrongType);

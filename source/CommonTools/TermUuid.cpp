@@ -8,6 +8,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+import CommonTools.JsonKeys;
 import CommonTools.JsonTools;
 
 std::optional<TermUuid> TermUuid::from(QString text, UuidMode mode)
@@ -35,10 +36,10 @@ std::optional<TermUuid::List> TermUuid::List::from(const QJsonObject& obj)
 {
     List ret;
 
-    if (!obj[jsonTools::termUuidsKey].isArray())
+    if (!obj[jsonKeys::termUuidsKey].isArray())
         return std::nullopt;
 
-    for (const auto& obj : obj[jsonTools::termUuidsKey].toArray()) {
+    for (const auto& obj : obj[jsonKeys::termUuidsKey].toArray()) {
         if (auto uuid = TermUuid::from(obj.toString())) {
             ret.push_back(*uuid);
         } else {
@@ -67,7 +68,7 @@ TermUuid::List::operator QJsonObject() const
         arr.push_back(item.toString(StringFormat::WithoutBraces));
 
     QJsonObject obj;
-    obj.insert(jsonTools::termUuidsKey, arr);
+    obj.insert(jsonKeys::termUuidsKey, arr);
     return obj;
 }
 
