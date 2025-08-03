@@ -3,6 +3,8 @@
 
 module;
 
+#include <vector>
+
 #include <QProperty>
 #include <QSizeF>
 #include <QString>
@@ -98,7 +100,7 @@ public:
     inline QString     lowerTerm() const { return mLowerTerms.value().first(); }
     inline QStringList lowerTermAndSynonyms() const { return mLowerTerms.value(); }
 
-    const Link::List& links() const { return mLinksDefinition.links(); }
+    const std::vector<Link>& links() const { return mLinksDefinition.links(); }
 
     QString termAndDefinition(bool decorated = false) const
     {
