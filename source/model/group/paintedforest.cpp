@@ -19,6 +19,7 @@ import PaintedTerm;
 import RectGraphicItem;
 import TermGroup.TermPositioner;
 
+using namespace std;
 namespace rng = std::ranges;
 
 export class PaintedForest : public graph::Forest<PaintedTerm, PaintedEdge>, public TermPositioner
@@ -28,7 +29,7 @@ public:
     PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
         : Forest<PaintedTerm, PaintedEdge>(data)
     {
-        auto asListSize = [](auto num) { return static_cast<std::vector<NodeVerticalStack>::size_type>(num); };
+        auto asListSize = [](auto num) { return static_cast<vector<NodeVerticalStack>::size_type>(num); };
 
         for (const auto& term : data.nodes) {
             term->setParentItem(&mRect);
@@ -40,7 +41,7 @@ public:
 
         auto layersCount = 0;
         for (const auto& node : data.nodes) {
-            layersCount = std::max(layersCount, level(node));
+            layersCount = max(layersCount, level(node));
         }
 
         for (int i = 0; i <= layersCount; i++) {
@@ -92,7 +93,7 @@ public:
         for (const auto& stack : mStacks) {
             auto size = stack.size();
             width += size.width();
-            height = std::max(height, size.height());
+            height = max(height, size.height());
         }
 
         if (!mStacks.empty()) {
@@ -109,7 +110,7 @@ public:
     }
 
     // Implementation of TermPositioner
-    std::optional<QPointF> preferredPositionFor(PaintedTerm::Ptr term) const override
+    optional<QPointF> preferredPositionFor(PaintedTerm::Ptr term) const override
     {
         return optimalRootsBasedPosition(term);
     }
@@ -136,12 +137,12 @@ public:
         }
     }
 
-    std::optional<QPointF> optimalRootsBasedPosition(const PaintedTerm::Ptr term) const
+    optional<QPointF> optimalRootsBasedPosition(const PaintedTerm::Ptr term) const
     {
         auto rNodes = rootNodes(term);
 
         if (rNodes.empty()) {
-            return std::nullopt;
+            return nullopt;
         }
 
         double sumOfYCoords = 0.0;
@@ -166,7 +167,7 @@ public:
             }
         }
 
-        return std::nullopt;
+        return nullopt;
     }
 
     QString getHierarchyDefinition(PaintedTerm::Ptr term)
@@ -255,13 +256,13 @@ private:
         qreal maxHeight = 0.0;
 
         for (const auto& stack : mStacks) {
-            maxHeight = std::max(maxHeight, stack.size().height());
+            maxHeight = max(maxHeight, stack.size().height());
         }
 
         return maxHeight;
     }
 
 private: // Members
-    std::vector<NodeVerticalStack> mStacks;
+    vector<NodeVerticalStack> mStacks;
     RectGraphicItem                mRect;
 };
