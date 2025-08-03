@@ -12,13 +12,15 @@ export module GraphTerm;
 import TermDataCache;
 import Graph;
 
+using namespace std;
+
 // This class contains all "graph" part of term
 // like edges, place in graph hierarchy and so on
 export class GraphTerm : public graph::Node<TermData>
 {
 public:
-    using Ptr  = std::shared_ptr<GraphTerm>;
-    using List = std::vector<Ptr>;
+    using Ptr  = shared_ptr<GraphTerm>;
+    using List = vector<Ptr>;
 
     GraphTerm(const TermData& info)
         : Node<TermData>(info)
