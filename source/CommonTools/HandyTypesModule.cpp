@@ -9,9 +9,11 @@ module;
 
 export module CommonTools.HandyTypes;
 
+using namespace std;
+
 export auto asInt(auto num) -> int { return static_cast<int>(num); }
 
-export class SizeList : public std::vector<QSizeF>
+export class SizeList : public vector<QSizeF>
 {
 public:
     // Returns total size of stacked sizes, placed vertically or horizontally
@@ -22,13 +24,13 @@ public:
 
         if (stackDirection == Qt::Vertical) {
             for (auto& size : (*this)) {
-                width = std::max(width, size.width());
+                width = max(width, size.width());
                 height += size.height();
             }
         } else if (stackDirection == Qt::Horizontal) {
             for (auto& size : (*this)) {
                 width += size.width();
-                height = std::max(height, size.height());
+                height = max(height, size.height());
             }
         }
 
