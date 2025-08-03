@@ -15,9 +15,6 @@ class QtTermGroup : public QObject
     Q_PROPERTY(QString name READ name CONSTANT FINAL)
 
 public:
-    using Ptr    = std::shared_ptr<QtTermGroup>;
-    using OptPtr = std::optional<Ptr>;
-
     QtTermGroup(const std::shared_ptr<TermGroup> termGroup, QObject* parent = nullptr);
     ~QtTermGroup() = default;
 

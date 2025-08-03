@@ -4,6 +4,7 @@
 #include "source/managers/linkshardeningmanager.h"
 
 #include <ranges>
+#include <vector>
 
 import CommonTools.HandyTypes;
 import Link;
@@ -105,7 +106,7 @@ LinksHardeningManager::SearchResultList LinksHardeningManager::getNearestVariant
 
     std::vector<std::pair<int, PaintedTerm *>> distances;
 
-    Link::List currentLinks = mLinksString->links();
+    std::vector<Link> currentLinks = mLinksString->links();
 
     // Getting distances
     for (const auto &term : mCurrentGroup->terms()) {

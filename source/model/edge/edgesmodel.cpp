@@ -11,7 +11,7 @@ EdgesModel::EdgesModel(QObject *parent)
     : QAbstractListModel(parent)
 {}
 
-void EdgesModel::setGroup(TermGroup::OptPtr group)
+void EdgesModel::setGroup(std::optional<std::shared_ptr<TermGroup>> group)
 {
     beginResetModel();
     mGroup = group;

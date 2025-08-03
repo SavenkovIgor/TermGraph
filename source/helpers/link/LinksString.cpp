@@ -3,6 +3,8 @@
 
 module;
 
+#include <vector>
+
 #include <QStringView>
 
 export module Link.LinksString;
@@ -21,8 +23,8 @@ public:
 
     LinksString(const LinksString& other) = default;
 
-    QString           text() const { return mString.toString(); }
-    const Link::List& links() const { return mLinks; }
+    QString                  text() const { return mString.toString(); }
+    const std::vector<Link>& links() const { return mLinks; }
 
     QString replaceLink(int index, QString text) const
     {
@@ -162,9 +164,9 @@ private: // Methods
         return asInt(str.count(CharTools::leftBracket));
     }
 
-    static Link::List extractLinks(QStringView strView)
+    static std::vector<Link> extractLinks(QStringView strView)
     {
-        Link::List ret;
+        std::vector<Link> ret;
 
         if (!isValidLinksString(strView)) {
             return ret;
@@ -190,6 +192,6 @@ private: // Methods
     }
 
 private: // Members
-    const QStringView mString;
-    const Link::List  mLinks;
+    const QStringView       mString;
+    const std::vector<Link> mLinks;
 };

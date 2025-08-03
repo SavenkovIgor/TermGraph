@@ -11,8 +11,6 @@ enum class UuidMode { Default, Url };
 class SafeUuid : public QUuid
 {
 public:
-    using List = std::vector<SafeUuid>;
-
     inline static std::optional<SafeUuid> from(const QString& text)
     {
         auto uuid = QUuid(text);

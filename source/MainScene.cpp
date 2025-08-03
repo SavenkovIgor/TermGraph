@@ -117,7 +117,7 @@ void MainScene::createLoadedGroup()
 #endif
 }
 
-void MainScene::showNewGroup(TermGroup::OptPtr newGroup)
+void MainScene::showNewGroup(std::optional<std::shared_ptr<TermGroup>> newGroup)
 {
     setGroupLoading(false);
     assert(newGroup.has_value());

@@ -24,9 +24,6 @@ namespace rng = std::ranges;
 export class PaintedForest : public graph::Forest<PaintedTerm, PaintedEdge>, public TermPositioner
 {
 public:
-    using Ptr  = std::shared_ptr<PaintedForest>;
-    using List = std::vector<Ptr>;
-
     // Constructor/Destructor
     PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
         : Forest<PaintedTerm, PaintedEdge>(data)

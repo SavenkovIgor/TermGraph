@@ -12,8 +12,6 @@
 
 struct StaticGroupData : public GroupSummary
 {
-    using List = std::vector<StaticGroupData>;
-
     TermData::List terms;
 
     std::optional<QDateTime> termsLastEdit() const;

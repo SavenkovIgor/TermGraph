@@ -3,6 +3,9 @@
 
 module;
 
+#include <memory>
+#include <vector>
+
 #include <QElapsedTimer>
 #include <QThread>
 
@@ -32,9 +35,6 @@ export class TermGroup
     using GraphT = graph::Graph<PaintedTerm, PaintedEdge>;
 
 public:
-    using Ptr    = std::shared_ptr<TermGroup>;
-    using OptPtr = std::optional<Ptr>;
-
     TermGroup(const GroupSummary& info, const TermData::List& termData)
         : mInfo(info)
     {
@@ -706,7 +706,7 @@ private:
 
     GroupSummary mInfo;
 
-    PaintedForest::List mForests;
+    std::vector<std::shared_ptr<PaintedForest>> mForests;
 
     GraphT mGraphData = GraphT({});
 
