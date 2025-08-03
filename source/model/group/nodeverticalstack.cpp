@@ -23,7 +23,6 @@ namespace rng = std::ranges;
 export class NodeVerticalStack
 {
 public:
-    using List     = std::vector<NodeVerticalStack>;
     using NodePack = QPair<QPointF, PaintedTerm::List>;
 
     NodeVerticalStack(TermPositioner* termPositioner)

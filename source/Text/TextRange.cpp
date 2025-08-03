@@ -15,8 +15,6 @@ import Text.TextCursor;
 export class TextRange
 {
 public:
-    using List = std::vector<TextRange>;
-
     TextRange(QStringView view, int left, int right)
         : mString(view)
         , mLeftCursor(view, left)
