@@ -20,7 +20,8 @@ export module Graph.Forest;
 import Graph.Graph;
 import Graph.GraphData;
 
-namespace rng = std::ranges;
+using namespace std;
+namespace rng = ranges;
 
 export namespace graph {
 
@@ -57,9 +58,9 @@ public:
         assert(getCycleEdges().empty());
     }
 
-    bool isRoot(const std::shared_ptr<NodeT>& node) const { return nodeType(node) == NodeType::Root; }
+    bool isRoot(const shared_ptr<NodeT>& node) const { return nodeType(node) == NodeType::Root; }
 
-    bool isLeaf(const std::shared_ptr<NodeT>& node) const
+    bool isLeaf(const shared_ptr<NodeT>& node) const
     {
         auto type = nodeType(node);
         return type == NodeType::EndLeaf || type == NodeType::MiddleLeaf;
@@ -67,13 +68,13 @@ public:
 
     bool hasBrokenEdges() const { return !mBrokenEdges.empty(); }
 
-    std::vector<std::shared_ptr<EdgeT>> brokenEdges() const { return mBrokenEdges; }
+    vector<shared_ptr<EdgeT>> brokenEdges() const { return mBrokenEdges; }
 
     bool hasWasteEdges() const { return !mWasteEdges.empty(); }
 
-    std::vector<std::shared_ptr<EdgeT>> wasteEdges() const { return mWasteEdges; }
+    vector<shared_ptr<EdgeT>> wasteEdges() const { return mWasteEdges; }
 
-    NodeType nodeType(const std::shared_ptr<NodeT>& node) const
+    NodeType nodeType(const shared_ptr<NodeT>& node) const
     {
         assert(Base::contains(node));
 
@@ -99,52 +100,52 @@ public:
         }
     }
 
-    void rootsVisiter(const std::shared_ptr<NodeT>&                                  node,
-                      const std::function<bool(const std::shared_ptr<NodeT>& node)>& stopCondition,
-                      bool                                                           checkStartNode = false) const
+    void rootsVisiter(const shared_ptr<NodeT>&                             node,
+                      const function<bool(const shared_ptr<NodeT>& node)>& stopCondition,
+                      bool                                                 checkStartNode = false) const
     {
-        std::deque<std::shared_ptr<NodeT>> visitQueue;
+        deque<shared_ptr<NodeT>> visitQueue;
         visitQueue.push_back(node);
         nodesVisiter(stopCondition, visitQueue, mEdgesToRoots, checkStartNode);
     }
 
-    void leafsVisiter(const std::shared_ptr<NodeT>&                                  node,
-                      const std::function<bool(const std::shared_ptr<NodeT>& node)>& stopCondition,
-                      bool                                                           checkStartNode = false) const
+    void leafsVisiter(const shared_ptr<NodeT>&                             node,
+                      const function<bool(const shared_ptr<NodeT>& node)>& stopCondition,
+                      bool                                                 checkStartNode = false) const
     {
-        std::deque<std::shared_ptr<NodeT>> visitQueue;
+        deque<shared_ptr<NodeT>> visitQueue;
         visitQueue.push_back(node);
         nodesVisiter(stopCondition, visitQueue, mEdgesToLeafs, checkStartNode);
     }
 
-    std::vector<std::shared_ptr<NodeT>> roots() const
+    vector<shared_ptr<NodeT>> roots() const
     {
         return BaseData::filterNodes([this](auto node) { return isRoot(node); });
     }
 
-    std::vector<std::shared_ptr<NodeT>> rootNodes(const std::shared_ptr<NodeT>& node) const
+    vector<shared_ptr<NodeT>> rootNodes(const shared_ptr<NodeT>& node) const
     {
-        std::vector<std::shared_ptr<NodeT>> ret;
+        vector<shared_ptr<NodeT>> ret;
 
         auto rootEdges = mEdgesToRoots.at(node);
-        std::transform(rootEdges.begin(), rootEdges.end(), std::back_inserter(ret), [&node](auto edge) {
+        transform(rootEdges.begin(), rootEdges.end(), back_inserter(ret), [&node](auto edge) {
             return edge->oppositeTo(node);
         });
         return ret;
     }
 
-    std::vector<std::shared_ptr<NodeT>> leafNodes(const std::shared_ptr<NodeT>& node) const
+    vector<shared_ptr<NodeT>> leafNodes(const shared_ptr<NodeT>& node) const
     {
-        std::vector<std::shared_ptr<NodeT>> ret;
+        vector<shared_ptr<NodeT>> ret;
 
         auto leafEdges = mEdgesToLeafs.at(node);
-        std::transform(leafEdges.begin(), leafEdges.end(), std::back_inserter(ret), [&node](auto edge) {
+        transform(leafEdges.begin(), leafEdges.end(), back_inserter(ret), [&node](auto edge) {
             return edge->oppositeTo(node);
         });
         return ret;
     }
 
-    bool isAncestor(const std::shared_ptr<NodeT>& node, const std::shared_ptr<NodeT>& expectedAncestor) const
+    bool isAncestor(const shared_ptr<NodeT>& node, const shared_ptr<NodeT>& expectedAncestor) const
     {
         bool result = false;
         rootsVisiter(node, [&result, &expectedAncestor](auto node) {
@@ -157,7 +158,7 @@ public:
         return result;
     }
 
-    bool isFarAncestor(const std::shared_ptr<NodeT>& node, const std::shared_ptr<NodeT>& expectedFarAncestor) const
+    bool isFarAncestor(const shared_ptr<NodeT>& node, const shared_ptr<NodeT>& expectedFarAncestor) const
     {
         for (auto rootNode : rootNodes(node)) {
             if (rootNode == expectedFarAncestor)
@@ -171,9 +172,9 @@ public:
         return false;
     }
 
-    std::vector<std::shared_ptr<EdgeT>> tooShortEdges(const std::shared_ptr<NodeT>& node) const
+    vector<shared_ptr<EdgeT>> tooShortEdges(const shared_ptr<NodeT>& node) const
     {
-        std::vector<std::shared_ptr<EdgeT>> ret;
+        vector<shared_ptr<EdgeT>> ret;
 
         for (auto edge : mEdgesToRoots.at(node)) {
             // If we found long path, we need mark direct path for cut out
@@ -185,11 +186,11 @@ public:
     }
 
     // Leveling
-    int level(const std::shared_ptr<NodeT>& node) const { return mLevels.at(node); }
+    int level(const shared_ptr<NodeT>& node) const { return mLevels.at(node); }
 
-    std::vector<std::shared_ptr<NodeT>> nodesAtLevel(int level) const
+    vector<shared_ptr<NodeT>> nodesAtLevel(int level) const
     {
-        std::vector<std::shared_ptr<NodeT>> ret;
+        vector<shared_ptr<NodeT>> ret;
 
         for (const auto& [item, itemLevel] : mLevels) {
             if (itemLevel == level)
@@ -200,14 +201,8 @@ public:
     }
 
 protected:
-    const std::map<std::shared_ptr<NodeT>, std::vector<std::shared_ptr<EdgeT>>>& edgesToRoots()
-    {
-        return mEdgesToRoots;
-    }
-    const std::map<std::shared_ptr<NodeT>, std::vector<std::shared_ptr<EdgeT>>>& edgesToLeafs()
-    {
-        return mEdgesToLeafs;
-    }
+    const map<shared_ptr<NodeT>, vector<shared_ptr<EdgeT>>>& edgesToRoots() { return mEdgesToRoots; }
+    const map<shared_ptr<NodeT>, vector<shared_ptr<EdgeT>>>& edgesToLeafs() { return mEdgesToLeafs; }
 
 private: // Methods
     void rebuildCache()
@@ -228,9 +223,9 @@ private: // Methods
         }
     }
 
-    std::vector<std::shared_ptr<EdgeT>> getWasteEdges()
+    vector<shared_ptr<EdgeT>> getWasteEdges()
     {
-        std::set<std::shared_ptr<EdgeT>> wEdges;
+        set<shared_ptr<EdgeT>> wEdges;
         for (const auto& node : BaseData::nodes) {
             auto edges = tooShortEdges(node);
 
@@ -244,11 +239,11 @@ private: // Methods
 
     enum class NodeState { NotVisited = 0, AtPath, Visited };
 
-    std::vector<std::shared_ptr<EdgeT>> getCycleEdges() const
+    vector<shared_ptr<EdgeT>> getCycleEdges() const
     {
-        std::vector<std::shared_ptr<EdgeT>> breakEdges;
+        vector<shared_ptr<EdgeT>> breakEdges;
 
-        std::map<std::shared_ptr<NodeT>, NodeState> nodeStates;
+        map<shared_ptr<NodeT>, NodeState> nodeStates;
 
         for (const auto& node : BaseData::nodes)
             nodeStates[node] = NodeState::NotVisited;
@@ -260,11 +255,11 @@ private: // Methods
         return breakEdges;
     }
 
-    std::map<std::shared_ptr<NodeT>, int> getLevels() const
+    map<shared_ptr<NodeT>, int> getLevels() const
     {
-        std::map<std::shared_ptr<NodeT>, int> ret;
-        std::deque<std::shared_ptr<NodeT>>    visitQueue;
-        auto                                  rootNodes = roots();
+        map<shared_ptr<NodeT>, int> ret;
+        deque<shared_ptr<NodeT>>    visitQueue;
+        auto                        rootNodes = roots();
 
         rng::for_each(BaseData::nodes, [&ret](auto node) { ret[node] = 0; });
         rng::for_each(rootNodes, [&visitQueue](auto node) { visitQueue.push_back(node); });
@@ -275,7 +270,7 @@ private: // Methods
             visitQueue.pop_front();
 
             for (const auto& leaf : leafNodes(node)) {
-                ret[leaf] = std::max(ret[node] + 1, ret[leaf]);
+                ret[leaf] = max(ret[node] + 1, ret[leaf]);
 
                 if (rng::find(visitQueue, leaf) == visitQueue.end()) // Not found
                     visitQueue.push_back(leaf);
@@ -286,7 +281,7 @@ private: // Methods
         int maxLevel = 0;
 
         for (const auto& [_, level] : ret)
-            maxLevel = std::max(maxLevel, level);
+            maxLevel = max(maxLevel, level);
 
         for (const auto& root : rootNodes) {
             auto leafs = leafNodes(root);
@@ -301,9 +296,9 @@ private: // Methods
         return ret;
     }
 
-    void cycleCheckVisit(const std::shared_ptr<NodeT>&                node,
-                         std::vector<std::shared_ptr<EdgeT>>&         breakEdges,
-                         std::map<std::shared_ptr<NodeT>, NodeState>& nodeStates) const
+    void cycleCheckVisit(const shared_ptr<NodeT>&           node,
+                         vector<shared_ptr<EdgeT>>&         breakEdges,
+                         map<shared_ptr<NodeT>, NodeState>& nodeStates) const
     {
         nodeStates[node] = NodeState::AtPath;
 
@@ -326,10 +321,10 @@ private: // Methods
         nodeStates[node] = NodeState::Visited;
     }
 
-    static void nodesVisiter(const std::function<bool(const std::shared_ptr<NodeT>& node)>&               stopCondition,
-                             std::deque<std::shared_ptr<NodeT>>&                                          visitQueue,
-                             const std::map<std::shared_ptr<NodeT>, std::vector<std::shared_ptr<EdgeT>>>& edgesList,
-                             bool checkCondition = true)
+    static void nodesVisiter(const function<bool(const shared_ptr<NodeT>& node)>&     stopCondition,
+                             deque<shared_ptr<NodeT>>&                                visitQueue,
+                             const map<shared_ptr<NodeT>, vector<shared_ptr<EdgeT>>>& edgesList,
+                             bool                                                     checkCondition = true)
     {
         if (visitQueue.empty())
             return;
@@ -356,13 +351,13 @@ private: // Methods
     }
 
 private: // Members
-    std::map<std::shared_ptr<NodeT>, std::vector<std::shared_ptr<EdgeT>>> mEdgesToRoots;
-    std::map<std::shared_ptr<NodeT>, std::vector<std::shared_ptr<EdgeT>>> mEdgesToLeafs;
+    map<shared_ptr<NodeT>, vector<shared_ptr<EdgeT>>> mEdgesToRoots;
+    map<shared_ptr<NodeT>, vector<shared_ptr<EdgeT>>> mEdgesToLeafs;
 
-    std::map<std::shared_ptr<NodeT>, int> mLevels;
+    map<shared_ptr<NodeT>, int> mLevels;
 
-    std::vector<std::shared_ptr<EdgeT>> mBrokenEdges; // From broken cycles
-    std::vector<std::shared_ptr<EdgeT>> mWasteEdges;  // Just redundant
+    vector<shared_ptr<EdgeT>> mBrokenEdges; // From broken cycles
+    vector<shared_ptr<EdgeT>> mWasteEdges;  // Just redundant
 };
 
 } // namespace graph
