@@ -28,6 +28,7 @@ import PaintedTerm;
 import RectGraphicItem;
 import Text;
 
+using namespace std;
 namespace rng = std::ranges;
 
 export class TermGroup
@@ -53,7 +54,7 @@ public:
 
         // Creating nodes
         for (const auto& term : termData) {
-            nodes.push_back(std::make_shared<PaintedTerm>(term));
+            nodes.push_back(make_shared<PaintedTerm>(term));
         }
 
         nodes = collapseSynonyms(nodes);
@@ -66,7 +67,7 @@ public:
         auto subgraphs = mGraphData.bondedSubgraphs();
 
         for (auto subgraph : subgraphs) {
-            mForests.push_back(std::make_shared<PaintedForest>(subgraph));
+            mForests.push_back(make_shared<PaintedForest>(subgraph));
         }
 
         if (isThreadInterrupted()) {
@@ -99,10 +100,10 @@ public:
 
     QRectF getGroupRect() const { return mBaseRect.getRect(CoordType::scene); }
 
-    std::vector<QUuid> searchNearest(const QString& text, int limit = 10) const
+    vector<QUuid> searchNearest(const QString& text, int limit = 10) const
     {
-        QString                        searchText = text.toLower();
-        std::vector<QPair<int, QUuid>> searchResults;
+        QString                   searchText = text.toLower();
+        vector<QPair<int, QUuid>> searchResults;
         // Taking distances
         for (const auto& term : mGraphData.nodeList()) {
             auto lowerTerm = term->cache().lowerTerm();
@@ -127,8 +128,8 @@ public:
         rng::sort(searchResults, [](auto s1, auto s2) { return s1.first < s2.first; });
 
         // Removing numbers
-        std::vector<QUuid> ret;
-        int                count = 0;
+        vector<QUuid> ret;
+        int           count = 0;
         for (auto [dist, uuid] : searchResults) {
             if (count >= limit) {
                 break;
@@ -142,10 +143,10 @@ public:
         return ret;
     }
 
-    std::vector<QUuid> searchContains(const QString& text, int limit = 10) const
+    vector<QUuid> searchContains(const QString& text, int limit = 10) const
     {
-        std::vector<QUuid> ret;
-        auto               lowerSearch = text.toLower();
+        vector<QUuid> ret;
+        auto          lowerSearch = text.toLower();
 
         for (const auto& term : mGraphData.nodeList()) {
             if (term->cache().lowerTerm().contains(lowerSearch)) {
@@ -177,7 +178,7 @@ public:
             }
         }
 
-        return std::nullopt;
+        return nullopt;
     }
 
     PaintedTerm::OptPtr getTerm(const QUuid& termUuid) const
@@ -188,7 +189,7 @@ public:
             }
         }
 
-        return std::nullopt;
+        return nullopt;
     }
 
     PaintedTerm::OptPtr getTerm(const QString& termName) const
@@ -199,7 +200,7 @@ public:
             }
         }
 
-        return std::nullopt;
+        return nullopt;
     }
 
     PaintedTerm::List terms() const { return mGraphData.nodeList(); }
@@ -287,9 +288,9 @@ private:
 
         qreal orphansWidth = NodeVerticalStackTools::getNodeVerticalStackedSize(getOrphanNodes()).width();
 
-        width = std::max(width, groupNameWidth);
-        width = std::max(width, treeWidth);
-        width = std::max(width, orphansWidth);
+        width = max(width, groupNameWidth);
+        width = max(width, treeWidth);
+        width = max(width, orphansWidth);
 
         return width;
     }
@@ -331,7 +332,7 @@ private:
         qreal width  = 0.0;
         qreal height = 0.0;
 
-        width = std::max({width, nameSize.width(), treesSize.width(), orphansSize.width()});
+        width = max({width, nameSize.width(), treesSize.width(), orphansSize.width()});
         width += hSpacer * 2;
 
         height += vSpacer;
@@ -394,7 +395,7 @@ private:
             currNode->setPos(pt);
             pt.rx() += nodeSize.width() + AppStyle::Sizes::orphansHorizontalSpacer;
 
-            maxHeightInRow = std::max(maxHeightInRow, nodeSize.height());
+            maxHeightInRow = max(maxHeightInRow, nodeSize.height());
         }
     }
 
@@ -425,7 +426,7 @@ private:
                     }
 
                     // Removing this node
-                    nodes.erase(std::remove(nodes.begin(), nodes.end(), node), nodes.end());
+                    nodes.erase(remove(nodes.begin(), nodes.end(), node), nodes.end());
                     break;
                 }
             }
@@ -491,7 +492,7 @@ private:
         // Compare everything with everything
         for (auto node : terms) {
             for (const auto& link : node->cache().links()) {
-                std::optional<PaintedTerm::Ptr> foundNode = std::nullopt;
+                optional<PaintedTerm::Ptr> foundNode = nullopt;
 
                 if (!foundNode) {
                     if (link.hasUuid()) {
@@ -516,7 +517,7 @@ private:
 
                 if (foundNode) {
                     if (foundNode.value() != node) { // TODO: Real case, need check
-                        ret.edges.push_back(std::make_shared<PaintedEdge>(foundNode.value(), node));
+                        ret.edges.push_back(make_shared<PaintedEdge>(foundNode.value(), node));
                         exactMatchCache.insert(link.textLower(), foundNode.value());
                     }
                 } else {
@@ -525,10 +526,10 @@ private:
 
                     assert(mInfo.uuid.has_value());
                     auto ghostData = TermData::createGhost(term, mInfo.uuid.value());
-                    auto ghostTerm = std::make_shared<PaintedTerm>(ghostData);
+                    auto ghostTerm = make_shared<PaintedTerm>(ghostData);
                     ghostTerm->setGhost(true);
                     ret.ghostTerms.push_back(ghostTerm);
-                    auto ghostEdge = std::make_shared<PaintedEdge>(ghostTerm, node);
+                    auto ghostEdge = make_shared<PaintedEdge>(ghostTerm, node);
                     ret.edges.push_back(ghostEdge);
                 }
 
@@ -544,13 +545,13 @@ private:
         return ret;
     }
 
-    std::optional<PaintedTerm::Ptr> findLinkTarget(const QString& link, const PaintedTerm::List& terms)
+    optional<PaintedTerm::Ptr> findLinkTarget(const QString& link, const PaintedTerm::List& terms)
     {
-        std::optional<PaintedTerm::Ptr> targetTerm = std::nullopt;
+        optional<PaintedTerm::Ptr> targetTerm = nullopt;
 
         int minDistance = 100000;
 
-        std::optional<int> optionalResult;
+        optional<int> optionalResult;
 
         for (auto node : terms) {
             auto termName = node->cache().lowerTerm();
@@ -582,7 +583,7 @@ private:
         return targetTerm;
     }
 
-    PaintedEdge::List filterFromEdgesList(std::function<bool(PaintedEdge::Ptr)> condition) const
+    PaintedEdge::List filterFromEdgesList(function<bool(PaintedEdge::Ptr)> condition) const
     {
         PaintedEdge::List ret;
 
@@ -647,7 +648,7 @@ private:
     PaintedTerm::List getInTreeNodes() const { return mGraphData.connectedNodes(); }
     PaintedTerm::List getOrphanNodes() const { return mGraphData.isolatedNodes(); }
 
-    PaintedTerm::List filterFromNodesList(std::function<bool(PaintedTerm::Ptr)> filterCheck) const
+    PaintedTerm::List filterFromNodesList(function<bool(PaintedTerm::Ptr)> filterCheck) const
     {
         PaintedTerm::List ret;
         for (const auto& node : mGraphData.nodeList()) {
@@ -706,7 +707,7 @@ private:
 
     GroupSummary mInfo;
 
-    std::vector<std::shared_ptr<PaintedForest>> mForests;
+    vector<shared_ptr<PaintedForest>> mForests;
 
     GraphT mGraphData = GraphT({});
 
