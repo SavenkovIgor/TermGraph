@@ -3,6 +3,9 @@
 
 module;
 
+#include <memory>
+#include <vector>
+
 #include <QElapsedTimer>
 #include <QThread>
 
@@ -703,7 +706,7 @@ private:
 
     GroupSummary mInfo;
 
-    std::vector<PaintedForest::Ptr> mForests;
+    std::vector<std::shared_ptr<PaintedForest>> mForests;
 
     GraphT mGraphData = GraphT({});
 
