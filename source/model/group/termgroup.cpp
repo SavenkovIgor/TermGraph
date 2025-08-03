@@ -703,7 +703,7 @@ private:
 
     GroupSummary mInfo;
 
-    PaintedForest::List mForests;
+    std::vector<PaintedForest::Ptr> mForests;
 
     GraphT mGraphData = GraphT({});
 
