@@ -264,5 +264,5 @@ private:
 
 private: // Members
     vector<NodeVerticalStack> mStacks;
-    RectGraphicItem                mRect;
+    RectGraphicItem           mRect;
 };
