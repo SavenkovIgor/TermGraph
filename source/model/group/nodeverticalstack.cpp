@@ -18,6 +18,7 @@ import NodeVerticalStackTools;
 import PaintedTerm;
 import TermGroup.TermPositioner;
 
+using namespace std;
 namespace rng = std::ranges;
 
 export class NodeVerticalStack
@@ -69,9 +70,9 @@ public:
     PaintedTerm::List nodes() const { return mTerms; }
 
 private:
-    static std::vector<NodePack> getNodePacks(const PaintedTerm::List& terms, const TermPositioner* termPositioner)
+    static vector<NodePack> getNodePacks(const PaintedTerm::List& terms, const TermPositioner* termPositioner)
     {
-        std::vector<NodePack> ret;
+        vector<NodePack> ret;
 
         for (const auto& term : terms) {
             auto rootsPositionOpt = termPositioner->preferredPositionFor(term);
@@ -81,8 +82,8 @@ private:
             bool inserted = false;
 
             for (auto& [point, nodes] : ret) {
-                bool equalX = std::abs(point.x() - optimalPt.x()) < 0.1;
-                bool equalY = std::abs(point.y() - optimalPt.y()) < 0.1;
+                bool equalX = abs(point.x() - optimalPt.x()) < 0.1;
+                bool equalY = abs(point.y() - optimalPt.y()) < 0.1;
                 if (equalX && equalY) {
                     nodes.push_back(term);
                     inserted = true;
@@ -100,7 +101,7 @@ private:
         return ret;
     }
 
-    static void sortNodePacks(std::vector<NodePack>& pack)
+    static void sortNodePacks(vector<NodePack>& pack)
     {
         rng::sort(pack, [](const auto& s1, const auto& s2) { return s1.first.y() < s2.first.y(); });
 
@@ -109,7 +110,7 @@ private:
         }
     }
 
-    static PaintedTerm::List flatNodePack(const std::vector<NodePack>& pack)
+    static PaintedTerm::List flatNodePack(const vector<NodePack>& pack)
     {
         PaintedTerm::List ret;
 
