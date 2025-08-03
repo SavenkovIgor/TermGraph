@@ -12,13 +12,15 @@ export module Text.TextCursor;
 
 import CommonTools.HandyTypes;
 
+using namespace std;
+
 export enum class Direction { Left, Right };
 
 export class TextCursor
 {
 public:
     TextCursor(QStringView strView, int pos = 0)
-        : mPos(std::clamp(pos, 0, asInt(strView.size())))
+        : mPos(clamp(pos, 0, asInt(strView.size())))
         , mString(strView)
     {
         assert(mPos == pos);
