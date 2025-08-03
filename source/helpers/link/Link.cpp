@@ -11,12 +11,14 @@ export module Link.Link;
 
 import Text;
 
+using namespace std;
+
 export class Link : public TextRange
 {
 public:
     // TODO: Remove later. Sign of bad typing approach
-    static inline auto asListSize = [](auto num) -> std::vector<Link>::size_type {
-        return static_cast<std::vector<Link>::size_type>(num);
+    static inline auto asListSize = [](auto num) -> vector<Link>::size_type {
+        return static_cast<vector<Link>::size_type>(num);
     };
 
     enum class Type { Unknown = 0, Text, Uuid };
@@ -50,17 +52,17 @@ public:
         return linkText;
     }
 
-    static std::optional<Link> select(QStringView str, int startPos)
+    static optional<Link> select(QStringView str, int startPos)
     {
         if (!TextCursor::isValidCursor(str, startPos)) {
-            return std::nullopt;
+            return nullopt;
         }
 
         auto lBracket = CheckingTextCursor::anyBracketOnLeft(str, startPos, Direction::Left);
         auto rBracket = CheckingTextCursor::anyBracketOnRight(str, startPos, Direction::Right);
 
         if (!lBracket.check() || !rBracket.check()) {
-            return std::nullopt;
+            return nullopt;
         }
 
         lBracket--;
@@ -70,7 +72,7 @@ public:
             return Link(str, lBracket.pos(), rBracket.pos());
         }
 
-        return std::nullopt;
+        return nullopt;
     }
 
     static bool isCursorOnLink(QStringView str, int cursorPos) { return select(str, cursorPos).has_value(); }
@@ -88,7 +90,7 @@ private: //Methods
 
     static QString getLower(QStringView text) { return text.toString().toLower(); }
 
-    static std::optional<QUuid> tryGetUuid(QStringView fullLink)
+    static optional<QUuid> tryGetUuid(QStringView fullLink)
     {
         assert(fullLink[fullLink.size() - 1] == CharTools::rightBracket);
 
@@ -103,7 +105,7 @@ private: //Methods
             }
         }
 
-        return std::nullopt;
+        return nullopt;
     }
 
 private: // Members
