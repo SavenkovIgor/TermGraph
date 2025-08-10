@@ -231,6 +231,7 @@ if (NOT WASM)
         PUBLIC
         FILE_SET CXX_MODULES
         FILES
+            "source/TermDataStorage/tables/AppConfigTable.cpp"
             "source/TermDataStorage/tables/TermGroupTable.cpp"
     )
 
@@ -246,8 +247,6 @@ if (NOT WASM)
             "source/TermDataStorage/queries/SqlQueries.qrc"
             "source/TermDataStorage/SqlQueryBuilder.cpp"
             "source/TermDataStorage/SqlQueryBuilder.h"
-            "source/TermDataStorage/tables/AppConfigTable.cpp"
-            "source/TermDataStorage/tables/AppConfigTable.h"
             "source/TermDataStorage/tables/TermTable.cpp"
             "source/TermDataStorage/tables/TermTable.h"
     )
@@ -347,8 +346,6 @@ if (BUILD_TESTING)
             "source/TermDataStorage/queries/SqlQueries.qrc"
             "source/TermDataStorage/SqlQueryBuilder.cpp"
             "source/TermDataStorage/SqlQueryBuilder.h"
-            "source/TermDataStorage/tables/AppConfigTable.cpp"
-            "source/TermDataStorage/tables/AppConfigTable.h"
             "source/TermDataStorage/tables/TermTable.cpp"
             "source/TermDataStorage/tables/TermTable.h"
     )
@@ -380,6 +377,7 @@ if (BUILD_TESTING)
             "source/model/graphicitem/graphicitem.cpp"
             "source/TermDataInterface/GroupValidator.cpp"
             "source/TermDataInterface/TermValidator.cpp"
+            "source/TermDataStorage/tables/AppConfigTable.cpp"
             "source/TermDataStorage/tables/TermGroupTable.cpp"
             "source/Text/CharTools.cpp"
             "source/Text/CheckingTextCursor.cpp"
