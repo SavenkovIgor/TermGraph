@@ -1,81 +1,98 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/TermDataStorage/DbTools.h"
+module;
 
+#include <QSqlDatabase>
 #include <QSqlError>
+#include <QSqlQuery>
+#include <QSqlRecord>
 
-#include "source/TermDataStorage/SqlQueryBuilder.h"
+export module DbTools;
 
-void DbTools::startTransaction(QSqlDatabase* base) { startQuery(base, "BEGIN TRANSACTION"); }
+import SqlQueryBuilder;
 
-void DbTools::endTransaction(QSqlDatabase* base) { startQuery(base, "END TRANSACTION"); }
-
-void DbTools::reduceSpace(QSqlDatabase* base) { startQuery(base, "VACUUM"); }
-
-QSqlQuery DbTools::startQuery(QSqlDatabase* base, const QString& queryString)
+export class DbTools
 {
-    assert(base != nullptr);
-    assert(!queryString.simplified().isEmpty());
+public:
+    using RecordList = std::vector<QSqlRecord>;
 
-    auto ret = QSqlQuery(queryString, *base);
-    ret.exec();
+    // Transaction
+    static void startTransaction(QSqlDatabase* base) { startQuery(base, "BEGIN TRANSACTION"); }
+    static void endTransaction(QSqlDatabase* base) { startQuery(base, "END TRANSACTION"); }
 
-    Q_ASSERT_X(!ret.lastError().isValid(),
-               Q_FUNC_INFO,
-               QString("Query %1\nfails with error %2").arg(queryString, ret.lastError().text()).toStdString().c_str());
+    // Database
+    static void reduceSpace(QSqlDatabase* base) { startQuery(base, "VACUUM"); }
 
-    return ret;
-}
+    // Query
+    static QSqlQuery startQuery(QSqlDatabase* base, const QString& queryString)
+    {
+        assert(base != nullptr);
+        assert(!queryString.simplified().isEmpty());
 
-void DbTools::start(QSqlQuery& query)
-{
-    if (!query.exec()) {
-        qWarning() << "QSqlQuiery error: " << query.lastError().text();
-        assert(false);
-    }
-}
+        auto ret = QSqlQuery(queryString, *base);
+        ret.exec();
 
-void DbTools::start(QSqlQuery&& query)
-{
-    if (!query.exec()) {
-        qWarning() << "QSqlQuiery error: " << query.lastError().text();
-        assert(false);
-    }
-}
+        Q_ASSERT_X(!ret.lastError().isValid(),
+                   Q_FUNC_INFO,
+                   QString("Query %1\nfails with error %2")
+                       .arg(queryString, ret.lastError().text())
+                       .toStdString()
+                       .c_str());
 
-int DbTools::recordsCount(const QString& tableName)
-{
-    auto query = SqlQueryBuilder().recordsCount(tableName);
-    start(query);
-
-    query.next();
-    return query.value("COUNT(*)").toInt();
-}
-
-QSqlRecord DbTools::getRecord(QSqlQuery&& q)
-{
-    [[maybe_unused]] auto nextValid = q.next();
-    assert(nextValid);
-
-    return q.record();
-}
-
-DbTools::RecordList DbTools::getAllRecords(QSqlQuery&& q)
-{
-    DbTools::RecordList ret;
-
-    if (auto size = q.size(); size > 0) {
-        ret.reserve(static_cast<DbTools::RecordList::size_type>(size));
+        return ret;
     }
 
-    for (;;) {
-        if (!q.next()) {
-            break;
+    static void start(QSqlQuery& query)
+    {
+        if (!query.exec()) {
+            qWarning() << "QSqlQuiery error: " << query.lastError().text();
+            assert(false);
+        }
+    }
+
+    static void start(QSqlQuery&& query)
+    {
+        if (!query.exec()) {
+            qWarning() << "QSqlQuiery error: " << query.lastError().text();
+            assert(false);
+        }
+    }
+
+    // Common table statistic
+    static int recordsCount(const QString& tableName)
+    {
+        auto query = SqlQueryBuilder().recordsCount(tableName);
+        start(query);
+
+        query.next();
+        return query.value("COUNT(*)").toInt();
+    }
+
+    static QSqlRecord getRecord(QSqlQuery&& q)
+    {
+        [[maybe_unused]] auto nextValid = q.next();
+        assert(nextValid);
+
+        return q.record();
+    }
+
+    static RecordList getAllRecords(QSqlQuery&& q)
+    {
+        DbTools::RecordList ret;
+
+        if (auto size = q.size(); size > 0) {
+            ret.reserve(static_cast<DbTools::RecordList::size_type>(size));
         }
 
-        ret.push_back(q.record());
-    }
+        for (;;) {
+            if (!q.next()) {
+                break;
+            }
 
-    return ret;
-}
+            ret.push_back(q.record());
+        }
+
+        return ret;
+    }
+};

@@ -10,17 +10,17 @@ module;
 #include "source/TermDataInterface/DataStorageInterface.h"
 
 #include "source/CommonTools/Platform.h"
-#include "source/staticDataStorage/StaticDataStorage.h"
 
 #ifndef Q_OS_WASM
 #include "source/TermDataConnection/DataStorageConnection.h"
 
-#include "source/TermDataStorage/LocalDataStorage.h"
+import LocalDatabaseStorage;
 #endif
 
 export module DataSourceFactory;
 
 import AppSettings;
+import StaticDataStorage;
 
 using namespace std;
 
@@ -37,7 +37,7 @@ export struct DataSourceFactory
         }
 
         if constexpr (Platform::isDesktop() || Platform::isMobile()) {
-            return localDb();
+            return make_unique<StaticDataStorage>();
         }
 
         Q_UNREACHABLE();

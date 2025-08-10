@@ -1,13 +1,20 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#pragma once
+module;
 
 #include <QLatin1String>
+#include <QString>
 
-class DbConnectionName
+export module DbInfo;
+
+export class DbConnection
 {
 public:
     constexpr static auto defaultConnection       = "defConnection";
     constexpr static auto threadLoadingConnection = "loadThreadConnection";
+
+    static QString mDbFilePath;
 };
+
+QString DbConnection::mDbFilePath = "";

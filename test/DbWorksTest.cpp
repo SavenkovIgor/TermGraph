@@ -7,7 +7,7 @@
 
 #include <gtest/gtest.h>
 
-#include "source/TermDataStorage/LocalDataStorage.h"
+import LocalDatabaseStorage;
 
 using namespace Qt::Literals::StringLiterals;
 

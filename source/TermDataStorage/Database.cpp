@@ -1,18 +1,61 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/TermDataStorage/Database.h"
+module;
+
+#include <memory>
 
 #include <QDateTime>
 #include <QDebug>
 #include <QFileInfo>
+#include <QObject>
 #include <QString>
+#include <QtCore>
+#include <QtSql>
 
-#include "source/TermDataStorage/DbInfo.h"
-#include "source/TermDataStorage/DbTools.h"
-#include "source/TermDataStorage/SqlQueryBuilder.h"
+export module Database;
 
-QString Database::mDbFilePath     = "";
+import AppConfigTable;
+import DbInfo;
+import DbTools;
+import SqlQueryBuilder;
+import TermGroupTable;
+import TermTable;
+
+// TODO: Move db version here
+// TODO: JSON send version must be synced with db version
+export class Database
+{
+public:
+    std::unique_ptr<TermTable>      termTable;
+    std::unique_ptr<TermGroupTable> groupTable;
+    std::unique_ptr<AppConfigTable> appConfigTable;
+
+    explicit Database(const QString& filePath, const QString& backupPath);
+    ~Database();
+
+    Database(const Database&)       = delete;
+    void operator=(const Database&) = delete;
+
+    static QString mDbBackupFolder;
+
+private:
+    QSqlDatabase* base;
+
+    bool databaseExists(const QString& dbFilePath) const;
+    void InitAllTables();
+
+    int  currentDbVersion();
+    bool needDbUpdate();
+    void makeBackupBeforeUpdate(const QString& filePath, const int& oldDbVersion);
+    void makeDbUpdate();
+    void execMigrationConditions(const int& currentDbVersion);
+
+    // Migrations
+    void updateNodesToSecondVersion();
+    void updateGroupsToSecondVersion();
+};
+
 QString Database::mDbBackupFolder = "";
 
 Database::Database(const QString& filePath, const QString& backupPath)
@@ -20,28 +63,29 @@ Database::Database(const QString& filePath, const QString& backupPath)
     , groupTable(nullptr)
     , appConfigTable(nullptr)
 {
-    Q_INIT_RESOURCE(SqlQueries);
+    // Since Database is not a static library, we don't need to initialize resources
+    // Q_INIT_RESOURCE(SqlQueries);
 
-    mDbFilePath     = filePath;
-    mDbBackupFolder = backupPath;
+    DbConnection::mDbFilePath = filePath;
+    mDbBackupFolder           = backupPath;
 
     base    = new QSqlDatabase();
-    (*base) = QSqlDatabase::addDatabase("QSQLITE", DbConnectionName::defaultConnection);
+    (*base) = QSqlDatabase::addDatabase("QSQLITE", DbConnection::defaultConnection);
 
     // Check base exist
-    auto baseExists = databaseExists(mDbFilePath);
+    auto baseExists = databaseExists(DbConnection::mDbFilePath);
 
     if (baseExists) {
-        qInfo() << "Database file found at:" << QFileInfo(mDbFilePath).absoluteFilePath();
+        qInfo() << "Database file found at:" << QFileInfo(DbConnection::mDbFilePath).absoluteFilePath();
     } else {
         qInfo("Database file doesn't exist");
     }
 
     // Create database if not exist earlier
-    base->setDatabaseName(mDbFilePath);
+    base->setDatabaseName(DbConnection::mDbFilePath);
 
     if (!base->open()) {
-        qCritical() << "Can't open database at" << mDbFilePath;
+        qCritical() << "Can't open database at" << DbConnection::mDbFilePath;
         qCritical() << "with error:" << base->lastError();
         qApp->exit(-1);
     }
@@ -61,7 +105,7 @@ Database::Database(const QString& filePath, const QString& backupPath)
         // Close, make backup, open again, and then update base
         qInfo("Closing database");
         base->close();
-        makeBackupBeforeUpdate(mDbFilePath, oldDbVersion);
+        makeBackupBeforeUpdate(DbConnection::mDbFilePath, oldDbVersion);
         qInfo("Opening database");
         base->open();
         makeDbUpdate();

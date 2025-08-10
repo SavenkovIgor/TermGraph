@@ -1,6 +1,8 @@
-#include "source/helpers/stemming/Stemmer.h"
-
 #include <gtest/gtest.h>
+
+#include <QString>
+
+import Stemmer;
 
 TEST(Stemmer, Russian)
 {
