@@ -3,8 +3,8 @@
 
 module;
 
-#include <QString>
 #include <QLatin1String>
+#include <QString>
 
 export module DbInfo;
 
@@ -17,4 +17,4 @@ public:
     static QString mDbFilePath;
 };
 
-QString DbConnection::mDbFilePath     = "";
+QString DbConnection::mDbFilePath = "";
