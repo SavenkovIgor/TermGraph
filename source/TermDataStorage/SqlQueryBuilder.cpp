@@ -6,7 +6,7 @@
 #include <QFile>
 #include <QThread>
 
-#include "source/TermDataStorage/Database.h"
+import DbInfo;
 
 QSqlQuery SqlQueryBuilder::createAppConfigTable() const
 {
@@ -231,7 +231,8 @@ QSqlDatabase SqlQueryBuilder::getDbForConnection(QLatin1String connectionName)
     }
 
     auto db = QSqlDatabase::addDatabase("QSQLITE", connectionName);
-    db.setDatabaseName(Database::mDbFilePath);
+    assert(DbConnection::mDbFilePath != "");
+    db.setDatabaseName(DbConnection::mDbFilePath);
     [[maybe_unused]] auto isOpen = db.open();
     assert(isOpen);
     return db;

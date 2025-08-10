@@ -27,7 +27,6 @@ public:
     Database(const Database&)       = delete;
     void operator=(const Database&) = delete;
 
-    static QString mDbFilePath;
     static QString mDbBackupFolder;
 
 private:

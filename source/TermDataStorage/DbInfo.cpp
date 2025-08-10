@@ -3,13 +3,18 @@
 
 module;
 
+#include <QString>
 #include <QLatin1String>
 
 export module DbInfo;
 
-export class DbConnectionName
+export class DbConnection
 {
 public:
     constexpr static auto defaultConnection       = "defConnection";
     constexpr static auto threadLoadingConnection = "loadThreadConnection";
+
+    static QString mDbFilePath;
 };
+
+QString DbConnection::mDbFilePath     = "";

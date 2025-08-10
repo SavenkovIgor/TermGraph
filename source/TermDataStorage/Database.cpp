@@ -16,7 +16,6 @@ import DbTools;
 import TermGroupTable;
 import TermTable;
 
-QString Database::mDbFilePath     = "";
 QString Database::mDbBackupFolder = "";
 
 Database::Database(const QString& filePath, const QString& backupPath)
@@ -26,26 +25,26 @@ Database::Database(const QString& filePath, const QString& backupPath)
 {
     Q_INIT_RESOURCE(SqlQueries);
 
-    mDbFilePath     = filePath;
-    mDbBackupFolder = backupPath;
+    DbConnection::mDbFilePath = filePath;
+    mDbBackupFolder           = backupPath;
 
     base    = new QSqlDatabase();
-    (*base) = QSqlDatabase::addDatabase("QSQLITE", DbConnectionName::defaultConnection);
+    (*base) = QSqlDatabase::addDatabase("QSQLITE", DbConnection::defaultConnection);
 
     // Check base exist
-    auto baseExists = databaseExists(mDbFilePath);
+    auto baseExists = databaseExists(DbConnection::mDbFilePath);
 
     if (baseExists) {
-        qInfo() << "Database file found at:" << QFileInfo(mDbFilePath).absoluteFilePath();
+        qInfo() << "Database file found at:" << QFileInfo(DbConnection::mDbFilePath).absoluteFilePath();
     } else {
         qInfo("Database file doesn't exist");
     }
 
     // Create database if not exist earlier
-    base->setDatabaseName(mDbFilePath);
+    base->setDatabaseName(DbConnection::mDbFilePath);
 
     if (!base->open()) {
-        qCritical() << "Can't open database at" << mDbFilePath;
+        qCritical() << "Can't open database at" << DbConnection::mDbFilePath;
         qCritical() << "with error:" << base->lastError();
         qApp->exit(-1);
     }
@@ -65,7 +64,7 @@ Database::Database(const QString& filePath, const QString& backupPath)
         // Close, make backup, open again, and then update base
         qInfo("Closing database");
         base->close();
-        makeBackupBeforeUpdate(mDbFilePath, oldDbVersion);
+        makeBackupBeforeUpdate(DbConnection::mDbFilePath, oldDbVersion);
         qInfo("Opening database");
         base->open();
         makeDbUpdate();
