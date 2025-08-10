@@ -11,10 +11,10 @@
 #include "source/TermDataStorage/DbInfo.h"
 #include "source/TermDataStorage/DbTools.h"
 #include "source/TermDataStorage/SqlQueryBuilder.h"
-#include "source/TermDataStorage/tables/TermTable.h"
 
 import AppConfigTable;
 import TermGroupTable;
+import TermTable;
 
 QString Database::mDbFilePath     = "";
 QString Database::mDbBackupFolder = "";

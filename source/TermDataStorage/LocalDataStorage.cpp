@@ -6,10 +6,10 @@
 #include <QMap>
 
 #include "source/TermDataStorage/Database.h"
-#include "source/TermDataStorage/tables/TermTable.h"
 
 import AppConfigTable;
 import TermGroupTable;
+import TermTable;
 
 namespace rng = std::ranges;
 

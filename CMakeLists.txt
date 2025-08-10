@@ -233,6 +233,7 @@ if (NOT WASM)
         FILES
             "source/TermDataStorage/tables/AppConfigTable.cpp"
             "source/TermDataStorage/tables/TermGroupTable.cpp"
+            "source/TermDataStorage/tables/TermTable.cpp"
     )
 
     target_sources (TermGraph
@@ -247,8 +248,6 @@ if (NOT WASM)
             "source/TermDataStorage/queries/SqlQueries.qrc"
             "source/TermDataStorage/SqlQueryBuilder.cpp"
             "source/TermDataStorage/SqlQueryBuilder.h"
-            "source/TermDataStorage/tables/TermTable.cpp"
-            "source/TermDataStorage/tables/TermTable.h"
     )
 endif ()
 
@@ -346,8 +345,6 @@ if (BUILD_TESTING)
             "source/TermDataStorage/queries/SqlQueries.qrc"
             "source/TermDataStorage/SqlQueryBuilder.cpp"
             "source/TermDataStorage/SqlQueryBuilder.h"
-            "source/TermDataStorage/tables/TermTable.cpp"
-            "source/TermDataStorage/tables/TermTable.h"
     )
 
     # List of sources containing modules
@@ -379,6 +376,7 @@ if (BUILD_TESTING)
             "source/TermDataInterface/TermValidator.cpp"
             "source/TermDataStorage/tables/AppConfigTable.cpp"
             "source/TermDataStorage/tables/TermGroupTable.cpp"
+            "source/TermDataStorage/tables/TermTable.cpp"
             "source/Text/CharTools.cpp"
             "source/Text/CheckingTextCursor.cpp"
             "source/Text/Fonts.cpp"
