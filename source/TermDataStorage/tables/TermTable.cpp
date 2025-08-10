@@ -8,11 +8,11 @@ module;
 #include "source/CommonTools/HandyTypes.h"
 #include "source/TermDataInterface/DataStorageInterface.h"
 #include "source/TermDataInterface/TermData.h"
-#include "source/TermDataStorage/SqlQueryBuilder.h"
 
 export module TermTable;
 
 import DbTools;
+import SqlQueryBuilder;
 
 export class TermTable
 {

@@ -8,9 +8,9 @@ module;
 #include <QSqlQuery>
 #include <QSqlRecord>
 
-#include "source/TermDataStorage/SqlQueryBuilder.h"
-
 export module DbTools;
+
+import SqlQueryBuilder;
 
 export class DbTools
 {

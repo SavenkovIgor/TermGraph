@@ -8,12 +8,12 @@ module;
 #include "source/CommonTools/GroupUuid.h"
 #include "source/CommonTools/HandyTypes.h"
 #include "source/TermDataInterface/GroupSummary.h"
-#include "source/TermDataStorage/SqlQueryBuilder.h"
 
 export module TermGroupTable;
 
 import CommonTools.JsonKeys;
 import DbTools;
+import SqlQueryBuilder;
 
 export class TermGroupTable
 {
