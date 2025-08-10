@@ -226,6 +226,8 @@ if (NOT WASM)
     find_package (Qt6 REQUIRED COMPONENTS Sql)
     target_link_libraries (TermGraph PRIVATE Qt6::Sql)
 
+    target_sources (TermGraph PRIVATE "source/TermDataStorage/queries/SqlQueries.qrc")
+
     # List of sources containing modules
     target_sources (TermGraph
         PUBLIC
@@ -234,17 +236,11 @@ if (NOT WASM)
             "source/TermDataStorage/Database.cpp"
             "source/TermDataStorage/DbInfo.cpp"
             "source/TermDataStorage/DbTools.cpp"
+            "source/TermDataStorage/LocalDataStorage.cpp"
             "source/TermDataStorage/SqlQueryBuilder.cpp"
             "source/TermDataStorage/tables/AppConfigTable.cpp"
             "source/TermDataStorage/tables/TermGroupTable.cpp"
             "source/TermDataStorage/tables/TermTable.cpp"
-    )
-
-    target_sources (TermGraph
-        PRIVATE
-            "source/TermDataStorage/LocalDataStorage.cpp"
-            "source/TermDataStorage/LocalDataStorage.h"
-            "source/TermDataStorage/queries/SqlQueries.qrc"
     )
 endif ()
 
@@ -332,8 +328,6 @@ if (BUILD_TESTING)
             "source/TermDataInterface/StaticGroupData.h"
             "source/TermDataInterface/termdata.cpp"
             "source/TermDataInterface/TermData.h"
-            "source/TermDataStorage/LocalDataStorage.cpp"
-            "source/TermDataStorage/LocalDataStorage.h"
             "source/TermDataStorage/queries/SqlQueries.qrc"
     )
 
@@ -367,6 +361,7 @@ if (BUILD_TESTING)
             "source/TermDataStorage/Database.cpp"
             "source/TermDataStorage/DbInfo.cpp"
             "source/TermDataStorage/DbTools.cpp"
+            "source/TermDataStorage/LocalDataStorage.cpp"
             "source/TermDataStorage/SqlQueryBuilder.cpp"
             "source/TermDataStorage/tables/AppConfigTable.cpp"
             "source/TermDataStorage/tables/TermGroupTable.cpp"

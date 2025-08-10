@@ -15,7 +15,7 @@ module;
 #ifndef Q_OS_WASM
 #include "source/TermDataConnection/DataStorageConnection.h"
 
-#include "source/TermDataStorage/LocalDataStorage.h"
+import LocalDatabaseStorage;
 #endif
 
 export module DataSourceFactory;
