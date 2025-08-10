@@ -37,7 +37,7 @@ export struct DataSourceFactory
         }
 
         if constexpr (Platform::isDesktop() || Platform::isMobile()) {
-            return localDb();
+            return make_unique<StaticDataStorage>();
         }
 
         Q_UNREACHABLE();
