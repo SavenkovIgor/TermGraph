@@ -9,10 +9,10 @@
 #include <QString>
 
 #include "source/TermDataStorage/DbInfo.h"
-#include "source/TermDataStorage/DbTools.h"
 #include "source/TermDataStorage/SqlQueryBuilder.h"
 
 import AppConfigTable;
+import DbTools;
 import TermGroupTable;
 import TermTable;
 

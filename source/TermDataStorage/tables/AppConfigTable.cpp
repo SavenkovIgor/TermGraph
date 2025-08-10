@@ -5,10 +5,11 @@ module;
 
 #include <QString>
 
-#include "source/TermDataStorage/DbTools.h"
 #include "source/TermDataStorage/SqlQueryBuilder.h"
 
 export module AppConfigTable;
+
+import DbTools;
 
 export class AppConfigTable
 {
