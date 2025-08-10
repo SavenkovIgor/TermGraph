@@ -226,6 +226,14 @@ if (NOT WASM)
     find_package (Qt6 REQUIRED COMPONENTS Sql)
     target_link_libraries (TermGraph PRIVATE Qt6::Sql)
 
+    # List of sources containing modules
+    target_sources (TermGraph
+        PUBLIC
+        FILE_SET CXX_MODULES
+        FILES
+            "source/TermDataStorage/tables/TermGroupTable.cpp"
+    )
+
     target_sources (TermGraph
         PRIVATE
             "source/TermDataStorage/Database.cpp"
@@ -240,8 +248,6 @@ if (NOT WASM)
             "source/TermDataStorage/SqlQueryBuilder.h"
             "source/TermDataStorage/tables/AppConfigTable.cpp"
             "source/TermDataStorage/tables/AppConfigTable.h"
-            "source/TermDataStorage/tables/TermGroupTable.cpp"
-            "source/TermDataStorage/tables/TermGroupTable.h"
             "source/TermDataStorage/tables/TermTable.cpp"
             "source/TermDataStorage/tables/TermTable.h"
     )
@@ -343,8 +349,6 @@ if (BUILD_TESTING)
             "source/TermDataStorage/SqlQueryBuilder.h"
             "source/TermDataStorage/tables/AppConfigTable.cpp"
             "source/TermDataStorage/tables/AppConfigTable.h"
-            "source/TermDataStorage/tables/TermGroupTable.cpp"
-            "source/TermDataStorage/tables/TermGroupTable.h"
             "source/TermDataStorage/tables/TermTable.cpp"
             "source/TermDataStorage/tables/TermTable.h"
     )
@@ -376,6 +380,7 @@ if (BUILD_TESTING)
             "source/model/graphicitem/graphicitem.cpp"
             "source/TermDataInterface/GroupValidator.cpp"
             "source/TermDataInterface/TermValidator.cpp"
+            "source/TermDataStorage/tables/TermGroupTable.cpp"
             "source/Text/CharTools.cpp"
             "source/Text/CheckingTextCursor.cpp"
             "source/Text/Fonts.cpp"

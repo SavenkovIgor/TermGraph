@@ -8,9 +8,9 @@
 #include <QObject>
 #include <QtSql>
 
-#include "source/TermDataStorage/tables/AppConfigTable.h"
-#include "source/TermDataStorage/tables/TermGroupTable.h"
-#include "source/TermDataStorage/tables/TermTable.h"
+class TermTable;
+class TermGroupTable;
+class AppConfigTable;
 
 // TODO: Move db version here
 // TODO: JSON send version must be synced with db version
