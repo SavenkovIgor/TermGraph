@@ -3,7 +3,9 @@
 
 #include <gtest/gtest.h>
 
-#include "source/TermDataInterface/StaticGroupData.h"
+#include "source/TermDataInterface/TermData.h"
+
+import StaticGroupData;
 
 TermData someTermData()
 {

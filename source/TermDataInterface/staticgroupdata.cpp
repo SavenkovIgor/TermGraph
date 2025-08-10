@@ -1,11 +1,42 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/TermDataInterface/StaticGroupData.h"
+module;
+
+#include <vector>
+
+#include <QDateTime>
+
+#include "source/TermDataInterface/GroupSummary.h"
+#include "source/TermDataInterface/TermData.h"
+
+export module StaticGroupData;
 
 import CommonTools.JsonKeys;
 import CommonTools.JsonTools;
 import TermDataInterface.GroupValidator;
+
+export struct StaticGroupData : public GroupSummary
+{
+    TermData::List terms;
+
+    std::optional<QDateTime> termsLastEdit() const;
+
+    QMap<TermUuid, TermData> termsMap() const;
+
+    std::optional<TermData> term(const QString& termName) const;
+
+    inline bool operator==(const StaticGroupData& rhs) const = default;
+
+    // --- JSON ---
+    static std::optional<StaticGroupData> from(QJsonObject json);
+    static std::optional<StaticGroupData> from(const QByteArray& jsonBytes);
+
+    QJsonObject toQJsonObject() const;
+
+    explicit operator QJsonObject() const { return toQJsonObject(); }
+    explicit operator QByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
+};
 
 std::optional<QDateTime> StaticGroupData::termsLastEdit() const
 {

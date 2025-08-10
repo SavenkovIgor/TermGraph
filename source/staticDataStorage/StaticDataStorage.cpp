@@ -9,10 +9,11 @@ module;
 
 #include "source/TermDataInterface/DataStorageInterface.h"
 #include "source/TermDataInterface/GroupSummary.h"
-#include "source/TermDataInterface/StaticGroupData.h"
 #include "source/TermDataInterface/TermData.h"
 
 export module StaticDataStorage;
+
+import StaticGroupData;
 
 namespace rng = std::ranges;
 

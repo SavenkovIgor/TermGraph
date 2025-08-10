@@ -5,9 +5,8 @@
 
 #include <QDebug>
 
-#include "source/TermDataInterface/StaticGroupData.h"
-
 import StaticDataStorage;
+import StaticGroupData;
 
 TEST(StaticStorageTest, GroupsLoadable)
 {
