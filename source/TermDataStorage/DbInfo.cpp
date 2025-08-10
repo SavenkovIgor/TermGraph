@@ -1,11 +1,13 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#pragma once
+module;
 
 #include <QLatin1String>
 
-class DbConnectionName
+export module DbInfo;
+
+export class DbConnectionName
 {
 public:
     constexpr static auto defaultConnection       = "defConnection";

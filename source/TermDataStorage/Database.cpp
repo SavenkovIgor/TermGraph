@@ -8,10 +8,10 @@
 #include <QFileInfo>
 #include <QString>
 
-#include "source/TermDataStorage/DbInfo.h"
 #include "source/TermDataStorage/SqlQueryBuilder.h"
 
 import AppConfigTable;
+import DbInfo;
 import DbTools;
 import TermGroupTable;
 import TermTable;

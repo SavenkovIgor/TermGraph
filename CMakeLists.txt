@@ -231,6 +231,7 @@ if (NOT WASM)
         PUBLIC
         FILE_SET CXX_MODULES
         FILES
+            "source/TermDataStorage/DbInfo.cpp"
             "source/TermDataStorage/DbTools.cpp"
             "source/TermDataStorage/tables/AppConfigTable.cpp"
             "source/TermDataStorage/tables/TermGroupTable.cpp"
@@ -241,7 +242,6 @@ if (NOT WASM)
         PRIVATE
             "source/TermDataStorage/Database.cpp"
             "source/TermDataStorage/Database.h"
-            "source/TermDataStorage/DbInfo.h"
             "source/TermDataStorage/LocalDataStorage.cpp"
             "source/TermDataStorage/LocalDataStorage.h"
             "source/TermDataStorage/queries/SqlQueries.qrc"
@@ -336,7 +336,6 @@ if (BUILD_TESTING)
             "source/TermDataInterface/TermData.h"
             "source/TermDataStorage/Database.cpp"
             "source/TermDataStorage/Database.h"
-            "source/TermDataStorage/DbInfo.h"
             "source/TermDataStorage/LocalDataStorage.cpp"
             "source/TermDataStorage/LocalDataStorage.h"
             "source/TermDataStorage/queries/SqlQueries.qrc"
@@ -371,6 +370,7 @@ if (BUILD_TESTING)
             "source/model/graphicitem/graphicitem.cpp"
             "source/TermDataInterface/GroupValidator.cpp"
             "source/TermDataInterface/TermValidator.cpp"
+            "source/TermDataStorage/DbInfo.cpp"
             "source/TermDataStorage/DbTools.cpp"
             "source/TermDataStorage/tables/AppConfigTable.cpp"
             "source/TermDataStorage/tables/TermGroupTable.cpp"
