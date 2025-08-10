@@ -5,9 +5,8 @@
 
 #include <QMap>
 
-#include "source/TermDataStorage/Database.h"
-
 import AppConfigTable;
+import Database;
 import TermGroupTable;
 import TermTable;
 

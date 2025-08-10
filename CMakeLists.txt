@@ -231,6 +231,7 @@ if (NOT WASM)
         PUBLIC
         FILE_SET CXX_MODULES
         FILES
+            "source/TermDataStorage/Database.cpp"
             "source/TermDataStorage/DbInfo.cpp"
             "source/TermDataStorage/DbTools.cpp"
             "source/TermDataStorage/SqlQueryBuilder.cpp"
@@ -241,8 +242,6 @@ if (NOT WASM)
 
     target_sources (TermGraph
         PRIVATE
-            "source/TermDataStorage/Database.cpp"
-            "source/TermDataStorage/Database.h"
             "source/TermDataStorage/LocalDataStorage.cpp"
             "source/TermDataStorage/LocalDataStorage.h"
             "source/TermDataStorage/queries/SqlQueries.qrc"
@@ -333,8 +332,6 @@ if (BUILD_TESTING)
             "source/TermDataInterface/StaticGroupData.h"
             "source/TermDataInterface/termdata.cpp"
             "source/TermDataInterface/TermData.h"
-            "source/TermDataStorage/Database.cpp"
-            "source/TermDataStorage/Database.h"
             "source/TermDataStorage/LocalDataStorage.cpp"
             "source/TermDataStorage/LocalDataStorage.h"
             "source/TermDataStorage/queries/SqlQueries.qrc"
@@ -367,6 +364,7 @@ if (BUILD_TESTING)
             "source/model/graphicitem/graphicitem.cpp"
             "source/TermDataInterface/GroupValidator.cpp"
             "source/TermDataInterface/TermValidator.cpp"
+            "source/TermDataStorage/Database.cpp"
             "source/TermDataStorage/DbInfo.cpp"
             "source/TermDataStorage/DbTools.cpp"
             "source/TermDataStorage/SqlQueryBuilder.cpp"

@@ -1,12 +1,19 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/TermDataStorage/Database.h"
+module;
+
+#include <memory>
 
 #include <QDateTime>
 #include <QDebug>
 #include <QFileInfo>
+#include <QObject>
 #include <QString>
+#include <QtCore>
+#include <QtSql>
+
+export module Database;
 
 import AppConfigTable;
 import DbInfo;
@@ -15,6 +22,40 @@ import SqlQueryBuilder;
 import TermGroupTable;
 import TermTable;
 
+// TODO: Move db version here
+// TODO: JSON send version must be synced with db version
+export class Database
+{
+public:
+    std::unique_ptr<TermTable>      termTable;
+    std::unique_ptr<TermGroupTable> groupTable;
+    std::unique_ptr<AppConfigTable> appConfigTable;
+
+    explicit Database(const QString& filePath, const QString& backupPath);
+    ~Database();
+
+    Database(const Database&)       = delete;
+    void operator=(const Database&) = delete;
+
+    static QString mDbBackupFolder;
+
+private:
+    QSqlDatabase* base;
+
+    bool databaseExists(const QString& dbFilePath) const;
+    void InitAllTables();
+
+    int  currentDbVersion();
+    bool needDbUpdate();
+    void makeBackupBeforeUpdate(const QString& filePath, const int& oldDbVersion);
+    void makeDbUpdate();
+    void execMigrationConditions(const int& currentDbVersion);
+
+    // Migrations
+    void updateNodesToSecondVersion();
+    void updateGroupsToSecondVersion();
+};
+
 QString Database::mDbBackupFolder = "";
 
 Database::Database(const QString& filePath, const QString& backupPath)
@@ -22,7 +63,8 @@ Database::Database(const QString& filePath, const QString& backupPath)
     , groupTable(nullptr)
     , appConfigTable(nullptr)
 {
-    Q_INIT_RESOURCE(SqlQueries);
+    // Since Database is not a static library, we don't need to initialize resources
+    // Q_INIT_RESOURCE(SqlQueries);
 
     DbConnection::mDbFilePath = filePath;
     mDbBackupFolder           = backupPath;
