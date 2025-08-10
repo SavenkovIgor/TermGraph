@@ -10,7 +10,6 @@ module;
 #include "source/TermDataInterface/DataStorageInterface.h"
 
 #include "source/CommonTools/Platform.h"
-#include "source/staticDataStorage/StaticDataStorage.h"
 
 #ifndef Q_OS_WASM
 #include "source/TermDataConnection/DataStorageConnection.h"
@@ -21,6 +20,7 @@ import LocalDatabaseStorage;
 export module DataSourceFactory;
 
 import AppSettings;
+import StaticDataStorage;
 
 using namespace std;
 
