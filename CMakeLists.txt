@@ -89,8 +89,6 @@ target_sources (TermGraph
         "source/managers/notificationmanager.cpp"
         "source/managers/notificationmanager.h"
         "source/managers/notifyinterface.h"
-        "source/managers/syncmanager.cpp"
-        "source/managers/syncmanager.h"
         "source/model/edge/edgesmodel.cpp"
         "source/model/edge/edgesmodel.h"
         "source/model/enums.cpp"

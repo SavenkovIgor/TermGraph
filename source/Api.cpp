@@ -13,13 +13,10 @@ Api::Api(QObject *parent)
     : QObject(parent)
     , mNetwork(std::make_unique<NetworkManager>(NotificationManager::instance()))
     , mGroupsManager(std::make_unique<GroupsManager>(NotificationManager::instance()))
-    , mSyncManager(std::make_unique<SyncManager>(mNetwork.get(), mGroupsManager.get()))
     , mScene(std::make_unique<MainScene>(mGroupsManager.get()))
 {}
 
 NetworkManager *Api::network() const { return mNetwork.get(); }
-
-SyncManager *Api::sync() const { return mSyncManager.get(); }
 
 GroupsManager *Api::groups() const { return mGroupsManager.get(); }
 

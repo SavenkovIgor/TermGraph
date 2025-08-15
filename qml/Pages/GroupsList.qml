@@ -136,15 +136,6 @@ M.Page {
     }
     */
 
-    A.RoundButton {
-        icon.source: Theme.icon.share
-        visible: Api.groups.hasAnyGroup
-
-        anchors { right: addGroupBtn.left; bottom: parent.bottom; margins: width / 2; }
-
-        onClicked: Api.sync.sendGroupByNetwork(groupsList.currentItem.groupUuid)
-    }
-
     M.StdDialog {
         id: groupExportedDialog
         title:  "Группа экспортирована в папку GroupsJson"

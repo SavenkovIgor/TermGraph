@@ -11,7 +11,7 @@
 #include "source/MainScene.h"
 #include "source/helpers/firststartpreparer.h"
 #include "source/managers/groupsmanager.h"
-#include "source/managers/syncmanager.h"
+#include "source/managers/networkmanager.h"
 
 // Qml todo list
 // TODO: Avoid implicit lookup in root scope (root.property)
@@ -29,7 +29,6 @@ class Api : public QObject
 
     // clang-format off
     Q_PROPERTY(NetworkManager* net    READ network CONSTANT FINAL)
-    Q_PROPERTY(SyncManager*    sync   READ sync    CONSTANT FINAL)
     Q_PROPERTY(GroupsManager*  groups READ groups  CONSTANT FINAL)
     Q_PROPERTY(MainScene*      scene  READ scene   CONSTANT FINAL)
     // clang-format on
@@ -48,11 +47,9 @@ private:
 
     // Dependent init
     std::unique_ptr<GroupsManager> mGroupsManager;
-    std::unique_ptr<SyncManager>   mSyncManager;
     std::unique_ptr<MainScene>     mScene;
 
     NetworkManager* network() const;
-    SyncManager*    sync() const;
     GroupsManager*  groups() const;
     MainScene*      scene() const;
 
