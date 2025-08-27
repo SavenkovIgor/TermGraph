@@ -37,7 +37,7 @@ qt_standard_project_setup(REQUIRES 6.8)
 add_subdirectory ("source/Atoms")
 add_subdirectory ("source/Molecules")
 add_subdirectory ("source/Tools")
-add_subdirectory ("qml/Theme")
+add_subdirectory ("source/Theme")
 add_subdirectory ("qml/Pages")
 
 qt_add_executable (TermGraph)
