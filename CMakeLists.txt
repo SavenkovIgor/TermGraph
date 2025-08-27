@@ -34,11 +34,11 @@ find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network 
 qt_standard_project_setup(REQUIRES 6.8)
 
 # Applications subdirs
-add_subdirectory ("qml/Tools")
-add_subdirectory ("qml/Theme")
-add_subdirectory ("qml/Atoms")
-add_subdirectory ("qml/Molecules")
-add_subdirectory ("qml/Pages")
+add_subdirectory ("source/Atoms")
+add_subdirectory ("source/Molecules")
+add_subdirectory ("source/Tools")
+add_subdirectory ("source/Theme")
+add_subdirectory ("source/Pages")
 
 qt_add_executable (TermGraph)
 
@@ -254,7 +254,7 @@ qt_add_qml_module (TermGraph
     IMPORTS
         QtQml QtQuick QtQuick.Controls QtQuick.Controls.Material QtQuick.Shapes QtQuick.Layouts QtQuick.Window QtQuick.Templates
         Theme Tools Atoms Molecules Pages
-    QML_FILES "qml/Main.qml")
+    QML_FILES "source/Main.qml")
 
 if (WASM)
     # The install folder is inside the build directory
