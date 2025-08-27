@@ -38,7 +38,7 @@ add_subdirectory ("source/Atoms")
 add_subdirectory ("source/Molecules")
 add_subdirectory ("source/Tools")
 add_subdirectory ("source/Theme")
-add_subdirectory ("qml/Pages")
+add_subdirectory ("source/Pages")
 
 qt_add_executable (TermGraph)
 
