@@ -254,7 +254,7 @@ qt_add_qml_module (TermGraph
     IMPORTS
         QtQml QtQuick QtQuick.Controls QtQuick.Controls.Material QtQuick.Shapes QtQuick.Layouts QtQuick.Window QtQuick.Templates
         Theme Tools Atoms Molecules Pages
-    QML_FILES "qml/Main.qml")
+    QML_FILES "source/Main.qml")
 
 if (WASM)
     # The install folder is inside the build directory
