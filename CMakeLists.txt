@@ -34,9 +34,9 @@ find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network 
 qt_standard_project_setup(REQUIRES 6.8)
 
 # Applications subdirs
+add_subdirectory ("source/Atoms")
 add_subdirectory ("qml/Tools")
 add_subdirectory ("qml/Theme")
-add_subdirectory ("qml/Atoms")
 add_subdirectory ("qml/Molecules")
 add_subdirectory ("qml/Pages")
 
