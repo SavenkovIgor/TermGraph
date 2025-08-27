@@ -36,7 +36,7 @@ qt_standard_project_setup(REQUIRES 6.8)
 # Applications subdirs
 add_subdirectory ("source/Atoms")
 add_subdirectory ("source/Molecules")
-add_subdirectory ("qml/Tools")
+add_subdirectory ("source/Tools")
 add_subdirectory ("qml/Theme")
 add_subdirectory ("qml/Pages")
 
