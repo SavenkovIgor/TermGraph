@@ -6,6 +6,8 @@
     <h1>TermGraph</h1>
 </div>
 
+> ⚠️ **Important:** This project is primarily a playground for experimenting with new C++ technologies and approaches, so some parts of the codebase may remain a little rough around the edges.
+
 <div align="center">
 
 [![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=c%2B%2B&logoColor=white)](https://isocpp.org/)
