@@ -17,6 +17,9 @@
 
 #include "source/CommonTools/GroupUuid.h"
 
+import CommonTools.JsonKeys;
+import TermDataInterface.GroupValidator;
+
 // TODO: Make class and make fields private
 struct GroupSummary
 {
@@ -53,10 +56,6 @@ struct GroupSummary
         explicit operator QByteArray() const { return QJsonDocument(static_cast<QJsonObject>(*this)).toJson(); }
     };
 };
-
-// Inline implementations
-import CommonTools.JsonKeys;
-import TermDataInterface.GroupValidator;
 
 inline std::optional<GroupSummary> GroupSummary::from(const QJsonObject& obj)
 {

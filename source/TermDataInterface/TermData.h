@@ -17,6 +17,11 @@
 #include "source/CommonTools/GroupUuid.h"
 #include "source/CommonTools/TermUuid.h"
 
+import CommonTools.JsonKeys;
+import CommonTools.JsonTools;
+import CommonTools.TermJsonValidator;
+import Text;
+
 // TODO: Check tests!
 // TODO: Make class and make fields private
 struct TermData
@@ -67,12 +72,6 @@ struct TermData
         explicit operator QByteArray() const { return toQByteArray(); }
     };
 };
-
-// Inline implementations
-import CommonTools.JsonKeys;
-import CommonTools.JsonTools;
-import CommonTools.TermJsonValidator;
-import Text;
 
 inline TermData TermData::createGhost(const QString& term, GroupUuid groupUuid)
 {
