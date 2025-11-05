@@ -92,4 +92,3 @@ private:
     const Condition mLeftChecker;
     const Condition mRightChecker;
 };
-
