@@ -17,4 +17,3 @@ CMakeUserPresets.json
 **/.qmlls.ini
 aqtinstall.log
 tools/__pycache__/
-_codeql_detected_source_root
