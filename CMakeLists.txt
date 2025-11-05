@@ -100,9 +100,7 @@ target_sources (TermGraph
         "source/model/term/termsmodel.cpp"
         "source/model/term/termsmodel.h"
         "source/TermDataInterface/DataStorageInterface.h"
-        "source/TermDataInterface/groupsummary.cpp"
         "source/TermDataInterface/GroupSummary.h"
-        "source/TermDataInterface/termdata.cpp"
         "source/TermDataInterface/TermData.h"
 )
 
@@ -316,9 +314,7 @@ if (BUILD_TESTING)
             "source/model/enums.cpp"
             "source/model/enums.h"
             "source/TermDataInterface/DataStorageInterface.h"
-            "source/TermDataInterface/groupsummary.cpp"
             "source/TermDataInterface/GroupSummary.h"
-            "source/TermDataInterface/termdata.cpp"
             "source/TermDataInterface/TermData.h"
             "source/TermDataStorage/queries/SqlQueries.qrc"
     )
