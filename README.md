@@ -6,7 +6,8 @@
     <h1>TermGraph</h1>
 </div>
 
-> ⚠️ **Important:** This project is primarily a playground for experimenting with new C++ technologies and approaches, so some parts of the codebase may remain a little rough around the edges.
+> [!NOTE]
+> This project is primarily a playground for experimenting with new C++ technologies and approaches, so some parts of the codebase may remain a little rough around the edges.
 
 <div align="center">
 
