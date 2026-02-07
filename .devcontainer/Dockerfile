@@ -25,7 +25,7 @@ RUN sh /uv-installer.sh && rm /uv-installer.sh
 
 # Configure qt and aqt installations
 ENV QT_VERSION=6.8.3
-ENV AQT_VERSION=3.2.1
+ENV AQT_VERSION=3.3.0
 COPY aqt.ini ${WORKSPACE_ROOT}/aqt.ini
 ENV AQT_CONFIG=${WORKSPACE_ROOT}/aqt.ini
 

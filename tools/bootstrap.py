@@ -4,9 +4,9 @@ import os
 import subprocess
 from pathlib import Path
 from shutil import which
+from typing import List
 
 from env_validator import ToolsValidator
-from typing import List
 
 REQUIRED_CMAKE_VERSION = (4, 0, 0)
 
@@ -14,7 +14,7 @@ REQUIRED_CMAKE_VERSION = (4, 0, 0)
 CLANG_VERSION = "20"
 CONAN_VERSION = "2.16.1"
 QT_VERSION = "6.8.3"
-AQT_VERSION = "3.2.1"
+AQT_VERSION = "3.3.0"
 
 # Base packages mirroring Dockerfile
 BASE_PACKAGES = [
