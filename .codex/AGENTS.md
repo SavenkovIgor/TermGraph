@@ -75,4 +75,4 @@
 - Desktop builds include SQL support and testing; WASM builds exclude both
 - Conan profiles must specify `compiler.cppstd=23` (see `conanfiles/profile/base/clang_compiler`)
 - Git submodules initialized automatically by `project.py` on first build
-- CI/CD and DevContainer use identical dependency versions - check both for consistency
+- CI/CD and DevContainer aim to align on key toolchain versions (Qt/Clang/Conan/Emscripten); verify both configs stay in sync
