@@ -89,7 +89,7 @@ RUN update-alternatives \
 # Installing conan with uv tool
 # We are switching user because we want the conan installation
 # to be available for the vscode user
-ENV CONAN_VERSION=2.16.1
+ENV CONAN_VERSION=2.25.2
 USER vscode
 RUN uv tool install conan@${CONAN_VERSION}
 USER root
