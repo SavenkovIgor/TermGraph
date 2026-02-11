@@ -1,3 +1,8 @@
+---
+description: This is a project-wide instruction file.
+applyTo: '**/*'
+---
+
 # TermGraph Agent Guidelines
 
 ## Style
