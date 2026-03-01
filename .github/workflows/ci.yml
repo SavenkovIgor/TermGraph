@@ -64,7 +64,7 @@ jobs:
       uses: lukka/get-cmake@latest
 
     - name: Install Conan package manager
-      uses: turtlebrowser/get-conan@main
+      uses: conan-io/setup-conan@v1
       with:
         version: ${{ env.CONAN_VERSION }}
 
