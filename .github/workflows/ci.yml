@@ -109,9 +109,6 @@ jobs:
         echo "::notice file=,line=1,col=1::Conan version: $(conan --version)"
         echo "::notice file=,line=1,col=1::CMake version: $(cmake --version | head -n 1)"
 
-    - name: Create default Conan profile
-      run: conan profile detect
-
     - name: Conan install dependencies
       run: ./project.py --deps-install --preset ${{ matrix.build_profile }}
 
