@@ -64,7 +64,7 @@ jobs:
       uses: lukka/get-cmake@latest
 
     - name: Install Conan package manager
-      uses: turtlebrowser/get-conan@main
+      uses: conan-io/setup-conan@v1
       with:
         version: ${{ env.CONAN_VERSION }}
 
@@ -108,9 +108,6 @@ jobs:
         echo "::notice file=,line=1,col=1::Clang version: $(clang --version | head -n 1)"
         echo "::notice file=,line=1,col=1::Conan version: $(conan --version)"
         echo "::notice file=,line=1,col=1::CMake version: $(cmake --version | head -n 1)"
-
-    - name: Create default Conan profile
-      run: conan profile detect
 
     - name: Conan install dependencies
       run: ./project.py --deps-install --preset ${{ matrix.build_profile }}
