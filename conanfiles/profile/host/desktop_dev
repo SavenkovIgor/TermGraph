@@ -1,4 +1,4 @@
-include(base/clang_compiler)
+include(../base/clang_compiler)
 
 [settings]
 os=Linux
