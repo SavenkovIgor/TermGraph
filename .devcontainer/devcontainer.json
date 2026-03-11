@@ -3,6 +3,9 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
   "forwardPorts": [8000],
   "appPort": ["8000:8000"],
   "customizations": {
