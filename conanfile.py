@@ -1,10 +1,8 @@
 from conan import ConanFile
-from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
-import os
+from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain
 
 
 class TermGraphConan(ConanFile):
-
     generators = 'CMakeDeps'
     settings = 'os', 'arch', 'compiler', 'build_type'
 
