@@ -101,11 +101,5 @@ RUN wget -O - https://apt.kitware.com/kitware-archive.sh | bash && \
     apt install -y cmake && \
     rm -rf /var/lib/apt/lists/*
 
-# Install the latest Ninja manually
-RUN wget https://github.com/ninja-build/ninja/releases/download/v1.11.1/ninja-linux.zip && \
-    unzip ninja-linux.zip -d /usr/bin/                                                  && \
-    rm ninja-linux.zip                                                                  && \
-    chmod +x /usr/bin/ninja
-
 # Install GDB for debugging support
 RUN apt update && apt install -y gdb

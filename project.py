@@ -93,7 +93,8 @@ class Project:
         self.deps_install(preset_name)
 
         logging.info(f'---BUILD {self.name} preset: {preset_name}, Qt: {env_qt_version()}---')
-        run(f'cmake --workflow --preset {preset_name}')
+        conan_build_env = self.build_dir(preset_name) / 'conan-dependencies/conanbuild.sh'
+        run(f'source {conan_build_env} && cmake --workflow --preset {preset_name}')
 
     def test(self, preset_name: str):
         self.prepare(preset_name)

@@ -101,14 +101,6 @@ def ensure_cmake() -> None:
     install_cmake_from_kitware()
 
 
-def ensure_ninja() -> None:
-    if which("ninja") is None:
-        run("wget https://github.com/ninja-build/ninja/releases/download/v1.11.1/ninja-linux.zip")
-        run("unzip ninja-linux.zip -d /usr/bin/")
-        Path("ninja-linux.zip").unlink()
-        run("chmod +x /usr/bin/ninja")
-
-
 def ensure_clang() -> None:
     if which(f"clang-{CLANG_VERSION}") is None:
         run("wget https://apt.llvm.org/llvm.sh")
@@ -160,7 +152,6 @@ def main() -> None:
         ensure_git()
         ensure_conan()
         ensure_cmake()
-        ensure_ninja()
         ensure_clang()
         ensure_gdb()
         ensure_qt()
