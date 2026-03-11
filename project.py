@@ -76,7 +76,8 @@ class Project:
     def deps_install(self, preset_name: str):
         self.prepare(preset_name)
         logging.info(f'---DEPS INSTALL {self.name} with preset {preset_name}---')
-        args = [f'--profile:all=conanfiles/profile/host/{preset_name}']
+        args = [f'--profile:host=conanfiles/profile/host/{preset_name}']
+        args += ['--profile:build=conanfiles/profile/build/build_machine']
         args += ['--build=missing']
         args += [f'-of={self.build_dir(preset_name)}/conan-dependencies']
         run(f'conan install . {" ".join(args)}')
