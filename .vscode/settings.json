@@ -1,21 +1,4 @@
 {
-    "cSpell.words": [
-        "gtest",
-        "openai"
-    ],
-    "cSpell.ignoreWords": [
-        "dotenv",
-        "Lemmatizer",
-        "lemmatize",
-        "lemmatized",
-        "punkt",
-        "wordnet"
-    ],
-    "github.copilot.chat.reviewSelection.instructions": [
-        {
-            "file": ".vscode/copilot-review-instructions.md",
-        }
-    ],
     "workbench.externalBrowser": "firefox",
     "C_Cpp.default.compileCommands": "${workspaceFolder}/build/desktop_dev/compile_commands.json",
     "C_Cpp.default.cppStandard": "c++23",
