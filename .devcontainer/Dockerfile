@@ -19,13 +19,14 @@ RUN apt update                                && \
     apt install -y ca-certificates gpg wget unzip curl
 
 # uv installation
-ENV UV_INSTALL_DIR=/usr/local/bin
+ARG UV_INSTALL_DIR=/usr/local/bin
 ADD https://astral.sh/uv/install.sh /uv-installer.sh
 RUN sh /uv-installer.sh && rm /uv-installer.sh
 
 # Configure qt and aqt installations
-ENV QT_VERSION=6.8.3
-ENV AQT_VERSION=3.3.0
+ARG QT_VERSION=6.8.3
+ARG AQT_VERSION=3.3.0
+ENV QT_VERSION=${QT_VERSION}
 COPY aqt.ini ${WORKSPACE_ROOT}/aqt.ini
 ENV AQT_CONFIG=${WORKSPACE_ROOT}/aqt.ini
 
@@ -40,7 +41,7 @@ RUN uvx --from aqtinstall@$AQT_VERSION aqt install-qt -O ${QT_ROOT} all_os wasm 
     --archives qttranslations qttools qtsvg qtdeclarative qtbase icu
 
 # Install emscripten
-ENV EMSDK_VERSION=3.1.56
+ARG EMSDK_VERSION=3.1.56
 
 RUN git clone https://github.com/emscripten-core/emsdk.git ${EMSDK_ROOT} && \
     cd ${EMSDK_ROOT}                                                     && \
@@ -48,7 +49,7 @@ RUN git clone https://github.com/emscripten-core/emsdk.git ${EMSDK_ROOT} && \
     ./emsdk activate ${EMSDK_VERSION}                                    && \
     echo "source ${EMSDK_ROOT}/emsdk_env.sh" >> /home/vscode/.bashrc
 
-ENV CLANG_VERSION=20
+ARG CLANG_VERSION=20
 
 RUN cd /home/vscode                   && \
     wget https://apt.llvm.org/llvm.sh && \
@@ -89,7 +90,7 @@ RUN update-alternatives \
 # Installing conan with uv tool
 # We are switching user because we want the conan installation
 # to be available for the vscode user
-ENV CONAN_VERSION=2.25.2
+ARG CONAN_VERSION=2.25.2
 USER vscode
 RUN uv tool install conan@${CONAN_VERSION}
 USER root

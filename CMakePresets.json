@@ -40,7 +40,7 @@
       "hidden": true,
       "cacheVariables": {
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies",
-        "CMAKE_BUILD_RPATH": "/home/user/Qt/$env{QT_VERSION}/gcc_64/lib"
+        "CMAKE_BUILD_RPATH": "$env{QT_VERSION_ROOT}/gcc_64/lib"
       }
     },
     {
