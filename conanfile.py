@@ -12,7 +12,7 @@ class TermGraphConan(ConanFile):
         return self.settings.os == 'Emscripten'
 
     def build_requirements(self):
-        self.tool_requires('ninja/1.11.1')
+        self.tool_requires('ninja/1.13.2')
         if not self.is_wasm():
             self.test_requires('gtest/1.17.0')
 
