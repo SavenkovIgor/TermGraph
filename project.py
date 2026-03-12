@@ -63,6 +63,11 @@ class Project:
     def build_dir(self, preset_name: str) -> Path:
         return self.path / f'build/{preset_name}'
 
+    def conan_build_env(self, preset_name: str) -> Path:
+        return self.build_dir(preset_name) / 'conan-dependencies/conanbuild.sh'
+
+    def conan_enf_suffix(self, preset_name: str) -> str:
+        return f'source {self.conan_build_env(preset_name)}'
 
     def check_preset(self, preset_name: str):
         if not preset_name in self.available_presets:
@@ -85,7 +90,7 @@ class Project:
     def cmake_install(self, preset_name: str):
         self.prepare(preset_name)
         logging.info(f'---CMAKE INSTALL {self.name} with preset {preset_name}---')
-        run(f'cmake --install {self.build_dir(preset_name)}')
+        run(f'{self.conan_enf_suffix(preset_name)} && cmake --install {self.build_dir(preset_name)}')
 
     def build(self, preset_name: str):
         self.prepare(preset_name)
@@ -93,8 +98,7 @@ class Project:
         self.deps_install(preset_name)
 
         logging.info(f'---BUILD {self.name} preset: {preset_name}, Qt: {env_qt_version()}---')
-        conan_build_env = self.build_dir(preset_name) / 'conan-dependencies/conanbuild.sh'
-        run(f'source {conan_build_env} && cmake --workflow --preset {preset_name}')
+        run(f'{self.conan_enf_suffix(preset_name)} && cmake --workflow --preset {preset_name}')
 
     def test(self, preset_name: str):
         self.prepare(preset_name)
@@ -104,7 +108,7 @@ class Project:
         args.append('--output-on-failure')
         args.append('--verbose')
         args.append('--output-junit ctest.xml')
-        run(f'ctest {" ".join(args)}')
+        run(f'{self.conan_enf_suffix(preset_name)} && ctest {" ".join(args)}')
 
     def run(self, preset_name: str):
         self.prepare(preset_name)

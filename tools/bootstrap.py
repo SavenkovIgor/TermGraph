@@ -8,9 +8,6 @@ from typing import List
 
 from env_validator import ToolsValidator
 
-REQUIRED_CMAKE_VERSION = (4, 0, 0)
-
-
 CLANG_VERSION = "20"
 CONAN_VERSION = "2.25.2"
 QT_VERSION = "6.8.3"
@@ -87,20 +84,6 @@ def ensure_conan() -> None:
         run(f"uv tool install conan@{CONAN_VERSION}")
 
 
-def install_cmake_from_kitware() -> None:
-    apt.remove(["cmake"])
-    apt.update()
-    apt.install(["wget", "gpg", "ca-certificates"])
-    run("wget -O - https://apt.kitware.com/kitware-archive.sh | bash")
-    apt.update()
-    apt.install(["cmake"])
-
-
-def ensure_cmake() -> None:
-    """Always install the latest CMake from the Kitware repository."""
-    install_cmake_from_kitware()
-
-
 def ensure_clang() -> None:
     if which(f"clang-{CLANG_VERSION}") is None:
         run("wget https://apt.llvm.org/llvm.sh")
@@ -151,7 +134,6 @@ def main() -> None:
         ensure_uv()
         ensure_git()
         ensure_conan()
-        ensure_cmake()
         ensure_clang()
         ensure_gdb()
         ensure_qt()
