@@ -15,12 +15,11 @@ log_config: dict[str, Any] = {
 
 logging.basicConfig(**log_config)
 
-def repository_root() -> Path:
-    return Path(__file__).parent
+REPOSITORY_ROOT = Path(__file__).resolve().parent
 
 def init_submodules():
     """Initialize and update git submodules"""
-    root = repository_root()
+    root = REPOSITORY_ROOT
     os.chdir(root)
 
     logging.info('---INITIALIZING GIT SUBMODULES---')
@@ -132,7 +131,7 @@ def main(args: argparse.Namespace):
     # Initialize submodules first
     init_submodules()
 
-    app = Project('Application', 'TermGraph', repository_root(), presets)
+    app = Project('Application', 'TermGraph', REPOSITORY_ROOT, presets)
 
     if args.deps_install:
         app.deps_install(args.preset)
