@@ -6,9 +6,9 @@ import os
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
-log_config: Dict[str, Any] = {
+log_config: dict[str, Any] = {
     'level': 'INFO',
     'format': '%(levelname)s: %(message)s',
 }
@@ -50,7 +50,7 @@ def configure_environment(for_wasm: bool = False):
 
 
 class Project:
-    def __init__(self, name: str, run_name: str, path: Path, available_presets: List[str]):
+    def __init__(self, name: str, run_name: str, path: Path, available_presets: list[str]):
         self.name = name
         self.path = path
         self.run_name = run_name
@@ -103,7 +103,7 @@ class Project:
     def test(self, preset_name: str):
         self.prepare(preset_name)
         logging.info(f'---TEST {self.name} with preset {preset_name}---')
-        args: List[str] = []
+        args: list[str] = []
         args.append(f'--preset {preset_name}')
         args.append('--output-on-failure')
         args.append('--verbose')
