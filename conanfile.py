@@ -1,10 +1,8 @@
 from conan import ConanFile
-from conan.tools.cmake import CMakeToolchain, CMakeDeps, CMake
-import os
+from conan.tools.cmake import CMake, CMakeDeps, CMakeToolchain
 
 
 class TermGraphConan(ConanFile):
-
     generators = 'CMakeDeps'
     settings = 'os', 'arch', 'compiler', 'build_type'
 
@@ -14,6 +12,7 @@ class TermGraphConan(ConanFile):
         return self.settings.os == 'Emscripten'
 
     def build_requirements(self):
+        self.tool_requires('ninja/1.13.2')
         if not self.is_wasm():
             self.test_requires('gtest/1.17.0')
 

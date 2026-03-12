@@ -76,7 +76,8 @@ class Project:
     def deps_install(self, preset_name: str):
         self.prepare(preset_name)
         logging.info(f'---DEPS INSTALL {self.name} with preset {preset_name}---')
-        args = [f'--profile:all=conanfiles/profile/{preset_name}']
+        args = [f'--profile:host=conanfiles/profile/host/{preset_name}']
+        args += ['--profile:build=conanfiles/profile/build/build_machine']
         args += ['--build=missing']
         args += [f'-of={self.build_dir(preset_name)}/conan-dependencies']
         run(f'conan install . {" ".join(args)}')
@@ -92,7 +93,8 @@ class Project:
         self.deps_install(preset_name)
 
         logging.info(f'---BUILD {self.name} preset: {preset_name}, Qt: {env_qt_version()}---')
-        run(f'cmake --workflow --preset {preset_name}')
+        conan_build_env = self.build_dir(preset_name) / 'conan-dependencies/conanbuild.sh'
+        run(f'source {conan_build_env} && cmake --workflow --preset {preset_name}')
 
     def test(self, preset_name: str):
         self.prepare(preset_name)

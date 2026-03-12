@@ -11,7 +11,6 @@ class ToolsValidator:
             self.checkGit,
             self.checkConan,
             self.checkCmake,
-            self.checkNinja,
             self.checkClang,
             self.checkQt,
         ]
@@ -31,10 +30,6 @@ class ToolsValidator:
     def checkCmake(self) -> None:
         if which("cmake") is None:
             raise RuntimeError("cmake not found")
-
-    def checkNinja(self) -> None:
-        if which("ninja") is None:
-            raise RuntimeError("ninja not found")
 
     def checkClang(self) -> None:
         if which("clang") is None:

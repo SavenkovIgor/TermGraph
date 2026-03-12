@@ -1,0 +1,9 @@
+# Profile for the machine running the build (Linux/Clang).
+# Used as --profile:build for cross-compilation targets (e.g. WASM).
+# Describes the build host, not the target platform.
+include(../base/clang)
+
+[settings]
+os=Linux
+arch=x86_64
+build_type=Release
