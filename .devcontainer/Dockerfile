@@ -15,8 +15,8 @@ RUN apt update                                && \
     apt install -y libfreetype6               && \
     # python dependencies
     apt install -y python3-pip python3-venv   && \
-    # Cmake, Ninja and uv dependencies
-    apt install -y ca-certificates gpg wget unzip curl
+    # uv dependencies
+    apt install -y ca-certificates gpg wget
 
 # uv installation
 ARG UV_INSTALL_DIR=/usr/local/bin
@@ -94,12 +94,6 @@ ARG CONAN_VERSION=2.25.2
 USER vscode
 RUN uv tool install conan@${CONAN_VERSION}
 USER root
-
-# Install the latest CMake using Kitware's helper script
-RUN wget -O - https://apt.kitware.com/kitware-archive.sh | bash && \
-    apt update && \
-    apt install -y cmake && \
-    rm -rf /var/lib/apt/lists/*
 
 # Install GDB for debugging support
 RUN apt update && apt install -y gdb

@@ -6,21 +6,20 @@ import os
 import subprocess
 import sys
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
-log_config: Dict[str, Any] = {
+log_config: dict[str, Any] = {
     'level': 'INFO',
     'format': '%(levelname)s: %(message)s',
 }
 
 logging.basicConfig(**log_config)
 
-def repository_root() -> Path:
-    return Path(__file__).parent
+REPOSITORY_ROOT = Path(__file__).resolve().parent
 
 def init_submodules():
     """Initialize and update git submodules"""
-    root = repository_root()
+    root = REPOSITORY_ROOT
     os.chdir(root)
 
     logging.info('---INITIALIZING GIT SUBMODULES---')
@@ -50,7 +49,7 @@ def configure_environment(for_wasm: bool = False):
 
 
 class Project:
-    def __init__(self, name: str, run_name: str, path: Path, available_presets: List[str]):
+    def __init__(self, name: str, run_name: str, path: Path, available_presets: list[str]):
         self.name = name
         self.path = path
         self.run_name = run_name
@@ -63,6 +62,11 @@ class Project:
     def build_dir(self, preset_name: str) -> Path:
         return self.path / f'build/{preset_name}'
 
+    def conan_build_env(self, preset_name: str) -> Path:
+        return self.build_dir(preset_name) / 'conan-dependencies/conanbuild.sh'
+
+    def conan_enf_suffix(self, preset_name: str) -> str:
+        return f'source {self.conan_build_env(preset_name)}'
 
     def check_preset(self, preset_name: str):
         if not preset_name in self.available_presets:
@@ -85,7 +89,7 @@ class Project:
     def cmake_install(self, preset_name: str):
         self.prepare(preset_name)
         logging.info(f'---CMAKE INSTALL {self.name} with preset {preset_name}---')
-        run(f'cmake --install {self.build_dir(preset_name)}')
+        run(f'{self.conan_enf_suffix(preset_name)} && cmake --install {self.build_dir(preset_name)}')
 
     def build(self, preset_name: str):
         self.prepare(preset_name)
@@ -93,18 +97,17 @@ class Project:
         self.deps_install(preset_name)
 
         logging.info(f'---BUILD {self.name} preset: {preset_name}, Qt: {env_qt_version()}---')
-        conan_build_env = self.build_dir(preset_name) / 'conan-dependencies/conanbuild.sh'
-        run(f'source {conan_build_env} && cmake --workflow --preset {preset_name}')
+        run(f'{self.conan_enf_suffix(preset_name)} && cmake --workflow --preset {preset_name}')
 
     def test(self, preset_name: str):
         self.prepare(preset_name)
         logging.info(f'---TEST {self.name} with preset {preset_name}---')
-        args: List[str] = []
+        args: list[str] = []
         args.append(f'--preset {preset_name}')
         args.append('--output-on-failure')
         args.append('--verbose')
         args.append('--output-junit ctest.xml')
-        run(f'ctest {" ".join(args)}')
+        run(f'{self.conan_enf_suffix(preset_name)} && ctest {" ".join(args)}')
 
     def run(self, preset_name: str):
         self.prepare(preset_name)
@@ -128,7 +131,7 @@ def main(args: argparse.Namespace):
     # Initialize submodules first
     init_submodules()
 
-    app = Project('Application', 'TermGraph', repository_root(), presets)
+    app = Project('Application', 'TermGraph', REPOSITORY_ROOT, presets)
 
     if args.deps_install:
         app.deps_install(args.preset)

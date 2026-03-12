@@ -10,7 +10,6 @@ class ToolsValidator:
             self.checkPython,
             self.checkGit,
             self.checkConan,
-            self.checkCmake,
             self.checkClang,
             self.checkQt,
         ]
@@ -26,10 +25,6 @@ class ToolsValidator:
     def checkConan(self) -> None:
         if which("conan") is None:
             raise RuntimeError("conan not found")
-
-    def checkCmake(self) -> None:
-        if which("cmake") is None:
-            raise RuntimeError("cmake not found")
 
     def checkClang(self) -> None:
         if which("clang") is None:
