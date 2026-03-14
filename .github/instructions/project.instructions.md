@@ -32,7 +32,7 @@ applyTo: '**/*'
 **Framework & Language:**
 
 - **C++ Standard**: See `CMakeLists.txt` (CXX_STANDARD), `conanfiles/profile/base/clang_compiler` (compiler.cppstd)
-- **Qt**: See `project.py`, `tools/bootstrap.py` (QT_VERSION), `.github/workflows/ci.yml`, `.devcontainer/Dockerfile`
+- **Qt**: See `project.py`, `.github/workflows/ci.yml`, `.devcontainer/Dockerfile`
 
 **Qt Modules Used:**
 
@@ -59,21 +59,21 @@ applyTo: '**/*'
 
 - **CMake**: See `CMakeLists.txt` (cmake_minimum_required), `CMakePresets.json` (cmakeMinimumRequired)
 - **Ninja**: See `.devcontainer/Dockerfile` (download URL with version)
-- **Clang**: See `tools/bootstrap.py` (CLANG_VERSION), `.github/workflows/ci.yml`, `.devcontainer/Dockerfile`
-- **Conan**: See `tools/bootstrap.py` (CONAN_VERSION), `.github/workflows/ci.yml`, `.devcontainer/Dockerfile`
+- **Clang**: See `.github/workflows/ci.yml`, `.devcontainer/Dockerfile`
+- **Conan**: See `.github/workflows/ci.yml`, `.devcontainer/Dockerfile`
 - **Emscripten**: See `.github/workflows/ci.yml` (EMSDK_VERSION), `.devcontainer/Dockerfile`
 
 **Utilities:**
 
-- **aqtinstall**: See `tools/bootstrap.py` (AQT_VERSION), `.github/workflows/ci.yml`, `.devcontainer/Dockerfile`
+- **aqtinstall**: See `.github/workflows/ci.yml`, `.devcontainer/Dockerfile`
 - **ccache**: CI only, version in `.github/workflows/ci.yml`
 - **uv**: Latest from install script (`.devcontainer/Dockerfile`)
-- **Python 3**: System default, used by `project.py`, `tools/bootstrap.py`
+- **Python 3**: System default, used by `project.py`
 
 **System Environment:**
 
 - Base Docker image: See first line of `.devcontainer/Dockerfile`
-- System packages: See `.devcontainer/Dockerfile` and `tools/bootstrap.py` (BASE_PACKAGES)
+- System packages: See `.devcontainer/Dockerfile`
 
 ### Important Notes
 
