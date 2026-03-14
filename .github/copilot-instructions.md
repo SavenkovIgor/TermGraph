@@ -8,7 +8,7 @@ TermGraph is a Qt/QML C++ knowledge graph builder that visualizes hierarchical t
 
 ## Build Commands
 
-The primary build interface is `project.py` at the repo root. All builds target Linux (desktop uses Clang 20, WASM uses Emscripten).
+The primary build interface is `project.py` at the repo root. All builds target Linux (desktop uses Clang, WASM uses Emscripten).
 
 ```bash
 # Install Conan dependencies + build + run (desktop release)
@@ -45,10 +45,10 @@ Test files are in `test/`. Note: `DbWorksTest` and `ConnectionWorksTest` are cur
 
 ## Linting / Formatting
 
-Clang-format 20 is used. No integrated lint command in `project.py` - run manually:
+Clang-format is used (version matches installed Clang — see `.devcontainer/Dockerfile` and `.github/workflows/ci.yml` for pinned version). No integrated lint command in `project.py` - run manually:
 
 ```bash
-find source -name "*.cpp" -o -name "*.h" | xargs clang-format-20 -i
+find source -name "*.cpp" -o -name "*.h" | xargs clang-format -i
 ```
 
 CI runs a clang-format check on `wasm_release` builds only.
@@ -106,5 +106,5 @@ UI follows atomic design in the `source/` tree:
 - **Qt version:** Pinned to 6.8.3; set `QT_ROOT` and `QT_VERSION` environment variables.
 - **C++ standard:** C++23 with C++20 modules actively used.
 - **CMake minimum:** 4.0 (note: higher than the 3.22 stated in README).
-- **Compiler:** Clang 20 for desktop; Emscripten 3.1.56 for WASM.
+- **Compiler:** Clang for desktop (version pinned in `.devcontainer/Dockerfile` and `.github/workflows/ci.yml`); Emscripten for WASM (version pinned in same files).
 - **Static data categories** (WASM knowledge graphs): `Asm`, `Cpp`, `Global`, `GraphTheory`, `InformationTechnologies`, `Qml`, `Rationality`, etc. - JSON files in `data/`.
