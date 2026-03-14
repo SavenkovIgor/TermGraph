@@ -104,7 +104,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 ## 🧬 Tech stack
 
 - <img src="https://isocpp.org/favicon.ico" width="16" height="16"> C++ 23
-- <img src="https://www.qt.io/hubfs/2016_Qt_Logo/qt_logo_green_rgb_16x16.png" width="16" height="16"> Qt 6.8.3 | Qml
+- <img src="https://www.qt.io/hubfs/2016_Qt_Logo/qt_logo_green_rgb_16x16.png" width="16" height="16"> Qt 6.8.3 | QML
 - <img src="https://cmake.org/wp-content/uploads/2019/05/cropped-cmake_512-32x32.png" width="16" height="16"> CMake 4.0+ (via Conan)
 - <img src="https://conan.io/favicon.png" width="16" height="16"> Conan 2
 - 🔧 Clang 20
@@ -117,7 +117,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 
 [![CI](https://github.com/SavenkovIgor/TermGraph/actions/workflows/ci.yml/badge.svg)](https://github.com/SavenkovIgor/TermGraph/actions/workflows/ci.yml)
 
-## Requirements for ubuntu hosted build
+## Requirements for Ubuntu-hosted build
 
 - [Clang](https://clang.llvm.org/) 20
 - [Conan](https://docs.conan.io/2/) 2
@@ -145,7 +145,7 @@ You can start tests from:
 ## :microscope: Project structure
 
 ```bash
-├── .github/workflows/       # Github actions (CI)
+├── .github/workflows/       # GitHub actions (CI)
 ├── conanfiles/              # Conan profiles (host/build/base)
 ├── data/                    # Static data (JSON knowledge graphs)
 ├── resources/               # Resources: app icons, main html wrapper etc...
