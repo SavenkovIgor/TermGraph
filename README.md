@@ -145,30 +145,33 @@ You can start tests from:
 ## :microscope: Project structure
 
 ```bash
-├── .github/workflows/       # Github actions
-├── conanfiles/              # Conan profiles, and generated stuff
-├── doc/                     # Documents
-├── data/                    # Folder with static data
-├── qml/                     # Main.qml file
-│   ├── Atoms/               # Qml atoms components     (atomic design)
-│   ├── Molecules/           # Qml molecules components (atomic design)
-│   ├── Pages/               # Qml pages
-│   ├── Theme/               # Qml theme. Colors, icons, fonts etc...
-│   ├── Tools/               # Some qml debugging tools
+├── .github/workflows/       # Github actions (CI)
+├── conanfiles/              # Conan profiles (host/build/base)
+├── data/                    # Static data (JSON knowledge graphs)
 ├── resources/               # Resources: app icons, main html wrapper etc...
 ├── source/                  # Main source code
+│   ├── Atoms/               # QML atoms components     (atomic design)
 │   ├── CommonTools/         # Some common tools with wide reuse
-│   ├── graph/               # Graph headers
-│   ├── QrcHelpImages/       # Help images resources
+│   ├── enums/               # Enum definitions
+│   ├── graph/               # Graph theory primitives
+│   ├── helpers/             # Helper utilities (links, stemming, settings)
+│   ├── managers/            # Business logic managers
+│   ├── model/               # Qt models for graph data
+│   ├── Molecules/           # QML molecules components (atomic design)
+│   ├── Pages/               # QML pages
 │   ├── staticDataStorage/   # Static data storage class
-│   ├── TermDataInterface/   # Interface, describing data connection interface
-│   ├── TermDataStorage/     # Data storage sqlite
-│   └── Text                 # Text processing
-├── tests/                   # Tests
-├── tools/                   # Some side stuff, need from time to time
+│   ├── TermDataConnection/  # Abstracts the data interface connection
+│   ├── TermDataInterface/   # Data storage interface
+│   ├── TermDataStorage/     # Data storage
+│   ├── Text/                # Text processing
+│   ├── Theme/               # QML theme. Colors, icons, fonts etc...
+│   └── Tools/               # Some QML debugging tools
+├── test/                    # Tests (GTest, desktop only)
+├── third_party/             # Git submodules (stemming library)
+├── tools/                   # Side utilities
 ├── CMakeLists.txt           # Main CMake file
 ├── CMakePresets.json        # CMake presets
-├── conanfile.txt            # Conan dependencies (gtest)
+├── conanfile.py             # Conan dependencies
 └── project.py               # Python script for building and running project
 ```
 
