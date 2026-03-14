@@ -103,21 +103,28 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 
 ## 🧬 Tech stack
 
-- <img src="https://isocpp.org/favicon.ico" width="16" height="16"> C++ 20
-- <img src="https://www.qt.io/hubfs/2016_Qt_Logo/qt_logo_green_rgb_16x16.png" width="16" height="16"> Qt 6.8 | Qml
-- <img src="https://cmake.org/wp-content/uploads/2019/05/cropped-cmake_512-32x32.png" width="16" height="16"> Cmake 3.22+
+- <img src="https://isocpp.org/favicon.ico" width="16" height="16"> C++ 23
+- <img src="https://www.qt.io/hubfs/2016_Qt_Logo/qt_logo_green_rgb_16x16.png" width="16" height="16"> Qt 6.8.3 | Qml
+- <img src="https://cmake.org/wp-content/uploads/2019/05/cropped-cmake_512-32x32.png" width="16" height="16"> CMake 4.0+ (via Conan)
 - <img src="https://conan.io/favicon.png" width="16" height="16"> Conan 2
-- [GTest lib](https://github.com/google/googletest) (tests)
+- 🔧 Clang 20
+- 🔧 Ninja (via Conan)
+- 🌐 [Emscripten](https://emscripten.org/) 3.1.56 (WASM builds)
+- 🧪 [GTest](https://github.com/google/googletest) 1.17.0 (desktop tests)
+- 📚 [OleanderStemmingLibrary](https://github.com/Blake-Madden/OleanderStemmingLibrary) (git submodule)
 
 # :hammer_and_wrench: Build
 
-[![Build app](https://github.com/SavenkovIgor/TermGraph/actions/workflows/AppBuild.yml/badge.svg)](https://github.com/SavenkovIgor/TermGraph/actions/workflows/AppBuild.yml)
+[![CI](https://github.com/SavenkovIgor/TermGraph/actions/workflows/ci.yml/badge.svg)](https://github.com/SavenkovIgor/TermGraph/actions/workflows/ci.yml)
 
 ## Requirements for ubuntu hosted build
 
-- [Conan](https://docs.conan.io/en/latest/installation.html)
-- [Cmake](https://cmake.org/) + Ninja
-- [Qt + Qml](https://www.qt.io/download-qt-installer)
+- [Clang](https://clang.llvm.org/) 20
+- [Conan](https://docs.conan.io/2/) 2
+- [Qt](https://www.qt.io/download-qt-installer) 6.8.3 (with Qml modules)
+- [Emscripten](https://emscripten.org/) 3.1.56 (for WASM builds only)
+
+CMake and Ninja are provided automatically via Conan `tool_requires`.
 
 You can build project with QtCreator, using CMake Presets (which QtCreator more or less understands).
 
