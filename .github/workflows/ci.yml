@@ -56,7 +56,7 @@ jobs:
       if: matrix.build_profile == 'wasm_release'
       uses: jidicula/clang-format-action@v4.17.0
       with:
-        clang-format-version: 16
+        clang-format-version: ${{ env.CLANG_VERSION }}
 
     - name: Install Conan package manager
       uses: conan-io/setup-conan@v1
