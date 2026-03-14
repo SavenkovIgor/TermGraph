@@ -41,11 +41,9 @@ jobs:
         wget https://apt.llvm.org/llvm.sh
         chmod +x llvm.sh
         sudo ./llvm.sh ${{ env.CLANG_VERSION }} all
+        echo "/usr/lib/llvm-${{ env.CLANG_VERSION }}/bin" >> $GITHUB_PATH
+        sudo update-alternatives --install /usr/bin/cc  cc  /usr/bin/clang-${{ env.CLANG_VERSION }}   100
         sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-${{ env.CLANG_VERSION }} 100
-        sudo ln -s /usr/lib/llvm-${{ env.CLANG_VERSION }}/bin/clang-scan-deps /usr/bin/clang-scan-deps
-
-    - name: Install Clang-tools
-      run: sudo apt install -y clang-tools-${{ env.CLANG_VERSION }}
 
     - name: Setup ccache
       uses: hendrikmuhs/ccache-action@v1
