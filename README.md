@@ -119,7 +119,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 
 ## Requirements for Ubuntu-hosted build
 
-- [Clang](https://clang.llvm.org/) 20
+- [Clang](https://clang.llvm.org/) 21
 - [Conan](https://docs.conan.io/2/) 2
 - [Qt](https://www.qt.io/download-qt-installer) 6.8.3 (with Qml modules)
 - [Emscripten](https://emscripten.org/) 3.1.56 (for WASM builds only)
