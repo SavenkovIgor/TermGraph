@@ -1,6 +1,6 @@
 [buildenv]
-CC=clang-20
-CXX=clang++-20
+CC=clang
+CXX=clang++
 
 [settings]
 compiler=clang

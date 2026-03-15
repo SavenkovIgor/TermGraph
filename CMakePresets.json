@@ -10,8 +10,8 @@
       "name": "clang_compiler",
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_C_COMPILER": "/usr/bin/clang-20",
-        "CMAKE_CXX_COMPILER": "/usr/bin/clang++-20"
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++"
       }
     },
     {

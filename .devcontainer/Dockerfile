@@ -60,6 +60,10 @@ RUN cd /home/vscode                   && \
 # Make this clang version the default one
 ENV PATH="/usr/lib/llvm-${CLANG_VERSION}/bin:${PATH}"
 
+# Provide cc/c++ system links (not included in LLVM bin dir)
+RUN update-alternatives --install /usr/bin/cc  cc  /usr/bin/clang-${CLANG_VERSION}   100 && \
+    update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-${CLANG_VERSION} 100
+
 # Installing conan with uv tool
 # We are switching user because we want the conan installation
 # to be available for the vscode user

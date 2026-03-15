@@ -6,7 +6,7 @@
             "cStandard": "c23",
             "cppStandard": "c++23",
             "intelliSenseMode": "linux-clang-x64",
-            "compilerPath": "/usr/bin/clang++-20"
+            "compilerPath": "clang++"
         }
     ],
     "version": 4
