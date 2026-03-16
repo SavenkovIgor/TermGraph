@@ -1,8 +1,6 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-module;
-
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
 #include <QSurface>
@@ -17,8 +15,6 @@ module;
 // TODO: Replace Components with component properties
 // TODO: Create GroupsModel
 // TODO: Remove get from getters. Helper regexp: \bget.*\(
-
-export module main;
 
 void setSurfaceFormat()
 {
