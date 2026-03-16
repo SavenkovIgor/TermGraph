@@ -54,7 +54,7 @@ jobs:
 
     - name: Run clang-format style check
       if: matrix.build_profile == 'wasm_release'
-      uses: jidicula/clang-format-action@v4.17.0
+      uses: jidicula/clang-format-action@v4.18.0
       with:
         clang-format-version: ${{ env.CLANG_VERSION }}
 
