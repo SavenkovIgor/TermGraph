@@ -49,7 +49,7 @@ RUN git clone https://github.com/emscripten-core/emsdk.git ${EMSDK_ROOT} && \
     ./emsdk activate ${EMSDK_VERSION}                                    && \
     echo "source ${EMSDK_ROOT}/emsdk_env.sh" >> /home/vscode/.bashrc
 
-ARG CLANG_VERSION=20
+ARG CLANG_VERSION=21
 
 RUN cd /home/vscode                   && \
     wget https://apt.llvm.org/llvm.sh && \

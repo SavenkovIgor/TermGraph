@@ -107,7 +107,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - <img src="https://www.qt.io/hubfs/2016_Qt_Logo/qt_logo_green_rgb_16x16.png" width="16" height="16"> Qt 6.8.3 | QML
 - <img src="https://cmake.org/wp-content/uploads/2019/05/cropped-cmake_512-32x32.png" width="16" height="16"> CMake 4.0+ (via Conan)
 - <img src="https://conan.io/favicon.png" width="16" height="16"> Conan 2
-- 🔧 Clang 20
+- 🔧 Clang 21
 - 🔧 Ninja (via Conan)
 - 🌐 [Emscripten](https://emscripten.org/) 3.1.56 (WASM builds)
 - 🧪 [GTest](https://github.com/google/googletest) 1.17.0 (desktop tests)
@@ -119,7 +119,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 
 ## Requirements for Ubuntu-hosted build
 
-- [Clang](https://clang.llvm.org/) 20
+- [Clang](https://clang.llvm.org/) 21
 - [Conan](https://docs.conan.io/2/) 2
 - [Qt](https://www.qt.io/download-qt-installer) 6.8.3 (with Qml modules)
 - [Emscripten](https://emscripten.org/) 3.1.56 (for WASM builds only)

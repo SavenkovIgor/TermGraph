@@ -78,6 +78,7 @@ target_sources (TermGraph
         "source/helpers/simplelistenserver.h"
         "source/helpers/wiki/WikiUrlChecker.cpp"
         "source/helpers/wiki/WikiUrlChecker.h"
+        "source/main.cpp"
         "source/MainScene.cpp"
         "source/MainScene.h"
         "source/managers/groupsmanager.cpp"
@@ -104,10 +105,6 @@ target_sources (TermGraph
         "source/TermDataInterface/GroupSummary.h"
         "source/TermDataInterface/termdata.cpp"
         "source/TermDataInterface/TermData.h"
-)
-
-# List of sources containing modules
-target_sources (TermGraph
     PUBLIC
     FILE_SET CXX_MODULES
     FILES
@@ -136,7 +133,6 @@ target_sources (TermGraph
         "source/helpers/link/LinkTools.cpp"
         "source/helpers/linktermdistancecache.cpp"
         "source/helpers/stemming/Stemmer.cpp"
-        "source/main.cpp"
         "source/model/edge/edgedata.cpp"
         "source/model/edge/graphedge.cpp"
         "source/model/edge/paintededge.cpp"
