@@ -79,7 +79,7 @@ jobs:
 
     - name: Install Emsdk
       if: matrix.build_profile == 'wasm_release'
-      uses: mymindstorm/setup-emsdk@v14
+      uses: mymindstorm/setup-emsdk@v15
       with:
         version: ${{ env.EMSDK_VERSION }}
 
