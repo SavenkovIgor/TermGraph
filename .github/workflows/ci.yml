@@ -22,7 +22,18 @@ env:
   CMAKE_CXX_COMPILER_LAUNCHER: ccache
 
 jobs:
+  format-gate:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Run clang-format style check
+      uses: jidicula/clang-format-action@v4.18.0
+      with:
+        clang-format-version: ${{ env.CLANG_VERSION }}
+
   build:
+    needs: format-gate
     timeout-minutes: 120
     strategy:
       matrix:
@@ -51,12 +62,6 @@ jobs:
         key: ${{ runner.os }}-${{ matrix.build_profile }}-ccache
         create-symlink: true
         verbose: 1
-
-    - name: Run clang-format style check
-      if: matrix.build_profile == 'wasm_release'
-      uses: jidicula/clang-format-action@v4.18.0
-      with:
-        clang-format-version: ${{ env.CLANG_VERSION }}
 
     - name: Install Conan package manager
       uses: conan-io/setup-conan@v1
