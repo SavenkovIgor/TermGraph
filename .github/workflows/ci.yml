@@ -112,6 +112,10 @@ jobs:
     - name: Conan install dependencies
       run: ./project.py --deps-install --preset ${{ matrix.build_profile }}
 
+    - name: Clear clang module cache for wasm build
+      if: matrix.build_profile == 'wasm_release'
+      run: rm -rf ~/.cache/clang
+
     - name: Cmake build
       run: ./project.py --build --preset ${{ matrix.build_profile }}
 
