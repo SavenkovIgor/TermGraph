@@ -13,6 +13,8 @@ project (TermGraph
 set (CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set (CMAKE_CXX_SCAN_FOR_MODULES False)
 
+include (cmake/Warnings.cmake)
+
 # Enable ranges support for emscripten
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     add_compile_options(-fexperimental-library)
@@ -198,6 +200,7 @@ target_compile_definitions (
 
 target_link_libraries (TermGraph
     PRIVATE
+        project_warnings
         Qt6::Core
         Qt6::Gui
         Qt6::Svg
@@ -403,6 +406,7 @@ if (BUILD_TESTING)
     target_include_directories (TermGraphTest SYSTEM PRIVATE
         "${PROJECT_SOURCE_DIR}/third_party/stemming/src")
     target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)
+    target_link_libraries (TermGraphTest PRIVATE project_warnings)
     target_link_libraries (TermGraphTest Qt6::Core Qt6::Gui Qt6::Qml Qt6::Sql)
 
     set_target_properties (TermGraphTest PROPERTIES AUTORCC ON)
