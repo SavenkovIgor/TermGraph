@@ -405,9 +405,21 @@ if (BUILD_TESTING)
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})
     target_include_directories (TermGraphTest SYSTEM PRIVATE
         "${PROJECT_SOURCE_DIR}/third_party/stemming/src")
-    target_link_libraries (TermGraphTest GTest::gtest GTest::gtest_main)
-    target_link_libraries (TermGraphTest PRIVATE project_warnings)
-    target_link_libraries (TermGraphTest Qt6::Core Qt6::Gui Qt6::Qml Qt6::Sql)
+    target_link_libraries (TermGraphTest
+        PRIVATE
+            # Warnings
+            project_warnings
+
+            # Qt
+            Qt6::Core
+            Qt6::Gui
+            Qt6::Qml
+            Qt6::Sql
+
+            # GTest section
+            GTest::gtest
+            GTest::gtest_main
+    )
 
     set_target_properties (TermGraphTest PROPERTIES AUTORCC ON)
 
