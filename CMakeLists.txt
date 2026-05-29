@@ -15,7 +15,7 @@ set (CMAKE_CXX_SCAN_FOR_MODULES False)
 
 include (cmake/Warnings.cmake)
 
-# Enable ranges support for emscripten
+# Enable C++ modules support for Clang-based toolchains
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     add_compile_options(-fmodules)
 endif()
