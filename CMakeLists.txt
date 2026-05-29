@@ -17,7 +17,6 @@ include (cmake/Warnings.cmake)
 
 # Enable ranges support for emscripten
 if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    add_compile_options(-fexperimental-library)
     add_compile_options(-fmodules)
 endif()
 
