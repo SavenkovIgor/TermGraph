@@ -32,7 +32,7 @@ def run(command: str):
 
 def delete_if_exist(path: Path):
     if path.exists():
-        logging.info(f"Delete {path}")
+        logging.info(f'Delete {path}')
         run(f'rm -rf {path}')
 
 def env_qt_version() -> str:
@@ -40,7 +40,7 @@ def env_qt_version() -> str:
 
 def configure_environment(for_wasm: bool = False):
     os.environ.setdefault('QT_ROOT', os.path.expanduser('~/Qt'))
-    os.environ.setdefault("QT_VERSION", "6.8.3")
+    os.environ.setdefault('QT_VERSION', '6.8.3')
     assert Path(os.environ['QT_ROOT']).exists(), 'Error: path at QT_ROOT env.variable not exist'
 
     if for_wasm:
@@ -84,7 +84,7 @@ class Project:
         args += ['--profile:build=conanfiles/profile/build/build_machine']
         args += ['--build=missing']
         args += [f'-of={self.build_dir(preset)}/conan-dependencies']
-        run(f'conan install . {" ".join(args)}')
+        run(f'conan install . {' '.join(args)}')
 
     def cmake_install(self, preset: str):
         self.prepare(preset)
@@ -107,7 +107,7 @@ class Project:
         args.append('--output-on-failure')
         args.append('--verbose')
         args.append('--output-junit ctest.xml')
-        run(f'{self.conan_env_prefix(preset)} && ctest {" ".join(args)}')
+        run(f'{self.conan_env_prefix(preset)} && ctest {' '.join(args)}')
 
     def run(self, preset: str):
         self.prepare(preset)
