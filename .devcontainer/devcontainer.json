@@ -3,9 +3,6 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "mounts": [
-    "source=${localEnv:USERPROFILE}\\.copilot,target=/home/vscode/.copilot,type=bind"
-  ],
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {}
   },
