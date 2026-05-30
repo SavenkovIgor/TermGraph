@@ -67,6 +67,7 @@ jobs:
       uses: conan-io/setup-conan@v1
       with:
         version: ${{ env.CONAN_VERSION }}
+        cache_packages: true
 
     - name: Install Qt gcc_64
       uses: jurplel/install-qt-action@v4
