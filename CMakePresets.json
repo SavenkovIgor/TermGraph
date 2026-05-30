@@ -23,7 +23,6 @@
       "name": "desktop_platform",
       "hidden": true,
       "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build/${presetName}/conan-dependencies/conan_toolchain.cmake",
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/gcc_64;${sourceDir}/build/${presetName}/conan-dependencies",
         "CMAKE_BUILD_RPATH": "$env{QT_VERSION_ROOT}/gcc_64/lib"
       }
@@ -33,7 +32,6 @@
       "hidden": true,
       "cacheVariables": {
         "QT_HOST_PATH": "$env{QT_VERSION_ROOT}/gcc_64",
-        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build/${presetName}/conan-dependencies/conan_toolchain.cmake",
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_singlethread;${sourceDir}/build/${presetName}/conan-dependencies"
       }
     },
@@ -49,7 +47,10 @@
         "systemVars": false
       },
       "errors": { "deprecated": true },
-      "environment": { "CONAN_PATH": "$env{HOME}/.local/bin" }
+      "environment": { "CONAN_PATH": "$env{HOME}/.local/bin" },
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build/${presetName}/conan-dependencies/conan_toolchain.cmake"
+      }
     },
     {
       "name": "desktop_dev",
