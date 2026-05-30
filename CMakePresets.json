@@ -7,22 +7,6 @@
   },
   "configurePresets": [
     {
-      "name": "clang_compiler",
-      "hidden": true,
-      "cacheVariables": {
-        "CMAKE_C_COMPILER": "clang",
-        "CMAKE_CXX_COMPILER": "clang++"
-      }
-    },
-    {
-      "name": "emsdk_compiler",
-      "hidden": true,
-      "cacheVariables": {
-        "CMAKE_C_COMPILER": "$penv{EMSDK}/upstream/emscripten/emcc",
-        "CMAKE_CXX_COMPILER": "$penv{EMSDK}/upstream/emscripten/em++"
-      }
-    },
-    {
       "name": "qt_env",
       "hidden": true,
       "environment": {
@@ -48,7 +32,6 @@
       "hidden": true,
       "cacheVariables": {
         "QT_HOST_PATH": "$env{QT_VERSION_ROOT}/gcc_64",
-        "CMAKE_TOOLCHAIN_FILE": "$env{QT_VERSION_ROOT}/wasm_singlethread/lib/cmake/Qt6/qt.toolchain.cmake",
         "CMAKE_PREFIX_PATH": "$env{CONAN_PATH};$env{QT_VERSION_ROOT}/wasm_singlethread;${sourceDir}/build/${presetName}/conan-dependencies"
       }
     },
@@ -64,30 +47,33 @@
         "systemVars": false
       },
       "errors": { "deprecated": true },
-      "environment": { "CONAN_PATH": "$env{HOME}/.local/bin" }
+      "environment": { "CONAN_PATH": "$env{HOME}/.local/bin" },
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/build/${presetName}/conan-dependencies/conan_toolchain.cmake"
+      }
     },
     {
       "name": "desktop_dev",
       "displayName": "Desktop dev build",
-      "inherits": ["default", "qt_env", "clang_compiler", "desktop_platform", "debug_build", "test_on"],
+      "inherits": ["default", "qt_env", "desktop_platform", "debug_build", "test_on"],
       "binaryDir": "${sourceDir}/build/${presetName}"
     },
     {
       "name": "desktop_release",
       "displayName": "Desktop release build",
-      "inherits": ["default", "qt_env", "clang_compiler", "desktop_platform", "release_build", "test_on"],
+      "inherits": ["default", "qt_env", "desktop_platform", "release_build", "test_on"],
       "binaryDir": "${sourceDir}/build/${presetName}"
     },
     {
       "name": "wasm_dev",
       "displayName": "WebAssembly dev build",
-      "inherits": ["default", "qt_env", "emsdk_compiler", "wasm_platform", "debug_build", "test_off"],
+      "inherits": ["default", "qt_env", "wasm_platform", "debug_build", "test_off"],
       "binaryDir": "${sourceDir}/build/${presetName}"
     },
     {
       "name": "wasm_release",
       "displayName": "WebAssembly release build",
-      "inherits": ["default", "qt_env", "emsdk_compiler", "wasm_platform", "release_build", "test_off"],
+      "inherits": ["default", "qt_env", "wasm_platform", "release_build", "test_off"],
       "binaryDir": "${sourceDir}/build/${presetName}"
     }
   ],

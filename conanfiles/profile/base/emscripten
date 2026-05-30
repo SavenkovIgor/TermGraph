@@ -1,7 +1,10 @@
 [settings]
 os=Emscripten
-arch=x86_64
+arch=wasm
 compiler=clang
 compiler.version=15
 compiler.libcxx=libc++
 compiler.cppstd=23
+
+[conf]
+tools.cmake.cmaketoolchain:user_toolchain=["{{os.environ['QT_VERSION_ROOT']}}/wasm_singlethread/lib/cmake/Qt6/qt.toolchain.cmake"]

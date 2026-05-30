@@ -32,7 +32,7 @@ def run(command: str):
 
 def delete_if_exist(path: Path):
     if path.exists():
-        logging.info(f"Delete {path}")
+        logging.info(f'Delete {path}')
         run(f'rm -rf {path}')
 
 def env_qt_version() -> str:
@@ -40,7 +40,8 @@ def env_qt_version() -> str:
 
 def configure_environment(for_wasm: bool = False):
     os.environ.setdefault('QT_ROOT', os.path.expanduser('~/Qt'))
-    os.environ.setdefault("QT_VERSION", "6.8.3")
+    os.environ.setdefault('QT_VERSION', '6.8.3')
+    os.environ.setdefault('QT_VERSION_ROOT', f"{os.environ['QT_ROOT']}/{os.environ['QT_VERSION']}")
     assert Path(os.environ['QT_ROOT']).exists(), 'Error: path at QT_ROOT env.variable not exist'
 
     if for_wasm:
@@ -59,62 +60,62 @@ class Project:
     def project_dir(self) -> Path:
         return self.path
 
-    def build_dir(self, preset_name: str) -> Path:
-        return self.path / f'build/{preset_name}'
+    def build_dir(self, preset: str) -> Path:
+        return self.path / f'build/{preset}'
 
-    def conan_build_env(self, preset_name: str) -> Path:
-        return self.build_dir(preset_name) / 'conan-dependencies/conanbuild.sh'
+    def conan_build_env(self, preset: str) -> Path:
+        return self.build_dir(preset) / 'conan-dependencies/conanbuild.sh'
 
-    def conan_enf_suffix(self, preset_name: str) -> str:
-        return f'source {self.conan_build_env(preset_name)}'
+    def conan_env_prefix(self, preset: str) -> str:
+        return f'source {self.conan_build_env(preset)}'
 
-    def check_preset(self, preset_name: str):
-        if not preset_name in self.available_presets:
-            logging.error(f'Preset {preset_name} not found in {self.name}')
+    def check_preset(self, preset: str):
+        if not preset in self.available_presets:
+            logging.error(f'Preset {preset} not found in {self.name}')
             exit(1)
 
-    def prepare(self, preset_name: str):
-        self.check_preset(preset_name)
+    def prepare(self, preset: str):
+        self.check_preset(preset)
         os.chdir(self.path)
 
-    def deps_install(self, preset_name: str):
-        self.prepare(preset_name)
-        logging.info(f'---DEPS INSTALL {self.name} with preset {preset_name}---')
-        args = [f'--profile:host=conanfiles/profile/host/{preset_name}']
+    def deps_install(self, preset: str):
+        self.prepare(preset)
+        logging.info(f'---DEPS INSTALL {self.name} with preset {preset}---')
+        args = [f'--profile:host=conanfiles/profile/host/{preset}']
         args += ['--profile:build=conanfiles/profile/build/build_machine']
         args += ['--build=missing']
-        args += [f'-of={self.build_dir(preset_name)}/conan-dependencies']
-        run(f'conan install . {" ".join(args)}')
+        args += [f'-of={self.build_dir(preset)}/conan-dependencies']
+        run(f'conan install . {' '.join(args)}')
 
-    def cmake_install(self, preset_name: str):
-        self.prepare(preset_name)
-        logging.info(f'---CMAKE INSTALL {self.name} with preset {preset_name}---')
-        run(f'{self.conan_enf_suffix(preset_name)} && cmake --install {self.build_dir(preset_name)}')
+    def cmake_install(self, preset: str):
+        self.prepare(preset)
+        logging.info(f'---CMAKE INSTALL {self.name} with preset {preset}---')
+        run(f'{self.conan_env_prefix(preset)} && cmake --install {self.build_dir(preset)}')
 
-    def build(self, preset_name: str):
-        self.prepare(preset_name)
+    def build(self, preset: str):
+        self.prepare(preset)
 
-        self.deps_install(preset_name)
+        self.deps_install(preset)
 
-        logging.info(f'---BUILD {self.name} preset: {preset_name}, Qt: {env_qt_version()}---')
-        run(f'{self.conan_enf_suffix(preset_name)} && cmake --workflow --preset {preset_name}')
+        logging.info(f'---BUILD {self.name} preset: {preset}, Qt: {env_qt_version()}---')
+        run(f'{self.conan_env_prefix(preset)} && cmake --workflow --preset {preset}')
 
-    def test(self, preset_name: str):
-        self.prepare(preset_name)
-        logging.info(f'---TEST {self.name} with preset {preset_name}---')
+    def test(self, preset: str):
+        self.prepare(preset)
+        logging.info(f'---TEST {self.name} with preset {preset}---')
         args: list[str] = []
-        args.append(f'--preset {preset_name}')
+        args.append(f'--preset {preset}')
         args.append('--output-on-failure')
         args.append('--verbose')
         args.append('--output-junit ctest.xml')
-        run(f'{self.conan_enf_suffix(preset_name)} && ctest {" ".join(args)}')
+        run(f'{self.conan_env_prefix(preset)} && ctest {' '.join(args)}')
 
-    def run(self, preset_name: str):
-        self.prepare(preset_name)
-        logging.info(f'---RUN {self.name} with preset {preset_name}---')
-        run(f'./build/{preset_name}/{self.run_name}')
+    def run(self, preset: str):
+        self.prepare(preset)
+        logging.info(f'---RUN {self.name} with preset {preset}---')
+        run(f'./build/{preset}/{self.run_name}')
 
-    def pack(self, preset_name: str):
+    def pack(self, preset: str):
         logging.info(f'---CMAKE PACKAGE STARTED---')
         logging.error('Not implemented yet')
 
@@ -126,7 +127,8 @@ class Project:
             run('conan remove -c "*"')
 
 def main(args: argparse.Namespace):
-    configure_environment()
+    is_wasm = args.preset is not None and args.preset.startswith('wasm')
+    configure_environment(for_wasm=is_wasm)
 
     # Initialize submodules first
     init_submodules()
