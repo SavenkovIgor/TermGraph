@@ -67,7 +67,7 @@ RUN update-alternatives --install /usr/bin/cc  cc  /usr/bin/clang-${CLANG_VERSIO
 # Installing conan with uv tool
 # We are switching user because we want the conan installation
 # to be available for the vscode user
-ARG CONAN_VERSION=2.25.2
+ARG CONAN_VERSION=2.29.0
 USER vscode
 RUN uv tool install conan@${CONAN_VERSION}
 USER root
