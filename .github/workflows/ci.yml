@@ -84,9 +84,10 @@ jobs:
 
     - name: Install Emsdk
       if: matrix.build_profile == 'wasm_release'
-      uses: mymindstorm/setup-emsdk@v16
+      uses: emscripten-core/setup-emsdk@v16
       with:
         version: ${{ env.EMSDK_VERSION }}
+        actions-cache-folder: 'emsdk-cache'
 
     - name: Install Qt wasm multithread
       if: matrix.build_profile == 'wasm_release'
