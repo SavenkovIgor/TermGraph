@@ -24,7 +24,7 @@ ADD https://astral.sh/uv/install.sh /uv-installer.sh
 RUN sh /uv-installer.sh && rm /uv-installer.sh
 
 # Configure qt and aqt installations
-ARG QT_VERSION=6.8.3
+ARG QT_VERSION=6.10.3
 ARG AQT_VERSION=3.3.0
 ENV QT_VERSION=${QT_VERSION}
 COPY aqt.ini ${WORKSPACE_ROOT}/aqt.ini
@@ -41,7 +41,7 @@ RUN uvx --from aqtinstall@$AQT_VERSION aqt install-qt -O ${QT_ROOT} all_os wasm 
     --archives qttranslations qttools qtsvg qtdeclarative qtbase icu
 
 # Install emscripten
-ARG EMSDK_VERSION=3.1.56
+ARG EMSDK_VERSION=4.0.7
 
 RUN git clone https://github.com/emscripten-core/emsdk.git ${EMSDK_ROOT} && \
     cd ${EMSDK_ROOT}                                                     && \
