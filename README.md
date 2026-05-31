@@ -109,7 +109,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - <img src="https://conan.io/favicon.png" width="16" height="16"> Conan 2
 - 🔧 Clang
 - 🔧 Ninja (via Conan)
-- 🌐 [Emscripten](https://emscripten.org/) 3.1.56 (WASM builds)
+- 🌐 [Emscripten](https://emscripten.org/) (WASM builds)
 - 🧪 [GTest](https://github.com/google/googletest) 1.17.0 (desktop tests)
 - 📚 [OleanderStemmingLibrary](https://github.com/Blake-Madden/OleanderStemmingLibrary) (git submodule)
 
@@ -122,7 +122,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - [Clang](https://clang.llvm.org/)
 - [Conan](https://docs.conan.io/2/) 2
 - [Qt](https://www.qt.io/download-qt-installer) 6.8.3 (with Qml modules)
-- [Emscripten](https://emscripten.org/) 3.1.56 (for WASM builds only)
+- [Emscripten](https://emscripten.org/) (for WASM builds only)
 
 CMake and Ninja are provided automatically via Conan `tool_requires`.
 

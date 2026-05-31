@@ -103,7 +103,7 @@ UI follows atomic design in the `source/` tree:
 ## Key Development Notes
 
 - **Submodule:** `third_party/stemming` must be initialized before building.
-- **Qt version:** Pinned to 6.8.3; set `QT_ROOT` and `QT_VERSION` environment variables.
+- **Qt version:** set `QT_ROOT` and `QT_VERSION` environment variables.
 - **C++ standard:** C++23 with C++20 modules actively used.
 - **CMake minimum:** 4.0 (note: higher than the 3.22 stated in README).
 - **Compiler:** Clang for desktop (version pinned in `.devcontainer/Dockerfile` and `.github/workflows/ci.yml`); Emscripten for WASM (version pinned in same files).
