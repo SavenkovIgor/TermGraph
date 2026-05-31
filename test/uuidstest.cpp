@@ -3,9 +3,9 @@
 
 #include <gtest/gtest.h>
 
-#include "source/CommonTools/GroupUuid.h"
-#include "source/CommonTools/SafeUuid.h"
-#include "source/CommonTools/TermUuid.h"
+#include "source/CommonTools/GroupUuid.hpp"
+#include "source/CommonTools/SafeUuid.hpp"
+#include "source/CommonTools/TermUuid.hpp"
 
 TEST(UuidsTest, Creation)
 {

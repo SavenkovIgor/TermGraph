@@ -5,7 +5,7 @@ module;
 
 #include <vector>
 
-#include "source/TermDataInterface/TermData.h"
+#include "source/TermDataInterface/TermData.hpp"
 
 export module GraphTerm;
 

@@ -9,7 +9,7 @@
 #include <QtCore>
 #include <QtGlobal>
 
-#include "source/CommonTools/Errors.h"
+#include "source/CommonTools/Errors.hpp"
 
 template<typename T>
 using Expected = std::expected<T, ErrorCode>;

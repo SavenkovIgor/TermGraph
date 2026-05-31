@@ -1,7 +1,7 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/CommonTools/GroupUuid.h"
+#include "source/CommonTools/GroupUuid.hpp"
 
 #include <QByteArray>
 #include <QJsonArray>

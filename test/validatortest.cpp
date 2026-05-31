@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "source/CommonTools/Errors.h"
+#include "source/CommonTools/Errors.hpp"
 
 import CommonTools.Validator;
 

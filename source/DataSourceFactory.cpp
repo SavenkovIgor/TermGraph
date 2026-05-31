@@ -7,12 +7,12 @@ module;
 
 #include <QHostAddress>
 
-#include "source/TermDataInterface/DataStorageInterface.h"
+#include "source/TermDataInterface/DataStorageInterface.hpp"
 
-#include "source/CommonTools/Platform.h"
+#include "source/CommonTools/Platform.hpp"
 
 #ifndef Q_OS_WASM
-#include "source/TermDataConnection/DataStorageConnection.h"
+#include "source/TermDataConnection/DataStorageConnection.hpp"
 
 import LocalDatabaseStorage;
 #endif

@@ -12,8 +12,8 @@
 #include <QString>
 #include <QUuid>
 
-#include "source/CommonTools/GroupUuid.h"
-#include "source/CommonTools/TermUuid.h"
+#include "source/CommonTools/GroupUuid.hpp"
+#include "source/CommonTools/TermUuid.hpp"
 
 // TODO: Check tests!
 // TODO: Make class and make fields private

@@ -9,8 +9,8 @@
 #include <QStringList>
 #include <QUuid>
 
-#include "source/DataProvider.h"
-#include "source/managers/notifyinterface.h"
+#include "source/DataProvider.hpp"
+#include "source/managers/notifyinterface.hpp"
 
 class TermGroup;
 

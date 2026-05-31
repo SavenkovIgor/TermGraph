@@ -6,7 +6,7 @@
 #include <QSurface>
 #include <QtQuickControls2/QQuickStyle>
 
-#include "source/CommonTools/Platform.h"
+#include "source/CommonTools/Platform.hpp"
 
 // -- Qt6 Migration plan --
 // TODO: Use new uuids!

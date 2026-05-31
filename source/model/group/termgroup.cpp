@@ -9,9 +9,9 @@ module;
 #include <QElapsedTimer>
 #include <QThread>
 
-#include "source/TermDataInterface/GroupSummary.h"
-#include "source/TermDataInterface/TermData.h"
-#include "source/model/enums.h"
+#include "source/TermDataInterface/GroupSummary.hpp"
+#include "source/TermDataInterface/TermData.hpp"
+#include "source/model/enums.hpp"
 
 export module TermGroup;
 

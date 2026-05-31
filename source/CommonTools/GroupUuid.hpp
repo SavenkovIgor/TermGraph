@@ -5,16 +5,16 @@
 
 #include <QJsonObject>
 
-#include "source/CommonTools/SafeUuid.h"
+#include "source/CommonTools/SafeUuid.hpp"
 
-class TermUuid final : public SafeUuid
+class GroupUuid final : public SafeUuid
 {
 public:
-    static std::optional<TermUuid> from(QString text, UuidMode mode = UuidMode::Default);
-    static std::optional<TermUuid> from(const QUuid& uuid);
-    static TermUuid                generate();
+    static std::optional<GroupUuid> from(QString text, UuidMode mode = UuidMode::Default);
+    static std::optional<GroupUuid> from(const QUuid& uuid);
+    static GroupUuid                generate();
 
-    class List : public std::vector<TermUuid>
+    class List : public std::vector<GroupUuid>
     {
     public:
         static std::optional<List> from(const QJsonObject& obj);
@@ -25,5 +25,5 @@ public:
     };
 
 private:
-    explicit TermUuid(const QString& text);
+    explicit GroupUuid(const QString& text);
 };

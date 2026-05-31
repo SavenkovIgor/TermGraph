@@ -51,56 +51,56 @@ target_sources (TermGraph
     PRIVATE
         "data/Data.qrc"
         "source/Api.cpp"
-        "source/Api.h"
-        "source/CommonTools/Errors.h"
+        "source/Api.hpp"
+        "source/CommonTools/Errors.hpp"
         "source/CommonTools/GroupUuid.cpp"
-        "source/CommonTools/GroupUuid.h"
-        "source/CommonTools/HandyTypes.h"
-        "source/CommonTools/Platform.h"
-        "source/CommonTools/SafeUuid.h"
+        "source/CommonTools/GroupUuid.hpp"
+        "source/CommonTools/HandyTypes.hpp"
+        "source/CommonTools/Platform.hpp"
+        "source/CommonTools/SafeUuid.hpp"
         "source/CommonTools/TermUuid.cpp"
-        "source/CommonTools/TermUuid.h"
+        "source/CommonTools/TermUuid.hpp"
         "source/DataProvider.cpp"
-        "source/DataProvider.h"
-        "source/enums/qml_edge_selection.h"
-        "source/enums/qml_edge_type.h"
+        "source/DataProvider.hpp"
+        "source/enums/qml_edge_selection.hpp"
+        "source/enums/qml_edge_type.hpp"
         "source/graph/NodeType.hpp"
-        "source/helpers/exclusivecall.h"
+        "source/helpers/exclusivecall.hpp"
         "source/helpers/firststartpreparer.cpp"
-        "source/helpers/firststartpreparer.h"
+        "source/helpers/firststartpreparer.hpp"
         "source/helpers/link/QtLinkTools.cpp"
-        "source/helpers/link/QtLinkTools.h"
+        "source/helpers/link/QtLinkTools.hpp"
         "source/helpers/simplelistenserver.cpp"
-        "source/helpers/simplelistenserver.h"
+        "source/helpers/simplelistenserver.hpp"
         "source/helpers/wiki/WikiUrlChecker.cpp"
-        "source/helpers/wiki/WikiUrlChecker.h"
+        "source/helpers/wiki/WikiUrlChecker.hpp"
         "source/main.cpp"
         "source/MainScene.cpp"
-        "source/MainScene.h"
+        "source/MainScene.hpp"
         "source/managers/groupsmanager.cpp"
-        "source/managers/groupsmanager.h"
+        "source/managers/groupsmanager.hpp"
         "source/managers/linkshardeningmanager.cpp"
-        "source/managers/linkshardeningmanager.h"
+        "source/managers/linkshardeningmanager.hpp"
         "source/managers/networkmanager.cpp"
-        "source/managers/networkmanager.h"
+        "source/managers/networkmanager.hpp"
         "source/managers/notificationmanager.cpp"
-        "source/managers/notificationmanager.h"
-        "source/managers/notifyinterface.h"
+        "source/managers/notificationmanager.hpp"
+        "source/managers/notifyinterface.hpp"
         "source/model/edge/edgesmodel.cpp"
-        "source/model/edge/edgesmodel.h"
+        "source/model/edge/edgesmodel.hpp"
         "source/model/enums.cpp"
-        "source/model/enums.h"
-        "source/model/group/groupsummarywrapper.h"
+        "source/model/enums.hpp"
+        "source/model/group/groupsummarywrapper.hpp"
         "source/model/group/qttermgroup.cpp"
-        "source/model/group/qttermgroup.h"
-        "source/model/term/termdatawrapper.h"
+        "source/model/group/qttermgroup.hpp"
+        "source/model/term/termdatawrapper.hpp"
         "source/model/term/termsmodel.cpp"
-        "source/model/term/termsmodel.h"
-        "source/TermDataInterface/DataStorageInterface.h"
+        "source/model/term/termsmodel.hpp"
+        "source/TermDataInterface/DataStorageInterface.hpp"
         "source/TermDataInterface/groupsummary.cpp"
-        "source/TermDataInterface/GroupSummary.h"
+        "source/TermDataInterface/GroupSummary.hpp"
         "source/TermDataInterface/termdata.cpp"
-        "source/TermDataInterface/TermData.h"
+        "source/TermDataInterface/TermData.hpp"
     PUBLIC
     FILE_SET CXX_MODULES
     FILES
@@ -158,10 +158,10 @@ target_sources (TermGraph
 # Add platform-specific sources
 if (WASM)
     target_include_directories (TermGraph PRIVATE "${PROJECT_SOURCE_DIR}/source/CommonTools/wasm/")
-    target_sources (TermGraph PRIVATE "source/CommonTools/wasm/PlatformTypes.h")
+    target_sources (TermGraph PRIVATE "source/CommonTools/wasm/PlatformTypes.hpp")
 else ()
     target_include_directories (TermGraph PRIVATE "${PROJECT_SOURCE_DIR}/source/CommonTools/desktop/")
-    target_sources (TermGraph PRIVATE "source/CommonTools/desktop/PlatformTypes.h")
+    target_sources (TermGraph PRIVATE "source/CommonTools/desktop/PlatformTypes.hpp")
 endif ()
 
 if (NOT WASM)
@@ -207,9 +207,9 @@ if (NOT WASM)
     target_sources (TermGraph
         PRIVATE
             "source/TermDataConnection/DataStorageConnection.cpp"
-            "source/TermDataConnection/DataStorageConnection.h"
+            "source/TermDataConnection/DataStorageConnection.hpp"
             "source/TermDataConnection/NetWrapper.cpp"
-            "source/TermDataConnection/NetWrapper.h"
+            "source/TermDataConnection/NetWrapper.hpp"
     )
 
     find_package (Qt6 REQUIRED COMPONENTS Sql)
@@ -291,28 +291,28 @@ if (BUILD_TESTING)
     target_sources (TermGraphTest
         PRIVATE
             "data/Data.qrc"
-            "source/CommonTools/Errors.h"
+            "source/CommonTools/Errors.hpp"
             "source/CommonTools/GroupUuid.cpp"
-            "source/CommonTools/GroupUuid.h"
-            "source/CommonTools/HandyTypes.h"
-            "source/CommonTools/Platform.h"
-            "source/CommonTools/SafeUuid.h"
+            "source/CommonTools/GroupUuid.hpp"
+            "source/CommonTools/HandyTypes.hpp"
+            "source/CommonTools/Platform.hpp"
+            "source/CommonTools/SafeUuid.hpp"
             "source/CommonTools/TermUuid.cpp"
-            "source/CommonTools/TermUuid.h"
-            "source/enums/qml_edge_selection.h"
-            "source/enums/qml_edge_type.h"
+            "source/CommonTools/TermUuid.hpp"
+            "source/enums/qml_edge_selection.hpp"
+            "source/enums/qml_edge_type.hpp"
             "source/graph/NodeType.hpp"
             "source/helpers/link/QtLinkTools.cpp"
-            "source/helpers/link/QtLinkTools.h"
+            "source/helpers/link/QtLinkTools.hpp"
             "source/helpers/wiki/WikiUrlChecker.cpp"
-            "source/helpers/wiki/WikiUrlChecker.h"
+            "source/helpers/wiki/WikiUrlChecker.hpp"
             "source/model/enums.cpp"
-            "source/model/enums.h"
-            "source/TermDataInterface/DataStorageInterface.h"
+            "source/model/enums.hpp"
+            "source/TermDataInterface/DataStorageInterface.hpp"
             "source/TermDataInterface/groupsummary.cpp"
-            "source/TermDataInterface/GroupSummary.h"
+            "source/TermDataInterface/GroupSummary.hpp"
             "source/TermDataInterface/termdata.cpp"
-            "source/TermDataInterface/TermData.h"
+            "source/TermDataInterface/TermData.hpp"
             "source/TermDataStorage/queries/SqlQueries.qrc"
     )
 
@@ -390,10 +390,10 @@ if (BUILD_TESTING)
     # Add platform-specific sources
     if (WASM)
         target_include_directories (TermGraphTest PRIVATE "${PROJECT_SOURCE_DIR}/source/CommonTools/wasm/")
-        target_sources (TermGraphTest PRIVATE "source/CommonTools/wasm/PlatformTypes.h")
+        target_sources (TermGraphTest PRIVATE "source/CommonTools/wasm/PlatformTypes.hpp")
     else ()
         target_include_directories (TermGraphTest PRIVATE "${PROJECT_SOURCE_DIR}/source/CommonTools/desktop/")
-        target_sources (TermGraphTest PRIVATE "source/CommonTools/desktop/PlatformTypes.h")
+        target_sources (TermGraphTest PRIVATE "source/CommonTools/desktop/PlatformTypes.hpp")
     endif ()
 
     target_include_directories (TermGraphTest PRIVATE ${PROJECT_SOURCE_DIR})

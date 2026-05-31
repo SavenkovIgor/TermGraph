@@ -5,9 +5,9 @@ module;
 
 #include <QSqlRecord>
 
-#include "source/CommonTools/GroupUuid.h"
-#include "source/CommonTools/HandyTypes.h"
-#include "source/TermDataInterface/GroupSummary.h"
+#include "source/CommonTools/GroupUuid.hpp"
+#include "source/CommonTools/HandyTypes.hpp"
+#include "source/TermDataInterface/GroupSummary.hpp"
 
 export module TermGroupTable;
 

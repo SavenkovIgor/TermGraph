@@ -5,11 +5,11 @@
 
 #include <QObject>
 
-#include "source/managers/groupsmanager.h"
-#include "source/model/edge/edgesmodel.h"
-#include "source/model/group/qttermgroup.h"
-#include "source/model/term/termdatawrapper.h"
-#include "source/model/term/termsmodel.h"
+#include "source/managers/groupsmanager.hpp"
+#include "source/model/edge/edgesmodel.hpp"
+#include "source/model/group/qttermgroup.hpp"
+#include "source/model/term/termdatawrapper.hpp"
+#include "source/model/term/termsmodel.hpp"
 
 class TermGroup;
 class PaintedTerm;

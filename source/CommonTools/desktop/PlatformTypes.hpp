@@ -8,7 +8,7 @@
 #include <QFuture>
 #include <QPromise>
 
-#include "source/CommonTools/HandyTypes.h"
+#include "source/CommonTools/HandyTypes.hpp"
 
 template<typename RetType>
 using FutureExpected = QFuture<Expected<RetType>>;

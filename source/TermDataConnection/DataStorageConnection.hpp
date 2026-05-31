@@ -7,13 +7,13 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 
-#include "source/CommonTools/HandyTypes.h"
+#include "source/CommonTools/HandyTypes.hpp"
 
-#include "source/TermDataInterface/DataStorageInterface.h"
-#include "source/TermDataInterface/GroupSummary.h"
-#include "source/TermDataInterface/TermData.h"
+#include "source/TermDataInterface/DataStorageInterface.hpp"
+#include "source/TermDataInterface/GroupSummary.hpp"
+#include "source/TermDataInterface/TermData.hpp"
 
-#include "NetWrapper.h"
+#include "NetWrapper.hpp"
 
 class DataStorageConnection : public DataStorageInterface
 {

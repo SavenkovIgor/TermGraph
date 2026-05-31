@@ -8,8 +8,8 @@ module;
 #include <QDateTime>
 #include <QJsonObject>
 
-#include "source/CommonTools/Errors.h"
-#include "source/CommonTools/GroupUuid.h"
+#include "source/CommonTools/Errors.hpp"
+#include "source/CommonTools/GroupUuid.hpp"
 
 export module TermDataInterface.GroupValidator;
 

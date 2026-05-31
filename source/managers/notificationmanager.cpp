@@ -1,7 +1,7 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/managers/notificationmanager.h"
+#include "source/managers/notificationmanager.hpp"
 
 import CommonTools.HandyTypes;
 
