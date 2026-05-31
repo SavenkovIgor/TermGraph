@@ -1,13 +1,13 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/Api.h"
+#include "source/Api.hpp"
 
 #include <QQmlEngine>
 
-#include "source/CommonTools/Platform.h"
+#include "source/CommonTools/Platform.hpp"
 
-#include "source/managers/notificationmanager.h"
+#include "source/managers/notificationmanager.hpp"
 
 Api::Api(QObject *parent)
     : QObject(parent)

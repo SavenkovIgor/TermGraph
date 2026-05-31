@@ -9,7 +9,7 @@
 #include <QQueue>
 #include <QTimer>
 
-#include "source/managers/notifyinterface.h"
+#include "source/managers/notifyinterface.hpp"
 
 class NotificationManager : public QObject, public NotifyInterface
 {

@@ -7,8 +7,8 @@ module;
 
 #include <QDateTime>
 
-#include "source/TermDataInterface/GroupSummary.h"
-#include "source/TermDataInterface/TermData.h"
+#include "source/TermDataInterface/GroupSummary.hpp"
+#include "source/TermDataInterface/TermData.hpp"
 
 export module StaticGroupData;
 

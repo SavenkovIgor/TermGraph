@@ -5,9 +5,9 @@
 
 #include <QObject>
 
-#include "source/TermDataInterface/DataStorageInterface.h"
-#include "source/TermDataInterface/GroupSummary.h"
-#include "source/TermDataInterface/TermData.h"
+#include "source/TermDataInterface/DataStorageInterface.hpp"
+#include "source/TermDataInterface/GroupSummary.hpp"
+#include "source/TermDataInterface/TermData.hpp"
 
 class DataProvider : public QObject
 {

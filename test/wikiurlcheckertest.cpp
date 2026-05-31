@@ -1,4 +1,4 @@
-#include "source/helpers/wiki/WikiUrlChecker.h"
+#include "source/helpers/wiki/WikiUrlChecker.hpp"
 
 #include <gtest/gtest.h>
 #include <QCoreApplication>

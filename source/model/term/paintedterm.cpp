@@ -9,7 +9,7 @@ module;
 #include <QProperty>
 #include <QSizeF>
 
-#include "source/TermDataInterface/TermData.h"
+#include "source/TermDataInterface/TermData.hpp"
 
 export module PaintedTerm;
 

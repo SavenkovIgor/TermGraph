@@ -1,7 +1,7 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/model/enums.h"
+#include "source/model/enums.hpp"
 
 NodeType::Type NodeType::fromTermType(graph::NodeType type)
 {

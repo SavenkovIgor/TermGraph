@@ -8,7 +8,7 @@ module;
 #include <QStringList>
 #include <QtGlobal>
 
-#include "source/CommonTools/Platform.h"
+#include "source/CommonTools/Platform.hpp"
 
 export module AppSettings;
 

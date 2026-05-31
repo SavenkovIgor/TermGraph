@@ -1,7 +1,7 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/helpers/simplelistenserver.h"
+#include "source/helpers/simplelistenserver.hpp"
 
 SimpleListenServer::SimpleListenServer(quint16 listenPort, QObject* parent)
     : QObject(parent)

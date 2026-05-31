@@ -1,7 +1,7 @@
 // Copyright © 2016-2025. Savenkov Igor
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#include "source/managers/networkmanager.h"
+#include "source/managers/networkmanager.hpp"
 
 #ifdef Q_OS_WASM
 #include <emscripten/val.h>

@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include "source/TermDataInterface/GroupSummary.h"
+#include "source/TermDataInterface/GroupSummary.hpp"
 
 GroupSummary defaultGroupSummary()
 {

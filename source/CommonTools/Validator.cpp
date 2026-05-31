@@ -6,7 +6,7 @@ module;
 #include <expected>
 #include <functional>
 
-#include "source/CommonTools/Errors.h"
+#include "source/CommonTools/Errors.hpp"
 
 export module CommonTools.Validator;
 

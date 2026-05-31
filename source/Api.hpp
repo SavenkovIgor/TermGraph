@@ -8,10 +8,10 @@
 #include <QObject>
 #include <QQmlEngine>
 
-#include "source/MainScene.h"
-#include "source/helpers/firststartpreparer.h"
-#include "source/managers/groupsmanager.h"
-#include "source/managers/networkmanager.h"
+#include "source/MainScene.hpp"
+#include "source/helpers/firststartpreparer.hpp"
+#include "source/managers/groupsmanager.hpp"
+#include "source/managers/networkmanager.hpp"
 
 // Qml todo list
 // TODO: Avoid implicit lookup in root scope (root.property)

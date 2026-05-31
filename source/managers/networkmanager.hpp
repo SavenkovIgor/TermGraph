@@ -6,8 +6,8 @@
 #include <QObject>
 #include <QtNetwork>
 
-#include "source/helpers/simplelistenserver.h"
-#include "source/managers/notifyinterface.h"
+#include "source/helpers/simplelistenserver.hpp"
+#include "source/managers/notifyinterface.hpp"
 
 using namespace Qt::Literals::StringLiterals;
 

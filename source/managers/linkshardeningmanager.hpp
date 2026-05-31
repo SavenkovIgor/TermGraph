@@ -8,8 +8,8 @@
 #include <QAbstractListModel>
 #include <QStringView>
 
-#include "source/model/group/qttermgroup.h"
-#include "source/model/term/termdatawrapper.h"
+#include "source/model/group/qttermgroup.hpp"
+#include "source/model/term/termdatawrapper.hpp"
 
 class TermGroup;
 class LinksString;

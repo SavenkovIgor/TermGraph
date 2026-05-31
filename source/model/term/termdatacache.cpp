@@ -9,9 +9,9 @@ module;
 #include <QSizeF>
 #include <QString>
 
-#include "source/TermDataInterface/TermData.h"
+#include "source/TermDataInterface/TermData.hpp"
 
-#include "source/model/enums.h"
+#include "source/model/enums.hpp"
 
 export module TermDataCache;
 
