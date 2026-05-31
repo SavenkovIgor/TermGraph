@@ -24,7 +24,7 @@ ADD https://astral.sh/uv/install.sh /uv-installer.sh
 RUN sh /uv-installer.sh && rm /uv-installer.sh
 
 # Configure qt and aqt installations
-ARG QT_VERSION=6.10.3
+ARG QT_VERSION=6.11.1
 ARG AQT_VERSION=3.3.0
 ENV QT_VERSION=${QT_VERSION}
 COPY aqt.ini ${WORKSPACE_ROOT}/aqt.ini

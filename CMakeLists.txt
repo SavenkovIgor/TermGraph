@@ -27,7 +27,7 @@ set(QT_QML_GENERATE_QMLLS_INI ON)
 
 find_package (Qt6 REQUIRED COMPONENTS Core Gui Qml Quick QuickControls2 Network Svg)
 
-qt_standard_project_setup(REQUIRES 6.10)
+qt_standard_project_setup(REQUIRES 6.11)
 
 # Applications subdirs
 add_subdirectory ("source/Atoms")
