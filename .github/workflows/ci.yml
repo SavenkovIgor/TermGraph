@@ -8,6 +8,7 @@ on:
 
 env:
   CLANG_VERSION: 22
+  CLANG_FORMAT_VERSION: 21
   EMSDK_VERSION: 3.1.56
   QT_VERSION: 6.8.3
   QT_ROOT: ${{ github.workspace }}/Qt
@@ -30,7 +31,7 @@ jobs:
     - name: Run clang-format style check
       uses: jidicula/clang-format-action@v4.18.0
       with:
-        clang-format-version: ${{ env.CLANG_VERSION }}
+        clang-format-version: ${{ env.CLANG_FORMAT_VERSION }}
 
   build:
     needs: format-gate
