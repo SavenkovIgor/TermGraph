@@ -3,6 +3,8 @@
 
 module;
 
+#include <functional>
+
 #include <QColor>
 #include <QString>
 
