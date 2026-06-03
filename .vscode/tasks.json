@@ -35,7 +35,10 @@
                 "revealProblems": "onProblem",
                 "clear": true
             },
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "problemMatcher": "$gcc"
         },
         {
@@ -55,7 +58,10 @@
             "icon": {
                 "id": "beaker"
             },
-            "group": "test",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
         },
         {
             "label": "CMake Install",
