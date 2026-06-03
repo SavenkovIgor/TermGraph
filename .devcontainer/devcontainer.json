@@ -16,7 +16,6 @@
         "DavidAnson.vscode-markdownlint",
         "eamodio.gitlens",
         "github.vscode-github-actions",
-        "Gruntfuggly.todo-tree",
         "hediet.debug-visualizer",
         "matepek.vscode-catch2-test-adapter",
         "medo64.render-crlf",
@@ -30,7 +29,9 @@
         "savenkovigor.QmlSandboxExtension",
         "theqtcompany.qt-cpp-pack",
         "usernamehw.errorlens",
-        "xaver.clang-format"
+        "xaver.clang-format",
+        "llvm-vs-code-extensions.vscode-clangd",
+        "theqtcompany.qt"
       ]
     }
   }
