@@ -29,7 +29,8 @@
             "detail": "Build the project using the selected preset",
             "command": "./project.py --build --preset ${input:preset}",
             "icon": {
-                "id": "tools"
+                "id": "tools",
+                "color": "terminal.ansiBlue"
             },
             "presentation": {
                 "revealProblems": "onProblem",
@@ -46,7 +47,8 @@
             "detail": "Run the project using the selected preset",
             "command": "./project.py --run --preset ${input:preset}",
             "icon": {
-                "id": "play"
+                "id": "play",
+                "color": "terminal.ansiGreen"
             }
         },
         {
@@ -54,7 +56,8 @@
             "detail": "Test the project using the selected preset",
             "command": "./project.py --test --preset ${input:preset}",
             "icon": {
-                "id": "beaker"
+                "id": "beaker",
+                "color":"terminal.ansiMagenta"
             },
             "group": {
                 "kind": "test",
@@ -74,7 +77,8 @@
             "detail": "Clear the build dir",
             "command": "./project.py --clear",
             "icon": {
-                "id": "trash"
+                "id": "trash",
+                "color": "terminal.ansiRed"
             }
         },
         {
@@ -82,7 +86,8 @@
             "detail": "Clear build dir & conan cache",
             "command": "./project.py --clear-all",
             "icon": {
-                "id": "trash"
+                "id": "trash",
+                "color": "terminal.ansiRed"
             }
         },
         {
@@ -95,7 +100,8 @@
             ],
             "dependsOrder": "sequence",
             "icon": {
-                "id": "run-all"
+                "id": "run-all",
+                "color": "terminal.ansiGreen"
             },
             "problemMatcher": "$gcc"
         },
@@ -116,7 +122,8 @@
                 "CMake Install"
             ],
             "icon": {
-                "id": "server"
+                "id": "server",
+                "color": "terminal.ansiCyan"
             }
         },
         {
@@ -128,7 +135,8 @@
                 "focus": false
             },
             "icon": {
-                "id": "globe"
+                "id": "globe",
+                "color": "terminal.ansiCyan"
             }
         }
     ]
