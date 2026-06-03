@@ -71,8 +71,16 @@
         },
         {
             "label": "Clear",
-            "detail": "Clear the build directory",
+            "detail": "Clear the build dir",
             "command": "./project.py --clear",
+            "icon": {
+                "id": "trash"
+            }
+        },
+        {
+            "label": "Clear all",
+            "detail": "Clear build dir & conan cache",
+            "command": "./project.py --clear-all",
             "icon": {
                 "id": "trash"
             }
