@@ -5,10 +5,10 @@ module;
 
 #include <algorithm>
 #include <cassert>
-#include <map>
 #include <memory>
 #include <ranges>
-#include <set>
+#include <unordered_map>
+#include <unordered_set>
 #include <utility>
 #include <vector>
 
@@ -42,8 +42,8 @@ public:
         : GraphData<NodeT, EdgeT>{.nodes = data.nodes, .edges = data.edges}
     {
         // Uniqueness check
-        set<NodePtr> nodeSet(data.nodes.begin(), data.nodes.end());
-        set<EdgePtr> edgeSet(data.edges.begin(), data.edges.end());
+        unordered_set<NodePtr> nodeSet(data.nodes.begin(), data.nodes.end());
+        unordered_set<EdgePtr> edgeSet(data.edges.begin(), data.edges.end());
 
         assert(nodeSet.size() == data.nodes.size());
         assert(edgeSet.size() == data.edges.size());
@@ -111,7 +111,7 @@ public:
     typename GraphData<NodeT, EdgeT>::List bondedSubgraphs()
     {
         enum class State { NotVisited = 0, Planned, Visited };
-        map<NodePtr, State> nodesVisitList;
+        unordered_map<NodePtr, State> nodesVisitList;
 
         for (const auto& node : connectedNodes())
             nodesVisitList[node] = State::NotVisited;
@@ -124,12 +124,12 @@ public:
         auto isNodePlanned = [](const auto& val) { return val.second == State::Planned; };
         auto isNodeVisited = [](const auto& val) { return val.second == State::Visited; };
 
-        set<NodePtr> uniqueNodes;
-        set<EdgePtr> uniqueEdges;
+        unordered_set<NodePtr> uniqueNodes;
+        unordered_set<EdgePtr> uniqueEdges;
 
         while (!nodesVisitList.empty()) {
             // Visit stage
-            auto nodeToVisit = find_if(nodesVisitList.begin(), nodesVisitList.end(), isNodePlanned);
+            auto nodeToVisit = rng::find_if(nodesVisitList, isNodePlanned);
 
             // If no any nodes in plan, take first
             if (nodeToVisit == nodesVisitList.end())

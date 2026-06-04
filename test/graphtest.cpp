@@ -3,7 +3,7 @@
 
 #include <gtest/gtest.h>
 
-#include <QSet>
+#include <set>
 
 import Graph.Edge;
 import Graph.Graph;
@@ -200,23 +200,36 @@ TEST_F(GraphTest, BondedSubgraphs)
 
     EXPECT_EQ(subraphs.size(), 2);
 
-    EXPECT_EQ(subraphs[0].nodes.size(), 1);
-    EXPECT_EQ(subraphs[0].nodes[0]->data(), 1);
-    EXPECT_EQ(subraphs[0].edges.size(), 1);
-    EXPECT_EQ(subraphs[0].edges[0]->data(), 1);
+    const GraphDataT* singleNodeSubgraph = nullptr;
+    const GraphDataT* threeNodeSubgraph  = nullptr;
 
-    EXPECT_EQ(subraphs[1].nodes.size(), 3);
+    for (const auto& subraph : subraphs) {
+        if (subraph.nodes.size() == 1)
+            singleNodeSubgraph = &subraph;
 
-    QSet<int> nodeSet{3, 4, 5};
-    for (const auto& node : subraphs[1].nodes) {
-        EXPECT_TRUE(nodeSet.remove(node->data()));
+        if (subraph.nodes.size() == 3)
+            threeNodeSubgraph = &subraph;
+    }
+
+    ASSERT_NE(singleNodeSubgraph, nullptr);
+    ASSERT_NE(threeNodeSubgraph, nullptr);
+
+    EXPECT_EQ(singleNodeSubgraph->nodes[0]->data(), 1);
+    EXPECT_EQ(singleNodeSubgraph->edges.size(), 1);
+    EXPECT_EQ(singleNodeSubgraph->edges[0]->data(), 1);
+
+    EXPECT_EQ(threeNodeSubgraph->nodes.size(), 3);
+
+    std::set<int> nodeSet{3, 4, 5};
+    for (const auto& node : threeNodeSubgraph->nodes) {
+        EXPECT_TRUE(nodeSet.erase(node->data()));
     }
 
     EXPECT_TRUE(nodeSet.empty());
 
-    QSet<int> edgeSet{2, 3};
-    for (const auto& edge : subraphs[1].edges) {
-        EXPECT_TRUE(edgeSet.remove(edge->data()));
+    std::set<int> edgeSet{2, 3};
+    for (const auto& edge : threeNodeSubgraph->edges) {
+        EXPECT_TRUE(edgeSet.erase(edge->data()));
     }
 
     EXPECT_TRUE(edgeSet.empty());

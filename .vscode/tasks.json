@@ -1,5 +1,6 @@
 {
     "version": "2.0.0",
+    "type": "shell",
     "problemMatcher": [],
     "inputs": [
         {
@@ -26,51 +27,67 @@
         {
             "label": "Build",
             "detail": "Build the project using the selected preset",
-            "type": "shell",
             "command": "./project.py --build --preset ${input:preset}",
             "icon": {
-                "id": "tools"
+                "id": "tools",
+                "color": "terminal.ansiBlue"
             },
             "presentation": {
                 "revealProblems": "onProblem",
                 "clear": true
             },
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "problemMatcher": "$gcc"
         },
         {
             "label": "Run",
             "detail": "Run the project using the selected preset",
-            "type": "shell",
             "command": "./project.py --run --preset ${input:preset}",
             "icon": {
-                "id": "play"
+                "id": "play",
+                "color": "terminal.ansiGreen"
             }
         },
         {
             "label": "Test",
             "detail": "Test the project using the selected preset",
-            "type": "shell",
             "command": "./project.py --test --preset ${input:preset}",
             "icon": {
-                "id": "beaker"
+                "id": "beaker",
+                "color":"terminal.ansiMagenta"
             },
-            "group": "test",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            }
         },
         {
             "label": "CMake Install",
             "detail": "Run CMake install (make sense only for WASM presets)",
-            "type": "shell",
             "command": "./project.py --cmake-install --preset ${input:preset}",
-            "dependsOn": [ "Build" ]
+            "dependsOn": [
+                "Build"
+            ]
         },
         {
             "label": "Clear",
-            "detail": "Clear the build directory",
-            "type": "shell",
+            "detail": "Clear the build dir",
             "command": "./project.py --clear",
             "icon": {
-                "id": "trash"
+                "id": "trash",
+                "color": "terminal.ansiRed"
+            }
+        },
+        {
+            "label": "Clear all",
+            "detail": "Clear build dir & conan cache",
+            "command": "./project.py --clear-all",
+            "icon": {
+                "id": "trash",
+                "color": "terminal.ansiRed"
             }
         },
         {
@@ -83,13 +100,13 @@
             ],
             "dependsOrder": "sequence",
             "icon": {
-                "id": "run-all"
+                "id": "run-all",
+                "color": "terminal.ansiGreen"
             },
             "problemMatcher": "$gcc"
         },
         {
             "label": "Run HTTP Server",
-            "type": "shell",
             "command": "${command:python.interpreterPath}",
             "args": [
                 "-m",
@@ -101,25 +118,26 @@
                 "8000"
             ],
             "isBackground": true,
-            "dependsOn": [ "CMake Install" ],
+            "dependsOn": [
+                "CMake Install"
+            ],
             "icon": {
-                "id": "server"
-            },
-            "problemMatcher": []
+                "id": "server",
+                "color": "terminal.ansiCyan"
+            }
         },
         {
             "label": "Open Browser",
             "detail": "Open the browser to view the application",
-            "type": "shell",
             "command": "echo ${input:preview}",
             "presentation": {
                 "reveal": "silent",
                 "focus": false
             },
             "icon": {
-                "id": "globe"
-            },
-            "problemMatcher": []
+                "id": "globe",
+                "color": "terminal.ansiCyan"
+            }
         }
     ]
 }
