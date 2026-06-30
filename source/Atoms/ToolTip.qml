@@ -13,7 +13,7 @@ C.ToolTip {
 
     contentItem: Text {
         text: root.text
-        font: Theme.font.h4
+        font: Theme.font.body
         color: Theme.color.base4
         horizontalAlignment: Text.AlignHCenter
         verticalAlignment: Text.AlignVCenter

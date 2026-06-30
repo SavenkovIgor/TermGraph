@@ -22,7 +22,7 @@ Text {
 
     // Font
     font: {
-        let f = Theme.font.h4;
+        let f = Theme.font.body;
         f.pixelSize *= 0.7;
         f.weight = Font.Thin;
         return f;

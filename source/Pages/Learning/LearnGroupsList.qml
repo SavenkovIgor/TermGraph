@@ -60,7 +60,7 @@ M.Page {
                     bottomPadding: font.pixelSize / 3
 
                     color: Theme.color.base7
-                    font: Theme.font.setWeight(Theme.font.h4, Font.Medium)
+                    font: Theme.font.setWeight(Theme.font.body, Font.Medium)
                     verticalAlignment: Text.AlignVCenter
                     horizontalAlignment: Text.AlignLeft
 

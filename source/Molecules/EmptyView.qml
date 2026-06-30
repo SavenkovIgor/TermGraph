@@ -42,7 +42,7 @@ Control {
             id: detailedText
             horizontalAlignment: Text.AlignHCenter
             color: Theme.color.base4
-            font: Theme.font.h4
+            font: Theme.font.body
             Layout.alignment: Qt.AlignHCenter
             Layout.fillWidth: true
         }

@@ -125,7 +125,7 @@ M.Page {
                 Layout.fillWidth: true
                 leftPadding: 15
 
-                font: Theme.font.h4
+                font: Theme.font.body
                 wrapMode: TextEdit.NoWrap
                 elide: Text.ElideRight
                 color: Theme.color.base7

@@ -51,12 +51,15 @@ QtObject {
     }
 
     readonly property QtObject font: QtObject {
+        readonly property string sans: "ui-sans-serif, system-ui, sans-serif"
+
         readonly property font h1 : Qt.font({ pixelSize: 5   * root.spacing.s02, weight: 30 });
         readonly property font h2 : Qt.font({ pixelSize: 4   * root.spacing.s02 });
         readonly property font h3 : Qt.font({ pixelSize: 3   * root.spacing.s02 });
-        readonly property font h4 : Qt.font({ pixelSize: 2.5 * root.spacing.s02 });
 
         readonly property font term : Qt.font({ family: "Arial sans-serif", pointSize: 10 });
+
+        readonly property font body : Qt.font({ pointSize: 12, weight: Font.Normal, family: sans });
 
         function setWeight(font, weight) {
             font.weight = weight;

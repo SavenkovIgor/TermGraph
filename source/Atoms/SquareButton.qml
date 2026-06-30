@@ -8,7 +8,7 @@ import Api
 import Theme
 
 Button {
-    font: Theme.font.h4
+    font: Theme.font.body
     implicitHeight: Theme.spacing.s12;
 
     leftPadding: 20
