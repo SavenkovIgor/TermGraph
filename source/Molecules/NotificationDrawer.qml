@@ -55,7 +55,7 @@ Drawer {
         horizontalAlignment: Text.AlignHCenter
         font: Theme.font.h3
 
-        leftPadding: Sizes.baseX2
-        rightPadding: Sizes.baseX2
+        leftPadding: Theme.sizes.baseX2
+        rightPadding: Theme.sizes.baseX2
     }
 }

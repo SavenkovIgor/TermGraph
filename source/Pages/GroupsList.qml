@@ -166,10 +166,10 @@ M.Page {
             newGroupName.text = ""
         }
 
-        leftPadding:  Sizes.baseX3
-        rightPadding: Sizes.baseX3
-        topPadding:    Sizes.baseX2
-        bottomPadding: Sizes.baseX2
+        leftPadding:  Theme.sizes.baseX3
+        rightPadding: Theme.sizes.baseX3
+        topPadding:    Theme.sizes.baseX2
+        bottomPadding: Theme.sizes.baseX2
 
         contentItem: RowLayout {
 

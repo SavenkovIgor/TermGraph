@@ -37,9 +37,9 @@ A.DrawerPage {
             Text {
                 Layout.fillWidth: true
                 horizontalAlignment: Text.AlignLeft
-                padding: Sizes.baseX2
-                topPadding: Sizes.base
-                bottomPadding: Sizes.base
+                padding: Theme.sizes.baseX2
+                topPadding: Theme.sizes.base
+                bottomPadding: Theme.sizes.base
 
                 color: Theme.color.base7
                 font: Theme.font.setWeight(Theme.font.h3, Font.DemiBold)

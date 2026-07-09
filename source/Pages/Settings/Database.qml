@@ -16,7 +16,7 @@ M.Page {
 
     contentItem: Column {
 
-        spacing: Sizes.base
+        spacing: Theme.sizes.base
 
         M.LabelPair {
             name: "Версия базы данных:"

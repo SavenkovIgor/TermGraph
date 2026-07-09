@@ -21,10 +21,10 @@ A.DrawerPage {
     signal editNode
     signal openWarningPopup
 
-    topPadding:    Sizes.baseX2
-    leftPadding:   Sizes.baseX2
-    rightPadding:  Sizes.baseX2
-    bottomPadding: Sizes.baseX2
+    topPadding:    Theme.sizes.baseX2
+    leftPadding:   Theme.sizes.baseX2
+    rightPadding:  Theme.sizes.baseX2
+    bottomPadding: Theme.sizes.baseX2
 
     implicitHeight: topPadding + implicitContentHeight + bottomPadding
 

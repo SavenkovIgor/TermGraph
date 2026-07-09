@@ -16,22 +16,22 @@ M.Page {
 
     contentItem: Column {
 
-        spacing: Sizes.base
+        spacing: Theme.sizes.base
 
         RowLayout {
 
-            spacing: Sizes.baseX2
+            spacing: Theme.sizes.baseX2
 
             GroupBox {
 
                 label: Control {
-                    padding: Sizes.base
+                    padding: Theme.sizes.base
                     bottomPadding: 0
                     contentItem: A.AccentText { text: "Настройки сервера" }
                 }
 
                 background: Rectangle { color: "transparent"; border.color: Theme.color.accent; }
-                padding: Sizes.base
+                padding: Theme.sizes.base
 
                 contentItem: Column {
                     RowLayout {
