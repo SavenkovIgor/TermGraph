@@ -20,7 +20,7 @@ M.Page {
 
         RowLayout {
 
-            spacing: Theme.spacing.baseX2
+            spacing: Theme.spacing.s08
 
             GroupBox {
 

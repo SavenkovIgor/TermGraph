@@ -45,7 +45,7 @@ QtObject {
     readonly property QtObject spacing: QtObject {
         readonly property real s02:    2  * Screen.pixelDensity
         readonly property real s04:    4  * Screen.pixelDensity
-        readonly property real baseX2: 8  * Screen.pixelDensity
+        readonly property real s08:    8  * Screen.pixelDensity
         readonly property real baseX3: 12 * Screen.pixelDensity
         readonly property real baseX4: 16 * Screen.pixelDensity
     }

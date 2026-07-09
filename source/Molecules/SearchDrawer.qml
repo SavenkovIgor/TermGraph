@@ -15,7 +15,7 @@ A.DrawerPage {
 
     signal searchResultClicked(string nodeUuid)
 
-    leftPadding:  Theme.spacing.baseX2
+    leftPadding:  Theme.spacing.s08
 
     onAboutToShow: {
         searchText.clear();

@@ -168,8 +168,8 @@ M.Page {
 
         leftPadding:  Theme.spacing.baseX3
         rightPadding: Theme.spacing.baseX3
-        topPadding:    Theme.spacing.baseX2
-        bottomPadding: Theme.spacing.baseX2
+        topPadding:    Theme.spacing.s08
+        bottomPadding: Theme.spacing.s08
 
         contentItem: RowLayout {
 
