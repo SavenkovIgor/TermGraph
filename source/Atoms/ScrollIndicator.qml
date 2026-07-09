@@ -14,8 +14,8 @@ C.ScrollIndicator {
 
         property color baseColor: "#77e8e8e8"
 
-        implicitWidth:  root.vertical   ? Sizes.rm : 100
-        implicitHeight: root.horizontal ? Sizes.rm : 100
+        implicitWidth:  root.vertical   ? Theme.spacing.s02 : 100
+        implicitHeight: root.horizontal ? Theme.spacing.s02 : 100
         color: "transparent"
 
         state: root.active ? "visible" : "hidden"

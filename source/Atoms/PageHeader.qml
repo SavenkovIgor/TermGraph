@@ -8,7 +8,7 @@ import QtQuick.Layouts
 import Theme
 
 ToolBar {
-    height: Sizes.baseX4
+    height: Theme.spacing.s16
     background: Rectangle { color: Theme.color.base2; }
     contentItem: RowLayout { spacing: 20; }
 }

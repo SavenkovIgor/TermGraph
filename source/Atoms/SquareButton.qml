@@ -9,7 +9,7 @@ import Theme
 
 Button {
     font: Theme.font.h4
-    implicitHeight: Sizes.baseX3;
+    implicitHeight: Theme.spacing.s12;
 
     leftPadding: 20
     rightPadding: 20

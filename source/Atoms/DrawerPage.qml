@@ -13,10 +13,10 @@ Drawer {
 
     edge: Qt.BottomEdge
 
-    topPadding:    Sizes.base
-    leftPadding:   Sizes.base
-    rightPadding:  Sizes.base
-    bottomPadding: Sizes.base
+    topPadding:    Theme.spacing.s04
+    leftPadding:   Theme.spacing.s04
+    rightPadding:  Theme.spacing.s04
+    bottomPadding: Theme.spacing.s04
 
     dim: false
 
