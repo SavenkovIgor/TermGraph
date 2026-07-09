@@ -10,7 +10,7 @@ import Atoms as A
 Button {
     id: root
 
-    horizontalPadding: Theme.spacing.base
+    horizontalPadding: Theme.spacing.s04
     verticalPadding: Theme.spacing.s02
     topInset: 0
     bottomInset: 0
