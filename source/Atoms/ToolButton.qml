@@ -9,7 +9,7 @@ import Theme
 RoundButton {
     id: root
 
-    property real size: Theme.spacing.baseX4
+    property real size: Theme.spacing.s16
     readonly property real iconPart: 0.46
 
     implicitWidth:  root.size

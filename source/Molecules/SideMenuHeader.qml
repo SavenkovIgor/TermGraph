@@ -19,7 +19,7 @@ Control {
 
     contentItem: RowLayout {
         AppIcon {
-            size: Theme.spacing.baseX4
+            size: Theme.spacing.s16
             Layout.margins: 10
             textVisible: false
         }
