@@ -42,11 +42,20 @@ QtObject {
         readonly property color base7: "#ffffff"
     }
 
+    readonly property QtObject sizes: QtObject {
+        readonly property real rm: Sizes.rm
+        readonly property real halfBase: Sizes.halfBase
+        readonly property real base: Sizes.base
+        readonly property real baseX2: Sizes.baseX2
+        readonly property real baseX3: Sizes.baseX3
+        readonly property real baseX4: Sizes.baseX4
+    }
+
     readonly property QtObject font: QtObject {
-        readonly property font h1 : Qt.font({ pixelSize: 5   * Sizes.rm, weight: 30 });
-        readonly property font h2 : Qt.font({ pixelSize: 4   * Sizes.rm });
-        readonly property font h3 : Qt.font({ pixelSize: 3   * Sizes.rm });
-        readonly property font h4 : Qt.font({ pixelSize: 2.5 * Sizes.rm });
+        readonly property font h1 : Qt.font({ pixelSize: 5   * root.sizes.rm, weight: 30 });
+        readonly property font h2 : Qt.font({ pixelSize: 4   * root.sizes.rm });
+        readonly property font h3 : Qt.font({ pixelSize: 3   * root.sizes.rm });
+        readonly property font h4 : Qt.font({ pixelSize: 2.5 * root.sizes.rm });
 
         readonly property font term : Qt.font({ family: "Arial sans-serif", pointSize: 10 });
 
