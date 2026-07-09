@@ -37,14 +37,14 @@ Button {
         spacing: Theme.spacing.s02
 
         A.ToolButton {
-            size: Theme.spacing.baseX3
+            size: Theme.spacing.s12
             icon.color: root.baseColor
             icon.source: root.icon.source
             visible: root.iconVisible
         }
 
         Text {
-            height: Theme.spacing.baseX3
+            height: Theme.spacing.s12
 
             color: root.baseColor
             font: Theme.font.setWeight(Theme.font.h3, Font.Thin)

@@ -166,8 +166,8 @@ M.Page {
             newGroupName.text = ""
         }
 
-        leftPadding:  Theme.spacing.baseX3
-        rightPadding: Theme.spacing.baseX3
+        leftPadding:  Theme.spacing.s12
+        rightPadding: Theme.spacing.s12
         topPadding:    Theme.spacing.s08
         bottomPadding: Theme.spacing.s08
 

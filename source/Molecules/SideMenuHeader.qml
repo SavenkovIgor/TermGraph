@@ -39,8 +39,8 @@ Control {
 
         A.ToolButton {
             Layout.margins: 5
-            width: Theme.spacing.baseX3
-            height: Theme.spacing.baseX3
+            width: Theme.spacing.s12
+            height: Theme.spacing.s12
             icon.color: Theme.color.base4
             icon.source: Theme.icon.cog
             onClicked: root.settingsClicked()
