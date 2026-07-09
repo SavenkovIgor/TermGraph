@@ -10,10 +10,7 @@ set_target_properties (ThemeModule
         CXX_STANDARD 23
         CXX_STANDARD_REQUIRED ON)
 
-set (QML_SOURCES
-    Sizes.qml
-    Theme.qml
-)
+set (QML_SOURCES Theme.qml)
 
 set_source_files_properties (
         ${QML_SOURCES}

@@ -43,12 +43,13 @@ QtObject {
     }
 
     readonly property QtObject sizes: QtObject {
-        readonly property real rm: Sizes.rm
-        readonly property real halfBase: Sizes.halfBase
-        readonly property real base: Sizes.base
-        readonly property real baseX2: Sizes.baseX2
-        readonly property real baseX3: Sizes.baseX3
-        readonly property real baseX4: Sizes.baseX4
+        readonly property real rm:       2 * Screen.pixelDensity
+
+        readonly property real halfBase: rm
+        readonly property real base:     2 * rm
+        readonly property real baseX2:   4 * rm
+        readonly property real baseX3:   6 * rm
+        readonly property real baseX4:   8 * rm
     }
 
     readonly property QtObject font: QtObject {
