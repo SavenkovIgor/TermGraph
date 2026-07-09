@@ -19,7 +19,7 @@ Control {
 
     contentItem: RowLayout {
         AppIcon {
-            size: Theme.sizes.baseX4
+            size: Theme.spacing.baseX4
             Layout.margins: 10
             textVisible: false
         }
@@ -39,8 +39,8 @@ Control {
 
         A.ToolButton {
             Layout.margins: 5
-            width: Theme.sizes.baseX3
-            height: Theme.sizes.baseX3
+            width: Theme.spacing.baseX3
+            height: Theme.spacing.baseX3
             icon.color: Theme.color.base4
             icon.source: Theme.icon.cog
             onClicked: root.settingsClicked()

@@ -9,7 +9,7 @@ import Theme
 C.RoundButton {
     id: root
 
-    property real size: Theme.sizes.baseX4
+    property real size: Theme.spacing.baseX4
     readonly property real iconPart: 0.46
     property color bgColor: Theme.color.base6
 

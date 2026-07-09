@@ -10,8 +10,8 @@ import Atoms as A
 Button {
     id: root
 
-    horizontalPadding: Theme.sizes.base
-    verticalPadding: Theme.sizes.halfBase
+    horizontalPadding: Theme.spacing.base
+    verticalPadding: Theme.spacing.halfBase
     topInset: 0
     bottomInset: 0
 
@@ -34,17 +34,17 @@ Button {
     }
 
     contentItem: Row {
-        spacing: Theme.sizes.halfBase
+        spacing: Theme.spacing.halfBase
 
         A.ToolButton {
-            size: Theme.sizes.baseX3
+            size: Theme.spacing.baseX3
             icon.color: root.baseColor
             icon.source: root.icon.source
             visible: root.iconVisible
         }
 
         Text {
-            height: Theme.sizes.baseX3
+            height: Theme.spacing.baseX3
 
             color: root.baseColor
             font: Theme.font.setWeight(Theme.font.h3, Font.Thin)

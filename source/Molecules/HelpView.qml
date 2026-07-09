@@ -142,7 +142,7 @@ Item {
 
             A.Round {
                 id: pin
-                diameter: Theme.sizes.base * 0.75
+                diameter: Theme.spacing.base * 0.75
                 anchors.centerIn: parent
                 color: index === pageIndicator.currentIndex ? Theme.color.base3 : Theme.color.base1
             }

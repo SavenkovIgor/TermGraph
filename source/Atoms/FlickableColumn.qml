@@ -28,7 +28,7 @@ Flickable {
     ColumnLayout {
         id: contentColumn
 
-        spacing: Theme.sizes.base
+        spacing: Theme.spacing.base
         width: flick.width
     }
 }
