@@ -43,20 +43,18 @@ QtObject {
     }
 
     readonly property QtObject spacing: QtObject {
-        readonly property real rm:       2 * Screen.pixelDensity
-
-        readonly property real halfBase: rm
-        readonly property real base:     2 * rm
-        readonly property real baseX2:   4 * rm
-        readonly property real baseX3:   6 * rm
-        readonly property real baseX4:   8 * rm
+        readonly property real s02:       2 * Screen.pixelDensity
+        readonly property real base:     2 * s02
+        readonly property real baseX2:   4 * s02
+        readonly property real baseX3:   6 * s02
+        readonly property real baseX4:   8 * s02
     }
 
     readonly property QtObject font: QtObject {
-        readonly property font h1 : Qt.font({ pixelSize: 5   * root.spacing.rm, weight: 30 });
-        readonly property font h2 : Qt.font({ pixelSize: 4   * root.spacing.rm });
-        readonly property font h3 : Qt.font({ pixelSize: 3   * root.spacing.rm });
-        readonly property font h4 : Qt.font({ pixelSize: 2.5 * root.spacing.rm });
+        readonly property font h1 : Qt.font({ pixelSize: 5   * root.spacing.s02, weight: 30 });
+        readonly property font h2 : Qt.font({ pixelSize: 4   * root.spacing.s02 });
+        readonly property font h3 : Qt.font({ pixelSize: 3   * root.spacing.s02 });
+        readonly property font h4 : Qt.font({ pixelSize: 2.5 * root.spacing.s02 });
 
         readonly property font term : Qt.font({ family: "Arial sans-serif", pointSize: 10 });
 

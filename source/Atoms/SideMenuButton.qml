@@ -11,7 +11,7 @@ Button {
     id: root
 
     horizontalPadding: Theme.spacing.base
-    verticalPadding: Theme.spacing.halfBase
+    verticalPadding: Theme.spacing.s02
     topInset: 0
     bottomInset: 0
 
@@ -34,7 +34,7 @@ Button {
     }
 
     contentItem: Row {
-        spacing: Theme.spacing.halfBase
+        spacing: Theme.spacing.s02
 
         A.ToolButton {
             size: Theme.spacing.baseX3
