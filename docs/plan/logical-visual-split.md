@@ -131,7 +131,7 @@ ForestLayout                             ← NEW: per-forest logical layout
 
 GroupLayout                              ← NEW: group-level arrangement
   input:  vector<ForestLayout> + orphan list
-  output: ForestPosition per term (adds forestIndex) or null for orphans
+  output: GroupPos per term (`ForestsPos` or `OrphanPos`)
 
 TermsModel                               ← CHANGED: stable identity, logical roles
   roles: uuid, forestIndex, depth, stackPos,
@@ -147,25 +147,30 @@ QML: Repeater { model: Api.scene.terms }
     Behavior on y { NumberAnimation { duration: 300; easing.type: Easing.InOutCubic } }
 ```
 
-### `ForestPosition` and `GroupPosition` Structs
+### `ForestPos`, `OrphanPos`, `GroupPos` Structs
 
 ```cpp
-struct ForestPosition {
-    int depth;       // column (left-to-right depth in tree)
-    int stackPos;    // row within column (vertical position in stack)
+struct ForestPos {
+  size_t depth;       // column (left-to-right depth in tree)
+  size_t stackPos;    // row within column (vertical position in stack)
 };
 ```
 
 ```cpp
-struct GroupPosition {
-    int forestIndex; // which forest (connected component) this term belongs to
-    ForestPosition pos;
+struct OrphanPos {
+  size_t index; // ordinal position inside orphan list
+};
+
+using ForestsPos = std::pair<size_t, ForestPos>; // {forestIndex, localPos}
+
+struct GroupPos {
+  std::variant<ForestsPos, OrphanPos> pos;
 };
 ```
 
 ### What Stays in C++
 
-- Forest topology: which term is at which `{forestIndex, depth, stackPos}`
+- Forest topology: which term is at which `ForestsPos {forestIndex, depth, stackPos}` or `OrphanPos {index}`
 - Node identity (uuid), text, definition, type, area
 - Edge topology: `{rootUuid, leafUuid, edgeType}`
 - Selection state
@@ -189,14 +194,18 @@ QML resolves pixel endpoints from the live positions of term delegates by uuid.
 
 Each phase leaves the application in a working, buildable state.
 
-### Phase A — `ForestPosition` + `GroupPosition` + `ForestLayout` + `GroupLayout` (C++ only)
+### Phase A — `ForestPos` + `GroupPos` + `ForestLayout` + `GroupLayout` (C++ only)
 
-- [ ] Create `source/model/group/ForestPosition.hpp` — `struct ForestPosition { int forestIndex; int depth; int stackPos; }`
+- [x] Create lightweight position structs (no C++ modules):
+  `source/model/group/ForestPos.hpp`, `source/model/group/OrphanPos.hpp`, `source/model/group/GroupPos.hpp`
+  `GroupPos` stores `variant<ForestsPos, OrphanPos>`, where `ForestsPos = pair<size_t, ForestPos>`
+  and all structs are Qt meta-object compatible (`Q_GADGET`, `Q_DECLARE_METATYPE`).
+- [x] Add new position headers to `target_sources` in `CMakeLists.txt` for stable Qt build integration.
 - [ ] Create `ForestLayout` class: takes one `Forest<>`, returns `map<uuid, {depth, stackPos}>`
       Extract logic from `PaintedForest::setTreeNodeCoords()` + `NodeVerticalStack::placeTerms()`
-- [ ] Create `GroupLayout` class: takes `vector<ForestLayout>` + orphan list, assigns `forestIndex`
-      Extract logic from `TermGroup::updateRectsPositions()` + `setOrphCoords()`
-      Orphans get `forestIndex = -1`
+- [ ] Create `GroupLayout` class: takes `vector<ForestLayout>` + orphan list, assigns `ForestsPos`
+  Extract logic from `TermGroup::updateRectsPositions()` + `setOrphCoords()`
+  Orphans get `OrphanPos { index }`
 - [ ] `TermGroup` delegates to `ForestLayout` + `GroupLayout`, still calls `GraphicItem::setPos()` (backward compat)
 - [ ] Add unit tests for `ForestLayout` in `test/`
 
@@ -228,7 +237,7 @@ This phase **unblocks animations**.
 - [ ] On `setGroup()`: diff old vs new uuid sets
   - removed terms → `beginRemoveRows` / `endRemoveRows`
   - added terms → `beginInsertRows` / `endInsertRows`
-  - changed `ForestPosition` → `emit dataChanged(forestIndex, depth, stackPos roles)`
+  - changed `ForestPos`/`GroupPos` → `emit dataChanged(forestIndex, depth, stackPos roles)`
 - [ ] `Repeater` delegates survive group switches; only truly new/removed terms are created/destroyed
 
 **Verify:** switch groups repeatedly — delegates reuse is visible via `Component.onCompleted` logging.
@@ -293,7 +302,9 @@ Reference (applies to this phase only): Qt Blog, "Qt Canvas Painter: Accelerated
 
 | File | Change |
 |---|---|
-| `source/model/group/ForestPosition.hpp` | **NEW** — logical position struct |
+| `source/model/group/ForestPos.hpp` | **NEW** — forest-local logical position (`depth`, `stackPos`) |
+| `source/model/group/OrphanPos.hpp` | **NEW** — orphan-list logical position (`index`) |
+| `source/model/group/GroupPos.hpp` | **NEW** — variant of `ForestsPos` and `OrphanPos` |
 | `source/model/group/ForestLayout.hpp/.cpp` | **NEW** — per-forest layout |
 | `source/model/group/GroupLayout.hpp/.cpp` | **NEW** — group-level arrangement |
 | `source/model/group/termgroup.cpp` | delegate to ForestLayout + GroupLayout |
@@ -306,6 +317,7 @@ Reference (applies to this phase only): Qt Blog, "Qt Canvas Painter: Accelerated
 | `source/Atoms/Term.qml` | x/y from depth/stackPos; add Behavior (Phase G) |
 | `source/Atoms/Edge.qml` | uuid-based pt1/pt2 resolution; animate (Phase G) |
 | `source/*` (new custom renderer files) | optional `QCanvasPainterItem` edge renderer (Phase H) |
+| `CMakeLists.txt` | includes new position headers in `target_sources` |
 | build/toolchain files (`project.py`, CI, devcontainer) | optional Qt 6.12+ migration work for Phase H |
 | `test/` | unit tests for ForestLayout |
 
