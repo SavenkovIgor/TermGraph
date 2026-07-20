@@ -1,8 +1,8 @@
 {
-  "version": 10,
+  "version": 12,
   "cmakeMinimumRequired": {
     "major": 4,
-    "minor": 0,
+    "minor": 4,
     "patch": 0
   },
   "configurePresets": [
@@ -40,7 +40,7 @@
       "hidden": true,
       "generator": "Ninja",
       "warnings": {
-        "dev": true,
+        "author": true,
         "deprecated": true,
         "uninitialized": true,
         "unusedCli": true,
