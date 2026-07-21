@@ -12,7 +12,7 @@ The primary build interface is `project.py` at the repo root. All builds target 
 
 ```bash
 # Install Conan dependencies + build + run (desktop release)
-./project.py --deps-install --build --run
+./project.py --bootstrap --build --run
 
 # Build only, specify preset
 ./project.py --build --preset desktop_dev

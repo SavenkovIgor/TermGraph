@@ -130,7 +130,7 @@ You can build project with QtCreator, using CMake Presets (which QtCreator more 
 
 Also you can build it with python script at repository root.
 
-Try `./project.py --deps-install --build --run`, it would build and run desktop version
+Try `./project.py --bootstrap --build --run`, it would build and run desktop version
 
 ## :alembic: Tests
 

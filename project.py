@@ -17,14 +17,8 @@ logging.basicConfig(**log_config)
 
 REPOSITORY_ROOT = Path(__file__).resolve().parent
 
-def init_submodules():
-    """Initialize and update git submodules"""
-    root = REPOSITORY_ROOT
-    os.chdir(root)
+PRESETS = ['desktop_dev', 'desktop_release', 'wasm_dev', 'wasm_release']
 
-    logging.info('---INITIALIZING GIT SUBMODULES---')
-    run('git submodule update --init --recursive')
-    logging.info('Git submodules initialized successfully')
 
 def run(command: str):
     if subprocess.call(command, shell=True, executable='/bin/bash') != 0:
@@ -50,15 +44,12 @@ def configure_environment(for_wasm: bool = False):
 
 
 class Project:
-    def __init__(self, name: str, run_name: str, path: Path, available_presets: list[str]):
+    def __init__(self, name: str, run_name: str, path: Path):
         self.name = name
         self.path = path
         self.run_name = run_name
         assert path.exists(), f'Error: path not exist {path}'
-        self.available_presets = available_presets
-
-    def project_dir(self) -> Path:
-        return self.path
+        os.chdir(self.path)
 
     def build_dir(self, preset: str) -> Path:
         return self.path / f'build/{preset}'
@@ -69,17 +60,26 @@ class Project:
     def conan_env_prefix(self, preset: str) -> str:
         return f'source {self.conan_build_env(preset)}'
 
-    def check_preset(self, preset: str):
-        if not preset in self.available_presets:
-            logging.error(f'Preset {preset} not found in {self.name}')
-            exit(1)
+    def init_submodules(self, force: bool = False):
+        """Initialize and update git submodules"""
+        # Early exit
+        stemming_path = REPOSITORY_ROOT / 'third_party/stemming/src'
+        if not force and stemming_path.exists() and stemming_path.is_dir():
+            logging.info('---GIT SUBMODULES ALREADY INITIALIZED---')
+            return
 
-    def prepare(self, preset: str):
-        self.check_preset(preset)
+        os.chdir(REPOSITORY_ROOT)
+        logging.info('---INITIALIZING GIT SUBMODULES---')
+        run('git submodule update --init --recursive')
+        logging.info('Git submodules initialized successfully')
         os.chdir(self.path)
 
-    def deps_install(self, preset: str):
-        self.prepare(preset)
+    def install_conan_deps(self, preset: str, force: bool = False):
+        # Early exit
+        if not force and self.conan_build_env(preset).exists():
+            logging.info(f'---DEPS ALREADY INSTALLED {self.name} with preset {preset}---')
+            return
+
         logging.info(f'---DEPS INSTALL {self.name} with preset {preset}---')
         args = [f'--profile:host=conanfiles/profile/host/{preset}']
         args += ['--profile:build=conanfiles/profile/build/build_machine']
@@ -87,21 +87,33 @@ class Project:
         args += [f'-of={self.build_dir(preset)}/conan-dependencies']
         run(f'conan install . {' '.join(args)}')
 
+    def configure_cmake(self, preset: str, force: bool = False):
+        # Early exit
+        cmake_cache_path = self.build_dir(preset) / 'CMakeCache.txt'
+        if not force and cmake_cache_path.exists():
+            logging.info(f'---CMAKE ALREADY CONFIGURED {self.name} with preset {preset}---')
+            return
+
+        logging.info(f'---CONFIGURE {self.name} with preset {preset}---')
+        run(f'{self.conan_env_prefix(preset)} && cmake --preset {preset}')
+
+    def bootstrap(self, preset: str, force: bool = False):
+        """Initialize submodules, install deps and run cmake configure, but only when actually needed"""
+        self.init_submodules(force)
+        self.install_conan_deps(preset, force)
+        self.configure_cmake(preset, force)
+
     def cmake_install(self, preset: str):
-        self.prepare(preset)
         logging.info(f'---CMAKE INSTALL {self.name} with preset {preset}---')
         run(f'{self.conan_env_prefix(preset)} && cmake --install {self.build_dir(preset)}')
 
     def build(self, preset: str):
-        self.prepare(preset)
-
-        self.deps_install(preset)
+        self.bootstrap(preset)
 
         logging.info(f'---BUILD {self.name} preset: {preset}, Qt: {env_qt_version()}---')
-        run(f'{self.conan_env_prefix(preset)} && cmake --workflow --preset {preset}')
+        run(f'{self.conan_env_prefix(preset)} && cmake --build --preset {preset}')
 
     def test(self, preset: str):
-        self.prepare(preset)
         logging.info(f'---TEST {self.name} with preset {preset}---')
         args: list[str] = []
         args.append(f'--preset {preset}')
@@ -111,7 +123,6 @@ class Project:
         run(f'{self.conan_env_prefix(preset)} && ctest {' '.join(args)}')
 
     def run(self, preset: str):
-        self.prepare(preset)
         logging.info(f'---RUN {self.name} with preset {preset}---')
         run(f'./build/{preset}/{self.run_name}')
 
@@ -120,7 +131,6 @@ class Project:
         logging.error('Not implemented yet')
 
     def clear(self, clear_conan: bool = False):
-        os.chdir(self.path)
         logging.info(f'---CLEAR {self.name}---')
         delete_if_exist(self.path / 'build')
         if clear_conan:
@@ -130,13 +140,10 @@ def main(args: argparse.Namespace):
     is_wasm = args.preset is not None and args.preset.startswith('wasm')
     configure_environment(for_wasm=is_wasm)
 
-    # Initialize submodules first
-    init_submodules()
+    app = Project('Application', 'TermGraph', REPOSITORY_ROOT)
 
-    app = Project('Application', 'TermGraph', REPOSITORY_ROOT, presets)
-
-    if args.deps_install:
-        app.deps_install(args.preset)
+    if args.bootstrap:
+        app.bootstrap(args.preset, force=True)
 
     if args.build:
         app.build(args.preset)
@@ -159,18 +166,15 @@ def main(args: argparse.Namespace):
     if args.clear_all:
         app.clear(clear_conan=True)
 
-    if args.init_submodules:
-        init_submodules()
-
     if args.rebuild:
         app.clear()
-        app.deps_install(args.preset)
+        app.bootstrap(args.preset, force=True)
         app.build(args.preset)
         app.run(args.preset)
 
 
 # Should be possible to run:
-# ./project.py --deps-install     [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --bootstrap        [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --build            [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --cmake-install    [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --run              [--preset desktop_release (default) | desktop_dev | wasm_release]
@@ -178,13 +182,10 @@ def main(args: argparse.Namespace):
 # ./project.py --pack             [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --clear
 # ./project.py --clear-all
-# ./project.py --init-submodules
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Project build script')
 
-    presets = ['desktop_dev', 'desktop_release', 'wasm_dev', 'wasm_release']
-
-    parser.add_argument('--deps-install',  action='store_true', help='Install dependencies')
+    parser.add_argument('--bootstrap',     action='store_true', help='Initialize submodules, install dependencies and configure CMake')
     parser.add_argument('--build',         action='store_true', help='Build project')
     parser.add_argument('--cmake-install', action='store_true', help='Install project (cmake install)')
     parser.add_argument('--test',          action='store_true', help='Test project')
@@ -192,10 +193,9 @@ if __name__ == '__main__':
     parser.add_argument('--pack',          action='store_true', help='Pack project')
     parser.add_argument('--clear',         action='store_true', help='Clear project')
     parser.add_argument('--clear-all',     action='store_true', help='Clear project and conan cache')
-    parser.add_argument('--init-submodules', action='store_true', help='Initialize git submodules')
     parser.add_argument('--rebuild',       action='store_true', help='Rebuild project (clear, configure, build)')
 
-    parser.add_argument('--preset', type=str, help='Preset to use', choices=presets, default='desktop_release')
+    parser.add_argument('--preset', type=str, help='Preset to use', choices=PRESETS, default='desktop_release')
 
     args = parser.parse_args()
     sys.exit(main(args))
