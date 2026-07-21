@@ -113,7 +113,7 @@ jobs:
         echo "::notice file=,line=1,col=1::CMake version: $(cmake --version | head -n 1)"
 
     - name: Conan install dependencies
-      run: ./project.py --deps-install --preset ${{ matrix.build_profile }}
+      run: ./project.py --bootstrap --preset ${{ matrix.build_profile }}
 
     - name: Cmake build
       run: ./project.py --build --preset ${{ matrix.build_profile }}

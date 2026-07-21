@@ -145,8 +145,8 @@ def main(args: argparse.Namespace):
 
     app = Project('Application', 'TermGraph', REPOSITORY_ROOT)
 
-    if args.deps_install:
-        app.install_conan_deps(args.preset, force=True)
+    if args.bootstrap:
+        app.bootstrap(args.preset, force=True)
 
     if args.build:
         app.build(args.preset)
@@ -177,7 +177,7 @@ def main(args: argparse.Namespace):
 
 
 # Should be possible to run:
-# ./project.py --deps-install     [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --bootstrap        [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --build            [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --cmake-install    [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --run              [--preset desktop_release (default) | desktop_dev | wasm_release]
@@ -188,7 +188,7 @@ def main(args: argparse.Namespace):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Project build script')
 
-    parser.add_argument('--deps-install',  action='store_true', help='Install dependencies')
+    parser.add_argument('--bootstrap',     action='store_true', help='Initialize submodules, install dependencies and configure CMake')
     parser.add_argument('--build',         action='store_true', help='Build project')
     parser.add_argument('--cmake-install', action='store_true', help='Install project (cmake install)')
     parser.add_argument('--test',          action='store_true', help='Test project')
