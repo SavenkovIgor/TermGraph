@@ -17,6 +17,10 @@ logging.basicConfig(**log_config)
 
 REPOSITORY_ROOT = Path(__file__).resolve().parent
 
+def is_submodules_initialized() -> bool:
+    stemming_submodule_path = REPOSITORY_ROOT / 'third_party/stemming/src'
+    return stemming_submodule_path.exists() and stemming_submodule_path.is_dir()
+
 def init_submodules():
     """Initialize and update git submodules"""
     root = REPOSITORY_ROOT
@@ -66,6 +70,9 @@ class Project:
     def conan_build_env(self, preset: str) -> Path:
         return self.build_dir(preset) / 'conan-dependencies/conanbuild.sh'
 
+    def is_conan_deps_installed(self, preset: str) -> bool:
+        return self.conan_build_env(preset).exists()
+
     def conan_env_prefix(self, preset: str) -> str:
         return f'source {self.conan_build_env(preset)}'
 
@@ -87,6 +94,23 @@ class Project:
         args += [f'-of={self.build_dir(preset)}/conan-dependencies']
         run(f'conan install . {' '.join(args)}')
 
+    def is_cmake_configured(self, preset: str) -> bool:
+        return (self.build_dir(preset) / 'CMakeCache.txt').exists()
+
+    def bootstrap(self, preset: str, force: bool = False):
+        """Initialize submodules, install deps and run cmake configure, but only when actually needed"""
+        self.prepare(preset)
+
+        if force or not is_submodules_initialized():
+            init_submodules()
+
+        if force or not self.is_conan_deps_installed(preset):
+            self.deps_install(preset)
+
+        if force or not self.is_cmake_configured(preset):
+            logging.info(f'---CONFIGURE {self.name} with preset {preset}---')
+            run(f'{self.conan_env_prefix(preset)} && cmake --preset {preset}')
+
     def cmake_install(self, preset: str):
         self.prepare(preset)
         logging.info(f'---CMAKE INSTALL {self.name} with preset {preset}---')
@@ -94,11 +118,10 @@ class Project:
 
     def build(self, preset: str):
         self.prepare(preset)
-
-        self.deps_install(preset)
+        self.bootstrap(preset)
 
         logging.info(f'---BUILD {self.name} preset: {preset}, Qt: {env_qt_version()}---')
-        run(f'{self.conan_env_prefix(preset)} && cmake --workflow --preset {preset}')
+        run(f'{self.conan_env_prefix(preset)} && cmake --build --preset {preset}')
 
     def test(self, preset: str):
         self.prepare(preset)
@@ -129,9 +152,6 @@ class Project:
 def main(args: argparse.Namespace):
     is_wasm = args.preset is not None and args.preset.startswith('wasm')
     configure_environment(for_wasm=is_wasm)
-
-    # Initialize submodules first
-    init_submodules()
 
     app = Project('Application', 'TermGraph', REPOSITORY_ROOT, presets)
 
@@ -164,7 +184,7 @@ def main(args: argparse.Namespace):
 
     if args.rebuild:
         app.clear()
-        app.deps_install(args.preset)
+        app.bootstrap(args.preset, force=True)
         app.build(args.preset)
         app.run(args.preset)
 
