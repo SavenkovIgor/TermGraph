@@ -134,7 +134,6 @@ class Project:
         logging.error('Not implemented yet')
 
     def clear(self, clear_conan: bool = False):
-        os.chdir(self.path)
         logging.info(f'---CLEAR {self.name}---')
         delete_if_exist(self.path / 'build')
         if clear_conan:
