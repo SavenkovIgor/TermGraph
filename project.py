@@ -19,18 +19,6 @@ REPOSITORY_ROOT = Path(__file__).resolve().parent
 
 PRESETS = ['desktop_dev', 'desktop_release', 'wasm_dev', 'wasm_release']
 
-def is_submodules_initialized() -> bool:
-    stemming_submodule_path = REPOSITORY_ROOT / 'third_party/stemming/src'
-    return stemming_submodule_path.exists() and stemming_submodule_path.is_dir()
-
-def init_submodules():
-    """Initialize and update git submodules"""
-    root = REPOSITORY_ROOT
-    os.chdir(root)
-
-    logging.info('---INITIALIZING GIT SUBMODULES---')
-    run('git submodule update --init --recursive')
-    logging.info('Git submodules initialized successfully')
 
 def run(command: str):
     if subprocess.call(command, shell=True, executable='/bin/bash') != 0:
@@ -72,13 +60,29 @@ class Project:
     def conan_build_env(self, preset: str) -> Path:
         return self.build_dir(preset) / 'conan-dependencies/conanbuild.sh'
 
-    def is_conan_deps_installed(self, preset: str) -> bool:
-        return self.conan_build_env(preset).exists()
-
     def conan_env_prefix(self, preset: str) -> str:
         return f'source {self.conan_build_env(preset)}'
 
-    def deps_install(self, preset: str):
+    def init_submodules(self, force: bool = False):
+        """Initialize and update git submodules"""
+        # Early exit
+        stemming_path = REPOSITORY_ROOT / 'third_party/stemming/src'
+        if not force and stemming_path.exists() and stemming_path.is_dir():
+            logging.info('---GIT SUBMODULES ALREADY INITIALIZED---')
+            return
+
+        os.chdir(REPOSITORY_ROOT)
+        logging.info('---INITIALIZING GIT SUBMODULES---')
+        run('git submodule update --init --recursive')
+        logging.info('Git submodules initialized successfully')
+        os.chdir(self.path)
+
+    def install_conan_deps(self, preset: str, force: bool = False):
+        # Early exit
+        if not force and self.conan_build_env(preset).exists():
+            logging.info(f'---DEPS ALREADY INSTALLED {self.name} with preset {preset}---')
+            return
+
         logging.info(f'---DEPS INSTALL {self.name} with preset {preset}---')
         args = [f'--profile:host=conanfiles/profile/host/{preset}']
         args += ['--profile:build=conanfiles/profile/build/build_machine']
@@ -86,20 +90,21 @@ class Project:
         args += [f'-of={self.build_dir(preset)}/conan-dependencies']
         run(f'conan install . {' '.join(args)}')
 
-    def is_cmake_configured(self, preset: str) -> bool:
-        return (self.build_dir(preset) / 'CMakeCache.txt').exists()
+    def configure_cmake(self, preset: str, force: bool = False):
+        # Early exit
+        cmake_cache_path = self.build_dir(preset) / 'CMakeCache.txt'
+        if not force and cmake_cache_path.exists():
+            logging.info(f'---CMAKE ALREADY CONFIGURED {self.name} with preset {preset}---')
+            return
+
+        logging.info(f'---CONFIGURE {self.name} with preset {preset}---')
+        run(f'{self.conan_env_prefix(preset)} && cmake --preset {preset}')
 
     def bootstrap(self, preset: str, force: bool = False):
         """Initialize submodules, install deps and run cmake configure, but only when actually needed"""
-        if force or not is_submodules_initialized():
-            init_submodules()
-
-        if force or not self.is_conan_deps_installed(preset):
-            self.deps_install(preset)
-
-        if force or not self.is_cmake_configured(preset):
-            logging.info(f'---CONFIGURE {self.name} with preset {preset}---')
-            run(f'{self.conan_env_prefix(preset)} && cmake --preset {preset}')
+        self.init_submodules(force)
+        self.install_conan_deps(preset, force)
+        self.configure_cmake(preset, force)
 
     def cmake_install(self, preset: str):
         logging.info(f'---CMAKE INSTALL {self.name} with preset {preset}---')
@@ -142,7 +147,7 @@ def main(args: argparse.Namespace):
     app = Project('Application', 'TermGraph', REPOSITORY_ROOT)
 
     if args.deps_install:
-        app.deps_install(args.preset)
+        app.install_conan_deps(args.preset, force=True)
 
     if args.build:
         app.build(args.preset)
@@ -165,9 +170,6 @@ def main(args: argparse.Namespace):
     if args.clear_all:
         app.clear(clear_conan=True)
 
-    if args.init_submodules:
-        init_submodules()
-
     if args.rebuild:
         app.clear()
         app.bootstrap(args.preset, force=True)
@@ -184,7 +186,6 @@ def main(args: argparse.Namespace):
 # ./project.py --pack             [--preset desktop_release (default) | desktop_dev | wasm_release]
 # ./project.py --clear
 # ./project.py --clear-all
-# ./project.py --init-submodules
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Project build script')
 
@@ -196,7 +197,6 @@ if __name__ == '__main__':
     parser.add_argument('--pack',          action='store_true', help='Pack project')
     parser.add_argument('--clear',         action='store_true', help='Clear project')
     parser.add_argument('--clear-all',     action='store_true', help='Clear project and conan cache')
-    parser.add_argument('--init-submodules', action='store_true', help='Initialize git submodules')
     parser.add_argument('--rebuild',       action='store_true', help='Rebuild project (clear, configure, build)')
 
     parser.add_argument('--preset', type=str, help='Preset to use', choices=PRESETS, default='desktop_release')
