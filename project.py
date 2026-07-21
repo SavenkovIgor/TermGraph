@@ -51,9 +51,6 @@ class Project:
         assert path.exists(), f'Error: path not exist {path}'
         os.chdir(self.path)
 
-    def project_dir(self) -> Path:
-        return self.path
-
     def build_dir(self, preset: str) -> Path:
         return self.path / f'build/{preset}'
 
