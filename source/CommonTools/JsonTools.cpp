@@ -23,7 +23,7 @@ QString prepareUuidParameter(QString param)
     return param;
 }
 
-QJsonObject updateKey(QJsonObject json, const QString& oldKey, const QString& newKey)
+QJsonObject updateKey(QJsonObject json, QStringView oldKey, QStringView newKey)
 {
     if (json.contains(oldKey) && !json.contains(newKey)) {
         json.insert(newKey, json[oldKey]);
@@ -36,7 +36,7 @@ QJsonObject updateKey(QJsonObject json, const QString& oldKey, const QString& ne
     return json;
 }
 
-QJsonObject addIfNotEmpty(QJsonObject json, const QString& key, const QJsonValue& value)
+QJsonObject addIfNotEmpty(QJsonObject json, QStringView key, const QJsonValue& value)
 {
     if (value.isString() && value.toString().isEmpty()) {
         return json;

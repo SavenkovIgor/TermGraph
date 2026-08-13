@@ -1,10 +1,9 @@
 FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu-24.04
 
 # Path env variables
-ENV WORKSPACE_ROOT=/workspaces
-ENV WORKSPACE=${WORKSPACE_ROOT}/TermGraph
-ENV QT_ROOT=${WORKSPACE_ROOT}/Qt
-ENV EMSDK_ROOT=${WORKSPACE_ROOT}/emsdk
+ENV THIRD_PARTY_ROOT=/opt
+ENV QT_ROOT=${THIRD_PARTY_ROOT}/Qt
+ENV EMSDK_ROOT=${THIRD_PARTY_ROOT}/emsdk
 
 RUN apt update                                && \
     # Qt dependencies
@@ -27,8 +26,8 @@ RUN sh /uv-installer.sh && rm /uv-installer.sh
 ARG QT_VERSION=6.11.1
 ARG AQT_VERSION=3.3.0
 ENV QT_VERSION=${QT_VERSION}
-COPY aqt.ini ${WORKSPACE_ROOT}/aqt.ini
-ENV AQT_CONFIG=${WORKSPACE_ROOT}/aqt.ini
+COPY aqt.ini ${THIRD_PARTY_ROOT}/aqt.ini
+ENV AQT_CONFIG=${THIRD_PARTY_ROOT}/aqt.ini
 
 # Install Qt gcc_64
 RUN uvx --from aqtinstall@$AQT_VERSION aqt install-qt -O ${QT_ROOT} linux desktop ${QT_VERSION} linux_gcc_64 \
