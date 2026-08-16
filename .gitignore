@@ -13,6 +13,9 @@ CMakeUserPresets.json
 # Python venv
 .venv/*
 
+# Conan tool_requires deployer output (cmake, ninja, ...)
+.conan-tools/*
+
 # QML Language Server config files
 **/.qmlls.ini
 aqtinstall.log
