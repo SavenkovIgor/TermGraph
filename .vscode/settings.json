@@ -9,5 +9,9 @@
         "--clang-tidy",
         "--header-insertion=iwyu"
     ],
+    "cmake.cmakePath": "${workspaceFolder}/.conan-tools/bin/cmake",
+    "cmake.environment": {
+        "PATH": "${workspaceFolder}/.conan-tools/bin:${env:PATH}"
+    },
     "workbench.externalBrowser": "firefox"
 }

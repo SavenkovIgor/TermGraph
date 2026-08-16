@@ -85,6 +85,8 @@ class Project:
         args += ['--profile:build=conanfiles/profile/build/build_machine']
         args += ['--build=missing']
         args += [f'-of={self.build_dir(preset)}/conan-dependencies']
+        args += ['--deployer=conanfiles/deployers/tool_requires_deploy.py']
+        args += [f'--deployer-folder={REPOSITORY_ROOT}/.conan-tools']
         run(f'conan install . {' '.join(args)}')
 
     def configure_cmake(self, preset: str, force: bool = False):
