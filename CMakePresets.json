@@ -1,5 +1,5 @@
 {
-    "version": 12,
+    "version": 11,
     "cmakeMinimumRequired": {
         "major": 4,
         "minor": 4,
@@ -40,7 +40,6 @@
             "hidden": true,
             "generator": "Ninja",
             "warnings": {
-                "author": true,
                 "deprecated": true,
                 "uninitialized": true,
                 "unusedCli": true,
