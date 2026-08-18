@@ -15,8 +15,8 @@ RoundButton {
     implicitWidth:  root.size
     implicitHeight: root.size
 
-    icon.width: implicitWidth * iconPart
-    icon.height: implicitHeight * iconPart
+    icon.width: Math.round(implicitWidth * iconPart)
+    icon.height: Math.round(implicitHeight * iconPart)
 
     icon.color: Theme.color.base6
 
