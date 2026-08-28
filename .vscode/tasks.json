@@ -10,6 +10,7 @@
             "options": [
                 "desktop_dev",
                 "desktop_release",
+                "clang_tidy",
                 "wasm_dev",
                 "wasm_release"
             ]
@@ -71,6 +72,20 @@
             "dependsOn": [
                 "Build"
             ]
+        },
+        {
+            "label": "Clang-Tidy",
+            "detail": "Build the project with clang-tidy static analysis enabled",
+            "command": "./project.py --build --preset clang_tidy",
+            "icon": {
+                "id": "checklist",
+                "color": "terminal.ansiYellow"
+            },
+            "presentation": {
+                "revealProblems": "onProblem",
+                "clear": true
+            },
+            "problemMatcher": "$gcc"
         },
         {
             "label": "Clear",
