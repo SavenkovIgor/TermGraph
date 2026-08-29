@@ -17,8 +17,9 @@
         },
         { "name": "release_build", "hidden": true, "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" } },
         { "name": "debug_build",   "hidden": true, "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" } },
-        { "name": "test_on",  "hidden": true, "cacheVariables": { "BUILD_TESTING": "ON" } },
-        { "name": "test_off", "hidden": true, "cacheVariables": { "BUILD_TESTING": "OFF" } },
+        { "name": "test_on",       "hidden": true, "cacheVariables": { "BUILD_TESTING": "ON" } },
+        { "name": "test_off",      "hidden": true, "cacheVariables": { "BUILD_TESTING": "OFF" } },
+        { "name": "clang_tidy_on", "hidden": true, "cacheVariables": { "ENABLE_CLANG_TIDY": "ON" } },
         {
             "name": "desktop_platform",
             "hidden": true,
@@ -63,6 +64,11 @@
             "inherits": [ "default", "qt_env", "desktop_platform", "release_build", "test_on" ]
         },
         {
+            "name": "clang_tidy",
+            "displayName": "Clang-tidy build",
+            "inherits": [ "default", "qt_env", "desktop_platform", "debug_build", "test_on", "clang_tidy_on" ]
+        },
+        {
             "name": "wasm_dev",
             "displayName": "WebAssembly dev build",
             "inherits": [ "default", "qt_env", "wasm_platform", "debug_build", "test_off" ]
@@ -77,7 +83,8 @@
         { "name": "desktop_dev",     "configurePreset": "desktop_dev",     "targets": "all" },
         { "name": "desktop_release", "configurePreset": "desktop_release", "targets": "all" },
         { "name": "wasm_dev",        "configurePreset": "wasm_dev",        "targets": "all" },
-        { "name": "wasm_release",    "configurePreset": "wasm_release",    "targets": "all" }
+        { "name": "wasm_release",    "configurePreset": "wasm_release",    "targets": "all" },
+        { "name": "clang_tidy",      "configurePreset": "clang_tidy",      "targets": "all" }
     ],
     "testPresets": [
         { "name": "desktop_dev",     "configurePreset": "desktop_dev" },

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import json
 import logging
 import os
 import subprocess
@@ -17,8 +18,13 @@ logging.basicConfig(**log_config)
 
 REPOSITORY_ROOT = Path(__file__).resolve().parent
 
-PRESETS = ['desktop_dev', 'desktop_release', 'wasm_dev', 'wasm_release']
 
+def load_presets() -> list[str]:
+    cmake_presets: dict[str, Any]
+    with (REPOSITORY_ROOT / 'CMakePresets.json').open(encoding='utf-8') as file:
+        cmake_presets = json.load(file)
+
+    return [ preset['name'] for preset in cmake_presets['configurePresets'] if not preset.get('hidden', False) ]
 
 def run(command: str):
     if subprocess.call(command, shell=True, executable='/bin/bash') != 0:
@@ -197,7 +203,7 @@ if __name__ == '__main__':
     parser.add_argument('--clear-all',     action='store_true', help='Clear project and conan cache')
     parser.add_argument('--rebuild',       action='store_true', help='Rebuild project (clear, configure, build)')
 
-    parser.add_argument('--preset', type=str, help='Preset to use', choices=PRESETS, default='desktop_release')
+    parser.add_argument('--preset', type=str, help='Preset to use', choices=load_presets(), default='desktop_release')
 
     args = parser.parse_args()
     sys.exit(main(args))

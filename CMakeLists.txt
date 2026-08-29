@@ -22,6 +22,12 @@ endif ()
 # Build options
 option (BUILD_TESTING "Build tests with project" ON)
 option (STATIC_STORAGE "Build with static storage" ON)
+option (ENABLE_CLANG_TIDY "Run clang-tidy during compilation" OFF)
+
+if (ENABLE_CLANG_TIDY)
+    find_program (CLANG_TIDY_EXE NAMES "clang-tidy" REQUIRED)
+    set (CMAKE_CXX_CLANG_TIDY "${CLANG_TIDY_EXE}")
+endif ()
 
 set(QT_QML_GENERATE_QMLLS_INI ON)
 

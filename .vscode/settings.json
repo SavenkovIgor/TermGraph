@@ -3,7 +3,8 @@
     "C_Cpp.default.compilerPath": "clang++",
     "C_Cpp.default.cppStandard": "c++23",
     "C_Cpp.default.intelliSenseMode": "linux-clang-x64",
-    "C_Cpp.errorSquiggles": "enabled",
+    "C_Cpp.errorSquiggles": "disabled",
+    "clangd.path": "clangd",
     "clangd.arguments": [
         "--compile-commands-dir=${workspaceFolder}/build",
         "--clang-tidy",
