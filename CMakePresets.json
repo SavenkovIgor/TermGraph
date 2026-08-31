@@ -37,7 +37,7 @@
             }
         },
         {
-            "name": "default",
+            "name": "base",
             "hidden": true,
             "generator": "Ninja",
             "warnings": {
@@ -56,27 +56,32 @@
         {
             "name": "desktop_dev",
             "displayName": "Desktop dev build",
-            "inherits": [ "default", "qt_env", "desktop_platform", "debug_build", "test_on" ]
+            "inherits": [ "base", "qt_env", "desktop_platform", "debug_build", "test_on" ]
         },
         {
             "name": "desktop_release",
             "displayName": "Desktop release build",
-            "inherits": [ "default", "qt_env", "desktop_platform", "release_build", "test_on" ]
+            "inherits": [ "base", "qt_env", "desktop_platform", "release_build", "test_on" ]
         },
         {
             "name": "clang_tidy",
             "displayName": "Clang-tidy build",
-            "inherits": [ "default", "qt_env", "desktop_platform", "debug_build", "test_on", "clang_tidy_on" ]
+            "inherits": [ "base", "qt_env", "desktop_platform", "debug_build", "test_on", "clang_tidy_on" ]
         },
         {
             "name": "wasm_dev",
             "displayName": "WebAssembly dev build",
-            "inherits": [ "default", "qt_env", "wasm_platform", "debug_build", "test_off" ]
+            "inherits": [ "base", "qt_env", "wasm_platform", "debug_build", "test_off" ]
         },
         {
             "name": "wasm_release",
             "displayName": "WebAssembly release build",
-            "inherits": [ "default", "qt_env", "wasm_platform", "release_build", "test_off" ]
+            "inherits": [ "base", "qt_env", "wasm_platform", "release_build", "test_off" ]
+        },
+        {
+            "name": "default",
+            "displayName": "Default (WebAssembly dev build)",
+            "inherits": [ "wasm_dev" ]
         }
     ],
     "buildPresets": [
@@ -84,7 +89,8 @@
         { "name": "desktop_release", "configurePreset": "desktop_release", "targets": "all" },
         { "name": "wasm_dev",        "configurePreset": "wasm_dev",        "targets": "all" },
         { "name": "wasm_release",    "configurePreset": "wasm_release",    "targets": "all" },
-        { "name": "clang_tidy",      "configurePreset": "clang_tidy",      "targets": "all" }
+        { "name": "clang_tidy",      "configurePreset": "clang_tidy",      "targets": "all" },
+        { "name": "default",         "configurePreset": "default",         "targets": "all" }
     ],
     "testPresets": [
         { "name": "desktop_dev",     "configurePreset": "desktop_dev" },

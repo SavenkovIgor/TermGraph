@@ -4,6 +4,7 @@ import argparse
 import json
 import logging
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -25,6 +26,24 @@ def load_presets() -> list[str]:
         cmake_presets = json.load(file)
 
     return [ preset['name'] for preset in cmake_presets['configurePresets'] if not preset.get('hidden', False) ]
+
+def resolved_profile_text(profile_path: Path, _seen: set[Path] | None = None) -> str:
+    """Read a Conan profile, inlining `include(...)` references, which may be a bare name
+    resolved next to the including file (e.g. 'desktop_dev') or a relative path (e.g. '../base/clang')."""
+    profile_path = profile_path.resolve()
+    _seen = _seen if _seen is not None else set()
+    if profile_path in _seen:
+        return ''
+    _seen.add(profile_path)
+
+    text = profile_path.read_text(encoding='utf-8')
+    for included in re.findall(r'include\(([^)]+)\)', text):
+        text += resolved_profile_text(profile_path.parent / included, _seen)
+    return text
+
+def is_wasm_preset(preset: str) -> bool:
+    profile_path = REPOSITORY_ROOT / f'conanfiles/profile/host/{preset}'
+    return 'os=Emscripten' in resolved_profile_text(profile_path)
 
 def run(command: str):
     if subprocess.call(command, shell=True, executable='/bin/bash') != 0:
@@ -145,7 +164,7 @@ class Project:
             run('conan remove -c "*"')
 
 def main(args: argparse.Namespace):
-    is_wasm = args.preset is not None and args.preset.startswith('wasm')
+    is_wasm = args.preset is not None and is_wasm_preset(args.preset)
     configure_environment(for_wasm=is_wasm)
 
     app = Project('Application', 'TermGraph', REPOSITORY_ROOT)
