@@ -4,6 +4,7 @@ import argparse
 import json
 import logging
 import os
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -25,6 +26,24 @@ def load_presets() -> list[str]:
         cmake_presets = json.load(file)
 
     return [ preset['name'] for preset in cmake_presets['configurePresets'] if not preset.get('hidden', False) ]
+
+def resolved_profile_text(profile_path: Path, _seen: set[Path] | None = None) -> str:
+    """Read a Conan profile, inlining `include(...)` references, which may be a bare name
+    resolved next to the including file (e.g. 'desktop_dev') or a relative path (e.g. '../base/clang')."""
+    profile_path = profile_path.resolve()
+    _seen = _seen if _seen is not None else set()
+    if profile_path in _seen:
+        return ''
+    _seen.add(profile_path)
+
+    text = profile_path.read_text(encoding='utf-8')
+    for included in re.findall(r'include\(([^)]+)\)', text):
+        text += resolved_profile_text(profile_path.parent / included, _seen)
+    return text
+
+def is_wasm_preset(preset: str) -> bool:
+    profile_path = REPOSITORY_ROOT / f'conanfiles/profile/host/{preset}'
+    return 'os=Emscripten' in resolved_profile_text(profile_path)
 
 def run(command: str):
     if subprocess.call(command, shell=True, executable='/bin/bash') != 0:
@@ -145,7 +164,7 @@ class Project:
             run('conan remove -c "*"')
 
 def main(args: argparse.Namespace):
-    is_wasm = args.preset is not None and args.preset.startswith('wasm')
+    is_wasm = args.preset is not None and is_wasm_preset(args.preset)
     configure_environment(for_wasm=is_wasm)
 
     app = Project('Application', 'TermGraph', REPOSITORY_ROOT)
@@ -182,12 +201,12 @@ def main(args: argparse.Namespace):
 
 
 # Should be possible to run:
-# ./project.py --bootstrap        [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --build            [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --cmake-install    [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --run              [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --test             [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --pack             [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --bootstrap        [--preset default (default) | desktop_dev | desktop_release | wasm_release]
+# ./project.py --build            [--preset default (default) | desktop_dev | desktop_release | wasm_release]
+# ./project.py --cmake-install    [--preset default (default) | desktop_dev | desktop_release | wasm_release]
+# ./project.py --run              [--preset default (default) | desktop_dev | desktop_release | wasm_release]
+# ./project.py --test             [--preset default (default) | desktop_dev | desktop_release | wasm_release]
+# ./project.py --pack             [--preset default (default) | desktop_dev | desktop_release | wasm_release]
 # ./project.py --clear
 # ./project.py --clear-all
 if __name__ == '__main__':
@@ -203,7 +222,7 @@ if __name__ == '__main__':
     parser.add_argument('--clear-all',     action='store_true', help='Clear project and conan cache')
     parser.add_argument('--rebuild',       action='store_true', help='Rebuild project (clear, configure, build)')
 
-    parser.add_argument('--preset', type=str, help='Preset to use', choices=load_presets(), default='desktop_release')
+    parser.add_argument('--preset', type=str, help='Preset to use', choices=load_presets(), default='default')
 
     args = parser.parse_args()
     sys.exit(main(args))

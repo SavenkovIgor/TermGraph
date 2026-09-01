@@ -12,7 +12,8 @@
                 "desktop_release",
                 "clang_tidy",
                 "wasm_dev",
-                "wasm_release"
+                "wasm_release",
+                "default"
             ]
         },
         {
@@ -139,6 +140,23 @@
             "icon": {
                 "id": "server",
                 "color": "terminal.ansiCyan"
+            }
+        },
+        {
+            "label": "Bootstrap on Open",
+            "detail": "Auto-bootstrap Conan deps + CMake configure for the default preset, so the CMake Tools extension finds cmake/ninja and a valid toolchain on the very first configure",
+            "command": "./project.py --bootstrap",
+            "icon": {
+                "id": "rocket",
+                "color": "terminal.ansiCyan"
+            },
+            "presentation": {
+                "reveal": "silent",
+                "panel": "dedicated",
+                "clear": true
+            },
+            "runOptions": {
+                "runOn": "folderOpen"
             }
         },
         {
