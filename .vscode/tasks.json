@@ -145,7 +145,7 @@
         {
             "label": "Bootstrap on Open",
             "detail": "Auto-bootstrap Conan deps + CMake configure for the default preset, so the CMake Tools extension finds cmake/ninja and a valid toolchain on the very first configure",
-            "command": "./project.py --bootstrap --preset default",
+            "command": "./project.py --bootstrap",
             "icon": {
                 "id": "rocket",
                 "color": "terminal.ansiCyan"

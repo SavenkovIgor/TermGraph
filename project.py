@@ -201,12 +201,12 @@ def main(args: argparse.Namespace):
 
 
 # Should be possible to run:
-# ./project.py --bootstrap        [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --build            [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --cmake-install    [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --run              [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --test             [--preset desktop_release (default) | desktop_dev | wasm_release]
-# ./project.py --pack             [--preset desktop_release (default) | desktop_dev | wasm_release]
+# ./project.py --bootstrap        [--preset default (default) | desktop_dev | desktop_release | wasm_release]
+# ./project.py --build            [--preset default (default) | desktop_dev | desktop_release | wasm_release]
+# ./project.py --cmake-install    [--preset default (default) | desktop_dev | desktop_release | wasm_release]
+# ./project.py --run              [--preset default (default) | desktop_dev | desktop_release | wasm_release]
+# ./project.py --test             [--preset default (default) | desktop_dev | desktop_release | wasm_release]
+# ./project.py --pack             [--preset default (default) | desktop_dev | desktop_release | wasm_release]
 # ./project.py --clear
 # ./project.py --clear-all
 if __name__ == '__main__':
@@ -222,7 +222,7 @@ if __name__ == '__main__':
     parser.add_argument('--clear-all',     action='store_true', help='Clear project and conan cache')
     parser.add_argument('--rebuild',       action='store_true', help='Rebuild project (clear, configure, build)')
 
-    parser.add_argument('--preset', type=str, help='Preset to use', choices=load_presets(), default='desktop_release')
+    parser.add_argument('--preset', type=str, help='Preset to use', choices=load_presets(), default='default')
 
     args = parser.parse_args()
     sys.exit(main(args))
