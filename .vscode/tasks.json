@@ -155,7 +155,6 @@
                 "panel": "dedicated",
                 "clear": true
             },
-            "problemMatcher": [],
             "runOptions": {
                 "runOn": "folderOpen"
             }
