@@ -58,7 +58,7 @@ jobs:
         sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-${{ env.CLANG_VERSION }} 100
 
     - name: Setup ccache
-      uses: hendrikmuhs/ccache-action@v1.2.23
+      uses: hendrikmuhs/ccache-action@v1.2.24
       with:
         key: ${{ runner.os }}-${{ matrix.build_profile }}-ccache
         create-symlink: true
