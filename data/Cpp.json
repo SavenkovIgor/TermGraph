@@ -14,6 +14,27 @@
             "termDef": "Lifetime - "
         },
         {
+            "termDef": "Expression - sequence of operators and operands that specifies a computation; every expression has a type and belongs to one {value category}"
+        },
+        {
+            "termDef": "Value category - classification of {expressions}: {lvalue}, {xvalue} and {prvalue}, grouped into {glvalue} ({lvalue} + {xvalue}) and {rvalue} ({xvalue} + {prvalue})"
+        },
+        {
+            "termDef": "glvalue - \"generalized lvalue\", {expression} whose evaluation determines the identity of an {object}, bit-field or function"
+        },
+        {
+            "termDef": "lvalue - {glvalue} that is not an {xvalue}; denotes an {object} that has identity and can appear on the left side of an assignment"
+        },
+        {
+            "termDef": "prvalue - \"pure rvalue\", {expression} whose evaluation initializes an {object} or computes the value of an operand, and that is not a {glvalue}; has no identity, cannot be moved from more than once"
+        },
+        {
+            "termDef": "xvalue - \"expiring value\", {glvalue} that denotes an {object} whose resources can be reused, usually because it is near the end of its {lifetime} (e.g. result of std::move)"
+        },
+        {
+            "termDef": "rvalue - {xvalue} or {prvalue}; can be bound to an rvalue reference"
+        },
+        {
             "termDef": "packaged_task - {многопоточные инструменты} {future} + {promise} + callable + exception-safe"
         },
         {
