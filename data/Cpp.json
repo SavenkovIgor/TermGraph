@@ -35,7 +35,7 @@
             "termDef": "glvalue - \"generalized lvalue\", {expression} that has {identity}"
         },
         {
-            "termDef": "rvalue - {expression} that has {movability}: {xvalue} or {prvalue}"
+            "termDef": "rvalue - {expression} that has {movability}"
         },
         {
             "termDef": "lvalue - {glvalue} that is not {rvalue}; denotes an {object} with {identity} that can appear on the left side of an assignment"
