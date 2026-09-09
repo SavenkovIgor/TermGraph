@@ -23,22 +23,28 @@
             "termDef": "Operand - {expression} to which an {operator} is applied"
         },
         {
-            "termDef": "Value category - property of an {expression}, defined by two independent characteristics: identity (whether it is possible to determine if the expression refers to the same entity as another, e.g. by comparing addresses) and movability (whether the expression can be used as the source of a move operation)"
+            "termDef": "Identity - property of an {expression}: whether it is possible to determine if it refers to the same entity as another expression, e.g. by comparing addresses of the {object}, bit-field or function it denotes"
         },
         {
-            "termDef": "glvalue - \"generalized lvalue\", {expression} that has identity ({value category})"
+            "termDef": "Movability - property of an {expression}: whether it may be used as the source of a move operation, e.g. bound to an rvalue reference parameter such as the move constructor's"
         },
         {
-            "termDef": "rvalue - {expression} that is movable ({value category}); can be bound to an rvalue reference"
+            "termDef": "Value category - property of an {expression}, defined by two independent properties: {identity} and {movability}"
         },
         {
-            "termDef": "lvalue - {glvalue} that is not {rvalue}; denotes an {object} that has identity and can appear on the left side of an assignment"
+            "termDef": "glvalue - \"generalized lvalue\", {expression} that has {identity}"
+        },
+        {
+            "termDef": "rvalue - {expression} that has {movability}: {xvalue} or {prvalue}"
+        },
+        {
+            "termDef": "lvalue - {glvalue} that is not {rvalue}; denotes an {object} with {identity} that can appear on the left side of an assignment"
         },
         {
             "termDef": "xvalue - \"expiring value\", {glvalue} that is also an {rvalue}, usually because it denotes an {object} near the end of its {lifetime} (e.g. result of std::move)"
         },
         {
-            "termDef": "prvalue - \"pure rvalue\", {rvalue} that is not a {glvalue}; has no identity, e.g. initializes an {object} or computes the value of an {operand}"
+            "termDef": "prvalue - \"pure rvalue\", {expression} without {identity} that computes a value used to initialize an {object} or as an {operand}; since C++17 guaranteed copy elision it denotes no object itself - only the {xvalue} produced when it is materialized can be moved from"
         },
         {
             "termDef": "packaged_task - {многопоточные инструменты} {future} + {promise} + callable + exception-safe"
