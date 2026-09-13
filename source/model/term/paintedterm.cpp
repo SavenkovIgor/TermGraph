@@ -36,7 +36,7 @@ public:
         pCornerRadius.setBinding([this]() { return min(pNodeSize.value().height() * 0.15, 12.0); });
 
         pNodeSize.setBinding([this]() -> QSizeF {
-            auto prefSize = cache().preferredSize.value();
+            auto prefSize = cache().preferredSizePropertyView().value();
             auto offsets  = cache().definition().isEmpty() ? QSizeF(34, 16) : QSizeF(34, 34);
             return prefSize + offsets;
         });

@@ -9,53 +9,45 @@ export module Helpers.IntMatrix;
 
 using namespace std;
 
-export struct IntMatrix
+export class IntMatrix
 {
-    using sizeT = vector<int>::size_type;
-
-    IntMatrix();
-
     vector<vector<int>> matrix;
 
-    void checkSize(sizeT width, sizeT height);
+    size_t height = 1;
+    size_t width  = 1;
 
-    static vector<vector<int>> createMatrix(sizeT width, sizeT height);
+public:
+    IntMatrix() { matrix = createMatrix(width, height); }
 
-    static void clearMatrix(vector<vector<int>>& matrix);
+    void checkSize(size_t width, size_t height)
+    {
+        if (this->width < width || this->height < height) {
+            clearMatrix(matrix);
+            matrix       = createMatrix(width, height);
+            this->width  = width;
+            this->height = height;
+        }
+    }
 
-private:
-    sizeT height = 1;
-    sizeT width  = 1;
+    static vector<vector<int>> createMatrix(size_t width, size_t height)
+    {
+        vector<vector<int>> mtr(height);
+
+        for (auto& row : mtr) {
+            row.resize(width);
+        }
+
+        return mtr;
+    }
+
+    static void clearMatrix(vector<vector<int>>& matrix)
+    {
+        for (auto& row : matrix) {
+            row.clear();
+        }
+
+        matrix.clear();
+    }
+
+    vector<vector<int>>& matrixView() { return matrix; }
 };
-
-IntMatrix::IntMatrix() { matrix = createMatrix(width, height); }
-
-void IntMatrix::checkSize(sizeT width, sizeT height)
-{
-    if (this->width < width || this->height < height) {
-        clearMatrix(matrix);
-        matrix       = createMatrix(width, height);
-        this->width  = width;
-        this->height = height;
-    }
-}
-
-vector<vector<int>> IntMatrix::createMatrix(IntMatrix::sizeT width, IntMatrix::sizeT height)
-{
-    vector<vector<int>> mtr(height);
-
-    for (auto& row : mtr) {
-        row.resize(width);
-    }
-
-    return mtr;
-}
-
-void IntMatrix::clearMatrix(vector<vector<int>>& matrix)
-{
-    for (auto& row : matrix) {
-        row.clear();
-    }
-
-    matrix.clear();
-}

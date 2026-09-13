@@ -117,9 +117,10 @@ public:
 
     KnowledgeArea::Type area() const { return mArea; }
 
-    QProperty<QSizeF> preferredSize;
+    const QProperty<QSizeF>& preferredSizePropertyView() const { return preferredSize; }
 
 private:
+    QProperty<QSizeF>         preferredSize;
     QProperty<QStringList>    mTerms;
     QProperty<QStringList>    mLowerTerms;
     const LinksString         mLinksDefinition;

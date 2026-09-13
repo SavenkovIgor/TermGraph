@@ -84,7 +84,7 @@ public:
         static IntMatrix matrixContainer;
         matrixContainer.checkSize(n + 1, m + 1);
 
-        auto& matrix = matrixContainer.matrix;
+        auto& matrix = matrixContainer.matrixView();
 
         for (ulong i = 0; i <= m; i++) {
             matrix[i][0] = asInt(i);
