@@ -27,10 +27,6 @@ import TermTable;
 export class Database
 {
 public:
-    std::unique_ptr<TermTable>      termTable;
-    std::unique_ptr<TermGroupTable> groupTable;
-    std::unique_ptr<AppConfigTable> appConfigTable;
-
     explicit Database(const QString& filePath, const QString& backupPath);
     ~Database();
 
@@ -39,8 +35,16 @@ public:
 
     static QString mDbBackupFolder;
 
+    TermTable&      termTable() const { return *mTermTable; }
+    TermGroupTable& groupTable() const { return *mGroupTable; }
+    AppConfigTable& appConfigTable() const { return *mAppConfigTable; }
+
 private:
     QSqlDatabase* base;
+
+    std::unique_ptr<TermTable>      mTermTable;
+    std::unique_ptr<TermGroupTable> mGroupTable;
+    std::unique_ptr<AppConfigTable> mAppConfigTable;
 
     bool databaseExists(const QString& dbFilePath) const;
     void InitAllTables();
@@ -59,9 +63,9 @@ private:
 QString Database::mDbBackupFolder = "";
 
 Database::Database(const QString& filePath, const QString& backupPath)
-    : termTable(nullptr)
-    , groupTable(nullptr)
-    , appConfigTable(nullptr)
+    : mTermTable(nullptr)
+    , mGroupTable(nullptr)
+    , mAppConfigTable(nullptr)
 {
     // Since Database is not a static library, we don't need to initialize resources
     // Q_INIT_RESOURCE(SqlQueries);
@@ -90,9 +94,9 @@ Database::Database(const QString& filePath, const QString& backupPath)
         qApp->exit(-1);
     }
 
-    termTable      = std::make_unique<TermTable>();
-    groupTable     = std::make_unique<TermGroupTable>();
-    appConfigTable = std::make_unique<AppConfigTable>();
+    mTermTable      = std::make_unique<TermTable>();
+    mGroupTable     = std::make_unique<TermGroupTable>();
+    mAppConfigTable = std::make_unique<AppConfigTable>();
 
     // If database just created, create all tables
     if (!baseExists) {
@@ -111,9 +115,9 @@ Database::Database(const QString& filePath, const QString& backupPath)
         makeDbUpdate();
 
         // Recreate tables after update
-        termTable      = std::make_unique<TermTable>();
-        groupTable     = std::make_unique<TermGroupTable>();
-        appConfigTable = std::make_unique<AppConfigTable>();
+        mTermTable      = std::make_unique<TermTable>();
+        mGroupTable     = std::make_unique<TermGroupTable>();
+        mAppConfigTable = std::make_unique<AppConfigTable>();
     } else {
         qInfo("Database schema is up to date");
     }
@@ -123,14 +127,14 @@ Database::~Database() { delete base; }
 
 void Database::InitAllTables()
 {
-    termTable->initTable();
-    groupTable->initTable();
-    appConfigTable->initTable();
+    mTermTable->initTable();
+    mGroupTable->initTable();
+    mAppConfigTable->initTable();
 }
 
-int Database::currentDbVersion() { return appConfigTable->getDbVersion(); }
+int Database::currentDbVersion() { return mAppConfigTable->getDbVersion(); }
 
-bool Database::needDbUpdate() { return !appConfigTable->isDbVersionActual(); }
+bool Database::needDbUpdate() { return !mAppConfigTable->isDbVersionActual(); }
 
 void Database::makeBackupBeforeUpdate(const QString& filePath, const int& oldDbVersion)
 {
@@ -153,7 +157,7 @@ void Database::makeDbUpdate()
 
     execMigrationConditions(dbVersion);
 
-    appConfigTable->updateDbVersionNumber();
+    mAppConfigTable->updateDbVersionNumber();
 
     qInfo("Update finished. New db version: %d", currentDbVersion());
 }
@@ -162,7 +166,7 @@ void Database::execMigrationConditions(const int& currentDbVersion)
 {
     if (currentDbVersion < 1) {
         qInfo("Initing appConfig table");
-        appConfigTable->initTable();
+        mAppConfigTable->initTable();
     }
 
     if (currentDbVersion < 2) {
