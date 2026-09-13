@@ -55,7 +55,7 @@ public:
         return {str, startPos, startPos};
     }
 
-protected: // Members
+private: // Members
     const QStringView mString;
     const TextCursor  mLeftCursor;
     const TextCursor  mRightCursor;
