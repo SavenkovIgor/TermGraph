@@ -38,7 +38,7 @@ jobs:
     timeout-minutes: 120
     strategy:
       matrix:
-        build_profile: [desktop_dev, desktop_release, wasm_release]
+        build_profile: [desktop_dev, desktop_release, wasm_release, clang_tidy]
 
     concurrency:
       group: AppBuild-${{ github.workflow }}-${{ github.ref }}-${{ matrix.build_profile }}
@@ -119,10 +119,11 @@ jobs:
       run: ./project.py --build --preset ${{ matrix.build_profile }}
 
     - name: CMake install
+      if: matrix.build_profile != 'clang_tidy'
       run: ./project.py --cmake-install --preset ${{ matrix.build_profile }}
 
     - name: CTest
-      if: matrix.build_profile != 'wasm_release'
+      if: matrix.build_profile != 'wasm_release' && matrix.build_profile != 'clang_tidy'
       run: ./project.py --test --preset ${{ matrix.build_profile }}
 
     # - name: Test Report
