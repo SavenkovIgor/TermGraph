@@ -3,6 +3,7 @@
 
 module;
 
+#include <algorithm>
 #include <vector>
 
 #include <QRectF>
