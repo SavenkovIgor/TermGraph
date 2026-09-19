@@ -121,22 +121,22 @@ TEST_F(ForestTest, RootVisit)
         return false;
     };
 
-    fullForest.rootsVisiter(n1, visitListInserter);
+    fullForest.rootsVisitor(n1, visitListInserter);
     EXPECT_TRUE(visitList.empty());
     visitList.clear();
 
-    fullForest.rootsVisiter(n2, visitListInserter, true);
+    fullForest.rootsVisitor(n2, visitListInserter, true);
     EXPECT_TRUE(visitList.size() == 1);
     EXPECT_TRUE(visitList.contains(n2));
     visitList.clear();
 
-    fullForest.rootsVisiter(n3, visitListInserter);
+    fullForest.rootsVisitor(n3, visitListInserter);
     EXPECT_TRUE(visitList.size() == 2);
     EXPECT_TRUE(visitList.contains(n1));
     EXPECT_TRUE(visitList.contains(n2));
     visitList.clear();
 
-    fullForest.rootsVisiter(n8, visitListInserter);
+    fullForest.rootsVisitor(n8, visitListInserter);
     EXPECT_TRUE(visitList.size() == 5);
     EXPECT_TRUE(visitList.contains(n1));
     EXPECT_TRUE(visitList.contains(n5));
@@ -155,22 +155,22 @@ TEST_F(ForestTest, LeafVisit)
         return false;
     };
 
-    fullForest.leafsVisiter(n8, visitListInserter);
+    fullForest.leafsVisitor(n8, visitListInserter);
     EXPECT_TRUE(visitList.empty());
     visitList.clear();
 
-    fullForest.leafsVisiter(n3, visitListInserter, true);
+    fullForest.leafsVisitor(n3, visitListInserter, true);
     EXPECT_TRUE(visitList.size() == 1);
     EXPECT_TRUE(visitList.contains(n3));
     visitList.clear();
 
-    fullForest.leafsVisiter(n2, visitListInserter);
+    fullForest.leafsVisitor(n2, visitListInserter);
     EXPECT_TRUE(visitList.size() == 2);
     EXPECT_TRUE(visitList.contains(n3));
     EXPECT_TRUE(visitList.contains(n4));
     visitList.clear();
 
-    fullForest.leafsVisiter(n1, visitListInserter);
+    fullForest.leafsVisitor(n1, visitListInserter);
     EXPECT_TRUE(visitList.size() == 6);
     EXPECT_TRUE(visitList.contains(n3));
     EXPECT_TRUE(visitList.contains(n4));

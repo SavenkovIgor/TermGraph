@@ -80,9 +80,7 @@ private:
     }
 
     static CheckResult validComment(const QJsonObject& obj)
-    {
-        return checkOrError(obj[jsonKeys::commentKey].isString(), ErrorCode::JsonCommentFieldMissedOrWrongType);
-    }
+    { return checkOrError(obj[jsonKeys::commentKey].isString(), ErrorCode::JsonCommentFieldMissedOrWrongType); }
 
     static CheckResult validSizeField(const QJsonObject& obj)
     {
@@ -104,9 +102,7 @@ private:
     }
 
     static CheckResult validNodesArray(const QJsonObject& obj)
-    {
-        return checkOrError(obj[jsonKeys::termsKey].isArray(), ErrorCode::JsonNodesFieldMissedOrWrongType);
-    }
+    { return checkOrError(obj[jsonKeys::termsKey].isArray(), ErrorCode::JsonNodesFieldMissedOrWrongType); }
 
     static CheckResult validNodesLastEdit(const QJsonObject& obj)
     {

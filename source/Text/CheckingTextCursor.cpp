@@ -49,44 +49,32 @@ public:
     static CheckingTextCursor rightWordBorder(QStringView         strView,
                                               int                 pos             = 0,
                                               optional<Direction> autoStartSearch = nullopt)
-    {
-        return {strView, pos, CharTools::isLetterOrNumber, CharTools::notLetterOrNumber, autoStartSearch};
-    }
+    { return {strView, pos, CharTools::isLetterOrNumber, CharTools::notLetterOrNumber, autoStartSearch}; }
 
     static CheckingTextCursor leftWordBorder(QStringView         strView,
                                              int                 pos             = 0,
                                              optional<Direction> autoStartSearch = nullopt)
-    {
-        return {strView, pos, CharTools::notLetterOrNumber, CharTools::isLetterOrNumber, autoStartSearch};
-    }
+    { return {strView, pos, CharTools::notLetterOrNumber, CharTools::isLetterOrNumber, autoStartSearch}; }
 
     static CheckingTextCursor leftBracketOnRight(QStringView         strView,
                                                  int                 pos             = 0,
                                                  optional<Direction> autoStartSearch = nullopt)
-    {
-        return {strView, pos, CharTools::any, CharTools::isLeftBracket, autoStartSearch};
-    }
+    { return {strView, pos, CharTools::any, CharTools::isLeftBracket, autoStartSearch}; }
 
     static CheckingTextCursor rightBracketOnLeft(QStringView         strView,
                                                  int                 pos             = 0,
                                                  optional<Direction> autoStartSearch = nullopt)
-    {
-        return {strView, pos, CharTools::isRightBracket, CharTools::any, autoStartSearch};
-    }
+    { return {strView, pos, CharTools::isRightBracket, CharTools::any, autoStartSearch}; }
 
     static CheckingTextCursor anyBracketOnRight(QStringView         strView,
                                                 int                 pos             = 0,
                                                 optional<Direction> autoStartSearch = nullopt)
-    {
-        return {strView, pos, CharTools::any, CharTools::isBracket, autoStartSearch};
-    }
+    { return {strView, pos, CharTools::any, CharTools::isBracket, autoStartSearch}; }
 
     static CheckingTextCursor anyBracketOnLeft(QStringView         strView,
                                                int                 pos             = 0,
                                                optional<Direction> autoStartSearch = nullopt)
-    {
-        return {strView, pos, CharTools::isBracket, CharTools::any, autoStartSearch};
-    }
+    { return {strView, pos, CharTools::isBracket, CharTools::any, autoStartSearch}; }
 
 private:
     const Condition mLeftChecker;

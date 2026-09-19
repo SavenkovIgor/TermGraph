@@ -51,9 +51,7 @@ public:
     }
 
     bool isSelected() const
-    {
-        return data().selectionType == EdgeSelection::Forward || data().selectionType == EdgeSelection::Backward;
-    }
+    { return data().selectionType == EdgeSelection::Forward || data().selectionType == EdgeSelection::Backward; }
 
     bool isHard() const { return data().type == EdgeType::TerminHardLink; }
 

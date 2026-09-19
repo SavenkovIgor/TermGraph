@@ -15,9 +15,7 @@ namespace rng = std::ranges;
 
 LinksHardeningManager::LinksHardeningManager(QObject *parent)
     : QAbstractListModel(parent)
-{
-    connect(this, &LinksHardeningManager::indexChanged, this, &LinksHardeningManager::updateNearestVariants);
-}
+{ connect(this, &LinksHardeningManager::indexChanged, this, &LinksHardeningManager::updateNearestVariants); }
 
 LinksHardeningManager::~LinksHardeningManager() = default;
 
@@ -48,9 +46,7 @@ QVariant LinksHardeningManager::data(const QModelIndex &index, int role) const
 }
 
 int LinksHardeningManager::rowCount([[maybe_unused]] const QModelIndex &parent) const
-{
-    return asInt(mLastNearestVariants.size());
-}
+{ return asInt(mLastNearestVariants.size()); }
 
 void LinksHardeningManager::setGroup(QtTermGroup *group)
 {

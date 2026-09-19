@@ -68,9 +68,7 @@ private: // Methods
 };
 
 QSqlQuery SqlQueryBuilder::createAppConfigTable() const
-{
-    return loadQuery(":/sql/version2/appConfig/CreateTable.sql");
-}
+{ return loadQuery(":/sql/version2/appConfig/CreateTable.sql"); }
 
 QSqlQuery SqlQueryBuilder::insertConfigParameter(const QString &parameter, const QString &value) const
 {
@@ -212,9 +210,7 @@ QSqlQuery SqlQueryBuilder::selectLastEdit(const TermUuid &uuid) const
 }
 
 QSqlQuery SqlQueryBuilder::selectAllLastEditAndGroupUuid() const
-{
-    return loadQuery(":/sql/version2/terms/SelectAllLastEdit.sql");
-}
+{ return loadQuery(":/sql/version2/terms/SelectAllLastEdit.sql"); }
 
 QSqlQuery SqlQueryBuilder::updateTerm(const TermData &termInfo) const
 {

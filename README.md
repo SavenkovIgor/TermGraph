@@ -107,7 +107,7 @@ If you try to draw the first few "layers" of these terms, it will look like a la
 - <img src="https://www.qt.io/hubfs/2016_Qt_Logo/qt_logo_green_rgb_16x16.png" width="16" height="16"> Qt 6.11.1 | QML
 - <img src="https://cmake.org/wp-content/uploads/2019/05/cropped-cmake_512-32x32.png" width="16" height="16"> CMake 4+ (via Conan)
 - <img src="https://conan.io/favicon.png" width="16" height="16"> Conan 2
-- 🔧 Clang
+- 🔧 Clang, clang-tidy
 - 🔧 Ninja (via Conan)
 - 🌐 [Emscripten](https://emscripten.org/) (WASM builds)
 - 🧪 [GTest](https://github.com/google/googletest) 1.17.0 (desktop tests)

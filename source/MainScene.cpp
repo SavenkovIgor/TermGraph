@@ -3,6 +3,8 @@
 
 #include "source/MainScene.hpp"
 
+#include <algorithm>
+
 #ifndef Q_OS_WASM
 #include <QThread>
 #endif
@@ -83,7 +85,7 @@ void MainScene::checkGroupDeletion()
     }
 
     auto groupsUuids = groupsMgr->getAllUuidsSortedByLastEdit();
-    if (rng::find(groupsUuids, *currentGroup) == groupsUuids.end()) {
+    if (!rng::contains(groupsUuids, *currentGroup)) {
         dropGroup();
     }
 }
@@ -239,9 +241,7 @@ void MainScene::setMouseClick(qreal x, qreal y) { findClick(QPointF(x, y)); }
 PaintedTerm::OptPtr MainScene::getSelectedTerm() const { return selectedTerm; }
 
 PaintedTerm::OptPtr MainScene::findTerm(const QUuid& termUuid) const
-{
-    return mCurrentGroup ? mCurrentGroup.value()->getTerm(termUuid) : std::nullopt;
-}
+{ return mCurrentGroup ? mCurrentGroup.value()->getTerm(termUuid) : std::nullopt; }
 
 void MainScene::selectTerm(PaintedTerm::OptPtr term)
 {
@@ -329,9 +329,7 @@ QString MainScene::getCurrNodeHierarchyDefinition()
 }
 
 std::optional<GroupUuid> MainScene::currentGroupUuid() const
-{
-    return mCurrentGroup ? GroupUuid::from(mCurrentGroup.value()->uuid()) : std::nullopt;
-}
+{ return mCurrentGroup ? GroupUuid::from(mCurrentGroup.value()->uuid()) : std::nullopt; }
 
 bool MainScene::isAnyNodeSelected() const { return getSelectedTerm().has_value(); }
 

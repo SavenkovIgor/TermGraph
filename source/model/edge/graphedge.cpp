@@ -25,9 +25,7 @@ public:
 
     GraphEdge(TermPtr toRoot, TermPtr toLeaf)
         : graph::Edge<GraphTerm, EdgeData>(toRoot, toLeaf, EdgeData())
-    {
-        assert(toRoot != toLeaf);
-    }
+    { assert(toRoot != toLeaf); }
 
     virtual ~GraphEdge() = default;
 };

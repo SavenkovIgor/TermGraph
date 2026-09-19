@@ -31,9 +31,7 @@ public:
     {}
 
     static Ptr createPtr(NodePtr root, NodePtr leaf, EdgeData data = {})
-    {
-        return make_shared<Edge<NodeT, EdgeData>>(root, leaf, data);
-    }
+    { return make_shared<Edge<NodeT, EdgeData>>(root, leaf, data); }
 
     NodePtr root() { return mRoot; }
     NodePtr leaf() { return mLeaf; }

@@ -3,6 +3,7 @@
 
 module;
 
+#include <algorithm>
 #include <ranges>
 #include <vector>
 
@@ -65,7 +66,7 @@ public:
     // Clearly counted value. Ignoring real node positions
     QSizeF size() const { return NodeVerticalStackTools::getNodeVerticalStackedSize(mTerms); }
 
-    bool hasNode(PaintedTerm::Ptr term) const { return rng::find(mTerms, term) != mTerms.end(); }
+    bool hasNode(PaintedTerm::Ptr term) const { return rng::contains(mTerms, term); }
 
     PaintedTerm::List nodes() const { return mTerms; }
 

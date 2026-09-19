@@ -100,23 +100,15 @@ public:
         }
     }
 
-    void rootsVisiter(const shared_ptr<NodeT>&                             node,
+    void rootsVisitor(const shared_ptr<NodeT>&                             node,
                       const function<bool(const shared_ptr<NodeT>& node)>& stopCondition,
                       bool                                                 checkStartNode = false) const
-    {
-        deque<shared_ptr<NodeT>> visitQueue;
-        visitQueue.push_back(node);
-        nodesVisiter(stopCondition, visitQueue, mEdgesToRoots, checkStartNode);
-    }
+    { nodesVisitor(node, stopCondition, mEdgesToRoots, checkStartNode); }
 
-    void leafsVisiter(const shared_ptr<NodeT>&                             node,
+    void leafsVisitor(const shared_ptr<NodeT>&                             node,
                       const function<bool(const shared_ptr<NodeT>& node)>& stopCondition,
                       bool                                                 checkStartNode = false) const
-    {
-        deque<shared_ptr<NodeT>> visitQueue;
-        visitQueue.push_back(node);
-        nodesVisiter(stopCondition, visitQueue, mEdgesToLeafs, checkStartNode);
-    }
+    { nodesVisitor(node, stopCondition, mEdgesToLeafs, checkStartNode); }
 
     vector<shared_ptr<NodeT>> roots() const
     {
@@ -148,7 +140,7 @@ public:
     bool isAncestor(const shared_ptr<NodeT>& node, const shared_ptr<NodeT>& expectedAncestor) const
     {
         bool result = false;
-        rootsVisiter(node, [&result, &expectedAncestor](auto node) {
+        rootsVisitor(node, [&result, &expectedAncestor](auto node) {
             if (node == expectedAncestor) {
                 result = true;
                 return true;
@@ -272,7 +264,7 @@ private: // Methods
             for (const auto& leaf : leafNodes(node)) {
                 ret[leaf] = max(ret[node] + 1, ret[leaf]);
 
-                if (rng::find(visitQueue, leaf) == visitQueue.end()) // Not found
+                if (!rng::contains(visitQueue, leaf))
                     visitQueue.push_back(leaf);
             }
         }
@@ -303,8 +295,7 @@ private: // Methods
         nodeStates[node] = NodeState::AtPath;
 
         for (auto edge : mEdgesToLeafs.at(node)) {
-            auto iter = rng::find(breakEdges, edge);
-            if (iter != breakEdges.end())
+            if (rng::contains(breakEdges, edge))
                 continue;
 
             auto leafNode = edge->oppositeTo(node);
@@ -321,33 +312,36 @@ private: // Methods
         nodeStates[node] = NodeState::Visited;
     }
 
-    static void nodesVisiter(const function<bool(const shared_ptr<NodeT>& node)>&     stopCondition,
-                             deque<shared_ptr<NodeT>>&                                visitQueue,
+    static void nodesVisitor(const shared_ptr<NodeT>&                                 startNode,
+                             const function<bool(const shared_ptr<NodeT>& node)>&     stopCondition,
                              const map<shared_ptr<NodeT>, vector<shared_ptr<EdgeT>>>& edgesList,
-                             bool                                                     checkCondition = true)
+                             bool                                                     checkStartNode = true)
     {
-        if (visitQueue.empty())
-            return;
+        std::vector<shared_ptr<NodeT>> visitList;
 
-        auto node = visitQueue.front();
-        visitQueue.pop_front();
+        // Reserve space for visited nodes to avoid frequent reallocations
+        visitList.reserve(edgesList.size());
+        visitList.push_back(startNode);
+        size_t index = 0;
 
-        if (checkCondition) {
-            if (stopCondition(node)) {
-                return;
+        while (index < visitList.size()) {
+            const auto& lastNode = visitList[index];
+
+            const bool isFirstNode = index == 0;
+            if (!isFirstNode || (isFirstNode && checkStartNode)) {
+                if (stopCondition(lastNode)) {
+                    return;
+                }
             }
+
+            for (const auto& edge : edgesList.at(lastNode)) {
+                auto oppositeNode = edge->oppositeTo(lastNode);
+                if (!rng::contains(visitList, oppositeNode)) {
+                    visitList.push_back(oppositeNode);
+                }
+            }
+            ++index;
         }
-
-        for (const auto& edge : edgesList.at(node)) {
-            auto rootNode = edge->oppositeTo(node);
-
-            bool found = rng::find(visitQueue, rootNode) != visitQueue.end();
-
-            if (!found)
-                visitQueue.push_back(rootNode);
-        }
-
-        nodesVisiter(stopCondition, visitQueue, edgesList);
     }
 
 private: // Members

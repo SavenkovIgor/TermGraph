@@ -75,14 +75,10 @@ public:
     }
 
     static QColor greenDecorator([[maybe_unused]] int orderIndex, const Link& link)
-    {
-        return link.hasUuid() ? QColor::fromString("#ffcf87") : QColor::fromString("#c1fc9d");
-    }
+    { return link.hasUuid() ? QColor::fromString("#ffcf87") : QColor::fromString("#c1fc9d"); }
 
     static QColor defaultBackground([[maybe_unused]] int orderIndex, [[maybe_unused]] const Link& link)
-    {
-        return QColor::fromString("transparent");
-    }
+    { return QColor::fromString("transparent"); }
 
     static QString toRichText(const LinksString& linksString)
     {

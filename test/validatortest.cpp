@@ -28,9 +28,7 @@ public:
 private:
     static CheckResult isSmall(const Point& pt) { return checkOrError(pt.x < 100 && pt.y < 100, ErrorCode::TermEmpty); }
     static CheckResult isPositive(const Point& pt)
-    {
-        return checkOrError(pt.x > 0 && pt.y > 0, ErrorCode::GroupNameEmpty);
-    }
+    { return checkOrError(pt.x > 0 && pt.y > 0, ErrorCode::GroupNameEmpty); }
 };
 
 TEST(ValidatorTest, Creation)

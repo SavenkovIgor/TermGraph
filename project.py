@@ -157,6 +157,23 @@ class Project:
         logging.info(f'---CMAKE PACKAGE STARTED---')
         logging.error('Not implemented yet')
 
+    def format_all(self):
+        logging.info(f'---FORMAT {self.name}---')
+
+        # Collect all with extensions
+        extensions = ['*.cpp', '*.hpp']
+        source_files = [path for extension in extensions for path in self.path.rglob(extension)]
+
+        # Filter out ignored directories
+        ignored_directories = [
+            self.path / 'third_party',
+            self.path / 'build',
+        ]
+        source_files = [path for path in source_files if not any(path.is_relative_to(directory) for directory in ignored_directories)]
+
+        if source_files:
+            subprocess.run(['clang-format', '-i', '--verbose', *source_files], check=True)
+
     def clear(self, clear_conan: bool = False):
         logging.info(f'---CLEAR {self.name}---')
         delete_if_exist(self.path / 'build')
@@ -164,8 +181,10 @@ class Project:
             run('conan remove -c "*"')
 
 def main(args: argparse.Namespace):
-    is_wasm = args.preset is not None and is_wasm_preset(args.preset)
-    configure_environment(for_wasm=is_wasm)
+    needs_environment = args.bootstrap or args.build or args.cmake_install or args.test or args.run or args.pack or args.rebuild
+    if needs_environment:
+        is_wasm = args.preset is not None and is_wasm_preset(args.preset)
+        configure_environment(for_wasm=is_wasm)
 
     app = Project('Application', 'TermGraph', REPOSITORY_ROOT)
 
@@ -187,6 +206,9 @@ def main(args: argparse.Namespace):
     if args.pack:
         app.pack(args.preset)
 
+    if args.format_all:
+        app.format_all()
+
     if args.clear:
         app.clear()
 
@@ -207,6 +229,7 @@ def main(args: argparse.Namespace):
 # ./project.py --run              [--preset default (default) | desktop_dev | desktop_release | wasm_release]
 # ./project.py --test             [--preset default (default) | desktop_dev | desktop_release | wasm_release]
 # ./project.py --pack             [--preset default (default) | desktop_dev | desktop_release | wasm_release]
+# ./project.py --format-all
 # ./project.py --clear
 # ./project.py --clear-all
 if __name__ == '__main__':
@@ -218,6 +241,7 @@ if __name__ == '__main__':
     parser.add_argument('--test',          action='store_true', help='Test project')
     parser.add_argument('--run',           action='store_true', help='Run project')
     parser.add_argument('--pack',          action='store_true', help='Pack project')
+    parser.add_argument('--format-all',    action='store_true', help='Format all tracked C/C++ source files with clang-format')
     parser.add_argument('--clear',         action='store_true', help='Clear project')
     parser.add_argument('--clear-all',     action='store_true', help='Clear project and conan cache')
     parser.add_argument('--rebuild',       action='store_true', help='Rebuild project (clear, configure, build)')

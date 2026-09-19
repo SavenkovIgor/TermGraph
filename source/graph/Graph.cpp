@@ -76,7 +76,7 @@ public:
         auto ret      = Base::nodes;
 
         auto removeIt = remove_if(ret.begin(), ret.end(), [&isolated](auto node) {
-            return rng::find(isolated, node) != isolated.end();
+            return rng::contains(isolated, node);
         });
 
         ret.erase(removeIt, ret.end());

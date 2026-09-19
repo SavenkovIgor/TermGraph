@@ -3,6 +3,7 @@
 
 module;
 
+#include <algorithm>
 #include <vector>
 
 #include <QRectF>
@@ -111,9 +112,7 @@ public:
 
     // Implementation of TermPositioner
     optional<QPointF> preferredPositionFor(PaintedTerm::Ptr term) const override
-    {
-        return optimalRootsBasedPosition(term);
-    }
+    { return optimalRootsBasedPosition(term); }
 
     // Internal counts and preparations
     void setTreeNodeCoords(QPointF leftTopPoint = QPointF())
@@ -174,8 +173,8 @@ public:
     {
         PaintedTerm::List parentsList;
 
-        rootsVisiter(term, [&parentsList](auto node) {
-            if (rng::find(parentsList, node) == parentsList.end()) {
+        rootsVisitor(term, [&parentsList](auto node) {
+            if (!rng::contains(parentsList, node)) {
                 parentsList.push_back(node);
             }
             return false;
@@ -206,7 +205,7 @@ public:
 
         term->setSelection(selected);
 
-        rootsVisiter(
+        rootsVisitor(
             term,
             [this, selected](auto node) {
                 node->setRelativeSelection(selected);
@@ -219,7 +218,7 @@ public:
             },
             true);
 
-        leafsVisiter(
+        leafsVisitor(
             term,
             [this, selected](auto node) {
                 node->setRelativeSelection(selected);

@@ -84,9 +84,7 @@ private:
     }
 
     static CheckResult validDefinition(const QJsonObject& obj)
-    {
-        return checkOrError(obj[jsonKeys::definitionKey].isString(), ErrorCode::JsonDefinitionFieldMissedOrWrongType);
-    }
+    { return checkOrError(obj[jsonKeys::definitionKey].isString(), ErrorCode::JsonDefinitionFieldMissedOrWrongType); }
 
     static CheckResult validTermDef(const QJsonObject& obj)
     {
@@ -104,24 +102,16 @@ private:
     }
 
     static CheckResult validDescription(const QJsonObject& obj)
-    {
-        return checkOrError(obj[jsonKeys::descriptionKey].isString(), ErrorCode::JsonDescriptionFieldMissedOrWrongType);
-    }
+    { return checkOrError(obj[jsonKeys::descriptionKey].isString(), ErrorCode::JsonDescriptionFieldMissedOrWrongType); }
 
     static CheckResult validExamples(const QJsonObject& obj)
-    {
-        return checkOrError(obj[jsonKeys::examplesKey].isString(), ErrorCode::JsonExamplesFieldMissedOrWrongType);
-    }
+    { return checkOrError(obj[jsonKeys::examplesKey].isString(), ErrorCode::JsonExamplesFieldMissedOrWrongType); }
 
     static CheckResult validWikiUrl(const QJsonObject& obj)
-    {
-        return checkOrError(obj[jsonKeys::wikiUrlKey].isString(), ErrorCode::JsonWikiUrlFieldMissedOrWrongType);
-    }
+    { return checkOrError(obj[jsonKeys::wikiUrlKey].isString(), ErrorCode::JsonWikiUrlFieldMissedOrWrongType); }
 
     static CheckResult validWikiImage(const QJsonObject& obj)
-    {
-        return checkOrError(obj[jsonKeys::wikiImageKey].isString(), ErrorCode::JsonWikiImageFieldMissedOrWrongType);
-    }
+    { return checkOrError(obj[jsonKeys::wikiImageKey].isString(), ErrorCode::JsonWikiImageFieldMissedOrWrongType); }
 
     static CheckResult validGroupUuid(const QJsonObject& obj)
     {
@@ -137,9 +127,7 @@ private:
     }
 
     static CheckResult validLastEditField(const QJsonObject& obj)
-    {
-        return checkOrError(obj[jsonKeys::lastEditKey].isString(), ErrorCode::JsonLastEditFieldMissedOrWrongType);
-    }
+    { return checkOrError(obj[jsonKeys::lastEditKey].isString(), ErrorCode::JsonLastEditFieldMissedOrWrongType); }
 
     static CheckResult validLastEdit(const QJsonObject& obj)
     {
