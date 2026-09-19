@@ -100,22 +100,22 @@ public:
         }
     }
 
-    void rootsVisiter(const shared_ptr<NodeT>&                             node,
+    void rootsVisitor(const shared_ptr<NodeT>&                             node,
                       const function<bool(const shared_ptr<NodeT>& node)>& stopCondition,
                       bool                                                 checkStartNode = false) const
     {
         deque<shared_ptr<NodeT>> visitQueue;
         visitQueue.push_back(node);
-        nodesVisiter(stopCondition, visitQueue, mEdgesToRoots, checkStartNode);
+        nodesVisitor(stopCondition, visitQueue, mEdgesToRoots, checkStartNode);
     }
 
-    void leafsVisiter(const shared_ptr<NodeT>&                             node,
+    void leafsVisitor(const shared_ptr<NodeT>&                             node,
                       const function<bool(const shared_ptr<NodeT>& node)>& stopCondition,
                       bool                                                 checkStartNode = false) const
     {
         deque<shared_ptr<NodeT>> visitQueue;
         visitQueue.push_back(node);
-        nodesVisiter(stopCondition, visitQueue, mEdgesToLeafs, checkStartNode);
+        nodesVisitor(stopCondition, visitQueue, mEdgesToLeafs, checkStartNode);
     }
 
     vector<shared_ptr<NodeT>> roots() const
@@ -148,7 +148,7 @@ public:
     bool isAncestor(const shared_ptr<NodeT>& node, const shared_ptr<NodeT>& expectedAncestor) const
     {
         bool result = false;
-        rootsVisiter(node, [&result, &expectedAncestor](auto node) {
+        rootsVisitor(node, [&result, &expectedAncestor](auto node) {
             if (node == expectedAncestor) {
                 result = true;
                 return true;
@@ -321,7 +321,7 @@ private: // Methods
         nodeStates[node] = NodeState::Visited;
     }
 
-    static void nodesVisiter(const function<bool(const shared_ptr<NodeT>& node)>&     stopCondition,
+    static void nodesVisitor(const function<bool(const shared_ptr<NodeT>& node)>&     stopCondition,
                              deque<shared_ptr<NodeT>>&                                visitQueue,
                              const map<shared_ptr<NodeT>, vector<shared_ptr<EdgeT>>>& edgesList,
                              bool                                                     checkCondition = true)
@@ -347,7 +347,7 @@ private: // Methods
                 visitQueue.push_back(rootNode);
         }
 
-        nodesVisiter(stopCondition, visitQueue, edgesList);
+        nodesVisitor(stopCondition, visitQueue, edgesList);
     }
 
 private: // Members
