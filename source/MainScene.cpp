@@ -3,6 +3,8 @@
 
 #include "source/MainScene.hpp"
 
+#include <algorithm>
+
 #ifndef Q_OS_WASM
 #include <QThread>
 #endif
@@ -83,7 +85,7 @@ void MainScene::checkGroupDeletion()
     }
 
     auto groupsUuids = groupsMgr->getAllUuidsSortedByLastEdit();
-    if (rng::find(groupsUuids, *currentGroup) == groupsUuids.end()) {
+    if (!rng::contains(groupsUuids, *currentGroup)) {
         dropGroup();
     }
 }

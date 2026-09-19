@@ -173,7 +173,7 @@ public:
         PaintedTerm::List parentsList;
 
         rootsVisitor(term, [&parentsList](auto node) {
-            if (rng::find(parentsList, node) == parentsList.end()) {
+            if (!rng::contains(parentsList, node)) {
                 parentsList.push_back(node);
             }
             return false;

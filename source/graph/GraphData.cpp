@@ -33,8 +33,8 @@ public:
     NodeList nodes;
     EdgeList edges;
 
-    bool contains(const NodePtr& node) const { return rng::find(nodes, node) != nodes.end(); }
-    bool contains(const EdgePtr& edge) const { return rng::find(edges, edge) != edges.end(); }
+    bool contains(const NodePtr& node) const { return rng::contains(nodes, node); }
+    bool contains(const EdgePtr& edge) const { return rng::contains(edges, edge); }
 
     NodeList filterNodes(function<bool(const NodePtr&)> condition) const
     {
@@ -61,7 +61,7 @@ public:
         NodeList ret = baseList;
 
         auto remIt = remove_if(ret.begin(), ret.end(), [&subtractor](auto node) {
-            return rng::find(subtractor, node) != subtractor.end();
+            return rng::contains(subtractor, node);
         });
 
         ret.erase(remIt, ret.end());
@@ -74,7 +74,7 @@ public:
         EdgeList ret = baseList;
 
         auto remIt = remove_if(ret.begin(), ret.end(), [&subtractor](auto node) {
-            return rng::find(subtractor, node) != subtractor.end();
+            return rng::contains(subtractor, node);
         });
 
         ret.erase(remIt, ret.end());

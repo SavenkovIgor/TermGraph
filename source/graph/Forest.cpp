@@ -272,7 +272,7 @@ private: // Methods
             for (const auto& leaf : leafNodes(node)) {
                 ret[leaf] = max(ret[node] + 1, ret[leaf]);
 
-                if (rng::find(visitQueue, leaf) == visitQueue.end()) // Not found
+                if (!rng::contains(visitQueue, leaf))
                     visitQueue.push_back(leaf);
             }
         }
@@ -303,8 +303,7 @@ private: // Methods
         nodeStates[node] = NodeState::AtPath;
 
         for (auto edge : mEdgesToLeafs.at(node)) {
-            auto iter = rng::find(breakEdges, edge);
-            if (iter != breakEdges.end())
+            if (rng::contains(breakEdges, edge))
                 continue;
 
             auto leafNode = edge->oppositeTo(node);
@@ -341,9 +340,7 @@ private: // Methods
         for (const auto& edge : edgesList.at(node)) {
             auto rootNode = edge->oppositeTo(node);
 
-            bool found = rng::find(visitQueue, rootNode) != visitQueue.end();
-
-            if (!found)
+            if (!rng::contains(visitQueue, rootNode))
                 visitQueue.push_back(rootNode);
         }
 
