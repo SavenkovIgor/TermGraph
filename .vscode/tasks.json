@@ -89,6 +89,15 @@
             "problemMatcher": "$gcc"
         },
         {
+            "label": "Clang-Format",
+            "detail": "Format all tracked C and C++ source files",
+            "command": "./project.py --format-all",
+            "icon": {
+                "id": "wand",
+                "color": "terminal.ansiCyan"
+            }
+        },
+        {
             "label": "Clear",
             "detail": "Clear the build dir",
             "command": "./project.py --clear",
