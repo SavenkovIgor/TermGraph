@@ -103,20 +103,12 @@ public:
     void rootsVisitor(const shared_ptr<NodeT>&                             node,
                       const function<bool(const shared_ptr<NodeT>& node)>& stopCondition,
                       bool                                                 checkStartNode = false) const
-    {
-        deque<shared_ptr<NodeT>> visitQueue;
-        visitQueue.push_back(node);
-        nodesVisitor(stopCondition, visitQueue, mEdgesToRoots, checkStartNode);
-    }
+    { nodesVisitor(node, stopCondition, mEdgesToRoots, checkStartNode); }
 
     void leafsVisitor(const shared_ptr<NodeT>&                             node,
                       const function<bool(const shared_ptr<NodeT>& node)>& stopCondition,
                       bool                                                 checkStartNode = false) const
-    {
-        deque<shared_ptr<NodeT>> visitQueue;
-        visitQueue.push_back(node);
-        nodesVisitor(stopCondition, visitQueue, mEdgesToLeafs, checkStartNode);
-    }
+    { nodesVisitor(node, stopCondition, mEdgesToLeafs, checkStartNode); }
 
     vector<shared_ptr<NodeT>> roots() const
     {
@@ -320,31 +312,36 @@ private: // Methods
         nodeStates[node] = NodeState::Visited;
     }
 
-    static void nodesVisitor(const function<bool(const shared_ptr<NodeT>& node)>&     stopCondition,
-                             deque<shared_ptr<NodeT>>&                                visitQueue,
+    static void nodesVisitor(const shared_ptr<NodeT>&                                 startNode,
+                             const function<bool(const shared_ptr<NodeT>& node)>&     stopCondition,
                              const map<shared_ptr<NodeT>, vector<shared_ptr<EdgeT>>>& edgesList,
-                             bool                                                     checkCondition = true)
+                             bool                                                     checkStartNode = true)
     {
-        if (visitQueue.empty())
-            return;
+        std::vector<shared_ptr<NodeT>> visitList;
 
-        auto node = visitQueue.front();
-        visitQueue.pop_front();
+        // Reserve space for visited nodes to avoid frequent reallocations
+        visitList.reserve(edgesList.size());
+        visitList.push_back(startNode);
+        size_t index = 0;
 
-        if (checkCondition) {
-            if (stopCondition(node)) {
-                return;
+        while (index < visitList.size()) {
+            const auto& lastNode = visitList[index];
+
+            const bool isFirstNode = index == 0;
+            if (!isFirstNode || (isFirstNode && checkStartNode)) {
+                if (stopCondition(lastNode)) {
+                    return;
+                }
             }
+
+            for (const auto& edge : edgesList.at(lastNode)) {
+                auto oppositeNode = edge->oppositeTo(lastNode);
+                if (!rng::contains(visitList, oppositeNode)) {
+                    visitList.push_back(oppositeNode);
+                }
+            }
+            ++index;
         }
-
-        for (const auto& edge : edgesList.at(node)) {
-            auto rootNode = edge->oppositeTo(node);
-
-            if (!rng::contains(visitQueue, rootNode))
-                visitQueue.push_back(rootNode);
-        }
-
-        nodesVisitor(stopCondition, visitQueue, edgesList);
     }
 
 private: // Members
