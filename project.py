@@ -165,7 +165,10 @@ class Project:
         source_files = [path for extension in extensions for path in self.path.rglob(extension)]
 
         # Filter out ignored directories
-        ignored_directories = [self.path / 'third_party']
+        ignored_directories = [
+            self.path / 'third_party',
+            self.path / 'build',
+        ]
         source_files = [path for path in source_files if not any(path.is_relative_to(directory) for directory in ignored_directories)]
 
         if source_files:
