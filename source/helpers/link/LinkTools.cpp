@@ -24,9 +24,7 @@ export class LinkTools
 {
 public:
     static bool isValidCursor(const QString& str, int cursor)
-    {
-        return TextCursor::isValidCursor(QStringView(str), cursor);
-    }
+    { return TextCursor::isValidCursor(QStringView(str), cursor); }
 
     static bool isCursorOnLink(const QString& str, int cursor) { return Link::isCursorOnLink(str, cursor); }
 

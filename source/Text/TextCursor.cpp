@@ -22,9 +22,7 @@ public:
     TextCursor(QStringView strView, int pos = 0)
         : mPos(clamp(pos, 0, asInt(strView.size())))
         , mString(strView)
-    {
-        assert(mPos == pos);
-    }
+    { assert(mPos == pos); }
 
     // Tools for creation safety
     static bool isValidCursor(QStringView view, int cursor) { return 0 <= cursor && cursor <= view.size(); }

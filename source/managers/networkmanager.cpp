@@ -25,9 +25,7 @@ NetworkManager::NetworkManager(NotifyInterface& notifier, QObject* parent)
 }
 
 void NetworkManager::connectToHost()
-{
-    outputSocket->connectToHost(receiverIp, NetworkTools::localSyncPort, QIODevice::WriteOnly);
-}
+{ outputSocket->connectToHost(receiverIp, NetworkTools::localSyncPort, QIODevice::WriteOnly); }
 
 void NetworkManager::disconnectFromHost() { outputSocket->disconnectFromHost(); }
 
@@ -86,9 +84,7 @@ bool NetworkManager::sendGroup(const QJsonDocument& doc)
 }
 
 void NetworkManager::outputConnectionStateChange([[maybe_unused]] QAbstractSocket::SocketState state)
-{
-    emit newOutputConnectionState();
-}
+{ emit newOutputConnectionState(); }
 
 void NetworkManager::sendConnectionInfo(const QString& info) { notifier.showInfo("Подключение от: " + info); }
 

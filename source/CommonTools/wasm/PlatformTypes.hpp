@@ -30,6 +30,4 @@ using FutureExpected = FutureWrapper<Expected<RetType>>;
 
 template<typename T>
 static FutureWrapper<T> toFuture(const std::function<T()>& func)
-{
-    return FutureWrapper<T>(std::move(func()));
-}
+{ return FutureWrapper<T>(std::move(func())); }

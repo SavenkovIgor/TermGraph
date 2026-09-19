@@ -41,9 +41,7 @@ public:
     ErrorList lastErrors() const { return mLastErrors; }
 
     static CheckResult checkOrError(bool condition, ErrorCode error)
-    {
-        return condition ? expected<void, ErrorCode>{} : unexpected(error);
-    }
+    { return condition ? expected<void, ErrorCode>{} : unexpected(error); }
 
     void clear() { mCheckList.clear(); }
 

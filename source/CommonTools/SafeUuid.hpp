@@ -35,9 +35,7 @@ public:
 protected:
     explicit inline SafeUuid(const QString& text)
         : QUuid(text)
-    {
-        assert(!isNull());
-    }
+    { assert(!isNull()); }
 
     inline bool isNull() const { return false; }
 };

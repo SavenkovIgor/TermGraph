@@ -47,14 +47,10 @@ public:
     }
 
     GroupSummary groupWithUuid()
-    {
-        return GroupSummary{.uuid = mGroupUuid1, .name = mGroupName1, .comment = mGroupComment1};
-    }
+    { return GroupSummary{.uuid = mGroupUuid1, .name = mGroupName1, .comment = mGroupComment1}; }
 
     GroupSummary groupWithoutUuid()
-    {
-        return GroupSummary{.uuid = std::nullopt, .name = mGroupName2, .comment = mGroupComment2};
-    }
+    { return GroupSummary{.uuid = std::nullopt, .name = mGroupName2, .comment = mGroupComment2}; }
 
     TermData::List termDataList()
     {

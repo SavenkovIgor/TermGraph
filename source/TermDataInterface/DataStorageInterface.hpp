@@ -36,10 +36,11 @@ public:
     virtual FutureExpected<TermData>       term(const QString& termName, const GroupUuid& uuid) const = 0;
     virtual FutureExpected<TermData::List> terms(const GroupUuid& uuid) const                         = 0;
 
-    virtual FutureExpected<TermData> addTerm(const TermData& data) = 0;
-    virtual FutureExpected<TermData> updateTerm(const TermData& data, LastEditSource lastEditSource, bool checkLastEdit)
-        = 0;
-    virtual FutureExpected<TermData> deleteTerm(const TermUuid& uuid) = 0;
+    virtual FutureExpected<TermData> addTerm(const TermData& data)             = 0;
+    virtual FutureExpected<TermData> updateTerm(const TermData& data,
+                                                LastEditSource  lastEditSource,
+                                                bool            checkLastEdit) = 0;
+    virtual FutureExpected<TermData> deleteTerm(const TermUuid& uuid)          = 0;
 
     virtual ~DataStorageInterface() = default;
 };
