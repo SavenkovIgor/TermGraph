@@ -21,7 +21,7 @@ import Enums.CoordType;
 import Graph;
 import Link;
 import LinkTermDistanceCache;
-import NodeVerticalStackTools;
+import NodeLayerTools;
 import PaintedEdge;
 import PaintedForest;
 import PaintedTerm;
@@ -286,7 +286,7 @@ private:
         qreal groupNameWidth = getNameSize().width();
         qreal treeWidth      = getAllTreesSize().width();
 
-        qreal orphansWidth = NodeVerticalStackTools::getNodeVerticalStackedSize(getOrphanNodes()).width();
+        qreal orphansWidth = NodeLayerTools::getNodeLayerSize(getOrphanNodes()).width();
 
         width = max(width, groupNameWidth);
         width = max(width, treeWidth);

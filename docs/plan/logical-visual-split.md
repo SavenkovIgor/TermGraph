@@ -15,7 +15,7 @@ source/graph/                           ← pure graph theory, zero Qt/visual co
 source/model/                           ← where the two worlds collide
   PaintedTerm  : Node<TermData>           + GraphicItem (hand-rolled scene proxy)
   PaintedEdge  : Edge<PaintedTerm, …>     + GraphicItem
-  PaintedForest: Forest<PaintedTerm, …>   + NodeVerticalStack[] (one stack per BFS level)
+  PaintedForest: Forest<PaintedTerm, …>   + NodeLayer[] (one stack per BFS level)
   TermGroup                               god-class: builds graph + computes pixel layout
 
 TermsModel / EdgesModel                 ← QAbstractListModel bridge
@@ -49,7 +49,7 @@ TermGroup(info, termData)
   ├─ addTreeRectsToScene()    → GraphicItem parent chain
   ├─ addOrphansToParents()
   ├─ setTreeCoords()          → PaintedForest::setTreeNodeCoords()
-  │    └─ NodeVerticalStack::placeTerms() → term->setPos(QPointF)   ← pixels set here
+  │    └─ NodeLayer::placeTerms() → term->setPos(QPointF)   ← pixels set here
   ├─ setOrphCoords()          → orphan row-wrap layout → term->setPos()
   ├─ updateRectsPositions()   → positions each forest rect inside group
   └─ updateBaseRectSize()     → total group bounding box
@@ -99,9 +99,9 @@ A `TermGroup` contains **multiple** forests (one per connected component) **plus
 ```plaintext
 TermGroup
   ├── PaintedForest 0   (connected component, left-to-right tree)
-  │     ├── NodeVerticalStack[0]  (depth 0 — roots)
-  │     ├── NodeVerticalStack[1]  (depth 1)
-  │     └── NodeVerticalStack[N]  (depth N — leaves)
+  │     ├── NodeLayer[0]  (depth 0 — roots)
+  │     ├── NodeLayer[1]  (depth 1)
+  │     └── NodeLayer[N]  (depth N — leaves)
   ├── PaintedForest 1
   ├── …
   └── Orphans           (isolated terms, row-wrapped)
@@ -110,7 +110,7 @@ TermGroup
 This means layout has two distinct responsibilities:
 
 - `ForestLayout` — assigns `{depth, stackPos}` per term *within one forest*.
-  Extracted from `PaintedForest::setTreeNodeCoords()` + `NodeVerticalStack::placeTerms()`.
+  Extracted from `PaintedForest::setTreeNodeCoords()` + `NodeLayer::placeTerms()`.
 
 - `GroupLayout` — stacks multiple forest rects vertically inside the group + positions orphan block.
   Extracted from `TermGroup::updateRectsPositions()` + `setOrphCoords()`.
@@ -193,7 +193,7 @@ Each phase leaves the application in a working, buildable state.
 
 - [ ] Create `source/model/group/ForestPosition.hpp` — `struct ForestPosition { int forestIndex; int depth; int stackPos; }`
 - [ ] Create `ForestLayout` class: takes one `Forest<>`, returns `map<uuid, {depth, stackPos}>`
-      Extract logic from `PaintedForest::setTreeNodeCoords()` + `NodeVerticalStack::placeTerms()`
+      Extract logic from `PaintedForest::setTreeNodeCoords()` + `NodeLayer::placeTerms()`
 - [ ] Create `GroupLayout` class: takes `vector<ForestLayout>` + orphan list, assigns `forestIndex`
       Extract logic from `TermGroup::updateRectsPositions()` + `setOrphCoords()`
       Orphans get `forestIndex = -1`
@@ -244,7 +244,7 @@ This phase **unblocks animations**.
   y: model.stackPos  * (NodesScene.nodeHeight + NodesScene.stackSpacing)
        + Math.max(0, model.forestIndex) * NodesScene.forestVerticalSpacing
   ```
-  
+
 - [ ] `NodesScene.qml`: derive `width`/`height` from `maxDepth`/`maxStackPos` properties on `TermsModel`
       (or compute in QML via `Repeater` childrenRect)
       Remove `Api.scene.sceneRect` dependency
@@ -272,7 +272,7 @@ This phase **unblocks animations**.
 ### Phase H — Optional: `QCanvasPainter` Acceleration Track (Qt 6.12+)
 
 Use this phase only if profiling still shows edge rendering as the main bottleneck after Phases D-F.
-Reference (applies to this phase only): Qt Blog, "Qt Canvas Painter: Accelerated performance using paths" — https://www.qt.io/blog/qt-canvas-painter-accelerated-performance-using-paths
+Reference (applies to this phase only): Qt Blog, "Qt Canvas Painter: Accelerated performance using paths" — <https://www.qt.io/blog/qt-canvas-painter-accelerated-performance-using-paths>
 
 - [ ] Upgrade runtime/tooling to Qt 6.12+ in a dedicated branch and validate desktop build + tests
   (`QCanvasPainter`/`QCanvasPath` are not available in current Qt 6.11.x baseline)
@@ -292,13 +292,13 @@ Reference (applies to this phase only): Qt Blog, "Qt Canvas Painter: Accelerated
 ## Files Affected
 
 | File | Change |
-|---|---|
+| --- | --- |
 | `source/model/group/ForestPosition.hpp` | **NEW** — logical position struct |
 | `source/model/group/ForestLayout.hpp/.cpp` | **NEW** — per-forest layout |
 | `source/model/group/GroupLayout.hpp/.cpp` | **NEW** — group-level arrangement |
 | `source/model/group/termgroup.cpp` | delegate to ForestLayout + GroupLayout |
 | `source/model/group/paintedforest.cpp` | extract layout logic into ForestLayout |
-| `source/model/group/nodeverticalstack.cpp` | extract into ForestLayout or keep as impl detail |
+| `source/model/group/NodeLayer.cpp` | extract into ForestLayout or keep as impl detail |
 | `source/model/term/termsmodel.hpp/.cpp` | add logical roles; replace beginResetModel with diff |
 | `source/model/edge/edgesmodel.hpp/.cpp` | add rootUuid/leafUuid roles |
 | `source/MainScene.hpp/.cpp` | extract SelectionManager |

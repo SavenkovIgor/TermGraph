@@ -11,27 +11,27 @@ module;
 #include <QPointF>
 #include <QSizeF>
 
-export module NodeVerticalStack;
+export module NodeLayer;
 
 import CommonTools.HandyTypes;
 import Enums.CoordType;
-import NodeVerticalStackTools;
+import NodeLayerTools;
 import PaintedTerm;
 import TermGroup.TermPositioner;
 
 using namespace std;
 namespace rng = std::ranges;
 
-export class NodeVerticalStack
+export class NodeLayer
 {
 public:
     using NodePack = QPair<QPointF, PaintedTerm::List>;
 
-    NodeVerticalStack(TermPositioner* termPositioner)
+    NodeLayer(TermPositioner* termPositioner)
         : mTermPositioner(termPositioner)
     {}
 
-    ~NodeVerticalStack() = default;
+    ~NodeLayer() = default;
 
     void addTerm(PaintedTerm::Ptr term) { mTerms.push_back(term); }
 
@@ -43,7 +43,7 @@ public:
         sortNodePacks(packs);
         placingTerms = flatNodePack(packs);
 
-        auto    stackSize = NodeVerticalStackTools::getNodeVerticalStackedSize(placingTerms);
+        auto    stackSize = NodeLayerTools::getNodeLayerSize(placingTerms);
         QPointF startPoint(centerPoint.x(), centerPoint.y() - stackSize.height() / 2);
 
         auto placingPoint = startPoint;
@@ -64,7 +64,7 @@ public:
     }
 
     // Clearly counted value. Ignoring real node positions
-    QSizeF size() const { return NodeVerticalStackTools::getNodeVerticalStackedSize(mTerms); }
+    QSizeF size() const { return NodeLayerTools::getNodeLayerSize(mTerms); }
 
     bool hasNode(PaintedTerm::Ptr term) const { return rng::contains(mTerms, term); }
 

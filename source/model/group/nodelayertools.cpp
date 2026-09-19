@@ -2,16 +2,16 @@ module;
 
 #include <QSizeF>
 
-export module NodeVerticalStackTools;
+export module NodeLayerTools;
 
 import CommonTools.HandyTypes;
 import Enums.CoordType;
 import PaintedTerm;
 
-export class NodeVerticalStackTools
+export class NodeLayerTools
 {
 public:
-    static QSizeF getNodeVerticalStackedSize(const PaintedTerm::List& nodes)
+    static QSizeF getNodeLayerSize(const PaintedTerm::List& nodes)
     {
         SizeList sizeList;
 

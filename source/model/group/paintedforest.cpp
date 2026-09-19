@@ -14,7 +14,7 @@ import AppStyle;
 import CommonTools.HandyTypes;
 import Enums.CoordType;
 import Graph;
-import NodeVerticalStack;
+import NodeLayer;
 import PaintedEdge;
 import PaintedTerm;
 import RectGraphicItem;
@@ -30,7 +30,7 @@ public:
     PaintedForest(const GraphData<PaintedTerm, PaintedEdge>& data)
         : Forest<PaintedTerm, PaintedEdge>(data)
     {
-        auto asListSize = [](auto num) { return static_cast<vector<NodeVerticalStack>::size_type>(num); };
+        auto asListSize = [](auto num) { return static_cast<vector<NodeLayer>::size_type>(num); };
 
         for (const auto& term : data.nodes) {
             term->setParentItem(&mRect);
@@ -46,7 +46,7 @@ public:
         }
 
         for (int i = 0; i <= layersCount; i++) {
-            mStacks.push_back(NodeVerticalStack(this));
+            mStacks.push_back(NodeLayer(this));
         }
 
         for (const auto& term : data.nodes) {
@@ -262,6 +262,6 @@ private:
     }
 
 private: // Members
-    vector<NodeVerticalStack> mStacks;
-    RectGraphicItem           mRect;
+    vector<NodeLayer> mStacks;
+    RectGraphicItem   mRect;
 };

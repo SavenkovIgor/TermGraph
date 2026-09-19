@@ -17,18 +17,18 @@ export class SizeList : public vector<QSizeF>
 {
 public:
     // Returns total size of stacked sizes, placed vertically or horizontally
-    QSizeF totalStackedSize(Qt::Orientation stackDirection)
+    QSizeF totalStackedSize(Qt::Orientation stackDirection) const
     {
         qreal width  = 0;
         qreal height = 0;
 
         if (stackDirection == Qt::Vertical) {
-            for (auto& size : (*this)) {
+            for (const auto& size : (*this)) {
                 width = max(width, size.width());
                 height += size.height();
             }
         } else if (stackDirection == Qt::Horizontal) {
-            for (auto& size : (*this)) {
+            for (const auto& size : (*this)) {
                 width += size.width();
                 height = max(height, size.height());
             }
