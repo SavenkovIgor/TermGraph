@@ -17,5 +17,8 @@
     },
     "editor.formatOnSave": true,
     "editor.formatOnSaveMode": "file",
+    "json.schemaDownload.trustedDomains": {
+        "https://cmake.org": true
+    },
     "workbench.externalBrowser": "firefox"
 }
