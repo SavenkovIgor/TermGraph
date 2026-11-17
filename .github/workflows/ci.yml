@@ -43,7 +43,7 @@ jobs:
       group: AppBuild-${{ github.workflow }}-${{ github.ref }}-${{ matrix.build_profile }}
       cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
     - uses: actions/checkout@v7
 

@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu-24.04
+FROM mcr.microsoft.com/devcontainers/base:resolute
 
 # Path env variables
 ENV THIRD_PARTY_ROOT=/opt
