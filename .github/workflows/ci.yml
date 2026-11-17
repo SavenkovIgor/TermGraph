@@ -11,7 +11,7 @@ env:
   EMSDK_VERSION: 4.0.7
   QT_VERSION: 6.11.1
   QT_ROOT: ${{ github.workspace }}/Qt
-  CONAN_VERSION: 2.29.0
+  CONAN_VERSION: 2.34.0
   AQT_VERSION: ==3.3.0
   PY7ZR_VERSION: ==0.20.2
   CCACHE_DIR: ${{ github.workspace }}/.ccache
