@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 env:
-  CLANG_VERSION: 22
+  CLANG_VERSION: 23
   EMSDK_VERSION: 4.0.7
   QT_VERSION: 6.11.1
   QT_ROOT: ${{ github.workspace }}/Qt
