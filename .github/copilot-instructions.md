@@ -105,6 +105,6 @@ UI follows atomic design in the `source/` tree:
 - **Submodule:** `third_party/stemming` must be initialized before building.
 - **Qt version:** set `QT_ROOT` and `QT_VERSION` environment variables.
 - **C++ standard:** C++23 with C++20 modules actively used.
-- **CMake minimum:** 4.0 (note: higher than the 3.22 stated in README).
+- **CMake minimum:** 4.5.
 - **Compiler:** Clang for desktop (version pinned in `.devcontainer/Dockerfile` and `.github/workflows/ci.yml`); Emscripten for WASM (version pinned in same files).
 - **Static data categories** (WASM knowledge graphs): `Asm`, `Cpp`, `Global`, `GraphTheory`, `InformationTechnologies`, `Qml`, `Rationality`, etc. - JSON files in `data/`.

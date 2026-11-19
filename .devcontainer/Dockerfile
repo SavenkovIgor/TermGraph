@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/vscode/devcontainers/base:ubuntu-24.04
+FROM mcr.microsoft.com/devcontainers/base:resolute
 
 # Path env variables
 ENV THIRD_PARTY_ROOT=/opt
@@ -48,7 +48,7 @@ RUN git clone https://github.com/emscripten-core/emsdk.git ${EMSDK_ROOT} && \
     ./emsdk activate ${EMSDK_VERSION}                                    && \
     echo "source ${EMSDK_ROOT}/emsdk_env.sh" >> /home/vscode/.bashrc
 
-ARG CLANG_VERSION=22
+ARG CLANG_VERSION=23
 
 RUN cd /home/vscode                   && \
     wget https://apt.llvm.org/llvm.sh && \
@@ -66,7 +66,7 @@ RUN update-alternatives --install /usr/bin/cc  cc  /usr/bin/clang-${CLANG_VERSIO
 # Installing conan with uv tool
 # We are switching user because we want the conan installation
 # to be available for the vscode user
-ARG CONAN_VERSION=2.29.0
+ARG CONAN_VERSION=2.34.0
 USER vscode
 RUN uv tool install conan@${CONAN_VERSION}
 USER root

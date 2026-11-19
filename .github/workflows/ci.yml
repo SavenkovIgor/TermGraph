@@ -7,11 +7,11 @@ on:
     branches: [ "main" ]
 
 env:
-  CLANG_VERSION: 22
+  CLANG_VERSION: 23
   EMSDK_VERSION: 4.0.7
   QT_VERSION: 6.11.1
   QT_ROOT: ${{ github.workspace }}/Qt
-  CONAN_VERSION: 2.29.0
+  CONAN_VERSION: 2.34.0
   AQT_VERSION: ==3.3.0
   PY7ZR_VERSION: ==0.20.2
   CCACHE_DIR: ${{ github.workspace }}/.ccache
@@ -30,7 +30,7 @@ jobs:
     - name: Run clang-format style check
       uses: jidicula/clang-format-action@v4.18.0
       with:
-        clang-format-version: ${{ env.CLANG_VERSION }}
+        clang-format-version: 22
 
   build:
     needs: format-gate
@@ -43,7 +43,7 @@ jobs:
       group: AppBuild-${{ github.workflow }}-${{ github.ref }}-${{ matrix.build_profile }}
       cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     steps:
     - uses: actions/checkout@v7
 

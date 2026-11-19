@@ -12,7 +12,6 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
         -Wsign-conversion
         -Wcast-qual
         -Wformat=2
-        -Wundef
         -Wcast-align
         -Wunused
         -Wdouble-promotion
